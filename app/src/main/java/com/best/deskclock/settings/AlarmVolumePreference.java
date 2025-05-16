@@ -13,6 +13,7 @@ import static android.view.View.GONE;
 import android.content.Context;
 import android.database.ContentObserver;
 import android.media.AudioManager;
+import android.net.Uri;
 import android.provider.Settings;
 import android.util.AttributeSet;
 import android.view.View;
@@ -28,6 +29,7 @@ import androidx.preference.SeekBarPreference;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.ringtone.RingtonePreviewKlaxon;
+import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
 
 import java.util.Locale;
@@ -150,7 +152,12 @@ public class AlarmVolumePreference extends SeekBarPreference {
     public void startRingtonePreview() {
         if (!mPreviewPlaying) {
             // If we are not currently playing, start.
-            RingtonePreviewKlaxon.start(mContext, DataModel.getDataModel().getAlarmRingtoneUriFromSettings());
+            Uri ringtoneUri = DataModel.getDataModel().getAlarmRingtoneUriFromSettings();
+            if (RingtoneUtils.isRandomRingtone(ringtoneUri)) {
+                ringtoneUri = RingtoneUtils.getRandomRingtoneUri();
+            }
+
+            RingtonePreviewKlaxon.start(mContext, ringtoneUri);
             mPreviewPlaying = true;
 
             // Stop the preview after 5 seconds

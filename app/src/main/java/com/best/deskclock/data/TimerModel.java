@@ -42,8 +42,8 @@ import com.best.deskclock.events.Events;
 import com.best.deskclock.timer.TimerKlaxon;
 import com.best.deskclock.timer.TimerService;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
-import com.best.deskclock.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -420,7 +420,7 @@ final class TimerModel {
      */
     Uri getDefaultTimerRingtoneUri() {
         if (mDefaultTimerRingtoneUri == null) {
-            mDefaultTimerRingtoneUri = Utils.getResourceUri(mContext, R.raw.timer_expire);
+            mDefaultTimerRingtoneUri = RingtoneUtils.getResourceUri(mContext, R.raw.timer_expire);
         }
 
         return mDefaultTimerRingtoneUri;
@@ -753,7 +753,7 @@ final class TimerModel {
 
         // Timer silence has been set to "At the end of the ringtone"
         if (getTimerAutoSilenceDuration() == -2) {
-            duration = Utils.getRingtoneDuration(mContext, mTimerRingtoneUri);
+            duration = RingtoneUtils.getRingtoneDuration(mContext, mTimerRingtoneUri);
         } else {
             duration = getTimerAutoSilenceDuration() * 1000;
         }

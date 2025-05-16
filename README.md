@@ -28,6 +28,7 @@ Clock is a customizable and privacy-conscious open-source clock, based on AOSP C
 * Duplicate alarms;
 * Customizable alarm title;
 * Customizable ringtone;
+* Ability to play ringtones randomly;
 * Light, dark or system theme;
 * AMOLED mode for dark theme;
 * Digital or analog clock style;

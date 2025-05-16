@@ -12,7 +12,7 @@ import android.net.Uri;
 
 import com.best.deskclock.ItemAdapter;
 import com.best.deskclock.data.DataModel;
-import com.best.deskclock.utils.Utils;
+import com.best.deskclock.utils.RingtoneUtils;
 
 abstract class RingtoneHolder extends ItemAdapter.ItemHolder<Uri> {
 
@@ -40,7 +40,7 @@ abstract class RingtoneHolder extends ItemAdapter.ItemHolder<Uri> {
     }
 
     boolean isSilent() {
-        return Utils.RINGTONE_SILENT.equals(getUri());
+        return RingtoneUtils.RINGTONE_SILENT.equals(getUri());
     }
 
     boolean isSelected() {

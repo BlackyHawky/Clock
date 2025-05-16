@@ -23,7 +23,7 @@ import com.best.deskclock.R;
 import com.best.deskclock.alarms.AlarmStateManager;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.LogUtils;
-import com.best.deskclock.utils.Utils;
+import com.best.deskclock.utils.RingtoneUtils;
 
 import java.util.Calendar;
 import java.util.LinkedList;
@@ -413,7 +413,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         // Alarm silence has been set to "At the end of the ringtone"
         // or "Dismiss alarm when ringtone ends" has been ticked in the expanded alarm view
         } else if (timeoutMinutes == -2 || mDismissAlarmWhenRingtoneEnds) {
-            int milliSeconds = Utils.getRingtoneDuration(context, mRingtone);
+            int milliSeconds = RingtoneUtils.getRingtoneDuration(context, mRingtone);
             calendar.add(Calendar.MILLISECOND, milliSeconds);
         } else {
             calendar.add(Calendar.MINUTE, timeoutMinutes);

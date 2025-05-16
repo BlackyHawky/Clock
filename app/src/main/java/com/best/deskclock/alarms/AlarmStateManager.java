@@ -40,6 +40,7 @@ import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.RingtoneUtils;
 
 import java.util.Calendar;
 import java.util.Collections;
@@ -359,6 +360,13 @@ public final class AlarmStateManager extends BroadcastReceiver {
         // Update alarm state in db
         ContentResolver contentResolver = context.getContentResolver();
         instance.mAlarmState = AlarmInstance.FIRED_STATE;
+
+        // If the alarm ringtone is set to "Random", assign a random ringtone uri to the alarm.
+        Alarm alarm = Alarm.getAlarm(context.getContentResolver(), instance.mAlarmId);
+        if (alarm != null && RingtoneUtils.isRandomRingtone(alarm.alert)) {
+            instance.mRingtone = RingtoneUtils.getRandomRingtoneUri();
+        }
+
         AlarmInstance.updateInstance(contentResolver, instance);
 
         if (instance.mAlarmId != null) {

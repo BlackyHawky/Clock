@@ -14,15 +14,10 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SYSTE
 
 import android.annotation.SuppressLint;
 import android.app.PendingIntent;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.media.AudioAttributes;
-import android.media.MediaPlayer;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Looper;
 import android.os.VibrationEffect;
@@ -30,14 +25,11 @@ import android.os.Vibrator;
 import android.view.MotionEvent;
 import android.view.View;
 
-import androidx.annotation.AnyRes;
-
 import com.best.deskclock.BuildConfig;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 
-import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.Locale;
 
@@ -47,11 +39,6 @@ public class Utils {
      * Action sent by a broadcast when the application language is changed.
      */
     public static final String ACTION_LANGUAGE_CODE_CHANGED = "com.best.deskclock.LANGUAGE_CODE_CHANGED";
-
-    /**
-     * {@link Uri} signifying the "silent" ringtone.
-     */
-    public static final Uri RINGTONE_SILENT = Uri.EMPTY;
 
     /**
      * @return {@code true} if the application is in development mode (debug, eng or userdebug).
@@ -71,18 +58,6 @@ public class Utils {
         if (Looper.getMainLooper() == Looper.myLooper()) {
             throw new IllegalAccessError("May not call from main thread.");
         }
-    }
-
-    /**
-     * @param resourceId identifies an application resource
-     * @return the Uri by which the application resource is accessed
-     */
-    public static Uri getResourceUri(Context context, @AnyRes int resourceId) {
-        return new Uri.Builder()
-                .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
-                .authority(context.getPackageName())
-                .path(String.valueOf(resourceId))
-                .build();
     }
 
     /**
@@ -220,55 +195,6 @@ public class Utils {
                 vibrator.vibrate(milliseconds);
             }
         }
-    }
-
-    /**
-     * Creates and prepares a {@link MediaPlayer} instance to play a ringtone.
-     *
-     * @return A prepared {@link MediaPlayer} instance if successful,
-     * or {@code null} if preparation fails.
-     */
-    public static MediaPlayer createPreparedMediaPlayer(Context context, Uri... ringtoneUris) {
-        MediaPlayer player = new MediaPlayer();
-
-        for (Uri uri : ringtoneUris) {
-            try {
-                player.reset();
-                player.setDataSource(context, uri);
-                player.setAudioAttributes(new AudioAttributes.Builder()
-                        .setUsage(AudioAttributes.USAGE_ALARM)
-                        .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                        .build());
-                player.prepare();
-                return player;
-            } catch (IOException e) {
-                LogUtils.e("Failed to prepare MediaPlayer for URI: " + uri, e);
-            }
-        }
-
-        player.release();
-        return null;
-    }
-
-    /**
-     * @param context The context from which to obtain the duration
-     * @param ringtoneUri the ringtone path
-     * @return the duration of the ringtone
-     */
-    public static int getRingtoneDuration(Context context, Uri ringtoneUri) {
-        MediaPlayer player = createPreparedMediaPlayer(
-                context,
-                ringtoneUri,
-                RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
-        );
-
-        if (player == null) {
-            return 0;
-        }
-
-        int duration = player.getDuration();
-        player.release();
-        return duration;
     }
 
     /**

@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 
 import com.best.deskclock.R;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
 
@@ -37,7 +38,7 @@ import com.best.deskclock.utils.Utils;
  *     <li>Runs all playback logic (including crescendo volume changes) on a background thread.</li>
  *     <li>Supports in-call playback mode with reduced volume to avoid disturbing phone calls.</li>
  *     <li>Handles playback failures gracefully by falling back to a built-in ringtone via
- *     {@link Utils#getResourceUri(Context, int)}.</li>
+ *     {@link RingtoneUtils#getResourceUri(Context, int)}.</li>
  *     <li>Supports optional crescendo playback by progressively increasing the volume over a defined duration.</li>
  * </ul>
  *
@@ -93,14 +94,14 @@ public final class AsyncRingtonePlayer {
      * @return Uri of the ringtone to play when the user is in a telephone call
      */
     private static Uri getInCallRingtoneUri(Context context) {
-        return Utils.getResourceUri(context, R.raw.alarm_expire);
+        return RingtoneUtils.getResourceUri(context, R.raw.alarm_expire);
     }
 
     /**
      * @return Uri of the ringtone to play when the chosen ringtone fails to play
      */
     private static Uri getFallbackRingtoneUri(Context context) {
-        return Utils.getResourceUri(context, R.raw.alarm_expire);
+        return RingtoneUtils.getResourceUri(context, R.raw.alarm_expire);
     }
 
     /**
@@ -261,7 +262,7 @@ public final class AsyncRingtonePlayer {
                 ringtoneUri = getInCallRingtoneUri(context);
             }
 
-            mMediaPlayer = Utils.createPreparedMediaPlayer(
+            mMediaPlayer = RingtoneUtils.createPreparedMediaPlayer(
                     context,
                     ringtoneUri,
                     RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM),

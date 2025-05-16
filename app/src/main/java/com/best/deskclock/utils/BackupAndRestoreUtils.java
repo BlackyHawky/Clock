@@ -236,7 +236,7 @@ public class BackupAndRestoreUtils {
                 if (isRingtoneKey(key)) {
                     if (!isRingtoneAvailable(context, value)) {
                         if (KEY_TIMER_RINGTONE.equals(key)) {
-                            editor.putString(key, Utils.getResourceUri(context, R.raw.timer_expire).toString());
+                            editor.putString(key, RingtoneUtils.getResourceUri(context, R.raw.timer_expire).toString());
                         } else if (KEY_DEFAULT_ALARM_RINGTONE.equals(key)) {
                             editor.putString(key, RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString());
                         }
@@ -328,9 +328,14 @@ public class BackupAndRestoreUtils {
         boolean deleteAfterUse = alarmObject.getBoolean("deleteAfterUse");
         boolean increasingVolume = alarmObject.getBoolean("increasingVolume");
 
-        String alarmRingtone = !isNotSystemRingtone(Uri.parse(alert)) && isRingtoneAvailable(context, alert)
-                ? alert
-                : RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString();
+        String alarmRingtone;
+        if (RingtoneUtils.isRandomRingtone(Uri.parse(alert))) {
+            alarmRingtone = RingtoneUtils.RANDOM_RINGTONE.toString();
+        } else if (!isNotSystemRingtone(Uri.parse(alert)) && isRingtoneAvailable(context, alert)) {
+            alarmRingtone = alert;
+        } else {
+            alarmRingtone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString();
+        }
 
         Alarm restoredAlarm;
 

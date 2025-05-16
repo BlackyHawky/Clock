@@ -20,6 +20,7 @@ import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.ringtone.AsyncRingtonePlayer;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
 
 /**
@@ -56,8 +57,13 @@ public abstract class TimerKlaxon {
             // Special case: Silent ringtone
             LogUtils.i("Playing silent ringtone for timer");
         } else {
-            final Uri uri = DataModel.getDataModel().getTimerRingtoneUri();
+            Uri uri = DataModel.getDataModel().getTimerRingtoneUri();
+            if (RingtoneUtils.isRandomRingtone(uri)) {
+                uri = RingtoneUtils.getRandomRingtoneUri();
+            }
+
             final long crescendoDuration = SettingsDAO.getTimerCrescendoDuration(prefs);
+
             getAsyncRingtonePlayer(context).play(uri, crescendoDuration);
         }
 

@@ -566,6 +566,8 @@
     <string name="alarm_volume_title">Alarm volume</string>
     <!-- Title for the silent ringtone. -->
     <string name="silent_ringtone_title">Silent</string>
+    <!-- Title for random ringtone. -->
+    <string name="random_ringtone_title">Random ringtone</string>
     <!-- Title for ringtones that cannot be located by uri. -->
     <string name="unknown_ringtone_title">Unknown</string>
     <!-- Text to display when alarm volume is muted. [CHAR LIMIT=50] -->

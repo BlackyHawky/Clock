@@ -65,9 +65,9 @@ import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.AnimatorUtils;
 import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
-import com.best.deskclock.utils.Utils;
 import com.best.deskclock.widget.AnalogClock;
 import com.best.deskclock.widget.PillView;
 import com.google.android.material.button.MaterialButton;
@@ -830,7 +830,7 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
      * Display ringtone title if enabled in <i>"Customize alarm display"</i> settings.
      */
     private void displayRingtoneTitle() {
-        final boolean silent = Utils.RINGTONE_SILENT.equals(mAlarmInstance.mRingtone);
+        final boolean silent = RingtoneUtils.RINGTONE_SILENT.equals(mAlarmInstance.mRingtone);
         final String title = DataModel.getDataModel().getRingtoneTitle(mAlarmInstance.mRingtone);
         final Drawable iconRingtone = silent
                 ? AppCompatResources.getDrawable(this, R.drawable.ic_ringtone_silent)

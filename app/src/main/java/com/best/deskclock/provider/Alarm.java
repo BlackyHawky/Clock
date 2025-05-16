@@ -23,6 +23,7 @@ import androidx.loader.content.CursorLoader;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Weekdays;
+import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
 
 import java.util.Calendar;
@@ -474,7 +475,9 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         result.mVibrate = vibrate;
         result.mFlash = flash;
         result.mLabel = label;
-        result.mRingtone = alert;
+        result.mRingtone = RingtoneUtils.isRandomRingtone(alert)
+                ? RingtoneUtils.getRandomRingtoneUri()
+                : alert;
         result.mIncreasingVolume = increasingVolume;
         return result;
     }

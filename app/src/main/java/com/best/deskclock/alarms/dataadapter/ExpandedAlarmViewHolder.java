@@ -44,6 +44,7 @@ import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.AnimatorUtils;
+import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.Utils;
 
 import com.google.android.material.chip.Chip;
@@ -335,10 +336,15 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         final String description = context.getString(R.string.ringtone_description);
         ringtone.setContentDescription(description + " " + title);
 
-        final boolean silent = Utils.RINGTONE_SILENT.equals(alarm.alert);
-        final Drawable iconRingtone = silent
-                ? AppCompatResources.getDrawable(context, R.drawable.ic_ringtone_silent)
-                : AppCompatResources.getDrawable(context, R.drawable.ic_ringtone);
+        final Drawable iconRingtone;
+        if (RingtoneUtils.RINGTONE_SILENT.equals(alarm.alert)) {
+            iconRingtone = AppCompatResources.getDrawable(context, R.drawable.ic_ringtone_silent);
+        } else if (RingtoneUtils.isRandomRingtone(alarm.alert)) {
+            iconRingtone = AppCompatResources.getDrawable(context, R.drawable.ic_random);
+        } else {
+            iconRingtone = AppCompatResources.getDrawable(context, R.drawable.ic_ringtone);
+        }
+
         ringtone.setCompoundDrawablesRelativeWithIntrinsicBounds(iconRingtone, null, null, null);
     }
 

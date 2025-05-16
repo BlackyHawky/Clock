@@ -52,7 +52,9 @@ import com.best.deskclock.data.DataModel;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
+import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 
@@ -371,7 +373,9 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
 
             v.setPadding(bars.left, bars.top, bars.right, 0);
 
-            mRingtoneContent.setPadding(0, 0, 0, bars.bottom);
+            int paddingTop = ThemeUtils.convertDpToPixels(14, this);
+            int paddingBottom = ThemeUtils.convertDpToPixels(10, this);
+            mRingtoneContent.setPadding(0, paddingTop, 0, bars.bottom + paddingBottom);
         });
     }
 
@@ -409,8 +413,13 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
      * @param ringtone the ringtone to be played
      */
     private void startPlayingRingtone(RingtoneHolder ringtone) {
+        Uri ringtoneUri = ringtone.getUri();
+        if (RingtoneUtils.isRandomRingtone(ringtoneUri)) {
+            ringtoneUri = RingtoneUtils.getRandomRingtoneUri();
+        }
+
         if (!ringtone.isPlaying() && !ringtone.isSilent()) {
-            RingtonePreviewKlaxon.start(getApplicationContext(), ringtone.getUri());
+            RingtonePreviewKlaxon.start(getApplicationContext(), ringtoneUri);
             ringtone.setPlaying(true);
             mIsPlaying = true;
         }

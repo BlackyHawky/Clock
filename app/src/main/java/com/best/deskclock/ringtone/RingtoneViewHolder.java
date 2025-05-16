@@ -12,6 +12,8 @@ import static android.view.View.VISIBLE;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
+import static com.best.deskclock.utils.RingtoneUtils.RANDOM_RINGTONE;
+import static com.best.deskclock.utils.RingtoneUtils.RINGTONE_SILENT;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -30,7 +32,6 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.AnimatorUtils;
 import com.best.deskclock.utils.ThemeUtils;
-import com.best.deskclock.utils.Utils;
 
 import com.google.android.material.color.MaterialColors;
 
@@ -82,19 +83,27 @@ final class RingtoneViewHolder extends ItemAdapter.ItemViewHolder<RingtoneHolder
             } else {
                 mImageView.setImageDrawable(ringtone);
             }
-        } else if (itemHolder.item == Utils.RINGTONE_SILENT) {
+        } else if (itemHolder.item == RINGTONE_SILENT) {
             final Drawable ringtoneSilent = AppCompatResources.getDrawable(context, R.drawable.ic_ringtone_silent);
             if (ringtoneSilent != null) {
                 ringtoneSilent.setTint(MaterialColors.getColor(
                         context, com.google.android.material.R.attr.colorOnSurfaceVariant, Color.BLACK));
             }
             mImageView.setImageDrawable(ringtoneSilent);
+        } else if (itemHolder.item == RANDOM_RINGTONE) {
+            final Drawable randomRingtone = AppCompatResources.getDrawable(context, R.drawable.ic_random);
+            mImageView.setImageDrawable(randomRingtone);
         } else {
             mImageView.setImageDrawable(ringtone);
         }
         AnimatorUtils.startDrawableAnimation(mImageView);
 
         mSelectedView.setVisibility(itemHolder.isSelected() ? VISIBLE : GONE);
+
+        if (itemViewType == VIEW_TYPE_CUSTOM_SOUND) {
+            mDeleteRingtone.setVisibility(VISIBLE);
+            mDeleteRingtone.setOnClickListener(v -> notifyItemClicked(RingtoneViewHolder.CLICK_REMOVE));
+        }
 
         final int backgroundColor;
         if (itemHolder.isSelected()) {
@@ -107,11 +116,6 @@ final class RingtoneViewHolder extends ItemAdapter.ItemViewHolder<RingtoneHolder
         }
 
         itemView.setBackground(ThemeUtils.rippleDrawable(context, backgroundColor));
-
-        if (itemViewType == VIEW_TYPE_CUSTOM_SOUND) {
-            mDeleteRingtone.setVisibility(VISIBLE);
-            mDeleteRingtone.setOnClickListener(v -> notifyItemClicked(RingtoneViewHolder.CLICK_REMOVE));
-        }
     }
 
     @Override

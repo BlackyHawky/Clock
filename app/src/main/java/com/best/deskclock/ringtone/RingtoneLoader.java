@@ -7,7 +7,9 @@
 package com.best.deskclock.ringtone;
 
 import static android.media.AudioManager.STREAM_ALARM;
-import static com.best.deskclock.utils.Utils.RINGTONE_SILENT;
+
+import static com.best.deskclock.utils.RingtoneUtils.RANDOM_RINGTONE;
+import static com.best.deskclock.utils.RingtoneUtils.RINGTONE_SILENT;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -64,6 +66,9 @@ class RingtoneLoader extends AsyncTaskLoader<List<ItemAdapter.ItemHolder<Uri>>> 
             final int itemCount = systemRingtoneCount + mCustomRingtones.size() + 3;
 
             final List<ItemAdapter.ItemHolder<Uri>> itemHolders = new ArrayList<>(itemCount);
+
+            // Add the item holder for the random ringtones.
+            itemHolders.add(new SystemRingtoneHolder(RANDOM_RINGTONE, null));
 
             // Add the item holder for the Music heading.
             itemHolders.add(new HeaderHolder(R.string.your_sounds));

@@ -1,0 +1,146 @@
+// SPDX-License-Identifier: GPL-3.0-only
+
+package com.best.deskclock.utils;
+
+import android.content.ContentResolver;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.media.AudioAttributes;
+import android.media.MediaPlayer;
+import android.media.RingtoneManager;
+import android.net.Uri;
+
+import androidx.annotation.AnyRes;
+
+import com.best.deskclock.DeskClockApplication;
+import com.best.deskclock.data.CustomRingtone;
+import com.best.deskclock.data.RingtoneModel;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+public class RingtoneUtils {
+
+    /**
+     * {@link Uri} signifying the "silent" ringtone.
+     */
+    public static final Uri RINGTONE_SILENT = Uri.EMPTY;
+
+    /**
+     * {@link Uri} signifying the "random" ringtone.
+     */
+    public static final Uri RANDOM_RINGTONE = Uri.parse("random");
+
+    /**
+     * @return {@code true} if the URI represents a random ringtone; {@code false} otherwise.
+     */
+    public static boolean isRandomRingtone(Uri uri) {
+        return RANDOM_RINGTONE.equals(uri);
+    }
+
+    /**
+     * @param resourceId identifies an application resource
+     * @return the Uri by which the application resource is accessed
+     */
+    public static Uri getResourceUri(Context context, @AnyRes int resourceId) {
+        return new Uri.Builder()
+                .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
+                .authority(context.getPackageName())
+                .path(String.valueOf(resourceId))
+                .build();
+    }
+
+    /**
+     * Creates and prepares a {@link MediaPlayer} instance to play a ringtone.
+     *
+     * @return A prepared {@link MediaPlayer} instance if successful,
+     * or {@code null} if preparation fails.
+     */
+    public static MediaPlayer createPreparedMediaPlayer(Context context, Uri... ringtoneUris) {
+        MediaPlayer player = new MediaPlayer();
+
+        for (Uri uri : ringtoneUris) {
+            try {
+                player.reset();
+                player.setDataSource(context, uri);
+                player.setAudioAttributes(new AudioAttributes.Builder()
+                        .setUsage(AudioAttributes.USAGE_ALARM)
+                        .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                        .build());
+                player.prepare();
+                return player;
+            } catch (IOException e) {
+                LogUtils.e("Failed to prepare MediaPlayer for URI: " + uri, e);
+            }
+        }
+
+        player.release();
+        return null;
+    }
+
+    /**
+     * @return the duration of the ringtone.
+     */
+    public static int getRingtoneDuration(Context context, Uri ringtoneUri) {
+        MediaPlayer player = createPreparedMediaPlayer(
+                context,
+                ringtoneUri,
+                RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
+        );
+
+        if (player == null) {
+            return 0;
+        }
+
+        int duration = player.getDuration();
+        player.release();
+        return duration;
+    }
+
+    /**
+     * Returns a randomly selected alarm ringtone URI.
+     * <p>
+     * This method combines both system alarm ringtones and user-defined custom ringtones
+     * that have the necessary permissions, and selects one randomly.
+     * <p>
+     * If no valid ringtones are found, the system's default alarm ringtone is returned.
+     */
+    public static Uri getRandomRingtoneUri() {
+        Context context = DeskClockApplication.getContext();
+
+        RingtoneManager manager = new RingtoneManager(context);
+        manager.setType(RingtoneManager.TYPE_ALARM);
+
+        Cursor cursor = manager.getCursor();
+        List<Uri> uris = new ArrayList<>();
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                Uri uri = manager.getRingtoneUri(cursor.getPosition());
+                if (uri != null) {
+                    uris.add(uri);
+                }
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+
+        SharedPreferences prefs = DeskClockApplication.getDefaultSharedPreferences(context);
+        RingtoneModel ringtoneModel = new RingtoneModel(context, prefs);
+        for (CustomRingtone custom : ringtoneModel.getCustomRingtones()) {
+            if (custom.hasPermissions()) {
+                uris.add(custom.getUri());
+            }
+        }
+        ringtoneModel.releaseResources();
+
+        if (uris.isEmpty()) {
+            return RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+        }
+
+        return uris.get(new Random().nextInt(uris.size()));
+    }
+
+}

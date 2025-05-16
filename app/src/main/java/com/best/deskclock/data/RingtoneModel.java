@@ -9,6 +9,8 @@ package com.best.deskclock.data;
 import static android.media.AudioManager.STREAM_ALARM;
 import static android.media.RingtoneManager.TITLE_COLUMN_INDEX;
 
+import static com.best.deskclock.utils.RingtoneUtils.RANDOM_RINGTONE;
+
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
@@ -43,7 +45,7 @@ import java.util.Set;
 /**
  * All ringtone data is accessed via this model.
  */
-final class RingtoneModel {
+public final class RingtoneModel {
 
     private final Context mContext;
 
@@ -61,18 +63,32 @@ final class RingtoneModel {
     private final BroadcastReceiver mLocaleChangedReceiver = new LocaleChangedReceiver();
 
     /**
+     * Observer for changes to system settings affecting the default alarm ringtone.
+     * <p>
+     * This observer listens for modifications to system settings, such as changes to the default
+     * alarm ringtone.
+     * When a change is detected, it triggers the clearing of the ringtone title cache to ensure
+     * that the displayed information remains up-to-date. This prevents outdated titles
+     * (like those of default ringtones) from being used after a change in system settings.
+     * <p>
+     * The observer is registered to listen for changes to the URI
+     * `Settings.System.DEFAULT_ALARM_ALERT_URI`, which corresponds to the default alarm ringtone
+     *  on the device.
+     */
+    private final ContentObserver mSystemObserver = new SystemAlarmAlertChangeObserver();
+
+    /**
      * A mutable copy of the custom ringtones.
      */
     private List<CustomRingtone> mCustomRingtones;
 
-    RingtoneModel(Context context, SharedPreferences prefs) {
+    public RingtoneModel(Context context, SharedPreferences prefs) {
         mContext = context;
         mPrefs = prefs;
 
         // Clear caches affected by system settings when system settings change.
         final ContentResolver cr = mContext.getContentResolver();
-        final ContentObserver observer = new SystemAlarmAlertChangeObserver();
-        cr.registerContentObserver(Settings.System.DEFAULT_ALARM_ALERT_URI, false, observer);
+        cr.registerContentObserver(Settings.System.DEFAULT_ALARM_ALERT_URI, false, mSystemObserver);
 
         // Clear caches affected by locale when locale changes.
         final IntentFilter localeBroadcastFilter = new IntentFilter(Intent.ACTION_LOCALE_CHANGED);
@@ -116,7 +132,7 @@ final class RingtoneModel {
         return null;
     }
 
-    List<CustomRingtone> getCustomRingtones() {
+    public List<CustomRingtone> getCustomRingtones() {
         return Collections.unmodifiableList(getMutableCustomRingtones());
     }
 
@@ -165,6 +181,11 @@ final class RingtoneModel {
     String getRingtoneTitle(Uri uri) {
         final Context localizedContext = Utils.getLocalizedContext(mContext);
 
+        // Special case: no ringtone has a title of "Random".
+        if (RANDOM_RINGTONE.equals(uri)) {
+            return localizedContext.getString(R.string.random_ringtone_title);
+        }
+
         // Special case: no ringtone has a title of "Silent".
         if (Alarm.NO_RINGTONE_URI.equals(uri)) {
             return localizedContext.getString(R.string.silent_ringtone_title);
@@ -201,6 +222,26 @@ final class RingtoneModel {
         }
 
         return mCustomRingtones;
+    }
+
+    /**
+     * Releases the resources used by the ringtone model, including observers and receivers.
+     * <p>
+     * Calling this method is crucial to avoid memory leaks, especially when the `RingtoneModel`
+     * instance is no longer in use, and to ensure that the application does not retain unnecessary
+     * references to system resources.
+     */
+    public void releaseResources() {
+        try {
+            mContext.getContentResolver().unregisterContentObserver(mSystemObserver);
+        } catch (Exception e) {
+            LogUtils.e("Failed to unregister ContentObserver", e);
+        }
+        try {
+            mContext.unregisterReceiver(mLocaleChangedReceiver);
+        } catch (Exception e) {
+            LogUtils.e("Failed to unregister BroadcastReceiver", e);
+        }
     }
 
     /**
