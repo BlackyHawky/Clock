@@ -19,7 +19,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.media.AudioAttributes;
 import android.media.MediaPlayer;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Looper;
@@ -221,27 +223,52 @@ public class Utils {
     }
 
     /**
+     * Creates and prepares a {@link MediaPlayer} instance to play a ringtone.
+     *
+     * @return A prepared {@link MediaPlayer} instance if successful,
+     * or {@code null} if preparation fails.
+     */
+    public static MediaPlayer createPreparedMediaPlayer(Context context, Uri... ringtoneUris) {
+        MediaPlayer player = new MediaPlayer();
+
+        for (Uri uri : ringtoneUris) {
+            try {
+                player.reset();
+                player.setDataSource(context, uri);
+                player.setAudioAttributes(new AudioAttributes.Builder()
+                        .setUsage(AudioAttributes.USAGE_ALARM)
+                        .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                        .build());
+                player.prepare();
+                return player;
+            } catch (IOException e) {
+                LogUtils.e("Failed to prepare MediaPlayer for URI: " + uri, e);
+            }
+        }
+
+        player.release();
+        return null;
+    }
+
+    /**
      * @param context The context from which to obtain the duration
      * @param ringtoneUri the ringtone path
      * @return the duration of the ringtone
      */
     public static int getRingtoneDuration(Context context, Uri ringtoneUri) {
-        // Using the MediaMetadataRetriever method causes a bug when using the default ringtone:
-        // the ringtone stops before the end of the melody.
-        // So, we'll use the MediaPlayer class to obtain the ringtone duration.
-        // Bug found with debug version on Huawei (Android 12) and Samsung (Android 14) devices.
+        MediaPlayer player = createPreparedMediaPlayer(
+                context,
+                ringtoneUri,
+                RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
+        );
 
-        MediaPlayer mediaPlayer = new MediaPlayer();
-        try {
-            mediaPlayer.setDataSource(context, ringtoneUri);
-            mediaPlayer.prepare();
-            return mediaPlayer.getDuration();
-        } catch (IOException e) {
-            LogUtils.e("Error while preparing MediaPlayer", e);
+        if (player == null) {
             return 0;
-        } finally {
-            mediaPlayer.release();
         }
+
+        int duration = player.getDuration();
+        player.release();
+        return duration;
     }
 
     /**
