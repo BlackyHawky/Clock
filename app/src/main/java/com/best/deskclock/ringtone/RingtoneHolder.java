@@ -17,22 +17,12 @@ import com.best.deskclock.utils.RingtoneUtils;
 abstract class RingtoneHolder extends ItemAdapter.ItemHolder<Uri> {
 
     private final String mName;
-    private final boolean mHasPermissions;
     private boolean mSelected;
     private boolean mPlaying;
 
     RingtoneHolder(Uri uri, String name) {
-        this(uri, name, true);
-    }
-
-    RingtoneHolder(Uri uri, String name, boolean hasPermissions) {
         super(uri, NO_ID);
         mName = name;
-        mHasPermissions = hasPermissions;
-    }
-
-    boolean hasPermissions() {
-        return mHasPermissions;
     }
 
     Uri getUri() {

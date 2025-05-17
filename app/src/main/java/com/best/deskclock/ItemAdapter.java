@@ -37,6 +37,11 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder<?>>
     private final SparseArray<OnItemClickedListener> mListenersByViewType = new SparseArray<>();
 
     /**
+     * Listeners to invoke in {@link #mOnItemLongClickedListener}.
+     */
+    private final SparseArray<OnItemLongClickedListener> mListenersOnLongClickByViewType = new SparseArray<>();
+
+    /**
      * Invokes the {@link OnItemClickedListener} in {@link #mListenersByViewType} corresponding
      * to {@link ItemViewHolder#getItemViewType()}
      */
@@ -45,6 +50,18 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder<?>>
                 mListenersByViewType.get(viewHolder.getItemViewType());
         if (listener != null) {
             listener.onItemClicked(viewHolder, id);
+        }
+    };
+
+    /**
+     * Invokes the {@link OnItemLongClickedListener} in {@link #mListenersOnLongClickByViewType}
+     * corresponding to {@link ItemViewHolder#getItemViewType()}
+     */
+    private final OnItemLongClickedListener mOnItemLongClickedListener = (viewHolder, id) -> {
+        final OnItemLongClickedListener listener =
+                mListenersOnLongClickByViewType.get(viewHolder.getItemViewType());
+        if (listener != null) {
+            listener.onItemLongClicked(viewHolder, id);
         }
     };
 
@@ -90,15 +107,22 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder<?>>
      * @param factory   the {@link ItemViewHolder.Factory} used to create new item view holders
      * @param listener  the {@link OnItemClickedListener} to be invoked by
      *                  {@link #mItemChangedNotifier}
+     * @param onLongClickedListener the {@link OnItemLongClickedListener} to be invoked by
+     *                              {@link #mItemChangedNotifier}
      * @param viewTypes the unique identifier for the view types to be created
      * @return this object, allowing calls to methods in this class to be chained
      */
     public ItemAdapter<T> withViewTypes(ItemViewHolder.Factory factory,
-                                     OnItemClickedListener listener, int... viewTypes) {
+                                        OnItemClickedListener listener,
+                                        OnItemLongClickedListener onLongClickedListener,
+                                        int... viewTypes) {
+
         for (int viewType : viewTypes) {
             mFactoriesByViewType.put(viewType, factory);
             mListenersByViewType.put(viewType, listener);
+            mListenersOnLongClickByViewType.put(viewType, onLongClickedListener);
         }
+
         return this;
     }
 
@@ -223,15 +247,17 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder<?>>
     @Override
     @SuppressWarnings("unchecked")
     public void onBindViewHolder(ItemViewHolder viewHolder, int position) {
-        // suppress any unchecked warnings since it is up to the subclass to guarantee
+        // Suppress any unchecked warnings since it is up to the subclass to guarantee
         // compatibility of their view holders with the item holder at the corresponding position
         viewHolder.bindItemView(mItemHolders.get(position));
         viewHolder.setOnItemClickedListener(mOnItemClickedListener);
+        viewHolder.setOnItemLongClickedListener(mOnItemLongClickedListener);
     }
 
     @Override
     public void onViewRecycled(ItemViewHolder viewHolder) {
         viewHolder.setOnItemClickedListener(null);
+        viewHolder.setOnItemLongClickedListener(null);
         viewHolder.recycleItemView();
     }
 
@@ -239,6 +265,7 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder<?>>
      * Callback interface for when an item changes and should be re-bound.
      */
     public interface OnItemChangedListener {
+
         /**
          * Invoked by {@link ItemHolder#notifyItemChanged()}.
          *
@@ -251,6 +278,7 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder<?>>
      * Callback interface for handling when an item is clicked.
      */
     public interface OnItemClickedListener {
+
         /**
          * Invoked by {@link ItemViewHolder#notifyItemClicked(int)}
          *
@@ -258,6 +286,20 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder<?>>
          * @param id         the unique identifier for the click action that has occurred
          */
         void onItemClicked(ItemViewHolder<?> viewHolder, int id);
+    }
+
+    /**
+     * Callback interface for handling when an item is long clicked.
+     */
+    public interface OnItemLongClickedListener {
+
+        /**
+         * Invoked by {@link ItemViewHolder#notifyItemLongClicked(int)}
+         *
+         * @param viewHolder the {@link ItemViewHolder} containing the view that was clicked
+         * @param id         the unique identifier for the click action that has occurred
+         */
+        void onItemLongClicked(ItemViewHolder<?> viewHolder, int id);
     }
 
     /**
@@ -385,6 +427,11 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder<?>>
         private OnItemClickedListener mOnItemClickedListener;
 
         /**
+         * The current {@link OnItemLongClickedListener} associated with this holder.
+         */
+        private OnItemLongClickedListener mOnItemLongClickedListener;
+
+        /**
          * Designated constructor.
          *
          * @param itemView the item {@link View} to associate with this holder
@@ -426,7 +473,7 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder<?>>
         public final void recycleItemView() {
             mItemHolder = null;
             mOnItemClickedListener = null;
-
+            mOnItemLongClickedListener = null;
             onRecycleItemView();
         }
 
@@ -450,6 +497,16 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder<?>>
         }
 
         /**
+         * Sets the current {@link OnItemLongClickedListener} to be invoked via
+         * {@link #notifyItemLongClicked}.
+         *
+         * @param listener the new {@link OnItemLongClickedListener}, or {@code null} to clear
+         */
+        public final void setOnItemLongClickedListener(OnItemLongClickedListener listener) {
+            mOnItemLongClickedListener = listener;
+        }
+
+        /**
          * Called by subclasses to invoke the current {@link OnItemClickedListener} for a
          * particular click event so it can be handled at a higher level.
          *
@@ -458,6 +515,18 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder<?>>
         public final void notifyItemClicked(int id) {
             if (mOnItemClickedListener != null) {
                 mOnItemClickedListener.onItemClicked(this, id);
+            }
+        }
+
+        /**
+         * Called by subclasses to invoke the current {@link OnItemLongClickedListener} for a
+         * particular long click event so it can be handled at a higher level.
+         *
+         * @param id the unique identifier for the long click action that has occurred
+         */
+        public final void notifyItemLongClicked(int id) {
+            if (mOnItemLongClickedListener != null) {
+                mOnItemLongClickedListener.onItemLongClicked(this, id);
             }
         }
 

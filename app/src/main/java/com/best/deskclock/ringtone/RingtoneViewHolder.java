@@ -31,6 +31,7 @@ import com.best.deskclock.ItemAdapter;
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.AnimatorUtils;
+import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.ThemeUtils;
 
 import com.google.android.material.color.MaterialColors;
@@ -42,7 +43,6 @@ final class RingtoneViewHolder extends ItemAdapter.ItemViewHolder<RingtoneHolder
     static final int VIEW_TYPE_CUSTOM_SOUND = -R.layout.ringtone_item_sound;
     static final int CLICK_NORMAL = 0;
     static final int CLICK_REMOVE = -1;
-    static final int CLICK_NO_PERMISSIONS = -2;
 
     private final View mSelectedView;
     private final TextView mNameView;
@@ -65,7 +65,7 @@ final class RingtoneViewHolder extends ItemAdapter.ItemViewHolder<RingtoneHolder
         // Allow text scrolling (all other attributes are indicated in the "ringtone_item_sound.xml" file)
         mNameView.setSelected(true);
         final Context context = itemView.getContext();
-        final boolean opaque = itemHolder.isSelected() || !itemHolder.hasPermissions();
+        final boolean opaque = itemHolder.isSelected();
         mNameView.setAlpha(opaque ? 1f : .63f);
         mImageView.setAlpha(opaque ? 1f : .63f);
         mImageView.clearColorFilter();
@@ -74,7 +74,7 @@ final class RingtoneViewHolder extends ItemAdapter.ItemViewHolder<RingtoneHolder
 
         final int itemViewType = getItemViewType();
         if (itemViewType == VIEW_TYPE_CUSTOM_SOUND) {
-            if (!itemHolder.hasPermissions()) {
+            if (!RingtoneUtils.isRingtoneUriReadable(context, itemHolder.getUri())) {
                 final Drawable error = AppCompatResources.getDrawable(context, R.drawable.ic_error);
                 if (error != null) {
                     error.setTint(Color.parseColor("#FF4444"));
@@ -83,6 +83,9 @@ final class RingtoneViewHolder extends ItemAdapter.ItemViewHolder<RingtoneHolder
             } else {
                 mImageView.setImageDrawable(ringtone);
             }
+
+            mDeleteRingtone.setVisibility(VISIBLE);
+            mDeleteRingtone.setOnClickListener(v -> notifyItemClicked(RingtoneViewHolder.CLICK_REMOVE));
         } else if (itemHolder.item == RINGTONE_SILENT) {
             final Drawable ringtoneSilent = AppCompatResources.getDrawable(context, R.drawable.ic_ringtone_silent);
             if (ringtoneSilent != null) {
@@ -100,11 +103,6 @@ final class RingtoneViewHolder extends ItemAdapter.ItemViewHolder<RingtoneHolder
 
         mSelectedView.setVisibility(itemHolder.isSelected() ? VISIBLE : GONE);
 
-        if (itemViewType == VIEW_TYPE_CUSTOM_SOUND) {
-            mDeleteRingtone.setVisibility(VISIBLE);
-            mDeleteRingtone.setOnClickListener(v -> notifyItemClicked(RingtoneViewHolder.CLICK_REMOVE));
-        }
-
         final int backgroundColor;
         if (itemHolder.isSelected()) {
             backgroundColor = MaterialColors.getColor(context, com.google.android.material.R.attr.colorSurface, Color.BLACK);
@@ -120,11 +118,7 @@ final class RingtoneViewHolder extends ItemAdapter.ItemViewHolder<RingtoneHolder
 
     @Override
     public void onClick(View view) {
-        if (getItemHolder().hasPermissions()) {
-            notifyItemClicked(RingtoneViewHolder.CLICK_NORMAL);
-        } else {
-            notifyItemClicked(RingtoneViewHolder.CLICK_NO_PERMISSIONS);
-        }
+        notifyItemClicked(RingtoneViewHolder.CLICK_NORMAL);
     }
 
     public static class Factory implements ItemAdapter.ItemViewHolder.Factory {

@@ -739,6 +739,14 @@ public final class DataModel {
     }
 
     /**
+     * @return {@code true} if a custom ringtone with a given name and size is already present
+     * to avoid adding duplicates. {@code false} otherwise.
+     */
+    public boolean isCustomRingtoneAlreadyAdded(String name, long size) {
+        return mRingtoneModel.isCustomRingtoneAlreadyAdded(name, size);
+    }
+
+    /**
      * @return all available custom ringtones
      */
     public List<CustomRingtone> getCustomRingtones() {

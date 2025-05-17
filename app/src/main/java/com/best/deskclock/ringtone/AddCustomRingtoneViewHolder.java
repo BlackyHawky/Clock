@@ -14,6 +14,9 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_M
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.TextAppearanceSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,14 +32,18 @@ import com.best.deskclock.utils.ThemeUtils;
 import com.google.android.material.color.MaterialColors;
 
 final class AddCustomRingtoneViewHolder extends ItemViewHolder<AddCustomRingtoneHolder>
-        implements View.OnClickListener {
+        implements View.OnClickListener, View.OnLongClickListener {
 
     static final int VIEW_TYPE_ADD_NEW = Integer.MIN_VALUE;
     static final int CLICK_ADD_NEW = VIEW_TYPE_ADD_NEW;
+    static final int CLICK_ADD_FOLDER = VIEW_TYPE_ADD_NEW + 1;
 
     private AddCustomRingtoneViewHolder(View itemView) {
         super(itemView);
+
         itemView.setOnClickListener(this);
+
+        itemView.setOnLongClickListener(this);
 
         final Context context = itemView.getContext();
 
@@ -44,7 +51,24 @@ final class AddCustomRingtoneViewHolder extends ItemViewHolder<AddCustomRingtone
         selectedView.setVisibility(GONE);
 
         final TextView nameView = itemView.findViewById(R.id.ringtone_name);
-        nameView.setText(itemView.getContext().getString(R.string.add_new_sound));
+        nameView.setSingleLine(false);
+
+        //Add vertical spacing between lines
+        nameView.setLineSpacing(ThemeUtils.convertDpToPixels(4, context), 1.0f);
+
+        String title = context.getString(R.string.add_new_sound);
+        String subtitle = context.getString(R.string.add_new_sound_subtitle);
+
+        SpannableStringBuilder builder = new SpannableStringBuilder();
+        builder.append(title).append("\n").append(subtitle);
+
+        // Apply the small style to the "subtitle" part
+        int start = builder.length() - subtitle.length();
+        int end = builder.length();
+        TextAppearanceSpan smallSpan = new TextAppearanceSpan(context, android.R.style.TextAppearance_Small);
+        builder.setSpan(smallSpan, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        nameView.setText(builder);
 
         final ImageView imageView = itemView.findViewById(R.id.ringtone_image);
         imageView.setImageDrawable(AppCompatResources.getDrawable(context, R.drawable.ic_add));
@@ -68,6 +92,12 @@ final class AddCustomRingtoneViewHolder extends ItemViewHolder<AddCustomRingtone
     @Override
     public void onClick(View view) {
         notifyItemClicked(AddCustomRingtoneViewHolder.CLICK_ADD_NEW);
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        notifyItemLongClicked(AddCustomRingtoneViewHolder.CLICK_ADD_FOLDER);
+        return true;
     }
 
     public static class Factory implements ItemViewHolder.Factory {

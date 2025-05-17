@@ -30,6 +30,8 @@ import android.provider.Settings;
 import android.util.ArrayMap;
 import android.util.ArraySet;
 
+import androidx.documentfile.provider.DocumentFile;
+
 import com.best.deskclock.R;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.utils.LogUtils;
@@ -120,6 +122,25 @@ public final class RingtoneModel {
                 break;
             }
         }
+    }
+
+    boolean isCustomRingtoneAlreadyAdded(String name, long size) {
+        for (CustomRingtone ringtone : getMutableCustomRingtones()) {
+            String ringtoneName = ringtone.getTitle();
+            Uri ringtoneUri = ringtone.getUri();
+
+            // Compare the name
+            if (ringtoneName != null && ringtoneName.equalsIgnoreCase(name)) {
+                // If the name is the same, try to compare the size
+                try {
+                    DocumentFile file = DocumentFile.fromSingleUri(mContext, ringtoneUri);
+                    if (file != null && file.exists() && file.length() == size) {
+                        return true;
+                    }
+                } catch (Exception ignored) {}
+            }
+        }
+        return false;
     }
 
     private CustomRingtone getCustomRingtone(Uri uri) {

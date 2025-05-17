@@ -175,9 +175,9 @@ public final class AlarmClockFragment extends DeskClockFragment implements
 
         mItemAdapter.setHasStableIds();
         mItemAdapter.withViewTypes(new CollapsedAlarmViewHolder.Factory(inflater),
-                null, CollapsedAlarmViewHolder.VIEW_TYPE);
+                null, null, CollapsedAlarmViewHolder.VIEW_TYPE);
         mItemAdapter.withViewTypes(new ExpandedAlarmViewHolder.Factory(mContext),
-                null, ExpandedAlarmViewHolder.VIEW_TYPE);
+                null, null, ExpandedAlarmViewHolder.VIEW_TYPE);
         mItemAdapter.setOnItemChangedListener(holder -> {
             if (((AlarmItemHolder) holder).isExpanded()) {
                 if (mExpandedAlarmId != holder.itemId) {

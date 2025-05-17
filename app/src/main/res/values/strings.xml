@@ -43,6 +43,8 @@
     <string name="timer_sound">Timer sound</string>
     <!-- Label for adding a new ringtone sound [CHAR LIMIT=30]-->
     <string name="add_new_sound">Add new</string>
+    <!-- Label for adding a new ringtone sound from a folder -->
+    <string name="add_new_sound_subtitle">Long click to select a folder</string>
     <!-- Label for removing a ringtone sound [CHAR LIMIT=30] -->
     <string name="remove_sound">Remove</string>
     <!-- Description of the checkmark when a ringtone is selected -->
