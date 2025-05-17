@@ -110,6 +110,14 @@ public class ThemeUtils {
     }
 
     /**
+     * @return {@code true} if the system animations are disabled. {@code false} otherwise.
+     */
+    public static boolean areSystemAnimationsDisabled(Context context) {
+        return android.provider.Settings.Global.getFloat(context.getContentResolver(),
+                android.provider.Settings.Global.ANIMATOR_DURATION_SCALE, 1f) == 0f;
+    }
+
+    /**
      * Convenience method for creating card background.
      */
     public static Drawable cardBackground (Context context) {

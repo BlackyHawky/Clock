@@ -255,12 +255,9 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
      * @param fragment The new fragment to be displayed.
      */
     protected void animateAndShowFragment(Fragment fragment) {
-        // Check if animations are disabled in accessibility settings
-        boolean areAnimationsDisabled = android.provider.Settings.Global.getFloat(requireContext().getContentResolver(),
-                android.provider.Settings.Global.ANIMATOR_DURATION_SCALE, 1f) == 0f;
         FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
 
-        if (areAnimationsDisabled) {
+        if (ThemeUtils.areSystemAnimationsDisabled(requireContext())) {
             fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_NONE);
         } else if (SettingsDAO.isFadeTransitionsEnabled(mPrefs)) {
             fragmentTransaction.setCustomAnimations(
