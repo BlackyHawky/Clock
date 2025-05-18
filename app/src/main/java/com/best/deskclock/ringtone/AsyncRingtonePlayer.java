@@ -10,19 +10,17 @@ import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.HandlerThread;
-import android.os.Looper;
-import android.os.Message;
-
-import androidx.annotation.NonNull;
 
 import com.best.deskclock.R;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>This class controls playback of alarm ringtones using a dedicated background thread.
@@ -53,19 +51,17 @@ public final class AsyncRingtonePlayer {
     // Volume suggested by media team for in-call alarms.
     private static final float IN_CALL_VOLUME = 0.125f;
 
-    // Message codes used with the ringtone thread.
-    private static final int EVENT_PLAY = 1;
-    private static final int EVENT_STOP = 2;
-    private static final int EVENT_VOLUME = 3;
-    private static final String RINGTONE_URI_KEY = "RINGTONE_URI_KEY";
-    private static final String CRESCENDO_DURATION_KEY = "CRESCENDO_DURATION_KEY";
-
     private final Context mContext;
 
     /**
-     * Handler running on the ringtone thread.
+     * The executor used to schedule and execute tasks asynchronously in a single thread.
      */
-    private Handler mHandler;
+    private final ScheduledExecutorService mExecutor = Executors.newSingleThreadScheduledExecutor();
+
+    /**
+     * Represents the future of a scheduled volume adjustment task.
+     */
+    private ScheduledFuture<?> volumeAdjustmentFuture;
 
     private MediaPlayerPlaybackDelegate mPlaybackDelegate;
 
@@ -131,99 +127,59 @@ public final class AsyncRingtonePlayer {
      * Plays the ringtone.
      */
     public void play(Uri ringtoneUri, long crescendoDuration) {
-        LOGGER.d("Posting play.");
-        postMessage(EVENT_PLAY, ringtoneUri, crescendoDuration, 0);
-    }
+        LOGGER.d("Executing play");
+        mExecutor.execute(() -> {
+            if (getPlaybackDelegate().play(mContext, ringtoneUri, crescendoDuration)) {
+                scheduleVolumeAdjustment();
+            }
+        });    }
 
     /**
      * Stops playing the ringtone.
      */
     public void stop() {
-        LOGGER.d("Posting stop.");
-        postMessage(EVENT_STOP, null, 0, 0);
+        LOGGER.d("Executing stop");
+        mExecutor.execute(() -> {
+            getPlaybackDelegate().stop();
+            cancelVolumeAdjustment();
+        });
+    }
+
+    /**
+     * Releases the resources associated with the `AsyncRingtonePlayer` by stopping the execution
+     * of its `Executor.
+     */
+    public void shutdown() {
+        if (mExecutor != null && !mExecutor.isShutdown()) {
+            LOGGER.d("Releasing AsyncRingtonePlayer resources");
+            mExecutor.shutdown();
+        } else {
+            LOGGER.d("No AsyncRingtonePlayer to release");
+        }
     }
 
     /**
      * Schedules an adjustment of the playback volume 50ms in the future.
      */
     private void scheduleVolumeAdjustment() {
-        LOGGER.v("Adjusting volume.");
+        LOGGER.v("Scheduling volume adjustment");
 
-        // Ensure we never have more than one volume adjustment queued.
-        mHandler.removeMessages(EVENT_VOLUME);
+        cancelVolumeAdjustment();
 
-        // Queue the next volume adjustment.
-        postMessage(EVENT_VOLUME, null, 0, 50);
+        volumeAdjustmentFuture = mExecutor.scheduleWithFixedDelay(() -> {
+            if (!getPlaybackDelegate().adjustVolume()) {
+                cancelVolumeAdjustment();
+            }
+        }, 0, 50, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * Posts a message to the ringtone-thread handler.
-     *
-     * @param messageCode       the message to post
-     * @param ringtoneUri       the ringtone in question, if any
-     * @param crescendoDuration the length of time, in ms, over which to crescendo the ringtone
-     * @param delayMillis       the amount of time to delay sending the message, if any
+     * Cancels any current task that adjusts the volume, if one is active.
      */
-    private void postMessage(int messageCode, Uri ringtoneUri, long crescendoDuration,
-                             long delayMillis) {
-        synchronized (this) {
-            if (mHandler == null) {
-                mHandler = getNewHandler();
-            }
-
-            final Message message = mHandler.obtainMessage(messageCode);
-            if (ringtoneUri != null) {
-                final Bundle bundle = new Bundle();
-                bundle.putParcelable(RINGTONE_URI_KEY, ringtoneUri);
-                bundle.putLong(CRESCENDO_DURATION_KEY, crescendoDuration);
-                message.setData(bundle);
-            }
-
-            mHandler.sendMessageDelayed(message, delayMillis);
-        }
-    }
-
-    /**
-     * Creates a new ringtone Handler running in its own thread.
-     */
-    private Handler getNewHandler() {
-        final HandlerThread thread = new HandlerThread("ringtone-player");
-        thread.start();
-
-        return new Handler(thread.getLooper()) {
-
-            @Override
-            public void handleMessage(@NonNull Message msg) {
-                switch (msg.what) {
-                    case EVENT_PLAY:
-                        final Bundle data = msg.getData();
-                        final Uri ringtoneUri = SdkUtils.isAtLeastAndroid13()
-                                ? data.getParcelable(RINGTONE_URI_KEY, Uri.class)
-                                : data.getParcelable(RINGTONE_URI_KEY);
-                        final long crescendoDuration = data.getLong(CRESCENDO_DURATION_KEY);
-                        if (getPlaybackDelegate().play(mContext, ringtoneUri, crescendoDuration)) {
-                            scheduleVolumeAdjustment();
-                        }
-                        break;
-                    case EVENT_STOP:
-                        getPlaybackDelegate().stop();
-                        break;
-                    case EVENT_VOLUME:
-                        if (getPlaybackDelegate().adjustVolume()) {
-                            scheduleVolumeAdjustment();
-                        }
-                        break;
-                }
-            }
-        };
-    }
-
-    /**
-     * Check if the executing thread is the one dedicated to controlling the ringtone playback.
-     */
-    private void checkAsyncRingtonePlayerThread() {
-        if (Looper.myLooper() != mHandler.getLooper()) {
-            LOGGER.e("Must be on the AsyncRingtonePlayer thread!", new IllegalStateException());
+    private void cancelVolumeAdjustment() {
+        if (volumeAdjustmentFuture != null && !volumeAdjustmentFuture.isCancelled()) {
+            volumeAdjustmentFuture.cancel(true);
+            volumeAdjustmentFuture = null;
         }
     }
 
@@ -231,8 +187,6 @@ public final class AsyncRingtonePlayer {
      * @return the platform-specific playback delegate to use to play the ringtone.
      */
     private PlaybackDelegate getPlaybackDelegate() {
-        checkAsyncRingtonePlayerThread();
-
         if (mPlaybackDelegate == null) {
             mPlaybackDelegate = new MediaPlayerPlaybackDelegate();
         }

@@ -174,4 +174,8 @@ public class AlarmVolumePreference extends SeekBarPreference {
         }
     }
 
+    public void releaseResources() {
+        RingtonePreviewKlaxon.releaseResources();
+    }
+
 }

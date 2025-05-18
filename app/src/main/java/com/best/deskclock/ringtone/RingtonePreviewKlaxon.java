@@ -29,6 +29,13 @@ public final class RingtonePreviewKlaxon {
         getAsyncRingtonePlayer(context).play(uri, 0);
     }
 
+    public static void releaseResources() {
+        if (sAsyncRingtonePlayer != null) {
+            sAsyncRingtonePlayer.shutdown();
+            sAsyncRingtonePlayer = null;
+        }
+    }
+
     private static synchronized AsyncRingtonePlayer getAsyncRingtonePlayer(Context context) {
         if (sAsyncRingtonePlayer == null) {
             sAsyncRingtonePlayer = new AsyncRingtonePlayer(context.getApplicationContext());

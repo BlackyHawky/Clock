@@ -350,6 +350,9 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
         if (!isChangingConfigurations()) {
             stopPlayingRingtone(getSelectedRingtoneHolder(), false);
         }
+
+        RingtonePreviewKlaxon.releaseResources();
+
         super.onStop();
     }
 

@@ -115,6 +115,7 @@ public class AlarmSettingsFragment extends ScreenFragment
         super.onStop();
 
         mAlarmVolumePreference.stopRingtonePreview(requireContext());
+        mAlarmVolumePreference.releaseResources();
     }
 
     @Override
