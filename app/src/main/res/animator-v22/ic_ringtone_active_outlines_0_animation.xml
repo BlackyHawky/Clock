@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2016 The Android Open Source Project
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+-->
+
+<objectAnimator
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="140"
+    android:interpolator="@anim/ic_ringtone_active_animation_interpolator"
+    android:propertyName="rotation"
+    android:repeatCount="-1"
+    android:repeatMode="reverse"
+    android:valueFrom="12.0"
+    android:valueTo="-12.0"
+    android:valueType="floatType" />

@@ -70,7 +70,7 @@ final class RingtoneViewHolder extends ItemAdapter.ItemViewHolder<RingtoneHolder
         mImageView.setAlpha(opaque ? 1f : .63f);
         mImageView.clearColorFilter();
 
-        final Drawable ringtone = AppCompatResources.getDrawable(context, R.drawable.ic_ringtone);
+        final Drawable ringtone = AppCompatResources.getDrawable(context, R.drawable.ic_ringtone_active_animated);
 
         final int itemViewType = getItemViewType();
         if (itemViewType == VIEW_TYPE_CUSTOM_SOUND) {
@@ -99,18 +99,25 @@ final class RingtoneViewHolder extends ItemAdapter.ItemViewHolder<RingtoneHolder
         } else {
             mImageView.setImageDrawable(ringtone);
         }
-        AnimatorUtils.startDrawableAnimation(mImageView);
-
-        mSelectedView.setVisibility(itemHolder.isSelected() ? VISIBLE : GONE);
 
         final int backgroundColor;
         if (itemHolder.isSelected()) {
+            mSelectedView.setVisibility(VISIBLE);
+
             backgroundColor = MaterialColors.getColor(context, com.google.android.material.R.attr.colorSurface, Color.BLACK);
-        } else if (ThemeUtils.isNight(context.getResources())
-                && SettingsDAO.getDarkMode(getDefaultSharedPreferences(context)).equals(AMOLED_DARK_MODE)) {
-            backgroundColor = Color.BLACK;
+
+            if (itemHolder.isPlaying()) {
+                AnimatorUtils.startDrawableAnimation(mImageView);
+            }
         } else {
-            backgroundColor = MaterialColors.getColor(context, android.R.attr.colorBackground, Color.BLACK);
+            mSelectedView.setVisibility(GONE);
+
+            if (ThemeUtils.isNight(context.getResources())
+                    && SettingsDAO.getDarkMode(getDefaultSharedPreferences(context)).equals(AMOLED_DARK_MODE)) {
+                backgroundColor = Color.BLACK;
+            } else {
+                backgroundColor = MaterialColors.getColor(context, android.R.attr.colorBackground, Color.BLACK);
+            }
         }
 
         itemView.setBackground(ThemeUtils.rippleDrawable(context, backgroundColor));
