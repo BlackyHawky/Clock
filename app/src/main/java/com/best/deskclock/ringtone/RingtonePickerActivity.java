@@ -538,13 +538,14 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
 
             MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(requireContext())
                     .setIcon(drawable)
+                    .setTitle(R.string.warning)
                     .setPositiveButton(R.string.remove_sound, okListener)
                     .setNegativeButton(android.R.string.cancel, null);
 
             if (RingtoneUtils.isRingtoneUriReadable(requireContext(), toRemove)) {
-                dialogBuilder.setTitle(R.string.confirm_remove_custom_ringtone);
+                dialogBuilder.setMessage(R.string.confirm_remove_custom_ringtone);
             } else {
-                dialogBuilder.setTitle(R.string.custom_ringtone_lost_permissions);
+                dialogBuilder.setMessage(R.string.custom_ringtone_lost_permissions);
             }
 
             return dialogBuilder.create();

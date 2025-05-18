@@ -35,6 +35,8 @@
     <string name="delete">Delete</string>
     <!-- Setting labels on Set alarm screen: Duplicate -->
     <string name="duplicate">Duplicate</string>
+    <!-- Label "Warning" -->
+    <string name="warning">Warning</string>
     <!-- Title of default ringtone played when an alarm triggers [CHAR LIMIT=30] -->
     <string name="default_alarm_ringtone_title">Default alarm sound</string>
     <!-- Title for alarm ringtone picker screen [CHAR LIMIT=30] -->
