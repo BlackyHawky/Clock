@@ -431,7 +431,7 @@
     <string name="sw_settings_summary">Ustaw akcje dla przycisków głośności</string>
     <string name="settings_vibration_title">Włącz wibracje</string>
     <string name="screensaver_settings_summary">Ustaw styl, kolor i czcionkę wygaszacza ekranu</string>
-    <string name="first_launch_main_feature_message">► Jasny, ciemny lub systemowy motyw; &lt;br&gt; &lt;br&gt; ► Dostosowywalny wygaszacz ekranu; &lt;br&gt; &lt;br&gt; ► Dostosowywalne widżety; &lt;br&gt; &lt;br&gt; ► Obsługa kafelków w szybkich ustawieniach (dla Androida 7+); &lt;br&gt; &lt;br&gt; ► Tworzenie kopii zapasowej i przywracanie danych aplikacji (z wyjątkiem niestandardowych dzwonków); &lt;br&gt; &lt;br&gt; ► Material design i dynamiczne kolory; &lt;br&gt; &lt;br&gt; ► Przesuń, aby usunąć alarm; &lt;br&gt; &lt;br&gt; ► Duplikuj alarm; &lt;br&gt; &lt;br&gt; ► Odrzuć/odłóż alarm, obracając i potrząsając; &lt;br&gt; &lt;br&gt; ► Wyłącz/odłóż alarm przyciskiem zasilania lub przyciskami głośności; &lt;br&gt; &lt;br&gt; ► %s</string>
+    <string name="first_launch_main_feature_message">► Jasny, ciemny lub systemowy motyw; &lt;br&gt; &lt;br&gt; ► Dostosowywalny wygaszacz ekranu; &lt;br&gt; &lt;br&gt; ► Dostosowywalne widżety; &lt;br&gt; &lt;br&gt; ► Obsługa kafelków w szybkich ustawieniach (dla Androida 7+); &lt;br&gt; &lt;br&gt; ► Tworzenie kopii zapasowej i przywracanie danych aplikacji (z wyjątkiem niestandardowych dzwonków); &lt;br&gt; &lt;br&gt; ► Material design i dynamiczne kolory; &lt;br&gt; &lt;br&gt; ► Ustaw alarmy na konkretną datę; &lt;br&gt; &lt;br&gt; ► Przesuń, aby usunąć alarm; &lt;br&gt; &lt;br&gt; ► Duplikuj alarm; &lt;br&gt; &lt;br&gt; ► Odrzuć/odłóż alarm, obracając i potrząsając; &lt;br&gt; &lt;br&gt; ► Wyłącz/odłóż alarm przyciskiem zasilania lub przyciskami głośności; &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="timer_label_box_title">Etykieta minutnika</string>
     <string name="app_slogan">Zegar w 100% FOSS, oparty na AOSP</string>
     <string name="screensaver_preview_summary">Uruchamia wygaszacz ekranu</string>
@@ -633,7 +633,7 @@
     <string name="alarm_flash">Lampa błyskowa</string>
     <string name="translate_dialog_message">Odwiedź stronę Codeberg:\n\n%s</string>
     <string name="about_translate_link">Przetłumacz na Codeberg</string>
-    <string name="about_dialog_message">• Odwróć i potrząśnij, aby odrzucić/odłożyć alarm;\n\n• Wyłącz/odłóż alarm przyciskiem zasilania lub przyciskami głośności;\n\n• Tylko w przypadku niektórych urządzeń Snapdragon alarm włącza się po ich wyłączeniu;\nNiestety, ta funkcja może nie działać na niektórych urządzeniach, pomimo obecności aplikacji systemowej <i>\"com.qualcomm.qti.poweroffalarm\"</i>.\n\n• Przesuń, aby usunąć alarm;\n\n• Duplikuj alarmy;\n\n• Dostosuj tytuł alarmu;\n\n• Dostosowywalny dzwonek;\n\n• Jasny, ciemny lub systemowy motyw;\n\n• Tryb AMOLED dla ciemnego motywu;\n\n• Styl zegara cyfrowego lub analogowego;\n\n• Wyświetlaj czas domowy podczas podróży;\n\n• Wyświetlaj czas w wielu miastach na całym świecie;\n\n• W zestawie minutnik i stoper;\n\n• Możliwość udostępniania stopera kontaktom;\n\n• Dostosowywalny wygaszacz ekranu;\n\n• Nowoczesne widżety;\n\n• Możliwość dostosowania widżetów;\n\n• Obsługa kafelków w szybkich ustawieniach (dla Androida 7+);\n\n• Tworzenie kopii zapasowych i przywracanie danych aplikacji (oprócz niestandardowych dzwonków);\n\n• Material design;\n\n• Dynamiczne kolory dla Androida 12+;</string>
+    <string name="about_dialog_message">• Ustaw alarmy na konkretną datę;\n\n• Odwróć i potrząśnij, aby odrzucić/odłożyć alarm;\n\n• Wyłącz/odłóż alarm przyciskiem zasilania lub przyciskami głośności;\n\n• Tylko w przypadku niektórych urządzeń Snapdragon alarm włącza się po ich wyłączeniu;\nNiestety, ta funkcja może nie działać na niektórych urządzeniach, pomimo obecności aplikacji systemowej <i>\"com.qualcomm.qti.poweroffalarm\"</i>.\n\n• Przesuń, aby usunąć alarm;\n\n• Duplikuj alarmy;\n\n• Dostosuj tytuł alarmu;\n\n• Dostosowywalny dzwonek;\n\n• Jasny, ciemny lub systemowy motyw;\n\n• Tryb AMOLED dla ciemnego motywu;\n\n• Styl zegara cyfrowego lub analogowego;\n\n• Wyświetlaj czas domowy podczas podróży;\n\n• Wyświetlaj czas w wielu miastach na całym świecie;\n\n• W zestawie minutnik i stoper;\n\n• Możliwość udostępniania stopera kontaktom;\n\n• Dostosowywalny wygaszacz ekranu;\n\n• Nowoczesne widżety;\n\n• Możliwość dostosowania widżetów;\n\n• Obsługa kafelków w szybkich ustawieniach (dla Androida 7+);\n\n• Tworzenie kopii zapasowych i przywracanie danych aplikacji (oprócz niestandardowych dzwonków);\n\n• Material design;\n\n• Dynamiczne kolory dla Androida 12+;</string>
     <string name="shake_intensity_title">Intensywność potrząśnięcia</string>
     <string name="settings_language_title">Język</string>
     <string name="settings_language_system">Język systemu</string>
@@ -691,4 +691,9 @@
     <string name="description_dismiss_button_for_occasional_alarm">Kliknij, aby odrzucić i usunąć alarm</string>
     <string name="settings_language_chinese_traditional_tw">Chiński (tradycyjny, Tajwan)</string>
     <string name="alarm_is_dismissed_and_deleted"><xliff:g example="14:20" id="alarm_time">%s</xliff:g> alarm odrzucony i usunięty</string>
+    <string name="date_picker_style_text">Tekst</string>
+    <string name="schedule_alarm_title">Zaplanuj alarm</string>
+    <string name="alarm_scheduled_for">Zaplanowano na %s</string>
+    <string name="date_picker_style_title">Styl selektora daty</string>
+    <string name="date_picker_style_calendar">Kalendarz</string>
 </resources>

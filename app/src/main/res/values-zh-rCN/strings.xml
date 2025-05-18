@@ -395,8 +395,8 @@
     <string name="analog_widget_material_you">指针时钟 Material You</string>
     <string name="settings_permission_message">一个或多个基本权限被拒绝。不授予它们可能会导致故障。</string>
     <string name="display_card_background_summary">显示某些应用程序元素（闹钟、城市、定时器按钮等）的背景</string>
-    <string name="about_dialog_message">• 翻转和摇晃操作可关闭/推迟闹钟；\n\n• 使用电源按钮或音量按钮关闭/推迟闹钟；\n\n• 仅适用于某些骁龙处理器设备，设备关机时会触发闹钟；\n\t\t遗憾的是，尽管存在<i>“com.qualcomm.qti.poweroffalarm”</i>系统应用，但此功能可能无法在某些设备上运行。\n\n• 滑动删除闹钟；\n\n• 重复闹钟；\n\n• 自定义闹钟标题；\n\n• 可自定义铃声；\n\n• 浅色、深色或系统主题；\n\n• 深色主题的 AMOLED 模式；\n\n• 数字或指针时钟样式；\n\n• 旅行时显示家中时间；\n\n• 显示世界各地许多城市的时间；\n\n• 包括定时器和秒表；\n\n• 可与联系人分享秒表；\n\n• 可自定义的屏幕保护程序；\n\n• 现代微件；\n\n• 可自定义的微件；\n\n• 支持快捷设置中的图块（适用于 Android 7+）；\n\n• 备份和还原应用程序数据（自定义铃声除外）；\n\n• Material 设计；\n\n• 适用于 Android 12+ 的动态配色；</string>
-    <string name="first_launch_main_feature_message">► 浅色、深色或系统主题；&lt;br&gt; &lt;br&gt; ► 可自定义的屏幕保护程序；&lt;br&gt; &lt;br&gt; ► 可自定义的微件；&lt;br&gt; &lt;br&gt; ► 支持快捷设置中的图块（适用于 Android 7+）；&lt;br&gt; &lt;br&gt; ► 备份和还原应用程序数据（自定义铃声除外）；&lt;br&gt; &lt;br&gt; ► Material 设计和动态配色；&lt;br&gt; &lt;br&gt; ► 滑动删除闹钟；&lt;br&gt; &lt;br&gt; ► 重复闹钟；&lt;br&gt; &lt;br&gt; ► 翻转和摇晃操作可关闭/推迟闹钟；&lt;br&gt; &lt;br&gt; ► 使用电源按钮或音量按钮关闭/推迟闹钟；&lt;br&gt; &lt;br&gt; ► %s</string>
+    <string name="about_dialog_message">• 将闹钟设置为特定日期；\n\n• 翻转和摇晃操作可关闭/推迟闹钟；\n\n• 使用电源按钮或音量按钮关闭/推迟闹钟；\n\n• 仅适用于某些骁龙处理器设备，设备关机时会触发闹钟；\n\t\t遗憾的是，尽管存在<i>“com.qualcomm.qti.poweroffalarm”</i>系统应用，但此功能可能无法在某些设备上运行。\n\n• 滑动删除闹钟；\n\n• 重复闹钟；\n\n• 自定义闹钟标题；\n\n• 可自定义铃声；\n\n• 浅色、深色或系统主题；\n\n• 深色主题的 AMOLED 模式；\n\n• 数字或指针时钟样式；\n\n• 旅行时显示家中时间；\n\n• 显示世界各地许多城市的时间；\n\n• 包括定时器和秒表；\n\n• 可与联系人分享秒表；\n\n• 可自定义的屏幕保护程序；\n\n• 现代微件；\n\n• 可自定义的微件；\n\n• 支持快捷设置中的图块（适用于 Android 7+）；\n\n• 备份和还原应用程序数据（自定义铃声除外）；\n\n• Material 设计；\n\n• 适用于 Android 12+ 的动态配色；</string>
+    <string name="first_launch_main_feature_message">► 浅色、深色或系统主题；&lt;br&gt; &lt;br&gt; ► 可自定义的屏幕保护程序；&lt;br&gt; &lt;br&gt; ► 可自定义的微件；&lt;br&gt; &lt;br&gt; ► 支持快捷设置中的图块（适用于 Android 7+）；&lt;br&gt; &lt;br&gt; ► 备份和还原应用程序数据（自定义铃声除外）；&lt;br&gt; &lt;br&gt; ► Material 设计和动态配色；&lt;br&gt; &lt;br&gt; ► 将闹钟设置为特定日期；&lt;br&gt; &lt;br&gt; ► 滑动删除闹钟；&lt;br&gt; &lt;br&gt; ► 重复闹钟；&lt;br&gt; &lt;br&gt; ► 翻转和摇晃操作可关闭/推迟闹钟；&lt;br&gt; &lt;br&gt; ► 使用电源按钮或音量按钮关闭/推迟闹钟；&lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="alarm_notification_reminder_title">通知提醒</string>
     <string name="about_github_link">在 GitHub 查看</string>
     <string name="alarm_settings_summary">设置样式、默认铃声、音量、关闭或暂停闹钟的操作、每周的第一天和提醒通知时间</string>
@@ -665,4 +665,12 @@
     <string name="display_next_alarm_title">在微件上显示下次闹钟</string>
     <string name="settings_language_chinese_traditional_tw">中文（繁体）</string>
     <string name="alarm_is_dismissed_and_deleted">已关闭并删除 <xliff:g example="14:20" id="alarm_time">%s</xliff:g> 的闹钟</string>
+    <string name="schedule_alarm_title">设置闹钟</string>
+    <string name="alarm_scheduled_for">已设置于 %s</string>
+    <string name="date_picker_style_calendar">日历</string>
+    <string name="date_picker_style_text">文本</string>
+    <string name="date_picker_style_title">日期选择器样式</string>
+    <string name="add_new_sound_subtitle">长按选择文件夹</string>
+    <string name="random_ringtone_title">随机铃声</string>
+    <string name="warning">警告</string>
 </resources>

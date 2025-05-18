@@ -1,0 +1,16 @@
+**Parandused**
+- Tööriistariba pealkirja värv
+- Kuupäev ja järgmine äratus
+- Äratuse helin peale taastamist
+… ja muudki
+
+**Täiendused**
+- Äärest ääreni vaade Android 10+ puhul
+- Logide eksport
+- Viipamisega äratuse tühistamine ja edasilükkamine nagu Google'i rakenduses
+- Aegunud taimerite värina intensiivsuse kohendatavus
+- Tõlgete uuendused
+- Lähtekoodi korrastused
+… ja muudki
+
+Kõik parandused ja täiendused on kirjas siin: https://github.com/BlackyHawky/Clock/releases/tag/2.19

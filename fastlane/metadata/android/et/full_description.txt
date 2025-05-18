@@ -3,6 +3,7 @@ Võrguühenduse luba pole vaja ja rakendus toimib 100% vallasrežiimis.
 
 Funktsionaalsused:
 <ul>
+  <li>Äratuse seadistame kindlaks kuupäevaks;</li>
   <li>Pööramise ja raputamisega saad äratuse katkestada või edasi lükata;</li>
   <li>Toitenupu ja helivaljuse nuppudega saad äratuse välja lülitada või edasi lükata;</li>
   <li>Mõnedes Snapdragoni-põhistes telefonides äratus käivitub ka siis, kui telefon on väljalülitatud;</li>
@@ -13,6 +14,7 @@ Funktsionaalsused:
   <li>Äratusest saad teha koopiaid;</li>
   <li>Äratuse nime saad kohendada;</li>
   <li>Äratuse helinat saad kohendada;</li>
+  <li>Helinat saad lasta valida juhuslikult;</li>
   <li>Hele, tume ja süsteemi kujundus;</li>
   <li>AMOLED-režiim tumedas kujunduses;</li>
   <li>Muudetav kasutajaliides;</li>
@@ -25,7 +27,7 @@ Funktsionaalsused:
   <li>Moodsad vidinad;</li>
   <li>Kohandatavad vidinad;</li>
   <li>Paanide tugi kiirseadistustes (alates Androidi versioonist 7);</li>
-  <li>Seadistuste varundamine ja taastamine;</li>
+  <li>Rakenduse andmete varundamine ja taastamine (välja arvatud sinu valitud helinad);</li>
   <li>Material design;</li>
   <li>Dünaamilised värvid Android 12+ puhul;</li>
 </ul>

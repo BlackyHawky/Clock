@@ -1,0 +1,16 @@
+**Opravy**
+- Oprava barvy názvu panelu nástrojů
+- Oprava zobrazení data a dalšího budíku
+- Oprava zvonění budíků po obnovení
+... a další
+
+**Vylepšení**
+- Povolení edge-to-edge pro Android 10+
+- Možnost exportu protokolů
+- Přejetím lze budík zrušit/odložit
+- Možnost nastavit intenzitu třesení u časovačů s vypršenou platností
+- Aktualizace překladů
+- Vylepšení a vyčištění kódu
+... a další
+
+Všechny opravy a vylepšení jsou uvedeny zde: https://github.com/BlackyHawky/Clock/releases/tag/2.19

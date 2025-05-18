@@ -1,0 +1,16 @@
+**Correzioni**
+- Correggere il colore del titolo della barra degli strumenti
+- Correggere la visualizzazione della data e dell'allarme successivo
+- Correggere la suoneria degli allarmi dopo un ripristino
+... e altro ancora
+
+**Miglioramenti
+- Abilitazione dell'edge-to-edge per Android 10+
+- Possibilità di esportare i log
+- Scorrimento per disattivare/snooze dell'allarme come l'app di Google
+- Possibilità di regolare l'intensità della scossa dei timer scaduti
+- Aggiornamento delle traduzioni
+- Miglioramento e pulizia del codice
+... e altro ancora
+
+Tutte le correzioni e i miglioramenti sono elencati qui: https://github.com/BlackyHawky/Clock/releases/tag/2.19

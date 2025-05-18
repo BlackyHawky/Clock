@@ -8,4 +8,4 @@
  - Zamanlayıcı durdurulduğunda küçültme (dikey moddaki telefonlar için);
  - Kalan süreye dokunarak zamanlayıcıyı başlat/duraklat;
  - Bazı çeviri güncellemeleri;
- - Ekran görüntüleri (F-Droid için) güncellendi. Detaylı bilgi için konuya göz atabilirsiniz: https://github.com/BlackyHawky/Clock/discussions/23#discussioncomment-9346357
+ - Ekran görüntüleri (F-Droid için) güncellendi. Detaylı bilgi için: https://github.com/BlackyHawky/Clock/discussions/23#discussioncomment-9346357

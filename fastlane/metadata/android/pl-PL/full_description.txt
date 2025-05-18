@@ -1,8 +1,9 @@
-Zegar to dbająca o prywatność aplikacja typu open source, oparta na AOSP.
+<ul>Zegar to dbająca o prywatność aplikacja typu open source, oparta na AOSP.
 Nie korzysta z uprawnień internetowych, a zatem jest w 100% offline.
 
 Funkcje:
 <ul>
+<li>Ustaw alarmy na konkretną datę;</li>
 <li>Przekręć i potrząśnij, aby odrzucić/odłożyć alarm;</li>
 <li>Wyłącz/odłóż alarm za pomocą przycisku zasilania lub przycisków głośności;</li>
 <li>Tylko w przypadku niektórych urządzeń Snapdragon alarm jest uruchamiany po ich wyłączeniu</li>

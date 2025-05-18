@@ -13,6 +13,7 @@ Saat uygulaması gizliliği önemseyen açık kaynaklı, AOSP tabanlıdır.
   <li>Alarmları çoğalt;</li>
   <li>Özelleştirilebilir alarm başlığı;</li>
   <li>Özelleştirilebilir  zil sesi;</li>
+  <li>Çalınacak zil sesinin rasgele seçimi;</li>
   <li>Aydınlık, karanlık veya sistem teması;</li>
   <li>Karanlık team için AMOLED modu;</li>
   <li>Özelleştirilebilir arayüz;</li>

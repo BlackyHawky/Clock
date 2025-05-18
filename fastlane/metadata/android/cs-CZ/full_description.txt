@@ -3,6 +3,7 @@ Nepoužívá oprávnění k internetu, a je tedy 100% offline.
 
 Funkce:
 <ul>
+  <li>Nastavení budíku na určité datum;</li>
   <li>Otočením nebo zatřesením telefonu odložíte/zrušíte budík;</li>
   <li>Vypnutí/odložení budíku pomocí tlačítka napájení nebo tlačítek hlasitosti;</li>
   <li>Na některých zařízeních s procesorem Snapdragon je budík spuštěn i při vypnutém zařízení</li>
@@ -13,6 +14,7 @@ Funkce:
   <li>Duplikování budíků;</li>
   <li>Přizpůsobitelný název budíku;</li>
   <li>Přizpůsobitelné vyzvánění budíku;</li>
+  <li>Možnost náhodného přehrávání vyzvánění;</li>
   <li>Světlý, tmavý nebo systémový motiv;</li>
   <li>AMOLED režim pro tmavý motiv;</li>
   <li>Přizpůsobitelné rozhraní;</li>

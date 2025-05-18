@@ -13,6 +13,7 @@ Caractéristiques :
   <li>Dupliquer les alarmes;</li>
   <li>Titre de l'alarme personnalisable ;</li>
   <li>Sonnerie personnalisable ;</li>
+  <li>Possibilité de jouer des sonneries de manière aléatoire ;</li>
   <li>Thème clair, sombre ou système ;</li>
   <li>Mode AMOLED pour le thèmes sombre ;</li>
   <li>Interface personnalisable ;</li>
@@ -25,7 +26,7 @@ Caractéristiques :
   <li>Widgets modernes ;</li>
   <li>Widgets personnalisables ;</li>
   <li>Prise en charge des tuiles dans les paramètres rapides (pour Android 7+) ;</li>
-  <li>Sauvegarder et restaurer les paramètres ;</li>
+  <li>Sauvegarder et restaurer les données de l'application (à l'exception des sonneries personnalisées) ;</li>
   <li>Design material ;</li>
   <li>Couleurs dynamiques pour Android 12+ ;</li>
 </ul>

@@ -1,0 +1,16 @@
+**Düzeltmeler**
+- Araç çubuğu başlık rengi
+- Tarih ve bir sonraki alarm görüntüleme
+- Geri yükleme sonrası alarm zil sesi
+… ve dahası
+
+**İyileştirmeler**
+- Android 10+ için kenardan-kenara etkinleştirilimi
+- Günlük kayıtlarını dışa aktarma özelliği
+- Google uygulaması gibi kaydırarak alarm erteleme/susturma
+- Zamanı geçmiş alarmlar için sallama hassasiyeti ayarlama özelliği
+- Çeviri güncellemeleri
+- Kod iyileştirme ve temizliği
+… ve dahası
+
+Bütün düzeltme ve iyileştirmeler: https://github.com/BlackyHawky/Clock/releases/tag/2.19

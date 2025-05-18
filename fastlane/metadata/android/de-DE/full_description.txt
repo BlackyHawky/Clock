@@ -3,6 +3,7 @@ Sie verwendet keine Internet-Berechtigung und ist daher zu 100% offline.
 
 Merkmale:
 <ul>
+  <li>Einstellen der Alarme auf ein bestimmtes Datum;</li>
   <li>Kippen und Schütteln zum Ausschalten/Aufschieben eines Alarms;</li>
   <li>Ausschalten/Aufschieben des Alarms mit der Power- oder den Lautstärketasten;</li>
   <li>Nur bei Snapdragon-Smartphones: Der Alarm wird auch ausgelöst, wenn sie ausgeschaltet sind;</li>
@@ -13,6 +14,7 @@ Merkmale:
   <li>Möglichkeit, Alarme zu duplizieren;</li>
   <li>Alarm-Titel erstellen und ändern;</li>
   <li>Individuell anpassbare Signaltöne;</li>
+  <li>Möglichkeit, Signaltöne zufällig abzuspielen;</li>
   <li>Helles, dunkles oder System-Thema;</li>
   <li>AMOLED-Modus für dunkles Thema;</li>
   <li>Anpassbare Oberfläche;</li>

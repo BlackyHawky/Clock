@@ -114,12 +114,12 @@
         <item quantity="one">1 minutě</item>
     </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Nikdy"</string>
-    <string name="auto_silence_1_minute">1 minutě</string>
-    <string name="auto_silence_5_minutes">5 minutách</string>
-    <string name="auto_silence_10_minutes">10 minutách</string>
-    <string name="auto_silence_15_minutes">15 minutách</string>
-    <string name="auto_silence_20_minutes">20 minutách</string>
-    <string name="auto_silence_25_minutes">25 minutách</string>
+    <string name="auto_silence_1_minute">1 minuta</string>
+    <string name="auto_silence_5_minutes">5 minut</string>
+    <string name="auto_silence_10_minutes">10 minut</string>
+    <string name="auto_silence_15_minutes">15 minut</string>
+    <string name="auto_silence_20_minutes">20 minut</string>
+    <string name="auto_silence_25_minutes">25 minut</string>
     <string name="label_off">Vypnuto</string>
     <string name="crescendo_5_seconds">5 sekund</string>
     <string name="crescendo_10_seconds">10 sekund</string>
@@ -133,32 +133,32 @@
     <string name="snooze_duration_2_minutes">2 minuty</string>
     <string name="snooze_duration_3_minutes">3 minuty</string>
     <string name="snooze_duration_4_minutes">4 minuty</string>
-    <string name="snooze_duration_5_minutes">5 minuty</string>
-    <string name="snooze_duration_6_minutes">6 minuty</string>
-    <string name="snooze_duration_7_minutes">7 minuty</string>
-    <string name="snooze_duration_8_minutes">8 minuty</string>
-    <string name="snooze_duration_9_minutes">9 minuty</string>
-    <string name="snooze_duration_10_minutes">10 minuty</string>
-    <string name="snooze_duration_11_minutes">11 minuty</string>
-    <string name="snooze_duration_12_minutes">12 minuty</string>
-    <string name="snooze_duration_13_minutes">13 minuty</string>
-    <string name="snooze_duration_14_minutes">14 minuty</string>
-    <string name="snooze_duration_15_minutes">15 minuty</string>
-    <string name="snooze_duration_16_minutes">16 minuty</string>
-    <string name="snooze_duration_17_minutes">17 minuty</string>
-    <string name="snooze_duration_18_minutes">18 minuty</string>
-    <string name="snooze_duration_19_minutes">19 minuty</string>
-    <string name="snooze_duration_20_minutes">20 minuty</string>
-    <string name="snooze_duration_21_minutes">21 minuty</string>
-    <string name="snooze_duration_22_minutes">22 minuty</string>
-    <string name="snooze_duration_23_minutes">23 minuty</string>
-    <string name="snooze_duration_24_minutes">24 minuty</string>
-    <string name="snooze_duration_25_minutes">25 minuty</string>
-    <string name="snooze_duration_26_minutes">26 minuty</string>
-    <string name="snooze_duration_27_minutes">27 minuty</string>
-    <string name="snooze_duration_28_minutes">28 minuty</string>
-    <string name="snooze_duration_29_minutes">29 minuty</string>
-    <string name="snooze_duration_30_minutes">30 minuty</string>
+    <string name="snooze_duration_5_minutes">5 minut</string>
+    <string name="snooze_duration_6_minutes">6 minut</string>
+    <string name="snooze_duration_7_minutes">7 minut</string>
+    <string name="snooze_duration_8_minutes">8 minut</string>
+    <string name="snooze_duration_9_minutes">9 minut</string>
+    <string name="snooze_duration_10_minutes">10 minut</string>
+    <string name="snooze_duration_11_minutes">11 minut</string>
+    <string name="snooze_duration_12_minutes">12 minut</string>
+    <string name="snooze_duration_13_minutes">13 minut</string>
+    <string name="snooze_duration_14_minutes">14 minut</string>
+    <string name="snooze_duration_15_minutes">15 minut</string>
+    <string name="snooze_duration_16_minutes">16 minut</string>
+    <string name="snooze_duration_17_minutes">17 minut</string>
+    <string name="snooze_duration_18_minutes">18 minut</string>
+    <string name="snooze_duration_19_minutes">19 minut</string>
+    <string name="snooze_duration_20_minutes">20 minut</string>
+    <string name="snooze_duration_21_minutes">21 minut</string>
+    <string name="snooze_duration_22_minutes">22 minut</string>
+    <string name="snooze_duration_23_minutes">23 minut</string>
+    <string name="snooze_duration_24_minutes">24 minut</string>
+    <string name="snooze_duration_25_minutes">25 minut</string>
+    <string name="snooze_duration_26_minutes">26 minut</string>
+    <string name="snooze_duration_27_minutes">27 minut</string>
+    <string name="snooze_duration_28_minutes">28 minut</string>
+    <string name="snooze_duration_29_minutes">29 minut</string>
+    <string name="snooze_duration_30_minutes">30 minut</string>
     <string name="week_start_title" msgid="4268917518596832096">"Počáteční den týdne"</string>
     <string name="week_start_saturday">sobota</string>
     <string name="week_start_sunday">neděle</string>
@@ -200,7 +200,7 @@
     <string name="timer_setup_description" msgid="2488277921227564704">"<xliff:g id="HOURS">%1$s</xliff:g>, <xliff:g id="MINUTES">%2$s</xliff:g>, <xliff:g id="SECONDS">%3$s</xliff:g>"</string>
     <string name="lap_number_single_digit" msgid="1051159504304610877">"č. <xliff:g id="LAPNUMBER">%d</xliff:g>"</string>
     <string name="lap_number_double_digit" msgid="2138536756534362037">"č. <xliff:g id="LAPNUMBER">%02d</xliff:g>"</string>
-    <string name="sw_share_main" msgid="7703563468204234405">"Můj čas je <xliff:g id="TIME">%s</xliff:g>."</string>
+    <string name="sw_share_main" msgid="7703563468204234405">Můj čas je <xliff:g id="TIME">%s</xliff:g></string>
     <string name="sw_share_laps" msgid="614390674795945007">"Časy etap:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"<xliff:g id="NUMBER">%d</xliff:g>. úsek"</string>
     <string name="timer_add_timer" msgid="862733633862574752">"Přidat časovač"</string>
@@ -367,7 +367,7 @@
     <string name="next_alarm_description" msgid="2650244835760747046">"Další budík: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Žádné budíky"</string>
     <string name="invalid_time" msgid="2782334750243998633">"Čas <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g> je neplatný"</string>
-    <string name="no_alarm_at" msgid="8140632482969193119">"Na čas <xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g> není nastaven žádný budík."</string>
+    <string name="no_alarm_at" msgid="8140632482969193119">Na čas <xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g> není nastaven žádný budík</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"Žádné plánované budíky"</string>
     <string name="no_label_specified" msgid="2008482054428460626">"Není zadán žádný štítek"</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"Tento štítek neobsahují žádné budíky"</string>
@@ -547,7 +547,7 @@
     <string name="settings_language_english_us">Angličtina (americká)</string>
     <string name="settings_language_chinese_simplified_cn">Čínština (zjednodušená, PRC)</string>
     <string name="default_time_to_add_to_timer_2_hours">2 hodiny</string>
-    <string name="first_launch_main_feature_message">► Světlý, tmavý nebo systémový motiv; &lt;br&gt; &lt;br&gt; ► Přizpůsobitelný spořič obrazovky; &lt;br&gt; &lt;br&gt; ► Přizpůsobitelné widgety; &lt;br&gt; &lt;br&gt; ► Podpora dlaždic v rychlém nastavení (pro Android 7+); &lt;br&gt; &lt;br&gt; ► Záloha a obnovení dat aplikace (kromě vlastních vyzvánění); &lt;br&gt; &lt;br&gt; ► Material Design a dynamické barvy; &lt;br&gt; &lt;br&gt; ► Přejetí pro odstranění budíku; &lt;br&gt; &lt;br&gt; ► Duplikování budíku; &lt;br&gt; &lt;br&gt; ► Akce otočení a zatřesení pro zrušení/odložení budíku; &lt;br&gt; &lt;br&gt; ► Vypnutí/odložení budíku vypínačem nebo tlačítky hlasitosti; &lt;br&gt; &lt;br&gt; ► %s</string>
+    <string name="first_launch_main_feature_message">► Světlý, tmavý nebo systémový motiv; &lt;br&gt; &lt;br&gt; ► Přizpůsobitelný spořič obrazovky; &lt;br&gt; &lt;br&gt; ► Přizpůsobitelné widgety; &lt;br&gt; &lt;br&gt; ► Podpora dlaždic v rychlém nastavení (pro Android 7+); &lt;br&gt; &lt;br&gt; ► Záloha a obnovení dat aplikace (kromě vlastních vyzvánění); &lt;br&gt; &lt;br&gt; ► Material Design a dynamické barvy; &lt;br&gt; &lt;br&gt; ► Nastavení budíků na určité datum; &lt;br&gt; &lt;br&gt; ► Přejetí pro odstranění budíku; &lt;br&gt; &lt;br&gt; ► Duplikování budíku; &lt;br&gt; &lt;br&gt; ► Akce otočení a zatřesení pro zrušení/odložení budíku; &lt;br&gt; &lt;br&gt; ► Vypnutí/odložení budíku vypínačem nebo tlačítky hlasitosti; &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="notifications_dialog_text">Kromě nastavení budíků má tato aplikace také časovač a režim stopek. \n\nAby se správně zobrazovala oznámení pro všechny moduly a zejména aby se spustil budík, doporučujeme aktivovat oznámení pro tuto aplikaci.</string>
     <string name="ignore_battery_optimizations_dialog_text">Ve výchozím nastavení systém Android nastaví všechny uživatelem nainstalované aplikace tak, aby byly optimalizovány pro úsporu baterie. \n\nAčkoli to je pro většinu aplikací přijatelné, tato aplikace je budík a nastavené optimalizace baterie často způsobují problémy. Jakmile je povolíte, může systém Android v jakoukoli chvíli ukočnti aplikaci a/nebo zrušit naplánované budíky, což by výrazně ovlivnilo funkčnost aplikace. \n\nDoporučujeme vyjmout tuto aplikaci z optimalizací baterie.</string>
     <string name="backup_restore_dialog_message">Chcete zálohovat nebo obnovit data aplikace?</string>
@@ -595,7 +595,7 @@
     <string name="auto_silence_30_seconds">30 sekund</string>
     <string name="title_dark_theme_mode">Režim tmavého motivu</string>
     <string name="display_card_background_summary">Zobrazí pozadí u některých prvků aplikace (budíky, města, tlačítko časovače apod.)</string>
-    <string name="about_dialog_message">• Otočením nebo zatřesením telefonu odložíte/zrušíte budík; \n\n• Vypnutí/odložení budíku pomocí tlačítka napájení nebo tlačítek hlasitosti; \n\n• Na některých zařízeních s procesorem Snapdragon je budík spuštěn i při vypnutém zařízení; \n\t\t Bohužel tato funkce nemusí fungovat na všech zařízeních, i když je přítomna systémová aplikace <i>„com.qualcomm.qti.poweroffalarm“</i>. \n\n• Odstranění budíku přejetím prstem; \n\n• Duplikování budíků; \n\n• Přizpůsobitelný název budíku; \n\n• Přizpůsobitelné vyzvánění budíku; \n\n• Světlý, tmavý nebo systémový motiv; \n\n• AMOLED režim pro tmavý motiv; \n\n• Digitální nebo analogový styl hodin; \n\n• Zobrazení domácího času při cestování; \n\n• Zobrazení času ve více městech po celém světě; \n\n• Obsahuje časovač a stopky; \n\n• Možnost sdílení stopek s kontakty; \n\n• Přizpůsobitelný spořič obrazovky; \n\n• Moderní widgety; \n\n• Přizpůsobitelné widgety; \n\n• Podpora dlaždic v rychlém nastavení (pro Android 7+); \n\n• Zálohování a obnovení nastavení; \n\n• Material Design; \n\n• Dynamické barvy pro Android 12+;</string>
+    <string name="about_dialog_message">• Nastavení budíků na určité datum;\n\n• Otočením nebo zatřesením telefonu odložíte/zrušíte budík; \n\n• Vypnutí/odložení budíku pomocí tlačítka napájení nebo tlačítek hlasitosti; \n\n• Na některých zařízeních s procesorem Snapdragon je budík spuštěn i při vypnutém zařízení; \n\t\t Bohužel tato funkce nemusí fungovat na všech zařízeních, i když je přítomna systémová aplikace <i>„com.qualcomm.qti.poweroffalarm“</i>. \n\n• Odstranění budíku přejetím prstem; \n\n• Duplikování budíků; \n\n• Přizpůsobitelný název budíku; \n\n• Přizpůsobitelné vyzvánění budíku; \n\n• Světlý, tmavý nebo systémový motiv; \n\n• AMOLED režim pro tmavý motiv; \n\n• Digitální nebo analogový styl hodin; \n\n• Zobrazení domácího času při cestování; \n\n• Zobrazení času ve více městech po celém světě; \n\n• Obsahuje časovač a stopky; \n\n• Možnost sdílení stopek s kontakty; \n\n• Přizpůsobitelný spořič obrazovky; \n\n• Moderní widgety; \n\n• Přizpůsobitelné widgety; \n\n• Podpora dlaždic v rychlém nastavení (pro Android 7+); \n\n• Zálohování a obnovení nastavení; \n\n• Material Design; \n\n• Dynamické barvy pro Android 12+;</string>
     <string name="first_launch_main_feature_title">HLAVNÍ FUNKCE</string>
     <string name="sw_long_press_volume_up_action_title">Zvýšení hlasitosti (dlouhé stisknutí)</string>
     <string name="screensaver_bold_date_title">Datum tučně</string>
@@ -691,4 +691,11 @@
     <string name="display_next_alarm_title">Zobrazit další budík ve widgetu</string>
     <string name="settings_language_chinese_traditional_tw">Čínština (tradiční, Tchaj-wan)</string>
     <string name="alarm_is_dismissed_and_deleted">Budík v <xliff:g example="14:20" id="alarm_time">%s</xliff:g> zrušen a odstraněn</string>
+    <string name="alarm_scheduled_for">Naplánováno na %s</string>
+    <string name="date_picker_style_calendar">Kalendář</string>
+    <string name="date_picker_style_text">Text</string>
+    <string name="date_picker_style_title">Styl výběru data</string>
+    <string name="schedule_alarm_title">Naplánovat budík</string>
+    <string name="random_ringtone_title">Náhodné vyzvánění</string>
+    <string name="add_new_sound_subtitle">Podržte pro výběr složky</string>
 </resources>

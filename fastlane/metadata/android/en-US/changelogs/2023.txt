@@ -1,0 +1,15 @@
+**Fixes**
+- Fix top padding for devices with notch
+- Fix alarm and timer vibrations for some devices
+
+**Improvements**
+- Set alarms to a specific date
+- Ability to play ringtones randomly
+- Ability to select folder to add ringtones
+- Hide alarm label if not specified
+- Remove the `DISABLE_KEYGUARD` permission
+- Disable swipe to delete alarms if system animations are disabled
+- Update translations
+- Improve and clean code
+
+All changes here: https://github.com/BlackyHawky/Clock/releases/tag/2.20

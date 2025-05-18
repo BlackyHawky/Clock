@@ -218,7 +218,7 @@
     <string name="cities_activity_title" msgid="8552462751129256730">"Plaatsen"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Klok"</string>
     <string name="clock_style" msgid="2265011060429742344">"Stijl"</string>
-    <string name="display_clock_seconds_pref" msgid="691506643469501643">"Tijd met seconden weergeven"</string>
+    <string name="display_clock_seconds_pref" msgid="691506643469501643">Tijd met seconden tonen</string>
     <string name="open_date_settings" msgid="7712226973337806152">"Datum en tijd wijzigen"</string>
     <string name="clock_style_analog">Analoog</string>
     <string name="clock_style_digital">Digitaal</string>
@@ -394,7 +394,7 @@
     <string name="about_title">Over</string>
     <string name="contributors">Bijdragers</string>
     <string name="credits">Dank aan</string>
-    <string name="about_dialog_message">• Omdraaien en schudden om wekker uit te zetten/stellen \n\n• Wekker uitzetten/uitstellen met de aan/uit-knop of volumeknoppen \n\n• Alleen voor Snapdragon apparaten: wekker af laten gaan als het toestel is uitgeschakeld \n\n• Veeg om wekker te verwijderen \n\n• Wekkers dupliceren \n\n• Wekkertitel aanpassen \n\n• Wekkergeluid aanpassen \n\n• Licht, donker of systeemthema \n\n• AMOLED-modus voor donker thema \n\n• Digitale of analoge klokstijl \n\n• Klok voor thuis tijdens het reizen \n\n• Bekijk de tijd in vele steden rond de wereld \n\n• Bevat kookwekker en stopklok\n\n• Mogelijkheid om stopkloktijden te delen met contacten \n\n• Aanpasbare screensaver \n\n• Moderne widgets \n\n• Aanpasbare widgets\n\n• Ondersteuning voor tegels in de snelle instellingen (Android 7+); \n\n• Back-up en herstel app-data (behalve aangepaste ringtonen)\n\n• Material design \n\n• Dynamische kleuren voor Android 12+</string>
+    <string name="about_dialog_message">• Wekkers zetten voor een specifieke datum \n\n• Omdraaien en schudden om wekker uit te zetten/stellen \n\n• Wekker uitzetten/uitstellen met de aan/uit-knop of volumeknoppen \n\n• Alleen voor Snapdragon apparaten: wekker af laten gaan als het toestel is uitgeschakeld \n\n• Veeg om wekker te verwijderen \n\n• Wekkers dupliceren \n\n• Wekkertitel aanpassen \n\n• Wekkergeluid aanpassen \n\n• Licht, donker of systeemthema \n\n• AMOLED-modus voor donker thema \n\n• Digitale of analoge klokstijl \n\n• Klok voor thuis tijdens het reizen \n\n• Bekijk de tijd in vele steden rond de wereld \n\n• Bevat kookwekker en stopklok\n\n• Mogelijkheid om stopkloktijden te delen met contacten \n\n• Aanpasbare screensaver \n\n• Moderne widgets \n\n• Aanpasbare widgets\n\n• Ondersteuning voor tegels in de snelle instellingen (Android 7+); \n\n• Back-up en herstel app-data (behalve aangepaste ringtonen)\n\n• Material design \n\n• Dynamische kleuren voor Android 12+</string>
     <string name="screensaver_daydream_settings">Screensaver selecteren/inschakelen</string>
     <string name="screensaver_daydream_settings_summary">Opent de systeeminstellingen voor screensavers</string>
     <string name="screensaver_clock_dynamic_colors_title">Dynamische klokkleuren</string>
@@ -449,7 +449,7 @@
     <string name="about_github_link">Bekijk op GitHub</string>
     <string name="license">Open-source licentie</string>
     <string name="dialog_close">Sluiten</string>
-    <string name="first_launch_main_feature_message">► Licht, donker of systeemthema; &lt;br&gt; &lt;br&gt; ► Aanpasbare screensaver; &lt;br&gt; &lt;br&gt;► Aanpasbare widgets; &lt;br&gt; &lt;br&gt; ►Ondersteuning voor tegels in de snelle instellingen (Android 7+)&lt;br&gt; &lt;br&gt;►Backup en herstel app-data (behalve aangepaste ringtonen);&lt;br&gt; &lt;br&gt; ► Material design en dynamische kleuren; &lt;br&gt; &lt;br&gt; ►Veeg om wekker te verwijderen; &lt;br&gt; &lt;br&gt; ► Wekker dupliceren; &lt;br&gt; &lt;br&gt; ► Omdraaien en schudden om wekker uit te zetten/stellen; &lt;br&gt; &lt;br&gt; ► Wekker uitzetten/stellen met de aan/uit-knop of volume knoppen; &lt;br&gt; &lt;br&gt; ► %s</string>
+    <string name="first_launch_main_feature_message">► Licht, donker of systeemthema; &lt;br&gt; &lt;br&gt; ► Aanpasbare screensaver; &lt;br&gt; &lt;br&gt;► Aanpasbare widgets; &lt;br&gt; &lt;br&gt; ►Ondersteuning voor tegels in de snelle instellingen (Android 7+)&lt;br&gt; &lt;br&gt;►Backup en herstel app-data (behalve aangepaste ringtonen);&lt;br&gt; &lt;br&gt; ► Material design en dynamische kleuren; &lt;br&gt; &lt;br&gt; ►Wekkers zetten voor een specifieke datum; &lt;br&gt; &lt;br&gt; ► Veeg om wekker te verwijderen; &lt;br&gt; &lt;br&gt; ► Wekker dupliceren; &lt;br&gt; &lt;br&gt; ► Omdraaien en schudden om wekker uit te zetten/stellen; &lt;br&gt; &lt;br&gt; ► Wekker uitzetten/stellen met de aan/uit-knop of volume knoppen; &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="firing_alarms_timers_channel">Wekkers en kookwekkers activeren</string>
     <string name="first_launch_main_feature_link">… en veel meer!</string>
     <string name="permission_management_summary">Toon de rechten die nodig zijn om de app goed te laten werken</string>
@@ -462,7 +462,7 @@
     <string name="material_time_picker_style_title">Tijdselectie</string>
     <string name="alarm_settings_summary">Uiterlijk, standaard wekkergeluid, volume, sluimeracties, eerste weekdag, herinneringstijd aanpassen</string>
     <string name="widget_next_alarm_default_color_title">Standaardkleur voor volgende wekker</string>
-    <string name="digital_widget_message_summary">\"Toon steden op widget\" moet uitgeschakeld zijn voor deze optie</string>
+    <string name="digital_widget_message_summary">\"Steden op widget tonen\" moet uitgeschakeld zijn voor deze optie</string>
     <string name="enable_alarm_snooze_actions_label">Sluimeracties inschakelen</string>
     <string name="alarm_label_box_title">Wekkerlabel</string>
     <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Wekker uitzetten als wekkergeluid eindigt</string>
@@ -482,7 +482,7 @@
     <string name="default_time_to_add_to_timer_title">Standaardtijd om aan kookwekker toe te voegen</string>
     <string name="widget_background_title">Achtergrond tonen</string>
     <string name="background_color_title">Achtergrondkleur</string>
-    <string name="digital_widget_city_title">Toon steden op widget</string>
+    <string name="digital_widget_city_title">Steden op widget tonen</string>
     <string name="digital_widget_clock_default_color_title">Standaardkleur voor klok</string>
     <string name="digital_widget_date_default_color_title">Standaardkleur voor datum</string>
     <string name="widget_next_alarm_custom_color_title">Kleur volgende wekker aanpassen</string>
@@ -610,7 +610,7 @@
     <string name="day_accent_color_title">Accentkleur voor dagmodus</string>
     <string name="warning_dialog_message">Weet je zeker dat je de \"%s\" kookwekker wilt verwijderen?</string>
     <string name="display_warning_before_deleting_timer_title">Waarschuwing weergeven voor het verwijderen van een kookwekker</string>
-    <string name="display_ringtone_title">Naam van ringtoon weergeven</string>
+    <string name="display_ringtone_title">Naam van ringtoon tonen</string>
     <string name="warning_dialog_title">Kookwekker verwijderen</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">Trillen als wekker wordt gesluimerd of uitgezet</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">Dubbel trillen als wekker wordt gesluimerd en één keer trillen als wekker wordt uitgezet</string>
@@ -637,16 +637,16 @@
     <string name="show_lockscreen_permission_title">TONEN OP VERGRENDELSCHERM</string>
     <string name="show_lockscreen_dialog_text">Bij Xiami toestellen, moet de \"Toon op vergrendelscherm\" toestemming manueel geactiveerd worden in de instellingen zodat de applicatie normaal kan werken.</string>
     <string name="clock_style_analog_material">Analoog (Material)</string>
-    <string name="clock_style_spinner">Carousel</string>
+    <string name="clock_style_spinner">Carrousel</string>
     <string name="settings_language_dutch">Nederlands</string>
     <string name="settings_language_russian">Russisch</string>
     <string name="analog_widget_without_second_hand_title">Zonder de secondewijzer</string>
     <string name="analog_widget_with_second_hand_title">Met de secondewijzer</string>
     <string name="analog_widget_choice_title">Kies je stijl</string>
     <string name="analog_widget_configuration_warning">Deze widget is alleen configureerbaar vanaf Android 12</string>
-    <string name="settings_tab_to_display">Tabblad om weer te geven bij het openen van de applicatie</string>
+    <string name="settings_tab_to_display">Tabblad openen bij start</string>
     <string name="timer_button_time_warning_box_text">Voer een waarde in tussen 1 en 120 minuten</string>
-    <string name="last_tab_used_title">Laatst gebruikte tabblad</string>
+    <string name="last_tab_used_title">Laatst gebruikt</string>
     <string name="timer_button_time_warning_box_title">Onjuiste waarde ingevoerd</string>
     <string name="settings_language_turkish">Turks</string>
     <string name="contributors_dialog_title">Profiel bekijken</string>
@@ -660,7 +660,7 @@
     <string name="tab_title_visibility_never">Nooit</string>
     <string name="settings_language_czech">Tsjechisch</string>
     <string name="settings_toolbar_title">Titel in navigatiemenu tonen</string>
-    <string name="settings_tab_title_visibility_title">Toon titels van de tabbladen</string>
+    <string name="settings_tab_title_visibility_title">Titels van tabbladen tonen</string>
     <string name="tab_title_visibility_always">Altijd</string>
     <string name="tab_title_visibility_when_selected">Wanneer geselecteerd</string>
     <string name="settings_keep_screen_on_title">Scherm aanhouden</string>
@@ -675,4 +675,12 @@
     <string name="description_dismiss_button_for_occasional_alarm">Tik om wekker uit te zetten en te verwijderen</string>
     <string name="settings_language_chinese_traditional_tw">Chinees (traditioneel, Taiwan)</string>
     <string name="alarm_is_dismissed_and_deleted"><xliff:g example="14:20" id="alarm_time">%s</xliff:g> wekker uitgezet en verwijderd</string>
+    <string name="date_picker_style_calendar">Kalender</string>
+    <string name="date_picker_style_title">Datumkiezer</string>
+    <string name="alarm_scheduled_for">Ingeroosterd voor %s</string>
+    <string name="schedule_alarm_title">Wekker inroosteren</string>
+    <string name="random_ringtone_title">Willekeurige ringtoon</string>
+    <string name="add_new_sound_subtitle">Lang tikken om een map te selecteren</string>
+    <string name="date_picker_style_text">Tekst</string>
+    <string name="warning">Waarschuwing</string>
 </resources>
