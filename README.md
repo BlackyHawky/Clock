@@ -108,7 +108,7 @@ Clock is licensed under GNU General Public License v3.0.
 
 > Permissions of this strong copyleft license are conditioned on making available complete source code of licensed works and modifications, which include larger works using a licensed work, under the same license. Copyright and license notices must be preserved. Contributors provide an express grant of patent rights.
 
-See repo's [LICENSE](/LICENSE-GPL-3) file.
+See repo's [LICENSE](/LICENSE) file.
 
 Since the app is based on Apache 2.0 licensed AOSP Clock, an [Apache 2.0](LICENSE-Apache-2.0) license file is provided too.
 
