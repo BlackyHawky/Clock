@@ -1,0 +1,15 @@
+**Fix**
+- Fix a bug introduced in version 2.20 regarding stopwatch buttons
+
+**Note**
+Other features of version 2.20 are retained and can be viewed in the link below:
+
+- Fix top padding for devices with notch
+- Fix alarm and timer vibrations for some devices
+- Set alarms to a specific date
+- Ability to play ringtones randomly
+- Ability to select folder to add ringtones
+- Remove the `DISABLE_KEYGUARD` permission
+... and more
+
+https://github.com/BlackyHawky/Clock/releases/tag/2.20
