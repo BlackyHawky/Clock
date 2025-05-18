@@ -309,8 +309,6 @@ public class DeskClock extends AppCompatActivity
         // Customize the view pager.
         mFragmentTabPagerAdapter = new FragmentTabPagerAdapter(this);
         mFragmentTabPager = findViewById(R.id.desk_clock_pager);
-        // Keep all four tabs to minimize jank.
-        mFragmentTabPager.setOffscreenPageLimit(3);
         // Set Accessibility Delegate to null so view pager doesn't intercept movements and
         // prevent the fab from being selected.
         mFragmentTabPager.setAccessibilityDelegate(null);
