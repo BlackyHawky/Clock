@@ -637,7 +637,7 @@
     <string name="last_tab_used_title">上次使用的标签页‌</string>
     <string name="timer_button_time_warning_box_title">输入的值不正确</string>
     <string name="settings_tab_to_display">打开应用时显示的标签页‌</string>
-    <string name="timer_button_time_warning_box_text">请输入介于 1 和 120 分钟之间的值</string>
+    <string name="timer_button_time_minutes_warning_box_text">请输入介于 0 和 60 分钟之间的值</string>
     <string name="settings_language_turkish">土耳其语</string>
     <string name="reset_settings_title">重置设置</string>
     <string name="reset_settings_message">是否确定要重置所有应用设置？\n\n注意：不会重置自定义铃声。</string>
@@ -645,7 +645,6 @@
     <string name="blue_accent_color">蓝色</string>
     <string name="toast_message_for_reset">重置已完成</string>
     <string name="settings_language_korean">韩语</string>
-    <string name="default_time_to_add_to_timer_2_hours">2 小时</string>
     <string name="display_date_title">在微件上显示日期</string>
     <string name="settings_keep_screen_on_title">保持屏幕开启</string>
     <string name="settings_toolbar_title">在工具栏中显示标题</string>

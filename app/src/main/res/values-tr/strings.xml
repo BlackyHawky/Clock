@@ -379,7 +379,7 @@
     <string name="timer_channel">Zamanlayıcı</string>
     <string name="auto_silence_30_seconds">30 saniye</string>
     <string name="sw_long_press_volume_down_action_title">Ses kısma (uzun basınca)</string>
-    <string name="timer_button_time_warning_box_text">1 ile 120 dakika arasında bir değer girin</string>
+    <string name="timer_button_time_minutes_warning_box_text">0 ile 60 dakika arasında bir değer girin</string>
     <string name="clock_style_analog_material">Analog (Materyal)</string>
     <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Zil sesi sona erince alarmı kapat</string>
     <string name="enable_alarm_snooze_actions_label">Alarm erteleme eylemlerini etkinleştir</string>
@@ -651,7 +651,6 @@
     <string name="toast_message_for_reset">Sıfırlama tamamlandı</string>
     <string name="settings_language_korean">Korece</string>
     <string name="blue_accent_color">Mavi</string>
-    <string name="default_time_to_add_to_timer_2_hours">2 saat</string>
     <string name="display_date_title">Araçta tarihi görüntüle</string>
     <string name="settings_toolbar_title">Araç çubuğunda başlığı görüntüle</string>
     <string name="settings_tab_title_visibility_title">Sekme başlıklarını görüntüle</string>

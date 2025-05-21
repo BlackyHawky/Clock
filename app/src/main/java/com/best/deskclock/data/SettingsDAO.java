@@ -476,12 +476,12 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return the default minutes or hour to add to timer when the "Add Minute Or Hour" button is clicked.
+     * @return the default minutes in seconds to add to timer when the "Add Minute" button is clicked.
      */
     public static int getDefaultTimeToAddToTimer(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_timer.xml
         final String string = prefs.getString(KEY_DEFAULT_TIME_TO_ADD_TO_TIMER, DEFAULT_TIME_TO_ADD_TO_TIMER);
-        return Integer.parseInt(string);
+        return Integer.parseInt(string) * 60;
     }
 
     /**

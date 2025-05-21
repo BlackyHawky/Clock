@@ -675,7 +675,7 @@
     <string name="last_tab_used_title">Остання використана вкладка</string>
     <string name="settings_tab_to_display">Вкладка, на якій відкриватиметься додаток</string>
     <string name="timer_button_time_warning_box_title">Введено неправильне значення</string>
-    <string name="timer_button_time_warning_box_text">Введіть значення від 1 до 120 хвилин</string>
+    <string name="timer_button_time_minutes_warning_box_text">Введіть значення від 0 до 60 хвилин</string>
     <string name="settings_language_turkish">Турецька</string>
     <string name="reset_settings_message">Ви дійсно хочете скинути всі налаштування додатка?\n\nЗауважте, що користувацькі мелодії не скидаються.</string>
     <string name="reset_settings_title">Скинути налаштування</string>
@@ -683,7 +683,6 @@
     <string name="blue_accent_color">Синій</string>
     <string name="toast_message_for_reset">Скидання завершено</string>
     <string name="settings_language_korean">Корейська</string>
-    <string name="default_time_to_add_to_timer_2_hours">2 години</string>
     <string name="display_date_title">Показувати дату у віджеті</string>
     <string name="settings_tab_title_visibility_title">Показувати заголовки вкладок</string>
     <string name="settings_toolbar_title">Показувати заголовок панелі інструментів</string>

@@ -37,6 +37,10 @@
     <string name="duplicate">Duplicate</string>
     <!-- Label "Warning" -->
     <string name="warning">Warning</string>
+    <!-- Label "Minutes" -->
+    <string name="minutes">Minutes</string>
+    <!-- Label "Seconds" -->
+    <string name="seconds">Seconds</string>
     <!-- Title of default ringtone played when an alarm triggers [CHAR LIMIT=30] -->
     <string name="default_alarm_ringtone_title">Default alarm sound</string>
     <!-- Title for alarm ringtone picker screen [CHAR LIMIT=30] -->
@@ -677,8 +681,10 @@
     <string name="timer_label_box_title">Timer label</string>
     <!-- Title of dialog box to edit button for adding time to timer. -->
     <string name="timer_button_time_box_title">Minutes to add to the timer</string>
-    <!-- Text of dialog box to edit button for adding time to timer. -->
-    <string name="timer_button_time_warning_box_text">Enter a value between 1 and 120 minutes</string>
+    <!-- Text of dialog box to edit minutes for adding time to timer. -->
+    <string name="timer_button_time_minutes_warning_box_text">Enter a value between 0 and 60 minutes</string>
+    <!-- Text of dialog box to edit seconds for adding time to timer. -->
+    <string name="timer_button_time_seconds_warning_box_text">Enter a value between 0 and 59 seconds</string>
     <!-- Title of dialog box to edit button for adding time to timer if the entered value is incorrect. -->
     <string name="timer_button_time_warning_box_title">Incorrect value entered</string>
     <!-- Describes the purpose of the button to add a new timer -->
@@ -687,10 +693,14 @@
     <string name="timer_start">Start</string>
     <!-- Talkback description for deleting a number. -->
     <string name="timer_descriptive_delete">Delete <xliff:g id="number_string">%s</xliff:g></string>
-    <!-- Describes the purpose of the button increase the remaining time on a timer by one minute. -->
+    <!-- Describes the purpose of the button increase the remaining time on a timer by x minute. -->
     <string name="timer_add_custom_time_description">Add %s Minute</string>
+    <!-- Describes the purpose of the button increase the remaining time on a timer by x minute and x seconds. -->
+    <string name="timer_add_custom_time_with_seconds_description">Add %1$s Minute %2s Seconds</string>
     <!-- Like "timer_add_custom_time_description", but with 'minute' abbreviated for the notification. -->
     <string name="timer_add_custom_time_for_notification">Add %s min</string>
+    <!-- Like "timer_add_custom_time_with_seconds_description", but with 'minute' and 'second' abbreviated for the notification. -->
+    <string name="timer_add_custom_time_with_seconds_for_notification">Add %1$s min %2$s s</string>
     <!-- Label for adding custom time to a timer. [CHAR LIMIT=10] -->
     <string name="timer_add_custom_time">+ %s</string>
     <!-- Describes the purpose of the button to stop the timer. -->
@@ -722,7 +732,7 @@
     <string name="timer_reset_all">Reset all timers</string>
     <string name="hours_minutes_seconds"><xliff:g example="2" id="hours">%1$d</xliff:g>:<xliff:g example="3" id="minutes">%2$02d</xliff:g>:<xliff:g example="44" id="seconds">%3$02d</xliff:g></string>
     <string name="minutes_seconds"><xliff:g example="3" id="minutes">%1$d</xliff:g>:<xliff:g example="44" id="seconds">%2$02d</xliff:g></string>
-    <string name="seconds"><xliff:g example="44" id="seconds">%1$02d</xliff:g></string>
+    <string name="seconds_only"><xliff:g example="44" id="seconds">%1$02d</xliff:g></string>
     <!-- Jocular content that user may append when sharing the lap times - Message 1 -->
     <string name="jocular_content_message_1">You\'re quite the speed demon.</string>
     <!-- Jocular content that user may append when sharing the lap times - Message 2 -->
@@ -1138,8 +1148,6 @@
     <string name="default_time_to_add_to_timer_30_minutes">30 minutes</string>
     <!-- Setting title for changing the default time to add to 1 hour. -->
     <string name="default_time_to_add_to_timer_1_hour">1 hour</string>
-    <!-- Setting title for changing the default time to add to 2 hours. -->
-    <string name="default_time_to_add_to_timer_2_hours">2 hours</string>
     <!-- Title for setting transparent background when timers expires in timer settings -->
     <string name="transparent_background_for_expired_timer_title">Transparent background when timers expire</string>
     <!-- Setting title to display a warning before deleting a timer -->

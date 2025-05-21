@@ -481,7 +481,7 @@
     <string name="power_button_title">Vypínač</string>
     <string name="sw_long_press_volume_down_action_title">Snížení hlasitosti (dlouhé stisknutí)</string>
     <string name="sw_start_pause_action">Spustit / pozastavit</string>
-    <string name="timer_button_time_warning_box_text">Zadejte hodnotu mezi 1 a 120 minutami</string>
+    <string name="timer_button_time_minutes_warning_box_text">Zadejte hodnotu mezi 0 a 60 minutami</string>
     <string name="alarm_settings_summary">Nastavení stylu, výchozího vyzvánění, hlasitosti, akcí pro zrušení nebo odložení budíku, prvního dne týdnu a času oznámení s připomínkou</string>
     <string name="whats_new_title">Co je nového</string>
     <string name="whats_new_dialog_message">Podívejte se, co je nového:\n\n%s</string>
@@ -546,7 +546,6 @@
     <string name="show_lockscreen_dialog_title">Zobrazit na obrazovce uzamčení</string>
     <string name="settings_language_english_us">Angličtina (americká)</string>
     <string name="settings_language_chinese_simplified_cn">Čínština (zjednodušená, PRC)</string>
-    <string name="default_time_to_add_to_timer_2_hours">2 hodiny</string>
     <string name="first_launch_main_feature_message">► Světlý, tmavý nebo systémový motiv; &lt;br&gt; &lt;br&gt; ► Přizpůsobitelný spořič obrazovky; &lt;br&gt; &lt;br&gt; ► Přizpůsobitelné widgety; &lt;br&gt; &lt;br&gt; ► Podpora dlaždic v rychlém nastavení (pro Android 7+); &lt;br&gt; &lt;br&gt; ► Záloha a obnovení dat aplikace (kromě vlastních vyzvánění); &lt;br&gt; &lt;br&gt; ► Material Design a dynamické barvy; &lt;br&gt; &lt;br&gt; ► Nastavení budíků na určité datum; &lt;br&gt; &lt;br&gt; ► Přejetí pro odstranění budíku; &lt;br&gt; &lt;br&gt; ► Duplikování budíku; &lt;br&gt; &lt;br&gt; ► Akce otočení a zatřesení pro zrušení/odložení budíku; &lt;br&gt; &lt;br&gt; ► Vypnutí/odložení budíku vypínačem nebo tlačítky hlasitosti; &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="notifications_dialog_text">Kromě nastavení budíků má tato aplikace také časovač a režim stopek. \n\nAby se správně zobrazovala oznámení pro všechny moduly a zejména aby se spustil budík, doporučujeme aktivovat oznámení pro tuto aplikaci.</string>
     <string name="ignore_battery_optimizations_dialog_text">Ve výchozím nastavení systém Android nastaví všechny uživatelem nainstalované aplikace tak, aby byly optimalizovány pro úsporu baterie. \n\nAčkoli to je pro většinu aplikací přijatelné, tato aplikace je budík a nastavené optimalizace baterie často způsobují problémy. Jakmile je povolíte, může systém Android v jakoukoli chvíli ukočnti aplikaci a/nebo zrušit naplánované budíky, což by výrazně ovlivnilo funkčnost aplikace. \n\nDoporučujeme vyjmout tuto aplikaci z optimalizací baterie.</string>

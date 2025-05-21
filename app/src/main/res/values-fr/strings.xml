@@ -661,7 +661,7 @@
     <string name="last_tab_used_title">Dernier onglet utilisé</string>
     <string name="timer_button_time_warning_box_title">Valeur saisie incorrecte</string>
     <string name="settings_tab_to_display">Onglet à afficher lors de l\'ouverture de l\'application</string>
-    <string name="timer_button_time_warning_box_text">Saisir une valeur comprise entre 1 et 120 minutes</string>
+    <string name="timer_button_time_minutes_warning_box_text">Saisir une valeur comprise entre 0 et 60 minutes</string>
     <string name="settings_language_turkish">Turc</string>
     <string name="reset_settings_title">Réinitialiser les paramètres</string>
     <string name="reset_settings_message">Êtes-vous sûr de vouloir réinitialiser tous les paramètres de l\'application ? \n\nRemarque : les sonneries personnalisées ne seront pas réinitialisées.</string>
@@ -669,7 +669,6 @@
     <string name="blue_accent_color">Bleu</string>
     <string name="toast_message_for_reset">Réinitialisation terminée</string>
     <string name="settings_language_korean">Coréen</string>
-    <string name="default_time_to_add_to_timer_2_hours">2 heures</string>
     <string name="display_date_title">Afficher la date sur le widget</string>
     <string name="settings_toolbar_title">Afficher le titre dans la barre d\'outils</string>
     <string name="settings_tab_title_visibility_title">Afficher le titre des onglets</string>

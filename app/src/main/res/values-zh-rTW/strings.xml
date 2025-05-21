@@ -522,7 +522,6 @@
     <string name="screensaver_next_alarm_color_title">下個鬧鐘色彩</string>
     <string name="screensaver_italic_digital_clock_title">斜體數位時鐘</string>
     <string name="backup_restore_summary">備份或還原應用程式資料 (不含自訂鈴聲)</string>
-    <string name="default_time_to_add_to_timer_2_hours">2 小時</string>
     <string name="warning_dialog_message">您要刪除計時器「%s」嗎？</string>
     <string name="screensaver_settings_summary">設定螢幕保護程式外觀、色彩及字型</string>
     <string name="screensaver_preview_summary">立即啟動螢幕保護程式</string>
@@ -565,7 +564,7 @@
     <string name="tab_title_visibility_never">隱藏</string>
     <string name="tab_title_visibility_when_selected">僅選取時</string>
     <string name="settings_language_czech">捷克</string>
-    <string name="timer_button_time_warning_box_text">請輸入 1~120 分鐘間的數值</string>
+    <string name="timer_button_time_minutes_warning_box_text">請輸入 0~60 分鐘間的數值</string>
     <string name="transparent_background_for_expired_timer_title">計時器到期透明背景</string>
     <string name="settings_keep_screen_on_title">保持螢幕開啟</string>
     <string name="sw_start_pause_action">開始 / 暫停</string>

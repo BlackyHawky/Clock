@@ -645,7 +645,7 @@
     <string name="settings_language_russian">Russisch</string>
     <string name="clock_style_spinner">Scrollen</string>
     <string name="settings_tab_to_display">Tab, der beim Öffnen der App angezeigt wird</string>
-    <string name="timer_button_time_warning_box_text">Geben Sie einen Wert zwischen 1 und 120 Minuten ein</string>
+    <string name="timer_button_time_minutes_warning_box_text">Geben Sie einen Wert zwischen 0 und 60 Minuten ein</string>
     <string name="last_tab_used_title">Zuletzt verwendeter Tab</string>
     <string name="timer_button_time_warning_box_title">Falscher Wert eingegeben</string>
     <string name="settings_language_turkish">Türkisch</string>
@@ -655,7 +655,6 @@
     <string name="blue_accent_color">Blau</string>
     <string name="toast_message_for_reset">Zurücksetzen abgeschlossen</string>
     <string name="settings_language_korean">Koreanisch</string>
-    <string name="default_time_to_add_to_timer_2_hours">2 Stunden</string>
     <string name="display_date_title">Datum im Widget anzeigen</string>
     <string name="settings_toolbar_title">Titel in der Symbolleiste anzeigen</string>
     <string name="settings_tab_title_visibility_title">Tab-Titel anzeigen</string>

@@ -238,7 +238,7 @@
     <string name="timer_reset_all">Ailosod pob amserydd</string>
     <string name="hours_minutes_seconds"><xliff:g example="2" id="hours">%1$d</xliff:g>:<xliff:g example="3" id="minutes">%2$02d</xliff:g>:<xliff:g example="44" id="seconds">%3$02d</xliff:g></string>
     <string name="minutes_seconds"><xliff:g example="3" id="minutes">%1$d</xliff:g>:<xliff:g example="44" id="seconds">%2$02d</xliff:g></string>
-    <string name="seconds"><xliff:g example="44" id="seconds">%d</xliff:g></string>
+    <string name="seconds_only"><xliff:g example="44" id="seconds">%d</xliff:g></string>
     <string name="jocular_content_message_1">Dy amseroedd di</string>
     <string name="jocular_content_message_2">Dy amseroedd di</string>
     <string name="jocular_content_message_3">Mae Android yn gyflym, ond nid mor gyflym ag wyt ti!</string>

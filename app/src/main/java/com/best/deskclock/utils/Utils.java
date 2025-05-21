@@ -119,7 +119,7 @@ public class Utils {
         if (minutes != 0) {
             return context.getString(R.string.minutes_seconds, minutes, seconds);
         }
-        return context.getString(R.string.seconds, seconds);
+        return context.getString(R.string.seconds_only, seconds);
     }
 
     /**

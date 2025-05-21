@@ -6,7 +6,6 @@
 
 package com.best.deskclock.data;
 
-import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
@@ -423,17 +422,17 @@ public final class Timer {
     }
 
     /**
-     * @return a copy of this timer with additional minutes or hours added to the remaining time and total
-     * length, or this Timer if the minutes or hours could not be added
+     * @return a copy of this timer with additional minutes added to the remaining time and total
+     * length, or this Timer if the minutes could not be added
      */
     Timer addCustomTime() {
         // Expired and missed timers restart with the time indicated on the add time button.
         if (mState == EXPIRED || mState == MISSED) {
-            return setRemainingTime(Integer.parseInt(mButtonTime) * MINUTE_IN_MILLIS);
+            return setRemainingTime(Integer.parseInt(mButtonTime) * SECOND_IN_MILLIS);
         }
 
         // Otherwise try to add time indicated on the add time button to the remaining time.
-        return setRemainingTime(mRemainingTime + Integer.parseInt(mButtonTime) * MINUTE_IN_MILLIS);
+        return setRemainingTime(mRemainingTime + Integer.parseInt(mButtonTime) * SECOND_IN_MILLIS);
     }
 
     @Override

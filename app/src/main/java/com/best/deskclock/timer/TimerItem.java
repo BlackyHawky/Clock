@@ -218,16 +218,23 @@ public class TimerItem extends ConstraintLayout {
 
         // Initialize the time value to add to timer in the "timer_add_time_button"
         String buttonTime = timer.getButtonTime();
-        long totalMinutes = Long.parseLong(buttonTime);
-        long buttonTimeHours = totalMinutes / 60;
-        long buttonTimeMinutes = totalMinutes % 60;
-        long buttonTimeSeconds = 0;
-        String buttonTimeFormatted = (buttonTimeHours >= 1)
-                ? String.format(Locale.US, "%01d:%02d:%02d", buttonTimeHours, buttonTimeMinutes, buttonTimeSeconds)
-                : String.format(Locale.US, "%01d:%02d", buttonTimeMinutes, buttonTimeSeconds);
+        long totalSeconds = Long.parseLong(buttonTime);
+        long buttonTimeMinutes = (totalSeconds) / 60;
+        long buttonTimeSeconds = totalSeconds % 60;
+
+        String buttonTimeFormatted = String.format(
+                Locale.getDefault(),
+                buttonTimeMinutes < 10 ? "%d:%02d" : "%02d:%02d",
+                buttonTimeMinutes,
+                buttonTimeSeconds);
+
         mAddTimeButton.setText(getContext().getString(R.string.timer_add_custom_time, buttonTimeFormatted));
 
-        String buttonContentDescription = getContext().getString(R.string.timer_add_custom_time_description, buttonTime);
+        String buttonContentDescription = buttonTimeSeconds == 0
+                ? getContext().getString(R.string.timer_add_custom_time_description, String.valueOf(buttonTimeMinutes))
+                : getContext().getString(R.string.timer_add_custom_time_with_seconds_description,
+                    String.valueOf(buttonTimeMinutes),
+                    String.valueOf(buttonTimeSeconds));
         mAddTimeButton.setContentDescription(buttonContentDescription);
 
         // Initialize some potentially expensive areas of the user interface only on state changes.
