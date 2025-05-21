@@ -276,8 +276,6 @@ public final class StopwatchFragment extends DeskClockFragment {
 
         // Synchronize the user interface with the data model.
         updateUI(FAB_AND_BUTTONS_IMMEDIATE);
-
-        //adjustWakeLock();
     }
 
     @Override

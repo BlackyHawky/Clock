@@ -155,17 +155,43 @@ public class TimerItem extends ConstraintLayout {
     }
 
     /**
-     * Updates this view to display the latest state of the {@code timer}.
+     * Dynamically updates the {@code timer} display based on its current state.
      */
-    void update(Timer timer) {
-        // Update the time.
+    void updateTimeDisplay(Timer timer) {
+        final boolean blinkOff = SystemClock.elapsedRealtime() % 1000 < 500;
+
+        mTimerTextController.setTimeString(timer.getRemainingTime());
+
+        if (mCircleView != null) {
+            final boolean hideCircle = ((timer.isExpired() || timer.isMissed()) && blinkOff)
+                    || (!mIsTablet && mIsLandscape);
+
+            mCircleView.setVisibility(hideCircle ? INVISIBLE : VISIBLE);
+
+            if (!hideCircle) {
+                mCircleView.update(timer);
+            }
+        }
+
+        if (!timer.isPaused() || !blinkOff || mTimerText.isPressed()) {
+            mTimerText.setAlpha(1f);
+        } else {
+            mTimerText.setAlpha(0f);
+        }
+    }
+
+    /**
+     * Initializes the {@code timer} static visual elements when binding to a ViewHolder.
+     */
+    void bindTimer(Timer timer) {
+        // Initialize the time.
         mTimerTextController.setTimeString(timer.getRemainingTime());
 
         if (isPortraitPhoneWithMultipleTimers() && mTimerTotalDurationText != null) {
             mTimerTotalDurationText.setText(timer.getTotalDuration());
         }
 
-        // Update the label if it changed.
+        // Initialize the label
         final String label = timer.getLabel();
         if (label.isEmpty()) {
             mLabelView.setText(null);
@@ -176,26 +202,21 @@ public class TimerItem extends ConstraintLayout {
             mLabelView.setAlpha(1f);
         }
 
-        // Update visibility of things that may blink.
-        // Also, the circle is hidden for landscape phones because there is not enough space.
-        final boolean blinkOff = SystemClock.elapsedRealtime() % 1000 < 500;
+        // Initialize the circle
+        // (the circle is hidden for landscape phones because there is not enough space)
         if (mCircleView != null) {
-            final boolean hideCircle = (timer.isExpired() || timer.isMissed()) && blinkOff;
-            mCircleView.setVisibility(hideCircle || (!mIsTablet && mIsLandscape) ? INVISIBLE : VISIBLE);
+            final boolean hideCircle = !mIsTablet && mIsLandscape;
+
+            mCircleView.setVisibility(hideCircle ? INVISIBLE : VISIBLE);
 
             if (!hideCircle) {
-                // Update the progress of the circle.
                 mCircleView.update(timer);
             }
         }
 
-        if (!timer.isPaused() || !blinkOff || mTimerText.isPressed()) {
-            mTimerText.setAlpha(1f);
-        } else {
-            mTimerText.setAlpha(0f);
-        }
+        mTimerText.setAlpha(1f);
 
-        // Update the time value to add to timer in the "timer_add_time_button"
+        // Initialize the time value to add to timer in the "timer_add_time_button"
         String buttonTime = timer.getButtonTime();
         long totalMinutes = Long.parseLong(buttonTime);
         long buttonTimeHours = totalMinutes / 60;
@@ -209,7 +230,7 @@ public class TimerItem extends ConstraintLayout {
         String buttonContentDescription = getContext().getString(R.string.timer_add_custom_time_description, buttonTime);
         mAddTimeButton.setContentDescription(buttonContentDescription);
 
-        // Update some potentially expensive areas of the user interface only on state changes.
+        // Initialize some potentially expensive areas of the user interface only on state changes.
         if (timer.getState() != mLastState) {
             final Context context = getContext();
             final String resetDesc = context.getString(R.string.reset);

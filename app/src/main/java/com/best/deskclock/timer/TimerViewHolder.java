@@ -124,20 +124,22 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
 
     public void onBind(int timerId) {
         mTimerId = timerId;
-        updateTime();
+
+        final Timer timer = getTimer();
+        if (timer != null) {
+            mTimerItem.bindTimer(timer);
+        }
     }
 
     /**
      * @return {@code true} if the timer is in a state that requires continuous updates
      */
     boolean updateTime() {
-        final TimerItem view = mTimerItem;
-        if (view != null) {
-            final Timer timer = getTimer();
-            if (timer != null) {
-                view.update(timer);
-                return !timer.isReset();
-            }
+        final Timer timer = getTimer();
+
+        if (timer != null) {
+            mTimerItem.updateTimeDisplay(timer);
+            return !timer.isReset();
         }
 
         return false;

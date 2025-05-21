@@ -17,7 +17,6 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.text.TextUtils;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
@@ -218,6 +217,7 @@ public class ExpiredTimersActivity extends AppCompatActivity {
                 getLayoutInflater().inflate(R.layout.timer_item, mExpiredTimersView, false);
         // Store the timer id as a tag on the view so it can be located on delete.
         timerItem.setId(timerId);
+        timerItem.bindTimer(timer);
         mExpiredTimersView.addView(timerItem);
 
         // Hide the label hint for expired timers.
@@ -309,22 +309,17 @@ public class ExpiredTimersActivity extends AppCompatActivity {
     private class TimeUpdateRunnable implements Runnable {
         @Override
         public void run() {
-            final long startTime = SystemClock.elapsedRealtime();
-
             final int count = mExpiredTimersView.getChildCount();
             for (int i = 0; i < count; ++i) {
                 final TimerItem timerItem = (TimerItem) mExpiredTimersView.getChildAt(i);
                 final Timer timer = DataModel.getDataModel().getTimer(timerItem.getId());
                 if (timer != null) {
-                    timerItem.update(timer);
+                    timerItem.updateTimeDisplay(timer);
                 }
             }
 
-            final long endTime = SystemClock.elapsedRealtime();
-
             // Try to maintain a consistent period of time between redraws.
-            final long delay = Math.max(0L, startTime + 100L - endTime);
-            mExpiredTimersView.postDelayed(this, delay);
+            mExpiredTimersView.postDelayed(this, 500);
         }
     }
 

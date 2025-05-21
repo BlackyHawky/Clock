@@ -23,7 +23,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -484,17 +483,14 @@ public final class TimerFragment extends DeskClockFragment {
     private class TimeUpdateRunnable implements Runnable {
         @Override
         public void run() {
-            final long startTime = SystemClock.elapsedRealtime();
             // If no timer require continuous updates, avoid scheduling the next update
             // and don't keep the screen on.
             if (!mAdapter.updateTime()) {
                 return;
             }
-            final long endTime = SystemClock.elapsedRealtime();
 
-            // Try to maintain a consistent period of time between redraws.
-            final long delay = Math.max(0, startTime + 20 - endTime);
-            mTimersView.postDelayed(this, delay);
+            // Try to maintain a consistent period of time between redraws
+            mTimersView.postDelayed(this, 500);
         }
     }
 
