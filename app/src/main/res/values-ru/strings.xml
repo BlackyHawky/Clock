@@ -81,10 +81,10 @@
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> часа</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
-        <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> минута</item>
-        <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> минуты</item>
-        <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> минут</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> минуты</item>
+        <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> минута</item>
+        <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> минуты</item>
+        <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> минут</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> минут</item>
     </plurals>
     <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
         <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> минута</item>
@@ -96,7 +96,7 @@
         <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> секунда</item>
         <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> секунды</item>
         <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> секунд</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> секунды</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> секунд</item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"Каждый день"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>

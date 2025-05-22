@@ -71,16 +71,16 @@
         <item quantity="one">1 മണിക്കൂർ</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> മിനിറ്റ്</item>
         <item quantity="one">ഒരു മിനിറ്റ്</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> മിനിറ്റ്</item>
     </plurals>
     <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> മിനിറ്റ്</item>
         <item quantity="one">ഒരു മിനിറ്റ്</item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> സെക്കൻഡ്</item>
         <item quantity="one">ഒരു സെക്കൻഡ്</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> സെക്കൻഡ്</item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"എല്ലാ ദിവസവും"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>

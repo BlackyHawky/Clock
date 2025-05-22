@@ -81,10 +81,10 @@
         <item quantity="one">1 godz.</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
+        <item quantity="one">1 minuta</item>
         <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> minuty</item>
         <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> minut</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minuty</item>
-        <item quantity="one">1 minuta</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minut</item>
     </plurals>
     <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
         <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> min</item>
@@ -93,10 +93,10 @@
         <item quantity="one">1 min</item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
-        <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> sekundy</item>
-        <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> sekund</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> sekundy</item>
-        <item quantity="one">1 sekunda</item>
+        <item quantity="one">1 sekunda</item>
+        <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> sekundy</item>
+        <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> sekund</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> sekund</item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"Codziennie"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
@@ -693,4 +693,7 @@
     <string name="alarm_scheduled_for">Zaplanowano na %s</string>
     <string name="date_picker_style_title">Styl selektora daty</string>
     <string name="date_picker_style_calendar">Kalendarz</string>
+    <string name="warning">Ostrzeżenie</string>
+    <string name="random_ringtone_title">Losowy dzwonek</string>
+    <string name="add_new_sound_subtitle">Długie kliknięcie pozwala wybrać folder</string>
 </resources>

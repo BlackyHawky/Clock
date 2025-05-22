@@ -14,6 +14,7 @@ Funkcje:
 <li>Duplikuj alarmy;</li>
 <li>Możliwość dostosowania tytułu alarmu;</li>
 <li>Możliwość dostosowania dzwonka;</li>
+<li>Możliwość losowego odtwarzania dzwonków;</li>
 <li>Możliwość wyboru jasnego, ciemnego lub systemowego motywu;</li>
 <li>Tryb AMOLED dla ciemnego motywu;</li>
 <li>Możliwość dostosowania interfejsu;</li>

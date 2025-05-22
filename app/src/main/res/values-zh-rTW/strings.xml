@@ -500,7 +500,7 @@
     <string name="screensaver_bold_next_alarm_title">粗體下個鬧鐘</string>
     <string name="screensaver_daydream_settings_summary">開啟系統螢幕保護程式設定</string>
     <string name="first_launch_dialog_message">要離開應用程式嗎？</string>
-    <string name="first_launch_main_feature_message">► 淺色、深色及系統主題&lt;br&gt; &lt;br&gt; ► 自訂螢幕保護程式&lt;br&gt; &lt;br&gt; ► 自訂小工具&lt;br&gt; &lt;br&gt; ► 快速設定方塊 (Android 7 以上)&lt;br&gt; &lt;br&gt; ► 備份與還原資料 (不含自訂鈴聲)&lt;br&gt; &lt;br&gt; ► Material 外觀與動態色彩&lt;br&gt; &lt;br&gt; ► 滑動刪除鬧鐘&lt;br&gt; &lt;br&gt; ► 複製鬧鐘&lt;br&gt; &lt;br&gt; ► 翻轉或搖動裝置以關閉 / 延後鬧鐘&lt;br&gt; &lt;br&gt; ► 按下電源鍵或音量鍵以關閉 / 延後鬧鐘&lt;br&gt; &lt;br&gt; ► %s</string>
+    <string name="first_launch_main_feature_message">► 淺色、深色及系統主題&lt;br&gt; &lt;br&gt; ► 自訂螢幕保護程式&lt;br&gt; &lt;br&gt; ► 自訂小工具&lt;br&gt; &lt;br&gt; ► 快速設定方塊 (Android 7 以上)&lt;br&gt; &lt;br&gt; ► 備份與還原資料 (不含自訂鈴聲)&lt;br&gt; &lt;br&gt; ► Material 外觀與動態色彩&lt;br&gt; &lt;br&gt; ► 為指定日期配置鬧鐘&lt;br&gt; &lt;br&gt; ► 滑動刪除鬧鐘&lt;br&gt; &lt;br&gt; ► 複製鬧鐘&lt;br&gt; &lt;br&gt; ► 翻轉或搖動裝置以關閉 / 延後鬧鐘&lt;br&gt; &lt;br&gt; ► 按下電源鍵或音量鍵以關閉 / 延後鬧鐘&lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="next_alarm_widget_max_font_size_title">小工具文字大小</string>
     <string name="toast_message_for_restore">還原完成</string>
     <string name="alarm_upcoming_channel">即將啟動的鬧鐘</string>
@@ -625,7 +625,7 @@
     <string name="about_translate_link">Codeberg 翻譯</string>
     <string name="translate_dialog_message">造訪 Codeberg 頁面：\n\n%s</string>
     <string name="description_direction_both_for_non_repeatable_alarm">向左或向右滑動關閉</string>
-    <string name="about_dialog_message">• 翻轉或搖動裝置以關閉 / 延後鬧鐘\n\n• 按下電源鍵或音量鍵以關閉 / 延後鬧鐘\n• 關機狀態觸發鬧鐘，僅支援部分搭載 Snapdragon 處理器的裝置\n\t\t 請注意，這項功能在某些預裝<i>「com.qualcomm.qti.poweroffalarm」</i> 系統元件的裝置上仍有可能無法運作。\n\n• 滑動刪除鬧鐘\n\n• 複製鬧鐘\n\n• 自訂鬧鐘標題\n\n• 自訂鈴聲\n\n• 淺色、深色及系統主題\n\n• AMOLED 螢幕專用深色模式\n\n• 數位及類比時鐘樣式\n\n• 旅行時主頁顯示當地時間\n\n• 顯示世界多個城市時間\n\n• 計時器與碼表\n\n• 與您的聯絡人分享碼表\n\n• 自訂螢幕保護程式\n\n• 現代小工具\n\n• 自訂小工具\n\n• 快速設定方塊 (Android 7 以上)\n\n• 備份與還原資料 (不含自訂鈴聲)\n\n• Material 外觀\n\n• 動態色彩樣式 (Android 12 以上)</string>
+    <string name="about_dialog_message">• 為指定日期配置鬧鐘\n\n• 翻轉或搖動裝置以關閉 / 延後鬧鐘\n\n• 按下電源鍵或音量鍵以關閉 / 延後鬧鐘\n• 關機狀態觸發鬧鐘，僅支援部分搭載 Snapdragon 處理器的裝置\n\t\t 請注意，這項功能在某些預裝<i>「com.qualcomm.qti.poweroffalarm」</i> 系統元件的裝置上仍有可能無法運作。\n\n• 滑動刪除鬧鐘\n\n• 複製鬧鐘\n\n• 自訂鬧鐘標題\n\n• 自訂鈴聲\n\n• 淺色、深色及系統主題\n\n• AMOLED 螢幕專用深色模式\n\n• 數位及類比時鐘樣式\n\n• 旅行時主頁顯示當地時間\n\n• 顯示世界多個城市時間\n\n• 計時器與碼表\n\n• 與您的聯絡人分享碼表\n\n• 自訂螢幕保護程式\n\n• 現代小工具\n\n• 自訂小工具\n\n• 快速設定方塊 (Android 7 以上)\n\n• 備份與還原資料 (不含自訂鈴聲)\n\n• Material 外觀\n\n• 動態色彩樣式 (Android 12 以上)</string>
     <string name="timer_volume_buttons_action_title">音量鍵重設到期的計時器</string>
     <string name="timer_flip_action_title">翻轉裝置停止鬧鐘</string>
     <string name="timer_shake_action_title">搖動裝置停止鬧鐘</string>
@@ -658,4 +658,12 @@
     <string name="description_dismiss_button_for_occasional_alarm">輕觸即可關閉並刪除鬧鐘</string>
     <string name="description_snooze_button">輕觸即可延後鬧鐘</string>
     <string name="alarm_is_dismissed_and_deleted">已關閉並刪除臨時鬧鐘「<xliff:g example="14:20" id="alarm_time">%s</xliff:g>」</string>
+    <string name="warning">警告</string>
+    <string name="schedule_alarm_title">排定鬧鐘</string>
+    <string name="alarm_scheduled_for">已預定 %s</string>
+    <string name="add_new_sound_subtitle">按住以選取資料夾</string>
+    <string name="date_picker_style_title">日期選取面板樣式</string>
+    <string name="date_picker_style_calendar">日曆</string>
+    <string name="date_picker_style_text">文字</string>
+    <string name="random_ringtone_title">隨機鈴聲</string>
 </resources>

@@ -71,16 +71,16 @@
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> sa</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> dakika</item>
         <item quantity="one">1 dakika</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> dakika</item>
     </plurals>
     <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
         <item quantity="one">1 dk</item>
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> dk</item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> saniye</item>
         <item quantity="one">1 saniye</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> saniye</item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"Her gün"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
@@ -675,4 +675,5 @@
     <string name="alarm_scheduled_for">%s için ayarlandı</string>
     <string name="random_ringtone_title">Rasgele zil sesi</string>
     <string name="add_new_sound_subtitle">Bir dizini seçmek için uzun tıklayın</string>
+    <string name="warning">Uyaru</string>
 </resources>

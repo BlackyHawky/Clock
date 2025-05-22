@@ -92,11 +92,11 @@
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
         <item quantity="zero"><xliff:g id="NUMBER">%s</xliff:g> من الدقائق</item>
+        <item quantity="one">دقيقة واحدة</item>
         <item quantity="two">دقيقتان (<xliff:g id="NUMBER">%s</xliff:g>)</item>
         <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> دقائق</item>
         <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> دقيقة</item>
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> من الدقائق</item>
-        <item quantity="one">دقيقة واحدة</item>
     </plurals>
     <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
         <item quantity="zero"><xliff:g id="NUMBER">%s</xliff:g> دقيقة</item>
@@ -108,11 +108,11 @@
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
         <item quantity="zero"><xliff:g id="NUMBER">%s</xliff:g> ثانية</item>
+        <item quantity="one">ثانية واحدة</item>
         <item quantity="two">ثانيتان (<xliff:g id="NUMBER">%s</xliff:g>)</item>
         <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> ثوانٍ</item>
         <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> ثانية</item>
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ثانية</item>
-        <item quantity="one">ثانية واحدة</item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"كل يوم"</string>
     <string name="day_concat" msgid="971998564991636532">"، "</string>

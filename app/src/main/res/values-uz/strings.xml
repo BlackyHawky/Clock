@@ -71,16 +71,16 @@
         <item quantity="one">1 soat</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> daqiqa</item>
         <item quantity="one">1 daqiqa</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> daqiqa</item>
     </plurals>
     <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> daqiqa</item>
         <item quantity="one">1 daqiqa</item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> soniya</item>
         <item quantity="one">1 soniya</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> soniya</item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"Har kuni"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>

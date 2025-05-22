@@ -77,8 +77,8 @@
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
         <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> minute</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minutes</item>
         <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> minutes</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minutes</item>
     </plurals>
     <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
         <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> min</item>
@@ -86,9 +86,9 @@
         <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> min</item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
-        <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> seconde</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> secondes</item>
-        <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> secondes</item>
+        <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> seconde</item>
+        <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> secondes</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> secondes</item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"Tous les jours"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>

@@ -79,16 +79,16 @@
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> h</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
-        <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> minute</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minutes</item>
+        <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> minute</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minutes</item>
     </plurals>
     <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
         <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> min</item>
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> min</item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
-        <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> seconde</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> secondes</item>
+        <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> seconde</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> secondes</item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"Tous les jours"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
@@ -694,4 +694,7 @@
     <string name="date_picker_style_calendar">Calendrier</string>
     <string name="date_picker_style_text">Texte</string>
     <string name="warning">Avertissement</string>
+    <string name="timer_button_time_seconds_warning_box_text">Saisir une valeur comprise entre 0 et 59 secondes</string>
+    <string name="timer_add_custom_time_with_seconds_description">Ajouter %1$s Minute %2s Seconde</string>
+    <string name="timer_add_custom_time_with_seconds_for_notification">Ajouter %1$s min %2$s s</string>
 </resources>

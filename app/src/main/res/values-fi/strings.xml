@@ -71,16 +71,16 @@
         <item quantity="one">1 h</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minuuttia</item>
         <item quantity="one">1 minuutti</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minuuttia</item>
     </plurals>
     <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> min</item>
         <item quantity="one">1 min</item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> sekuntia</item>
         <item quantity="one">1 sekunti</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> sekuntia</item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"Joka päivä"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>

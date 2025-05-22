@@ -71,16 +71,16 @@
         <item quantity="one">1 timme</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minuter</item>
         <item quantity="one">1 minut</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minuter</item>
     </plurals>
     <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minuter</item>
         <item quantity="one">1 minut</item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> sekunder</item>
         <item quantity="one">1 sekund</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> sekunder</item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"Varje dag"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>

@@ -1,0 +1,15 @@
+**Opravy**
+- Oprava horního odsazení
+- Oprava vibrací budíku a časovače
+
+**Vylepšení**
+- Nastavení budíků na konkrétní datum
+- Možnost náhodného přehrávání vyzváněcích tónů
+- Možnost vybrat složku pro přidání vyzváněcích tónů
+- Skrytí štítku budíku, pokud není zadán
+- Odstranění oprávnění `DISABLE_KEYGUARD`
+- Zákaz mazání budíků přejetím, pokud jsou zakázány animace
+- Aktualizace překladů
+- Vylepšení a vyčištění kódu
+
+Všechny změny: https://github.com/BlackyHawky/Clock/releases/tag/2.20

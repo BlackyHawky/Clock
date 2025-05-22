@@ -71,16 +71,16 @@
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> Std.</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> Minuten</item>
         <item quantity="one">1 Minute</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> Minuten</item>
     </plurals>
     <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
         <item quantity="one">1 Min.</item>
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> Min.</item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> Sekunden</item>
-        <item quantity="one">1 Sekunde</item>
+        <item quantity="one">1 Sekunde</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> Sekunden</item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"Täglich"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>

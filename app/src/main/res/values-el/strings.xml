@@ -71,16 +71,16 @@
         <item quantity="one">1 ω.</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> λεπτά</item>
         <item quantity="one">1 λεπτό</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> λεπτά</item>
     </plurals>
     <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> λ.</item>
         <item quantity="one">1 λ.</item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> δευτερόλεπτα</item>
         <item quantity="one">1 δευτερόλεπτο</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> δευτερόλεπτα</item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"Κάθε ημέρα"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>

@@ -76,9 +76,9 @@
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> h</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
-        <item quantity="zero"><xliff:g id="NUMBER">%s</xliff:g> minūtes</item>
-        <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> minūte</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minūtes</item>
+        <item quantity="zero"><xliff:g id="NUMBER">%s</xliff:g> minūtes</item>
+        <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> minūte</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minūtes</item>
     </plurals>
     <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
         <item quantity="zero"><xliff:g id="NUMBER">%s</xliff:g> min</item>
@@ -86,9 +86,9 @@
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> min</item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
-        <item quantity="zero"><xliff:g id="NUMBER">%s</xliff:g> sekunžu</item>
-        <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> sekunde</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> sekundes</item>
+        <item quantity="zero"><xliff:g id="NUMBER">%s</xliff:g> sekunžu</item>
+        <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> sekunde</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> sekundes</item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"Katru dienu"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>

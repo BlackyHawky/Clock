@@ -1,0 +1,15 @@
+**Oprava**
+- Oprava chyby ve verzi 2.20 týkající se tlačítek stopek.
+
+**Poznámka**
+Ostatní funkce verze 2.20 zůstaly zachovány (viz odkaz níže):
+
+- Oprava horního odsazení pro zařízení s výřezem
+- Oprava vibrací budíku a časovače pro některá zařízení
+- Nastavení budíků na konkrétní datum
+- Možnost náhodného přehrávání vyzváněcích tónů
+- Možnost vybrat složku pro přidání vyzváněcích tónů
+- Odstranění oprávnění `DISABLE_KEYGUARD`
+… a další
+
+https://github.com/BlackyHawky/Clock/releases/tag/2.20

@@ -71,16 +71,16 @@
         <item quantity="one">Saa 1</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
-        <item quantity="other">Dakika <xliff:g id="NUMBER">%s</xliff:g></item>
         <item quantity="one">Dakika 1</item>
+        <item quantity="other">Dakika <xliff:g id="NUMBER">%s</xliff:g></item>
     </plurals>
     <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
         <item quantity="other">Dakika <xliff:g id="NUMBER">%s</xliff:g></item>
         <item quantity="one">Dakika 1</item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
-        <item quantity="other">Sekunde <xliff:g id="NUMBER">%s</xliff:g></item>
         <item quantity="one">Sekunde 1</item>
+        <item quantity="other">Sekunde <xliff:g id="NUMBER">%s</xliff:g></item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"Kila siku"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
