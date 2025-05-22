@@ -6,23 +6,19 @@
 
 package com.best.deskclock;
 
+import static android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN;
 import static android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE;
 
 import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.InputType;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -61,7 +57,6 @@ public class LabelDialogFragment extends DialogFragment {
     private Alarm mAlarm;
     private int mTimerId;
     private String mTag;
-    private InputMethodManager mInput;
 
     public static LabelDialogFragment newInstance(Alarm alarm, String label, String tag) {
         final Bundle args = new Bundle();
@@ -144,10 +139,14 @@ public class LabelDialogFragment extends DialogFragment {
         mEditLabel.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
         mEditLabel.selectAll();
         mEditLabel.requestFocus();
-        mEditLabel.setOnEditorActionListener(new ImeDoneListener());
-
-        mInput = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        mInput.showSoftInput(mEditLabel, InputMethodManager.SHOW_IMPLICIT);
+        mEditLabel.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                setLabel();
+                dismiss();
+                return true;
+            }
+            return false;
+        });
 
         final MaterialAlertDialogBuilder dialogBuilder =
                 new MaterialAlertDialogBuilder(requireContext())
@@ -158,14 +157,17 @@ public class LabelDialogFragment extends DialogFragment {
                                 : 0)
                         .setIcon(drawable)
                         .setView(view)
-                        .setPositiveButton(android.R.string.ok, new OkListener())
+                        .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                            setLabel();
+                            dismiss();
+                        })
                         .setNegativeButton(android.R.string.cancel, null);
 
         final AlertDialog dialog = dialogBuilder.create();
 
         final Window alertDialogWindow = dialog.getWindow();
         if (alertDialogWindow != null) {
-            alertDialogWindow.setSoftInputMode(SOFT_INPUT_STATE_VISIBLE);
+            alertDialogWindow.setSoftInputMode(SOFT_INPUT_ADJUST_PAN | SOFT_INPUT_STATE_VISIBLE);
         }
 
         return dialog;
@@ -203,30 +205,4 @@ public class LabelDialogFragment extends DialogFragment {
         void onDialogLabelSet(Alarm alarm, String label, String tag);
     }
 
-    /**
-     * Handles completing the label edit from the IME keyboard.
-     */
-    private class ImeDoneListener implements TextView.OnEditorActionListener {
-        @Override
-        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                setLabel();
-                dismissAllowingStateLoss();
-                return true;
-            }
-            return false;
-        }
-    }
-
-    /**
-     * Handles completing the label edit from the Ok button of the dialog.
-     */
-    private class OkListener implements DialogInterface.OnClickListener {
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-            mInput.showSoftInput(mEditLabel, InputMethodManager.SHOW_IMPLICIT);
-            setLabel();
-            dismiss();
-        }
-    }
 }
