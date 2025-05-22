@@ -201,8 +201,6 @@
     <string name="timer_reset_all" msgid="7530633132757866087">"सर्व टायमर रीसेट करा"</string>
     <string name="hours_minutes_seconds" msgid="5680088738059791288">"<xliff:g id="HOURS">%1$d</xliff:g>:<xliff:g id="MINUTES">%2$02d</xliff:g>:<xliff:g id="SECONDS">%3$02d</xliff:g>"</string>
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
-    <!-- no translation found for seconds (6550091082396571898) -->
-    <skip/>
     <string name="jocular_content_message_1">"तुम्ही खरोखर वेगाचे दानव आहात."</string>
     <string name="jocular_content_message_2">"आपल्या कष्टाच्या फळांचा आनंद घ्या."</string>
     <string name="jocular_content_message_3">"Androids वेगवान असण्यासाठी ज्ञात आहेत, परंतु आपल्या इतके वेगवान नाहीत!"</string>

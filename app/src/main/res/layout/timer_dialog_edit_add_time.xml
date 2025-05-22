@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="top"
-                android:hint="@string/minutes"
+                android:hint="@string/label_minutes"
                 android:inputType="number"
                 android:maxLength="2" />
 
@@ -41,7 +41,7 @@
                 android:id="@+id/edit_seconds"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/seconds"
+                android:hint="@string/label_seconds"
                 android:inputType="number"
                 android:maxLength="2" />
 

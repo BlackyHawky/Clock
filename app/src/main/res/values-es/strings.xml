@@ -211,8 +211,6 @@
     <string name="timer_reset_all" msgid="7530633132757866087">"Restablecer todo"</string>
     <string name="hours_minutes_seconds" msgid="5680088738059791288">"<xliff:g id="HOURS">%1$d</xliff:g>:<xliff:g id="MINUTES">%2$02d</xliff:g>:<xliff:g id="SECONDS">%3$02d</xliff:g>"</string>
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
-    <!-- no translation found for seconds (6550091082396571898) -->
-    <skip/>
     <string name="jocular_content_message_1">"Eres el rey de la velocidad."</string>
     <string name="jocular_content_message_2">"Disfruta de los frutos de tu trabajo."</string>
     <string name="jocular_content_message_3">"Los androides se caracterizan por ser rápidos, pero no tanto como tú."</string>

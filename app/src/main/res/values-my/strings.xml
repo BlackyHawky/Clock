@@ -192,8 +192,6 @@
     <string name="timer_reset_all" msgid="7530633132757866087">"တိုင်မာ အားလုံး ပြင်ဆင်သတ်မှတ်ရန်"</string>
     <string name="hours_minutes_seconds" msgid="5680088738059791288">"<xliff:g id="HOURS">%1$d</xliff:g>:<xliff:g id="MINUTES">%2$02d</xliff:g>:<xliff:g id="SECONDS">%3$02d</xliff:g>"</string>
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
-    <!-- no translation found for seconds (6550091082396571898) -->
-    <skip/>
     <string name="jocular_content_message_1">"သင်၏ အတော့်ကို နှုန်း မြန်လွန်းနေသည်။"</string>
     <string name="jocular_content_message_2">"သင် ကြိုးစားခဲ့မှု အသီးအပွင့်များကို ခံစားနိုင်ပါပြီ။"</string>
     <string name="jocular_content_message_3">"Android များ မြန်ဆန်ခြင်းကို အားလုံးသိကြပေမည့်၊ သင့်လို မမြန်လှပါ!"</string>

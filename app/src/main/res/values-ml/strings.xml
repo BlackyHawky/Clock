@@ -201,8 +201,6 @@
     <string name="timer_reset_all" msgid="7530633132757866087">"എല്ലാ ടൈമറുകളും പുനഃസജ്ജമാക്കുക"</string>
     <string name="hours_minutes_seconds" msgid="5680088738059791288">"<xliff:g id="HOURS">%1$d</xliff:g>:<xliff:g id="MINUTES">%2$02d</xliff:g>:<xliff:g id="SECONDS">%3$02d</xliff:g>"</string>
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
-    <!-- no translation found for seconds (6550091082396571898) -->
-    <skip/>
     <string name="jocular_content_message_1">"നിങ്ങൾ വളരെ വേഗത്തിലായിരിക്കുന്നു."</string>
     <string name="jocular_content_message_2">"നിങ്ങളുടെ കഠിനാദ്ധ്വാനത്തിന്റെ ഫലങ്ങൾ ആസ്വദിക്കുക."</string>
     <string name="jocular_content_message_3">"Androids വളരെ വേഗമുള്ളതാണെങ്കിലും നിങ്ങളുടെ അത്രയും വേഗതയില്ല!"</string>

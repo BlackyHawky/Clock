@@ -193,8 +193,6 @@
     <string name="timer_reset_all" msgid="7530633132757866087">"重置所有定时器"</string>
     <string name="hours_minutes_seconds" msgid="5680088738059791288"><xliff:g example="2" id="hours">%1$d</xliff:g>:<xliff:g example="3" id="minutes">%2$02d</xliff:g>:<xliff:g example="44" id="seconds">%3$02d</xliff:g></string>
     <string name="minutes_seconds" msgid="6189446107009577914"><xliff:g example="3" id="minutes">%1$d</xliff:g>:<xliff:g example="44" id="seconds">%2$02d</xliff:g></string>
-    <!-- no translation found for seconds (6550091082396571898) -->
-    <skip/>
     <string name="jocular_content_message_1">"您简直就像闪电侠。"</string>
     <string name="jocular_content_message_2">"享受一下您大汗淋漓的成果吧。"</string>
     <string name="jocular_content_message_3">"Android 以速度快著称，但还跟不上您！"</string>

@@ -219,8 +219,6 @@
     <string name="timer_reset_all" msgid="7530633132757866087">"Скинути таймери"</string>
     <string name="hours_minutes_seconds" msgid="5680088738059791288"><xliff:g example="2" id="hours">%1$d</xliff:g>:<xliff:g example="3" id="minutes">%2$02d</xliff:g>:<xliff:g example="44" id="seconds">%3$02d</xliff:g></string>
     <string name="minutes_seconds" msgid="6189446107009577914"><xliff:g example="3" id="minutes">%1$d</xliff:g>:<xliff:g example="44" id="seconds">%2$02d</xliff:g></string>
-    <!-- no translation found for seconds (6550091082396571898) -->
-    <skip/>
     <string name="jocular_content_message_1">Ну ви й швидкі.</string>
     <string name="jocular_content_message_2">"Насолоджуйтесь плодами своєї праці."</string>
     <string name="jocular_content_message_3">Андроїди швидкі, але ви — швидші!</string>

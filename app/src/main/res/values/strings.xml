@@ -38,9 +38,9 @@
     <!-- Label "Warning" -->
     <string name="warning">Warning</string>
     <!-- Label "Minutes" -->
-    <string name="minutes">Minutes</string>
+    <string name="label_minutes">Minutes</string>
     <!-- Label "Seconds" -->
-    <string name="seconds">Seconds</string>
+    <string name="label_seconds">Seconds</string>
     <!-- Title of default ringtone played when an alarm triggers [CHAR LIMIT=30] -->
     <string name="default_alarm_ringtone_title">Default alarm sound</string>
     <!-- Title for alarm ringtone picker screen [CHAR LIMIT=30] -->
@@ -732,7 +732,7 @@
     <string name="timer_reset_all">Reset all timers</string>
     <string name="hours_minutes_seconds"><xliff:g example="2" id="hours">%1$d</xliff:g>:<xliff:g example="3" id="minutes">%2$02d</xliff:g>:<xliff:g example="44" id="seconds">%3$02d</xliff:g></string>
     <string name="minutes_seconds"><xliff:g example="3" id="minutes">%1$d</xliff:g>:<xliff:g example="44" id="seconds">%2$02d</xliff:g></string>
-    <string name="seconds_only"><xliff:g example="44" id="seconds">%1$02d</xliff:g></string>
+    <string name="seconds_only" translatable="false"><xliff:g example="44" id="seconds">%1$02d</xliff:g></string>
     <!-- Jocular content that user may append when sharing the lap times - Message 1 -->
     <string name="jocular_content_message_1">You\'re quite the speed demon.</string>
     <!-- Jocular content that user may append when sharing the lap times - Message 2 -->
