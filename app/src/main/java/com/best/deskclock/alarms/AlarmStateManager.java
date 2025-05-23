@@ -363,8 +363,12 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
         // If the alarm ringtone is set to "Random", assign a random ringtone uri to the alarm.
         Alarm alarm = Alarm.getAlarm(context.getContentResolver(), instance.mAlarmId);
-        if (alarm != null && RingtoneUtils.isRandomRingtone(alarm.alert)) {
-            instance.mRingtone = RingtoneUtils.getRandomRingtoneUri();
+        if (alarm != null) {
+            if (RingtoneUtils.isRandomRingtone(alarm.alert)) {
+                instance.mRingtone = RingtoneUtils.getRandomRingtoneUri();
+            } else if (RingtoneUtils.isRandomCustomRingtone(alarm.alert)) {
+                instance.mRingtone = RingtoneUtils.getRandomCustomRingtoneUri();
+            }
         }
 
         AlarmInstance.updateInstance(contentResolver, instance);

@@ -37,10 +37,22 @@ public class RingtoneUtils {
     public static final Uri RANDOM_RINGTONE = Uri.parse("random");
 
     /**
+     * {@link Uri} signifying the "random custom" ringtone.
+     */
+    public static final Uri RANDOM_CUSTOM_RINGTONE = Uri.parse("random_custom");
+
+    /**
      * @return {@code true} if the URI represents a random ringtone; {@code false} otherwise.
      */
     public static boolean isRandomRingtone(Uri uri) {
         return RANDOM_RINGTONE.equals(uri);
+    }
+
+    /**
+     * @return {@code true} if the URI represents a random custom ringtone; {@code false} otherwise.
+     */
+    public static boolean isRandomCustomRingtone(Uri uri) {
+        return RANDOM_CUSTOM_RINGTONE.equals(uri);
     }
 
     /**
@@ -119,10 +131,7 @@ public class RingtoneUtils {
     }
 
     /**
-     * Returns a randomly selected alarm ringtone URI.
-     * <p>
-     * This method combines both system alarm ringtones and user-defined custom ringtones
-     * that have the necessary permissions, and selects one randomly.
+     * Returns a randomly selected system alarm ringtone URI.
      * <p>
      * If no valid ringtones are found, the system's default alarm ringtone is returned.
      */
@@ -144,6 +153,23 @@ public class RingtoneUtils {
             } while (cursor.moveToNext());
             cursor.close();
         }
+
+        if (uris.isEmpty()) {
+            return RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+        }
+
+        return uris.get(new Random().nextInt(uris.size()));
+    }
+
+    /**
+     * Returns a randomly selected custom ringtone URI.
+     * <p>
+     * If no valid ringtones are found, the system's default alarm ringtone is returned.
+     */
+    public static Uri getRandomCustomRingtoneUri() {
+        Context context = DeskClockApplication.getContext();
+
+        List<Uri> uris = new ArrayList<>();
 
         SharedPreferences prefs = DeskClockApplication.getDefaultSharedPreferences(context);
         RingtoneModel ringtoneModel = new RingtoneModel(context, prefs);

@@ -331,6 +331,8 @@ public class BackupAndRestoreUtils {
         String alarmRingtone;
         if (RingtoneUtils.isRandomRingtone(Uri.parse(alert))) {
             alarmRingtone = RingtoneUtils.RANDOM_RINGTONE.toString();
+        } else if (RingtoneUtils.isRandomCustomRingtone(Uri.parse(alert))) {
+            alarmRingtone = RingtoneUtils.RANDOM_CUSTOM_RINGTONE.toString();
         } else if (!isNotSystemRingtone(Uri.parse(alert)) && isRingtoneAvailable(context, alert)) {
             alarmRingtone = alert;
         } else {

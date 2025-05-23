@@ -12,6 +12,7 @@ import static android.view.View.VISIBLE;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
+import static com.best.deskclock.utils.RingtoneUtils.RANDOM_CUSTOM_RINGTONE;
 import static com.best.deskclock.utils.RingtoneUtils.RANDOM_RINGTONE;
 import static com.best.deskclock.utils.RingtoneUtils.RINGTONE_SILENT;
 
@@ -93,7 +94,7 @@ final class RingtoneViewHolder extends ItemAdapter.ItemViewHolder<RingtoneHolder
                         context, com.google.android.material.R.attr.colorOnSurfaceVariant, Color.BLACK));
             }
             mImageView.setImageDrawable(ringtoneSilent);
-        } else if (itemHolder.item == RANDOM_RINGTONE) {
+        } else if (itemHolder.item == RANDOM_RINGTONE || itemHolder.item == RANDOM_CUSTOM_RINGTONE) {
             final Drawable randomRingtone = AppCompatResources.getDrawable(context, R.drawable.ic_random);
             mImageView.setImageDrawable(randomRingtone);
         } else {

@@ -339,7 +339,8 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         final Drawable iconRingtone;
         if (RingtoneUtils.RINGTONE_SILENT.equals(alarm.alert)) {
             iconRingtone = AppCompatResources.getDrawable(context, R.drawable.ic_ringtone_silent);
-        } else if (RingtoneUtils.isRandomRingtone(alarm.alert)) {
+        } else if (RingtoneUtils.isRandomRingtone(alarm.alert)
+                || RingtoneUtils.isRandomCustomRingtone(alarm.alert)) {
             iconRingtone = AppCompatResources.getDrawable(context, R.drawable.ic_random);
         } else {
             iconRingtone = AppCompatResources.getDrawable(context, R.drawable.ic_ringtone);

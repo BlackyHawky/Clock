@@ -155,6 +155,8 @@ public class AlarmVolumePreference extends SeekBarPreference {
             Uri ringtoneUri = DataModel.getDataModel().getAlarmRingtoneUriFromSettings();
             if (RingtoneUtils.isRandomRingtone(ringtoneUri)) {
                 ringtoneUri = RingtoneUtils.getRandomRingtoneUri();
+            } else if (RingtoneUtils.isRandomCustomRingtone(ringtoneUri)) {
+                ringtoneUri = RingtoneUtils.getRandomCustomRingtoneUri();
             }
 
             RingtonePreviewKlaxon.start(mContext, ringtoneUri);

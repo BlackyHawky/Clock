@@ -477,6 +477,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         result.mLabel = label;
         result.mRingtone = RingtoneUtils.isRandomRingtone(alert)
                 ? RingtoneUtils.getRandomRingtoneUri()
+                : RingtoneUtils.isRandomCustomRingtone(alert)
+                ? RingtoneUtils.getRandomCustomRingtoneUri()
                 : alert;
         result.mIncreasingVolume = increasingVolume;
         return result;

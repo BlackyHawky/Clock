@@ -53,6 +53,7 @@ import com.best.deskclock.ItemAdapter.OnItemClickedListener;
 import com.best.deskclock.ItemAdapter.OnItemLongClickedListener;
 import com.best.deskclock.R;
 import com.best.deskclock.alarms.AlarmUpdateHandler;
+import com.best.deskclock.data.CustomRingtone;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.utils.InsetsUtils;
@@ -454,6 +455,8 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
         Uri ringtoneUri = ringtone.getUri();
         if (RingtoneUtils.isRandomRingtone(ringtoneUri)) {
             ringtoneUri = RingtoneUtils.getRandomRingtoneUri();
+        } else if (RingtoneUtils.isRandomCustomRingtone(ringtoneUri)) {
+            ringtoneUri = RingtoneUtils.getRandomCustomRingtoneUri();
         }
 
         if (!ringtone.isPlaying() && !ringtone.isSilent()) {
@@ -763,8 +766,35 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
                     return;
                 }
 
-                // If the ringtone to remove is also the selected ringtone, adjust the selection.
-                if (toRemove.isSelected()) {
+                final List<CustomRingtone> customRingtones = DataModel.getDataModel().getCustomRingtones();
+                int remainingCount = customRingtones.size();
+
+                // If "Random Ringtone" is selected and there is only one ringtone left,
+                // select that ringtone.
+                // Otherwise, if the ringtone to remove is also the selected ringtone,
+                // select the default system ringtone.
+                if (RingtoneUtils.isRandomCustomRingtone(mSelectedRingtoneUri) && remainingCount == 1) {
+                    Uri remainingUri = null;
+
+                    for (CustomRingtone ringtone : customRingtones) {
+                        if (!ringtone.getUri().equals(removeUri)) {
+                            remainingUri = ringtone.getUri();
+                            break;
+                        }
+                    }
+
+                    if (remainingUri != null) {
+                        mSelectedRingtoneUri = remainingUri;
+
+                        // Trouve le holder et sélectionne-le
+                        RingtoneHolder remainingHolder = getRingtoneHolder(remainingUri);
+                        if (remainingHolder != null) {
+                            stopPlayingRingtone(toRemove, false);
+                            remainingHolder.setSelected(true);
+                            remainingHolder.notifyItemChanged();
+                        }
+                    }
+                } else if (toRemove.isSelected()) {
                     stopPlayingRingtone(toRemove, false);
                     final RingtoneHolder defaultRingtone = getRingtoneHolder(mDefaultRingtoneUri);
                     if (defaultRingtone != null) {
@@ -776,6 +806,9 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
 
                 // Remove the ringtone from the adapter.
                 mRingtoneAdapter.removeItem(toRemove);
+
+                // Reload the data to reflect the change in the UI.
+                LoaderManager.getInstance(this).restartLoader(0, null, RingtonePickerActivity.this);
             });
         });
     }

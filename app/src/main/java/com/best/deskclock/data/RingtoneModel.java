@@ -9,6 +9,7 @@ package com.best.deskclock.data;
 import static android.media.AudioManager.STREAM_ALARM;
 import static android.media.RingtoneManager.TITLE_COLUMN_INDEX;
 
+import static com.best.deskclock.utils.RingtoneUtils.RANDOM_CUSTOM_RINGTONE;
 import static com.best.deskclock.utils.RingtoneUtils.RANDOM_RINGTONE;
 
 import android.annotation.SuppressLint;
@@ -202,8 +203,8 @@ public final class RingtoneModel {
     String getRingtoneTitle(Uri uri) {
         final Context localizedContext = Utils.getLocalizedContext(mContext);
 
-        // Special case: no ringtone has a title of "Random".
-        if (RANDOM_RINGTONE.equals(uri)) {
+        // Special case: no ringtone has a title of "random" or "random_custom.
+        if (RANDOM_RINGTONE.equals(uri) || RANDOM_CUSTOM_RINGTONE.equals(uri)) {
             return localizedContext.getString(R.string.random_ringtone_title);
         }
 

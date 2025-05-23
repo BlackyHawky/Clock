@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="14dp"
         android:contentDescription="@string/more_options"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_delete"

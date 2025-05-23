@@ -60,6 +60,8 @@ public abstract class TimerKlaxon {
             Uri uri = DataModel.getDataModel().getTimerRingtoneUri();
             if (RingtoneUtils.isRandomRingtone(uri)) {
                 uri = RingtoneUtils.getRandomRingtoneUri();
+            } else if (RingtoneUtils.isRandomCustomRingtone(uri)) {
+                uri = RingtoneUtils.getRandomCustomRingtoneUri();
             }
 
             final long crescendoDuration = SettingsDAO.getTimerCrescendoDuration(prefs);
