@@ -402,7 +402,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         final SharedPreferences prefs = getDefaultSharedPreferences(context);
         final int snoozeMinutes = SettingsDAO.getSnoozeLength(prefs);
         Calendar newAlarmTime = Calendar.getInstance();
-        // If snooze duration has been set to "None" or if "Enable alarm snooze actions"
+        // If the "Snooze duration" setting has been set to "None" or if "Enable alarm snooze actions"
         // is not enabled in the expanded alarm view, simply dismiss the alarm.
         if (snoozeMinutes == -1 || !instance.mAlarmSnoozeActions) {
             deleteInstanceAndUpdateParent(context, instance);
@@ -457,14 +457,11 @@ public final class AlarmStateManager extends BroadcastReceiver {
     public static void setMissedState(Context context, AlarmInstance instance) {
         LogUtils.i("Setting missed state to instance " + instance.mId);
 
-        // If alarm silence has been set to "At the end of the ringtone",
-        // we don't want it to be seen as missed but snoozed.
-        // Indeed, we can assume that it's the user's wish to listen to the ringtone until the end
-        // and nothing else; so there's no need to tell him that the alarm has been missed.
-        // See https://github.com/BlackyHawky/Clock/issues/40
-        // However, the alarm must be repeatable.
+        // If the "Alarm silence" setting has not been set to "Never", we don't want alarms
+        // to be seen as missed but snoozed.
+        // This avoids having to create multiple alarms for the same reason.
         final int timeoutMinutes = SettingsDAO.getAlarmTimeout(getDefaultSharedPreferences(context));
-        if (timeoutMinutes == -2 || instance.mDismissAlarmWhenRingtoneEnds) {
+        if (timeoutMinutes != -1) {
             setSnoozeState(context, instance, true);
             return;
         }
