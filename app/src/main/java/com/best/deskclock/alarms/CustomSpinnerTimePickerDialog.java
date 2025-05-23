@@ -75,13 +75,24 @@ public class CustomSpinnerTimePickerDialog {
         alertDialog.setOnShowListener(dialog -> {
             Button okButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
             okButton.setOnClickListener(v -> {
+                hourPicker.clearFocus();
+                minutePicker.clearFocus();
+                if (!is24Hour) {
+                    amPmPicker.clearFocus();
+                }
+
                 int selectedHour = hourPicker.getValue();
                 int selectedMinute = minutePicker.getValue();
                 int amPm = amPmPicker.getValue();
 
                 if (!is24Hour) {
-                    if (amPm == Calendar.PM && selectedHour < 12) selectedHour += 12;
-                    if (amPm == Calendar.AM && selectedHour == 12) selectedHour = 0;
+                    if (amPm == Calendar.PM && selectedHour < 12) {
+                        selectedHour += 12;
+                    }
+
+                    if (amPm == Calendar.AM && selectedHour == 12) {
+                        selectedHour = 0;
+                    }
                 }
 
                 listener.onTimeSet(selectedHour, selectedMinute);
@@ -226,7 +237,7 @@ public class CustomSpinnerTimePickerDialog {
         }
 
         if (hourIndex == -1) {
-            return ":"; // fallback
+            return ":"; // Fallback
         } else {
             int minuteIndex = pattern.indexOf('m', hourIndex + 1);
             if (minuteIndex == -1) {
