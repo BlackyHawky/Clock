@@ -31,15 +31,19 @@ public final class UiDataModel {
      * The single instance of this data model that exists for the life of the application.
      */
     private static final UiDataModel sUiDataModel = new UiDataModel();
+
     private Context mContext;
+
     /**
      * The model from which tab data are fetched.
      */
     private TabModel mTabModel;
+
     /**
      * The model from which formatted strings are fetched.
      */
     private FormattedStringModel mFormattedStringModel;
+
     /**
      * The model from which timed callbacks originate.
      */
@@ -74,6 +78,10 @@ public final class UiDataModel {
         return Typeface.createFromAsset(mContext.getAssets(), "fonts/clock.ttf");
     }
 
+    // ***********************
+    // ** FORMATTED STRINGS **
+    // ***********************
+
     /**
      * This method is intended to be used when formatting numbers occurs in a hotspot such as the
      * update loop of a timer or stopwatch. It returns cached results when possible in order to
@@ -87,10 +95,6 @@ public final class UiDataModel {
         enforceMainLooper();
         return mFormattedStringModel.getFormattedNumber(value);
     }
-
-    //
-    // Formatted Strings
-    //
 
     /**
      * This method is intended to be used when formatting numbers occurs in a hotspot such as the
@@ -144,13 +148,9 @@ public final class UiDataModel {
         return mFormattedStringModel.getLongWeekday(calendarDay);
     }
 
-    /**
-     * @return the duration in milliseconds of short animations
-     */
-    public long getShortAnimationDuration() {
-        enforceMainLooper();
-        return mContext.getResources().getInteger(android.R.integer.config_shortAnimTime);
-    }
+    // **********
+    // ** TABS **
+    // **********
 
     /**
      * @param tabListener to be notified when the selected tab changes
@@ -159,10 +159,6 @@ public final class UiDataModel {
         enforceMainLooper();
         mTabModel.addTabListener(tabListener);
     }
-
-    //
-    // Tabs
-    //
 
     /**
      * @param tabListener to no longer be notified when the selected tab changes
@@ -216,6 +212,10 @@ public final class UiDataModel {
         mTabModel.setTabScrolledToTop(tab, scrolledToTop);
     }
 
+    // ******************
+    // ** SHORTCUT IDS **
+    // ******************
+
     /**
      * @param category which category of shortcut of which to get the id
      * @param action   the desired action to perform
@@ -228,9 +228,9 @@ public final class UiDataModel {
         return mContext.getString(category) + "_" + mContext.getString(action);
     }
 
-    //
-    // Shortcut Ids
-    //
+    // *********************
+    // ** TIMED CALLBACKS **
+    // *********************
 
     /**
      * @param runnable to be called every minute
@@ -240,10 +240,6 @@ public final class UiDataModel {
         enforceMainLooper();
         mPeriodicCallbackModel.addHalfMinuteCallback(runnable, offset);
     }
-
-    //
-    // Timed Callbacks
-    //
 
     /**
      * @param runnable to be called every quarter-hour
@@ -270,6 +266,10 @@ public final class UiDataModel {
         enforceMainLooper();
         mPeriodicCallbackModel.removePeriodicCallback(runnable);
     }
+
+    // **************
+    // ** APP TABS **
+    // **************
 
     /**
      * Identifies each of the primary tabs within the application.

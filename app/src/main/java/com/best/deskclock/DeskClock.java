@@ -254,7 +254,7 @@ public class DeskClock extends AppCompatActivity
         mRightButton.getLayoutParams().width = ThemeUtils.convertDpToPixels(leftOrRightButtonSize, this);
         mRightButton.setScaleType(ImageView.ScaleType.CENTER);
 
-        final long duration = UiDataModel.getUiDataModel().getShortAnimationDuration();
+        final long duration = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
         final ValueAnimator hideFabAnimation = getScaleAnimator(mFab, 1f, 0f);
         final ValueAnimator showFabAnimation = getScaleAnimator(mFab, 0f, 1f);
