@@ -696,7 +696,7 @@
     <!-- Describes the purpose of the button increase the remaining time on a timer by x minute. -->
     <string name="timer_add_custom_time_description">Add %s Minute</string>
     <!-- Describes the purpose of the button increase the remaining time on a timer by x minute and x seconds. -->
-    <string name="timer_add_custom_time_with_seconds_description">Add %1$s Minute %2s Seconds</string>
+    <string name="timer_add_custom_time_with_seconds_description">Add %1$s Minute %2$s Seconds</string>
     <!-- Like "timer_add_custom_time_description", but with 'minute' abbreviated for the notification. -->
     <string name="timer_add_custom_time_for_notification">Add %s min</string>
     <!-- Like "timer_add_custom_time_with_seconds_description", but with 'minute' and 'second' abbreviated for the notification. -->
