@@ -153,14 +153,6 @@ public final class UiDataModel {
     }
 
     /**
-     * @return the duration in milliseconds of medium animations
-     */
-    public long getMediumAnimationDuration() {
-        enforceMainLooper();
-        return mContext.getResources().getInteger(android.R.integer.config_mediumAnimTime);
-    }
-
-    /**
      * @param tabListener to be notified when the selected tab changes
      */
     public void addTabListener(TabListener tabListener) {

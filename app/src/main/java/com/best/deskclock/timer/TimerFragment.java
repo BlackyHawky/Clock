@@ -46,7 +46,6 @@ import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.data.TimerListener;
 import com.best.deskclock.events.Events;
-import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AnimatorUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
@@ -303,7 +302,7 @@ public final class TimerFragment extends DeskClockFragment {
             }
 
             // Return to the list of timers.
-            animateToView(mTimersView, true);
+            animateToView(mTimersView, false);
         }
     }
 
@@ -372,7 +371,7 @@ public final class TimerFragment extends DeskClockFragment {
         // Avoid double-taps by enabling/disabling the set of buttons active on the new view.
         updateFab(BUTTONS_DISABLE);
 
-        final long animationDuration = UiDataModel.getUiDataModel().getMediumAnimationDuration();
+        final long animationDuration = 600;
 
         final ViewTreeObserver viewTreeObserver = toView.getViewTreeObserver();
         viewTreeObserver.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
@@ -382,9 +381,8 @@ public final class TimerFragment extends DeskClockFragment {
                     viewTreeObserver.removeOnPreDrawListener(this);
                 }
 
-                final View view = mTimersView.findViewById(R.id.timer_time);
-                final float distanceY = view != null ? view.getHeight() + view.getY() : 0;
-                final float translationDistance = animateDown ? distanceY : -distanceY;
+                final float distanceY = requireView().getHeight() + requireView().getY();
+                final float translationDistance = animateDown ? -distanceY : distanceY;
 
                 toView.setTranslationY(-translationDistance);
                 mCurrentView.setTranslationY(0f);
@@ -545,7 +543,7 @@ public final class TimerFragment extends DeskClockFragment {
             updateFab(FAB_AND_BUTTONS_IMMEDIATE);
 
             if (mCurrentView == mTimersView && mAdapter.getItemCount() == 0) {
-                animateToView(mCreateTimerView, false);
+                animateToView(mCreateTimerView, true);
             }
 
             // Required to adjust the layout for tablets that use either a GridLayoutManager or a LinearLayoutManager.
