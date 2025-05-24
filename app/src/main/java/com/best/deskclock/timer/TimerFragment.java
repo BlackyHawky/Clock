@@ -30,6 +30,7 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -182,6 +183,19 @@ public final class TimerFragment extends DeskClockFragment {
             // Otherwise, default to showing the list of timers.
             showTimersView(FAB_AND_BUTTONS_IMMEDIATE);
         }
+
+        requireActivity().getOnBackPressedDispatcher().addCallback(
+                getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+                    @Override
+                    public void handleOnBackPressed() {
+                        if (isTabSelected() && mCurrentView == mCreateTimerView && hasTimers()) {
+                            animateToView(mTimersView, false);
+                        } else {
+                            setEnabled(false);
+                            requireActivity().getOnBackPressedDispatcher().onBackPressed();
+                        }
+                    }
+                });
     }
 
     @Override
