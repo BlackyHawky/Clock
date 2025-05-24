@@ -10,7 +10,6 @@ import static com.best.deskclock.utils.Utils.enforceMainLooper;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 
 import androidx.annotation.StringRes;
 
@@ -67,15 +66,6 @@ public final class UiDataModel {
             mFormattedStringModel = new FormattedStringModel(mContext);
             mTabModel = new TabModel(prefs);
         }
-    }
-
-    /**
-     * To display the alarm clock in this font, use the character {@link R.string#clock_emoji}.
-     *
-     * @return a special font containing a glyph that draws an alarm clock
-     */
-    public Typeface getAlarmIconTypeface() {
-        return Typeface.createFromAsset(mContext.getAssets(), "fonts/clock.ttf");
     }
 
     // ***********************

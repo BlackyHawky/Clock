@@ -48,8 +48,8 @@ import com.best.alarmclock.WidgetUtils;
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
 import com.best.deskclock.data.WidgetDAO;
-import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AlarmUtils;
+import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
@@ -293,14 +293,14 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends AppWidgetProvid
                 nextAlarmIcon.setVisibility(VISIBLE);
                 nextAlarmForCustomColor.setVisibility(GONE);
                 nextAlarmIconForCustomColor.setVisibility(GONE);
-                nextAlarmIcon.setTypeface(UiDataModel.getUiDataModel().getAlarmIconTypeface());
+                nextAlarmIcon.setTypeface(ClockUtils.getAlarmIconTypeface(context));
             } else {
                 nextAlarmForCustomColor.setText(nextAlarmTime);
                 nextAlarm.setVisibility(GONE);
                 nextAlarmIcon.setVisibility(GONE);
                 nextAlarmForCustomColor.setVisibility(VISIBLE);
                 nextAlarmIconForCustomColor.setVisibility(VISIBLE);
-                nextAlarmIconForCustomColor.setTypeface(UiDataModel.getUiDataModel().getAlarmIconTypeface());
+                nextAlarmIconForCustomColor.setTypeface(ClockUtils.getAlarmIconTypeface(context));
                 nextAlarmIconForCustomColor.setTextColor(customNextAlarmColor);
             }
         }

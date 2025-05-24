@@ -49,8 +49,8 @@ import com.best.alarmclock.WidgetUtils;
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
 import com.best.deskclock.data.WidgetDAO;
-import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AlarmUtils;
+import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
@@ -241,7 +241,7 @@ public class VerticalDigitalAppWidgetProvider extends AppWidgetProvider {
             nextAlarm.setText(nextAlarmTime);
             nextAlarm.setVisibility(VISIBLE);
             nextAlarmIcon.setVisibility(VISIBLE);
-            nextAlarmIcon.setTypeface(UiDataModel.getUiDataModel().getAlarmIconTypeface());
+            nextAlarmIcon.setTypeface(ClockUtils.getAlarmIconTypeface(context));
             // Apply the color to the next alarm icon.
             final int customNextAlarmColor = WidgetDAO.getVerticalDigitalWidgetCustomNextAlarmColor(prefs);
             if (WidgetDAO.isVerticalDigitalWidgetDefaultNextAlarmColor(prefs)) {
