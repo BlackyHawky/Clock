@@ -24,7 +24,6 @@ import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.screensaver.Screensaver;
 import com.best.deskclock.screensaver.ScreensaverActivity;
 import com.best.deskclock.settings.AlarmDisplayPreviewActivity;
-import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.widget.AnalogClock;
 
 import java.text.SimpleDateFormat;
@@ -237,8 +236,20 @@ public class ClockUtils {
         return next == null ? null : next.getTime();
     }
 
+    /**
+     * Apply the clock icon font to the next alarm view.
+     */
     public static void setClockIconTypeface(View clock) {
         final TextView nextAlarmIconView = clock.findViewById(R.id.nextAlarmIcon);
-        nextAlarmIconView.setTypeface(UiDataModel.getUiDataModel().getAlarmIconTypeface());
+        nextAlarmIconView.setTypeface(getAlarmIconTypeface(clock.getContext()));
+    }
+
+    /**
+     * To display the alarm clock in this font, use the character {@link R.string#clock_emoji}.
+     *
+     * @return a special font containing a glyph that draws an alarm clock
+     */
+    public static Typeface getAlarmIconTypeface(Context context) {
+        return Typeface.createFromAsset(context.getAssets(), "fonts/clock.ttf");
     }
 }

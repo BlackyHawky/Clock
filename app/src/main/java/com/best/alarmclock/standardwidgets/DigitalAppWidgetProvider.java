@@ -62,7 +62,6 @@ import com.best.deskclock.data.City;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.WidgetDAO;
-import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.LogUtils;
@@ -297,7 +296,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
             nextAlarm.setText(nextAlarmTime);
             nextAlarm.setVisibility(VISIBLE);
             nextAlarmIcon.setVisibility(VISIBLE);
-            nextAlarmIcon.setTypeface(UiDataModel.getUiDataModel().getAlarmIconTypeface());
+            nextAlarmIcon.setTypeface(ClockUtils.getAlarmIconTypeface(context));
             // Apply the color to the next alarm icon.
             final int customNextAlarmColor = WidgetDAO.getDigitalWidgetCustomNextAlarmColor(prefs);
             if (WidgetDAO.isDigitalWidgetDefaultNextAlarmColor(prefs)) {
