@@ -30,6 +30,7 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -142,6 +143,19 @@ public final class TimerFragment extends DeskClockFragment {
                     ? savedInstanceState.getSerializable(KEY_TIMER_SETUP_STATE, int[].class)
                     : savedInstanceState.getSerializable(KEY_TIMER_SETUP_STATE);
         }
+
+        requireActivity().getOnBackPressedDispatcher().addCallback(
+                getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+
+                    @Override
+                    public void handleOnBackPressed() {
+                        if (mCurrentView == mCreateTimerView && hasTimers() && isTabSelected()) {
+                            animateToView(mTimersView, false);
+                        } else {
+                            requireActivity().finish();
+                        }
+                    }
+                });
 
         return view;
     }
