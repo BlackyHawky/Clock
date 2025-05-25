@@ -5,6 +5,7 @@ Clock is a customizable and privacy-conscious open-source clock, based on AOSP C
 [<img src="/images/badge_github.png" alt="Get it on GitHub" height="80">](https://github.com/BlackyHawky/Clock/releases)
 [<img src="/images/badge_f-droid.png" alt="Get it on F-Droid" height="80">](https://f-droid.org/packages/com.best.deskclock/)
 [<img src="/images/badge_izzy_on_droid.png" alt="Get it on IzzyOnDroid" height="80">](https://apt.izzysoft.de/fdroid/index/apk/com.best.deskclock/)
+[<img src="/images/badge_openApk.png" alt="Get it on OpenApk" height="80">](https://www.openapk.net/clock/com.best.deskclock/)
 
 ## Table of Contents
 
