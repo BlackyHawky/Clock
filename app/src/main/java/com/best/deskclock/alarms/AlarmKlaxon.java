@@ -16,7 +16,7 @@ import android.os.Vibrator;
 
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.provider.AlarmInstance;
-import com.best.deskclock.ringtone.AsyncRingtonePlayer;
+import com.best.deskclock.ringtone.RingtonePlayer;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.SdkUtils;
 
@@ -28,7 +28,8 @@ final class AlarmKlaxon {
     private static final long[] VIBRATE_PATTERN = {500, 500};
 
     private static boolean sStarted = false;
-    private static AsyncRingtonePlayer sAsyncRingtonePlayer;
+
+    private static RingtonePlayer sRingtonePlayer;
 
     private AlarmKlaxon() {
     }
@@ -37,7 +38,7 @@ final class AlarmKlaxon {
         if (sStarted) {
             LogUtils.v("AlarmKlaxon.stop()");
             sStarted = false;
-            getAsyncRingtonePlayer(context).stop();
+            getRingtonePlayer(context).stop();
             final Vibrator vibrator = context.getSystemService(Vibrator.class);
             vibrator.cancel();
         }
@@ -50,7 +51,7 @@ final class AlarmKlaxon {
 
         if (!AlarmInstance.NO_RINGTONE_URI.equals(instance.mRingtone)) {
             final long crescendoDuration = SettingsDAO.getAlarmCrescendoDuration(getDefaultSharedPreferences(context));
-            getAsyncRingtonePlayer(context).play(instance.mRingtone, crescendoDuration);
+            getRingtonePlayer(context).play(instance.mRingtone, crescendoDuration);
         }
 
         if (instance.mVibrate) {
@@ -77,18 +78,11 @@ final class AlarmKlaxon {
         sStarted = true;
     }
 
-    public static void releaseResources() {
-        if (sAsyncRingtonePlayer != null) {
-            sAsyncRingtonePlayer.shutdown();
-            sAsyncRingtonePlayer = null;
-        }
-    }
-
-    private static synchronized AsyncRingtonePlayer getAsyncRingtonePlayer(Context context) {
-        if (sAsyncRingtonePlayer == null) {
-            sAsyncRingtonePlayer = new AsyncRingtonePlayer(context.getApplicationContext());
+    private static synchronized RingtonePlayer getRingtonePlayer(Context context) {
+        if (sRingtonePlayer == null) {
+            sRingtonePlayer = new RingtonePlayer(context.getApplicationContext());
         }
 
-        return sAsyncRingtonePlayer;
+        return sRingtonePlayer;
     }
 }

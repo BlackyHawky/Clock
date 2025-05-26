@@ -13,34 +13,27 @@ import com.best.deskclock.utils.LogUtils;
 
 public final class RingtonePreviewKlaxon {
 
-    private static AsyncRingtonePlayer sAsyncRingtonePlayer;
+    private static RingtonePlayer sRingtonePlayer;
 
     private RingtonePreviewKlaxon() {
     }
 
     public static void stop(Context context) {
         LogUtils.i("RingtonePreviewKlaxon.stop()");
-        getAsyncRingtonePlayer(context).stop();
+        getRingtonePlayer(context).stop();
     }
 
     public static void start(Context context, Uri uri) {
         stop(context);
         LogUtils.i("RingtonePreviewKlaxon.start()");
-        getAsyncRingtonePlayer(context).play(uri, 0);
+        getRingtonePlayer(context).play(uri, 0);
     }
 
-    public static void releaseResources() {
-        if (sAsyncRingtonePlayer != null) {
-            sAsyncRingtonePlayer.shutdown();
-            sAsyncRingtonePlayer = null;
-        }
-    }
-
-    private static synchronized AsyncRingtonePlayer getAsyncRingtonePlayer(Context context) {
-        if (sAsyncRingtonePlayer == null) {
-            sAsyncRingtonePlayer = new AsyncRingtonePlayer(context.getApplicationContext());
+    private static synchronized RingtonePlayer getRingtonePlayer(Context context) {
+        if (sRingtonePlayer == null) {
+            sRingtonePlayer = new RingtonePlayer(context.getApplicationContext());
         }
 
-        return sAsyncRingtonePlayer;
+        return sRingtonePlayer;
     }
 }
