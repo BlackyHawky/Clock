@@ -25,6 +25,7 @@ import android.database.Cursor;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.Settings;
@@ -39,11 +40,17 @@ import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Collections;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * All ringtone data is accessed via this model.
@@ -103,27 +110,63 @@ public final class RingtoneModel {
     }
 
     void addCustomRingtone(Uri uri, String title) {
-        // If the uri is already present in an existing ringtone, do nothing.
-        final CustomRingtone existing = getCustomRingtone(uri);
-        if (existing != null) {
+        // If the new ringtone is already present in an existing ringtone, do nothing.
+        long size = 0;
+        try (InputStream in = mContext.getContentResolver().openInputStream(uri)) {
+            size = in.available();
+        } catch (IOException ignored) {}
+
+        if (isCustomRingtoneAlreadyAdded(title, size)) {
             return;
         }
 
-        final CustomRingtone ringtone = CustomRingtoneDAO.addCustomRingtone(mPrefs, uri, title);
+        Uri safeUri = uri;
+
+        // On API 24+ (Android 7.0+), copy to device protected storage
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Context directBootContext = mContext.createDeviceProtectedStorageContext();
+
+            String safeTitle = title.replaceAll("[^a-zA-Z0-9.\\-]", "_");
+            String uniqueSuffix = "_" + UUID.randomUUID().toString();
+            String filename = safeTitle + uniqueSuffix;
+
+            File destFile = new File(directBootContext.getFilesDir(), filename);
+            try (InputStream in = mContext.getContentResolver().openInputStream(uri);
+                OutputStream out = new FileOutputStream(destFile)) {
+                byte[] buffer = new byte[4096];
+                int bytesRead;
+                while ((bytesRead = in.read(buffer)) != -1) {
+                    out.write(buffer, 0, bytesRead);
+                }
+                safeUri = Uri.fromFile(destFile);
+            } catch (IOException e) {
+                LogUtils.e("Failed to copy ringtone to device protected storage", e);
+                return;
+            }
+        }
+
+        final CustomRingtone ringtone = CustomRingtoneDAO.addCustomRingtone(mPrefs, safeUri, title);
         getMutableCustomRingtones().add(ringtone);
         Collections.sort(getMutableCustomRingtones());
     }
+
 
     void removeCustomRingtone(Uri uri) {
         final List<CustomRingtone> ringtones = getMutableCustomRingtones();
         for (CustomRingtone ringtone : ringtones) {
             if (ringtone.getUri().equals(uri)) {
+                // Remove the file from device protected storage
+                File file = new File(uri.getPath());
+                if (file.exists()) {
+                    file.delete();
+                }
                 CustomRingtoneDAO.removeCustomRingtone(mPrefs, ringtone.getId());
                 ringtones.remove(ringtone);
                 break;
             }
         }
     }
+
 
     boolean isCustomRingtoneAlreadyAdded(String name, long size) {
         for (CustomRingtone ringtone : getMutableCustomRingtones()) {

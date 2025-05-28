@@ -10,6 +10,8 @@ import android.media.AudioAttributes;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
+import android.os.UserManager;
 import android.provider.Settings;
 
 import androidx.annotation.AnyRes;
@@ -90,12 +92,21 @@ public class RingtoneUtils {
      * or {@code null} if preparation fails.
      */
     public static MediaPlayer createPreparedMediaPlayer(Context context, Uri... ringtoneUris) {
+        // Use a Direct Boot aware context if needed
+        Context safeContext = context;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) { // Direct Boot is only supported since API 24 (Android 7.0+)
+            UserManager userManager = (UserManager) context.getSystemService(Context.USER_SERVICE);
+            if (userManager != null && !userManager.isUserUnlocked()) {
+                safeContext = context.createDeviceProtectedStorageContext();
+            }
+        }
+
         MediaPlayer player = new MediaPlayer();
 
         for (Uri uri : ringtoneUris) {
             try {
                 player.reset();
-                player.setDataSource(context, uri);
+                player.setDataSource(safeContext, uri);
                 player.setAudioAttributes(new AudioAttributes.Builder()
                         .setUsage(AudioAttributes.USAGE_ALARM)
                         .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
