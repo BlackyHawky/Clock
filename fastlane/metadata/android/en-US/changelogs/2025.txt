@@ -1,0 +1,13 @@
+**Fix**
+- Fix custom time picker 'OK' button when typing values with keyboard
+
+**Improvements**
+- Ability to set the seconds for the '+ 1:00' button on timers
+- Improve app performance when a timer is running
+- Don't resize the dialog for small screens
+- Set random ringtones for system and custom ringtones separately
+- Make alarms repeatable if missed
+- Improve ringtone playback
+- Update translations
+
+All changes here: https://github.com/BlackyHawky/Clock/releases/tag/2.22

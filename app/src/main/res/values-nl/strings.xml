@@ -150,7 +150,7 @@
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Onbekend"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">Wekkervolume gedempt</string>
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"Dempen opheffen"</string>
-    <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"Standaardbeltoon voor wekker is stil"</string>
+    <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">Standaard wekkergeluid is stil</string>
     <string name="change_setting_action" msgid="1224356633832430160">"Wijzigen"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Apparaat is ingesteld op totale stilte"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Volumeknoppen"</string>
@@ -159,7 +159,7 @@
     <string name="button_action_control_volume">Volume regelen</string>
     <string name="button_action_nothing">Geen</string>
     <string name="label_description" msgid="8736179296142915727">"Label"</string>
-    <string name="ringtone_description" msgid="7580922112921069925">Ringtoon</string>
+    <string name="ringtone_description" msgid="7580922112921069925">Geluid</string>
     <string name="menu_alarm" msgid="4772010125376647519">"Wekker"</string>
     <string name="menu_timer" msgid="6459070074762877114">Kookwekker</string>
     <string name="menu_clock" msgid="5612760670606829805">"Klok"</string>
@@ -392,7 +392,7 @@
     <string name="about_title">Over</string>
     <string name="contributors">Bijdragers</string>
     <string name="credits">Dank aan</string>
-    <string name="about_dialog_message">• Wekkers zetten voor een specifieke datum \n\n• Omdraaien en schudden om wekker uit te zetten/stellen \n\n• Wekker uitzetten/uitstellen met de aan/uit-knop of volumeknoppen \n\n• Alleen voor Snapdragon apparaten: wekker af laten gaan als het toestel is uitgeschakeld \n\n• Veeg om wekker te verwijderen \n\n• Wekkers dupliceren \n\n• Wekkertitel aanpassen \n\n• Wekkergeluid aanpassen \n\n• Licht, donker of systeemthema \n\n• AMOLED-modus voor donker thema \n\n• Digitale of analoge klokstijl \n\n• Klok voor thuis tijdens het reizen \n\n• Bekijk de tijd in vele steden rond de wereld \n\n• Bevat kookwekker en stopklok\n\n• Mogelijkheid om stopkloktijden te delen met contacten \n\n• Aanpasbare screensaver \n\n• Moderne widgets \n\n• Aanpasbare widgets\n\n• Ondersteuning voor tegels in de snelle instellingen (Android 7+); \n\n• Back-up en herstel app-data (behalve aangepaste ringtonen)\n\n• Material design \n\n• Dynamische kleuren voor Android 12+</string>
+    <string name="about_dialog_message">• Wekkers zetten voor een specifieke datum \n\n• Omdraaien en schudden om wekker uit te zetten/stellen \n\n• Wekker uitzetten/uitstellen met de aan/uit-knop of volumeknoppen \n\n• Alleen voor Snapdragon apparaten: wekker af laten gaan als het toestel is uitgeschakeld \n\n• Veeg om wekker te verwijderen \n\n• Wekkers dupliceren \n\n• Wekkertitel aanpassen \n\n• Wekkergeluid aanpassen \n\n• Licht, donker of systeemthema \n\n• AMOLED-modus voor donker thema \n\n• Digitale of analoge klokstijl \n\n• Klok voor thuis tijdens het reizen \n\n• Bekijk de tijd in vele steden rond de wereld \n\n• Bevat kookwekker en stopklok\n\n• Mogelijkheid om stopkloktijden te delen met contacten \n\n• Aanpasbare screensaver \n\n• Moderne widgets \n\n• Aanpasbare widgets\n\n• Ondersteuning voor tegels in de snelle instellingen (Android 7+); \n\n• Back-up en herstel app-data (behalve aangepaste geluiden)\n\n• Material design \n\n• Dynamische kleuren voor Android 12+</string>
     <string name="screensaver_daydream_settings">Screensaver selecteren/inschakelen</string>
     <string name="screensaver_daydream_settings_summary">Opent de systeeminstellingen voor screensavers</string>
     <string name="screensaver_clock_dynamic_colors_title">Dynamische klokkleuren</string>
@@ -447,7 +447,7 @@
     <string name="about_github_link">Bekijk op GitHub</string>
     <string name="license">Open-source licentie</string>
     <string name="dialog_close">Sluiten</string>
-    <string name="first_launch_main_feature_message">► Licht, donker of systeemthema; &lt;br&gt; &lt;br&gt; ► Aanpasbare screensaver; &lt;br&gt; &lt;br&gt;► Aanpasbare widgets; &lt;br&gt; &lt;br&gt; ►Ondersteuning voor tegels in de snelle instellingen (Android 7+)&lt;br&gt; &lt;br&gt;►Backup en herstel app-data (behalve aangepaste ringtonen);&lt;br&gt; &lt;br&gt; ► Material design en dynamische kleuren; &lt;br&gt; &lt;br&gt; ►Wekkers zetten voor een specifieke datum; &lt;br&gt; &lt;br&gt; ► Veeg om wekker te verwijderen; &lt;br&gt; &lt;br&gt; ► Wekker dupliceren; &lt;br&gt; &lt;br&gt; ► Omdraaien en schudden om wekker uit te zetten/stellen; &lt;br&gt; &lt;br&gt; ► Wekker uitzetten/stellen met de aan/uit-knop of volume knoppen; &lt;br&gt; &lt;br&gt; ► %s</string>
+    <string name="first_launch_main_feature_message">► Licht, donker of systeemthema; &lt;br&gt; &lt;br&gt; ► Aanpasbare screensaver; &lt;br&gt; &lt;br&gt;► Aanpasbare widgets; &lt;br&gt; &lt;br&gt; ►Ondersteuning voor tegels in de snelle instellingen (Android 7+)&lt;br&gt; &lt;br&gt;►Backup en herstel app-data (behalve aangepaste geluiden);&lt;br&gt; &lt;br&gt; ► Material design en dynamische kleuren; &lt;br&gt; &lt;br&gt; ►Wekkers zetten voor een specifieke datum; &lt;br&gt; &lt;br&gt; ► Veeg om wekker te verwijderen; &lt;br&gt; &lt;br&gt; ► Wekker dupliceren; &lt;br&gt; &lt;br&gt; ► Omdraaien en schudden om wekker uit te zetten/stellen; &lt;br&gt; &lt;br&gt; ► Wekker uitzetten/stellen met de aan/uit-knop of volume knoppen; &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="firing_alarms_timers_channel">Wekkers en kookwekkers activeren</string>
     <string name="first_launch_main_feature_link">… en veel meer!</string>
     <string name="permission_management_summary">Toon de rechten die nodig zijn om de app goed te laten werken</string>
@@ -458,12 +458,12 @@
     <string name="gnu_gpl">GNU General Public License v3.0</string>
     <string name="first_launch_important_info_message">Om zeker te zijn dat de app goed werkt, &lt;b&gt;moeten sommige instellingen van je apparaat veranderd worden:&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;NIET STOREN;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;BATTERIJOPTIMALISATIE;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;MELDINGEN;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;Afhankelijk van de Androidversie van je apparaat zijn sommige instellingen al geoptimaliseerd (bijv. meldingen).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Je kan ze nu of later veranderen in de rechtenbeheer-instellingen:</string>
     <string name="material_time_picker_style_title">Tijdselectie</string>
-    <string name="alarm_settings_summary">Uiterlijk, standaard wekkergeluid, volume, sluimeracties, eerste weekdag, herinneringstijd aanpassen</string>
+    <string name="alarm_settings_summary">Uiterlijk, standaard geluid, volume, sluimeracties, eerste weekdag, herinneringstijd aanpassen</string>
     <string name="widget_next_alarm_default_color_title">Standaardkleur voor volgende wekker</string>
     <string name="digital_widget_message_summary">\"Steden op widget tonen\" moet uitgeschakeld zijn voor deze optie</string>
     <string name="enable_alarm_snooze_actions_label">Sluimeracties inschakelen</string>
     <string name="alarm_label_box_title">Wekkerlabel</string>
-    <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Wekker uitzetten als wekkergeluid eindigt</string>
+    <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Wekker uitzetten als geluid eindigt</string>
     <string name="actions_category_title">Acties</string>
     <string name="interface_customization_summary">Uiterlijk en kleur van de app aanpassen</string>
     <string name="swipe_action_title">Veeg om wekkers te sluimeren of uit te zetten</string>
@@ -476,7 +476,7 @@
     <string name="timer_add_custom_time">+ %s</string>
     <string name="clock_settings_summary">Stijl, tijdzone en systeemtijd aanpassen</string>
     <string name="description_direction_both_for_non_repeatable_alarm">Veeg naar links of rechts om uit te zetten</string>
-    <string name="timer_settings_summary">Standaard ringtoon, volume en kookwekkers sorteren</string>
+    <string name="timer_settings_summary">Standaard geluid, volume en kookwekkers sorteren</string>
     <string name="default_time_to_add_to_timer_title">Standaardtijd om aan kookwekker toe te voegen</string>
     <string name="widget_background_title">Achtergrond tonen</string>
     <string name="background_color_title">Achtergrondkleur</string>
@@ -493,7 +493,7 @@
     <string name="digital_widget_max_clock_font_size_title">Maximum lettergrootte van de klok</string>
     <string name="styles_and_colors_category_title">Stijl en kleuren</string>
     <string name="miscellaneous_category_title">Overig</string>
-    <string name="ringtone_category_title">Ringtoon</string>
+    <string name="ringtone_category_title">Geluid</string>
     <string name="enable_alarm_vibrations_by_default_setting_title">Trillen bij het maken van wekkers</string>
     <string name="alarm_notification_reminder_title">Wekkerherinnering</string>
     <string name="label_default">Standaard</string>
@@ -567,7 +567,7 @@
     <string name="material_you_next_alarm_widget">Volgende wekker Material You</string>
     <string name="settings_fade_transitions_title">Vervagingsovergangen bij het wisselen van scherm</string>
     <string name="next_alarm_widget">Volgende wekker</string>
-    <string name="backup_restore_summary">Back-up of herstel instellingen behalve aangepaste ringtonen</string>
+    <string name="backup_restore_summary">Back-up of herstel instellingen behalve aangepaste geluiden</string>
     <string name="backup_restore_title">Back-up &amp; Herstel</string>
     <string name="toast_message_for_backup">Backup voltooid</string>
     <string name="toast_message_for_restore">Herstel voltooid</string>
@@ -608,7 +608,7 @@
     <string name="day_accent_color_title">Accentkleur voor dagmodus</string>
     <string name="warning_dialog_message">Weet je zeker dat je de \"%s\" kookwekker wilt verwijderen?</string>
     <string name="display_warning_before_deleting_timer_title">Waarschuwing weergeven voor het verwijderen van een kookwekker</string>
-    <string name="display_ringtone_title">Naam van ringtoon tonen</string>
+    <string name="display_ringtone_title">Naam van geluid tonen</string>
     <string name="warning_dialog_title">Kookwekker verwijderen</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">Trillen als wekker wordt gesluimerd of uitgezet</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">Dubbel trillen als wekker wordt gesluimerd en één keer trillen als wekker wordt uitgezet</string>
@@ -649,7 +649,7 @@
     <string name="settings_language_turkish">Turks</string>
     <string name="contributors_dialog_title">Profiel bekijken</string>
     <string name="reset_settings_title">Instellingen opnieuw instellen</string>
-    <string name="reset_settings_message">Weet je zeker dat je alle instellingen opnieuw wilt instellen?\n\nLet op: aangepaste ringtonen zullen niet worden teruggezet.</string>
+    <string name="reset_settings_message">Weet je zeker dat je alle instellingen opnieuw wilt instellen?\n\nLet op: aangepaste geluiden worden niet teruggezet.</string>
     <string name="blue_accent_color">Blauw</string>
     <string name="toast_message_for_reset">Terugzetten voltooid</string>
     <string name="settings_language_korean">Koreaans</string>
@@ -664,7 +664,7 @@
     <string name="settings_keep_screen_on_summary">Let op: Het scherm zal altijd aanblijven als een kookwekker of stopklok loopt en het overeenkomstige tabblad wordt getoond, ongeacht deze instelling</string>
     <string name="slide_zone_color_title">Kleur veeggebied</string>
     <string name="dismiss_title_color">Kleur uitzettitel</string>
-    <string name="ringtone_title_color">Kleur ringtoontitel</string>
+    <string name="ringtone_title_color">Kleur geluidtitel</string>
     <string name="description_snooze_button">Tik om wekker te sluimeren</string>
     <string name="description_dismiss_button">Tik om wekker uit te zetten</string>
     <string name="display_next_alarm_title">Volgende wekker op widget tonen</string>
@@ -676,8 +676,13 @@
     <string name="date_picker_style_title">Datumkiezer</string>
     <string name="alarm_scheduled_for">Ingeroosterd voor %s</string>
     <string name="schedule_alarm_title">Wekker inroosteren</string>
-    <string name="random_ringtone_title">Willekeurige ringtoon</string>
+    <string name="random_ringtone_title">Willekeurig geluid</string>
     <string name="add_new_sound_subtitle">Lang tikken om een map te selecteren</string>
     <string name="date_picker_style_text">Tekst</string>
     <string name="warning">Waarschuwing</string>
+    <string name="timer_add_custom_time_with_seconds_for_notification">%1$s min. %2$s sec. toevoegen</string>
+    <string name="label_minutes">Minuten</string>
+    <string name="label_seconds">Seconden</string>
+    <string name="timer_button_time_seconds_warning_box_text">Voer een waarde in tussen 0 en 59 seconden</string>
+    <string name="timer_add_custom_time_with_seconds_description">%1$s Minuten %2$s Seconden toevoegen</string>
 </resources>
