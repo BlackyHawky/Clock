@@ -11,6 +11,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 
@@ -26,6 +27,9 @@ import com.best.deskclock.R;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
+
+import java.io.File;
+import java.io.InputStream;
 
 /**
  * <p>Controls the playback of alarm ringtones with advanced audio routing and volume management.</p>
@@ -185,23 +189,28 @@ public final class RingtonePlayer {
             }
         }
 
+        Context safeContext = mContext;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            safeContext = mContext.createDeviceProtectedStorageContext();
+        }
+
         boolean isBluetooth = hasBluetoothDeviceConnected();
-        mExoPlayer = new ExoPlayer.Builder(mContext)
+        mExoPlayer = new ExoPlayer.Builder(safeContext)
                 .setAudioAttributes(buildAudioAttributes(isBluetooth), isBluetooth)
                 .build();
 
         boolean inCall = isInTelephoneCall(mAudioManager);
 
         if (inCall) {
-            ringtoneUri = getInCallRingtoneUri(mContext);
+            ringtoneUri = getInCallRingtoneUri(safeContext);
         }
 
         if (RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).equals(ringtoneUri)) {
-            ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(mContext, RingtoneManager.TYPE_ALARM);
+            ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(safeContext, RingtoneManager.TYPE_ALARM);
         }
 
-        if (ringtoneUri == null) {
-            ringtoneUri = getFallbackRingtoneUri(mContext);
+        if (ringtoneUri == null || !isUriAccessible(safeContext, ringtoneUri)) {
+            ringtoneUri = getFallbackRingtoneUri(safeContext);
         }
 
         mExoPlayer.setMediaItem(MediaItem.fromUri(ringtoneUri));
@@ -222,6 +231,24 @@ public final class RingtonePlayer {
         mExoPlayer.addListener(mPlayerListener);
 
         mExoPlayer.prepare();
+    }
+    /**
+     * Checks if a file is accessible via the specified context. If the phone is in Direct Boot mode,
+     * it might not be able to access some files. This function allows using a safe fallback instead of playing a silent alarm.
+     */
+    private boolean isUriAccessible(Context context, Uri uri) {
+        try {
+            if ("file".equals(uri.getScheme())) {
+                File file = new File(uri.getPath());
+                return file.exists() && file.canRead();
+            } else {
+                try (InputStream in = context.getContentResolver().openInputStream(uri)) {
+                    return in != null;
+                }
+            }
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     /**
