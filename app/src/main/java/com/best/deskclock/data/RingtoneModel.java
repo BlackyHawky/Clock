@@ -150,23 +150,30 @@ public final class RingtoneModel {
         Collections.sort(getMutableCustomRingtones());
     }
 
-
     void removeCustomRingtone(Uri uri) {
         final List<CustomRingtone> ringtones = getMutableCustomRingtones();
         for (CustomRingtone ringtone : ringtones) {
             if (ringtone.getUri().equals(uri)) {
-                // Remove the file from device protected storage
-                File file = new File(uri.getPath());
-                if (file.exists()) {
-                    file.delete();
+
+                // On API 24+ (Android 7.0+), remove the file from device protected storage
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    File file = new File(uri.getPath());
+                    if (file.exists()) {
+                        Context directBootContext = mContext.createDeviceProtectedStorageContext();
+                        File directBootDir = directBootContext.getFilesDir().getParentFile();
+
+                        if (file.getAbsolutePath().startsWith(directBootDir.getAbsolutePath())) {
+                            file.delete();
+                        }
+                    }
                 }
+
                 CustomRingtoneDAO.removeCustomRingtone(mPrefs, ringtone.getId());
                 ringtones.remove(ringtone);
                 break;
             }
         }
     }
-
 
     boolean isCustomRingtoneAlreadyAdded(String name, long size) {
         for (CustomRingtone ringtone : getMutableCustomRingtones()) {
