@@ -483,9 +483,9 @@
     <string name="interface_customization_summary">Установите стиль и цвет, применяемые к приложению</string>
     <string name="add_label">Добавить описание</string>
     <string name="material_time_picker_style_title">Стиль выбора времени</string>
-    <string name="about_dialog_message">• Переворот и встряхивание для отключения / отсрочки будильника; \n\n• Выключение / отсрочка будильника с помощью кнопки питания или кнопок регулировки громкости; \n\n• Только для телефонов Snapdragon будильник срабатывает при выключении телефона; \n\t\tК сожалению, эта функция может не работать, не смотря на наличие системного приложения <i>\"com.qualcomm.qti.poweroffalarm\"</i>. \n\n• Проведите пальцем, чтобы удалить будильник; \n\n• Дубликаты будильников; \n\n• Настройте название будильника; \n\n• Настраиваемый рингтон; \n\n• Светлая, темная или системная тема; \n\n• Режим AMOLED для темной темы; \n\n• Стиль цифровых или аналоговых часов; \n\n• Отображение домашнего времени во время путешествия; \n\n• Отображение времени во многих городах мира; \n\n• Включены таймер и секундомер; \n\n• Возможность поделиться секундомером со своими контактами; \n\n• Настраиваемая заставка; \n\n• Современные виджеты; \n\n• Настраиваемые виджеты; \n\n• Поддержка плиток в быстрых настройках (для Android 7+); \n\n• Резервная копия и восстановление настроек (кроме пользовательский рингтонов); \n\n• Дизайн Material; \n\n• Динамические цвета для Android 12+;</string>
+    <string name="about_dialog_message">• Установка будильника на определённую дату; \n\n• Переворот и встряхивание для отключения / отсрочки будильника; \n\n• Выключение / отсрочка будильника с помощью кнопки питания или кнопок регулировки громкости; \n\n• Только для телефонов Snapdragon будильник срабатывает при выключении телефона; \n\t\tК сожалению, эта функция может не работать, не смотря на наличие системного приложения <i>\"com.qualcomm.qti.poweroffalarm\"</i>. \n\n• Проведите пальцем, чтобы удалить будильник; \n\n• Дубликаты будильников; \n\n• Настройте название будильника; \n\n• Настраиваемый рингтон; \n\n• Светлая, темная или системная тема; \n\n• Режим AMOLED для темной темы; \n\n• Стиль цифровых или аналоговых часов; \n\n• Отображение домашнего времени во время путешествия; \n\n• Отображение времени во многих городах мира; \n\n• Включены таймер и секундомер; \n\n• Возможность поделиться секундомером со своими контактами; \n\n• Настраиваемая заставка; \n\n• Современные виджеты; \n\n• Настраиваемые виджеты; \n\n• Поддержка плиток в быстрых настройках (для Android 7+); \n\n• Резервная копия и восстановление настроек (кроме пользовательский рингтонов); \n\n• Дизайн Material; \n\n• Динамические цвета для Android 12+;</string>
     <string name="screensaver_italic_date_title">Курсивный шрифт даты</string>
-    <string name="first_launch_main_feature_message">► Светлая, тёмная или системная темы; &lt;br&gt; &lt;br&gt; ► Настраиваемая заставка-скринсейвер; &lt;br&gt; &lt;br&gt; ► Настраиваемые виджеты; &lt;br&gt; &lt;br&gt; ► Поддержка плиток в быстрых настройках (для Android 7+); &lt;br&gt; &lt;br&gt; ► Резервная копия и восстановление данных приложения (кроме пользовательский рингтонов); &lt;br&gt; &lt;br&gt; ► Material дизайн и динамические цвета; &lt;br&gt; &lt;br&gt; ► Смахнуть чтобы удалить будильник; &lt;br&gt; &lt;br&gt; ► Дублирование будильника; &lt;br&gt; &lt;br&gt; ► Перевернуть или встряхнуть устройство чтобы выключить/отложить будильник; &lt;br&gt; &lt;br&gt; ► Выключить/отложить будильник нажав на кнопки питания или громкости; &lt;br&gt; &lt;br&gt; ► %s</string>
+    <string name="first_launch_main_feature_message">► Светлая, тёмная или системная темы; &lt;br&gt; &lt;br&gt; ► Настраиваемая заставка-скринсейвер; &lt;br&gt; &lt;br&gt; ► Настраиваемые виджеты; &lt;br&gt; &lt;br&gt; ► Поддержка плиток в быстрых настройках (для Android 7+); &lt;br&gt; &lt;br&gt; ► Резервная копия и восстановление данных приложения (кроме пользовательский рингтонов); &lt;br&gt; &lt;br&gt; ► Material дизайн и динамические цвета; &lt;br&gt; &lt;br&gt; ► Установка будильника на определённую дату; &lt;br&gt; &lt;br&gt; ► Смахнуть чтобы удалить будильник; &lt;br&gt; &lt;br&gt; ► Дублирование будильника; &lt;br&gt; &lt;br&gt; ► Перевернуть или встряхнуть устройство чтобы выключить/отложить будильник; &lt;br&gt; &lt;br&gt; ► Выключить/отложить будильник нажав на кнопки питания или громкости; &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="timer_label_box_title">Метка таймера</string>
     <string name="timer_button_time_box_title">Минуты для добавления к таймеру</string>
     <string name="contributors">Участники</string>
@@ -698,4 +698,19 @@
     <string name="slide_zone_color_title">Цвет зоны скольжения</string>
     <string name="snooze_title_color">Цвет заголовка \"Отложить\"</string>
     <string name="dismiss_title_color">Цвет заголовка \"Отклонить\"</string>
+    <string name="occasional_alarm_deleted">Случайный <xliff:g example="14:20" id="alarm_time">%s</xliff:g> будильник удалён</string>
+    <string name="date_picker_style_calendar">Календарь</string>
+    <string name="timer_add_custom_time_with_seconds_for_notification">Добавить %1$s мин %2$s с</string>
+    <string name="alarm_is_dismissed_and_deleted"><xliff:g example="14:20" id="alarm_time">%s</xliff:g> будильник выключен и удалён</string>
+    <string name="label_minutes">Минуты</string>
+    <string name="label_seconds">Секунды</string>
+    <string name="warning">Предупреждение</string>
+    <string name="alarm_scheduled_for">Отложено на %s</string>
+    <string name="timer_add_custom_time_with_seconds_description">Добавить %1$s минут %2$s секунд</string>
+    <string name="schedule_alarm_title">Отложить будильник</string>
+    <string name="date_picker_style_title">Стиль диалога выбора даты</string>
+    <string name="date_picker_style_text">Текст</string>
+    <string name="timer_button_time_seconds_warning_box_text">Введите значение от 0 до 59 секунд</string>
+    <string name="random_ringtone_title">Случайный рингтон</string>
+    <string name="add_new_sound_subtitle">Удерживайте чтобы выбрать папку</string>
 </resources>

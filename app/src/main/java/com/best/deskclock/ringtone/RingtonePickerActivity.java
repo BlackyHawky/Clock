@@ -352,8 +352,6 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
             stopPlayingRingtone(getSelectedRingtoneHolder(), false);
         }
 
-        RingtonePreviewKlaxon.releaseResources();
-
         super.onStop();
     }
 
@@ -729,6 +727,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
         executor.execute(() -> {
             final Uri systemDefaultRingtoneUri =
                     RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+
             // Update all alarms that use the custom ringtone to use the system default.
             final ContentResolver cr = getContentResolver();
             final List<Alarm> alarms = Alarm.getAlarms(cr, null);
@@ -786,7 +785,6 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
                     if (remainingUri != null) {
                         mSelectedRingtoneUri = remainingUri;
 
-                        // Trouve le holder et sélectionne-le
                         RingtoneHolder remainingHolder = getRingtoneHolder(remainingUri);
                         if (remainingHolder != null) {
                             stopPlayingRingtone(toRemove, false);

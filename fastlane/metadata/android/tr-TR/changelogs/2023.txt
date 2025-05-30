@@ -1,0 +1,15 @@
+**Düzeltmeler
+- Çentikli cihazlar için tepe dolgusunun düzeltilmesi
+- Bazı aygıtlar için alarm ve zamanlayıcı titreşiminin düzeltilmesi
+
+**İyileştirmeler
+- Alarmların belirli bir tarihe ayarlanması
+- Rasgele zil sesi çaldırma özelliği
+- Zil sesi eklemek için dizin seçme özelliği
+- Belirtilmemişse alarm başlığının saklanması
+- `DISABLE_KEYGUARD` yetkisinin kaldırılması
+- Sistem canlandırmaları etkisizleştirilmişse, alarmları silmek için kaydırmanın etkisizleştirilmesi
+- Çeviri iyileştirmeleri
+- Kod iyileştirilmesi ve temizliği
+
+Bütün değişiklikler burada: https://github.com/BlackyHawky/Clock/releases/tag/2.20

@@ -711,4 +711,7 @@
     <string name="timer_add_custom_time_with_seconds_for_notification">Додати %1$s хв %2$s с</string>
     <string name="seconds_only"><xliff:g example="44" id="seconds">%1$02d</xliff:g></string>
     <string name="timer_button_time_seconds_warning_box_text">Введіть значення від 0 до 59 секунд</string>
+    <string name="label_minutes">Хвилини</string>
+    <string name="timer_add_custom_time_with_seconds_description">Додати %1$s хвилину %2$s секунд</string>
+    <string name="label_seconds">Секунди</string>
 </resources>

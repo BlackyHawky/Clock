@@ -735,7 +735,6 @@ final class TimerModel {
         // If the expired timer was the last to reset, stop ringing.
         if (beforeState == EXPIRED && mRingingIds.remove(before.getId()) && mRingingIds.isEmpty()) {
             TimerKlaxon.stop(mContext);
-            TimerKlaxon.releaseResources();
             AlarmAlertWakeLock.releaseCpuLock();
         }
     }
@@ -761,7 +760,6 @@ final class TimerModel {
 
         handler.postDelayed(() -> {
             TimerKlaxon.stop(mContext);
-            TimerKlaxon.releaseResources();
             resetOrDeleteExpiredTimers(R.string.label_deskclock);
             AlarmAlertWakeLock.releaseCpuLock();
         }, duration);
