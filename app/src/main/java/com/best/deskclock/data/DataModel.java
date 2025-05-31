@@ -725,9 +725,9 @@ public final class DataModel {
      * @param uri   the uri of an audio file to use as a ringtone
      * @param title the title of the audio content at the given {@code uri}
      */
-    public void addCustomRingtone(Uri uri, String title) {
+    public Uri addCustomRingtone(Uri uri, String title) {
         enforceMainLooper();
-        mRingtoneModel.addCustomRingtone(uri, title);
+        return mRingtoneModel.addCustomRingtone(uri, title);
     }
 
     /**
@@ -743,7 +743,7 @@ public final class DataModel {
      * to avoid adding duplicates. {@code false} otherwise.
      */
     public boolean isCustomRingtoneAlreadyAdded(String name, long size) {
-        return mRingtoneModel.isCustomRingtoneAlreadyAdded(name, size);
+        return mRingtoneModel.isCustomRingtoneAlreadyAdded(name, size) == null;
     }
 
     /**

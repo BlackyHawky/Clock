@@ -11,6 +11,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 
@@ -91,7 +92,13 @@ public final class RingtonePlayer {
      * to dynamically respond to changes in audio output devices, such as Bluetooth connections.</p>
      */
     public RingtonePlayer(Context context) {
-        mContext = context;
+        // Use a DirectBoot aware context if supported
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            mContext = context.createDeviceProtectedStorageContext();
+        }
+        else {
+            mContext = context;
+        }
         mAudioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
         initAudioDeviceCallback();
     }
@@ -200,7 +207,7 @@ public final class RingtonePlayer {
             ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(mContext, RingtoneManager.TYPE_ALARM);
         }
 
-        if (ringtoneUri == null) {
+        if (ringtoneUri == null || !RingtoneUtils.isRingtoneUriReadable(mContext, ringtoneUri)) {
             ringtoneUri = getFallbackRingtoneUri(mContext);
         }
 
