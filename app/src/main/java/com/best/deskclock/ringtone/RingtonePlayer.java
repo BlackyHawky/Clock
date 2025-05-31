@@ -209,7 +209,7 @@ public final class RingtonePlayer {
             ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(safeContext, RingtoneManager.TYPE_ALARM);
         }
 
-        if (ringtoneUri == null || !isUriAccessible(safeContext, ringtoneUri)) {
+        if (ringtoneUri == null || !RingtoneUtils.isRingtoneUriReadable(safeContext, ringtoneUri)) {
             ringtoneUri = getFallbackRingtoneUri(safeContext);
         }
 
@@ -231,24 +231,6 @@ public final class RingtonePlayer {
         mExoPlayer.addListener(mPlayerListener);
 
         mExoPlayer.prepare();
-    }
-    /**
-     * Checks if a file is accessible via the specified context. If the phone is in Direct Boot mode,
-     * it might not be able to access some files. This function allows using a safe fallback instead of playing a silent alarm.
-     */
-    private boolean isUriAccessible(Context context, Uri uri) {
-        try {
-            if ("file".equals(uri.getScheme())) {
-                File file = new File(uri.getPath());
-                return file.exists() && file.canRead();
-            } else {
-                try (InputStream in = context.getContentResolver().openInputStream(uri)) {
-                    return in != null;
-                }
-            }
-        } catch (Exception e) {
-            return false;
-        }
     }
 
     /**
