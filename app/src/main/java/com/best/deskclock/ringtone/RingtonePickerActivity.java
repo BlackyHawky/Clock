@@ -656,10 +656,8 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
             final String title = name;
             handler.post(() -> {
                 // Add the new custom ringtone to the data model.
-                DataModel.getDataModel().addCustomRingtone(uri, title);
-
                 // When the loader completes, it must play the new ringtone.
-                mSelectedRingtoneUri = uri;
+                mSelectedRingtoneUri = DataModel.getDataModel().addCustomRingtone(uri, title);
                 mIsPlaying = true;
 
                 // Reload the data to reflect the change in the UI.

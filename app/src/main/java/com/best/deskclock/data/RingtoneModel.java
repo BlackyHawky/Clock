@@ -114,15 +114,14 @@ public final class RingtoneModel {
         }
     }
 
-    void addCustomRingtone(Uri uri, String title) {
+    Uri addCustomRingtone(Uri uri, String title) {
         // If the new ringtone is already present in an existing ringtone, do nothing.
         long size = RingtoneUtils.getRingtoneFileSize(mContext, uri);
 
-        if (isCustomRingtoneAlreadyAdded(title, size)) {
-            return;
+        Uri existingRingtone = isCustomRingtoneAlreadyAdded(title, size);
+        if (existingRingtone != null) {
+            return existingRingtone;
         }
-
-        Uri safeUri = uri;
 
         // If device supports it make ringtone available during DirectBoot
         if (SdkUtils.isAtLeastAndroid7()) {
@@ -140,16 +139,16 @@ public final class RingtoneModel {
                         outputStream.write(buffer, 0, bytesRead);
                     }
                 }
-                safeUri = Uri.fromFile(destFile);
+                uri = Uri.fromFile(destFile);
             } catch (IOException e) {
-                LogUtils.e("Failed to copy ringtone to device protected storage", e);
-                return;
+                LogUtils.e("Failed to copy ringtone to device protected storage, continue using user storage", e);
             }
         }
 
-        final CustomRingtone ringtone = CustomRingtoneDAO.addCustomRingtone(mPrefs, safeUri, title);
+        final CustomRingtone ringtone = CustomRingtoneDAO.addCustomRingtone(mPrefs, uri, title);
         getMutableCustomRingtones().add(ringtone);
         Collections.sort(getMutableCustomRingtones());
+        return uri;
     }
 
     void removeCustomRingtone(Uri uri) {
@@ -179,7 +178,7 @@ public final class RingtoneModel {
         }
     }
 
-    boolean isCustomRingtoneAlreadyAdded(String name, long size) {
+    Uri isCustomRingtoneAlreadyAdded(String name, long size) {
         for (CustomRingtone ringtone : getMutableCustomRingtones()) {
             String ringtoneName = ringtone.getTitle();
             Uri ringtoneUri = ringtone.getUri();
@@ -188,11 +187,11 @@ public final class RingtoneModel {
             if (ringtoneName != null && ringtoneName.equalsIgnoreCase(name)) {
                 // If the name is the same, try to compare the size
                 if (RingtoneUtils.getRingtoneFileSize(mContext, ringtoneUri) == size) {
-                    return true;
+                    return ringtoneUri;
                 }
             }
         }
-        return false;
+        return null;
     }
 
     private CustomRingtone getCustomRingtone(Uri uri) {
