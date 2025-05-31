@@ -122,8 +122,8 @@ public final class RingtoneModel {
 
         Uri safeUri = uri;
 
-        // On API 24+ (Android 7.0+), copy to device protected storage
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        // If device supports it make ringtone available during DirectBoot
+        if (SdkUtils.isAtLeastAndroid7()) {
             Context directBootContext = mContext.createDeviceProtectedStorageContext();
 
             String safeTitle = title.replaceAll("[^a-zA-Z0-9.\\-]", "_");
@@ -131,12 +131,12 @@ public final class RingtoneModel {
             String filename = safeTitle + uniqueSuffix;
 
             File destFile = new File(directBootContext.getFilesDir(), filename);
-            try (InputStream in = mContext.getContentResolver().openInputStream(uri);
-                OutputStream out = new FileOutputStream(destFile)) {
+            try (InputStream inputStream = mContext.getContentResolver().openInputStream(uri);
+                OutputStream outputStream = new FileOutputStream(destFile)) {
                 byte[] buffer = new byte[4096];
                 int bytesRead;
-                while ((bytesRead = in.read(buffer)) != -1) {
-                    out.write(buffer, 0, bytesRead);
+                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                    outputStream.write(buffer, 0, bytesRead);
                 }
                 safeUri = Uri.fromFile(destFile);
             } catch (IOException e) {
@@ -154,9 +154,8 @@ public final class RingtoneModel {
         final List<CustomRingtone> ringtones = getMutableCustomRingtones();
         for (CustomRingtone ringtone : ringtones) {
             if (ringtone.getUri().equals(uri)) {
-
-                // On API 24+ (Android 7.0+), remove the file from device protected storage
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                // Remove the file from device protected storage
+                if (SdkUtils.isAtLeastAndroid7()) {
                     File file = new File(uri.getPath());
                     if (file.exists()) {
                         Context directBootContext = mContext.createDeviceProtectedStorageContext();

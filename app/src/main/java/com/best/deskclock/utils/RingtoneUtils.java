@@ -92,9 +92,9 @@ public class RingtoneUtils {
      * or {@code null} if preparation fails.
      */
     public static MediaPlayer createPreparedMediaPlayer(Context context, Uri... ringtoneUris) {
-        // Use a Direct Boot aware context if needed
+        // Use a DirectBoot aware context if supported
         Context safeContext = context;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) { // Direct Boot is only supported since API 24 (Android 7.0+)
+        if (SdkUtils.isAtLeastAndroid7()) {
             UserManager userManager = (UserManager) context.getSystemService(Context.USER_SERVICE);
             if (userManager != null && !userManager.isUserUnlocked()) {
                 safeContext = context.createDeviceProtectedStorageContext();

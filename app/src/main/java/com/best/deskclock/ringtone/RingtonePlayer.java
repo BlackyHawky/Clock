@@ -190,6 +190,7 @@ public final class RingtonePlayer {
         }
 
         Context safeContext = mContext;
+        // Use a DirectBoot aware context if supported
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             safeContext = mContext.createDeviceProtectedStorageContext();
         }
