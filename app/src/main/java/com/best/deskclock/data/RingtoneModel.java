@@ -25,18 +25,16 @@ import android.database.Cursor;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.Settings;
 import android.util.ArrayMap;
 import android.util.ArraySet;
 
-import androidx.documentfile.provider.DocumentFile;
-
 import com.best.deskclock.R;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
 
@@ -49,6 +47,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
@@ -93,7 +92,13 @@ public final class RingtoneModel {
     private List<CustomRingtone> mCustomRingtones;
 
     public RingtoneModel(Context context, SharedPreferences prefs) {
-        mContext = context;
+        if (SdkUtils.isAtLeastAndroid7()) {
+            mContext = context.createDeviceProtectedStorageContext();
+        }
+        else {
+            mContext = context;
+        }
+
         mPrefs = prefs;
 
         // Clear caches affected by system settings when system settings change.
@@ -111,10 +116,7 @@ public final class RingtoneModel {
 
     void addCustomRingtone(Uri uri, String title) {
         // If the new ringtone is already present in an existing ringtone, do nothing.
-        long size = 0;
-        try (InputStream in = mContext.getContentResolver().openInputStream(uri)) {
-            size = in.available();
-        } catch (IOException ignored) {}
+        long size = RingtoneUtils.getRingtoneFileSize(mContext, uri);
 
         if (isCustomRingtoneAlreadyAdded(title, size)) {
             return;
@@ -124,19 +126,19 @@ public final class RingtoneModel {
 
         // If device supports it make ringtone available during DirectBoot
         if (SdkUtils.isAtLeastAndroid7()) {
-            Context directBootContext = mContext.createDeviceProtectedStorageContext();
-
             String safeTitle = title.replaceAll("[^a-zA-Z0-9.\\-]", "_");
             String uniqueSuffix = "_" + UUID.randomUUID().toString();
             String filename = safeTitle + uniqueSuffix;
 
-            File destFile = new File(directBootContext.getFilesDir(), filename);
+            File destFile = new File(mContext.getFilesDir(), filename);
             try (InputStream inputStream = mContext.getContentResolver().openInputStream(uri);
                 OutputStream outputStream = new FileOutputStream(destFile)) {
-                byte[] buffer = new byte[4096];
-                int bytesRead;
-                while ((bytesRead = inputStream.read(buffer)) != -1) {
-                    outputStream.write(buffer, 0, bytesRead);
+                if (inputStream != null) {
+                    byte[] buffer = new byte[4096];
+                    int bytesRead;
+                    while ((bytesRead = inputStream.read(buffer)) != -1) {
+                        outputStream.write(buffer, 0, bytesRead);
+                    }
                 }
                 safeUri = Uri.fromFile(destFile);
             } catch (IOException e) {
@@ -156,13 +158,16 @@ public final class RingtoneModel {
             if (ringtone.getUri().equals(uri)) {
                 // Remove the file from device protected storage
                 if (SdkUtils.isAtLeastAndroid7()) {
-                    File file = new File(uri.getPath());
+                    File file = new File(Objects.requireNonNull(uri.getPath()));
                     if (file.exists()) {
                         Context directBootContext = mContext.createDeviceProtectedStorageContext();
                         File directBootDir = directBootContext.getFilesDir().getParentFile();
 
-                        if (file.getAbsolutePath().startsWith(directBootDir.getAbsolutePath())) {
-                            file.delete();
+                        if (directBootDir != null && file.getAbsolutePath().startsWith(directBootDir.getAbsolutePath())) {
+                            boolean deleted = file.delete();
+                            if (!deleted) {
+                                LogUtils.e("Failed to delete local log file");
+                            }
                         }
                     }
                 }
@@ -182,12 +187,9 @@ public final class RingtoneModel {
             // Compare the name
             if (ringtoneName != null && ringtoneName.equalsIgnoreCase(name)) {
                 // If the name is the same, try to compare the size
-                try {
-                    DocumentFile file = DocumentFile.fromSingleUri(mContext, ringtoneUri);
-                    if (file != null && file.exists() && file.length() == size) {
-                        return true;
-                    }
-                } catch (Exception ignored) {}
+                if (RingtoneUtils.getRingtoneFileSize(mContext, ringtoneUri) == size) {
+                    return true;
+                }
             }
         }
         return false;

@@ -28,9 +28,6 @@ import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
 
-import java.io.File;
-import java.io.InputStream;
-
 /**
  * <p>Controls the playback of alarm ringtones with advanced audio routing and volume management.</p>
  *
@@ -95,7 +92,13 @@ public final class RingtonePlayer {
      * to dynamically respond to changes in audio output devices, such as Bluetooth connections.</p>
      */
     public RingtonePlayer(Context context) {
-        mContext = context;
+        // Use a DirectBoot aware context if supported
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            mContext = context.createDeviceProtectedStorageContext();
+        }
+        else {
+            mContext = context;
+        }
         mAudioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
         initAudioDeviceCallback();
     }
@@ -189,29 +192,23 @@ public final class RingtonePlayer {
             }
         }
 
-        Context safeContext = mContext;
-        // Use a DirectBoot aware context if supported
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            safeContext = mContext.createDeviceProtectedStorageContext();
-        }
-
         boolean isBluetooth = hasBluetoothDeviceConnected();
-        mExoPlayer = new ExoPlayer.Builder(safeContext)
+        mExoPlayer = new ExoPlayer.Builder(mContext)
                 .setAudioAttributes(buildAudioAttributes(isBluetooth), isBluetooth)
                 .build();
 
         boolean inCall = isInTelephoneCall(mAudioManager);
 
         if (inCall) {
-            ringtoneUri = getInCallRingtoneUri(safeContext);
+            ringtoneUri = getInCallRingtoneUri(mContext);
         }
 
         if (RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).equals(ringtoneUri)) {
-            ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(safeContext, RingtoneManager.TYPE_ALARM);
+            ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(mContext, RingtoneManager.TYPE_ALARM);
         }
 
-        if (ringtoneUri == null || !RingtoneUtils.isRingtoneUriReadable(safeContext, ringtoneUri)) {
-            ringtoneUri = getFallbackRingtoneUri(safeContext);
+        if (ringtoneUri == null || !RingtoneUtils.isRingtoneUriReadable(mContext, ringtoneUri)) {
+            ringtoneUri = getFallbackRingtoneUri(mContext);
         }
 
         mExoPlayer.setMediaItem(MediaItem.fromUri(ringtoneUri));
