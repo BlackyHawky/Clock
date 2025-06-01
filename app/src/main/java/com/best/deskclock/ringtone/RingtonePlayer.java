@@ -11,7 +11,6 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 
@@ -93,7 +92,7 @@ public final class RingtonePlayer {
      */
     public RingtonePlayer(Context context) {
         // Use a DirectBoot aware context if supported
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        if (SdkUtils.isAtLeastAndroid7()) {
             mContext = context.createDeviceProtectedStorageContext();
         }
         else {

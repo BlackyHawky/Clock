@@ -201,7 +201,10 @@ public class RingtoneUtils {
     }
 
     /**
-     * Gets the size of a File for mixed uri formats. File pickers usually use content:// but files stored in DeviceProtected storage use file://
+     * Gets the size of a File for mixed uri formats.
+     *
+     * <p>File pickers usually use {@code content://} but files stored in DeviceProtected storage
+     * use {@code file://}.</p>
      */
     public static long getRingtoneFileSize(Context context, Uri uri) {
         long size = -1;

@@ -114,11 +114,11 @@ public final class RingtoneModel {
         }
     }
 
-    Uri addCustomRingtone(Uri uri, String title) {
+    Uri customRingtoneToAdd(Uri uri, String title) {
         // If the new ringtone is already present in an existing ringtone, do nothing.
         long size = RingtoneUtils.getRingtoneFileSize(mContext, uri);
 
-        Uri existingRingtone = isCustomRingtoneAlreadyAdded(title, size);
+        Uri existingRingtone = customRingtoneAlreadyAdded(title, size);
         if (existingRingtone != null) {
             return existingRingtone;
         }
@@ -178,7 +178,7 @@ public final class RingtoneModel {
         }
     }
 
-    Uri isCustomRingtoneAlreadyAdded(String name, long size) {
+    Uri customRingtoneAlreadyAdded(String name, long size) {
         for (CustomRingtone ringtone : getMutableCustomRingtones()) {
             String ringtoneName = ringtone.getTitle();
             Uri ringtoneUri = ringtone.getUri();
@@ -191,6 +191,7 @@ public final class RingtoneModel {
                 }
             }
         }
+
         return null;
     }
 
