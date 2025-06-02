@@ -179,6 +179,23 @@ public final class Timer {
     }
 
     /**
+     * @return a copy of this timer with the given {@code newLength}
+     */
+    Timer setNewDuration(long newLength) {
+        if (mState != State.RESET) {
+            return this;
+        }
+
+        if (mLength == newLength) {
+            return this;
+        }
+
+        return new Timer(mId, mState, newLength, newLength, mLastStartTime, mLastStartWallClockTime,
+                newLength, mLabel, mButtonTime, mDeleteAfterUse
+        );
+    }
+
+    /**
      * @return a copy of this timer with the given button time
      */
     Timer setButtonTime(String buttonTime) {

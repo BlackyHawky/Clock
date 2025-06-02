@@ -672,7 +672,7 @@
     <string name="toast_message_for_reset">Сброс выполнен</string>
     <string name="settings_language_korean">Корейский</string>
     <string name="timer_button_time_minutes_warning_box_text">Введите значение между 0 и 60 минутами</string>
-    <string name="timer_button_time_warning_box_title">Неверное значение введено</string>
+    <string name="timer_time_warning_box_title">Неверное значение введено</string>
     <string name="settings_language_russian">Русский</string>
     <string name="display_date_title">Показывать дату на виджете</string>
     <string name="analog_widget_choice_title">Выберите ваш стиль</string>

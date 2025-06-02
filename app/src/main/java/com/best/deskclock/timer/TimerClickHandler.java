@@ -32,9 +32,15 @@ public final class TimerClickHandler {
     }
 
     public void onEditAddTimeButtonLongClicked(Timer timer) {
-        Events.sendAlarmEvent(R.string.action_add_custom_time_to_timer, R.string.label_deskclock);
+        Events.sendTimerEvent(R.string.action_add_custom_time_to_timer, R.string.label_deskclock);
         final TimerAddTimeButtonDialogFragment fragment = TimerAddTimeButtonDialogFragment.newInstance(timer);
         TimerAddTimeButtonDialogFragment.show(mFragment.getParentFragmentManager(), fragment);
+    }
+
+    public void onDurationClicked(Timer timer) {
+        Events.sendTimerEvent(R.string.action_set_new_timer_duration, R.string.label_deskclock);
+        final TimerSetNewDurationDialogFragment fragment = TimerSetNewDurationDialogFragment.newInstance(timer);
+        TimerSetNewDurationDialogFragment.show(mFragment.getParentFragmentManager(), fragment);
     }
     
 }

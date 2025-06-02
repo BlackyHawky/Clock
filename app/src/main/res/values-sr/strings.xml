@@ -617,7 +617,7 @@
     <string name="display_warning_before_deleting_timer_title">Прикажи упозорење пре брисања тајмера</string>
     <string name="warning_dialog_title">Обриши тајмер</string>
     <string name="settings_language_turkish">Турски</string>
-    <string name="timer_button_time_warning_box_title">Унета је некоректна вредност</string>
+    <string name="timer_time_warning_box_title">Унета је некоректна вредност</string>
     <string name="about_translate_link">Преведите на Codeberg-у</string>
     <string name="translate_dialog_message">Посетите страницу Codeberg:\n\n%s</string>
     <string name="clock_style_analog_material">Аналогни (Материјал)</string>

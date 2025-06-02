@@ -37,6 +37,8 @@
     <string name="duplicate">Duplicate</string>
     <!-- Label "Warning" -->
     <string name="warning">Warning</string>
+    <!-- Label "Hours" -->
+    <string name="label_hours">Hours</string>
     <!-- Label "Minutes" -->
     <string name="label_minutes">Minutes</string>
     <!-- Label "Seconds" -->
@@ -679,14 +681,22 @@
     <!-- timer strings -->
     <!-- Title of dialog box for editing timer label -->
     <string name="timer_label_box_title">Timer label</string>
+    <!-- Title of dialog box to set a new duration to an existing timer. -->
+    <string name="timer_time_box_title">New timer duration</string>
+    <!-- Text of dialog box to edit hours to set a new duration to an existing timer. -->
+    <string name="timer_hours_warning_box_text">Enter a value between 0 and 24 hours</string>
+    <!-- Text of dialog box to edit minutes to set a new duration to an existing timer. -->
+    <string name="timer_minutes_warning_box_text">Enter a value between 0 and 59 minutes</string>
+    <!-- Text of dialog box to edit seconds to set a new duration to an existing timer. -->
+    <string name="timer_seconds_warning_box_text">Enter a value between 0 and 59 seconds</string>
     <!-- Title of dialog box to edit button for adding time to timer. -->
     <string name="timer_button_time_box_title">Minutes to add to the timer</string>
     <!-- Text of dialog box to edit minutes for adding time to timer. -->
     <string name="timer_button_time_minutes_warning_box_text">Enter a value between 0 and 60 minutes</string>
     <!-- Text of dialog box to edit seconds for adding time to timer. -->
     <string name="timer_button_time_seconds_warning_box_text">Enter a value between 0 and 59 seconds</string>
-    <!-- Title of dialog box to edit button for adding time to timer if the entered value is incorrect. -->
-    <string name="timer_button_time_warning_box_title">Incorrect value entered</string>
+    <!-- Title of dialog box to edit timers if an entered value is incorrect. -->
+    <string name="timer_time_warning_box_title">Incorrect value entered</string>
     <!-- Describes the purpose of the button to add a new timer -->
     <string name="timer_add_timer">Add Timer</string>
     <!-- Describes the purpose of the button to begin or continue running a timer -->

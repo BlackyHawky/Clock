@@ -658,5 +658,5 @@
     <string name="toast_message_for_reset">Reinicio completo</string>
     <string name="shake_intensity_title">Intensidad de sacudida</string>
     <string name="clock_style_spinner">Spinner</string>
-    <string name="timer_button_time_warning_box_title">Valor incorrecto ingresado</string>
+    <string name="timer_time_warning_box_title">Valor incorrecto ingresado</string>
 </resources>

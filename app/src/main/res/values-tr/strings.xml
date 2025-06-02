@@ -398,7 +398,7 @@
     <string name="sw_start_pause_action">Başlat / Duraklat</string>
     <string name="timer_label_box_title">Zamanlayıcı etiketi</string>
     <string name="timer_button_time_box_title">Zamanlayıcıya eklenecek dakika</string>
-    <string name="timer_button_time_warning_box_title">Geçersiz değer girildi</string>
+    <string name="timer_time_warning_box_title">Geçersiz değer girildi</string>
     <string name="purple_accent_color">Mor</string>
     <string name="auto_silence_20_seconds">20 saniye</string>
     <string name="black_accent_color">Siyah</string>

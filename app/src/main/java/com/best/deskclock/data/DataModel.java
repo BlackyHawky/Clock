@@ -479,6 +479,15 @@ public final class DataModel {
     }
 
     /**
+     * @param timer the timer to which the new {@code newLength} belongs
+     * @param newLength the new duration to store for the {@code timer}
+     */
+    public void setNewTimerDuration(Timer timer, long newLength) {
+        enforceMainLooper();
+        mTimerModel.updateTimer(timer.setNewDuration(newLength));
+    }
+
+    /**
      * @param timer the timer to which the new {@code buttonTime} belongs
      * @param buttonTime the new add button text to store for the {@code timer}
      */

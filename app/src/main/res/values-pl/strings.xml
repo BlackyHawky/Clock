@@ -661,7 +661,7 @@
     <string name="settings_tab_to_display">Karta wyświetlana podczas otwierania aplikacji</string>
     <string name="last_tab_used_title">Ostatnio używana karta</string>
     <string name="timer_button_time_minutes_warning_box_text">Wprowadź wartość od 0 do 60 minut</string>
-    <string name="timer_button_time_warning_box_title">Wprowadzono nieprawidłową wartość</string>
+    <string name="timer_time_warning_box_title">Wprowadzono nieprawidłową wartość</string>
     <string name="settings_language_turkish">Turecki</string>
     <string name="reset_settings_title">Zresetuj ustawienia</string>
     <string name="reset_settings_message">Czy na pewno chcesz zresetować wszystkie ustawienia aplikacji?\n\nUwaga: dzwonki niestandardowe nie zostaną zresetowane.</string>

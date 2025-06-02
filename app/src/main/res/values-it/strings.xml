@@ -655,7 +655,7 @@
     <string name="blue_accent_color">Blu</string>
     <string name="settings_language_korean">Coreano</string>
     <string name="timer_button_time_minutes_warning_box_text">Inserisci un valore tra 0 e 60 minuti</string>
-    <string name="timer_button_time_warning_box_title">Valore inserito non valido</string>
+    <string name="timer_time_warning_box_title">Valore inserito non valido</string>
     <string name="toast_message_for_reset">Ripristino completato</string>
     <string name="settings_tab_to_display">Scheda da visualizzare all\'apertura dell\'applicazione</string>
     <string name="last_tab_used_title">Ultima scheda utilizzata</string>

@@ -645,7 +645,7 @@
     <string name="settings_tab_to_display">Tabblad openen bij start</string>
     <string name="timer_button_time_minutes_warning_box_text">Voer een waarde in tussen 0 en 60 minuten</string>
     <string name="last_tab_used_title">Laatst gebruikt</string>
-    <string name="timer_button_time_warning_box_title">Onjuiste waarde ingevoerd</string>
+    <string name="timer_time_warning_box_title">Onjuiste waarde ingevoerd</string>
     <string name="settings_language_turkish">Turks</string>
     <string name="contributors_dialog_title">Profiel bekijken</string>
     <string name="reset_settings_title">Instellingen opnieuw instellen</string>

@@ -657,7 +657,7 @@
     <string name="analog_widget_configuration_warning">Ce widget n\'est configurable qu\'à partir d\'Android 12</string>
     <string name="analog_widget_choice_title">Choisissez votre style</string>
     <string name="last_tab_used_title">Dernier onglet utilisé</string>
-    <string name="timer_button_time_warning_box_title">Valeur saisie incorrecte</string>
+    <string name="timer_time_warning_box_title">Valeur saisie incorrecte</string>
     <string name="settings_tab_to_display">Onglet à afficher lors de l\'ouverture de l\'application</string>
     <string name="timer_button_time_minutes_warning_box_text">Saisir une valeur comprise entre 0 et 60 minutes</string>
     <string name="settings_language_turkish">Turc</string>

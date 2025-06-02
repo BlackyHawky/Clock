@@ -645,7 +645,7 @@
     <string name="settings_tab_to_display">Tab, der beim Öffnen der App angezeigt wird</string>
     <string name="timer_button_time_minutes_warning_box_text">Geben Sie einen Wert zwischen 0 und 60 Minuten ein</string>
     <string name="last_tab_used_title">Zuletzt verwendeter Tab</string>
-    <string name="timer_button_time_warning_box_title">Falscher Wert eingegeben</string>
+    <string name="timer_time_warning_box_title">Falscher Wert eingegeben</string>
     <string name="settings_language_turkish">Türkisch</string>
     <string name="reset_settings_title">Einstellungen zurücksetzen</string>
     <string name="contributors_dialog_title">Profil ansehen</string>
