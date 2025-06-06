@@ -44,6 +44,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
         View timerLabel = view.findViewById(R.id.timer_label);
         View resetButton = view.findViewById(R.id.reset);
         View timerTotalDuration = view.findViewById(R.id.timer_total_duration);
+        View timerEditNewDurationButton = view.findViewById(R.id.timer_edit_new_duration_button);
         View addTimeButton = view.findViewById(R.id.timer_add_time_button);
         View circleContainer = view.findViewById(R.id.circle_container);
         View timerTimeText = view.findViewById(R.id.timer_time_text);
@@ -59,15 +60,6 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
             } else if (getTimer().isExpired() || getTimer().isMissed()) {
                 DataModel.getDataModel().resetOrDeleteExpiredTimers(R.string.label_deskclock);
             }
-        };
-
-        View.OnLongClickListener setNewDurationListener = v -> {
-            if (!getTimer().isReset()) {
-                return false;
-            }
-
-            mTimerClickHandler.onDurationClicked(getTimer());
-            return true;
         };
 
         timerLabel.setOnClickListener(v -> mTimerClickHandler.onEditLabelClicked(getTimer()));
@@ -96,21 +88,35 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
             return true;
         });
 
+        // Only possible for portrait mode phones with multiple timers
         if (timerTotalDuration != null) {
-            timerTotalDuration.setOnLongClickListener(setNewDurationListener);
+            timerTotalDuration.setOnClickListener(v -> {
+                if (!getTimer().isReset()) {
+                    return;
+                }
+
+                mTimerClickHandler.onDurationClicked(getTimer());
+            });
         }
 
-        // If we click on the circular container when the phones (only) are in landscape mode,
-        // indicating a title for the timers is not possible so in this case we click on the
-        // time to start the timer.
-        // Long press on the time displays the dialog to set a new timer duration.
-        if (!ThemeUtils.isTablet() && ThemeUtils.isLandscape()) {
-            timerTimeText.setOnLongClickListener(setNewDurationListener);
-            timerTimeText.setOnClickListener(playPauseListener);
-        } else {
-            circleContainer.setOnLongClickListener(setNewDurationListener);
+        // Only possible for tablets, landscape phones or when there is only one timer
+        if (timerEditNewDurationButton != null) {
+            timerEditNewDurationButton.setOnClickListener(v -> {
+                if (!getTimer().isReset()) {
+                    return;
+                }
+
+                mTimerClickHandler.onDurationClicked(getTimer());
+            });
+        }
+
+        if (circleContainer != null) {
             circleContainer.setOnClickListener(playPauseListener);
             circleContainer.setOnTouchListener(new Utils.CircleTouchListener());
+        }
+
+        if (!ThemeUtils.isTablet() && ThemeUtils.isLandscape()) {
+            timerTimeText.setOnClickListener(playPauseListener);
         }
 
         playPauseButton.setOnClickListener(playPauseListener);
