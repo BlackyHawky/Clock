@@ -743,7 +743,7 @@ public final class DataModel {
      * to avoid adding duplicates. {@code false} otherwise.
      */
     public boolean isCustomRingtoneAlreadyAdded(String name, long size) {
-        return mRingtoneModel.customRingtoneAlreadyAdded(name, size) == null;
+        return mRingtoneModel.customRingtoneAlreadyAdded(name, size) != null;
     }
 
     /**
