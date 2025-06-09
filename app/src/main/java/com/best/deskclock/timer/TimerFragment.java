@@ -133,7 +133,7 @@ public final class TimerFragment extends DeskClockFragment {
 
         mAdapter.loadTimerList();
 
-        mItemTouchHelper = new ItemTouchHelper(new TimerAdapter.TimerItemTouchHelper(mAdapter));
+        mItemTouchHelper = new ItemTouchHelper(new TimerAdapter.TimerItemTouchHelper(mAdapter, mRecyclerView));
         handleItemTouchHelper();
 
         // If timer setup state is present, retrieve it to be later honored.

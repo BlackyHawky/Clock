@@ -13,6 +13,7 @@ import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.util.ArrayMap;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -178,12 +179,57 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
     }
 
+    /**
+     * Custom ItemTouchHelper.Callback for managing drag & drop of Timer items in a RecyclerView.
+     *
+     * <p>This implementation allows manual reordering of timers via drag gestures,
+     * but disables dragging when the user initiates a touch event on the {@code + 1:00} button.
+     *
+     * <p>Drag directions are enabled or disabled based on user preferences and device orientation,
+     * ensuring consistent UX whether on tablets, phones, portrait or landscape modes.</p>
+     */
     public static class TimerItemTouchHelper extends ItemTouchHelper.Callback {
 
         private final TimerAdapter mAdapter;
 
-        public TimerItemTouchHelper(TimerAdapter adapter) {
+        private boolean isTouchOnDragBlockingView = false;
+
+        public TimerItemTouchHelper(TimerAdapter adapter, RecyclerView recyclerView) {
             mAdapter = adapter;
+
+            recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+                @Override
+                public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+                    if (e.getAction() == MotionEvent.ACTION_DOWN) {
+                        View child = rv.findChildViewUnder(e.getX(), e.getY());
+                        if (child != null) {
+                            View addTimeButton = child.findViewById(R.id.timer_add_time_button);
+                            if (addTimeButton != null && addTimeButton.getVisibility() == View.VISIBLE) {
+                                int[] loc = new int[2];
+                                addTimeButton.getLocationOnScreen(loc);
+                                float x = e.getRawX();
+                                float y = e.getRawY();
+                                isTouchOnDragBlockingView = x >= loc[0] && x <= loc[0] + addTimeButton.getWidth()
+                                        && y >= loc[1] && y <= loc[1] + addTimeButton.getHeight();
+                            } else {
+                                isTouchOnDragBlockingView = false;
+                            }
+                        } else {
+                            isTouchOnDragBlockingView = false;
+                        }
+                    }
+
+                    return false;
+                }
+
+                @Override
+                public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+                }
+
+                @Override
+                public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+                }
+            });
         }
 
         @Override
@@ -204,11 +250,14 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-            // Unused
         }
 
         @Override
         public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+            if (isTouchOnDragBlockingView) {
+                return 0;
+            }
+
             final int dragFlags;
             String timerSortingPreference = SettingsDAO.getTimerSortingPreference(mAdapter.mPrefs);
 
