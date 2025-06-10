@@ -37,7 +37,7 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
 
     public static final int VIEW_TYPE = R.layout.alarm_time_collapsed;
 
-    TextView alarmLabel;
+    final TextView alarmLabel;
 
     private CollapsedAlarmViewHolder(View itemView) {
         super(itemView);

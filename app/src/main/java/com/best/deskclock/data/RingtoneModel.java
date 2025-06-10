@@ -62,7 +62,6 @@ public final class RingtoneModel {
     /**
      * Clears data structures containing data that is locale-sensitive.
      */
-    @SuppressWarnings("FieldCanBeLocal")
     private final BroadcastReceiver mLocaleChangedReceiver = new LocaleChangedReceiver();
 
     /**
