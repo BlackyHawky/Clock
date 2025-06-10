@@ -89,15 +89,16 @@ final class CityDAO {
 
     /**
      * @return the domain of cities from which the user may choose a world clock
+     * @noinspection resource
      */
     static Map<String, City> getCities(Context context) {
         final Context localizedContext = Utils.getLocalizedContext(context);
         final Resources resources = localizedContext.getResources();
-        try (TypedArray cityStrings = resources.obtainTypedArray(R.array.city_ids)) {
-            final int citiesCount = cityStrings.length();
+        final TypedArray cityStrings = resources.obtainTypedArray(R.array.city_ids);
+        final int citiesCount = cityStrings.length();
 
-            final Map<String, City> cities = new ArrayMap<>(citiesCount);
-
+        final Map<String, City> cities = new ArrayMap<>(citiesCount);
+        try {
             for (int i = 0; i < citiesCount; ++i) {
                 // Attempt to locate the resource id defining the city as a string.
                 final int cityResourceId = cityStrings.getResourceId(i, 0);
@@ -128,9 +129,11 @@ final class CityDAO {
                     cities.put(id, city);
                 }
             }
-
-            return Collections.unmodifiableMap(cities);
+        } finally {
+            cityStrings.recycle();
         }
+
+        return Collections.unmodifiableMap(cities);
     }
 
     /**
