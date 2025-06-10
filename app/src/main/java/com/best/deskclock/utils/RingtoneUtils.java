@@ -105,14 +105,15 @@ public class RingtoneUtils {
 
         MediaPlayer player = new MediaPlayer();
 
+        player.setAudioAttributes(new AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_ALARM)
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .build());
+
         for (Uri uri : ringtoneUris) {
             try {
                 player.reset();
                 player.setDataSource(safeContext, uri);
-                player.setAudioAttributes(new AudioAttributes.Builder()
-                        .setUsage(AudioAttributes.USAGE_ALARM)
-                        .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                        .build());
                 player.prepare();
                 return player;
             } catch (IOException e) {

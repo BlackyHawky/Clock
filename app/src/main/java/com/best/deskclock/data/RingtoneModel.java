@@ -68,7 +68,6 @@ public final class RingtoneModel {
     /**
      * Clears data structures containing data that is locale-sensitive.
      */
-    @SuppressWarnings("FieldCanBeLocal")
     private final BroadcastReceiver mLocaleChangedReceiver = new LocaleChangedReceiver();
 
     /**
@@ -138,8 +137,10 @@ public final class RingtoneModel {
                     while ((bytesRead = inputStream.read(buffer)) != -1) {
                         outputStream.write(buffer, 0, bytesRead);
                     }
+                    uri = Uri.fromFile(destFile);
+                } else {
+                    LogUtils.e("Failed to open input stream for URI: " + uri);
                 }
-                uri = Uri.fromFile(destFile);
             } catch (IOException e) {
                 LogUtils.e("Failed to copy ringtone to device protected storage, continue using user storage", e);
             }
@@ -148,6 +149,7 @@ public final class RingtoneModel {
         final CustomRingtone ringtone = CustomRingtoneDAO.addCustomRingtone(mPrefs, uri, title);
         getMutableCustomRingtones().add(ringtone);
         Collections.sort(getMutableCustomRingtones());
+
         return uri;
     }
 
