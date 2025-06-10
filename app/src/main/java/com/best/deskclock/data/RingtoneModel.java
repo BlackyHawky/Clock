@@ -31,19 +31,25 @@ import android.provider.Settings;
 import android.util.ArrayMap;
 import android.util.ArraySet;
 
-import androidx.documentfile.provider.DocumentFile;
-
 import com.best.deskclock.R;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Collections;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * All ringtone data is accessed via this model.
@@ -85,7 +91,13 @@ public final class RingtoneModel {
     private List<CustomRingtone> mCustomRingtones;
 
     public RingtoneModel(Context context, SharedPreferences prefs) {
-        mContext = context;
+        if (SdkUtils.isAtLeastAndroid7()) {
+            mContext = context.createDeviceProtectedStorageContext();
+        }
+        else {
+            mContext = context;
+        }
+
         mPrefs = prefs;
 
         // Clear caches affected by system settings when system settings change.
@@ -101,22 +113,66 @@ public final class RingtoneModel {
         }
     }
 
-    void addCustomRingtone(Uri uri, String title) {
-        // If the uri is already present in an existing ringtone, do nothing.
-        final CustomRingtone existing = getCustomRingtone(uri);
-        if (existing != null) {
-            return;
+    Uri customRingtoneToAdd(Uri uri, String title) {
+        // If the new ringtone is already present in an existing ringtone, do nothing.
+        long size = RingtoneUtils.getRingtoneFileSize(mContext, uri);
+
+        Uri existingRingtone = customRingtoneAlreadyAdded(title, size);
+        if (existingRingtone != null) {
+            return existingRingtone;
+        }
+
+        // If device supports it make ringtone available during DirectBoot
+        if (SdkUtils.isAtLeastAndroid7()) {
+            String safeTitle = title.replaceAll("[^a-zA-Z0-9.\\-]", "_");
+            String uniqueSuffix = "_" + UUID.randomUUID().toString();
+            String filename = safeTitle + uniqueSuffix;
+
+            File destFile = new File(mContext.getFilesDir(), filename);
+            try (InputStream inputStream = mContext.getContentResolver().openInputStream(uri);
+                OutputStream outputStream = new FileOutputStream(destFile)) {
+                if (inputStream != null) {
+                    byte[] buffer = new byte[4096];
+                    int bytesRead;
+                    while ((bytesRead = inputStream.read(buffer)) != -1) {
+                        outputStream.write(buffer, 0, bytesRead);
+                    }
+                    uri = Uri.fromFile(destFile);
+                } else {
+                    LogUtils.e("Failed to open input stream for URI: " + uri);
+                }
+            } catch (IOException e) {
+                LogUtils.e("Failed to copy ringtone to device protected storage, continue using user storage", e);
+            }
         }
 
         final CustomRingtone ringtone = CustomRingtoneDAO.addCustomRingtone(mPrefs, uri, title);
         getMutableCustomRingtones().add(ringtone);
         Collections.sort(getMutableCustomRingtones());
+
+        return uri;
     }
 
     void removeCustomRingtone(Uri uri) {
         final List<CustomRingtone> ringtones = getMutableCustomRingtones();
         for (CustomRingtone ringtone : ringtones) {
             if (ringtone.getUri().equals(uri)) {
+                // Remove the file from device protected storage
+                if (SdkUtils.isAtLeastAndroid7()) {
+                    File file = new File(Objects.requireNonNull(uri.getPath()));
+                    if (file.exists()) {
+                        Context directBootContext = mContext.createDeviceProtectedStorageContext();
+                        File directBootDir = directBootContext.getFilesDir().getParentFile();
+
+                        if (directBootDir != null && file.getAbsolutePath().startsWith(directBootDir.getAbsolutePath())) {
+                            boolean deleted = file.delete();
+                            if (!deleted) {
+                                LogUtils.e("Failed to delete local log file");
+                            }
+                        }
+                    }
+                }
+
                 CustomRingtoneDAO.removeCustomRingtone(mPrefs, ringtone.getId());
                 ringtones.remove(ringtone);
                 break;
@@ -124,7 +180,7 @@ public final class RingtoneModel {
         }
     }
 
-    boolean isCustomRingtoneAlreadyAdded(String name, long size) {
+    Uri customRingtoneAlreadyAdded(String name, long size) {
         for (CustomRingtone ringtone : getMutableCustomRingtones()) {
             String ringtoneName = ringtone.getTitle();
             Uri ringtoneUri = ringtone.getUri();
@@ -132,15 +188,13 @@ public final class RingtoneModel {
             // Compare the name
             if (ringtoneName != null && ringtoneName.equalsIgnoreCase(name)) {
                 // If the name is the same, try to compare the size
-                try {
-                    DocumentFile file = DocumentFile.fromSingleUri(mContext, ringtoneUri);
-                    if (file != null && file.exists() && file.length() == size) {
-                        return true;
-                    }
-                } catch (Exception ignored) {}
+                if (RingtoneUtils.getRingtoneFileSize(mContext, ringtoneUri) == size) {
+                    return ringtoneUri;
+                }
             }
         }
-        return false;
+
+        return null;
     }
 
     private CustomRingtone getCustomRingtone(Uri uri) {
