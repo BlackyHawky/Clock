@@ -747,6 +747,11 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
             }
 
             handler.post(() -> {
+                // Reset the default alarm ringtone if it was just removed.
+                if (removeUri.equals(DataModel.getDataModel().getAlarmRingtoneUriFromSettings())) {
+                    DataModel.getDataModel().setAlarmRingtoneUriFromSettings(systemDefaultRingtoneUri);
+                }
+
                 // Reset the timer ringtone if it was just removed.
                 if (removeUri.equals(DataModel.getDataModel().getTimerRingtoneUri())) {
                     final Uri timerRingtoneUri = DataModel.getDataModel().getDefaultTimerRingtoneUri();
