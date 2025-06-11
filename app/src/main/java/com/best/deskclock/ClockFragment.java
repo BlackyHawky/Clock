@@ -49,6 +49,7 @@ import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.widget.AnalogClock;
 import com.best.deskclock.worldclock.CitySelectionActivity;
+import com.google.android.material.card.MaterialCardView;
 
 import java.util.Calendar;
 import java.util.List;
@@ -326,6 +327,7 @@ public final class ClockFragment extends DeskClockFragment {
         private static final class CityViewHolder extends RecyclerView.ViewHolder {
 
             private final TextView mName;
+            private final MaterialCardView mDigitalClockContainer;
             private final TextClock mDigitalClock;
             private final AnalogClock mAnalogClock;
             private final TextView mHoursAhead;
@@ -334,6 +336,7 @@ public final class ClockFragment extends DeskClockFragment {
                 super(itemView);
 
                 mName = itemView.findViewById(R.id.city_name);
+                mDigitalClockContainer = itemView.findViewById(R.id.digital_clock_container);
                 mDigitalClock = itemView.findViewById(R.id.digital_clock);
                 mAnalogClock = itemView.findViewById(R.id.analog_clock);
                 mHoursAhead = itemView.findViewById(R.id.hours_ahead);
@@ -349,13 +352,13 @@ public final class ClockFragment extends DeskClockFragment {
                 if (mClockStyle == DataModel.ClockStyle.ANALOG || mClockStyle == DataModel.ClockStyle.ANALOG_MATERIAL) {
                     mAnalogClock.getLayoutParams().height = ThemeUtils.convertDpToPixels(mIsTablet ? 150 : 80, context);
                     mAnalogClock.getLayoutParams().width = ThemeUtils.convertDpToPixels(mIsTablet ? 150 : 80, context);
-                    mDigitalClock.setVisibility(GONE);
+                    mDigitalClockContainer.setVisibility(GONE);
                     mAnalogClock.setVisibility(VISIBLE);
                     mAnalogClock.setTimeZone(cityTimeZoneId);
                     mAnalogClock.enableSeconds(false);
                 } else {
                     mAnalogClock.setVisibility(GONE);
-                    mDigitalClock.setVisibility(VISIBLE);
+                    mDigitalClockContainer.setVisibility(VISIBLE);
                     mDigitalClock.setTimeZone(cityTimeZoneId);
                     mDigitalClock.setFormat12Hour(
                             ClockUtils.get12ModeFormat(mDigitalClock.getContext(), 0.3f, false));

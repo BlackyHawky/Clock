@@ -19,8 +19,9 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:singleLine="true"
-        android:textSize="16sp"
-        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="?colorPrimary"
+        android:textAlignment="viewStart"
         tools:text="Fictive city"/>
 
     <com.google.android.material.textview.MaterialTextView
@@ -29,6 +30,7 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="2"
+        android:textAlignment="viewStart"
         android:paddingTop="3dp"
         android:scrollHorizontally="true"
         tools:text="1 hour ahead"/>
