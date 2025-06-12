@@ -4,7 +4,11 @@ package com.best.deskclock.ringtone;
 
 import static androidx.media3.common.Player.REPEAT_MODE_ONE;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_ROUTING_TO_BLUETOOTH_DEVICE;
+
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.media.AudioDeviceCallback;
 import android.media.AudioDeviceInfo;
 import android.media.AudioManager;
@@ -23,6 +27,7 @@ import androidx.media3.common.util.UnstableApi;
 import androidx.media3.exoplayer.ExoPlayer;
 
 import com.best.deskclock.R;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
@@ -59,16 +64,14 @@ public final class RingtonePlayer {
     private static final float IN_CALL_VOLUME = 0.12f;
 
     private final Context mContext;
-
+    private final SharedPreferences mPrefs;
     private ExoPlayer mExoPlayer;
-
     private final AudioManager mAudioManager;
-
     private AudioDeviceCallback mAudioDeviceCallback;
 
+    private boolean mIsAutoRoutingToBluetoothDeviceEnabled;
     private long mCrescendoDuration = 0;
     private long mCrescendoStopTime = 0;
-
     private int mOriginalMediaVolume = -1;
     private boolean mMediaVolumeModified = false;
 
@@ -82,6 +85,33 @@ public final class RingtonePlayer {
             }
         }
     };
+
+    /**
+     * Allows to detect when the preference related to automatic routing to Bluetooth devices changes,
+     * in order to dynamically update the behavior of the ringtone player.
+     */
+    private final SharedPreferences.OnSharedPreferenceChangeListener mPrefListener =
+            new SharedPreferences.OnSharedPreferenceChangeListener() {
+
+                @Override
+                public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+                    if (KEY_AUTO_ROUTING_TO_BLUETOOTH_DEVICE.equals(key)) {
+                        mIsAutoRoutingToBluetoothDeviceEnabled =
+                                SettingsDAO.isAutoRoutingToBluetoothDeviceEnabled(sharedPreferences);
+
+                        if (mIsAutoRoutingToBluetoothDeviceEnabled) {
+                            if (mAudioDeviceCallback == null) {
+                                initAudioDeviceCallback();
+                            }
+                        } else {
+                            if (mAudioDeviceCallback != null) {
+                                mAudioManager.unregisterAudioDeviceCallback(mAudioDeviceCallback);
+                                mAudioDeviceCallback = null;
+                            }
+                        }
+                    }
+                }
+            };
 
     /**
      * Constructs a new {@link RingtonePlayer} instance responsible for managing alarm playback,
@@ -99,7 +129,11 @@ public final class RingtonePlayer {
             mContext = context;
         }
         mAudioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
-        initAudioDeviceCallback();
+
+        mPrefs = getDefaultSharedPreferences(mContext);
+        mPrefs.registerOnSharedPreferenceChangeListener(mPrefListener);
+
+        mIsAutoRoutingToBluetoothDeviceEnabled = SettingsDAO.isAutoRoutingToBluetoothDeviceEnabled(mPrefs);
     }
 
     /**
@@ -163,18 +197,26 @@ public final class RingtonePlayer {
             stop();
         }
 
-        if (mAudioDeviceCallback == null) {
+        if (mIsAutoRoutingToBluetoothDeviceEnabled && mAudioDeviceCallback == null) {
             initAudioDeviceCallback();
         }
 
         mCrescendoDuration = crescendoDuration;
 
+        boolean isBluetooth = false;
+        AudioDeviceInfo preferredDevice = null;
+
+        if (mIsAutoRoutingToBluetoothDeviceEnabled) {
+            isBluetooth = hasBluetoothDeviceConnected();
+            preferredDevice = findBluetoothDevice();
+        }
+
         // If a Bluetooth device is connected, set the media volume to 70% of its maximum;
         // Otherwise, mute the media volume to so that the alarm can be heard properly
-        int maxMediaVolume = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        mOriginalMediaVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
 
-        if (hasBluetoothDeviceConnected()) {
-            mOriginalMediaVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+        if (isBluetooth) {
+            int maxMediaVolume = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
             int increasedVolume = (int) (maxMediaVolume * 0.7);
 
             if (mOriginalMediaVolume < increasedVolume) {
@@ -182,7 +224,6 @@ public final class RingtonePlayer {
                 mMediaVolumeModified = true;
             }
         } else {
-            mOriginalMediaVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
             int reducedVolume = 0;
 
             if (mOriginalMediaVolume > reducedVolume) {
@@ -191,7 +232,6 @@ public final class RingtonePlayer {
             }
         }
 
-        boolean isBluetooth = hasBluetoothDeviceConnected();
         mExoPlayer = new ExoPlayer.Builder(mContext)
                 .setAudioAttributes(buildAudioAttributes(isBluetooth), isBluetooth)
                 .build();
@@ -213,8 +253,6 @@ public final class RingtonePlayer {
         mExoPlayer.setMediaItem(MediaItem.fromUri(ringtoneUri));
 
         mExoPlayer.setRepeatMode(REPEAT_MODE_ONE);
-
-        AudioDeviceInfo preferredDevice = findBluetoothDevice();
 
         if (preferredDevice == null) {
             preferredDevice = findSpeakerDevice(mAudioManager);
@@ -239,8 +277,8 @@ public final class RingtonePlayer {
      */
     public void stop() {
         if (mExoPlayer != null) {
-            mExoPlayer.removeListener(mPlayerListener);
             mExoPlayer.stop();
+            mExoPlayer.removeListener(mPlayerListener);
             mExoPlayer.release();
             mExoPlayer = null;
         }
@@ -260,10 +298,22 @@ public final class RingtonePlayer {
         }
         mOriginalMediaVolume = -1;
 
-        if (mAudioDeviceCallback != null) {
+        if (mIsAutoRoutingToBluetoothDeviceEnabled && mAudioDeviceCallback != null) {
             mAudioManager.unregisterAudioDeviceCallback(mAudioDeviceCallback);
             mAudioDeviceCallback = null;
         }
+    }
+
+    /**
+     * Unregisters the preference change listener used to monitor changes
+     * in user settings related to audio routing.
+     *
+     * <p>This should be called when the ringtone player is no longer needed
+     * or when the surrounding component (e.g. Activity or Service) is being stopped,
+     * to avoid memory leaks and unnecessary listener callbacks.</p>
+     */
+    public void stopListeningToPreferences() {
+        mPrefs.unregisterOnSharedPreferenceChangeListener(mPrefListener);
     }
 
     /**
@@ -304,7 +354,7 @@ public final class RingtonePlayer {
      * removed, playback is redirected to the built-in speaker, and the media volume is restored.</p>
      */
     private void initAudioDeviceCallback() {
-        if (mAudioDeviceCallback != null) {
+        if (!mIsAutoRoutingToBluetoothDeviceEnabled || mAudioDeviceCallback != null) {
             return;
         }
 
@@ -442,6 +492,10 @@ public final class RingtonePlayer {
      * known Bluetooth device types (A2DP or SCO).</p>
      */
     private AudioDeviceInfo findBluetoothDevice() {
+        if (!mIsAutoRoutingToBluetoothDeviceEnabled) {
+            return null;
+        }
+
         for (AudioDeviceInfo device : mAudioManager.getDevices(AudioManager.GET_DEVICES_OUTPUTS)) {
             if (isBluetoothDevice(device)) {
                 return device;
@@ -455,7 +509,7 @@ public final class RingtonePlayer {
      * @return {@code true} if the Bluetooth device is of type A2DP or SCO Bluetooth.
      * {@code false} otherwise.
      */
-    private static boolean isBluetoothDevice(AudioDeviceInfo device) {
+    private boolean isBluetoothDevice(AudioDeviceInfo device) {
         int type = device.getType();
         return type == AudioDeviceInfo.TYPE_BLUETOOTH_A2DP || type == AudioDeviceInfo.TYPE_BLUETOOTH_SCO;
     }
@@ -464,6 +518,10 @@ public final class RingtonePlayer {
      * @return {@code true} if a Bluetooth output device is connected. {@code false} otherwise.
      */
     private boolean hasBluetoothDeviceConnected() {
+        if (!mIsAutoRoutingToBluetoothDeviceEnabled) {
+            return false;
+        }
+
         AudioDeviceInfo[] devices = mAudioManager.getDevices(AudioManager.GET_DEVICES_OUTPUTS);
         for (AudioDeviceInfo device : devices) {
             if (isBluetoothDevice(device)) {

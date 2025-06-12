@@ -85,4 +85,11 @@ final class AlarmKlaxon {
 
         return sRingtonePlayer;
     }
+
+    public static synchronized void stopListeningToPreferences() {
+        if (sRingtonePlayer != null) {
+            sRingtonePlayer.stopListeningToPreferences();
+            sRingtonePlayer = null;
+        }
+    }
 }

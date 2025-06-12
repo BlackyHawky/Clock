@@ -176,4 +176,7 @@ public class AlarmVolumePreference extends SeekBarPreference {
         }
     }
 
+    public void stopListeningToPreferences() {
+        RingtonePreviewKlaxon.stopListeningToPreferences();
+    }
 }

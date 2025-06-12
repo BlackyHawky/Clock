@@ -36,4 +36,11 @@ public final class RingtonePreviewKlaxon {
 
         return sRingtonePlayer;
     }
+
+    public static synchronized void stopListeningToPreferences() {
+        if (sRingtonePlayer != null) {
+            sRingtonePlayer.stopListeningToPreferences();
+            sRingtonePlayer = null;
+        }
+    }
 }

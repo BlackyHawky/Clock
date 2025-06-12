@@ -8,6 +8,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_DISPLAY_CUST
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_NOTIFICATION_REMINDER_TIME;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_SNOOZE_DURATION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_VOLUME_SETTING;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_ROUTING_TO_BLUETOOTH_DEVICE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_SILENCE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DEFAULT_ALARM_RINGTONE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT;
@@ -54,6 +55,7 @@ public class AlarmSettingsFragment extends ScreenFragment
     ListPreference mAlarmSnoozePref;
     AlarmVolumePreference mAlarmVolumePreference;
     ListPreference mAlarmCrescendoPref;
+    SwitchPreferenceCompat mAutoRoutingToBluetoothDevice;
     ListPreference mVolumeButtonsPref;
     ListPreference mPowerButtonPref;
     ListPreference mFlipActionPref;
@@ -85,6 +87,7 @@ public class AlarmSettingsFragment extends ScreenFragment
         mAlarmSnoozePref = findPreference(KEY_ALARM_SNOOZE_DURATION);
         mAlarmVolumePreference = findPreference(KEY_ALARM_VOLUME_SETTING);
         mAlarmCrescendoPref = findPreference(KEY_ALARM_CRESCENDO_DURATION);
+        mAutoRoutingToBluetoothDevice = findPreference(KEY_AUTO_ROUTING_TO_BLUETOOTH_DEVICE);
         mVolumeButtonsPref = findPreference(KEY_VOLUME_BUTTONS);
         mPowerButtonPref = findPreference(KEY_POWER_BUTTON);
         mFlipActionPref = findPreference(KEY_FLIP_ACTION);
@@ -115,6 +118,7 @@ public class AlarmSettingsFragment extends ScreenFragment
         super.onStop();
 
         mAlarmVolumePreference.stopRingtonePreview(requireContext());
+        mAlarmVolumePreference.stopListeningToPreferences();
     }
 
     @Override
@@ -126,7 +130,8 @@ public class AlarmSettingsFragment extends ScreenFragment
             }
 
             case KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT, KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS,
-                 KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM, KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT ->
+                 KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM, KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT,
+                 KEY_AUTO_ROUTING_TO_BLUETOOTH_DEVICE ->
                     Utils.setVibrationTime(requireContext(), 50);
 
             case KEY_ALARM_SNOOZE_DURATION, KEY_ALARM_CRESCENDO_DURATION, KEY_VOLUME_BUTTONS,
@@ -199,6 +204,8 @@ public class AlarmSettingsFragment extends ScreenFragment
 
         mAlarmCrescendoPref.setOnPreferenceChangeListener(this);
         mAlarmCrescendoPref.setSummary(mAlarmCrescendoPref.getEntry());
+
+        mAutoRoutingToBluetoothDevice.setOnPreferenceChangeListener(this);
 
         mVolumeButtonsPref.setOnPreferenceChangeListener(this);
         mVolumeButtonsPref.setSummary(mVolumeButtonsPref.getEntry());

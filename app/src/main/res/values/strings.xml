@@ -407,6 +407,8 @@
     <string name="alarm_notification_reminder_10_hours">10 hours before</string>
     <!-- Setting title for changing the notification reminder to 12 hours before. -->
     <string name="alarm_notification_reminder_12_hours">12 hours before</string>
+    <!-- Setting title to enable automatic routing to bluetooth devices for ringtones -->
+    <string name="auto_routing_to_bluetooth_device_title">Enable automatic routing of ringtones to Bluetooth devices</string>
     <!-- Setting title to enable vibrations when creating alarms -->
     <string name="enable_alarm_vibrations_by_default_setting_title">Enable vibrations when creating alarms</string>
     <!-- Setting title to enable vibrations when alarm is snoozed or dismissed -->

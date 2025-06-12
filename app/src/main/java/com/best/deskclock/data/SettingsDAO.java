@@ -540,6 +540,15 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return {@code true} if the ringtone should be automatically routed to Bluetooth devices.
+     * {@code false} otherwise.
+     */
+    public static boolean isAutoRoutingToBluetoothDeviceEnabled(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        return prefs.getBoolean(KEY_AUTO_ROUTING_TO_BLUETOOTH_DEVICE, DEFAULT_AUTO_ROUTING_TO_BLUETOOTH_DEVICE);
+    }
+
+    /**
      * @return the duration, in milliseconds, of the crescendo to apply to timer ringtone playback;
      * {@code 0} implies no crescendo should be applied
      */
