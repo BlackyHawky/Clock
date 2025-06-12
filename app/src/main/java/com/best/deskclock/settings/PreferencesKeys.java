@@ -116,6 +116,7 @@ public class PreferencesKeys {
     public static final String KEY_TIMER_SHAKE_INTENSITY = "key_timer_shake_intensity";
     public static final String KEY_SORT_TIMER = "key_sort_timer";
     public static final String KEY_DEFAULT_TIME_TO_ADD_TO_TIMER = "key_default_time_to_add_to_timer";
+    public static final String KEY_MATERIAL_DURATION_PICKER_STYLE = "key_duration_picker_style";
     public static final String KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER = "key_transparent_background_for_expired_timer";
     public static final String KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER = "key_display_warning_before_deleting_timer";
 

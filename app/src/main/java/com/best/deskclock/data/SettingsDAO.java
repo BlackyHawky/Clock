@@ -763,6 +763,14 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return the duration picker style.
+     */
+    public static String getMaterialDurationPickerStyle(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        return prefs.getString(KEY_MATERIAL_DURATION_PICKER_STYLE, DEFAULT_DURATION_PICKER_STYLE);
+    }
+
+    /**
      * @return a value indicating whether analog or digital clocks are displayed on the alarm.
      */
     public static ClockStyle getAlarmClockStyle(SharedPreferences prefs) {

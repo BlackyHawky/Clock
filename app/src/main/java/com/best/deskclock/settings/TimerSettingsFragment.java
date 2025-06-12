@@ -5,6 +5,7 @@ package com.best.deskclock.settings;
 import static com.best.deskclock.DeskClock.REQUEST_CHANGE_SETTINGS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DEFAULT_TIME_TO_ADD_TO_TIMER;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_DURATION_PICKER_STYLE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SORT_TIMER;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_AUTO_SILENCE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_CRESCENDO_DURATION;
@@ -40,6 +41,7 @@ public class TimerSettingsFragment extends ScreenFragment
     ListPreference mTimerCrescendoPref;
     ListPreference mSortTimerPref;
     ListPreference mDefaultMinutesToAddToTimerPref;
+    ListPreference mDurationPickerStylePref;
     Preference mTimerRingtonePref;
     Preference mTimerVibratePref;
     SwitchPreferenceCompat mTimerVolumeButtonsActionPref;
@@ -74,6 +76,7 @@ public class TimerSettingsFragment extends ScreenFragment
         mDefaultMinutesToAddToTimerPref = findPreference(KEY_DEFAULT_TIME_TO_ADD_TO_TIMER);
         mTransparentBackgroundPref = findPreference(KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER);
         mDisplayWarningBeforeDeletingTimerPref = findPreference(KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER);
+        mDurationPickerStylePref = findPreference(KEY_MATERIAL_DURATION_PICKER_STYLE);
 
         setupPreferences();
     }
@@ -88,9 +91,11 @@ public class TimerSettingsFragment extends ScreenFragment
     @Override
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
-            case KEY_TIMER_RINGTONE -> mTimerRingtonePref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
+            case KEY_TIMER_RINGTONE ->
+                    mTimerRingtonePref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
 
-            case KEY_TIMER_AUTO_SILENCE, KEY_TIMER_CRESCENDO_DURATION, KEY_DEFAULT_TIME_TO_ADD_TO_TIMER -> {
+            case KEY_TIMER_AUTO_SILENCE, KEY_TIMER_CRESCENDO_DURATION,
+                 KEY_DEFAULT_TIME_TO_ADD_TO_TIMER, KEY_MATERIAL_DURATION_PICKER_STYLE -> {
                 final ListPreference preference = (ListPreference) pref;
                 final int index = preference.findIndexOfValue((String) newValue);
                 preference.setSummary(preference.getEntries()[index]);
@@ -147,6 +152,9 @@ public class TimerSettingsFragment extends ScreenFragment
         mTimerVolumeButtonsActionPref.setOnPreferenceChangeListener(this);
 
         mTimerPowerButtonActionPref.setOnPreferenceChangeListener(this);
+
+        mDurationPickerStylePref.setOnPreferenceChangeListener(this);
+        mDurationPickerStylePref.setSummary(mDurationPickerStylePref.getEntry());
 
         SensorManager sensorManager = (SensorManager) requireActivity().getSystemService(Context.SENSOR_SERVICE);
         if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) == null) {
