@@ -10,6 +10,7 @@ import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesDefaultValues.BLACK_ACCENT_COLOR;
 import static com.best.deskclock.uidata.UiDataModel.Tab.CLOCKS;
 import static com.best.deskclock.utils.AlarmUtils.ACTION_NEXT_ALARM_CHANGED_BY_CLOCK;
 import static java.util.Calendar.DAY_OF_WEEK;
@@ -21,9 +22,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.format.DateUtils;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -345,11 +346,15 @@ public final class ClockFragment extends DeskClockFragment {
             private void bind(Context context, City city) {
                 final String cityTimeZoneId = city.getTimeZone().getID();
                 final boolean isPhoneInLandscapeMode = !mIsTablet && mIsLandscape;
+                final boolean isAnalogClock = mClockStyle == DataModel.ClockStyle.ANALOG
+                        || mClockStyle == DataModel.ClockStyle.ANALOG_MATERIAL;
+                int paddingVertical = ThemeUtils.convertDpToPixels(isAnalogClock ? 12 : 18, context);
 
                 itemView.setBackground(ThemeUtils.cardBackground(context));
+                itemView.setPadding(itemView.getPaddingLeft(), paddingVertical, itemView.getPaddingRight(), paddingVertical);
 
                 // Configure the digital clock or analog clock depending on the user preference.
-                if (mClockStyle == DataModel.ClockStyle.ANALOG || mClockStyle == DataModel.ClockStyle.ANALOG_MATERIAL) {
+                if (isAnalogClock) {
                     mAnalogClock.getLayoutParams().height = ThemeUtils.convertDpToPixels(mIsTablet ? 150 : 80, context);
                     mAnalogClock.getLayoutParams().width = ThemeUtils.convertDpToPixels(mIsTablet ? 150 : 80, context);
                     mDigitalClockContainer.setVisibility(GONE);
@@ -359,6 +364,10 @@ public final class ClockFragment extends DeskClockFragment {
                 } else {
                     mAnalogClock.setVisibility(GONE);
                     mDigitalClockContainer.setVisibility(VISIBLE);
+
+                    if (SettingsDAO.getAccentColor(mPrefs).equals(BLACK_ACCENT_COLOR)) {
+                        mDigitalClock.setTextColor(Color.WHITE);
+                    }
                     mDigitalClock.setTimeZone(cityTimeZoneId);
                     mDigitalClock.setFormat12Hour(
                             ClockUtils.get12ModeFormat(mDigitalClock.getContext(), 0.3f, false));
@@ -408,15 +417,9 @@ public final class ClockFragment extends DeskClockFragment {
                             : R.string.world_hours_yesterday, timeString))
                         : timeString);
 
-                // If the device is in landscape mode, center the city name and time offset.
-                if (mIsLandscape) {
-                    LinearLayout.LayoutParams textViewLayoutParams = new LinearLayout.LayoutParams(
-                            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                    mName.setLayoutParams(textViewLayoutParams);
-                    mName.setGravity(Gravity.CENTER_HORIZONTAL);
-                    mHoursAhead.setLayoutParams(textViewLayoutParams);
-                    mHoursAhead.setGravity(Gravity.CENTER_HORIZONTAL);
-                }
+                // Allow text scrolling by clicking on the item (all other attributes are indicated
+                // in the "world_clock_city_container.xml" file)
+                itemView.setOnClickListener(v -> mName.setSelected(true));
             }
         }
 

@@ -6,36 +6,38 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingHorizontal="24dp"
-    android:paddingVertical="18dp"
     android:orientation="horizontal"
     android:gravity="center_vertical"
-    tools:background="@drawable/card_background_for_preview">
+    tools:background="@drawable/card_background_for_preview"
+    tools:paddingVertical="18dp">
 
         <include
             layout="@layout/world_clock_city_container"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:layout_marginEnd="12dp" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/digital_clock_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="top|end"
-            android:backgroundTint="?colorSecondary"
-            app:cardCornerRadius="28dp">
+            android:backgroundTint="?attr/colorSecondary"
+            app:cardCornerRadius="28dp"
+            app:strokeWidth="0dp">
 
                 <TextClock
                     android:id="@+id/digital_clock"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:padding="2dp"
                     android:textSize="24sp"
-                    android:textColor="?colorOnSecondary"
+                    android:textColor="?android:attr/colorBackground"
                     android:singleLine="true"
                     tools:ignore="RtlSymmetry"
                     android:layout_marginHorizontal="10dp"

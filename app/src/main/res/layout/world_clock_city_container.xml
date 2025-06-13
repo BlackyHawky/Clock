@@ -8,7 +8,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="0dp"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
     android:orientation="vertical">
@@ -17,11 +17,13 @@
         android:id="@+id/city_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ellipsize="end"
         android:singleLine="true"
-        android:textSize="20sp"
-        android:textColor="?colorPrimary"
-        android:textAlignment="viewStart"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:scrollHorizontally="true"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="?attr/colorPrimary"
         tools:text="Fictive city"/>
 
     <com.google.android.material.textview.MaterialTextView
@@ -30,7 +32,6 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="2"
-        android:textAlignment="viewStart"
         android:paddingTop="3dp"
         android:scrollHorizontally="true"
         tools:text="1 hour ahead"/>
