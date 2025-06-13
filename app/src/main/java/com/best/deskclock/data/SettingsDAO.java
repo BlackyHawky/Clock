@@ -485,6 +485,14 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return the timer creation view style.
+     */
+    public static String getTimerCreationViewStyle(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_timer.xml
+        return prefs.getString(KEY_TIMER_CREATION_VIEW_STYLE, DEFAULT_TIMER_CREATION_VIEW_STYLE);
+    }
+
+    /**
      * @return {@code true} if the timer background must be transparent. {@code false} otherwise.
      */
     public static boolean isTimerBackgroundTransparent(SharedPreferences prefs) {
@@ -760,14 +768,6 @@ public final class SettingsDAO {
     public static String getMaterialDatePickerStyle(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_alarm.xml
         return prefs.getString(KEY_MATERIAL_DATE_PICKER_STYLE, DEFAULT_DATE_PICKER_STYLE);
-    }
-
-    /**
-     * @return the duration picker style.
-     */
-    public static String getMaterialDurationPickerStyle(SharedPreferences prefs) {
-        // Default value must match the one in res/xml/settings_alarm.xml
-        return prefs.getString(KEY_MATERIAL_DURATION_PICKER_STYLE, DEFAULT_DURATION_PICKER_STYLE);
     }
 
     /**

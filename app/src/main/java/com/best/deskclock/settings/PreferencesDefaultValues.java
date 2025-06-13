@@ -101,6 +101,8 @@ public class PreferencesDefaultValues {
     }
 
     // Timer
+    public static final String DEFAULT_TIMER_CREATION_VIEW_STYLE = "keypad";
+    public static final String TIMER_CREATION_VIEW_SPINNER_STYLE = "spinner";
     public static final String DEFAULT_TIMER_AUTO_SILENCE = "30";
     public static final String DEFAULT_TIMER_CRESCENDO_DURATION = "0";
     public static final boolean DEFAULT_TIMER_VIBRATE = false;
@@ -116,9 +118,6 @@ public class PreferencesDefaultValues {
     public static final String DEFAULT_TIME_TO_ADD_TO_TIMER = "1";
     public static final boolean DEFAULT_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER = false;
     public static final boolean DEFAULT_DISPLAY_WARNING_BEFORE_DELETING_TIMER = false;
-    public static final String DEFAULT_DURATION_PICKER_STYLE = "keypad";
-    public static final String KEYPAD_DURATION_PICKER_STYLE = "keypad";
-    public static final String SPINNER_DURATION_PICKER_STYLE = "spinner";
 
     // Stopwatch
     public static final String DEFAULT_SW_ACTION = "0";

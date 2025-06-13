@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: GPL-3.0-only
+
 package com.best.deskclock.timer;
 
 import android.content.Context;
@@ -12,7 +14,10 @@ import com.best.deskclock.R;
 
 import java.util.concurrent.TimeUnit;
 
-public class CustomSpinnerDurationPicker extends LinearLayout {
+/**
+ * Custom component to display a time selection view using spinners used when creating timers.
+ */
+public class CustomTimerSpinnerSetupView extends LinearLayout {
     NumberPicker mHourPicker;
     NumberPicker mMinutePicker;
     NumberPicker mSecondPicker;
@@ -20,10 +25,10 @@ public class CustomSpinnerDurationPicker extends LinearLayout {
     @Nullable
     OnValueChangeListener mOnValueChangeListener;
 
-    public CustomSpinnerDurationPicker(Context context, @Nullable AttributeSet attrs) {
+    public CustomTimerSpinnerSetupView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
-        View rootView = inflate(context, R.layout.custom_spinner_duration_picker, this);
+        View rootView = inflate(context, R.layout.timer_spinner_setup_view, this);
         mHourPicker = rootView.findViewById(R.id.hour);
         mMinutePicker = rootView.findViewById(R.id.minute);
         mSecondPicker = rootView.findViewById(R.id.second);
@@ -33,7 +38,7 @@ public class CustomSpinnerDurationPicker extends LinearLayout {
 
     private void setupCustomSpinnerDurationPicker() {
         mHourPicker.setMinValue(0);
-        mHourPicker.setMaxValue(23);
+        mHourPicker.setMaxValue(24);
 
         mMinutePicker.setMinValue(0);
         mMinutePicker.setMaxValue(59);
@@ -82,4 +87,11 @@ public class CustomSpinnerDurationPicker extends LinearLayout {
     public interface OnValueChangeListener {
         void onValueChange(DurationObject duration);
     }
+
+    public record DurationObject(int hour, int minute, int second) {
+        public long toMillis() {
+            return (((hour * 60L) + minute) * 60 + second) * 1000;
+        }
+    }
+
 }

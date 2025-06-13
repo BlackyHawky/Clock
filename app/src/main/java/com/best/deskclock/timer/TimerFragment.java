@@ -13,7 +13,7 @@ import static android.view.View.TRANSLATION_Y;
 import static android.view.View.VISIBLE;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-import static com.best.deskclock.settings.PreferencesDefaultValues.SPINNER_DURATION_PICKER_STYLE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.TIMER_CREATION_VIEW_SPINNER_STYLE;
 import static com.best.deskclock.uidata.UiDataModel.Tab.TIMERS;
 
 import android.animation.Animator;
@@ -69,7 +69,7 @@ public final class TimerFragment extends DeskClockFragment {
     private RecyclerView mRecyclerView;
     private Serializable mTimerSetupState;
     private TimerSetupView mCreateTimerView;
-    private CustomSpinnerDurationPicker mSpinnerDurationPickerView;
+    private CustomTimerSpinnerSetupView mCreateTimerSpinnerView;
     private TimerAdapter mAdapter;
     private View mTimersView;
     private View mCurrentView;
@@ -116,7 +116,7 @@ public final class TimerFragment extends DeskClockFragment {
         mRecyclerView = view.findViewById(R.id.recycler_view);
         mTimersView = view.findViewById(R.id.timer_view);
         mCreateTimerView = view.findViewById(R.id.timer_setup);
-        mSpinnerDurationPickerView = view.findViewById(R.id.spinner_duration_picker);
+        mCreateTimerSpinnerView = view.findViewById(R.id.timer_spinner_setup);
         mIsTablet = ThemeUtils.isTablet();
         mIsLandscape = ThemeUtils.isLandscape();
 
@@ -130,9 +130,8 @@ public final class TimerFragment extends DeskClockFragment {
         mRecyclerView.setClipToPadding(false);
 
         mCreateTimerView.setFabContainer(this);
-        mSpinnerDurationPickerView.setOnChangeListener((durationObject) -> {
-            updateFab(FAB_SHRINK_AND_EXPAND);
-        });
+        mCreateTimerSpinnerView.setOnChangeListener((durationObject) ->
+                updateFab(FAB_SHRINK_AND_EXPAND));
 
         DataModel.getDataModel().addTimerListener(mAdapter);
         DataModel.getDataModel().addTimerListener(mTimerWatcher);
@@ -236,7 +235,7 @@ public final class TimerFragment extends DeskClockFragment {
                 fab.setImageResource(R.drawable.ic_add);
                 fab.setContentDescription(mContext.getString(R.string.timer_add_timer));
                 fab.setVisibility(VISIBLE);
-            } else if (mCurrentView == getTimePickerView()) {
+            } else if (mCurrentView == getTimerCreationView()) {
                 if (hasValidInput()) {
                     fab.setImageResource(R.drawable.ic_fab_play);
                     fab.setContentDescription(mContext.getString(R.string.timer_start));
@@ -249,29 +248,29 @@ public final class TimerFragment extends DeskClockFragment {
         }
     }
 
-    private boolean isSpinnerDurationPicker() {
-        return SettingsDAO.getMaterialDurationPickerStyle(mPrefs).equals(SPINNER_DURATION_PICKER_STYLE);
+    private boolean isSpinnerCreationView() {
+        return SettingsDAO.getTimerCreationViewStyle(mPrefs).equals(TIMER_CREATION_VIEW_SPINNER_STYLE);
     }
 
     private boolean hasValidInput() {
-        if (isSpinnerDurationPicker()) {
-            return mSpinnerDurationPickerView.getValue().toMillis() != 0;
+        if (isSpinnerCreationView()) {
+            return mCreateTimerSpinnerView.getValue().toMillis() != 0;
         } else {
             return mCreateTimerView.hasValidInput();
         }
     }
 
     private long getTimeInMillis() {
-        if (isSpinnerDurationPicker()) {
-            return mSpinnerDurationPickerView.getValue().toMillis();
+        if (isSpinnerCreationView()) {
+            return mCreateTimerSpinnerView.getValue().toMillis();
         } else {
             return mCreateTimerView.getTimeInMillis();
         }
     }
 
-    private View getTimePickerView() {
-        if (isSpinnerDurationPicker()) {
-            return mSpinnerDurationPickerView;
+    private View getTimerCreationView() {
+        if (isSpinnerCreationView()) {
+            return mCreateTimerSpinnerView;
         } else {
             return mCreateTimerView;
         }
@@ -296,7 +295,7 @@ public final class TimerFragment extends DeskClockFragment {
             left.setVisibility(INVISIBLE);
             right.setVisibility(INVISIBLE);
 
-        } else if (mCurrentView == getTimePickerView()) {
+        } else if (mCurrentView == getTimerCreationView()) {
             right.setVisibility(INVISIBLE);
 
             left.setClickable(true);
@@ -306,7 +305,7 @@ public final class TimerFragment extends DeskClockFragment {
             left.setVisibility(hasTimers() ? VISIBLE : INVISIBLE);
             left.setOnClickListener(v -> {
                 mCreateTimerView.reset();
-                mSpinnerDurationPickerView.reset();
+                mCreateTimerSpinnerView.reset();
                 animateToView(mTimersView, false);
                 left.announceForAccessibility(mContext.getString(R.string.timer_canceled));
                 Utils.setVibrationTime(mContext, 10);
@@ -317,8 +316,8 @@ public final class TimerFragment extends DeskClockFragment {
     @Override
     public void onFabClick(@NonNull ImageView fab) {
         if (mCurrentView == mTimersView) {
-            animateToView(getTimePickerView(), true);
-        } else if (mCurrentView == getTimePickerView()) {
+            animateToView(getTimerCreationView(), true);
+        } else if (mCurrentView == getTimerCreationView()) {
             mCreatingTimer = true;
             try {
                 // Create the new timer.
@@ -361,10 +360,10 @@ public final class TimerFragment extends DeskClockFragment {
 
         // Reset all possible time picker views to be hidden in order to only show one of them later
         mCreateTimerView.setVisibility(GONE);
-        mSpinnerDurationPickerView.setVisibility(GONE);
+        mCreateTimerSpinnerView.setVisibility(GONE);
 
         // Record the fact that the create view is visible.
-        mCurrentView = getTimePickerView();
+        mCurrentView = getTimerCreationView();
         mCurrentView.setVisibility(VISIBLE);
 
         // Update the fab and buttons.
@@ -381,7 +380,7 @@ public final class TimerFragment extends DeskClockFragment {
         // Show the timer view; hide the creation view.
         mTimersView.setVisibility(VISIBLE);
         mCreateTimerView.setVisibility(GONE);
-        mSpinnerDurationPickerView.setVisibility(GONE);
+        mCreateTimerSpinnerView.setVisibility(GONE);
 
         // Record the fact that the create view is visible.
         mCurrentView = mTimersView;
@@ -406,7 +405,7 @@ public final class TimerFragment extends DeskClockFragment {
         if (toTimers) {
             mTimersView.setVisibility(VISIBLE);
         } else {
-            getTimePickerView().setVisibility(VISIBLE);
+            getTimerCreationView().setVisibility(VISIBLE);
         }
         // Avoid double-taps by enabling/disabling the set of buttons active on the new view.
         updateFab(BUTTONS_DISABLE);
@@ -455,7 +454,7 @@ public final class TimerFragment extends DeskClockFragment {
 
                             // Reset the state of the create view.
                             mCreateTimerView.reset();
-                            mSpinnerDurationPickerView.reset();
+                            mCreateTimerSpinnerView.reset();
                         } else {
                             showCreateTimerView(FAB_AND_BUTTONS_EXPAND);
                         }
@@ -478,10 +477,10 @@ public final class TimerFragment extends DeskClockFragment {
                         super.onAnimationEnd(animation);
                         mTimersView.setTranslationY(0f);
                         mCreateTimerView.setTranslationY(0f);
-                        mSpinnerDurationPickerView.setTranslationY(0f);
+                        mCreateTimerSpinnerView.setTranslationY(0f);
                         mTimersView.setAlpha(1f);
                         mCreateTimerView.setAlpha(1f);
-                        mSpinnerDurationPickerView.setAlpha(1f);
+                        mCreateTimerSpinnerView.setAlpha(1f);
                     }
                 });
 
@@ -586,7 +585,7 @@ public final class TimerFragment extends DeskClockFragment {
             updateFab(FAB_AND_BUTTONS_IMMEDIATE);
 
             if (mCurrentView == mTimersView && mAdapter.getItemCount() == 0) {
-                animateToView(getTimePickerView(), true);
+                animateToView(getTimerCreationView(), true);
             }
 
             // Required to adjust the layout for tablets that use either a GridLayoutManager or a LinearLayoutManager.

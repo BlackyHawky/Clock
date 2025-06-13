@@ -1110,6 +1110,10 @@
     <string name="timer_settings">Timers</string>
     <!-- Timer preference summary in the settings -->
     <string name="timer_settings_summary">Set default ringtone, volume and timer sorting</string>
+    <!-- Title for setting the timer creation view style -->
+    <string name="timer_creation_view_style_title">Timer creation view style</string>
+    <!-- Keypad style when creating timer -->
+    <string name="timer_creation_view_style_keypad">Keypad</string>
     <!-- Description for timer vibration. -->
     <string name="timer_vibrate_title">Timer vibrate</string>
     <!-- Setting title to reset expired timers with volume buttons. -->
@@ -1158,10 +1162,6 @@
     <string name="default_time_to_add_to_timer_30_minutes">30 minutes</string>
     <!-- Setting title for changing the default time to add to 1 hour. -->
     <string name="default_time_to_add_to_timer_1_hour">1 hour</string>
-    <!-- Title for setting the used duration picker style in the timer fragment -->
-    <string name="duration_picker_style">Duration picker style</string>
-    <!-- Keypad style for the duration picker in the timer fragment -->
-    <string name="duration_picker_style_keypad">Keypad</string>
     <!-- Title for setting transparent background when timers expires in timer settings -->
     <string name="transparent_background_for_expired_timer_title">Transparent background when timers expire</string>
     <!-- Setting title to display a warning before deleting a timer -->

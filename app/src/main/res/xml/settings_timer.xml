@@ -15,10 +15,10 @@
         tools:layout="@layout/settings_preference_category_layout">
 
         <ListPreference
-            android:key="key_duration_picker_style"
-            android:title="@string/duration_picker_style"
-            android:entries="@array/duration_picker_style_entries"
-            android:entryValues="@array/duration_picker_style_values"
+            android:key="key_timer_creation_view_style"
+            android:title="@string/timer_creation_view_style_title"
+            android:entries="@array/timer_creation_view_style_entries"
+            android:entryValues="@array/timer_creation_view_style_values"
             android:defaultValue="keypad"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
