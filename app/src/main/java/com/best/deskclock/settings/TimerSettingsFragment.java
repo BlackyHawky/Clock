@@ -7,6 +7,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_DEFAULT_TIME_TO_AD
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SORT_TIMER;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_AUTO_SILENCE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_CREATION_VIEW_STYLE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_CRESCENDO_DURATION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_FLIP_ACTION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_POWER_BUTTON_ACTION;
@@ -40,6 +41,7 @@ public class TimerSettingsFragment extends ScreenFragment
     ListPreference mTimerCrescendoPref;
     ListPreference mSortTimerPref;
     ListPreference mDefaultMinutesToAddToTimerPref;
+    ListPreference mTimerCreationViewStylePref;
     Preference mTimerRingtonePref;
     Preference mTimerVibratePref;
     SwitchPreferenceCompat mTimerVolumeButtonsActionPref;
@@ -74,6 +76,7 @@ public class TimerSettingsFragment extends ScreenFragment
         mDefaultMinutesToAddToTimerPref = findPreference(KEY_DEFAULT_TIME_TO_ADD_TO_TIMER);
         mTransparentBackgroundPref = findPreference(KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER);
         mDisplayWarningBeforeDeletingTimerPref = findPreference(KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER);
+        mTimerCreationViewStylePref = findPreference(KEY_TIMER_CREATION_VIEW_STYLE);
 
         setupPreferences();
     }
@@ -90,7 +93,8 @@ public class TimerSettingsFragment extends ScreenFragment
         switch (pref.getKey()) {
             case KEY_TIMER_RINGTONE -> mTimerRingtonePref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
 
-            case KEY_TIMER_AUTO_SILENCE, KEY_TIMER_CRESCENDO_DURATION, KEY_DEFAULT_TIME_TO_ADD_TO_TIMER -> {
+            case KEY_TIMER_AUTO_SILENCE, KEY_TIMER_CRESCENDO_DURATION,
+                 KEY_DEFAULT_TIME_TO_ADD_TO_TIMER, KEY_TIMER_CREATION_VIEW_STYLE -> {
                 final ListPreference preference = (ListPreference) pref;
                 final int index = preference.findIndexOfValue((String) newValue);
                 preference.setSummary(preference.getEntries()[index]);
@@ -147,6 +151,9 @@ public class TimerSettingsFragment extends ScreenFragment
         mTimerVolumeButtonsActionPref.setOnPreferenceChangeListener(this);
 
         mTimerPowerButtonActionPref.setOnPreferenceChangeListener(this);
+
+        mTimerCreationViewStylePref.setOnPreferenceChangeListener(this);
+        mTimerCreationViewStylePref.setSummary(mTimerCreationViewStylePref.getEntry());
 
         SensorManager sensorManager = (SensorManager) requireActivity().getSystemService(Context.SENSOR_SERVICE);
         if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) == null) {

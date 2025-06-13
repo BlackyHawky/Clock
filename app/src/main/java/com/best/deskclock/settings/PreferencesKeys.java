@@ -106,6 +106,7 @@ public class PreferencesKeys {
     public static final String KEY_PREVIEW_ALARM = "key_preview_alarm";
 
     // Timer
+    public static final String KEY_TIMER_CREATION_VIEW_STYLE = "key_timer_creation_view_style";
     public static final String KEY_TIMER_RINGTONE = "key_timer_ringtone";
     public static final String KEY_TIMER_AUTO_SILENCE = "key_timer_auto_silence";
     public static final String KEY_TIMER_CRESCENDO_DURATION = "key_timer_crescendo_duration";

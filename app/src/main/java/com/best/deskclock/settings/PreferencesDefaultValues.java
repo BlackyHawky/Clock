@@ -102,6 +102,8 @@ public class PreferencesDefaultValues {
     }
 
     // Timer
+    public static final String DEFAULT_TIMER_CREATION_VIEW_STYLE = "keypad";
+    public static final String TIMER_CREATION_VIEW_SPINNER_STYLE = "spinner";
     public static final String DEFAULT_TIMER_AUTO_SILENCE = "30";
     public static final String DEFAULT_TIMER_CRESCENDO_DURATION = "0";
     public static final boolean DEFAULT_TIMER_VIBRATE = false;

@@ -407,6 +407,18 @@
         <item>spinner</item>
     </string-array>
 
+    <!-- Entries listed in the ListPreference when invoking the timer creation view style preference. -->
+    <string-array name="timer_creation_view_style_entries">
+        <item>@string/timer_creation_view_style_keypad</item>
+        <item>@string/clock_style_spinner</item>
+    </string-array>
+    <!-- Values that are retrieved from the ListPreference. These must match the
+    timer_creation_view_style_entries above. -->
+    <string-array name="timer_creation_view_style_values" translatable="false">
+        <item>keypad</item>
+        <item>spinner</item>
+    </string-array>
+
     <!-- Entries listed in the ListPreference when invoking the timer sort preference -->
     <string-array name="sort_timer_entries">
         <item>@string/sort_timer_manually</item>
