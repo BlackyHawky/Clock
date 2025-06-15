@@ -18,6 +18,8 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_FLIP_ACTION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_DATE_PICKER_STYLE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_TIME_PICKER_STYLE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_POWER_BUTTON;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ADVANCED_AUDIO_PLAYBACK;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_RINGTONE_PREVIEW_PLAYING;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SHAKE_ACTION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SHAKE_INTENSITY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM;
@@ -26,6 +28,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_WEEK_START;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
@@ -50,12 +53,15 @@ import java.util.List;
 public class AlarmSettingsFragment extends ScreenFragment
         implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
+    private SharedPreferences.OnSharedPreferenceChangeListener mPrefChangeListener;
+
     Preference mAlarmRingtonePref;
     ListPreference mAutoSilencePref;
     ListPreference mAlarmSnoozePref;
     AlarmVolumePreference mAlarmVolumePreference;
     ListPreference mAlarmCrescendoPref;
-    SwitchPreferenceCompat mAutoRoutingToBluetoothDevice;
+    SwitchPreferenceCompat mAdvancedAudioPlaybackPref;
+    SwitchPreferenceCompat mAutoRoutingToBluetoothDevicePref;
     ListPreference mVolumeButtonsPref;
     ListPreference mPowerButtonPref;
     ListPreference mFlipActionPref;
@@ -87,7 +93,8 @@ public class AlarmSettingsFragment extends ScreenFragment
         mAlarmSnoozePref = findPreference(KEY_ALARM_SNOOZE_DURATION);
         mAlarmVolumePreference = findPreference(KEY_ALARM_VOLUME_SETTING);
         mAlarmCrescendoPref = findPreference(KEY_ALARM_CRESCENDO_DURATION);
-        mAutoRoutingToBluetoothDevice = findPreference(KEY_AUTO_ROUTING_TO_BLUETOOTH_DEVICE);
+        mAdvancedAudioPlaybackPref = findPreference(KEY_ADVANCED_AUDIO_PLAYBACK);
+        mAutoRoutingToBluetoothDevicePref = findPreference(KEY_AUTO_ROUTING_TO_BLUETOOTH_DEVICE);
         mVolumeButtonsPref = findPreference(KEY_VOLUME_BUTTONS);
         mPowerButtonPref = findPreference(KEY_POWER_BUTTON);
         mFlipActionPref = findPreference(KEY_FLIP_ACTION);
@@ -110,6 +117,8 @@ public class AlarmSettingsFragment extends ScreenFragment
     public void onResume() {
         super.onResume();
 
+        mPrefs.registerOnSharedPreferenceChangeListener(mPrefChangeListener);
+
         mAlarmRingtonePref.setSummary(DataModel.getDataModel().getAlarmRingtoneTitle());
     }
 
@@ -117,8 +126,9 @@ public class AlarmSettingsFragment extends ScreenFragment
     public void onStop() {
         super.onStop();
 
-        mAlarmVolumePreference.stopRingtonePreview(requireContext());
-        mAlarmVolumePreference.stopListeningToPreferences();
+        mAlarmVolumePreference.stopRingtonePreview(requireContext(), mPrefs);
+        mAlarmVolumePreference.deactivateRingtonePlayback(mPrefs);
+        mPrefs.unregisterOnSharedPreferenceChangeListener(mPrefChangeListener);
     }
 
     @Override
@@ -133,6 +143,11 @@ public class AlarmSettingsFragment extends ScreenFragment
                  KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM, KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT,
                  KEY_AUTO_ROUTING_TO_BLUETOOTH_DEVICE ->
                     Utils.setVibrationTime(requireContext(), 50);
+
+            case KEY_ADVANCED_AUDIO_PLAYBACK -> {
+                Utils.setVibrationTime(requireContext(), 50);
+                mAutoRoutingToBluetoothDevicePref.setVisible((boolean) newValue);
+            }
 
             case KEY_ALARM_SNOOZE_DURATION, KEY_ALARM_CRESCENDO_DURATION, KEY_VOLUME_BUTTONS,
                  KEY_POWER_BUTTON, KEY_FLIP_ACTION, KEY_MATERIAL_TIME_PICKER_STYLE,
@@ -193,6 +208,18 @@ public class AlarmSettingsFragment extends ScreenFragment
     }
 
     private void setupPreferences() {
+        // Disable mAdvancedAudioPlaybackPref and mAutoRoutingToBluetoothDevicePref when ringtone
+        // preview is in progress to prevent playback bug (e.g. playback that doesn't stop)
+        mPrefChangeListener = (sharedPreferences, key) -> {
+            if (KEY_RINGTONE_PREVIEW_PLAYING.equals(key)) {
+                boolean isPreviewPlaying = sharedPreferences.getBoolean(KEY_RINGTONE_PREVIEW_PLAYING, false);
+                mAdvancedAudioPlaybackPref.setEnabled(!isPreviewPlaying);
+                if (mAutoRoutingToBluetoothDevicePref.isVisible()) {
+                    mAutoRoutingToBluetoothDevicePref.setEnabled(!isPreviewPlaying);
+                }
+            }
+        };
+
         mAlarmRingtonePref.setOnPreferenceClickListener(this);
 
         String delay = mAutoSilencePref.getValue();
@@ -205,7 +232,10 @@ public class AlarmSettingsFragment extends ScreenFragment
         mAlarmCrescendoPref.setOnPreferenceChangeListener(this);
         mAlarmCrescendoPref.setSummary(mAlarmCrescendoPref.getEntry());
 
-        mAutoRoutingToBluetoothDevice.setOnPreferenceChangeListener(this);
+        mAdvancedAudioPlaybackPref.setOnPreferenceChangeListener(this);
+
+        mAutoRoutingToBluetoothDevicePref.setVisible(SettingsDAO.isAdvancedAudioPlaybackEnabled(mPrefs));
+        mAutoRoutingToBluetoothDevicePref.setOnPreferenceChangeListener(this);
 
         mVolumeButtonsPref.setOnPreferenceChangeListener(this);
         mVolumeButtonsPref.setSummary(mVolumeButtonsPref.getEntry());

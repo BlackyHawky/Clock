@@ -10,7 +10,11 @@ import static android.content.Context.AUDIO_SERVICE;
 import static android.media.AudioManager.STREAM_ALARM;
 import static android.view.View.GONE;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_RINGTONE_PREVIEW_PLAYING;
+
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.ContentObserver;
 import android.media.AudioManager;
 import android.net.Uri;
@@ -37,6 +41,7 @@ import java.util.Locale;
 public class AlarmVolumePreference extends SeekBarPreference {
 
     private Context mContext;
+    private SharedPreferences mPrefs;
     private SeekBar mSeekbar;
     private boolean mPreviewPlaying = false;
 
@@ -49,6 +54,8 @@ public class AlarmVolumePreference extends SeekBarPreference {
         super.onBindViewHolder(holder);
 
         mContext = getContext();
+        mPrefs = getDefaultSharedPreferences(mContext);
+
         final AudioManager audioManager = (AudioManager) mContext.getSystemService(AUDIO_SERVICE);
 
         // Disable click feedback for this preference.
@@ -159,24 +166,26 @@ public class AlarmVolumePreference extends SeekBarPreference {
                 ringtoneUri = RingtoneUtils.getRandomCustomRingtoneUri();
             }
 
-            RingtonePreviewKlaxon.start(mContext, ringtoneUri);
+            RingtonePreviewKlaxon.start(mContext, mPrefs, ringtoneUri);
+            mPrefs.edit().putBoolean(KEY_RINGTONE_PREVIEW_PLAYING, true).apply();
             mPreviewPlaying = true;
 
             // Stop the preview after 5 seconds
             mSeekbar.postDelayed(() -> {
-                stopRingtonePreview(mContext);
+                stopRingtonePreview(mContext, mPrefs);
                 mPreviewPlaying = false;
             }, 5000);
         }
     }
 
-    public void stopRingtonePreview(Context context) {
+    public void stopRingtonePreview(Context context, SharedPreferences prefs) {
         if (mPreviewPlaying) {
-            RingtonePreviewKlaxon.stop(context);
+            RingtonePreviewKlaxon.stop(context, prefs);
+            mPrefs.edit().putBoolean(KEY_RINGTONE_PREVIEW_PLAYING, false).apply();
         }
     }
 
-    public void stopListeningToPreferences() {
-        RingtonePreviewKlaxon.stopListeningToPreferences();
+    public void deactivateRingtonePlayback(SharedPreferences prefs) {
+        RingtonePreviewKlaxon.deactivateRingtonePlayback(prefs);
     }
 }

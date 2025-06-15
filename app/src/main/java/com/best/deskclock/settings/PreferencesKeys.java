@@ -68,6 +68,8 @@ public class PreferencesKeys {
     public static final String KEY_ALARM_SNOOZE_DURATION = "key_snooze_duration";
     public static final String KEY_ALARM_VOLUME_SETTING = "key_volume_setting";
     public static final String KEY_ALARM_CRESCENDO_DURATION = "key_alarm_crescendo_duration";
+    public static final String KEY_RINGTONE_PREVIEW_PLAYING = "key_ringtone_preview_playing";
+    public static final String KEY_ADVANCED_AUDIO_PLAYBACK = "key_advanced_audio_playback";
     public static final String KEY_AUTO_ROUTING_TO_BLUETOOTH_DEVICE = "key_auto_routing_to_bluetooth_device";
     public static final String KEY_SWIPE_ACTION = "key_swipe_action";
     public static final String KEY_VOLUME_BUTTONS = "key_volume_button_setting";

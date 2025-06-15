@@ -7,28 +7,65 @@
 package com.best.deskclock.ringtone;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.LogUtils;
 
 public final class RingtonePreviewKlaxon {
+
+    private static AsyncRingtonePlayer sAsyncRingtonePlayer;
 
     private static RingtonePlayer sRingtonePlayer;
 
     private RingtonePreviewKlaxon() {
     }
 
-    public static void stop(Context context) {
+    public static void stop(Context context, SharedPreferences prefs) {
         LogUtils.i("RingtonePreviewKlaxon.stop()");
-        getRingtonePlayer(context).stop();
+        if (SettingsDAO.isAdvancedAudioPlaybackEnabled(prefs)) {
+            getRingtonePlayer(context).stop();
+        } else {
+            getAsyncRingtonePlayer(context).stop();
+        }
     }
 
-    public static void start(Context context, Uri uri) {
-        stop(context);
+    public static void start(Context context, SharedPreferences prefs, Uri uri) {
+        stop(context, prefs);
         LogUtils.i("RingtonePreviewKlaxon.start()");
-        getRingtonePlayer(context).play(uri, 0);
+        if (SettingsDAO.isAdvancedAudioPlaybackEnabled(prefs)) {
+            getRingtonePlayer(context).play(uri, 0);
+        } else {
+            getAsyncRingtonePlayer(context).play(uri, 0);
+        }
     }
 
+    public static void deactivateRingtonePlayback(SharedPreferences prefs) {
+        if (SettingsDAO.isAdvancedAudioPlaybackEnabled(prefs)) {
+            stopListeningToPreferences();
+        } else {
+            releaseResources();
+        }
+    }
+
+    // MediaPlayer
+    private static synchronized AsyncRingtonePlayer getAsyncRingtonePlayer(Context context) {
+        if (sAsyncRingtonePlayer == null) {
+            sAsyncRingtonePlayer = new AsyncRingtonePlayer(context.getApplicationContext());
+        }
+
+        return sAsyncRingtonePlayer;
+    }
+
+    public static synchronized void releaseResources() {
+        if (sAsyncRingtonePlayer != null) {
+            sAsyncRingtonePlayer.shutdown();
+            sAsyncRingtonePlayer = null;
+        }
+    }
+
+    // ExoPlayer
     private static synchronized RingtonePlayer getRingtonePlayer(Context context) {
         if (sRingtonePlayer == null) {
             sRingtonePlayer = new RingtonePlayer(context.getApplicationContext());

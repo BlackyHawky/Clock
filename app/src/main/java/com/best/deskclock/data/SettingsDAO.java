@@ -548,6 +548,15 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return {@code true} if advanced audio playback is enabled for the ringtone.
+     * {@code false} otherwise.
+     */
+    public static boolean isAdvancedAudioPlaybackEnabled(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        return prefs.getBoolean(KEY_ADVANCED_AUDIO_PLAYBACK, DEFAULT_ADVANCED_AUDIO_PLAYBACK);
+    }
+
+    /**
      * @return {@code true} if the ringtone should be automatically routed to Bluetooth devices.
      * {@code false} otherwise.
      */

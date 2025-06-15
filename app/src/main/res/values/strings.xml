@@ -407,6 +407,10 @@
     <string name="alarm_notification_reminder_10_hours">10 hours before</string>
     <!-- Setting title for changing the notification reminder to 12 hours before. -->
     <string name="alarm_notification_reminder_12_hours">12 hours before</string>
+    <!-- Setting title to enable advanced audio playback. -->
+    <string name="advanced_audio_playback_title">Use advanced audio playback</string>
+    <!-- Setting summary to clarify what the "Use advanced audio playback" setting implies -->
+    <string name="advanced_audio_playback_summary">Improves Bluetooth compatibility and prevents sound interruptions during repetition. Note: Some ringtones may have slight audio glitches</string>
     <!-- Setting title to enable automatic routing to bluetooth devices for ringtones -->
     <string name="auto_routing_to_bluetooth_device_title">Enable automatic routing of ringtones to Bluetooth devices</string>
     <!-- Setting title to enable vibrations when creating alarms -->

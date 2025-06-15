@@ -95,6 +95,15 @@
             tools:layout="@layout/settings_preference_layout" />
 
         <SwitchPreferenceCompat
+            android:key="key_advanced_audio_playback"
+            android:title="@string/advanced_audio_playback_title"
+            android:summary="@string/advanced_audio_playback_summary"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <SwitchPreferenceCompat
             android:key="key_auto_routing_to_bluetooth_device"
             android:title="@string/auto_routing_to_bluetooth_device_title"
             android:defaultValue="false"

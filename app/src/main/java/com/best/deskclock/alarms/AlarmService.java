@@ -414,7 +414,7 @@ public class AlarmService extends Service {
 
         mCurrentAlarm = instance;
         AlarmNotifications.showAlarmNotification(this, mCurrentAlarm);
-        AlarmKlaxon.start(this, mCurrentAlarm);
+        AlarmKlaxon.start(this, mPrefs, mCurrentAlarm);
         if (mCurrentAlarm.mFlash) {
             mHandler.post(mFlashRunnable);
         }
@@ -431,9 +431,9 @@ public class AlarmService extends Service {
         final long instanceId = mCurrentAlarm.mId;
         LogUtils.v("AlarmService.stop with instance: %s", instanceId);
 
-        AlarmKlaxon.stop(this);
+        AlarmKlaxon.stop(this, mPrefs);
 
-        AlarmKlaxon.stopListeningToPreferences();
+        AlarmKlaxon.deactivateRingtonePlayback(mPrefs);
 
         sendBroadcast(new Intent(ALARM_DONE_ACTION));
 
@@ -457,9 +457,9 @@ public class AlarmService extends Service {
         final long instanceId = mCurrentAlarm.mId;
         LogUtils.v("AlarmService.stop with single vibration with instance: %s", instanceId);
 
-        AlarmKlaxon.stop(this);
+        AlarmKlaxon.stop(this, mPrefs);
 
-        AlarmKlaxon.stopListeningToPreferences();
+        AlarmKlaxon.deactivateRingtonePlayback(mPrefs);
 
         if (SdkUtils.isAtLeastAndroid8()) {
             mVibrator.vibrate(VibrationEffect.createWaveform(new long[]{700, 500}, VibrationEffect.DEFAULT_AMPLITUDE));
@@ -489,9 +489,9 @@ public class AlarmService extends Service {
         final long instanceId = mCurrentAlarm.mId;
         LogUtils.v("AlarmService.stop with double vibration with instance: %s", instanceId);
 
-        AlarmKlaxon.stop(this);
+        AlarmKlaxon.stop(this, mPrefs);
 
-        AlarmKlaxon.stopListeningToPreferences();
+        AlarmKlaxon.deactivateRingtonePlayback(mPrefs);
 
         if (SdkUtils.isAtLeastAndroid8()) {
             mVibrator.vibrate(VibrationEffect.createWaveform(new long[]{700, 200, 100, 500}, VibrationEffect.DEFAULT_AMPLITUDE));

@@ -9,6 +9,7 @@ package com.best.deskclock.ringtone;
 import static android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION;
 import static android.media.RingtoneManager.TYPE_ALARM;
 import static android.provider.OpenableColumns.DISPLAY_NAME;
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.ItemAdapter.ItemViewHolder.Factory;
 import static com.best.deskclock.ringtone.AddCustomRingtoneViewHolder.VIEW_TYPE_ADD_NEW;
 import static com.best.deskclock.ringtone.HeaderViewHolder.VIEW_TYPE_ITEM_HEADER;
@@ -20,6 +21,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -155,6 +157,8 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
 
     private FragmentManager mFragmentManager;
 
+    private SharedPreferences mPrefs;
+
     /**
      * Callback for getting the result from Activity
      */
@@ -249,6 +253,8 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mPrefs = getDefaultSharedPreferences(this);
 
         // To manually manage insets
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
@@ -352,7 +358,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
             stopPlayingRingtone(getSelectedRingtoneHolder(), false);
         }
 
-        RingtonePreviewKlaxon.stopListeningToPreferences();
+        RingtonePreviewKlaxon.deactivateRingtonePlayback(mPrefs);
 
         super.onStop();
     }
@@ -391,7 +397,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
             }
         } else {
             // Clear the selection since it does not exist in the data.
-            RingtonePreviewKlaxon.stop(this);
+            RingtonePreviewKlaxon.stop(this, mPrefs);
             mSelectedRingtoneUri = null;
             mIsPlaying = false;
         }
@@ -461,7 +467,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
 
         if (!ringtone.isPlaying() && !ringtone.isSilent()) {
             if (RingtoneUtils.isRingtoneUriReadable(this, ringtoneUri)) {
-                RingtonePreviewKlaxon.start(getApplicationContext(), ringtoneUri);
+                RingtonePreviewKlaxon.start(getApplicationContext(), mPrefs, ringtoneUri);
                 ringtone.setPlaying(true);
                 mIsPlaying = true;
             } else {
@@ -488,7 +494,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
         }
 
         if (ringtone.isPlaying()) {
-            RingtonePreviewKlaxon.stop(this);
+            RingtonePreviewKlaxon.stop(this, mPrefs);
             ringtone.setPlaying(false);
             mIsPlaying = false;
         }

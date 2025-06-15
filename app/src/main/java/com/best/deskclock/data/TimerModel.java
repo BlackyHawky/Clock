@@ -710,14 +710,14 @@ final class TimerModel {
         // If the timer is the first to expire, start ringing.
         if (afterState == EXPIRED && mRingingIds.add(after.getId()) && mRingingIds.size() == 1) {
             AlarmAlertWakeLock.acquireCpuWakeLock(mContext);
-            TimerKlaxon.start(mContext);
+            TimerKlaxon.start(mContext, mPrefs);
             stopRingtoneAfterDelay();
         }
 
         // If the expired timer was the last to reset, stop ringing.
         if (beforeState == EXPIRED && mRingingIds.remove(before.getId()) && mRingingIds.isEmpty()) {
-            TimerKlaxon.stop(mContext);
-            TimerKlaxon.stopListeningToPreferences();
+            TimerKlaxon.stop(mContext, mPrefs);
+            TimerKlaxon.deactivateRingtonePlayback(mPrefs);
             AlarmAlertWakeLock.releaseCpuLock();
         }
     }
@@ -742,8 +742,8 @@ final class TimerModel {
         }
 
         handler.postDelayed(() -> {
-            TimerKlaxon.stop(mContext);
-            TimerKlaxon.stopListeningToPreferences();
+            TimerKlaxon.stop(mContext, mPrefs);
+            TimerKlaxon.deactivateRingtonePlayback(mPrefs);
             resetOrDeleteExpiredTimers(R.string.label_deskclock);
             AlarmAlertWakeLock.releaseCpuLock();
         }, duration);

@@ -60,6 +60,7 @@ public class PreferencesDefaultValues {
     public static final String DEFAULT_AUTO_SILENCE = "10";
     public static final String DEFAULT_ALARM_SNOOZE_DURATION = "10";
     public static final String DEFAULT_ALARM_CRESCENDO_DURATION = "0";
+    public static final boolean DEFAULT_ADVANCED_AUDIO_PLAYBACK = false;
     public static final boolean DEFAULT_AUTO_ROUTING_TO_BLUETOOTH_DEVICE = false;
     public static final boolean DEFAULT_SWIPE_ACTION = true;
     public static final String DEFAULT_VOLUME_BEHAVIOR = "-1";
