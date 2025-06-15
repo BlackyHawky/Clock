@@ -329,10 +329,7 @@
     <string name="timer_settings" msgid="7955522143086154795">"டைமர்கள்"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"டைமர் அதிர்வு"</string>
     <string name="timer_paused" msgid="5941160896040771462">"டைமர் இடைநிறுத்தப்பட்டது"</string>
-    <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> டைமர்கள் இடைநிறுத்தப்பட்டன"</string>
-    <string name="all_timers_stopped_notif" msgid="883027111895833440">"டைமர்களைப் பார்க்க, தட்டவும்"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> டைமர்கள்"</string>
-    <string name="next_timer_notif" msgid="6136454740115613653">"அடுத்த டைமர்: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"அலாரத்தை விரிவாக்கு"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"அலாரத்தைச் சுருக்கு"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"அலாரம் நீக்கப்பட்டது"</string>

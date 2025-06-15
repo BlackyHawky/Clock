@@ -329,10 +329,7 @@
     <string name="timer_settings" msgid="7955522143086154795">"Teljarar"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Teljari með titringi"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Hlé gert á teljara"</string>
-    <string name="timers_stopped" msgid="3186191253226005149">"Hlé gert á <xliff:g id="NUMBER">%d</xliff:g> teljurum"</string>
-    <string name="all_timers_stopped_notif" msgid="883027111895833440">"Ýttu til að sjá teljarana þína"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> teljarar"</string>
-    <string name="next_timer_notif" msgid="6136454740115613653">"Næsti teljari: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Stækka vekjara"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Fella saman vekjara"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Vekjara eytt"</string>

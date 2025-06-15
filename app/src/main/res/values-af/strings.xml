@@ -329,10 +329,7 @@
     <string name="timer_settings" msgid="7955522143086154795">"Aftellers"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Aftellervibrasie"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Afteller is laat wag"</string>
-    <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> aftellers is laat wag"</string>
-    <string name="all_timers_stopped_notif" msgid="883027111895833440">"Tik om jou tydhouers te sien"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> aftellers"</string>
-    <string name="next_timer_notif" msgid="6136454740115613653">"Volgende afteller: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Vou wekker uit"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Vou wekker in"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Wekker uitgevee"</string>

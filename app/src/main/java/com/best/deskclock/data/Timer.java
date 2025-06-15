@@ -259,9 +259,9 @@ public final class Timer {
      * @return the total timer duration converted to String
      */
     public String getTotalDuration() {
-        long HH = TimeUnit.MILLISECONDS.toHours(getRemainingTime());
-        long MM = TimeUnit.MILLISECONDS.toMinutes(getRemainingTime()) % 60;
-        long SS = TimeUnit.MILLISECONDS.toSeconds(getRemainingTime()) % 60;
+        long HH = TimeUnit.MILLISECONDS.toHours(getLength());
+        long MM = TimeUnit.MILLISECONDS.toMinutes(getLength()) % 60;
+        long SS = TimeUnit.MILLISECONDS.toSeconds(getLength()) % 60;
         return String.format(Locale.US, "%02d:%02d:%02d", HH, MM, SS);
     }
 

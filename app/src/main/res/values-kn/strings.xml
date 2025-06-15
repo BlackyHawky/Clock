@@ -330,10 +330,7 @@
     <string name="timer_settings" msgid="7955522143086154795">"ಟೈಮರ್‌ಗಳು"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"ಟೈಮರ್ ವೈಬ್ರೇಟ್"</string>
     <string name="timer_paused" msgid="5941160896040771462">"ಟೈಮರ್ ವಿರಾಮಗೊಳಿಸಲಾಗಿದೆ"</string>
-    <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> ಟೈಮರ್ ವಿರಾಮಗೊಳಿಸಲಾಗಿದೆ"</string>
-    <string name="all_timers_stopped_notif" msgid="883027111895833440">"ನಿಮ್ಮ ಟೈಮರ್‌ಗಳನ್ನು ನೋಡಲು ಟ್ಯಾಪ್ ಮಾಡಿ"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> ಟೈಮರ್‌ಗಳು"</string>
-    <string name="next_timer_notif" msgid="6136454740115613653">"ಮುಂದಿನ ಟೈಮರ್: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"ಅಲಾರಮ್ ವಿಸ್ತರಿಸಿ"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"ಅಲಾರಮ್ ಸಂಕುಚಿಸು"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"ಅಲಾರಮ್ ಅಳಿಸಲಾಗಿದೆ"</string>

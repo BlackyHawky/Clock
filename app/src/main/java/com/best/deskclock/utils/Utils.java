@@ -80,6 +80,18 @@ public class Utils {
     }
 
     /**
+     * Creates and returns a {@link PendingIntent} to start a service, using a specific
+     * {@code requestCode} to distinguish intents.
+     *
+     * @param context the Context in which the PendingIntent should start the service
+     * @param intent  an Intent describing the service to be started
+     * @param requestCode a unique identifier to differentiate between multiple PendingIntents
+     */
+    public static PendingIntent pendingServiceIntent(Context context, Intent intent, int requestCode) {
+        return PendingIntent.getService(context, requestCode, intent, FLAG_UPDATE_CURRENT | FLAG_IMMUTABLE);
+    }
+
+    /**
      * Update and return the PendingIntent corresponding to the given {@code intent}.
      *
      * @param context the Context in which the PendingIntent should start the activity

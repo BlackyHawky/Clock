@@ -366,10 +366,7 @@
     <string name="timer_settings" msgid="7955522143086154795">"الموقتات"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"اهتزاز الموقت"</string>
     <string name="timer_paused" msgid="5941160896040771462">"تم إيقاف الموقِّت مؤقتًا"</string>
-    <string name="timers_stopped" msgid="3186191253226005149">"تم إيقاف <xliff:g id="NUMBER">%d</xliff:g> موقِّتات مؤقتُا"</string>
-    <string name="all_timers_stopped_notif" msgid="883027111895833440">"انقر للاطلاع على الموقِّتات التابعة لك"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> من الموقتات"</string>
-    <string name="next_timer_notif" msgid="6136454740115613653">"الموقت التالي: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"توسيع المنبّه"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"تصغير المنبّه"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"تم حذف المنبّه."</string>

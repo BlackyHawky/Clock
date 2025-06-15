@@ -321,10 +321,7 @@
     <string name="timer_settings" msgid="7955522143086154795">"Timer"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Timer bergetar"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Timer dijeda"</string>
-    <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> pewaktu dijeda"</string>
-    <string name="all_timers_stopped_notif" msgid="883027111895833440">"Ketuk untuk melihat pewaktu Anda"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> timer"</string>
-    <string name="next_timer_notif" msgid="6136454740115613653">"Timer Berikutnya: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Luaskan alarm"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Ciutkan alarm"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Alarm dihapus"</string>

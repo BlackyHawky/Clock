@@ -321,10 +321,7 @@
     <string name="timer_settings" msgid="7955522143086154795">"定时器"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"定时器振动"</string>
     <string name="timer_paused" msgid="5941160896040771462">"定时器已暂停"</string>
-    <string name="timers_stopped" msgid="3186191253226005149"><xliff:g example="7" id="number">%d</xliff:g> 个定时器已暂停</string>
-    <string name="all_timers_stopped_notif" msgid="883027111895833440">点击查看您的定时器</string>
     <string name="timers_in_use" msgid="5570729467344408506"><xliff:g example="7" id="number">%d</xliff:g> 个定时器</string>
-    <string name="next_timer_notif" msgid="6136454740115613653">下一个定时器：<xliff:g example="2 minutes remaining" id="time_remaining">%s</xliff:g></string>
     <string name="expand_alarm" msgid="7392616528943305020">"展开闹钟"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">收起闹钟</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"闹钟已删除"</string>

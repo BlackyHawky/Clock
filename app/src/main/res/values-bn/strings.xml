@@ -329,10 +329,7 @@
     <string name="timer_settings" msgid="7955522143086154795">"টাইমারগুলো"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"টাইমারের স্পন্দন"</string>
     <string name="timer_paused" msgid="5941160896040771462">"টাইমারে বিরাম দেওয়া হয়েছে"</string>
-    <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g>টি টাইমারে বিরাম দেওয়া হয়েছে"</string>
-    <string name="all_timers_stopped_notif" msgid="883027111895833440">"আপনার টাইমারগুলি দেখতে আলতো চাপ দিন"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> টি টাইমার"</string>
-    <string name="next_timer_notif" msgid="6136454740115613653">"পরবর্তী টাইমার: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"অ্যালার্ম প্রসারিত করুন"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"অ্যালার্ম সঙ্কুচিত করুন"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"অ্যালার্ম মুছে ফেলা হয়েছে"</string>

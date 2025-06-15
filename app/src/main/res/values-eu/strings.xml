@@ -330,10 +330,7 @@
     <string name="timer_settings" msgid="7955522143086154795">"Tenporizadoreak"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Tenporizadorearen dardara"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Pausatu da tenporizadorea"</string>
-    <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> tenporizadore pausatuta"</string>
-    <string name="all_timers_stopped_notif" msgid="883027111895833440">"Sakatu tenporizadoreak ikusteko"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> tenporizadore"</string>
-    <string name="next_timer_notif" msgid="6136454740115613653">"Hurrengo tenporizadorea: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Zabaldu alarma"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Tolestu alarma"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Ezabatu da alarma"</string>

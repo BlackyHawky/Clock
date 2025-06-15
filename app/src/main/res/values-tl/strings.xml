@@ -329,10 +329,7 @@
     <string name="timer_settings" msgid="7955522143086154795">"Mga Timer"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Pag-vibrate ng timer"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Naka-pause ang timer"</string>
-    <string name="timers_stopped" msgid="3186191253226005149">"Naka-pause ang <xliff:g id="NUMBER">%d</xliff:g> timer"</string>
-    <string name="all_timers_stopped_notif" msgid="883027111895833440">"I-tap upang makita ang iyong mga timer"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> (na) timer"</string>
-    <string name="next_timer_notif" msgid="6136454740115613653">"Susunod na timer: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Alarm sa pagpalawak"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Alarma sa pagtiklop"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Na-delete ang alarm"</string>

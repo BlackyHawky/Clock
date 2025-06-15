@@ -320,6 +320,8 @@ final class TimerModel {
      * @param eventLabelId the label of the timer event to send; 0 if no event should be sent
      */
     public void resetTimer(Timer timer, boolean allowDelete, @StringRes int eventLabelId) {
+        doResetOrDeleteTimer(timer, allowDelete, eventLabelId);
+
         // Update the notification after updating the timer data.
         if (timer.isMissed()) {
             updateMissedNotification();
@@ -328,8 +330,6 @@ final class TimerModel {
         } else {
             updateNotification();
         }
-
-        doResetOrDeleteTimer(timer, allowDelete, eventLabelId);
     }
 
     /**
@@ -395,24 +395,6 @@ final class TimerModel {
 
         // Update the notifications once after all timers are updated.
         updateMissedNotification();
-    }
-
-    /**
-     * Reset all unexpired timers.
-     *
-     * @param eventLabelId the label of the timer event to send; 0 if no event should be sent
-     */
-    void resetUnexpiredTimers(@StringRes int eventLabelId) {
-        final List<Timer> timers = new ArrayList<>(getTimers());
-        for (Timer timer : timers) {
-            if (timer.isRunning() || timer.isPaused()) {
-                doResetOrDeleteTimer(timer, true, eventLabelId);
-            }
-        }
-
-        // Update the notification once after all timers are updated.
-        updateNotification();
-        // Heads-Up notification is unaffected by this change
     }
 
     /**
@@ -772,41 +754,45 @@ final class TimerModel {
      * when the application is not open.
      */
     void updateNotification() {
-        // Notifications should be hidden if the app is open.
-        if (mNotificationModel.isApplicationInForeground()) {
-            mNotificationManager.cancel(mNotificationModel.getUnexpiredTimerNotificationId());
-            return;
-        }
-
-        // Filter the timers to just include unexpired ones.
-        final List<Timer> unexpired = new ArrayList<>();
-        for (Timer timer : getMutableTimers()) {
-            if (timer.isRunning() || timer.isPaused()) {
-                unexpired.add(timer);
-            }
-        }
-
-        // If no unexpired timers exist, cancel the notification.
-        if (unexpired.isEmpty()) {
-            mNotificationManager.cancel(mNotificationModel.getUnexpiredTimerNotificationId());
-            return;
-        }
-
-        // Sort the unexpired timers to locate the next one scheduled to expire.
-        Collections.sort(unexpired, Timer.createTimerStateComparator(mContext));
-
-        // Otherwise build and post a notification reflecting the latest unexpired timers.
-        final Notification notification =
-                mNotificationBuilder.build(mContext, mNotificationModel, unexpired);
-        final int notificationId = mNotificationModel.getUnexpiredTimerNotificationId();
-
         if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.POST_NOTIFICATIONS)
                 != PackageManager.PERMISSION_GRANTED) {
             // Always false, because notification activation is always checked when the application is started.
             return;
         }
 
-        mNotificationManager.notify(notificationId, notification);
+        final List<Timer> unexpired = getMutableTimers();
+
+        // Notifications should be hidden if the app is open.
+        if (mNotificationModel.isApplicationInForeground()) {
+            for (Timer timer : unexpired) {
+                mNotificationManager.cancel(mNotificationModel.getUnexpiredTimerNotificationId(timer.getId()));
+                mNotificationManager.cancel(mNotificationModel.getSummaryNotificationId());
+            }
+            return;
+        }
+
+        boolean hasActiveTimers = false;
+
+        // Create notifications for each unexpired timers
+        for (Timer timer : unexpired) {
+            int notificationId = mNotificationModel.getUnexpiredTimerNotificationId(timer.getId());
+
+            if (timer.isRunning() || timer.isPaused()) {
+                Notification notification = mNotificationBuilder.build(mContext, mNotificationModel, timer);
+                mNotificationManager.notify(notificationId, notification);
+                hasActiveTimers = true;
+            } else {
+                mNotificationManager.cancel(notificationId);
+            }
+        }
+
+        // Display or delete the summary notification
+        if (hasActiveTimers) {
+            Notification summary = mNotificationBuilder.buildSummaryNotification(mContext, mNotificationModel);
+            mNotificationManager.notify(mNotificationModel.getSummaryNotificationId(), summary);
+        } else {
+            mNotificationManager.cancel(mNotificationModel.getSummaryNotificationId());
+        }
     }
 
     /**
@@ -814,6 +800,12 @@ final class TimerModel {
      * the application is not open.
      */
     void updateMissedNotification() {
+        if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.POST_NOTIFICATIONS)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Always false, because notification activation is always checked when the application is started.
+            return;
+        }
+
         // Notifications should be hidden if the app is open.
         if (mNotificationModel.isApplicationInForeground()) {
             mNotificationManager.cancel(mNotificationModel.getMissedTimerNotificationId());
@@ -830,12 +822,6 @@ final class TimerModel {
         final Notification notification = mNotificationBuilder.buildMissed(mContext,
                 mNotificationModel, missed);
         final int notificationId = mNotificationModel.getMissedTimerNotificationId();
-
-        if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.POST_NOTIFICATIONS)
-                != PackageManager.PERMISSION_GRANTED) {
-            // Always false, because notification activation is always checked when the application is started.
-            return;
-        }
 
         mNotificationManager.notify(notificationId, notification);
     }

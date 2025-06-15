@@ -300,10 +300,7 @@
     <string name="timer_settings">Temporizadores</string>
     <string name="timer_vibrate_title">Temporizador en vibración</string>
     <string name="timer_paused">Posóse\'l temporizador</string>
-    <string name="timers_stopped"><xliff:g id="Number">%d</xliff:g> temporizadores posaos</string>
-    <string name="all_timers_stopped_notif">Calca pa ver los tos temporizadores</string>
     <string name="timers_in_use"><xliff:g id="NUMBER">%d</xliff:g> temporizadores</string>
-    <string name="next_timer_notif">Próximu temporizador: <xliff:g id="TIME_REMAINING">%s</xliff:g></string>
     <string name="expand_alarm">Espander alarma</string>
     <string name="collapse_alarm">Contrayer alarma</string>
     <string name="alarm_deleted">Alarma desaniciada</string>

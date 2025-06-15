@@ -13,6 +13,8 @@ final class NotificationModel {
 
     private boolean mApplicationInForeground;
 
+    private static final int UNEXPIRED_TIMER_NOTIFICATION_BASE_ID = 1000;
+
     /**
      * @return {@code true} while the application is open in the foreground
      */
@@ -46,7 +48,14 @@ final class NotificationModel {
     /**
      * @return a value that identifies the notification for running/paused timers
      */
-    int getUnexpiredTimerNotificationId() {
+    public int getUnexpiredTimerNotificationId(int timerId) {
+        return UNEXPIRED_TIMER_NOTIFICATION_BASE_ID + timerId;
+    }
+
+    /**
+     * @return a value that identifies the summary notification for running/paused timers
+     */
+    int getSummaryNotificationId() {
         return Integer.MAX_VALUE - 2;
     }
 

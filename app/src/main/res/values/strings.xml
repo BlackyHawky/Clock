@@ -1176,14 +1176,8 @@
     <string name="warning_dialog_message">Are you sure you want to delete the \"%s\" timer?</string>
     <!-- Notification title when timer is paused. [CHAR LIMIT=25] -->
     <string name="timer_paused">Timer paused</string>
-    <!-- Notification title when multiple timers are paused. [CHAR LIMIT = 30] -->
-    <string name="timers_stopped"><xliff:g example="7" id="number">%d</xliff:g> timers paused</string>
-    <!-- Notification text when multiple timers are paused. -->
-    <string name="all_timers_stopped_notif">Tap to see your timers</string>
     <!-- Notification title when at least one timer, of those in use, is counting down. -->
     <string name="timers_in_use"><xliff:g example="7" id="number">%d</xliff:g> timers</string>
-    <!-- Notification text when at least one timer, of those in use, is counting down. -->
-    <string name="next_timer_notif">Next timer: <xliff:g example="2 minutes remaining" id="time_remaining">%s</xliff:g></string>
     <!-- Header in the preferences settings for the section pertaining to screensaver -->
     <string name="screensaver_settings_title">Screensaver</string>
     <!-- Summary for the screensaver settings in settings -->

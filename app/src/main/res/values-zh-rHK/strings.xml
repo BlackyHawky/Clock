@@ -320,10 +320,7 @@
     <string name="timer_settings" msgid="7955522143086154795">"倒數計時器"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"計時器震動"</string>
     <string name="timer_paused" msgid="5941160896040771462">"計時器已暫停"</string>
-    <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> 個計時器已暫停"</string>
-    <string name="all_timers_stopped_notif" msgid="883027111895833440">"輕按即可查看計時器"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> 個計時器"</string>
-    <string name="next_timer_notif" msgid="6136454740115613653">"下一個計時器：<xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"展開鬧鐘"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"收合鬧鐘"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"已刪除鬧鐘"</string>

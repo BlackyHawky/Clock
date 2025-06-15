@@ -73,7 +73,6 @@ public final class TimerService extends Service {
     private static final String ACTION_TIMER_EXPIRED = ACTION_PREFIX + "TIMER_EXPIRED";
     private static final String ACTION_UPDATE_NOTIFICATION = ACTION_PREFIX + "UPDATE_NOTIFICATION";
     public static final String ACTION_RESET_EXPIRED_TIMERS = ACTION_PREFIX + "RESET_EXPIRED_TIMERS";
-    private static final String ACTION_RESET_UNEXPIRED_TIMERS = ACTION_PREFIX + "RESET_UNEXPIRED_TIMERS";
     private static final String ACTION_RESET_MISSED_TIMERS = ACTION_PREFIX + "RESET_MISSED_TIMERS";
 
     public static Intent createTimerExpiredIntent(Context context, Timer timer) {
@@ -86,11 +85,6 @@ public final class TimerService extends Service {
     public static Intent createResetExpiredTimersIntent(Context context) {
         return new Intent(context, TimerService.class)
                 .setAction(ACTION_RESET_EXPIRED_TIMERS);
-    }
-
-    public static Intent createResetUnexpiredTimersIntent(Context context) {
-        return new Intent(context, TimerService.class)
-                .setAction(ACTION_RESET_UNEXPIRED_TIMERS);
     }
 
     public static Intent createResetMissedTimersIntent(Context context) {
@@ -145,10 +139,6 @@ public final class TimerService extends Service {
                     }
                     case ACTION_RESET_EXPIRED_TIMERS -> {
                         DataModel.getDataModel().resetOrDeleteExpiredTimers(label);
-                        return START_NOT_STICKY;
-                    }
-                    case ACTION_RESET_UNEXPIRED_TIMERS -> {
-                        DataModel.getDataModel().resetUnexpiredTimers(label);
                         return START_NOT_STICKY;
                     }
                     case ACTION_RESET_MISSED_TIMERS -> {

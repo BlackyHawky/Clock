@@ -348,10 +348,7 @@
     <string name="timer_settings" msgid="7955522143086154795">"Таймеры"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Вибросигнал таймера"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Таймер приостановлен"</string>
-    <string name="timers_stopped" msgid="3186191253226005149">"Таймеры (<xliff:g id="NUMBER">%d</xliff:g>) приостановлены"</string>
-    <string name="all_timers_stopped_notif" msgid="883027111895833440">"Нажмите, чтобы посмотреть таймеры"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"Таймеров: <xliff:g id="NUMBER">%d</xliff:g>"</string>
-    <string name="next_timer_notif" msgid="6136454740115613653">"След.: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Развернуть"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Свернуть"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Будильник удален"</string>

@@ -321,10 +321,7 @@
     <string name="timer_settings" msgid="7955522143086154795">"타이머"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"타이머 진동"</string>
     <string name="timer_paused" msgid="5941160896040771462">"타이머가 일시중지됨"</string>
-    <string name="timers_stopped" msgid="3186191253226005149">"타이머 <xliff:g id="NUMBER">%d</xliff:g>개 일시중지됨"</string>
-    <string name="all_timers_stopped_notif" msgid="883027111895833440">타이머를 보려면 여기를 누르세요.</string>
     <string name="timers_in_use" msgid="5570729467344408506">"타이머 <xliff:g id="NUMBER">%d</xliff:g>개"</string>
-    <string name="next_timer_notif" msgid="6136454740115613653">"다음 타이머: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"알람 펼치기"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"알람 접기"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">알람을 삭제했습니다.</string>

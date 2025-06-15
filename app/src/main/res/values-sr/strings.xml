@@ -339,10 +339,7 @@
     <string name="timer_settings" msgid="7955522143086154795">"Тајмери"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Вибрација тајмера"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Тајмер је паузиран"</string>
-    <string name="timers_stopped" msgid="3186191253226005149">"Паузираних тајмера: <xliff:g id="NUMBER">%d</xliff:g>"</string>
-    <string name="all_timers_stopped_notif" msgid="883027111895833440">"Додирните да бисте видели тајмере"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> тајмера"</string>
-    <string name="next_timer_notif" msgid="6136454740115613653">"Следећи тајмер: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Прошири аларм"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Скупи аларм"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Аларм је избрисан"</string>

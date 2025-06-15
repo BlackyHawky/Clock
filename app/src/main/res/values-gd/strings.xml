@@ -288,9 +288,7 @@
     <string name="description_direction_both">Grad-shlaighd gun taobh chlì ’ga chur ’na dhùsal no gun taobh deas ’ga leigeil seachad</string>
     <string name="timer_settings">Tìmearan</string>
     <string name="timer_paused">Tha an tìmear ’na stad</string>
-    <string name="timers_stopped">Tha na tìmearan (<xliff:g example="7" id="number">%d</xliff:g>) ’nan stad</string>
     <string name="timers_in_use"><xliff:g example="7" id="number">%d</xliff:g> tìmear(an)</string>
-    <string name="next_timer_notif">An t-ath-thìmear: <xliff:g example="2 minutes remaining" id="time_remaining">%s</xliff:g></string>
     <string name="expand_alarm">Leudaich a’ chaismeachd</string>
     <string name="collapse_alarm">Co-theannaich a’ chaismeachd</string>
     <string name="alarm_deleted">Chaidh a’ chaismeachd a sguabadh às</string>

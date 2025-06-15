@@ -329,10 +329,7 @@
     <string name="timer_settings" msgid="7955522143086154795">"የሰዓት ቆጣሪዎች"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"የጊዜ ቆጣሪ ንዝረት"</string>
     <string name="timer_paused" msgid="5941160896040771462">"ጊዜ ቆጣሪ ለአፍታ ቆሟል"</string>
-    <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> ሰዓት ቆጣሪዎች ለአፍታ ቆመዋል"</string>
-    <string name="all_timers_stopped_notif" msgid="883027111895833440">"የእርስዎን ጊዜ መቁጠሪያዎች ለማየት ነካ ያድርጉ።"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> ሰዓት ቆጣሪዎች"</string>
-    <string name="next_timer_notif" msgid="6136454740115613653">"ቀጣዩ የሰዓት ቆጣሪ፦ <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"ማንቂያ ዘርጋ"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"ማንቂያ ሰብስብ"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"ማንቂያ ተሰርዟል"</string>
