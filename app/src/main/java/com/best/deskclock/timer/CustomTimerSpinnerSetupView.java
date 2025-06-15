@@ -18,9 +18,10 @@ import java.util.concurrent.TimeUnit;
  * Custom component to display a time selection view using spinners used when creating timers.
  */
 public class CustomTimerSpinnerSetupView extends LinearLayout {
-    NumberPicker mHourPicker;
-    NumberPicker mMinutePicker;
-    NumberPicker mSecondPicker;
+
+    private final NumberPicker mHourPicker;
+    private final NumberPicker mMinutePicker;
+    private final NumberPicker mSecondPicker;
 
     @Nullable
     OnValueChangeListener mOnValueChangeListener;
