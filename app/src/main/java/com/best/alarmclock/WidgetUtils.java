@@ -165,7 +165,7 @@ public class WidgetUtils {
                 ? ClockUtils.get24ModeFormat(
                 clock.getContext(), WidgetDAO.areSecondsDisplayedOnDigitalWidget(prefs))
                 : ClockUtils.get12ModeFormat(
-                clock.getContext(), 0.4f, WidgetDAO.areSecondsDisplayedOnDigitalWidget(prefs));
+                clock.getContext(), WidgetDAO.getAmPmRatio(prefs), WidgetDAO.areSecondsDisplayedOnDigitalWidget(prefs));
         final Calendar longestPMTime = Calendar.getInstance();
         longestPMTime.set(0, 0, 0, 23, 59);
         return DateFormat.format(format, longestPMTime);

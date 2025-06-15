@@ -146,8 +146,8 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         );
 
         rv.setCharSequence(R.id.clock, "setFormat12Hour",
-                ClockUtils.get12ModeFormat(context, 0.4f,
-                        WidgetDAO.areSecondsDisplayedOnDigitalWidget(prefs)));
+                ClockUtils.get12ModeFormat(context, WidgetDAO.getAmPmRatio(prefs),
+                                           WidgetDAO.areSecondsDisplayedOnDigitalWidget(prefs)));
         rv.setCharSequence(R.id.clock, "setFormat24Hour",
                 ClockUtils.get24ModeFormat(context,
                         WidgetDAO.areSecondsDisplayedOnDigitalWidget(prefs)));

@@ -50,6 +50,20 @@ public final class WidgetDAO {
     }
 
     /**
+     * @return {@code true} if the AM/PM part is hidden on the digital widget; {@code false} otherwise.
+     */
+    public static boolean isAmPmHiddenOnDigitalWidget(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_DIGITAL_WIDGET_HIDE_AM_PM, DEFAULT_DIGITAL_WIDGET_HIDE_AM_PM);
+    }
+
+    /**
+     * @return the ratio to use for the AM/PM part on the digital widget
+     */
+    public static float getAmPmRatio(SharedPreferences prefs) {
+        return isAmPmHiddenOnDigitalWidget(prefs)? 0 : 0.4f;
+    }
+
+    /**
      * @return {@code true} if the background is displayed on the digital widget; {@code false} otherwise.
      */
     public static boolean isBackgroundDisplayedOnDigitalWidget(SharedPreferences prefs) {
