@@ -133,7 +133,7 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
         case KEY_DIGITAL_WIDGET_DISPLAY_SECONDS, KEY_DIGITAL_WIDGET_HIDE_AM_PM ->
-                        Utils.setVibrationTime(requireContext(), 50);
+                Utils.setVibrationTime(requireContext(), 50);
 
             case KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND -> {
                 mBackgroundColorPref.setVisible((boolean) newValue);
@@ -210,7 +210,7 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
     private void setupPreferences() {
         mDisplaySecondsPref.setOnPreferenceChangeListener(this);
 
-        mHideAmPmPref.setVisible(! DateFormat.is24HourFormat(requireContext()));
+        mHideAmPmPref.setVisible(!DateFormat.is24HourFormat(requireContext()));
         mHideAmPmPref.setOnPreferenceChangeListener(this);
 
         mShowBackgroundOnDigitalWidgetPref.setOnPreferenceChangeListener(this);

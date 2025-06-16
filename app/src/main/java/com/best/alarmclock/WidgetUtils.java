@@ -165,10 +165,17 @@ public class WidgetUtils {
                 ? ClockUtils.get24ModeFormat(
                 clock.getContext(), WidgetDAO.areSecondsDisplayedOnDigitalWidget(prefs))
                 : ClockUtils.get12ModeFormat(
-                clock.getContext(), WidgetDAO.getAmPmRatio(prefs), WidgetDAO.areSecondsDisplayedOnDigitalWidget(prefs));
+                clock.getContext(), getAmPmRatio(prefs), WidgetDAO.areSecondsDisplayedOnDigitalWidget(prefs));
         final Calendar longestPMTime = Calendar.getInstance();
         longestPMTime.set(0, 0, 0, 23, 59);
         return DateFormat.format(format, longestPMTime);
+    }
+
+    /**
+     * @return the ratio to use for the AM/PM part on the digital widgets.
+     */
+    public static float getAmPmRatio(SharedPreferences prefs) {
+        return WidgetDAO.isAmPmHiddenOnDigitalWidget(prefs)? 0 : 0.4f;
     }
 
     /**

@@ -57,13 +57,6 @@ public final class WidgetDAO {
     }
 
     /**
-     * @return the ratio to use for the AM/PM part on the digital widget
-     */
-    public static float getAmPmRatio(SharedPreferences prefs) {
-        return isAmPmHiddenOnDigitalWidget(prefs)? 0 : 0.4f;
-    }
-
-    /**
      * @return {@code true} if the background is displayed on the digital widget; {@code false} otherwise.
      */
     public static boolean isBackgroundDisplayedOnDigitalWidget(SharedPreferences prefs) {
