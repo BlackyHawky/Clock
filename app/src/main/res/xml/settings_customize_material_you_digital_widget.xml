@@ -23,6 +23,14 @@
             tools:layout="@layout/settings_preference_layout" />
 
         <SwitchPreferenceCompat
+            android:key="key_material_you_digital_widget_hide_am_pm"
+            android:title="@string/hide_clock_am_pm_pref"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <SwitchPreferenceCompat
             android:key="key_material_you_digital_widget_world_cities_displayed"
             android:title="@string/digital_widget_city_title"
             android:defaultValue="true"
