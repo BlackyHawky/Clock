@@ -131,7 +131,8 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
     @Override
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
-            case KEY_DIGITAL_WIDGET_DISPLAY_SECONDS -> Utils.setVibrationTime(requireContext(), 50);
+            case KEY_DIGITAL_WIDGET_DISPLAY_SECONDS, KEY_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING ->
+                    Utils.setVibrationTime(requireContext(), 50);
 
             case KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND -> {
                 mBackgroundColorPref.setVisible((boolean) newValue);

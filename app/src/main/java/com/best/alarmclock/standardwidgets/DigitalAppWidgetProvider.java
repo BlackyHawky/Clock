@@ -277,7 +277,8 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         @SuppressLint("InflateParams")
         final View sizer = inflater.inflate(R.layout.standard_digital_widget_sizer, null);
 
-        var horizontalPadding = WidgetDAO.isDigitalWidgetHorizontalPaddingApplied(prefs)? 20 : 0;
+        int horizontalPadding = ThemeUtils.convertDpToPixels(
+                WidgetDAO.isDigitalWidgetHorizontalPaddingApplied(prefs) ? 20 : 0, context);
         sizer.setPadding(horizontalPadding, 0, horizontalPadding, 0);
 
         // Configure the date to display the current date string.

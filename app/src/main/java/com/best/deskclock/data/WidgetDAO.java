@@ -165,7 +165,8 @@ public final class WidgetDAO {
     }
 
     /**
-     * @return a value indicating whether horizontal padding should be applied to the digital widget.
+     * @return {@code true} if horizontal padding should be applied to the digital widget.
+     * {@code false} otherwise.
      */
     public static boolean isDigitalWidgetHorizontalPaddingApplied(SharedPreferences prefs) {
         return prefs.getBoolean(KEY_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING,
