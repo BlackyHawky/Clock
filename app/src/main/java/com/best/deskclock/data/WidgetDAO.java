@@ -170,7 +170,7 @@ public final class WidgetDAO {
      */
     public static boolean isDigitalWidgetHorizontalPaddingApplied(SharedPreferences prefs) {
         return prefs.getBoolean(KEY_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING,
-                             DEFAULT_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING);
+                DEFAULT_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING);
     }
 
     // *****************************
