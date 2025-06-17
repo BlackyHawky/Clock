@@ -50,6 +50,13 @@ public final class WidgetDAO {
     }
 
     /**
+     * @return {@code true} if the AM/PM part is hidden on the digital widget; {@code false} otherwise.
+     */
+    public static boolean isAmPmHiddenOnDigitalWidget(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_DIGITAL_WIDGET_HIDE_AM_PM, DEFAULT_DIGITAL_WIDGET_HIDE_AM_PM);
+    }
+
+    /**
      * @return {@code true} if the background is displayed on the digital widget; {@code false} otherwise.
      */
     public static boolean isBackgroundDisplayedOnDigitalWidget(SharedPreferences prefs) {
@@ -354,6 +361,15 @@ public final class WidgetDAO {
     public static boolean areSecondsDisplayedOnMaterialYouDigitalWidget(SharedPreferences prefs) {
         return prefs.getBoolean(KEY_MATERIAL_YOU_DIGITAL_WIDGET_SECONDS_DISPLAYED,
                 DEFAULT_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_SECONDS);
+    }
+
+    /**
+     * @return {@code true} if the AM/PM part is hidden on the Material You digital widget;
+     * {@code false} otherwise.
+     */
+    public static boolean isAmPmHiddenOnMaterialYouDigitalWidget(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_MATERIAL_YOU_DIGITAL_WIDGET_HIDE_AM_PM,
+                DEFAULT_MATERIAL_YOU_DIGITAL_WIDGET_HIDE_AM_PM);
     }
 
     /**

@@ -18,6 +18,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_DEF
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_DEFAULT_CLOCK_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_DEFAULT_DATE_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_HIDE_AM_PM;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_DISPLAY_DATE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM;
@@ -30,6 +31,7 @@ import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.text.format.DateFormat;
 import androidx.annotation.NonNull;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
@@ -58,6 +60,7 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
     ColorPreference mCustomCityNameColorPref;
     CustomSeekbarPreference mDigitalWidgetMaxClockFontSizePref;
     SwitchPreferenceCompat mDisplaySecondsPref;
+    SwitchPreferenceCompat mHideAmPmPref;
     SwitchPreferenceCompat mDisplayDatePref;
     SwitchPreferenceCompat mDisplayNextAlarmPref;
     SwitchPreferenceCompat mShowBackgroundOnDigitalWidgetPref;
@@ -81,6 +84,7 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
         addPreferencesFromResource(R.xml.settings_customize_digital_widget);
 
         mDisplaySecondsPref = findPreference(KEY_DIGITAL_WIDGET_DISPLAY_SECONDS);
+        mHideAmPmPref = findPreference(KEY_DIGITAL_WIDGET_HIDE_AM_PM);
         mDisplayDatePref = findPreference(KEY_DIGITAL_WIDGET_DISPLAY_DATE);
         mDisplayNextAlarmPref = findPreference(KEY_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM);
         mShowBackgroundOnDigitalWidgetPref = findPreference(KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND);
@@ -131,7 +135,8 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
     @Override
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
-            case KEY_DIGITAL_WIDGET_DISPLAY_SECONDS, KEY_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING ->
+            case KEY_DIGITAL_WIDGET_DISPLAY_SECONDS, KEY_DIGITAL_WIDGET_HIDE_AM_PM,
+            KEY_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING ->
                     Utils.setVibrationTime(requireContext(), 50);
 
             case KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND -> {
@@ -209,6 +214,9 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
     private void setupPreferences() {
         mDisplaySecondsPref.setOnPreferenceChangeListener(this);
 
+        mHideAmPmPref.setVisible(!DateFormat.is24HourFormat(requireContext()));
+        mHideAmPmPref.setOnPreferenceChangeListener(this);
+
         mShowBackgroundOnDigitalWidgetPref.setOnPreferenceChangeListener(this);
 
         mBackgroundColorPref.setVisible(WidgetDAO.isBackgroundDisplayedOnDigitalWidget(mPrefs));
@@ -280,6 +288,7 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
 
     private void saveCheckedPreferenceStates() {
         mDisplaySecondsPref.setChecked(WidgetDAO.areSecondsDisplayedOnDigitalWidget(mPrefs));
+        mHideAmPmPref.setChecked(WidgetDAO.isAmPmHiddenOnDigitalWidget(mPrefs));
         mShowBackgroundOnDigitalWidgetPref.setChecked(WidgetDAO.isBackgroundDisplayedOnDigitalWidget(mPrefs));
         mShowCitiesOnDigitalWidgetPref.setChecked(WidgetDAO.areWorldCitiesDisplayedOnDigitalWidget(mPrefs));
         mDefaultClockColorPref.setChecked(WidgetDAO.isDigitalWidgetDefaultClockColor(mPrefs));

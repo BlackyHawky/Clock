@@ -220,7 +220,8 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
             rv.setViewVisibility(R.id.clock, VISIBLE);
             rv.setViewVisibility(R.id.clockForCustomColor, GONE);
             rv.setCharSequence(R.id.clock, "setFormat12Hour", ClockUtils.get12ModeFormat(
-                    context, 0.4f, WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs)));
+                    context, WidgetUtils.getAmPmRatio(true, prefs),
+                    WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs)));
             rv.setCharSequence(R.id.clock, "setFormat24Hour", ClockUtils.get24ModeFormat(
                     context, WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs)));
         } else {
@@ -399,14 +400,14 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
         // Adjust the font sizes.
         measuredSizes.setClockFontSizePx(clockFontSize);
 
-        clock.setText(WidgetUtils.getLongestTimeString(clock));
+        clock.setText(WidgetUtils.getLongestTimeString(clock, true));
         clock.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mClockFontSizePx);
         date.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mFontSizePx);
         nextAlarm.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mFontSizePx);
         nextAlarmIcon.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mIconFontSizePx);
         nextAlarmIcon.setPadding(measuredSizes.mIconPaddingPx, 0, measuredSizes.mIconPaddingPx, 0);
 
-        clockForCustomColor.setText(WidgetUtils.getLongestTimeString(clockForCustomColor));
+        clockForCustomColor.setText(WidgetUtils.getLongestTimeString(clockForCustomColor, true));
         clockForCustomColor.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mClockFontSizePx);
         dateForCustomColor.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mFontSizePx);
         nextAlarmForCustomColor.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mFontSizePx);
