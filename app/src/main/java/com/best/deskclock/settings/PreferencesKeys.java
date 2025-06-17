@@ -209,6 +209,8 @@ public class PreferencesKeys {
     // Material You Digital Widget
     public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_SECONDS_DISPLAYED =
             "key_material_you_digital_widget_seconds_displayed";
+    public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_HIDE_AM_PM =
+            "key_material_you_digital_widget_hide_am_pm";
     public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_DATE =
             "key_material_you_digital_widget_display_date";
     public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM =

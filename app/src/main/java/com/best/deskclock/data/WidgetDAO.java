@@ -355,6 +355,14 @@ public final class WidgetDAO {
     }
 
     /**
+     * @return {@code true} if the AM/PM part is hidden on the Material You digital widget; {@code false} otherwise.
+     */
+    public static boolean isAmPmHiddenOnMaterialYouDigitalWidget(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_MATERIAL_YOU_DIGITAL_WIDGET_HIDE_AM_PM,
+                DEFAULT_MATERIAL_YOU_DIGITAL_WIDGET_HIDE_AM_PM);
+    }
+
+    /**
      * @return {@code true} if the cities are displayed on the Material You digital widget;
      * {@code false} otherwise.
      */
