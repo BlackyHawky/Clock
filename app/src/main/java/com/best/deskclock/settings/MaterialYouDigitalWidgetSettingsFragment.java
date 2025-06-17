@@ -18,6 +18,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_DIGIT
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_DATE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_DIGITAL_WIDGET_HIDE_AM_PM;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_DIGITAL_WIDGET_SECONDS_DISPLAYED;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED;
@@ -27,6 +28,7 @@ import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.text.format.DateFormat;
 import androidx.annotation.NonNull;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
@@ -55,6 +57,7 @@ public class MaterialYouDigitalWidgetSettingsFragment extends ScreenFragment
     ColorPreference mCustomCityNameColorPref;
     CustomSeekbarPreference mDigitalWidgetMaxClockFontSizePref;
     SwitchPreferenceCompat mDisplaySecondsPref;
+    SwitchPreferenceCompat mHideAmPmPref;
     SwitchPreferenceCompat mDisplayDatePref;
     SwitchPreferenceCompat mDisplayNextAlarmPref;
     SwitchPreferenceCompat mShowCitiesOnDigitalWidgetPref;
@@ -76,6 +79,7 @@ public class MaterialYouDigitalWidgetSettingsFragment extends ScreenFragment
         addPreferencesFromResource(R.xml.settings_customize_material_you_digital_widget);
 
         mDisplaySecondsPref = findPreference(KEY_MATERIAL_YOU_DIGITAL_WIDGET_SECONDS_DISPLAYED);
+        mHideAmPmPref = findPreference(KEY_MATERIAL_YOU_DIGITAL_WIDGET_HIDE_AM_PM);
         mDisplayDatePref = findPreference(KEY_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_DATE);
         mDisplayNextAlarmPref = findPreference(KEY_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM);
         mShowCitiesOnDigitalWidgetPref = findPreference(KEY_MATERIAL_YOU_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED);
@@ -123,7 +127,8 @@ public class MaterialYouDigitalWidgetSettingsFragment extends ScreenFragment
     @Override
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
-            case KEY_MATERIAL_YOU_DIGITAL_WIDGET_SECONDS_DISPLAYED -> Utils.setVibrationTime(requireContext(), 50);
+        case KEY_MATERIAL_YOU_DIGITAL_WIDGET_SECONDS_DISPLAYED, KEY_MATERIAL_YOU_DIGITAL_WIDGET_HIDE_AM_PM ->
+                Utils.setVibrationTime(requireContext(), 50);
 
             case KEY_MATERIAL_YOU_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED -> {
                 mDefaultCityClockColorPref.setVisible((boolean) newValue);
@@ -195,6 +200,9 @@ public class MaterialYouDigitalWidgetSettingsFragment extends ScreenFragment
     private void setupPreferences() {
         mDisplaySecondsPref.setOnPreferenceChangeListener(this);
 
+        mHideAmPmPref.setVisible(!DateFormat.is24HourFormat(requireContext()));
+        mHideAmPmPref.setOnPreferenceChangeListener(this);
+
         List<City> selectedCities = DataModel.getDataModel().getSelectedCities();
         final boolean showHomeClock = SettingsDAO.getShowHomeClock(requireContext(), mPrefs);
         mShowCitiesOnDigitalWidgetPref.setVisible(!selectedCities.isEmpty() || showHomeClock);
@@ -260,6 +268,7 @@ public class MaterialYouDigitalWidgetSettingsFragment extends ScreenFragment
 
     private void saveCheckedPreferenceStates() {
         mDisplaySecondsPref.setChecked(WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(mPrefs));
+        mHideAmPmPref.setChecked(WidgetDAO.isAmPmHiddenOnMaterialYouDigitalWidget(mPrefs));
         mShowCitiesOnDigitalWidgetPref.setChecked(WidgetDAO.areWorldCitiesDisplayedOnMaterialYouDigitalWidget(mPrefs));
         mDefaultClockColorPref.setChecked(WidgetDAO.isMaterialYouDigitalWidgetDefaultClockColor(mPrefs));
         mDisplayDatePref.setChecked(WidgetDAO.isDateDisplayedOnMaterialYouDigitalWidget(mPrefs));
