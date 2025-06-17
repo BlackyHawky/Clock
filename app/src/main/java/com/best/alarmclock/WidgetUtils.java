@@ -159,13 +159,14 @@ public class WidgetUtils {
     /**
      * @return "11:59" or "23:59" in the current locale
      */
-    public static CharSequence getLongestTimeString(TextClock clock, boolean materialYou) {
+    public static CharSequence getLongestTimeString(TextClock clock, boolean isMaterialYou) {
         final SharedPreferences prefs = getDefaultSharedPreferences(clock.getContext());
-        var includeSeconds = materialYou? WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs)
+        boolean includeSeconds = isMaterialYou
+                ? WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs)
                 : WidgetDAO.areSecondsDisplayedOnDigitalWidget(prefs);
         final CharSequence format = clock.is24HourModeEnabled()
                 ? ClockUtils.get24ModeFormat(clock.getContext(), includeSeconds)
-                : ClockUtils.get12ModeFormat(clock.getContext(), getAmPmRatio(materialYou, prefs), includeSeconds);
+                : ClockUtils.get12ModeFormat(clock.getContext(), getAmPmRatio(isMaterialYou, prefs), includeSeconds);
         final Calendar longestPMTime = Calendar.getInstance();
         longestPMTime.set(0, 0, 0, 23, 59);
         return DateFormat.format(format, longestPMTime);
@@ -174,10 +175,11 @@ public class WidgetUtils {
     /**
      * @return the ratio to use for the AM/PM part on the digital widgets.
      */
-    public static float getAmPmRatio(boolean materialYou, SharedPreferences prefs) {
-        var amPmHidden = materialYou? WidgetDAO.isAmPmHiddenOnMaterialYouDigitalWidget(prefs)
+    public static float getAmPmRatio(boolean isMaterialYou, SharedPreferences prefs) {
+        boolean areAmPmHidden = isMaterialYou
+                ? WidgetDAO.isAmPmHiddenOnMaterialYouDigitalWidget(prefs)
                 : WidgetDAO.isAmPmHiddenOnDigitalWidget(prefs);
-        return amPmHidden? 0 : 0.4f;
+        return areAmPmHidden ? 0 : 0.4f;
     }
 
     /**
