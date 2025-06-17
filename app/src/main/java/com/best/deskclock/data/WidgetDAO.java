@@ -164,6 +164,14 @@ public final class WidgetDAO {
         return prefs.getInt(KEY_DIGITAL_WIDGET_CUSTOM_CITY_NAME_COLOR, DEFAULT_WIDGETS_CUSTOM_COLOR);
     }
 
+    /**
+     * @return a value indicating whether horizontal padding should be applied to the digital widget.
+     */
+    public static boolean isDigitalWidgetHorizontalPaddingApplied(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING,
+                             DEFAULT_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING);
+    }
+
     // *****************************
     // ** VERTICAL DIGITAL WIDGET **
     // *****************************

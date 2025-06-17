@@ -177,6 +177,7 @@ public class PreferencesKeys {
     public static final String KEY_DIGITAL_WIDGET_DEFAULT_CITY_NAME_COLOR = "key_digital_widget_default_city_name_color";
     public static final String KEY_DIGITAL_WIDGET_CUSTOM_CITY_NAME_COLOR = "key_digital_widget_custom_city_name_color";
     public static final String KEY_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE = "key_digital_widget_maximum_clock_font_size";
+    public static final String KEY_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING = "key_digital_widget_apply_horizontal_padding";
 
     // Next Alarm Widget
     public static final String KEY_NEXT_ALARM_WIDGET_DISPLAY_BACKGROUND = "key_next_alarm_widget_display_background";

@@ -152,6 +152,7 @@ public class PreferencesDefaultValues {
     public static final boolean DEFAULT_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM = true;
     public static final boolean DEFAULT_DIGITAL_WIDGET_DISPLAY_BACKGROUND = false;
     public static final boolean DEFAULT_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED = true;
+    public static final boolean DEFAULT_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING = true;
 
     // NextAlarmWidgetSettingsFragment
     public static final boolean DEFAULT_NEXT_ALARM_WIDGET_DISPLAY_BACKGROUND = false;
