@@ -1,0 +1,13 @@
+**Oprava**
+- Oprava tlačítka „OK“ u vlastního výběru času při zadávání hodnot klávesnicí
+
+**Vylepšení**
+- Možnost nastavit sekundy u tlačítka „+ 1:00“ u časovače
+- Zlepšení výkonu aplikace při běžícím časovači
+- Zákaz změny velikosti dialogu na malých obrazovkách
+- Oddělené nastavení vlastních vyzvánění pro systém a vlastní
+- Budíky se mohou po zmeškání opakovat
+- Zlepšení přehrávání vyzvánění
+- Aktualizace překladů
+
+Všechny změny zde: https://github.com/BlackyHawky/Clock/releases/tag/2.22

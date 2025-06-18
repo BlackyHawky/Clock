@@ -401,7 +401,7 @@
     <string name="timer_add_custom_time">+ %s</string>
     <string name="alarm_missed_channel">錯過的鬧鐘</string>
     <string name="clock_color_title">時鐘顏色</string>
-    <string name="whats_new_title">有什麼新事物</string>
+    <string name="whats_new_title">有什麼新功能</string>
     <string name="light_theme">淺色</string>
     <string name="dark_theme">深色</string>
     <string name="green_accent_color">綠色</string>
@@ -445,7 +445,7 @@
     <string name="purple_accent_color">紫色</string>
     <string name="yellow_accent_color">黃色</string>
     <string name="alarm_flash">閃光燈</string>
-    <string name="alarm_alert_off_and_deleted_text">鬧鐘已關閉並刪除</string>
+    <string name="alarm_alert_off_and_deleted_text">已關閉並刪除鬧鐘</string>
     <string name="material_you_vertical_digital_widget">Material You 直式數位時鐘</string>
     <string name="analog_widget_material_you">Material You 指針時鐘</string>
     <string name="delete_occasional_alarm_after_use_title">關閉後立即刪除鬧鐘</string>
@@ -553,7 +553,7 @@
     <string name="settings_language_ukrainian">烏克蘭</string>
     <string name="day_accent_color_title">日間模式強調色</string>
     <string name="clock_settings_summary">設定樣式、時區或變更裝置時間</string>
-    <string name="settings_toolbar_title">工具列顯示標題</string>
+    <string name="settings_toolbar_title">顯示工具列標題</string>
     <string name="settings_tab_title_visibility_title">顯示分頁標題</string>
     <string name="tab_title_visibility_always">一律顯示</string>
     <string name="tab_title_visibility_never">隱藏</string>
@@ -659,7 +659,7 @@
     <string name="schedule_alarm_title">排定鬧鐘</string>
     <string name="alarm_scheduled_for">已預定 %s</string>
     <string name="add_new_sound_subtitle">按住以選取資料夾</string>
-    <string name="date_picker_style_title">日期選取面板樣式</string>
+    <string name="date_picker_style_title">選取日期面板樣式</string>
     <string name="date_picker_style_calendar">日曆</string>
     <string name="date_picker_style_text">文字</string>
     <string name="random_ringtone_title">隨機鈴聲</string>
@@ -668,4 +668,12 @@
     <string name="label_seconds">秒</string>
     <string name="label_minutes">分</string>
     <string name="timer_add_custom_time_with_seconds_description">新增 %1$s 分 %2$s 秒</string>
+    <string name="label_hours">時</string>
+    <string name="timer_minutes_warning_box_text">請輸入 0–59 分鐘</string>
+    <string name="timer_time_box_title">新的計時器長度</string>
+    <string name="timer_seconds_warning_box_text">請輸入 0–59 秒</string>
+    <string name="timer_hours_warning_box_text">請輸入 0–24 小時</string>
+    <string name="auto_routing_to_bluetooth_device_title">啟用自動連結鈴聲至藍牙裝置</string>
+    <string name="timer_creation_view_style_keypad">鍵盤</string>
+    <string name="timer_creation_view_style_title">建立計時器面板樣式</string>
 </resources>

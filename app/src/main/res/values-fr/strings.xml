@@ -696,4 +696,15 @@
     <string name="timer_add_custom_time_with_seconds_for_notification">Ajouter %1$s min %2$s s</string>
     <string name="label_minutes">Minutes</string>
     <string name="label_seconds">Secondes</string>
+    <string name="label_hours">Heures</string>
+    <string name="timer_time_box_title">Nouvelle durée du minuteur</string>
+    <string name="timer_hours_warning_box_text">Saisir une valeur comprise entre 0 et 24 heures</string>
+    <string name="timer_minutes_warning_box_text">Saisir une valeur comprise entre 0 et 59 minutes</string>
+    <string name="timer_seconds_warning_box_text">Saisir une valeur comprise entre 0 et 59 secondes</string>
+    <string name="auto_routing_to_bluetooth_device_title">Activer le routage automatique des sonneries vers les appareils Bluetooth</string>
+    <string name="timer_creation_view_style_title">Style de la vue de création des minuteurs</string>
+    <string name="timer_creation_view_style_keypad">Clavier</string>
+    <string name="hide_clock_am_pm_pref">Masquer le texte AM / PM</string>
+    <string name="advanced_audio_playback_summary">Améliore la compatibilité Bluetooth et empêche les interruptions sonores pendant la répétition. Remarque: certaines sonneries peuvent avoir de légers défauts audio</string>
+    <string name="advanced_audio_playback_title">Utiliser la lecture audio avancée</string>
 </resources>

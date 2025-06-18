@@ -356,4 +356,13 @@
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"Báo lại báo thức <xliff:g id="ALARM_TIME">%s</xliff:g> sau 10 phút"</string>
     <string name="flip_action_title">Hành động lật thiết bị</string>
     <string name="shake_action_title">Hành động lắc thiết bị</string>
+    <string name="label_hours">Giờ</string>
+    <string name="selected">Đã chọn</string>
+    <string name="label_seconds">Giây</string>
+    <string name="label_minutes">Phút</string>
+    <string name="warning">Cảnh báo</string>
+    <string name="more_options">Thêm lựa chọn</string>
+    <string name="schedule_alarm_title">Đặt báo thức</string>
+    <string name="alarm_label_box_title">Nhãn báo thức</string>
+    <string name="label_default">Mặc định</string>
 </resources>

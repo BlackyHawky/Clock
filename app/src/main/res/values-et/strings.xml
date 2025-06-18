@@ -690,4 +690,12 @@
     <string name="label_minutes">Minuteid</string>
     <string name="label_seconds">Sekundeid</string>
     <string name="timer_add_custom_time_with_seconds_description">Lisa %1$s minutit ja %2$s sekundit</string>
+    <string name="label_hours">Tunnid</string>
+    <string name="timer_time_box_title">Taimeri uus kestus</string>
+    <string name="timer_seconds_warning_box_text">Sisesta väärtus 0 ja 59 sekundi vahelt</string>
+    <string name="timer_hours_warning_box_text">Sisesta väärtus 0 ja 24 tunni vahelt</string>
+    <string name="timer_minutes_warning_box_text">Sisesta väärtus 0 ja 59 minuti vahelt</string>
+    <string name="auto_routing_to_bluetooth_device_title">Luba helinate automaatset edastamist Bluetoothi seadmetesse</string>
+    <string name="timer_creation_view_style_keypad">Numbriklahvistik</string>
+    <string name="timer_creation_view_style_title">Taimeri lisamisvaate stiil</string>
 </resources>

@@ -313,7 +313,7 @@
         <item msgid="5176858645450908751">"Jakarta"</item>
     </string-array>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"Nieuwe wekker"</string>
-    <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"Nieuwe wekker maken"</string>
+    <string name="shortcut_new_alarm_long" msgid="4778064830147981089">Nieuwe wekker maken</string>
     <string name="shortcut_new_timer_short" msgid="3793414543219297884">Nieuwe kookwekker</string>
     <string name="shortcut_new_timer_long" msgid="5194092459678096067">Nieuwe kookwekker maken</string>
     <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">"Starten"</string>
@@ -682,4 +682,12 @@
     <string name="label_seconds">Seconden</string>
     <string name="timer_button_time_seconds_warning_box_text">Voer een waarde in tussen 0 en 59 seconden</string>
     <string name="timer_add_custom_time_with_seconds_description">%1$s Minuten %2$s Seconden toevoegen</string>
+    <string name="label_hours">Uren</string>
+    <string name="timer_minutes_warning_box_text">Voer een waarde in tussen 0 en 59 minuten</string>
+    <string name="timer_time_box_title">Nieuwe duur voor kookwekker</string>
+    <string name="timer_hours_warning_box_text">Voer een waarde in tussen 0 en 24 uur</string>
+    <string name="timer_seconds_warning_box_text">Voer een waarde in tussen 0 en 59 seconden</string>
+    <string name="auto_routing_to_bluetooth_device_title">Geluiden automatisch omleiden naar Bluetooth-apparaten</string>
+    <string name="timer_creation_view_style_keypad">Toetsenbord</string>
+    <string name="timer_creation_view_style_title">Weergavestijl voor kookwekker maken</string>
 </resources>
