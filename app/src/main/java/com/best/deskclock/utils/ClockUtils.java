@@ -136,7 +136,7 @@ public class ClockUtils {
         pattern = pattern.replaceAll("\\s", "\u200A");
 
         if (amPmRatio <= 0) {
-            pattern = pattern.replaceAll("a", "").trim();
+            pattern = pattern.replaceAll("\u200Aa", "").trim();
         } else {
             if (context instanceof ScreensaverActivity || context instanceof Screensaver) {
                 if (SettingsDAO.isScreensaverDigitalClockInItalic(getDefaultSharedPreferences(context))) {
@@ -164,7 +164,7 @@ public class ClockUtils {
     public static CharSequence get24ModeFormat(Context context, boolean includeSeconds) {
         if (context instanceof ScreensaverActivity || context instanceof Screensaver) {
             if (SettingsDAO.isScreensaverDigitalClockInItalic(getDefaultSharedPreferences(context))) {
-                // For screensaver, add a "Hair Space" (\u200A) at the end of the time to prevent
+                // For screensaver, add a "Thin Space" (\u2009) at the end of the time to prevent
                 // its display from being cut off on some devices when in italic.
                 return DateFormat.getBestDateTimePattern(Locale.getDefault(), includeSeconds ? "Hms" : "Hm") + "\u2009";
             } else {

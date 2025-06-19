@@ -228,7 +228,7 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
             rv.setViewVisibility(R.id.clock, GONE);
             rv.setViewVisibility(R.id.clockForCustomColor, VISIBLE);
             rv.setCharSequence(R.id.clockForCustomColor, "setFormat12Hour",
-                    ClockUtils.get12ModeFormat(context, 0.4f,
+                    ClockUtils.get12ModeFormat(context, WidgetUtils.getAmPmRatio(true, prefs),
                             WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs)));
             rv.setCharSequence(R.id.clockForCustomColor, "setFormat24Hour",
                     ClockUtils.get24ModeFormat(context,
