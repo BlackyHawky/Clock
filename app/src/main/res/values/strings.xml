@@ -1450,6 +1450,8 @@
     <string name="digital_widget_max_clock_font_size_title">Maximum font size of main clock</string>
     <!-- Summary about the font size of the clock when cities are shown -->
     <string name="digital_widget_message_summary">\"Display cities on the widget\" must be disabled to access this setting</string>
+    <!-- Title to apply horizontal padding the digital widget. -->
+    <string name="digital_widget_apply_horizontal_padding_title">Apply padding to widget sides</string>
     <!-- Title to set the default color of the next alarm title in the next alarm widget. -->
     <string name="next_alarm_widget_default_title_color">Use default color for \"Next alarm\" and \"No upcoming alarm\" titles</string>
     <!-- Title to set the custom color of the "Next alarm" and "No upcoming alarm" titles in the next alarm widget. -->
