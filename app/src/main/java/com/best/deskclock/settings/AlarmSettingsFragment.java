@@ -10,6 +10,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_SNOOZE_DURAT
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_VOLUME_SETTING;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_ROUTING_TO_BLUETOOTH_DEVICE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_SILENCE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_BLUETOOTH_VOLUME;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DEFAULT_ALARM_RINGTONE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT;
@@ -22,6 +23,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_ADVANCED_AUDIO_PLA
 import static com.best.deskclock.settings.PreferencesKeys.KEY_RINGTONE_PREVIEW_PLAYING;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SHAKE_ACTION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SHAKE_INTENSITY;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SYSTEM_MEDIA_VOLUME;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_VOLUME_BUTTONS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_WEEK_START;
@@ -31,7 +33,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
+import android.media.AudioDeviceCallback;
+import android.media.AudioDeviceInfo;
+import android.media.AudioManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 
 import androidx.annotation.NonNull;
 import androidx.preference.ListPreference;
@@ -46,6 +53,7 @@ import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
 import com.best.deskclock.utils.AlarmUtils;
+import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.Utils;
 
 import java.util.List;
@@ -54,14 +62,18 @@ public class AlarmSettingsFragment extends ScreenFragment
         implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
     private SharedPreferences.OnSharedPreferenceChangeListener mPrefChangeListener;
+    private AudioManager mAudioManager;
+    private AudioDeviceCallback mAudioDeviceCallback;
 
     Preference mAlarmRingtonePref;
     ListPreference mAutoSilencePref;
     ListPreference mAlarmSnoozePref;
-    AlarmVolumePreference mAlarmVolumePreference;
+    AlarmVolumePreference mAlarmVolumePref;
     ListPreference mAlarmCrescendoPref;
     SwitchPreferenceCompat mAdvancedAudioPlaybackPref;
     SwitchPreferenceCompat mAutoRoutingToBluetoothDevicePref;
+    SwitchPreferenceCompat mSystemMediaVolume;
+    CustomSeekbarPreference mBluetoothVolumePref;
     ListPreference mVolumeButtonsPref;
     ListPreference mPowerButtonPref;
     ListPreference mFlipActionPref;
@@ -91,10 +103,12 @@ public class AlarmSettingsFragment extends ScreenFragment
         mAlarmRingtonePref = findPreference(KEY_DEFAULT_ALARM_RINGTONE);
         mAutoSilencePref = findPreference(KEY_AUTO_SILENCE);
         mAlarmSnoozePref = findPreference(KEY_ALARM_SNOOZE_DURATION);
-        mAlarmVolumePreference = findPreference(KEY_ALARM_VOLUME_SETTING);
+        mAlarmVolumePref = findPreference(KEY_ALARM_VOLUME_SETTING);
         mAlarmCrescendoPref = findPreference(KEY_ALARM_CRESCENDO_DURATION);
         mAdvancedAudioPlaybackPref = findPreference(KEY_ADVANCED_AUDIO_PLAYBACK);
         mAutoRoutingToBluetoothDevicePref = findPreference(KEY_AUTO_ROUTING_TO_BLUETOOTH_DEVICE);
+        mSystemMediaVolume = findPreference(KEY_SYSTEM_MEDIA_VOLUME);
+        mBluetoothVolumePref = findPreference(KEY_BLUETOOTH_VOLUME);
         mVolumeButtonsPref = findPreference(KEY_VOLUME_BUTTONS);
         mPowerButtonPref = findPreference(KEY_POWER_BUTTON);
         mFlipActionPref = findPreference(KEY_FLIP_ACTION);
@@ -117,18 +131,41 @@ public class AlarmSettingsFragment extends ScreenFragment
     public void onResume() {
         super.onResume();
 
-        mPrefs.registerOnSharedPreferenceChangeListener(mPrefChangeListener);
-
         mAlarmRingtonePref.setSummary(DataModel.getDataModel().getAlarmRingtoneTitle());
+
+        if (RingtoneUtils.hasBluetoothDeviceConnected(requireContext(), mPrefs)) {
+            mAlarmVolumePref.setTitle(R.string.disconnect_bluetooth_device_title);
+            mBluetoothVolumePref.setTitle(R.string.bluetooth_volume_title);
+        } else {
+            mAlarmVolumePref.setTitle(R.string.alarm_volume_title);
+            mBluetoothVolumePref.setTitle(R.string.connect_bluetooth_device_title);
+        }
+
+        if (mAudioDeviceCallback == null) {
+            initAudioDeviceCallback();
+        }
+
+        mPrefs.registerOnSharedPreferenceChangeListener(mPrefChangeListener);
     }
 
     @Override
     public void onStop() {
         super.onStop();
 
-        mAlarmVolumePreference.stopRingtonePreview(requireContext(), mPrefs);
-        mAlarmVolumePreference.deactivateRingtonePlayback(mPrefs);
+        if (RingtoneUtils.hasBluetoothDeviceConnected(requireContext(), mPrefs)) {
+            mBluetoothVolumePref.stopRingtonePreviewForBluetoothDevices(requireContext(), mPrefs);
+            mBluetoothVolumePref.stopListeningToPreferences();
+        } else {
+            mAlarmVolumePref.stopRingtonePreview(requireContext(), mPrefs);
+            mAlarmVolumePref.releaseResources();
+        }
+
         mPrefs.unregisterOnSharedPreferenceChangeListener(mPrefChangeListener);
+
+        if (mAudioDeviceCallback != null) {
+            mAudioManager.unregisterAudioDeviceCallback(mAudioDeviceCallback);
+            mAudioDeviceCallback = null;
+        }
     }
 
     @Override
@@ -140,13 +177,28 @@ public class AlarmSettingsFragment extends ScreenFragment
             }
 
             case KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT, KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS,
-                 KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM, KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT,
-                 KEY_AUTO_ROUTING_TO_BLUETOOTH_DEVICE ->
+                 KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM, KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT ->
                     Utils.setVibrationTime(requireContext(), 50);
 
             case KEY_ADVANCED_AUDIO_PLAYBACK -> {
                 Utils.setVibrationTime(requireContext(), 50);
                 mAutoRoutingToBluetoothDevicePref.setVisible((boolean) newValue);
+                mSystemMediaVolume.setVisible((boolean) newValue
+                        && SettingsDAO.isAutoRoutingToBluetoothDeviceEnabled(mPrefs));
+                mBluetoothVolumePref.setVisible((boolean) newValue
+                        && SettingsDAO.isAutoRoutingToBluetoothDeviceEnabled(mPrefs)
+                        && SettingsDAO.shouldUseCustomMediaVolume(mPrefs));
+            }
+
+            case KEY_AUTO_ROUTING_TO_BLUETOOTH_DEVICE -> {
+                Utils.setVibrationTime(requireContext(), 50);
+                mSystemMediaVolume.setVisible((boolean) newValue);
+                mBluetoothVolumePref.setVisible((boolean) newValue && SettingsDAO.shouldUseCustomMediaVolume(mPrefs));
+            }
+
+            case KEY_SYSTEM_MEDIA_VOLUME -> {
+                Utils.setVibrationTime(requireContext(), 50);
+                mBluetoothVolumePref.setVisible(!(boolean) newValue);
             }
 
             case KEY_ALARM_SNOOZE_DURATION, KEY_ALARM_CRESCENDO_DURATION, KEY_VOLUME_BUTTONS,
@@ -208,17 +260,7 @@ public class AlarmSettingsFragment extends ScreenFragment
     }
 
     private void setupPreferences() {
-        // Disable mAdvancedAudioPlaybackPref and mAutoRoutingToBluetoothDevicePref when ringtone
-        // preview is in progress to prevent playback bug (e.g. playback that doesn't stop)
-        mPrefChangeListener = (sharedPreferences, key) -> {
-            if (KEY_RINGTONE_PREVIEW_PLAYING.equals(key)) {
-                boolean isPreviewPlaying = sharedPreferences.getBoolean(KEY_RINGTONE_PREVIEW_PLAYING, false);
-                mAdvancedAudioPlaybackPref.setEnabled(!isPreviewPlaying);
-                if (mAutoRoutingToBluetoothDevicePref.isVisible()) {
-                    mAutoRoutingToBluetoothDevicePref.setEnabled(!isPreviewPlaying);
-                }
-            }
-        };
+        mAudioManager = (AudioManager) requireContext().getSystemService(Context.AUDIO_SERVICE);
 
         mAlarmRingtonePref.setOnPreferenceClickListener(this);
 
@@ -229,6 +271,8 @@ public class AlarmSettingsFragment extends ScreenFragment
         mAlarmSnoozePref.setOnPreferenceChangeListener(this);
         mAlarmSnoozePref.setSummary(mAlarmSnoozePref.getEntry());
 
+        mAlarmVolumePref.setEnabled(!RingtoneUtils.hasBluetoothDeviceConnected(requireContext(), mPrefs));
+
         mAlarmCrescendoPref.setOnPreferenceChangeListener(this);
         mAlarmCrescendoPref.setSummary(mAlarmCrescendoPref.getEntry());
 
@@ -236,6 +280,16 @@ public class AlarmSettingsFragment extends ScreenFragment
 
         mAutoRoutingToBluetoothDevicePref.setVisible(SettingsDAO.isAdvancedAudioPlaybackEnabled(mPrefs));
         mAutoRoutingToBluetoothDevicePref.setOnPreferenceChangeListener(this);
+
+        mSystemMediaVolume.setVisible(SettingsDAO.isAdvancedAudioPlaybackEnabled(mPrefs)
+                && SettingsDAO.isAutoRoutingToBluetoothDeviceEnabled(mPrefs));
+        mSystemMediaVolume.setOnPreferenceChangeListener(this);
+
+        mBluetoothVolumePref.setVisible(SettingsDAO.isAdvancedAudioPlaybackEnabled(mPrefs)
+                && SettingsDAO.isAutoRoutingToBluetoothDeviceEnabled(mPrefs)
+                && SettingsDAO.shouldUseCustomMediaVolume(mPrefs));
+        mBluetoothVolumePref.setEnabled(mBluetoothVolumePref.isVisible()
+                && RingtoneUtils.hasBluetoothDeviceConnected(requireContext(), mPrefs));
 
         mVolumeButtonsPref.setOnPreferenceChangeListener(this);
         mVolumeButtonsPref.setSummary(mVolumeButtonsPref.getEntry());
@@ -291,6 +345,28 @@ public class AlarmSettingsFragment extends ScreenFragment
         mMaterialDatePickerStylePref.setSummary(mMaterialDatePickerStylePref.getEntry());
 
         mAlarmDisplayCustomizationPref.setOnPreferenceClickListener(this);
+
+        // Disable mAdvancedAudioPlaybackPref,mAutoRoutingToBluetoothDevicePref, mSystemMediaVolume
+        // and mBluetoothVolumePref when ringtone preview is in progress to prevent playback bug
+        // (e.g. playback that doesn't stop)
+        mPrefChangeListener = (sharedPreferences, key) -> {
+            if (KEY_RINGTONE_PREVIEW_PLAYING.equals(key)) {
+                boolean isPreviewPlaying = sharedPreferences.getBoolean(KEY_RINGTONE_PREVIEW_PLAYING, false);
+                mAdvancedAudioPlaybackPref.setEnabled(!isPreviewPlaying);
+                if (mAutoRoutingToBluetoothDevicePref.isVisible()) {
+                    mAutoRoutingToBluetoothDevicePref.setEnabled(!isPreviewPlaying);
+
+                    if (mSystemMediaVolume.isVisible()) {
+                        mSystemMediaVolume.setEnabled(!isPreviewPlaying);
+                    }
+
+                    if (mBluetoothVolumePref.isVisible()
+                            && RingtoneUtils.hasBluetoothDeviceConnected(requireContext(), mPrefs)) {
+                        mBluetoothVolumePref.setEnabled(!isPreviewPlaying);
+                    }
+                }
+            }
+        };
     }
 
     private void updateAutoSnoozeSummary(ListPreference listPref, String delay) {
@@ -303,6 +379,41 @@ public class AlarmSettingsFragment extends ScreenFragment
             listPref.setSummary(Utils.getNumberFormattedQuantityString(requireActivity(),
                     R.plurals.auto_silence_summary, i));
         }
+    }
+
+    private void initAudioDeviceCallback() {
+        if (mAudioDeviceCallback != null) {
+            return;
+        }
+
+        mAudioDeviceCallback = new AudioDeviceCallback() {
+            @Override
+            public void onAudioDevicesAdded(AudioDeviceInfo[] addedDevices) {
+                super.onAudioDevicesAdded(addedDevices);
+                for (AudioDeviceInfo device : addedDevices) {
+                    if (RingtoneUtils.isBluetoothDevice(device)) {
+                        mAlarmVolumePref.setEnabled(false);
+                        mAlarmVolumePref.setTitle(R.string.disconnect_bluetooth_device_title);
+                        mBluetoothVolumePref.setEnabled(true);
+                        mBluetoothVolumePref.setTitle(R.string.bluetooth_volume_title);
+                    }
+                }
+            }
+
+            @Override
+            public void onAudioDevicesRemoved(AudioDeviceInfo[] removedDevices) {
+                for (AudioDeviceInfo device : removedDevices) {
+                    if (RingtoneUtils.isBluetoothDevice(device)) {
+                        mAlarmVolumePref.setEnabled(true);
+                        mAlarmVolumePref.setTitle(R.string.alarm_volume_title);
+                        mBluetoothVolumePref.setEnabled(false);
+                        mBluetoothVolumePref.setTitle(R.string.connect_bluetooth_device_title);
+                    }
+                }
+            }
+        };
+
+        mAudioManager.registerAudioDeviceCallback(mAudioDeviceCallback, new Handler(Looper.getMainLooper()));
     }
 
 }

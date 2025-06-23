@@ -7,12 +7,15 @@ import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_DIGITAL_CLOCK_FONT_SIZE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_TITLE_FONT_SIZE_PREF;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_BLUETOOTH_VOLUME;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SCREENSAVER_BRIGHTNESS;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SHAKE_INTENSITY;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TIMER_SHAKE_INTENSITY;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_WIDGETS_FONT_SIZE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_DIGITAL_CLOCK_FONT_SIZE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_TITLE_FONT_SIZE_PREF;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_BLUETOOTH_VOLUME;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_RINGTONE_PREVIEW_PLAYING;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_BRIGHTNESS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SHAKE_INTENSITY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_SHAKE_INTENSITY;
@@ -20,6 +23,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_SHAKE_INTENS
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -32,6 +36,9 @@ import androidx.preference.PreferenceViewHolder;
 import androidx.preference.SeekBarPreference;
 
 import com.best.deskclock.R;
+import com.best.deskclock.data.DataModel;
+import com.best.deskclock.ringtone.RingtonePreviewKlaxon;
+import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
 
 import java.util.Locale;
@@ -42,10 +49,12 @@ public class CustomSeekbarPreference extends SeekBarPreference {
     private static final int MIN_SHAKE_INTENSITY_VALUE = DEFAULT_SHAKE_INTENSITY;
     private static final int MIN_TIMER_SHAKE_INTENSITY_VALUE = DEFAULT_TIMER_SHAKE_INTENSITY;
     private static final int MIN_BRIGHTNESS_VALUE = 0;
+    private static final int MIN_BLUETOOTH_VOLUME = 10;
 
     private Context mContext;
     private SharedPreferences mPrefs;
     private SeekBar mSeekBar;
+    private boolean mPreviewPlaying = false;
 
     public CustomSeekbarPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -72,6 +81,7 @@ public class CustomSeekbarPreference extends SeekBarPreference {
         resetSeekBar.setOnClickListener(v -> {
             resetPreference();
             setSeekBarProgress(seekBarSummary);
+            startRingtonePreviewForBluetoothDevices();
             sendBroadcastUpdateIfNeeded();
         });
 
@@ -79,11 +89,13 @@ public class CustomSeekbarPreference extends SeekBarPreference {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (fromUser) {
-                    if (SdkUtils.isAtLeastAndroid8()) {
+                    if (SdkUtils.isBeforeAndroid8()) {
                         if (isShakeIntensityPreference() && progress < MIN_SHAKE_INTENSITY_VALUE) {
                             seekBar.setProgress(MIN_SHAKE_INTENSITY_VALUE);
                         } else if (isTimerShakeIntensityPreference() && progress < MIN_TIMER_SHAKE_INTENSITY_VALUE) {
                             seekBar.setProgress(MIN_TIMER_SHAKE_INTENSITY_VALUE);
+                        } else if (isBluetoothVolumePreference() && progress < MIN_BLUETOOTH_VOLUME) {
+                            seekBar.setProgress(MIN_BLUETOOTH_VOLUME);
                         } else if (!isScreensaverBrightnessPreference() && progress < MIN_FONT_SIZE_VALUE) {
                             seekBar.setProgress(MIN_FONT_SIZE_VALUE);
                         }
@@ -101,6 +113,7 @@ public class CustomSeekbarPreference extends SeekBarPreference {
                 int finalProgress = seekBar.getProgress();
                 saveSeekBarValue(finalProgress);
                 updateSeekBarSummary(seekBarSummary, finalProgress);
+                startRingtonePreviewForBluetoothDevices();
                 sendBroadcastUpdateIfNeeded();
             }
         });
@@ -117,6 +130,8 @@ public class CustomSeekbarPreference extends SeekBarPreference {
                 mSeekBar.setMin(MIN_SHAKE_INTENSITY_VALUE);
             } else if (isTimerShakeIntensityPreference()) {
                 mSeekBar.setMin(MIN_TIMER_SHAKE_INTENSITY_VALUE);
+            } else if (isBluetoothVolumePreference()) {
+                mSeekBar.setMin(MIN_BLUETOOTH_VOLUME);
             } else {
                 mSeekBar.setMin(MIN_FONT_SIZE_VALUE);
             }
@@ -139,6 +154,8 @@ public class CustomSeekbarPreference extends SeekBarPreference {
             currentProgress = getAlarmDigitalClockFontSizeValue();
         } else if (isAlarmTitleFontSizePreference()) {
             currentProgress = getAlarmTitleFontSizeValue();
+        } else if (isBluetoothVolumePreference()) {
+            currentProgress = getBluetoothVolumeValue();
         } else {
             currentProgress = getWidgetPreferenceValue();
         }
@@ -198,6 +215,17 @@ public class CustomSeekbarPreference extends SeekBarPreference {
             } else {
                 seekBarSummary.setText(String.valueOf(progress));
             }
+        } else if (isBluetoothVolumePreference()) {
+            if (SdkUtils.isBeforeAndroid8() && progress < MIN_BLUETOOTH_VOLUME) {
+                return;
+            }
+
+            if (progress == DEFAULT_BLUETOOTH_VOLUME) {
+                seekBarSummary.setText(R.string.label_default);
+            } else {
+                String formattedText = String.format(Locale.getDefault(), "%d%%", progress);
+                seekBarSummary.setText(formattedText);
+            }
         } else {
             if (SdkUtils.isBeforeAndroid8() && progress < MIN_FONT_SIZE_VALUE) {
                 return;
@@ -224,13 +252,16 @@ public class CustomSeekbarPreference extends SeekBarPreference {
         } else if (isShakeIntensityPreference() || isTimerShakeIntensityPreference()) {
             seekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_sensor_low));
             seekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_sensor_high));
+        } else if (isBluetoothVolumePreference()) {
+            seekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_volume_down));
+            seekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_volume_up));
         } else {
             seekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_text_decrease));
             seekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_text_increase));
         }
 
-        configureSeekBarButton(seekBarMinus, -5, seekBarSummary);
-        configureSeekBarButton(seekBarPlus, 5, seekBarSummary);
+        configureSeekBarButton(seekBarMinus, isBluetoothVolumePreference() ? -10 : -5, seekBarSummary);
+        configureSeekBarButton(seekBarPlus, isBluetoothVolumePreference() ? 10 : 5, seekBarSummary);
     }
 
     /**
@@ -240,17 +271,28 @@ public class CustomSeekbarPreference extends SeekBarPreference {
      */
     private void configureSeekBarButton(ImageView button, final int delta, final TextView seekBarSummary) {
         button.setOnClickListener(v -> {
-            int currentSeekBarValue = mSeekBar.getProgress();
-            int newSeekBarValue = Math.min(Math.max(currentSeekBarValue + delta,
-                    isScreensaverBrightnessPreference() ? MIN_BRIGHTNESS_VALUE
-                    : isShakeIntensityPreference() ? MIN_SHAKE_INTENSITY_VALUE
-                    : isTimerShakeIntensityPreference() ? MIN_TIMER_SHAKE_INTENSITY_VALUE
-                    : MIN_FONT_SIZE_VALUE), mSeekBar.getMax());
+            int newSeekBarValue = getNewSeekBarValue(delta);
             mSeekBar.setProgress(newSeekBarValue);
             updateSeekBarSummary(seekBarSummary, newSeekBarValue);
             saveSeekBarValue(newSeekBarValue);
+            startRingtonePreviewForBluetoothDevices();
             sendBroadcastUpdateIfNeeded();
         });
+    }
+
+    /**
+     * @return a new value for the SeekBar by applying a delta to the current value while respecting
+     * the minimum and maximum value of the SeekBar.
+     */
+    private int getNewSeekBarValue(int delta) {
+        int currentSeekBarValue = mSeekBar.getProgress();
+
+        return Math.min(Math.max(currentSeekBarValue + delta,
+                isScreensaverBrightnessPreference() ? MIN_BRIGHTNESS_VALUE
+                : isShakeIntensityPreference() ? MIN_SHAKE_INTENSITY_VALUE
+                : isTimerShakeIntensityPreference() ? MIN_TIMER_SHAKE_INTENSITY_VALUE
+                : isBluetoothVolumePreference() ? MIN_BLUETOOTH_VOLUME
+                : MIN_FONT_SIZE_VALUE), mSeekBar.getMax());
     }
 
     /**
@@ -275,7 +317,8 @@ public class CustomSeekbarPreference extends SeekBarPreference {
                 && !isShakeIntensityPreference()
                 && !isTimerShakeIntensityPreference()
                 && !isAlarmDigitalClockFontSizePreference()
-                && !isAlarmTitleFontSizePreference()) {
+                && !isAlarmTitleFontSizePreference()
+                && !isBluetoothVolumePreference()) {
             mContext.sendBroadcast(new Intent(ACTION_APPWIDGET_UPDATE));
         }
     }
@@ -329,6 +372,14 @@ public class CustomSeekbarPreference extends SeekBarPreference {
     }
 
     /**
+     * @return the current value of the SeekBar related to volume when a Bluetooth device
+     * is connected from SharedPreferences.
+     */
+    private int getBluetoothVolumeValue() {
+        return mPrefs.getInt(getKey(), DEFAULT_BLUETOOTH_VOLUME);
+    }
+
+    /**
      * @return {@code true} if the current preference is related to screensaver brightness.
      * {@code false} otherwise.
      */
@@ -366,6 +417,60 @@ public class CustomSeekbarPreference extends SeekBarPreference {
      */
     private boolean isAlarmTitleFontSizePreference() {
         return getKey().equals(KEY_ALARM_TITLE_FONT_SIZE_PREF);
+    }
+
+    /**
+     * @return {@code true} if the current preference is related to volume when a Bluetooth device
+     * is connected. {@code false} otherwise.
+     */
+    private boolean isBluetoothVolumePreference() {
+        return getKey().equals(KEY_BLUETOOTH_VOLUME);
+    }
+
+    /**
+     * Plays ringtone preview if preference is Bluetooth volume or if there is a Bluetooth device connected.
+     */
+    public void startRingtonePreviewForBluetoothDevices() {
+        if (!isBluetoothVolumePreference() || !RingtoneUtils.hasBluetoothDeviceConnected(mContext, mPrefs)) {
+            return;
+        }
+
+        if (!mPreviewPlaying) {
+            // If we are not currently playing, start.
+            Uri ringtoneUri = DataModel.getDataModel().getAlarmRingtoneUriFromSettings();
+            if (RingtoneUtils.isRandomRingtone(ringtoneUri)) {
+                ringtoneUri = RingtoneUtils.getRandomRingtoneUri();
+            } else if (RingtoneUtils.isRandomCustomRingtone(ringtoneUri)) {
+                ringtoneUri = RingtoneUtils.getRandomCustomRingtoneUri();
+            }
+
+            RingtonePreviewKlaxon.start(mContext, mPrefs, ringtoneUri);
+            mPrefs.edit().putBoolean(KEY_RINGTONE_PREVIEW_PLAYING, true).apply();
+            mPreviewPlaying = true;
+
+            // Stop the preview after 5 seconds
+            mSeekBar.postDelayed(() -> {
+                stopRingtonePreviewForBluetoothDevices(mContext, mPrefs);
+                mPreviewPlaying = false;
+            }, 5000);
+        }
+    }
+
+    /**
+     * Stops playing the ringtone preview if it is currently playing.
+     */
+    public void stopRingtonePreviewForBluetoothDevices(Context context, SharedPreferences prefs) {
+        if (mPreviewPlaying) {
+            RingtonePreviewKlaxon.stop(context, prefs);
+            mPrefs.edit().putBoolean(KEY_RINGTONE_PREVIEW_PLAYING, false).apply();
+        }
+    }
+
+    /**
+     * Stops listening for changes to ringtone preferences.
+     */
+    public void stopListeningToPreferences() {
+        RingtonePreviewKlaxon.stopListeningToPreferences();
     }
 
 }

@@ -185,7 +185,7 @@ public class AlarmVolumePreference extends SeekBarPreference {
         }
     }
 
-    public void deactivateRingtonePlayback(SharedPreferences prefs) {
-        RingtonePreviewKlaxon.deactivateRingtonePlayback(prefs);
+    public void releaseResources() {
+        RingtonePreviewKlaxon.releaseResources();
     }
 }

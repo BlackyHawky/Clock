@@ -566,6 +566,23 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return {@code true} if a custom media volume should be applied instead of the
+     * system media volume. {@code false} otherwise.
+     */
+    public static boolean shouldUseCustomMediaVolume(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        return !prefs.getBoolean(KEY_SYSTEM_MEDIA_VOLUME, DEFAULT_SYSTEM_MEDIA_VOLUME);
+    }
+
+    /**
+     * @return the volume applied to the ringtone when a Bluetooth device is connected.
+     */
+    public static int getBluetoothVolumeValue(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        return prefs.getInt(KEY_BLUETOOTH_VOLUME, DEFAULT_BLUETOOTH_VOLUME);
+    }
+
+    /**
      * @return the duration, in milliseconds, of the crescendo to apply to timer ringtone playback;
      * {@code 0} implies no crescendo should be applied
      */

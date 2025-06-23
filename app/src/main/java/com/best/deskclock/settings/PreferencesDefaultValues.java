@@ -62,6 +62,8 @@ public class PreferencesDefaultValues {
     public static final String DEFAULT_ALARM_CRESCENDO_DURATION = "0";
     public static final boolean DEFAULT_ADVANCED_AUDIO_PLAYBACK = false;
     public static final boolean DEFAULT_AUTO_ROUTING_TO_BLUETOOTH_DEVICE = false;
+    public static final boolean DEFAULT_SYSTEM_MEDIA_VOLUME = true;
+    public static final int DEFAULT_BLUETOOTH_VOLUME = 70;
     public static final boolean DEFAULT_SWIPE_ACTION = true;
     public static final String DEFAULT_VOLUME_BEHAVIOR = "-1";
     public static final String VOLUME_BEHAVIOR_CHANGE_VOLUME = "0";

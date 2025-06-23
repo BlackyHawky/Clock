@@ -111,6 +111,25 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
+        <SwitchPreferenceCompat
+            android:key="key_system_media_volume"
+            android:title="@string/system_media_volume_title"
+            android:summary="@string/system_media_volume_summary"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <com.best.deskclock.settings.CustomSeekbarPreference
+            android:key="key_bluetooth_volume"
+            android:title="@string/bluetooth_volume_title"
+            android:summary="@string/label_default"
+            android:defaultValue="70"
+            android:max="100"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_seekbar_layout" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

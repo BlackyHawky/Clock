@@ -71,6 +71,8 @@ public class PreferencesKeys {
     public static final String KEY_RINGTONE_PREVIEW_PLAYING = "key_ringtone_preview_playing";
     public static final String KEY_ADVANCED_AUDIO_PLAYBACK = "key_advanced_audio_playback";
     public static final String KEY_AUTO_ROUTING_TO_BLUETOOTH_DEVICE = "key_auto_routing_to_bluetooth_device";
+    public static final String KEY_SYSTEM_MEDIA_VOLUME = "key_system_media_volume";
+    public static final String KEY_BLUETOOTH_VOLUME = "key_bluetooth_volume";
     public static final String KEY_SWIPE_ACTION = "key_swipe_action";
     public static final String KEY_VOLUME_BUTTONS = "key_volume_button_setting";
     public static final String KEY_POWER_BUTTON = "key_power_button";

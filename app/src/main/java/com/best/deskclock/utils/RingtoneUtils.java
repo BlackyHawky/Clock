@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.media.AudioAttributes;
+import android.media.AudioDeviceInfo;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -18,6 +20,7 @@ import androidx.annotation.AnyRes;
 import com.best.deskclock.DeskClockApplication;
 import com.best.deskclock.data.CustomRingtone;
 import com.best.deskclock.data.RingtoneModel;
+import com.best.deskclock.data.SettingsDAO;
 
 import java.io.File;
 import java.io.IOException;
@@ -245,6 +248,35 @@ public class RingtoneUtils {
         }
 
         return size;
+    }
+
+    /**
+     * @return {@code true} if a Bluetooth output device is connected. {@code false} otherwise.
+     */
+    public static boolean hasBluetoothDeviceConnected(Context context, SharedPreferences prefs) {
+        if (!SettingsDAO.isAutoRoutingToBluetoothDeviceEnabled(prefs)) {
+            return false;
+        }
+
+        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+
+        AudioDeviceInfo[] devices = audioManager.getDevices(AudioManager.GET_DEVICES_OUTPUTS);
+        for (AudioDeviceInfo device : devices) {
+            if (isBluetoothDevice(device)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @return {@code true} if the Bluetooth device is of type A2DP or SCO Bluetooth.
+     * {@code false} otherwise.
+     */
+    public static boolean isBluetoothDevice(AudioDeviceInfo device) {
+        int type = device.getType();
+        return type == AudioDeviceInfo.TYPE_BLUETOOTH_A2DP || type == AudioDeviceInfo.TYPE_BLUETOOTH_SCO;
     }
 
 }
