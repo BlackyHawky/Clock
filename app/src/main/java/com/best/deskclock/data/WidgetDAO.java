@@ -281,7 +281,7 @@ public final class WidgetDAO {
     }
 
     /**
-     * @return {@code true} if horizontal padding should be applied to the digital widget.
+     * @return {@code true} if horizontal padding should be applied to the vertical digital widget.
      * {@code false} otherwise.
      */
     public static boolean isVerticalDigitalWidgetHorizontalPaddingApplied(SharedPreferences prefs) {
@@ -583,6 +583,15 @@ public final class WidgetDAO {
      */
     public static int getMaterialYouVerticalDigitalWidgetCustomNextAlarmColor(SharedPreferences prefs) {
         return prefs.getInt(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR, DEFAULT_WIDGETS_CUSTOM_COLOR);
+    }
+
+    /**
+     * @return {@code true} if horizontal padding should be applied to the Material You vertical digital widget.
+     * {@code false} otherwise.
+     */
+    public static boolean isMaterialYouVerticalDigitalWidgetHorizontalPaddingApplied(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING,
+                DEFAULT_WIDGETS_APPLY_HORIZONTAL_PADDING);
     }
 
     // ************************************

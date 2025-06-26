@@ -237,6 +237,10 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends AppWidgetProvid
         @SuppressLint("InflateParams") final View sizer =
                 inflater.inflate(R.layout.material_you_vertical_digital_widget_sizer, null);
 
+        int horizontalPadding = ThemeUtils.convertDpToPixels(
+                WidgetDAO.isMaterialYouVerticalDigitalWidgetHorizontalPaddingApplied(prefs) ? 10 : 0, context);
+        sizer.setPadding(horizontalPadding, 0, horizontalPadding, 0);
+
         final TextClock hours = sizer.findViewById(R.id.clockHours);
         final TextClock hoursForCustomColor = sizer.findViewById(R.id.clockHoursForCustomColor);
         if (WidgetDAO.isMaterialYouDigitalWidgetDefaultClockColor(prefs)) {
