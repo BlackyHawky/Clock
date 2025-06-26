@@ -280,6 +280,15 @@ public final class WidgetDAO {
         return prefs.getInt(KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR, DEFAULT_WIDGETS_CUSTOM_COLOR);
     }
 
+    /**
+     * @return {@code true} if horizontal padding should be applied to the digital widget.
+     * {@code false} otherwise.
+     */
+    public static boolean isVerticalDigitalWidgetHorizontalPaddingApplied(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_VERTICAL_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING,
+                DEFAULT_WIDGETS_APPLY_HORIZONTAL_PADDING);
+    }
+
     // ***********************
     // ** NEXT ALARM WIDGET **
     // ***********************

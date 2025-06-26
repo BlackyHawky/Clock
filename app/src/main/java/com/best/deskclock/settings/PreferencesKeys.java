@@ -205,6 +205,7 @@ public class PreferencesKeys {
     public static final String KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR = "key_vertical_digital_widget_default_next_alarm_color";
     public static final String KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR = "key_vertical_digital_widget_custom_next_alarm_color";
     public static final String KEY_VERTICAL_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE = "key_vertical_digital_widget_maximum_clock_font_size";
+    public static final String KEY_VERTICAL_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING = "key_vertical_digital_widget_apply_horizontal_padding";
 
     // Material You Analog Widget
     public static final String KEY_MATERIAL_YOU_ANALOG_WIDGET_WITH_SECOND_HAND = "key_material_you_analog_widget_with_second_hand";
