@@ -288,5 +288,7 @@ public class PreferencesKeys {
             "key_material_you_next_alarm_widget_custom_alarm_color";
     public static final String KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_MAXIMUM_FONT_SIZE =
             "key_material_you_next_alarm_widget_maximum_font_size";
+    public static final String KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_APPLY_HORIZONTAL_PADDING =
+            "key_material_you_next_alarm_widget_apply_horizontal_padding";
 
 }

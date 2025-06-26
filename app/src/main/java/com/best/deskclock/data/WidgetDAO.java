@@ -659,4 +659,13 @@ public final class WidgetDAO {
         return prefs.getInt(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR, DEFAULT_WIDGETS_CUSTOM_COLOR);
     }
 
+    /**
+     * @return {@code true} if horizontal padding should be applied to the Material You Next alarm widget.
+     * {@code false} otherwise.
+     */
+    public static boolean isMaterialYouNextAlarmWidgetHorizontalPaddingApplied(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_APPLY_HORIZONTAL_PADDING,
+                DEFAULT_WIDGETS_APPLY_HORIZONTAL_PADDING);
+    }
+
 }
