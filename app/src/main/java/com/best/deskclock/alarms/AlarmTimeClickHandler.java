@@ -39,7 +39,6 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.Calendar;
-import java.util.TimeZone;
 
 /**
  * Click handler for an alarm time item.
@@ -288,7 +287,7 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
 
         // If a date has already been selected, select it when opening the MaterialDatePicker.
         if (alarm.isSpecifiedDate()) {
-            Calendar currentCalendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+            Calendar currentCalendar = Calendar.getInstance();
             // If the date is in the past, select today's date.
             if (alarm.isDateInThePast()) {
                 long currentDateInMillis = currentCalendar.getTimeInMillis();
