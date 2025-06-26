@@ -6,6 +6,7 @@ import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
 import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
 
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_BACKGROUND_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_CUSTOM_CITY_CLOCK_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_CUSTOM_CITY_NAME_COLOR;
@@ -69,6 +70,7 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
     SwitchPreferenceCompat mDefaultNextAlarmColorPref;
     SwitchPreferenceCompat mDefaultCityClockColorPref;
     SwitchPreferenceCompat mDefaultCityNameColorPref;
+    SwitchPreferenceCompat mApplyHorizontalPaddingPref;
 
     @Override
     protected String getFragmentTitle() {
@@ -99,6 +101,7 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
         mDefaultCityNameColorPref = findPreference(KEY_DIGITAL_WIDGET_DEFAULT_CITY_NAME_COLOR);
         mCustomCityNameColorPref = findPreference(KEY_DIGITAL_WIDGET_CUSTOM_CITY_NAME_COLOR);
         mDigitalWidgetMaxClockFontSizePref = findPreference(KEY_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE);
+        mApplyHorizontalPaddingPref = findPreference(KEY_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING);
 
         setupPreferences();
 
@@ -132,8 +135,9 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
     @Override
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
-        case KEY_DIGITAL_WIDGET_DISPLAY_SECONDS, KEY_DIGITAL_WIDGET_HIDE_AM_PM ->
-                Utils.setVibrationTime(requireContext(), 50);
+            case KEY_DIGITAL_WIDGET_DISPLAY_SECONDS, KEY_DIGITAL_WIDGET_HIDE_AM_PM,
+            KEY_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING ->
+                    Utils.setVibrationTime(requireContext(), 50);
 
             case KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND -> {
                 mBackgroundColorPref.setVisible((boolean) newValue);
@@ -279,6 +283,8 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
         mDefaultCityNameColorPref.setOnPreferenceChangeListener(this);
 
         mCustomCityNameColorPref.setOnPreferenceChangeListener(this);
+
+        mApplyHorizontalPaddingPref.setOnPreferenceChangeListener(this);
     }
 
     private void saveCheckedPreferenceStates() {
@@ -293,6 +299,7 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
         mDefaultNextAlarmColorPref.setChecked(WidgetDAO.isDigitalWidgetDefaultNextAlarmColor(mPrefs));
         mDefaultCityClockColorPref.setChecked(WidgetDAO.isDigitalWidgetDefaultCityClockColor(mPrefs));
         mDefaultCityNameColorPref.setChecked(WidgetDAO.isDigitalWidgetDefaultCityNameColor(mPrefs));
+        mApplyHorizontalPaddingPref.setChecked(WidgetDAO.isDigitalWidgetHorizontalPaddingApplied(mPrefs));
     }
 
     private void updateDigitalWidget() {

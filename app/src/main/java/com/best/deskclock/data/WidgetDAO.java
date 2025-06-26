@@ -171,6 +171,15 @@ public final class WidgetDAO {
         return prefs.getInt(KEY_DIGITAL_WIDGET_CUSTOM_CITY_NAME_COLOR, DEFAULT_WIDGETS_CUSTOM_COLOR);
     }
 
+    /**
+     * @return {@code true} if horizontal padding should be applied to the digital widget.
+     * {@code false} otherwise.
+     */
+    public static boolean isDigitalWidgetHorizontalPaddingApplied(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING,
+                DEFAULT_WIDGETS_APPLY_HORIZONTAL_PADDING);
+    }
+
     // *****************************
     // ** VERTICAL DIGITAL WIDGET **
     // *****************************
@@ -271,6 +280,15 @@ public final class WidgetDAO {
         return prefs.getInt(KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR, DEFAULT_WIDGETS_CUSTOM_COLOR);
     }
 
+    /**
+     * @return {@code true} if horizontal padding should be applied to the vertical digital widget.
+     * {@code false} otherwise.
+     */
+    public static boolean isVerticalDigitalWidgetHorizontalPaddingApplied(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_VERTICAL_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING,
+                DEFAULT_WIDGETS_APPLY_HORIZONTAL_PADDING);
+    }
+
     // ***********************
     // ** NEXT ALARM WIDGET **
     // ***********************
@@ -339,6 +357,15 @@ public final class WidgetDAO {
      */
     public static int getNextAlarmWidgetCustomAlarmColor(SharedPreferences prefs) {
         return prefs.getInt(KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR, DEFAULT_WIDGETS_CUSTOM_COLOR);
+    }
+
+    /**
+     * @return {@code true} if horizontal padding should be applied to the Next alarm widget.
+     * {@code false} otherwise.
+     */
+    public static boolean isNextAlarmWidgetHorizontalPaddingApplied(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_NEXT_ALARM_WIDGET_APPLY_HORIZONTAL_PADDING,
+                DEFAULT_WIDGETS_APPLY_HORIZONTAL_PADDING);
     }
 
     // *********************************
@@ -469,6 +496,15 @@ public final class WidgetDAO {
         return prefs.getInt(KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CITY_NAME_COLOR, DEFAULT_WIDGETS_CUSTOM_COLOR);
     }
 
+    /**
+     * @return {@code true} if horizontal padding should be applied to the Material You digital widget.
+     * {@code false} otherwise.
+     */
+    public static boolean isMaterialYouDigitalWidgetHorizontalPaddingApplied(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_MATERIAL_YOU_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING,
+                DEFAULT_WIDGETS_APPLY_HORIZONTAL_PADDING);
+    }
+
     // ******************************************
     // ** MATERIAL YOU VERTICAL DIGITAL WIDGET **
     // ******************************************
@@ -558,6 +594,15 @@ public final class WidgetDAO {
         return prefs.getInt(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR, DEFAULT_WIDGETS_CUSTOM_COLOR);
     }
 
+    /**
+     * @return {@code true} if horizontal padding should be applied to the Material You vertical digital widget.
+     * {@code false} otherwise.
+     */
+    public static boolean isMaterialYouVerticalDigitalWidgetHorizontalPaddingApplied(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING,
+                DEFAULT_WIDGETS_APPLY_HORIZONTAL_PADDING);
+    }
+
     // ************************************
     // ** MATERIAL YOU NEXT ALARM WIDGET **
     // ************************************
@@ -612,6 +657,15 @@ public final class WidgetDAO {
      */
     public static int getMaterialYouNextAlarmWidgetCustomAlarmColor(SharedPreferences prefs) {
         return prefs.getInt(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR, DEFAULT_WIDGETS_CUSTOM_COLOR);
+    }
+
+    /**
+     * @return {@code true} if horizontal padding should be applied to the Material You Next alarm widget.
+     * {@code false} otherwise.
+     */
+    public static boolean isMaterialYouNextAlarmWidgetHorizontalPaddingApplied(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_APPLY_HORIZONTAL_PADDING,
+                DEFAULT_WIDGETS_APPLY_HORIZONTAL_PADDING);
     }
 
 }

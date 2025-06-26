@@ -6,6 +6,7 @@ import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
 import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
 
+import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_APPLY_HORIZONTAL_PADDING;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_BACKGROUND_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_TITLE_COLOR;
@@ -44,6 +45,7 @@ public class NextAlarmWidgetSettingsFragment extends ScreenFragment
     SwitchPreferenceCompat mDefaultTitleColorPref;
     SwitchPreferenceCompat mDefaultAlarmTitleColorPref;
     SwitchPreferenceCompat mDefaultAlarmColorPref;
+    SwitchPreferenceCompat mApplyHorizontalPaddingPref;
 
     @Override
     protected String getFragmentTitle() {
@@ -64,6 +66,7 @@ public class NextAlarmWidgetSettingsFragment extends ScreenFragment
         mCustomAlarmTitleColorPref = findPreference(KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_TITLE_COLOR);
         mDefaultAlarmColorPref = findPreference(KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_COLOR);
         mCustomAlarmColorPref = findPreference(KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR);
+        mApplyHorizontalPaddingPref = findPreference(KEY_NEXT_ALARM_WIDGET_APPLY_HORIZONTAL_PADDING);
 
         setupPreferences();
 
@@ -116,6 +119,9 @@ public class NextAlarmWidgetSettingsFragment extends ScreenFragment
                 mCustomAlarmColorPref.setVisible(!(boolean) newValue);
                 Utils.setVibrationTime(requireContext(), 50);
             }
+
+            case KEY_NEXT_ALARM_WIDGET_APPLY_HORIZONTAL_PADDING ->
+                    Utils.setVibrationTime(requireContext(), 50);
         }
 
         requireContext().sendBroadcast(new Intent(ACTION_APPWIDGET_UPDATE));
@@ -149,6 +155,8 @@ public class NextAlarmWidgetSettingsFragment extends ScreenFragment
 
         mCustomAlarmColorPref.setVisible(!WidgetDAO.isNextAlarmWidgetDefaultAlarmColor(mPrefs));
         mCustomAlarmColorPref.setOnPreferenceChangeListener(this);
+
+        mApplyHorizontalPaddingPref.setOnPreferenceChangeListener(this);
     }
 
     private void saveCheckedPreferenceStates() {
@@ -156,6 +164,7 @@ public class NextAlarmWidgetSettingsFragment extends ScreenFragment
         mDefaultTitleColorPref.setChecked(WidgetDAO.isNextAlarmWidgetDefaultTitleColor(mPrefs));
         mDefaultAlarmTitleColorPref.setChecked(WidgetDAO.isNextAlarmWidgetDefaultAlarmTitleColor(mPrefs));
         mDefaultAlarmColorPref.setChecked(WidgetDAO.isNextAlarmWidgetDefaultAlarmColor(mPrefs));
+        mApplyHorizontalPaddingPref.setChecked(WidgetDAO.isNextAlarmWidgetHorizontalPaddingApplied(mPrefs));
     }
 
     private void updateNextAlarmWidget() {

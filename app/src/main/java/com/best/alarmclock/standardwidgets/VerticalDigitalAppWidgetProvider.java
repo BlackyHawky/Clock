@@ -222,6 +222,10 @@ public class VerticalDigitalAppWidgetProvider extends AppWidgetProvider {
         @SuppressLint("InflateParams") final View sizer =
                 inflater.inflate(R.layout.standard_vertical_digital_widget_sizer, null);
 
+        int horizontalPadding = ThemeUtils.convertDpToPixels(
+                WidgetDAO.isVerticalDigitalWidgetHorizontalPaddingApplied(prefs) ? 10 : 0, context);
+        sizer.setPadding(horizontalPadding, 0, horizontalPadding, 0);
+
         // Configure the date to display the current date string.
         final TextView date = sizer.findViewById(R.id.date);
         if (WidgetDAO.isDateDisplayedOnVerticalDigitalWidget(prefs)) {

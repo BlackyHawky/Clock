@@ -184,5 +184,5 @@ public class PreferencesDefaultValues {
     public static final int DEFAULT_WIDGETS_BACKGROUND_COLOR = Color.parseColor("#70000000");
     public static final int DEFAULT_WIDGETS_CUSTOM_COLOR = Color.WHITE;
     public static final int DEFAULT_WIDGETS_FONT_SIZE = 70;
-
+    public static final boolean DEFAULT_WIDGETS_APPLY_HORIZONTAL_PADDING = true;
 }
