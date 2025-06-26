@@ -6,7 +6,6 @@ import static com.best.deskclock.DeskClock.REQUEST_CHANGE_SETTINGS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_CRESCENDO_DURATION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_DISPLAY_CUSTOMIZATION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_NOTIFICATION_REMINDER_TIME;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_SNOOZE_DURATION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_VOLUME_SETTING;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_ROUTING_TO_BLUETOOTH_DEVICE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_SILENCE;
@@ -67,7 +66,6 @@ public class AlarmSettingsFragment extends ScreenFragment
 
     Preference mAlarmRingtonePref;
     ListPreference mAutoSilencePref;
-    ListPreference mAlarmSnoozePref;
     AlarmVolumePreference mAlarmVolumePref;
     ListPreference mAlarmCrescendoPref;
     SwitchPreferenceCompat mAdvancedAudioPlaybackPref;
@@ -102,7 +100,6 @@ public class AlarmSettingsFragment extends ScreenFragment
 
         mAlarmRingtonePref = findPreference(KEY_DEFAULT_ALARM_RINGTONE);
         mAutoSilencePref = findPreference(KEY_AUTO_SILENCE);
-        mAlarmSnoozePref = findPreference(KEY_ALARM_SNOOZE_DURATION);
         mAlarmVolumePref = findPreference(KEY_ALARM_VOLUME_SETTING);
         mAlarmCrescendoPref = findPreference(KEY_ALARM_CRESCENDO_DURATION);
         mAdvancedAudioPlaybackPref = findPreference(KEY_ADVANCED_AUDIO_PLAYBACK);
@@ -201,7 +198,7 @@ public class AlarmSettingsFragment extends ScreenFragment
                 mBluetoothVolumePref.setVisible(!(boolean) newValue);
             }
 
-            case KEY_ALARM_SNOOZE_DURATION, KEY_ALARM_CRESCENDO_DURATION, KEY_VOLUME_BUTTONS,
+            case KEY_ALARM_CRESCENDO_DURATION, KEY_VOLUME_BUTTONS,
                  KEY_POWER_BUTTON, KEY_FLIP_ACTION, KEY_MATERIAL_TIME_PICKER_STYLE,
                  KEY_MATERIAL_DATE_PICKER_STYLE -> {
                 final ListPreference preference = (ListPreference) pref;
@@ -259,6 +256,18 @@ public class AlarmSettingsFragment extends ScreenFragment
         return true;
     }
 
+    @Override
+    public void onDisplayPreferenceDialog(@NonNull Preference pref) {
+        if (pref instanceof AlarmSnoozeDurationPreference alarmSnoozeDurationPreference) {
+            int currentDelay = alarmSnoozeDurationPreference.getRepeatDelayMinutes();
+            AlarmSnoozeDurationDialogFragment dialogFragment =
+                    AlarmSnoozeDurationDialogFragment.newInstance(pref.getKey(), currentDelay);
+            AlarmSnoozeDurationDialogFragment.show(getParentFragmentManager(), dialogFragment);
+        } else {
+            super.onDisplayPreferenceDialog(pref);
+        }
+    }
+
     private void setupPreferences() {
         mAudioManager = (AudioManager) requireContext().getSystemService(Context.AUDIO_SERVICE);
 
@@ -268,8 +277,19 @@ public class AlarmSettingsFragment extends ScreenFragment
         updateAutoSnoozeSummary(mAutoSilencePref, delay);
         mAutoSilencePref.setOnPreferenceChangeListener(this);
 
-        mAlarmSnoozePref.setOnPreferenceChangeListener(this);
-        mAlarmSnoozePref.setSummary(mAlarmSnoozePref.getEntry());
+        getParentFragmentManager().setFragmentResultListener(AlarmSnoozeDurationDialogFragment.REQUEST_KEY,
+                this, (requestKey, bundle) -> {
+                    String key = bundle.getString(AlarmSnoozeDurationDialogFragment.RESULT_PREF_KEY);
+                    int newValue = bundle.getInt(AlarmSnoozeDurationDialogFragment.ALARM_SNOOZE_DURATION_VALUE);
+
+                    if (key != null) {
+                        AlarmSnoozeDurationPreference pref = findPreference(key);
+                        if (pref != null) {
+                            pref.setRepeatDelayMinutes(newValue);
+                            pref.setSummary(pref.getSummary());
+                        }
+                    }
+                });
 
         mAlarmVolumePref.setEnabled(!RingtoneUtils.hasBluetoothDeviceConnected(requireContext(), mPrefs));
 

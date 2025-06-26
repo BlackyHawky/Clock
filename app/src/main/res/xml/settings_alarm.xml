@@ -66,12 +66,9 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <ListPreference
-            android:key="key_snooze_duration"
+        <com.best.deskclock.settings.AlarmSnoozeDurationPreference
+            android:key="key_alarm_snooze_duration"
             android:title="@string/snooze_duration_title"
-            android:entries="@array/snooze_duration_entries"
-            android:entryValues="@array/snooze_duration_values"
-            android:defaultValue="10"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />

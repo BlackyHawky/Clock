@@ -519,66 +519,6 @@
     <string name="crescendo_50_seconds">50 seconds</string>
     <!-- Setting title for changing the gradually increase volume to 60 seconds. -->
     <string name="crescendo_60_seconds">60 seconds</string>
-    <!-- Setting title for changing the snooze duration to 1 minute. -->
-    <string name="snooze_duration_1_minute">1 minute</string>
-    <!-- Setting title for changing the snooze duration to 2 minutes. -->
-    <string name="snooze_duration_2_minutes">2 minutes</string>
-    <!-- Setting title for changing the snooze duration to 3 minutes. -->
-    <string name="snooze_duration_3_minutes">3 minutes</string>
-    <!-- Setting title for changing the snooze duration to 4 minutes. -->
-    <string name="snooze_duration_4_minutes">4 minutes</string>
-    <!-- Setting title for changing the snooze duration to 5 minutes. -->
-    <string name="snooze_duration_5_minutes">5 minutes</string>
-    <!-- Setting title for changing the snooze duration to 6 minutes. -->
-    <string name="snooze_duration_6_minutes">6 minutes</string>
-    <!-- Setting title for changing the snooze duration to 7 minutes. -->
-    <string name="snooze_duration_7_minutes">7 minutes</string>
-    <!-- Setting title for changing the snooze duration to 8 minutes. -->
-    <string name="snooze_duration_8_minutes">8 minutes</string>
-    <!-- Setting title for changing the snooze duration to 9 minutes. -->
-    <string name="snooze_duration_9_minutes">9 minutes</string>
-    <!-- Setting title for changing the snooze duration to 10 minutes. -->
-    <string name="snooze_duration_10_minutes">10 minutes</string>
-    <!-- Setting title for changing the snooze duration to 11 minutes. -->
-    <string name="snooze_duration_11_minutes">11 minutes</string>
-    <!-- Setting title for changing the snooze duration to 12 minutes. -->
-    <string name="snooze_duration_12_minutes">12 minutes</string>
-    <!-- Setting title for changing the snooze duration to 13 minutes. -->
-    <string name="snooze_duration_13_minutes">13 minutes</string>
-    <!-- Setting title for changing the snooze duration to 14 minutes. -->
-    <string name="snooze_duration_14_minutes">14 minutes</string>
-    <!-- Setting title for changing the snooze duration to 15 minutes. -->
-    <string name="snooze_duration_15_minutes">15 minutes</string>
-    <!-- Setting title for changing the snooze duration to 16 minutes. -->
-    <string name="snooze_duration_16_minutes">16 minutes</string>
-    <!-- Setting title for changing the snooze duration to 17 minutes. -->
-    <string name="snooze_duration_17_minutes">17 minutes</string>
-    <!-- Setting title for changing the snooze duration to 18 minutes. -->
-    <string name="snooze_duration_18_minutes">18 minutes</string>
-    <!-- Setting title for changing the snooze duration to 19 minutes. -->
-    <string name="snooze_duration_19_minutes">19 minutes</string>
-    <!-- Setting title for changing the snooze duration to 20 minutes. -->
-    <string name="snooze_duration_20_minutes">20 minutes</string>
-    <!-- Setting title for changing the snooze duration to 21 minutes. -->
-    <string name="snooze_duration_21_minutes">21 minutes</string>
-    <!-- Setting title for changing the snooze duration to 22 minutes. -->
-    <string name="snooze_duration_22_minutes">22 minutes</string>
-    <!-- Setting title for changing the snooze duration to 23 minutes. -->
-    <string name="snooze_duration_23_minutes">23 minutes</string>
-    <!-- Setting title for changing the snooze duration to 24 minutes. -->
-    <string name="snooze_duration_24_minutes">24 minutes</string>
-    <!-- Setting title for changing the snooze duration to 25 minutes. -->
-    <string name="snooze_duration_25_minutes">25 minutes</string>
-    <!-- Setting title for changing the snooze duration to 26 minutes. -->
-    <string name="snooze_duration_26_minutes">26 minutes</string>
-    <!-- Setting title for changing the snooze duration to 27 minutes. -->
-    <string name="snooze_duration_27_minutes">27 minutes</string>
-    <!-- Setting title for changing the snooze duration to 28 minutes. -->
-    <string name="snooze_duration_28_minutes">28 minutes</string>
-    <!-- Setting title for changing the snooze duration to 29 minutes. -->
-    <string name="snooze_duration_29_minutes">29 minutes</string>
-    <!-- Setting title for changing the snooze duration to 30 minutes. -->
-    <string name="snooze_duration_30_minutes">30 minutes</string>
     <!-- Setting title for changing the snooze duration to None. -->
     <string name="snooze_duration_none">None</string>
     <!-- Week start day preference title. -->

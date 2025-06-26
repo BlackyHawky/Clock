@@ -675,9 +675,7 @@ public final class SettingsDAO {
      * @return the number of minutes an alarm will remain snoozed before it rings again
      */
     public static int getSnoozeLength(SharedPreferences prefs) {
-        // Default value must match the one in res/xml/settings_alarm.xml
-        final String string = prefs.getString(KEY_ALARM_SNOOZE_DURATION, DEFAULT_ALARM_SNOOZE_DURATION);
-        return Integer.parseInt(string);
+        return prefs.getInt(KEY_ALARM_SNOOZE_DURATION, DEFAULT_ALARM_SNOOZE_DURATION);
     }
 
     /**
