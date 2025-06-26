@@ -224,6 +224,10 @@ public class NextAlarmAppWidgetProvider extends AppWidgetProvider {
         @SuppressLint("InflateParams") final View sizer =
                 inflater.inflate(R.layout.standard_next_alarm_widget_sizer, null);
 
+        int horizontalPadding = ThemeUtils.convertDpToPixels(
+                WidgetDAO.isNextAlarmWidgetHorizontalPaddingApplied(prefs) ? 20 : 0, context);
+        sizer.setPadding(horizontalPadding, 0, horizontalPadding, 0);
+
         final Context localizedContext = Utils.getLocalizedContext(context);
 
         // Configure the next alarm views to display the next alarm time or be gone.

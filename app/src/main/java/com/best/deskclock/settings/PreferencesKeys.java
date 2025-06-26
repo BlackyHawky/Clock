@@ -190,6 +190,7 @@ public class PreferencesKeys {
     public static final String KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_COLOR = "key_next_alarm_widget_default_alarm_color";
     public static final String KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR = "key_next_alarm_widget_custom_alarm_color";
     public static final String KEY_NEXT_ALARM_WIDGET_MAXIMUM_FONT_SIZE = "key_next_alarm_widget_maximum_font_size";
+    public static final String KEY_NEXT_ALARM_WIDGET_APPLY_HORIZONTAL_PADDING = "key_next_alarm_widget_apply_horizontal_padding";
 
     // Vertical Digital Widget
     public static final String KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_BACKGROUND = "key_vertical_digital_widget_display_background";

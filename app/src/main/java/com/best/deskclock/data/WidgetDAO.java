@@ -359,6 +359,15 @@ public final class WidgetDAO {
         return prefs.getInt(KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR, DEFAULT_WIDGETS_CUSTOM_COLOR);
     }
 
+    /**
+     * @return {@code true} if horizontal padding should be applied to the Next alarm widget.
+     * {@code false} otherwise.
+     */
+    public static boolean isNextAlarmWidgetHorizontalPaddingApplied(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_NEXT_ALARM_WIDGET_APPLY_HORIZONTAL_PADDING,
+                DEFAULT_WIDGETS_APPLY_HORIZONTAL_PADDING);
+    }
+
     // *********************************
     // ** MATERIAL YOU DIGITAL WIDGET **
     // *********************************
