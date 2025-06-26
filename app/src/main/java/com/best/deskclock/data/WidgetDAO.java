@@ -177,7 +177,7 @@ public final class WidgetDAO {
      */
     public static boolean isDigitalWidgetHorizontalPaddingApplied(SharedPreferences prefs) {
         return prefs.getBoolean(KEY_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING,
-                DEFAULT_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING);
+                DEFAULT_WIDGETS_APPLY_HORIZONTAL_PADDING);
     }
 
     // *****************************
@@ -476,6 +476,15 @@ public final class WidgetDAO {
      */
     public static int getMaterialYouDigitalWidgetCustomCityNameColor(SharedPreferences prefs) {
         return prefs.getInt(KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CITY_NAME_COLOR, DEFAULT_WIDGETS_CUSTOM_COLOR);
+    }
+
+    /**
+     * @return {@code true} if horizontal padding should be applied to the Material You digital widget.
+     * {@code false} otherwise.
+     */
+    public static boolean isMaterialYouDigitalWidgetHorizontalPaddingApplied(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_MATERIAL_YOU_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING,
+                DEFAULT_WIDGETS_APPLY_HORIZONTAL_PADDING);
     }
 
     // ******************************************

@@ -153,7 +153,6 @@ public class PreferencesDefaultValues {
     public static final boolean DEFAULT_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM = true;
     public static final boolean DEFAULT_DIGITAL_WIDGET_DISPLAY_BACKGROUND = false;
     public static final boolean DEFAULT_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED = true;
-    public static final boolean DEFAULT_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING = true;
 
     // NextAlarmWidgetSettingsFragment
     public static final boolean DEFAULT_NEXT_ALARM_WIDGET_DISPLAY_BACKGROUND = false;
@@ -182,5 +181,5 @@ public class PreferencesDefaultValues {
     public static final int DEFAULT_WIDGETS_BACKGROUND_COLOR = Color.parseColor("#70000000");
     public static final int DEFAULT_WIDGETS_CUSTOM_COLOR = Color.WHITE;
     public static final int DEFAULT_WIDGETS_FONT_SIZE = 70;
-
+    public static final boolean DEFAULT_WIDGETS_APPLY_HORIZONTAL_PADDING = true;
 }

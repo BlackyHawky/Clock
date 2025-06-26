@@ -283,6 +283,7 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
         mDefaultCityNameColorPref.setOnPreferenceChangeListener(this);
 
         mCustomCityNameColorPref.setOnPreferenceChangeListener(this);
+
         mApplyHorizontalPaddingPref.setOnPreferenceChangeListener(this);
     }
 

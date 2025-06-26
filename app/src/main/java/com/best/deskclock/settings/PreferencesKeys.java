@@ -242,6 +242,8 @@ public class PreferencesKeys {
             "key_material_you_digital_widget_custom_city_name_color";
     public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE =
             "key_material_you_digital_widget_maximum_clock_font_size";
+    public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING =
+            "key_material_you_digital_widget_apply_horizontal_padding";
 
     // Material You Vertical Digital Widget
     public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_DATE =

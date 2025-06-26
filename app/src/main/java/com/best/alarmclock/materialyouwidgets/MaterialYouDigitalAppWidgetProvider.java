@@ -288,6 +288,10 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
         @SuppressLint("InflateParams") final View sizer =
                 inflater.inflate(R.layout.material_you_digital_widget_sizer, null);
 
+        int horizontalPadding = ThemeUtils.convertDpToPixels(
+                WidgetDAO.isMaterialYouDigitalWidgetHorizontalPaddingApplied(prefs) ? 20 : 0, context);
+        sizer.setPadding(horizontalPadding, 0, horizontalPadding, 0);
+
         final TextClock clock = sizer.findViewById(R.id.clock);
         final TextClock clockForCustomColor = sizer.findViewById(R.id.clockForCustomColor);
         if (WidgetDAO.isMaterialYouDigitalWidgetDefaultClockColor(prefs)) {
