@@ -382,6 +382,18 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
         } else {
             mSelectedAlarm.hour = hourOfDay;
             mSelectedAlarm.minutes = minute;
+            // Necessary when an existing alarm has been created in the past and it is not enabled.
+            // Even if the date is not specified, it is saved in AlarmInstance; we need to make
+            // sure that the date is not in the past when changing time, in which case we reset
+            // to the current date (an alarm cannot be triggered in the past).
+            // This is due to the change in the code made with commit : 6ac23cf.
+            // Fix https://github.com/BlackyHawky/Clock/issues/299
+            if (mSelectedAlarm.isDateInThePast()) {
+                Calendar currentCalendar = Calendar.getInstance();
+                mSelectedAlarm.year = currentCalendar.get(Calendar.YEAR);
+                mSelectedAlarm.month = currentCalendar.get(Calendar.MONTH);
+                mSelectedAlarm.day = currentCalendar.get(Calendar.DAY_OF_MONTH);
+            }
             mSelectedAlarm.enabled = true;
             mAlarmUpdateHandler.asyncUpdateAlarm(mSelectedAlarm, true, false);
             mSelectedAlarm = null;
