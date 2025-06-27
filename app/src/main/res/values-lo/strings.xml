@@ -94,14 +94,6 @@
     <string name="auto_silence_20_minutes">20 ນາທີ</string>
     <string name="auto_silence_25_minutes">25 ນາທີ</string>
     <string name="label_off">ປິດ</string>
-    <string name="crescendo_5_seconds">5 ວິນາທີ</string>
-    <string name="crescendo_10_seconds">10 ວິນາທີ</string>
-    <string name="crescendo_15_seconds">15 ວິນາທີ</string>
-    <string name="crescendo_20_seconds">20 ວິນາທີ</string>
-    <string name="crescendo_30_seconds">30 ວິນາທີ</string>
-    <string name="crescendo_40_seconds">40 ວິນາທີ</string>
-    <string name="crescendo_50_seconds">50 ວິນາທີ</string>
-    <string name="crescendo_60_seconds">60 ວິນາທີ</string>
     <string name="week_start_title" msgid="4268917518596832096">"ເລີ່ມ​ຕົ້ນ​ອາ​ທິດ"</string>
     <string name="week_start_saturday">ວັນເສົາ</string>
     <string name="week_start_sunday">ວັນອາທິດ</string>

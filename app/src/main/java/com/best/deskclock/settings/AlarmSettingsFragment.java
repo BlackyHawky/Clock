@@ -3,7 +3,6 @@
 package com.best.deskclock.settings;
 
 import static com.best.deskclock.DeskClock.REQUEST_CHANGE_SETTINGS;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_CRESCENDO_DURATION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_DISPLAY_CUSTOMIZATION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_NOTIFICATION_REMINDER_TIME;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_VOLUME_SETTING;
@@ -67,7 +66,6 @@ public class AlarmSettingsFragment extends ScreenFragment
     Preference mAlarmRingtonePref;
     ListPreference mAutoSilencePref;
     AlarmVolumePreference mAlarmVolumePref;
-    ListPreference mAlarmCrescendoPref;
     SwitchPreferenceCompat mAdvancedAudioPlaybackPref;
     SwitchPreferenceCompat mAutoRoutingToBluetoothDevicePref;
     SwitchPreferenceCompat mSystemMediaVolume;
@@ -101,7 +99,6 @@ public class AlarmSettingsFragment extends ScreenFragment
         mAlarmRingtonePref = findPreference(KEY_DEFAULT_ALARM_RINGTONE);
         mAutoSilencePref = findPreference(KEY_AUTO_SILENCE);
         mAlarmVolumePref = findPreference(KEY_ALARM_VOLUME_SETTING);
-        mAlarmCrescendoPref = findPreference(KEY_ALARM_CRESCENDO_DURATION);
         mAdvancedAudioPlaybackPref = findPreference(KEY_ADVANCED_AUDIO_PLAYBACK);
         mAutoRoutingToBluetoothDevicePref = findPreference(KEY_AUTO_ROUTING_TO_BLUETOOTH_DEVICE);
         mSystemMediaVolume = findPreference(KEY_SYSTEM_MEDIA_VOLUME);
@@ -198,9 +195,8 @@ public class AlarmSettingsFragment extends ScreenFragment
                 mBluetoothVolumePref.setVisible(!(boolean) newValue);
             }
 
-            case KEY_ALARM_CRESCENDO_DURATION, KEY_VOLUME_BUTTONS,
-                 KEY_POWER_BUTTON, KEY_FLIP_ACTION, KEY_MATERIAL_TIME_PICKER_STYLE,
-                 KEY_MATERIAL_DATE_PICKER_STYLE -> {
+            case KEY_VOLUME_BUTTONS, KEY_POWER_BUTTON, KEY_FLIP_ACTION,
+                 KEY_MATERIAL_TIME_PICKER_STYLE, KEY_MATERIAL_DATE_PICKER_STYLE -> {
                 final ListPreference preference = (ListPreference) pref;
                 final int index = preference.findIndexOfValue((String) newValue);
                 preference.setSummary(preference.getEntries()[index]);
@@ -263,6 +259,11 @@ public class AlarmSettingsFragment extends ScreenFragment
             AlarmSnoozeDurationDialogFragment dialogFragment =
                     AlarmSnoozeDurationDialogFragment.newInstance(pref.getKey(), currentDelay);
             AlarmSnoozeDurationDialogFragment.show(getParentFragmentManager(), dialogFragment);
+        } else if (pref instanceof VolumeCrescendoDurationPreference volumeCrescendoDurationPreference) {
+            int currentDelay = volumeCrescendoDurationPreference.getCrescendoDurationSeconds();
+            VolumeCrescendoDurationDialogFragment dialogFragment =
+                    VolumeCrescendoDurationDialogFragment.newInstance(pref.getKey(), currentDelay);
+            VolumeCrescendoDurationDialogFragment.show(getParentFragmentManager(), dialogFragment);
         } else {
             super.onDisplayPreferenceDialog(pref);
         }
@@ -293,8 +294,19 @@ public class AlarmSettingsFragment extends ScreenFragment
 
         mAlarmVolumePref.setEnabled(!RingtoneUtils.hasBluetoothDeviceConnected(requireContext(), mPrefs));
 
-        mAlarmCrescendoPref.setOnPreferenceChangeListener(this);
-        mAlarmCrescendoPref.setSummary(mAlarmCrescendoPref.getEntry());
+        getParentFragmentManager().setFragmentResultListener(VolumeCrescendoDurationDialogFragment.REQUEST_KEY,
+                this, (requestKey, bundle) -> {
+                    String key = bundle.getString(VolumeCrescendoDurationDialogFragment.RESULT_PREF_KEY);
+                    int newValue = bundle.getInt(VolumeCrescendoDurationDialogFragment.VOLUME_CRESCENDO_DURATION_VALUE);
+
+                    if (key != null) {
+                        VolumeCrescendoDurationPreference pref = findPreference(key);
+                        if (pref != null) {
+                            pref.setCrescendoDurationSeconds(newValue);
+                            pref.setSummary(pref.getSummary());
+                        }
+                    }
+                });
 
         mAdvancedAudioPlaybackPref.setOnPreferenceChangeListener(this);
 

@@ -103,14 +103,6 @@
     <string name="auto_silence_20_minutes">20 నిమిషాలు</string>
     <string name="auto_silence_25_minutes">25 నిమిషాలు</string>
     <string name="label_off">ఆఫ్ చేయి</string>
-    <string name="crescendo_5_seconds">5 సెకన్లు</string>
-    <string name="crescendo_10_seconds">10 సెకన్లు</string>
-    <string name="crescendo_15_seconds">15 సెకన్లు</string>
-    <string name="crescendo_20_seconds">20 సెకన్లు</string>
-    <string name="crescendo_30_seconds">30 సెకన్లు</string>
-    <string name="crescendo_40_seconds">40 సెకన్లు</string>
-    <string name="crescendo_50_seconds">50 సెకన్లు</string>
-    <string name="crescendo_60_seconds">60 సెకన్లు</string>
     <string name="week_start_title" msgid="4268917518596832096">"వారం ప్రారంభ రోజు"</string>
     <string name="week_start_saturday">శనివారం</string>
     <string name="week_start_sunday">ఆదివారం</string>

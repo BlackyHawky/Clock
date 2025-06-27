@@ -59,7 +59,7 @@ public class PreferencesDefaultValues {
     // Alarm
     public static final String DEFAULT_AUTO_SILENCE = "10";
     public static final int DEFAULT_ALARM_SNOOZE_DURATION = 10;
-    public static final String DEFAULT_ALARM_CRESCENDO_DURATION = "0";
+    public static final int DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION = 0;
     public static final boolean DEFAULT_ADVANCED_AUDIO_PLAYBACK = false;
     public static final boolean DEFAULT_AUTO_ROUTING_TO_BLUETOOTH_DEVICE = false;
     public static final boolean DEFAULT_SYSTEM_MEDIA_VOLUME = true;
@@ -108,7 +108,7 @@ public class PreferencesDefaultValues {
     public static final String DEFAULT_TIMER_CREATION_VIEW_STYLE = "keypad";
     public static final String TIMER_CREATION_VIEW_SPINNER_STYLE = "spinner";
     public static final String DEFAULT_TIMER_AUTO_SILENCE = "30";
-    public static final String DEFAULT_TIMER_CRESCENDO_DURATION = "0";
+    public static final int DEFAULT_TIMER_VOLUME_CRESCENDO_DURATION = 0;
     public static final boolean DEFAULT_TIMER_VIBRATE = false;
     public static final boolean DEFAULT_TIMER_VOLUME_BUTTONS_ACTION = false;
     public static final boolean DEFAULT_TIMER_POWER_BUTTON_ACTION = false;

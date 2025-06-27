@@ -103,14 +103,6 @@
     <string name="auto_silence_20_minutes">20 minuuttia</string>
     <string name="auto_silence_25_minutes">25 minuuttia</string>
     <string name="label_off">Pois käytöstä</string>
-    <string name="crescendo_5_seconds">5 sekuntia</string>
-    <string name="crescendo_10_seconds">10 sekuntia</string>
-    <string name="crescendo_15_seconds">15 sekuntia</string>
-    <string name="crescendo_20_seconds">20 sekuntia</string>
-    <string name="crescendo_30_seconds">30 sekuntia</string>
-    <string name="crescendo_40_seconds">40 sekuntia</string>
-    <string name="crescendo_50_seconds">50 sekuntia</string>
-    <string name="crescendo_60_seconds">60 sekuntia</string>
     <string name="week_start_title" msgid="4268917518596832096">Viikon aloituspäivä</string>
     <string name="week_start_saturday">lauantai</string>
     <string name="week_start_sunday">sunnuntai</string>

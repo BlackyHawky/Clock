@@ -94,14 +94,6 @@
     <string name="auto_silence_20_minutes">၂၀ မိနစ်</string>
     <string name="auto_silence_25_minutes">၂၅ မိနစ်</string>
     <string name="label_off">ပိတ်ထားသည်</string>
-    <string name="crescendo_5_seconds">၅ စက္ကန့်</string>
-    <string name="crescendo_10_seconds">၁၀ စက္ကန့်</string>
-    <string name="crescendo_15_seconds">၁၅ စက္ကန့်</string>
-    <string name="crescendo_20_seconds">၂၀ စက္ကန့်</string>
-    <string name="crescendo_30_seconds">၃၀ စက္ကန့်</string>
-    <string name="crescendo_40_seconds">၄၀ စက္ကန့်</string>
-    <string name="crescendo_50_seconds">၅၀ စက္ကန့်</string>
-    <string name="crescendo_60_seconds">၆၀ စက္ကန့်</string>
     <string name="week_start_title" msgid="4268917518596832096">"ရက်သတ္တပတ် စရက်"</string>
     <string name="week_start_saturday">စနေနေ့</string>
     <string name="week_start_sunday">တနင်္ဂနွေနေ့</string>

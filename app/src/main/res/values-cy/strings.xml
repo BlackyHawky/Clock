@@ -137,14 +137,6 @@
     <string name="auto_silence_20_minutes">20 munud</string>
     <string name="auto_silence_25_minutes">25 munud</string>
     <string name="label_off">I ffwrdd</string>
-    <string name="crescendo_5_seconds">5 eiliad</string>
-    <string name="crescendo_10_seconds">10 eiliad</string>
-    <string name="crescendo_15_seconds">15 eiliad</string>
-    <string name="crescendo_20_seconds">20 eiliad</string>
-    <string name="crescendo_30_seconds">30 eiliad</string>
-    <string name="crescendo_40_seconds">40 eiliad</string>
-    <string name="crescendo_50_seconds">50 eiliad</string>
-    <string name="crescendo_60_seconds">60 eiliad</string>
     <string name="week_start_title">Dechrau\'r wythnos ar</string>
     <string name="week_start_saturday">Dydd Sadwrn</string>
     <string name="week_start_sunday">Dydd Sul</string>

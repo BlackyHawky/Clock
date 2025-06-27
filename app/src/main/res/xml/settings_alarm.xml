@@ -81,12 +81,9 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_seekbar_layout" />
 
-        <ListPreference
-            android:key="key_alarm_crescendo_duration"
+        <com.best.deskclock.settings.VolumeCrescendoDurationPreference
+            android:key="key_alarm_volume_crescendo_duration"
             android:title="@string/crescendo_duration_title"
-            android:entries="@array/crescendo_entries"
-            android:entryValues="@array/crescendo_values"
-            android:defaultValue="0"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />

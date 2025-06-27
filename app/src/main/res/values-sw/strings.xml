@@ -103,14 +103,6 @@
     <string name="auto_silence_20_minutes">Dakika 20</string>
     <string name="auto_silence_25_minutes">Dakika 25</string>
     <string name="label_off">Kimezimwa</string>
-    <string name="crescendo_5_seconds">Sekunde 5</string>
-    <string name="crescendo_10_seconds">Sekunde 10</string>
-    <string name="crescendo_15_seconds">Sekunde 15</string>
-    <string name="crescendo_20_seconds">Sekunde 20</string>
-    <string name="crescendo_30_seconds">Sekunde 30</string>
-    <string name="crescendo_40_seconds">Sekunde 40</string>
-    <string name="crescendo_50_seconds">Sekunde 50</string>
-    <string name="crescendo_60_seconds">Sekunde 60</string>
     <string name="week_start_title" msgid="4268917518596832096">"Anza wiki siku ya"</string>
     <string name="week_start_saturday">Jumamosi</string>
     <string name="week_start_sunday">Jumapili</string>

@@ -85,14 +85,6 @@
     <string name="auto_silence_20_minutes">20 mionaidean</string>
     <string name="auto_silence_25_minutes">25 mionaidean</string>
     <string name="label_off">Dheth</string>
-    <string name="crescendo_5_seconds">5 seconds</string>
-    <string name="crescendo_10_seconds">10 seconds</string>
-    <string name="crescendo_15_seconds">15 seconds</string>
-    <string name="crescendo_20_seconds">20 seconds</string>
-    <string name="crescendo_30_seconds">30 seconds</string>
-    <string name="crescendo_40_seconds">40 seconds</string>
-    <string name="crescendo_50_seconds">50 seconds</string>
-    <string name="crescendo_60_seconds">60 seconds</string>
     <string name="week_start_title">Tòisich an t-seachdain air</string>
     <string name="week_start_saturday">DiSathairne</string>
     <string name="week_start_sunday">DiDòmhnaich</string>

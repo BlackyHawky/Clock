@@ -539,12 +539,11 @@ public final class SettingsDAO {
 
     /**
      * @return the duration, in milliseconds, of the crescendo to apply to alarm ringtone playback;
-     * {@code 0} implies no crescendo should be applied
+     * {@code 0} implies no crescendo should be applied.
      */
-    public static long getAlarmCrescendoDuration(SharedPreferences prefs) {
-        // Default value must match the one in res/xml/settings_alarm.xml
-        final String crescendoSeconds = prefs.getString(KEY_ALARM_CRESCENDO_DURATION, DEFAULT_ALARM_CRESCENDO_DURATION);
-        return Integer.parseInt(crescendoSeconds) * DateUtils.SECOND_IN_MILLIS;
+    public static long getAlarmVolumeCrescendoDuration(SharedPreferences prefs) {
+        return prefs.getInt(KEY_ALARM_VOLUME_CRESCENDO_DURATION,
+                DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION) * DateUtils.SECOND_IN_MILLIS;
     }
 
     /**
@@ -584,12 +583,11 @@ public final class SettingsDAO {
 
     /**
      * @return the duration, in milliseconds, of the crescendo to apply to timer ringtone playback;
-     * {@code 0} implies no crescendo should be applied
+     * {@code 0} implies no crescendo should be applied.
      */
-    public static long getTimerCrescendoDuration(SharedPreferences prefs) {
-        // Default value must match the one in res/xml/settings_timer.xml
-        final String crescendoSeconds = prefs.getString(KEY_TIMER_CRESCENDO_DURATION, DEFAULT_TIMER_CRESCENDO_DURATION);
-        return Integer.parseInt(crescendoSeconds) * DateUtils.SECOND_IN_MILLIS;
+    public static long getTimerVolumeCrescendoDuration(SharedPreferences prefs) {
+        return prefs.getInt(KEY_TIMER_VOLUME_CRESCENDO_DURATION,
+                DEFAULT_TIMER_VOLUME_CRESCENDO_DURATION) * DateUtils.SECOND_IN_MILLIS;
     }
 
     /**

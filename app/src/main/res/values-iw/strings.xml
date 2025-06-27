@@ -112,14 +112,6 @@
     <string name="auto_silence_20_minutes">20 דקות</string>
     <string name="auto_silence_25_minutes">25 דקות</string>
     <string name="label_off">כיבוי</string>
-    <string name="crescendo_5_seconds">5 שניות</string>
-    <string name="crescendo_10_seconds">10 שניות</string>
-    <string name="crescendo_15_seconds">15 שניות</string>
-    <string name="crescendo_20_seconds">20 שניות</string>
-    <string name="crescendo_30_seconds">30 שניות</string>
-    <string name="crescendo_40_seconds">40 שניות</string>
-    <string name="crescendo_50_seconds">50 שניות</string>
-    <string name="crescendo_60_seconds">60 שניות</string>
     <string name="week_start_title" msgid="4268917518596832096">"השבוע מתחיל ב-"</string>
     <string name="week_start_saturday">שבת</string>
     <string name="week_start_sunday">ראשון</string>

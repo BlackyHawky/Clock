@@ -94,14 +94,6 @@
     <string name="auto_silence_20_minutes">20 menit</string>
     <string name="auto_silence_25_minutes">25 menit</string>
     <string name="label_off">Nonaktif</string>
-    <string name="crescendo_5_seconds">5 detik</string>
-    <string name="crescendo_10_seconds">10 detik</string>
-    <string name="crescendo_15_seconds">15 detik</string>
-    <string name="crescendo_20_seconds">20 detik</string>
-    <string name="crescendo_30_seconds">30 detik</string>
-    <string name="crescendo_40_seconds">40 detik</string>
-    <string name="crescendo_50_seconds">50 detik</string>
-    <string name="crescendo_60_seconds">60 detik</string>
     <string name="week_start_title" msgid="4268917518596832096">"Hari pertama"</string>
     <string name="week_start_saturday">Sabtu</string>
     <string name="week_start_sunday">Minggu</string>

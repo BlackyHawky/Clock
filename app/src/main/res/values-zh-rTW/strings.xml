@@ -94,14 +94,6 @@
     <string name="auto_silence_20_minutes">20 分鐘</string>
     <string name="auto_silence_25_minutes">25 分鐘</string>
     <string name="label_off">關閉</string>
-    <string name="crescendo_5_seconds">5 秒</string>
-    <string name="crescendo_10_seconds">10 秒</string>
-    <string name="crescendo_15_seconds">15 秒</string>
-    <string name="crescendo_20_seconds">20 秒</string>
-    <string name="crescendo_30_seconds">30 秒</string>
-    <string name="crescendo_40_seconds">40 秒</string>
-    <string name="crescendo_50_seconds">50 秒</string>
-    <string name="crescendo_60_seconds">60 秒</string>
     <string name="week_start_title" msgid="4268917518596832096">每週起始日</string>
     <string name="week_start_saturday">星期六</string>
     <string name="week_start_sunday">星期日</string>

@@ -103,14 +103,6 @@
     <string name="auto_silence_20_minutes">20 perc</string>
     <string name="auto_silence_25_minutes">25 perc</string>
     <string name="label_off">Ki</string>
-    <string name="crescendo_5_seconds">5 másodperc</string>
-    <string name="crescendo_10_seconds">10 másodperc</string>
-    <string name="crescendo_15_seconds">15 másodperc</string>
-    <string name="crescendo_20_seconds">20 másodperc</string>
-    <string name="crescendo_30_seconds">30 másodperc</string>
-    <string name="crescendo_40_seconds">40 másodperc</string>
-    <string name="crescendo_50_seconds">50 másodperc</string>
-    <string name="crescendo_60_seconds">60 másodperc</string>
     <string name="week_start_title" msgid="4268917518596832096">"Hét kezdőnapja"</string>
     <string name="week_start_saturday">Szombat</string>
     <string name="week_start_sunday">Vasárnap</string>

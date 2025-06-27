@@ -103,14 +103,6 @@
     <string name="auto_silence_20_minutes">20 минути</string>
     <string name="auto_silence_25_minutes">25 минути</string>
     <string name="label_off">Изкл.</string>
-    <string name="crescendo_5_seconds">5 секунди</string>
-    <string name="crescendo_10_seconds">10 секунди</string>
-    <string name="crescendo_15_seconds">15 секунди</string>
-    <string name="crescendo_20_seconds">20 секунди</string>
-    <string name="crescendo_30_seconds">30 секунди</string>
-    <string name="crescendo_40_seconds">40 секунди</string>
-    <string name="crescendo_50_seconds">50 секунди</string>
-    <string name="crescendo_60_seconds">60 секунди</string>
     <string name="week_start_title" msgid="4268917518596832096">"Седмицата започва от"</string>
     <string name="week_start_saturday">събота</string>
     <string name="week_start_sunday">неделя</string>

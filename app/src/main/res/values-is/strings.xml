@@ -103,14 +103,6 @@
     <string name="auto_silence_20_minutes">20 mínútur</string>
     <string name="auto_silence_25_minutes">25 mínútur</string>
     <string name="label_off">Slökkt</string>
-    <string name="crescendo_5_seconds">5 sekúndur</string>
-    <string name="crescendo_10_seconds">10 sekúndur</string>
-    <string name="crescendo_15_seconds">15 sekúndur</string>
-    <string name="crescendo_20_seconds">20 sekúndur</string>
-    <string name="crescendo_30_seconds">30 sekúndur</string>
-    <string name="crescendo_40_seconds">40 sekúndur</string>
-    <string name="crescendo_50_seconds">50 sekúndur</string>
-    <string name="crescendo_60_seconds">60 sekúndur</string>
     <string name="week_start_title" msgid="4268917518596832096">"Vikan hefst á"</string>
     <string name="week_start_saturday">Laugardegi</string>
     <string name="week_start_sunday">Sunnudegi</string>

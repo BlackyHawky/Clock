@@ -103,14 +103,6 @@
     <string name="auto_silence_20_minutes">۲۰ دقیقه</string>
     <string name="auto_silence_25_minutes">۲۵ دقیقه</string>
     <string name="label_off">خاموش</string>
-    <string name="crescendo_5_seconds">۵ ثانیه</string>
-    <string name="crescendo_10_seconds">۱۰ ثانیه</string>
-    <string name="crescendo_15_seconds">۱۵ ثانیه</string>
-    <string name="crescendo_20_seconds">۲۰ ثانیه</string>
-    <string name="crescendo_30_seconds">۳۰ ثانیه</string>
-    <string name="crescendo_40_seconds">۴۰ ثانیه</string>
-    <string name="crescendo_50_seconds">۵۰ ثانیه</string>
-    <string name="crescendo_60_seconds">۶۰ ثانیه</string>
     <string name="week_start_title" msgid="4268917518596832096">"روز اول هفته"</string>
     <string name="week_start_saturday">شنبه</string>
     <string name="week_start_sunday">یک‌شنبه</string>

@@ -103,14 +103,6 @@
     <string name="auto_silence_20_minutes">20 dakika</string>
     <string name="auto_silence_25_minutes">25 dakika</string>
     <string name="label_off">Kapalı</string>
-    <string name="crescendo_5_seconds">5 saniye</string>
-    <string name="crescendo_10_seconds">10 saniye</string>
-    <string name="crescendo_15_seconds">15 saniye</string>
-    <string name="crescendo_20_seconds">20 saniye</string>
-    <string name="crescendo_30_seconds">30 saniye</string>
-    <string name="crescendo_40_seconds">40 saniye</string>
-    <string name="crescendo_50_seconds">50 saniye</string>
-    <string name="crescendo_60_seconds">60 saniye</string>
     <string name="week_start_title" msgid="4268917518596832096">"Haftanın ilk günü"</string>
     <string name="week_start_saturday">Cumartesi</string>
     <string name="week_start_sunday">Pazar</string>

@@ -94,14 +94,6 @@
     <string name="auto_silence_20_minutes">20 phút</string>
     <string name="auto_silence_25_minutes">25 phút</string>
     <string name="label_off">Tắt</string>
-    <string name="crescendo_5_seconds">5 giây</string>
-    <string name="crescendo_10_seconds">10 giây</string>
-    <string name="crescendo_15_seconds">15 giây</string>
-    <string name="crescendo_20_seconds">20 giây</string>
-    <string name="crescendo_30_seconds">30 giây</string>
-    <string name="crescendo_40_seconds">40 giây</string>
-    <string name="crescendo_50_seconds">50 giây</string>
-    <string name="crescendo_60_seconds">60 giây</string>
     <string name="week_start_title" msgid="4268917518596832096">"Tuần bắt đầu vào"</string>
     <string name="week_start_saturday">Thứ Bảy</string>
     <string name="week_start_sunday">Chủ Nhật</string>

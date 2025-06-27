@@ -103,14 +103,6 @@
     <string name="auto_silence_20_minutes">20 minutu</string>
     <string name="auto_silence_25_minutes">25 minutu</string>
     <string name="label_off">Desaktibatuta</string>
-    <string name="crescendo_5_seconds">5 segundo</string>
-    <string name="crescendo_10_seconds">10 segundo</string>
-    <string name="crescendo_15_seconds">15 segundo</string>
-    <string name="crescendo_20_seconds">20 segundo</string>
-    <string name="crescendo_30_seconds">30 segundo</string>
-    <string name="crescendo_40_seconds">40 segundo</string>
-    <string name="crescendo_50_seconds">50 segundo</string>
-    <string name="crescendo_60_seconds">60 segundo</string>
     <string name="week_start_title" msgid="4268917518596832096">"Asteko lehen eguna"</string>
     <string name="week_start_saturday">Larunbata</string>
     <string name="week_start_sunday">Igandea</string>

@@ -103,14 +103,6 @@
     <string name="auto_silence_20_minutes">20 मिनट</string>
     <string name="auto_silence_25_minutes">25 मिनट</string>
     <string name="label_off">बंद करें</string>
-    <string name="crescendo_5_seconds">5 सेकंड</string>
-    <string name="crescendo_10_seconds">10 सेकंड</string>
-    <string name="crescendo_15_seconds">15 सेकंड</string>
-    <string name="crescendo_20_seconds">20 सेकंड</string>
-    <string name="crescendo_30_seconds">30 सेकंड</string>
-    <string name="crescendo_40_seconds">40 सेकंड</string>
-    <string name="crescendo_50_seconds">50 सेकंड</string>
-    <string name="crescendo_60_seconds">60 सेकंड</string>
     <string name="week_start_title" msgid="4268917518596832096">"सप्‍ताह प्रारंभ"</string>
     <string name="week_start_saturday">शनिवार</string>
     <string name="week_start_sunday">रविवार</string>

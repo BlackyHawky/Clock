@@ -103,14 +103,6 @@
     <string name="auto_silence_20_minutes">20 минут</string>
     <string name="auto_silence_25_minutes">25 минут</string>
     <string name="label_off">Өшірулі</string>
-    <string name="crescendo_5_seconds">5 секунд</string>
-    <string name="crescendo_10_seconds">10 секунд</string>
-    <string name="crescendo_15_seconds">15 секунд</string>
-    <string name="crescendo_20_seconds">20 секунд</string>
-    <string name="crescendo_30_seconds">30 секунд</string>
-    <string name="crescendo_40_seconds">40 секунд</string>
-    <string name="crescendo_50_seconds">50 секунд</string>
-    <string name="crescendo_60_seconds">60 секунд</string>
     <string name="week_start_title" msgid="4268917518596832096">"Аптаның басы"</string>
     <string name="week_start_saturday">Сенбі</string>
     <string name="week_start_sunday">Жексенбі</string>

@@ -67,7 +67,7 @@ public class PreferencesKeys {
     public static final String KEY_AUTO_SILENCE = "key_auto_silence";
     public static final String KEY_ALARM_SNOOZE_DURATION = "key_alarm_snooze_duration";
     public static final String KEY_ALARM_VOLUME_SETTING = "key_volume_setting";
-    public static final String KEY_ALARM_CRESCENDO_DURATION = "key_alarm_crescendo_duration";
+    public static final String KEY_ALARM_VOLUME_CRESCENDO_DURATION = "key_alarm_volume_crescendo_duration";
     public static final String KEY_RINGTONE_PREVIEW_PLAYING = "key_ringtone_preview_playing";
     public static final String KEY_ADVANCED_AUDIO_PLAYBACK = "key_advanced_audio_playback";
     public static final String KEY_AUTO_ROUTING_TO_BLUETOOTH_DEVICE = "key_auto_routing_to_bluetooth_device";
@@ -113,7 +113,7 @@ public class PreferencesKeys {
     public static final String KEY_TIMER_CREATION_VIEW_STYLE = "key_timer_creation_view_style";
     public static final String KEY_TIMER_RINGTONE = "key_timer_ringtone";
     public static final String KEY_TIMER_AUTO_SILENCE = "key_timer_auto_silence";
-    public static final String KEY_TIMER_CRESCENDO_DURATION = "key_timer_crescendo_duration";
+    public static final String KEY_TIMER_VOLUME_CRESCENDO_DURATION = "key_timer_volume_crescendo_duration";
     public static final String KEY_TIMER_VIBRATE = "key_timer_vibrate";
     public static final String KEY_TIMER_VOLUME_BUTTONS_ACTION = "key_timer_volume_buttons_action";
     public static final String KEY_TIMER_POWER_BUTTON_ACTION = "key_timer_power_button_action";

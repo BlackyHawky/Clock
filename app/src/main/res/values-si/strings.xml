@@ -103,14 +103,6 @@
     <string name="auto_silence_20_minutes">මිනිත්තු 20</string>
     <string name="auto_silence_25_minutes">මිනිත්තු 25</string>
     <string name="label_off">ක්‍රියාවිරහිතය</string>
-    <string name="crescendo_5_seconds">තත්පර 5</string>
-    <string name="crescendo_10_seconds">තත්පර 10</string>
-    <string name="crescendo_15_seconds">තත්පර 15</string>
-    <string name="crescendo_20_seconds">තත්පර 20</string>
-    <string name="crescendo_30_seconds">තත්පර 30</string>
-    <string name="crescendo_40_seconds">තත්පර 40</string>
-    <string name="crescendo_50_seconds">තත්පර 50</string>
-    <string name="crescendo_60_seconds">තත්පර 60</string>
     <string name="week_start_title" msgid="4268917518596832096">"සතිය මෙයින් අරඹන්න"</string>
     <string name="week_start_saturday">සෙනසුරාදා</string>
     <string name="week_start_sunday">ඉරිදා</string>

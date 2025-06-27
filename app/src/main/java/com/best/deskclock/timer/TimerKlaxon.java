@@ -69,7 +69,7 @@ public abstract class TimerKlaxon {
                 uri = RingtoneUtils.getRandomCustomRingtoneUri();
             }
 
-            final long crescendoDuration = SettingsDAO.getTimerCrescendoDuration(prefs);
+            final long crescendoDuration = SettingsDAO.getTimerVolumeCrescendoDuration(prefs);
 
             if (SettingsDAO.isAdvancedAudioPlaybackEnabled(prefs)) {
                 getRingtonePlayer(context).play(uri, crescendoDuration);

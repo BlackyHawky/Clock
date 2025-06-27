@@ -503,22 +503,6 @@
     <string name="auto_silence_20_minutes">20 minutes</string>
     <!-- Setting title for changing the auto silence to 25 minutes. -->
     <string name="auto_silence_25_minutes">25 minutes</string>
-    <!-- Setting title for changing the gradually increase volume to 5 seconds. -->
-    <string name="crescendo_5_seconds">5 seconds</string>
-    <!-- Setting title for changing the gradually increase volume to 10 seconds. -->
-    <string name="crescendo_10_seconds">10 seconds</string>
-    <!-- Setting title for changing the gradually increase volume to 15 seconds. -->
-    <string name="crescendo_15_seconds">15 seconds</string>
-    <!-- Setting title for changing the gradually increase volume to 20 seconds. -->
-    <string name="crescendo_20_seconds">20 seconds</string>
-    <!-- Setting title for changing the gradually increase volume to 30 seconds. -->
-    <string name="crescendo_30_seconds">30 seconds</string>
-    <!-- Setting title for changing the gradually increase volume to 40 seconds. -->
-    <string name="crescendo_40_seconds">40 seconds</string>
-    <!-- Setting title for changing the gradually increase volume to 50 seconds. -->
-    <string name="crescendo_50_seconds">50 seconds</string>
-    <!-- Setting title for changing the gradually increase volume to 60 seconds. -->
-    <string name="crescendo_60_seconds">60 seconds</string>
     <!-- Setting title for changing the snooze duration to None. -->
     <string name="snooze_duration_none">None</string>
     <!-- Week start day preference title. -->

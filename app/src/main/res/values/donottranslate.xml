@@ -230,31 +230,6 @@
         <item>-1</item>
     </string-array>
 
-    <!-- Entries listed in the ListPreference when invoking gradually increase volume preferences. -->
-    <string-array name="crescendo_entries">
-        <item>@string/label_off</item>
-        <item>@string/crescendo_5_seconds</item>
-        <item>@string/crescendo_10_seconds</item>
-        <item>@string/crescendo_15_seconds</item>
-        <item>@string/crescendo_20_seconds</item>
-        <item>@string/crescendo_30_seconds</item>
-        <item>@string/crescendo_40_seconds</item>
-        <item>@string/crescendo_50_seconds</item>
-        <item>@string/crescendo_60_seconds</item>
-    </string-array>
-    <!-- Values that are retrieved from the ListPreference. These must match the crescendo_entries above. -->
-    <string-array name="crescendo_values" translatable="false">
-        <item>0</item>
-        <item>5</item>
-        <item>10</item>
-        <item>15</item>
-        <item>20</item>
-        <item>30</item>
-        <item>40</item>
-        <item>50</item>
-        <item>60</item>
-    </string-array>
-
     <!-- Entries listed in ListPreference for start day. -->
     <string-array name="week_start_entries">
         <item>@string/week_start_saturday</item>
