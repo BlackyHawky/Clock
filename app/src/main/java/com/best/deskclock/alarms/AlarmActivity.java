@@ -229,8 +229,6 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
 
         setContentView(R.layout.alarm_activity);
 
-        View alarmRootView = findViewById(R.id.alarm_root_view);
-
         final String darkMode = SettingsDAO.getDarkMode(mPrefs);
         final boolean isAmoledMode = ThemeUtils.isNight(getResources()) && darkMode.equals(AMOLED_DARK_MODE);
         int alarmBackgroundColor = isAmoledMode
@@ -436,7 +434,7 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
             displayRingtoneTitle();
         }
 
-        AlarmUtils.hideSystemBarsOfTriggeredAlarms(getWindow(), alarmRootView);
+        AlarmUtils.hideSystemBarsOfTriggeredAlarms(getWindow(), getWindow().getDecorView());
     }
 
     @SuppressLint("UnspecifiedRegisterReceiverFlag")

@@ -75,16 +75,22 @@ public class PillView extends View {
         this(context, attrs, 0);
     }
 
+    /**
+     * @noinspection resource
+     */
     public PillView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        try (TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.PillView, defStyleAttr, 0)) {
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.PillView, defStyleAttr, 0);
+        try {
             mGravity = a.getInt(R.styleable.PillView_android_gravity, Gravity.NO_GRAVITY);
             mCenterX = a.getDimension(R.styleable.PillView_pillCenterX, 0.0f);
             mCenterY = a.getDimension(R.styleable.PillView_pillCenterY, 0.0f);
             mWidth = a.getDimension(R.styleable.PillView_pillWidth, 0.0f);
             mHeight = a.getDimension(R.styleable.PillView_pillHeight, 0.0f);
             mPillPaint.setColor(a.getColor(R.styleable.PillView_pillFillColor, Color.WHITE));
+        } finally {
+            a.recycle();
         }
     }
 
