@@ -351,7 +351,7 @@
     <string name="about_title">Over</string>
     <string name="contributors">Bijdragers</string>
     <string name="credits">Dank aan</string>
-    <string name="about_dialog_message">• Wekkers zetten voor een specifieke datum \n\n• Omdraaien en schudden om wekker uit te zetten/stellen \n\n• Wekker uitzetten/uitstellen met de aan/uit-knop of volumeknoppen \n\n• Alleen voor Snapdragon apparaten: wekker af laten gaan als het toestel is uitgeschakeld \n\n• Veeg om wekker te verwijderen \n\n• Wekkers dupliceren \n\n• Wekkertitel aanpassen \n\n• Wekkergeluid aanpassen \n\n• Licht, donker of systeemthema \n\n• AMOLED-modus voor donker thema \n\n• Digitale of analoge klokstijl \n\n• Klok voor thuis tijdens het reizen \n\n• Bekijk de tijd in vele steden rond de wereld \n\n• Bevat kookwekker en stopklok\n\n• Mogelijkheid om stopkloktijden te delen met contacten \n\n• Aanpasbare screensaver \n\n• Moderne widgets \n\n• Aanpasbare widgets\n\n• Ondersteuning voor tegels in de snelle instellingen (Android 7+); \n\n• Back-up en herstel app-data (behalve aangepaste geluiden)\n\n• Material design \n\n• Dynamische kleuren voor Android 12+</string>
+    <string name="about_dialog_message">• Wekkers zetten voor een specifieke datum \n\n• Omdraaien en schudden om wekker uit te zetten/stellen \n\n• Wekker uitzetten/uitstellen met de aan/uit-knop of volumeknoppen \n\n• Alleen voor Snapdragon-apparaten: wekker af laten gaan als het toestel is uitgeschakeld \n\n• Veeg om wekker te verwijderen \n\n• Wekkers dupliceren \n\n• Wekkertitel aanpassen \n\n• Wekkergeluid aanpassen \n\n• Licht, donker of systeemthema \n\n• AMOLED-modus voor donker thema \n\n• Digitale of analoge klokstijl \n\n• Klok voor thuis tijdens het reizen \n\n• Bekijk de tijd in vele steden rond de wereld \n\n• Bevat kookwekker en stopklok\n\n• Mogelijkheid om stopkloktijden te delen met contacten \n\n• Aanpasbare screensaver \n\n• Moderne widgets \n\n• Aanpasbare widgets\n\n• Ondersteuning voor tegels in de snelle instellingen (Android 7+); \n\n• Back-up en herstel app-data (behalve aangepaste geluiden)\n\n• Material design \n\n• Dynamische kleuren voor Android 12+</string>
     <string name="screensaver_daydream_settings">Screensaver selecteren/inschakelen</string>
     <string name="screensaver_daydream_settings_summary">Opent de systeeminstellingen voor screensavers</string>
     <string name="screensaver_clock_dynamic_colors_title">Dynamische klokkleuren</string>
@@ -442,13 +442,13 @@
     <string name="digital_widget_city_title">Steden op widget tonen</string>
     <string name="digital_widget_clock_default_color_title">Standaardkleur voor klok</string>
     <string name="digital_widget_date_default_color_title">Standaardkleur voor datum</string>
-    <string name="widget_next_alarm_custom_color_title">Kleur volgende wekker aanpassen</string>
+    <string name="widget_next_alarm_custom_color_title">Aangepaste kleur voor volgende wekker</string>
     <string name="digital_widget_city_clock_default_color_title">Standaardkleur voor stedenklok</string>
-    <string name="digital_widget_city_clock_custom_color_title">Kleur stedenklok aanpassen</string>
-    <string name="digital_widget_date_custom_color_title">Kleur datum aanpassen</string>
-    <string name="digital_widget_clock_custom_color_title">Kleur klok aanpassen</string>
+    <string name="digital_widget_city_clock_custom_color_title">Aangepaste kleur voor stedenklok</string>
+    <string name="digital_widget_date_custom_color_title">Aangepaste kleur voor datum</string>
+    <string name="digital_widget_clock_custom_color_title">aangepaste kleur voor klok</string>
     <string name="digital_widget_city_name_default_color_title">Standaardkleur voor stadsnaam</string>
-    <string name="digital_widget_city_name_custom_color_title">Kleur stadsnaam aanpassen</string>
+    <string name="digital_widget_city_name_custom_color_title">Aangepaste kleur voor stadsnaam</string>
     <string name="digital_widget_max_clock_font_size_title">Maximum lettergrootte van de klok</string>
     <string name="styles_and_colors_category_title">Stijl en kleuren</string>
     <string name="miscellaneous_category_title">Overig</string>
@@ -471,7 +471,7 @@
     <string name="alarm_notification_reminder_8_hours">8 uur van te voren</string>
     <string name="snooze_button_color">Kleur sluimerknop</string>
     <string name="auto_silence_20_seconds">20 seconden</string>
-    <string name="digital_widget_custom_minutes_color_title">Aangepaste kleuren voor minuten</string>
+    <string name="digital_widget_custom_minutes_color_title">Aangepaste kleur voor minuten</string>
     <string name="next_alarm_widget_default_title_color">Standaardkleur voor titels \"Volgende wekker\" en \"Geen volgende wekker\"</string>
     <string name="denied_permission_label">Toestemming geweigerd</string>
     <string name="sort_timer_title">Kookwekkers sorteren</string>
@@ -508,9 +508,9 @@
     <string name="alarm_notification_reminder_30_minutes">30 minuten van te voren</string>
     <string name="next_alarm_widget_default_alarm_title_color">Standaardkleur voor wekkerlabel</string>
     <string name="next_alarm_widget_custom_title_color">Aangepaste kleur voor titels \"Volgende wekker\" en \"Geen volgende wekker\"</string>
-    <string name="digital_widget_custom_hours_color_title">Aangepaste kleuren voor uren</string>
-    <string name="digital_widget_default_minutes_color_title">Standaardkleuren voor minuten</string>
-    <string name="digital_widget_default_hours_color_title">Standaardkleuren voor uren</string>
+    <string name="digital_widget_custom_hours_color_title">Aangepaste kleur voor uren</string>
+    <string name="digital_widget_default_minutes_color_title">Standaardkleur voor minuten</string>
+    <string name="digital_widget_default_hours_color_title">Standaardkleur voor uren</string>
     <string name="occasional_alarm_alert_predismiss_title">Aankomende gelegenheidswekker</string>
     <string name="vertical_digital_widget">Verticale digitale klok</string>
     <string name="alarm_notification_reminder_1_hour">1 uur van te voren</string>
@@ -652,4 +652,13 @@
     <string name="auto_routing_to_bluetooth_device_title">Geluiden automatisch omleiden naar Bluetooth-apparaten</string>
     <string name="timer_creation_view_style_keypad">Toetsenbord</string>
     <string name="timer_creation_view_style_title">Weergavestijl voor kookwekker maken</string>
+    <string name="advanced_audio_playback_summary">Verbetert Bluetooth-compatibiliteit en voorkomt geluidsonderbrekingen tijdens herhalen\n\nLet op: sommige beltonen kunnen lichte audiostoringen hebben</string>
+    <string name="advanced_audio_playback_title">Geavanceerde audioweergave gebruiken</string>
+    <string name="hide_clock_am_pm_pref">AM/PM-tekst verbergen</string>
+    <string name="system_media_volume_title">Mediavolume van systeem gebruiken</string>
+    <string name="system_media_volume_summary">Werkt alleen als een Bluetooth-apparaat verbonden is</string>
+    <string name="bluetooth_volume_title">Wekkervolume voor Bluetooth-apparaten</string>
+    <string name="connect_bluetooth_device_title">Maak verbinding met een Bluetooth-apparaat om toegang te krijgen tot deze instelling</string>
+    <string name="disconnect_bluetooth_device_title">Verbreek verbinding met het Bluetooth-apparaat om toegang te krijgen tot deze instelling</string>
+    <string name="widget_apply_horizontal_padding_title">Ruimte toepassen op widgetranden</string>
 </resources>

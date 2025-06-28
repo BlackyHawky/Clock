@@ -642,4 +642,13 @@
     <string name="auto_routing_to_bluetooth_device_title">启用铃声自动路由到蓝牙设备</string>
     <string name="timer_creation_view_style_title">定时器创建视图样式</string>
     <string name="timer_creation_view_style_keypad">键盘</string>
+    <string name="advanced_audio_playback_title">使用高级音频播放</string>
+    <string name="hide_clock_am_pm_pref">隐藏上午/下午文本</string>
+    <string name="advanced_audio_playback_summary">提升蓝牙兼容性，防止重复播放时声音中断 \n\n注意：部分铃声可能会有轻微音频故障</string>
+    <string name="system_media_volume_title">使用系统媒体音量</string>
+    <string name="bluetooth_volume_title">蓝牙设备的闹钟音量</string>
+    <string name="connect_bluetooth_device_title">请连接蓝牙设备以访问此设置</string>
+    <string name="disconnect_bluetooth_device_title">请断开蓝牙设备的连接以访问此设置</string>
+    <string name="system_media_volume_summary">仅在连接蓝牙设备时有效</string>
+    <string name="widget_apply_horizontal_padding_title">将边距应用于微件两侧</string>
 </resources>

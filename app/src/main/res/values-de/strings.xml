@@ -652,4 +652,13 @@
     <string name="auto_routing_to_bluetooth_device_title">Automatische Weiterleitung von Signaltönen an Bluetooth-Geräte aktivieren</string>
     <string name="timer_creation_view_style_title">Stil der Timer-Erstellung</string>
     <string name="timer_creation_view_style_keypad">Tastatur</string>
+    <string name="advanced_audio_playback_title">Erweiterte Audio-Wiedergabe verwenden</string>
+    <string name="advanced_audio_playback_summary">Verbessert die Bluetooth-Kompatibilität und verhindert Tonunterbrechungen bei Wiederholungen. \n\nHinweis: Einige Signaltöne können kleine Tonaussetzer haben</string>
+    <string name="hide_clock_am_pm_pref">Zusatz AM/PM ausblenden</string>
+    <string name="disconnect_bluetooth_device_title">Trennen Sie die Verbindung mit dem Bluetooth-Gerät, um auf diese Einstellung zuzugreifen</string>
+    <string name="connect_bluetooth_device_title">Verbinden Sie mit einem Bluetooth-Gerät, um auf diese Einstellung zuzugreifen</string>
+    <string name="bluetooth_volume_title">Alarm-Lautstärke für Bluetooth-Geräte</string>
+    <string name="system_media_volume_title">Medienlautstärke des Systems verwenden</string>
+    <string name="system_media_volume_summary">Funktioniert nur, wenn ein Bluetooth-Gerät verbunden ist</string>
+    <string name="widget_apply_horizontal_padding_title">Abstand zu den Widget-Seiten hinzufügen</string>
 </resources>

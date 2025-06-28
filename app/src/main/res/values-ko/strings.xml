@@ -493,7 +493,7 @@
     <string name="timer_settings_summary">기본 벨소리, 볼륨, 타이머 정렬 설정</string>
     <string name="first_launch_dialog_message">정말 앱을 종료할까요?</string>
     <string name="digital_widget_default_hours_color_title">시간 텍스트에 기본 색상 사용</string>
-    <string name="first_launch_main_feature_message">► 라이트, 다크, 시스템 테마 사용 &lt;br&gt; &lt;br&gt; ► 화면 보호기 꾸미기&lt;br&gt; &lt;br&gt; ► 위젯 스타일 설정&lt;br&gt; &lt;br&gt; ► 빠른 설정 타일 지원(Android 7 이상) &lt;br&gt; &lt;br&gt; ► 설정 백업 및 복원(사용자 정의 벨소리 제외) &lt;br&gt; &lt;br&gt; ► Material 디자인 및 적응형 색상 지원 &lt;br&gt; &lt;br&gt; ► 스와이프로 알람 삭제 &lt;br&gt; &lt;br&gt; ► 알람 복제 &lt;br&gt; &lt;br&gt; ► 기기를 뒤집거나 흔들어 알람 제어 &lt;br&gt; &lt;br&gt; ► 전원 버튼 및 볼륨 버튼으로 알람 제어 &lt;br&gt; &lt;br&gt; ► %s</string>
+    <string name="first_launch_main_feature_message">► 라이트, 다크, 시스템 테마 사용 &lt;br&gt; &lt;br&gt; ► 화면 보호기 꾸미기&lt;br&gt; &lt;br&gt; ► 위젯 스타일 설정&lt;br&gt; &lt;br&gt; ► 빠른 설정 타일 지원(Android 7 이상) &lt;br&gt; &lt;br&gt; ► 설정 백업 및 복원(사용자 정의 벨소리 제외) &lt;br&gt; &lt;br&gt; ► Material 디자인 및 적응형 색상 지원 &lt;br&gt; &lt;br&gt; ► 특정 날짜에 알람 예약 &lt;br&gt; &lt;br&gt; ► 스와이프로 알람 삭제 &lt;br&gt; &lt;br&gt; ► 알람 복제 &lt;br&gt; &lt;br&gt; ► 기기를 뒤집거나 흔들어 알람 제어 &lt;br&gt; &lt;br&gt; ► 전원 버튼 및 볼륨 버튼으로 알람 제어 &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="screensaver_italic_date_title">날짜 기울임꼴</string>
     <string name="permission_status_title">상태:</string>
     <string name="first_launch_main_feature_link">그 밖에도 다양한 기능이 있습니다!</string>
@@ -573,7 +573,7 @@
     <string name="timer_label_box_title">타이머 라벨</string>
     <string name="blue_accent_color">파란색</string>
     <string name="toast_message_for_reset">초기화를 완료했습니다.</string>
-    <string name="timer_button_time_minutes_warning_box_text">0분에서 60분 사이의 시간을 입력할 수 있습니다.</string>
+    <string name="timer_button_time_minutes_warning_box_text">0에서 60분 사이의 값을 입력하세요.</string>
     <string name="timer_time_warning_box_title">잘못된 값 입력됨</string>
     <string name="sw_long_press_volume_up_action_title">볼륨 위(길게 눌렀을 때)</string>
     <string name="analog_widget_configuration_warning">이 위젯은 Android 12 이상에서만 설정할 수 있습니다.</string>
@@ -619,4 +619,29 @@
     <string name="date_picker_style_title">날씨 선택 도구 스타일</string>
     <string name="date_picker_style_calendar">캘린더</string>
     <string name="date_picker_style_text">텍스트</string>
+    <string name="advanced_audio_playback_title">고급 오디오 재생 사용</string>
+    <string name="advanced_audio_playback_summary">블루투스 호환성을 높이고 반복 시 소리 끊김 현상을 방지합니다.\n\n일부 벨소리를 사용할 때 오디오가 불안정해질 수 있습니다.</string>
+    <string name="label_hours">시간</string>
+    <string name="timer_hours_warning_box_text">0에서 24시간 사이의 값을 입력하세요.</string>
+    <string name="timer_minutes_warning_box_text">0에서 59분 사이의 값을 입력하세요.</string>
+    <string name="timer_add_custom_time_with_seconds_for_notification">%1$s분 %2$s초 추가</string>
+    <string name="label_seconds">초</string>
+    <string name="warning">경고</string>
+    <string name="schedule_alarm_title">알람 예약</string>
+    <string name="add_new_sound_subtitle">길게 눌러 폴더 선택</string>
+    <string name="auto_routing_to_bluetooth_device_title">벨소리를 블루투스 장치에 자동 전달</string>
+    <string name="timer_creation_view_style_keypad">키패드</string>
+    <string name="bluetooth_volume_title">블루투스 장치 알람 볼륨</string>
+    <string name="connect_bluetooth_device_title">이 옵션을 변경하려면 블루투스 장치를 연결하세요.</string>
+    <string name="disconnect_bluetooth_device_title">이 옵션을 변경하려면 블루투스 장치를 연결 해제하세요.</string>
+    <string name="random_ringtone_title">무작위 벨소리</string>
+    <string name="timer_seconds_warning_box_text">0에서 59초 사이의 값을 입력하세요.</string>
+    <string name="timer_time_box_title">새 타이머 길이</string>
+    <string name="timer_add_custom_time_with_seconds_description">%1$s분 %2$s초 추가</string>
+    <string name="system_media_volume_title">시스템 미디어 볼륨 사용</string>
+    <string name="alarm_scheduled_for">%s에 알람 예약됨</string>
+    <string name="label_minutes">분</string>
+    <string name="system_media_volume_summary">블루투스 장치가 연결되어 있을 때만 옵션이 적용됩니다.</string>
+    <string name="timer_button_time_seconds_warning_box_text">0에서 59초 사이의 값을 입력하세요.</string>
+    <string name="hide_clock_am_pm_pref">오전/오후 텍스트 숨기기</string>
 </resources>
