@@ -13,6 +13,7 @@ import static com.best.deskclock.AlarmSelectionActivity.EXTRA_ALARMS;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.provider.AlarmInstance.FIRED_STATE;
 import static com.best.deskclock.provider.AlarmInstance.SNOOZE_STATE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_TIMEOUT_AT_THE_END_OF_THE_RINGTONE;
 import static com.best.deskclock.uidata.UiDataModel.Tab.ALARMS;
 import static com.best.deskclock.uidata.UiDataModel.Tab.TIMERS;
 
@@ -21,6 +22,7 @@ import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -64,12 +66,14 @@ public class HandleApiCalls extends Activity {
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger("HandleApiCalls");
 
     private Context mAppContext;
+    private SharedPreferences mPrefs;
 
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
 
         mAppContext = getApplicationContext();
+        mPrefs = getDefaultSharedPreferences(mAppContext);
 
         try {
             final Intent intent = getIntent();
@@ -343,7 +347,7 @@ public class HandleApiCalls extends Activity {
             // No existing alarm could be located; create one using the intent data.
             alarm = new Alarm();
             updateAlarmFromIntent(alarm, intent);
-            alarm.deleteAfterUse = !alarm.daysOfWeek.isRepeating() && skipUi;
+            applyAlarmSettings(alarm, mPrefs);
 
             // Save the new alarm.
             Alarm.addAlarm(cr, alarm);
@@ -514,13 +518,31 @@ public class HandleApiCalls extends Activity {
      * @param intent the intent containing new alarm field values to merge into the {@code alarm}
      */
     private static void updateAlarmFromIntent(Alarm alarm, Intent intent) {
-        alarm.enabled = true;
+        alarm.label = getLabelFromIntent(intent, alarm.label);
         alarm.hour = intent.getIntExtra(AlarmClock.EXTRA_HOUR, alarm.hour);
         alarm.minutes = intent.getIntExtra(AlarmClock.EXTRA_MINUTES, alarm.minutes);
-        alarm.vibrate = intent.getBooleanExtra(AlarmClock.EXTRA_VIBRATE, alarm.vibrate);
         alarm.alert = getAlertFromIntent(intent, alarm.alert);
-        alarm.label = getLabelFromIntent(intent, alarm.label);
         alarm.daysOfWeek = getDaysFromIntent(intent, alarm.daysOfWeek);
+    }
+
+    /**
+     * Applies default application-level settings to the given {@link Alarm} instance.
+     *
+     * <p>This method sets the alarm's behavior based on user preferences stored in
+     * {@link SharedPreferences}. It is typically used when creating a new alarm to ensure
+     * consistency with global settings such as vibration, flash, ringtone timeout, and
+     * auto-deletion after use.</p>
+     *
+     * @param alarm the {@link Alarm} object to which default settings will be applied
+     * @param prefs the {@link SharedPreferences} containing the user's default alarm preferences
+     */
+    private static void applyAlarmSettings(Alarm alarm, SharedPreferences prefs) {
+        alarm.enabled = true;
+        alarm.dismissAlarmWhenRingtoneEnds = SettingsDAO.getAlarmTimeout(prefs)
+                == ALARM_TIMEOUT_AT_THE_END_OF_THE_RINGTONE;
+        alarm.vibrate = SettingsDAO.areAlarmVibrationsEnabledByDefault(prefs);
+        alarm.flash = SettingsDAO.shouldTurnOnBackFlashForTriggeredAlarm(prefs);
+        alarm.deleteAfterUse = SettingsDAO.isOccasionalAlarmDeletedByDefault(prefs);
     }
 
     private static String getLabelFromIntent(Intent intent, String defaultLabel) {

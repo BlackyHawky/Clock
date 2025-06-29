@@ -10,6 +10,7 @@ import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static android.content.Context.ALARM_SERVICE;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_TIMEOUT_NEVER;
 import static com.best.deskclock.utils.AlarmUtils.ACTION_NEXT_ALARM_CHANGED_BY_CLOCK;
 
 import android.app.AlarmManager;
@@ -461,7 +462,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         // to be seen as missed but snoozed.
         // This avoids having to create multiple alarms for the same reason.
         final int timeoutMinutes = SettingsDAO.getAlarmTimeout(getDefaultSharedPreferences(context));
-        if (timeoutMinutes != -1) {
+        if (timeoutMinutes != ALARM_TIMEOUT_NEVER) {
             setSnoozeState(context, instance, true);
             return;
         }

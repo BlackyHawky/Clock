@@ -11,6 +11,7 @@ import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_TIMEOUT_AT_THE_END_OF_THE_RINGTONE;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -351,7 +352,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
 
     private void bindDismissAlarmWhenRingtoneEnds(Alarm alarm) {
         final int timeoutMinutes = SettingsDAO.getAlarmTimeout(mPrefs);
-        if (timeoutMinutes == -2) {
+        if (timeoutMinutes == ALARM_TIMEOUT_AT_THE_END_OF_THE_RINGTONE) {
             dismissAlarmWhenRingtoneEnds.setVisibility(GONE);
         } else {
             dismissAlarmWhenRingtoneEnds.setVisibility(VISIBLE);

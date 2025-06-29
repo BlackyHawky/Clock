@@ -7,6 +7,8 @@
 package com.best.deskclock.provider;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_TIMEOUT_AT_THE_END_OF_THE_RINGTONE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_TIMEOUT_NEVER;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -408,11 +410,11 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         Calendar calendar = getAlarmTime();
 
         // Alarm silence has been set to "Never"
-        if (timeoutMinutes == -1) {
+        if (timeoutMinutes == ALARM_TIMEOUT_NEVER) {
             return null;
         // Alarm silence has been set to "At the end of the ringtone"
         // or "Dismiss alarm when ringtone ends" has been ticked in the expanded alarm view
-        } else if (timeoutMinutes == -2 || mDismissAlarmWhenRingtoneEnds) {
+        } else if (timeoutMinutes == ALARM_TIMEOUT_AT_THE_END_OF_THE_RINGTONE || mDismissAlarmWhenRingtoneEnds) {
             int milliSeconds = RingtoneUtils.getRingtoneDuration(context, mRingtone);
             calendar.add(Calendar.MILLISECOND, milliSeconds);
         } else {
