@@ -347,7 +347,6 @@
     <string name="title_accent_color">Cor do acento</string>
     <string name="duplicate">Duplicar</string>
     <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Dispensar alarme quando o toque terminar</string>
-    <string name="enable_alarm_snooze_actions_label">Habilitar ações do alarme soneca</string>
     <string name="alarm_label_box_title">Nome do Alarme</string>
     <string name="interface_customization_settings">Interface</string>
     <string name="interface_customization_summary">Ajustar estilo e cor aplicados para o app</string>

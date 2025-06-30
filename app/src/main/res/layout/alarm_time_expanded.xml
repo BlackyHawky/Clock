@@ -202,21 +202,6 @@
         tools:checked="false" />
 
     <com.google.android.material.checkbox.MaterialCheckBox
-        android:id="@+id/alarm_snooze_actions_onoff"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginHorizontal="12dp"
-        android:background="?attr/selectableItemBackground"
-        android:button="@null"
-        android:drawableStart="@drawable/ic_repeat"
-        android:drawableEnd="@drawable/ic_selector_checkbox"
-        android:drawablePadding="10dp"
-        android:text="@string/enable_alarm_snooze_actions_label"
-        app:layout_constraintTop_toBottomOf="@id/dismiss_alarm_when_ringtone_ends_onoff"
-        tools:ignore="RtlSymmetry"
-        tools:checked="true" />
-
-    <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/vibrate_onoff"
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -227,7 +212,7 @@
         android:drawableEnd="@drawable/ic_selector_checkbox"
         android:drawablePadding="10dp"
         android:text="@string/alarm_vibrate"
-        app:layout_constraintTop_toBottomOf="@id/alarm_snooze_actions_onoff"
+        app:layout_constraintTop_toBottomOf="@id/dismiss_alarm_when_ringtone_ends_onoff"
         tools:ignore="RtlSymmetry"
         tools:checked="true" />
 
@@ -262,6 +247,39 @@
         tools:checked="true" />
 
     <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/snooze_duration_title"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="12dp"
+        android:background="?attr/selectableItemBackground"
+        android:drawableStart="@drawable/ic_snooze"
+        android:paddingStart="@null"
+        android:paddingEnd="10dp"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical"
+        android:focusable="true"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="@string/snooze_duration_title"
+        app:drawableTint="?attr/colorOnSurfaceVariant"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/snooze_duration_value"
+        app:layout_constraintTop_toBottomOf="@id/delete_occasional_alarm_after_use" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/snooze_duration_value"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginEnd="12dp"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:focusable="true"
+        android:singleLine="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/delete_occasional_alarm_after_use"
+        tools:text="1 min" />
+
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/crescendo_duration_title"
         android:layout_width="0dp"
         android:layout_height="48dp"
@@ -278,7 +296,7 @@
         android:text="@string/crescendo_duration_title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/crescendo_duration_value"
-        app:layout_constraintTop_toBottomOf="@id/delete_occasional_alarm_after_use" />
+        app:layout_constraintTop_toBottomOf="@id/snooze_duration_title" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/crescendo_duration_value"
@@ -290,7 +308,7 @@
         android:focusable="true"
         android:singleLine="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/delete_occasional_alarm_after_use"
+        app:layout_constraintTop_toBottomOf="@id/snooze_duration_title"
         tools:text="1 min" />
 
     <com.google.android.material.textview.MaterialTextView

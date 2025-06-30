@@ -390,7 +390,6 @@
     <string name="interface_customization_summary">Поставити стил и боју примењену на апликацију</string>
     <string name="auto_silence_at_the_end_of_the_ringtone">Крај мелодије</string>
     <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Одбаците аларм када мелодија заврши</string>
-    <string name="enable_alarm_snooze_actions_label">Омогућити акције одлагања аларма</string>
     <string name="alarm_label_box_title">Ознака аларма</string>
     <string name="FSN_permission_title">ОМОГУЋИ ОБАВЕШТЕЊА ПУНОГ ЕКРАНА</string>
     <string name="digital_widget_default_minutes_color_title">Употреба подразумеване боје за минуте</string>

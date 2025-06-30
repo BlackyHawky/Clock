@@ -370,7 +370,6 @@
     <string name="more_options">Více možností</string>
     <string name="red_accent_color">Červená</string>
     <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Ukončit budík po skončení vyzvánění</string>
-    <string name="enable_alarm_snooze_actions_label">Povolit odložení budíku</string>
     <string name="alarm_label_box_title">Štítek budíku</string>
     <string name="ringtone_category_title">Vyzvánění</string>
     <string name="actions_category_title">Akce</string>

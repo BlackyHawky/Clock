@@ -327,7 +327,6 @@
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> الارم 10 منٹ کیلئے اسنوز ہوگیا"</string>
     <string name="delete_occasional_alarm_after_use_title">برخاست ہونے کے بعد الارم کو حذف کریں</string>
     <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">رنگ ٹون ختم ہونے پر الارم کو برخاست کریں</string>
-    <string name="enable_alarm_snooze_actions_label">الارم اسنوز ایکشنز کو فعال کریں</string>
     <string name="alarm_label_box_title">الارم لیبل</string>
     <string name="alarm_alert_dismiss_and_delete_text">برخاست کریں اور حذف کریں</string>
     <string name="duplicate">نقل</string>

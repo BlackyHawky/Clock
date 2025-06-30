@@ -9,6 +9,7 @@ package com.best.deskclock.alarms;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_SNOOZE_DURATION_DISABLED;
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 
 import android.animation.Animator;
@@ -104,7 +105,6 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
     private PowerButtonBehavior mPowerBehavior;
     private float mAlarmTitleFontSize;
     private int mAlarmTitleColor;
-    private int mSnoozeMinutes;
     private boolean mIsSwipeActionEnabled;
     private boolean mReceiverRegistered;
     /**
@@ -236,7 +236,6 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
                 : SettingsDAO.getAlarmBackgroundColor(mPrefs);
         getWindow().setBackgroundDrawable(new ColorDrawable(alarmBackgroundColor));
 
-        mSnoozeMinutes = SettingsDAO.getSnoozeLength(mPrefs);
         mIsSwipeActionEnabled = SettingsDAO.isSwipeActionEnabled(mPrefs);
 
         int alarmClockColor = SettingsDAO.getAlarmClockColor(mPrefs);
@@ -292,7 +291,7 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
 
             mAlarmButton.setBackgroundColor(alarmButtonColor);
             mAlarmButton.setOnTouchListener(this);
-            if (mSnoozeMinutes == -1 || !mAlarmInstance.mAlarmSnoozeActions) {
+            if (mAlarmInstance.mSnoozeDuration == ALARM_SNOOZE_DURATION_DISABLED) {
                 if (isOccasionalAlarmDeletedAfterUse()) {
                     mAlarmButton.setContentDescription(getString(
                             R.string.description_direction_both_for_occasional_non_repeatable_alarm));
@@ -309,7 +308,7 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
                 }
             }
 
-            mSnoozeActionText.setText(mSnoozeMinutes == -1 || !mAlarmInstance.mAlarmSnoozeActions
+            mSnoozeActionText.setText(mAlarmInstance.mSnoozeDuration == ALARM_SNOOZE_DURATION_DISABLED
                     ? getString(R.string.button_action_dismiss) : getString(R.string.button_action_snooze));
             mSnoozeActionText.setTextColor(snoozeTitleColor);
 
@@ -401,7 +400,7 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
             mSnoozeButton.setBackgroundColor(SettingsDAO.getSnoozeButtonColor(mPrefs, this));
             mDismissButton.setBackgroundColor(SettingsDAO.getDismissButtonColor(mPrefs, this));
 
-            if (mSnoozeMinutes == -1 || !mAlarmInstance.mAlarmSnoozeActions) {
+            if (mAlarmInstance.mSnoozeDuration == ALARM_SNOOZE_DURATION_DISABLED) {
                 mSnoozeButton.setText(getString(R.string.button_action_dismiss));
 
                 if (isOccasionalAlarmDeletedAfterUse()) {
@@ -722,7 +721,7 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
         LOGGER.v("Snoozed: %s", mAlarmInstance);
 
         // If snooze duration has been set to "None", simply dismiss the alarm.
-        if (mSnoozeMinutes == -1 || !mAlarmInstance.mAlarmSnoozeActions) {
+        if (mAlarmInstance.mSnoozeDuration == ALARM_SNOOZE_DURATION_DISABLED) {
             int titleResId;
             int action;
 
@@ -740,10 +739,11 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
 
             Events.sendAlarmEvent(action, R.string.label_deskclock);
         } else {
+            int snoozeDuration = mAlarmInstance.mSnoozeDuration;
             final String infoText = getResources().getQuantityString(
-                    R.plurals.alarm_alert_snooze_duration, mSnoozeMinutes, mSnoozeMinutes);
+                    R.plurals.alarm_alert_snooze_duration, snoozeDuration, snoozeDuration);
             final String accessibilityText = getResources().getQuantityString(
-                    R.plurals.alarm_alert_snooze_set, mSnoozeMinutes, mSnoozeMinutes);
+                    R.plurals.alarm_alert_snooze_set, snoozeDuration, snoozeDuration);
 
             showAlert(R.string.alarm_alert_snoozed_text, infoText, accessibilityText);
 

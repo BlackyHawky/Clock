@@ -355,7 +355,6 @@
     <string name="settings_vibration_title">啟用震動</string>
     <string name="permission_granted">已授予</string>
     <string name="permission_dialog_close_button">關閉</string>
-    <string name="enable_alarm_snooze_actions_label">啟用鬧鐘延後動作</string>
     <string name="material_you_digital_widget">Material You 數位時鐘</string>
     <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">鈴聲結束時關閉鬧鐘</string>
     <string name="alarm_label_box_title">鬧鐘標籤</string>

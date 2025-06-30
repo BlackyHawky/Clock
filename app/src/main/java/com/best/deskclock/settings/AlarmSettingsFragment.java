@@ -43,6 +43,7 @@ import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
+import com.best.deskclock.AlarmSnoozeDurationDialogFragment;
 import com.best.deskclock.R;
 import com.best.deskclock.VolumeCrescendoDurationDialogFragment;
 import com.best.deskclock.alarms.AlarmUpdateHandler;
@@ -256,9 +257,9 @@ public class AlarmSettingsFragment extends ScreenFragment
     @Override
     public void onDisplayPreferenceDialog(@NonNull Preference pref) {
         if (pref instanceof AlarmSnoozeDurationPreference alarmSnoozeDurationPreference) {
-            int currentDelay = alarmSnoozeDurationPreference.getRepeatDelayMinutes();
+            int currentValue = alarmSnoozeDurationPreference.getSnoozeDuration();
             AlarmSnoozeDurationDialogFragment dialogFragment =
-                    AlarmSnoozeDurationDialogFragment.newInstance(pref.getKey(), currentDelay);
+                    AlarmSnoozeDurationDialogFragment.newInstance(pref.getKey(), currentValue);
             AlarmSnoozeDurationDialogFragment.show(getParentFragmentManager(), dialogFragment);
         } else if (pref instanceof VolumeCrescendoDurationPreference volumeCrescendoDurationPreference) {
             int currentValue = volumeCrescendoDurationPreference.getVolumeCrescendoDuration();
@@ -288,7 +289,7 @@ public class AlarmSettingsFragment extends ScreenFragment
                     if (key != null) {
                         AlarmSnoozeDurationPreference pref = findPreference(key);
                         if (pref != null) {
-                            pref.setRepeatDelayMinutes(newValue);
+                            pref.setSnoozeDuration(newValue);
                             pref.setSummary(pref.getSummary());
                         }
                     }

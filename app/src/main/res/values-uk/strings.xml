@@ -447,7 +447,6 @@
     <string name="screensaver_bold_date_title">Дата жирним</string>
     <string name="settings_vibration_summary">Впливає лише на деякі кнопки (напр., запуск/пауза таймера або перемикачі)</string>
     <string name="alarm_label_box_title">Мітка будильника</string>
-    <string name="enable_alarm_snooze_actions_label">Увімкнути дії відкладення будильника</string>
     <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Вимкнути будильник після відтворення сигналу</string>
     <string name="timer_add_custom_time">+%s</string>
     <string name="timer_label_box_title">Мітка таймера</string>

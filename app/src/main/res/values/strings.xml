@@ -17,8 +17,6 @@
     <string name="alarm_flash">Flash</string>
     <!-- Setting labels on Set alarm screen: Dismiss alarm when ringtone ends on or off -->
     <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Dismiss alarm when ringtone ends</string>
-    <!-- Setting labels on Set alarm screen: Enable alarm snooze actions on or off -->
-    <string name="enable_alarm_snooze_actions_label">Enable alarm snooze actions</string>
     <!-- Setting labels on Set alarm screen: Delete alarm once dismissed on or off -->
     <string name="delete_occasional_alarm_after_use_title">Delete alarm once dismissed</string>
     <!-- Title of dialog box to choose the alarm time -->

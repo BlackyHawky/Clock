@@ -520,7 +520,6 @@
     <string name="notifications_dialog_title">알림</string>
     <string name="digital_widget_city_name_custom_color_title">도시 이름 색상</string>
     <string name="delete_occasional_alarm_after_use_title">알람을 해제하면 알람 삭제</string>
-    <string name="enable_alarm_snooze_actions_label">알람 잠시 미루기 동작 사용</string>
     <string name="seconds_hand_color_title">초침 색상</string>
     <string name="screensaver_daydream_settings">화면 보호기 선택 및 사용 설정</string>
     <string name="timer_flip_action_title">기기를 뒤집어 알람 중지</string>

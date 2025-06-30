@@ -93,6 +93,12 @@ public final class ClockContract {
         String RINGTONE = "ringtone";
 
         /**
+         * Alarm snooze duration.
+         * <p>Type: INTEGER</p>
+         */
+        String SNOOZE_DURATION = "snoozeDuration";
+
+        /**
          * Alarm crescendo duration.
          * <p>Type: INTEGER</p>
          */

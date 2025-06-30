@@ -428,7 +428,6 @@
     <string name="title_accent_color">Цвет акцента</string>
     <string name="title_dark_theme_mode">Режим тёмной темы</string>
     <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Отключить будильник, когда звук рингтона останавливается</string>
-    <string name="enable_alarm_snooze_actions_label">Включить действия откладывания будильника</string>
     <string name="credits">Благодарность</string>
     <string name="screensaver_daydream_settings_summary">Открывает настройки заставки Андроид</string>
     <string name="screensaver_italic_next_alarm_title">Курсивный шрифт следующего будильника</string>

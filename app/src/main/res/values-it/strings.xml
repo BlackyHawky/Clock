@@ -402,7 +402,6 @@
     <string name="credits">Riconoscimenti</string>
     <string name="dialog_close">Chiudi</string>
     <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Disattiva la sveglia al termine della suoneria</string>
-    <string name="enable_alarm_snooze_actions_label">Abilita le azioni di rimando della sveglia</string>
     <string name="alarm_label_box_title">Etichetta sveglia</string>
     <string name="screensaver_italic_next_alarm_title">Prossima sveglia in corsivo</string>
     <string name="font_category_title">Carattere</string>

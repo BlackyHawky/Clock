@@ -339,7 +339,6 @@
     <string name="timer_button_time_minutes_warning_box_text">0 ile 60 dakika arasında bir değer girin</string>
     <string name="clock_style_analog_material">Analog (Materyal)</string>
     <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Zil sesi sona erince alarmı kapat</string>
-    <string name="enable_alarm_snooze_actions_label">Alarm erteleme eylemlerini etkinleştir</string>
     <string name="alarm_label_box_title">Alarm etiketi</string>
     <string name="miscellaneous_category_title">Çeşitli</string>
     <string name="ringtone_category_title">Zil sesi</string>

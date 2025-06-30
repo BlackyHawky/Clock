@@ -420,7 +420,6 @@
     <string name="alarm_settings_summary">Uiterlijk, standaard geluid, volume, sluimeracties, eerste weekdag, herinneringstijd aanpassen</string>
     <string name="widget_next_alarm_default_color_title">Standaardkleur voor volgende wekker</string>
     <string name="digital_widget_message_summary">\"Steden op widget tonen\" moet uitgeschakeld zijn voor deze optie</string>
-    <string name="enable_alarm_snooze_actions_label">Sluimeracties inschakelen</string>
     <string name="alarm_label_box_title">Wekkerlabel</string>
     <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Wekker uitzetten als geluid eindigt</string>
     <string name="actions_category_title">Acties</string>

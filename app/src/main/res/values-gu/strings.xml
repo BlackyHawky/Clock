@@ -326,7 +326,6 @@
     <string name="no_firing_alarms" msgid="4986161963178722289">"કોઇ ચાલુ એલાર્મ્સ નથી"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> એલાર્મ 10 મિનિટ માટે સ્નુઝ કર્યો"</string>
     <string name="delete_occasional_alarm_after_use_title">અલાર્મ બંદ કરિયા પછી એને કાઢી નાખો</string>
-    <string name="enable_alarm_snooze_actions_label">અલાર્મ સ્નૂજ ચાલુ કરો</string>
     <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">રિંગટોન પતે તો અલાર્મ બંદ કરો</string>
     <string name="alarm_label_box_title">લેબલ</string>
     <string name="alarm_flash">ટોર્ચ</string>

@@ -10,6 +10,7 @@ import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static android.content.Context.ALARM_SERVICE;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_SNOOZE_DURATION_DISABLED;
 import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_TIMEOUT_NEVER;
 import static com.best.deskclock.utils.AlarmUtils.ACTION_NEXT_ALARM_CHANGED_BY_CLOCK;
 
@@ -401,11 +402,11 @@ public final class AlarmStateManager extends BroadcastReceiver {
      */
     public static void setSnoozeState(final Context context, AlarmInstance instance, boolean showToast) {
         final SharedPreferences prefs = getDefaultSharedPreferences(context);
-        final int snoozeMinutes = SettingsDAO.getSnoozeLength(prefs);
+        final int snoozeMinutes = instance.mSnoozeDuration;
         Calendar newAlarmTime = Calendar.getInstance();
         // If the "Snooze duration" setting has been set to "None" or if "Enable alarm snooze actions"
         // is not enabled in the expanded alarm view, simply dismiss the alarm.
-        if (snoozeMinutes == -1 || !instance.mAlarmSnoozeActions) {
+        if (snoozeMinutes == ALARM_SNOOZE_DURATION_DISABLED) {
             deleteInstanceAndUpdateParent(context, instance);
             return;
         }

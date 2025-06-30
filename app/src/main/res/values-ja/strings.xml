@@ -358,7 +358,6 @@
     <string name="delete_occasional_alarm_after_use_title">アラームを一度停止したら削除する</string>
     <string name="title_dark_theme_mode">ダークテーマモード</string>
     <string name="title_accent_color">アクセントカラー</string>
-    <string name="enable_alarm_snooze_actions_label">アラームのスヌーズ操作を有効にする</string>
     <string name="add_label">ラベルを追加</string>
     <string name="timer_add_custom_time">+ %s</string>
     <string name="green_accent_color">緑色</string>

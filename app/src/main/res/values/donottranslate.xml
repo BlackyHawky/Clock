@@ -57,8 +57,8 @@
     <string name="action_toggle_vibrate">Toggle Vibrate</string>
     <string name="action_toggle_flash">Toggle Flash</string>
     <string name="action_toggle_dismiss_alarm_when_ringtone_ends">Toggle Dismiss Alarm When Ringtone Ends</string>
-    <string name="action_toggle_alarm_snooze_actions">Toggle Alarm Snooze Actions</string>
     <string name="action_delete_alarm_after_use">Delete Alarm After Use</string>
+    <string name="action_set_snooze_duration">Set Snooze Duration</string>
     <string name="action_set_crescendo_duration">Set Crescendo Duration</string>
 
     <!-- Label names for events describe the entity responsible for the event. -->

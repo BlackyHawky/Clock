@@ -23,6 +23,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.best.deskclock.AlarmClockFragment;
+import com.best.deskclock.AlarmSnoozeDurationDialogFragment;
 import com.best.deskclock.LabelDialogFragment;
 import com.best.deskclock.R;
 import com.best.deskclock.VolumeCrescendoDurationDialogFragment;
@@ -102,16 +103,6 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
         }
     }
 
-    public void setAlarmSnoozeActionsEnabled(Alarm alarm, boolean newState) {
-        if (newState != alarm.alarmSnoozeActions) {
-            alarm.alarmSnoozeActions = newState;
-            Events.sendAlarmEvent(R.string.action_toggle_alarm_snooze_actions, R.string.label_deskclock);
-            mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
-            LOGGER.d("Updating snooze alarm state to " + newState);
-            Utils.setVibrationTime(mContext, 50);
-        }
-    }
-
     public void setAlarmVibrationEnabled(Alarm alarm, boolean newState) {
         if (newState != alarm.vibrate) {
             alarm.vibrate = newState;
@@ -144,6 +135,13 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
             LOGGER.d("Delete alarm after use state to " + newState);
             Utils.setVibrationTime(mContext, 50);
         }
+    }
+
+    public void setSnoozeDuration(Alarm alarm) {
+        Events.sendAlarmEvent(R.string.action_set_snooze_duration, R.string.label_deskclock);
+        final AlarmSnoozeDurationDialogFragment fragment =
+                AlarmSnoozeDurationDialogFragment.newInstance(alarm, alarm.snoozeDuration, mFragment.getTag());
+        AlarmSnoozeDurationDialogFragment.show(mFragment.getParentFragmentManager(), fragment);
     }
 
     public void setCrescendoDuration(Alarm alarm) {
@@ -382,10 +380,10 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
             alarm.minutes = minute;
             alarm.enabled = true;
             alarm.dismissAlarmWhenRingtoneEnds = false;
-            alarm.alarmSnoozeActions = true;
             alarm.vibrate = SettingsDAO.areAlarmVibrationsEnabledByDefault(prefs);
             alarm.flash = SettingsDAO.shouldTurnOnBackFlashForTriggeredAlarm(prefs);
             alarm.deleteAfterUse = SettingsDAO.isOccasionalAlarmDeletedByDefault(prefs);
+            alarm.snoozeDuration = SettingsDAO.getSnoozeLength(prefs);
             alarm.crescendoDuration = SettingsDAO.getAlarmVolumeCrescendoDuration(prefs);
             mAlarmUpdateHandler.asyncAddAlarm(alarm);
         } else {

@@ -334,7 +334,6 @@
     <string name="sort_timer_ascending_duration">ಅವಧಿಯ ಪ್ರಕಾರ (ಆರೋಹಣ ಕ್ರಮ)</string>
     <string name="sort_timer_descending_duration">ಅವಧಿಯ ಪ್ರಕಾರ (ಅವರೋಹಣ ಕ್ರಮ)</string>
     <string name="timer_flip_action_title">ಗಡಿಯಾರದ ಯೆಚ್ಚರಿಕೆಯನ್ನು ನಿಲ್ಲಿಸಲು, ಸಾಧನವನ್ನು ತಿರುಗಿಸಿ</string>
-    <string name="enable_alarm_snooze_actions_label">ಅಲಾರಾಂ ಸ್ನೂಜ್ ಕ್ರಿಯೆಗಳನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ</string>
     <string name="alarm_label_box_title">ಗಡಿಯಾರ ಅಲಾರಾಂ ಲೇಬಲ್</string>
     <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">ರಿಂಗ್‌ಟೋನ್ ಮುಗಿದಾಗ ಅಲಾರಾಂ ಅನ್ನು ವಜಾಗೊಳಿಸಿ</string>
     <string name="delete_occasional_alarm_after_use_title">ಒಮ್ಮೆ ವಜಾಗೊಳಿಸಿದ ಗಡಿಯಾರ ಎಚ್ಚರಿಕೆಯನ್ನು ಅಳಿಸಿ</string>

@@ -332,7 +332,6 @@
     <string name="alarm_alert_off_and_deleted_text">Alarm mati dan dihapus</string>
     <string name="vertical_digital_widget">Jam digital vertikal</string>
     <string name="next_alarm_widget">Alarm selanjutnya</string>
-    <string name="enable_alarm_snooze_actions_label">Aktifkan tindakan tunda alarm</string>
     <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Abaikan alarm saat nada dering berakhir</string>
     <string name="occasional_alarm_alert_predismiss_title">Alarm sesekali yang akan datang</string>
 </resources>

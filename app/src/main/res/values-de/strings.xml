@@ -334,7 +334,6 @@
     <string name="alarm_upcoming_channel">Anstehende Alarme</string>
     <string name="stopwatch_channel">Stoppuhr</string>
     <string name="timer_channel">Timer</string>
-    <string name="enable_alarm_snooze_actions_label">Schlummerfunktion für Alarm aktivieren</string>
     <string name="selected">Ausgewählt</string>
     <string name="alarm_label_box_title">Alarm-Name</string>
     <string name="alarm_settings_summary">Stil, Standardsignalton, Lautstärke, Aktionen zum Ausschalten oder Schlummern von Alarmen, erster Wochentag und Benachrichtigung über anstehende Alarme einstellen</string>

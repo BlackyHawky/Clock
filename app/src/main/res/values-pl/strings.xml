@@ -499,7 +499,6 @@
     <string name="digital_widget_date_custom_color_title">Niestandardowy kolor daty</string>
     <string name="permission_requirement_title">Wymagania:</string>
     <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Wyłącz alarm po zakończeniu dzwonka</string>
-    <string name="enable_alarm_snooze_actions_label">Włącz drzemkę</string>
     <string name="alarm_label_box_title">Etykieta alarmu</string>
     <string name="style_category_title">Styl</string>
     <string name="ignore_battery_optimizations_dialog_title">Optymalizacja baterii</string>

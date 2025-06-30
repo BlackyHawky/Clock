@@ -348,7 +348,6 @@
     <string name="label_default">Per defecte</string>
     <string name="duplicate">Duplica</string>
     <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Atura en finalitzar el to d\'alarma</string>
-    <string name="enable_alarm_snooze_actions_label">Habilita l\'ajornament de l\'alarma</string>
     <string name="alarm_label_box_title">Etiqueta d\'alarma</string>
     <string name="delete_occasional_alarm_after_use_title">Suprimeix l\'alarma en aturar-la</string>
     <string name="selected">Seleccionat</string>

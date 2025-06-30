@@ -386,7 +386,6 @@
     <string name="digital_widget_city_name_default_color_title">Utilizar color por defecto para el nombre de la ciudad</string>
     <string name="FSN_dialog_title">Notificaciones de Pantalla Completa</string>
     <string name="digital_widget_city_name_custom_color_title">Color personalizado de nombre de ciudad</string>
-    <string name="enable_alarm_snooze_actions_label">Activar acciones para posponer la alarma</string>
     <string name="version">Versión</string>
     <string name="app_slogan">Reloj 100% FOSS, basado en AOSP</string>
     <string name="gnu_gpl">Licencia Pública General de GNU v.3.0</string>

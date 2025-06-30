@@ -109,10 +109,10 @@ public final class AlarmUpdateHandler {
                     // exactly which minor field changed, so just copy them all.
                     newInstance.mLabel = alarm.label;
                     newInstance.mDismissAlarmWhenRingtoneEnds = alarm.dismissAlarmWhenRingtoneEnds;
-                    newInstance.mAlarmSnoozeActions = alarm.alarmSnoozeActions;
                     newInstance.mVibrate = alarm.vibrate;
                     newInstance.mFlash = alarm.flash;
                     newInstance.mRingtone = alarm.alert;
+                    newInstance.mSnoozeDuration = alarm.snoozeDuration;
                     newInstance.mCrescendoDuration = alarm.crescendoDuration;
                     // Since we copied the mId of the old instance and the mId is used
                     // as the primary key in the AlarmInstance table, this will replace
