@@ -75,7 +75,8 @@ import com.google.android.material.snackbar.Snackbar;
  * clocks, timers and stopwatch.
  */
 public class DeskClock extends AppCompatActivity
-        implements FabContainer, LabelDialogFragment.AlarmLabelDialogHandler {
+        implements FabContainer, LabelDialogFragment.AlarmLabelDialogHandler,
+        VolumeCrescendoDurationDialogFragment.VolumeCrescendoDurationDialogHandler {
 
     public static final int REQUEST_CHANGE_SETTINGS = 10;
     public static final int REQUEST_CHANGE_PERMISSIONS = 20;
@@ -456,6 +457,17 @@ public class DeskClock extends AppCompatActivity
             ((AlarmClockFragment) frag).setLabel(alarm, label);
             // Update the alarm title in the “Next alarm” widget
             sendBroadcast(new Intent(ACTION_NEXT_ALARM_LABEL_CHANGED));
+        }
+    }
+
+    /**
+     * Called by the VolumeCrescendoDurationDialogFragment class after the dialog is finished.
+     */
+    @Override
+    public void onDialogCrescendoDurationSet(Alarm alarm, int crescendoDuration, String tag) {
+        final Fragment frag = getSupportFragmentManager().findFragmentByTag(tag);
+        if (frag instanceof AlarmClockFragment) {
+            ((AlarmClockFragment) frag).setCrescendoDuration(alarm, crescendoDuration);
         }
     }
 

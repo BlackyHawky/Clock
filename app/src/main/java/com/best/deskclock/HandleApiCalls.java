@@ -530,8 +530,8 @@ public class HandleApiCalls extends Activity {
      *
      * <p>This method sets the alarm's behavior based on user preferences stored in
      * {@link SharedPreferences}. It is typically used when creating a new alarm to ensure
-     * consistency with global settings such as vibration, flash, ringtone timeout, and
-     * auto-deletion after use.</p>
+     * consistency with global settings such as vibration, flash, ringtone timeout,
+     * auto-deletion after use and the crescendo duration.</p>
      *
      * @param alarm the {@link Alarm} object to which default settings will be applied
      * @param prefs the {@link SharedPreferences} containing the user's default alarm preferences
@@ -543,6 +543,7 @@ public class HandleApiCalls extends Activity {
         alarm.vibrate = SettingsDAO.areAlarmVibrationsEnabledByDefault(prefs);
         alarm.flash = SettingsDAO.shouldTurnOnBackFlashForTriggeredAlarm(prefs);
         alarm.deleteAfterUse = SettingsDAO.isOccasionalAlarmDeletedByDefault(prefs);
+        alarm.crescendoDuration = SettingsDAO.getAlarmVolumeCrescendoDuration(prefs);
     }
 
     private static String getLabelFromIntent(Intent intent, String defaultLabel) {

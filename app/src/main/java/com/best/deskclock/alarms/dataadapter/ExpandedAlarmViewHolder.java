@@ -78,6 +78,8 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     private final CheckBox vibrate;
     private final CheckBox flash;
     private final CheckBox deleteOccasionalAlarmAfterUse;
+    private final TextView crescendoDurationTitle;
+    private final TextView crescendoDurationValue;
     private final Chip delete;
     private final Chip duplicate;
 
@@ -106,6 +108,8 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         vibrate = itemView.findViewById(R.id.vibrate_onoff);
         flash = itemView.findViewById(R.id.flash_onoff);
         deleteOccasionalAlarmAfterUse = itemView.findViewById(R.id.delete_occasional_alarm_after_use);
+        crescendoDurationTitle = itemView.findViewById(R.id.crescendo_duration_title);
+        crescendoDurationValue = itemView.findViewById(R.id.crescendo_duration_value);
         delete = itemView.findViewById(R.id.delete);
         duplicate = itemView.findViewById(R.id.duplicate);
 
@@ -185,6 +189,10 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         deleteOccasionalAlarmAfterUse.setOnClickListener(v ->
                 getAlarmTimeClickHandler().deleteOccasionalAlarmAfterUse(getItemHolder().item, ((CheckBox) v).isChecked()));
 
+        crescendoDurationTitle.setOnClickListener(v -> getAlarmTimeClickHandler().setCrescendoDuration(getItemHolder().item));
+
+        crescendoDurationValue.setOnClickListener(v -> getAlarmTimeClickHandler().setCrescendoDuration(getItemHolder().item));
+
         // Delete alarm handler
         delete.setOnClickListener(v -> {
             getAlarmTimeClickHandler().onDeleteClicked(getItemHolder());
@@ -217,6 +225,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         bindFlash(alarm);
         bindDeleteOccasionalAlarmAfterUse(alarm);
         bindEditLabelAnnotations(alarm);
+        bindCrescendoValue(context, alarm);
 
         // If this view is bound without coming from a CollapsedAlarmViewHolder (e.g.
         // when calling expand() before this alarm was visible in it's collapsed state),
@@ -239,6 +248,8 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         ringtone.setAlpha(1f);
         dismissAlarmWhenRingtoneEnds.setAlpha(1f);
         alarmSnoozeActions.setAlpha(1f);
+        crescendoDurationTitle.setAlpha(1f);
+        crescendoDurationValue.setAlpha(1f);
         preemptiveDismissButton.setAlpha(1f);
         vibrate.setAlpha(1f);
         flash.setAlpha(1f);
@@ -255,6 +266,26 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         editLabel.setContentDescription(alarmLabelIsEmpty
                 ? context.getString(R.string.no_label_specified)
                 : context.getString(R.string.label_description) + " " + alarm.label);
+    }
+
+    private void bindCrescendoValue(Context context, Alarm alarm) {
+        int crescendoDuration = alarm.crescendoDuration;
+
+        int m = crescendoDuration / 60;
+        int s = crescendoDuration % 60;
+
+        if (m > 0 && s > 0) {
+            String minutesString = context.getResources().getQuantityString(R.plurals.minutes_short, m, m);
+            String secondsString = s + " " + context.getString(R.string.seconds_label);
+            crescendoDurationValue.setText(String.format("%s %s", minutesString, secondsString));
+        } else if (m > 0) {
+            crescendoDurationValue.setText(context.getResources().getQuantityString(R.plurals.minutes_short, m, m));
+        } else if (crescendoDuration == DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION) {
+            crescendoDurationValue.setText(context.getString(R.string.label_off));
+        } else {
+            String secondsString = s + " " + context.getString(R.string.seconds_label);
+            crescendoDurationValue.setText(secondsString);
+        }
     }
 
     private void bindDaysOfWeekButtons(Alarm alarm, Context context) {
@@ -526,6 +557,12 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         final Animator deleteOccasionalAlarmAfterUseAnimation = ObjectAnimator.ofFloat(
                 deleteOccasionalAlarmAfterUse, View.ALPHA, 0f).setDuration(shortDuration);
 
+        final Animator crescendoDurationTitleAnimation = ObjectAnimator.ofFloat(
+                crescendoDurationTitle, View.ALPHA, 0f).setDuration(shortDuration);
+
+        final Animator crescendoDurationValueAnimation = ObjectAnimator.ofFloat(
+                crescendoDurationValue, View.ALPHA, 0f).setDuration(shortDuration);
+
         final Animator dismissAnimation = ObjectAnimator.ofFloat(preemptiveDismissButton,
                 View.ALPHA, 0f).setDuration(shortDuration);
 
@@ -560,6 +597,10 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
             startDelay += delayIncrement;
             dismissAnimation.setStartDelay(startDelay);
         }
+
+        crescendoDurationTitleAnimation.setStartDelay(startDelay);
+
+        crescendoDurationValueAnimation.setStartDelay(startDelay);
 
         if (deleteOccasionalAlarmAfterUseVisible) {
             startDelay += delayIncrement;
@@ -605,7 +646,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
                 vibrateAnimation, ringtoneAnimation, deleteAnimation, duplicateAnimation,
                 dismissAnimation, alarmSnoozeActionsAnimation, switchAnimator, clockAnimator,
                 ellipseAnimator, scheduleAlarmAnimation, selectedDateAnimation, addDateAnimation,
-                removeDateAnimation);
+                removeDateAnimation, crescendoDurationTitleAnimation, crescendoDurationValueAnimation);
 
         animatorSet.addListener(new AnimatorListenerAdapter() {
 
@@ -647,6 +688,8 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         vibrate.setAlpha(0f);
         flash.setAlpha(0f);
         deleteOccasionalAlarmAfterUse.setAlpha(0f);
+        crescendoDurationTitle.setAlpha(0f);
+        crescendoDurationValue.setAlpha(0f);
         delete.setAlpha(0f);
         duplicate.setAlpha(0f);
         setChangingViewsAlpha(0f);
@@ -701,6 +744,12 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
 
         final Animator deleteOccasionalAlarmAfterUseAnimation = ObjectAnimator.ofFloat(
                 deleteOccasionalAlarmAfterUse, View.ALPHA, 1f).setDuration(longDuration);
+
+        final Animator crescendoDurationTitleAnimation = ObjectAnimator.ofFloat(
+                crescendoDurationTitle, View.ALPHA, 1f).setDuration(longDuration);
+
+        final Animator crescendoDurationValueAnimation = ObjectAnimator.ofFloat(
+                crescendoDurationValue, View.ALPHA, 1f).setDuration(longDuration);
 
         final Animator dismissAnimation = ObjectAnimator.ofFloat(preemptiveDismissButton, View.ALPHA, 1f)
                 .setDuration(longDuration);
@@ -768,6 +817,10 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
             startDelay += delayIncrement;
         }
 
+        crescendoDurationTitleAnimation.setStartDelay(startDelay);
+
+        crescendoDurationValueAnimation.setStartDelay(startDelay);
+
         if (preemptiveDismissButtonVisible) {
             dismissAnimation.setStartDelay(startDelay);
             startDelay += delayIncrement;
@@ -783,7 +836,8 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
                 dismissAlarmWhenRingtoneEndsAnimation, deleteOccasionalAlarmAfterUseAnimation,
                 ringtoneAnimation, deleteAnimation, duplicateAnimation, dismissAnimation,
                 alarmSnoozeActionsAnimation, arrowAnimation, scheduleAlarmAnimation,
-                selectedDateAnimation, addDateAnimation, removeDateAnimation);
+                selectedDateAnimation, addDateAnimation, removeDateAnimation,
+                crescendoDurationTitleAnimation, crescendoDurationValueAnimation);
 
         animatorSet.addListener(new AnimatorListenerAdapter() {
 

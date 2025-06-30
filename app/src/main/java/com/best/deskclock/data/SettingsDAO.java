@@ -30,7 +30,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.net.Uri;
-import android.text.format.DateUtils;
 
 import androidx.annotation.NonNull;
 
@@ -538,12 +537,11 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return the duration, in milliseconds, of the crescendo to apply to alarm ringtone playback;
+     * @return the duration, in seconds, of the crescendo to apply to alarm ringtone playback;
      * {@code 0} implies no crescendo should be applied.
      */
-    public static long getAlarmVolumeCrescendoDuration(SharedPreferences prefs) {
-        return prefs.getInt(KEY_ALARM_VOLUME_CRESCENDO_DURATION,
-                DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION) * DateUtils.SECOND_IN_MILLIS;
+    public static int getAlarmVolumeCrescendoDuration(SharedPreferences prefs) {
+        return prefs.getInt(KEY_ALARM_VOLUME_CRESCENDO_DURATION, DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION);
     }
 
     /**
@@ -582,12 +580,11 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return the duration, in milliseconds, of the crescendo to apply to timer ringtone playback;
+     * @return the duration, in seconds, of the crescendo to apply to timer ringtone playback;
      * {@code 0} implies no crescendo should be applied.
      */
-    public static long getTimerVolumeCrescendoDuration(SharedPreferences prefs) {
-        return prefs.getInt(KEY_TIMER_VOLUME_CRESCENDO_DURATION,
-                DEFAULT_TIMER_VOLUME_CRESCENDO_DURATION) * DateUtils.SECOND_IN_MILLIS;
+    public static int getTimerVolumeCrescendoDuration(SharedPreferences prefs) {
+        return prefs.getInt(KEY_TIMER_VOLUME_CRESCENDO_DURATION, DEFAULT_TIMER_VOLUME_CRESCENDO_DURATION);
     }
 
     /**

@@ -80,10 +80,15 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
      */
     private static final int VERSION_15 = 16;
 
+    /**
+     * Add the ability to set the volume crescendo duration per alarm
+     */
+    private static final int VERSION_16 = 17;
+
     private static final String SELECTED_CITIES_TABLE_NAME = "selected_cities";
 
     public ClockDatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, VERSION_15);
+        super(context, DATABASE_NAME, null, VERSION_16);
     }
 
     private static void createAlarmsTable(SQLiteDatabase db, String alarmsTableName) {
@@ -103,6 +108,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                 ClockContract.AlarmsColumns.LABEL + " TEXT NOT NULL, " +
                 ClockContract.AlarmsColumns.RINGTONE + " TEXT, " +
                 ClockContract.AlarmsColumns.DELETE_AFTER_USE + " INTEGER NOT NULL DEFAULT 0, " +
+                ClockContract.AlarmsColumns.CRESCENDO_DURATION + " INTEGER NOT NULL DEFAULT 0, " +
                 ClockContract.AlarmsColumns.INCREASING_VOLUME + " INTEGER NOT NULL DEFAULT 0);");
         LogUtils.i("Alarms Table created");
     }
@@ -122,6 +128,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                 ClockContract.InstancesColumns.LABEL + " TEXT NOT NULL, " +
                 ClockContract.InstancesColumns.RINGTONE + " TEXT, " +
                 ClockContract.InstancesColumns.ALARM_STATE + " INTEGER NOT NULL, " +
+                ClockContract.InstancesColumns.CRESCENDO_DURATION + " INTEGER NOT NULL, " +
                 ClockContract.InstancesColumns.ALARM_ID + " INTEGER REFERENCES " +
                 ALARMS_TABLE_NAME + "(" + ClockContract.AlarmsColumns._ID + ") " +
                 "ON UPDATE CASCADE ON DELETE CASCADE, " +
@@ -327,6 +334,11 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
             db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME + " ADD COLUMN day INTEGER NOT NULL DEFAULT 0;");
 
             db.execSQL("UPDATE " + ALARMS_TABLE_NAME + " SET year = " + year + ", month = " + month + ", day = " + day + ";");
+        }
+
+        if (oldVersion < VERSION_16) {
+            db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME + " ADD COLUMN crescendoDuration" + " INTEGER NOT NULL DEFAULT 0;");
+            db.execSQL("ALTER TABLE " + INSTANCES_TABLE_NAME + " ADD COLUMN crescendoDuration" + " INTEGER NOT NULL DEFAULT 0;");
         }
     }
 

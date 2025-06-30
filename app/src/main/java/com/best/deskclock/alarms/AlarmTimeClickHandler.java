@@ -25,6 +25,7 @@ import androidx.fragment.app.Fragment;
 import com.best.deskclock.AlarmClockFragment;
 import com.best.deskclock.LabelDialogFragment;
 import com.best.deskclock.R;
+import com.best.deskclock.VolumeCrescendoDurationDialogFragment;
 import com.best.deskclock.alarms.dataadapter.AlarmItemHolder;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.events.Events;
@@ -143,6 +144,13 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
             LOGGER.d("Delete alarm after use state to " + newState);
             Utils.setVibrationTime(mContext, 50);
         }
+    }
+
+    public void setCrescendoDuration(Alarm alarm) {
+        Events.sendAlarmEvent(R.string.action_set_crescendo_duration, R.string.label_deskclock);
+        final VolumeCrescendoDurationDialogFragment fragment =
+                VolumeCrescendoDurationDialogFragment.newInstance(alarm, alarm.crescendoDuration, mFragment.getTag());
+        VolumeCrescendoDurationDialogFragment.show(mFragment.getParentFragmentManager(), fragment);
     }
 
     public void setDayOfWeekEnabled(Alarm alarm, boolean checked, int index) {
@@ -378,6 +386,7 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
             alarm.vibrate = SettingsDAO.areAlarmVibrationsEnabledByDefault(prefs);
             alarm.flash = SettingsDAO.shouldTurnOnBackFlashForTriggeredAlarm(prefs);
             alarm.deleteAfterUse = SettingsDAO.isOccasionalAlarmDeletedByDefault(prefs);
+            alarm.crescendoDuration = SettingsDAO.getAlarmVolumeCrescendoDuration(prefs);
             mAlarmUpdateHandler.asyncAddAlarm(alarm);
         } else {
             mSelectedAlarm.hour = hourOfDay;

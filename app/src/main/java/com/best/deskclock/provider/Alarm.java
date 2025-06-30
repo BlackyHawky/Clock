@@ -68,6 +68,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             LABEL,
             RINGTONE,
             DELETE_AFTER_USE,
+            CRESCENDO_DURATION,
             INCREASING_VOLUME,
     };
     private static final String[] QUERY_ALARMS_WITH_INSTANCES_COLUMNS = {
@@ -86,9 +87,9 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + LABEL,
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + RINGTONE,
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + DELETE_AFTER_USE,
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + CRESCENDO_DURATION,
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + INCREASING_VOLUME,
-            ClockDatabaseHelper.INSTANCES_TABLE_NAME + "."
-                    + ClockContract.InstancesColumns.ALARM_STATE,
+            ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.ALARM_STATE,
             ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns._ID,
             ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.YEAR,
             ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.MONTH,
@@ -99,7 +100,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.DISMISS_ALARM_WHEN_RINGTONE_ENDS,
             ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.ALARM_SNOOZE_ACTIONS,
             ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.VIBRATE,
-            ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.FLASH
+            ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.FLASH,
+            ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.CRESCENDO_DURATION
     };
     /**
      * These save calls to cursor.getColumnIndexOrThrow()
@@ -120,23 +122,25 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     private static final int LABEL_INDEX = 12;
     private static final int RINGTONE_INDEX = 13;
     private static final int DELETE_AFTER_USE_INDEX = 14;
-    private static final int INCREASING_VOLUME_INDEX = 15;
+    private static final int CRESCENDO_DURATION_INDEX = 15;
+    private static final int INCREASING_VOLUME_INDEX = 16;
 
-    private static final int INSTANCE_STATE_INDEX = 16;
-    public static final int INSTANCE_ID_INDEX = 17;
-    public static final int INSTANCE_YEAR_INDEX = 18;
-    public static final int INSTANCE_MONTH_INDEX = 19;
-    public static final int INSTANCE_DAY_INDEX = 20;
-    public static final int INSTANCE_HOUR_INDEX = 21;
-    public static final int INSTANCE_MINUTE_INDEX = 22;
-    public static final int INSTANCE_LABEL_INDEX = 23;
-    public static final int INSTANCE_DISMISS_ALARM_WHEN_RINGTONE_ENDS_INDEX = 24;
-    public static final int INSTANCE_ALARM_SNOOZE_ACTIONS_INDEX = 25;
-    public static final int INSTANCE_VIBRATE_INDEX = 26;
-    public static final int INSTANCE_FLASH_INDEX = 27;
+    private static final int INSTANCE_STATE_INDEX = 17;
+    public static final int INSTANCE_ID_INDEX = 18;
+    public static final int INSTANCE_YEAR_INDEX = 19;
+    public static final int INSTANCE_MONTH_INDEX = 20;
+    public static final int INSTANCE_DAY_INDEX = 21;
+    public static final int INSTANCE_HOUR_INDEX = 22;
+    public static final int INSTANCE_MINUTE_INDEX = 23;
+    public static final int INSTANCE_LABEL_INDEX = 24;
+    public static final int INSTANCE_DISMISS_ALARM_WHEN_RINGTONE_ENDS_INDEX = 25;
+    public static final int INSTANCE_ALARM_SNOOZE_ACTIONS_INDEX = 26;
+    public static final int INSTANCE_VIBRATE_INDEX = 27;
+    public static final int INSTANCE_FLASH_INDEX = 28;
+    public static final int INSTANCE_CRESCENDO_DURATION_INDEX = 29;
 
     private static final int COLUMN_COUNT = INCREASING_VOLUME_INDEX + 1;
-    private static final int ALARM_JOIN_INSTANCE_COLUMN_COUNT = INSTANCE_FLASH_INDEX + 1;
+    private static final int ALARM_JOIN_INSTANCE_COLUMN_COUNT = INSTANCE_CRESCENDO_DURATION_INDEX + 1;
     // Public fields
     public long id;
     public boolean enabled;
@@ -153,6 +157,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     public String label;
     public Uri alert;
     public boolean deleteAfterUse;
+    public int crescendoDuration;
     public boolean increasingVolume;
     public int instanceState;
     public int instanceId;
@@ -181,6 +186,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.label = "";
         this.alert = DataModel.getDataModel().getAlarmRingtoneUriFromSettings();
         this.deleteAfterUse = false;
+        this.crescendoDuration = 0;
         this.increasingVolume = false;
     }
 
@@ -188,7 +194,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     public Alarm(long id, boolean enabled, int year, int month, int day, int hour, int minutes,
                  boolean dismissAlarmWhenRingtoneEnds, boolean alarmSnoozeActions, boolean vibrate,
                  boolean flash, Weekdays daysOfWeek, String label, String alert,
-                 boolean deleteAfterUse, boolean increasingVolume) {
+                 boolean deleteAfterUse, int crescendoDuration, boolean increasingVolume) {
 
         this.id = id;
         this.enabled = enabled;
@@ -205,6 +211,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.label = label;
         this.alert = Uri.parse(alert);
         this.deleteAfterUse = deleteAfterUse;
+        this.crescendoDuration = crescendoDuration;
         this.increasingVolume = increasingVolume;
     }
 
@@ -223,6 +230,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         flash = c.getInt(FLASH_INDEX) == 1;
         label = c.getString(LABEL_INDEX);
         deleteAfterUse = c.getInt(DELETE_AFTER_USE_INDEX) == 1;
+        crescendoDuration = c.getInt(CRESCENDO_DURATION_INDEX);
         increasingVolume = c.getInt(INCREASING_VOLUME_INDEX) == 1;
 
         if (c.getColumnCount() == ALARM_JOIN_INSTANCE_COLUMN_COUNT) {
@@ -257,6 +265,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
                 ? p.readParcelable(getClass().getClassLoader(), Uri.class)
                 : p.readParcelable(getClass().getClassLoader());
         deleteAfterUse = p.readInt() == 1;
+        crescendoDuration = p.readInt();
         increasingVolume = p.readInt() == 1;
     }
 
@@ -279,6 +288,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         values.put(FLASH, alarm.flash ? 1 : 0);
         values.put(LABEL, alarm.label);
         values.put(DELETE_AFTER_USE, alarm.deleteAfterUse ? 1 : 0);
+        values.put(CRESCENDO_DURATION, alarm.crescendoDuration);
         values.put(INCREASING_VOLUME, alarm.increasingVolume ? 1 : 0);
         if (alarm.alert == null) {
             // We want to put null, so default alarm changes
@@ -460,6 +470,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         p.writeString(label);
         p.writeParcelable(alert, flags);
         p.writeInt(deleteAfterUse ? 1 : 0);
+        p.writeInt(crescendoDuration);
         p.writeInt(increasingVolume ? 1 : 0);
     }
 
@@ -480,6 +491,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
                 : RingtoneUtils.isRandomCustomRingtone(alert)
                 ? RingtoneUtils.getRandomCustomRingtoneUri()
                 : alert;
+        result.mCrescendoDuration = crescendoDuration;
         result.mIncreasingVolume = increasingVolume;
         return result;
     }
@@ -578,6 +590,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
                 ", flash=" + flash +
                 ", label='" + label + '\'' +
                 ", deleteAfterUse=" + deleteAfterUse +
+                ", crescendoDuration=" + crescendoDuration +
                 ", increasingVolume=" + increasingVolume +
                 '}';
     }

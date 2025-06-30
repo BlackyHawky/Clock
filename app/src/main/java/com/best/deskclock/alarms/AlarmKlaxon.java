@@ -57,7 +57,8 @@ final class AlarmKlaxon {
         LogUtils.v("AlarmKlaxon.start()");
 
         if (!AlarmInstance.NO_RINGTONE_URI.equals(instance.mRingtone)) {
-            final long crescendoDuration = SettingsDAO.getAlarmVolumeCrescendoDuration(prefs);
+            // Crescendo duration always in milliseconds
+            final int crescendoDuration = instance.mCrescendoDuration * 1000;
             if (SettingsDAO.isAdvancedAudioPlaybackEnabled(prefs)) {
                 getRingtonePlayer(context).play(instance.mRingtone, crescendoDuration);
             } else {

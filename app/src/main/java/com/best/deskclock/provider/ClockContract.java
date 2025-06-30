@@ -93,6 +93,12 @@ public final class ClockContract {
         String RINGTONE = "ringtone";
 
         /**
+         * Alarm crescendo duration.
+         * <p>Type: INTEGER</p>
+         */
+        String CRESCENDO_DURATION = "crescendoDuration";
+
+        /**
          * True if alarm should start off quiet and slowly increase volume
          * <P>Type: BOOLEAN</P>
          */

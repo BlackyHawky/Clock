@@ -30,7 +30,7 @@ public class VolumeCrescendoDurationPreference extends DialogPreference {
      *
      * @return The crescendo duration in seconds, or none if no value has been previously persisted.
      */
-    public int getCrescendoDurationSeconds() {
+    public int getVolumeCrescendoDuration() {
         return getPersistedInt(DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION);
     }
 
@@ -39,15 +39,15 @@ public class VolumeCrescendoDurationPreference extends DialogPreference {
      *
      * @param seconds The volume crescendo duration to be stored, in seconds.
      */
-    public void setCrescendoDurationSeconds(int seconds) {
+    public void setVolumeCrescendoDuration(int seconds) {
         persistInt(seconds);
     }
 
     @Override
     public CharSequence getSummary() {
-        int seconds = getCrescendoDurationSeconds();
+        int seconds = getVolumeCrescendoDuration();
 
-        if (seconds == 0) {
+        if (seconds == DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION) {
             return getContext().getString(R.string.label_off);
         }
 

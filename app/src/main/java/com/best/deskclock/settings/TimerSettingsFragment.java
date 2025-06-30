@@ -28,6 +28,7 @@ import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
+import com.best.deskclock.VolumeCrescendoDurationDialogFragment;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
@@ -136,7 +137,7 @@ public class TimerSettingsFragment extends ScreenFragment
     @Override
     public void onDisplayPreferenceDialog(@NonNull Preference pref) {
         if (pref instanceof VolumeCrescendoDurationPreference volumeCrescendoDurationPreference) {
-            int currentDelay = volumeCrescendoDurationPreference.getCrescendoDurationSeconds();
+            int currentDelay = volumeCrescendoDurationPreference.getVolumeCrescendoDuration();
             VolumeCrescendoDurationDialogFragment dialogFragment =
                     VolumeCrescendoDurationDialogFragment.newInstance(pref.getKey(), currentDelay);
             VolumeCrescendoDurationDialogFragment.show(getParentFragmentManager(), dialogFragment);
@@ -151,6 +152,7 @@ public class TimerSettingsFragment extends ScreenFragment
         mTimerAutoSilencePref.setOnPreferenceChangeListener(this);
         mTimerAutoSilencePref.setSummary(mTimerAutoSilencePref.getEntry());
 
+        // Timer volume crescendo duration preference
         getParentFragmentManager().setFragmentResultListener(VolumeCrescendoDurationDialogFragment.REQUEST_KEY,
                 this, (requestKey, bundle) -> {
                     String key = bundle.getString(VolumeCrescendoDurationDialogFragment.RESULT_PREF_KEY);
@@ -159,7 +161,7 @@ public class TimerSettingsFragment extends ScreenFragment
                     if (key != null) {
                         VolumeCrescendoDurationPreference pref = findPreference(key);
                         if (pref != null) {
-                            pref.setCrescendoDurationSeconds(newValue);
+                            pref.setVolumeCrescendoDuration(newValue);
                             pref.setSummary(pref.getSummary());
                         }
                     }

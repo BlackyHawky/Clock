@@ -388,11 +388,6 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         ToastManager.cancelToast();
     }
 
-    public void setLabel(Alarm alarm, String label) {
-        alarm.label = label;
-        mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
-    }
-
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
@@ -552,6 +547,16 @@ public final class AlarmClockFragment extends DeskClockFragment implements
 
     public void removeItem(AlarmItemHolder itemHolder) {
         mItemAdapter.removeItem(itemHolder);
+    }
+
+    public void setLabel(Alarm alarm, String label) {
+        alarm.label = label;
+        mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+    }
+
+    public void setCrescendoDuration(Alarm alarm, int crescendoDuration) {
+        alarm.crescendoDuration = crescendoDuration;
+        mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
     }
 
     /**

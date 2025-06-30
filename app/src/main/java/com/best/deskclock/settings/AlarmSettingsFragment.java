@@ -44,6 +44,7 @@ import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
+import com.best.deskclock.VolumeCrescendoDurationDialogFragment;
 import com.best.deskclock.alarms.AlarmUpdateHandler;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
@@ -260,9 +261,9 @@ public class AlarmSettingsFragment extends ScreenFragment
                     AlarmSnoozeDurationDialogFragment.newInstance(pref.getKey(), currentDelay);
             AlarmSnoozeDurationDialogFragment.show(getParentFragmentManager(), dialogFragment);
         } else if (pref instanceof VolumeCrescendoDurationPreference volumeCrescendoDurationPreference) {
-            int currentDelay = volumeCrescendoDurationPreference.getCrescendoDurationSeconds();
+            int currentValue = volumeCrescendoDurationPreference.getVolumeCrescendoDuration();
             VolumeCrescendoDurationDialogFragment dialogFragment =
-                    VolumeCrescendoDurationDialogFragment.newInstance(pref.getKey(), currentDelay);
+                    VolumeCrescendoDurationDialogFragment.newInstance(pref.getKey(), currentValue);
             VolumeCrescendoDurationDialogFragment.show(getParentFragmentManager(), dialogFragment);
         } else {
             super.onDisplayPreferenceDialog(pref);
@@ -278,6 +279,7 @@ public class AlarmSettingsFragment extends ScreenFragment
         updateAutoSnoozeSummary(mAutoSilencePref, delay);
         mAutoSilencePref.setOnPreferenceChangeListener(this);
 
+        // Alarm snooze duration preference
         getParentFragmentManager().setFragmentResultListener(AlarmSnoozeDurationDialogFragment.REQUEST_KEY,
                 this, (requestKey, bundle) -> {
                     String key = bundle.getString(AlarmSnoozeDurationDialogFragment.RESULT_PREF_KEY);
@@ -294,6 +296,7 @@ public class AlarmSettingsFragment extends ScreenFragment
 
         mAlarmVolumePref.setEnabled(!RingtoneUtils.hasBluetoothDeviceConnected(requireContext(), mPrefs));
 
+        // Alarm volume crescendo duration preference
         getParentFragmentManager().setFragmentResultListener(VolumeCrescendoDurationDialogFragment.REQUEST_KEY,
                 this, (requestKey, bundle) -> {
                     String key = bundle.getString(VolumeCrescendoDurationDialogFragment.RESULT_PREF_KEY);
@@ -302,7 +305,7 @@ public class AlarmSettingsFragment extends ScreenFragment
                     if (key != null) {
                         VolumeCrescendoDurationPreference pref = findPreference(key);
                         if (pref != null) {
-                            pref.setCrescendoDurationSeconds(newValue);
+                            pref.setVolumeCrescendoDuration(newValue);
                             pref.setSummary(pref.getSummary());
                         }
                     }

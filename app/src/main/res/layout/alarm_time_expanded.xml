@@ -262,6 +262,38 @@
         tools:checked="true" />
 
     <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/crescendo_duration_title"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="12dp"
+        android:background="?attr/selectableItemBackground"
+        android:drawableStart="@drawable/ic_crescendo"
+        android:paddingStart="@null"
+        android:paddingEnd="10dp"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical"
+        android:focusable="true"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="@string/crescendo_duration_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/crescendo_duration_value"
+        app:layout_constraintTop_toBottomOf="@id/delete_occasional_alarm_after_use" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/crescendo_duration_value"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginEnd="12dp"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:focusable="true"
+        android:singleLine="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/delete_occasional_alarm_after_use"
+        tools:text="1 min" />
+
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/preemptive_dismiss_button"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
@@ -277,7 +309,7 @@
         android:textColor="?attr/colorAccent"
         app:drawableTint="?attr/colorAccent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/delete_occasional_alarm_after_use"
+        app:layout_constraintTop_toBottomOf="@id/crescendo_duration_title"
         tools:text="@string/alarm_alert_dismiss_text" />
 
     <com.google.android.material.chip.Chip

@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-package com.best.deskclock.settings;
+package com.best.deskclock;
 
 import static android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN;
 import static android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE;
@@ -31,7 +31,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.best.deskclock.R;
+import com.best.deskclock.provider.Alarm;
+import com.best.deskclock.utils.SdkUtils;
 import com.google.android.material.color.MaterialColors;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
@@ -39,6 +40,9 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
 
+/**
+ * DialogFragment to set the volume crescendo duration for alarms and timers.
+ */
 public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
 
     /**
@@ -47,23 +51,35 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
     private static final String TAG = "set_volume_crescendo_duration_dialog";
 
     private static final String VOLUME_CRESCENDO_DURATION = "volume_crescendo_duration_";
-
     private static final String ARG_PREF_KEY = VOLUME_CRESCENDO_DURATION + "arg_pref_key";
     private static final String ARG_EDIT_VOLUME_CRESCENDO_MINUTES =
             VOLUME_CRESCENDO_DURATION + "arg_edit_volume_crescendo_minutes";
     private static final String ARG_EDIT_VOLUME_CRESCENDO_SECONDS =
             VOLUME_CRESCENDO_DURATION + "arg_edit_volume_crescendo_seconds";
-
     public static final String RESULT_PREF_KEY = VOLUME_CRESCENDO_DURATION + "result_pref_key";
     public static final String REQUEST_KEY = VOLUME_CRESCENDO_DURATION + "request_key";
     public static final String VOLUME_CRESCENDO_DURATION_VALUE = VOLUME_CRESCENDO_DURATION + "value";
+    private static final String ARG_ALARM = "arg_alarm";
+    private static final String ARG_TAG = "arg_tag";
 
+    private Context mContext;
+    private Alarm mAlarm;
+    private String mTag;
     private TextInputLayout mMinutesInputLayout;
     private TextInputLayout mSecondsInputLayout;
     private TextInputEditText mEditMinutes;
     private TextInputEditText mEditSeconds;
+    private final TextWatcher mTextWatcher = new TextChangeListener();
     private InputMethodManager mInput;
 
+    /**
+     * Creates a new instance of {@link VolumeCrescendoDurationDialogFragment} for use
+     * in the settings screen, where the crescendo duration is configured independently
+     * of a specific alarm.
+     *
+     * @param key          The shared preference key used to identify the setting.
+     * @param totalSeconds The crescendo duration in seconds.
+     */
     public static VolumeCrescendoDurationDialogFragment newInstance(String key, int totalSeconds) {
         Bundle args = new Bundle();
 
@@ -77,6 +93,30 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
         VolumeCrescendoDurationDialogFragment frag = new VolumeCrescendoDurationDialogFragment();
         frag.setArguments(args);
         return frag;
+    }
+
+    /**
+     * Creates a new instance of {@link VolumeCrescendoDurationDialogFragment} for use
+     * in the expanded alarm view, where the crescendo duration is configured for a specific alarm.
+     *
+     * @param alarm              The alarm instance being edited.
+     * @param crescendoDuration  The crescendo duration in seconds.
+     * @param tag                A tag identifying the fragment in the fragment manager.
+     */
+    public static VolumeCrescendoDurationDialogFragment newInstance(Alarm alarm, int crescendoDuration, String tag) {
+        final Bundle args = new Bundle();
+        args.putParcelable(ARG_ALARM, alarm);
+        args.putString(ARG_TAG, tag);
+
+        long minutes = crescendoDuration / 60;
+        long seconds = crescendoDuration % 60;
+
+        args.putLong(ARG_EDIT_VOLUME_CRESCENDO_MINUTES, minutes);
+        args.putLong(ARG_EDIT_VOLUME_CRESCENDO_SECONDS, seconds);
+
+        final VolumeCrescendoDurationDialogFragment fragment = new VolumeCrescendoDurationDialogFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     /**
@@ -107,15 +147,23 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
         super.onSaveInstanceState(outState);
         // As long as this dialog exists, save its state.
         if (mEditMinutes != null && mEditSeconds != null) {
-            outState.putString(ARG_EDIT_VOLUME_CRESCENDO_MINUTES, Objects.requireNonNull(mEditMinutes.getText()).toString());
-            outState.putString(ARG_EDIT_VOLUME_CRESCENDO_SECONDS, Objects.requireNonNull(mEditSeconds.getText()).toString());
+            outState.putLong(ARG_EDIT_VOLUME_CRESCENDO_MINUTES,
+                    Long.parseLong(Objects.requireNonNull(mEditMinutes.getText()).toString()));
+            outState.putLong(ARG_EDIT_VOLUME_CRESCENDO_SECONDS,
+                    Long.parseLong(Objects.requireNonNull(mEditSeconds.getText()).toString()));
         }
     }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        mContext = requireContext();
+
         final Bundle args = getArguments() == null ? Bundle.EMPTY : getArguments();
+        mAlarm = SdkUtils.isAtLeastAndroid13()
+                ? args.getParcelable(ARG_ALARM, Alarm.class)
+                : args.getParcelable(ARG_ALARM);
+        mTag = args.getString(ARG_TAG);
 
         long editMinutes = args.getLong(ARG_EDIT_VOLUME_CRESCENDO_MINUTES, 0);
         long editSeconds = args.getLong(ARG_EDIT_VOLUME_CRESCENDO_SECONDS, 0);
@@ -124,7 +172,7 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
             editSeconds = savedInstanceState.getLong(ARG_EDIT_VOLUME_CRESCENDO_SECONDS, editSeconds);
         }
 
-        View view = LayoutInflater.from(requireContext()).inflate(R.layout.settings_volume_crescendo_duration_dialog, null);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.volume_crescendo_duration_dialog, null);
 
         mMinutesInputLayout = view.findViewById(R.id.dialog_input_layout_minutes);
         mMinutesInputLayout.setHelperText(getString(R.string.timer_button_time_minutes_warning_box_text));
@@ -147,7 +195,7 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
         mEditMinutes.setInputType(InputType.TYPE_CLASS_NUMBER);
         mEditMinutes.selectAll();
         mEditMinutes.requestFocus();
-        mEditMinutes.addTextChangedListener(new TextChangeListener());
+        mEditMinutes.addTextChangedListener(mTextWatcher);
         mEditMinutes.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
                 mEditMinutes.selectAll();
@@ -158,16 +206,16 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
         mEditSeconds.selectAll();
         mEditSeconds.setInputType(InputType.TYPE_CLASS_NUMBER);
         mEditSeconds.setOnEditorActionListener(new ImeDoneListener());
-        mEditSeconds.addTextChangedListener(new TextChangeListener());
+        mEditSeconds.addTextChangedListener(mTextWatcher);
         mEditSeconds.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
                 mEditSeconds.selectAll();
             }
         });
 
-        mInput = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        mInput = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
 
-        final MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(requireContext())
+        final MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(mContext)
                 .setTitle(getString(R.string.crescendo_duration_title))
                 .setView(view)
                 .setPositiveButton(android.R.string.ok, (dialog, which) ->
@@ -190,7 +238,10 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
 
         // Stop callbacks from the IME since there is no view to process them.
         mEditMinutes.setOnEditorActionListener(null);
+        mEditMinutes.removeTextChangedListener(mTextWatcher);
+
         mEditSeconds.setOnEditorActionListener(null);
+        mEditSeconds.removeTextChangedListener(mTextWatcher);
     }
 
     /**
@@ -215,12 +266,17 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
             seconds = 0;
         }
 
-        int total = minutes * 60 + seconds;
+        int crescendoDuration = minutes * 60 + seconds;
 
-        Bundle result = new Bundle();
-        result.putInt(VOLUME_CRESCENDO_DURATION_VALUE, total);
-        result.putString(RESULT_PREF_KEY, requireArguments().getString(ARG_PREF_KEY));
-        getParentFragmentManager().setFragmentResult(REQUEST_KEY, result);
+        if (mAlarm != null) {
+            ((VolumeCrescendoDurationDialogHandler) requireActivity())
+                    .onDialogCrescendoDurationSet(mAlarm, crescendoDuration, mTag);
+        } else {
+            Bundle result = new Bundle();
+            result.putInt(VOLUME_CRESCENDO_DURATION_VALUE, crescendoDuration);
+            result.putString(RESULT_PREF_KEY, requireArguments().getString(ARG_PREF_KEY));
+            getParentFragmentManager().setFragmentResult(REQUEST_KEY, result);
+        }
     }
 
     /**
@@ -251,10 +307,10 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
      * The outline color of the edit box and the hint color are also changed.
      */
     private void updateDialogForInvalidInput() {
-        final Drawable drawable = AppCompatResources.getDrawable(requireContext(), R.drawable.ic_error);
+        final Drawable drawable = AppCompatResources.getDrawable(mContext, R.drawable.ic_error);
         if (drawable != null) {
             drawable.setTint(MaterialColors.getColor(
-                    requireContext(), com.google.android.material.R.attr.colorOnSurface, Color.BLACK));
+                    mContext, com.google.android.material.R.attr.colorOnSurface, Color.BLACK));
         }
 
         AlertDialog alertDialog = (AlertDialog) requireDialog();
@@ -267,8 +323,8 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
                 || (!minutesText.isEmpty() && Integer.parseInt(minutesText) > 60);
         boolean secondsInvalid = (!secondsText.isEmpty() && Integer.parseInt(secondsText) < 0)
                 || (!secondsText.isEmpty() && Integer.parseInt(secondsText) > 59);
-        int invalidColor = ContextCompat.getColor(requireContext(), R.color.md_theme_error);
-        int validColor = MaterialColors.getColor(requireContext(), com.google.android.material.R.attr.colorPrimary, Color.BLACK);
+        int invalidColor = ContextCompat.getColor(mContext, R.color.md_theme_error);
+        int validColor = MaterialColors.getColor(mContext, com.google.android.material.R.attr.colorPrimary, Color.BLACK);
 
         mMinutesInputLayout.setBoxStrokeColor(minutesInvalid ? invalidColor : validColor);
         mMinutesInputLayout.setHintTextColor(minutesInvalid
@@ -290,7 +346,7 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
         alertDialog.setIcon(null);
         alertDialog.setTitle(getString(R.string.crescendo_duration_title));
 
-        int validColor = MaterialColors.getColor(requireContext(), com.google.android.material.R.attr.colorPrimary, Color.BLACK);
+        int validColor = MaterialColors.getColor(mContext, com.google.android.material.R.attr.colorPrimary, Color.BLACK);
         mMinutesInputLayout.setBoxStrokeColor(validColor);
         mMinutesInputLayout.setHintTextColor(ColorStateList.valueOf(validColor));
         mSecondsInputLayout.setBoxStrokeColor(validColor);
@@ -352,9 +408,9 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
         @Override
         public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                String inputHoursText = Objects.requireNonNull(mEditMinutes.getText()).toString();
-                String inputMinutesText = Objects.requireNonNull(mEditSeconds.getText()).toString();
-                if (isInvalidInput(inputHoursText, inputMinutesText)) {
+                String inputMinutesText = Objects.requireNonNull(mEditMinutes.getText()).toString();
+                String inputSecondsText = Objects.requireNonNull(mEditSeconds.getText()).toString();
+                if (isInvalidInput(inputMinutesText, inputSecondsText)) {
                     updateDialogForInvalidInput();
                 } else {
                     setVolumeCrescendoDuration();
@@ -365,6 +421,10 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
 
             return false;
         }
+    }
+
+    public interface VolumeCrescendoDurationDialogHandler {
+        void onDialogCrescendoDurationSet(Alarm alarm, int crescendoDuration, String tag);
     }
 
 }
