@@ -75,10 +75,6 @@ public class ClockProvider extends ContentProvider {
                 ALARMS_TABLE_NAME + "." + AlarmsColumns.DAYS_OF_WEEK);
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.ENABLED,
                 ALARMS_TABLE_NAME + "." + AlarmsColumns.ENABLED);
-        sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.DISMISS_ALARM_WHEN_RINGTONE_ENDS,
-                ALARMS_TABLE_NAME + "." + AlarmsColumns.DISMISS_ALARM_WHEN_RINGTONE_ENDS);
-        sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.ALARM_SNOOZE_ACTIONS,
-                ALARMS_TABLE_NAME + "." + AlarmsColumns.ALARM_SNOOZE_ACTIONS);
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.VIBRATE,
                 ALARMS_TABLE_NAME + "." + AlarmsColumns.VIBRATE);
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.FLASH,
@@ -95,8 +91,6 @@ public class ClockProvider extends ContentProvider {
                 ALARMS_TABLE_NAME + "." + AlarmsColumns.SNOOZE_DURATION);
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.CRESCENDO_DURATION,
                 ALARMS_TABLE_NAME + "." + AlarmsColumns.CRESCENDO_DURATION);
-        sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.INCREASING_VOLUME,
-                ALARMS_TABLE_NAME + "." + AlarmsColumns.INCREASING_VOLUME);
 
         sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns.ALARM_STATE,
                 INSTANCES_TABLE_NAME + "." + InstancesColumns.ALARM_STATE);
@@ -114,10 +108,6 @@ public class ClockProvider extends ContentProvider {
                 INSTANCES_TABLE_NAME + "." + InstancesColumns.MINUTES);
         sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns.LABEL,
                 INSTANCES_TABLE_NAME + "." + InstancesColumns.LABEL);
-        sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns.DISMISS_ALARM_WHEN_RINGTONE_ENDS,
-                INSTANCES_TABLE_NAME + "." + InstancesColumns.DISMISS_ALARM_WHEN_RINGTONE_ENDS);
-        sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns.ALARM_SNOOZE_ACTIONS,
-                INSTANCES_TABLE_NAME + "." + InstancesColumns.ALARM_SNOOZE_ACTIONS);
         sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns.VIBRATE,
                 INSTANCES_TABLE_NAME + "." + InstancesColumns.VIBRATE);
         sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns.FLASH,

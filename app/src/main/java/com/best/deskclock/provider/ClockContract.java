@@ -53,18 +53,6 @@ public final class ClockContract {
         Uri NO_RINGTONE_URI = Uri.EMPTY;
 
         /**
-         * True if alarm should dismiss at the end of the ringtone
-         * <p>Type: BOOLEAN</p>
-         */
-        String DISMISS_ALARM_WHEN_RINGTONE_ENDS = "dismissAlarmWhenRingtoneEnds";
-
-        /**
-         * True if alarm snooze actions are enabled
-         * <p>Type: BOOLEAN</p>
-         */
-        String ALARM_SNOOZE_ACTIONS = "alarmSnoozeActions";
-
-        /**
          * True if alarm should vibrate
          * <p>Type: BOOLEAN</p>
          */
@@ -109,12 +97,6 @@ public final class ClockContract {
          * <p>Type: INTEGER</p>
          */
         String CRESCENDO_DURATION = "crescendoDuration";
-
-        /**
-         * True if alarm should start off quiet and slowly increase volume
-         * <P>Type: BOOLEAN</P>
-         */
-        String INCREASING_VOLUME = "incvol";
     }
 
     /**

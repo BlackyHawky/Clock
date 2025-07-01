@@ -50,8 +50,6 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             HOUR,
             MINUTES,
             LABEL,
-            DISMISS_ALARM_WHEN_RINGTONE_ENDS,
-            ALARM_SNOOZE_ACTIONS,
             VIBRATE,
             FLASH,
             RINGTONE,
@@ -59,8 +57,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             ALARM_STATE,
             AUTO_SILENCE_DURATION,
             SNOOZE_DURATION,
-            CRESCENDO_DURATION,
-            INCREASING_VOLUME
+            CRESCENDO_DURATION
     };
 
     /**
@@ -74,19 +71,16 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     private static final int HOUR_INDEX = 4;
     private static final int MINUTES_INDEX = 5;
     private static final int LABEL_INDEX = 6;
-    private static final int DISMISS_ALARM_WHEN_RINGTONE_ENDS_INDEX = 7;
-    private static final int ALARM_SNOOZE_ACTIONS_INDEX = 8;
-    private static final int VIBRATE_INDEX = 9;
-    private static final int FLASH_INDEX = 10;
-    private static final int RINGTONE_INDEX = 11;
-    private static final int ALARM_ID_INDEX = 12;
-    private static final int ALARM_STATE_INDEX = 13;
-    private static final int AUTO_SILENCE_DURATION_INDEX = 14;
-    private static final int SNOOZE_DURATION_INDEX = 15;
-    private static final int CRESCENDO_DURATION_INDEX = 16;
-    private static final int INCREASING_VOLUME_INDEX = 17;
+    private static final int VIBRATE_INDEX = 7;
+    private static final int FLASH_INDEX = 8;
+    private static final int RINGTONE_INDEX = 9;
+    private static final int ALARM_ID_INDEX = 10;
+    private static final int ALARM_STATE_INDEX = 11;
+    private static final int AUTO_SILENCE_DURATION_INDEX = 12;
+    private static final int SNOOZE_DURATION_INDEX = 13;
+    private static final int CRESCENDO_DURATION_INDEX = 14;
 
-    private static final int COLUMN_COUNT = INCREASING_VOLUME_INDEX + 1;
+    private static final int COLUMN_COUNT = CRESCENDO_DURATION_INDEX + 1;
     // Public fields
     public long mId;
     public int mYear;
@@ -95,8 +89,6 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     public int mHour;
     public int mMinute;
     public String mLabel;
-    public boolean mDismissAlarmWhenRingtoneEnds;
-    public boolean mAlarmSnoozeActions;
     public boolean mVibrate;
     public boolean mFlash;
     public Uri mRingtone;
@@ -105,7 +97,6 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     public int mAutoSilenceDuration;
     public int mSnoozeDuration;
     public int mCrescendoDuration;
-    public boolean mIncreasingVolume;
 
     public AlarmInstance(Calendar calendar, Long alarmId) {
         this(calendar);
@@ -116,8 +107,6 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         mId = INVALID_ID;
         setAlarmTime(calendar);
         mLabel = "";
-        mDismissAlarmWhenRingtoneEnds = false;
-        mAlarmSnoozeActions = true;
         mVibrate = false;
         mFlash = false;
         mRingtone = null;
@@ -125,7 +114,6 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         mAutoSilenceDuration = 10;
         mSnoozeDuration = 10;
         mCrescendoDuration = 0;
-        mIncreasingVolume = false;
     }
 
     public AlarmInstance(AlarmInstance instance) {
@@ -136,8 +124,6 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         this.mHour = instance.mHour;
         this.mMinute = instance.mMinute;
         this.mLabel = instance.mLabel;
-        this.mDismissAlarmWhenRingtoneEnds = instance.mDismissAlarmWhenRingtoneEnds;
-        this.mAlarmSnoozeActions = instance.mAlarmSnoozeActions;
         this.mVibrate = instance.mVibrate;
         this.mFlash = instance.mFlash;
         this.mRingtone = instance.mRingtone;
@@ -146,7 +132,6 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         this.mAutoSilenceDuration = instance.mAutoSilenceDuration;
         this.mSnoozeDuration = instance.mSnoozeDuration;
         this.mCrescendoDuration = instance.mCrescendoDuration;
-        this.mIncreasingVolume = instance.mIncreasingVolume;
     }
 
     public AlarmInstance(Cursor c, boolean joinedTable) {
@@ -158,8 +143,6 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             mHour = c.getInt(Alarm.INSTANCE_HOUR_INDEX);
             mMinute = c.getInt(Alarm.INSTANCE_MINUTE_INDEX);
             mLabel = c.getString(Alarm.INSTANCE_LABEL_INDEX);
-            mDismissAlarmWhenRingtoneEnds = c.getInt(Alarm.INSTANCE_DISMISS_ALARM_WHEN_RINGTONE_ENDS_INDEX) == 1;
-            mAlarmSnoozeActions = c.getInt(Alarm.INSTANCE_ALARM_SNOOZE_ACTIONS_INDEX) == 1;
             mVibrate = c.getInt(Alarm.INSTANCE_VIBRATE_INDEX) == 1;
             mFlash = c.getInt(Alarm.INSTANCE_FLASH_INDEX) == 1;
             mAutoSilenceDuration = c.getInt(Alarm.INSTANCE_AUTO_SILENCE_DURATION_INDEX);
@@ -173,8 +156,6 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             mHour = c.getInt(HOUR_INDEX);
             mMinute = c.getInt(MINUTES_INDEX);
             mLabel = c.getString(LABEL_INDEX);
-            mDismissAlarmWhenRingtoneEnds = c.getInt(DISMISS_ALARM_WHEN_RINGTONE_ENDS_INDEX) == 1;
-            mAlarmSnoozeActions = c.getInt(ALARM_SNOOZE_ACTIONS_INDEX) == 1;
             mVibrate = c.getInt(VIBRATE_INDEX) == 1;
             mFlash = c.getInt(FLASH_INDEX) == 1;
             mAutoSilenceDuration = c.getInt(AUTO_SILENCE_DURATION_INDEX);
@@ -193,7 +174,6 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             mAlarmId = c.getLong(ALARM_ID_INDEX);
         }
         mAlarmState = c.getInt(ALARM_STATE_INDEX);
-        mIncreasingVolume = c.getInt(INCREASING_VOLUME_INDEX) == 1;
     }
 
     public static ContentValues createContentValues(AlarmInstance instance) {
@@ -208,8 +188,6 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         values.put(HOUR, instance.mHour);
         values.put(MINUTES, instance.mMinute);
         values.put(LABEL, instance.mLabel);
-        values.put(DISMISS_ALARM_WHEN_RINGTONE_ENDS, instance.mDismissAlarmWhenRingtoneEnds ? 1 : 0);
-        values.put(ALARM_SNOOZE_ACTIONS, instance.mAlarmSnoozeActions ? 1 : 0);
         values.put(VIBRATE, instance.mVibrate ? 1 : 0);
         values.put(FLASH, instance.mFlash ? 1 : 0);
         if (instance.mRingtone == null) {
@@ -224,7 +202,6 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         values.put(AUTO_SILENCE_DURATION, instance.mAutoSilenceDuration);
         values.put(SNOOZE_DURATION, instance.mSnoozeDuration);
         values.put(CRESCENDO_DURATION, instance.mCrescendoDuration);
-        values.put(INCREASING_VOLUME, instance.mIncreasingVolume ? 1 : 0);
 
         return values;
     }
@@ -469,8 +446,6 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
                 ", mHour=" + mHour +
                 ", mMinute=" + mMinute +
                 ", mLabel=" + mLabel +
-                ", mDismissAlarmWhenRingtoneEnds=" + mDismissAlarmWhenRingtoneEnds +
-                ", mAlarmSnoozeActions=" + mAlarmSnoozeActions +
                 ", mVibrate=" + mVibrate +
                 ", mFlash=" + mFlash +
                 ", mRingtone=" + mRingtone +
@@ -479,7 +454,6 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
                 ", mAutoSilenceDuration=" + mAutoSilenceDuration +
                 ", mSnoozeDuration=" + mSnoozeDuration +
                 ", mCrescendoDuration=" + mCrescendoDuration +
-                ", mIncreasingVolume=" + mIncreasingVolume +
                 '}';
     }
 }
