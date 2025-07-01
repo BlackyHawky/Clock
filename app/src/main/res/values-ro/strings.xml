@@ -99,18 +99,8 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"Durata amânării"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Mărește treptat volumul"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Dezactivează după"</string>
-    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
-        <item quantity="few"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minute</item>
-        <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> de minute</item>
-        <item quantity="one">Un minut</item>
-    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Niciodată"</string>
     <string name="auto_silence_1_minute">1 minut</string>
-    <string name="auto_silence_5_minutes">5 minute</string>
-    <string name="auto_silence_10_minutes">10 minute</string>
-    <string name="auto_silence_15_minutes">15 minute</string>
-    <string name="auto_silence_20_minutes">20 minute</string>
-    <string name="auto_silence_25_minutes">25 minute</string>
     <string name="label_off">Dezactivat</string>
     <string name="week_start_title" msgid="4268917518596832096">"Săptămâna începe"</string>
     <string name="week_start_saturday">Sâmbătă</string>

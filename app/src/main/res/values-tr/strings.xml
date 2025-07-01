@@ -91,17 +91,8 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"Erteleme süresi"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Ses düzeyini kademeli olarak artır"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Şu süreden sonra sessiz"</string>
-    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
-        <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> dakika</item>
-        <item quantity="one">1 dakika</item>
-    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Hiçbir zaman"</string>
     <string name="auto_silence_1_minute">1 dakika</string>
-    <string name="auto_silence_5_minutes">5 dakika</string>
-    <string name="auto_silence_10_minutes">10 dakika</string>
-    <string name="auto_silence_15_minutes">15 dakika</string>
-    <string name="auto_silence_20_minutes">20 dakika</string>
-    <string name="auto_silence_25_minutes">25 dakika</string>
     <string name="label_off">Kapalı</string>
     <string name="week_start_title" msgid="4268917518596832096">"Haftanın ilk günü"</string>
     <string name="week_start_saturday">Cumartesi</string>
@@ -338,7 +329,6 @@
     <string name="sw_long_press_volume_down_action_title">Ses kısma (uzun basınca)</string>
     <string name="timer_button_time_minutes_warning_box_text">0 ile 60 dakika arasında bir değer girin</string>
     <string name="clock_style_analog_material">Analog (Materyal)</string>
-    <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Zil sesi sona erince alarmı kapat</string>
     <string name="alarm_label_box_title">Alarm etiketi</string>
     <string name="miscellaneous_category_title">Çeşitli</string>
     <string name="ringtone_category_title">Zil sesi</string>
@@ -364,7 +354,7 @@
     <string name="yellow_accent_color">Sarı</string>
     <string name="auto_silence_5_seconds">5 saniye</string>
     <string name="auto_silence_10_seconds">10 saniye</string>
-    <string name="auto_silence_at_the_end_of_the_ringtone">Zil sesi sona erdiğinde</string>
+    <string name="auto_silence_end_of_ringtone">Zil sesi sona erdiğinde</string>
     <string name="day_accent_color_title">Aydınlık modu vurgu rengi</string>
     <string name="font_category_title">Yazı Tipi</string>
     <string name="more_options">Daha fazla seçenek</string>

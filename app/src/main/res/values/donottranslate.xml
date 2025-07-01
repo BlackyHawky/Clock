@@ -56,8 +56,8 @@
     <string name="action_set_ringtone">Set Ringtone</string>
     <string name="action_toggle_vibrate">Toggle Vibrate</string>
     <string name="action_toggle_flash">Toggle Flash</string>
-    <string name="action_toggle_dismiss_alarm_when_ringtone_ends">Toggle Dismiss Alarm When Ringtone Ends</string>
     <string name="action_delete_alarm_after_use">Delete Alarm After Use</string>
+    <string name="action_set_auto_silence_duration">Set Auto Silence Duration</string>
     <string name="action_set_snooze_duration">Set Snooze Duration</string>
     <string name="action_set_crescendo_duration">Set Crescendo Duration</string>
 
@@ -187,29 +187,6 @@
         <item>720</item>
     </string-array>
 
-    <!-- Entries listed in the ListPreference when invoking the auto silence preference. -->
-    <string-array name="auto_silence_entries">
-        <item>@string/auto_silence_1_minute</item>
-        <item>@string/auto_silence_5_minutes</item>
-        <item>@string/auto_silence_10_minutes</item>
-        <item>@string/auto_silence_15_minutes</item>
-        <item>@string/auto_silence_20_minutes</item>
-        <item>@string/auto_silence_25_minutes</item>
-        <item>@string/auto_silence_at_the_end_of_the_ringtone</item>
-        <item>@string/auto_silence_never</item>
-    </string-array>
-    <!-- Values that are retrieved from the ListPreference. These must match the auto_silence_entries above. -->
-    <string-array name="auto_silence_values" translatable="false">
-        <item>1</item>
-        <item>5</item>
-        <item>10</item>
-        <item>15</item>
-        <item>20</item>
-        <item>25</item>
-        <item>-2</item>
-        <item>-1</item>
-    </string-array>
-
     <!-- Entries listed in the ListPreference when invoking the auto silence preference fort timers. -->
     <string-array name="timer_auto_silence_entries">
         <item>@string/auto_silence_5_seconds</item>
@@ -217,7 +194,7 @@
         <item>@string/auto_silence_20_seconds</item>
         <item>@string/auto_silence_30_seconds</item>
         <item>@string/auto_silence_1_minute</item>
-        <item>@string/auto_silence_at_the_end_of_the_ringtone</item>
+        <item>@string/auto_silence_end_of_ringtone</item>
         <item>@string/auto_silence_never</item>
     </string-array>
     <!-- Values that are retrieved from the ListPreference. These must match the auto_silence_entries above. -->

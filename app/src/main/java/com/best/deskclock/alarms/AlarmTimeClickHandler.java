@@ -7,6 +7,7 @@
 package com.best.deskclock.alarms;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_TIMEOUT_END_OF_RINGTONE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_DATE_PICKER_STYLE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SPINNER_DATE_PICKER_STYLE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SPINNER_TIME_PICKER_STYLE;
@@ -23,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.best.deskclock.AlarmClockFragment;
+import com.best.deskclock.AutoSilenceDurationDialogFragment;
 import com.best.deskclock.AlarmSnoozeDurationDialogFragment;
 import com.best.deskclock.LabelDialogFragment;
 import com.best.deskclock.R;
@@ -93,16 +95,6 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
         }
     }
 
-    public void setDismissAlarmWhenRingtoneEndsEnabled(Alarm alarm, boolean newState) {
-        if (newState != alarm.dismissAlarmWhenRingtoneEnds) {
-            alarm.dismissAlarmWhenRingtoneEnds = newState;
-            Events.sendAlarmEvent(R.string.action_toggle_dismiss_alarm_when_ringtone_ends, R.string.label_deskclock);
-            mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
-            LOGGER.d("Updating dismiss alarm state to " + newState);
-            Utils.setVibrationTime(mContext, 50);
-        }
-    }
-
     public void setAlarmVibrationEnabled(Alarm alarm, boolean newState) {
         if (newState != alarm.vibrate) {
             alarm.vibrate = newState;
@@ -135,6 +127,16 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
             LOGGER.d("Delete alarm after use state to " + newState);
             Utils.setVibrationTime(mContext, 50);
         }
+    }
+
+    public void setAutoSilenceDuration(Alarm alarm) {
+        Events.sendAlarmEvent(R.string.action_set_auto_silence_duration, R.string.label_deskclock);
+        int autoSilenceDuration = alarm.autoSilenceDuration;
+        final AutoSilenceDurationDialogFragment fragment =
+                AutoSilenceDurationDialogFragment.newInstance(alarm, autoSilenceDuration,
+                        autoSilenceDuration == ALARM_TIMEOUT_END_OF_RINGTONE,
+                        mFragment.getTag());
+        AutoSilenceDurationDialogFragment.show(mFragment.getParentFragmentManager(), fragment);
     }
 
     public void setSnoozeDuration(Alarm alarm) {
@@ -379,10 +381,10 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
             alarm.hour = hourOfDay;
             alarm.minutes = minute;
             alarm.enabled = true;
-            alarm.dismissAlarmWhenRingtoneEnds = false;
             alarm.vibrate = SettingsDAO.areAlarmVibrationsEnabledByDefault(prefs);
             alarm.flash = SettingsDAO.shouldTurnOnBackFlashForTriggeredAlarm(prefs);
             alarm.deleteAfterUse = SettingsDAO.isOccasionalAlarmDeletedByDefault(prefs);
+            alarm.autoSilenceDuration = SettingsDAO.getAlarmTimeout(prefs);
             alarm.snoozeDuration = SettingsDAO.getSnoozeLength(prefs);
             alarm.crescendoDuration = SettingsDAO.getAlarmVolumeCrescendoDuration(prefs);
             mAlarmUpdateHandler.asyncAddAlarm(alarm);

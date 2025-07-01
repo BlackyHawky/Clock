@@ -64,7 +64,7 @@ public class PreferencesKeys {
 
     // Alarm
     public static final String KEY_DEFAULT_ALARM_RINGTONE = "key_default_alarm_ringtone";
-    public static final String KEY_AUTO_SILENCE = "key_auto_silence";
+    public static final String KEY_AUTO_SILENCE_DURATION = "key_auto_silence_duration";
     public static final String KEY_ALARM_SNOOZE_DURATION = "key_alarm_snooze_duration";
     public static final String KEY_ALARM_VOLUME_SETTING = "key_volume_setting";
     public static final String KEY_ALARM_VOLUME_CRESCENDO_DURATION = "key_alarm_volume_crescendo_duration";

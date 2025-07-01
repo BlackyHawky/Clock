@@ -658,12 +658,10 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return the number of minutes an alarm may ring before it has timed out and becomes missed
+     * @return the number of minutes an alarm may ring before it has timed out
      */
     public static int getAlarmTimeout(SharedPreferences prefs) {
-        // Default value must match the one in res/xml/settings_alarm.xml
-        final String string = prefs.getString(KEY_AUTO_SILENCE, DEFAULT_AUTO_SILENCE);
-        return Integer.parseInt(string);
+        return prefs.getInt(KEY_AUTO_SILENCE_DURATION, DEFAULT_AUTO_SILENCE_DURATION);
     }
 
     /**

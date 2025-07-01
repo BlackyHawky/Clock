@@ -554,6 +554,11 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
     }
 
+    public void setAutoSilenceDuration(Alarm alarm, int autoSilenceDuration) {
+        alarm.autoSilenceDuration = autoSilenceDuration;
+        mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+    }
+
     public void setSnoozeDuration(Alarm alarm, int snoozeDuration) {
         alarm.snoozeDuration = snoozeDuration;
         mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);

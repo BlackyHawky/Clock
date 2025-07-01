@@ -15,8 +15,6 @@
     <string name="alarm_vibrate">Vibrate</string>
     <!-- Setting labels on Set alarm screen: Flash on or off -->
     <string name="alarm_flash">Flash</string>
-    <!-- Setting labels on Set alarm screen: Dismiss alarm when ringtone ends on or off -->
-    <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Dismiss alarm when ringtone ends</string>
     <!-- Setting labels on Set alarm screen: Delete alarm once dismissed on or off -->
     <string name="delete_occasional_alarm_after_use_title">Delete alarm once dismissed</string>
     <!-- Title of dialog box to choose the alarm time -->
@@ -470,17 +468,10 @@
     <string name="crescendo_duration_title">Gradually increase volume</string>
     <!-- Auto silence preference title -->
     <string name="auto_silence_title">Silence after</string>
-    <!-- Auto silence summary string set based on the preference value. -->
-    <plurals name="auto_silence_summary">
-        <!-- Duration for one minute -->
-        <item quantity="one">1 minute</item>
-        <!-- Duration for more than one minute -->
-        <item quantity="other"><xliff:g example="7" id="formatted_number">%s</xliff:g> minutes</item>
-    </plurals>
     <!-- Auto silence summary when turned off -->
     <string name="auto_silence_never">Never</string>
     <!-- Auto silence summary when set at "The end of the ringtone" or for changing the auto silence.-->
-    <string name="auto_silence_at_the_end_of_the_ringtone">The end of the ringtone</string>
+    <string name="auto_silence_end_of_ringtone">The end of the ringtone</string>
     <!-- Setting title for changing the auto silence to 5 seconds. -->
     <string name="auto_silence_5_seconds">5 seconds</string>
     <!-- Setting title for changing the auto silence to 10 seconds. -->
@@ -491,16 +482,6 @@
     <string name="auto_silence_30_seconds">30 seconds</string>
     <!-- Setting title for changing the auto silence to 1 minute. -->
     <string name="auto_silence_1_minute">1 minute</string>
-    <!-- Setting title for changing the auto silence to 5 minutes. -->
-    <string name="auto_silence_5_minutes">5 minutes</string>
-    <!-- Setting title for changing the auto silence to 10 minutes. -->
-    <string name="auto_silence_10_minutes">10 minutes</string>
-    <!-- Setting title for changing the auto silence to 15 minutes. -->
-    <string name="auto_silence_15_minutes">15 minutes</string>
-    <!-- Setting title for changing the auto silence to 20 minutes. -->
-    <string name="auto_silence_20_minutes">20 minutes</string>
-    <!-- Setting title for changing the auto silence to 25 minutes. -->
-    <string name="auto_silence_25_minutes">25 minutes</string>
     <!-- Setting title for changing the snooze duration to None. -->
     <string name="snooze_duration_none">None</string>
     <!-- Week start day preference title. -->

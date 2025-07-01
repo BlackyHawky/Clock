@@ -99,18 +99,8 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"Repeteix alarma després de"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Apuja el volum gradualment"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Silencia després de"</string>
-    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
-        <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minuts</item>
-        <item quantity="many"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minuts</item>
-        <item quantity="one">1 minut</item>
-    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Mai"</string>
     <string name="auto_silence_1_minute">1 minut</string>
-    <string name="auto_silence_5_minutes">5 minuts</string>
-    <string name="auto_silence_10_minutes">10 minuts</string>
-    <string name="auto_silence_15_minutes">15 minuts</string>
-    <string name="auto_silence_20_minutes">20 minuts</string>
-    <string name="auto_silence_25_minutes">25 minuts</string>
     <string name="label_off">Desactivada</string>
     <string name="week_start_title" msgid="4268917518596832096">La setmana comença el</string>
     <string name="week_start_saturday">Dissabte</string>
@@ -347,7 +337,6 @@
     <string name="alarm_alert_dismiss_and_delete_text">Descarta i suprimeix</string>
     <string name="label_default">Per defecte</string>
     <string name="duplicate">Duplica</string>
-    <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Atura en finalitzar el to d\'alarma</string>
     <string name="alarm_label_box_title">Etiqueta d\'alarma</string>
     <string name="delete_occasional_alarm_after_use_title">Suprimeix l\'alarma en aturar-la</string>
     <string name="selected">Seleccionat</string>
@@ -404,7 +393,7 @@
     <string name="display_ringtone_title">Mostra el nom del so</string>
     <string name="auto_silence_5_seconds">5 segons</string>
     <string name="material_time_picker_style_title">Estil del selector horari</string>
-    <string name="auto_silence_at_the_end_of_the_ringtone">En finalitzar el so d\'alarma</string>
+    <string name="auto_silence_end_of_ringtone">En finalitzar el so d\'alarma</string>
     <string name="display_card_background_title">Mostra el fons</string>
     <string name="auto_silence_10_seconds">10 segons</string>
     <string name="auto_silence_20_seconds">20 segons</string>

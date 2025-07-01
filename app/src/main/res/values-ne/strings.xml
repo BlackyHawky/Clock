@@ -91,17 +91,8 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"स्नुज लम्बाइ"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"बिस्तारै मात्रा  बढाउनुहोस्"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"यस पछि मौन"</string>
-    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
-        <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> मिनेट</item>
-        <item quantity="one"> १ मिनेट</item>
-    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"कहिले पनि होइन"</string>
     <string name="auto_silence_1_minute">१ मिनेट</string>
-    <string name="auto_silence_5_minutes">५ मिनेट</string>
-    <string name="auto_silence_10_minutes">१० मिनेट</string>
-    <string name="auto_silence_15_minutes">१५ मिनेट</string>
-    <string name="auto_silence_20_minutes">२० मिनेट</string>
-    <string name="auto_silence_25_minutes">२५ मिनेट</string>
     <string name="label_off">निष्क्रिय</string>
     <string name="week_start_title" msgid="4268917518596832096">"हप्ता सुरु हुने दिन"</string>
     <string name="week_start_saturday">शनिबार</string>

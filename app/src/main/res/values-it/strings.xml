@@ -99,18 +99,8 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">Durata rinvio sveglia</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Aumenta gradualmente il volume"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Disattiva suoneria dopo"</string>
-    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
-        <item quantity="one">1 minuto</item>
-        <item quantity="many"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> di minuti</item>
-        <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minuti</item>
-    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Mai"</string>
     <string name="auto_silence_1_minute">1 minuto</string>
-    <string name="auto_silence_5_minutes">5 minuti</string>
-    <string name="auto_silence_10_minutes">10 minuti</string>
-    <string name="auto_silence_15_minutes">15 minuti</string>
-    <string name="auto_silence_20_minutes">20 minuti</string>
-    <string name="auto_silence_25_minutes">25 minuti</string>
     <string name="label_off">Spento</string>
     <string name="week_start_title" msgid="4268917518596832096">"Inizia la settimana di"</string>
     <string name="week_start_saturday">Sabato</string>
@@ -401,7 +391,6 @@
     <string name="about_dialog_message">• Ruota e scuoti per disattivare/rimandare la sveglia; \n\n• Spegni/rimanda la sceglia coi pulsante di accensione o volume; \n\n• Solo per alcuni dispositivi Snapdragon, la sveglia si attiva anche quando sono spenti.;\n\t\t Sfortunatamente, questa caratteristica potrebbe non funzionare su alcuni dispositivi per via della presenza della app di sistema <i>\"com.qualcomm.qti.poweroffalarm\"</i> . \n \n• Scorri per rimuovere una sveglia; \n\n• Duplica sveglia; \n\n• Personalizza titolo sveglia; \n\n• Suoneria personalizzabile; \n\n• Tema chiaro, scuro o di sistema; \n\n• Modalità AMOLED per il tema scuro; \n\n• Stile orologio digitale o analogico; \n\n• Visualizza l\'ora di casa quando si è in viaggio; \n\n• Visualizza l\'ora in molte città del mondo; \n\n• Timer, cronometro inclusi; \n\n• Possibilità di condividere il cronometro con i propri contatti; \n\n• Salvaschermo personalizzabile; \n\n• Widget Moderni; \n\n• Widget personalizzabili; \n\n• Supporto per le scorciatoie nelle impostazioni rapide (per Android 7+);\n\n• Salvataggio e ripristino delle impostazioni (tranne le suonerie personalizzate); \n\n• Material design; \n\n• Colori dinamici per Android 12+;</string>
     <string name="credits">Riconoscimenti</string>
     <string name="dialog_close">Chiudi</string>
-    <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Disattiva la sveglia al termine della suoneria</string>
     <string name="alarm_label_box_title">Etichetta sveglia</string>
     <string name="screensaver_italic_next_alarm_title">Prossima sveglia in corsivo</string>
     <string name="font_category_title">Carattere</string>
@@ -434,7 +423,7 @@
     <string name="permission_dialog_revoke_title">Accesso revocato</string>
     <string name="permission_dialog_close_button">Chiudi</string>
     <string name="revoke_permission_dialog_message">Vuoi veramente revocare questa autorizzazione?</string>
-    <string name="auto_silence_at_the_end_of_the_ringtone">Alla fine della suoneria</string>
+    <string name="auto_silence_end_of_ringtone">Alla fine della suoneria</string>
     <string name="app_slogan">Orologio 100% FOSS, basato su AOSP</string>
     <string name="default_time_to_add_to_timer_2_minutes">2 minuti</string>
     <string name="default_time_to_add_to_timer_3_minutes">3 minuti</string>

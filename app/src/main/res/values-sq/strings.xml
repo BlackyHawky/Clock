@@ -91,17 +91,8 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"Kohëzgjatja e dremitjes"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Rrit gradualisht volumin"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Kalo në heshtje për"</string>
-    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
-        <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minuta</item>
-        <item quantity="one">1 minutë</item>
-    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Asnjeherë"</string>
     <string name="auto_silence_1_minute">1 minutë</string>
-    <string name="auto_silence_5_minutes">5 minuta</string>
-    <string name="auto_silence_10_minutes">10 minuta</string>
-    <string name="auto_silence_15_minutes">15 minuta</string>
-    <string name="auto_silence_20_minutes">20 minuta</string>
-    <string name="auto_silence_25_minutes">25 minuta</string>
     <string name="label_off">Çaktivizuar</string>
     <string name="week_start_title" msgid="4268917518596832096">"Nise javën në ditën"</string>
     <string name="week_start_saturday">E shtunë</string>

@@ -91,17 +91,8 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"طول تعویق"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"افزایش تدریجی صدا"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"سکوت پس از"</string>
-    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
-        <item quantity="one"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> دقیقه</item>
-        <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> دقیقه</item>
-    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"هیچ‌وقت"</string>
     <string name="auto_silence_1_minute">۱ دقیقه</string>
-    <string name="auto_silence_5_minutes">۵ دقیقه</string>
-    <string name="auto_silence_10_minutes">۱۰ دقیقه</string>
-    <string name="auto_silence_15_minutes">۱۵ دقیقه</string>
-    <string name="auto_silence_20_minutes">۲۰ دقیقه</string>
-    <string name="auto_silence_25_minutes">۲۵ دقیقه</string>
     <string name="label_off">خاموش</string>
     <string name="week_start_title" msgid="4268917518596832096">"روز اول هفته"</string>
     <string name="week_start_saturday">شنبه</string>

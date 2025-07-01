@@ -91,17 +91,8 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">Sluimerduur</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Volume geleidelijk verhogen"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Stil na"</string>
-    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
-        <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minuten</item>
-        <item quantity="one">1 minuut</item>
-    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Nooit"</string>
     <string name="auto_silence_1_minute">1 minuut</string>
-    <string name="auto_silence_5_minutes">5 minuten</string>
-    <string name="auto_silence_10_minutes">10 minutes</string>
-    <string name="auto_silence_15_minutes">15 minuten</string>
-    <string name="auto_silence_20_minutes">20 minuten</string>
-    <string name="auto_silence_25_minutes">25 minuten</string>
     <string name="label_off">Uit</string>
     <string name="week_start_title" msgid="4268917518596832096">"Week starten op"</string>
     <string name="week_start_saturday">Zaterdag</string>
@@ -421,14 +412,13 @@
     <string name="widget_next_alarm_default_color_title">Standaardkleur voor volgende wekker</string>
     <string name="digital_widget_message_summary">\"Steden op widget tonen\" moet uitgeschakeld zijn voor deze optie</string>
     <string name="alarm_label_box_title">Wekkerlabel</string>
-    <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Wekker uitzetten als geluid eindigt</string>
     <string name="actions_category_title">Acties</string>
     <string name="interface_customization_summary">Uiterlijk en kleur van de app aanpassen</string>
     <string name="swipe_action_title">Veeg om wekkers te sluimeren of uit te zetten</string>
     <string name="clock_color_title">Kleur klok</string>
     <string name="screensaver_next_alarm_color_title">Kleur volgende wekker</string>
     <string name="screensaver_date_color_title">Kleur datum</string>
-    <string name="auto_silence_at_the_end_of_the_ringtone">Het einde van het wekkergeluid</string>
+    <string name="auto_silence_end_of_ringtone">Het einde van het wekkergeluid</string>
     <string name="timer_label_box_title">Kookwekkerlabel</string>
     <string name="timer_button_time_box_title">Minuten om aan de kookwekker toe te voegen</string>
     <string name="timer_add_custom_time">+ %s</string>

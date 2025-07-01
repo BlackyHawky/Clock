@@ -91,17 +91,8 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"اسنوز کی طوالت"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"آواز میں بتدریج اضافہ کریں"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"خاموش بعد از"</string>
-    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
-        <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> منٹ</item>
-        <item quantity="one">1 منٹ</item>
-    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"کبھی نہیں"</string>
     <string name="auto_silence_1_minute">1 منٹ</string>
-    <string name="auto_silence_5_minutes">5 منٹ</string>
-    <string name="auto_silence_10_minutes">10 منٹ</string>
-    <string name="auto_silence_15_minutes">15 منٹ</string>
-    <string name="auto_silence_20_minutes">20 منٹ</string>
-    <string name="auto_silence_25_minutes">25 منٹ</string>
     <string name="label_off">آف</string>
     <string name="week_start_title" msgid="4268917518596832096">"ہفتہ شروع کریں بروز"</string>
     <string name="week_start_saturday">ہفتہ</string>
@@ -326,7 +317,6 @@
     <string name="no_firing_alarms" msgid="4986161963178722289">"کوئی فائرنگ الارم نہیں"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> الارم 10 منٹ کیلئے اسنوز ہوگیا"</string>
     <string name="delete_occasional_alarm_after_use_title">برخاست ہونے کے بعد الارم کو حذف کریں</string>
-    <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">رنگ ٹون ختم ہونے پر الارم کو برخاست کریں</string>
     <string name="alarm_label_box_title">الارم لیبل</string>
     <string name="alarm_alert_dismiss_and_delete_text">برخاست کریں اور حذف کریں</string>
     <string name="duplicate">نقل</string>

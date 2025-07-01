@@ -462,8 +462,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         // If the "Alarm silence" setting has not been set to "Never", we don't want alarms
         // to be seen as missed but snoozed.
         // This avoids having to create multiple alarms for the same reason.
-        final int timeoutMinutes = SettingsDAO.getAlarmTimeout(getDefaultSharedPreferences(context));
-        if (timeoutMinutes != ALARM_TIMEOUT_NEVER) {
+        if (instance.mAutoSilenceDuration != ALARM_TIMEOUT_NEVER) {
             setSnoozeState(context, instance, true);
             return;
         }

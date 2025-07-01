@@ -107,19 +107,8 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"Długość drzemki"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Stopniowo zwiększaj głośność"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Wycisz za"</string>
-    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
-        <item quantity="few"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minuty</item>
-        <item quantity="many"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minut</item>
-        <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minuty</item>
-        <item quantity="one">1 minuta</item>
-    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Nigdy"</string>
     <string name="auto_silence_1_minute">1 minuta</string>
-    <string name="auto_silence_5_minutes">5 minut</string>
-    <string name="auto_silence_10_minutes">10 minut</string>
-    <string name="auto_silence_15_minutes">15 minut</string>
-    <string name="auto_silence_20_minutes">20 minut</string>
-    <string name="auto_silence_25_minutes">25 minut</string>
     <string name="label_off">Wył.</string>
     <string name="week_start_title" msgid="4268917518596832096">"Początek tygodnia"</string>
     <string name="week_start_saturday">Sobota</string>
@@ -462,7 +451,7 @@
     <string name="default_time_to_add_to_timer_8_minutes">8 minut</string>
     <string name="default_time_to_add_to_timer_9_minutes">9 minut</string>
     <string name="next_alarm_widget_default_title_color">Użyj domyślnego koloru dla tytułów „Następny alarm” i „Brak nadchodzącego alarmu”</string>
-    <string name="auto_silence_at_the_end_of_the_ringtone">Po zakończeniu dzwonka</string>
+    <string name="auto_silence_end_of_ringtone">Po zakończeniu dzwonka</string>
     <string name="clock_settings_summary">Ustawianie stylu, strefy czasowej oraz zmiana daty i godziny urządzenia</string>
     <string name="alarm_clock_font_size">Rozmiar czcionki alarmu</string>
     <string name="alarm_title_font_size">Rozmiar czcionki tytułu alarmu</string>
@@ -498,7 +487,6 @@
     <string name="digital_widget_clock_custom_color_title">Niestandardowy kolor zegara głównego</string>
     <string name="digital_widget_date_custom_color_title">Niestandardowy kolor daty</string>
     <string name="permission_requirement_title">Wymagania:</string>
-    <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Wyłącz alarm po zakończeniu dzwonka</string>
     <string name="alarm_label_box_title">Etykieta alarmu</string>
     <string name="style_category_title">Styl</string>
     <string name="ignore_battery_optimizations_dialog_title">Optymalizacja baterii</string>

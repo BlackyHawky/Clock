@@ -99,18 +99,8 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"Duração da soneca"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Aumentar gradualmente o volume"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Silenciar depois de"</string>
-    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
-        <item quantity="one"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minutos</item>
-        <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minutos</item>
-        <item quantity="many"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minutos</item>
-    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Nunca"</string>
     <string name="auto_silence_1_minute">1 minuto</string>
-    <string name="auto_silence_5_minutes">5 minutos</string>
-    <string name="auto_silence_10_minutes">10 minutos</string>
-    <string name="auto_silence_15_minutes">15 minutos</string>
-    <string name="auto_silence_20_minutes">20 minutos</string>
-    <string name="auto_silence_25_minutes">25 minutos</string>
     <string name="label_off">Desativar</string>
     <string name="week_start_title" msgid="4268917518596832096">"Começar a semana em"</string>
     <string name="week_start_saturday">Sábado</string>
@@ -346,7 +336,6 @@
     <string name="settings_vibration_title">Habilitar vibrações</string>
     <string name="title_accent_color">Cor do acento</string>
     <string name="duplicate">Duplicar</string>
-    <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Dispensar alarme quando o toque terminar</string>
     <string name="alarm_label_box_title">Nome do Alarme</string>
     <string name="interface_customization_settings">Interface</string>
     <string name="interface_customization_summary">Ajustar estilo e cor aplicados para o app</string>
@@ -356,7 +345,7 @@
     <string name="display_background_border_title">Mostrar as bordas do plano de fundo</string>
     <string name="alarm_notification_reminder_title">Lembrete de notificação</string>
     <string name="enable_alarm_vibrations_by_default_setting_title">Habilitar vibrações quando criar alarmes</string>
-    <string name="auto_silence_at_the_end_of_the_ringtone">O fim do toque</string>
+    <string name="auto_silence_end_of_ringtone">O fim do toque</string>
     <string name="add_label">Adicionar nome</string>
     <string name="style_category_title">Estilo</string>
     <string name="styles_and_colors_category_title">Estilo e cores</string>

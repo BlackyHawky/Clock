@@ -91,17 +91,8 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"Äratuse edasilükkamise pikkus"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Helitugevuse järkjärguline suurendamine"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Vaikus aja möödumisel"</string>
-    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
-        <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minutit</item>
-        <item quantity="one">1 minut</item>
-    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Mitte kunagi"</string>
     <string name="auto_silence_1_minute">1 minut</string>
-    <string name="auto_silence_5_minutes">5 minutit</string>
-    <string name="auto_silence_10_minutes">10 minutit</string>
-    <string name="auto_silence_15_minutes">15 minutit</string>
-    <string name="auto_silence_20_minutes">20 minutit</string>
-    <string name="auto_silence_25_minutes">25 minutit</string>
     <string name="label_off">Väljas</string>
     <string name="week_start_title" msgid="4268917518596832096">Nädala algus</string>
     <string name="week_start_saturday">Laupäev</string>
@@ -354,7 +345,6 @@
     <string name="interface_customization_settings">Kasutajaliides</string>
     <string name="style_category_title">Välimus</string>
     <string name="styles_and_colors_category_title">Stiil ja värvid</string>
-    <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Helina lõppemisel lülita äratus välja</string>
     <string name="alarm_notification_reminder_title">Teavituse meeldetuletus</string>
     <string name="enable_alarm_vibrations_by_default_setting_title">Äratuse puhul lülita vibreerimine sisse</string>
     <string name="timer_add_custom_time">+ %s</string>
@@ -371,7 +361,7 @@
     <string name="swipe_action_title">Äratuse lõpetamiseks või edasilükkamiseks viipa</string>
     <string name="material_time_picker_style_title">Taimeri valikuvaade</string>
     <string name="timer_label_box_title">Taimeri silt</string>
-    <string name="auto_silence_at_the_end_of_the_ringtone">Helina lõppedes</string>
+    <string name="auto_silence_end_of_ringtone">Helina lõppedes</string>
     <string name="timer_button_time_box_title">Taimerile lisatavad minutid</string>
     <string name="clock_settings_summary">Muuda välimust, ajavööndeid ning seadme kuupäeva ja kellaaega</string>
     <string name="version">Versioon</string>

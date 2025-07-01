@@ -7,7 +7,7 @@
 package com.best.deskclock.provider;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_TIMEOUT_AT_THE_END_OF_THE_RINGTONE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_TIMEOUT_END_OF_RINGTONE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_TIMEOUT_NEVER;
 
 import android.content.ContentResolver;
@@ -57,6 +57,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             RINGTONE,
             ALARM_ID,
             ALARM_STATE,
+            AUTO_SILENCE_DURATION,
             SNOOZE_DURATION,
             CRESCENDO_DURATION,
             INCREASING_VOLUME
@@ -80,9 +81,10 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     private static final int RINGTONE_INDEX = 11;
     private static final int ALARM_ID_INDEX = 12;
     private static final int ALARM_STATE_INDEX = 13;
-    private static final int SNOOZE_DURATION_INDEX = 14;
-    private static final int CRESCENDO_DURATION_INDEX = 15;
-    private static final int INCREASING_VOLUME_INDEX = 16;
+    private static final int AUTO_SILENCE_DURATION_INDEX = 14;
+    private static final int SNOOZE_DURATION_INDEX = 15;
+    private static final int CRESCENDO_DURATION_INDEX = 16;
+    private static final int INCREASING_VOLUME_INDEX = 17;
 
     private static final int COLUMN_COUNT = INCREASING_VOLUME_INDEX + 1;
     // Public fields
@@ -100,6 +102,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     public Uri mRingtone;
     public Long mAlarmId;
     public int mAlarmState;
+    public int mAutoSilenceDuration;
     public int mSnoozeDuration;
     public int mCrescendoDuration;
     public boolean mIncreasingVolume;
@@ -119,6 +122,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         mFlash = false;
         mRingtone = null;
         mAlarmState = SILENT_STATE;
+        mAutoSilenceDuration = 10;
         mSnoozeDuration = 10;
         mCrescendoDuration = 0;
         mIncreasingVolume = false;
@@ -139,6 +143,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         this.mRingtone = instance.mRingtone;
         this.mAlarmId = instance.mAlarmId;
         this.mAlarmState = instance.mAlarmState;
+        this.mAutoSilenceDuration = instance.mAutoSilenceDuration;
         this.mSnoozeDuration = instance.mSnoozeDuration;
         this.mCrescendoDuration = instance.mCrescendoDuration;
         this.mIncreasingVolume = instance.mIncreasingVolume;
@@ -157,6 +162,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             mAlarmSnoozeActions = c.getInt(Alarm.INSTANCE_ALARM_SNOOZE_ACTIONS_INDEX) == 1;
             mVibrate = c.getInt(Alarm.INSTANCE_VIBRATE_INDEX) == 1;
             mFlash = c.getInt(Alarm.INSTANCE_FLASH_INDEX) == 1;
+            mAutoSilenceDuration = c.getInt(Alarm.INSTANCE_AUTO_SILENCE_DURATION_INDEX);
             mSnoozeDuration = c.getInt(Alarm.INSTANCE_SNOOZE_DURATION_INDEX);
             mCrescendoDuration = c.getInt(Alarm.INSTANCE_CRESCENDO_DURATION_INDEX);
         } else {
@@ -171,6 +177,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             mAlarmSnoozeActions = c.getInt(ALARM_SNOOZE_ACTIONS_INDEX) == 1;
             mVibrate = c.getInt(VIBRATE_INDEX) == 1;
             mFlash = c.getInt(FLASH_INDEX) == 1;
+            mAutoSilenceDuration = c.getInt(AUTO_SILENCE_DURATION_INDEX);
             mSnoozeDuration = c.getInt(SNOOZE_DURATION_INDEX);
             mCrescendoDuration = c.getInt(CRESCENDO_DURATION_INDEX);
         }
@@ -214,6 +221,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         }
         values.put(ALARM_ID, instance.mAlarmId);
         values.put(ALARM_STATE, instance.mAlarmState);
+        values.put(AUTO_SILENCE_DURATION, instance.mAutoSilenceDuration);
         values.put(SNOOZE_DURATION, instance.mSnoozeDuration);
         values.put(CRESCENDO_DURATION, instance.mCrescendoDuration);
         values.put(INCREASING_VOLUME, instance.mIncreasingVolume ? 1 : 0);
@@ -422,19 +430,18 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
      * @return the time when alarm should be silence, or null if never
      */
     public Calendar getTimeout(Context context) {
-        final int timeoutMinutes = SettingsDAO.getAlarmTimeout(getDefaultSharedPreferences(context));
         Calendar calendar = getAlarmTime();
 
         // Alarm silence has been set to "Never"
-        if (timeoutMinutes == ALARM_TIMEOUT_NEVER) {
+        if (mAutoSilenceDuration == ALARM_TIMEOUT_NEVER) {
             return null;
         // Alarm silence has been set to "At the end of the ringtone"
         // or "Dismiss alarm when ringtone ends" has been ticked in the expanded alarm view
-        } else if (timeoutMinutes == ALARM_TIMEOUT_AT_THE_END_OF_THE_RINGTONE || mDismissAlarmWhenRingtoneEnds) {
+        } else if (mAutoSilenceDuration == ALARM_TIMEOUT_END_OF_RINGTONE) {
             int milliSeconds = RingtoneUtils.getRingtoneDuration(context, mRingtone);
             calendar.add(Calendar.MILLISECOND, milliSeconds);
         } else {
-            calendar.add(Calendar.MINUTE, timeoutMinutes);
+            calendar.add(Calendar.MINUTE, mAutoSilenceDuration);
         }
 
         return calendar;
@@ -469,6 +476,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
                 ", mRingtone=" + mRingtone +
                 ", mAlarmId=" + mAlarmId +
                 ", mAlarmState=" + mAlarmState +
+                ", mAutoSilenceDuration=" + mAutoSilenceDuration +
                 ", mSnoozeDuration=" + mSnoozeDuration +
                 ", mCrescendoDuration=" + mCrescendoDuration +
                 ", mIncreasingVolume=" + mIncreasingVolume +

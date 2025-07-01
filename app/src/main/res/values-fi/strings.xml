@@ -91,17 +91,8 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"Torkkuajan pituus"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Lisää äänenvoimakkuutta vähitellen"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Herätyksen kesto"</string>
-    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
-        <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minuuttia</item>
-        <item quantity="one">1 minuutti</item>
-    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Ei koskaan"</string>
     <string name="auto_silence_1_minute">1 minuutti</string>
-    <string name="auto_silence_5_minutes">5 minuuttia</string>
-    <string name="auto_silence_10_minutes">10 minuuttia</string>
-    <string name="auto_silence_15_minutes">15 minuuttia</string>
-    <string name="auto_silence_20_minutes">20 minuuttia</string>
-    <string name="auto_silence_25_minutes">25 minuuttia</string>
     <string name="label_off">Pois käytöstä</string>
     <string name="week_start_title" msgid="4268917518596832096">Viikon aloituspäivä</string>
     <string name="week_start_saturday">lauantai</string>

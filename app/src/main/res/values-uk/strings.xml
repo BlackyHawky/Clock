@@ -107,19 +107,8 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"Відкласти на"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Збільшувати гучність поступово"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">Вимкнути будильник за</string>
-    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
-        <item quantity="one"><xliff:g id="formatted_number">%s</xliff:g> хвилину</item>
-        <item quantity="few"><xliff:g id="formatted_number">%s</xliff:g> хвилини</item>
-        <item quantity="many"><xliff:g id="formatted_number">%s</xliff:g> хвилин</item>
-        <item quantity="other"><xliff:g id="formatted_number">%s</xliff:g> хвилин</item>
-    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Ніколи"</string>
     <string name="auto_silence_1_minute">1 хвилину</string>
-    <string name="auto_silence_5_minutes">5 хвилин</string>
-    <string name="auto_silence_10_minutes">10 хвилин</string>
-    <string name="auto_silence_15_minutes">15 хвилин</string>
-    <string name="auto_silence_20_minutes">20 хвилин</string>
-    <string name="auto_silence_25_minutes">25 хвилин</string>
     <string name="label_off">Вимкнено</string>
     <string name="week_start_title" msgid="4268917518596832096">Початок тижня</string>
     <string name="week_start_saturday">субота</string>
@@ -398,7 +387,7 @@
     <string name="actions_category_title">Дії</string>
     <string name="ringtone_category_title">Сигнал</string>
     <string name="enable_alarm_vibrations_by_default_setting_title">Увімкнути вібрацію під час налаштування будильників</string>
-    <string name="auto_silence_at_the_end_of_the_ringtone">Після відтворення сигналу</string>
+    <string name="auto_silence_end_of_ringtone">Після відтворення сигналу</string>
     <string name="alarm_notification_reminder_title">Нагадування про сповіщення</string>
     <string name="about_github_link">Подивитися на GitHub</string>
     <string name="credits">Подяка</string>
@@ -447,7 +436,6 @@
     <string name="screensaver_bold_date_title">Дата жирним</string>
     <string name="settings_vibration_summary">Впливає лише на деякі кнопки (напр., запуск/пауза таймера або перемикачі)</string>
     <string name="alarm_label_box_title">Мітка будильника</string>
-    <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Вимкнути будильник після відтворення сигналу</string>
     <string name="timer_add_custom_time">+%s</string>
     <string name="timer_label_box_title">Мітка таймера</string>
     <string name="timer_button_time_box_title">Хвилини для додавання до таймера</string>

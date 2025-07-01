@@ -91,17 +91,8 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"ಸ್ನೂಜ್ ಅವಧಿ"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"ಕ್ರಮೇಣವಾಗಿ ವಾಲ್ಯೂಮ್ ಹೆಚ್ಚಿಸಿ"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"ಇಷ್ಟೊತ್ತಿನ ಮೇಲೆ ಮೌನವಾಗು"</string>
-    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
-        <item quantity="one"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> ನಿಮಿಷಗಳು</item>
-        <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> ನಿಮಿಷಗಳು</item>
-    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"ಎಂದಿಗೂ ಬೇಡ"</string>
     <string name="auto_silence_1_minute">1 ನಿಮಿಷ</string>
-    <string name="auto_silence_5_minutes">5 ನಿಮಿಷಗಳು</string>
-    <string name="auto_silence_10_minutes">10 ನಿಮಿಷಗಳು</string>
-    <string name="auto_silence_15_minutes">15 ನಿಮಿಷಗಳು</string>
-    <string name="auto_silence_20_minutes">20 ನಿಮಿಷಗಳು</string>
-    <string name="auto_silence_25_minutes">25 ನಿಮಿಷಗಳು</string>
     <string name="label_off">ಆಫ್ ಆಗಿದೆ</string>
     <string name="week_start_title" msgid="4268917518596832096">"ವಾರದ ಪ್ರಾರಂಭ"</string>
     <string name="week_start_saturday">ಶನಿವಾರ</string>
@@ -335,7 +326,6 @@
     <string name="sort_timer_descending_duration">ಅವಧಿಯ ಪ್ರಕಾರ (ಅವರೋಹಣ ಕ್ರಮ)</string>
     <string name="timer_flip_action_title">ಗಡಿಯಾರದ ಯೆಚ್ಚರಿಕೆಯನ್ನು ನಿಲ್ಲಿಸಲು, ಸಾಧನವನ್ನು ತಿರುಗಿಸಿ</string>
     <string name="alarm_label_box_title">ಗಡಿಯಾರ ಅಲಾರಾಂ ಲೇಬಲ್</string>
-    <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">ರಿಂಗ್‌ಟೋನ್ ಮುಗಿದಾಗ ಅಲಾರಾಂ ಅನ್ನು ವಜಾಗೊಳಿಸಿ</string>
     <string name="delete_occasional_alarm_after_use_title">ಒಮ್ಮೆ ವಜಾಗೊಳಿಸಿದ ಗಡಿಯಾರ ಎಚ್ಚರಿಕೆಯನ್ನು ಅಳಿಸಿ</string>
     <string name="alarm_flash">ಗಡಿಯಾರ ಅಲಾರಾಂ ಫ್ಲಾಶ್</string>
     <string name="sort_timer_name">ಹೆಸರಿನಾ ಕ್ರಮದಲ್ಲಿ</string>

@@ -83,16 +83,8 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"延後時間長度"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"漸漸提高音量"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">鬧鐘鈴響持續時間</string>
-    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
-        <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> 分鐘</item>
-    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"無限期"</string>
     <string name="auto_silence_1_minute">1 分鐘</string>
-    <string name="auto_silence_5_minutes">5 分鐘</string>
-    <string name="auto_silence_10_minutes">10 分鐘</string>
-    <string name="auto_silence_15_minutes">15 分鐘</string>
-    <string name="auto_silence_20_minutes">20 分鐘</string>
-    <string name="auto_silence_25_minutes">25 分鐘</string>
     <string name="label_off">關閉</string>
     <string name="week_start_title" msgid="4268917518596832096">每週起始日</string>
     <string name="week_start_saturday">星期六</string>
@@ -356,7 +348,6 @@
     <string name="permission_granted">已授予</string>
     <string name="permission_dialog_close_button">關閉</string>
     <string name="material_you_digital_widget">Material You 數位時鐘</string>
-    <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">鈴聲結束時關閉鬧鐘</string>
     <string name="alarm_label_box_title">鬧鐘標籤</string>
     <string name="label_default">預設</string>
     <string name="timer_add_custom_time">+ %s</string>
@@ -449,7 +440,7 @@
     <string name="next_alarm_widget_default_title_color">「下個鬧鐘」與「沒有即將啟動的鬧鐘」使用預設色彩</string>
     <string name="backup_restore_dialog_message">您要備份或還原應用程式資料嗎？</string>
     <string name="settings_language_korean">韓文</string>
-    <string name="auto_silence_at_the_end_of_the_ringtone">鈴聲播放完畢時靜音</string>
+    <string name="auto_silence_end_of_ringtone">鈴聲播放完畢時靜音</string>
     <string name="sw_long_press_volume_down_action_title">降低音量 (按住)</string>
     <string name="sw_volume_up_action_title">提高音量</string>
     <string name="sw_long_press_volume_up_action_title">提高音量 (按住)</string>

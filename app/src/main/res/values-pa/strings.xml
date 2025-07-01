@@ -91,17 +91,8 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"ਸਨੂਜ਼ ਦੀ ਲੰਬਾਈ"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"ਹੌਲੀ-ਹੌਲੀ ਵੌਲਿਊਮ ਵਧਾਓ"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"ਇਸ ਵਕਫੇ ਤੋਂ ਬਾਅਦ ਖਾਮੋਸ਼ ਹੋ ਜਾਓ"</string>
-    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
-        <item quantity="one"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> ਮਿੰਟ</item>
-        <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> ਮਿੰਟ</item>
-    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"ਕਦੇ ਵੀ ਨਹੀਂ"</string>
     <string name="auto_silence_1_minute">1 ਮਿੰਟ</string>
-    <string name="auto_silence_5_minutes">5 ਮਿੰਟ</string>
-    <string name="auto_silence_10_minutes">10 ਮਿੰਟ</string>
-    <string name="auto_silence_15_minutes">15 ਮਿੰਟ</string>
-    <string name="auto_silence_20_minutes">20 ਮਿੰਟ</string>
-    <string name="auto_silence_25_minutes">25 ਮਿੰਟ</string>
     <string name="label_off">ਬੰਦ</string>
     <string name="week_start_title" msgid="4268917518596832096">"ਇਸ ਦਿਨ ਹਫ਼ਤਾ ਸ਼ੁਰੂ ਕਰੋ"</string>
     <string name="week_start_saturday">ਸ਼ਨਿਚਰਵਾਰ</string>

@@ -13,7 +13,6 @@ import static com.best.deskclock.AlarmSelectionActivity.EXTRA_ALARMS;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.provider.AlarmInstance.FIRED_STATE;
 import static com.best.deskclock.provider.AlarmInstance.SNOOZE_STATE;
-import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_TIMEOUT_AT_THE_END_OF_THE_RINGTONE;
 import static com.best.deskclock.uidata.UiDataModel.Tab.ALARMS;
 import static com.best.deskclock.uidata.UiDataModel.Tab.TIMERS;
 
@@ -531,18 +530,18 @@ public class HandleApiCalls extends Activity {
      * <p>This method sets the alarm's behavior based on user preferences stored in
      * {@link SharedPreferences}. It is typically used when creating a new alarm to ensure
      * consistency with global settings such as vibration, flash, ringtone timeout,
-     * auto-deletion after use, the snooze duration and the crescendo duration.</p>
+     * auto-deletion after use,the auto silence duration, the snooze duration and
+     * the crescendo duration.</p>
      *
      * @param alarm the {@link Alarm} object to which default settings will be applied
      * @param prefs the {@link SharedPreferences} containing the user's default alarm preferences
      */
     private static void applyAlarmSettings(Alarm alarm, SharedPreferences prefs) {
         alarm.enabled = true;
-        alarm.dismissAlarmWhenRingtoneEnds = SettingsDAO.getAlarmTimeout(prefs)
-                == ALARM_TIMEOUT_AT_THE_END_OF_THE_RINGTONE;
         alarm.vibrate = SettingsDAO.areAlarmVibrationsEnabledByDefault(prefs);
         alarm.flash = SettingsDAO.shouldTurnOnBackFlashForTriggeredAlarm(prefs);
         alarm.deleteAfterUse = SettingsDAO.isOccasionalAlarmDeletedByDefault(prefs);
+        alarm.autoSilenceDuration = SettingsDAO.getAlarmTimeout(prefs);
         alarm.snoozeDuration = SettingsDAO.getSnoozeLength(prefs);
         alarm.crescendoDuration = SettingsDAO.getAlarmVolumeCrescendoDuration(prefs);
     }

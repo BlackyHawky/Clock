@@ -83,16 +83,8 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"暂停时长"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">逐步增大音量</string>
     <string name="auto_silence_title" msgid="2012754009554434544">之后静音</string>
-    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
-        <item quantity="other"><xliff:g example="7" id="formatted_number">%s</xliff:g> 分钟</item>
-    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">从不</string>
     <string name="auto_silence_1_minute">1 分钟</string>
-    <string name="auto_silence_5_minutes">5 分钟</string>
-    <string name="auto_silence_10_minutes">10 分钟</string>
-    <string name="auto_silence_15_minutes">15 分钟</string>
-    <string name="auto_silence_20_minutes">20 分钟</string>
-    <string name="auto_silence_25_minutes">25 分钟</string>
     <string name="label_off">关闭</string>
     <string name="week_start_title" msgid="4268917518596832096">一周的第一天</string>
     <string name="week_start_saturday">星期六</string>
@@ -324,7 +316,7 @@
     <string name="alarm_upcoming_channel">预定的闹钟</string>
     <string name="stopwatch_channel">秒表</string>
     <string name="timer_channel">定时器</string>
-    <string name="auto_silence_at_the_end_of_the_ringtone">铃声结束</string>
+    <string name="auto_silence_end_of_ringtone">铃声结束</string>
     <string name="digital_widget_clock_custom_color_title">主时钟自定义颜色</string>
     <string name="permission_requirement_title">必要： </string>
     <string name="permission_highly_recommended">强烈推荐</string>
@@ -416,7 +408,6 @@
     <string name="widget_next_alarm_default_color_title">下次闹钟使用默认颜色</string>
     <string name="widget_next_alarm_custom_color_title">下次闹钟自定义颜色</string>
     <string name="alarm_label_box_title">闹钟标签</string>
-    <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">铃声结束时关闭闹钟</string>
     <string name="settings_permission_summary">点击此处显示权限管理页面。</string>
     <string name="style_category_title">样式</string>
     <string name="styles_and_colors_category_title">样式和颜色</string>

@@ -91,17 +91,8 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"Lengd blunds"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Auka hljóðstyrk smám saman"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Slökkva á hljóði eftir"</string>
-    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
-        <item quantity="one"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> mínúta</item>
-        <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> mínútur</item>
-    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Aldrei"</string>
     <string name="auto_silence_1_minute">1 mínúta</string>
-    <string name="auto_silence_5_minutes">5 mínútur</string>
-    <string name="auto_silence_10_minutes">10 mínútur</string>
-    <string name="auto_silence_15_minutes">15 mínútur</string>
-    <string name="auto_silence_20_minutes">20 mínútur</string>
-    <string name="auto_silence_25_minutes">25 mínútur</string>
     <string name="label_off">Slökkt</string>
     <string name="week_start_title" msgid="4268917518596832096">"Vikan hefst á"</string>
     <string name="week_start_saturday">Laugardegi</string>

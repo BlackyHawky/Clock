@@ -99,18 +99,8 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"משך הנדנוד"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"הגבר בהדרגה את עוצמת הקול"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"השתק לאחר"</string>
-    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
-        <item quantity="two"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> דקות</item>
-        <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> דקות</item>
-        <item quantity="one">דקה אחת</item>
-    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"לעולם לא"</string>
     <string name="auto_silence_1_minute">1 דקה</string>
-    <string name="auto_silence_5_minutes">5 דקות</string>
-    <string name="auto_silence_10_minutes">10 דקות</string>
-    <string name="auto_silence_15_minutes">15 דקות</string>
-    <string name="auto_silence_20_minutes">20 דקות</string>
-    <string name="auto_silence_25_minutes">25 דקות</string>
     <string name="label_off">כיבוי</string>
     <string name="week_start_title" msgid="4268917518596832096">"השבוע מתחיל ב-"</string>
     <string name="week_start_saturday">שבת</string>

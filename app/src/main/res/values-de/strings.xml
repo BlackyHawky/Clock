@@ -91,17 +91,8 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"Dauer der Schlummerfunktion"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Lautstärke schrittweise erhöhen"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Stummschalten nach"</string>
-    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
-        <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> Minuten</item>
-        <item quantity="one">1 Minute</item>
-    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Nie"</string>
     <string name="auto_silence_1_minute">1 Minute</string>
-    <string name="auto_silence_5_minutes">5 Minuten</string>
-    <string name="auto_silence_10_minutes">10 Minuten</string>
-    <string name="auto_silence_15_minutes">15 Minuten</string>
-    <string name="auto_silence_20_minutes">20 Minuten</string>
-    <string name="auto_silence_25_minutes">25 Minuten</string>
     <string name="label_off">Aus</string>
     <string name="week_start_title" msgid="4268917518596832096">"Wochenbeginn am"</string>
     <string name="week_start_saturday">Samstag</string>
@@ -344,7 +335,6 @@
     <string name="revoke_permission_dialog_message">Sind Sie sicher, dass Sie diese Berechtigung widerrufen wollen?</string>
     <string name="more_options">Mehr Optionen</string>
     <string name="first_launch_dialog_message">Sind Sie sicher, dass Sie die App verlassen wollen?</string>
-    <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Alarm nach Ende des Signaltons ausschalten</string>
     <string name="display_card_background_summary">Hintergrund für einige Elemente der App anzeigen (Alarme, Städte, Timer usw.)</string>
     <string name="power_button_title">Ein/Aus-Taste</string>
     <string name="add_label">Name</string>
@@ -364,7 +354,7 @@
     <string name="display_background_border_title">Rahmen anzeigen</string>
     <string name="alarm_notification_reminder_title">Benachrichtigung über anstehende Alarme</string>
     <string name="enable_alarm_vibrations_by_default_setting_title">Vibrieren bei Alarmen standardmäßig aktivieren</string>
-    <string name="auto_silence_at_the_end_of_the_ringtone">Ende des Signaltons</string>
+    <string name="auto_silence_end_of_ringtone">Ende des Signaltons</string>
     <string name="timer_label_box_title">Timer-Name</string>
     <string name="timer_button_time_box_title">Minuten, die dem Timer hinzugefügt werden</string>
     <string name="timer_add_custom_time">+ %s</string>

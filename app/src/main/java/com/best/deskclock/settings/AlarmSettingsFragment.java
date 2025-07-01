@@ -3,11 +3,11 @@
 package com.best.deskclock.settings;
 
 import static com.best.deskclock.DeskClock.REQUEST_CHANGE_SETTINGS;
+import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_TIMEOUT_END_OF_RINGTONE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_DISPLAY_CUSTOMIZATION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_NOTIFICATION_REMINDER_TIME;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_VOLUME_SETTING;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_ROUTING_TO_BLUETOOTH_DEVICE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_SILENCE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_BLUETOOTH_VOLUME;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DEFAULT_ALARM_RINGTONE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT;
@@ -44,6 +44,7 @@ import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.AlarmSnoozeDurationDialogFragment;
+import com.best.deskclock.AutoSilenceDurationDialogFragment;
 import com.best.deskclock.R;
 import com.best.deskclock.VolumeCrescendoDurationDialogFragment;
 import com.best.deskclock.alarms.AlarmUpdateHandler;
@@ -66,7 +67,6 @@ public class AlarmSettingsFragment extends ScreenFragment
     private AudioDeviceCallback mAudioDeviceCallback;
 
     Preference mAlarmRingtonePref;
-    ListPreference mAutoSilencePref;
     AlarmVolumePreference mAlarmVolumePref;
     SwitchPreferenceCompat mAdvancedAudioPlaybackPref;
     SwitchPreferenceCompat mAutoRoutingToBluetoothDevicePref;
@@ -99,7 +99,6 @@ public class AlarmSettingsFragment extends ScreenFragment
         addPreferencesFromResource(R.xml.settings_alarm);
 
         mAlarmRingtonePref = findPreference(KEY_DEFAULT_ALARM_RINGTONE);
-        mAutoSilencePref = findPreference(KEY_AUTO_SILENCE);
         mAlarmVolumePref = findPreference(KEY_ALARM_VOLUME_SETTING);
         mAdvancedAudioPlaybackPref = findPreference(KEY_ADVANCED_AUDIO_PLAYBACK);
         mAutoRoutingToBluetoothDevicePref = findPreference(KEY_AUTO_ROUTING_TO_BLUETOOTH_DEVICE);
@@ -167,11 +166,6 @@ public class AlarmSettingsFragment extends ScreenFragment
     @Override
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
-            case KEY_AUTO_SILENCE -> {
-                final String delay = (String) newValue;
-                updateAutoSnoozeSummary((ListPreference) pref, delay);
-            }
-
             case KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT, KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS,
                  KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM, KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT ->
                     Utils.setVibrationTime(requireContext(), 50);
@@ -256,7 +250,13 @@ public class AlarmSettingsFragment extends ScreenFragment
 
     @Override
     public void onDisplayPreferenceDialog(@NonNull Preference pref) {
-        if (pref instanceof AlarmSnoozeDurationPreference alarmSnoozeDurationPreference) {
+        if (pref instanceof AutoSilenceDurationPreference autoSilenceDurationPreference) {
+            int currentValue = autoSilenceDurationPreference.getAutoSilenceDuration();
+            AutoSilenceDurationDialogFragment dialogFragment =
+                    AutoSilenceDurationDialogFragment.newInstance(pref.getKey(), currentValue,
+                            currentValue == ALARM_TIMEOUT_END_OF_RINGTONE);
+            AutoSilenceDurationDialogFragment.show(getParentFragmentManager(), dialogFragment);
+        } else if (pref instanceof AlarmSnoozeDurationPreference alarmSnoozeDurationPreference) {
             int currentValue = alarmSnoozeDurationPreference.getSnoozeDuration();
             AlarmSnoozeDurationDialogFragment dialogFragment =
                     AlarmSnoozeDurationDialogFragment.newInstance(pref.getKey(), currentValue);
@@ -276,41 +276,52 @@ public class AlarmSettingsFragment extends ScreenFragment
 
         mAlarmRingtonePref.setOnPreferenceClickListener(this);
 
-        String delay = mAutoSilencePref.getValue();
-        updateAutoSnoozeSummary(mAutoSilencePref, delay);
-        mAutoSilencePref.setOnPreferenceChangeListener(this);
+        // Alarm auto silence duration preference
+        getParentFragmentManager().setFragmentResultListener(AutoSilenceDurationDialogFragment.REQUEST_KEY,
+                this, (requestKey, bundle) -> {
+            String key = bundle.getString(AutoSilenceDurationDialogFragment.RESULT_PREF_KEY);
+            int newValue = bundle.getInt(AutoSilenceDurationDialogFragment.AUTO_SILENCE_DURATION_VALUE);
+
+            if (key != null) {
+                AutoSilenceDurationPreference pref = findPreference(key);
+                if (pref != null) {
+                    pref.setAutoSilenceDuration(newValue);
+                    pref.setSummary(pref.getSummary());
+                }
+            }
+        });
 
         // Alarm snooze duration preference
         getParentFragmentManager().setFragmentResultListener(AlarmSnoozeDurationDialogFragment.REQUEST_KEY,
                 this, (requestKey, bundle) -> {
-                    String key = bundle.getString(AlarmSnoozeDurationDialogFragment.RESULT_PREF_KEY);
-                    int newValue = bundle.getInt(AlarmSnoozeDurationDialogFragment.ALARM_SNOOZE_DURATION_VALUE);
+            String key = bundle.getString(AlarmSnoozeDurationDialogFragment.RESULT_PREF_KEY);
+            int newValue = bundle.getInt(AlarmSnoozeDurationDialogFragment.ALARM_SNOOZE_DURATION_VALUE);
 
-                    if (key != null) {
-                        AlarmSnoozeDurationPreference pref = findPreference(key);
-                        if (pref != null) {
-                            pref.setSnoozeDuration(newValue);
-                            pref.setSummary(pref.getSummary());
-                        }
-                    }
-                });
+            if (key != null) {
+                AlarmSnoozeDurationPreference pref = findPreference(key);
+                if (pref != null) {
+                    pref.setSnoozeDuration(newValue);
+                    pref.setSummary(pref.getSummary());
+                }
+            }
+        });
 
         mAlarmVolumePref.setEnabled(!RingtoneUtils.hasBluetoothDeviceConnected(requireContext(), mPrefs));
 
         // Alarm volume crescendo duration preference
         getParentFragmentManager().setFragmentResultListener(VolumeCrescendoDurationDialogFragment.REQUEST_KEY,
                 this, (requestKey, bundle) -> {
-                    String key = bundle.getString(VolumeCrescendoDurationDialogFragment.RESULT_PREF_KEY);
-                    int newValue = bundle.getInt(VolumeCrescendoDurationDialogFragment.VOLUME_CRESCENDO_DURATION_VALUE);
+            String key = bundle.getString(VolumeCrescendoDurationDialogFragment.RESULT_PREF_KEY);
+            int newValue = bundle.getInt(VolumeCrescendoDurationDialogFragment.VOLUME_CRESCENDO_DURATION_VALUE);
 
-                    if (key != null) {
-                        VolumeCrescendoDurationPreference pref = findPreference(key);
-                        if (pref != null) {
-                            pref.setVolumeCrescendoDuration(newValue);
-                            pref.setSummary(pref.getSummary());
-                        }
-                    }
-                });
+            if (key != null) {
+                VolumeCrescendoDurationPreference pref = findPreference(key);
+                if (pref != null) {
+                    pref.setVolumeCrescendoDuration(newValue);
+                    pref.setSummary(pref.getSummary());
+                }
+            }
+        });
 
         mAdvancedAudioPlaybackPref.setOnPreferenceChangeListener(this);
 
@@ -403,18 +414,6 @@ public class AlarmSettingsFragment extends ScreenFragment
                 }
             }
         };
-    }
-
-    private void updateAutoSnoozeSummary(ListPreference listPref, String delay) {
-        int i = Integer.parseInt(delay);
-        if (i == -1) {
-            listPref.setSummary(R.string.auto_silence_never);
-        } else if (i == -2) {
-            listPref.setSummary(R.string.auto_silence_at_the_end_of_the_ringtone);
-        } else {
-            listPref.setSummary(Utils.getNumberFormattedQuantityString(requireActivity(),
-                    R.plurals.auto_silence_summary, i));
-        }
     }
 
     private void initAudioDeviceCallback() {

@@ -91,17 +91,8 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"යළි සිහිකැඳවන දිග"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"ක්‍රමයෙන් ශබ්දය ඉහළ දමන්න"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"නිහඬවන්නෙ පසු"</string>
-    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
-        <item quantity="one">මිනිත්තු <xliff:g id="FORMATTED_NUMBER">%s</xliff:g></item>
-        <item quantity="other">මිනිත්තු <xliff:g id="FORMATTED_NUMBER">%s</xliff:g></item>
-    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"කවදාවත් නොවේ"</string>
     <string name="auto_silence_1_minute">මිනිත්තු 1</string>
-    <string name="auto_silence_5_minutes">මිනිත්තු 5</string>
-    <string name="auto_silence_10_minutes">මිනිත්තු 10</string>
-    <string name="auto_silence_15_minutes">මිනිත්තු 15</string>
-    <string name="auto_silence_20_minutes">මිනිත්තු 20</string>
-    <string name="auto_silence_25_minutes">මිනිත්තු 25</string>
     <string name="label_off">ක්‍රියාවිරහිතය</string>
     <string name="week_start_title" msgid="4268917518596832096">"සතිය මෙයින් අරඹන්න"</string>
     <string name="week_start_saturday">සෙනසුරාදා</string>

@@ -107,19 +107,8 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"Délka odložení zvonění"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Postupně zvyšovat hlasitost"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Ztišit po"</string>
-    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
-        <item quantity="few"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minutách</item>
-        <item quantity="many"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minutách</item>
-        <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minutách</item>
-        <item quantity="one">1 minutě</item>
-    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Nikdy"</string>
     <string name="auto_silence_1_minute">1 minuta</string>
-    <string name="auto_silence_5_minutes">5 minut</string>
-    <string name="auto_silence_10_minutes">10 minut</string>
-    <string name="auto_silence_15_minutes">15 minut</string>
-    <string name="auto_silence_20_minutes">20 minut</string>
-    <string name="auto_silence_25_minutes">25 minut</string>
     <string name="label_off">Vypnuto</string>
     <string name="week_start_title" msgid="4268917518596832096">"Počáteční den týdne"</string>
     <string name="week_start_saturday">sobota</string>
@@ -369,7 +358,6 @@
     <string name="font_category_title">Font</string>
     <string name="more_options">Více možností</string>
     <string name="red_accent_color">Červená</string>
-    <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Ukončit budík po skončení vyzvánění</string>
     <string name="alarm_label_box_title">Štítek budíku</string>
     <string name="ringtone_category_title">Vyzvánění</string>
     <string name="actions_category_title">Akce</string>
@@ -538,7 +526,7 @@
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">Zapnout vibrace při odložení nebo zrušení budíku</string>
     <string name="alarm_display_customization_title">Přizpůsobit zobrazení budíku</string>
     <string name="auto_silence_5_seconds">5 sekund</string>
-    <string name="auto_silence_at_the_end_of_the_ringtone">Konec vyzvánění</string>
+    <string name="auto_silence_end_of_ringtone">Konec vyzvánění</string>
     <string name="auto_silence_10_seconds">10 sekund</string>
     <string name="auto_silence_20_seconds">20 sekund</string>
     <string name="timer_button_time_box_title">Přidat minuty k časovači</string>

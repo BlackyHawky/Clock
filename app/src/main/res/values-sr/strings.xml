@@ -99,18 +99,8 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"Дужина одлагања"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Постепено појачавај звук"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Утишај после"</string>
-    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
-        <item quantity="one"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> минут</item>
-        <item quantity="few"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> минута</item>
-        <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> минута</item>
-    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Никада"</string>
     <string name="auto_silence_1_minute">1 минут</string>
-    <string name="auto_silence_5_minutes">5 минута</string>
-    <string name="auto_silence_10_minutes">10 минута</string>
-    <string name="auto_silence_15_minutes">15 минута</string>
-    <string name="auto_silence_20_minutes">20 минута</string>
-    <string name="auto_silence_25_minutes">25 минута</string>
     <string name="label_off">Искључено</string>
     <string name="week_start_title" msgid="4268917518596832096">"Недеља почиње у"</string>
     <string name="week_start_saturday">суботу</string>
@@ -388,8 +378,7 @@
     <string name="notifications_permission_title">ОМОГУЋИ ОБАВЕШТЕЊА</string>
     <string name="revoke_permission_dialog_message">Да ли сте сигурни да желите да опозовете ову дозволу?</string>
     <string name="interface_customization_summary">Поставити стил и боју примењену на апликацију</string>
-    <string name="auto_silence_at_the_end_of_the_ringtone">Крај мелодије</string>
-    <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Одбаците аларм када мелодија заврши</string>
+    <string name="auto_silence_end_of_ringtone">Крај мелодије</string>
     <string name="alarm_label_box_title">Ознака аларма</string>
     <string name="FSN_permission_title">ОМОГУЋИ ОБАВЕШТЕЊА ПУНОГ ЕКРАНА</string>
     <string name="digital_widget_default_minutes_color_title">Употреба подразумеване боје за минуте</string>

@@ -67,17 +67,8 @@
     <string name="snooze_duration_title">Repetir alarma dempués de</string>
     <string name="crescendo_duration_title">Aumentar adulces el volume</string>
     <string name="auto_silence_title">Silenciar dempués de</string>
-    <plurals name="auto_silence_summary">
-        <item quantity="one">1 minutu</item>
-        <item quantity="other"><xliff:g example="7" id="formatted_number">%s</xliff:g> minutos</item>
-    </plurals>
     <string name="auto_silence_never">Enxamás</string>
     <string name="auto_silence_1_minute">1 minutu</string>
-    <string name="auto_silence_5_minutes">5 minutos</string>
-    <string name="auto_silence_10_minutes">10 minutos</string>
-    <string name="auto_silence_15_minutes">15 minutos</string>
-    <string name="auto_silence_20_minutes">20 minutos</string>
-    <string name="auto_silence_25_minutes">25 minutos</string>
     <string name="label_off">Non</string>
     <string name="week_start_title">Entamar la selmana el</string>
     <string name="week_start_saturday">Sábadu</string>
