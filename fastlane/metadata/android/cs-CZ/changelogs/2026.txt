@@ -1,0 +1,9 @@
+**Opravy**
+- Oprava zobrazení budíku pro zařízení s Androidem verze nižší než 12
+- Oprava vypnutých budíků vytvořených v minulosti
+- Oprava výběru špatného dne v datovém výběru budíku
+- Obnovení výchozího vyzvánění v nastavení budíku, pokud bylo odstraněno
+
+Mnoho dalších vylepšení je popsáno zde: https://github.com/BlackyHawky/Clock/releases/tag/2.23
+
+Poznámka: Vzhledem k resetování nastavení „Délka odložení“ a „Postupné zesilování hlasitosti“ proveďte po aktualizaci aplikace novou zálohu

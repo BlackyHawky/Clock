@@ -594,7 +594,7 @@
     <string name="show_lockscreen_dialog_title">鎖定螢幕顯示</string>
     <string name="show_lockscreen_dialog_text">您需要前往小米裝置中的設定並啟用「鎖定螢幕顯示」權限才能使應用程式正常運作。</string>
     <string name="permission_info_title">僅適用小米裝置</string>
-    <string name="ignore_battery_optimizations_dialog_text">Android 系統預設為所有已安裝應用程式套用最佳化以節省電力。\n\n這對多數應用程式有所助益，但對仰賴通知的鬧鐘容易造成問題。\n最佳化將使系統能夠隨時停止處理程序或取消通知，使相關功能無法發揮作用。\n\n我們建議將本應用程式加入電池效能最佳化白名單。</string>
+    <string name="ignore_battery_optimizations_dialog_text">Android 系統預設為所有已安裝應用程式套用最佳化以節省電力。\n\n這對多數應用程式有所助益，但對仰賴通知的鬧鐘容易造成問題。\n最佳化將使系統能夠隨時停止服務或取消預定通知，影響相關功能運作。\n\n我們建議將本應用程式加入電池效能最佳化白名單。</string>
     <string name="styles_and_colors_category_title">色彩與樣式</string>
     <string name="blue_gray_accent_color">藍灰色</string>
     <string name="slide_zone_color_title">滑動區域色彩</string>
