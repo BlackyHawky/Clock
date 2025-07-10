@@ -279,4 +279,15 @@ public class RingtoneUtils {
         return type == AudioDeviceInfo.TYPE_BLUETOOTH_A2DP || type == AudioDeviceInfo.TYPE_BLUETOOTH_SCO;
     }
 
+    /**
+     * Returns the minimum allowed volume level for the alarm stream.
+     * <p>
+     * On Android 9 (API 28) and above, this uses {@link AudioManager#getStreamMinVolume(int)}
+     * to retrieve the actual minimum volume for {@link AudioManager#STREAM_ALARM}.
+     * On earlier versions, where this API is not available, it defaults to {@code 0}.
+     */
+    public static int getAlarmMinVolume(AudioManager audioManager) {
+        return SdkUtils.isAtLeastAndroid9() ? audioManager.getStreamMinVolume(AudioManager.STREAM_ALARM) : 0;
+    }
+
 }

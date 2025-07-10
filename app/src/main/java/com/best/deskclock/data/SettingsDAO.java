@@ -537,6 +537,15 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return {@code true} if a custom volume can be set for each alarm.
+     * {@code false} otherwise.
+     */
+    public static boolean isPerAlarmVolumeEnabled(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        return prefs.getBoolean(KEY_ENABLE_PER_ALARM_VOLUME, DEFAULT_ENABLE_PER_ALARM_VOLUME);
+    }
+
+    /**
      * @return the duration, in seconds, of the crescendo to apply to alarm ringtone playback;
      * {@code 0} implies no crescendo should be applied.
      */

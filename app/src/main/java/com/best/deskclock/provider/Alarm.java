@@ -68,7 +68,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             DELETE_AFTER_USE,
             AUTO_SILENCE_DURATION,
             SNOOZE_DURATION,
-            CRESCENDO_DURATION
+            CRESCENDO_DURATION,
+            ALARM_VOLUME
     };
     private static final String[] QUERY_ALARMS_WITH_INSTANCES_COLUMNS = {
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + _ID,
@@ -87,6 +88,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + AUTO_SILENCE_DURATION,
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + SNOOZE_DURATION,
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + CRESCENDO_DURATION,
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ALARM_VOLUME,
             ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.ALARM_STATE,
             ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns._ID,
             ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.YEAR,
@@ -99,7 +101,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.FLASH,
             ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.AUTO_SILENCE_DURATION,
             ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.SNOOZE_DURATION,
-            ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.CRESCENDO_DURATION
+            ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.CRESCENDO_DURATION,
+            ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.ALARM_VOLUME
     };
     /**
      * These save calls to cursor.getColumnIndexOrThrow()
@@ -121,23 +124,25 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     private static final int AUTO_SILENCE_DURATION_INDEX = 13;
     private static final int SNOOZE_DURATION_INDEX = 14;
     private static final int CRESCENDO_DURATION_INDEX = 15;
+    private static final int ALARM_VOLUME_INDEX = 16;
 
-    private static final int INSTANCE_STATE_INDEX = 16;
-    public static final int INSTANCE_ID_INDEX = 17;
-    public static final int INSTANCE_YEAR_INDEX = 18;
-    public static final int INSTANCE_MONTH_INDEX = 19;
-    public static final int INSTANCE_DAY_INDEX = 20;
-    public static final int INSTANCE_HOUR_INDEX = 21;
-    public static final int INSTANCE_MINUTE_INDEX = 22;
-    public static final int INSTANCE_LABEL_INDEX = 23;
-    public static final int INSTANCE_VIBRATE_INDEX = 24;
-    public static final int INSTANCE_FLASH_INDEX = 25;
-    public static final int INSTANCE_AUTO_SILENCE_DURATION_INDEX = 26;
-    public static final int INSTANCE_SNOOZE_DURATION_INDEX = 27;
-    public static final int INSTANCE_CRESCENDO_DURATION_INDEX = 28;
+    private static final int INSTANCE_STATE_INDEX = 17;
+    public static final int INSTANCE_ID_INDEX = 18;
+    public static final int INSTANCE_YEAR_INDEX = 19;
+    public static final int INSTANCE_MONTH_INDEX = 20;
+    public static final int INSTANCE_DAY_INDEX = 21;
+    public static final int INSTANCE_HOUR_INDEX = 22;
+    public static final int INSTANCE_MINUTE_INDEX = 23;
+    public static final int INSTANCE_LABEL_INDEX = 24;
+    public static final int INSTANCE_VIBRATE_INDEX = 25;
+    public static final int INSTANCE_FLASH_INDEX = 26;
+    public static final int INSTANCE_AUTO_SILENCE_DURATION_INDEX = 27;
+    public static final int INSTANCE_SNOOZE_DURATION_INDEX = 28;
+    public static final int INSTANCE_CRESCENDO_DURATION_INDEX = 29;
+    public static final int INSTANCE_ALARM_VOLUME_INDEX = 30;
 
-    private static final int COLUMN_COUNT = CRESCENDO_DURATION_INDEX + 1;
-    private static final int ALARM_JOIN_INSTANCE_COLUMN_COUNT = INSTANCE_CRESCENDO_DURATION_INDEX + 1;
+    private static final int COLUMN_COUNT = ALARM_VOLUME_INDEX + 1;
+    private static final int ALARM_JOIN_INSTANCE_COLUMN_COUNT = INSTANCE_ALARM_VOLUME_INDEX + 1;
     // Public fields
     public long id;
     public boolean enabled;
@@ -155,6 +160,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     public int autoSilenceDuration;
     public int snoozeDuration;
     public int crescendoDuration;
+    // Alarm volume level in steps; not a percentage
+    public int alarmVolume;
     public int instanceState;
     public int instanceId;
 
@@ -183,13 +190,14 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.autoSilenceDuration = 10;
         this.snoozeDuration = 10;
         this.crescendoDuration = 0;
+        this.alarmVolume = 11;
     }
 
     // Used to backup/restore the alarm
     public Alarm(long id, boolean enabled, int year, int month, int day, int hour, int minutes,
                  boolean vibrate, boolean flash, Weekdays daysOfWeek, String label, String alert,
                  boolean deleteAfterUse, int autoSilenceDuration, int snoozeDuration,
-                 int crescendoDuration) {
+                 int crescendoDuration, int alarmVolume) {
 
         this.id = id;
         this.enabled = enabled;
@@ -207,6 +215,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.autoSilenceDuration = autoSilenceDuration;
         this.snoozeDuration = snoozeDuration;
         this.crescendoDuration = crescendoDuration;
+        this.alarmVolume = alarmVolume;
     }
 
     public Alarm(Cursor c) {
@@ -225,6 +234,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         autoSilenceDuration = c.getInt(AUTO_SILENCE_DURATION_INDEX);
         snoozeDuration = c.getInt(SNOOZE_DURATION_INDEX);
         crescendoDuration = c.getInt(CRESCENDO_DURATION_INDEX);
+        alarmVolume = c.getInt(ALARM_VOLUME_INDEX);
 
         if (c.getColumnCount() == ALARM_JOIN_INSTANCE_COLUMN_COUNT) {
             instanceState = c.getInt(INSTANCE_STATE_INDEX);
@@ -259,6 +269,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         autoSilenceDuration = p.readInt();
         snoozeDuration = p.readInt();
         crescendoDuration = p.readInt();
+        alarmVolume = p.readInt();
     }
 
     public static ContentValues createContentValues(Alarm alarm) {
@@ -281,6 +292,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         values.put(AUTO_SILENCE_DURATION, alarm.autoSilenceDuration);
         values.put(SNOOZE_DURATION, alarm.snoozeDuration);
         values.put(CRESCENDO_DURATION, alarm.crescendoDuration);
+        values.put(ALARM_VOLUME, alarm.alarmVolume);
         if (alarm.alert == null) {
             // We want to put null, so default alarm changes
             values.putNull(RINGTONE);
@@ -462,6 +474,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         p.writeInt(autoSilenceDuration);
         p.writeInt(snoozeDuration);
         p.writeInt(crescendoDuration);
+        p.writeInt(alarmVolume);
     }
 
     public int describeContents() {
@@ -482,6 +495,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         result.mAutoSilenceDuration = autoSilenceDuration;
         result.mSnoozeDuration = snoozeDuration;
         result.mCrescendoDuration = crescendoDuration;
+        result.mAlarmVolume = alarmVolume;
         return result;
     }
 
@@ -580,6 +594,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
                 ", autoSilenceDuration=" + autoSilenceDuration +
                 ", snoozeDuration=" + snoozeDuration +
                 ", crescendoDuration=" + crescendoDuration +
+                ", alarmVolume=" + alarmVolume +
                 '}';
     }
 

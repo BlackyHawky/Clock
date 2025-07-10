@@ -569,6 +569,11 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
     }
 
+    public void setAlarmVolume(Alarm alarm, int alarmVolume) {
+        alarm.alarmVolume = alarmVolume;
+        mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+    }
+
     /**
      * Updates the vertical scroll state of this tab in the {@link UiDataModel} as the user scrolls
      * the recyclerview or when the size/position of elements within the recyclerview changes.

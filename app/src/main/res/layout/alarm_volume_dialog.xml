@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="?attr/dialogPreferredPadding"
+    android:paddingTop="?attr/dialogPreferredPadding">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/alarm_volume_value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="16sp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="70%" />
+
+    <ImageView
+        android:id="@+id/volume_minus_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_volume_down"
+        android:contentDescription="@null"
+        android:scaleType="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/alarm_volume_value"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <SeekBar
+        android:id="@+id/alarm_volume_seekbar"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="6dp"
+        app:layout_constraintStart_toEndOf="@+id/volume_minus_icon"
+        app:layout_constraintEnd_toStartOf="@+id/volume_plus_icon"
+        app:layout_constraintTop_toBottomOf="@+id/alarm_volume_value"
+        tools:progress="70" />
+
+    <ImageView
+        android:id="@+id/volume_plus_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_volume_up"
+        android:contentDescription="@null"
+        android:scaleType="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/alarm_volume_value"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

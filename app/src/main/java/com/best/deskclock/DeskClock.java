@@ -49,6 +49,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
 
+import com.best.deskclock.alarms.AlarmVolumeDialogFragment;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.DataModel.SilentSetting;
 import com.best.deskclock.data.OnSilentSettingsListener;
@@ -78,7 +79,8 @@ public class DeskClock extends AppCompatActivity
         implements FabContainer, LabelDialogFragment.AlarmLabelDialogHandler,
         AutoSilenceDurationDialogFragment.AutoSilenceDurationDialogHandler,
         AlarmSnoozeDurationDialogFragment.SnoozeDurationDialogHandler,
-        VolumeCrescendoDurationDialogFragment.VolumeCrescendoDurationDialogHandler {
+        VolumeCrescendoDurationDialogFragment.VolumeCrescendoDurationDialogHandler,
+        AlarmVolumeDialogFragment.VolumeValueDialogHandler {
 
     public static final int REQUEST_CHANGE_SETTINGS = 10;
     public static final int REQUEST_CHANGE_PERMISSIONS = 20;
@@ -492,6 +494,17 @@ public class DeskClock extends AppCompatActivity
         final Fragment frag = getSupportFragmentManager().findFragmentByTag(tag);
         if (frag instanceof AlarmClockFragment) {
             ((AlarmClockFragment) frag).setCrescendoDuration(alarm, crescendoDuration);
+        }
+    }
+
+    /**
+     * Called by the AlarmVolumeDialogFragment class after the dialog is finished.
+     */
+    @Override
+    public void onVolumeValueSet(Alarm alarm, int volumeValue, String tag) {
+        final Fragment frag = getSupportFragmentManager().findFragmentByTag(tag);
+        if (frag instanceof AlarmClockFragment) {
+            ((AlarmClockFragment) frag).setAlarmVolume(alarm, volumeValue);
         }
     }
 

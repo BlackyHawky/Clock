@@ -12,6 +12,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_BLUETOOTH_VOLUME;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DEFAULT_ALARM_RINGTONE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_PER_ALARM_VOLUME;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_FLIP_ACTION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_DATE_PICKER_STYLE;
@@ -67,6 +68,7 @@ public class AlarmSettingsFragment extends ScreenFragment
     private AudioDeviceCallback mAudioDeviceCallback;
 
     Preference mAlarmRingtonePref;
+    SwitchPreferenceCompat mEnablePerAlarmVolumePref;
     AlarmVolumePreference mAlarmVolumePref;
     SwitchPreferenceCompat mAdvancedAudioPlaybackPref;
     SwitchPreferenceCompat mAutoRoutingToBluetoothDevicePref;
@@ -99,6 +101,7 @@ public class AlarmSettingsFragment extends ScreenFragment
         addPreferencesFromResource(R.xml.settings_alarm);
 
         mAlarmRingtonePref = findPreference(KEY_DEFAULT_ALARM_RINGTONE);
+        mEnablePerAlarmVolumePref = findPreference(KEY_ENABLE_PER_ALARM_VOLUME);
         mAlarmVolumePref = findPreference(KEY_ALARM_VOLUME_SETTING);
         mAdvancedAudioPlaybackPref = findPreference(KEY_ADVANCED_AUDIO_PLAYBACK);
         mAutoRoutingToBluetoothDevicePref = findPreference(KEY_AUTO_ROUTING_TO_BLUETOOTH_DEVICE);
@@ -166,29 +169,38 @@ public class AlarmSettingsFragment extends ScreenFragment
     @Override
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
-            case KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT, KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS,
-                 KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM, KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT ->
+            case KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT,
+                 KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS,
+                 KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM,
+                 KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT ->
                     Utils.setVibrationTime(requireContext(), 50);
 
-            case KEY_ADVANCED_AUDIO_PLAYBACK -> {
+            case KEY_ENABLE_PER_ALARM_VOLUME -> {
+                mAlarmVolumePref.setVisible(!(boolean) newValue);
                 Utils.setVibrationTime(requireContext(), 50);
+                // Set result so DeskClock knows to refresh itself
+                requireActivity().setResult(REQUEST_CHANGE_SETTINGS);
+            }
+
+            case KEY_ADVANCED_AUDIO_PLAYBACK -> {
                 mAutoRoutingToBluetoothDevicePref.setVisible((boolean) newValue);
                 mSystemMediaVolume.setVisible((boolean) newValue
                         && SettingsDAO.isAutoRoutingToBluetoothDeviceEnabled(mPrefs));
                 mBluetoothVolumePref.setVisible((boolean) newValue
                         && SettingsDAO.isAutoRoutingToBluetoothDeviceEnabled(mPrefs)
                         && SettingsDAO.shouldUseCustomMediaVolume(mPrefs));
+                Utils.setVibrationTime(requireContext(), 50);
             }
 
             case KEY_AUTO_ROUTING_TO_BLUETOOTH_DEVICE -> {
-                Utils.setVibrationTime(requireContext(), 50);
                 mSystemMediaVolume.setVisible((boolean) newValue);
                 mBluetoothVolumePref.setVisible((boolean) newValue && SettingsDAO.shouldUseCustomMediaVolume(mPrefs));
+                Utils.setVibrationTime(requireContext(), 50);
             }
 
             case KEY_SYSTEM_MEDIA_VOLUME -> {
-                Utils.setVibrationTime(requireContext(), 50);
                 mBluetoothVolumePref.setVisible(!(boolean) newValue);
+                Utils.setVibrationTime(requireContext(), 50);
             }
 
             case KEY_VOLUME_BUTTONS, KEY_POWER_BUTTON, KEY_FLIP_ACTION,
@@ -306,7 +318,12 @@ public class AlarmSettingsFragment extends ScreenFragment
             }
         });
 
-        mAlarmVolumePref.setEnabled(!RingtoneUtils.hasBluetoothDeviceConnected(requireContext(), mPrefs));
+        mEnablePerAlarmVolumePref.setOnPreferenceChangeListener(this);
+
+        mAlarmVolumePref.setVisible(!SettingsDAO.isPerAlarmVolumeEnabled(mPrefs));
+        if (mAlarmVolumePref.isVisible()) {
+            mAlarmVolumePref.setEnabled(!RingtoneUtils.hasBluetoothDeviceConnected(requireContext(), mPrefs));
+        }
 
         // Alarm volume crescendo duration preference
         getParentFragmentManager().setFragmentResultListener(VolumeCrescendoDurationDialogFragment.REQUEST_KEY,

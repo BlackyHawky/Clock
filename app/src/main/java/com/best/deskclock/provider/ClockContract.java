@@ -48,11 +48,6 @@ public final class ClockContract {
     private interface AlarmSettingColumns extends BaseColumns {
 
         /**
-         * This string is used to indicate no ringtone.
-         */
-        Uri NO_RINGTONE_URI = Uri.EMPTY;
-
-        /**
          * True if alarm should vibrate
          * <p>Type: BOOLEAN</p>
          */
@@ -97,6 +92,12 @@ public final class ClockContract {
          * <p>Type: INTEGER</p>
          */
         String CRESCENDO_DURATION = "crescendoDuration";
+
+        /**
+         * Alarm crescendo duration.
+         * <p>Type: INTEGER</p>
+         */
+        String ALARM_VOLUME = "alarmVolume";
     }
 
     /**

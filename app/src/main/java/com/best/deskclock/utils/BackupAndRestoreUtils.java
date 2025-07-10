@@ -137,6 +137,7 @@ public class BackupAndRestoreUtils {
                 alarmObject.put("autoSilenceDuration", alarm.autoSilenceDuration);
                 alarmObject.put("snoozeDuration", alarm.snoozeDuration);
                 alarmObject.put("crescendoDuration", alarm.crescendoDuration);
+                alarmObject.put("alarmVolume", alarm.alarmVolume);
 
                 if (alarm.daysOfWeek.isRepeating() || !alarm.isSpecifiedDate()) {
                     alarmsArray.put(alarmObject);
@@ -327,6 +328,7 @@ public class BackupAndRestoreUtils {
         int autoSilenceDuration = alarmObject.getInt("autoSilenceDuration");
         int snoozeDuration = alarmObject.getInt("snoozeDuration");
         int crescendoDuration = alarmObject.getInt("crescendoDuration");
+        int alarmVolume = alarmObject.getInt("alarmVolume");
 
         String alarmRingtone;
         if (RingtoneUtils.isRandomRingtone(Uri.parse(alert))) {
@@ -358,7 +360,7 @@ public class BackupAndRestoreUtils {
 
         restoredAlarm = new Alarm(id, enabled, year, month, day, hour, minutes,
                 vibrate, flash, Weekdays.fromBits(daysOfWeek), label, alarmRingtone, deleteAfterUse,
-                autoSilenceDuration, snoozeDuration, crescendoDuration);
+                autoSilenceDuration, snoozeDuration, crescendoDuration, alarmVolume);
 
         Alarm.addAlarm(contentResolver, restoredAlarm);
 

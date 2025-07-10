@@ -6,6 +6,7 @@
 
 package com.best.deskclock;
 
+import static android.media.AudioManager.STREAM_ALARM;
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 import static com.best.deskclock.AlarmSelectionActivity.ACTION_DISMISS;
 import static com.best.deskclock.AlarmSelectionActivity.EXTRA_ACTION;
@@ -22,6 +23,7 @@ import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -44,6 +46,7 @@ import com.best.deskclock.timer.TimerService;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.Utils;
 
 import java.util.ArrayList;
@@ -346,7 +349,7 @@ public class HandleApiCalls extends Activity {
             // No existing alarm could be located; create one using the intent data.
             alarm = new Alarm();
             updateAlarmFromIntent(alarm, intent);
-            applyAlarmSettings(alarm, mPrefs);
+            applyAlarmSettings(alarm, mAppContext, mPrefs);
 
             // Save the new alarm.
             Alarm.addAlarm(cr, alarm);
@@ -536,7 +539,9 @@ public class HandleApiCalls extends Activity {
      * @param alarm the {@link Alarm} object to which default settings will be applied
      * @param prefs the {@link SharedPreferences} containing the user's default alarm preferences
      */
-    private static void applyAlarmSettings(Alarm alarm, SharedPreferences prefs) {
+    private static void applyAlarmSettings(Alarm alarm, Context context, SharedPreferences prefs) {
+        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+
         alarm.enabled = true;
         alarm.vibrate = SettingsDAO.areAlarmVibrationsEnabledByDefault(prefs);
         alarm.flash = SettingsDAO.shouldTurnOnBackFlashForTriggeredAlarm(prefs);
@@ -544,6 +549,7 @@ public class HandleApiCalls extends Activity {
         alarm.autoSilenceDuration = SettingsDAO.getAlarmTimeout(prefs);
         alarm.snoozeDuration = SettingsDAO.getSnoozeLength(prefs);
         alarm.crescendoDuration = SettingsDAO.getAlarmVolumeCrescendoDuration(prefs);
+        alarm.alarmVolume = audioManager.getStreamVolume(STREAM_ALARM);
     }
 
     private static String getLabelFromIntent(Intent intent, String defaultLabel) {
@@ -579,7 +585,7 @@ public class HandleApiCalls extends Activity {
         if (alert == null) {
             return defaultUri;
         } else if (AlarmClock.VALUE_RINGTONE_SILENT.equals(alert) || alert.isEmpty()) {
-            return Alarm.NO_RINGTONE_URI;
+            return RingtoneUtils.RINGTONE_SILENT;
         }
 
         return Uri.parse(alert);

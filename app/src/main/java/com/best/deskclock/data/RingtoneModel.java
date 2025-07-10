@@ -32,7 +32,6 @@ import android.util.ArrayMap;
 import android.util.ArraySet;
 
 import com.best.deskclock.R;
-import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
@@ -262,7 +261,7 @@ public final class RingtoneModel {
         }
 
         // Special case: no ringtone has a title of "Silent".
-        if (Alarm.NO_RINGTONE_URI.equals(uri)) {
+        if (RingtoneUtils.RINGTONE_SILENT.equals(uri)) {
             return localizedContext.getString(R.string.silent_ringtone_title);
         }
 

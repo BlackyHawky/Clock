@@ -60,6 +60,7 @@
     <string name="action_set_auto_silence_duration">Set Auto Silence Duration</string>
     <string name="action_set_snooze_duration">Set Snooze Duration</string>
     <string name="action_set_crescendo_duration">Set Crescendo Duration</string>
+    <string name="action_set_alarm_volume">Set Alarm Volume</string>
 
     <!-- Label names for events describe the entity responsible for the event. -->
     <string name="label_deskclock">DeskClock</string>

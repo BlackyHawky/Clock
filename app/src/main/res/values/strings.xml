@@ -385,6 +385,10 @@
     <string name="settings_keep_screen_on_summary">Note: The screen will always be on if a timer or stopwatch is running and the corresponding tab is displayed, regardless of the status of this setting</string>
     <!-- Setting title for changing the snooze duration. -->
     <string name="snooze_duration_title">Snooze length</string>
+    <!-- Setting title to enable the use of a custom volume for each alarm. -->
+    <string name="enable_per_alarm_volume_title">Use a custom volume for each alarm</string>
+    <!-- Setting summary to clarify what the "Use a custom volume for each alarm" setting implies. -->
+    <string name="enable_per_alarm_volume_summary">Allows setting a different volume for each alarm in the expanded alarm view</string>
     <!-- Setting title for changing the notification reminder. -->
     <string name="alarm_notification_reminder_title">Notification reminder</string>
     <!-- Setting title for changing the notification reminder to 30 minutes before. -->

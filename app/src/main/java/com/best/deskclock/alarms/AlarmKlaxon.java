@@ -9,6 +9,7 @@ package com.best.deskclock.alarms;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.AudioAttributes;
+import android.media.AudioManager;
 import android.os.VibrationAttributes;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
@@ -18,6 +19,7 @@ import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.ringtone.AsyncRingtonePlayer;
 import com.best.deskclock.ringtone.RingtonePlayer;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
 
 /**
@@ -33,6 +35,8 @@ final class AlarmKlaxon {
 
     private static RingtonePlayer sRingtonePlayer;
 
+    private static int sPreviousAlarmVolume = -1;
+
     private AlarmKlaxon() {
     }
 
@@ -44,6 +48,17 @@ final class AlarmKlaxon {
                 getRingtonePlayer(context).stop();
             } else {
                 getAsyncRingtonePlayer(context).stop();
+
+                if (SettingsDAO.isPerAlarmVolumeEnabled(prefs) && sPreviousAlarmVolume != -1) {
+                    AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+                    int currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
+                    // Restore the original alarm volume only if it was changed
+                    if (currentVolume != sPreviousAlarmVolume) {
+                        audioManager.setStreamVolume(AudioManager.STREAM_ALARM, sPreviousAlarmVolume, 0);
+                    }
+
+                    sPreviousAlarmVolume = -1;
+                }
             }
 
             final Vibrator vibrator = context.getSystemService(Vibrator.class);
@@ -56,12 +71,25 @@ final class AlarmKlaxon {
         stop(context, prefs);
         LogUtils.v("AlarmKlaxon.start()");
 
-        if (!AlarmInstance.NO_RINGTONE_URI.equals(instance.mRingtone)) {
+        if (!RingtoneUtils.RINGTONE_SILENT.equals(instance.mRingtone)) {
             // Crescendo duration always in milliseconds
             final int crescendoDuration = instance.mCrescendoDuration * 1000;
             if (SettingsDAO.isAdvancedAudioPlaybackEnabled(prefs)) {
                 getRingtonePlayer(context).play(instance.mRingtone, crescendoDuration);
             } else {
+                if (SettingsDAO.isPerAlarmVolumeEnabled(prefs)) {
+                    AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+
+                    if (sPreviousAlarmVolume == -1) {
+                        sPreviousAlarmVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
+                    }
+
+                    int currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
+                    if (currentVolume != instance.mAlarmVolume) {
+                        audioManager.setStreamVolume(AudioManager.STREAM_ALARM, instance.mAlarmVolume, 0);
+                    }
+                }
+
                 getAsyncRingtonePlayer(context).play(instance.mRingtone, crescendoDuration);
             }
         }

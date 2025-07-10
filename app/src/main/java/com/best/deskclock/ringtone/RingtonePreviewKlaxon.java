@@ -31,6 +31,11 @@ public final class RingtonePreviewKlaxon {
         }
     }
 
+    public static void stopPreviewFromSpeakers(Context context) {
+        LogUtils.i("RingtonePreviewKlaxon.stop()");
+        getAsyncRingtonePlayer(context).stop();
+    }
+
     public static void start(Context context, SharedPreferences prefs, Uri uri) {
         stop(context, prefs);
         LogUtils.i("RingtonePreviewKlaxon.start()");
@@ -39,6 +44,12 @@ public final class RingtonePreviewKlaxon {
         } else {
             getAsyncRingtonePlayer(context).play(uri, 0);
         }
+    }
+
+    public static void startPreviewOnlyFromSpeakers(Context context, Uri uri) {
+        stopPreviewFromSpeakers(context);
+        LogUtils.i("RingtonePreviewKlaxon.start()");
+        getAsyncRingtonePlayer(context).play(uri, 0);
     }
 
     public static void deactivateRingtonePlayback(SharedPreferences prefs) {

@@ -6,6 +6,8 @@
 
 package com.best.deskclock.alarms;
 
+import static android.content.Context.AUDIO_SERVICE;
+import static android.media.AudioManager.STREAM_ALARM;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_TIMEOUT_END_OF_RINGTONE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_DATE_PICKER_STYLE;
@@ -15,6 +17,7 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.SPINNER_TIME_
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,7 +64,7 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
     public AlarmTimeClickHandler(Fragment fragment, Bundle savedState, AlarmUpdateHandler alarmUpdateHandler) {
 
         mFragment = fragment;
-        mContext = mFragment.requireActivity().getApplicationContext();
+        mContext = mFragment.requireContext();
         mAlarmUpdateHandler = alarmUpdateHandler;
 
         if (savedState != null) {
@@ -153,6 +156,13 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
         VolumeCrescendoDurationDialogFragment.show(mFragment.getParentFragmentManager(), fragment);
     }
 
+    public void setAlarmVolume(Alarm alarm) {
+        Events.sendAlarmEvent(R.string.action_set_alarm_volume, R.string.label_deskclock);
+        final AlarmVolumeDialogFragment fragment =
+                AlarmVolumeDialogFragment.newInstance(alarm, alarm.alarmVolume, mFragment.getTag());
+        AlarmVolumeDialogFragment.show(mFragment.getParentFragmentManager(), fragment);
+    }
+
     public void setDayOfWeekEnabled(Alarm alarm, boolean checked, int index) {
         final Calendar now = Calendar.getInstance();
         final Calendar oldNextAlarmTime = alarm.getNextAlarmTime(now);
@@ -192,12 +202,12 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
         LOGGER.d("Adding alarm.");
     }
 
-    public void onRingtoneClicked(Context context, Alarm alarm) {
+    public void onRingtoneClicked(Alarm alarm) {
         mSelectedAlarm = alarm;
         Events.sendAlarmEvent(R.string.action_set_ringtone, R.string.label_deskclock);
 
-        final Intent intent = RingtonePickerActivity.createAlarmRingtonePickerIntent(context, alarm);
-        context.startActivity(intent);
+        final Intent intent = RingtonePickerActivity.createAlarmRingtonePickerIntent(mContext, alarm);
+        mContext.startActivity(intent);
     }
 
     public void onEditLabelClicked(Alarm alarm) {
@@ -218,12 +228,11 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
     }
 
     private void showCustomSpinnerTimePicker(int hour, int minutes) {
-        CustomSpinnerTimePickerDialog.show(mFragment.requireContext(), mFragment, hour, minutes, this);
+        CustomSpinnerTimePickerDialog.show(mContext, mFragment, hour, minutes, this);
     }
 
     private void showMaterialTimePicker(int hour, int minutes) {
-        Context context = mFragment.requireContext();
-        MaterialTimePickerDialog.show(context, ((AppCompatActivity) context).getSupportFragmentManager(),
+        MaterialTimePickerDialog.show(mContext, ((AppCompatActivity) mContext).getSupportFragmentManager(),
                 TAG, hour, minutes, getDefaultSharedPreferences(mContext), this);
     }
 
@@ -241,7 +250,6 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
     public void showSpinnerDatePicker(Alarm alarm) {
         LayoutInflater inflater = mFragment.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.spinner_date_picker, null);
-        final Context context = dialogView.getContext();
 
         DatePicker datePicker = dialogView.findViewById(R.id.spinner_date_picker);
         Calendar currentCalendar = Calendar.getInstance();
@@ -268,9 +276,9 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
 
         datePicker.init(alarm.year, alarm.month, alarm.day, null);
 
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context, R.style.SpinnerDialogTheme);
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(mContext, R.style.SpinnerDialogTheme);
         builder
-                .setTitle(context.getString(R.string.date_picker_dialog_title))
+                .setTitle(mContext.getString(R.string.date_picker_dialog_title))
                 .setView(dialogView)
                 .setPositiveButton(android.R.string.ok, (dialog, which) -> {
                     int newYear = datePicker.getYear();
@@ -337,8 +345,7 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
 
         MaterialDatePicker<Long> materialDatePicker = builder.build();
 
-        Context context = mFragment.requireContext();
-        materialDatePicker.show(((AppCompatActivity) context).getSupportFragmentManager(), TAG);
+        materialDatePicker.show(((AppCompatActivity) mContext).getSupportFragmentManager(), TAG);
 
         materialDatePicker.addOnPositiveButtonClickListener(selection -> {
             // Selection contains the selected date as a timestamp (long)
@@ -365,7 +372,7 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
         }
     }
 
-    public void removeDate(Alarm alarm) {
+    public void onRemoveDateClicked(Alarm alarm) {
         alarm.year = Calendar.getInstance().get(Calendar.YEAR);
         alarm.month = Calendar.getInstance().get(Calendar.MONTH);
         alarm.day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
@@ -378,6 +385,8 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
             // If mSelectedAlarm is null then we're creating a new alarm.
             final Alarm alarm = new Alarm();
             final SharedPreferences prefs = getDefaultSharedPreferences(mContext);
+            final AudioManager audioManager = (AudioManager) mContext.getSystemService(AUDIO_SERVICE);
+
             alarm.hour = hourOfDay;
             alarm.minutes = minute;
             alarm.enabled = true;
@@ -387,6 +396,8 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
             alarm.autoSilenceDuration = SettingsDAO.getAlarmTimeout(prefs);
             alarm.snoozeDuration = SettingsDAO.getSnoozeLength(prefs);
             alarm.crescendoDuration = SettingsDAO.getAlarmVolumeCrescendoDuration(prefs);
+            alarm.alarmVolume = audioManager.getStreamVolume(STREAM_ALARM);
+
             mAlarmUpdateHandler.asyncAddAlarm(alarm);
         } else {
             mSelectedAlarm.hour = hourOfDay;
@@ -404,7 +415,9 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
                 mSelectedAlarm.day = currentCalendar.get(Calendar.DAY_OF_MONTH);
             }
             mSelectedAlarm.enabled = true;
+
             mAlarmUpdateHandler.asyncUpdateAlarm(mSelectedAlarm, true, false);
+
             mSelectedAlarm = null;
         }
     }

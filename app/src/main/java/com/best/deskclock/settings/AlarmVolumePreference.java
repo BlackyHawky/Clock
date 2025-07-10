@@ -34,7 +34,6 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.ringtone.RingtonePreviewKlaxon;
 import com.best.deskclock.utils.RingtoneUtils;
-import com.best.deskclock.utils.SdkUtils;
 
 import java.util.Locale;
 
@@ -43,6 +42,7 @@ public class AlarmVolumePreference extends SeekBarPreference {
     private Context mContext;
     private SharedPreferences mPrefs;
     private SeekBar mSeekbar;
+    private int mMinVolume;
     private boolean mPreviewPlaying = false;
 
     public AlarmVolumePreference(Context context, AttributeSet attrs) {
@@ -62,10 +62,11 @@ public class AlarmVolumePreference extends SeekBarPreference {
         holder.itemView.setClickable(false);
 
         // Minimum volume for alarm is not 0, calculate it.
-        int maxVolume = audioManager.getStreamMaxVolume(STREAM_ALARM) - getMinVolume(audioManager);
+        mMinVolume = RingtoneUtils.getAlarmMinVolume(audioManager);
+        int maxVolume = audioManager.getStreamMaxVolume(STREAM_ALARM) - mMinVolume;
         mSeekbar = (SeekBar) holder.findViewById(R.id.seekbar);
         mSeekbar.setMax(maxVolume);
-        mSeekbar.setProgress(audioManager.getStreamVolume(STREAM_ALARM) - getMinVolume(audioManager));
+        mSeekbar.setProgress(audioManager.getStreamVolume(STREAM_ALARM) - mMinVolume);
 
         final TextView seekBarSummary = (TextView) holder.findViewById(android.R.id.summary);
         updateSeekBarSummary(audioManager, seekBarSummary);
@@ -99,7 +100,7 @@ public class AlarmVolumePreference extends SeekBarPreference {
             @Override
             public void onChange(boolean selfChange) {
                 // Volume was changed elsewhere, update our slider.
-                mSeekbar.setProgress(audioManager.getStreamVolume(STREAM_ALARM) - getMinVolume(audioManager));
+                mSeekbar.setProgress(audioManager.getStreamVolume(STREAM_ALARM) - mMinVolume);
                 updateSeekBarSummary(audioManager, seekBarSummary);
             }
         };
@@ -121,7 +122,7 @@ public class AlarmVolumePreference extends SeekBarPreference {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (fromUser) {
-                    int newVolume = progress + getMinVolume(audioManager);
+                    int newVolume = progress + mMinVolume;
                     audioManager.setStreamVolume(STREAM_ALARM, newVolume, 0);
                     updateSeekBarSummary(audioManager, seekBarSummary);
                 }
@@ -148,12 +149,8 @@ public class AlarmVolumePreference extends SeekBarPreference {
     }
 
     private void updateVolume(AudioManager audioManager) {
-        int newVolume = mSeekbar.getProgress() + getMinVolume(audioManager);
+        int newVolume = mSeekbar.getProgress() + mMinVolume;
         audioManager.setStreamVolume(STREAM_ALARM, newVolume, 0);
-    }
-
-    private int getMinVolume(AudioManager audioManager) {
-        return SdkUtils.isAtLeastAndroid9() ? audioManager.getStreamMinVolume(STREAM_ALARM) : 0;
     }
 
     public void startRingtonePreview() {
