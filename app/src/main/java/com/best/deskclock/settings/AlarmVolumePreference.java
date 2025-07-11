@@ -11,13 +11,15 @@ import static android.media.AudioManager.STREAM_ALARM;
 import static android.view.View.GONE;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_RINGTONE_PREVIEW_PLAYING;
+import static com.best.deskclock.utils.RingtoneUtils.ALARM_PREVIEW_DURATION_MS;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.ContentObserver;
 import android.media.AudioManager;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.Settings;
 import android.util.AttributeSet;
 import android.view.View;
@@ -47,7 +49,9 @@ public class AlarmVolumePreference extends SeekBarPreference {
     private ImageView mSeekBarPlus;
     private AudioManager mAudioManager;
     private int mMinVolume;
-    private boolean mPreviewPlaying = false;
+    private final Handler mRingtoneHandler = new Handler(Looper.getMainLooper());
+    private Runnable mRingtoneStopRunnable;
+    private boolean mIsPreviewPlaying = false;
 
     public AlarmVolumePreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -187,36 +191,40 @@ public class AlarmVolumePreference extends SeekBarPreference {
         audioManager.setStreamVolume(STREAM_ALARM, newVolume, 0);
     }
 
-    public void startRingtonePreview() {
-        if (!mPreviewPlaying) {
-            // If we are not currently playing, start.
-            Uri ringtoneUri = DataModel.getDataModel().getAlarmRingtoneUriFromSettings();
-            if (RingtoneUtils.isRandomRingtone(ringtoneUri)) {
-                ringtoneUri = RingtoneUtils.getRandomRingtoneUri();
-            } else if (RingtoneUtils.isRandomCustomRingtone(ringtoneUri)) {
-                ringtoneUri = RingtoneUtils.getRandomCustomRingtoneUri();
-            }
-
-            RingtonePreviewKlaxon.start(mContext, mPrefs, ringtoneUri);
-            mPrefs.edit().putBoolean(KEY_RINGTONE_PREVIEW_PLAYING, true).apply();
-            mPreviewPlaying = true;
-
-            // Stop the preview after 5 seconds
-            mSeekbar.postDelayed(() -> {
-                stopRingtonePreview(mContext, mPrefs);
-                mPreviewPlaying = false;
-            }, 5000);
+    private void startRingtonePreview() {
+        if (mRingtoneStopRunnable != null) {
+            mRingtoneHandler.removeCallbacks(mRingtoneStopRunnable);
         }
+
+        // If we are not currently playing, start.
+        Uri ringtoneUri = DataModel.getDataModel().getAlarmRingtoneUriFromSettings();
+        if (RingtoneUtils.isRandomRingtone(ringtoneUri)) {
+            ringtoneUri = RingtoneUtils.getRandomRingtoneUri();
+        } else if (RingtoneUtils.isRandomCustomRingtone(ringtoneUri)) {
+            ringtoneUri = RingtoneUtils.getRandomCustomRingtoneUri();
+        }
+
+        RingtonePreviewKlaxon.start(mContext, mPrefs, ringtoneUri);
+        mIsPreviewPlaying = true;
+
+        mRingtoneStopRunnable = this::stopRingtonePreview;
+        // Stop the preview after 5 seconds
+        mRingtoneHandler.postDelayed(mRingtoneStopRunnable, ALARM_PREVIEW_DURATION_MS);
     }
 
-    public void stopRingtonePreview(Context context, SharedPreferences prefs) {
-        if (mPreviewPlaying) {
-            RingtonePreviewKlaxon.stop(context, prefs);
-            mPrefs.edit().putBoolean(KEY_RINGTONE_PREVIEW_PLAYING, false).apply();
+    public void stopRingtonePreview() {
+        if (!mIsPreviewPlaying) {
+            return;
         }
-    }
 
-    public void releaseResources() {
+        if (mRingtoneStopRunnable != null) {
+            mRingtoneHandler.removeCallbacks(mRingtoneStopRunnable);
+        }
+
+        RingtonePreviewKlaxon.stop(mContext, mPrefs);
         RingtonePreviewKlaxon.releaseResources();
+
+        mIsPreviewPlaying = false;
     }
+
 }

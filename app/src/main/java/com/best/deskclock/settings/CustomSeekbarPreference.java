@@ -15,10 +15,11 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_WIDGE
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_DIGITAL_CLOCK_FONT_SIZE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_TITLE_FONT_SIZE_PREF;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_BLUETOOTH_VOLUME;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_RINGTONE_PREVIEW_PLAYING;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_BRIGHTNESS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SHAKE_INTENSITY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_SHAKE_INTENSITY;
+import static com.best.deskclock.utils.RingtoneUtils.ALARM_PREVIEW_DURATION_MS;
+
 
 import android.content.Context;
 import android.content.Intent;
@@ -26,6 +27,8 @@ import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -62,7 +65,9 @@ public class CustomSeekbarPreference extends SeekBarPreference {
     private ImageView mSeekBarMinus;
     private ImageView mSeekBarPlus;
     private TextView mResetSeekBar;
-    private boolean mPreviewPlaying = false;
+    private final Handler mRingtoneHandler = new Handler(Looper.getMainLooper());
+    private Runnable mRingtoneStopRunnable;
+    private boolean mIsPreviewPlaying = false;
 
     public CustomSeekbarPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -466,47 +471,48 @@ public class CustomSeekbarPreference extends SeekBarPreference {
     /**
      * Plays ringtone preview if preference is Bluetooth volume or if there is a Bluetooth device connected.
      */
-    public void startRingtonePreviewForBluetoothDevices() {
+    private void startRingtonePreviewForBluetoothDevices() {
         if (!isBluetoothVolumePreference() || !RingtoneUtils.hasBluetoothDeviceConnected(mContext, mPrefs)) {
             return;
         }
 
-        if (!mPreviewPlaying) {
-            // If we are not currently playing, start.
-            Uri ringtoneUri = DataModel.getDataModel().getAlarmRingtoneUriFromSettings();
-            if (RingtoneUtils.isRandomRingtone(ringtoneUri)) {
-                ringtoneUri = RingtoneUtils.getRandomRingtoneUri();
-            } else if (RingtoneUtils.isRandomCustomRingtone(ringtoneUri)) {
-                ringtoneUri = RingtoneUtils.getRandomCustomRingtoneUri();
-            }
-
-            RingtonePreviewKlaxon.start(mContext, mPrefs, ringtoneUri);
-            mPrefs.edit().putBoolean(KEY_RINGTONE_PREVIEW_PLAYING, true).apply();
-            mPreviewPlaying = true;
-
-            // Stop the preview after 5 seconds
-            mSeekBar.postDelayed(() -> {
-                stopRingtonePreviewForBluetoothDevices(mContext, mPrefs);
-                mPreviewPlaying = false;
-            }, 5000);
+        if (mRingtoneStopRunnable != null) {
+            mRingtoneHandler.removeCallbacks(mRingtoneStopRunnable);
         }
+
+        // If we are not currently playing, start.
+        Uri ringtoneUri = DataModel.getDataModel().getAlarmRingtoneUriFromSettings();
+        if (RingtoneUtils.isRandomRingtone(ringtoneUri)) {
+            ringtoneUri = RingtoneUtils.getRandomRingtoneUri();
+        } else if (RingtoneUtils.isRandomCustomRingtone(ringtoneUri)) {
+            ringtoneUri = RingtoneUtils.getRandomCustomRingtoneUri();
+        }
+
+        RingtonePreviewKlaxon.start(mContext, mPrefs, ringtoneUri);
+        mIsPreviewPlaying = true;
+
+        mRingtoneStopRunnable = this::stopRingtonePreviewForBluetoothDevices;
+
+        // Stop the preview after 5 seconds
+        mRingtoneHandler.postDelayed(mRingtoneStopRunnable, ALARM_PREVIEW_DURATION_MS);
     }
 
     /**
      * Stops playing the ringtone preview if it is currently playing.
      */
-    public void stopRingtonePreviewForBluetoothDevices(Context context, SharedPreferences prefs) {
-        if (mPreviewPlaying) {
-            RingtonePreviewKlaxon.stop(context, prefs);
-            mPrefs.edit().putBoolean(KEY_RINGTONE_PREVIEW_PLAYING, false).apply();
+    public void stopRingtonePreviewForBluetoothDevices() {
+        if (!mIsPreviewPlaying) {
+            return;
         }
-    }
 
-    /**
-     * Stops listening for changes to ringtone preferences.
-     */
-    public void stopListeningToPreferences() {
+        if (mRingtoneStopRunnable != null) {
+            mRingtoneHandler.removeCallbacks(mRingtoneStopRunnable);
+        }
+
+        RingtonePreviewKlaxon.stop(mContext, mPrefs);
         RingtonePreviewKlaxon.stopListeningToPreferences();
+
+        mIsPreviewPlaying = false;
     }
 
 }

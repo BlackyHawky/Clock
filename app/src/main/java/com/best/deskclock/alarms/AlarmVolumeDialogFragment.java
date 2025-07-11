@@ -2,6 +2,8 @@
 
 package com.best.deskclock.alarms;
 
+import static com.best.deskclock.utils.RingtoneUtils.ALARM_PREVIEW_DURATION_MS;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -291,7 +293,7 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
         mRingtoneStopRunnable = this::stopRingtonePreview;
 
         // Schedule volume shutdown and restore after 5 seconds
-        mRingtoneHandler.postDelayed(mRingtoneStopRunnable, 5000);
+        mRingtoneHandler.postDelayed(mRingtoneStopRunnable, ALARM_PREVIEW_DURATION_MS);
     }
 
     /**

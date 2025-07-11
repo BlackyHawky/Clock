@@ -33,6 +33,11 @@ import java.util.Random;
 public class RingtoneUtils {
 
     /**
+     * The ringtone preview duration in ms.
+     */
+    public static final long ALARM_PREVIEW_DURATION_MS = 5000;
+
+    /**
      * {@link Uri} signifying the "silent" ringtone.
      */
     public static final Uri RINGTONE_SILENT = Uri.EMPTY;
