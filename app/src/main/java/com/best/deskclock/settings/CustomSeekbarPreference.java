@@ -23,6 +23,8 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_SHAKE_INTENS
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.net.Uri;
 import android.util.AttributeSet;
 import android.widget.ImageView;
@@ -32,6 +34,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import androidx.core.widget.TextViewCompat;
 import androidx.preference.PreferenceViewHolder;
 import androidx.preference.SeekBarPreference;
 
@@ -40,6 +43,8 @@ import com.best.deskclock.data.DataModel;
 import com.best.deskclock.ringtone.RingtonePreviewKlaxon;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
+import com.best.deskclock.utils.ThemeUtils;
+import com.google.android.material.color.MaterialColors;
 
 import java.util.Locale;
 
@@ -54,12 +59,19 @@ public class CustomSeekbarPreference extends SeekBarPreference {
     private Context mContext;
     private SharedPreferences mPrefs;
     private SeekBar mSeekBar;
+    private ImageView mSeekBarMinus;
+    private ImageView mSeekBarPlus;
+    private TextView mResetSeekBar;
     private boolean mPreviewPlaying = false;
 
     public CustomSeekbarPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
+    /**
+     * Binds the preference view, initializes the SeekBar and associated UI elements,
+     * and sets up listeners for user interactions.
+     */
     @Override
     public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
@@ -75,14 +87,23 @@ public class CustomSeekbarPreference extends SeekBarPreference {
         final TextView seekBarSummary = (TextView) holder.findViewById(android.R.id.summary);
         setSeekBarProgress(seekBarSummary);
 
-        configureSeekBarButtons(holder, seekBarSummary);
+        mSeekBarMinus = (ImageView) holder.findViewById(R.id.seekbar_minus_icon);
+        mSeekBarPlus = (ImageView) holder.findViewById(R.id.seekbar_plus_icon);
+        mResetSeekBar = (TextView) holder.findViewById(R.id.reset_seekbar_value);
 
-        final TextView resetSeekBar = (TextView) holder.findViewById(R.id.reset_seekbar_value);
-        resetSeekBar.setOnClickListener(v -> {
+        configureSeekBarButtonDrawables();
+        setupSeekBarButton(mSeekBarMinus, isBluetoothVolumePreference() ? -10 : -5, seekBarSummary);
+        setupSeekBarButton(mSeekBarPlus, isBluetoothVolumePreference() ? 10 : 5, seekBarSummary);
+        updateSeekBarButtonStates();
+        updateResetButtonStates();
+
+        mResetSeekBar.setOnClickListener(v -> {
             resetPreference();
             setSeekBarProgress(seekBarSummary);
             startRingtonePreviewForBluetoothDevices();
             sendBroadcastUpdateIfNeeded();
+            updateSeekBarButtonStates();
+            updateResetButtonStates();
         });
 
         mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -102,6 +123,8 @@ public class CustomSeekbarPreference extends SeekBarPreference {
                     }
 
                     updateSeekBarSummary(seekBarSummary, progress);
+                    updateSeekBarButtonStates();
+                    updateResetButtonStates();
                 }
             }
 
@@ -112,7 +135,6 @@ public class CustomSeekbarPreference extends SeekBarPreference {
             public void onStopTrackingTouch(SeekBar seekBar) {
                 int finalProgress = seekBar.getProgress();
                 saveSeekBarValue(finalProgress);
-                updateSeekBarSummary(seekBarSummary, finalProgress);
                 startRingtonePreviewForBluetoothDevices();
                 sendBroadcastUpdateIfNeeded();
             }
@@ -168,100 +190,37 @@ public class CustomSeekbarPreference extends SeekBarPreference {
      * Updates the SeekBar summary.
      */
     private void updateSeekBarSummary(TextView seekBarSummary, int progress) {
-        if (isScreensaverBrightnessPreference()) {
-            if (progress == DEFAULT_SCREENSAVER_BRIGHTNESS) {
-                seekBarSummary.setText(R.string.label_default);
-            } else {
-                String formattedText = String.format(Locale.getDefault(), "%d%%", progress);
-                seekBarSummary.setText(formattedText);
-            }
-        } else if (isShakeIntensityPreference()) {
-            if (SdkUtils.isBeforeAndroid8() && progress < MIN_SHAKE_INTENSITY_VALUE) {
-                return;
-            }
+        if (SdkUtils.isBeforeAndroid8() && progress < getSeekBarMinValue()) {
+            return;
+        }
 
-            if (progress == DEFAULT_SHAKE_INTENSITY) {
-                seekBarSummary.setText(R.string.label_default);
-            } else {
-                seekBarSummary.setText(String.valueOf(progress));
-            }
-        } else if (isTimerShakeIntensityPreference()) {
-            if (SdkUtils.isBeforeAndroid8() && progress < MIN_TIMER_SHAKE_INTENSITY_VALUE) {
-                return;
-            }
-
-            if (progress == DEFAULT_TIMER_SHAKE_INTENSITY) {
-                seekBarSummary.setText(R.string.label_default);
-            } else {
-                seekBarSummary.setText(String.valueOf(progress));
-            }
-        } else if (isAlarmDigitalClockFontSizePreference()) {
-            if (SdkUtils.isBeforeAndroid8() && progress < MIN_FONT_SIZE_VALUE) {
-                return;
-            }
-
-            if (progress == DEFAULT_ALARM_DIGITAL_CLOCK_FONT_SIZE) {
-                seekBarSummary.setText(R.string.label_default);
-            } else {
-                seekBarSummary.setText(String.valueOf(progress));
-            }
-        } else if (isAlarmTitleFontSizePreference()) {
-            if (SdkUtils.isBeforeAndroid8() && progress < MIN_FONT_SIZE_VALUE) {
-                return;
-            }
-
-            if (progress == DEFAULT_ALARM_TITLE_FONT_SIZE_PREF) {
-                seekBarSummary.setText(R.string.label_default);
-            } else {
-                seekBarSummary.setText(String.valueOf(progress));
-            }
-        } else if (isBluetoothVolumePreference()) {
-            if (SdkUtils.isBeforeAndroid8() && progress < MIN_BLUETOOTH_VOLUME) {
-                return;
-            }
-
-            if (progress == DEFAULT_BLUETOOTH_VOLUME) {
-                seekBarSummary.setText(R.string.label_default);
-            } else {
-                String formattedText = String.format(Locale.getDefault(), "%d%%", progress);
-                seekBarSummary.setText(formattedText);
-            }
+        if (progress == getDefaultSeekBarValue()) {
+            seekBarSummary.setText(R.string.label_default);
+        } else if (isScreensaverBrightnessPreference() || isBluetoothVolumePreference()) {
+            String formattedText = String.format(Locale.getDefault(), "%d%%", progress);
+            seekBarSummary.setText(formattedText);
         } else {
-            if (SdkUtils.isBeforeAndroid8() && progress < MIN_FONT_SIZE_VALUE) {
-                return;
-            }
-
-            if (progress == DEFAULT_WIDGETS_FONT_SIZE) {
-                seekBarSummary.setText(R.string.label_default);
-            } else {
-                seekBarSummary.setText(String.valueOf(progress));
-            }
+            seekBarSummary.setText(String.valueOf(progress));
         }
     }
 
     /**
-     * Configures the buttons that increase or decrease the value of the SeekBar.
+     * Sets the icons for the minus and plus buttons of the SeekBar based on the current preference type.
      */
-    private void configureSeekBarButtons(@NonNull PreferenceViewHolder holder, final TextView seekBarSummary) {
-        final ImageView seekBarMinus = (ImageView) holder.findViewById(R.id.seekbar_minus_icon);
-        final ImageView seekBarPlus = (ImageView) holder.findViewById(R.id.seekbar_plus_icon);
-
+    private void configureSeekBarButtonDrawables() {
         if (isScreensaverBrightnessPreference()) {
-            seekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_brightness_decrease));
-            seekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_brightness_increase));
+            mSeekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_brightness_decrease));
+            mSeekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_brightness_increase));
         } else if (isShakeIntensityPreference() || isTimerShakeIntensityPreference()) {
-            seekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_sensor_low));
-            seekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_sensor_high));
+            mSeekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_sensor_low));
+            mSeekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_sensor_high));
         } else if (isBluetoothVolumePreference()) {
-            seekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_volume_down));
-            seekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_volume_up));
+            mSeekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_volume_down));
+            mSeekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_volume_up));
         } else {
-            seekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_text_decrease));
-            seekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_text_increase));
+            mSeekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_text_decrease));
+            mSeekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_text_increase));
         }
-
-        configureSeekBarButton(seekBarMinus, isBluetoothVolumePreference() ? -10 : -5, seekBarSummary);
-        configureSeekBarButton(seekBarPlus, isBluetoothVolumePreference() ? 10 : 5, seekBarSummary);
     }
 
     /**
@@ -269,7 +228,7 @@ public class CustomSeekbarPreference extends SeekBarPreference {
      * The interface is updated with the new value and saved in the preferences.
      * Sends a broadcast if it concerns buttons related to widget settings (widget font size).
      */
-    private void configureSeekBarButton(ImageView button, final int delta, final TextView seekBarSummary) {
+    private void setupSeekBarButton(ImageView button, final int delta, final TextView seekBarSummary) {
         button.setOnClickListener(v -> {
             int newSeekBarValue = getNewSeekBarValue(delta);
             mSeekBar.setProgress(newSeekBarValue);
@@ -277,7 +236,57 @@ public class CustomSeekbarPreference extends SeekBarPreference {
             saveSeekBarValue(newSeekBarValue);
             startRingtonePreviewForBluetoothDevices();
             sendBroadcastUpdateIfNeeded();
+            updateSeekBarButtonStates();
+            updateResetButtonStates();
         });
+    }
+
+    /**
+     * Updates the enabled state of the minus and plus buttons based on the current SeekBar value
+     * and the enabled state of the preference.
+     *
+     * <p>Disables the minus button if the current value is at the minimum allowed,
+     * and disables the plus button if the value is at the maximum allowed.</p>
+     */
+    private void updateSeekBarButtonStates() {
+        boolean isPrefEnabled = isEnabled();
+        int current = mSeekBar.getProgress();
+        int min = getSeekBarMinValue();
+        int max = mSeekBar.getMax();
+
+        ThemeUtils.updateSeekBarButtonEnabledState(mContext, mSeekBarMinus, isPrefEnabled && current > min);
+        ThemeUtils.updateSeekBarButtonEnabledState(mContext, mSeekBarPlus, isPrefEnabled && current < max);
+    }
+
+    /**
+     * Updates the enabled state of the reset button based on the current SeekBar value
+     * and the enabled state of the preference.
+     *
+     * <p>The reset button is enabled only when the SeekBar's value differs from the default
+     * value for the current preference type.</p>
+     */
+    private void updateResetButtonStates() {
+        boolean isEnabled = isEnabled() && !isSeekBarAtDefault(mSeekBar.getProgress());
+        mResetSeekBar.setEnabled(isEnabled);
+
+        if (isEnabled) {
+            int enabledColor = MaterialColors.getColor(
+                    mContext, com.google.android.material.R.attr.colorAccent, Color.BLACK);
+
+            mResetSeekBar.setTextColor(enabledColor);
+            TextViewCompat.setCompoundDrawableTintList(mResetSeekBar, ColorStateList.valueOf(enabledColor));
+        } else {
+            int disabledColor = mContext.getColor(R.color.colorDisabled);
+            mResetSeekBar.setTextColor(disabledColor);
+            TextViewCompat.setCompoundDrawableTintList(mResetSeekBar, ColorStateList.valueOf(disabledColor));
+        }
+    }
+
+    /**
+     * @return true if the SeekBar is currently set to its default value, depending on the preference type.
+     */
+    private boolean isSeekBarAtDefault(int currentValue) {
+        return currentValue == getDefaultSeekBarValue();
     }
 
     /**
@@ -287,12 +296,39 @@ public class CustomSeekbarPreference extends SeekBarPreference {
     private int getNewSeekBarValue(int delta) {
         int currentSeekBarValue = mSeekBar.getProgress();
 
-        return Math.min(Math.max(currentSeekBarValue + delta,
-                isScreensaverBrightnessPreference() ? MIN_BRIGHTNESS_VALUE
+        return Math.min(Math.max(currentSeekBarValue + delta, getSeekBarMinValue()), mSeekBar.getMax());
+    }
+
+    /**
+     * @return the minimum allowed value for the SeekBar depending on the preference type.
+     */
+    private int getSeekBarMinValue() {
+        return isScreensaverBrightnessPreference() ? MIN_BRIGHTNESS_VALUE
                 : isShakeIntensityPreference() ? MIN_SHAKE_INTENSITY_VALUE
                 : isTimerShakeIntensityPreference() ? MIN_TIMER_SHAKE_INTENSITY_VALUE
                 : isBluetoothVolumePreference() ? MIN_BLUETOOTH_VOLUME
-                : MIN_FONT_SIZE_VALUE), mSeekBar.getMax());
+                : MIN_FONT_SIZE_VALUE;
+    }
+
+    /**
+     * @return the default value for the SeekBar depending on the preference type.
+     */
+    private int getDefaultSeekBarValue() {
+        if (isScreensaverBrightnessPreference()) {
+            return DEFAULT_SCREENSAVER_BRIGHTNESS;
+        } else if (isShakeIntensityPreference()) {
+            return DEFAULT_SHAKE_INTENSITY;
+        } else if (isTimerShakeIntensityPreference()) {
+            return DEFAULT_TIMER_SHAKE_INTENSITY;
+        } else if (isAlarmDigitalClockFontSizePreference()) {
+            return DEFAULT_ALARM_DIGITAL_CLOCK_FONT_SIZE;
+        } else if (isAlarmTitleFontSizePreference()) {
+            return DEFAULT_ALARM_TITLE_FONT_SIZE_PREF;
+        } else if (isBluetoothVolumePreference()) {
+            return DEFAULT_BLUETOOTH_VOLUME;
+        } else {
+            return DEFAULT_WIDGETS_FONT_SIZE;
+        }
     }
 
     /**

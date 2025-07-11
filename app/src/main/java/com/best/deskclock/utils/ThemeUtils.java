@@ -31,11 +31,13 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
 import androidx.annotation.ColorInt;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.drawable.DrawableKt;
 
+import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 import com.google.android.material.color.MaterialColors;
 
@@ -199,6 +201,23 @@ public class ThemeUtils {
      */
     public static float calculateRadiusOffset(float strokeSize, float dotStrokeSize, float markerStrokeSize) {
         return Math.max(strokeSize, Math.max(dotStrokeSize, markerStrokeSize));
+    }
+
+    /**
+     * Updates the enabled state and image tint of a SeekBar-related {@link ImageView} button
+     * (e.g. minus or plus) based on a given enabled flag.
+     *
+     * @param button   The ImageView button to update.
+     * @param enabled  Whether the button should be enabled.
+     */
+    public static void updateSeekBarButtonEnabledState(Context context, ImageView button, boolean enabled) {
+        button.setEnabled(enabled);
+
+        if (enabled) {
+            button.setImageTintList(null);
+        } else {
+            button.setImageTintList(ColorStateList.valueOf(context.getColor(R.color.colorDisabled)));
+        }
     }
 
 }

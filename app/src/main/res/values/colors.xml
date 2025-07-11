@@ -237,5 +237,6 @@
     <color name="colorGranted">#66BB6A</color>
     <!-- https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : n°400 -->
     <color name="colorAlert">#EF5350</color>
-
+    <!-- Used e.g. for SeekBar buttons -->
+    <color name="colorDisabled">#611D1B20</color>
 </resources>

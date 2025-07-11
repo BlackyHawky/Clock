@@ -27,6 +27,7 @@ import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.ringtone.RingtonePreviewKlaxon;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
+import com.best.deskclock.utils.ThemeUtils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.Locale;
@@ -249,8 +250,8 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
      * @param maxProgress  The maximum progress of the SeekBar.
      */
     private void updateVolumeButtonStates(int progress, int maxProgress) {
-        mVolumeMinus.setEnabled(progress > 0);
-        mVolumePlus.setEnabled(progress < maxProgress);
+        ThemeUtils.updateSeekBarButtonEnabledState(mContext, mVolumeMinus, progress > 0);
+        ThemeUtils.updateSeekBarButtonEnabledState(mContext, mVolumePlus, progress < maxProgress);
     }
 
     /**

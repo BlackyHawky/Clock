@@ -34,6 +34,7 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.ringtone.RingtonePreviewKlaxon;
 import com.best.deskclock.utils.RingtoneUtils;
+import com.best.deskclock.utils.ThemeUtils;
 
 import java.util.Locale;
 
@@ -42,6 +43,9 @@ public class AlarmVolumePreference extends SeekBarPreference {
     private Context mContext;
     private SharedPreferences mPrefs;
     private SeekBar mSeekbar;
+    private ImageView mSeekBarMinus;
+    private ImageView mSeekBarPlus;
+    private AudioManager mAudioManager;
     private int mMinVolume;
     private boolean mPreviewPlaying = false;
 
@@ -56,42 +60,30 @@ public class AlarmVolumePreference extends SeekBarPreference {
         mContext = getContext();
         mPrefs = getDefaultSharedPreferences(mContext);
 
-        final AudioManager audioManager = (AudioManager) mContext.getSystemService(AUDIO_SERVICE);
+        mAudioManager = (AudioManager) mContext.getSystemService(AUDIO_SERVICE);
 
         // Disable click feedback for this preference.
         holder.itemView.setClickable(false);
 
         // Minimum volume for alarm is not 0, calculate it.
-        mMinVolume = RingtoneUtils.getAlarmMinVolume(audioManager);
-        int maxVolume = audioManager.getStreamMaxVolume(STREAM_ALARM) - mMinVolume;
+        mMinVolume = RingtoneUtils.getAlarmMinVolume(mAudioManager);
+        int maxVolume = mAudioManager.getStreamMaxVolume(STREAM_ALARM) - mMinVolume;
         mSeekbar = (SeekBar) holder.findViewById(R.id.seekbar);
         mSeekbar.setMax(maxVolume);
-        mSeekbar.setProgress(audioManager.getStreamVolume(STREAM_ALARM) - mMinVolume);
+        mSeekbar.setProgress(mAudioManager.getStreamVolume(STREAM_ALARM) - mMinVolume);
 
         final TextView seekBarSummary = (TextView) holder.findViewById(android.R.id.summary);
-        updateSeekBarSummary(audioManager, seekBarSummary);
+        updateSeekBarSummary(seekBarSummary);
 
-        final ImageView seekBarMinus = (ImageView) holder.findViewById(R.id.seekbar_minus_icon);
-        seekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_volume_down));
-        seekBarMinus.setOnClickListener(v -> {
-            int currentProgress = mSeekbar.getProgress();
-            if (currentProgress > 0) {
-                mSeekbar.setProgress(currentProgress - 1);
-                updateVolume(audioManager);
-                startRingtonePreview();
-            }
-        });
+        mSeekBarMinus = (ImageView) holder.findViewById(R.id.seekbar_minus_icon);
+        mSeekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_volume_down));
 
-        final ImageView seekBarPlus = (ImageView) holder.findViewById(R.id.seekbar_plus_icon);
-        seekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_volume_up));
-        seekBarPlus.setOnClickListener(v -> {
-            int currentProgress = mSeekbar.getProgress();
-            if (currentProgress < mSeekbar.getMax()) {
-                mSeekbar.setProgress(currentProgress + 1);
-                updateVolume(audioManager);
-                startRingtonePreview();
-            }
-        });
+        mSeekBarPlus = (ImageView) holder.findViewById(R.id.seekbar_plus_icon);
+        mSeekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_volume_up));
+
+        setupVolumeSeekBarButton(mSeekBarMinus, -1);
+        setupVolumeSeekBarButton(mSeekBarPlus, +1);
+        updateSeekBarButtonStates();
 
         final TextView resetSeekBar = (TextView) holder.findViewById(R.id.reset_seekbar_value);
         resetSeekBar.setVisibility(GONE);
@@ -100,8 +92,8 @@ public class AlarmVolumePreference extends SeekBarPreference {
             @Override
             public void onChange(boolean selfChange) {
                 // Volume was changed elsewhere, update our slider.
-                mSeekbar.setProgress(audioManager.getStreamVolume(STREAM_ALARM) - mMinVolume);
-                updateSeekBarSummary(audioManager, seekBarSummary);
+                mSeekbar.setProgress(mAudioManager.getStreamVolume(STREAM_ALARM) - mMinVolume);
+                updateSeekBarSummary(seekBarSummary);
             }
         };
 
@@ -123,8 +115,9 @@ public class AlarmVolumePreference extends SeekBarPreference {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (fromUser) {
                     int newVolume = progress + mMinVolume;
-                    audioManager.setStreamVolume(STREAM_ALARM, newVolume, 0);
-                    updateSeekBarSummary(audioManager, seekBarSummary);
+                    mAudioManager.setStreamVolume(STREAM_ALARM, newVolume, 0);
+                    updateSeekBarSummary(seekBarSummary);
+                    updateSeekBarButtonStates();
                 }
             }
 
@@ -139,13 +132,54 @@ public class AlarmVolumePreference extends SeekBarPreference {
         });
     }
 
-    private void updateSeekBarSummary(AudioManager audioManager, TextView seekBarSummary) {
-        int currentVolume = audioManager.getStreamVolume(STREAM_ALARM);
-        int maxVolume = audioManager.getStreamMaxVolume(STREAM_ALARM);
+    /**
+     * Updates the summary text view to show the current alarm volume as a percentage.
+     */
+    private void updateSeekBarSummary(TextView seekBarSummary) {
+        int currentVolume = mAudioManager.getStreamVolume(STREAM_ALARM);
+        int maxVolume = mAudioManager.getStreamMaxVolume(STREAM_ALARM);
         int volumePercentage = (int) (((float) currentVolume / maxVolume) * 100);
 
         String formattedText = String.format(Locale.getDefault(), "%d%%", volumePercentage);
         seekBarSummary.post(() -> seekBarSummary.setText(formattedText));
+    }
+
+    /**
+     * Configures the minus or plus button to adjust the alarm volume when clicked.
+     *
+     * @param button the ImageView button (minus or plus)
+     * @param delta  +1 to increase volume, -1 to decrease
+     */
+    private void setupVolumeSeekBarButton(@NonNull ImageView button, int delta) {
+        button.setOnClickListener(v -> {
+            int current = mSeekbar.getProgress();
+            int max = mSeekbar.getMax();
+
+            int newValue = Math.min(Math.max(current + delta, 0), max);
+            if (newValue != current) {
+                mSeekbar.setProgress(newValue);
+                updateVolume(mAudioManager);
+                startRingtonePreview();
+                updateSeekBarButtonStates();
+            }
+        });
+    }
+
+    /**
+     * Enables or disables the minus and plus buttons based on the current SeekBar value
+     * and the enabled state of the preference.
+     */
+    private void updateSeekBarButtonStates() {
+        boolean isPrefEnabled = isEnabled();
+        int progress = mSeekbar.getProgress();
+        int max = mSeekbar.getMax();
+
+        ThemeUtils.updateSeekBarButtonEnabledState(mContext, mSeekBarMinus, isPrefEnabled
+                && progress > 0
+                && !RingtoneUtils.hasBluetoothDeviceConnected(mContext, mPrefs));
+        ThemeUtils.updateSeekBarButtonEnabledState(mContext, mSeekBarPlus, isPrefEnabled
+                && progress < max
+                && !RingtoneUtils.hasBluetoothDeviceConnected(mContext, mPrefs));
     }
 
     private void updateVolume(AudioManager audioManager) {
