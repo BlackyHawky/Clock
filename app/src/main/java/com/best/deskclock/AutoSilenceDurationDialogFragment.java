@@ -148,8 +148,11 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         if (mEditMinutes != null) {
-            outState.putInt(ARG_EDIT_AUTO_SILENCE_MINUTES,
-                    Integer.parseInt(Objects.requireNonNull(mEditMinutes.getText()).toString()));
+            String minutesStr = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
+
+            int minutes = minutesStr.isEmpty() ? 0 : Integer.parseInt(minutesStr);
+
+            outState.putInt(ARG_EDIT_AUTO_SILENCE_MINUTES, minutes);
         }
         outState.putBoolean(ARG_END_OF_RINGTONE, mEndOfRingtoneCheckbox.isChecked());
     }
@@ -159,7 +162,7 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         mContext = requireContext();
 
-        final Bundle args = getArguments() == null ? Bundle.EMPTY : getArguments();
+        final Bundle args = requireArguments();
         mAlarm = SdkUtils.isAtLeastAndroid13()
                 ? args.getParcelable(ARG_ALARM, Alarm.class)
                 : args.getParcelable(ARG_ALARM);
@@ -224,6 +227,21 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
         }
 
         return dialog;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (!mEndOfRingtoneCheckbox.isChecked()) {
+            mEditMinutes.requestFocus();
+            mEditMinutes.postDelayed(() -> {
+                InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (imm != null) {
+                    imm.showSoftInput(mEditMinutes, InputMethodManager.SHOW_IMPLICIT);
+                }
+            }, 200);
+        }
     }
 
     @Override

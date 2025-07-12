@@ -116,7 +116,7 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         mContext = requireContext();
 
-        final Bundle args = getArguments() == null ? Bundle.EMPTY : getArguments();
+        final Bundle args = requireArguments();
         mAlarm = SdkUtils.isAtLeastAndroid13()
                 ? args.getParcelable(ARG_ALARM, Alarm.class)
                 : args.getParcelable(ARG_ALARM);

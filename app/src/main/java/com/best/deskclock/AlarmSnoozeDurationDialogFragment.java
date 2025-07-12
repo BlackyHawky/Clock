@@ -147,10 +147,14 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
         super.onSaveInstanceState(outState);
         // As long as this dialog exists, save its state.
         if (mEditHours != null && mEditMinutes != null) {
-            outState.putLong(ARG_EDIT_ALARM_HOURS,
-                    Long.parseLong(Objects.requireNonNull(mEditHours.getText()).toString()));
-            outState.putLong(ARG_EDIT_ALARM_MINUTES,
-                    Long.parseLong(Objects.requireNonNull(mEditMinutes.getText()).toString()));
+            String hoursStr = mEditHours.getText() != null ? mEditHours.getText().toString() : "";
+            String minutesStr = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
+
+            long hours = hoursStr.isEmpty() ? 0 : Long.parseLong(hoursStr);
+            long minutes = minutesStr.isEmpty() ? 0 : Long.parseLong(minutesStr);
+
+            outState.putLong(ARG_EDIT_ALARM_HOURS, hours);
+            outState.putLong(ARG_EDIT_ALARM_MINUTES, minutes);
         }
     }
 
@@ -159,7 +163,7 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         mContext = requireContext();
 
-        final Bundle args = getArguments() == null ? Bundle.EMPTY : getArguments();
+        final Bundle args = requireArguments();
         mAlarm = SdkUtils.isAtLeastAndroid13()
                 ? args.getParcelable(ARG_ALARM, Alarm.class)
                 : args.getParcelable(ARG_ALARM);
@@ -234,6 +238,18 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
         }
 
         return dialog;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        mEditHours.requestFocus();
+        mEditHours.postDelayed(() -> {
+            if (mInput != null) {
+                mInput.showSoftInput(mEditHours, InputMethodManager.SHOW_IMPLICIT);
+            }
+        }, 200);
     }
 
     @Override

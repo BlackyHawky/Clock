@@ -147,10 +147,14 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
         super.onSaveInstanceState(outState);
         // As long as this dialog exists, save its state.
         if (mEditMinutes != null && mEditSeconds != null) {
-            outState.putLong(ARG_EDIT_VOLUME_CRESCENDO_MINUTES,
-                    Long.parseLong(Objects.requireNonNull(mEditMinutes.getText()).toString()));
-            outState.putLong(ARG_EDIT_VOLUME_CRESCENDO_SECONDS,
-                    Long.parseLong(Objects.requireNonNull(mEditSeconds.getText()).toString()));
+            String minutesStr = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
+            String secondsStr = mEditSeconds.getText() != null ? mEditSeconds.getText().toString() : "";
+
+            long minutes = minutesStr.isEmpty() ? 0 : Long.parseLong(minutesStr);
+            long seconds = secondsStr.isEmpty() ? 0 : Long.parseLong(secondsStr);
+
+            outState.putLong(ARG_EDIT_VOLUME_CRESCENDO_MINUTES, minutes);
+            outState.putLong(ARG_EDIT_VOLUME_CRESCENDO_SECONDS, seconds);
         }
     }
 
@@ -159,7 +163,7 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         mContext = requireContext();
 
-        final Bundle args = getArguments() == null ? Bundle.EMPTY : getArguments();
+        final Bundle args = requireArguments();
         mAlarm = SdkUtils.isAtLeastAndroid13()
                 ? args.getParcelable(ARG_ALARM, Alarm.class)
                 : args.getParcelable(ARG_ALARM);
@@ -230,6 +234,18 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
         }
 
         return dialog;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        mEditMinutes.requestFocus();
+        mEditMinutes.postDelayed(() -> {
+            if (mInput != null) {
+                mInput.showSoftInput(mEditMinutes, InputMethodManager.SHOW_IMPLICIT);
+            }
+        }, 200);
     }
 
     @Override

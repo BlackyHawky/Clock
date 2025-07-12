@@ -10,6 +10,7 @@ import static android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN;
 import static android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
@@ -53,6 +55,7 @@ public class LabelDialogFragment extends DialogFragment {
     private static final String ARG_TIMER_ID = "arg_timer_id";
     private static final String ARG_TAG = "arg_tag";
 
+    private Context mContext;
     private EditText mEditLabel;
     private Alarm mAlarm;
     private int mTimerId;
@@ -114,7 +117,9 @@ public class LabelDialogFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final Bundle args = getArguments() == null ? Bundle.EMPTY : getArguments();
+        mContext = requireContext();
+
+        final Bundle args = requireArguments();
         mAlarm = SdkUtils.isAtLeastAndroid13()
                 ? args.getParcelable(ARG_ALARM, Alarm.class)
                 : args.getParcelable(ARG_ALARM);
@@ -126,13 +131,13 @@ public class LabelDialogFragment extends DialogFragment {
             label = savedInstanceState.getString(ARG_LABEL, label);
         }
 
-        final Drawable drawable = AppCompatResources.getDrawable(requireContext(), R.drawable.ic_label);
+        final Drawable drawable = AppCompatResources.getDrawable(mContext, R.drawable.ic_label);
         if (drawable != null) {
             drawable.setTint(MaterialColors.getColor(
-                    requireContext(), com.google.android.material.R.attr.colorOnSurface, Color.BLACK));
+                    mContext, com.google.android.material.R.attr.colorOnSurface, Color.BLACK));
         }
 
-        View view = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_edit_text, null);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_edit_text, null);
 
         mEditLabel = view.findViewById(android.R.id.edit);
         mEditLabel.setText(label);
@@ -149,7 +154,7 @@ public class LabelDialogFragment extends DialogFragment {
         });
 
         final MaterialAlertDialogBuilder dialogBuilder =
-                new MaterialAlertDialogBuilder(requireContext())
+                new MaterialAlertDialogBuilder(mContext)
                         .setTitle(mAlarm != null
                                 ? R.string.alarm_label_box_title
                                 : mTimerId >= 0
@@ -171,6 +176,19 @@ public class LabelDialogFragment extends DialogFragment {
         }
 
         return dialog;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        mEditLabel.requestFocus();
+        mEditLabel.postDelayed(() -> {
+            InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm != null) {
+                imm.showSoftInput(mEditLabel, InputMethodManager.SHOW_IMPLICIT);
+            }
+        }, 200);
     }
 
     @Override
