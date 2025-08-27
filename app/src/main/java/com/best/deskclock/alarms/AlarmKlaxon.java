@@ -21,6 +21,7 @@ import com.best.deskclock.ringtone.RingtonePlayer;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
+import com.best.deskclock.utils.Utils;
 
 /**
  * Manages playing alarm ringtones and vibrating the device.
@@ -42,11 +43,12 @@ final class AlarmKlaxon {
 
     public static void stop(Context context, SharedPreferences prefs) {
         if (sStarted) {
-            LogUtils.v("AlarmKlaxon.stop()");
             sStarted = false;
-            if (SettingsDAO.isAdvancedAudioPlaybackEnabled(prefs)) {
+            if (Utils.isUserUnlocked(context) && SettingsDAO.isAdvancedAudioPlaybackEnabled(prefs)) {
+                LogUtils.v("AlarmKlaxon.stop() ExoPlayer");
                 getRingtonePlayer(context).stop();
             } else {
+                LogUtils.v("AlarmKlaxon.stop() MediaPlayer");
                 getAsyncRingtonePlayer(context).stop();
 
                 if (SettingsDAO.isPerAlarmVolumeEnabled(prefs) && sPreviousAlarmVolume != -1) {
@@ -69,14 +71,15 @@ final class AlarmKlaxon {
     public static void start(Context context, SharedPreferences prefs, AlarmInstance instance) {
         // Make sure we are stopped before starting
         stop(context, prefs);
-        LogUtils.v("AlarmKlaxon.start()");
 
         if (!RingtoneUtils.RINGTONE_SILENT.equals(instance.mRingtone)) {
             // Crescendo duration always in milliseconds
             final int crescendoDuration = instance.mCrescendoDuration * 1000;
-            if (SettingsDAO.isAdvancedAudioPlaybackEnabled(prefs)) {
+            if (Utils.isUserUnlocked(context) && SettingsDAO.isAdvancedAudioPlaybackEnabled(prefs)) {
+                LogUtils.v("AlarmKlaxon.start() with ExoPlayer");
                 getRingtonePlayer(context).play(instance.mRingtone, crescendoDuration);
             } else {
+                LogUtils.v("AlarmKlaxon.start() with MediaPlayer");
                 if (SettingsDAO.isPerAlarmVolumeEnabled(prefs)) {
                     AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
 

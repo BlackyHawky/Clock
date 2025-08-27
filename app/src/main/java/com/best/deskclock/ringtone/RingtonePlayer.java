@@ -6,6 +6,7 @@ import static androidx.media3.common.Player.REPEAT_MODE_ONE;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_ROUTING_TO_BLUETOOTH_DEVICE;
+import static com.best.deskclock.utils.RingtoneUtils.IN_CALL_VOLUME;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -26,7 +27,6 @@ import androidx.media3.common.Player;
 import androidx.media3.common.util.UnstableApi;
 import androidx.media3.exoplayer.ExoPlayer;
 
-import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
@@ -60,8 +60,6 @@ import com.best.deskclock.utils.SdkUtils;
 public final class RingtonePlayer {
 
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger("RingtonePlayer");
-
-    private static final float IN_CALL_VOLUME = 0.12f;
 
     private final Context mContext;
     private final SharedPreferences mPrefs;
@@ -154,7 +152,7 @@ public final class RingtonePlayer {
             if (state == Player.STATE_READY) {
                 mExoPlayer.play();
 
-                if (isInTelephoneCall(mAudioManager)) {
+                if (RingtoneUtils.isInTelephoneCall(mAudioManager)) {
                     mExoPlayer.setVolume(IN_CALL_VOLUME);
                 } else if (mCrescendoDuration > 0) {
                     mCrescendoStopTime = System.currentTimeMillis() + mCrescendoDuration;
@@ -234,18 +232,19 @@ public final class RingtonePlayer {
                 .setAudioAttributes(buildAudioAttributes(isBluetooth), isBluetooth)
                 .build();
 
-        boolean inCall = isInTelephoneCall(mAudioManager);
+        boolean inCall = RingtoneUtils.isInTelephoneCall(mAudioManager);
 
         if (inCall) {
-            ringtoneUri = getInCallRingtoneUri(mContext);
+            ringtoneUri = RingtoneUtils.getInCallRingtoneUri(mContext);
         }
 
-        if (RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).equals(ringtoneUri)) {
+        if (RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).equals(ringtoneUri)
+                || RingtoneUtils.RINGTONE_SILENT.equals(ringtoneUri)) {
             ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(mContext, RingtoneManager.TYPE_ALARM);
         }
 
         if (ringtoneUri == null || !RingtoneUtils.isRingtoneUriReadable(mContext, ringtoneUri)) {
-            ringtoneUri = getFallbackRingtoneUri(mContext);
+            ringtoneUri = RingtoneUtils.getFallbackRingtoneUri(mContext);
         }
 
         mExoPlayer.setMediaItem(MediaItem.fromUri(ringtoneUri));
@@ -327,32 +326,10 @@ public final class RingtonePlayer {
             return false;
         }
 
-        float volume = computeVolume(currentTime, mCrescendoStopTime, mCrescendoDuration);
+        float volume = RingtoneUtils.computeVolume(currentTime, mCrescendoStopTime, mCrescendoDuration);
         mExoPlayer.setVolume(volume);
 
         return true;
-    }
-
-    /**
-     * @param currentTime current time of the device
-     * @param stopTime    time at which the crescendo finishes
-     * @param duration    length of time over which the crescendo occurs
-     * @return the scalar volume value that produces a linear increase in volume (in decibels)
-     */
-    private static float computeVolume(long currentTime, long stopTime, long duration) {
-        // Compute the percentage of the crescendo that has completed.
-        float fractionComplete = 1 - Math.max(0f, Math.min(1f, (stopTime - currentTime) / (float) duration));
-
-        // Use the fraction to compute a target decibel between -40dB (near silent) and 0dB (max).
-        final float gain = (fractionComplete * 40) - 40;
-
-        // Convert the target gain (in decibels) into the corresponding volume scalar.
-        final float volume = (float) Math.pow(10f, gain / 20f);
-
-        LOGGER.v("Ringtone crescendo %,.2f%% complete (scalar: %f, volume: %f dB)",
-                fractionComplete * 100, volume, gain);
-
-        return volume;
     }
 
     /**
@@ -507,37 +484,6 @@ public final class RingtonePlayer {
         int userVolume = SettingsDAO.getBluetoothVolumeValue(mPrefs);
         int maxVolume = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         return (int) (maxVolume * (userVolume / 100f));
-    }
-
-    /**
-     * @return {@code true} if the device is currently in a telephone call. {@code false} otherwise.
-     */
-    private static boolean isInTelephoneCall(AudioManager audioManager) {
-        final int audioMode = audioManager.getMode();
-        if (SdkUtils.isAtLeastAndroid13()) {
-            return audioMode == AudioManager.MODE_IN_COMMUNICATION ||
-                    audioMode == AudioManager.MODE_COMMUNICATION_REDIRECT ||
-                    audioMode == AudioManager.MODE_CALL_REDIRECT ||
-                    audioMode == AudioManager.MODE_CALL_SCREENING ||
-                    audioMode == AudioManager.MODE_IN_CALL;
-        } else {
-            return audioMode == AudioManager.MODE_IN_COMMUNICATION ||
-                    audioMode == AudioManager.MODE_IN_CALL;
-        }
-    }
-
-    /**
-     * @return Uri of the ringtone to play when the user is in a telephone call
-     */
-    private static Uri getInCallRingtoneUri(Context context) {
-        return RingtoneUtils.getResourceUri(context, R.raw.alarm_expire);
-    }
-
-    /**
-     * @return Uri of the ringtone to play when the chosen ringtone fails to play
-     */
-    private static Uri getFallbackRingtoneUri(Context context) {
-        return RingtoneUtils.getResourceUri(context, R.raw.alarm_expire);
     }
 
     /**

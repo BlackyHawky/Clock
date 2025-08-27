@@ -18,6 +18,7 @@ import android.provider.OpenableColumns;
 import androidx.annotation.AnyRes;
 
 import com.best.deskclock.DeskClockApplication;
+import com.best.deskclock.R;
 import com.best.deskclock.data.CustomRingtone;
 import com.best.deskclock.data.RingtoneModel;
 import com.best.deskclock.data.SettingsDAO;
@@ -36,6 +37,11 @@ public class RingtoneUtils {
      * The ringtone preview duration in ms.
      */
     public static final long ALARM_PREVIEW_DURATION_MS = 5000;
+
+    /**
+     * The volume applied to the player during a call.
+     */
+    public static final float IN_CALL_VOLUME = 0.14f;
 
     /**
      * {@link Uri} signifying the "silent" ringtone.
@@ -282,6 +288,59 @@ public class RingtoneUtils {
     public static boolean isBluetoothDevice(AudioDeviceInfo device) {
         int type = device.getType();
         return type == AudioDeviceInfo.TYPE_BLUETOOTH_A2DP || type == AudioDeviceInfo.TYPE_BLUETOOTH_SCO;
+    }
+
+    /**
+     * @return {@code true} if the device is currently in a telephone call. {@code false} otherwise.
+     */
+    public static boolean isInTelephoneCall(AudioManager audioManager) {
+        final int audioMode = audioManager.getMode();
+        if (SdkUtils.isAtLeastAndroid13()) {
+            return audioMode == AudioManager.MODE_IN_COMMUNICATION ||
+                    audioMode == AudioManager.MODE_COMMUNICATION_REDIRECT ||
+                    audioMode == AudioManager.MODE_CALL_REDIRECT ||
+                    audioMode == AudioManager.MODE_CALL_SCREENING ||
+                    audioMode == AudioManager.MODE_IN_CALL;
+        } else {
+            return audioMode == AudioManager.MODE_IN_COMMUNICATION ||
+                    audioMode == AudioManager.MODE_IN_CALL;
+        }
+    }
+
+    /**
+     * @return Uri of the ringtone to play when the user is in a telephone call
+     */
+    public static Uri getInCallRingtoneUri(Context context) {
+        return RingtoneUtils.getResourceUri(context, R.raw.alarm_expire);
+    }
+
+    /**
+     * @return Uri of the ringtone to play when the chosen ringtone fails to play
+     */
+    public static Uri getFallbackRingtoneUri(Context context) {
+        return RingtoneUtils.getResourceUri(context, R.raw.alarm_expire);
+    }
+
+    /**
+     * @param currentTime current time of the device
+     * @param stopTime    time at which the crescendo finishes
+     * @param duration    length of time over which the crescendo occurs
+     * @return the scalar volume value that produces a linear increase in volume (in decibels)
+     */
+    public static float computeVolume(long currentTime, long stopTime, long duration) {
+        // Compute the percentage of the crescendo that has completed.
+        float fractionComplete = 1 - Math.max(0f, Math.min(1f, (stopTime - currentTime) / (float) duration));
+
+        // Use the fraction to compute a target decibel between -40dB (near silent) and 0dB (max).
+        final float gain = (fractionComplete * 40) - 40;
+
+        // Convert the target gain (in decibels) into the corresponding volume scalar.
+        final float volume = (float) Math.pow(10f, gain / 20f);
+
+        LogUtils.v("Ringtone crescendo %,.2f%% complete (scalar: %f, volume: %f dB)",
+                fractionComplete * 100, volume, gain);
+
+        return volume;
     }
 
     /**
