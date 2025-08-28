@@ -47,6 +47,7 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.Calendar;
+import java.util.TimeZone;
 
 /**
  * Click handler for an alarm time item.
@@ -368,7 +369,7 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
 
         materialDatePicker.addOnPositiveButtonClickListener(selection -> {
             // Selection contains the selected date as a timestamp (long)
-            Calendar calendar = Calendar.getInstance();
+            Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
             calendar.setTimeInMillis(selection);
 
             int year = calendar.get(Calendar.YEAR);
