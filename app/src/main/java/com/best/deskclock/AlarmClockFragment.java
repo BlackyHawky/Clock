@@ -30,6 +30,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.drawable.DrawableCompat;
@@ -39,6 +40,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.best.deskclock.alarms.AlarmDelayPickerDialogFragment;
 import com.best.deskclock.alarms.AlarmTimeClickHandler;
 import com.best.deskclock.alarms.AlarmUpdateHandler;
 import com.best.deskclock.alarms.CustomSpinnerTimePickerDialog;
@@ -317,6 +319,26 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     }
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // We use Fragment Result API instead of a direct listener to safely pass data back from
+        // AlarmDelayPickerDialogFragment. This approach allows the result to survive configuration
+        // changes and fragment recreation.
+        // Direct interface callbacks would be lost after a configuration change because
+        // the original Fragment instance (and its listener) would be destroyed.
+        getParentFragmentManager().setFragmentResultListener(AlarmDelayPickerDialogFragment.REQUEST_KEY,
+                this, (requestKey, result) -> {
+
+                    if (AlarmDelayPickerDialogFragment.REQUEST_KEY.equals(requestKey)) {
+                        int hours = result.getInt(AlarmDelayPickerDialogFragment.BUNDLE_KEY_HOURS);
+                        int minutes = result.getInt(AlarmDelayPickerDialogFragment.BUNDLE_KEY_MINUTES);
+                        mAlarmTimeClickHandler.setAlarmWithDelay(hours, minutes);
+                    }
+                });
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
 
@@ -501,6 +523,12 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     }
 
     @Override
+    public void onFabLongClick(@NonNull ImageView fab) {
+        mAlarmUpdateHandler.hideUndoBar();
+        startCreatingAlarmWithDelay();
+    }
+
+    @Override
     public void onUpdateFab(@NonNull ImageView fab) {
         fab.setVisibility(View.VISIBLE);
         fab.setImageResource(R.drawable.ic_add);
@@ -518,7 +546,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         mAlarmTimeClickHandler.onTimeSet(hour, minute);
     }
 
-    public void startCreatingAlarm() {
+    private void startCreatingAlarm() {
         // Clear the currently selected alarm.
         mAlarmTimeClickHandler.setSelectedAlarm(null);
         if (SettingsDAO.getMaterialTimePickerStyle(mPrefs).equals(SPINNER_TIME_PICKER_STYLE)) {
@@ -526,6 +554,12 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         } else {
             showMaterialTimePicker();
         }
+    }
+
+    private void startCreatingAlarmWithDelay() {
+        // Clear the currently selected alarm.
+        mAlarmTimeClickHandler.setSelectedAlarm(null);
+        mAlarmTimeClickHandler.showAlarmDelayPickerDialog();
     }
 
     private void showCustomSpinnerTimePicker() {

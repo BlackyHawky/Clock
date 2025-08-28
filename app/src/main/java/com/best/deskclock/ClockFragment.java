@@ -209,6 +209,10 @@ public final class ClockFragment extends DeskClockFragment {
     }
 
     @Override
+    public void onFabLongClick(@NonNull ImageView fab) {
+    }
+
+    @Override
     public void onUpdateFab(@NonNull ImageView fab) {
         fab.setVisibility(VISIBLE);
         fab.setImageResource(R.drawable.ic_fab_public);

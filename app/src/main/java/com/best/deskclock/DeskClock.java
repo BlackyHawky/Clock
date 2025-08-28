@@ -248,6 +248,10 @@ public class DeskClock extends AppCompatActivity
         mFab.getLayoutParams().width = ThemeUtils.convertDpToPixels(fabSize, this);
         mFab.setScaleType(ImageView.ScaleType.CENTER);
         mFab.setOnClickListener(view -> getSelectedDeskClockFragment().onFabClick(mFab));
+        mFab.setOnLongClickListener(v -> {
+            getSelectedDeskClockFragment().onFabLongClick(mFab);
+            return true;
+        });
 
         mLeftButton = findViewById(R.id.left_button);
         mLeftButton.getLayoutParams().height = ThemeUtils.convertDpToPixels(leftOrRightButtonSize, this);

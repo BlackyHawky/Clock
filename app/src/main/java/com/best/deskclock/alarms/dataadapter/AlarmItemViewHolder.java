@@ -89,6 +89,10 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
 
         // Clock handler
         clock.setOnClickListener(v -> getAlarmTimeClickHandler().onClockClicked(getItemHolder().item));
+        clock.setOnLongClickListener(v -> {
+            getAlarmTimeClickHandler().onClockLongClicked(getItemHolder().item);
+            return true;
+        });
 
         // On/Off button handler
         onOff.setOnCheckedChangeListener((compoundButton, checked) ->

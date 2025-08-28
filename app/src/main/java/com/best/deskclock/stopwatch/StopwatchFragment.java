@@ -298,6 +298,10 @@ public final class StopwatchFragment extends DeskClockFragment {
         toggleStopwatchState();
     }
 
+    @Override
+    public void onFabLongClick(@NonNull ImageView fab) {
+    }
+
     private void updateFab(@NonNull ImageView fab) {
         if (mContext != null) {
             if (getStopwatch().isRunning()) {

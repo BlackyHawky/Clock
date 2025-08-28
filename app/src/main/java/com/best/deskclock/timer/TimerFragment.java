@@ -341,6 +341,10 @@ public final class TimerFragment extends DeskClockFragment {
     }
 
     @Override
+    public void onFabLongClick(@NonNull ImageView fab) {
+    }
+
+    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (mCurrentView == mCreateTimerView) {
             return mCreateTimerView.onKeyDown(keyCode, event);

@@ -19,6 +19,8 @@
     <string name="delete_occasional_alarm_after_use_title">Delete alarm once dismissed</string>
     <!-- Title of dialog box to choose the alarm time -->
     <string name="time_picker_dialog_title">Select time</string>
+    <!-- Title of dialog box to choose the alarm delay -->
+    <string name="delay_picker_dialog_title">Alarm in…</string>
     <!-- Title of dialog box to choose the alarm date -->
     <string name="date_picker_dialog_title">Select Date</string>
     <!-- Title of dialog box for editing alarm label -->

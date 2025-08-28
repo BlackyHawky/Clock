@@ -34,6 +34,7 @@ import com.best.deskclock.R;
 import com.best.deskclock.VolumeCrescendoDurationDialogFragment;
 import com.best.deskclock.alarms.dataadapter.AlarmItemHolder;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
@@ -227,6 +228,19 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
         }
     }
 
+    public void onClockLongClicked(Alarm alarm) {
+        mSelectedAlarm = alarm;
+        showAlarmDelayPickerDialog();
+    }
+
+    public void showAlarmDelayPickerDialog() {
+        Events.sendAlarmEvent(R.string.action_set_delay, R.string.label_deskclock);
+
+        final AlarmDelayPickerDialogFragment fragment =
+                AlarmDelayPickerDialogFragment.newInstance(0, 0);
+        AlarmDelayPickerDialogFragment.show(mFragment.getParentFragmentManager(), fragment);
+    }
+
     private void showCustomSpinnerTimePicker(int hour, int minutes) {
         CustomSpinnerTimePickerDialog.show(mContext, mFragment, hour, minutes, this);
     }
@@ -382,43 +396,75 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
     @Override
     public void onTimeSet(int hourOfDay, int minute) {
         if (mSelectedAlarm == null) {
-            // If mSelectedAlarm is null then we're creating a new alarm.
-            final Alarm alarm = new Alarm();
-            final SharedPreferences prefs = getDefaultSharedPreferences(mContext);
-            final AudioManager audioManager = (AudioManager) mContext.getSystemService(AUDIO_SERVICE);
-
-            alarm.hour = hourOfDay;
-            alarm.minutes = minute;
-            alarm.enabled = true;
-            alarm.vibrate = SettingsDAO.areAlarmVibrationsEnabledByDefault(prefs);
-            alarm.flash = SettingsDAO.shouldTurnOnBackFlashForTriggeredAlarm(prefs);
-            alarm.deleteAfterUse = SettingsDAO.isOccasionalAlarmDeletedByDefault(prefs);
-            alarm.autoSilenceDuration = SettingsDAO.getAlarmTimeout(prefs);
-            alarm.snoozeDuration = SettingsDAO.getSnoozeLength(prefs);
-            alarm.crescendoDuration = SettingsDAO.getAlarmVolumeCrescendoDuration(prefs);
-            alarm.alarmVolume = audioManager.getStreamVolume(STREAM_ALARM);
-
-            mAlarmUpdateHandler.asyncAddAlarm(alarm);
+            mAlarmUpdateHandler.asyncAddAlarm(buildNewAlarm(hourOfDay, minute));
         } else {
-            mSelectedAlarm.hour = hourOfDay;
-            mSelectedAlarm.minutes = minute;
-            // Necessary when an existing alarm has been created in the past and it is not enabled.
-            // Even if the date is not specified, it is saved in AlarmInstance; we need to make
-            // sure that the date is not in the past when changing time, in which case we reset
-            // to the current date (an alarm cannot be triggered in the past).
-            // This is due to the change in the code made with commit : 6ac23cf.
-            // Fix https://github.com/BlackyHawky/Clock/issues/299
-            if (mSelectedAlarm.isDateInThePast()) {
-                Calendar currentCalendar = Calendar.getInstance();
-                mSelectedAlarm.year = currentCalendar.get(Calendar.YEAR);
-                mSelectedAlarm.month = currentCalendar.get(Calendar.MONTH);
-                mSelectedAlarm.day = currentCalendar.get(Calendar.DAY_OF_MONTH);
-            }
-            mSelectedAlarm.enabled = true;
-
-            mAlarmUpdateHandler.asyncUpdateAlarm(mSelectedAlarm, true, false);
-
-            mSelectedAlarm = null;
+            updateExistingAlarm(hourOfDay, minute, false, false);
         }
     }
+
+    public void setAlarmWithDelay(int hour, int minute) {
+        Calendar alarmTime = Calendar.getInstance();
+        alarmTime.add(Calendar.HOUR_OF_DAY, hour);
+        alarmTime.add(Calendar.MINUTE, minute);
+
+        int h = alarmTime.get(Calendar.HOUR_OF_DAY);
+        int m = alarmTime.get(Calendar.MINUTE);
+
+        if (mSelectedAlarm == null) {
+            mAlarmUpdateHandler.asyncAddAlarm(buildNewAlarm(h, m));
+        } else {
+            updateExistingAlarm(h, m, true, true);
+        }
+    }
+
+    private Alarm buildNewAlarm(int hour, int minute) {
+        final Alarm alarm = new Alarm();
+        final SharedPreferences prefs = getDefaultSharedPreferences(mContext);
+        final AudioManager audioManager = (AudioManager) mContext.getSystemService(AUDIO_SERVICE);
+
+        alarm.hour = hour;
+        alarm.minutes = minute;
+        alarm.enabled = true;
+        alarm.vibrate = SettingsDAO.areAlarmVibrationsEnabledByDefault(prefs);
+        alarm.flash = SettingsDAO.shouldTurnOnBackFlashForTriggeredAlarm(prefs);
+        alarm.deleteAfterUse = SettingsDAO.isOccasionalAlarmDeletedByDefault(prefs);
+        alarm.autoSilenceDuration = SettingsDAO.getAlarmTimeout(prefs);
+        alarm.snoozeDuration = SettingsDAO.getSnoozeLength(prefs);
+        alarm.crescendoDuration = SettingsDAO.getAlarmVolumeCrescendoDuration(prefs);
+        alarm.alarmVolume = audioManager.getStreamVolume(STREAM_ALARM);
+
+        return alarm;
+    }
+
+    private void updateExistingAlarm(int hour, int minute, boolean resetDaysOfWeek, boolean checkSpecifiedDate) {
+        mSelectedAlarm.hour = hour;
+        mSelectedAlarm.minutes = minute;
+
+        if (resetDaysOfWeek) {
+            mSelectedAlarm.daysOfWeek = Weekdays.fromBits(0);
+        }
+
+        Calendar currentCalendar = Calendar.getInstance();
+
+        // Necessary when an existing alarm has been created in the past and it is not enabled.
+        // Even if the date is not specified, it is saved in AlarmInstance; we need to make
+        // sure that the date is not in the past when changing time, in which case we reset
+        // to the current date (an alarm cannot be triggered in the past).
+        // This is due to the change in the code made with commit : 6ac23cf.
+        // Fix https://github.com/BlackyHawky/Clock/issues/299
+        boolean mustResetDate = mSelectedAlarm.isDateInThePast() ||
+                (checkSpecifiedDate && mSelectedAlarm.isSpecifiedDate());
+
+        if (mustResetDate) {
+            mSelectedAlarm.year = currentCalendar.get(Calendar.YEAR);
+            mSelectedAlarm.month = currentCalendar.get(Calendar.MONTH);
+            mSelectedAlarm.day = currentCalendar.get(Calendar.DAY_OF_MONTH);
+        }
+
+        mSelectedAlarm.enabled = true;
+
+        mAlarmUpdateHandler.asyncUpdateAlarm(mSelectedAlarm, true, false);
+        mSelectedAlarm = null;
+    }
+
 }
