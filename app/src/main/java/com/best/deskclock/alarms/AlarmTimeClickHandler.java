@@ -222,7 +222,7 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
         Events.sendAlarmEvent(R.string.action_set_time, R.string.label_deskclock);
         if (SettingsDAO.getMaterialTimePickerStyle(
                 getDefaultSharedPreferences(mContext)).equals(SPINNER_TIME_PICKER_STYLE)) {
-            showCustomSpinnerTimePicker(alarm.hour, alarm.minutes);
+            showSpinnerTimePickerDialog(alarm.hour, alarm.minutes);
         } else {
             showMaterialTimePicker(alarm.hour, alarm.minutes);
         }
@@ -241,13 +241,18 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
         AlarmDelayPickerDialogFragment.show(mFragment.getParentFragmentManager(), fragment);
     }
 
-    private void showCustomSpinnerTimePicker(int hour, int minutes) {
-        CustomSpinnerTimePickerDialog.show(mContext, mFragment, hour, minutes, this);
+    public void showSpinnerTimePickerDialog(int hours, int minutes) {
+        Events.sendAlarmEvent(R.string.action_set_time, R.string.label_deskclock);
+
+        final SpinnerTimePickerDialogFragment fragment = SpinnerTimePickerDialogFragment.newInstance(hours, minutes);
+        SpinnerTimePickerDialogFragment.show(mFragment.getParentFragmentManager(), fragment);
     }
 
-    private void showMaterialTimePicker(int hour, int minutes) {
+    public void showMaterialTimePicker(int hours, int minutes) {
+        Events.sendAlarmEvent(R.string.action_set_time, R.string.label_deskclock);
+
         MaterialTimePickerDialog.show(mContext, ((AppCompatActivity) mContext).getSupportFragmentManager(),
-                TAG, hour, minutes, getDefaultSharedPreferences(mContext), this);
+                TAG, hours, minutes, getDefaultSharedPreferences(mContext), this);
     }
 
     public void onDateClicked(Alarm alarm) {
@@ -395,10 +400,14 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
 
     @Override
     public void onTimeSet(int hourOfDay, int minute) {
+        setAlarm(hourOfDay, minute);
+    }
+
+    public void setAlarm(int hour, int minute) {
         if (mSelectedAlarm == null) {
-            mAlarmUpdateHandler.asyncAddAlarm(buildNewAlarm(hourOfDay, minute));
+            mAlarmUpdateHandler.asyncAddAlarm(buildNewAlarm(hour, minute));
         } else {
-            updateExistingAlarm(hourOfDay, minute, false, false);
+            updateExistingAlarm(hour, minute, false, false);
         }
     }
 

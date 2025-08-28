@@ -31,7 +31,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.loader.app.LoaderManager;
@@ -43,10 +42,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.best.deskclock.alarms.AlarmDelayPickerDialogFragment;
 import com.best.deskclock.alarms.AlarmTimeClickHandler;
 import com.best.deskclock.alarms.AlarmUpdateHandler;
-import com.best.deskclock.alarms.CustomSpinnerTimePickerDialog;
-import com.best.deskclock.alarms.MaterialTimePickerDialog;
-import com.best.deskclock.alarms.OnTimeSetListener;
 import com.best.deskclock.alarms.ScrollHandler;
+import com.best.deskclock.alarms.SpinnerTimePickerDialogFragment;
 import com.best.deskclock.alarms.dataadapter.AlarmItemHolder;
 import com.best.deskclock.alarms.dataadapter.AlarmItemViewHolder;
 import com.best.deskclock.alarms.dataadapter.CollapsedAlarmViewHolder;
@@ -74,9 +71,7 @@ import java.util.Objects;
  * A fragment that displays a list of alarm time and allows interaction with them.
  */
 public final class AlarmClockFragment extends DeskClockFragment implements
-        LoaderManager.LoaderCallbacks<Cursor>, ScrollHandler, OnTimeSetListener {
-
-    private static final String TAG = "AlarmClockFragment";
+        LoaderManager.LoaderCallbacks<Cursor>, ScrollHandler {
 
     // This extra is used when receiving an intent to create an alarm, but no alarm details
     // have been passed in, so the alarm page should start the process of creating a new alarm.
@@ -323,19 +318,28 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         super.onViewCreated(view, savedInstanceState);
 
         // We use Fragment Result API instead of a direct listener to safely pass data back from
-        // AlarmDelayPickerDialogFragment. This approach allows the result to survive configuration
-        // changes and fragment recreation.
+        // DialogFragment. This approach allows the result to survive configuration changes and
+        // fragment recreation.
         // Direct interface callbacks would be lost after a configuration change because
         // the original Fragment instance (and its listener) would be destroyed.
+
+        getParentFragmentManager().setFragmentResultListener(SpinnerTimePickerDialogFragment.REQUEST_KEY,
+                this, (requestKey, result) -> {
+            if (SpinnerTimePickerDialogFragment.REQUEST_KEY.equals(requestKey)) {
+                int hours = result.getInt(SpinnerTimePickerDialogFragment.BUNDLE_KEY_HOURS);
+                int minutes = result.getInt(SpinnerTimePickerDialogFragment.BUNDLE_KEY_MINUTES);
+                mAlarmTimeClickHandler.setAlarm(hours, minutes);
+            }
+        });
+
         getParentFragmentManager().setFragmentResultListener(AlarmDelayPickerDialogFragment.REQUEST_KEY,
                 this, (requestKey, result) -> {
-
-                    if (AlarmDelayPickerDialogFragment.REQUEST_KEY.equals(requestKey)) {
-                        int hours = result.getInt(AlarmDelayPickerDialogFragment.BUNDLE_KEY_HOURS);
-                        int minutes = result.getInt(AlarmDelayPickerDialogFragment.BUNDLE_KEY_MINUTES);
-                        mAlarmTimeClickHandler.setAlarmWithDelay(hours, minutes);
-                    }
-                });
+            if (AlarmDelayPickerDialogFragment.REQUEST_KEY.equals(requestKey)) {
+                int hours = result.getInt(AlarmDelayPickerDialogFragment.BUNDLE_KEY_HOURS);
+                int minutes = result.getInt(AlarmDelayPickerDialogFragment.BUNDLE_KEY_MINUTES);
+                mAlarmTimeClickHandler.setAlarmWithDelay(hours, minutes);
+            }
+        });
     }
 
     @Override
@@ -541,18 +545,18 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         right.setVisibility(View.INVISIBLE);
     }
 
-    @Override
-    public void onTimeSet(int hour, int minute) {
-        mAlarmTimeClickHandler.onTimeSet(hour, minute);
-    }
-
     private void startCreatingAlarm() {
         // Clear the currently selected alarm.
         mAlarmTimeClickHandler.setSelectedAlarm(null);
+
+        final Calendar calendar = Calendar.getInstance();
+        int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+        int currentMinute = calendar.get(Calendar.MINUTE);
+
         if (SettingsDAO.getMaterialTimePickerStyle(mPrefs).equals(SPINNER_TIME_PICKER_STYLE)) {
-            showCustomSpinnerTimePicker();
+            mAlarmTimeClickHandler.showSpinnerTimePickerDialog(currentHour, currentMinute);
         } else {
-            showMaterialTimePicker();
+            mAlarmTimeClickHandler.showMaterialTimePicker(currentHour, currentMinute);
         }
     }
 
@@ -560,23 +564,6 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         // Clear the currently selected alarm.
         mAlarmTimeClickHandler.setSelectedAlarm(null);
         mAlarmTimeClickHandler.showAlarmDelayPickerDialog();
-    }
-
-    private void showCustomSpinnerTimePicker() {
-        final Calendar calendar = Calendar.getInstance();
-        int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
-        int currentMinute = calendar.get(Calendar.MINUTE);
-
-        CustomSpinnerTimePickerDialog.show(mContext, this, currentHour, currentMinute, this);
-    }
-
-    private void showMaterialTimePicker() {
-        final Calendar calendar = Calendar.getInstance();
-        int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
-        int currentMinute = calendar.get(Calendar.MINUTE);
-
-        MaterialTimePickerDialog.show(mContext, ((AppCompatActivity) mContext).getSupportFragmentManager(),
-                TAG, currentHour, currentMinute, mPrefs, this);
     }
 
     public void removeItem(AlarmItemHolder itemHolder) {
