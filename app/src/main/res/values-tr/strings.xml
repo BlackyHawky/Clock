@@ -635,4 +635,17 @@
     <string name="timer_seconds_warning_box_text">0 ile 59 saniye arasında bir değer girin</string>
     <string name="auto_routing_to_bluetooth_device_title">Zil seslerinin Bluetooth aygıtlarına otomatik olarak yönlendirilmesini etkinleştir</string>
     <string name="timer_time_box_title">Yeni zamanlayıcı süresi</string>
+    <string name="advanced_audio_playback_title">Gelişmiş ses tekrar çalması kullan</string>
+    <string name="timer_creation_view_style_keypad">Tuş takımı</string>
+    <string name="advanced_audio_playback_summary">Bluetooth uyumluluğunu iyileştirir ve tekrarlamalarda ses kesintilerini engeller.\n\nNot: Bazı zil seslerinde küçük kesintiler olabili</string>
+    <string name="timer_creation_view_style_title">Zamanlayıcı yaratma görünüm stili</string>
+    <string name="enable_per_alarm_volume_title">Her bir alarm için özelleştirilmiş bir ses yüksekliği kullan</string>
+    <string name="hide_clock_am_pm_pref">AM/PM metnini gizle</string>
+    <string name="enable_per_alarm_volume_summary">Genişletilmiş alarm görüntülemede her bir alarm için farklı ses yüksekliği ayarlanmasını sağlar</string>
+    <string name="widget_apply_horizontal_padding_title">Araç yanlarına dolgu uygula</string>
+    <string name="system_media_volume_title">Sistem ortam ses yüksekliğini kullan</string>
+    <string name="system_media_volume_summary">Sadece bir Bluetooth aygıt bağlıysa çalışır</string>
+    <string name="bluetooth_volume_title">Bluetooth aygıtları için alarm ses yüksekliği</string>
+    <string name="connect_bluetooth_device_title">Bu ayara erişmek için bir Bluetooth aygıt bağla</string>
+    <string name="disconnect_bluetooth_device_title">Bu ayara erişmek için Bluetooh aygıtının bağlantısını kes</string>
 </resources>

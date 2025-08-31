@@ -1,0 +1,9 @@
+**Correzioni**
+- Corretta visualizzazione sveglie per Android inferiore a 12
+- Correzione sveglie create in passato e non abilitate
+- Corretta selezione data sveglia
+- Ripristino suoneria predefinita nelle impostazioni della sveglia se eliminata
+
+Altri dettagli qui: https://github.com/BlackyHawky/Clock/releases/tag/2.23
+
+Note: a causa del ripristino delle impostazioni “Durata rinvio” e “Aumenta gradualmente il volume”, fate un nuovo salvataggio dopo l'aggiornamento e eliminate il vecchio

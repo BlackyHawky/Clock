@@ -650,4 +650,7 @@
     <string name="system_media_volume_title">Medienlautstärke des Systems verwenden</string>
     <string name="system_media_volume_summary">Funktioniert nur, wenn ein Bluetooth-Gerät verbunden ist</string>
     <string name="widget_apply_horizontal_padding_title">Abstand zu den Widget-Seiten hinzufügen</string>
+    <string name="enable_per_alarm_volume_title">Für jeden Alarm eine eigene Lautstärke verwenden</string>
+    <string name="enable_per_alarm_volume_summary">Ermöglicht die Einstellung einer unterschiedlichen Lautstärke für jeden Alarm in der erweiterten Alarmansicht</string>
+    <string name="delay_picker_dialog_title">Alarm in…</string>
 </resources>

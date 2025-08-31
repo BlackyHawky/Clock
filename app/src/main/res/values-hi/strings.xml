@@ -71,16 +71,16 @@
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> घंटा</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
-        <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> मिनट</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> मिनट</item>
+        <item quantity="one"><xliff:g id="number">%s</xliff:g> मिनट</item>
+        <item quantity="other"><xliff:g id="number">%s</xliff:g> मिनट</item>
     </plurals>
     <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
-        <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> मिनट</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> मिनट</item>
+        <item quantity="one"><xliff:g id="number">%s</xliff:g> मिन</item>
+        <item quantity="other"><xliff:g id="number">%s</xliff:g> मिन</item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
-        <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> सेकंड</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> सेकंड</item>
+        <item quantity="one"><xliff:g id="number">%s</xliff:g> सेकंड</item>
+        <item quantity="other"><xliff:g id="number">%s</xliff:g> सेकंड‌‌</item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"प्रत्येक दिन"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
@@ -316,4 +316,25 @@
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"वह अलार्म चुनें जिसे ख़ारिज किया जाना है"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"कोई सक्रिय अलार्म नहीं"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> अलार्म को 10 मिनट के लिए स्नूज़ किया गया"</string>
+    <string name="label_hours">घंटे</string>
+    <string name="label_seconds">सेकंड</string>
+    <string name="label_minutes">मिनट</string>
+    <string name="analog_widget_choice_title">अपना स्टाइल चुनें</string>
+    <string name="warning">चेतावनी</string>
+    <string name="label_default">डिफ़ॉल्ट</string>
+    <string name="more_options">अधिक विकल्प</string>
+    <string name="alarm_flash">फ्लैश</string>
+    <string name="duplicate">कॉपी करें</string>
+    <string name="alarm_label_box_title">अलार्म का नाम</string>
+    <string name="selected">चुना हुआ</string>
+    <string name="alarm_alert_dismiss_and_delete_text">बंद करें और हटाएँ</string>
+    <string name="alarm_alert_off_and_deleted_text">अलार्म बंद होकर हट गया</string>
+    <string name="occasional_alarm_alert_predismiss_title">आगामी एक-बार का अलार्म</string>
+    <string name="notifications_dialog_title">सूचनाएं</string>
+    <string name="delete_occasional_alarm_after_use_title">अलार्म बंद होने पर हटाएँ</string>
+    <string name="schedule_alarm_title">अलार्म तय करें</string>
+    <string name="add_new_sound_subtitle">फ़ोल्डर चुनने के लिए लंबा दबाएँ</string>
+    <string name="alarm_scheduled_for">निर्धारित %s के लिए</string>
+    <string name="notifications_permission_title">सूचनाएं चालू करें</string>
+    <string name="notifications_dialog_text">अलार्म सेट करने के अलावा, इस ऐप में टाइमर और स्टॉपवॉच मोड भी है।\n\nसभी मोड के नोटिफ़िकेशन सही ढंग से दिखने और खासकर अलार्म बजने के लिए, हम सुझाव देते हैं कि इस ऐप के लिए नोटिफ़िकेशन चालू करें।</string>
 </resources>

@@ -1,0 +1,13 @@
+**Parandus**
+- Ajavalija „Sobib“ nupu toimine klahvistiku kasutamisel
+
+**Täiendused**
+- Võimalus taimeris määrata sekundeid „+ 1:00“ nupuga
+- Parem rakenduse toimimine, kui taimer on töös
+- Väikesel ekraanil jäävad vaated kohendamata
+- Juhuslikud helinad on süsteemi ja sinu helinate puhul erinevad
+- Äratus on vahelejätmisel korratav
+- Parem helina esitamine
+- Tõlgete täiendused
+
+Kõik muudatused: https://github.com/BlackyHawky/Clock/releases/tag/2.22

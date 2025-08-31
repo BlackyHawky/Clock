@@ -635,6 +635,9 @@
     <string name="system_media_volume_title">使用系統媒體音量</string>
     <string name="system_media_volume_summary">僅適用連接藍牙裝置期間</string>
     <string name="bluetooth_volume_title">藍牙裝置鬧鐘音量</string>
-    <string name="connect_bluetooth_device_title">請連接藍牙裝置以變更這項設定</string>
+    <string name="connect_bluetooth_device_title">請連接藍牙裝置以存取這項設定</string>
     <string name="disconnect_bluetooth_device_title">請中斷連接藍牙裝置以存取這項設定</string>
+    <string name="enable_per_alarm_volume_title">為每個鬧鐘自訂音量</string>
+    <string name="enable_per_alarm_volume_summary">允許在展開面板個別設定鬧鐘音量</string>
+    <string name="delay_picker_dialog_title">鈴響於…</string>
 </resources>

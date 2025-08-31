@@ -1,15 +1,15 @@
 **Correzioni**
-- Correzione del trascinamento quando il telefono è in modalità orizzontale
-- Correzione del colore della lancetta dei secondi nella scheda Orologio
+- Corretto trascinamento in modalità orizzontale
+- Corretto colore lancetta secondi
 
 **Miglioramenti
-- Impostazione di allarmi per una data specifica
-- Scegliere lo stile del selezionatore di date
-- Aggiungere i temi "Nero", "Viola" e "Giallo".
-- Azzeramento del timer scaduto con i pulsanti del volume e dell'alimentazione
-- Aggiunta di azioni ai pulsanti del volume per il cronometro
-- Ottimizzazione e aggiornamento delle icone vettoriali
-- Aggiornare le traduzioni
+- Impostazione sveglia per una data specifica
+- Scelta selettore date
+- Temi "Nero", "Viola" e "Giallo".
+- Azzeramento contaminuti scaduto con i tasti volume e accensione
+- Aggiunta azioni pulsanti volume per cronometro
+- Aggiornate icone vettoriali
+- Aggiornate traduzioni
 - Miglioramento del codice
 
-Per vedere tutti i miglioramenti, visitate: https://github.com/BlackyHawky/Clock/releases/tag/2.10
+Tutti i miglioramenti su: https://github.com/BlackyHawky/Clock/releases/tag/2.10

@@ -664,4 +664,7 @@
     <string name="system_media_volume_title">Utiliser le volume multimédia du système</string>
     <string name="connect_bluetooth_device_title">Connectez un appareil Bluetooth pour accéder à ce réglage</string>
     <string name="widget_apply_horizontal_padding_title">Appliquer un espacement sur les côtés du widget</string>
+    <string name="enable_per_alarm_volume_title">Utiliser un volume personnalisé pour chaque alarme</string>
+    <string name="enable_per_alarm_volume_summary">Permet de définir un volume différent pour chaque alarme dans la vue étendue des alarmes</string>
+    <string name="delay_picker_dialog_title">Alarme dans…</string>
 </resources>

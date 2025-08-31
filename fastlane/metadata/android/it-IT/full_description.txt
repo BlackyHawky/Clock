@@ -10,6 +10,7 @@ Caratteristiche:
   <li>Duplicazione delle sveglie;</li>
   <li>Titolo sveglia personalizzabile;</li>
   <li>Suoneria personalizzabile;</li>
+  <li>Possibilità di riprodurre suonerie in modo casuale;</li>
   <li>Tema chiaro, scuro o come da sistema;</li>
   <li>Modalità AMOLED per il tema scuro;</li>
   <li>Interfaccia personalizzabile;</li>

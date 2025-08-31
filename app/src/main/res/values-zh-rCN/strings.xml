@@ -641,4 +641,7 @@
     <string name="disconnect_bluetooth_device_title">请断开蓝牙设备的连接以访问此设置</string>
     <string name="system_media_volume_summary">仅在连接蓝牙设备时有效</string>
     <string name="widget_apply_horizontal_padding_title">将边距应用于微件两侧</string>
+    <string name="enable_per_alarm_volume_summary">允许在扩展闹钟视图中为每个闹钟设置不同的音量</string>
+    <string name="enable_per_alarm_volume_title">为每个闹钟使用自定义音量</string>
+    <string name="delay_picker_dialog_title">延迟闹钟…</string>
 </resources>

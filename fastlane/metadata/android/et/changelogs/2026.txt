@@ -1,0 +1,9 @@
+**Parandused**
+- Äratuse kuvamine seadmetes, kus Androidi versioon on väiksem kui12
+- Minevikus loodud äratused, mis pole kasutusel
+- Äratuse kuupäevavalija valis vael päeva
+- Kui vaikimisi helin on kustutatud, siis muudetakse ta ka äratustes
+
+Üksikasjalik muudatuste logi: https://github.com/BlackyHawky/Clock/releases/tag/2.23
+
+Märkus: Kuna „Uinumise kestus“ ja „Valjuse järkjärguline suurendamine“ on muutunud, siis peale uuendamist tee uus varukoopia ja kustuta vana

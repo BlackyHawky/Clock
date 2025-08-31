@@ -87,7 +87,7 @@
     <string name="loading_widget" msgid="5306242862476796500">"Laadimine …"</string>
     <string name="analog_widget" msgid="1670505720837152766">"Analoogkell"</string>
     <string name="digital_widget" msgid="2326954556720571358">"Digitaalkell"</string>
-    <string name="settings" msgid="5849739030579520686">"Seaded"</string>
+    <string name="settings" msgid="5849739030579520686">Seadistused</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Äratuse edasilükkamise pikkus"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Helitugevuse järkjärguline suurendamine"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Vaikus aja möödumisel"</string>
@@ -333,7 +333,7 @@
     <string name="analog_widget_material_you">Material You kujunduses analoogkell</string>
     <string name="settings_permission_message">Üks või enam olulist õigust on puudu. Kui vajalikud õigused jäävadki puudu, siis rakendus ei pruugi korralikult toimida.</string>
     <string name="settings_permission_summary">Kui soovid näha õiguste haldamise vaadet, siis klõpsi siin.</string>
-    <string name="title_theme">Teema</string>
+    <string name="title_theme">Kujundus</string>
     <string name="title_accent_color">Aktsentvärv</string>
     <string name="title_dark_theme_mode">Tume kujundus</string>
     <string name="display_card_background_title">Näita kaartide taustu</string>
@@ -658,4 +658,7 @@
     <string name="disconnect_bluetooth_device_title">Selle seadistuse sättimiseks palun katkesta Bluetoothi seadme ühendus</string>
     <string name="system_media_volume_title">Kasuta süsteemi üldist helivaljust</string>
     <string name="widget_apply_horizontal_padding_title">Lisa vidina külgedele veerised</string>
+    <string name="enable_per_alarm_volume_summary">Detailsest äratuse vaatest saad igale äratusele määrata eraldi valjuse</string>
+    <string name="enable_per_alarm_volume_title">Kasuta iga äratuse puhul eraldi valjust</string>
+    <string name="delay_picker_dialog_title">Äratuse aeg…</string>
 </resources>

@@ -1,0 +1,15 @@
+**Fix**
+- Correzione di un bug introdotto nella versione 2.20 relativo ai pulsanti del cronometro.
+
+**Nota**
+Altre caratteristiche della versione 2.20 sono nel link sottostante:
+
+- Corretta rientranza superiore
+- Corrette vibrazioni sveglia e timer
+- Impostazione sveglia a data specifica
+- Riproduzione suonerie in modo casuale
+- Selezione cartella per aggiungere le suonerie
+- Rimuovere il permesso `DISABLE_KEYGUARD`
+... e altro ancora
+
+https://github.com/BlackyHawky/Clock/releases/tag/2.20

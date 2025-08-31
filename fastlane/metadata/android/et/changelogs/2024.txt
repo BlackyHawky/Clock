@@ -1,0 +1,15 @@
+**Parandus**
+- Stopperinuppude viga, mis tekkis 2.20 versiooniga
+
+**Märge**
+Muud versiooni 2.20 muudatused on alles, vastav link on allpool:
+
+- Ülemise veerise parandus mõnedes seadmetes
+- Värina toimimise parandus äratusel ja taimeril mõnede seadmete puhul
+- Äratuste määramine kindlaks kuupäevaks
+- Helinate juhuslik valik esitamisel
+- Võimalus helinate lisamisel valida kausta 
+- `DISABLE_KEYGUARD` õiguse eemaldamine
+... ja palju muud
+
+https://github.com/BlackyHawky/Clock/releases/tag/2.20
