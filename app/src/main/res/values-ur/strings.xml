@@ -263,6 +263,8 @@
         <item msgid="3027153773466391728">"فجی"</item>
         <item msgid="5911600083231840181">"تونگا"</item>
         <item msgid="5176858645450908751">"جکارتہ"</item>
+        <item>"ریاض"</item>
+        <item>"ریکجاوک"</item>
     </string-array>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"نیا الارم"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"نیا الارم بنائیں"</string>

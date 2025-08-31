@@ -263,6 +263,8 @@
         <item msgid="3027153773466391728">"ஃபிஜி"</item>
         <item msgid="5911600083231840181">"டோங்கா"</item>
         <item msgid="5176858645450908751">"ஜகார்த்தா"</item>
+        <item>"ரியாத்"</item>
+        <item>"ரெய்க்யவிக்"</item>
     </string-array>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"புதிய அலாரம்"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"புதிய அலாரத்தை உருவாக்கு"</string>

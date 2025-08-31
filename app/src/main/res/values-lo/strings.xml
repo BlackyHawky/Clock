@@ -255,6 +255,8 @@
         <item msgid="3027153773466391728">"ຟີຈິ"</item>
         <item msgid="5911600083231840181">"ທອງກາ"</item>
         <item msgid="5176858645450908751">"ຈາກາຕາ"</item>
+        <item>"ຣິ​ຢາດ"</item>
+        <item>"ເຣກ​ຈາ​ວິກ"</item>
     </string-array>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"ຕັ້ງປຸກໃໝ່"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"ຕັ້ງໂມງປຸກໃໝ່"</string>

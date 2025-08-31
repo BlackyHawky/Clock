@@ -256,6 +256,8 @@
         <item msgid="3027153773466391728">"피지"</item>
         <item msgid="5911600083231840181">"통가"</item>
         <item msgid="5176858645450908751">"자카르타"</item>
+        <item>"리야드"</item>
+        <item>"레이캬비크"</item>
     </string-array>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"새 알람"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"새 알람 설정"</string>

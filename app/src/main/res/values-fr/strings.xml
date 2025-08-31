@@ -325,6 +325,8 @@
         <item msgid="3027153773466391728">"Fidji"</item>
         <item msgid="5911600083231840181">"Tonga"</item>
         <item msgid="5176858645450908751">"Jakarta"</item>
+        <item>"Riyad"</item>
+        <item>"Reykjavik"</item>
     </string-array>
     <string name="about_title">À propos</string>
     <string name="app_slogan">Horloge 100% FOSS, basée sur AOSP</string>

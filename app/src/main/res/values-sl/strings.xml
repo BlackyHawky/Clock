@@ -280,6 +280,8 @@
         <item msgid="3027153773466391728">"Fidži"</item>
         <item msgid="5911600083231840181">"Tonga"</item>
         <item msgid="5176858645450908751">"Džakarta"</item>
+        <item>"Riad"</item>
+        <item>"Reykjavik"</item>
     </string-array>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"Nov alarm"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"Ustvari nov alarm"</string>

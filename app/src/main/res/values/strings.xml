@@ -817,6 +817,8 @@
         <item>"Fiji"</item>
         <item>"Tonga"</item>
         <item>"Jakarta"</item>
+        <item>"Riyadh"</item>
+        <item>"Reykjavik"</item>
     </string-array>
     <!-- Choices for timezones, must be kept in sync with timezone_values. -->
     <string-array name="timezone_values" translatable="false" tools:ignore="Typos">
@@ -905,6 +907,8 @@
         <item>Pacific/Fiji</item>
         <item>Pacific/Tongatapu</item>
         <item>Asia/Jakarta</item>
+        <item>Asia/Riyadh</item>
+        <item>Atlantic/Reykjavik</item>
     </string-array>
     <!-- Menu item About -->
     <string name="about_title">About</string>

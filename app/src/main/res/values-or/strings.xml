@@ -261,6 +261,8 @@
         <item msgid="3027153773466391728">"ଫିଜି"</item>
         <item msgid="5911600083231840181">"ଟୋଙ୍ଗା"</item>
         <item msgid="5176858645450908751">"ଜକାର୍ତା"</item>
+        <item>"ରିୟାଧ୍"</item>
+        <item>"ରେକଜାଭିକ୍"</item>
     </string-array>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"ନୂଆ ଆଲାର୍ମ"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"ନୂଆ ଆଲାର୍ମ ତିଆରି କରନ୍ତୁ"</string>

@@ -255,6 +255,8 @@
         <item msgid="3027153773466391728">"斐濟"</item>
         <item msgid="5911600083231840181">"湯加"</item>
         <item msgid="5176858645450908751">"雅加達"</item>
+        <item>"利雅得"</item>
+        <item>"雷克雅未克"</item>
     </string-array>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"新鬧鐘"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"建立新鬧鐘"</string>

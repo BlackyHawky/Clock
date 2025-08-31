@@ -263,6 +263,8 @@
         <item msgid="3027153773466391728">"फ़ि‍जी"</item>
         <item msgid="5911600083231840181">"टोंगा"</item>
         <item msgid="5176858645450908751">"जकार्ता"</item>
+        <item>"रियाद"</item>
+        <item>"रेक्जाविक"</item>
     </string-array>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"नया अलार्म"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"नया अलार्म बनाएं"</string>

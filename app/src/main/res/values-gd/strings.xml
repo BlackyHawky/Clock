@@ -229,6 +229,8 @@
         <item>"Fìdi"</item>
         <item>"Tonga"</item>
         <item>"Jakarta"</item>
+        <item>"Riyadh"</item>
+        <item>"Reykjavík"</item>
     </string-array>
     <string name="shortcut_start_stopwatch_short">Tòisich</string>
     <string name="shortcut_pause_stopwatch_short">Cuir ’na stad</string>

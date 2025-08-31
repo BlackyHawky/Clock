@@ -263,6 +263,8 @@
         <item msgid="3027153773466391728">"Фиџи"</item>
         <item msgid="5911600083231840181">"Тонга"</item>
         <item msgid="5176858645450908751">"Џакарта"</item>
+        <item>"Ријад"</item>
+        <item>"Рејкјавик"</item>
     </string-array>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"Нов аларм"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"Создајте нов аларм"</string>

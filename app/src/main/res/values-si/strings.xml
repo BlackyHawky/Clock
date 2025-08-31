@@ -263,6 +263,8 @@
         <item msgid="3027153773466391728">"ෆිජි"</item>
         <item msgid="5911600083231840181">"ටොන්ගා"</item>
         <item msgid="5176858645450908751">"ජකර්තා"</item>
+        <item>"රියාද්"</item>
+        <item>"රෙකවික්"</item>
     </string-array>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"නව සීනුව"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"නව එලාමයක් සෑදීම"</string>

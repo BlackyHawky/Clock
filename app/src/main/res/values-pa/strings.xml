@@ -263,6 +263,8 @@
         <item msgid="3027153773466391728">"ਫਿਜੀ"</item>
         <item msgid="5911600083231840181">"ਟੋਂਗਾ"</item>
         <item msgid="5176858645450908751">"ਜਕਾਰਤਾ"</item>
+        <item>"ਰਿਆਧ"</item>
+        <item>"ਰੈਕਜਾਵਿਕ"</item>
     </string-array>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"ਨਵਾਂ ਅਲਾਰਮ"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"ਨਵਾਂ ਅਲਾਰਮ ਬਣਾਓ"</string>

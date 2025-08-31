@@ -234,6 +234,8 @@
         <item>"Fixi"</item>
         <item>"Tonga"</item>
         <item>"Xakarta"</item>
+        <item>"Riyadh"</item>
+        <item>"Reykjavik"</item>
     </string-array>
     <string name="shortcut_new_alarm_short">Alarma nueva</string>
     <string name="shortcut_new_alarm_long">Crear una alarma nueva</string>

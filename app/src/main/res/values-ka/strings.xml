@@ -264,6 +264,8 @@
         <item msgid="3027153773466391728">"ფიჯი"</item>
         <item msgid="5911600083231840181">"ტონგა"</item>
         <item msgid="5176858645450908751">"ჯაკარტა"</item>
+        <item>"ერ-რიადი"</item>
+        <item>"რეიკიავიკი"</item>
     </string-array>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"ახალი მაღვიძარა"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"ახალი მაღვიძარის შექმნა"</string>

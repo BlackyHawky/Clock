@@ -294,6 +294,8 @@
         <item>"Ffiji"</item>
         <item>"Tonga"</item>
         <item>"Jakarta"</item>
+        <item>"Riyadh"</item>
+        <item>"Reykjavik"</item>
     </string-array>
     <string name="shortcut_new_alarm_short">Larwm newydd</string>
     <string name="shortcut_new_alarm_long">Creu larwm newydd</string>

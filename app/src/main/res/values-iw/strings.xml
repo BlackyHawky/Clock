@@ -272,6 +272,8 @@
         <item msgid="3027153773466391728">"פיג\'י"</item>
         <item msgid="5911600083231840181">"טונגה"</item>
         <item msgid="5176858645450908751">"ג\'אקארטה"</item>
+        <item>"ריאד"</item>
+        <item>"רייקיאוויק"</item>
     </string-array>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"התראה חדשה"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"יצירת התראה חדשה"</string>

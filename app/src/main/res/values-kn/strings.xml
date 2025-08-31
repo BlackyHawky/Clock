@@ -264,6 +264,8 @@
         <item msgid="3027153773466391728">"ಫಿಜಿ"</item>
         <item msgid="5911600083231840181">"ಟೊಂಗಾ"</item>
         <item msgid="5176858645450908751">"ಜಕಾರ್ತಾ"</item>
+        <item>"ರಿಯಾದ್"</item>
+        <item>"ರೇಕ್‌ಜಾವಿಕ್"</item>
     </string-array>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"ಹೊಸ ಅಲಾರಮ್"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"ಹೊಸ ಅಲಾರಮ್ ರಚಿಸಿ"</string>

@@ -263,6 +263,8 @@
         <item msgid="3027153773466391728">"ફીજી"</item>
         <item msgid="5911600083231840181">"ટોંગા"</item>
         <item msgid="5176858645450908751">"જકાર્તા"</item>
+        <item>"રિયાધ"</item>
+        <item>"રૅક્યાવિક"</item>
     </string-array>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"નવું એલાર્મ"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"નવું એલાર્મ બનાવો"</string>

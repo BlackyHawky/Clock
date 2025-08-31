@@ -255,6 +255,8 @@
         <item msgid="3027153773466391728">"ဖီဂျီ"</item>
         <item msgid="5911600083231840181">"တွန်ဂါ"</item>
         <item msgid="5176858645450908751">"ဂျာကာတာ"</item>
+        <item>"ရိယာ့ဒ်"</item>
+        <item>"ရက်ဂျာဗစ်"</item>
     </string-array>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"နှိုးစက်"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"အယ်လ်ဘမ်အသစ် ဖန်တီးရန်"</string>

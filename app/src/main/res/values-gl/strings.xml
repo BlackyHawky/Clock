@@ -264,6 +264,8 @@
         <item msgid="3027153773466391728">"Fidxi"</item>
         <item msgid="5911600083231840181">"Tonga"</item>
         <item msgid="5176858645450908751">"Iacarta"</item>
+        <item>"Riad"</item>
+        <item>"Reiquiavik"</item>
     </string-array>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"Nova alarma"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"Crear nova alarma"</string>
