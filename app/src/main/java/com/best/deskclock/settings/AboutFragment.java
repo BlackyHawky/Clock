@@ -9,13 +9,7 @@ import static com.best.deskclock.data.CustomRingtoneDAO.NEXT_RINGTONE_ID;
 import static com.best.deskclock.data.CustomRingtoneDAO.RINGTONE_IDS;
 import static com.best.deskclock.data.CustomRingtoneDAO.RINGTONE_TITLE;
 import static com.best.deskclock.data.CustomRingtoneDAO.RINGTONE_URI;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_BLACKYHAWKY;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_CRDROID;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_FEATURES;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_LINEAGEOS;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_NILSU11;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_ODMFL;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_QW123WH;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_READ_LICENCE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_TITLE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_TRANSLATE;
@@ -109,12 +103,6 @@ public class AboutFragment extends ScreenFragment
     Preference mViewOnGitHub;
     Preference mTranslate;
     Preference mReadLicence;
-    Preference mContributor1;
-    Preference mContributor2;
-    Preference mContributor3;
-    Preference mContributor4;
-    Preference mCredit1;
-    Preference mCredit2;
     PreferenceCategory mDebugCategoryPref;
     SwitchPreferenceCompat mEnableLocalLoggingPref;
 
@@ -141,12 +129,6 @@ public class AboutFragment extends ScreenFragment
         mViewOnGitHub = findPreference(KEY_ABOUT_VIEW_ON_GITHUB);
         mTranslate = findPreference(KEY_ABOUT_TRANSLATE);
         mReadLicence = findPreference(KEY_ABOUT_READ_LICENCE);
-        mContributor1 = findPreference(KEY_ABOUT_BLACKYHAWKY);
-        mContributor2 = findPreference(KEY_ABOUT_QW123WH);
-        mContributor3 = findPreference(KEY_ABOUT_ODMFL);
-        mContributor4 = findPreference(KEY_ABOUT_NILSU11);
-        mCredit1 = findPreference(KEY_ABOUT_LINEAGEOS);
-        mCredit2 = findPreference(KEY_ABOUT_CRDROID);
         mDebugCategoryPref = findPreference(KEY_DEBUG_CATEGORY);
         mEnableLocalLoggingPref = findPreference(KEY_ENABLE_LOCAL_LOGGING);
 
@@ -241,25 +223,6 @@ public class AboutFragment extends ScreenFragment
                 final String link = "https://github.com/BlackyHawky/Clock/blob/main/LICENSE-GPL-3";
                 displayLinkDialog(R.drawable.ic_about_license, R.string.license, R.string.license_dialog_message, link);
             }
-
-            case KEY_ABOUT_BLACKYHAWKY ->
-                displayContributorDialog(R.drawable.ic_person, "BlackyHawky", "https://github.com/BlackyHawky");
-
-            case KEY_ABOUT_QW123WH ->
-                displayContributorDialog(R.drawable.ic_person, "qw123wh", "https://github.com/qw123wh");
-
-            case KEY_ABOUT_ODMFL ->
-                displayContributorDialog(R.drawable.ic_person, "odmfl", "https://github.com/odmfl");
-
-            case KEY_ABOUT_NILSU11 ->
-                displayContributorDialog(R.drawable.ic_person, "Nilsu11", "https://github.com/Nilsu11");
-
-            case KEY_ABOUT_LINEAGEOS ->
-                displayContributorDialog(R.drawable.ic_groups, "LineageOS", "https://github.com/LineageOS");
-
-            case KEY_ABOUT_CRDROID ->
-                displayContributorDialog(R.drawable.ic_groups, "crDroid Android", "https://github.com/crdroidandroid");
-
         }
 
         return true;
@@ -297,17 +260,6 @@ public class AboutFragment extends ScreenFragment
                 .show();
     }
 
-    private void displayContributorDialog(int iconId, String projectName, String url) {
-        final Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-        new MaterialAlertDialogBuilder(requireContext())
-                .setIcon(iconId)
-                .setTitle(R.string.contributors_dialog_title)
-                .setMessage(requireContext().getString(R.string.contributors_dialog_message, projectName, url))
-                .setPositiveButton(android.R.string.ok, (dialog, which) -> startActivity(browserIntent))
-                .setNegativeButton(android.R.string.cancel, null)
-                .show();
-    }
-
     private void setupPreferences() {
         if (Utils.isDebugConfig()) {
             mTitlePref.setTitle(R.string.about_debug_app_title);
@@ -324,12 +276,6 @@ public class AboutFragment extends ScreenFragment
         mViewOnGitHub.setOnPreferenceClickListener(this);
         mTranslate.setOnPreferenceClickListener(this);
         mReadLicence.setOnPreferenceClickListener(this);
-        mContributor1.setOnPreferenceClickListener(this);
-        mContributor2.setOnPreferenceClickListener(this);
-        mContributor3.setOnPreferenceClickListener(this);
-        mContributor4.setOnPreferenceClickListener(this);
-        mCredit1.setOnPreferenceClickListener(this);
-        mCredit2.setOnPreferenceClickListener(this);
 
         mDebugCategoryPref.setVisible(SettingsDAO.isDebugSettingsDisplayed(mPrefs));
         mEnableLocalLoggingPref.setVisible(SettingsDAO.isDebugSettingsDisplayed(mPrefs));

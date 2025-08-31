@@ -356,12 +356,10 @@
     <string name="license">Лиценца отвореног кода</string>
     <string name="about_github_link">Погледај на GitHub-у</string>
     <string name="gnu_gpl">GNU Генерална Јавна Лиценца v3.0</string>
-    <string name="contributors">Доприносиоци</string>
     <string name="screensaver_settings_summary">Поставити стил, боју и фонт чувара екрана</string>
     <string name="screensaver_daydream_settings">Изаберите/омогућите чувар екрана</string>
     <string name="settings_vibration_title">Омогућити вибрације</string>
     <string name="settings_vibration_summary">Само нека дугмад интерфејса су погођена (нпр.: дугме за пуштање/паузу тајмера или прекидачи)</string>
-    <string name="credits">Захвалнице</string>
     <string name="alarm_created">Аларм креирано</string>
     <string name="title_theme">Тема</string>
     <string name="display_card_background_title">Приказ позадина картица</string>
@@ -478,7 +476,6 @@
     <string name="timer_button_time_box_title">Минути за додавање тајмеру</string>
     <string name="timer_add_custom_time">+ %s</string>
     <string name="license_dialog_message">Прочитајте лиценцу:\n\n%s</string>
-    <string name="contributors_dialog_message">Посетите %1$s-ову GitHub страницу:\n\n%2$s</string>
     <string name="seconds_hand_color_title">Боја секундарне казаљке</string>
     <string name="digital_widget_custom_minutes_color_title">Прилагођена боја минута</string>
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Омогућити аутоматских брисање повремених аларма од подразумевани</string>
@@ -573,7 +570,6 @@
     <string name="clock_style_spinner">Спинер</string>
     <string name="show_lockscreen_dialog_title">Прикажи на закључаном екрану</string>
     <string name="blue_accent_color">Плава</string>
-    <string name="contributors_dialog_title">Погледајте профил</string>
     <string name="reset_settings_message">Да ли сте сигурни да желите да ресетујете сва подешавања апликације?\n\nНапомена: прилагођене мелодије неће бити ресетоване.</string>
     <string name="show_lockscreen_dialog_text">На Xiaomi уређајима, требало би ручно да омогућите дозволу \"Прикажи на закључаном екрану\" из подешавања уређаја да би апликација исправно радила.</string>
     <string name="show_lockscreen_permission_title">ПРИКАЖИ НА ЗАКЉУЧАНОМ ЕКРАНУ</string>

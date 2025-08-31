@@ -28,12 +28,6 @@ public class PreferencesKeys {
     public static final String KEY_ABOUT_VIEW_ON_GITHUB = "key_about_view_on_github";
     public static final String KEY_ABOUT_TRANSLATE = "key_about_translate";
     public static final String KEY_ABOUT_READ_LICENCE = "key_about_read_licence";
-    public static final String KEY_ABOUT_BLACKYHAWKY = "key_about_blackyhawky";
-    public static final String KEY_ABOUT_QW123WH = "key_about_qw123wh";
-    public static final String KEY_ABOUT_ODMFL = "key_about_odmfl";
-    public static final String KEY_ABOUT_NILSU11 = "key_about_nilsu11";
-    public static final String KEY_ABOUT_LINEAGEOS = "key_about_lineageos";
-    public static final String KEY_ABOUT_CRDROID = "key_about_crdroid";
     public static final String KEY_DISPLAY_DEBUG_SETTINGS = "key_display_debug_settings";
     public static final String KEY_DEBUG_CATEGORY = "key_debug_category";
     public static final String KEY_ENABLE_LOCAL_LOGGING = "key_enable_local_logging";

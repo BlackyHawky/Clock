@@ -392,7 +392,6 @@
     <string name="auto_silence_end_of_ringtone">Після відтворення сигналу</string>
     <string name="alarm_notification_reminder_title">Нагадування про сповіщення</string>
     <string name="about_github_link">Подивитися на GitHub</string>
-    <string name="credits">Подяка</string>
     <string name="digital_widget_date_custom_color_title">Власний колір дати</string>
     <string name="digital_widget_clock_default_color_title">Колір за замовчуванням для основного годинника</string>
     <string name="digital_widget_date_default_color_title">Колір за замовчуванням для дати</string>
@@ -442,7 +441,6 @@
     <string name="timer_label_box_title">Мітка таймера</string>
     <string name="timer_button_time_box_title">Хвилини для додавання до таймера</string>
     <string name="license">Ліцензія з відкритим кодом</string>
-    <string name="contributors">Автори</string>
     <string name="alarm_settings_summary">Стиль, сигнал за замовчуванням, гучність, дії для вимкнення або відкладення будильника, початок тижня і час нагадування</string>
     <string name="flip_action_title">Дія перевертання пристрою</string>
     <string name="firing_alarms_timers_channel">Сигнали і таймери</string>
@@ -475,9 +473,6 @@
     <string name="whats_new_dialog_message">Дізнайтеся, що нового:
 \n
 \n%s</string>
-    <string name="contributors_dialog_message">Відвідайте сторінку %1$s на GitHub:
-\n
-\n%2$s</string>
     <string name="license_dialog_message">Ознайомитися з ліцензією:
 \n
 \n%s</string>
@@ -625,7 +620,6 @@
     <string name="settings_language_turkish">Турецька</string>
     <string name="reset_settings_message">Ви дійсно хочете скинути всі налаштування додатка?\n\nЗауважте, що користувацькі мелодії не скидаються.</string>
     <string name="reset_settings_title">Скинути налаштування</string>
-    <string name="contributors_dialog_title">Переглянути профіль</string>
     <string name="blue_accent_color">Синій</string>
     <string name="toast_message_for_reset">Скидання завершено</string>
     <string name="settings_language_korean">Корейська</string>

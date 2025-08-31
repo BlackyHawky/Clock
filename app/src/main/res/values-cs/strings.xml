@@ -394,7 +394,6 @@
     <string name="widgets_settings">Widgety</string>
     <string name="settings_language_turkish">Turečtina</string>
     <string name="timer_time_warning_box_title">Zadána neplatná hodnota</string>
-    <string name="contributors">Přispěvatelé</string>
     <string name="about_github_link">Zobrazit na GitHubu</string>
     <string name="license">Licence open source</string>
     <string name="gnu_gpl">GNU General Public License v3.0</string>
@@ -431,7 +430,6 @@
     <string name="alarm_settings_summary">Nastavení stylu, výchozího vyzvánění, hlasitosti, akcí pro zrušení nebo odložení budíku, prvního dne týdnu a času oznámení s připomínkou</string>
     <string name="whats_new_title">Co je nového</string>
     <string name="whats_new_dialog_message">Podívejte se, co je nového:\n\n%s</string>
-    <string name="contributors_dialog_title">Zobrazit profil</string>
     <string name="reset_settings_message">Opravdu chcete resetovat všechna nastavení aplikace?\n\nPoznámka: vlastní zvuky budíku nebudou resetovány.</string>
     <string name="sort_timer_ascending_duration">Podle času (vzestupně)</string>
     <string name="default_time_to_add_to_timer_1_minute">1 minuta</string>
@@ -535,7 +533,6 @@
     <string name="app_slogan">100% otevřené hodiny, založené na AOSP</string>
     <string name="version_text">Verze <xliff:g id="VERSION_NUMBER" example="1.0">%1$s</xliff:g></string>
     <string name="github_dialog_message">Navštivte stránku projektu na GitHubu:\n\n%s</string>
-    <string name="contributors_dialog_message">Navštivte stránku uživatele %1$s na GitHubu:\n\n%2$s</string>
     <string name="swipe_action_title">Přejeďte pro zrušení nebo odložení budíků</string>
     <string name="auto_silence_30_seconds">30 sekund</string>
     <string name="title_dark_theme_mode">Režim tmavého motivu</string>
@@ -555,7 +552,6 @@
     <string name="digital_widget_date_custom_color_title">Vlastní barva data</string>
     <string name="permission_requirement_title">Požadavek:</string>
     <string name="analog_widget_material_you">Analogové hodiny Material You</string>
-    <string name="credits">Poděkování</string>
     <string name="permission_denied">Zamítnuto</string>
     <string name="notifications_permission_title">POVOLIT OZNÁMENÍ</string>
     <string name="sort_timer_descending_duration">Podle času (sestupně)</string>

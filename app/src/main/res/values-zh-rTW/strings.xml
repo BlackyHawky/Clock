@@ -315,7 +315,6 @@
     <string name="about_title">關於</string>
     <string name="style_category_title">樣式</string>
     <string name="screensaver_daydream_settings">選擇 / 啟用螢幕保護程式</string>
-    <string name="contributors">貢獻者</string>
     <string name="permission_requirement_title">要求： </string>
     <string name="title_theme">主題</string>
     <string name="screensaver_brightness_title">亮度</string>
@@ -329,7 +328,6 @@
     <string name="permission_denied">已拒絕</string>
     <string name="power_button_title">電源按鈕</string>
     <string name="add_label">增加標籤</string>
-    <string name="credits">銘謝</string>
     <string name="dialog_close">關閉</string>
     <string name="features_title">主要特點</string>
     <string name="license">開放原始碼授權</string>
@@ -427,7 +425,6 @@
     <string name="clock_style_analog_material">類比 (Material)</string>
     <string name="timer_settings_summary">設定預設鈴聲、音量和計時器排序</string>
     <string name="first_launch_important_info_title">重要資訊</string>
-    <string name="contributors_dialog_title">檢視名單</string>
     <string name="reset_settings_message">您要清除所有設定嗎？\n\n請注意：自訂鈴聲將不受影響。</string>
     <string name="sw_settings_summary">設定音量鍵動作</string>
     <string name="blue_accent_color">藍色</string>
@@ -582,7 +579,6 @@
     <string name="timer_shake_action_title">搖動裝置停止鬧鐘</string>
     <string name="sort_timer_title">計時器排序</string>
     <string name="license_dialog_message">參閱授權書：\n\n%s</string>
-    <string name="contributors_dialog_message">造訪 %1$s 的 GitHub 頁面：\n\n%2$s</string>
     <string name="description_direction_both_for_occasional_non_repeatable_alarm">向左或向右滑動關閉並刪除鬧鐘</string>
     <string name="digital_widget_default_hours_color_title">小時使用預設色彩</string>
     <string name="digital_widget_default_minutes_color_title">分鐘使用預設色彩</string>

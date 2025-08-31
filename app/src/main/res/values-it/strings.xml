@@ -391,7 +391,6 @@
     <string name="permission_management_summary">Mostra le autorizzazioni necessarie per il corretto funzionamento dell\'applicazione</string>
     <string name="permission_management_settings">Gestione autorizzazioni</string>
     <string name="about_dialog_message">• Imposta la sveglia per una data specifica; \n\n• Ruota e scuoti per disattivare/rimandare la sveglia; \n\n• Spegni/rimanda la sceglia coi pulsante di accensione o volume; \n\n• Solo per alcuni dispositivi Snapdragon, la sveglia si attiva anche quando sono spenti.;\n\t\t Sfortunatamente, questa caratteristica potrebbe non funzionare su alcuni dispositivi per via della presenza della app di sistema <i>\"com.qualcomm.qti.poweroffalarm\"</i> . \n \n• Scorri per rimuovere una sveglia; \n\n• Duplica sveglia; \n\n• Personalizza titolo sveglia; \n\n• Suoneria personalizzabile; \n\n• Tema chiaro, scuro o di sistema; \n\n• Modalità AMOLED per il tema scuro; \n\n• Stile orologio digitale o analogico; \n\n• Visualizza l\'ora di casa quando si è in viaggio; \n\n• Visualizza l\'ora in molte città del mondo; \n\n• Timer, cronometro inclusi; \n\n• Possibilità di condividere il cronometro con i propri contatti; \n\n• Salvaschermo personalizzabile; \n\n• Widget Moderni; \n\n• Widget personalizzabili; \n\n• Supporto per le scorciatoie nelle impostazioni rapide (per Android 7+);\n\n• Salvataggio e ripristino delle impostazioni (tranne le suonerie personalizzate); \n\n• Material design; \n\n• Colori dinamici per Android 12+;</string>
-    <string name="credits">Riconoscimenti</string>
     <string name="dialog_close">Chiudi</string>
     <string name="alarm_label_box_title">Etichetta sveglia</string>
     <string name="screensaver_italic_next_alarm_title">Prossima sveglia in corsivo</string>
@@ -440,7 +439,6 @@
     <string name="add_label">Aggiungi etichetta</string>
     <string name="alarm_created">Sveglia creata</string>
     <string name="timer_label_box_title">Etichetta Timer</string>
-    <string name="contributors">Collaboratori</string>
     <string name="timer_settings_summary">Imposta la suoneria predefinita, il volume e l\'ordine dei timer</string>
     <string name="preview_title">Anteprima</string>
     <string name="screensaver_preview_summary">Avvia subito il salvaschermo</string>
@@ -473,7 +471,6 @@
     <string name="features_title">Caratteristiche principali</string>
     <string name="github_dialog_message">Visita la pagina del progetto su GitHub:\n\n%s</string>
     <string name="license_dialog_message">Leggi la licenza:\n\n%s</string>
-    <string name="contributors_dialog_message">Visita la pagina GitHub di %1$s:\n\n%2$s</string>
     <string name="default_time_to_add_to_timer_title">Tempo predefinito da aggiungere al timer</string>
     <string name="style_category_title">Stile</string>
     <string name="transparent_background_for_expired_timer_title">Sfondo trasparente alla scadenza dei timer</string>
@@ -599,7 +596,6 @@
     <string name="show_lockscreen_permission_title">MOSTRA SU SCHERMATA DI BLOCCO</string>
     <string name="settings_language_turkish">Turco</string>
     <string name="reset_settings_title">Ripristina impostazioni</string>
-    <string name="contributors_dialog_title">Mostra profilo</string>
     <string name="reset_settings_message">Siete sicuri di voler ripristinare tutte le impostazioni dell\'app? \n\nNota: le suonerie personalizzate non verranno ripristinate.</string>
     <string name="blue_accent_color">Blu</string>
     <string name="settings_language_korean">Coreano</string>

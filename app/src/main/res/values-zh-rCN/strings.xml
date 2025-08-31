@@ -372,8 +372,6 @@
     <string name="features_title">主要特点</string>
     <string name="license">开放源代码许可</string>
     <string name="gnu_gpl">GNU General Public License v3.0</string>
-    <string name="contributors">贡献者</string>
-    <string name="credits">致谢</string>
     <string name="dialog_close">关闭</string>
     <string name="description_direction_both_for_non_repeatable_alarm">向左或向右滑动以关闭</string>
     <string name="timer_settings_summary">设置默认铃声、音量和定时器排序</string>
@@ -447,9 +445,6 @@
 \n%s</string>
     <string name="github_dialog_message">访问项目 GitHub 页面： \n \n%s</string>
     <string name="license_dialog_message">阅读许可：\n\n%s</string>
-    <string name="contributors_dialog_message">访问 %1$s 的 GitHub 页面：
-\n
-\n%2$s</string>
     <string name="material_you_vertical_digital_widget">立式数字时钟 Material You</string>
     <string name="widgets_settings">微件</string>
     <string name="vertical_digital_widget">立式数字时钟</string>
@@ -590,7 +585,6 @@
     <string name="settings_language_turkish">土耳其语</string>
     <string name="reset_settings_title">重置设置</string>
     <string name="reset_settings_message">是否确定要重置所有应用设置？\n\n注意：不会重置自定义铃声。</string>
-    <string name="contributors_dialog_title">查看资料</string>
     <string name="blue_accent_color">蓝色</string>
     <string name="toast_message_for_reset">重置已完成</string>
     <string name="settings_language_korean">韩语</string>

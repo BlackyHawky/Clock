@@ -359,8 +359,6 @@
     <string name="about_github_link">Vezi pe GitHub</string>
     <string name="license">Licență open-source</string>
     <string name="gnu_gpl">Licență GNU General Public v3.0</string>
-    <string name="contributors">Contribuitori</string>
-    <string name="credits">Autori</string>
     <string name="dialog_close">Închidere</string>
     <string name="permission_status_title">Stare: </string>
     <string name="screensaver_settings_summary">Deschide setările screensaver-ului</string>

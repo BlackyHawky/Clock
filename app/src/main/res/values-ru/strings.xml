@@ -418,7 +418,6 @@
     <string name="title_theme">Тема</string>
     <string name="title_accent_color">Цвет акцента</string>
     <string name="title_dark_theme_mode">Режим тёмной темы</string>
-    <string name="credits">Благодарность</string>
     <string name="screensaver_daydream_settings_summary">Открывает настройки заставки Андроид</string>
     <string name="screensaver_italic_next_alarm_title">Курсивный шрифт следующего будильника</string>
     <string name="digital_widget_city_clock_custom_color_title">Пользовательский цвет городских часов</string>
@@ -436,7 +435,6 @@
     <string name="first_launch_main_feature_message">► Светлая, тёмная или системная темы; &lt;br&gt; &lt;br&gt; ► Настраиваемая заставка-скринсейвер; &lt;br&gt; &lt;br&gt; ► Настраиваемые виджеты; &lt;br&gt; &lt;br&gt; ► Поддержка плиток в быстрых настройках (для Android 7+); &lt;br&gt; &lt;br&gt; ► Резервная копия и восстановление данных приложения (кроме пользовательский рингтонов); &lt;br&gt; &lt;br&gt; ► Material дизайн и динамические цвета; &lt;br&gt; &lt;br&gt; ► Установка будильника на определённую дату; &lt;br&gt; &lt;br&gt; ► Смахнуть чтобы удалить будильник; &lt;br&gt; &lt;br&gt; ► Дублирование будильника; &lt;br&gt; &lt;br&gt; ► Перевернуть или встряхнуть устройство чтобы выключить/отложить будильник; &lt;br&gt; &lt;br&gt; ► Выключить/отложить будильник нажав на кнопки питания или громкости; &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="timer_label_box_title">Метка таймера</string>
     <string name="timer_button_time_box_title">Минуты для добавления к таймеру</string>
-    <string name="contributors">Участники</string>
     <string name="default_time_to_add_to_timer_title">Время по умолчанию для добавления в таймер</string>
     <string name="screensaver_clock_dynamic_colors_title">Динамические цвета часов</string>
     <string name="screensaver_bold_digital_clock_title">Жирный шрифт часов</string>
@@ -479,9 +477,6 @@
     <string name="license_dialog_message">Прочтайте лицензию:
 \n
 \n%s</string>
-    <string name="contributors_dialog_message">Посетите страницу GitHub %1$s:
-\n
-\n%2$s</string>
     <string name="material_you_category_title">Material You</string>
     <string name="vertical_digital_widget">Вертикальные цифровые часы</string>
     <string name="material_you_vertical_digital_widget">Вертикальные цифровые часы Material You</string>
@@ -614,7 +609,6 @@
     <string name="permission_info_title">Только для устройств Xiaomi</string>
     <string name="settings_language_turkish">Турецкий</string>
     <string name="reset_settings_title">Сбросить настройки</string>
-    <string name="contributors_dialog_title">Показать профиль</string>
     <string name="reset_settings_message">Вы уверены, что вы хотите сбросить все настройки приложения? \n\nВнимание: пользовательские рингтоны не будут сброшены.</string>
     <string name="blue_accent_color">Синий</string>
     <string name="toast_message_for_reset">Сброс выполнен</string>

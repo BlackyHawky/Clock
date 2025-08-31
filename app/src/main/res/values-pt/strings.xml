@@ -365,7 +365,6 @@
     <string name="default_time_to_add_to_timer_title">Tempo padrão para adicionar ao timer</string>
     <string name="preview_title">Prévia</string>
     <string name="screensaver_preview_summary">Inicia o protetor de tela imediatamente</string>
-    <string name="contributors">Contribuidores</string>
     <string name="gnu_gpl">GNU General Public License v3.0</string>
     <string name="alarm_display_customization_title">Personalizar exibição de alarme</string>
     <string name="timer_label_box_title">Etiqueta de Timer</string>
@@ -431,7 +430,6 @@
     <string name="screensaver_italic_next_alarm_title">Próximo alarme em itálico</string>
     <string name="screensaver_bold_next_alarm_title">Próximo alarme em negrito</string>
     <string name="whats_new_dialog_message">Descubra o que há de novo:\n\n%s</string>
-    <string name="credits">Créditos</string>
     <string name="delete_occasional_alarm_after_use_title">Delete alarme quando dispensado</string>
     <string name="alarm_alert_dismiss_and_delete_text">Dispensar &amp; Deletar</string>
     <string name="alarm_alert_off_and_deleted_text">Alarme desativado e deletado</string>
@@ -455,7 +453,6 @@
     <string name="license">Licença Open-source</string>
     <string name="material_you_next_alarm_widget">Próximo alarme Material You</string>
     <string name="settings_fade_transitions_title">Habilitar esmaecimento de transições ao alternar entre telas</string>
-    <string name="contributors_dialog_message">Visite a página do GitHub de %1$s:\n\n%2$s</string>
     <string name="next_alarm_widget">Próximo alarme</string>
     <string name="features_title">Principais funcionalidades</string>
     <string name="github_dialog_message">Visite a página do projeto no GitHub:\n\n%s</string>

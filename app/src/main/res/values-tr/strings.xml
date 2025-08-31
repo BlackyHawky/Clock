@@ -492,7 +492,6 @@
     <string name="default_time_to_add_to_timer_4_minutes">4 dakika</string>
     <string name="default_time_to_add_to_timer_30_minutes">30 dakika</string>
     <string name="default_time_to_add_to_timer_1_hour">1 saat</string>
-    <string name="contributors">Katkıda bulunanlar</string>
     <string name="alarm_settings_summary">Stil, varsayılan zil sesi, ses düzeyi, alarmı kapatma veya erteleme eylemleri, haftanın ilk gününü ve hatırlatıcı bildirim süresini ayarlayın</string>
     <string name="screensaver_date_color_title">Tarih rengi</string>
     <string name="screensaver_brightness_title">Parlaklık</string>
@@ -528,7 +527,6 @@
     <string name="next_alarm_widget_title_no_alarm">Yaklaşan alarm yok</string>
     <string name="permission_dialog_revoke_title">İzni geri al</string>
     <string name="default_time_to_add_to_timer_2_minutes">2 dakika</string>
-    <string name="credits">Teşekkürler</string>
     <string name="digital_widget_city_clock_default_color_title">Şehir saati için varsayılan rengi kullan</string>
     <string name="next_alarm_widget_max_font_size_title">Maksimum widget yazı boyutu</string>
     <string name="permission_management_settings">İzin yönetimi</string>
@@ -557,7 +555,6 @@
     <string name="timer_flip_action_title">Alarmı durdurmak için cihazı ters çevir</string>
     <string name="about_translate_link">Codeberg\'de çeviri yap</string>
     <string name="translate_dialog_message">Codeberg sayfasını ziyaret et:\n\n%s</string>
-    <string name="contributors_dialog_message">%1$s GitHub sayfasını ziyaret et:\n\n%2$s</string>
     <string name="timer_shake_action_title">Alarmı durdurmak için cihazı salla</string>
     <string name="about_title">Hakkında</string>
     <string name="preview_title">Ön izleme</string>
@@ -595,7 +592,6 @@
     <string name="settings_language_turkish">Türkçe</string>
     <string name="reset_settings_title">Ayarları sıfırla</string>
     <string name="reset_settings_message">Uygulamanın bütün ayarlarını sıfırlamak istediğinize emin misiniz?\n\nNot: özel zil sesleri sıfırlanmayacak.</string>
-    <string name="contributors_dialog_title">Profili görüntüle</string>
     <string name="toast_message_for_reset">Sıfırlama tamamlandı</string>
     <string name="settings_language_korean">Korece</string>
     <string name="blue_accent_color">Mavi</string>

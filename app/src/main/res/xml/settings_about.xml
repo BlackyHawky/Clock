@@ -60,58 +60,6 @@
         tools:layout="@layout/settings_preference_layout" />
 
     <PreferenceCategory
-        android:title="@string/contributors"
-        app:allowDividerAbove="false"
-        app:iconSpaceReserved="false"
-        tools:layout="@layout/settings_preference_category_layout">
-
-        <Preference
-            android:key="key_about_blackyhawky"
-            android:title="BlackyHawky"
-            android:icon="@drawable/ic_person"
-            tools:layout="@layout/settings_preference_layout" />
-
-        <Preference
-            android:key="key_about_qw123wh"
-            android:title="qw123wh"
-            android:icon="@drawable/ic_person"
-            tools:layout="@layout/settings_preference_layout" />
-
-        <Preference
-            android:key="key_about_odmfl"
-            android:title="odmfl"
-            android:icon="@drawable/ic_person"
-            tools:layout="@layout/settings_preference_layout" />
-
-        <Preference
-            android:key="key_about_nilsu11"
-            android:title="Nilsu11"
-            android:icon="@drawable/ic_person"
-            tools:layout="@layout/settings_preference_layout" />
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:title="@string/credits"
-        app:allowDividerAbove="false"
-        app:iconSpaceReserved="false"
-        tools:layout="@layout/settings_preference_category_layout">
-
-        <Preference
-            android:key="key_about_lineageos"
-            android:title="LineageOS"
-            android:icon="@drawable/ic_groups"
-            tools:layout="@layout/settings_preference_layout" />
-
-        <Preference
-            android:key="key_about_crdroid"
-            android:title="crDroid Android"
-            android:icon="@drawable/ic_groups"
-            tools:layout="@layout/settings_preference_layout" />
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
         android:key="key_debug_category"
         android:title="@string/debug_category_title"
         app:allowDividerAbove="false"

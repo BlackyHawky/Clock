@@ -390,7 +390,6 @@
     <string name="ignore_battery_optimizations_dialog_text">Domyślnie system Android konfiguruje wszystkie aplikacje zainstalowane przez użytkownika tak, aby były zoptymalizowane pod kątem oszczędzania baterii. \n\nChociaż jest to akceptowalne dla wielu aplikacji, ta aplikacja jest aplikacją alarmową i często powoduje problemy, jeśli jest skonfigurowana do optymalizacji baterii. Po jej włączeniu system Android może w dowolnym momencie wyłączyć aplikację i/lub anulować zaplanowane przez nią alarmy, co negatywnie wpłynie na jej działanie. \n\nZalecamy wyłączenie tej aplikacji z optymalizacji baterii.</string>
     <string name="snooze_duration_none">Brak</string>
     <string name="dialog_close">Zamknij</string>
-    <string name="contributors">Współtwórcy</string>
     <string name="notifications_permission_title">WŁĄCZ POWIADOMIENIA</string>
     <string name="FSN_permission_title">WŁĄCZ POWIADOMIENIA PEŁNOEKRANOWE</string>
     <string name="purple_accent_color">Fioletowy</string>
@@ -569,11 +568,9 @@
     <string name="digital_widget_city_clock_default_color_title">Użyj domyślnego koloru dla zegara miejskiego</string>
     <string name="digital_widget_city_clock_custom_color_title">Niestandardowy kolor zegara miejskiego</string>
     <string name="digital_widget_city_name_default_color_title">Użyj domyślnego koloru dla nazwy miasta</string>
-    <string name="credits">Uznania</string>
     <string name="timer_add_custom_time">+ %s</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">Włącz wibracje, gdy alarm jest uśpiony lub odrzucony</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">Podwójna wibracja, gdy alarm jest uśpiony i pojedyncza wibracja, gdy alarm jest odrzucony</string>
-    <string name="contributors_dialog_message">Odwiedź stronę %1$s w serwisie GitHub:\n\n%2$s</string>
     <string name="timer_button_time_box_title">Minuty do dodania do minutnika</string>
     <string name="turn_on_back_flash_for_triggered_alarm_title">Włącz tylną lampę błyskową po uruchomieniu alarmu</string>
     <string name="alarm_flash">Lampa błyskowa</string>
@@ -613,7 +610,6 @@
     <string name="settings_language_turkish">Turecki</string>
     <string name="reset_settings_title">Zresetuj ustawienia</string>
     <string name="reset_settings_message">Czy na pewno chcesz zresetować wszystkie ustawienia aplikacji?\n\nUwaga: dzwonki niestandardowe nie zostaną zresetowane.</string>
-    <string name="contributors_dialog_title">Wyświetl profil</string>
     <string name="blue_accent_color">Niebieski</string>
     <string name="toast_message_for_reset">Resetowanie zakończone</string>
     <string name="settings_language_korean">Koreański</string>

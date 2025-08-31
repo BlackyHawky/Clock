@@ -369,8 +369,6 @@
     <string name="version">Versioon</string>
     <string name="whats_new_title">Rakenduse muudatused</string>
     <string name="about_github_link">Vaata GitHubis</string>
-    <string name="contributors">Kaasautorid</string>
-    <string name="credits">Tänuavaldused</string>
     <string name="version_text">Versioon <xliff:g id="VERSION_NUMBER" example="1.0">%1$s</xliff:g></string>
     <string name="features_title">Põhifunktsionaalsused</string>
     <string name="about_title">Rakenduse teave</string>
@@ -461,9 +459,6 @@
     <string name="license_dialog_message">Loe litsentsi tingimusi:
 \n
 \n%s</string>
-    <string name="contributors_dialog_message">Vaata %1$s lehte Githubis:
-\n
-\n%2$s</string>
     <string name="github_dialog_message">Külasta projekti lehte GitHubis:
 \n
 \n%s</string>
@@ -608,7 +603,6 @@
     <string name="reset_settings_title">Lähtesta seadistused</string>
     <string name="reset_settings_message">Kas sa oled kindel, et soovid kõik rakenduse seadistused muuta algolekusse?\n\nMärkus: see ei puuduta kohandatud helinaid.</string>
     <string name="blue_accent_color">Sinine</string>
-    <string name="contributors_dialog_title">Vaata profiili</string>
     <string name="toast_message_for_reset">Lähtestamine on tehtud</string>
     <string name="settings_language_korean">korea keel</string>
     <string name="display_date_title">Näita vidinas kuupäeva</string>

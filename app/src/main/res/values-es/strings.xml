@@ -380,7 +380,6 @@
     <string name="version">Versión</string>
     <string name="app_slogan">Reloj 100% FOSS, basado en AOSP</string>
     <string name="gnu_gpl">Licencia Pública General de GNU v.3.0</string>
-    <string name="contributors">Colaboradores</string>
     <string name="whats_new_title">Qué hay de nuevo</string>
     <string name="about_github_link">Ver en GitHub</string>
     <string name="features_title">Funcionalidades principales</string>
@@ -400,8 +399,6 @@
     <string name="alarm_title_font_size">Tamaño de fuente del título de la alarma</string>
     <string name="notifications_permission_title">ACTIVAR NOTIFICACIONES</string>
     <string name="digital_widget_city_clock_default_color_title">Utilizar color por defecto para el reloj de ciudad</string>
-    <string name="contributors_dialog_message">Visitar la página de Github de %1$s\n\n%2$s</string>
-    <string name="credits">Créditos</string>
     <string name="about_dialog_message">• Acción de girar y agitar para descartar/posponer alarma; \n\n• Apagar/posponer la alarma con el botón de encendido o los botones de volumen; \n\nFor some Snapdragon devices only, the alarm is triggered when they are switched off; \n\t\tLamentablemente, es posible que esta función no funcione en algunos dispositivos a pesar de la presencia de la aplicación del sistema <i>«com.qualcomm.qti.poweroffalarm»</i>. \n\n• Desliza para borrar una alarma; \n\n• Duplicar alarmas; \n\n• Personalizar el título de la alarma; \n\n• Tono personalizable; \n\n• Tema claro, oscuro o de sistema; \n\n• Modo AMOLED para el tema oscuro; \n\n• Estilo de reloj digital o analógico; \n\n• Muestra la hora en casa cuando viajas; \n\n• Muestra la hora en muchas ciudades del mundo; \n\n• Temporizador, cronómetro y hora de dormir <i>(experimental)</i> incluidos; \n\n• Posibilidad de compartir tu cronómetro con tus contactos; \n\n• Salvapantallas personalizable; \n\n• Widgets modernos; \n\n• Widgets personalizables; \n\n• Soporte para azulejos en ajustes rápidos (para Android 7+); \n\n• Copia de seguridad y restauración de la configuración (excepto tonos personalizados); \n\n• Material design; \n\n• Colores dinámicos para Android 12+;</string>
     <string name="alarm_notification_reminder_title">Notificación de recordatorio</string>
     <string name="alarm_notification_reminder_30_minutes">30 minutos antes</string>
@@ -600,7 +597,6 @@
     <string name="settings_tab_to_display">Pestaña a mostrar cuando se abre la aplicación</string>
     <string name="reset_settings_title">Reiniciar configuraciones</string>
     <string name="reset_settings_message">Estás seguro que deseas reiniciar todas las configuraciones?\n\nNota: los tonos personalizados no sé reiniciaran.</string>
-    <string name="contributors_dialog_title">Ver perfil</string>
     <string name="blue_accent_color">Azul</string>
     <string name="settings_language_korean">Coreano</string>
     <string name="timer_button_time_minutes_warning_box_text">Ingresa un valor entre 0 y 60 minutos</string>

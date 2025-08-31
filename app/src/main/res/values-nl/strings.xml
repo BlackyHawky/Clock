@@ -342,8 +342,6 @@
     <string name="settings_vibration_summary">Alleen van toepassing op sommige elementen (bijv. de start/pauze knop van de kookwekker)</string>
     <string name="ignore_battery_optimizations_dialog_title">Batterijoptimalisaties</string>
     <string name="about_title">Over</string>
-    <string name="contributors">Bijdragers</string>
-    <string name="credits">Dank aan</string>
     <string name="about_dialog_message">• Wekkers zetten voor een specifieke datum \n\n• Omdraaien en schudden om wekker uit te zetten/stellen \n\n• Wekker uitzetten/uitstellen met de aan/uit-knop of volumeknoppen \n\n• Alleen voor Snapdragon-apparaten: wekker af laten gaan als het toestel is uitgeschakeld \n\n• Veeg om wekker te verwijderen \n\n• Wekkers dupliceren \n\n• Wekkertitel aanpassen \n\n• Wekkergeluid aanpassen \n\n• Licht, donker of systeemthema \n\n• AMOLED-modus voor donker thema \n\n• Digitale of analoge klokstijl \n\n• Klok voor thuis tijdens het reizen \n\n• Bekijk de tijd in vele steden rond de wereld \n\n• Bevat kookwekker en stopklok\n\n• Mogelijkheid om stopkloktijden te delen met contacten \n\n• Aanpasbare screensaver \n\n• Moderne widgets \n\n• Aanpasbare widgets\n\n• Ondersteuning voor tegels in de snelle instellingen (Android 7+); \n\n• Back-up en herstel app-data (behalve aangepaste geluiden)\n\n• Material design \n\n• Dynamische kleuren voor Android 12+</string>
     <string name="screensaver_daydream_settings">Screensaver selecteren/inschakelen</string>
     <string name="screensaver_daydream_settings_summary">Opent de systeeminstellingen voor screensavers</string>
@@ -491,7 +489,6 @@
     <string name="whats_new_dialog_message">Ondek wat er nieuw is:\n\n%s</string>
     <string name="github_dialog_message">Bekijk het project op GitHub:\n\n%s</string>
     <string name="license_dialog_message">Lees de licentie:\n\n%s</string>
-    <string name="contributors_dialog_message">Bekijk %1$s\'s GitHub:\n\n%2$s</string>
     <string name="seconds_hand_color_title">Kleur secondewijzer</string>
     <string name="system_theme">Systeem</string>
     <string name="light_theme">Licht</string>
@@ -597,7 +594,6 @@
     <string name="last_tab_used_title">Laatst gebruikt</string>
     <string name="timer_time_warning_box_title">Onjuiste waarde ingevoerd</string>
     <string name="settings_language_turkish">Turks</string>
-    <string name="contributors_dialog_title">Profiel bekijken</string>
     <string name="reset_settings_title">Instellingen opnieuw instellen</string>
     <string name="reset_settings_message">Weet je zeker dat je alle instellingen opnieuw wilt instellen?\n\nLet op: aangepaste geluiden worden niet teruggezet.</string>
     <string name="blue_accent_color">Blauw</string>
