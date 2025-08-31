@@ -14,6 +14,7 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_SNOOZE_
 import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_TIMEOUT_NEVER;
 import static com.best.deskclock.utils.AlarmUtils.ACTION_NEXT_ALARM_CHANGED_BY_CLOCK;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.AlarmManager.AlarmClockInfo;
 import android.app.PendingIntent;
@@ -864,6 +865,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         context.sendBroadcast(intent);
     }
 
+    @SuppressLint({"WakelockTimeout", "Wakelock"})
     @Override
     public void onReceive(final Context context, final Intent intent) {
         if (INDICATOR_ACTION.equals(intent.getAction())) {
@@ -872,7 +874,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
         final PendingResult result = goAsync();
         final PowerManager.WakeLock wl = AlarmAlertWakeLock.createPartialWakeLock(context);
-        wl.acquire(10000L);
+        wl.acquire();
         AsyncHandler.post(() -> {
             handleIntent(context, intent);
             result.finish();

@@ -8,6 +8,7 @@ package com.best.deskclock;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -58,6 +59,8 @@ public class AlarmInitReceiver extends BroadcastReceiver {
      *     <li>Rebuild notifications on MY_PACKAGE_REPLACED</li>
      * </ul>
      */
+
+    @SuppressLint({"WakelockTimeout", "Wakelock"})
     @Override
     public void onReceive(final Context context, Intent intent) {
         final String action = intent.getAction();
@@ -65,7 +68,7 @@ public class AlarmInitReceiver extends BroadcastReceiver {
 
         final PendingResult result = goAsync();
         final WakeLock wl = AlarmAlertWakeLock.createPartialWakeLock(context);
-        wl.acquire(10000L);
+        wl.acquire();
 
         // We need to increment the global id out of the async task to prevent race conditions
         SettingsDAO.updateGlobalIntentId(getDefaultSharedPreferences(context));
