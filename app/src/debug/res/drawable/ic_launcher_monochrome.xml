@@ -10,19 +10,23 @@
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
+    <!-- Hour hand -->
     <path
-        android:pathData="M55,62.945C54.672,62.981 54.338,63 54,63C53.662,63 53.328,62.981 53,62.945V79C53,79.552 53.448,80 54,80C54.552,80 55,79.552 55,79V62.945Z"
-        android:fillColor="#EF5350"
+        android:pathData="M37.147 39.859c-.364.433-.337 1.073.062 1.475l8.687 8.746c.654-1.348 1.634-2.509 2.838-3.379L38.611 39.663c-.465-.323-1.1-.238-1.464.196Z"
+        android:fillColor="#FFFFFF"
         android:fillType="evenOdd"/>
+    <!-- Minute hand -->
     <path
-        android:pathData="M75.449,36.002C75.087,35.57 74.453,35.492 73.997,35.822L59.12,46.597C60.439,47.512 61.503,48.77 62.18,50.242L75.374,37.464C75.779,37.071 75.811,36.433 75.449,36.002Z"
-        android:fillColor="#EF5350"
+        android:pathData="M75.449 36.002c.362.431.33 1.069-.075 1.462L62.18 50.242c-.677-1.472-1.741-2.73-3.06-3.645L73.997 35.822c.456-.33 1.09-.252 1.452.18Z"
+        android:fillColor="#FFFFFF"
         android:fillType="evenOdd"/>
+    <!-- Second hand -->
     <path
-        android:pathData="M37.147,39.859C36.783,40.292 36.81,40.932 37.209,41.334L45.896,50.08C46.55,48.732 47.53,47.571 48.734,46.701L38.611,39.663C38.146,39.34 37.511,39.425 37.147,39.859Z"
-        android:fillColor="#EF5350"
+        android:pathData="M55 62.945V79c0 .552-.448 1-1 1s-1-.448-1-1V62.945c.328.036.662.055 1 .055s.672-.019 1-.055Z"
+        android:fillColor="#FFFFFF"
         android:fillType="evenOdd"/>
+    <!-- Center -->
     <path
-        android:pathData="M54,54m-6,0a6,6 0,1 1,12 0a6,6 0,1 1,-12 0"
-        android:fillColor="#EF5350"/>
+        android:pathData="M54 54m-6 0a6 6 0 1 1 12 0a6 6 0 1 1-12 0"
+        android:fillColor="#FFFFFF"/>
 </vector>
