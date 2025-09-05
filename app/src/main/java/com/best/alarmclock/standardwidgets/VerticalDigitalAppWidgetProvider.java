@@ -108,12 +108,7 @@ public class VerticalDigitalAppWidgetProvider extends AppWidgetProvider {
 
         // Create a remote view for the digital clock.
         final SharedPreferences prefs = getDefaultSharedPreferences(context);
-        final String packageName = context.getPackageName();
-        final boolean isBackgroundDisplayedOnWidget = WidgetDAO.isBackgroundDisplayedOnVerticalDigitalWidget(prefs);
-        final RemoteViews rv = new RemoteViews(packageName, isBackgroundDisplayedOnWidget
-                ? R.layout.standard_vertical_digital_widget_with_background
-                : R.layout.standard_vertical_digital_widget
-        );
+        final RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.standard_vertical_digital_widget);
 
         // Tapping on the widget opens the app (if not on the lock screen).
         if (WidgetUtils.isWidgetClickable(wm, widgetId)) {
@@ -205,8 +200,12 @@ public class VerticalDigitalAppWidgetProvider extends AppWidgetProvider {
         }
 
         // Apply the color to the digital widget background.
-        int backgroundColor = WidgetDAO.getVerticalDigitalWidgetBackgroundColor(prefs);
-        rv.setInt(R.id.digitalWidgetBackground, "setBackgroundColor", backgroundColor);
+        if (WidgetDAO.isBackgroundDisplayedOnVerticalDigitalWidget(prefs)) {
+            int backgroundColor = WidgetDAO.getVerticalDigitalWidgetBackgroundColor(prefs);
+            rv.setInt(R.id.digitalWidgetBackground, "setBackgroundColor", backgroundColor);
+        } else {
+            rv.setInt(R.id.digitalWidgetBackground, "setBackgroundColor", Color.TRANSPARENT);
+        }
 
         return rv;
     }

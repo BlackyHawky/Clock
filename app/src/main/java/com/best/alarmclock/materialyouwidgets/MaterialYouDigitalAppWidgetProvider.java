@@ -37,6 +37,8 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.Icon;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -134,8 +136,7 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
 
         // Create a remote view for the digital clock.
         final SharedPreferences prefs = getDefaultSharedPreferences(context);
-        final String packageName = context.getPackageName();
-        final RemoteViews rv = new RemoteViews(packageName, R.layout.material_you_digital_widget);
+        final RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.material_you_digital_widget);
 
         // Tapping on the widget opens the app (if not on the lock screen).
         if (WidgetUtils.isWidgetClickable(wm, widgetId)) {
@@ -272,6 +273,18 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
                 final PendingIntent pi = PendingIntent.getActivity(context, 0, selectCity, PendingIntent.FLAG_IMMUTABLE);
                 rv.setPendingIntentTemplate(R.id.worldCityList, pi);
             }
+        }
+
+        // Apply the color to the widget background if it's displayed.
+        final Icon backgroundIcon = Icon.createWithResource(context, R.drawable.material_you_digital_widget_background);
+        rv.setIcon(R.id.materialYouDigitalWidgetBackground, "setImageIcon", backgroundIcon);
+
+        if (WidgetDAO.isBackgroundDisplayedOnMaterialYouDigitalWidget(prefs)) {
+            if (!WidgetDAO.isMaterialYouDigitalWidgetDefaultBackgroundColor(prefs)) {
+                backgroundIcon.setTint(WidgetDAO.getMaterialYouDigitalWidgetBackgroundColor(prefs));
+            }
+        } else {
+            backgroundIcon.setTint(Color.TRANSPARENT);
         }
 
         return rv;

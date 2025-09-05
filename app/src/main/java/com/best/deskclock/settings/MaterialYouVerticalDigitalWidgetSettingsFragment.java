@@ -7,14 +7,17 @@ import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
 import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
 
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_BACKGROUND_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_DATE_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_HOURS_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_MINUTES_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_BACKGROUND_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_DATE_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_HOURS_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_MINUTES_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_BACKGROUND;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_DATE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM;
 
@@ -39,12 +42,15 @@ public class MaterialYouVerticalDigitalWidgetSettingsFragment extends ScreenFrag
 
     private int mAppWidgetId = INVALID_APPWIDGET_ID;
 
+    ColorPreference mCustomBackgroundColorPref;
     ColorPreference mCustomHoursColorPref;
     ColorPreference mCustomMinutesColorPref;
     ColorPreference mCustomDateColorPref;
     ColorPreference mCustomNextAlarmColorPref;
+    SwitchPreferenceCompat mShowBackgroundOnDigitalWidgetPref;
     SwitchPreferenceCompat mDisplayDatePref;
     SwitchPreferenceCompat mDisplayNextAlarmPref;
+    SwitchPreferenceCompat mDefaultBackgroundColorPref;
     SwitchPreferenceCompat mDefaultHoursColorPref;
     SwitchPreferenceCompat mDefaultMinutesColorPref;
     SwitchPreferenceCompat mDefaultDateColorPref;
@@ -62,8 +68,11 @@ public class MaterialYouVerticalDigitalWidgetSettingsFragment extends ScreenFrag
 
         addPreferencesFromResource(R.xml.settings_customize_material_you_vertical_digital_widget);
 
+        mShowBackgroundOnDigitalWidgetPref = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_BACKGROUND);
         mDisplayDatePref = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_DATE);
         mDisplayNextAlarmPref = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM);
+        mDefaultBackgroundColorPref = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_BACKGROUND_COLOR);
+        mCustomBackgroundColorPref = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_BACKGROUND_COLOR);
         mDefaultHoursColorPref = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_HOURS_COLOR);
         mCustomHoursColorPref = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_HOURS_COLOR);
         mDefaultMinutesColorPref = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_MINUTES_COLOR);
@@ -106,6 +115,18 @@ public class MaterialYouVerticalDigitalWidgetSettingsFragment extends ScreenFrag
     @Override
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
+            case KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_BACKGROUND -> {
+                mDefaultBackgroundColorPref.setVisible((boolean) newValue);
+                mCustomBackgroundColorPref.setVisible((boolean) newValue &&
+                        !WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultBackgroundColor(mPrefs));
+                Utils.setVibrationTime(requireContext(), 50);
+            }
+
+            case KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_BACKGROUND_COLOR -> {
+                mCustomBackgroundColorPref.setVisible(!(boolean) newValue);
+                Utils.setVibrationTime(requireContext(), 50);
+            }
+
             case KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_HOURS_COLOR -> {
                 mCustomHoursColorPref.setVisible(!(boolean) newValue);
                 Utils.setVibrationTime(requireContext(), 50);
@@ -156,6 +177,15 @@ public class MaterialYouVerticalDigitalWidgetSettingsFragment extends ScreenFrag
     }
 
     private void setupPreferences() {
+        mShowBackgroundOnDigitalWidgetPref.setOnPreferenceChangeListener(this);
+
+        mDefaultBackgroundColorPref.setVisible(WidgetDAO.isBackgroundDisplayedOnMaterialYouVerticalDigitalWidget(mPrefs));
+        mDefaultBackgroundColorPref.setOnPreferenceChangeListener(this);
+
+        mCustomBackgroundColorPref.setVisible(WidgetDAO.isBackgroundDisplayedOnMaterialYouVerticalDigitalWidget(mPrefs)
+                && !WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultBackgroundColor(mPrefs));
+        mCustomBackgroundColorPref.setOnPreferenceChangeListener(this);
+
         mDefaultHoursColorPref.setOnPreferenceChangeListener(this);
 
         mCustomHoursColorPref.setVisible(!WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultHoursColor(mPrefs));
@@ -188,6 +218,8 @@ public class MaterialYouVerticalDigitalWidgetSettingsFragment extends ScreenFrag
     }
 
     private void saveCheckedPreferenceStates() {
+        mShowBackgroundOnDigitalWidgetPref.setChecked(WidgetDAO.isBackgroundDisplayedOnMaterialYouVerticalDigitalWidget(mPrefs));
+        mDefaultBackgroundColorPref.setChecked(WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultBackgroundColor(mPrefs));
         mDefaultHoursColorPref.setChecked(WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultHoursColor(mPrefs));
         mDefaultMinutesColorPref.setChecked(WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultMinutesColor(mPrefs));
         mDisplayDatePref.setChecked(WidgetDAO.isDateDisplayedOnMaterialYouVerticalDigitalWidget(mPrefs));

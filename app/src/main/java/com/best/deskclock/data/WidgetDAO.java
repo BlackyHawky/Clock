@@ -580,6 +580,15 @@ public final class WidgetDAO {
     }
 
     /**
+     * @return {@code true} if the background is displayed on the Material You digital widget;
+     * {@code false} otherwise.
+     */
+    public static boolean isBackgroundDisplayedOnMaterialYouDigitalWidget(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_BACKGROUND,
+                DEFAULT_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_BACKGROUND);
+    }
+
+    /**
      * @return {@code true} if the cities are displayed on the Material You digital widget;
      * {@code false} otherwise.
      */
@@ -601,6 +610,21 @@ public final class WidgetDAO {
      */
     public static boolean isMaterialYouDigitalWidgetDefaultClockColor(SharedPreferences prefs) {
         return prefs.getBoolean(KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_CLOCK_COLOR, DEFAULT_WIDGETS_DEFAULT_COLOR);
+    }
+
+    /**
+     * @return {@code true} if the default color is applied to the background on the Material You digital widget;
+     * {@code false} otherwise.
+     */
+    public static boolean isMaterialYouDigitalWidgetDefaultBackgroundColor(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_BACKGROUND_COLOR, DEFAULT_WIDGETS_DEFAULT_COLOR);
+    }
+
+    /**
+     * @return a value indicating the background color on the Material You digital widget.
+     */
+    public static int getMaterialYouDigitalWidgetBackgroundColor(SharedPreferences prefs) {
+        return prefs.getInt(KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_BACKGROUND_COLOR, DEFAULT_WIDGETS_BACKGROUND_COLOR);
     }
 
     /**
@@ -699,10 +723,34 @@ public final class WidgetDAO {
     // ******************************************
 
     /**
+     * @return {@code true} if the background is displayed on the Material You vertical digital widget;
+     * {@code false} otherwise.
+     */
+    public static boolean isBackgroundDisplayedOnMaterialYouVerticalDigitalWidget(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_BACKGROUND,
+                DEFAULT_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_BACKGROUND);
+    }
+
+    /**
      * @return the font size applied to the hours in the Material You vertical digital widget.
      */
     public static int getMaterialYouVerticalDigitalWidgetMaxClockFontSize(SharedPreferences prefs) {
         return prefs.getInt(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE, DEFAULT_WIDGETS_FONT_SIZE);
+    }
+
+    /**
+     * @return {@code true} if the default color is applied to the background on the Material You vertical digital widget;
+     * {@code false} otherwise.
+     */
+    public static boolean isMaterialYouVerticalDigitalWidgetDefaultBackgroundColor(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_BACKGROUND_COLOR, DEFAULT_WIDGETS_DEFAULT_COLOR);
+    }
+
+    /**
+     * @return a value indicating the background color on the Material You vertical digital widget.
+     */
+    public static int getMaterialYouVerticalDigitalWidgetBackgroundColor(SharedPreferences prefs) {
+        return prefs.getInt(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_BACKGROUND_COLOR, DEFAULT_WIDGETS_BACKGROUND_COLOR);
     }
 
     /**
@@ -797,10 +845,34 @@ public final class WidgetDAO {
     // ************************************
 
     /**
+     * @return {@code true} if the background is displayed on the Material You Next alarm widget;
+     * {@code false} otherwise.
+     */
+    public static boolean isBackgroundDisplayedOnMaterialYouNextAlarmWidget(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DISPLAY_BACKGROUND,
+                DEFAULT_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_BACKGROUND);
+    }
+
+    /**
      * @return the font size applied to the Material You Next alarm widget.
      */
     public static int getMaterialYouNextAlarmWidgetMaxFontSize(SharedPreferences prefs) {
         return prefs.getInt(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_MAXIMUM_FONT_SIZE, DEFAULT_WIDGETS_FONT_SIZE);
+    }
+
+    /**
+     * @return {@code true} if the default color is applied to the background on the Material You Next alarm widget;
+     * {@code false} otherwise.
+     */
+    public static boolean isMaterialYouNextAlarmWidgetDefaultBackgroundColor(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_BACKGROUND_COLOR, DEFAULT_WIDGETS_DEFAULT_COLOR);
+    }
+
+    /**
+     * @return a value indicating the background color on the Material You Next alarm widget.
+     */
+    public static int getMaterialYouNextAlarmWidgetBackgroundColor(SharedPreferences prefs) {
+        return prefs.getInt(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_BACKGROUND_COLOR, DEFAULT_WIDGETS_BACKGROUND_COLOR);
     }
 
     /**

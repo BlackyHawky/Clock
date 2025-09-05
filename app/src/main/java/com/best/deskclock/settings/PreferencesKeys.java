@@ -254,12 +254,18 @@ public class PreferencesKeys {
             "key_material_you_digital_widget_seconds_displayed";
     public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_HIDE_AM_PM =
             "key_material_you_digital_widget_hide_am_pm";
+    public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_BACKGROUND =
+            "key_material_you_digital_widget_display_background";
     public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_DATE =
             "key_material_you_digital_widget_display_date";
     public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM =
             "key_material_you_digital_widget_display_next_alarm";
     public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED =
             "key_material_you_digital_widget_world_cities_displayed";
+    public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_BACKGROUND_COLOR =
+            "key_material_you_digital_widget_default_background_color";
+    public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_BACKGROUND_COLOR =
+            "key_material_you_digital_widget_custom_background_color";
     public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_CLOCK_COLOR =
             "key_material_you_digital_widget_default_clock_color";
     public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CLOCK_COLOR =
@@ -286,10 +292,16 @@ public class PreferencesKeys {
             "key_material_you_digital_widget_apply_horizontal_padding";
 
     // Material You Vertical Digital Widget
+    public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_BACKGROUND =
+            "key_material_you_vertical_digital_widget_display_background";
     public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_DATE =
             "key_material_you_vertical_digital_widget_display_date";
     public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM =
             "key_material_you_vertical_digital_widget_display_next_alarm";
+    public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_BACKGROUND_COLOR =
+            "key_material_you_vertical_digital_widget_default_background_color";
+    public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_BACKGROUND_COLOR =
+            "key_material_you_vertical_digital_widget_custom_background_color";
     public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_HOURS_COLOR =
             "key_material_you_vertical_digital_widget_default_hours_color";
     public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_HOURS_COLOR =
@@ -312,6 +324,12 @@ public class PreferencesKeys {
             "key_material_you_vertical_digital_widget_apply_horizontal_padding";
 
     // Material You Next Alarm Widget
+    public static final String KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DISPLAY_BACKGROUND =
+            "key_material_you_next_alarm_widget_display_background";
+    public static final String KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_BACKGROUND_COLOR =
+            "key_material_you_next_alarm_widget_default_background_color";
+    public static final String KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_BACKGROUND_COLOR =
+            "key_material_you_next_alarm_widget_custom_background_color";
     public static final String KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_TITLE_COLOR =
             "key_material_you_next_alarm_widget_default_title_color";
     public static final String KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_TITLE_COLOR =

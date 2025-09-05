@@ -3,100 +3,42 @@
     SPDX-License-Identifier: GPL-3.0-only
 -->
 
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/material_you_next_alarm_widget"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/material_you_digital_widget_background"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/nextAlarmText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:ellipsize="none"
-        android:includeFontPadding="false"
-        android:maxLines="1"
-        android:textColor="@color/widget_text_color"
-        tools:text="@string/next_alarm_widget_text"
-        tools:textSize="18sp" />
-
-    <TextView
-        android:id="@+id/nextAlarmTextForCustomColor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:ellipsize="none"
-        android:includeFontPadding="false"
-        android:maxLines="1"
-        tools:visibility="gone" />
-
-    <TextView
-        android:id="@+id/nextAlarmTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:ellipsize="none"
-        android:includeFontPadding="false"
-        android:maxLines="1"
-        android:textColor="@color/next_alarm_widget_title_color"
-        tools:text="Test"
-        tools:textSize="18sp" />
-
-    <TextView
-        android:id="@+id/nextAlarmTitleForCustomColor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:ellipsize="none"
-        android:includeFontPadding="false"
-        android:maxLines="1"
-        tools:visibility="gone" />
+    <ImageView
+        android:id="@+id/materialYouDigitalWidgetBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        tools:src="@drawable/material_you_digital_widget_background" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center">
-
-        <!-- Do not use the App tint attribute, otherwise the icon will not
-        change color when the device mode (light or dark) changes. -->
-        <ImageView
-            android:id="@+id/nextAlarmIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@null"
-            android:scaleType="fitCenter"
-            android:tint="@color/next_alarm_widget_alarm_color"
-            tools:src="@drawable/ic_tab_alarm_static"
-            tools:paddingEnd="3dp"
-            tools:ignore="UseAppTint" />
-
-        <ImageView
-            android:id="@+id/nextAlarmIconForCustomColor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@null"
-            android:scaleType="fitCenter"
-            tools:visibility="gone" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:layout_centerVertical="true">
 
         <TextView
-            android:id="@+id/nextAlarm"
+            android:id="@+id/nextAlarmText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:ellipsize="none"
             android:includeFontPadding="false"
             android:maxLines="1"
-            android:textColor="@color/next_alarm_widget_alarm_color"
-            tools:text="08:30"
+            android:textColor="@color/widget_text_color"
+            tools:text="@string/next_alarm_widget_text"
             tools:textSize="18sp" />
 
         <TextView
-            android:id="@+id/nextAlarmForCustomColor"
+            android:id="@+id/nextAlarmTextForCustomColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -105,6 +47,78 @@
             android:maxLines="1"
             tools:visibility="gone" />
 
+        <TextView
+            android:id="@+id/nextAlarmTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:ellipsize="none"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:textColor="@color/next_alarm_widget_title_color"
+            tools:text="Test"
+            tools:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/nextAlarmTitleForCustomColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:ellipsize="none"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            tools:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <!-- Do not use the App tint attribute, otherwise the icon will not
+            change color when the device mode (light or dark) changes. -->
+            <ImageView
+                android:id="@+id/nextAlarmIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                android:scaleType="fitCenter"
+                android:tint="@color/next_alarm_widget_alarm_color"
+                tools:src="@drawable/ic_tab_alarm_static"
+                tools:paddingEnd="3dp"
+                tools:ignore="UseAppTint" />
+
+            <ImageView
+                android:id="@+id/nextAlarmIconForCustomColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                android:scaleType="fitCenter"
+                tools:visibility="gone" />
+
+            <TextView
+                android:id="@+id/nextAlarm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:ellipsize="none"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:textColor="@color/next_alarm_widget_alarm_color"
+                tools:text="08:30"
+                tools:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/nextAlarmForCustomColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:ellipsize="none"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                tools:visibility="gone" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

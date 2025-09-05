@@ -138,12 +138,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
 
         // Create a remote view for the digital clock.
         final SharedPreferences prefs = getDefaultSharedPreferences(context);
-        final String packageName = context.getPackageName();
-        final boolean isBackgroundDisplayedOnWidget = WidgetDAO.isBackgroundDisplayedOnDigitalWidget(prefs);
-        final RemoteViews rv = new RemoteViews(packageName, isBackgroundDisplayedOnWidget
-                ? R.layout.standard_digital_widget_with_background
-                : R.layout.standard_digital_widget
-        );
+        final RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.standard_digital_widget);
 
         rv.setCharSequence(R.id.clock, "setFormat12Hour",
                 ClockUtils.get12ModeFormat(context, WidgetUtils.getAmPmRatio(false, prefs),
@@ -260,8 +255,12 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         }
 
         // Apply the color to the digital widget background.
-        int backgroundColor = WidgetDAO.getDigitalWidgetBackgroundColor(prefs);
-        rv.setInt(R.id.digitalWidgetBackground, "setBackgroundColor", backgroundColor);
+        if (WidgetDAO.isBackgroundDisplayedOnDigitalWidget(prefs)) {
+            int backgroundColor = WidgetDAO.getDigitalWidgetBackgroundColor(prefs);
+            rv.setInt(R.id.digitalWidgetBackground, "setBackgroundColor", backgroundColor);
+        } else {
+            rv.setInt(R.id.digitalWidgetBackground, "setBackgroundColor", Color.TRANSPARENT);
+        }
 
         return rv;
     }

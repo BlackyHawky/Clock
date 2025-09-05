@@ -107,11 +107,7 @@ public class NextAlarmAppWidgetProvider extends AppWidgetProvider {
 
         // Create a remote view for the next alarm.
         final SharedPreferences prefs = getDefaultSharedPreferences(context);
-        final String packageName = context.getPackageName();
-        final boolean isBackgroundDisplayedOnWidget = WidgetDAO.isBackgroundDisplayedOnNextAlarmWidget(prefs);
-        final RemoteViews rv = new RemoteViews(packageName, isBackgroundDisplayedOnWidget
-                ? R.layout.standard_next_alarm_widget_with_background
-                : R.layout.standard_next_alarm_widget);
+        final RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.standard_next_alarm_widget);
 
         // Tapping on the widget opens the app (if not on the lock screen).
         if (WidgetUtils.isWidgetClickable(wm, widgetId)) {
@@ -176,8 +172,13 @@ public class NextAlarmAppWidgetProvider extends AppWidgetProvider {
         }
 
         // Apply the color to the digital widget background.
-        int backgroundColor = WidgetDAO.getNextAlarmWidgetBackgroundColor(prefs);
-        rv.setInt(R.id.digitalWidgetBackground, "setBackgroundColor", backgroundColor);
+        if (WidgetDAO.isBackgroundDisplayedOnNextAlarmWidget(prefs)) {
+            int backgroundColor = WidgetDAO.getNextAlarmWidgetBackgroundColor(prefs);
+            rv.setInt(R.id.digitalWidgetBackground, "setBackgroundColor", backgroundColor);
+        } else {
+            rv.setInt(R.id.digitalWidgetBackground, "setBackgroundColor", Color.TRANSPARENT);
+        }
+
 
         if (options == null) {
             options = wm.getAppWidgetOptions(widgetId);

@@ -5,134 +5,147 @@
     SPDX-License-Identifier: Apache-2.0
 -->
 
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/material_you_vertical_digital_widget"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:gravity="center"
-    android:background="@drawable/material_you_vertical_digital_widget_background"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ellipsize="none"
-        android:includeFontPadding="false"
-        android:maxLines="1"
-        android:textColor="@color/widget_text_color"
-        tools:text="Sat. 20 Jan."
-        tools:textSize="18sp" />
-
-    <TextView
-        android:id="@+id/dateForCustomColor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ellipsize="none"
-        android:includeFontPadding="false"
-        android:maxLines="1"
-        tools:visibility="gone" />
-
-    <TextClock
-        android:id="@+id/clockHours"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:includeFontPadding="false"
-        android:ellipsize="none"
-        android:format12Hour="hh"
-        android:format24Hour="kk"
-        android:maxLines="1"
-        android:textColor="@color/vertical_digital_widget_hour_color"
-        tools:text="01"
-        tools:textSize="70sp" />
-
-    <TextClock
-        android:id="@+id/clockHoursForCustomColor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:includeFontPadding="false"
-        android:ellipsize="none"
-        android:format12Hour="hh"
-        android:format24Hour="kk"
-        android:maxLines="1"
-        tools:visibility="gone" />
-
-    <TextClock
-        android:id="@+id/clockMinutes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:includeFontPadding="false"
-        android:ellipsize="none"
-        android:format12Hour="mm"
-        android:format24Hour="mm"
-        android:maxLines="1"
-        android:textColor="@color/vertical_digital_widget_minute_color"
-        tools:text="20"
-        tools:textSize="70sp" />
-
-    <TextClock
-        android:id="@+id/clockMinutesForCustomColor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:includeFontPadding="false"
-        android:ellipsize="none"
-        android:format12Hour="mm"
-        android:format24Hour="mm"
-        android:maxLines="1"
-        tools:visibility="gone" />
+    <ImageView
+        android:id="@+id/materialYouDigitalWidgetBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        tools:src="@drawable/material_you_vertical_digital_widget_background" />
 
     <LinearLayout
-        android:id="@+id/digitalWidgetBottomView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center">
-
-        <!-- Do not use the App tint attribute, otherwise the icon will not
-        change color when the device mode (light or dark) changes. -->
-        <ImageView
-            android:id="@+id/nextAlarmIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:contentDescription="@null"
-            android:scaleType="centerInside"
-            android:tint="@color/widget_text_color"
-            tools:src="@drawable/ic_tab_alarm_static"
-            tools:paddingHorizontal="3dp"
-            tools:ignore="UseAppTint" />
-
-        <ImageView
-            android:id="@+id/nextAlarmIconForCustomColor"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:contentDescription="@null"
-            android:scaleType="centerInside"
-            tools:visibility="gone" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:layout_centerVertical="true">
 
         <TextView
-            android:id="@+id/nextAlarm"
+            android:id="@+id/date"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
+            android:layout_height="wrap_content"
             android:ellipsize="none"
             android:includeFontPadding="false"
             android:maxLines="1"
             android:textColor="@color/widget_text_color"
-            tools:text="Sat. 10:45 AM"
+            tools:text="Sat. 20 Jan."
             tools:textSize="18sp" />
 
         <TextView
-            android:id="@+id/nextAlarmForCustomColor"
+            android:id="@+id/dateForCustomColor"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
+            android:layout_height="wrap_content"
             android:ellipsize="none"
             android:includeFontPadding="false"
             android:maxLines="1"
             tools:visibility="gone" />
 
+        <TextClock
+            android:id="@+id/clockHours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:ellipsize="none"
+            android:format12Hour="hh"
+            android:format24Hour="kk"
+            android:maxLines="1"
+            android:textColor="@color/vertical_digital_widget_hour_color"
+            tools:text="01"
+            tools:textSize="70sp" />
+
+        <TextClock
+            android:id="@+id/clockHoursForCustomColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:ellipsize="none"
+            android:format12Hour="hh"
+            android:format24Hour="kk"
+            android:maxLines="1"
+            tools:visibility="gone" />
+
+        <TextClock
+            android:id="@+id/clockMinutes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:ellipsize="none"
+            android:format12Hour="mm"
+            android:format24Hour="mm"
+            android:maxLines="1"
+            android:textColor="@color/vertical_digital_widget_minute_color"
+            tools:text="20"
+            tools:textSize="70sp" />
+
+        <TextClock
+            android:id="@+id/clockMinutesForCustomColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:ellipsize="none"
+            android:format12Hour="mm"
+            android:format24Hour="mm"
+            android:maxLines="1"
+            tools:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/digitalWidgetBottomView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <!-- Do not use the App tint attribute, otherwise the icon will not
+            change color when the device mode (light or dark) changes. -->
+            <ImageView
+                android:id="@+id/nextAlarmIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:contentDescription="@null"
+                android:scaleType="centerInside"
+                android:tint="@color/widget_text_color"
+                tools:src="@drawable/ic_tab_alarm_static"
+                tools:paddingHorizontal="3dp"
+                tools:ignore="UseAppTint" />
+
+            <ImageView
+                android:id="@+id/nextAlarmIconForCustomColor"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:contentDescription="@null"
+                android:scaleType="centerInside"
+                tools:visibility="gone" />
+
+            <TextView
+                android:id="@+id/nextAlarm"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:ellipsize="none"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:textColor="@color/widget_text_color"
+                tools:text="Sat. 10:45 AM"
+                tools:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/nextAlarmForCustomColor"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:ellipsize="none"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                tools:visibility="gone" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

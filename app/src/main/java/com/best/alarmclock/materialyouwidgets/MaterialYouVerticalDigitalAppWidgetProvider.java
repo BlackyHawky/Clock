@@ -33,6 +33,8 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.Icon;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -141,6 +143,18 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends AppWidgetProvid
                 rv.setTextViewText(R.id.nextAlarmForCustomColor, nextAlarmTime);
                 rv.setTextColor(R.id.nextAlarmForCustomColor, customNextAlarmColor);
             }
+        }
+
+        // Apply the color to the widget background if it's displayed.
+        final Icon backgroundIcon = Icon.createWithResource(context, R.drawable.material_you_vertical_digital_widget_background);
+        rv.setIcon(R.id.materialYouDigitalWidgetBackground, "setImageIcon", backgroundIcon);
+
+        if (WidgetDAO.isBackgroundDisplayedOnMaterialYouVerticalDigitalWidget(prefs)) {
+            if (!WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultBackgroundColor(prefs)) {
+                backgroundIcon.setTint(WidgetDAO.getMaterialYouVerticalDigitalWidgetBackgroundColor(prefs));
+            }
+        } else {
+            backgroundIcon.setTint(Color.TRANSPARENT);
         }
 
         if (options == null) {

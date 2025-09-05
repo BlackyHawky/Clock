@@ -1369,6 +1369,8 @@
     <string name="widget_background_title">Display background</string>
     <!-- Title to set the background color on the digital widget. -->
     <string name="background_color_title">Background color</string>
+    <!-- Title to set the default background color. -->
+    <string name="background_default_color_title">Use default color for background</string>
     <!-- Title to show cities on the digital widget. -->
     <string name="display_city_title">Display cities on the widget</string>
     <!-- Title to display the date on the digital widget. -->
