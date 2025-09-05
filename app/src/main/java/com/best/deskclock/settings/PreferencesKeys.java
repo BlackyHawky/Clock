@@ -169,6 +169,14 @@ public class PreferencesKeys {
     public static final String KEY_ANALOG_WIDGET_CLOCK_DIAL = "key_analog_widget_clock_dial";
     public static final String KEY_ANALOG_WIDGET_WITH_SECOND_HAND = "key_analog_widget_with_second_hand";
     public static final String KEY_ANALOG_WIDGET_CLOCK_SECOND_HAND = "key_analog_widget_clock_second_hand";
+    public static final String KEY_ANALOG_WIDGET_DEFAULT_DIAL_COLOR = "key_analog_widget_default_dial_color";
+    public static final String KEY_ANALOG_WIDGET_CUSTOM_DIAL_COLOR = "key_analog_widget_custom_dial_color";
+    public static final String KEY_ANALOG_WIDGET_DEFAULT_HOUR_HAND_COLOR = "key_analog_widget_default_hour_hand_color";
+    public static final String KEY_ANALOG_WIDGET_CUSTOM_HOUR_HAND_COLOR = "key_analog_widget_custom_hour_hand_color";
+    public static final String KEY_ANALOG_WIDGET_DEFAULT_MINUTE_HAND_COLOR = "key_analog_widget_default_minute_hand_color";
+    public static final String KEY_ANALOG_WIDGET_CUSTOM_MINUTE_HAND_COLOR = "key_analog_widget_custom_minute_hand_color";
+    public static final String KEY_ANALOG_WIDGET_DEFAULT_SECOND_HAND_COLOR = "key_analog_widget_default_second_hand_color";
+    public static final String KEY_ANALOG_WIDGET_CUSTOM_SECOND_HAND_COLOR = "key_analog_widget_custom_second_hand_color";
 
     // Digital Widget
     public static final String KEY_DIGITAL_WIDGET_DISPLAY_SECONDS = "key_digital_widget_display_seconds";
@@ -220,8 +228,26 @@ public class PreferencesKeys {
     public static final String KEY_VERTICAL_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING = "key_vertical_digital_widget_apply_horizontal_padding";
 
     // Material You Analog Widget
-    public static final String KEY_MATERIAL_YOU_ANALOG_WIDGET_CLOCK_DIAL = "key_material_you_analog_widget_clock_dial";
-    public static final String KEY_MATERIAL_YOU_ANALOG_WIDGET_WITH_SECOND_HAND = "key_material_you_analog_widget_with_second_hand";
+    public static final String KEY_MATERIAL_YOU_ANALOG_WIDGET_CLOCK_DIAL =
+            "key_material_you_analog_widget_clock_dial";
+    public static final String KEY_MATERIAL_YOU_ANALOG_WIDGET_WITH_SECOND_HAND =
+            "key_material_you_analog_widget_with_second_hand";
+    public static final String KEY_MATERIAL_YOU_ANALOG_WIDGET_DEFAULT_DIAL_COLOR =
+            "key_material_you_analog_widget_default_dial_color";
+    public static final String KEY_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_DIAL_COLOR =
+            "key_material_you_analog_widget_custom_dial_color";
+    public static final String KEY_MATERIAL_YOU_ANALOG_WIDGET_DEFAULT_HOUR_HAND_COLOR =
+            "key_material_you_analog_widget_default_hour_hand_color";
+    public static final String KEY_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_HOUR_HAND_COLOR =
+            "key_material_you_analog_widget_custom_hour_hand_color";
+    public static final String KEY_MATERIAL_YOU_ANALOG_WIDGET_DEFAULT_MINUTE_HAND_COLOR =
+            "key_material_you_analog_widget_default_minute_hand_color";
+    public static final String KEY_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_MINUTE_HAND_COLOR =
+            "key_material_you_analog_widget_custom_minute_hand_color";
+    public static final String KEY_MATERIAL_YOU_ANALOG_WIDGET_DEFAULT_SECOND_HAND_COLOR =
+            "key_material_you_analog_widget_default_second_hand_color";
+    public static final String KEY_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_SECOND_HAND_COLOR =
+            "key_material_you_analog_widget_custom_second_hand_color";
 
     // Material You Digital Widget
     public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_SECONDS_DISPLAYED =

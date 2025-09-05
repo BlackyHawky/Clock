@@ -348,12 +348,12 @@
     <string name="default_time_to_add_to_timer_7_minutes">૭ મિનિટ</string>
     <string name="default_time_to_add_to_timer_8_minutes">૮ મિનિટ</string>
     <string name="clock_color_title">ઘડિયાળ નો રંગ</string>
-    <string name="seconds_hand_color_title">સેકેન્ડ હાથ નો રંગ</string>
+    <string name="second_hand_color_title">સેકેન્ડ હાથ નો રંગ</string>
     <string name="timer_channel">ટાઈમર</string>
     <string name="settings_language_english_us">આંગરગી(યુઍસ)</string>
     <string name="material_you_digital_widget">મટિરિયલ યૂ ડિજિટલ ઘડિયાળ</string>
     <string name="purple_accent_color">જાંબલી</string>
-    <string name="screensaver_date_color_title">તરીક નો રંગ</string>
+    <string name="date_color_title">તરીક નો રંગ</string>
     <string name="green_accent_color">લીલો</string>
     <string name="indigo_accent_color">ઇંડિગો</string>
     <string name="first_launch_dialog_message">પક્કું તમને આ એપ્લિકેશન થી બહાર નિકડવું છે?</string>

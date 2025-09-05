@@ -43,21 +43,37 @@ public class AnalogAppWidgetProvider extends AppWidgetProvider {
 
     private static RemoteViews relayoutWidget(Context context, AppWidgetManager wm, int widgetId) {
         SharedPreferences prefs = getDefaultSharedPreferences(context);
-        final String packageName = context.getPackageName();
-        final RemoteViews widget = new RemoteViews(packageName, R.layout.standard_analog_appwidget);
-        final boolean isSecondHandDisplayed = WidgetDAO.isSecondHandDisplayedOnAnalogWidget(prefs);
+        final RemoteViews widget = new RemoteViews(context.getPackageName(), R.layout.standard_analog_appwidget);
+        final Icon dialIcon = getAnalogClockDialIcon(context, WidgetDAO.getAnalogWidgetClockDial(prefs));
+        final Icon hourHandIcon = Icon.createWithResource(context, R.drawable.analog_clock_hour);
+        final Icon minuteHandIcon = Icon.createWithResource(context, R.drawable.analog_clock_minute);
+        final Icon secondHandIcon = Icon.createWithResource(context,
+                WidgetDAO.getAnalogWidgetClockSecondHand(prefs).equals(DEFAULT_CLOCK_SECOND_HAND)
+                        ? R.drawable.analog_clock_second
+                        : R.drawable.analog_clock_second_vintage);
 
-        // Handle dial
-        widget.setIcon(R.id.analogAppwidget, "setDial",
-                getAnalogClockDialIcon(context, WidgetDAO.getAnalogWidgetClockDial(prefs)));
+        widget.setIcon(R.id.analogAppwidget, "setDial", dialIcon);
+        widget.setIcon(R.id.analogAppwidget, "setHourHand", hourHandIcon);
+        widget.setIcon(R.id.analogAppwidget, "setMinuteHand", minuteHandIcon);
 
-        // Handle second hand
-        if (isSecondHandDisplayed) {
-            final Icon secondHandIcon = Icon.createWithResource(context,
-                    WidgetDAO.getAnalogWidgetClockSecondHand(prefs).equals(DEFAULT_CLOCK_SECOND_HAND)
-                            ? R.drawable.analog_clock_second
-                            : R.drawable.analog_clock_second_vintage);
+        if (!WidgetDAO.isAnalogWidgetDefaultDialColor(prefs)) {
+            dialIcon.setTint(WidgetDAO.getAnalogWidgetDialColor(prefs));
+        }
+
+        if (!WidgetDAO.isAnalogWidgetDefaultHourHandColor(prefs)) {
+            hourHandIcon.setTint(WidgetDAO.getAnalogWidgetHourHandColor(prefs));
+        }
+
+        if (!WidgetDAO.isAnalogWidgetDefaultMinuteHandColor(prefs)) {
+            minuteHandIcon.setTint(WidgetDAO.getAnalogWidgetMinuteHandColor(prefs));
+        }
+
+        if (WidgetDAO.isSecondHandDisplayedOnAnalogWidget(prefs)) {
             widget.setIcon(R.id.analogAppwidget, "setSecondHand", secondHandIcon);
+
+            if (!WidgetDAO.isAnalogWidgetDefaultSecondHandColor(prefs)) {
+                secondHandIcon.setTint(WidgetDAO.getAnalogWidgetSecondHandColor(prefs));
+            }
         } else {
             widget.setIcon(R.id.analogAppwidget, "setSecondHand", null);
         }

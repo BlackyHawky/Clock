@@ -83,7 +83,7 @@
 
         <com.rarepebble.colorpicker.ColorPreference
             android:key="key_screensaver_date_color_picker"
-            android:title="@string/screensaver_date_color_title"
+            android:title="@string/date_color_title"
             android:defaultValue="#FFFFFF"
             app:colorpicker_showAlpha="false"
             app:colorpicker_selectNoneButtonText="@string/label_default"
@@ -93,7 +93,7 @@
 
         <com.rarepebble.colorpicker.ColorPreference
             android:key="key_screensaver_next_alarm_color_picker"
-            android:title="@string/screensaver_next_alarm_color_title"
+            android:title="@string/next_alarm_color_title"
             android:defaultValue="#FFFFFF"
             app:colorpicker_showAlpha="false"
             app:colorpicker_selectNoneButtonText="@string/label_default"

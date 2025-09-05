@@ -99,7 +99,7 @@
 
         <com.rarepebble.colorpicker.ColorPreference
             android:key="key_alarm_seconds_hand_color"
-            android:title="@string/seconds_hand_color_title"
+            android:title="@string/second_hand_color_title"
             app:colorpicker_selectNoneButtonText="@string/label_default"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"

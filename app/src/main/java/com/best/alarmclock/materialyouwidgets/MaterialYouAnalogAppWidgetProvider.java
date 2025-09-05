@@ -37,18 +37,34 @@ public class MaterialYouAnalogAppWidgetProvider extends AppWidgetProvider {
 
     private static RemoteViews relayoutWidget(Context context, AppWidgetManager wm, int widgetId) {
         SharedPreferences prefs = getDefaultSharedPreferences(context);
-        final String packageName = context.getPackageName();
-        final RemoteViews widget = new RemoteViews(packageName, R.layout.material_you_analog_appwidget);
-        final boolean isSecondHandDisplayed = WidgetDAO.isSecondHandDisplayedOnMaterialYouAnalogWidget(prefs);
+        final RemoteViews widget = new RemoteViews(context.getPackageName(), R.layout.material_you_analog_appwidget);
+        final Icon dialIcon = getMaterialYouAnalogClockDialIcon(context, WidgetDAO.getMaterialYouAnalogWidgetClockDial(prefs));
+        final Icon hourHandIcon = Icon.createWithResource(context, R.drawable.material_you_analog_clock_hour);
+        final Icon minuteHandIcon = Icon.createWithResource(context, R.drawable.material_you_analog_clock_minute);
+        final Icon secondHandIcon = Icon.createWithResource(context, R.drawable.material_you_analog_clock_second);
 
-        // Handle dial
-        widget.setIcon(R.id.materialYouAnalogAppwidget, "setDial",
-                getMaterialYouAnalogClockDialIcon(context, WidgetDAO.getMaterialYouAnalogWidgetClockDial(prefs)));
+        widget.setIcon(R.id.materialYouAnalogAppwidget, "setDial", dialIcon);
+        widget.setIcon(R.id.materialYouAnalogAppwidget, "setHourHand", hourHandIcon);
+        widget.setIcon(R.id.materialYouAnalogAppwidget, "setMinuteHand", minuteHandIcon);
 
-        // Handle second hand
-        if (isSecondHandDisplayed) {
-            final Icon secondHandIcon = Icon.createWithResource(context, R.drawable.material_you_analog_clock_second);
+        if (!WidgetDAO.isMaterialYouAnalogWidgetDefaultDialColor(prefs)) {
+            dialIcon.setTint(WidgetDAO.getMaterialYouAnalogWidgetDialColor(prefs));
+        }
+
+        if (!WidgetDAO.isMaterialYouAnalogWidgetDefaultHourHandColor(prefs)) {
+            hourHandIcon.setTint(WidgetDAO.getMaterialYouAnalogWidgetHourHandColor(prefs));
+        }
+
+        if (!WidgetDAO.isMaterialYouAnalogWidgetDefaultMinuteHandColor(prefs)) {
+            minuteHandIcon.setTint(WidgetDAO.getMaterialYouAnalogWidgetMinuteHandColor(prefs));
+        }
+
+        if (WidgetDAO.isSecondHandDisplayedOnMaterialYouAnalogWidget(prefs)) {
             widget.setIcon(R.id.materialYouAnalogAppwidget, "setSecondHand", secondHandIcon);
+
+            if (!WidgetDAO.isMaterialYouAnalogWidgetDefaultSecondHandColor(prefs)) {
+                secondHandIcon.setTint(WidgetDAO.getMaterialYouAnalogWidgetSecondHandColor(prefs));
+            }
         } else {
             widget.setIcon(R.id.materialYouAnalogAppwidget, "setSecondHand", null);
         }

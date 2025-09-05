@@ -49,7 +49,7 @@
 
         <SwitchPreferenceCompat
             android:key="key_digital_widget_world_cities_displayed"
-            android:title="@string/digital_widget_city_title"
+            android:title="@string/display_city_title"
             android:defaultValue="true"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
@@ -57,7 +57,7 @@
 
         <SwitchPreferenceCompat
             android:key="key_digital_widget_default_clock_color"
-            android:title="@string/digital_widget_clock_default_color_title"
+            android:title="@string/clock_default_color_title"
             android:defaultValue="true"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
@@ -65,7 +65,7 @@
 
         <com.rarepebble.colorpicker.ColorPreference
             android:key="key_digital_widget_custom_clock_color"
-            android:title="@string/digital_widget_clock_custom_color_title"
+            android:title="@string/clock_color_title"
             android:defaultValue="#FFFFFF"
             app:colorpicker_showAlpha="false"
             app:colorpicker_selectNoneButtonText="@string/label_default"
@@ -83,7 +83,7 @@
 
         <SwitchPreferenceCompat
             android:key="key_digital_widget_default_date_color"
-            android:title="@string/digital_widget_date_default_color_title"
+            android:title="@string/date_default_color_title"
             android:defaultValue="true"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
@@ -91,7 +91,7 @@
 
         <com.rarepebble.colorpicker.ColorPreference
             android:key="key_digital_widget_custom_date_color"
-            android:title="@string/digital_widget_date_custom_color_title"
+            android:title="@string/date_color_title"
             android:defaultValue="#FFFFFF"
             app:colorpicker_showAlpha="false"
             app:colorpicker_selectNoneButtonText="@string/label_default"
@@ -109,7 +109,7 @@
 
         <SwitchPreferenceCompat
             android:key="key_digital_widget_default_next_alarm_color"
-            android:title="@string/widget_next_alarm_default_color_title"
+            android:title="@string/next_alarm_default_color_title"
             android:defaultValue="true"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
@@ -117,7 +117,7 @@
 
         <com.rarepebble.colorpicker.ColorPreference
             android:key="key_digital_widget_custom_next_alarm_color"
-            android:title="@string/widget_next_alarm_custom_color_title"
+            android:title="@string/next_alarm_color_title"
             android:defaultValue="#FFFFFF"
             app:colorpicker_showAlpha="false"
             app:colorpicker_selectNoneButtonText="@string/label_default"
@@ -127,7 +127,7 @@
 
         <SwitchPreferenceCompat
             android:key="key_digital_widget_default_city_clock_color"
-            android:title="@string/digital_widget_city_clock_default_color_title"
+            android:title="@string/city_clock_default_color_title"
             android:defaultValue="true"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
@@ -135,7 +135,7 @@
 
         <com.rarepebble.colorpicker.ColorPreference
             android:key="key_digital_widget_custom_city_clock_color"
-            android:title="@string/digital_widget_city_clock_custom_color_title"
+            android:title="@string/city_clock_color_title"
             android:defaultValue="#FFFFFF"
             app:colorpicker_showAlpha="false"
             app:colorpicker_selectNoneButtonText="@string/label_default"
@@ -145,7 +145,7 @@
 
         <SwitchPreferenceCompat
             android:key="key_digital_widget_default_city_name_color"
-            android:title="@string/digital_widget_city_name_default_color_title"
+            android:title="@string/city_name_default_color_title"
             android:defaultValue="true"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
@@ -153,7 +153,7 @@
 
         <com.rarepebble.colorpicker.ColorPreference
             android:key="key_digital_widget_custom_city_name_color"
-            android:title="@string/digital_widget_city_name_custom_color_title"
+            android:title="@string/city_name_color_title"
             android:defaultValue="#FFFFFF"
             app:colorpicker_showAlpha="false"
             app:colorpicker_selectNoneButtonText="@string/label_default"
@@ -179,7 +179,7 @@
 
         <com.best.deskclock.settings.CustomSeekbarPreference
             android:key="key_digital_widget_maximum_clock_font_size"
-            android:title="@string/digital_widget_max_clock_font_size_title"
+            android:title="@string/max_clock_font_size_title"
             android:summary="@string/label_default"
             android:defaultValue="70"
             android:max="200"

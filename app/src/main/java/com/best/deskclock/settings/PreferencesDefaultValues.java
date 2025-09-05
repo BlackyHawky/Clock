@@ -178,6 +178,10 @@ public class PreferencesDefaultValues {
     // Material You Analog Widget
     public static final String DEFAULT_MATERIAL_YOU_ANALOG_WIDGET_CLOCK_DIAL = "dial_sun";
     public static final String MATERIAL_YOU_ANALOG_WIDGET_CLOCK_DIAL_FLOWER = "dial_flower";
+    public static final int DEFAULT_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_DIAL_COLOR = Color.parseColor("#EEF0FF");
+    public static final int DEFAULT_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_HOUR_HAND_COLOR = Color.parseColor("#575E71");
+    public static final int DEFAULT_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_MINUTE_HAND_COLOR = Color.parseColor("#475D92");
+    public static final int DEFAULT_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_SECOND_HAND_COLOR = Color.parseColor("#725572");
 
     // Material You Digital Widget
     public static final boolean DEFAULT_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_SECONDS = false;

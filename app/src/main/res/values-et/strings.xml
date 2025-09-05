@@ -374,7 +374,6 @@
     <string name="about_title">Rakenduse teave</string>
     <string name="dialog_close">Sulge</string>
     <string name="alarm_created">Äratus on loodud</string>
-    <string name="widget_next_alarm_custom_color_title">Sinu valitud värv järgmise äratuse jaoks</string>
     <string name="screensaver_daydream_settings_summary">Järgnevaga avame Androidi ekraanisäästja seadistused</string>
     <string name="notifications_dialog_text">Lisaks äratamisele saad seda rakendust kasutada ka taimerina ja stopperina. \n \nEt kõik teavitused toimiksid korrektsel kõikide nende valikute, eriti aga äratuste, puhul, siis palun luba rakendusel kuvada teavitusi.</string>
     <string name="first_launch_main_feature_message">► Hele, tume või süsteemi poolt määratud kujundus; &lt;br&gt; &lt;br&gt; ► Kohandatav ekraanisäästja; &lt;br&gt; &lt;br&gt; ► Kohandatavad vidinad; &lt;br&gt; &lt;br&gt; ► Paanide tugi kiirseadistustes (alates Androidi versioonist 7); &lt;br&gt; &lt;br&gt; ► Rakenduse andmete varundamine ja taastamine (v.a. kohandatud helinad); &lt;br&gt; &lt;br&gt; ► Material design ja dünaamilised värvid; &lt;br&gt; &lt;br&gt; ► Äratuse lisamine kindlaks kuupäevaks; &lt;br&gt; &lt;br&gt;► Äratuse kustutamiseks viipa; &lt;br&gt; &lt;br&gt; ► Saad teha äratusest koopa; &lt;br&gt; &lt;br&gt; ► Kasuta pööramist ja raputamist äratusest loobumiseks või tema edasilükkamiseks; &lt;br&gt; &lt;br&gt; ► Saad lülitada äratuse välja või ta edasi lükata toimetnupuga või helivaljuse nuppudega; &lt;br&gt; &lt;br&gt; ► %s</string>
@@ -383,13 +382,13 @@
     <string name="default_time_to_add_to_timer_title">Taimerile lisatav vaikimisi aeg</string>
     <string name="screensaver_clock_dynamic_colors_title">Kella dünaamilised värvid</string>
     <string name="clock_color_title">Kella värv</string>
-    <string name="screensaver_date_color_title">Kuupäeva värv</string>
+    <string name="date_color_title">Kuupäeva värv</string>
     <string name="screensaver_bold_next_alarm_title">Kuva järgmine äratus paksus kirjas</string>
     <string name="screensaver_italic_next_alarm_title">Kuva järgmine äratus kaldkirjas</string>
-    <string name="widget_next_alarm_default_color_title">Kasuta järgmise äratuse jaoks vaikimisi värvi</string>
+    <string name="next_alarm_default_color_title">Kasuta järgmise äratuse jaoks vaikimisi värvi</string>
     <string name="FSN_dialog_text">Alates Androidi versioonist 14 on väljalülitatud ekraani puhul äratuste toimimiseks kohustuslik, et lubad sellele rakendusele õigused täisekraaniteavituste (Full Screen Notifications) kasutamiseks.</string>
     <string name="screensaver_daydream_settings">Kasuta ekraanisäästjat</string>
-    <string name="screensaver_next_alarm_color_title">Järgmise äratuse värv</string>
+    <string name="next_alarm_color_title">Järgmise äratuse värv</string>
     <string name="timer_settings_summary">Määra taimeritele vaikimisi helin, valjus ja järjestus</string>
     <string name="screensaver_settings_summary">Seadista ekraanisäästja stiili, värvi ja kirjatüüpi</string>
     <string name="screensaver_brightness_title">Eredus</string>
@@ -410,10 +409,10 @@
     <string name="first_launch_dialog_title">Välju</string>
     <string name="first_launch_dialog_message">Kas sa oled kindel, et soovid rakendusest väljuda?</string>
     <string name="background_color_title">Taustavärv</string>
-    <string name="digital_widget_city_title">Näita vidinas linnu</string>
-    <string name="digital_widget_clock_default_color_title">Kasuta põhikellana vaikimisi kella</string>
-    <string name="digital_widget_city_clock_custom_color_title">Vali linnade kellale oma värv</string>
-    <string name="digital_widget_max_clock_font_size_title">Kella põhivaate kirjatüübi suurim suurus</string>
+    <string name="display_city_title">Näita vidinas linnu</string>
+    <string name="clock_default_color_title">Kasuta põhikellana vaikimisi kella</string>
+    <string name="city_clock_color_title">Vali linnade kellale oma värv</string>
+    <string name="max_clock_font_size_title">Kella põhivaate kirjatüübi suurim suurus</string>
     <string name="FSN_dialog_title">Täisekraaniteavitused</string>
     <string name="permission_status_title">Olek: </string>
     <string name="permission_management_summary">Näita õigusi, mis on vajalikud rakenduse korrektseks toimimiseks</string>
@@ -435,12 +434,10 @@
     <string name="ignore_battery_optimizations_title">EIRA AKUKASUTUSE OPTIMEERIMIST</string>
     <string name="ignore_battery_optimizations_dialog_title">Akukasutuse optimeerimine</string>
     <string name="first_launch_important_info_message">Selleks, et olla kindel rakenduse korrektses toimimises, &lt;b&gt;vajavad mõned nutiseadme seadistused muutmist:&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;AKUKASUTUSE OPTIMEERIMINE;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;TEAVITUSED;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;Sõltuvalt sinu nutiseadme Androidi versioonist on mõned seadistused juba optimaalsed (nt. teavitused).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Sa võid neid muuta kas kohe või hiljem õiguste halduse vaatest:</string>
-    <string name="digital_widget_clock_custom_color_title">Vali kella põhivaatele oma värv</string>
-    <string name="digital_widget_date_default_color_title">Kasuta kuupäeva jaoks vaikimisi värve</string>
-    <string name="digital_widget_date_custom_color_title">Vali kuupäevale oma värv</string>
-    <string name="digital_widget_city_clock_default_color_title">Kasuta linnade kella jaoks oma värve</string>
-    <string name="digital_widget_city_name_default_color_title">Kasuta linnade nime jaoks vaikimisi värvi</string>
-    <string name="digital_widget_city_name_custom_color_title">Vali linnade nime jaoks oma värv</string>
+    <string name="date_default_color_title">Kasuta kuupäeva jaoks vaikimisi värve</string>
+    <string name="city_clock_default_color_title">Kasuta linnade kella jaoks oma värve</string>
+    <string name="city_name_default_color_title">Kasuta linnade nime jaoks vaikimisi värvi</string>
+    <string name="city_name_color_title">Vali linnade nime jaoks oma värv</string>
     <string name="permission_granted">Lubatud</string>
     <string name="digital_widget_message_summary">Selle seadistuse jaoks peab „Näita vidinas linnu“ olema välja lülitatud</string>
     <string name="notifications_dialog_title">Teavitused</string>
@@ -451,7 +448,7 @@
     <string name="alarm_clock_font_size">Äratuskella kirjatüübi suurus</string>
     <string name="alarm_title_font_size">Äratuse nime kirjatüübi suurus</string>
     <string name="transparent_background_for_expired_timer_title">Taimerite aegumisel kuva läbipaistev taust</string>
-    <string name="seconds_hand_color_title">Sekundiostuti värv</string>
+    <string name="second_hand_color_title">Sekundiostuti värv</string>
     <string name="alarm_title_color">Äratuse nime värv</string>
     <string name="whats_new_dialog_message">Vaata uuendusi:
 \n
@@ -462,10 +459,10 @@
     <string name="github_dialog_message">Külasta projekti lehte GitHubis:
 \n
 \n%s</string>
-    <string name="digital_widget_default_hours_color_title">Tundide jaoks kasuta vaikimisi värve</string>
-    <string name="digital_widget_custom_hours_color_title">Sinu valitud värvid tundide jaoks</string>
-    <string name="digital_widget_default_minutes_color_title">Minutite jaoks kasuta vaikimisi värve</string>
-    <string name="digital_widget_custom_minutes_color_title">Sinu valitud värvid minutite jaoks</string>
+    <string name="hour_default_color_title">Tundide jaoks kasuta vaikimisi värve</string>
+    <string name="hour_color_title">Sinu valitud värvid tundide jaoks</string>
+    <string name="minute_default_color_title">Minutite jaoks kasuta vaikimisi värve</string>
+    <string name="minute_color_title">Sinu valitud värvid minutite jaoks</string>
     <string name="material_you_vertical_digital_widget">Material You kujunduses püstine digikell</string>
     <string name="standard_category_title">Tavavälimus</string>
     <string name="material_you_category_title">Material You</string>
@@ -474,12 +471,11 @@
     <string name="widgets_settings">Vidinad</string>
     <string name="settings_tab_indicator_title">Kuva menüü lõpus vahekaartide näidikut</string>
     <string name="material_you_next_alarm_widget">Järgmine Material You kujunduses äratus</string>
-    <string name="next_alarm_widget_custom_title_color">Vali „Järgmise äratuse“ ja „Järgmist äratust pole“ pealkirjade jaoks oma värv</string>
-    <string name="next_alarm_widget_default_alarm_title_color">Kasuta äratuse pealkirja jaoks vaikimisi värvi</string>
-    <string name="next_alarm_widget_custom_alarm_title_color">Vali äratuse pealkirja jaoks oma värv</string>
-    <string name="next_alarm_widget_max_font_size_title">Vidina kirjatüübi maksimaalne suurus</string>
+    <string name="next_alarm_no_upcoming_alarm_titles_color">Vali „Järgmise äratuse“ ja „Järgmist äratust pole“ pealkirjade jaoks oma värv</string>
+    <string name="alarm_title_default_color">Kasuta äratuse pealkirja jaoks vaikimisi värvi</string>
+    <string name="widget_max_font_size_title">Vidina kirjatüübi maksimaalne suurus</string>
     <string name="next_alarm_widget_text">Järgmine äratus</string>
-    <string name="next_alarm_widget_default_title_color">Kasuta „Järgmise äratuse“ ja „Järgmist äratust pole“ pealkirjade jaoks vaikimisi värvi</string>
+    <string name="next_alarm_no_upcoming_alarm_titles_default_color">Kasuta „Järgmise äratuse“ ja „Järgmist äratust pole“ pealkirjade jaoks vaikimisi värvi</string>
     <string name="next_alarm_widget_title_no_alarm">Järgmisi äratusi ei leidu</string>
     <string name="settings_fade_transitions_title">Ekraanivaadete vahetamisel kasuta üleminekutel hajutamist</string>
     <string name="next_alarm_widget">Järgmine äratus</string>

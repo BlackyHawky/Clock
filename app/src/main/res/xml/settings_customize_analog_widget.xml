@@ -8,7 +8,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <PreferenceCategory
-        android:title="@string/style_category_title"
+        android:title="@string/styles_and_colors_category_title"
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false"
         tools:layout="@layout/settings_preference_category_layout">
@@ -37,6 +37,74 @@
             android:entries="@array/clock_second_hand_entries"
             android:entryValues="@array/clock_second_hand_values"
             android:defaultValue="default"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <SwitchPreferenceCompat
+            android:key="key_analog_widget_default_dial_color"
+            android:title="@string/dial_default_color_title"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <com.rarepebble.colorpicker.ColorPreference
+            android:key="key_analog_widget_custom_dial_color"
+            android:title="@string/dial_color_title"
+            android:defaultValue="#FFFFFF"
+            app:colorpicker_selectNoneButtonText="@string/label_default"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <SwitchPreferenceCompat
+            android:key="key_analog_widget_default_hour_hand_color"
+            android:title="@string/hour_hand_default_color_title"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <com.rarepebble.colorpicker.ColorPreference
+            android:key="key_analog_widget_custom_hour_hand_color"
+            android:title="@string/hour_hand_color_title"
+            android:defaultValue="#FFFFFF"
+            app:colorpicker_selectNoneButtonText="@string/label_default"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <SwitchPreferenceCompat
+            android:key="key_analog_widget_default_minute_hand_color"
+            android:title="@string/minute_hand_default_color_title"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <com.rarepebble.colorpicker.ColorPreference
+            android:key="key_analog_widget_custom_minute_hand_color"
+            android:title="@string/minute_hand_color_title"
+            android:defaultValue="#FFFFFF"
+            app:colorpicker_selectNoneButtonText="@string/label_default"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <SwitchPreferenceCompat
+            android:key="key_analog_widget_default_second_hand_color"
+            android:title="@string/second_hand_default_color_title"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <com.rarepebble.colorpicker.ColorPreference
+            android:key="key_analog_widget_custom_second_hand_color"
+            android:title="@string/second_hand_color_title"
+            android:defaultValue="#FFFFFF"
+            app:colorpicker_selectNoneButtonText="@string/label_default"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />

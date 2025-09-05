@@ -43,9 +43,10 @@ public final class WidgetDAO {
     // *******************
 
     /**
-     * @return the dial applied to the clock in the analog widget.
+     * @return the dial applied to the clock on the analog widget.
      */
     public static String getAnalogWidgetClockDial(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_analog_widget.xml
         return prefs.getString(KEY_ANALOG_WIDGET_CLOCK_DIAL, DEFAULT_ANALOG_WIDGET_CLOCK_DIAL);
     }
 
@@ -53,6 +54,7 @@ public final class WidgetDAO {
      * @return {@code true} if the second hand is displayed on the analog widget; {@code false} otherwise.
      */
     public static boolean isSecondHandDisplayedOnAnalogWidget(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_analog_widget.xml
         return prefs.getBoolean(KEY_ANALOG_WIDGET_WITH_SECOND_HAND, DEFAULT_ANALOG_WIDGET_WITH_SECOND_HAND);
     }
 
@@ -60,7 +62,76 @@ public final class WidgetDAO {
      * @return the clock second hand displayed on the analog widget.
      */
     public static String getAnalogWidgetClockSecondHand(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_analog_widget.xml
         return prefs.getString(KEY_ANALOG_WIDGET_CLOCK_SECOND_HAND, DEFAULT_CLOCK_SECOND_HAND);
+    }
+
+    /**
+     * @return {@code true} if the default color is applied to the dial on the analog widget;
+     * {@code false} otherwise.
+     */
+    public static boolean isAnalogWidgetDefaultDialColor(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_analog_widget.xml
+        return prefs.getBoolean(KEY_ANALOG_WIDGET_DEFAULT_DIAL_COLOR, DEFAULT_WIDGETS_DEFAULT_COLOR);
+    }
+
+    /**
+     * @return a value indicating the dial color on the analog widget.
+     */
+    public static int getAnalogWidgetDialColor(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_analog_widget.xml
+        return prefs.getInt(KEY_ANALOG_WIDGET_CUSTOM_DIAL_COLOR, DEFAULT_WIDGETS_CUSTOM_COLOR);
+    }
+
+    /**
+     * @return {@code true} if the default color is applied to the hour hand on the analog widget;
+     * {@code false} otherwise.
+     */
+    public static boolean isAnalogWidgetDefaultHourHandColor(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_analog_widget.xml
+        return prefs.getBoolean(KEY_ANALOG_WIDGET_DEFAULT_HOUR_HAND_COLOR, DEFAULT_WIDGETS_DEFAULT_COLOR);
+    }
+
+    /**
+     * @return a value indicating the hour hand color on the analog widget.
+     */
+    public static int getAnalogWidgetHourHandColor(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_analog_widget.xml
+        return prefs.getInt(KEY_ANALOG_WIDGET_CUSTOM_HOUR_HAND_COLOR, DEFAULT_WIDGETS_CUSTOM_COLOR);
+    }
+
+    /**
+     * @return {@code true} if the default color is applied to the minute hand on the analog widget;
+     * {@code false} otherwise.
+     */
+    public static boolean isAnalogWidgetDefaultMinuteHandColor(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_analog_widget.xml
+        return prefs.getBoolean(KEY_ANALOG_WIDGET_DEFAULT_MINUTE_HAND_COLOR, DEFAULT_WIDGETS_DEFAULT_COLOR);
+    }
+
+    /**
+     * @return a value indicating the minute hand color on the analog widget.
+     */
+    public static int getAnalogWidgetMinuteHandColor(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_analog_widget.xml
+        return prefs.getInt(KEY_ANALOG_WIDGET_CUSTOM_MINUTE_HAND_COLOR, DEFAULT_WIDGETS_CUSTOM_COLOR);
+    }
+
+    /**
+     * @return {@code true} if the default color is applied to the second hand on the analog widget;
+     * {@code false} otherwise.
+     */
+    public static boolean isAnalogWidgetDefaultSecondHandColor(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_analog_widget.xml
+        return prefs.getBoolean(KEY_ANALOG_WIDGET_DEFAULT_SECOND_HAND_COLOR, DEFAULT_WIDGETS_DEFAULT_COLOR);
+    }
+
+    /**
+     * @return a value indicating the second hand color on the analog widget.
+     */
+    public static int getAnalogWidgetSecondHandColor(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_analog_widget.xml
+        return prefs.getInt(KEY_ANALOG_WIDGET_CUSTOM_SECOND_HAND_COLOR, DEFAULT_WIDGETS_CUSTOM_COLOR);
     }
 
     // ********************
@@ -398,9 +469,10 @@ public final class WidgetDAO {
     // ********************************
 
     /**
-     * @return the dial applied to the clock in the Material You analog widget.
+     * @return the dial applied to the clock on the Material You analog widget.
      */
     public static String getMaterialYouAnalogWidgetClockDial(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_material_you_analog_widget.xml
         return prefs.getString(KEY_MATERIAL_YOU_ANALOG_WIDGET_CLOCK_DIAL, DEFAULT_MATERIAL_YOU_ANALOG_WIDGET_CLOCK_DIAL);
     }
 
@@ -409,7 +481,80 @@ public final class WidgetDAO {
      * {@code false} otherwise.
      */
     public static boolean isSecondHandDisplayedOnMaterialYouAnalogWidget(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_material_you_analog_widget.xml
         return prefs.getBoolean(KEY_MATERIAL_YOU_ANALOG_WIDGET_WITH_SECOND_HAND, DEFAULT_ANALOG_WIDGET_WITH_SECOND_HAND);
+    }
+
+    /**
+     * @return {@code true} if the default color is applied to the dial on the Material You analog widget;
+     * {@code false} otherwise.
+     */
+    public static boolean isMaterialYouAnalogWidgetDefaultDialColor(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_material_you_analog_widget.xml
+        return prefs.getBoolean(KEY_MATERIAL_YOU_ANALOG_WIDGET_DEFAULT_DIAL_COLOR, DEFAULT_WIDGETS_DEFAULT_COLOR);
+    }
+
+    /**
+     * @return a value indicating the dial color on the Material You analog widget.
+     */
+    public static int getMaterialYouAnalogWidgetDialColor(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_material_you_analog_widget.xml
+        return prefs.getInt(KEY_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_DIAL_COLOR,
+                DEFAULT_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_DIAL_COLOR);
+    }
+
+    /**
+     * @return {@code true} if the default color is applied to the hour hand on the Material You analog widget;
+     * {@code false} otherwise.
+     */
+    public static boolean isMaterialYouAnalogWidgetDefaultHourHandColor(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_material_you_analog_widget.xml
+        return prefs.getBoolean(KEY_MATERIAL_YOU_ANALOG_WIDGET_DEFAULT_HOUR_HAND_COLOR, DEFAULT_WIDGETS_DEFAULT_COLOR);
+    }
+
+    /**
+     * @return a value indicating the hour hand color on the Material You analog widget.
+     */
+    public static int getMaterialYouAnalogWidgetHourHandColor(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_material_you_analog_widget.xml
+        return prefs.getInt(KEY_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_HOUR_HAND_COLOR,
+                DEFAULT_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_HOUR_HAND_COLOR);
+    }
+
+    /**
+     * @return {@code true} if the default color is applied to the minute hand on the Material You analog widget;
+     * {@code false} otherwise.
+     */
+    public static boolean isMaterialYouAnalogWidgetDefaultMinuteHandColor(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_material_you_analog_widget.xml
+        return prefs.getBoolean(KEY_MATERIAL_YOU_ANALOG_WIDGET_DEFAULT_MINUTE_HAND_COLOR, DEFAULT_WIDGETS_DEFAULT_COLOR);
+    }
+
+    /**
+     * @return a value indicating the minute hand color on the Material You analog widget.
+     */
+    public static int getMaterialYouAnalogWidgetMinuteHandColor(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_material_you_analog_widget.xml
+        return prefs.getInt(KEY_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_MINUTE_HAND_COLOR,
+                DEFAULT_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_MINUTE_HAND_COLOR);
+    }
+
+    /**
+     * @return {@code true} if the default color is applied to the second hand on the Material You analog widget;
+     * {@code false} otherwise.
+     */
+    public static boolean isMaterialYouAnalogWidgetDefaultSecondHandColor(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_material_you_analog_widget.xml
+        return prefs.getBoolean(KEY_MATERIAL_YOU_ANALOG_WIDGET_DEFAULT_SECOND_HAND_COLOR, DEFAULT_WIDGETS_DEFAULT_COLOR);
+    }
+
+    /**
+     * @return a value indicating the second hand color on the Material You analog widget.
+     */
+    public static int getMaterialYouAnalogWidgetSecondHandColor(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_material_you_analog_widget.xml
+        return prefs.getInt(KEY_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_SECOND_HAND_COLOR,
+                DEFAULT_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_SECOND_HAND_COLOR);
     }
 
     // *********************************

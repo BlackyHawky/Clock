@@ -145,7 +145,7 @@ public class MaterialYouDigitalWidgetSettingsFragment extends ScreenFragment
                 if ((boolean) newValue) {
                     mDigitalWidgetMaxClockFontSizePref.setTitle(R.string.digital_widget_message_summary);
                 } else {
-                    mDigitalWidgetMaxClockFontSizePref.setTitle(R.string.digital_widget_max_clock_font_size_title);
+                    mDigitalWidgetMaxClockFontSizePref.setTitle(R.string.max_clock_font_size_title);
                 }
                 Utils.setVibrationTime(requireContext(), 50);
             }
@@ -231,11 +231,11 @@ public class MaterialYouDigitalWidgetSettingsFragment extends ScreenFragment
                 mDigitalWidgetMaxClockFontSizePref.setTitle(R.string.digital_widget_message_summary);
             } else {
                 mDigitalWidgetMaxClockFontSizePref.setEnabled(true);
-                mDigitalWidgetMaxClockFontSizePref.setTitle(R.string.digital_widget_max_clock_font_size_title);
+                mDigitalWidgetMaxClockFontSizePref.setTitle(R.string.max_clock_font_size_title);
             }
         } else {
             mDigitalWidgetMaxClockFontSizePref.setEnabled(true);
-            mDigitalWidgetMaxClockFontSizePref.setTitle(R.string.digital_widget_max_clock_font_size_title);
+            mDigitalWidgetMaxClockFontSizePref.setTitle(R.string.max_clock_font_size_title);
         }
 
         mDefaultClockColorPref.setOnPreferenceChangeListener(this);
