@@ -9,7 +9,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <PreferenceCategory
-        android:title="@string/styles_and_colors_category_title"
+        android:title="@string/style_category_title"
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false"
         tools:layout="@layout/settings_preference_category_layout">
@@ -31,12 +31,44 @@
             tools:layout="@layout/settings_preference_layout" />
 
         <SwitchPreferenceCompat
+            android:key="key_material_you_digital_widget_display_date"
+            android:title="@string/display_date_title"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <SwitchPreferenceCompat
+            android:key="key_material_you_digital_widget_display_next_alarm"
+            android:title="@string/display_next_alarm_title"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <SwitchPreferenceCompat
             android:key="key_material_you_digital_widget_world_cities_displayed"
             android:title="@string/display_city_title"
             android:defaultValue="true"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
+
+        <SwitchPreferenceCompat
+            android:key="key_material_you_digital_widget_apply_horizontal_padding"
+            android:title="@string/widget_apply_horizontal_padding_title"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/colors_category_title"
+        app:allowDividerAbove="false"
+        app:iconSpaceReserved="false"
+        tools:layout="@layout/settings_preference_category_layout">
 
         <SwitchPreferenceCompat
             android:key="key_material_you_digital_widget_default_clock_color"
@@ -57,14 +89,6 @@
             tools:layout="@layout/settings_preference_layout" />
 
         <SwitchPreferenceCompat
-            android:key="key_material_you_digital_widget_display_date"
-            android:title="@string/display_date_title"
-            android:defaultValue="true"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
-
-        <SwitchPreferenceCompat
             android:key="key_material_you_digital_widget_default_date_color"
             android:title="@string/date_default_color_title"
             android:defaultValue="true"
@@ -78,14 +102,6 @@
             android:defaultValue="#FFFFFF"
             app:colorpicker_showAlpha="false"
             app:colorpicker_selectNoneButtonText="@string/label_default"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
-
-        <SwitchPreferenceCompat
-            android:key="key_material_you_digital_widget_display_next_alarm"
-            android:title="@string/display_next_alarm_title"
-            android:defaultValue="true"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
@@ -140,14 +156,6 @@
             android:defaultValue="#FFFFFF"
             app:colorpicker_showAlpha="false"
             app:colorpicker_selectNoneButtonText="@string/label_default"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
-
-        <SwitchPreferenceCompat
-            android:key="key_material_you_digital_widget_apply_horizontal_padding"
-            android:title="@string/widget_apply_horizontal_padding_title"
-            android:defaultValue="true"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />

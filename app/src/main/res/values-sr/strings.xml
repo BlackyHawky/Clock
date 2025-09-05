@@ -467,7 +467,6 @@
     <string name="clock_color_title">Боја сата</string>
     <string name="material_time_picker_style_title">Стил бирача времена</string>
     <string name="style_category_title">Стил</string>
-    <string name="styles_and_colors_category_title">Стил и боје</string>
     <string name="first_launch_important_info_title">ВАЖНА ИНФОРМАЦИЈА</string>
     <string name="delete_occasional_alarm_after_use_title">Обришите аларм након одбацивања</string>
     <string name="alarm_alert_dismiss_and_delete_text">Одбаци и обриши</string>

@@ -407,7 +407,6 @@
     <string name="settings_permission_message">허용하지 않은 필수 권한이 있습니다. 권한을 허용하지 않으면 앱이 정상적으로 동작하지 않을 수 있습니다.</string>
     <string name="settings_permission_summary">여기를 눌러 권한 관리 페이지를 열 수 있습니다.</string>
     <string name="style_category_title">스타일</string>
-    <string name="styles_and_colors_category_title">스타일 및 색상</string>
     <string name="font_category_title">폰트</string>
     <string name="power_button_title">전원 버튼</string>
     <string name="sort_timer_descending_duration">길이 (내림차순)</string>

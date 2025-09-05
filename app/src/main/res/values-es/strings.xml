@@ -345,7 +345,6 @@
     <string name="interface_customization_settings">Interfaz</string>
     <string name="settings_permission_message">No se han concedido uno o más permisos esenciales. No concederlos puede causar problemas de funcionamiento.</string>
     <string name="style_category_title">Estilo</string>
-    <string name="styles_and_colors_category_title">Estilo y colores</string>
     <string name="font_category_title">Tipo de letra</string>
     <string name="miscellaneous_category_title">Diversos</string>
     <string name="title_theme">Tema</string>

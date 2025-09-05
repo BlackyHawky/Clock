@@ -356,7 +356,6 @@
     <string name="auto_night_accent_color_title">ナイトモードにアクセントカラーを適用</string>
     <string name="night_accent_color_title">ナイトモードのアクセントカラー</string>
     <string name="settings_language_title">言語</string>
-    <string name="styles_and_colors_category_title">スタイルと色</string>
     <string name="permission_highly_recommended">強く推奨</string>
     <string name="font_category_title">フォント</string>
     <string name="permission_denied">未付与</string>

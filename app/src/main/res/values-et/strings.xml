@@ -346,7 +346,6 @@
     <string name="actions_category_title">Tegevused</string>
     <string name="interface_customization_settings">Kasutajaliides</string>
     <string name="style_category_title">Välimus</string>
-    <string name="styles_and_colors_category_title">Stiil ja värvid</string>
     <string name="alarm_notification_reminder_title">Teavituse meeldetuletus</string>
     <string name="enable_alarm_vibrations_by_default_setting_title">Äratuse puhul lülita vibreerimine sisse</string>
     <string name="timer_add_custom_time">+ %s</string>

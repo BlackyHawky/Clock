@@ -372,7 +372,6 @@
     <string name="notifications_permission_title">УВІМКНУТИ СПОВІЩЕННЯ</string>
     <string name="selected">Вибрано</string>
     <string name="more_options">Додаткові опції</string>
-    <string name="styles_and_colors_category_title">Стиль і кольори</string>
     <string name="duplicate">Дублювати</string>
     <string name="settings_permission_summary">Натисніть тут, щоб відкрити сторінку керування дозволами.</string>
     <string name="settings_permission_message">Відмовлено в одному або декількох важливих дозволах. Якщо їх не надати, це може призвести до збоїв у роботі.</string>

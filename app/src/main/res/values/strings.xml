@@ -245,8 +245,8 @@
     <string name="settings_permission_summary">Click here to display the Permissions management page.</string>
     <!-- Category title for style settings. -->
     <string name="style_category_title">Style</string>
-    <!-- Category title for styles and colors -->
-    <string name="styles_and_colors_category_title">Style and colors</string>
+    <!-- Category title for color settings. -->
+    <string name="colors_category_title">Colors</string>
     <!-- Category title for font -->
     <string name="font_category_title">Font</string>
     <!-- Category title for miscellaneous settings -->

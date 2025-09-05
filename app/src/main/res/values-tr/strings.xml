@@ -393,7 +393,6 @@
     <string name="selected">Seçildi</string>
     <string name="alarm_alert_dismiss_and_delete_text">Kapat &amp; Sil</string>
     <string name="analog_widget_material_you">Analog Material You saati</string>
-    <string name="styles_and_colors_category_title">Stil ve renkler</string>
     <string name="clock_settings_summary">Stili, zaman dilimini ve cihazın tarih ve zamanını ayarlayın</string>
     <string name="description_direction_both_for_occasional_alarm">Alarmı ertelemek için sola, kapatıp silmek için sağa kaydırın</string>
     <string name="clock_color_title">Saat rengi</string>

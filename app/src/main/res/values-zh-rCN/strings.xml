@@ -407,7 +407,6 @@
     <string name="alarm_label_box_title">闹钟标签</string>
     <string name="settings_permission_summary">点击此处显示权限管理页面。</string>
     <string name="style_category_title">样式</string>
-    <string name="styles_and_colors_category_title">样式和颜色</string>
     <string name="font_category_title">字体</string>
     <string name="miscellaneous_category_title">杂项</string>
     <string name="ringtone_category_title">铃声</string>

@@ -365,7 +365,6 @@
     <string name="actions_category_title">Akce</string>
     <string name="title_accent_color">Barva aplikace</string>
     <string name="settings_permission_summary">Klepněte sem pro zobrazení správy oprávnění.</string>
-    <string name="styles_and_colors_category_title">Styl a barvy</string>
     <string name="miscellaneous_category_title">Různé</string>
     <string name="interface_customization_settings">Rozhraní</string>
     <string name="settings_permission_message">Jedno nebo více základních oprávnění nebylo uděleno. Jejich neudělení může vést k chybám.</string>

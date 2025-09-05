@@ -504,7 +504,6 @@
     <string name="first_launch_dialog_title">Zakończ</string>
     <string name="occasional_alarm_alert_predismiss_title">Nadchodzący alarm okazjonalny</string>
     <string name="settings_permission_summary">Kliknij tutaj, aby wyświetlić stronę zarządzania uprawnieniami.</string>
-    <string name="styles_and_colors_category_title">Styl i kolory</string>
     <string name="font_category_title">Czcionka</string>
     <string name="miscellaneous_category_title">Różne</string>
     <string name="ringtone_category_title">Dzwonek</string>

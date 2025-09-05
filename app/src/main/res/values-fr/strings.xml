@@ -100,7 +100,6 @@
     <string name="settings_permission_summary">Cliquez ici pour afficher la page de Gestion des autorisations.</string>
     <string name="interface_customization_settings">Interface</string>
     <string name="style_category_title">Style</string>
-    <string name="styles_and_colors_category_title">Style et couleurs</string>
     <string name="font_category_title">Police de caractères</string>
     <string name="interface_customization_summary">Définit le style et la couleur appliqués à l\'application</string>
     <string name="miscellaneous_category_title">Divers</string>

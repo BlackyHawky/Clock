@@ -436,7 +436,6 @@
     <string name="city_name_default_color_title">Standaardkleur voor stadsnaam</string>
     <string name="city_name_color_title">Aangepaste kleur voor stadsnaam</string>
     <string name="max_clock_font_size_title">Maximum lettergrootte van de klok</string>
-    <string name="styles_and_colors_category_title">Stijl en kleuren</string>
     <string name="miscellaneous_category_title">Overig</string>
     <string name="ringtone_category_title">Geluid</string>
     <string name="enable_alarm_vibrations_by_default_setting_title">Trillen bij het maken van wekkers</string>

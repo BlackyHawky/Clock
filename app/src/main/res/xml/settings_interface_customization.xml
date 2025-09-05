@@ -9,7 +9,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <PreferenceCategory
-        android:title="@string/styles_and_colors_category_title"
+        android:title="@string/style_category_title"
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false"
         tools:layout="@layout/settings_preference_category_layout">
@@ -30,34 +30,6 @@
             android:defaultValue="0"
             android:entries="@array/dark_theme_mode_array_theme"
             android:entryValues="@array/dark_theme_mode_setting_values"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
-
-        <ListPreference
-            android:key="key_accent_color"
-            android:defaultValue="0"
-            android:entries="@array/array_accent_color"
-            android:entryValues="@array/accent_color_setting_entries"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:title="@string/title_accent_color"
-            tools:layout="@layout/settings_preference_layout" />
-
-        <SwitchPreferenceCompat
-            android:key="key_auto_night_accent_color"
-            android:title="@string/auto_night_accent_color_title"
-            android:defaultValue="true"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
-
-        <ListPreference
-            android:key="key_night_accent_color"
-            android:title="@string/night_accent_color_title"
-            android:defaultValue="0"
-            android:entries="@array/array_accent_color"
-            android:entryValues="@array/accent_color_setting_entries"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
@@ -102,6 +74,42 @@
             android:key="key_tab_indicator"
             android:title="@string/settings_tab_indicator_title"
             android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/colors_category_title"
+        app:allowDividerAbove="false"
+        app:iconSpaceReserved="false"
+        tools:layout="@layout/settings_preference_category_layout">
+
+        <ListPreference
+            android:key="key_accent_color"
+            android:defaultValue="0"
+            android:entries="@array/array_accent_color"
+            android:entryValues="@array/accent_color_setting_entries"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:title="@string/title_accent_color"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <SwitchPreferenceCompat
+            android:key="key_auto_night_accent_color"
+            android:title="@string/auto_night_accent_color_title"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <ListPreference
+            android:key="key_night_accent_color"
+            android:title="@string/night_accent_color_title"
+            android:defaultValue="0"
+            android:entries="@array/array_accent_color"
+            android:entryValues="@array/accent_color_setting_entries"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />

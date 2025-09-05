@@ -9,7 +9,23 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <PreferenceCategory
-        android:title="@string/styles_and_colors_category_title"
+        android:title="@string/style_category_title"
+        app:allowDividerAbove="false"
+        app:iconSpaceReserved="false"
+        tools:layout="@layout/settings_preference_category_layout">
+
+        <SwitchPreferenceCompat
+            android:key="key_material_you_next_alarm_widget_apply_horizontal_padding"
+            android:title="@string/widget_apply_horizontal_padding_title"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/colors_category_title"
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false"
         tools:layout="@layout/settings_preference_category_layout">
@@ -64,14 +80,6 @@
             android:defaultValue="#FFFFFF"
             app:colorpicker_showAlpha="false"
             app:colorpicker_selectNoneButtonText="@string/label_default"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
-
-        <SwitchPreferenceCompat
-            android:key="key_material_you_next_alarm_widget_apply_horizontal_padding"
-            android:title="@string/widget_apply_horizontal_padding_title"
-            android:defaultValue="true"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
