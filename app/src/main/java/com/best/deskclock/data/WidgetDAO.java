@@ -56,6 +56,13 @@ public final class WidgetDAO {
         return prefs.getBoolean(KEY_ANALOG_WIDGET_WITH_SECOND_HAND, DEFAULT_ANALOG_WIDGET_WITH_SECOND_HAND);
     }
 
+    /**
+     * @return the clock second hand displayed on the analog widget.
+     */
+    public static String getAnalogWidgetClockSecondHand(SharedPreferences prefs) {
+        return prefs.getString(KEY_ANALOG_WIDGET_CLOCK_SECOND_HAND, DEFAULT_CLOCK_SECOND_HAND);
+    }
+
     // ********************
     // ** DIGITAL WIDGET **
     // ********************

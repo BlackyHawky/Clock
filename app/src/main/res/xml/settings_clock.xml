@@ -51,6 +51,16 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
+        <ListPreference
+            android:key="key_clock_second_hand"
+            android:title="@string/clock_second_hand_title"
+            android:entries="@array/clock_second_hand_entries"
+            android:entryValues="@array/clock_second_hand_values"
+            android:defaultValue="default"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

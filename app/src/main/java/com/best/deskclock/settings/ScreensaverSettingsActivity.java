@@ -11,6 +11,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_CLOCK_
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_CLOCK_DIAL;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_CLOCK_DIAL_MATERIAL;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_CLOCK_DYNAMIC_COLORS;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_CLOCK_SECOND_HAND;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_CLOCK_STYLE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_DATE_COLOR_PICKER;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_DATE_IN_BOLD;
@@ -34,6 +35,7 @@ import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
+import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.screensaver.ScreensaverActivity;
@@ -79,6 +81,7 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
         ListPreference mClockStylePref;
         ListPreference mClockDialPref;
         ListPreference mClockDialMaterialPref;
+        ListPreference mClockSecondHandPref;
         SwitchPreferenceCompat mDisplaySecondsPref;
         SwitchPreferenceCompat mBoldDigitalClockPref;
         SwitchPreferenceCompat mClockDynamicColorPref;
@@ -105,6 +108,7 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
             mClockDialPref = findPreference(KEY_SCREENSAVER_CLOCK_DIAL);
             mClockDialMaterialPref = findPreference(KEY_SCREENSAVER_CLOCK_DIAL_MATERIAL);
             mDisplaySecondsPref = findPreference(KEY_DISPLAY_SCREENSAVER_CLOCK_SECONDS);
+            mClockSecondHandPref = findPreference(KEY_SCREENSAVER_CLOCK_SECOND_HAND);
             mClockDynamicColorPref = findPreference(KEY_SCREENSAVER_CLOCK_DYNAMIC_COLORS);
             mClockColorPref = findPreference(KEY_SCREENSAVER_CLOCK_COLOR_PICKER);
             mDateColorPref = findPreference(KEY_SCREENSAVER_DATE_COLOR_PICKER);
@@ -167,18 +171,27 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                     }
                     mClockDialPref.setVisible(newValue.equals(mAnalogClock));
                     mClockDialMaterialPref.setVisible(newValue.equals(mMaterialAnalogClock));
+                    mClockSecondHandPref.setVisible(newValue.equals(mAnalogClock)
+                            && SettingsDAO.areScreensaverClockSecondsDisplayed(mPrefs));
                     mBoldDigitalClockPref.setVisible(newValue.equals(mDigitalClock));
                     mItalicDigitalClockPref.setVisible(newValue.equals(mDigitalClock));
                 }
 
-                case KEY_SCREENSAVER_CLOCK_DIAL, KEY_SCREENSAVER_CLOCK_DIAL_MATERIAL -> {
+                case KEY_SCREENSAVER_CLOCK_DIAL, KEY_SCREENSAVER_CLOCK_DIAL_MATERIAL,
+                     KEY_SCREENSAVER_CLOCK_SECOND_HAND -> {
                     final ListPreference preference = (ListPreference) pref;
                     final int index = preference.findIndexOfValue((String) newValue);
                     preference.setSummary(preference.getEntries()[index]);
                 }
 
-                case KEY_DISPLAY_SCREENSAVER_CLOCK_SECONDS, KEY_SCREENSAVER_DIGITAL_CLOCK_IN_BOLD,
-                     KEY_SCREENSAVER_DIGITAL_CLOCK_IN_ITALIC,
+                case KEY_DISPLAY_SCREENSAVER_CLOCK_SECONDS -> {
+                    mClockSecondHandPref.setVisible((boolean) newValue
+                            && SettingsDAO.getScreensaverClockStyle(mPrefs) == DataModel.ClockStyle.ANALOG);
+
+                    Utils.setVibrationTime(requireContext(), 50);
+                }
+
+                case KEY_SCREENSAVER_DIGITAL_CLOCK_IN_BOLD, KEY_SCREENSAVER_DIGITAL_CLOCK_IN_ITALIC,
                      KEY_SCREENSAVER_DATE_IN_BOLD, KEY_SCREENSAVER_DATE_IN_ITALIC,
                      KEY_SCREENSAVER_NEXT_ALARM_IN_BOLD,
                      KEY_SCREENSAVER_NEXT_ALARM_IN_ITALIC ->
@@ -215,6 +228,11 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
             mClockDialMaterialPref.setOnPreferenceChangeListener(this);
 
             mDisplaySecondsPref.setOnPreferenceChangeListener(this);
+
+            mClockSecondHandPref.setVisible(mClockStylePref.getValue().equals(mAnalogClock)
+                    && SettingsDAO.areScreensaverClockSecondsDisplayed(mPrefs));
+            mClockSecondHandPref.setSummary(mClockSecondHandPref.getEntry());
+            mClockSecondHandPref.setOnPreferenceChangeListener(this);
 
             if (SdkUtils.isAtLeastAndroid12()) {
                 final boolean areScreensaverClockDynamicColors = SettingsDAO.areScreensaverClockDynamicColors(mPrefs);

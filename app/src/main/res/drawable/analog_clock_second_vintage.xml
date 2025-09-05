@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:height="240dp"
+    android:width="28dp"
+    android:viewportWidth="42"
+    android:viewportHeight="360"
+    tools:ignore="VectorRaster">
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M22 60V164.664c1.297.338 2.01 1.518 2.01 2.916v3.918c3.51 1.243 6.03 4.584 6.03 8.522 0 3.937-2.52 7.278-6.03 8.521v12.714c0 1.792-1.584 3.232-3.421 2.988-1.517-.2-2.61-1.57-2.61-3.101V188.541c-3.51-1.243-6.029-4.584-6.029-8.521 0-3.938 2.519-7.279 6.029-8.522V167.58c0-1.398.725-2.578 2.021-2.916V60c0-2 2-2 2 0ZM21 178c-1.105 0-2 .896-2 2 0 1.105.895 2 2 2s2-.895 2-2c0-1.104-.895-2-2-2Z" />
+</vector>

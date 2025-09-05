@@ -148,6 +148,7 @@ public class PreferencesDefaultValues {
     // Common settings values
     public static final String DEFAULT_CLOCK_DIAL = "dial_with_number";
     public static final String DEFAULT_CLOCK_DIAL_MATERIAL = "dial_sun";
+    public static final String DEFAULT_CLOCK_SECOND_HAND = "default";
 
     // **************
     // ** WIDGETS **

@@ -15,6 +15,7 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.BLUE_GRAY_ACC
 import static com.best.deskclock.settings.PreferencesDefaultValues.BROWN_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_CLOCK_DIAL;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_CLOCK_DIAL_MATERIAL;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_CLOCK_SECOND_HAND;
 import static com.best.deskclock.settings.PreferencesDefaultValues.GREEN_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesDefaultValues.INDIGO_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesDefaultValues.ORANGE_ACCENT_COLOR;
@@ -220,7 +221,10 @@ public class AnalogClock extends FrameLayout {
             secondHand.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.material_you_analog_clock_second));
             secondHand.setColorFilter(getMaterialAnalogClockColor(accentColor, SECOND_HAND));
         } else {
-            secondHand.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.analog_clock_second));
+            secondHand.setImageDrawable(AppCompatResources.getDrawable(mContext,
+                    getAnalogSecondHandPreference().equals(DEFAULT_CLOCK_SECOND_HAND)
+                            ? R.drawable.analog_clock_second
+                            : R.drawable.analog_clock_second_vintage));
             boolean isAutoNightAccentColorEnabled = SettingsDAO.isAutoNightAccentColorEnabled(mPrefs);
             String nightAccentColor = SettingsDAO.getNightAccentColor(mPrefs);
 
@@ -291,6 +295,21 @@ public class AnalogClock extends FrameLayout {
             return SettingsDAO.getClockDial(mPrefs);
         } else {
             return SettingsDAO.getScreensaverClockDial(mPrefs);
+        }
+    }
+
+    /**
+     * Helper method to determine the second hand style based on the context.
+     */
+    private String getAnalogSecondHandPreference() {
+        if (mContext instanceof AlarmActivity || mContext instanceof AlarmDisplayPreviewActivity) {
+            return SettingsDAO.getAlarmClockSecondHand(mPrefs);
+        } else if (mContext instanceof ScreensaverActivity) {
+            return SettingsDAO.getScreensaverClockSecondHand(mPrefs);
+        } else if (mContext instanceof DeskClock) {
+            return SettingsDAO.getClockSecondHand(mPrefs);
+        } else {
+            return SettingsDAO.getScreensaverClockSecondHand(mPrefs);
         }
     }
 

@@ -7,6 +7,7 @@ import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
 import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
 
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ANALOG_WIDGET_CLOCK_DIAL;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ANALOG_WIDGET_CLOCK_SECOND_HAND;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ANALOG_WIDGET_WITH_SECOND_HAND;
 
 import android.app.Activity;
@@ -31,6 +32,7 @@ public class AnalogWidgetSettingsFragment extends ScreenFragment implements Pref
 
     ListPreference mClockDialPref;
     SwitchPreferenceCompat mDisplaySecondsPref;
+    ListPreference mClockSecondHandPref;
 
     @Override
     protected String getFragmentTitle() {
@@ -45,6 +47,7 @@ public class AnalogWidgetSettingsFragment extends ScreenFragment implements Pref
 
         mClockDialPref = findPreference(KEY_ANALOG_WIDGET_CLOCK_DIAL);
         mDisplaySecondsPref = findPreference(KEY_ANALOG_WIDGET_WITH_SECOND_HAND);
+        mClockSecondHandPref = findPreference(KEY_ANALOG_WIDGET_CLOCK_SECOND_HAND);
 
         setupPreferences();
 
@@ -78,13 +81,17 @@ public class AnalogWidgetSettingsFragment extends ScreenFragment implements Pref
     @Override
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
-            case KEY_ANALOG_WIDGET_CLOCK_DIAL -> {
+            case KEY_ANALOG_WIDGET_CLOCK_DIAL, KEY_ANALOG_WIDGET_CLOCK_SECOND_HAND -> {
                 final ListPreference preference = (ListPreference) pref;
                 final int index = preference.findIndexOfValue((String) newValue);
                 preference.setSummary(preference.getEntries()[index]);
             }
 
-            case KEY_ANALOG_WIDGET_WITH_SECOND_HAND -> Utils.setVibrationTime(requireContext(), 50);
+            case KEY_ANALOG_WIDGET_WITH_SECOND_HAND -> {
+                mClockSecondHandPref.setVisible((boolean) newValue);
+
+                Utils.setVibrationTime(requireContext(), 50);
+            }
         }
 
         requireContext().sendBroadcast(new Intent(ACTION_APPWIDGET_UPDATE));
@@ -97,6 +104,11 @@ public class AnalogWidgetSettingsFragment extends ScreenFragment implements Pref
 
         mDisplaySecondsPref.setVisible(SdkUtils.isAtLeastAndroid12());
         mDisplaySecondsPref.setOnPreferenceChangeListener(this);
+
+        mClockSecondHandPref.setVisible(SdkUtils.isAtLeastAndroid12()
+                && WidgetDAO.isSecondHandDisplayedOnAnalogWidget(mPrefs));
+        mClockSecondHandPref.setSummary(mClockSecondHandPref.getEntry());
+        mClockSecondHandPref.setOnPreferenceChangeListener(this);
     }
 
     private void saveCheckedPreferenceStates() {

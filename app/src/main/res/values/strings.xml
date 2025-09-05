@@ -702,6 +702,10 @@
     <string name="clock_dial_with_number">With number</string>
     <!-- Setting title for changing the clock dial to the dial without number. -->
     <string name="clock_dial_without_number">Without number</string>
+    <!-- Setting title for changing the clock second hand. -->
+    <string name="clock_second_hand_title">Second hand</string>
+    <!-- Setting title for changing the clock second hand to Vintage. -->
+    <string name="clock_second_hand_vintage">Vintage</string>
     <!-- Setting title for changing the clock style to Analog (Material). -->
     <string name="clock_style_analog_material">Analog (Material)</string>
     <!-- Setting title for changing the clock dial. -->

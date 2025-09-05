@@ -54,6 +54,7 @@ public class PreferencesKeys {
     public static final String KEY_CLOCK_DIAL = "key_clock_dial";
     public static final String KEY_CLOCK_DIAL_MATERIAL = "key_clock_dial_material";
     public static final String KEY_DISPLAY_CLOCK_SECONDS = "key_display_clock_seconds";
+    public static final String KEY_CLOCK_SECOND_HAND = "key_clock_second_hand";
     public static final String KEY_AUTO_HOME_CLOCK = "key_automatic_home_clock";
     public static final String KEY_HOME_TIME_ZONE = "key_home_time_zone";
     public static final String KEY_DATE_TIME = "key_date_time";
@@ -90,6 +91,7 @@ public class PreferencesKeys {
     public static final String KEY_ALARM_CLOCK_DIAL = "key_alarm_clock_dial";
     public static final String KEY_ALARM_CLOCK_DIAL_MATERIAL = "key_alarm_clock_dial_material";
     public static final String KEY_DISPLAY_ALARM_SECONDS_HAND = "key_display_alarm_seconds_hand";
+    public static final String KEY_ALARM_CLOCK_SECOND_HAND = "key_alarm_clock_second_hand";
     public static final String KEY_ALARM_BACKGROUND_COLOR = "key_alarm_background_color";
     public static final String KEY_ALARM_BACKGROUND_AMOLED_COLOR = "key_alarm_background_amoled_color";
     public static final String KEY_SLIDE_ZONE_COLOR = "key_slide_zone_color";
@@ -134,6 +136,7 @@ public class PreferencesKeys {
     public static final String KEY_SCREENSAVER_CLOCK_DIAL = "key_screensaver_clock_dial";
     public static final String KEY_SCREENSAVER_CLOCK_DIAL_MATERIAL = "key_screensaver_clock_dial_material";
     public static final String KEY_DISPLAY_SCREENSAVER_CLOCK_SECONDS = "key_display_screensaver_clock_seconds";
+    public static final String KEY_SCREENSAVER_CLOCK_SECOND_HAND = "key_screensaver_clock_second_hand";
     public static final String KEY_SCREENSAVER_CLOCK_DYNAMIC_COLORS = "key_screensaver_clock_dynamic_colors";
     public static final String KEY_SCREENSAVER_CLOCK_COLOR_PICKER = "key_screensaver_clock_color_picker";
     public static final String KEY_SCREENSAVER_DATE_COLOR_PICKER = "key_screensaver_date_color_picker";
@@ -165,6 +168,7 @@ public class PreferencesKeys {
     // Analog Widget
     public static final String KEY_ANALOG_WIDGET_CLOCK_DIAL = "key_analog_widget_clock_dial";
     public static final String KEY_ANALOG_WIDGET_WITH_SECOND_HAND = "key_analog_widget_with_second_hand";
+    public static final String KEY_ANALOG_WIDGET_CLOCK_SECOND_HAND = "key_analog_widget_clock_second_hand";
 
     // Digital Widget
     public static final String KEY_DIGITAL_WIDGET_DISPLAY_SECONDS = "key_digital_widget_display_seconds";

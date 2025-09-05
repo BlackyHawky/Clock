@@ -303,6 +303,17 @@
         <item>dial_without_number</item>
     </string-array>
 
+    <!-- Entries listed in the ListPreference when invoking the clock second hand preference. -->
+    <string-array name="clock_second_hand_entries">
+        <item>@string/label_default</item>
+        <item>@string/clock_second_hand_vintage</item>
+    </string-array>
+    <!-- Values that are retrieved from the ListPreference. These must match the clock_second_hand_entries above. -->
+    <string-array name="clock_second_hand_values" translatable="false">
+        <item>default</item>
+        <item>second_hand_vintage</item>
+    </string-array>
+
     <!-- Entries listed in the ListPreference when invoking the time picker style preference. -->
     <string-array name="time_picker_style_entries">
         <item>@string/clock_style_analog</item>

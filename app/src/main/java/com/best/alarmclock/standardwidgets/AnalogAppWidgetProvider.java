@@ -10,6 +10,7 @@ import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.ANALOG_WIDGET_CLOCK_DIAL_WITHOUT_NUMBER;
 import static com.best.deskclock.settings.PreferencesDefaultValues.ANALOG_WIDGET_CLOCK_DIAL_WITH_NUMBER;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_CLOCK_SECOND_HAND;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -52,7 +53,10 @@ public class AnalogAppWidgetProvider extends AppWidgetProvider {
 
         // Handle second hand
         if (isSecondHandDisplayed) {
-            final Icon secondHandIcon = Icon.createWithResource(context, R.drawable.analog_clock_second);
+            final Icon secondHandIcon = Icon.createWithResource(context,
+                    WidgetDAO.getAnalogWidgetClockSecondHand(prefs).equals(DEFAULT_CLOCK_SECOND_HAND)
+                            ? R.drawable.analog_clock_second
+                            : R.drawable.analog_clock_second_vintage);
             widget.setIcon(R.id.analogAppwidget, "setSecondHand", secondHandIcon);
         } else {
             widget.setIcon(R.id.analogAppwidget, "setSecondHand", null);

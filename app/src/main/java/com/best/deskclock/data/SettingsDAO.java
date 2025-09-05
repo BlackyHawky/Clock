@@ -182,6 +182,13 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return the clock second hand applied in the Clock tab.
+     */
+    public static String getClockSecondHand(SharedPreferences prefs) {
+        return prefs.getString(KEY_CLOCK_SECOND_HAND, DEFAULT_CLOCK_SECOND_HAND);
+    }
+
+    /**
      * @return the theme applied.
      */
     public static String getTheme(SharedPreferences prefs) {
@@ -328,6 +335,13 @@ public final class SettingsDAO {
      */
     public static String getScreensaverClockDialMaterial(SharedPreferences prefs) {
         return prefs.getString(KEY_SCREENSAVER_CLOCK_DIAL_MATERIAL, DEFAULT_CLOCK_DIAL_MATERIAL);
+    }
+
+    /**
+     * @return the clock second hand applied for the screensaver.
+     */
+    public static String getScreensaverClockSecondHand(SharedPreferences prefs) {
+        return prefs.getString(KEY_SCREENSAVER_CLOCK_SECOND_HAND, DEFAULT_CLOCK_SECOND_HAND);
     }
 
     /**
@@ -845,6 +859,13 @@ public final class SettingsDAO {
      */
     public static String getAlarmClockDial(SharedPreferences prefs) {
         return prefs.getString(KEY_ALARM_CLOCK_DIAL, DEFAULT_CLOCK_DIAL);
+    }
+
+    /**
+     * @return the clock second hand applied for alarms.
+     */
+    public static String getAlarmClockSecondHand(SharedPreferences prefs) {
+        return prefs.getString(KEY_ALARM_CLOCK_SECOND_HAND, DEFAULT_CLOCK_SECOND_HAND);
     }
 
     /**
