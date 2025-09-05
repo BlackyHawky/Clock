@@ -385,9 +385,6 @@
     <string name="next_alarm_widget">Další budík</string>
     <string name="auto_night_accent_color_title">Použít barvu aplikace v nočním režimu</string>
     <string name="night_accent_color_title">Barva aplikace pro noční režim</string>
-    <string name="analog_widget_choice_title">Zvolte styl</string>
-    <string name="analog_widget_without_second_hand_title">Bez druhé ručičky</string>
-    <string name="analog_widget_with_second_hand_title">S druhou ručičkou</string>
     <string name="alarm_flash">Blesk</string>
     <string name="alarm_created">Budík vytvořen</string>
     <string name="first_launch_important_info_message_for_SDK34">• &lt;b&gt;OZNÁMENÍ NA CELÉ OBRAZOVCE;&lt;/b&gt; &lt;br&gt; &lt;br&gt;</string>
@@ -497,7 +494,6 @@
     <string name="backup_button_title">Zálohovat</string>
     <string name="restore_button_title">Obnovit</string>
     <string name="material_you_category_title">Material You</string>
-    <string name="analog_widget_configuration_warning">Tento widget lze nastavit pouze v systému Android 12+</string>
     <string name="clock_color_title">Barva hodin</string>
     <string name="settings_language_russian">Ruština</string>
     <string name="about_title">O aplikaci</string>

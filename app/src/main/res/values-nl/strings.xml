@@ -585,10 +585,6 @@
     <string name="clock_style_spinner">Carrousel</string>
     <string name="settings_language_dutch">Nederlands</string>
     <string name="settings_language_russian">Russisch</string>
-    <string name="analog_widget_without_second_hand_title">Zonder de secondewijzer</string>
-    <string name="analog_widget_with_second_hand_title">Met de secondewijzer</string>
-    <string name="analog_widget_choice_title">Kies je stijl</string>
-    <string name="analog_widget_configuration_warning">Deze widget is alleen configureerbaar vanaf Android 12</string>
     <string name="settings_tab_to_display">Tabblad openen bij start</string>
     <string name="timer_button_time_minutes_warning_box_text">Voer een waarde in tussen 0 en 60 minuten</string>
     <string name="last_tab_used_title">Laatst gebruikt</string>

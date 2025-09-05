@@ -38,6 +38,24 @@ public final class WidgetDAO {
         return count - oldCount;
     }
 
+    // *******************
+    // ** ANALOG WIDGET **
+    // *******************
+
+    /**
+     * @return the dial applied to the clock in the analog widget.
+     */
+    public static String getAnalogWidgetClockDial(SharedPreferences prefs) {
+        return prefs.getString(KEY_ANALOG_WIDGET_CLOCK_DIAL, DEFAULT_ANALOG_WIDGET_CLOCK_DIAL);
+    }
+
+    /**
+     * @return {@code true} if the second hand is displayed on the analog widget; {@code false} otherwise.
+     */
+    public static boolean isSecondHandDisplayedOnAnalogWidget(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_ANALOG_WIDGET_WITH_SECOND_HAND, DEFAULT_ANALOG_WIDGET_WITH_SECOND_HAND);
+    }
+
     // ********************
     // ** DIGITAL WIDGET **
     // ********************
@@ -366,6 +384,25 @@ public final class WidgetDAO {
     public static boolean isNextAlarmWidgetHorizontalPaddingApplied(SharedPreferences prefs) {
         return prefs.getBoolean(KEY_NEXT_ALARM_WIDGET_APPLY_HORIZONTAL_PADDING,
                 DEFAULT_WIDGETS_APPLY_HORIZONTAL_PADDING);
+    }
+
+    // ********************************
+    // ** MATERIAL YOU ANALOG WIDGET **
+    // ********************************
+
+    /**
+     * @return the dial applied to the clock in the Material You analog widget.
+     */
+    public static String getMaterialYouAnalogWidgetClockDial(SharedPreferences prefs) {
+        return prefs.getString(KEY_MATERIAL_YOU_ANALOG_WIDGET_CLOCK_DIAL, DEFAULT_MATERIAL_YOU_ANALOG_WIDGET_CLOCK_DIAL);
+    }
+
+    /**
+     * @return {@code true} if the second hand is displayed on the Material You analog widget;
+     * {@code false} otherwise.
+     */
+    public static boolean isSecondHandDisplayedOnMaterialYouAnalogWidget(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_MATERIAL_YOU_ANALOG_WIDGET_WITH_SECOND_HAND, DEFAULT_ANALOG_WIDGET_WITH_SECOND_HAND);
     }
 
     // *********************************

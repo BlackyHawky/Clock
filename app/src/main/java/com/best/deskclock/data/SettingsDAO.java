@@ -168,6 +168,20 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return the clock dial applied in the Clock tab.
+     */
+    public static String getClockDial(SharedPreferences prefs) {
+        return prefs.getString(KEY_CLOCK_DIAL, DEFAULT_CLOCK_DIAL);
+    }
+
+    /**
+     * @return the material clock dial applied in the Clock tab.
+     */
+    public static String getClockDialMaterial(SharedPreferences prefs) {
+        return prefs.getString(KEY_CLOCK_DIAL_MATERIAL, DEFAULT_CLOCK_DIAL_MATERIAL);
+    }
+
+    /**
      * @return the theme applied.
      */
     public static String getTheme(SharedPreferences prefs) {
@@ -300,6 +314,20 @@ public final class SettingsDAO {
      */
     public static ClockStyle getScreensaverClockStyle(SharedPreferences prefs) {
         return getClockStyle(prefs, KEY_SCREENSAVER_CLOCK_STYLE);
+    }
+
+    /**
+     * @return the clock dial applied for the screensaver.
+     */
+    public static String getScreensaverClockDial(SharedPreferences prefs) {
+        return prefs.getString(KEY_SCREENSAVER_CLOCK_DIAL, DEFAULT_CLOCK_DIAL);
+    }
+
+    /**
+     * @return the material clock dial applied for the screensaver.
+     */
+    public static String getScreensaverClockDialMaterial(SharedPreferences prefs) {
+        return prefs.getString(KEY_SCREENSAVER_CLOCK_DIAL_MATERIAL, DEFAULT_CLOCK_DIAL_MATERIAL);
     }
 
     /**
@@ -810,6 +838,20 @@ public final class SettingsDAO {
      */
     public static ClockStyle getAlarmClockStyle(SharedPreferences prefs) {
         return getClockStyle(prefs, KEY_ALARM_CLOCK_STYLE);
+    }
+
+    /**
+     * @return the clock dial applied for alarms.
+     */
+    public static String getAlarmClockDial(SharedPreferences prefs) {
+        return prefs.getString(KEY_ALARM_CLOCK_DIAL, DEFAULT_CLOCK_DIAL);
+    }
+
+    /**
+     * @return the material clock dial applied for alarms.
+     */
+    public static String getAlarmClockDialMaterial(SharedPreferences prefs) {
+        return prefs.getString(KEY_ALARM_CLOCK_DIAL_MATERIAL, DEFAULT_CLOCK_DIAL_MATERIAL);
     }
 
     /**

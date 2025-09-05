@@ -15,6 +15,13 @@
         tools:layout="@layout/settings_preference_category_layout">
 
         <Preference
+            android:key="key_analog_widget_customization"
+            android:title="@string/analog_widget"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <Preference
             android:key="key_digital_widget_customization"
             android:title="@string/digital_widget"
             app:iconSpaceReserved="false"
@@ -42,6 +49,13 @@
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false"
         tools:layout="@layout/settings_preference_category_layout">
+
+        <Preference
+            android:key="key_material_you_analog_widget_customization"
+            android:title="@string/analog_widget_material_you"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <Preference
             android:key="key_material_you_digital_widget_customization"

@@ -487,10 +487,6 @@
     <string name="ignore_battery_optimizations_title">停用電池效能最佳化</string>
     <string name="backup_restore_title">備份與還原</string>
     <string name="toast_message_for_backup">備份完成</string>
-    <string name="analog_widget_choice_title">選擇樣式</string>
-    <string name="analog_widget_without_second_hand_title">無秒針</string>
-    <string name="analog_widget_with_second_hand_title">含秒針</string>
-    <string name="analog_widget_configuration_warning">這個小工具僅支援 Android 12</string>
     <string name="title_dark_theme_mode">深色主題</string>
     <string name="display_card_background_title">顯示卡片式背景</string>
     <string name="settings_tab_to_display">啟動時的頁面</string>

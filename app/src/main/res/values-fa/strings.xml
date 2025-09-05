@@ -364,7 +364,6 @@
     <string name="night_accent_color_title">رنگ تاکیدی برای حالت شب</string>
     <string name="turn_on_back_flash_for_triggered_alarm_title">وقتی هشدار فعال شد، فلاش عقب روشن شود</string>
     <string name="alarm_button_color">رنگ دکمه هشدار</string>
-    <string name="analog_widget_choice_title">استایل خود را انتخاب کنید</string>
     <string name="system_theme">سیستم</string>
     <string name="settings_language_english_us">انگلیسی (ایالات متحده)</string>
     <string name="display_card_background_summary">پس زمینه ای برای بعضی از عناصر اپلیکیشن نشان می دهد (هشدار ها، شهر ها، دکمه زمان سنج و غیره)</string>

@@ -9,7 +9,6 @@
      for different hardware and product builds. -->
 <resources>
     <dimen name="main_clock_font_size">64sp</dimen>
-    <dimen name="analog_clock_size">294dp</dimen>
 
     <item name="timer_setup_time_bottom_percent" type="fraction">0.2</item>
     <item name="city_list_end_guide_percent" type="fraction">0.55</item>

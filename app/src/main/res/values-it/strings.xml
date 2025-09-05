@@ -587,10 +587,6 @@
     <string name="show_lockscreen_dialog_text">Sui dispositivi Xiaomi, è necessario abilitare manualmente l\'autorizzazione \"Mostra sulla schermata di blocco\" dalle impostazioni del dispositivo affinché l\'applicazione funzioni correttamente.</string>
     <string name="settings_language_dutch">Olandese</string>
     <string name="settings_language_russian">Russo</string>
-    <string name="analog_widget_without_second_hand_title">Senza lancetta dei secondi</string>
-    <string name="analog_widget_with_second_hand_title">Con lancetta dei secondi</string>
-    <string name="analog_widget_choice_title">Scegli il tuo stile</string>
-    <string name="analog_widget_configuration_warning">Questo widget è configurabile solo da Android 12</string>
     <string name="permission_info_title">Solo per i dispositivi Xiaomi</string>
     <string name="show_lockscreen_dialog_title">Mostra su schermata di blocco</string>
     <string name="show_lockscreen_permission_title">MOSTRA SU SCHERMATA DI BLOCCO</string>

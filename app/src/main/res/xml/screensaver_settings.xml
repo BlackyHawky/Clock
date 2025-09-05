@@ -25,6 +25,26 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
+        <ListPreference
+            android:key="key_screensaver_clock_dial"
+            android:title="@string/clock_dial_title"
+            android:entries="@array/clock_dial_entries"
+            android:entryValues="@array/clock_dial_values"
+            android:defaultValue="dial_with_number"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <ListPreference
+            android:key="key_screensaver_clock_dial_material"
+            android:title="@string/clock_dial_title"
+            android:entries="@array/clock_dial_material_entries"
+            android:entryValues="@array/clock_dial_material_values"
+            android:defaultValue="dial_sun"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
         <SwitchPreferenceCompat
             android:key="key_display_screensaver_clock_seconds"
             android:title="@string/display_clock_seconds_pref"

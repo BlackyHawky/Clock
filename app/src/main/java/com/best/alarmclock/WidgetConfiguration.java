@@ -8,7 +8,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.best.deskclock.R;
+import com.best.deskclock.settings.AnalogWidgetSettingsFragment;
 import com.best.deskclock.settings.DigitalWidgetSettingsFragment;
+import com.best.deskclock.settings.MaterialYouAnalogWidgetSettingsFragment;
 import com.best.deskclock.settings.MaterialYouDigitalWidgetSettingsFragment;
 import com.best.deskclock.settings.MaterialYouNextAlarmWidgetSettingsFragment;
 import com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetSettingsFragment;
@@ -20,6 +22,21 @@ import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
  * Class called when the user launches the widget configuration from the widget.
  */
 public class WidgetConfiguration {
+
+    public static class AnalogWidgetConfiguration extends CollapsingToolbarBaseActivity {
+
+        @Override
+        protected String getActivityTitle() {
+            return getString(R.string.analog_widget);
+        }
+
+        @Override
+        public void onCreate(final Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+
+            showFragmentFromWidget(this, savedInstanceState, new AnalogWidgetSettingsFragment());
+        }
+    }
 
     public static class DigitalWidgetConfiguration extends CollapsingToolbarBaseActivity {
 
@@ -63,6 +80,21 @@ public class WidgetConfiguration {
             super.onCreate(savedInstanceState);
 
             showFragmentFromWidget(this, savedInstanceState, new NextAlarmWidgetSettingsFragment());
+        }
+    }
+
+    public static class MaterialYouAnalogWidgetConfiguration extends CollapsingToolbarBaseActivity {
+
+        @Override
+        protected String getActivityTitle() {
+            return getString(R.string.analog_widget_material_you);
+        }
+
+        @Override
+        public void onCreate(final Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+
+            showFragmentFromWidget(this, savedInstanceState, new MaterialYouAnalogWidgetSettingsFragment());
         }
     }
 

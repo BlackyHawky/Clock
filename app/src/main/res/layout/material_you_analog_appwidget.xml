@@ -8,10 +8,10 @@
 <!--suppress ALL -->
 <AnalogClock
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/analogAppwidgetMaterialYouWithoutSecondHand"
+    android:id="@+id/materialYouAnalogAppwidget"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:dial="@drawable/material_you_analog_widget_clock_dial"
-    android:hand_hour="@drawable/material_you_analog_widget_clock_hour"
-    android:hand_minute="@drawable/material_you_analog_widget_clock_minute"
+    android:dial="@drawable/material_you_analog_clock_dial_sun"
+    android:hand_hour="@drawable/material_you_analog_clock_hour"
+    android:hand_minute="@drawable/material_you_analog_clock_minute"
     android:importantForAccessibility="no" />

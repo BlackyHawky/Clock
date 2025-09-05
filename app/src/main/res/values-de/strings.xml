@@ -583,10 +583,6 @@
     <string name="show_lockscreen_dialog_text">Auf Xiaomi-Geräten müssen Sie die Berechtigung \"Auf dem Sperrbildschirm anzeigen\" manuell in den Geräteeinstellungen aktivieren, damit die Anwendung ordnungsgemäß funktioniert.</string>
     <string name="clock_style_analog_material">Analog (Material)</string>
     <string name="settings_language_dutch">Niederländisch</string>
-    <string name="analog_widget_choice_title">Wählen Sie ihren Stil</string>
-    <string name="analog_widget_without_second_hand_title">Ohne Sekundenzeiger</string>
-    <string name="analog_widget_with_second_hand_title">Mit Sekundenzeiger</string>
-    <string name="analog_widget_configuration_warning">Dieses Widget ist erst ab Android 12 konfigurierbar</string>
     <string name="settings_language_russian">Russisch</string>
     <string name="clock_style_spinner">Scrollen</string>
     <string name="settings_tab_to_display">Tab, der beim Öffnen der App angezeigt wird</string>

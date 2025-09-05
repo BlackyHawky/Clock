@@ -90,7 +90,6 @@ public class PreferencesDefaultValues {
     public static final String DEFAULT_DATE_PICKER_STYLE = "calendar";
     public static final String SPINNER_DATE_PICKER_STYLE = "spinner";
 
-
     // Alarm Display Customization
     public static final boolean DEFAULT_DISPLAY_ALARM_SECONDS_HAND = true;
     public static final int DEFAULT_ALARM_BACKGROUND_COLOR = Color.parseColor("#FF191C1E");
@@ -146,12 +145,18 @@ public class PreferencesDefaultValues {
     public static final boolean DEFAULT_SCREENSAVER_NEXT_ALARM_IN_BOLD = true;
     public static final boolean DEFAULT_SCREENSAVER_NEXT_ALARM_IN_ITALIC = false;
 
+    // Common settings values
+    public static final String DEFAULT_CLOCK_DIAL = "dial_with_number";
+    public static final String DEFAULT_CLOCK_DIAL_MATERIAL = "dial_sun";
+
     // **************
     // ** WIDGETS **
     // **************
 
     // Analog Widget
-    public static final boolean DEFAULT_ANALOG_WIDGET_WITH_SECOND_HAND = false;
+    public static final String DEFAULT_ANALOG_WIDGET_CLOCK_DIAL = "default";
+    public static final String ANALOG_WIDGET_CLOCK_DIAL_WITH_NUMBER = "dial_with_number";
+    public static final String ANALOG_WIDGET_CLOCK_DIAL_WITHOUT_NUMBER = "dial_without_number";
 
     // DigitalWidgetSettingsFragment
     public static final boolean DEFAULT_DIGITAL_WIDGET_DISPLAY_SECONDS = false;
@@ -170,7 +175,8 @@ public class PreferencesDefaultValues {
     public static final boolean DEFAULT_VERTICAL_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM = true;
 
     // Material You Analog Widget
-    public static final boolean DEFAULT_MATERIAL_YOU_ANALOG_WIDGET_WITH_SECOND_HAND = false;
+    public static final String DEFAULT_MATERIAL_YOU_ANALOG_WIDGET_CLOCK_DIAL = "dial_sun";
+    public static final String MATERIAL_YOU_ANALOG_WIDGET_CLOCK_DIAL_FLOWER = "dial_flower";
 
     // Material You Digital Widget
     public static final boolean DEFAULT_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_SECONDS = false;
@@ -184,6 +190,7 @@ public class PreferencesDefaultValues {
     public static final boolean DEFAULT_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM = true;
 
     // Common widget values
+    public static final boolean DEFAULT_ANALOG_WIDGET_WITH_SECOND_HAND = false;
     public static final boolean DEFAULT_WIDGETS_DEFAULT_COLOR = true;
     public static final int DEFAULT_WIDGETS_BACKGROUND_COLOR = Color.parseColor("#70000000");
     public static final int DEFAULT_WIDGETS_CUSTOM_COLOR = Color.WHITE;

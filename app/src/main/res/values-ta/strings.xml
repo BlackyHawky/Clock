@@ -335,7 +335,6 @@
     <string name="enable_alarm_vibrations_by_default_setting_title">அலாரங்களை உருவாக்கும்போது அதிர்வுகளை இயக்கு</string>
     <string name="alarm_notification_reminder_6_hours">6 மணி நேரத்திற்கு முன்</string>
     <string name="alarm_notification_reminder_10_hours">10 மணி நேரத்திற்கு முன்</string>
-    <string name="analog_widget_choice_title">உங்கள் பாணியைத் தேர்வுசெய்க</string>
     <string name="orange_accent_color">ஆரஞ்சு</string>
     <string name="blue_gray_accent_color">நீல சாம்பல்</string>
     <string name="brown_accent_color">பழுப்பு</string>

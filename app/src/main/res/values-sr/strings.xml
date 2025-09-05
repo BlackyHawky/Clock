@@ -594,10 +594,6 @@
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">Омогућите вибрације када се аларм одложи или одбаци</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">Дупла вибрација када се аларм одложи и једна вибрација када се аларм одбаци</string>
     <string name="reset_settings_title">Ресетујте подешавања</string>
-    <string name="analog_widget_choice_title">Изабери свој стил</string>
-    <string name="analog_widget_without_second_hand_title">Без секунди</string>
-    <string name="analog_widget_with_second_hand_title">Са секундама</string>
-    <string name="analog_widget_configuration_warning">Овај виџет је конфигурисан само од Android 12</string>
     <string name="settings_tab_to_display">Картица за приказивање при отварању апликације</string>
     <string name="last_tab_used_title">Последња коришћена картица</string>
     <string name="timer_button_time_minutes_warning_box_text">Унесите вредност између 0 и 60 минута</string>

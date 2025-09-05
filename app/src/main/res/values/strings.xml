@@ -223,14 +223,6 @@
     <string name="loading_widget">Loading\u2026</string>
     <!-- Label for analog clock widget displayed in the widget picker -->
     <string name="analog_widget">Analog clock</string>
-    <!-- Title of the analog widget layout choice activity -->
-    <string name="analog_widget_choice_title">Choose your style</string>
-    <!-- Name of the analog widget layout without second hand -->
-    <string name="analog_widget_without_second_hand_title">Without the second hand</string>
-    <!-- Name of the analog widget layout with second hand -->
-    <string name="analog_widget_with_second_hand_title">With the second hand</string>
-    <!-- Text displayed when user wants to configure analog widget with Android version earlier than Android 12 -->
-    <string name="analog_widget_configuration_warning">This widget is only configurable from Android 12</string>
     <!-- Label for analog clock widget displayed in the widget picker -->
     <string name="analog_widget_material_you">Analog clock Material You</string>
     <!-- Label for digital clock widget displayed in the widget picker -->
@@ -706,8 +698,18 @@
     <string name="open_date_settings">Change date \u0026 time</string>
     <!-- Setting title for changing the clock style to Analog. -->
     <string name="clock_style_analog">Analog</string>
+    <!-- Setting title for changing the clock dial to the dial with number. -->
+    <string name="clock_dial_with_number">With number</string>
+    <!-- Setting title for changing the clock dial to the dial without number. -->
+    <string name="clock_dial_without_number">Without number</string>
     <!-- Setting title for changing the clock style to Analog (Material). -->
     <string name="clock_style_analog_material">Analog (Material)</string>
+    <!-- Setting title for changing the clock dial. -->
+    <string name="clock_dial_title">Dial</string>
+    <!-- Setting title for changing the material clock dial to Sun. -->
+    <string name="clock_dial_sun">Sun</string>
+    <!-- Setting title for changing the material clock dial to Flower. -->
+    <string name="clock_dial_flower">Flower</string>
     <!-- Setting title for changing the clock style to Digital. -->
     <string name="clock_style_digital">Digital</string>
     <!-- Setting title for changing the clock style to Spinner. -->

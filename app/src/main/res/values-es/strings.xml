@@ -581,10 +581,6 @@
     <string name="settings_language_german">Alemán</string>
     <string name="settings_language_english_us">Inglés (EE. UU.)</string>
     <string name="settings_language_russian">Ruso</string>
-    <string name="analog_widget_without_second_hand_title">Sin la segunda manecilla</string>
-    <string name="analog_widget_with_second_hand_title">Con la segunda manecilla</string>
-    <string name="analog_widget_choice_title">Elija su estilo</string>
-    <string name="analog_widget_configuration_warning">Este «widget» solo puede configurarse a partir de Android 12</string>
     <string name="permission_info_title">Solo para dispositivos Xiaomi</string>
     <string name="show_lockscreen_permission_title">MOSTRAR EN PANTALLA DE BLOQUEO</string>
     <string name="show_lockscreen_dialog_title">Mostrar en pantalla de bloqueo</string>

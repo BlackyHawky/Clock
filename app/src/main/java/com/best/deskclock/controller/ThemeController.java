@@ -37,8 +37,6 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.collection.ArrayMap;
 import androidx.core.app.ActivityCompat;
 
-import com.best.alarmclock.materialyouwidgets.MaterialYouAnalogAppWidgetConfiguration;
-import com.best.alarmclock.standardwidgets.AnalogAppWidgetConfiguration;
 import com.best.deskclock.FirstLaunch;
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
@@ -246,9 +244,7 @@ public class ThemeController {
                 if (ThemeUtils.isNight(activity.getResources()) && darkMode.equals(AMOLED_DARK_MODE)) {
                     activity.getWindow().setNavigationBarColor(Color.BLACK);
                     activity.getWindow().getDecorView().setBackgroundColor(Color.BLACK);
-                } else if (activity instanceof AnalogAppWidgetConfiguration
-                        || activity instanceof MaterialYouAnalogAppWidgetConfiguration
-                        || activity instanceof FirstLaunch) {
+                } else if (activity instanceof FirstLaunch) {
                     activity.getWindow().setNavigationBarColor(
                             MaterialColors.getColor(activity, android.R.attr.colorBackground, Color.BLACK));
                 } else {

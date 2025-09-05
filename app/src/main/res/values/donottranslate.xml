@@ -267,6 +267,42 @@
         <item>digital</item>
     </string-array>
 
+    <!-- Entries listed in the ListPreference when invoking the clock dial preference. -->
+    <string-array name="clock_dial_entries">
+        <item>@string/clock_dial_with_number</item>
+        <item>@string/clock_dial_without_number</item>
+    </string-array>
+    <!-- Values that are retrieved from the ListPreference. These must match the clock_dial_entries above. -->
+    <string-array name="clock_dial_values" translatable="false">
+        <item>dial_with_number</item>
+        <item>dial_without_number</item>
+    </string-array>
+
+    <!-- Entries listed in the ListPreference when invoking the material clock dial preference. -->
+    <string-array name="clock_dial_material_entries">
+        <item>@string/clock_dial_sun</item>
+        <item>@string/clock_dial_flower</item>
+    </string-array>
+    <!-- Values that are retrieved from the ListPreference. These must match the clock_dial_material_entries above. -->
+    <string-array name="clock_dial_material_values" translatable="false">
+        <item>dial_sun</item>
+        <item>dial_flower</item>
+    </string-array>
+
+    <!-- Entries listed in the ListPreference when invoking the analog widget clock dial preference. -->
+    <string-array name="analog_widget_clock_dial_entries">
+        <item>@string/label_default</item>
+        <item>@string/clock_dial_with_number</item>
+        <item>@string/clock_dial_without_number</item>
+    </string-array>
+    <!-- Values that are retrieved from the ListPreference.
+         These must match the analog_widget_clock_dial_entries above. -->
+    <string-array name="analog_widget_clock_dial_values" translatable="false">
+        <item>default</item>
+        <item>dial_with_number</item>
+        <item>dial_without_number</item>
+    </string-array>
+
     <!-- Entries listed in the ListPreference when invoking the time picker style preference. -->
     <string-array name="time_picker_style_entries">
         <item>@string/clock_style_analog</item>

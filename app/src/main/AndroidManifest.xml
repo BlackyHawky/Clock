@@ -287,7 +287,7 @@
 
         <!-- Analog clock -->
         <activity
-            android:name="com.best.alarmclock.standardwidgets.AnalogAppWidgetConfiguration"
+            android:name="com.best.alarmclock.WidgetConfiguration$AnalogWidgetConfiguration"
             android:excludeFromRecents="true"
             android:label="@string/analog_widget"
             android:theme="@style/Theme.DeskClock" />
@@ -386,7 +386,7 @@
 
         <!-- Analog clock Material You -->
         <activity
-            android:name="com.best.alarmclock.materialyouwidgets.MaterialYouAnalogAppWidgetConfiguration"
+            android:name="com.best.alarmclock.WidgetConfiguration$MaterialYouAnalogWidgetConfiguration"
             android:excludeFromRecents="true"
             android:label="@string/analog_widget_material_you"
             android:theme="@style/Theme.DeskClock" />

@@ -617,10 +617,6 @@
     <string name="timer_time_warning_box_title">Неверное значение введено</string>
     <string name="settings_language_russian">Русский</string>
     <string name="display_date_title">Показывать дату на виджете</string>
-    <string name="analog_widget_choice_title">Выберите ваш стиль</string>
-    <string name="analog_widget_without_second_hand_title">Без второй стрелки</string>
-    <string name="analog_widget_with_second_hand_title">Со второй стрелкой</string>
-    <string name="analog_widget_configuration_warning">Этот виджет можно настроить только начиная с Android 12</string>
     <string name="settings_tab_to_display">Вкладка для отображения при открытии приложения</string>
     <string name="last_tab_used_title">Последняя использованная вкладка</string>
     <string name="settings_toolbar_title">Показывать заголовок в панели инструментов</string>

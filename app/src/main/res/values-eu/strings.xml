@@ -323,7 +323,6 @@
     <string name="shake_action_title">Gailua astientzen denerako ekintza</string>
     <string name="blue_accent_color">Urdina</string>
     <string name="settings_permission_summary">Egin klik hemen baimenak kudeatzeko orria bistaratzeko.</string>
-    <string name="analog_widget_without_second_hand_title">Esku bakarrarekin</string>
     <string name="font_category_title">Letra-tipoa</string>
     <string name="light_theme">Argia</string>
     <string name="dark_theme">Iluna</string>
@@ -353,13 +352,11 @@
     <string name="interface_customization_settings">Interfazea</string>
     <string name="interface_customization_summary">Ezarri estiloa eta kolorea aplikazioari</string>
     <string name="more_options">Aukera gehiago</string>
-    <string name="analog_widget_choice_title">Aukeratu zure estiloa</string>
     <string name="purple_accent_color">Morea</string>
     <string name="display_card_background_summary">Atzealdea erakusten du aplikazioaren elementu batzuetan (Alarmak, hiriak, tenporizadorea, etab.)</string>
     <string name="yellow_accent_color">Horia</string>
     <string name="warning">Ohartarazpen</string>
     <string name="styles_and_colors_category_title">Estiloa eta koloreak</string>
-    <string name="analog_widget_configuration_warning">Widget hau Android 12tik bakarrik konfigura daiteke</string>
     <string name="alarm_alert_dismiss_and_delete_text">Baztertu ta ezabatu</string>
     <string name="system_theme">Sistema</string>
     <string name="green_accent_color">Berdea</string>

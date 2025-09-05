@@ -341,10 +341,6 @@
     <string name="dark_theme">Karanlık</string>
     <string name="sw_volume_up_action_title">Ses açma</string>
     <string name="snooze_duration_none">Hiçbiri</string>
-    <string name="analog_widget_choice_title">Stilinizi seçin</string>
-    <string name="analog_widget_without_second_hand_title">Saniye çubuğu olmadan</string>
-    <string name="analog_widget_with_second_hand_title">Saniye çubuğu ile</string>
-    <string name="analog_widget_configuration_warning">Bu widget sadece Android 12 ve sonrasında ayarlanabilir</string>
     <string name="sw_start_pause_action">Başlat / Duraklat</string>
     <string name="timer_label_box_title">Zamanlayıcı etiketi</string>
     <string name="timer_button_time_box_title">Zamanlayıcıya eklenecek dakika</string>

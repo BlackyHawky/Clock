@@ -13,6 +13,8 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.BLACK_ACCENT_
 import static com.best.deskclock.settings.PreferencesDefaultValues.BLUE_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesDefaultValues.BLUE_GRAY_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesDefaultValues.BROWN_ACCENT_COLOR;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_CLOCK_DIAL;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_CLOCK_DIAL_MATERIAL;
 import static com.best.deskclock.settings.PreferencesDefaultValues.GREEN_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesDefaultValues.INDIGO_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesDefaultValues.ORANGE_ACCENT_COLOR;
@@ -54,7 +56,7 @@ import java.util.TimeZone;
  */
 public class AnalogClock extends FrameLayout {
 
-    // Constants used for the Material analog clock
+    // Constants used for the analog clocks
     private final String DIAL = "DIAL";
     private final String HOUR_HAND = "HOUR_HAND";
     private final String MINUTE_HAND = "MINUTE_HAND";
@@ -212,14 +214,13 @@ public class AnalogClock extends FrameLayout {
      * Helper method to create the second hand with a specific color logic.
      */
     private ImageView createSecondHand(String accentColor, int alarmSecondsHandColor) {
-
         ImageView secondHand = new ImageView(mContext);
 
         if (mClockStyle == DataModel.ClockStyle.ANALOG_MATERIAL) {
-            secondHand.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.material_you_analog_widget_clock_second));
+            secondHand.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.material_you_analog_clock_second));
             secondHand.setColorFilter(getMaterialAnalogClockColor(accentColor, SECOND_HAND));
         } else {
-            secondHand.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.clock_analog_second));
+            secondHand.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.analog_clock_second));
             boolean isAutoNightAccentColorEnabled = SettingsDAO.isAutoNightAccentColorEnabled(mPrefs);
             String nightAccentColor = SettingsDAO.getNightAccentColor(mPrefs);
 
@@ -240,11 +241,28 @@ public class AnalogClock extends FrameLayout {
      */
     private int getMaterialAnalogDrawableResId(String componentType) {
         return switch (componentType) {
-            case DIAL -> R.drawable.material_you_analog_widget_clock_dial;
-            case HOUR_HAND -> R.drawable.material_you_analog_widget_clock_hour;
-            case MINUTE_HAND -> R.drawable.material_you_analog_widget_clock_minute;
+            case DIAL -> getMaterialAnalogDialPreference().equals(DEFAULT_CLOCK_DIAL_MATERIAL)
+                    ? R.drawable.material_you_analog_clock_dial_sun
+                    : R.drawable.material_you_analog_clock_dial_flower;
+            case HOUR_HAND -> R.drawable.material_you_analog_clock_hour;
+            case MINUTE_HAND -> R.drawable.material_you_analog_clock_minute;
             default -> 0; // Default, should never happen
         };
+    }
+
+    /**
+     * Helper method to determine the style of the clock dial Material based on the context.
+     */
+    private String getMaterialAnalogDialPreference() {
+        if (mContext instanceof AlarmActivity || mContext instanceof AlarmDisplayPreviewActivity) {
+            return SettingsDAO.getAlarmClockDialMaterial(mPrefs);
+        } else if (mContext instanceof ScreensaverActivity) {
+            return SettingsDAO.getScreensaverClockDialMaterial(mPrefs);
+        } else if (mContext instanceof DeskClock) {
+            return SettingsDAO.getClockDialMaterial(mPrefs);
+        } else {
+            return SettingsDAO.getScreensaverClockDialMaterial(mPrefs);
+        }
     }
 
     /**
@@ -252,11 +270,28 @@ public class AnalogClock extends FrameLayout {
      */
     private int getAnalogDrawableResId(String componentType) {
         return switch (componentType) {
-            case DIAL -> R.drawable.clock_analog_dial;
-            case HOUR_HAND -> R.drawable.clock_analog_hour;
-            case MINUTE_HAND -> R.drawable.clock_analog_minute;
+            case DIAL -> getAnalogDialPreference().equals(DEFAULT_CLOCK_DIAL)
+                    ? R.drawable.analog_clock_dial_with_number
+                    : R.drawable.analog_clock_dial_without_number;
+            case HOUR_HAND -> R.drawable.analog_clock_hour;
+            case MINUTE_HAND -> R.drawable.analog_clock_minute;
             default -> 0; // Default, should never happen
         };
+    }
+
+    /**
+     * Helper method to determine the clock dial style based on the context.
+     */
+    private String getAnalogDialPreference() {
+        if (mContext instanceof AlarmActivity || mContext instanceof AlarmDisplayPreviewActivity) {
+            return SettingsDAO.getAlarmClockDial(mPrefs);
+        } else if (mContext instanceof ScreensaverActivity) {
+            return SettingsDAO.getScreensaverClockDial(mPrefs);
+        } else if (mContext instanceof DeskClock) {
+            return SettingsDAO.getClockDial(mPrefs);
+        } else {
+            return SettingsDAO.getScreensaverClockDial(mPrefs);
+        }
     }
 
     /**

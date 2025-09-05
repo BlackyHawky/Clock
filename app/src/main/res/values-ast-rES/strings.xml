@@ -291,5 +291,4 @@
     <string name="alarm_is_snoozed">L\'alarma <xliff:g example="14:20" id="alarm_time">%s</xliff:g> pospúsose por diez minutos</string>
     <string name="flip_action_title">Aición al voltiar el preséu</string>
     <string name="shake_action_title">Aición al ximelgar el preséu</string>
-    <string name="analog_widget_choice_title">Escueyi\'l to estilu</string>
 </resources>

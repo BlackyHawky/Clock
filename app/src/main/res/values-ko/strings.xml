@@ -340,7 +340,6 @@
     <string name="settings_language_russian">러시아어</string>
     <string name="alarm_notification_reminder_12_hours">12시간 전</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">알람을 잠시 미루거나 해제했을 때 진동</string>
-    <string name="analog_widget_choice_title">스타일 선택</string>
     <string name="miscellaneous_category_title">기타</string>
     <string name="ringtone_category_title">벨소리</string>
     <string name="material_you_category_title">Material You</string>
@@ -480,8 +479,6 @@
     <string name="backup_restore_dialog_message">정말 앱 데이터를 백업 또는 복원할까요?</string>
     <string name="restore_button_title">복원</string>
     <string name="backup_button_title">백업</string>
-    <string name="analog_widget_without_second_hand_title">초침 없음</string>
-    <string name="analog_widget_with_second_hand_title">초침 있음</string>
     <string name="timer_settings_summary">기본 벨소리, 볼륨, 타이머 정렬 설정</string>
     <string name="first_launch_dialog_message">정말 앱을 종료할까요?</string>
     <string name="digital_widget_default_hours_color_title">시간 텍스트에 기본 색상 사용</string>
@@ -564,7 +561,6 @@
     <string name="timer_button_time_minutes_warning_box_text">0에서 60분 사이의 값을 입력하세요.</string>
     <string name="timer_time_warning_box_title">잘못된 값 입력됨</string>
     <string name="sw_long_press_volume_up_action_title">볼륨 위(길게 눌렀을 때)</string>
-    <string name="analog_widget_configuration_warning">이 위젯은 Android 12 이상에서만 설정할 수 있습니다.</string>
     <string name="actions_category_title">동작</string>
     <string name="standard_category_title">일반</string>
     <string name="black_accent_color">검은색</string>

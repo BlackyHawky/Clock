@@ -599,11 +599,9 @@
     <string name="add_new_sound_subtitle">Toque e segure para selecionar uma pasta</string>
     <string name="warning">Atenção</string>
     <string name="alarm_scheduled_for">Definido para %s</string>
-    <string name="analog_widget_configuration_warning">Este widget só pode ser configurado a partir do Android 12</string>
     <string name="blue_accent_color">Azul</string>
     <string name="settings_language_dutch">Holandês</string>
     <string name="settings_tab_to_display">Aba exibida ao abir o app</string>
     <string name="enable_per_alarm_volume_title">Usar um volume personalizado para cada alarme</string>
-    <string name="analog_widget_choice_title">Escolha seu estilo</string>
     <string name="settings_tab_title_visibility_title">Exibir título das abas</string>
 </resources>
