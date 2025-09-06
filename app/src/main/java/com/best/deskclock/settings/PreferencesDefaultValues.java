@@ -146,7 +146,7 @@ public class PreferencesDefaultValues {
     public static final boolean DEFAULT_SCREENSAVER_NEXT_ALARM_IN_ITALIC = false;
 
     // Common settings values
-    public static final String DEFAULT_CLOCK_DIAL = "dial_with_number";
+    public static final String DEFAULT_CLOCK_DIAL = "dial_with_numbers";
     public static final String DEFAULT_CLOCK_DIAL_MATERIAL = "dial_sun";
     public static final String DEFAULT_CLOCK_SECOND_HAND = "default";
 
@@ -156,8 +156,8 @@ public class PreferencesDefaultValues {
 
     // Analog Widget
     public static final String DEFAULT_ANALOG_WIDGET_CLOCK_DIAL = "default";
-    public static final String ANALOG_WIDGET_CLOCK_DIAL_WITH_NUMBER = "dial_with_number";
-    public static final String ANALOG_WIDGET_CLOCK_DIAL_WITHOUT_NUMBER = "dial_without_number";
+    public static final String ANALOG_WIDGET_CLOCK_DIAL_WITH_NUMBERS = "dial_with_numbers";
+    public static final String ANALOG_WIDGET_CLOCK_DIAL_WITHOUT_NUMBERS = "dial_without_numbers";
 
     // DigitalWidgetSettingsFragment
     public static final boolean DEFAULT_DIGITAL_WIDGET_DISPLAY_SECONDS = false;

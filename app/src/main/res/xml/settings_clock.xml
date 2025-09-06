@@ -29,7 +29,7 @@
             android:title="@string/clock_dial_title"
             android:entries="@array/clock_dial_entries"
             android:entryValues="@array/clock_dial_values"
-            android:defaultValue="dial_with_number"
+            android:defaultValue="dial_with_numbers"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />

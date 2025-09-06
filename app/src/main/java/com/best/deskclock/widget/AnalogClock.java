@@ -275,8 +275,8 @@ public class AnalogClock extends FrameLayout {
     private int getAnalogDrawableResId(String componentType) {
         return switch (componentType) {
             case DIAL -> getAnalogDialPreference().equals(DEFAULT_CLOCK_DIAL)
-                    ? R.drawable.analog_clock_dial_with_number
-                    : R.drawable.analog_clock_dial_without_number;
+                    ? R.drawable.analog_clock_dial_with_numbers
+                    : R.drawable.analog_clock_dial_without_numbers;
             case HOUR_HAND -> R.drawable.analog_clock_hour;
             case MINUTE_HAND -> R.drawable.analog_clock_minute;
             default -> 0; // Default, should never happen

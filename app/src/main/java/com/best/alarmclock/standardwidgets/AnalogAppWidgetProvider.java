@@ -8,8 +8,8 @@ package com.best.alarmclock.standardwidgets;
 
 import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-import static com.best.deskclock.settings.PreferencesDefaultValues.ANALOG_WIDGET_CLOCK_DIAL_WITHOUT_NUMBER;
-import static com.best.deskclock.settings.PreferencesDefaultValues.ANALOG_WIDGET_CLOCK_DIAL_WITH_NUMBER;
+import static com.best.deskclock.settings.PreferencesDefaultValues.ANALOG_WIDGET_CLOCK_DIAL_WITHOUT_NUMBERS;
+import static com.best.deskclock.settings.PreferencesDefaultValues.ANALOG_WIDGET_CLOCK_DIAL_WITH_NUMBERS;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_CLOCK_SECOND_HAND;
 
 import android.app.PendingIntent;
@@ -126,10 +126,10 @@ public class AnalogAppWidgetProvider extends AppWidgetProvider {
 
     private static Icon getAnalogClockDialIcon(Context context, String dial) {
         return switch (dial) {
-            case ANALOG_WIDGET_CLOCK_DIAL_WITH_NUMBER ->
-                    Icon.createWithResource(context, R.drawable.analog_clock_dial_with_number);
-            case ANALOG_WIDGET_CLOCK_DIAL_WITHOUT_NUMBER ->
-                    Icon.createWithResource(context, R.drawable.analog_clock_dial_without_number);
+            case ANALOG_WIDGET_CLOCK_DIAL_WITH_NUMBERS ->
+                    Icon.createWithResource(context, R.drawable.analog_clock_dial_with_numbers);
+            case ANALOG_WIDGET_CLOCK_DIAL_WITHOUT_NUMBERS ->
+                    Icon.createWithResource(context, R.drawable.analog_clock_dial_without_numbers);
             default ->
                     Icon.createWithResource(context, R.drawable.standard_analog_appwidget_clock_dial);
         };

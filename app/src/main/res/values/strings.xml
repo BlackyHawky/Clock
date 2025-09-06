@@ -696,10 +696,10 @@
     <string name="open_date_settings">Change date \u0026 time</string>
     <!-- Setting title for changing the clock style to Analog. -->
     <string name="clock_style_analog">Analog</string>
-    <!-- Setting title for changing the clock dial to the dial with number. -->
-    <string name="clock_dial_with_number">With number</string>
-    <!-- Setting title for changing the clock dial to the dial without number. -->
-    <string name="clock_dial_without_number">Without number</string>
+    <!-- Setting title for changing the clock dial to the dial with numbers. -->
+    <string name="clock_dial_with_numbers">With numbers</string>
+    <!-- Setting title for changing the clock dial to the dial without numbers. -->
+    <string name="clock_dial_without_numbers">Without numbers</string>
     <!-- Setting title for changing the clock second hand. -->
     <string name="clock_second_hand_title">Second hand</string>
     <!-- Setting title for changing the clock second hand to Vintage. -->
@@ -1121,7 +1121,7 @@
     <!-- Title to set the default hour color. -->
     <string name="hour_default_color_title">Use default color for hours</string>
     <!-- Title to set minute color. -->
-    <string name="minute_color_title">Custom minutes color</string>
+    <string name="minute_color_title">Minute color</string>
     <!-- Title to set the default minute color. -->
     <string name="minute_default_color_title">Use default color for minutes</string>
     <!-- Title of dial color. -->
