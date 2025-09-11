@@ -37,46 +37,52 @@ public class MaterialYouAnalogAppWidgetProvider extends AppWidgetProvider {
 
     private static RemoteViews relayoutWidget(Context context, AppWidgetManager wm, int widgetId) {
         SharedPreferences prefs = getDefaultSharedPreferences(context);
-        final RemoteViews widget = new RemoteViews(context.getPackageName(), R.layout.material_you_analog_appwidget);
-        final Icon dialIcon = getMaterialYouAnalogClockDialIcon(context, WidgetDAO.getMaterialYouAnalogWidgetClockDial(prefs));
-        final Icon hourHandIcon = Icon.createWithResource(context, R.drawable.material_you_analog_clock_hour);
-        final Icon minuteHandIcon = Icon.createWithResource(context, R.drawable.material_you_analog_clock_minute);
-        final Icon secondHandIcon = Icon.createWithResource(context, R.drawable.material_you_analog_clock_second);
-
-        widget.setIcon(R.id.materialYouAnalogAppwidget, "setDial", dialIcon);
-        widget.setIcon(R.id.materialYouAnalogAppwidget, "setHourHand", hourHandIcon);
-        widget.setIcon(R.id.materialYouAnalogAppwidget, "setMinuteHand", minuteHandIcon);
-
-        if (!WidgetDAO.isMaterialYouAnalogWidgetDefaultDialColor(prefs)) {
-            dialIcon.setTint(WidgetDAO.getMaterialYouAnalogWidgetDialColor(prefs));
-        }
-
-        if (!WidgetDAO.isMaterialYouAnalogWidgetDefaultHourHandColor(prefs)) {
-            hourHandIcon.setTint(WidgetDAO.getMaterialYouAnalogWidgetHourHandColor(prefs));
-        }
-
-        if (!WidgetDAO.isMaterialYouAnalogWidgetDefaultMinuteHandColor(prefs)) {
-            minuteHandIcon.setTint(WidgetDAO.getMaterialYouAnalogWidgetMinuteHandColor(prefs));
-        }
-
-        if (WidgetDAO.isSecondHandDisplayedOnMaterialYouAnalogWidget(prefs)) {
-            widget.setIcon(R.id.materialYouAnalogAppwidget, "setSecondHand", secondHandIcon);
-
-            if (!WidgetDAO.isMaterialYouAnalogWidgetDefaultSecondHandColor(prefs)) {
-                secondHandIcon.setTint(WidgetDAO.getMaterialYouAnalogWidgetSecondHandColor(prefs));
-            }
-        } else {
-            widget.setIcon(R.id.materialYouAnalogAppwidget, "setSecondHand", null);
-        }
+        final RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.material_you_analog_appwidget);
 
         // Tapping on the widget opens the app (if not on the lock screen).
         if (WidgetUtils.isWidgetClickable(wm, widgetId)) {
             final Intent openApp = new Intent(context, DeskClock.class);
             final PendingIntent pi = PendingIntent.getActivity(context, 0, openApp, PendingIntent.FLAG_IMMUTABLE);
-            widget.setOnClickPendingIntent(R.id.materialYouAnalogAppwidget, pi);
+            rv.setOnClickPendingIntent(R.id.materialYouAnalogAppwidget, pi);
         }
 
-        return widget;
+        // Configure child views of the remote view.
+        final Icon dialIcon = getMaterialYouAnalogClockDialIcon(context, WidgetDAO.getMaterialYouAnalogWidgetClockDial(prefs));
+        final Icon hourHandIcon = Icon.createWithResource(context, R.drawable.material_you_analog_clock_hour);
+        final Icon minuteHandIcon = Icon.createWithResource(context, R.drawable.material_you_analog_clock_minute);
+        final Icon secondHandIcon = Icon.createWithResource(context, R.drawable.material_you_analog_clock_second);
+
+        rv.setIcon(R.id.materialYouAnalogAppwidget, "setDial", dialIcon);
+        rv.setIcon(R.id.materialYouAnalogAppwidget, "setHourHand", hourHandIcon);
+        rv.setIcon(R.id.materialYouAnalogAppwidget, "setMinuteHand", minuteHandIcon);
+
+        // Apply the color to the dial.
+        if (!WidgetDAO.isMaterialYouAnalogWidgetDefaultDialColor(prefs)) {
+            dialIcon.setTint(WidgetDAO.getMaterialYouAnalogWidgetDialColor(prefs));
+        }
+
+        // Apply the color to the hour hand.
+        if (!WidgetDAO.isMaterialYouAnalogWidgetDefaultHourHandColor(prefs)) {
+            hourHandIcon.setTint(WidgetDAO.getMaterialYouAnalogWidgetHourHandColor(prefs));
+        }
+
+        // Apply the color to the minute hand.
+        if (!WidgetDAO.isMaterialYouAnalogWidgetDefaultMinuteHandColor(prefs)) {
+            minuteHandIcon.setTint(WidgetDAO.getMaterialYouAnalogWidgetMinuteHandColor(prefs));
+        }
+
+        // Apply the color to the second hand if it's displayed.
+        if (WidgetDAO.isSecondHandDisplayedOnMaterialYouAnalogWidget(prefs)) {
+            rv.setIcon(R.id.materialYouAnalogAppwidget, "setSecondHand", secondHandIcon);
+
+            if (!WidgetDAO.isMaterialYouAnalogWidgetDefaultSecondHandColor(prefs)) {
+                secondHandIcon.setTint(WidgetDAO.getMaterialYouAnalogWidgetSecondHandColor(prefs));
+            }
+        } else {
+            rv.setIcon(R.id.materialYouAnalogAppwidget, "setSecondHand", null);
+        }
+
+        return rv;
     }
 
     @Override

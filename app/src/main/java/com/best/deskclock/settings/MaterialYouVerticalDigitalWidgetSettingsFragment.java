@@ -42,20 +42,20 @@ public class MaterialYouVerticalDigitalWidgetSettingsFragment extends ScreenFrag
 
     private int mAppWidgetId = INVALID_APPWIDGET_ID;
 
-    ColorPreference mCustomBackgroundColorPref;
-    ColorPreference mCustomHoursColorPref;
-    ColorPreference mCustomMinutesColorPref;
-    ColorPreference mCustomDateColorPref;
-    ColorPreference mCustomNextAlarmColorPref;
     SwitchPreferenceCompat mShowBackgroundOnDigitalWidgetPref;
     SwitchPreferenceCompat mDisplayDatePref;
     SwitchPreferenceCompat mDisplayNextAlarmPref;
-    SwitchPreferenceCompat mDefaultBackgroundColorPref;
-    SwitchPreferenceCompat mDefaultHoursColorPref;
-    SwitchPreferenceCompat mDefaultMinutesColorPref;
-    SwitchPreferenceCompat mDefaultDateColorPref;
-    SwitchPreferenceCompat mDefaultNextAlarmColorPref;
     SwitchPreferenceCompat mApplyHorizontalPaddingPref;
+    SwitchPreferenceCompat mDefaultBackgroundColorPref;
+    ColorPreference mCustomBackgroundColorPref;
+    SwitchPreferenceCompat mDefaultHoursColorPref;
+    ColorPreference mCustomHoursColorPref;
+    SwitchPreferenceCompat mDefaultMinutesColorPref;
+    ColorPreference mCustomMinutesColorPref;
+    SwitchPreferenceCompat mDefaultDateColorPref;
+    ColorPreference mCustomDateColorPref;
+    SwitchPreferenceCompat mDefaultNextAlarmColorPref;
+    ColorPreference mCustomNextAlarmColorPref;
 
     @Override
     protected String getFragmentTitle() {
@@ -71,6 +71,7 @@ public class MaterialYouVerticalDigitalWidgetSettingsFragment extends ScreenFrag
         mShowBackgroundOnDigitalWidgetPref = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_BACKGROUND);
         mDisplayDatePref = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_DATE);
         mDisplayNextAlarmPref = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM);
+        mApplyHorizontalPaddingPref = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING);
         mDefaultBackgroundColorPref = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_BACKGROUND_COLOR);
         mCustomBackgroundColorPref = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_BACKGROUND_COLOR);
         mDefaultHoursColorPref = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_HOURS_COLOR);
@@ -81,7 +82,6 @@ public class MaterialYouVerticalDigitalWidgetSettingsFragment extends ScreenFrag
         mCustomDateColorPref = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_DATE_COLOR);
         mDefaultNextAlarmColorPref = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR);
         mCustomNextAlarmColorPref = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR);
-        mApplyHorizontalPaddingPref = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING);
 
         setupPreferences();
 
@@ -122,6 +122,23 @@ public class MaterialYouVerticalDigitalWidgetSettingsFragment extends ScreenFrag
                 Utils.setVibrationTime(requireContext(), 50);
             }
 
+            case KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_DATE -> {
+                mDefaultDateColorPref.setVisible((boolean) newValue);
+                mCustomDateColorPref.setVisible(mDefaultDateColorPref.isVisible()
+                        && !WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultDateColor(mPrefs));
+                Utils.setVibrationTime(requireContext(), 50);
+            }
+
+            case KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM -> {
+                mDefaultNextAlarmColorPref.setVisible((boolean) newValue);
+                mCustomNextAlarmColorPref.setVisible(mDefaultNextAlarmColorPref.isVisible()
+                        && !WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultNextAlarmColor(mPrefs));
+                Utils.setVibrationTime(requireContext(), 50);
+            }
+
+            case KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING ->
+                    Utils.setVibrationTime(requireContext(), 50);
+
             case KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_BACKGROUND_COLOR -> {
                 mCustomBackgroundColorPref.setVisible(!(boolean) newValue);
                 Utils.setVibrationTime(requireContext(), 50);
@@ -137,22 +154,8 @@ public class MaterialYouVerticalDigitalWidgetSettingsFragment extends ScreenFrag
                 Utils.setVibrationTime(requireContext(), 50);
             }
 
-            case KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_DATE -> {
-                mDefaultDateColorPref.setVisible((boolean) newValue);
-                mCustomDateColorPref.setVisible(mDefaultDateColorPref.isVisible()
-                        && !WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultDateColor(mPrefs));
-                Utils.setVibrationTime(requireContext(), 50);
-            }
-
             case KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_DATE_COLOR -> {
                 mCustomDateColorPref.setVisible(!(boolean) newValue);
-                Utils.setVibrationTime(requireContext(), 50);
-            }
-
-            case KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM -> {
-                mDefaultNextAlarmColorPref.setVisible((boolean) newValue);
-                mCustomNextAlarmColorPref.setVisible(mDefaultNextAlarmColorPref.isVisible()
-                        && !WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultNextAlarmColor(mPrefs));
                 Utils.setVibrationTime(requireContext(), 50);
             }
 
@@ -160,9 +163,6 @@ public class MaterialYouVerticalDigitalWidgetSettingsFragment extends ScreenFrag
                 mCustomNextAlarmColorPref.setVisible(!(boolean) newValue);
                 Utils.setVibrationTime(requireContext(), 50);
             }
-
-            case KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING ->
-                    Utils.setVibrationTime(requireContext(), 50);
         }
 
         requireContext().sendBroadcast(new Intent(ACTION_APPWIDGET_UPDATE));
@@ -178,6 +178,12 @@ public class MaterialYouVerticalDigitalWidgetSettingsFragment extends ScreenFrag
 
     private void setupPreferences() {
         mShowBackgroundOnDigitalWidgetPref.setOnPreferenceChangeListener(this);
+
+        mDisplayDatePref.setOnPreferenceChangeListener(this);
+
+        mDisplayNextAlarmPref.setOnPreferenceChangeListener(this);
+
+        mApplyHorizontalPaddingPref.setOnPreferenceChangeListener(this);
 
         mDefaultBackgroundColorPref.setVisible(WidgetDAO.isBackgroundDisplayedOnMaterialYouVerticalDigitalWidget(mPrefs));
         mDefaultBackgroundColorPref.setOnPreferenceChangeListener(this);
@@ -196,8 +202,6 @@ public class MaterialYouVerticalDigitalWidgetSettingsFragment extends ScreenFrag
         mCustomMinutesColorPref.setVisible(!WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultMinutesColor(mPrefs));
         mCustomMinutesColorPref.setOnPreferenceChangeListener(this);
 
-        mDisplayDatePref.setOnPreferenceChangeListener(this);
-
         mDefaultDateColorPref.setVisible(WidgetDAO.isDateDisplayedOnMaterialYouVerticalDigitalWidget(mPrefs));
         mDefaultDateColorPref.setOnPreferenceChangeListener(this);
 
@@ -205,28 +209,24 @@ public class MaterialYouVerticalDigitalWidgetSettingsFragment extends ScreenFrag
                 && !WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultDateColor(mPrefs));
         mCustomDateColorPref.setOnPreferenceChangeListener(this);
 
-        mDisplayNextAlarmPref.setOnPreferenceChangeListener(this);
-
         mDefaultNextAlarmColorPref.setVisible(WidgetDAO.isNextAlarmDisplayedOnMaterialYouVerticalDigitalWidget(mPrefs));
         mDefaultNextAlarmColorPref.setOnPreferenceChangeListener(this);
 
         mCustomNextAlarmColorPref.setVisible(mDefaultNextAlarmColorPref.isVisible()
                 && !WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultNextAlarmColor(mPrefs));
         mCustomNextAlarmColorPref.setOnPreferenceChangeListener(this);
-
-        mApplyHorizontalPaddingPref.setOnPreferenceChangeListener(this);
     }
 
     private void saveCheckedPreferenceStates() {
         mShowBackgroundOnDigitalWidgetPref.setChecked(WidgetDAO.isBackgroundDisplayedOnMaterialYouVerticalDigitalWidget(mPrefs));
+        mDisplayDatePref.setChecked(WidgetDAO.isDateDisplayedOnMaterialYouVerticalDigitalWidget(mPrefs));
+        mDisplayNextAlarmPref.setChecked(WidgetDAO.isNextAlarmDisplayedOnMaterialYouVerticalDigitalWidget(mPrefs));
+        mApplyHorizontalPaddingPref.setChecked(WidgetDAO.isMaterialYouVerticalDigitalWidgetHorizontalPaddingApplied(mPrefs));
         mDefaultBackgroundColorPref.setChecked(WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultBackgroundColor(mPrefs));
         mDefaultHoursColorPref.setChecked(WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultHoursColor(mPrefs));
         mDefaultMinutesColorPref.setChecked(WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultMinutesColor(mPrefs));
-        mDisplayDatePref.setChecked(WidgetDAO.isDateDisplayedOnMaterialYouVerticalDigitalWidget(mPrefs));
         mDefaultDateColorPref.setChecked(WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultDateColor(mPrefs));
-        mDisplayNextAlarmPref.setChecked(WidgetDAO.isNextAlarmDisplayedOnMaterialYouVerticalDigitalWidget(mPrefs));
         mDefaultNextAlarmColorPref.setChecked(WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultNextAlarmColor(mPrefs));
-        mApplyHorizontalPaddingPref.setChecked(WidgetDAO.isMaterialYouVerticalDigitalWidgetHorizontalPaddingApplied(mPrefs));
     }
 
     private void updateMaterialYouVerticalDigitalWidget() {

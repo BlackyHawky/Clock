@@ -103,9 +103,8 @@ public class NextAlarmAppWidgetProvider extends AppWidgetProvider {
     private static RemoteViews relayoutWidget(Context context, AppWidgetManager wm, int widgetId,
                                               Bundle options, boolean portrait) {
 
-        final Context localizedContext = Utils.getLocalizedContext(context);
-
         // Create a remote view for the next alarm.
+        final Context localizedContext = Utils.getLocalizedContext(context);
         final SharedPreferences prefs = getDefaultSharedPreferences(context);
         final RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.standard_next_alarm_widget);
 
@@ -116,70 +115,7 @@ public class NextAlarmAppWidgetProvider extends AppWidgetProvider {
             rv.setOnClickPendingIntent(R.id.nextAlarmWidget, pi);
         }
 
-        // Apply color to the next alarm and the next alarm title.
-        // The default color is defined in the xml files to match the device's day/night theme.
-        final String nextAlarmTime = AlarmUtils.getNextAlarm(context);
-        final String nextAlarmTitle = AlarmUtils.getNextAlarmTitle(context);
-        final String nextAlarmText = localizedContext.getString(R.string.next_alarm_widget_text);
-        final String noAlarmTitle = localizedContext.getString(R.string.next_alarm_widget_title_no_alarm);
-        final boolean isDefaultTitleColor = WidgetDAO.isNextAlarmWidgetDefaultTitleColor(prefs);
-        final boolean isDefaultAlarmTitleColor = WidgetDAO.isNextAlarmWidgetDefaultAlarmTitleColor(prefs);
-        final boolean isDefaultAlarmColor = WidgetDAO.isNextAlarmWidgetDefaultAlarmColor(prefs);
-        final int customTitleColor = WidgetDAO.getNextAlarmWidgetCustomTitleColor(prefs);
-        final int customAlarmTitleColor = WidgetDAO.getNextAlarmWidgetCustomAlarmTitleColor(prefs);
-        final int customAlarmColor = WidgetDAO.getNextAlarmWidgetCustomAlarmColor(prefs);
-
-        if (TextUtils.isEmpty(nextAlarmTime) || TextUtils.isEmpty(nextAlarmTitle)) {
-            rv.setViewVisibility(R.id.nextAlarmTitle, GONE);
-        } else {
-            rv.setViewVisibility(R.id.nextAlarmTitle, VISIBLE);
-            rv.setTextViewText(R.id.nextAlarmTitle, nextAlarmTitle);
-
-            if (isDefaultAlarmTitleColor) {
-                rv.setTextColor(R.id.nextAlarmTitle, Color.WHITE);
-            } else {
-                rv.setTextColor(R.id.nextAlarmTitle, customAlarmTitleColor);
-            }
-        }
-
-        if (TextUtils.isEmpty(nextAlarmTime)) {
-            rv.setViewVisibility(R.id.nextAlarm, GONE);
-            rv.setViewVisibility(R.id.nextAlarmIcon, GONE);
-            rv.setTextViewText(R.id.nextAlarmText, noAlarmTitle);
-
-            if (isDefaultTitleColor) {
-                rv.setTextColor(R.id.nextAlarmText, Color.WHITE);
-            } else {
-                rv.setTextColor(R.id.nextAlarmText, customTitleColor);
-            }
-        } else {
-            rv.setViewVisibility(R.id.nextAlarm, VISIBLE);
-            rv.setViewVisibility(R.id.nextAlarmIcon, VISIBLE);
-            rv.setTextViewText(R.id.nextAlarmText, nextAlarmText);
-            rv.setTextViewText(R.id.nextAlarm, nextAlarmTime);
-
-            if (isDefaultTitleColor) {
-                rv.setTextColor(R.id.nextAlarmText, Color.WHITE);
-            } else {
-                rv.setTextColor(R.id.nextAlarmText, customTitleColor);
-            }
-
-            if (isDefaultAlarmColor) {
-                rv.setTextColor(R.id.nextAlarm, Color.WHITE);
-            } else {
-                rv.setTextColor(R.id.nextAlarm, customAlarmColor);
-            }
-        }
-
-        // Apply the color to the digital widget background.
-        if (WidgetDAO.isBackgroundDisplayedOnNextAlarmWidget(prefs)) {
-            int backgroundColor = WidgetDAO.getNextAlarmWidgetBackgroundColor(prefs);
-            rv.setInt(R.id.digitalWidgetBackground, "setBackgroundColor", backgroundColor);
-        } else {
-            rv.setInt(R.id.digitalWidgetBackground, "setBackgroundColor", Color.TRANSPARENT);
-        }
-
-
+        // Configure child views of the remote view.
         if (options == null) {
             options = wm.getAppWidgetOptions(widgetId);
         }
@@ -200,6 +136,7 @@ public class NextAlarmAppWidgetProvider extends AppWidgetProvider {
         final Sizes template = new Sizes(targetWidthPx, targetHeightPx, largestFontSizePx);
 
         // Compute optimal font sizes and icon sizes to fit within the widget bounds.
+        final String nextAlarmTime = AlarmUtils.getNextAlarm(context);
         final Sizes sizes = optimizeSizes(context, template, nextAlarmTime);
         if (LOGGER.isVerboseLoggable()) {
             LOGGER.v(sizes.toString());
@@ -210,6 +147,62 @@ public class NextAlarmAppWidgetProvider extends AppWidgetProvider {
         rv.setTextViewTextSize(R.id.nextAlarmTitle, COMPLEX_UNIT_PX, sizes.mFontSizePx);
         rv.setImageViewBitmap(R.id.nextAlarmIcon, sizes.mIconBitmap);
         rv.setTextViewTextSize(R.id.nextAlarm, COMPLEX_UNIT_PX, sizes.mFontSizePx);
+
+        // Apply color to the next alarm title if it's displayed.
+        final String nextAlarmTitle = AlarmUtils.getNextAlarmTitle(context);
+        final boolean isDefaultTitleColor = WidgetDAO.isNextAlarmWidgetDefaultTitleColor(prefs);
+        final int customTitleColor = WidgetDAO.getNextAlarmWidgetCustomTitleColor(prefs);
+
+        if (TextUtils.isEmpty(nextAlarmTime) || TextUtils.isEmpty(nextAlarmTitle)) {
+            rv.setViewVisibility(R.id.nextAlarmTitle, GONE);
+        } else {
+            rv.setViewVisibility(R.id.nextAlarmTitle, VISIBLE);
+            rv.setTextViewText(R.id.nextAlarmTitle, nextAlarmTitle);
+
+            if (WidgetDAO.isNextAlarmWidgetDefaultAlarmTitleColor(prefs)) {
+                rv.setTextColor(R.id.nextAlarmTitle, Color.WHITE);
+            } else {
+                rv.setTextColor(R.id.nextAlarmTitle, WidgetDAO.getNextAlarmWidgetCustomAlarmTitleColor(prefs));
+            }
+        }
+
+        // Apply color to the next alarm if it's displayed.
+        if (TextUtils.isEmpty(nextAlarmTime)) {
+            rv.setViewVisibility(R.id.nextAlarm, GONE);
+            rv.setViewVisibility(R.id.nextAlarmIcon, GONE);
+            rv.setTextViewText(R.id.nextAlarmText, localizedContext.getString(R.string.next_alarm_widget_title_no_alarm));
+
+            if (isDefaultTitleColor) {
+                rv.setTextColor(R.id.nextAlarmText, Color.WHITE);
+            } else {
+                rv.setTextColor(R.id.nextAlarmText, customTitleColor);
+            }
+        } else {
+            rv.setViewVisibility(R.id.nextAlarm, VISIBLE);
+            rv.setViewVisibility(R.id.nextAlarmIcon, VISIBLE);
+            rv.setTextViewText(R.id.nextAlarmText, localizedContext.getString(R.string.next_alarm_widget_text));
+            rv.setTextViewText(R.id.nextAlarm, nextAlarmTime);
+
+            if (isDefaultTitleColor) {
+                rv.setTextColor(R.id.nextAlarmText, Color.WHITE);
+            } else {
+                rv.setTextColor(R.id.nextAlarmText, customTitleColor);
+            }
+
+            if (WidgetDAO.isNextAlarmWidgetDefaultAlarmColor(prefs)) {
+                rv.setTextColor(R.id.nextAlarm, Color.WHITE);
+            } else {
+                rv.setTextColor(R.id.nextAlarm, WidgetDAO.getNextAlarmWidgetCustomAlarmColor(prefs));
+            }
+        }
+
+        // Apply the color to the background if it's displayed.
+        if (WidgetDAO.isBackgroundDisplayedOnNextAlarmWidget(prefs)) {
+            int backgroundColor = WidgetDAO.getNextAlarmWidgetBackgroundColor(prefs);
+            rv.setInt(R.id.digitalWidgetBackground, "setBackgroundColor", backgroundColor);
+        } else {
+            rv.setInt(R.id.digitalWidgetBackground, "setBackgroundColor", Color.TRANSPARENT);
+        }
 
         return rv;
     }
@@ -229,8 +222,6 @@ public class NextAlarmAppWidgetProvider extends AppWidgetProvider {
                 WidgetDAO.isNextAlarmWidgetHorizontalPaddingApplied(prefs) ? 20 : 0, context);
         sizer.setPadding(horizontalPadding, 0, horizontalPadding, 0);
 
-        final Context localizedContext = Utils.getLocalizedContext(context);
-
         // Configure the next alarm views to display the next alarm time or be gone.
         final String nextAlarmTitle = AlarmUtils.getNextAlarmTitle(context);
         final TextView nextAlarmTitleView = sizer.findViewById(R.id.nextAlarmTitle);
@@ -238,10 +229,7 @@ public class NextAlarmAppWidgetProvider extends AppWidgetProvider {
         final TextView nextAlarmIcon = sizer.findViewById(R.id.nextAlarmIcon);
         final TextView nextAlarm = sizer.findViewById(R.id.nextAlarm);
         final boolean isDefaultTitleColor = WidgetDAO.isNextAlarmWidgetDefaultTitleColor(prefs);
-        final boolean isDefaultAlarmTitleColor = WidgetDAO.isNextAlarmWidgetDefaultAlarmTitleColor(prefs);
-        final boolean isDefaultAlarmColor = WidgetDAO.isNextAlarmWidgetDefaultAlarmColor(prefs);
         final int customTitleColor = WidgetDAO.getNextAlarmWidgetCustomTitleColor(prefs);
-        final int customAlarmTitleColor = WidgetDAO.getNextAlarmWidgetCustomAlarmTitleColor(prefs);
         final int customAlarmColor = WidgetDAO.getNextAlarmWidgetCustomAlarmColor(prefs);
 
         if (TextUtils.isEmpty(nextAlarmTime) || TextUtils.isEmpty(nextAlarmTitle)) {
@@ -250,12 +238,14 @@ public class NextAlarmAppWidgetProvider extends AppWidgetProvider {
             nextAlarmTitleView.setVisibility(VISIBLE);
             nextAlarmTitleView.setText(nextAlarmTitle);
 
-            if (isDefaultAlarmTitleColor) {
+            if (WidgetDAO.isNextAlarmWidgetDefaultAlarmTitleColor(prefs)) {
                 nextAlarmTitleView.setTextColor(Color.WHITE);
             } else {
-                nextAlarmTitleView.setTextColor(customAlarmTitleColor);
+                nextAlarmTitleView.setTextColor(WidgetDAO.getNextAlarmWidgetCustomAlarmTitleColor(prefs));
             }
         }
+
+        final Context localizedContext = Utils.getLocalizedContext(context);
 
         if (TextUtils.isEmpty(nextAlarmTime)) {
             nextAlarm.setVisibility(GONE);
@@ -280,7 +270,7 @@ public class NextAlarmAppWidgetProvider extends AppWidgetProvider {
                 nextAlarmText.setTextColor(customTitleColor);
             }
 
-            if (isDefaultAlarmColor) {
+            if (WidgetDAO.isNextAlarmWidgetDefaultAlarmColor(prefs)) {
                 nextAlarm.setTextColor(Color.WHITE);
                 nextAlarmIcon.setTextColor(Color.WHITE);
             } else {

@@ -118,23 +118,6 @@ public class VerticalDigitalAppWidgetProvider extends AppWidgetProvider {
         }
 
         // Configure child views of the remote view.
-        if (WidgetDAO.isDateDisplayedOnVerticalDigitalWidget(prefs)) {
-            rv.setViewVisibility(R.id.date, VISIBLE);
-            rv.setTextViewText(R.id.date, WidgetUtils.getDateFormat(context));
-        } else {
-            rv.setViewVisibility(R.id.date, GONE);
-        }
-
-        final String nextAlarmTime = AlarmUtils.getNextAlarm(context);
-        if (TextUtils.isEmpty(nextAlarmTime) || !WidgetDAO.isNextAlarmDisplayedOnVerticalDigitalWidget(prefs)) {
-            rv.setViewVisibility(R.id.nextAlarm, GONE);
-            rv.setViewVisibility(R.id.nextAlarmIcon, GONE);
-        } else {
-            rv.setTextViewText(R.id.nextAlarm, nextAlarmTime);
-            rv.setViewVisibility(R.id.nextAlarm, VISIBLE);
-            rv.setViewVisibility(R.id.nextAlarmIcon, VISIBLE);
-        }
-
         if (options == null) {
             options = wm.getAppWidgetOptions(widgetId);
         }
@@ -155,6 +138,7 @@ public class VerticalDigitalAppWidgetProvider extends AppWidgetProvider {
         final Sizes template = new Sizes(targetWidthPx, targetHeightPx, largestClockFontSizePx);
 
         // Compute optimal font sizes and icon sizes to fit within the widget bounds.
+        final String nextAlarmTime = AlarmUtils.getNextAlarm(context);
         final Sizes sizes = optimizeSizes(context, template, nextAlarmTime);
         if (LOGGER.isVerboseLoggable()) {
             LOGGER.v(sizes.toString());
@@ -168,38 +152,50 @@ public class VerticalDigitalAppWidgetProvider extends AppWidgetProvider {
         rv.setTextViewTextSize(R.id.clockMinutes, COMPLEX_UNIT_PX, sizes.mClockFontSizePx);
 
         // Apply the color to the hours.
-        final int customHoursColor = WidgetDAO.getVerticalDigitalWidgetCustomHoursColor(prefs);
         if (WidgetDAO.isVerticalDigitalWidgetDefaultHoursColor(prefs)) {
             rv.setTextColor(R.id.clockHours, Color.WHITE);
         } else {
-            rv.setTextColor(R.id.clockHours, customHoursColor);
+            rv.setTextColor(R.id.clockHours, WidgetDAO.getVerticalDigitalWidgetCustomHoursColor(prefs));
         }
 
         // Apply the color to the minutes.
-        final int customMinutesColor = WidgetDAO.getVerticalDigitalWidgetCustomMinutesColor(prefs);
         if (WidgetDAO.isVerticalDigitalWidgetDefaultMinutesColor(prefs)) {
             rv.setTextColor(R.id.clockMinutes, Color.WHITE);
         } else {
-            rv.setTextColor(R.id.clockMinutes, customMinutesColor);
+            rv.setTextColor(R.id.clockMinutes, WidgetDAO.getVerticalDigitalWidgetCustomMinutesColor(prefs));
         }
 
-        // Apply the color to the date.
-        final int customDateColor = WidgetDAO.getVerticalDigitalWidgetCustomDateColor(prefs);
-        if (WidgetDAO.isVerticalDigitalWidgetDefaultDateColor(prefs)) {
-            rv.setTextColor(R.id.date, Color.WHITE);
+        // Apply the color to the date if it's displayed.
+        if (WidgetDAO.isDateDisplayedOnVerticalDigitalWidget(prefs)) {
+            rv.setViewVisibility(R.id.date, VISIBLE);
+            rv.setTextViewText(R.id.date, WidgetUtils.getDateFormat(context));
+
+            if (WidgetDAO.isVerticalDigitalWidgetDefaultDateColor(prefs)) {
+                rv.setTextColor(R.id.date, Color.WHITE);
+            } else {
+                rv.setTextColor(R.id.date, WidgetDAO.getVerticalDigitalWidgetCustomDateColor(prefs));
+            }
         } else {
-            rv.setTextColor(R.id.date, customDateColor);
+            rv.setViewVisibility(R.id.date, GONE);
         }
 
-        // Apply the color to the next alarm.
-        final int customNextAlarmColor = WidgetDAO.getVerticalDigitalWidgetCustomNextAlarmColor(prefs);
-        if (WidgetDAO.isVerticalDigitalWidgetDefaultNextAlarmColor(prefs)) {
-            rv.setTextColor(R.id.nextAlarm, Color.WHITE);
+        // Apply the color to the next alarm if it's displayed.
+        if (TextUtils.isEmpty(nextAlarmTime) || !WidgetDAO.isNextAlarmDisplayedOnVerticalDigitalWidget(prefs)) {
+            rv.setViewVisibility(R.id.nextAlarm, GONE);
+            rv.setViewVisibility(R.id.nextAlarmIcon, GONE);
         } else {
-            rv.setTextColor(R.id.nextAlarm, customNextAlarmColor);
+            rv.setTextViewText(R.id.nextAlarm, nextAlarmTime);
+            rv.setViewVisibility(R.id.nextAlarm, VISIBLE);
+            rv.setViewVisibility(R.id.nextAlarmIcon, VISIBLE);
+
+            if (WidgetDAO.isVerticalDigitalWidgetDefaultNextAlarmColor(prefs)) {
+                rv.setTextColor(R.id.nextAlarm, Color.WHITE);
+            } else {
+                rv.setTextColor(R.id.nextAlarm, WidgetDAO.getVerticalDigitalWidgetCustomNextAlarmColor(prefs));
+            }
         }
 
-        // Apply the color to the digital widget background.
+        // Apply the color to the background if it's displayed.
         if (WidgetDAO.isBackgroundDisplayedOnVerticalDigitalWidget(prefs)) {
             int backgroundColor = WidgetDAO.getVerticalDigitalWidgetBackgroundColor(prefs);
             rv.setInt(R.id.digitalWidgetBackground, "setBackgroundColor", backgroundColor);
@@ -246,11 +242,10 @@ public class VerticalDigitalAppWidgetProvider extends AppWidgetProvider {
             nextAlarmIcon.setVisibility(VISIBLE);
             nextAlarmIcon.setTypeface(ClockUtils.getAlarmIconTypeface(context));
             // Apply the color to the next alarm icon.
-            final int customNextAlarmColor = WidgetDAO.getVerticalDigitalWidgetCustomNextAlarmColor(prefs);
             if (WidgetDAO.isVerticalDigitalWidgetDefaultNextAlarmColor(prefs)) {
                 nextAlarmIcon.setTextColor(Color.WHITE);
             } else {
-                nextAlarmIcon.setTextColor(customNextAlarmColor);
+                nextAlarmIcon.setTextColor(WidgetDAO.getVerticalDigitalWidgetCustomNextAlarmColor(prefs));
             }
         }
 

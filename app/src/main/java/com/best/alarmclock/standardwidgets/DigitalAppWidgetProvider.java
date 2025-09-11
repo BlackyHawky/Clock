@@ -140,13 +140,6 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         final SharedPreferences prefs = getDefaultSharedPreferences(context);
         final RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.standard_digital_widget);
 
-        rv.setCharSequence(R.id.clock, "setFormat12Hour",
-                ClockUtils.get12ModeFormat(context, WidgetUtils.getAmPmRatio(false, prefs),
-                        WidgetDAO.areSecondsDisplayedOnDigitalWidget(prefs)));
-        rv.setCharSequence(R.id.clock, "setFormat24Hour",
-                ClockUtils.get24ModeFormat(context,
-                        WidgetDAO.areSecondsDisplayedOnDigitalWidget(prefs)));
-
         // Tapping on the widget opens the app (if not on the lock screen).
         if (WidgetUtils.isWidgetClickable(wm, widgetId)) {
             final Intent openApp = new Intent(context, DeskClock.class);
@@ -155,23 +148,6 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         }
 
         // Configure child views of the remote view.
-        if (WidgetDAO.isDateDisplayedOnDigitalWidget(prefs)) {
-            rv.setViewVisibility(R.id.date, VISIBLE);
-            rv.setTextViewText(R.id.date, WidgetUtils.getDateFormat(context));
-        } else {
-            rv.setViewVisibility(R.id.date, GONE);
-        }
-
-        final String nextAlarmTime = AlarmUtils.getNextAlarm(context);
-        if (TextUtils.isEmpty(nextAlarmTime) || !WidgetDAO.isNextAlarmDisplayedOnDigitalWidget(prefs)) {
-            rv.setViewVisibility(R.id.nextAlarm, GONE);
-            rv.setViewVisibility(R.id.nextAlarmIcon, GONE);
-        } else {
-            rv.setTextViewText(R.id.nextAlarm, nextAlarmTime);
-            rv.setViewVisibility(R.id.nextAlarm, VISIBLE);
-            rv.setViewVisibility(R.id.nextAlarmIcon, VISIBLE);
-        }
-
         if (options == null) {
             options = wm.getAppWidgetOptions(widgetId);
         }
@@ -198,6 +174,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         final Sizes template = new Sizes(targetWidthPx, targetHeightPx, largestClockFontSizePx);
 
         // Compute optimal font sizes and icon sizes to fit within the widget bounds.
+        final String nextAlarmTime = AlarmUtils.getNextAlarm(context);
         final Sizes sizes = optimizeSizes(context, template, nextAlarmTime);
         if (LOGGER.isVerboseLoggable()) {
             LOGGER.v(sizes.toString());
@@ -208,30 +185,6 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         rv.setTextViewTextSize(R.id.date, COMPLEX_UNIT_PX, sizes.mFontSizePx);
         rv.setTextViewTextSize(R.id.nextAlarm, COMPLEX_UNIT_PX, sizes.mFontSizePx);
         rv.setTextViewTextSize(R.id.clock, COMPLEX_UNIT_PX, sizes.mClockFontSizePx);
-
-        // Apply the color to the clock.
-        final int customClockColor = WidgetDAO.getDigitalWidgetCustomClockColor(prefs);
-        if (WidgetDAO.isDigitalWidgetDefaultClockColor(prefs)) {
-            rv.setTextColor(R.id.clock, Color.WHITE);
-        } else {
-            rv.setTextColor(R.id.clock, customClockColor);
-        }
-
-        // Apply the color to the date.
-        final int customDateColor = WidgetDAO.getDigitalWidgetCustomDateColor(prefs);
-        if (WidgetDAO.isDigitalWidgetDefaultDateColor(prefs)) {
-            rv.setTextColor(R.id.date, Color.WHITE);
-        } else {
-            rv.setTextColor(R.id.date, customDateColor);
-        }
-
-        // Apply the color to the next alarm.
-        final int customNextAlarmColor = WidgetDAO.getDigitalWidgetCustomNextAlarmColor(prefs);
-        if (WidgetDAO.isDigitalWidgetDefaultNextAlarmColor(prefs)) {
-            rv.setTextColor(R.id.nextAlarm, Color.WHITE);
-        } else {
-            rv.setTextColor(R.id.nextAlarm, customNextAlarmColor);
-        }
 
         final int smallestWorldCityListSizePx = ThemeUtils.convertDpToPixels(80, context);
 
@@ -254,7 +207,53 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
             }
         }
 
-        // Apply the color to the digital widget background.
+        if (DataModel.getDataModel().is24HourFormat()) {
+            rv.setCharSequence(R.id.clock, "setFormat24Hour",
+                    ClockUtils.get24ModeFormat(context, WidgetDAO.areSecondsDisplayedOnDigitalWidget(prefs)));
+        } else {
+            rv.setCharSequence(R.id.clock, "setFormat12Hour",
+                    ClockUtils.get12ModeFormat(context, WidgetUtils.getAmPmRatio(false, prefs),
+                            WidgetDAO.areSecondsDisplayedOnDigitalWidget(prefs)));
+        }
+
+        // Apply the color to the clock.
+        if (WidgetDAO.isDigitalWidgetDefaultClockColor(prefs)) {
+            rv.setTextColor(R.id.clock, Color.WHITE);
+        } else {
+            rv.setTextColor(R.id.clock, WidgetDAO.getDigitalWidgetCustomClockColor(prefs));
+        }
+
+        // Apply the color to the date if it's displayed.
+        if (WidgetDAO.isDateDisplayedOnDigitalWidget(prefs)) {
+            rv.setViewVisibility(R.id.date, VISIBLE);
+            rv.setTextViewText(R.id.date, WidgetUtils.getDateFormat(context));
+
+            if (WidgetDAO.isDigitalWidgetDefaultDateColor(prefs)) {
+                rv.setTextColor(R.id.date, Color.WHITE);
+            } else {
+                rv.setTextColor(R.id.date, WidgetDAO.getDigitalWidgetCustomDateColor(prefs));
+            }
+        } else {
+            rv.setViewVisibility(R.id.date, GONE);
+        }
+
+        // Apply the color to the next alarm if it's displayed.
+        if (TextUtils.isEmpty(nextAlarmTime) || !WidgetDAO.isNextAlarmDisplayedOnDigitalWidget(prefs)) {
+            rv.setViewVisibility(R.id.nextAlarm, GONE);
+            rv.setViewVisibility(R.id.nextAlarmIcon, GONE);
+        } else {
+            rv.setTextViewText(R.id.nextAlarm, nextAlarmTime);
+            rv.setViewVisibility(R.id.nextAlarm, VISIBLE);
+            rv.setViewVisibility(R.id.nextAlarmIcon, VISIBLE);
+
+            if (WidgetDAO.isDigitalWidgetDefaultNextAlarmColor(prefs)) {
+                rv.setTextColor(R.id.nextAlarm, Color.WHITE);
+            } else {
+                rv.setTextColor(R.id.nextAlarm, WidgetDAO.getDigitalWidgetCustomNextAlarmColor(prefs));
+            }
+        }
+
+        // Apply the color to the background if it's displayed.
         if (WidgetDAO.isBackgroundDisplayedOnDigitalWidget(prefs)) {
             int backgroundColor = WidgetDAO.getDigitalWidgetBackgroundColor(prefs);
             rv.setInt(R.id.digitalWidgetBackground, "setBackgroundColor", backgroundColor);
@@ -301,11 +300,10 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
             nextAlarmIcon.setVisibility(VISIBLE);
             nextAlarmIcon.setTypeface(ClockUtils.getAlarmIconTypeface(context));
             // Apply the color to the next alarm icon.
-            final int customNextAlarmColor = WidgetDAO.getDigitalWidgetCustomNextAlarmColor(prefs);
             if (WidgetDAO.isDigitalWidgetDefaultNextAlarmColor(prefs)) {
                 nextAlarmIcon.setTextColor(Color.WHITE);
             } else {
-                nextAlarmIcon.setTextColor(customNextAlarmColor);
+                nextAlarmIcon.setTextColor(WidgetDAO.getDigitalWidgetCustomNextAlarmColor(prefs));
             }
         }
 

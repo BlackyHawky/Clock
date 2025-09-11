@@ -43,7 +43,16 @@ public class AnalogAppWidgetProvider extends AppWidgetProvider {
 
     private static RemoteViews relayoutWidget(Context context, AppWidgetManager wm, int widgetId) {
         SharedPreferences prefs = getDefaultSharedPreferences(context);
-        final RemoteViews widget = new RemoteViews(context.getPackageName(), R.layout.standard_analog_appwidget);
+        final RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.standard_analog_appwidget);
+
+        // Tapping on the widget opens the app (if not on the lock screen).
+        if (WidgetUtils.isWidgetClickable(wm, widgetId)) {
+            final Intent openApp = new Intent(context, DeskClock.class);
+            final PendingIntent pi = PendingIntent.getActivity(context, 0, openApp, PendingIntent.FLAG_IMMUTABLE);
+            rv.setOnClickPendingIntent(R.id.analogAppwidget, pi);
+        }
+
+        // Configure child views of the remote view.
         final Icon dialIcon = getAnalogClockDialIcon(context, WidgetDAO.getAnalogWidgetClockDial(prefs));
         final Icon hourHandIcon = Icon.createWithResource(context, R.drawable.analog_clock_hour);
         final Icon minuteHandIcon = Icon.createWithResource(context, R.drawable.analog_clock_minute);
@@ -52,40 +61,37 @@ public class AnalogAppWidgetProvider extends AppWidgetProvider {
                         ? R.drawable.analog_clock_second
                         : R.drawable.analog_clock_second_vintage);
 
-        widget.setIcon(R.id.analogAppwidget, "setDial", dialIcon);
-        widget.setIcon(R.id.analogAppwidget, "setHourHand", hourHandIcon);
-        widget.setIcon(R.id.analogAppwidget, "setMinuteHand", minuteHandIcon);
+        rv.setIcon(R.id.analogAppwidget, "setDial", dialIcon);
+        rv.setIcon(R.id.analogAppwidget, "setHourHand", hourHandIcon);
+        rv.setIcon(R.id.analogAppwidget, "setMinuteHand", minuteHandIcon);
 
+        // Apply the color to the dial.
         if (!WidgetDAO.isAnalogWidgetDefaultDialColor(prefs)) {
             dialIcon.setTint(WidgetDAO.getAnalogWidgetDialColor(prefs));
         }
 
+        // Apply the color to the hour hand.
         if (!WidgetDAO.isAnalogWidgetDefaultHourHandColor(prefs)) {
             hourHandIcon.setTint(WidgetDAO.getAnalogWidgetHourHandColor(prefs));
         }
 
+        // Apply the color to the minute hand.
         if (!WidgetDAO.isAnalogWidgetDefaultMinuteHandColor(prefs)) {
             minuteHandIcon.setTint(WidgetDAO.getAnalogWidgetMinuteHandColor(prefs));
         }
 
+        // Apply the color to the second hand if it's displayed.
         if (WidgetDAO.isSecondHandDisplayedOnAnalogWidget(prefs)) {
-            widget.setIcon(R.id.analogAppwidget, "setSecondHand", secondHandIcon);
+            rv.setIcon(R.id.analogAppwidget, "setSecondHand", secondHandIcon);
 
             if (!WidgetDAO.isAnalogWidgetDefaultSecondHandColor(prefs)) {
                 secondHandIcon.setTint(WidgetDAO.getAnalogWidgetSecondHandColor(prefs));
             }
         } else {
-            widget.setIcon(R.id.analogAppwidget, "setSecondHand", null);
+            rv.setIcon(R.id.analogAppwidget, "setSecondHand", null);
         }
 
-        // Tapping on the widget opens the app (if not on the lock screen).
-        if (WidgetUtils.isWidgetClickable(wm, widgetId)) {
-            final Intent openApp = new Intent(context, DeskClock.class);
-            final PendingIntent pi = PendingIntent.getActivity(context, 0, openApp, PendingIntent.FLAG_IMMUTABLE);
-            widget.setOnClickPendingIntent(R.id.analogAppwidget, pi);
-        }
-
-        return widget;
+        return rv;
     }
 
     @Override

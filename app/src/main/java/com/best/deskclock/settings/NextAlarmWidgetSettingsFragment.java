@@ -37,15 +37,15 @@ public class NextAlarmWidgetSettingsFragment extends ScreenFragment
 
     private int mAppWidgetId = INVALID_APPWIDGET_ID;
 
-    ColorPreference mBackgroundColorPref;
-    ColorPreference mCustomTitleColorPref;
-    ColorPreference mCustomAlarmTitleColorPref;
-    ColorPreference mCustomAlarmColorPref;
     SwitchPreferenceCompat mShowBackgroundOnNextAlarmWidgetPref;
-    SwitchPreferenceCompat mDefaultTitleColorPref;
-    SwitchPreferenceCompat mDefaultAlarmTitleColorPref;
-    SwitchPreferenceCompat mDefaultAlarmColorPref;
     SwitchPreferenceCompat mApplyHorizontalPaddingPref;
+    ColorPreference mBackgroundColorPref;
+    SwitchPreferenceCompat mDefaultTitleColorPref;
+    ColorPreference mCustomTitleColorPref;
+    SwitchPreferenceCompat mDefaultAlarmTitleColorPref;
+    ColorPreference mCustomAlarmTitleColorPref;
+    SwitchPreferenceCompat mDefaultAlarmColorPref;
+    ColorPreference mCustomAlarmColorPref;
 
     @Override
     protected String getFragmentTitle() {
@@ -59,6 +59,7 @@ public class NextAlarmWidgetSettingsFragment extends ScreenFragment
         addPreferencesFromResource(R.xml.settings_customize_next_alarm_widget);
 
         mShowBackgroundOnNextAlarmWidgetPref = findPreference(KEY_NEXT_ALARM_WIDGET_DISPLAY_BACKGROUND);
+        mApplyHorizontalPaddingPref = findPreference(KEY_NEXT_ALARM_WIDGET_APPLY_HORIZONTAL_PADDING);
         mBackgroundColorPref = findPreference(KEY_NEXT_ALARM_WIDGET_BACKGROUND_COLOR);
         mDefaultTitleColorPref = findPreference(KEY_NEXT_ALARM_WIDGET_DEFAULT_TITLE_COLOR);
         mCustomTitleColorPref = findPreference(KEY_NEXT_ALARM_WIDGET_CUSTOM_TITLE_COLOR);
@@ -66,7 +67,6 @@ public class NextAlarmWidgetSettingsFragment extends ScreenFragment
         mCustomAlarmTitleColorPref = findPreference(KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_TITLE_COLOR);
         mDefaultAlarmColorPref = findPreference(KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_COLOR);
         mCustomAlarmColorPref = findPreference(KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR);
-        mApplyHorizontalPaddingPref = findPreference(KEY_NEXT_ALARM_WIDGET_APPLY_HORIZONTAL_PADDING);
 
         setupPreferences();
 
@@ -105,6 +105,9 @@ public class NextAlarmWidgetSettingsFragment extends ScreenFragment
                 Utils.setVibrationTime(requireContext(), 50);
             }
 
+            case KEY_NEXT_ALARM_WIDGET_APPLY_HORIZONTAL_PADDING ->
+                    Utils.setVibrationTime(requireContext(), 50);
+
             case KEY_NEXT_ALARM_WIDGET_DEFAULT_TITLE_COLOR -> {
                 mCustomTitleColorPref.setVisible(!(boolean) newValue);
                 Utils.setVibrationTime(requireContext(), 50);
@@ -119,9 +122,6 @@ public class NextAlarmWidgetSettingsFragment extends ScreenFragment
                 mCustomAlarmColorPref.setVisible(!(boolean) newValue);
                 Utils.setVibrationTime(requireContext(), 50);
             }
-
-            case KEY_NEXT_ALARM_WIDGET_APPLY_HORIZONTAL_PADDING ->
-                    Utils.setVibrationTime(requireContext(), 50);
         }
 
         requireContext().sendBroadcast(new Intent(ACTION_APPWIDGET_UPDATE));
@@ -137,6 +137,8 @@ public class NextAlarmWidgetSettingsFragment extends ScreenFragment
 
     private void setupPreferences() {
         mShowBackgroundOnNextAlarmWidgetPref.setOnPreferenceChangeListener(this);
+
+        mApplyHorizontalPaddingPref.setOnPreferenceChangeListener(this);
 
         mBackgroundColorPref.setVisible(WidgetDAO.isBackgroundDisplayedOnNextAlarmWidget(mPrefs));
         mBackgroundColorPref.setOnPreferenceChangeListener(this);
@@ -155,8 +157,6 @@ public class NextAlarmWidgetSettingsFragment extends ScreenFragment
 
         mCustomAlarmColorPref.setVisible(!WidgetDAO.isNextAlarmWidgetDefaultAlarmColor(mPrefs));
         mCustomAlarmColorPref.setOnPreferenceChangeListener(this);
-
-        mApplyHorizontalPaddingPref.setOnPreferenceChangeListener(this);
     }
 
     private void saveCheckedPreferenceStates() {

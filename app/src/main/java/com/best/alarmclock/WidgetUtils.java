@@ -64,6 +64,11 @@ public class WidgetUtils {
     }
 
     /**
+     * Suffix for a key to a preference that stores the instance count for a given widget type.
+     */
+    private static final String WIDGET_COUNT = "_widget_count";
+
+    /**
      * Calculate the scale factor of the fonts in the widget
      */
     public static float getScaleRatio(Context context, Bundle options, int id, int cityCount) {
@@ -134,12 +139,28 @@ public class WidgetUtils {
     }
 
     /**
+     * @param widgetProviderClass indicates the type of widget being counted
+     * @param count               the number of widgets of the given type
+     * @return the delta between the new count and the old count
+     */
+    public static int updateWidgetCount(SharedPreferences prefs, Class<?> widgetProviderClass, int count) {
+        final String key = widgetProviderClass.getSimpleName() + WIDGET_COUNT;
+        final int oldCount = prefs.getInt(key, 0);
+        if (count == 0) {
+            prefs.edit().remove(key).apply();
+        } else {
+            prefs.edit().putInt(key, count).apply();
+        }
+        return count - oldCount;
+    }
+
+    /**
      * @param widgetClass     indicates the type of widget being counted
      * @param count           the number of widgets of the given type
      * @param eventCategoryId identifies the category of event to send
      */
     public static void updateWidgetCount(Context context, Class<?> widgetClass, int count, @StringRes int eventCategoryId) {
-        int delta = WidgetDAO.updateWidgetCount(getDefaultSharedPreferences(context), widgetClass, count);
+        int delta = updateWidgetCount(getDefaultSharedPreferences(context), widgetClass, count);
         for (; delta > 0; delta--) {
             Events.sendEvent(eventCategoryId, R.string.action_create, 0);
         }

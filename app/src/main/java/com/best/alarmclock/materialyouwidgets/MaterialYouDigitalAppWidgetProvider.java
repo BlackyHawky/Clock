@@ -145,33 +145,7 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
             rv.setOnClickPendingIntent(R.id.material_you_digital_widget, pi);
         }
 
-        // Apply the color to the next alarm.
-        // The default color is defined in the xml files to match the device's day/night theme.
-        final String nextAlarmTime = AlarmUtils.getNextAlarm(context);
-        final int customNextAlarmColor = WidgetDAO.getMaterialYouDigitalWidgetCustomNextAlarmColor(prefs);
-
-        if (TextUtils.isEmpty(nextAlarmTime) || !WidgetDAO.isNextAlarmDisplayedOnMaterialYouDigitalWidget(prefs)) {
-            rv.setViewVisibility(R.id.nextAlarm, GONE);
-            rv.setViewVisibility(R.id.nextAlarmIcon, GONE);
-            rv.setViewVisibility(R.id.nextAlarmForCustomColor, GONE);
-            rv.setViewVisibility(R.id.nextAlarmIconForCustomColor, GONE);
-        } else {
-            if (WidgetDAO.isMaterialYouDigitalWidgetDefaultNextAlarmColor(prefs)) {
-                rv.setViewVisibility(R.id.nextAlarm, VISIBLE);
-                rv.setViewVisibility(R.id.nextAlarmIcon, VISIBLE);
-                rv.setViewVisibility(R.id.nextAlarmForCustomColor, GONE);
-                rv.setViewVisibility(R.id.nextAlarmIconForCustomColor, GONE);
-                rv.setTextViewText(R.id.nextAlarm, nextAlarmTime);
-            } else {
-                rv.setViewVisibility(R.id.nextAlarm, GONE);
-                rv.setViewVisibility(R.id.nextAlarmIcon, GONE);
-                rv.setViewVisibility(R.id.nextAlarmForCustomColor, VISIBLE);
-                rv.setViewVisibility(R.id.nextAlarmIconForCustomColor, VISIBLE);
-                rv.setTextViewText(R.id.nextAlarmForCustomColor, nextAlarmTime);
-                rv.setTextColor(R.id.nextAlarmForCustomColor, customNextAlarmColor);
-            }
-        }
-
+        // Configure child views of the remote view.
         if (options == null) {
             options = wm.getAppWidgetOptions(widgetId);
         }
@@ -198,6 +172,7 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
         final Sizes template = new Sizes(targetWidthPx, targetHeightPx, largestClockFontSizePx);
 
         // Compute optimal font sizes and icon sizes to fit within the widget bounds.
+        final String nextAlarmTime = AlarmUtils.getNextAlarm(context);
         final Sizes sizes = optimizeSizes(context, template, nextAlarmTime);
         if (LOGGER.isVerboseLoggable()) {
             LOGGER.v(sizes.toString());
@@ -213,47 +188,6 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
         rv.setTextViewTextSize(R.id.dateForCustomColor, COMPLEX_UNIT_PX, sizes.mFontSizePx);
         rv.setTextViewTextSize(R.id.nextAlarmForCustomColor, COMPLEX_UNIT_PX, sizes.mFontSizePx);
         rv.setTextViewTextSize(R.id.clockForCustomColor, COMPLEX_UNIT_PX, sizes.mClockFontSizePx);
-
-        // Apply the custom color to the clock.
-        // The default color is defined in the xml files to match the device's day/night theme.
-        final int customClockColor = WidgetDAO.getMaterialYouDigitalWidgetCustomClockColor(prefs);
-        if (WidgetDAO.isMaterialYouDigitalWidgetDefaultClockColor(prefs)) {
-            rv.setViewVisibility(R.id.clock, VISIBLE);
-            rv.setViewVisibility(R.id.clockForCustomColor, GONE);
-            rv.setCharSequence(R.id.clock, "setFormat12Hour", ClockUtils.get12ModeFormat(
-                    context, WidgetUtils.getAmPmRatio(true, prefs),
-                    WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs)));
-            rv.setCharSequence(R.id.clock, "setFormat24Hour", ClockUtils.get24ModeFormat(
-                    context, WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs)));
-        } else {
-            rv.setViewVisibility(R.id.clock, GONE);
-            rv.setViewVisibility(R.id.clockForCustomColor, VISIBLE);
-            rv.setCharSequence(R.id.clockForCustomColor, "setFormat12Hour",
-                    ClockUtils.get12ModeFormat(context, WidgetUtils.getAmPmRatio(true, prefs),
-                            WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs)));
-            rv.setCharSequence(R.id.clockForCustomColor, "setFormat24Hour",
-                    ClockUtils.get24ModeFormat(context,
-                            WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs)));
-            rv.setTextColor(R.id.clockForCustomColor, customClockColor);
-        }
-
-        // Apply the custom color to the date.
-        // The default color is defined in the xml files to match the device's day/night theme.
-        if (WidgetDAO.isDateDisplayedOnMaterialYouDigitalWidget(prefs)) {
-            if (WidgetDAO.isMaterialYouDigitalWidgetDefaultDateColor(prefs)) {
-                rv.setViewVisibility(R.id.date, VISIBLE);
-                rv.setViewVisibility(R.id.dateForCustomColor, GONE);
-                rv.setTextViewText(R.id.date, WidgetUtils.getDateFormat(context));
-            } else {
-                rv.setViewVisibility(R.id.date, GONE);
-                rv.setViewVisibility(R.id.dateForCustomColor, VISIBLE);
-                rv.setTextViewText(R.id.dateForCustomColor, WidgetUtils.getDateFormat(context));
-                rv.setTextColor(R.id.dateForCustomColor, WidgetDAO.getMaterialYouDigitalWidgetCustomDateColor(prefs));
-            }
-        } else {
-            rv.setViewVisibility(R.id.date, GONE);
-            rv.setViewVisibility(R.id.dateForCustomColor, GONE);
-        }
 
         final int smallestWorldCityListSizePx = ThemeUtils.convertDpToPixels(80, context);
         if (sizes.getListHeight() <= smallestWorldCityListSizePx || !areWorldCitiesDisplayed) {
@@ -275,7 +209,77 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
             }
         }
 
-        // Apply the color to the widget background if it's displayed.
+        // Apply the color to the clock.
+        // The default color is defined in the xml files to match the device's day/night theme.
+        if (WidgetDAO.isMaterialYouDigitalWidgetDefaultClockColor(prefs)) {
+            rv.setViewVisibility(R.id.clock, VISIBLE);
+            rv.setViewVisibility(R.id.clockForCustomColor, GONE);
+
+            if (DataModel.getDataModel().is24HourFormat()) {
+                rv.setCharSequence(R.id.clock, "setFormat24Hour", ClockUtils.get24ModeFormat(
+                        context, WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs)));
+            } else {
+                rv.setCharSequence(R.id.clock, "setFormat12Hour", ClockUtils.get12ModeFormat(
+                        context, WidgetUtils.getAmPmRatio(true, prefs),
+                        WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs)));
+            }
+        } else {
+            rv.setViewVisibility(R.id.clock, GONE);
+            rv.setViewVisibility(R.id.clockForCustomColor, VISIBLE);
+            rv.setCharSequence(R.id.clockForCustomColor, "setFormat12Hour",
+                    ClockUtils.get12ModeFormat(context, WidgetUtils.getAmPmRatio(true, prefs),
+                            WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs)));
+            rv.setCharSequence(R.id.clockForCustomColor, "setFormat24Hour",
+                    ClockUtils.get24ModeFormat(context,
+                            WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs)));
+            rv.setTextColor(R.id.clockForCustomColor,
+                    WidgetDAO.getMaterialYouDigitalWidgetCustomClockColor(prefs));
+        }
+
+        // Apply the color to the date if it's displayed.
+        // The default color is defined in the xml files to match the device's day/night theme.
+        if (WidgetDAO.isDateDisplayedOnMaterialYouDigitalWidget(prefs)) {
+            if (WidgetDAO.isMaterialYouDigitalWidgetDefaultDateColor(prefs)) {
+                rv.setViewVisibility(R.id.date, VISIBLE);
+                rv.setViewVisibility(R.id.dateForCustomColor, GONE);
+                rv.setTextViewText(R.id.date, WidgetUtils.getDateFormat(context));
+            } else {
+                rv.setViewVisibility(R.id.date, GONE);
+                rv.setViewVisibility(R.id.dateForCustomColor, VISIBLE);
+                rv.setTextViewText(R.id.dateForCustomColor, WidgetUtils.getDateFormat(context));
+                rv.setTextColor(R.id.dateForCustomColor, WidgetDAO.getMaterialYouDigitalWidgetCustomDateColor(prefs));
+            }
+        } else {
+            rv.setViewVisibility(R.id.date, GONE);
+            rv.setViewVisibility(R.id.dateForCustomColor, GONE);
+        }
+
+        // Apply the color to the next alarm if it's displayed.
+        // The default color is defined in the xml files to match the device's day/night theme.
+        if (TextUtils.isEmpty(nextAlarmTime) || !WidgetDAO.isNextAlarmDisplayedOnMaterialYouDigitalWidget(prefs)) {
+            rv.setViewVisibility(R.id.nextAlarm, GONE);
+            rv.setViewVisibility(R.id.nextAlarmIcon, GONE);
+            rv.setViewVisibility(R.id.nextAlarmForCustomColor, GONE);
+            rv.setViewVisibility(R.id.nextAlarmIconForCustomColor, GONE);
+        } else {
+            if (WidgetDAO.isMaterialYouDigitalWidgetDefaultNextAlarmColor(prefs)) {
+                rv.setViewVisibility(R.id.nextAlarm, VISIBLE);
+                rv.setViewVisibility(R.id.nextAlarmIcon, VISIBLE);
+                rv.setViewVisibility(R.id.nextAlarmForCustomColor, GONE);
+                rv.setViewVisibility(R.id.nextAlarmIconForCustomColor, GONE);
+                rv.setTextViewText(R.id.nextAlarm, nextAlarmTime);
+            } else {
+                rv.setViewVisibility(R.id.nextAlarm, GONE);
+                rv.setViewVisibility(R.id.nextAlarmIcon, GONE);
+                rv.setViewVisibility(R.id.nextAlarmForCustomColor, VISIBLE);
+                rv.setViewVisibility(R.id.nextAlarmIconForCustomColor, VISIBLE);
+                rv.setTextViewText(R.id.nextAlarmForCustomColor, nextAlarmTime);
+                rv.setTextColor(R.id.nextAlarmForCustomColor,
+                        WidgetDAO.getMaterialYouDigitalWidgetCustomNextAlarmColor(prefs));
+            }
+        }
+
+        // Apply the color to the background if it's displayed.
         final Icon backgroundIcon = Icon.createWithResource(context, R.drawable.material_you_digital_widget_background);
         rv.setIcon(R.id.materialYouDigitalWidgetBackground, "setImageIcon", backgroundIcon);
 
@@ -338,7 +342,6 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
         final TextView nextAlarm = sizer.findViewById(R.id.nextAlarm);
         final TextView nextAlarmIconForCustomColor = sizer.findViewById(R.id.nextAlarmIconForCustomColor);
         final TextView nextAlarmForCustomColor = sizer.findViewById(R.id.nextAlarmForCustomColor);
-        final int customNextAlarmColor = WidgetDAO.getMaterialYouDigitalWidgetCustomNextAlarmColor(prefs);
 
         if (TextUtils.isEmpty(nextAlarmTime) || !WidgetDAO.isNextAlarmDisplayedOnMaterialYouDigitalWidget(prefs)) {
             nextAlarm.setVisibility(GONE);
@@ -360,7 +363,8 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
                 nextAlarmForCustomColor.setVisibility(VISIBLE);
                 nextAlarmIconForCustomColor.setVisibility(VISIBLE);
                 nextAlarmIconForCustomColor.setTypeface(ClockUtils.getAlarmIconTypeface(context));
-                nextAlarmIconForCustomColor.setTextColor(customNextAlarmColor);
+                nextAlarmIconForCustomColor.setTextColor(
+                        WidgetDAO.getMaterialYouDigitalWidgetCustomNextAlarmColor(prefs));
             }
         }
 

@@ -46,7 +46,7 @@ public class MaterialYouAnalogWidgetSettingsFragment extends ScreenFragment impl
     ColorPreference mDialColorPref;
     SwitchPreferenceCompat mDefaultHourHandColorPref;
     ColorPreference mHourHandColorPref;
-    SwitchPreferenceCompat mDefaultMinuteColorPref;
+    SwitchPreferenceCompat mDefaultMinuteHandColorPref;
     ColorPreference mMinuteHandColorPref;
     SwitchPreferenceCompat mDefaultSecondHandColorPref;
     ColorPreference mSecondHandColorPref;
@@ -68,7 +68,7 @@ public class MaterialYouAnalogWidgetSettingsFragment extends ScreenFragment impl
         mDialColorPref = findPreference(KEY_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_DIAL_COLOR);
         mDefaultHourHandColorPref = findPreference(KEY_MATERIAL_YOU_ANALOG_WIDGET_DEFAULT_HOUR_HAND_COLOR);
         mHourHandColorPref = findPreference(KEY_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_HOUR_HAND_COLOR);
-        mDefaultMinuteColorPref = findPreference(KEY_MATERIAL_YOU_ANALOG_WIDGET_DEFAULT_MINUTE_HAND_COLOR);
+        mDefaultMinuteHandColorPref = findPreference(KEY_MATERIAL_YOU_ANALOG_WIDGET_DEFAULT_MINUTE_HAND_COLOR);
         mMinuteHandColorPref = findPreference(KEY_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_MINUTE_HAND_COLOR);
         mDefaultSecondHandColorPref = findPreference(KEY_MATERIAL_YOU_ANALOG_WIDGET_DEFAULT_SECOND_HAND_COLOR);
         mSecondHandColorPref = findPreference(KEY_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_SECOND_HAND_COLOR);
@@ -172,7 +172,7 @@ public class MaterialYouAnalogWidgetSettingsFragment extends ScreenFragment impl
         mHourHandColorPref.setVisible(!WidgetDAO.isMaterialYouAnalogWidgetDefaultHourHandColor(mPrefs));
         mHourHandColorPref.setOnPreferenceChangeListener(this);
 
-        mDefaultMinuteColorPref.setOnPreferenceChangeListener(this);
+        mDefaultMinuteHandColorPref.setOnPreferenceChangeListener(this);
 
         mMinuteHandColorPref.setVisible(!WidgetDAO.isMaterialYouAnalogWidgetDefaultMinuteHandColor(mPrefs));
         mMinuteHandColorPref.setOnPreferenceChangeListener(this);
@@ -189,7 +189,7 @@ public class MaterialYouAnalogWidgetSettingsFragment extends ScreenFragment impl
         mDisplaySecondsPref.setChecked(WidgetDAO.isSecondHandDisplayedOnMaterialYouAnalogWidget(mPrefs));
         mDefaultDialColorPref.setChecked(WidgetDAO.isMaterialYouAnalogWidgetDefaultDialColor(mPrefs));
         mDefaultHourHandColorPref.setChecked(WidgetDAO.isMaterialYouAnalogWidgetDefaultHourHandColor(mPrefs));
-        mDefaultMinuteColorPref.setChecked(WidgetDAO.isMaterialYouAnalogWidgetDefaultMinuteHandColor(mPrefs));
+        mDefaultMinuteHandColorPref.setChecked(WidgetDAO.isMaterialYouAnalogWidgetDefaultMinuteHandColor(mPrefs));
         mDefaultSecondHandColorPref.setChecked(WidgetDAO.isMaterialYouAnalogWidgetDefaultSecondHandColor(mPrefs));
     }
 
