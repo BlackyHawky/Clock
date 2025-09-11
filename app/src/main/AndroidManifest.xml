@@ -330,7 +330,7 @@
         </receiver>
 
         <service
-            android:name="com.best.alarmclock.standardwidgets.DigitalAppWidgetCityService"
+            android:name="com.best.alarmclock.AppWidgetCityService$DigitalAppWidgetCityService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <!-- Vertical digital clock -->
@@ -433,7 +433,7 @@
         </receiver>
 
         <service
-            android:name="com.best.alarmclock.materialyouwidgets.MaterialYouDigitalAppWidgetCityService"
+            android:name="com.best.alarmclock.AppWidgetCityService$MaterialYouDigitalAppWidgetCityService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <!-- Vertical digital clock Material You -->

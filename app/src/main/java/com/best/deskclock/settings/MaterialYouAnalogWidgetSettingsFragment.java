@@ -195,7 +195,7 @@ public class MaterialYouAnalogWidgetSettingsFragment extends ScreenFragment impl
 
     private void updateMaterialYouAnalogWidget() {
         AppWidgetManager wm = AppWidgetManager.getInstance(requireContext());
-        MaterialYouAnalogAppWidgetProvider.updateAppWidget(requireContext(), wm, mAppWidgetId);
+        MaterialYouAnalogAppWidgetProvider.updateAnalogWidget(requireContext(), wm, mAppWidgetId);
 
         Intent result = new Intent();
         result.putExtra(EXTRA_APPWIDGET_ID, mAppWidgetId);

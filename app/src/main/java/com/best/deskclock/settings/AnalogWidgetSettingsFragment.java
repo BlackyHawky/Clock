@@ -201,7 +201,7 @@ public class AnalogWidgetSettingsFragment extends ScreenFragment implements Pref
 
     private void updateAnalogWidget() {
         AppWidgetManager wm = AppWidgetManager.getInstance(requireContext());
-        AnalogAppWidgetProvider.updateAppWidget(requireContext(), wm, mAppWidgetId);
+        AnalogAppWidgetProvider.updateAnalogWidget(requireContext(), wm, mAppWidgetId);
 
         Intent result = new Intent();
         result.putExtra(EXTRA_APPWIDGET_ID, mAppWidgetId);
