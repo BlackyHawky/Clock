@@ -58,13 +58,13 @@ import com.best.deskclock.alarms.AlarmUpdateHandler;
 import com.best.deskclock.data.CustomRingtone;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.provider.Alarm;
+import com.best.deskclock.uicomponents.CollapsingToolbarBaseActivity;
 import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
-import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 
 import com.google.android.material.color.MaterialColors;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;

@@ -25,11 +25,12 @@ import androidx.annotation.NonNull;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
-import com.best.alarmclock.WidgetUtils;
-import com.best.alarmclock.standardwidgets.NextAlarmAppWidgetProvider;
 import com.best.deskclock.R;
 import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.utils.Utils;
+import com.best.deskclock.utils.WidgetUtils;
+import com.best.deskclock.widgets.standardwidgets.NextAlarmAppWidgetProvider;
+
 import com.rarepebble.colorpicker.ColorPreference;
 
 public class NextAlarmWidgetSettingsFragment extends ScreenFragment

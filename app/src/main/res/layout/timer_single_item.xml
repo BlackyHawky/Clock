@@ -62,7 +62,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.best.deskclock.widget.CircleButtonsLayout
+    <com.best.deskclock.uicomponents.CircleButtonsLayout
         android:id="@+id/circle_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -80,7 +80,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <com.best.deskclock.widget.AutoSizingTextView
+        <com.best.deskclock.uicomponents.AutoSizingTextView
             android:id="@+id/timer_time_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -103,7 +103,7 @@
             android:contentDescription="@string/reset"
             app:tint="?attr/colorPrimary" />
 
-    </com.best.deskclock.widget.CircleButtonsLayout>
+    </com.best.deskclock.uicomponents.CircleButtonsLayout>
 
     <ImageButton
         android:id="@+id/timer_edit_new_duration_button"

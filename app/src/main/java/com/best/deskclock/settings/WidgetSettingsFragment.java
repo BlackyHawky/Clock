@@ -16,8 +16,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.preference.Preference;
 
-import com.best.alarmclock.WidgetUtils;
 import com.best.deskclock.R;
+import com.best.deskclock.utils.WidgetUtils;
 
 public class WidgetSettingsFragment extends ScreenFragment implements Preference.OnPreferenceClickListener {
 

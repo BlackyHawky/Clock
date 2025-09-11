@@ -32,8 +32,8 @@ import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.screensaver.Screensaver;
 import com.best.deskclock.screensaver.ScreensaverActivity;
-import com.best.deskclock.widget.toast.SnackbarManager;
-import com.best.deskclock.widget.toast.ToastManager;
+import com.best.deskclock.uicomponents.toast.SnackbarManager;
+import com.best.deskclock.uicomponents.toast.ToastManager;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Calendar;

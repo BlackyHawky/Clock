@@ -40,10 +40,10 @@ import androidx.core.app.ActivityCompat;
 import com.best.deskclock.FirstLaunch;
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.uicomponents.CollapsingToolbarBaseActivity;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
-import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 import com.google.android.material.color.MaterialColors;
 
 import java.lang.ref.WeakReference;

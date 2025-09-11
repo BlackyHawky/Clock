@@ -46,11 +46,11 @@ import androidx.preference.Preference;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.uicomponents.CollapsingToolbarBaseActivity;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.BackupAndRestoreUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.SdkUtils;
-import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 

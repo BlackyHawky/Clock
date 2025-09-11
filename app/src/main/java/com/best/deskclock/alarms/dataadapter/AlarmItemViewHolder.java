@@ -33,10 +33,10 @@ import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
+import com.best.deskclock.uicomponents.TextTime;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.AnimatorUtils;
 import com.best.deskclock.utils.ThemeUtils;
-import com.best.deskclock.widget.TextTime;
 import com.google.android.material.color.MaterialColors;
 
 import java.text.SimpleDateFormat;

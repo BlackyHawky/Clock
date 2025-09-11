@@ -24,7 +24,7 @@ import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.screensaver.Screensaver;
 import com.best.deskclock.screensaver.ScreensaverActivity;
 import com.best.deskclock.settings.AlarmDisplayPreviewActivity;
-import com.best.deskclock.widget.AnalogClock;
+import com.best.deskclock.uicomponents.AnalogClock;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

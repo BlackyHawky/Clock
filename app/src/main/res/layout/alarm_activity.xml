@@ -63,7 +63,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/alarm_title">
 
-            <com.best.deskclock.widget.AnalogClock
+            <com.best.deskclock.uicomponents.AnalogClock
                 android:id="@+id/analog_clock"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -153,7 +153,7 @@
             tools:background="@drawable/bg_alarm_slide_zone">
 
             <!-- Snooze text -->
-            <com.best.deskclock.widget.AutoSizingTextView
+            <com.best.deskclock.uicomponents.AutoSizingTextView
                 android:id="@+id/snooze_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -172,7 +172,7 @@
                 tools:textColor="@android:color/white" />
 
             <!-- Dismiss text -->
-            <com.best.deskclock.widget.AutoSizingTextView
+            <com.best.deskclock.uicomponents.AutoSizingTextView
                 android:id="@+id/dismiss_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -191,7 +191,7 @@
                 tools:textColor="@android:color/white" />
 
             <!-- Pill in the background of the Alarm button -->
-            <com.best.deskclock.widget.PillView
+            <com.best.deskclock.uicomponents.PillView
                 android:id="@+id/pill"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"

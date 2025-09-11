@@ -62,6 +62,8 @@ import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
+import com.best.deskclock.uicomponents.AnalogClock;
+import com.best.deskclock.uicomponents.PillView;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.AnimatorUtils;
 import com.best.deskclock.utils.ClockUtils;
@@ -69,8 +71,6 @@ import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
-import com.best.deskclock.widget.AnalogClock;
-import com.best.deskclock.widget.PillView;
 import com.google.android.material.button.MaterialButton;
 
 public class AlarmActivity extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener {

@@ -36,14 +36,15 @@ import androidx.annotation.NonNull;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
-import com.best.alarmclock.WidgetUtils;
-import com.best.alarmclock.standardwidgets.DigitalAppWidgetProvider;
 import com.best.deskclock.R;
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.utils.Utils;
+import com.best.deskclock.utils.WidgetUtils;
+import com.best.deskclock.widgets.standardwidgets.DigitalAppWidgetProvider;
+
 import com.rarepebble.colorpicker.ColorPreference;
 
 import java.util.List;

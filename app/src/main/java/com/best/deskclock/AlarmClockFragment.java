@@ -52,13 +52,13 @@ import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
+import com.best.deskclock.uicomponents.EmptyViewController;
+import com.best.deskclock.uicomponents.toast.SnackbarManager;
+import com.best.deskclock.uicomponents.toast.ToastManager;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
-import com.best.deskclock.widget.EmptyViewController;
-import com.best.deskclock.widget.toast.SnackbarManager;
-import com.best.deskclock.widget.toast.ToastManager;
 import com.google.android.material.color.MaterialColors;
 import com.google.android.material.snackbar.Snackbar;
 

@@ -46,7 +46,7 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <com.best.deskclock.widget.AnalogClock
+        <com.best.deskclock.uicomponents.AnalogClock
             android:id="@+id/analog_clock"
             android:layout_width="80dp"
             android:layout_height="80dp"

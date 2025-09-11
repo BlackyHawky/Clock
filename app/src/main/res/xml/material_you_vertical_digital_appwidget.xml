@@ -17,5 +17,5 @@
     android:updatePeriodMillis="0"
     android:widgetCategory="keyguard|home_screen"
     android:widgetFeatures="configuration_optional|reconfigurable"
-    android:configure="com.best.alarmclock.WidgetConfiguration$MaterialYouVerticalDigitalWidgetConfiguration"
+    android:configure="com.best.deskclock.widgets.WidgetConfiguration$MaterialYouVerticalDigitalWidgetConfiguration"
     tools:targetApi="p" />

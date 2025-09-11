@@ -15,5 +15,5 @@
     android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="0"
     android:widgetFeatures="configuration_optional|reconfigurable"
-    android:configure="com.best.alarmclock.WidgetConfiguration$MaterialYouAnalogWidgetConfiguration"
+    android:configure="com.best.deskclock.widgets.WidgetConfiguration$MaterialYouAnalogWidgetConfiguration"
     tools:targetApi="p" />

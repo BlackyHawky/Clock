@@ -22,13 +22,13 @@
         android:orientation="vertical"
         tools:ignore="UselessParent">
 
-        <com.best.deskclock.widget.AnalogClock
+        <com.best.deskclock.uicomponents.AnalogClock
             android:id="@+id/analog_clock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal" />
 
-        <com.best.deskclock.widget.AutoSizingTextClock
+        <com.best.deskclock.uicomponents.AutoSizingTextClock
             android:id="@+id/digital_clock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -25,7 +25,7 @@ import androidx.core.view.WindowInsetsControllerCompat;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
-import com.best.deskclock.widget.AnalogClock;
+import com.best.deskclock.uicomponents.AnalogClock;
 
 public class ScreensaverUtils {
 

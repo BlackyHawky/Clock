@@ -16,10 +16,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.provider.Alarm;
+import com.best.deskclock.uicomponents.selector.AlarmSelection;
+import com.best.deskclock.uicomponents.selector.AlarmSelectionAdapter;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.SdkUtils;
-import com.best.deskclock.widget.selector.AlarmSelection;
-import com.best.deskclock.widget.selector.AlarmSelectionAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

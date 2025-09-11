@@ -28,12 +28,13 @@ import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
-import com.best.alarmclock.WidgetUtils;
-import com.best.alarmclock.standardwidgets.AnalogAppWidgetProvider;
 import com.best.deskclock.R;
 import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
+import com.best.deskclock.utils.WidgetUtils;
+import com.best.deskclock.widgets.standardwidgets.AnalogAppWidgetProvider;
+
 import com.rarepebble.colorpicker.ColorPreference;
 
 public class AnalogWidgetSettingsFragment extends ScreenFragment implements Preference.OnPreferenceChangeListener {

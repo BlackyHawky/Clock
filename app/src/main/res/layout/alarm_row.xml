@@ -17,7 +17,7 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <com.best.deskclock.widget.TextTime
+        <com.best.deskclock.uicomponents.TextTime
             android:id="@+id/digital_clock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -42,13 +42,13 @@ import com.best.deskclock.data.City;
 import com.best.deskclock.data.CityListener;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.uicomponents.AnalogClock;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
-import com.best.deskclock.widget.AnalogClock;
 import com.best.deskclock.worldclock.CitySelectionActivity;
 import com.google.android.material.card.MaterialCardView;
 
