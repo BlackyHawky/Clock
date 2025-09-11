@@ -2,8 +2,6 @@
 
 package com.best.deskclock.settings;
 
-import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
-
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_DIGITAL_CLOCK_FONT_SIZE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_TITLE_FONT_SIZE_PREF;
@@ -22,7 +20,6 @@ import static com.best.deskclock.utils.RingtoneUtils.ALARM_PREVIEW_DURATION_MS;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -47,6 +44,7 @@ import com.best.deskclock.ringtone.RingtonePreviewKlaxon;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
+import com.best.deskclock.utils.WidgetUtils;
 import com.google.android.material.color.MaterialColors;
 
 import java.util.Locale;
@@ -106,7 +104,7 @@ public class CustomSeekbarPreference extends SeekBarPreference {
             resetPreference();
             setSeekBarProgress(seekBarSummary);
             startRingtonePreviewForBluetoothDevices();
-            sendBroadcastUpdateIfNeeded();
+            updateDigitalWidgets();
             updateSeekBarButtonStates();
             updateResetButtonStates();
         });
@@ -141,7 +139,7 @@ public class CustomSeekbarPreference extends SeekBarPreference {
                 int finalProgress = seekBar.getProgress();
                 saveSeekBarValue(finalProgress);
                 startRingtonePreviewForBluetoothDevices();
-                sendBroadcastUpdateIfNeeded();
+                updateDigitalWidgets();
             }
         });
     }
@@ -240,7 +238,7 @@ public class CustomSeekbarPreference extends SeekBarPreference {
             updateSeekBarSummary(seekBarSummary, newSeekBarValue);
             saveSeekBarValue(newSeekBarValue);
             startRingtonePreviewForBluetoothDevices();
-            sendBroadcastUpdateIfNeeded();
+            updateDigitalWidgets();
             updateSeekBarButtonStates();
             updateResetButtonStates();
         });
@@ -351,16 +349,17 @@ public class CustomSeekbarPreference extends SeekBarPreference {
     }
 
     /**
-     * Sends a broadcast to update widgets.
+     * Update digital widgets if the Preference is linked to the widgets one.
      */
-    private void sendBroadcastUpdateIfNeeded() {
+    private void updateDigitalWidgets() {
         if (!isScreensaverBrightnessPreference()
                 && !isShakeIntensityPreference()
                 && !isTimerShakeIntensityPreference()
                 && !isAlarmDigitalClockFontSizePreference()
                 && !isAlarmTitleFontSizePreference()
                 && !isBluetoothVolumePreference()) {
-            mContext.sendBroadcast(new Intent(ACTION_APPWIDGET_UPDATE));
+
+            WidgetUtils.updateAllDigitalWidgets(mContext);
         }
     }
 

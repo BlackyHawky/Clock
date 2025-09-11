@@ -2,7 +2,6 @@
 
 package com.best.deskclock.settings;
 
-import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
 import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
 
@@ -135,7 +134,7 @@ public class MaterialYouNextAlarmWidgetSettingsFragment extends ScreenFragment
             }
         }
 
-        requireContext().sendBroadcast(new Intent(ACTION_APPWIDGET_UPDATE));
+        WidgetUtils.scheduleWidgetUpdate(requireContext(), MaterialYouNextAlarmAppWidgetProvider.class);
         return true;
     }
 

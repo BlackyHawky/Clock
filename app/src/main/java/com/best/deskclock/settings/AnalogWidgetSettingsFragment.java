@@ -2,7 +2,6 @@
 
 package com.best.deskclock.settings;
 
-import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
 import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
 
@@ -144,7 +143,7 @@ public class AnalogWidgetSettingsFragment extends ScreenFragment implements Pref
             }
         }
 
-        requireContext().sendBroadcast(new Intent(ACTION_APPWIDGET_UPDATE));
+        WidgetUtils.scheduleWidgetUpdate(requireContext(), AnalogAppWidgetProvider.class);
         return true;
     }
 
@@ -202,7 +201,7 @@ public class AnalogWidgetSettingsFragment extends ScreenFragment implements Pref
 
     private void updateAnalogWidget() {
         AppWidgetManager wm = AppWidgetManager.getInstance(requireContext());
-        AnalogAppWidgetProvider.updateAnalogWidget(requireContext(), wm, mAppWidgetId);
+        AnalogAppWidgetProvider.updateAppWidget(requireContext(), wm, mAppWidgetId);
 
         Intent result = new Intent();
         result.putExtra(EXTRA_APPWIDGET_ID, mAppWidgetId);

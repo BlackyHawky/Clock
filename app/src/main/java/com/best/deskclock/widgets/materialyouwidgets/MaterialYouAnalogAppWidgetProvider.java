@@ -94,8 +94,8 @@ public class MaterialYouAnalogAppWidgetProvider extends BaseAnalogAppWidgetProvi
         super.onReceive(context, intent);
     }
 
-    public static void updateAnalogWidget(Context context, AppWidgetManager wm, int widgetId) {
-        new MaterialYouAnalogAppWidgetProvider().updateAppWidget(context, wm, widgetId);
+    public static void updateAppWidget(Context context, AppWidgetManager wm, int widgetId) {
+        new MaterialYouAnalogAppWidgetProvider().updateAnalogWidget(context, wm, widgetId);
     }
 
 }

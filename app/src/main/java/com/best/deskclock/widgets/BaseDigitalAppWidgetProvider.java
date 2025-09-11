@@ -4,7 +4,6 @@ package com.best.deskclock.widgets;
 
 import static android.app.PendingIntent.FLAG_NO_CREATE;
 import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
-import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT;
 import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH;
 import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT;
@@ -407,7 +406,6 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
         final String action = intent.getAction();
         if (action != null) {
             switch (action) {
-                case ACTION_APPWIDGET_UPDATE:
                 case ACTION_CONFIGURATION_CHANGED:
                 case ACTION_LOCALE_CHANGED:
                 case ACTION_TIME_CHANGED:
@@ -470,7 +468,6 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
     @NonNull
     private static IntentFilter getIntentFilter() {
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(ACTION_APPWIDGET_UPDATE);
         intentFilter.addAction(ACTION_CONFIGURATION_CHANGED);
         intentFilter.addAction(ACTION_ON_DAY_CHANGE);
         intentFilter.addAction(ACTION_WORLD_CITIES_CHANGED);

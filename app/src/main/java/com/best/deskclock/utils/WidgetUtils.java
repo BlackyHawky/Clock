@@ -21,6 +21,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.format.DateFormat;
 import android.widget.TextClock;
 
@@ -29,6 +30,14 @@ import androidx.annotation.StringRes;
 import com.best.deskclock.R;
 import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.events.Events;
+import com.best.deskclock.widgets.materialyouwidgets.MaterialYouAnalogAppWidgetProvider;
+import com.best.deskclock.widgets.materialyouwidgets.MaterialYouDigitalAppWidgetProvider;
+import com.best.deskclock.widgets.materialyouwidgets.MaterialYouNextAlarmAppWidgetProvider;
+import com.best.deskclock.widgets.materialyouwidgets.MaterialYouVerticalDigitalAppWidgetProvider;
+import com.best.deskclock.widgets.standardwidgets.AnalogAppWidgetProvider;
+import com.best.deskclock.widgets.standardwidgets.DigitalAppWidgetProvider;
+import com.best.deskclock.widgets.standardwidgets.NextAlarmAppWidgetProvider;
+import com.best.deskclock.widgets.standardwidgets.VerticalDigitalAppWidgetProvider;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -264,18 +273,73 @@ public class WidgetUtils {
 
     /**
      * Helper method to update a widget.
+     * <p>Note: The widget provider class must declare a public static method named
+     * {@code updateAppWidget(Context, AppWidgetManager, int)}.</p>
      */
-    public static void updateWidget(Context context, AppWidgetManager appWidgetManager, Class<?> widgetProviderClass) {
+    public static void updateWidget(Context context, Class<?> widgetProviderClass) {
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
         ComponentName widget = new ComponentName(context, widgetProviderClass);
         int[] widgetIds = appWidgetManager.getAppWidgetIds(widget);
+
+        if (widgetIds == null || widgetIds.length == 0) {
+            LogUtils.d("No widget instances found for " + widgetProviderClass.getSimpleName());
+            return;
+        }
+
         for (int widgetId : widgetIds) {
             try {
-                // Using the static updateAppWidget method on the appropriate provider
+                // Use the static "updateAppWidget()" method on the appropriate provider
                 widgetProviderClass.getMethod("updateAppWidget", Context.class, AppWidgetManager.class, int.class)
                         .invoke(null, context, appWidgetManager, widgetId);
             } catch (Exception e) {
                 LogUtils.e("Error updating widget " + widgetProviderClass.getSimpleName(), e);
             }
+        }
+    }
+
+    /**
+     * Helper method to update a specific widget with a 300ms delay.
+     */
+    public static void scheduleWidgetUpdate(Context context, Class<?> widgetProviderClass) {
+        new Handler(context.getMainLooper()).postDelayed(() ->
+                updateWidget(context, widgetProviderClass), 300);
+    }
+
+    /**
+     * Helper method to update all widgets.
+     */
+    public static void updateAllWidgets(Context context) {
+        Class<?>[] widgetProviders = {
+                AnalogAppWidgetProvider.class,
+                DigitalAppWidgetProvider.class,
+                NextAlarmAppWidgetProvider.class,
+                VerticalDigitalAppWidgetProvider.class,
+                MaterialYouAnalogAppWidgetProvider.class,
+                MaterialYouDigitalAppWidgetProvider.class,
+                MaterialYouNextAlarmAppWidgetProvider.class,
+                MaterialYouVerticalDigitalAppWidgetProvider.class
+        };
+
+        for (Class<?> provider : widgetProviders) {
+            updateWidget(context, provider);
+        }
+    }
+
+    /**
+     * Helper method to update all digital widgets.
+     */
+    public static void updateAllDigitalWidgets(Context context) {
+        Class<?>[] widgetProviders = {
+                DigitalAppWidgetProvider.class,
+                NextAlarmAppWidgetProvider.class,
+                VerticalDigitalAppWidgetProvider.class,
+                MaterialYouDigitalAppWidgetProvider.class,
+                MaterialYouNextAlarmAppWidgetProvider.class,
+                MaterialYouVerticalDigitalAppWidgetProvider.class
+        };
+
+        for (Class<?> provider : widgetProviders) {
+            updateWidget(context, provider);
         }
     }
 }

@@ -2,8 +2,6 @@
 
 package com.best.deskclock.settings;
 
-import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
-
 import static com.best.deskclock.FirstLaunch.KEY_IS_FIRST_LAUNCH;
 import static com.best.deskclock.data.CustomRingtoneDAO.NEXT_RINGTONE_ID;
 import static com.best.deskclock.data.CustomRingtoneDAO.RINGTONE_IDS;
@@ -52,6 +50,7 @@ import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.Utils;
+import com.best.deskclock.utils.WidgetUtils;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
@@ -315,7 +314,7 @@ public class AboutFragment extends ScreenFragment
             // Required to update Locale.
             requireContext().sendBroadcast(new Intent(ACTION_LANGUAGE_CODE_CHANGED));
             // Required to update widgets.
-            requireContext().sendBroadcast(new Intent(ACTION_APPWIDGET_UPDATE));
+            WidgetUtils.updateAllWidgets(requireContext());
             // Required to update the timer list.
             DataModel.getDataModel().loadTimers();
             // Required to update the tab to display.

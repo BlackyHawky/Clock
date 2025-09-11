@@ -20,8 +20,6 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_TOOLBAR_TITLE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_VIBRATIONS;
 import static com.best.deskclock.utils.Utils.ACTION_LANGUAGE_CODE_CHANGED;
 
-import android.appwidget.AppWidgetManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -35,12 +33,6 @@ import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
-import com.best.deskclock.widgets.materialyouwidgets.MaterialYouDigitalAppWidgetProvider;
-import com.best.deskclock.widgets.materialyouwidgets.MaterialYouNextAlarmAppWidgetProvider;
-import com.best.deskclock.widgets.materialyouwidgets.MaterialYouVerticalDigitalAppWidgetProvider;
-import com.best.deskclock.widgets.standardwidgets.DigitalAppWidgetProvider;
-import com.best.deskclock.widgets.standardwidgets.NextAlarmAppWidgetProvider;
-import com.best.deskclock.widgets.standardwidgets.VerticalDigitalAppWidgetProvider;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -108,7 +100,7 @@ public class InterfaceCustomizationFragment extends ScreenFragment
         super.onResume();
 
         if (isLanguageChanged) {
-            updateAllDigitalWidgets(requireContext());
+            WidgetUtils.updateAllDigitalWidgets(requireContext());
             isLanguageChanged = false;
         }
     }
@@ -272,20 +264,6 @@ public class InterfaceCustomizationFragment extends ScreenFragment
                 listPreference.setEntryValues(sortedValues);
             }
         }
-    }
-
-    /**
-     * Helper method to update all digital widgets.
-     */
-    private void updateAllDigitalWidgets(Context context) {
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-
-        WidgetUtils.updateWidget(context, appWidgetManager, DigitalAppWidgetProvider.class);
-        WidgetUtils.updateWidget(context, appWidgetManager, NextAlarmAppWidgetProvider.class);
-        WidgetUtils.updateWidget(context, appWidgetManager, VerticalDigitalAppWidgetProvider.class);
-        WidgetUtils.updateWidget(context, appWidgetManager, MaterialYouDigitalAppWidgetProvider.class);
-        WidgetUtils.updateWidget(context, appWidgetManager, MaterialYouNextAlarmAppWidgetProvider.class);
-        WidgetUtils.updateWidget(context, appWidgetManager, MaterialYouVerticalDigitalAppWidgetProvider.class);
     }
 
     /**

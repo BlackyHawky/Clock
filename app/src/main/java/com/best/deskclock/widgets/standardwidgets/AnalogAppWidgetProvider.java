@@ -108,8 +108,8 @@ public class AnalogAppWidgetProvider extends BaseAnalogAppWidgetProvider {
         super.onReceive(context, intent);
     }
 
-    public static void updateAnalogWidget(Context context, AppWidgetManager wm, int widgetId) {
-        new AnalogAppWidgetProvider().updateAppWidget(context, wm, widgetId);
+    public static void updateAppWidget(Context context, AppWidgetManager wm, int widgetId) {
+        new AnalogAppWidgetProvider().updateAnalogWidget(context, wm, widgetId);
     }
 
 }

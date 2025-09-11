@@ -39,7 +39,7 @@ public abstract class BaseAnalogAppWidgetProvider extends AppWidgetProvider {
     protected abstract void applyMinuteHandColor(Icon minuteHandIcon, SharedPreferences prefs);
     protected abstract void applySecondHandColor(Icon secondHandIcon, SharedPreferences prefs);
 
-    public void updateAppWidget(Context context, AppWidgetManager wm, int widgetId) {
+    protected void updateAnalogWidget(Context context, AppWidgetManager wm, int widgetId) {
         RemoteViews views = relayoutWidget(context, wm, widgetId);
         wm.updateAppWidget(widgetId, views);
     }
@@ -85,7 +85,7 @@ public abstract class BaseAnalogAppWidgetProvider extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager wm, int[] widgetIds) {
         for (int widgetId : widgetIds) {
-            updateAppWidget(context, wm, widgetId);
+            updateAnalogWidget(context, wm, widgetId);
         }
     }
 
@@ -94,17 +94,14 @@ public abstract class BaseAnalogAppWidgetProvider extends AppWidgetProvider {
         super.onReceive(context, intent);
 
         AppWidgetManager wm = AppWidgetManager.getInstance(context);
-        if (wm == null) return;
-
-        ComponentName provider = new ComponentName(context, getClass());
-        int[] widgetIds = wm.getAppWidgetIds(provider);
-        if (intent.getAction() != null && intent.getAction().equals(AppWidgetManager.ACTION_APPWIDGET_UPDATE)) {
-            for (int widgetId : widgetIds) {
-                updateAppWidget(context, wm, widgetId);
-            }
+        if (wm == null) {
+            return;
         }
 
-        WidgetUtils.updateWidgetCount(context, getClass(), widgetIds.length, R.string.category_analog_widget);
+        ComponentName provider = new ComponentName(context, getClass());
+        int widgetIds = wm.getAppWidgetIds(provider).length;
+
+        WidgetUtils.updateWidgetCount(context, getClass(), widgetIds, R.string.category_analog_widget);
     }
 }
 

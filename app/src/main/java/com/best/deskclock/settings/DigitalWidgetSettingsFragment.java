@@ -2,7 +2,6 @@
 
 package com.best.deskclock.settings;
 
-import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
 import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
 
@@ -32,6 +31,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import android.text.format.DateFormat;
+
 import androidx.annotation.NonNull;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
@@ -201,7 +201,7 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
             }
         }
 
-        requireContext().sendBroadcast(new Intent(ACTION_APPWIDGET_UPDATE));
+        WidgetUtils.scheduleWidgetUpdate(requireContext(), DigitalAppWidgetProvider.class);
         return true;
     }
 

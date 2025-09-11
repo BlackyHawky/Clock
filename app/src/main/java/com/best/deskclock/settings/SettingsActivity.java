@@ -6,7 +6,6 @@
 
 package com.best.deskclock.settings;
 
-import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static com.best.deskclock.settings.PermissionsManagementActivity.PermissionsManagementFragment.areEssentialPermissionsNotGranted;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DARK_THEME;
 import static com.best.deskclock.settings.PreferencesDefaultValues.LIGHT_THEME;
@@ -27,7 +26,6 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
@@ -51,6 +49,7 @@ import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.BackupAndRestoreUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.SdkUtils;
+import com.best.deskclock.utils.WidgetUtils;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
@@ -310,12 +309,10 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
             }
 
-            new Handler(requireContext().getMainLooper()).postDelayed(() -> {
-                // Required to update Locale.
-                requireContext().sendBroadcast(new Intent(ACTION_LANGUAGE_CODE_CHANGED));
-                // Required to update widgets.
-                requireContext().sendBroadcast(new Intent(ACTION_APPWIDGET_UPDATE));
-            }, 300);
+            // Required to update Locale.
+            requireContext().sendBroadcast(new Intent(ACTION_LANGUAGE_CODE_CHANGED));
+            // Required to update widgets.
+            WidgetUtils.updateAllWidgets(requireContext());
 
             // Required to update the timer list.
             DataModel.getDataModel().loadTimers();

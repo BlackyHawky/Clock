@@ -6,7 +6,6 @@
 
 package com.best.deskclock.alarms;
 
-import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static android.content.Context.ALARM_SERVICE;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
@@ -44,6 +43,7 @@ import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
+import com.best.deskclock.utils.WidgetUtils;
 
 import java.util.Calendar;
 import java.util.Collections;
@@ -149,10 +149,8 @@ public final class AlarmStateManager extends BroadcastReceiver {
             nextAlarmChangedIntent.setPackage(context.getPackageName());
             context.sendBroadcast(nextAlarmChangedIntent);
 
-            Intent appwidgetUpdateIntent = new Intent(ACTION_APPWIDGET_UPDATE);
-            appwidgetUpdateIntent.setPackage(context.getPackageName());
-            context.sendBroadcast(appwidgetUpdateIntent);
-        }, 300);
+            WidgetUtils.updateAllDigitalWidgets(context);
+        }, 600);
     }
 
 
