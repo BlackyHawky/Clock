@@ -6,6 +6,7 @@ import static android.util.TypedValue.COMPLEX_UNIT_PX;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
@@ -175,6 +176,9 @@ public class MaterialYouNextAlarmAppWidgetProvider extends BaseDigitalAppWidgetP
         return null;
     }
 
+    @Override
+    protected void bindDateClickAction(RemoteViews rv, SharedPreferences prefs, PendingIntent calendarPendingIntent) {
+    }
 
     @Override
     protected void configureClock(RemoteViews rv, Context context, SharedPreferences prefs) {

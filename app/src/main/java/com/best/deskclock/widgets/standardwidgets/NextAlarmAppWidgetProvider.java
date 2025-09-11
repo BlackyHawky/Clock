@@ -8,6 +8,7 @@ import static android.view.View.VISIBLE;
 
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_WIDGETS_CUSTOM_COLOR;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
@@ -174,6 +175,10 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     @Override
     protected Class<?> getCityServiceClass() {
         return null;
+    }
+
+    @Override
+    protected void bindDateClickAction(RemoteViews rv, SharedPreferences prefs, PendingIntent calendarPendingIntent) {
     }
 
     @Override

@@ -12,6 +12,7 @@ import static android.view.View.VISIBLE;
 
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_WIDGETS_CUSTOM_COLOR;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
@@ -182,6 +183,10 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
         return AppWidgetCityService.DigitalAppWidgetCityService.class;
     }
 
+    @Override
+    protected void bindDateClickAction(RemoteViews rv, SharedPreferences prefs, PendingIntent calendarPendingIntent) {
+        rv.setOnClickPendingIntent(getDateViewId(), calendarPendingIntent);
+    }
 
     @Override
     protected void configureClock(RemoteViews rv, Context context, SharedPreferences prefs) {

@@ -6,6 +6,7 @@ import static android.util.TypedValue.COMPLEX_UNIT_PX;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
@@ -176,6 +177,15 @@ public class MaterialYouDigitalAppWidgetProvider extends BaseDigitalAppWidgetPro
     @Override
     protected Class<?> getCityServiceClass() {
         return AppWidgetCityService.MaterialYouDigitalAppWidgetCityService.class;
+    }
+
+    @Override
+    protected void bindDateClickAction(RemoteViews rv, SharedPreferences prefs, PendingIntent calendarPendingIntent) {
+        if (WidgetDAO.isMaterialYouDigitalWidgetDefaultDateColor(prefs)) {
+            rv.setOnClickPendingIntent(getDateViewId(), calendarPendingIntent);
+        } else {
+            rv.setOnClickPendingIntent(getDateCustomViewId(), calendarPendingIntent);
+        }
     }
 
     @Override

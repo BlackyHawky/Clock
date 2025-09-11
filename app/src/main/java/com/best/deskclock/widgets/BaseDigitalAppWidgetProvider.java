@@ -36,6 +36,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.util.ArraySet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -119,6 +120,8 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
 
     protected abstract Class<?> getCityServiceClass();
 
+    protected abstract void bindDateClickAction(RemoteViews rv, SharedPreferences prefs, PendingIntent calendarPendingIntent);
+
     protected abstract void configureClock(RemoteViews rv, Context context, SharedPreferences prefs);
     protected abstract void configureDate(RemoteViews rv, Context context, SharedPreferences prefs);
     protected abstract void configureNextAlarm(RemoteViews rv, Context context, SharedPreferences prefs, String nextAlarmTime);
@@ -157,11 +160,23 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
         SharedPreferences prefs = getDefaultSharedPreferences(context);
         RemoteViews rv = new RemoteViews(context.getPackageName(), getLayoutId());
 
-        // Tapping on the widget opens the app (if not on the lock screen).
+        // Tapping on the widget opens the app or the calendar (if not on the lock screen).
         if (WidgetUtils.isWidgetClickable(wm, widgetId)) {
-            Intent openApp = new Intent(context, DeskClock.class);
-            PendingIntent pi = PendingIntent.getActivity(context, 0, openApp, PendingIntent.FLAG_IMMUTABLE);
-            rv.setOnClickPendingIntent(getWidgetViewId(), pi);
+            Intent clockIntent = new Intent(context, DeskClock.class);
+            PendingIntent clockPendingIntent = PendingIntent.getActivity(context, 0, clockIntent,
+                    PendingIntent.FLAG_IMMUTABLE);
+
+            rv.setOnClickPendingIntent(getWidgetViewId(), clockPendingIntent);
+
+            Uri calendarUri = CalendarContract.CONTENT_URI.buildUpon().appendPath("time").build();
+            Intent calendarIntent = new Intent(Intent.ACTION_VIEW);
+            calendarIntent.setData(calendarUri);
+            calendarIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            PendingIntent calendarPendingIntent = PendingIntent.getActivity(context, 1,
+                    calendarIntent, PendingIntent.FLAG_IMMUTABLE);
+
+            bindDateClickAction(rv, prefs, calendarPendingIntent);
         }
 
         // Configure child views of the remote view.
