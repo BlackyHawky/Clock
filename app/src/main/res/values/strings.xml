@@ -432,6 +432,16 @@
     <string name="material_time_picker_style_title">Time picker style</string>
     <!-- Setting title for changing the date picker style. -->
     <string name="date_picker_style_title">Date picker style</string>
+    <!-- Title to sort alarms -->
+    <string name="sort_alarm_title">Sort alarms</string>
+    <!-- Setting title for changing the alarm sorting order to By hour. -->
+    <string name="sort_alarm_time">By alarm time</string>
+    <!-- Setting title for changing the alarm sorting order to By next alarm time. -->
+    <string name="sort_next_alarm_time">By next alarm time</string>
+    <!-- Setting title for changing the sorting order to By name. -->
+    <string name="sort_name">By name</string>
+    <!-- Setting title to display the enabled alarms first -->
+    <string name="display_enabled_alarms_first_title">Display enabled alarms first</string>
     <!-- Setting title for changing the date picker style to calendar. -->
     <string name="date_picker_style_calendar">Calendar</string>
     <!-- Setting title for changing the date picker style to text. -->
@@ -1062,8 +1072,6 @@
     <string name="sort_timer_ascending_duration">By duration (ascending order)</string>
     <!-- Setting title for changing the timer sorting to By duration (descending order). -->
     <string name="sort_timer_descending_duration">By duration (descending order)</string>
-    <!-- Setting title for changing the timer sorting to By name. -->
-    <string name="sort_timer_name">By name</string>
     <!-- Default time to add to timer preference title in the settings -->
     <string name="default_time_to_add_to_timer_title">Default time to add to timer</string>
     <!-- Setting title for changing the default time to add to 1 minute. -->

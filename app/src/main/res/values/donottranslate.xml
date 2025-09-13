@@ -340,6 +340,20 @@
         <item>spinner</item>
     </string-array>
 
+    <!-- Entries listed in the ListPreference when invoking the alarm sort preference -->
+    <string-array name="sort_alarm_entries">
+        <item>@string/sort_alarm_time</item>
+        <item>@string/sort_next_alarm_time</item>
+        <item>@string/sort_name</item>
+    </string-array>
+    <!-- Values that are retrieved from the ListPreference. These must match
+         the sort_alarm_entries above. -->
+    <string-array name="sort_alarm_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
     <!-- Entries listed in the ListPreference when invoking the timer creation view style preference. -->
     <string-array name="timer_creation_view_style_entries">
         <item>@string/timer_creation_view_style_keypad</item>
@@ -357,7 +371,7 @@
         <item>@string/sort_timer_manually</item>
         <item>@string/sort_timer_ascending_duration</item>
         <item>@string/sort_timer_descending_duration</item>
-        <item>@string/sort_timer_name</item>
+        <item>@string/sort_name</item>
     </string-array>
     <!-- Values that are retrieved from the ListPreference. These must match
          the sort_timer_entries above. -->

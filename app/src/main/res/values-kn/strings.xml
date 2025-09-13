@@ -330,7 +330,7 @@
     <string name="alarm_label_box_title">ಗಡಿಯಾರ ಅಲಾರಾಂ ಲೇಬಲ್</string>
     <string name="delete_occasional_alarm_after_use_title">ಒಮ್ಮೆ ವಜಾಗೊಳಿಸಿದ ಗಡಿಯಾರ ಎಚ್ಚರಿಕೆಯನ್ನು ಅಳಿಸಿ</string>
     <string name="alarm_flash">ಗಡಿಯಾರ ಅಲಾರಾಂ ಫ್ಲಾಶ್</string>
-    <string name="sort_timer_name">ಹೆಸರಿನಾ ಕ್ರಮದಲ್ಲಿ</string>
+    <string name="sort_name">ಹೆಸರಿನಾ ಕ್ರಮದಲ್ಲಿ</string>
     <string name="label_default">ಪೂರ್ವನಿಯೋಜಿತ</string>
     <string name="selected">ಆಯ್ಕೆ ಮಾಡಲಾಗಿದೆ</string>
     <string name="more_options">ಹೆಚ್ಚಿನ ಆಯ್ಕೆಗಳು</string>

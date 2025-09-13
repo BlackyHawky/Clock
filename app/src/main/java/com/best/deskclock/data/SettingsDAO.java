@@ -647,6 +647,22 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return the alarm sorting by time, by time of next alarm and by name.
+     */
+    public static String getAlarmSorting(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_timer.xml
+        return prefs.getString(KEY_SORT_ALARM, DEFAULT_SORT_BY_ALARM_TIME);
+    }
+
+    /**
+     * @return {@code true} if the enabled alarms are displayed first; {@code false} otherwise.
+     */
+    public static boolean areEnabledAlarmsDisplayedFirst(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        return prefs.getBoolean(KEY_DISPLAY_ENABLED_ALARMS_FIRST, DEFAULT_DISPLAY_ENABLED_ALARMS_FIRST);
+    }
+
+    /**
      * @return the display order of the weekdays, which can start with {@link Calendar#SATURDAY},
      * {@link Calendar#SUNDAY} or {@link Calendar#MONDAY}
      */

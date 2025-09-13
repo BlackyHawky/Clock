@@ -420,7 +420,7 @@
     <string name="next_alarm_widget_text">Следећи аларм</string>
     <string name="sort_timer_ascending_duration">По трајању (растући редослед)</string>
     <string name="sort_timer_descending_duration">По трајању (опадајући редослед)</string>
-    <string name="sort_timer_name">По имену</string>
+    <string name="sort_name">По имену</string>
     <string name="default_time_to_add_to_timer_1_minute">1 минута</string>
     <string name="default_time_to_add_to_timer_2_minutes">2 минуте</string>
     <string name="default_time_to_add_to_timer_3_minutes">3 минуте</string>

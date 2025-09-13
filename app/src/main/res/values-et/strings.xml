@@ -490,7 +490,7 @@
     <string name="red_accent_color">Punane</string>
     <string name="amoled_dark_theme_mode">AMOLED</string>
     <string name="snooze_duration_none">Määramata</string>
-    <string name="sort_timer_name">Nime alusel</string>
+    <string name="sort_name">Nime alusel</string>
     <string name="default_time_to_add_to_timer_1_minute">1 minut</string>
     <string name="default_time_to_add_to_timer_2_minutes">2 minutit</string>
     <string name="default_time_to_add_to_timer_3_minutes">3 minutit</string>

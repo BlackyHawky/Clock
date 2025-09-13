@@ -437,7 +437,7 @@
     <string name="dark_theme">Ciemny</string>
     <string name="blue_gray_accent_color">Niebiesko-szary</string>
     <string name="about_title">O</string>
-    <string name="sort_timer_name">Według nazwy</string>
+    <string name="sort_name">Według nazwy</string>
     <string name="default_time_to_add_to_timer_1_minute">1 minuta</string>
     <string name="sort_timer_ascending_duration">Według czasu trwania (kolejność rosnąca)</string>
     <string name="sort_timer_descending_duration">Według czasu trwania (kolejność malejąca)</string>

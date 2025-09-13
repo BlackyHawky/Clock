@@ -326,7 +326,7 @@
     <string name="alarm_notification_reminder_4_hours">૪ કલાગ પેહલા</string>
     <string name="stopwatch_channel">સ્ટોપવોચ</string>
     <string name="permission_denied">નકારી</string>
-    <string name="sort_timer_name">નામથી</string>
+    <string name="sort_name">નામથી</string>
     <string name="default_time_to_add_to_timer_5_minutes">૫ મિનિટ</string>
     <string name="default_time_to_add_to_timer_9_minutes">૯ મિનિટ</string>
     <string name="first_launch_dialog_title">બહાર નિકડો</string>

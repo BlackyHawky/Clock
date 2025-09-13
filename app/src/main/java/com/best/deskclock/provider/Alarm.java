@@ -6,11 +6,15 @@
 
 package com.best.deskclock.provider;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SORT_BY_ALARM_TIME;
+
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -22,6 +26,7 @@ import androidx.loader.content.CursorLoader;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
@@ -45,13 +50,24 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             return new Alarm[size];
         }
     };
+
     /**
      * The default sort order for this table
      */
     private static final String DEFAULT_SORT_ORDER =
-            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + HOUR + ", " +
-                    ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + MINUTES + " ASC" + ", " +
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + HOUR + " ASC, " +
+                    ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + MINUTES + " ASC, " +
                     ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ClockContract.AlarmsColumns._ID + " DESC";
+
+    /**
+     * The default sort order for this table with enabled alarms first
+     */
+    private static final String DEFAULT_SORT_ORDER_WITH_ENABLED_FIRST =
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ENABLED + " DESC, " +
+                    ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + HOUR + " ASC, " +
+                    ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + MINUTES + " ASC, " +
+                    ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ClockContract.AlarmsColumns._ID + " DESC";
+
     private static final String[] QUERY_COLUMNS = {
             _ID,
             YEAR,
@@ -322,8 +338,18 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
      * @return cursor loader with all the alarms.
      */
     public static CursorLoader getAlarmsCursorLoader(Context context) {
+        final SharedPreferences prefs = getDefaultSharedPreferences(context);
+
+        String sortOrder = DEFAULT_SORT_ORDER;
+
+        if (SettingsDAO.getAlarmSorting(prefs).equals(DEFAULT_SORT_BY_ALARM_TIME)) {
+            if (SettingsDAO.areEnabledAlarmsDisplayedFirst(prefs)) {
+                sortOrder = DEFAULT_SORT_ORDER_WITH_ENABLED_FIRST;
+            }
+        }
+
         return new CursorLoader(context, ALARMS_WITH_INSTANCES_URI,
-                QUERY_ALARMS_WITH_INSTANCES_COLUMNS, null, null, DEFAULT_SORT_ORDER) {
+                QUERY_ALARMS_WITH_INSTANCES_COLUMNS, null, null, sortOrder) {
             @Override
             public Cursor loadInBackground() {
                 // Prime the ringtone title cache for later access. Most alarms will refer to
@@ -561,6 +587,59 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         }
 
         return nextInstanceTime;
+    }
+
+    /**
+     * Returns the next alarm time for sorting purposes.
+     */
+    public Calendar getSortableNextAlarmTime(Alarm alarm, Calendar now) {
+        Calendar result = Calendar.getInstance(now.getTimeZone());
+        result.set(Calendar.SECOND, 0);
+        result.set(Calendar.MILLISECOND, 0);
+
+        if (alarm.daysOfWeek.isRepeating()) {
+            // getNextAlarmTime() properly handles the next valid day + DST
+            return alarm.getNextAlarmTime(now);
+        } else {
+            if (alarm.isSpecifiedDate()) {
+                if (alarm.isDateInThePast()) {
+                    // Expired specific date → anchor to today at the alarm's time
+                    result.set(Calendar.YEAR, now.get(Calendar.YEAR));
+                    result.set(Calendar.MONTH, now.get(Calendar.MONTH));
+                    result.set(Calendar.DAY_OF_MONTH, now.get(Calendar.DAY_OF_MONTH));
+                    result.set(Calendar.HOUR_OF_DAY, alarm.hour);
+                    result.set(Calendar.MINUTE, alarm.minutes);
+
+                    // If the time has already passed today, shift to tomorrow
+                    if (result.getTimeInMillis() < now.getTimeInMillis()) {
+                        result.add(Calendar.DAY_OF_YEAR, 1);
+                    }
+                } else {
+                    // Future or today’s specified date → respect the defined date/time
+                    result.set(Calendar.YEAR, alarm.year);
+                    result.set(Calendar.MONTH, alarm.month);
+                    result.set(Calendar.DAY_OF_MONTH, alarm.day);
+                    result.set(Calendar.HOUR_OF_DAY, alarm.hour);
+                    result.set(Calendar.MINUTE, alarm.minutes);
+                }
+
+                return result;
+            }
+        }
+
+        // Alarms with no date and no repetition → today at the alarm time,
+        // and if the time has passed, shift to tomorrow
+        result.set(Calendar.YEAR, now.get(Calendar.YEAR));
+        result.set(Calendar.MONTH, now.get(Calendar.MONTH));
+        result.set(Calendar.DAY_OF_MONTH, now.get(Calendar.DAY_OF_MONTH));
+        result.set(Calendar.HOUR_OF_DAY, alarm.hour);
+        result.set(Calendar.MINUTE, alarm.minutes);
+
+        if (result.getTimeInMillis() < now.getTimeInMillis()) {
+            result.add(Calendar.DAY_OF_YEAR, 1);
+        }
+
+        return result;
     }
 
     @Override

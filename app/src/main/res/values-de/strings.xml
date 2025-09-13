@@ -491,7 +491,7 @@
     <string name="alarm_notification_reminder_12_hours">12 Stunden vorher</string>
     <string name="snooze_duration_none">Keine</string>
     <string name="sort_timer_ascending_duration">Nach Dauer (aufsteigend)</string>
-    <string name="sort_timer_name">Nach Name</string>
+    <string name="sort_name">Nach Name</string>
     <string name="default_time_to_add_to_timer_1_minute">1 Minute</string>
     <string name="default_time_to_add_to_timer_2_minutes">2 Minuten</string>
     <string name="default_time_to_add_to_timer_3_minutes">3 Minuten</string>

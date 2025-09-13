@@ -410,7 +410,7 @@
     <string name="sort_timer_title">タイマーの並べ替え</string>
     <string name="sort_timer_descending_duration">時間順 (降順)</string>
     <string name="sort_timer_ascending_duration">時間順 (昇順)</string>
-    <string name="sort_timer_name">名前順</string>
+    <string name="sort_name">名前順</string>
     <string name="sort_timer_manually">手動 (ドラッグ)</string>
     <string name="default_time_to_add_to_timer_title">タイマーに追加するデフォルトの時間</string>
 </resources>

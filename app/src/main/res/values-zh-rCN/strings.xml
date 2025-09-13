@@ -485,7 +485,7 @@
     <string name="alarm_notification_reminder_12_hours">12 小时前</string>
     <string name="sort_timer_ascending_duration">按时长（升序）</string>
     <string name="sort_timer_descending_duration">按时长（降序）</string>
-    <string name="sort_timer_name">按名称</string>
+    <string name="sort_name">按名称</string>
     <string name="default_time_to_add_to_timer_1_minute">1 分钟</string>
     <string name="default_time_to_add_to_timer_2_minutes">2 分钟</string>
     <string name="default_time_to_add_to_timer_3_minutes">3 分钟</string>

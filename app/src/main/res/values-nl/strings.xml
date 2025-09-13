@@ -466,7 +466,7 @@
     <string name="snooze_duration_none">Geen</string>
     <string name="sort_timer_ascending_duration">Op duur (oplopende volgorde)</string>
     <string name="sort_timer_descending_duration">Op duur (aflopende volgorde)</string>
-    <string name="sort_timer_name">Op labelnaam</string>
+    <string name="sort_name">Op labelnaam</string>
     <string name="default_time_to_add_to_timer_1_minute">1 minuut</string>
     <string name="default_time_to_add_to_timer_2_minutes">2 minuten</string>
     <string name="default_time_to_add_to_timer_3_minutes">3 minuten</string>

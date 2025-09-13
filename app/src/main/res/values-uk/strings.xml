@@ -531,7 +531,7 @@
     <string name="default_time_to_add_to_timer_30_minutes">30 хвилин</string>
     <string name="sort_timer_ascending_duration">За тривалістю (зростання)</string>
     <string name="sort_timer_descending_duration">За тривалістю (спадання)</string>
-    <string name="sort_timer_name">За назвою</string>
+    <string name="sort_name">За назвою</string>
     <string name="default_time_to_add_to_timer_1_hour">1 година</string>
     <string name="default_time_to_add_to_timer_1_minute">1 хвилина</string>
     <string name="auto_silence_10_seconds">10 секунд</string>

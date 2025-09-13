@@ -441,7 +441,7 @@
     <string name="alarm_display_customization_title">Alarm görünümünü özelleştir</string>
     <string name="sort_timer_title">Zamanlayıcıları sırala</string>
     <string name="sort_timer_ascending_duration">Süreye göre (artan)</string>
-    <string name="sort_timer_name">İsme göre</string>
+    <string name="sort_name">İsme göre</string>
     <string name="default_time_to_add_to_timer_3_minutes">3 dakika</string>
     <string name="screensaver_daydream_settings">Ekran koruyucu seç/etkinleştir</string>
     <string name="next_alarm_color_title">Sonraki alarm rengi</string>

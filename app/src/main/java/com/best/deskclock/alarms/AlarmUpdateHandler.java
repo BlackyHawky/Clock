@@ -20,6 +20,7 @@ import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.uicomponents.toast.SnackbarManager;
 import com.best.deskclock.utils.AlarmUtils;
+import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.Utils;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -39,6 +40,8 @@ public final class AlarmUpdateHandler {
 
     // For undo
     private Alarm mDeletedAlarm;
+
+    private AlarmUpdateCallback mUpdateCallback;
 
     public AlarmUpdateHandler(Context context, ScrollHandler scrollHandler, ViewGroup snackbarAnchor) {
         mAppContext = context.getApplicationContext();
@@ -95,45 +98,56 @@ public final class AlarmUpdateHandler {
         executor.execute(() -> {
             ContentResolver cr = mAppContext.getContentResolver();
 
-            // Update alarm
-            Alarm.updateAlarm(cr, alarm);
-
-            if (minorUpdate) {
-                // just update the instance in the database and update notifications.
-                final List<AlarmInstance> instanceList =
-                        AlarmInstance.getInstancesByAlarmId(cr, alarm.id);
-                for (AlarmInstance instance : instanceList) {
-                    // Make a copy of the existing instance
-                    final AlarmInstance newInstance = new AlarmInstance(instance);
-                    // Copy over minor change data to the instance; we don't know
-                    // exactly which minor field changed, so just copy them all.
-                    newInstance.mLabel = alarm.label;
-                    newInstance.mVibrate = alarm.vibrate;
-                    newInstance.mFlash = alarm.flash;
-                    newInstance.mRingtone = alarm.alert;
-                    newInstance.mAutoSilenceDuration = alarm.autoSilenceDuration;
-                    newInstance.mSnoozeDuration = alarm.snoozeDuration;
-                    newInstance.mCrescendoDuration = alarm.crescendoDuration;
-                    newInstance.mAlarmVolume = alarm.alarmVolume;
-                    // Since we copied the mId of the old instance and the mId is used
-                    // as the primary key in the AlarmInstance table, this will replace
-                    // the existing instance.
-                    AlarmInstance.updateInstance(cr, newInstance);
-                    // Update the notification for this instance.
-                    AlarmNotifications.updateNotification(mAppContext, newInstance);
-                }
-                return;
+            if (mUpdateCallback != null) {
+                LogUtils.v("AlarmUpdateHandler: notifying update started");
+                handler.post(() -> mUpdateCallback.onAlarmUpdateStarted());
             }
-            // Otherwise, this is a major update and we're going to re-create the alarm
-            AlarmStateManager.deleteAllInstances(mAppContext, alarm.id);
 
-            final AlarmInstance finalInstance = alarm.enabled ? setupAlarmInstance(alarm) : null;
+            try {
+                // Update alarm
+                Alarm.updateAlarm(cr, alarm);
 
-            handler.post(() -> {
-                if (popToast && finalInstance != null) {
-                    AlarmUtils.popAlarmSetSnackbar(mSnackbarAnchor, finalInstance.getAlarmTime().getTimeInMillis());
+                if (minorUpdate) {
+                    // just update the instance in the database and update notifications.
+                    final List<AlarmInstance> instanceList =
+                            AlarmInstance.getInstancesByAlarmId(cr, alarm.id);
+                    for (AlarmInstance instance : instanceList) {
+                        // Make a copy of the existing instance
+                        final AlarmInstance newInstance = new AlarmInstance(instance);
+                        // Copy over minor change data to the instance; we don't know
+                        // exactly which minor field changed, so just copy them all.
+                        newInstance.mLabel = alarm.label;
+                        newInstance.mVibrate = alarm.vibrate;
+                        newInstance.mFlash = alarm.flash;
+                        newInstance.mRingtone = alarm.alert;
+                        newInstance.mAutoSilenceDuration = alarm.autoSilenceDuration;
+                        newInstance.mSnoozeDuration = alarm.snoozeDuration;
+                        newInstance.mCrescendoDuration = alarm.crescendoDuration;
+                        newInstance.mAlarmVolume = alarm.alarmVolume;
+                        // Since we copied the mId of the old instance and the mId is used
+                        // as the primary key in the AlarmInstance table, this will replace
+                        // the existing instance.
+                        AlarmInstance.updateInstance(cr, newInstance);
+                        // Update the notification for this instance.
+                        AlarmNotifications.updateNotification(mAppContext, newInstance);
+                    }
+                    return;
                 }
-            });
+                // Otherwise, this is a major update and we're going to re-create the alarm
+                AlarmStateManager.deleteAllInstances(mAppContext, alarm.id);
+
+                final AlarmInstance finalInstance = alarm.enabled ? setupAlarmInstance(alarm) : null;
+
+                handler.post(() -> {
+                    if (popToast && finalInstance != null) {
+                        AlarmUtils.popAlarmSetSnackbar(mSnackbarAnchor, finalInstance.getAlarmTime().getTimeInMillis());
+                    }
+                });
+            } finally {
+                if (mUpdateCallback != null) {
+                    handler.post(() -> mUpdateCallback.onAlarmUpdateFinished());
+                }
+            }
         });
     }
 
@@ -204,4 +218,14 @@ public final class AlarmUpdateHandler {
         AlarmStateManager.registerInstance(mAppContext, newInstance, true);
         return newInstance;
     }
+
+    /**
+     * Registers a callback to be notified when an alarm update starts or finishes.
+     *
+     * @param callback the callback to receive update lifecycle events
+     */
+    public void setAlarmUpdateCallback(AlarmUpdateCallback callback) {
+        this.mUpdateCallback = callback;
+    }
+
 }

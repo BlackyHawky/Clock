@@ -18,6 +18,7 @@ public class AlarmItemHolder extends ItemAdapter.ItemHolder<Alarm> {
     private static final java.lang.String EXPANDED_KEY = "expanded";
     private final AlarmTimeClickHandler mAlarmTimeClickHandler;
     private final AlarmInstance mAlarmInstance;
+    private OnAlarmCollapseListener mCollapseListener;
     private boolean mExpanded;
 
     public AlarmItemHolder(Alarm alarm, AlarmInstance alarmInstance, AlarmTimeClickHandler alarmTimeClickHandler) {
@@ -40,6 +41,10 @@ public class AlarmItemHolder extends ItemAdapter.ItemHolder<Alarm> {
         return mAlarmInstance;
     }
 
+    public long getStableId() {
+        return itemId;
+    }
+
     public void expand() {
         if (!isExpanded()) {
             mExpanded = true;
@@ -51,11 +56,23 @@ public class AlarmItemHolder extends ItemAdapter.ItemHolder<Alarm> {
         if (isExpanded()) {
             mExpanded = false;
             notifyItemChanged();
+            if (mCollapseListener != null) {
+                mCollapseListener.onAlarmCollapsed();
+            }
         }
     }
 
     public boolean isExpanded() {
         return mExpanded;
+    }
+
+    /**
+     * Registers a listener to be notified when this alarm item is collapsed.
+     *
+     * @param listener the listener to invoke when the alarm collapses
+     */
+    public void setOnAlarmCollapseListener(OnAlarmCollapseListener listener) {
+        this.mCollapseListener = listener;
     }
 
     @Override
@@ -68,5 +85,17 @@ public class AlarmItemHolder extends ItemAdapter.ItemHolder<Alarm> {
     public void onRestoreInstanceState(Bundle bundle) {
         super.onRestoreInstanceState(bundle);
         mExpanded = bundle.getBoolean(EXPANDED_KEY);
+    }
+
+    /**
+     * Listener interface for receiving a callback when an alarm item is collapsed.
+     */
+    public interface OnAlarmCollapseListener {
+
+        /**
+         * Called when the alarm item has been collapsed.
+         * Typically used to trigger UI updates or resume sorting.
+         */
+        void onAlarmCollapsed();
     }
 }

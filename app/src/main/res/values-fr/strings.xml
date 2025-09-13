@@ -521,7 +521,7 @@
     <string name="sort_timer_title">Trier les minuteurs</string>
     <string name="sort_timer_ascending_duration">Par durée (ordre croissant)</string>
     <string name="sort_timer_descending_duration">Par durée (ordre décroissant)</string>
-    <string name="sort_timer_name">Par nom</string>
+    <string name="sort_name">Par nom</string>
     <string name="auto_silence_5_seconds">5 secondes</string>
     <string name="auto_silence_10_seconds">10 secondes</string>
     <string name="auto_silence_20_seconds">20 secondes</string>

@@ -450,7 +450,7 @@
     <string name="clock_settings_summary">Imposta stile, fuso orario e modifica della data e dell\'ora del dispositivo</string>
     <string name="version">Versione</string>
     <string name="sort_timer_ascending_duration">Per durata (ordine crescente)</string>
-    <string name="sort_timer_name">Per nome</string>
+    <string name="sort_name">Per nome</string>
     <string name="default_time_to_add_to_timer_1_minute">1 minuto</string>
     <string name="default_time_to_add_to_timer_4_minutes">4 minuti</string>
     <string name="default_time_to_add_to_timer_5_minutes">5 minuti</string>

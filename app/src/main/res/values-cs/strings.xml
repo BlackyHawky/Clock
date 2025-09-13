@@ -593,7 +593,7 @@
     <string name="translate_dialog_message">Navštivte stránku na Codebergu:\n\n%s</string>
     <string name="license_dialog_message">Přečtěte si licenci:\n\n%s</string>
     <string name="occasional_alarm_deleted">Příležitostný budík v <xliff:g example="14:20" id="alarm_time">%s</xliff:g> odstraněn</string>
-    <string name="sort_timer_name">Podle názvu</string>
+    <string name="sort_name">Podle názvu</string>
     <string name="hour_color_title">Vlastní barva hodin</string>
     <string name="next_alarm_widget_title_no_alarm">Žádný nadcházející budík</string>
     <string name="hour_default_color_title">Použít výchozí barvu pro hodiny</string>

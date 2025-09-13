@@ -399,7 +399,7 @@
     <string name="green_accent_color">Verde</string>
     <string name="button_action_nothing">Nada</string>
     <string name="sort_timer_descending_duration">Por duração (ordem descendente)</string>
-    <string name="sort_timer_name">Por nome</string>
+    <string name="sort_name">Por nome</string>
     <string name="default_time_to_add_to_timer_1_minute">1 minuto</string>
     <string name="default_time_to_add_to_timer_2_minutes">2 minutos</string>
     <string name="timer_settings_summary">Definir toque padrão, volume e classificação do timer</string>

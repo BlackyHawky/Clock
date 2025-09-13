@@ -7,6 +7,8 @@
 package com.best.deskclock;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_ALARM_BY_NAME;
+import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_ALARM_BY_NEXT_ALARM_TIME;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SPINNER_TIME_PICKER_STYLE;
 import static com.best.deskclock.uidata.UiDataModel.Tab.ALARMS;
 
@@ -20,6 +22,8 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.SystemClock;
 import android.text.TextPaint;
 import android.util.TypedValue;
@@ -41,6 +45,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.alarms.AlarmDelayPickerDialogFragment;
 import com.best.deskclock.alarms.AlarmTimeClickHandler;
+import com.best.deskclock.alarms.AlarmUpdateCallback;
 import com.best.deskclock.alarms.AlarmUpdateHandler;
 import com.best.deskclock.alarms.ScrollHandler;
 import com.best.deskclock.alarms.SpinnerTimePickerDialogFragment;
@@ -62,16 +67,20 @@ import com.best.deskclock.utils.Utils;
 import com.google.android.material.color.MaterialColors;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
  * A fragment that displays a list of alarm time and allows interaction with them.
  */
 public final class AlarmClockFragment extends DeskClockFragment implements
-        LoaderManager.LoaderCallbacks<Cursor>, ScrollHandler {
+        LoaderManager.LoaderCallbacks<Cursor>, ScrollHandler, AlarmUpdateCallback {
 
     // This extra is used when receiving an intent to create an alarm, but no alarm details
     // have been passed in, so the alarm page should start the process of creating a new alarm.
@@ -98,6 +107,8 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     private long mScrollToAlarmId = Alarm.INVALID_ID;
     private long mExpandedAlarmId = Alarm.INVALID_ID;
     private long mCurrentUpdateToken;
+    private String mLastSortOrder = null;
+    private boolean mBlockSortingUntilCollapse = false;
 
     // Controllers
     private ItemAdapter<AlarmItemHolder> mItemAdapter;
@@ -149,6 +160,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         }
         mEmptyViewController = new EmptyViewController(mMainLayout, mRecyclerView, alarmsEmptyView);
         mAlarmUpdateHandler = new AlarmUpdateHandler(mContext, this, mMainLayout);
+        mAlarmUpdateHandler.setAlarmUpdateCallback(this);
         mAlarmTimeClickHandler = new AlarmTimeClickHandler(this, savedState, mAlarmUpdateHandler);
         mItemAdapter = new ItemAdapter<>();
         mLayoutManager = new LinearLayoutManager(mContext) {
@@ -356,6 +368,14 @@ public final class AlarmClockFragment extends DeskClockFragment implements
             return;
         }
 
+        // If the sort order has changed since last time, reload the alarms
+        String currentSortOrder = SettingsDAO.getAlarmSorting(mPrefs) +
+                "_enabledFirst=" + SettingsDAO.areEnabledAlarmsDisplayedFirst(mPrefs);
+        if (!currentSortOrder.equals(mLastSortOrder)) {
+            mLastSortOrder = currentSortOrder;
+            LoaderManager.getInstance(this).restartLoader(0, null, this);
+        }
+
         if (intent.hasExtra(ALARM_CREATE_NEW_INTENT_EXTRA)) {
             UiDataModel.getUiDataModel().setSelectedTab(ALARMS);
             if (intent.getBooleanExtra(ALARM_CREATE_NEW_INTENT_EXTRA, false)) {
@@ -423,6 +443,8 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> cursorLoader, Cursor data) {
         final List<AlarmItemHolder> itemHolders = new ArrayList<>(data.getCount());
+
+        // Convert each row in the cursor into an AlarmItemHolder
         for (data.moveToFirst(); !data.isAfterLast(); data.moveToNext()) {
             final Alarm alarm = new Alarm(data);
             final AlarmInstance alarmInstance = alarm.canPreemptivelyDismiss()
@@ -431,6 +453,54 @@ public final class AlarmClockFragment extends DeskClockFragment implements
             final AlarmItemHolder itemHolder = new AlarmItemHolder(alarm, alarmInstance, mAlarmTimeClickHandler);
             itemHolders.add(itemHolder);
         }
+
+        final boolean wantsSortByNextAlarmTime = SettingsDAO.getAlarmSorting(mPrefs).equals(SORT_ALARM_BY_NEXT_ALARM_TIME);
+        final boolean wantsSortByName = SettingsDAO.getAlarmSorting(mPrefs).equals(SORT_ALARM_BY_NAME);
+        final boolean areEnabledAlarmsFirst = SettingsDAO.areEnabledAlarmsDisplayedFirst(mPrefs);
+        final boolean isEditingAlarm = mExpandedAlarmId != Alarm.INVALID_ID;
+        final boolean shouldBlockSorting = isEditingAlarm || mBlockSortingUntilCollapse;
+
+        // Sort by name if requested and not blocked
+        if (wantsSortByName && !shouldBlockSorting) {
+            final Collator collator = Collator.getInstance();
+            // Ignore case and respect accents
+            collator.setStrength(Collator.SECONDARY);
+
+            Collections.sort(itemHolders, (h1, h2) -> {
+                if (areEnabledAlarmsFirst && h1.item.enabled != h2.item.enabled) {
+                    return h1.item.enabled ? -1 : 1;
+                }
+
+                String l1 = h1.item.label != null ? h1.item.label : "";
+                String l2 = h2.item.label != null ? h2.item.label : "";
+                return collator.compare(l1, l2);
+            });
+        }
+
+        // Sort by next alarm time if requested and not blocked
+        if (wantsSortByNextAlarmTime && !shouldBlockSorting) {
+            Calendar now = Calendar.getInstance();
+            Collections.sort(itemHolders, (h1, h2) -> {
+                if (areEnabledAlarmsFirst && h1.item.enabled != h2.item.enabled) {
+                    // Sort enabled alarms before disabled ones: true comes before false
+                    return h1.item.enabled ? -1 : 1;
+                }
+
+                // Get the next scheduled alarm time for each item
+                Calendar t1 = h1.item.getSortableNextAlarmTime(h1.item, now);
+                Calendar t2 = h2.item.getSortableNextAlarmTime(h2.item, now);
+
+                // Both alarms have valid upcoming times: compare them chronologically
+                return Long.compare(t1.getTimeInMillis(), t2.getTimeInMillis());
+            });
+        } else if (shouldBlockSorting && mItemAdapter.getItemCount() > 0) {
+            // Preserve current visual order while alarm is expanded
+            List<AlarmItemHolder> stable = reorderToMatchCurrentVisualOrder(itemHolders);
+            itemHolders.clear();
+            itemHolders.addAll(stable);
+        }
+
+        // Apply the final list to the adapter
         setAdapterItems(itemHolders, SystemClock.elapsedRealtime());
     }
 
@@ -456,7 +526,10 @@ public final class AlarmClockFragment extends DeskClockFragment implements
             mRecyclerView.post(() -> setAdapterItems(items, updateToken));
         } else {
             mCurrentUpdateToken = updateToken;
+
             mItemAdapter.setItems(items);
+
+            attachCollapseListeners(items);
 
             // Show or hide the empty view as appropriate.
             final boolean noAlarms = items.isEmpty();
@@ -487,6 +560,67 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     }
 
     /**
+     * Reorders the given list of alarm holders to match the current visual order
+     * displayed in the adapter. This is used to preserve UI stability during edits.
+     *
+     * @param freshItems the newly loaded alarm items
+     * @return a reordered list matching the adapter's current visual order
+     */
+    private List<AlarmItemHolder> reorderToMatchCurrentVisualOrder(List<AlarmItemHolder> freshItems) {
+        // Map each item by its stable ID
+        Map<Long, AlarmItemHolder> byId = new HashMap<>(freshItems.size());
+        for (AlarmItemHolder h : freshItems) {
+            byId.put(h.getStableId(), h);
+        }
+
+        // Get the current visual order from the adapter
+        List<Long> currentOrder = new ArrayList<>(mItemAdapter.getItemCount());
+        for (int i = 0; i < mItemAdapter.getItemCount(); i++) {
+            currentOrder.add(mItemAdapter.getItemId(i));
+        }
+
+        // Rebuild the list in the same order
+        List<AlarmItemHolder> reordered = new ArrayList<>(freshItems.size());
+        for (Long id : currentOrder) {
+            AlarmItemHolder h = byId.remove(id);
+            if (h != null) {
+                reordered.add(h);
+            }
+        }
+
+        // Append any new items not previously displayed
+        if (!byId.isEmpty()) {
+            reordered.addAll(byId.values());
+        }
+
+        return reordered;
+    }
+
+    /**
+     * Attaches a collapse listener to each alarm item.
+     * When an alarm is collapsed, sorting is unblocked and the loader is restarted.
+     *
+     * @param items the list of alarm item holders to attach listeners to
+     */
+    private void attachCollapseListeners(List<AlarmItemHolder> items) {
+        for (AlarmItemHolder holder : items) {
+            holder.setOnAlarmCollapseListener(() -> {
+                mExpandedAlarmId = Alarm.INVALID_ID;
+                mBlockSortingUntilCollapse = false;
+
+                final boolean wantsSort = SettingsDAO.getAlarmSorting(mPrefs).equals(SORT_ALARM_BY_NEXT_ALARM_TIME)
+                        || SettingsDAO.getAlarmSorting(mPrefs).equals(SORT_ALARM_BY_NAME);
+
+                if (wantsSort) {
+                    LoaderManager.getInstance(AlarmClockFragment.this)
+                            .restartLoader(0, null, AlarmClockFragment.this);
+                }
+            });
+
+        }
+    }
+
+    /**
      * @param alarmId identifies the alarm to be displayed
      */
     private void scrollToAlarm(long alarmId) {
@@ -508,6 +642,28 @@ public final class AlarmClockFragment extends DeskClockFragment implements
             // an alarm that has been marked deleted after use.
             SnackbarManager.show(Snackbar.make(mMainLayout, R.string
                     .missed_alarm_has_been_deleted, Snackbar.LENGTH_LONG));
+        }
+    }
+
+    @Override
+    public void onAlarmUpdateStarted() {
+        // Blocks sorting if an alarm is currently expanded to prevent visual reordering.
+        mBlockSortingUntilCollapse = (mExpandedAlarmId != Alarm.INVALID_ID);
+    }
+
+    @Override
+    public void onAlarmUpdateFinished() {
+        final boolean wantsSort = SettingsDAO.getAlarmSorting(mPrefs).equals(SORT_ALARM_BY_NEXT_ALARM_TIME)
+                || SettingsDAO.getAlarmSorting(mPrefs).equals(SORT_ALARM_BY_NAME);
+
+        // If no alarm is expanded, sorting is unblocked and the loader is restarted to refresh the list.
+        if (mExpandedAlarmId == Alarm.INVALID_ID && wantsSort) {
+            // We are in collapsed view: do not block sorting
+            mBlockSortingUntilCollapse = false;
+            new Handler(Looper.getMainLooper()).post(() ->
+                    LoaderManager.getInstance(AlarmClockFragment.this)
+                            .restartLoader(0, null, AlarmClockFragment.this)
+            );
         }
     }
 

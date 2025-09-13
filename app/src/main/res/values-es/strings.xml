@@ -522,7 +522,7 @@
     <string name="revoke_permission_dialog_message">¿Confirma que quiere revocar este permiso?</string>
     <string name="ignore_battery_optimizations_title">IGNORAR LAS OPTIMIZACIONES DE LA BATERÍA</string>
     <string name="sort_timer_descending_duration">Por duración (orden descendente)</string>
-    <string name="sort_timer_name">Por nombre</string>
+    <string name="sort_name">Por nombre</string>
     <string name="default_time_to_add_to_timer_1_minute">1 minuto</string>
     <string name="timer_flip_action_title">Gira el dispositivo para detener la alarma</string>
     <string name="timer_shake_action_title">Agita el dispositivo para detener la alarma</string>

@@ -197,6 +197,24 @@
         tools:layout="@layout/settings_preference_category_layout">
 
         <ListPreference
+            android:key="key_sort_alarm"
+            android:title="@string/sort_alarm_title"
+            android:entries="@array/sort_alarm_entries"
+            android:entryValues="@array/sort_alarm_values"
+            android:defaultValue="0"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <SwitchPreferenceCompat
+            android:key="key_display_enabled_alarms_first"
+            android:title="@string/display_enabled_alarms_first_title"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <ListPreference
             android:key="key_week_start"
             android:title="@string/week_start_title"
             android:entries="@array/week_start_entries"

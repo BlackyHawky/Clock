@@ -421,7 +421,7 @@
     <string name="firing_alarms_timers_channel">配置鬧鐘與計時器</string>
     <string name="reset_settings_title">重設</string>
     <string name="sort_timer_descending_duration">長度 (降序)</string>
-    <string name="sort_timer_name">名稱</string>
+    <string name="sort_name">名稱</string>
     <string name="clock_style_analog_material">類比 (Material)</string>
     <string name="timer_settings_summary">設定預設鈴聲、音量和計時器排序</string>
     <string name="first_launch_important_info_title">重要資訊</string>

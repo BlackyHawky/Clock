@@ -10,6 +10,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_VOLUME_SETTI
 import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_ROUTING_TO_BLUETOOTH_DEVICE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_BLUETOOTH_VOLUME;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DEFAULT_ALARM_RINGTONE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_ENABLED_ALARMS_FIRST;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_PER_ALARM_VOLUME;
@@ -21,6 +22,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_POWER_BUTTON;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ADVANCED_AUDIO_PLAYBACK;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SHAKE_ACTION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SHAKE_INTENSITY;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SORT_ALARM;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SYSTEM_MEDIA_VOLUME;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_VOLUME_BUTTONS;
@@ -76,6 +78,8 @@ public class AlarmSettingsFragment extends ScreenFragment
     ListPreference mFlipActionPref;
     ListPreference mShakeActionPref;
     CustomSeekbarPreference mShakeIntensityPref;
+    ListPreference mSortAlarmPref;
+    SwitchPreferenceCompat mDisplayEnabledAlarmsFirst;
     ListPreference mWeekStartPref;
     ListPreference mAlarmNotificationReminderTimePref;
     SwitchPreferenceCompat mEnableAlarmVibrationsByDefaultPref;
@@ -109,6 +113,8 @@ public class AlarmSettingsFragment extends ScreenFragment
         mFlipActionPref = findPreference(KEY_FLIP_ACTION);
         mShakeActionPref = findPreference(KEY_SHAKE_ACTION);
         mShakeIntensityPref = findPreference(KEY_SHAKE_INTENSITY);
+        mSortAlarmPref = findPreference(KEY_SORT_ALARM);
+        mDisplayEnabledAlarmsFirst = findPreference(KEY_DISPLAY_ENABLED_ALARMS_FIRST);
         mWeekStartPref = findPreference(KEY_WEEK_START);
         mAlarmNotificationReminderTimePref = findPreference(KEY_ALARM_NOTIFICATION_REMINDER_TIME);
         mEnableAlarmVibrationsByDefaultPref = findPreference(KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT);
@@ -156,7 +162,7 @@ public class AlarmSettingsFragment extends ScreenFragment
     @Override
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
-            case KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT,
+            case KEY_DISPLAY_ENABLED_ALARMS_FIRST, KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT,
                  KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS,
                  KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM,
                  KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT ->
@@ -195,7 +201,8 @@ public class AlarmSettingsFragment extends ScreenFragment
             }
 
             case KEY_VOLUME_BUTTONS, KEY_POWER_BUTTON, KEY_FLIP_ACTION,
-                 KEY_MATERIAL_TIME_PICKER_STYLE, KEY_MATERIAL_DATE_PICKER_STYLE -> {
+                 KEY_MATERIAL_TIME_PICKER_STYLE, KEY_MATERIAL_DATE_PICKER_STYLE,
+                 KEY_SORT_ALARM -> {
                 final ListPreference preference = (ListPreference) pref;
                 final int index = preference.findIndexOfValue((String) newValue);
                 preference.setSummary(preference.getEntries()[index]);
@@ -371,6 +378,11 @@ public class AlarmSettingsFragment extends ScreenFragment
             final int shakeActionIndex = mShakeActionPref.findIndexOfValue(String.valueOf(SettingsDAO.getShakeAction(mPrefs)));
             mShakeIntensityPref.setVisible(shakeActionIndex != 2);
         }
+
+        mSortAlarmPref.setOnPreferenceChangeListener(this);
+        mSortAlarmPref.setSummary(mSortAlarmPref.getEntry());
+
+        mDisplayEnabledAlarmsFirst.setOnPreferenceChangeListener(this);
 
         // Set the default first day of the week programmatically
         final Weekdays.Order weekdayOrder = SettingsDAO.getWeekdayOrder(mPrefs);

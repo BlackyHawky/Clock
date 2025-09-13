@@ -517,7 +517,7 @@
     <string name="clock_settings_summary">스타일, 시간대, 기기 날짜 및 시간 설정</string>
     <string name="version_text">버전 <xliff:g id="VERSION_NUMBER" example="1.0">%1$s</xliff:g></string>
     <string name="about_github_link">GitHub에서 보기</string>
-    <string name="sort_timer_name">이름</string>
+    <string name="sort_name">이름</string>
     <string name="default_time_to_add_to_timer_2_minutes">2분</string>
     <string name="default_time_to_add_to_timer_3_minutes">3분</string>
     <string name="default_time_to_add_to_timer_7_minutes">7분</string>
