@@ -457,7 +457,7 @@
     <string name="settings_language_system">系統語言</string>
     <string name="settings_language_italian">義大利</string>
     <string name="second_hand_color_title">秒針色彩</string>
-    <string name="sort_timer_manually">手動 (拖曳)</string>
+    <string name="sort_manually">手動 (拖曳)</string>
     <string name="settings_language_german">德文</string>
     <string name="settings_language_chinese_simplified_cn">中文 (簡體，中國)</string>
     <string name="settings_language_english_us">英文</string>

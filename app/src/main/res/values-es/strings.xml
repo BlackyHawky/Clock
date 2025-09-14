@@ -537,7 +537,7 @@
     <string name="display_warning_before_deleting_timer_title">Mostrar un aviso antes de borrar un temporizador</string>
     <string name="warning_dialog_title">Eliminar temporizador</string>
     <string name="warning_dialog_message">¿Confirma que quiere eliminar el temporizador «%s»?</string>
-    <string name="sort_timer_manually">Manualmente (arrastrando)</string>
+    <string name="sort_manually">Manualmente (arrastrando)</string>
     <string name="alarm_flash">Flash</string>
     <string name="description_direction_both_for_non_repeatable_alarm">Deslice el dedo a izquierda o derecha para descartar</string>
     <string name="default_time_to_add_to_timer_2_minutes">2 minutos</string>

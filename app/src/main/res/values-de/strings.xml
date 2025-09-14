@@ -550,7 +550,7 @@
     <string name="display_warning_before_deleting_timer_title">Warnung vor dem Löschen eines Timers anzeigen</string>
     <string name="warning_dialog_title">Timer löschen</string>
     <string name="warning_dialog_message">Sind Sie sicher, dass Sie den Timer \"%s\" löschen wollen?</string>
-    <string name="sort_timer_manually">Manuell (durch Verschieben)</string>
+    <string name="sort_manually">Manuell (durch Verschieben)</string>
     <string name="display_ringtone_title">Name des Signaltons anzeigen</string>
     <string name="alarm_flash">LED-Blitzlicht</string>
     <string name="shake_intensity_title">Intensität des Schüttelns</string>

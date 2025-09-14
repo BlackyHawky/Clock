@@ -321,7 +321,7 @@
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> ಅಲಾರಮ್ 10 ನಿಮಿಷಗಳವರೆಗೆ ಸ್ನೂಜ್ ಮಾಡಲಾಗಿದೆ"</string>
     <string name="flip_action_title">ಸಾಧನದ ಮಗುಚು ಕ್ರಿಯೆ</string>
     <string name="shake_action_title">ಸಾಧನದ ಕುಲುಕು ಕ್ರಿಯೆ</string>
-    <string name="sort_timer_manually">ಹಸ್ತಚಾಲಿತವಾಗಿ (ಡ್ರ್ಯಾಗ್ ಮಾಡುವ ಮೂಲಕ)</string>
+    <string name="sort_manually">ಹಸ್ತಚಾಲಿತವಾಗಿ (ಡ್ರ್ಯಾಗ್ ಮಾಡುವ ಮೂಲಕ)</string>
     <string name="timer_shake_action_title">ಗಡಿಯಾರದ ಯೆಚ್ಚರಿಕೆಯನ್ನು ನಿಲ್ಲಿಸಲು, ಸಾಧನವನ್ನು ಅಲ್ಲಾಡಿಸಿ</string>
     <string name="sort_timer_title">ಟೈಮರ್ಗಳನ್ನು ಕ್ರಮಬದ್ದಗೋಳಿಸಿ</string>
     <string name="sort_timer_ascending_duration">ಅವಧಿಯ ಪ್ರಕಾರ (ಆರೋಹಣ ಕ್ರಮ)</string>

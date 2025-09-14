@@ -104,6 +104,14 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return sorting of cities by time zone in ascending order, by name or manually.
+     */
+    public static String getCitySorting(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_clock.xml
+        return prefs.getString(KEY_SORT_CITIES, DEFAULT_SORT_CITIES_BY_ASCENDING_TIME_ZONE);
+    }
+
+    /**
      * @return {@code true} if a clock for the user's home timezone should be automatically
      * displayed when it doesn't match the current timezone
      */

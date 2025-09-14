@@ -594,7 +594,7 @@
     <string name="display_warning_before_deleting_timer_title">Показывать предупреждение перед удалением таймера</string>
     <string name="warning_dialog_title">Удалить таймер</string>
     <string name="warning_dialog_message">Вы уверены что хотите удалить таймер \"%s\"?</string>
-    <string name="sort_timer_manually">Вручную (перетаскиванием)</string>
+    <string name="sort_manually">Вручную (перетаскиванием)</string>
     <string name="default_time_to_add_to_timer_1_minute">1 минута</string>
     <string name="default_time_to_add_to_timer_3_minutes">3 минуты</string>
     <string name="about_translate_link">Перевести на Codeberg</string>

@@ -6,6 +6,9 @@
 
 package com.best.deskclock.data;
 
+import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_CITIES_BY_DESCENDING_TIME_ZONE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_CITIES_BY_NAME;
+import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_CITIES_MANUALLY;
 import static com.best.deskclock.utils.Utils.ACTION_LANGUAGE_CODE_CHANGED;
 import static com.best.deskclock.utils.WidgetUtils.ACTION_WORLD_CITIES_CHANGED;
 
@@ -185,7 +188,20 @@ final class CityModel {
     List<City> getSelectedCities() {
         if (mSelectedCities == null) {
             final List<City> selectedCities = CityDAO.getSelectedCities(mPrefs, getCityMap());
-            Collections.sort(selectedCities, new City.UtcOffsetComparator());
+
+            final String citySorting = SettingsDAO.getCitySorting(mPrefs);
+
+            Comparator<City> comparator = switch (citySorting) {
+                case SORT_CITIES_BY_DESCENDING_TIME_ZONE -> Collections.reverseOrder(new City.UtcOffsetComparator());
+                case SORT_CITIES_BY_NAME -> new City.NameComparator();
+                case SORT_CITIES_MANUALLY -> null; // Don't sort
+                default -> new City.UtcOffsetComparator();
+            };
+
+            if (comparator != null) {
+                Collections.sort(selectedCities, comparator);
+            }
+
             mSelectedCities = Collections.unmodifiableList(selectedCities);
         }
 
@@ -205,6 +221,19 @@ final class CityModel {
 
         // Broadcast the change to the selected cities for the benefit of widgets.
         fireCitiesChanged();
+    }
+
+    /**
+     * Updates the order of selected cities and persists it to SharedPreferences.
+     * @param newOrder the new list of selected cities, in the desired order
+     */
+    void updateSelectedCitiesOrder(List<City> newOrder) {
+        CityDAO.saveSelectedCitiesOrder(mPrefs, newOrder);
+
+        // Clean cache to force a clean reload
+        mSelectedCities = null;
+
+        notifyCityListeners();
     }
 
     /**
@@ -249,11 +278,19 @@ final class CityModel {
         throw new IllegalStateException("unexpected city sort: " + citySort);
     }
 
+    /**
+     * Notifies all registered {@link CityListener} instances that the list of
+     * selected cities has changed.
+     */
+    private void notifyCityListeners() {
+        for (CityListener listener : mCityListeners) {
+            listener.citiesChanged();
+        }
+    }
+
     private void fireCitiesChanged() {
         mContext.sendBroadcast(new Intent(ACTION_WORLD_CITIES_CHANGED));
-        for (CityListener cityListener : mCityListeners) {
-            cityListener.citiesChanged();
-        }
+        notifyCityListeners();
     }
 
     /**
@@ -283,6 +320,10 @@ final class CityModel {
                         mHomeCity = null;
                     case PreferencesKeys.KEY_AUTO_HOME_CLOCK:
                         fireCitiesChanged();
+                        break;
+                    case PreferencesKeys.KEY_SORT_CITIES:
+                        mSelectedCities = null;
+                        notifyCityListeners();
                         break;
                 }
             }

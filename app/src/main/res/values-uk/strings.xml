@@ -558,7 +558,7 @@
     <string name="timer_flip_action_title">Зупиняти будильник перевертанням пристрою</string>
     <string name="auto_night_accent_color_title">Застосовувати акцентний колір до нічного режиму</string>
     <string name="night_accent_color_title">Акцентний колір для нічного режиму</string>
-    <string name="sort_timer_manually">Уручну (перетягуванням)</string>
+    <string name="sort_manually">Уручну (перетягуванням)</string>
     <string name="timer_buttons_action_summary">Працює лише на екрані блокування</string>
     <string name="timer_volume_buttons_action_title">Скидати використані таймери за допомогою кнопок гучності</string>
     <string name="timer_power_button_action_title">Скидати використані таймери за допомогою кнопки живлення</string>

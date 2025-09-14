@@ -11,17 +11,18 @@ import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.BLACK_ACCENT_COLOR;
+import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_CITIES_MANUALLY;
 import static com.best.deskclock.uidata.UiDataModel.Tab.CLOCKS;
 import static com.best.deskclock.utils.AlarmUtils.ACTION_NEXT_ALARM_CHANGED_BY_CLOCK;
 import static java.util.Calendar.DAY_OF_WEEK;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.format.DateUtils;
@@ -35,6 +36,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -52,7 +54,9 @@ import com.best.deskclock.utils.Utils;
 import com.best.deskclock.worldclock.CitySelectionActivity;
 import com.google.android.material.card.MaterialCardView;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -66,23 +70,18 @@ public final class ClockFragment extends DeskClockFragment {
 
     // Updates the UI in response to changes to the scheduled alarm.
     private BroadcastReceiver mAlarmChangeReceiver;
+    private ScrollPositionWatcher mScrollPositionWatcher;
 
-    private TextClock mDigitalClock;
-    private AnalogClock mAnalogClock;
+    private Context mContext;
+    private SharedPreferences mPrefs;
+    private final List<City> mMutableCities = new ArrayList<>();
     private View mClockFrame;
     private SelectedCitiesAdapter mCityAdapter;
     private RecyclerView mCityList;
     private String mDateFormat;
     private String mDateFormatForAccessibility;
-    private Context mContext;
-
-    public static SharedPreferences mPrefs;
-    public static DataModel.ClockStyle mClockStyle;
-    public static boolean mAreClockSecondsDisplayed;
-    public static boolean mIsPortrait;
-    public static boolean mIsLandscape;
-    public static boolean mIsTablet;
-    public static boolean mShowHomeClock;
+    private boolean mIsPortrait;
+    private boolean mShowHomeClock;
 
     /**
      * The public no-arg constructor required by all fragments.
@@ -95,6 +94,22 @@ public final class ClockFragment extends DeskClockFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        mContext = requireContext();
+        mPrefs = getDefaultSharedPreferences(mContext);
+        mShowHomeClock = SettingsDAO.getShowHomeClock(mContext, mPrefs);
+        mIsPortrait = ThemeUtils.isPortrait();
+        mDateFormat = mContext.getString(R.string.abbrev_wday_month_day_no_year);
+        mDateFormatForAccessibility = mContext.getString(R.string.full_wday_month_day_no_year);
+
+        mMutableCities.clear();
+        mMutableCities.addAll(DataModel.getDataModel().getSelectedCities());
+
+        mCityAdapter = new SelectedCitiesAdapter(mContext, mDateFormat, mDateFormatForAccessibility,
+                mMutableCities, mShowHomeClock, mIsPortrait);
+        DataModel.getDataModel().addCityListener(mCityAdapter);
+
+        mScrollPositionWatcher = new ScrollPositionWatcher();
+
         mAlarmChangeReceiver = new AlarmChangedBroadcastReceiver();
     }
 
@@ -104,43 +119,142 @@ public final class ClockFragment extends DeskClockFragment {
         super.onCreateView(inflater, container, icicle);
 
         final View fragmentView = inflater.inflate(R.layout.clock_fragment, container, false);
-        final ScrollPositionWatcher scrollPositionWatcher = new ScrollPositionWatcher();
-
-        mContext = requireContext();
-        mPrefs = getDefaultSharedPreferences(mContext);
-        mClockStyle = SettingsDAO.getClockStyle(mPrefs);
-        mAreClockSecondsDisplayed = SettingsDAO.areClockSecondsDisplayed(mPrefs);
-        mIsPortrait = ThemeUtils.isPortrait();
-        mIsLandscape = ThemeUtils.isLandscape();
-        mIsTablet = ThemeUtils.isTablet();
-        mShowHomeClock = SettingsDAO.getShowHomeClock(mContext, mPrefs);
-        mDateFormat = mContext.getString(R.string.abbrev_wday_month_day_no_year);
-        mDateFormatForAccessibility = mContext.getString(R.string.full_wday_month_day_no_year);
-
-        mCityAdapter = new SelectedCitiesAdapter(mContext, mDateFormat, mDateFormatForAccessibility);
-        DataModel.getDataModel().addCityListener(mCityAdapter);
 
         mCityList = fragmentView.findViewById(R.id.cities);
-        mCityList.setLayoutManager(new LinearLayoutManager(mContext));
         mCityList.setAdapter(mCityAdapter);
-        mCityList.setItemAnimator(null);
-        mCityList.addOnScrollListener(scrollPositionWatcher);
+        mCityList.setLayoutManager(new LinearLayoutManager(mContext));
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
+
+            @Override
+            public int getMovementFlags(@NonNull RecyclerView recyclerView,
+                                        @NonNull RecyclerView.ViewHolder viewHolder) {
+
+                int position = viewHolder.getBindingAdapterPosition();
+
+                boolean isMainClock = position == 0 && mIsPortrait;
+                boolean isHomeClock = mShowHomeClock && position == (mIsPortrait ? 1 : 0);
+                if (isMainClock || isHomeClock) {
+                    return 0;
+                }
+
+                return makeMovementFlags(ItemTouchHelper.UP | ItemTouchHelper.DOWN, 0);
+            }
+
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView,
+                                  @NonNull RecyclerView.ViewHolder viewHolder,
+                                  @NonNull RecyclerView.ViewHolder target) {
+
+                int from = viewHolder.getBindingAdapterPosition();
+                int to = target.getBindingAdapterPosition();
+
+                int offset = (mIsPortrait ? 1 : 0) + (mShowHomeClock ? 1 : 0);
+                if (from < offset || to < offset) {
+                    return false;
+                }
+
+                int fromIndex = from - offset;
+                int toIndex = to - offset;
+
+                Collections.swap(mMutableCities, fromIndex, toIndex);
+
+                mCityAdapter.notifyItemMoved(from, to);
+
+                return true;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            }
+
+            @Override
+            public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+                super.clearView(recyclerView, viewHolder);
+
+                // Saving the new order
+                DataModel.getDataModel().updateSelectedCitiesOrder(mMutableCities);
+            }
+
+            @Override
+            public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView,
+                                    @NonNull RecyclerView.ViewHolder viewHolder,
+                                    float dX, float dY, int actionState, boolean isCurrentlyActive) {
+
+                // Draw a shadow under the timer card when it's dragging
+                viewHolder.itemView.setTranslationZ(
+                        (float) ThemeUtils.convertDpToPixels(isCurrentlyActive ? 6 : 0, mContext));
+
+                // Calculation of upper and lower limits for drag
+                int position = viewHolder.getBindingAdapterPosition();
+                int offset = (mIsPortrait ? 1 : 0) + (mShowHomeClock ? 1 : 0);
+
+                if (actionState == ItemTouchHelper.ACTION_STATE_DRAG && position >= offset) {
+                    // Upper limit
+                    RecyclerView.ViewHolder firstHolder = recyclerView.findViewHolderForAdapterPosition(offset);
+                    float minY = firstHolder != null
+                            ? firstHolder.itemView.getTop()
+                            : 0; // Fallback
+
+                    // Bottom limit
+                    int lastIndex = mCityAdapter.getItemCount() - 1;
+                    RecyclerView.ViewHolder lastHolder = recyclerView.findViewHolderForAdapterPosition(lastIndex);
+
+                    float maxY = lastHolder != null
+                            ? lastHolder.itemView.getBottom()
+                            : recyclerView.getHeight() - recyclerView.getPaddingBottom();
+
+                    // Calculation of the projection
+                    View movingView = viewHolder.itemView;
+                    float currentTop = movingView.getTop();
+                    float currentBottom = movingView.getBottom();
+
+                    float projectedTop = currentTop + dY;
+                    float projectedBottom = currentBottom + dY;
+
+                    // Adjustment
+                    float newDY = dY;
+
+                    if (projectedTop < minY) {
+                        newDY = minY - currentTop;
+                    } else if (projectedBottom > maxY) {
+                        newDY = maxY - currentBottom;
+                    }
+
+                    super.onChildDraw(c, recyclerView, viewHolder, dX, newDY, actionState, isCurrentlyActive);
+                } else {
+                    super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+                }
+            }
+        });
+
+        if (SettingsDAO.getCitySorting(mPrefs).equals(SORT_CITIES_MANUALLY)) {
+            itemTouchHelper.attachToRecyclerView(mCityList);
+        } else {
+            itemTouchHelper.attachToRecyclerView(null);
+        }
+
+        mCityList.addOnScrollListener(mScrollPositionWatcher);
         // Due to the ViewPager and the location of FAB, set a bottom padding to prevent
         // the city list from being hidden by the FAB (e.g. when scrolling down).
         mCityList.setPadding(0, 0, 0, ThemeUtils.convertDpToPixels(
-                mIsTablet && mIsPortrait ? 106 : mIsPortrait ? 91 : 0, mContext));
+                ThemeUtils.isTablet() && mIsPortrait ? 106 : mIsPortrait ? 91 : 0, mContext));
 
         // On landscape mode, the clock frame will be a distinct view.
         // Otherwise, it'll be added on as a header to the main listview.
         mClockFrame = fragmentView.findViewById(R.id.main_clock_left_panel);
         if (mClockFrame != null) {
+            DataModel.ClockStyle clockStyle = SettingsDAO.getClockStyle(mPrefs);
+            TextClock digitalClock = mClockFrame.findViewById(R.id.digital_clock);
+            AnalogClock analogClock = mClockFrame.findViewById(R.id.analog_clock);
+            boolean showSeconds = SettingsDAO.areClockSecondsDisplayed(mPrefs);
+
             mClockFrame.setPadding(0, 0, 0, 0);
-            mDigitalClock = mClockFrame.findViewById(R.id.digital_clock);
-            mAnalogClock = mClockFrame.findViewById(R.id.analog_clock);
+
             ClockUtils.setClockIconTypeface(mClockFrame);
             ClockUtils.updateDate(mDateFormat, mDateFormatForAccessibility, mClockFrame);
-            ClockUtils.setClockStyle(mClockStyle, mDigitalClock, mAnalogClock);
-            ClockUtils.setClockSecondsEnabled(mClockStyle, mDigitalClock, mAnalogClock, mAreClockSecondsDisplayed);
+            ClockUtils.setClockStyle(clockStyle, digitalClock, analogClock);
+            ClockUtils.setClockSecondsEnabled(clockStyle, digitalClock, analogClock, showSeconds);
         }
 
         // Schedule a runnable to update the date every quarter hour.
@@ -154,35 +268,15 @@ public final class ClockFragment extends DeskClockFragment {
     public void onResume() {
         super.onResume();
 
-        final Activity activity = requireActivity();
-
-        mDateFormat = mContext.getString(R.string.abbrev_wday_month_day_no_year);
-        mDateFormatForAccessibility = mContext.getString(R.string.full_wday_month_day_no_year);
-
         // Watch for system events that effect clock time or format.
         if (mAlarmChangeReceiver != null) {
             final IntentFilter filter = new IntentFilter(ACTION_NEXT_ALARM_CHANGED_BY_CLOCK);
             if (SdkUtils.isAtLeastAndroid13()) {
-                activity.registerReceiver(mAlarmChangeReceiver, filter, Context.RECEIVER_EXPORTED);
+                mContext.registerReceiver(mAlarmChangeReceiver, filter, Context.RECEIVER_EXPORTED);
             } else {
-                activity.registerReceiver(mAlarmChangeReceiver, filter);
+                mContext.registerReceiver(mAlarmChangeReceiver, filter);
             }
         }
-
-        // Resume can be invoked after changing the clock style or seconds display.
-        if (mDigitalClock != null && mAnalogClock != null) {
-            ClockUtils.setClockStyle(mClockStyle, mDigitalClock, mAnalogClock);
-            ClockUtils.setClockSecondsEnabled(mClockStyle, mDigitalClock, mAnalogClock, mAreClockSecondsDisplayed);
-        }
-
-        final View view = getView();
-        if (view != null && view.findViewById(R.id.main_clock_left_panel) != null) {
-            // Center the main clock frame by hiding the world clocks when none are selected.
-            mCityList.setVisibility(mCityAdapter.getItemCount() == 0 ? GONE : VISIBLE);
-        }
-
-        // force refresh so clock style changes apply immediately
-        mCityAdapter.citiesChanged();
 
         refreshAlarm();
     }
@@ -252,12 +346,21 @@ public final class ClockFragment extends DeskClockFragment {
         private final Context mContext;
         private final String mDateFormat;
         private final String mDateFormatForAccessibility;
+        private final List<City> mCities;
+        private final boolean mIsPortrait;
+        private final boolean mShowHomeClock;
 
-        public SelectedCitiesAdapter(Context context, String dateFormat, String dateFormatForAccessibility) {
+        public SelectedCitiesAdapter(Context context, String dateFormat,
+                                     String dateFormatForAccessibility, List<City> cities,
+                                     boolean showHomeClock, boolean isPortrait) {
+
             mContext = context;
             mDateFormat = dateFormat;
             mDateFormatForAccessibility = dateFormatForAccessibility;
             mInflater = LayoutInflater.from(context);
+            mCities = cities;
+            mShowHomeClock = showHomeClock;
+            mIsPortrait = isPortrait;
         }
 
         @Override
@@ -293,7 +396,7 @@ public final class ClockFragment extends DeskClockFragment {
                     final int positionAdjuster = (mIsPortrait ? 1 : 0) + (mShowHomeClock ? 1 : 0);
                     city = getCities().get(position - positionAdjuster);
                 }
-                ((CityViewHolder) holder).bind(mContext, city);
+                ((CityViewHolder) holder).bind(mContext, mCities, city, mShowHomeClock, mIsPortrait);
             } else if (viewType == MAIN_CLOCK) {
                 ((MainClockViewHolder) holder).bind(mContext, mDateFormat,
                         mDateFormatForAccessibility);
@@ -315,7 +418,7 @@ public final class ClockFragment extends DeskClockFragment {
         }
 
         private List<City> getCities() {
-            return DataModel.getDataModel().getSelectedCities();
+            return mCities;
         }
 
         private void refreshAlarm() {
@@ -326,30 +429,44 @@ public final class ClockFragment extends DeskClockFragment {
 
         @Override
         public void citiesChanged() {
-            notifyDataSetChanged();
+            List<City> newCities = DataModel.getDataModel().getSelectedCities();
+
+            if (!mCities.equals(newCities)) {
+                mCities.clear();
+                mCities.addAll(newCities);
+                notifyDataSetChanged();
+            } else {
+                notifyItemRangeChanged(0, getItemCount());
+            }
         }
 
         private static final class CityViewHolder extends RecyclerView.ViewHolder {
 
+            private final SharedPreferences mPrefs;
             private final TextView mName;
             private final MaterialCardView mDigitalClockContainer;
+            private final DataModel.ClockStyle mClockStyle;
             private final TextClock mDigitalClock;
             private final AnalogClock mAnalogClock;
             private final TextView mHoursAhead;
+            private final boolean mIsTablet;
 
             private CityViewHolder(View itemView) {
                 super(itemView);
 
+                mPrefs = getDefaultSharedPreferences(itemView.getContext());
+                mClockStyle = SettingsDAO.getClockStyle(mPrefs);
                 mName = itemView.findViewById(R.id.city_name);
                 mDigitalClockContainer = itemView.findViewById(R.id.digital_clock_container);
                 mDigitalClock = itemView.findViewById(R.id.digital_clock);
                 mAnalogClock = itemView.findViewById(R.id.analog_clock);
                 mHoursAhead = itemView.findViewById(R.id.hours_ahead);
+                mIsTablet = ThemeUtils.isTablet();
             }
 
-            private void bind(Context context, City city) {
+            private void bind(Context context, List<City> cities, City city, boolean showHomeClock, boolean isPortrait) {
                 final String cityTimeZoneId = city.getTimeZone().getID();
-                final boolean isPhoneInLandscapeMode = !mIsTablet && mIsLandscape;
+                final boolean isPhoneInLandscapeMode = !mIsTablet && !isPortrait;
                 final boolean isAnalogClock = mClockStyle == DataModel.ClockStyle.ANALOG
                         || mClockStyle == DataModel.ClockStyle.ANALOG_MATERIAL;
                 int paddingVertical = ThemeUtils.convertDpToPixels(isAnalogClock ? 12 : 18, context);
@@ -385,8 +502,9 @@ public final class ClockFragment extends DeskClockFragment {
                         LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 final int leftMargin = ThemeUtils.convertDpToPixels(isPhoneInLandscapeMode ? 0 : 10, context);
                 final int rightMargin =  ThemeUtils.convertDpToPixels(isPhoneInLandscapeMode ? 90 : 10, context);
-                final int bottomMargin = ThemeUtils.convertDpToPixels(
-                        DataModel.getDataModel().getSelectedCities().size() > 1 || mShowHomeClock ? 8 : 0, context);
+                final int bottomMargin = ThemeUtils.convertDpToPixels(cities.size() > 1 || showHomeClock
+                        ? 8
+                        : 0, context);
                 params.setMargins(leftMargin, 0, rightMargin, bottomMargin);
                 itemView.setLayoutParams(params);
 
@@ -427,44 +545,21 @@ public final class ClockFragment extends DeskClockFragment {
             }
         }
 
-        /**
-         * @param context          to obtain strings.
-         * @param displayMinutes   whether or not minutes should be included
-         * @param isAhead          {@code true} if the time should be marked 'ahead', else 'behind'
-         * @param hoursDifferent   the number of hours the time is ahead/behind
-         * @param minutesDifferent the number of minutes the time is ahead/behind
-         * @return String describing the hours/minutes ahead or behind
-         */
-        public static String createHoursDifferentString(Context context, boolean displayMinutes,
-                                                        boolean isAhead, int hoursDifferent, int minutesDifferent) {
-
-            String timeString;
-            if (displayMinutes && hoursDifferent != 0) {
-                // Both minutes and hours
-                final String hoursShortQuantityString = Utils.getNumberFormattedQuantityString(context, R.plurals.hours_short, Math.abs(hoursDifferent));
-                final String minsShortQuantityString = Utils.getNumberFormattedQuantityString(context, R.plurals.minutes_short, Math.abs(minutesDifferent));
-                final @StringRes int stringType = isAhead ? R.string.world_hours_minutes_ahead : R.string.world_hours_minutes_behind;
-                timeString = context.getString(stringType, hoursShortQuantityString, minsShortQuantityString);
-            } else {
-                // Minutes alone or hours alone
-                final String hoursQuantityString = Utils.getNumberFormattedQuantityString(context, R.plurals.hours, Math.abs(hoursDifferent));
-                final String minutesQuantityString = Utils.getNumberFormattedQuantityString(context, R.plurals.minutes, Math.abs(minutesDifferent));
-                final @StringRes int stringType = isAhead ? R.string.world_time_ahead : R.string.world_time_behind;
-                timeString = context.getString(stringType, displayMinutes ? minutesQuantityString : hoursQuantityString);
-            }
-            return timeString;
-        }
-
         private static final class MainClockViewHolder extends RecyclerView.ViewHolder {
 
             private final TextClock mDigitalClock;
             private final AnalogClock mAnalogClock;
+            private final DataModel.ClockStyle mClockStyle;
+            private final boolean mAreClockSecondsDisplayed;
 
             private MainClockViewHolder(View itemView) {
                 super(itemView);
 
+                final SharedPreferences prefs = getDefaultSharedPreferences(itemView.getContext());
                 mDigitalClock = itemView.findViewById(R.id.digital_clock);
                 mAnalogClock = itemView.findViewById(R.id.analog_clock);
+                mClockStyle = SettingsDAO.getClockStyle(prefs);
+                mAreClockSecondsDisplayed = SettingsDAO.areClockSecondsDisplayed(prefs);
                 ClockUtils.setClockIconTypeface(itemView);
             }
 
@@ -475,6 +570,34 @@ public final class ClockFragment extends DeskClockFragment {
                 ClockUtils.setClockSecondsEnabled(mClockStyle, mDigitalClock, mAnalogClock, mAreClockSecondsDisplayed);
             }
         }
+    }
+
+    /**
+     * @param context          to obtain strings.
+     * @param displayMinutes   whether or not minutes should be included
+     * @param isAhead          {@code true} if the time should be marked 'ahead', else 'behind'
+     * @param hoursDifferent   the number of hours the time is ahead/behind
+     * @param minutesDifferent the number of minutes the time is ahead/behind
+     * @return String describing the hours/minutes ahead or behind
+     */
+    public static String createHoursDifferentString(Context context, boolean displayMinutes,
+                                                    boolean isAhead, int hoursDifferent, int minutesDifferent) {
+
+        String timeString;
+        if (displayMinutes && hoursDifferent != 0) {
+            // Both minutes and hours
+            final String hoursShortQuantityString = Utils.getNumberFormattedQuantityString(context, R.plurals.hours_short, Math.abs(hoursDifferent));
+            final String minsShortQuantityString = Utils.getNumberFormattedQuantityString(context, R.plurals.minutes_short, Math.abs(minutesDifferent));
+            final @StringRes int stringType = isAhead ? R.string.world_hours_minutes_ahead : R.string.world_hours_minutes_behind;
+            timeString = context.getString(stringType, hoursShortQuantityString, minsShortQuantityString);
+        } else {
+            // Minutes alone or hours alone
+            final String hoursQuantityString = Utils.getNumberFormattedQuantityString(context, R.plurals.hours, Math.abs(hoursDifferent));
+            final String minutesQuantityString = Utils.getNumberFormattedQuantityString(context, R.plurals.minutes, Math.abs(minutesDifferent));
+            final @StringRes int stringType = isAhead ? R.string.world_time_ahead : R.string.world_time_behind;
+            timeString = context.getString(stringType, displayMinutes ? minutesQuantityString : hoursQuantityString);
+        }
+        return timeString;
     }
 
     /**

@@ -69,6 +69,16 @@
         app:iconSpaceReserved="false"
         tools:layout="@layout/settings_preference_category_layout">
 
+        <ListPreference
+            android:key="key_sort_cities"
+            android:title="@string/sort_cities_title"
+            android:entries="@array/sort_cities_entries"
+            android:entryValues="@array/sort_cities_values"
+            android:defaultValue="0"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
         <SwitchPreferenceCompat
             android:key="key_automatic_home_clock"
             android:title="@string/automatic_home_clock"

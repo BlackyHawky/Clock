@@ -539,7 +539,7 @@
     <string name="timer_flip_action_title">Окрените уређај да бисте зауставили аларм</string>
     <string name="timer_shake_action_title">Протресите уређај да бисте зауставили аларм</string>
     <string name="night_accent_color_title">Акцент боја за ноћни режим</string>
-    <string name="sort_timer_manually">Ручно (померањем)</string>
+    <string name="sort_manually">Ручно (померањем)</string>
     <string name="timer_power_button_action_title">Ресетуј истекле тајмере са дугметом за укључивање</string>
     <string name="timer_buttons_action_summary">Ради само на закључаном екрану</string>
     <string name="timer_volume_buttons_action_title">Ресетуј истекле тајмере са дугметима за јачину звука</string>

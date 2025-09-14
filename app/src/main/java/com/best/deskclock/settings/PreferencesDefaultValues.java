@@ -53,6 +53,10 @@ public class PreferencesDefaultValues {
     // Clock
     public static final String DEFAULT_CLOCK_STYLE = "digital";
     public static final boolean DEFAULT_DISPLAY_CLOCK_SECONDS = false;
+    public static final String DEFAULT_SORT_CITIES_BY_ASCENDING_TIME_ZONE = "0";
+    public static final String SORT_CITIES_BY_DESCENDING_TIME_ZONE = "1";
+    public static final String SORT_CITIES_BY_NAME = "2";
+    public static final String SORT_CITIES_MANUALLY = "3";
     public static final boolean DEFAULT_AUTO_HOME_CLOCK = true;
     public static final String DEFAULT_HOME_TIME_ZONE = null;
 

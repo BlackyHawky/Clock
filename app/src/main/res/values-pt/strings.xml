@@ -539,7 +539,7 @@
     <string name="next_alarm_widget_title_no_alarm">Sem próximo alarme</string>
     <string name="denied_permission_label">Permissão negada</string>
     <string name="revoke_permission_dialog_message">Tem certeza de que deseja revogar essa permissão?</string>
-    <string name="sort_timer_manually">Manualmente (arrastando)</string>
+    <string name="sort_manually">Manualmente (arrastando)</string>
     <string name="timer_volume_buttons_action_title">Reiniciar os timers expirados com os botões de volume</string>
     <string name="sw_volume_up_action_title">Aumentar o volume</string>
     <string name="sw_settings_summary">Definir ações para os botões de volume</string>

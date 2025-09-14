@@ -368,7 +368,7 @@
 
     <!-- Entries listed in the ListPreference when invoking the timer sort preference -->
     <string-array name="sort_timer_entries">
-        <item>@string/sort_timer_manually</item>
+        <item>@string/sort_manually</item>
         <item>@string/sort_timer_ascending_duration</item>
         <item>@string/sort_timer_descending_duration</item>
         <item>@string/sort_name</item>
@@ -504,5 +504,21 @@
         <item>ko</item>
         <item>cs</item>
         <item>zh_TW</item>
+    </string-array>
+
+    <!-- Entries listed in the ListPreference when invoking the city sort preference -->
+    <string-array name="sort_cities_entries">
+        <item>@string/sort_cities_ascending_time_zone</item>
+        <item>@string/sort_cities_descending_time_zone</item>
+        <item>@string/sort_name</item>
+        <item>@string/sort_manually</item>
+    </string-array>
+    <!-- Values that are retrieved from the ListPreference. These must match
+         the sort_cities_entries above. -->
+    <string-array name="sort_cities_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
     </string-array>
 </resources>

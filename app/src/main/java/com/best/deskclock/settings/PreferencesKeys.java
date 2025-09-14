@@ -55,6 +55,7 @@ public class PreferencesKeys {
     public static final String KEY_CLOCK_DIAL_MATERIAL = "key_clock_dial_material";
     public static final String KEY_DISPLAY_CLOCK_SECONDS = "key_display_clock_seconds";
     public static final String KEY_CLOCK_SECOND_HAND = "key_clock_second_hand";
+    public static final String KEY_SORT_CITIES = "key_sort_cities";
     public static final String KEY_AUTO_HOME_CLOCK = "key_automatic_home_clock";
     public static final String KEY_HOME_TIME_ZONE = "key_home_time_zone";
     public static final String KEY_DATE_TIME = "key_date_time";

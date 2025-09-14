@@ -265,6 +265,15 @@ public final class DataModel {
     }
 
     /**
+     * Updates the order of selected cities and persists it to SharedPreferences.
+     * @param newOrder the new list of selected cities, in the desired order
+     */
+    public void updateSelectedCitiesOrder(List<City> newOrder) {
+        enforceMainLooper();
+        mCityModel.updateSelectedCitiesOrder(newOrder);
+    }
+
+    /**
      * @return a comparator used to locate index positions
      */
     public Comparator<City> getCityIndexComparator() {

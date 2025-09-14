@@ -11,6 +11,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_CLOCK_STYLE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DATE_TIME;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_CLOCK_SECONDS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_HOME_TIME_ZONE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SORT_CITIES;
 
 import android.content.Context;
 import android.content.Intent;
@@ -40,6 +41,7 @@ public class ClockSettingsFragment extends ScreenFragment
     ListPreference mClockDialMaterialPref;
     ListPreference mClockSecondHandPref;
     SwitchPreferenceCompat mDisplayClockSecondsPref;
+    ListPreference mSortCitiesPref;
     SwitchPreferenceCompat mAutoHomeClockPref;
     ListPreference mHomeTimeZonePref;
     Preference mDateTimePref;
@@ -60,6 +62,7 @@ public class ClockSettingsFragment extends ScreenFragment
         mClockDialMaterialPref = findPreference(KEY_CLOCK_DIAL_MATERIAL);
         mDisplayClockSecondsPref = findPreference(KEY_DISPLAY_CLOCK_SECONDS);
         mClockSecondHandPref = findPreference(KEY_CLOCK_SECOND_HAND);
+        mSortCitiesPref = findPreference(KEY_SORT_CITIES);
         mAutoHomeClockPref = findPreference(KEY_AUTO_HOME_CLOCK);
         mHomeTimeZonePref = findPreference(KEY_HOME_TIME_ZONE);
         mDateTimePref = findPreference(KEY_DATE_TIME);
@@ -83,7 +86,8 @@ public class ClockSettingsFragment extends ScreenFragment
                         && SettingsDAO.areClockSecondsDisplayed(mPrefs));
             }
 
-            case KEY_CLOCK_DIAL, KEY_CLOCK_DIAL_MATERIAL, KEY_CLOCK_SECOND_HAND, KEY_HOME_TIME_ZONE -> {
+            case KEY_CLOCK_DIAL, KEY_CLOCK_DIAL_MATERIAL, KEY_CLOCK_SECOND_HAND, KEY_HOME_TIME_ZONE,
+                 KEY_SORT_CITIES -> {
                 final ListPreference preference = (ListPreference) pref;
                 final int index = preference.findIndexOfValue((String) newValue);
                 preference.setSummary(preference.getEntries()[index]);
@@ -142,6 +146,9 @@ public class ClockSettingsFragment extends ScreenFragment
                 && SettingsDAO.areClockSecondsDisplayed(mPrefs));
         mClockSecondHandPref.setSummary(mClockSecondHandPref.getEntry());
         mClockSecondHandPref.setOnPreferenceChangeListener(this);
+
+        mSortCitiesPref.setSummary(mSortCitiesPref.getEntry());
+        mSortCitiesPref.setOnPreferenceChangeListener(this);
 
         mAutoHomeClockPref.setOnPreferenceChangeListener(this);
 

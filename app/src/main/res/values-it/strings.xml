@@ -548,7 +548,7 @@
     <string name="auto_silence_30_seconds">30 secondi</string>
     <string name="snooze_duration_none">Nessuno</string>
     <string name="description_direction_both_for_occasional_alarm">Scorri a sinistra per rimandare o a destra per fermare e rimuovere la sveglia</string>
-    <string name="sort_timer_manually">Manualmente (trascinandoli)</string>
+    <string name="sort_manually">Manualmente (trascinandoli)</string>
     <string name="black_accent_color">Nero</string>
     <string name="purple_accent_color">Viola</string>
     <string name="yellow_accent_color">Giallo</string>

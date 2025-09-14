@@ -726,6 +726,14 @@
     <string name="clock_style_digital">Digital</string>
     <!-- Setting title for changing the clock style to Spinner. -->
     <string name="clock_style_spinner">Spinner</string>
+    <!-- Setting title to sort cities -->
+    <string name="sort_cities_title">Sort cities</string>
+    <!-- Setting title for manual sorting. -->
+    <string name="sort_manually">Manually (by dragging)</string>
+    <!-- Setting title for changing the cities sorting to By time zone (ascending order). -->
+    <string name="sort_cities_ascending_time_zone">By time zone (ascending order)</string>
+    <!-- Setting title for changing the cities sorting to By time zone (descending order). -->
+    <string name="sort_cities_descending_time_zone">By time zone (descending order)</string>
     <!-- Title for an option that will automatically show a clock representing the user's regular timezone on the main fragment whenever the user leaves their regular timezone-->
     <string name="automatic_home_clock">Automatic home clock</string>
     <!-- Describes the functionality provided by the automatic_home_clock option -->
@@ -1066,8 +1074,6 @@
     <string name="timer_shake_action_title">Shake the device to stop the alarm</string>
     <!-- Title to sort timers -->
     <string name="sort_timer_title">Sort timers</string>
-    <!-- Setting title for sorting timers manually. -->
-    <string name="sort_timer_manually">Manually (by dragging)</string>
     <!-- Setting title for changing the timer sorting to By duration (ascending order). -->
     <string name="sort_timer_ascending_duration">By duration (ascending order)</string>
     <!-- Setting title for changing the timer sorting to By duration (descending order). -->

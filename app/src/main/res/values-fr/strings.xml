@@ -546,7 +546,7 @@
     <string name="timer_shake_action_title">Secouer l\'appareil pour arrêter l\'alarme</string>
     <string name="auto_night_accent_color_title">Appliquer la couleur d\'accent au mode nuit</string>
     <string name="night_accent_color_title">Couleur d\'accent pour le mode nuit</string>
-    <string name="sort_timer_manually">Manuellement (par glissement)</string>
+    <string name="sort_manually">Manuellement (par glissement)</string>
     <string name="timer_volume_buttons_action_title">Réinitialiser les minuteurs expirés avec les boutons du volume</string>
     <string name="timer_buttons_action_summary">Ne fonctionne que sur l\'écran de verrouillage</string>
     <string name="timer_power_button_action_title">Réinitialiser les minuteurs expirés avec le bouton d\'alimentation</string>

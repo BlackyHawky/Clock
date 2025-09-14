@@ -10,7 +10,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:clipChildren="false">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/fold_vertical_start_edge"

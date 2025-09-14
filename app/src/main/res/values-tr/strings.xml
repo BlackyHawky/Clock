@@ -526,7 +526,7 @@
     <string name="city_clock_color_title">Şehir saati için özel renk</string>
     <string name="display_warning_before_deleting_timer_title">Zamanlayıcıyı silerken uyarı penceresi göster</string>
     <string name="warning_dialog_title">Zamanlayıcıyı sil</string>
-    <string name="sort_timer_manually">Elle (sürükleyerek)</string>
+    <string name="sort_manually">Elle (sürükleyerek)</string>
     <string name="default_time_to_add_to_timer_8_minutes">8 dakika</string>
     <string name="default_time_to_add_to_timer_10_minutes">10 dakika</string>
     <string name="screensaver_settings_summary">Ekran koruyucunun stilini, rengini ve yazı tipini ayarlayın</string>

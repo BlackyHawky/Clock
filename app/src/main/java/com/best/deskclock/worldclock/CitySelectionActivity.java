@@ -16,7 +16,6 @@ import android.text.InputType;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
-import android.util.ArraySet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -52,6 +51,7 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -280,7 +280,7 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
         /**
          * A mutable set of cities currently selected by the user.
          */
-        private final Set<City> mUserSelectedCities = new ArraySet<>();
+        private final Set<City> mUserSelectedCities = new LinkedHashSet<>();
 
         /**
          * Menu item controller for search. Search query is maintained here.
