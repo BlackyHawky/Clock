@@ -45,7 +45,7 @@
             tools:layout="@layout/settings_preference_layout" />
 
         <SwitchPreferenceCompat
-            android:key="key_display_alarm_seconds_hand"
+            android:key="key_display_alarm_second_hand"
             android:title="@string/display_clock_seconds_pref"
             android:defaultValue="true"
             app:iconSpaceReserved="false"
@@ -106,7 +106,7 @@
             tools:layout="@layout/settings_preference_layout" />
 
         <com.rarepebble.colorpicker.ColorPreference
-            android:key="key_alarm_seconds_hand_color"
+            android:key="key_alarm_second_hand_color"
             android:title="@string/second_hand_color_title"
             app:colorpicker_selectNoneButtonText="@string/label_default"
             app:iconSpaceReserved="false"

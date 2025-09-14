@@ -13,10 +13,10 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_CLOCK_DIAL_M
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_CLOCK_SECOND_HAND;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_DIGITAL_CLOCK_FONT_SIZE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_CLOCK_STYLE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_SECONDS_HAND_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_SECOND_HAND_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISMISS_BUTTON_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISMISS_TITLE_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_ALARM_SECONDS_HAND;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_ALARM_SECOND_HAND;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_RINGTONE_TITLE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_PREVIEW_ALARM;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_RINGTONE_TITLE_COLOR;
@@ -59,7 +59,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
     SwitchPreferenceCompat mDisplaySecondsPref;
     SwitchPreferenceCompat mSwipeActionPref;
     ColorPreference mAlarmClockColorPref;
-    ColorPreference mAlarmSecondsHandColorPref;
+    ColorPreference mAlarmSecondHandColorPref;
     ColorPreference mSlideZoneColorPref;
     ColorPreference mAlarmButtonColorPref;
     ColorPreference mSnoozeTitleColorPref;
@@ -87,13 +87,13 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
         mAlarmClockStylePref = findPreference(KEY_ALARM_CLOCK_STYLE);
         mAlarmClockDialPref = findPreference(KEY_ALARM_CLOCK_DIAL);
         mAlarmClockDialMaterialPref = findPreference(KEY_ALARM_CLOCK_DIAL_MATERIAL);
-        mDisplaySecondsPref = findPreference(KEY_DISPLAY_ALARM_SECONDS_HAND);
+        mDisplaySecondsPref = findPreference(KEY_DISPLAY_ALARM_SECOND_HAND);
         mAlarmClockSecondHandPref = findPreference(KEY_ALARM_CLOCK_SECOND_HAND);
         mSwipeActionPref = findPreference(KEY_SWIPE_ACTION);
         mBackgroundColorPref = findPreference(KEY_ALARM_BACKGROUND_COLOR);
         mBackgroundAmoledColorPref = findPreference(KEY_ALARM_BACKGROUND_AMOLED_COLOR);
         mAlarmClockColorPref = findPreference(KEY_ALARM_CLOCK_COLOR);
-        mAlarmSecondsHandColorPref = findPreference(KEY_ALARM_SECONDS_HAND_COLOR);
+        mAlarmSecondHandColorPref = findPreference(KEY_ALARM_SECOND_HAND_COLOR);
         mSlideZoneColorPref = findPreference(KEY_SLIDE_ZONE_COLOR);
         mAlarmButtonColorPref = findPreference(KEY_ALARM_BUTTON_COLOR);
         mSnoozeTitleColorPref = findPreference(KEY_SNOOZE_TITLE_COLOR);
@@ -125,9 +125,9 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
                 mAlarmDigitalClockFontSizePref.setVisible(newValue.equals(mDigitalClock));
                 mDisplaySecondsPref.setVisible(!newValue.equals(mDigitalClock));
                 mAlarmClockSecondHandPref.setVisible(newValue.equals(mAnalogClock)
-                        && SettingsDAO.isAlarmSecondsHandDisplayed(mPrefs));
-                mAlarmSecondsHandColorPref.setVisible(newValue.equals(mAnalogClock)
-                        && SettingsDAO.isAlarmSecondsHandDisplayed(mPrefs));
+                        && SettingsDAO.isAlarmSecondHandDisplayed(mPrefs));
+                mAlarmSecondHandColorPref.setVisible(newValue.equals(mAnalogClock)
+                        && SettingsDAO.isAlarmSecondHandDisplayed(mPrefs));
             }
 
             case KEY_ALARM_CLOCK_DIAL, KEY_ALARM_CLOCK_DIAL_MATERIAL, KEY_ALARM_CLOCK_SECOND_HAND -> {
@@ -136,10 +136,10 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
                 preference.setSummary(preference.getEntries()[index]);
             }
 
-            case KEY_DISPLAY_ALARM_SECONDS_HAND -> {
+            case KEY_DISPLAY_ALARM_SECOND_HAND -> {
                 mAlarmClockSecondHandPref.setVisible((boolean) newValue
                         && SettingsDAO.getAlarmClockStyle(mPrefs) == DataModel.ClockStyle.ANALOG);
-                mAlarmSecondsHandColorPref.setVisible((boolean) newValue
+                mAlarmSecondHandColorPref.setVisible((boolean) newValue
                         && SettingsDAO.getAlarmClockStyle(mPrefs) != DataModel.ClockStyle.ANALOG_MATERIAL);
 
                 Utils.setVibrationTime(requireContext(), 50);
@@ -227,16 +227,16 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
         mDisplaySecondsPref.setOnPreferenceChangeListener(this);
 
         mAlarmClockSecondHandPref.setVisible(mAlarmClockStylePref.getValue().equals(mAnalogClock)
-                && SettingsDAO.isAlarmSecondsHandDisplayed(mPrefs));
+                && SettingsDAO.isAlarmSecondHandDisplayed(mPrefs));
         mAlarmClockSecondHandPref.setSummary(mAlarmClockSecondHandPref.getEntry());
         mAlarmClockSecondHandPref.setOnPreferenceChangeListener(this);
 
         mSwipeActionPref.setOnPreferenceChangeListener(this);
 
         int color = MaterialColors.getColor(requireContext(), com.google.android.material.R.attr.colorPrimaryInverse, Color.BLACK);
-        mAlarmSecondsHandColorPref.setVisible(mAlarmClockStylePref.getValue().equals(mAnalogClock)
-                && SettingsDAO.isAlarmSecondsHandDisplayed(mPrefs));
-        mAlarmSecondsHandColorPref.setDefaultValue(color);
+        mAlarmSecondHandColorPref.setVisible(mAlarmClockStylePref.getValue().equals(mAnalogClock)
+                && SettingsDAO.isAlarmSecondHandDisplayed(mPrefs));
+        mAlarmSecondHandColorPref.setDefaultValue(color);
 
         boolean isSwipeActionEnabled = SettingsDAO.isSwipeActionEnabled(mPrefs);
         mSlideZoneColorPref.setVisible(isSwipeActionEnabled);

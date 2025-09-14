@@ -101,6 +101,8 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     // Views
     private ViewGroup mMainLayout;
     private AlarmRecyclerView mRecyclerView;
+    private boolean mIsTablet;
+    private boolean mIsPhoneInLandscape;
 
     // Data
     private Loader<?> mCursorLoader;
@@ -128,25 +130,29 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     public void onCreate(Bundle savedState) {
         super.onCreate(savedState);
 
-        mPrefs = getDefaultSharedPreferences(requireContext());
-
+        mContext = requireContext();
+        mPrefs = getDefaultSharedPreferences(mContext);
         mCursorLoader = LoaderManager.getInstance(this).initLoader(0, null, this);
+        mItemAdapter = new ItemAdapter<>();
+        mIsTablet = ThemeUtils.isTablet();
+        mIsPhoneInLandscape = !mIsTablet && ThemeUtils.isLandscape();
+
         if (savedState != null) {
             mExpandedAlarmId = savedState.getLong(KEY_EXPANDED_ID, Alarm.INVALID_ID);
         }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedState) {
         // Inflate the layout for this fragment
         final View v = inflater.inflate(R.layout.alarm_clock, container, false);
-        mContext = requireContext();
+
         mMainLayout = v.findViewById(R.id.main);
         mRecyclerView = v.findViewById(R.id.alarms_recycler_view);
         TextView alarmsEmptyView = v.findViewById(R.id.alarms_empty_view);
-        final boolean isTablet = ThemeUtils.isTablet();
-        final boolean isPhoneInLandscapeMode = !isTablet && ThemeUtils.isLandscape();
         final Drawable noAlarmsIcon = ThemeUtils.toScaledBitmapDrawable(mContext, R.drawable.ic_alarm_off, 2.5f);
+
         if (noAlarmsIcon != null) {
             noAlarmsIcon.setTint(MaterialColors.getColor(
                     mContext, com.google.android.material.R.attr.colorOnSurfaceVariant, Color.BLACK));
@@ -155,14 +161,15 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         alarmsEmptyView.setCompoundDrawablePadding(ThemeUtils.convertDpToPixels(30, mContext));
         // Set a bottom padding for phones in portrait mode and tablets to center correctly
         // the alarms empty view between the FAB and the top of the screen
-        if (!isPhoneInLandscapeMode) {
+        if (!mIsPhoneInLandscape) {
             alarmsEmptyView.setPadding(0, 0, 0, ThemeUtils.convertDpToPixels(80, mContext));
         }
+
         mEmptyViewController = new EmptyViewController(mMainLayout, mRecyclerView, alarmsEmptyView);
         mAlarmUpdateHandler = new AlarmUpdateHandler(mContext, this, mMainLayout);
         mAlarmUpdateHandler.setAlarmUpdateCallback(this);
         mAlarmTimeClickHandler = new AlarmTimeClickHandler(this, savedState, mAlarmUpdateHandler);
-        mItemAdapter = new ItemAdapter<>();
+
         mLayoutManager = new LinearLayoutManager(mContext) {
             @Override
             protected void calculateExtraLayoutSpace(@NonNull RecyclerView.State state,
@@ -178,8 +185,8 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         mRecyclerView.setLayoutManager(mLayoutManager);
         // Due to the ViewPager and the location of FAB, set a bottom padding and/or a right padding
         // to prevent the alarm list from being hidden by the FAB (e.g. when scrolling down).
-        final int rightPadding = ThemeUtils.convertDpToPixels(isPhoneInLandscapeMode ? 85 : 0, mContext);
-        final int bottomPadding = ThemeUtils.convertDpToPixels(isTablet ? 110 : isPhoneInLandscapeMode ? 5 : 95, mContext);
+        final int rightPadding = ThemeUtils.convertDpToPixels(mIsPhoneInLandscape ? 85 : 0, mContext);
+        final int bottomPadding = ThemeUtils.convertDpToPixels(mIsTablet ? 110 : mIsPhoneInLandscape ? 5 : 95, mContext);
         mRecyclerView.setPadding(0, 0, rightPadding, bottomPadding);
 
         mItemAdapter.setHasStableIds();
@@ -219,107 +226,112 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         itemAnimator.setMoveDuration(300L);
         mRecyclerView.setItemAnimator(itemAnimator);
 
-        if (!ThemeUtils.areSystemAnimationsDisabled(requireContext())) {
-            new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
-                @Override
-                public boolean onMove(@NonNull RecyclerView recyclerView,
-                                      @NonNull RecyclerView.ViewHolder viewHolder,
-                                      @NonNull RecyclerView.ViewHolder target) {
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(
+                new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
 
-                    return false;
-                }
+           @Override
+           public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder,
+                                 @NonNull RecyclerView.ViewHolder target) {
 
-                @Override
-                public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView,
-                                        @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY,
-                                        int actionState, boolean isCurrentlyActive) {
+               return false;
+           }
 
-                    super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+           @Override
+           public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView,
+                                   @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY,
+                                   int actionState, boolean isCurrentlyActive) {
 
-                    // Swiping Right
-                    if (dX > 0) {
-                        // Background
-                        c.clipRect(
-                                viewHolder.itemView.getLeft(),
-                                viewHolder.itemView.getTop(),
-                                viewHolder.itemView.getLeft() + (int) dX,
-                                viewHolder.itemView.getBottom()
-                        );
+               super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
 
-                        final GradientDrawable background = new GradientDrawable();
-                        background.setColor(mContext.getColor(R.color.colorAlert));
-                        background.setBounds(
-                                viewHolder.itemView.getLeft(),
-                                viewHolder.itemView.getTop(),
-                                viewHolder.itemView.getLeft() + (int) dX,
-                                viewHolder.itemView.getBottom()
-                        );
-                        background.setCornerRadius(ThemeUtils.convertDpToPixels(12, mContext));
-                        background.draw(c);
+               // Swiping Right
+               if (dX > 0) {
+                   // Background
+                   c.clipRect(
+                           viewHolder.itemView.getLeft(),
+                           viewHolder.itemView.getTop(),
+                           viewHolder.itemView.getLeft() + (int) dX,
+                           viewHolder.itemView.getBottom()
+                   );
 
-                        // Delete icon
-                        int deleteIconSize = 0;
-                        int deleteIconHorizontalMargin = ThemeUtils.convertDpToPixels(16, mContext);
+                   final GradientDrawable background = new GradientDrawable();
+                   background.setColor(mContext.getColor(R.color.colorAlert));
+                   background.setBounds(
+                           viewHolder.itemView.getLeft(),
+                           viewHolder.itemView.getTop(),
+                           viewHolder.itemView.getLeft() + (int) dX,
+                           viewHolder.itemView.getBottom()
+                   );
+                   background.setCornerRadius(ThemeUtils.convertDpToPixels(12, mContext));
+                   background.draw(c);
 
-                        if (dX > deleteIconHorizontalMargin) {
-                            Drawable deleteIcon = AppCompatResources.getDrawable(mContext, R.drawable.ic_delete);
-                            if (deleteIcon != null) {
-                                DrawableCompat.setTint(deleteIcon, MaterialColors.getColor(
-                                        mContext, com.google.android.material.R.attr.colorOnError, Color.BLACK));
-                                deleteIconSize = deleteIcon.getIntrinsicHeight();
-                                int halfIcon = deleteIconSize / 2;
-                                int top = viewHolder.itemView.getTop()
-                                        + ((viewHolder.itemView.getBottom()
-                                        - viewHolder.itemView.getTop()) / 2 - halfIcon);
+                   // Delete icon
+                   int deleteIconSize = 0;
+                   int deleteIconHorizontalMargin = ThemeUtils.convertDpToPixels(16, mContext);
 
-                                deleteIcon.setBounds(
-                                        viewHolder.itemView.getLeft() + deleteIconHorizontalMargin,
-                                        top,
-                                        viewHolder.itemView.getLeft()
-                                                + deleteIconHorizontalMargin
-                                                + deleteIcon.getIntrinsicWidth(),
-                                        top + deleteIcon.getIntrinsicHeight()
-                                );
+                   if (dX > deleteIconHorizontalMargin) {
+                       Drawable deleteIcon = AppCompatResources.getDrawable(mContext, R.drawable.ic_delete);
+                       if (deleteIcon != null) {
+                           DrawableCompat.setTint(deleteIcon, MaterialColors.getColor(
+                                   mContext, com.google.android.material.R.attr.colorOnError, Color.BLACK));
+                           deleteIconSize = deleteIcon.getIntrinsicHeight();
+                           int halfIcon = deleteIconSize / 2;
+                           int top = viewHolder.itemView.getTop()
+                                   + ((viewHolder.itemView.getBottom()
+                                   - viewHolder.itemView.getTop()) / 2 - halfIcon);
 
-                                deleteIcon.draw(c);
-                            }
-                        }
+                           deleteIcon.setBounds(
+                                   viewHolder.itemView.getLeft() + deleteIconHorizontalMargin,
+                                   top,
+                                   viewHolder.itemView.getLeft()
+                                           + deleteIconHorizontalMargin
+                                           + deleteIcon.getIntrinsicWidth(),
+                                   top + deleteIcon.getIntrinsicHeight()
+                           );
 
-                        // Delete text
-                        final String deleteText = mContext.getString(R.string.delete);
-                        if (dX > deleteIconHorizontalMargin + deleteIconSize) {
-                            TextPaint textPaint = new TextPaint();
-                            textPaint.setAntiAlias(true);
-                            textPaint.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 16,
-                                    mContext.getResources().getDisplayMetrics()));
-                            textPaint.setColor(MaterialColors.getColor(
-                                    mContext, com.google.android.material.R.attr.colorOnError, Color.BLACK));
-                            textPaint.setTypeface(Typeface.DEFAULT_BOLD);
+                           deleteIcon.draw(c);
+                       }
+                   }
 
-                            int textMarginLeft = (int) (viewHolder.itemView.getLeft()
-                                    + 1.5 * deleteIconHorizontalMargin + deleteIconSize);
+                   // Delete text
+                   final String deleteText = mContext.getString(R.string.delete);
+                   if (dX > deleteIconHorizontalMargin + deleteIconSize) {
+                       TextPaint textPaint = new TextPaint();
+                       textPaint.setAntiAlias(true);
+                       textPaint.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 16,
+                               mContext.getResources().getDisplayMetrics()));
+                       textPaint.setColor(MaterialColors.getColor(
+                               mContext, com.google.android.material.R.attr.colorOnError, Color.BLACK));
+                       textPaint.setTypeface(Typeface.DEFAULT_BOLD);
 
-                            int textMarginTop = (int) (viewHolder.itemView.getTop()
-                                    + ((viewHolder.itemView.getBottom()
-                                    - viewHolder.itemView.getTop()) / 2.0)
-                                    + (textPaint.getTextSize() - textPaint.getFontMetrics().descent) / 2);
+                       int textMarginLeft = (int) (viewHolder.itemView.getLeft()
+                               + 1.5 * deleteIconHorizontalMargin + deleteIconSize);
 
-                            c.drawText(deleteText, textMarginLeft, textMarginTop, textPaint);
-                        }
-                    }
-                }
+                       int textMarginTop = (int) (viewHolder.itemView.getTop()
+                               + ((viewHolder.itemView.getBottom()
+                               - viewHolder.itemView.getTop()) / 2.0)
+                               + (textPaint.getTextSize() - textPaint.getFontMetrics().descent) / 2);
 
-                @Override
-                public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                    AlarmItemViewHolder alarmHolder = (AlarmItemViewHolder) viewHolder;
-                    AlarmItemHolder itemHolder = alarmHolder.getItemHolder();
+                       c.drawText(deleteText, textMarginLeft, textMarginTop, textPaint);
+                   }
+               }
+           }
 
-                    removeItem(itemHolder);
-                    final Alarm alarm = itemHolder.item;
-                    Events.sendAlarmEvent(R.string.action_delete, R.string.label_deskclock);
-                    mAlarmUpdateHandler.asyncDeleteAlarm(alarm);
-                }
-            }).attachToRecyclerView(mRecyclerView);
+           @Override
+           public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+               AlarmItemViewHolder alarmHolder = (AlarmItemViewHolder) viewHolder;
+               AlarmItemHolder itemHolder = alarmHolder.getItemHolder();
+
+               removeItem(itemHolder);
+               final Alarm alarm = itemHolder.item;
+               Events.sendAlarmEvent(R.string.action_delete, R.string.label_deskclock);
+               mAlarmUpdateHandler.asyncDeleteAlarm(alarm);
+           }
+        });
+
+        if (ThemeUtils.areSystemAnimationsDisabled(mContext)) {
+            itemTouchHelper.attachToRecyclerView(null);
+        } else {
+            itemTouchHelper.attachToRecyclerView(mRecyclerView);
         }
 
         return v;

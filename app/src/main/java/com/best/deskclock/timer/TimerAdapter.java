@@ -197,6 +197,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         public TimerItemTouchHelper(TimerAdapter adapter, RecyclerView recyclerView) {
             mAdapter = adapter;
 
+            // Prevent the timer from dragging if the "Add a minute" button is long-pressed
             recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
                 @Override
                 public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
@@ -243,8 +244,6 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             Collections.swap(DataModel.getDataModel().getTimers(), fromPosition, toPosition);
             Objects.requireNonNull(recyclerView.getAdapter()).notifyItemMoved(fromPosition, toPosition);
 
-            mAdapter.saveTimerList();
-
             return true;
         }
 
@@ -286,11 +285,17 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
             super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
 
-            if (isCurrentlyActive) {
-                viewHolder.itemView.setTranslationZ(20f);
-            } else {
-                viewHolder.itemView.setTranslationZ(0f);
-            }
+            // Draw a shadow under the timer card when it's dragging.
+            viewHolder.itemView.setTranslationZ(
+                    (float) ThemeUtils.convertDpToPixels(isCurrentlyActive ? 6 : 0, recyclerView.getContext()));
+        }
+
+        @Override
+        public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+            super.clearView(recyclerView, viewHolder);
+
+            // Save the list of timers once the user interaction is complete.
+            mAdapter.saveTimerList();
         }
     }
 

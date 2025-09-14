@@ -148,9 +148,9 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
         final AnalogClock analogClock = findViewById(R.id.analog_clock);
         final TextClock digitalClock = mContentView.findViewById(R.id.digital_clock);
         final DataModel.ClockStyle alarmClockStyle = SettingsDAO.getAlarmClockStyle(mPrefs);
-        final boolean isAlarmSecondsHandDisplayed = SettingsDAO.isAlarmSecondsHandDisplayed(mPrefs);
+        final boolean isAlarmSecondHandDisplayed = SettingsDAO.isAlarmSecondHandDisplayed(mPrefs);
         ClockUtils.setClockStyle(alarmClockStyle, digitalClock, analogClock);
-        ClockUtils.setClockSecondsEnabled(alarmClockStyle, digitalClock, analogClock, isAlarmSecondsHandDisplayed);
+        ClockUtils.setClockSecondsEnabled(alarmClockStyle, digitalClock, analogClock, isAlarmSecondHandDisplayed);
         ClockUtils.setTimeFormat(digitalClock, false);
         digitalClock.setTextSize(TypedValue.COMPLEX_UNIT_SP, alarmDigitalClockFontSize);
         digitalClock.setTextColor(alarmClockColor);

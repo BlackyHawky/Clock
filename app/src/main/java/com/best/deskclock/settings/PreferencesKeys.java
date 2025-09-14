@@ -93,13 +93,13 @@ public class PreferencesKeys {
     public static final String KEY_ALARM_CLOCK_STYLE = "key_alarm_clock_style";
     public static final String KEY_ALARM_CLOCK_DIAL = "key_alarm_clock_dial";
     public static final String KEY_ALARM_CLOCK_DIAL_MATERIAL = "key_alarm_clock_dial_material";
-    public static final String KEY_DISPLAY_ALARM_SECONDS_HAND = "key_display_alarm_seconds_hand";
+    public static final String KEY_DISPLAY_ALARM_SECOND_HAND = "key_display_alarm_second_hand";
     public static final String KEY_ALARM_CLOCK_SECOND_HAND = "key_alarm_clock_second_hand";
     public static final String KEY_ALARM_BACKGROUND_COLOR = "key_alarm_background_color";
     public static final String KEY_ALARM_BACKGROUND_AMOLED_COLOR = "key_alarm_background_amoled_color";
     public static final String KEY_SLIDE_ZONE_COLOR = "key_slide_zone_color";
     public static final String KEY_ALARM_CLOCK_COLOR = "key_alarm_clock_color";
-    public static final String KEY_ALARM_SECONDS_HAND_COLOR = "key_alarm_seconds_hand_color";
+    public static final String KEY_ALARM_SECOND_HAND_COLOR = "key_alarm_second_hand_color";
     public static final String KEY_ALARM_TITLE_COLOR = "key_alarm_title_color";
     public static final String KEY_SNOOZE_TITLE_COLOR = "key_snooze_title_color";
     public static final String KEY_SNOOZE_BUTTON_COLOR = "key_snooze_button_color";

@@ -79,7 +79,7 @@ public class AlarmSettingsFragment extends ScreenFragment
     ListPreference mShakeActionPref;
     CustomSeekbarPreference mShakeIntensityPref;
     ListPreference mSortAlarmPref;
-    SwitchPreferenceCompat mDisplayEnabledAlarmsFirst;
+    SwitchPreferenceCompat mDisplayEnabledAlarmsFirstPref;
     ListPreference mWeekStartPref;
     ListPreference mAlarmNotificationReminderTimePref;
     SwitchPreferenceCompat mEnableAlarmVibrationsByDefaultPref;
@@ -114,7 +114,7 @@ public class AlarmSettingsFragment extends ScreenFragment
         mShakeActionPref = findPreference(KEY_SHAKE_ACTION);
         mShakeIntensityPref = findPreference(KEY_SHAKE_INTENSITY);
         mSortAlarmPref = findPreference(KEY_SORT_ALARM);
-        mDisplayEnabledAlarmsFirst = findPreference(KEY_DISPLAY_ENABLED_ALARMS_FIRST);
+        mDisplayEnabledAlarmsFirstPref = findPreference(KEY_DISPLAY_ENABLED_ALARMS_FIRST);
         mWeekStartPref = findPreference(KEY_WEEK_START);
         mAlarmNotificationReminderTimePref = findPreference(KEY_ALARM_NOTIFICATION_REMINDER_TIME);
         mEnableAlarmVibrationsByDefaultPref = findPreference(KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT);
@@ -382,7 +382,7 @@ public class AlarmSettingsFragment extends ScreenFragment
         mSortAlarmPref.setOnPreferenceChangeListener(this);
         mSortAlarmPref.setSummary(mSortAlarmPref.getEntry());
 
-        mDisplayEnabledAlarmsFirst.setOnPreferenceChangeListener(this);
+        mDisplayEnabledAlarmsFirstPref.setOnPreferenceChangeListener(this);
 
         // Set the default first day of the week programmatically
         final Weekdays.Order weekdayOrder = SettingsDAO.getWeekdayOrder(mPrefs);

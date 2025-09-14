@@ -99,7 +99,7 @@ public class PreferencesDefaultValues {
     public static final String SPINNER_DATE_PICKER_STYLE = "spinner";
 
     // Alarm Display Customization
-    public static final boolean DEFAULT_DISPLAY_ALARM_SECONDS_HAND = true;
+    public static final boolean DEFAULT_DISPLAY_ALARM_SECOND_HAND = true;
     public static final int DEFAULT_ALARM_BACKGROUND_COLOR = Color.parseColor("#FF191C1E");
     public static final int DEFAULT_ALARM_BACKGROUND_AMOLED_COLOR = Color.BLACK;
     public static final int DEFAULT_SLIDE_ZONE_COLOR = Color.parseColor("#FF2E3337");

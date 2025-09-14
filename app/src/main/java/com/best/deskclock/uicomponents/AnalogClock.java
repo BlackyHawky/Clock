@@ -115,7 +115,7 @@ public class AnalogClock extends FrameLayout {
 
         final String accentColor = SettingsDAO.getAccentColor(mPrefs);
         final int alarmClockColor = SettingsDAO.getAlarmClockColor(mPrefs);
-        final int alarmSecondsHandColor = SettingsDAO.getAlarmSecondsHandColor(mPrefs, mContext);
+        final int alarmSecondHandColor = SettingsDAO.getAlarmSecondHandColor(mPrefs, mContext);
         final int defaultClockColor = MaterialColors.getColor(mContext, android.R.attr.textColorPrimary, Color.BLACK);
 
         // Create clock dial
@@ -128,7 +128,7 @@ public class AnalogClock extends FrameLayout {
         mMinuteHand = createClockComponent(accentColor, MINUTE_HAND, alarmClockColor, defaultClockColor);
 
         // Create second hand
-        mSecondHand = createSecondHand(accentColor, alarmSecondsHandColor);
+        mSecondHand = createSecondHand(accentColor, alarmSecondHandColor);
 
         addView(dial);
         addView(mHourHand);
@@ -214,7 +214,7 @@ public class AnalogClock extends FrameLayout {
     /**
      * Helper method to create the second hand with a specific color logic.
      */
-    private ImageView createSecondHand(String accentColor, int alarmSecondsHandColor) {
+    private ImageView createSecondHand(String accentColor, int alarmSecondHandColor) {
         ImageView secondHand = new ImageView(mContext);
 
         if (mClockStyle == DataModel.ClockStyle.ANALOG_MATERIAL) {
@@ -229,7 +229,7 @@ public class AnalogClock extends FrameLayout {
             String nightAccentColor = SettingsDAO.getNightAccentColor(mPrefs);
 
             secondHand.setColorFilter(isAlarmContext()
-                    ? alarmSecondsHandColor
+                    ? alarmSecondHandColor
                     : getAccentColor(isAutoNightAccentColorEnabled, accentColor, nightAccentColor));
         }
 

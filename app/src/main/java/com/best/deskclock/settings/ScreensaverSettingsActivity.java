@@ -102,7 +102,7 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
-            addPreferencesFromResource(R.xml.screensaver_settings);
+            addPreferencesFromResource(R.xml.settings_screensaver);
 
             mClockStylePref = findPreference(KEY_SCREENSAVER_CLOCK_STYLE);
             mClockDialPref = findPreference(KEY_SCREENSAVER_CLOCK_DIAL);

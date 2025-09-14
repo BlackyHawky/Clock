@@ -903,9 +903,9 @@ public final class SettingsDAO {
      * @return {@code true} if the second hand is displayed on analog clock for the alarm.
      * {@code false} otherwise.
      */
-    public static boolean isAlarmSecondsHandDisplayed(SharedPreferences prefs) {
+    public static boolean isAlarmSecondHandDisplayed(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_alarm_display.xml
-        return prefs.getBoolean(KEY_DISPLAY_ALARM_SECONDS_HAND, DEFAULT_DISPLAY_ALARM_SECONDS_HAND);
+        return prefs.getBoolean(KEY_DISPLAY_ALARM_SECOND_HAND, DEFAULT_DISPLAY_ALARM_SECOND_HAND);
     }
 
     /**
@@ -933,11 +933,11 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return a value indicating the alarm seconds hand color.
+     * @return a value indicating the alarm second hand color.
      */
-    public static int getAlarmSecondsHandColor(SharedPreferences prefs, Context context) {
+    public static int getAlarmSecondHandColor(SharedPreferences prefs, Context context) {
         // Default value must match the one in res/xml/settings_alarm_display.xml
-        return prefs.getInt(KEY_ALARM_SECONDS_HAND_COLOR, getDefaultAlarmInversePrimaryColor(context));
+        return prefs.getInt(KEY_ALARM_SECOND_HAND_COLOR, getDefaultAlarmInversePrimaryColor(context));
     }
 
     /**
