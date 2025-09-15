@@ -728,6 +728,12 @@
     <string name="clock_style_spinner">Spinner</string>
     <!-- Setting title to sort cities -->
     <string name="sort_cities_title">Sort cities</string>
+    <!-- Setting title to allow adding a note to cities -->
+    <string name="enable_city_note_title">Add a personal note to cities</string>
+    <!-- Setting summary about the city note -->
+    <string name="enable_city_note_summary">Tap on a city to add or edit its personal note.</string>
+    <!-- Dialog title when editing a city note -->
+    <string name="city_note_dialog_title">Note for %s</string>
     <!-- Setting title for manual sorting. -->
     <string name="sort_manually">Manually (by dragging)</string>
     <!-- Setting title for changing the cities sorting to By time zone (ascending order). -->

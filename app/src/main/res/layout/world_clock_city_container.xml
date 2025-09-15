@@ -36,6 +36,18 @@
         android:scrollHorizontally="true"
         tools:text="1 hour ahead"/>
 
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/city_note"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:textColor="?attr/colorTertiary"
+        android:paddingTop="3dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        tools:text="My personal note here"
+        tools:visibility="visible" />
+
 </LinearLayout>
 
 

@@ -9,8 +9,10 @@ package com.best.deskclock.worldclock;
 import static android.view.Menu.NONE;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_CITY_NOTE;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -259,6 +261,7 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
         private static final int VIEW_TYPE_CITY = 1;
 
         private final Context mContext;
+        private final SharedPreferences mPrefs;
 
         private final LayoutInflater mInflater;
 
@@ -314,6 +317,7 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
 
         public CityAdapter(Context context, SearchMenuItemController searchMenuItemController) {
             mContext = context;
+            mPrefs = getDefaultSharedPreferences(context);
             mSearchMenuItemController = searchMenuItemController;
             mInflater = LayoutInflater.from(context);
 
@@ -448,6 +452,9 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
             } else {
                 mUserSelectedCities.remove(city);
                 b.announceForAccessibility(mContext.getString(R.string.city_unchecked, city.getName()));
+
+                // Delete the associated note
+                mPrefs.edit().remove(KEY_CITY_NOTE + city.getId()).apply();
             }
         }
 
@@ -611,7 +618,7 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
         }
 
         private DataModel.CitySort getCitySort() {
-            return SettingsDAO.getCitySort(getDefaultSharedPreferences(mContext));
+            return SettingsDAO.getCitySort(mPrefs);
         }
 
         private Comparator<City> getCitySortComparator() {

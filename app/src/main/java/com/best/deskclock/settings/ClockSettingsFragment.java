@@ -10,6 +10,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_CLOCK_SECOND_HAND;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_CLOCK_STYLE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DATE_TIME;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_CLOCK_SECONDS;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_CITY_NOTE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_HOME_TIME_ZONE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SORT_CITIES;
 
@@ -41,6 +42,7 @@ public class ClockSettingsFragment extends ScreenFragment
     ListPreference mClockDialMaterialPref;
     ListPreference mClockSecondHandPref;
     SwitchPreferenceCompat mDisplayClockSecondsPref;
+    SwitchPreferenceCompat mEnableCityNotePref;
     ListPreference mSortCitiesPref;
     SwitchPreferenceCompat mAutoHomeClockPref;
     ListPreference mHomeTimeZonePref;
@@ -62,6 +64,7 @@ public class ClockSettingsFragment extends ScreenFragment
         mClockDialMaterialPref = findPreference(KEY_CLOCK_DIAL_MATERIAL);
         mDisplayClockSecondsPref = findPreference(KEY_DISPLAY_CLOCK_SECONDS);
         mClockSecondHandPref = findPreference(KEY_CLOCK_SECOND_HAND);
+        mEnableCityNotePref = findPreference(KEY_ENABLE_CITY_NOTE);
         mSortCitiesPref = findPreference(KEY_SORT_CITIES);
         mAutoHomeClockPref = findPreference(KEY_AUTO_HOME_CLOCK);
         mHomeTimeZonePref = findPreference(KEY_HOME_TIME_ZONE);
@@ -104,6 +107,8 @@ public class ClockSettingsFragment extends ScreenFragment
                 mHomeTimeZonePref.setEnabled((boolean) newValue);
                 Utils.setVibrationTime(requireContext(), 50);
             }
+
+            case KEY_ENABLE_CITY_NOTE -> Utils.setVibrationTime(requireContext(), 50);
         }
 
         // Set result so DeskClock knows to refresh itself
@@ -149,6 +154,8 @@ public class ClockSettingsFragment extends ScreenFragment
 
         mSortCitiesPref.setSummary(mSortCitiesPref.getEntry());
         mSortCitiesPref.setOnPreferenceChangeListener(this);
+
+        mEnableCityNotePref.setOnPreferenceChangeListener(this);
 
         mAutoHomeClockPref.setOnPreferenceChangeListener(this);
 

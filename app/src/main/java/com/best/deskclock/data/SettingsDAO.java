@@ -112,6 +112,14 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return {@code true} if if a note can be added to the cities; {@code false} otherwise.
+     */
+    public static boolean isCityNoteEnabled(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_clock.xml
+        return prefs.getBoolean(KEY_ENABLE_CITY_NOTE, DEFAULT_ENABLE_CITY_NOTE);
+    }
+
+    /**
      * @return {@code true} if a clock for the user's home timezone should be automatically
      * displayed when it doesn't match the current timezone
      */

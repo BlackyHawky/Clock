@@ -49,7 +49,12 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
 
-import com.best.deskclock.alarms.AlarmVolumeDialogFragment;
+import com.best.deskclock.AlarmSnoozeDurationDialogFragment.SnoozeDurationDialogHandler;
+import com.best.deskclock.AutoSilenceDurationDialogFragment.AutoSilenceDurationDialogHandler;
+import com.best.deskclock.LabelDialogFragment.AlarmLabelDialogHandler;
+import com.best.deskclock.LabelDialogFragment.CityNoteDialogHandler;
+import com.best.deskclock.VolumeCrescendoDurationDialogFragment.VolumeCrescendoDurationDialogHandler;
+import com.best.deskclock.alarms.AlarmVolumeDialogFragment.VolumeValueDialogHandler;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.DataModel.SilentSetting;
 import com.best.deskclock.data.OnSilentSettingsListener;
@@ -76,11 +81,9 @@ import com.google.android.material.snackbar.Snackbar;
  * clocks, timers and stopwatch.
  */
 public class DeskClock extends AppCompatActivity
-        implements FabContainer, LabelDialogFragment.AlarmLabelDialogHandler,
-        AutoSilenceDurationDialogFragment.AutoSilenceDurationDialogHandler,
-        AlarmSnoozeDurationDialogFragment.SnoozeDurationDialogHandler,
-        VolumeCrescendoDurationDialogFragment.VolumeCrescendoDurationDialogHandler,
-        AlarmVolumeDialogFragment.VolumeValueDialogHandler {
+        implements FabContainer, AlarmLabelDialogHandler, AutoSilenceDurationDialogHandler,
+        SnoozeDurationDialogHandler, VolumeCrescendoDurationDialogHandler,
+        VolumeValueDialogHandler, CityNoteDialogHandler {
 
     public static final int REQUEST_CHANGE_SETTINGS = 10;
     public static final int REQUEST_CHANGE_PERMISSIONS = 20;
@@ -509,6 +512,17 @@ public class DeskClock extends AppCompatActivity
         final Fragment frag = getSupportFragmentManager().findFragmentByTag(tag);
         if (frag instanceof AlarmClockFragment) {
             ((AlarmClockFragment) frag).setAlarmVolume(alarm, volumeValue);
+        }
+    }
+
+    /**
+     * Called by the LabelDialogFormat class after the dialog is finished.
+     */
+    @Override
+    public void onDialogCityNoteSet(String cityId, String note, String tag) {
+        final Fragment frag = getSupportFragmentManager().findFragmentByTag(tag);
+        if (frag instanceof ClockFragment) {
+            ((ClockFragment) frag).setCityNote(cityId, note);
         }
     }
 

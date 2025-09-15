@@ -12,6 +12,7 @@ import static android.view.View.VISIBLE;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.BLACK_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_CITIES_MANUALLY;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_CITY_NOTE;
 import static com.best.deskclock.uidata.UiDataModel.Tab.CLOCKS;
 import static com.best.deskclock.utils.AlarmUtils.ACTION_NEXT_ALARM_CHANGED_BY_CLOCK;
 import static java.util.Calendar.DAY_OF_WEEK;
@@ -35,7 +36,9 @@ import android.widget.TextClock;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -331,6 +334,19 @@ public final class ClockFragment extends DeskClockFragment {
     }
 
     /**
+     * Updates the note associated with a specific city by delegating to the adapter.
+     * <p>
+     * This method is typically called by the hosting activity after the user saves a city note
+     * via the dialog. It ensures that the adapter updates the displayed note and persists it as needed.
+     *
+     * @param cityId the unique identifier of the city whose note is being updated
+     * @param note   the new note text to associate with the city
+     */
+    public void setCityNote(String cityId, String note) {
+        mCityAdapter.setCityNote(cityId, note);
+    }
+
+    /**
      * This adapter lists all of the selected world clocks. Optionally, it also includes a clock at
      * the top for the home timezone if "Automatic home clock" is turned on in settings and the
      * current time at home does not match the current time in the timezone of the current location.
@@ -344,6 +360,7 @@ public final class ClockFragment extends DeskClockFragment {
 
         private final LayoutInflater mInflater;
         private final Context mContext;
+        private final SharedPreferences mPrefs;
         private final String mDateFormat;
         private final String mDateFormatForAccessibility;
         private final List<City> mCities;
@@ -355,6 +372,7 @@ public final class ClockFragment extends DeskClockFragment {
                                      boolean showHomeClock, boolean isPortrait) {
 
             mContext = context;
+            mPrefs = getDefaultSharedPreferences(context);
             mDateFormat = dateFormat;
             mDateFormatForAccessibility = dateFormatForAccessibility;
             mInflater = LayoutInflater.from(context);
@@ -376,7 +394,7 @@ public final class ClockFragment extends DeskClockFragment {
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             final View view = mInflater.inflate(viewType, parent, false);
             if (viewType == WORLD_CLOCK) {
-                return new CityViewHolder(view);
+                return new CityViewHolder(view, this);
             } else if (viewType == MAIN_CLOCK) {
                 return new MainClockViewHolder(view);
             }
@@ -427,6 +445,41 @@ public final class ClockFragment extends DeskClockFragment {
             }
         }
 
+        private int getCityPositionById(String cityId) {
+            final int positionAdjuster = (mIsPortrait ? 1 : 0) + (mShowHomeClock ? 1 : 0);
+
+            for (int i = 0; i < mCities.size(); i++) {
+                if (mCities.get(i).getId().equals(cityId)) {
+                    return i + positionAdjuster;
+                }
+            }
+
+            return RecyclerView.NO_POSITION;
+        }
+
+        public void setCityNote(String cityId, String note) {
+            SharedPreferences.Editor editor = mPrefs.edit();
+            String key = KEY_CITY_NOTE + cityId;
+
+            if (note.trim().isEmpty()) {
+                editor.remove(key);
+            } else {
+                editor.putString(key, note);
+            }
+
+            editor.apply();
+
+            int position = getCityPositionById(cityId);
+            if (position != RecyclerView.NO_POSITION) {
+                notifyItemChanged(position);
+            }
+        }
+
+        @Nullable
+        public String getCityNote(String cityId) {
+            return mPrefs.getString(KEY_CITY_NOTE + cityId, null);
+        }
+
         @Override
         public void citiesChanged() {
             List<City> newCities = DataModel.getDataModel().getSelectedCities();
@@ -443,6 +496,7 @@ public final class ClockFragment extends DeskClockFragment {
         private static final class CityViewHolder extends RecyclerView.ViewHolder {
 
             private final SharedPreferences mPrefs;
+            private final SelectedCitiesAdapter mAdapter;
             private final TextView mName;
             private final MaterialCardView mDigitalClockContainer;
             private final DataModel.ClockStyle mClockStyle;
@@ -451,10 +505,11 @@ public final class ClockFragment extends DeskClockFragment {
             private final TextView mHoursAhead;
             private final boolean mIsTablet;
 
-            private CityViewHolder(View itemView) {
+            private CityViewHolder(View itemView, SelectedCitiesAdapter adapter) {
                 super(itemView);
 
                 mPrefs = getDefaultSharedPreferences(itemView.getContext());
+                mAdapter = adapter;
                 mClockStyle = SettingsDAO.getClockStyle(mPrefs);
                 mName = itemView.findViewById(R.id.city_name);
                 mDigitalClockContainer = itemView.findViewById(R.id.digital_clock_container);
@@ -541,7 +596,33 @@ public final class ClockFragment extends DeskClockFragment {
 
                 // Allow text scrolling by clicking on the item (all other attributes are indicated
                 // in the "world_clock_city_container.xml" file)
-                itemView.setOnClickListener(v -> mName.setSelected(true));
+                mName.setSelected(true);
+
+                TextView cityNoteView = itemView.findViewById(R.id.city_note);
+                String note = mAdapter.getCityNote(city.getId());
+
+                if (SettingsDAO.isCityNoteEnabled(mPrefs)) {
+                    if (note != null && !note.trim().isEmpty()) {
+                        cityNoteView.setVisibility(View.VISIBLE);
+                        cityNoteView.setText(note.trim());
+                    } else {
+                        cityNoteView.setVisibility(View.GONE);
+                    }
+
+                    itemView.setOnClickListener(v -> {
+                        LabelDialogFragment labelDialogFragment = LabelDialogFragment.newInstance(
+                                city.getId(),
+                                city.getName(),
+                                note,
+                                CLOCKS.name());
+
+                        LabelDialogFragment.show(
+                                ((AppCompatActivity) context).getSupportFragmentManager(),
+                                labelDialogFragment);
+                    });
+                } else {
+                    cityNoteView.setVisibility(View.GONE);
+                }
             }
         }
 
