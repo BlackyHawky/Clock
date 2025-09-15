@@ -487,10 +487,9 @@ public final class ClockFragment extends DeskClockFragment {
             if (!mCities.equals(newCities)) {
                 mCities.clear();
                 mCities.addAll(newCities);
-                notifyDataSetChanged();
-            } else {
-                notifyItemRangeChanged(0, getItemCount());
             }
+
+            notifyDataSetChanged();
         }
 
         private static final class CityViewHolder extends RecyclerView.ViewHolder {

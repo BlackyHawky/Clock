@@ -233,7 +233,7 @@ final class CityModel {
         // Clean cache to force a clean reload
         mSelectedCities = null;
 
-        notifyCityListeners();
+        fireCitiesChanged();
     }
 
     /**
@@ -281,16 +281,15 @@ final class CityModel {
     /**
      * Notifies all registered {@link CityListener} instances that the list of
      * selected cities has changed.
+     *
+     * <p>The call to {@code sendBroadcast} with {@code ACTION_WORLD_CITIES_CHANGED} is used
+     * exclusively to notify the widget that the set of displayed cities should be refreshed.</p>
      */
-    private void notifyCityListeners() {
+    private void fireCitiesChanged() {
+        mContext.sendBroadcast(new Intent(ACTION_WORLD_CITIES_CHANGED));
         for (CityListener listener : mCityListeners) {
             listener.citiesChanged();
         }
-    }
-
-    private void fireCitiesChanged() {
-        mContext.sendBroadcast(new Intent(ACTION_WORLD_CITIES_CHANGED));
-        notifyCityListeners();
     }
 
     /**
@@ -323,7 +322,7 @@ final class CityModel {
                         break;
                     case PreferencesKeys.KEY_SORT_CITIES:
                         mSelectedCities = null;
-                        notifyCityListeners();
+                        fireCitiesChanged();
                         break;
                 }
             }
