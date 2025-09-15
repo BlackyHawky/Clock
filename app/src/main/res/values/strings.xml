@@ -731,7 +731,7 @@
     <!-- Setting title to allow adding a note to cities -->
     <string name="enable_city_note_title">Add a personal note to cities</string>
     <!-- Setting summary about the city note -->
-    <string name="enable_city_note_summary">Tap on a city to add or edit its personal note.</string>
+    <string name="enable_city_note_summary">Tap on a city to add or edit its personal note</string>
     <!-- Dialog title when editing a city note -->
     <string name="city_note_dialog_title">Note for %s</string>
     <!-- Setting title for manual sorting. -->
