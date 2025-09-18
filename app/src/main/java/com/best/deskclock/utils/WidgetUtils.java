@@ -46,12 +46,6 @@ import java.util.Locale;
 
 public class WidgetUtils {
 
-    // For the Next Alarm widgets
-    public static final String ACTION_NEXT_ALARM_LABEL_CHANGED = "com.best.deskclock.NEXT_ALARM_LABEL_CHANGED";
-
-    // For digital and Material You digital widgets
-    public static final String ACTION_WORLD_CITIES_CHANGED = "com.best.deskclock.WORLD_CITIES_CHANGED";
-
     /**
      * Static variable to know if the fragment displayed comes from the widget or from the settings.
      * <p>

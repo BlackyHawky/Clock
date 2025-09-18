@@ -10,7 +10,6 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_CITIES_B
 import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_CITIES_BY_NAME;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_CITIES_MANUALLY;
 import static com.best.deskclock.utils.Utils.ACTION_LANGUAGE_CODE_CHANGED;
-import static com.best.deskclock.utils.WidgetUtils.ACTION_WORLD_CITIES_CHANGED;
 
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
@@ -25,6 +24,9 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel.CitySort;
 import com.best.deskclock.settings.PreferencesKeys;
 import com.best.deskclock.utils.SdkUtils;
+import com.best.deskclock.utils.WidgetUtils;
+import com.best.deskclock.widgets.materialyouwidgets.MaterialYouDigitalAppWidgetProvider;
+import com.best.deskclock.widgets.standardwidgets.DigitalAppWidgetProvider;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -282,11 +284,12 @@ final class CityModel {
      * Notifies all registered {@link CityListener} instances that the list of
      * selected cities has changed.
      *
-     * <p>The call to {@code sendBroadcast} with {@code ACTION_WORLD_CITIES_CHANGED} is used
-     * exclusively to notify the widget that the set of displayed cities should be refreshed.</p>
+     * <p>Also updates the list of cities in digital widgets.</p>
      */
     private void fireCitiesChanged() {
-        mContext.sendBroadcast(new Intent(ACTION_WORLD_CITIES_CHANGED));
+        WidgetUtils.updateWidget(mContext, DigitalAppWidgetProvider.class);
+        WidgetUtils.updateWidget(mContext, MaterialYouDigitalAppWidgetProvider.class);
+
         for (CityListener listener : mCityListeners) {
             listener.citiesChanged();
         }

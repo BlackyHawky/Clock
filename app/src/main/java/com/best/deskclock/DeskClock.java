@@ -16,7 +16,6 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_M
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TAB_TITLE_VISIBILITY;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TAB_TITLE_VISIBILITY_NEVER;
 import static com.best.deskclock.utils.AnimatorUtils.getScaleAnimator;
-import static com.best.deskclock.utils.WidgetUtils.ACTION_NEXT_ALARM_LABEL_CHANGED;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -71,6 +70,9 @@ import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.ThemeUtils;
 
+import com.best.deskclock.utils.WidgetUtils;
+import com.best.deskclock.widgets.materialyouwidgets.MaterialYouNextAlarmAppWidgetProvider;
+import com.best.deskclock.widgets.standardwidgets.NextAlarmAppWidgetProvider;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.color.MaterialColors;
 import com.google.android.material.navigation.NavigationBarView;
@@ -467,7 +469,8 @@ public class DeskClock extends AppCompatActivity
         if (frag instanceof AlarmClockFragment) {
             ((AlarmClockFragment) frag).setLabel(alarm, label);
             // Update the alarm title in the “Next alarm” widget
-            sendBroadcast(new Intent(ACTION_NEXT_ALARM_LABEL_CHANGED));
+            WidgetUtils.updateWidget(this, NextAlarmAppWidgetProvider.class);
+            WidgetUtils.updateWidget(this, MaterialYouNextAlarmAppWidgetProvider.class);
         }
     }
 

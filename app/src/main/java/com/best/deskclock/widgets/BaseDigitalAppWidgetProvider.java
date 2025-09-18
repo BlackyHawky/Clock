@@ -18,8 +18,6 @@ import static android.view.View.MeasureSpec.UNSPECIFIED;
 import static android.view.View.VISIBLE;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-import static com.best.deskclock.utils.WidgetUtils.ACTION_NEXT_ALARM_LABEL_CHANGED;
-import static com.best.deskclock.utils.WidgetUtils.ACTION_WORLD_CITIES_CHANGED;
 
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
@@ -40,8 +38,6 @@ import android.util.ArraySet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RemoteViews;
-
-import androidx.annotation.NonNull;
 
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
@@ -411,8 +407,6 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
                 case ACTION_TIME_CHANGED:
                 case ACTION_TIMEZONE_CHANGED:
                 case ACTION_ON_DAY_CHANGE:
-                case ACTION_WORLD_CITIES_CHANGED:
-                case ACTION_NEXT_ALARM_LABEL_CHANGED:
                     for (int widgetId : widgetIds) {
                         relayoutWidget(context, wm, widgetId, wm.getAppWidgetOptions(widgetId));
                     }
@@ -455,7 +449,9 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
     private static void registerReceivers(Context context, BroadcastReceiver receiver) {
         if (sReceiversRegistered) return;
-        IntentFilter intentFilter = getIntentFilter();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ACTION_CONFIGURATION_CHANGED);
+        intentFilter.addAction(ACTION_ON_DAY_CHANGE);
 
         if (SdkUtils.isAtLeastAndroid13()) {
             context.getApplicationContext().registerReceiver(receiver, intentFilter, Context.RECEIVER_EXPORTED);
@@ -463,16 +459,6 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
             context.getApplicationContext().registerReceiver(receiver, intentFilter);
         }
         sReceiversRegistered = true;
-    }
-
-    @NonNull
-    private static IntentFilter getIntentFilter() {
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(ACTION_CONFIGURATION_CHANGED);
-        intentFilter.addAction(ACTION_ON_DAY_CHANGE);
-        intentFilter.addAction(ACTION_WORLD_CITIES_CHANGED);
-        intentFilter.addAction(ACTION_NEXT_ALARM_LABEL_CHANGED);
-        return intentFilter;
     }
 
     /**

@@ -322,7 +322,6 @@
                 <action android:name="android.intent.action.TIME_SET" />
                 <action android:name="android.intent.action.TIMEZONE_CHANGED" />
                 <action android:name="com.best.deskclock.ON_DAY_CHANGE" />
-                <action android:name="com.best.deskclock.WORLD_CITIES_CHANGED" />
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
@@ -373,7 +372,6 @@
                 <action android:name="android.intent.action.LOCALE_CHANGED" />
                 <action android:name="android.intent.action.TIME_SET" />
                 <action android:name="android.intent.action.TIMEZONE_CHANGED" />
-                <action android:name="com.best.deskclock.NEXT_ALARM_LABEL_CHANGED" />
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
@@ -425,7 +423,6 @@
                 <action android:name="android.intent.action.TIME_SET" />
                 <action android:name="android.intent.action.TIMEZONE_CHANGED" />
                 <action android:name="com.best.deskclock.ON_DAY_CHANGE" />
-                <action android:name="com.best.deskclock.WORLD_CITIES_CHANGED" />
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
@@ -476,7 +473,6 @@
                 <action android:name="android.intent.action.LOCALE_CHANGED" />
                 <action android:name="android.intent.action.TIME_SET" />
                 <action android:name="android.intent.action.TIMEZONE_CHANGED" />
-                <action android:name="com.best.deskclock.NEXT_ALARM_LABEL_CHANGED" />
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
