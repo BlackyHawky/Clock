@@ -152,6 +152,21 @@ public class ThemeUtils {
     }
 
     /**
+     * Convenience method for creating pill background.
+     */
+    public static Drawable pillBackground(Context context) {
+        final int radius = convertDpToPixels(50, context);
+        final GradientDrawable gradientDrawable = new GradientDrawable();
+
+        gradientDrawable.setCornerRadius(radius);
+
+        gradientDrawable.setColor(
+                MaterialColors.getColor(context, com.google.android.material.R.attr.colorSecondaryContainer, Color.BLACK));
+
+        return gradientDrawable;
+    }
+
+    /**
      * Convenience method to create ripple drawable.
      */
     public static RippleDrawable rippleDrawable(Context context, @ColorInt int color) {
