@@ -81,14 +81,6 @@ public class Utils {
     }
 
     /**
-     * @param view the scrollable view to test
-     * @return {@code true} iff the {@code view} content is currently scrolled to the top
-     */
-    public static boolean isScrolledToTop(View view) {
-        return !view.canScrollVertically(-1);
-    }
-
-    /**
      * Update and return the PendingIntent corresponding to the given {@code intent}.
      *
      * @param context the Context in which the PendingIntent should start the service

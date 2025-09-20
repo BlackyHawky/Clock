@@ -63,7 +63,6 @@ import com.best.deskclock.uicomponents.toast.ToastManager;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.ThemeUtils;
-import com.best.deskclock.utils.Utils;
 import com.google.android.material.color.MaterialColors;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -216,9 +215,6 @@ public final class AlarmClockFragment extends DeskClockFragment implements
             }
         });
 
-        final ScrollPositionWatcher scrollPositionWatcher = new ScrollPositionWatcher();
-        mRecyclerView.addOnLayoutChangeListener(scrollPositionWatcher);
-        mRecyclerView.addOnScrollListener(scrollPositionWatcher);
         mRecyclerView.setAdapter(mItemAdapter);
 
         final ItemAnimator itemAnimator = new ItemAnimator();
@@ -544,10 +540,6 @@ public final class AlarmClockFragment extends DeskClockFragment implements
             // Show or hide the empty view as appropriate.
             final boolean noAlarms = items.isEmpty();
             mEmptyViewController.setEmpty(noAlarms);
-            if (noAlarms) {
-                // Ensure the drop shadow is hidden when no alarms exist.
-                setTabScrolledToTop(true);
-            }
 
             // Expand the correct alarm.
             if (mExpandedAlarmId != Alarm.INVALID_ID) {
@@ -758,23 +750,6 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     public void setAlarmVolume(Alarm alarm, int alarmVolume) {
         alarm.alarmVolume = alarmVolume;
         mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
-    }
-
-    /**
-     * Updates the vertical scroll state of this tab in the {@link UiDataModel} as the user scrolls
-     * the recyclerview or when the size/position of elements within the recyclerview changes.
-     */
-    private final class ScrollPositionWatcher extends RecyclerView.OnScrollListener implements View.OnLayoutChangeListener {
-        @Override
-        public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-            setTabScrolledToTop(Utils.isScrolledToTop(mRecyclerView));
-        }
-
-        @Override
-        public void onLayoutChange(View v, int left, int top, int right, int bottom,
-                                   int oldLeft, int oldTop, int oldRight, int oldBottom) {
-            setTabScrolledToTop(Utils.isScrolledToTop(mRecyclerView));
-        }
     }
 
     /**

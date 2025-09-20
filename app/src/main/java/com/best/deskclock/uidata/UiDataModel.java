@@ -191,17 +191,6 @@ public final class UiDataModel {
         mTabModel.setSelectedTab(tab);
     }
 
-    /**
-     * Updates the scrolling state in the {@link UiDataModel} for this tab.
-     *
-     * @param tab           an enumerated value indicating the tab reporting its vertical scroll position
-     * @param scrolledToTop {@code true} iff the vertical scroll position of the tab is at the top
-     */
-    public void setTabScrolledToTop(Tab tab, boolean scrolledToTop) {
-        enforceMainLooper();
-        mTabModel.setTabScrolledToTop(tab, scrolledToTop);
-    }
-
     // ******************
     // ** SHORTCUT IDS **
     // ******************

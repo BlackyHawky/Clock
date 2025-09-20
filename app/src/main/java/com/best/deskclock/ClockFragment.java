@@ -73,14 +73,12 @@ public final class ClockFragment extends DeskClockFragment {
 
     // Updates the UI in response to changes to the scheduled alarm.
     private BroadcastReceiver mAlarmChangeReceiver;
-    private ScrollPositionWatcher mScrollPositionWatcher;
 
     private Context mContext;
     private SharedPreferences mPrefs;
     private final List<City> mMutableCities = new ArrayList<>();
     private View mClockFrame;
     private SelectedCitiesAdapter mCityAdapter;
-    private RecyclerView mCityList;
     private String mDateFormat;
     private String mDateFormatForAccessibility;
     private boolean mIsPortrait;
@@ -111,8 +109,6 @@ public final class ClockFragment extends DeskClockFragment {
                 mMutableCities, mShowHomeClock, mIsPortrait);
         DataModel.getDataModel().addCityListener(mCityAdapter);
 
-        mScrollPositionWatcher = new ScrollPositionWatcher();
-
         mAlarmChangeReceiver = new AlarmChangedBroadcastReceiver();
     }
 
@@ -123,9 +119,9 @@ public final class ClockFragment extends DeskClockFragment {
 
         final View fragmentView = inflater.inflate(R.layout.clock_fragment, container, false);
 
-        mCityList = fragmentView.findViewById(R.id.cities);
-        mCityList.setAdapter(mCityAdapter);
-        mCityList.setLayoutManager(new LinearLayoutManager(mContext));
+        final RecyclerView cityList = fragmentView.findViewById(R.id.cities);
+        cityList.setAdapter(mCityAdapter);
+        cityList.setLayoutManager(new LinearLayoutManager(mContext));
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
 
@@ -232,15 +228,14 @@ public final class ClockFragment extends DeskClockFragment {
         });
 
         if (SettingsDAO.getCitySorting(mPrefs).equals(SORT_CITIES_MANUALLY)) {
-            itemTouchHelper.attachToRecyclerView(mCityList);
+            itemTouchHelper.attachToRecyclerView(cityList);
         } else {
             itemTouchHelper.attachToRecyclerView(null);
         }
 
-        mCityList.addOnScrollListener(mScrollPositionWatcher);
         // Due to the ViewPager and the location of FAB, set a bottom padding to prevent
         // the city list from being hidden by the FAB (e.g. when scrolling down).
-        mCityList.setPadding(0, 0, 0, ThemeUtils.convertDpToPixels(
+        cityList.setPadding(0, 0, 0, ThemeUtils.convertDpToPixels(
                 ThemeUtils.isTablet() && mIsPortrait ? 106 : mIsPortrait ? 91 : 0, mContext));
 
         // On landscape mode, the clock frame will be a distinct view.
@@ -702,21 +697,4 @@ public final class ClockFragment extends DeskClockFragment {
         }
     }
 
-    /**
-     * Updates the vertical scroll state of this tab in the {@link UiDataModel} as the user scrolls
-     * the recyclerview or when the size/position of elements within the recyclerview changes.
-     */
-    private final class ScrollPositionWatcher extends RecyclerView.OnScrollListener
-            implements View.OnLayoutChangeListener {
-        @Override
-        public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-            setTabScrolledToTop(Utils.isScrolledToTop(mCityList));
-        }
-
-        @Override
-        public void onLayoutChange(View v, int left, int top, int right, int bottom,
-                                   int oldLeft, int oldTop, int oldRight, int oldBottom) {
-            setTabScrolledToTop(Utils.isScrolledToTop(mCityList));
-        }
-    }
 }

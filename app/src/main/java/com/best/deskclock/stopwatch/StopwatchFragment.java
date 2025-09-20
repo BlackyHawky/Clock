@@ -50,7 +50,6 @@ import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Stopwatch;
 import com.best.deskclock.data.StopwatchListener;
 import com.best.deskclock.events.Events;
-import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AnimatorUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.ThemeUtils;
@@ -157,15 +156,6 @@ public final class StopwatchFragment extends DeskClockFragment {
         ((SimpleItemAnimator) Objects.requireNonNull(mLapsList.getItemAnimator())).setSupportsChangeAnimations(false);
         mLapsList.setLayoutManager(mLapsLayoutManager);
 
-        // In landscape layouts, the laps list can reach the top of the screen and thus can cause
-        // a drop shadow to appear. The same is not true for portrait landscapes.
-        if (mIsLandscape) {
-            final ScrollPositionWatcher scrollPositionWatcher = new ScrollPositionWatcher();
-            mLapsList.addOnLayoutChangeListener(scrollPositionWatcher);
-            mLapsList.addOnScrollListener(scrollPositionWatcher);
-        } else {
-            setTabScrolledToTop(true);
-        }
         mLapsList.setAdapter(mLapsAdapter);
 
         // Timer text serves as a virtual start/stop button.
@@ -677,7 +667,6 @@ public final class StopwatchFragment extends DeskClockFragment {
             adjustWakeLock();
 
             if (after.isReset()) {
-                setTabScrolledToTop(true);
                 if (DataModel.getDataModel().isApplicationInForeground()) {
                     updateUI(BUTTONS_IMMEDIATE);
                 }
@@ -705,21 +694,4 @@ public final class StopwatchFragment extends DeskClockFragment {
         }
     }
 
-    /**
-     * Updates the vertical scroll state of this tab in the {@link UiDataModel} as the user scrolls
-     * the recyclerview or when the size/position of elements within the recyclerview changes.
-     */
-    private final class ScrollPositionWatcher extends RecyclerView.OnScrollListener
-            implements View.OnLayoutChangeListener {
-        @Override
-        public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-            setTabScrolledToTop(Utils.isScrolledToTop(mLapsList));
-        }
-
-        @Override
-        public void onLayoutChange(View v, int left, int top, int right, int bottom,
-                                   int oldLeft, int oldTop, int oldRight, int oldBottom) {
-            setTabScrolledToTop(Utils.isScrolledToTop(mLapsList));
-        }
-    }
 }
