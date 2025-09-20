@@ -55,7 +55,6 @@ import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.worldclock.CitySelectionActivity;
-import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -492,7 +491,6 @@ public final class ClockFragment extends DeskClockFragment {
             private final SharedPreferences mPrefs;
             private final SelectedCitiesAdapter mAdapter;
             private final TextView mName;
-            private final MaterialCardView mDigitalClockContainer;
             private final DataModel.ClockStyle mClockStyle;
             private final TextClock mDigitalClock;
             private final AnalogClock mAnalogClock;
@@ -506,7 +504,6 @@ public final class ClockFragment extends DeskClockFragment {
                 mAdapter = adapter;
                 mClockStyle = SettingsDAO.getClockStyle(mPrefs);
                 mName = itemView.findViewById(R.id.city_name);
-                mDigitalClockContainer = itemView.findViewById(R.id.digital_clock_container);
                 mDigitalClock = itemView.findViewById(R.id.digital_clock);
                 mAnalogClock = itemView.findViewById(R.id.analog_clock);
                 mHoursAhead = itemView.findViewById(R.id.hours_ahead);
@@ -525,16 +522,16 @@ public final class ClockFragment extends DeskClockFragment {
 
                 // Configure the digital clock or analog clock depending on the user preference.
                 if (isAnalogClock) {
+                    mDigitalClock.setVisibility(GONE);
                     mAnalogClock.getLayoutParams().height = ThemeUtils.convertDpToPixels(mIsTablet ? 150 : 80, context);
                     mAnalogClock.getLayoutParams().width = ThemeUtils.convertDpToPixels(mIsTablet ? 150 : 80, context);
-                    mDigitalClockContainer.setVisibility(GONE);
                     mAnalogClock.setVisibility(VISIBLE);
                     mAnalogClock.setTimeZone(cityTimeZoneId);
                     mAnalogClock.enableSeconds(false);
                 } else {
                     mAnalogClock.setVisibility(GONE);
-                    mDigitalClockContainer.setVisibility(VISIBLE);
-
+                    mDigitalClock.setBackground(ThemeUtils.pillBackground(
+                            context, com.google.android.material.R.attr.colorSecondary));
                     if (SettingsDAO.getAccentColor(mPrefs).equals(BLACK_ACCENT_COLOR)) {
                         mDigitalClock.setTextColor(Color.WHITE);
                     }
@@ -543,6 +540,7 @@ public final class ClockFragment extends DeskClockFragment {
                             ClockUtils.get12ModeFormat(mDigitalClock.getContext(), 0.3f, false));
                     mDigitalClock.setFormat24Hour(
                             ClockUtils.get24ModeFormat(mDigitalClock.getContext(), false));
+                    mDigitalClock.setVisibility(VISIBLE);
                 }
 
                 // Due to the ViewPager and the location of FAB, set margins to prevent

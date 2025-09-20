@@ -6,7 +6,6 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -23,28 +22,19 @@
             android:layout_weight="1"
             android:layout_marginEnd="12dp" />
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/digital_clock_container"
+        <TextClock
+            android:id="@+id/digital_clock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="?attr/colorSecondary"
-            app:cardCornerRadius="28dp"
-            app:strokeWidth="0dp">
-
-                <TextClock
-                    android:id="@+id/digital_clock"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="2dp"
-                    android:textSize="24sp"
-                    android:textColor="?android:attr/colorBackground"
-                    android:singleLine="true"
-                    tools:ignore="RtlSymmetry"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_marginVertical="4dp"
-                    tools:text="12:34" />
-
-        </com.google.android.material.card.MaterialCardView>
+            android:paddingHorizontal="14dp"
+            android:paddingVertical="6dp"
+            android:textSize="24sp"
+            android:textColor="?android:attr/colorBackground"
+            android:singleLine="true"
+            tools:ignore="RtlSymmetry"
+            tools:text="12:34"
+            tools:background="@drawable/card_background_for_preview"
+            tools:backgroundTint="?attr/colorSecondary" />
 
         <com.best.deskclock.uicomponents.AnalogClock
             android:id="@+id/analog_clock"

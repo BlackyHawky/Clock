@@ -33,6 +33,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
+import androidx.annotation.AttrRes;
 import androidx.annotation.ColorInt;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.drawable.DrawableKt;
@@ -154,14 +155,14 @@ public class ThemeUtils {
     /**
      * Convenience method for creating pill background.
      */
-    public static Drawable pillBackground(Context context) {
+    public static Drawable pillBackground(Context context, @AttrRes int colorAttributeResId) {
         final int radius = convertDpToPixels(50, context);
         final GradientDrawable gradientDrawable = new GradientDrawable();
 
         gradientDrawable.setCornerRadius(radius);
 
         gradientDrawable.setColor(
-                MaterialColors.getColor(context, com.google.android.material.R.attr.colorSecondaryContainer, Color.BLACK));
+                MaterialColors.getColor(context, colorAttributeResId, Color.BLACK));
 
         return gradientDrawable;
     }

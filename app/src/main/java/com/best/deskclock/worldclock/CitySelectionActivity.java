@@ -110,7 +110,8 @@ public final class CitySelectionActivity extends BaseActivity {
         mSearchView.setIconifiedByDefault(false);
         mSearchView.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
         mSearchView.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
-        mSearchView.setBackground(ThemeUtils.pillBackground(this));
+        mSearchView.setBackground(ThemeUtils.pillBackground(
+                this, com.google.android.material.R.attr.colorSecondaryContainer));
 
         // Use a rounded icon for the search icon
         ImageView searchIcon = mSearchView.findViewById(androidx.appcompat.R.id.search_mag_icon);
@@ -125,6 +126,8 @@ public final class CitySelectionActivity extends BaseActivity {
         }
 
         toolbar.addView(mSearchView);
+
+        mSearchView.post(() -> mSearchView.clearFocus());
 
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
