@@ -87,6 +87,8 @@ public class PreferencesDefaultValues {
     public static final String DEFAULT_SORT_BY_ALARM_TIME = "0";
     public static final String SORT_ALARM_BY_NEXT_ALARM_TIME = "1";
     public static final String SORT_ALARM_BY_NAME = "2";
+    public static final String SORT_ALARM_BY_DESCENDING_CREATION_ORDER = "3";
+    public static final String SORT_ALARM_BY_ASCENDING_CREATION_ORDER = "4";
     public static final boolean DEFAULT_DISPLAY_ENABLED_ALARMS_FIRST = false;
     public static final String DEFAULT_WEEK_START = String.valueOf(Calendar.getInstance().getFirstDayOfWeek());
     public static final String DEFAULT_ALARM_NOTIFICATION_REMINDER_TIME = "30";

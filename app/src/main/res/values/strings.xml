@@ -440,6 +440,10 @@
     <string name="sort_next_alarm_time">By next alarm time</string>
     <!-- Setting title for changing the sorting order to By name. -->
     <string name="sort_name">By name</string>
+    <!-- Setting title for changing the sorting order to By creation order (oldest last). -->
+    <string name="sort_descending_creation_order">By creation order (oldest last)</string>
+    <!-- Setting title for changing the sorting order to By creation order (oldest first). -->
+    <string name="sort_ascending_creation_order">By creation order (oldest first)</string>
     <!-- Setting title to display the enabled alarms first -->
     <string name="display_enabled_alarms_first_title">Display enabled alarms first</string>
     <!-- Setting title for changing the date picker style to calendar. -->

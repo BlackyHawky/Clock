@@ -8,6 +8,8 @@ package com.best.deskclock.provider;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SORT_BY_ALARM_TIME;
+import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_ALARM_BY_ASCENDING_CREATION_ORDER;
+import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_ALARM_BY_DESCENDING_CREATION_ORDER;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -67,6 +69,34 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
                     ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + HOUR + " ASC, " +
                     ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + MINUTES + " ASC, " +
                     ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ClockContract.AlarmsColumns._ID + " DESC";
+
+    /**
+     * The sort order by descending ID to display oldest alarms last.
+     */
+    private static final String SORT_ORDER_BY_DESCENDING_CREATION =
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + _ID + " DESC";
+
+    /**
+     * The sort order that places enabled alarms first, then sorts alarms by descending ID
+     * with the oldest last.
+     */
+    private static final String SORT_ORDER_BY_DESCENDING_CREATION_WITH_ENABLED_FIRST =
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ENABLED + " DESC, " +
+                    ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + _ID + " DESC";
+
+    /**
+     * The sort order by ascending ID to display oldest alarms first.
+     */
+    private static final String SORT_ORDER_BY_ASCENDING_CREATION =
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + _ID + " ASC";
+
+    /**
+     * The sort order that places enabled alarms first, then sorts alarms by ascending ID
+     * with the oldest first.
+     */
+    private static final String SORT_ORDER_BY_ASCENDING_CREATION_WITH_ENABLED_FIRST =
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ENABLED + " DESC, " +
+                    ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + _ID + " ASC";
 
     private static final String[] QUERY_COLUMNS = {
             _ID,
@@ -339,12 +369,32 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
      */
     public static CursorLoader getAlarmsCursorLoader(Context context) {
         final SharedPreferences prefs = getDefaultSharedPreferences(context);
+        boolean areEnabledAlarmsFirst = SettingsDAO.areEnabledAlarmsDisplayedFirst(prefs);
 
         String sortOrder = DEFAULT_SORT_ORDER;
+        String sortingPref = SettingsDAO.getAlarmSorting(prefs);
 
-        if (SettingsDAO.getAlarmSorting(prefs).equals(DEFAULT_SORT_BY_ALARM_TIME)) {
-            if (SettingsDAO.areEnabledAlarmsDisplayedFirst(prefs)) {
-                sortOrder = DEFAULT_SORT_ORDER_WITH_ENABLED_FIRST;
+        switch (sortingPref) {
+            case DEFAULT_SORT_BY_ALARM_TIME -> {
+                if (areEnabledAlarmsFirst) {
+                    sortOrder = DEFAULT_SORT_ORDER_WITH_ENABLED_FIRST;
+                }
+            }
+
+            case SORT_ALARM_BY_DESCENDING_CREATION_ORDER -> {
+                if (areEnabledAlarmsFirst) {
+                    sortOrder = SORT_ORDER_BY_DESCENDING_CREATION_WITH_ENABLED_FIRST;
+                } else {
+                    sortOrder = SORT_ORDER_BY_DESCENDING_CREATION;
+                }
+            }
+
+            case SORT_ALARM_BY_ASCENDING_CREATION_ORDER -> {
+                if (areEnabledAlarmsFirst) {
+                    sortOrder = SORT_ORDER_BY_ASCENDING_CREATION_WITH_ENABLED_FIRST;
+                } else {
+                    sortOrder = SORT_ORDER_BY_ASCENDING_CREATION;
+                }
             }
         }
 

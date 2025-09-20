@@ -487,10 +487,8 @@ public final class AlarmClockFragment extends DeskClockFragment implements
                 String l2 = h2.item.label != null ? h2.item.label : "";
                 return collator.compare(l1, l2);
             });
-        }
-
-        // Sort by next alarm time if requested and not blocked
-        if (wantsSortByNextAlarmTime && !shouldBlockSorting) {
+        } else if (wantsSortByNextAlarmTime && !shouldBlockSorting) {
+            // Sort by next alarm time if requested and not blocked
             Calendar now = Calendar.getInstance();
             Collections.sort(itemHolders, (h1, h2) -> {
                 if (areEnabledAlarmsFirst && h1.item.enabled != h2.item.enabled) {
@@ -611,7 +609,10 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     /**
      * Attaches a collapse listener to each alarm item.
      * When an alarm is collapsed, sorting is unblocked and the loader is restarted.
-     *
+     * <p>
+     * This ensures sorting is reapplied after collapsing, in cases where the alarm
+     * was modified while expanded (e.g. enabled/disabled).
+     * </p>
      * @param items the list of alarm item holders to attach listeners to
      */
     private void attachCollapseListeners(List<AlarmItemHolder> items) {
@@ -620,13 +621,8 @@ public final class AlarmClockFragment extends DeskClockFragment implements
                 mExpandedAlarmId = Alarm.INVALID_ID;
                 mBlockSortingUntilCollapse = false;
 
-                final boolean wantsSort = SettingsDAO.getAlarmSorting(mPrefs).equals(SORT_ALARM_BY_NEXT_ALARM_TIME)
-                        || SettingsDAO.getAlarmSorting(mPrefs).equals(SORT_ALARM_BY_NAME);
-
-                if (wantsSort) {
-                    LoaderManager.getInstance(AlarmClockFragment.this)
-                            .restartLoader(0, null, AlarmClockFragment.this);
-                }
+                LoaderManager.getInstance(AlarmClockFragment.this)
+                        .restartLoader(0, null, AlarmClockFragment.this);
             });
 
         }
@@ -665,11 +661,12 @@ public final class AlarmClockFragment extends DeskClockFragment implements
 
     @Override
     public void onAlarmUpdateFinished() {
-        final boolean wantsSort = SettingsDAO.getAlarmSorting(mPrefs).equals(SORT_ALARM_BY_NEXT_ALARM_TIME)
-                || SettingsDAO.getAlarmSorting(mPrefs).equals(SORT_ALARM_BY_NAME);
+        // Restart sorting immediately if no alarm is expanded at the time of update
+        // (e.g. when an alarm is enabled/disabled from the collapsed view).
 
-        // If no alarm is expanded, sorting is unblocked and the loader is restarted to refresh the list.
-        if (mExpandedAlarmId == Alarm.INVALID_ID && wantsSort) {
+        // If the alarm is still expanded, sorting will be postponed until collapse,
+        // and will be restarted by the collapse listener attached in attachCollapseListeners(...).
+        if (mExpandedAlarmId == Alarm.INVALID_ID) {
             // We are in collapsed view: do not block sorting
             mBlockSortingUntilCollapse = false;
             new Handler(Looper.getMainLooper()).post(() ->
