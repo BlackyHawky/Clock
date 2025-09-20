@@ -45,7 +45,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.R;
-import com.best.deskclock.controller.ThemeController;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.SdkUtils;
@@ -275,18 +274,4 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
                 .commit();
     }
 
-    /**
-     * Recreate the activity while ensuring smooth animation when resetting the fragment view:
-     * scrolling to the top of the list and expanding the AppBarLayout.
-     * <p>
-     * This applies to settings that need to be applied immediately (eg: changing the accent color).
-     */
-    protected void recreateActivity() {
-        ThemeController.setNewSettingWithDelay();
-
-        mRecyclerView.post(() -> {
-            mLinearLayoutManager.scrollToPosition(0);
-            mAppBarLayout.setExpanded(true, true);
-        });
-    }
 }

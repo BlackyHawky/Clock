@@ -41,13 +41,13 @@ import android.widget.TextClock;
 import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.ColorUtils;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.WindowCompat;
 
+import com.best.deskclock.BaseActivity;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
@@ -60,7 +60,7 @@ import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.google.android.material.button.MaterialButton;
 
-public class AlarmDisplayPreviewActivity extends AppCompatActivity
+public class AlarmDisplayPreviewActivity extends BaseActivity
         implements View.OnClickListener, View.OnTouchListener {
 
     private static final float TEXT_FADE_START_THRESHOLD = 0.5f;

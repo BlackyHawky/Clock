@@ -18,13 +18,13 @@ import android.view.ViewGroup;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.graphics.Insets;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.best.deskclock.BaseActivity;
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 
@@ -40,13 +40,13 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
  * A base Activity that has a collapsing toolbar layout is used for the activities intending to
  * enable the collapsing toolbar function.
  */
-public abstract class CollapsingToolbarBaseActivity extends AppCompatActivity {
+public abstract class CollapsingToolbarBaseActivity extends BaseActivity {
 
     @Nullable
     private CollapsingToolbarLayout mCollapsingToolbarLayout;
 
     @Nullable
-    private AppBarLayout mAppBarLayout;
+    protected AppBarLayout mAppBarLayout;
 
     protected CoordinatorLayout mCoordinatorLayout;
 

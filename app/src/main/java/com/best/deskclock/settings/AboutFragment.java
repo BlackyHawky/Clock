@@ -25,7 +25,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -35,7 +34,6 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 import androidx.preference.SwitchPreferenceCompat;
@@ -43,7 +41,6 @@ import androidx.preference.SwitchPreferenceCompat;
 import com.best.deskclock.BuildConfig;
 import com.best.deskclock.R;
 import com.best.deskclock.alarms.AlarmStateManager;
-import com.best.deskclock.controller.ThemeController;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.provider.Alarm;
@@ -187,7 +184,7 @@ public class AboutFragment extends ScreenFragment
                     mPrefs.edit().putBoolean(KEY_DISPLAY_DEBUG_SETTINGS, true).apply();
                     mPrefs.edit().putBoolean(KEY_ENABLE_LOCAL_LOGGING, true).apply();
                     Toast.makeText(requireContext(), R.string.toast_message_debug_displayed, Toast.LENGTH_SHORT).show();
-                    recreateActivity();
+                    requireActivity().recreate();
                 }
             }
 
@@ -240,7 +237,7 @@ public class AboutFragment extends ScreenFragment
                 Toast.makeText(requireContext(), R.string.toast_message_debug_hidden, Toast.LENGTH_SHORT).show();
             }
 
-            recreateActivity();
+            requireActivity().recreate();
 
             Utils.setVibrationTime(requireContext(), 50);
         }
@@ -282,54 +279,42 @@ public class AboutFragment extends ScreenFragment
     }
 
     private void resetPreferences() {
-        Fragment settingsFragment =
-                requireActivity().getSupportFragmentManager().findFragmentByTag(SettingsActivity.SettingsFragment.class.getSimpleName());
+        SharedPreferences.Editor editor = mPrefs.edit();
+        Map<String, ?> settings = mPrefs.getAll();
 
-        if (settingsFragment == null) {
-            animateAndShowFragment(new SettingsActivity.SettingsFragment());
+        for (Map.Entry<String, ?> entry : settings.entrySet()) {
+            // Do not reset the KEY_IS_FIRST_LAUNCH key to prevent the "FirstLaunch" activity from reappearing.
+            // Also, exclude keys corresponding to custom ringtones as this causes bugs for alarms.
+            if (!entry.getKey().equals(KEY_IS_FIRST_LAUNCH) &&
+                    !entry.getKey().startsWith(RINGTONE_URI) &&
+                    !entry.getKey().equals(RINGTONE_IDS) &&
+                    !entry.getKey().equals(NEXT_RINGTONE_ID) &&
+                    !entry.getKey().startsWith(RINGTONE_TITLE)) {
+                editor.remove(entry.getKey());
+            }
+        }
+        editor.apply();
+
+        tapCountOnVersion = 0;
+
+        LogUtils.clearSavedLocalLogs(requireContext());
+
+        // Required to update Locale.
+        requireContext().sendBroadcast(new Intent(ACTION_LANGUAGE_CODE_CHANGED));
+        // Required to update widgets.
+        WidgetUtils.updateAllWidgets(requireContext());
+        // Required to update the timer list.
+        DataModel.getDataModel().loadTimers();
+        // Required to update the tab to display.
+        UiDataModel.getUiDataModel().setSelectedTab(UiDataModel.Tab.CLOCKS);
+        // Delete all alarms.
+        final List<Alarm> alarms = Alarm.getAlarms(requireContext().getContentResolver(), null);
+        for (Alarm alarm : alarms) {
+            AlarmStateManager.deleteAllInstances(requireContext(), alarm.id);
+            Alarm.deleteAlarm(requireContext().getContentResolver(), alarm.id);
         }
 
-        // Adding a Handler ensures better fluidity for animations
-        new Handler(requireContext().getMainLooper()).postDelayed(() -> {
-            SharedPreferences.Editor editor = mPrefs.edit();
-            Map<String, ?> settings = mPrefs.getAll();
-
-            for (Map.Entry<String, ?> entry : settings.entrySet()) {
-                // Do not reset the KEY_IS_FIRST_LAUNCH key to prevent the "FirstLaunch" activity from reappearing.
-                // Also, exclude keys corresponding to custom ringtones as this causes bugs for alarms.
-                if (!entry.getKey().equals(KEY_IS_FIRST_LAUNCH) &&
-                        !entry.getKey().startsWith(RINGTONE_URI) &&
-                        !entry.getKey().equals(RINGTONE_IDS) &&
-                        !entry.getKey().equals(NEXT_RINGTONE_ID) &&
-                        !entry.getKey().startsWith(RINGTONE_TITLE)) {
-                    editor.remove(entry.getKey());
-                }
-            }
-            editor.apply();
-
-            tapCountOnVersion = 0;
-
-            LogUtils.clearSavedLocalLogs(requireContext());
-
-            // Required to update Locale.
-            requireContext().sendBroadcast(new Intent(ACTION_LANGUAGE_CODE_CHANGED));
-            // Required to update widgets.
-            WidgetUtils.updateAllWidgets(requireContext());
-            // Required to update the timer list.
-            DataModel.getDataModel().loadTimers();
-            // Required to update the tab to display.
-            UiDataModel.getUiDataModel().setSelectedTab(UiDataModel.Tab.CLOCKS);
-            // Delete all alarms.
-            final List<Alarm> alarms = Alarm.getAlarms(requireContext().getContentResolver(), null);
-            for (Alarm alarm : alarms) {
-                AlarmStateManager.deleteAllInstances(requireContext(), alarm.id);
-                Alarm.deleteAlarm(requireContext().getContentResolver(), alarm.id);
-            }
-
-            ThemeController.setNewSettingWithDelay();
-
-            Toast.makeText(requireContext(), requireContext().getString(R.string.toast_message_for_reset), Toast.LENGTH_SHORT).show();
-        }, 500);
+        Toast.makeText(requireContext(), requireContext().getString(R.string.toast_message_for_reset), Toast.LENGTH_SHORT).show();
     }
 
     /**

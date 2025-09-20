@@ -24,8 +24,7 @@ import android.view.WindowInsets;
 import android.view.WindowInsetsController;
 import android.view.WindowManager;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import com.best.deskclock.BaseActivity;
 import com.best.deskclock.R;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.uidata.UiDataModel;
@@ -37,7 +36,7 @@ import com.best.deskclock.utils.SdkUtils;
 
 import java.util.Objects;
 
-public class ScreensaverActivity extends AppCompatActivity {
+public class ScreensaverActivity extends BaseActivity {
 
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger("ScreensaverActivity");
 

@@ -37,7 +37,6 @@ import android.widget.ImageView;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.StringRes;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
@@ -82,7 +81,7 @@ import com.google.android.material.snackbar.Snackbar;
  * The main activity of the application which displays 4 different tabs contains alarms, world
  * clocks, timers and stopwatch.
  */
-public class DeskClock extends AppCompatActivity
+public class DeskClock extends BaseActivity
         implements FabContainer, AlarmLabelDialogHandler, AutoSilenceDurationDialogHandler,
         SnoozeDurationDialogHandler, VolumeCrescendoDurationDialogHandler,
         VolumeValueDialogHandler, CityNoteDialogHandler {

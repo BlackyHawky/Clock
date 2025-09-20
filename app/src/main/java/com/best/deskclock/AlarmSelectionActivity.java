@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.widget.Button;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,7 +25,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class AlarmSelectionActivity extends AppCompatActivity implements AlarmSelectionAdapter.OnAlarmClickListener {
+public class AlarmSelectionActivity extends BaseActivity implements AlarmSelectionAdapter.OnAlarmClickListener {
 
     /**
      * Action used to signify alarm should be dismissed on selection.

@@ -23,14 +23,12 @@ import static com.best.deskclock.utils.Utils.ACTION_LANGUAGE_CODE_CHANGED;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
-import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
 
@@ -107,45 +105,22 @@ public class InterfaceCustomizationFragment extends ScreenFragment
 
     @Override
     public boolean onPreferenceChange(Preference pref, Object newValue) {
-        final boolean isNight = ThemeUtils.isNight(requireActivity().getResources());
         switch (pref.getKey()) {
-            case KEY_THEME -> {
-                final int index = mThemePref.findIndexOfValue((String) newValue);
-                mThemePref.setSummary(mThemePref.getEntries()[index]);
-                switch (index) {
-                    case 0 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-                    case 1 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    case 2 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                }
-            }
-
-            case KEY_DARK_MODE, KEY_NIGHT_ACCENT_COLOR -> {
+            case KEY_THEME, KEY_ACCENT_COLOR, KEY_DARK_MODE, KEY_NIGHT_ACCENT_COLOR -> {
                 final ListPreference listPreference = (ListPreference) pref;
-                final int darkModeIndex = listPreference.findIndexOfValue((String) newValue);
-                listPreference.setSummary(listPreference.getEntries()[darkModeIndex]);
-                if (isNight) {
-                    recreateActivity();
-                }
-            }
-
-            case KEY_ACCENT_COLOR -> {
-                final int index = mAccentColorPref.findIndexOfValue((String) newValue);
-                mAccentColorPref.setSummary(mAccentColorPref.getEntries()[index]);
-                recreateActivity();
+                final int index = listPreference.findIndexOfValue((String) newValue);
+                listPreference.setSummary(listPreference.getEntries()[index]);
             }
 
             case KEY_AUTO_NIGHT_ACCENT_COLOR, KEY_CARD_BACKGROUND, KEY_CARD_BORDER,
-                 KEY_FADE_TRANSITIONS -> {
-                recreateActivity();
-                Utils.setVibrationTime(requireContext(), 50);
-            }
+                 KEY_FADE_TRANSITIONS, KEY_VIBRATIONS, KEY_TOOLBAR_TITLE ->
+                    Utils.setVibrationTime(requireContext(), 50);
 
             case KEY_CUSTOM_LANGUAGE_CODE -> {
                 final int index = mCustomLanguageCodePref.findIndexOfValue((String) newValue);
                 mCustomLanguageCodePref.setSummary(mCustomLanguageCodePref.getEntries()[index]);
                 requireContext().sendBroadcast(new Intent(ACTION_LANGUAGE_CODE_CHANGED));
                 isLanguageChanged = true;
-                recreateActivity();
             }
 
             case KEY_TAB_TO_DISPLAY -> {
@@ -154,8 +129,6 @@ public class InterfaceCustomizationFragment extends ScreenFragment
                 // Set result so DeskClock knows to refresh itself
                 requireActivity().setResult(REQUEST_CHANGE_SETTINGS);
             }
-
-            case KEY_VIBRATIONS, KEY_TOOLBAR_TITLE -> Utils.setVibrationTime(requireContext(), 50);
 
             case KEY_TAB_TITLE_VISIBILITY -> {
                 final int index = mTabTitleVisibilityPref.findIndexOfValue((String) newValue);

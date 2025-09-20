@@ -32,13 +32,13 @@ import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.best.deskclock.BaseActivity;
 import com.best.deskclock.R;
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.DataModel;
@@ -70,7 +70,7 @@ import java.util.TimeZone;
  * As a result, {@link #onResume()} conservatively refreshes itself from the backing
  * {@link DataModel} which may have changed since this activity was last displayed.
  */
-public final class CitySelectionActivity extends AppCompatActivity {
+public final class CitySelectionActivity extends BaseActivity {
 
     private static final String KEY_SEARCH_QUERY = "search_query";
 

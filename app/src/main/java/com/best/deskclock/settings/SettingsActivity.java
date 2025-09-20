@@ -7,9 +7,6 @@
 package com.best.deskclock.settings;
 
 import static com.best.deskclock.settings.PermissionsManagementActivity.PermissionsManagementFragment.areEssentialPermissionsNotGranted;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DARK_THEME;
-import static com.best.deskclock.settings.PreferencesDefaultValues.LIGHT_THEME;
-import static com.best.deskclock.settings.PreferencesDefaultValues.SYSTEM_THEME;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_SETTINGS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_BACKUP_RESTORE_PREFERENCES;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_CLOCK_SETTINGS;
@@ -38,7 +35,6 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.Preference;
 
 import com.best.deskclock.R;
@@ -64,6 +60,9 @@ import java.util.Date;
  */
 public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
+    private static final String KEY_APPBAR_EXPANDED = "key_appbar_expanded";
+    private boolean mIsAppBarExpanded  = true;
+
     @Override
     protected String getActivityTitle() {
         // Already defined in the fragment.
@@ -74,12 +73,37 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if (mAppBarLayout != null) {
+            mAppBarLayout.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
+                // verticalOffset == 0 when extended, negative when collapsed
+                mIsAppBarExpanded = (verticalOffset == 0);
+            });
+        }
+
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.content_frame, new SettingsFragment())
                     .disallowAddToBackStack()
                     .commit();
         }
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+
+        if (savedInstanceState != null && savedInstanceState.containsKey(KEY_APPBAR_EXPANDED)) {
+            final boolean shouldExpand = savedInstanceState.getBoolean(KEY_APPBAR_EXPANDED);
+            if (mAppBarLayout != null) {
+                mAppBarLayout.setExpanded(shouldExpand, false);
+            }
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(KEY_APPBAR_EXPANDED, mIsAppBarExpanded);
     }
 
     public static class SettingsFragment extends ScreenFragment implements Preference.OnPreferenceClickListener {
@@ -298,17 +322,6 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         }
 
         private void applySettingsAfterRestore() {
-            // Required to load the night mode.
-            String getTheme = SettingsDAO.getTheme(mPrefs);
-            switch (getTheme) {
-                case SYSTEM_THEME ->
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-                case LIGHT_THEME ->
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                case DARK_THEME ->
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-            }
-
             // Required to update Locale.
             requireContext().sendBroadcast(new Intent(ACTION_LANGUAGE_CODE_CHANGED));
             // Required to update widgets.
@@ -320,8 +333,6 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             if (SettingsDAO.getTabToDisplay(mPrefs) != -1) {
                 UiDataModel.getUiDataModel().setSelectedTab(UiDataModel.Tab.values()[SettingsDAO.getTabToDisplay(mPrefs)]);
             }
-
-            recreateActivity();
 
             Toast.makeText(requireContext(), requireContext().getString(R.string.toast_message_for_restore),
                     Toast.LENGTH_SHORT).show();
