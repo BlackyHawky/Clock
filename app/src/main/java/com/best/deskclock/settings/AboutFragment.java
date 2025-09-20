@@ -17,6 +17,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_WHATS_NEW;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DEBUG_CATEGORY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_DEBUG_SETTINGS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_LOCAL_LOGGING;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ESSENTIAL_PERMISSIONS_GRANTED;
 import static com.best.deskclock.utils.Utils.ACTION_LANGUAGE_CODE_CHANGED;
 
 import android.app.Activity;
@@ -285,11 +286,14 @@ public class AboutFragment extends ScreenFragment
         for (Map.Entry<String, ?> entry : settings.entrySet()) {
             // Do not reset the KEY_IS_FIRST_LAUNCH key to prevent the "FirstLaunch" activity from reappearing.
             // Also, exclude keys corresponding to custom ringtones as this causes bugs for alarms.
-            if (!entry.getKey().equals(KEY_IS_FIRST_LAUNCH) &&
-                    !entry.getKey().startsWith(RINGTONE_URI) &&
-                    !entry.getKey().equals(RINGTONE_IDS) &&
-                    !entry.getKey().equals(NEXT_RINGTONE_ID) &&
-                    !entry.getKey().startsWith(RINGTONE_TITLE)) {
+            // Finally, exclude the essential permissions key, as it reflects the current system state
+            // and should not be saved, restored, or reset like other preferences.
+            if (!entry.getKey().equals(KEY_IS_FIRST_LAUNCH)
+                    && !entry.getKey().startsWith(RINGTONE_URI)
+                    && !entry.getKey().equals(RINGTONE_IDS)
+                    && !entry.getKey().equals(NEXT_RINGTONE_ID)
+                    && !entry.getKey().startsWith(RINGTONE_TITLE)
+                    && !entry.getKey().equals(KEY_ESSENTIAL_PERMISSIONS_GRANTED)) {
                 editor.remove(entry.getKey());
             }
         }

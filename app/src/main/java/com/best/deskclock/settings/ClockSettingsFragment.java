@@ -2,7 +2,6 @@
 
 package com.best.deskclock.settings;
 
-import static com.best.deskclock.DeskClock.REQUEST_CHANGE_SETTINGS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_HOME_CLOCK;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_CLOCK_DIAL;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_CLOCK_DIAL_MATERIAL;
@@ -105,14 +104,13 @@ public class ClockSettingsFragment extends ScreenFragment
 
             case KEY_AUTO_HOME_CLOCK -> {
                 mHomeTimeZonePref.setEnabled((boolean) newValue);
+
                 Utils.setVibrationTime(requireContext(), 50);
             }
 
             case KEY_ENABLE_CITY_NOTE -> Utils.setVibrationTime(requireContext(), 50);
         }
 
-        // Set result so DeskClock knows to refresh itself
-        requireActivity().setResult(REQUEST_CHANGE_SETTINGS);
         return true;
     }
 

@@ -148,7 +148,7 @@ public final class SettingsDAO {
     /**
      * @return the user's home timezone
      */
-    static TimeZone getHomeTimeZone(Context context, SharedPreferences prefs, TimeZone defaultTZ) {
+    public static TimeZone getHomeTimeZone(Context context, SharedPreferences prefs, TimeZone defaultTZ) {
         String timeZoneId = prefs.getString(KEY_HOME_TIME_ZONE, DEFAULT_HOME_TIME_ZONE);
 
         // If the recorded home timezone is legal, use it.

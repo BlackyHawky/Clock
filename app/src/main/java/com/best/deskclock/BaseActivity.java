@@ -47,7 +47,6 @@ import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.google.android.material.color.MaterialColors;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -274,7 +273,7 @@ public class BaseActivity extends AppCompatActivity {
         // Without this check, any preference change (even with the same value) triggers recreate(),
         // which causes significant slowdown when opening the settings screen,
         // especially on low-end devices due to how Preferences are initialized.
-        Map<String, Object> cachedValues = initCachedValues();
+        Map<String, Object> cachedValues = Utils.initCachedValues(SUPPORTED_PREF_KEYS, this::getPreferenceValue);
 
         SharedPreferences.OnSharedPreferenceChangeListener listener = (sharedPreferences, key) -> {
             if (key == null || !cachedValues.containsKey(key)) {
@@ -325,21 +324,6 @@ public class BaseActivity extends AppCompatActivity {
         if (registeredListener != null) {
             mPrefs.unregisterOnSharedPreferenceChangeListener(registeredListener);
         }
-    }
-
-    /**
-     * Initializes a cache map holding the current values of supported preferences.
-     * <p>
-     * This cache is used to compare old and new values during preference changes,
-     * preventing unnecessary actions if the value has not actually changed.</p>
-     */
-    private Map<String, Object> initCachedValues() {
-        Map<String, Object> cached = new HashMap<>();
-        for (String key : SUPPORTED_PREF_KEYS) {
-            cached.put(key, getPreferenceValue(key));
-        }
-
-        return cached;
     }
 
     /**

@@ -11,8 +11,7 @@ import static android.provider.Settings.ACTION_MANAGE_APP_USE_FULL_SCREEN_INTENT
 import static android.provider.Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS;
 import static android.provider.Settings.EXTRA_APP_PACKAGE;
 
-import static com.best.deskclock.DeskClock.REQUEST_CHANGE_PERMISSIONS;
-import static com.best.deskclock.DeskClock.REQUEST_CHANGE_SETTINGS;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ESSENTIAL_PERMISSIONS_GRANTED;
 
 import android.annotation.SuppressLint;
 import android.app.NotificationManager;
@@ -191,6 +190,8 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
         public void onResume() {
             super.onResume();
 
+            updateEssentialPermissionsPref();
+
             setStatusText();
         }
 
@@ -222,11 +223,10 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
             final Intent intentRevoke =
                     new Intent(ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS).addFlags(FLAG_ACTIVITY_NEW_TASK);
 
-            if (!isIgnoringBatteryOptimizations(requireContext())) {
-                startActivity(intentGrant);
-                sendPermissionResult();
-            } else {
+            if (isIgnoringBatteryOptimizations(requireContext())) {
                 displayRevocationDialog(intentRevoke);
+            } else {
+                startActivity(intentGrant);
             }
         }
 
@@ -247,10 +247,8 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                         .setIcon(R.drawable.ic_notifications)
                         .setTitle(R.string.notifications_dialog_title)
                         .setMessage(R.string.notifications_dialog_text)
-                        .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                            startActivity(intent);
-                            sendPermissionResult();
-                        })
+                        .setPositiveButton(android.R.string.ok, (dialog, which) ->
+                                startActivity(intent))
                         .setNegativeButton(android.R.string.cancel, null)
                         .show();
             } else {
@@ -260,8 +258,6 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                     startActivity(intent);
                 }
             }
-
-            sendPermissionResult();
         }
 
         /**
@@ -274,7 +270,6 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
 
                 if (!areFullScreenNotificationsEnabled(requireContext())) {
                     startActivity(intent);
-                    sendPermissionResult();
                 } else {
                     displayRevocationDialog(intent);
                 }
@@ -332,25 +327,10 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                     .setIcon(R.drawable.ic_key_off)
                     .setTitle(R.string.permission_dialog_revoke_title)
                     .setMessage(R.string.revoke_permission_dialog_message)
-                    .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                        startActivity(intent);
-                        sendPermissionResult();
-                    })
+                    .setPositiveButton(android.R.string.ok, (dialog, which) ->
+                            startActivity(intent))
                     .setNegativeButton(android.R.string.cancel, null)
                     .show();
-        }
-
-        /**
-         * Sends the result of a permission request to the calling activity or parent fragment.
-         * If the permission is granted, a result indicating success is sent.
-         * This can be used by the calling component to perform any subsequent actions based on the permission result.
-         */
-        private void sendPermissionResult() {
-            if (requireActivity() instanceof SettingsActivity) {
-                requireActivity().setResult(REQUEST_CHANGE_SETTINGS);
-            } else {
-                requireActivity().setResult(REQUEST_CHANGE_PERMISSIONS);
-            }
         }
 
         /**
@@ -418,6 +398,11 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
             return !isIgnoringBatteryOptimizations(context)
                     || !areNotificationsEnabled(context)
                     || SdkUtils.isAtLeastAndroid14() && !areFullScreenNotificationsEnabled(context);
+        }
+
+        private void updateEssentialPermissionsPref() {
+            boolean granted = !areEssentialPermissionsNotGranted(requireContext());
+            mPrefs.edit().putBoolean(KEY_ESSENTIAL_PERMISSIONS_GRANTED, granted).apply();
         }
 
         private void updateCardViews(boolean isCardBackgroundDisplayed, boolean isCardBorderDisplayed) {

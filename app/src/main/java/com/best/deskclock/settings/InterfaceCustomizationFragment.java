@@ -2,7 +2,6 @@
 
 package com.best.deskclock.settings;
 
-import static com.best.deskclock.DeskClock.REQUEST_CHANGE_SETTINGS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_CARD_BACKGROUND;
@@ -106,14 +105,16 @@ public class InterfaceCustomizationFragment extends ScreenFragment
     @Override
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
-            case KEY_THEME, KEY_ACCENT_COLOR, KEY_DARK_MODE, KEY_NIGHT_ACCENT_COLOR -> {
+            case KEY_THEME, KEY_ACCENT_COLOR, KEY_DARK_MODE, KEY_NIGHT_ACCENT_COLOR,
+                 KEY_TAB_TITLE_VISIBILITY, KEY_TAB_TO_DISPLAY  -> {
                 final ListPreference listPreference = (ListPreference) pref;
                 final int index = listPreference.findIndexOfValue((String) newValue);
                 listPreference.setSummary(listPreference.getEntries()[index]);
             }
 
             case KEY_AUTO_NIGHT_ACCENT_COLOR, KEY_CARD_BACKGROUND, KEY_CARD_BORDER,
-                 KEY_FADE_TRANSITIONS, KEY_VIBRATIONS, KEY_TOOLBAR_TITLE ->
+                 KEY_FADE_TRANSITIONS, KEY_VIBRATIONS, KEY_TOOLBAR_TITLE, KEY_TAB_INDICATOR,
+                 KEY_KEEP_SCREEN_ON ->
                     Utils.setVibrationTime(requireContext(), 50);
 
             case KEY_CUSTOM_LANGUAGE_CODE -> {
@@ -121,26 +122,6 @@ public class InterfaceCustomizationFragment extends ScreenFragment
                 mCustomLanguageCodePref.setSummary(mCustomLanguageCodePref.getEntries()[index]);
                 requireContext().sendBroadcast(new Intent(ACTION_LANGUAGE_CODE_CHANGED));
                 isLanguageChanged = true;
-            }
-
-            case KEY_TAB_TO_DISPLAY -> {
-                final int index = mTabToDisplayPref.findIndexOfValue((String) newValue);
-                mTabToDisplayPref.setSummary(mTabToDisplayPref.getEntries()[index]);
-                // Set result so DeskClock knows to refresh itself
-                requireActivity().setResult(REQUEST_CHANGE_SETTINGS);
-            }
-
-            case KEY_TAB_TITLE_VISIBILITY -> {
-                final int index = mTabTitleVisibilityPref.findIndexOfValue((String) newValue);
-                mTabTitleVisibilityPref.setSummary(mTabTitleVisibilityPref.getEntries()[index]);
-                // Set result so DeskClock knows to refresh itself
-                requireActivity().setResult(REQUEST_CHANGE_SETTINGS);
-            }
-
-            case KEY_TAB_INDICATOR, KEY_KEEP_SCREEN_ON -> {
-                Utils.setVibrationTime(requireContext(), 50);
-                // Set result so DeskClock knows to refresh itself
-                requireActivity().setResult(REQUEST_CHANGE_SETTINGS);
             }
 
         }

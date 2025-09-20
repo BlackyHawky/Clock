@@ -26,13 +26,18 @@ import android.os.Vibrator;
 import android.view.MotionEvent;
 import android.view.View;
 
+import androidx.core.util.Function;
+
 import com.best.deskclock.BuildConfig;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 
 import java.text.NumberFormat;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class Utils {
 
@@ -220,6 +225,25 @@ public class Utils {
             }
         }
     }
+
+    /**
+     * Initializes a cache map holding the current values of the given preferences.
+     * <p>
+     * This cache is used to compare old and new values during preference changes,
+     * preventing unnecessary actions if the value has not actually changed.</p>
+     *
+     * @param keys List of preference keys to retrieve and cache.
+     * @param getter Function that returns the value for a given key.
+     * @return A map of preference keys to their current values.
+     */
+    public static Map<String, Object> initCachedValues(List<String> keys, Function<String, Object> getter) {
+        Map<String, Object> cached = new HashMap<>();
+        for (String key : keys) {
+            cached.put(key, getter.apply(key));
+        }
+        return cached;
+    }
+
 
     /**
      * Checks if the user is pressing inside of the timer circle or the stopwatch circle.

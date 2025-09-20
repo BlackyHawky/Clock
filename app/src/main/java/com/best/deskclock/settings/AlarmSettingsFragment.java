@@ -2,7 +2,6 @@
 
 package com.best.deskclock.settings;
 
-import static com.best.deskclock.DeskClock.REQUEST_CHANGE_SETTINGS;
 import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_TIMEOUT_END_OF_RINGTONE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_DISPLAY_CUSTOMIZATION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_NOTIFICATION_REMINDER_TIME;
@@ -172,8 +171,6 @@ public class AlarmSettingsFragment extends ScreenFragment
                 stopRingtonePreview();
                 mAlarmVolumePref.setVisible(!(boolean) newValue);
                 Utils.setVibrationTime(requireContext(), 50);
-                // Set result so DeskClock knows to refresh itself
-                requireActivity().setResult(REQUEST_CHANGE_SETTINGS);
             }
 
             case KEY_ADVANCED_AUDIO_PLAYBACK -> {
@@ -233,8 +230,6 @@ public class AlarmSettingsFragment extends ScreenFragment
             case KEY_WEEK_START -> {
                 final int index = mWeekStartPref.findIndexOfValue((String) newValue);
                 mWeekStartPref.setSummary(mWeekStartPref.getEntries()[index]);
-                // Set result so DeskClock knows to refresh itself
-                requireActivity().setResult(REQUEST_CHANGE_SETTINGS);
             }
         }
 

@@ -2,7 +2,6 @@
 
 package com.best.deskclock.settings;
 
-import static com.best.deskclock.DeskClock.REQUEST_CHANGE_SETTINGS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DEFAULT_TIME_TO_ADD_TO_TIMER;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SORT_TIMER;
@@ -92,17 +91,10 @@ public class TimerSettingsFragment extends ScreenFragment
             case KEY_TIMER_RINGTONE -> mTimerRingtonePref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
 
             case KEY_TIMER_AUTO_SILENCE, KEY_DEFAULT_TIME_TO_ADD_TO_TIMER,
-                 KEY_TIMER_CREATION_VIEW_STYLE -> {
+                 KEY_TIMER_CREATION_VIEW_STYLE, KEY_SORT_TIMER -> {
                 final ListPreference preference = (ListPreference) pref;
                 final int index = preference.findIndexOfValue((String) newValue);
                 preference.setSummary(preference.getEntries()[index]);
-            }
-
-            case KEY_SORT_TIMER -> {
-                final int index = mSortTimerPref.findIndexOfValue((String) newValue);
-                mSortTimerPref.setSummary(mSortTimerPref.getEntries()[index]);
-                // Set result so DeskClock knows to refresh itself
-                requireActivity().setResult(REQUEST_CHANGE_SETTINGS);
             }
 
             case KEY_TIMER_SHAKE_ACTION -> {

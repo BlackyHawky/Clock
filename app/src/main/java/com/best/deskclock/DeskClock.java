@@ -15,6 +15,27 @@ import static com.best.deskclock.settings.PermissionsManagementActivity.Permissi
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TAB_TITLE_VISIBILITY;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TAB_TITLE_VISIBILITY_NEVER;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_HOME_CLOCK;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_CLOCK_DIAL;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_CLOCK_DIAL_MATERIAL;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_CLOCK_SECOND_HAND;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_CLOCK_STYLE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_CLOCK_SECONDS;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_CITY_NOTE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_PER_ALARM_VOLUME;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ESSENTIAL_PERMISSIONS_GRANTED;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_HOME_TIME_ZONE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_KEEP_SCREEN_ON;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SORT_CITIES;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SORT_TIMER;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_VOLUME_DOWN_ACTION;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_VOLUME_UP_ACTION;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TAB_INDICATOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TAB_TITLE_VISIBILITY;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TAB_TO_DISPLAY;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_WEEK_START;
 import static com.best.deskclock.utils.AnimatorUtils.getScaleAnimator;
 
 import android.animation.Animator;
@@ -34,8 +55,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.StringRes;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.Toolbar;
@@ -69,6 +88,7 @@ import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.ThemeUtils;
 
+import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
 import com.best.deskclock.widgets.materialyouwidgets.MaterialYouNextAlarmAppWidgetProvider;
 import com.best.deskclock.widgets.standardwidgets.NextAlarmAppWidgetProvider;
@@ -76,6 +96,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.color.MaterialColors;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.snackbar.Snackbar;
+
+import java.util.List;
+import java.util.Map;
+import java.util.TimeZone;
 
 /**
  * The main activity of the application which displays 4 different tabs contains alarms, world
@@ -85,9 +109,6 @@ public class DeskClock extends BaseActivity
         implements FabContainer, AlarmLabelDialogHandler, AutoSilenceDurationDialogHandler,
         SnoozeDurationDialogHandler, VolumeCrescendoDurationDialogHandler,
         VolumeValueDialogHandler, CityNoteDialogHandler {
-
-    public static final int REQUEST_CHANGE_SETTINGS = 10;
-    public static final int REQUEST_CHANGE_PERMISSIONS = 20;
 
     SharedPreferences mPrefs;
 
@@ -184,29 +205,40 @@ public class DeskClock extends BaseActivity
     /**
      * {@code true} when a settings change necessitates recreating this activity.
      */
-    private boolean mRecreateActivity;
+    private boolean mShouldRecreate = false;
 
     /**
-     * Callback for getting the result from the Settings activity.
+     * List of supported preference keys used to monitor UI and behavior changes within
+     * {@link #registerClockListener()}.
+     *
+     * <p>This ensures that only relevant keys are tracked to optimize performance and avoid
+     * unnecessary activity recreation.</p>
      */
-    private final ActivityResultLauncher<Intent> getSettingsActivity = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(), (result) -> {
-                if (result.getResultCode() != REQUEST_CHANGE_SETTINGS) {
-                    return;
-                }
-                mRecreateActivity = true;
-            });
+    private static final List<String> SUPPORTED_PREF_KEYS = List.of(
+            // Interface
+            KEY_TAB_TITLE_VISIBILITY, KEY_TAB_INDICATOR, KEY_TAB_TO_DISPLAY, KEY_KEEP_SCREEN_ON,
+            // Clock
+            KEY_CLOCK_STYLE, KEY_CLOCK_DIAL, KEY_CLOCK_DIAL_MATERIAL, KEY_DISPLAY_CLOCK_SECONDS,
+            KEY_CLOCK_SECOND_HAND, KEY_SORT_CITIES, KEY_ENABLE_CITY_NOTE, KEY_AUTO_HOME_CLOCK,
+            KEY_HOME_TIME_ZONE,
+            // Alarm
+            KEY_ENABLE_PER_ALARM_VOLUME, KEY_WEEK_START,
+            // Timer
+            KEY_SORT_TIMER,
+            // Stopwatch
+            KEY_SW_VOLUME_UP_ACTION,
+            KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS,
+            KEY_SW_VOLUME_DOWN_ACTION,
+            KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS,
+            // Permission
+            KEY_ESSENTIAL_PERMISSIONS_GRANTED
+    );
 
     /**
-     * Callback for getting the result from the Permission Management activity.
+     * Listener registered to observe changes in relevant app settings.
+     * Used to trigger activity recreation only when relevant values actually change.
      */
-    private final ActivityResultLauncher<Intent> getPermissionManagementActivity = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(), (result) -> {
-                if (result.getResultCode() != REQUEST_CHANGE_PERMISSIONS) {
-                    return;
-                }
-                mRecreateActivity = true;
-            });
+    private SharedPreferences.OnSharedPreferenceChangeListener mPrefListener;
 
     @Override
     public void onNewIntent(Intent newIntent) {
@@ -232,6 +264,8 @@ public class DeskClock extends BaseActivity
         ThemeUtils.allowDisplayCutout(getWindow());
 
         setContentView(R.layout.desk_clock);
+
+        registerClockListener();
 
         mDeskClockRootView = findViewById(R.id.desk_clock_root_view);
 
@@ -390,25 +424,19 @@ public class DeskClock extends BaseActivity
     protected void onResume() {
         super.onResume();
 
+        if (mShouldRecreate) {
+            mShouldRecreate = false;
+
+            recreate();
+            return;
+        }
+
         showTabFromNotifications();
 
         // ViewPager does not save state; this honors the selected tab in the user interface.
         updateCurrentTab();
 
         updateKeepScreenOn(UiDataModel.getUiDataModel().getSelectedTab());
-    }
-
-    @Override
-    protected void onPostResume() {
-        super.onPostResume();
-
-        if (mRecreateActivity) {
-            mRecreateActivity = false;
-
-            // A runnable must be posted here or the new DeskClock activity will be recreated in a
-            // paused state, even though it is the foreground activity.
-            mFragmentTabPager.post(this::recreate);
-        }
     }
 
     @Override
@@ -423,6 +451,7 @@ public class DeskClock extends BaseActivity
 
     @Override
     protected void onDestroy() {
+        unregisterClockListener();
         UiDataModel.getUiDataModel().removeTabListener(mTabChangeWatcher);
         super.onDestroy();
     }
@@ -447,15 +476,14 @@ public class DeskClock extends BaseActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == 0) {
             final Intent settingIntent = new Intent(this, SettingsActivity.class);
-            getSettingsActivity.launch(settingIntent);
+            startActivity(settingIntent);
+            return true;
+        } else if (item.getItemId() == 1) {
+            final Intent permissionManagementIntent = new Intent(this, PermissionsManagementActivity.class);
+            startActivity(permissionManagementIntent);
             return true;
         }
 
-        if (item.getItemId() == 1) {
-            final Intent permissionManagementIntent = new Intent(this, PermissionsManagementActivity.class);
-            getPermissionManagementActivity.launch(permissionManagementIntent);
-            return true;
-        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -579,6 +607,99 @@ public class DeskClock extends BaseActivity
             return true;
         }
         return false;
+    }
+
+    /**
+     * Registers a SharedPreferences listener to monitor relevant app settings.
+     *
+     * <p>When a supported preference changes and its value is different from the cached one,
+     * the activity is recreated to reflect the updated setting.</p>
+     */
+    private void registerClockListener() {
+        // Important: we use a cached map of preference values to avoid unnecessary activity recreation
+        // when initializing the preference screen.
+        // Without this check, any preference change (even with the same value) triggers recreate(),
+        // which causes significant slowdown when opening the settings screen,
+        // especially on low-end devices due to how Preferences are initialized.
+        Map<String, Object> cachedValues = Utils.initCachedValues(SUPPORTED_PREF_KEYS, this::getPreferenceValue);
+
+        mPrefListener = (sharedPreferences, key) -> {
+            if (key == null || !cachedValues.containsKey(key)) {
+                return;
+            }
+
+            Object oldValue = cachedValues.get(key);
+            Object newValue = getPreferenceValue(key);
+
+            // Si la valeur n'a pas changé, on ne fait rien
+            if (newValue == null || newValue.equals(oldValue)) {
+                return;
+            }
+
+            cachedValues.put(key, newValue);
+
+            switch (key) {
+                case KEY_TAB_TITLE_VISIBILITY, KEY_TAB_INDICATOR, KEY_TAB_TO_DISPLAY, KEY_KEEP_SCREEN_ON,
+                     KEY_CLOCK_STYLE, KEY_CLOCK_DIAL, KEY_CLOCK_DIAL_MATERIAL, KEY_DISPLAY_CLOCK_SECONDS,
+                     KEY_CLOCK_SECOND_HAND, KEY_SORT_CITIES, KEY_ENABLE_CITY_NOTE, KEY_AUTO_HOME_CLOCK,
+                     KEY_HOME_TIME_ZONE, KEY_ENABLE_PER_ALARM_VOLUME, KEY_WEEK_START, KEY_SORT_TIMER,
+                     KEY_SW_VOLUME_UP_ACTION, KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS,
+                     KEY_SW_VOLUME_DOWN_ACTION, KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS,
+                     KEY_ESSENTIAL_PERMISSIONS_GRANTED -> mShouldRecreate = true;
+
+            }
+        };
+
+        mPrefs.registerOnSharedPreferenceChangeListener(mPrefListener);
+    }
+
+    /**
+     * Unregisters the internal listener to avoid memory leaks.
+     */
+    private void unregisterClockListener() {
+        if (mPrefListener != null) {
+            mPrefs.unregisterOnSharedPreferenceChangeListener(mPrefListener);
+        }
+    }
+
+    /**
+     * Retrieves the value of the preference associated with the given key from SharedPreferences,
+     * returning a suitable default value based on the key.
+     *
+     * @param key The preference key to retrieve.
+     */
+    private Object getPreferenceValue(String key) {
+        return switch (key) {
+            // Interface
+            case KEY_TAB_TITLE_VISIBILITY -> SettingsDAO.getTabTitleVisibility(mPrefs);
+            case KEY_TAB_INDICATOR -> SettingsDAO.isTabIndicatorDisplayed(mPrefs);
+            case KEY_TAB_TO_DISPLAY -> SettingsDAO.getTabToDisplay(mPrefs);
+            case KEY_KEEP_SCREEN_ON -> SettingsDAO.shouldScreenRemainOn(mPrefs);
+            // Clock
+            case KEY_CLOCK_STYLE -> SettingsDAO.getClockStyle(mPrefs);
+            case KEY_CLOCK_DIAL -> SettingsDAO.getClockDial(mPrefs);
+            case KEY_CLOCK_DIAL_MATERIAL -> SettingsDAO.getClockDialMaterial(mPrefs);
+            case KEY_DISPLAY_CLOCK_SECONDS -> SettingsDAO.areClockSecondsDisplayed(mPrefs);
+            case KEY_CLOCK_SECOND_HAND -> SettingsDAO.getClockSecondHand(mPrefs);
+            case KEY_SORT_CITIES -> SettingsDAO.getCitySorting(mPrefs);
+            case KEY_ENABLE_CITY_NOTE -> SettingsDAO.isCityNoteEnabled(mPrefs);
+            case KEY_AUTO_HOME_CLOCK -> SettingsDAO.getAutoShowHomeClock(mPrefs);
+            case KEY_HOME_TIME_ZONE -> SettingsDAO.getHomeTimeZone(this, mPrefs, TimeZone.getDefault());
+            // Alarm
+            case KEY_ENABLE_PER_ALARM_VOLUME -> SettingsDAO.isPerAlarmVolumeEnabled(mPrefs);
+            case KEY_WEEK_START -> SettingsDAO.getWeekdayOrder(mPrefs);
+            // Timer
+            case KEY_SORT_TIMER -> SettingsDAO.getTimerSortingPreference(mPrefs);
+            // StopWatch
+            case KEY_SW_VOLUME_UP_ACTION -> SettingsDAO.getVolumeUpActionForStopwatch(mPrefs);
+            case KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS -> SettingsDAO.getVolumeUpActionAfterLongPressForStopwatch(mPrefs);
+            case KEY_SW_VOLUME_DOWN_ACTION -> SettingsDAO.getVolumeDownActionForStopwatch(mPrefs);
+            case KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS -> SettingsDAO.getVolumeDownActionAfterLongPressForStopwatch(mPrefs);
+            // Permission
+            case KEY_ESSENTIAL_PERMISSIONS_GRANTED -> mPrefs.getBoolean(key, false);
+
+            default -> null;
+        };
     }
 
     private final NavigationBarView.OnItemSelectedListener mNavigationListener = item -> {
