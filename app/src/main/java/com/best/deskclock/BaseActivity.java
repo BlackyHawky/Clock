@@ -36,12 +36,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 
+import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import com.best.deskclock.data.SettingsDAO;
-import com.best.deskclock.uicomponents.CollapsingToolbarBaseActivity;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
@@ -116,13 +116,9 @@ public class BaseActivity extends AppCompatActivity {
 
         applyDarkThemeVariant(theme, darkMode);
 
-        applyAccentColor(isAutoNightAccentColorEnabled, accentColor, nightAccentColor);
+        applyAccentColor(isAutoNightAccentColorEnabled, accentColor, nightAccentColor, darkMode);
 
-        if (this instanceof CollapsingToolbarBaseActivity) {
-            applyNavBarColorForCollapsingToolbarActivity(darkMode);
-        } else {
-            applyNavBarColor(darkMode);
-        }
+        applyNavigationBarColor(darkMode);
     }
 
     /**
@@ -130,7 +126,7 @@ public class BaseActivity extends AppCompatActivity {
      */
     private void applyDarkThemeVariant(String theme, String darkMode) {
         if (darkMode.equals(DEFAULT_DARK_MODE)) {
-            appySystemNightMode(theme);
+            applySystemNightMode(theme);
         } else if (darkMode.equals(AMOLED_DARK_MODE) && !theme.equals(SYSTEM_THEME) && !theme.equals(LIGHT_THEME)) {
             setTheme(R.style.AmoledTheme);
         }
@@ -146,8 +142,8 @@ public class BaseActivity extends AppCompatActivity {
      * @param accentColor                   The regular accent color value.
      * @param nightAccentColor              The night accent color value.
      */
-    private void applyAccentColor(boolean isAutoNightAccentColorEnabled,
-                                  String accentColor, String nightAccentColor) {
+    private void applyAccentColor(boolean isAutoNightAccentColorEnabled, String accentColor,
+                                  String nightAccentColor, String darkMode) {
 
         String color = isAutoNightAccentColorEnabled
                 ? accentColor
@@ -166,62 +162,35 @@ public class BaseActivity extends AppCompatActivity {
             case RED_ACCENT_COLOR -> setTheme(R.style.RedAccentColor);
             case YELLOW_ACCENT_COLOR -> setTheme(R.style.YellowAccentColor);
         }
-    }
 
-    /**
-     * Applies a color to the navigation bar for activities that extend "CollapsingToolbarBaseActivity".
-     */
-    private void applyNavBarColorForCollapsingToolbarActivity(String darkMode) {
-        boolean isAmoledDarkMode = ThemeUtils.isNight(getResources()) && darkMode.equals(AMOLED_DARK_MODE);
-
-        if (SdkUtils.isAtLeastAndroid10()) {
-            getWindow().setNavigationBarContrastEnforced(false);
-
-            if (isAmoledDarkMode) {
-                getWindow().getDecorView().setBackgroundColor(Color.BLACK);
-            }
-        } else {
-            if (isAmoledDarkMode) {
-                getWindow().getDecorView().setBackgroundColor(Color.BLACK);
-                getWindow().setNavigationBarColor(Color.BLACK);
-            } else {
-                getWindow().setNavigationBarColor(
-                        MaterialColors.getColor(this, android.R.attr.colorBackground, Color.BLACK));
-            }
+        if (ThemeUtils.isNight(getResources()) && darkMode.equals(AMOLED_DARK_MODE)) {
+            getWindow().getDecorView().setBackgroundColor(Color.BLACK);
         }
     }
 
     /**
-     * Applies a color to the navigation bar for activities that don't extend "CollapsingToolbarBaseActivity".
+     * Applies a color to the navigation bar for activities.
      */
-    private void applyNavBarColor(String darkMode) {
-        boolean isAmoledDarkMode = ThemeUtils.isNight(getResources()) && darkMode.equals(AMOLED_DARK_MODE);
-        boolean isCardBackgroundDisplayed = SettingsDAO.isCardBackgroundDisplayed(mPrefs);
-
+    private void applyNavigationBarColor(String darkMode) {
         if (SdkUtils.isAtLeastAndroid10()) {
-            if (isAmoledDarkMode) {
-                getWindow().getDecorView().setBackgroundColor(Color.BLACK);
-            } else if (this instanceof DeskClock) {
-                getWindow().setNavigationBarColor(MaterialColors.getColor(this, isCardBackgroundDisplayed
-                        ? com.google.android.material.R.attr.colorSurface
-                        : android.R.attr.colorBackground, Color.BLACK));
-            } else {
+            if (this instanceof DeskClock) {
+                EdgeToEdge.enable(this);
                 getWindow().setNavigationBarContrastEnforced(false);
             }
         } else {
             boolean isPhoneInLandscapeMode = !ThemeUtils.isTablet() && ThemeUtils.isLandscape();
+            boolean isCardBackgroundDisplayed = SettingsDAO.isCardBackgroundDisplayed(mPrefs);
 
-            if (isAmoledDarkMode) {
-                getWindow().getDecorView().setBackgroundColor(Color.BLACK);
+            if (ThemeUtils.isNight(getResources()) && darkMode.equals(AMOLED_DARK_MODE)) {
                 getWindow().setNavigationBarColor(Color.BLACK);
             } else if (this instanceof DeskClock) {
                 getWindow().setNavigationBarColor(MaterialColors.getColor(this,
                         isPhoneInLandscapeMode || !isCardBackgroundDisplayed
-                        ? android.R.attr.colorBackground
-                        : com.google.android.material.R.attr.colorSurface, Color.BLACK));
+                                ? android.R.attr.colorBackground
+                                : com.google.android.material.R.attr.colorSurface, Color.BLACK));
             } else {
-                getWindow().setNavigationBarColor(
-                        MaterialColors.getColor(this, android.R.attr.colorBackground, Color.BLACK));
+                getWindow().setNavigationBarColor(MaterialColors.getColor(this,
+                        android.R.attr.colorBackground, Color.BLACK));
             }
         }
     }
@@ -236,7 +205,7 @@ public class BaseActivity extends AppCompatActivity {
      *
      * @param theme The theme value (corresponding to {@code KEY_THEME}) to apply.
      */
-    private void appySystemNightMode(String theme) {
+    private void applySystemNightMode(String theme) {
         switch (theme) {
             case SYSTEM_THEME -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
             case LIGHT_THEME -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
@@ -293,7 +262,7 @@ public class BaseActivity extends AppCompatActivity {
             switch (key) {
                 case KEY_THEME -> {
                     String getTheme = SettingsDAO.getTheme(sharedPreferences);
-                    appySystemNightMode(getTheme);
+                    applySystemNightMode(getTheme);
                 }
                 case KEY_ACCENT_COLOR, KEY_CUSTOM_LANGUAGE_CODE -> recreate();
 

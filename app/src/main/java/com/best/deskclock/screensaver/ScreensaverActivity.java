@@ -81,8 +81,6 @@ public class ScreensaverActivity extends BaseActivity {
         setContentView(R.layout.desk_clock_saver);
         mContentView = findViewById(R.id.saver_container);
 
-        ScreensaverUtils.hideScreensaverSystemBars(getWindow(), mContentView);
-
         mMainClockView = findViewById(R.id.main_clock);
 
         ScreensaverUtils.setScreensaverMarginsAndClockStyle(this, mMainClockView);
@@ -117,6 +115,8 @@ public class ScreensaverActivity extends BaseActivity {
     @Override
     public void onResume() {
         super.onResume();
+
+        ScreensaverUtils.hideScreensaverSystemBars(getWindow(), mContentView);
 
         ClockUtils.updateDate(mDateFormat, mDateFormatForAccessibility, mContentView);
         AlarmUtils.refreshAlarm(ScreensaverActivity.this, mContentView);
@@ -160,10 +160,10 @@ public class ScreensaverActivity extends BaseActivity {
         if (SdkUtils.isAtLeastAndroid11()) {
             WindowInsetsController insetsController = win.getInsetsController();
             if (insetsController != null) {
-                insetsController.hide(WindowInsets.Type.statusBars());
                 insetsController.setSystemBarsBehavior(
                         WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
                 );
+                insetsController.hide(WindowInsets.Type.systemBars());
             }
         } else {
             winParams.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
