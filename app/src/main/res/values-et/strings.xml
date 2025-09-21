@@ -447,7 +447,7 @@
     <string name="alarm_clock_font_size">Äratuskella kirjatüübi suurus</string>
     <string name="alarm_title_font_size">Äratuse nime kirjatüübi suurus</string>
     <string name="transparent_background_for_expired_timer_title">Taimerite aegumisel kuva läbipaistev taust</string>
-    <string name="second_hand_color_title">Sekundiostuti värv</string>
+    <string name="second_hand_color_title">Sekundiseieri värv</string>
     <string name="alarm_title_color">Äratuse nime värv</string>
     <string name="whats_new_dialog_message">Vaata uuendusi:
 \n
@@ -461,7 +461,7 @@
     <string name="hour_default_color_title">Tundide jaoks kasuta vaikimisi värve</string>
     <string name="hour_color_title">Sinu valitud värvid tundide jaoks</string>
     <string name="minute_default_color_title">Minutite jaoks kasuta vaikimisi värve</string>
-    <string name="minute_color_title">Sinu valitud värvid minutite jaoks</string>
+    <string name="minute_color_title">Minuti värv</string>
     <string name="material_you_vertical_digital_widget">Material You kujunduses püstine digikell</string>
     <string name="standard_category_title">Tavavälimus</string>
     <string name="material_you_category_title">Material You</string>
@@ -648,4 +648,31 @@
     <string name="enable_per_alarm_volume_summary">Detailsest äratuse vaatest saad igale äratusele määrata eraldi valjuse</string>
     <string name="enable_per_alarm_volume_title">Kasuta iga äratuse puhul eraldi valjust</string>
     <string name="delay_picker_dialog_title">Äratuse aeg…</string>
+    <string name="colors_category_title">Värvid</string>
+    <string name="clock_second_hand_title">Teine seier</string>
+    <string name="clock_second_hand_vintage">Vanaaegne</string>
+    <string name="clock_dial_sun">Päike</string>
+    <string name="clock_dial_flower">Lill</string>
+    <string name="dial_color_title">Sihverplaadi värv</string>
+    <string name="dial_default_color_title">Kasuta sihverplaadi jaoks vaikimisi värvi</string>
+    <string name="hour_hand_color_title">Tunniseieri värv</string>
+    <string name="hour_hand_default_color_title">Kasuta tunniseieri jaoks vaikimisi värvi</string>
+    <string name="minute_hand_color_title">Minutiseieri värv</string>
+    <string name="minute_hand_default_color_title">Kasuta minutiseieri jaoks vaikimisi värvi</string>
+    <string name="second_hand_default_color_title">Kasuta sekundiseieri jaoks vaikimisi värvi</string>
+    <string name="clock_dial_without_numbers">Numbriteta</string>
+    <string name="clock_dial_title">Sihverplaat</string>
+    <string name="background_default_color_title">Kasuta tausta jaoks vaikimisi värvi</string>
+    <string name="clock_dial_with_numbers">Numbritega</string>
+    <string name="sort_alarm_title">Äratuste järjestamine</string>
+    <string name="sort_alarm_time">Äratuse aja alusel</string>
+    <string name="sort_next_alarm_time">Järgmise äratuse aja alusel</string>
+    <string name="display_enabled_alarms_first_title">Näita kasutusel olevaid äratusi esimesena</string>
+    <string name="sort_cities_title">Järjesta linnasid</string>
+    <string name="enable_city_note_title">Lisa linnale oma märkus</string>
+    <string name="enable_city_note_summary">Klõpsi linna nimel ja lisa endale vajalik märkus</string>
+    <string name="city_note_dialog_title">Märkus linnale %s</string>
+    <string name="sort_cities_ascending_time_zone">Ajavööndi alusel (kasvavalt)</string>
+    <string name="sort_cities_descending_time_zone">Ajavööndi alusel (kahanevalt)</string>
+    <string name="city_search_hint">Otsi linna</string>
 </resources>

@@ -8,7 +8,7 @@
     <string name="default_label" msgid="5590025289805630372">"Alarme"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Vibrar"</string>
     <string name="time_picker_dialog_title">Selecionar hora</string>
-    <string name="date_picker_dialog_title">Selecione a data</string>
+    <string name="date_picker_dialog_title">Selecione Data</string>
     <string name="delete" msgid="5732434972457000541">"Eliminar"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Som de alarme predefinido"</string>
     <string name="alarm_sound" msgid="8754499591391638405">"Som de alarme"</string>
@@ -31,7 +31,7 @@
         <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> min</item>
         <item quantity="many"><xliff:g id="NUMBER">%d</xliff:g> min</item>
     </plurals>
-    <string name="alarm_alert_off_text" msgid="4472073417593915002">"Alarme desl."</string>
+    <string name="alarm_alert_off_text" msgid="4472073417593915002">Alarme desligado</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Suspender"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
         <item quantity="one">Suspenso durante <xliff:g id="MINUTES">%d</xliff:g> minuto</item>
@@ -140,19 +140,19 @@
     <string name="hours_label" msgid="3393478155635368097">"h"</string>
     <string name="minutes_label" msgid="3568098128251438588">"m"</string>
     <string name="seconds_label" msgid="124655952824003246">"s"</string>
-    <string name="timer_setup_description" msgid="2488277921227564704">"<xliff:g id="HOURS">%1$s</xliff:g>, <xliff:g id="MINUTES">%2$s</xliff:g>, <xliff:g id="SECONDS">%3$s</xliff:g>"</string>
-    <string name="lap_number_single_digit" msgid="1051159504304610877">"N.º <xliff:g id="LAPNUMBER">%d</xliff:g>"</string>
-    <string name="lap_number_double_digit" msgid="2138536756534362037">"N.º <xliff:g id="LAPNUMBER">%02d</xliff:g>"</string>
-    <string name="sw_share_main" msgid="7703563468204234405">"O meu tempo é <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="timer_setup_description" msgid="2488277921227564704"><xliff:g example="1 hour" id="hours">%1$s</xliff:g>, <xliff:g example="15 minutes" id="minutes">%2$s</xliff:g>, <xliff:g example="30 seconds" id="seconds">%3$s</xliff:g></string>
+    <string name="lap_number_single_digit" msgid="1051159504304610877"># <xliff:g id="lapNumber">%d</xliff:g></string>
+    <string name="lap_number_double_digit" msgid="2138536756534362037"># <xliff:g id="lapNumber">%02d</xliff:g></string>
+    <string name="sw_share_main" msgid="7703563468204234405">A minha hora é <xliff:g id="time">%s</xliff:g></string>
     <string name="sw_share_laps" msgid="614390674795945007">"Tempos de volta:"</string>
-    <string name="sw_notification_lap_number" msgid="3535420316052647126">"Volta <xliff:g id="NUMBER">%d</xliff:g>"</string>
+    <string name="sw_notification_lap_number" msgid="3535420316052647126">Volta <xliff:g id="number">%d</xliff:g></string>
     <string name="timer_add_timer" msgid="862733633862574752">"Adicionar Temporizador"</string>
     <string name="timer_start" msgid="6158486445614356442">"Iniciar"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"Eliminar <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
     <string name="timer_add_custom_time_description" msgid="6631211310420106116">"Adicionar %s Minuto"</string>
     <string name="timer_add_custom_time_for_notification" msgid="8645224089494875062">"Adicionar %s min"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Parar"</string>
-    <string name="timer_stop_all" msgid="9080780442843034376">"Parar todos os temporiz."</string>
+    <string name="timer_stop_all" msgid="9080780442843034376">Parar todos os temporizadores</string>
     <string name="timer_canceled" msgid="7327923392567128060">"Temporizador cancelado"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Terminou o tempo"</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> temporizadores expiraram"</string>
@@ -160,9 +160,9 @@
     <string name="timer_notification_label" msgid="4933184831583137249">"Temporizador"</string>
     <string name="missed_named_timer_notification_label" msgid="665604640028289175">"Temporizador perdido: <xliff:g id="NAME">%s</xliff:g>"</string>
     <string name="timer_pause" msgid="3748323712728398743">"Interromper"</string>
-    <string name="timer_reset_all" msgid="7530633132757866087">"Repor tds temp."</string>
-    <string name="hours_minutes_seconds" msgid="5680088738059791288">"<xliff:g id="HOURS">%1$d</xliff:g>:<xliff:g id="MINUTES">%2$02d</xliff:g>:<xliff:g id="SECONDS">%3$02d</xliff:g>"</string>
-    <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
+    <string name="timer_reset_all" msgid="7530633132757866087">Reiniciar todos temporizadores</string>
+    <string name="hours_minutes_seconds" msgid="5680088738059791288"><xliff:g example="2" id="hours">%1$d</xliff:g>:<xliff:g example="3" id="minutes">%2$02d</xliff:g>:<xliff:g example="44" id="seconds">%3$02d</xliff:g></string>
+    <string name="minutes_seconds" msgid="6189446107009577914"><xliff:g example="3" id="minutes">%1$d</xliff:g>:<xliff:g example="44" id="seconds">%2$02d</xliff:g></string>
     <string name="jocular_content_message_1">"É um verdadeiro ás da velocidade."</string>
     <string name="jocular_content_message_2">"Aproveite os frutos do seu trabalho."</string>
     <string name="jocular_content_message_3">"Os Androids são conhecidos por serem rápidos, mas não tão rápidos como você!"</string>
@@ -177,15 +177,15 @@
     <string name="cities_activity_title" msgid="8552462751129256730">"Cidades"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Relógio"</string>
     <string name="clock_style" msgid="2265011060429742344">"Estilo"</string>
-    <string name="display_clock_seconds_pref" msgid="691506643469501643">"Apresentar tempo com segundos"</string>
+    <string name="display_clock_seconds_pref" msgid="691506643469501643">Exibir hora com segundos</string>
     <string name="open_date_settings" msgid="7712226973337806152">"Alterar data e hora"</string>
     <string name="clock_style_analog">Analógico</string>
     <string name="clock_style_digital">Digital</string>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Relógio de casa automático"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Ao viajar para outro fuso horário, adicione um relógio com a hora do local onde habita."</string>
-    <string name="home_time_zone" msgid="9199730676287974501">"Fuso horário inicial"</string>
-    <string name="city_checked" msgid="616847871968019">"<xliff:g id="CITY_NAME">%s</xliff:g> marcado(a)"</string>
-    <string name="city_unchecked" msgid="710212932781145918">"<xliff:g id="CITY_NAME">%s</xliff:g> desmarcado(a)"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">Ao viajar numa área onde a hora é diferente, adicione um relógio com a hora de casa</string>
+    <string name="home_time_zone" msgid="9199730676287974501">Meu fuso horário</string>
+    <string name="city_checked" msgid="616847871968019"><xliff:g id="city_name">%s</xliff:g> marcado</string>
+    <string name="city_unchecked" msgid="710212932781145918"><xliff:g id="city_name">%s</xliff:g> desmarcado</string>
     <string-array name="timezone_labels">
         <item msgid="5495601234086197399">"Ilhas Marshall"</item>
         <item msgid="4196408495909011020">"Ilha de Midway"</item>
@@ -281,23 +281,23 @@
     <string name="shortcut_new_timer_long" msgid="5194092459678096067">"Criar novo temporizador"</string>
     <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">"Iniciar"</string>
     <string name="shortcut_start_stopwatch_long" msgid="9183061797046030376">"Iniciar cronómetro"</string>
-    <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"Interromper"</string>
-    <string name="shortcut_pause_stopwatch_long" msgid="435026905074898334">"Interromper cronómetro"</string>
+    <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">Pausar</string>
+    <string name="shortcut_pause_stopwatch_long" msgid="435026905074898334">Pausar cronómetro</string>
     <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"Prot. ecrã"</string>
-    <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Iniciar proteção de ecrã"</string>
+    <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">Iniciar protetor de ecrã</string>
     <string name="alarm_settings" msgid="2947147071388290814">"Alarmes"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Processa as ações das notificações do temporizador."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Processa as ações das notificações do cronómetro."</string>
-    <string name="swn_paused" msgid="6364358842808263589">"Em pausa"</string>
-    <string name="description_direction_both" msgid="1841309486023845685">"Deslizar rapidamente para a esquerda para suspender ou para a direita para ignorar"</string>
+    <string name="swn_paused" msgid="6364358842808263589">Pausado</string>
+    <string name="description_direction_both" msgid="1841309486023845685">Deslizar para a esquerda para adiar ou direita para ignorar</string>
     <string name="timer_settings" msgid="7955522143086154795">"Temporizadores"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Vibração do temporizador"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Temporizador interrompido"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> temporizadores"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Expandir alarme"</string>
-    <string name="collapse_alarm" msgid="3561772046433483980">"Reduzir alarme"</string>
+    <string name="collapse_alarm" msgid="3561772046433483980">Ocultar alarme</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Alarme eliminado"</string>
-    <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="LABEL">%s</xliff:g></string>
+    <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="label">%s</xliff:g></string>
     <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> à frente"</string>
     <string name="world_time_behind" msgid="5395771290726167865">"<xliff:g id="TIME">%1$s</xliff:g> atrás"</string>
     <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> à frente"</string>
@@ -305,15 +305,15 @@
     <string name="world_hours_tomorrow" msgid="2504465609269004794">"Amanhã à(s) <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="world_hours_yesterday" msgid="4425086322610882745">"Ontem à(s) <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Próximo alarme: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="no_alarms" msgid="6429431324842022917">"Sem alarmes"</string>
-    <string name="invalid_time" msgid="2782334750243998633">"Hora inválida <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
-    <string name="no_alarm_at" msgid="8140632482969193119">"Nenhum alarme às <xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>"</string>
+    <string name="no_alarms" msgid="6429431324842022917">Sem Alarmes</string>
+    <string name="invalid_time" msgid="2782334750243998633">Hora inválida <xliff:g example="25" id="invalid_hour">%1$d</xliff:g>:<xliff:g example="63" id="invalid_minutes">%2$d</xliff:g> <xliff:g example="PM" id="invalid_ampm">%3$s</xliff:g></string>
+    <string name="no_alarm_at" msgid="8140632482969193119">Nenhum alarme às <xliff:g example="14" id="alarm_time_hour">%1$d</xliff:g>:<xliff:g example="23" id="alarm_time_minutes">%2$d</xliff:g></string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"Nenhum alarme programado"</string>
     <string name="no_label_specified" msgid="2008482054428460626">"Nenhuma etiqueta especificada"</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"Nenhum alarme contém a etiqueta"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Nenhum alarme programado para esta hora"</string>
-    <string name="alarm_is_dismissed" msgid="5509897230565826642">"Alarme das <xliff:g id="ALARM_TIME">%s</xliff:g> ignorado"</string>
-    <string name="alarm_is_set" msgid="5503226382620011088">"O alarme está definido para <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="alarm_is_dismissed" msgid="5509897230565826642">Alarme das <xliff:g example="14:20" id="alarm_time">%s</xliff:g> ignorado</string>
+    <string name="alarm_is_set" msgid="5503226382620011088">O alarme está definido para <xliff:g example="14:20" id="alarm_time">%s</xliff:g></string>
     <string name="timer_created" msgid="4381027137335885547">"Temporizador criado"</string>
     <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
         <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> temporizador ignorado</item>
@@ -323,11 +323,11 @@
     <string name="invalid_timer_length" msgid="3104567893212932487">"Duração inválida do temporizador"</string>
     <string name="invalid_timer" msgid="900957020728335675">"Temporizador inválido selecionado"</string>
     <string name="no_expired_timers" msgid="4624192298397846876">"Nenhum temporizador expirado"</string>
-    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Ainda não é possível ignorar o alarme das <xliff:g id="ALARM_TIME">%s</xliff:g>, pois ocorre num período posterior a 24 horas"</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">Ainda não é possível ignorar o alarme das <xliff:g example="14:20" id="alarm_time">%s</xliff:g>, ainda faltam mais de 24 horas</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Ignorar alarme"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Selecionar o alarme a ignorar"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"Nenhum alarme acionado"</string>
-    <string name="alarm_is_snoozed" msgid="7044644119744928846">"Alarme das <xliff:g id="ALARM_TIME">%s</xliff:g> suspenso durante 10 minutos"</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846">Alarme das <xliff:g example="14:20" id="alarm_time">%s</xliff:g> suspenso por 10 minutos</string>
     <string name="flip_action_title">Ação ao virar o dispositivo</string>
     <string name="shake_action_title">Ação ao agitar o dispositivo</string>
     <string name="firing_alarms_timers_channel">Disparo de alarmes e temporizadores</string>
@@ -336,4 +336,155 @@
     <string name="alarm_upcoming_channel">Próximos alarmes</string>
     <string name="stopwatch_channel">Cronómetro</string>
     <string name="timer_channel">Temporizador</string>
+    <string name="schedule_alarm_title">Agendar alarme</string>
+    <string name="alarm_flash">Flash</string>
+    <string name="delete_occasional_alarm_after_use_title">Eliminar alarme assim que ignorado</string>
+    <string name="delay_picker_dialog_title">Alarme em…</string>
+    <string name="alarm_label_box_title">Etiqueta do alarme</string>
+    <string name="label_default">Predefinição</string>
+    <string name="duplicate">Duplicar</string>
+    <string name="warning">Aviso</string>
+    <string name="label_hours">Horas</string>
+    <string name="label_minutes">MInutos</string>
+    <string name="label_seconds">Segundos</string>
+    <string name="add_new_sound_subtitle">Clique longo para selecionar uma pasta</string>
+    <string name="clock_settings_summary">Definir estilo, fuso horário e alterar data e hora do dispositivo</string>
+    <string name="hide_clock_am_pm_pref">Ocultar texto AM/PM</string>
+    <string name="clock_dial_with_numbers">Com números</string>
+    <string name="clock_dial_without_numbers">Sem números</string>
+    <string name="clock_second_hand_title">Segunda mão</string>
+    <string name="clock_second_hand_vintage">Vintage</string>
+    <string name="clock_style_analog_material">Analógico (Material)</string>
+    <string name="clock_dial_title">Ponteiro</string>
+    <string name="clock_dial_sun">Sol</string>
+    <string name="clock_dial_flower">Flor</string>
+    <string name="sort_cities_title">Ordenar cidades</string>
+    <string name="enable_city_note_title">Adicionar uma nota pessoal nas cidades</string>
+    <string name="enable_city_note_summary">Toque numa cidade para adicionar ou editar a sua nota pessoal</string>
+    <string name="city_note_dialog_title">Nota para %s</string>
+    <string name="sort_manually">Manualmente (arrastando)</string>
+    <string name="sort_cities_ascending_time_zone">Por fuso horário (ordem ascendente)</string>
+    <string name="sort_cities_descending_time_zone">Por fuso horário (ordem descendente)</string>
+    <string name="about_title">Sobre</string>
+    <string name="version">Versão</string>
+    <string name="version_text">Versão <xliff:g id="VERSION_NUMBER" example="1.0">%1$s</xliff:g></string>
+    <string name="whats_new_title">Novidades</string>
+    <string name="whats_new_dialog_message">Descubra o que é novo:\n\n%s</string>
+    <string name="features_title">Funcionalidades principais</string>
+    <string name="about_github_link">Ver no GitHub</string>
+    <string name="github_dialog_message">Visite a página do projeto no GitHub:\n\n%s</string>
+    <string name="about_translate_link">Traduzir em Codeberg</string>
+    <string name="translate_dialog_message">Visite a página de Codeberg:\n\n%s</string>
+    <string name="license">Licença de código aberto</string>
+    <string name="license_dialog_message">Leia a licença:\n\n%s</string>
+    <string name="gnu_gpl">Licença Pública Geral v3.0 GNU</string>
+    <string name="app_slogan">Relógio FOSS 100%, baseado no AOSP</string>
+    <string name="reset_settings_title">Reiniciar as definições</string>
+    <string name="reset_settings_message">Deseja reiniciar as definições da aplicação? \n\nNota: os toques personalizados não serão reiniciados.</string>
+    <string name="toast_message_for_reset">Reinício concluído</string>
+    <string name="dialog_close">Fechar</string>
+    <string name="alarm_settings_summary">Definir estilo, toque predefinido, volume, ações para ignorar ou adiar alarmes, primeiro dia da semana e hora de notificação do lembrete</string>
+    <string name="description_direction_both_for_occasional_alarm">Deslizar para a esquerda para adiar ou direita para ignorar e eliminar o alarme</string>
+    <string name="description_direction_both_for_non_repeatable_alarm">Deslizar para a esquerda ou direita para ignorar</string>
+    <string name="description_direction_both_for_occasional_non_repeatable_alarm">Deslizar para a esquerda ou direita para ignorar e eliminar o alarme</string>
+    <string name="description_snooze_button">Clique para adiar o alarme</string>
+    <string name="description_dismiss_button">Clique para ignorar o alarme</string>
+    <string name="description_dismiss_button_for_occasional_alarm">Clique para ignorar e eliminar o alarme</string>
+    <string name="timer_settings_summary">Definir o toque predefinido, volume e ordenar o temporizador</string>
+    <string name="timer_creation_view_style_title">Estilo da visualização da criação do temporizador</string>
+    <string name="timer_creation_view_style_keypad">Teclado</string>
+    <string name="timer_volume_buttons_action_title">Reiniciar os temporizadores expirados com os botões de volume</string>
+    <string name="timer_power_button_action_title">Reiniciar os temporizadores expirados com o botão de ligar</string>
+    <string name="timer_buttons_action_summary">Funciona apenas no ecrã de bloqueio</string>
+    <string name="timer_flip_action_title">Vire o dispositivo para parar o alarme</string>
+    <string name="timer_shake_action_title">Abane o dispositivo para parar o alarme</string>
+    <string name="sort_timer_title">Ordenar temporizadores</string>
+    <string name="sort_timer_ascending_duration">Por duração (ordem ascendente)</string>
+    <string name="sort_timer_descending_duration">Por duração (ordem descendente)</string>
+    <string name="default_time_to_add_to_timer_title">Hora predefinida para adicionar ao temporizador</string>
+    <string name="default_time_to_add_to_timer_1_minute">1 minuto</string>
+    <string name="default_time_to_add_to_timer_2_minutes">2 minutos</string>
+    <string name="default_time_to_add_to_timer_3_minutes">3 minutos</string>
+    <string name="default_time_to_add_to_timer_4_minutes">4 minutos</string>
+    <string name="default_time_to_add_to_timer_5_minutes">5 minutos</string>
+    <string name="default_time_to_add_to_timer_6_minutes">6 minutos</string>
+    <string name="default_time_to_add_to_timer_7_minutes">7 minutos</string>
+    <string name="default_time_to_add_to_timer_8_minutes">8 minutos</string>
+    <string name="default_time_to_add_to_timer_9_minutes">9 minutos</string>
+    <string name="default_time_to_add_to_timer_10_minutes">10 minutos</string>
+    <string name="default_time_to_add_to_timer_30_minutes">30 minutos</string>
+    <string name="default_time_to_add_to_timer_1_hour">1 hora</string>
+    <string name="warning_dialog_title">Eliminar temporizador</string>
+    <string name="screensaver_daydream_settings">Selecionar/ativar protetor de ecrã</string>
+    <string name="clock_color_title">Cor do relógio</string>
+    <string name="screensaver_daydream_settings_summary">Abre as definições do protetor principal de Android</string>
+    <string name="screensaver_clock_dynamic_colors_title">Cores do relógio dinâmicas</string>
+    <string name="hour_color_title">Cora da hora</string>
+    <string name="minute_color_title">Cor do minuto</string>
+    <string name="dial_color_title">Cor do ponteiro</string>
+    <string name="date_color_title">Cor da data</string>
+    <string name="screensaver_brightness_title">Brilho</string>
+    <string name="screensaver_bold_date_title">Data em negrito</string>
+    <string name="screensaver_italic_date_title">Data em itálico</string>
+    <string name="preview_title">Pré-visualizar</string>
+    <string name="alarm_created">Alarme criado</string>
+    <string name="alarm_is_dismissed_and_deleted">Alarme das <xliff:g example="14:20" id="alarm_time">%s</xliff:g> ignorado e eliminado</string>
+    <string name="shake_intensity_title">Intensidade de abanar</string>
+    <string name="first_launch_version">Versão %s</string>
+    <string name="first_launch_main_feature_title">FUNCIONALIDADES PRINCIPAIS</string>
+    <string name="first_launch_button_now">Agora</string>
+    <string name="first_launch_button_later">Mais Tarde</string>
+    <string name="first_launch_main_feature_link">… e muito mais!</string>
+    <string name="first_launch_important_info_title">INFORMAÇÃO IMPORTANTE</string>
+    <string name="first_launch_important_info_message_for_SDK34">• &lt;b&gt;NOTIFICAÇÕES EM ECRÃ COMPLETO;&lt;/b&gt; &lt;br&gt; &lt;br&gt;</string>
+    <string name="first_launch_dialog_title">Sair</string>
+    <string name="first_launch_dialog_message">Tem a certeza que deseja sair da aplicação?</string>
+    <string name="widgets_settings">Widgtes</string>
+    <string name="widgets_settings_summary">Definir estilo, cores e tamanho do tipo de letra dos widgets</string>
+    <string name="widget_background_title">Exibir fundo</string>
+    <string name="background_color_title">Cor de fundo</string>
+    <string name="background_default_color_title">Utilizar a cor predefinida para o fundo</string>
+    <string name="display_city_title">Exibir cidades no widget</string>
+    <string name="display_date_title">Exibir a data no widget</string>
+    <string name="display_next_alarm_title">Exibir o próximo alarme no widget</string>
+    <string name="next_alarm_widget_text">Próximo alarme</string>
+    <string name="permission_management_settings">Gestão de permissões</string>
+    <string name="permission_requirement_title">Requisitos:</string>
+    <string name="permission_highly_recommended">Altamente recomendado</string>
+    <string name="permission_status_title">Estado:</string>
+    <string name="permission_info_title">Apenas para dispositivos Xiaomi</string>
+    <string name="permission_granted">Concedida</string>
+    <string name="permission_denied">Negada</string>
+    <string name="permission_dialog_revoke_title">Revogar acesso</string>
+    <string name="permission_dialog_close_button">Fechar</string>
+    <string name="revoke_permission_dialog_message">Tem a certeza que deseja revogar esta permissão?</string>
+    <string name="ignore_battery_optimizations_title">IGNORAR OTIMIZAÇÕES DA BATERIA</string>
+    <string name="ignore_battery_optimizations_dialog_title">Otimizações da Bateria</string>
+    <string name="notifications_permission_title">ATIVAR NOTIFICAÇÕES</string>
+    <string name="notifications_dialog_title">Notificações</string>
+    <string name="FSN_permission_title">ATIVAR NOTIFICAÇÕES EM ECRÃ COMPLETO</string>
+    <string name="FSN_dialog_title">Notificações em Ecrã Completo</string>
+    <string name="show_lockscreen_permission_title">MOSTRAR NO ECRÃ DE BLOQUEIO</string>
+    <string name="show_lockscreen_dialog_title">Mostrar no ecrã de bloqueio</string>
+    <string name="backup_restore_title">Cópia de Segurança e Restaurar</string>
+    <string name="backup_restore_summary">Efetuar cópia de segurança ou restaurar os dados da aplicação exceto os toques personalizados</string>
+    <string name="backup_restore_dialog_message">Deseja efetuar a cópia ou restaurar os dados da aplicação?</string>
+    <string name="backup_button_title">Copiar</string>
+    <string name="restore_button_title">Restaurar</string>
+    <string name="toast_message_for_backup">Cópia de segurança concluída</string>
+    <string name="toast_message_for_restore">Restauro concluído</string>
+    <string name="timer_add_custom_time_with_seconds_for_notification">Adicionar %1$s min %2$s seg</string>
+    <string name="timer_add_custom_time">+ %s</string>
+    <string name="timer_add_custom_time_with_seconds_description">Adicionar %1$s minuto(s) %2$s segundo(s)</string>
+    <string name="timer_hours_warning_box_text">Insira um valor entre 0 e 24 horas</string>
+    <string name="timer_minutes_warning_box_text">Insira um valor entre 0 e 59 minutos</string>
+    <string name="timer_seconds_warning_box_text">Insira um valor entre 0 e 59 segundos</string>
+    <string name="timer_button_time_box_title">Minutos a adicionar ao temporizador</string>
+    <string name="timer_button_time_minutes_warning_box_text">Insira um valor entre 0 e 60 minutos</string>
+    <string name="timer_button_time_seconds_warning_box_text">Insira um valor entre 0 e 59 segundos</string>
+    <string name="timer_time_warning_box_title">Inserido valor incorreto</string>
+    <string name="timer_label_box_title">Etiqueta do temporizador</string>
+    <string name="timer_time_box_title">Nova duração do temporizador</string>
+    <string name="clock_style_spinner">Spinner</string>
+    <string name="about_dialog_message">• Definir os alarmes para uma data especifica; \n\n• Ação de rodar e abanar para ignorar/adiar o alarme; \n\n• Desligar/adiar o alarme com o botão de ligar ou botões de volume; \n\n• Apenas para alguns dispositivos Snapdragon, o alarme é acionado quando eles estão deligados; \n\t\t Infelizmente, esta funcionalidade pode não funcionar em alguns dispositivos apesar da presença da aplicação do sistema <i>\"com.qualcomm.qti.poweroffalarm\"</i>.\n\n• Deslize para eliminar um alarme; \n\n• Duplicar alarmes; \n\n• Personalizar o título do alarme; \n\n• Toque personalizável; \n\n• Tema do sistema, claro ou escuro; \n\n• Modo AMOLED para o tema escuro; \n\n• Estilo do relógio digital ou analógico; \n\n• Exibir hora de casa quando viajar; \n\n• Exibir a hora em muitas cidades do mundo; \n\n• Incluídos temporizador e cronómetro; \n\n• Possibilidade de partilhar o seu cronómetro com os seus contactos; \n\n• Protetor de ecrã personalizável; \n\n• Widgets modernos; \n\n• Widgets perosnalizáveis; \n\n• Suporte para mosaicos nas definições rápidas (para Android 7+); \n\n• Efetuar cópias de segurança e restaurar dados da aplicação (exceto toques personalizados); \n\n• Desenho de material; \n\n• Cores dinâmicas para Android 12+;</string>
 </resources>

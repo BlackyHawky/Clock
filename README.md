@@ -1,5 +1,5 @@
 <!--suppress CheckImageSize -->
-# Clock
+# <img width="24" height="24" alt="image" src="/fastlane/metadata/android/en-US/images/icon.png" /> Clock
 Clock is a customizable and privacy-conscious open-source clock, based on AOSP Clock.
 
 [<img src="/images/badge_github.png" alt="Get it on GitHub" height="80">](https://github.com/BlackyHawky/Clock/releases)

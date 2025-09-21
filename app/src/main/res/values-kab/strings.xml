@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="label_default">Amezwer</string>
     <string name="delete">Kkes</string>
     <string name="remove_sound">Kkes</string>
@@ -51,4 +51,42 @@
     <string name="settings_language_spanish">Taspenyulit</string>
     <string name="change_setting_action">Senfel</string>
     <string name="button_action_nothing">Acemma</string>
+    <plurals name="days">
+        <item quantity="one">1 n wass</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> n wussan</item>
+    </plurals>
+    <string name="ringtone_category_title">Aṭenṭen</string>
+    <string name="settings_language_estonian">Tisṭunit</string>
+    <string name="settings_language_polish">Tapulunit</string>
+    <string name="settings_language_portuguese">Tapuṛṭugit</string>
+    <string name="settings_language_serbian">Taṣirbit</string>
+    <string name="settings_language_ukrainian">Tukranit</string>
+    <string name="ringtone_description">Aṭenṭen</string>
+    <string name="menu_clock">Tamrint</string>
+    <string name="menu_stopwatch">Akrunumetr</string>
+    <string name="sw_share_button">Bḍu</string>
+    <string name="timer_stop">Seḥbes</string>
+    <string name="timer_pause">Seṛǧu</string>
+    <string name="clock_settings">Tamrint</string>
+    <string name="clock_style">Aɣanib</string>
+    <string name="clock_style_analog">Ametran</string>
+    <string name="clock_style_digital">Umḍin</string>
+    <string name="about_title">Ɣef</string>
+    <string name="version">Lqem</string>
+    <string name="dialog_close">Mdel</string>
+    <string name="shortcut_start_stopwatch_short">Sekker</string>
+    <string name="shortcut_pause_stopwatch_short">Seṛǧu</string>
+    <string name="stopwatch_channel">Akrunumetr</string>
+    <string name="first_launch_button_now">Tura</string>
+    <string name="first_launch_button_later">Ticki</string>
+    <string name="first_launch_dialog_title">Ffeɣ</string>
+    <string name="city_search_hint">Nadi tiɣremt</string>
+    <string name="sort_name">S yisem</string>
+    <string name="every_day">Yal ass</string>
+    <string name="date_picker_style_text">Aḍris</string>
+    <string name="date_picker_style_calendar">Awitay</string>
+    <string name="colors_category_title">Initen</string>
+    <string name="first_launch_version">Lqem %s</string>
+    <string name="gnu_gpl">Turagt Tazayazt Tamatut GNU v3.0</string>
+    <string name="about_translate_link">Suqel-it deg Codeberg</string>
 </resources>

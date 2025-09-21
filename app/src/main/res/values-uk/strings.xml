@@ -398,7 +398,7 @@
     <string name="permission_management_summary">Дозволи, необхідні для коректної роботи додатка</string>
     <string name="permission_requirement_title">Вимога: </string>
     <string name="digital_widget_message_summary">Для доступу до цього налаштування вимкніть «Показувати міста у віджеті»</string>
-    <string name="city_clock_color_title">Власний колір додаткового годинника</string>
+    <string name="city_clock_color_title">Колір додаткового годинника</string>
     <string name="city_clock_default_color_title">Колір за замовчуванням для додаткового годинника</string>
     <string name="city_name_default_color_title">Колір за замовчуванням для назви міста</string>
     <string name="next_alarm_color_title">Колір наступного будильника</string>
@@ -407,7 +407,7 @@
     <string name="notifications_dialog_text">Окрім встановлення будильників, цей додаток також має режими таймера та секундоміра. \n \nЩоб сповіщення коректно відображалися для всіх модулів, а особливо щоб спрацьовував будильник, рекомендуємо активувати сповіщення для цього додатка.</string>
     <string name="max_clock_font_size_title">Максимальний розмір шрифту для основного годинника</string>
     <string name="first_launch_main_feature_message">► Світла, темна або системна тема;&lt;br&gt;&lt;br&gt;► Налаштовувана заставка;&lt;br&gt;&lt;br&gt;► Налаштовувані віджети;&lt;br&gt;&lt;br&gt;► Підтримка плиток у швидких налаштуваннях (для Android 7+);&lt;br&gt;&lt;br&gt;► Резервне копіювання і відновлення даних додатка (крім користувацьких мелодій);&lt;br&gt;&lt;br&gt;► Material design і динамічні кольори;&lt;br&gt;&lt;br&gt;► Встановлення будильника на певну дату;&lt;br&gt;&lt;br&gt;► Провести пальцем, щоб видалити будильник;&lt;br&gt;&lt;br&gt;► Дублювання будильників;&lt;br&gt;&lt;br&gt;► Вимкнення/відкладення будильника перевертанням або струшуванням пристрою;&lt;br&gt;&lt;br&gt;► Вимкнення/відкладення будильника за допомогою кнопки живлення або кнопок гучності;&lt;br&gt;&lt;br&gt;► %s</string>
-    <string name="city_name_color_title">Власний колір назви міста</string>
+    <string name="city_name_color_title">Колір назви міста</string>
     <string name="display_card_background_summary">Відображає фон для деяких елементів (будильники, міста, кнопка таймера тощо)</string>
     <string name="display_background_border_title">Рамки фону</string>
     <string name="display_background_border_summary">Відображає рамки фону для деяких елементів (будильники, міста, кнопка таймера тощо)</string>
@@ -476,10 +476,10 @@
 \n
 \n%s</string>
     <string name="material_you_vertical_digital_widget">Вертикальний цифровий годинник Material You</string>
-    <string name="hour_color_title">Власний колір годин</string>
+    <string name="hour_color_title">Колір годин</string>
     <string name="hour_default_color_title">Колір за замовчуванням для годин</string>
     <string name="minute_default_color_title">Колір за замовчуванням для хвилин</string>
-    <string name="minute_color_title">Власний колір хвилин</string>
+    <string name="minute_color_title">Колір хвилин</string>
     <string name="widgets_settings">Віджети</string>
     <string name="standard_category_title">Стандартні</string>
     <string name="material_you_category_title">Material You</string>
@@ -487,7 +487,7 @@
     <string name="widgets_settings_summary">Стиль, колір і шрифт віджетів</string>
     <string name="settings_tab_indicator_title">Показувати індикатор вкладки в нижньому навігаційному меню</string>
     <string name="next_alarm_widget_title_no_alarm">Немає наступного будильника</string>
-    <string name="next_alarm_no_upcoming_alarm_titles_color">Власний колір заголовків «Наступний будильник» і «Немає наступного будильника»</string>
+    <string name="next_alarm_no_upcoming_alarm_titles_color">Колір заголовків «Наступний будильник» і «Немає наступного будильника»</string>
     <string name="alarm_title_default_color">Колір за замовчуванням для заголовка будильника</string>
     <string name="widget_max_font_size_title">Максимальний розмір шрифту у віджеті</string>
     <string name="next_alarm_widget_text">Наступний будильник</string>
@@ -666,4 +666,33 @@
     <string name="enable_per_alarm_volume_title">Окремі значення гучності для кожного будильника</string>
     <string name="enable_per_alarm_volume_summary">Дозволяє встановити різну гучність для кожного будильника в розгорнутому перегляді будильника</string>
     <string name="delay_picker_dialog_title">Будильник о…</string>
+    <string name="clock_dial_with_numbers">Із цифрами</string>
+    <string name="colors_category_title">Кольори</string>
+    <string name="clock_second_hand_title">Секундна стрілка</string>
+    <string name="clock_second_hand_vintage">Вінтаж</string>
+    <string name="clock_dial_title">Циферблат</string>
+    <string name="clock_dial_sun">Сонячний</string>
+    <string name="clock_dial_flower">Квітковий</string>
+    <string name="dial_color_title">Колір циферблата</string>
+    <string name="dial_default_color_title">Колір за замовчуванням для циферблата</string>
+    <string name="hour_hand_color_title">Колір годинної стрілки</string>
+    <string name="hour_hand_default_color_title">Колір за замовчуванням для годинної стрілки</string>
+    <string name="minute_hand_color_title">Колір хвилинної стрілки</string>
+    <string name="minute_hand_default_color_title">Колір за замовчуванням для хвилинної стрілки</string>
+    <string name="second_hand_default_color_title">Колір за замовчуванням для секундної стрілки</string>
+    <string name="background_default_color_title">Колір за замовчуванням для фону</string>
+    <string name="clock_dial_without_numbers">Без цифр</string>
+    <string name="sort_alarm_title">Сортування будильників</string>
+    <string name="display_enabled_alarms_first_title">Спочатку показувати ввімкнені будильники</string>
+    <string name="sort_alarm_time">За часом будильника</string>
+    <string name="sort_next_alarm_time">За часом наступного будильника</string>
+    <string name="sort_cities_title">Сортування міст</string>
+    <string name="sort_cities_descending_time_zone">За часовим поясом (спадання)</string>
+    <string name="sort_cities_ascending_time_zone">За часовим поясом (зростання)</string>
+    <string name="city_note_dialog_title">Примітка до %s</string>
+    <string name="enable_city_note_summary">Натисніть на місто, щоб додати або редагувати примітку до нього</string>
+    <string name="enable_city_note_title">Додати примітки до міст</string>
+    <string name="city_search_hint">Знайти місто</string>
+    <string name="sort_ascending_creation_order">За порядком створення (спочатку старіші)</string>
+    <string name="sort_descending_creation_order">За порядком створення (спочатку новіші)</string>
 </resources>

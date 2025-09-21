@@ -101,7 +101,7 @@
     <string name="interface_customization_settings">Interface</string>
     <string name="style_category_title">Style</string>
     <string name="font_category_title">Police de caractères</string>
-    <string name="interface_customization_summary">Définit le style et la couleur appliqués à l\'application</string>
+    <string name="interface_customization_summary">Définir le style et la couleur appliqués à l\'application</string>
     <string name="miscellaneous_category_title">Divers</string>
     <string name="ringtone_category_title">Sonnerie</string>
     <string name="actions_category_title">Actions</string>
@@ -227,7 +227,7 @@
     <string name="home_label" msgid="4436139365695453870">"Domicile"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Villes"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Horloge"</string>
-    <string name="clock_settings_summary">Définit le style, le fuseau horaire et modifie la date et l\'heure de l\'appareil</string>
+    <string name="clock_settings_summary">Définir le style, le fuseau horaire et modifie la date et l\'heure de l\'appareil</string>
     <string name="clock_style" msgid="2265011060429742344">"Style"</string>
     <string name="display_clock_seconds_pref" msgid="691506643469501643">"Afficher l\'heure avec les secondes"</string>
     <string name="open_date_settings" msgid="7712226973337806152">"Modifier la date et l\'heure"</string>
@@ -350,14 +350,14 @@
     <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"Économ. d\'écran"</string>
     <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Démarrer l\'éco. d\'écran"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"Alarmes"</string>
-    <string name="alarm_settings_summary">Définit le style, la sonnerie par défaut, le volume, les actions pour reporter ou arrêter les alarmes, le premier jour de la semaine et l\'heure de la notification du rappel</string>
+    <string name="alarm_settings_summary">Définir le style, la sonnerie par défaut, le volume, les actions pour reporter ou arrêter les alarmes, le premier jour de la semaine et l\'heure de la notification du rappel</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Traite les actions issues des notifications du minuteur."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Traite les actions issues des notifications du chronomètre."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Interrompu"</string>
     <string name="description_direction_both" msgid="1841309486023845685">Glisser vers la gauche pour répéter ou vers la droite pour arrêter</string>
     <string name="description_direction_both_for_non_repeatable_alarm">Glisser vers la gauche ou la droite pour arrêter</string>
     <string name="timer_settings" msgid="7955522143086154795">"Minuteurs"</string>
-    <string name="timer_settings_summary">Définit la sonnerie par défaut, le volume et le tri des minuteurs</string>
+    <string name="timer_settings_summary">Définir la sonnerie par défaut, le volume et le tri des minuteurs</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Minuteur en mode vibreur"</string>
     <string name="default_time_to_add_to_timer_title">Durée par défaut à ajouter au minuteur</string>
     <string name="default_time_to_add_to_timer_1_minute">1 minute</string>
@@ -376,7 +376,7 @@
     <string name="timer_paused" msgid="5941160896040771462">"Minuteur interrompu"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> minuteurs"</string>
     <string name="screensaver_settings_title">Économiseur d\'écran</string>
-    <string name="screensaver_settings_summary">Définit le style, la couleur et la police de caractère de l\'économiseur d\'écran</string>
+    <string name="screensaver_settings_summary">Définir le style, la couleur et la police de caractère de l\'économiseur d\'écran</string>
     <string name="screensaver_daydream_settings">Sélectionner/activer l\'économiseur d\'écran</string>
     <string name="screensaver_daydream_settings_summary">Ouvre les paramètres principaux de l\'économiseur d\'écran Android</string>
     <string name="screensaver_clock_dynamic_colors_title">Couleurs dynamiques de l\'horloge</string>
@@ -459,9 +459,9 @@
     <string name="date_default_color_title">Utiliser la couleur par défaut pour la date</string>
     <string name="next_alarm_default_color_title">Utiliser la couleur par défaut pour la prochaine alarme</string>
     <string name="city_clock_default_color_title">Utiliser la couleur par défaut pour l\'horloge des villes</string>
-    <string name="city_clock_color_title">Couleur personalisée de l\'horloge des villes</string>
+    <string name="city_clock_color_title">Couleur de l\'horloge des villes</string>
     <string name="city_name_default_color_title">Utiliser la couleur par défaut pour le nom des villes</string>
-    <string name="city_name_color_title">Couleur personalisée du nom des villes</string>
+    <string name="city_name_color_title">Couleur du nom des villes</string>
     <string name="max_clock_font_size_title">Taille maximale de la police de l\'horloge principale</string>
     <string name="digital_widget_message_summary">\"Afficher les villes sur le widget\" doit être désactivé pour accéder à ce réglage</string>
     <string name="permission_management_settings">Gestion des autorisations</string>
@@ -499,9 +499,9 @@
 \n
 \n%s</string>
     <string name="hour_default_color_title">Utiliser la couleur par défaut pour les heures</string>
-    <string name="hour_color_title">Couleur personnalisée des heures</string>
+    <string name="hour_color_title">Couleur des heures</string>
     <string name="minute_default_color_title">Utiliser la couleur par défaut pour les minutes</string>
-    <string name="minute_color_title">Couleur personnalisée des minutes</string>
+    <string name="minute_color_title">Couleur des minutes</string>
     <string name="material_you_vertical_digital_widget">Horloge numérique verticale Material You</string>
     <string name="vertical_digital_widget">Horloge numérique verticale</string>
     <string name="standard_category_title">Standard</string>
@@ -550,7 +550,7 @@
     <string name="timer_volume_buttons_action_title">Réinitialiser les minuteurs expirés avec les boutons du volume</string>
     <string name="timer_buttons_action_summary">Ne fonctionne que sur l\'écran de verrouillage</string>
     <string name="timer_power_button_action_title">Réinitialiser les minuteurs expirés avec le bouton d\'alimentation</string>
-    <string name="sw_settings_summary">Définit les actions pour les boutons du volume</string>
+    <string name="sw_settings_summary">Définir les actions pour les boutons du volume</string>
     <string name="sw_volume_up_action_title">Volume haut</string>
     <string name="sw_long_press_volume_up_action_title">Volume haut (après un appui-long)</string>
     <string name="sw_long_press_volume_down_action_title">Volume bas (après un appui-long)</string>
@@ -654,4 +654,33 @@
     <string name="enable_per_alarm_volume_title">Utiliser un volume personnalisé pour chaque alarme</string>
     <string name="enable_per_alarm_volume_summary">Permet de définir un volume différent pour chaque alarme dans la vue étendue des alarmes</string>
     <string name="delay_picker_dialog_title">Alarme dans…</string>
+    <string name="colors_category_title">Couleurs</string>
+    <string name="hour_hand_default_color_title">Utiliser la couleur par défaut pour l\'aiguille des heures</string>
+    <string name="clock_second_hand_title">Aiguille des secondes</string>
+    <string name="clock_second_hand_vintage">Vintage</string>
+    <string name="clock_dial_title">Cadran</string>
+    <string name="clock_dial_sun">Soleil</string>
+    <string name="clock_dial_flower">Fleur</string>
+    <string name="dial_color_title">Couleur du cadran</string>
+    <string name="dial_default_color_title">Utiliser la couleur par défaut pour le cadran</string>
+    <string name="hour_hand_color_title">Couleur de l\'aiguille des heures</string>
+    <string name="minute_hand_color_title">Couleur de l\'aiguille des minutes</string>
+    <string name="minute_hand_default_color_title">Utiliser la couleur par défaut pour l\'aiguille des minutes</string>
+    <string name="second_hand_default_color_title">Utiliser la couleur par défaut pour l\'aiguille des secondes</string>
+    <string name="background_default_color_title">Utiliser la couleur par défaut pour l\'arrière-plan</string>
+    <string name="clock_dial_with_numbers">Avec chiffres</string>
+    <string name="clock_dial_without_numbers">Sans chiffres</string>
+    <string name="sort_alarm_title">Trier les alarmes</string>
+    <string name="sort_alarm_time">Par heure de l\'alarme</string>
+    <string name="sort_next_alarm_time">Par heure de la prochaine alarme</string>
+    <string name="display_enabled_alarms_first_title">Afficher les alarmes activées en premier</string>
+    <string name="sort_cities_title">Trier les villes</string>
+    <string name="sort_cities_ascending_time_zone">Par fuseau horaire (ordre croissant)</string>
+    <string name="sort_cities_descending_time_zone">Par fuseau horaire (ordre décroissant)</string>
+    <string name="enable_city_note_title">Ajouter une note personnelle aux villes</string>
+    <string name="enable_city_note_summary">Appuyez sur une ville pour ajouter ou modifier sa note personnelle</string>
+    <string name="city_note_dialog_title">Note pour %s</string>
+    <string name="city_search_hint">Rechercher une ville</string>
+    <string name="sort_descending_creation_order">Par ordre de création (anciennes en dernier)</string>
+    <string name="sort_ascending_creation_order">Par ordre de création (anciennes en premier)</string>
 </resources>

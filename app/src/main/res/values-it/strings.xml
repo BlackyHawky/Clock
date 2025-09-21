@@ -646,4 +646,5 @@
     <string name="date_picker_style_title">Stile del selettore della data</string>
     <string name="date_picker_style_text">Testo</string>
     <string name="widget_apply_horizontal_padding_title">Applica rientranza ai lati del widget</string>
+    <string name="delay_picker_dialog_title">Sveglia in…</string>
 </resources>
