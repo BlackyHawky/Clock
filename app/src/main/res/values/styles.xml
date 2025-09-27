@@ -379,4 +379,6 @@
         <item name="colorTertiary">@color/yellowColorTertiary</item>
     </style>
 
+    <style name="WidgetTheme" />
+
 </resources>

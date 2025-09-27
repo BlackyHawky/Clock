@@ -10,7 +10,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/material_you_digital_widget"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:theme="@style/WidgetTheme">
 
     <ImageView
         android:id="@+id/materialYouDigitalWidgetBackground"
@@ -56,7 +57,7 @@
             android:includeFontPadding="true"
             android:ellipsize="none"
             android:maxLines="1"
-            android:textColor="@color/digital_widget_time_color"
+            android:textColor="?android:attr/colorAccent"
             android:visibility="visible"
             tools:text="01:23 AM"
             tools:textSize="70sp" />
