@@ -49,7 +49,7 @@
 
     <!-- WIDGET COLORS -->
     <color name="widget_background_color">@android:color/system_accent2_800</color>
-    <color name="digital_widget_time_color">@android:color/system_accent2_100</color>
+    <color name="digital_widget_time_color">@android:color/system_accent1_100</color>
     <color name="vertical_digital_widget_hour_color">@android:color/system_accent2_100</color>
     <color name="vertical_digital_widget_minute_color">@android:color/system_accent1_100</color>
     <color name="next_alarm_widget_title_color">@android:color/system_accent2_100</color>
