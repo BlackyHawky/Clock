@@ -2,6 +2,7 @@
 
 package com.best.deskclock.settings;
 
+import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_SNOOZE_DURATION_DISABLED;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_END_OF_RINGTONE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_NEVER;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_DISPLAY_CUSTOMIZATION;
@@ -266,7 +267,8 @@ public class AlarmSettingsFragment extends ScreenFragment
         } else if (pref instanceof AlarmSnoozeDurationPreference alarmSnoozeDurationPreference) {
             int currentValue = alarmSnoozeDurationPreference.getSnoozeDuration();
             AlarmSnoozeDurationDialogFragment dialogFragment =
-                    AlarmSnoozeDurationDialogFragment.newInstance(pref.getKey(), currentValue);
+                    AlarmSnoozeDurationDialogFragment.newInstance(pref.getKey(), currentValue,
+                            currentValue == ALARM_SNOOZE_DURATION_DISABLED);
             AlarmSnoozeDurationDialogFragment.show(getParentFragmentManager(), dialogFragment);
         } else if (pref instanceof VolumeCrescendoDurationPreference volumeCrescendoDurationPreference) {
             int currentValue = volumeCrescendoDurationPreference.getVolumeCrescendoDuration();

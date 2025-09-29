@@ -9,6 +9,7 @@ package com.best.deskclock.alarms;
 import static android.content.Context.AUDIO_SERVICE;
 import static android.media.AudioManager.STREAM_ALARM;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_SNOOZE_DURATION_DISABLED;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_DATE_PICKER_STYLE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SPINNER_DATE_PICKER_STYLE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SPINNER_TIME_PICKER_STYLE;
@@ -147,8 +148,10 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
 
     public void setSnoozeDuration(Alarm alarm) {
         Events.sendAlarmEvent(R.string.action_set_snooze_duration, R.string.label_deskclock);
+        int snoozeDuration = alarm.snoozeDuration;
         final AlarmSnoozeDurationDialogFragment fragment =
-                AlarmSnoozeDurationDialogFragment.newInstance(alarm, alarm.snoozeDuration, mFragment.getTag());
+                AlarmSnoozeDurationDialogFragment.newInstance(alarm, snoozeDuration,
+                        snoozeDuration == ALARM_SNOOZE_DURATION_DISABLED, mFragment.getTag());
         AlarmSnoozeDurationDialogFragment.show(mFragment.getParentFragmentManager(), fragment);
     }
 
