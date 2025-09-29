@@ -169,10 +169,17 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
         final Calendar now = Calendar.getInstance();
         final Calendar oldNextAlarmTime = alarm.getNextAlarmTime(now);
 
+        // Reset date if a date is specified
+        if (alarm.isSpecifiedDate()) {
+            alarm.year = now.get(Calendar.YEAR);
+            alarm.month = now.get(Calendar.MONTH);
+            alarm.day = now.get(Calendar.DAY_OF_MONTH);
+        }
+
         final int weekday = SettingsDAO.getWeekdayOrder(getDefaultSharedPreferences(mContext)).getCalendarDays().get(index);
         alarm.daysOfWeek = alarm.daysOfWeek.setBit(weekday, checked);
 
-        // if the change altered the next scheduled alarm time, tell the user
+        // If the change altered the next scheduled alarm time, tell the user
         final Calendar newNextAlarmTime = alarm.getNextAlarmTime(now);
         final boolean popupToast = !oldNextAlarmTime.equals(newNextAlarmTime);
         mAlarmUpdateHandler.asyncUpdateAlarm(alarm, popupToast, false);
@@ -272,29 +279,45 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
         View dialogView = inflater.inflate(R.layout.spinner_date_picker, null);
 
         DatePicker datePicker = dialogView.findViewById(R.id.spinner_date_picker);
-        Calendar currentCalendar = Calendar.getInstance();
-        long currentDateInMillis = currentCalendar.getTimeInMillis();
+        Calendar now = Calendar.getInstance();
+        Calendar selectionDate = (Calendar) now.clone();
+        Calendar minDate = (Calendar) now.clone();
 
-        // If the alarm is set for today or is still set in the past, and the time has already
-        // passed, prevent today from being selected. Otherwise, allow the current day to be selected.
-        int currentMonth = currentCalendar.get(Calendar.MONTH);
-        if (alarm.year == currentCalendar.get(Calendar.YEAR)
-                && alarm.month == currentMonth
-                && alarm.day == currentCalendar.get(Calendar.DAY_OF_MONTH)) {
+        // Date selection and minimum date to display
+        boolean timePassed = alarm.isTimeBeforeOrEqual(now);
+        boolean isTomorrow = Alarm.isTomorrow(alarm, now);
 
-            if (alarm.hour < currentCalendar.get(Calendar.HOUR_OF_DAY)
-                    || (alarm.hour == currentCalendar.get(Calendar.HOUR_OF_DAY) && alarm.minutes < currentCalendar.get(Calendar.MINUTE))
-                    || (alarm.hour == currentCalendar.get(Calendar.HOUR_OF_DAY) && alarm.minutes == currentCalendar.get(Calendar.MINUTE))) {
-                currentCalendar.add(Calendar.DAY_OF_MONTH, 1);
-                datePicker.setMinDate(currentCalendar.getTimeInMillis());
-            } else {
-                datePicker.setMinDate(currentDateInMillis);
+        // Date not specified
+        if (!alarm.isSpecifiedDate()) {
+            // Case 1: today or tomorrow depending on isTomorrow()
+            if (isTomorrow) {
+                selectionDate.add(Calendar.DAY_OF_MONTH, 1);
+                minDate.add(Calendar.DAY_OF_MONTH, 1);
             }
+            // else: keep today as selection and minDate
         } else {
-            datePicker.setMinDate(currentDateInMillis);
+            // Alarm has specified date
+            if (alarm.isDateInThePast() || alarm.isScheduledForToday(now)) {
+                // Case 2.1: date in the past or today
+                if (timePassed) {
+                    selectionDate.add(Calendar.DAY_OF_MONTH, 1);
+                    minDate.add(Calendar.DAY_OF_MONTH, 1);
+                }
+                // else: today is valid
+            } else {
+                // Case 2.2: future date
+                selectionDate.set(alarm.year, alarm.month, alarm.day);
+
+                if (timePassed) {
+                    minDate.add(Calendar.DAY_OF_MONTH, 1);
+                }
+            }
         }
 
-        datePicker.init(alarm.year, alarm.month, alarm.day, null);
+        datePicker.setMinDate(minDate.getTimeInMillis());
+
+        datePicker.init(selectionDate.get(Calendar.YEAR), selectionDate.get(Calendar.MONTH),
+                selectionDate.get(Calendar.DAY_OF_MONTH), null);
 
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(mContext, R.style.SpinnerDialogTheme);
         builder
@@ -321,46 +344,40 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
                 ? MaterialDatePicker.INPUT_MODE_CALENDAR
                 : MaterialDatePicker.INPUT_MODE_TEXT);
 
-        // If a date has already been selected, select it when opening the MaterialDatePicker.
-        if (alarm.isSpecifiedDate()) {
-            Calendar currentCalendar = Calendar.getInstance();
-            // If the date is in the past, select today's date.
-            if (alarm.isDateInThePast()) {
-                long currentDateInMillis = currentCalendar.getTimeInMillis();
-                builder.setSelection(currentDateInMillis);
+        Calendar now = Calendar.getInstance();
+        Calendar selectionDate = (Calendar) now.clone();
+        CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder();
+
+        // Date selection
+        boolean timePassed = alarm.isTimeBeforeOrEqual(now);
+
+        // Date not specified
+        if (!alarm.isSpecifiedDate()) {
+            // Case 1: today or tomorrow depending on isTomorrow()
+            if (Alarm.isTomorrow(alarm, now)) {
+                selectionDate.add(Calendar.DAY_OF_MONTH, 1);
+            }
+        } else {
+            // Alarm has specified date
+            if (alarm.isDateInThePast() || alarm.isScheduledForToday(now)) {
+                // Case 2.1: Date in the past or today's date
+                if (timePassed) {
+                    selectionDate.add(Calendar.DAY_OF_MONTH, 1);
+                }
             } else {
-                currentCalendar.set(alarm.year, alarm.month, alarm.day);
-                long alarmDate = currentCalendar.getTimeInMillis();
-                builder.setSelection(alarmDate);
+                // Case 2.2: Date in the future
+                selectionDate.set(alarm.year, alarm.month, alarm.day);
             }
         }
 
-        // If the alarm is set for today or is still set in the past, and the time has already
-        // passed, prevent today from being selected. Otherwise, allow the current day to be selected.
-        CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder();
-
-        Calendar currentTime = Calendar.getInstance();
-        int currentMonth = currentTime.get(Calendar.MONTH);
-
-        if (alarm.isDateInThePast()
-                || (alarm.year == currentTime.get(Calendar.YEAR)
-                && alarm.month == currentMonth
-                && alarm.day == currentTime.get(Calendar.DAY_OF_MONTH))) {
-
-            if (alarm.hour < currentTime.get(Calendar.HOUR_OF_DAY)
-                    || (alarm.hour == currentTime.get(Calendar.HOUR_OF_DAY) && alarm.minutes < currentTime.get(Calendar.MINUTE))
-                    || (alarm.hour == currentTime.get(Calendar.HOUR_OF_DAY) && alarm.minutes == currentTime.get(Calendar.MINUTE))) {
-                constraintsBuilder.setValidator(DateValidatorPointForward.from(currentTime.getTimeInMillis()));
-            } else {
-                constraintsBuilder.setValidator(DateValidatorPointForward.now());
-            }
+        // Set validator depending on whether the alarm time has passed or not
+        if (timePassed) {
+            constraintsBuilder.setValidator(DateValidatorPointForward.from(now.getTimeInMillis()));
         } else {
             constraintsBuilder.setValidator(DateValidatorPointForward.now());
         }
 
-        // Don't display past months and years
-        constraintsBuilder.setStart(currentTime.getTimeInMillis());
-
+        builder.setSelection(selectionDate.getTimeInMillis());
         builder.setCalendarConstraints(constraintsBuilder.build());
 
         MaterialDatePicker<Long> materialDatePicker = builder.build();
@@ -382,6 +399,10 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
 
     public void onDateSet(int year, int month, int day, int hourOfDay, int minute) {
         if (mSelectedAlarm != null) {
+            // Disable days of the week if one or more are selected
+            if (mSelectedAlarm.daysOfWeek.isRepeating()) {
+                mSelectedAlarm.daysOfWeek = Weekdays.NONE;
+            }
             mSelectedAlarm.year = year;
             mSelectedAlarm.month = month;
             mSelectedAlarm.day = day;

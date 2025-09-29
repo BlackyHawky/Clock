@@ -121,67 +121,68 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
         itemView.setContentDescription(clock.getText() + " " + alarm.getLabelOrDefault(context));
     }
 
-    protected void bindOnOffSwitch(Alarm alarm) {
+    private void bindOnOffSwitch(Alarm alarm) {
         if (onOff.isChecked() != alarm.enabled) {
             onOff.setChecked(alarm.enabled);
         }
     }
 
-    protected void bindClock(Alarm alarm) {
+    private void bindClock(Alarm alarm) {
         clock.setTime(alarm.hour, alarm.minutes);
         clock.setTypeface(alarm.enabled ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
     }
 
-    protected void bindRepeatText(Context context, Alarm alarm) {
+    private void bindRepeatText(Context context, Alarm alarm) {
         if (alarm.daysOfWeek.isRepeating()) {
-            final Weekdays.Order weekdayOrder = SettingsDAO.getWeekdayOrder(getDefaultSharedPreferences(context));
-            final String daysOfWeekText = alarm.daysOfWeek.toString(context, weekdayOrder);
-            daysOfWeek.setText(daysOfWeekText);
-
-            final String string = alarm.daysOfWeek.toAccessibilityString(context, weekdayOrder);
-            daysOfWeek.setContentDescription(string);
+            setRepeatingDaysDescription(context, alarm);
+        } else if (alarm.isSpecifiedDate()) {
+            setSpecifiedDateDescription(context, alarm);
         } else {
-            Calendar calendar = Calendar.getInstance();
-
-            if (Alarm.isTomorrow(alarm, calendar) && !alarm.isSpecifiedDate()) {
-                daysOfWeek.setText(context.getString(R.string.alarm_tomorrow));
-            } else if (alarm.isSpecifiedDate()) {
-                if (Alarm.isSpecifiedDateTomorrow(alarm.year, alarm.month, alarm.day)) {
-                    daysOfWeek.setText(context.getString(R.string.alarm_tomorrow));
-                } else if (alarm.isDateInThePast()) {
-                    // If the date has passed, the new alarm will be scheduled either the same day
-                    // or the next day depending on the time; the text is therefore updated accordingly.
-                    if (alarm.hour < calendar.get(Calendar.HOUR_OF_DAY)
-                            || (alarm.hour == calendar.get(Calendar.HOUR_OF_DAY) && alarm.minutes < calendar.get(Calendar.MINUTE))
-                            || (alarm.hour == calendar.get(Calendar.HOUR_OF_DAY) && alarm.minutes == calendar.get(Calendar.MINUTE))) {
-                        daysOfWeek.setText(context.getString(R.string.alarm_tomorrow));
-                    } else {
-                        daysOfWeek.setText(context.getString(R.string.alarm_today));
-                    }
-                } else {
-                    int year = alarm.year;
-                    int month = alarm.month;
-                    int dayOfMonth = alarm.day;
-                    boolean isCurrentYear = year == calendar.get(Calendar.YEAR);
-
-                    calendar.set(year, month, dayOfMonth);
-
-                    String pattern = DateFormat.getBestDateTimePattern(
-                            Locale.getDefault(), isCurrentYear ? "MMMMd" : "yyyyMMMMd");
-                    SimpleDateFormat dateFormat = new SimpleDateFormat(pattern, Locale.getDefault());
-                    String formattedDate = dateFormat.format(calendar.getTime());
-
-                    daysOfWeek.setText(context.getString(R.string.alarm_scheduled_for, formattedDate));
-                }
-            } else {
-                daysOfWeek.setText(context.getString(R.string.alarm_today));
-            }
+            setNonRepeatingDefaultDescription(context, alarm);
         }
 
         daysOfWeek.setTypeface(alarm.enabled ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
     }
 
-    protected void bindPreemptiveDismissButton(Context context, Alarm alarm, AlarmInstance alarmInstance) {
+    private void setRepeatingDaysDescription(Context context, Alarm alarm) {
+        Weekdays.Order weekdayOrder = SettingsDAO.getWeekdayOrder(getDefaultSharedPreferences(context));
+        String daysText = alarm.daysOfWeek.toString(context, weekdayOrder);
+        String contentDesc = alarm.daysOfWeek.toAccessibilityString(context, weekdayOrder);
+
+        daysOfWeek.setText(daysText);
+        daysOfWeek.setContentDescription(contentDesc);
+    }
+
+    private void setNonRepeatingDefaultDescription(Context context, Alarm alarm) {
+        if (Alarm.isTomorrow(alarm, Calendar.getInstance())) {
+            daysOfWeek.setText(context.getString(R.string.alarm_tomorrow));
+        } else {
+            daysOfWeek.setText(context.getString(R.string.alarm_today));
+        }
+    }
+
+    private void setSpecifiedDateDescription(Context context, Alarm alarm) {
+        Calendar calendar = Calendar.getInstance();
+
+        if (Alarm.isSpecifiedDateTomorrow(alarm.year, alarm.month, alarm.day)) {
+            daysOfWeek.setText(context.getString(R.string.alarm_tomorrow));
+        } else if (alarm.isDateInThePast()) {
+            daysOfWeek.setText(getTodayOrTomorrowBasedOnTime(context, alarm, calendar));
+        } else {
+            daysOfWeek.setText(context.getString(R.string.alarm_scheduled_for, formatAlarmDate(alarm)));
+        }
+    }
+
+    private String getTodayOrTomorrowBasedOnTime(Context context, Alarm alarm, Calendar now) {
+        // Used when the date has passed, the new alarm will be scheduled either the same day
+        // or the next day depending on the time.
+        // The text is therefore updated accordingly.
+        return context.getString(alarm.isTimeBeforeOrEqual(now)
+                ? R.string.alarm_tomorrow
+                : R.string.alarm_today);
+    }
+
+    private void bindPreemptiveDismissButton(Context context, Alarm alarm, AlarmInstance alarmInstance) {
         final boolean canBind = alarm.canPreemptivelyDismiss() && alarmInstance != null;
 
         if (canBind) {
@@ -226,6 +227,17 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
     protected void setChangingViewsAlpha(float alpha) {
         daysOfWeek.setAlpha(alpha);
         preemptiveDismissButton.setAlpha(alpha);
+    }
+
+    protected String formatAlarmDate(Alarm alarm) {
+        Calendar calendar = Calendar.getInstance();
+        boolean isCurrentYear = alarm.year == calendar.get(Calendar.YEAR);
+
+        calendar.set(alarm.year, alarm.month, alarm.day);
+
+        String pattern = DateFormat.getBestDateTimePattern(
+                Locale.getDefault(), isCurrentYear ? "MMMMd" : "yyyyMMMMd");
+        return new SimpleDateFormat(pattern, Locale.getDefault()).format(calendar.getTime());
     }
 
     protected Animator getBoundsAnimator(View from, View to, long duration) {

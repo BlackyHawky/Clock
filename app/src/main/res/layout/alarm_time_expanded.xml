@@ -105,14 +105,6 @@
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@id/days_of_week" />
 
-    <View
-        android:id="@+id/empty_view"
-        android:layout_width="match_parent"
-        android:layout_height="12dp"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/repeat_days" />
-
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/schedule_alarm"
         android:layout_width="wrap_content"
@@ -126,7 +118,7 @@
         android:gravity="center_vertical"
         app:drawableTint="?attr/colorOnSurfaceVariant"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/empty_view" />
+        app:layout_constraintTop_toBottomOf="@id/repeat_days" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/selected_date"
@@ -137,7 +129,7 @@
         android:focusable="true"
         android:gravity="center_vertical"
         app:layout_constraintEnd_toStartOf="@+id/remove_date"
-        app:layout_constraintTop_toBottomOf="@id/empty_view"
+        app:layout_constraintTop_toBottomOf="@id/repeat_days"
         tools:text="01/01/2024" />
 
     <ImageButton
@@ -150,7 +142,7 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@null"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/empty_view"
+        app:layout_constraintTop_toBottomOf="@id/repeat_days"
         app:layout_constraintBottom_toBottomOf="@+id/schedule_alarm"
         tools:visibility="gone" />
 
@@ -164,7 +156,7 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@null"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/empty_view"
+        app:layout_constraintTop_toBottomOf="@id/repeat_days"
         app:layout_constraintBottom_toBottomOf="@+id/schedule_alarm"
         tools:visibility="visible" />
 

@@ -531,6 +531,20 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
                 alarmDayOfMonth == tomorrow.get(Calendar.DAY_OF_MONTH);
     }
 
+    public boolean isTimeBeforeOrEqual(Calendar referenceTime) {
+        int currentHour = referenceTime.get(Calendar.HOUR_OF_DAY);
+        int currentMinute = referenceTime.get(Calendar.MINUTE);
+
+        return hour < currentHour || (hour == currentHour && minutes <= currentMinute);
+    }
+
+    public boolean isScheduledForToday(Calendar reference) {
+        int currentMonth = reference.get(Calendar.MONTH);
+        return year == reference.get(Calendar.YEAR)
+                && month == currentMonth
+                && day == reference.get(Calendar.DAY_OF_MONTH);
+    }
+
     public void writeToParcel(Parcel p, int flags) {
         p.writeLong(id);
         p.writeInt(enabled ? 1 : 0);

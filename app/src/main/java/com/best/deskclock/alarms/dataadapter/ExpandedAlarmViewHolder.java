@@ -27,7 +27,6 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,8 +55,6 @@ import com.best.deskclock.utils.Utils;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.color.MaterialColors;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -72,7 +69,6 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     private final TextView editLabel;
     private final LinearLayout repeatDays;
     private final CompoundButton[] dayButtons = new CompoundButton[7];
-    private final View emptyView;
     private final TextView scheduleAlarm;
     private final TextView selectedDate;
     private final ImageView addDate;
@@ -106,7 +102,6 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         editLabelIcon = itemView.findViewById(R.id.edit_label_icon);
         editLabel = itemView.findViewById(R.id.edit_label);
         repeatDays = itemView.findViewById(R.id.repeat_days);
-        emptyView = itemView.findViewById(R.id.empty_view);
         scheduleAlarm = itemView.findViewById(R.id.schedule_alarm);
         selectedDate = itemView.findViewById(R.id.selected_date);
         addDate = itemView.findViewById(R.id.add_date);
@@ -255,7 +250,6 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         final Context context = itemView.getContext();
         bindEditLabel(context, alarm);
         bindDaysOfWeekButtons(alarm, context);
-        bindScheduleAlarm(alarm);
         bindSelectedDate(alarm);
         bindRingtone(context, alarm);
         bindVibrator(alarm);
@@ -399,68 +393,37 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
                 dayButton.setTextColor(MaterialColors.getColor(
                         context, com.google.android.material.R.attr.colorOnSurfaceInverse, Color.BLACK));
 
-                selectedDate.setVisibility(GONE);
             } else {
                 dayButton.setChecked(false);
                 dayButton.setTextColor(MaterialColors.getColor(
                         context, com.google.android.material.R.attr.colorSurfaceInverse, Color.BLACK));
-
-                selectedDate.setVisibility(VISIBLE);
             }
-        }
-    }
-
-    private void bindScheduleAlarm(Alarm alarm) {
-        if (alarm.daysOfWeek.isRepeating()) {
-            scheduleAlarm.setVisibility(GONE);
-        } else {
-            scheduleAlarm.setVisibility(VISIBLE);
         }
     }
 
     private void bindSelectedDate(Alarm alarm) {
-        int year = alarm.year;
-        int month = alarm.month;
-        int dayOfMonth = alarm.day;
-        Calendar calendar = Calendar.getInstance();
-        boolean isCurrentYear = year == calendar.get(Calendar.YEAR);
-
-        calendar.set(year, month, dayOfMonth);
-
-        String pattern = DateFormat.getBestDateTimePattern(
-                Locale.getDefault(), isCurrentYear ? "MMMMd" : "yyyyMMMMd");
-        SimpleDateFormat dateFormat = new SimpleDateFormat(pattern, Locale.getDefault());
-        String formattedDate = dateFormat.format(calendar.getTime());
-
         if (alarm.daysOfWeek.isRepeating()) {
-            repeatDays.setVisibility(VISIBLE);
-            emptyView.setVisibility(GONE);
-            selectedDate.setVisibility(GONE);
-            addDate.setVisibility(GONE);
-            removeDate.setVisibility(GONE);
-        } else {
-            if (alarm.isSpecifiedDate()) {
-                if (alarm.isDateInThePast()) {
-                    repeatDays.setVisibility(VISIBLE);
-                    emptyView.setVisibility(GONE);
-                    selectedDate.setVisibility(GONE);
-                    addDate.setVisibility(VISIBLE);
-                    removeDate.setVisibility(GONE);
-                } else {
-                    repeatDays.setVisibility(GONE);
-                    emptyView.setVisibility(VISIBLE);
-                    selectedDate.setText(formattedDate);
-                    addDate.setVisibility(GONE);
-                    removeDate.setVisibility(VISIBLE);
-                }
-            } else {
-                repeatDays.setVisibility(VISIBLE);
-                emptyView.setVisibility(GONE);
-                selectedDate.setVisibility(GONE);
-                addDate.setVisibility(VISIBLE);
-                removeDate.setVisibility(GONE);
-            }
+            clearSelectedDate();
+            return;
         }
+
+        if (alarm.isSpecifiedDate()) {
+            if (alarm.isDateInThePast()) {
+                clearSelectedDate();
+            } else {
+                selectedDate.setText(formatAlarmDate(alarm));
+                addDate.setVisibility(GONE);
+                removeDate.setVisibility(VISIBLE);
+            }
+        } else {
+            clearSelectedDate();
+        }
+    }
+
+    private void clearSelectedDate() {
+        selectedDate.setText(null);
+        addDate.setVisibility(VISIBLE);
+        removeDate.setVisibility(GONE);
     }
 
     private void bindRingtone(Context context, Alarm alarm) {
