@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -62,6 +63,7 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
     private EditText mEditHours;
     private EditText mEditMinutes;
     private EditText mEditSeconds;
+    private Button mOkButton;
     private int mTimerId;
     private final TextWatcher mTextWatcher = new TextChangeListener();
     private InputMethodManager mInput;
@@ -223,14 +225,24 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
                         })
                         .setNegativeButton(android.R.string.cancel, null);
 
-        final AlertDialog dialog = dialogBuilder.create();
+        final AlertDialog alertDialog = dialogBuilder.create();
 
-        final Window alertDialogWindow = dialog.getWindow();
+        alertDialog.setOnShowListener(dialog -> {
+            mOkButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+
+            String hoursText = Objects.requireNonNull(mEditHours.getText()).toString();
+            String minutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
+            String secondsText = mEditSeconds.getText() != null ? mEditSeconds.getText().toString() : "";
+
+            mOkButton.setEnabled(!isInvalidInput(hoursText, minutesText, secondsText));
+        });
+
+        final Window alertDialogWindow = alertDialog.getWindow();
         if (alertDialogWindow != null) {
             alertDialogWindow.setSoftInputMode(SOFT_INPUT_ADJUST_PAN | SOFT_INPUT_STATE_VISIBLE);
         }
 
-        return dialog;
+        return alertDialog;
     }
 
     @Override
@@ -327,7 +339,7 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
     }
 
     /**
-     * Update the dialog icon and title for invalid entries.
+     * Update the dialog icon, title, and OK button for invalid entries.
      * The outline color of the edit box and the hint color are also changed.
      */
     private void updateDialogForInvalidInput() {
@@ -373,10 +385,12 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
                 ? ColorStateList.valueOf(invalidColor)
                 : ColorStateList.valueOf(validColor));
         mSecondsInputLayout.setEnabled(!disableSeconds);
+
+        mOkButton.setEnabled(false);
     }
 
     /**
-     * Update the dialog icon and title for valid entries.
+     * Update the dialog icon, title, and OK button for valid entries.
      * The outline color of the edit box and the hint color are also changed.
      */
     private void updateDialogForValidInput() {
@@ -391,15 +405,20 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
         alertDialog.setTitle(getString(R.string.timer_button_time_box_title));
 
         int validColor = MaterialColors.getColor(requireContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
+
         mHoursInputLayout.setBoxStrokeColor(validColor);
         mHoursInputLayout.setHintTextColor(ColorStateList.valueOf(validColor));
         mHoursInputLayout.setEnabled(true);
+
         mMinutesInputLayout.setBoxStrokeColor(validColor);
         mMinutesInputLayout.setHintTextColor(ColorStateList.valueOf(validColor));
         mMinutesInputLayout.setEnabled(true);
+
         mSecondsInputLayout.setBoxStrokeColor(validColor);
         mSecondsInputLayout.setHintTextColor(ColorStateList.valueOf(validColor));
         mSecondsInputLayout.setEnabled(true);
+
+        mOkButton.setEnabled(true);
     }
 
     /**

@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -71,6 +72,7 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
     private TextInputEditText mEditHours;
     private TextInputEditText mEditMinutes;
     private MaterialCheckBox mNoneCheckbox;
+    private Button mOkButton;
     private final TextWatcher mTextWatcher = new TextChangeListener();
     private InputMethodManager mInput;
     private boolean isUpdatingCheckboxes = false;
@@ -249,14 +251,23 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
                         setAlarmSnoozeDuration())
                 .setNegativeButton(android.R.string.cancel, null);
 
-        final AlertDialog dialog = dialogBuilder.create();
+        final AlertDialog alertDialog = dialogBuilder.create();
 
-        final Window alertDialogWindow = dialog.getWindow();
+        alertDialog.setOnShowListener(dialog -> {
+            mOkButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+
+            String hoursText = mEditHours.getText() != null ? mEditHours.getText().toString() : "";
+            String minutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
+
+            mOkButton.setEnabled(!isInvalidInput(hoursText, minutesText));
+        });
+
+        final Window alertDialogWindow = alertDialog.getWindow();
         if (alertDialogWindow != null) {
             alertDialogWindow.setSoftInputMode(SOFT_INPUT_ADJUST_PAN | SOFT_INPUT_STATE_VISIBLE);
         }
 
-        return dialog;
+        return alertDialog;
     }
 
     @Override
@@ -401,7 +412,7 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
     }
 
     /**
-     * Update the dialog icon and title for invalid entries.
+     * Update the dialog icon, title, and OK button for invalid entries.
      * The outline color of the edit box and the hint color are also changed.
      */
     private void updateDialogForInvalidInput() {
@@ -435,10 +446,12 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
                 ? ColorStateList.valueOf(invalidColor)
                 : ColorStateList.valueOf(validColor));
         mMinutesInputLayout.setEnabled(!hoursInvalid);
+
+        mOkButton.setEnabled(false);
     }
 
     /**
-     * Update the dialog icon and title for valid entries.
+     * Update the dialog icon, title, and OK button for valid entries.
      * The outline color of the edit box and the hint color are also changed.
      */
     private void updateDialogForValidInput() {
@@ -447,12 +460,16 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
         alertDialog.setTitle(getString(R.string.snooze_duration_title));
 
         int validColor = MaterialColors.getColor(mContext, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
+
         mHoursInputLayout.setBoxStrokeColor(validColor);
         mHoursInputLayout.setHintTextColor(ColorStateList.valueOf(validColor));
         mHoursInputLayout.setEnabled(!mNoneCheckbox.isChecked());
+
         mMinutesInputLayout.setBoxStrokeColor(validColor);
         mMinutesInputLayout.setHintTextColor(ColorStateList.valueOf(validColor));
         mMinutesInputLayout.setEnabled(!mNoneCheckbox.isChecked());
+
+        mOkButton.setEnabled(true);
     }
 
     /**
