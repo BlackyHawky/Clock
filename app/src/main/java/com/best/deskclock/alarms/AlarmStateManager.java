@@ -41,10 +41,10 @@ import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.utils.AlarmUtils;
+import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
-import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
 
 import java.util.Calendar;
@@ -154,7 +154,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         // Updating widgets may fail because credential-protected storage
         // is not yet accessible, and AppWidgetManager.getAppWidgetIds() will throw an exception.
         // Fix https://github.com/BlackyHawky/Clock/issues/369#issuecomment-3344303993
-        if (!Utils.isUserUnlocked(dpsContext)) {
+        if (!DeviceUtils.isUserUnlocked(dpsContext)) {
             LogUtils.w("updateNextAlarm: Skipping, user is locked.");
             return;
         }
@@ -869,21 +869,52 @@ public final class AlarmStateManager extends BroadcastReceiver {
         return new Intent(context, AlarmStateManager.class).setAction(INDICATOR_ACTION);
     }
 
+    /**
+     * Attempts to set a power-off alarm on supported devices.
+     * <p>
+     * On certain models (e.g., ZTE Libero 5G II), this action is blocked by the system.
+     * This method performs a compatibility check before sending the broadcast.</p>
+     */
+
     private static void setPowerOffAlarm(Context context, AlarmInstance instance) {
-        LogUtils.i("Set next power off alarm : instance id " + instance.mId);
-        Intent intent = new Intent(ACTION_SET_POWEROFF_ALARM);
-        intent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
-        intent.setPackage(POWER_OFF_ALARM_PACKAGE);
-        intent.putExtra(TIME, instance.getAlarmTime().getTimeInMillis());
-        context.sendBroadcast(intent);
+        if (DeviceUtils.isPowerOffAlarmUnSupported()) {
+            LogUtils.w("Power-off alarm broadcast is not supported on this device.");
+            return;
+        }
+
+        try {
+            LogUtils.i("Set next power off alarm : instance id " + instance.mId);
+            Intent intent = new Intent(ACTION_SET_POWEROFF_ALARM);
+            intent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
+            intent.setPackage(POWER_OFF_ALARM_PACKAGE);
+            intent.putExtra(TIME, instance.getAlarmTime().getTimeInMillis());
+            context.sendBroadcast(intent);
+        } catch (SecurityException e) {
+            LogUtils.e("Failed to send power off alarm broadcast: " + e);
+        }
     }
 
+    /**
+     * Attempts to cancel a previously set power-off alarm on supported devices.
+     * <p>
+     * Some manufacturers (e.g., ZTE Libero 5G II) do not support this broadcast,
+     * in which case the method safely aborts and logs a warning.
+     */
     private static void cancelPowerOffAlarm(Context context, AlarmInstance instance) {
-        Intent intent = new Intent(ACTION_CANCEL_POWEROFF_ALARM);
-        intent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
-        intent.putExtra(TIME, instance.getAlarmTime().getTimeInMillis());
-        intent.setPackage(POWER_OFF_ALARM_PACKAGE);
-        context.sendBroadcast(intent);
+        if (DeviceUtils.isPowerOffAlarmUnSupported()) {
+            LogUtils.w("Power-off alarm cancel is not supported on this device.");
+            return;
+        }
+
+        try {
+            Intent intent = new Intent(ACTION_CANCEL_POWEROFF_ALARM);
+            intent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
+            intent.putExtra(TIME, instance.getAlarmTime().getTimeInMillis());
+            intent.setPackage(POWER_OFF_ALARM_PACKAGE);
+            context.sendBroadcast(intent);
+        } catch (SecurityException e) {
+            LogUtils.e("Failed to cancel power off alarm broadcast: " + e);
+        }
     }
 
     @SuppressLint({"WakelockTimeout", "Wakelock"})

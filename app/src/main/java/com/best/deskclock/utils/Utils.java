@@ -20,7 +20,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Looper;
-import android.os.UserManager;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.MotionEvent;
@@ -52,25 +51,6 @@ public class Utils {
      */
     public static boolean isDebugConfig() {
         return BuildConfig.DEBUG || "eng".equals(Build.TYPE) || "userdebug".equals(Build.TYPE);
-    }
-
-    /**
-     * Checks whether the current user is unlocked on the device.
-     *
-     * <p>This method returns {@code true} if the device is running Android 7.0 (API level 24)
-     * or higher and the user has completed the unlock process (e.g., after device boot).</p>
-     *
-     * <p>Accessing certain data or services before the user is unlocked may cause
-     * security exceptions or return null results, so this check is useful when working with
-     * file-based encryption or user-specific resources.</p>
-     *
-     * @param context The context used to retrieve the {@link UserManager} system service.
-     * @return {@code true} if the user is unlocked and the SDK version is at least Android 7.0;
-     * {@code false} otherwise.
-     */
-    public static boolean isUserUnlocked(Context context) {
-        UserManager userManager = (UserManager) context.getSystemService(Context.USER_SERVICE);
-        return SdkUtils.isAtLeastAndroid7() && userManager.isUserUnlocked();
     }
 
     public static void enforceMainLooper() {
@@ -198,14 +178,6 @@ public class Utils {
         String customLanguageCode = SettingsDAO.getCustomLanguageCode(getDefaultSharedPreferences(context));
         applySpecificLocale(context, customLanguageCode);
         return context.createConfigurationContext(context.getResources().getConfiguration());
-    }
-
-    /**
-     * @return {@code true} if a vibrator is available on the device. {@code false} otherwise.
-     */
-    public static boolean hasVibrator(Context context) {
-        Vibrator vibrator = context.getSystemService(Vibrator.class);
-        return vibrator != null && vibrator.hasVibrator();
     }
 
     /**

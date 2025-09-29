@@ -18,10 +18,10 @@ import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.ringtone.AsyncRingtonePlayer;
 import com.best.deskclock.ringtone.RingtonePlayer;
+import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
-import com.best.deskclock.utils.Utils;
 
 /**
  * Manages playing alarm ringtones and vibrating the device.
@@ -44,7 +44,7 @@ final class AlarmKlaxon {
     public static void stop(Context context, SharedPreferences prefs) {
         if (sStarted) {
             sStarted = false;
-            if (Utils.isUserUnlocked(context) && SettingsDAO.isAdvancedAudioPlaybackEnabled(prefs)) {
+            if (DeviceUtils.isUserUnlocked(context) && SettingsDAO.isAdvancedAudioPlaybackEnabled(prefs)) {
                 LogUtils.v("AlarmKlaxon.stop() ExoPlayer");
                 getRingtonePlayer(context).stop();
             } else {
@@ -75,7 +75,7 @@ final class AlarmKlaxon {
         if (!RingtoneUtils.RINGTONE_SILENT.equals(instance.mRingtone)) {
             // Crescendo duration always in milliseconds
             final int crescendoDuration = instance.mCrescendoDuration * 1000;
-            if (Utils.isUserUnlocked(context) && SettingsDAO.isAdvancedAudioPlaybackEnabled(prefs)) {
+            if (DeviceUtils.isUserUnlocked(context) && SettingsDAO.isAdvancedAudioPlaybackEnabled(prefs)) {
                 LogUtils.v("AlarmKlaxon.start() with ExoPlayer");
                 getRingtonePlayer(context).play(instance.mRingtone, crescendoDuration);
             } else {

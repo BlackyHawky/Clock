@@ -34,6 +34,7 @@ import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
 import com.best.deskclock.timer.TimerAddTimeButtonDialogFragment;
+import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.Utils;
 
 public class TimerSettingsFragment extends ScreenFragment
@@ -183,7 +184,7 @@ public class TimerSettingsFragment extends ScreenFragment
                     }
                 });
 
-        mTimerVibratePref.setVisible(Utils.hasVibrator(requireContext()));
+        mTimerVibratePref.setVisible(DeviceUtils.hasVibrator(requireContext()));
         mTimerVibratePref.setOnPreferenceChangeListener(this);
 
         mTimerVolumeButtonsActionPref.setOnPreferenceChangeListener(this);

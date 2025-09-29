@@ -21,7 +21,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.provider.Settings;
@@ -41,6 +40,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.uicomponents.CollapsingToolbarBaseActivity;
+import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
@@ -48,13 +48,6 @@ import com.best.deskclock.utils.ThemeUtils;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.color.MaterialColors;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Manage the permissions required to ensure the application runs properly.
@@ -159,7 +152,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                 updateFullScreenNotificationsCard(isCardBackgroundDisplayed, isCardBorderDisplayed);
             }
 
-            if (MiuiCheck.isMiui()) {
+            if (DeviceUtils.isMiui()) {
                 mShowLockscreenView = rootView.findViewById(R.id.show_lockscreen_view);
                 mShowLockscreenView.setVisibility(View.VISIBLE);
                 mShowLockscreenView.setOnClickListener(v -> grantShowOnLockScreenPermissionXiaomi());
@@ -290,7 +283,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
          * Grant Show On Lock Screen permission for Xiaomi devices
          */
         private void grantShowOnLockScreenPermissionXiaomi() {
-            if (!MiuiCheck.isMiui()) {
+            if (!DeviceUtils.isMiui()) {
                 return;
             }
 
@@ -459,68 +452,6 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                 mShowLockscreenView.setStrokeColor(MaterialColors.getColor(
                         requireContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK));
             }
-        }
-
-    }
-
-    /**
-     * Class called to check if the device is running MIUI.
-     */
-    public static class MiuiCheck {
-
-        /**
-         * Check if the device is running MIUI.
-         * <p>
-         * By default, HyperOS is excluded from verification.
-         * If you want to include HyperOS in the verification, pass excludeHyperOS as false.
-         *
-         * @param excludeHyperOS Indicate whether to exclude HyperOS.
-         * @return {@code true} if the device is running MIUI ; {@code false} otherwise.
-         */
-        public static boolean isMiui(boolean excludeHyperOS) {
-            // Check if the device is from Xiaomi, Redmi or POCO.
-            String brand = Build.BRAND.toLowerCase();
-            Set<String> xiaomiBrands = new HashSet<>(Arrays.asList("xiaomi", "redmi", "poco"));
-            if (!xiaomiBrands.contains(brand)) {
-                return false;
-            }
-
-            // This feature is present in both MIUI and HyperOS.
-            String miuiVersion = getProperty("ro.miui.ui.version.name");
-            boolean isMiui = miuiVersion != null && !miuiVersion.trim().isEmpty();
-            // This feature is exclusive to HyperOS and is not present in MIUI.
-            String hyperOSVersion = getProperty("ro.mi.os.version.name");
-            boolean isHyperOS = hyperOSVersion != null && !hyperOSVersion.trim().isEmpty();
-
-            return isMiui && (!excludeHyperOS || !isHyperOS);
-        }
-
-        /**
-         * Private method to get the value of a system property.
-         */
-        private static String getProperty(String property) {
-            BufferedReader reader = null;
-            try {
-                Process process = Runtime.getRuntime().exec("getprop " + property);
-                reader = new BufferedReader(new InputStreamReader(process.getInputStream()), 1024);
-                return reader.readLine();
-            } catch (IOException ignored) {
-                return null;
-            } finally {
-                if (reader != null) {
-                    try {
-                        reader.close();
-                    } catch (IOException ignored) {
-                    }
-                }
-            }
-        }
-
-        /**
-         * Overload of isMiui method with excludeHyperOS set to true by default.
-         */
-        public static boolean isMiui() {
-            return isMiui(true);
         }
 
     }

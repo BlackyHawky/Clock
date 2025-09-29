@@ -49,8 +49,8 @@ import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.AnimatorUtils;
+import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.RingtoneUtils;
-import com.best.deskclock.utils.Utils;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.color.MaterialColors;
@@ -977,7 +977,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
 
         public Factory(Context context) {
             mLayoutInflater = LayoutInflater.from(context);
-            mHasVibrator = Utils.hasVibrator(context);
+            mHasVibrator = DeviceUtils.hasVibrator(context);
             mHasFlash = AlarmUtils.hasBackFlash(context);
         }
 

@@ -57,6 +57,7 @@ import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
 import com.best.deskclock.utils.AlarmUtils;
+import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.Utils;
 
@@ -360,8 +361,8 @@ public class AlarmSettingsFragment extends ScreenFragment
         mPowerButtonPref.setOnPreferenceChangeListener(this);
         mPowerButtonPref.setSummary(mPowerButtonPref.getEntry());
 
-        mEnableAlarmVibrationsByDefaultPref.setVisible(Utils.hasVibrator(requireContext()));
-        mEnableSnoozedOrDismissedAlarmVibrationsPref.setVisible(Utils.hasVibrator(requireContext()));
+        mEnableAlarmVibrationsByDefaultPref.setVisible(DeviceUtils.hasVibrator(requireContext()));
+        mEnableSnoozedOrDismissedAlarmVibrationsPref.setVisible(DeviceUtils.hasVibrator(requireContext()));
 
         SensorManager sensorManager = (SensorManager) requireActivity().getSystemService(Context.SENSOR_SERVICE);
         if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) == null) {

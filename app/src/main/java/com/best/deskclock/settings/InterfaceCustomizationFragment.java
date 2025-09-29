@@ -28,6 +28,7 @@ import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
 
@@ -169,7 +170,7 @@ public class InterfaceCustomizationFragment extends ScreenFragment
         mTabToDisplayPref.setSummary(mTabToDisplayPref.getEntry());
         mTabToDisplayPref.setOnPreferenceChangeListener(this);
 
-        mVibrationPref.setVisible(Utils.hasVibrator(requireContext()));
+        mVibrationPref.setVisible(DeviceUtils.hasVibrator(requireContext()));
         mVibrationPref.setOnPreferenceChangeListener(this);
 
         mFadeTransitionsPref.setOnPreferenceChangeListener(this);
