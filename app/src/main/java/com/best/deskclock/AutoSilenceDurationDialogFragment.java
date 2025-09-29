@@ -79,9 +79,9 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
     private TextInputLayout mSecondsInputLayout;
     private TextInputEditText mEditMinutes;
     private TextInputEditText mEditSeconds;
-    private final TextWatcher mTextWatcher = new TextChangeListener();
     private MaterialCheckBox mEndOfRingtoneCheckbox;
     private MaterialCheckBox mNeverCheckbox;
+    private final TextWatcher mTextWatcher = new TextChangeListener();
     private InputMethodManager mInput;
     private boolean isUpdatingCheckboxes = false;
 
@@ -104,15 +104,15 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
 
         Bundle args = new Bundle();
 
-        long minutes = isForTimer ? totalDuration / 60 : totalDuration;
-        long seconds = totalDuration % 60;
+        int minutes = isForTimer ? totalDuration / 60 : totalDuration;
+        int seconds = totalDuration % 60;
 
         args.putString(ARG_PREF_KEY, key);
-        args.putLong(ARG_EDIT_AUTO_SILENCE_MINUTES, minutes);
+        args.putInt(ARG_EDIT_AUTO_SILENCE_MINUTES, minutes);
         if (isForTimer) {
-            args.putLong(ARG_EDIT_AUTO_SILENCE_SECONDS, seconds);
+            args.putInt(ARG_EDIT_AUTO_SILENCE_SECONDS, seconds);
         } else {
-            args.putLong(ARG_EDIT_AUTO_SILENCE_SECONDS, 0);
+            args.putInt(ARG_EDIT_AUTO_SILENCE_SECONDS, 0);
         }
         args.putBoolean(ARG_END_OF_RINGTONE, isEndOfRingtone);
         args.putBoolean(ARG_NEVER, isNever);
@@ -141,8 +141,8 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
 
         args.putParcelable(ARG_ALARM, alarm);
         args.putString(ARG_TAG, tag);
-        args.putLong(ARG_EDIT_AUTO_SILENCE_MINUTES, autoSilenceDuration);
-        args.putLong(ARG_EDIT_AUTO_SILENCE_SECONDS, 0);
+        args.putInt(ARG_EDIT_AUTO_SILENCE_MINUTES, autoSilenceDuration);
+        args.putInt(ARG_EDIT_AUTO_SILENCE_SECONDS, 0);
         args.putBoolean(ARG_END_OF_RINGTONE, isEndOfRingtone);
         args.putBoolean(ARG_NEVER, isNever);
 
@@ -182,11 +182,11 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
             String minutesStr = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
             String secondsStr = mEditSeconds.getText() != null ? mEditSeconds.getText().toString() : "";
 
-            long minutes = minutesStr.isEmpty() ? 0 : Long.parseLong(minutesStr);
-            long seconds = secondsStr.isEmpty() ? 0 : Long.parseLong(secondsStr);
+            int minutes = minutesStr.isEmpty() ? 0 : Integer.parseInt(minutesStr);
+            int seconds = secondsStr.isEmpty() ? 0 : Integer.parseInt(secondsStr);
 
-            outState.putLong(ARG_EDIT_AUTO_SILENCE_MINUTES, minutes);
-            outState.putLong(ARG_EDIT_AUTO_SILENCE_SECONDS, seconds);
+            outState.putInt(ARG_EDIT_AUTO_SILENCE_MINUTES, minutes);
+            outState.putInt(ARG_EDIT_AUTO_SILENCE_SECONDS, seconds);
         }
 
         outState.putBoolean(ARG_END_OF_RINGTONE, mEndOfRingtoneCheckbox.isChecked());
@@ -204,14 +204,14 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
                 : args.getParcelable(ARG_ALARM);
         mTag = args.getString(ARG_TAG);
 
-        long editMinutes = args.getLong(ARG_EDIT_AUTO_SILENCE_MINUTES, 0);
-        long editSeconds = args.getLong(ARG_EDIT_AUTO_SILENCE_SECONDS, 0);
+        int editMinutes = args.getInt(ARG_EDIT_AUTO_SILENCE_MINUTES, 0);
+        int editSeconds = args.getInt(ARG_EDIT_AUTO_SILENCE_SECONDS, 0);
         boolean isEndOfRingtone = args.getBoolean(ARG_END_OF_RINGTONE, false);
         boolean isNever = args.getBoolean(ARG_NEVER, false);
 
         if (savedInstanceState != null) {
-            editMinutes = savedInstanceState.getLong(ARG_EDIT_AUTO_SILENCE_MINUTES, editMinutes);
-            editSeconds = savedInstanceState.getLong(ARG_EDIT_AUTO_SILENCE_SECONDS, editSeconds);
+            editMinutes = savedInstanceState.getInt(ARG_EDIT_AUTO_SILENCE_MINUTES, editMinutes);
+            editSeconds = savedInstanceState.getInt(ARG_EDIT_AUTO_SILENCE_SECONDS, editSeconds);
             isEndOfRingtone = savedInstanceState.getBoolean(ARG_END_OF_RINGTONE, isEndOfRingtone);
             isNever = savedInstanceState.getBoolean(ARG_NEVER, isNever);
         }
@@ -230,9 +230,9 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
         mEndOfRingtoneCheckbox.setChecked(isEndOfRingtone);
         mNeverCheckbox.setChecked(isNever);
 
-        updateInputSate();
-
         mEditMinutes.setText(String.valueOf(editMinutes));
+
+        updateInputSate();
 
         if (isForTimer()) {
             mEditSeconds.setText(String.valueOf(editSeconds));
@@ -247,13 +247,17 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
             }
         }
 
-        mEditMinutes.setInputType(InputType.TYPE_CLASS_NUMBER);
         mEditMinutes.selectAll();
         mEditMinutes.requestFocus();
         mEditMinutes.setOnEditorActionListener(new ImeDoneListener());
         mEditMinutes.addTextChangedListener(mTextWatcher);
 
         if (isForTimer()) {
+            mEditMinutes.setOnFocusChangeListener((v, hasFocus) -> {
+                if (hasFocus) {
+                    mEditMinutes.selectAll();
+                }
+            });
             mEditSeconds.selectAll();
             mEditSeconds.setInputType(InputType.TYPE_CLASS_NUMBER);
             mEditSeconds.setOnEditorActionListener(new ImeDoneListener());
@@ -323,8 +327,6 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
     public void onResume() {
         super.onResume();
 
-        updateInputSate();
-
         if (!mEndOfRingtoneCheckbox.isChecked() && !mNeverCheckbox.isChecked()) {
             mEditMinutes.requestFocus();
             mEditMinutes.postDelayed(() -> {
@@ -357,7 +359,6 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
      * Otherwise, the inputs are enabled and appropriate helper texts are shown.
      * Additionally, seconds input visibility is toggled depending on whether this dialog is for a timer.</p>
      */
-
     private void updateInputSate() {
         boolean disable = mEndOfRingtoneCheckbox.isChecked() || mNeverCheckbox.isChecked();
 
@@ -382,6 +383,21 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
             mMinutesInputLayout.setHelperText(null);
             mSecondsInputLayout.setHelperText(null);
         }
+
+        if (!disable && isForTimer()) {
+            String minutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
+
+            if ("60".equals(minutesText)) {
+                mEditMinutes.setImeOptions(EditorInfo.IME_ACTION_DONE);
+                mEditMinutes.setOnEditorActionListener(new ImeDoneListener());
+                mSecondsInputLayout.setEnabled(false);
+            } else {
+                mEditMinutes.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+                mSecondsInputLayout.setEnabled(true);
+            }
+        }
+
+        mEditMinutes.setInputType(InputType.TYPE_CLASS_NUMBER);
     }
 
     /**
@@ -391,7 +407,6 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
      * <p>This method ensures that the user can immediately start typing a duration
      * when the dialog is in manual entry mode.</p>
      */
-
     private void maybeRequestMinutesFocus() {
         if (!mEndOfRingtoneCheckbox.isChecked() && !mNeverCheckbox.isChecked()) {
             mEditMinutes.requestFocus();
@@ -437,10 +452,6 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
                     seconds = TIMEOUT_NEVER;
                 } else {
                     minutes = TIMEOUT_NEVER;
-                }
-            } else if (minutes == 60) {
-                if (isForTimer()) {
-                    seconds = 0;
                 }
             }
         }
@@ -502,15 +513,8 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
         alertDialog.setTitle(getString(R.string.timer_time_warning_box_title));
 
         String minutesText = Objects.requireNonNull(mEditMinutes.getText()).toString();
-        String secondsText = Objects.requireNonNull(mEditSeconds.getText()).toString();
         boolean minutesInvalid = (!minutesText.isEmpty() && Integer.parseInt(minutesText) < 0)
                 || (!minutesText.isEmpty() && Integer.parseInt(minutesText) > 60);
-
-        boolean secondsInvalid = false;
-        if (isForTimer()) {
-            secondsInvalid = (!secondsText.isEmpty() && Integer.parseInt(secondsText) < 0)
-                    || (!secondsText.isEmpty() && Integer.parseInt(secondsText) > 59);
-        }
         int invalidColor = ContextCompat.getColor(mContext, R.color.md_theme_error);
         int validColor = MaterialColors.getColor(mContext, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
 
@@ -520,10 +524,16 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
                 : ColorStateList.valueOf(validColor));
 
         if (isForTimer()) {
+            String secondsText = Objects.requireNonNull(mEditSeconds.getText()).toString();
+            boolean secondsInvalid = (!secondsText.isEmpty() && Integer.parseInt(secondsText) < 0)
+                    || (!secondsText.isEmpty() && Integer.parseInt(secondsText) > 59);
+
             mSecondsInputLayout.setBoxStrokeColor(secondsInvalid ? invalidColor : validColor);
             mSecondsInputLayout.setHintTextColor(secondsInvalid
                     ? ColorStateList.valueOf(invalidColor)
                     : ColorStateList.valueOf(validColor));
+            mMinutesInputLayout.setEnabled(!secondsInvalid);
+            mSecondsInputLayout.setEnabled(!minutesInvalid);
         }
     }
 
@@ -539,10 +549,12 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
         int validColor = MaterialColors.getColor(mContext, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
         mMinutesInputLayout.setBoxStrokeColor(validColor);
         mMinutesInputLayout.setHintTextColor(ColorStateList.valueOf(validColor));
+        mMinutesInputLayout.setEnabled(!mEndOfRingtoneCheckbox.isChecked() && !mNeverCheckbox.isChecked());
 
         if (isForTimer()) {
             mSecondsInputLayout.setBoxStrokeColor(validColor);
             mSecondsInputLayout.setHintTextColor(ColorStateList.valueOf(validColor));
+            mSecondsInputLayout.setEnabled(!mEndOfRingtoneCheckbox.isChecked() && !mNeverCheckbox.isChecked());
         }
     }
 
@@ -561,14 +573,15 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
 
         @Override
         public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-            if (mEndOfRingtoneCheckbox.isChecked()) {
+            if (mEndOfRingtoneCheckbox.isChecked() || mNeverCheckbox.isChecked()) {
                 updateDialogForValidInput();
                 return;
             }
 
             String minutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
-            String secondsText = isForTimer()
-                    && mEditSeconds.getText() != null ? mEditSeconds.getText().toString() : "";
+            String secondsText = isForTimer() && mEditSeconds.getText() != null
+                    ? mEditSeconds.getText().toString()
+                    : "";
 
             if (isInvalidInput(minutesText, secondsText)) {
                 updateDialogForInvalidInput();
@@ -588,7 +601,11 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
                 mEditMinutes.setOnEditorActionListener(new ImeDoneListener());
 
                 if (isForTimer()) {
-                    mEditSeconds.setEnabled(false);
+                    mSecondsInputLayout.setEnabled(false);
+
+                    if(!"0".equals(secondsText)) {
+                        mEditSeconds.setText("0");
+                    }
                 }
             } else {
                 mEditMinutes.setImeOptions(isForTimer()
@@ -596,7 +613,7 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
                         : EditorInfo.IME_ACTION_DONE);
 
                 if (isForTimer()) {
-                    mEditSeconds.setEnabled(true);
+                    mSecondsInputLayout.setEnabled(true);
                 }
             }
 

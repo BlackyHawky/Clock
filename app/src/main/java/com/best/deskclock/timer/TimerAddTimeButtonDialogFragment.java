@@ -177,10 +177,10 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
         if (editMinutes == 60) {
             mEditMinutes.setImeOptions(EditorInfo.IME_ACTION_DONE);
             mEditMinutes.setOnEditorActionListener(new ImeDoneListener());
-            mEditSeconds.setEnabled(false);
+            mSecondsInputLayout.setEnabled(false);
         } else {
             mEditMinutes.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-            mEditSeconds.setEnabled(true);
+            mSecondsInputLayout.setEnabled(true);
         }
         mEditMinutes.setInputType(InputType.TYPE_CLASS_NUMBER);
         mEditMinutes.selectAll();
@@ -284,10 +284,6 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
             seconds = Integer.parseInt(secondsText);
         }
 
-        if (minutes == 60) {
-            seconds = 0;
-        }
-
         int totalSeconds = minutes * 60 + seconds;
 
         if (mTimerId >= 0) {
@@ -354,11 +350,13 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
         mMinutesInputLayout.setHintTextColor(minutesInvalid
                 ? ColorStateList.valueOf(invalidColor)
                 : ColorStateList.valueOf(validColor));
+        mMinutesInputLayout.setEnabled(!secondsInvalid);
 
         mSecondsInputLayout.setBoxStrokeColor(secondsInvalid ? invalidColor : validColor);
         mSecondsInputLayout.setHintTextColor(secondsInvalid
                 ? ColorStateList.valueOf(invalidColor)
                 : ColorStateList.valueOf(validColor));
+        mSecondsInputLayout.setEnabled(!minutesInvalid);
     }
 
     /**
@@ -379,8 +377,10 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
         int validColor = MaterialColors.getColor(requireContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
         mMinutesInputLayout.setBoxStrokeColor(validColor);
         mMinutesInputLayout.setHintTextColor(ColorStateList.valueOf(validColor));
+        mMinutesInputLayout.setEnabled(true);
         mSecondsInputLayout.setBoxStrokeColor(validColor);
         mSecondsInputLayout.setHintTextColor(ColorStateList.valueOf(validColor));
+        mSecondsInputLayout.setEnabled(true);
     }
 
     /**
@@ -411,10 +411,14 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
             if (minutes == 60) {
                 mEditMinutes.setImeOptions(EditorInfo.IME_ACTION_DONE);
                 mEditMinutes.setOnEditorActionListener(new ImeDoneListener());
-                mEditSeconds.setEnabled(false);
+                mSecondsInputLayout.setEnabled(false);
+
+                if(!"0".equals(secondsText)) {
+                    mEditSeconds.setText("0");
+                }
             } else {
                 mEditMinutes.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-                mEditSeconds.setEnabled(true);
+                mSecondsInputLayout.setEnabled(true);
             }
 
             mEditMinutes.setInputType(InputType.TYPE_CLASS_NUMBER);

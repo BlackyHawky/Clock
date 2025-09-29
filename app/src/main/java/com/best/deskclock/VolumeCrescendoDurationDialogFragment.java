@@ -82,12 +82,12 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
     public static VolumeCrescendoDurationDialogFragment newInstance(String key, int totalSeconds) {
         Bundle args = new Bundle();
 
-        long minutes = totalSeconds / 60;
-        long seconds = totalSeconds % 60;
+        int minutes = totalSeconds / 60;
+        int seconds = totalSeconds % 60;
 
         args.putString(ARG_PREF_KEY, key);
-        args.putLong(ARG_EDIT_VOLUME_CRESCENDO_MINUTES, minutes);
-        args.putLong(ARG_EDIT_VOLUME_CRESCENDO_SECONDS, seconds);
+        args.putInt(ARG_EDIT_VOLUME_CRESCENDO_MINUTES, minutes);
+        args.putInt(ARG_EDIT_VOLUME_CRESCENDO_SECONDS, seconds);
 
         VolumeCrescendoDurationDialogFragment frag = new VolumeCrescendoDurationDialogFragment();
         frag.setArguments(args);
@@ -107,11 +107,11 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
         args.putParcelable(ARG_ALARM, alarm);
         args.putString(ARG_TAG, tag);
 
-        long minutes = crescendoDuration / 60;
-        long seconds = crescendoDuration % 60;
+        int minutes = crescendoDuration / 60;
+        int seconds = crescendoDuration % 60;
 
-        args.putLong(ARG_EDIT_VOLUME_CRESCENDO_MINUTES, minutes);
-        args.putLong(ARG_EDIT_VOLUME_CRESCENDO_SECONDS, seconds);
+        args.putInt(ARG_EDIT_VOLUME_CRESCENDO_MINUTES, minutes);
+        args.putInt(ARG_EDIT_VOLUME_CRESCENDO_SECONDS, seconds);
 
         final VolumeCrescendoDurationDialogFragment fragment = new VolumeCrescendoDurationDialogFragment();
         fragment.setArguments(args);
@@ -149,11 +149,11 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
             String minutesStr = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
             String secondsStr = mEditSeconds.getText() != null ? mEditSeconds.getText().toString() : "";
 
-            long minutes = minutesStr.isEmpty() ? 0 : Long.parseLong(minutesStr);
-            long seconds = secondsStr.isEmpty() ? 0 : Long.parseLong(secondsStr);
+            int minutes = minutesStr.isEmpty() ? 0 : Integer.parseInt(minutesStr);
+            int seconds = secondsStr.isEmpty() ? 0 : Integer.parseInt(secondsStr);
 
-            outState.putLong(ARG_EDIT_VOLUME_CRESCENDO_MINUTES, minutes);
-            outState.putLong(ARG_EDIT_VOLUME_CRESCENDO_SECONDS, seconds);
+            outState.putInt(ARG_EDIT_VOLUME_CRESCENDO_MINUTES, minutes);
+            outState.putInt(ARG_EDIT_VOLUME_CRESCENDO_SECONDS, seconds);
         }
     }
 
@@ -168,11 +168,11 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
                 : args.getParcelable(ARG_ALARM);
         mTag = args.getString(ARG_TAG);
 
-        long editMinutes = args.getLong(ARG_EDIT_VOLUME_CRESCENDO_MINUTES, 0);
-        long editSeconds = args.getLong(ARG_EDIT_VOLUME_CRESCENDO_SECONDS, 0);
+        int editMinutes = args.getInt(ARG_EDIT_VOLUME_CRESCENDO_MINUTES, 0);
+        int editSeconds = args.getInt(ARG_EDIT_VOLUME_CRESCENDO_SECONDS, 0);
         if (savedInstanceState != null) {
-            editMinutes = savedInstanceState.getLong(ARG_EDIT_VOLUME_CRESCENDO_MINUTES, editMinutes);
-            editSeconds = savedInstanceState.getLong(ARG_EDIT_VOLUME_CRESCENDO_SECONDS, editSeconds);
+            editMinutes = savedInstanceState.getInt(ARG_EDIT_VOLUME_CRESCENDO_MINUTES, editMinutes);
+            editSeconds = savedInstanceState.getInt(ARG_EDIT_VOLUME_CRESCENDO_SECONDS, editSeconds);
         }
 
         View view = getLayoutInflater().inflate(R.layout.volume_crescendo_duration_dialog, null);
@@ -190,10 +190,10 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
         if (editMinutes == 60) {
             mEditMinutes.setImeOptions(EditorInfo.IME_ACTION_DONE);
             mEditMinutes.setOnEditorActionListener(new ImeDoneListener());
-            mEditSeconds.setEnabled(false);
+            mSecondsInputLayout.setEnabled(false);
         } else {
             mEditMinutes.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-            mEditSeconds.setEnabled(true);
+            mSecondsInputLayout.setEnabled(true);
         }
         mEditMinutes.setInputType(InputType.TYPE_CLASS_NUMBER);
         mEditMinutes.selectAll();
@@ -277,10 +277,6 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
             seconds = Integer.parseInt(secondsText);
         }
 
-        if (minutes == 60) {
-            seconds = 0;
-        }
-
         int crescendoDuration = minutes * 60 + seconds;
 
         if (mAlarm != null) {
@@ -345,11 +341,13 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
         mMinutesInputLayout.setHintTextColor(minutesInvalid
                 ? ColorStateList.valueOf(invalidColor)
                 : ColorStateList.valueOf(validColor));
+        mMinutesInputLayout.setEnabled(!secondsInvalid);
 
         mSecondsInputLayout.setBoxStrokeColor(secondsInvalid ? invalidColor : validColor);
         mSecondsInputLayout.setHintTextColor(secondsInvalid
                 ? ColorStateList.valueOf(invalidColor)
                 : ColorStateList.valueOf(validColor));
+        mSecondsInputLayout.setEnabled(!minutesInvalid);
     }
 
     /**
@@ -364,8 +362,10 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
         int validColor = MaterialColors.getColor(mContext, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
         mMinutesInputLayout.setBoxStrokeColor(validColor);
         mMinutesInputLayout.setHintTextColor(ColorStateList.valueOf(validColor));
+        mMinutesInputLayout.setEnabled(true);
         mSecondsInputLayout.setBoxStrokeColor(validColor);
         mSecondsInputLayout.setHintTextColor(ColorStateList.valueOf(validColor));
+        mSecondsInputLayout.setEnabled(true);
     }
 
     /**
@@ -396,10 +396,14 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
             if (minutes == 60) {
                 mEditMinutes.setImeOptions(EditorInfo.IME_ACTION_DONE);
                 mEditMinutes.setOnEditorActionListener(new ImeDoneListener());
-                mEditSeconds.setEnabled(false);
+                mSecondsInputLayout.setEnabled(false);
+
+                if(!"0".equals(secondsText)) {
+                    mEditSeconds.setText("0");
+                }
             } else {
                 mEditMinutes.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-                mEditSeconds.setEnabled(true);
+                mSecondsInputLayout.setEnabled(true);
             }
 
             mEditMinutes.setInputType(InputType.TYPE_CLASS_NUMBER);

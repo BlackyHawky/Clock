@@ -82,12 +82,12 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
     public static AlarmSnoozeDurationDialogFragment newInstance(String key, int totalMinutes) {
         Bundle args = new Bundle();
 
-        long hours = totalMinutes / 60;
-        long minutes = totalMinutes % 60;
+        int hours = totalMinutes / 60;
+        int minutes = totalMinutes % 60;
 
         args.putString(ARG_PREF_KEY, key);
-        args.putLong(ARG_EDIT_ALARM_HOURS, hours);
-        args.putLong(ARG_EDIT_ALARM_MINUTES, minutes);
+        args.putInt(ARG_EDIT_ALARM_HOURS, hours);
+        args.putInt(ARG_EDIT_ALARM_MINUTES, minutes);
 
         AlarmSnoozeDurationDialogFragment frag = new AlarmSnoozeDurationDialogFragment();
         frag.setArguments(args);
@@ -107,11 +107,11 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
         args.putParcelable(ARG_ALARM, alarm);
         args.putString(ARG_TAG, tag);
 
-        long hours = snoozeDuration / 60;
-        long minutes = snoozeDuration % 60;
+        int hours = snoozeDuration / 60;
+        int minutes = snoozeDuration % 60;
 
-        args.putLong(ARG_EDIT_ALARM_HOURS, hours);
-        args.putLong(ARG_EDIT_ALARM_MINUTES, minutes);
+        args.putInt(ARG_EDIT_ALARM_HOURS, hours);
+        args.putInt(ARG_EDIT_ALARM_MINUTES, minutes);
 
         final AlarmSnoozeDurationDialogFragment fragment = new AlarmSnoozeDurationDialogFragment();
         fragment.setArguments(args);
@@ -149,11 +149,11 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
             String hoursStr = mEditHours.getText() != null ? mEditHours.getText().toString() : "";
             String minutesStr = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
 
-            long hours = hoursStr.isEmpty() ? 0 : Long.parseLong(hoursStr);
-            long minutes = minutesStr.isEmpty() ? 0 : Long.parseLong(minutesStr);
+            int hours = hoursStr.isEmpty() ? 0 : Integer.parseInt(hoursStr);
+            int minutes = minutesStr.isEmpty() ? 0 : Integer.parseInt(minutesStr);
 
-            outState.putLong(ARG_EDIT_ALARM_HOURS, hours);
-            outState.putLong(ARG_EDIT_ALARM_MINUTES, minutes);
+            outState.putInt(ARG_EDIT_ALARM_HOURS, hours);
+            outState.putInt(ARG_EDIT_ALARM_MINUTES, minutes);
         }
     }
 
@@ -168,11 +168,11 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
                 : args.getParcelable(ARG_ALARM);
         mTag = args.getString(ARG_TAG);
 
-        long editHours = args.getLong(ARG_EDIT_ALARM_HOURS, 0);
-        long editMinutes = args.getLong(ARG_EDIT_ALARM_MINUTES, 0);
+        int editHours = args.getInt(ARG_EDIT_ALARM_HOURS, 0);
+        int editMinutes = args.getInt(ARG_EDIT_ALARM_MINUTES, 0);
         if (savedInstanceState != null) {
-            editHours = savedInstanceState.getLong(ARG_EDIT_ALARM_HOURS, editHours);
-            editMinutes = savedInstanceState.getLong(ARG_EDIT_ALARM_MINUTES, editMinutes);
+            editHours = savedInstanceState.getInt(ARG_EDIT_ALARM_HOURS, editHours);
+            editMinutes = savedInstanceState.getInt(ARG_EDIT_ALARM_MINUTES, editMinutes);
         }
 
         View view = getLayoutInflater().inflate(R.layout.alarm_snooze_duration_dialog, null);
@@ -190,10 +190,10 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
         if (editHours == 24) {
             mEditHours.setImeOptions(EditorInfo.IME_ACTION_DONE);
             mEditHours.setOnEditorActionListener(new ImeDoneListener());
-            mEditMinutes.setEnabled(false);
+            mMinutesInputLayout.setEnabled(false);
         } else {
             mEditHours.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-            mEditMinutes.setEnabled(true);
+            mMinutesInputLayout.setEnabled(true);
         }
         mEditHours.setInputType(InputType.TYPE_CLASS_NUMBER);
         mEditHours.selectAll();
@@ -206,7 +206,7 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
         });
 
         if (editMinutes == ALARM_SNOOZE_DURATION_DISABLED) {
-            mEditMinutes.setText(String.valueOf(0));
+            mEditMinutes.setText("0");
         } else {
             mEditMinutes.setText(String.valueOf(editMinutes));
         }
@@ -281,10 +281,6 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
              minutes = Integer.parseInt(minutesText);
         }
 
-        if (hours == 24) {
-            minutes = 0;
-        }
-
         int snoozeDuration;
         if (hours == 0 && minutes == 0) {
             snoozeDuration = ALARM_SNOOZE_DURATION_DISABLED;
@@ -354,11 +350,13 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
         mHoursInputLayout.setHintTextColor(hoursInvalid
                 ? ColorStateList.valueOf(invalidColor)
                 : ColorStateList.valueOf(validColor));
+        mHoursInputLayout.setEnabled(!minutesInvalid);
 
         mMinutesInputLayout.setBoxStrokeColor(minutesInvalid ? invalidColor : validColor);
         mMinutesInputLayout.setHintTextColor(minutesInvalid
                 ? ColorStateList.valueOf(invalidColor)
                 : ColorStateList.valueOf(validColor));
+        mMinutesInputLayout.setEnabled(!hoursInvalid);
     }
 
     /**
@@ -373,8 +371,10 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
         int validColor = MaterialColors.getColor(mContext, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
         mHoursInputLayout.setBoxStrokeColor(validColor);
         mHoursInputLayout.setHintTextColor(ColorStateList.valueOf(validColor));
+        mHoursInputLayout.setEnabled(true);
         mMinutesInputLayout.setBoxStrokeColor(validColor);
         mMinutesInputLayout.setHintTextColor(ColorStateList.valueOf(validColor));
+        mMinutesInputLayout.setEnabled(true);
     }
 
     /**
@@ -405,10 +405,14 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
             if (hours == 24) {
                 mEditHours.setImeOptions(EditorInfo.IME_ACTION_DONE);
                 mEditHours.setOnEditorActionListener(new ImeDoneListener());
-                mEditMinutes.setEnabled(false);
+                mMinutesInputLayout.setEnabled(false);
+
+                if(!"0".equals(minutesText)) {
+                    mEditMinutes.setText("0");
+                }
             } else {
                 mEditHours.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-                mEditMinutes.setEnabled(true);
+                mMinutesInputLayout.setEnabled(true);
             }
 
             mEditHours.setInputType(InputType.TYPE_CLASS_NUMBER);
