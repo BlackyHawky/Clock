@@ -10,6 +10,7 @@ import static android.content.Context.AUDIO_SERVICE;
 import static android.media.AudioManager.STREAM_ALARM;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_SNOOZE_DURATION_DISABLED;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_DATE_PICKER_STYLE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SPINNER_DATE_PICKER_STYLE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SPINNER_TIME_PICKER_STYLE;
@@ -157,8 +158,11 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
 
     public void setCrescendoDuration(Alarm alarm) {
         Events.sendAlarmEvent(R.string.action_set_crescendo_duration, R.string.label_deskclock);
+        int crescendoDuration = alarm.crescendoDuration;
         final VolumeCrescendoDurationDialogFragment fragment =
-                VolumeCrescendoDurationDialogFragment.newInstance(alarm, alarm.crescendoDuration, mFragment.getTag());
+                VolumeCrescendoDurationDialogFragment.newInstance(alarm, crescendoDuration,
+                        crescendoDuration == DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION,
+                        mFragment.getTag());
         VolumeCrescendoDurationDialogFragment.show(mFragment.getParentFragmentManager(), fragment);
     }
 

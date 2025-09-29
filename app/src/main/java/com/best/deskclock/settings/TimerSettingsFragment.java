@@ -2,6 +2,7 @@
 
 package com.best.deskclock.settings;
 
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_END_OF_RINGTONE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_NEVER;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER;
@@ -135,7 +136,8 @@ public class TimerSettingsFragment extends ScreenFragment
         } else if (pref instanceof VolumeCrescendoDurationPreference volumeCrescendoDurationPreference) {
             int currentDelay = volumeCrescendoDurationPreference.getVolumeCrescendoDuration();
             VolumeCrescendoDurationDialogFragment dialogFragment =
-                    VolumeCrescendoDurationDialogFragment.newInstance(pref.getKey(), currentDelay);
+                    VolumeCrescendoDurationDialogFragment.newInstance(pref.getKey(), currentDelay,
+                            currentDelay == DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION);
             VolumeCrescendoDurationDialogFragment.show(getParentFragmentManager(), dialogFragment);
         } else if (pref instanceof TimerAddTimeButtonValuePreference timerAddTimeButtonValuePreference) {
             int currentValue = timerAddTimeButtonValuePreference.getAddTimeButtonValue();

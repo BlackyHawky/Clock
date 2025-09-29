@@ -4,6 +4,7 @@
 -->
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -46,6 +47,27 @@
                 android:maxLength="2" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?attr/colorOutline"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="6dp" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/crescendo_off"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackground"
+            android:button="@null"
+            android:drawableStart="@drawable/ic_selector_checkbox"
+            android:drawablePadding="24dp"
+            android:text="@string/label_off"
+            android:textSize="16sp"
+            tools:ignore="RtlSymmetry"
+            tools:checked="false" />
 
     </LinearLayout>
 
