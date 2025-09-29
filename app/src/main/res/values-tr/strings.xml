@@ -393,14 +393,11 @@
     <string name="clock_color_title">Saat rengi</string>
     <string name="alarm_settings_general_summary">Bu ayar genişletilmiş alarm görünümünde her alarm için ayrı olarak değiştirilebilir</string>
     <string name="alarm_notification_reminder_4_hours">4 saat önce</string>
-    <string name="default_time_to_add_to_timer_1_minute">1 dakika</string>
     <string name="permission_highly_recommended">Şiddetle tavsiye edilir</string>
     <string name="timer_volume_buttons_action_title">Sona eren zamanlayıcıları ses tuşlarıyla sıfırla</string>
     <string name="clock_style_spinner">Kaydırmalı</string>
     <string name="github_dialog_message">Projenin GitHub sayfasını ziyaret et:\n\n%s</string>
     <string name="dialog_close">Kapat</string>
-    <string name="default_time_to_add_to_timer_5_minutes">5 dakika</string>
-    <string name="default_time_to_add_to_timer_7_minutes">7 dakika</string>
     <string name="transparent_background_for_expired_timer_title">Zamanlayıcı sona erdiğinde şeffaf arka plan</string>
     <string name="warning_dialog_message">%s zamanlayıcıyı silmek istediğinize emin misiniz?</string>
     <string name="next_alarm_no_upcoming_alarm_titles_color">\"Sonraki alarm\" ve \"Yaklaşan alarm yok\" başlıkları için özel renk</string>
@@ -437,7 +434,6 @@
     <string name="sort_timer_title">Zamanlayıcıları sırala</string>
     <string name="sort_timer_ascending_duration">Süreye göre (artan)</string>
     <string name="sort_name">İsme göre</string>
-    <string name="default_time_to_add_to_timer_3_minutes">3 dakika</string>
     <string name="screensaver_daydream_settings">Ekran koruyucu seç/etkinleştir</string>
     <string name="next_alarm_color_title">Sonraki alarm rengi</string>
     <string name="screensaver_italic_digital_clock_title">İtalik dijital saat</string>
@@ -478,9 +474,6 @@
     <string name="license">Açık kaynak lisansı</string>
     <string name="description_direction_both_for_occasional_non_repeatable_alarm">Alarmı kapatmak ve silmek için sağa veya sola kaydırın</string>
     <string name="sort_timer_descending_duration">Süreye göre (azalan)</string>
-    <string name="default_time_to_add_to_timer_4_minutes">4 dakika</string>
-    <string name="default_time_to_add_to_timer_30_minutes">30 dakika</string>
-    <string name="default_time_to_add_to_timer_1_hour">1 saat</string>
     <string name="alarm_settings_summary">Stil, varsayılan zil sesi, ses düzeyi, alarmı kapatma veya erteleme eylemleri, haftanın ilk gününü ve hatırlatıcı bildirim süresini ayarlayın</string>
     <string name="date_color_title">Tarih rengi</string>
     <string name="screensaver_brightness_title">Parlaklık</string>
@@ -498,9 +491,7 @@
     <string name="screensaver_clock_dynamic_colors_title">Dinamik saat renkleri</string>
     <string name="first_launch_main_feature_link">… ve daha fazlası!</string>
     <string name="permission_requirement_title">Gereklilik:</string>
-    <string name="default_time_to_add_to_timer_9_minutes">9 dakika</string>
     <string name="description_direction_both_for_non_repeatable_alarm">Alarmı kapatmak için sağa veya sola kaydırın</string>
-    <string name="default_time_to_add_to_timer_6_minutes">6 dakika</string>
     <string name="material_time_picker_style_title">Saat seçme stili</string>
     <string name="permission_status_title">Durum:</string>
     <string name="minute_default_color_title">Dakikalar için varsayılan rengi kullan</string>
@@ -514,7 +505,6 @@
     <string name="turn_on_back_flash_for_triggered_alarm_title">Alarm başladığında flaşı aç</string>
     <string name="next_alarm_widget_title_no_alarm">Yaklaşan alarm yok</string>
     <string name="permission_dialog_revoke_title">İzni geri al</string>
-    <string name="default_time_to_add_to_timer_2_minutes">2 dakika</string>
     <string name="city_clock_default_color_title">Şehir saati için varsayılan rengi kullan</string>
     <string name="widget_max_font_size_title">Maksimum widget yazı boyutu</string>
     <string name="permission_management_settings">İzin yönetimi</string>
@@ -522,8 +512,6 @@
     <string name="display_warning_before_deleting_timer_title">Zamanlayıcıyı silerken uyarı penceresi göster</string>
     <string name="warning_dialog_title">Zamanlayıcıyı sil</string>
     <string name="sort_manually">Elle (sürükleyerek)</string>
-    <string name="default_time_to_add_to_timer_8_minutes">8 dakika</string>
-    <string name="default_time_to_add_to_timer_10_minutes">10 dakika</string>
     <string name="screensaver_settings_summary">Ekran koruyucunun stilini, rengini ve yazı tipini ayarlayın</string>
     <string name="screensaver_daydream_settings_summary">Android\'in ekran koruyucu ayarlarını açar</string>
     <string name="second_hand_color_title">Saniye çubuğu rengi</string>

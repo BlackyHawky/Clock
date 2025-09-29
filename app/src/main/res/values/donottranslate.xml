@@ -365,38 +365,6 @@
         <item>3</item>
     </string-array>
 
-    <!-- Entries listed in the ListPreference when invoking the default time to add to timer preference -->
-    <string-array name="default_time_to_add_to_timer_entries">
-        <item>@string/default_time_to_add_to_timer_1_minute</item>
-        <item>@string/default_time_to_add_to_timer_2_minutes</item>
-        <item>@string/default_time_to_add_to_timer_3_minutes</item>
-        <item>@string/default_time_to_add_to_timer_4_minutes</item>
-        <item>@string/default_time_to_add_to_timer_5_minutes</item>
-        <item>@string/default_time_to_add_to_timer_6_minutes</item>
-        <item>@string/default_time_to_add_to_timer_7_minutes</item>
-        <item>@string/default_time_to_add_to_timer_8_minutes</item>
-        <item>@string/default_time_to_add_to_timer_9_minutes</item>
-        <item>@string/default_time_to_add_to_timer_10_minutes</item>
-        <item>@string/default_time_to_add_to_timer_30_minutes</item>
-        <item>@string/default_time_to_add_to_timer_1_hour</item>
-    </string-array>
-    <!-- Values that are retrieved from the ListPreference. These must match
-         the timer_minutes_to_add_entries above. -->
-    <string-array name="default_time_to_add_to_timer_values" translatable="false">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-        <item>7</item>
-        <item>8</item>
-        <item>9</item>
-        <item>10</item>
-        <item>30</item>
-        <item>60</item>
-    </string-array>
-
     <!-- Jocular content that user may append when sharing the lap times -->
     <string-array name="sw_share_strings" translatable="true">
         <item>@string/jocular_content_message_1</item>

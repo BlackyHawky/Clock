@@ -139,12 +139,9 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <ListPreference
-            android:key="key_default_time_to_add_to_timer"
+        <com.best.deskclock.settings.TimerAddTimeButtonValuePreference
+            android:key="key_timer_add_time_button_value"
             android:title="@string/default_time_to_add_to_timer_title"
-            android:entries="@array/default_time_to_add_to_timer_entries"
-            android:entryValues="@array/default_time_to_add_to_timer_values"
-            android:defaultValue="1"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />

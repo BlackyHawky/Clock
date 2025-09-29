@@ -402,12 +402,6 @@
     <string name="dismiss_button_color">Боја дугмета \"Одбаци\"</string>
     <string name="snooze_duration_none">Нема</string>
     <string name="clock_settings_summary">Поставите стил, временску зону и промените датум и време уређаја</string>
-    <string name="default_time_to_add_to_timer_8_minutes">8 минута</string>
-    <string name="default_time_to_add_to_timer_4_minutes">4 минуте</string>
-    <string name="default_time_to_add_to_timer_6_minutes">6 минута</string>
-    <string name="default_time_to_add_to_timer_7_minutes">7 минута</string>
-    <string name="default_time_to_add_to_timer_5_minutes">5 минута</string>
-    <string name="default_time_to_add_to_timer_9_minutes">9 минута</string>
     <string name="stopwatch_channel">Штоперица</string>
     <string name="permission_granted">Одобрено</string>
     <string name="next_alarm_widget_title_no_alarm">Нема надолазећег аларма</string>
@@ -420,12 +414,6 @@
     <string name="sort_timer_ascending_duration">По трајању (растући редослед)</string>
     <string name="sort_timer_descending_duration">По трајању (опадајући редослед)</string>
     <string name="sort_name">По имену</string>
-    <string name="default_time_to_add_to_timer_1_minute">1 минута</string>
-    <string name="default_time_to_add_to_timer_2_minutes">2 минуте</string>
-    <string name="default_time_to_add_to_timer_3_minutes">3 минуте</string>
-    <string name="default_time_to_add_to_timer_10_minutes">10 минута</string>
-    <string name="default_time_to_add_to_timer_30_minutes">30 минута</string>
-    <string name="default_time_to_add_to_timer_1_hour">1 сат</string>
     <string name="timer_label_box_title">Ознака тајмера</string>
     <string name="alarm_clock_font_size">Величина фонта сата аларма</string>
     <string name="alarm_title_font_size">Величина фонта наслова аларма</string>

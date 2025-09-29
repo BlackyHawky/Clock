@@ -56,15 +56,50 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
     private static final String ARG_EDIT_MINUTES = "arg_edit_minutes";
     private static final String ARG_EDIT_SECONDS = "arg_edit_seconds";
     private static final String ARG_TIMER_ID = "arg_timer_id";
+    private static final String ARG_PREF_KEY = "arg_pref_key";
+    public static final String RESULT_PREF_KEY = "result_pref_key";
+    public static final String REQUEST_KEY = "request_key";
+    public static final String ADD_TIME_BUTTON_VALUE = "add_time_button_value";
 
     private TextInputLayout mMinutesInputLayout;
     private TextInputLayout mSecondsInputLayout;
     private EditText mEditMinutes;
     private EditText mEditSeconds;
     private int mTimerId;
+    private final TextWatcher mTextWatcher = new TextChangeListener();
     private InputMethodManager mInput;
 
+    /**
+     * Creates a new instance of {@link TimerAddTimeButtonDialogFragment} to be used
+     * in the settings screen for configuring the default time added by the timer button.
+     *
+     * @param key           The shared preference key used to persist the selected duration.
+     * @param totalDuration The default duration in seconds to pre-fill the dialog with.
+     *                      This value is split into minutes and seconds internally.
+     */
+    public static TimerAddTimeButtonDialogFragment newInstance(String key, int totalDuration) {
+        final Bundle args = new Bundle();
 
+        int minutesButtonTime = totalDuration / 60;
+        int secondsButtonTime = totalDuration % 60;
+
+        args.putString(ARG_PREF_KEY, key);
+        args.putInt(ARG_EDIT_MINUTES, minutesButtonTime);
+        args.putInt(ARG_EDIT_SECONDS, secondsButtonTime);
+
+        final TimerAddTimeButtonDialogFragment frag = new TimerAddTimeButtonDialogFragment();
+        frag.setArguments(args);
+        return frag;
+    }
+
+    /**
+     * Creates a new instance of {@link TimerAddTimeButtonDialogFragment} to be used
+     * directly from an existing timer instance, typically when modifying the button time
+     * from within the timer UI.
+     *
+     * @param timer The {@link Timer} instance containing the current button time and ID.
+     *              The button time is expected to be stored as a string representing seconds.
+     */
     public static TimerAddTimeButtonDialogFragment newInstance(Timer timer) {
         final Bundle args = new Bundle();
 
@@ -150,7 +185,7 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
         mEditMinutes.setInputType(InputType.TYPE_CLASS_NUMBER);
         mEditMinutes.selectAll();
         mEditMinutes.requestFocus();
-        mEditMinutes.addTextChangedListener(new TextChangeListener());
+        mEditMinutes.addTextChangedListener(mTextWatcher);
         mEditMinutes.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
                 mEditMinutes.selectAll();
@@ -161,7 +196,7 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
         mEditSeconds.selectAll();
         mEditSeconds.setInputType(InputType.TYPE_CLASS_NUMBER);
         mEditSeconds.setOnEditorActionListener(new ImeDoneListener());
-        mEditSeconds.addTextChangedListener(new TextChangeListener());
+        mEditSeconds.addTextChangedListener(mTextWatcher);
         mEditSeconds.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
                 mEditSeconds.selectAll();
@@ -209,12 +244,26 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        mEditMinutes.requestFocus();
+        mEditMinutes.postDelayed(() -> {
+            if (mInput != null) {
+                mInput.showSoftInput(mEditMinutes, InputMethodManager.SHOW_IMPLICIT);
+            }
+        }, 200);
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
 
         // Stop callbacks from the IME since there is no view to process them.
         mEditMinutes.setOnEditorActionListener(null);
+        mEditMinutes.removeTextChangedListener(mTextWatcher);
         mEditSeconds.setOnEditorActionListener(null);
+        mEditSeconds.removeTextChangedListener(mTextWatcher);
     }
 
     /**
@@ -239,12 +288,18 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
             seconds = 0;
         }
 
+        int totalSeconds = minutes * 60 + seconds;
+
         if (mTimerId >= 0) {
             final Timer timer = DataModel.getDataModel().getTimer(mTimerId);
             if (timer != null) {
-                int totalSeconds = minutes * 60 + seconds;
                 DataModel.getDataModel().setTimerButtonTime(timer, String.valueOf(totalSeconds));
             }
+        } else {
+            Bundle result = new Bundle();
+            result.putInt(ADD_TIME_BUTTON_VALUE, totalSeconds);
+            result.putString(RESULT_PREF_KEY, requireArguments().getString(ARG_PREF_KEY));
+            getParentFragmentManager().setFragmentResult(REQUEST_KEY, result);
         }
     }
 
