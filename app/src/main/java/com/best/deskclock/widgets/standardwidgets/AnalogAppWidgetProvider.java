@@ -13,13 +13,11 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_CLOCK
 
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Icon;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.WidgetDAO;
-import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.widgets.BaseAnalogAppWidgetProvider;
 
@@ -27,8 +25,6 @@ import com.best.deskclock.widgets.BaseAnalogAppWidgetProvider;
  * Simple widget to show an analog clock (with or without the second hand for Android12+).
  */
 public class AnalogAppWidgetProvider extends BaseAnalogAppWidgetProvider {
-
-    private static final LogUtils.Logger LOGGER = new LogUtils.Logger("AnlgWdgtProv");
 
     @Override
     protected int getLayoutId(SharedPreferences prefs) {
@@ -112,12 +108,6 @@ public class AnalogAppWidgetProvider extends BaseAnalogAppWidgetProvider {
         if (!WidgetDAO.isAnalogWidgetDefaultSecondHandColor(prefs)) {
             secondHandIcon.setTint(WidgetDAO.getAnalogWidgetSecondHandColor(prefs));
         }
-    }
-
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        LOGGER.i("onReceive: " + intent);
-        super.onReceive(context, intent);
     }
 
     public static void updateAppWidget(Context context, AppWidgetManager wm, int widgetId) {

@@ -6,13 +6,11 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.MATERIAL_YOU_
 
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Icon;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.WidgetDAO;
-import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.widgets.BaseAnalogAppWidgetProvider;
 
@@ -20,8 +18,6 @@ import com.best.deskclock.widgets.BaseAnalogAppWidgetProvider;
  * Simple widget to show the Material You analog clock (with or without the second hand for Android12+).
  */
 public class MaterialYouAnalogAppWidgetProvider extends BaseAnalogAppWidgetProvider {
-
-    private static final LogUtils.Logger LOGGER = new LogUtils.Logger("MYAnlgWdgtProv");
 
     @Override
     protected int getLayoutId(SharedPreferences prefs) {
@@ -95,12 +91,6 @@ public class MaterialYouAnalogAppWidgetProvider extends BaseAnalogAppWidgetProvi
         if (!WidgetDAO.isMaterialYouAnalogWidgetDefaultSecondHandColor(prefs)) {
             secondHandIcon.setTint(WidgetDAO.getMaterialYouAnalogWidgetSecondHandColor(prefs));
         }
-    }
-
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        LOGGER.i("onReceive: " + intent);
-        super.onReceive(context, intent);
     }
 
     public static void updateAppWidget(Context context, AppWidgetManager wm, int widgetId) {

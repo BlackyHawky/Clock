@@ -16,6 +16,7 @@ import android.widget.RemoteViews;
 
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
+import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.WidgetUtils;
 
@@ -96,6 +97,8 @@ public abstract class BaseAnalogAppWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        LogUtils.i(getClass().getSimpleName() + " - onReceive: " + intent);
+
         super.onReceive(context, intent);
 
         AppWidgetManager wm = AppWidgetManager.getInstance(context);

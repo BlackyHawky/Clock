@@ -389,6 +389,8 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        LogUtils.i(getClass().getSimpleName() + " - onReceive: " + intent);
+
         super.onReceive(context, intent);
 
         final AppWidgetManager wm = AppWidgetManager.getInstance(context);

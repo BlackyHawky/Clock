@@ -43,6 +43,8 @@ import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
+import com.best.deskclock.utils.SdkUtils;
+import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
 
 import java.util.Calendar;
@@ -131,10 +133,32 @@ public final class AlarmStateManager extends BroadcastReceiver {
     }
 
     /**
-     * Update the next alarm stored in framework. This value is also displayed in digital widgets,
-     * the clock tab and the screensaver in this app.
+     * Update the next alarm stored in framework.
+     * This value is displayed:
+     * <ul>
+     *     <li>in the Clock app (alarm tab and screensaver)</li>
+     *     <li>in the app's digital widgets (if accessible)</li>
+     * </ul>
+     * <p>
+     * Note: This method performs operations that require access to credential-protected storage.
+     * Therefore, if the user is currently locked (i.e., the device is in Direct Boot mode),
+     * the update will be skipped to avoid runtime exceptions when accessing system services
+     * like {@code AppWidgetManager}.</p>
      */
     private static void updateNextAlarm(Context context) {
+        Context dpsContext = SdkUtils.isAtLeastAndroid7()
+                ? context.createDeviceProtectedStorageContext()
+                : context;
+
+        // Important: Do not proceed if the user is locked (direct boot mode).
+        // Updating widgets may fail because credential-protected storage
+        // is not yet accessible, and AppWidgetManager.getAppWidgetIds() will throw an exception.
+        // Fix https://github.com/BlackyHawky/Clock/issues/369#issuecomment-3344303993
+        if (!Utils.isUserUnlocked(dpsContext)) {
+            LogUtils.w("updateNextAlarm: Skipping, user is locked.");
+            return;
+        }
+
         final AlarmInstance nextAlarm = getNextFiringAlarm(context);
 
         if (nextAlarm != null) {
@@ -152,7 +176,6 @@ public final class AlarmStateManager extends BroadcastReceiver {
             WidgetUtils.updateAllDigitalWidgets(context);
         }, 600);
     }
-
 
     /**
      * Returns an alarm instance of an alarm that's going to fire next.

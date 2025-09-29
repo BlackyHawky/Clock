@@ -11,7 +11,6 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_WIDGE
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.text.TextUtils;
@@ -23,7 +22,6 @@ import android.widget.TextView;
 import com.best.deskclock.R;
 import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.utils.ClockUtils;
-import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.WidgetUtils;
 import com.best.deskclock.widgets.BaseDigitalAppWidgetProvider;
@@ -52,8 +50,6 @@ import com.best.deskclock.widgets.DigitalWidgetSizes;
  * choose optimal values.
  */
 public class VerticalDigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
-
-    private static final LogUtils.Logger LOGGER = new LogUtils.Logger("StdVertDgtlWdgtProv");
 
     @Override
     protected int getLayoutId() {
@@ -333,20 +329,6 @@ public class VerticalDigitalAppWidgetProvider extends BaseDigitalAppWidgetProvid
         if (nextAlarmIcon.getVisibility() == VISIBLE) {
             measuredSizes.mIconBitmap = ThemeUtils.createBitmap(nextAlarmIcon);
         }
-    }
-
-
-
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        LOGGER.i("onReceive: " + intent);
-
-        String action = intent.getAction();
-        if (action == null) {
-            return;
-        }
-
-        super.onReceive(context, intent);
     }
 
     public static void updateAppWidget(Context context, AppWidgetManager wm, int widgetId) {
