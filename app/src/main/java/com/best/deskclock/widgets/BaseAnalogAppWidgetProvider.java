@@ -16,6 +16,7 @@ import android.widget.RemoteViews;
 
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
+import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.WidgetUtils;
 
 /**
@@ -27,7 +28,7 @@ import com.best.deskclock.utils.WidgetUtils;
  */
 public abstract class BaseAnalogAppWidgetProvider extends AppWidgetProvider {
 
-    protected abstract int getLayoutId();
+    protected abstract int getLayoutId(SharedPreferences prefs);
     protected abstract int getWidgetViewId();
     protected abstract Icon getDialIcon(Context context, SharedPreferences prefs);
     protected abstract Icon getHourHandIcon(Context context);
@@ -40,13 +41,15 @@ public abstract class BaseAnalogAppWidgetProvider extends AppWidgetProvider {
     protected abstract void applySecondHandColor(Icon secondHandIcon, SharedPreferences prefs);
 
     protected void updateAnalogWidget(Context context, AppWidgetManager wm, int widgetId) {
-        RemoteViews views = relayoutWidget(context, wm, widgetId);
+        SharedPreferences prefs = getDefaultSharedPreferences(context);
+        RemoteViews views = relayoutWidget(context,prefs, wm, widgetId);
         wm.updateAppWidget(widgetId, views);
     }
 
-    protected RemoteViews relayoutWidget(Context context, AppWidgetManager wm, int widgetId) {
-        SharedPreferences prefs = getDefaultSharedPreferences(context);
-        RemoteViews rv = new RemoteViews(context.getPackageName(), getLayoutId());
+    protected RemoteViews relayoutWidget(Context context, SharedPreferences prefs,
+                                         AppWidgetManager wm, int widgetId) {
+
+        RemoteViews rv = new RemoteViews(context.getPackageName(), getLayoutId(prefs));
 
         // Tapping on the widget opens the app (if not on the lock screen).
         if (WidgetUtils.isWidgetClickable(wm, widgetId)) {
@@ -55,25 +58,27 @@ public abstract class BaseAnalogAppWidgetProvider extends AppWidgetProvider {
             rv.setOnClickPendingIntent(getWidgetViewId(), pi);
         }
 
-        // Configure child views of the remote view.
-        Icon dialIcon = getDialIcon(context, prefs);
-        Icon hourHandIcon = getHourHandIcon(context);
-        Icon minuteHandIcon = getMinuteHandIcon(context);
-        Icon secondHandIcon = getSecondHandIcon(context);
+        // Configure child views of the remote view for Android 12+.
+        if (SdkUtils.isAtLeastAndroid12()) {
+            Icon dialIcon = getDialIcon(context, prefs);
+            Icon hourHandIcon = getHourHandIcon(context);
+            Icon minuteHandIcon = getMinuteHandIcon(context);
+            Icon secondHandIcon = getSecondHandIcon(context);
 
-        rv.setIcon(getWidgetViewId(), "setDial", dialIcon);
-        rv.setIcon(getWidgetViewId(), "setHourHand", hourHandIcon);
-        rv.setIcon(getWidgetViewId(), "setMinuteHand", minuteHandIcon);
+            rv.setIcon(getWidgetViewId(), "setDial", dialIcon);
+            rv.setIcon(getWidgetViewId(), "setHourHand", hourHandIcon);
+            rv.setIcon(getWidgetViewId(), "setMinuteHand", minuteHandIcon);
 
-        applyDialColor(dialIcon, prefs);
-        applyHourHandColor(hourHandIcon, prefs);
-        applyMinuteHandColor(minuteHandIcon, prefs);
+            applyDialColor(dialIcon, prefs);
+            applyHourHandColor(hourHandIcon, prefs);
+            applyMinuteHandColor(minuteHandIcon, prefs);
 
-        if (isSecondHandDisplayed(prefs)) {
-            rv.setIcon(getWidgetViewId(), "setSecondHand", secondHandIcon);
-            applySecondHandColor(secondHandIcon, prefs);
-        } else {
-            rv.setIcon(getWidgetViewId(), "setSecondHand", null);
+            if (isSecondHandDisplayed(prefs)) {
+                rv.setIcon(getWidgetViewId(), "setSecondHand", secondHandIcon);
+                applySecondHandColor(secondHandIcon, prefs);
+            } else {
+                rv.setIcon(getWidgetViewId(), "setSecondHand", null);
+            }
         }
 
         return rv;

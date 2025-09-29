@@ -48,13 +48,8 @@ public class WidgetSettingsFragment extends ScreenFragment implements Preference
         mMaterialYouDigitalWidgetCustomizationPref = findPreference(KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOMIZATION);
         mMaterialYouVerticalDigitalWidgetCustomizationPref = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZATION);
         mMaterialYouNextAlarmWidgetCustomizationPref = findPreference(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOMIZATION);
-    }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        refresh();
+        setupPreferences();
     }
 
     @Override
@@ -88,7 +83,7 @@ public class WidgetSettingsFragment extends ScreenFragment implements Preference
         return true;
     }
 
-    private void refresh() {
+    private void setupPreferences() {
         mAnalogWidgetCustomizationPref.setOnPreferenceClickListener(this);
 
         mDigitalWidgetCustomizationPref.setOnPreferenceClickListener(this);

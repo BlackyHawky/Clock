@@ -30,7 +30,6 @@ import android.app.Activity;
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.os.Bundle;
-
 import android.text.format.DateFormat;
 
 import androidx.annotation.NonNull;

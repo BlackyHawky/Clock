@@ -20,6 +20,7 @@ import android.graphics.drawable.Icon;
 import com.best.deskclock.R;
 import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.widgets.BaseAnalogAppWidgetProvider;
 
 /**
@@ -30,8 +31,19 @@ public class AnalogAppWidgetProvider extends BaseAnalogAppWidgetProvider {
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger("AnlgWdgtProv");
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.standard_analog_appwidget;
+    protected int getLayoutId(SharedPreferences prefs) {
+        if (SdkUtils.isAtLeastAndroid12()) {
+            return R.layout.standard_analog_appwidget;
+        }
+
+        String clockDial = WidgetDAO.getAnalogWidgetClockDial(prefs);
+        return switch (clockDial) {
+            case ANALOG_WIDGET_CLOCK_DIAL_WITH_NUMBERS ->
+                    R.layout.standard_analog_appwidget_dial_with_number;
+            case ANALOG_WIDGET_CLOCK_DIAL_WITHOUT_NUMBERS ->
+                    R.layout.standard_analog_appwidget_dial_without_number;
+            default -> R.layout.standard_analog_appwidget;
+        };
     }
 
     @Override

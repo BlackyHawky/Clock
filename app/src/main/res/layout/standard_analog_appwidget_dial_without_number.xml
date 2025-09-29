@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2008 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+-->
+
+<!--suppress ALL -->
+<AnalogClock
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/analogAppwidget"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:dial="@drawable/analog_clock_dial_without_numbers"
+    android:hand_hour="@drawable/analog_clock_hour"
+    android:hand_minute="@drawable/analog_clock_minute"
+    android:importantForAccessibility="no" />

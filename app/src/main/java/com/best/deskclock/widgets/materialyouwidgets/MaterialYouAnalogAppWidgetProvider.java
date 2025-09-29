@@ -13,6 +13,7 @@ import android.graphics.drawable.Icon;
 import com.best.deskclock.R;
 import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.widgets.BaseAnalogAppWidgetProvider;
 
 /**
@@ -23,8 +24,16 @@ public class MaterialYouAnalogAppWidgetProvider extends BaseAnalogAppWidgetProvi
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger("MYAnlgWdgtProv");
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.material_you_analog_appwidget;
+    protected int getLayoutId(SharedPreferences prefs) {
+        if (SdkUtils.isAtLeastAndroid12()) {
+            return R.layout.material_you_analog_appwidget;
+        }
+
+        if (WidgetDAO.getMaterialYouAnalogWidgetClockDial(prefs).equals(MATERIAL_YOU_ANALOG_WIDGET_CLOCK_DIAL_FLOWER)) {
+            return R.layout.material_you_analog_appwidget_dial_flower;
+        } else {
+            return R.layout.material_you_analog_appwidget;
+        }
     }
 
     @Override

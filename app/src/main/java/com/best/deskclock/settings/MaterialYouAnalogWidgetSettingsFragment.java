@@ -15,6 +15,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_ANALO
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_ANALOG_WIDGET_DEFAULT_MINUTE_HAND_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_ANALOG_WIDGET_DEFAULT_SECOND_HAND_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_ANALOG_WIDGET_WITH_SECOND_HAND;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_WIDGET_COLOR_CATEGORY;
 
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
@@ -24,6 +25,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
+import androidx.preference.PreferenceCategory;
 import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
@@ -41,6 +43,7 @@ public class MaterialYouAnalogWidgetSettingsFragment extends ScreenFragment impl
 
     ListPreference mClockDialPref;
     SwitchPreferenceCompat mDisplaySecondsPref;
+    PreferenceCategory mWidgetColorCategory;
     SwitchPreferenceCompat mDefaultDialColorPref;
     ColorPreference mDialColorPref;
     SwitchPreferenceCompat mDefaultHourHandColorPref;
@@ -63,6 +66,7 @@ public class MaterialYouAnalogWidgetSettingsFragment extends ScreenFragment impl
 
         mClockDialPref = findPreference(KEY_MATERIAL_YOU_ANALOG_WIDGET_CLOCK_DIAL);
         mDisplaySecondsPref = findPreference(KEY_MATERIAL_YOU_ANALOG_WIDGET_WITH_SECOND_HAND);
+        mWidgetColorCategory = findPreference(KEY_WIDGET_COLOR_CATEGORY);
         mDefaultDialColorPref = findPreference(KEY_MATERIAL_YOU_ANALOG_WIDGET_DEFAULT_DIAL_COLOR);
         mDialColorPref = findPreference(KEY_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_DIAL_COLOR);
         mDefaultHourHandColorPref = findPreference(KEY_MATERIAL_YOU_ANALOG_WIDGET_DEFAULT_HOUR_HAND_COLOR);
@@ -155,6 +159,8 @@ public class MaterialYouAnalogWidgetSettingsFragment extends ScreenFragment impl
 
         mDisplaySecondsPref.setVisible(SdkUtils.isAtLeastAndroid12());
         mDisplaySecondsPref.setOnPreferenceChangeListener(this);
+
+        mWidgetColorCategory.setVisible(SdkUtils.isAtLeastAndroid12());
 
         mDefaultDialColorPref.setOnPreferenceChangeListener(this);
 

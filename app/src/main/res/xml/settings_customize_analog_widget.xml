@@ -44,6 +44,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:key="key_widget_color_category"
         android:title="@string/colors_category_title"
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false"
