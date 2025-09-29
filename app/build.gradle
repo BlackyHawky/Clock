@@ -86,10 +86,11 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.documentfile:documentfile:1.1.0'
     implementation 'androidx.media3:media3-exoplayer:1.8.0'
     implementation 'androidx.media3:media3-common:1.8.0'
     implementation 'androidx.preference:preference:1.2.1'
     implementation 'androidx.recyclerview:recyclerview:1.4.0'
-    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'com.google.android.material:material:1.13.0'
     implementation 'com.github.martin-stone:hsv-alpha-color-picker-android:3.1.0'
 }

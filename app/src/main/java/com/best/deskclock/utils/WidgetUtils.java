@@ -25,7 +25,11 @@ import android.os.Handler;
 import android.text.format.DateFormat;
 import android.widget.TextClock;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+import androidx.fragment.app.Fragment;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.WidgetDAO;
@@ -46,21 +50,31 @@ import java.util.Locale;
 
 public class WidgetUtils {
 
-    /**
-     * Static variable to know if the fragment displayed comes from the widget or from the settings.
-     * <p>
-     * When the user presses the back button, it lets you know whether the activity should stop
-     * or whether to return to the settings page.
-     */
-    public static boolean isLaunchedFromWidget = false;
+    public static final String KEY_LAUNCHED_FROM_WIDGET = "launched_from_widget";
 
     /**
-     * Method to reset the flag if necessary.
-     * <p>
-     * Must be called in the onStop() method in every file that handles widgets fragments.
+     * Helper method to know if the fragment displayed comes from the widget or from the settings.
      */
-    public static void resetLaunchFlag() {
-        isLaunchedFromWidget = false;
+    public static boolean isLaunchedFromWidget(@Nullable Bundle args) {
+        return args != null && args.getBoolean(KEY_LAUNCHED_FROM_WIDGET, false);
+    }
+
+    /**
+     * Adds a back-press callback that finishes the activity if the fragment was launched from a widget.
+     *
+     * @param fragment The fragment in which to add the back-press behavior.
+     */
+    public static void addFinishOnBackPressedIfLaunchedFromWidget(@NonNull Fragment fragment) {
+        if (isLaunchedFromWidget(fragment.getArguments())) {
+            fragment.requireActivity()
+                    .getOnBackPressedDispatcher()
+                    .addCallback(fragment, new OnBackPressedCallback(true) {
+                        @Override
+                        public void handleOnBackPressed() {
+                            fragment.requireActivity().finish();
+                        }
+                    });
+        }
     }
 
     /**

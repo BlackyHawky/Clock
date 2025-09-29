@@ -82,6 +82,8 @@ public class VerticalDigitalWidgetSettingsFragment extends ScreenFragment
 
         setupPreferences();
 
+        WidgetUtils.addFinishOnBackPressedIfLaunchedFromWidget(this);
+
         requireActivity().setResult(Activity.RESULT_CANCELED);
 
         Intent intent = requireActivity().getIntent();
@@ -100,13 +102,6 @@ public class VerticalDigitalWidgetSettingsFragment extends ScreenFragment
         saveCheckedPreferenceStates();
 
         updateVerticalDigitalWidget();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        WidgetUtils.resetLaunchFlag();
     }
 
     @Override

@@ -28,10 +28,8 @@ public class InsetsUtils {
      * Method to apply insets to a view.
      */
     public static void doOnApplyWindowInsets(View view, OnApplyWindowInsetsListener listener) {
-        InitialPadding initialPadding = recordInitialPaddingForView(view);
-
         ViewCompat.setOnApplyWindowInsetsListener(view, (v, insets) -> {
-            listener.onApply(v, insets, initialPadding);
+            listener.onApply(v, insets);
             return WindowInsetsCompat.CONSUMED;
         });
 
@@ -42,21 +40,7 @@ public class InsetsUtils {
      * Interface for the inset listener.
      */
     public interface OnApplyWindowInsetsListener {
-        void onApply(View v, WindowInsetsCompat insets, InitialPadding initialPadding);
-    }
-
-    /**
-     * Class to store the initial state of the view padding.
-     */
-    public record InitialPadding(int left, int top, int right, int bottom) {
-    }
-
-    /**
-     * Save the initial state of the view padding.
-     */
-    private static InitialPadding recordInitialPaddingForView(View view) {
-        return new InitialPadding(view.getPaddingLeft(), view.getPaddingTop(),
-                view.getPaddingRight(), view.getPaddingBottom());
+        void onApply(View v, WindowInsetsCompat insets);
     }
 
     /**
@@ -77,7 +61,6 @@ public class InsetsUtils {
 
                 @Override
                 public void onViewDetachedFromWindow(@NonNull View v) {
-                    // Do nothing
                 }
             });
         }

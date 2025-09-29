@@ -32,6 +32,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import android.text.format.DateFormat;
+
 import androidx.annotation.NonNull;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
@@ -109,6 +110,8 @@ public class MaterialYouDigitalWidgetSettingsFragment extends ScreenFragment
 
         setupPreferences();
 
+        WidgetUtils.addFinishOnBackPressedIfLaunchedFromWidget(this);
+
         requireActivity().setResult(Activity.RESULT_CANCELED);
 
         Intent intent = requireActivity().getIntent();
@@ -127,13 +130,6 @@ public class MaterialYouDigitalWidgetSettingsFragment extends ScreenFragment
         saveCheckedPreferenceStates();
 
         updateMaterialYouDigitalWidget();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        WidgetUtils.resetLaunchFlag();
     }
 
     @Override

@@ -678,13 +678,13 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     }
 
     @Override
-    public void onFabClick(@NonNull ImageView fab) {
+    public void onFabClick() {
         mAlarmUpdateHandler.hideUndoBar();
         startCreatingAlarm();
     }
 
     @Override
-    public void onFabLongClick(@NonNull ImageView fab) {
+    public void onFabLongClick() {
         mAlarmUpdateHandler.hideUndoBar();
         startCreatingAlarmWithDelay();
     }

@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -123,7 +122,7 @@ public class AlarmDelayPickerDialogFragment extends DialogFragment {
             minuteValue = savedInstanceState.getInt(ARG_EDIT_MINUTES, minuteValue);
         }
 
-        View view = LayoutInflater.from(mContext).inflate(R.layout.alarm_spinner_delay_picker, null);
+        View view = getLayoutInflater().inflate(R.layout.alarm_spinner_delay_picker, null);
         mHourPicker = view.findViewById(R.id.hour);
         mMinutePicker = view.findViewById(R.id.minute);
 

@@ -15,7 +15,6 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.InputType;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.EditorInfo;
@@ -205,7 +204,7 @@ public class LabelDialogFragment extends DialogFragment {
             drawable = null;
         }
 
-        View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_edit_text, null);
+        View view = getLayoutInflater().inflate(R.layout.dialog_edit_text, null);
 
         mEditLabel = view.findViewById(android.R.id.edit);
         mEditLabel.setText(label);

@@ -12,7 +12,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -128,7 +127,7 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
             volumeValue = savedInstanceState.getInt(ARG_ALARM_VOLUME_VALUE, volumeValue);
         }
 
-        View view = LayoutInflater.from(mContext).inflate(R.layout.alarm_volume_dialog, null);
+        View view = getLayoutInflater().inflate(R.layout.alarm_volume_dialog, null);
 
         mSeekBar = view.findViewById(R.id.alarm_volume_seekbar);
         mVolumeValue = view.findViewById(R.id.alarm_volume_value);

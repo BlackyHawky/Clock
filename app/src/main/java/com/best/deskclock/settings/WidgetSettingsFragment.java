@@ -17,7 +17,6 @@ import androidx.annotation.NonNull;
 import androidx.preference.Preference;
 
 import com.best.deskclock.R;
-import com.best.deskclock.utils.WidgetUtils;
 
 public class WidgetSettingsFragment extends ScreenFragment implements Preference.OnPreferenceClickListener {
 
@@ -60,8 +59,6 @@ public class WidgetSettingsFragment extends ScreenFragment implements Preference
 
     @Override
     public boolean onPreferenceClick(@NonNull Preference pref) {
-        WidgetUtils.isLaunchedFromWidget = false;
-
         switch (pref.getKey()) {
             case KEY_ANALOG_WIDGET_CUSTOMIZATION ->
                     animateAndShowFragment(new AnalogWidgetSettingsFragment());

@@ -85,6 +85,8 @@ public class MaterialYouVerticalDigitalWidgetSettingsFragment extends ScreenFrag
 
         setupPreferences();
 
+        WidgetUtils.addFinishOnBackPressedIfLaunchedFromWidget(this);
+
         requireActivity().setResult(Activity.RESULT_CANCELED);
 
         Intent intent = requireActivity().getIntent();
@@ -103,13 +105,6 @@ public class MaterialYouVerticalDigitalWidgetSettingsFragment extends ScreenFrag
         saveCheckedPreferenceStates();
 
         updateMaterialYouVerticalDigitalWidget();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        WidgetUtils.resetLaunchFlag();
     }
 
     @Override

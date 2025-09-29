@@ -17,7 +17,6 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.EditorInfo;
@@ -128,7 +127,7 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
             editSeconds = savedInstanceState.getInt(ARG_EDIT_SECONDS, editSeconds);
         }
 
-        View view = LayoutInflater.from(requireContext()).inflate(R.layout.timer_dialog_edit_add_time, null);
+        View view = getLayoutInflater().inflate(R.layout.timer_dialog_edit_add_time, null);
 
         mMinutesInputLayout = view.findViewById(R.id.dialog_input_layout_minutes);
         mMinutesInputLayout.setHelperText(getString(R.string.timer_button_time_minutes_warning_box_text));
@@ -294,7 +293,7 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
         boolean secondsInvalid = (!secondsText.isEmpty() && Integer.parseInt(secondsText) < 0)
                 || (!secondsText.isEmpty() && Integer.parseInt(secondsText) > 59);
         int invalidColor = ContextCompat.getColor(requireContext(), R.color.md_theme_error);
-        int validColor = MaterialColors.getColor(requireContext(), com.google.android.material.R.attr.colorPrimary, Color.BLACK);
+        int validColor = MaterialColors.getColor(requireContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
 
         mMinutesInputLayout.setBoxStrokeColor(minutesInvalid ? invalidColor : validColor);
         mMinutesInputLayout.setHintTextColor(minutesInvalid
@@ -322,7 +321,7 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
         alertDialog.setIcon(drawable);
         alertDialog.setTitle(getString(R.string.timer_button_time_box_title));
 
-        int validColor = MaterialColors.getColor(requireContext(), com.google.android.material.R.attr.colorPrimary, Color.BLACK);
+        int validColor = MaterialColors.getColor(requireContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
         mMinutesInputLayout.setBoxStrokeColor(validColor);
         mMinutesInputLayout.setHintTextColor(ColorStateList.valueOf(validColor));
         mSecondsInputLayout.setBoxStrokeColor(validColor);

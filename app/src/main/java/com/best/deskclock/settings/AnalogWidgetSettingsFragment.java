@@ -77,6 +77,8 @@ public class AnalogWidgetSettingsFragment extends ScreenFragment implements Pref
 
         setupPreferences();
 
+        WidgetUtils.addFinishOnBackPressedIfLaunchedFromWidget(this);
+
         requireActivity().setResult(Activity.RESULT_CANCELED);
 
         Intent intent = requireActivity().getIntent();
@@ -95,13 +97,6 @@ public class AnalogWidgetSettingsFragment extends ScreenFragment implements Pref
         saveCheckedPreferenceStates();
 
         updateAnalogWidget();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        WidgetUtils.resetLaunchFlag();
     }
 
     @Override

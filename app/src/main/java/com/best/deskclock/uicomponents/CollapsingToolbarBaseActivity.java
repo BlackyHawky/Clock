@@ -217,7 +217,7 @@ public abstract class CollapsingToolbarBaseActivity extends BaseActivity {
      * so that they are not obscured by system elements (status bar, navigation bar or cutout).
      */
     private void applyWindowInsets() {
-        InsetsUtils.doOnApplyWindowInsets(mAppBarLayout, (v, insets, initialPadding) -> {
+        InsetsUtils.doOnApplyWindowInsets(mAppBarLayout, (v, insets) -> {
             // Get the system bar and notch insets
             Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() |
                     WindowInsetsCompat.Type.displayCutout());

@@ -106,6 +106,8 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
 
         setupPreferences();
 
+        WidgetUtils.addFinishOnBackPressedIfLaunchedFromWidget(this);
+
         requireActivity().setResult(Activity.RESULT_CANCELED);
 
         Intent intent = requireActivity().getIntent();
@@ -124,13 +126,6 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
         saveCheckedPreferenceStates();
 
         updateDigitalWidget();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        WidgetUtils.resetLaunchFlag();
     }
 
     @Override

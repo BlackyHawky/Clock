@@ -33,6 +33,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.graphics.Insets;
+import androidx.core.view.MenuProvider;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
@@ -56,6 +57,10 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
 import java.util.Objects;
 
 public abstract class ScreenFragment extends PreferenceFragmentCompat {
+
+    protected static final int MENU_ABOUT = 1;
+    protected static final int MENU_BUG_REPORT = 2;
+    protected static final int MENU_RESET_SETTINGS = 3;
 
     SharedPreferences mPrefs;
     CoordinatorLayout mCoordinatorLayout;
@@ -86,33 +91,8 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
 
         mPrefs = getDefaultSharedPreferences(requireContext());
 
-        setHasOptionsMenu(true);
-
         // To manually manage insets
         WindowCompat.setDecorFitsSystemWindows(requireActivity().getWindow(), false);
-    }
-
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        menu.add(0, Menu.NONE, 0, R.string.about_title)
-                .setIcon(R.drawable.ic_about)
-                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == 0) {
-            Fragment existingFragment =
-                    requireActivity().getSupportFragmentManager().findFragmentByTag(AboutFragment.class.getSimpleName());
-
-            if (existingFragment == null) {
-                animateAndShowFragment(new AboutFragment());
-            }
-
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -131,6 +111,32 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
             mRecyclerView.setVerticalScrollBarEnabled(false);
             mLinearLayoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
         }
+
+        requireActivity().addMenuProvider(new MenuProvider() {
+            @Override
+            public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
+                menu.clear();
+
+                menu.add(0, MENU_ABOUT, 0, R.string.about_title)
+                        .setIcon(R.drawable.ic_about)
+                        .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+            }
+
+            @Override
+            public boolean onMenuItemSelected(@NonNull MenuItem item) {
+                if (item.getItemId() == MENU_ABOUT) {
+                    Fragment existingFragment =
+                            requireActivity().getSupportFragmentManager()
+                                    .findFragmentByTag(AboutFragment.class.getSimpleName());
+
+                    if (existingFragment == null) {
+                        animateAndShowFragment(new AboutFragment());
+                    }
+                    return true;
+                }
+                return false;
+            }
+        }, getViewLifecycleOwner());
     }
 
     @Override
@@ -236,7 +242,7 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
      * fragment because it does not have a RecyclerView. Therefore, this fragment has its own method.
      */
     private void applyWindowInsets() {
-        InsetsUtils.doOnApplyWindowInsets(mCoordinatorLayout, (v, insets, initialPadding) -> {
+        InsetsUtils.doOnApplyWindowInsets(mCoordinatorLayout, (v, insets) -> {
             // Get the system bar and notch insets
             Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() |
                     WindowInsetsCompat.Type.displayCutout());

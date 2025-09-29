@@ -114,8 +114,8 @@ public class TimerItem extends ConstraintLayout {
         // Displays the remaining time or time since expiration.
         // Timer text serves as a virtual start/stop button.
         mTimerText = findViewById(R.id.timer_time_text);
-        final int colorAccent = MaterialColors.getColor(mContext,
-                com.google.android.material.R.attr.colorPrimary, Color.BLACK);
+        final int colorAccent = MaterialColors.getColor(
+                mContext, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
         final int textColorPrimary = mTimerText.getCurrentTextColor();
         final ColorStateList timeTextColor = new ColorStateList(
                 new int[][]{{-state_activated, -state_pressed}, {}},

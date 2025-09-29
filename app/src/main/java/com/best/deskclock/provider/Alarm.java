@@ -209,7 +209,6 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     // Alarm volume level in steps; not a percentage
     public int alarmVolume;
     public int instanceState;
-    public int instanceId;
 
     // Creates a default alarm at the current time.
     public Alarm() {
@@ -284,7 +283,6 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
 
         if (c.getColumnCount() == ALARM_JOIN_INSTANCE_COLUMN_COUNT) {
             instanceState = c.getInt(INSTANCE_STATE_INDEX);
-            instanceId = c.getInt(INSTANCE_ID_INDEX);
         }
 
         if (c.isNull(RINGTONE_INDEX)) {

@@ -295,12 +295,12 @@ public final class ClockFragment extends DeskClockFragment {
     }
 
     @Override
-    public void onFabClick(@NonNull ImageView fab) {
+    public void onFabClick() {
         startActivity(new Intent(mContext, CitySelectionActivity.class));
     }
 
     @Override
-    public void onFabLongClick(@NonNull ImageView fab) {
+    public void onFabLongClick() {
     }
 
     @Override

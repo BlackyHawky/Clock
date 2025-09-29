@@ -144,8 +144,8 @@ public class ThemeUtils {
 
         if (SettingsDAO.isCardBorderDisplayed(prefs)) {
             gradientDrawable.setShape(GradientDrawable.RECTANGLE);
-            gradientDrawable.setStroke(convertDpToPixels(2, context),
-                    MaterialColors.getColor(context, com.google.android.material.R.attr.colorPrimary, Color.BLACK)
+            gradientDrawable.setStroke(convertDpToPixels(2, context), MaterialColors.getColor(
+                    context, androidx.appcompat.R.attr.colorPrimary, Color.BLACK)
             );
         }
 
@@ -175,8 +175,8 @@ public class ThemeUtils {
         gradientDrawable.setCornerRadius(convertDpToPixels(18, context));
         gradientDrawable.setColor(color);
 
-        int rippleColor = MaterialColors.getColor(context,
-                com.google.android.material.R.attr.colorControlHighlight, Color.BLACK);
+        int rippleColor = MaterialColors.getColor(
+                context, androidx.appcompat.R.attr.colorControlHighlight, Color.BLACK);
 
         return new RippleDrawable(ColorStateList.valueOf(rippleColor), gradientDrawable, null);
     }

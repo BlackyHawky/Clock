@@ -130,8 +130,7 @@ public final class TimerFragment extends DeskClockFragment {
         mRecyclerView.setClipToPadding(false);
 
         mCreateTimerView.setFabContainer(this);
-        mCreateTimerSpinnerView.setOnChangeListener((durationObject) ->
-                updateFab(FAB_SHRINK_AND_EXPAND));
+        mCreateTimerSpinnerView.setOnChangeListener(() -> updateFab(FAB_SHRINK_AND_EXPAND));
 
         DataModel.getDataModel().addTimerListener(mAdapter);
         DataModel.getDataModel().addTimerListener(mTimerWatcher);
@@ -314,7 +313,7 @@ public final class TimerFragment extends DeskClockFragment {
     }
 
     @Override
-    public void onFabClick(@NonNull ImageView fab) {
+    public void onFabClick() {
         if (mCurrentView == mTimersView) {
             animateToView(getTimerCreationView(), true);
         } else if (mCurrentView == getTimerCreationView()) {
@@ -341,7 +340,7 @@ public final class TimerFragment extends DeskClockFragment {
     }
 
     @Override
-    public void onFabLongClick(@NonNull ImageView fab) {
+    public void onFabLongClick() {
     }
 
     @Override

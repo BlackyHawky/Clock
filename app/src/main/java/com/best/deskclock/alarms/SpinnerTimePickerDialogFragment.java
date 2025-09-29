@@ -6,7 +6,6 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.format.DateFormat;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
@@ -133,7 +132,7 @@ public class SpinnerTimePickerDialogFragment extends DialogFragment {
             }
         }
 
-        View view = LayoutInflater.from(requireContext()).inflate(R.layout.alarm_spinner_time_picker, null);
+        View view = getLayoutInflater().inflate(R.layout.alarm_spinner_time_picker, null);
 
         mLayout = view.findViewById(R.id.timePickerLayout);
         mHourPicker = view.findViewById(R.id.hour);

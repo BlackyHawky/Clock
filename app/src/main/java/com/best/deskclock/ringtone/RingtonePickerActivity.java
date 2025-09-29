@@ -413,7 +413,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
      * accordingly.
      */
     private void applyWindowInsets() {
-        InsetsUtils.doOnApplyWindowInsets(mCoordinatorLayout, (v, insets, initialPadding) -> {
+        InsetsUtils.doOnApplyWindowInsets(mCoordinatorLayout, (v, insets) -> {
             // Get the system bar and notch insets
             Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() |
                     WindowInsetsCompat.Type.displayCutout());

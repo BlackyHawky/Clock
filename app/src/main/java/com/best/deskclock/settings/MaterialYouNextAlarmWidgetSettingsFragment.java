@@ -73,6 +73,8 @@ public class MaterialYouNextAlarmWidgetSettingsFragment extends ScreenFragment
 
         setupPreferences();
 
+        WidgetUtils.addFinishOnBackPressedIfLaunchedFromWidget(this);
+
         requireActivity().setResult(Activity.RESULT_CANCELED);
 
         Intent intent = requireActivity().getIntent();
@@ -91,13 +93,6 @@ public class MaterialYouNextAlarmWidgetSettingsFragment extends ScreenFragment
         saveCheckedPreferenceStates();
 
         updateMaterialYouNextAlarmWidget();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        WidgetUtils.resetLaunchFlag();
     }
 
     @Override

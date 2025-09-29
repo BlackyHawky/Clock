@@ -2,6 +2,8 @@
 
 package com.best.deskclock.widgets;
 
+import static com.best.deskclock.utils.WidgetUtils.KEY_LAUNCHED_FROM_WIDGET;
+
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +19,6 @@ import com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetSettingsFragm
 import com.best.deskclock.settings.NextAlarmWidgetSettingsFragment;
 import com.best.deskclock.settings.VerticalDigitalWidgetSettingsFragment;
 import com.best.deskclock.uicomponents.CollapsingToolbarBaseActivity;
-import com.best.deskclock.utils.WidgetUtils;
 
 /**
  * Class called when the user launches the widget configuration from the widget.
@@ -145,9 +146,14 @@ public class WidgetConfiguration {
     }
 
     public static void showFragmentFromWidget(AppCompatActivity activity, Bundle savedInstanceState, Fragment fragment) {
-        WidgetUtils.isLaunchedFromWidget = true;
-
         if (savedInstanceState == null) {
+            Bundle args = fragment.getArguments();
+            if (args == null) {
+                args = new Bundle();
+            }
+            args.putBoolean(KEY_LAUNCHED_FROM_WIDGET, true);
+            fragment.setArguments(args);
+
             activity.getSupportFragmentManager().beginTransaction()
                     .replace(R.id.content_frame, fragment)
                     .disallowAddToBackStack()

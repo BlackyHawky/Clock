@@ -285,9 +285,9 @@ public class DeskClock extends BaseActivity
         mFab.getLayoutParams().height = ThemeUtils.convertDpToPixels(fabSize, this);
         mFab.getLayoutParams().width = ThemeUtils.convertDpToPixels(fabSize, this);
         mFab.setScaleType(ImageView.ScaleType.CENTER);
-        mFab.setOnClickListener(view -> getSelectedDeskClockFragment().onFabClick(mFab));
+        mFab.setOnClickListener(view -> getSelectedDeskClockFragment().onFabClick());
         mFab.setOnLongClickListener(v -> {
-            getSelectedDeskClockFragment().onFabLongClick(mFab);
+            getSelectedDeskClockFragment().onFabLongClick();
             return true;
         });
 
@@ -367,7 +367,7 @@ public class DeskClock extends BaseActivity
 
         // Mirror changes made to the selected tab into UiDataModel.
         final int primaryColor = MaterialColors.getColor(
-                this, com.google.android.material.R.attr.colorPrimary, Color.BLACK);
+                this, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
         final int surfaceColor = MaterialColors.getColor(
                 this, com.google.android.material.R.attr.colorSurface, Color.BLACK);
         final int onBackgroundColor = MaterialColors.getColor(
@@ -729,7 +729,7 @@ public class DeskClock extends BaseActivity
      * accordingly.
      */
     private void applyWindowInsets() {
-        InsetsUtils.doOnApplyWindowInsets(mDeskClockRootView, (v, insets, initialPadding) -> {
+        InsetsUtils.doOnApplyWindowInsets(mDeskClockRootView, (v, insets) -> {
             // Get the system bar and notch insets
             Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() |
                     WindowInsetsCompat.Type.displayCutout());

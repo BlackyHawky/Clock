@@ -70,6 +70,8 @@ public class NextAlarmWidgetSettingsFragment extends ScreenFragment
 
         setupPreferences();
 
+        WidgetUtils.addFinishOnBackPressedIfLaunchedFromWidget(this);
+
         requireActivity().setResult(Activity.RESULT_CANCELED);
 
         Intent intent = requireActivity().getIntent();
@@ -88,13 +90,6 @@ public class NextAlarmWidgetSettingsFragment extends ScreenFragment
         saveCheckedPreferenceStates();
 
         updateNextAlarmWidget();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        WidgetUtils.resetLaunchFlag();
     }
 
     @Override

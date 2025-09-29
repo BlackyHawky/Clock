@@ -30,11 +30,14 @@ import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.view.MenuProvider;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 import androidx.preference.SwitchPreferenceCompat;
@@ -133,45 +136,53 @@ public class AboutFragment extends ScreenFragment
     }
 
     @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        if (Utils.isDebugConfig() || SettingsDAO.isDebugSettingsDisplayed(mPrefs)) {
-            menu.add(0, 1, 0, R.string.log_backup_icon_title)
-                    .setIcon(R.drawable.ic_bug_report)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        }
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        menu.add(0, 2, 0, R.string.reset_settings_title)
-                .setIcon(R.drawable.ic_reset_settings)
-                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-    }
+        requireActivity().addMenuProvider(new MenuProvider() {
+            @Override
+            public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
+                menu.clear();
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == 1) {
-            String currentDateAndTime = DateFormat.format("yyyy_MM_dd_HH-mm-ss", new Date()).toString();
+                if (Utils.isDebugConfig() || SettingsDAO.isDebugSettingsDisplayed(mPrefs)) {
+                    menu.add(0, MENU_BUG_REPORT, 0, R.string.log_backup_icon_title)
+                            .setIcon(R.drawable.ic_bug_report)
+                            .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+                }
 
-            Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT)
-                    .addCategory(Intent.CATEGORY_OPENABLE)
-                    .putExtra(Intent.EXTRA_TITLE, getString(R.string.app_label_debug)
-                            .replace(" ", "_") + "_log_" + currentDateAndTime)
-                    .setType("application/zip");
+                menu.add(0, MENU_RESET_SETTINGS, 0, R.string.reset_settings_title)
+                        .setIcon(R.drawable.ic_reset_settings)
+                        .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+            }
 
-            exportLogs.launch(intent);
+            @Override
+            public boolean onMenuItemSelected(@NonNull MenuItem item) {
+                if (item.getItemId() == MENU_BUG_REPORT) {
+                    String currentDateAndTime = DateFormat.format("yyyy_MM_dd_HH-mm-ss", new Date()).toString();
 
-            return true;
-        } else if (item.getItemId() == 2) {
-            new MaterialAlertDialogBuilder(requireContext())
-                    .setIcon(R.drawable.ic_reset_settings)
-                    .setTitle(R.string.reset_settings_title)
-                    .setMessage(R.string.reset_settings_message)
-                    .setPositiveButton(android.R.string.ok, (dialog, which) -> resetPreferences())
-                    .setNegativeButton(android.R.string.cancel, null)
-                    .show();
+                    Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT)
+                            .addCategory(Intent.CATEGORY_OPENABLE)
+                            .putExtra(Intent.EXTRA_TITLE, getString(R.string.app_label_debug)
+                                    .replace(" ", "_") + "_log_" + currentDateAndTime)
+                            .setType("application/zip");
 
-            return true;
-        }
+                    exportLogs.launch(intent);
+                    return true;
+                } else if (item.getItemId() == MENU_RESET_SETTINGS) {
+                    new MaterialAlertDialogBuilder(requireContext())
+                            .setIcon(R.drawable.ic_reset_settings)
+                            .setTitle(R.string.reset_settings_title)
+                            .setMessage(R.string.reset_settings_message)
+                            .setPositiveButton(android.R.string.ok, (dialog, which) -> resetPreferences())
+                            .setNegativeButton(android.R.string.cancel, null)
+                            .show();
 
-        return super.onOptionsItemSelected(item);
+                    return true;
+                }
+
+                return false;
+            }
+        }, getViewLifecycleOwner());
     }
 
     @Override

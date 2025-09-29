@@ -81,8 +81,7 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
 
         final Context context = itemView.getContext();
 
-        int rippleColor = MaterialColors.getColor(context,
-                com.google.android.material.R.attr.colorControlHighlight, Color.BLACK);
+        int rippleColor = MaterialColors.getColor(context, androidx.appcompat.R.attr.colorControlHighlight, Color.BLACK);
         RippleDrawable rippleDrawable = new RippleDrawable(ColorStateList.valueOf(rippleColor),
                 ThemeUtils.cardBackground(context), null);
         itemView.setBackground(rippleDrawable);

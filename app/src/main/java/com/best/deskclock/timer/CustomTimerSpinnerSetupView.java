@@ -12,8 +12,6 @@ import androidx.annotation.Nullable;
 
 import com.best.deskclock.R;
 
-import java.util.concurrent.TimeUnit;
-
 /**
  * Custom component to display a time selection view using spinners used when creating timers.
  */
@@ -48,23 +46,16 @@ public class CustomTimerSpinnerSetupView extends LinearLayout {
         mSecondPicker.setMaxValue(59);
 
         mHourPicker.setOnValueChangedListener((_picker, _oldVal, _newVal) -> {
-            if (mOnValueChangeListener != null) mOnValueChangeListener.onValueChange(getValue());
+            if (mOnValueChangeListener != null) mOnValueChangeListener.onValueChange();
         });
 
         mMinutePicker.setOnValueChangedListener((_picker, _oldVal, _newVal) -> {
-            if (mOnValueChangeListener != null) mOnValueChangeListener.onValueChange(getValue());
+            if (mOnValueChangeListener != null) mOnValueChangeListener.onValueChange();
         });
 
         mSecondPicker.setOnValueChangedListener((_picker, _oldVal, _newVal) -> {
-            if (mOnValueChangeListener != null) mOnValueChangeListener.onValueChange(getValue());
+            if (mOnValueChangeListener != null) mOnValueChangeListener.onValueChange();
         });
-    }
-
-    public void setValue(long valueMillis) {
-        long hours = TimeUnit.MILLISECONDS.toHours(valueMillis);
-        long minutes = TimeUnit.MILLISECONDS.toMinutes(valueMillis) % 60;
-        long seconds = TimeUnit.MILLISECONDS.toSeconds(valueMillis) % 60;
-        setValue(new DurationObject((int) hours, (int) minutes, (int) seconds));
     }
 
     public void setValue(DurationObject value) {
@@ -86,7 +77,7 @@ public class CustomTimerSpinnerSetupView extends LinearLayout {
     }
 
     public interface OnValueChangeListener {
-        void onValueChange(DurationObject duration);
+        void onValueChange();
     }
 
     public record DurationObject(int hour, int minute, int second) {

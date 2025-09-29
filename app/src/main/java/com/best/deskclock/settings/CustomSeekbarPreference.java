@@ -273,8 +273,7 @@ public class CustomSeekbarPreference extends SeekBarPreference {
         mResetSeekBar.setEnabled(isEnabled);
 
         if (isEnabled) {
-            int enabledColor = MaterialColors.getColor(
-                    mContext, com.google.android.material.R.attr.colorAccent, Color.BLACK);
+            int enabledColor = MaterialColors.getColor(mContext, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
 
             mResetSeekBar.setTextColor(enabledColor);
             TextViewCompat.setCompoundDrawableTintList(mResetSeekBar, ColorStateList.valueOf(enabledColor));

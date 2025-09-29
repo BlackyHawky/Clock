@@ -74,6 +74,8 @@ public class MaterialYouAnalogWidgetSettingsFragment extends ScreenFragment impl
 
         setupPreferences();
 
+        WidgetUtils.addFinishOnBackPressedIfLaunchedFromWidget(this);
+
         requireActivity().setResult(Activity.RESULT_CANCELED);
 
         Intent intent = requireActivity().getIntent();
@@ -92,13 +94,6 @@ public class MaterialYouAnalogWidgetSettingsFragment extends ScreenFragment impl
         saveCheckedPreferenceStates();
 
         updateMaterialYouAnalogWidget();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        WidgetUtils.resetLaunchFlag();
     }
 
     @Override

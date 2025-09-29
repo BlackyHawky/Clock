@@ -74,8 +74,8 @@ final class AddCustomRingtoneViewHolder extends ItemViewHolder<AddCustomRingtone
         imageView.setImageDrawable(AppCompatResources.getDrawable(context, R.drawable.ic_add));
         imageView.getDrawable().setTint(MaterialColors.getColor(context, android.R.attr.colorBackground, Color.BLACK));
         imageView.setBackgroundResource(R.drawable.bg_circle);
-        imageView.setBackgroundTintList(ColorStateList.valueOf(
-                MaterialColors.getColor(context, com.google.android.material.R.attr.colorPrimary, Color.BLACK))
+        imageView.setBackgroundTintList(ColorStateList.valueOf(MaterialColors.getColor(
+                context, androidx.appcompat.R.attr.colorPrimary, Color.BLACK))
         );
 
         final int backgroundColor;

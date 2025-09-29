@@ -68,14 +68,6 @@ public class SdkUtils {
     }
 
     /**
-     * @return {@code true} if the API version is before 29 (Quince Tart).
-     * {@code false} otherwise.
-     */
-    public static boolean isBeforeAndroid10() {
-        return !isAtLeastAndroid10();
-    }
-
-    /**
      * @return {@code true} if the API version is greater than or equal to 29 (Quince Tart).
      * {@code false} otherwise.
      */

@@ -201,7 +201,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
          * accordingly.
          */
         private void applyWindowInsets() {
-            InsetsUtils.doOnApplyWindowInsets(mCoordinatorLayout, (v, insets, initialPadding) -> {
+            InsetsUtils.doOnApplyWindowInsets(mCoordinatorLayout, (v, insets) -> {
                 // Get the system bar and notch insets
                 Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() |
                         WindowInsetsCompat.Type.displayCutout());
@@ -420,13 +420,13 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
 
             if (isCardBorderDisplayed) {
                 mIgnoreBatteryOptimizationsView.setStrokeWidth(ThemeUtils.convertDpToPixels(2, requireContext()));
-                mIgnoreBatteryOptimizationsView.setStrokeColor(
-                        MaterialColors.getColor(requireContext(), com.google.android.material.R.attr.colorPrimary, Color.BLACK)
+                mIgnoreBatteryOptimizationsView.setStrokeColor(MaterialColors.getColor(
+                        requireContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK)
                 );
 
                 mNotificationView.setStrokeWidth(ThemeUtils.convertDpToPixels(2, requireContext()));
-                mNotificationView.setStrokeColor(
-                        MaterialColors.getColor(requireContext(), com.google.android.material.R.attr.colorPrimary, Color.BLACK)
+                mNotificationView.setStrokeColor(MaterialColors.getColor(
+                        requireContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK)
                 );
             }
         }
@@ -441,8 +441,8 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
 
             if (isCardBorderDisplayed) {
                 mFullScreenNotificationsView.setStrokeWidth(ThemeUtils.convertDpToPixels(2, requireContext()));
-                mFullScreenNotificationsView.setStrokeColor(
-                        MaterialColors.getColor(requireContext(), com.google.android.material.R.attr.colorPrimary, Color.BLACK));
+                mFullScreenNotificationsView.setStrokeColor(MaterialColors.getColor(
+                        requireContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK));
             }
         }
 
@@ -456,8 +456,8 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
 
             if (isCardBorderDisplayed) {
                 mShowLockscreenView.setStrokeWidth(ThemeUtils.convertDpToPixels(2, requireContext()));
-                mShowLockscreenView.setStrokeColor(
-                        MaterialColors.getColor(requireContext(), com.google.android.material.R.attr.colorPrimary, Color.BLACK));
+                mShowLockscreenView.setStrokeColor(MaterialColors.getColor(
+                        requireContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK));
             }
         }
 

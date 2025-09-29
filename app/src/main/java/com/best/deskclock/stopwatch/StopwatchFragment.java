@@ -178,7 +178,7 @@ public final class StopwatchFragment extends DeskClockFragment {
             mStopwatchWrapper.setOnTouchListener(new Utils.CircleTouchListener());
         }
 
-        final int colorAccent = MaterialColors.getColor(mContext, com.google.android.material.R.attr.colorPrimary, Color.BLACK);
+        final int colorAccent = MaterialColors.getColor(mContext, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
         final int textColorPrimary = mMainTimeText.getCurrentTextColor();
         final ColorStateList timeTextColor = new ColorStateList(
                 new int[][]{{-state_activated, -state_pressed}, {}},
@@ -284,12 +284,12 @@ public final class StopwatchFragment extends DeskClockFragment {
     }
 
     @Override
-    public void onFabClick(@NonNull ImageView fab) {
+    public void onFabClick() {
         toggleStopwatchState();
     }
 
     @Override
-    public void onFabLongClick(@NonNull ImageView fab) {
+    public void onFabLongClick() {
     }
 
     private void updateFab(@NonNull ImageView fab) {

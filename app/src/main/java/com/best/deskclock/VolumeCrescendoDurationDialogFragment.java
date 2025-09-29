@@ -15,7 +15,6 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.EditorInfo;
@@ -176,7 +175,7 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
             editSeconds = savedInstanceState.getLong(ARG_EDIT_VOLUME_CRESCENDO_SECONDS, editSeconds);
         }
 
-        View view = LayoutInflater.from(mContext).inflate(R.layout.volume_crescendo_duration_dialog, null);
+        View view = getLayoutInflater().inflate(R.layout.volume_crescendo_duration_dialog, null);
 
         mMinutesInputLayout = view.findViewById(R.id.dialog_input_layout_minutes);
         mMinutesInputLayout.setHelperText(getString(R.string.timer_button_time_minutes_warning_box_text));
@@ -340,7 +339,7 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
         boolean secondsInvalid = (!secondsText.isEmpty() && Integer.parseInt(secondsText) < 0)
                 || (!secondsText.isEmpty() && Integer.parseInt(secondsText) > 59);
         int invalidColor = ContextCompat.getColor(mContext, R.color.md_theme_error);
-        int validColor = MaterialColors.getColor(mContext, com.google.android.material.R.attr.colorPrimary, Color.BLACK);
+        int validColor = MaterialColors.getColor(mContext, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
 
         mMinutesInputLayout.setBoxStrokeColor(minutesInvalid ? invalidColor : validColor);
         mMinutesInputLayout.setHintTextColor(minutesInvalid
@@ -362,7 +361,7 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
         alertDialog.setIcon(null);
         alertDialog.setTitle(getString(R.string.crescendo_duration_title));
 
-        int validColor = MaterialColors.getColor(mContext, com.google.android.material.R.attr.colorPrimary, Color.BLACK);
+        int validColor = MaterialColors.getColor(mContext, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
         mMinutesInputLayout.setBoxStrokeColor(validColor);
         mMinutesInputLayout.setHintTextColor(ColorStateList.valueOf(validColor));
         mSecondsInputLayout.setBoxStrokeColor(validColor);

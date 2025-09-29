@@ -126,8 +126,8 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
 
             if (isCardBorderDisplayed) {
                 digitButton.setStrokeWidth(ThemeUtils.convertDpToPixels(2, getContext()));
-                digitButton.setStrokeColor(ColorStateList.valueOf(
-                        MaterialColors.getColor(getContext(), com.google.android.material.R.attr.colorPrimary, Color.BLACK)));
+                digitButton.setStrokeColor(ColorStateList.valueOf(MaterialColors.getColor(getContext(),
+                        androidx.appcompat.R.attr.colorPrimary, Color.BLACK)));
             }
 
             if (isTablet) {
@@ -277,7 +277,7 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
         startIdx = minutes > 0 ? 4 : startIdx;
         startIdx = hours > 0 ? 0 : startIdx;
         if (startIdx != endIdx) {
-            int highlightColor = MaterialColors.getColor(getContext(), com.google.android.material.R.attr.colorPrimary, Color.BLACK);
+            int highlightColor = MaterialColors.getColor(getContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
             text.setSpan(new ForegroundColorSpan(highlightColor), startIdx, endIdx, 0);
         }
         mTimeView.setText(text);
