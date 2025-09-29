@@ -84,7 +84,6 @@
     <string name="crescendo_duration_title" msgid="8606408542726189528">逐步增大音量</string>
     <string name="auto_silence_title" msgid="2012754009554434544">之后静音</string>
     <string name="auto_silence_never" msgid="4821982647348750809">从不</string>
-    <string name="auto_silence_1_minute">1 分钟</string>
     <string name="label_off">关闭</string>
     <string name="week_start_title" msgid="4268917518596832096">一周的第一天</string>
     <string name="week_start_saturday">星期六</string>
@@ -499,10 +498,6 @@
     <string name="default_time_to_add_to_timer_1_hour">1 小时</string>
     <string name="snooze_duration_none">无</string>
     <string name="default_time_to_add_to_timer_8_minutes">8 分钟</string>
-    <string name="auto_silence_10_seconds">10 秒</string>
-    <string name="auto_silence_20_seconds">20 秒</string>
-    <string name="auto_silence_30_seconds">30 秒</string>
-    <string name="auto_silence_5_seconds">5 秒</string>
     <string name="alarm_alert_dismiss_and_delete_text">关闭并删除</string>
     <string name="description_direction_both_for_occasional_alarm">向左滑动以暂停，向右滑动以关闭并删除闹钟</string>
     <string name="description_direction_both_for_occasional_non_repeatable_alarm">向左或向右滑动以关闭并删除闹钟</string>

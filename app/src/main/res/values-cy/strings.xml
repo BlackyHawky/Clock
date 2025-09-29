@@ -122,7 +122,6 @@
     <string name="crescendo_duration_title">Cynyddu\'r sain yn raddol</string>
     <string name="auto_silence_title">Distawrwydd ar ôl</string>
     <string name="auto_silence_never">Byth</string>
-    <string name="auto_silence_1_minute">1 munud</string>
     <string name="label_off">I ffwrdd</string>
     <string name="week_start_title">Dechrau\'r wythnos ar</string>
     <string name="week_start_saturday">Dydd Sadwrn</string>

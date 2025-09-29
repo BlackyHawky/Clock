@@ -84,7 +84,6 @@
     <string name="crescendo_duration_title" msgid="8606408542726189528">"볼륨 점점 크게"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"알람 해제 시간"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"사용 안함"</string>
-    <string name="auto_silence_1_minute">1분</string>
     <string name="label_off">꺼짐</string>
     <string name="week_start_title" msgid="4268917518596832096">한 주의 시작 요일</string>
     <string name="week_start_saturday">토요일</string>
@@ -323,7 +322,6 @@
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">알람을 잠시 미뤘을 때 두 번, 해제했을 때 한 번 진동</string>
     <string name="alarm_notification_reminder_6_hours">6시간 전</string>
     <string name="first_launch_button_later">나중에</string>
-    <string name="auto_silence_30_seconds">30초</string>
     <string name="sw_start_pause_action">시작/일시중지</string>
     <string name="settings_language_system">시스템 언어</string>
     <string name="settings_language_estonian">에스토니아어</string>
@@ -335,8 +333,6 @@
     <string name="alarm_notification_reminder_8_hours">8시간 전</string>
     <string name="alarm_notification_reminder_10_hours">10시간 전</string>
     <string name="material_time_picker_style_title">시간 선택 도구 스타일</string>
-    <string name="auto_silence_10_seconds">10초</string>
-    <string name="auto_silence_20_seconds">20초</string>
     <string name="settings_language_russian">러시아어</string>
     <string name="alarm_notification_reminder_12_hours">12시간 전</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">알람을 잠시 미루거나 해제했을 때 진동</string>
@@ -366,7 +362,6 @@
     <string name="alarm_title_color">알람 제목 색상</string>
     <string name="alarm_clock_font_size">알람 시계 폰트 크기</string>
     <string name="display_ringtone_title">벨소리 제목 표시</string>
-    <string name="auto_silence_5_seconds">5초</string>
     <string name="snooze_duration_none">없음</string>
     <string name="first_launch_version">버전 %s</string>
     <string name="first_launch_button_now">지금 설정</string>

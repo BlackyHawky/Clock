@@ -84,7 +84,6 @@
     <string name="crescendo_duration_title" msgid="8606408542726189528">"徐々に音量を上げる"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"消音までの時間"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"なし"</string>
-    <string name="auto_silence_1_minute">1分</string>
     <string name="label_off">OFF</string>
     <string name="week_start_title" msgid="4268917518596832096">"週の始まり"</string>
     <string name="week_start_saturday">土曜日</string>
@@ -387,10 +386,6 @@
     <string name="settings_permission_summary">ここをクリックして権限管理画面を表示</string>
     <string name="backup_restore_summary">通知音を除くデータのバックアップまたは復元</string>
     <string name="timer_volume_buttons_action_title">音量ボタンで終了したタイマーをリセット</string>
-    <string name="auto_silence_5_seconds">5秒</string>
-    <string name="auto_silence_20_seconds">20秒</string>
-    <string name="auto_silence_30_seconds">30秒</string>
-    <string name="auto_silence_10_seconds">10秒</string>
     <string name="timer_power_button_action_title">電源ボタンで終了したタイマーをリセット</string>
     <string name="timer_buttons_action_summary">ロック画面でのみ動作</string>
     <string name="timer_shake_action_title">デバイスを振ってアラームを停止</string>

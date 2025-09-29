@@ -84,7 +84,6 @@
     <string name="crescendo_duration_title" msgid="8606408542726189528">"逐漸提升音量"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"鈴聲持續時間："</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"永不"</string>
-    <string name="auto_silence_1_minute">1 分鐘</string>
     <string name="label_off">關閉</string>
     <string name="week_start_title" msgid="4268917518596832096">"一個星期開始於"</string>
     <string name="week_start_saturday">星期六</string>

@@ -12,9 +12,9 @@ import static android.view.View.VISIBLE;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_SNOOZE_DURATION_DISABLED;
-import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_TIMEOUT_END_OF_RINGTONE;
-import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_TIMEOUT_NEVER;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION;
+import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_END_OF_RINGTONE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_NEVER;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -309,9 +309,9 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     private void bindAutoSilenceValue(Context context, Alarm alarm) {
         int autoSilenceDuration = alarm.autoSilenceDuration;
 
-        if (autoSilenceDuration == ALARM_TIMEOUT_NEVER) {
+        if (autoSilenceDuration == TIMEOUT_NEVER) {
             autoSilenceDurationValue.setText(context.getString(R.string.auto_silence_never));
-        } else if (autoSilenceDuration == ALARM_TIMEOUT_END_OF_RINGTONE) {
+        } else if (autoSilenceDuration == TIMEOUT_END_OF_RINGTONE) {
             autoSilenceDurationValue.setText(context.getString(R.string.auto_silence_end_of_ringtone));
         } else {
             autoSilenceDurationValue.setText(context.getResources().getQuantityString(

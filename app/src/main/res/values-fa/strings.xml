@@ -92,7 +92,6 @@
     <string name="crescendo_duration_title" msgid="8606408542726189528">"افزایش تدریجی صدا"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"سکوت پس از"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"هیچ‌وقت"</string>
-    <string name="auto_silence_1_minute">۱ دقیقه</string>
     <string name="label_off">خاموش</string>
     <string name="week_start_title" msgid="4268917518596832096">"روز اول هفته"</string>
     <string name="week_start_saturday">شنبه</string>
@@ -348,14 +347,12 @@
     <string name="selected">انتخاب شده</string>
     <string name="settings_language_polish">لهستانی</string>
     <string name="red_accent_color">قرمز</string>
-    <string name="auto_silence_30_seconds">۳۰ ثانیه</string>
     <string name="yellow_accent_color">زرد</string>
     <string name="warning">اخطار</string>
     <string name="settings_language_czech">چکی</string>
     <string name="settings_language_chinese_traditional_tw">چینی (سنتی، تایوان)</string>
     <string name="style_category_title">استایل</string>
     <string name="orange_accent_color">نارنجی</string>
-    <string name="auto_silence_10_seconds">۱۰ ثانیه</string>
     <string name="font_category_title">فونت</string>
     <string name="dark_theme">تیره</string>
     <string name="next_alarm_widget">هشدار بعدی</string>
@@ -372,9 +369,7 @@
     <string name="title_accent_color">رنگ تاکیدی</string>
     <string name="settings_language_korean">کره ای</string>
     <string name="alarm_notification_reminder_4_hours">۴ ساعت قبل</string>
-    <string name="auto_silence_5_seconds">۵ ثانیه</string>
     <string name="alarm_notification_reminder_8_hours">۸ ساعت قبل</string>
-    <string name="auto_silence_20_seconds">۲۰ ثانیه</string>
     <string name="connect_bluetooth_device_title">برای دسترسی به این تنظیمات، یک دستگاه بلوتوثی را متصل کنید</string>
     <string name="disconnect_bluetooth_device_title">برای دسترسی به این تنظیمات، دستگاه بلوتوثی را قطع کنید</string>
     <string name="system_media_volume_summary">فقط وقتی که یک دستگاه بلوتوثی متصل باشد کار می کند</string>

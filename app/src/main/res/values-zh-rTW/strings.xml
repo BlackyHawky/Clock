@@ -84,7 +84,6 @@
     <string name="crescendo_duration_title" msgid="8606408542726189528">"漸漸提高音量"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">鬧鐘鈴響持續時間</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"無限期"</string>
-    <string name="auto_silence_1_minute">1 分鐘</string>
     <string name="label_off">關閉</string>
     <string name="week_start_title" msgid="4268917518596832096">每週起始日</string>
     <string name="week_start_saturday">星期六</string>
@@ -361,10 +360,6 @@
     <string name="pink_accent_color">粉紅色</string>
     <string name="red_accent_color">紅色</string>
     <string name="amoled_dark_theme_mode">AMOLED</string>
-    <string name="auto_silence_5_seconds">5 秒</string>
-    <string name="auto_silence_10_seconds">10 秒</string>
-    <string name="auto_silence_20_seconds">20 秒</string>
-    <string name="auto_silence_30_seconds">30 秒</string>
     <string name="default_time_to_add_to_timer_2_minutes">2 分鐘</string>
     <string name="default_time_to_add_to_timer_3_minutes">3 分鐘</string>
     <string name="default_time_to_add_to_timer_5_minutes">5 分鐘</string>

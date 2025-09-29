@@ -92,7 +92,6 @@
     <string name="crescendo_duration_title" msgid="8606408542726189528">"ਹੌਲੀ-ਹੌਲੀ ਵੌਲਿਊਮ ਵਧਾਓ"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"ਇਸ ਵਕਫੇ ਤੋਂ ਬਾਅਦ ਖਾਮੋਸ਼ ਹੋ ਜਾਓ"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"ਕਦੇ ਵੀ ਨਹੀਂ"</string>
-    <string name="auto_silence_1_minute">1 ਮਿੰਟ</string>
     <string name="label_off">ਬੰਦ</string>
     <string name="week_start_title" msgid="4268917518596832096">"ਇਸ ਦਿਨ ਹਫ਼ਤਾ ਸ਼ੁਰੂ ਕਰੋ"</string>
     <string name="week_start_saturday">ਸ਼ਨਿਚਰਵਾਰ</string>

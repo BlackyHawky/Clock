@@ -10,7 +10,7 @@ import static android.content.Context.ALARM_SERVICE;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_SNOOZE_DURATION_DISABLED;
-import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_TIMEOUT_NEVER;
+import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_NEVER;
 import static com.best.deskclock.utils.AlarmUtils.ACTION_NEXT_ALARM_CHANGED_BY_CLOCK;
 
 import android.annotation.SuppressLint;
@@ -461,7 +461,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         // If the "Alarm silence" setting has not been set to "Never", we don't want alarms
         // to be seen as missed but snoozed.
         // This avoids having to create multiple alarms for the same reason.
-        if (instance.mAutoSilenceDuration != ALARM_TIMEOUT_NEVER) {
+        if (instance.mAutoSilenceDuration != TIMEOUT_NEVER) {
             setSnoozeState(context, instance, true);
             return;
         }

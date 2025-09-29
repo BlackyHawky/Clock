@@ -63,8 +63,6 @@ public class PreferencesDefaultValues {
 
     // Alarm
     public static final int DEFAULT_AUTO_SILENCE_DURATION = 10;
-    public static final int ALARM_TIMEOUT_NEVER = -1;
-    public static final int ALARM_TIMEOUT_END_OF_RINGTONE = -2;
     public static final int DEFAULT_ALARM_SNOOZE_DURATION = 10;
     public static final int ALARM_SNOOZE_DURATION_DISABLED = -1;
     public static final int DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION = 0;
@@ -121,7 +119,7 @@ public class PreferencesDefaultValues {
     // Timer
     public static final String DEFAULT_TIMER_CREATION_VIEW_STYLE = "keypad";
     public static final String TIMER_CREATION_VIEW_SPINNER_STYLE = "spinner";
-    public static final String DEFAULT_TIMER_AUTO_SILENCE = "30";
+    public static final int DEFAULT_TIMER_AUTO_SILENCE_DURATION = 30; // 30 seconds
     public static final int DEFAULT_TIMER_VOLUME_CRESCENDO_DURATION = 0;
     public static final boolean DEFAULT_TIMER_VIBRATE = false;
     public static final boolean DEFAULT_TIMER_VOLUME_BUTTONS_ACTION = false;
@@ -160,6 +158,8 @@ public class PreferencesDefaultValues {
     public static final String DEFAULT_CLOCK_DIAL = "dial_with_numbers";
     public static final String DEFAULT_CLOCK_DIAL_MATERIAL = "dial_sun";
     public static final String DEFAULT_CLOCK_SECOND_HAND = "default";
+    public static final int TIMEOUT_NEVER = -1;
+    public static final int TIMEOUT_END_OF_RINGTONE = -2;
 
     // **************
     // ** WIDGETS **

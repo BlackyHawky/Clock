@@ -100,7 +100,6 @@
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Subir volumen gradualmente"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Silenciar después de"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"Nunca"</string>
-    <string name="auto_silence_1_minute">1 minuto</string>
     <string name="label_off">No</string>
     <string name="week_start_title" msgid="4268917518596832096">"La semana empieza el"</string>
     <string name="week_start_saturday">Sábado</string>
@@ -448,7 +447,6 @@
     <string name="indigo_accent_color">Añil</string>
     <string name="analog_widget_material_you">Reloj análogo Material You</string>
     <string name="material_you_next_alarm_widget">Siguiente alarma Material You</string>
-    <string name="auto_silence_10_seconds">10 segundos</string>
     <string name="next_alarm_no_upcoming_alarm_titles_default_color">Utiliza el color predeterminado para los títulos «Próxima alarma» y «Sin próxima alarma»</string>
     <string name="widget_max_font_size_title">Tamaño máximo de la fuente del widget</string>
     <string name="alarm_title_default_color">Utilizar color predeterminado para el título de la alarma</string>
@@ -528,9 +526,6 @@
     <string name="timer_shake_action_title">Agita el dispositivo para detener la alarma</string>
     <string name="auto_night_accent_color_title">Aplicar color de acento al modo nocturno</string>
     <string name="night_accent_color_title">Color de acento para el modo nocturno</string>
-    <string name="auto_silence_5_seconds">5 segundos</string>
-    <string name="auto_silence_20_seconds">20 segundos</string>
-    <string name="auto_silence_30_seconds">30 segundos</string>
     <string name="clock_color_title">Color del reloj</string>
     <string name="second_hand_color_title">Color del segundero</string>
     <string name="screensaver_bold_digital_clock_title">Reloj digital en negrita</string>

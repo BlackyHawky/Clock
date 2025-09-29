@@ -146,7 +146,6 @@
     <string name="auto_silence_title" msgid="2012754009554434544">"Arrêter l\'alarme après"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"Jamais"</string>
     <string name="auto_silence_end_of_ringtone">La fin de la sonnerie</string>
-    <string name="auto_silence_1_minute">1 minute</string>
     <string name="snooze_duration_none">Aucune</string>
     <string name="week_start_title" msgid="4268917518596832096">"Premier jour de la semaine"</string>
     <string name="week_start_saturday">Samedi</string>
@@ -522,10 +521,6 @@
     <string name="sort_timer_ascending_duration">Par durée (ordre croissant)</string>
     <string name="sort_timer_descending_duration">Par durée (ordre décroissant)</string>
     <string name="sort_name">Par nom</string>
-    <string name="auto_silence_5_seconds">5 secondes</string>
-    <string name="auto_silence_10_seconds">10 secondes</string>
-    <string name="auto_silence_20_seconds">20 secondes</string>
-    <string name="auto_silence_30_seconds">30 secondes</string>
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Activer par défaut la suppression automatique des alarmes occasionnelles</string>
     <string name="alarm_settings_general_summary">Ce réglage peut être modifié pour chaque alarme dans la vue étendue des alarmes</string>
     <string name="delete_occasional_alarm_after_use_title">Supprimer l\'alarme une fois arrêtée</string>

@@ -108,7 +108,6 @@
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Stopniowo zwiększaj głośność"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Wycisz za"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"Nigdy"</string>
-    <string name="auto_silence_1_minute">1 minuta</string>
     <string name="label_off">Wył.</string>
     <string name="week_start_title" msgid="4268917518596832096">"Początek tygodnia"</string>
     <string name="week_start_saturday">Sobota</string>
@@ -370,7 +369,6 @@
     <string name="snooze_button_color">Kolor przycisku \"Drzemka\"</string>
     <string name="alarm_title_color">Kolor tytułu alarmu</string>
     <string name="alarm_settings_general_summary">Ustawienie to można zmienić dla każdego alarmu w rozszerzonym widoku alarmów</string>
-    <string name="auto_silence_5_seconds">5 sekund</string>
     <string name="version">Wersja</string>
     <string name="features_title">Główne funkcje</string>
     <string name="sw_long_press_volume_up_action_title">Zwiększenie głośności (po długim naciśnięciu)</string>
@@ -399,9 +397,6 @@
     <string name="settings_vibration_summary">Dotyczy tylko niektórych przycisków interfejsu (np. przycisku odtwarzania/pauzy minutnika lub przełączników)</string>
     <string name="day_accent_color_title">Kolor w trybie dziennym</string>
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Włącz domyślnie automatyczne usuwanie okazjonalnych alarmów</string>
-    <string name="auto_silence_10_seconds">10 sekund</string>
-    <string name="auto_silence_20_seconds">20 sekund</string>
-    <string name="auto_silence_30_seconds">30 sekund</string>
     <string name="whats_new_title">Co nowego</string>
     <string name="widget_background_title">Wyświetl tło</string>
     <string name="next_alarm_default_color_title">Użyj domyślnego koloru dla następnego alarmu</string>

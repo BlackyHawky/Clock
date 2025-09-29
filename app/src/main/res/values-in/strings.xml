@@ -84,7 +84,6 @@
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Keraskan volume secara bertahap"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Matikan setelah"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"Tidak Pernah"</string>
-    <string name="auto_silence_1_minute">1 menit</string>
     <string name="label_off">Nonaktif</string>
     <string name="week_start_title" msgid="4268917518596832096">"Hari pertama"</string>
     <string name="week_start_saturday">Sabtu</string>

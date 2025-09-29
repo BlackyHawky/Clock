@@ -92,7 +92,6 @@
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Rrit gradualisht volumin"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Kalo në heshtje për"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"Asnjeherë"</string>
-    <string name="auto_silence_1_minute">1 minutë</string>
     <string name="label_off">Çaktivizuar</string>
     <string name="week_start_title" msgid="4268917518596832096">"Nise javën në ditën"</string>
     <string name="week_start_saturday">E shtunë</string>

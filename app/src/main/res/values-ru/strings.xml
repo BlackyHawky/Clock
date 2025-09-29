@@ -108,7 +108,6 @@
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Постепенно увеличивать громкость"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Автовыключение"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"Никогда"</string>
-    <string name="auto_silence_1_minute">1 минута</string>
     <string name="label_off">Выкл.</string>
     <string name="week_start_title" msgid="4268917518596832096">"Начало недели"</string>
     <string name="week_start_saturday">суббота</string>
@@ -520,13 +519,10 @@
     <string name="alarm_notification_reminder_10_hours">За 10 часов</string>
     <string name="alarm_notification_reminder_12_hours">За 12 часов</string>
     <string name="turn_on_back_flash_for_triggered_alarm_title">Включить задний фонарик, если будильник сработал</string>
-    <string name="auto_silence_10_seconds">10 секунд</string>
-    <string name="auto_silence_20_seconds">20 секунд</string>
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Включить автоматическое удаление случайных будильников по умолчанию</string>
     <string name="alarm_notification_reminder_4_hours">За 4 часа</string>
     <string name="settings_language_chinese_simplified_cn">Китайский (упрощённый, КНР)</string>
     <string name="alarm_settings_general_summary">Эта настройка может быть изменена для каждого будильника индивидуально в расширеном просмотре будильника</string>
-    <string name="auto_silence_5_seconds">5 секунд</string>
     <string name="purple_accent_color">Фиолетовый</string>
     <string name="black_accent_color">Чёрный</string>
     <string name="alarm_notification_reminder_30_minutes">За 30 минут</string>
@@ -570,7 +566,6 @@
     <string name="sort_timer_title">Сортировать таймеры</string>
     <string name="backup_button_title">Резервная копия</string>
     <string name="restore_button_title">Восстановление</string>
-    <string name="auto_silence_30_seconds">30 секунд</string>
     <string name="timer_buttons_action_summary">Работает только на заблокированном экране</string>
     <string name="sort_timer_ascending_duration">По длительности (возрастание)</string>
     <string name="shake_intensity_title">Интенсивность тряски</string>

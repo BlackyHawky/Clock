@@ -108,7 +108,6 @@
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Postupně zvyšovat hlasitost"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Ztišit po"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"Nikdy"</string>
-    <string name="auto_silence_1_minute">1 minuta</string>
     <string name="label_off">Vypnuto</string>
     <string name="week_start_title" msgid="4268917518596832096">"Počáteční den týdne"</string>
     <string name="week_start_saturday">sobota</string>
@@ -520,16 +519,12 @@
     <string name="alarm_notification_reminder_12_hours">12 hodin předem</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">Zapnout vibrace při odložení nebo zrušení budíku</string>
     <string name="alarm_display_customization_title">Přizpůsobit zobrazení budíku</string>
-    <string name="auto_silence_5_seconds">5 sekund</string>
     <string name="auto_silence_end_of_ringtone">Konec vyzvánění</string>
-    <string name="auto_silence_10_seconds">10 sekund</string>
-    <string name="auto_silence_20_seconds">20 sekund</string>
     <string name="timer_button_time_box_title">Přidat minuty k časovači</string>
     <string name="app_slogan">100% otevřené hodiny, založené na AOSP</string>
     <string name="version_text">Verze <xliff:g id="VERSION_NUMBER" example="1.0">%1$s</xliff:g></string>
     <string name="github_dialog_message">Navštivte stránku projektu na GitHubu:\n\n%s</string>
     <string name="swipe_action_title">Přejeďte pro zrušení nebo odložení budíků</string>
-    <string name="auto_silence_30_seconds">30 sekund</string>
     <string name="title_dark_theme_mode">Režim tmavého motivu</string>
     <string name="display_card_background_summary">Zobrazí pozadí u některých prvků aplikace (budíky, města, tlačítko časovače apod.)</string>
     <string name="about_dialog_message">• Nastavení budíků na určité datum;\n\n• Otočením nebo zatřesením telefonu odložíte/zrušíte budík; \n\n• Vypnutí/odložení budíku pomocí tlačítka napájení nebo tlačítek hlasitosti; \n\n• Na některých zařízeních s procesorem Snapdragon je budík spuštěn i při vypnutém zařízení; \n\t\t Bohužel tato funkce nemusí fungovat na všech zařízeních, i když je přítomna systémová aplikace <i>„com.qualcomm.qti.poweroffalarm“</i>. \n\n• Odstranění budíku přejetím prstem; \n\n• Duplikování budíků; \n\n• Přizpůsobitelný název budíku; \n\n• Přizpůsobitelné vyzvánění budíku; \n\n• Světlý, tmavý nebo systémový motiv; \n\n• AMOLED režim pro tmavý motiv; \n\n• Digitální nebo analogový styl hodin; \n\n• Zobrazení domácího času při cestování; \n\n• Zobrazení času ve více městech po celém světě; \n\n• Obsahuje časovač a stopky; \n\n• Možnost sdílení stopek s kontakty; \n\n• Přizpůsobitelný spořič obrazovky; \n\n• Moderní widgety; \n\n• Přizpůsobitelné widgety; \n\n• Podpora dlaždic v rychlém nastavení (pro Android 7+); \n\n• Zálohování a obnovení nastavení; \n\n• Material Design; \n\n• Dynamické barvy pro Android 12+;</string>

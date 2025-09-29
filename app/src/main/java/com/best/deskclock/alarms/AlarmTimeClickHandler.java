@@ -9,10 +9,11 @@ package com.best.deskclock.alarms;
 import static android.content.Context.AUDIO_SERVICE;
 import static android.media.AudioManager.STREAM_ALARM;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_TIMEOUT_END_OF_RINGTONE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_DATE_PICKER_STYLE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SPINNER_DATE_PICKER_STYLE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SPINNER_TIME_PICKER_STYLE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_END_OF_RINGTONE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_NEVER;
 
 import android.content.Context;
 import android.content.Intent;
@@ -139,8 +140,8 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
         int autoSilenceDuration = alarm.autoSilenceDuration;
         final AutoSilenceDurationDialogFragment fragment =
                 AutoSilenceDurationDialogFragment.newInstance(alarm, autoSilenceDuration,
-                        autoSilenceDuration == ALARM_TIMEOUT_END_OF_RINGTONE,
-                        mFragment.getTag());
+                        autoSilenceDuration == TIMEOUT_END_OF_RINGTONE,
+                        autoSilenceDuration == TIMEOUT_NEVER, mFragment.getTag());
         AutoSilenceDurationDialogFragment.show(mFragment.getParentFragmentManager(), fragment);
     }
 

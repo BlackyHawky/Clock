@@ -92,7 +92,6 @@
     <string name="crescendo_duration_title" msgid="8606408542726189528">"ක්‍රමයෙන් ශබ්දය ඉහළ දමන්න"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"නිහඬවන්නෙ පසු"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"කවදාවත් නොවේ"</string>
-    <string name="auto_silence_1_minute">මිනිත්තු 1</string>
     <string name="label_off">ක්‍රියාවිරහිතය</string>
     <string name="week_start_title" msgid="4268917518596832096">"සතිය මෙයින් අරඹන්න"</string>
     <string name="week_start_saturday">සෙනසුරාදා</string>

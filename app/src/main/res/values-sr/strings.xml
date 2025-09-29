@@ -100,7 +100,6 @@
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Постепено појачавај звук"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Утишај после"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"Никада"</string>
-    <string name="auto_silence_1_minute">1 минут</string>
     <string name="label_off">Искључено</string>
     <string name="week_start_title" msgid="4268917518596832096">"Недеља почиње у"</string>
     <string name="week_start_saturday">суботу</string>
@@ -458,10 +457,6 @@
     <string name="alarm_title_color">Боја наслова аларма</string>
     <string name="snooze_button_color">Боја дугмета \"Одложи\"</string>
     <string name="alarm_button_color">Боја дугмета аларма</string>
-    <string name="auto_silence_5_seconds">5 секунди</string>
-    <string name="auto_silence_10_seconds">10 секунди</string>
-    <string name="auto_silence_20_seconds">20 секунди</string>
-    <string name="auto_silence_30_seconds">30 секунди</string>
     <string name="whats_new_dialog_message">Откријте шта је ново:\n\n%s</string>
     <string name="github_dialog_message">Посетите страницу пројекта на GitHub-у:\n\n%s</string>
     <string name="clock_color_title">Боја сата</string>

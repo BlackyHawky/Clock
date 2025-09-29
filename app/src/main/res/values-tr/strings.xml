@@ -92,7 +92,6 @@
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Ses düzeyini kademeli olarak artır"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Şu süreden sonra sessiz"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"Hiçbir zaman"</string>
-    <string name="auto_silence_1_minute">1 dakika</string>
     <string name="label_off">Kapalı</string>
     <string name="week_start_title" msgid="4268917518596832096">"Haftanın ilk günü"</string>
     <string name="week_start_saturday">Cumartesi</string>
@@ -327,7 +326,6 @@
     <string name="alarm_upcoming_channel">Yaklaşan alarmlar</string>
     <string name="stopwatch_channel">Kronometre</string>
     <string name="timer_channel">Zamanlayıcı</string>
-    <string name="auto_silence_30_seconds">30 saniye</string>
     <string name="sw_long_press_volume_down_action_title">Ses kısma (uzun basınca)</string>
     <string name="timer_button_time_minutes_warning_box_text">0 ile 60 dakika arasında bir değer girin</string>
     <string name="clock_style_analog_material">Analog (Materyal)</string>
@@ -346,12 +344,9 @@
     <string name="timer_button_time_box_title">Zamanlayıcıya eklenecek dakika</string>
     <string name="timer_time_warning_box_title">Geçersiz değer girildi</string>
     <string name="purple_accent_color">Mor</string>
-    <string name="auto_silence_20_seconds">20 saniye</string>
     <string name="black_accent_color">Siyah</string>
     <string name="red_accent_color">Kırmızı</string>
     <string name="yellow_accent_color">Sarı</string>
-    <string name="auto_silence_5_seconds">5 saniye</string>
-    <string name="auto_silence_10_seconds">10 saniye</string>
     <string name="auto_silence_end_of_ringtone">Zil sesi sona erdiğinde</string>
     <string name="day_accent_color_title">Aydınlık modu vurgu rengi</string>
     <string name="font_category_title">Yazı Tipi</string>

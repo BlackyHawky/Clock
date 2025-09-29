@@ -47,12 +47,9 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <ListPreference
-            android:key="key_timer_auto_silence"
+        <com.best.deskclock.settings.AutoSilenceDurationPreference
+            android:key="key_timer_auto_silence_duration"
             android:title="@string/auto_silence_title"
-            android:entries="@array/timer_auto_silence_entries"
-            android:entryValues="@array/timer_auto_silence_values"
-            android:defaultValue="30"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />

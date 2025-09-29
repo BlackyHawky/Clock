@@ -100,7 +100,6 @@
     <string name="crescendo_duration_title" msgid="8606408542726189528">"הגבר בהדרגה את עוצמת הקול"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"השתק לאחר"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"לעולם לא"</string>
-    <string name="auto_silence_1_minute">1 דקה</string>
     <string name="label_off">כיבוי</string>
     <string name="week_start_title" msgid="4268917518596832096">"השבוע מתחיל ב-"</string>
     <string name="week_start_saturday">שבת</string>

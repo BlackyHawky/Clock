@@ -72,7 +72,6 @@
     <string name="crescendo_duration_title">Àrdaich an fuaim mean air mhean</string>
     <string name="auto_silence_title">Cuir ’na thost às dèidh </string>
     <string name="auto_silence_never">Chan ann idir</string>
-    <string name="auto_silence_1_minute">1 mionaid</string>
     <string name="label_off">Dheth</string>
     <string name="week_start_title">Tòisich an t-seachdain air</string>
     <string name="week_start_saturday">DiSathairne</string>

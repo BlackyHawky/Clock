@@ -482,16 +482,6 @@
     <string name="auto_silence_never">Never</string>
     <!-- Auto silence summary when set at "The end of the ringtone" or for changing the auto silence.-->
     <string name="auto_silence_end_of_ringtone">The end of the ringtone</string>
-    <!-- Setting title for changing the auto silence to 5 seconds. -->
-    <string name="auto_silence_5_seconds">5 seconds</string>
-    <!-- Setting title for changing the auto silence to 10 seconds. -->
-    <string name="auto_silence_10_seconds">10 seconds</string>
-    <!-- Setting title for changing the auto silence to 20 seconds. -->
-    <string name="auto_silence_20_seconds">20 seconds</string>
-    <!-- Setting title for changing the auto silence to 30 seconds. -->
-    <string name="auto_silence_30_seconds">30 seconds</string>
-    <!-- Setting title for changing the auto silence to 1 minute. -->
-    <string name="auto_silence_1_minute">1 minute</string>
     <!-- Setting title for changing the snooze duration to None. -->
     <string name="snooze_duration_none">None</string>
     <!-- Week start day preference title. -->

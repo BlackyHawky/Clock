@@ -470,10 +470,8 @@ public final class SettingsDAO {
     /**
      * @return the duration for which a timer can ring before expiring and being reset.
      */
-    static long getTimerAutoSilenceDuration(SharedPreferences prefs) {
-        // Default value must match the one in res/xml/settings_timer.xml
-        final String string = prefs.getString(KEY_TIMER_AUTO_SILENCE, DEFAULT_TIMER_AUTO_SILENCE);
-        return Long.parseLong(string);
+    static int getTimerAutoSilenceDuration(SharedPreferences prefs) {
+        return prefs.getInt(KEY_TIMER_AUTO_SILENCE_DURATION, DEFAULT_TIMER_AUTO_SILENCE_DURATION);
     }
 
     /**
