@@ -135,6 +135,8 @@ Since the app is based on Apache 2.0 licensed AOSP Clock, an [Apache 2.0](LICENS
 </details>
 
 # Credits
+- Icon inspired by [LineageOS](https://github.com/LineageOS/android_packages_apps_DeskClock) and modified by [BlackyHawky](https://github.com/BlackyHawky)
 - [qw123wh](https://github.com/qw123wh)
 - [crDroid Android](https://github.com/crdroidandroid/android_packages_apps_DeskClock)
 - [LineageOS](https://github.com/LineageOS/android_packages_apps_DeskClock)
+- [Contributors](https://github.com/BlackyHawky/Clock/graphs/contributors)
