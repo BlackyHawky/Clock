@@ -214,6 +214,15 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
+        <SwitchPreferenceCompat
+            android:key="key_enable_alarm_fab_long_press"
+            android:title="@string/enable_alarm_fab_long_press_title"
+            android:summary="@string/enable_alarm_fab_long_press_summary"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
         <ListPreference
             android:key="key_week_start"
             android:title="@string/week_start_title"

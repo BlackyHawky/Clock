@@ -83,6 +83,7 @@ public class PreferencesKeys {
     public static final String KEY_SHAKE_INTENSITY = "key_shake_intensity";
     public static final String KEY_SORT_ALARM = "key_sort_alarm";
     public static final String KEY_DISPLAY_ENABLED_ALARMS_FIRST = "key_display_enabled_alarms_first";
+    public static final String KEY_ENABLE_ALARM_FAB_LONG_PRESS = "key_enable_alarm_fab_long_press";
     public static final String KEY_WEEK_START = "key_week_start";
     public static final String KEY_ALARM_NOTIFICATION_REMINDER_TIME = "key_alarm_notification_reminder_time";
     public static final String KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT = "key_enable_alarm_vibrations_by_default";

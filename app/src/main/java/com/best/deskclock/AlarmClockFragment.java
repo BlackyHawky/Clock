@@ -6,6 +6,8 @@
 
 package com.best.deskclock;
 
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_ALARM_BY_NAME;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_ALARM_BY_NEXT_ALARM_TIME;
@@ -27,7 +29,9 @@ import android.os.Looper;
 import android.os.SystemClock;
 import android.text.TextPaint;
 import android.util.TypedValue;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -91,6 +95,8 @@ public final class AlarmClockFragment extends DeskClockFragment implements
 
     private static final String KEY_EXPANDED_ID = "expandedId";
 
+    private static final String KEY_SIDE_BUTTONS_VISIBLE = "side_buttons_visible";
+
     private Context mContext;
     private SharedPreferences mPrefs;
 
@@ -118,6 +124,8 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     private AlarmTimeClickHandler mAlarmTimeClickHandler;
     private LinearLayoutManager mLayoutManager;
 
+    private boolean sideButtonsVisible = false;
+
     /**
      * The public no-arg constructor required by all fragments.
      */
@@ -138,8 +146,8 @@ public final class AlarmClockFragment extends DeskClockFragment implements
 
         if (savedState != null) {
             mExpandedAlarmId = savedState.getLong(KEY_EXPANDED_ID, Alarm.INVALID_ID);
+            sideButtonsVisible = savedState.getBoolean(KEY_SIDE_BUTTONS_VISIBLE, false);
         }
-
     }
 
     @Override
@@ -168,7 +176,6 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         mAlarmUpdateHandler = new AlarmUpdateHandler(mContext, this, mMainLayout);
         mAlarmUpdateHandler.setAlarmUpdateCallback(this);
         mAlarmTimeClickHandler = new AlarmTimeClickHandler(this, savedState, mAlarmUpdateHandler);
-
         mLayoutManager = new LinearLayoutManager(mContext) {
             @Override
             protected void calculateExtraLayoutSpace(@NonNull RecyclerView.State state,
@@ -180,6 +187,21 @@ public final class AlarmClockFragment extends DeskClockFragment implements
 
             }
         };
+        final GestureDetector gestureDetector = new GestureDetector(mContext, new GestureDetector.SimpleOnGestureListener() {
+            @Override
+            public boolean onSingleTapUp(@NonNull MotionEvent e) {
+                hideSideButtonsWithFabAnimation();
+                return false;
+            }
+        });
+
+        mMainLayout.setOnClickListener(view -> hideSideButtonsWithFabAnimation());
+
+        mRecyclerView.setOnTouchListener((view, event) -> {
+            gestureDetector.onTouchEvent(event);
+            view.performClick();
+            return false;
+        });
 
         mRecyclerView.setLayoutManager(mLayoutManager);
         // Due to the ViewPager and the location of FAB, set a bottom padding and/or a right padding
@@ -194,6 +216,8 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         mItemAdapter.withViewTypes(new ExpandedAlarmViewHolder.Factory(mContext),
                 null, null, ExpandedAlarmViewHolder.VIEW_TYPE);
         mItemAdapter.setOnItemChangedListener(holder -> {
+            hideSideButtonsWithFabAnimation();
+
             if (((AlarmItemHolder) holder).isExpanded()) {
                 if (mExpandedAlarmId != holder.itemId) {
                     // Collapse the prior expanded alarm.
@@ -241,6 +265,8 @@ public final class AlarmClockFragment extends DeskClockFragment implements
 
                // Swiping Right
                if (dX > 0) {
+                   hideSideButtonsWithFabAnimation();
+
                    // Background
                    c.clipRect(
                            viewHolder.itemView.getLeft(),
@@ -421,6 +447,11 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         // home was pressed, just dismiss any existing toast bar when restarting
         // the app.
         mAlarmUpdateHandler.hideUndoBar();
+
+        // Hide side buttons only if we're leaving the activity (not rotating the screen)
+        if (!requireActivity().isChangingConfigurations()) {
+            resetFabAndButtonsState();
+        }
     }
 
     /**
@@ -434,6 +465,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putLong(KEY_EXPANDED_ID, mExpandedAlarmId);
+        outState.putBoolean(KEY_SIDE_BUTTONS_VISIBLE, sideButtonsVisible);
     }
 
     @Override
@@ -680,26 +712,90 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     @Override
     public void onFabClick() {
         mAlarmUpdateHandler.hideUndoBar();
-        startCreatingAlarm();
+
+        if (SettingsDAO.isAlarmFabLongPressEnabled(mPrefs)) {
+            startCreatingAlarm();
+        } else {
+            sideButtonsVisible = true;
+            updateFab(FAB_AND_BUTTONS_SHRINK_AND_EXPAND);
+        }
     }
 
     @Override
     public void onFabLongClick() {
-        mAlarmUpdateHandler.hideUndoBar();
-        startCreatingAlarmWithDelay();
+        if (SettingsDAO.isAlarmFabLongPressEnabled(mPrefs)) {
+            mAlarmUpdateHandler.hideUndoBar();
+            startCreatingAlarmWithDelay();
+        }
     }
 
     @Override
     public void onUpdateFab(@NonNull ImageView fab) {
-        fab.setVisibility(View.VISIBLE);
         fab.setImageResource(R.drawable.ic_add);
         fab.setContentDescription(fab.getResources().getString(R.string.button_alarms));
+
+        if (SettingsDAO.isAlarmFabLongPressEnabled(mPrefs)) {
+            fab.setVisibility(VISIBLE);
+        } else {
+            if (sideButtonsVisible) {
+                fab.setVisibility(INVISIBLE);
+            } else {
+                fab.setVisibility(VISIBLE);
+            }
+        }
     }
 
     @Override
     public void onUpdateFabButtons(@NonNull ImageView left, @NonNull ImageView right) {
-        left.setVisibility(View.INVISIBLE);
-        right.setVisibility(View.INVISIBLE);
+        if (SettingsDAO.isAlarmFabLongPressEnabled(mPrefs)) {
+            left.setVisibility(INVISIBLE);
+            right.setVisibility(INVISIBLE);
+        } else {
+            if (sideButtonsVisible) {
+                left.setVisibility(VISIBLE);
+                right.setVisibility(VISIBLE);
+
+                left.setClickable(true);
+                left.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_av_timer));
+                left.setContentDescription(mContext.getString(R.string.button_alarms));
+                left.setOnClickListener(v -> {
+                    startCreatingAlarmWithDelay();
+                    hideSideButtonsWithFabAnimation();
+                });
+
+                right.setClickable(true);
+                right.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_alarm_add));
+                right.setContentDescription(mContext.getString(R.string.button_alarms));
+                right.setOnClickListener(v -> {
+                    startCreatingAlarm();
+                    hideSideButtonsWithFabAnimation();
+                });
+            } else {
+                left.setVisibility(INVISIBLE);
+                right.setVisibility(INVISIBLE);
+            }
+        }
+    }
+
+    private void hideSideButtonsWithFabAnimation() {
+        if (sideButtonsVisible) {
+            sideButtonsVisible = false;
+            updateFab(FAB_AND_BUTTONS_SHRINK_AND_EXPAND);
+        }
+    }
+
+    public void hideSideButtonsOnlyAnimated() {
+        if (sideButtonsVisible) {
+            sideButtonsVisible = false;
+            updateFab(BUTTONS_SHRINK_AND_EXPAND);
+        }
+    }
+
+    public void resetFabAndButtonsState() {
+        if (sideButtonsVisible) {
+            sideButtonsVisible = false;
+            updateFab(FAB_AND_BUTTONS_IMMEDIATE);
+        }
     }
 
     private void startCreatingAlarm() {

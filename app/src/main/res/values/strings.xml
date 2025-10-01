@@ -446,6 +446,10 @@
     <string name="sort_ascending_creation_order">By creation order (oldest first)</string>
     <!-- Setting title to display the enabled alarms first -->
     <string name="display_enabled_alarms_first_title">Display enabled alarms first</string>
+    <!-- Setting title to enable long press on the floating action button in the alarm tab -->
+    <string name="enable_alarm_fab_long_press_title">Enable long press on the action button to create alarms with delay</string>
+    <!-- Setting summary to display two separate buttons for creating alarms if long press on the floating action button is not enabled -->
+    <string name="enable_alarm_fab_long_press_summary">If disabled, two buttons will be displayed to create alarms</string>
     <!-- Setting title for changing the date picker style to calendar. -->
     <string name="date_picker_style_calendar">Calendar</string>
     <!-- Setting title for changing the date picker style to text. -->

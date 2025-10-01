@@ -913,7 +913,12 @@ public class DeskClock extends BaseActivity
 
         @Override
         public void onPageSelected(int position) {
-            mFragmentTabPagerAdapter.getDeskClockFragment(position).selectTab();
+            DeskClockFragment fragment = mFragmentTabPagerAdapter.getDeskClockFragment(position);
+            fragment.selectTab();
+
+            if (fragment instanceof AlarmClockFragment alarmFragment) {
+                alarmFragment.hideSideButtonsOnlyAnimated();
+            }
         }
     }
 

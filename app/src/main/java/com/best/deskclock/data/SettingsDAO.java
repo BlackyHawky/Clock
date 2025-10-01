@@ -675,6 +675,14 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return {@code true} if the long press on the alarm FAB is enabled; {@code false} otherwise.
+     */
+    public static boolean isAlarmFabLongPressEnabled(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        return prefs.getBoolean(KEY_ENABLE_ALARM_FAB_LONG_PRESS, DEFAULT_ENABLE_ALARM_FAB_LONG_PRESS);
+    }
+
+    /**
      * @return the display order of the weekdays, which can start with {@link Calendar#SATURDAY},
      * {@link Calendar#SUNDAY} or {@link Calendar#MONDAY}
      */
