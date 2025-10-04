@@ -386,7 +386,9 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
                 : ColorStateList.valueOf(validColor));
         mSecondsInputLayout.setEnabled(!disableSeconds);
 
-        mOkButton.setEnabled(false);
+        if (mOkButton != null) {
+            mOkButton.setEnabled(false);
+        }
     }
 
     /**
@@ -418,7 +420,9 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
         mSecondsInputLayout.setHintTextColor(ColorStateList.valueOf(validColor));
         mSecondsInputLayout.setEnabled(true);
 
-        mOkButton.setEnabled(true);
+        if (mOkButton != null) {
+            mOkButton.setEnabled(true);
+        }
     }
 
     /**

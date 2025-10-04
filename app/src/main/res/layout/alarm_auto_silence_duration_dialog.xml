@@ -64,9 +64,10 @@
             android:background="?attr/selectableItemBackground"
             android:button="@null"
             android:drawableStart="@drawable/ic_selector_checkbox"
-            android:drawablePadding="24dp"
+            android:drawablePadding="20dp"
             android:text="@string/auto_silence_end_of_ringtone"
             android:textSize="16sp"
+            android:textColor="?android:attr/textColorSecondary"
             tools:ignore="RtlSymmetry"
             tools:checked="false" />
 
@@ -77,11 +78,12 @@
             android:background="?attr/selectableItemBackground"
             android:button="@null"
             android:drawableStart="@drawable/ic_selector_checkbox"
-            android:drawablePadding="24dp"
+            android:drawablePadding="20dp"
             android:text="@string/auto_silence_never"
             android:textSize="16sp"
+            android:textColor="?android:attr/textColorSecondary"
             tools:ignore="RtlSymmetry"
-            tools:checked="false" />
+            tools:checked="true" />
 
     </LinearLayout>
 

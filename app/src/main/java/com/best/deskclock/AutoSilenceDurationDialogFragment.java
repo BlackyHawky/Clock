@@ -547,7 +547,9 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
             mSecondsInputLayout.setEnabled(!minutesInvalid);
         }
 
-        mOkButton.setEnabled(false);
+        if (mOkButton != null) {
+            mOkButton.setEnabled(false);
+        }
     }
 
     /**
@@ -571,7 +573,9 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
             mSecondsInputLayout.setEnabled(!mEndOfRingtoneCheckbox.isChecked() && !mNeverCheckbox.isChecked());
         }
 
-        mOkButton.setEnabled(true);
+        if (mOkButton != null) {
+            mOkButton.setEnabled(true);
+        }
     }
 
     /**

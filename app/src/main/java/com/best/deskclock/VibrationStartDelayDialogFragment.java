@@ -330,7 +330,9 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
                 ? ColorStateList.valueOf(invalidColor)
                 : ColorStateList.valueOf(validColor));
 
-        mOkButton.setEnabled(false);
+        if (mOkButton != null) {
+            mOkButton.setEnabled(false);
+        }
     }
 
     /**
@@ -348,7 +350,9 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
         mMinutesInputLayout.setHintTextColor(ColorStateList.valueOf(validColor));
         mMinutesInputLayout.setEnabled(!mNoneCheckbox.isChecked());
 
-        mOkButton.setEnabled(true);
+        if (mOkButton != null) {
+            mOkButton.setEnabled(true);
+        }
     }
 
     /**

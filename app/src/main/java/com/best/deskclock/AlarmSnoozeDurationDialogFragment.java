@@ -447,7 +447,9 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
                 : ColorStateList.valueOf(validColor));
         mMinutesInputLayout.setEnabled(!hoursInvalid);
 
-        mOkButton.setEnabled(false);
+        if (mOkButton != null) {
+            mOkButton.setEnabled(false);
+        }
     }
 
     /**
@@ -469,7 +471,9 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
         mMinutesInputLayout.setHintTextColor(ColorStateList.valueOf(validColor));
         mMinutesInputLayout.setEnabled(!mNoneCheckbox.isChecked());
 
-        mOkButton.setEnabled(true);
+        if (mOkButton != null) {
+            mOkButton.setEnabled(true);
+        }
     }
 
     /**

@@ -63,11 +63,12 @@
             android:background="?attr/selectableItemBackground"
             android:button="@null"
             android:drawableStart="@drawable/ic_selector_checkbox"
-            android:drawablePadding="24dp"
+            android:drawablePadding="20dp"
             android:text="@string/label_off"
             android:textSize="16sp"
+            android:textColor="?android:attr/textColorSecondary"
             tools:ignore="RtlSymmetry"
-            tools:checked="false" />
+            tools:checked="true" />
 
     </LinearLayout>
 

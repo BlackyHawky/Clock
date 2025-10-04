@@ -448,7 +448,9 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
                 : ColorStateList.valueOf(validColor));
         mSecondsInputLayout.setEnabled(!minutesInvalid);
 
-        mOkButton.setEnabled(false);
+        if (mOkButton != null) {
+            mOkButton.setEnabled(false);
+        }
     }
 
     /**
@@ -470,7 +472,9 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
         mSecondsInputLayout.setHintTextColor(ColorStateList.valueOf(validColor));
         mSecondsInputLayout.setEnabled(!mOffCheckbox.isChecked());
 
-        mOkButton.setEnabled(true);
+        if (mOkButton != null) {
+            mOkButton.setEnabled(true);
+        }
     }
 
     /**
