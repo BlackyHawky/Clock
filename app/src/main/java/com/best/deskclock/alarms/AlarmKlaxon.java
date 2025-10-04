@@ -10,6 +10,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.VibrationAttributes;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
@@ -35,12 +37,21 @@ final class AlarmKlaxon {
 
     private static RingtonePlayer sRingtonePlayer;
 
+    private static Handler sHandler;
+    private static Runnable sVibrationRunnable;
+
     private static int sPreviousAlarmVolume = -1;
 
     private AlarmKlaxon() {
     }
 
     public static void stop(Context context, SharedPreferences prefs) {
+        if (sHandler != null && sVibrationRunnable != null) {
+            sHandler.removeCallbacks(sVibrationRunnable);
+            sVibrationRunnable = null;
+            sHandler = null;
+        }
+
         if (sStarted) {
             sStarted = false;
             if (DeviceUtils.isUserUnlocked(context) && SettingsDAO.isAdvancedAudioPlaybackEnabled(prefs)) {
@@ -97,26 +108,44 @@ final class AlarmKlaxon {
         }
 
         if (instance.mVibrate) {
-            final Vibrator vibrator = context.getSystemService(Vibrator.class);
-            AudioAttributes audioAttributes = new AudioAttributes.Builder()
-                    .setUsage(AudioAttributes.USAGE_ALARM)
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                    .build();
+            long delayInMillis = SettingsDAO.getVibrationStartDelay(prefs) * 1000L;
+            // Add a small safety margin in case the vibration pattern starts with 0 ms,
+            // to prevent any vibration if the alarm stops right at the delay limit.
+            final long SAFETY_MARGIN_MS = 300;
+            delayInMillis += SAFETY_MARGIN_MS;
 
-            String patternKey = SettingsDAO.getVibrationPattern(prefs);
-            long[] pattern = Utils.getVibrationPatternForKey(patternKey);
+            sHandler = new Handler(Looper.getMainLooper());
 
-            if (SdkUtils.isAtLeastAndroid13()) {
-                VibrationAttributes vibrationAttributes = new VibrationAttributes.Builder()
-                        .setUsage(VibrationAttributes.USAGE_ALARM)
+            sVibrationRunnable = () -> {
+                final Vibrator vibrator = context.getSystemService(Vibrator.class);
+                AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                        .setUsage(AudioAttributes.USAGE_ALARM)
+                        .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
                         .build();
-                VibrationEffect vibrationEffect = VibrationEffect.createWaveform(pattern, 0);
-                vibrator.vibrate(vibrationEffect, vibrationAttributes);
-            } else if (SdkUtils.isAtLeastAndroid8()) {
-                VibrationEffect vibrationEffect = VibrationEffect.createWaveform(pattern, 0);
-                vibrator.vibrate(vibrationEffect, audioAttributes);
+
+                String patternKey = SettingsDAO.getVibrationPattern(prefs);
+                long[] pattern = Utils.getVibrationPatternForKey(patternKey);
+
+                if (SdkUtils.isAtLeastAndroid13()) {
+                    VibrationAttributes vibrationAttributes = new VibrationAttributes.Builder()
+                            .setUsage(VibrationAttributes.USAGE_ALARM)
+                            .build();
+                    VibrationEffect vibrationEffect = VibrationEffect.createWaveform(pattern, 0);
+                    vibrator.vibrate(vibrationEffect, vibrationAttributes);
+                } else if (SdkUtils.isAtLeastAndroid8()) {
+                    VibrationEffect vibrationEffect = VibrationEffect.createWaveform(pattern, 0);
+                    vibrator.vibrate(vibrationEffect, audioAttributes);
+                } else {
+                    vibrator.vibrate(pattern, 0, audioAttributes);
+                }
+            };
+
+            if (delayInMillis > 0) {
+                LogUtils.v("AlarmKlaxon: vibration scheduled in " + delayInMillis + "ms");
+                sHandler.postDelayed(sVibrationRunnable, delayInMillis);
             } else {
-                vibrator.vibrate(pattern, 0, audioAttributes);
+                LogUtils.v("AlarmKlaxon: vibration started immediately");
+                sVibrationRunnable.run();
             }
         }
 

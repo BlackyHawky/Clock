@@ -4,6 +4,7 @@ package com.best.deskclock.settings;
 
 import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_SNOOZE_DURATION_DISABLED;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VIBRATION_START_DELAY;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_END_OF_RINGTONE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_NEVER;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_DISPLAY_CUSTOMIZATION;
@@ -29,6 +30,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_SORT_ALARM;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SYSTEM_MEDIA_VOLUME;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_VIBRATION_PATTERN;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_VIBRATION_START_DELAY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_VOLUME_BUTTONS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_WEEK_START;
 
@@ -52,6 +54,7 @@ import com.best.deskclock.AlarmSnoozeDurationDialogFragment;
 import com.best.deskclock.AutoSilenceDurationDialogFragment;
 import com.best.deskclock.R;
 import com.best.deskclock.VibrationPatternDialogFragment;
+import com.best.deskclock.VibrationStartDelayDialogFragment;
 import com.best.deskclock.VolumeCrescendoDurationDialogFragment;
 import com.best.deskclock.alarms.AlarmUpdateHandler;
 import com.best.deskclock.data.DataModel;
@@ -90,6 +93,7 @@ public class AlarmSettingsFragment extends ScreenFragment
     ListPreference mWeekStartPref;
     ListPreference mAlarmNotificationReminderTimePref;
     Preference mVibrationPatternPref;
+    Preference mVibrationStartDelayPref;
     SwitchPreferenceCompat mEnableAlarmVibrationsByDefaultPref;
     SwitchPreferenceCompat mEnableSnoozedOrDismissedAlarmVibrationsPref;
     SwitchPreferenceCompat mTurnOnBackFlashForTriggeredAlarmPref;
@@ -127,6 +131,7 @@ public class AlarmSettingsFragment extends ScreenFragment
         mWeekStartPref = findPreference(KEY_WEEK_START);
         mAlarmNotificationReminderTimePref = findPreference(KEY_ALARM_NOTIFICATION_REMINDER_TIME);
         mVibrationPatternPref = findPreference(KEY_VIBRATION_PATTERN);
+        mVibrationStartDelayPref = findPreference(KEY_VIBRATION_START_DELAY);
         mEnableAlarmVibrationsByDefaultPref = findPreference(KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT);
         mEnableSnoozedOrDismissedAlarmVibrationsPref = findPreference(KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS);
         mTurnOnBackFlashForTriggeredAlarmPref = findPreference(KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM);
@@ -291,6 +296,12 @@ public class AlarmSettingsFragment extends ScreenFragment
             VibrationPatternDialogFragment dialogFragment =
                     VibrationPatternDialogFragment.newInstance(pref.getKey(), currentValue);
             VibrationPatternDialogFragment.show(getParentFragmentManager(), dialogFragment);
+        } else if (pref instanceof VibrationStartDelayPreference vibrationStartDelayPreference) {
+            int currentValue = vibrationStartDelayPreference.getVibrationStartDelay();
+            VibrationStartDelayDialogFragment dialogFragment =
+                    VibrationStartDelayDialogFragment.newInstance(pref.getKey(), currentValue,
+                            currentValue == DEFAULT_VIBRATION_START_DELAY);
+            VibrationStartDelayDialogFragment.show(getParentFragmentManager(), dialogFragment);
         } else {
             super.onDisplayPreferenceDialog(pref);
         }
@@ -421,6 +432,21 @@ public class AlarmSettingsFragment extends ScreenFragment
                 VibrationPatternPreference pref = findPreference(key);
                 if (pref != null) {
                     pref.setPattern(newValue);
+                    pref.setSummary(pref.getSummary());
+                }
+            }
+        });
+
+        mVibrationStartDelayPref.setVisible(hasVibrator);
+        getParentFragmentManager().setFragmentResultListener(VibrationStartDelayDialogFragment.REQUEST_KEY,
+                this, (requestKey, bundle) -> {
+            String key = bundle.getString(VibrationStartDelayDialogFragment.RESULT_PREF_KEY);
+            int newValue = bundle.getInt(VibrationStartDelayDialogFragment.VIBRATION_DELAY_VALUE);
+
+            if (key != null) {
+                VibrationStartDelayPreference pref = findPreference(key);
+                if (pref != null) {
+                    pref.setVibrationStartDelay(newValue);
                     pref.setSummary(pref.getSummary());
                 }
             }

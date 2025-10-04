@@ -432,6 +432,12 @@
     <string name="vibration_pattern_escalating">Escalating</string>
     <!-- Setting title to change the vibration pattern to Tick-Tock -->
     <string name="vibration_pattern_tick_tock">Tick-Tock</string>
+    <!-- Setting title to change the vibration delay -->
+    <string name="vibration_start_delay_title">Delay before vibration starts</string>
+    <!-- Setting title for changing the vibration start delay to None. -->
+    <string name="vibration_start_delay_none">None</string>
+    <!-- Text of dialog box to edit minutes for the vibration start delay. -->
+    <string name="vibration_start_delay_warning_box_text">Enter a value between 0 and 10 minutes</string>
     <!-- Setting title to enable vibrations when alarm is snoozed or dismissed -->
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">Enable vibrations when alarm is snoozed or dismissed</string>
     <!-- Setting summary about vibrations when alarm is snoozed or dismissed -->

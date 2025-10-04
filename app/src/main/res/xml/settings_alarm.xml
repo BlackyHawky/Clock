@@ -249,6 +249,13 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
+        <com.best.deskclock.settings.VibrationStartDelayPreference
+            android:key="key_vibration_start_delay"
+            android:title="@string/vibration_start_delay_title"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
         <SwitchPreferenceCompat
             android:key="key_enable_alarm_vibrations_by_default"
             android:title="@string/enable_alarm_vibrations_by_default_setting_title"
