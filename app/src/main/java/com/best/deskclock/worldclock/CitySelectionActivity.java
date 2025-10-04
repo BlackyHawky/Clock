@@ -31,6 +31,7 @@ import android.widget.ListView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
@@ -44,6 +45,7 @@ import com.best.deskclock.data.City;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.InsetsUtils;
+import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 
 import java.util.ArrayList;
@@ -161,6 +163,30 @@ public final class CitySelectionActivity extends BaseActivity {
             String query = savedInstanceState.getString(KEY_SEARCH_QUERY, "");
             mSearchView.setQuery(query, false);
         }
+
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                finish();
+                if (SettingsDAO.isFadeTransitionsEnabled(getDefaultSharedPreferences(
+                        CitySelectionActivity.this))) {
+                    if (SdkUtils.isAtLeastAndroid14()) {
+                        overrideActivityTransition(OVERRIDE_TRANSITION_CLOSE,
+                                R.anim.fade_in, R.anim.fade_out);
+                    } else {
+                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                    }
+                } else {
+                    if (SdkUtils.isAtLeastAndroid14()) {
+                        overrideActivityTransition(OVERRIDE_TRANSITION_CLOSE,
+                                R.anim.activity_slide_from_left, R.anim.activity_slide_to_right);
+                    } else {
+                        overridePendingTransition(
+                                R.anim.activity_slide_from_left, R.anim.activity_slide_to_right);
+                    }
+                }
+            }
+        });
     }
 
     @Override
