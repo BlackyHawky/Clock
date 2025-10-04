@@ -420,6 +420,18 @@
     <string name="disconnect_bluetooth_device_title">Disconnect the Bluetooth device to access this setting</string>
     <!-- Setting title to enable vibrations when creating alarms -->
     <string name="enable_alarm_vibrations_by_default_setting_title">Enable vibrations when creating alarms</string>
+    <!-- Setting title to change the vibration pattern -->
+    <string name="vibration_pattern_title">Vibration pattern</string>
+    <!-- Setting title to change the vibration pattern to Soft -->
+    <string name="vibration_pattern_soft">Soft</string>
+    <!-- Setting title to change the vibration pattern to Strong -->
+    <string name="vibration_pattern_strong">Strong</string>
+    <!-- Setting title to change the vibration pattern to Heartbeat -->
+    <string name="vibration_pattern_heartbeat">Heartbeat</string>
+    <!-- Setting title to change the vibration pattern to Escalating -->
+    <string name="vibration_pattern_escalating">Escalating</string>
+    <!-- Setting title to change the vibration pattern to Tick-Tock -->
+    <string name="vibration_pattern_tick_tock">Tick-Tock</string>
     <!-- Setting title to enable vibrations when alarm is snoozed or dismissed -->
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">Enable vibrations when alarm is snoozed or dismissed</string>
     <!-- Setting summary about vibrations when alarm is snoozed or dismissed -->

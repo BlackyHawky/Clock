@@ -91,6 +91,12 @@ public class PreferencesDefaultValues {
     public static final boolean DEFAULT_ENABLE_ALARM_FAB_LONG_PRESS = false;
     public static final String DEFAULT_WEEK_START = String.valueOf(Calendar.getInstance().getFirstDayOfWeek());
     public static final String DEFAULT_ALARM_NOTIFICATION_REMINDER_TIME = "30";
+    public static final String DEFAULT_VIBRATION_PATTERN = "default";
+    public static final String VIBRATION_PATTERN_SOFT = "soft";
+    public static final String VIBRATION_PATTERN_STRONG = "strong";
+    public static final String VIBRATION_PATTERN_HEARTBEAT = "heartbeat";
+    public static final String VIBRATION_PATTERN_ESCALATING = "escalating";
+    public static final String VIBRATION_PATTERN_TICK_TOCK = "tick_tock";
     public static final boolean DEFAULT_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT = false;
     public static final boolean DEFAULT_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS = false;
     public static final boolean DEFAULT_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM = false;

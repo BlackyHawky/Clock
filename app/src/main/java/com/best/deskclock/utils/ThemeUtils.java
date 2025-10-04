@@ -23,6 +23,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.drawable.AnimatedStateListDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
@@ -32,9 +33,12 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import androidx.annotation.AttrRes;
 import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.drawable.DrawableKt;
 
@@ -233,6 +237,30 @@ public class ThemeUtils {
             button.setImageTintList(null);
         } else {
             button.setImageTintList(ColorStateList.valueOf(context.getColor(R.color.colorDisabled)));
+        }
+    }
+
+    /**
+     * Cancels any ongoing animations in the button drawable of all {@link RadioButton}s
+     * within the given {@link RadioGroup}.
+     * <p>
+     * On some devices or Android versions, transitioning from the checked to unchecked state
+     * can produce visual glitches (e.g., flickering).
+     * <p>
+     * This method ensures that all RadioButtons immediately jump to their current drawable state
+     * without any intermediate animation, preventing such artifacts.
+     *
+     * @param group The {@link RadioGroup} containing the {@link RadioButton}s to update.
+     */
+    public static void cancelRadioButtonDrawableAnimations(@NonNull RadioGroup group) {
+        for (int i = 0; i < group.getChildCount(); i++) {
+            View child = group.getChildAt(i);
+            if (child instanceof RadioButton) {
+                Drawable buttonDrawable = ((RadioButton) child).getButtonDrawable();
+                if (buttonDrawable instanceof AnimatedStateListDrawable) {
+                    buttonDrawable.jumpToCurrentState();
+                }
+            }
         }
     }
 

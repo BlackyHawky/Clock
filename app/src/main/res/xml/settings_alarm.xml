@@ -242,6 +242,13 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
+        <com.best.deskclock.settings.VibrationPatternPreference
+            android:key="key_vibration_pattern"
+            android:title="@string/vibration_pattern_title"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
         <SwitchPreferenceCompat
             android:key="key_enable_alarm_vibrations_by_default"
             android:title="@string/enable_alarm_vibrations_by_default_setting_title"

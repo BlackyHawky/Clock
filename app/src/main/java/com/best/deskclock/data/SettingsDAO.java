@@ -834,6 +834,14 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return the vibration pattern applied to alarms.
+     */
+    public static String getVibrationPattern(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        return prefs.getString(KEY_VIBRATION_PATTERN, DEFAULT_VIBRATION_PATTERN);
+    }
+
+    /**
      * @return {@code true} if alarm vibrations are enabled when creating alarms. {@code false} otherwise.
      */
     public static boolean areAlarmVibrationsEnabledByDefault(SharedPreferences pref) {

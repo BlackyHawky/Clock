@@ -11,6 +11,11 @@ import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SYSTEM_LANGUAGE_CODE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.VIBRATION_PATTERN_ESCALATING;
+import static com.best.deskclock.settings.PreferencesDefaultValues.VIBRATION_PATTERN_HEARTBEAT;
+import static com.best.deskclock.settings.PreferencesDefaultValues.VIBRATION_PATTERN_SOFT;
+import static com.best.deskclock.settings.PreferencesDefaultValues.VIBRATION_PATTERN_STRONG;
+import static com.best.deskclock.settings.PreferencesDefaultValues.VIBRATION_PATTERN_TICK_TOCK;
 
 import android.annotation.SuppressLint;
 import android.app.PendingIntent;
@@ -196,6 +201,24 @@ public class Utils {
                 vibrator.vibrate(milliseconds);
             }
         }
+    }
+
+    /**
+     * Returns the vibration pattern associated with the given pattern key.
+     *
+     * @param patternKey the key identifying the vibration pattern
+     * @return a long array representing the vibration pattern durations in milliseconds;
+     *         if the pattern key is unknown, returns a default vibration pattern
+     */
+    public static long[] getVibrationPatternForKey(String patternKey) {
+        return switch (patternKey) {
+            case VIBRATION_PATTERN_SOFT -> new long[]{500, 200, 500};
+            case VIBRATION_PATTERN_STRONG -> new long[]{500, 1000};
+            case VIBRATION_PATTERN_HEARTBEAT -> new long[]{100, 100, 300, 100, 600};
+            case VIBRATION_PATTERN_ESCALATING -> new long[]{500, 200, 300, 400, 500, 600, 700, 800, 900, 1000};
+            case VIBRATION_PATTERN_TICK_TOCK -> new long[]{300, 150, 300, 150};
+            default -> new long[]{500, 500};
+        };
     }
 
     /**

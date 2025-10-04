@@ -205,6 +205,25 @@
         <item>2</item>
     </string-array>
 
+    <!-- Entries listed in the ListPreference when invoking the vibration pattern preference. -->
+    <string-array name="vibration_pattern_entries">
+        <item>@string/label_default</item>
+        <item>@string/vibration_pattern_soft</item>
+        <item>@string/vibration_pattern_strong</item>
+        <item>@string/vibration_pattern_heartbeat</item>
+        <item>@string/vibration_pattern_escalating</item>
+        <item>@string/vibration_pattern_tick_tock</item>
+    </string-array>
+    <!-- Values that are retrieved from the ListPreference. These must match the vibration_pattern_entries above. -->
+    <string-array name="vibration_pattern_values" translatable="false">
+        <item>default</item>
+        <item>soft</item>
+        <item>strong</item>
+        <item>heartbeat</item>
+        <item>escalating</item>
+        <item>tick_tock</item>
+    </string-array>
+
     <!-- Entries listed in the setting for the volume button actions. -->
     <string-array name="volume_button_setting_entries">
         <item>@string/button_action_snooze</item>

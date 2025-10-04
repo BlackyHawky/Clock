@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RadioGroup
+        android:id="@+id/vibration_options"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="?attr/dialogPreferredPadding"
+        android:paddingTop="20dp">
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/vibration_pattern_default"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="@string/label_default"
+            android:textSize="16sp"
+            android:textColor="?android:attr/textColorSecondary"
+            android:paddingStart="20dp"
+            android:paddingEnd="@null" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/vibration_pattern_soft"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="@string/vibration_pattern_soft"
+            android:textSize="16sp"
+            android:textColor="?android:attr/textColorSecondary"
+            android:paddingStart="20dp"
+            android:paddingEnd="@null" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/vibration_pattern_strong"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="@string/vibration_pattern_strong"
+            android:textSize="16sp"
+            android:textColor="?android:attr/textColorSecondary"
+            android:paddingStart="20dp"
+            android:paddingEnd="@null" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/vibration_pattern_heartbeat"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="@string/vibration_pattern_heartbeat"
+            android:textSize="16sp"
+            android:textColor="?android:attr/textColorSecondary"
+            android:paddingStart="20dp"
+            android:paddingEnd="@null" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/vibration_pattern_escalating"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="@string/vibration_pattern_escalating"
+            android:textSize="16sp"
+            android:textColor="?android:attr/textColorSecondary"
+            android:paddingStart="20dp"
+            android:paddingEnd="@null" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/vibration_pattern_tick_tock"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="@string/vibration_pattern_tick_tock"
+            android:textSize="16sp"
+            android:textColor="?android:attr/textColorSecondary"
+            android:paddingStart="20dp"
+            android:paddingEnd="@null" />
+
+    </RadioGroup>
+
+</ScrollView>

@@ -22,13 +22,12 @@ import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
+import com.best.deskclock.utils.Utils;
 
 /**
  * Manages playing alarm ringtones and vibrating the device.
  */
 final class AlarmKlaxon {
-
-    private static final long[] VIBRATE_PATTERN = {500, 500};
 
     private static boolean sStarted = false;
 
@@ -104,17 +103,20 @@ final class AlarmKlaxon {
                     .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
                     .build();
 
+            String patternKey = SettingsDAO.getVibrationPattern(prefs);
+            long[] pattern = Utils.getVibrationPatternForKey(patternKey);
+
             if (SdkUtils.isAtLeastAndroid13()) {
                 VibrationAttributes vibrationAttributes = new VibrationAttributes.Builder()
                         .setUsage(VibrationAttributes.USAGE_ALARM)
                         .build();
-                VibrationEffect vibrationEffect = VibrationEffect.createWaveform(VIBRATE_PATTERN, 0);
+                VibrationEffect vibrationEffect = VibrationEffect.createWaveform(pattern, 0);
                 vibrator.vibrate(vibrationEffect, vibrationAttributes);
             } else if (SdkUtils.isAtLeastAndroid8()) {
-                VibrationEffect vibrationEffect = VibrationEffect.createWaveform(VIBRATE_PATTERN, 0);
+                VibrationEffect vibrationEffect = VibrationEffect.createWaveform(pattern, 0);
                 vibrator.vibrate(vibrationEffect, audioAttributes);
             } else {
-                vibrator.vibrate(VIBRATE_PATTERN, 0, audioAttributes);
+                vibrator.vibrate(pattern, 0, audioAttributes);
             }
         }
 
