@@ -240,6 +240,8 @@ public class DeskClock extends BaseActivity
      */
     private SharedPreferences.OnSharedPreferenceChangeListener mPrefListener;
 
+    private UiDataModel.Tab mPreviousTab = UiDataModel.getUiDataModel().getSelectedTab();
+
     @Override
     public void onNewIntent(Intent newIntent) {
         super.onNewIntent(newIntent);
@@ -827,6 +829,28 @@ public class DeskClock extends BaseActivity
     }
 
     /**
+     * Updates the runnable state when switching between tabs.
+     * <p>
+     * This method stops the runnable associated with the previously selected tab
+     * and starts the runnable for the newly selected tab, if applicable.
+     * It ensures that only the active tab's fragment continues its periodic updates.
+     *
+     * @param oldTab the previously selected tab
+     * @param newTab the newly selected tab
+     */
+    private void updateTabRunnable(UiDataModel.Tab oldTab, UiDataModel.Tab newTab) {
+        DeskClockFragment oldFragment = mFragmentTabPagerAdapter.getDeskClockFragment(oldTab.ordinal());
+        if (oldFragment instanceof RunnableFragment runnableOld) {
+            runnableOld.stopRunnable();
+        }
+
+        DeskClockFragment newFragment = mFragmentTabPagerAdapter.getDeskClockFragment(newTab.ordinal());
+        if (newFragment instanceof RunnableFragment runnableNew) {
+            runnableNew.startRunnable();
+        }
+    }
+
+    /**
      * @return the DeskClockFragment that is currently selected according to UiDataModel
      */
     private DeskClockFragment getSelectedDeskClockFragment() {
@@ -999,6 +1023,9 @@ public class DeskClock extends BaseActivity
         public void selectedTabChanged(UiDataModel.Tab newSelectedTab) {
             // Update the view pager and tab layout to agree with the model.
             updateCurrentTab();
+
+            updateTabRunnable(mPreviousTab, newSelectedTab);
+            mPreviousTab = newSelectedTab;
 
             // Avoid sending events for the initial tab selection on launch and re-selecting a tab
             // after a configuration change.

@@ -44,6 +44,7 @@ import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import com.best.deskclock.DeskClockFragment;
 import com.best.deskclock.R;
+import com.best.deskclock.RunnableFragment;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Lap;
 import com.best.deskclock.data.SettingsDAO;
@@ -61,7 +62,7 @@ import java.util.Objects;
 /**
  * Fragment that shows the stopwatch and recorded laps.
  */
-public final class StopwatchFragment extends DeskClockFragment {
+public final class StopwatchFragment extends DeskClockFragment implements RunnableFragment {
 
     /**
      * Milliseconds between redraws while running.
@@ -269,8 +270,8 @@ public final class StopwatchFragment extends DeskClockFragment {
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onPause() {
+        super.onPause();
 
         // Stop all updates while the fragment is not visible.
         stopUpdatingTime();
@@ -290,19 +291,6 @@ public final class StopwatchFragment extends DeskClockFragment {
 
     @Override
     public void onFabLongClick() {
-    }
-
-    private void updateFab(@NonNull ImageView fab) {
-        if (mContext != null) {
-            if (getStopwatch().isRunning()) {
-                fab.setImageResource(R.drawable.ic_fab_pause);
-                fab.setContentDescription(mContext.getString(R.string.sw_pause_button));
-            } else {
-                fab.setImageResource(R.drawable.ic_fab_play);
-                fab.setContentDescription(mContext.getString(R.string.sw_start_button));
-            }
-            fab.setVisibility(VISIBLE);
-        }
     }
 
     @Override
@@ -350,6 +338,29 @@ public final class StopwatchFragment extends DeskClockFragment {
                     right.setOnClickListener(v -> doShare());
                 }
             }
+        }
+    }
+
+    @Override
+    public void startRunnable() {
+        startUpdatingTime();
+    }
+
+    @Override
+    public void stopRunnable() {
+        stopUpdatingTime();
+    }
+
+    private void updateFab(@NonNull ImageView fab) {
+        if (mContext != null) {
+            if (getStopwatch().isRunning()) {
+                fab.setImageResource(R.drawable.ic_fab_pause);
+                fab.setContentDescription(mContext.getString(R.string.sw_pause_button));
+            } else {
+                fab.setImageResource(R.drawable.ic_fab_play);
+                fab.setContentDescription(mContext.getString(R.string.sw_start_button));
+            }
+            fab.setVisibility(VISIBLE);
         }
     }
 
@@ -506,16 +517,26 @@ public final class StopwatchFragment extends DeskClockFragment {
     /**
      * Post the first runnable to update times within the UI. It will reschedule itself as needed.
      */
-    private void startUpdatingTime() {
+    public void startUpdatingTime() {
+        if (!isTabSelected() || getStopwatch().isReset()) {
+            String reason = !isTabSelected()
+                    ? "not in STOPWATCH tab"
+                    : "stopwatch is not running";
+            LogUtils.i("Stopwatch - startUpdatingTime skipped: " + reason);
+            return;
+        }
+
         // Ensure only one copy of the runnable is ever scheduled by first stopping updates.
         stopUpdatingTime();
+        LogUtils.i("Stopwatch - startUpdatingTime executed");
         mMainTimeText.post(mTimeUpdateRunnable);
     }
 
     /**
      * Remove the runnable that updates times within the UI.
      */
-    private void stopUpdatingTime() {
+    public void stopUpdatingTime() {
+        LogUtils.i("Stopwatch - stopUpdatingTime executed");
         mMainTimeText.removeCallbacks(mTimeUpdateRunnable);
     }
 
@@ -548,12 +569,10 @@ public final class StopwatchFragment extends DeskClockFragment {
             mTime.update();
         }
 
-        final Stopwatch stopwatch = getStopwatch();
-        if (!stopwatch.isReset()) {
-            startUpdatingTime();
-        }
+        startUpdatingTime();
 
         // Adjust the visibility of the list of laps.
+        final Stopwatch stopwatch = getStopwatch();
         showOrHideLaps(stopwatch.isReset());
 
         // Update button states.
@@ -676,7 +695,6 @@ public final class StopwatchFragment extends DeskClockFragment {
                 updateUI(FAB_MORPH | BUTTONS_IMMEDIATE);
             }
         }
-
     }
 
     /**

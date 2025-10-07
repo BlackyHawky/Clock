@@ -85,18 +85,30 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder itemViewHolder, int position) {
         TimerViewHolder holder = (TimerViewHolder) itemViewHolder;
-        mHolders.put(getTimer(position).getId(), holder);
-        holder.onBind(getTimer(position).getId());
+        Timer timer = getTimer(position);
+        mHolders.put(timer.getId(), holder);
+        holder.onBind(timer.getId());
+
+        if (!timer.isReset()) {
+            holder.startUpdating();
+        } else {
+            holder.stopUpdating();
+        }
     }
 
     @Override
     public void timerAdded(Timer timer) {
         saveTimerList();
         notifyDataSetChanged();
+        updateTime();
     }
 
     @Override
     public void timerRemoved(Timer timer) {
+        TimerViewHolder holder = mHolders.get(timer.getId());
+        if (holder != null) {
+            holder.stopUpdating();
+        }
         mHolders.remove(timer.getId());
         saveTimerList();
         notifyDataSetChanged();
@@ -104,18 +116,37 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public void timerUpdated(Timer before, Timer after) {
+        updateTime();
         notifyDataSetChanged();
     }
 
     /**
-     * @return {@code true} if at least one timer is in a state requiring continuous updates
+     * Iterates through all active {@link TimerViewHolder} instances and updates their state.
+     * <p>
+     * This method ensures that each timer view updates at the appropriate interval
+     * based on its current state (e.g., paused or running).</p>
      */
-    boolean updateTime() {
-        boolean continuousUpdates = false;
+    void updateTime() {
         for (TimerViewHolder holder : mHolders.values()) {
-            continuousUpdates |= holder.updateTime();
+            Timer timer = holder.getTimer();
+            if (timer != null && !timer.isReset()) {
+                holder.startUpdating();
+            } else {
+                holder.stopUpdating();
+            }
         }
-        return continuousUpdates;
+    }
+
+    /**
+     * Stops the update cycle for all active {@link TimerViewHolder} instances.
+     * <p>
+     * It should be called when the timer list is no longer visible or when the fragment
+     * is paused to prevent unnecessary background updates and potential memory leaks.
+     */
+    public void stopAllUpdating() {
+        for (TimerViewHolder holder : mHolders.values()) {
+            holder.stopUpdating();
+        }
     }
 
     Timer getTimer(int index) {

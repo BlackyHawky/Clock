@@ -161,26 +161,63 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
-    /**
-     * @return {@code true} if the timer is in a state that requires continuous updates
-     */
-    boolean updateTime() {
-        final Timer timer = getTimer();
-
-        if (timer != null) {
-            mTimerItem.updateTimeDisplay(timer);
-            return !timer.isReset();
-        }
-
-        return false;
-    }
-
     int getTimerId() {
         return mTimerId;
     }
 
     Timer getTimer() {
         return DataModel.getDataModel().getTimer(getTimerId());
+    }
+
+    /**
+     * A periodic task that updates the timer display based on its current state.
+     * <p>
+     * This runnable checks the associated {@link Timer} and refreshes its visual representation
+     * using {@code updateTimeDisplay(timer)}. It dynamically adjusts its update interval:
+     * <ul>
+     *   <li>500 ms if the timer is paused (to enable blinking effect)</li>
+     *   <li>1000 ms otherwise</li>
+     * </ul>
+     * The task reschedules itself using {@code postDelayed()} until explicitly stopped.
+     */
+    private final Runnable mUpdateRunnable = new Runnable() {
+        @Override
+        public void run() {
+            final Timer timer = getTimer();
+            if (timer == null || timer.isReset()) {
+                return;
+            }
+
+            mTimerItem.updateTimeDisplay(timer);
+
+            // Use a 500 ms delay for paused, expired, or missed timers to ensure
+            // more frequent updates needed for smooth blinking (based on a 500 ms interval).
+            // For running timers, a 1000 ms delay is sufficient to save resources.
+            final long delay = timer.isPaused() || timer.isExpired() || timer.isMissed()
+                    ? 500
+                    : 1000;
+            mTimerItem.postDelayed(this, delay);
+        }
+    };
+
+    /**
+     * Starts the timer update cycle if it is not already running.
+     * <p>
+     * This method ensures that only one instance of the update runnable is active.
+     * and posts the runnable to begin periodic updates.
+     */
+    public void startUpdating() {
+        stopUpdating();
+        mTimerItem.post(mUpdateRunnable);
+    }
+
+    /**
+     * Stops the timer update cycle.
+     * <p>
+     * This method cancels any pending executions of the update runnable.
+     */
+    public void stopUpdating() {
+        mTimerItem.removeCallbacks(mUpdateRunnable);
     }
 
 }
