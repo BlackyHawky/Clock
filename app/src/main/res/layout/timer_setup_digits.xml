@@ -5,173 +5,157 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:clipChildren="false"
-    android:layoutDirection="ltr"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent">
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/timer_setup_digit_1"
+        style="@style/TimerSetupDigit"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/timer_setup_digit_2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/timer_setup_digit_4"
+        tools:ignore="HardcodedText" />
 
-        <androidx.constraintlayout.widget.Guideline android:orientation="horizontal" android:id="@+id/row_0_bottom" android:layout_width="wrap_content" android:layout_height="wrap_content" app:layout_constraintGuide_percent="0.25" />
-        <androidx.constraintlayout.widget.Guideline android:orientation="horizontal" android:id="@+id/row_1_bottom" android:layout_width="wrap_content" android:layout_height="wrap_content" app:layout_constraintGuide_percent="0.5" />
-        <androidx.constraintlayout.widget.Guideline android:orientation="horizontal" android:id="@+id/row_2_bottom" android:layout_width="wrap_content" android:layout_height="wrap_content" app:layout_constraintGuide_percent="0.75" />
-        <androidx.constraintlayout.widget.Guideline android:orientation="vertical" android:id="@+id/column_0_right" android:layout_width="wrap_content" android:layout_height="wrap_content" app:layout_constraintGuide_percent="0.3333" />
-        <androidx.constraintlayout.widget.Guideline android:orientation="vertical" android:id="@+id/column_1_right" android:layout_width="wrap_content" android:layout_height="wrap_content" app:layout_constraintGuide_percent="0.6666" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/timer_setup_digit_2"
+        style="@style/TimerSetupDigit"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="2"
+        app:layout_constraintStart_toEndOf="@id/timer_setup_digit_1"
+        app:layout_constraintEnd_toStartOf="@id/timer_setup_digit_3"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/timer_setup_digit_5"
+        tools:ignore="HardcodedText" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/timer_setup_digit_1"
-            style="@style/TimerSetupDigit"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:text="1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/column_0_right"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/row_0_bottom"
-            tools:ignore="HardcodedText" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/timer_setup_digit_3"
+        style="@style/TimerSetupDigit"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="3"
+        app:layout_constraintStart_toEndOf="@id/timer_setup_digit_2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/timer_setup_digit_6"
+        tools:ignore="HardcodedText" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/timer_setup_digit_2"
-            style="@style/TimerSetupDigit"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:text="2"
-            app:layout_constraintStart_toEndOf="@id/column_0_right"
-            app:layout_constraintEnd_toStartOf="@id/column_1_right"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/row_0_bottom"
-            tools:ignore="HardcodedText" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/timer_setup_digit_4"
+        style="@style/TimerSetupDigit"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/timer_setup_digit_5"
+        app:layout_constraintTop_toBottomOf="@id/timer_setup_digit_1"
+        app:layout_constraintBottom_toTopOf="@id/timer_setup_digit_7"
+        tools:ignore="HardcodedText" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/timer_setup_digit_3"
-            style="@style/TimerSetupDigit"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:text="3"
-            app:layout_constraintStart_toEndOf="@id/column_1_right"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/row_0_bottom"
-            tools:ignore="HardcodedText" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/timer_setup_digit_5"
+        style="@style/TimerSetupDigit"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="5"
+        app:layout_constraintStart_toEndOf="@id/timer_setup_digit_4"
+        app:layout_constraintEnd_toStartOf="@id/timer_setup_digit_6"
+        app:layout_constraintTop_toBottomOf="@id/timer_setup_digit_2"
+        app:layout_constraintBottom_toTopOf="@id/timer_setup_digit_8"
+        tools:ignore="HardcodedText" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/timer_setup_digit_4"
-            style="@style/TimerSetupDigit"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:text="4"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/column_0_right"
-            app:layout_constraintTop_toBottomOf="@id/row_0_bottom"
-            app:layout_constraintBottom_toTopOf="@id/row_1_bottom"
-            tools:ignore="HardcodedText" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/timer_setup_digit_6"
+        style="@style/TimerSetupDigit"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="6"
+        app:layout_constraintStart_toEndOf="@id/timer_setup_digit_5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/timer_setup_digit_3"
+        app:layout_constraintBottom_toTopOf="@id/timer_setup_digit_9"
+        tools:ignore="HardcodedText" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/timer_setup_digit_5"
-            style="@style/TimerSetupDigit"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:text="5"
-            app:layout_constraintStart_toEndOf="@id/column_0_right"
-            app:layout_constraintEnd_toStartOf="@id/column_1_right"
-            app:layout_constraintTop_toBottomOf="@id/row_0_bottom"
-            app:layout_constraintBottom_toTopOf="@id/row_1_bottom"
-            tools:ignore="HardcodedText" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/timer_setup_digit_7"
+        style="@style/TimerSetupDigit"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="7"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/timer_setup_digit_8"
+        app:layout_constraintTop_toBottomOf="@id/timer_setup_digit_4"
+        app:layout_constraintBottom_toTopOf="@id/timer_setup_digit_00"
+        tools:ignore="HardcodedText" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/timer_setup_digit_6"
-            style="@style/TimerSetupDigit"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:text="6"
-            app:layout_constraintStart_toEndOf="@id/column_1_right"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/row_0_bottom"
-            app:layout_constraintBottom_toTopOf="@id/row_1_bottom"
-            tools:ignore="HardcodedText" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/timer_setup_digit_8"
+        style="@style/TimerSetupDigit"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="8"
+        app:layout_constraintStart_toEndOf="@id/timer_setup_digit_7"
+        app:layout_constraintEnd_toStartOf="@id/timer_setup_digit_9"
+        app:layout_constraintTop_toBottomOf="@id/timer_setup_digit_5"
+        app:layout_constraintBottom_toTopOf="@id/timer_setup_digit_0"
+        tools:ignore="HardcodedText" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/timer_setup_digit_7"
-            style="@style/TimerSetupDigit"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:text="7"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/column_0_right"
-            app:layout_constraintTop_toBottomOf="@id/row_1_bottom"
-            app:layout_constraintBottom_toTopOf="@id/row_2_bottom"
-            tools:ignore="HardcodedText" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/timer_setup_digit_9"
+        style="@style/TimerSetupDigit"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="9"
+        app:layout_constraintStart_toEndOf="@id/timer_setup_digit_8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/timer_setup_digit_6"
+        app:layout_constraintBottom_toTopOf="@+id/timer_setup_delete"
+        tools:ignore="HardcodedText" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/timer_setup_digit_8"
-            style="@style/TimerSetupDigit"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:text="8"
-            app:layout_constraintStart_toEndOf="@id/column_0_right"
-            app:layout_constraintEnd_toStartOf="@id/column_1_right"
-            app:layout_constraintTop_toBottomOf="@id/row_1_bottom"
-            app:layout_constraintBottom_toTopOf="@id/row_2_bottom"
-            tools:ignore="HardcodedText" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/timer_setup_digit_00"
+        style="@style/TimerSetupDigit"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:backgroundTint="?attr/colorPrimaryContainer"
+        android:text="00"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/timer_setup_digit_0"
+        app:layout_constraintTop_toBottomOf="@id/timer_setup_digit_7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="HardcodedText" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/timer_setup_digit_9"
-            style="@style/TimerSetupDigit"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:text="9"
-            app:layout_constraintStart_toEndOf="@id/column_1_right"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/row_1_bottom"
-            app:layout_constraintBottom_toTopOf="@+id/row_2_bottom"
-            tools:ignore="HardcodedText" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/timer_setup_digit_0"
+        style="@style/TimerSetupDigit"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="0"
+        app:layout_constraintStart_toEndOf="@id/timer_setup_digit_00"
+        app:layout_constraintEnd_toStartOf="@id/timer_setup_delete"
+        app:layout_constraintTop_toBottomOf="@+id/timer_setup_digit_8"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="HardcodedText" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/timer_setup_digit_00"
-            style="@style/TimerSetupDigit"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:backgroundTint="?attr/colorPrimaryContainer"
-            android:text="00"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/column_0_right"
-            app:layout_constraintTop_toBottomOf="@id/row_2_bottom"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:ignore="HardcodedText" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/timer_setup_delete"
+        style="@style/TimerSetupDigit"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="&#9003;"
+        app:backgroundTint="?attr/colorPrimaryContainer"
+        app:layout_constraintStart_toEndOf="@id/timer_setup_digit_0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/timer_setup_digit_9"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="HardcodedText" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/timer_setup_digit_0"
-            style="@style/TimerSetupDigit"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:text="0"
-            app:layout_constraintStart_toEndOf="@id/column_0_right"
-            app:layout_constraintEnd_toStartOf="@id/column_1_right"
-            app:layout_constraintTop_toBottomOf="@+id/row_2_bottom"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:ignore="HardcodedText" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/timer_setup_delete"
-            style="@style/TimerSetupDigit"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:text="&#9003;"
-            app:backgroundTint="?attr/colorPrimaryContainer"
-            app:layout_constraintStart_toEndOf="@id/column_1_right"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/row_2_bottom"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:ignore="HardcodedText" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

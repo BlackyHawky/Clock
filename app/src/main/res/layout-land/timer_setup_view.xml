@@ -13,14 +13,7 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/timer_time_vertical_start_edge"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.1" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/timer_time_vertical_end_edge"
+        android:id="@+id/timer_setup_view_guide"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
@@ -29,21 +22,28 @@
     <include
         layout="@layout/timer_setup_time"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@+id/timer_time_vertical_start_edge"
-        app:layout_constraintEnd_toStartOf="@id/timer_time_vertical_end_edge"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/timer_setup_view_guide"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
 
-    <include
-        layout="@layout/timer_setup_digits"
-        android:id="@+id/timer_setup_digits"
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        app:layout_constraintStart_toEndOf="@+id/timer_time_vertical_end_edge"
+        android:gravity="center"
+        app:layout_constraintHeight_max="450dp"
+        app:layout_constraintStart_toEndOf="@+id/timer_setup_view_guide"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:ignore="InconsistentLayout" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <include
+            layout="@layout/timer_setup_digits"
+            android:id="@+id/timer_setup_digits"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            tools:ignore="InconsistentLayout" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

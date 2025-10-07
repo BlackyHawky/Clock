@@ -10,34 +10,47 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
-    android:clipChildren="false"
-    android:orientation="vertical"
-    android:paddingBottom="100dp">
+    android:paddingBottom="95dp">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/timer_setup_time_bottom"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="@fraction/timer_setup_time_bottom_percent" />
+        app:layout_constraintGuide_percent="0.2" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_start"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.15" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_end"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.85" />
 
     <include layout="@layout/timer_setup_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_max="315dp"
+        app:layout_constraintStart_toStartOf="@+id/guide_start"
+        app:layout_constraintEnd_toEndOf="@+id/guide_end"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/timer_setup_time_bottom" />
 
     <include
         layout="@layout/timer_setup_digits"
+        android:id="@+id/timer_setup_digits_layout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintHeight_max="420dp"
         app:layout_constraintWidth_max="315dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_max="420dp"
+        app:layout_constraintStart_toStartOf="@+id/guide_start"
+        app:layout_constraintEnd_toEndOf="@+id/guide_end"
         app:layout_constraintTop_toBottomOf="@id/timer_setup_time_bottom"
         app:layout_constraintBottom_toBottomOf="parent" />
 

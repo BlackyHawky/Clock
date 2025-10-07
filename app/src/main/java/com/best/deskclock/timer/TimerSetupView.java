@@ -177,11 +177,6 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
             final ConstraintLayout.LayoutParams deleteButtonParams = (ConstraintLayout.LayoutParams) mDeleteButton.getLayoutParams();
             deleteButtonParams.setMargins(marginButtonLeft, marginButtonTop, marginButtonRight, marginButtonBottom);
             mDeleteButton.setLayoutParams(deleteButtonParams);
-            // In landscape mode, we don't want buttons to take up the full height of the screen.
-            if (ThemeUtils.isLandscape()) {
-                final View tabletDigits = findViewById(R.id.timer_setup_digits);
-                tabletDigits.getLayoutParams().height = ThemeUtils.convertDpToPixels(450, getContext());
-            }
         }
 
         updateTime();
