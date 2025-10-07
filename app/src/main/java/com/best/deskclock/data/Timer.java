@@ -256,13 +256,27 @@ public final class Timer {
     }
 
     /**
-     * @return the total timer duration converted to String
+     * Returns the total duration of the timer as a formatted string.
+     *
+     * <ul>
+     *     <li>If the duration is less than one hour, the format is {@code MM:SS}.</li>
+     *     <li>If the duration is one hour or more, the format is {@code HH:MM:SS}.</li>
+     * </ul>
+     *
+     * @return the formatted duration string
      */
     public String getTotalDuration() {
-        long HH = TimeUnit.MILLISECONDS.toHours(getLength());
-        long MM = TimeUnit.MILLISECONDS.toMinutes(getLength()) % 60;
-        long SS = TimeUnit.MILLISECONDS.toSeconds(getLength()) % 60;
-        return String.format(Locale.US, "%02d:%02d:%02d", HH, MM, SS);
+        long length = getLength();
+
+        long HH = TimeUnit.MILLISECONDS.toHours(length);
+        long MM = TimeUnit.MILLISECONDS.toMinutes(length) % 60;
+        long SS = TimeUnit.MILLISECONDS.toSeconds(length) % 60;
+
+        if (HH == 0) {
+            return String.format(Locale.US, "%02d:%02d", MM, SS);
+        } else {
+            return String.format(Locale.US, "%02d:%02d:%02d", HH, MM, SS);
+        }
     }
 
     /**
