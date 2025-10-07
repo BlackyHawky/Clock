@@ -759,6 +759,9 @@ public class DeskClock extends BaseActivity
                         UiDataModel.getUiDataModel().setSelectedTab(UiDataModel.Tab.STOPWATCH);
                     }
                 }
+
+                // Consume the action to prevent it from being reused
+                intent.setAction(null);
             }
         }
     }
