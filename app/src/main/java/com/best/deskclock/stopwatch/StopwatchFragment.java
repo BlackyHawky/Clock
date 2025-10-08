@@ -551,6 +551,14 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
         final long totalTime = stopwatch.getTotalTime();
         mStopwatchTextController.setTimeString(totalTime);
 
+        // Explicitly reset alpha to 1f to ensure the text is visible when the stopwatch resumes.
+        if (mMainTimeText.getAlpha() != 1f) {
+            mMainTimeText.setAlpha(1f);
+        }
+        if (mHundredthsTimeText.getAlpha() != 1f) {
+            mHundredthsTimeText.setAlpha(1f);
+        }
+
         // Update the current lap.
         final boolean currentLapIsVisible = mLapsLayoutManager.findFirstVisibleItemPosition() == 0;
         if (!stopwatch.isReset() && currentLapIsVisible) {
@@ -657,14 +665,17 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
             final boolean blink = stopwatch.isPaused()
                     && startTime % 1000 < 500
                     && !touchTarget.isPressed();
+            final float textTargetAlpha = blink ? 0f : 1f;
 
-            if (blink) {
-                mMainTimeText.setAlpha(0f);
-                mHundredthsTimeText.setAlpha(0f);
-            } else {
-                mMainTimeText.setAlpha(1f);
-                mHundredthsTimeText.setAlpha(1f);
-            }
+            mMainTimeText.animate()
+                    .alpha(textTargetAlpha)
+                    .setDuration(200)
+                    .start();
+
+            mHundredthsTimeText.animate()
+                    .alpha(textTargetAlpha)
+                    .setDuration(200)
+                    .start();
 
             if (!stopwatch.isReset()) {
                 final long period = stopwatch.isPaused()

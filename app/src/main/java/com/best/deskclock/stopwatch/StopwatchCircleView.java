@@ -7,7 +7,6 @@
 package com.best.deskclock.stopwatch;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -35,32 +34,11 @@ public final class StopwatchCircleView extends View {
      */
     private final float mRadiusOffset;
 
-    /**
-     * Used to scale the width of the marker to make it similarly visible on all screens.
-     */
-    private final float mScreenDensity;
+    private final Paint mCompletedPaint = new Paint();
+    private final Paint mRemainingPaint = new Paint();
+    private final Paint mCapPaint = new Paint();
+    private final Paint mMarkerPaint = new Paint();
 
-    /**
-     * The color indicating the remaining portion of the current lap.
-     */
-    private final int mRemainderColor;
-
-    /**
-     * The color indicating the completed portion of the lap.
-     */
-    private final int mCompletedColor;
-
-    /**
-     * The size of the stroke that paints the lap circle.
-     */
-    private final float mStrokeSize;
-
-    /**
-     * The size of the stroke that paints the marker for the end of the prior lap.
-     */
-    private final float mMarkerStrokeSize;
-
-    private final Paint mPaint = new Paint();
     private final RectF mArcRect = new RectF();
 
     public StopwatchCircleView(Context context) {
@@ -70,33 +48,38 @@ public final class StopwatchCircleView extends View {
     public StopwatchCircleView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        final Resources resources = context.getResources();
         final float dotDiameter = ThemeUtils.convertDpToPixels(12, context);
+        int strokeSize = ThemeUtils.convertDpToPixels(8, context);
+        int markerStrokeSize = ThemeUtils.convertDpToPixels(ThemeUtils.isTablet() ? 4 : 3, context);
 
-        mScreenDensity = resources.getDisplayMetrics().density;
-        mStrokeSize = ThemeUtils.convertDpToPixels(6, context);
-        mMarkerStrokeSize = ThemeUtils.convertDpToPixels(12, context);
-        mRadiusOffset = ThemeUtils.calculateRadiusOffset(mStrokeSize, dotDiameter, mMarkerStrokeSize);
+        mRadiusOffset = ThemeUtils.calculateRadiusOffset(strokeSize, dotDiameter, markerStrokeSize);
 
-        mRemainderColor = MaterialColors.getColor(
+        int remainingArcColor = MaterialColors.getColor(
                 context, com.google.android.material.R.attr.colorOnSurfaceVariant, Color.BLACK);
-        mCompletedColor = MaterialColors.getColor(
+        int completedArcColor = MaterialColors.getColor(
                 context, com.google.android.material.R.attr.colorPrimaryInverse, Color.BLACK);
 
-        mPaint.setAntiAlias(true);
-        mPaint.setStyle(Paint.Style.STROKE);
+        mCompletedPaint.setAntiAlias(true);
+        mCompletedPaint.setStyle(Paint.Style.STROKE);
+        mCompletedPaint.setStrokeWidth(strokeSize);
+        mCompletedPaint.setColor(completedArcColor);
 
-        Paint paint = new Paint();
-        paint.setAntiAlias(true);
-        paint.setColor(mCompletedColor);
-        paint.setStyle(Paint.Style.FILL);
-    }
+        mCapPaint.setAntiAlias(true);
+        mCapPaint.setStyle(Paint.Style.STROKE);
+        mCapPaint.setStrokeCap(Paint.Cap.ROUND);
+        mCapPaint.setStrokeWidth(strokeSize);
+        mCapPaint.setColor(completedArcColor);
 
-    /**
-     * Start the animation if it is not currently running.
-     */
-    void update() {
-        postInvalidateOnAnimation();
+        mRemainingPaint.setAntiAlias(true);
+        mRemainingPaint.setStyle(Paint.Style.STROKE);
+        mRemainingPaint.setStrokeWidth(strokeSize);
+        mRemainingPaint.setColor(remainingArcColor);
+
+        mMarkerPaint.setAntiAlias(true);
+        mMarkerPaint.setStyle(Paint.Style.STROKE);
+        mMarkerPaint.setStrokeCap(Paint.Cap.ROUND);
+        mMarkerPaint.setStrokeWidth(markerStrokeSize);
+        mMarkerPaint.setColor(remainingArcColor);
     }
 
     @Override
@@ -106,18 +89,11 @@ public final class StopwatchCircleView extends View {
         final int yCenter = getHeight() / 2;
         final float radius = Math.min(xCenter, yCenter) - mRadiusOffset;
 
-        // Reset old painting state.
-        mPaint.setColor(mRemainderColor);
-        mPaint.setStrokeWidth(mStrokeSize);
-
         final List<Lap> laps = getLaps();
 
-        // If a reference lap does not exist or should not be drawn, draw a simple white circle.
+        // If a reference lap does not exist or should not be drawn, draw a simple circle.
         if (laps.isEmpty() || !DataModel.getDataModel().canAddMoreLaps()) {
-            // Draw a complete white circle; no red arc required.
-            canvas.drawCircle(xCenter, yCenter, radius, mPaint);
-
-            // No need to continue animating the plain white circle.
+            canvas.drawCircle(xCenter, yCenter, radius, mRemainingPaint);
             return;
         }
 
@@ -134,30 +110,54 @@ public final class StopwatchCircleView extends View {
         mArcRect.bottom = yCenter + radius;
         mArcRect.left = xCenter - radius;
         mArcRect.right = xCenter + radius;
-        final float redPercent = (float) currentLapTime / (float) firstLapTime;
-        final float whitePercent = 1 - (redPercent > 1 ? 1 : redPercent);
+        final float completedPercent = Math.min((float) currentLapTime / (float) firstLapTime, 1.0f);
+        final float remainingPercent = 1 - (completedPercent > 1 ? 1 : completedPercent);
 
-        // Draw a white arc to indicate the amount of reference lap that remains.
-        canvas.drawArc(mArcRect, 270 + (1 - whitePercent) * 360, whitePercent * 360, false, mPaint);
+        // Draw an arc to indicate the amount of reference lap that remains.
+        canvas.drawArc(mArcRect, 270 + (1 - remainingPercent) * 360,
+                remainingPercent * 360, false, mRemainingPaint);
 
-        // Draw a red arc to indicate the amount of reference lap completed.
-        mPaint.setColor(mCompletedColor);
-        canvas.drawArc(mArcRect, 270, redPercent * 360, false, mPaint);
+        // Draw an arc to indicate the amount of reference lap completed.
+        canvas.drawArc(mArcRect, 270, completedPercent * 360, false, mCompletedPaint);
+
+        // Simulate a rounded at the end of the arc by drawing a point
+        if (completedPercent > 0f && completedPercent < 1f) {
+            float endAngleDeg = 270 + completedPercent * 360;
+            double endAngleRad = Math.toRadians(endAngleDeg);
+
+            float endX = xCenter + radius * (float) Math.cos(endAngleRad);
+            float endY = yCenter + radius * (float) Math.sin(endAngleRad);
+
+            canvas.drawPoint(endX, endY, mCapPaint);
+        }
 
         // Starting on lap 2, a marker can be drawn indicating where the prior lap ended.
         if (lapCount > 1) {
-            mPaint.setColor(mRemainderColor);
-            mPaint.setStrokeWidth(mMarkerStrokeSize);
-            final float markerAngle = (float) priorLap.getLapTime() / (float) firstLapTime * 360;
-            final float startAngle = 270 + markerAngle;
-            final float sweepAngle = mScreenDensity * (float) (360 / (radius * Math.PI));
-            canvas.drawArc(mArcRect, startAngle, sweepAngle, false, mPaint);
+            final float angleFactor = 360f / firstLapTime;
+            float markerAngleDeg = 270 + ((float) priorLap.getLapTime() * angleFactor);
+            double markerAngleRad = Math.toRadians(markerAngleDeg);
+
+            float markerLength = ThemeUtils.convertDpToPixels(14, getContext());
+
+            float startX = xCenter + (radius - markerLength / 2) * (float) Math.cos(markerAngleRad);
+            float startY = yCenter + (radius - markerLength / 2) * (float) Math.sin(markerAngleRad);
+            float endX = xCenter + (radius + markerLength / 2) * (float) Math.cos(markerAngleRad);
+            float endY = yCenter + (radius + markerLength / 2) * (float) Math.sin(markerAngleRad);
+
+            canvas.drawLine(startX, startY, endX, endY, mMarkerPaint);
         }
 
-        // If the stopwatch is not running it does not require continuous updates.
+        // Only redraw continuously while the timer is running
         if (stopwatch.isRunning()) {
             postInvalidateOnAnimation();
         }
+    }
+
+    /**
+     * Start the animation if it is not currently running.
+     */
+    void update() {
+        postInvalidateOnAnimation();
     }
 
     private Stopwatch getStopwatch() {
