@@ -16,6 +16,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 
+import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.utils.ThemeUtils;
 
@@ -26,27 +27,16 @@ import com.google.android.material.color.MaterialColors;
  */
 public final class TimerCircleView extends View {
 
+    private static final float NEAR_COMPLETE_THRESHOLD = 0.99f;
+
+    private final Paint mCompletedPaint = new Paint();
+    private final Paint mRemainingPaint = new Paint();
+
     /**
      * An amount to subtract from the true radius to account for drawing thicknesses.
      */
     private final float mRadiusOffset;
 
-    /**
-     * The color indicating the remaining portion of the timer.
-     */
-    private final int mRemainderColor;
-
-    /**
-     * The color indicating the completed portion of the timer.
-     */
-    private final int mCompletedColor;
-
-    /**
-     * The size of the stroke that paints the timer circle.
-     */
-    private final float mStrokeSize;
-
-    private final Paint mPaint = new Paint();
     private final RectF mArcRect = new RectF();
 
     private Timer mTimer;
@@ -60,28 +50,25 @@ public final class TimerCircleView extends View {
 
         final float dotDiameter = ThemeUtils.convertDpToPixels(10, context);
 
-        mStrokeSize = ThemeUtils.convertDpToPixels(6, context);
+        final float mStrokeSize = ThemeUtils.convertDpToPixels(isSingleTimer() ? 8 : 6, context);
         mRadiusOffset = ThemeUtils.calculateRadiusOffset(mStrokeSize, dotDiameter, 0);
 
-        mRemainderColor = MaterialColors.getColor(
+        final int remainingArcColor = MaterialColors.getColor(
                 context, com.google.android.material.R.attr.colorOnSurfaceVariant, Color.BLACK);
-        mCompletedColor = MaterialColors.getColor(
+        final int completedArcColor = MaterialColors.getColor(
                 context, com.google.android.material.R.attr.colorPrimaryInverse, Color.BLACK);
 
-        mPaint.setAntiAlias(true);
-        mPaint.setStyle(Paint.Style.STROKE);
+        mCompletedPaint.setAntiAlias(true);
+        mCompletedPaint.setStyle(Paint.Style.STROKE);
+        mCompletedPaint.setStrokeCap(Paint.Cap.ROUND);
+        mCompletedPaint.setStrokeWidth(mStrokeSize);
+        mCompletedPaint.setColor(completedArcColor);
 
-        Paint paint = new Paint();
-        paint.setAntiAlias(true);
-        paint.setColor(mCompletedColor);
-        paint.setStyle(Paint.Style.FILL);
-    }
-
-    void update(Timer timer) {
-        if (mTimer != timer) {
-            mTimer = timer;
-            postInvalidateOnAnimation();
-        }
+        mRemainingPaint.setAntiAlias(true);
+        mRemainingPaint.setStyle(Paint.Style.STROKE);
+        mRemainingPaint.setStrokeCap(Paint.Cap.ROUND);
+        mRemainingPaint.setStrokeWidth(mStrokeSize);
+        mRemainingPaint.setColor(remainingArcColor);
     }
 
     @Override
@@ -95,39 +82,64 @@ public final class TimerCircleView extends View {
         final int yCenter = getHeight() / 2;
         final float radius = Math.min(xCenter, yCenter) - mRadiusOffset;
 
-        // Reset old painting state.
-        mPaint.setColor(mRemainderColor);
-        mPaint.setStrokeWidth(mStrokeSize);
+        float gapSize = ThemeUtils.convertDpToPixels(isSingleTimer() ? 14 : 12, getContext());
+        float gapAngle = (float) Math.toDegrees(gapSize / radius);
 
-        // If the timer is reset, draw a simple white circle.
-        final float redPercent;
+        mArcRect.set(
+                xCenter - radius,
+                yCenter - radius,
+                xCenter + radius,
+                yCenter + radius
+        );
+
         if (mTimer.isReset()) {
-            // Draw a complete white circle; no red arc required.
-            canvas.drawCircle(xCenter, yCenter, radius, mPaint);
-        } else if (mTimer.isExpired()) {
-            mPaint.setColor(mCompletedColor);
-
-            // Draw a complete white circle; no red arc required.
-            canvas.drawCircle(xCenter, yCenter, radius, mPaint);
-        } else {
-            // Draw a combination of red and white arcs to create a circle.
-            mArcRect.top = yCenter - radius;
-            mArcRect.bottom = yCenter + radius;
-            mArcRect.left = xCenter - radius;
-            mArcRect.right = xCenter + radius;
-            redPercent = Math.min(1, (float) mTimer.getElapsedTime() / (float) mTimer.getTotalLength());
-            final float whitePercent = 1 - redPercent;
-
-            // Draw a white arc to indicate the amount of timer that remains.
-            canvas.drawArc(mArcRect, 270, whitePercent * 360, false, mPaint);
-
-            // Draw a red arc to indicate the amount of timer completed.
-            mPaint.setColor(mCompletedColor);
-            canvas.drawArc(mArcRect, 270, -redPercent * 360, false, mPaint);
+            canvas.drawCircle(xCenter, yCenter, radius, mRemainingPaint);
+            return;
         }
 
+        if (mTimer.isExpired()) {
+            canvas.drawCircle(xCenter, yCenter, radius, mCompletedPaint);
+            return;
+        }
+
+        final float totalLength = mTimer.getTotalLength();
+        final float completedPercent = totalLength > 0
+                ? Math.min(1f, (float) mTimer.getElapsedTime() / totalLength)
+                : 0f;
+
+        final float totalAngle = 360f - 2 * gapAngle;
+        final float completedAngle = completedPercent * totalAngle;
+        final float remainingAngle = (1f - completedPercent) * totalAngle;
+
+        final float startCompletedAngle = 270f - gapAngle / 2f;
+        final float startRemainingAngle = startCompletedAngle - completedAngle - gapAngle;
+
+        // When the timer is very close to finishing (e.g. > 99.5%),
+        // drawing the gap can cause small visual glitches (like a flickering remainder arc).
+        // To keep the transition smooth, we draw a full 360° arc just before the timer expires.
+        if (completedPercent > NEAR_COMPLETE_THRESHOLD) {
+            canvas.drawArc(mArcRect, 0, 360, false, mCompletedPaint);
+        } else {
+            // Normal drawing with gap between completed arc and remaining arc
+            canvas.drawArc(mArcRect, startCompletedAngle, -completedAngle, false, mCompletedPaint);
+            canvas.drawArc(mArcRect, startRemainingAngle, -remainingAngle, false, mRemainingPaint);
+        }
+
+        // Only redraw continuously while the timer is running
         if (mTimer.isRunning()) {
             postInvalidateOnAnimation();
         }
     }
+
+    void update(Timer timer) {
+        if (mTimer != timer) {
+            mTimer = timer;
+            postInvalidateOnAnimation();
+        }
+    }
+
+    private boolean isSingleTimer() {
+        return DataModel.getDataModel().getTimers().size() == 1;
+    }
+
 }
