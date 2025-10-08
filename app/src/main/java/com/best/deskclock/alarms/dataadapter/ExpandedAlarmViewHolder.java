@@ -361,7 +361,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     private void bindAlarmVolume(Context context, Alarm alarm) {
         final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         final int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
-        final int currentVolume = alarm.alarmVolume;
+        final int currentVolume = Math.min(alarm.alarmVolume, maxVolume);
 
         if (SettingsDAO.isPerAlarmVolumeEnabled(mPrefs)) {
             alarmVolumeTitle.setVisibility(VISIBLE);

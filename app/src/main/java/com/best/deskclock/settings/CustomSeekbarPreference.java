@@ -132,13 +132,14 @@ public class CustomSeekbarPreference extends SeekBarPreference {
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {}
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                startRingtonePreviewForBluetoothDevices();
+            }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 int finalProgress = seekBar.getProgress();
                 saveSeekBarValue(finalProgress);
-                startRingtonePreviewForBluetoothDevices();
                 updateDigitalWidgets();
             }
         });

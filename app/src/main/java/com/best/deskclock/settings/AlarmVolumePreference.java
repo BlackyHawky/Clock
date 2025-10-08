@@ -127,11 +127,11 @@ public class AlarmVolumePreference extends SeekBarPreference {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
+                startRingtonePreview();
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                startRingtonePreview();
             }
         });
     }
