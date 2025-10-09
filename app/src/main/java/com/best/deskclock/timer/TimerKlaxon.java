@@ -57,12 +57,13 @@ public abstract class TimerKlaxon {
         stop(context, prefs);
         LogUtils.i("TimerKlaxon.start()");
 
+        Uri uri = DataModel.getDataModel().getTimerRingtoneUri();
+
         // Look up user-selected timer ringtone.
-        if (DataModel.getDataModel().isTimerRingtoneSilent()) {
+        if (RingtoneUtils.RINGTONE_SILENT.equals(uri)) {
             // Special case: Silent ringtone
             LogUtils.i("Playing silent ringtone for timer");
         } else {
-            Uri uri = DataModel.getDataModel().getTimerRingtoneUri();
             if (RingtoneUtils.isRandomRingtone(uri)) {
                 uri = RingtoneUtils.getRandomRingtoneUri();
             } else if (RingtoneUtils.isRandomCustomRingtone(uri)) {

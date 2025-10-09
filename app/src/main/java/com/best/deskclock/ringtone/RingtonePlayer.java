@@ -30,7 +30,6 @@ import androidx.media3.exoplayer.ExoPlayer;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
-import com.best.deskclock.utils.SdkUtils;
 
 /**
  * <p>Controls the playback of alarm ringtones with advanced audio routing and volume management.</p>
@@ -120,13 +119,8 @@ public final class RingtonePlayer {
      * to dynamically respond to changes in audio output devices, such as Bluetooth connections.</p>
      */
     public RingtonePlayer(Context context) {
-        // Use a DirectBoot aware context if supported
-        if (SdkUtils.isAtLeastAndroid7()) {
-            mContext = context.createDeviceProtectedStorageContext();
-        }
-        else {
-            mContext = context;
-        }
+        mContext = context;
+
         mAudioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
 
         mPrefs = getDefaultSharedPreferences(mContext);
@@ -238,8 +232,7 @@ public final class RingtonePlayer {
             ringtoneUri = RingtoneUtils.getInCallRingtoneUri(mContext);
         }
 
-        if (RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).equals(ringtoneUri)
-                || RingtoneUtils.RINGTONE_SILENT.equals(ringtoneUri)) {
+        if (RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).equals(ringtoneUri)) {
             ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(mContext, RingtoneManager.TYPE_ALARM);
         }
 

@@ -166,12 +166,19 @@ public final class AsyncRingtonePlayer {
                 ringtoneUri = RingtoneUtils.getInCallRingtoneUri(context);
             }
 
+            if (RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).equals(ringtoneUri)) {
+                ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_ALARM);
+            }
+
+            if (ringtoneUri == null || !RingtoneUtils.isRingtoneUriReadable(context, ringtoneUri)) {
+                ringtoneUri = RingtoneUtils.getFallbackRingtoneUri(context);
+            }
+
             LOGGER.d("AsyncRingtonePlayer - Playing ringtone URI: " + ringtoneUri);
 
             mMediaPlayer = RingtoneUtils.createPreparedMediaPlayer(
                     context,
                     ringtoneUri,
-                    RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM),
                     RingtoneUtils.getFallbackRingtoneUri(context)
             );
 

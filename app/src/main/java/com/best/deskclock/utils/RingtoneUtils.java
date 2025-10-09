@@ -12,7 +12,6 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.UserManager;
 import android.provider.OpenableColumns;
 
 import androidx.annotation.AnyRes;
@@ -110,11 +109,8 @@ public class RingtoneUtils {
     public static MediaPlayer createPreparedMediaPlayer(Context context, Uri... ringtoneUris) {
         // Use a DirectBoot aware context if supported
         Context safeContext = context;
-        if (SdkUtils.isAtLeastAndroid7()) {
-            UserManager userManager = (UserManager) context.getSystemService(Context.USER_SERVICE);
-            if (userManager != null && !userManager.isUserUnlocked()) {
-                safeContext = context.createDeviceProtectedStorageContext();
-            }
+        if (SdkUtils.isAtLeastAndroid7() && !DeviceUtils.isUserUnlocked(context)) {
+            safeContext = context.createDeviceProtectedStorageContext();
         }
 
         MediaPlayer player = new MediaPlayer();
