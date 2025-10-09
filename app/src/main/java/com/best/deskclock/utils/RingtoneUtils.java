@@ -126,6 +126,7 @@ public class RingtoneUtils {
 
         for (Uri uri : ringtoneUris) {
             try {
+                LogUtils.d("Trying to prepare MediaPlayer for URI: " + uri);
                 player.reset();
                 player.setDataSource(safeContext, uri);
                 player.prepare();
@@ -154,6 +155,7 @@ public class RingtoneUtils {
         }
 
         int duration = player.getDuration();
+        LogUtils.d("Ringtone duration for URI " + ringtoneUri + " = " + duration + " ms");
         player.release();
         return duration;
     }

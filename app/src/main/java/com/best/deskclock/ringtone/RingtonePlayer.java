@@ -247,6 +247,8 @@ public final class RingtonePlayer {
             ringtoneUri = RingtoneUtils.getFallbackRingtoneUri(mContext);
         }
 
+        LOGGER.d("RingtonePlayer - Playing ringtone URI: " + ringtoneUri);
+
         mExoPlayer.setMediaItem(MediaItem.fromUri(ringtoneUri));
 
         mExoPlayer.setRepeatMode(REPEAT_MODE_ONE);

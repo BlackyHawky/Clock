@@ -34,8 +34,18 @@ public class DeviceUtils {
      * {@code false} otherwise.
      */
     public static boolean isUserUnlocked(Context context) {
+        // Direct Boot doesn't exist before Android 7
+        if (!SdkUtils.isAtLeastAndroid7()) {
+            return true;
+        }
+
         UserManager userManager = (UserManager) context.getSystemService(Context.USER_SERVICE);
-        return SdkUtils.isAtLeastAndroid7() && userManager.isUserUnlocked();
+        // Can't determine, assume unlocked
+        if (userManager == null) {
+            return true;
+        }
+
+        return userManager.isUserUnlocked();
     }
 
     /**
@@ -45,9 +55,6 @@ public class DeviceUtils {
     public static boolean isPowerOffAlarmUnSupported() {
         String manufacturer = Build.MANUFACTURER.toLowerCase();
         String model = Build.MODEL.toLowerCase();
-
-        LogUtils.d("Manufacturer: " + manufacturer);
-        LogUtils.d("Model: " + model);
 
         boolean isUnsupportedManufacturer = POWER_OFF_ALARM_UNSUPPORTED_MANUFACTURERS.contains(manufacturer);
         boolean isUnsupportedModel = POWER_OFF_ALARM_UNSUPPORTED_MODELS.contains(model);

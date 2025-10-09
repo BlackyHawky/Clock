@@ -355,8 +355,9 @@ public class AboutFragment extends ScreenFragment
             logcatWriter.close();
 
             // 2. Save LogUtils logs
+            String logsWithHeader = LogUtils.generateLocalLogFileHeader() + LogUtils.getSavedLocalLogs(context);
             FileWriter localLogWriter = new FileWriter(localLogFile);
-            localLogWriter.write(LogUtils.getSavedLocalLogs(context));
+            localLogWriter.write(logsWithHeader);
             localLogWriter.close();
 
             // 3. Write both files into the zip

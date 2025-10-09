@@ -49,7 +49,6 @@ import com.best.deskclock.data.Timer;
 import com.best.deskclock.data.TimerListener;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.utils.AnimatorUtils;
-import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
@@ -503,19 +502,13 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
 
     public void startUpdatingTime() {
         if (!isTabSelected() || !DataModel.getDataModel().hasActiveTimer()) {
-            String reason = !isTabSelected()
-                    ? "not in TIMERS tab"
-                    : "no active timer in adapter";
-            LogUtils.i("Timer - startUpdatingTime skipped: " + reason);
             return;
         }
 
-        LogUtils.i("Timer - startUpdatingTime executed");
         mAdapter.updateTime();
     }
 
     public void stopUpdatingTime() {
-        LogUtils.i("Timer - stopUpdatingTime executed");
         mAdapter.stopAllUpdating();
     }
 

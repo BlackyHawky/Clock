@@ -166,6 +166,8 @@ public final class AsyncRingtonePlayer {
                 ringtoneUri = RingtoneUtils.getInCallRingtoneUri(context);
             }
 
+            LOGGER.d("AsyncRingtonePlayer - Playing ringtone URI: " + ringtoneUri);
+
             mMediaPlayer = RingtoneUtils.createPreparedMediaPlayer(
                     context,
                     ringtoneUri,

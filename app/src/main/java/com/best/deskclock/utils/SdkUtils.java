@@ -32,7 +32,7 @@ public class SdkUtils {
      * {@code false} otherwise.
      */
     public static boolean isAtLeastAndroid71() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1;
+        return isAtLeastVersion(Build.VERSION_CODES.N_MR1);
     }
 
     /**
@@ -56,7 +56,7 @@ public class SdkUtils {
      * {@code false} otherwise.
      */
     public static boolean isAtLeastAndroid81() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1;
+        return isAtLeastVersion(Build.VERSION_CODES.O_MR1);
     }
 
     /**

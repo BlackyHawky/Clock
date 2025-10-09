@@ -13,7 +13,6 @@ import android.content.pm.ShortcutInfo;
 import android.content.pm.ShortcutManager;
 import android.graphics.drawable.Icon;
 import android.os.Build;
-import android.os.UserManager;
 import android.provider.AlarmClock;
 
 import androidx.annotation.RequiresApi;
@@ -31,6 +30,7 @@ import com.best.deskclock.events.ShortcutEventTracker;
 import com.best.deskclock.screensaver.ScreensaverActivity;
 import com.best.deskclock.stopwatch.StopwatchService;
 import com.best.deskclock.uidata.UiDataModel;
+import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.LogUtils;
 
 import java.util.Arrays;
@@ -42,20 +42,17 @@ class ShortcutController {
     private final Context mContext;
     private final ComponentName mComponentName;
     private final ShortcutManager mShortcutManager;
-    private final UserManager mUserManager;
 
     ShortcutController(Context context) {
         mContext = context;
         mComponentName = new ComponentName(mContext, DeskClock.class);
         mShortcutManager = mContext.getSystemService(ShortcutManager.class);
-        mUserManager = (UserManager) mContext.getSystemService(Context.USER_SERVICE);
         Controller.getController().addEventTracker(new ShortcutEventTracker(mContext));
         DataModel.getDataModel().addStopwatchListener(new StopwatchWatcher());
     }
 
     void updateShortcuts() {
-        if (!mUserManager.isUserUnlocked()) {
-            LogUtils.i("Skipping shortcut update because user is locked.");
+        if (!DeviceUtils.isUserUnlocked(mContext)) {
             return;
         }
         try {
@@ -153,8 +150,7 @@ class ShortcutController {
 
         @Override
         public void stopwatchUpdated(Stopwatch after) {
-            if (!mUserManager.isUserUnlocked()) {
-                LogUtils.i("Skipping stopwatch shortcut update because user is locked.");
+            if (!DeviceUtils.isUserUnlocked(mContext)) {
                 return;
             }
             try {

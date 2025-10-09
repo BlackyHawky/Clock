@@ -289,11 +289,6 @@ public class WidgetUtils {
         ComponentName widget = new ComponentName(context, widgetProviderClass);
         int[] widgetIds = appWidgetManager.getAppWidgetIds(widget);
 
-        if (widgetIds == null || widgetIds.length == 0) {
-            LogUtils.d("No widget instances found for " + widgetProviderClass.getSimpleName());
-            return;
-        }
-
         for (int widgetId : widgetIds) {
             try {
                 // Use the static "updateAppWidget()" method on the appropriate provider

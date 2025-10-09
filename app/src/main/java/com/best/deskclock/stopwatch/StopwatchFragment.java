@@ -520,16 +520,11 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
      */
     public void startUpdatingTime() {
         if (!isTabSelected() || getStopwatch().isReset()) {
-            String reason = !isTabSelected()
-                    ? "not in STOPWATCH tab"
-                    : "stopwatch is not running";
-            LogUtils.i("Stopwatch - startUpdatingTime skipped: " + reason);
             return;
         }
 
         // Ensure only one copy of the runnable is ever scheduled by first stopping updates.
         stopUpdatingTime();
-        LogUtils.i("Stopwatch - startUpdatingTime executed");
         mMainTimeText.post(mTimeUpdateRunnable);
     }
 
@@ -537,7 +532,6 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
      * Remove the runnable that updates times within the UI.
      */
     public void stopUpdatingTime() {
-        LogUtils.i("Stopwatch - stopUpdatingTime executed");
         mMainTimeText.removeCallbacks(mTimeUpdateRunnable);
     }
 

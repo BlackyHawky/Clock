@@ -8,8 +8,10 @@ package com.best.deskclock.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.util.Log;
 
+import com.best.deskclock.BuildConfig;
 import com.best.deskclock.DeskClockApplication;
 import com.best.deskclock.data.SettingsDAO;
 
@@ -27,7 +29,7 @@ public class LogUtils {
     /**
      * Default logger used for generic logging, i.eTAG. when a specific log tag isn't specified.
      */
-    private final static Logger DEFAULT_LOGGER = new Logger("AlarmClock");
+    private final static Logger DEFAULT_LOGGER = new Logger("Clock");
 
     public static void v(String message, Object... args) {
         DEFAULT_LOGGER.v(message, args);
@@ -67,8 +69,12 @@ public class LogUtils {
      */
     public static String getSavedLocalLogs(Context context) {
         File localLogFile = getLocalLogFile(context);
-        if (!localLogFile.exists()) return "";
+        if (!localLogFile.exists()) {
+            return "";
+        }
+
         StringBuilder builder = new StringBuilder();
+
         try (BufferedReader reader = new BufferedReader(new FileReader(localLogFile))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -77,6 +83,7 @@ public class LogUtils {
         } catch (IOException e) {
             Log.e("LogUtils", "Error reading local log file", e);
         }
+
         return builder.toString();
     }
 
@@ -105,11 +112,41 @@ public class LogUtils {
      * Add a line of text to the end of the custom log file.
      */
     private static void appendToFile(Context context, String logLine) {
+        if (!DeviceUtils.isUserUnlocked(context)) {
+            Log.w("LogUtils", "Skipping log write during Direct Boot, user is locked");
+            return;
+        }
+
         try (FileWriter writer = new FileWriter(getLocalLogFile(context), true)) {
             writer.write(logLine + "\n");
         } catch (IOException e) {
             Log.e("LogUtils", "Error writing to local log file", e);
         }
+    }
+
+    /**
+     * Generates a header containing basic device and application information.
+     * <p>
+     * The header includes:
+     * <ul>
+     *   <li>Device manufacturer</li>
+     *   <li>Device model</li>
+     *   <li>Device code name</li>
+     *   <li>Android version and SDK level</li>
+     *   <li>Application version name and code</li>
+     * </ul>
+     * An empty line is added at the end to visually separate the header from the logs.
+     *
+     * @return A formatted string containing the log file header.
+     */
+    public static String generateLocalLogFileHeader() {
+        return "Device Manufacturer: " + Build.MANUFACTURER + "\n" +
+                "Device Model: " + Build.MODEL + "\n" +
+                "Device Code Name: " + Build.DEVICE + "\n" +
+                "Android Version: " + Build.VERSION.RELEASE + " (SDK " + Build.VERSION.SDK_INT + ")" + "\n" +
+                "App Version: " + BuildConfig.VERSION_NAME + " (Code " + BuildConfig.VERSION_CODE + ")" + "\n" +
+                // Empty line to separate header and logs
+                "\n";
     }
 
     public record Logger(String logTag) {

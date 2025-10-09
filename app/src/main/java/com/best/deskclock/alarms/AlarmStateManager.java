@@ -155,7 +155,6 @@ public final class AlarmStateManager extends BroadcastReceiver {
         // is not yet accessible, and AppWidgetManager.getAppWidgetIds() will throw an exception.
         // Fix https://github.com/BlackyHawky/Clock/issues/369#issuecomment-3344303993
         if (!DeviceUtils.isUserUnlocked(dpsContext)) {
-            LogUtils.w("updateNextAlarm: Skipping, user is locked.");
             return;
         }
 
@@ -878,7 +877,6 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
     private static void setPowerOffAlarm(Context context, AlarmInstance instance) {
         if (DeviceUtils.isPowerOffAlarmUnSupported()) {
-            LogUtils.w("Power-off alarm broadcast is not supported on this device.");
             return;
         }
 
