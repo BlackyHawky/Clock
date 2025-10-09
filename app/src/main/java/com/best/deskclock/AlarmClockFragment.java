@@ -722,10 +722,13 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     }
 
     @Override
-    public void onFabLongClick() {
+    public void onFabLongClick(@NonNull ImageView fab) {
         if (SettingsDAO.isAlarmFabLongPressEnabled(mPrefs)) {
+            fab.setHapticFeedbackEnabled(true);
             mAlarmUpdateHandler.hideUndoBar();
             startCreatingAlarmWithDelay();
+        } else {
+            fab.setHapticFeedbackEnabled(false);
         }
     }
 

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.view.HapticFeedbackConstants;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -127,6 +128,7 @@ public class AlarmDelayPickerDialogFragment extends DialogFragment {
         mMinutePicker = view.findViewById(R.id.minute);
 
         // Hours and minutes setup
+        mHourPicker.setHapticFeedbackEnabled(true);
         mHourPicker.setMinValue(0);
         mHourPicker.setMaxValue(24);
         mHourPicker.setNextFocusForwardId(R.id.minute);
@@ -158,8 +160,14 @@ public class AlarmDelayPickerDialogFragment extends DialogFragment {
         alertDialog.setOnShowListener(dialog -> {
             mOkButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
 
-            mHourPicker.setOnValueChangedListener((picker, oldVal, newVal) -> updateUiState());
-            mMinutePicker.setOnValueChangedListener((picker, oldVal, newVal) -> updateUiState());
+            mHourPicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
+                picker.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
+                updateUiState();
+            });
+            mMinutePicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
+                picker.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
+                updateUiState();
+            });
 
             // Initial state
             updateUiState();

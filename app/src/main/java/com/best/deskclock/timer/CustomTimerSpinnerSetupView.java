@@ -4,6 +4,7 @@ package com.best.deskclock.timer;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.HapticFeedbackConstants;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
@@ -45,16 +46,25 @@ public class CustomTimerSpinnerSetupView extends LinearLayout {
         mSecondPicker.setMinValue(0);
         mSecondPicker.setMaxValue(59);
 
-        mHourPicker.setOnValueChangedListener((_picker, _oldVal, _newVal) -> {
-            if (mOnValueChangeListener != null) mOnValueChangeListener.onValueChange();
+        mHourPicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
+            picker.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
+            if (mOnValueChangeListener != null) {
+                mOnValueChangeListener.onValueChange();
+            }
         });
 
-        mMinutePicker.setOnValueChangedListener((_picker, _oldVal, _newVal) -> {
-            if (mOnValueChangeListener != null) mOnValueChangeListener.onValueChange();
+        mMinutePicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
+            picker.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
+            if (mOnValueChangeListener != null) {
+                mOnValueChangeListener.onValueChange();
+            }
         });
 
-        mSecondPicker.setOnValueChangedListener((_picker, _oldVal, _newVal) -> {
-            if (mOnValueChangeListener != null) mOnValueChangeListener.onValueChange();
+        mSecondPicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
+            picker.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
+            if (mOnValueChangeListener != null) {
+                mOnValueChangeListener.onValueChange();
+            }
         });
     }
 
@@ -73,7 +83,7 @@ public class CustomTimerSpinnerSetupView extends LinearLayout {
     }
 
     public void setOnChangeListener(OnValueChangeListener onValueChangeListener) {
-        this.mOnValueChangeListener = onValueChangeListener;
+        mOnValueChangeListener = onValueChangeListener;
     }
 
     public interface OnValueChangeListener {

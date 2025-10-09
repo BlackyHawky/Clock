@@ -317,7 +317,8 @@ public final class ClockFragment extends DeskClockFragment {
     }
 
     @Override
-    public void onFabLongClick() {
+    public void onFabLongClick(@NonNull ImageView fab) {
+        fab.setHapticFeedbackEnabled(false);
     }
 
     @Override

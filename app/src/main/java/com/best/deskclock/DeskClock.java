@@ -289,7 +289,7 @@ public class DeskClock extends BaseActivity
         mFab.setScaleType(ImageView.ScaleType.CENTER);
         mFab.setOnClickListener(view -> getSelectedDeskClockFragment().onFabClick());
         mFab.setOnLongClickListener(v -> {
-            getSelectedDeskClockFragment().onFabLongClick();
+            getSelectedDeskClockFragment().onFabLongClick(mFab);
             return true;
         });
 

@@ -38,6 +38,6 @@ public interface FabController {
     /**
      * Handles a long click on the fab.
      */
-    void onFabLongClick();
+    void onFabLongClick(@NonNull ImageView fab);
 
 }

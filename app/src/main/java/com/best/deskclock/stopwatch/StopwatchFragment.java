@@ -290,7 +290,8 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
     }
 
     @Override
-    public void onFabLongClick() {
+    public void onFabLongClick(@NonNull ImageView fab) {
+        fab.setHapticFeedbackEnabled(false);
     }
 
     @Override

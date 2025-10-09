@@ -299,7 +299,8 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     }
 
     @Override
-    public void onFabLongClick() {
+    public void onFabLongClick(@NonNull ImageView fab) {
+        fab.setHapticFeedbackEnabled(false);
     }
 
     @Override

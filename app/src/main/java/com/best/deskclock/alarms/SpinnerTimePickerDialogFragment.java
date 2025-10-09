@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.format.DateFormat;
+import android.view.HapticFeedbackConstants;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
@@ -190,8 +191,9 @@ public class SpinnerTimePickerDialogFragment extends DialogFragment {
      * <p>
      * This method initializes the value ranges, display formats, default values, and specific behaviors
      * depending on the time format (24h or 12h).
-     * It also manages the layout of the AM/PM picker and the navigation behavior between fields,
-     * as well as the logic to prevent the hour from changing when the minutes change from 59 to 0 or vice versa.
+     * <p>It also manages the layout of the AM/PM picker and the navigation behavior between fields,
+     * as well as the logic to prevent the hour from changing when the minutes change from 59 to 0 or vice versa.</p>
+     * <p>Finally, it sets a listener on the NumberPicker to trigger haptic feedback when the value changes.</p>
      */
     private void setupNumberPickers(int hour, int minute, int amPmValue) {
         // Hours setup
@@ -205,6 +207,8 @@ public class SpinnerTimePickerDialogFragment extends DialogFragment {
             mHourPicker.setMaxValue(12);
             mHourPicker.setValue(hour % 12 == 0 ? 12 : hour % 12);
         }
+        mHourPicker.setOnValueChangedListener((picker, oldVal, newVal) ->
+                picker.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK));
 
         // Minutes setup
         mMinutePicker.setMinValue(0);
@@ -215,6 +219,8 @@ public class SpinnerTimePickerDialogFragment extends DialogFragment {
         // Prevent hours from changing when the minutes change from 59 to 0 or from 0 to 59
         final int[] lastHour = {hour};
         mMinutePicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
+            picker.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
+
             if ((oldVal == 59 && newVal == 0) || (oldVal == 0 && newVal == 59)) {
                 mHourPicker.setValue(lastHour[0]);
             } else {
@@ -237,8 +243,12 @@ public class SpinnerTimePickerDialogFragment extends DialogFragment {
             mAmPmPicker.setDisplayedValues(getAmPmStrings());
             mAmPmPicker.setValue(amPmValue);
             mAmPmPicker.setVisibility(View.VISIBLE);
+            mAmPmPicker.setOnValueChangedListener((picker, oldVal, newVal) ->
+                    picker.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK));
 
             mHourPicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
+                picker.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
+
                 if ((oldVal == 11 && newVal == 12) || (oldVal == 12 && newVal == 11)) {
                     int currentAmPm = mAmPmPicker.getValue();
                     mAmPmPicker.setValue(currentAmPm == Calendar.AM ? Calendar.PM : Calendar.AM);
