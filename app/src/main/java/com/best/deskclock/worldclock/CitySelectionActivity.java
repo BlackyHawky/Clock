@@ -95,6 +95,8 @@ public final class CitySelectionActivity extends BaseActivity {
         // To manually manage insets
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 
+        ThemeUtils.allowDisplayCutout(getWindow());
+
         setContentView(R.layout.cities_activity);
 
         mRootView = findViewById(R.id.city_selection_root_view);
