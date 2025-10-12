@@ -668,4 +668,15 @@
     <string name="city_note_dialog_title">Notatka dla %s</string>
     <string name="sort_cities_ascending_time_zone">Według strefy czasowej (w porządku rosnącym)</string>
     <string name="sort_cities_descending_time_zone">Według strefy czasowej (w porządku malejącym)</string>
+    <string name="enable_alarm_fab_long_press_title">Włącz długie naciśnięcie przycisku akcji, aby utworzyć alarmy z opóźnieniem</string>
+    <string name="enable_alarm_fab_long_press_summary">Jeśli wyłączone, zostaną wyświetlone dwa przyciski, aby utworzyć alarmy</string>
+    <string name="vibration_pattern_title">Wzór wibracji</string>
+    <string name="vibration_pattern_soft">Delikatny</string>
+    <string name="vibration_pattern_strong">Mocny</string>
+    <string name="vibration_pattern_heartbeat">Bicie serca</string>
+    <string name="vibration_pattern_escalating">Eskalacja</string>
+    <string name="vibration_pattern_tick_tock">Tik-tak</string>
+    <string name="vibration_start_delay_title">Opóźnienie przed rozpoczęciem wibracji</string>
+    <string name="vibration_start_delay_none">Brak</string>
+    <string name="vibration_start_delay_warning_box_text">Wprowadź wartość od 0 do 10 minut</string>
 </resources>

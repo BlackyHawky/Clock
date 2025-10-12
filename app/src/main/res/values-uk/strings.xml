@@ -589,8 +589,8 @@
     <string name="settings_language_russian">Російська</string>
     <string name="last_tab_used_title">Остання використана вкладка</string>
     <string name="settings_tab_to_display">Вкладка, на якій відкриватиметься додаток</string>
-    <string name="timer_time_warning_box_title">Введено неправильне значення</string>
-    <string name="timer_button_time_minutes_warning_box_text">Введіть значення від 0 до 60 хвилин</string>
+    <string name="timer_time_warning_box_title">Уведено неправильне значення</string>
+    <string name="timer_button_time_minutes_warning_box_text">Уведіть значення від 0 до 60 хвилин</string>
     <string name="settings_language_turkish">Турецька</string>
     <string name="reset_settings_message">Ви дійсно хочете скинути всі налаштування додатка?\n\nЗауважте, що користувацькі мелодії не скидаються.</string>
     <string name="reset_settings_title">Скинути налаштування</string>
@@ -625,15 +625,15 @@
     <string name="add_new_sound_subtitle">Натисніть і утримуйте, щоб вибрати папку</string>
     <string name="warning">Попередження</string>
     <string name="timer_add_custom_time_with_seconds_for_notification">Додати %1$s хв %2$s с</string>
-    <string name="timer_button_time_seconds_warning_box_text">Введіть значення від 0 до 59 секунд</string>
+    <string name="timer_button_time_seconds_warning_box_text">Уведіть значення від 0 до 59 секунд</string>
     <string name="label_minutes">Хвилини</string>
     <string name="timer_add_custom_time_with_seconds_description">Додати %1$s хвилину %2$s секунд</string>
     <string name="label_seconds">Секунди</string>
     <string name="label_hours">Години</string>
     <string name="timer_time_box_title">Нова тривалість таймера</string>
-    <string name="timer_hours_warning_box_text">Введіть значення від 0 до 24 годин</string>
-    <string name="timer_minutes_warning_box_text">Введіть значення від 0 до 59 хвилин</string>
-    <string name="timer_seconds_warning_box_text">Введіть значення від 0 до 59 секунд</string>
+    <string name="timer_hours_warning_box_text">Уведіть значення від 0 до 24 годин</string>
+    <string name="timer_minutes_warning_box_text">Уведіть значення від 0 до 59 хвилин</string>
+    <string name="timer_seconds_warning_box_text">Уведіть значення від 0 до 59 секунд</string>
     <string name="auto_routing_to_bluetooth_device_title">Увімкнути автоматичну маршрутизацію мелодій на пристрої Bluetooth</string>
     <string name="timer_creation_view_style_keypad">Клавіатура</string>
     <string name="timer_creation_view_style_title">Стиль вікна створення таймера</string>
@@ -678,4 +678,15 @@
     <string name="city_search_hint">Знайти місто</string>
     <string name="sort_ascending_creation_order">За порядком створення (спочатку старіші)</string>
     <string name="sort_descending_creation_order">За порядком створення (спочатку новіші)</string>
+    <string name="enable_alarm_fab_long_press_title">Увімкнути тривале натискання кнопки дії для створення будильників із затримкою</string>
+    <string name="enable_alarm_fab_long_press_summary">Якщо вимкнено, для створення будильників відображатимуться дві кнопки</string>
+    <string name="vibration_start_delay_title">Затримка перед вібрацією</string>
+    <string name="vibration_start_delay_none">Немає</string>
+    <string name="vibration_start_delay_warning_box_text">Уведіть значення від 0 до 10 хвилин</string>
+    <string name="vibration_pattern_title">Ритм вібрації</string>
+    <string name="vibration_pattern_heartbeat">Серцебиття</string>
+    <string name="vibration_pattern_tick_tock">Тік-так</string>
+    <string name="vibration_pattern_soft">Легкий</string>
+    <string name="vibration_pattern_strong">Сильний</string>
+    <string name="vibration_pattern_escalating">Посилення</string>
 </resources>

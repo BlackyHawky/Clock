@@ -658,4 +658,17 @@
     <string name="sort_cities_ascending_time_zone">Ajavööndi alusel (kasvavalt)</string>
     <string name="sort_cities_descending_time_zone">Ajavööndi alusel (kahanevalt)</string>
     <string name="city_search_hint">Otsi linna</string>
+    <string name="sort_descending_creation_order">Loomise alusel (vanemad viimasena)</string>
+    <string name="sort_ascending_creation_order">Loomise alusel (vanemad esimesena)</string>
+    <string name="enable_alarm_fab_long_press_title">Võimalda pika vajutusega tegevusnupul luua viivitusega äratusi</string>
+    <string name="enable_alarm_fab_long_press_summary">Kui see valik pole kasutusel, siis kuvatakse äratuste lisamiseks kaks nuppu</string>
+    <string name="vibration_pattern_title">Värinamuster</string>
+    <string name="vibration_pattern_soft">Pehme</string>
+    <string name="vibration_pattern_strong">Tugev</string>
+    <string name="vibration_pattern_heartbeat">Südame rütm</string>
+    <string name="vibration_pattern_escalating">Kasvav</string>
+    <string name="vibration_pattern_tick_tock">Tika-taka</string>
+    <string name="vibration_start_delay_title">Viivitus enne värina algust</string>
+    <string name="vibration_start_delay_none">Puudub</string>
+    <string name="vibration_start_delay_warning_box_text">Sisesta väärtus vahemikust 0 kuni 10 minutit</string>
 </resources>

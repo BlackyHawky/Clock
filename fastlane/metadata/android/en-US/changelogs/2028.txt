@@ -1,0 +1,8 @@
+Many fixes and improvements detailed here:
+https://github.com/BlackyHawky/Clock/releases/tag/2.25
+
+**Note: Due to code changes, two timer settings have been reset:**
+- `Silence after`
+- `Default time to add to timer`
+
+**Please make a new backup after updating the app and delete the old one**

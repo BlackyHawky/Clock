@@ -666,4 +666,15 @@
     <string name="city_search_hint">Rechercher une ville</string>
     <string name="sort_descending_creation_order">Par ordre de création (anciennes en dernier)</string>
     <string name="sort_ascending_creation_order">Par ordre de création (anciennes en premier)</string>
+    <string name="enable_alarm_fab_long_press_title">Activer l\'appui long sur le bouton d\'action pour créer les alarmes avec délai</string>
+    <string name="enable_alarm_fab_long_press_summary">Si désactivé, deux boutons seront affichés pour créer les alarmes</string>
+    <string name="vibration_pattern_title">Modèle de vibration</string>
+    <string name="vibration_pattern_soft">Doux</string>
+    <string name="vibration_pattern_strong">Fort</string>
+    <string name="vibration_pattern_heartbeat">Battement</string>
+    <string name="vibration_pattern_escalating">Croissante</string>
+    <string name="vibration_pattern_tick_tock">Tic-Tac</string>
+    <string name="vibration_start_delay_title">Délai avant le début de la vibration</string>
+    <string name="vibration_start_delay_none">Aucun</string>
+    <string name="vibration_start_delay_warning_box_text">Saisir une valeur comprise entre 0 et 10 minutes</string>
 </resources>

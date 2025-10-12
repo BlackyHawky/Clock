@@ -341,7 +341,7 @@
     <string name="settings_vibration_summary">Alleen van toepassing op sommige elementen (bijv. de start/pauze knop van de kookwekker)</string>
     <string name="ignore_battery_optimizations_dialog_title">Batterijoptimalisaties</string>
     <string name="about_title">Over</string>
-    <string name="about_dialog_message">• Wekkers zetten voor een specifieke datum \n\n• Omdraaien en schudden om wekker uit te zetten/stellen \n\n• Wekker uitzetten/uitstellen met de aan/uit-knop of volumeknoppen \n\n• Alleen voor Snapdragon-apparaten: wekker af laten gaan als het toestel is uitgeschakeld \n\n• Veeg om wekker te verwijderen \n\n• Wekkers dupliceren \n\n• Wekkertitel aanpassen \n\n• Wekkergeluid aanpassen \n\n• Licht, donker of systeemthema \n\n• AMOLED-modus voor donker thema \n\n• Digitale of analoge klokstijl \n\n• Klok voor thuis tijdens het reizen \n\n• Bekijk de tijd in vele steden rond de wereld \n\n• Bevat kookwekker en stopklok\n\n• Mogelijkheid om stopkloktijden te delen met contacten \n\n• Aanpasbare screensaver \n\n• Moderne widgets \n\n• Aanpasbare widgets\n\n• Ondersteuning voor tegels in de snelle instellingen (Android 7+); \n\n• Back-up en herstel app-data (behalve aangepaste geluiden)\n\n• Material design \n\n• Dynamische kleuren voor Android 12+</string>
+    <string name="about_dialog_message">• Wekkers zetten voor een specifieke datum \n\n• Omdraaien en schudden om wekker uit te zetten/stellen \n\n• Wekker uitzetten/uitstellen met de aan/uit-knop of volumeknoppen \n\n• Alleen voor sommige Snapdragon-apparaten: wekker af laten gaan als het toestel is uitgeschakeld \n\n• Veeg om wekker te verwijderen \n\n• Wekkers dupliceren \n\n• Wekkertitel aanpassen \n\n• Wekkergeluid aanpassen \n\n• Licht, donker of systeemthema \n\n• AMOLED-modus voor donker thema \n\n• Digitale of analoge klokstijl \n\n• Klok voor thuis tijdens het reizen \n\n• Bekijk de tijd in vele steden rond de wereld \n\n• Bevat kookwekker en stopklok\n\n• Mogelijkheid om stopkloktijden te delen met contacten \n\n• Aanpasbare screensaver \n\n• Moderne widgets \n\n• Aanpasbare widgets\n\n• Ondersteuning voor tegels in de snelle instellingen (Android 7+); \n\n• Back-up en herstel app-data (behalve aangepaste geluiden)\n\n• Material design \n\n• Dynamische kleuren voor Android 12+</string>
     <string name="screensaver_daydream_settings">Screensaver selecteren/inschakelen</string>
     <string name="screensaver_daydream_settings_summary">Opent de systeeminstellingen voor screensavers</string>
     <string name="screensaver_clock_dynamic_colors_title">Dynamische klokkleuren</string>
@@ -638,8 +638,8 @@
     <string name="minute_hand_color_title">Kleur minutenwijzer</string>
     <string name="minute_hand_default_color_title">Standaardkleur voor minutenwijzer</string>
     <string name="background_default_color_title">Standaardkleur voor achtergrond</string>
-    <string name="clock_dial_with_numbers">Met nummers</string>
-    <string name="clock_dial_without_numbers">Zonder nummers</string>
+    <string name="clock_dial_with_numbers">Met getallen</string>
+    <string name="clock_dial_without_numbers">Zonder getallen</string>
     <string name="second_hand_default_color_title">Standaardkleur voor secondewijzer</string>
     <string name="sort_alarm_title">Wekkers sorteren</string>
     <string name="sort_alarm_time">Op wekkertijd</string>
@@ -654,4 +654,15 @@
     <string name="city_search_hint">Stad zoeken</string>
     <string name="sort_descending_creation_order">Op aanmaakdatum (oudste laatst)</string>
     <string name="sort_ascending_creation_order">Op aanmaakdatum (oudste eerst)</string>
+    <string name="enable_alarm_fab_long_press_title">Lang drukken op de actieknop inschakelen om wekkers met uitstel te maken</string>
+    <string name="enable_alarm_fab_long_press_summary">Uitgeschakeld: twee knoppen om wekkers te maken worden getoond</string>
+    <string name="vibration_pattern_title">Trillingspatroon</string>
+    <string name="vibration_pattern_soft">Zacht</string>
+    <string name="vibration_pattern_strong">Sterk</string>
+    <string name="vibration_pattern_heartbeat">Hartslag</string>
+    <string name="vibration_pattern_escalating">Toenemend</string>
+    <string name="vibration_pattern_tick_tock">Tik-Tok</string>
+    <string name="vibration_start_delay_title">Vertraging voordat trilling begint</string>
+    <string name="vibration_start_delay_none">Geen</string>
+    <string name="vibration_start_delay_warning_box_text">Voer een waarde in tussen 0 en 10 minuten</string>
 </resources>

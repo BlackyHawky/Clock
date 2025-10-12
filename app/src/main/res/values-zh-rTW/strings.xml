@@ -638,4 +638,18 @@
     <string name="city_note_dialog_title">%s 的註解</string>
     <string name="sort_cities_ascending_time_zone">依據時區 (升序)</string>
     <string name="sort_cities_descending_time_zone">依據時區 (降序)</string>
+    <string name="sort_descending_creation_order">依據建立順序 (最早在後)</string>
+    <string name="sort_ascending_creation_order">依據建立順序 (最早在前)</string>
+    <string name="city_search_hint">搜尋城市</string>
+    <string name="enable_alarm_fab_long_press_title">啟用按住新增延遲性鬧鐘動作</string>
+    <string name="enable_alarm_fab_long_press_summary">停用將會顯示兩種建立鬧鐘按鍵</string>
+    <string name="vibration_pattern_title">震動模式</string>
+    <string name="vibration_pattern_soft">柔和</string>
+    <string name="vibration_pattern_strong">強力</string>
+    <string name="vibration_pattern_heartbeat">心跳</string>
+    <string name="vibration_pattern_escalating">攀升</string>
+    <string name="vibration_pattern_tick_tock">滴答聲</string>
+    <string name="vibration_start_delay_title">震動前的延遲</string>
+    <string name="vibration_start_delay_none">無</string>
+    <string name="vibration_start_delay_warning_box_text">請輸入 0–10 分鐘</string>
 </resources>

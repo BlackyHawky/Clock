@@ -668,4 +668,15 @@
     <string name="sort_descending_creation_order">Podle pořadí vytvoření (od nejnovějších)</string>
     <string name="sort_ascending_creation_order">Podle pořadí vytvoření (od nejstarších)</string>
     <string name="city_search_hint">Hledat město</string>
+    <string name="enable_alarm_fab_long_press_title">Povolit dlouhé podržení na akčním tlačítku pro vytvoření budíků se zpožděním</string>
+    <string name="enable_alarm_fab_long_press_summary">Pokud je zakázáno, budou zobrazena dvě tlačítka pro vytváření budíků</string>
+    <string name="vibration_pattern_title">Vzor vibrací</string>
+    <string name="vibration_pattern_soft">Jemný</string>
+    <string name="vibration_pattern_strong">Silný</string>
+    <string name="vibration_pattern_heartbeat">Srdeční tep</string>
+    <string name="vibration_pattern_escalating">Zvyšující se</string>
+    <string name="vibration_pattern_tick_tock">Tik tak</string>
+    <string name="vibration_start_delay_title">Zpoždění před začátkem vibrací</string>
+    <string name="vibration_start_delay_none">Žádné</string>
+    <string name="vibration_start_delay_warning_box_text">Zadejte hodnotu mezi 0 a 10 minutami</string>
 </resources>

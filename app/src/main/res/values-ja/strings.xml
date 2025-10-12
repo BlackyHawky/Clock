@@ -396,4 +396,12 @@
     <string name="sort_name">名前順</string>
     <string name="sort_manually">手動 (ドラッグ)</string>
     <string name="default_time_to_add_to_timer_title">タイマーに追加するデフォルトの時間</string>
+    <string name="label_seconds">秒</string>
+    <string name="label_minutes">分</string>
+    <string name="label_hours">時</string>
+    <string name="add_new_sound_subtitle">フォルダーを長押しすると選択できます</string>
+    <string name="warning">注意</string>
+    <string name="schedule_alarm_title">アラームを設定</string>
+    <string name="alarm_flash">フラッシュ</string>
+    <string name="delay_picker_dialog_title">スヌーズ時間を設定…</string>
 </resources>

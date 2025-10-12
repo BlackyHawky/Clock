@@ -1,0 +1,10 @@
+V této verzi se nachází spousta vylepšení; vše je popsáno zde:
+https://github.com/BlackyHawky/Clock/releases/tag/2.24
+
+**Upozornění: z důvodu změn kódu byla některá nastavení budíků resetována:**
+- `Ztišení po`
+* Na stránce „Přizpůsobit zobrazení budíku“:
+- `Zobrazit čas se sekundami`
+- `Barva sekundové ručičky`
+
+**Po aktualizaci aplikace prosím proveďte novou zálohu a smažte tu starou**

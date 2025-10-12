@@ -654,4 +654,12 @@
     <string name="enable_city_note_title">Fügen Sie Städten eine persönliche Notiz hinzu</string>
     <string name="enable_city_note_summary">Tippen Sie auf eine Stadt, um eine persönliche Notiz hinzuzufügen oder zu bearbeiten</string>
     <string name="city_note_dialog_title">Hinweis für %s</string>
+    <string name="vibration_pattern_heartbeat">Herzschlag</string>
+    <string name="vibration_pattern_escalating">Steigend</string>
+    <string name="vibration_pattern_tick_tock">Ticktack</string>
+    <string name="vibration_start_delay_title">Verzögerung vor Beginn der Vibration</string>
+    <string name="vibration_start_delay_none">Keine</string>
+    <string name="vibration_pattern_title">Vibrationsmuster</string>
+    <string name="vibration_pattern_soft">Weich</string>
+    <string name="vibration_pattern_strong">Stark</string>
 </resources>

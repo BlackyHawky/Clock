@@ -34,9 +34,9 @@
     <string name="alarm_alert_off_text" msgid="4472073417593915002">Alarme desligado</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Suspender"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-        <item quantity="one">Suspenso durante <xliff:g id="MINUTES">%d</xliff:g> minuto</item>
-        <item quantity="other">Suspenso durante <xliff:g id="MINUTES">%d</xliff:g> minutos</item>
-        <item quantity="many">Suspenso durante <xliff:g id="MINUTES">%d</xliff:g> minutos</item>
+        <item quantity="one">Suspenso durante <xliff:g id="MINUTES">%d</xliff:g> minuto.</item>
+        <item quantity="many">Suspenso durante <xliff:g id="MINUTES">%d</xliff:g> minutos.</item>
+        <item quantity="other">Suspenso durante <xliff:g id="MINUTES">%d</xliff:g> minutos.</item>
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Suspendido até à(s) <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Próximo alarme"</string>
@@ -133,7 +133,7 @@
     <string name="sw_resume_button" msgid="2569360966002022248">"Retomar"</string>
     <string name="reset" msgid="6616804728322906117">"Repor"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Iniciar"</string>
-    <string name="sw_pause_button" msgid="2422084453454138042">"Pausa"</string>
+    <string name="sw_pause_button" msgid="2422084453454138042">Pausar</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"Volta"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"Partilhar"</string>
     <string name="hours_label" msgid="3393478155635368097">"h"</string>
@@ -474,4 +474,106 @@
     <string name="timer_time_box_title">Nova duração do temporizador</string>
     <string name="clock_style_spinner">Spinner</string>
     <string name="about_dialog_message">• Definir os alarmes para uma data especifica; \n\n• Ação de rodar e abanar para ignorar/adiar o alarme; \n\n• Desligar/adiar o alarme com o botão de ligar ou botões de volume; \n\n• Apenas para alguns dispositivos Snapdragon, o alarme é acionado quando eles estão deligados; \n\t\t Infelizmente, esta funcionalidade pode não funcionar em alguns dispositivos apesar da presença da aplicação do sistema <i>\"com.qualcomm.qti.poweroffalarm\"</i>.\n\n• Deslize para eliminar um alarme; \n\n• Duplicar alarmes; \n\n• Personalizar o título do alarme; \n\n• Toque personalizável; \n\n• Tema do sistema, claro ou escuro; \n\n• Modo AMOLED para o tema escuro; \n\n• Estilo do relógio digital ou analógico; \n\n• Exibir hora de casa quando viajar; \n\n• Exibir a hora em muitas cidades do mundo; \n\n• Incluídos temporizador e cronómetro; \n\n• Possibilidade de partilhar o seu cronómetro com os seus contactos; \n\n• Protetor de ecrã personalizável; \n\n• Widgets modernos; \n\n• Widgets perosnalizáveis; \n\n• Suporte para mosaicos nas definições rápidas (para Android 7+); \n\n• Efetuar cópias de segurança e restaurar dados da aplicação (exceto toques personalizados); \n\n• Desenho de material; \n\n• Cores dinâmicas para Android 12+;</string>
+    <string name="sort_ascending_creation_order">Por ordem de criação (mais antigo primeiro)</string>
+    <string name="display_enabled_alarms_first_title">Exibir alarmes ativados primeiro</string>
+    <string name="date_picker_style_calendar">Calendário</string>
+    <string name="date_picker_style_text">Texto</string>
+    <string name="alarm_settings_general_summary">Esta definição pode ser alterada para cada alarme na visualização do alarme extendido</string>
+    <string name="alarm_display_customization_title">Personalizar exibição do alarme</string>
+    <string name="slide_zone_color_title">Cor da zona de deslizar</string>
+    <string name="sort_alarm_title">Ordenar alarmes</string>
+    <string name="sort_alarm_time">Por hora do alarme</string>
+    <string name="sort_next_alarm_time">Por hora do próximo alarme</string>
+    <string name="sort_name">Por nome</string>
+    <string name="sort_descending_creation_order">Por ordem de criação (mais antigo em último)</string>
+    <string name="selected">Selecionado</string>
+    <string name="more_options">Mais opções</string>
+    <string name="alarm_scheduled_for">Agendado para %s</string>
+    <string name="alarm_alert_dismiss_and_delete_text">Ignorar e Eliminar</string>
+    <string name="alarm_alert_off_and_deleted_text">Alarme desligado e eliminado</string>
+    <string name="occasional_alarm_alert_predismiss_title">Próximo alarme ocasional</string>
+    <string name="vertical_digital_widget">Relógio digital vertical</string>
+    <string name="next_alarm_widget">Alarme seguinte</string>
+    <string name="settings_permission_summary">Clique aqui para exibir a página de gestão das \'Permissões\'.</string>
+    <string name="style_category_title">Estilo</string>
+    <string name="colors_category_title">Cores</string>
+    <string name="font_category_title">Tipo de letra</string>
+    <string name="miscellaneous_category_title">Diversas</string>
+    <string name="ringtone_category_title">Toque</string>
+    <string name="actions_category_title">Ações</string>
+    <string name="standard_category_title">Padrão</string>
+    <string name="interface_customization_settings">Interface</string>
+    <string name="interface_customization_summary">Defina o estilo e a cor aplicados à aplicação</string>
+    <string name="title_theme">Tema</string>
+    <string name="system_theme">Sistema</string>
+    <string name="light_theme">Claro</string>
+    <string name="dark_theme">Escuro</string>
+    <string name="black_accent_color">Preto</string>
+    <string name="blue_accent_color">Azul</string>
+    <string name="blue_gray_accent_color">Cinzento Azulado</string>
+    <string name="brown_accent_color">Castanho</string>
+    <string name="green_accent_color">Verde</string>
+    <string name="indigo_accent_color">Índigo</string>
+    <string name="orange_accent_color">Laranja</string>
+    <string name="pink_accent_color">Rosa</string>
+    <string name="purple_accent_color">Púrpura</string>
+    <string name="red_accent_color">Vermelho</string>
+    <string name="yellow_accent_color">Amarelo</string>
+    <string name="title_dark_theme_mode">Modo do tema escuro</string>
+    <string name="amoled_dark_theme_mode">AMOLED</string>
+    <string name="settings_language_title">Idioma</string>
+    <string name="settings_language_system">Idioma do sistema</string>
+    <string name="settings_language_english_us">Inglês (EUA)</string>
+    <string name="settings_language_french">Francês</string>
+    <string name="settings_language_german">Alemão</string>
+    <string name="settings_language_chinese_simplified_cn">Chinês (simplificado, PRC)</string>
+    <string name="settings_language_estonian">Estoniano</string>
+    <string name="settings_language_italian">Italiano</string>
+    <string name="settings_language_polish">Polaco</string>
+    <string name="settings_language_portuguese">Português (Portugal)</string>
+    <string name="settings_language_serbian">Sérbio</string>
+    <string name="settings_language_spanish">Espanhol</string>
+    <string name="settings_language_ukrainian">Ucraniano</string>
+    <string name="settings_language_dutch">Holandês</string>
+    <string name="settings_language_russian">Russo</string>
+    <string name="settings_language_turkish">Turco</string>
+    <string name="settings_language_korean">Coreano</string>
+    <string name="settings_language_czech">Checo</string>
+    <string name="settings_language_chinese_traditional_tw">Chinês (tradicional, Taiwan)</string>
+    <string name="settings_tab_to_display">Separador a exibir quando abrir a aplicação</string>
+    <string name="last_tab_used_title">Último separador aberto</string>
+    <string name="settings_vibration_title">Ativar vibrações</string>
+    <string name="settings_toolbar_title">Exibir o título na barra de ferramentas</string>
+    <string name="settings_tab_title_visibility_title">Exibir os títulos no separador</string>
+    <string name="tab_title_visibility_always">Sempre</string>
+    <string name="tab_title_visibility_never">Nunca</string>
+    <string name="tab_title_visibility_when_selected">Quando selecionado</string>
+    <string name="alarm_notification_reminder_title">Lembrete de notificação</string>
+    <string name="alarm_notification_reminder_30_minutes">30 minutos antes</string>
+    <string name="alarm_notification_reminder_1_hour">1 hora antes</string>
+    <string name="alarm_notification_reminder_2_hours">2 horas antes</string>
+    <string name="alarm_notification_reminder_4_hours">4 horas antes</string>
+    <string name="alarm_notification_reminder_6_hours">6 horas antes</string>
+    <string name="alarm_notification_reminder_8_hours">8 horas antes</string>
+    <string name="alarm_notification_reminder_10_hours">10 horas antes</string>
+    <string name="alarm_notification_reminder_12_hours">12 horas antes</string>
+    <string name="advanced_audio_playback_title">Usar reprodução de áudio avançada</string>
+    <string name="alarm_button_color">Cor do botão do alarme</string>
+    <string name="alarm_clock_font_size">Tamanho da letra do relógio do alarme</string>
+    <string name="alarm_title_font_size">Tamanho da letra do título do alarme</string>
+    <string name="display_ringtone_title">Exibir título do toque</string>
+    <string name="ringtone_title_color">Cor do título do toque</string>
+    <string name="auto_silence_end_of_ringtone">No fim do toque</string>
+    <string name="snooze_duration_none">Nenhum</string>
+    <string name="random_ringtone_title">Toque aleatório</string>
+    <string name="swipe_action_title">Deslize para ignorar ou suspender os alarmes</string>
+    <string name="power_button_title">Botão de ligar</string>
+    <string name="add_label">Adicionar etiqueta</string>
+    <string name="city_search_hint">Procurar por uma cidade</string>
+    <string name="sw_settings_summary">Definir ações para os botões do volume</string>
+    <string name="sw_volume_up_action_title">Volume +</string>
+    <string name="sw_long_press_volume_up_action_title">Volume + (depois de longo pressionar)</string>
+    <string name="sw_volume_down_action_title">Volume -</string>
+    <string name="sw_long_press_volume_down_action_title">Volume - (depois de longo pressionar)</string>
+    <string name="sw_start_pause_action">Iniciar/Pausar</string>
 </resources>

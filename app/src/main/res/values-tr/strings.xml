@@ -620,4 +620,21 @@
     <string name="bluetooth_volume_title">Bluetooth aygıtları için alarm ses yüksekliği</string>
     <string name="connect_bluetooth_device_title">Bu ayara erişmek için bir Bluetooth aygıt bağla</string>
     <string name="disconnect_bluetooth_device_title">Bu ayara erişmek için Bluetooh aygıtının bağlantısını kes</string>
+    <string name="colors_category_title">Renkler</string>
+    <string name="sort_alarm_title">Alarmları Sıralama</string>
+    <string name="sort_alarm_time">Alarm zamanına göre</string>
+    <string name="sort_next_alarm_time">Sıradaki alarm zamanına göre</string>
+    <string name="sort_descending_creation_order">Oluşturma sırasına göre (yeniden eskiye)</string>
+    <string name="sort_ascending_creation_order">Oluşturma sırasına göre (eskiden yeniye)</string>
+    <string name="display_enabled_alarms_first_title">Etkinleştirilen alarmları önce göster</string>
+    <string name="city_search_hint">Bir şehri arat</string>
+    <string name="clock_dial_with_numbers">Sayılarla</string>
+    <string name="clock_dial_without_numbers">Sayısız</string>
+    <string name="clock_second_hand_vintage">Eski Tip</string>
+    <string name="clock_dial_title">Kadran</string>
+    <string name="clock_dial_sun">Güneş</string>
+    <string name="clock_dial_flower">Çiçek</string>
+    <string name="sort_cities_title">Şehir sıralaması</string>
+    <string name="enable_city_note_title">Şehirlere kişisel not ekleme</string>
+    <string name="enable_city_note_summary">Kişisel not eklemek ya da düzenlemek için bir şehre dokunun</string>
 </resources>
