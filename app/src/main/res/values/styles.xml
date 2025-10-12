@@ -108,8 +108,11 @@
         <item name="backgroundTint">?attr/colorAccent</item>
         <!-- Remove animation when floating action button is pressed -->
         <item name="pressedTranslationZ">0dp</item>
-        <!-- color used by the icon -->
+        <!-- Color used by the icon -->
         <item name="tint">@color/md_theme_inverseOnSurface</item>
+        <!-- Remove shadow -->
+        <item name="elevation">0dp</item>
+        <item name="android:stateListAnimator">@null</item>
     </style>
 
     <style name="SnackBarStyle" parent="@style/Widget.MaterialComponents.Snackbar">
