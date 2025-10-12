@@ -38,15 +38,49 @@
         app:layout_constraintBottom_toBottomOf="parent"
         tools:ignore="InconsistentLayout" />
 
-    <View
+    <!-- Due to the ViewPager and the location of FAB, padding are set programmatically
+         in the ClockFragment.java file. -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/empty_city_view_right_panel"
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:visibility="gone"
+        android:alpha="0.7"
         app:layout_constraintStart_toEndOf="@id/fold_vertical_start_edge"
-        app:layout_constraintEnd_toStartOf="@id/fold_vertical_end_edge">
-    </View>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:visibility="visible">
 
-    <!-- Due to the ViewPager and the location of FAB, margins are set programmatically
-         in the ClockFragment.java file. -->
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/blob"
+            android:contentDescription="@null"
+            app:layout_constraintWidth_max="@dimen/max_dimension_empty_view"
+            app:layout_constraintHeight_max="@dimen/max_dimension_empty_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_empty_city_view"
+            android:scaleX="0.4"
+            android:scaleY="0.4"
+            android:alpha="0.5"
+            android:contentDescription="@null"
+            app:layout_constraintWidth_max="@dimen/max_dimension_empty_view"
+            app:layout_constraintHeight_max="@dimen/max_dimension_empty_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/cities"
         android:layout_width="0dp"

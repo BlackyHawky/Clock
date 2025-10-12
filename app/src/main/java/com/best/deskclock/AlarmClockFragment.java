@@ -35,11 +35,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.Loader;
@@ -157,22 +157,15 @@ public final class AlarmClockFragment extends DeskClockFragment implements
 
         mMainLayout = v.findViewById(R.id.main);
         mRecyclerView = v.findViewById(R.id.alarms_recycler_view);
-        TextView alarmsEmptyView = v.findViewById(R.id.alarms_empty_view);
-        final Drawable noAlarmsIcon = ThemeUtils.toScaledBitmapDrawable(mContext, R.drawable.ic_alarm_off, 2.5f);
+        ConstraintLayout emptyAlarmView = v.findViewById(R.id.alarms_empty_view);
 
-        if (noAlarmsIcon != null) {
-            noAlarmsIcon.setTint(MaterialColors.getColor(
-                    mContext, com.google.android.material.R.attr.colorOnSurfaceVariant, Color.BLACK));
-        }
-        alarmsEmptyView.setCompoundDrawablesWithIntrinsicBounds(null, noAlarmsIcon, null, null);
-        alarmsEmptyView.setCompoundDrawablePadding(ThemeUtils.convertDpToPixels(30, mContext));
         // Set a bottom padding for phones in portrait mode and tablets to center correctly
         // the alarms empty view between the FAB and the top of the screen
         if (!mIsPhoneInLandscape) {
-            alarmsEmptyView.setPadding(0, 0, 0, ThemeUtils.convertDpToPixels(80, mContext));
+            emptyAlarmView.setPadding(0, 0, 0, ThemeUtils.convertDpToPixels(80, mContext));
         }
 
-        mEmptyViewController = new EmptyViewController(mMainLayout, mRecyclerView, alarmsEmptyView);
+        mEmptyViewController = new EmptyViewController(mMainLayout, mRecyclerView, emptyAlarmView);
         mAlarmUpdateHandler = new AlarmUpdateHandler(mContext, this, mMainLayout);
         mAlarmUpdateHandler.setAlarmUpdateCallback(this);
         mAlarmTimeClickHandler = new AlarmTimeClickHandler(this, savedState, mAlarmUpdateHandler);

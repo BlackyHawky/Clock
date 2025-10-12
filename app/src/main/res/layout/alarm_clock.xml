@@ -6,6 +6,8 @@
 -->
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -16,17 +18,43 @@
         android:id="@+id/alarms_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipToPadding="false" />
+        android:clipToPadding="false"
+        tools:listitem="@layout/alarm_time_collapsed" />
 
-    <com.google.android.material.textview.MaterialTextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/alarms_empty_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:contentDescription="@string/no_alarms"
-        android:gravity="center_horizontal"
-        android:text="@string/no_alarms"
-        android:textSize="30sp"
-        android:visibility="gone" />
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:alpha="0.7">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/blob"
+            android:contentDescription="@string/no_alarms"
+            app:layout_constraintWidth_max="@dimen/max_dimension_empty_view"
+            app:layout_constraintHeight_max="@dimen/max_dimension_empty_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_empty_alarm_view"
+            android:scaleX="0.6"
+            android:scaleY="0.6"
+            android:alpha="0.5"
+            android:contentDescription="@string/no_alarms"
+            app:layout_constraintWidth_max="@dimen/max_dimension_empty_view"
+            app:layout_constraintHeight_max="@dimen/max_dimension_empty_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

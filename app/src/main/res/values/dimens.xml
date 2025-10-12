@@ -11,4 +11,5 @@
     <dimen name="main_clock_font_size">64sp</dimen>
 
     <item name="city_list_end_guide_percent" type="fraction">0.55</item>
+    <dimen name="max_dimension_empty_view">350dp</dimen>
 </resources>
