@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.AudioDeviceCallback;
 import android.media.AudioDeviceInfo;
+import android.media.AudioFocusRequest;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
@@ -30,6 +31,7 @@ import androidx.media3.exoplayer.ExoPlayer;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
+import com.best.deskclock.utils.SdkUtils;
 
 /**
  * <p>Controls the playback of alarm ringtones with advanced audio routing and volume management.</p>
@@ -65,6 +67,8 @@ public final class RingtonePlayer {
     private ExoPlayer mExoPlayer;
     private final AudioManager mAudioManager;
     private AudioDeviceCallback mAudioDeviceCallback;
+
+    private android.media.AudioFocusRequest mAudioFocusRequest;
 
     private boolean mIsAutoRoutingToBluetoothDeviceEnabled;
     private long mCrescendoDuration = 0;
@@ -223,8 +227,10 @@ public final class RingtonePlayer {
         }
 
         mExoPlayer = new ExoPlayer.Builder(mContext)
-                .setAudioAttributes(buildAudioAttributes(isBluetooth), isBluetooth)
+                .setAudioAttributes(buildAudioAttributes(isBluetooth), false)
                 .build();
+
+        requestAudioFocus(isBluetooth);
 
         boolean inCall = RingtoneUtils.isInTelephoneCall(mAudioManager);
 
@@ -296,6 +302,8 @@ public final class RingtonePlayer {
             mAudioManager.unregisterAudioDeviceCallback(mAudioDeviceCallback);
             mAudioDeviceCallback = null;
         }
+
+        abandonAudioFocus();
     }
 
     /**
@@ -349,7 +357,9 @@ public final class RingtonePlayer {
                         if (mExoPlayer != null) {
                             mExoPlayer.setPreferredAudioDevice(device);
 
-                            mExoPlayer.setAudioAttributes(buildAudioAttributes(true), true);
+                            mExoPlayer.setAudioAttributes(buildAudioAttributes(true), false);
+
+                            requestAudioFocus(true);
 
                             // Set the media volume for Bluetooth devices
                             if (SettingsDAO.shouldUseCustomMediaVolume(mPrefs) && mAudioManager != null) {
@@ -470,6 +480,59 @@ public final class RingtonePlayer {
                 .setUsage(bluetoothConnected ? C.USAGE_MEDIA : C.USAGE_ALARM)
                 .setContentType(C.AUDIO_CONTENT_TYPE_SONIFICATION)
                 .build();
+    }
+
+    /**
+     * Builds the {@link android.media.AudioAttributes} used specifically for requesting audio focus,
+     * based on whether a Bluetooth device is connected or not.
+     *
+     * @param bluetoothConnected {@code true} if a Bluetooth audio device is connected;
+     * {@code false} otherwise.
+     * @return An {@link android.media.AudioAttributes} instance configured for audio focus requests.
+     */
+    private android.media.AudioAttributes buildAudioFocusAttributes(boolean bluetoothConnected) {
+        int usage = bluetoothConnected
+                ? android.media.AudioAttributes.USAGE_MEDIA
+                : android.media.AudioAttributes.USAGE_ALARM;
+
+        return new android.media.AudioAttributes.Builder()
+                .setUsage(usage)
+                .setContentType(android.media.AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .build();
+    }
+
+    /**
+     * Requests transient audio focus based on the output device (Bluetooth or speaker).
+     * Uses the appropriate stream type and audio attributes for each Android API level.
+     *
+     * @param isBluetooth {@code true} if the output is routed through a Bluetooth device;
+     * {@code false} for speaker.
+     */
+    private void requestAudioFocus(boolean isBluetooth) {
+        android.media.AudioAttributes systemAttributes = buildAudioFocusAttributes(isBluetooth);
+
+        if (SdkUtils.isAtLeastAndroid8()) {
+            mAudioFocusRequest = new AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT)
+                    .setAudioAttributes(systemAttributes)
+                    .build();
+
+            mAudioManager.requestAudioFocus(mAudioFocusRequest);
+        } else {
+            int streamType = isBluetooth ? AudioManager.STREAM_MUSIC : AudioManager.STREAM_ALARM;
+            mAudioManager.requestAudioFocus(null, streamType, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
+        }
+    }
+
+    /**
+     * Abandons the previously acquired audio focus.
+     */
+    private void abandonAudioFocus() {
+        if (SdkUtils.isAtLeastAndroid8() && mAudioFocusRequest != null) {
+            mAudioManager.abandonAudioFocusRequest(mAudioFocusRequest);
+            mAudioFocusRequest = null;
+        } else {
+            mAudioManager.abandonAudioFocus(null);
+        }
     }
 
     /**
