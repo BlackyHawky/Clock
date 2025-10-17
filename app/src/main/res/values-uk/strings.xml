@@ -106,7 +106,7 @@
     <string name="settings" msgid="5849739030579520686">"Налаштування"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Відкласти на"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Збільшувати гучність поступово"</string>
-    <string name="auto_silence_title" msgid="2012754009554434544">Вимкнути будильник за</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">Вимкнути після</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"Ніколи"</string>
     <string name="label_off">Вимкнено</string>
     <string name="week_start_title" msgid="4268917518596832096">Початок тижня</string>
@@ -387,7 +387,7 @@
     <string name="actions_category_title">Дії</string>
     <string name="ringtone_category_title">Сигнал</string>
     <string name="enable_alarm_vibrations_by_default_setting_title">Увімкнути вібрацію під час налаштування будильників</string>
-    <string name="auto_silence_end_of_ringtone">Після відтворення сигналу</string>
+    <string name="auto_silence_end_of_ringtone">Відтворення сигналу</string>
     <string name="alarm_notification_reminder_title">Нагадування про сповіщення</string>
     <string name="about_github_link">Подивитися на GitHub</string>
     <string name="clock_default_color_title">Колір за замовчуванням для основного годинника</string>

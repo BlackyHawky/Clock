@@ -24,7 +24,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.AnimatedStateListDrawable;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.RippleDrawable;
@@ -39,8 +38,6 @@ import android.widget.RadioGroup;
 import androidx.annotation.AttrRes;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.core.graphics.drawable.DrawableKt;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
@@ -203,16 +200,6 @@ public class ThemeUtils {
         final Canvas canvas = new Canvas(bitmap);
         view.draw(canvas);
         return bitmap;
-    }
-
-    /**
-     * Convenience method for scaling Drawable.
-     */
-    public static BitmapDrawable toScaledBitmapDrawable(Context context, int drawableResId, float scale) {
-        final Drawable drawable = AppCompatResources.getDrawable(context, drawableResId);
-        if (drawable == null) return null;
-        return new BitmapDrawable(context.getResources(), DrawableKt.toBitmap(drawable,
-                (int) (scale * drawable.getIntrinsicHeight()), (int) (scale * drawable.getIntrinsicWidth()), null));
     }
 
     /**

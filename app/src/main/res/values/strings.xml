@@ -437,7 +437,7 @@
     <!-- Setting title for changing the vibration start delay to None. -->
     <string name="vibration_start_delay_none">None</string>
     <!-- Text of dialog box to edit minutes for the vibration start delay. -->
-    <string name="vibration_start_delay_warning_box_text">Enter a value between 0 and 10 minutes</string>
+    <string name="vibration_start_delay_warning_box_text">Enter a value from 0 to 10 minutes</string>
     <!-- Setting title to enable vibrations when alarm is snoozed or dismissed -->
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">Enable vibrations when alarm is snoozed or dismissed</string>
     <!-- Setting summary about vibrations when alarm is snoozed or dismissed -->
@@ -628,17 +628,17 @@
     <!-- Title of dialog box to set a new duration to an existing timer. -->
     <string name="timer_time_box_title">New timer duration</string>
     <!-- Text of dialog box to edit hours to set a new duration to an existing timer. -->
-    <string name="timer_hours_warning_box_text">Enter a value between 0 and 24 hours</string>
+    <string name="timer_hours_warning_box_text">Enter a value from 0 to 24 hours</string>
     <!-- Text of dialog box to edit minutes to set a new duration to an existing timer. -->
-    <string name="timer_minutes_warning_box_text">Enter a value between 0 and 59 minutes</string>
+    <string name="timer_minutes_warning_box_text">Enter a value from 0 to 59 minutes</string>
     <!-- Text of dialog box to edit seconds to set a new duration to an existing timer. -->
-    <string name="timer_seconds_warning_box_text">Enter a value between 0 and 59 seconds</string>
+    <string name="timer_seconds_warning_box_text">Enter a value from 0 to 59 seconds</string>
     <!-- Title of dialog box to edit button for adding time to timer. -->
     <string name="timer_button_time_box_title">Minutes to add to the timer</string>
     <!-- Text of dialog box to edit minutes for adding time to timer. -->
-    <string name="timer_button_time_minutes_warning_box_text">Enter a value between 0 and 60 minutes</string>
+    <string name="timer_button_time_minutes_warning_box_text">Enter a value from 0 to 60 minutes</string>
     <!-- Text of dialog box to edit seconds for adding time to timer. -->
-    <string name="timer_button_time_seconds_warning_box_text">Enter a value between 0 and 59 seconds</string>
+    <string name="timer_button_time_seconds_warning_box_text">Enter a value from 0 to 59 seconds</string>
     <!-- Title of dialog box to edit timers if an entered value is incorrect. -->
     <string name="timer_time_warning_box_title">Incorrect value entered</string>
     <!-- Describes the purpose of the button to add a new timer -->
