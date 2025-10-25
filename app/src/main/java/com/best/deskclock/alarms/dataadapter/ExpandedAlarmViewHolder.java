@@ -10,7 +10,6 @@ import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 
-import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_SNOOZE_DURATION_DISABLED;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_END_OF_RINGTONE;
@@ -22,7 +21,6 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -64,7 +62,6 @@ import java.util.Locale;
 public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     public static final int VIEW_TYPE = R.layout.alarm_time_expanded;
 
-    private final SharedPreferences mPrefs;
     private final ImageView editLabelIcon;
     private final TextView editLabel;
     private final LinearLayout repeatDays;
@@ -95,7 +92,6 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         super(itemView);
 
         final Context context = itemView.getContext();
-        mPrefs = getDefaultSharedPreferences(context);
         mHasVibrator = hasVibrator;
         mHasFlash = hasFlash;
 

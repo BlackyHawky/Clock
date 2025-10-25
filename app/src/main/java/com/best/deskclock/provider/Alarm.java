@@ -43,6 +43,12 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
      */
     public static final long INVALID_ID = -1;
 
+    /**
+     * SharedPreferences key used to indicate whether the styled repeat day display is enabled
+     * for a specific alarm. Used to customize how repeat days are shown in the UI.
+     */
+    private static final String KEY_SHOW_STYLED_REPEAT_DAY = "show_styled_repeat_day_";
+
     public static final Parcelable.Creator<Alarm> CREATOR = new Parcelable.Creator<>() {
         public Alarm createFromParcel(Parcel p) {
             return new Alarm(p);
@@ -347,6 +353,30 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         return values;
     }
 
+    public void writeToParcel(Parcel p, int flags) {
+        p.writeLong(id);
+        p.writeInt(enabled ? 1 : 0);
+        p.writeInt(year);
+        p.writeInt(month);
+        p.writeInt(day);
+        p.writeInt(hour);
+        p.writeInt(minutes);
+        p.writeInt(daysOfWeek.getBits());
+        p.writeInt(vibrate ? 1 : 0);
+        p.writeInt(flash ? 1 : 0);
+        p.writeString(label);
+        p.writeParcelable(alert, flags);
+        p.writeInt(deleteAfterUse ? 1 : 0);
+        p.writeInt(autoSilenceDuration);
+        p.writeInt(snoozeDuration);
+        p.writeInt(crescendoDuration);
+        p.writeInt(alarmVolume);
+    }
+
+    public int describeContents() {
+        return 0;
+    }
+
     public static Intent createIntent(Context context, Class<?> cls, long alarmId) {
         return new Intent(context, cls).setData(getContentUri(alarmId));
     }
@@ -476,11 +506,50 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     }
 
     /**
-     * Whether the alarm is in a state to show preemptive dismiss. Valid states are
-     * SNOOZE_STATE or NOTIFICATION_STATE.
+     * Determines whether the alarm is eligible to show a preemptive dismiss button.
+     * <p>
+     * The behavior depends on user settings and the current alarm state:</p>
+     * <ul>
+     *      <li>If the dismiss button is configured to be shown when the alarm is enabled,
+     *          the method returns {@code true} if the alarm is enabled or currently snoozed.</li>
+     *      <li>Otherwise, it returns true only if the alarm is in SNOOZE_STATE or NOTIFICATION_STATE.</li>
+     * </ul>
+     * @param context the context used to access shared preferences
+     * @return {@code true} if the alarm can show a preemptive dismiss button; {@code false} otherwise.
      */
-    public boolean canPreemptivelyDismiss() {
-        return instanceState == AlarmInstance.SNOOZE_STATE || instanceState == AlarmInstance.NOTIFICATION_STATE;
+    public boolean canPreemptivelyDismiss(Context context) {
+        if (SettingsDAO.isDismissButtonDisplayedWhenAlarmEnabled(getDefaultSharedPreferences(context))) {
+            return enabled || instanceState == AlarmInstance.SNOOZE_STATE;
+        } else {
+            return instanceState == AlarmInstance.SNOOZE_STATE || instanceState == AlarmInstance.NOTIFICATION_STATE;
+        }
+    }
+
+    /**
+     * @return {@code true} if the styled repeat day display is enabled for this alarm;
+     * {@code false} otherwise.
+     */
+    public boolean isRepeatDayStyleEnabled(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_SHOW_STYLED_REPEAT_DAY + id, false);
+    }
+
+    /**
+     * Enables the styled repeat day display for this alarm only if all days are selected.
+     */
+    public void enableRepeatDayStyleIfAllDaysSelected(SharedPreferences prefs) {
+        if (!daysOfWeek.isAllDaysSelected()) {
+            return;
+        }
+
+        prefs.edit().putBoolean(KEY_SHOW_STYLED_REPEAT_DAY + id, true).apply();
+    }
+
+    /**
+     * Removes the styled repeat day display preference for this alarm.
+     * This disables the styled repeat day behavior.
+     */
+    public void removeRepeatDayStyle(SharedPreferences prefs) {
+        prefs.edit().remove(KEY_SHOW_STYLED_REPEAT_DAY + id).apply();
     }
 
     public static boolean isTomorrow(Alarm alarm, Calendar now) {
@@ -543,30 +612,6 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         return year == reference.get(Calendar.YEAR)
                 && month == currentMonth
                 && day == reference.get(Calendar.DAY_OF_MONTH);
-    }
-
-    public void writeToParcel(Parcel p, int flags) {
-        p.writeLong(id);
-        p.writeInt(enabled ? 1 : 0);
-        p.writeInt(year);
-        p.writeInt(month);
-        p.writeInt(day);
-        p.writeInt(hour);
-        p.writeInt(minutes);
-        p.writeInt(daysOfWeek.getBits());
-        p.writeInt(vibrate ? 1 : 0);
-        p.writeInt(flash ? 1 : 0);
-        p.writeString(label);
-        p.writeParcelable(alert, flags);
-        p.writeInt(deleteAfterUse ? 1 : 0);
-        p.writeInt(autoSilenceDuration);
-        p.writeInt(snoozeDuration);
-        p.writeInt(crescendoDuration);
-        p.writeInt(alarmVolume);
-    }
-
-    public int describeContents() {
-        return 0;
     }
 
     public AlarmInstance createInstanceAfter(Calendar time) {
@@ -649,6 +694,30 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         }
 
         return nextInstanceTime;
+    }
+
+    /**
+     * Returns the day of the week (as Calendar.DAY_OF_WEEK) when the alarm will next trigger.
+     * <p>
+     * If a valid AlarmInstance is provided and its scheduled time is in the future,
+     * that time is used to determine the next alarm day.
+     * Otherwise, the method calculates the next scheduled alarm time based on the current time
+     * and the alarm's repeat settings.</p>
+     *
+     * @param alarmInstance the current AlarmInstance, or null if not yet created
+     * @return the day of the week (e.g., Calendar.MONDAY, Calendar.TUESDAY, ...)
+     */
+    public int getNextAlarmDayOfWeek(AlarmInstance alarmInstance) {
+        Calendar referenceTime = Calendar.getInstance();
+        Calendar nextAlarmTime;
+
+        if (alarmInstance != null && alarmInstance.getAlarmTime().after(referenceTime)) {
+            nextAlarmTime = alarmInstance.getAlarmTime();
+        } else {
+            nextAlarmTime = getNextAlarmTime(referenceTime);
+        }
+
+        return nextAlarmTime.get(Calendar.DAY_OF_WEEK);
     }
 
     /**

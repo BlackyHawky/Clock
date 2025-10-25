@@ -16,12 +16,19 @@ import static java.util.Calendar.TUESDAY;
 import static java.util.Calendar.WEDNESDAY;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.util.ArrayMap;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 
 import com.best.deskclock.R;
+import com.google.android.material.color.MaterialColors;
 
 import java.text.DateFormatSymbols;
 import java.util.Arrays;
@@ -156,10 +163,17 @@ public final class Weekdays {
     }
 
     /**
-     * @return {@code true} iff at least one weekday is enabled in the repeat schedule
+     * @return {@code true} if at least one weekday is enabled in the repeat schedule
      */
     public boolean isRepeating() {
         return mBits != 0;
+    }
+
+    /**
+     * @return {@code true} if all days of the week are selected; {@code false} otherwise.
+     */
+    public boolean isAllDaysSelected() {
+        return mBits == ALL_DAYS;
     }
 
     /**
@@ -259,7 +273,7 @@ public final class Weekdays {
      * @return the enabled weekdays in the given {@code order}
      */
     public String toString(Context context, Order order) {
-        return toString(context, order, false /* forceLongNames */);
+        return toString(context, order, false);
     }
 
     /**
@@ -269,7 +283,7 @@ public final class Weekdays {
      * is most appropriate for talk-back
      */
     public String toAccessibilityString(Context context, Order order) {
-        return toString(context, order, true /* forceLongNames */);
+        return toString(context, order, true);
     }
 
     @VisibleForTesting
@@ -314,6 +328,53 @@ public final class Weekdays {
             }
         }
         return builder.toString();
+    }
+
+    /**
+     * Returns a styled representation of the repeating days of the week.
+     * <p>
+     * This method builds a {@link SpannableStringBuilder} containing the names of the days
+     * on which the alarm is set to repeat. The day corresponding to the next scheduled alarm
+     * (if provided) will be colored and displayed in bold.
+     * </p>
+     *
+     * @param context         the context used to access resources
+     * @param order           the preferred order of weekdays (e.g., starting on Monday or Sunday)
+     * @param forceLongNames  whether to force the use of full weekday names
+     * @param nextAlarmDay    the calendar day (e.g., {@link Calendar#MONDAY}) of the next alarm;
+     *                        if matched, that day will be styled in bold
+     * @return a {@link CharSequence} with the formatted and styled weekday names
+     */
+    public CharSequence toStyledString(Context context, Order order, boolean forceLongNames, int nextAlarmDay) {
+        if (!isRepeating()) {
+            return "";
+        }
+
+        final boolean longNames = forceLongNames || getCount() <= 1;
+        final DateFormatSymbols dfs = new DateFormatSymbols();
+        final String[] weekdays = longNames ? dfs.getWeekdays() : dfs.getShortWeekdays();
+        final String separator = context.getString(R.string.day_concat);
+
+        final SpannableStringBuilder builder = new SpannableStringBuilder();
+        for (int calendarDay : order.getCalendarDays()) {
+            if (isBitOn(calendarDay)) {
+                if (builder.length() > 0) {
+                    builder.append(separator);
+                }
+
+                String dayName = weekdays[calendarDay];
+                int start = builder.length();
+                builder.append(dayName);
+                int end = builder.length();
+
+                if (calendarDay == nextAlarmDay) {
+                    int primaryColor = MaterialColors.getColor(context, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
+                    builder.setSpan(new ForegroundColorSpan(primaryColor), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    builder.setSpan(new StyleSpan(Typeface.BOLD), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                }
+            }
+        }
+        return builder;
     }
 
     /**

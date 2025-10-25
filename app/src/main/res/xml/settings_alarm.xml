@@ -232,6 +232,15 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
+        <SwitchPreferenceCompat
+            android:key="key_display_dismiss_button"
+            android:title="@string/display_dismiss_button_title"
+            android:summary="@string/display_dismiss_button_summary"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
         <ListPreference
             android:key="key_alarm_notification_reminder_time"
             android:title="@string/alarm_notification_reminder_title"

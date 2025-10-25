@@ -825,6 +825,15 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return {@code true} if the Dismiss button should appear as soon as the alarm is enabled.
+     * {@code false} otherwise.
+     */
+    public static boolean isDismissButtonDisplayedWhenAlarmEnabled(SharedPreferences pref) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        return pref.getBoolean(KEY_DISPLAY_DISMISS_BUTTON, DEFAULT_DISPLAY_DISMISS_BUTTON);
+    }
+
+    /**
      * @return the number of minutes before the upcoming alarm notification appears
      */
     public static int getAlarmNotificationReminderTime(SharedPreferences prefs) {

@@ -480,9 +480,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         // Convert each row in the cursor into an AlarmItemHolder
         for (data.moveToFirst(); !data.isAfterLast(); data.moveToNext()) {
             final Alarm alarm = new Alarm(data);
-            final AlarmInstance alarmInstance = alarm.canPreemptivelyDismiss()
-                    ? new AlarmInstance(data, true)
-                    : null;
+            final AlarmInstance alarmInstance = new AlarmInstance(data, true);
             final AlarmItemHolder itemHolder = new AlarmItemHolder(alarm, alarmInstance, mAlarmTimeClickHandler);
             itemHolders.add(itemHolder);
         }

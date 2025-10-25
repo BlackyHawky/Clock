@@ -13,6 +13,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_VOLUME_SETTI
 import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_ROUTING_TO_BLUETOOTH_DEVICE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_BLUETOOTH_VOLUME;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DEFAULT_ALARM_RINGTONE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_DISMISS_BUTTON;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_ENABLED_ALARMS_FIRST;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_ALARM_FAB_LONG_PRESS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT;
@@ -91,6 +92,7 @@ public class AlarmSettingsFragment extends ScreenFragment
     SwitchPreferenceCompat mDisplayEnabledAlarmsFirstPref;
     SwitchPreferenceCompat mEnableAlarmFabLongPressPref;
     ListPreference mWeekStartPref;
+    SwitchPreferenceCompat mDisplayDismissButtonPref;
     ListPreference mAlarmNotificationReminderTimePref;
     Preference mVibrationPatternPref;
     Preference mVibrationStartDelayPref;
@@ -129,6 +131,7 @@ public class AlarmSettingsFragment extends ScreenFragment
         mDisplayEnabledAlarmsFirstPref = findPreference(KEY_DISPLAY_ENABLED_ALARMS_FIRST);
         mEnableAlarmFabLongPressPref = findPreference(KEY_ENABLE_ALARM_FAB_LONG_PRESS);
         mWeekStartPref = findPreference(KEY_WEEK_START);
+        mDisplayDismissButtonPref = findPreference(KEY_DISPLAY_DISMISS_BUTTON);
         mAlarmNotificationReminderTimePref = findPreference(KEY_ALARM_NOTIFICATION_REMINDER_TIME);
         mVibrationPatternPref = findPreference(KEY_VIBRATION_PATTERN);
         mVibrationStartDelayPref = findPreference(KEY_VIBRATION_START_DELAY);
@@ -178,7 +181,7 @@ public class AlarmSettingsFragment extends ScreenFragment
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
             case KEY_DISPLAY_ENABLED_ALARMS_FIRST, KEY_ENABLE_ALARM_FAB_LONG_PRESS,
-                 KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT,
+                 KEY_DISPLAY_DISMISS_BUTTON, KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT,
                  KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS,
                  KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM,
                  KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT ->
@@ -418,6 +421,8 @@ public class AlarmSettingsFragment extends ScreenFragment
         mWeekStartPref.setValueIndex(index);
         mWeekStartPref.setSummary(mWeekStartPref.getEntries()[index]);
         mWeekStartPref.setOnPreferenceChangeListener(this);
+
+        mDisplayDismissButtonPref.setOnPreferenceChangeListener(this);
 
         mAlarmNotificationReminderTimePref.setOnPreferenceChangeListener(this);
         mAlarmNotificationReminderTimePref.setSummary(mAlarmNotificationReminderTimePref.getEntry());

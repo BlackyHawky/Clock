@@ -15,6 +15,7 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -60,6 +61,7 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
     public static final float ANIM_LONG_DELAY_INCREMENT_MULTIPLIER =
             1f - ANIM_STANDARD_DELAY_MULTIPLIER - ANIM_SHORT_DURATION_MULTIPLIER;
 
+    public final SharedPreferences mPrefs;
     public final ImageView arrow;
     public final TextTime clock;
     public final CompoundButton onOff;
@@ -72,14 +74,15 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
     public AlarmItemViewHolder(View itemView) {
         super(itemView);
 
+        final Context context = itemView.getContext();
+
+        mPrefs = getDefaultSharedPreferences(context);
         arrow = itemView.findViewById(R.id.arrow);
         clock = itemView.findViewById(R.id.digital_clock);
         onOff = itemView.findViewById(R.id.onoff);
         daysOfWeek = itemView.findViewById(R.id.days_of_week);
         preemptiveDismissButton = itemView.findViewById(R.id.preemptive_dismiss_button);
         bottomPaddingView = itemView.findViewById(R.id.bottom_padding_view);
-
-        final Context context = itemView.getContext();
 
         int rippleColor = MaterialColors.getColor(context, androidx.appcompat.R.attr.colorControlHighlight, Color.BLACK);
         RippleDrawable rippleDrawable = new RippleDrawable(ColorStateList.valueOf(rippleColor),
@@ -114,7 +117,7 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
 
         bindClock(alarm);
         bindOnOffSwitch(alarm);
-        bindRepeatText(context, alarm);
+        bindRepeatText(context, alarm, alarmInstance);
         bindPreemptiveDismissButton(context, alarm, alarmInstance);
         bindAnnotations(alarm);
 
@@ -132,24 +135,38 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
         clock.setTypeface(alarm.enabled ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
     }
 
-    private void bindRepeatText(Context context, Alarm alarm) {
+    private void bindRepeatText(Context context, Alarm alarm, AlarmInstance alarmInstance) {
         if (alarm.daysOfWeek.isRepeating()) {
-            setRepeatingDaysDescription(context, alarm);
+            setRepeatingDaysDescription(context, alarm, alarmInstance);
         } else if (alarm.isSpecifiedDate()) {
             setSpecifiedDateDescription(context, alarm);
         } else {
             setNonRepeatingDefaultDescription(context, alarm);
         }
-
-        daysOfWeek.setTypeface(alarm.enabled ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
     }
 
-    private void setRepeatingDaysDescription(Context context, Alarm alarm) {
-        Weekdays.Order weekdayOrder = SettingsDAO.getWeekdayOrder(getDefaultSharedPreferences(context));
-        String daysText = alarm.daysOfWeek.toString(context, weekdayOrder);
+    private void setRepeatingDaysDescription(Context context, Alarm alarm, AlarmInstance alarmInstance) {
+        Weekdays.Order weekdayOrder = SettingsDAO.getWeekdayOrder(mPrefs);
         String contentDesc = alarm.daysOfWeek.toAccessibilityString(context, weekdayOrder);
+        CharSequence styledDaysText;
 
-        daysOfWeek.setText(daysText);
+        if (alarm.enabled) {
+            int nextAlarmDay = alarm.getNextAlarmDayOfWeek(alarmInstance);
+
+            if (alarm.daysOfWeek.isAllDaysSelected()) {
+                if (alarm.isRepeatDayStyleEnabled(mPrefs)) {
+                    styledDaysText = alarm.daysOfWeek.toStyledString(context, weekdayOrder, false, nextAlarmDay);
+                } else {
+                    styledDaysText = alarm.daysOfWeek.toString(context, weekdayOrder);
+                }
+            } else {
+                styledDaysText = alarm.daysOfWeek.toStyledString(context, weekdayOrder, false, nextAlarmDay);
+            }
+        } else {
+            styledDaysText = alarm.daysOfWeek.toString(context, weekdayOrder);
+        }
+
+        daysOfWeek.setText(styledDaysText);
         daysOfWeek.setContentDescription(contentDesc);
     }
 
@@ -183,7 +200,7 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
     }
 
     private void bindPreemptiveDismissButton(Context context, Alarm alarm, AlarmInstance alarmInstance) {
-        final boolean canBind = alarm.canPreemptivelyDismiss() && alarmInstance != null;
+        final boolean canBind = alarm.canPreemptivelyDismiss(context) && alarmInstance != null;
 
         if (canBind) {
             preemptiveDismissButton.setVisibility(VISIBLE);

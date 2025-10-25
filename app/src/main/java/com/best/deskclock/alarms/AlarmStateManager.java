@@ -261,13 +261,20 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 Alarm.updateAlarm(cr, alarm);
             }
         } else {
-            // Schedule the next repeating instance which may be before the current instance if a
-            // time jump has occurred. Otherwise, if the current instance is the next instance
-            // and has already been fired, schedule the subsequent instance.
-            AlarmInstance nextRepeatedInstance = alarm.createInstanceAfter(getCurrentTime());
-            if (instance.mAlarmState > AlarmInstance.FIRED_STATE
-                    && nextRepeatedInstance.getAlarmTime().equals(instance.getAlarmTime())) {
+            AlarmInstance nextRepeatedInstance;
+
+            if (SettingsDAO.isDismissButtonDisplayedWhenAlarmEnabled(getDefaultSharedPreferences(context))) {
+                // If the Dismiss button is permanently displayed, create the next instance only from the current instance.
                 nextRepeatedInstance = alarm.createInstanceAfter(instance.getAlarmTime());
+            } else {
+                // Schedule the next repeating instance which may be before the current instance if a
+                // time jump has occurred. Otherwise, if the current instance is the next instance
+                // and has already been fired, schedule the subsequent instance.
+                nextRepeatedInstance = alarm.createInstanceAfter(getCurrentTime());
+                if (instance.mAlarmState > AlarmInstance.FIRED_STATE
+                        && nextRepeatedInstance.getAlarmTime().equals(instance.getAlarmTime())) {
+                    nextRepeatedInstance = alarm.createInstanceAfter(instance.getAlarmTime());
+                }
             }
 
             LogUtils.i("Creating new instance for repeating alarm " + alarm.id + " at " +
@@ -552,6 +559,13 @@ public final class AlarmStateManager extends BroadcastReceiver {
         instance.mAlarmState = AlarmInstance.DISMISSED_STATE;
         final ContentResolver contentResolver = context.getContentResolver();
         AlarmInstance.updateInstance(contentResolver, instance);
+
+        // Clean up styled repeat day if needed
+        Alarm alarm = Alarm.getAlarm(contentResolver, instance.mAlarmId);
+        final SharedPreferences prefs = getDefaultSharedPreferences(context);
+        if (alarm != null && alarm.isRepeatDayStyleEnabled(prefs)) {
+            alarm.removeRepeatDayStyle(prefs);
+        }
 
         cancelPowerOffAlarm(context, instance);
     }

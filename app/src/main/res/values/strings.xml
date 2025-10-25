@@ -383,6 +383,11 @@
     <string name="enable_per_alarm_volume_title">Use a custom volume for each alarm</string>
     <!-- Setting summary to clarify what the "Use a custom volume for each alarm" setting implies. -->
     <string name="enable_per_alarm_volume_summary">Allows setting a different volume for each alarm in the expanded alarm view</string>
+    <!-- Setting title to display the Dismiss button -->
+    <string name="display_dismiss_button_title">Display Dismiss button as soon as alarm is enabled</string>
+    <!-- Setting summary to specify when the Dismiss button will appear if the
+         "Display Dismiss button as soon as alarm is enabled" setting is disabled. -->
+    <string name="display_dismiss_button_summary">If disabled, the button will appear at the same time as the notification reminder</string>
     <!-- Setting title for changing the notification reminder. -->
     <string name="alarm_notification_reminder_title">Notification reminder</string>
     <!-- Setting title for changing the notification reminder to 30 minutes before. -->
@@ -1264,6 +1269,8 @@
     [CHAR LIMIT=NONE]
     -->
     <string name="alarm_is_dismissed"><xliff:g example="14:20" id="alarm_time">%s</xliff:g> alarm dismissed</string>
+    <!-- String that represents that the user has dismissed a repetitive alarm. %s indicates the day of the next alarm -->
+    <string name="repetitive_alarm_is_dismissed">Alarm dismissed. <xliff:g example="Next alarm Monday." id="alarm_day">Reschedule for %s.</xliff:g></string>
     <!-- Toast content when an occasional alarm is dismissed and deleted.
     %s represents alarm time, e.g. 14:20
     -->

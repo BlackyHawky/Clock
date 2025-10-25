@@ -58,19 +58,18 @@
         app:layout_constraintTop_toBottomOf="@id/label"
         tools:text="08:30" />
 
-    <com.google.android.material.textview.MaterialTextView
+    <com.best.deskclock.uicomponents.AutoSizingTextView
         android:id="@+id/days_of_week"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:background="@android:color/transparent"
-        android:ellipsize="none"
-        android:maxLines="1"
         android:paddingHorizontal="4dp"
+        android:background="@android:color/transparent"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/onoff"
         app:layout_constraintTop_toBottomOf="@id/digital_clock"
-        tools:text="Mo.,Tue.,Wed." />
+        tools:text="Mon, Tue, Wed" />
 
     <!-- Allow to add bottom padding if dismiss button is not displayed. -->
     <View

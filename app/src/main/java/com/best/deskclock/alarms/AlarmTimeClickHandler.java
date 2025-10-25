@@ -62,6 +62,7 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
     private static final String KEY_PREVIOUS_DAY_MAP = "previousDayMap";
     private final Fragment mFragment;
     private final Context mContext;
+    private final SharedPreferences mPrefs;
     private final AlarmUpdateHandler mAlarmUpdateHandler;
     private Alarm mSelectedAlarm;
     private Bundle mPreviousDaysOfWeekMap;
@@ -70,6 +71,7 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
 
         mFragment = fragment;
         mContext = mFragment.requireContext();
+        mPrefs = getDefaultSharedPreferences(mContext);
         mAlarmUpdateHandler = alarmUpdateHandler;
 
         if (savedState != null) {
@@ -184,7 +186,7 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
             alarm.day = now.get(Calendar.DAY_OF_MONTH);
         }
 
-        final int weekday = SettingsDAO.getWeekdayOrder(getDefaultSharedPreferences(mContext)).getCalendarDays().get(index);
+        final int weekday = SettingsDAO.getWeekdayOrder(mPrefs).getCalendarDays().get(index);
         alarm.daysOfWeek = alarm.daysOfWeek.setBit(weekday, checked);
 
         // If the change altered the next scheduled alarm time, tell the user
@@ -196,6 +198,10 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
     }
 
     public void dismissAlarmInstance(Alarm alarm, AlarmInstance alarmInstance) {
+        if (!alarm.isRepeatDayStyleEnabled(mPrefs)) {
+            alarm.enableRepeatDayStyleIfAllDaysSelected(mPrefs);
+        }
+
         final Intent dismissIntent = AlarmStateManager.createStateChangeIntent(mContext,
                 AlarmStateManager.ALARM_DISMISS_TAG, alarmInstance, AlarmInstance.PREDISMISSED_STATE);
         mContext.startService(dismissIntent);
@@ -236,8 +242,7 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
     public void onClockClicked(Alarm alarm) {
         mSelectedAlarm = alarm;
         Events.sendAlarmEvent(R.string.action_set_time, R.string.label_deskclock);
-        if (SettingsDAO.getMaterialTimePickerStyle(
-                getDefaultSharedPreferences(mContext)).equals(SPINNER_TIME_PICKER_STYLE)) {
+        if (SettingsDAO.getMaterialTimePickerStyle(mPrefs).equals(SPINNER_TIME_PICKER_STYLE)) {
             showSpinnerTimePickerDialog(alarm.hour, alarm.minutes);
         } else {
             showMaterialTimePicker(alarm.hour, alarm.minutes);
@@ -268,14 +273,13 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
         Events.sendAlarmEvent(R.string.action_set_time, R.string.label_deskclock);
 
         MaterialTimePickerDialog.show(mContext, ((AppCompatActivity) mContext).getSupportFragmentManager(),
-                TAG, hours, minutes, getDefaultSharedPreferences(mContext), this);
+                TAG, hours, minutes, mPrefs, this);
     }
 
     public void onDateClicked(Alarm alarm) {
         mSelectedAlarm = alarm;
         Events.sendAlarmEvent(R.string.action_set_date, R.string.label_deskclock);
-        if (SettingsDAO.getMaterialDatePickerStyle(
-                getDefaultSharedPreferences(mContext)).equals(SPINNER_DATE_PICKER_STYLE)) {
+        if (SettingsDAO.getMaterialDatePickerStyle(mPrefs).equals(SPINNER_DATE_PICKER_STYLE)) {
             showSpinnerDatePicker(alarm);
         } else {
             showMaterialDatePicker(alarm);
@@ -344,7 +348,7 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
     }
 
     public void showMaterialDatePicker(Alarm alarm) {
-        String materialDatePickerStyle = SettingsDAO.getMaterialDatePickerStyle(getDefaultSharedPreferences(mContext));
+        String materialDatePickerStyle = SettingsDAO.getMaterialDatePickerStyle(mPrefs);
         MaterialDatePicker.Builder<Long> builder = MaterialDatePicker.Builder.datePicker();
 
         // Set date picker style
@@ -458,18 +462,17 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
 
     private Alarm buildNewAlarm(int hour, int minute) {
         final Alarm alarm = new Alarm();
-        final SharedPreferences prefs = getDefaultSharedPreferences(mContext);
         final AudioManager audioManager = (AudioManager) mContext.getSystemService(AUDIO_SERVICE);
 
         alarm.hour = hour;
         alarm.minutes = minute;
         alarm.enabled = true;
-        alarm.vibrate = SettingsDAO.areAlarmVibrationsEnabledByDefault(prefs);
-        alarm.flash = SettingsDAO.shouldTurnOnBackFlashForTriggeredAlarm(prefs);
-        alarm.deleteAfterUse = SettingsDAO.isOccasionalAlarmDeletedByDefault(prefs);
-        alarm.autoSilenceDuration = SettingsDAO.getAlarmTimeout(prefs);
-        alarm.snoozeDuration = SettingsDAO.getSnoozeLength(prefs);
-        alarm.crescendoDuration = SettingsDAO.getAlarmVolumeCrescendoDuration(prefs);
+        alarm.vibrate = SettingsDAO.areAlarmVibrationsEnabledByDefault(mPrefs);
+        alarm.flash = SettingsDAO.shouldTurnOnBackFlashForTriggeredAlarm(mPrefs);
+        alarm.deleteAfterUse = SettingsDAO.isOccasionalAlarmDeletedByDefault(mPrefs);
+        alarm.autoSilenceDuration = SettingsDAO.getAlarmTimeout(mPrefs);
+        alarm.snoozeDuration = SettingsDAO.getSnoozeLength(mPrefs);
+        alarm.crescendoDuration = SettingsDAO.getAlarmVolumeCrescendoDuration(mPrefs);
         alarm.alarmVolume = audioManager.getStreamVolume(STREAM_ALARM);
 
         return alarm;
