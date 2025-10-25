@@ -41,6 +41,8 @@
     <string name="label_minutes">Minutes</string>
     <!-- Label "Seconds" -->
     <string name="label_seconds">Seconds</string>
+    <!-- Generic confirmation message used in dialogs asking the user if they want to continue -->
+    <string name="confirm_action_prompt">\n\nDo you want to continue?</string>
     <!-- Title of default ringtone played when an alarm triggers [CHAR LIMIT=30] -->
     <string name="default_alarm_ringtone_title">Default alarm sound</string>
     <!-- Title for alarm ringtone picker screen [CHAR LIMIT=30] -->
@@ -381,8 +383,8 @@
     <string name="snooze_duration_title">Snooze length</string>
     <!-- Setting title to enable the use of a custom volume for each alarm. -->
     <string name="enable_per_alarm_volume_title">Use a custom volume for each alarm</string>
-    <!-- Setting summary to clarify what the "Use a custom volume for each alarm" setting implies. -->
-    <string name="enable_per_alarm_volume_summary">Allows setting a different volume for each alarm in the expanded alarm view</string>
+    <!-- Dialog message when the user disables the "Use a custom volume for each alarm" setting -->
+    <string name="enable_per_alarm_volume_dialog_message">Custom alarm volumes will be reset.%s</string>
     <!-- Setting title to display the Dismiss button -->
     <string name="display_dismiss_button_title">Display Dismiss button as soon as alarm is enabled</string>
     <!-- Setting summary to specify when the Dismiss button will appear if the

@@ -73,7 +73,6 @@
         <SwitchPreferenceCompat
             android:key="key_enable_per_alarm_volume"
             android:title="@string/enable_per_alarm_volume_title"
-            android:summary="@string/enable_per_alarm_volume_summary"
             android:defaultValue="false"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"

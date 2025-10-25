@@ -653,7 +653,6 @@
     <string name="clock_dial_with_numbers">Z liczbami</string>
     <string name="clock_dial_without_numbers">Bez liczb</string>
     <string name="background_default_color_title">Użyj domyślnego koloru tła</string>
-    <string name="enable_per_alarm_volume_summary">Umożliwia ustawienie innej głośności dla każdego alarmu w rozszerzonym widoku alarmów</string>
     <string name="delay_picker_dialog_title">Alarm w…</string>
     <string name="sort_alarm_title">Sortuj alarmy</string>
     <string name="sort_alarm_time">Według czasu alarmu</string>

@@ -628,7 +628,6 @@
     <string name="disconnect_bluetooth_device_title">Selle seadistuse sättimiseks palun katkesta Bluetoothi seadme ühendus</string>
     <string name="system_media_volume_title">Kasuta süsteemi üldist helivaljust</string>
     <string name="widget_apply_horizontal_padding_title">Lisa vidina külgedele veerised</string>
-    <string name="enable_per_alarm_volume_summary">Detailsest äratuse vaatest saad igale äratusele määrata eraldi valjuse</string>
     <string name="enable_per_alarm_volume_title">Kasuta iga äratuse puhul eraldi valjust</string>
     <string name="delay_picker_dialog_title">Äratuse aeg…</string>
     <string name="colors_category_title">Värvid</string>

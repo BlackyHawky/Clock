@@ -647,7 +647,6 @@
     <string name="disconnect_bluetooth_device_title">Для доступу до цього налаштування відключіть пристрій Bluetooth</string>
     <string name="widget_apply_horizontal_padding_title">Застосувати відступи до сторін віджетів</string>
     <string name="enable_per_alarm_volume_title">Окремі значення гучності для кожного будильника</string>
-    <string name="enable_per_alarm_volume_summary">Дозволяє встановити різну гучність для кожного будильника в розгорнутому перегляді будильника</string>
     <string name="delay_picker_dialog_title">Будильник о…</string>
     <string name="clock_dial_with_numbers">Із цифрами</string>
     <string name="colors_category_title">Кольори</string>

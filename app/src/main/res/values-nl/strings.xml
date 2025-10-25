@@ -623,7 +623,6 @@
     <string name="disconnect_bluetooth_device_title">Verbreek verbinding met het Bluetooth-apparaat om toegang te krijgen tot deze instelling</string>
     <string name="widget_apply_horizontal_padding_title">Ruimte toepassen op widgetranden</string>
     <string name="enable_per_alarm_volume_title">Aangepast volume voor iedere wekker</string>
-    <string name="enable_per_alarm_volume_summary">Stel in het uitvouwmenu voor elke wekker een ander volume in</string>
     <string name="delay_picker_dialog_title">Alarm in…</string>
     <string name="colors_category_title">Kleuren</string>
     <string name="clock_second_hand_title">Secondewijzer</string>

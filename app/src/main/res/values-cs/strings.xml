@@ -637,7 +637,6 @@
     <string name="connect_bluetooth_device_title">Připojte zařízení Bluetooth pro přístup k tomuto nastavení</string>
     <string name="disconnect_bluetooth_device_title">Odpojte zařízení Bluetooth pro přístup k tomuto nastavení</string>
     <string name="enable_per_alarm_volume_title">Použít vlastní hlasitost pro každý budík</string>
-    <string name="enable_per_alarm_volume_summary">Umožňuje nastavit různou hlasitost pro každý budík v rozšířeném zobrazení budíku</string>
     <string name="delay_picker_dialog_title">Budík za…</string>
     <string name="clock_dial_sun">Slunce</string>
     <string name="clock_dial_flower">Květina</string>

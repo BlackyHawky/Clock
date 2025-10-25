@@ -613,7 +613,6 @@
     <string name="timer_creation_view_style_title">Zamanlayıcı yaratma görünüm stili</string>
     <string name="enable_per_alarm_volume_title">Her bir alarm için özelleştirilmiş bir ses yüksekliği kullan</string>
     <string name="hide_clock_am_pm_pref">AM/PM metnini gizle</string>
-    <string name="enable_per_alarm_volume_summary">Genişletilmiş alarm görüntülemede her bir alarm için farklı ses yüksekliği ayarlanmasını sağlar</string>
     <string name="widget_apply_horizontal_padding_title">Araç yanlarına dolgu uygula</string>
     <string name="system_media_volume_title">Sistem ortam ses yüksekliğini kullan</string>
     <string name="system_media_volume_summary">Sadece bir Bluetooth aygıt bağlıysa çalışır</string>

@@ -27,7 +27,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
     static final String ALARMS_TABLE_NAME = "alarm_templates";
     static final String INSTANCES_TABLE_NAME = "alarm_instances";
 
-    private static final int DATABASE_VERSION = 21;
+    private static final int DATABASE_VERSION = 22;
     private static final int MINIMUM_SUPPORTED_VERSION = 15;
 
     public ClockDatabaseHelper(Context context) {
@@ -52,7 +52,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                 ClockContract.AlarmsColumns.AUTO_SILENCE_DURATION + " INTEGER NOT NULL DEFAULT 10, " +
                 ClockContract.AlarmsColumns.SNOOZE_DURATION + " INTEGER NOT NULL DEFAULT 10, " +
                 ClockContract.AlarmsColumns.CRESCENDO_DURATION + " INTEGER NOT NULL DEFAULT 0, " +
-                ClockContract.AlarmsColumns.ALARM_VOLUME + " INTEGER NOT NULL DEFAULT 11);");
+                ClockContract.AlarmsColumns.ALARM_VOLUME + " INTEGER NOT NULL DEFAULT 5);");
 
         LogUtils.i("Alarms Table created");
     }
@@ -193,6 +193,29 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
 
             LogUtils.i("dismissAlarmWhenRingtoneEnds, alarmSnoozeActions and increasingVolume" +
                     " columns removed for version 21 upgrade.");
+        }
+
+        if (oldVersion < 22) {
+            final String TEMP_ALARMS_TABLE_NAME = ALARMS_TABLE_NAME + "_temp";
+            final String TEMP_INSTANCES_TABLE_NAME = INSTANCES_TABLE_NAME + "_temp";
+
+            // Creating temporary tables with updated alarmVolume
+            createAlarmsTable(db, TEMP_ALARMS_TABLE_NAME);
+            createInstanceTable(db, TEMP_INSTANCES_TABLE_NAME);
+
+            // Copy data from old tables to new ones
+            db.execSQL("INSERT INTO " + TEMP_ALARMS_TABLE_NAME + " SELECT * FROM " + ALARMS_TABLE_NAME + ";");
+            db.execSQL("INSERT INTO " + TEMP_INSTANCES_TABLE_NAME + " SELECT * FROM " + INSTANCES_TABLE_NAME + ";");
+
+            // Delete old tables
+            db.execSQL("DROP TABLE IF EXISTS " + ALARMS_TABLE_NAME + ";");
+            db.execSQL("DROP TABLE IF EXISTS " + INSTANCES_TABLE_NAME + ";");
+
+            // Rename temporary tables to default names
+            db.execSQL("ALTER TABLE " + TEMP_ALARMS_TABLE_NAME + " RENAME TO " + ALARMS_TABLE_NAME + ";");
+            db.execSQL("ALTER TABLE " + TEMP_INSTANCES_TABLE_NAME + " RENAME TO " + INSTANCES_TABLE_NAME + ";");
+
+            LogUtils.i("Updated alarmVolume default to 5 for version 22 upgrade.");
         }
     }
 

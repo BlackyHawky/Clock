@@ -67,6 +67,7 @@ public class PreferencesDefaultValues {
     public static final int ALARM_SNOOZE_DURATION_DISABLED = -1;
     public static final int DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION = 0;
     public static final boolean DEFAULT_ENABLE_PER_ALARM_VOLUME = false;
+    public static final int DEFAULT_ALARM_VOLUME = 5;
     public static final boolean DEFAULT_ADVANCED_AUDIO_PLAYBACK = false;
     public static final boolean DEFAULT_AUTO_ROUTING_TO_BLUETOOTH_DEVICE = false;
     public static final boolean DEFAULT_SYSTEM_MEDIA_VOLUME = true;

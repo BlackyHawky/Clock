@@ -3,6 +3,7 @@
 package com.best.deskclock.settings;
 
 import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_SNOOZE_DURATION_DISABLED;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_VOLUME;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VIBRATION_START_DELAY;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_END_OF_RINGTONE;
@@ -37,6 +38,8 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_WEEK_START;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.media.AudioDeviceCallback;
@@ -47,6 +50,7 @@ import android.os.Handler;
 import android.os.Looper;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
@@ -67,6 +71,8 @@ import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.Utils;
+import com.google.android.material.color.MaterialColors;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.List;
 
@@ -75,6 +81,8 @@ public class AlarmSettingsFragment extends ScreenFragment
 
     private AudioManager mAudioManager;
     private AudioDeviceCallback mAudioDeviceCallback;
+    private AlarmUpdateHandler mAlarmUpdateHandler;
+    private List<Alarm> mAlarmList;
 
     Preference mAlarmRingtonePref;
     SwitchPreferenceCompat mEnablePerAlarmVolumePref;
@@ -112,6 +120,10 @@ public class AlarmSettingsFragment extends ScreenFragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        final ContentResolver contentResolver = requireContext().getContentResolver();
+        mAlarmUpdateHandler = new AlarmUpdateHandler(requireContext(), null, null);
+        mAlarmList = Alarm.getAlarms(contentResolver, null);
 
         addPreferencesFromResource(R.xml.settings_alarm);
 
@@ -189,8 +201,46 @@ public class AlarmSettingsFragment extends ScreenFragment
 
             case KEY_ENABLE_PER_ALARM_VOLUME -> {
                 stopRingtonePreview();
-                mAlarmVolumePref.setVisible(!(boolean) newValue);
+
                 Utils.setVibrationTime(requireContext(), 50);
+
+                if ((boolean) newValue) {
+                    mAlarmVolumePref.setVisible(false);
+
+                    for (Alarm alarm : mAlarmList) {
+                        alarm.alarmVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_ALARM);
+                        mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                    }
+                } else {
+                    final Drawable drawable = AppCompatResources.getDrawable(requireContext(), R.drawable.ic_error);
+                    if (drawable != null) {
+                        drawable.setTint(MaterialColors.getColor(
+                                requireContext(), com.google.android.material.R.attr.colorOnSurface, Color.BLACK));
+                    }
+
+                    String confirmAction = requireContext().getString(R.string.confirm_action_prompt);
+                    String dialogMessage = requireContext().getString(
+                            R.string.enable_per_alarm_volume_dialog_message, confirmAction);
+
+                    new MaterialAlertDialogBuilder(requireContext())
+                            .setIcon(drawable)
+                            .setTitle(R.string.warning)
+                            .setMessage(dialogMessage)
+                            .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                                for (Alarm alarm : mAlarmList) {
+                                    alarm.alarmVolume = DEFAULT_ALARM_VOLUME;
+                                    mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                                }
+
+                                mPrefs.edit().putBoolean(KEY_ENABLE_PER_ALARM_VOLUME, false).apply();
+                                mEnablePerAlarmVolumePref.setChecked(false);
+                                mAlarmVolumePref.setVisible(true);
+                            })
+                            .setNegativeButton(android.R.string.cancel, null)
+                            .show();
+
+                    return false;
+                }
             }
 
             case KEY_ADVANCED_AUDIO_PLAYBACK -> {
@@ -229,13 +279,9 @@ public class AlarmSettingsFragment extends ScreenFragment
                 final int index = mAlarmNotificationReminderTimePref.findIndexOfValue((String) newValue);
                 mAlarmNotificationReminderTimePref.setSummary(mAlarmNotificationReminderTimePref.getEntries()[index]);
 
-                ContentResolver cr = requireContext().getContentResolver();
-                AlarmUpdateHandler alarmUpdateHandler = new AlarmUpdateHandler(requireContext(), null, null);
-                List<Alarm> alarms = Alarm.getAlarms(cr, null);
-
-                for (Alarm alarm : alarms) {
+                for (Alarm alarm : mAlarmList) {
                     if (alarm.enabled) {
-                        alarmUpdateHandler.asyncUpdateAlarm(alarm, false, false);
+                        mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, false);
                     }
                 }
             }
