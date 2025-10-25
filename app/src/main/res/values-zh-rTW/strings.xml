@@ -548,7 +548,6 @@
     <string name="about_translate_link">Codeberg 翻譯</string>
     <string name="translate_dialog_message">造訪 Codeberg 頁面：\n\n%s</string>
     <string name="description_direction_both_for_non_repeatable_alarm">向左或向右滑動關閉</string>
-    <string name="about_dialog_message">• 為指定日期配置鬧鐘\n\n• 翻轉或搖動裝置以關閉 / 延後鬧鐘\n\n• 按下電源鍵或音量鍵以關閉 / 延後鬧鐘\n• 關機狀態觸發鬧鐘，僅支援部分搭載 Snapdragon 處理器的裝置\n\t\t 請注意，這項功能在某些預裝<i>「com.qualcomm.qti.poweroffalarm」</i> 系統元件的裝置上仍有可能無法運作。\n\n• 滑動刪除鬧鐘\n\n• 複製鬧鐘\n\n• 自訂鬧鐘標題\n\n• 自訂鈴聲\n\n• 淺色、深色及系統主題\n\n• AMOLED 螢幕專用深色模式\n\n• 數位及類比時鐘樣式\n\n• 旅行時主頁顯示當地時間\n\n• 顯示世界多個城市時間\n\n• 計時器與碼表\n\n• 與您的聯絡人分享碼表\n\n• 自訂螢幕保護程式\n\n• 現代小工具\n\n• 自訂小工具\n\n• 快速設定方塊 (Android 7 以上)\n\n• 備份與還原資料 (不含自訂鈴聲)\n\n• Material 外觀\n\n• 動態色彩樣式 (Android 12 以上)</string>
     <string name="timer_volume_buttons_action_title">音量鍵重設到期的計時器</string>
     <string name="timer_flip_action_title">翻轉裝置停止鬧鐘</string>
     <string name="timer_shake_action_title">搖動裝置停止鬧鐘</string>

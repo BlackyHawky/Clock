@@ -1001,6 +1001,8 @@
     <string name="whats_new_dialog_message">Discover what\'s new:\n\n%s</string>
     <!-- Features title -->
     <string name="features_title">Main features</string>
+    <!-- Features dialog message in about screen -->
+    <string name="features_dialog_message">Visit the main features page:\n\n%s</string>
     <!-- Github repo link for about screen -->
     <string name="about_github_link">View on GitHub</string>
     <!-- Github dialog message in about screen -->
@@ -1015,32 +1017,6 @@
     <string name="license_dialog_message">Read the licence:\n\n%s</string>
     <!-- License link for about screen -->
     <string name="gnu_gpl">GNU General Public License v3.0</string>
-    <!-- About features text -->
-    <string name="about_dialog_message">
-        • Set the alarms to a specific date;
-        \n\n• Flip and shake action to dismiss/postpone alarm;
-        \n\n• Turn off/postpone the alarm with the power button or volume buttons;
-        \n\n• For some Snapdragon devices only, the alarm is triggered when they are switched off;
-        \n\t\t Unfortunately, this feature may not work on some devices despite the presence of the <i>\"com.qualcomm.qti.poweroffalarm\"</i> system app.
-        \n\n• Swipe to delete an alarm;
-        \n\n• Duplicate alarms;
-        \n\n• Customize alarm title;
-        \n\n• Customizable ringtone;
-        \n\n• Light, dark or system theme;
-        \n\n• AMOLED mode for dark theme;
-        \n\n• Digital or analog clock style;
-        \n\n• Display home time when traveling;
-        \n\n• Display the time in many cities around the world;
-        \n\n• Timer and stopwatch included;
-        \n\n• Possibility of sharing your stopwatch with your contacts;
-        \n\n• Customizable screensaver;
-        \n\n• Modern widgets;
-        \n\n• Customizable widgets;
-        \n\n• Support for tiles in quick settings (for Android 7+);
-        \n\n• Backup and restore application data (except custom ringtones);
-        \n\n• Material design;
-        \n\n• Dynamic colors for Android 12+;
-    </string>
     <!-- Title button to reset all settings -->
     <string name="reset_settings_title">Reset settings</string>
     <!-- Confirmation message to reset all settings -->

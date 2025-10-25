@@ -209,13 +209,10 @@ public class AboutFragment extends ScreenFragment
                 displayLinkDialog(R.drawable.ic_about_update, R.string.whats_new_title, R.string.whats_new_dialog_message, link);
             }
 
-            case KEY_ABOUT_FEATURES ->
-                new MaterialAlertDialogBuilder(requireContext())
-                        .setIcon(R.drawable.ic_about_features)
-                        .setTitle(R.string.features_title)
-                        .setMessage(R.string.about_dialog_message)
-                        .setPositiveButton(R.string.dialog_close, null)
-                        .show();
+            case KEY_ABOUT_FEATURES -> {
+                final String link = "https://github.com/BlackyHawky/Clock?tab=readme-ov-file#features";
+                displayLinkDialog(R.drawable.ic_about_features, R.string.features_title, R.string.features_dialog_message, link);
+            }
 
             case KEY_ABOUT_VIEW_ON_GITHUB -> {
                 final String link = "https://github.com/BlackyHawky/Clock";
