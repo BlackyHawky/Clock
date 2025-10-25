@@ -1,0 +1,8 @@
+Mnoho oprav a vylepšení popsaných zde:
+https://github.com/BlackyHawky/Clock/releases/tag/2.25
+
+**Poznámka: V důsledku změn v kódu byly resetovány dvě nastavení časovače:**
+- `Ztišení po`
+- `Výchozí čas k přidání do časovače`
+
+**Po aktualizaci aplikace vytvořte novou zálohu a starou zálohu smažte**

@@ -1,4 +1,4 @@
-Hodiny jsou open-source aplikace zaměřené na soukromí, založená na AOSP.
+Hodiny jsou open-source aplikace zaměřená na soukromí, založená na AOSP.
 Nepoužívá oprávnění k internetu, a je tedy 100% offline.
 
 Funkce:

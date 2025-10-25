@@ -495,7 +495,7 @@
     <string name="material_time_picker_style_title">Saat seçme stili</string>
     <string name="permission_status_title">Durum:</string>
     <string name="minute_default_color_title">Dakikalar için varsayılan rengi kullan</string>
-    <string name="minute_color_title">Dakikalar için özel renk</string>
+    <string name="minute_color_title">Dakika rengi</string>
     <string name="date_default_color_title">Tarih için varsayılan rengi kullan</string>
     <string name="app_slogan">AOSP tabanlı, %100 Ücretsiz Açık Kaynak Kodlu Saat</string>
     <string name="city_name_default_color_title">Şehir ismi için varsayılan rengi kullan</string>
@@ -633,4 +633,25 @@
     <string name="sort_cities_title">Şehir sıralaması</string>
     <string name="enable_city_note_title">Şehirlere kişisel not ekleme</string>
     <string name="enable_city_note_summary">Kişisel not eklemek ya da düzenlemek için bir şehre dokunun</string>
+    <string name="vibration_pattern_title">Titreşim düzeni</string>
+    <string name="vibration_pattern_soft">Yumuşak</string>
+    <string name="vibration_pattern_strong">Güçlü</string>
+    <string name="vibration_pattern_heartbeat">Kalp atımı</string>
+    <string name="vibration_pattern_escalating">Artan</string>
+    <string name="vibration_pattern_tick_tock">Tik-Tak</string>
+    <string name="vibration_start_delay_title">Titreşim öncesi bekleme süresi</string>
+    <string name="vibration_start_delay_none">Hiçbiri</string>
+    <string name="vibration_start_delay_warning_box_text">0 ile 10 dakika arasında bir süre girin</string>
+    <string name="enable_alarm_fab_long_press_title">Gecikmeli alarm oluşturmak için aksiyon düğmesine uzun basmayı etkinleştir</string>
+    <string name="enable_alarm_fab_long_press_summary">Devre dışı bırakılırsa, alarm oluşturmak için iki düğme gösterilecektir</string>
+    <string name="clock_second_hand_title">Yelkovan</string>
+    <string name="city_note_dialog_title">%s için not</string>
+    <string name="sort_cities_ascending_time_zone">Zaman dilimine göre (artan sırada)</string>
+    <string name="sort_cities_descending_time_zone">Zaman dilimine göre (azalan sırada)</string>
+    <string name="dial_color_title">Tuşlama rengi</string>
+    <string name="dial_default_color_title">Öntanımlı tuşlama rengi</string>
+    <string name="hour_hand_color_title">Akrep rengi</string>
+    <string name="hour_hand_default_color_title">Akrep için öntanımlı renk</string>
+    <string name="minute_hand_color_title">Yelkovan rengi</string>
+    <string name="minute_hand_default_color_title">Yelkovan için öntanımlı renk</string>
 </resources>

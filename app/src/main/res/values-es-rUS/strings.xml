@@ -40,7 +40,7 @@
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Posponer hasta: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Próxima alarma"</string>
-    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Se eliminó la alarma perdida."</string>
+    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">Se eliminó la alarma perdida</string>
     <string name="timer_notifications_less_min" msgid="5481375048976427255">"Queda menos de 1 minuto"</string>
     <string name="timer_notifications_hours" msgid="1613266446037145138">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_notifications_minutes" msgid="8543138714519498893">"<xliff:g id="MINUTES">%2$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
@@ -329,4 +329,72 @@
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"La alarma <xliff:g id="ALARM_TIME">%s</xliff:g> se pospuso por diez minutos"</string>
     <string name="flip_action_title">Acción al voltear el dispositivo</string>
     <string name="shake_action_title">Acción al agitar el dispositivo</string>
+    <string name="alarm_flash">Flash</string>
+    <string name="delete_occasional_alarm_after_use_title">Eliminar alarma una vez desactivada</string>
+    <string name="label_default">Predeterminado</string>
+    <string name="duplicate">Duplicar</string>
+    <string name="warning">Advertencia</string>
+    <string name="label_hours">Horas</string>
+    <string name="label_minutes">Minutos</string>
+    <string name="label_seconds">Segundos</string>
+    <string name="add_new_sound_subtitle">Pulse prolongadamente para seleccionar una carpeta</string>
+    <string name="selected">Selecionado</string>
+    <string name="more_options">Más opciones</string>
+    <string name="alarm_alert_dismiss_and_delete_text">Descartar y eliminar</string>
+    <string name="occasional_alarm_alert_predismiss_title">Próxima alarma ocasional</string>
+    <string name="toast_message_for_restore">Restauración completada</string>
+    <string name="toast_message_for_backup">Respaldo completado</string>
+    <string name="restore_button_title">Restaurar</string>
+    <string name="schedule_alarm_title">Programar alarma</string>
+    <string name="delay_picker_dialog_title">Alarma en…</string>
+    <string name="alarm_label_box_title">Etiqueta de la alarma</string>
+    <string name="alarm_alert_off_and_deleted_text">Alarma desactivada y eliminada</string>
+    <string name="vertical_digital_widget">Reloj digital vertical</string>
+    <string name="next_alarm_widget">Siguiente alarma</string>
+    <string name="settings_permission_message">Se han denegado uno o más permisos esenciales. No concederlos puede provocar fallos de funcionamiento.</string>
+    <string name="settings_permission_summary">Presione aquí para mostrar la página de gestión de permisos.</string>
+    <string name="style_category_title">Estilo</string>
+    <string name="colors_category_title">Colores</string>
+    <string name="font_category_title">Fuente</string>
+    <string name="miscellaneous_category_title">Misceláneos</string>
+    <string name="ringtone_category_title">Tono de llamada</string>
+    <string name="actions_category_title">Acciones</string>
+    <string name="standard_category_title">Estándar</string>
+    <string name="interface_customization_settings">Interfaz</string>
+    <string name="interface_customization_summary">Establecer el estilo y el color aplicados a la aplicación</string>
+    <string name="title_theme">Tema</string>
+    <string name="system_theme">Sistema</string>
+    <string name="light_theme">Claro</string>
+    <string name="dark_theme">Oscuro</string>
+    <string name="black_accent_color">Negro</string>
+    <string name="blue_accent_color">Azul</string>
+    <string name="blue_gray_accent_color">Gris Azulado</string>
+    <string name="brown_accent_color">Café</string>
+    <string name="green_accent_color">Verde</string>
+    <string name="indigo_accent_color">Índigo</string>
+    <string name="orange_accent_color">Naranja</string>
+    <string name="pink_accent_color">Rosa</string>
+    <string name="purple_accent_color">Morado</string>
+    <string name="red_accent_color">Rojo</string>
+    <string name="yellow_accent_color">Amarillo</string>
+    <string name="title_dark_theme_mode">Modo de tema oscuro</string>
+    <string name="settings_language_title">Idioma</string>
+    <string name="settings_language_system">Idioma del sistema</string>
+    <string name="settings_language_english_us">Inglés (US)</string>
+    <string name="settings_language_french">Francés</string>
+    <string name="settings_language_german">Alemán</string>
+    <string name="settings_language_chinese_simplified_cn">Chino (Simplificado, RPC)</string>
+    <string name="settings_language_estonian">Estonio</string>
+    <string name="settings_language_italian">Italiano</string>
+    <string name="settings_language_polish">Polaco</string>
+    <string name="settings_language_portuguese">Portugués</string>
+    <string name="settings_language_serbian">Serbio</string>
+    <string name="settings_language_spanish">Español</string>
+    <string name="settings_language_ukrainian">Ucraniano</string>
+    <string name="settings_language_dutch">Holandés</string>
+    <string name="settings_language_russian">Ruso</string>
+    <string name="settings_language_turkish">Turco</string>
+    <string name="settings_language_korean">Coreano</string>
+    <string name="settings_language_czech">Sueco</string>
+    <string name="settings_language_chinese_traditional_tw">Chino (tradicional, Taiwán)</string>
 </resources>
