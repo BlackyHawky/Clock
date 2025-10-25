@@ -38,6 +38,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Static utility methods for Alarms.
@@ -138,8 +139,35 @@ public class AlarmUtils {
                 : alarmTimeStr + " - " + instance.mLabel;
     }
 
-    public static String getFormattedTime(Context context, Calendar time) {
-        final String skeleton = DateFormat.is24HourFormat(context) ? "EHm" : "Ehma";
+    public static String getFormattedTime(Context context, Calendar alarmTime) {
+        final Calendar now = Calendar.getInstance();
+        final Calendar today = (Calendar) now.clone();
+        final Calendar tomorrow = (Calendar) now.clone();
+        tomorrow.add(Calendar.DAY_OF_YEAR, 1);
+
+        final boolean is24HourFormat = DateFormat.is24HourFormat(context);
+        String skeleton = is24HourFormat ? "Hm" : "hma";
+
+        String prefix = "";
+
+        if (isSameDayAndTimeZone(alarmTime, today)) {
+            prefix = context.getString(R.string.alarm_today) + " ";
+        } else if (isSameDayAndTimeZone(alarmTime, tomorrow)) {
+            prefix = context.getString(R.string.alarm_tomorrow) + " ";
+        } else {
+            // Beyond tomorrow: show day or full date if distant
+            long diffInMillis = alarmTime.getTimeInMillis() - now.getTimeInMillis();
+            long diffInDays = TimeUnit.MILLISECONDS.toDays(diffInMillis);
+
+            if (diffInDays >= 6) {
+                // e.g., "Sat Oct 28 20:30"
+                skeleton = is24HourFormat ? "EEE MMM d Hm" : "EEE MMM d hma";
+            } else {
+                // e.g., "Wed 20:30"
+                skeleton = is24HourFormat ? "EEE Hm" : "EEE hma";
+            }
+        }
+
         String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), skeleton);
         if (context instanceof ScreensaverActivity || context instanceof Screensaver) {
             final SharedPreferences prefs = getDefaultSharedPreferences(context);
@@ -153,8 +181,32 @@ public class AlarmUtils {
                 pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), skeleton) + "\u2009";
             }
         }
-        return (String) DateFormat.format(pattern, time);
+        return prefix + DateFormat.format(pattern, alarmTime);
     }
+
+    /**
+     * Checks if two Calendar instances represent the same calendar day, taking into account their
+     * respective time zones.
+     * <p>
+     * This method returns false if the two calendars use different time zones, even if the year
+     * and day of year fields are numerically equal.</p>
+     *
+     * @param cal1 the first calendar instance
+     * @param cal2 the second calendar instance
+     *
+     * @return {@code true} if both calendars are in the same time zone and represent the same day;
+     * {@code false} otherwise.
+     */
+    private static boolean isSameDayAndTimeZone(Calendar cal1, Calendar cal2) {
+        // Normalize both calendars to their respective time zones
+        if (!cal1.getTimeZone().equals(cal2.getTimeZone())) {
+            return false;
+        }
+
+        return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
+                cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR);
+    }
+
 
     public static String getFormattedTime(Context context, long timeInMillis) {
         final Calendar c = Calendar.getInstance();
