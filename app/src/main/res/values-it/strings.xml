@@ -418,7 +418,6 @@
     <string name="screensaver_brightness_title">Luminosità</string>
     <string name="title_dark_theme_mode">Modalità tema scuro</string>
     <string name="permission_dialog_revoke_title">Accesso revocato</string>
-    <string name="permission_dialog_close_button">Chiudi</string>
     <string name="revoke_permission_dialog_message">Vuoi veramente revocare questa autorizzazione?</string>
     <string name="auto_silence_end_of_ringtone">Alla fine della suoneria</string>
     <string name="app_slogan">Orologio 100% FOSS, basato su AOSP</string>

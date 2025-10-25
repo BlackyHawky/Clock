@@ -473,7 +473,6 @@
     <string name="alarm_label_box_title">Etykieta alarmu</string>
     <string name="style_category_title">Styl</string>
     <string name="ignore_battery_optimizations_dialog_title">Optymalizacja baterii</string>
-    <string name="permission_dialog_close_button">Zamknij</string>
     <string name="delete_occasional_alarm_after_use_title">Usuń alarm po odrzuceniu</string>
     <string name="hour_default_color_title">Użyj domyślnego koloru dla godzin</string>
     <string name="hour_color_title">Niestandardowy kolor godzin</string>

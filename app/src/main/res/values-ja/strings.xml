@@ -344,7 +344,6 @@
     <string name="red_accent_color">赤色</string>
     <string name="about_github_link">GitHubで見る</string>
     <string name="timer_label_box_title">タイマーラベル</string>
-    <string name="permission_dialog_close_button">閉じる</string>
     <string name="delete_occasional_alarm_after_use_title">アラームを一度停止したら削除する</string>
     <string name="title_dark_theme_mode">ダークテーマモード</string>
     <string name="title_accent_color">アクセントカラー</string>

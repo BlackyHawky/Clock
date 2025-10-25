@@ -369,7 +369,6 @@
     <string name="screensaver_bold_digital_clock_title">Дигитални сат у подебљаном</string>
     <string name="screensaver_clock_dynamic_colors_title">Динамичне боје сата</string>
     <string name="ignore_battery_optimizations_title">ИГНОРИШИ ОПТИМИЗАЦИЈЕ БАТЕРИЈЕ</string>
-    <string name="permission_dialog_close_button">Затвори</string>
     <string name="notifications_dialog_title">Обавештења</string>
     <string name="permission_dialog_revoke_title">Опозови приступ</string>
     <string name="ignore_battery_optimizations_dialog_title">Оптимизације батерије</string>

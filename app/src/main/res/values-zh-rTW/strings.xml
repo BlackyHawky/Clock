@@ -345,7 +345,6 @@
     <string name="title_accent_color">強調色</string>
     <string name="settings_vibration_title">啟用震動</string>
     <string name="permission_granted">已授予</string>
-    <string name="permission_dialog_close_button">關閉</string>
     <string name="material_you_digital_widget">Material You 數位時鐘</string>
     <string name="alarm_label_box_title">鬧鐘標籤</string>
     <string name="label_default">預設</string>

@@ -1430,7 +1430,6 @@
     <!-- Denied permission label on long press on warning icon -->
     <string name="denied_permission_label">Permission denied</string>
     <string name="permission_dialog_revoke_title">Revoke access</string>
-    <string name="permission_dialog_close_button">Close</string>
     <string name="revoke_permission_dialog_message">Are you sure you want to revoke this permission?</string>
     <!-- Ignore Battery Optimization Permission -->
     <string name="ignore_battery_optimizations_title">IGNORE BATTERY OPTIMIZATIONS</string>

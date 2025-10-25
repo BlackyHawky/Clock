@@ -458,7 +458,6 @@
     <string name="permission_denied">Refusé</string>
     <string name="denied_permission_label">Permission refusée</string>
     <string name="permission_dialog_revoke_title">Révoquer l\'accès</string>
-    <string name="permission_dialog_close_button">Fermer</string>
     <string name="revoke_permission_dialog_message">Êtes-vous sûr de vouloir révoquer cette autorisation ?</string>
     <string name="ignore_battery_optimizations_title">IGNORER LES OPTIMISATIONS DE LA BATTERIE</string>
     <string name="ignore_battery_optimizations_dialog_title">Optimisations de la batterie</string>

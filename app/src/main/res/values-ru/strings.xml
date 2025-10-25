@@ -372,7 +372,6 @@
     <string name="first_launch_dialog_message">Вы уверены, что вы хотите покинуть приложение?</string>
     <string name="display_city_title">Отображать города на виджете</string>
     <string name="next_alarm_default_color_title">Использовать цвет по умолчанию для следующего будильника</string>
-    <string name="permission_dialog_close_button">Закрыть</string>
     <string name="selected">Выбор</string>
     <string name="more_options">Больше опций</string>
     <string name="FSN_dialog_title">Полноэкранные Уведомления</string>

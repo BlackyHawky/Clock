@@ -443,7 +443,6 @@
     <string name="permission_granted">Concedida</string>
     <string name="permission_denied">Negada</string>
     <string name="permission_dialog_revoke_title">Revogar acesso</string>
-    <string name="permission_dialog_close_button">Fechar</string>
     <string name="revoke_permission_dialog_message">Tem a certeza que deseja revogar esta permissão?</string>
     <string name="ignore_battery_optimizations_title">IGNORAR OTIMIZAÇÕES DA BATERIA</string>
     <string name="ignore_battery_optimizations_dialog_title">Otimizações da Bateria</string>

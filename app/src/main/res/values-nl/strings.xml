@@ -373,7 +373,6 @@
     <string name="permission_granted">Toegestaan</string>
     <string name="permission_denied">Geweigerd</string>
     <string name="permission_dialog_revoke_title">Toegang intrekken</string>
-    <string name="permission_dialog_close_button">Sluiten</string>
     <string name="revoke_permission_dialog_message">Weet je zeker dat je dit recht wilt intrekken?</string>
     <string name="ignore_battery_optimizations_title">NEGEER BATTERIJOPTIMALISATIES</string>
     <string name="notifications_permission_title">MELDINGEN INSCHAKELEN</string>

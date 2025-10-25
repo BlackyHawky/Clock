@@ -367,7 +367,6 @@
     <string name="permission_granted">Надано</string>
     <string name="permission_denied">Відхилено</string>
     <string name="permission_dialog_revoke_title">Скасувати доступ</string>
-    <string name="permission_dialog_close_button">Закрити</string>
     <string name="notifications_permission_title">УВІМКНУТИ СПОВІЩЕННЯ</string>
     <string name="selected">Вибрано</string>
     <string name="more_options">Додаткові опції</string>

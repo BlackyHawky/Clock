@@ -564,7 +564,6 @@
     <string name="first_launch_button_now">Nyní</string>
     <string name="display_warning_before_deleting_timer_title">Zobrazit varování před odstraněním časovače</string>
     <string name="sort_manually">Ručně (táhnutím)</string>
-    <string name="permission_dialog_close_button">Zavřít</string>
     <string name="first_launch_version">Verze %s</string>
     <string name="date_default_color_title">Použít výchozí barvu pro datum</string>
     <string name="city_clock_default_color_title">Použít výchozí barvu pro hodiny měst</string>

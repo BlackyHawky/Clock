@@ -421,7 +421,6 @@
     <string name="display_background_border_summary">显示某些应用程序元素（闹钟、城市、定时器按钮等）的背景边框</string>
     <string name="ignore_battery_optimizations_title">忽略电池优化</string>
     <string name="permission_denied">已拒绝</string>
-    <string name="permission_dialog_close_button">关闭</string>
     <string name="revoke_permission_dialog_message">是否确定要撤销此权限？</string>
     <string name="permission_status_title">状态： </string>
     <string name="permission_granted">已授予</string>

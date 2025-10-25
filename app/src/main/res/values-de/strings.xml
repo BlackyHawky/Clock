@@ -387,7 +387,6 @@
     <string name="permission_management_summary">Anzeige der für die ordnungsgemäße Funktion der Anwendung erforderlichen Berechtigungen</string>
     <string name="permission_highly_recommended">Sehr empfohlen</string>
     <string name="permission_status_title">Status: </string>
-    <string name="permission_dialog_close_button">Schließen</string>
     <string name="ignore_battery_optimizations_title">AKKU-OPTIMIERUNGEN IGNORIEREN</string>
     <string name="ignore_battery_optimizations_dialog_title">Akku-Optimierungen</string>
     <string name="notifications_permission_title">BENACHRICHTIGUNGEN AKTIVIEREN</string>

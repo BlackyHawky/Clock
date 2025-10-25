@@ -308,7 +308,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                     .setIcon(iconId)
                     .setTitle(titleId)
                     .setMessage(messageId)
-                    .setPositiveButton(R.string.permission_dialog_close_button, null)
+                    .setPositiveButton(R.string.dialog_close, null)
                     .show();
         }
 

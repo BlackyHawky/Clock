@@ -535,7 +535,6 @@
     <string name="permission_management_summary">Uygulamanın düzgün çalışması için gerekli olan izinleri göster</string>
     <string name="permission_granted">İzin verildi</string>
     <string name="permission_denied">İzin verilmedi</string>
-    <string name="permission_dialog_close_button">Kapat</string>
     <string name="revoke_permission_dialog_message">Bu izni geri almak istediğinize emin misiniz?</string>
     <string name="ignore_battery_optimizations_title">PİL OPTİMİZASYONUNU YOK SAY</string>
     <string name="permission_info_title">Sadece Xiaomi cihazlar için</string>

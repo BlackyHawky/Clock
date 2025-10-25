@@ -337,7 +337,6 @@
     <string name="timer_channel">Numărătoare inversă</string>
     <string name="title_accent_color">Culoare accent</string>
     <string name="permission_denied">Refuzată</string>
-    <string name="permission_dialog_close_button">Închidere</string>
     <string name="selected">Selectat</string>
     <string name="more_options">Mai multe opțiuni</string>
     <string name="settings_permission_summary">Clic aici pentru a afișa pagina de gestionare a permisiunilor.</string>

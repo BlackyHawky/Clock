@@ -328,7 +328,7 @@
     <string name="sort_name">નામથી</string>
     <string name="first_launch_dialog_title">બહાર નિકડો</string>
     <string name="permission_management_settings">પરવાનગી વ્યવસ્થાપન</string>
-    <string name="permission_dialog_close_button">બંદ કરો</string>
+    <string name="dialog_close">બંદ કરો</string>
     <string name="permission_granted">મંજૂર કરી</string>
     <string name="first_launch_button_now">હમણાં</string>
     <string name="first_launch_version">વર્ઝન %s</string>

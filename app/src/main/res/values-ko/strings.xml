@@ -482,7 +482,6 @@
     <string name="license_dialog_message">라이선스 페이지를 엽니다.\n\n%s</string>
     <string name="ignore_battery_optimizations_title">배터리 사용량 최적화 끄기</string>
     <string name="revoke_permission_dialog_message">정말 이 권한을 삭제할까요?</string>
-    <string name="permission_dialog_close_button">닫기</string>
     <string name="ignore_battery_optimizations_dialog_title">배터리 사용량 최적화</string>
     <string name="permission_denied">거부됨</string>
     <string name="notifications_dialog_title">알림</string>
