@@ -66,9 +66,12 @@ public class PreferencesKeys {
 
     // Alarm
     public static final String KEY_DEFAULT_ALARM_RINGTONE = "key_default_alarm_ringtone";
+    public static final String KEY_ENABLE_PER_ALARM_AUTO_SILENCE = "key_enable_per_alarm_auto_silence";
     public static final String KEY_AUTO_SILENCE_DURATION = "key_auto_silence_duration";
+    public static final String KEY_ENABLE_PER_ALARM_SNOOZE_DURATION = "key_enable_per_alarm_snooze_duration";
     public static final String KEY_ALARM_SNOOZE_DURATION = "key_alarm_snooze_duration";
     public static final String KEY_ALARM_VOLUME_SETTING = "key_volume_setting";
+    public static final String KEY_ENABLE_PER_ALARM_VOLUME_CRESCENDO_DURATION = "key_enable_per_alarm_volume_crescendo_duration";
     public static final String KEY_ALARM_VOLUME_CRESCENDO_DURATION = "key_alarm_volume_crescendo_duration";
     public static final String KEY_ENABLE_PER_ALARM_VOLUME = "key_enable_per_alarm_volume";
     public static final String KEY_ADVANCED_AUDIO_PLAYBACK = "key_advanced_audio_playback";

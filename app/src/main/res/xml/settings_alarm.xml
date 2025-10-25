@@ -56,9 +56,25 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
+        <SwitchPreferenceCompat
+            android:key="key_enable_per_alarm_auto_silence"
+            android:title="@string/enable_per_alarm_auto_silence_title"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
         <com.best.deskclock.settings.AutoSilenceDurationPreference
             android:key="key_auto_silence_duration"
             android:title="@string/auto_silence_title"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <SwitchPreferenceCompat
+            android:key="key_enable_per_alarm_snooze_duration"
+            android:title="@string/enable_per_alarm_snooze_duration_title"
+            android:defaultValue="true"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
@@ -85,6 +101,14 @@
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_seekbar_layout" />
+
+        <SwitchPreferenceCompat
+            android:key="key_enable_per_alarm_volume_crescendo_duration"
+            android:title="@string/enable_per_alarm_crescendo_duration_title"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <com.best.deskclock.settings.VolumeCrescendoDurationPreference
             android:key="key_alarm_volume_crescendo_duration"

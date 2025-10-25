@@ -379,6 +379,10 @@
     <string name="settings_keep_screen_on_title">Keep the screen on</string>
     <!-- Setting summary about keeping the screen on. -->
     <string name="settings_keep_screen_on_summary">Note: The screen will always be on if a timer or stopwatch is running and the corresponding tab is displayed, regardless of the status of this setting</string>
+    <!-- Setting title to enable the use of a custom snooze duration for each alarm. -->
+    <string name="enable_per_alarm_snooze_duration_title">Use a custom snooze duration for each alarm</string>
+    <!-- Dialog message when the "Use a custom snooze duration for each alarm" setting is disabled. -->
+    <string name="enable_per_alarm_snooze_duration_dialog_message">Custom alarm snooze durations will be reset.%s</string>
     <!-- Setting title for changing the snooze duration. -->
     <string name="snooze_duration_title">Snooze length</string>
     <!-- Setting title to enable the use of a custom volume for each alarm. -->
@@ -503,10 +507,18 @@
     <string name="display_ringtone_title">Display ringtone title</string>
     <!-- Setting title for customizing the ringtone title color. -->
     <string name="ringtone_title_color">Ringtone title color</string>
+    <!-- Setting title to enable the use of a custom volume increase duration for each alarm. -->
+    <string name="enable_per_alarm_crescendo_duration_title">Use a custom volume increase duration for each alarm</string>
+    <!-- Dialog message when the "Use a custom volume increase duration for each alarm" setting is disabled. -->
+    <string name="enable_per_alarm_crescendo_duration_dialog_message">Custom alarm volume increase durations will be reset.%s</string>
     <!-- Setting title for changing the crescendo duration. -->
     <string name="crescendo_duration_title">Gradually increase volume</string>
     <!-- Auto silence preference title -->
     <string name="auto_silence_title">Silence after</string>
+    <!-- Setting title to enable the use of a custom alarm stop duration for each alarm. -->
+    <string name="enable_per_alarm_auto_silence_title">Use a custom alarm stop duration for each alarm</string>
+    <!-- Dialog message when the "Use a custom alarm stop duration for each alarm" setting is disabled. -->
+    <string name="enable_per_alarm_auto_silence_dialog_message">Custom alarm stop durations will be reset.%s</string>
     <!-- Auto silence summary when turned off -->
     <string name="auto_silence_never">Never</string>
     <!-- Auto silence summary when set at "The end of the ringtone" or for changing the auto silence.-->

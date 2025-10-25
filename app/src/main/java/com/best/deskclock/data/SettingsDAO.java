@@ -600,6 +600,16 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return {@code true} if a custom volume increase duration can be set for each alarm.
+     * {@code false} otherwise.
+     */
+    public static boolean isPerAlarmCrescendoDurationEnabled(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        return prefs.getBoolean(KEY_ENABLE_PER_ALARM_VOLUME_CRESCENDO_DURATION,
+                DEFAULT_ENABLE_PER_ALARM_VOLUME_CRESCENDO_DURATION);
+    }
+
+    /**
      * @return the duration, in seconds, of the crescendo to apply to alarm ringtone playback;
      * {@code 0} implies no crescendo should be applied.
      */
@@ -745,10 +755,28 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return {@code true} if a custom auto silence duration can be set for each alarm.
+     * {@code false} otherwise.
+     */
+    public static boolean isPerAlarmAutoSilenceEnabled(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        return prefs.getBoolean(KEY_ENABLE_PER_ALARM_AUTO_SILENCE, DEFAULT_ENABLE_PER_ALARM_AUTO_SILENCE);
+    }
+
+    /**
      * @return the number of minutes an alarm may ring before it has timed out
      */
     public static int getAlarmTimeout(SharedPreferences prefs) {
         return prefs.getInt(KEY_AUTO_SILENCE_DURATION, DEFAULT_AUTO_SILENCE_DURATION);
+    }
+
+    /**
+     * @return {@code true} if a custom snooze duration can be set for each alarm.
+     * {@code false} otherwise.
+     */
+    public static boolean isPerAlarmSnoozeDurationEnabled(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        return prefs.getBoolean(KEY_ENABLE_PER_ALARM_SNOOZE_DURATION, DEFAULT_ENABLE_PER_ALARM_SNOOZE_DURATION);
     }
 
     /**

@@ -62,9 +62,12 @@ public class PreferencesDefaultValues {
     public static final String DEFAULT_HOME_TIME_ZONE = null;
 
     // Alarm
+    public static final boolean DEFAULT_ENABLE_PER_ALARM_AUTO_SILENCE = true;
     public static final int DEFAULT_AUTO_SILENCE_DURATION = 10;
+    public static final boolean DEFAULT_ENABLE_PER_ALARM_SNOOZE_DURATION = true;
     public static final int DEFAULT_ALARM_SNOOZE_DURATION = 10;
     public static final int ALARM_SNOOZE_DURATION_DISABLED = -1;
+    public static final boolean DEFAULT_ENABLE_PER_ALARM_VOLUME_CRESCENDO_DURATION = true;
     public static final int DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION = 0;
     public static final boolean DEFAULT_ENABLE_PER_ALARM_VOLUME = false;
     public static final int DEFAULT_ALARM_VOLUME = 5;

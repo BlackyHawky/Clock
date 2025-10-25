@@ -303,54 +303,79 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     }
 
     private void bindAutoSilenceValue(Context context, Alarm alarm) {
-        int autoSilenceDuration = alarm.autoSilenceDuration;
+        if (SettingsDAO.isPerAlarmAutoSilenceEnabled(mPrefs)) {
+            autoSilenceDurationTitle.setVisibility(VISIBLE);
+            autoSilenceDurationValue.setVisibility(VISIBLE);
 
-        if (autoSilenceDuration == TIMEOUT_NEVER) {
-            autoSilenceDurationValue.setText(context.getString(R.string.auto_silence_never));
-        } else if (autoSilenceDuration == TIMEOUT_END_OF_RINGTONE) {
-            autoSilenceDurationValue.setText(context.getString(R.string.auto_silence_end_of_ringtone));
+            int autoSilenceDuration = alarm.autoSilenceDuration;
+
+            if (autoSilenceDuration == TIMEOUT_NEVER) {
+                autoSilenceDurationValue.setText(context.getString(R.string.auto_silence_never));
+            } else if (autoSilenceDuration == TIMEOUT_END_OF_RINGTONE) {
+                autoSilenceDurationValue.setText(context.getString(R.string.auto_silence_end_of_ringtone));
+            } else {
+                autoSilenceDurationValue.setText(context.getResources().getQuantityString(
+                        R.plurals.minutes_short, autoSilenceDuration, autoSilenceDuration));
+            }
         } else {
-            autoSilenceDurationValue.setText(context.getResources().getQuantityString(
-                    R.plurals.minutes_short, autoSilenceDuration, autoSilenceDuration));
+            autoSilenceDurationTitle.setVisibility(GONE);
+            autoSilenceDurationValue.setVisibility(GONE);
         }
     }
 
     private void bindSnoozeValue(Context context, Alarm alarm) {
-        int snoozeDuration = alarm.snoozeDuration;
+        if (SettingsDAO.isPerAlarmSnoozeDurationEnabled(mPrefs)) {
+            snoozeDurationTitle.setVisibility(VISIBLE);
+            snoozeDurationValue.setVisibility(VISIBLE);
 
-        int h = snoozeDuration / 60;
-        int m = snoozeDuration % 60;
+            int snoozeDuration = alarm.snoozeDuration;
 
-        if (h > 0 && m > 0) {
-            String hoursString = context.getResources().getQuantityString(R.plurals.hours_short, h, h);
-            String minutesString = context.getResources().getQuantityString(R.plurals.minutes_short, m, m);
-            snoozeDurationValue.setText(String.format("%s %s", hoursString, minutesString));
-        } else if (h > 0) {
-            snoozeDurationValue.setText(context.getResources().getQuantityString(R.plurals.hours_short, h, h));
-        } else if (snoozeDuration == ALARM_SNOOZE_DURATION_DISABLED) {
-            snoozeDurationValue.setText(context.getString(R.string.snooze_duration_none));
+            int h = snoozeDuration / 60;
+            int m = snoozeDuration % 60;
+
+            if (h > 0 && m > 0) {
+                String hoursString = context.getResources().getQuantityString(R.plurals.hours_short, h, h);
+                String minutesString = context.getResources().getQuantityString(R.plurals.minutes_short, m, m);
+                snoozeDurationValue.setText(String.format("%s %s", hoursString, minutesString));
+            } else if (h > 0) {
+                snoozeDurationValue.setText(context.getResources().getQuantityString(R.plurals.hours_short, h, h));
+            } else if (snoozeDuration == ALARM_SNOOZE_DURATION_DISABLED) {
+                snoozeDurationValue.setText(context.getString(R.string.snooze_duration_none));
+            } else {
+                snoozeDurationValue.setText(context.getResources().getQuantityString(R.plurals.minutes_short, m, m));
+            }
         } else {
-            snoozeDurationValue.setText(context.getResources().getQuantityString(R.plurals.minutes_short, m, m));
+            snoozeDurationTitle.setVisibility(GONE);
+            snoozeDurationValue.setVisibility(GONE);
         }
+
     }
 
     private void bindCrescendoValue(Context context, Alarm alarm) {
-        int crescendoDuration = alarm.crescendoDuration;
+        if (SettingsDAO.isPerAlarmCrescendoDurationEnabled(mPrefs)) {
+            crescendoDurationTitle.setVisibility(VISIBLE);
+            crescendoDurationValue.setVisibility(VISIBLE);
 
-        int m = crescendoDuration / 60;
-        int s = crescendoDuration % 60;
+            int crescendoDuration = alarm.crescendoDuration;
 
-        if (m > 0 && s > 0) {
-            String minutesString = context.getResources().getQuantityString(R.plurals.minutes_short, m, m);
-            String secondsString = s + " " + context.getString(R.string.seconds_label);
-            crescendoDurationValue.setText(String.format("%s %s", minutesString, secondsString));
-        } else if (m > 0) {
-            crescendoDurationValue.setText(context.getResources().getQuantityString(R.plurals.minutes_short, m, m));
-        } else if (crescendoDuration == DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION) {
-            crescendoDurationValue.setText(context.getString(R.string.label_off));
+            int m = crescendoDuration / 60;
+            int s = crescendoDuration % 60;
+
+            if (m > 0 && s > 0) {
+                String minutesString = context.getResources().getQuantityString(R.plurals.minutes_short, m, m);
+                String secondsString = s + " " + context.getString(R.string.seconds_label);
+                crescendoDurationValue.setText(String.format("%s %s", minutesString, secondsString));
+            } else if (m > 0) {
+                crescendoDurationValue.setText(context.getResources().getQuantityString(R.plurals.minutes_short, m, m));
+            } else if (crescendoDuration == DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION) {
+                crescendoDurationValue.setText(context.getString(R.string.label_off));
+            } else {
+                String secondsString = s + " " + context.getString(R.string.seconds_label);
+                crescendoDurationValue.setText(secondsString);
+            }
         } else {
-            String secondsString = s + " " + context.getString(R.string.seconds_label);
-            crescendoDurationValue.setText(secondsString);
+            crescendoDurationTitle.setVisibility(GONE);
+            crescendoDurationValue.setVisibility(GONE);
         }
     }
 
@@ -634,7 +659,10 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         final boolean vibrateVisible = vibrate.getVisibility() == VISIBLE;
         final boolean flashVisible = flash.getVisibility() == VISIBLE;
         final boolean deleteOccasionalAlarmAfterUseVisible = deleteOccasionalAlarmAfterUse.getVisibility() == VISIBLE;
-        final boolean isAlarmVolumeTitleVisible = alarmVolumeTitle.getVisibility() == VISIBLE;
+        final boolean autoSilenceDurationTitleVisible = autoSilenceDurationTitle.getVisibility() == VISIBLE;
+        final boolean snoozeDurationTitleVisible = snoozeDurationTitle.getVisibility() == VISIBLE;
+        final boolean alarmVolumeTitleVisible = alarmVolumeTitle.getVisibility() == VISIBLE;
+        final boolean crescendoDurationTitleVisible = crescendoDurationTitle.getVisibility() == VISIBLE;
         final boolean preemptiveDismissButtonVisible = preemptiveDismissButton.getVisibility() == VISIBLE;
 
         editLabelIconAnimation.setStartDelay(startDelay);
@@ -650,23 +678,29 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
             dismissAnimation.setStartDelay(startDelay);
         }
 
-        if (isAlarmVolumeTitleVisible) {
+        if (alarmVolumeTitleVisible) {
             startDelay += delayIncrement;
             alarmVolumeTitleAnimation.setStartDelay(startDelay);
             alarmVolumeValueAnimation.setStartDelay(startDelay);
         }
 
-        crescendoDurationTitleAnimation.setStartDelay(startDelay);
+        if (crescendoDurationTitleVisible) {
+            startDelay += delayIncrement;
+            crescendoDurationTitleAnimation.setStartDelay(startDelay);
+            crescendoDurationValueAnimation.setStartDelay(startDelay);
+        }
 
-        crescendoDurationValueAnimation.setStartDelay(startDelay);
+        if (snoozeDurationTitleVisible) {
+            snoozeDurationTitleAnimation.setStartDelay(startDelay);
+            snoozeDurationValueAnimation.setStartDelay(startDelay);
+            startDelay += delayIncrement;
+        }
 
-        snoozeDurationTitleAnimation.setStartDelay(startDelay);
-
-        snoozeDurationValueAnimation.setStartDelay(startDelay);
-
-        silenceAfterDurationTitleAnimation.setStartDelay(startDelay);
-
-        silenceAfterDurationTitleAnimation.setStartDelay(startDelay);
+        if (autoSilenceDurationTitleVisible) {
+            startDelay += delayIncrement;
+            silenceAfterDurationTitleAnimation.setStartDelay(startDelay);
+            silenceAfterDurationTitleAnimation.setStartDelay(startDelay);
+        }
 
         if (deleteOccasionalAlarmAfterUseVisible) {
             startDelay += delayIncrement;
@@ -848,7 +882,10 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         final boolean vibrateVisible = vibrate.getVisibility() == VISIBLE;
         final boolean flashVisible = flash.getVisibility() == VISIBLE;
         final boolean deleteOccasionalAlarmAfterUseVisible = deleteOccasionalAlarmAfterUse.getVisibility() == VISIBLE;
-        final boolean isAlarmVolumeTitleVisible = alarmVolumeTitle.getVisibility() == VISIBLE;
+        final boolean autoSilenceDurationTitleVisible = autoSilenceDurationTitle.getVisibility() == VISIBLE;
+        final boolean snoozeDurationTitleVisible = snoozeDurationTitle.getVisibility() == VISIBLE;
+        final boolean alarmVolumeTitleVisible = alarmVolumeTitle.getVisibility() == VISIBLE;
+        final boolean crescendoDurationTitleVisible = crescendoDurationTitle.getVisibility() == VISIBLE;
         final boolean preemptiveDismissButtonVisible = preemptiveDismissButton.getVisibility() == VISIBLE;
 
         editLabelIconAnimation.setStartDelay(startDelay);
@@ -882,19 +919,25 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
             startDelay += delayIncrement;
         }
 
-        silenceAfterDurationTitleAnimation.setStartDelay(startDelay);
+        if (autoSilenceDurationTitleVisible) {
+            silenceAfterDurationTitleAnimation.setStartDelay(startDelay);
+            silenceAfterDurationValueAnimation.setStartDelay(startDelay);
+            startDelay += delayIncrement;
+        }
 
-        silenceAfterDurationValueAnimation.setStartDelay(startDelay);
+        if (snoozeDurationTitleVisible) {
+            startDelay += delayIncrement;
+            snoozeDurationTitleAnimation.setStartDelay(startDelay);
+            snoozeDurationValueAnimation.setStartDelay(startDelay);
+        }
 
-        snoozeDurationTitleAnimation.setStartDelay(startDelay);
+        if (crescendoDurationTitleVisible) {
+            crescendoDurationTitleAnimation.setStartDelay(startDelay);
+            crescendoDurationValueAnimation.setStartDelay(startDelay);
+            startDelay += delayIncrement;
+        }
 
-        snoozeDurationValueAnimation.setStartDelay(startDelay);
-
-        crescendoDurationTitleAnimation.setStartDelay(startDelay);
-
-        crescendoDurationValueAnimation.setStartDelay(startDelay);
-
-        if (isAlarmVolumeTitleVisible) {
+        if (alarmVolumeTitleVisible) {
             alarmVolumeTitleAnimation.setStartDelay(startDelay);
             alarmVolumeValueAnimation.setStartDelay(startDelay);
             startDelay += delayIncrement;
@@ -954,11 +997,35 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
             numberOfItems++;
         }
 
+        if (autoSilenceDurationTitle.getVisibility() == VISIBLE) {
+            numberOfItems++;
+        }
+
+        if (autoSilenceDurationValue.getVisibility() == VISIBLE) {
+            numberOfItems++;
+        }
+
+        if (snoozeDurationTitle.getVisibility() == VISIBLE) {
+            numberOfItems++;
+        }
+
+        if (snoozeDurationValue.getVisibility() == VISIBLE) {
+            numberOfItems++;
+        }
+
         if (alarmVolumeTitle.getVisibility() == VISIBLE) {
             numberOfItems++;
         }
 
         if (alarmVolumeValue.getVisibility() == VISIBLE) {
+            numberOfItems++;
+        }
+
+        if (crescendoDurationTitle.getVisibility() == VISIBLE) {
+            numberOfItems++;
+        }
+
+        if (crescendoDurationValue.getVisibility() == VISIBLE) {
             numberOfItems++;
         }
 
