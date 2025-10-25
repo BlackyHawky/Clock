@@ -184,6 +184,8 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
 
             mSnoozeActionText.setText(getString(R.string.button_action_snooze));
             mSnoozeActionText.setTextColor(snoozeTitleColor);
+
+            mDismissActionText.setText(getString(R.string.button_action_dismiss));
             mDismissActionText.setTextColor(dismissTitleColor);
 
             mPillView.setFillColor(ColorUtils.setAlphaComponent(alarmButtonColor, 128));
@@ -272,6 +274,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
             mDismissButton.setBackgroundColor(SettingsDAO.getDismissButtonColor(mPrefs, this));
             mSnoozeButton.setText(getString(R.string.button_action_snooze));
             mSnoozeButton.setContentDescription(getString(R.string.description_snooze_button));
+            mDismissButton.setText(getString(R.string.button_action_dismiss));
             mDismissButton.setContentDescription(getString(R.string.description_dismiss_button));
             // Allow text scrolling (all other attributes are indicated in the "alarm_activity.xml" file)
             mSnoozeButton.setSelected(true);

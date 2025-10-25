@@ -128,7 +128,6 @@
             android:layout_width="0dp"
             android:layout_height="80dp"
             android:layout_marginHorizontal="12dp"
-            android:text="@string/button_action_dismiss"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@android:color/white"
@@ -139,6 +138,7 @@
             app:layout_constraintStart_toEndOf="@+id/alarm_vertical_center_guide"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/alarm_horizontal_end_guide"
+            tools:text="@string/button_action_dismiss"
             tools:visibility="gone" />
 
         <!-- Slide zone -->
@@ -179,7 +179,6 @@
                 android:paddingStart="6dp"
                 android:paddingEnd="@null"
                 android:paddingVertical="10dp"
-                android:text="@string/button_action_dismiss"
                 android:textSize="18sp"
                 android:gravity="end|center_vertical"
                 android:textStyle="bold"
@@ -188,6 +187,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
+                tools:text="@string/button_action_dismiss"
                 tools:textColor="@android:color/white" />
 
             <!-- Pill in the background of the Alarm button -->

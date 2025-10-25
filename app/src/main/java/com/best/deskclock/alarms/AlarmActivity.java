@@ -292,26 +292,31 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
             mAlarmButton.setBackgroundColor(alarmButtonColor);
             mAlarmButton.setOnTouchListener(this);
             if (mAlarmInstance.mSnoozeDuration == ALARM_SNOOZE_DURATION_DISABLED) {
-                if (isOccasionalAlarmDeletedAfterUse()) {
-                    mAlarmButton.setContentDescription(getString(
-                            R.string.description_direction_both_for_occasional_non_repeatable_alarm));
-                } else {
-                    mAlarmButton.setContentDescription(getString(
-                            R.string.description_direction_both_for_non_repeatable_alarm));
-                }
+                mAlarmButton.setContentDescription(getString(isOccasionalAlarmDeletedAfterUse()
+                        ? R.string.description_direction_both_for_occasional_non_repeatable_alarm
+                        : R.string.description_direction_both_for_non_repeatable_alarm)
+                );
             } else {
-                if (isOccasionalAlarmDeletedAfterUse()) {
-                    mAlarmButton.setContentDescription(getString(
-                            R.string.description_direction_both_for_occasional_alarm));
-                } else {
-                    mAlarmButton.setContentDescription(getString(R.string.description_direction_both));
-                }
+                mAlarmButton.setContentDescription(getString(isOccasionalAlarmDeletedAfterUse()
+                        ? R.string.description_direction_both_for_occasional_alarm
+                        : R.string.description_direction_both)
+                );
             }
 
-            mSnoozeActionText.setText(mAlarmInstance.mSnoozeDuration == ALARM_SNOOZE_DURATION_DISABLED
-                    ? getString(R.string.button_action_dismiss) : getString(R.string.button_action_snooze));
+            if (mAlarmInstance.mSnoozeDuration == ALARM_SNOOZE_DURATION_DISABLED) {
+                mSnoozeActionText.setText(getString(isOccasionalAlarmDeletedAfterUse()
+                        ? R.string.delete
+                        : R.string.button_action_dismiss)
+                );
+            } else {
+                mSnoozeActionText.setText(getString(R.string.button_action_snooze));
+            }
             mSnoozeActionText.setTextColor(snoozeTitleColor);
 
+            mDismissActionText.setText(getString(isOccasionalAlarmDeletedAfterUse()
+                    ? R.string.delete
+                    : R.string.button_action_dismiss)
+            );
             mDismissActionText.setTextColor(dismissTitleColor);
 
             mPillView.setFillColor(ColorUtils.setAlphaComponent(alarmButtonColor, 128));
@@ -401,25 +406,28 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
             mDismissButton.setBackgroundColor(SettingsDAO.getDismissButtonColor(mPrefs, this));
 
             if (mAlarmInstance.mSnoozeDuration == ALARM_SNOOZE_DURATION_DISABLED) {
-                mSnoozeButton.setText(getString(R.string.button_action_dismiss));
+                mSnoozeButton.setText(getString(isOccasionalAlarmDeletedAfterUse()
+                        ? R.string.delete
+                        : R.string.button_action_dismiss)
+                );
 
-                if (isOccasionalAlarmDeletedAfterUse()) {
-                    mSnoozeButton.setContentDescription(getString(
-                            R.string.description_dismiss_button_for_occasional_alarm));
-                } else {
-                    mSnoozeButton.setContentDescription(getString(
-                                R.string.description_dismiss_button));
-                }
+                mSnoozeButton.setContentDescription(getString(isOccasionalAlarmDeletedAfterUse()
+                        ? R.string.description_dismiss_button_for_occasional_alarm
+                        : R.string.description_dismiss_button)
+                );
             } else {
                 mSnoozeButton.setText(getString(R.string.button_action_snooze));
                 mSnoozeButton.setContentDescription(getString(R.string.description_snooze_button));
             }
 
-            if (isOccasionalAlarmDeletedAfterUse()) {
-                mDismissButton.setContentDescription(getString(R.string.description_dismiss_button_for_occasional_alarm));
-            } else {
-                mDismissButton.setContentDescription(getString(R.string.description_dismiss_button));
-            }
+            mDismissButton.setText(getString(isOccasionalAlarmDeletedAfterUse()
+                    ? R.string.delete
+                    : R.string.button_action_dismiss)
+            );
+            mDismissButton.setContentDescription(getString(isOccasionalAlarmDeletedAfterUse()
+                    ? R.string.description_dismiss_button_for_occasional_alarm
+                    : R.string.description_dismiss_button)
+            );
 
             // Allow text scrolling (all other attributes are indicated in the "alarm_activity.xml" file)
             mSnoozeButton.setSelected(true);
