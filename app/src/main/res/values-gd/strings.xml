@@ -71,7 +71,7 @@
     <string name="snooze_duration_title">Dèan dùsal fad</string>
     <string name="crescendo_duration_title">Àrdaich an fuaim mean air mhean</string>
     <string name="auto_silence_title">Cuir ’na thost às dèidh </string>
-    <string name="auto_silence_never">Chan ann idir</string>
+    <string name="label_never">Chan ann idir</string>
     <string name="label_off">Dheth</string>
     <string name="week_start_title">Tòisich an t-seachdain air</string>
     <string name="week_start_saturday">DiSathairne</string>

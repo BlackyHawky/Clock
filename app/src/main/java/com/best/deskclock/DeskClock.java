@@ -71,6 +71,7 @@ import com.best.deskclock.AutoSilenceDurationDialogFragment.AutoSilenceDurationD
 import com.best.deskclock.LabelDialogFragment.AlarmLabelDialogHandler;
 import com.best.deskclock.LabelDialogFragment.CityNoteDialogHandler;
 import com.best.deskclock.VolumeCrescendoDurationDialogFragment.VolumeCrescendoDurationDialogHandler;
+import com.best.deskclock.alarms.AlarmMissedRepeatLimitDialogFragment.MissedAlarmRepeatLimitDialogHandler;
 import com.best.deskclock.alarms.AlarmVolumeDialogFragment.VolumeValueDialogHandler;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.DataModel.SilentSetting;
@@ -107,8 +108,8 @@ import java.util.TimeZone;
  */
 public class DeskClock extends BaseActivity
         implements FabContainer, AlarmLabelDialogHandler, AutoSilenceDurationDialogHandler,
-        SnoozeDurationDialogHandler, VolumeCrescendoDurationDialogHandler,
-        VolumeValueDialogHandler, CityNoteDialogHandler {
+        SnoozeDurationDialogHandler, MissedAlarmRepeatLimitDialogHandler,
+        VolumeCrescendoDurationDialogHandler, VolumeValueDialogHandler, CityNoteDialogHandler {
 
     SharedPreferences mPrefs;
 
@@ -522,6 +523,14 @@ public class DeskClock extends BaseActivity
         final Fragment frag = getSupportFragmentManager().findFragmentByTag(tag);
         if (frag instanceof AlarmClockFragment) {
             ((AlarmClockFragment) frag).setSnoozeDuration(alarm, snoozeDuration);
+        }
+    }
+
+    @Override
+    public void onMissedAlarmRepeatLimitSet(Alarm alarm, int missedAlarmRepeatLimit, String tag) {
+        final Fragment frag = getSupportFragmentManager().findFragmentByTag(tag);
+        if (frag instanceof AlarmClockFragment) {
+            ((AlarmClockFragment) frag).setMissedAlarmRepeatLimit(alarm, missedAlarmRepeatLimit);
         }
     }
 

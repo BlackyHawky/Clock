@@ -10,6 +10,7 @@ import static android.content.Context.ALARM_SERVICE;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_SNOOZE_DURATION_DISABLED;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_MISSED_ALARM_REPEAT_LIMIT;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_NEVER;
 import static com.best.deskclock.utils.AlarmUtils.ACTION_NEXT_ALARM_CHANGED_BY_CLOCK;
 
@@ -432,8 +433,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         final SharedPreferences prefs = getDefaultSharedPreferences(context);
         final int snoozeMinutes = instance.mSnoozeDuration;
         Calendar newAlarmTime = Calendar.getInstance();
-        // If the "Snooze duration" setting has been set to "None" or if "Enable alarm snooze actions"
-        // is not enabled in the expanded alarm view, simply dismiss the alarm.
+        // If the "Snooze duration" setting has been set to "None" simply dismiss the alarm.
         if (snoozeMinutes == ALARM_SNOOZE_DURATION_DISABLED) {
             deleteInstanceAndUpdateParent(context, instance);
             return;
@@ -487,34 +487,59 @@ public final class AlarmStateManager extends BroadcastReceiver {
     public static void setMissedState(Context context, AlarmInstance instance) {
         LogUtils.i("Setting missed state to instance " + instance.mId);
 
-        // If the "Alarm silence" setting has not been set to "Never", we don't want alarms
-        // to be seen as missed but snoozed.
-        // This avoids having to create multiple alarms for the same reason.
-        if (instance.mAutoSilenceDuration != TIMEOUT_NEVER) {
+        ContentResolver contentResolver = context.getContentResolver();
+        Alarm alarm = Alarm.getAlarm(contentResolver, instance.mAlarmId);
+        boolean isDeleteAfterUse = alarm != null && !alarm.daysOfWeek.isRepeating() && alarm.deleteAfterUse;
+
+        // If it's an occasional alarm, there's no need to mark it as missed; just delete it.
+        if (isDeleteAfterUse) {
+            deleteInstanceAndUpdateParent(context, instance);
+            return;
+        }
+
+        final int maxMissedAlarmRepeatCount = instance.mMissedAlarmRepeatLimit;
+
+        // If the "Silence after" or the "Repeat missed alarms" feature has been set to "Never"
+        // in Settings or in the expanded alarm view, the alarm is snoozed instead of marked as missed.
+        if (instance.mAutoSilenceDuration == TIMEOUT_NEVER
+                || maxMissedAlarmRepeatCount == Integer.parseInt(DEFAULT_MISSED_ALARM_REPEAT_LIMIT)) {
+
+            LogUtils.i("Alarm auto-silenced. Snoozing");
             setSnoozeState(context, instance, true);
             return;
         }
 
-        // Stop alarm if this instance is firing it
-        AlarmService.stopAlarm(context, instance);
+        instance.mMissedAlarmCurrentCount += 1;
 
-        // Check parent if it needs to reschedule, disable or delete itself
-        if (instance.mAlarmId != null) {
-            updateParentAlarm(context, instance);
+        // Snooze the alarm until the missed alarm repeat limit is reached.
+        if (instance.mMissedAlarmCurrentCount >= maxMissedAlarmRepeatCount) {
+            LogUtils.i("Max count reached. Marking instance as MISSED: " + instance.mId);
+
+            // Stop alarm if this instance is firing it
+            AlarmService.stopAlarm(context, instance);
+
+            // Check parent if it needs to reschedule, disable or delete itself
+            if (instance.mAlarmId != null) {
+                updateParentAlarm(context, instance);
+            }
+
+            // Update alarm state
+            instance.mAlarmState = AlarmInstance.MISSED_STATE;
+            AlarmInstance.updateInstance(contentResolver, instance);
+
+            // Setup instance notification and scheduling timers
+            AlarmNotifications.showMissedNotification(context, instance);
+            scheduleInstanceStateChange(
+                    context, instance.getMissedTimeToLive(), instance, AlarmInstance.DISMISSED_STATE);
+
+            cancelPowerOffAlarm(context, instance);
+            // Instance is not valid anymore, so find next alarm that will fire and notify system
+            updateNextAlarm(context);
+        } else {
+            LogUtils.i("Alarm auto-silenced. Snoozing (missedAlarmCurrentCount = "
+                    + instance.mMissedAlarmCurrentCount + ")");
+            setSnoozeState(context, instance, true);
         }
-
-        // Update alarm state
-        ContentResolver contentResolver = context.getContentResolver();
-        instance.mAlarmState = AlarmInstance.MISSED_STATE;
-        AlarmInstance.updateInstance(contentResolver, instance);
-
-        // Setup instance notification and scheduling timers
-        AlarmNotifications.showMissedNotification(context, instance);
-        scheduleInstanceStateChange(context, instance.getMissedTimeToLive(), instance, AlarmInstance.DISMISSED_STATE);
-
-        cancelPowerOffAlarm(context, instance);
-        // Instance is not valid anymore, so find next alarm that will fire and notify system
-        updateNextAlarm(context);
     }
 
     /**
@@ -535,6 +560,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
         // Update alarm in database
         final ContentResolver contentResolver = context.getContentResolver();
+        instance.mMissedAlarmCurrentCount = 0;
         instance.mAlarmState = AlarmInstance.PREDISMISSED_STATE;
         AlarmInstance.updateInstance(contentResolver, instance);
 
@@ -556,6 +582,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      */
     public static void setDismissState(Context context, AlarmInstance instance) {
         LogUtils.i("Setting dismissed state to instance " + instance.mId);
+        instance.mMissedAlarmCurrentCount = 0;
         instance.mAlarmState = AlarmInstance.DISMISSED_STATE;
         final ContentResolver contentResolver = context.getContentResolver();
         AlarmInstance.updateInstance(contentResolver, instance);

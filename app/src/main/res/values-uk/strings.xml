@@ -107,7 +107,7 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"Відкласти на"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Збільшувати гучність поступово"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">Вимкнути після</string>
-    <string name="auto_silence_never" msgid="4821982647348750809">"Ніколи"</string>
+    <string name="label_never" msgid="4821982647348750809">"Ніколи"</string>
     <string name="label_off">Вимкнено</string>
     <string name="week_start_title" msgid="4268917518596832096">Початок тижня</string>
     <string name="week_start_saturday">субота</string>
@@ -602,7 +602,6 @@
     <string name="settings_toolbar_title">Показувати заголовок панелі інструментів</string>
     <string name="settings_language_czech">Чеська</string>
     <string name="tab_title_visibility_always">Завжди</string>
-    <string name="tab_title_visibility_never">Ніколи</string>
     <string name="tab_title_visibility_when_selected">Коли вибрана</string>
     <string name="settings_keep_screen_on_title">Тримати дисплей увімкненим</string>
     <string name="settings_keep_screen_on_summary">Примітка: екран завжди буде ввімкнений, якщо працює таймер або секундомір і відображається відповідна вкладка, незалежно від стану цього параметра</string>

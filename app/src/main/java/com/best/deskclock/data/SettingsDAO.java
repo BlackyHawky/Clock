@@ -871,6 +871,24 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return {@code true} if a custom repeat limit can be set for each missed alarm.
+     * {@code false} otherwise.
+     */
+    public static boolean isPerAlarmMissedRepeatLimitEnabled(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        return prefs.getBoolean(KEY_ENABLE_PER_ALARM_MISSED_REPEAT_LIMIT, DEFAULT_ENABLE_PER_ALARM_MISSED_REPEAT_LIMIT);
+    }
+
+    /**
+     * @return the number of times a missed alarm can be repeated.
+     */
+    public static int getMissedAlarmRepeatLimit(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        final String string = prefs.getString(KEY_MISSED_ALARM_REPEAT_LIMIT, DEFAULT_MISSED_ALARM_REPEAT_LIMIT);
+        return Integer.parseInt(string);
+    }
+
+    /**
      * @return the vibration pattern applied to alarms.
      */
     public static String getVibrationPattern(SharedPreferences prefs) {

@@ -51,6 +51,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                 ClockContract.AlarmsColumns.DELETE_AFTER_USE + " INTEGER NOT NULL DEFAULT 0, " +
                 ClockContract.AlarmsColumns.AUTO_SILENCE_DURATION + " INTEGER NOT NULL DEFAULT 10, " +
                 ClockContract.AlarmsColumns.SNOOZE_DURATION + " INTEGER NOT NULL DEFAULT 10, " +
+                ClockContract.AlarmsColumns.MISSED_ALARM_REPEAT_LIMIT + " INTEGER NOT NULL DEFAULT -1, " +
                 ClockContract.AlarmsColumns.CRESCENDO_DURATION + " INTEGER NOT NULL DEFAULT 0, " +
                 ClockContract.AlarmsColumns.ALARM_VOLUME + " INTEGER NOT NULL DEFAULT 5);");
 
@@ -72,6 +73,8 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                 ClockContract.InstancesColumns.ALARM_STATE + " INTEGER NOT NULL, " +
                 ClockContract.InstancesColumns.AUTO_SILENCE_DURATION + " INTEGER NOT NULL, " +
                 ClockContract.InstancesColumns.SNOOZE_DURATION + " INTEGER NOT NULL, " +
+                ClockContract.InstancesColumns.MISSED_ALARM_REPEAT_COUNT + " INTEGER NOT NULL, " +
+                ClockContract.InstancesColumns.MISSED_ALARM_REPEAT_LIMIT + " INTEGER NOT NULL, " +
                 ClockContract.InstancesColumns.CRESCENDO_DURATION + " INTEGER NOT NULL, " +
                 ClockContract.InstancesColumns.ALARM_VOLUME + " INTEGER NOT NULL, " +
                 ClockContract.InstancesColumns.ALARM_ID + " INTEGER REFERENCES " +
@@ -196,26 +199,19 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
         }
 
         if (oldVersion < 22) {
-            final String TEMP_ALARMS_TABLE_NAME = ALARMS_TABLE_NAME + "_temp";
-            final String TEMP_INSTANCES_TABLE_NAME = INSTANCES_TABLE_NAME + "_temp";
+            db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME
+                    + " ADD COLUMN " + ClockContract.AlarmsColumns.MISSED_ALARM_REPEAT_LIMIT
+                    + " INTEGER NOT NULL DEFAULT -1;");
 
-            // Creating temporary tables with updated alarmVolume
-            createAlarmsTable(db, TEMP_ALARMS_TABLE_NAME);
-            createInstanceTable(db, TEMP_INSTANCES_TABLE_NAME);
+            db.execSQL("ALTER TABLE " + INSTANCES_TABLE_NAME
+                    + " ADD COLUMN " + ClockContract.InstancesColumns.MISSED_ALARM_REPEAT_COUNT
+                    + " INTEGER NOT NULL DEFAULT 0;");
 
-            // Copy data from old tables to new ones
-            db.execSQL("INSERT INTO " + TEMP_ALARMS_TABLE_NAME + " SELECT * FROM " + ALARMS_TABLE_NAME + ";");
-            db.execSQL("INSERT INTO " + TEMP_INSTANCES_TABLE_NAME + " SELECT * FROM " + INSTANCES_TABLE_NAME + ";");
+            db.execSQL("ALTER TABLE " + INSTANCES_TABLE_NAME
+                    + " ADD COLUMN " + ClockContract.InstancesColumns.MISSED_ALARM_REPEAT_LIMIT
+                    + " INTEGER NOT NULL DEFAULT -1;");
 
-            // Delete old tables
-            db.execSQL("DROP TABLE IF EXISTS " + ALARMS_TABLE_NAME + ";");
-            db.execSQL("DROP TABLE IF EXISTS " + INSTANCES_TABLE_NAME + ";");
-
-            // Rename temporary tables to default names
-            db.execSQL("ALTER TABLE " + TEMP_ALARMS_TABLE_NAME + " RENAME TO " + ALARMS_TABLE_NAME + ";");
-            db.execSQL("ALTER TABLE " + TEMP_INSTANCES_TABLE_NAME + " RENAME TO " + INSTANCES_TABLE_NAME + ";");
-
-            LogUtils.i("Updated alarmVolume default to 5 for version 22 upgrade.");
+            LogUtils.i("Added missed_alarm_repeat_count + missed_alarm_repeat_limit columns for version 23 upgrade.");
         }
     }
 

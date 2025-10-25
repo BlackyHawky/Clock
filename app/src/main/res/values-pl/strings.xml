@@ -107,7 +107,7 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"Długość drzemki"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Stopniowo zwiększaj głośność"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Wycisz za"</string>
-    <string name="auto_silence_never" msgid="4821982647348750809">"Nigdy"</string>
+    <string name="label_never" msgid="4821982647348750809">"Nigdy"</string>
     <string name="label_off">Wył.</string>
     <string name="week_start_title" msgid="4268917518596832096">"Początek tygodnia"</string>
     <string name="week_start_saturday">Sobota</string>
@@ -592,7 +592,6 @@
     <string name="settings_toolbar_title">Wyświetl tytuł na pasku narzędzi</string>
     <string name="settings_tab_title_visibility_title">Wyświetl tytuły kart</string>
     <string name="tab_title_visibility_always">Zawsze</string>
-    <string name="tab_title_visibility_never">Nigdy</string>
     <string name="tab_title_visibility_when_selected">Gdy wybrane</string>
     <string name="settings_keep_screen_on_title">Pozostaw ekran włączony</string>
     <string name="settings_keep_screen_on_summary">Uwaga: Ekran będzie zawsze włączony, jeśli uruchomiony jest minutnik lub stoper i wyświetlana jest odpowiednia karta, niezależnie od stanu tego ustawienia</string>

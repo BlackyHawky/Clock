@@ -91,7 +91,7 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"Äratuse edasilükkamise pikkus"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Helitugevuse järkjärguline suurendamine"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Vaikus aja möödumisel"</string>
-    <string name="auto_silence_never" msgid="4821982647348750809">"Mitte kunagi"</string>
+    <string name="label_never" msgid="4821982647348750809">"Mitte kunagi"</string>
     <string name="label_off">Väljas</string>
     <string name="week_start_title" msgid="4268917518596832096">Nädala algus</string>
     <string name="week_start_saturday">Laupäev</string>
@@ -583,7 +583,6 @@
     <string name="settings_toolbar_title">Näita tööriistaribal pealkirja</string>
     <string name="settings_tab_title_visibility_title">Näita vahekaartide pealkirju</string>
     <string name="tab_title_visibility_always">Alati</string>
-    <string name="tab_title_visibility_never">Mitte kunagi</string>
     <string name="tab_title_visibility_when_selected">Kui on valitud</string>
     <string name="settings_language_czech">tšehhi keel</string>
     <string name="settings_keep_screen_on_title">Hoia ekraan sisselülitatuna</string>

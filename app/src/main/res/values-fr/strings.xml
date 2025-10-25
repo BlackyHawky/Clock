@@ -144,7 +144,7 @@
     <string name="alarm_button_color">Couleur du bouton d\'alarme</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Augmenter le volume progressivement"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Arrêter l\'alarme après"</string>
-    <string name="auto_silence_never" msgid="4821982647348750809">"Jamais"</string>
+    <string name="label_never" msgid="4821982647348750809">"Jamais"</string>
     <string name="auto_silence_end_of_ringtone">La fin de la sonnerie</string>
     <string name="snooze_duration_none">Aucune</string>
     <string name="week_start_title" msgid="4268917518596832096">"Premier jour de la semaine"</string>
@@ -589,7 +589,6 @@
     <string name="settings_toolbar_title">Afficher le titre dans la barre d\'outils</string>
     <string name="settings_tab_title_visibility_title">Afficher le titre des onglets</string>
     <string name="tab_title_visibility_always">Toujours</string>
-    <string name="tab_title_visibility_never">Jamais</string>
     <string name="tab_title_visibility_when_selected">Lorsqu\'ils sont sélectionnés</string>
     <string name="settings_language_czech">Tchèque</string>
     <string name="settings_keep_screen_on_title">Maintenir l\'écran allumé</string>

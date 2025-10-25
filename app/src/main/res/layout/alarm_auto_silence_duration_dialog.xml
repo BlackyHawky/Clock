@@ -79,7 +79,7 @@
             android:button="@null"
             android:drawableStart="@drawable/ic_selector_checkbox"
             android:drawablePadding="20dp"
-            android:text="@string/auto_silence_never"
+            android:text="@string/label_never"
             android:textSize="16sp"
             android:textColor="?android:attr/textColorSecondary"
             tools:ignore="RtlSymmetry"

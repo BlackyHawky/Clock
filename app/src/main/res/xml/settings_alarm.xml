@@ -274,6 +274,24 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
+        <SwitchPreferenceCompat
+            android:key="key_enable_per_alarm_missed_repeat_limit"
+            android:title="@string/enable_per_alarm_missed_repeat_limit_title"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <ListPreference
+            android:key="key_missed_alarm_repeat_limit"
+            android:title="@string/missed_alarm_repeat_limit_title"
+            android:entries="@array/missed_alarm_repeat_limit_entries"
+            android:entryValues="@array/missed_alarm_repeat_limit_values"
+            android:defaultValue="-1"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
         <com.best.deskclock.settings.VibrationPatternPreference
             android:key="key_vibration_pattern"
             android:title="@string/vibration_pattern_title"

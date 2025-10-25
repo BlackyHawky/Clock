@@ -83,7 +83,7 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"スヌーズの長さ"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"徐々に音量を上げる"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"消音までの時間"</string>
-    <string name="auto_silence_never" msgid="4821982647348750809">"なし"</string>
+    <string name="label_never" msgid="4821982647348750809">"なし"</string>
     <string name="label_off">OFF</string>
     <string name="week_start_title" msgid="4268917518596832096">"週の始まり"</string>
     <string name="week_start_saturday">土曜日</string>

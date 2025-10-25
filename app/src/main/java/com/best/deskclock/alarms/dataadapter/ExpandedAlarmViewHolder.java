@@ -78,6 +78,8 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     private final TextView autoSilenceDurationValue;
     private final TextView snoozeDurationTitle;
     private final TextView snoozeDurationValue;
+    private final TextView missedAlarmRepeatLimitTitle;
+    private final TextView missedAlarmRepeatLimitValue;
     private final TextView crescendoDurationTitle;
     private final TextView crescendoDurationValue;
     private final TextView alarmVolumeTitle;
@@ -110,6 +112,8 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         autoSilenceDurationValue = itemView.findViewById(R.id.auto_silence_duration_value);
         snoozeDurationTitle = itemView.findViewById(R.id.snooze_duration_title);
         snoozeDurationValue = itemView.findViewById(R.id.snooze_duration_value);
+        missedAlarmRepeatLimitTitle = itemView.findViewById(R.id.missed_alarm_repeat_limit_title);
+        missedAlarmRepeatLimitValue = itemView.findViewById(R.id.missed_alarm_repeat_limit_value);
         crescendoDurationTitle = itemView.findViewById(R.id.crescendo_duration_title);
         crescendoDurationValue = itemView.findViewById(R.id.crescendo_duration_value);
         alarmVolumeTitle = itemView.findViewById(R.id.alarm_volume_title);
@@ -207,6 +211,14 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         snoozeDurationValue.setOnClickListener(v ->
                 getAlarmTimeClickHandler().setSnoozeDuration(getItemHolder().item));
 
+        // Missed alarm repeat limit handler
+        missedAlarmRepeatLimitTitle.setOnClickListener(v ->
+                getAlarmTimeClickHandler().setMissedAlarmRepeatLimit(getItemHolder().item));
+
+        // Missed alarm repeat limit handler
+        missedAlarmRepeatLimitValue.setOnClickListener(v ->
+                getAlarmTimeClickHandler().setMissedAlarmRepeatLimit(getItemHolder().item));
+
         // Crescendo duration handler
         crescendoDurationTitle.setOnClickListener(v ->
                 getAlarmTimeClickHandler().setCrescendoDuration(getItemHolder().item));
@@ -254,6 +266,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         bindEditLabelAnnotations(alarm);
         bindAutoSilenceValue(context, alarm);
         bindSnoozeValue(context, alarm);
+        bindMissedAlarmRepeatLimit(context, alarm);
         bindCrescendoValue(context, alarm);
         bindAlarmVolume(context, alarm);
 
@@ -280,6 +293,8 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         autoSilenceDurationValue.setAlpha(1f);
         snoozeDurationTitle.setAlpha(1f);
         snoozeDurationValue.setAlpha(1f);
+        missedAlarmRepeatLimitTitle.setAlpha(1f);
+        missedAlarmRepeatLimitValue.setAlpha(1f);
         crescendoDurationTitle.setAlpha(1f);
         crescendoDurationValue.setAlpha(1f);
         alarmVolumeTitle.setAlpha(1f);
@@ -310,7 +325,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
             int autoSilenceDuration = alarm.autoSilenceDuration;
 
             if (autoSilenceDuration == TIMEOUT_NEVER) {
-                autoSilenceDurationValue.setText(context.getString(R.string.auto_silence_never));
+                autoSilenceDurationValue.setText(context.getString(R.string.label_never));
             } else if (autoSilenceDuration == TIMEOUT_END_OF_RINGTONE) {
                 autoSilenceDurationValue.setText(context.getString(R.string.auto_silence_end_of_ringtone));
             } else {
@@ -348,7 +363,33 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
             snoozeDurationTitle.setVisibility(GONE);
             snoozeDurationValue.setVisibility(GONE);
         }
+    }
 
+    private void bindMissedAlarmRepeatLimit(Context context, Alarm alarm) {
+        boolean isDeleteAfterUse = !alarm.daysOfWeek.isRepeating() && alarm.deleteAfterUse;
+        if (SettingsDAO.isPerAlarmMissedRepeatLimitEnabled(mPrefs)
+                && alarm.autoSilenceDuration != TIMEOUT_NEVER
+                && !isDeleteAfterUse) {
+
+            missedAlarmRepeatLimitTitle.setVisibility(VISIBLE);
+            missedAlarmRepeatLimitValue.setVisibility(VISIBLE);
+
+            int missedAlarmRepeatLimit = alarm.missedAlarmRepeatLimit;
+            switch (missedAlarmRepeatLimit) {
+                case 1 ->
+                        missedAlarmRepeatLimitValue.setText(context.getString(R.string.missed_alarm_repeat_limit_1_time));
+                case 3 ->
+                        missedAlarmRepeatLimitValue.setText(context.getString(R.string.missed_alarm_repeat_limit_3_times));
+                case 5 ->
+                        missedAlarmRepeatLimitValue.setText(context.getString(R.string.missed_alarm_repeat_limit_5_times));
+                case 10 ->
+                        missedAlarmRepeatLimitValue.setText(context.getString(R.string.missed_alarm_repeat_limit_10_times));
+                default -> missedAlarmRepeatLimitValue.setText(context.getString(R.string.label_never));
+            }
+        } else {
+            missedAlarmRepeatLimitTitle.setVisibility(GONE);
+            missedAlarmRepeatLimitValue.setVisibility(GONE);
+        }
     }
 
     private void bindCrescendoValue(Context context, Alarm alarm) {
@@ -629,17 +670,23 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         final Animator snoozeDurationValueAnimation = ObjectAnimator.ofFloat(
                 snoozeDurationValue, View.ALPHA, 0f).setDuration(shortDuration);
 
+        final Animator missedAlarmRepeatLimitTitleAnimation = ObjectAnimator.ofFloat(
+                missedAlarmRepeatLimitTitle, View.ALPHA, 0f).setDuration(shortDuration);
+
+        final Animator missedAlarmRepeatLimitValueAnimation = ObjectAnimator.ofFloat(
+                missedAlarmRepeatLimitValue, View.ALPHA, 0f).setDuration(shortDuration);
+
         final Animator crescendoDurationTitleAnimation = ObjectAnimator.ofFloat(
                 crescendoDurationTitle, View.ALPHA, 0f).setDuration(shortDuration);
+
+        final Animator crescendoDurationValueAnimation = ObjectAnimator.ofFloat(
+                crescendoDurationValue, View.ALPHA, 0f).setDuration(shortDuration);
 
         final Animator alarmVolumeTitleAnimation = ObjectAnimator.ofFloat(
                 alarmVolumeTitle, View.ALPHA, 0f).setDuration(shortDuration);
 
         final Animator alarmVolumeValueAnimation = ObjectAnimator.ofFloat(
                 alarmVolumeValue, View.ALPHA, 0f).setDuration(shortDuration);
-
-        final Animator crescendoDurationValueAnimation = ObjectAnimator.ofFloat(
-                crescendoDurationValue, View.ALPHA, 0f).setDuration(shortDuration);
 
         final Animator dismissAnimation = ObjectAnimator.ofFloat(preemptiveDismissButton,
                 View.ALPHA, 0f).setDuration(shortDuration);
@@ -661,8 +708,9 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         final boolean deleteOccasionalAlarmAfterUseVisible = deleteOccasionalAlarmAfterUse.getVisibility() == VISIBLE;
         final boolean autoSilenceDurationTitleVisible = autoSilenceDurationTitle.getVisibility() == VISIBLE;
         final boolean snoozeDurationTitleVisible = snoozeDurationTitle.getVisibility() == VISIBLE;
-        final boolean alarmVolumeTitleVisible = alarmVolumeTitle.getVisibility() == VISIBLE;
+        final boolean missedAlarmRepeatLimitTitleVisible = missedAlarmRepeatLimitTitle.getVisibility() == VISIBLE;
         final boolean crescendoDurationTitleVisible = crescendoDurationTitle.getVisibility() == VISIBLE;
+        final boolean alarmVolumeTitleVisible = alarmVolumeTitle.getVisibility() == VISIBLE;
         final boolean preemptiveDismissButtonVisible = preemptiveDismissButton.getVisibility() == VISIBLE;
 
         editLabelIconAnimation.setStartDelay(startDelay);
@@ -690,10 +738,16 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
             crescendoDurationValueAnimation.setStartDelay(startDelay);
         }
 
+        if (missedAlarmRepeatLimitTitleVisible) {
+            startDelay += delayIncrement;
+            missedAlarmRepeatLimitTitleAnimation.setStartDelay(startDelay);
+            missedAlarmRepeatLimitValueAnimation.setStartDelay(startDelay);
+        }
+
         if (snoozeDurationTitleVisible) {
+            startDelay += delayIncrement;
             snoozeDurationTitleAnimation.setStartDelay(startDelay);
             snoozeDurationValueAnimation.setStartDelay(startDelay);
-            startDelay += delayIncrement;
         }
 
         if (autoSilenceDurationTitleVisible) {
@@ -738,7 +792,8 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
                 addDateAnimation, removeDateAnimation, snoozeDurationTitleAnimation,
                 snoozeDurationValueAnimation, crescendoDurationTitleAnimation,
                 crescendoDurationValueAnimation, silenceAfterDurationTitleAnimation,
-                silenceAfterDurationValueAnimation, alarmVolumeTitleAnimation,
+                silenceAfterDurationValueAnimation, missedAlarmRepeatLimitTitleAnimation,
+                missedAlarmRepeatLimitValueAnimation, alarmVolumeTitleAnimation,
                 alarmVolumeValueAnimation);
 
         animatorSet.addListener(new AnimatorListenerAdapter() {
@@ -783,6 +838,8 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         autoSilenceDurationValue.setAlpha(0f);
         snoozeDurationTitle.setAlpha(0f);
         snoozeDurationValue.setAlpha(0f);
+        missedAlarmRepeatLimitTitle.setAlpha(0f);
+        missedAlarmRepeatLimitValue.setAlpha(0f);
         crescendoDurationTitle.setAlpha(0f);
         crescendoDurationValue.setAlpha(0f);
         alarmVolumeTitle.setAlpha(0f);
@@ -848,6 +905,12 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         final Animator snoozeDurationValueAnimation = ObjectAnimator.ofFloat(
                 snoozeDurationValue, View.ALPHA, 1f).setDuration(longDuration);
 
+        final Animator missedAlarmRepeatLimitTitleAnimation = ObjectAnimator.ofFloat(
+                missedAlarmRepeatLimitTitle, View.ALPHA, 1f).setDuration(longDuration);
+
+        final Animator missedAlarmRepeatLimitValueAnimation = ObjectAnimator.ofFloat(
+                missedAlarmRepeatLimitValue, View.ALPHA, 1f).setDuration(longDuration);
+
         final Animator crescendoDurationTitleAnimation = ObjectAnimator.ofFloat(
                 crescendoDurationTitle, View.ALPHA, 1f).setDuration(longDuration);
 
@@ -884,8 +947,9 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         final boolean deleteOccasionalAlarmAfterUseVisible = deleteOccasionalAlarmAfterUse.getVisibility() == VISIBLE;
         final boolean autoSilenceDurationTitleVisible = autoSilenceDurationTitle.getVisibility() == VISIBLE;
         final boolean snoozeDurationTitleVisible = snoozeDurationTitle.getVisibility() == VISIBLE;
-        final boolean alarmVolumeTitleVisible = alarmVolumeTitle.getVisibility() == VISIBLE;
+        final boolean missedAlarmRepeatLimitTitleVisible = missedAlarmRepeatLimitTitle.getVisibility() == VISIBLE;
         final boolean crescendoDurationTitleVisible = crescendoDurationTitle.getVisibility() == VISIBLE;
+        final boolean alarmVolumeTitleVisible = alarmVolumeTitle.getVisibility() == VISIBLE;
         final boolean preemptiveDismissButtonVisible = preemptiveDismissButton.getVisibility() == VISIBLE;
 
         editLabelIconAnimation.setStartDelay(startDelay);
@@ -926,9 +990,15 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         }
 
         if (snoozeDurationTitleVisible) {
-            startDelay += delayIncrement;
             snoozeDurationTitleAnimation.setStartDelay(startDelay);
             snoozeDurationValueAnimation.setStartDelay(startDelay);
+            startDelay += delayIncrement;
+        }
+
+        if (missedAlarmRepeatLimitTitleVisible) {
+            missedAlarmRepeatLimitTitleAnimation.setStartDelay(startDelay);
+            missedAlarmRepeatLimitValueAnimation.setStartDelay(startDelay);
+            startDelay += delayIncrement;
         }
 
         if (crescendoDurationTitleVisible) {
@@ -961,6 +1031,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
                 snoozeDurationTitleAnimation, snoozeDurationValueAnimation,
                 crescendoDurationTitleAnimation, crescendoDurationValueAnimation,
                 silenceAfterDurationTitleAnimation, silenceAfterDurationValueAnimation,
+                missedAlarmRepeatLimitTitleAnimation, missedAlarmRepeatLimitValueAnimation,
                 alarmVolumeTitleAnimation, alarmVolumeValueAnimation);
 
         animatorSet.addListener(new AnimatorListenerAdapter() {
@@ -1013,11 +1084,11 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
             numberOfItems++;
         }
 
-        if (alarmVolumeTitle.getVisibility() == VISIBLE) {
+        if (missedAlarmRepeatLimitTitle.getVisibility() == VISIBLE) {
             numberOfItems++;
         }
 
-        if (alarmVolumeValue.getVisibility() == VISIBLE) {
+        if (missedAlarmRepeatLimitValue.getVisibility() == VISIBLE) {
             numberOfItems++;
         }
 
@@ -1026,6 +1097,14 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         }
 
         if (crescendoDurationValue.getVisibility() == VISIBLE) {
+            numberOfItems++;
+        }
+
+        if (alarmVolumeTitle.getVisibility() == VISIBLE) {
+            numberOfItems++;
+        }
+
+        if (alarmVolumeValue.getVisibility() == VISIBLE) {
             numberOfItems++;
         }
 

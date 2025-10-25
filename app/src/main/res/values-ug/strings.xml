@@ -30,7 +30,7 @@
     <string name="settings">تەڭشەكلەر</string>
     <string name="snooze_duration_title">مۈگدەش ئۇزۇنلۇقى</string>
     <string name="auto_silence_title">قوڭغۇراق ۋاقتى</string>
-    <string name="auto_silence_never">ھەرگىز</string>
+    <string name="label_never">ھەرگىز</string>
     <string name="alarm_volume_title">قوڭغۇراق ئاۋازى</string>
     <string name="silent_ringtone_title">ئۈنسىز</string>
     <string name="volume_button_setting_title">ئاۋاز توپچىسى</string>

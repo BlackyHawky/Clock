@@ -60,6 +60,7 @@
     <string name="action_delete_alarm_after_use">Delete Alarm After Use</string>
     <string name="action_set_auto_silence_duration">Set Auto Silence Duration</string>
     <string name="action_set_snooze_duration">Set Snooze Duration</string>
+    <string name="action_set_missed_alarm_repeat_limit">Set Missed Alarm Repeat Limit</string>
     <string name="action_set_crescendo_duration">Set Crescendo Duration</string>
     <string name="action_set_alarm_volume">Set Alarm Volume</string>
 
@@ -144,7 +145,7 @@
     <!-- Entries listed in the ListPreference when selecting the tab title visibility. -->
     <string-array name="tab_title_visibility_entries">
         <item>@string/tab_title_visibility_always</item>
-        <item>@string/tab_title_visibility_never</item>
+        <item>@string/label_never</item>
         <item>@string/tab_title_visibility_when_selected</item>
     </string-array>
     <!-- Values that are retrieved from the ListPreference. These must match the theme entries above. -->
@@ -187,6 +188,23 @@
         <item>480</item>
         <item>600</item>
         <item>720</item>
+    </string-array>
+
+    <!-- Entries listed in the ListPreference when invoking the "Repeat missed alarms" preference. -->
+    <string-array name="missed_alarm_repeat_limit_entries">
+        <item>@string/label_never</item>
+        <item>@string/missed_alarm_repeat_limit_1_time</item>
+        <item>@string/missed_alarm_repeat_limit_3_times</item>
+        <item>@string/missed_alarm_repeat_limit_5_times</item>
+        <item>@string/missed_alarm_repeat_limit_10_times</item>
+    </string-array>
+    <!-- Values that are retrieved from the ListPreference. These must match the missed_alarm_repeat_limit_entries above. -->
+    <string-array name="missed_alarm_repeat_limit_values" translatable="false">
+        <item>-1</item>
+        <item>1</item>
+        <item>3</item>
+        <item>5</item>
+        <item>10</item>
     </string-array>
 
     <!-- Entries listed in ListPreference for start day. -->

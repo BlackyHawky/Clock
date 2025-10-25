@@ -20,7 +20,7 @@
     <string name="app_label">Tamrint</string>
     <string name="snooze_duration_none">Ulac</string>
     <string name="unmute_alarm_volume">Kkes asgugem</string>
-    <string name="auto_silence_never">Urǧin</string>
+    <string name="label_never">Urǧin</string>
     <string name="week_start_sunday">Acer</string>
     <string name="week_start_monday">Arim</string>
     <string name="silent_ringtone_title">Tasusmi</string>

@@ -83,7 +83,7 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"延後時間長度"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"漸漸提高音量"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">鬧鐘鈴響持續時間</string>
-    <string name="auto_silence_never" msgid="4821982647348750809">"無限期"</string>
+    <string name="label_never" msgid="4821982647348750809">"無限期"</string>
     <string name="label_off">關閉</string>
     <string name="week_start_title" msgid="4268917518596832096">每週起始日</string>
     <string name="week_start_saturday">星期六</string>
@@ -484,7 +484,6 @@
     <string name="settings_toolbar_title">顯示工具列標題</string>
     <string name="settings_tab_title_visibility_title">顯示分頁標題</string>
     <string name="tab_title_visibility_always">一律顯示</string>
-    <string name="tab_title_visibility_never">隱藏</string>
     <string name="tab_title_visibility_when_selected">僅選取時</string>
     <string name="settings_language_czech">捷克</string>
     <string name="timer_button_time_minutes_warning_box_text">請輸入 0~60 分鐘間的數值</string>

@@ -99,7 +99,7 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"Duração da suspensão"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Aumento gradual do volume"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Silenciar depois de"</string>
-    <string name="auto_silence_never" msgid="4821982647348750809">"Nunca"</string>
+    <string name="label_never" msgid="4821982647348750809">"Nunca"</string>
     <string name="label_off">Desativado</string>
     <string name="week_start_title" msgid="4268917518596832096">"Começar a semana no(a)"</string>
     <string name="week_start_saturday">Sábado</string>
@@ -546,7 +546,6 @@
     <string name="settings_toolbar_title">Exibir o título na barra de ferramentas</string>
     <string name="settings_tab_title_visibility_title">Exibir os títulos no separador</string>
     <string name="tab_title_visibility_always">Sempre</string>
-    <string name="tab_title_visibility_never">Nunca</string>
     <string name="tab_title_visibility_when_selected">Quando selecionado</string>
     <string name="alarm_notification_reminder_title">Lembrete de notificação</string>
     <string name="alarm_notification_reminder_30_minutes">30 minutos antes</string>

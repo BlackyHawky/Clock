@@ -107,7 +107,7 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"Интервал повтора сигнала"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Постепенно увеличивать громкость"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Автовыключение"</string>
-    <string name="auto_silence_never" msgid="4821982647348750809">"Никогда"</string>
+    <string name="label_never" msgid="4821982647348750809">"Никогда"</string>
     <string name="label_off">Выкл.</string>
     <string name="week_start_title" msgid="4268917518596832096">"Начало недели"</string>
     <string name="week_start_saturday">суббота</string>
@@ -600,7 +600,6 @@
     <string name="settings_toolbar_title">Показывать заголовок в панели инструментов</string>
     <string name="settings_tab_title_visibility_title">Показывать названия вкладок</string>
     <string name="tab_title_visibility_always">Всегда</string>
-    <string name="tab_title_visibility_never">Никогда</string>
     <string name="tab_title_visibility_when_selected">Когда выбран</string>
     <string name="settings_language_czech">Чешский</string>
     <string name="settings_keep_screen_on_title">Держать экран включенным</string>

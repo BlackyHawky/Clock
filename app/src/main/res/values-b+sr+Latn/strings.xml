@@ -99,7 +99,7 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"Dužina odlaganja"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Postepeno pojačavaj zvuk"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Utišaj posle"</string>
-    <string name="auto_silence_never" msgid="4821982647348750809">"Nikada"</string>
+    <string name="label_never" msgid="4821982647348750809">"Nikada"</string>
     <string name="label_off">Isključeno</string>
     <string name="week_start_title" msgid="4268917518596832096">"Nedelja počinje u"</string>
     <string name="week_start_saturday">subotu</string>

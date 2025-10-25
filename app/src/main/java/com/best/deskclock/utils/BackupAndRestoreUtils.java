@@ -140,6 +140,7 @@ public class BackupAndRestoreUtils {
                 alarmObject.put("deleteAfterUse", alarm.deleteAfterUse);
                 alarmObject.put("autoSilenceDuration", alarm.autoSilenceDuration);
                 alarmObject.put("snoozeDuration", alarm.snoozeDuration);
+                alarmObject.put("missedAlarmRepeatLimit", alarm.missedAlarmRepeatLimit);
                 alarmObject.put("crescendoDuration", alarm.crescendoDuration);
                 alarmObject.put("alarmVolume", alarm.alarmVolume);
 
@@ -335,6 +336,7 @@ public class BackupAndRestoreUtils {
         boolean deleteAfterUse = alarmObject.getBoolean("deleteAfterUse");
         int autoSilenceDuration = alarmObject.getInt("autoSilenceDuration");
         int snoozeDuration = alarmObject.getInt("snoozeDuration");
+        int missedAlarmRepeatLimit = alarmObject.getInt("missedAlarmRepeatLimit");
         int crescendoDuration = alarmObject.getInt("crescendoDuration");
         int alarmVolume = alarmObject.getInt("alarmVolume");
 
@@ -368,7 +370,8 @@ public class BackupAndRestoreUtils {
 
         restoredAlarm = new Alarm(id, enabled, year, month, day, hour, minutes,
                 vibrate, flash, Weekdays.fromBits(daysOfWeek), label, alarmRingtone, deleteAfterUse,
-                autoSilenceDuration, snoozeDuration, crescendoDuration, alarmVolume);
+                autoSilenceDuration, snoozeDuration, missedAlarmRepeatLimit, crescendoDuration,
+                alarmVolume);
 
         Alarm.addAlarm(contentResolver, restoredAlarm);
 

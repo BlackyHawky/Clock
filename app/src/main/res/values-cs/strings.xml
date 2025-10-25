@@ -107,7 +107,7 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"Délka odložení zvonění"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Postupně zvyšovat hlasitost"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Ztišit po"</string>
-    <string name="auto_silence_never" msgid="4821982647348750809">"Nikdy"</string>
+    <string name="label_never" msgid="4821982647348750809">"Nikdy"</string>
     <string name="label_off">Vypnuto</string>
     <string name="week_start_title" msgid="4268917518596832096">"Počáteční den týdne"</string>
     <string name="week_start_saturday">sobota</string>
@@ -591,7 +591,6 @@
     <string name="settings_toolbar_title">Zobrazit název v panelu nástrojů</string>
     <string name="settings_tab_title_visibility_title">Zobrazit názvy karet</string>
     <string name="tab_title_visibility_always">Vždy</string>
-    <string name="tab_title_visibility_never">Nikdy</string>
     <string name="tab_title_visibility_when_selected">Při výběru</string>
     <string name="settings_language_czech">Čeština</string>
     <string name="settings_keep_screen_on_summary">Poznámka: obrazovka bude ponechána zapnuta vždy, když běží stopky nebo časovač a je zobrazena odpovídající karta, nezávisle na stavu tohoto nastavení</string>

@@ -91,7 +91,7 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"اسنوز کی طوالت"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"آواز میں بتدریج اضافہ کریں"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"خاموش بعد از"</string>
-    <string name="auto_silence_never" msgid="4821982647348750809">"کبھی نہیں"</string>
+    <string name="label_never" msgid="4821982647348750809">"کبھی نہیں"</string>
     <string name="label_off">آف</string>
     <string name="week_start_title" msgid="4268917518596832096">"ہفتہ شروع کریں بروز"</string>
     <string name="week_start_saturday">ہفتہ</string>

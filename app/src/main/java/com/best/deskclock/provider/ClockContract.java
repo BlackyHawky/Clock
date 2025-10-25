@@ -88,6 +88,12 @@ public final class ClockContract {
         String SNOOZE_DURATION = "snoozeDuration";
 
         /**
+         * Missed alarm repeat limit
+         * <p>Type: INTEGER</p>
+         */
+        String MISSED_ALARM_REPEAT_LIMIT = "missed_alarm_repeat_limit";
+
+        /**
          * Alarm crescendo duration.
          * <p>Type: INTEGER</p>
          */
@@ -278,5 +284,11 @@ public final class ClockContract {
          * <p>Type: INTEGER</p>
          */
         String ALARM_STATE = "alarm_state";
+
+        /**
+         * Missed alarm repeat count
+         * <p>Type: INTEGER</p>
+         */
+        String MISSED_ALARM_REPEAT_COUNT = "missed_alarm_repeat_count";
     }
 }

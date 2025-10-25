@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RadioGroup
+        android:id="@+id/repeat_limit_radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="?attr/dialogPreferredPadding"
+        android:paddingTop="?attr/dialogPreferredPadding">
+
+        <RadioButton
+            android:id="@+id/rb_never"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:paddingEnd="@null"
+            android:text="@string/label_never"
+            android:textSize="16sp" />
+
+        <RadioButton
+            android:id="@+id/rb_1_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:paddingEnd="@null"
+            android:text="@string/missed_alarm_repeat_limit_1_time"
+            android:textSize="16sp" />
+
+        <RadioButton
+            android:id="@+id/rb_3_times"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:paddingEnd="@null"
+            android:text="@string/missed_alarm_repeat_limit_3_times"
+            android:textSize="16sp" />
+
+        <RadioButton
+            android:id="@+id/rb_5_times"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:paddingEnd="@null"
+            android:text="@string/missed_alarm_repeat_limit_5_times"
+            android:textSize="16sp" />
+
+        <RadioButton
+            android:id="@+id/rb_10_times"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:paddingEnd="@null"
+            android:text="@string/missed_alarm_repeat_limit_10_times"
+            android:textSize="16sp" />
+
+    </RadioGroup>
+
+</ScrollView>

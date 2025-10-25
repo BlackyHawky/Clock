@@ -91,7 +91,7 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"తాత్కాలిక ఆపివేత నిడివి"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"వాల్యూమ్‌ను క్రమంగా పెంచు"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"ఇంత సమయం తర్వాత నిశ్శబ్దంగా ఉండాలి"</string>
-    <string name="auto_silence_never" msgid="4821982647348750809">"ఎప్పటికీ వద్దు"</string>
+    <string name="label_never" msgid="4821982647348750809">"ఎప్పటికీ వద్దు"</string>
     <string name="label_off">ఆఫ్ చేయి</string>
     <string name="week_start_title" msgid="4268917518596832096">"వారం ప్రారంభ రోజు"</string>
     <string name="week_start_saturday">శనివారం</string>

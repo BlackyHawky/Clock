@@ -91,7 +91,7 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"Тындыруунун узактыгы"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Аз-аздан катуулатуу"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Канчадан кийин үнү басылсын"</string>
-    <string name="auto_silence_never" msgid="4821982647348750809">"Эч качан"</string>
+    <string name="label_never" msgid="4821982647348750809">"Эч качан"</string>
     <string name="label_off">Өчүрүү</string>
     <string name="week_start_title" msgid="4268917518596832096">"Апта башталчу күн"</string>
     <string name="week_start_saturday">Ишемби</string>

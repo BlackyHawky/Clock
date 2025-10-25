@@ -99,7 +99,7 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"Дужина одлагања"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Постепено појачавај звук"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Утишај после"</string>
-    <string name="auto_silence_never" msgid="4821982647348750809">"Никада"</string>
+    <string name="label_never" msgid="4821982647348750809">"Никада"</string>
     <string name="label_off">Искључено</string>
     <string name="week_start_title" msgid="4268917518596832096">"Недеља почиње у"</string>
     <string name="week_start_saturday">суботу</string>
@@ -583,7 +583,6 @@
     <string name="settings_toolbar_title">Приказати наслов на алатној траци</string>
     <string name="settings_tab_title_visibility_title">Приказати наслове картица</string>
     <string name="tab_title_visibility_always">Увек</string>
-    <string name="tab_title_visibility_never">Никада</string>
     <string name="tab_title_visibility_when_selected">Када је изабрано</string>
     <string name="settings_language_czech">Чешки</string>
     <string name="settings_keep_screen_on_title">Држати екран укљученим</string>

@@ -65,7 +65,7 @@ public class AutoSilenceDurationPreference extends DialogPreference {
         if (duration == TIMEOUT_END_OF_RINGTONE) {
             return getContext().getString(R.string.auto_silence_end_of_ringtone);
         } else if (duration == TIMEOUT_NEVER) {
-            return getContext().getString(R.string.auto_silence_never);
+            return getContext().getString(R.string.label_never);
         }
 
         if (isForTimer()) {

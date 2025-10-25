@@ -125,8 +125,16 @@ public final class AlarmUpdateHandler {
                         newInstance.mRingtone = alarm.alert;
                         newInstance.mAutoSilenceDuration = alarm.autoSilenceDuration;
                         newInstance.mSnoozeDuration = alarm.snoozeDuration;
+                        newInstance.mMissedAlarmRepeatLimit = alarm.missedAlarmRepeatLimit;
                         newInstance.mCrescendoDuration = alarm.crescendoDuration;
                         newInstance.mAlarmVolume = alarm.alarmVolume;
+
+                        // If the alarm is in Missed state, mark it as Dismissed and clear its notification.
+                        if (newInstance.mAlarmState == AlarmInstance.MISSED_STATE) {
+                            LogUtils.i("Minor update: resetting missed alarm " + instance.mId);
+                            newInstance.mAlarmState = AlarmInstance.DISMISSED_STATE;
+                            AlarmNotifications.clearNotification(mAppContext, newInstance);
+                        }
                         // Since we copied the mId of the old instance and the mId is used
                         // as the primary key in the AlarmInstance table, this will replace
                         // the existing instance.

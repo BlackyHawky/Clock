@@ -832,6 +832,11 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
     }
 
+    public void setMissedAlarmRepeatLimit(Alarm alarm, int missedAlarmRepeatLimit) {
+        alarm.missedAlarmRepeatLimit = missedAlarmRepeatLimit;
+        mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+    }
+
     public void setCrescendoDuration(Alarm alarm, int crescendoDuration) {
         alarm.crescendoDuration = crescendoDuration;
         mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);

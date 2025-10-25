@@ -29,6 +29,8 @@
     <string name="label_default">Default</string>
     <!-- Label "Off" -->
     <string name="label_off">Off</string>
+    <!-- Label "Never" -->
+    <string name="label_never">Never</string>
     <!-- Label "Delete" -->
     <string name="delete">Delete</string>
     <!-- Setting labels on Set alarm screen: Duplicate -->
@@ -367,8 +369,6 @@
     <string name="settings_tab_title_visibility_title">Display the tab titles</string>
     <!-- Setting title to always display tab titles. -->
     <string name="tab_title_visibility_always">Always</string>
-    <!-- Setting title to never display tab titles. -->
-    <string name="tab_title_visibility_never">Never</string>
     <!-- Setting title to display tab titles when selected. -->
     <string name="tab_title_visibility_when_selected">When selected</string>
     <!-- Setting title to display the tab indicator in the bottom navigation menu. -->
@@ -394,6 +394,20 @@
     <!-- Setting summary to specify when the Dismiss button will appear if the
          "Display Dismiss button as soon as alarm is enabled" setting is disabled. -->
     <string name="display_dismiss_button_summary">If disabled, the button will appear at the same time as the notification reminder</string>
+    <!-- Setting title to enable the use of a custom missed alarm repeat count for each alarm. -->
+    <string name="enable_per_alarm_missed_repeat_limit_title">Use a custom missed alarm repeat count for each alarm</string>
+    <!-- Dialog message when the "Use a custom missed alarm repeat count for each alarm" setting is disabled. -->
+    <string name="enable_per_alarm_missed_repeat_limit_dialog_message">Custom missed alarm repeat count will be reset.%s</string>
+    <!-- Setting title for changing the "Repeat missed alarms" setting. -->
+    <string name="missed_alarm_repeat_limit_title">Repeat missed alarms</string>
+    <!-- Setting title for changing the "Repeat missed alarms" setting to 1 ring. -->
+    <string name="missed_alarm_repeat_limit_1_time">1 time</string>
+    <!-- Setting title for changing the "Repeat missed alarms" setting to 3 rings. -->
+    <string name="missed_alarm_repeat_limit_3_times">3 times</string>
+    <!-- Setting title for changing the "Repeat missed alarms" setting to 5 rings. -->
+    <string name="missed_alarm_repeat_limit_5_times">5 times</string>
+    <!-- Setting title for changing the "Repeat missed alarms" setting to 10 rings. -->
+    <string name="missed_alarm_repeat_limit_10_times">10 times</string>
     <!-- Setting title for changing the notification reminder. -->
     <string name="alarm_notification_reminder_title">Notification reminder</string>
     <!-- Setting title for changing the notification reminder to 30 minutes before. -->
@@ -519,8 +533,6 @@
     <string name="enable_per_alarm_auto_silence_title">Use a custom alarm stop duration for each alarm</string>
     <!-- Dialog message when the "Use a custom alarm stop duration for each alarm" setting is disabled. -->
     <string name="enable_per_alarm_auto_silence_dialog_message">Custom alarm stop durations will be reset.%s</string>
-    <!-- Auto silence summary when turned off -->
-    <string name="auto_silence_never">Never</string>
     <!-- Auto silence summary when set at "The end of the ringtone" or for changing the auto silence.-->
     <string name="auto_silence_end_of_ringtone">The end of the ringtone</string>
     <!-- Setting title for changing the snooze duration to None. -->

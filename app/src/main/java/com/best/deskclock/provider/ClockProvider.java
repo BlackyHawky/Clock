@@ -89,6 +89,8 @@ public class ClockProvider extends ContentProvider {
                 ALARMS_TABLE_NAME + "." + AlarmsColumns.AUTO_SILENCE_DURATION);
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.SNOOZE_DURATION,
                 ALARMS_TABLE_NAME + "." + AlarmsColumns.SNOOZE_DURATION);
+        sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.MISSED_ALARM_REPEAT_LIMIT,
+                ALARMS_TABLE_NAME + "." + AlarmsColumns.MISSED_ALARM_REPEAT_LIMIT);
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.CRESCENDO_DURATION,
                 ALARMS_TABLE_NAME + "." + AlarmsColumns.CRESCENDO_DURATION);
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.ALARM_VOLUME,
@@ -118,6 +120,10 @@ public class ClockProvider extends ContentProvider {
                 INSTANCES_TABLE_NAME + "." + InstancesColumns.AUTO_SILENCE_DURATION);
         sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns.SNOOZE_DURATION,
                 INSTANCES_TABLE_NAME + "." + InstancesColumns.SNOOZE_DURATION);
+        sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns.MISSED_ALARM_REPEAT_COUNT,
+                INSTANCES_TABLE_NAME + "." + InstancesColumns.MISSED_ALARM_REPEAT_COUNT);
+        sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns.MISSED_ALARM_REPEAT_LIMIT,
+                INSTANCES_TABLE_NAME + "." + InstancesColumns.MISSED_ALARM_REPEAT_LIMIT);
         sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns.CRESCENDO_DURATION,
                 INSTANCES_TABLE_NAME + "." + InstancesColumns.CRESCENDO_DURATION);
         sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns.ALARM_VOLUME,

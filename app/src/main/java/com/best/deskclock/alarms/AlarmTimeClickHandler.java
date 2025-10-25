@@ -14,6 +14,7 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_AUTO_SILENCE_DURATION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_DATE_PICKER_STYLE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_MISSED_ALARM_REPEAT_LIMIT;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SPINNER_DATE_PICKER_STYLE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SPINNER_TIME_PICKER_STYLE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_END_OF_RINGTONE;
@@ -158,6 +159,14 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
                 AlarmSnoozeDurationDialogFragment.newInstance(alarm, snoozeDuration,
                         snoozeDuration == ALARM_SNOOZE_DURATION_DISABLED, mFragment.getTag());
         AlarmSnoozeDurationDialogFragment.show(mFragment.getParentFragmentManager(), fragment);
+    }
+
+    public void setMissedAlarmRepeatLimit(Alarm alarm) {
+        Events.sendAlarmEvent(R.string.action_set_missed_alarm_repeat_limit, R.string.label_deskclock);
+        int missedAlarmRepeatLimit = alarm.missedAlarmRepeatLimit;
+        final AlarmMissedRepeatLimitDialogFragment fragment =
+                AlarmMissedRepeatLimitDialogFragment.newInstance(alarm, missedAlarmRepeatLimit, mFragment.getTag());
+        AlarmMissedRepeatLimitDialogFragment.show(mFragment.getParentFragmentManager(), fragment);
     }
 
     public void setCrescendoDuration(Alarm alarm) {
@@ -478,6 +487,9 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
         alarm.snoozeDuration = SettingsDAO.isPerAlarmAutoSilenceEnabled(mPrefs)
                 ? DEFAULT_ALARM_SNOOZE_DURATION
                 : SettingsDAO.getSnoozeLength(mPrefs);
+        alarm.missedAlarmRepeatLimit = SettingsDAO.isPerAlarmMissedRepeatLimitEnabled(mPrefs)
+                ? Integer.parseInt(DEFAULT_MISSED_ALARM_REPEAT_LIMIT)
+                : SettingsDAO.getMissedAlarmRepeatLimit(mPrefs);
         alarm.crescendoDuration = SettingsDAO.isPerAlarmCrescendoDurationEnabled(mPrefs)
                 ? DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION
                 : SettingsDAO.getAlarmVolumeCrescendoDuration(mPrefs);

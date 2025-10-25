@@ -91,7 +91,7 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"ಸ್ನೂಜ್ ಅವಧಿ"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"ಕ್ರಮೇಣವಾಗಿ ವಾಲ್ಯೂಮ್ ಹೆಚ್ಚಿಸಿ"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"ಇಷ್ಟೊತ್ತಿನ ಮೇಲೆ ಮೌನವಾಗು"</string>
-    <string name="auto_silence_never" msgid="4821982647348750809">"ಎಂದಿಗೂ ಬೇಡ"</string>
+    <string name="label_never" msgid="4821982647348750809">"ಎಂದಿಗೂ ಬೇಡ"</string>
     <string name="label_off">ಆಫ್ ಆಗಿದೆ</string>
     <string name="week_start_title" msgid="4268917518596832096">"ವಾರದ ಪ್ರಾರಂಭ"</string>
     <string name="week_start_saturday">ಶನಿವಾರ</string>
