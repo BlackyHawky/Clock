@@ -1272,7 +1272,7 @@
     -->
     <string name="alarm_is_dismissed"><xliff:g example="14:20" id="alarm_time">%s</xliff:g> alarm dismissed</string>
     <!-- String that represents that the user has dismissed a repetitive alarm. %s indicates the day of the next alarm -->
-    <string name="repetitive_alarm_is_dismissed">Alarm dismissed. <xliff:g example="Next alarm Monday." id="alarm_day">Reschedule for %s.</xliff:g></string>
+    <string name="repetitive_alarm_is_dismissed">Alarm dismissed. <xliff:g example="Next alarm Monday." id="alarm_day">Rescheduled for %s.</xliff:g></string>
     <!-- Toast content when an occasional alarm is dismissed and deleted.
     %s represents alarm time, e.g. 14:20
     -->
