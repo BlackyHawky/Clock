@@ -308,6 +308,11 @@ public class TimerItem extends ConstraintLayout {
                         mTimerEditNewDurationButton.setVisibility(GONE);
                     }
 
+                    if (isPortraitPhoneWithMultipleTimers()) {
+                        mCircleContainer.setVisibility(VISIBLE);
+                        mTimerTotalDurationText.setVisibility(GONE);
+                    }
+
                     mResetButton.setVisibility(GONE);
                 }
             }
