@@ -226,6 +226,39 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
+        <SwitchPreferenceCompat
+            android:key="key_enable_alarm_background_image"
+            android:title="@string/enable_background_image_title"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <Preference
+            android:key="key_alarm_background_image"
+            android:title="@string/background_image_title"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <SwitchPreferenceCompat
+            android:key="key_enable_alarm_blur_effect"
+            android:title="@string/enable_blur_effect_title"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <com.best.deskclock.settings.CustomSeekbarPreference
+            android:key="key_alarm_blur_intensity"
+            android:title="@string/blur_intensity_title"
+            android:summary="@string/label_default"
+            android:defaultValue="20"
+            android:max="100"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_seekbar_layout" />
+
         <Preference
             android:key="key_preview_alarm"
             android:title="@string/preview_title"

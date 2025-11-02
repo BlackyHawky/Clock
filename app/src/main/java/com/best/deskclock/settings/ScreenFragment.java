@@ -8,6 +8,7 @@ package com.best.deskclock.settings;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_TITLE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BLUR_INTENSITY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_DIGITAL_CLOCK_FONT_SIZE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_TITLE_FONT_SIZE_PREF;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_VOLUME_SETTING;
@@ -189,6 +190,7 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
                             || Objects.equals(subPref.getKey(), KEY_SHAKE_INTENSITY)
                             || Objects.equals(subPref.getKey(), KEY_ALARM_DIGITAL_CLOCK_FONT_SIZE)
                             || Objects.equals(subPref.getKey(), KEY_ALARM_TITLE_FONT_SIZE_PREF)
+                            || Objects.equals(subPref.getKey(), KEY_ALARM_BLUR_INTENSITY)
                             || Objects.equals(subPref.getKey(), KEY_TIMER_SHAKE_INTENSITY)
                             || Objects.equals(subPref.getKey(), KEY_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE)
                             || Objects.equals(subPref.getKey(), KEY_MATERIAL_YOU_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE)

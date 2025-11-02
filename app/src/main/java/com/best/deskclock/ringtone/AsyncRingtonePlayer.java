@@ -64,13 +64,8 @@ public final class AsyncRingtonePlayer {
     private MediaPlayerPlaybackDelegate mPlaybackDelegate;
 
     public AsyncRingtonePlayer(Context context) {
-        // Use a DirectBoot aware context if supported
-        if (SdkUtils.isAtLeastAndroid7()) {
-            mContext = context.createDeviceProtectedStorageContext();
-        }
-        else {
-            mContext = context;
-        }
+        // Use a DirectBoot compatible context if supported
+        mContext = Utils.getSafeStorageContext(context);
     }
 
     /**

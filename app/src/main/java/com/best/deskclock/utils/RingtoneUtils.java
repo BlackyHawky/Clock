@@ -12,7 +12,6 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.provider.OpenableColumns;
 
 import androidx.annotation.AnyRes;
 
@@ -22,12 +21,10 @@ import com.best.deskclock.data.CustomRingtone;
 import com.best.deskclock.data.RingtoneModel;
 import com.best.deskclock.data.SettingsDAO;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Random;
 
 public class RingtoneUtils {
@@ -108,10 +105,7 @@ public class RingtoneUtils {
      */
     public static MediaPlayer createPreparedMediaPlayer(Context context, Uri... ringtoneUris) {
         // Use a DirectBoot aware context if supported
-        Context safeContext = context;
-        if (SdkUtils.isAtLeastAndroid7() && !DeviceUtils.isUserUnlocked(context)) {
-            safeContext = context.createDeviceProtectedStorageContext();
-        }
+        Context storageContext = Utils.getSafeStorageContext(context);
 
         MediaPlayer player = new MediaPlayer();
 
@@ -124,7 +118,7 @@ public class RingtoneUtils {
             try {
                 LogUtils.d("Trying to prepare MediaPlayer for URI: " + uri);
                 player.reset();
-                player.setDataSource(safeContext, uri);
+                player.setDataSource(storageContext, uri);
                 player.prepare();
                 return player;
             } catch (IOException e) {
@@ -211,52 +205,6 @@ public class RingtoneUtils {
         }
 
         return uris.get(new Random().nextInt(uris.size()));
-    }
-
-    /**
-     * Gets the size of a File for mixed uri formats.
-     *
-     * <p>File pickers usually use {@code content://} but files stored in DeviceProtected storage
-     * use {@code file://}.</p>
-     */
-    public static long getRingtoneFileSize(Context context, Uri uri) {
-        long size = -1;
-
-        String scheme = uri.getScheme();
-        if ("file".equalsIgnoreCase(scheme)) {
-            File file = new File(Objects.requireNonNull(uri.getPath()));
-            if (file.exists()) {
-                size = file.length();
-            }
-        } else if ("content".equalsIgnoreCase(scheme)) {
-            try (Cursor cursor = context.getContentResolver().query(
-                    uri, new String[]{OpenableColumns.SIZE}, null, null, null)) {
-                if (cursor != null && cursor.moveToFirst()) {
-                    int sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE);
-                    if (!cursor.isNull(sizeIndex)) {
-                        size = cursor.getLong(sizeIndex);
-                    }
-                }
-            }
-        }
-
-        // As a fallback: read the whole stream
-        if (size < 0) {
-            try (InputStream inputStream = context.getContentResolver().openInputStream(uri)) {
-                if (inputStream != null) {
-                    byte[] buffer = new byte[8192];
-                    int read;
-                    size = 0;
-                    while ((read = inputStream.read(buffer)) != -1) {
-                        size += read;
-                    }
-                }
-            } catch (IOException e) {
-                LogUtils.e("Failed to determine file size of ringtone", e);
-            }
-        }
-
-        return size;
     }
 
     /**

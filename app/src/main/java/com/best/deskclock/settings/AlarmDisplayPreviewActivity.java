@@ -19,7 +19,11 @@ import android.animation.PropertyValuesHolder;
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.RenderEffect;
+import android.graphics.Shader;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -56,9 +60,12 @@ import com.best.deskclock.uicomponents.PillView;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.AnimatorUtils;
 import com.best.deskclock.utils.ClockUtils;
+import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.google.android.material.button.MaterialButton;
+
+import java.io.File;
 
 public class AlarmDisplayPreviewActivity extends BaseActivity
         implements View.OnClickListener, View.OnTouchListener {
@@ -122,8 +129,36 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
                 ? SettingsDAO.getAlarmBackgroundAmoledColor(mPrefs)
                 : SettingsDAO.getAlarmBackgroundColor(mPrefs);
         int alarmClockColor = SettingsDAO.getAlarmClockColor(mPrefs);
+        final ImageView alarmBackgroundImage = findViewById(R.id.alarm_image_background);
+        final String imagePath = SettingsDAO.getAlarmBackgroundImage(mPrefs);
 
-        getWindow().setBackgroundDrawable(new ColorDrawable(alarmBackgroundColor));
+        // Apply a background image and a blur effect.
+        if (SettingsDAO.isAlarmBackgroundImageEnabled(mPrefs) && imagePath != null) {
+            alarmBackgroundImage.setVisibility(View.VISIBLE);
+
+            File imageFile = new File(imagePath);
+            if (imageFile.exists()) {
+                Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
+                if (bitmap != null) {
+                    alarmBackgroundImage.setImageBitmap(bitmap);
+                    alarmBackgroundImage.setColorFilter(alarmBackgroundColor);
+
+                    if (SdkUtils.isAtLeastAndroid12() && SettingsDAO.isAlarmBlurEffectEnabled(mPrefs)) {
+                        float intensity = SettingsDAO.getAlarmBlurIntensity(mPrefs);
+                        RenderEffect blur = RenderEffect.createBlurEffect(intensity, intensity, Shader.TileMode.CLAMP);
+                        alarmBackgroundImage.setRenderEffect(blur);
+                    }
+                } else {
+                    LogUtils.e("Bitmap null for path: " + imagePath);
+                    getWindow().setBackgroundDrawable(new ColorDrawable(alarmBackgroundColor));
+                }
+            } else {
+                LogUtils.e("Image file not found: " + imagePath);
+                getWindow().setBackgroundDrawable(new ColorDrawable(alarmBackgroundColor));
+            }
+        } else {
+            getWindow().setBackgroundDrawable(new ColorDrawable(alarmBackgroundColor));
+        }
 
         mSnoozeMinutes = SettingsDAO.getSnoozeLength(mPrefs);
         mIsSwipeActionEnabled = SettingsDAO.isSwipeActionEnabled(mPrefs);

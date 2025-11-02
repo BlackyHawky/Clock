@@ -105,18 +105,14 @@ public class LogUtils {
      * The file is located in the application's private directory (accessible via getFilesDir()).
      */
     private static File getLocalLogFile(Context context) {
-        return new File(context.getFilesDir(), "log_utils_logs.txt");
+        Context storageContext = Utils.getSafeStorageContext(context);
+        return new File(storageContext.getFilesDir(), "log_utils_logs.txt");
     }
 
     /**
      * Add a line of text to the end of the custom log file.
      */
     private static void appendToFile(Context context, String logLine) {
-        if (!DeviceUtils.isUserUnlocked(context)) {
-            Log.w("LogUtils", "Skipping log write during Direct Boot, user is locked");
-            return;
-        }
-
         try (FileWriter writer = new FileWriter(getLocalLogFile(context), true)) {
             writer.write(logLine + "\n");
         } catch (IOException e) {

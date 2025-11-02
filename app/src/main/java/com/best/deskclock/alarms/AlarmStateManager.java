@@ -45,7 +45,7 @@ import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
-import com.best.deskclock.utils.SdkUtils;
+import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
 
 import java.util.Calendar;
@@ -147,15 +147,13 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * like {@code AppWidgetManager}.</p>
      */
     private static void updateNextAlarm(Context context) {
-        Context dpsContext = SdkUtils.isAtLeastAndroid7()
-                ? context.createDeviceProtectedStorageContext()
-                : context;
+        Context storageContext = Utils.getSafeStorageContext(context);
 
         // Important: Do not proceed if the user is locked (direct boot mode).
         // Updating widgets may fail because credential-protected storage
         // is not yet accessible, and AppWidgetManager.getAppWidgetIds() will throw an exception.
         // Fix https://github.com/BlackyHawky/Clock/issues/369#issuecomment-3344303993
-        if (!DeviceUtils.isUserUnlocked(dpsContext)) {
+        if (!DeviceUtils.isUserUnlocked(storageContext)) {
             return;
         }
 

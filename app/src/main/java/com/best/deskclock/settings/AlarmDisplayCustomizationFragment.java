@@ -3,9 +3,11 @@
 package com.best.deskclock.settings;
 
 import static android.app.Activity.OVERRIDE_TRANSITION_OPEN;
+import static android.app.Activity.RESULT_OK;
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BACKGROUND_AMOLED_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BACKGROUND_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BLUR_INTENSITY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BUTTON_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_CLOCK_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_CLOCK_DIAL;
@@ -14,10 +16,13 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_CLOCK_SECOND
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_DIGITAL_CLOCK_FONT_SIZE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_CLOCK_STYLE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_SECOND_HAND_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BACKGROUND_IMAGE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISMISS_BUTTON_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISMISS_TITLE_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_ALARM_SECOND_HAND;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_RINGTONE_TITLE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_ALARM_BACKGROUND_IMAGE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_ALARM_BLUR_EFFECT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_PREVIEW_ALARM;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_RINGTONE_TITLE_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SLIDE_ZONE_COLOR;
@@ -28,8 +33,12 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_SWIPE_ACTION;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -38,11 +47,14 @@ import androidx.preference.SwitchPreferenceCompat;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.google.android.material.color.MaterialColors;
 import com.rarepebble.colorpicker.ColorPreference;
+
+import java.io.File;
 
 public class AlarmDisplayCustomizationFragment extends ScreenFragment
         implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
@@ -71,7 +83,60 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
     CustomSeekbarPreference mAlarmDigitalClockFontSizePref;
     SwitchPreferenceCompat mDisplayRingtoneTitlePref;
     ColorPreference mRingtoneTitleColorPref;
+    SwitchPreferenceCompat mEnableAlarmBackgroundImage;
+    Preference mAlarmBackgroundImagePref;
+    SwitchPreferenceCompat mEnableAlarmBlurEffectPref;
+    Preference mAlarmBlurIntensityPref;
     Preference mPreviewAlarmPref;
+
+    private final ActivityResultLauncher<Intent> imagePickerLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() != RESULT_OK ) {
+                    return;
+                }
+
+                Intent intent = result.getData();
+                final Uri sourceUri = intent == null ? null : intent.getData();
+                if (sourceUri == null) {
+                    return;
+                }
+
+                // Take persistent permission
+                requireActivity().getContentResolver().takePersistableUriPermission(
+                        sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION
+                );
+
+                String safeTitle = Utils.toSafeFileName("alarm_background");
+
+                // Delete the old image if it exists
+                String oldPath = mPrefs.getString(KEY_ALARM_BACKGROUND_IMAGE, null);
+                if (oldPath != null) {
+                    File oldFile = new File(oldPath);
+                    if (oldFile.exists() && oldFile.isFile()) {
+                        boolean deleted = oldFile.delete();
+                        if (!deleted) {
+                            LogUtils.w("Unable to delete the old image: " + oldPath);
+                        }
+                    }
+                }
+
+                // Copy the new image to the device's protected storage
+                Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(requireContext(), sourceUri, safeTitle);
+
+                // Save the new path
+                if (copiedUri != null) {
+                    mPrefs.edit().putString(KEY_ALARM_BACKGROUND_IMAGE, copiedUri.getPath()).apply();
+                    mEnableAlarmBlurEffectPref.setVisible(SdkUtils.isAtLeastAndroid12());
+                    mAlarmBlurIntensityPref.setVisible(SdkUtils.isAtLeastAndroid12()
+                            && SettingsDAO.isAlarmBlurEffectEnabled(mPrefs));
+
+                    Toast.makeText(requireContext(), R.string.background_image_toast_message, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(requireContext(), "Error importing image", Toast.LENGTH_SHORT).show();
+                    mEnableAlarmBlurEffectPref.setVisible(false);
+                    mAlarmBlurIntensityPref.setVisible(false);
+                }
+            });
 
     @Override
     protected String getFragmentTitle() {
@@ -103,6 +168,10 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
         mAlarmDigitalClockFontSizePref = findPreference(KEY_ALARM_DIGITAL_CLOCK_FONT_SIZE);
         mDisplayRingtoneTitlePref = findPreference(KEY_DISPLAY_RINGTONE_TITLE);
         mRingtoneTitleColorPref = findPreference(KEY_RINGTONE_TITLE_COLOR);
+        mEnableAlarmBackgroundImage = findPreference(KEY_ENABLE_ALARM_BACKGROUND_IMAGE);
+        mAlarmBackgroundImagePref = findPreference(KEY_ALARM_BACKGROUND_IMAGE);
+        mEnableAlarmBlurEffectPref = findPreference(KEY_ENABLE_ALARM_BLUR_EFFECT);
+        mAlarmBlurIntensityPref = findPreference(KEY_ALARM_BLUR_INTENSITY);
         mPreviewAlarmPref = findPreference(KEY_PREVIEW_ALARM);
 
         mAlarmClockStyleValues = getResources().getStringArray(R.array.clock_style_values);
@@ -161,6 +230,27 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
 
                 Utils.setVibrationTime(requireContext(), 50);
             }
+
+            case KEY_ENABLE_ALARM_BACKGROUND_IMAGE -> {
+                mAlarmBackgroundImagePref.setVisible((boolean) newValue);
+                mEnableAlarmBlurEffectPref.setVisible(SdkUtils.isAtLeastAndroid12()
+                        && (boolean) newValue
+                        && SettingsDAO.getAlarmBackgroundImage(mPrefs) != null);
+                mAlarmBlurIntensityPref.setVisible(SdkUtils.isAtLeastAndroid12()
+                        && (boolean) newValue
+                        && SettingsDAO.getAlarmBackgroundImage(mPrefs) != null
+                        && SettingsDAO.isAlarmBlurEffectEnabled(mPrefs));
+
+                Utils.setVibrationTime(requireContext(), 50);
+            }
+
+            case KEY_ENABLE_ALARM_BLUR_EFFECT -> {
+                mAlarmBlurIntensityPref.setVisible(SdkUtils.isAtLeastAndroid12()
+                        && (boolean) newValue
+                        && SettingsDAO.getAlarmBackgroundImage(mPrefs) != null);
+
+                Utils.setVibrationTime(requireContext(), 50);
+            }
         }
 
         return true;
@@ -180,24 +270,33 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
             return false;
         }
 
-        if (pref.getKey().equals(KEY_PREVIEW_ALARM)) {
-            startActivity(new Intent(context, AlarmDisplayPreviewActivity.class));
-            if (SettingsDAO.isFadeTransitionsEnabled(mPrefs)) {
-                if (SdkUtils.isAtLeastAndroid14()) {
-                    requireActivity().overrideActivityTransition(OVERRIDE_TRANSITION_OPEN,
-                            R.anim.fade_in, R.anim.fade_out);
+        switch (pref.getKey()) {
+            case KEY_PREVIEW_ALARM -> {
+                startActivity(new Intent(context, AlarmDisplayPreviewActivity.class));
+                if (SettingsDAO.isFadeTransitionsEnabled(mPrefs)) {
+                    if (SdkUtils.isAtLeastAndroid14()) {
+                        requireActivity().overrideActivityTransition(OVERRIDE_TRANSITION_OPEN,
+                                R.anim.fade_in, R.anim.fade_out);
+                    } else {
+                        requireActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                    }
                 } else {
-                    requireActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                }
-            } else {
-                if (SdkUtils.isAtLeastAndroid14()) {
-                    requireActivity().overrideActivityTransition(OVERRIDE_TRANSITION_OPEN,
-                            R.anim.activity_slide_from_right, R.anim.activity_slide_to_left);
-                } else {
-                    requireActivity().overridePendingTransition(
-                            R.anim.activity_slide_from_right, R.anim.activity_slide_to_left);
+                    if (SdkUtils.isAtLeastAndroid14()) {
+                        requireActivity().overrideActivityTransition(OVERRIDE_TRANSITION_OPEN,
+                                R.anim.activity_slide_from_right, R.anim.activity_slide_to_left);
+                    } else {
+                        requireActivity().overridePendingTransition(
+                                R.anim.activity_slide_from_right, R.anim.activity_slide_to_left);
+                    }
                 }
             }
+            case KEY_ALARM_BACKGROUND_IMAGE ->
+                    imagePickerLauncher.launch(new Intent(Intent.ACTION_OPEN_DOCUMENT)
+                            .addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
+                            .addCategory(Intent.CATEGORY_OPENABLE)
+                            .setType("image/*")
+                            .putExtra(Intent.EXTRA_MIME_TYPES, new String[]{"image/jpeg", "image/png"})
+            );
         }
 
         return true;
@@ -259,6 +358,21 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
         mDisplayRingtoneTitlePref.setOnPreferenceChangeListener(this);
 
         mRingtoneTitleColorPref.setVisible(SettingsDAO.isRingtoneTitleDisplayed(mPrefs));
+
+        mEnableAlarmBackgroundImage.setOnPreferenceChangeListener(this);
+
+        mAlarmBackgroundImagePref.setVisible(SettingsDAO.isAlarmBackgroundImageEnabled(mPrefs));
+        mAlarmBackgroundImagePref.setOnPreferenceClickListener(this);
+
+        mEnableAlarmBlurEffectPref.setVisible(SdkUtils.isAtLeastAndroid12()
+                && SettingsDAO.isAlarmBackgroundImageEnabled(mPrefs)
+                && SettingsDAO.getAlarmBackgroundImage(mPrefs) != null);
+        mEnableAlarmBlurEffectPref.setOnPreferenceChangeListener(this);
+
+        mAlarmBlurIntensityPref.setVisible(SdkUtils.isAtLeastAndroid12()
+                && SettingsDAO.isAlarmBackgroundImageEnabled(mPrefs)
+                && SettingsDAO.getAlarmBackgroundImage(mPrefs) != null
+                && SettingsDAO.isAlarmBlurEffectEnabled(mPrefs));
 
         mPreviewAlarmPref.setOnPreferenceClickListener(this);
     }

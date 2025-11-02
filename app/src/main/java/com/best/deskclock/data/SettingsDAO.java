@@ -1110,6 +1110,38 @@ public final class SettingsDAO {
         return prefs.getInt(KEY_RINGTONE_TITLE_COLOR, DEFAULT_RINGTONE_TITLE_COLOR);
     }
 
+    /**
+     * @return {@code true} if a background image can be selected for triggered alarms.
+     * {@code false} otherwise.
+     */
+    public static boolean isAlarmBackgroundImageEnabled(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_ENABLE_ALARM_BACKGROUND_IMAGE, DEFAULT_ENABLE_BACKGROUND_IMAGE);
+    }
+
+    /**
+     * @return the URI of the image to be displayed on the lock screen when the alarm is triggered.
+     */
+    public static String getAlarmBackgroundImage(SharedPreferences prefs) {
+        return prefs.getString(KEY_ALARM_BACKGROUND_IMAGE, null);
+    }
+
+    /**
+     * @return {@code true} if a blur effect should be applied to the image when the alarm is triggered.
+     * {@code false} otherwise.
+     */
+    public static boolean isAlarmBlurEffectEnabled(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm_display.xml
+        return prefs.getBoolean(KEY_ENABLE_ALARM_BLUR_EFFECT, DEFAULT_ENABLE_BLUR_EFFECT);
+    }
+
+    /**
+     * @return the blur intensity applied to the image when the alarm is triggered.
+     */
+    public static int getAlarmBlurIntensity(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm_display.xml
+        return prefs.getInt(KEY_ALARM_BLUR_INTENSITY, DEFAULT_BLUR_INTENSITY);
+    }
+
     private static ClockStyle getClockStyle(SharedPreferences prefs, String key) {
         final String clockStyle = prefs.getString(key, DEFAULT_CLOCK_STYLE);
         // Use hardcoded locale to perform toUpperCase, because in some languages toUpperCase adds

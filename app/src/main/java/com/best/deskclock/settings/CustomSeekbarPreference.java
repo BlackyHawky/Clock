@@ -3,6 +3,7 @@
 package com.best.deskclock.settings;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_BLUR_INTENSITY;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_DIGITAL_CLOCK_FONT_SIZE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_TITLE_FONT_SIZE_PREF;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_BLUETOOTH_VOLUME;
@@ -10,6 +11,7 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SCREE
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SHAKE_INTENSITY;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TIMER_SHAKE_INTENSITY;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_WIDGETS_FONT_SIZE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BLUR_INTENSITY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_DIGITAL_CLOCK_FONT_SIZE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_TITLE_FONT_SIZE_PREF;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_BLUETOOTH_VOLUME;
@@ -56,6 +58,7 @@ public class CustomSeekbarPreference extends SeekBarPreference {
     private static final int MIN_TIMER_SHAKE_INTENSITY_VALUE = DEFAULT_TIMER_SHAKE_INTENSITY;
     private static final int MIN_BRIGHTNESS_VALUE = 0;
     private static final int MIN_BLUETOOTH_VOLUME = 10;
+    private static final int MIN_BLUR_INTENSITY_VALUE = 1;
 
     private Context mContext;
     private SharedPreferences mPrefs;
@@ -118,6 +121,8 @@ public class CustomSeekbarPreference extends SeekBarPreference {
                             seekBar.setProgress(MIN_SHAKE_INTENSITY_VALUE);
                         } else if (isTimerShakeIntensityPreference() && progress < MIN_TIMER_SHAKE_INTENSITY_VALUE) {
                             seekBar.setProgress(MIN_TIMER_SHAKE_INTENSITY_VALUE);
+                        } else if (isAlarmBlurIntensityPreference() && progress < MIN_BLUR_INTENSITY_VALUE) {
+                            seekBar.setProgress(MIN_BLUR_INTENSITY_VALUE);
                         } else if (isBluetoothVolumePreference() && progress < MIN_BLUETOOTH_VOLUME) {
                             seekBar.setProgress(MIN_BLUETOOTH_VOLUME);
                         } else if (!isScreensaverBrightnessPreference() && progress < MIN_FONT_SIZE_VALUE) {
@@ -156,6 +161,8 @@ public class CustomSeekbarPreference extends SeekBarPreference {
                 mSeekBar.setMin(MIN_SHAKE_INTENSITY_VALUE);
             } else if (isTimerShakeIntensityPreference()) {
                 mSeekBar.setMin(MIN_TIMER_SHAKE_INTENSITY_VALUE);
+            } else if (isAlarmBlurIntensityPreference()) {
+                mSeekBar.setMin(MIN_BLUR_INTENSITY_VALUE);
             } else if (isBluetoothVolumePreference()) {
                 mSeekBar.setMin(MIN_BLUETOOTH_VOLUME);
             } else {
@@ -180,6 +187,8 @@ public class CustomSeekbarPreference extends SeekBarPreference {
             currentProgress = getAlarmDigitalClockFontSizeValue();
         } else if (isAlarmTitleFontSizePreference()) {
             currentProgress = getAlarmTitleFontSizeValue();
+        } else if (isAlarmBlurIntensityPreference()) {
+            currentProgress = getAlarmBlurIntensityValue();
         } else if (isBluetoothVolumePreference()) {
             currentProgress = getBluetoothVolumeValue();
         } else {
@@ -218,6 +227,9 @@ public class CustomSeekbarPreference extends SeekBarPreference {
         } else if (isShakeIntensityPreference() || isTimerShakeIntensityPreference()) {
             mSeekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_sensor_low));
             mSeekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_sensor_high));
+        } else if (isAlarmBlurIntensityPreference()) {
+            mSeekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_blur_down));
+            mSeekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_blur_up));
         } else if (isBluetoothVolumePreference()) {
             mSeekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_volume_down));
             mSeekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_volume_up));
@@ -309,6 +321,7 @@ public class CustomSeekbarPreference extends SeekBarPreference {
         return isScreensaverBrightnessPreference() ? MIN_BRIGHTNESS_VALUE
                 : isShakeIntensityPreference() ? MIN_SHAKE_INTENSITY_VALUE
                 : isTimerShakeIntensityPreference() ? MIN_TIMER_SHAKE_INTENSITY_VALUE
+                : isAlarmBlurIntensityPreference() ? MIN_BLUR_INTENSITY_VALUE
                 : isBluetoothVolumePreference() ? MIN_BLUETOOTH_VOLUME
                 : MIN_FONT_SIZE_VALUE;
     }
@@ -327,6 +340,8 @@ public class CustomSeekbarPreference extends SeekBarPreference {
             return DEFAULT_ALARM_DIGITAL_CLOCK_FONT_SIZE;
         } else if (isAlarmTitleFontSizePreference()) {
             return DEFAULT_ALARM_TITLE_FONT_SIZE_PREF;
+        } else if (isAlarmBlurIntensityPreference()) {
+            return DEFAULT_BLUR_INTENSITY;
         } else if (isBluetoothVolumePreference()) {
             return DEFAULT_BLUETOOTH_VOLUME;
         } else {
@@ -357,6 +372,7 @@ public class CustomSeekbarPreference extends SeekBarPreference {
                 && !isTimerShakeIntensityPreference()
                 && !isAlarmDigitalClockFontSizePreference()
                 && !isAlarmTitleFontSizePreference()
+                && !isAlarmBlurIntensityPreference()
                 && !isBluetoothVolumePreference()) {
 
             WidgetUtils.updateAllDigitalWidgets(mContext);
@@ -412,6 +428,13 @@ public class CustomSeekbarPreference extends SeekBarPreference {
     }
 
     /**
+     * @return the current value of the SeekBar related to alarm blur effect from SharedPreferences.
+     */
+    private int getAlarmBlurIntensityValue() {
+        return mPrefs.getInt(getKey(), DEFAULT_BLUR_INTENSITY);
+    }
+
+    /**
      * @return the current value of the SeekBar related to volume when a Bluetooth device
      * is connected from SharedPreferences.
      */
@@ -457,6 +480,14 @@ public class CustomSeekbarPreference extends SeekBarPreference {
      */
     private boolean isAlarmTitleFontSizePreference() {
         return getKey().equals(KEY_ALARM_TITLE_FONT_SIZE_PREF);
+    }
+
+    /**
+     * @return {@code true} if the current preference is related to blur intensity for alarms.
+     * {@code false} otherwise.
+     */
+    private boolean isAlarmBlurIntensityPreference() {
+        return getKey().equals(KEY_ALARM_BLUR_INTENSITY);
     }
 
     /**
