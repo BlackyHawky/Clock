@@ -571,6 +571,14 @@ public final class AlarmStateManager extends BroadcastReceiver {
             updateParentAlarm(context, instance);
         }
 
+        // When the alarm is dismissed from the notification and all days of the week are selected,
+        // correctly display the next occurrence in the alarm item.
+        final SharedPreferences prefs = getDefaultSharedPreferences(context);
+        final Alarm alarm = Alarm.getAlarm(contentResolver, instance.mAlarmId);
+        if (alarm != null && !alarm.isRepeatDayStyleEnabled(prefs)) {
+            alarm.enableRepeatDayStyleIfAllDaysSelected(prefs);
+        }
+
         cancelPowerOffAlarm(context, instance);
         updateNextAlarm(context);
     }
@@ -742,13 +750,6 @@ public final class AlarmStateManager extends BroadcastReceiver {
         } else {
             // Alarm is still active, so initialize as a silent alarm
             setSilentState(context, instance);
-
-            // When the alarm is dismissed from the notification and all days of the week are selected,
-            // correctly display the next occurrence in the alarm item.
-            final SharedPreferences prefs = getDefaultSharedPreferences(context);
-            if (alarm != null && !alarm.isRepeatDayStyleEnabled(prefs)) {
-                alarm.enableRepeatDayStyleIfAllDaysSelected(prefs);
-            }
         }
 
         // The caller prefers to handle updateNextAlarm for optimization

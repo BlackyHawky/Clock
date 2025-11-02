@@ -209,10 +209,6 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
     }
 
     public void dismissAlarmInstance(Alarm alarm, AlarmInstance alarmInstance) {
-        if (!alarm.isRepeatDayStyleEnabled(mPrefs)) {
-            alarm.enableRepeatDayStyleIfAllDaysSelected(mPrefs);
-        }
-
         final Intent dismissIntent = AlarmStateManager.createStateChangeIntent(mContext,
                 AlarmStateManager.ALARM_DISMISS_TAG, alarmInstance, AlarmInstance.PREDISMISSED_STATE);
         mContext.startService(dismissIntent);
