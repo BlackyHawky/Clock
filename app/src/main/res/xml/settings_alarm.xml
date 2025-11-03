@@ -87,6 +87,24 @@
             tools:layout="@layout/settings_preference_layout" />
 
         <SwitchPreferenceCompat
+            android:key="key_enable_per_alarm_missed_repeat_limit"
+            android:title="@string/enable_per_alarm_missed_repeat_limit_title"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <ListPreference
+            android:key="key_missed_alarm_repeat_limit"
+            android:title="@string/missed_alarm_repeat_limit_title"
+            android:entries="@array/missed_alarm_repeat_limit_entries"
+            android:entryValues="@array/missed_alarm_repeat_limit_values"
+            android:defaultValue="-1"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <SwitchPreferenceCompat
             android:key="key_enable_per_alarm_volume"
             android:title="@string/enable_per_alarm_volume_title"
             android:defaultValue="false"
@@ -270,24 +288,6 @@
             android:entries="@array/alarm_notification_reminder_entries"
             android:entryValues="@array/alarm_notification_reminder_values"
             android:defaultValue="30"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
-
-        <SwitchPreferenceCompat
-            android:key="key_enable_per_alarm_missed_repeat_limit"
-            android:title="@string/enable_per_alarm_missed_repeat_limit_title"
-            android:defaultValue="true"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
-
-        <ListPreference
-            android:key="key_missed_alarm_repeat_limit"
-            android:title="@string/missed_alarm_repeat_limit_title"
-            android:entries="@array/missed_alarm_repeat_limit_entries"
-            android:entryValues="@array/missed_alarm_repeat_limit_values"
-            android:defaultValue="-1"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />

@@ -101,6 +101,8 @@ public class AlarmSettingsFragment extends ScreenFragment
     Preference mAlarmAutoSilencePref;
     SwitchPreferenceCompat mEnablePerAlarmSnoozeDurationPref;
     Preference mAlarmSnoozeDurationPref;
+    SwitchPreferenceCompat mEnablePerAlarmMissedRepeatLimitPref;
+    ListPreference mMissedAlarmRepeatLimitPref;
     SwitchPreferenceCompat mEnablePerAlarmVolumePref;
     AlarmVolumePreference mAlarmVolumePref;
     SwitchPreferenceCompat mEnablePerAlarmVolumeCrescendoDurationPref;
@@ -120,8 +122,6 @@ public class AlarmSettingsFragment extends ScreenFragment
     ListPreference mWeekStartPref;
     SwitchPreferenceCompat mDisplayDismissButtonPref;
     ListPreference mAlarmNotificationReminderTimePref;
-    SwitchPreferenceCompat mEnablePerAlarmMissedRepeatLimitPref;
-    ListPreference mMissedAlarmRepeatLimitPref;
     Preference mVibrationPatternPref;
     Preference mVibrationStartDelayPref;
     SwitchPreferenceCompat mEnableAlarmVibrationsByDefaultPref;
@@ -152,6 +152,8 @@ public class AlarmSettingsFragment extends ScreenFragment
         mAlarmAutoSilencePref = findPreference(KEY_AUTO_SILENCE_DURATION);
         mEnablePerAlarmSnoozeDurationPref = findPreference(KEY_ENABLE_PER_ALARM_SNOOZE_DURATION);
         mAlarmSnoozeDurationPref = findPreference(KEY_ALARM_SNOOZE_DURATION);
+        mEnablePerAlarmMissedRepeatLimitPref = findPreference(KEY_ENABLE_PER_ALARM_MISSED_REPEAT_LIMIT);
+        mMissedAlarmRepeatLimitPref = findPreference(KEY_MISSED_ALARM_REPEAT_LIMIT);
         mEnablePerAlarmVolumePref = findPreference(KEY_ENABLE_PER_ALARM_VOLUME);
         mAlarmVolumePref = findPreference(KEY_ALARM_VOLUME_SETTING);
         mEnablePerAlarmVolumeCrescendoDurationPref = findPreference(KEY_ENABLE_PER_ALARM_VOLUME_CRESCENDO_DURATION);
@@ -171,8 +173,6 @@ public class AlarmSettingsFragment extends ScreenFragment
         mWeekStartPref = findPreference(KEY_WEEK_START);
         mDisplayDismissButtonPref = findPreference(KEY_DISPLAY_DISMISS_BUTTON);
         mAlarmNotificationReminderTimePref = findPreference(KEY_ALARM_NOTIFICATION_REMINDER_TIME);
-        mEnablePerAlarmMissedRepeatLimitPref = findPreference(KEY_ENABLE_PER_ALARM_MISSED_REPEAT_LIMIT);
-        mMissedAlarmRepeatLimitPref = findPreference(KEY_MISSED_ALARM_REPEAT_LIMIT);
         mVibrationPatternPref = findPreference(KEY_VIBRATION_PATTERN);
         mVibrationStartDelayPref = findPreference(KEY_VIBRATION_START_DELAY);
         mEnableAlarmVibrationsByDefaultPref = findPreference(KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT);
@@ -267,6 +267,36 @@ public class AlarmSettingsFragment extends ScreenFragment
                 }
             }
 
+            case KEY_ENABLE_PER_ALARM_MISSED_REPEAT_LIMIT -> {
+                Utils.setVibrationTime(requireContext(), 50);
+
+                if ((boolean) newValue) {
+                    mMissedAlarmRepeatLimitPref.setVisible(false);
+
+                    for (Alarm alarm : mAlarmList) {
+                        alarm.missedAlarmRepeatLimit = Integer.parseInt(DEFAULT_MISSED_ALARM_REPEAT_LIMIT);
+                        mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                    }
+                } else {
+                    showDisablePerAlarmSettingDialog(R.string.enable_per_alarm_missed_repeat_limit_dialog_message,
+                            KEY_ENABLE_PER_ALARM_MISSED_REPEAT_LIMIT, mEnablePerAlarmMissedRepeatLimitPref,
+                            mMissedAlarmRepeatLimitPref, alarm ->
+                                    alarm.missedAlarmRepeatLimit = SettingsDAO.getMissedAlarmRepeatLimit(mPrefs));
+
+                    return false;
+                }
+            }
+
+            case KEY_MISSED_ALARM_REPEAT_LIMIT -> {
+                final int index = mMissedAlarmRepeatLimitPref.findIndexOfValue((String) newValue);
+                mMissedAlarmRepeatLimitPref.setSummary(mMissedAlarmRepeatLimitPref.getEntries()[index]);
+
+                for (Alarm alarm : mAlarmList) {
+                    alarm.missedAlarmRepeatLimit = Integer.parseInt((String) newValue);
+                    mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                }
+            }
+
             case KEY_ENABLE_PER_ALARM_VOLUME -> {
                 stopRingtonePreview();
 
@@ -348,36 +378,6 @@ public class AlarmSettingsFragment extends ScreenFragment
                     if (alarm.enabled) {
                         mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, false);
                     }
-                }
-            }
-
-            case KEY_ENABLE_PER_ALARM_MISSED_REPEAT_LIMIT -> {
-                Utils.setVibrationTime(requireContext(), 50);
-
-                if ((boolean) newValue) {
-                    mMissedAlarmRepeatLimitPref.setVisible(false);
-
-                    for (Alarm alarm : mAlarmList) {
-                        alarm.missedAlarmRepeatLimit = Integer.parseInt(DEFAULT_MISSED_ALARM_REPEAT_LIMIT);
-                        mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
-                    }
-                } else {
-                    showDisablePerAlarmSettingDialog(R.string.enable_per_alarm_missed_repeat_limit_dialog_message,
-                            KEY_ENABLE_PER_ALARM_MISSED_REPEAT_LIMIT, mEnablePerAlarmMissedRepeatLimitPref,
-                            mMissedAlarmRepeatLimitPref, alarm ->
-                                    alarm.missedAlarmRepeatLimit = SettingsDAO.getMissedAlarmRepeatLimit(mPrefs));
-
-                    return false;
-                }
-            }
-
-            case KEY_MISSED_ALARM_REPEAT_LIMIT -> {
-                final int index = mMissedAlarmRepeatLimitPref.findIndexOfValue((String) newValue);
-                mMissedAlarmRepeatLimitPref.setSummary(mMissedAlarmRepeatLimitPref.getEntries()[index]);
-
-                for (Alarm alarm : mAlarmList) {
-                    alarm.missedAlarmRepeatLimit = Integer.parseInt((String) newValue);
-                    mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
                 }
             }
 
@@ -503,6 +503,14 @@ public class AlarmSettingsFragment extends ScreenFragment
             }
         });
 
+        mEnablePerAlarmMissedRepeatLimitPref.setVisible(SettingsDAO.getAlarmTimeout(mPrefs) != TIMEOUT_NEVER);
+        mEnablePerAlarmMissedRepeatLimitPref.setOnPreferenceChangeListener(this);
+
+        mMissedAlarmRepeatLimitPref.setVisible(SettingsDAO.getAlarmTimeout(mPrefs) != TIMEOUT_NEVER
+                && !SettingsDAO.isPerAlarmMissedRepeatLimitEnabled(mPrefs));
+        mMissedAlarmRepeatLimitPref.setOnPreferenceChangeListener(this);
+        mMissedAlarmRepeatLimitPref.setSummary(mMissedAlarmRepeatLimitPref.getEntry());
+
         mEnablePerAlarmVolumePref.setOnPreferenceChangeListener(this);
 
         mAlarmVolumePref.setVisible(!SettingsDAO.isPerAlarmVolumeEnabled(mPrefs));
@@ -590,14 +598,6 @@ public class AlarmSettingsFragment extends ScreenFragment
 
         mAlarmNotificationReminderTimePref.setOnPreferenceChangeListener(this);
         mAlarmNotificationReminderTimePref.setSummary(mAlarmNotificationReminderTimePref.getEntry());
-
-        mEnablePerAlarmMissedRepeatLimitPref.setVisible(SettingsDAO.getAlarmTimeout(mPrefs) != TIMEOUT_NEVER);
-        mEnablePerAlarmMissedRepeatLimitPref.setOnPreferenceChangeListener(this);
-
-        mMissedAlarmRepeatLimitPref.setVisible(SettingsDAO.getAlarmTimeout(mPrefs) != TIMEOUT_NEVER
-                && !SettingsDAO.isPerAlarmMissedRepeatLimitEnabled(mPrefs));
-        mMissedAlarmRepeatLimitPref.setOnPreferenceChangeListener(this);
-        mMissedAlarmRepeatLimitPref.setSummary(mMissedAlarmRepeatLimitPref.getEntry());
 
         mVibrationPatternPref.setVisible(hasVibrator);
         getParentFragmentManager().setFragmentResultListener(VibrationPatternDialogFragment.REQUEST_KEY,
