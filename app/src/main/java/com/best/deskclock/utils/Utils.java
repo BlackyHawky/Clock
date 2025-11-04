@@ -25,7 +25,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Looper;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
@@ -62,11 +61,13 @@ public class Utils {
     public static final String ACTION_LANGUAGE_CODE_CHANGED = "com.best.deskclock.LANGUAGE_CODE_CHANGED";
 
     /**
-     * @return {@code true} if the application is in development mode (debug, eng or userdebug).
-     * {@code false} otherwise.
+     * @return {@code true} if the application is in development mode. {@code false} otherwise.
+     * <br><p>
+     * Note: no need to specify {@code "eng".equals(Build.TYPE) || "userdebug".equals(Build.TYPE)}
+     * because the app is not intended to be deployed in a custom ROM.</p></br>
      */
     public static boolean isDebugConfig() {
-        return BuildConfig.DEBUG || "eng".equals(Build.TYPE) || "userdebug".equals(Build.TYPE);
+        return BuildConfig.DEBUG;
     }
 
     public static void enforceMainLooper() {
