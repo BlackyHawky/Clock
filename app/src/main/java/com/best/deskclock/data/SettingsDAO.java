@@ -1094,6 +1094,31 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return {@code true} if a shadow is displayed on the texts of the triggered alarm.
+     * {@code false} otherwise.
+     */
+    public static boolean isAlarmTextShadowDisplayed(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm_display.xml
+        return prefs.getBoolean(KEY_ALARM_DISPLAY_TEXT_SHADOW, DEFAULT_ALARM_DISPLAY_TEXT_SHADOW);
+    }
+
+    /**
+     * @return a value indicating the shadow color displayed on the triggered alarm texts.
+     */
+    public static int getAlarmShadowColor(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm_display.xml
+        return prefs.getInt(KEY_ALARM_SHADOW_COLOR, DEFAULT_ALARM_SHADOW_COLOR);
+    }
+
+    /**
+     * @return a value indicating the shadow offset for the triggered alarm texts.
+     */
+    public static int getAlarmShadowOffset(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm_display.xml
+        return prefs.getInt(KEY_ALARM_SHADOW_OFFSET, DEFAULT_ALARM_SHADOW_OFFSET);
+    }
+
+    /**
      * @return {@code true} if the ringtone title should be displayed on the lock screen when the alarm is triggered.
      * {@code false} otherwise.
      */

@@ -201,6 +201,33 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_seekbar_layout" />
 
+        <SwitchPreferenceCompat
+            android:key="key_alarm_display_text_shadow"
+            android:title="@string/display_text_shadow_title"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <com.rarepebble.colorpicker.ColorPreference
+            android:key="key_alarm_shadow_color"
+            android:title="@string/shadow_color_title"
+            android:defaultValue="#80FFFFFF"
+            app:colorpicker_selectNoneButtonText="@string/label_default"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <com.best.deskclock.settings.CustomSeekbarPreference
+            android:key="key_alarm_shadow_offset"
+            android:title="@string/shadow_offset_title"
+            android:summary="@string/label_default"
+            android:defaultValue="10"
+            android:max="20"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_seekbar_layout" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

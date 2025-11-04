@@ -21,7 +21,10 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.BlurMaskFilter;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.RenderEffect;
 import android.graphics.Shader;
 import android.graphics.Typeface;
@@ -103,6 +106,10 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
     private Vibrator mVibrator;
     private boolean mAreSnoozedOrDismissedAlarmVibrationsEnabled;
     private boolean mIsFadeTransitionsEnabled;
+    private boolean mIsTextShadowDisplayed;
+    private int mShadowColor;
+    private int mShadowOffset;
+    private float mShadowRadius;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -166,6 +173,10 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
         float alarmDigitalClockFontSize = SettingsDAO.getAlarmDigitalClockFontSize(mPrefs);
         mAlarmTitleFontSize = SettingsDAO.getAlarmTitleFontSize(mPrefs);
         mAlarmTitleColor = SettingsDAO.getAlarmTitleColor(mPrefs);
+        mIsTextShadowDisplayed = SettingsDAO.isAlarmTextShadowDisplayed(mPrefs);
+        mShadowColor = SettingsDAO.getAlarmShadowColor(mPrefs);
+        mShadowOffset = SettingsDAO.getAlarmShadowOffset(mPrefs);
+        mShadowRadius = mShadowOffset * 0.5f;
 
         mAlertView = findViewById(R.id.alert);
         mAlertTitleView = mAlertView.findViewById(R.id.alert_title);
@@ -196,6 +207,12 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
         titleView.setTextColor(mAlarmTitleColor);
         // Allow text scrolling (all other attributes are indicated in the "alarm_activity.xml" file)
         titleView.setSelected(true);
+
+        // Display a shadow if enabled in the settings
+        if (mIsTextShadowDisplayed) {
+            digitalClock.setShadowLayer(mShadowRadius, mShadowOffset, mShadowOffset, mShadowColor);
+            titleView.setShadowLayer(mShadowRadius, mShadowOffset, mShadowOffset, mShadowColor);
+        }
 
         if (mIsSwipeActionEnabled) {
             mSlideZoneLayout.setVisibility(VISIBLE);
@@ -579,12 +596,45 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
         final Uri ringtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
         final Ringtone ringtone = RingtoneManager.getRingtone(this, ringtoneUri);
         final Drawable musicIcon = AppCompatResources.getDrawable(this, R.drawable.ic_music_note);
+        int iconSize = ThemeUtils.convertDpToPixels(24, this);
         final int ringtoneTitleColor = SettingsDAO.getRingtoneTitleColor(mPrefs);
 
         if (musicIcon != null) {
-            musicIcon.setTint(ringtoneTitleColor);
+            if (mIsTextShadowDisplayed) {
+                // Convert the drawable to a bitmap
+                Bitmap iconBitmap = Bitmap.createBitmap(iconSize, iconSize, Bitmap.Config.ARGB_8888);
+                Canvas iconCanvas = new Canvas(iconBitmap);
+                musicIcon.setBounds(0, 0, iconSize, iconSize);
+                musicIcon.draw(iconCanvas);
+
+                // Create the alpha mask for the shadow
+                Bitmap shadowBitmap = iconBitmap.extractAlpha();
+                Paint shadowPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+                shadowPaint.setColor(mShadowColor);
+                shadowPaint.setMaskFilter(new BlurMaskFilter(mShadowRadius * 1.5f, BlurMaskFilter.Blur.NORMAL));
+
+                // Create the final bitmap with space for the shadow
+                int finalWidth = iconSize + mShadowOffset;
+                int finalHeight = iconSize + mShadowOffset;
+                Bitmap finalBitmap = Bitmap.createBitmap(finalWidth, finalHeight, Bitmap.Config.ARGB_8888);
+                Canvas finalCanvas = new Canvas(finalBitmap);
+
+                // Draw the blurred shadow with an offset
+                finalCanvas.drawBitmap(shadowBitmap, mShadowOffset, mShadowOffset, shadowPaint);
+
+                // Draw the normal icon on top
+                finalCanvas.drawBitmap(iconBitmap, 0, 0, null);
+
+                // Apply the result to the ImageView
+                mRingtoneIcon.setImageBitmap(finalBitmap);
+
+                mRingtoneTitle.setShadowLayer(mShadowRadius, mShadowOffset, mShadowOffset, mShadowColor);
+            } else {
+                musicIcon.setTint(ringtoneTitleColor);
+                mRingtoneIcon.setImageDrawable(musicIcon);
+            }
         }
-        mRingtoneIcon.setImageDrawable(musicIcon);
+
         mRingtoneTitle.setText(ringtone.getTitle(this));
         mRingtoneTitle.setTextColor(ringtoneTitleColor);
         // Allow text scrolling (all other attributes are indicated in the "alarm_activity.xml" file)

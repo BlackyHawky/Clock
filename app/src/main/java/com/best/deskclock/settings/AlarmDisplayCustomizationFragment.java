@@ -15,8 +15,11 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_CLOCK_DIAL_M
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_CLOCK_SECOND_HAND;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_DIGITAL_CLOCK_FONT_SIZE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_CLOCK_STYLE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_DISPLAY_TEXT_SHADOW;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_SECOND_HAND_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BACKGROUND_IMAGE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_SHADOW_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_SHADOW_OFFSET;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISMISS_BUTTON_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISMISS_TITLE_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_ALARM_SECOND_HAND;
@@ -81,9 +84,12 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
     ColorPreference mBackgroundColorPref;
     ColorPreference mBackgroundAmoledColorPref;
     CustomSeekbarPreference mAlarmDigitalClockFontSizePref;
+    SwitchPreferenceCompat mDisplayTextShadowPref;
+    ColorPreference mShadowColorPref;
+    Preference mShadowOffsetPref;
     SwitchPreferenceCompat mDisplayRingtoneTitlePref;
     ColorPreference mRingtoneTitleColorPref;
-    SwitchPreferenceCompat mEnableAlarmBackgroundImage;
+    SwitchPreferenceCompat mEnableAlarmBackgroundImagePref;
     Preference mAlarmBackgroundImagePref;
     SwitchPreferenceCompat mEnableAlarmBlurEffectPref;
     Preference mAlarmBlurIntensityPref;
@@ -166,9 +172,12 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
         mDismissTitleColorPref = findPreference(KEY_DISMISS_TITLE_COLOR);
         mDismissButtonColorPref = findPreference(KEY_DISMISS_BUTTON_COLOR);
         mAlarmDigitalClockFontSizePref = findPreference(KEY_ALARM_DIGITAL_CLOCK_FONT_SIZE);
+        mDisplayTextShadowPref = findPreference(KEY_ALARM_DISPLAY_TEXT_SHADOW);
+        mShadowColorPref = findPreference(KEY_ALARM_SHADOW_COLOR);
+        mShadowOffsetPref = findPreference(KEY_ALARM_SHADOW_OFFSET);
         mDisplayRingtoneTitlePref = findPreference(KEY_DISPLAY_RINGTONE_TITLE);
         mRingtoneTitleColorPref = findPreference(KEY_RINGTONE_TITLE_COLOR);
-        mEnableAlarmBackgroundImage = findPreference(KEY_ENABLE_ALARM_BACKGROUND_IMAGE);
+        mEnableAlarmBackgroundImagePref = findPreference(KEY_ENABLE_ALARM_BACKGROUND_IMAGE);
         mAlarmBackgroundImagePref = findPreference(KEY_ALARM_BACKGROUND_IMAGE);
         mEnableAlarmBlurEffectPref = findPreference(KEY_ENABLE_ALARM_BLUR_EFFECT);
         mAlarmBlurIntensityPref = findPreference(KEY_ALARM_BLUR_INTENSITY);
@@ -221,6 +230,13 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
                 mDismissTitleColorPref.setVisible((boolean) newValue);
                 mDismissButtonColorPref.setVisible(!(boolean) newValue);
                 mAlarmButtonColorPref.setVisible((boolean) newValue);
+
+                Utils.setVibrationTime(requireContext(), 50);
+            }
+
+            case KEY_ALARM_DISPLAY_TEXT_SHADOW -> {
+                mShadowColorPref.setVisible((boolean) newValue);
+                mShadowOffsetPref.setVisible((boolean) newValue);
 
                 Utils.setVibrationTime(requireContext(), 50);
             }
@@ -355,11 +371,17 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
 
         mAlarmDigitalClockFontSizePref.setVisible(mAlarmClockStylePref.getValue().equals(mDigitalClock));
 
+        mDisplayTextShadowPref.setOnPreferenceChangeListener(this);
+
+        mShadowColorPref.setVisible(SettingsDAO.isAlarmTextShadowDisplayed(mPrefs));
+
+        mShadowOffsetPref.setVisible(SettingsDAO.isAlarmTextShadowDisplayed(mPrefs));
+
         mDisplayRingtoneTitlePref.setOnPreferenceChangeListener(this);
 
         mRingtoneTitleColorPref.setVisible(SettingsDAO.isRingtoneTitleDisplayed(mPrefs));
 
-        mEnableAlarmBackgroundImage.setOnPreferenceChangeListener(this);
+        mEnableAlarmBackgroundImagePref.setOnPreferenceChangeListener(this);
 
         mAlarmBackgroundImagePref.setVisible(SettingsDAO.isAlarmBackgroundImageEnabled(mPrefs));
         mAlarmBackgroundImagePref.setOnPreferenceClickListener(this);

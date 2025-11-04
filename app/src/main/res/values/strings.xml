@@ -517,6 +517,12 @@
     <string name="alarm_clock_font_size">Alarm clock font size</string>
     <!-- Setting title for customizing the alarm title font size. -->
     <string name="alarm_title_font_size">Alarm title font size</string>
+    <!-- Setting title to display a shadow on the texts of the triggered alarm. -->
+    <string name="display_text_shadow_title">Display text shadow</string>
+    <!-- Setting title for customizing the shadow color on the texts of the triggered alarm. -->
+    <string name="shadow_color_title">Shadow color</string>
+    <!-- Setting title for customizing the text shadow offset. -->
+    <string name="shadow_offset_title">Shadow offset</string>
     <!-- Setting title to display the ringtone title. -->
     <string name="display_ringtone_title">Display ringtone title</string>
     <!-- Setting title for customizing the ringtone title color. -->

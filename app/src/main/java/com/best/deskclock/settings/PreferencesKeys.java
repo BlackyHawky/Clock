@@ -121,6 +121,9 @@ public class PreferencesKeys {
     public static final String KEY_ALARM_BUTTON_COLOR = "key_alarm_button_color";
     public static final String KEY_ALARM_DIGITAL_CLOCK_FONT_SIZE = "key_alarm_digital_clock_font_size";
     public static final String KEY_ALARM_TITLE_FONT_SIZE_PREF = "key_alarm_title_font_size_pref";
+    public static final String KEY_ALARM_DISPLAY_TEXT_SHADOW = "key_alarm_display_text_shadow";
+    public static final String KEY_ALARM_SHADOW_COLOR = "key_alarm_shadow_color";
+    public static final String KEY_ALARM_SHADOW_OFFSET = "key_alarm_shadow_offset";
     public static final String KEY_DISPLAY_RINGTONE_TITLE = "key_display_ringtone_title";
     public static final String KEY_RINGTONE_TITLE_COLOR = "key_ringtone_title_color";
     public static final String KEY_ENABLE_ALARM_BACKGROUND_IMAGE = "key_enable_alarm_background_image";
