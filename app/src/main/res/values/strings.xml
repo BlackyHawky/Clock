@@ -1406,6 +1406,12 @@
     <string name="widgets_settings_summary">Set style, colors and font size of the widgets</string>
     <!-- Title to display the background on the digital widget. -->
     <string name="widget_background_title">Display background</string>
+    <!-- Title to enable the ability to customize the digital widget background corner radius. -->
+    <string name="customize_background_corner_radius_title">Customize the background corner radius</string>
+    <!-- Setting summary to clarify the "Customize the background corner radius" setting -->
+    <string name="customize_background_corner_radius_summary">Allows you to round widget corners if your home screen doesn\'t support it</string>
+    <!-- Title to customize the corner radius of the digital widget background. -->
+    <string name="background_corner_radius_title">Background corner radius</string>
     <!-- Title to set the background color on the digital widget. -->
     <string name="background_color_title">Background color</string>
     <!-- Title to set the default background color. -->

@@ -14,15 +14,21 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_SHADOW_OFFSE
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_TITLE_FONT_SIZE_PREF;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_VOLUME_SETTING;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_BLUETOOTH_VOLUME;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_BACKGROUND_CORNER_RADIUS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_MAXIMUM_FONT_SIZE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_BACKGROUND_CORNER_RADIUS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_MAXIMUM_FONT_SIZE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_BRIGHTNESS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SHAKE_INTENSITY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_SHAKE_INTENSITY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_WIDGET_BACKGROUND_CORNER_RADIUS;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -195,6 +201,12 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
                             || Objects.equals(subPref.getKey(), KEY_ALARM_BLUR_INTENSITY)
                             || Objects.equals(subPref.getKey(), KEY_TIMER_SHAKE_INTENSITY)
                             || Objects.equals(subPref.getKey(), KEY_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE)
+                            || Objects.equals(subPref.getKey(), KEY_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS)
+                            || Objects.equals(subPref.getKey(), KEY_NEXT_ALARM_WIDGET_BACKGROUND_CORNER_RADIUS)
+                            || Objects.equals(subPref.getKey(), KEY_VERTICAL_WIDGET_BACKGROUND_CORNER_RADIUS)
+                            || Objects.equals(subPref.getKey(), KEY_MATERIAL_YOU_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS)
+                            || Objects.equals(subPref.getKey(), KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_BACKGROUND_CORNER_RADIUS)
+                            || Objects.equals(subPref.getKey(), KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS)
                             || Objects.equals(subPref.getKey(), KEY_MATERIAL_YOU_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE)
                             || Objects.equals(subPref.getKey(), KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_MAXIMUM_FONT_SIZE)
                             || Objects.equals(subPref.getKey(), KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE)

@@ -6,6 +6,8 @@ import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
 import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
 
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_BACKGROUND_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CITY_CLOCK_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CITY_NAME_COLOR;
@@ -41,6 +43,7 @@ import com.best.deskclock.data.City;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.WidgetDAO;
+import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
 import com.best.deskclock.widgets.materialyouwidgets.MaterialYouDigitalAppWidgetProvider;
@@ -57,6 +60,8 @@ public class MaterialYouDigitalWidgetSettingsFragment extends ScreenFragment
     SwitchPreferenceCompat mDisplaySecondsPref;
     SwitchPreferenceCompat mHideAmPmPref;
     SwitchPreferenceCompat mShowBackgroundOnDigitalWidgetPref;
+    SwitchPreferenceCompat mCustomizeBackgroundCornerRadiusPref;
+    Preference mBackgroundCornerRadiusPref;
     SwitchPreferenceCompat mDisplayDatePref;
     SwitchPreferenceCompat mDisplayNextAlarmPref;
     SwitchPreferenceCompat mShowCitiesOnDigitalWidgetPref;
@@ -89,6 +94,8 @@ public class MaterialYouDigitalWidgetSettingsFragment extends ScreenFragment
         mDisplaySecondsPref = findPreference(KEY_MATERIAL_YOU_DIGITAL_WIDGET_SECONDS_DISPLAYED);
         mHideAmPmPref = findPreference(KEY_MATERIAL_YOU_DIGITAL_WIDGET_HIDE_AM_PM);
         mShowBackgroundOnDigitalWidgetPref = findPreference(KEY_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_BACKGROUND);
+        mCustomizeBackgroundCornerRadiusPref = findPreference(KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS);
+        mBackgroundCornerRadiusPref = findPreference(KEY_MATERIAL_YOU_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS);
         mDisplayDatePref = findPreference(KEY_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_DATE);
         mDisplayNextAlarmPref = findPreference(KEY_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM);
         mShowCitiesOnDigitalWidgetPref = findPreference(KEY_MATERIAL_YOU_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED);
@@ -139,9 +146,23 @@ public class MaterialYouDigitalWidgetSettingsFragment extends ScreenFragment
                 Utils.setVibrationTime(requireContext(), 50);
 
             case KEY_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_BACKGROUND -> {
-                mDefaultBackgroundColorPref.setVisible((boolean) newValue);
-                mCustomBackgroundColorPref.setVisible((boolean) newValue &&
-                        !WidgetDAO.isMaterialYouDigitalWidgetDefaultBackgroundColor(mPrefs));
+                boolean displayBackground = (boolean) newValue;
+                boolean isCustomColor = !WidgetDAO.isMaterialYouDigitalWidgetDefaultBackgroundColor(mPrefs);
+                boolean isRadiusCustomizable = WidgetDAO.isMaterialYouDigitalWidgetBackgroundCornerRadiusCustomizable(mPrefs);
+
+                mCustomizeBackgroundCornerRadiusPref.setVisible(SdkUtils.isAtLeastAndroid12()
+                        ? displayBackground
+                        : displayBackground && isCustomColor);
+                mBackgroundCornerRadiusPref.setVisible(SdkUtils.isAtLeastAndroid12()
+                        ? displayBackground && isRadiusCustomizable
+                        : displayBackground && isCustomColor && isRadiusCustomizable);
+                mDefaultBackgroundColorPref.setVisible(displayBackground);
+                mCustomBackgroundColorPref.setVisible(displayBackground && isCustomColor);
+                Utils.setVibrationTime(requireContext(), 50);
+            }
+
+            case KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS -> {
+                mBackgroundCornerRadiusPref.setVisible((boolean) newValue);
                 Utils.setVibrationTime(requireContext(), 50);
             }
 
@@ -176,7 +197,17 @@ public class MaterialYouDigitalWidgetSettingsFragment extends ScreenFragment
             }
 
             case KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_BACKGROUND_COLOR -> {
-                mCustomBackgroundColorPref.setVisible(!(boolean) newValue);
+                boolean isCustomColor = !(boolean) newValue;
+                boolean displayBackground = WidgetDAO.isBackgroundDisplayedOnMaterialYouDigitalWidget(mPrefs);
+                boolean isRadiusCustomizable = WidgetDAO.isMaterialYouDigitalWidgetBackgroundCornerRadiusCustomizable(mPrefs);
+
+                mCustomBackgroundColorPref.setVisible(isCustomColor);
+
+                if (!SdkUtils.isAtLeastAndroid12()) {
+                    mCustomizeBackgroundCornerRadiusPref.setVisible(isCustomColor && displayBackground);
+                    mBackgroundCornerRadiusPref.setVisible(isCustomColor && displayBackground && isRadiusCustomizable);
+                }
+
                 Utils.setVibrationTime(requireContext(), 50);
             }
 
@@ -229,6 +260,23 @@ public class MaterialYouDigitalWidgetSettingsFragment extends ScreenFragment
 
         mShowBackgroundOnDigitalWidgetPref.setOnPreferenceChangeListener(this);
 
+        boolean isBackgroundVisible = WidgetDAO.isBackgroundDisplayedOnMaterialYouDigitalWidget(mPrefs);
+        boolean isBackgroundCornerRadiusCustomizable =
+                WidgetDAO.isMaterialYouDigitalWidgetBackgroundCornerRadiusCustomizable(mPrefs);
+        boolean isCustomColor = !WidgetDAO.isMaterialYouDigitalWidgetDefaultBackgroundColor(mPrefs);
+
+        if (SdkUtils.isAtLeastAndroid12()) {
+            mCustomizeBackgroundCornerRadiusPref.setVisible(isBackgroundVisible);
+            mBackgroundCornerRadiusPref.setVisible(isBackgroundVisible && isBackgroundCornerRadiusCustomizable);
+        } else {
+            mCustomizeBackgroundCornerRadiusPref.setVisible(isBackgroundVisible && isCustomColor);
+            mBackgroundCornerRadiusPref.setVisible(isBackgroundVisible
+                    && isCustomColor
+                    && isBackgroundCornerRadiusCustomizable);
+        }
+
+        mCustomizeBackgroundCornerRadiusPref.setOnPreferenceChangeListener(this);
+
         mDisplayDatePref.setOnPreferenceChangeListener(this);
 
         mDisplayNextAlarmPref.setOnPreferenceChangeListener(this);
@@ -238,11 +286,10 @@ public class MaterialYouDigitalWidgetSettingsFragment extends ScreenFragment
 
         mApplyHorizontalPaddingPref.setOnPreferenceChangeListener(this);
 
-        mDefaultBackgroundColorPref.setVisible(WidgetDAO.isBackgroundDisplayedOnMaterialYouDigitalWidget(mPrefs));
+        mDefaultBackgroundColorPref.setVisible(isBackgroundVisible);
         mDefaultBackgroundColorPref.setOnPreferenceChangeListener(this);
 
-        mCustomBackgroundColorPref.setVisible(WidgetDAO.isBackgroundDisplayedOnMaterialYouDigitalWidget(mPrefs)
-                && !WidgetDAO.isMaterialYouDigitalWidgetDefaultBackgroundColor(mPrefs));
+        mCustomBackgroundColorPref.setVisible(isBackgroundVisible && isCustomColor);
         mCustomBackgroundColorPref.setOnPreferenceChangeListener(this);
 
         mDefaultClockColorPref.setOnPreferenceChangeListener(this);
@@ -295,6 +342,7 @@ public class MaterialYouDigitalWidgetSettingsFragment extends ScreenFragment
         mDisplaySecondsPref.setChecked(WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(mPrefs));
         mHideAmPmPref.setChecked(WidgetDAO.isAmPmHiddenOnMaterialYouDigitalWidget(mPrefs));
         mShowBackgroundOnDigitalWidgetPref.setChecked(WidgetDAO.isBackgroundDisplayedOnMaterialYouDigitalWidget(mPrefs));
+        mCustomizeBackgroundCornerRadiusPref.setChecked(WidgetDAO.isMaterialYouDigitalWidgetBackgroundCornerRadiusCustomizable(mPrefs));
         mDisplayDatePref.setChecked(WidgetDAO.isDateDisplayedOnMaterialYouDigitalWidget(mPrefs));
         mDisplayNextAlarmPref.setChecked(WidgetDAO.isNextAlarmDisplayedOnMaterialYouDigitalWidget(mPrefs));
         mShowCitiesOnDigitalWidgetPref.setChecked(WidgetDAO.areWorldCitiesDisplayedOnMaterialYouDigitalWidget(mPrefs));

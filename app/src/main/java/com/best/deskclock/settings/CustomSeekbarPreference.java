@@ -8,18 +8,26 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_BLUR_
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_DIGITAL_CLOCK_FONT_SIZE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_TITLE_FONT_SIZE_PREF;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_BLUETOOTH_VOLUME;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_MATERIAL_YOU_WIDGET_BACKGROUND_CORNER_RADIUS;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SCREENSAVER_BRIGHTNESS;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SHAKE_INTENSITY;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TIMER_SHAKE_INTENSITY;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_WIDGETS_FONT_SIZE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_WIDGET_BACKGROUND_CORNER_RADIUS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BLUR_INTENSITY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_DIGITAL_CLOCK_FONT_SIZE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_SHADOW_OFFSET;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_TITLE_FONT_SIZE_PREF;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_BLUETOOTH_VOLUME;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_BACKGROUND_CORNER_RADIUS;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_BACKGROUND_CORNER_RADIUS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_BRIGHTNESS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SHAKE_INTENSITY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_SHAKE_INTENSITY;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_WIDGET_BACKGROUND_CORNER_RADIUS;
 import static com.best.deskclock.utils.RingtoneUtils.ALARM_PREVIEW_DURATION_MS;
 
 
@@ -56,6 +64,7 @@ import java.util.Locale;
 public class CustomSeekbarPreference extends SeekBarPreference {
 
     private static final int MIN_FONT_SIZE_VALUE = 20;
+    private static final int MIN_CORNER_RADIUS_VALUE = 0;
     private static final int MIN_SHAKE_INTENSITY_VALUE = DEFAULT_SHAKE_INTENSITY;
     private static final int MIN_TIMER_SHAKE_INTENSITY_VALUE = DEFAULT_TIMER_SHAKE_INTENSITY;
     private static final int MIN_BRIGHTNESS_VALUE = 0;
@@ -130,7 +139,14 @@ public class CustomSeekbarPreference extends SeekBarPreference {
                             seekBar.setProgress(MIN_BLUR_INTENSITY_VALUE);
                         } else if (isBluetoothVolumePreference() && progress < MIN_BLUETOOTH_VOLUME) {
                             seekBar.setProgress(MIN_BLUETOOTH_VOLUME);
-                        } else if (!isScreensaverBrightnessPreference() && progress < MIN_FONT_SIZE_VALUE) {
+                        } else if (!isScreensaverBrightnessPreference()
+                                && !isDigitalWidgetBackgroundCornerRadius()
+                                && !isNextAlarmWidgetBackgroundCornerRadius()
+                                && !isVerticalWidgetBackgroundCornerRadius()
+                                && !isMaterialYouDigitalWidgetBackgroundCornerRadius()
+                                && !isMaterialYouNextAlarmWidgetBackgroundCornerRadius()
+                                && !isMaterialYouVerticalWidgetBackgroundCornerRadius()
+                                && progress < MIN_FONT_SIZE_VALUE) {
                             seekBar.setProgress(MIN_FONT_SIZE_VALUE);
                         }
                     }
@@ -162,6 +178,13 @@ public class CustomSeekbarPreference extends SeekBarPreference {
         if (SdkUtils.isAtLeastAndroid8()) {
             if (isScreensaverBrightnessPreference()) {
                 mSeekBar.setMin(MIN_BRIGHTNESS_VALUE);
+            } else if (isDigitalWidgetBackgroundCornerRadius()
+                    || isNextAlarmWidgetBackgroundCornerRadius()
+                    || isVerticalWidgetBackgroundCornerRadius()
+                    || isMaterialYouDigitalWidgetBackgroundCornerRadius()
+                    || isMaterialYouNextAlarmWidgetBackgroundCornerRadius()
+                    || isMaterialYouVerticalWidgetBackgroundCornerRadius()) {
+                mSeekBar.setMin(MIN_CORNER_RADIUS_VALUE);
             } else if (isShakeIntensityPreference()) {
                 mSeekBar.setMin(MIN_SHAKE_INTENSITY_VALUE);
             } else if (isTimerShakeIntensityPreference()) {
@@ -186,6 +209,18 @@ public class CustomSeekbarPreference extends SeekBarPreference {
         int currentProgress;
         if (isScreensaverBrightnessPreference()) {
             currentProgress = getScreensaverBrightnessPreferenceValue();
+        } else if (isDigitalWidgetBackgroundCornerRadius()) {
+            currentProgress = getDigitalWidgetBackgroundCornerRadius();
+        } else if (isNextAlarmWidgetBackgroundCornerRadius()) {
+            currentProgress = getNextAlarmWidgetBackgroundCornerRadius();
+        } else if (isVerticalWidgetBackgroundCornerRadius()) {
+            currentProgress = getVerticalWidgetBackgroundCornerRadius();
+        } else if (isMaterialYouDigitalWidgetBackgroundCornerRadius()) {
+            currentProgress = getMaterialYouDigitalWidgetBackgroundCornerRadius();
+        } else if (isMaterialYouNextAlarmWidgetBackgroundCornerRadius()) {
+            currentProgress = getMaterialYouNextAlarmWidgetBackgroundCornerRadius();
+        } else if (isMaterialYouVerticalWidgetBackgroundCornerRadius()) {
+            currentProgress = getMaterialYouVerticalWidgetBackgroundCornerRadius();
         } else if (isShakeIntensityPreference()) {
             currentProgress = getShakeIntensityPreferenceValue();
         } else if (isTimerShakeIntensityPreference()) {
@@ -233,15 +268,23 @@ public class CustomSeekbarPreference extends SeekBarPreference {
         if (isScreensaverBrightnessPreference()) {
             mSeekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_brightness_decrease));
             mSeekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_brightness_increase));
+        } else if (isDigitalWidgetBackgroundCornerRadius()
+                || isNextAlarmWidgetBackgroundCornerRadius()
+                || isVerticalWidgetBackgroundCornerRadius()
+                || isMaterialYouDigitalWidgetBackgroundCornerRadius()
+                || isMaterialYouNextAlarmWidgetBackgroundCornerRadius()
+                || isMaterialYouVerticalWidgetBackgroundCornerRadius()) {
+            mSeekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_rounded_corner_decrease));
+            mSeekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_rounded_corner_increase));
         } else if (isShakeIntensityPreference() || isTimerShakeIntensityPreference()) {
             mSeekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_sensor_low));
             mSeekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_sensor_high));
         } else if (isAlarmShadowOffsetPreference()) {
-            mSeekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_shadow_minus));
-            mSeekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_shadow_add));
+            mSeekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_shadow_decrease));
+            mSeekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_shadow_increase));
         } else if (isAlarmBlurIntensityPreference()) {
-            mSeekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_blur_down));
-            mSeekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_blur_up));
+            mSeekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_blur_decrease));
+            mSeekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_blur_increase));
         } else if (isBluetoothVolumePreference()) {
             mSeekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_volume_down));
             mSeekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_volume_up));
@@ -330,13 +373,28 @@ public class CustomSeekbarPreference extends SeekBarPreference {
      * @return the minimum allowed value for the SeekBar depending on the preference type.
      */
     private int getSeekBarMinValue() {
-        return isScreensaverBrightnessPreference() ? MIN_BRIGHTNESS_VALUE
-                : isShakeIntensityPreference() ? MIN_SHAKE_INTENSITY_VALUE
-                : isTimerShakeIntensityPreference() ? MIN_TIMER_SHAKE_INTENSITY_VALUE
-                : isAlarmShadowOffsetPreference() ? MIN_SHADOW_OFFSET_VALUE
-                : isAlarmBlurIntensityPreference() ? MIN_BLUR_INTENSITY_VALUE
-                : isBluetoothVolumePreference() ? MIN_BLUETOOTH_VOLUME
-                : MIN_FONT_SIZE_VALUE;
+        if (isScreensaverBrightnessPreference()) {
+            return MIN_BRIGHTNESS_VALUE;
+        } else if (isDigitalWidgetBackgroundCornerRadius()
+                || isNextAlarmWidgetBackgroundCornerRadius()
+                || isVerticalWidgetBackgroundCornerRadius()
+                || isMaterialYouDigitalWidgetBackgroundCornerRadius()
+                || isMaterialYouNextAlarmWidgetBackgroundCornerRadius()
+                || isMaterialYouVerticalWidgetBackgroundCornerRadius()) {
+            return MIN_CORNER_RADIUS_VALUE;
+        } else if (isShakeIntensityPreference()) {
+            return MIN_SHAKE_INTENSITY_VALUE;
+        } else if (isTimerShakeIntensityPreference()) {
+            return MIN_TIMER_SHAKE_INTENSITY_VALUE;
+        } else if (isAlarmShadowOffsetPreference()) {
+            return MIN_SHADOW_OFFSET_VALUE;
+        } else if (isAlarmBlurIntensityPreference()) {
+            return MIN_BLUR_INTENSITY_VALUE;
+        } else if (isBluetoothVolumePreference()) {
+            return MIN_BLUETOOTH_VOLUME;
+        } else {
+            return MIN_FONT_SIZE_VALUE;
+        }
     }
 
     /**
@@ -345,6 +403,14 @@ public class CustomSeekbarPreference extends SeekBarPreference {
     private int getDefaultSeekBarValue() {
         if (isScreensaverBrightnessPreference()) {
             return DEFAULT_SCREENSAVER_BRIGHTNESS;
+        } else if (isDigitalWidgetBackgroundCornerRadius()
+                || isNextAlarmWidgetBackgroundCornerRadius()
+                || isVerticalWidgetBackgroundCornerRadius()) {
+            return DEFAULT_WIDGET_BACKGROUND_CORNER_RADIUS;
+        } else if (isMaterialYouDigitalWidgetBackgroundCornerRadius()
+                || isMaterialYouNextAlarmWidgetBackgroundCornerRadius()
+                || isMaterialYouVerticalWidgetBackgroundCornerRadius()) {
+            return DEFAULT_MATERIAL_YOU_WIDGET_BACKGROUND_CORNER_RADIUS;
         } else if (isShakeIntensityPreference()) {
             return DEFAULT_SHAKE_INTENSITY;
         } else if (isTimerShakeIntensityPreference()) {
@@ -401,6 +467,54 @@ public class CustomSeekbarPreference extends SeekBarPreference {
      */
     private int getWidgetPreferenceValue() {
         return mPrefs.getInt(getKey(), DEFAULT_WIDGETS_FONT_SIZE);
+    }
+
+    /**
+     * Retrieves the current value of the SeekBar related to the digital widget background
+     * corner radius from the SharedPreferences.
+     */
+    private int getDigitalWidgetBackgroundCornerRadius() {
+        return mPrefs.getInt(getKey(), DEFAULT_WIDGET_BACKGROUND_CORNER_RADIUS);
+    }
+
+    /**
+     * Retrieves the current value of the SeekBar related to the Next alarm widget background
+     * corner radius from the SharedPreferences.
+     */
+    private int getNextAlarmWidgetBackgroundCornerRadius() {
+        return mPrefs.getInt(getKey(), DEFAULT_WIDGET_BACKGROUND_CORNER_RADIUS);
+    }
+
+    /**
+     * Retrieves the current value of the SeekBar related to the vertical widget background
+     * corner radius from the SharedPreferences.
+     */
+    private int getVerticalWidgetBackgroundCornerRadius() {
+        return mPrefs.getInt(getKey(), DEFAULT_WIDGET_BACKGROUND_CORNER_RADIUS);
+    }
+
+    /**
+     * Retrieves the current value of the SeekBar related to the Material You digital widget
+     * background corner radius from the SharedPreferences.
+     */
+    private int getMaterialYouDigitalWidgetBackgroundCornerRadius() {
+        return mPrefs.getInt(getKey(), DEFAULT_MATERIAL_YOU_WIDGET_BACKGROUND_CORNER_RADIUS);
+    }
+
+    /**
+     * Retrieves the current value of the SeekBar related to the Material You Next alarm widget
+     * background corner radius from the SharedPreferences.
+     */
+    private int getMaterialYouNextAlarmWidgetBackgroundCornerRadius() {
+        return mPrefs.getInt(getKey(), DEFAULT_MATERIAL_YOU_WIDGET_BACKGROUND_CORNER_RADIUS);
+    }
+
+    /**
+     * Retrieves the current value of the SeekBar related to the Material You vertical digital widget
+     * background corner radius from the SharedPreferences.
+     */
+    private int getMaterialYouVerticalWidgetBackgroundCornerRadius() {
+        return mPrefs.getInt(getKey(), DEFAULT_MATERIAL_YOU_WIDGET_BACKGROUND_CORNER_RADIUS);
     }
 
     /**
@@ -471,6 +585,54 @@ public class CustomSeekbarPreference extends SeekBarPreference {
      */
     private boolean isScreensaverBrightnessPreference() {
         return getKey().equals(KEY_SCREENSAVER_BRIGHTNESS);
+    }
+
+    /**
+     * @return {@code true} if the current preference is related to corner radius of
+     * the digital widget background. {@code false} otherwise.
+     */
+    private boolean isDigitalWidgetBackgroundCornerRadius() {
+        return getKey().equals(KEY_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS);
+    }
+
+    /**
+     * @return {@code true} if the current preference is related to corner radius of
+     * the Next alarm widget background. {@code false} otherwise.
+     */
+    private boolean isNextAlarmWidgetBackgroundCornerRadius() {
+        return getKey().equals(KEY_NEXT_ALARM_WIDGET_BACKGROUND_CORNER_RADIUS);
+    }
+
+    /**
+     * @return {@code true} if the current preference is related to corner radius of
+     * the vertical widget background. {@code false} otherwise.
+     */
+    private boolean isVerticalWidgetBackgroundCornerRadius() {
+        return getKey().equals(KEY_VERTICAL_WIDGET_BACKGROUND_CORNER_RADIUS);
+    }
+
+    /**
+     * @return {@code true} if the current preference is related to corner radius of
+     * the Material You digital widget background. {@code false} otherwise.
+     */
+    private boolean isMaterialYouDigitalWidgetBackgroundCornerRadius() {
+        return getKey().equals(KEY_MATERIAL_YOU_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS);
+    }
+
+    /**
+     * @return {@code true} if the current preference is related to corner radius of
+     * the Material You Next alarm widget background. {@code false} otherwise.
+     */
+    private boolean isMaterialYouNextAlarmWidgetBackgroundCornerRadius() {
+        return getKey().equals(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_BACKGROUND_CORNER_RADIUS);
+    }
+
+    /**
+     * @return {@code true} if the current preference is related to corner radius of
+     * the Material You vertical digital widget background. {@code false} otherwise.
+     */
+    private boolean isMaterialYouVerticalWidgetBackgroundCornerRadius() {
+        return getKey().equals(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS);
     }
 
     /**

@@ -18,6 +18,8 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_W
 import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_BACKGROUND;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_DATE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_WIDGET_BACKGROUND_CORNER_RADIUS;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS;
 
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
@@ -42,6 +44,8 @@ public class VerticalDigitalWidgetSettingsFragment extends ScreenFragment
     private int mAppWidgetId = INVALID_APPWIDGET_ID;
 
     SwitchPreferenceCompat mShowBackgroundOnVerticalDigitalWidgetPref;
+    SwitchPreferenceCompat mCustomizeBackgroundCornerRadiusPref;
+    Preference mBackgroundCornerRadiusPref;
     SwitchPreferenceCompat mDisplayDatePref;
     SwitchPreferenceCompat mDisplayNextAlarmPref;
     SwitchPreferenceCompat mApplyHorizontalPaddingPref;
@@ -67,6 +71,8 @@ public class VerticalDigitalWidgetSettingsFragment extends ScreenFragment
         addPreferencesFromResource(R.xml.settings_customize_vertical_digital_widget);
 
         mShowBackgroundOnVerticalDigitalWidgetPref = findPreference(KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_BACKGROUND);
+        mCustomizeBackgroundCornerRadiusPref = findPreference(KEY_VERTICAL_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS);
+        mBackgroundCornerRadiusPref = findPreference(KEY_VERTICAL_WIDGET_BACKGROUND_CORNER_RADIUS);
         mDisplayDatePref = findPreference(KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_DATE);
         mDisplayNextAlarmPref = findPreference(KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM);
         mApplyHorizontalPaddingPref = findPreference(KEY_VERTICAL_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING);
@@ -108,7 +114,15 @@ public class VerticalDigitalWidgetSettingsFragment extends ScreenFragment
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
             case KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_BACKGROUND -> {
+                mCustomizeBackgroundCornerRadiusPref.setVisible((boolean) newValue);
+                mBackgroundCornerRadiusPref.setVisible((boolean) newValue
+                        && WidgetDAO.isVerticalWidgetBackgroundCornerRadiusCustomizable(mPrefs));
                 mBackgroundColorPref.setVisible((boolean) newValue);
+                Utils.setVibrationTime(requireContext(), 50);
+            }
+
+            case KEY_VERTICAL_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS -> {
+                mBackgroundCornerRadiusPref.setVisible((boolean) newValue);
                 Utils.setVibrationTime(requireContext(), 50);
             }
 
@@ -164,6 +178,12 @@ public class VerticalDigitalWidgetSettingsFragment extends ScreenFragment
     private void setupPreferences() {
         mShowBackgroundOnVerticalDigitalWidgetPref.setOnPreferenceChangeListener(this);
 
+        mCustomizeBackgroundCornerRadiusPref.setVisible(WidgetDAO.isBackgroundDisplayedOnVerticalDigitalWidget(mPrefs));
+        mCustomizeBackgroundCornerRadiusPref.setOnPreferenceChangeListener(this);
+
+        mBackgroundCornerRadiusPref.setVisible(WidgetDAO.isBackgroundDisplayedOnVerticalDigitalWidget(mPrefs)
+                && WidgetDAO.isVerticalWidgetBackgroundCornerRadiusCustomizable(mPrefs));
+
         mDisplayDatePref.setOnPreferenceChangeListener(this);
 
         mDisplayNextAlarmPref.setOnPreferenceChangeListener(this);
@@ -200,6 +220,7 @@ public class VerticalDigitalWidgetSettingsFragment extends ScreenFragment
 
     private void saveCheckedPreferenceStates() {
         mShowBackgroundOnVerticalDigitalWidgetPref.setChecked(WidgetDAO.isBackgroundDisplayedOnVerticalDigitalWidget(mPrefs));
+        mCustomizeBackgroundCornerRadiusPref.setChecked(WidgetDAO.isVerticalWidgetBackgroundCornerRadiusCustomizable(mPrefs));
         mDisplayDatePref.setChecked(WidgetDAO.isDateDisplayedOnVerticalDigitalWidget(mPrefs));
         mDisplayNextAlarmPref.setChecked(WidgetDAO.isNextAlarmDisplayedOnVerticalDigitalWidget(mPrefs));
         mApplyHorizontalPaddingPref.setChecked(WidgetDAO.isVerticalDigitalWidgetHorizontalPaddingApplied(mPrefs));

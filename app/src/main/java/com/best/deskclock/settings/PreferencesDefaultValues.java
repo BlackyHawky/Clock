@@ -231,6 +231,9 @@ public class PreferencesDefaultValues {
     public static final boolean DEFAULT_ANALOG_WIDGET_WITH_SECOND_HAND = false;
     public static final boolean DEFAULT_WIDGETS_DEFAULT_COLOR = true;
     public static final int DEFAULT_WIDGETS_BACKGROUND_COLOR = Color.parseColor("#70000000");
+    public static final boolean DEFAULT_WIDGETS_CUSTOMIZE_BACKGROUND_CORNER_RADIUS = false;
+    public static final int DEFAULT_WIDGET_BACKGROUND_CORNER_RADIUS = 24;
+    public static final int DEFAULT_MATERIAL_YOU_WIDGET_BACKGROUND_CORNER_RADIUS = 80;
     public static final int DEFAULT_WIDGETS_CUSTOM_COLOR = Color.WHITE;
     public static final int DEFAULT_WIDGETS_FONT_SIZE = 70;
     public static final boolean DEFAULT_WIDGETS_APPLY_HORIZONTAL_PADDING = true;

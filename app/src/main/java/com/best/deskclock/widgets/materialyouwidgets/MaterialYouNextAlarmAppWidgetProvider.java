@@ -6,11 +6,12 @@ import static android.util.TypedValue.COMPLEX_UNIT_PX;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_MATERIAL_YOU_WIDGET_BACKGROUND_CORNER_RADIUS;
+
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.graphics.drawable.Icon;
 import android.text.TextUtils;
 import android.view.View;
@@ -21,8 +22,10 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.ClockUtils;
+import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
+import com.best.deskclock.utils.WidgetUtils;
 import com.best.deskclock.widgets.BaseDigitalAppWidgetProvider;
 import com.best.deskclock.widgets.DigitalWidgetSizes;
 
@@ -261,16 +264,45 @@ public class MaterialYouNextAlarmAppWidgetProvider extends BaseDigitalAppWidgetP
     }
 
     @Override
-    protected void configureBackground(RemoteViews rv, Context context, SharedPreferences prefs) {
-        final Icon backgroundIcon = Icon.createWithResource(context, R.drawable.material_you_digital_widget_background);
-        rv.setIcon(R.id.materialYouDigitalWidgetBackground, "setImageIcon", backgroundIcon);
+    protected void configureBackground(RemoteViews rv, Context context, SharedPreferences prefs,
+                                       int widthPx, int heightPx) {
 
-        if (WidgetDAO.isBackgroundDisplayedOnMaterialYouNextAlarmWidget(prefs)) {
-            if (!WidgetDAO.isMaterialYouNextAlarmWidgetDefaultBackgroundColor(prefs)) {
-                backgroundIcon.setTint(WidgetDAO.getMaterialYouNextAlarmWidgetBackgroundColor(prefs));
+        if (!WidgetDAO.isBackgroundDisplayedOnMaterialYouNextAlarmWidget(prefs)
+                || widthPx <= 0 || heightPx <= 0) {
+            rv.setIcon(R.id.materialYouDigitalWidgetBackground, "setImageIcon", null);
+            return;
+        }
+
+        int radius = ThemeUtils.convertDpToPixels(
+                WidgetDAO.isMaterialYouNextAlarmWidgetBackgroundCornerRadiusCustomizable(prefs)
+                        ? WidgetDAO.getMaterialYouNextAlarmWidgetBackgroundCornerRadius(prefs)
+                        : DEFAULT_MATERIAL_YOU_WIDGET_BACKGROUND_CORNER_RADIUS, context);
+
+        int color = WidgetDAO.getMaterialYouNextAlarmWidgetBackgroundColor(prefs);
+
+        boolean isDefaultBackgroundColor = WidgetDAO.isMaterialYouNextAlarmWidgetDefaultBackgroundColor(prefs);
+
+        if (SdkUtils.isAtLeastAndroid12()) {
+            if (isDefaultBackgroundColor) {
+                Icon dayIcon = WidgetUtils.createRoundedIcon(widthPx, heightPx,
+                        WidgetUtils.getMaterialBackgroundColorDay(context), radius);
+
+                Icon nightIcon = WidgetUtils.createRoundedIcon(widthPx, heightPx,
+                        WidgetUtils.getMaterialBackgroundColorNight(context), radius);
+
+                rv.setIcon(R.id.materialYouDigitalWidgetBackground, "setImageIcon", dayIcon, nightIcon);
+            } else {
+                Icon icon = WidgetUtils.createRoundedIcon(widthPx, heightPx, color, radius);
+                rv.setIcon(R.id.materialYouDigitalWidgetBackground, "setImageIcon", icon);
             }
         } else {
-            backgroundIcon.setTint(Color.TRANSPARENT);
+            if (isDefaultBackgroundColor) {
+                final Icon backgroundIcon = Icon.createWithResource(context, R.drawable.material_you_digital_widget_background);
+                rv.setIcon(R.id.materialYouDigitalWidgetBackground, "setImageIcon", backgroundIcon);
+            } else {
+                Icon icon = WidgetUtils.createRoundedIcon(widthPx, heightPx, color, radius);
+                rv.setIcon(R.id.materialYouDigitalWidgetBackground, "setImageIcon", icon);
+            }
         }
     }
 

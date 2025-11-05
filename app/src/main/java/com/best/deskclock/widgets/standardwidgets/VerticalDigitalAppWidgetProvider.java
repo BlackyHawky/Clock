@@ -12,7 +12,7 @@ import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
+import android.graphics.drawable.Icon;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.RemoteViews;
@@ -236,12 +236,23 @@ public class VerticalDigitalAppWidgetProvider extends BaseDigitalAppWidgetProvid
     }
 
     @Override
-    protected void configureBackground(RemoteViews rv, Context context, SharedPreferences prefs) {
-        int color = WidgetDAO.isBackgroundDisplayedOnVerticalDigitalWidget(prefs)
-                ? WidgetDAO.getVerticalDigitalWidgetBackgroundColor(prefs)
-                : Color.TRANSPARENT;
+    protected void configureBackground(RemoteViews rv, Context context, SharedPreferences prefs,
+                                       int widthPx, int heightPx) {
 
-        rv.setInt(R.id.digitalWidgetBackground, "setBackgroundColor", color);
+        if (!WidgetDAO.isBackgroundDisplayedOnVerticalDigitalWidget(prefs)
+                || widthPx <= 0 || heightPx <= 0) {
+            rv.setIcon(R.id.digitalWidgetBackground, "setImageIcon", null);
+            return;
+        }
+
+        int radius = ThemeUtils.convertDpToPixels(
+                WidgetDAO.isVerticalWidgetBackgroundCornerRadiusCustomizable(prefs)
+                        ? WidgetDAO.getVerticalWidgetBackgroundCornerRadius(prefs)
+                        : 0, context);
+
+        int color = WidgetDAO.getVerticalDigitalWidgetBackgroundColor(prefs);
+        Icon icon = WidgetUtils.createRoundedIcon(widthPx, heightPx, color, radius);
+        rv.setIcon(R.id.digitalWidgetBackground, "setImageIcon", icon);
     }
 
     @Override

@@ -6,6 +6,8 @@ import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
 import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
 
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_APPLY_HORIZONTAL_PADDING;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_BACKGROUND_CORNER_RADIUS;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_ALARM_TITLE_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_BACKGROUND_COLOR;
@@ -27,6 +29,7 @@ import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.WidgetDAO;
+import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
 import com.best.deskclock.widgets.materialyouwidgets.MaterialYouNextAlarmAppWidgetProvider;
@@ -39,6 +42,8 @@ public class MaterialYouNextAlarmWidgetSettingsFragment extends ScreenFragment
     private int mAppWidgetId = INVALID_APPWIDGET_ID;
 
     SwitchPreferenceCompat mShowBackgroundOnDigitalWidgetPref;
+    SwitchPreferenceCompat mCustomizeBackgroundCornerRadiusPref;
+    Preference mBackgroundCornerRadiusPref;
     SwitchPreferenceCompat mApplyHorizontalPaddingPref;
     SwitchPreferenceCompat mDefaultBackgroundColorPref;
     ColorPreference mCustomBackgroundColorPref;
@@ -61,6 +66,8 @@ public class MaterialYouNextAlarmWidgetSettingsFragment extends ScreenFragment
         addPreferencesFromResource(R.xml.settings_customize_material_you_next_alarm_widget);
 
         mShowBackgroundOnDigitalWidgetPref = findPreference(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DISPLAY_BACKGROUND);
+        mCustomizeBackgroundCornerRadiusPref = findPreference(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS);
+        mBackgroundCornerRadiusPref = findPreference(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_BACKGROUND_CORNER_RADIUS);
         mApplyHorizontalPaddingPref = findPreference(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_APPLY_HORIZONTAL_PADDING);
         mDefaultBackgroundColorPref = findPreference(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_BACKGROUND_COLOR);
         mCustomBackgroundColorPref = findPreference(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_BACKGROUND_COLOR);
@@ -99,9 +106,23 @@ public class MaterialYouNextAlarmWidgetSettingsFragment extends ScreenFragment
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
             case KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DISPLAY_BACKGROUND -> {
-                mDefaultBackgroundColorPref.setVisible((boolean) newValue);
-                mCustomBackgroundColorPref.setVisible((boolean) newValue &&
-                        !WidgetDAO.isMaterialYouNextAlarmWidgetDefaultBackgroundColor(mPrefs));
+                boolean displayBackground = (boolean) newValue;
+                boolean isCustomColor = !WidgetDAO.isMaterialYouNextAlarmWidgetDefaultBackgroundColor(mPrefs);
+                boolean isRadiusCustomizable = WidgetDAO.isMaterialYouNextAlarmWidgetBackgroundCornerRadiusCustomizable(mPrefs);
+
+                mCustomizeBackgroundCornerRadiusPref.setVisible(SdkUtils.isAtLeastAndroid12()
+                        ? displayBackground
+                        : displayBackground && isCustomColor);
+                mBackgroundCornerRadiusPref.setVisible(SdkUtils.isAtLeastAndroid12()
+                        ? displayBackground && isRadiusCustomizable
+                        : displayBackground && isCustomColor && isRadiusCustomizable);
+                mDefaultBackgroundColorPref.setVisible(displayBackground);
+                mCustomBackgroundColorPref.setVisible(displayBackground && isCustomColor);
+                Utils.setVibrationTime(requireContext(), 50);
+            }
+
+            case KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS -> {
+                mBackgroundCornerRadiusPref.setVisible((boolean) newValue);
                 Utils.setVibrationTime(requireContext(), 50);
             }
 
@@ -109,7 +130,17 @@ public class MaterialYouNextAlarmWidgetSettingsFragment extends ScreenFragment
                     Utils.setVibrationTime(requireContext(), 50);
 
             case KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_BACKGROUND_COLOR -> {
-                mCustomBackgroundColorPref.setVisible(!(boolean) newValue);
+                boolean isCustomColor = !(boolean) newValue;
+                boolean displayBackground = WidgetDAO.isBackgroundDisplayedOnMaterialYouNextAlarmWidget(mPrefs);
+                boolean isRadiusCustomizable = WidgetDAO.isMaterialYouNextAlarmWidgetBackgroundCornerRadiusCustomizable(mPrefs);
+
+                mCustomBackgroundColorPref.setVisible(isCustomColor);
+
+                if (!SdkUtils.isAtLeastAndroid12()) {
+                    mCustomizeBackgroundCornerRadiusPref.setVisible(isCustomColor && displayBackground);
+                    mBackgroundCornerRadiusPref.setVisible(isCustomColor && displayBackground && isRadiusCustomizable);
+                }
+
                 Utils.setVibrationTime(requireContext(), 50);
             }
 
@@ -143,13 +174,29 @@ public class MaterialYouNextAlarmWidgetSettingsFragment extends ScreenFragment
     private void setupPreferences() {
         mShowBackgroundOnDigitalWidgetPref.setOnPreferenceChangeListener(this);
 
+        boolean isBackgroundVisible = WidgetDAO.isBackgroundDisplayedOnMaterialYouNextAlarmWidget(mPrefs);
+        boolean isBackgroundCornerRadiusCustomizable =
+                WidgetDAO.isMaterialYouNextAlarmWidgetBackgroundCornerRadiusCustomizable(mPrefs);
+        boolean isCustomColor = !WidgetDAO.isMaterialYouNextAlarmWidgetDefaultBackgroundColor(mPrefs);
+
+        if (SdkUtils.isAtLeastAndroid12()) {
+            mCustomizeBackgroundCornerRadiusPref.setVisible(isBackgroundVisible);
+            mBackgroundCornerRadiusPref.setVisible(isBackgroundVisible && isBackgroundCornerRadiusCustomizable);
+        } else {
+            mCustomizeBackgroundCornerRadiusPref.setVisible(isBackgroundVisible && isCustomColor);
+            mBackgroundCornerRadiusPref.setVisible(isBackgroundVisible
+                    && isCustomColor
+                    && isBackgroundCornerRadiusCustomizable);
+        }
+
+        mCustomizeBackgroundCornerRadiusPref.setOnPreferenceChangeListener(this);
+
         mApplyHorizontalPaddingPref.setOnPreferenceChangeListener(this);
 
-        mDefaultBackgroundColorPref.setVisible(WidgetDAO.isBackgroundDisplayedOnMaterialYouNextAlarmWidget(mPrefs));
+        mDefaultBackgroundColorPref.setVisible(isBackgroundVisible);
         mDefaultBackgroundColorPref.setOnPreferenceChangeListener(this);
 
-        mCustomBackgroundColorPref.setVisible(WidgetDAO.isBackgroundDisplayedOnMaterialYouNextAlarmWidget(mPrefs)
-                && !WidgetDAO.isMaterialYouNextAlarmWidgetDefaultBackgroundColor(mPrefs));
+        mCustomBackgroundColorPref.setVisible(isBackgroundVisible && isCustomColor);
         mCustomBackgroundColorPref.setOnPreferenceChangeListener(this);
 
         mDefaultTitleColorPref.setOnPreferenceChangeListener(this);
@@ -170,6 +217,7 @@ public class MaterialYouNextAlarmWidgetSettingsFragment extends ScreenFragment
 
     private void saveCheckedPreferenceStates() {
         mShowBackgroundOnDigitalWidgetPref.setChecked(WidgetDAO.isBackgroundDisplayedOnMaterialYouNextAlarmWidget(mPrefs));
+        mCustomizeBackgroundCornerRadiusPref.setChecked(WidgetDAO.isMaterialYouNextAlarmWidgetBackgroundCornerRadiusCustomizable(mPrefs));
         mApplyHorizontalPaddingPref.setChecked(WidgetDAO.isMaterialYouNextAlarmWidgetHorizontalPaddingApplied(mPrefs));
         mDefaultBackgroundColorPref.setChecked(WidgetDAO.isMaterialYouNextAlarmWidgetDefaultBackgroundColor(mPrefs));
         mDefaultTitleColorPref.setChecked(WidgetDAO.isMaterialYouNextAlarmWidgetDefaultTitleColor(mPrefs));

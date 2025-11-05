@@ -12,7 +12,7 @@ import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
+import android.graphics.drawable.Icon;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.RemoteViews;
@@ -24,6 +24,7 @@ import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
+import com.best.deskclock.utils.WidgetUtils;
 import com.best.deskclock.widgets.BaseDigitalAppWidgetProvider;
 import com.best.deskclock.widgets.DigitalWidgetSizes;
 
@@ -240,11 +241,23 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
-    protected void configureBackground(RemoteViews rv, Context context, SharedPreferences prefs) {
-        int color = WidgetDAO.isBackgroundDisplayedOnNextAlarmWidget(prefs)
-                ? WidgetDAO.getNextAlarmWidgetBackgroundColor(prefs)
-                : Color.TRANSPARENT;
-        rv.setInt(R.id.digitalWidgetBackground, "setBackgroundColor", color);
+    protected void configureBackground(RemoteViews rv, Context context, SharedPreferences prefs,
+                                       int widthPx, int heightPx) {
+
+        if (!WidgetDAO.isBackgroundDisplayedOnNextAlarmWidget(prefs)
+                || widthPx <= 0 || heightPx <= 0) {
+            rv.setIcon(R.id.digitalWidgetBackground, "setImageIcon", null);
+            return;
+        }
+
+        int radius = ThemeUtils.convertDpToPixels(
+                WidgetDAO.isNextAlarmWidgetBackgroundCornerRadiusCustomizable(prefs)
+                        ? WidgetDAO.getNextAlarmWidgetBackgroundCornerRadius(prefs)
+                        : 0, context);
+
+        int color = WidgetDAO.getNextAlarmWidgetBackgroundColor(prefs);
+        Icon icon = WidgetUtils.createRoundedIcon(widthPx, heightPx, color, radius);
+        rv.setIcon(R.id.digitalWidgetBackground, "setImageIcon", icon);
     }
 
     @Override

@@ -23,6 +23,25 @@
             tools:layout="@layout/settings_preference_layout" />
 
         <SwitchPreferenceCompat
+            android:key="key_material_you_next_alarm_widget_customize_background_corner_radius"
+            android:title="@string/customize_background_corner_radius_title"
+            android:summary="@string/customize_background_corner_radius_summary"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <com.best.deskclock.settings.CustomSeekbarPreference
+            android:key="key_material_you_next_alarm_widget_background_corner_radius"
+            android:title="@string/background_corner_radius_title"
+            android:summary="@string/label_default"
+            android:defaultValue="80"
+            android:max="100"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_seekbar_layout" />
+
+        <SwitchPreferenceCompat
             android:key="key_material_you_next_alarm_widget_apply_horizontal_padding"
             android:title="@string/widget_apply_horizontal_padding_title"
             android:defaultValue="true"

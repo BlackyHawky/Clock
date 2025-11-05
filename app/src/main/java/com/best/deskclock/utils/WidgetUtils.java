@@ -20,6 +20,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.RectF;
+import android.graphics.drawable.Icon;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.format.DateFormat;
@@ -29,6 +35,7 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.best.deskclock.R;
@@ -189,6 +196,49 @@ public class WidgetUtils {
     public static boolean isWidgetClickable(AppWidgetManager widgetManager, int widgetId) {
         final Bundle wo = widgetManager.getAppWidgetOptions(widgetId);
         return wo != null && wo.getInt(OPTION_APPWIDGET_HOST_CATEGORY, -1) != WIDGET_CATEGORY_KEYGUARD;
+    }
+
+    /**
+     * Creates a rounded icon with the specified dimensions, color, and corner radius.
+     * <p>
+     * This method generates a {@link Bitmap} with rounded corners using the given width,
+     * height, fill color, and corner radius, then wraps it into an {@link Icon} object.
+     * It is useful for dynamically creating background visuals for widgets.
+     *
+     * @param width  the width of the bitmap in pixels
+     * @param height the height of the bitmap in pixels
+     * @param color  the fill color of the rounded rectangle
+     * @param radius the corner radius in pixels to apply to all four corners
+     * @return an {@link Icon} containing the rounded bitmap
+     */
+    public static Icon createRoundedIcon(int width, int height, int color, int radius) {
+        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setColor(color);
+
+        RectF rect = new RectF(0, 0, width, height);
+        canvas.drawRoundRect(rect, radius, radius, paint);
+
+        return Icon.createWithBitmap(bitmap);
+    }
+
+    /**
+     * @return the default Material You background color for day mode.
+     */
+    public static int getMaterialBackgroundColorDay(Context context) {
+        return SdkUtils.isAtLeastAndroid12()
+                ? ContextCompat.getColor(context, android.R.color.system_accent2_50)
+                : Color.TRANSPARENT;
+    }
+
+    /**
+     * @return the default Material You background color for night mode.
+     */
+    public static int getMaterialBackgroundColorNight(Context context) {
+        return SdkUtils.isAtLeastAndroid12()
+                ? ContextCompat.getColor(context, android.R.color.system_accent2_800)
+                : Color.TRANSPARENT;
     }
 
     /**

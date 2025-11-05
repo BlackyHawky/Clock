@@ -142,6 +142,25 @@ public final class WidgetDAO {
     }
 
     /**
+     * @return {@code true} if the background corner radius is customizable for the digital widget;
+     * {@code false} otherwise.
+     */
+    public static boolean isDigitalWidgetBackgroundCornerRadiusCustomizable(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_digital_widget.xml
+        return prefs.getBoolean(KEY_DIGITAL_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS,
+                DEFAULT_WIDGETS_CUSTOMIZE_BACKGROUND_CORNER_RADIUS);
+    }
+
+    /**
+     * @return a value indicating the digital widget background corner radius.
+     */
+    public static int getDigitalWidgetBackgroundCornerRadius(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_digital_widget.xml
+        return prefs.getInt(KEY_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS,
+                DEFAULT_WIDGET_BACKGROUND_CORNER_RADIUS);
+    }
+
+    /**
      * @return {@code true} if the date is displayed on the digital widget; {@code false} otherwise.
      */
     public static boolean isDateDisplayedOnDigitalWidget(SharedPreferences prefs) {
@@ -176,7 +195,7 @@ public final class WidgetDAO {
     }
 
     /**
-     * @return a value indicating the background color on the digital widget .
+     * @return a value indicating the background color on the digital widget.
      */
     public static int getDigitalWidgetBackgroundColor(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_customize_digital_widget.xml
@@ -287,6 +306,25 @@ public final class WidgetDAO {
     public static boolean isBackgroundDisplayedOnVerticalDigitalWidget(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_customize_vertical_digital_widget.xml
         return prefs.getBoolean(KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_BACKGROUND, DEFAULT_VERTICAL_DIGITAL_WIDGET_DISPLAY_BACKGROUND);
+    }
+
+    /**
+     * @return {@code true} if the background corner radius is customizable for the vertical digital widget;
+     * {@code false} otherwise.
+     */
+    public static boolean isVerticalWidgetBackgroundCornerRadiusCustomizable(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_digital_widget.xml
+        return prefs.getBoolean(KEY_VERTICAL_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS,
+                DEFAULT_WIDGETS_CUSTOMIZE_BACKGROUND_CORNER_RADIUS);
+    }
+
+    /**
+     * @return a value indicating the vertical digital widget background corner radius.
+     */
+    public static int getVerticalWidgetBackgroundCornerRadius(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_digital_widget.xml
+        return prefs.getInt(KEY_VERTICAL_WIDGET_BACKGROUND_CORNER_RADIUS,
+                DEFAULT_WIDGET_BACKGROUND_CORNER_RADIUS);
     }
 
     /**
@@ -412,6 +450,25 @@ public final class WidgetDAO {
     public static boolean isBackgroundDisplayedOnNextAlarmWidget(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_customize_next_alarm_widget.xml
         return prefs.getBoolean(KEY_NEXT_ALARM_WIDGET_DISPLAY_BACKGROUND, DEFAULT_NEXT_ALARM_WIDGET_DISPLAY_BACKGROUND);
+    }
+
+    /**
+     * @return {@code true} if the background corner radius is customizable for the Next alarm widget;
+     * {@code false} otherwise.
+     */
+    public static boolean isNextAlarmWidgetBackgroundCornerRadiusCustomizable(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_digital_widget.xml
+        return prefs.getBoolean(KEY_NEXT_ALARM_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS,
+                DEFAULT_WIDGETS_CUSTOMIZE_BACKGROUND_CORNER_RADIUS);
+    }
+
+    /**
+     * @return a value indicating the Next alarm widget background corner radius.
+     */
+    public static int getNextAlarmWidgetBackgroundCornerRadius(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_digital_widget.xml
+        return prefs.getInt(KEY_NEXT_ALARM_WIDGET_BACKGROUND_CORNER_RADIUS,
+                DEFAULT_WIDGET_BACKGROUND_CORNER_RADIUS);
     }
 
     /**
@@ -619,6 +676,25 @@ public final class WidgetDAO {
     }
 
     /**
+     * @return {@code true} if the background corner radius is customizable for the Material You digital widget;
+     * {@code false} otherwise.
+     */
+    public static boolean isMaterialYouDigitalWidgetBackgroundCornerRadiusCustomizable(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_digital_widget.xml
+        return prefs.getBoolean(KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS,
+                DEFAULT_WIDGETS_CUSTOMIZE_BACKGROUND_CORNER_RADIUS);
+    }
+
+    /**
+     * @return a value indicating the Material You digital widget background corner radius.
+     */
+    public static int getMaterialYouDigitalWidgetBackgroundCornerRadius(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_digital_widget.xml
+        return prefs.getInt(KEY_MATERIAL_YOU_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS,
+                DEFAULT_MATERIAL_YOU_WIDGET_BACKGROUND_CORNER_RADIUS);
+    }
+
+    /**
      * @return {@code true} if the date is displayed on the Material You digital widget; {@code false} otherwise.
      */
     public static boolean isDateDisplayedOnMaterialYouDigitalWidget(SharedPreferences prefs) {
@@ -780,6 +856,25 @@ public final class WidgetDAO {
     }
 
     /**
+     * @return {@code true} if the background corner radius is customizable for the Material You vertical digital widget;
+     * {@code false} otherwise.
+     */
+    public static boolean isMaterialYouVerticalDigitalWidgetBackgroundCornerRadiusCustomizable(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_digital_widget.xml
+        return prefs.getBoolean(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS,
+                DEFAULT_WIDGETS_CUSTOMIZE_BACKGROUND_CORNER_RADIUS);
+    }
+
+    /**
+     * @return a value indicating the Material You vertical digital widget background corner radius.
+     */
+    public static int getMaterialYouVerticalDigitalWidgetBackgroundCornerRadius(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_digital_widget.xml
+        return prefs.getInt(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS,
+                DEFAULT_MATERIAL_YOU_WIDGET_BACKGROUND_CORNER_RADIUS);
+    }
+
+    /**
      * @return {@code true} if the date is displayed on the Material You vertical digital widget;
      * {@code false} otherwise.
      */
@@ -914,6 +1009,25 @@ public final class WidgetDAO {
         // Default value must match the one in res/xml/settings_customize_material_you_next_alarm_widget.xml
         return prefs.getBoolean(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DISPLAY_BACKGROUND,
                 DEFAULT_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_BACKGROUND);
+    }
+
+    /**
+     * @return {@code true} if the background corner radius is customizable for the Material You Next alarm widget;
+     * {@code false} otherwise.
+     */
+    public static boolean isMaterialYouNextAlarmWidgetBackgroundCornerRadiusCustomizable(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_digital_widget.xml
+        return prefs.getBoolean(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS,
+                DEFAULT_WIDGETS_CUSTOMIZE_BACKGROUND_CORNER_RADIUS);
+    }
+
+    /**
+     * @return a value indicating the Material You Next alarm widget background corner radius.
+     */
+    public static int getMaterialYouNextAlarmWidgetBackgroundCornerRadius(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_digital_widget.xml
+        return prefs.getInt(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_BACKGROUND_CORNER_RADIUS,
+                DEFAULT_MATERIAL_YOU_WIDGET_BACKGROUND_CORNER_RADIUS);
     }
 
     /**

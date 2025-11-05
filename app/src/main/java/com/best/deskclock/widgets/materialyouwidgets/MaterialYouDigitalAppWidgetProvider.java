@@ -6,11 +6,12 @@ import static android.util.TypedValue.COMPLEX_UNIT_PX;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_MATERIAL_YOU_WIDGET_BACKGROUND_CORNER_RADIUS;
+
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.graphics.drawable.Icon;
 import android.text.TextUtils;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.utils.ClockUtils;
+import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.widgets.AppWidgetCityService;
 import com.best.deskclock.widgets.BaseDigitalAppWidgetProvider;
@@ -263,16 +265,45 @@ public class MaterialYouDigitalAppWidgetProvider extends BaseDigitalAppWidgetPro
     }
 
     @Override
-    protected void configureBackground(RemoteViews rv, Context context, SharedPreferences prefs) {
-        final Icon backgroundIcon = Icon.createWithResource(context, R.drawable.material_you_digital_widget_background);
-        rv.setIcon(R.id.materialYouDigitalWidgetBackground, "setImageIcon", backgroundIcon);
+    protected void configureBackground(RemoteViews rv, Context context, SharedPreferences prefs,
+                                       int widthPx, int heightPx) {
 
-        if (WidgetDAO.isBackgroundDisplayedOnMaterialYouDigitalWidget(prefs)) {
-            if (!WidgetDAO.isMaterialYouDigitalWidgetDefaultBackgroundColor(prefs)) {
-                backgroundIcon.setTint(WidgetDAO.getMaterialYouDigitalWidgetBackgroundColor(prefs));
+        if (!WidgetDAO.isBackgroundDisplayedOnMaterialYouDigitalWidget(prefs)
+                || widthPx <= 0 || heightPx <= 0) {
+            rv.setIcon(R.id.materialYouDigitalWidgetBackground, "setImageIcon", null);
+            return;
+        }
+
+        int radius = ThemeUtils.convertDpToPixels(
+                WidgetDAO.isMaterialYouDigitalWidgetBackgroundCornerRadiusCustomizable(prefs)
+                        ? WidgetDAO.getMaterialYouDigitalWidgetBackgroundCornerRadius(prefs)
+                        : DEFAULT_MATERIAL_YOU_WIDGET_BACKGROUND_CORNER_RADIUS, context);
+
+        int color = WidgetDAO.getMaterialYouDigitalWidgetBackgroundColor(prefs);
+
+        boolean isDefaultBackgroundColor = WidgetDAO.isMaterialYouDigitalWidgetDefaultBackgroundColor(prefs);
+
+        if (SdkUtils.isAtLeastAndroid12()) {
+            if (isDefaultBackgroundColor) {
+                Icon dayIcon = WidgetUtils.createRoundedIcon(widthPx, heightPx,
+                        WidgetUtils.getMaterialBackgroundColorDay(context), radius);
+
+                Icon nightIcon = WidgetUtils.createRoundedIcon(widthPx, heightPx,
+                        WidgetUtils.getMaterialBackgroundColorNight(context), radius);
+
+                rv.setIcon(R.id.materialYouDigitalWidgetBackground, "setImageIcon", dayIcon, nightIcon);
+            } else {
+                Icon icon = WidgetUtils.createRoundedIcon(widthPx, heightPx, color, radius);
+                rv.setIcon(R.id.materialYouDigitalWidgetBackground, "setImageIcon", icon);
             }
         } else {
-            backgroundIcon.setTint(Color.TRANSPARENT);
+            if (isDefaultBackgroundColor) {
+                final Icon backgroundIcon = Icon.createWithResource(context, R.drawable.material_you_digital_widget_background);
+                rv.setIcon(R.id.materialYouDigitalWidgetBackground, "setImageIcon", backgroundIcon);
+            } else {
+                Icon icon = WidgetUtils.createRoundedIcon(widthPx, heightPx, color, radius);
+                rv.setIcon(R.id.materialYouDigitalWidgetBackground, "setImageIcon", icon);
+            }
         }
     }
 

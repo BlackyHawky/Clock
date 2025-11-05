@@ -7,6 +7,8 @@ import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
 
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_BACKGROUND_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_CUSTOM_CITY_CLOCK_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_CUSTOM_CITY_NAME_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_CUSTOM_CLOCK_COLOR;
@@ -56,6 +58,8 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
     SwitchPreferenceCompat mDisplaySecondsPref;
     SwitchPreferenceCompat mHideAmPmPref;
     SwitchPreferenceCompat mShowBackgroundOnDigitalWidgetPref;
+    SwitchPreferenceCompat mCustomizeBackgroundCornerRadiusPref;
+    Preference mBackgroundCornerRadiusPref;
     SwitchPreferenceCompat mDisplayDatePref;
     SwitchPreferenceCompat mDisplayNextAlarmPref;
     SwitchPreferenceCompat mShowCitiesOnDigitalWidgetPref;
@@ -87,6 +91,8 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
         mDisplaySecondsPref = findPreference(KEY_DIGITAL_WIDGET_DISPLAY_SECONDS);
         mHideAmPmPref = findPreference(KEY_DIGITAL_WIDGET_HIDE_AM_PM);
         mShowBackgroundOnDigitalWidgetPref = findPreference(KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND);
+        mCustomizeBackgroundCornerRadiusPref = findPreference(KEY_DIGITAL_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS);
+        mBackgroundCornerRadiusPref = findPreference(KEY_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS);
         mDisplayDatePref = findPreference(KEY_DIGITAL_WIDGET_DISPLAY_DATE);
         mDisplayNextAlarmPref = findPreference(KEY_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM);
         mShowCitiesOnDigitalWidgetPref = findPreference(KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED);
@@ -136,7 +142,15 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
                     Utils.setVibrationTime(requireContext(), 50);
 
             case KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND -> {
+                mCustomizeBackgroundCornerRadiusPref.setVisible((boolean) newValue);
+                mBackgroundCornerRadiusPref.setVisible((boolean) newValue
+                        && WidgetDAO.isDigitalWidgetBackgroundCornerRadiusCustomizable(mPrefs));
                 mBackgroundColorPref.setVisible((boolean) newValue);
+                Utils.setVibrationTime(requireContext(), 50);
+            }
+
+            case KEY_DIGITAL_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS -> {
+                mBackgroundCornerRadiusPref.setVisible((boolean) newValue);
                 Utils.setVibrationTime(requireContext(), 50);
             }
 
@@ -219,6 +233,12 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
 
         mShowBackgroundOnDigitalWidgetPref.setOnPreferenceChangeListener(this);
 
+        mCustomizeBackgroundCornerRadiusPref.setVisible(WidgetDAO.isBackgroundDisplayedOnDigitalWidget(mPrefs));
+        mCustomizeBackgroundCornerRadiusPref.setOnPreferenceChangeListener(this);
+
+        mBackgroundCornerRadiusPref.setVisible(WidgetDAO.isBackgroundDisplayedOnDigitalWidget(mPrefs)
+                && WidgetDAO.isDigitalWidgetBackgroundCornerRadiusCustomizable(mPrefs));
+
         mDisplayDatePref.setOnPreferenceChangeListener(this);
 
         mDisplayNextAlarmPref.setOnPreferenceChangeListener(this);
@@ -281,6 +301,7 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
         mDisplaySecondsPref.setChecked(WidgetDAO.areSecondsDisplayedOnDigitalWidget(mPrefs));
         mHideAmPmPref.setChecked(WidgetDAO.isAmPmHiddenOnDigitalWidget(mPrefs));
         mShowBackgroundOnDigitalWidgetPref.setChecked(WidgetDAO.isBackgroundDisplayedOnDigitalWidget(mPrefs));
+        mCustomizeBackgroundCornerRadiusPref.setChecked(WidgetDAO.isDigitalWidgetBackgroundCornerRadiusCustomizable(mPrefs));
         mDisplayDatePref.setChecked(WidgetDAO.isDateDisplayedOnDigitalWidget(mPrefs));
         mDisplayNextAlarmPref.setChecked(WidgetDAO.isNextAlarmDisplayedOnDigitalWidget(mPrefs));
         mShowCitiesOnDigitalWidgetPref.setChecked(WidgetDAO.areWorldCitiesDisplayedOnDigitalWidget(mPrefs));

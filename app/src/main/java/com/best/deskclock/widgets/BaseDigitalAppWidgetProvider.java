@@ -121,7 +121,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
     protected abstract void configureDate(RemoteViews rv, Context context, SharedPreferences prefs);
     protected abstract void configureNextAlarm(RemoteViews rv, Context context, SharedPreferences prefs, String nextAlarmTime);
     protected abstract void configureNextAlarmTitle(RemoteViews rv, SharedPreferences prefs, String nextAlarmTime, String nextAlarmTitle);
-    protected abstract void configureBackground(RemoteViews rv, Context context, SharedPreferences prefs);
+    protected abstract void configureBackground(RemoteViews rv, Context context, SharedPreferences prefs, int widthPx, int heightPx);
 
     protected abstract void configureSizerClock(View sizer, SharedPreferences prefs);
     protected abstract void configureSizerDate(View sizer, Context context, SharedPreferences prefs);
@@ -187,7 +187,6 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
         configureDate(rv, context, prefs);
         configureNextAlarm(rv, context, prefs, nextAlarmTime);
         configureNextAlarmTitle(rv, prefs, nextAlarmTime, nextAlarmTitle);
-        configureBackground(rv, context, prefs);
 
         // Fetch the widget size selected by the user.
         final float density = context.getResources().getDisplayMetrics().density;
@@ -212,6 +211,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
         }
 
         // Apply the computed sizes to the remote views.
+        configureBackground(rv, context, prefs, targetWidthPx, targetHeightPx);
         configureSizes(rv, sizes);
         configureBitmaps(rv, sizes);
         configureWorldCityList(rv, context, prefs, wm, widgetId, sizes);
