@@ -195,14 +195,13 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
             return;
         }
 
-        final View currentLapView = rv.getChildAt(0);
-        if (currentLapView != null) {
+        RecyclerView.ViewHolder holder = rv.findViewHolderForAdapterPosition(0);
+        if (holder instanceof LapItemHolder lapHolder && holder.itemView.isAttachedToWindow()) {
             // Compute the lap time using the total time.
-            final long lapTime = DataModel.getDataModel().getCurrentLapTime(totalTime);
+            long lapTime = DataModel.getDataModel().getCurrentLapTime(totalTime);
 
-            final LapItemHolder holder = (LapItemHolder) rv.getChildViewHolder(currentLapView);
-            holder.lapTime.setText(formatLapTime(lapTime, false));
-            holder.accumulatedTime.setText(formatAccumulatedTime(totalTime, false));
+            lapHolder.lapTime.setText(formatLapTime(lapTime, false));
+            lapHolder.accumulatedTime.setText(formatAccumulatedTime(totalTime, false));
         }
     }
 
