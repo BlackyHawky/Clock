@@ -6,6 +6,7 @@
 
 package com.best.deskclock.uicomponents.selector;
 
+import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
 import android.content.Context;
@@ -53,7 +54,7 @@ public class AlarmSelectionAdapter extends RecyclerView.Adapter<AlarmSelectionAd
         LayoutInflater inflater = LayoutInflater.from(context);
         View row = inflater.inflate(R.layout.alarm_row, parent, false);
 
-        int alarmRowMarginBottom = ThemeUtils.convertDpToPixels(ThemeUtils.isTablet() ? 64 : 8, context);
+        int alarmRowMarginBottom = (int) dpToPx(ThemeUtils.isTablet() ? 64 : 8, context.getResources().getDisplayMetrics());
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
         );

@@ -8,6 +8,7 @@ package com.best.deskclock.ringtone;
 
 import static android.view.View.GONE;
 
+import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 
@@ -54,7 +55,7 @@ final class AddCustomRingtoneViewHolder extends ItemViewHolder<AddCustomRingtone
         nameView.setSingleLine(false);
 
         //Add vertical spacing between lines
-        nameView.setLineSpacing(ThemeUtils.convertDpToPixels(4, context), 1.0f);
+        nameView.setLineSpacing((int) dpToPx(4, context.getResources().getDisplayMetrics()), 1.0f);
 
         String title = context.getString(R.string.add_new_sound);
         String subtitle = context.getString(R.string.add_new_sound_subtitle);

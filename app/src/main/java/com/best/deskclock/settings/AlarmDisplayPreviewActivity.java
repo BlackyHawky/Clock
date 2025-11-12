@@ -8,6 +8,7 @@ package com.best.deskclock.settings;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 
@@ -596,7 +597,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
         final Uri ringtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
         final Ringtone ringtone = RingtoneManager.getRingtone(this, ringtoneUri);
         final Drawable musicIcon = AppCompatResources.getDrawable(this, R.drawable.ic_music_note);
-        int iconSize = ThemeUtils.convertDpToPixels(24, this);
+        int iconSize = (int) dpToPx(24, getResources().getDisplayMetrics());
         final int ringtoneTitleColor = SettingsDAO.getRingtoneTitleColor(mPrefs);
 
         if (musicIcon != null) {

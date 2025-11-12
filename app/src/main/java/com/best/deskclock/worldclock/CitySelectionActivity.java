@@ -6,6 +6,7 @@
 
 package com.best.deskclock.worldclock;
 
+import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_CITY_NOTE;
 
@@ -251,7 +252,7 @@ public final class CitySelectionActivity extends BaseActivity {
 
             v.setPadding(bars.left, bars.top, bars.right, 0);
 
-            int bottomPadding = ThemeUtils.convertDpToPixels(10, this);
+            int bottomPadding = (int) dpToPx(10, getResources().getDisplayMetrics());
             mCitiesList.setPadding(0, 0, 0, bars.bottom + bottomPadding);
         });
     }

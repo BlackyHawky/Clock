@@ -8,6 +8,7 @@ package com.best.deskclock;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
+import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_ALARM_BY_NAME;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_ALARM_BY_NEXT_ALARM_TIME;
@@ -28,6 +29,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.SystemClock;
 import android.text.TextPaint;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -99,6 +101,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
 
     private Context mContext;
     private SharedPreferences mPrefs;
+    private DisplayMetrics mDisplayMetrics;
 
     // Updates "Today/Tomorrow" in the UI when midnight passes.
     private final Runnable mMidnightUpdater = new MidnightRunnable();
@@ -139,6 +142,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
 
         mContext = requireContext();
         mPrefs = getDefaultSharedPreferences(mContext);
+        mDisplayMetrics = getResources().getDisplayMetrics();
         mCursorLoader = LoaderManager.getInstance(this).initLoader(0, null, this);
         mItemAdapter = new ItemAdapter<>();
         mIsTablet = ThemeUtils.isTablet();
@@ -162,7 +166,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         // Set a bottom padding for phones in portrait mode and tablets to center correctly
         // the alarms empty view between the FAB and the top of the screen
         if (!mIsPhoneInLandscape) {
-            emptyAlarmView.setPadding(0, 0, 0, ThemeUtils.convertDpToPixels(80, mContext));
+            emptyAlarmView.setPadding(0, 0, 0, (int) dpToPx(80, mDisplayMetrics));
         }
 
         mEmptyViewController = new EmptyViewController(mMainLayout, mRecyclerView, emptyAlarmView);
@@ -199,8 +203,8 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         mRecyclerView.setLayoutManager(mLayoutManager);
         // Due to the ViewPager and the location of FAB, set a bottom padding and/or a right padding
         // to prevent the alarm list from being hidden by the FAB (e.g. when scrolling down).
-        final int rightPadding = ThemeUtils.convertDpToPixels(mIsPhoneInLandscape ? 85 : 0, mContext);
-        final int bottomPadding = ThemeUtils.convertDpToPixels(mIsTablet ? 110 : mIsPhoneInLandscape ? 5 : 95, mContext);
+        final int rightPadding = (int) dpToPx(mIsPhoneInLandscape ? 85 : 0, mDisplayMetrics);
+        final int bottomPadding = (int) dpToPx(mIsTablet ? 110 : mIsPhoneInLandscape ? 5 : 95, mDisplayMetrics);
         mRecyclerView.setPadding(0, 0, rightPadding, bottomPadding);
 
         mItemAdapter.setHasStableIds();
@@ -276,12 +280,12 @@ public final class AlarmClockFragment extends DeskClockFragment implements
                            viewHolder.itemView.getLeft() + (int) dX,
                            viewHolder.itemView.getBottom()
                    );
-                   background.setCornerRadius(ThemeUtils.convertDpToPixels(12, mContext));
+                   background.setCornerRadius((int) dpToPx(12, mDisplayMetrics));
                    background.draw(c);
 
                    // Delete icon
                    int deleteIconSize = 0;
-                   int deleteIconHorizontalMargin = ThemeUtils.convertDpToPixels(16, mContext);
+                   int deleteIconHorizontalMargin = (int) dpToPx(16, mDisplayMetrics);
 
                    if (dX > deleteIconHorizontalMargin) {
                        Drawable deleteIcon = AppCompatResources.getDrawable(mContext, R.drawable.ic_delete);

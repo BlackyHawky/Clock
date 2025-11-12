@@ -12,6 +12,7 @@ import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 
+import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SW_ACTION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SW_ACTION_LAP;
@@ -29,6 +30,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.transition.TransitionManager;
+import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -134,6 +136,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
     private Activity mActivity;
     private Context mContext;
     private SharedPreferences mPrefs;
+    private DisplayMetrics mDisplayMetrics;
     private String mVolumeUpAction;
     private String mVolumeUpActionAfterLongPress;
     private String mVolumeDownAction;
@@ -146,6 +149,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle state) {
         mContext = requireContext();
         mPrefs = getDefaultSharedPreferences(mContext);
+        mDisplayMetrics = getResources().getDisplayMetrics();
         mIsLandscape = ThemeUtils.isLandscape();
         final boolean isTablet = ThemeUtils.isTablet();
         mLapsAdapter = new LapsAdapter(mContext);
@@ -168,8 +172,8 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
         // between the FAB and the top of the screen.
         // A bottom padding is also set for the laps list to prevent it from being hidden by the FAB.
         if (isTablet && mIsLandscape) {
-            mLapsList.setPadding(0, 0, 0, ThemeUtils.convertDpToPixels(110, mContext));
-            mStopwatchWrapper.setPadding(0, 0, 0, ThemeUtils.convertDpToPixels(80, mContext));
+            mLapsList.setPadding(0, 0, 0, (int) dpToPx(110, mDisplayMetrics));
+            mStopwatchWrapper.setPadding(0, 0, 0, (int) dpToPx(80, mDisplayMetrics));
         }
 
         DataModel.getDataModel().addStopwatchListener(mStopwatchWatcher);
@@ -480,7 +484,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
         if (!mIsLandscape) {
             // When the lap list is visible, it includes the bottom padding. When it is absent the
             // appropriate bottom padding must be applied to the container.
-            final int bottom = ThemeUtils.convertDpToPixels(lapsVisible ? 0 : 80, mContext);
+            final int bottom = (int) dpToPx(lapsVisible ? 0 : 80, mDisplayMetrics);
             final int top = sceneRoot.getPaddingTop();
             final int left = sceneRoot.getPaddingLeft();
             final int right = sceneRoot.getPaddingRight();

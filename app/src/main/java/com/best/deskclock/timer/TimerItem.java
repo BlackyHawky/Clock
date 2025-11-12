@@ -9,12 +9,15 @@ package com.best.deskclock.timer;
 import static android.R.attr.state_activated;
 import static android.R.attr.state_pressed;
 
+import static androidx.core.util.TypedValueCompat.dpToPx;
+
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.SystemClock;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -38,6 +41,7 @@ import java.util.Locale;
 public class TimerItem extends ConstraintLayout {
 
     Context mContext;
+    DisplayMetrics mDisplayMetrics;
 
     /** The container of TimerCircleView and TimerTextController */
     private CircleButtonsLayout mCircleContainer;
@@ -88,6 +92,7 @@ public class TimerItem extends ConstraintLayout {
         super.onFinishInflate();
 
         mContext = getContext();
+        mDisplayMetrics = getResources().getDisplayMetrics();
         mIsTablet = ThemeUtils.isTablet();
         mIsPortrait = ThemeUtils.isPortrait();
 
@@ -211,8 +216,8 @@ public class TimerItem extends ConstraintLayout {
                 (ConstraintLayout.LayoutParams) mPlayPauseButton.getLayoutParams();
 
         if (mIsTablet && mIsPortrait && DataModel.getDataModel().getTimers().size() == 1) {
-            addTimeButtonParams.matchConstraintMaxHeight = ThemeUtils.convertDpToPixels(200, mContext);
-            playPauseButtonParams.matchConstraintMaxHeight = ThemeUtils.convertDpToPixels(200, mContext);
+            addTimeButtonParams.matchConstraintMaxHeight = (int) dpToPx(200, mDisplayMetrics);
+            playPauseButtonParams.matchConstraintMaxHeight = (int) dpToPx(200, mDisplayMetrics);
         }
 
         // Initialize some potentially expensive areas of the user interface only on state changes.
@@ -236,12 +241,12 @@ public class TimerItem extends ConstraintLayout {
                     playPauseButtonParams.topToBottom = mLabelView.getId();
                     playPauseButtonParams.bottomToBottom = ConstraintLayout.LayoutParams.UNSET;
 
-                    playPauseButtonParams.rightMargin = ThemeUtils.convertDpToPixels(12, mContext);
-                    playPauseButtonParams.topMargin = ThemeUtils.convertDpToPixels(10, mContext);
+                    playPauseButtonParams.rightMargin = (int) dpToPx(12, mDisplayMetrics);
+                    playPauseButtonParams.topMargin = (int) dpToPx(10, mDisplayMetrics);
 
                     mPlayPauseButton.setPadding(0, 0, 0, 0);
                 } else {
-                    int playPauseButtonPadding = ThemeUtils.convertDpToPixels(24, mContext);
+                    int playPauseButtonPadding = (int) dpToPx(24, mDisplayMetrics);
 
                     playPauseButtonParams.width = 0;
 

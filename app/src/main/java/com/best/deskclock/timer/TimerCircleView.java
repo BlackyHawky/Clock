@@ -6,12 +6,15 @@
 
 package com.best.deskclock.timer;
 
+import static androidx.core.util.TypedValueCompat.dpToPx;
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -39,6 +42,8 @@ public final class TimerCircleView extends View {
 
     private final RectF mArcRect = new RectF();
 
+    private final DisplayMetrics mDisplayMetrics;
+
     private Timer mTimer;
 
     public TimerCircleView(Context context) {
@@ -48,9 +53,11 @@ public final class TimerCircleView extends View {
     public TimerCircleView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        final float dotDiameter = ThemeUtils.convertDpToPixels(10, context);
+        mDisplayMetrics = getResources().getDisplayMetrics();
 
-        final float mStrokeSize = ThemeUtils.convertDpToPixels(isSingleTimer() ? 8 : 6, context);
+        final float dotDiameter = dpToPx(10, mDisplayMetrics);
+
+        final float mStrokeSize = dpToPx(isSingleTimer() ? 8 : 6, mDisplayMetrics);
         mRadiusOffset = ThemeUtils.calculateRadiusOffset(mStrokeSize, dotDiameter, 0);
 
         final int remainingArcColor = MaterialColors.getColor(
@@ -82,7 +89,7 @@ public final class TimerCircleView extends View {
         final int yCenter = getHeight() / 2;
         final float radius = Math.min(xCenter, yCenter) - mRadiusOffset;
 
-        float gapSize = ThemeUtils.convertDpToPixels(isSingleTimer() ? 14 : 12, getContext());
+        float gapSize = dpToPx(isSingleTimer() ? 14 : 12, mDisplayMetrics);
         float gapAngle = (float) Math.toDegrees(gapSize / radius);
 
         mArcRect.set(

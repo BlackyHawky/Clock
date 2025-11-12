@@ -6,6 +6,7 @@ import static android.util.TypedValue.COMPLEX_UNIT_PX;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
+import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_MATERIAL_YOU_WIDGET_BACKGROUND_CORNER_RADIUS;
 
 import android.app.PendingIntent;
@@ -268,10 +269,9 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends BaseDigitalAppW
             return;
         }
 
-        int radius = ThemeUtils.convertDpToPixels(
-                WidgetDAO.isMaterialYouVerticalDigitalWidgetBackgroundCornerRadiusCustomizable(prefs)
-                        ? WidgetDAO.getMaterialYouVerticalDigitalWidgetBackgroundCornerRadius(prefs)
-                        : DEFAULT_MATERIAL_YOU_WIDGET_BACKGROUND_CORNER_RADIUS, context);
+        int radius = (int) dpToPx(WidgetDAO.isMaterialYouVerticalDigitalWidgetBackgroundCornerRadiusCustomizable(prefs)
+                ? WidgetDAO.getMaterialYouVerticalDigitalWidgetBackgroundCornerRadius(prefs)
+                : DEFAULT_MATERIAL_YOU_WIDGET_BACKGROUND_CORNER_RADIUS, context.getResources().getDisplayMetrics());
 
         int color = WidgetDAO.getMaterialYouVerticalDigitalWidgetBackgroundColor(prefs);
 

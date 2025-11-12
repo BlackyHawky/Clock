@@ -10,6 +10,7 @@ import static android.util.TypedValue.COMPLEX_UNIT_PX;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
+import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_WIDGETS_CUSTOM_COLOR;
 
 import android.app.PendingIntent;
@@ -248,10 +249,9 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
             return;
         }
 
-        int radius = ThemeUtils.convertDpToPixels(
-                WidgetDAO.isDigitalWidgetBackgroundCornerRadiusCustomizable(prefs)
-                        ? WidgetDAO.getDigitalWidgetBackgroundCornerRadius(prefs)
-                        : 0, context);
+        int radius = (int) dpToPx(WidgetDAO.isDigitalWidgetBackgroundCornerRadiusCustomizable(prefs)
+                ? WidgetDAO.getDigitalWidgetBackgroundCornerRadius(prefs)
+                : 0, context.getResources().getDisplayMetrics());
 
         int color = WidgetDAO.getDigitalWidgetBackgroundColor(prefs);
         Icon icon = WidgetUtils.createRoundedIcon(widthPx, heightPx, color, radius);

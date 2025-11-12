@@ -11,6 +11,7 @@ import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
 import static android.graphics.Bitmap.Config.ARGB_8888;
 import static android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
 
+import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 
@@ -27,7 +28,7 @@ import android.graphics.drawable.AnimatedStateListDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.RippleDrawable;
-import android.util.TypedValue;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -124,10 +125,11 @@ public class ThemeUtils {
     /**
      * Convenience method for creating card background.
      */
-    public static Drawable cardBackground (Context context) {
+    public static Drawable cardBackground(Context context) {
         final SharedPreferences prefs = getDefaultSharedPreferences(context);
         final String darkMode = SettingsDAO.getDarkMode(prefs);
-        final int radius = convertDpToPixels(18, context);
+        final DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        final int radius = (int) dpToPx(18, displayMetrics);
         final GradientDrawable gradientDrawable = new GradientDrawable();
 
         gradientDrawable.setCornerRadius(radius);
@@ -145,7 +147,7 @@ public class ThemeUtils {
 
         if (SettingsDAO.isCardBorderDisplayed(prefs)) {
             gradientDrawable.setShape(GradientDrawable.RECTANGLE);
-            gradientDrawable.setStroke(convertDpToPixels(2, context), MaterialColors.getColor(
+            gradientDrawable.setStroke((int) dpToPx(2, displayMetrics), MaterialColors.getColor(
                     context, androidx.appcompat.R.attr.colorPrimary, Color.BLACK)
             );
         }
@@ -157,7 +159,7 @@ public class ThemeUtils {
      * Convenience method for creating pill background.
      */
     public static Drawable pillBackground(Context context, @AttrRes int colorAttributeResId) {
-        final int radius = convertDpToPixels(50, context);
+        final int radius = (int) dpToPx(50, context.getResources().getDisplayMetrics());
         final GradientDrawable gradientDrawable = new GradientDrawable();
 
         gradientDrawable.setCornerRadius(radius);
@@ -173,21 +175,13 @@ public class ThemeUtils {
      */
     public static RippleDrawable rippleDrawable(Context context, @ColorInt int color) {
         final GradientDrawable gradientDrawable = new GradientDrawable();
-        gradientDrawable.setCornerRadius(convertDpToPixels(18, context));
+        gradientDrawable.setCornerRadius((int) dpToPx(18, context.getResources().getDisplayMetrics()));
         gradientDrawable.setColor(color);
 
         int rippleColor = MaterialColors.getColor(
                 context, androidx.appcompat.R.attr.colorControlHighlight, Color.BLACK);
 
         return new RippleDrawable(ColorStateList.valueOf(rippleColor), gradientDrawable, null);
-    }
-
-    /**
-     * Convenience method for converting dp to pixel.
-     */
-    public static int convertDpToPixels(int dp, Context context) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
-                context.getResources().getDisplayMetrics());
     }
 
     /**

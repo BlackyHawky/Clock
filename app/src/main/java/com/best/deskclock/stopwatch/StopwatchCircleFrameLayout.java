@@ -6,8 +6,11 @@
 
 package com.best.deskclock.stopwatch;
 
+import static androidx.core.util.TypedValueCompat.dpToPx;
+
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.widget.FrameLayout;
 
 import com.best.deskclock.data.DataModel;
@@ -57,32 +60,33 @@ public class StopwatchCircleFrameLayout extends FrameLayout {
         // Fetch the absolute maximum circle size allowed.
         final List<Lap> laps = DataModel.getDataModel().getLaps();
         final int maxSize;
-        final int densityDpi = getResources().getDisplayMetrics().densityDpi;
+        final DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        final int densityDpi = displayMetrics.densityDpi;
 
         if (ThemeUtils.isTablet()) {
             if (laps.isEmpty()) {
                 if (densityDpi <= 213) {
-                    maxSize = ThemeUtils.convertDpToPixels(360, getContext());
+                    maxSize = (int) dpToPx(360, displayMetrics);
                 } else if (densityDpi <= 240) {
-                    maxSize = ThemeUtils.convertDpToPixels(300, getContext());
+                    maxSize = (int) dpToPx(300, displayMetrics);
                 } else if (densityDpi <= 280) {
-                    maxSize = ThemeUtils.convertDpToPixels(240, getContext());
+                    maxSize = (int) dpToPx(240, displayMetrics);
                 } else {
-                    maxSize = ThemeUtils.convertDpToPixels(200, getContext());
+                    maxSize = (int) dpToPx(200, displayMetrics);
                 }
             } else {
                 if (densityDpi <= 213) {
-                    maxSize = ThemeUtils.convertDpToPixels(420, getContext());
+                    maxSize = (int) dpToPx(420, displayMetrics);
                 } else if (densityDpi <= 240) {
-                    maxSize = ThemeUtils.convertDpToPixels(360, getContext());
+                    maxSize = (int) dpToPx(360, displayMetrics);
                 } else if (densityDpi <= 280) {
-                    maxSize = ThemeUtils.convertDpToPixels(300, getContext());
+                    maxSize = (int) dpToPx(300, displayMetrics);
                 } else {
-                    maxSize = ThemeUtils.convertDpToPixels(240, getContext());
+                    maxSize = (int) dpToPx(240, displayMetrics);
                 }
             }
         } else {
-            maxSize = ThemeUtils.convertDpToPixels(240, getContext());
+            maxSize = (int) dpToPx(240, displayMetrics);
         }
         final int size = Math.min(smallestDimension, maxSize);
 

@@ -6,6 +6,7 @@
 
 package com.best.deskclock.timer;
 
+import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.FabContainer.FAB_REQUEST_FOCUS;
 import static com.best.deskclock.FabContainer.FAB_SHRINK_AND_EXPAND;
@@ -22,6 +23,7 @@ import android.text.format.DateUtils;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -87,10 +89,11 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
         super.onFinishInflate();
 
         final SharedPreferences prefs = getDefaultSharedPreferences(getContext());
-        final int marginButtonLeft = ThemeUtils.convertDpToPixels( 10, getContext());
-        final int marginButtonRight = ThemeUtils.convertDpToPixels(10, getContext());
-        final int marginButtonTop = ThemeUtils.convertDpToPixels(10, getContext());
-        final int marginButtonBottom = ThemeUtils.convertDpToPixels(10, getContext());
+        final DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        final int marginButtonLeft = (int) dpToPx( 10, displayMetrics);
+        final int marginButtonRight = (int) dpToPx(10, displayMetrics);
+        final int marginButtonTop = (int) dpToPx(10, displayMetrics);
+        final int marginButtonBottom = (int) dpToPx(10, displayMetrics);
         final boolean isCardBackgroundDisplayed = SettingsDAO.isCardBackgroundDisplayed(prefs);
         final boolean isCardBorderDisplayed = SettingsDAO.isCardBorderDisplayed(prefs);
         final String darkMode = SettingsDAO.getDarkMode(prefs);
@@ -125,7 +128,7 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
             }
 
             if (isCardBorderDisplayed) {
-                digitButton.setStrokeWidth(ThemeUtils.convertDpToPixels(2, getContext()));
+                digitButton.setStrokeWidth((int) dpToPx(2, displayMetrics));
                 digitButton.setStrokeColor(ColorStateList.valueOf(MaterialColors.getColor(getContext(),
                         androidx.appcompat.R.attr.colorPrimary, Color.BLACK)));
             }
@@ -157,10 +160,10 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
         }
 
         if (isCardBorderDisplayed) {
-            doubleZeroButton.setStrokeWidth(ThemeUtils.convertDpToPixels(2, getContext()));
+            doubleZeroButton.setStrokeWidth((int) dpToPx(2, displayMetrics));
             doubleZeroButton.setStrokeColor(ColorStateList.valueOf(
                     MaterialColors.getColor(getContext(), com.google.android.material.R.attr.colorPrimaryInverse, Color.BLACK)));
-            mDeleteButton.setStrokeWidth(ThemeUtils.convertDpToPixels(2, getContext()));
+            mDeleteButton.setStrokeWidth((int) dpToPx(2, displayMetrics));
             mDeleteButton.setStrokeColor(ColorStateList.valueOf(
                     MaterialColors.getColor(getContext(), com.google.android.material.R.attr.colorPrimaryInverse, Color.BLACK)));
         }

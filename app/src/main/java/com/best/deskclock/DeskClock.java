@@ -7,6 +7,7 @@
 package com.best.deskclock;
 
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
+import static androidx.core.util.TypedValueCompat.dpToPx;
 import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_DRAGGING;
 import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_IDLE;
 import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_SETTLING;
@@ -49,6 +50,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -256,6 +258,7 @@ public class DeskClock extends BaseActivity
         super.onCreate(savedInstanceState);
 
         mPrefs = getDefaultSharedPreferences(this);
+        final DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
 
         if (isFirstLaunch()) {
             return;
@@ -285,8 +288,8 @@ public class DeskClock extends BaseActivity
         final int leftOrRightButtonSize = isTablet ? 70 : isPortrait ? 55 : 50;
 
         mFab = findViewById(R.id.fab);
-        mFab.getLayoutParams().height = ThemeUtils.convertDpToPixels(fabSize, this);
-        mFab.getLayoutParams().width = ThemeUtils.convertDpToPixels(fabSize, this);
+        mFab.getLayoutParams().height = (int) dpToPx(fabSize, displayMetrics);
+        mFab.getLayoutParams().width = (int) dpToPx(fabSize, displayMetrics);
         mFab.setScaleType(ImageView.ScaleType.CENTER);
         mFab.setOnClickListener(view -> getSelectedDeskClockFragment().onFabClick());
         mFab.setOnLongClickListener(v -> {
@@ -295,13 +298,13 @@ public class DeskClock extends BaseActivity
         });
 
         mLeftButton = findViewById(R.id.left_button);
-        mLeftButton.getLayoutParams().height = ThemeUtils.convertDpToPixels(leftOrRightButtonSize, this);
-        mLeftButton.getLayoutParams().width = ThemeUtils.convertDpToPixels(leftOrRightButtonSize, this);
+        mLeftButton.getLayoutParams().height = (int) dpToPx(leftOrRightButtonSize, displayMetrics);
+        mLeftButton.getLayoutParams().width = (int) dpToPx(leftOrRightButtonSize, displayMetrics);
         mLeftButton.setScaleType(ImageView.ScaleType.CENTER);
 
         mRightButton = findViewById(R.id.right_button);
-        mRightButton.getLayoutParams().height = ThemeUtils.convertDpToPixels(leftOrRightButtonSize, this);
-        mRightButton.getLayoutParams().width = ThemeUtils.convertDpToPixels(leftOrRightButtonSize, this);
+        mRightButton.getLayoutParams().height = (int) dpToPx(leftOrRightButtonSize, displayMetrics);
+        mRightButton.getLayoutParams().width = (int) dpToPx(leftOrRightButtonSize, displayMetrics);
         mRightButton.setScaleType(ImageView.ScaleType.CENTER);
 
         final long duration = getResources().getInteger(android.R.integer.config_shortAnimTime);

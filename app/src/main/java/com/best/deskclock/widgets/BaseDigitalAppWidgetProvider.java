@@ -17,6 +17,7 @@ import static android.view.View.GONE;
 import static android.view.View.MeasureSpec.UNSPECIFIED;
 import static android.view.View.VISIBLE;
 
+import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
 import android.annotation.SuppressLint;
@@ -48,7 +49,6 @@ import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.SdkUtils;
-import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.WidgetUtils;
 import com.best.deskclock.worldclock.CitySelectionActivity;
 
@@ -199,9 +199,8 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
         final List<City> selectedCities = new ArrayList<>(DataModel.getDataModel().getSelectedCities());
         final boolean showHomeClock = SettingsDAO.getShowHomeClock(context, prefs);
         final boolean hasCitiesToDisplay = !selectedCities.isEmpty() || showHomeClock;
-        final int largestClockFontSizePx = ThemeUtils.convertDpToPixels(
-                areWorldCitiesDisplayed(prefs) && hasCitiesToDisplay ? 80 : getMaxWidgetFontSize(prefs),
-                context);
+        final int largestClockFontSizePx = (int) dpToPx(areWorldCitiesDisplayed(prefs) && hasCitiesToDisplay
+                        ? 80 : getMaxWidgetFontSize(prefs), context.getResources().getDisplayMetrics());
 
         // Create a size template that describes the widget bounds.
         final DigitalWidgetSizes template = new DigitalWidgetSizes(targetWidthPx, targetHeightPx, largestClockFontSizePx);
@@ -261,7 +260,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
             return;
         }
 
-        final int smallestWorldCityListSizePx = ThemeUtils.convertDpToPixels(80, context);
+        final int smallestWorldCityListSizePx = (int) dpToPx(80, context.getResources().getDisplayMetrics());
         if (sizes.getListHeight() <= smallestWorldCityListSizePx || !areWorldCitiesDisplayed(prefs)) {
             rv.setViewVisibility(getWorldCityListViewId(), GONE);
         } else {
@@ -289,8 +288,8 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
         @SuppressLint("InflateParams")
         View sizer = inflater.inflate(getSizerLayoutId(), null);
 
-        int horizontalPadding = ThemeUtils.convertDpToPixels(
-                isHorizontalPaddingApplied(prefs) ? 20 : 0, context);
+        int horizontalPadding = (int) dpToPx(isHorizontalPaddingApplied(prefs)
+                ? 20 : 0, context.getResources().getDisplayMetrics());
         sizer.setPadding(horizontalPadding, 0, horizontalPadding, 0);
 
         configureSizerClock(sizer, prefs);

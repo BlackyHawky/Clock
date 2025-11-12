@@ -6,6 +6,7 @@ import static android.util.TypedValue.COMPLEX_UNIT_PX;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
+import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_WIDGETS_CUSTOM_COLOR;
 
 import android.app.PendingIntent;
@@ -245,10 +246,9 @@ public class VerticalDigitalAppWidgetProvider extends BaseDigitalAppWidgetProvid
             return;
         }
 
-        int radius = ThemeUtils.convertDpToPixels(
-                WidgetDAO.isVerticalWidgetBackgroundCornerRadiusCustomizable(prefs)
-                        ? WidgetDAO.getVerticalWidgetBackgroundCornerRadius(prefs)
-                        : 0, context);
+        int radius = (int) dpToPx(WidgetDAO.isVerticalWidgetBackgroundCornerRadiusCustomizable(prefs)
+                ? WidgetDAO.getVerticalWidgetBackgroundCornerRadius(prefs)
+                : 0, context.getResources().getDisplayMetrics());
 
         int color = WidgetDAO.getVerticalDigitalWidgetBackgroundColor(prefs);
         Icon icon = WidgetUtils.createRoundedIcon(widthPx, heightPx, color, radius);
@@ -318,7 +318,7 @@ public class VerticalDigitalAppWidgetProvider extends BaseDigitalAppWidgetProvid
         final TextView nextAlarmIcon = sizer.findViewById(getNextAlarmIconId());
         // On some devices, the text shadow is cut off, so we have to add it to the end of the next alarm text.
         // The result is that next alarm text and the icon are perfectly centered.
-        final int textShadowPadding = ThemeUtils.convertDpToPixels(3, sizer.getContext());
+        final int textShadowPadding = (int) dpToPx(3, sizer.getContext().getResources().getDisplayMetrics());
 
         nextAlarm.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mFontSizePx);
         nextAlarm.setPadding(0, 0, measuredSizes.mIconFontSizePx + textShadowPadding, 0);

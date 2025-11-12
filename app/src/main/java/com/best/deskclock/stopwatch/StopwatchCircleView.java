@@ -6,12 +6,15 @@
 
 package com.best.deskclock.stopwatch;
 
+import static androidx.core.util.TypedValueCompat.dpToPx;
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -41,6 +44,8 @@ public final class StopwatchCircleView extends View {
 
     private final RectF mArcRect = new RectF();
 
+    private final DisplayMetrics mDisplayMetrics;
+
     public StopwatchCircleView(Context context) {
         this(context, null);
     }
@@ -48,9 +53,10 @@ public final class StopwatchCircleView extends View {
     public StopwatchCircleView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        final float dotDiameter = ThemeUtils.convertDpToPixels(12, context);
-        int strokeSize = ThemeUtils.convertDpToPixels(8, context);
-        int markerStrokeSize = ThemeUtils.convertDpToPixels(ThemeUtils.isTablet() ? 4 : 3, context);
+        mDisplayMetrics = getResources().getDisplayMetrics();
+        final float dotDiameter = (int) dpToPx(12, mDisplayMetrics);
+        int strokeSize = (int) dpToPx(8, mDisplayMetrics);
+        int markerStrokeSize = (int) dpToPx(ThemeUtils.isTablet() ? 4 : 3, mDisplayMetrics);
 
         mRadiusOffset = ThemeUtils.calculateRadiusOffset(strokeSize, dotDiameter, markerStrokeSize);
 
@@ -137,7 +143,7 @@ public final class StopwatchCircleView extends View {
             float markerAngleDeg = 270 + ((float) priorLap.getLapTime() * angleFactor);
             double markerAngleRad = Math.toRadians(markerAngleDeg);
 
-            float markerLength = ThemeUtils.convertDpToPixels(14, getContext());
+            float markerLength = (int) dpToPx(14, mDisplayMetrics);
 
             float startX = xCenter + (radius - markerLength / 2) * (float) Math.cos(markerAngleRad);
             float startY = yCenter + (radius - markerLength / 2) * (float) Math.sin(markerAngleRad);

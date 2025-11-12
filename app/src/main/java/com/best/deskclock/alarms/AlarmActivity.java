@@ -8,6 +8,7 @@ package com.best.deskclock.alarms;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_SNOOZE_DURATION_DISABLED;
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
@@ -896,7 +897,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         final Drawable iconRingtone = silent
                 ? AppCompatResources.getDrawable(this, R.drawable.ic_ringtone_silent)
                 : AppCompatResources.getDrawable(this, R.drawable.ic_music_note);
-        int iconRingtoneSize = ThemeUtils.convertDpToPixels(24, this);
+        int iconRingtoneSize = (int) dpToPx(24, getResources().getDisplayMetrics());
         final int ringtoneTitleColor = SettingsDAO.getRingtoneTitleColor(mPrefs);
 
         if (iconRingtone != null) {

@@ -12,6 +12,7 @@ import static android.view.View.INVISIBLE;
 import static android.view.View.TRANSLATION_Y;
 import static android.view.View.VISIBLE;
 
+import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMER_CREATION_VIEW_SPINNER_STYLE;
 import static com.best.deskclock.uidata.UiDataModel.Tab.TIMERS;
@@ -24,6 +25,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -108,6 +110,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
 
         mContext = requireContext();
         mPrefs = getDefaultSharedPreferences(mContext);
+        final DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         mAdapter = new TimerAdapter(mContext, mPrefs, new TimerClickHandler(this));
         mRecyclerView = view.findViewById(R.id.recycler_view);
         mTimersView = view.findViewById(R.id.timer_view);
@@ -120,8 +123,8 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         mRecyclerView.setLayoutManager(getLayoutManager(mContext));
         // Due to the ViewPager and the location of FAB, set a bottom padding and/or a right padding
         // to prevent the reset button from being hidden by the FAB (e.g. when scrolling down).
-        final int bottomPadding = ThemeUtils.convertDpToPixels(mIsTablet ? 110 : mIsLandscape ? 4 : 95, mContext);
-        final int rightPadding = ThemeUtils.convertDpToPixels(!mIsTablet && mIsLandscape ? 85 : 0, mContext);
+        final int bottomPadding = (int) dpToPx(mIsTablet ? 110 : mIsLandscape ? 4 : 95, displayMetrics);
+        final int rightPadding = (int) dpToPx(!mIsTablet && mIsLandscape ? 85 : 0, displayMetrics);
         mRecyclerView.setPadding(0, 0, rightPadding, bottomPadding);
         mRecyclerView.setClipToPadding(false);
 

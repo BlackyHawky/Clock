@@ -6,13 +6,14 @@
 
 package com.best.deskclock.uicomponents;
 
+import static androidx.core.util.TypedValueCompat.dpToPx;
+
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
 
 import com.best.deskclock.R;
-import com.best.deskclock.utils.ThemeUtils;
 
 /**
  * This class adjusts the location of the reset button.
@@ -29,7 +30,7 @@ public class CircleButtonsLayout extends FrameLayout {
     public CircleButtonsLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        final float strokeSize = ThemeUtils.convertDpToPixels(6, context);
+        final float strokeSize = dpToPx(6, getResources().getDisplayMetrics());
         mDiamOffset = strokeSize * 2;
     }
 

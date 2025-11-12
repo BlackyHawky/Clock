@@ -6,9 +6,12 @@
 
 package com.best.deskclock.stopwatch;
 
+import static androidx.core.util.TypedValueCompat.dpToPx;
+
 import android.content.Context;
 import android.graphics.Typeface;
 import android.text.format.DateUtils;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -363,9 +366,10 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
 
             final Context context = itemView.getContext();
             boolean isTablet = ThemeUtils.isTablet();
+            final DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
 
             // Set top and bottom padding between each item
-            final int padding =  ThemeUtils.convertDpToPixels(isTablet ? 8 : 4, context);
+            final int padding = (int) dpToPx(isTablet ? 8 : 4, displayMetrics);
             itemView.setPadding(0, padding, 0, padding);
 
             lapNumber = itemView.findViewById(R.id.lap_number);
@@ -380,7 +384,7 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
             // Due to the ViewPager and the location of FAB, set a right padding for phones
             // in landscape mode to prevent the laps from being hidden by the FAB.
             if (!isTablet && ThemeUtils.isLandscape()) {
-                accumulatedTime.setPadding(0, 0, ThemeUtils.convertDpToPixels(85, context), 0);
+                accumulatedTime.setPadding(0, 0, (int) dpToPx(85, displayMetrics), 0);
             }
         }
     }

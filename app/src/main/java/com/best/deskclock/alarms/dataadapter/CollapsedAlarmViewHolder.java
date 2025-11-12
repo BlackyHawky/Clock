@@ -9,6 +9,8 @@ package com.best.deskclock.alarms.dataadapter;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 
+import static androidx.core.util.TypedValueCompat.dpToPx;
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
@@ -28,7 +30,6 @@ import com.best.deskclock.R;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.utils.AnimatorUtils;
-import com.best.deskclock.utils.ThemeUtils;
 
 /**
  * A ViewHolder containing views for an alarm item in collapsed stated.
@@ -100,7 +101,7 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
         } else {
             alarmLabel.setVisibility(View.GONE);
 
-            int margin = ThemeUtils.convertDpToPixels(16, context);
+            int margin = (int) dpToPx(16, context.getResources().getDisplayMetrics());
             clockParams.setMargins(0, margin, 0, 0);
             daysOfWeekParams.setMargins(0, margin, 0, 0);
         }

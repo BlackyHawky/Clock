@@ -6,6 +6,7 @@
 
 package com.best.deskclock.settings;
 
+import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_TITLE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BLUR_INTENSITY;
@@ -32,6 +33,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_WIDGET_BA
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -71,6 +73,7 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
     protected static final int MENU_RESET_SETTINGS = 3;
 
     SharedPreferences mPrefs;
+    DisplayMetrics mDisplayMetrics;
     CoordinatorLayout mCoordinatorLayout;
     AppBarLayout mAppBarLayout;
     CollapsingToolbarLayout mCollapsingToolbarLayout;
@@ -98,6 +101,7 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
         }
 
         mPrefs = getDefaultSharedPreferences(requireContext());
+        mDisplayMetrics = getResources().getDisplayMetrics();
 
         // To manually manage insets
         WindowCompat.setDecorFitsSystemWindows(requireActivity().getWindow(), false);
@@ -265,7 +269,7 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
 
             v.setPadding(bars.left, bars.top, bars.right, 0);
 
-            int padding = ThemeUtils.convertDpToPixels(10, requireContext());
+            int padding = (int) dpToPx(10, mDisplayMetrics);
             mRecyclerView.setPadding(0, padding, 0, bars.bottom + padding);
         });
     }

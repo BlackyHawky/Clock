@@ -2,6 +2,7 @@
 
 package com.best.deskclock.utils;
 
+import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
 import android.content.Context;
@@ -11,6 +12,7 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.Typeface;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -211,13 +213,14 @@ public class ScreensaverUtils {
      * Calculate and apply margins.
      */
     private static void applyMargins(Context context, View clockView) {
+        final DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         final boolean isTablet = ThemeUtils.isTablet();
         final boolean isLandscape = ThemeUtils.isLandscape();
         final View mainClockView = clockView.findViewById(R.id.main_clock);
 
-        int marginLeftAndRight = ThemeUtils.convertDpToPixels(isTablet ? 20 : 16, context);
-        int marginTop = ThemeUtils.convertDpToPixels(isTablet ? (isLandscape ? 32 : 48) : (isLandscape ? 16 : 24), context);
-        int marginBottom = ThemeUtils.convertDpToPixels(isTablet ? 20 : 16, context);
+        int marginLeftAndRight = (int) dpToPx(isTablet ? 20 : 16, displayMetrics);
+        int marginTop = (int) dpToPx(isTablet ? (isLandscape ? 32 : 48) : (isLandscape ? 16 : 24), displayMetrics);
+        int marginBottom = (int) dpToPx(isTablet ? 20 : 16, displayMetrics);
 
         // Apply margins
         ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) mainClockView.getLayoutParams();
@@ -225,8 +228,8 @@ public class ScreensaverUtils {
         mainClockView.setLayoutParams(params);
 
         // Margins for other views (e.g., digital and analog clock)
-        int digitalClockMarginBottom = ThemeUtils.convertDpToPixels(isTablet ? -18 : -8, context);
-        int analogClockMarginBottom = ThemeUtils.convertDpToPixels(isLandscape ? 5 : (isTablet ? 18 : 14), context);
+        int digitalClockMarginBottom = (int) dpToPx(isTablet ? -18 : -8, displayMetrics);
+        int analogClockMarginBottom = (int) dpToPx(isLandscape ? 5 : (isTablet ? 18 : 14), displayMetrics);
 
         ViewGroup.MarginLayoutParams digitalClockParams = (ViewGroup.MarginLayoutParams) mainClockView.getLayoutParams();
         digitalClockParams.setMargins(0, 0, 0, digitalClockMarginBottom);

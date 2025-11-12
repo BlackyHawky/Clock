@@ -9,6 +9,7 @@ package com.best.deskclock.utils;
 import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_HOST_CATEGORY;
 import static android.appwidget.AppWidgetProviderInfo.WIDGET_CATEGORY_KEYGUARD;
 
+import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
 import android.app.AlarmManager;
@@ -19,7 +20,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -29,6 +29,7 @@ import android.graphics.drawable.Icon;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.format.DateFormat;
+import android.util.DisplayMetrics;
 import android.widget.TextClock;
 
 import androidx.activity.OnBackPressedCallback;
@@ -107,9 +108,10 @@ public class WidgetUtils {
                 // No data , do no scaling
                 return 1f;
             }
-            final Resources res = context.getResources();
-            float density = res.getDisplayMetrics().density;
-            final int minDigitalWidgetWidth = ThemeUtils.convertDpToPixels(ThemeUtils.isTablet() ? 300 : 206, context);
+
+            final DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+            float density = displayMetrics.density;
+            final int minDigitalWidgetWidth = (int) dpToPx(ThemeUtils.isTablet() ? 300 : 206, displayMetrics);
             float ratio = (density * minWidth) / minDigitalWidgetWidth;
             ratio = Math.min(ratio, getHeightScaleRatio(context, options, id));
             ratio *= .83f;
@@ -147,9 +149,10 @@ public class WidgetUtils {
                 // No data , do no scaling
                 return 1f;
             }
-            final Resources res = context.getResources();
-            float density = res.getDisplayMetrics().density;
-            final int minDigitalWidgetHeight = ThemeUtils.convertDpToPixels(ThemeUtils.isTablet() ? 170 : 129, context);
+
+            final DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+            float density = displayMetrics.density;
+            final int minDigitalWidgetHeight = (int) dpToPx(ThemeUtils.isTablet() ? 170 : 129, displayMetrics);
             float ratio = density * minHeight / minDigitalWidgetHeight;
             if (ThemeUtils.isPortrait()) {
                 return ratio * 1.75f;

@@ -9,6 +9,7 @@ package com.best.deskclock.ringtone;
 import static android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION;
 import static android.media.RingtoneManager.TYPE_ALARM;
 import static android.provider.OpenableColumns.DISPLAY_NAME;
+import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.ItemAdapter.ItemViewHolder.Factory;
 import static com.best.deskclock.ringtone.AddCustomRingtoneViewHolder.VIEW_TYPE_ADD_NEW;
@@ -32,6 +33,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.MediaStore;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -63,7 +65,6 @@ import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
-import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 
 import com.google.android.material.color.MaterialColors;
@@ -158,6 +159,8 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
     private FragmentManager mFragmentManager;
 
     private SharedPreferences mPrefs;
+
+    private DisplayMetrics mDisplayMetrics;
 
     /**
      * Callback for getting the result from Activity
@@ -255,6 +258,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
         super.onCreate(savedInstanceState);
 
         mPrefs = getDefaultSharedPreferences(this);
+        mDisplayMetrics = getResources().getDisplayMetrics();
 
         // To manually manage insets
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
@@ -418,8 +422,8 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
 
             v.setPadding(bars.left, bars.top, bars.right, 0);
 
-            int paddingTop = ThemeUtils.convertDpToPixels(14, this);
-            int paddingBottom = ThemeUtils.convertDpToPixels(10, this);
+            int paddingTop = (int) dpToPx(14, mDisplayMetrics);
+            int paddingBottom = (int) dpToPx(10, mDisplayMetrics);
             mRingtoneContent.setPadding(0, paddingTop, 0, bars.bottom + paddingBottom);
         });
     }

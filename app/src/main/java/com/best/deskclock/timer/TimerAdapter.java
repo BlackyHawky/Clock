@@ -6,6 +6,7 @@
 
 package com.best.deskclock.timer;
 
+import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SORT_TIMER_MANUALLY;
 
 import android.content.Context;
@@ -318,7 +319,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
             // Draw a shadow under the timer card when it's dragging.
             viewHolder.itemView.setTranslationZ(
-                    (float) ThemeUtils.convertDpToPixels(isCurrentlyActive ? 6 : 0, recyclerView.getContext()));
+                    dpToPx(isCurrentlyActive ? 6 : 0, recyclerView.getContext().getResources().getDisplayMetrics()));
         }
 
         @Override
