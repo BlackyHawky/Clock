@@ -32,6 +32,41 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
+        <SwitchPreferenceCompat
+            android:key="key_display_timer_state_indicator"
+            android:title="@string/display_timer_state_indicator_title"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <com.rarepebble.colorpicker.ColorPreference
+            android:key="key_running_timer_indicator_color"
+            android:title="@string/running_timer_indicator_color_title"
+            android:defaultValue="#FF99CC00"
+            app:colorpicker_selectNoneButtonText="@string/label_default"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <com.rarepebble.colorpicker.ColorPreference
+            android:key="key_paused_timer_indicator_color"
+            android:title="@string/paused_timer_indicator_color_title"
+            android:defaultValue="#FFFFBB33"
+            app:colorpicker_selectNoneButtonText="@string/label_default"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <com.rarepebble.colorpicker.ColorPreference
+            android:key="key_expired_timer_indicator_color"
+            android:title="@string/expired_timer_indicator_color_title"
+            android:defaultValue="#FFFF4444"
+            app:colorpicker_selectNoneButtonText="@string/label_default"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

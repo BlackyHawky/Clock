@@ -140,6 +140,11 @@ public class PreferencesDefaultValues {
     // Timer
     public static final String DEFAULT_TIMER_CREATION_VIEW_STYLE = "keypad";
     public static final String TIMER_CREATION_VIEW_SPINNER_STYLE = "spinner";
+    public static final boolean DEFAULT_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER = false;
+    public static final boolean DEFAULT_DISPLAY_TIMER_STATE_INDICATOR = false;
+    public static final int DEFAULT_RUNNING_TIMER_INDICATOR_COLOR = Color.parseColor("#FF99CC00");
+    public static final int DEFAULT_PAUSED_TIMER_INDICATOR_COLOR = Color.parseColor("#FFFFBB33");
+    public static final int DEFAULT_EXPIRED_TIMER_INDICATOR_COLOR = Color.parseColor("#FFFF4444");
     public static final int DEFAULT_TIMER_AUTO_SILENCE_DURATION = 30; // 30 seconds
     public static final int DEFAULT_TIMER_VOLUME_CRESCENDO_DURATION = 0;
     public static final boolean DEFAULT_TIMER_VIBRATE = false;
@@ -153,7 +158,6 @@ public class PreferencesDefaultValues {
     public static final String SORT_TIMER_BY_DESCENDING_DURATION = "2";
     public static final String SORT_TIMER_BY_NAME = "3";
     public static final int DEFAULT_TIMER_ADD_TIME_BUTTON_VALUE = 60;
-    public static final boolean DEFAULT_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER = false;
     public static final boolean DEFAULT_DISPLAY_WARNING_BEFORE_DELETING_TIMER = false;
 
     // Stopwatch

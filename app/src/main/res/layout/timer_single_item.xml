@@ -105,6 +105,17 @@
 
     </com.best.deskclock.uicomponents.CircleButtonsLayout>
 
+    <View
+        android:id="@+id/indicator_state"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/circle_container_end_guide"
+        app:layout_constraintBottom_toTopOf="@+id/play_pause"
+        tools:background="@drawable/bg_circle"
+        tools:backgroundTint="#FF99CC00" />
+
     <ImageButton
         android:id="@+id/timer_edit_new_duration_button"
         android:layout_width="wrap_content"

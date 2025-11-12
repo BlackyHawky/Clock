@@ -554,6 +554,39 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return {@code true} if the vertical scrollbar is displayed in the timer list.
+     * {@code false} otherwise.
+     */
+    public static boolean isTimerStateIndicatorDisplayed(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_timer.xml
+        return prefs.getBoolean(KEY_DISPLAY_TIMER_STATE_INDICATOR, DEFAULT_DISPLAY_TIMER_STATE_INDICATOR);
+    }
+
+    /**
+     * @return a value indicating the running timer indicator color.
+     */
+    public static int getRunningTimerIndicatorColor(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_timer.xml
+        return prefs.getInt(KEY_RUNNING_TIMER_INDICATOR_COLOR, DEFAULT_RUNNING_TIMER_INDICATOR_COLOR);
+    }
+
+    /**
+     * @return a value indicating the paused timer indicator color.
+     */
+    public static int getPausedTimerIndicatorColor(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_timer.xml
+        return prefs.getInt(KEY_PAUSED_TIMER_INDICATOR_COLOR, DEFAULT_PAUSED_TIMER_INDICATOR_COLOR);
+    }
+
+    /**
+     * @return a value indicating the expired timer indicator color.
+     */
+    public static int getExpiredTimerIndicatorColor(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_timer.xml
+        return prefs.getInt(KEY_EXPIRED_TIMER_INDICATOR_COLOR, DEFAULT_EXPIRED_TIMER_INDICATOR_COLOR);
+    }
+
+    /**
      * @return {@code true} if a warning is displayed before deleting a timer. {@code false} otherwise.
      */
     public static boolean isWarningDisplayedBeforeDeletingTimer(SharedPreferences prefs) {

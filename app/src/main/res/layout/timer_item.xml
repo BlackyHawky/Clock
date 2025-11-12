@@ -37,6 +37,17 @@
         app:layout_constraintEnd_toStartOf="@+id/delete_timer"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <View
+        android:id="@+id/indicator_state"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@drawable/bg_circle"
+        tools:backgroundTint="#FF99CC00" />
+
     <ImageButton
         android:id="@+id/delete_timer"
         android:layout_width="wrap_content"
@@ -48,7 +59,7 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/delete"
         app:tint="?attr/colorPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/indicator_state"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.best.deskclock.uicomponents.CircleButtonsLayout

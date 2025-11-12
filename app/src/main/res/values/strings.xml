@@ -1107,6 +1107,16 @@
     <string name="timer_creation_view_style_title">Timer creation view style</string>
     <!-- Keypad style when creating timer -->
     <string name="timer_creation_view_style_keypad">Keypad</string>
+    <!-- Title for setting transparent background when timers expires in timer settings -->
+    <string name="transparent_background_for_expired_timer_title">Transparent background when timers expire</string>
+    <!-- Setting title to display timer state indicator -->
+    <string name="display_timer_state_indicator_title">Display timer state indicator</string>
+    <!-- Setting title to choose the running timer indicator color -->
+    <string name="running_timer_indicator_color_title">Running timer indicator color</string>
+    <!-- Setting title to choose the paused timer indicator color -->
+    <string name="paused_timer_indicator_color_title">Paused timer indicator color</string>
+    <!-- Setting title to choose the expired timer indicator color -->
+    <string name="expired_timer_indicator_color_title">Expired timer indicator color</string>
     <!-- Description for timer vibration. -->
     <string name="timer_vibrate_title">Timer vibrate</string>
     <!-- Setting title to reset expired timers with volume buttons. -->
@@ -1127,8 +1137,6 @@
     <string name="sort_timer_descending_duration">By duration (descending order)</string>
     <!-- Default time to add to timer preference title in the settings -->
     <string name="default_time_to_add_to_timer_title">Default time to add to timer</string>
-    <!-- Title for setting transparent background when timers expires in timer settings -->
-    <string name="transparent_background_for_expired_timer_title">Transparent background when timers expire</string>
     <!-- Setting title to display a warning before deleting a timer -->
     <string name="display_warning_before_deleting_timer_title">Display a warning before deleting a timer</string>
     <!-- Warning dialog title before deleting a timer -->

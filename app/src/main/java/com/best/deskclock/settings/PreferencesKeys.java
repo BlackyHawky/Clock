@@ -134,6 +134,11 @@ public class PreferencesKeys {
 
     // Timer
     public static final String KEY_TIMER_CREATION_VIEW_STYLE = "key_timer_creation_view_style";
+    public static final String KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER = "key_transparent_background_for_expired_timer";
+    public static final String KEY_DISPLAY_TIMER_STATE_INDICATOR = "key_display_timer_state_indicator";
+    public static final String KEY_RUNNING_TIMER_INDICATOR_COLOR = "key_running_timer_indicator_color";
+    public static final String KEY_PAUSED_TIMER_INDICATOR_COLOR = "key_paused_timer_indicator_color";
+    public static final String KEY_EXPIRED_TIMER_INDICATOR_COLOR = "key_expired_timer_indicator_color";
     public static final String KEY_TIMER_RINGTONE = "key_timer_ringtone";
     public static final String KEY_TIMER_AUTO_SILENCE_DURATION = "key_timer_auto_silence_duration";
     public static final String KEY_TIMER_VOLUME_CRESCENDO_DURATION = "key_timer_volume_crescendo_duration";
@@ -145,7 +150,6 @@ public class PreferencesKeys {
     public static final String KEY_TIMER_SHAKE_INTENSITY = "key_timer_shake_intensity";
     public static final String KEY_SORT_TIMER = "key_sort_timer";
     public static final String KEY_TIMER_ADD_TIME_BUTTON_VALUE = "key_timer_add_time_button_value";
-    public static final String KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER = "key_transparent_background_for_expired_timer";
     public static final String KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER = "key_display_warning_before_deleting_timer";
 
     // Stopwatch

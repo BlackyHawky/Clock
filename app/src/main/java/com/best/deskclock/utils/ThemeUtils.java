@@ -156,6 +156,16 @@ public class ThemeUtils {
     }
 
     /**
+     * Convenience method for creating circle drawable.
+     */
+    public static Drawable circleDrawable() {
+        final GradientDrawable gradientDrawable = new GradientDrawable();
+        gradientDrawable.setShape(GradientDrawable.OVAL);
+
+        return gradientDrawable;
+    }
+
+    /**
      * Convenience method for creating pill background.
      */
     public static Drawable pillBackground(Context context, @AttrRes int colorAttributeResId) {
