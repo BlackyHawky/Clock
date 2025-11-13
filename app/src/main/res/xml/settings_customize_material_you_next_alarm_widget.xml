@@ -65,7 +65,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <com.rarepebble.colorpicker.ColorPreference
+        <com.best.deskclock.settings.ColorPickerPreference
             android:key="key_material_you_next_alarm_widget_custom_background_color"
             android:title="@string/background_color_title"
             android:defaultValue="#70000000"
@@ -82,7 +82,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <com.rarepebble.colorpicker.ColorPreference
+        <com.best.deskclock.settings.ColorPickerPreference
             android:key="key_material_you_next_alarm_widget_custom_title_color"
             android:title="@string/next_alarm_no_upcoming_alarm_titles_color"
             android:defaultValue="#FFFFFF"
@@ -99,7 +99,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <com.rarepebble.colorpicker.ColorPreference
+        <com.best.deskclock.settings.ColorPickerPreference
             android:key="key_material_you_next_alarm_widget_custom_alarm_title_color"
             android:title="@string/alarm_title_color"
             android:defaultValue="#FFFFFF"
@@ -116,7 +116,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <com.rarepebble.colorpicker.ColorPreference
+        <com.best.deskclock.settings.ColorPickerPreference
             android:key="key_material_you_next_alarm_widget_custom_alarm_color"
             android:title="@string/next_alarm_color_title"
             android:defaultValue="#FFFFFF"

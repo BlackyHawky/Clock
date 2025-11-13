@@ -15,7 +15,7 @@
     android:layout_marginVertical="4dp"
     android:layout_marginHorizontal="10dp"
     android:paddingBottom="5dp"
-    tools:background="@drawable/card_background_for_preview">
+    tools:background="@drawable/bg_card_for_preview">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/timer_label"
@@ -103,7 +103,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/delete_timer"
         app:layout_constraintBottom_toTopOf="@+id/timer_add_time_button"
-        tools:background="@drawable/bg_circle"
+        tools:background="@drawable/bg_circle_for_preview"
         tools:backgroundTint="#FF99CC00" />
 
     <ImageButton

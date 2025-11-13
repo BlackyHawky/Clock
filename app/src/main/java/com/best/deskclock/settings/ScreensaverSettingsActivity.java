@@ -42,7 +42,6 @@ import com.best.deskclock.screensaver.ScreensaverActivity;
 import com.best.deskclock.uicomponents.CollapsingToolbarBaseActivity;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
-import com.rarepebble.colorpicker.ColorPreference;
 
 /**
  * Settings for Clock screensaver
@@ -75,9 +74,9 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
         String mMaterialAnalogClock;
         String mDigitalClock;
 
-        ColorPreference mClockColorPref;
-        ColorPreference mDateColorPref;
-        ColorPreference mNextAlarmColorPref;
+        ColorPickerPreference mClockColorPref;
+        ColorPickerPreference mDateColorPref;
+        ColorPickerPreference mNextAlarmColorPref;
         ListPreference mClockStylePref;
         ListPreference mClockDialPref;
         ListPreference mClockDialMaterialPref;
@@ -210,8 +209,8 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
 
         @Override
         public void onDisplayPreferenceDialog(@NonNull Preference preference) {
-            if (preference instanceof ColorPreference) {
-                ((ColorPreference) preference).showDialog(this, 0);
+            if (preference instanceof ColorPickerPreference colorPickerPref) {
+                colorPickerPref.showDialog(this, 0);
             } else super.onDisplayPreferenceDialog(preference);
         }
 

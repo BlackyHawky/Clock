@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2015 Martin Stone
+    source: https://github.com/martin-stone/hsv-alpha-color-picker-android/blob/fb02d94a7d1934bc687d131f77ee4642480f8e5e/colorpicker/src/main/res/layout/color_preference_thumbnail.xml
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+-->
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/thumbnail"
+    android:layout_width="@dimen/preference_thumbnail_size"
+    android:layout_height="@dimen/preference_thumbnail_size"
+    tools:background="@drawable/bg_circle_for_preview"
+    tools:clipToOutline="true">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/checker_background"
+        android:contentDescription="@null" />
+
+    <View
+        android:id="@+id/colorPreview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</FrameLayout>

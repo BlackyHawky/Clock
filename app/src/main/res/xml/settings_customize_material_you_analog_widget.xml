@@ -48,7 +48,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <com.rarepebble.colorpicker.ColorPreference
+        <com.best.deskclock.settings.ColorPickerPreference
             android:key="key_material_you_analog_widget_custom_dial_color"
             android:title="@string/dial_color_title"
             android:defaultValue="#EEF0FF"
@@ -65,7 +65,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <com.rarepebble.colorpicker.ColorPreference
+        <com.best.deskclock.settings.ColorPickerPreference
             android:key="key_material_you_analog_widget_custom_hour_hand_color"
             android:title="@string/hour_hand_color_title"
             android:defaultValue="#575E71"
@@ -82,7 +82,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <com.rarepebble.colorpicker.ColorPreference
+        <com.best.deskclock.settings.ColorPickerPreference
             android:key="key_material_you_analog_widget_custom_minute_hand_color"
             android:title="@string/minute_hand_color_title"
             android:defaultValue="#475D92"
@@ -99,7 +99,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <com.rarepebble.colorpicker.ColorPreference
+        <com.best.deskclock.settings.ColorPickerPreference
             android:key="key_material_you_analog_widget_custom_second_hand_color"
             android:title="@string/second_hand_color_title"
             android:defaultValue="#725572"

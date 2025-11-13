@@ -40,7 +40,6 @@ import com.best.deskclock.ringtone.RingtonePickerActivity;
 import com.best.deskclock.timer.TimerAddTimeButtonDialogFragment;
 import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.Utils;
-import com.rarepebble.colorpicker.ColorPreference;
 
 public class TimerSettingsFragment extends ScreenFragment
         implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
@@ -48,9 +47,9 @@ public class TimerSettingsFragment extends ScreenFragment
     ListPreference mSortTimerPref;
     SwitchPreferenceCompat mTransparentBackgroundPref;
     SwitchPreferenceCompat mDisplayTimerStatusIndicatorPref;
-    ColorPreference mRunningTimerIndicatorColorPref;
-    ColorPreference mPausedTimerIndicatorColorPref;
-    ColorPreference mExpiredTimerIndicatorColorPref;
+    ColorPickerPreference mRunningTimerIndicatorColorPref;
+    ColorPickerPreference mPausedTimerIndicatorColorPref;
+    ColorPickerPreference mExpiredTimerIndicatorColorPref;
     ListPreference mTimerCreationViewStylePref;
     Preference mTimerRingtonePref;
     Preference mTimerVibratePref;
@@ -148,8 +147,8 @@ public class TimerSettingsFragment extends ScreenFragment
 
     @Override
     public void onDisplayPreferenceDialog(@NonNull Preference pref) {
-        if (pref instanceof ColorPreference) {
-            ((ColorPreference) pref).showDialog(this, 0);
+        if (pref instanceof ColorPickerPreference colorPickerPref) {
+            colorPickerPref.showDialog(this, 0);
         } else if (pref instanceof AutoSilenceDurationPreference autoSilenceDurationPreference) {
             int currentValue = autoSilenceDurationPreference.getAutoSilenceDuration();
             AutoSilenceDurationDialogFragment dialogFragment =
@@ -168,8 +167,7 @@ public class TimerSettingsFragment extends ScreenFragment
             TimerAddTimeButtonDialogFragment dialogFragment =
                     TimerAddTimeButtonDialogFragment.newInstance(pref.getKey(), currentValue);
             TimerAddTimeButtonDialogFragment.show(getParentFragmentManager(), dialogFragment);
-        }
-        else {
+        } else {
             super.onDisplayPreferenceDialog(pref);
         }
     }

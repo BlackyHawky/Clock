@@ -40,7 +40,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <com.rarepebble.colorpicker.ColorPreference
+        <com.best.deskclock.settings.ColorPickerPreference
             android:key="key_running_timer_indicator_color"
             android:title="@string/running_timer_indicator_color_title"
             android:defaultValue="#FF99CC00"
@@ -49,7 +49,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <com.rarepebble.colorpicker.ColorPreference
+        <com.best.deskclock.settings.ColorPickerPreference
             android:key="key_paused_timer_indicator_color"
             android:title="@string/paused_timer_indicator_color_title"
             android:defaultValue="#FFFFBB33"
@@ -58,7 +58,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <com.rarepebble.colorpicker.ColorPreference
+        <com.best.deskclock.settings.ColorPickerPreference
             android:key="key_expired_timer_indicator_color"
             android:title="@string/expired_timer_indicator_color_title"
             android:defaultValue="#FFFF4444"

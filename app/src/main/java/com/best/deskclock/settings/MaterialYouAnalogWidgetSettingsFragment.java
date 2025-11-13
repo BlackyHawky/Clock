@@ -35,8 +35,6 @@ import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
 import com.best.deskclock.widgets.materialyouwidgets.MaterialYouAnalogAppWidgetProvider;
 
-import com.rarepebble.colorpicker.ColorPreference;
-
 public class MaterialYouAnalogWidgetSettingsFragment extends ScreenFragment implements Preference.OnPreferenceChangeListener {
 
     private int mAppWidgetId = INVALID_APPWIDGET_ID;
@@ -45,13 +43,13 @@ public class MaterialYouAnalogWidgetSettingsFragment extends ScreenFragment impl
     SwitchPreferenceCompat mDisplaySecondsPref;
     PreferenceCategory mWidgetColorCategory;
     SwitchPreferenceCompat mDefaultDialColorPref;
-    ColorPreference mDialColorPref;
+    ColorPickerPreference mDialColorPref;
     SwitchPreferenceCompat mDefaultHourHandColorPref;
-    ColorPreference mHourHandColorPref;
+    ColorPickerPreference mHourHandColorPref;
     SwitchPreferenceCompat mDefaultMinuteHandColorPref;
-    ColorPreference mMinuteHandColorPref;
+    ColorPickerPreference mMinuteHandColorPref;
     SwitchPreferenceCompat mDefaultSecondHandColorPref;
-    ColorPreference mSecondHandColorPref;
+    ColorPickerPreference mSecondHandColorPref;
 
     @Override
     protected String getFragmentTitle() {
@@ -145,8 +143,8 @@ public class MaterialYouAnalogWidgetSettingsFragment extends ScreenFragment impl
 
     @Override
     public void onDisplayPreferenceDialog(@NonNull Preference preference) {
-        if (preference instanceof ColorPreference) {
-            ((ColorPreference) preference).showDialog(this, 0);
+        if (preference instanceof ColorPickerPreference colorPickerPref) {
+            colorPickerPref.showDialog(this, 0);
         } else super.onDisplayPreferenceDialog(preference);
     }
 

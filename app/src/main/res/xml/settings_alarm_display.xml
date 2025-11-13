@@ -78,7 +78,7 @@
         app:iconSpaceReserved="false"
         tools:layout="@layout/settings_preference_category_layout">
 
-        <com.rarepebble.colorpicker.ColorPreference
+        <com.best.deskclock.settings.ColorPickerPreference
             android:key="key_alarm_background_color"
             android:title="@string/background_color_title"
             android:defaultValue="#FF191C1E"
@@ -87,7 +87,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <com.rarepebble.colorpicker.ColorPreference
+        <com.best.deskclock.settings.ColorPickerPreference
             android:key="key_alarm_background_amoled_color"
             android:title="@string/background_color_title"
             android:defaultValue="#FF000000"
@@ -96,7 +96,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <com.rarepebble.colorpicker.ColorPreference
+        <com.best.deskclock.settings.ColorPickerPreference
             android:key="key_alarm_clock_color"
             android:title="@string/clock_color_title"
             android:defaultValue="#FFFFFFFF"
@@ -105,7 +105,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <com.rarepebble.colorpicker.ColorPreference
+        <com.best.deskclock.settings.ColorPickerPreference
             android:key="key_alarm_second_hand_color"
             android:title="@string/second_hand_color_title"
             app:colorpicker_selectNoneButtonText="@string/label_default"
@@ -113,7 +113,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <com.rarepebble.colorpicker.ColorPreference
+        <com.best.deskclock.settings.ColorPickerPreference
             android:key="key_slide_zone_color"
             android:title="@string/slide_zone_color_title"
             android:defaultValue="#FF2E3337"
@@ -122,7 +122,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <com.rarepebble.colorpicker.ColorPreference
+        <com.best.deskclock.settings.ColorPickerPreference
             android:key="key_alarm_button_color"
             android:title="@string/alarm_button_color"
             app:colorpicker_selectNoneButtonText="@string/label_default"
@@ -130,7 +130,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <com.rarepebble.colorpicker.ColorPreference
+        <com.best.deskclock.settings.ColorPickerPreference
             android:key="key_snooze_title_color"
             android:title="@string/snooze_title_color"
             android:defaultValue="#FFFFFFFF"
@@ -139,7 +139,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <com.rarepebble.colorpicker.ColorPreference
+        <com.best.deskclock.settings.ColorPickerPreference
             android:key="key_snooze_button_color"
             android:title="@string/snooze_button_color"
             app:colorpicker_selectNoneButtonText="@string/label_default"
@@ -147,7 +147,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <com.rarepebble.colorpicker.ColorPreference
+        <com.best.deskclock.settings.ColorPickerPreference
             android:key="key_dismiss_title_color"
             android:title="@string/dismiss_title_color"
             android:defaultValue="#FFFFFFFF"
@@ -156,7 +156,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <com.rarepebble.colorpicker.ColorPreference
+        <com.best.deskclock.settings.ColorPickerPreference
             android:key="key_dismiss_button_color"
             android:title="@string/dismiss_button_color"
             app:colorpicker_selectNoneButtonText="@string/label_default"
@@ -164,7 +164,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <com.rarepebble.colorpicker.ColorPreference
+        <com.best.deskclock.settings.ColorPickerPreference
             android:key="key_alarm_title_color"
             android:title="@string/alarm_title_color"
             android:defaultValue="#FFFFFFFF"
@@ -209,7 +209,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <com.rarepebble.colorpicker.ColorPreference
+        <com.best.deskclock.settings.ColorPickerPreference
             android:key="key_alarm_shadow_color"
             android:title="@string/shadow_color_title"
             android:defaultValue="#80FFFFFF"
@@ -244,7 +244,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <com.rarepebble.colorpicker.ColorPreference
+        <com.best.deskclock.settings.ColorPickerPreference
             android:key="key_ringtone_title_color"
             android:title="@string/ringtone_title_color"
             android:defaultValue="#FFFFFFFF"

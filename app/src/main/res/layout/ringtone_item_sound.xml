@@ -13,7 +13,7 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="10dp"
     android:paddingVertical="12dp"
-    tools:background="@drawable/card_background_for_preview">
+    tools:background="@drawable/bg_card_for_preview">
 
     <ImageView
         android:id="@+id/ringtone_image"

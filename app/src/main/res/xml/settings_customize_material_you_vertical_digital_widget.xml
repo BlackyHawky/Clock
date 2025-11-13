@@ -81,7 +81,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <com.rarepebble.colorpicker.ColorPreference
+        <com.best.deskclock.settings.ColorPickerPreference
             android:key="key_material_you_vertical_digital_widget_custom_background_color"
             android:title="@string/background_color_title"
             android:defaultValue="#70000000"
@@ -98,7 +98,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <com.rarepebble.colorpicker.ColorPreference
+        <com.best.deskclock.settings.ColorPickerPreference
             android:key="key_material_you_vertical_digital_widget_custom_hours_color"
             android:title="@string/hour_color_title"
             android:defaultValue="#FFFFFF"
@@ -115,7 +115,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <com.rarepebble.colorpicker.ColorPreference
+        <com.best.deskclock.settings.ColorPickerPreference
             android:key="key_material_you_vertical_digital_widget_custom_minutes_color"
             android:title="@string/minute_color_title"
             android:defaultValue="#FFFFFF"
@@ -132,7 +132,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <com.rarepebble.colorpicker.ColorPreference
+        <com.best.deskclock.settings.ColorPickerPreference
             android:key="key_material_you_vertical_digital_widget_custom_date_color"
             android:title="@string/date_color_title"
             android:defaultValue="#FFFFFF"
@@ -149,7 +149,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <com.rarepebble.colorpicker.ColorPreference
+        <com.best.deskclock.settings.ColorPickerPreference
             android:key="key_material_you_vertical_digital_widget_custom_next_alarm_color"
             android:title="@string/next_alarm_color_title"
             android:defaultValue="#FFFFFF"

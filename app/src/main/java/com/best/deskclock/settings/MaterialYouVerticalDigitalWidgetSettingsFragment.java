@@ -38,8 +38,6 @@ import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
 import com.best.deskclock.widgets.materialyouwidgets.MaterialYouVerticalDigitalAppWidgetProvider;
 
-import com.rarepebble.colorpicker.ColorPreference;
-
 public class MaterialYouVerticalDigitalWidgetSettingsFragment extends ScreenFragment
         implements Preference.OnPreferenceChangeListener {
 
@@ -52,15 +50,15 @@ public class MaterialYouVerticalDigitalWidgetSettingsFragment extends ScreenFrag
     SwitchPreferenceCompat mDisplayNextAlarmPref;
     SwitchPreferenceCompat mApplyHorizontalPaddingPref;
     SwitchPreferenceCompat mDefaultBackgroundColorPref;
-    ColorPreference mCustomBackgroundColorPref;
+    ColorPickerPreference mCustomBackgroundColorPref;
     SwitchPreferenceCompat mDefaultHoursColorPref;
-    ColorPreference mCustomHoursColorPref;
+    ColorPickerPreference mCustomHoursColorPref;
     SwitchPreferenceCompat mDefaultMinutesColorPref;
-    ColorPreference mCustomMinutesColorPref;
+    ColorPickerPreference mCustomMinutesColorPref;
     SwitchPreferenceCompat mDefaultDateColorPref;
-    ColorPreference mCustomDateColorPref;
+    ColorPickerPreference mCustomDateColorPref;
     SwitchPreferenceCompat mDefaultNextAlarmColorPref;
-    ColorPreference mCustomNextAlarmColorPref;
+    ColorPickerPreference mCustomNextAlarmColorPref;
 
     @Override
     protected String getFragmentTitle() {
@@ -197,8 +195,8 @@ public class MaterialYouVerticalDigitalWidgetSettingsFragment extends ScreenFrag
 
     @Override
     public void onDisplayPreferenceDialog(@NonNull Preference preference) {
-        if (preference instanceof ColorPreference) {
-            ((ColorPreference) preference).showDialog(this, 0);
+        if (preference instanceof ColorPickerPreference colorPickerPref) {
+            colorPickerPref.showDialog(this, 0);
         } else super.onDisplayPreferenceDialog(preference);
     }
 

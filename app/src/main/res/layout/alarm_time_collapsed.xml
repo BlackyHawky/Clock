@@ -15,7 +15,7 @@
     android:layout_marginVertical="4dp"
     android:elevation="0dp"
     android:importantForAccessibility="no"
-    tools:background="@drawable/card_background_for_preview">
+    tools:background="@drawable/bg_card_for_preview">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/label"

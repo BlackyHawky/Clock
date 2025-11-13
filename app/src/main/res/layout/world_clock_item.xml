@@ -12,7 +12,7 @@
     android:paddingHorizontal="24dp"
     android:orientation="horizontal"
     android:gravity="center_vertical"
-    tools:background="@drawable/card_background_for_preview"
+    tools:background="@drawable/bg_card_for_preview"
     tools:paddingVertical="18dp">
 
         <include
@@ -33,7 +33,7 @@
             android:singleLine="true"
             tools:ignore="RtlSymmetry"
             tools:text="12:34"
-            tools:background="@drawable/card_background_for_preview"
+            tools:background="@drawable/bg_card_for_preview"
             tools:backgroundTint="?attr/colorSecondary" />
 
         <com.best.deskclock.uicomponents.AnalogClock

@@ -48,8 +48,6 @@ import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
 import com.best.deskclock.widgets.materialyouwidgets.MaterialYouDigitalAppWidgetProvider;
 
-import com.rarepebble.colorpicker.ColorPreference;
-
 import java.util.List;
 
 public class MaterialYouDigitalWidgetSettingsFragment extends ScreenFragment
@@ -67,17 +65,17 @@ public class MaterialYouDigitalWidgetSettingsFragment extends ScreenFragment
     SwitchPreferenceCompat mShowCitiesOnDigitalWidgetPref;
     SwitchPreferenceCompat mApplyHorizontalPaddingPref;
     SwitchPreferenceCompat mDefaultBackgroundColorPref;
-    ColorPreference mCustomBackgroundColorPref;
+    ColorPickerPreference mCustomBackgroundColorPref;
     SwitchPreferenceCompat mDefaultClockColorPref;
-    ColorPreference mCustomClockColorPref;
+    ColorPickerPreference mCustomClockColorPref;
     SwitchPreferenceCompat mDefaultDateColorPref;
-    ColorPreference mCustomDateColorPref;
+    ColorPickerPreference mCustomDateColorPref;
     SwitchPreferenceCompat mDefaultNextAlarmColorPref;
-    ColorPreference mCustomNextAlarmColorPref;
+    ColorPickerPreference mCustomNextAlarmColorPref;
     SwitchPreferenceCompat mDefaultCityClockColorPref;
-    ColorPreference mCustomCityClockColorPref;
+    ColorPickerPreference mCustomCityClockColorPref;
     SwitchPreferenceCompat mDefaultCityNameColorPref;
-    ColorPreference mCustomCityNameColorPref;
+    ColorPickerPreference mCustomCityNameColorPref;
     CustomSeekbarPreference mDigitalWidgetMaxClockFontSizePref;
 
     @Override
@@ -243,8 +241,8 @@ public class MaterialYouDigitalWidgetSettingsFragment extends ScreenFragment
 
     @Override
     public void onDisplayPreferenceDialog(@NonNull Preference preference) {
-        if (preference instanceof ColorPreference) {
-            ((ColorPreference) preference).showDialog(this, 0);
+        if (preference instanceof ColorPickerPreference colorPickerPref) {
+            colorPickerPref.showDialog(this, 0);
         } else super.onDisplayPreferenceDialog(preference);
     }
 

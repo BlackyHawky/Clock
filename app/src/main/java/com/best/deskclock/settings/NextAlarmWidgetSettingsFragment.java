@@ -32,8 +32,6 @@ import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
 import com.best.deskclock.widgets.standardwidgets.NextAlarmAppWidgetProvider;
 
-import com.rarepebble.colorpicker.ColorPreference;
-
 public class NextAlarmWidgetSettingsFragment extends ScreenFragment
         implements Preference.OnPreferenceChangeListener {
 
@@ -43,13 +41,13 @@ public class NextAlarmWidgetSettingsFragment extends ScreenFragment
     SwitchPreferenceCompat mCustomizeBackgroundCornerRadiusPref;
     Preference mBackgroundCornerRadiusPref;
     SwitchPreferenceCompat mApplyHorizontalPaddingPref;
-    ColorPreference mBackgroundColorPref;
+    ColorPickerPreference mBackgroundColorPref;
     SwitchPreferenceCompat mDefaultTitleColorPref;
-    ColorPreference mCustomTitleColorPref;
+    ColorPickerPreference mCustomTitleColorPref;
     SwitchPreferenceCompat mDefaultAlarmTitleColorPref;
-    ColorPreference mCustomAlarmTitleColorPref;
+    ColorPickerPreference mCustomAlarmTitleColorPref;
     SwitchPreferenceCompat mDefaultAlarmColorPref;
-    ColorPreference mCustomAlarmColorPref;
+    ColorPickerPreference mCustomAlarmColorPref;
 
     @Override
     protected String getFragmentTitle() {
@@ -139,8 +137,8 @@ public class NextAlarmWidgetSettingsFragment extends ScreenFragment
 
     @Override
     public void onDisplayPreferenceDialog(@NonNull Preference preference) {
-        if (preference instanceof ColorPreference) {
-            ((ColorPreference) preference).showDialog(this, 0);
+        if (preference instanceof ColorPickerPreference colorPickerPref) {
+            colorPickerPref.showDialog(this, 0);
         } else super.onDisplayPreferenceDialog(preference);
     }
 

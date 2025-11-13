@@ -55,7 +55,6 @@ import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.google.android.material.color.MaterialColors;
-import com.rarepebble.colorpicker.ColorPreference;
 
 import java.io.File;
 
@@ -73,22 +72,22 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
     ListPreference mAlarmClockSecondHandPref;
     SwitchPreferenceCompat mDisplaySecondsPref;
     SwitchPreferenceCompat mSwipeActionPref;
-    ColorPreference mAlarmClockColorPref;
-    ColorPreference mAlarmSecondHandColorPref;
-    ColorPreference mSlideZoneColorPref;
-    ColorPreference mAlarmButtonColorPref;
-    ColorPreference mSnoozeTitleColorPref;
-    ColorPreference mSnoozeButtonColorPref;
-    ColorPreference mDismissTitleColorPref;
-    ColorPreference mDismissButtonColorPref;
-    ColorPreference mBackgroundColorPref;
-    ColorPreference mBackgroundAmoledColorPref;
+    ColorPickerPreference mAlarmClockColorPref;
+    ColorPickerPreference mAlarmSecondHandColorPref;
+    ColorPickerPreference mSlideZoneColorPref;
+    ColorPickerPreference mAlarmButtonColorPref;
+    ColorPickerPreference mSnoozeTitleColorPref;
+    ColorPickerPreference mSnoozeButtonColorPref;
+    ColorPickerPreference mDismissTitleColorPref;
+    ColorPickerPreference mDismissButtonColorPref;
+    ColorPickerPreference mBackgroundColorPref;
+    ColorPickerPreference mBackgroundAmoledColorPref;
     CustomSeekbarPreference mAlarmDigitalClockFontSizePref;
     SwitchPreferenceCompat mDisplayTextShadowPref;
-    ColorPreference mShadowColorPref;
+    ColorPickerPreference mShadowColorPref;
     Preference mShadowOffsetPref;
     SwitchPreferenceCompat mDisplayRingtoneTitlePref;
-    ColorPreference mRingtoneTitleColorPref;
+    ColorPickerPreference mRingtoneTitleColorPref;
     SwitchPreferenceCompat mEnableAlarmBackgroundImagePref;
     Preference mAlarmBackgroundImagePref;
     SwitchPreferenceCompat mEnableAlarmBlurEffectPref;
@@ -274,8 +273,8 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
 
     @Override
     public void onDisplayPreferenceDialog(@NonNull Preference preference) {
-        if (preference instanceof ColorPreference) {
-            ((ColorPreference) preference).showDialog(this, 0);
+        if (preference instanceof ColorPickerPreference colorPickerPref) {
+            colorPickerPref.showDialog(this, 0);
         } else super.onDisplayPreferenceDialog(preference);
     }
 

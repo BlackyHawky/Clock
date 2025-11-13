@@ -36,8 +36,6 @@ import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
 import com.best.deskclock.widgets.standardwidgets.AnalogAppWidgetProvider;
 
-import com.rarepebble.colorpicker.ColorPreference;
-
 public class AnalogWidgetSettingsFragment extends ScreenFragment implements Preference.OnPreferenceChangeListener {
 
     private int mAppWidgetId = INVALID_APPWIDGET_ID;
@@ -47,13 +45,13 @@ public class AnalogWidgetSettingsFragment extends ScreenFragment implements Pref
     ListPreference mClockSecondHandPref;
     PreferenceCategory mWidgetColorCategory;
     SwitchPreferenceCompat mDefaultDialColorPref;
-    ColorPreference mDialColorPref;
+    ColorPickerPreference mDialColorPref;
     SwitchPreferenceCompat mDefaultHourHandColorPref;
-    ColorPreference mHourHandColorPref;
+    ColorPickerPreference mHourHandColorPref;
     SwitchPreferenceCompat mDefaultMinuteHandColorPref;
-    ColorPreference mMinuteHandColorPref;
+    ColorPickerPreference mMinuteHandColorPref;
     SwitchPreferenceCompat mDefaultSecondHandColorPref;
-    ColorPreference mSecondHandColorPref;
+    ColorPickerPreference mSecondHandColorPref;
 
     @Override
     protected String getFragmentTitle() {
@@ -148,8 +146,8 @@ public class AnalogWidgetSettingsFragment extends ScreenFragment implements Pref
 
     @Override
     public void onDisplayPreferenceDialog(@NonNull Preference preference) {
-        if (preference instanceof ColorPreference) {
-            ((ColorPreference) preference).showDialog(this, 0);
+        if (preference instanceof ColorPickerPreference colorPickerPref) {
+            colorPickerPref.showDialog(this, 0);
         } else super.onDisplayPreferenceDialog(preference);
     }
 
