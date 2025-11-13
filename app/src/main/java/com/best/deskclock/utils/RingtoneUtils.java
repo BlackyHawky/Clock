@@ -55,6 +55,20 @@ public class RingtoneUtils {
     public static final Uri RANDOM_CUSTOM_RINGTONE = Uri.parse("random_custom");
 
     /**
+     * @return {@code true} if the URI starts with one of the possible system directories for ringtones.
+     * {@code false} otherwise.
+     * <p>This excludes custom ringtones that cause problems during restoration.</p>
+     */
+    public static boolean isSystemRingtone(Uri uri) {
+        String uriString = uri.toString().toLowerCase();
+        return (uriString.startsWith("content://media/external/audio/") ||
+                uriString.startsWith("content://media/internal/audio/") ||
+                uriString.startsWith("content://media/") ||
+                uriString.startsWith("file:///system/media/audio/") ||
+                uriString.startsWith("file:///system/media/"));
+    }
+
+    /**
      * @return {@code true} if the URI represents a random ringtone; {@code false} otherwise.
      */
     public static boolean isRandomRingtone(Uri uri) {
@@ -122,7 +136,11 @@ public class RingtoneUtils {
                 player.prepare();
                 return player;
             } catch (IOException e) {
-                LogUtils.e("Failed to prepare MediaPlayer for URI: " + uri, e);
+                if (!DeviceUtils.isUserUnlocked(storageContext) && uri.toString().startsWith("content://media")) {
+                    LogUtils.w("MediaStore URI not accessible before unlock: " + uri);
+                } else {
+                    LogUtils.e("Failed to prepare MediaPlayer for URI: " + uri, e);
+                }
             }
         }
 

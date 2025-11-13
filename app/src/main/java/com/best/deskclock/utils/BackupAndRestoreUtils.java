@@ -88,7 +88,7 @@ public class BackupAndRestoreUtils {
                     if (KEY_TIMER_RINGTONE.equals(key) || KEY_DEFAULT_ALARM_RINGTONE.equals(key)) {
                         String value = prefs.getString(key, (String) entry.getValue());
                         Uri uri = Uri.parse(value);
-                        if (isNotSystemRingtone(uri)) {
+                        if (!RingtoneUtils.isSystemRingtone(uri)) {
                             continue;
                         }
                     }
@@ -345,7 +345,7 @@ public class BackupAndRestoreUtils {
             alarmRingtone = RingtoneUtils.RANDOM_RINGTONE.toString();
         } else if (RingtoneUtils.isRandomCustomRingtone(Uri.parse(alert))) {
             alarmRingtone = RingtoneUtils.RANDOM_CUSTOM_RINGTONE.toString();
-        } else if (!isNotSystemRingtone(Uri.parse(alert)) && isRingtoneAvailable(context, alert)) {
+        } else if (RingtoneUtils.isSystemRingtone(Uri.parse(alert)) && isRingtoneAvailable(context, alert)) {
             alarmRingtone = alert;
         } else {
             alarmRingtone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString();
@@ -381,19 +381,6 @@ public class BackupAndRestoreUtils {
             AlarmStateManager.registerInstance(context, alarmInstance, true);
             LogUtils.i("BackupAndRestoreUtils scheduled alarm instance: %s", alarmInstance);
         }
-    }
-
-    /**
-     * @return {@code true} if the URI starts with one of the possible system directories for ringtones. {@code false} otherwise.
-     * This excludes custom ringtones that cause problems during restoration.
-     */
-    private static boolean isNotSystemRingtone(Uri uri) {
-        String uriString = uri.toString().toLowerCase();
-        return !(uriString.startsWith("content://media/external/audio/") ||
-                uriString.startsWith("content://media/internal/audio/") ||
-                uriString.startsWith("content://media/") ||
-                uriString.startsWith("file:///system/media/audio/") ||
-                uriString.startsWith("file:///system/media/"));
     }
 
     /**

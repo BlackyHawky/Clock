@@ -12,7 +12,9 @@ import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 
+import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
@@ -161,12 +163,20 @@ public final class AsyncRingtonePlayer {
                 ringtoneUri = RingtoneUtils.getInCallRingtoneUri(context);
             }
 
-            if (RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).equals(ringtoneUri)) {
-                ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_ALARM);
-            }
-
-            if (ringtoneUri == null || !RingtoneUtils.isRingtoneUriReadable(context, ringtoneUri)) {
-                ringtoneUri = RingtoneUtils.getFallbackRingtoneUri(context);
+            // Special handling for OnePlus devices that do not appear to be able to read
+            // the default URI "content://settings/system/alarm_alert"
+            // and system URIs in Direct Boot mode.
+            // See https://github.com/BlackyHawky/Clock/issues/395
+            if (Build.MANUFACTURER.equalsIgnoreCase("oneplus")) {
+                if (DeviceUtils.isUserUnlocked(context)) {
+                    if (RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).equals(ringtoneUri)) {
+                        ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_ALARM);
+                    }
+                } else {
+                    if (RingtoneUtils.isSystemRingtone(ringtoneUri)) {
+                        ringtoneUri = RingtoneUtils.getFallbackRingtoneUri(context);
+                    }
+                }
             }
 
             LOGGER.d("AsyncRingtonePlayer - Playing ringtone URI: " + ringtoneUri);
@@ -174,6 +184,7 @@ public final class AsyncRingtonePlayer {
             mMediaPlayer = RingtoneUtils.createPreparedMediaPlayer(
                     context,
                     ringtoneUri,
+                    RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM),
                     RingtoneUtils.getFallbackRingtoneUri(context)
             );
 
