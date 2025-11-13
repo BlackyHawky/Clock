@@ -5,6 +5,7 @@ package com.best.deskclock.settings;
 import static androidx.core.util.TypedValueCompat.dpToPx;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -45,9 +46,19 @@ public class ColorPickerPreference extends ColorPreference {
                 int color = getColor();
                 GradientDrawable circle = (GradientDrawable) ThemeUtils.circleDrawable();
                 circle.setColor(color);
-                circle.setStroke((int) dpToPx(1, getContext().getResources().getDisplayMetrics()),
-                        ContextCompat.getColor(getContext(), com.rarepebble.colorpicker.R.color.gray600));
                 colorPreview.setBackground(circle);
+            }
+
+            View border = thumbnail.findViewById(R.id.border);
+            if (border != null) {
+                GradientDrawable borderCircle = new GradientDrawable();
+                borderCircle.setShape(GradientDrawable.OVAL);
+                borderCircle.setColor(Color.TRANSPARENT);
+                borderCircle.setStroke(
+                        (int) dpToPx(1, getContext().getResources().getDisplayMetrics()),
+                        ContextCompat.getColor(getContext(), com.rarepebble.colorpicker.R.color.gray600)
+                );
+                border.setBackground(borderCircle);
             }
         }
     }
