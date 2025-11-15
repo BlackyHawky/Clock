@@ -35,11 +35,13 @@ import android.os.Looper;
 import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
+import android.view.View;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.Insets;
 import androidx.core.view.WindowCompat;
@@ -69,7 +71,10 @@ import com.best.deskclock.utils.Utils;
 
 import com.google.android.material.color.MaterialColors;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.progressindicator.CircularProgressIndicator;
+import com.google.android.material.textview.MaterialTextView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -157,10 +162,11 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
     private int mTitleResourceId;
 
     private FragmentManager mFragmentManager;
-
     private SharedPreferences mPrefs;
-
     private DisplayMetrics mDisplayMetrics;
+    private CircularProgressIndicator mCircularProgressIndicator;
+    private MaterialTextView mProgressTextView;
+    private AlertDialog mProgressDialog;
 
     /**
      * Callback for getting the result from Activity
@@ -316,6 +322,16 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
         mFragmentManager = getSupportFragmentManager();
 
         LoaderManager.getInstance(this).initLoader(0, null, this);
+
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_progress, null);
+        mCircularProgressIndicator = dialogView.findViewById(R.id.dialogProgressIndicator);
+        mProgressTextView = dialogView.findViewById(R.id.dialogProgressText);
+
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this)
+                .setView(dialogView)
+                .setCancelable(false);
+
+        mProgressDialog = builder.create();
 
         applyWindowInsets();
     }
@@ -672,6 +688,8 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
                 // Reload the data to reflect the change in the UI.
                 LoaderManager.getInstance(this).restartLoader(0, null, RingtonePickerActivity.this);
             });
+
+            executor.shutdown();
         });
     }
 
@@ -689,35 +707,72 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
             DocumentFile directory = DocumentFile.fromTreeUri(this, treeUri);
             if (directory == null || !directory.isDirectory()) {
                 LogUtils.e("Invalid directory selected: %s", treeUri);
+                handler.post(() -> mProgressDialog.dismiss());
+                executor.shutdown();
                 return;
             }
 
+            // Recover all audio files
+            List<DocumentFile> audioFiles = new ArrayList<>();
             for (DocumentFile file : directory.listFiles()) {
                 if (file.isFile() && file.getType() != null && file.getType().startsWith("audio/")) {
-                    Uri fileUri = file.getUri();
-
-                    String name = file.getName();
-                    if (name != null && name.contains(".")) {
-                        name = name.substring(0, name.lastIndexOf("."));
-                    }
-
-                    long size = file.length();
-
-                    if (DataModel.getDataModel().isCustomRingtoneAlreadyAdded(name, size)) {
-                        continue;
-                    }
-
-                    String finalName = name;
-
-                    handler.post(() -> {
-                        // Add the new custom ringtone to the data model.
-                        DataModel.getDataModel().customRingtoneToAdd(fileUri, finalName);
-
-                        // Reload the data to reflect the change in the UI.
-                        LoaderManager.getInstance(this).restartLoader(0, null, RingtonePickerActivity.this);
-                    });
+                    audioFiles.add(file);
                 }
             }
+
+            final int totalFiles = audioFiles.size();
+
+            // Case where no file is found
+            if (totalFiles == 0) {
+                handler.post(() -> mProgressDialog.dismiss());
+                executor.shutdown();
+                return;
+            }
+
+            handler.post(() -> {
+                mProgressDialog.show();
+                mCircularProgressIndicator.setMax(totalFiles);
+                mCircularProgressIndicator.setProgress(0);
+                mProgressTextView.setText(getString(R.string.progress_ringtones, 0, totalFiles));
+            });
+
+            int processed = 0;
+
+            for (DocumentFile file : audioFiles) {
+                Uri fileUri = file.getUri();
+
+                String name = file.getName();
+                if (name != null && name.contains(".")) {
+                    name = name.substring(0, name.lastIndexOf("."));
+                }
+
+                long size = file.length();
+
+                if (DataModel.getDataModel().isCustomRingtoneAlreadyAdded(name, size)) {
+                    continue;
+                }
+
+                String finalName = name;
+
+                handler.post(() -> {
+                    // Add the new custom ringtone to the data model.
+                    DataModel.getDataModel().customRingtoneToAdd(fileUri, finalName);
+
+                    // Reload the data to reflect the change in the UI.
+                    LoaderManager.getInstance(this).restartLoader(0, null, RingtonePickerActivity.this);
+                });
+
+                processed++;
+                int finalProcessed = processed;
+                handler.post(() -> {
+                    mCircularProgressIndicator.setProgress(finalProcessed);
+                    mProgressTextView.setText(
+                            getString(R.string.progress_ringtones, finalProcessed, totalFiles));
+                });
+            }
+
+            handler.post(() -> mProgressDialog.dismiss());
+            executor.shutdown();
         });
     }
 
@@ -774,6 +829,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
                 // Find the ringtone to be removed from the adapter.
                 final RingtoneHolder toRemove = getRingtoneHolder(removeUri);
                 if (toRemove == null) {
+                    executor.shutdown();
                     return;
                 }
 
@@ -819,6 +875,8 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
 
                 // Reload the data to reflect the change in the UI.
                 LoaderManager.getInstance(this).restartLoader(0, null, RingtonePickerActivity.this);
+
+                executor.shutdown();
             });
         });
     }

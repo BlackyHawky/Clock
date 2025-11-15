@@ -63,6 +63,10 @@
     <string name="more_options">More options</string>
     <!-- Text that explains what happens to alarms and timers after removing the custom ringtone sound they use [CHAR LIMIT=NONE] -->
     <string name="confirm_remove_custom_ringtone">Alarms and timers using this sound will play the default sound instead.</string>
+    <!-- Text shown in the progress dialog while custom ringtones are being added.
+         %1$d = number of ringtones already processed
+         %2$d = total number of ringtones to add -->
+    <string name="progress_ringtones">Adding ringtones… (%1$d/%2$d)</string>
     <!-- Label for "Your sounds" section on ringtone selection screen [CHAR LIMIT=60] -->
     <string name="your_sounds">Your sounds</string>
     <!-- Label for "Device sounds" section on ringtone selection screen [CHAR LIMIT=60] -->
