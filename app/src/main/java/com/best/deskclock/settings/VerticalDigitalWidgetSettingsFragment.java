@@ -19,6 +19,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_W
 import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_DATE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_TEXT_SHADOW;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_TEXT_UPPERCASE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_WIDGET_BACKGROUND_CORNER_RADIUS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS;
 
@@ -42,6 +43,7 @@ public class VerticalDigitalWidgetSettingsFragment extends ScreenFragment
 
     private int mAppWidgetId = INVALID_APPWIDGET_ID;
 
+    SwitchPreferenceCompat mDisplayTextUppercasePref;
     SwitchPreferenceCompat mDisplayTextShadowPref;
     SwitchPreferenceCompat mShowBackgroundOnVerticalDigitalWidgetPref;
     SwitchPreferenceCompat mCustomizeBackgroundCornerRadiusPref;
@@ -70,6 +72,7 @@ public class VerticalDigitalWidgetSettingsFragment extends ScreenFragment
 
         addPreferencesFromResource(R.xml.settings_customize_vertical_digital_widget);
 
+        mDisplayTextUppercasePref = findPreference(KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_TEXT_UPPERCASE);
         mDisplayTextShadowPref = findPreference(KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_TEXT_SHADOW);
         mShowBackgroundOnVerticalDigitalWidgetPref = findPreference(KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_BACKGROUND);
         mCustomizeBackgroundCornerRadiusPref = findPreference(KEY_VERTICAL_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS);
@@ -114,7 +117,8 @@ public class VerticalDigitalWidgetSettingsFragment extends ScreenFragment
     @Override
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
-            case KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_TEXT_SHADOW,
+            case KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_TEXT_UPPERCASE,
+                 KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_TEXT_SHADOW,
                  KEY_VERTICAL_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING ->
                     Utils.setVibrationTime(requireContext(), 50);
 
@@ -178,6 +182,8 @@ public class VerticalDigitalWidgetSettingsFragment extends ScreenFragment
     }
 
     private void setupPreferences() {
+        mDisplayTextUppercasePref.setOnPreferenceChangeListener(this);
+
         mDisplayTextShadowPref.setOnPreferenceChangeListener(this);
 
         mShowBackgroundOnVerticalDigitalWidgetPref.setOnPreferenceChangeListener(this);
@@ -223,6 +229,7 @@ public class VerticalDigitalWidgetSettingsFragment extends ScreenFragment
     }
 
     private void saveCheckedPreferenceStates() {
+        mDisplayTextUppercasePref.setChecked(WidgetDAO.isTextUppercaseDisplayedOnVerticalDigitalWidget(mPrefs));
         mDisplayTextShadowPref.setChecked(WidgetDAO.isTextShadowDisplayedOnVerticalDigitalWidget(mPrefs));
         mShowBackgroundOnVerticalDigitalWidgetPref.setChecked(WidgetDAO.isBackgroundDisplayedOnVerticalDigitalWidget(mPrefs));
         mCustomizeBackgroundCornerRadiusPref.setChecked(WidgetDAO.isVerticalWidgetBackgroundCornerRadiusCustomizable(mPrefs));

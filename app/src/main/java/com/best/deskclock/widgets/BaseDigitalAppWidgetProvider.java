@@ -49,6 +49,7 @@ import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.SdkUtils;
+import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
 import com.best.deskclock.worldclock.CitySelectionActivity;
 
@@ -110,6 +111,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
     protected abstract int getNextAlarmTextCustomViewId();
     protected abstract int getNextAlarmTitleCustomViewId();
 
+    protected abstract boolean isTextUppercaseDisplayed(SharedPreferences prefs);
     protected abstract boolean isTextShadowDisplayed(SharedPreferences prefs);
     protected abstract boolean areWorldCitiesDisplayed(SharedPreferences prefs);
     protected abstract boolean isHorizontalPaddingApplied(SharedPreferences prefs);
@@ -185,7 +187,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
         }
 
         // Compute optimal font sizes and icon sizes to fit within the widget bounds.
-        final String nextAlarmTime = AlarmUtils.getNextAlarm(context);
+        final String nextAlarmTime = AlarmUtils.getNextAlarm(Utils.getLocalizedContext(context));
         final String nextAlarmTitle = AlarmUtils.getNextAlarmTitle(context);
 
         configureClock(rv, context, prefs);

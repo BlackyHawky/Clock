@@ -161,6 +161,11 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
+    protected boolean isTextUppercaseDisplayed(SharedPreferences prefs) {
+        return WidgetDAO.isTextUppercaseDisplayedOnNextAlarmWidget(prefs);
+    }
+
+    @Override
     protected boolean isTextShadowDisplayed(SharedPreferences prefs) {
         return WidgetDAO.isTextShadowDisplayedOnNextAlarmWidget(prefs);
     }
@@ -211,7 +216,13 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
         if (TextUtils.isEmpty(nextAlarmTime)) {
             rv.setViewVisibility(getNextAlarmViewId(), GONE);
             rv.setViewVisibility(getNextAlarmIconId(), GONE);
-            rv.setTextViewText(getNextAlarmTextViewId(), localizedContext.getString(R.string.next_alarm_widget_title_no_alarm));
+            if (isTextUppercaseDisplayed(prefs)) {
+                rv.setTextViewText(getNextAlarmTextViewId(),
+                        localizedContext.getString(R.string.next_alarm_widget_title_no_alarm).toUpperCase());
+            } else {
+                rv.setTextViewText(getNextAlarmTextViewId(),
+                        localizedContext.getString(R.string.next_alarm_widget_title_no_alarm));
+            }
 
             if (isDefaultTitleColor) {
                 rv.setTextColor(getNextAlarmTextViewId(), DEFAULT_WIDGETS_CUSTOM_COLOR);
@@ -221,8 +232,15 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
         } else {
             rv.setViewVisibility(getNextAlarmViewId(), VISIBLE);
             rv.setViewVisibility(getNextAlarmIconId(), VISIBLE);
-            rv.setTextViewText(getNextAlarmTextViewId(), localizedContext.getString(R.string.next_alarm_widget_text));
-            rv.setTextViewText(getNextAlarmViewId(), nextAlarmTime);
+            if (isTextUppercaseDisplayed(prefs)) {
+                rv.setTextViewText(getNextAlarmTextViewId(),
+                        localizedContext.getString(R.string.next_alarm_widget_text).toUpperCase());
+                rv.setTextViewText(getNextAlarmViewId(), nextAlarmTime.toUpperCase());
+            } else {
+                rv.setTextViewText(getNextAlarmTextViewId(),
+                        localizedContext.getString(R.string.next_alarm_widget_text));
+                rv.setTextViewText(getNextAlarmViewId(), nextAlarmTime);
+            }
 
             if (isDefaultTitleColor) {
                 rv.setTextColor(getNextAlarmTextViewId(), DEFAULT_WIDGETS_CUSTOM_COLOR);
@@ -246,7 +264,11 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
             rv.setViewVisibility(getNextAlarmTitleViewId(), GONE);
         } else {
             rv.setViewVisibility(getNextAlarmTitleViewId(), VISIBLE);
-            rv.setTextViewText(getNextAlarmTitleViewId(), nextAlarmTitle);
+            if (isTextUppercaseDisplayed(prefs)) {
+                rv.setTextViewText(getNextAlarmTitleViewId(), nextAlarmTitle.toUpperCase());
+            } else {
+                rv.setTextViewText(getNextAlarmTitleViewId(), nextAlarmTitle);
+            }
 
             if (WidgetDAO.isNextAlarmWidgetDefaultAlarmTitleColor(prefs)) {
                 rv.setTextColor(getNextAlarmTitleViewId(), DEFAULT_WIDGETS_CUSTOM_COLOR);

@@ -206,6 +206,7 @@ public class PreferencesKeys {
     public static final String KEY_ANALOG_WIDGET_CUSTOM_SECOND_HAND_COLOR = "key_analog_widget_custom_second_hand_color";
 
     // Digital Widget
+    public static final String KEY_DIGITAL_WIDGET_DISPLAY_TEXT_UPPERCASE = "key_digital_widget_display_text_uppercase";
     public static final String KEY_DIGITAL_WIDGET_DISPLAY_TEXT_SHADOW = "key_digital_widget_display_text_shadow";
     public static final String KEY_DIGITAL_WIDGET_DISPLAY_SECONDS = "key_digital_widget_display_seconds";
     public static final String KEY_DIGITAL_WIDGET_HIDE_AM_PM = "key_digital_widget_hide_am_pm";
@@ -230,6 +231,7 @@ public class PreferencesKeys {
     public static final String KEY_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE = "key_digital_widget_maximum_clock_font_size";
 
     // Next Alarm Widget
+    public static final String KEY_NEXT_ALARM_WIDGET_DISPLAY_TEXT_UPPERCASE = "key_next_alarm_widget_display_text_uppercase";
     public static final String KEY_NEXT_ALARM_WIDGET_DISPLAY_TEXT_SHADOW = "key_next_alarm_widget_display_text_shadow";
     public static final String KEY_NEXT_ALARM_WIDGET_DISPLAY_BACKGROUND = "key_next_alarm_widget_display_background";
     public static final String KEY_NEXT_ALARM_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS = "key_next_alarm_widget_customize_background_corner_radius";
@@ -245,6 +247,7 @@ public class PreferencesKeys {
     public static final String KEY_NEXT_ALARM_WIDGET_MAXIMUM_FONT_SIZE = "key_next_alarm_widget_maximum_font_size";
 
     // Vertical Digital Widget
+    public static final String KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_TEXT_UPPERCASE = "key_vertical_digital_widget_display_text_uppercase";
     public static final String KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_TEXT_SHADOW = "key_vertical_digital_widget_display_text_shadow";
     public static final String KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_BACKGROUND = "key_vertical_digital_widget_display_background";
     public static final String KEY_VERTICAL_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS = "key_vertical_widget_customize_background_corner_radius";

@@ -1412,6 +1412,8 @@
     <string name="widgets_settings">Widgets</string>
     <!-- Widgets preference summary in the settings. -->
     <string name="widgets_settings_summary">Set style, colors and font size of the widgets</string>
+    <!-- Title to display the text in uppercase on widgets. -->
+    <string name="display_text_uppercase_title">Display text in uppercase</string>
     <!-- Title to display the background on the digital widget. -->
     <string name="widget_background_title">Display background</string>
     <!-- Title to enable the ability to customize the digital widget background corner radius. -->

@@ -34,10 +34,10 @@
             android:ellipsize="none"
             android:includeFontPadding="false"
             android:maxLines="1"
-            android:textAllCaps="true"
             tools:text="Sat. 20 Jan."
             tools:textSize="18sp"
-            tools:textColor="@android:color/white" />
+            tools:textColor="@android:color/white"
+            tools:textAllCaps="true" />
 
         <TextClock
             android:id="@+id/clockHours"
@@ -94,10 +94,10 @@
                 android:includeFontPadding="false"
                 android:ellipsize="none"
                 android:maxLines="1"
-                android:textAllCaps="true"
                 tools:text="Sat. 10:45 AM"
                 tools:textSize="18sp"
-                tools:textColor="@android:color/white" />
+                tools:textColor="@android:color/white"
+                tools:textAllCaps="true" />
 
         </LinearLayout>
 

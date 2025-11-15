@@ -52,10 +52,10 @@
                 android:ellipsize="none"
                 android:includeFontPadding="false"
                 android:maxLines="1"
-                android:textAllCaps="true"
                 tools:text="01. Jan, 2023"
                 tools:textSize="18sp"
-                tools:textColor="@android:color/white" />
+                tools:textColor="@android:color/white"
+                tools:textAllCaps="true" />
 
             <ImageView
                 android:id="@+id/nextAlarmIcon"
@@ -75,10 +75,10 @@
                 android:ellipsize="none"
                 android:includeFontPadding="false"
                 android:maxLines="1"
-                android:textAllCaps="true"
                 tools:text="08:30"
                 tools:textSize="18sp"
-                tools:textColor="@android:color/white" />
+                tools:textColor="@android:color/white"
+                tools:textAllCaps="true" />
 
         </LinearLayout>
 

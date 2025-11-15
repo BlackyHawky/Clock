@@ -23,14 +23,14 @@
         android:includeFontPadding="false"
         android:ellipsize="none"
         android:maxLines="1"
-        android:textAllCaps="true"
         android:shadowRadius="2.75"
         android:shadowColor="@android:color/black"
         android:shadowDx="2"
         android:shadowDy="2"
         tools:text="Sat. 20 Jan."
         tools:textSize="18sp"
-        tools:textColor="@android:color/white" />
+        tools:textColor="@android:color/white"
+        tools:textAllCaps="true" />
 
     <TextClock
         android:id="@+id/clockHours"
@@ -102,14 +102,14 @@
             android:gravity="center"
             android:ellipsize="none"
             android:maxLines="1"
-            android:textAllCaps="true"
             android:shadowRadius="2.75"
             android:shadowColor="@android:color/black"
             android:shadowDx="2"
             android:shadowDy="2"
             android:textColor="@android:color/white"
             tools:text="Mon, 07:30 AM"
-            tools:textSize="18sp" />
+            tools:textSize="18sp"
+            tools:textAllCaps="true" />
 
     </LinearLayout>
 

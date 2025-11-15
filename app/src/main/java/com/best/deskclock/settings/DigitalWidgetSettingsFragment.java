@@ -20,6 +20,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_DEF
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_DEFAULT_DATE_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_DISPLAY_TEXT_SHADOW;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_DISPLAY_TEXT_UPPERCASE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_HIDE_AM_PM;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_DISPLAY_DATE;
@@ -54,6 +55,7 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
 
     private int mAppWidgetId = INVALID_APPWIDGET_ID;
 
+    SwitchPreferenceCompat mDisplayTextUppercasePref;
     SwitchPreferenceCompat mDisplayTextShadowPref;
     SwitchPreferenceCompat mDisplaySecondsPref;
     SwitchPreferenceCompat mHideAmPmPref;
@@ -88,6 +90,7 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
 
         addPreferencesFromResource(R.xml.settings_customize_digital_widget);
 
+        mDisplayTextUppercasePref = findPreference(KEY_DIGITAL_WIDGET_DISPLAY_TEXT_UPPERCASE);
         mDisplayTextShadowPref = findPreference(KEY_DIGITAL_WIDGET_DISPLAY_TEXT_SHADOW);
         mDisplaySecondsPref = findPreference(KEY_DIGITAL_WIDGET_DISPLAY_SECONDS);
         mHideAmPmPref = findPreference(KEY_DIGITAL_WIDGET_HIDE_AM_PM);
@@ -138,8 +141,9 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
     @Override
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
-            case KEY_DIGITAL_WIDGET_DISPLAY_TEXT_SHADOW, KEY_DIGITAL_WIDGET_DISPLAY_SECONDS,
-                 KEY_DIGITAL_WIDGET_HIDE_AM_PM, KEY_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING ->
+            case KEY_DIGITAL_WIDGET_DISPLAY_TEXT_UPPERCASE, KEY_DIGITAL_WIDGET_DISPLAY_TEXT_SHADOW,
+                 KEY_DIGITAL_WIDGET_DISPLAY_SECONDS, KEY_DIGITAL_WIDGET_HIDE_AM_PM,
+                 KEY_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING ->
                     Utils.setVibrationTime(requireContext(), 50);
 
             case KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND -> {
@@ -227,6 +231,8 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
         final boolean showHomeClock = SettingsDAO.getShowHomeClock(requireContext(), mPrefs);
         List<City> selectedCities = DataModel.getDataModel().getSelectedCities();
 
+        mDisplayTextUppercasePref.setOnPreferenceChangeListener(this);
+
         mDisplayTextShadowPref.setOnPreferenceChangeListener(this);
 
         mDisplaySecondsPref.setOnPreferenceChangeListener(this);
@@ -301,6 +307,7 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
     }
 
     private void saveCheckedPreferenceStates() {
+        mDisplayTextUppercasePref.setChecked(WidgetDAO.isTextUppercaseDisplayedOnDigitalWidget(mPrefs));
         mDisplayTextShadowPref.setChecked(WidgetDAO.isTextShadowDisplayedOnDigitalWidget(mPrefs));
         mDisplaySecondsPref.setChecked(WidgetDAO.areSecondsDisplayedOnDigitalWidget(mPrefs));
         mHideAmPmPref.setChecked(WidgetDAO.isAmPmHiddenOnDigitalWidget(mPrefs));

@@ -78,13 +78,13 @@
                         android:ellipsize="end"
                         android:includeFontPadding="false"
                         android:maxLines="1"
-                        android:textAllCaps="true"
                         android:shadowRadius="2.75"
                         android:shadowColor="@android:color/black"
                         android:shadowDx="2"
                         android:shadowDy="2"
                         tools:text="City1"
-                        tools:textColor="@android:color/white" />
+                        tools:textColor="@android:color/white"
+                        tools:textAllCaps="true" />
 
                     <TextView
                         android:id="@+id/cityNameLeftNoShadow"
@@ -94,10 +94,10 @@
                         android:ellipsize="end"
                         android:includeFontPadding="false"
                         android:maxLines="1"
-                        android:textAllCaps="true"
                         android:visibility="gone"
                         tools:text="City1"
-                        tools:textColor="@android:color/white" />
+                        tools:textColor="@android:color/white"
+                        tools:textAllCaps="true" />
 
                 </FrameLayout>
 
@@ -113,13 +113,13 @@
                     android:format24Hour="@string/abbrev_wday"
                     android:includeFontPadding="false"
                     android:maxLines="1"
-                    android:textAllCaps="true"
                     android:shadowRadius="2.75"
                     android:shadowColor="@android:color/black"
                     android:shadowDx="2"
                     android:shadowDy="2"
                     tools:text="/ Mon"
-                    tools:textColor="@android:color/white" />
+                    tools:textColor="@android:color/white"
+                    tools:textAllCaps="true" />
 
                 <TextView
                     android:id="@+id/cityDayLeftNoShadow"
@@ -131,10 +131,10 @@
                     android:format24Hour="@string/abbrev_wday"
                     android:includeFontPadding="false"
                     android:maxLines="1"
-                    android:textAllCaps="true"
                     android:visibility="gone"
                     tools:text="/ Mon"
-                    tools:textColor="@android:color/white" />
+                    tools:textColor="@android:color/white"
+                    tools:textAllCaps="true" />
 
             </LinearLayout>
 
@@ -199,13 +199,13 @@
                         android:ellipsize="end"
                         android:includeFontPadding="false"
                         android:maxLines="1"
-                        android:textAllCaps="true"
                         android:shadowRadius="2.75"
                         android:shadowColor="@android:color/black"
                         android:shadowDx="2"
                         android:shadowDy="2"
                         tools:text="City 2"
-                        tools:textColor="@android:color/white" />
+                        tools:textColor="@android:color/white"
+                        tools:textAllCaps="true" />
 
                     <TextView
                         android:id="@+id/cityNameRightNoShadow"
@@ -215,10 +215,10 @@
                         android:ellipsize="end"
                         android:includeFontPadding="false"
                         android:maxLines="1"
-                        android:textAllCaps="true"
                         android:visibility="gone"
                         tools:text="City 2"
-                        tools:textColor="@android:color/white" />
+                        tools:textColor="@android:color/white"
+                        tools:textAllCaps="true" />
 
                 </FrameLayout>
 
@@ -234,13 +234,13 @@
                     android:format24Hour="@string/abbrev_wday"
                     android:includeFontPadding="false"
                     android:maxLines="1"
-                    android:textAllCaps="true"
                     android:shadowRadius="2.75"
                     android:shadowColor="@android:color/black"
                     android:shadowDx="2"
                     android:shadowDy="2"
                     tools:text="/ Mon"
-                    tools:textColor="@android:color/white" />
+                    tools:textColor="@android:color/white"
+                    tools:textAllCaps="true" />
 
                 <TextView
                     android:id="@+id/cityDayRightNoShadow"
@@ -252,10 +252,10 @@
                     android:format24Hour="@string/abbrev_wday"
                     android:includeFontPadding="false"
                     android:maxLines="1"
-                    android:textAllCaps="true"
                     android:visibility="gone"
                     tools:text="/ Mon"
-                    tools:textColor="@android:color/white" />
+                    tools:textColor="@android:color/white"
+                    tools:textAllCaps="true" />
 
             </LinearLayout>
 

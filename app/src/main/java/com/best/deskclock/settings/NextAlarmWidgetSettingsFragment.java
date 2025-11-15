@@ -17,6 +17,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_
 import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_DEFAULT_TITLE_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_DISPLAY_BACKGROUND;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_DISPLAY_TEXT_SHADOW;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_DISPLAY_TEXT_UPPERCASE;
 
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
@@ -38,6 +39,7 @@ public class NextAlarmWidgetSettingsFragment extends ScreenFragment
 
     private int mAppWidgetId = INVALID_APPWIDGET_ID;
 
+    SwitchPreferenceCompat mDisplayTextUppercasePref;
     SwitchPreferenceCompat mDisplayTextShadowPref;
     SwitchPreferenceCompat mShowBackgroundOnNextAlarmWidgetPref;
     SwitchPreferenceCompat mCustomizeBackgroundCornerRadiusPref;
@@ -62,6 +64,7 @@ public class NextAlarmWidgetSettingsFragment extends ScreenFragment
 
         addPreferencesFromResource(R.xml.settings_customize_next_alarm_widget);
 
+        mDisplayTextUppercasePref = findPreference(KEY_NEXT_ALARM_WIDGET_DISPLAY_TEXT_UPPERCASE);
         mDisplayTextShadowPref = findPreference(KEY_NEXT_ALARM_WIDGET_DISPLAY_TEXT_SHADOW);
         mShowBackgroundOnNextAlarmWidgetPref = findPreference(KEY_NEXT_ALARM_WIDGET_DISPLAY_BACKGROUND);
         mCustomizeBackgroundCornerRadiusPref = findPreference(KEY_NEXT_ALARM_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS);
@@ -102,7 +105,7 @@ public class NextAlarmWidgetSettingsFragment extends ScreenFragment
     @Override
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
-            case KEY_NEXT_ALARM_WIDGET_DISPLAY_TEXT_SHADOW,
+            case KEY_NEXT_ALARM_WIDGET_DISPLAY_TEXT_UPPERCASE, KEY_NEXT_ALARM_WIDGET_DISPLAY_TEXT_SHADOW,
                  KEY_NEXT_ALARM_WIDGET_APPLY_HORIZONTAL_PADDING ->
                     Utils.setVibrationTime(requireContext(), 50);
 
@@ -147,6 +150,8 @@ public class NextAlarmWidgetSettingsFragment extends ScreenFragment
     }
 
     private void setupPreferences() {
+        mDisplayTextUppercasePref.setOnPreferenceChangeListener(this);
+
         mDisplayTextShadowPref.setOnPreferenceChangeListener(this);
 
         mShowBackgroundOnNextAlarmWidgetPref.setOnPreferenceChangeListener(this);
@@ -179,6 +184,7 @@ public class NextAlarmWidgetSettingsFragment extends ScreenFragment
     }
 
     private void saveCheckedPreferenceStates() {
+        mDisplayTextUppercasePref.setChecked(WidgetDAO.isTextUppercaseDisplayedOnNextAlarmWidget(mPrefs));
         mDisplayTextShadowPref.setChecked(WidgetDAO.isTextShadowDisplayedOnNextAlarmWidget(mPrefs));
         mShowBackgroundOnNextAlarmWidgetPref.setChecked(WidgetDAO.isBackgroundDisplayedOnNextAlarmWidget(mPrefs));
         mCustomizeBackgroundCornerRadiusPref.setChecked(WidgetDAO.isNextAlarmWidgetBackgroundCornerRadiusCustomizable(mPrefs));

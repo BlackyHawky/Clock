@@ -168,6 +168,11 @@ public class VerticalDigitalAppWidgetProvider extends BaseDigitalAppWidgetProvid
     }
 
     @Override
+    protected boolean isTextUppercaseDisplayed(SharedPreferences prefs) {
+        return WidgetDAO.isTextUppercaseDisplayedOnVerticalDigitalWidget(prefs);
+    }
+
+    @Override
     protected boolean isTextShadowDisplayed(SharedPreferences prefs) {
         return WidgetDAO.isTextShadowDisplayedOnVerticalDigitalWidget(prefs);
     }
@@ -216,7 +221,11 @@ public class VerticalDigitalAppWidgetProvider extends BaseDigitalAppWidgetProvid
     protected void configureDate(RemoteViews rv, Context context, SharedPreferences prefs) {
         if (WidgetDAO.isDateDisplayedOnVerticalDigitalWidget(prefs)) {
             rv.setViewVisibility(getDateViewId(), VISIBLE);
-            rv.setTextViewText(getDateViewId(), WidgetUtils.getDateFormat(context));
+            if (isTextUppercaseDisplayed(prefs)) {
+                rv.setTextViewText(getDateViewId(), WidgetUtils.getDateFormat(context).toUpperCase());
+            } else {
+                rv.setTextViewText(getDateViewId(), WidgetUtils.getDateFormat(context));
+            }
 
             if (WidgetDAO.isVerticalDigitalWidgetDefaultDateColor(prefs)) {
                 rv.setTextColor(getDateViewId(), DEFAULT_WIDGETS_CUSTOM_COLOR);
@@ -234,7 +243,11 @@ public class VerticalDigitalAppWidgetProvider extends BaseDigitalAppWidgetProvid
             rv.setViewVisibility(getNextAlarmViewId(), GONE);
             rv.setViewVisibility(getNextAlarmIconId(), GONE);
         } else {
-            rv.setTextViewText(getNextAlarmViewId(), nextAlarmTime);
+            if (isTextUppercaseDisplayed(prefs)) {
+                rv.setTextViewText(getNextAlarmViewId(), nextAlarmTime.toUpperCase());
+            } else {
+                rv.setTextViewText(getNextAlarmViewId(), nextAlarmTime);
+            }
             rv.setViewVisibility(getNextAlarmViewId(), VISIBLE);
             rv.setViewVisibility(getNextAlarmIconId(), VISIBLE);
 

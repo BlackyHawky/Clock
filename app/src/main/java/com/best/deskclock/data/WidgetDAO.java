@@ -118,6 +118,14 @@ public final class WidgetDAO {
     // ********************
 
     /**
+     * @return {@code true} if the text is displayed in uppercase on the digital widget; {@code false} otherwise.
+     */
+    public static boolean isTextUppercaseDisplayedOnDigitalWidget(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_digital_widget.xml
+        return prefs.getBoolean(KEY_DIGITAL_WIDGET_DISPLAY_TEXT_UPPERCASE, DEFAULT_WIDGET_TEXT_UPPERCASE_DISPLAYED);
+    }
+
+    /**
      * @return {@code true} if the text shadow is displayed on the digital widget; {@code false} otherwise.
      */
     public static boolean isTextShadowDisplayedOnDigitalWidget(SharedPreferences prefs) {
@@ -308,6 +316,15 @@ public final class WidgetDAO {
     // *****************************
 
     /**
+     * @return {@code true} if the text is displayed in uppercase on the vertical digital widget;
+     * {@code false} otherwise.
+     */
+    public static boolean isTextUppercaseDisplayedOnVerticalDigitalWidget(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_vertical_digital_widget.xml
+        return prefs.getBoolean(KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_TEXT_UPPERCASE, DEFAULT_WIDGET_TEXT_UPPERCASE_DISPLAYED);
+    }
+
+    /**
      * @return {@code true} if the text shadow is displayed on the vertical digital widget;
      * {@code false} otherwise.
      */
@@ -459,6 +476,15 @@ public final class WidgetDAO {
     // ***********************
     // ** NEXT ALARM WIDGET **
     // ***********************
+
+    /**
+     * @return {@code true} if the text is displayed in uppercase on the Next alarm widget;
+     * {@code false} otherwise.
+     */
+    public static boolean isTextUppercaseDisplayedOnNextAlarmWidget(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_next_alarm_widget.xml
+        return prefs.getBoolean(KEY_NEXT_ALARM_WIDGET_DISPLAY_TEXT_UPPERCASE, DEFAULT_WIDGET_TEXT_UPPERCASE_DISPLAYED);
+    }
 
     /**
      * @return {@code true} if the text shadow is displayed on the Next alarm widget;

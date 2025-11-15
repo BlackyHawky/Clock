@@ -162,6 +162,11 @@ public class MaterialYouNextAlarmAppWidgetProvider extends BaseDigitalAppWidgetP
     }
 
     @Override
+    protected boolean isTextUppercaseDisplayed(SharedPreferences prefs) {
+        return false;
+    }
+
+    @Override
     protected boolean isTextShadowDisplayed(SharedPreferences prefs) {
         return false;
     }

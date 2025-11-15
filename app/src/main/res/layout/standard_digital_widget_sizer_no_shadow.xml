@@ -40,10 +40,10 @@
             android:ellipsize="none"
             android:includeFontPadding="false"
             android:maxLines="1"
-            android:textAllCaps="true"
             tools:text="Sa, Apr 14"
             tools:textSize="18sp"
-            tools:textColor="@android:color/white" />
+            tools:textColor="@android:color/white"
+            tools:textAllCaps="true" />
 
         <!-- This view is drawn to a Bitmap and sent to the widget as an icon. -->
         <TextView
@@ -70,10 +70,10 @@
             android:ellipsize="none"
             android:includeFontPadding="false"
             android:maxLines="1"
-            android:textAllCaps="true"
             tools:text="Mon, 07:30 AM"
             tools:textSize="18sp"
-            tools:textColor="@android:color/white" />
+            tools:textColor="@android:color/white"
+            tools:textAllCaps="true" />
 
     </LinearLayout>
 

@@ -67,6 +67,8 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory  implements RemoteVie
     protected abstract int getRightCityDayWithoutShadowId();
 
     protected abstract int getCitySpacerId();
+
+    protected abstract boolean isTextUppercaseDisplayed(SharedPreferences prefs);
     protected abstract boolean isTextShadowDisplayed(SharedPreferences prefs);
 
     protected abstract void configureColors(RemoteViews rv, Context context, SharedPreferences prefs,
@@ -218,6 +220,7 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory  implements RemoteVie
                         int dayWithShadowId, int dayWithoutShadowId) {
 
         final boolean shadowEnabled = isTextShadowDisplayed(mPrefs);
+        final boolean isTextUppercase = isTextUppercaseDisplayed(mPrefs);
 
         // Selection of active and inactive IDs
         int clockId = shadowEnabled ? clockWithShadowId : clockWithoutShadowId;
@@ -253,7 +256,11 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory  implements RemoteVie
         rv.setString(clockId, "setTimeZone", city.getTimeZone().getID());
 
         rv.setTextViewTextSize(labelId, TypedValue.COMPLEX_UNIT_PX, mCityAndDayFontSize * mFontScale);
-        rv.setTextViewText(labelId, city.getName());
+        if (isTextUppercase) {
+            rv.setTextViewText(labelId, city.getName().toUpperCase());
+        } else {
+            rv.setTextViewText(labelId, city.getName());
+        }
 
         // Compute if the city week day matches the weekday of the current timezone.
         final Calendar localCal = Calendar.getInstance(TimeZone.getDefault());
@@ -266,7 +273,11 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory  implements RemoteVie
             final String weekday = cityCal.getDisplayName(DAY_OF_WEEK, Calendar.SHORT, locale);
             final String slashDay = mContext.getString(R.string.world_day_of_week_label, weekday);
             rv.setTextViewTextSize(dayId, TypedValue.COMPLEX_UNIT_PX, mCityAndDayFontSize * mFontScale);
-            rv.setTextViewText(dayId, slashDay);
+            if (isTextUppercase) {
+                rv.setTextViewText(dayId, slashDay.toUpperCase());
+            } else {
+                rv.setTextViewText(dayId, slashDay);
+            }
         }
 
         rv.setViewVisibility(dayId, displayDayOfWeek ? VISIBLE : GONE);

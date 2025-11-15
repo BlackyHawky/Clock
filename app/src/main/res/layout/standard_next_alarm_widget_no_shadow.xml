@@ -37,10 +37,10 @@
             android:ellipsize="none"
             android:includeFontPadding="false"
             android:maxLines="1"
-            android:textAllCaps="true"
             tools:text="@string/next_alarm_widget_text"
             tools:textSize="18sp"
-            tools:textColor="@android:color/white" />
+            tools:textColor="@android:color/white"
+            tools:textAllCaps="true" />
 
         <!-- A horizontal padding is added because on some devices
         the text shadow is cut off. -->
@@ -53,10 +53,10 @@
             android:ellipsize="none"
             android:includeFontPadding="false"
             android:maxLines="1"
-            android:textAllCaps="true"
             tools:text="Test"
             tools:textSize="18sp"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            tools:textAllCaps="true" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -82,10 +82,10 @@
                 android:ellipsize="none"
                 android:includeFontPadding="false"
                 android:maxLines="1"
-                android:textAllCaps="true"
                 tools:text="08:30"
                 tools:textSize="18sp"
-                android:textColor="@android:color/white" />
+                android:textColor="@android:color/white"
+                tools:textAllCaps="true" />
 
         </LinearLayout>
 

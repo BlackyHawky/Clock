@@ -103,6 +103,11 @@ public class DigitalAppWidgetCityViewsFactory extends BaseDigitalAppWidgetCityVi
     }
 
     @Override
+    protected boolean isTextUppercaseDisplayed(SharedPreferences prefs) {
+        return WidgetDAO.isTextUppercaseDisplayedOnDigitalWidget(prefs);
+    }
+
+    @Override
     protected boolean isTextShadowDisplayed(SharedPreferences prefs) {
         return WidgetDAO.isTextShadowDisplayedOnDigitalWidget(prefs);
     }

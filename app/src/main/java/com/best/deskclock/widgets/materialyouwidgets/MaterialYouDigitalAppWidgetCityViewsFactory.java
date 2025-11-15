@@ -99,6 +99,11 @@ public class MaterialYouDigitalAppWidgetCityViewsFactory extends BaseDigitalAppW
     }
 
     @Override
+    protected boolean isTextUppercaseDisplayed(SharedPreferences prefs) {
+        return false;
+    }
+
+    @Override
     protected boolean isTextShadowDisplayed(SharedPreferences prefs) {
         return false;
     }
