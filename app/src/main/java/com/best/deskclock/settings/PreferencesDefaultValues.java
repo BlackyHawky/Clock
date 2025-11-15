@@ -232,6 +232,7 @@ public class PreferencesDefaultValues {
     public static final boolean DEFAULT_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM = true;
 
     // Common widget values
+    public static final boolean DEFAULT_WIDGET_TEXT_SHADOW_DISPLAYED = true;
     public static final boolean DEFAULT_ANALOG_WIDGET_WITH_SECOND_HAND = false;
     public static final boolean DEFAULT_WIDGETS_DEFAULT_COLOR = true;
     public static final int DEFAULT_WIDGETS_BACKGROUND_COLOR = Color.parseColor("#70000000");

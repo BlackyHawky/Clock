@@ -86,8 +86,10 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
      */
     private static final Intent DAY_CHANGE_INTENT = new Intent(ACTION_ON_DAY_CHANGE);
 
-    protected abstract int getLayoutId();
-    protected abstract int getSizerLayoutId();
+    protected abstract int getLayoutWithShadowId();
+    protected abstract int getLayoutWithoutShadowId();
+    protected abstract int getSizerLayoutWithShadowId();
+    protected abstract int getSizerLayoutWithoutShadowId();
     protected abstract int getWidgetViewId();
     protected abstract int getClockViewId();
     protected abstract int getClockHoursViewId();
@@ -108,6 +110,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
     protected abstract int getNextAlarmTextCustomViewId();
     protected abstract int getNextAlarmTitleCustomViewId();
 
+    protected abstract boolean isTextShadowDisplayed(SharedPreferences prefs);
     protected abstract boolean areWorldCitiesDisplayed(SharedPreferences prefs);
     protected abstract boolean isHorizontalPaddingApplied(SharedPreferences prefs);
     protected abstract int getMaxWidgetFontSize(SharedPreferences prefs);
@@ -153,7 +156,9 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
 
         // Create a remote view for the digital clock.
         SharedPreferences prefs = getDefaultSharedPreferences(context);
-        RemoteViews rv = new RemoteViews(context.getPackageName(), getLayoutId());
+        RemoteViews rv = new RemoteViews(context.getPackageName(), isTextShadowDisplayed(prefs)
+                ? getLayoutWithShadowId()
+                : getLayoutWithoutShadowId());
 
         // Tapping on the widget opens the app or the calendar (if not on the lock screen).
         if (WidgetUtils.isWidgetClickable(wm, widgetId)) {
@@ -286,7 +291,9 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
         // Inflate a test layout to compute sizes at different font sizes.
         LayoutInflater inflater = LayoutInflater.from(context);
         @SuppressLint("InflateParams")
-        View sizer = inflater.inflate(getSizerLayoutId(), null);
+        View sizer = inflater.inflate(isTextShadowDisplayed(prefs)
+                ? getSizerLayoutWithShadowId()
+                : getSizerLayoutWithoutShadowId(), null);
 
         int horizontalPadding = (int) dpToPx(isHorizontalPaddingApplied(prefs)
                 ? 20 : 0, context.getResources().getDisplayMetrics());

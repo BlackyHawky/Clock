@@ -53,13 +53,23 @@ import com.best.deskclock.widgets.DigitalWidgetSizes;
 public class VerticalDigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
 
     @Override
-    protected int getLayoutId() {
+    protected int getLayoutWithShadowId() {
         return R.layout.standard_vertical_digital_widget;
     }
 
     @Override
-    protected int getSizerLayoutId() {
+    protected int getLayoutWithoutShadowId() {
+        return R.layout.standard_vertical_digital_widget_no_shadow;
+    }
+
+    @Override
+    protected int getSizerLayoutWithShadowId() {
         return R.layout.standard_vertical_digital_widget_sizer;
+    }
+
+    @Override
+    protected int getSizerLayoutWithoutShadowId() {
+        return R.layout.standard_vertical_digital_widget_sizer_no_shadow;
     }
 
     @Override
@@ -155,6 +165,11 @@ public class VerticalDigitalAppWidgetProvider extends BaseDigitalAppWidgetProvid
     @Override
     protected boolean areWorldCitiesDisplayed(SharedPreferences prefs) {
         return false;
+    }
+
+    @Override
+    protected boolean isTextShadowDisplayed(SharedPreferences prefs) {
+        return WidgetDAO.isTextShadowDisplayedOnVerticalDigitalWidget(prefs);
     }
 
     @Override

@@ -54,12 +54,22 @@ import com.best.deskclock.widgets.DigitalWidgetSizes;
 public class MaterialYouVerticalDigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
 
     @Override
-    protected int getLayoutId() {
+    protected int getLayoutWithShadowId() {
+        return 0;
+    }
+
+    @Override
+    protected int getLayoutWithoutShadowId() {
         return R.layout.material_you_vertical_digital_widget;
     }
 
     @Override
-    protected int getSizerLayoutId() {
+    protected int getSizerLayoutWithShadowId() {
+        return 0;
+    }
+
+    @Override
+    protected int getSizerLayoutWithoutShadowId() {
         return R.layout.material_you_vertical_digital_widget_sizer;
     }
 
@@ -151,6 +161,11 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends BaseDigitalAppW
     @Override
     protected int getNextAlarmTitleCustomViewId() {
         return 0;
+    }
+
+    @Override
+    protected boolean isTextShadowDisplayed(SharedPreferences prefs) {
+        return false;
     }
 
     @Override

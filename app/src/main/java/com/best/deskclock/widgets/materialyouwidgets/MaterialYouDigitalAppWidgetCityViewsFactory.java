@@ -34,38 +34,73 @@ public class MaterialYouDigitalAppWidgetCityViewsFactory extends BaseDigitalAppW
     }
 
     @Override
-    protected int getLeftClockId() {
+    protected int getLeftClockWithShadowId() {
+        return 0;
+    }
+
+    @Override
+    protected int getLeftClockWithoutShadowId() {
         return R.id.leftClock;
     }
 
     @Override
-    protected int getLeftCityNameId() {
+    protected int getLeftCityNameWithShadowId() {
+        return 0;
+    }
+
+    @Override
+    protected int getLeftCityNameWithoutShadowId() {
         return R.id.cityNameLeft;
     }
 
     @Override
-    protected int getLeftCityDayId() {
+    protected int getLeftCityDayWithShadowId() {
+        return 0;
+    }
+
+    @Override
+    protected int getLeftCityDayWithoutShadowId() {
         return R.id.cityDayLeft;
     }
 
     @Override
-    protected int getRightClockId() {
+    protected int getRightClockWithShadowId() {
+        return 0;
+    }
+
+    @Override
+    protected int getRightClockWithoutShadowId() {
         return R.id.rightClock;
     }
 
     @Override
-    protected int getRightCityNameId() {
+    protected int getRightCityNameWithShadowId() {
+        return 0;
+    }
+
+    @Override
+    protected int getRightCityNameWithoutShadowId() {
         return R.id.cityNameRight;
     }
 
     @Override
-    protected int getRightCityDayId() {
+    protected int getRightCityDayWithShadowId() {
+        return 0;
+    }
+
+    @Override
+    protected int getRightCityDayWithoutShadowId() {
         return R.id.cityDayRight;
     }
 
     @Override
     protected int getCitySpacerId() {
         return R.id.citySpacer;
+    }
+
+    @Override
+    protected boolean isTextShadowDisplayed(SharedPreferences prefs) {
+        return false;
     }
 
     @Override

@@ -15,6 +15,14 @@
         tools:layout="@layout/settings_preference_category_layout">
 
         <SwitchPreferenceCompat
+            android:key="key_vertical_digital_widget_display_text_shadow"
+            android:title="@string/display_text_shadow_title"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <SwitchPreferenceCompat
             android:key="key_vertical_digital_widget_display_background"
             android:title="@string/widget_background_title"
             android:defaultValue="false"

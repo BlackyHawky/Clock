@@ -56,13 +56,23 @@ import com.best.deskclock.utils.WidgetUtils;
 public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
 
     @Override
-    protected int getLayoutId() {
+    protected int getLayoutWithShadowId() {
         return R.layout.standard_digital_widget;
     }
 
     @Override
-    protected int getSizerLayoutId() {
+    protected int getLayoutWithoutShadowId() {
+        return R.layout.standard_digital_widget_no_shadow;
+    }
+
+    @Override
+    protected int getSizerLayoutWithShadowId() {
         return R.layout.standard_digital_widget_sizer;
+    }
+
+    @Override
+    protected int getSizerLayoutWithoutShadowId() {
+        return R.layout.standard_digital_widget_sizer_no_shadow;
     }
 
     @Override
@@ -153,6 +163,11 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     @Override
     protected int getNextAlarmTitleCustomViewId() {
         return 0;
+    }
+
+    @Override
+    protected boolean isTextShadowDisplayed(SharedPreferences prefs) {
+        return WidgetDAO.isTextShadowDisplayedOnDigitalWidget(prefs);
     }
 
     @Override

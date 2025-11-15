@@ -18,6 +18,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_W
 import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_BACKGROUND;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_DATE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_TEXT_SHADOW;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_WIDGET_BACKGROUND_CORNER_RADIUS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS;
 
@@ -41,6 +42,7 @@ public class VerticalDigitalWidgetSettingsFragment extends ScreenFragment
 
     private int mAppWidgetId = INVALID_APPWIDGET_ID;
 
+    SwitchPreferenceCompat mDisplayTextShadowPref;
     SwitchPreferenceCompat mShowBackgroundOnVerticalDigitalWidgetPref;
     SwitchPreferenceCompat mCustomizeBackgroundCornerRadiusPref;
     Preference mBackgroundCornerRadiusPref;
@@ -68,6 +70,7 @@ public class VerticalDigitalWidgetSettingsFragment extends ScreenFragment
 
         addPreferencesFromResource(R.xml.settings_customize_vertical_digital_widget);
 
+        mDisplayTextShadowPref = findPreference(KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_TEXT_SHADOW);
         mShowBackgroundOnVerticalDigitalWidgetPref = findPreference(KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_BACKGROUND);
         mCustomizeBackgroundCornerRadiusPref = findPreference(KEY_VERTICAL_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS);
         mBackgroundCornerRadiusPref = findPreference(KEY_VERTICAL_WIDGET_BACKGROUND_CORNER_RADIUS);
@@ -111,6 +114,10 @@ public class VerticalDigitalWidgetSettingsFragment extends ScreenFragment
     @Override
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
+            case KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_TEXT_SHADOW,
+                 KEY_VERTICAL_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING ->
+                    Utils.setVibrationTime(requireContext(), 50);
+
             case KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_BACKGROUND -> {
                 mCustomizeBackgroundCornerRadiusPref.setVisible((boolean) newValue);
                 mBackgroundCornerRadiusPref.setVisible((boolean) newValue
@@ -137,9 +144,6 @@ public class VerticalDigitalWidgetSettingsFragment extends ScreenFragment
                         && !WidgetDAO.isVerticalDigitalWidgetDefaultNextAlarmColor(mPrefs));
                 Utils.setVibrationTime(requireContext(), 50);
             }
-
-            case KEY_VERTICAL_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING ->
-                    Utils.setVibrationTime(requireContext(), 50);
 
             case KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_HOURS_COLOR -> {
                 mCustomHoursColorPref.setVisible(!(boolean) newValue);
@@ -174,6 +178,8 @@ public class VerticalDigitalWidgetSettingsFragment extends ScreenFragment
     }
 
     private void setupPreferences() {
+        mDisplayTextShadowPref.setOnPreferenceChangeListener(this);
+
         mShowBackgroundOnVerticalDigitalWidgetPref.setOnPreferenceChangeListener(this);
 
         mCustomizeBackgroundCornerRadiusPref.setVisible(WidgetDAO.isBackgroundDisplayedOnVerticalDigitalWidget(mPrefs));
@@ -217,6 +223,7 @@ public class VerticalDigitalWidgetSettingsFragment extends ScreenFragment
     }
 
     private void saveCheckedPreferenceStates() {
+        mDisplayTextShadowPref.setChecked(WidgetDAO.isTextShadowDisplayedOnVerticalDigitalWidget(mPrefs));
         mShowBackgroundOnVerticalDigitalWidgetPref.setChecked(WidgetDAO.isBackgroundDisplayedOnVerticalDigitalWidget(mPrefs));
         mCustomizeBackgroundCornerRadiusPref.setChecked(WidgetDAO.isVerticalWidgetBackgroundCornerRadiusCustomizable(mPrefs));
         mDisplayDatePref.setChecked(WidgetDAO.isDateDisplayedOnVerticalDigitalWidget(mPrefs));
