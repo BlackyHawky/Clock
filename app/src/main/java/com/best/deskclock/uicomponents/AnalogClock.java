@@ -351,74 +351,74 @@ public class AnalogClock extends FrameLayout {
         int colorResId = switch (accentColor) {
             case BLACK_ACCENT_COLOR -> getColorResourceForComponent(
                     R.color.blackColorGray1,
-                    R.color.blackColorSecondary,
-                    R.color.blackColorPrimary,
+                    R.color.blackAnalogWidgetSecondary,
+                    R.color.blackAnalogWidgetPrimary,
                     R.color.blackColorTertiary,
                     componentType);
             case BLUE_ACCENT_COLOR -> getColorResourceForComponent(
                     R.color.blueSecondaryContainer,
-                    R.color.blueColorSecondary,
-                    R.color.blueColorPrimary,
+                    R.color.blueAnalogWidgetSecondary,
+                    R.color.blueAnalogWidgetPrimary,
                     R.color.blueColorTertiary,
                     componentType);
             case BLUE_GRAY_ACCENT_COLOR -> getColorResourceForComponent(
                     R.color.blueGraySecondaryContainer,
-                    R.color.blueGrayColorSecondary,
-                    R.color.blueGrayColorPrimary,
+                    R.color.blueGrayAnalogWidgetSecondary,
+                    R.color.blueGrayAnalogWidgetPrimary,
                     R.color.blueGrayColorTertiary,
                     componentType);
             case BROWN_ACCENT_COLOR -> getColorResourceForComponent(
                     R.color.brownSecondaryContainer,
-                    R.color.brownColorSecondary,
-                    R.color.brownColorPrimary,
+                    R.color.brownAnalogWidgetSecondary,
+                    R.color.brownAnalogWidgetPrimary,
                     R.color.brownColorTertiary,
                     componentType);
             case GREEN_ACCENT_COLOR -> getColorResourceForComponent(
                     R.color.greenSecondaryContainer,
-                    R.color.greenColorSecondary,
-                    R.color.greenColorPrimary,
+                    R.color.greenAnalogWidgetSecondary,
+                    R.color.greenAnalogWidgetPrimary,
                     R.color.greenColorTertiary,
                     componentType);
             case INDIGO_ACCENT_COLOR -> getColorResourceForComponent(
                     R.color.indigoSecondaryContainer,
-                    R.color.indigoColorSecondary,
-                    R.color.indigoColorPrimary,
+                    R.color.indigoAnalogWidgetSecondary,
+                    R.color.indigoAnalogWidgetPrimary,
                     R.color.indigoColorTertiary,
                     componentType);
             case ORANGE_ACCENT_COLOR -> getColorResourceForComponent(
                     R.color.orangeSecondaryContainer,
-                    R.color.orangeColorSecondary,
-                    R.color.orangeColorPrimary,
+                    R.color.orangeAnalogWidgetSecondary,
+                    R.color.orangeAnalogWidgetPrimary,
                     R.color.orangeColorTertiary,
                     componentType);
             case PINK_ACCENT_COLOR -> getColorResourceForComponent(
                     R.color.pinkSecondaryContainer,
-                    R.color.pinkColorSecondary,
-                    R.color.pinkColorPrimary,
+                    R.color.pinkAnalogWidgetSecondary,
+                    R.color.pinkAnalogWidgetPrimary,
                     R.color.pinkColorTertiary,
                     componentType);
             case PURPLE_ACCENT_COLOR -> getColorResourceForComponent(
                     R.color.purpleSecondaryContainer,
-                    R.color.purpleColorSecondary,
-                    R.color.purpleColorPrimary,
+                    R.color.purpleAnalogWidgetSecondary,
+                    R.color.purpleAnalogWidgetPrimary,
                     R.color.purpleColorTertiary,
                     componentType);
             case RED_ACCENT_COLOR -> getColorResourceForComponent(
                     R.color.redSecondaryContainer,
-                    R.color.redColorSecondary,
-                    R.color.redColorPrimary,
+                    R.color.redAnalogWidgetSecondary,
+                    R.color.redAnalogWidgetPrimary,
                     R.color.redColorTertiary,
                     componentType);
             case YELLOW_ACCENT_COLOR -> getColorResourceForComponent(
                     R.color.yellowSecondaryContainer,
-                    R.color.yellowColorSecondary,
-                    R.color.yellowColorPrimary,
+                    R.color.yellowAnalogWidgetSecondary,
+                    R.color.yellowAnalogWidgetPrimary,
                     R.color.yellowColorTertiary,
                     componentType);
             default -> getColorResourceForComponent(
                     R.color.md_theme_secondaryContainer,
-                    R.color.md_theme_secondary,
-                    R.color.md_theme_primary,
+                    R.color.md_theme_analogWidgetSecondary,
+                    R.color.md_theme_analogWidgetPrimary,
                     R.color.md_theme_tertiary,
                     componentType);
         };

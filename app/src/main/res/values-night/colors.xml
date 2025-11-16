@@ -56,6 +56,8 @@
 
     <!-- WIDGET COLORS -->
     <color name="widget_background_color">#2A3042</color>
+    <color name="md_theme_analogWidgetPrimary">#D9E2FF</color>
+    <color name="md_theme_analogWidgetSecondary">#8A90A5</color>
     <color name="digital_widget_time_color">#D9E2FF</color>
     <color name="widget_text_color">#E6E1E8</color>
     <color name="vertical_digital_widget_hour_color">#DCE2F9</color>
@@ -103,6 +105,8 @@
         - 1st color = xxxColorPrimary ==> Quantity 1
         - 2nd color = xxxColorSecondary ==> Quantity 1
         - Select mixed color
+    • xxxAnalogWidgetPrimary = xxxColorPrimary
+    • xxxAnalogWidgetSecondary = xxxColorSecondary
     -->
 
     <!-- BLACK COLORS -->
@@ -114,6 +118,8 @@
     <color name="blackColorGray1">#757575</color>
     <color name="blackColorGray2">#444444</color>
     <color name="blackColorGray3">#333333</color>
+    <color name="blackAnalogWidgetPrimary">@android:color/white</color>
+    <color name="blackAnalogWidgetSecondary">#222222</color>
 
     <!-- BLUE COLORS -->
     <color name="blueColorAccent">#90CAF9</color>
@@ -127,6 +133,8 @@
     <color name="blueColorBackground">#14181B</color>
     <color name="blueColorSecondary">#C8E5FC</color>
     <color name="blueColorTertiary">#ADD8FB</color>
+    <color name="blueAnalogWidgetPrimary">#90CAF9</color>
+    <color name="blueAnalogWidgetSecondary">#C8E5FC</color>
 
     <!-- BLUE GRAY COLORS -->
     <color name="blueGrayColorAccent">#B0BEC5</color>
@@ -140,6 +148,8 @@
     <color name="blueGrayColorBackground">#161717</color>
     <color name="blueGrayColorSecondary">#D8DFE2</color>
     <color name="blueGrayColorTertiary">#C5CFD4</color>
+    <color name="blueGrayAnalogWidgetPrimary">#B0BEC5</color>
+    <color name="blueGrayAnalogWidgetSecondary">#D8DFE2</color>
 
     <!-- BROWN COLORS -->
     <color name="brownColorAccent">#BCAAA4</color>
@@ -153,6 +163,8 @@
     <color name="brownColorBackground">#171515</color>
     <color name="brownColorSecondary">#DED5D2</color>
     <color name="brownColorTertiary">#CDC0BC</color>
+    <color name="brownAnalogWidgetPrimary">#BCAAA4</color>
+    <color name="brownAnalogWidgetSecondary">#DED5D2</color>
 
     <!-- GREEN COLORS -->
     <color name="greenColorAccent">#A5D6A7</color>
@@ -166,6 +178,8 @@
     <color name="greenColorBackground">#151915</color>
     <color name="greenColorSecondary">#D2EAD3</color>
     <color name="greenColorTertiary">#BBE0BD</color>
+    <color name="greenAnalogWidgetPrimary">#A5D6A7</color>
+    <color name="greenAnalogWidgetSecondary">#D2EAD3</color>
 
     <!-- INDIGO COLORS -->
     <color name="indigoColorAccent">#9FA8DA</color>
@@ -179,6 +193,8 @@
     <color name="indigoColorBackground">#151519</color>
     <color name="indigoColorSecondary">#D0D0ED</color>
     <color name="indigoColorTertiary">#B8B8E4</color>
+    <color name="indigoAnalogWidgetPrimary">#9FA8DA</color>
+    <color name="indigoAnalogWidgetSecondary">#D0D0ED</color>
 
     <!-- ORANGE COLORS -->
     <color name="orangeColorAccent">#FFCC80</color>
@@ -192,6 +208,8 @@
     <color name="orangeColorBackground">#1C1812</color>
     <color name="orangeColorSecondary">#FFE6C0</color>
     <color name="orangeColorTertiary">#FFDAA1</color>
+    <color name="orangeAnalogWidgetPrimary">#FFCC80</color>
+    <color name="orangeAnalogWidgetSecondary">#FFE6C0</color>
 
     <!-- PINK COLORS -->
     <color name="pinkColorAccent">#F48FB1</color>
@@ -205,6 +223,8 @@
     <color name="pinkColorBackground">#1B1416</color>
     <color name="pinkColorSecondary">#FAC8D8</color>
     <color name="pinkColorTertiary">#F7ACC4</color>
+    <color name="pinkAnalogWidgetPrimary">#F48FB1</color>
+    <color name="pinkAnalogWidgetSecondary">#FAC8D8</color>
 
     <!-- PURPLE COLORS -->
     <color name="purpleColorAccent">#CE93D8</color>
@@ -218,6 +238,8 @@
     <color name="purpleColorBackground">#181419</color>
     <color name="purpleColorSecondary">#E6C9EC</color>
     <color name="purpleColorTertiary">#DAAFE2</color>
+    <color name="purpleAnalogWidgetPrimary">#CE93D8</color>
+    <color name="purpleAnalogWidgetSecondary">#E6C9EC</color>
 
     <!-- RED COLORS -->
     <color name="redColorAccent">#EF9A9A</color>
@@ -231,6 +253,8 @@
     <color name="redColorBackground">#1B1414</color>
     <color name="redColorSecondary">#F7CDCD</color>
     <color name="redColorTertiary">#F3B5B5</color>
+    <color name="redAnalogWidgetPrimary">#EF9A9A</color>
+    <color name="redAnalogWidgetSecondary">#F7CDCD</color>
 
     <!-- YELLOW COLORS -->
     <color name="yellowColorAccent">#FFF59D</color>
@@ -244,6 +268,8 @@
     <color name="yellowColorBackground">#1C1B15</color>
     <color name="yellowColorSecondary">#FFFACE</color>
     <color name="yellowColorTertiary">#FFF8B5</color>
+    <color name="yellowAnalogWidgetPrimary">#FFF59D</color>
+    <color name="yellowAnalogWidgetSecondary">#FFFACE</color>
 
     <!-- MISCELLANEOUS -->
     <!-- https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : n°200 -->
