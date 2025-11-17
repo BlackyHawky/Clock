@@ -162,11 +162,6 @@ public class MaterialYouNextAlarmAppWidgetProvider extends BaseDigitalAppWidgetP
     }
 
     @Override
-    protected boolean isTextUppercaseDisplayed(SharedPreferences prefs) {
-        return false;
-    }
-
-    @Override
     protected boolean isTextShadowDisplayed(SharedPreferences prefs) {
         return false;
     }
@@ -187,7 +182,7 @@ public class MaterialYouNextAlarmAppWidgetProvider extends BaseDigitalAppWidgetP
     }
 
     @Override
-    protected float getFontScaleFactor() {
+    protected float getFontScaleFactor(SharedPreferences prefs) {
         return 3f;
     }
 

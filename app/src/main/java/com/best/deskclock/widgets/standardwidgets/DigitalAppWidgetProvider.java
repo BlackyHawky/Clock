@@ -166,11 +166,6 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
-    protected boolean isTextUppercaseDisplayed(SharedPreferences prefs) {
-        return WidgetDAO.isTextUppercaseDisplayedOnDigitalWidget(prefs);
-    }
-
-    @Override
     protected boolean isTextShadowDisplayed(SharedPreferences prefs) {
         return WidgetDAO.isTextShadowDisplayedOnDigitalWidget(prefs);
     }
@@ -191,8 +186,8 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
-    protected float getFontScaleFactor() {
-        return 5f;
+    protected float getFontScaleFactor(SharedPreferences prefs) {
+        return WidgetDAO.isTextUppercaseDisplayedOnDigitalWidget(prefs) ? 5f : 4.3f;
     }
 
     @Override
@@ -226,7 +221,7 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     protected void configureDate(RemoteViews rv, Context context, SharedPreferences prefs) {
         if (WidgetDAO.isDateDisplayedOnDigitalWidget(prefs)) {
             rv.setViewVisibility(getDateViewId(), VISIBLE);
-            if (isTextUppercaseDisplayed(prefs)) {
+            if (WidgetDAO.isTextUppercaseDisplayedOnDigitalWidget(prefs)) {
                 rv.setTextViewText(getDateViewId(), WidgetUtils.getDateFormat(context).toUpperCase());
             } else {
                 rv.setTextViewText(getDateViewId(), WidgetUtils.getDateFormat(context));
@@ -247,7 +242,7 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
             rv.setViewVisibility(getNextAlarmViewId(), GONE);
             rv.setViewVisibility(getNextAlarmIconId(), GONE);
         } else {
-            if (isTextUppercaseDisplayed(prefs)) {
+            if (WidgetDAO.isTextUppercaseDisplayedOnDigitalWidget(prefs)) {
                 rv.setTextViewText(getNextAlarmViewId(), nextAlarmTime.toUpperCase());
             } else {
                 rv.setTextViewText(getNextAlarmViewId(), nextAlarmTime);

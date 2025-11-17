@@ -161,11 +161,6 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
-    protected boolean isTextUppercaseDisplayed(SharedPreferences prefs) {
-        return WidgetDAO.isTextUppercaseDisplayedOnNextAlarmWidget(prefs);
-    }
-
-    @Override
     protected boolean isTextShadowDisplayed(SharedPreferences prefs) {
         return WidgetDAO.isTextShadowDisplayedOnNextAlarmWidget(prefs);
     }
@@ -186,7 +181,7 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
-    protected float getFontScaleFactor() {
+    protected float getFontScaleFactor(SharedPreferences prefs) {
         return 3f;
     }
 
@@ -212,11 +207,12 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
         final Context localizedContext = Utils.getLocalizedContext(context);
         final boolean isDefaultTitleColor = WidgetDAO.isNextAlarmWidgetDefaultTitleColor(prefs);
         final int customTitleColor = WidgetDAO.getNextAlarmWidgetCustomTitleColor(prefs);
+        final boolean isTextUppercaseDisplayed = WidgetDAO.isTextUppercaseDisplayedOnNextAlarmWidget(prefs);
 
         if (TextUtils.isEmpty(nextAlarmTime)) {
             rv.setViewVisibility(getNextAlarmViewId(), GONE);
             rv.setViewVisibility(getNextAlarmIconId(), GONE);
-            if (isTextUppercaseDisplayed(prefs)) {
+            if (isTextUppercaseDisplayed) {
                 rv.setTextViewText(getNextAlarmTextViewId(),
                         localizedContext.getString(R.string.next_alarm_widget_title_no_alarm).toUpperCase());
             } else {
@@ -232,7 +228,7 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
         } else {
             rv.setViewVisibility(getNextAlarmViewId(), VISIBLE);
             rv.setViewVisibility(getNextAlarmIconId(), VISIBLE);
-            if (isTextUppercaseDisplayed(prefs)) {
+            if (isTextUppercaseDisplayed) {
                 rv.setTextViewText(getNextAlarmTextViewId(),
                         localizedContext.getString(R.string.next_alarm_widget_text).toUpperCase());
                 rv.setTextViewText(getNextAlarmViewId(), nextAlarmTime.toUpperCase());
@@ -264,7 +260,7 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
             rv.setViewVisibility(getNextAlarmTitleViewId(), GONE);
         } else {
             rv.setViewVisibility(getNextAlarmTitleViewId(), VISIBLE);
-            if (isTextUppercaseDisplayed(prefs)) {
+            if (WidgetDAO.isTextUppercaseDisplayedOnNextAlarmWidget(prefs)) {
                 rv.setTextViewText(getNextAlarmTitleViewId(), nextAlarmTitle.toUpperCase());
             } else {
                 rv.setTextViewText(getNextAlarmTitleViewId(), nextAlarmTitle);

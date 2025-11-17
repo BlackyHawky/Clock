@@ -111,12 +111,11 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
     protected abstract int getNextAlarmTextCustomViewId();
     protected abstract int getNextAlarmTitleCustomViewId();
 
-    protected abstract boolean isTextUppercaseDisplayed(SharedPreferences prefs);
     protected abstract boolean isTextShadowDisplayed(SharedPreferences prefs);
     protected abstract boolean areWorldCitiesDisplayed(SharedPreferences prefs);
     protected abstract boolean isHorizontalPaddingApplied(SharedPreferences prefs);
     protected abstract int getMaxWidgetFontSize(SharedPreferences prefs);
-    protected abstract float getFontScaleFactor();
+    protected abstract float getFontScaleFactor(SharedPreferences prefs);
 
     protected abstract Class<?> getCityServiceClass();
 
@@ -344,7 +343,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
         DigitalWidgetSizes measuredSizes = template.newSize();
 
         // Adjust the font sizes.
-        measuredSizes.setWidgetFontSizePx(widgetFontSize, getFontScaleFactor());
+        measuredSizes.setWidgetFontSizePx(widgetFontSize, getFontScaleFactor(prefs));
 
         // Configure items to display the widest strings.
         configureClockForMeasurement(sizer, measuredSizes, prefs);
