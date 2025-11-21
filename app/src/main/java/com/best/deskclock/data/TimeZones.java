@@ -11,15 +11,7 @@ import android.text.TextUtils;
 /**
  * A read-only domain object representing the timezones from which to choose a "home" timezone.
  */
-public final class TimeZones {
-
-    private final CharSequence[] mTimeZoneIds;
-    private final CharSequence[] mTimeZoneNames;
-
-    TimeZones(CharSequence[] timeZoneIds, CharSequence[] timeZoneNames) {
-        mTimeZoneIds = timeZoneIds;
-        mTimeZoneNames = timeZoneNames;
-    }
+public record TimeZones(CharSequence[] mTimeZoneIds, CharSequence[] mTimeZoneNames) {
 
     public CharSequence[] getTimeZoneIds() {
         return mTimeZoneIds;

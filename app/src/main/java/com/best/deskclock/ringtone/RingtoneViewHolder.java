@@ -129,13 +129,7 @@ final class RingtoneViewHolder extends ItemAdapter.ItemViewHolder<RingtoneHolder
         notifyItemClicked(RingtoneViewHolder.CLICK_NORMAL);
     }
 
-    public static class Factory implements ItemAdapter.ItemViewHolder.Factory {
-
-        private final LayoutInflater mInflater;
-
-        Factory(LayoutInflater inflater) {
-            mInflater = inflater;
-        }
+    public record Factory(LayoutInflater mInflater) implements ItemAdapter.ItemViewHolder.Factory {
 
         @Override
         public ItemAdapter.ItemViewHolder<?> createViewHolder(ViewGroup parent, int viewType) {

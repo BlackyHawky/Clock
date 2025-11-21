@@ -152,7 +152,7 @@ public class LogUtils {
             if (context == null) return false;
 
             SharedPreferences prefs = DeskClockApplication.getDefaultSharedPreferences(context);
-            return Utils.isDebugConfig() || SettingsDAO.isDebugSettingsDisplayed(prefs);
+            return BuildConfig.DEBUG || SettingsDAO.isDebugSettingsDisplayed(prefs);
         }
 
         private String format(String level, String message, Object... args) {

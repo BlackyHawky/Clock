@@ -144,7 +144,7 @@ public class AboutFragment extends ScreenFragment
             public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
                 menu.clear();
 
-                if (Utils.isDebugConfig() || SettingsDAO.isDebugSettingsDisplayed(mPrefs)) {
+                if (BuildConfig.DEBUG || SettingsDAO.isDebugSettingsDisplayed(mPrefs)) {
                     menu.add(0, MENU_BUG_REPORT, 0, R.string.log_backup_icon_title)
                             .setIcon(R.drawable.ic_bug_report)
                             .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
@@ -202,7 +202,7 @@ public class AboutFragment extends ScreenFragment
 
             case KEY_ABOUT_WHATS_NEW -> {
                 String version = BuildConfig.VERSION_NAME;
-                if (Utils.isDebugConfig()) {
+                if (BuildConfig.DEBUG) {
                     version = version.replace("-debug", "");
                 }
                 final String link = "https://github.com/BlackyHawky/Clock/releases/tag/" + version;
@@ -266,7 +266,7 @@ public class AboutFragment extends ScreenFragment
     }
 
     private void setupPreferences() {
-        if (Utils.isDebugConfig()) {
+        if (BuildConfig.DEBUG) {
             mTitlePref.setTitle(R.string.about_debug_app_title);
             mVersionPref.setSelectable(false);
             mVersionPref.setOnPreferenceClickListener(null);

@@ -12,6 +12,7 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SORT_
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
+import android.text.TextUtils;
 import android.util.ArrayMap;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -176,7 +177,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             }
 
             // Delete the last comma
-            if (sb.length() > 0) {
+            if (!TextUtils.isEmpty(sb)) {
                 sb.setLength(sb.length() - 1);
             }
 

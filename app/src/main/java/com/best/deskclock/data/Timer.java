@@ -31,8 +31,21 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * A read-only domain object representing a countdown timer.
+ *
+ * @param mId                     A unique identifier for the timer.
+ * @param mState                  The current state of the timer.
+ * @param mLength                 The original length of the timer in milliseconds when it was created.
+ * @param mTotalLength            The length of the timer in milliseconds including additional time added by the user.
+ * @param mLastStartTime          The time at which the timer was last started; {@link #UNUSED} when not running.
+ * @param mLastStartWallClockTime The time since epoch at which the timer was last started.
+ * @param mRemainingTime          The time at which the timer is scheduled to expire; negative if it is already expired.
+ * @param mLabel                  A message describing the meaning of the timer.
+ * @param mButtonTime             The time indicated in the add time button of the timer.
+ * @param mDeleteAfterUse         A flag indicating the timer should be deleted when it is reset.
  */
-public final class Timer {
+public record Timer(int mId, State mState, long mLength, long mTotalLength, long mLastStartTime,
+                    long mLastStartWallClockTime, long mRemainingTime, String mLabel,
+                    String mButtonTime, boolean mDeleteAfterUse) {
 
     /**
      * The minimum duration of a timer.
@@ -50,7 +63,7 @@ public final class Timer {
      *     <li>{@link State#PAUSED PAUSED} timers; ties broken by {@link #getRemainingTime()}</li>
      *     <li>{@link State#RESET RESET} timers; ties broken by {@link #getLength()}</li>
      * </ol>
-     *
+     * <p>
      * For reset timers, sorting is based on the setting selected in timer settings.
      */
     public static Comparator<Timer> createTimerStateComparator(final Context context) {
@@ -86,70 +99,6 @@ public final class Timer {
         };
     }
 
-    /**
-     * A unique identifier for the timer.
-     */
-    private final int mId;
-
-    /**
-     * The current state of the timer.
-     */
-    private final State mState;
-
-    /**
-     * The original length of the timer in milliseconds when it was created.
-     */
-    private final long mLength;
-
-    /**
-     * The length of the timer in milliseconds including additional time added by the user.
-     */
-    private final long mTotalLength;
-
-    /**
-     * The time at which the timer was last started; {@link #UNUSED} when not running.
-     */
-    private final long mLastStartTime;
-
-    /**
-     * The time since epoch at which the timer was last started.
-     */
-    private final long mLastStartWallClockTime;
-
-    /**
-     * The time at which the timer is scheduled to expire; negative if it is already expired.
-     */
-    private final long mRemainingTime;
-
-    /**
-     * A message describing the meaning of the timer.
-     */
-    private final String mLabel;
-
-    /**
-     * The time indicated in the add time button of the timer.
-     */
-    private final String mButtonTime;
-
-    /**
-     * A flag indicating the timer should be deleted when it is reset.
-     */
-    private final boolean mDeleteAfterUse;
-
-    Timer(int id, State state, long length, long totalLength, long lastStartTime,
-          long lastWallClockTime, long remainingTime, String label, String buttonTime, boolean deleteAfterUse) {
-        mId = id;
-        mState = state;
-        mLength = length;
-        mTotalLength = totalLength;
-        mLastStartTime = lastStartTime;
-        mLastStartWallClockTime = lastWallClockTime;
-        mRemainingTime = remainingTime;
-        mLabel = label;
-        mButtonTime = buttonTime;
-        mDeleteAfterUse = deleteAfterUse;
-    }
-
     public int getId() {
         return mId;
     }
@@ -182,7 +131,7 @@ public final class Timer {
      * @return a copy of this timer with the given {@code newLength}
      */
     Timer setNewDuration(long newLength) {
-        if (mState != State.RESET) {
+        if (mState != RESET) {
             return this;
         }
 

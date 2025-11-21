@@ -163,19 +163,9 @@ public class HandleApiCalls extends Activity {
         return nextAlarmTimeMillis - System.currentTimeMillis() <= DateUtils.DAY_IN_MILLIS;
     }
 
-    private static class DismissAlarmAsync {
+    private record DismissAlarmAsync(Context mContext, Intent mIntent, Activity mActivity) {
 
-        private final Context mContext;
-        private final Intent mIntent;
-        private final Activity mActivity;
-
-        public DismissAlarmAsync(Context context, Intent intent, Activity activity) {
-            mContext = context;
-            mIntent = intent;
-            mActivity = activity;
-        }
-
-        protected void execute() {
+        private void execute() {
             ExecutorService executor = Executors.newSingleThreadExecutor();
             executor.execute(() -> {
                 final ContentResolver cr = mContext.getContentResolver();
@@ -188,7 +178,7 @@ public class HandleApiCalls extends Activity {
                 }
 
                 // remove Alarms in MISSED, DISMISSED, and PREDISMISSED states
-                for (Iterator<Alarm> i = alarms.iterator(); i.hasNext();) {
+                for (Iterator<Alarm> i = alarms.iterator(); i.hasNext(); ) {
                     final AlarmInstance instance = AlarmInstance.getNextUpcomingInstanceByAlarmId(
                             cr, i.next().id);
                     if (instance == null || instance.mAlarmState > FIRED_STATE) {
@@ -242,7 +232,7 @@ public class HandleApiCalls extends Activity {
 
         private static List<Alarm> getEnabledAlarms(Context context) {
             final String selection = String.format("%s=?", Alarm.ENABLED);
-            final String[] args = { "1" };
+            final String[] args = {"1"};
             return Alarm.getAlarms(context.getContentResolver(), selection, args);
         }
     }

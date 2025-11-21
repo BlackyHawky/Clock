@@ -20,6 +20,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.util.ArrayMap;
@@ -41,8 +42,10 @@ import java.util.Map;
  * This class is responsible for encoding a weekly repeat cycle in a {@link #getBits bitset}. It
  * also converts between those bits and the {@link Calendar#DAY_OF_WEEK} values for easier mutation
  * and querying.
+ *
+ * @param mBits An encoded form of a weekly repeat schedule.
  */
-public final class Weekdays {
+public record Weekdays(int mBits) {
 
     /**
      * An instance with no weekdays in the weekly repeat cycle.
@@ -70,14 +73,9 @@ public final class Weekdays {
         sCalendarDayToBit = Collections.unmodifiableMap(map);
     }
 
-    /**
-     * An encoded form of a weekly repeat schedule.
-     */
-    private final int mBits;
-
-    private Weekdays(int bits) {
+    public Weekdays(int mBits) {
         // Mask off the unused bits.
-        mBits = ALL_DAYS & bits;
+        this.mBits = ALL_DAYS & mBits;
     }
 
     /**
@@ -188,8 +186,8 @@ public final class Weekdays {
         int calendarDay = time.get(DAY_OF_WEEK);
         for (int count = 1; count <= 7; count++) {
             calendarDay--;
-            if (calendarDay < Calendar.SUNDAY) {
-                calendarDay = Calendar.SATURDAY;
+            if (calendarDay < SUNDAY) {
+                calendarDay = SATURDAY;
             }
             if (isBitOn(calendarDay)) {
                 return count;
@@ -215,8 +213,8 @@ public final class Weekdays {
             }
 
             calendarDay++;
-            if (calendarDay > Calendar.SATURDAY) {
-                calendarDay = Calendar.SUNDAY;
+            if (calendarDay > SATURDAY) {
+                calendarDay = SUNDAY;
             }
         }
 
@@ -230,11 +228,6 @@ public final class Weekdays {
 
         final Weekdays weekdays = (Weekdays) o;
         return mBits == weekdays.mBits;
-    }
-
-    @Override
-    public int hashCode() {
-        return mBits;
     }
 
     @NonNull
@@ -321,7 +314,7 @@ public final class Weekdays {
         final StringBuilder builder = new StringBuilder(40);
         for (int calendarDay : order.getCalendarDays()) {
             if (isBitOn(calendarDay)) {
-                if (builder.length() > 0) {
+                if (!TextUtils.isEmpty(builder)) {
                     builder.append(separator);
                 }
                 builder.append(weekdays[calendarDay]);
@@ -338,11 +331,11 @@ public final class Weekdays {
      * (if provided) will be colored and displayed in bold.
      * </p>
      *
-     * @param context         the context used to access resources
-     * @param order           the preferred order of weekdays (e.g., starting on Monday or Sunday)
-     * @param forceLongNames  whether to force the use of full weekday names
-     * @param nextAlarmDay    the calendar day (e.g., {@link Calendar#MONDAY}) of the next alarm;
-     *                        if matched, that day will be styled in bold
+     * @param context        the context used to access resources
+     * @param order          the preferred order of weekdays (e.g., starting on Monday or Sunday)
+     * @param forceLongNames whether to force the use of full weekday names
+     * @param nextAlarmDay   the calendar day (e.g., {@link Calendar#MONDAY}) of the next alarm;
+     *                       if matched, that day will be styled in bold
      * @return a {@link CharSequence} with the formatted and styled weekday names
      */
     public CharSequence toStyledString(Context context, Order order, boolean forceLongNames, int nextAlarmDay) {
@@ -358,7 +351,7 @@ public final class Weekdays {
         final SpannableStringBuilder builder = new SpannableStringBuilder();
         for (int calendarDay : order.getCalendarDays()) {
             if (isBitOn(calendarDay)) {
-                if (builder.length() > 0) {
+                if (!TextUtils.isEmpty(builder)) {
                     builder.append(separator);
                 }
 

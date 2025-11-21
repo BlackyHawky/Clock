@@ -246,12 +246,7 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
         return animatorSet;
     }
 
-    public static class Factory implements ItemAdapter.ItemViewHolder.Factory {
-        private final LayoutInflater mLayoutInflater;
-
-        public Factory(LayoutInflater layoutInflater) {
-            mLayoutInflater = layoutInflater;
-        }
+    public record Factory(LayoutInflater mLayoutInflater) implements ItemAdapter.ItemViewHolder.Factory {
 
         @Override
         public ItemAdapter.ItemViewHolder<?> createViewHolder(ViewGroup parent, int viewType) {

@@ -12,35 +12,14 @@ import androidx.annotation.NonNull;
 
 /**
  * A read-only domain object representing a custom ringtone chosen from the file system.
+ *
+ * @param mId             The unique identifier of the custom ringtone.
+ * @param mUri            The uri that allows playback of the ringtone.
+ * @param mTitle          The title describing the file at the given uri; typically the file name.
+ * @param mHasPermissions {@code true} iff the application has permission to read the content of {@code mUri uri}.
  */
-public final class CustomRingtone implements Comparable<CustomRingtone> {
-
-    /**
-     * The unique identifier of the custom ringtone.
-     */
-    private final long mId;
-
-    /**
-     * The uri that allows playback of the ringtone.
-     */
-    private final Uri mUri;
-
-    /**
-     * The title describing the file at the given uri; typically the file name.
-     */
-    private final String mTitle;
-
-    /**
-     * {@code true} iff the application has permission to read the content of {@code mUri uri}.
-     */
-    private final boolean mHasPermissions;
-
-    CustomRingtone(long id, Uri uri, String title, boolean hasPermissions) {
-        mId = id;
-        mUri = uri;
-        mTitle = title;
-        mHasPermissions = hasPermissions;
-    }
+public record CustomRingtone(long mId, Uri mUri, String mTitle, boolean mHasPermissions)
+        implements Comparable<CustomRingtone> {
 
     public long getId() {
         return mId;

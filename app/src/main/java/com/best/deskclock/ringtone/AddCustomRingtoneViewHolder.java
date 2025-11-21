@@ -101,13 +101,7 @@ final class AddCustomRingtoneViewHolder extends ItemViewHolder<AddCustomRingtone
         return true;
     }
 
-    public static class Factory implements ItemViewHolder.Factory {
-
-        private final LayoutInflater mInflater;
-
-        Factory(LayoutInflater inflater) {
-            mInflater = inflater;
-        }
+    public record Factory(LayoutInflater mInflater) implements ItemViewHolder.Factory {
 
         @Override
         public ItemViewHolder<?> createViewHolder(ViewGroup parent, int viewType) {

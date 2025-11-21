@@ -34,7 +34,6 @@ import android.view.View;
 
 import androidx.core.util.Function;
 
-import com.best.deskclock.BuildConfig;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
@@ -59,16 +58,6 @@ public class Utils {
      * Action sent by a broadcast when the application language is changed.
      */
     public static final String ACTION_LANGUAGE_CODE_CHANGED = "com.best.deskclock.LANGUAGE_CODE_CHANGED";
-
-    /**
-     * @return {@code true} if the application is in development mode. {@code false} otherwise.
-     * <br><p>
-     * Note: no need to specify {@code "eng".equals(Build.TYPE) || "userdebug".equals(Build.TYPE)}
-     * because the app is not intended to be deployed in a custom ROM.</p></br>
-     */
-    public static boolean isDebugConfig() {
-        return BuildConfig.DEBUG;
-    }
 
     public static void enforceMainLooper() {
         if (Looper.getMainLooper() != Looper.myLooper()) {

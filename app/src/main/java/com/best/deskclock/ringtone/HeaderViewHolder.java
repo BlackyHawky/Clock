@@ -30,13 +30,7 @@ final class HeaderViewHolder extends ItemAdapter.ItemViewHolder<HeaderHolder> {
         mItemHeader.setText(itemHolder.getTextResId());
     }
 
-    public static class Factory implements ItemAdapter.ItemViewHolder.Factory {
-
-        private final LayoutInflater mInflater;
-
-        Factory(LayoutInflater inflater) {
-            mInflater = inflater;
-        }
+    public record Factory(LayoutInflater mInflater) implements ItemAdapter.ItemViewHolder.Factory {
 
         @Override
         public ItemAdapter.ItemViewHolder<?> createViewHolder(ViewGroup parent, int viewType) {

@@ -10,6 +10,7 @@ import static java.lang.Integer.MAX_VALUE;
 
 import android.text.Layout;
 import android.text.TextPaint;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
@@ -80,7 +81,7 @@ public final class TextSizeHelper {
     private void adjustTextSize() {
         final CharSequence text = mTextView.getText();
         float textSize = mMaxTextSize;
-        if (text.length() > 0 && (mWidthConstraint < MAX_VALUE || mHeightConstraint < MAX_VALUE)) {
+        if (!TextUtils.isEmpty(text) && (mWidthConstraint < MAX_VALUE || mHeightConstraint < MAX_VALUE)) {
             mMeasurePaint.set(mTextView.getPaint());
 
             float minTextSize = 1f;

@@ -17,13 +17,7 @@ import com.best.deskclock.utils.Utils;
 /**
  * A controller which will format a provided time in millis to display as a timer.
  */
-public final class TimerTextController {
-
-    private final TextView mTextView;
-
-    public TimerTextController(TextView textView) {
-        mTextView = textView;
-    }
+public record TimerTextController(TextView mTextView) {
 
     public void setTimeString(long remainingTime) {
         boolean isNegative = false;

@@ -14,37 +14,19 @@ import static com.best.deskclock.utils.Utils.wallClock;
 
 /**
  * A read-only domain object representing a stopwatch.
+ *
+ * @param mState                  Current state of this stopwatch.
+ * @param mLastStartTime          Elapsed time in ms the stopwatch was last started; {@link #UNUSED} if not running.
+ * @param mLastStartWallClockTime The time since epoch at which the stopwatch was last started.
+ * @param mAccumulatedTime        Elapsed time in ms this stopwatch has accumulated while running.
  */
-public final class Stopwatch {
+public record Stopwatch(State mState, long mLastStartTime, long mLastStartWallClockTime, long mAccumulatedTime) {
 
     static final long UNUSED = Long.MIN_VALUE;
     /**
      * The single, immutable instance of a reset stopwatch.
      */
     private static final Stopwatch RESET_STOPWATCH = new Stopwatch(RESET, UNUSED, UNUSED, 0);
-    /**
-     * Current state of this stopwatch.
-     */
-    private final State mState;
-    /**
-     * Elapsed time in ms the stopwatch was last started; {@link #UNUSED} if not running.
-     */
-    private final long mLastStartTime;
-    /**
-     * The time since epoch at which the stopwatch was last started.
-     */
-    private final long mLastStartWallClockTime;
-    /**
-     * Elapsed time in ms this stopwatch has accumulated while running.
-     */
-    private final long mAccumulatedTime;
-
-    Stopwatch(State state, long lastStartTime, long lastWallClockTime, long accumulatedTime) {
-        mState = state;
-        mLastStartTime = lastStartTime;
-        mLastStartWallClockTime = lastWallClockTime;
-        mAccumulatedTime = accumulatedTime;
-    }
 
     public State getState() {
         return mState;
