@@ -168,7 +168,7 @@
     <string name="cities_activity_title" msgid="8552462751129256730">"Plaatsen"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Klok"</string>
     <string name="clock_style" msgid="2265011060429742344">"Stijl"</string>
-    <string name="display_clock_seconds_pref" msgid="691506643469501643">Tijd met seconden tonen</string>
+    <string name="display_clock_seconds_pref" msgid="691506643469501643">Tijd met seconden weergeven</string>
     <string name="open_date_settings" msgid="7712226973337806152">"Datum en tijd wijzigen"</string>
     <string name="clock_style_analog">Analoog</string>
     <string name="clock_style_digital">Digitaal</string>
@@ -323,7 +323,7 @@
     <string name="title_theme">Thema</string>
     <string name="selected">Geselecteerd</string>
     <string name="material_you_digital_widget">Digitale klok Material You</string>
-    <string name="display_background_border_title">Achtergrondranden tonen</string>
+    <string name="display_background_border_title">Achtergrondranden weergeven</string>
     <string name="display_background_border_summary">Gebruikt een achtergrondrand voor sommige elementen (wekkers, steden, kookwekkerknoppen etc.)</string>
     <string name="settings_vibration_title">Trillen inschakelen</string>
     <string name="duplicate">Dupliceren</string>
@@ -337,7 +337,7 @@
     <string name="title_accent_color">Accentkleur</string>
     <string name="display_card_background_summary">Gebruikt een achtergrond voor sommige elementen (wekkers, steden, kookwekkerknoppen, etc.)</string>
     <string name="title_dark_theme_mode">Donkere themastijl</string>
-    <string name="display_card_background_title">Kaartachtergronden tonen</string>
+    <string name="display_card_background_title">Kaartachtergronden weergeven</string>
     <string name="settings_vibration_summary">Alleen van toepassing op sommige elementen (bijv. de start/pauze knop van de kookwekker)</string>
     <string name="ignore_battery_optimizations_dialog_title">Batterijoptimalisaties</string>
     <string name="about_title">Over</string>
@@ -407,7 +407,7 @@
     <string name="material_time_picker_style_title">Tijdselectie</string>
     <string name="alarm_settings_summary">Uiterlijk, standaard geluid, volume, sluimeracties, eerste weekdag, herinneringstijd aanpassen</string>
     <string name="next_alarm_default_color_title">Standaardkleur voor volgende wekker</string>
-    <string name="digital_widget_message_summary">\"Steden op widget tonen\" moet uitgeschakeld zijn voor deze optie</string>
+    <string name="digital_widget_message_summary">\"Steden op widget weergeven\" moet uitgeschakeld zijn voor deze optie</string>
     <string name="alarm_label_box_title">Wekkerlabel</string>
     <string name="actions_category_title">Acties</string>
     <string name="interface_customization_summary">Uiterlijk en kleur van de app aanpassen</string>
@@ -423,9 +423,9 @@
     <string name="description_direction_both_for_non_repeatable_alarm">Veeg naar links of rechts om uit te zetten</string>
     <string name="timer_settings_summary">Standaard geluid, volume en kookwekkers sorteren</string>
     <string name="default_time_to_add_to_timer_title">Standaardtijd om aan kookwekker toe te voegen</string>
-    <string name="widget_background_title">Achtergrond tonen</string>
+    <string name="widget_background_title">Achtergrond weergeven</string>
     <string name="background_color_title">Achtergrondkleur</string>
-    <string name="display_city_title">Steden op widget tonen</string>
+    <string name="display_city_title">Steden op widget weergeven</string>
     <string name="clock_default_color_title">Standaardkleur voor klok</string>
     <string name="date_default_color_title">Standaardkleur voor datum</string>
     <string name="city_clock_default_color_title">Standaardkleur voor stedenklok</string>
@@ -494,7 +494,7 @@
     <string name="material_you_vertical_digital_widget">Verticale digitale klok Material You</string>
     <string name="standard_category_title">Standaard</string>
     <string name="material_you_category_title">Material You</string>
-    <string name="settings_tab_indicator_title">Tabbladindicator in het onderste navigatiemenu tonen</string>
+    <string name="settings_tab_indicator_title">Tabbladindicator in het onderste navigatiemenu weergeven</string>
     <string name="widgets_settings">Widgets</string>
     <string name="material_you_next_alarm_widget">Volgende wekker Material You</string>
     <string name="settings_fade_transitions_title">Vervagingsovergangen bij het wisselen van scherm</string>
@@ -531,7 +531,7 @@
     <string name="day_accent_color_title">Accentkleur voor dagmodus</string>
     <string name="warning_dialog_message">Weet je zeker dat je de \"%s\" kookwekker wilt verwijderen?</string>
     <string name="display_warning_before_deleting_timer_title">Waarschuwing weergeven voor het verwijderen van een kookwekker</string>
-    <string name="display_ringtone_title">Naam van geluid tonen</string>
+    <string name="display_ringtone_title">Naam van geluid weergeven</string>
     <string name="warning_dialog_title">Kookwekker verwijderen</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">Trillen als wekker wordt gesluimerd of uitgezet</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">Dubbel trillen als wekker wordt gesluimerd en één keer trillen als wekker wordt uitgezet</string>
@@ -571,20 +571,20 @@
     <string name="blue_accent_color">Blauw</string>
     <string name="toast_message_for_reset">Terugzetten voltooid</string>
     <string name="settings_language_korean">Koreaans</string>
-    <string name="display_date_title">Datum op widget tonen</string>
+    <string name="display_date_title">Datum op widget weergeven</string>
     <string name="settings_language_czech">Tsjechisch</string>
-    <string name="settings_toolbar_title">Titel in navigatiemenu tonen</string>
-    <string name="settings_tab_title_visibility_title">Titels van tabbladen tonen</string>
+    <string name="settings_toolbar_title">Titel in navigatiemenu weergeven</string>
+    <string name="settings_tab_title_visibility_title">Titels van tabbladen weergeven</string>
     <string name="tab_title_visibility_always">Altijd</string>
     <string name="tab_title_visibility_when_selected">Wanneer geselecteerd</string>
     <string name="settings_keep_screen_on_title">Scherm aanhouden</string>
-    <string name="settings_keep_screen_on_summary">Let op: Het scherm zal altijd aanblijven als een kookwekker of stopklok loopt en het overeenkomstige tabblad wordt getoond, ongeacht deze instelling</string>
+    <string name="settings_keep_screen_on_summary">Let op: Het scherm zal altijd aanblijven als een kookwekker of stopklok loopt en het overeenkomstige tabblad wordt weergegeven, ongeacht deze instelling</string>
     <string name="slide_zone_color_title">Kleur veeggebied</string>
     <string name="dismiss_title_color">Kleur uitzettitel</string>
     <string name="ringtone_title_color">Kleur geluidtitel</string>
     <string name="description_snooze_button">Tik om wekker te sluimeren</string>
     <string name="description_dismiss_button">Tik om wekker uit te zetten</string>
-    <string name="display_next_alarm_title">Volgende wekker op widget tonen</string>
+    <string name="display_next_alarm_title">Volgende wekker op widget weergeven</string>
     <string name="snooze_title_color">Kleur sluimertitel</string>
     <string name="description_dismiss_button_for_occasional_alarm">Tik om wekker uit te zetten en te verwijderen</string>
     <string name="settings_language_chinese_traditional_tw">Chinees (traditioneel, Taiwan)</string>
@@ -610,7 +610,7 @@
     <string name="auto_routing_to_bluetooth_device_title">Geluiden automatisch omleiden naar Bluetooth-apparaten</string>
     <string name="timer_creation_view_style_keypad">Toetsenbord</string>
     <string name="timer_creation_view_style_title">Weergavestijl voor kookwekker maken</string>
-    <string name="advanced_audio_playback_summary">Verbetert Bluetooth-compatibiliteit en voorkomt geluidsonderbrekingen tijdens herhalen\n\nLet op: sommige beltonen kunnen lichte audiostoringen hebben</string>
+    <string name="advanced_audio_playback_summary">Verbetert Bluetooth-compatibiliteit en voorkomt geluidsonderbrekingen tijdens herhalen\n\nLet op: sommige geluiden kunnen lichte audiostoringen hebben</string>
     <string name="advanced_audio_playback_title">Geavanceerde audioweergave gebruiken</string>
     <string name="hide_clock_am_pm_pref">AM/PM-tekst verbergen</string>
     <string name="system_media_volume_title">Mediavolume van systeem gebruiken</string>
@@ -640,7 +640,7 @@
     <string name="sort_alarm_title">Wekkers sorteren</string>
     <string name="sort_alarm_time">Op wekkertijd</string>
     <string name="sort_next_alarm_time">Op volgende wekkertijd</string>
-    <string name="display_enabled_alarms_first_title">Toon ingeschakelde wekkers eerst</string>
+    <string name="display_enabled_alarms_first_title">Ingeschakelde wekkers eerst weergeven</string>
     <string name="sort_cities_title">Steden sorteren</string>
     <string name="enable_city_note_title">Persoonlijke notities aan steden toevoegen</string>
     <string name="enable_city_note_summary">Tik op een stad om een persoonlijke notitie toe te voegen of te bewerken</string>
@@ -651,7 +651,7 @@
     <string name="sort_descending_creation_order">Op aanmaakdatum (oudste laatst)</string>
     <string name="sort_ascending_creation_order">Op aanmaakdatum (oudste eerst)</string>
     <string name="enable_alarm_fab_long_press_title">Lang drukken op de actieknop inschakelen om wekkers met uitstel te maken</string>
-    <string name="enable_alarm_fab_long_press_summary">Uitgeschakeld: twee knoppen om wekkers te maken worden getoond</string>
+    <string name="enable_alarm_fab_long_press_summary">Uitgeschakeld: twee knoppen om wekkers te maken worden weergegeven</string>
     <string name="vibration_pattern_title">Trillingspatroon</string>
     <string name="vibration_pattern_soft">Zacht</string>
     <string name="vibration_pattern_strong">Sterk</string>
@@ -661,4 +661,40 @@
     <string name="vibration_start_delay_title">Vertraging voordat trilling begint</string>
     <string name="vibration_start_delay_none">Geen</string>
     <string name="vibration_start_delay_warning_box_text">Voer een waarde in tussen 0 en 10 minuten</string>
+    <string name="confirm_action_prompt">\n\nWil je doorgaan?</string>
+    <string name="enable_per_alarm_snooze_duration_title">Gebruik een aangepaste sluimerduur voor iedere wekker</string>
+    <string name="enable_per_alarm_snooze_duration_dialog_message">Aangepaste sluimerduren zullen worden teruggezet.%s</string>
+    <string name="enable_per_alarm_volume_dialog_message">Aangepaste wekkervolumes zullen worden teruggezet.%s</string>
+    <string name="display_dismiss_button_title">Uitzetknop weergeven zodra wekker is ingeschakeld</string>
+    <string name="display_dismiss_button_summary">Als deze optie is uitgeschakeld, wordt de knop tegelijk met de herinneringsmelding weergegeven</string>
+    <string name="enable_per_alarm_missed_repeat_limit_title">Gebruik een aangepast aantal gemiste wekkerherhalingen voor iedere wekker</string>
+    <string name="enable_per_alarm_crescendo_duration_title">Gebruik een aangepaste volumeverhogingsduur voor iedere wekker</string>
+    <string name="enable_per_alarm_crescendo_duration_dialog_message">Aangepaste volumeverhogingsduren zullen worden teruggezet.%s</string>
+    <string name="enable_per_alarm_auto_silence_title">Gebruik een aangepaste eindtijd voor iedere wekker</string>
+    <string name="enable_per_alarm_auto_silence_dialog_message">Aangepaste eindtijden zullen worden teruggezet.%s</string>
+    <string name="features_dialog_message">Bekijk de pagina met de belangrijkste kenmerken:\n\n%s</string>
+    <string name="enable_per_alarm_missed_repeat_limit_dialog_message">Aangepast aantal wekkerherhalingen zullen worden teruggezet.%s</string>
+    <string name="missed_alarm_repeat_limit_title">Gemiste wekkers herhalen</string>
+    <string name="missed_alarm_repeat_limit_1_time">1 keer</string>
+    <string name="missed_alarm_repeat_limit_3_times">3 keer</string>
+    <string name="missed_alarm_repeat_limit_5_times">5 keer</string>
+    <string name="missed_alarm_repeat_limit_10_times">10 keer</string>
+    <string name="repetitive_alarm_is_dismissed">Wekker uitgezet. <xliff:g example="Next alarm Monday." id="alarm_day">Opnieuw ingeroosterd op %s.</xliff:g></string>
+    <string name="enable_background_image_title">Achtergrondafbeelding toevoegen</string>
+    <string name="blur_intensity_title">Vervagingssterkte</string>
+    <string name="background_image_title">Achtergrondafbeelding selecteren</string>
+    <string name="background_image_toast_message">Afbeelding succesvol geselecteerd</string>
+    <string name="enable_blur_effect_title">Vervagingseffect toepassen op afbeelding</string>
+    <string name="display_text_shadow_title">Tekstschaduw weergeven</string>
+    <string name="shadow_color_title">Kleur schaduw</string>
+    <string name="shadow_offset_title">Afstand schaduw</string>
+    <string name="customize_background_corner_radius_title">Hoekradius van achtergrond aanpassen</string>
+    <string name="customize_background_corner_radius_summary">Hiermee kun je de hoeken van widgets afronden als het startscherm dit niet ondersteunt</string>
+    <string name="background_corner_radius_title">Hoekradius achtergrond</string>
+    <string name="display_timer_state_indicator_title">Statusaanwijzer kookwekker weergeven</string>
+    <string name="running_timer_indicator_color_title">Kleur aanwijzer van lopende kookwekker</string>
+    <string name="paused_timer_indicator_color_title">Kleur aanwijzer van gepauzeerde kookwekker</string>
+    <string name="expired_timer_indicator_color_title">Kleur aanwijzer van verlopen kookwekker</string>
+    <string name="progress_ringtones">Geluiden toevoegen… (%1$d/%2$d)</string>
+    <string name="display_text_uppercase_title">Tekst in hoofdletters weergeven</string>
 </resources>

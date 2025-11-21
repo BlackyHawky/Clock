@@ -1,0 +1,8 @@
+Kõik veaparandused ja täiendused on üksikasjalikult kirjas siin:
+https://github.com/BlackyHawky/Clock/releases/tag/2.25
+
+**Märkus: koodimuudatuste tõttu on kahe taimeri seadistused muutunud:**
+- „Vaikus aja möödumisel“
+- „Taimerile lisatav vaikimisi aeg“
+
+**Peale rakenduse uuendamist tee uus varukoopia ja kustuta vana**

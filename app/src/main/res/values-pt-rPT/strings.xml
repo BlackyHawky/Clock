@@ -573,4 +573,6 @@
     <string name="sw_volume_down_action_title">Volume -</string>
     <string name="sw_long_press_volume_down_action_title">Volume - (depois de longo pressionar)</string>
     <string name="sw_start_pause_action">Iniciar/Pausar</string>
+    <string name="shadow_offset_title">Deslocamento de sombra</string>
+    <string name="confirm_action_prompt">\n\nDeseja continuar?</string>
 </resources>

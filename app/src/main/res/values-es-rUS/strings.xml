@@ -397,4 +397,9 @@
     <string name="settings_language_korean">Coreano</string>
     <string name="settings_language_czech">Sueco</string>
     <string name="settings_language_chinese_traditional_tw">Chino (tradicional, Taiwán)</string>
+    <string name="confirm_action_prompt">\n\nDesea continuar?</string>
+    <string name="progress_ringtones">Añadiendo ringtones… (%1$d/%2$d)</string>
+    <string name="alarm_scheduled_for">Programada para %s</string>
+    <string name="analog_widget_material_you">Reloj análogo Material You</string>
+    <string name="material_you_digital_widget">Reloj digital Material You</string>
 </resources>

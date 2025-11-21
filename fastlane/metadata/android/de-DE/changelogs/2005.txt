@@ -1,0 +1,9 @@
+**Fehlerbehebung**
+ - Aktualisierung der digitalen Widgets für Android 13+ behoben;
+
+**Verbesserungen**
+ - Digitale Widgets sind anpassbar:
+  • Die Farbe aller Elemente kann geändert werden;
+  • Die Schriftgröße für die Hauptuhr kann geändert werden (nur möglich, wenn keine Stadt angezeigt wird);
+  • Konfigurieren Sie digitale Widgets durch langes Drücken für Android 9+;
+ - Einige Übersetzungen wurden aktualisiert;

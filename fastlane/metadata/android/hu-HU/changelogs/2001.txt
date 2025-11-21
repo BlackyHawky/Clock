@@ -1,0 +1,40 @@
+**Javítások:**
+* Ébresztő indítás javítása Android 14-en;
+* Időzítő és stopper értesítés javítása;
+* Lefekvési időnél való bezárás ha nincs ébresztő vagy a készülék el van forgatva;
+* Lefekvésidő anomáliák javítása;
+* Fix screensaver launch for Android 13+;
+* Fix display and update of digital widget for Android 12+;
+* Fix setting alarm volume in settings;
+* Fix background color of bottom navigation bar (tablets are the most affected);
+
+**Fejlesztések:**
+* Implement material design (switches, time picker, rounded icons, card background,...);
+* Add dynamic colors;
+* Add AMOLED mode for dark theme;
+* Add new permission management;
+* Add monochrome icon;
+* Add collapsing toolbar;
+* Add Material You analog and digital widgets;
+* Add "Bedtime" mode (by @Nilsu11);
+* Replace icons with more rounded ones;
+* When the application is launched for the first time, a presentation of the main features as well as the possibility of managing permissions is included;
+* Add verification that essential permissions are granted at app launch to ensure the app is working properly;
+* Allow debug version to be installed along with release version;
+* Set default ringtone for alarms in settings;
+* Add screensaver display options;
+* Activate screensaver with a long press on the clock;
+* Reduce screensaver animation to 30 seconds;
+* Menus are displayed by icons;
+* Modernize the appearance of settings;
+* Add "About" section in settings;
+* Animate the bedtime icon;
+* Displays keyboard automatically when editing an alarm;
+* Add a delete icon and the text "Delete" when swiping to delete an alarm;
+* Add a button to duplicate an alarm (except for the bedtime alarm, which is useless);
+* The vibrator is not activated when an alarm is created and on alarms initially created;
+* Increase vibrator duration when activating an alarm;
+* Allow display of analog clock in the alarm trigger view;
+* Update Fragment related code to use AndroidX;
+* Update license headers;
+* Delete unnecessary files and code;

@@ -1,0 +1,12 @@
+**Korrekturen**
+ - Korrektur der Anzeige digitaler Widgets für einige Android-Versionen;
+ - Nur für Telefone im Querformat kann der Titel des Timers erneut eingegeben werden;
+
+**Verbesserungen**
+ - Verbesserung des App-Starts;
+ - Alarm durch Wischen oder Tippen ausschalten oder snoozen;
+ - Hinzufügen einer Farbauswahl zu den Einstellungen für Bildschirmschoner und digitale Widgets;
+ - Alle Verbesserungen finden Sie unter: https://github.com/BlackyHawky/Clock/releases/tag/2.5
+
+ **Hinweis:**
+ Aufgrund einer Änderung der Einstellungen müssen Sie die Einstellung „Dunkler Themenmodus” neu definieren.

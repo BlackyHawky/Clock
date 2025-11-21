@@ -641,7 +641,7 @@
     <string name="vibration_pattern_tick_tock">Tik-Tak</string>
     <string name="vibration_start_delay_title">Titreşim öncesi bekleme süresi</string>
     <string name="vibration_start_delay_none">Hiçbiri</string>
-    <string name="vibration_start_delay_warning_box_text">0 ile 10 dakika arasında bir süre girin</string>
+    <string name="vibration_start_delay_warning_box_text">0 ile 10 dakika arasında bir değer girin</string>
     <string name="enable_alarm_fab_long_press_title">Gecikmeli alarm oluşturmak için aksiyon düğmesine uzun basmayı etkinleştir</string>
     <string name="enable_alarm_fab_long_press_summary">Devre dışı bırakılırsa, alarm oluşturmak için iki düğme gösterilecektir</string>
     <string name="clock_second_hand_title">Yelkovan</string>
@@ -654,4 +654,21 @@
     <string name="hour_hand_default_color_title">Akrep için öntanımlı renk</string>
     <string name="minute_hand_color_title">Yelkovan rengi</string>
     <string name="minute_hand_default_color_title">Yelkovan için öntanımlı renk</string>
+    <string name="confirm_action_prompt">\n\nDevam etmek istiyor musun?</string>
+    <string name="progress_ringtones">%2$d zil sesinden %1$d\'i eklendi.</string>
+    <string name="enable_per_alarm_snooze_duration_title">Her alarm için farklı erteleme süresi kullanın</string>
+    <string name="enable_per_alarm_snooze_duration_dialog_message">Özel alarm erteleme süreleri sıfırlanacak. %s</string>
+    <string name="enable_per_alarm_volume_dialog_message">Alarma özel ses seviyeleri sıfırlanacak. %s</string>
+    <string name="display_dismiss_button_title">Alarm etkinleştirildiğinde kapatma düğmesini göster</string>
+    <string name="missed_alarm_repeat_limit_title">Kaçırılan alarmları tekrarla</string>
+    <string name="missed_alarm_repeat_limit_1_time">1 kez</string>
+    <string name="missed_alarm_repeat_limit_3_times">3 kez</string>
+    <string name="missed_alarm_repeat_limit_5_times">5 kez</string>
+    <string name="missed_alarm_repeat_limit_10_times">10 kez</string>
+    <string name="display_text_shadow_title">Metin gölgesini göster</string>
+    <string name="shadow_color_title">Gölge rengi</string>
+    <string name="enable_background_image_title">Arka plan görüntüsü uygula</string>
+    <string name="blur_intensity_title">Bulanıklık yoğunluğu</string>
+    <string name="background_image_title">Arka plan görüntüsü seçin</string>
+    <string name="background_image_toast_message">Görüntü başarıyla seçildi</string>
 </resources>

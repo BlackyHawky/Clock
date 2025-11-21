@@ -1,5 +1,5 @@
 Saat uygulaması gizliliği önemseyen açık kaynaklı, AOSP tabanlıdır.
-İnternet izni istemez ve %100 çevrim dışı çalışır.
+İnternet izni istemez ve %100 çevrimdışı çalışır.
 
 Özellikler:
 <ul>

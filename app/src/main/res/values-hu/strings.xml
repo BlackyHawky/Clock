@@ -4,7 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_label" msgid="6674495003718166674">"Óra"</string>
+    <string name="app_label" msgid="6674495003718166674">Vekker</string>
     <string name="default_label" msgid="5590025289805630372">"Ébresztő"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Rezgés"</string>
     <string name="time_picker_dialog_title">Időpont kiválasztása</string>
@@ -330,7 +330,7 @@
     <string name="settings_vibration_title">Rezgések bekapcsolása</string>
     <string name="dialog_close">Bezárás</string>
     <string name="font_category_title">Betűtípus</string>
-    <string name="license">Nyílt-forráskódú Felhasználás</string>
+    <string name="license">Nyílt Forráskódú Felhasználás</string>
     <string name="title_theme">Téma</string>
     <string name="add_label">Címke hozzáadása</string>
     <string name="selected">Kiválasztott</string>
@@ -346,4 +346,22 @@
     <string name="version">Verzió</string>
     <string name="about_github_link">Megtekintés a GitHubon</string>
     <string name="label_default">Alapértelmezett</string>
+    <string name="clock_settings_summary">Stílus, időzóna, dátum és idő módosítása</string>
+    <string name="hide_clock_am_pm_pref">AM/PM elrejtése</string>
+    <string name="clock_dial_with_numbers">Számokkal</string>
+    <string name="clock_dial_without_numbers">Számok nélkül</string>
+    <string name="clock_second_hand_title">Másodpercmutató</string>
+    <string name="sort_cities_ascending_time_zone">Időzóna szerint növekvő sorrendben</string>
+    <string name="sort_cities_descending_time_zone">Időzóna szerint csökkenő sorrendben</string>
+    <string name="screensaver_brightness_title">Fényerő</string>
+    <string name="screensaver_bold_digital_clock_title">Félkövér betűs óra</string>
+    <string name="screensaver_italic_digital_clock_title">Dőlt betűs óra</string>
+    <string name="screensaver_bold_date_title">Félkövér betűs dátum</string>
+    <string name="screensaver_italic_date_title">Dőlt betűs dátum</string>
+    <string name="screensaver_bold_next_alarm_title">Következő ébresztő félkövér betűs</string>
+    <string name="screensaver_italic_next_alarm_title">következő ébresztő dőlt betűs</string>
+    <string name="preview_title">Előnézet</string>
+    <string name="screensaver_preview_summary">Képernyővédő bekapcsolása</string>
+    <string name="alarm_created">Ébresztő létrehozva</string>
+    <string name="schedule_alarm_title">Ébresztő ütemezése</string>
 </resources>

@@ -89,4 +89,22 @@
     <string name="first_launch_version">Lqem %s</string>
     <string name="gnu_gpl">Turagt Tazayazt Tamatut GNU v3.0</string>
     <string name="about_translate_link">Suqel-it deg Codeberg</string>
+    <string name="timer_start">Bdu</string>
+    <string name="settings_language_dutch">Tahulandit</string>
+    <string name="settings_language_russian">Tarusit</string>
+    <string name="settings_language_turkish">Taṭurkit</string>
+    <string name="blue_accent_color">Azegzaw</string>
+    <string name="backup_button_title">Aḥraz</string>
+    <string name="settings_language_korean">Takurit</string>
+    <string name="tab_title_visibility_always">Yal tikkelt</string>
+    <string name="settings_language_czech">Tačikit</string>
+    <string name="timer_creation_view_style_keypad">Anasiw</string>
+    <string name="clock_dial_sun">Iṭij</string>
+    <string name="clock_dial_flower">Tajeǧǧigt</string>
+    <string name="vibration_start_delay_none">Ula yiwen</string>
+    <string name="add_new_sound">Rnu amaynut</string>
+    <string name="more_options">Ugar n textiṛiyin</string>
+    <string name="settings_language_system">Tutlayt tanagrawant</string>
+    <string name="settings_language_english_us">Taglizit (Iwunak Yeddukklen)</string>
+    <string name="timer_add_custom_time">+ %s</string>
 </resources>
