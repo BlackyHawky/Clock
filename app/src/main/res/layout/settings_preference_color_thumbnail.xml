@@ -11,19 +11,20 @@
     android:id="@+id/thumbnail"
     android:layout_width="@dimen/preference_thumbnail_size"
     android:layout_height="@dimen/preference_thumbnail_size"
-    tools:background="@drawable/bg_circle_for_preview"
-    tools:clipToOutline="true">
+    tools:background="@drawable/bg_circle_for_preview">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/checker_background"
+        android:layout_margin="1dp"
+        android:src="@drawable/bg_checker"
         android:contentDescription="@null" />
 
     <View
         android:id="@+id/colorPreview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_margin="1dp" />
 
     <View
         android:id="@+id/border"

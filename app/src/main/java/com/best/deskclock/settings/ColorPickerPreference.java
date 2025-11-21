@@ -10,7 +10,6 @@ import android.graphics.drawable.GradientDrawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewOutlineProvider;
 import android.widget.LinearLayout;
 
 import androidx.core.content.ContextCompat;
@@ -37,10 +36,6 @@ public class ColorPickerPreference extends ColorPreference {
 
         View thumbnail = addThumbnail(holder.itemView);
         if (thumbnail != null) {
-            thumbnail.setBackground(ThemeUtils.circleDrawable());
-            thumbnail.setClipToOutline(true);
-            thumbnail.setOutlineProvider(ViewOutlineProvider.BACKGROUND);
-
             View colorPreview = thumbnail.findViewById(R.id.colorPreview);
             if (colorPreview != null) {
                 int color = getColor();
@@ -55,8 +50,8 @@ public class ColorPickerPreference extends ColorPreference {
                 borderCircle.setShape(GradientDrawable.OVAL);
                 borderCircle.setColor(Color.TRANSPARENT);
                 borderCircle.setStroke(
-                        (int) dpToPx(1, getContext().getResources().getDisplayMetrics()),
-                        ContextCompat.getColor(getContext(), com.rarepebble.colorpicker.R.color.gray600)
+                        (int) dpToPx(2, getContext().getResources().getDisplayMetrics()),
+                        ContextCompat.getColor(getContext(), R.color.md_theme_outline)
                 );
                 border.setBackground(borderCircle);
             }

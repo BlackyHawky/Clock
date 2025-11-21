@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- White circle background -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M12,12m-12,0a12,12 0,1,0 24,0a12,12 0,1,0 -24,0"/>
+
+    <!-- Group with circular cutout -->
+    <group>
+        <clip-path
+            android:pathData="M12,12m-12,0a12,12 0,1,0 24,0a12,12 0,1,0 -24,0" />
+
+        <!-- Gray squares on the checkerboard -->
+        <!-- 1st line -->
+        <path android:fillColor="#808080" android:pathData="M0,0h6v6h-6z" />
+        <path android:fillColor="#808080" android:pathData="M12,0h6v6h-6z" />
+
+        <!-- 2nd line -->
+        <path android:fillColor="#808080" android:pathData="M6,6h6v6h-6z" />
+        <path android:fillColor="#808080" android:pathData="M18,6h6v6h-6z" />
+
+        <!-- 3rd line -->
+        <path android:fillColor="#808080" android:pathData="M0,12h6v6h-6z" />
+        <path android:fillColor="#808080" android:pathData="M12,12h6v6h-6z" />
+
+        <!-- 4th line -->
+        <path android:fillColor="#808080" android:pathData="M6,18h6v6h-6z" />
+        <path android:fillColor="#808080" android:pathData="M18,18h6v6h-6z" />
+
+    </group>
+
+</vector>
