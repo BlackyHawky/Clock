@@ -12,30 +12,16 @@
     <!-- White circle background -->
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M12,12m-12,0a12,12 0,1,0 24,0a12,12 0,1,0 -24,0"/>
+        android:pathData="M12,12m-12,0a12,12 0,1,0 24,0a12,12 0,1,0 -24,0" />
 
     <!-- Group with circular cutout -->
     <group>
         <clip-path
             android:pathData="M12,12m-12,0a12,12 0,1,0 24,0a12,12 0,1,0 -24,0" />
-
         <!-- Gray squares on the checkerboard -->
-        <!-- 1st line -->
-        <path android:fillColor="#808080" android:pathData="M0,0h6v6h-6z" />
-        <path android:fillColor="#808080" android:pathData="M12,0h6v6h-6z" />
-
-        <!-- 2nd line -->
-        <path android:fillColor="#808080" android:pathData="M6,6h6v6h-6z" />
-        <path android:fillColor="#808080" android:pathData="M18,6h6v6h-6z" />
-
-        <!-- 3rd line -->
-        <path android:fillColor="#808080" android:pathData="M0,12h6v6h-6z" />
-        <path android:fillColor="#808080" android:pathData="M12,12h6v6h-6z" />
-
-        <!-- 4th line -->
-        <path android:fillColor="#808080" android:pathData="M6,18h6v6h-6z" />
-        <path android:fillColor="#808080" android:pathData="M18,18h6v6h-6z" />
-
+        <path
+            android:fillColor="#808080"
+            android:pathData="M0 0h6v6H0zM12 0h6v6h-6zM6 6h6v6H6zM18 6h6v6h-6zM0 12h6v6H0zm12 0h6v6h-6zM6 18h6v6H6zm12 0h6v6h-6z" />
     </group>
 
 </vector>
