@@ -694,10 +694,9 @@
     <string name="enable_per_alarm_auto_silence_dialog_message">Vlastní doby do ukončení budíků budou resetovány.%s</string>
     <string name="features_dialog_message">Navštivte stránku s hlavními funkcemi:\n\n%s</string>
     <string name="repetitive_alarm_is_dismissed">Budík zrušen. <xliff:g example="Next alarm Monday." id="alarm_day">Přesunuto na %s.</xliff:g></string>
-    <string name="enable_background_image_title">Použít obrázek na pozadí</string>
     <string name="blur_intensity_title">Intenzita rozostření</string>
     <string name="background_image_title">Vyberte obrázek na pozadí</string>
-    <string name="background_image_toast_message">Obrázek úspěšně vybrán</string>
+    <string name="background_image_toast_message_selected">Obrázek úspěšně vybrán</string>
     <string name="enable_blur_effect_title">Použít efekt rozostření na obrázek na pozadí</string>
     <string name="display_text_shadow_title">Zobrazit stín textu</string>
     <string name="shadow_color_title">Barva stínu</string>

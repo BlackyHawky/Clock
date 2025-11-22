@@ -1169,14 +1169,6 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return {@code true} if a background image can be selected for triggered alarms.
-     * {@code false} otherwise.
-     */
-    public static boolean isAlarmBackgroundImageEnabled(SharedPreferences prefs) {
-        return prefs.getBoolean(KEY_ENABLE_ALARM_BACKGROUND_IMAGE, DEFAULT_ENABLE_BACKGROUND_IMAGE);
-    }
-
-    /**
      * @return the URI of the image to be displayed on the lock screen when the alarm is triggered.
      */
     public static String getAlarmBackgroundImage(SharedPreferences prefs) {

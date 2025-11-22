@@ -253,19 +253,11 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <SwitchPreferenceCompat
-            android:key="key_enable_alarm_background_image"
-            android:title="@string/enable_background_image_title"
-            android:defaultValue="false"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
-
         <Preference
             android:key="key_alarm_background_image"
-            android:title="@string/background_image_title"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
+            tools:title="@string/background_image_title"
             tools:layout="@layout/settings_preference_layout" />
 
         <SwitchPreferenceCompat

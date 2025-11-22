@@ -658,7 +658,7 @@
     <string name="vibration_pattern_title">Vibrationsmuster</string>
     <string name="vibration_pattern_soft">Weich</string>
     <string name="vibration_pattern_strong">Stark</string>
-    <string name="background_image_toast_message">Bild erfolgreich ausgewählt</string>
+    <string name="background_image_toast_message_selected">Bild erfolgreich ausgewählt</string>
     <string name="confirm_action_prompt">\n\nWillst du fortsetzen?</string>
     <string name="enable_per_alarm_snooze_duration_title">Für jeden Alarm eine eigene Schlummer-Dauer verwenden</string>
     <string name="enable_per_alarm_snooze_duration_dialog_message">Individuelle Wecker-Schlummerzeiten werden zurückgesetzt.%s</string>
@@ -678,7 +678,6 @@
     <string name="display_text_shadow_title">Textschatten anzeigen</string>
     <string name="shadow_color_title">Schattenfarbe</string>
     <string name="shadow_offset_title">Schattenabstand</string>
-    <string name="enable_background_image_title">Hintergrundbild anwenden</string>
     <string name="blur_intensity_title">Stärke der Unschärfe</string>
     <string name="background_image_title">Ein Hintergrundbild auswählen</string>
     <string name="enable_blur_effect_title">Unschärfeeffekt auf das Hintergrundbild anwenden</string>

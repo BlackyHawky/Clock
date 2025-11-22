@@ -670,10 +670,9 @@
     <string name="display_text_shadow_title">顯示文字陰影</string>
     <string name="shadow_color_title">陰影色彩</string>
     <string name="shadow_offset_title">陰影偏移</string>
-    <string name="enable_background_image_title">套用背景圖片</string>
     <string name="blur_intensity_title">模糊強度</string>
     <string name="background_image_title">選取背景圖片</string>
-    <string name="background_image_toast_message">選取圖片完成</string>
+    <string name="background_image_toast_message_selected">選取圖片完成</string>
     <string name="enable_blur_effect_title">背景圖片套用模糊效果</string>
     <string name="display_timer_state_indicator_title">顯示計時器狀態指標</string>
     <string name="running_timer_indicator_color_title">進行中的計時器指標色彩</string>

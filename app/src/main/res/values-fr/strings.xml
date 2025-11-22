@@ -691,10 +691,9 @@
     <string name="enable_per_alarm_auto_silence_dialog_message">Les durées d\'arrêt d\'alarme personnalisées seront réinitialisées.%s</string>
     <string name="features_dialog_message">Visiter la page des fonctionnalités principales :\n\n%s</string>
     <string name="repetitive_alarm_is_dismissed">Alarme ignorée. <xliff:g example="Next alarm Monday." id="alarm_day">Reprogramée pour %s.</xliff:g></string>
-    <string name="enable_background_image_title">Appliquer une image d\'arrière-plan</string>
     <string name="blur_intensity_title">Intensité du flou</string>
     <string name="background_image_title">Sélectionner une image d\'arrière-plan</string>
-    <string name="background_image_toast_message">Image sélectionnée avec succès</string>
+    <string name="background_image_toast_message_selected">Image sélectionnée avec succès</string>
     <string name="enable_blur_effect_title">Appliquer un effet de flou à l\'image d\'arrière-plan</string>
     <string name="display_text_shadow_title">Afficher l\'ombre du texte</string>
     <string name="shadow_color_title">Couleur de l\'ombre</string>

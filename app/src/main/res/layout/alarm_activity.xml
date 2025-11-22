@@ -16,7 +16,7 @@
     tools:background="#191C1E">
 
     <ImageView
-        android:id="@+id/alarm_image_background"
+        android:id="@+id/alarm_background_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/black"

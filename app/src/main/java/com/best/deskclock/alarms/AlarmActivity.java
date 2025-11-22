@@ -252,10 +252,10 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
                 ? SettingsDAO.getAlarmBackgroundAmoledColor(mPrefs)
                 : SettingsDAO.getAlarmBackgroundColor(mPrefs);
         final String imagePath = SettingsDAO.getAlarmBackgroundImage(mPrefs);
-        final ImageView alarmBackgroundImage = findViewById(R.id.alarm_image_background);
+        final ImageView alarmBackgroundImage = findViewById(R.id.alarm_background_image);
 
         // Apply a background image and a blur effect.
-        if (SettingsDAO.isAlarmBackgroundImageEnabled(mPrefs) && imagePath != null) {
+        if (imagePath != null) {
             alarmBackgroundImage.setVisibility(View.VISIBLE);
 
             File imageFile = new File(imagePath);

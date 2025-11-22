@@ -697,10 +697,9 @@
     <string name="display_text_shadow_title">Wyświetl cień tekstu</string>
     <string name="shadow_color_title">Kolor cienia</string>
     <string name="shadow_offset_title">Przesunięcie cienia</string>
-    <string name="enable_background_image_title">Zastosuj obraz tła</string>
     <string name="blur_intensity_title">Intensywność rozmycia</string>
     <string name="background_image_title">Wybierz obraz tła</string>
-    <string name="background_image_toast_message">Obraz został pomyślnie wybrany</string>
+    <string name="background_image_toast_message_selected">Obraz został pomyślnie wybrany</string>
     <string name="enable_blur_effect_title">Zastosuj efekt rozmycia do obrazu tła</string>
     <string name="customize_background_corner_radius_title">Dostosuj promień zaokrąglenia narożników tła</string>
     <string name="customize_background_corner_radius_summary">Umożliwia zaokrąglenie narożników widżetów, jeśli ekran główny nie obsługuje tej funkcji</string>

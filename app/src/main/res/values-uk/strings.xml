@@ -706,9 +706,8 @@
     <string name="display_dismiss_button_title">Показувати кнопку «Вимкнути» одразу після ввімкнення будильника</string>
     <string name="blur_intensity_title">Інтенсивність розмиття</string>
     <string name="background_image_title">Виберіть фонове зображення</string>
-    <string name="background_image_toast_message">Зображення успішно вибрано</string>
+    <string name="background_image_toast_message_selected">Зображення успішно вибрано</string>
     <string name="enable_blur_effect_title">Застосувати ефект розмиття до фонового зображення</string>
-    <string name="enable_background_image_title">Використовувати фонове зображення</string>
     <string name="display_text_shadow_title">Показувати тінь тексту</string>
     <string name="shadow_color_title">Колір тіні</string>
     <string name="shadow_offset_title">Зсув тіні</string>

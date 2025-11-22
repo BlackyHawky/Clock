@@ -12,6 +12,7 @@ import static com.best.deskclock.data.CustomRingtoneDAO.RINGTONE_TITLE;
 import static com.best.deskclock.data.CustomRingtoneDAO.RINGTONE_URI;
 import static com.best.deskclock.data.SettingsDAO.KEY_SELECTED_ALARM_RINGTONE_URI;
 import static com.best.deskclock.data.TimerDAO.TIMER_IDS;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BACKGROUND_IMAGE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DEFAULT_ALARM_RINGTONE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ESSENTIAL_PERMISSIONS_GRANTED;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_RINGTONE;
@@ -70,13 +71,18 @@ public class BackupAndRestoreUtils {
         for (Map.Entry<String, ?> entry : settings.entrySet()) {
             if (entry.getKey() != null) {
                 String key = entry.getKey();
-
                 // Exclude keys from custom ringtones as this causes bugs when restoring.
                 // Also, exclude the selected alarm ringtone.
+                // Next, exclude the alarm background image because this file exists only on the
+                // current device and cannot be restored on another.
                 // Finally, exclude the essential permissions key, as it reflects the current system state
                 // and should not be saved, restored, or reset like other preferences.
-                if (RINGTONE_IDS.equals(key) || key.startsWith(RINGTONE_URI) || NEXT_RINGTONE_ID.equals(key)
-                        || key.startsWith(RINGTONE_TITLE) || KEY_SELECTED_ALARM_RINGTONE_URI.equals(key)
+                if (RINGTONE_IDS.equals(key)
+                        || RINGTONE_URI.startsWith(key)
+                        || NEXT_RINGTONE_ID.equals(key)
+                        || RINGTONE_TITLE.startsWith(key)
+                        || KEY_SELECTED_ALARM_RINGTONE_URI.equals(key)
+                        || KEY_ALARM_BACKGROUND_IMAGE.equals(key)
                         || KEY_ESSENTIAL_PERMISSIONS_GRANTED.equals(key)) {
                     continue;
                 }
@@ -204,17 +210,20 @@ public class BackupAndRestoreUtils {
         // Do not reset the KEY_IS_FIRST_LAUNCH key to prevent the "FirstLaunch" activity from reappearing.
         // Also, exclude keys corresponding to custom ringtones and the selected alarm ringtone,
         // as this causes bugs for alarms.
+        // Next, exclude the alarm background image because this file exists only on the
+        // current device and cannot be restored on another.
         // Finally, exclude the essential permissions key, as it reflects the current system state
         // and should not be saved, restored, or reset like other preferences.
         for (Map.Entry<String, ?> entry : prefs.getAll().entrySet()) {
             String key = entry.getKey();
 
-            if (!entry.getKey().equals(KEY_IS_FIRST_LAUNCH)
-                    && !key.startsWith(RINGTONE_URI)
+            if (!KEY_IS_FIRST_LAUNCH.equals(key)
+                    && !RINGTONE_URI.startsWith(key)
                     && !RINGTONE_IDS.equals(key)
                     && !NEXT_RINGTONE_ID.equals(key)
-                    && !key.startsWith(RINGTONE_TITLE)
+                    && !RINGTONE_TITLE.startsWith(key)
                     && !KEY_SELECTED_ALARM_RINGTONE_URI.equals(key)
+                    && !KEY_ALARM_BACKGROUND_IMAGE.equals(key)
                     && !KEY_ESSENTIAL_PERMISSIONS_GRANTED.equals(key)
             ) {
                 editor.remove(key);

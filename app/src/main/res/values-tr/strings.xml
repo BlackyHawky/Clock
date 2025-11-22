@@ -667,8 +667,7 @@
     <string name="missed_alarm_repeat_limit_10_times">10 kez</string>
     <string name="display_text_shadow_title">Metin gölgesini göster</string>
     <string name="shadow_color_title">Gölge rengi</string>
-    <string name="enable_background_image_title">Arka plan görüntüsü uygula</string>
     <string name="blur_intensity_title">Bulanıklık yoğunluğu</string>
     <string name="background_image_title">Arka plan görüntüsü seçin</string>
-    <string name="background_image_toast_message">Görüntü başarıyla seçildi</string>
+    <string name="background_image_toast_message_selected">Görüntü başarıyla seçildi</string>
 </resources>

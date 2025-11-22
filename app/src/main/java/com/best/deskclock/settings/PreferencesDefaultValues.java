@@ -130,7 +130,6 @@ public class PreferencesDefaultValues {
     public static final int DEFAULT_ALARM_SHADOW_OFFSET = 10;
     public static final boolean DEFAULT_DISPLAY_RINGTONE_TITLE = false;
     public static final int DEFAULT_RINGTONE_TITLE_COLOR = Color.WHITE;
-    public static final boolean DEFAULT_ENABLE_BACKGROUND_IMAGE = false;
     public static final boolean DEFAULT_ENABLE_BLUR_EFFECT = false;
     public static final int DEFAULT_BLUR_INTENSITY = 20;
     public static int getDefaultAlarmInversePrimaryColor(Context context) {

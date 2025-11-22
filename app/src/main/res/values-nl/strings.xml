@@ -680,10 +680,9 @@
     <string name="missed_alarm_repeat_limit_5_times">5 keer</string>
     <string name="missed_alarm_repeat_limit_10_times">10 keer</string>
     <string name="repetitive_alarm_is_dismissed">Wekker uitgezet. <xliff:g example="Next alarm Monday." id="alarm_day">Opnieuw ingeroosterd op %s.</xliff:g></string>
-    <string name="enable_background_image_title">Achtergrondafbeelding toevoegen</string>
     <string name="blur_intensity_title">Vervagingssterkte</string>
     <string name="background_image_title">Achtergrondafbeelding selecteren</string>
-    <string name="background_image_toast_message">Afbeelding succesvol geselecteerd</string>
+    <string name="background_image_toast_message_selected">Afbeelding succesvol geselecteerd</string>
     <string name="enable_blur_effect_title">Vervagingseffect toepassen op afbeelding</string>
     <string name="display_text_shadow_title">Tekstschaduw weergeven</string>
     <string name="shadow_color_title">Kleur schaduw</string>

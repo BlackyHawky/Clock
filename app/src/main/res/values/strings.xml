@@ -35,6 +35,8 @@
     <string name="delete">Delete</string>
     <!-- Setting labels on Set alarm screen: Duplicate -->
     <string name="duplicate">Duplicate</string>
+    <!-- Dialog label to choose a new background image. -->
+    <string name="label_new_image">New image</string>
     <!-- Label "Warning" -->
     <string name="warning">Warning</string>
     <!-- Label "Hours" -->
@@ -531,14 +533,18 @@
     <string name="display_ringtone_title">Display ringtone title</string>
     <!-- Setting title for customizing the ringtone title color. -->
     <string name="ringtone_title_color">Ringtone title color</string>
-    <!-- Setting title to enable the ability to choose a background image. -->
-    <string name="enable_background_image_title">Apply a background image</string>
     <!-- Setting title to set the blur intensity. -->
     <string name="blur_intensity_title">Blur intensity</string>
     <!-- Setting title to choose a background image. -->
     <string name="background_image_title">Select a background image</string>
+    <!-- Setting title to choose or delete background image. -->
+    <string name="background_image_title_variant">Select or delete background image</string>
+    <!-- Dialog title for the alarm background image. -->
+    <string name="background_image_dialog_title">Background image</string>
     <!-- Toast message when an image is successfully selected. -->
-    <string name="background_image_toast_message">Image successfully selected</string>
+    <string name="background_image_toast_message_selected">Image successfully selected</string>
+    <!-- Toast message when an image is successfully deleted. -->
+    <string name="background_image_toast_message_deleted">Image successfully deleted</string>
     <!-- Setting title to enable a blur effect. -->
     <string name="enable_blur_effect_title">Apply a blur effect to the background image</string>
     <!-- Setting title to enable the use of a custom volume increase duration for each alarm. -->

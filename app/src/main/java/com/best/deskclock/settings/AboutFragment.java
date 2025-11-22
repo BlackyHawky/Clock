@@ -14,6 +14,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_TRANSLATE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_VERSION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_VIEW_ON_GITHUB;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_WHATS_NEW;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BACKGROUND_IMAGE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DEBUG_CATEGORY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_DEBUG_SETTINGS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_LOCAL_LOGGING;
@@ -292,17 +293,21 @@ public class AboutFragment extends ScreenFragment
         Map<String, ?> settings = mPrefs.getAll();
 
         for (Map.Entry<String, ?> entry : settings.entrySet()) {
+            String key = entry.getKey();
             // Do not reset the KEY_IS_FIRST_LAUNCH key to prevent the "FirstLaunch" activity from reappearing.
             // Also, exclude keys corresponding to custom ringtones as this causes bugs for alarms.
+            // Next, exclude the alarm background image because this preference only stores
+            // the path to the imported file.
             // Finally, exclude the essential permissions key, as it reflects the current system state
             // and should not be saved, restored, or reset like other preferences.
-            if (!entry.getKey().equals(KEY_IS_FIRST_LAUNCH)
-                    && !entry.getKey().startsWith(RINGTONE_URI)
-                    && !entry.getKey().equals(RINGTONE_IDS)
-                    && !entry.getKey().equals(NEXT_RINGTONE_ID)
-                    && !entry.getKey().startsWith(RINGTONE_TITLE)
-                    && !entry.getKey().equals(KEY_ESSENTIAL_PERMISSIONS_GRANTED)) {
-                editor.remove(entry.getKey());
+            if (!KEY_IS_FIRST_LAUNCH.equals(key)
+                    && !RINGTONE_URI.startsWith(key)
+                    && !RINGTONE_IDS.equals(key)
+                    && !NEXT_RINGTONE_ID.equals(key)
+                    && !RINGTONE_TITLE.startsWith(key)
+                    && !KEY_ALARM_BACKGROUND_IMAGE.equals(key)
+                    && !KEY_ESSENTIAL_PERMISSIONS_GRANTED.equals(key)) {
+                editor.remove(key);
             }
         }
         editor.apply();
