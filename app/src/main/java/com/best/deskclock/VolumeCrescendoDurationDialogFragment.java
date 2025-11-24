@@ -5,7 +5,7 @@ package com.best.deskclock;
 import static android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN;
 import static android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE;
 
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VOLUME_CRESCENDO_DURATION;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -75,6 +75,7 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
     private TextInputEditText mEditSeconds;
     private MaterialCheckBox mOffCheckbox;
     private Button mOkButton;
+    private Button mDefaultButton;
     private final TextWatcher mTextWatcher = new TextChangeListener();
     private InputMethodManager mInput;
     private boolean isUpdatingCheckboxes = false;
@@ -216,7 +217,7 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
             }
         });
 
-        if (editSeconds == DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION) {
+        if (editSeconds == DEFAULT_VOLUME_CRESCENDO_DURATION) {
             mEditSeconds.setText("");
         } else {
             mEditSeconds.setText(String.valueOf(editSeconds));
@@ -249,18 +250,22 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
                 .setTitle(getString(R.string.crescendo_duration_title))
                 .setView(view)
                 .setPositiveButton(android.R.string.ok, (dialog, which) ->
-                        setVolumeCrescendoDuration())
-                .setNegativeButton(android.R.string.cancel, null);
+                        setVolumeCrescendoDurationInSeconds())
+                .setNegativeButton(android.R.string.cancel, null)
+                .setNeutralButton(R.string.label_default, (dialog, which) ->
+                        applyVolumeCrescendoDurationInSeconds(DEFAULT_VOLUME_CRESCENDO_DURATION));
 
         final AlertDialog alertDialog = dialogBuilder.create();
 
         alertDialog.setOnShowListener(dialog -> {
             mOkButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            mDefaultButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
 
             String minutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
             String secondsText = mEditSeconds.getText() != null ? mEditSeconds.getText().toString() : "";
 
             mOkButton.setEnabled(!isInvalidInput(minutesText, secondsText));
+            mDefaultButton.setEnabled(isNotDefaultVolumeCrescendoDuration(minutesText, secondsText));
         });
 
         final Window alertDialogWindow = alertDialog.getWindow();
@@ -349,15 +354,15 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
     }
 
     /**
-     * Set the volume crescendo duration.
+     * Set the volume crescendo duration in seconds for alarms or timers.
      */
-    private void setVolumeCrescendoDuration() {
+    private void setVolumeCrescendoDurationInSeconds() {
         int minutes = 0;
         int seconds = 0;
-        int crescendoDuration;
+        int crescendoDurationInSeconds;
 
         if (mOffCheckbox.isChecked()) {
-            crescendoDuration = DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION;
+            crescendoDurationInSeconds = DEFAULT_VOLUME_CRESCENDO_DURATION;
         } else {
             String minutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
             String secondsText = mEditSeconds.getText() != null ? mEditSeconds.getText().toString() : "";
@@ -372,18 +377,25 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
 
             if (minutes == 0 && seconds == 0) {
                 mOffCheckbox.setChecked(true);
-                crescendoDuration = DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION;
+                crescendoDurationInSeconds = DEFAULT_VOLUME_CRESCENDO_DURATION;
             } else {
-                crescendoDuration = minutes * 60 + seconds;
+                crescendoDurationInSeconds = minutes * 60 + seconds;
             }
         }
 
+        applyVolumeCrescendoDurationInSeconds(crescendoDurationInSeconds);
+    }
+
+    /**
+     * Apply the volume crescendo duration in seconds for alarms or timers.
+     */
+    private void applyVolumeCrescendoDurationInSeconds(int crescendoDurationInSeconds) {
         if (mAlarm != null) {
             ((VolumeCrescendoDurationDialogHandler) requireActivity())
-                    .onDialogCrescendoDurationSet(mAlarm, crescendoDuration, mTag);
+                    .onDialogCrescendoDurationSet(mAlarm, crescendoDurationInSeconds, mTag);
         } else {
             Bundle result = new Bundle();
-            result.putInt(VOLUME_CRESCENDO_DURATION_VALUE, crescendoDuration);
+            result.putInt(VOLUME_CRESCENDO_DURATION_VALUE, crescendoDurationInSeconds);
             result.putString(RESULT_PREF_KEY, requireArguments().getString(ARG_PREF_KEY));
             getParentFragmentManager().setFragmentResult(REQUEST_KEY, result);
         }
@@ -455,6 +467,7 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
 
     /**
      * Update the dialog icon, title, and OK button for valid entries.
+     * The dialog default button is enabled if the typed value is not the default value.
      * The outline color of the edit box and the hint color are also changed.
      */
     private void updateDialogForValidInput() {
@@ -475,6 +488,25 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
         if (mOkButton != null) {
             mOkButton.setEnabled(true);
         }
+
+        if (mDefaultButton != null) {
+            String minutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
+            String secondsText = mEditSeconds.getText() != null ? mEditSeconds.getText().toString() : "";
+            mDefaultButton.setEnabled(isNotDefaultVolumeCrescendoDuration(minutesText, secondsText));
+        }
+    }
+
+    /**
+     * @return {@code true} if the alarm volume crescendo duration or the timer volume crescendo
+     * duration is not the default value; {@code false} otherwise.
+     */
+    private boolean isNotDefaultVolumeCrescendoDuration(String minutesText, String secondsText) {
+        int minutes = minutesText.isEmpty() ? 0 : Integer.parseInt(minutesText);
+        int seconds = secondsText.isEmpty() ? 0 : Integer.parseInt(secondsText);
+
+        int crescendoDuration = minutes * 60 + seconds;
+
+        return crescendoDuration != DEFAULT_VOLUME_CRESCENDO_DURATION;
     }
 
     /**
@@ -546,7 +578,7 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
                 if (isInvalidInput(inputMinutesText, inputSecondsText)) {
                     updateDialogForInvalidInput();
                 } else {
-                    setVolumeCrescendoDuration();
+                    setVolumeCrescendoDurationInSeconds();
                     dismiss();
                 }
                 return true;

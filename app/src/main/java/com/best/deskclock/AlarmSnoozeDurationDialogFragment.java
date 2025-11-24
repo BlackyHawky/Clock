@@ -6,6 +6,7 @@ import static android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN;
 import static android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE;
 
 import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_SNOOZE_DURATION_DISABLED;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_SNOOZE_DURATION;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -73,6 +74,7 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
     private TextInputEditText mEditMinutes;
     private MaterialCheckBox mNoneCheckbox;
     private Button mOkButton;
+    private Button mDefaultButton;
     private final TextWatcher mTextWatcher = new TextChangeListener();
     private InputMethodManager mInput;
     private boolean isUpdatingCheckboxes = false;
@@ -248,18 +250,22 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
                 .setTitle(getString(R.string.snooze_duration_title))
                 .setView(view)
                 .setPositiveButton(android.R.string.ok, (dialog, which) ->
-                        setAlarmSnoozeDuration())
-                .setNegativeButton(android.R.string.cancel, null);
+                        setAlarmSnoozeDurationInMinutes())
+                .setNegativeButton(android.R.string.cancel, null)
+                .setNeutralButton(R.string.label_default, (dialog, which) ->
+                        applySnoozeDurationInMinutes(DEFAULT_ALARM_SNOOZE_DURATION));
 
         final AlertDialog alertDialog = dialogBuilder.create();
 
         alertDialog.setOnShowListener(dialog -> {
             mOkButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            mDefaultButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
 
             String hoursText = mEditHours.getText() != null ? mEditHours.getText().toString() : "";
             String minutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
 
             mOkButton.setEnabled(!isInvalidInput(hoursText, minutesText));
+            mDefaultButton.setEnabled(isNotDefaultAlarmSnoozeDuration(hoursText, minutesText));
         });
 
         final Window alertDialogWindow = alertDialog.getWindow();
@@ -348,15 +354,15 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
     }
 
     /**
-     * Set the alarm snooze duration.
+     * Set the alarm snooze duration in minutes.
      */
-    private void setAlarmSnoozeDuration() {
+    private void setAlarmSnoozeDurationInMinutes() {
         int hours = 0;
         int minutes = 0;
-        int snoozeDuration;
+        int snoozeDurationInMinutes;
 
         if (mNoneCheckbox.isChecked()) {
-            snoozeDuration = ALARM_SNOOZE_DURATION_DISABLED;
+            snoozeDurationInMinutes = ALARM_SNOOZE_DURATION_DISABLED;
         } else {
             String hoursText = mEditHours.getText() != null ? mEditHours.getText().toString() : "";
             String minutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
@@ -371,18 +377,25 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
 
             if (hours == 0 && minutes == 0) {
                 mNoneCheckbox.setChecked(true);
-                snoozeDuration = ALARM_SNOOZE_DURATION_DISABLED;
+                snoozeDurationInMinutes = ALARM_SNOOZE_DURATION_DISABLED;
             } else {
-                snoozeDuration = hours * 60 + minutes;
+                snoozeDurationInMinutes = hours * 60 + minutes;
             }
         }
 
+        applySnoozeDurationInMinutes(snoozeDurationInMinutes);
+    }
+
+    /**
+     * Apply the snooze duration in minutes.
+     */
+    private void applySnoozeDurationInMinutes(int snoozeDurationInMinutes) {
         if (mAlarm != null) {
             ((SnoozeDurationDialogHandler) requireActivity())
-                    .onDialogSnoozeDurationSet(mAlarm, snoozeDuration, mTag);
+                    .onDialogSnoozeDurationSet(mAlarm, snoozeDurationInMinutes, mTag);
         } else {
             Bundle result = new Bundle();
-            result.putInt(ALARM_SNOOZE_DURATION_VALUE, snoozeDuration);
+            result.putInt(ALARM_SNOOZE_DURATION_VALUE, snoozeDurationInMinutes);
             result.putString(RESULT_PREF_KEY, requireArguments().getString(ARG_PREF_KEY));
             getParentFragmentManager().setFragmentResult(REQUEST_KEY, result);
         }
@@ -454,6 +467,7 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
 
     /**
      * Update the dialog icon, title, and OK button for valid entries.
+     * The dialog default button is enabled if the typed value is not the default value.
      * The outline color of the edit box and the hint color are also changed.
      */
     private void updateDialogForValidInput() {
@@ -474,6 +488,25 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
         if (mOkButton != null) {
             mOkButton.setEnabled(true);
         }
+
+        if (mDefaultButton != null) {
+            String hoursText = mEditHours.getText() != null ? mEditHours.getText().toString() : "";
+            String minutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
+            mDefaultButton.setEnabled(isNotDefaultAlarmSnoozeDuration(hoursText, minutesText));
+        }
+    }
+
+    /**
+     * @return {@code true} if the alarm snooze duration is not the default value;
+     * {@code false} otherwise.
+     */
+    private boolean isNotDefaultAlarmSnoozeDuration(String hoursText, String minutesText) {
+        int hours = hoursText.isEmpty() ? 0 : Integer.parseInt(hoursText);
+        int minutes = minutesText.isEmpty() ? 0 : Integer.parseInt(minutesText);
+
+        int snoozeDuration = hours * 60 + minutes;
+
+        return snoozeDuration != DEFAULT_ALARM_SNOOZE_DURATION;
     }
 
     /**
@@ -545,7 +578,7 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
                 if (isInvalidInput(inputHoursText, inputMinutesText)) {
                     updateDialogForInvalidInput();
                 } else {
-                    setAlarmSnoozeDuration();
+                    setAlarmSnoozeDurationInMinutes();
                     dismiss();
                 }
                 return true;

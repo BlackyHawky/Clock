@@ -5,8 +5,11 @@ package com.best.deskclock;
 import static android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN;
 import static android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE;
 
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_AUTO_SILENCE_DURATION;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TIMER_AUTO_SILENCE_DURATION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_END_OF_RINGTONE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_NEVER;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_AUTO_SILENCE_DURATION;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -80,6 +83,7 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
     private MaterialCheckBox mEndOfRingtoneCheckbox;
     private MaterialCheckBox mNeverCheckbox;
     private Button mOkButton;
+    private Button mDefaultButton;
     private final TextWatcher mTextWatcher = new TextChangeListener();
     private InputMethodManager mInput;
     private boolean isUpdatingCheckboxes = false;
@@ -296,19 +300,25 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
                 .setTitle(R.string.auto_silence_title)
                 .setView(view)
                 .setPositiveButton(android.R.string.ok, (dialog, which) ->
-                        setAutoSilenceDuration()
+                        setAutoSilenceDurationInSeconds()
                 )
-                .setNegativeButton(android.R.string.cancel, null);
+                .setNegativeButton(android.R.string.cancel, null)
+                .setNeutralButton(R.string.label_default, (dialog, which) ->
+                        applyAutoSilenceDurationInSeconds(isForTimer()
+                                ? DEFAULT_TIMER_AUTO_SILENCE_DURATION
+                                : DEFAULT_AUTO_SILENCE_DURATION));
 
         final AlertDialog alertDialog = dialogBuilder.create();
 
         alertDialog.setOnShowListener(dialog -> {
             mOkButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            mDefaultButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
 
             String minutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
             String secondsText = mEditSeconds.getText() != null ? mEditSeconds.getText().toString() : "";
 
             mOkButton.setEnabled(!isInvalidInput(minutesText, secondsText));
+            mDefaultButton.setEnabled(isNotDefaultAutoSilenceDuration(minutesText, secondsText));
         });
 
         final Window alertDialogWindow = alertDialog.getWindow();
@@ -398,9 +408,9 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
     }
 
     /**
-     * Set the auto silence duration.
+     * Set the auto silence duration in seconds for alarms or timers.
      */
-    private void setAutoSilenceDuration() {
+    private void setAutoSilenceDurationInSeconds() {
         int minutes = 0;
         int seconds = 0;
         int autoSilenceDurationInSeconds;
@@ -429,6 +439,13 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
             }
         }
 
+        applyAutoSilenceDurationInSeconds(autoSilenceDurationInSeconds);
+    }
+
+    /**
+     * Apply the auto silence duration in seconds for alarms or timers.
+     */
+    private void applyAutoSilenceDurationInSeconds(int autoSilenceDurationInSeconds) {
         if (mAlarm != null) {
             ((AutoSilenceDurationDialogHandler) requireActivity())
                     .onDialogAutoSilenceDurationSet(mAlarm, autoSilenceDurationInSeconds, mTag);
@@ -506,6 +523,7 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
 
     /**
      * Update the dialog icon, title, and OK button for valid entries.
+     * The dialog default button is enabled if the typed value is not the default value.
      * The outline color of the edit box and the hint color are also changed.
      */
     private void updateDialogForValidInput() {
@@ -526,6 +544,35 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
         if (mOkButton != null) {
             mOkButton.setEnabled(true);
         }
+
+        if (mDefaultButton != null) {
+            String minutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
+            String secondsText = mEditSeconds.getText() != null ? mEditSeconds.getText().toString() : "";
+            mDefaultButton.setEnabled(isNotDefaultAutoSilenceDuration(minutesText, secondsText));
+        }
+    }
+
+    /**
+     * @return {@code true} if the alarm snooze duration or the timer snooze duration is not the default value;
+     * {@code false} otherwise.
+     */
+    private boolean isNotDefaultAutoSilenceDuration(String minutesText, String secondsText) {
+        int minutes = minutesText.isEmpty() ? 0 : Integer.parseInt(minutesText);
+        int seconds = secondsText.isEmpty() ? 0 : Integer.parseInt(secondsText);
+
+        int snoozeDuration = minutes * 60 + seconds;
+
+        return isForTimer()
+                ? snoozeDuration != DEFAULT_TIMER_AUTO_SILENCE_DURATION
+                : snoozeDuration != DEFAULT_AUTO_SILENCE_DURATION;
+    }
+
+    /**
+     * @return {@code true} if the dialog is for timers; {@code false} if it is for alarms.
+     */
+    private boolean isForTimer() {
+        String prefKey = requireArguments().getString(ARG_PREF_KEY);
+        return KEY_TIMER_AUTO_SILENCE_DURATION.equals(prefKey);
     }
 
     /**
@@ -596,7 +643,7 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
                 if (isInvalidInput(inputMinutesText, inputSecondsText)) {
                     updateDialogForInvalidInput();
                 } else {
-                    setAutoSilenceDuration();
+                    setAutoSilenceDurationInSeconds();
                     dismiss();
                 }
                 return true;

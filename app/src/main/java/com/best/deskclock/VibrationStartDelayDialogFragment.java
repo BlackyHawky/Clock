@@ -4,6 +4,7 @@ package com.best.deskclock;
 
 import static android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN;
 import static android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE;
+
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VIBRATION_START_DELAY;
 
 import android.app.Dialog;
@@ -63,6 +64,7 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
     private TextInputEditText mEditMinutes;
     private MaterialCheckBox mNoneCheckbox;
     private Button mOkButton;
+    private Button mDefaultButton;
     private final TextWatcher mTextWatcher = new TextChangeListener();
     private InputMethodManager mInput;
     private boolean isUpdatingCheckboxes = false;
@@ -183,17 +185,21 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
                 .setTitle(getString(R.string.vibration_start_delay_title))
                 .setView(view)
                 .setPositiveButton(android.R.string.ok, (dialog, which) ->
-                        setVibrationStartDelay())
-                .setNegativeButton(android.R.string.cancel, null);
+                        setVibrationStartDelayInSeconds())
+                .setNegativeButton(android.R.string.cancel, null)
+                .setNeutralButton(R.string.label_default, (dialog, which) ->
+                        applyVibrationStartDelayInSeconds(DEFAULT_VIBRATION_START_DELAY));
 
         final AlertDialog alertDialog = dialogBuilder.create();
 
         alertDialog.setOnShowListener(dialog -> {
             mOkButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            mDefaultButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
 
             String minutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
 
             mOkButton.setEnabled(!isInvalidInput(minutesText));
+            mDefaultButton.setEnabled(isNotDefaultVibrationStartDelay(minutesText));
         });
 
         final Window alertDialogWindow = alertDialog.getWindow();
@@ -262,14 +268,14 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
     }
 
     /**
-     * Set the vibration start delay.
+     * Set the vibration start delay in seconds for alarms.
      */
-    private void setVibrationStartDelay() {
+    private void setVibrationStartDelayInSeconds() {
         int minutes = 0;
-        int vibrationStartDelay;
+        int vibrationStartDelayInSeconds;
 
         if (mNoneCheckbox.isChecked()) {
-            vibrationStartDelay = DEFAULT_VIBRATION_START_DELAY;
+            vibrationStartDelayInSeconds = DEFAULT_VIBRATION_START_DELAY;
         } else {
             String minutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
 
@@ -279,14 +285,21 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
 
             if (minutes == 0) {
                 mNoneCheckbox.setChecked(true);
-                vibrationStartDelay = DEFAULT_VIBRATION_START_DELAY;
+                vibrationStartDelayInSeconds = DEFAULT_VIBRATION_START_DELAY;
             } else {
-                vibrationStartDelay = minutes * 60;
+                vibrationStartDelayInSeconds = minutes * 60;
             }
         }
 
+        applyVibrationStartDelayInSeconds(vibrationStartDelayInSeconds);
+    }
+
+    /**
+     * Apply the vibration start delay in seconds for alarms.
+     */
+    private void applyVibrationStartDelayInSeconds(int vibrationStartDelayInSeconds) {
         Bundle result = new Bundle();
-        result.putInt(VIBRATION_DELAY_VALUE, vibrationStartDelay);
+        result.putInt(VIBRATION_DELAY_VALUE, vibrationStartDelayInSeconds);
         result.putString(RESULT_PREF_KEY, requireArguments().getString(ARG_PREF_KEY));
         getParentFragmentManager().setFragmentResult(REQUEST_KEY, result);
     }
@@ -337,6 +350,7 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
 
     /**
      * Update the dialog icon, title, and OK button for valid entries.
+     * The dialog default button is enabled if the typed value is not the default value.
      * The outline color of the edit box and the hint color are also changed.
      */
     private void updateDialogForValidInput() {
@@ -353,6 +367,23 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
         if (mOkButton != null) {
             mOkButton.setEnabled(true);
         }
+
+        if (mDefaultButton != null) {
+            String minutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
+            mDefaultButton.setEnabled(isNotDefaultVibrationStartDelay(minutesText));
+        }
+    }
+
+    /**
+     * @return {@code true} if the alarm vibration start delay is not the default value;
+     * {@code false} otherwise.
+     */
+    private boolean isNotDefaultVibrationStartDelay(String minutesText) {
+        int minutes = minutesText.isEmpty() ? 0 : Integer.parseInt(minutesText);
+
+        int vibrationStartDelay = minutes * 60;
+
+        return vibrationStartDelay != DEFAULT_VIBRATION_START_DELAY;
     }
 
     /**
@@ -400,7 +431,7 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
                 if (isInvalidInput(inputMinutesText)) {
                     updateDialogForInvalidInput();
                 } else {
-                    setVibrationStartDelay();
+                    setVibrationStartDelayInSeconds();
                     dismiss();
                 }
                 return true;

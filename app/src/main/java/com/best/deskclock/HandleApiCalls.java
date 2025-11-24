@@ -15,9 +15,9 @@ import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreference
 import static com.best.deskclock.provider.AlarmInstance.FIRED_STATE;
 import static com.best.deskclock.provider.AlarmInstance.SNOOZE_STATE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_SNOOZE_DURATION;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_AUTO_SILENCE_DURATION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_MISSED_ALARM_REPEAT_LIMIT;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VOLUME_CRESCENDO_DURATION;
 import static com.best.deskclock.uidata.UiDataModel.Tab.ALARMS;
 import static com.best.deskclock.uidata.UiDataModel.Tab.TIMERS;
 
@@ -550,7 +550,7 @@ public class HandleApiCalls extends Activity {
                 ? Integer.parseInt(DEFAULT_MISSED_ALARM_REPEAT_LIMIT)
                 : SettingsDAO.getMissedAlarmRepeatLimit(prefs);
         alarm.crescendoDuration = SettingsDAO.isPerAlarmCrescendoDurationEnabled(prefs)
-                ? DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION
+                ? DEFAULT_VOLUME_CRESCENDO_DURATION
                 : SettingsDAO.getAlarmVolumeCrescendoDuration(prefs);
         alarm.alarmVolume = audioManager.getStreamVolume(STREAM_ALARM);
     }

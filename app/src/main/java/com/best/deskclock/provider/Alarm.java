@@ -9,10 +9,10 @@ package com.best.deskclock.provider;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_SNOOZE_DURATION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_VOLUME;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_AUTO_SILENCE_DURATION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_MISSED_ALARM_REPEAT_LIMIT;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SORT_BY_ALARM_TIME;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VOLUME_CRESCENDO_DURATION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_ALARM_BY_ASCENDING_CREATION_ORDER;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_ALARM_BY_DESCENDING_CREATION_ORDER;
 
@@ -254,7 +254,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.autoSilenceDuration = DEFAULT_AUTO_SILENCE_DURATION;
         this.snoozeDuration = DEFAULT_ALARM_SNOOZE_DURATION;
         this.missedAlarmRepeatLimit = Integer.parseInt(DEFAULT_MISSED_ALARM_REPEAT_LIMIT);
-        this.crescendoDuration = DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION;
+        this.crescendoDuration = DEFAULT_VOLUME_CRESCENDO_DURATION;
         this.alarmVolume = DEFAULT_ALARM_VOLUME;
     }
 

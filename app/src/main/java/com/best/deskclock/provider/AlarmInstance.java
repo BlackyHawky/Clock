@@ -9,9 +9,9 @@ package com.best.deskclock.provider;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_SNOOZE_DURATION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_VOLUME;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_AUTO_SILENCE_DURATION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_MISSED_ALARM_REPEAT_LIMIT;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VOLUME_CRESCENDO_DURATION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_END_OF_RINGTONE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_NEVER;
 
@@ -131,7 +131,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         mSnoozeDuration = DEFAULT_ALARM_SNOOZE_DURATION;
         mMissedAlarmCurrentCount = 0;
         mMissedAlarmRepeatLimit = Integer.parseInt(DEFAULT_MISSED_ALARM_REPEAT_LIMIT);
-        mCrescendoDuration = DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION;
+        mCrescendoDuration = DEFAULT_VOLUME_CRESCENDO_DURATION;
         mAlarmVolume = DEFAULT_ALARM_VOLUME;
     }
 

@@ -531,7 +531,7 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return the default minutes in seconds to add to timer when the "Add Minute" button is clicked.
+     * @return the default duration in seconds to add to timer when the "Add Minute" button is clicked.
      */
     public static int getDefaultTimeToAddToTimer(SharedPreferences prefs) {
         return prefs.getInt(KEY_TIMER_ADD_TIME_BUTTON_VALUE, DEFAULT_TIMER_ADD_TIME_BUTTON_VALUE);
@@ -647,7 +647,7 @@ public final class SettingsDAO {
      * {@code 0} implies no crescendo should be applied.
      */
     public static int getAlarmVolumeCrescendoDuration(SharedPreferences prefs) {
-        return prefs.getInt(KEY_ALARM_VOLUME_CRESCENDO_DURATION, DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION);
+        return prefs.getInt(KEY_ALARM_VOLUME_CRESCENDO_DURATION, DEFAULT_VOLUME_CRESCENDO_DURATION);
     }
 
     /**
@@ -690,7 +690,7 @@ public final class SettingsDAO {
      * {@code 0} implies no crescendo should be applied.
      */
     public static int getTimerVolumeCrescendoDuration(SharedPreferences prefs) {
-        return prefs.getInt(KEY_TIMER_VOLUME_CRESCENDO_DURATION, DEFAULT_TIMER_VOLUME_CRESCENDO_DURATION);
+        return prefs.getInt(KEY_TIMER_VOLUME_CRESCENDO_DURATION, DEFAULT_VOLUME_CRESCENDO_DURATION);
     }
 
     /**

@@ -11,10 +11,10 @@ import static android.media.AudioManager.STREAM_ALARM;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_SNOOZE_DURATION_DISABLED;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_SNOOZE_DURATION;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_AUTO_SILENCE_DURATION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_DATE_PICKER_STYLE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_MISSED_ALARM_REPEAT_LIMIT;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VOLUME_CRESCENDO_DURATION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SPINNER_DATE_PICKER_STYLE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SPINNER_TIME_PICKER_STYLE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_END_OF_RINGTONE;
@@ -174,7 +174,7 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
         int crescendoDuration = alarm.crescendoDuration;
         final VolumeCrescendoDurationDialogFragment fragment =
                 VolumeCrescendoDurationDialogFragment.newInstance(alarm, crescendoDuration,
-                        crescendoDuration == DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION,
+                        crescendoDuration == DEFAULT_VOLUME_CRESCENDO_DURATION,
                         mFragment.getTag());
         VolumeCrescendoDurationDialogFragment.show(mFragment.getParentFragmentManager(), fragment);
     }
@@ -487,7 +487,7 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
                 ? Integer.parseInt(DEFAULT_MISSED_ALARM_REPEAT_LIMIT)
                 : SettingsDAO.getMissedAlarmRepeatLimit(mPrefs);
         alarm.crescendoDuration = SettingsDAO.isPerAlarmCrescendoDurationEnabled(mPrefs)
-                ? DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION
+                ? DEFAULT_VOLUME_CRESCENDO_DURATION
                 : SettingsDAO.getAlarmVolumeCrescendoDuration(mPrefs);
         alarm.alarmVolume = audioManager.getStreamVolume(STREAM_ALARM);
 

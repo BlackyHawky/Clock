@@ -7,6 +7,8 @@ package com.best.deskclock.timer;
 import static android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN;
 import static android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE;
 
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TIMER_ADD_TIME_BUTTON_VALUE;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -67,6 +69,7 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
     private EditText mEditMinutes;
     private EditText mEditSeconds;
     private Button mOkButton;
+    private Button mDefaultButton;
     private int mTimerId;
     private final TextWatcher mTextWatcher = new TextChangeListener();
     private InputMethodManager mInput;
@@ -225,25 +228,23 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
                                 ? getString(R.string.timer_time_warning_box_title)
                                 : getString(R.string.timer_button_time_box_title))
                         .setView(view)
-                        .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                            if (isInvalidInput(inputMinutesText, inputSecondsText)) {
-                                updateDialogForInvalidInput();
-                            } else {
-                                setAddButtonText();
-                                dismiss();
-                            }
-                        })
-                        .setNegativeButton(android.R.string.cancel, null);
+                        .setPositiveButton(android.R.string.ok, (dialog, which) ->
+                                setDurationInSeconds())
+                        .setNegativeButton(android.R.string.cancel, null)
+                        .setNeutralButton(R.string.label_default, (dialog, which) ->
+                                applyDurationInSeconds(DEFAULT_TIMER_ADD_TIME_BUTTON_VALUE));
 
         final AlertDialog alertDialog = dialogBuilder.create();
 
         alertDialog.setOnShowListener(dialog -> {
             mOkButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            mDefaultButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
 
             String minutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
             String secondsText = mEditSeconds.getText() != null ? mEditSeconds.getText().toString() : "";
 
             mOkButton.setEnabled(!isInvalidInput(minutesText, secondsText));
+            mDefaultButton.setEnabled(isNotDefaultDuration(minutesText, secondsText));
         });
 
         final Window alertDialogWindow = alertDialog.getWindow();
@@ -278,9 +279,9 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
     }
 
     /**
-     * Sets the new time into the timer add button.
+     * Sets the duration in seconds into the timer add button.
      */
-    private void setAddButtonText() {
+    private void setDurationInSeconds() {
         String minutesText = Objects.requireNonNull(mEditMinutes.getText()).toString();
         String secondsText = Objects.requireNonNull(mEditSeconds.getText()).toString();
 
@@ -297,6 +298,13 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
 
         int totalSeconds = minutes * 60 + seconds;
 
+        applyDurationInSeconds(totalSeconds);
+    }
+
+    /**
+     * Apply the duration in seconds.
+     */
+    private void applyDurationInSeconds(int totalSeconds) {
         if (mTimerId >= 0) {
             final Timer timer = DataModel.getDataModel().getTimer(mTimerId);
             if (timer != null) {
@@ -376,6 +384,7 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
 
     /**
      * Update the dialog icon, title, and OK button for valid entries.
+     * The dialog default button is enabled if the typed value is not the default value.
      * The outline color of the edit box and the hint color are also changed.
      */
     private void updateDialogForValidInput() {
@@ -402,6 +411,25 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
         if (mOkButton != null) {
             mOkButton.setEnabled(true);
         }
+
+        if (mDefaultButton != null) {
+            String minutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
+            String secondsText = mEditSeconds.getText() != null ? mEditSeconds.getText().toString() : "";
+            mDefaultButton.setEnabled(isNotDefaultDuration(minutesText, secondsText));
+        }
+    }
+
+    /**
+     * @return {@code true} if the duration in the timer add button is not the default value;
+     * {@code false} otherwise.
+     */
+    private boolean isNotDefaultDuration(String minutesText, String secondsText) {
+        int minutes = minutesText.isEmpty() ? 0 : Integer.parseInt(minutesText);
+        int seconds = secondsText.isEmpty() ? 0 : Integer.parseInt(secondsText);
+
+        int totalSeconds = minutes * 60 + seconds;
+
+        return totalSeconds != DEFAULT_TIMER_ADD_TIME_BUTTON_VALUE;
     }
 
     /**
@@ -453,7 +481,6 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
         @Override
         public void afterTextChanged(Editable editable) {
         }
-
     }
 
     /**
@@ -469,7 +496,7 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
                 if (isInvalidInput(inputMinutesText, inputSecondsText)) {
                     updateDialogForInvalidInput();
                 } else {
-                    setAddButtonText();
+                    setDurationInSeconds();
                     dismiss();
                 }
                 return true;

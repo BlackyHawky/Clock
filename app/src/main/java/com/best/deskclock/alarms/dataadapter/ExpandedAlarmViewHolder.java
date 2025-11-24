@@ -11,7 +11,7 @@ import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 
 import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_SNOOZE_DURATION_DISABLED;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VOLUME_CRESCENDO_DURATION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_END_OF_RINGTONE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_NEVER;
 
@@ -417,7 +417,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
                 crescendoDurationValue.setText(String.format("%s %s", minutesString, secondsString));
             } else if (m > 0) {
                 crescendoDurationValue.setText(context.getResources().getQuantityString(R.plurals.minutes_short, m, m));
-            } else if (crescendoDuration == DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION) {
+            } else if (crescendoDuration == DEFAULT_VOLUME_CRESCENDO_DURATION) {
                 crescendoDurationValue.setText(context.getString(R.string.label_off));
             } else {
                 String secondsString = s + " " + context.getString(R.string.seconds_label);

@@ -2,7 +2,7 @@
 
 package com.best.deskclock.settings;
 
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VOLUME_CRESCENDO_DURATION;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -31,7 +31,7 @@ public class VolumeCrescendoDurationPreference extends DialogPreference {
      * @return The crescendo duration in seconds, or none if no value has been previously persisted.
      */
     public int getVolumeCrescendoDuration() {
-        return getPersistedInt(DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION);
+        return getPersistedInt(DEFAULT_VOLUME_CRESCENDO_DURATION);
     }
 
     /**
@@ -47,7 +47,7 @@ public class VolumeCrescendoDurationPreference extends DialogPreference {
     public CharSequence getSummary() {
         int seconds = getVolumeCrescendoDuration();
 
-        if (seconds == DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION) {
+        if (seconds == DEFAULT_VOLUME_CRESCENDO_DURATION) {
             return getContext().getString(R.string.label_off);
         }
 

@@ -5,10 +5,10 @@ package com.best.deskclock.settings;
 import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_SNOOZE_DURATION_DISABLED;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_SNOOZE_DURATION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_VOLUME;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_AUTO_SILENCE_DURATION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_MISSED_ALARM_REPEAT_LIMIT;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VIBRATION_START_DELAY;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VOLUME_CRESCENDO_DURATION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_END_OF_RINGTONE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_NEVER;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_DISPLAY_CUSTOMIZATION;
@@ -325,7 +325,7 @@ public class AlarmSettingsFragment extends ScreenFragment
                     mAlarmVolumeCrescendoDurationPref.setVisible(false);
 
                     for (Alarm alarm : mAlarmList) {
-                        alarm.crescendoDuration = DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION;
+                        alarm.crescendoDuration = DEFAULT_VOLUME_CRESCENDO_DURATION;
                         mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
                     }
                 } else {
@@ -433,7 +433,7 @@ public class AlarmSettingsFragment extends ScreenFragment
             int currentValue = volumeCrescendoDurationPreference.getVolumeCrescendoDuration();
             VolumeCrescendoDurationDialogFragment dialogFragment =
                     VolumeCrescendoDurationDialogFragment.newInstance(pref.getKey(), currentValue,
-                            currentValue == DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION);
+                            currentValue == DEFAULT_VOLUME_CRESCENDO_DURATION);
             VolumeCrescendoDurationDialogFragment.show(getParentFragmentManager(), dialogFragment);
         } else if (pref instanceof VibrationPatternPreference vibrationPatternPreference) {
             String currentValue = vibrationPatternPreference.getPattern();

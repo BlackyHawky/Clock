@@ -70,7 +70,6 @@ public class PreferencesDefaultValues {
     public static final boolean DEFAULT_ENABLE_PER_ALARM_MISSED_REPEAT_LIMIT = true;
     public static final String DEFAULT_MISSED_ALARM_REPEAT_LIMIT = "-1";
     public static final boolean DEFAULT_ENABLE_PER_ALARM_VOLUME_CRESCENDO_DURATION = true;
-    public static final int DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION = 0;
     public static final boolean DEFAULT_ENABLE_PER_ALARM_VOLUME = false;
     public static final int DEFAULT_ALARM_VOLUME = 5;
     public static final boolean DEFAULT_ADVANCED_AUDIO_PLAYBACK = false;
@@ -145,7 +144,6 @@ public class PreferencesDefaultValues {
     public static final int DEFAULT_PAUSED_TIMER_INDICATOR_COLOR = Color.parseColor("#FFFFBB33");
     public static final int DEFAULT_EXPIRED_TIMER_INDICATOR_COLOR = Color.parseColor("#FFFF4444");
     public static final int DEFAULT_TIMER_AUTO_SILENCE_DURATION = 30; // 30 seconds
-    public static final int DEFAULT_TIMER_VOLUME_CRESCENDO_DURATION = 0;
     public static final boolean DEFAULT_TIMER_VIBRATE = false;
     public static final boolean DEFAULT_TIMER_VOLUME_BUTTONS_ACTION = false;
     public static final boolean DEFAULT_TIMER_POWER_BUTTON_ACTION = false;
@@ -184,6 +182,7 @@ public class PreferencesDefaultValues {
     public static final String DEFAULT_CLOCK_SECOND_HAND = "default";
     public static final int TIMEOUT_NEVER = -1;
     public static final int TIMEOUT_END_OF_RINGTONE = -2;
+    public static final int DEFAULT_VOLUME_CRESCENDO_DURATION = 0;
 
     // **************
     // ** WIDGETS **
