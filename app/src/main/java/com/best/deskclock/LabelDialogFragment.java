@@ -14,11 +14,15 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
@@ -62,10 +66,12 @@ public class LabelDialogFragment extends DialogFragment {
 
     private Context mContext;
     private EditText mEditLabel;
+    private Button mDefaultButton;
     private Alarm mAlarm;
     private int mTimerId;
     private String mCityId;
     private String mTag;
+    private final TextWatcher mTextWatcher = new TextChangeListener();
 
     /**
      * Creates a new instance of {@link LabelDialogFragment} to edit the label of the given alarm.
@@ -208,6 +214,7 @@ public class LabelDialogFragment extends DialogFragment {
 
         mEditLabel = view.findViewById(android.R.id.edit);
         mEditLabel.setText(label);
+        mEditLabel.addTextChangedListener(mTextWatcher);
         mEditLabel.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
         mEditLabel.selectAll();
         mEditLabel.requestFocus();
@@ -227,16 +234,24 @@ public class LabelDialogFragment extends DialogFragment {
                 .setIcon(drawable)
                 .setView(view)
                 .setPositiveButton(android.R.string.ok, (dialog, which) -> setLabel())
-                .setNegativeButton(android.R.string.cancel, null);
+                .setNegativeButton(android.R.string.cancel, null)
+                .setNeutralButton(R.string.delete, (dialog, which) ->
+                        applyLabel(""));
 
-        final AlertDialog dialog = dialogBuilder.create();
+        final AlertDialog alertDialog = dialogBuilder.create();
 
-        final Window alertDialogWindow = dialog.getWindow();
+        alertDialog.setOnShowListener(dialog -> {
+            mDefaultButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
+
+            mDefaultButton.setEnabled(isLabelNotEmpty());
+        });
+
+        final Window alertDialogWindow = alertDialog.getWindow();
         if (alertDialogWindow != null) {
             alertDialogWindow.setSoftInputMode(SOFT_INPUT_ADJUST_PAN | SOFT_INPUT_STATE_VISIBLE);
         }
 
-        return dialog;
+        return alertDialog;
     }
 
     @Override
@@ -261,7 +276,7 @@ public class LabelDialogFragment extends DialogFragment {
     }
 
     /**
-     * Applies the label or note entered by the user to the appropriate target:
+     * Set the label or note entered by the user to the appropriate target:
      * an {@link Alarm}, a {@link Timer}, or a {@link City}.
      * <p>
      * If the input is only whitespace, it will be treated as an empty label.
@@ -273,6 +288,13 @@ public class LabelDialogFragment extends DialogFragment {
             label = "";
         }
 
+        applyLabel(label);
+    }
+
+    /**
+     * Apply the label.
+     */
+    private void applyLabel(String label) {
         if (mAlarm != null) {
             ((AlarmLabelDialogHandler) requireActivity()).onDialogLabelSet(mAlarm, label, mTag);
         } else if (mTimerId >= 0) {
@@ -282,6 +304,35 @@ public class LabelDialogFragment extends DialogFragment {
             }
         } else if (mCityId != null) {
             ((CityNoteDialogHandler) requireActivity()).onDialogCityNoteSet(mCityId, label, mTag);
+        }
+    }
+
+    /**
+     * @return {@code true} if the label text field is not empty; {@code false} otherwise.
+     */
+    private boolean isLabelNotEmpty() {
+        return !TextUtils.isEmpty(mEditLabel.getText().toString());
+    }
+
+    /**
+     * A listener that reacts to text changes in the label field.
+     * <p>Enables or disables the default button depending on whether the label text is empty.</p>
+     */
+    private class TextChangeListener implements TextWatcher {
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+            if (mDefaultButton != null) {
+                mDefaultButton.setEnabled(isLabelNotEmpty());
+            }
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
         }
     }
 
