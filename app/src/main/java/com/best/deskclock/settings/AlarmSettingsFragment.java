@@ -421,7 +421,7 @@ public class AlarmSettingsFragment extends ScreenFragment
             AutoSilenceDurationDialogFragment dialogFragment =
                     AutoSilenceDurationDialogFragment.newInstance(pref.getKey(), currentValue,
                             currentValue == TIMEOUT_END_OF_RINGTONE,
-                            currentValue == TIMEOUT_NEVER, false);
+                            currentValue == TIMEOUT_NEVER);
             AutoSilenceDurationDialogFragment.show(getParentFragmentManager(), dialogFragment);
         } else if (pref instanceof AlarmSnoozeDurationPreference alarmSnoozeDurationPreference) {
             int currentValue = alarmSnoozeDurationPreference.getSnoozeDuration();

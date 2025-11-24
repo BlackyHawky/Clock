@@ -49,7 +49,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                 ClockContract.AlarmsColumns.LABEL + " TEXT NOT NULL, " +
                 ClockContract.AlarmsColumns.RINGTONE + " TEXT, " +
                 ClockContract.AlarmsColumns.DELETE_AFTER_USE + " INTEGER NOT NULL DEFAULT 0, " +
-                ClockContract.AlarmsColumns.AUTO_SILENCE_DURATION + " INTEGER NOT NULL DEFAULT 10, " +
+                ClockContract.AlarmsColumns.AUTO_SILENCE_DURATION + " INTEGER NOT NULL DEFAULT 600, " +
                 ClockContract.AlarmsColumns.SNOOZE_DURATION + " INTEGER NOT NULL DEFAULT 10, " +
                 ClockContract.AlarmsColumns.MISSED_ALARM_REPEAT_LIMIT + " INTEGER NOT NULL DEFAULT -1, " +
                 ClockContract.AlarmsColumns.CRESCENDO_DURATION + " INTEGER NOT NULL DEFAULT 0, " +
@@ -199,6 +199,18 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
         }
 
         if (oldVersion < 22) {
+            // Convert the auto silence duration into seconds
+            db.execSQL("UPDATE " + ALARMS_TABLE_NAME +
+                    " SET " + ClockContract.AlarmsColumns.AUTO_SILENCE_DURATION +
+                    " = " + ClockContract.AlarmsColumns.AUTO_SILENCE_DURATION + " * 60 " +
+                    "WHERE " + ClockContract.AlarmsColumns.AUTO_SILENCE_DURATION + " > 0");
+
+            db.execSQL("UPDATE " + INSTANCES_TABLE_NAME +
+                    " SET " + ClockContract.InstancesColumns.AUTO_SILENCE_DURATION +
+                    " = " + ClockContract.InstancesColumns.AUTO_SILENCE_DURATION + " * 60 " +
+                    "WHERE " + ClockContract.InstancesColumns.AUTO_SILENCE_DURATION + " > 0");
+
+            // Add columns related to the “Repeat missed alarms” feature
             db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME
                     + " ADD COLUMN " + ClockContract.AlarmsColumns.MISSED_ALARM_REPEAT_LIMIT
                     + " INTEGER NOT NULL DEFAULT -1;");
@@ -211,7 +223,8 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                     + " ADD COLUMN " + ClockContract.InstancesColumns.MISSED_ALARM_REPEAT_LIMIT
                     + " INTEGER NOT NULL DEFAULT -1;");
 
-            LogUtils.i("Added missed_alarm_repeat_count + missed_alarm_repeat_limit columns for version 23 upgrade.");
+            LogUtils.i("Migrating autoSilenceDuration values from minutes to seconds and" +
+                    " added missed_alarm_repeat_count + missed_alarm_repeat_limit columns for version 23 upgrade.");
         }
     }
 

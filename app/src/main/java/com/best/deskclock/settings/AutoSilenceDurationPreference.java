@@ -68,21 +68,17 @@ public class AutoSilenceDurationPreference extends DialogPreference {
             return getContext().getString(R.string.label_never);
         }
 
-        if (isForTimer()) {
-            int m = duration / 60;
-            int s = duration % 60;
+        int m = duration / 60;
+        int s = duration % 60;
 
-            if (m > 0 && s > 0) {
-                String minutesString = getContext().getResources().getQuantityString(R.plurals.minutes, m, m);
-                String secondsString = getContext().getResources().getQuantityString(R.plurals.seconds, s, s);
-                return String.format("%s %s", minutesString, secondsString);
-            } else if (m > 0) {
-                return getContext().getResources().getQuantityString(R.plurals.minutes, m, m);
-            } else {
-                return getContext().getResources().getQuantityString(R.plurals.seconds, s, s);
-            }
+        if (m > 0 && s > 0) {
+            String minutesString = getContext().getResources().getQuantityString(R.plurals.minutes, m, m);
+            String secondsString = getContext().getResources().getQuantityString(R.plurals.seconds, s, s);
+            return String.format("%s %s", minutesString, secondsString);
+        } else if (m > 0) {
+            return getContext().getResources().getQuantityString(R.plurals.minutes, m, m);
         } else {
-            return getContext().getResources().getQuantityString(R.plurals.minutes, duration, duration);
+            return getContext().getResources().getQuantityString(R.plurals.seconds, s, s);
         }
     }
 }

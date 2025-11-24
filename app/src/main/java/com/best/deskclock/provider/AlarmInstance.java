@@ -449,7 +449,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             int milliSeconds = RingtoneUtils.getRingtoneDuration(context, mRingtone);
             calendar.add(Calendar.MILLISECOND, milliSeconds);
         } else {
-            calendar.add(Calendar.MINUTE, mAutoSilenceDuration);
+            calendar.add(Calendar.SECOND, mAutoSilenceDuration);
         }
 
         return calendar;

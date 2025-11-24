@@ -63,7 +63,7 @@ public class PreferencesDefaultValues {
 
     // Alarm
     public static final boolean DEFAULT_ENABLE_PER_ALARM_AUTO_SILENCE = true;
-    public static final int DEFAULT_AUTO_SILENCE_DURATION = 10;
+    public static final int DEFAULT_AUTO_SILENCE_DURATION = 600;
     public static final boolean DEFAULT_ENABLE_PER_ALARM_SNOOZE_DURATION = true;
     public static final int DEFAULT_ALARM_SNOOZE_DURATION = 10;
     public static final int ALARM_SNOOZE_DURATION_DISABLED = -1;

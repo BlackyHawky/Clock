@@ -154,7 +154,7 @@ public class TimerSettingsFragment extends ScreenFragment
             AutoSilenceDurationDialogFragment dialogFragment =
                     AutoSilenceDurationDialogFragment.newInstance(pref.getKey(), currentValue,
                             currentValue == TIMEOUT_END_OF_RINGTONE,
-                            currentValue == TIMEOUT_NEVER, true);
+                            currentValue == TIMEOUT_NEVER);
             AutoSilenceDurationDialogFragment.show(getParentFragmentManager(), dialogFragment);
         } else if (pref instanceof VolumeCrescendoDurationPreference volumeCrescendoDurationPreference) {
             int currentDelay = volumeCrescendoDurationPreference.getVolumeCrescendoDuration();

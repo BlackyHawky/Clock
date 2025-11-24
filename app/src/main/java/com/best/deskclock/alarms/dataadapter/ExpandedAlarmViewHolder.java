@@ -324,13 +324,22 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
 
             int autoSilenceDuration = alarm.autoSilenceDuration;
 
-            if (autoSilenceDuration == TIMEOUT_NEVER) {
+            int m = autoSilenceDuration / 60;
+            int s = autoSilenceDuration % 60;
+
+            if (m > 0 && s > 0) {
+                String minutesString = context.getResources().getQuantityString(R.plurals.minutes_short, m, m);
+                String secondsString = s + " " + context.getString(R.string.seconds_label);
+                autoSilenceDurationValue.setText(String.format("%s %s", minutesString, secondsString));
+            } else if (m > 0) {
+                autoSilenceDurationValue.setText(context.getResources().getQuantityString(R.plurals.minutes_short, m, m));
+            } else if (autoSilenceDuration == TIMEOUT_NEVER) {
                 autoSilenceDurationValue.setText(context.getString(R.string.label_never));
             } else if (autoSilenceDuration == TIMEOUT_END_OF_RINGTONE) {
                 autoSilenceDurationValue.setText(context.getString(R.string.auto_silence_end_of_ringtone));
             } else {
-                autoSilenceDurationValue.setText(context.getResources().getQuantityString(
-                        R.plurals.minutes_short, autoSilenceDuration, autoSilenceDuration));
+                String secondsString = s + " " + context.getString(R.string.seconds_label);
+                autoSilenceDurationValue.setText(secondsString);
             }
         } else {
             autoSilenceDurationTitle.setVisibility(GONE);
