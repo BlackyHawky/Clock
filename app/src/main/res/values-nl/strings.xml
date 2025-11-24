@@ -696,4 +696,8 @@
     <string name="expired_timer_indicator_color_title">Kleur aanwijzer van verlopen kookwekker</string>
     <string name="progress_ringtones">Geluiden toevoegen… (%1$d/%2$d)</string>
     <string name="display_text_uppercase_title">Tekst in hoofdletters weergeven</string>
+    <string name="label_new_image">Nieuwe afbeelding</string>
+    <string name="background_image_title_variant">Achtergrondafbeelding selecteren of verwijderen</string>
+    <string name="background_image_dialog_title">Achtergrondafbeelding</string>
+    <string name="background_image_toast_message_deleted">Afbeelding succesvol verwijderd</string>
 </resources>

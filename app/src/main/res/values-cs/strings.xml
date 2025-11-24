@@ -710,4 +710,8 @@
     <string name="paused_timer_indicator_color_title">Barva pozastaveného indikátoru časovače</string>
     <string name="expired_timer_indicator_color_title">Barva expirovaného indikátoru časovače</string>
     <string name="display_text_uppercase_title">Zobrazit text ve velkých písmenech</string>
+    <string name="label_new_image">Nový obrázek</string>
+    <string name="background_image_title_variant">Vybrat nebo odstranit obrázek na pozadí</string>
+    <string name="background_image_dialog_title">Obrázek na pozadí</string>
+    <string name="background_image_toast_message_deleted">Obrázek úspěšně odstraněn</string>
 </resources>

@@ -702,4 +702,8 @@
     <string name="expired_timer_indicator_color_title">Aegunud taimeri näidiku värv</string>
     <string name="progress_ringtones">Lisan helinaid… (%1$d/%2$d)</string>
     <string name="display_text_uppercase_title">Näita teksti suurtähtedena</string>
+    <string name="label_new_image">Uus pilt</string>
+    <string name="background_image_title_variant">Lisa või kustuta taustapilt</string>
+    <string name="background_image_dialog_title">Taustapilt</string>
+    <string name="background_image_toast_message_deleted">Pildi kustutamine õnnestus</string>
 </resources>

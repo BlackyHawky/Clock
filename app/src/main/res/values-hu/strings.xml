@@ -364,4 +364,5 @@
     <string name="screensaver_preview_summary">Képernyővédő bekapcsolása</string>
     <string name="alarm_created">Ébresztő létrehozva</string>
     <string name="schedule_alarm_title">Ébresztő ütemezése</string>
+    <string name="alarm_flash">Beállítja a címkéket a \'Riasztó beállítása\' képernyőn: Flash be- vagy kikapcsolása</string>
 </resources>

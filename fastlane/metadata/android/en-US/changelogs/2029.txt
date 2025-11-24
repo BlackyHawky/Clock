@@ -1,0 +1,5 @@
+Many fixes and improvements detailed here:
+https://github.com/BlackyHawky/Clock/releases/tag/2.26
+
+**Note:
+ - Due to a change in the code for the "Silence after" setting, it is recommended to redefine the value of this setting, make a new backup, and delete the old one.

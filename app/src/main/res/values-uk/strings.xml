@@ -705,7 +705,7 @@
     <string name="display_dismiss_button_summary">Якщо вимкнено, кнопка з’являтиметься разом із нагадуванням про сповіщення</string>
     <string name="display_dismiss_button_title">Показувати кнопку «Вимкнути» одразу після ввімкнення будильника</string>
     <string name="blur_intensity_title">Інтенсивність розмиття</string>
-    <string name="background_image_title">Виберіть фонове зображення</string>
+    <string name="background_image_title">Вибрати фонове зображення</string>
     <string name="background_image_toast_message_selected">Зображення успішно вибрано</string>
     <string name="enable_blur_effect_title">Застосувати ефект розмиття до фонового зображення</string>
     <string name="display_text_shadow_title">Показувати тінь тексту</string>
@@ -720,4 +720,8 @@
     <string name="paused_timer_indicator_color_title">Колір індикатора призупиненого таймера</string>
     <string name="progress_ringtones">Додавання мелодій… (%1$d/%2$d)</string>
     <string name="display_text_uppercase_title">Текст великими літерами</string>
+    <string name="background_image_dialog_title">Фонове зображення</string>
+    <string name="background_image_toast_message_deleted">Зображення успішно видалено</string>
+    <string name="label_new_image">Нове зображення</string>
+    <string name="background_image_title_variant">Вибрати або видалити фонове зображення</string>
 </resources>

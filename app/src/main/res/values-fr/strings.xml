@@ -707,4 +707,8 @@
     <string name="expired_timer_indicator_color_title">Couleur de l\'indicateur des minuteurs expirés</string>
     <string name="progress_ringtones">Ajout des sonneries… (%1$d/%2$d)</string>
     <string name="display_text_uppercase_title">Afficher le texte en majuscules</string>
+    <string name="label_new_image">Nouvelle image</string>
+    <string name="background_image_title_variant">Sélectionner ou supprimer une image d\'arrière-plan</string>
+    <string name="background_image_dialog_title">Image d\'arrière-plan</string>
+    <string name="background_image_toast_message_deleted">Image supprimée avec succès</string>
 </resources>

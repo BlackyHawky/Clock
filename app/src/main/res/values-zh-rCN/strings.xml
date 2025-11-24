@@ -685,4 +685,8 @@
     <string name="background_corner_radius_title">背景圆角半径</string>
     <string name="progress_ringtones">正在添加铃声… （%1$d/%2$d）</string>
     <string name="display_text_uppercase_title">以大写字母显示文本</string>
+    <string name="label_new_image">新图片</string>
+    <string name="background_image_title_variant">选择或删除背景图片</string>
+    <string name="background_image_dialog_title">背景图片</string>
+    <string name="background_image_toast_message_deleted">图片已成功删除</string>
 </resources>
