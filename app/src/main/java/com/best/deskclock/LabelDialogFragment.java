@@ -297,14 +297,14 @@ public class LabelDialogFragment extends DialogFragment {
      */
     private void applyLabel(String label) {
         if (mAlarm != null) {
-            ((AlarmLabelDialogHandler) requireActivity()).onDialogLabelSet(mAlarm, label, mTag);
+            ((AlarmLabelDialogHandler) requireActivity()).onDialogLabelSet(mAlarm, label.trim(), mTag);
         } else if (mTimerId >= 0) {
             final Timer timer = DataModel.getDataModel().getTimer(mTimerId);
             if (timer != null) {
-                DataModel.getDataModel().setTimerLabel(timer, label);
+                DataModel.getDataModel().setTimerLabel(timer, label.trim());
             }
         } else if (mCityId != null) {
-            ((CityNoteDialogHandler) requireActivity()).onDialogCityNoteSet(mCityId, label, mTag);
+            ((CityNoteDialogHandler) requireActivity()).onDialogCityNoteSet(mCityId, label.trim(), mTag);
         }
     }
 
