@@ -215,11 +215,12 @@ public class LabelDialogFragment extends DialogFragment {
         mEditLabel = view.findViewById(android.R.id.edit);
         mEditLabel.setText(label);
         mEditLabel.addTextChangedListener(mTextWatcher);
-        mEditLabel.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+        mEditLabel.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
         mEditLabel.selectAll();
         mEditLabel.requestFocus();
         mEditLabel.setMaxLines(2);
         mEditLabel.setHorizontallyScrolling(false);
+        mEditLabel.setImeOptions(EditorInfo.IME_ACTION_DONE);
         mEditLabel.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 setLabel();
