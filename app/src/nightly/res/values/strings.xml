@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+
+<resources>
+    <!-- Label shown on launcher icon -->
+    <!-- Label for the this application displayed on-screen when this application must be represented to the user. -->
+    <string name="app_label_nightly" translatable="false">Clock nightly</string>
+    <string name="settings" translatable="false">Settings nightly version</string>
+</resources>

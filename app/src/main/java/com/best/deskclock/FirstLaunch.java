@@ -114,8 +114,10 @@ public class FirstLaunch extends BaseActivity {
      * Automatically sets the application title according to whether it's the debug version or not.
      */
     private void setupTitle() {
-        if (BuildConfig.DEBUG) {
+        if (BuildConfig.IS_DEBUG_BUILD) {
             mAppTitle.setText(R.string.about_debug_app_title);
+        } else if (BuildConfig.IS_NIGHTLY_BUILD) {
+            mAppTitle.setText(R.string.about_nightly_app_title);
         } else {
             mAppTitle.setText(R.string.app_label);
         }

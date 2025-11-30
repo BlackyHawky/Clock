@@ -203,9 +203,13 @@ public class AboutFragment extends ScreenFragment
 
             case KEY_ABOUT_WHATS_NEW -> {
                 String version = BuildConfig.VERSION_NAME;
-                if (BuildConfig.DEBUG) {
+
+                if (BuildConfig.IS_DEBUG_BUILD) {
                     version = version.replace("-debug", "");
+                } else if (BuildConfig.IS_NIGHTLY_BUILD) {
+                    version = version.replace(BuildConfig.VERSION_NAME, "nightly" + "-" + BuildConfig.COMMIT_NUMBER);
                 }
+
                 final String link = "https://github.com/BlackyHawky/Clock/releases/tag/" + version;
                 displayLinkDialog(R.drawable.ic_about_update, R.string.whats_new_title, R.string.whats_new_dialog_message, link);
             }
@@ -267,8 +271,12 @@ public class AboutFragment extends ScreenFragment
     }
 
     private void setupPreferences() {
-        if (BuildConfig.DEBUG) {
+        if (BuildConfig.IS_DEBUG_BUILD) {
             mTitlePref.setTitle(R.string.about_debug_app_title);
+            mVersionPref.setSelectable(false);
+            mVersionPref.setOnPreferenceClickListener(null);
+        } else if (BuildConfig.IS_NIGHTLY_BUILD) {
+            mTitlePref.setTitle(R.string.about_nightly_app_title);
             mVersionPref.setSelectable(false);
             mVersionPref.setOnPreferenceClickListener(null);
         } else {

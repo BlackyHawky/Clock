@@ -33,4 +33,5 @@ google-services.json
 # Compiled application files
 app/build
 app/release
-app/debug/
+app/debug
+app/nightly
