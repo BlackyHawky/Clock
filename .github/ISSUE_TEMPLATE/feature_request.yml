@@ -1,0 +1,35 @@
+name: ✨ Feature request
+description: Suggest an idea to improve Clock
+labels:
+  - "enhancement"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping improve Clock!  
+        Please follow these guidelines for a good feature request:
+        • Search existing proposals (open and closed) to avoid duplicates.  
+        • If you have multiple requests, open one issue per feature (unless closely related).  
+        • Be clear and concise in your description.  
+        • Provide a use case to explain why the feature is valuable.  
+        • If you have any examples — e.g. screenshots, mockups, or other apps where this feature exists — feel free to include them after your description.   
+
+  - type: textarea
+    id: feature
+    attributes:
+      label: Feature idea
+      description: Please explain your idea in a precise way.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: "I searched for _existing issues_ ([open](https://github.com/BlackyHawky/Clock/issues) and [closed](https://github.com/BlackyHawky/Clock/issues?q=is%3Aissue%20state%3Aclosed)) before filing this report."
+          required: true
+        - label: "I have read and understood the [contribution guidelines](https://github.com/BlackyHawky/Clock/blob/main/CONTRIBUTING.md)."
+          required: true
+        - label: "I have provided all required details. I understand that the feature request will be dismissed otherwise."
+          required: true
