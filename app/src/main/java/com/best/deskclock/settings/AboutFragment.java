@@ -215,7 +215,7 @@ public class AboutFragment extends ScreenFragment
             }
 
             case KEY_ABOUT_FEATURES -> {
-                final String link = "https://github.com/BlackyHawky/Clock?tab=readme-ov-file#features";
+                final String link = "https://github.com/BlackyHawky/Clock?tab=readme-ov-file#-features";
                 displayLinkDialog(R.drawable.ic_about_features, R.string.features_title, R.string.features_dialog_message, link);
             }
 
