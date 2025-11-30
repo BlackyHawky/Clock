@@ -472,7 +472,8 @@ public class AlarmSettingsFragment extends ScreenFragment
                     pref.setAutoSilenceDuration(newValue);
                     pref.setSummary(pref.getSummary());
                     mEnablePerAlarmMissedRepeatLimitPref.setVisible(newValue != TIMEOUT_NEVER);
-                    mMissedAlarmRepeatLimitPref.setVisible(newValue != TIMEOUT_NEVER);
+                    mMissedAlarmRepeatLimitPref.setVisible(newValue != TIMEOUT_NEVER
+                            && !SettingsDAO.isPerAlarmMissedRepeatLimitEnabled(mPrefs));
                     for (Alarm alarm : mAlarmList) {
                         alarm.autoSilenceDuration = newValue;
                         mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
