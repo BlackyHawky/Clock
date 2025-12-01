@@ -192,6 +192,9 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
         mDismissActionText = mSlideZoneLayout.findViewById(R.id.dismiss_text);
         mPillView = mSlideZoneLayout.findViewById(R.id.pill);
 
+        final MaterialButton dismissOnlyButton = mContentView.findViewById(R.id.dismiss_only_button);
+        dismissOnlyButton.setVisibility(GONE);
+
         final AnalogClock analogClock = findViewById(R.id.analog_clock);
         final TextClock digitalClock = mContentView.findViewById(R.id.digital_clock);
         final DataModel.ClockStyle alarmClockStyle = SettingsDAO.getAlarmClockStyle(mPrefs);
