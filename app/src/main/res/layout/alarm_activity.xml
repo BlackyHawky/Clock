@@ -151,6 +151,23 @@
             tools:text="@string/button_action_dismiss"
             tools:visibility="gone" />
 
+        <!-- Dismiss only button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/dismiss_only_button"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginHorizontal="12dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            app:layout_constraintBottom_toTopOf="@+id/alarm_horizontal_end_guide"
+            tools:text="@string/button_action_dismiss"
+            tools:visibility="gone" />
+
         <!-- Slide zone -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/slide_zone_layout"
