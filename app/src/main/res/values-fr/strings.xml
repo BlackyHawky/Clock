@@ -380,6 +380,7 @@
     <string name="screensaver_preview_summary">Lance l\'économiseur d\'écran immédiatement</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Développer l\'alarme"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Réduire l\'alarme"</string>
+    <string name="alarm_undo" msgid="5710042601177655254">"Annuler"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Alarme supprimée"</string>
     <string name="alarm_created">Alarme créée</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="LABEL">%s</xliff:g></string>

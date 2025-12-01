@@ -317,6 +317,7 @@
     <string name="timers_in_use"><xliff:g example="7" id="number">%d</xliff:g> amserydd</string>
     <string name="expand_alarm">Ehangu\'r larwm</string>
     <string name="collapse_alarm">Lleihau\'r larwm</string>
+    <string name="alarm_undo">dad-wneud</string>
     <string name="alarm_deleted">Dilëwyd y larwm</string>
     <string name="world_day_of_week_label">/ <xliff:g id="label">%s</xliff:g></string>
     <string name="world_time_ahead"><xliff:g example="6 hours" id="time">%1$s</xliff:g> ymlaen</string>
