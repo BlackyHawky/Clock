@@ -175,6 +175,7 @@
     <string name="timers_in_use"><xliff:g id="NUMBER">%d</xliff:g> ۋاقىت خاتىرىلىگۈچ</string>
     <string name="expand_alarm">قوڭغۇراقنى ياي</string>
     <string name="collapse_alarm">قوڭغۇراقنى يىغ</string>
+    <string name="alarm_undo">يېنىۋال</string>
     <string name="world_day_of_week_label">/ <xliff:g id="LABEL">%s</xliff:g></string>
     <string name="next_alarm_description">كېيىنكى قوڭغۇراق: <xliff:g id="ALARM_TIME">%s</xliff:g></string>
     <string name="no_alarms">قوڭغۇراقلىق سائەت يوق</string>

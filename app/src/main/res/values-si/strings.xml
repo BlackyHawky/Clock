@@ -286,6 +286,7 @@
     <string name="timers_in_use" msgid="5570729467344408506">"කාල ගැනීම් <xliff:g id="NUMBER">%d</xliff:g>"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"ඇඟවීම දිග හරින්න"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"ඇඟවීම අකුලන්න"</string>
+    <string name="alarm_undo" msgid="5710042601177655254">"අස් කරන්න"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"එලාමය නොමකන ලදී"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="LABEL">%s</xliff:g></string>
     <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> ඉදිරියෙනි"</string>
