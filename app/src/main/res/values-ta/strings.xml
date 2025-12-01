@@ -286,6 +286,7 @@
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> டைமர்கள்"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"அலாரத்தை விரிவாக்கு"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"அலாரத்தைச் சுருக்கு"</string>
+    <string name="alarm_undo" msgid="5710042601177655254">"செயல்தவிர்"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"அலாரம் நீக்கப்பட்டது"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="LABEL">%s</xliff:g></string>
     <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> முன் உள்ளது"</string>

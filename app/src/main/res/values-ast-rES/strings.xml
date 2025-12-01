@@ -257,6 +257,7 @@
     <string name="timers_in_use"><xliff:g id="NUMBER">%d</xliff:g> temporizadores</string>
     <string name="expand_alarm">Espander alarma</string>
     <string name="collapse_alarm">Contrayer alarma</string>
+    <string name="alarm_undo">desfacer</string>
     <string name="alarm_deleted">Alarma desaniciada</string>
     <string name="world_day_of_week_label">/ <xliff:g id="LABEL">%s</xliff:g></string>
     <string name="world_time_ahead"><xliff:g example="6 hours" id="time">%1$s</xliff:g> alantre</string>

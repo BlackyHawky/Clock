@@ -1237,6 +1237,8 @@
     <string name="expand_alarm">Expand alarm</string>
     <!-- Description of the up caret in the alarm alert screen to collapse the alarm content to summary perspective. [CHAR LIMIT=NONE] -->
     <string name="collapse_alarm">Collapse alarm</string>
+    <!-- Description of the button to undo change to alarm -->
+    <string name="alarm_undo">undo</string>
     <!-- Toast content when an alarm was deleted  -->
     <string name="alarm_deleted">Alarm deleted</string>
     <!-- Toast content when an occasional alarm has been deleted  -->
