@@ -5,6 +5,7 @@
 
 package com.best.deskclock.utils;
 
+import static android.media.AudioManager.STREAM_ALARM;
 import static com.best.deskclock.FirstLaunch.KEY_IS_FIRST_LAUNCH;
 import static com.best.deskclock.data.CustomRingtoneDAO.NEXT_RINGTONE_ID;
 import static com.best.deskclock.data.CustomRingtoneDAO.RINGTONE_IDS;
@@ -21,12 +22,16 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.text.format.DateFormat;
 
+import com.best.deskclock.BuildConfig;
 import com.best.deskclock.R;
 import com.best.deskclock.alarms.AlarmStateManager;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
@@ -44,6 +49,7 @@ import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -110,6 +116,16 @@ public class BackupAndRestoreUtils {
 
         try {
             JSONObject jsonObject = new JSONObject();
+
+            // Header
+            JSONObject header = new JSONObject();
+
+            header.put("packageName", context.getPackageName());
+            header.put("versionName", BuildConfig.VERSION_NAME);
+            header.put("versionCode", BuildConfig.VERSION_CODE);
+            header.put("backupDate", DateFormat.format("yyyy_MM_dd_HH-mm-ss", new Date()).toString());
+
+            jsonObject.put("Header", header);
 
             // Convert the Map of booleans to a JSONObject
             jsonObject.put("Boolean settings", convertMapToJsonObject(booleans));
@@ -304,7 +320,7 @@ public class BackupAndRestoreUtils {
                 JSONArray alarmsArray = jsonObject.getJSONArray("Alarms");
                 for (int i = 0; i < alarmsArray.length(); i++) {
                     JSONObject alarmObject = alarmsArray.getJSONObject(i);
-                    restoreAlarm(context, contentResolver, alarmObject, false);
+                    restoreAlarm(context, prefs, contentResolver, alarmObject, false);
                 }
             }
 
@@ -312,7 +328,7 @@ public class BackupAndRestoreUtils {
                 JSONArray alarmsWithDateArray = jsonObject.getJSONArray("Alarms with specified date");
                 for (int i = 0; i < alarmsWithDateArray.length(); i++) {
                     JSONObject alarmObject = alarmsWithDateArray.getJSONObject(i);
-                    restoreAlarm(context, contentResolver, alarmObject, true);
+                    restoreAlarm(context, prefs, contentResolver, alarmObject, true);
                 }
             }
         } catch (IOException | JSONException e) {
@@ -330,24 +346,26 @@ public class BackupAndRestoreUtils {
      * Restore alarm data.
      * If the alarm is enabled, a future instance will be scheduled.
      */
-    private static void restoreAlarm(Context context, ContentResolver contentResolver,
+    private static void restoreAlarm(Context context, SharedPreferences prefs, ContentResolver contentResolver,
                                      JSONObject alarmObject, boolean hasSpecifiedDate) throws JSONException {
 
-        long id = alarmObject.getLong("id");
-        boolean enabled = alarmObject.getBoolean("enabled");
-        int hour = alarmObject.getInt("hour");
-        int minutes = alarmObject.getInt("minutes");
-        boolean vibrate = alarmObject.getBoolean("vibrate");
-        boolean flash = alarmObject.getBoolean("flash");
-        int daysOfWeek = alarmObject.getInt("daysOfWeek");
-        String label = alarmObject.getString("label");
-        String alert = alarmObject.getString("alert");
-        boolean deleteAfterUse = alarmObject.getBoolean("deleteAfterUse");
-        int autoSilenceDuration = alarmObject.getInt("autoSilenceDuration");
-        int snoozeDuration = alarmObject.getInt("snoozeDuration");
-        int missedAlarmRepeatLimit = alarmObject.getInt("missedAlarmRepeatLimit");
-        int crescendoDuration = alarmObject.getInt("crescendoDuration");
-        int alarmVolume = alarmObject.getInt("alarmVolume");
+        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+
+        long id = alarmObject.optLong("id", System.currentTimeMillis());
+        boolean enabled = alarmObject.optBoolean("enabled", true);
+        int hour = alarmObject.optInt("hour", 8);
+        int minutes = alarmObject.optInt("minutes", 30);
+        boolean vibrate = alarmObject.optBoolean("vibrate", SettingsDAO.areAlarmVibrationsEnabledByDefault(prefs));
+        boolean flash = alarmObject.optBoolean("flash", SettingsDAO.shouldTurnOnBackFlashForTriggeredAlarm(prefs));
+        int daysOfWeek = alarmObject.optInt("daysOfWeek", 0);
+        String label = alarmObject.optString("label", "");
+        String alert = alarmObject.optString("alert", RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString());
+        boolean deleteAfterUse = alarmObject.optBoolean("deleteAfterUse", SettingsDAO.isOccasionalAlarmDeletedByDefault(prefs));
+        int autoSilenceDuration = alarmObject.optInt("autoSilenceDuration", SettingsDAO.getAlarmTimeout(prefs));
+        int snoozeDuration = alarmObject.optInt("snoozeDuration", SettingsDAO.getSnoozeLength(prefs));
+        int missedAlarmRepeatLimit = alarmObject.optInt("missedAlarmRepeatLimit", SettingsDAO.getMissedAlarmRepeatLimit(prefs));
+        int crescendoDuration = alarmObject.optInt("crescendoDuration", SettingsDAO.getAlarmVolumeCrescendoDuration(prefs));
+        int alarmVolume = alarmObject.optInt("alarmVolume", audioManager.getStreamVolume(STREAM_ALARM));
 
         String alarmRingtone;
         if (RingtoneUtils.isRandomRingtone(Uri.parse(alert))) {
