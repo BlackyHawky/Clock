@@ -135,6 +135,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
     private MaterialButton mAlarmButton;
     private MaterialButton mSnoozeButton;
     private MaterialButton mDismissButton;
+    private MaterialButton mDismissOnlyButton;
     private TextView mSnoozeActionText;
     private TextView mDismissActionText;
     private TextView mRingtoneTitle;
@@ -300,6 +301,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         mContentView = findViewById(R.id.content);
         mSnoozeButton = mContentView.findViewById(R.id.snooze_button);
         mDismissButton = mContentView.findViewById(R.id.dismiss_button);
+        mDismissOnlyButton = mContentView.findViewById(R.id.dismiss_only_button);
         mSlideZoneLayout = mContentView.findViewById(R.id.slide_zone_layout);
         mAlarmButton = mSlideZoneLayout.findViewById(R.id.alarm_button);
         mSnoozeActionText = mSlideZoneLayout.findViewById(R.id.snooze_text);
@@ -333,6 +335,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
             mSlideZoneLayout.setVisibility(VISIBLE);
             mSnoozeButton.setVisibility(GONE);
             mDismissButton.setVisibility(GONE);
+            mDismissOnlyButton.setVisibility(GONE);
 
             int snoozeTitleColor = SettingsDAO.getSnoozeTitleColor(mPrefs);
             int dismissTitleColor = SettingsDAO.getDismissTitleColor(mPrefs);
@@ -454,40 +457,49 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
             });
         } else {
             mSlideZoneLayout.setVisibility(GONE);
-            mSnoozeButton.setVisibility(VISIBLE);
-            mDismissButton.setVisibility(VISIBLE);
-            mSnoozeButton.setOnClickListener(this);
-            mDismissButton.setOnClickListener(this);
-            mSnoozeButton.setBackgroundColor(SettingsDAO.getSnoozeButtonColor(mPrefs, this));
-            mDismissButton.setBackgroundColor(SettingsDAO.getDismissButtonColor(mPrefs, this));
 
             if (mAlarmInstance.mSnoozeDuration == ALARM_SNOOZE_DURATION_DISABLED) {
-                mSnoozeButton.setText(getString(isOccasionalAlarmDeletedAfterUse()
+                mSnoozeButton.setVisibility(GONE);
+                mDismissButton.setVisibility(GONE);
+
+                mDismissOnlyButton.setBackgroundColor(SettingsDAO.getDismissButtonColor(mPrefs, this));
+                mDismissOnlyButton.setText(getString(isOccasionalAlarmDeletedAfterUse()
                         ? R.string.delete
                         : R.string.button_action_dismiss)
                 );
-
-                mSnoozeButton.setContentDescription(getString(isOccasionalAlarmDeletedAfterUse()
+                mDismissOnlyButton.setContentDescription(getString(isOccasionalAlarmDeletedAfterUse()
                         ? R.string.description_dismiss_button_for_occasional_alarm
                         : R.string.description_dismiss_button)
                 );
+                mDismissOnlyButton.setVisibility(VISIBLE);
+                mDismissOnlyButton.setOnClickListener(this);
+                // Allow text scrolling (all other attributes are indicated in the "alarm_activity.xml" file)
+                mDismissOnlyButton.setSelected(true);
             } else {
+                mDismissOnlyButton.setVisibility(GONE);
+
+                mSnoozeButton.setBackgroundColor(SettingsDAO.getSnoozeButtonColor(mPrefs, this));
                 mSnoozeButton.setText(getString(R.string.button_action_snooze));
                 mSnoozeButton.setContentDescription(getString(R.string.description_snooze_button));
+                mSnoozeButton.setVisibility(VISIBLE);
+                mSnoozeButton.setOnClickListener(this);
+
+                mDismissButton.setBackgroundColor(SettingsDAO.getDismissButtonColor(mPrefs, this));
+                mDismissButton.setText(getString(isOccasionalAlarmDeletedAfterUse()
+                        ? R.string.delete
+                        : R.string.button_action_dismiss)
+                );
+                mDismissButton.setContentDescription(getString(isOccasionalAlarmDeletedAfterUse()
+                        ? R.string.description_dismiss_button_for_occasional_alarm
+                        : R.string.description_dismiss_button)
+                );
+                mDismissButton.setVisibility(VISIBLE);
+                mDismissButton.setOnClickListener(this);
+
+                // Allow text scrolling (all other attributes are indicated in the "alarm_activity.xml" file)
+                mSnoozeButton.setSelected(true);
+                mDismissButton.setSelected(true);
             }
-
-            mDismissButton.setText(getString(isOccasionalAlarmDeletedAfterUse()
-                    ? R.string.delete
-                    : R.string.button_action_dismiss)
-            );
-            mDismissButton.setContentDescription(getString(isOccasionalAlarmDeletedAfterUse()
-                    ? R.string.description_dismiss_button_for_occasional_alarm
-                    : R.string.description_dismiss_button)
-            );
-
-            // Allow text scrolling (all other attributes are indicated in the "alarm_activity.xml" file)
-            mSnoozeButton.setSelected(true);
-            mDismissButton.setSelected(true);
         }
 
         boolean isRingtoneTitleDisplayed = SettingsDAO.isRingtoneTitleDisplayed(mPrefs);
@@ -602,7 +614,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         if (!mIsSwipeActionEnabled) {
             if (view == mSnoozeButton) {
                 snooze();
-            } else if (view == mDismissButton) {
+            } else if (view == mDismissButton || view == mDismissOnlyButton) {
                 dismiss();
             }
         }

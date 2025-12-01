@@ -147,6 +147,25 @@
             app:layout_constraintBottom_toTopOf="@+id/alarm_landscape_horizontal_end_guide"
             tools:visibility="gone" />
 
+        <!-- Dismiss only button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/dismiss_only_button"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_marginHorizontal="12dp"
+            android:text="@string/button_action_dismiss"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            app:layout_constraintStart_toEndOf="@+id/alarm_vertical_middle_guide"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/alarm_landscape_horizontal_end_guide"
+            tools:visibility="gone" />
+
         <!-- Slide zone -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/slide_zone_layout"
