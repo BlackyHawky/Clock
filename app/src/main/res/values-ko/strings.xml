@@ -359,7 +359,6 @@
     <string name="settings_language_serbian">세르비아어</string>
     <string name="settings_language_spanish">스페인어</string>
     <string name="settings_language_ukrainian">우크라니아어</string>
-    <string name="alarm_display_customization_title">알람 스타일 사용자 정의</string>
     <string name="alarm_title_color">알람 제목 색상</string>
     <string name="alarm_clock_font_size">알람 시계 폰트 크기</string>
     <string name="display_ringtone_title">벨소리 제목 표시</string>

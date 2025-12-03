@@ -124,10 +124,7 @@ public class PreferencesDefaultValues {
     public static final int DEFAULT_DISMISS_TITLE_COLOR = Color.WHITE;
     public static final int DEFAULT_ALARM_DIGITAL_CLOCK_FONT_SIZE = 70;
     public static final int DEFAULT_ALARM_TITLE_FONT_SIZE_PREF = 30;
-    public static final boolean DEFAULT_ALARM_DISPLAY_TEXT_SHADOW = false;
     public static final int DEFAULT_ALARM_SHADOW_COLOR = Color.parseColor("#80FFFFFF");
-    public static final int DEFAULT_ALARM_SHADOW_OFFSET = 10;
-    public static final boolean DEFAULT_DISPLAY_RINGTONE_TITLE = false;
     public static final int DEFAULT_RINGTONE_TITLE_COLOR = Color.WHITE;
     public static final boolean DEFAULT_ENABLE_BLUR_EFFECT = false;
     public static final int DEFAULT_BLUR_INTENSITY = 20;
@@ -145,6 +142,8 @@ public class PreferencesDefaultValues {
     public static final int DEFAULT_EXPIRED_TIMER_INDICATOR_COLOR = Color.parseColor("#FFFF4444");
     public static final int DEFAULT_TIMER_AUTO_SILENCE_DURATION = 30; // 30 seconds
     public static final boolean DEFAULT_TIMER_VIBRATE = false;
+    public static final int DEFAULT_TIMER_RINGTONE_TITLE_COLOR = Color.GRAY;
+    public static final int DEFAULT_TIMER_SHADOW_COLOR = Color.parseColor("#BF888888");
     public static final boolean DEFAULT_TIMER_VOLUME_BUTTONS_ACTION = false;
     public static final boolean DEFAULT_TIMER_POWER_BUTTON_ACTION = false;
     public static final boolean DEFAULT_TIMER_FLIP_ACTION = false;
@@ -183,6 +182,9 @@ public class PreferencesDefaultValues {
     public static final int TIMEOUT_NEVER = -1;
     public static final int TIMEOUT_END_OF_RINGTONE = -2;
     public static final int DEFAULT_VOLUME_CRESCENDO_DURATION = 0;
+    public static final boolean DEFAULT_DISPLAY_RINGTONE_TITLE = false;
+    public static final boolean DEFAULT_DISPLAY_TEXT_SHADOW = false;
+    public static final int DEFAULT_SHADOW_OFFSET = 10;
 
     // **************
     // ** WIDGETS **

@@ -425,7 +425,6 @@
     <string name="revoke_permission_dialog_message">是否确定要撤销此权限？</string>
     <string name="permission_status_title">状态： </string>
     <string name="permission_granted">已授予</string>
-    <string name="alarm_display_customization_title">自定义闹钟显示</string>
     <string name="snooze_button_color">“暂停”按钮的颜色</string>
     <string name="dismiss_button_color">“关闭”按钮的颜色</string>
     <string name="alarm_button_color">闹钟按钮颜色</string>

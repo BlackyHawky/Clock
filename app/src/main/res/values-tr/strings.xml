@@ -431,7 +431,6 @@
     <string name="enable_alarm_vibrations_by_default_setting_title">Alarm oluştururken titreşimleri etkinleştir</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">Alarm ertelendiğinde veya kapatıldığında titreşimi etkinleştir</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">Alarm kapatıldığında bir kere titreşir, ertelendiğinde iki kere titreşir</string>
-    <string name="alarm_display_customization_title">Alarm görünümünü özelleştir</string>
     <string name="sort_timer_title">Zamanlayıcıları sırala</string>
     <string name="sort_timer_ascending_duration">Süreye göre (artan)</string>
     <string name="sort_name">İsme göre</string>

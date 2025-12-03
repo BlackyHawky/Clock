@@ -6,12 +6,9 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VOLUM
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_END_OF_RINGTONE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_NEVER;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_EXPIRED_TIMER_INDICATOR_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_PAUSED_TIMER_INDICATOR_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_RUNNING_TIMER_INDICATOR_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SORT_TIMER;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_CREATION_VIEW_STYLE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_TIMER_STATE_INDICATOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_DISPLAY_CUSTOMIZATION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_FLIP_ACTION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_POWER_BUTTON_ACTION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_RINGTONE;
@@ -19,7 +16,6 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_SHAKE_ACTION
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_SHAKE_INTENSITY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_VIBRATE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_VOLUME_BUTTONS_ACTION;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER;
 
 import android.content.Context;
 import android.hardware.Sensor;
@@ -44,12 +40,8 @@ import com.best.deskclock.utils.Utils;
 public class TimerSettingsFragment extends ScreenFragment
         implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
+    Preference mTimerDisplayCustomizationPref;
     ListPreference mSortTimerPref;
-    SwitchPreferenceCompat mTransparentBackgroundPref;
-    SwitchPreferenceCompat mDisplayTimerStatusIndicatorPref;
-    ColorPickerPreference mRunningTimerIndicatorColorPref;
-    ColorPickerPreference mPausedTimerIndicatorColorPref;
-    ColorPickerPreference mExpiredTimerIndicatorColorPref;
     ListPreference mTimerCreationViewStylePref;
     Preference mTimerRingtonePref;
     Preference mTimerVibratePref;
@@ -71,12 +63,8 @@ public class TimerSettingsFragment extends ScreenFragment
 
         addPreferencesFromResource(R.xml.settings_timer);
 
+        mTimerDisplayCustomizationPref = findPreference(KEY_TIMER_DISPLAY_CUSTOMIZATION);
         mTimerCreationViewStylePref = findPreference(KEY_TIMER_CREATION_VIEW_STYLE);
-        mTransparentBackgroundPref = findPreference(KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER);
-        mDisplayTimerStatusIndicatorPref = findPreference(KEY_DISPLAY_TIMER_STATE_INDICATOR);
-        mRunningTimerIndicatorColorPref = findPreference(KEY_RUNNING_TIMER_INDICATOR_COLOR);
-        mPausedTimerIndicatorColorPref = findPreference(KEY_PAUSED_TIMER_INDICATOR_COLOR);
-        mExpiredTimerIndicatorColorPref = findPreference(KEY_EXPIRED_TIMER_INDICATOR_COLOR);
         mTimerRingtonePref = findPreference(KEY_TIMER_RINGTONE);
         mTimerVibratePref = findPreference(KEY_TIMER_VIBRATE);
         mTimerVolumeButtonsActionPref = findPreference(KEY_TIMER_VOLUME_BUTTONS_ACTION);
@@ -100,15 +88,8 @@ public class TimerSettingsFragment extends ScreenFragment
     @Override
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
-            case KEY_DISPLAY_TIMER_STATE_INDICATOR -> {
-                mRunningTimerIndicatorColorPref.setVisible((boolean) newValue);
-                mPausedTimerIndicatorColorPref.setVisible((boolean) newValue);
-                mExpiredTimerIndicatorColorPref.setVisible((boolean) newValue);
-
-                Utils.setVibrationTime(requireContext(), 50);
-            }
-
-            case KEY_TIMER_RINGTONE -> mTimerRingtonePref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
+            case KEY_TIMER_RINGTONE ->
+                    mTimerRingtonePref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
 
             case KEY_TIMER_CREATION_VIEW_STYLE, KEY_SORT_TIMER -> {
                 final ListPreference preference = (ListPreference) pref;
@@ -123,8 +104,7 @@ public class TimerSettingsFragment extends ScreenFragment
             }
 
             case KEY_TIMER_VIBRATE, KEY_TIMER_VOLUME_BUTTONS_ACTION, KEY_TIMER_POWER_BUTTON_ACTION,
-                 KEY_TIMER_FLIP_ACTION, KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER,
-                 KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER ->
+                 KEY_TIMER_FLIP_ACTION, KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER ->
                     Utils.setVibrationTime(requireContext(), 50);
         }
 
@@ -137,19 +117,21 @@ public class TimerSettingsFragment extends ScreenFragment
         if (context == null) {
             return false;
         }
-        if (pref.getKey().equals(KEY_TIMER_RINGTONE)) {
-            startActivity(RingtonePickerActivity.createTimerRingtonePickerIntent(context));
-            return true;
+
+        switch (pref.getKey()) {
+            case KEY_TIMER_RINGTONE ->
+                    startActivity(RingtonePickerActivity.createTimerRingtonePickerIntent(context));
+
+            case KEY_TIMER_DISPLAY_CUSTOMIZATION ->
+                    animateAndShowFragment(new TimerDisplayCustomizationFragment());
         }
 
-        return false;
+        return true;
     }
 
     @Override
     public void onDisplayPreferenceDialog(@NonNull Preference pref) {
-        if (pref instanceof ColorPickerPreference colorPickerPref) {
-            colorPickerPref.showDialog(this, 0);
-        } else if (pref instanceof AutoSilenceDurationPreference autoSilenceDurationPreference) {
+        if (pref instanceof AutoSilenceDurationPreference autoSilenceDurationPreference) {
             int currentValue = autoSilenceDurationPreference.getAutoSilenceDuration();
             AutoSilenceDurationDialogFragment dialogFragment =
                     AutoSilenceDurationDialogFragment.newInstance(pref.getKey(), currentValue,
@@ -173,18 +155,10 @@ public class TimerSettingsFragment extends ScreenFragment
     }
 
     private void setupPreferences() {
+        mTimerDisplayCustomizationPref.setOnPreferenceClickListener(this);
+
         mTimerCreationViewStylePref.setOnPreferenceChangeListener(this);
         mTimerCreationViewStylePref.setSummary(mTimerCreationViewStylePref.getEntry());
-
-        mTransparentBackgroundPref.setOnPreferenceChangeListener(this);
-
-        mDisplayTimerStatusIndicatorPref.setOnPreferenceChangeListener(this);
-
-        mRunningTimerIndicatorColorPref.setVisible(SettingsDAO.isTimerStateIndicatorDisplayed(mPrefs));
-
-        mPausedTimerIndicatorColorPref.setVisible(SettingsDAO.isTimerStateIndicatorDisplayed(mPrefs));
-
-        mExpiredTimerIndicatorColorPref.setVisible(SettingsDAO.isTimerStateIndicatorDisplayed(mPrefs));
 
         mTimerRingtonePref.setOnPreferenceClickListener(this);
 

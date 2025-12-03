@@ -417,7 +417,6 @@
     <string name="widgets_settings">Widżety</string>
     <string name="widgets_settings_summary">Ustaw styl, kolory i rozmiar czcionki widżetów</string>
     <string name="revoke_permission_dialog_message">Czy na pewno chcesz cofnąć to pozwolenie?</string>
-    <string name="alarm_display_customization_title">Dostosuj wyświetlanie alarmu</string>
     <string name="dismiss_button_color">Kolor przycisku \"Odrzuć\"</string>
     <string name="alarm_button_color">Kolor przycisku Alarm</string>
     <string name="power_button_title">Przycisk zasilania</string>

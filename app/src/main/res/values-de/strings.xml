@@ -453,7 +453,6 @@
     <string name="alarm_title_default_color">Standardfarbe für Alarm-Namen verwenden</string>
     <string name="denied_permission_label">Zugriff verweigert</string>
     <string name="alarm_title_color">Farbe des Alarm-Namens</string>
-    <string name="alarm_display_customization_title">Anpassen der Alarmanzeige</string>
     <string name="github_dialog_message">Besuche die GitHub-Seite des Projekts:\n\n%s</string>
     <string name="whats_new_dialog_message">Entdecken, was neu ist: \n \n%s</string>
     <string name="transparent_background_for_expired_timer_title">Transparenter Hintergrund, wenn Timer ablaufen</string>

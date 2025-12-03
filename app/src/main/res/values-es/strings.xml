@@ -386,7 +386,6 @@
     <string name="settings_vibration_summary">Sólo algunos botones de la interfaz se ven afectados (e.g.: el botón de reanudar/pausar del temporizador o los interruptores)</string>
     <string name="dismiss_button_color">Color del botón de descartar</string>
     <string name="alarm_button_color">Color del botón de la alarma</string>
-    <string name="alarm_display_customization_title">Personaliza la apariencia de la alarma</string>
     <string name="clock_default_color_title">Utilizar el color por defecto para el reloj principal</string>
     <string name="license">Licencia de código abierto</string>
     <string name="version_text">Versión <xliff:g id="VERSION_NUMBER" example="1.0">%1$s</xliff:g></string>

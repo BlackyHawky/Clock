@@ -137,7 +137,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
 
     @Override
     protected String getFragmentTitle() {
-        return getString(R.string.alarm_display_customization_title);
+        return getString(R.string.display_settings_title);
     }
 
     @Override

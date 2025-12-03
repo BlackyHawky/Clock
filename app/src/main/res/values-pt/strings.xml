@@ -365,7 +365,6 @@
     <string name="preview_title">Prévia</string>
     <string name="screensaver_preview_summary">Inicia o protetor de tela imediatamente</string>
     <string name="gnu_gpl">GNU General Public License v3.0</string>
-    <string name="alarm_display_customization_title">Personalizar exibição de alarme</string>
     <string name="timer_label_box_title">Etiqueta de Timer</string>
     <string name="timer_button_time_box_title">Minutos para adicionar ao timer</string>
     <string name="alarm_settings_summary">Definir toque padrão, volume, ações para ignorar ou adiar alarmes, o primeiro dia da semana e a hora da notificação do lembrete</string>

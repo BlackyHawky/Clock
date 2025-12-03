@@ -3,7 +3,7 @@
 package com.best.deskclock.settings;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_SHADOW_OFFSET;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SHADOW_OFFSET;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_BLUR_INTENSITY;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_DIGITAL_CLOCK_FONT_SIZE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_TITLE_FONT_SIZE_PREF;
@@ -26,6 +26,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTI
 import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_BACKGROUND_CORNER_RADIUS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_BRIGHTNESS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SHAKE_INTENSITY;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_SHADOW_OFFSET;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_SHAKE_INTENSITY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_WIDGET_BACKGROUND_CORNER_RADIUS;
 import static com.best.deskclock.utils.RingtoneUtils.ALARM_PREVIEW_DURATION_MS;
@@ -133,7 +134,8 @@ public class CustomSeekbarPreference extends SeekBarPreference {
                             seekBar.setProgress(MIN_SHAKE_INTENSITY_VALUE);
                         } else if (isTimerShakeIntensityPreference() && progress < MIN_TIMER_SHAKE_INTENSITY_VALUE) {
                             seekBar.setProgress(MIN_TIMER_SHAKE_INTENSITY_VALUE);
-                        } else if (isAlarmShadowOffsetPreference() && progress < MIN_SHADOW_OFFSET_VALUE) {
+                        } else if ((isTimerShadowOffsetPreference() || isAlarmShadowOffsetPreference())
+                                && progress < MIN_SHADOW_OFFSET_VALUE) {
                             seekBar.setProgress(MIN_SHADOW_OFFSET_VALUE);
                         } else if (isAlarmBlurIntensityPreference() && progress < MIN_BLUR_INTENSITY_VALUE) {
                             seekBar.setProgress(MIN_BLUR_INTENSITY_VALUE);
@@ -189,7 +191,7 @@ public class CustomSeekbarPreference extends SeekBarPreference {
                 mSeekBar.setMin(MIN_SHAKE_INTENSITY_VALUE);
             } else if (isTimerShakeIntensityPreference()) {
                 mSeekBar.setMin(MIN_TIMER_SHAKE_INTENSITY_VALUE);
-            } else if (isAlarmShadowOffsetPreference()) {
+            } else if (isTimerShadowOffsetPreference() || isAlarmShadowOffsetPreference()) {
                 mSeekBar.setMin(MIN_SHADOW_OFFSET_VALUE);
             } else if (isAlarmBlurIntensityPreference()) {
                 mSeekBar.setMin(MIN_BLUR_INTENSITY_VALUE);
@@ -225,6 +227,8 @@ public class CustomSeekbarPreference extends SeekBarPreference {
             currentProgress = getShakeIntensityPreferenceValue();
         } else if (isTimerShakeIntensityPreference()) {
             currentProgress = getTimerShakeIntensityPreferenceValue();
+        } else if (isTimerShadowOffsetPreference()) {
+            currentProgress = getTimerShadowOffsetValue();
         } else if (isAlarmDigitalClockFontSizePreference()) {
             currentProgress = getAlarmDigitalClockFontSizeValue();
         } else if (isAlarmTitleFontSizePreference()) {
@@ -279,7 +283,7 @@ public class CustomSeekbarPreference extends SeekBarPreference {
         } else if (isShakeIntensityPreference() || isTimerShakeIntensityPreference()) {
             mSeekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_sensor_low));
             mSeekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_sensor_high));
-        } else if (isAlarmShadowOffsetPreference()) {
+        } else if (isTimerShadowOffsetPreference() || isAlarmShadowOffsetPreference()) {
             mSeekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_shadow_decrease));
             mSeekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_shadow_increase));
         } else if (isAlarmBlurIntensityPreference()) {
@@ -386,7 +390,7 @@ public class CustomSeekbarPreference extends SeekBarPreference {
             return MIN_SHAKE_INTENSITY_VALUE;
         } else if (isTimerShakeIntensityPreference()) {
             return MIN_TIMER_SHAKE_INTENSITY_VALUE;
-        } else if (isAlarmShadowOffsetPreference()) {
+        } else if (isTimerShadowOffsetPreference() || isAlarmShadowOffsetPreference()) {
             return MIN_SHADOW_OFFSET_VALUE;
         } else if (isAlarmBlurIntensityPreference()) {
             return MIN_BLUR_INTENSITY_VALUE;
@@ -419,8 +423,8 @@ public class CustomSeekbarPreference extends SeekBarPreference {
             return DEFAULT_ALARM_DIGITAL_CLOCK_FONT_SIZE;
         } else if (isAlarmTitleFontSizePreference()) {
             return DEFAULT_ALARM_TITLE_FONT_SIZE_PREF;
-        } else if (isAlarmShadowOffsetPreference()) {
-            return DEFAULT_ALARM_SHADOW_OFFSET;
+        } else if (isTimerShadowOffsetPreference() || isAlarmShadowOffsetPreference()) {
+            return DEFAULT_SHADOW_OFFSET;
         } else if (isAlarmBlurIntensityPreference()) {
             return DEFAULT_BLUR_INTENSITY;
         } else if (isBluetoothVolumePreference()) {
@@ -451,6 +455,7 @@ public class CustomSeekbarPreference extends SeekBarPreference {
         if (!isScreensaverBrightnessPreference()
                 && !isShakeIntensityPreference()
                 && !isTimerShakeIntensityPreference()
+                && !isTimerShadowOffsetPreference()
                 && !isAlarmDigitalClockFontSizePreference()
                 && !isAlarmTitleFontSizePreference()
                 && !isAlarmShadowOffsetPreference()
@@ -542,6 +547,13 @@ public class CustomSeekbarPreference extends SeekBarPreference {
     }
 
     /**
+     * @return the current value of the SeekBar related to timer shadow offset from SharedPreferences.
+     */
+    private int getTimerShadowOffsetValue() {
+        return mPrefs.getInt(getKey(), DEFAULT_SHADOW_OFFSET);
+    }
+
+    /**
      * Retrieves the current value of the SeekBar related to the font size of the alarm clock
      * from SharedPreferences.
      */
@@ -561,7 +573,7 @@ public class CustomSeekbarPreference extends SeekBarPreference {
      * @return the current value of the SeekBar related to alarm shadow offset from SharedPreferences.
      */
     private int getAlarmShadowOffsetValue() {
-        return mPrefs.getInt(getKey(), DEFAULT_ALARM_SHADOW_OFFSET);
+        return mPrefs.getInt(getKey(), DEFAULT_SHADOW_OFFSET);
     }
 
     /**
@@ -649,6 +661,14 @@ public class CustomSeekbarPreference extends SeekBarPreference {
      */
     private boolean isTimerShakeIntensityPreference() {
         return getKey().equals(KEY_TIMER_SHAKE_INTENSITY);
+    }
+
+    /**
+     * @return {@code true} if the current preference is related to shadow offset for timers.
+     * {@code false} otherwise.
+     */
+    private boolean isTimerShadowOffsetPreference() {
+        return getKey().equals(KEY_TIMER_SHADOW_OFFSET);
     }
 
     /**

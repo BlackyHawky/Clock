@@ -515,7 +515,6 @@
     <string name="amoled_dark_theme_mode">AMOLED</string>
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Standaard gelegenheidswekkers verwijderen</string>
     <string name="alarm_settings_general_summary">Deze instelling kan per wekker aangepast worden in het uitvouwmenu</string>
-    <string name="alarm_display_customization_title">Wekkeruiterlijk aanpassen</string>
     <string name="dismiss_button_color">Kleur uitzetknop</string>
     <string name="alarm_button_color">Kleur wekkerknop</string>
     <string name="sort_manually">Handmatig (door te slepen)</string>

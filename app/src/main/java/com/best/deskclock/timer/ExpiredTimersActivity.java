@@ -6,6 +6,7 @@
 
 package com.best.deskclock.timer;
 
+import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
 import android.content.BroadcastReceiver;
@@ -14,8 +15,13 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
+import android.graphics.BlurMaskFilter;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.transition.AutoTransition;
@@ -26,10 +32,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.graphics.Insets;
 import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.best.deskclock.BaseActivity;
 import com.best.deskclock.R;
@@ -38,7 +48,9 @@ import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.data.TimerListener;
 import com.best.deskclock.utils.AlarmUtils;
+import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 
@@ -72,6 +84,10 @@ public class ExpiredTimersActivity extends BaseActivity {
      * Displays the expired timers.
      */
     private ViewGroup mExpiredTimersView;
+
+    private View mRootView;
+    private ImageView mRingtoneIcon;
+    private TextView mRingtoneTitle;
 
     private final BroadcastReceiver PowerBtnReceiver = new BroadcastReceiver() {
         @Override
@@ -135,10 +151,11 @@ public class ExpiredTimersActivity extends BaseActivity {
 
         setContentView(R.layout.expired_timers_activity);
 
+        mRootView = findViewById(R.id.expired_timers_root_view);
         mExpiredTimersScrollView = findViewById(R.id.expired_timers_scroll);
         mExpiredTimersView = findViewById(R.id.expired_timers_list);
 
-        AlarmUtils.hideSystemBarsOfTriggeredAlarms(getWindow(), mExpiredTimersScrollView);
+        AlarmUtils.hideSystemBarsOfTriggeredAlarms(getWindow(), mRootView);
 
         if (SettingsDAO.isTimerBackgroundTransparent(mPrefs)) {
             getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -148,6 +165,14 @@ public class ExpiredTimersActivity extends BaseActivity {
         for (Timer timer : expiredTimers) {
             addTimer(timer);
         }
+
+        if (SettingsDAO.isTimerRingtoneTitleDisplayed(mPrefs)) {
+            mRingtoneTitle = findViewById(R.id.ringtone_title);
+            mRingtoneIcon = findViewById(R.id.ringtone_icon);
+            displayRingtoneTitle();
+        }
+
+        applyWindowInsets();
 
         // Update views in response to timer data changes.
         DataModel.getDataModel().addTimerListener(mTimerChangeWatcher);
@@ -188,6 +213,78 @@ public class ExpiredTimersActivity extends BaseActivity {
         }
 
         return super.dispatchKeyEvent(event);
+    }
+
+    /**
+     * This method adjusts the space occupied by system elements (such as the status bar,
+     * navigation bar or screen notch) and adjust the display of the application interface
+     * accordingly.
+     */
+    private void applyWindowInsets() {
+        InsetsUtils.doOnApplyWindowInsets(mRootView, (v, insets) -> {
+            // Get the system bar and notch insets
+            Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() |
+                    WindowInsetsCompat.Type.displayCutout());
+
+            v.setPadding(bars.left, bars.top, bars.right, 0);
+        });
+    }
+
+    /**
+     * Display ringtone title if enabled in Timer settings.
+     */
+    private void displayRingtoneTitle() {
+        final boolean silent = RingtoneUtils.RINGTONE_SILENT.equals(DataModel.getDataModel().getTimerRingtoneUri());
+        final Drawable iconRingtone = silent
+                ? AppCompatResources.getDrawable(this, R.drawable.ic_ringtone_silent)
+                : AppCompatResources.getDrawable(this, R.drawable.ic_music_note);
+        int iconRingtoneSize = (int) dpToPx(24, getResources().getDisplayMetrics());
+        final int ringtoneTitleColor = SettingsDAO.getTimerRingtoneTitleColor(mPrefs);
+        final int shadowOffset = SettingsDAO.getTimerShadowOffset(mPrefs);
+        final float shadowRadius = shadowOffset * 0.5f;
+        final int shadowColor = SettingsDAO.getTimerShadowColor(mPrefs);
+
+        if (iconRingtone != null) {
+            iconRingtone.setTint(ringtoneTitleColor);
+
+            if (SettingsDAO.isTimerTextShadowDisplayed(mPrefs)) {
+                // Convert the drawable to a bitmap
+                Bitmap iconBitmap = Bitmap.createBitmap(iconRingtoneSize, iconRingtoneSize, Bitmap.Config.ARGB_8888);
+                Canvas iconCanvas = new Canvas(iconBitmap);
+                iconRingtone.setBounds(0, 0, iconRingtoneSize, iconRingtoneSize);
+                iconRingtone.draw(iconCanvas);
+
+                // Create the alpha mask for the shadow
+                Bitmap shadowBitmap = iconBitmap.extractAlpha();
+                Paint shadowPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+                shadowPaint.setColor(shadowColor);
+                shadowPaint.setMaskFilter(new BlurMaskFilter(shadowRadius * 1.5f, BlurMaskFilter.Blur.NORMAL));
+
+                // Create the final bitmap with space for the shadow
+                int finalWidth = iconRingtoneSize + shadowOffset;
+                int finalHeight = iconRingtoneSize + shadowOffset;
+                Bitmap finalBitmap = Bitmap.createBitmap(finalWidth, finalHeight, Bitmap.Config.ARGB_8888);
+                Canvas finalCanvas = new Canvas(finalBitmap);
+
+                // Draw the blurred shadow with an offset
+                finalCanvas.drawBitmap(shadowBitmap, shadowOffset, shadowOffset, shadowPaint);
+
+                // Draw the normal icon on top
+                finalCanvas.drawBitmap(iconBitmap, 0, 0, null);
+
+                // Apply the result to the ImageView
+                mRingtoneIcon.setImageBitmap(finalBitmap);
+
+                mRingtoneTitle.setShadowLayer(shadowRadius, shadowOffset, shadowOffset, shadowColor);
+            } else {
+                mRingtoneIcon.setImageDrawable(iconRingtone);
+            }
+        }
+
+        mRingtoneTitle.setText(DataModel.getDataModel().getTimerRingtoneTitle());
+        mRingtoneTitle.setTextColor(ringtoneTitleColor);
+        // Allow text scrolling (all other attributes are indicated in the "expired_timers_activity.xml" file)
+        mRingtoneTitle.setSelected(true);
     }
 
     /**

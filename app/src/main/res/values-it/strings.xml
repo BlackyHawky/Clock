@@ -392,7 +392,6 @@
     <string name="alarm_label_box_title">Etichetta sveglia</string>
     <string name="screensaver_italic_next_alarm_title">Prossima sveglia in corsivo</string>
     <string name="font_category_title">Carattere</string>
-    <string name="alarm_display_customization_title">Personalizzazione visualizzazione sveglia</string>
     <string name="alarm_title_color">Colore titolo sveglia</string>
     <string name="dismiss_button_color">Colore del tasto \"Disattiva\"</string>
     <string name="snooze_button_color">Colore pulsante \"Rimanda\"</string>
