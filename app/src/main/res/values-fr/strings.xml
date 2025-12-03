@@ -137,7 +137,6 @@
     <string name="alarm_notification_reminder_12_hours">12 heures avant</string>
     <string name="enable_alarm_vibrations_by_default_setting_title">Activer les vibrations lors de la création des alarmes</string>
     <string name="material_time_picker_style_title">Style de sélection de l\'heure</string>
-    <string name="alarm_display_customization_title">Personnaliser l\'affichage de l\'alarme</string>
     <string name="alarm_title_color">Couleur du titre de l\'alarme</string>
     <string name="snooze_button_color">Couleur du bouton \"Répéter\"</string>
     <string name="dismiss_button_color">Couleur du bouton \"Arrêter\"</string>

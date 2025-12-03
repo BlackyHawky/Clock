@@ -478,7 +478,6 @@
     <string name="date_picker_style_calendar">Calendário</string>
     <string name="date_picker_style_text">Texto</string>
     <string name="alarm_settings_general_summary">Esta definição pode ser alterada para cada alarme na visualização do alarme extendido</string>
-    <string name="alarm_display_customization_title">Personalizar exibição do alarme</string>
     <string name="slide_zone_color_title">Cor da zona de deslizar</string>
     <string name="sort_alarm_title">Ordenar alarmes</string>
     <string name="sort_alarm_time">Por hora do alarme</string>

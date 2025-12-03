@@ -508,7 +508,6 @@
     <string name="alarm_notification_reminder_10_hours">10 hodin předem</string>
     <string name="alarm_notification_reminder_12_hours">12 hodin předem</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">Zapnout vibrace při odložení nebo zrušení budíku</string>
-    <string name="alarm_display_customization_title">Přizpůsobit zobrazení budíku</string>
     <string name="auto_silence_end_of_ringtone">Konec vyzvánění</string>
     <string name="timer_button_time_box_title">Přidat minuty k časovači</string>
     <string name="app_slogan">100% otevřené hodiny, založené na AOSP</string>

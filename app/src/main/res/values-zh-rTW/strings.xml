@@ -395,7 +395,6 @@
     <string name="turn_on_back_flash_for_triggered_alarm_title">鬧鐘鈴響時啟用後置閃光燈</string>
     <string name="enable_delete_occasional_alarm_by_default_setting_title">啟用自動刪除臨時鬧鐘</string>
     <string name="alarm_settings_general_summary">您可展開鬧鐘面板並各別設定</string>
-    <string name="alarm_display_customization_title">自訂鬧鐘顯示</string>
     <string name="timer_label_box_title">計時器名稱</string>
     <string name="timer_time_warning_box_title">數值無效</string>
     <string name="warning_dialog_title">刪除計時器</string>

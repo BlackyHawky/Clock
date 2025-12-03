@@ -5,17 +5,83 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/expired_timers_scroll"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/expired_timers_root_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:scrollbars="none">
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vertical_start_guide"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vertical_end_guide"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <ScrollView
+        android:id="@+id/expired_timers_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scrollbars="none"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/ringtone_layout">
+
+        <LinearLayout
+            android:id="@+id/expired_timers_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:orientation="vertical" />
+
+    </ScrollView>
 
     <LinearLayout
-        android:id="@+id/expired_timers_list"
-        android:layout_width="match_parent"
+        android:id="@+id/ringtone_layout"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clipToPadding="false"
-        android:orientation="vertical" />
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        app:layout_constraintStart_toEndOf="@+id/vertical_start_guide"
+        app:layout_constraintEnd_toStartOf="@+id/vertical_end_guide"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-</ScrollView>
+        <ImageView
+            android:id="@+id/ringtone_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="10dp"
+            android:contentDescription="@null"
+            tools:src="@drawable/ic_music_note"
+            tools:tint="#888888" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/ringtone_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="10dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:singleLine="true"
+            android:focusable="true"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            tools:text="Daydream"
+            tools:textColor="#888888" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

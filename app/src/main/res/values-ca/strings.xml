@@ -398,7 +398,6 @@
     <string name="display_card_background_summary">Mostra el fons de la targeta en alguns elements de l\'aplicació (alarmes, ciutats, botons, etc.)</string>
     <string name="alarm_notification_reminder_2_hours">2 hores abans</string>
     <string name="enable_alarm_vibrations_by_default_setting_title">Habilita la vibració en crear alarmes</string>
-    <string name="alarm_display_customization_title">Personalització de l\'alarma</string>
     <string name="alarm_title_color">Color del títol de l\'alarma</string>
     <string name="snooze_button_color">Color del botó Posposa</string>
     <string name="settings_vibration_title">Habilita la vibració</string>

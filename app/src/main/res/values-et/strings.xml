@@ -438,7 +438,6 @@
     <string name="permission_granted">Lubatud</string>
     <string name="digital_widget_message_summary">Selle seadistuse jaoks peab „Näita vidinas linnu“ olema välja lülitatud</string>
     <string name="notifications_dialog_title">Teavitused</string>
-    <string name="alarm_display_customization_title">Kohenda äratuse vaadet</string>
     <string name="snooze_button_color">„Lükka edasi“ nupu värv</string>
     <string name="dismiss_button_color">„Loobu“ nupu värv</string>
     <string name="alarm_button_color">Äratuse nupu värv</string>

@@ -456,7 +456,6 @@
     <string name="actions_category_title">Действия</string>
     <string name="first_launch_important_info_message_for_SDK34">• &lt;b&gt;ПОЛНОЭКРАННЫЕ УВЕДОМЛЕНИЯ;&lt;/b&gt; &lt;br&gt; &lt;br&gt;</string>
     <string name="permission_granted">Выдано</string>
-    <string name="alarm_display_customization_title">Изменить отображение будильников</string>
     <string name="alarm_title_color">Цвет заголовка будильника</string>
     <string name="snooze_button_color">Цвет кнопки \"Отложить\"</string>
     <string name="alarm_clock_font_size">Размер шрифта часов будильника</string>

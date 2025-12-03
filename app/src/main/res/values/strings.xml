@@ -273,6 +273,8 @@
     <string name="interface_customization_settings">Interface</string>
     <!-- Interface preference summary -->
     <string name="interface_customization_summary">Set style and color applied to the application</string>
+    <!-- Setting title for customizing the display -->
+    <string name="display_settings_title">Display settings</string>
     <!-- Settings theme title -->
     <string name="title_theme">Theme</string>
     <!-- Setting title to switch to system theme -->
@@ -505,8 +507,6 @@
     <string name="date_picker_style_text">Text</string>
     <!-- Setting summary to indicate that this setting can be changed for each alarm -->
     <string name="alarm_settings_general_summary">This setting can be changed for each alarm in the expanded alarm view</string>
-    <!-- Setting title for customizing the alarm display. -->
-    <string name="alarm_display_customization_title">Customize alarm display</string>
     <!-- Setting title for customizing the slide zone color. -->
     <string name="slide_zone_color_title">Slide zone color</string>
     <!-- Setting title for customizing the color of "Snooze" title. -->

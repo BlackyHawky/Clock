@@ -440,7 +440,6 @@
     <string name="alarm_notification_reminder_10_hours">10 сата пре</string>
     <string name="alarm_notification_reminder_12_hours">12 сата пре</string>
     <string name="enable_alarm_vibrations_by_default_setting_title">Омогућити вибрације када стварате аларме</string>
-    <string name="alarm_display_customization_title">Прилагодите приказ аларма</string>
     <string name="alarm_title_color">Боја наслова аларма</string>
     <string name="snooze_button_color">Боја дугмета \"Одложи\"</string>
     <string name="alarm_button_color">Боја дугмета аларма</string>
