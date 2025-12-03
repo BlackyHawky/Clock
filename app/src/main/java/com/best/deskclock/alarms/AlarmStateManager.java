@@ -646,6 +646,15 @@ public final class AlarmStateManager extends BroadcastReceiver {
      */
     public static void unregisterInstance(Context context, AlarmInstance instance) {
         LogUtils.i("Unregistering instance " + instance.mId);
+
+        if (SettingsDAO.areSnoozedOrDismissedAlarmVibrationsEnabled(getDefaultSharedPreferences(context))) {
+            // Stop alarm if this instance is firing it; a single vibration will be performed
+            // if enabled in settings to indicate that the alarm is correctly dismissed.
+            AlarmService.stopAlarmWithSingleVibration(context, instance);
+        } else {
+            // Otherwise, stop alarm if this instance is firing it without vibration.
+            AlarmService.stopAlarm(context, instance);
+        }
         AlarmNotifications.clearNotification(context, instance);
         cancelScheduledInstanceStateChange(context, instance);
         setDismissState(context, instance);
