@@ -25,7 +25,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_DISMISS_TITLE_COLO
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_ALARM_SECOND_HAND;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_RINGTONE_TITLE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_ALARM_BLUR_EFFECT;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_PREVIEW_ALARM;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_PREVIEW;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_RINGTONE_TITLE_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SLIDE_ZONE_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SNOOZE_BUTTON_COLOR;
@@ -91,7 +91,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
     Preference mAlarmBackgroundImagePref;
     SwitchPreferenceCompat mEnableAlarmBlurEffectPref;
     Preference mAlarmBlurIntensityPref;
-    Preference mPreviewAlarmPref;
+    Preference mAlarmPreviewPref;
 
     private final ActivityResultLauncher<Intent> imagePickerLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -171,7 +171,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
         mAlarmBackgroundImagePref = findPreference(KEY_ALARM_BACKGROUND_IMAGE);
         mEnableAlarmBlurEffectPref = findPreference(KEY_ENABLE_ALARM_BLUR_EFFECT);
         mAlarmBlurIntensityPref = findPreference(KEY_ALARM_BLUR_INTENSITY);
-        mPreviewAlarmPref = findPreference(KEY_PREVIEW_ALARM);
+        mAlarmPreviewPref = findPreference(KEY_ALARM_PREVIEW);
 
         mAlarmClockStyleValues = getResources().getStringArray(R.array.clock_style_values);
         mAnalogClock = mAlarmClockStyleValues[0];
@@ -264,7 +264,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
         }
 
         switch (pref.getKey()) {
-            case KEY_PREVIEW_ALARM -> {
+            case KEY_ALARM_PREVIEW -> {
                 startActivity(new Intent(context, AlarmDisplayPreviewActivity.class));
                 if (SettingsDAO.isFadeTransitionsEnabled(mPrefs)) {
                     if (SdkUtils.isAtLeastAndroid14()) {
@@ -379,7 +379,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
                 && SettingsDAO.getAlarmBackgroundImage(mPrefs) != null
                 && SettingsDAO.isAlarmBlurEffectEnabled(mPrefs));
 
-        mPreviewAlarmPref.setOnPreferenceClickListener(this);
+        mAlarmPreviewPref.setOnPreferenceClickListener(this);
     }
 
     private void selectImageBackground() {

@@ -215,6 +215,12 @@
             android:theme="@style/Theme.DeskClock.Wallpaper"
             tools:ignore="DiscouragedApi, NonResizeableActivity" />
 
+        <activity
+            android:name="com.best.deskclock.settings.TimerDisplayPreviewActivity"
+            android:excludeFromRecents="true"
+            android:taskAffinity=""
+            android:theme="@style/Theme.DeskClock.Wallpaper" />
+
         <!-- Legacy broadcast receiver that honors old scheduled timers across app upgrade. -->
         <receiver
             android:name="com.best.deskclock.timer.TimerReceiver"

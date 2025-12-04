@@ -109,6 +109,13 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_seekbar_layout" />
 
+        <Preference
+            android:key="key_timer_preview"
+            android:title="@string/preview_title"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

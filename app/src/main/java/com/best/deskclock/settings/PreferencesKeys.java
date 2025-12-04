@@ -129,7 +129,7 @@ public class PreferencesKeys {
     public static final String KEY_ALARM_BACKGROUND_IMAGE = "key_alarm_background_image";
     public static final String KEY_ENABLE_ALARM_BLUR_EFFECT = "key_enable_alarm_blur_effect";
     public static final String KEY_ALARM_BLUR_INTENSITY = "key_alarm_blur_intensity";
-    public static final String KEY_PREVIEW_ALARM = "key_preview_alarm";
+    public static final String KEY_ALARM_PREVIEW = "key_alarm_preview";
 
     // Timer
     public static final String KEY_TIMER_DISPLAY_CUSTOMIZATION = "key_timer_display_customization";
@@ -158,6 +158,7 @@ public class PreferencesKeys {
     public static final String KEY_TIMER_DISPLAY_TEXT_SHADOW = "key_timer_display_text_shadow";
     public static final String KEY_TIMER_SHADOW_COLOR = "key_timer_shadow_color";
     public static final String KEY_TIMER_SHADOW_OFFSET = "key_timer_shadow_offset";
+    public static final String KEY_TIMER_PREVIEW = "key_timer_preview";
 
     // Stopwatch
     public static final String KEY_SW_VOLUME_UP_ACTION = "key_sw_volume_up_action";

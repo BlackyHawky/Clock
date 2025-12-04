@@ -179,7 +179,7 @@ public class TimerItem extends ConstraintLayout {
     /**
      * Initializes the {@code timer} static visual elements when binding to a ViewHolder.
      */
-    void bindTimer(Timer timer) {
+    public void bindTimer(Timer timer) {
         // Initialize the time.
         mTimerTextController.setTimeString(timer.getRemainingTime());
 
