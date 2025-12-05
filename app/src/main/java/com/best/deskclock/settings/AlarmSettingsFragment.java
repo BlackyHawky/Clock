@@ -3,10 +3,7 @@
 package com.best.deskclock.settings;
 
 import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_SNOOZE_DURATION_DISABLED;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_SNOOZE_DURATION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_VOLUME;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_AUTO_SILENCE_DURATION;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_MISSED_ALARM_REPEAT_LIMIT;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VIBRATION_START_DELAY;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VOLUME_CRESCENDO_DURATION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_END_OF_RINGTONE;
@@ -234,7 +231,7 @@ public class AlarmSettingsFragment extends ScreenFragment
                     mAlarmAutoSilencePref.setVisible(false);
 
                     for (Alarm alarm : mAlarmList) {
-                        alarm.autoSilenceDuration = DEFAULT_AUTO_SILENCE_DURATION;
+                        alarm.autoSilenceDuration = SettingsDAO.getAlarmTimeout(mPrefs);
                         mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
                     }
                 } else {
@@ -254,7 +251,7 @@ public class AlarmSettingsFragment extends ScreenFragment
                     mAlarmSnoozeDurationPref.setVisible(false);
 
                     for (Alarm alarm : mAlarmList) {
-                        alarm.snoozeDuration = DEFAULT_ALARM_SNOOZE_DURATION;
+                        alarm.snoozeDuration = SettingsDAO.getSnoozeLength(mPrefs);
                         mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
                     }
                 } else {
@@ -274,7 +271,7 @@ public class AlarmSettingsFragment extends ScreenFragment
                     mMissedAlarmRepeatLimitPref.setVisible(false);
 
                     for (Alarm alarm : mAlarmList) {
-                        alarm.missedAlarmRepeatLimit = Integer.parseInt(DEFAULT_MISSED_ALARM_REPEAT_LIMIT);
+                        alarm.missedAlarmRepeatLimit = SettingsDAO.getMissedAlarmRepeatLimit(mPrefs);
                         mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
                     }
                 } else {
@@ -325,7 +322,7 @@ public class AlarmSettingsFragment extends ScreenFragment
                     mAlarmVolumeCrescendoDurationPref.setVisible(false);
 
                     for (Alarm alarm : mAlarmList) {
-                        alarm.crescendoDuration = DEFAULT_VOLUME_CRESCENDO_DURATION;
+                        alarm.crescendoDuration = SettingsDAO.getAlarmVolumeCrescendoDuration(mPrefs);
                         mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
                     }
                 } else {
