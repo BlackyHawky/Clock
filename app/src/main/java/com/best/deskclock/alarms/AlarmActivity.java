@@ -906,19 +906,21 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
     private void displayRingtoneTitle() {
         final boolean silent = RingtoneUtils.RINGTONE_SILENT.equals(mAlarmInstance.mRingtone);
         final String title = DataModel.getDataModel().getRingtoneTitle(mAlarmInstance.mRingtone);
-        final Drawable iconRingtone = silent
+        final Drawable musicIcon = silent
                 ? AppCompatResources.getDrawable(this, R.drawable.ic_ringtone_silent)
                 : AppCompatResources.getDrawable(this, R.drawable.ic_music_note);
-        int iconRingtoneSize = (int) dpToPx(24, getResources().getDisplayMetrics());
+        int ringtoneIconSize = (int) dpToPx(24, getResources().getDisplayMetrics());
         final int ringtoneTitleColor = SettingsDAO.getRingtoneTitleColor(mPrefs);
 
-        if (iconRingtone != null) {
+        if (musicIcon != null) {
+            musicIcon.setTint(ringtoneTitleColor);
+
             if (mIsTextShadowDisplayed) {
                 // Convert the drawable to a bitmap
-                Bitmap iconBitmap = Bitmap.createBitmap(iconRingtoneSize, iconRingtoneSize, Bitmap.Config.ARGB_8888);
+                Bitmap iconBitmap = Bitmap.createBitmap(ringtoneIconSize, ringtoneIconSize, Bitmap.Config.ARGB_8888);
                 Canvas iconCanvas = new Canvas(iconBitmap);
-                iconRingtone.setBounds(0, 0, iconRingtoneSize, iconRingtoneSize);
-                iconRingtone.draw(iconCanvas);
+                musicIcon.setBounds(0, 0, ringtoneIconSize, ringtoneIconSize);
+                musicIcon.draw(iconCanvas);
 
                 // Create the alpha mask for the shadow
                 Bitmap shadowBitmap = iconBitmap.extractAlpha();
@@ -927,8 +929,8 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
                 shadowPaint.setMaskFilter(new BlurMaskFilter(mShadowRadius * 1.5f, BlurMaskFilter.Blur.NORMAL));
 
                 // Create the final bitmap with space for the shadow
-                int finalWidth = iconRingtoneSize + mShadowOffset;
-                int finalHeight = iconRingtoneSize + mShadowOffset;
+                int finalWidth = ringtoneIconSize + mShadowOffset;
+                int finalHeight = ringtoneIconSize + mShadowOffset;
                 Bitmap finalBitmap = Bitmap.createBitmap(finalWidth, finalHeight, Bitmap.Config.ARGB_8888);
                 Canvas finalCanvas = new Canvas(finalBitmap);
 
@@ -943,8 +945,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
                 mRingtoneTitle.setShadowLayer(mShadowRadius, mShadowOffset, mShadowOffset, mShadowColor);
             } else {
-                iconRingtone.setTint(ringtoneTitleColor);
-                mRingtoneIcon.setImageDrawable(iconRingtone);
+                mRingtoneIcon.setImageDrawable(musicIcon);
             }
         }
 
