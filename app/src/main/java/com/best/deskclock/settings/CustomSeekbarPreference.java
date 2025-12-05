@@ -26,6 +26,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTI
 import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_BACKGROUND_CORNER_RADIUS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_BRIGHTNESS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SHAKE_INTENSITY;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_BLUR_INTENSITY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_SHADOW_OFFSET;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_SHAKE_INTENSITY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_WIDGET_BACKGROUND_CORNER_RADIUS;
@@ -137,7 +138,8 @@ public class CustomSeekbarPreference extends SeekBarPreference {
                         } else if ((isTimerShadowOffsetPreference() || isAlarmShadowOffsetPreference())
                                 && progress < MIN_SHADOW_OFFSET_VALUE) {
                             seekBar.setProgress(MIN_SHADOW_OFFSET_VALUE);
-                        } else if (isAlarmBlurIntensityPreference() && progress < MIN_BLUR_INTENSITY_VALUE) {
+                        } else if ((isTimerBlurIntensityPreference() || isAlarmBlurIntensityPreference())
+                                && progress < MIN_BLUR_INTENSITY_VALUE) {
                             seekBar.setProgress(MIN_BLUR_INTENSITY_VALUE);
                         } else if (isBluetoothVolumePreference() && progress < MIN_BLUETOOTH_VOLUME) {
                             seekBar.setProgress(MIN_BLUETOOTH_VOLUME);
@@ -193,7 +195,7 @@ public class CustomSeekbarPreference extends SeekBarPreference {
                 mSeekBar.setMin(MIN_TIMER_SHAKE_INTENSITY_VALUE);
             } else if (isTimerShadowOffsetPreference() || isAlarmShadowOffsetPreference()) {
                 mSeekBar.setMin(MIN_SHADOW_OFFSET_VALUE);
-            } else if (isAlarmBlurIntensityPreference()) {
+            } else if (isTimerBlurIntensityPreference() || isAlarmBlurIntensityPreference()) {
                 mSeekBar.setMin(MIN_BLUR_INTENSITY_VALUE);
             } else if (isBluetoothVolumePreference()) {
                 mSeekBar.setMin(MIN_BLUETOOTH_VOLUME);
@@ -229,6 +231,8 @@ public class CustomSeekbarPreference extends SeekBarPreference {
             currentProgress = getTimerShakeIntensityPreferenceValue();
         } else if (isTimerShadowOffsetPreference()) {
             currentProgress = getTimerShadowOffsetValue();
+        } else if (isTimerBlurIntensityPreference()) {
+            currentProgress = getTimerBlurIntensityValue();
         } else if (isAlarmDigitalClockFontSizePreference()) {
             currentProgress = getAlarmDigitalClockFontSizeValue();
         } else if (isAlarmTitleFontSizePreference()) {
@@ -286,7 +290,7 @@ public class CustomSeekbarPreference extends SeekBarPreference {
         } else if (isTimerShadowOffsetPreference() || isAlarmShadowOffsetPreference()) {
             mSeekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_shadow_decrease));
             mSeekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_shadow_increase));
-        } else if (isAlarmBlurIntensityPreference()) {
+        } else if (isTimerBlurIntensityPreference() || isAlarmBlurIntensityPreference()) {
             mSeekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_blur_decrease));
             mSeekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_blur_increase));
         } else if (isBluetoothVolumePreference()) {
@@ -392,7 +396,7 @@ public class CustomSeekbarPreference extends SeekBarPreference {
             return MIN_TIMER_SHAKE_INTENSITY_VALUE;
         } else if (isTimerShadowOffsetPreference() || isAlarmShadowOffsetPreference()) {
             return MIN_SHADOW_OFFSET_VALUE;
-        } else if (isAlarmBlurIntensityPreference()) {
+        } else if (isTimerBlurIntensityPreference() || isAlarmBlurIntensityPreference()) {
             return MIN_BLUR_INTENSITY_VALUE;
         } else if (isBluetoothVolumePreference()) {
             return MIN_BLUETOOTH_VOLUME;
@@ -425,7 +429,7 @@ public class CustomSeekbarPreference extends SeekBarPreference {
             return DEFAULT_ALARM_TITLE_FONT_SIZE_PREF;
         } else if (isTimerShadowOffsetPreference() || isAlarmShadowOffsetPreference()) {
             return DEFAULT_SHADOW_OFFSET;
-        } else if (isAlarmBlurIntensityPreference()) {
+        } else if (isTimerBlurIntensityPreference() || isAlarmBlurIntensityPreference()) {
             return DEFAULT_BLUR_INTENSITY;
         } else if (isBluetoothVolumePreference()) {
             return DEFAULT_BLUETOOTH_VOLUME;
@@ -456,6 +460,7 @@ public class CustomSeekbarPreference extends SeekBarPreference {
                 && !isShakeIntensityPreference()
                 && !isTimerShakeIntensityPreference()
                 && !isTimerShadowOffsetPreference()
+                && !isTimerBlurIntensityPreference()
                 && !isAlarmDigitalClockFontSizePreference()
                 && !isAlarmTitleFontSizePreference()
                 && !isAlarmShadowOffsetPreference()
@@ -551,6 +556,13 @@ public class CustomSeekbarPreference extends SeekBarPreference {
      */
     private int getTimerShadowOffsetValue() {
         return mPrefs.getInt(getKey(), DEFAULT_SHADOW_OFFSET);
+    }
+
+    /**
+     * @return the current value of the SeekBar related to timer blur effect from SharedPreferences.
+     */
+    private int getTimerBlurIntensityValue() {
+        return mPrefs.getInt(getKey(), DEFAULT_BLUR_INTENSITY);
     }
 
     /**
@@ -669,6 +681,14 @@ public class CustomSeekbarPreference extends SeekBarPreference {
      */
     private boolean isTimerShadowOffsetPreference() {
         return getKey().equals(KEY_TIMER_SHADOW_OFFSET);
+    }
+
+    /**
+     * @return {@code true} if the current preference is related to blur intensity for timers.
+     * {@code false} otherwise.
+     */
+    private boolean isTimerBlurIntensityPreference() {
+        return getKey().equals(KEY_TIMER_BLUR_INTENSITY);
     }
 
     /**

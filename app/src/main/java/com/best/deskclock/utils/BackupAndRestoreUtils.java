@@ -16,6 +16,7 @@ import static com.best.deskclock.data.TimerDAO.TIMER_IDS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BACKGROUND_IMAGE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DEFAULT_ALARM_RINGTONE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ESSENTIAL_PERMISSIONS_GRANTED;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_BACKGROUND_IMAGE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_RINGTONE;
 
 import android.content.ContentResolver;
@@ -79,7 +80,7 @@ public class BackupAndRestoreUtils {
                 String key = entry.getKey();
                 // Exclude keys from custom ringtones as this causes bugs when restoring.
                 // Also, exclude the selected alarm ringtone.
-                // Next, exclude the alarm background image because this file exists only on the
+                // Next, exclude the alarm and timer background images because these files exist only on the
                 // current device and cannot be restored on another.
                 // Finally, exclude the essential permissions key, as it reflects the current system state
                 // and should not be saved, restored, or reset like other preferences.
@@ -89,6 +90,7 @@ public class BackupAndRestoreUtils {
                         || RINGTONE_TITLE.startsWith(key)
                         || KEY_SELECTED_ALARM_RINGTONE_URI.equals(key)
                         || KEY_ALARM_BACKGROUND_IMAGE.equals(key)
+                        || KEY_TIMER_BACKGROUND_IMAGE.equals(key)
                         || KEY_ESSENTIAL_PERMISSIONS_GRANTED.equals(key)) {
                     continue;
                 }
@@ -226,7 +228,7 @@ public class BackupAndRestoreUtils {
         // Do not reset the KEY_IS_FIRST_LAUNCH key to prevent the "FirstLaunch" activity from reappearing.
         // Also, exclude keys corresponding to custom ringtones and the selected alarm ringtone,
         // as this causes bugs for alarms.
-        // Next, exclude the alarm background image because this file exists only on the
+        // Next, exclude the alarm and timer background images because these files exist only on the
         // current device and cannot be restored on another.
         // Finally, exclude the essential permissions key, as it reflects the current system state
         // and should not be saved, restored, or reset like other preferences.
@@ -240,6 +242,7 @@ public class BackupAndRestoreUtils {
                     && !RINGTONE_TITLE.startsWith(key)
                     && !KEY_SELECTED_ALARM_RINGTONE_URI.equals(key)
                     && !KEY_ALARM_BACKGROUND_IMAGE.equals(key)
+                    && !KEY_TIMER_BACKGROUND_IMAGE.equals(key)
                     && !KEY_ESSENTIAL_PERMISSIONS_GRANTED.equals(key)
             ) {
                 editor.remove(key);

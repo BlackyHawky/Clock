@@ -19,6 +19,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_DEBUG_CATEGORY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_DEBUG_SETTINGS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_LOCAL_LOGGING;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ESSENTIAL_PERMISSIONS_GRANTED;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_BACKGROUND_IMAGE;
 import static com.best.deskclock.utils.Utils.ACTION_LANGUAGE_CODE_CHANGED;
 
 import android.app.Activity;
@@ -304,7 +305,7 @@ public class AboutFragment extends ScreenFragment
             String key = entry.getKey();
             // Do not reset the KEY_IS_FIRST_LAUNCH key to prevent the "FirstLaunch" activity from reappearing.
             // Also, exclude keys corresponding to custom ringtones as this causes bugs for alarms.
-            // Next, exclude the alarm background image because this preference only stores
+            // Next, exclude the alarm and timer background images because these preferences only store
             // the path to the imported file.
             // Finally, exclude the essential permissions key, as it reflects the current system state
             // and should not be saved, restored, or reset like other preferences.
@@ -314,6 +315,7 @@ public class AboutFragment extends ScreenFragment
                     && !NEXT_RINGTONE_ID.equals(key)
                     && !RINGTONE_TITLE.startsWith(key)
                     && !KEY_ALARM_BACKGROUND_IMAGE.equals(key)
+                    && !KEY_TIMER_BACKGROUND_IMAGE.equals(key)
                     && !KEY_ESSENTIAL_PERMISSIONS_GRANTED.equals(key)) {
                 editor.remove(key);
             }

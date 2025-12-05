@@ -11,8 +11,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/expired_timers_root_view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/vertical_start_guide"
@@ -27,6 +26,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintGuide_percent="0.95" />
+
+    <ImageView
+        android:id="@+id/timer_background_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/black"
+        android:scaleType="centerCrop"
+        android:contentDescription="@null"
+        tools:visibility="gone" />
 
     <ScrollView
         android:id="@+id/expired_timers_scroll"
