@@ -309,14 +309,14 @@ public class AboutFragment extends ScreenFragment
             // the path to the imported file.
             // Finally, exclude the essential permissions key, as it reflects the current system state
             // and should not be saved, restored, or reset like other preferences.
-            if (!KEY_IS_FIRST_LAUNCH.equals(key)
-                    && !RINGTONE_URI.startsWith(key)
-                    && !RINGTONE_IDS.equals(key)
-                    && !NEXT_RINGTONE_ID.equals(key)
-                    && !RINGTONE_TITLE.startsWith(key)
-                    && !KEY_ALARM_BACKGROUND_IMAGE.equals(key)
-                    && !KEY_TIMER_BACKGROUND_IMAGE.equals(key)
-                    && !KEY_ESSENTIAL_PERMISSIONS_GRANTED.equals(key)) {
+            if (!key.equals(KEY_IS_FIRST_LAUNCH)
+                    && !key.startsWith(RINGTONE_URI)
+                    && !key.equals(RINGTONE_IDS)
+                    && !key.equals(NEXT_RINGTONE_ID)
+                    && !key.startsWith(RINGTONE_TITLE)
+                    && !key.equals(KEY_ALARM_BACKGROUND_IMAGE)
+                    && !key.equals(KEY_TIMER_BACKGROUND_IMAGE)
+                    && !key.equals(KEY_ESSENTIAL_PERMISSIONS_GRANTED)) {
                 editor.remove(key);
             }
         }
