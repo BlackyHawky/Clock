@@ -10,10 +10,7 @@ import static android.content.Context.AUDIO_SERVICE;
 import static android.media.AudioManager.STREAM_ALARM;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_SNOOZE_DURATION_DISABLED;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_SNOOZE_DURATION;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_AUTO_SILENCE_DURATION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_DATE_PICKER_STYLE;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_MISSED_ALARM_REPEAT_LIMIT;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VOLUME_CRESCENDO_DURATION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SPINNER_DATE_PICKER_STYLE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SPINNER_TIME_PICKER_STYLE;
@@ -477,18 +474,10 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
         alarm.vibrate = SettingsDAO.areAlarmVibrationsEnabledByDefault(mPrefs);
         alarm.flash = SettingsDAO.shouldTurnOnBackFlashForTriggeredAlarm(mPrefs);
         alarm.deleteAfterUse = SettingsDAO.isOccasionalAlarmDeletedByDefault(mPrefs);
-        alarm.autoSilenceDuration = SettingsDAO.isPerAlarmAutoSilenceEnabled(mPrefs)
-                ? DEFAULT_AUTO_SILENCE_DURATION
-                : SettingsDAO.getAlarmTimeout(mPrefs);
-        alarm.snoozeDuration = SettingsDAO.isPerAlarmAutoSilenceEnabled(mPrefs)
-                ? DEFAULT_ALARM_SNOOZE_DURATION
-                : SettingsDAO.getSnoozeLength(mPrefs);
-        alarm.missedAlarmRepeatLimit = SettingsDAO.isPerAlarmMissedRepeatLimitEnabled(mPrefs)
-                ? Integer.parseInt(DEFAULT_MISSED_ALARM_REPEAT_LIMIT)
-                : SettingsDAO.getMissedAlarmRepeatLimit(mPrefs);
-        alarm.crescendoDuration = SettingsDAO.isPerAlarmCrescendoDurationEnabled(mPrefs)
-                ? DEFAULT_VOLUME_CRESCENDO_DURATION
-                : SettingsDAO.getAlarmVolumeCrescendoDuration(mPrefs);
+        alarm.autoSilenceDuration = SettingsDAO.getAlarmTimeout(mPrefs);
+        alarm.snoozeDuration = SettingsDAO.getSnoozeLength(mPrefs);
+        alarm.missedAlarmRepeatLimit = SettingsDAO.getMissedAlarmRepeatLimit(mPrefs);
+        alarm.crescendoDuration = SettingsDAO.getAlarmVolumeCrescendoDuration(mPrefs);
         alarm.alarmVolume = audioManager.getStreamVolume(STREAM_ALARM);
 
         return alarm;
