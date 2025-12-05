@@ -588,6 +588,8 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
         final int ringtoneTitleColor = SettingsDAO.getRingtoneTitleColor(mPrefs);
 
         if (musicIcon != null) {
+            musicIcon.setTint(ringtoneTitleColor);
+
             if (mIsTextShadowDisplayed) {
                 // Convert the drawable to a bitmap
                 Bitmap iconBitmap = Bitmap.createBitmap(iconSize, iconSize, Bitmap.Config.ARGB_8888);
@@ -618,7 +620,6 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
 
                 mRingtoneTitle.setShadowLayer(mShadowRadius, mShadowOffset, mShadowOffset, mShadowColor);
             } else {
-                musicIcon.setTint(ringtoneTitleColor);
                 mRingtoneIcon.setImageDrawable(musicIcon);
             }
         }
