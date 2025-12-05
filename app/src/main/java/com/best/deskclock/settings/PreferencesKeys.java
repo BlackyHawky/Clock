@@ -158,6 +158,9 @@ public class PreferencesKeys {
     public static final String KEY_TIMER_DISPLAY_TEXT_SHADOW = "key_timer_display_text_shadow";
     public static final String KEY_TIMER_SHADOW_COLOR = "key_timer_shadow_color";
     public static final String KEY_TIMER_SHADOW_OFFSET = "key_timer_shadow_offset";
+    public static final String KEY_TIMER_BACKGROUND_IMAGE = "key_timer_background_image";
+    public static final String KEY_ENABLE_TIMER_BLUR_EFFECT = "key_enable_timer_blur_effect";
+    public static final String KEY_TIMER_BLUR_INTENSITY = "key_timer_blur_intensity";
     public static final String KEY_TIMER_PREVIEW = "key_timer_preview";
 
     // Stopwatch

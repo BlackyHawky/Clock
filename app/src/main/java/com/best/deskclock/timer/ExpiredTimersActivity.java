@@ -16,10 +16,13 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.BlurMaskFilter;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.RenderEffect;
+import android.graphics.Shader;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -54,6 +57,7 @@ import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -85,7 +89,6 @@ public class ExpiredTimersActivity extends BaseActivity {
      */
     private ViewGroup mExpiredTimersView;
 
-    private View mRootView;
     private ImageView mRingtoneIcon;
     private TextView mRingtoneTitle;
 
@@ -151,14 +154,41 @@ public class ExpiredTimersActivity extends BaseActivity {
 
         setContentView(R.layout.expired_timers_activity);
 
-        mRootView = findViewById(R.id.expired_timers_root_view);
         mExpiredTimersScrollView = findViewById(R.id.expired_timers_scroll);
         mExpiredTimersView = findViewById(R.id.expired_timers_list);
-
-        AlarmUtils.hideSystemBarsOfTriggeredAlarms(getWindow(), mRootView);
+        final ImageView timerBackgroundImage = findViewById(R.id.timer_background_image);
+        final String imagePath = SettingsDAO.getTimerBackgroundImage(mPrefs);
 
         if (SettingsDAO.isTimerBackgroundTransparent(mPrefs)) {
+            timerBackgroundImage.setVisibility(View.GONE);
             getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        } else {
+            // Apply a background image and a blur effect.
+            if (imagePath != null) {
+                timerBackgroundImage.setVisibility(View.VISIBLE);
+
+                File imageFile = new File(imagePath);
+                if (imageFile.exists()) {
+                    Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
+                    if (bitmap != null) {
+                        timerBackgroundImage.setImageBitmap(bitmap);
+
+                        if (SdkUtils.isAtLeastAndroid12() && SettingsDAO.isTimerBlurEffectEnabled(mPrefs)) {
+                            float intensity = SettingsDAO.getTimerBlurIntensity(mPrefs);
+                            RenderEffect blur = RenderEffect.createBlurEffect(intensity, intensity, Shader.TileMode.CLAMP);
+                            timerBackgroundImage.setRenderEffect(blur);
+                        }
+                    } else {
+                        LogUtils.e("Bitmap null for path: " + imagePath);
+                        timerBackgroundImage.setVisibility(View.GONE);
+                    }
+                } else {
+                    LogUtils.e("Image file not found: " + imagePath);
+                    timerBackgroundImage.setVisibility(View.GONE);
+                }
+            } else {
+                timerBackgroundImage.setVisibility(View.GONE);
+            }
         }
 
         // Create views for each of the expired timers.
@@ -171,6 +201,8 @@ public class ExpiredTimersActivity extends BaseActivity {
             mRingtoneIcon = findViewById(R.id.ringtone_icon);
             displayRingtoneTitle();
         }
+
+        AlarmUtils.hideSystemBarsOfTriggeredAlarms(getWindow(), getWindow().getDecorView());
 
         applyWindowInsets();
 
@@ -221,7 +253,7 @@ public class ExpiredTimersActivity extends BaseActivity {
      * accordingly.
      */
     private void applyWindowInsets() {
-        InsetsUtils.doOnApplyWindowInsets(mRootView, (v, insets) -> {
+        InsetsUtils.doOnApplyWindowInsets(mExpiredTimersScrollView, (v, insets) -> {
             // Get the system bar and notch insets
             Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() |
                     WindowInsetsCompat.Type.displayCutout());

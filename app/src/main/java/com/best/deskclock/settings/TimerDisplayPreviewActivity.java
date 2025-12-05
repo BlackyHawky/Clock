@@ -12,10 +12,13 @@ import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreference
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.BlurMaskFilter;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.RenderEffect;
+import android.graphics.Shader;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -28,9 +31,7 @@ import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.content.res.AppCompatResources;
-import androidx.core.graphics.Insets;
 import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.best.deskclock.BaseActivity;
 import com.best.deskclock.R;
@@ -39,17 +40,18 @@ import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.timer.TimerItem;
 import com.best.deskclock.utils.AlarmUtils;
-import com.best.deskclock.utils.InsetsUtils;
+import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
+
+import java.io.File;
 
 public class TimerDisplayPreviewActivity extends BaseActivity {
 
     private SharedPreferences mPrefs;
 
     private ViewGroup mExpiredTimersView;
-    private View mRootView;
     private ImageView mRingtoneIcon;
     private TextView mRingtoneTitle;
     private boolean mIsFadeTransitionsEnabled;
@@ -71,13 +73,40 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
         setContentView(R.layout.expired_timers_activity);
 
         mIsFadeTransitionsEnabled = SettingsDAO.isFadeTransitionsEnabled(mPrefs);
-        mRootView = findViewById(R.id.expired_timers_root_view);
         mExpiredTimersView = findViewById(R.id.expired_timers_list);
-
-        AlarmUtils.hideSystemBarsOfTriggeredAlarms(getWindow(), mRootView);
+        final ImageView timerBackgroundImage = findViewById(R.id.timer_background_image);
+        final String imagePath = SettingsDAO.getTimerBackgroundImage(mPrefs);
 
         if (SettingsDAO.isTimerBackgroundTransparent(mPrefs)) {
+            timerBackgroundImage.setVisibility(View.GONE);
             getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        } else {
+            // Apply a background image and a blur effect.
+            if (imagePath != null) {
+                timerBackgroundImage.setVisibility(View.VISIBLE);
+
+                File imageFile = new File(imagePath);
+                if (imageFile.exists()) {
+                    Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
+                    if (bitmap != null) {
+                        timerBackgroundImage.setImageBitmap(bitmap);
+
+                        if (SdkUtils.isAtLeastAndroid12() && SettingsDAO.isTimerBlurEffectEnabled(mPrefs)) {
+                            float intensity = SettingsDAO.getTimerBlurIntensity(mPrefs);
+                            RenderEffect blur = RenderEffect.createBlurEffect(intensity, intensity, Shader.TileMode.CLAMP);
+                            timerBackgroundImage.setRenderEffect(blur);
+                        }
+                    } else {
+                        LogUtils.e("Bitmap null for path: " + imagePath);
+                        timerBackgroundImage.setVisibility(View.GONE);
+                    }
+                } else {
+                    LogUtils.e("Image file not found: " + imagePath);
+                    timerBackgroundImage.setVisibility(View.GONE);
+                }
+            } else {
+                timerBackgroundImage.setVisibility(View.GONE);
+            }
         }
 
         // Creating a dummy timer
@@ -94,28 +123,13 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
             displayRingtoneTitle();
         }
 
-        applyWindowInsets();
+        AlarmUtils.hideSystemBarsOfTriggeredAlarms(getWindow(), getWindow().getDecorView());
 
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
                 finishActivity();
             }
-        });
-    }
-
-    /**
-     * This method adjusts the space occupied by system elements (such as the status bar,
-     * navigation bar or screen notch) and adjust the display of the application interface
-     * accordingly.
-     */
-    private void applyWindowInsets() {
-        InsetsUtils.doOnApplyWindowInsets(mRootView, (v, insets) -> {
-            // Get the system bar and notch insets
-            Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() |
-                    WindowInsetsCompat.Type.displayCutout());
-
-            v.setPadding(bars.left, bars.top, bars.right, 0);
         });
     }
 

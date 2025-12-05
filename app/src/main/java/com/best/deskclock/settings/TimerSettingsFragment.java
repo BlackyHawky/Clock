@@ -41,7 +41,6 @@ public class TimerSettingsFragment extends ScreenFragment
         implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
     Preference mTimerDisplayCustomizationPref;
-    ListPreference mSortTimerPref;
     ListPreference mTimerCreationViewStylePref;
     Preference mTimerRingtonePref;
     Preference mTimerVibratePref;
@@ -50,6 +49,7 @@ public class TimerSettingsFragment extends ScreenFragment
     SwitchPreferenceCompat mTimerFlipActionPref;
     SwitchPreferenceCompat mTimerShakeActionPref;
     CustomSeekbarPreference mTimerShakeIntensityPref;
+    ListPreference mSortTimerPref;
     SwitchPreferenceCompat mDisplayWarningBeforeDeletingTimerPref;
 
     @Override
@@ -88,14 +88,14 @@ public class TimerSettingsFragment extends ScreenFragment
     @Override
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
-            case KEY_TIMER_RINGTONE ->
-                    mTimerRingtonePref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
-
             case KEY_TIMER_CREATION_VIEW_STYLE, KEY_SORT_TIMER -> {
                 final ListPreference preference = (ListPreference) pref;
                 final int index = preference.findIndexOfValue((String) newValue);
                 preference.setSummary(preference.getEntries()[index]);
             }
+
+            case KEY_TIMER_RINGTONE ->
+                    mTimerRingtonePref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
 
             case KEY_TIMER_SHAKE_ACTION -> {
                 mTimerShakeIntensityPref.setVisible((boolean) newValue);
@@ -119,11 +119,11 @@ public class TimerSettingsFragment extends ScreenFragment
         }
 
         switch (pref.getKey()) {
-            case KEY_TIMER_RINGTONE ->
-                    startActivity(RingtonePickerActivity.createTimerRingtonePickerIntent(context));
-
             case KEY_TIMER_DISPLAY_CUSTOMIZATION ->
                     animateAndShowFragment(new TimerDisplayCustomizationFragment());
+
+            case KEY_TIMER_RINGTONE ->
+                    startActivity(RingtonePickerActivity.createTimerRingtonePickerIntent(context));
         }
 
         return true;

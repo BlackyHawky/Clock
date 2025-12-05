@@ -512,7 +512,7 @@ public final class SettingsDAO {
      * @return a value indicating the shadow color displayed on the expired timer texts.
      */
     public static int getTimerShadowColor(SharedPreferences prefs) {
-        // Default value must match the one in res/xml/settings_timer.xml
+        // Default value must match the one in res/xml/settings_timer_display.xml
         return prefs.getInt(KEY_TIMER_SHADOW_COLOR, DEFAULT_TIMER_SHADOW_COLOR);
     }
 
@@ -520,8 +520,32 @@ public final class SettingsDAO {
      * @return a value indicating the shadow offset for the expired timer texts.
      */
     public static int getTimerShadowOffset(SharedPreferences prefs) {
-        // Default value must match the one in res/xml/settings_timer.xml
+        // Default value must match the one in res/xml/settings_timer_display.xml
         return prefs.getInt(KEY_TIMER_SHADOW_OFFSET, DEFAULT_SHADOW_OFFSET);
+    }
+
+    /**
+     * @return the URI of the image to be displayed on the lock screen when the timer is expired.
+     */
+    public static String getTimerBackgroundImage(SharedPreferences prefs) {
+        return prefs.getString(KEY_TIMER_BACKGROUND_IMAGE, null);
+    }
+
+    /**
+     * @return {@code true} if a blur effect should be applied to the image when the timer is expired.
+     * {@code false} otherwise.
+     */
+    public static boolean isTimerBlurEffectEnabled(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_timer_display.xml
+        return prefs.getBoolean(KEY_ENABLE_TIMER_BLUR_EFFECT, DEFAULT_ENABLE_BLUR_EFFECT);
+    }
+
+    /**
+     * @return the blur intensity applied to the image when the timer is expired.
+     */
+    public static int getTimerBlurIntensity(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_timer_display.xml
+        return prefs.getInt(KEY_TIMER_BLUR_INTENSITY, DEFAULT_BLUR_INTENSITY);
     }
 
     /**
