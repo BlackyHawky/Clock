@@ -520,8 +520,8 @@ public final class AlarmClockFragment extends DeskClockFragment implements
                 }
 
                 // Get the next scheduled alarm time for each item
-                Calendar t1 = h1.item.getSortableNextAlarmTime(h1.item, now);
-                Calendar t2 = h2.item.getSortableNextAlarmTime(h2.item, now);
+                Calendar t1 = h1.item.getSortableNextAlarmTime(h1.getAlarmInstance(), now);
+                Calendar t2 = h2.item.getSortableNextAlarmTime(h2.getAlarmInstance(), now);
 
                 // Both alarms have valid upcoming times: compare them chronologically
                 return Long.compare(t1.getTimeInMillis(), t2.getTimeInMillis());
