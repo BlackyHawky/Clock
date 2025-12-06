@@ -403,11 +403,11 @@ public class BackupAndRestoreUtils {
                 autoSilenceDuration, snoozeDuration, missedAlarmRepeatLimit, crescendoDuration,
                 alarmVolume);
 
-        Alarm.addAlarm(contentResolver, restoredAlarm);
+        restoredAlarm.addAlarm(contentResolver);
 
         if (restoredAlarm.enabled) {
             AlarmInstance alarmInstance = restoredAlarm.createInstanceAfter(Calendar.getInstance());
-            AlarmInstance.addInstance(contentResolver, alarmInstance);
+            alarmInstance.addInstance(contentResolver);
             AlarmStateManager.registerInstance(context, alarmInstance, true);
             LogUtils.i("BackupAndRestoreUtils scheduled alarm instance: %s", alarmInstance);
         }

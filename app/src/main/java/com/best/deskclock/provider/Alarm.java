@@ -339,33 +339,33 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         alarmVolume = p.readInt();
     }
 
-    public static ContentValues createContentValues(Alarm alarm) {
+    public ContentValues createContentValues() {
         ContentValues values = new ContentValues(COLUMN_COUNT);
-        if (alarm.id != INVALID_ID) {
-            values.put(ClockContract.AlarmsColumns._ID, alarm.id);
+        if (id != INVALID_ID) {
+            values.put(ClockContract.AlarmsColumns._ID, id);
         }
 
-        values.put(ENABLED, alarm.enabled ? 1 : 0);
-        values.put(YEAR, alarm.year);
-        values.put(MONTH, alarm.month);
-        values.put(DAY, alarm.day);
-        values.put(HOUR, alarm.hour);
-        values.put(MINUTES, alarm.minutes);
-        values.put(DAYS_OF_WEEK, alarm.daysOfWeek.getBits());
-        values.put(VIBRATE, alarm.vibrate ? 1 : 0);
-        values.put(FLASH, alarm.flash ? 1 : 0);
-        values.put(LABEL, alarm.label);
-        values.put(DELETE_AFTER_USE, alarm.deleteAfterUse ? 1 : 0);
-        values.put(AUTO_SILENCE_DURATION, alarm.autoSilenceDuration);
-        values.put(SNOOZE_DURATION, alarm.snoozeDuration);
-        values.put(MISSED_ALARM_REPEAT_LIMIT, alarm.missedAlarmRepeatLimit);
-        values.put(CRESCENDO_DURATION, alarm.crescendoDuration);
-        values.put(ALARM_VOLUME, alarm.alarmVolume);
-        if (alarm.alert == null) {
+        values.put(ENABLED, enabled ? 1 : 0);
+        values.put(YEAR, year);
+        values.put(MONTH, month);
+        values.put(DAY, day);
+        values.put(HOUR, hour);
+        values.put(MINUTES, minutes);
+        values.put(DAYS_OF_WEEK, daysOfWeek.getBits());
+        values.put(VIBRATE, vibrate ? 1 : 0);
+        values.put(FLASH, flash ? 1 : 0);
+        values.put(LABEL, label);
+        values.put(DELETE_AFTER_USE, deleteAfterUse ? 1 : 0);
+        values.put(AUTO_SILENCE_DURATION, autoSilenceDuration);
+        values.put(SNOOZE_DURATION, snoozeDuration);
+        values.put(MISSED_ALARM_REPEAT_LIMIT, missedAlarmRepeatLimit);
+        values.put(CRESCENDO_DURATION, crescendoDuration);
+        values.put(ALARM_VOLUME, alarmVolume);
+        if (alert == null) {
             // We want to put null, so default alarm changes
             values.putNull(RINGTONE);
         } else {
-            values.put(RINGTONE, alarm.alert.toString());
+            values.put(RINGTONE, alert.toString());
         }
 
         return values;
@@ -501,17 +501,17 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         return result;
     }
 
-    public static Alarm addAlarm(ContentResolver contentResolver, Alarm alarm) {
-        ContentValues values = createContentValues(alarm);
+    public Alarm addAlarm(ContentResolver contentResolver) {
+        ContentValues values = createContentValues();
         Uri uri = contentResolver.insert(CONTENT_URI, values);
-        alarm.id = getId(uri);
-        return alarm;
+        id = getId(uri);
+        return this;
     }
 
-    public static void updateAlarm(ContentResolver contentResolver, Alarm alarm) {
-        if (alarm.id == Alarm.INVALID_ID) return;
-        ContentValues values = createContentValues(alarm);
-        contentResolver.update(getContentUri(alarm.id), values, null, null);
+    public void updateAlarm(ContentResolver contentResolver) {
+        if (id == Alarm.INVALID_ID) return;
+        ContentValues values = createContentValues();
+        contentResolver.update(getContentUri(id), values, null, null);
     }
 
     public static boolean deleteAlarm(ContentResolver contentResolver, long alarmId) {
@@ -571,12 +571,12 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         prefs.edit().remove(KEY_SHOW_STYLED_REPEAT_DAY + id).apply();
     }
 
-    public static boolean isTomorrow(Alarm alarm, Calendar now) {
-        if (alarm.instanceState == AlarmInstance.SNOOZE_STATE) {
+    public boolean isTomorrow(Calendar now) {
+        if (instanceState == AlarmInstance.SNOOZE_STATE) {
             return false;
         }
 
-        final int totalAlarmMinutes = alarm.hour * 60 + alarm.minutes;
+        final int totalAlarmMinutes = hour * 60 + minutes;
         final int totalNowMinutes = now.get(Calendar.HOUR_OF_DAY) * 60 + now.get(Calendar.MINUTE);
 
         return totalAlarmMinutes <= totalNowMinutes;

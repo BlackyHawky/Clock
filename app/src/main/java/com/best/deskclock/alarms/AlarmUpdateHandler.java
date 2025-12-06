@@ -67,7 +67,7 @@ public final class AlarmUpdateHandler {
                 ContentResolver cr = mAppContext.getContentResolver();
 
                 // Add alarm to db
-                Alarm newAlarm = Alarm.addAlarm(cr, alarm);
+                Alarm newAlarm = alarm.addAlarm(cr);
 
                 // Be ready to scroll to this alarm on UI later.
                 mScrollHandler.setSmoothScrollStableId(newAlarm.id);
@@ -108,7 +108,7 @@ public final class AlarmUpdateHandler {
 
             try {
                 // Update alarm
-                Alarm.updateAlarm(cr, alarm);
+                alarm.updateAlarm(cr);
 
                 if (minorUpdate) {
                     // just update the instance in the database and update notifications.
@@ -138,7 +138,7 @@ public final class AlarmUpdateHandler {
                         // Since we copied the mId of the old instance and the mId is used
                         // as the primary key in the AlarmInstance table, this will replace
                         // the existing instance.
-                        AlarmInstance.updateInstance(cr, newInstance);
+                        newInstance.updateInstance(cr);
                         // Update the notification for this instance.
                         AlarmNotifications.updateNotification(mAppContext, newInstance);
                     }
@@ -249,7 +249,7 @@ public final class AlarmUpdateHandler {
     private AlarmInstance setupAlarmInstance(Alarm alarm) {
         final ContentResolver cr = mAppContext.getContentResolver();
         AlarmInstance newInstance = alarm.createInstanceAfter(Calendar.getInstance());
-        AlarmInstance.addInstance(cr, newInstance);
+        newInstance.addInstance(cr);
         // Register instance to state manager
         AlarmStateManager.registerInstance(mAppContext, newInstance, true);
         return newInstance;

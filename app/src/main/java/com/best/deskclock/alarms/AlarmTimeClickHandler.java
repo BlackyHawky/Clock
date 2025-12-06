@@ -301,7 +301,7 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
 
         // Date selection and minimum date to display
         boolean timePassed = alarm.isTimeBeforeOrEqual(now);
-        boolean isTomorrow = Alarm.isTomorrow(alarm, now);
+        boolean isTomorrow = alarm.isTomorrow(now);
 
         // Date not specified
         if (!alarm.isSpecifiedDate()) {
@@ -370,7 +370,7 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
         // Date not specified
         if (!alarm.isSpecifiedDate()) {
             // Case 1: today or tomorrow depending on isTomorrow()
-            if (Alarm.isTomorrow(alarm, now)) {
+            if (alarm.isTomorrow(now)) {
                 selectionDate.add(Calendar.DAY_OF_MONTH, 1);
             }
         } else {

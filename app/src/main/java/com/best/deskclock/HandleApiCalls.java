@@ -328,7 +328,7 @@ public class HandleApiCalls extends Activity {
             // Enable the first matching alarm.
             alarm = alarms.get(0);
             alarm.enabled = true;
-            Alarm.updateAlarm(cr, alarm);
+            alarm.updateAlarm(cr);
 
             // Delete all old instances.
             AlarmStateManager.deleteAllInstances(this, alarm.id);
@@ -342,7 +342,7 @@ public class HandleApiCalls extends Activity {
             applyAlarmSettings(alarm, mAppContext, mPrefs);
 
             // Save the new alarm.
-            Alarm.addAlarm(cr, alarm);
+            alarm.addAlarm(cr);
 
             Events.sendAlarmEvent(R.string.action_create, R.string.label_intent);
             LOGGER.i("Created new alarm: " + alarm);
@@ -490,7 +490,7 @@ public class HandleApiCalls extends Activity {
     }
 
     private void setupInstance(AlarmInstance instance, boolean skipUi) {
-        AlarmInstance.addInstance(this.getContentResolver(), instance);
+        instance.addInstance(this.getContentResolver());
         AlarmStateManager.registerInstance(this, instance, true);
         AlarmUtils.popAlarmSetToast(this, instance.getAlarmTime().getTimeInMillis());
         if (!skipUi) {

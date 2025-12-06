@@ -206,8 +206,8 @@ public final class AlarmStateManager extends BroadcastReceiver {
         final AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
 
         final int flags = (nextAlarm == null ? PendingIntent.FLAG_NO_CREATE : 0) | PendingIntent.FLAG_IMMUTABLE;
-        final PendingIntent operation = PendingIntent.getBroadcast(context, 0,
-                AlarmStateManager.createIndicatorIntent(context), flags);
+        final PendingIntent operation = PendingIntent.getBroadcast(
+                context, 0, createIndicatorIntent(context), flags);
 
         if (nextAlarm != null) {
             LogUtils.i("Setting upcoming AlarmClockInfo for alarm: " + nextAlarm.mId);
@@ -257,7 +257,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
             } else {
                 LogUtils.i("Disabling parent alarm: " + alarm.id);
                 alarm.enabled = false;
-                Alarm.updateAlarm(cr, alarm);
+                alarm.updateAlarm(cr);
             }
         } else {
             AlarmInstance nextRepeatedInstance;
@@ -278,7 +278,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
             LogUtils.i("Creating new instance for repeating alarm " + alarm.id + " at " +
                     AlarmUtils.getFormattedTime(context, nextRepeatedInstance.getAlarmTime()));
-            AlarmInstance.addInstance(cr, nextRepeatedInstance);
+            nextRepeatedInstance.addInstance(cr);
             registerInstance(context, nextRepeatedInstance, true);
         }
     }
@@ -346,7 +346,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         // Update alarm in db
         ContentResolver contentResolver = context.getContentResolver();
         instance.mAlarmState = AlarmInstance.SILENT_STATE;
-        AlarmInstance.updateInstance(contentResolver, instance);
+        instance.updateInstance(contentResolver);
 
         // Setup instance notification and scheduling timers
         AlarmNotifications.clearNotification(context, instance);
@@ -368,7 +368,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         // Update alarm state in db
         ContentResolver contentResolver = context.getContentResolver();
         instance.mAlarmState = AlarmInstance.NOTIFICATION_STATE;
-        AlarmInstance.updateInstance(contentResolver, instance);
+        instance.updateInstance(contentResolver);
 
         // Setup instance notification and scheduling timers
         AlarmNotifications.showUpcomingNotification(context, instance);
@@ -400,7 +400,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
             }
         }
 
-        AlarmInstance.updateInstance(contentResolver, instance);
+        instance.updateInstance(contentResolver);
 
         if (instance.mAlarmId != null) {
             // if the time changed *backward* and pushed an instance from missed back to fired,
@@ -453,7 +453,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 + AlarmUtils.getFormattedTime(context, newAlarmTime));
         instance.setAlarmTime(newAlarmTime);
         instance.mAlarmState = AlarmInstance.SNOOZE_STATE;
-        AlarmInstance.updateInstance(context.getContentResolver(), instance);
+        instance.updateInstance(context.getContentResolver());
 
         // Setup instance notification and scheduling timers
         AlarmNotifications.showSnoozeNotification(context, instance);
@@ -523,7 +523,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
             // Update alarm state
             instance.mAlarmState = AlarmInstance.MISSED_STATE;
-            AlarmInstance.updateInstance(contentResolver, instance);
+            instance.updateInstance(contentResolver);
 
             // Setup instance notification and scheduling timers
             AlarmNotifications.showMissedNotification(context, instance);
@@ -560,7 +560,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         final ContentResolver contentResolver = context.getContentResolver();
         instance.mMissedAlarmCurrentCount = 0;
         instance.mAlarmState = AlarmInstance.PREDISMISSED_STATE;
-        AlarmInstance.updateInstance(contentResolver, instance);
+        instance.updateInstance(contentResolver);
 
         // Setup instance notification and scheduling timers
         AlarmNotifications.clearNotification(context, instance);
@@ -591,7 +591,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         instance.mMissedAlarmCurrentCount = 0;
         instance.mAlarmState = AlarmInstance.DISMISSED_STATE;
         final ContentResolver contentResolver = context.getContentResolver();
-        AlarmInstance.updateInstance(contentResolver, instance);
+        instance.updateInstance(contentResolver);
 
         // Clean up styled repeat day if needed
         Alarm alarm = Alarm.getAlarm(contentResolver, instance.mAlarmId);
@@ -723,7 +723,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 // Make sure we re-enable the parent alarm of the instance
                 // because it will get activated by by the below code
                 Objects.requireNonNull(alarm).enabled = true;
-                Alarm.updateAlarm(cr, alarm);
+                alarm.updateAlarm(cr);
             }
         } else if (instance.mAlarmState == AlarmInstance.PREDISMISSED_STATE) {
             if (currentTime.before(alarmTime)) {
@@ -821,7 +821,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
                 // The time change is so dramatic the AlarmInstance doesn't make any sense;
                 // remove it and schedule the new appropriate instance.
-                AlarmStateManager.deleteInstanceAndUpdateParent(context, instance);
+                deleteInstanceAndUpdateParent(context, instance);
             } else {
                 registerInstance(context, instance, false);
             }

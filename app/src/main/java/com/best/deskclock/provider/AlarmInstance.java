@@ -204,35 +204,35 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         mAlarmState = c.getInt(ALARM_STATE_INDEX);
     }
 
-    public static ContentValues createContentValues(AlarmInstance instance) {
+    public ContentValues createContentValues() {
         ContentValues values = new ContentValues(COLUMN_COUNT);
-        if (instance.mId != INVALID_ID) {
-            values.put(_ID, instance.mId);
+        if (mId != INVALID_ID) {
+            values.put(_ID, mId);
         }
 
-        values.put(YEAR, instance.mYear);
-        values.put(MONTH, instance.mMonth);
-        values.put(DAY, instance.mDay);
-        values.put(HOUR, instance.mHour);
-        values.put(MINUTES, instance.mMinute);
-        values.put(LABEL, instance.mLabel);
-        values.put(VIBRATE, instance.mVibrate ? 1 : 0);
-        values.put(FLASH, instance.mFlash ? 1 : 0);
-        if (instance.mRingtone == null) {
+        values.put(YEAR, mYear);
+        values.put(MONTH, mMonth);
+        values.put(DAY, mDay);
+        values.put(HOUR, mHour);
+        values.put(MINUTES, mMinute);
+        values.put(LABEL, mLabel);
+        values.put(VIBRATE, mVibrate ? 1 : 0);
+        values.put(FLASH, mFlash ? 1 : 0);
+        if (mRingtone == null) {
             // We want to put null in the database, so we'll be able
             // to pick up on changes to the default alarm
             values.putNull(RINGTONE);
         } else {
-            values.put(RINGTONE, instance.mRingtone.toString());
+            values.put(RINGTONE, mRingtone.toString());
         }
-        values.put(ALARM_ID, instance.mAlarmId);
-        values.put(ALARM_STATE, instance.mAlarmState);
-        values.put(AUTO_SILENCE_DURATION, instance.mAutoSilenceDuration);
-        values.put(SNOOZE_DURATION, instance.mSnoozeDuration);
-        values.put(MISSED_ALARM_REPEAT_COUNT, instance.mMissedAlarmCurrentCount);
-        values.put(MISSED_ALARM_REPEAT_LIMIT, instance.mMissedAlarmRepeatLimit);
-        values.put(CRESCENDO_DURATION, instance.mCrescendoDuration);
-        values.put(ALARM_VOLUME, instance.mAlarmVolume);
+        values.put(ALARM_ID, mAlarmId);
+        values.put(ALARM_STATE, mAlarmState);
+        values.put(AUTO_SILENCE_DURATION, mAutoSilenceDuration);
+        values.put(SNOOZE_DURATION, mSnoozeDuration);
+        values.put(MISSED_ALARM_REPEAT_COUNT, mMissedAlarmCurrentCount);
+        values.put(MISSED_ALARM_REPEAT_LIMIT, mMissedAlarmRepeatLimit);
+        values.put(CRESCENDO_DURATION, mCrescendoDuration);
+        values.put(ALARM_VOLUME, mAlarmVolume);
 
         return values;
     }
@@ -337,31 +337,30 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         return result;
     }
 
-    public static void addInstance(ContentResolver contentResolver,
-                                   AlarmInstance instance) {
+    public void addInstance(ContentResolver contentResolver) {
         // Make sure we are not adding a duplicate instances. This is not a
         // fix and should never happen. This is only a safe guard against bad code, and you
         // should fix the root issue if you see the error message.
-        String dupSelector = AlarmInstance.ALARM_ID + " = " + instance.mAlarmId;
+        String dupSelector = AlarmInstance.ALARM_ID + " = " + mAlarmId;
         for (AlarmInstance otherInstances : getInstances(contentResolver, dupSelector)) {
-            if (otherInstances.getAlarmTime().equals(instance.getAlarmTime())) {
-                LogUtils.i("Detected duplicate instance in DB. Updating " + otherInstances + " to " + instance);
+            if (otherInstances.getAlarmTime().equals(getAlarmTime())) {
+                LogUtils.i("Detected duplicate instance in DB. Updating " + otherInstances + " to " + this);
                 // Copy over the new instance values and update the db
-                instance.mId = otherInstances.mId;
-                updateInstance(contentResolver, instance);
+                mId = otherInstances.mId;
+                updateInstance(contentResolver);
                 return;
             }
         }
 
-        ContentValues values = createContentValues(instance);
+        ContentValues values = createContentValues();
         Uri uri = contentResolver.insert(CONTENT_URI, values);
-        instance.mId = getId(uri);
+        mId = getId(uri);
     }
 
-    public static void updateInstance(ContentResolver contentResolver, AlarmInstance instance) {
-        if (instance.mId == INVALID_ID) return;
-        ContentValues values = createContentValues(instance);
-        contentResolver.update(getContentUri(instance.mId), values, null, null);
+    public void updateInstance(ContentResolver contentResolver) {
+        if (mId == INVALID_ID) return;
+        ContentValues values = createContentValues();
+        contentResolver.update(getContentUri(mId), values, null, null);
     }
 
     public static void deleteInstance(ContentResolver contentResolver, long instanceId) {

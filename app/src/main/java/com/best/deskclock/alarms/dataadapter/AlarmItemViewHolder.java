@@ -171,7 +171,7 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
     }
 
     private void setNonRepeatingDefaultDescription(Context context, Alarm alarm) {
-        if (Alarm.isTomorrow(alarm, Calendar.getInstance())) {
+        if (alarm.isTomorrow(Calendar.getInstance())) {
             daysOfWeek.setText(context.getString(R.string.alarm_tomorrow));
         } else {
             daysOfWeek.setText(context.getString(R.string.alarm_today));
