@@ -675,6 +675,19 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         }
     }
 
+    /**
+     * Calculates the next scheduled occurrence time.
+     *
+     *  <p>This method determines when the alarm should trigger again based on its
+     *  configuration. It handles both repeating alarms (with specific days of the week)
+     *  and one-time alarms (with a fixed date). Daylight Savings Time (DST) adjustments
+     *  are also taken into account by resetting the hour and minute after shifting days.
+     *
+     * @return a {@link Calendar} instance representing the next valid alarm time.
+     *         <p>- For repeating alarms: the next valid day of the week at the configured hour/minute.</p>
+     *         <p>- For one-time alarms: the configured date and time, or the following day if the
+     *           specified time has already passed relative to {@code currentTime}.</p>
+     */
     public Calendar getNextAlarmTime(Calendar currentTime) {
         final Calendar nextInstanceTime = Calendar.getInstance(currentTime.getTimeZone());
         nextInstanceTime.set(Calendar.SECOND, 0);
@@ -743,23 +756,28 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     /**
      * Returns the next alarm time for sorting purposes.
      */
-    public Calendar getSortableNextAlarmTime(Alarm alarm, Calendar now) {
+    public Calendar getSortableNextAlarmTime(AlarmInstance instance, Calendar now) {
         Calendar result = Calendar.getInstance(now.getTimeZone());
         result.set(Calendar.SECOND, 0);
         result.set(Calendar.MILLISECOND, 0);
 
-        if (alarm.daysOfWeek.isRepeating()) {
-            // getNextAlarmTime() properly handles the next valid day + DST
-            return alarm.getNextAlarmTime(now);
+        if (daysOfWeek.isRepeating()) {
+            // If a future instance exists (e.g. after Dismiss), use it.
+            // Otherwise compute the next valid occurrence from "now".
+            if (instance != null && instance.getAlarmTime().getTimeInMillis() > now.getTimeInMillis()) {
+                return instance.getAlarmTime();
+            }
+
+            return getNextAlarmTime(now);
         } else {
-            if (alarm.isSpecifiedDate()) {
-                if (alarm.isDateInThePast()) {
+            if (isSpecifiedDate()) {
+                if (isDateInThePast()) {
                     // Expired specific date → anchor to today at the alarm's time
                     result.set(Calendar.YEAR, now.get(Calendar.YEAR));
                     result.set(Calendar.MONTH, now.get(Calendar.MONTH));
                     result.set(Calendar.DAY_OF_MONTH, now.get(Calendar.DAY_OF_MONTH));
-                    result.set(Calendar.HOUR_OF_DAY, alarm.hour);
-                    result.set(Calendar.MINUTE, alarm.minutes);
+                    result.set(Calendar.HOUR_OF_DAY, hour);
+                    result.set(Calendar.MINUTE, minutes);
 
                     // If the time has already passed today, shift to tomorrow
                     if (result.getTimeInMillis() < now.getTimeInMillis()) {
@@ -767,11 +785,11 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
                     }
                 } else {
                     // Future or today’s specified date → respect the defined date/time
-                    result.set(Calendar.YEAR, alarm.year);
-                    result.set(Calendar.MONTH, alarm.month);
-                    result.set(Calendar.DAY_OF_MONTH, alarm.day);
-                    result.set(Calendar.HOUR_OF_DAY, alarm.hour);
-                    result.set(Calendar.MINUTE, alarm.minutes);
+                    result.set(Calendar.YEAR, year);
+                    result.set(Calendar.MONTH, month);
+                    result.set(Calendar.DAY_OF_MONTH, day);
+                    result.set(Calendar.HOUR_OF_DAY, hour);
+                    result.set(Calendar.MINUTE, minutes);
                 }
 
                 return result;
@@ -783,8 +801,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         result.set(Calendar.YEAR, now.get(Calendar.YEAR));
         result.set(Calendar.MONTH, now.get(Calendar.MONTH));
         result.set(Calendar.DAY_OF_MONTH, now.get(Calendar.DAY_OF_MONTH));
-        result.set(Calendar.HOUR_OF_DAY, alarm.hour);
-        result.set(Calendar.MINUTE, alarm.minutes);
+        result.set(Calendar.HOUR_OF_DAY, hour);
+        result.set(Calendar.MINUTE, minutes);
 
         if (result.getTimeInMillis() < now.getTimeInMillis()) {
             result.add(Calendar.DAY_OF_YEAR, 1);
