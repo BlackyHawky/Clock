@@ -110,7 +110,7 @@ public class AlarmSelectionAdapter extends RecyclerView.Adapter<AlarmSelectionAd
             } else {
                 Calendar calendar = Calendar.getInstance();
 
-                if (Alarm.isTomorrow(alarm, calendar) && !alarm.isSpecifiedDate()) {
+                if (alarm.isTomorrow(calendar) && !alarm.isSpecifiedDate()) {
                     daysOfWeekView.setText(context.getResources().getString(R.string.alarm_tomorrow));
                 } else if (alarm.isSpecifiedDate()) {
                     if (Alarm.isSpecifiedDateTomorrow(alarm.year, alarm.month, alarm.day)) {

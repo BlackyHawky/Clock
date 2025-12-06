@@ -181,11 +181,11 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                 while (cursor.moveToNext()) {
                     final Alarm alarm = new Alarm(cursor);
                     // Save new version of alarm and create alarm instance for it
-                    db.insert(TEMP_ALARMS_TABLE_NAME, null, Alarm.createContentValues(alarm));
+                    db.insert(TEMP_ALARMS_TABLE_NAME, null, alarm.createContentValues());
                     if (alarm.enabled) {
                         AlarmInstance newInstance = alarm.createInstanceAfter(currentTime);
                         db.insert(TEMP_INSTANCES_TABLE_NAME, null,
-                                AlarmInstance.createContentValues(newInstance));
+                                newInstance.createContentValues());
                     }
                 }
             }
