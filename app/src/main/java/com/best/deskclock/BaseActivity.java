@@ -9,6 +9,7 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.BLUE_ACCENT_C
 import static com.best.deskclock.settings.PreferencesDefaultValues.BLUE_GRAY_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesDefaultValues.BROWN_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DARK_THEME;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEBUG_LANGUAGE_CODE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_DARK_MODE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.GREEN_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesDefaultValues.INDIGO_ACCENT_COLOR;
@@ -90,6 +91,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         mPrefs = getDefaultSharedPreferences(this);
 
+        initDebugAndNightlyDefaults();
         applyThemeAndAccentColor();
         setLocale();
 
@@ -102,6 +104,25 @@ public class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         unregisterThemeListener();
         super.onDestroy();
+    }
+
+    /**
+     * Initializes the default accent color and locale for debug and nightly builds.
+     */
+    private void initDebugAndNightlyDefaults() {
+        if (!mPrefs.contains(KEY_ACCENT_COLOR)) {
+            if (BuildConfig.IS_DEBUG_BUILD) {
+                mPrefs.edit().putString(KEY_ACCENT_COLOR, RED_ACCENT_COLOR).apply();
+            } else if (BuildConfig.IS_NIGHTLY_BUILD) {
+                mPrefs.edit().putString(KEY_ACCENT_COLOR, PURPLE_ACCENT_COLOR).apply();
+            }
+        }
+
+        if (!mPrefs.contains(KEY_CUSTOM_LANGUAGE_CODE)) {
+            if (BuildConfig.IS_DEBUG_BUILD || BuildConfig.IS_NIGHTLY_BUILD) {
+                mPrefs.edit().putString(KEY_CUSTOM_LANGUAGE_CODE, DEBUG_LANGUAGE_CODE).apply();
+            }
+        }
     }
 
     /**
