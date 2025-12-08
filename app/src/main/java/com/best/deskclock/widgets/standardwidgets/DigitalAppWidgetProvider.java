@@ -208,7 +208,7 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
         } else {
             rv.setCharSequence(getClockViewId(), "setFormat12Hour",
                     ClockUtils.get12ModeFormat(context, WidgetUtils.getAmPmRatio(false, prefs),
-                            WidgetDAO.areSecondsDisplayedOnDigitalWidget(prefs)));
+                            WidgetDAO.areSecondsDisplayedOnDigitalWidget(prefs), false));
         }
 
         int color = WidgetDAO.isDigitalWidgetDefaultClockColor(prefs)

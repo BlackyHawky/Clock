@@ -80,46 +80,16 @@ public class ScreensaverUtils {
     }
 
     /**
-     * For screensaver, configure the clock that is visible to display seconds. The clock that is not visible never
-     * displays seconds to avoid it scheduling unnecessary ticking runnable.
-     *
-     * @param digitalClock if the view concerned is the digital clock
-     * @param analogClock  if the view concerned is the analog clock
-     */
-    private static void setScreensaverClockSecondsEnabled(Context context, TextClock digitalClock, AnalogClock analogClock) {
-        final SharedPreferences prefs = getDefaultSharedPreferences(context);
-        final boolean areScreensaverClockSecondsDisplayed = SettingsDAO.areScreensaverClockSecondsDisplayed(prefs);
-        final DataModel.ClockStyle screensaverClockStyle = SettingsDAO.getScreensaverClockStyle(prefs);
-        switch (screensaverClockStyle) {
-            case ANALOG, ANALOG_MATERIAL -> {
-                setScreensaverTimeFormat(digitalClock, false);
-                analogClock.enableSeconds(areScreensaverClockSecondsDisplayed);
-                return;
-            }
-            case DIGITAL -> {
-                analogClock.enableSeconds(false);
-                setScreensaverTimeFormat(digitalClock, areScreensaverClockSecondsDisplayed);
-                return;
-            }
-        }
-
-        throw new IllegalStateException("unexpected clock style: " + screensaverClockStyle);
-    }
-
-    /**
      * For screensaver, format the digital clock to be bold and/or italic or not.
      *
      * @param screensaverDigitalClock TextClock to format
-     * @param includeSeconds          whether seconds are displayed or not
      */
-    private static void setScreensaverTimeFormat(TextClock screensaverDigitalClock, boolean includeSeconds) {
+    private static void setScreensaverDigitalClockTimeFormat(TextClock screensaverDigitalClock) {
+
         final Context context = screensaverDigitalClock.getContext();
         final SharedPreferences prefs = getDefaultSharedPreferences(context);
         final boolean isScreensaverDigitalClockInBold = SettingsDAO.isScreensaverDigitalClockInBold(prefs);
         final boolean isScreensaverDigitalClockInItalic = SettingsDAO.isScreensaverDigitalClockInItalic(prefs);
-
-        screensaverDigitalClock.setFormat12Hour(ClockUtils.get12ModeFormat(context, 0.4f, includeSeconds));
-        screensaverDigitalClock.setFormat24Hour(ClockUtils.get24ModeFormat(context, includeSeconds));
 
         if (isScreensaverDigitalClockInBold && isScreensaverDigitalClockInItalic) {
             screensaverDigitalClock.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD_ITALIC));
@@ -186,6 +156,7 @@ public class ScreensaverUtils {
         final DataModel.ClockStyle screensaverClockStyle = SettingsDAO.getScreensaverClockStyle(prefs);
         final AnalogClock analogClock = mainClockView.findViewById(R.id.analog_clock);
         final TextClock textClock = mainClockView.findViewById(R.id.digital_clock);
+        final boolean areClockSecondsEnabled = SettingsDAO.areScreensaverClockSecondsDisplayed(prefs);
         final TextView date = mainClockView.findViewById(R.id.date);
         final TextView nextAlarmIcon = mainClockView.findViewById(R.id.nextAlarmIcon);
         final TextView nextAlarm = mainClockView.findViewById(R.id.nextAlarm);
@@ -194,16 +165,24 @@ public class ScreensaverUtils {
         final int screensaverNextAlarmColorPicker = SettingsDAO.getScreensaverNextAlarmColorPicker(prefs);
 
         ClockUtils.setClockStyle(screensaverClockStyle, textClock, analogClock);
-        dimScreensaverView(context, textClock, screenSaverClockColorPicker);
-        if (screensaverClockStyle == DataModel.ClockStyle.ANALOG_MATERIAL) {
-            dimMaterialAnalogClock(context, analogClock);
+
+        if (screensaverClockStyle == DataModel.ClockStyle.DIGITAL) {
+            ClockUtils.setDigitalClockTimeFormat(textClock, 0.4f, areClockSecondsEnabled, false);
+            setScreensaverDigitalClockTimeFormat(textClock);
+            dimScreensaverView(context, textClock, screenSaverClockColorPicker);
         } else {
-            dimScreensaverView(context, analogClock, screenSaverClockColorPicker);
+            ClockUtils.setAnalogClockSecondsEnabled(screensaverClockStyle, analogClock, areClockSecondsEnabled);
+
+            if (screensaverClockStyle == DataModel.ClockStyle.ANALOG_MATERIAL) {
+                dimMaterialAnalogClock(context, analogClock);
+            } else {
+                dimScreensaverView(context, analogClock, screenSaverClockColorPicker);
+            }
         }
+
         dimScreensaverView(context, date, screensaverDateColorPicker);
         dimScreensaverView(context, nextAlarmIcon, screensaverNextAlarmColorPicker);
         dimScreensaverView(context, nextAlarm, screensaverNextAlarmColorPicker);
-        setScreensaverClockSecondsEnabled(context, textClock, analogClock);
         setScreensaverDateFormat(context, date);
         ClockUtils.setClockIconTypeface(nextAlarmIcon);
         setScreensaverNextAlarmFormat(nextAlarm);

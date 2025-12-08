@@ -312,11 +312,16 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         final TextClock digitalClock = mContentView.findViewById(R.id.digital_clock);
         final DataModel.ClockStyle alarmClockStyle = SettingsDAO.getAlarmClockStyle(mPrefs);
         final boolean isAlarmSecondHandDisplayed = SettingsDAO.isAlarmSecondHandDisplayed(mPrefs);
+
         ClockUtils.setClockStyle(alarmClockStyle, digitalClock, analogClock);
-        ClockUtils.setClockSecondsEnabled(alarmClockStyle, digitalClock, analogClock, isAlarmSecondHandDisplayed);
-        ClockUtils.setTimeFormat(digitalClock, false);
-        digitalClock.setTextSize(TypedValue.COMPLEX_UNIT_SP, alarmDigitalClockFontSize);
-        digitalClock.setTextColor(alarmClockColor);
+
+        if (alarmClockStyle == DataModel.ClockStyle.DIGITAL) {
+            ClockUtils.setDigitalClockTimeFormat(digitalClock, 0.4f, false, false);
+            digitalClock.setTextSize(TypedValue.COMPLEX_UNIT_SP, alarmDigitalClockFontSize);
+            digitalClock.setTextColor(alarmClockColor);
+        } else {
+            ClockUtils.setAnalogClockSecondsEnabled(alarmClockStyle, analogClock, isAlarmSecondHandDisplayed);
+        }
 
         final TextView titleView = mContentView.findViewById(R.id.alarm_title);
         titleView.setText(mAlarmInstance.getLabelOrDefault(this));

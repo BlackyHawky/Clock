@@ -205,6 +205,13 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return the font applied to the digital clock in the Clock tab.
+     */
+    public static String getDigitalClockFont(SharedPreferences prefs) {
+        return prefs.getString(KEY_DIGITAL_CLOCK_FONT, null);
+    }
+
+    /**
      * @return the theme applied.
      */
     public static String getTheme(SharedPreferences prefs) {

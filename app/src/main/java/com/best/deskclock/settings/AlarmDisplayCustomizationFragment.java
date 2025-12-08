@@ -388,7 +388,6 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
                 .addCategory(Intent.CATEGORY_OPENABLE)
                 .setType("image/*")
                 .putExtra(Intent.EXTRA_MIME_TYPES, new String[]{"image/jpeg", "image/png"})
-
         );
     }
 
