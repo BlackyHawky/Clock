@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.format.DateFormat;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
@@ -25,7 +26,9 @@ import com.best.deskclock.screensaver.Screensaver;
 import com.best.deskclock.screensaver.ScreensaverActivity;
 import com.best.deskclock.settings.AlarmDisplayPreviewActivity;
 import com.best.deskclock.uicomponents.AnalogClock;
+import com.best.deskclock.uicomponents.CustomTypefaceSpan;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collection;
@@ -36,21 +39,20 @@ import java.util.TimeZone;
 public class ClockUtils {
 
     /**
-     * Configure the clock that is visible to display seconds. The clock that is not visible never
-     * displays seconds to avoid it scheduling unnecessary ticking runnable.
+     * Configure the analog clock that is visible to display seconds.
+     * If the analog clock is not visible, it never displays seconds to avoid it scheduling unnecessary
+     * ticking runnable.
      */
-    public static void setClockSecondsEnabled(DataModel.ClockStyle clockStyle, TextClock digitalClock,
-                                              AnalogClock analogClock, boolean displaySeconds) {
+    public static void setAnalogClockSecondsEnabled(DataModel.ClockStyle clockStyle, AnalogClock analogClock,
+                                                    boolean displaySeconds) {
 
         switch (clockStyle) {
             case ANALOG, ANALOG_MATERIAL -> {
-                setTimeFormat(digitalClock, false);
                 analogClock.enableSeconds(displaySeconds);
                 return;
             }
             case DIGITAL -> {
                 analogClock.enableSeconds(false);
-                setTimeFormat(digitalClock, displaySeconds);
                 return;
             }
         }
@@ -107,16 +109,64 @@ public class ClockUtils {
     }
 
     /**
+     * Loads a typeface from the given font file path.
+     * <p>
+     * This method attempts to create a {@link Typeface} from the specified file path.
+     * If the path is null, the file does not exist, or the font cannot be loaded,
+     * the default system font will be used.
+     * </p>
+     *
+     * @param fontPath the absolute path to the font file (.ttf or .otf), may be null
+     * @return the loaded {@link Typeface}, or {@code null} if loading fails
+     */
+    public static Typeface loadDigitalClockFont(String fontPath) {
+        if (fontPath != null) {
+            File file = new File(fontPath);
+            if (file.exists() && file.isFile()) {
+                try {
+                    return Typeface.createFromFile(file);
+                } catch (Exception e) {
+                    LogUtils.e("ClockUtils - Error loading font: " + fontPath, e);
+                    return null;
+                }
+            } else {
+                LogUtils.w("ClockUtils - Font file not found: " + fontPath);
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Sets the typeface of a digital clock (TextClock) based on user preferences.
+     * <p>
+     * This method retrieves the font path stored in SharedPreferences and attempts
+     * to load the corresponding Typeface from the file system. If the font file
+     * does not exist, cannot be loaded, or no font is defined in preferences,
+     * the clock will fall back to the default {@link Typeface#SANS_SERIF}.
+     * </p>
+     *
+     * @param clock the TextClock instance whose font should be updated
+     */
+    public static void setDigitalClockFont(TextClock clock, String fontPath) {
+        Typeface typeface = loadDigitalClockFont(fontPath);
+        clock.setTypeface(typeface);
+    }
+
+    /**
      * Formats the time in the TextClock according to the Locale with a special
      * formatting treatment for the am/pm label.
      *
      * @param clock          TextClock to format
      * @param includeSeconds whether or not to include seconds in the clock's time
      */
-    public static void setTimeFormat(TextClock clock, boolean includeSeconds) {
+    public static void setDigitalClockTimeFormat(TextClock clock, float amPmRatio, boolean includeSeconds,
+                                                 boolean isClockTab) {
+
         if (clock != null) {
             // Get the best format for 12 hours mode according to the locale
-            clock.setFormat12Hour(get12ModeFormat(clock.getContext(), 0.4f, includeSeconds));
+            clock.setFormat12Hour(get12ModeFormat(clock.getContext(), amPmRatio, includeSeconds, isClockTab));
             // Get the best format for 24 hours mode according to the locale
             clock.setFormat24Hour(get24ModeFormat(clock.getContext(), includeSeconds));
         }
@@ -128,7 +178,11 @@ public class ClockUtils {
      * @param includeSeconds whether or not to include seconds in the time string
      * @return format string for 12 hours mode time, not including seconds
      */
-    public static CharSequence get12ModeFormat(Context context, float amPmRatio, boolean includeSeconds) {
+    public static CharSequence get12ModeFormat(Context context, float amPmRatio, boolean includeSeconds,
+                                               boolean isClockTab) {
+
+        SharedPreferences prefs = getDefaultSharedPreferences(context);
+
         String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(),
                 includeSeconds ? "hmsa" : "hma");
 
@@ -139,7 +193,7 @@ public class ClockUtils {
             pattern = pattern.replaceAll("\u200Aa", "").trim();
         } else {
             if (context instanceof ScreensaverActivity || context instanceof Screensaver) {
-                if (SettingsDAO.isScreensaverDigitalClockInItalic(getDefaultSharedPreferences(context))) {
+                if (SettingsDAO.isScreensaverDigitalClockInItalic(prefs)) {
                     // For screensaver, add a "Hair Space" (\u200A) at the end of the AM/PM to prevent
                     // its display from being cut off on some devices when in italic.
                     pattern = pattern.replaceAll("a", "a" + "\u200A");
@@ -156,7 +210,26 @@ public class ClockUtils {
         final Spannable sp = new SpannableString(pattern);
         sp.setSpan(new RelativeSizeSpan(amPmRatio), amPmPos, amPmPos + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         sp.setSpan(new StyleSpan(Typeface.NORMAL), amPmPos, amPmPos + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        sp.setSpan(new TypefaceSpan("sans-serif-bold"), amPmPos, amPmPos + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        TypefaceSpan defaultSpan = new TypefaceSpan("sans-serif-bold");
+
+        if (isClockTab) {
+            Typeface userTypeface = loadDigitalClockFont(SettingsDAO.getDigitalClockFont(prefs));
+
+            if (userTypeface == null) {
+                sp.setSpan(defaultSpan, amPmPos, amPmPos + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            } else {
+                Typeface boldTypeface = Typeface.create(userTypeface, Typeface.BOLD);
+
+                if (SdkUtils.isAtLeastAndroid9()) {
+                    sp.setSpan(new TypefaceSpan(boldTypeface), amPmPos, amPmPos + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                } else {
+                    sp.setSpan(new CustomTypefaceSpan(boldTypeface), amPmPos, amPmPos + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                }
+            }
+        } else {
+            sp.setSpan(defaultSpan, amPmPos, amPmPos + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
 
         return sp;
     }

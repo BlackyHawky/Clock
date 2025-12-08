@@ -246,7 +246,7 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory  implements RemoteVie
                     ClockUtils.get24ModeFormat(mContext, false));
         } else {
             rv.setCharSequence(clockId, "setFormat12Hour",
-                    ClockUtils.get12ModeFormat(mContext, 0.4f, false));
+                    ClockUtils.get12ModeFormat(mContext, 0.4f, false, false));
         }
 
         final boolean is24HourFormat = DateFormat.is24HourFormat(mContext);

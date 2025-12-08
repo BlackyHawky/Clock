@@ -79,8 +79,7 @@ public class TextTime extends AppCompatTextView {
     public TextTime(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
-        setFormat12Hour(ClockUtils.get12ModeFormat(context, 0.45f, false));
-        setFormat24Hour(ClockUtils.get24ModeFormat(context, false));
+        setTimeFormat(context, 0.45f, false);
 
         chooseFormat();
     }
@@ -141,6 +140,14 @@ public class TextTime extends AppCompatTextView {
         mHour = hour;
         mMinute = minute;
         updateTime();
+    }
+
+    public void setTimeFormat(Context context, float amPmRatio, boolean includeSeconds) {
+        CharSequence format12 = ClockUtils.get12ModeFormat(context, amPmRatio, includeSeconds, false);
+        setFormat12Hour(format12);
+
+        CharSequence format24 = ClockUtils.get24ModeFormat(context, includeSeconds);
+        setFormat24Hour(format24);
     }
 
     private void updateTime() {

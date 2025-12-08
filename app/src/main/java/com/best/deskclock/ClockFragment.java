@@ -81,6 +81,9 @@ public final class ClockFragment extends DeskClockFragment {
     private DisplayMetrics mDisplayMetrics;
     private final List<City> mMutableCities = new ArrayList<>();
     private View mClockFrame;
+    private DataModel.ClockStyle mClockStyle;
+    private boolean mIsDigitalClock;
+    private boolean mShowSeconds;
     private View mEmptyCityViewRightPanel;
     private SelectedCitiesAdapter mCityAdapter;
     private String mDateFormat;
@@ -102,7 +105,10 @@ public final class ClockFragment extends DeskClockFragment {
         mContext = requireContext();
         mPrefs = getDefaultSharedPreferences(mContext);
         mDisplayMetrics = getResources().getDisplayMetrics();
+        mClockStyle = SettingsDAO.getClockStyle(mPrefs);
         mShowHomeClock = SettingsDAO.getShowHomeClock(mContext, mPrefs);
+        mShowSeconds = SettingsDAO.areClockSecondsDisplayed(mPrefs);
+        mIsDigitalClock = mClockStyle == DataModel.ClockStyle.DIGITAL;
         mIsPortrait = ThemeUtils.isPortrait();
         mDateFormat = mContext.getString(R.string.abbrev_wday_month_day_no_year);
         mDateFormatForAccessibility = mContext.getString(R.string.full_wday_month_day_no_year);
@@ -128,17 +134,19 @@ public final class ClockFragment extends DeskClockFragment {
         // Otherwise, it'll be added on as a header to the main listview.
         mClockFrame = fragmentView.findViewById(R.id.main_clock_left_panel);
         if (mClockFrame != null) {
-            DataModel.ClockStyle clockStyle = SettingsDAO.getClockStyle(mPrefs);
-            TextClock digitalClock = mClockFrame.findViewById(R.id.digital_clock);
             AnalogClock analogClock = mClockFrame.findViewById(R.id.analog_clock);
-            boolean showSeconds = SettingsDAO.areClockSecondsDisplayed(mPrefs);
+            TextClock digitalClock = mClockFrame.findViewById(R.id.digital_clock);
 
             mClockFrame.setPadding(0, 0, 0, 0);
-
+            ClockUtils.setClockStyle(mClockStyle, digitalClock, analogClock);
+            if (mIsDigitalClock) {
+                ClockUtils.setDigitalClockTimeFormat(digitalClock, 0.4f, mShowSeconds, true);
+                ClockUtils.setDigitalClockFont(digitalClock, SettingsDAO.getDigitalClockFont(mPrefs));
+            } else {
+                ClockUtils.setAnalogClockSecondsEnabled(mClockStyle, analogClock, mShowSeconds);
+            }
             ClockUtils.setClockIconTypeface(mClockFrame);
             ClockUtils.updateDate(mDateFormat, mDateFormatForAccessibility, mClockFrame);
-            ClockUtils.setClockStyle(clockStyle, digitalClock, analogClock);
-            ClockUtils.setClockSecondsEnabled(clockStyle, digitalClock, analogClock, showSeconds);
         }
 
         mEmptyCityViewRightPanel = fragmentView.findViewById(R.id.empty_city_view_right_panel);
@@ -531,6 +539,7 @@ public final class ClockFragment extends DeskClockFragment {
             private final DataModel.ClockStyle mClockStyle;
             private final TextClock mDigitalClock;
             private final AnalogClock mAnalogClock;
+            private final String mDigitalClockFont;
             private final TextView mHoursAhead;
             private final boolean mIsTablet;
 
@@ -543,6 +552,7 @@ public final class ClockFragment extends DeskClockFragment {
                 mName = itemView.findViewById(R.id.city_name);
                 mDigitalClock = itemView.findViewById(R.id.digital_clock);
                 mAnalogClock = itemView.findViewById(R.id.analog_clock);
+                mDigitalClockFont = SettingsDAO.getDigitalClockFont(mPrefs);
                 mHoursAhead = itemView.findViewById(R.id.hours_ahead);
                 mIsTablet = ThemeUtils.isTablet();
             }
@@ -551,34 +561,31 @@ public final class ClockFragment extends DeskClockFragment {
                 final DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
                 final String cityTimeZoneId = city.getTimeZone().getID();
                 final boolean isPhoneInLandscapeMode = !mIsTablet && !isPortrait;
-                final boolean isAnalogClock = mClockStyle == DataModel.ClockStyle.ANALOG
-                        || mClockStyle == DataModel.ClockStyle.ANALOG_MATERIAL;
-                int paddingVertical = (int) dpToPx(isAnalogClock ? 12 : 18, displayMetrics);
+                final boolean isDigitalClock = mClockStyle == DataModel.ClockStyle.DIGITAL;
+                int paddingVertical = (int) dpToPx(isDigitalClock ? 18 : 12, displayMetrics);
 
                 itemView.setBackground(ThemeUtils.cardBackground(context));
                 itemView.setPadding(itemView.getPaddingLeft(), paddingVertical, itemView.getPaddingRight(), paddingVertical);
 
                 // Configure the digital clock or analog clock depending on the user preference.
-                if (isAnalogClock) {
+                if (isDigitalClock) {
+                    mAnalogClock.setVisibility(GONE);
+                    mDigitalClock.setBackground(ThemeUtils.pillBackground(
+                            context, com.google.android.material.R.attr.colorSecondary));
+                    ClockUtils.setDigitalClockFont(mDigitalClock, mDigitalClockFont);
+                    ClockUtils.setDigitalClockTimeFormat(mDigitalClock, 0.3f, false, true);
+                    if (SettingsDAO.getAccentColor(mPrefs).equals(BLACK_ACCENT_COLOR)) {
+                        mDigitalClock.setTextColor(Color.WHITE);
+                    }
+                    mDigitalClock.setTimeZone(cityTimeZoneId);
+                    mDigitalClock.setVisibility(VISIBLE);
+                } else {
                     mDigitalClock.setVisibility(GONE);
                     mAnalogClock.getLayoutParams().height = (int) dpToPx(mIsTablet ? 150 : 80, displayMetrics);
                     mAnalogClock.getLayoutParams().width = (int) dpToPx(mIsTablet ? 150 : 80, displayMetrics);
                     mAnalogClock.setVisibility(VISIBLE);
                     mAnalogClock.setTimeZone(cityTimeZoneId);
                     mAnalogClock.enableSeconds(false);
-                } else {
-                    mAnalogClock.setVisibility(GONE);
-                    mDigitalClock.setBackground(ThemeUtils.pillBackground(
-                            context, com.google.android.material.R.attr.colorSecondary));
-                    if (SettingsDAO.getAccentColor(mPrefs).equals(BLACK_ACCENT_COLOR)) {
-                        mDigitalClock.setTextColor(Color.WHITE);
-                    }
-                    mDigitalClock.setTimeZone(cityTimeZoneId);
-                    mDigitalClock.setFormat12Hour(
-                            ClockUtils.get12ModeFormat(mDigitalClock.getContext(), 0.3f, false));
-                    mDigitalClock.setFormat24Hour(
-                            ClockUtils.get24ModeFormat(mDigitalClock.getContext(), false));
-                    mDigitalClock.setVisibility(VISIBLE);
                 }
 
                 // Due to the ViewPager and the location of FAB, set margins to prevent
@@ -664,6 +671,7 @@ public final class ClockFragment extends DeskClockFragment {
             private final AnalogClock mAnalogClock;
             private final DataModel.ClockStyle mClockStyle;
             private final boolean mAreClockSecondsDisplayed;
+            private final String mDigitalClockFontPath;
 
             private MainClockViewHolder(View itemView) {
                 super(itemView);
@@ -675,6 +683,7 @@ public final class ClockFragment extends DeskClockFragment {
                 mAnalogClock = itemView.findViewById(R.id.analog_clock);
                 mClockStyle = SettingsDAO.getClockStyle(prefs);
                 mAreClockSecondsDisplayed = SettingsDAO.areClockSecondsDisplayed(prefs);
+                mDigitalClockFontPath = SettingsDAO.getDigitalClockFont(prefs);
                 ClockUtils.setClockIconTypeface(itemView);
             }
 
@@ -704,7 +713,12 @@ public final class ClockFragment extends DeskClockFragment {
                 AlarmUtils.refreshAlarm(context, itemView);
                 ClockUtils.updateDate(dateFormat, dateFormatForAccessibility, itemView);
                 ClockUtils.setClockStyle(mClockStyle, mDigitalClock, mAnalogClock);
-                ClockUtils.setClockSecondsEnabled(mClockStyle, mDigitalClock, mAnalogClock, mAreClockSecondsDisplayed);
+                if (mClockStyle == DataModel.ClockStyle.DIGITAL) {
+                    ClockUtils.setDigitalClockFont(mDigitalClock, mDigitalClockFontPath);
+                    ClockUtils.setDigitalClockTimeFormat(mDigitalClock, 0.4f, mAreClockSecondsDisplayed, true);
+                } else {
+                    ClockUtils.setAnalogClockSecondsEnabled(mClockStyle, mAnalogClock, mAreClockSecondsDisplayed);
+                }
             }
         }
     }

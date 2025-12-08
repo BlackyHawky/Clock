@@ -37,6 +37,8 @@
     <string name="duplicate">Duplicate</string>
     <!-- Dialog label to choose a new background image. -->
     <string name="label_new_image">New image</string>
+    <!-- Dialog label to choose a new font. -->
+    <string name="label_new_font">New font</string>
     <!-- Label "Warning" -->
     <string name="warning">Warning</string>
     <!-- Label "Hours" -->
@@ -261,6 +263,16 @@
     <string name="font_category_title">Font</string>
     <!-- Category title for miscellaneous settings -->
     <string name="miscellaneous_category_title">Miscellaneous</string>
+    <!-- Setting title for changing the font for the alarm, timer, screen saver, etc. -->
+    <string name="custom_font_title">Select a custom font</string>
+    <!-- Setting title to choose or delete font. -->
+    <string name="custom_font_title_variant">Select or delete custom font</string>
+    <!-- Dialog title for changing the font. -->
+    <string name="custom_font_dialog_title">Font</string>
+    <!-- Toast message when a font is successfully selected. -->
+    <string name="custom_font_toast_message_selected">Font successfully selected</string>
+    <!-- Toast message when a font is successfully deleted. -->
+    <string name="custom_font_toast_message_deleted">Font successfully deleted</string>
     <!-- Category title for ringtone settings -->
     <string name="ringtone_category_title">Ringtone</string>
     <!-- Category title for alarm actions -->

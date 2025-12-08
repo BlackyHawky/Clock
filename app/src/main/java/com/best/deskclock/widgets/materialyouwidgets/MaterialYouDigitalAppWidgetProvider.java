@@ -214,14 +214,14 @@ public class MaterialYouDigitalAppWidgetProvider extends BaseDigitalAppWidgetPro
             } else {
                 rv.setCharSequence(getClockViewId(), "setFormat12Hour", ClockUtils.get12ModeFormat(
                         context, WidgetUtils.getAmPmRatio(true, prefs),
-                        WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs)));
+                        WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs), false));
             }
         } else {
             rv.setViewVisibility(getClockViewId(), GONE);
             rv.setViewVisibility(getClockCustomViewId(), VISIBLE);
             rv.setCharSequence(getClockCustomViewId(), "setFormat12Hour",
                     ClockUtils.get12ModeFormat(context, WidgetUtils.getAmPmRatio(true, prefs),
-                            WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs)));
+                            WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs), false));
             rv.setCharSequence(getClockCustomViewId(), "setFormat24Hour",
                     ClockUtils.get24ModeFormat(context,
                             WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs)));
