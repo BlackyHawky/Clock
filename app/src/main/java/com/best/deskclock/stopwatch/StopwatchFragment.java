@@ -183,6 +183,9 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
             mStopwatchWrapper.setOnTouchListener(new Utils.CircleTouchListener());
         }
 
+        mMainTimeText.setTypeface(ThemeUtils.loadFont(SettingsDAO.getStopwatchFont(mPrefs)));
+        mHundredthsTimeText.setTypeface(ThemeUtils.loadFont(SettingsDAO.getStopwatchFont(mPrefs)));
+
         final int colorAccent = MaterialColors.getColor(mContext, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
         final int textColorPrimary = mMainTimeText.getCurrentTextColor();
         final ColorStateList timeTextColor = new ColorStateList(

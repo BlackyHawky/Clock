@@ -18,6 +18,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_DEFAULT_ALARM_RING
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_CLOCK_FONT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ESSENTIAL_PERMISSIONS_GRANTED;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_DIGITAL_CLOCK_FONT;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_FONT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_BACKGROUND_IMAGE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_DURATION_FONT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_RINGTONE;
@@ -95,6 +96,7 @@ public class BackupAndRestoreUtils {
                         || key.equals(KEY_ALARM_BACKGROUND_IMAGE)
                         || key.equals(KEY_TIMER_DURATION_FONT)
                         || key.equals(KEY_TIMER_BACKGROUND_IMAGE)
+                        || key.equals(KEY_SW_FONT)
                         || key.equals(KEY_DIGITAL_CLOCK_FONT)
                         || key.equals(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT)
                         || key.equals(KEY_ESSENTIAL_PERMISSIONS_GRANTED)) {
@@ -250,6 +252,7 @@ public class BackupAndRestoreUtils {
                     && !key.equals(KEY_ALARM_BACKGROUND_IMAGE)
                     && !key.equals(KEY_TIMER_DURATION_FONT)
                     && !key.equals(KEY_TIMER_BACKGROUND_IMAGE)
+                    && !key.equals(KEY_SW_FONT)
                     && !key.equals(KEY_DIGITAL_CLOCK_FONT)
                     && !key.equals(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT)
                     && !key.equals(KEY_ESSENTIAL_PERMISSIONS_GRANTED)
