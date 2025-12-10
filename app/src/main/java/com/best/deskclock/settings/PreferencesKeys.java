@@ -174,6 +174,7 @@ public class PreferencesKeys {
     public static final String KEY_SCREENSAVER_CLOCK_STYLE = "key_screensaver_clock_style";
     public static final String KEY_SCREENSAVER_CLOCK_DIAL = "key_screensaver_clock_dial";
     public static final String KEY_SCREENSAVER_CLOCK_DIAL_MATERIAL = "key_screensaver_clock_dial_material";
+    public static final String KEY_SCREENSAVER_DIGITAL_CLOCK_FONT = "key_screensaver_digital_clock_font";
     public static final String KEY_DISPLAY_SCREENSAVER_CLOCK_SECONDS = "key_display_screensaver_clock_seconds";
     public static final String KEY_SCREENSAVER_CLOCK_SECOND_HAND = "key_screensaver_clock_second_hand";
     public static final String KEY_SCREENSAVER_CLOCK_DYNAMIC_COLORS = "key_screensaver_clock_dynamic_colors";

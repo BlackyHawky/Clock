@@ -162,13 +162,14 @@ public class ClockUtils {
      * @param includeSeconds whether or not to include seconds in the clock's time
      */
     public static void setDigitalClockTimeFormat(TextClock clock, float amPmRatio, boolean includeSeconds,
-                                                 boolean isClockTab) {
+                                                 boolean isClockTab, boolean isScreensaver) {
 
         if (clock != null) {
             // Get the best format for 12 hours mode according to the locale
-            clock.setFormat12Hour(get12ModeFormat(clock.getContext(), amPmRatio, includeSeconds, isClockTab));
+            clock.setFormat12Hour(get12ModeFormat(
+                    clock.getContext(), amPmRatio, includeSeconds, isClockTab, isScreensaver));
             // Get the best format for 24 hours mode according to the locale
-            clock.setFormat24Hour(get24ModeFormat(clock.getContext(), includeSeconds));
+            clock.setFormat24Hour(get24ModeFormat(clock.getContext(), includeSeconds, isScreensaver));
         }
     }
 
@@ -179,7 +180,7 @@ public class ClockUtils {
      * @return format string for 12 hours mode time, not including seconds
      */
     public static CharSequence get12ModeFormat(Context context, float amPmRatio, boolean includeSeconds,
-                                               boolean isClockTab) {
+                                               boolean isClockTab, boolean isScreensaver) {
 
         SharedPreferences prefs = getDefaultSharedPreferences(context);
 
@@ -192,12 +193,12 @@ public class ClockUtils {
         if (amPmRatio <= 0) {
             pattern = pattern.replaceAll("\u200Aa", "").trim();
         } else {
-            if (context instanceof ScreensaverActivity || context instanceof Screensaver) {
-                if (SettingsDAO.isScreensaverDigitalClockInItalic(prefs)) {
-                    // For screensaver, add a "Hair Space" (\u200A) at the end of the AM/PM to prevent
-                    // its display from being cut off on some devices when in italic.
-                    pattern = pattern.replaceAll("a", "a" + "\u200A");
-                }
+            if (isScreensaver && SettingsDAO.isScreensaverDigitalClockInItalic(prefs)) {
+                // For screensaver, add a "Thin Space" (\u2009) at the end of the AM/PM to prevent
+                // its display from being cut off on some devices when in italic.
+                // A "Thin Space" (\u2009) is also added at the beginning to correctly center the date,
+                // alarm icon and next alarm.
+                pattern = "\u2009" + pattern.replaceAll("a", "a" + "\u2009");
             }
         }
 
@@ -227,6 +228,22 @@ public class ClockUtils {
                     sp.setSpan(new CustomTypefaceSpan(boldTypeface), amPmPos, amPmPos + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
             }
+        } else if (isScreensaver) {
+            Typeface baseTypeface = loadDigitalClockFont(SettingsDAO.getScreensaverDigitalClockFont(prefs));
+            boolean isItalic = SettingsDAO.isScreensaverDigitalClockInItalic(prefs);
+            int style = isItalic ? Typeface.BOLD_ITALIC : Typeface.BOLD;
+
+            if (baseTypeface == null) {
+                baseTypeface = Typeface.create("sans-serif", style);
+            }
+
+            Typeface styledTypeface = Typeface.create(baseTypeface, style);
+
+            if (SdkUtils.isAtLeastAndroid9()) {
+                sp.setSpan(new TypefaceSpan(styledTypeface), amPmPos, amPmPos + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            } else {
+                sp.setSpan(new CustomTypefaceSpan(styledTypeface), amPmPos, amPmPos + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
         } else {
             sp.setSpan(defaultSpan, amPmPos, amPmPos + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
@@ -234,15 +251,15 @@ public class ClockUtils {
         return sp;
     }
 
-    public static CharSequence get24ModeFormat(Context context, boolean includeSeconds) {
-        if (context instanceof ScreensaverActivity || context instanceof Screensaver) {
-            if (SettingsDAO.isScreensaverDigitalClockInItalic(getDefaultSharedPreferences(context))) {
-                // For screensaver, add a "Thin Space" (\u2009) at the end of the time to prevent
-                // its display from being cut off on some devices when in italic.
-                return DateFormat.getBestDateTimePattern(Locale.getDefault(), includeSeconds ? "Hms" : "Hm") + "\u2009";
-            } else {
-                return DateFormat.getBestDateTimePattern(Locale.getDefault(), includeSeconds ? "Hms" : "Hm");
-            }
+    public static CharSequence get24ModeFormat(Context context, boolean includeSeconds, boolean isScreensaver) {
+        if (isScreensaver && SettingsDAO.isScreensaverDigitalClockInItalic(getDefaultSharedPreferences(context))) {
+            // For screensaver, add a "Thin Space" (\u2009) at the end of the time to prevent
+            // its display from being cut off on some devices when in italic.
+            // A "Thin Space" (\u2009) is also added at the beginning to correctly center the date,
+            // alarm icon and next alarm.
+            return "\u2009"
+                    + DateFormat.getBestDateTimePattern(Locale.getDefault(), includeSeconds ? "Hms" : "Hm")
+                    + "\u2009";
         } else {
             return DateFormat.getBestDateTimePattern(Locale.getDefault(), includeSeconds ? "Hms" : "Hm");
         }

@@ -80,26 +80,34 @@ public class ScreensaverUtils {
     }
 
     /**
-     * For screensaver, format the digital clock to be bold and/or italic or not.
+     * Returns the Typeface to be used for the digital clock in screensaver mode.
      *
-     * @param screensaverDigitalClock TextClock to format
+     * <p>This method loads the user-selected font file for the screensaver clock
+     * and applies the style options (bold, italic, or bold-italic) based on
+     * the user's preferences stored in SharedPreferences.</p>
+     *
+     * @param prefs SharedPreferences containing the user's screensaver clock settings
+     * @return a Typeface object representing the chosen font with the applied style
      */
-    private static void setScreensaverDigitalClockTimeFormat(TextClock screensaverDigitalClock) {
+    public static Typeface getScreensaverClockTypeface(SharedPreferences prefs) {
+        Typeface baseTypeface = ClockUtils.loadDigitalClockFont(SettingsDAO.getScreensaverDigitalClockFont(prefs));
+        boolean isBold = SettingsDAO.isScreensaverDigitalClockInBold(prefs);
+        boolean isItalic = SettingsDAO.isScreensaverDigitalClockInItalic(prefs);
 
-        final Context context = screensaverDigitalClock.getContext();
-        final SharedPreferences prefs = getDefaultSharedPreferences(context);
-        final boolean isScreensaverDigitalClockInBold = SettingsDAO.isScreensaverDigitalClockInBold(prefs);
-        final boolean isScreensaverDigitalClockInItalic = SettingsDAO.isScreensaverDigitalClockInItalic(prefs);
-
-        if (isScreensaverDigitalClockInBold && isScreensaverDigitalClockInItalic) {
-            screensaverDigitalClock.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD_ITALIC));
-        } else if (isScreensaverDigitalClockInBold) {
-            screensaverDigitalClock.setTypeface(Typeface.DEFAULT_BOLD);
-        } else if (isScreensaverDigitalClockInItalic) {
-            screensaverDigitalClock.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC));
-        } else {
-            screensaverDigitalClock.setTypeface(Typeface.DEFAULT);
+        int style = Typeface.NORMAL;
+        if (isBold && isItalic) {
+            style = Typeface.BOLD_ITALIC;
+        } else if (isBold) {
+            style = Typeface.BOLD;
+        } else if (isItalic) {
+            style = Typeface.ITALIC;
         }
+
+        if (baseTypeface == null) {
+            return Typeface.create("sans-serif", style);
+        }
+
+        return Typeface.create(baseTypeface, style);
     }
 
     /**
@@ -167,8 +175,9 @@ public class ScreensaverUtils {
         ClockUtils.setClockStyle(screensaverClockStyle, textClock, analogClock);
 
         if (screensaverClockStyle == DataModel.ClockStyle.DIGITAL) {
-            ClockUtils.setDigitalClockTimeFormat(textClock, 0.4f, areClockSecondsEnabled, false);
-            setScreensaverDigitalClockTimeFormat(textClock);
+            textClock.setTypeface(getScreensaverClockTypeface(prefs));
+            ClockUtils.setDigitalClockTimeFormat(
+                    textClock, 0.4f, areClockSecondsEnabled, false, true);
             dimScreensaverView(context, textClock, screenSaverClockColorPicker);
         } else {
             ClockUtils.setAnalogClockSecondsEnabled(screensaverClockStyle, analogClock, areClockSecondsEnabled);

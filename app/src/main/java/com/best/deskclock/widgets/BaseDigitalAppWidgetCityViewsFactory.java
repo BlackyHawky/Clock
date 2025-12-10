@@ -243,10 +243,10 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory  implements RemoteVie
 
         if (DataModel.getDataModel().is24HourFormat()) {
             rv.setCharSequence(clockId, "setFormat24Hour",
-                    ClockUtils.get24ModeFormat(mContext, false));
+                    ClockUtils.get24ModeFormat(mContext, false, false));
         } else {
             rv.setCharSequence(clockId, "setFormat12Hour",
-                    ClockUtils.get12ModeFormat(mContext, 0.4f, false, false));
+                    ClockUtils.get12ModeFormat(mContext, 0.4f, false, false, false));
         }
 
         final boolean is24HourFormat = DateFormat.is24HourFormat(mContext);

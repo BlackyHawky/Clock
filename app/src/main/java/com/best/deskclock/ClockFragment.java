@@ -140,7 +140,7 @@ public final class ClockFragment extends DeskClockFragment {
             mClockFrame.setPadding(0, 0, 0, 0);
             ClockUtils.setClockStyle(mClockStyle, digitalClock, analogClock);
             if (mIsDigitalClock) {
-                ClockUtils.setDigitalClockTimeFormat(digitalClock, 0.4f, mShowSeconds, true);
+                ClockUtils.setDigitalClockTimeFormat(digitalClock, 0.4f, mShowSeconds, true, false);
                 ClockUtils.setDigitalClockFont(digitalClock, SettingsDAO.getDigitalClockFont(mPrefs));
             } else {
                 ClockUtils.setAnalogClockSecondsEnabled(mClockStyle, analogClock, mShowSeconds);
@@ -573,7 +573,7 @@ public final class ClockFragment extends DeskClockFragment {
                     mDigitalClock.setBackground(ThemeUtils.pillBackground(
                             context, com.google.android.material.R.attr.colorSecondary));
                     ClockUtils.setDigitalClockFont(mDigitalClock, mDigitalClockFont);
-                    ClockUtils.setDigitalClockTimeFormat(mDigitalClock, 0.3f, false, true);
+                    ClockUtils.setDigitalClockTimeFormat(mDigitalClock, 0.3f, false, true, false);
                     if (SettingsDAO.getAccentColor(mPrefs).equals(BLACK_ACCENT_COLOR)) {
                         mDigitalClock.setTextColor(Color.WHITE);
                     }
@@ -715,7 +715,7 @@ public final class ClockFragment extends DeskClockFragment {
                 ClockUtils.setClockStyle(mClockStyle, mDigitalClock, mAnalogClock);
                 if (mClockStyle == DataModel.ClockStyle.DIGITAL) {
                     ClockUtils.setDigitalClockFont(mDigitalClock, mDigitalClockFontPath);
-                    ClockUtils.setDigitalClockTimeFormat(mDigitalClock, 0.4f, mAreClockSecondsDisplayed, true);
+                    ClockUtils.setDigitalClockTimeFormat(mDigitalClock, 0.4f, mAreClockSecondsDisplayed, true, false);
                 } else {
                     ClockUtils.setAnalogClockSecondsEnabled(mClockStyle, mAnalogClock, mAreClockSecondsDisplayed);
                 }
