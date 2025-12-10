@@ -626,6 +626,13 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return the font applied to the timer duration.
+     */
+    public static String getTimerDurationFont(SharedPreferences prefs) {
+        return prefs.getString(KEY_TIMER_DURATION_FONT, null);
+    }
+
+    /**
      * @return {@code true} if the timer background must be transparent. {@code false} otherwise.
      */
     public static boolean isTimerBackgroundTransparent(SharedPreferences prefs) {

@@ -19,6 +19,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_CLOCK_FONT
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ESSENTIAL_PERMISSIONS_GRANTED;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_DIGITAL_CLOCK_FONT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_BACKGROUND_IMAGE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_DURATION_FONT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_RINGTONE;
 
 import android.content.ContentResolver;
@@ -92,6 +93,7 @@ public class BackupAndRestoreUtils {
                         || key.startsWith(RINGTONE_TITLE)
                         || key.equals(KEY_SELECTED_ALARM_RINGTONE_URI)
                         || key.equals(KEY_ALARM_BACKGROUND_IMAGE)
+                        || key.equals(KEY_TIMER_DURATION_FONT)
                         || key.equals(KEY_TIMER_BACKGROUND_IMAGE)
                         || key.equals(KEY_DIGITAL_CLOCK_FONT)
                         || key.equals(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT)
@@ -246,6 +248,7 @@ public class BackupAndRestoreUtils {
                     && !key.startsWith(RINGTONE_TITLE)
                     && !key.equals(KEY_SELECTED_ALARM_RINGTONE_URI)
                     && !key.equals(KEY_ALARM_BACKGROUND_IMAGE)
+                    && !key.equals(KEY_TIMER_DURATION_FONT)
                     && !key.equals(KEY_TIMER_BACKGROUND_IMAGE)
                     && !key.equals(KEY_DIGITAL_CLOCK_FONT)
                     && !key.equals(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT)
