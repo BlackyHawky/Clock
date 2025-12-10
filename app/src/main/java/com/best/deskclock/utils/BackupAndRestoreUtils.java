@@ -14,6 +14,7 @@ import static com.best.deskclock.data.CustomRingtoneDAO.RINGTONE_URI;
 import static com.best.deskclock.data.SettingsDAO.KEY_SELECTED_ALARM_RINGTONE_URI;
 import static com.best.deskclock.data.TimerDAO.TIMER_IDS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BACKGROUND_IMAGE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_FONT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DEFAULT_ALARM_RINGTONE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_CLOCK_FONT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ESSENTIAL_PERMISSIONS_GRANTED;
@@ -93,6 +94,7 @@ public class BackupAndRestoreUtils {
                         || key.equals(NEXT_RINGTONE_ID)
                         || key.startsWith(RINGTONE_TITLE)
                         || key.equals(KEY_SELECTED_ALARM_RINGTONE_URI)
+                        || key.equals(KEY_ALARM_FONT)
                         || key.equals(KEY_ALARM_BACKGROUND_IMAGE)
                         || key.equals(KEY_TIMER_DURATION_FONT)
                         || key.equals(KEY_TIMER_BACKGROUND_IMAGE)
@@ -249,6 +251,7 @@ public class BackupAndRestoreUtils {
                     && !key.equals(NEXT_RINGTONE_ID)
                     && !key.startsWith(RINGTONE_TITLE)
                     && !key.equals(KEY_SELECTED_ALARM_RINGTONE_URI)
+                    && !key.equals(KEY_ALARM_FONT)
                     && !key.equals(KEY_ALARM_BACKGROUND_IMAGE)
                     && !key.equals(KEY_TIMER_DURATION_FONT)
                     && !key.equals(KEY_TIMER_BACKGROUND_IMAGE)

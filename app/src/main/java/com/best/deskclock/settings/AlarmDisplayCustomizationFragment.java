@@ -16,6 +16,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_CLOCK_SECOND
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_DIGITAL_CLOCK_FONT_SIZE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_CLOCK_STYLE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_DISPLAY_TEXT_SHADOW;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_FONT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_SECOND_HAND_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BACKGROUND_IMAGE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_SHADOW_COLOR;
@@ -47,7 +48,7 @@ import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
-import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.DataModel.ClockStyle;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.SdkUtils;
@@ -71,6 +72,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
     ListPreference mAlarmClockDialMaterialPref;
     ListPreference mAlarmClockSecondHandPref;
     SwitchPreferenceCompat mDisplaySecondsPref;
+    Preference mAlarmFontPref;
     SwitchPreferenceCompat mSwipeActionPref;
     ColorPickerPreference mAlarmClockColorPref;
     ColorPickerPreference mAlarmSecondHandColorPref;
@@ -92,6 +94,42 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
     SwitchPreferenceCompat mEnableAlarmBlurEffectPref;
     Preference mAlarmBlurIntensityPref;
     Preference mAlarmPreviewPref;
+
+    private final ActivityResultLauncher<Intent> fontPickerLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() != RESULT_OK) {
+                    return;
+                }
+
+                Intent intent = result.getData();
+                final Uri sourceUri = intent == null ? null : intent.getData();
+                if (sourceUri == null) {
+                    return;
+                }
+
+                // Take persistent permission
+                requireActivity().getContentResolver().takePersistableUriPermission(
+                        sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION
+                );
+
+                String safeTitle = Utils.toSafeFileName("alarm_font");
+
+                // Delete the old font if it exists
+                clearAlarmFontFile();
+
+                Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(requireContext(), sourceUri, safeTitle);
+
+                // Save the new path
+                if (copiedUri != null) {
+                    mPrefs.edit().putString(KEY_ALARM_FONT, copiedUri.getPath()).apply();
+                    mAlarmFontPref.setTitle(getString(R.string.custom_font_title_variant));
+
+                    Toast.makeText(requireContext(), R.string.custom_font_toast_message_selected, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(requireContext(), "Error importing font", Toast.LENGTH_SHORT).show();
+                    mAlarmFontPref.setTitle(getString(R.string.custom_font_title));
+                }
+            });
 
     private final ActivityResultLauncher<Intent> imagePickerLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -151,6 +189,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
         mAlarmClockDialMaterialPref = findPreference(KEY_ALARM_CLOCK_DIAL_MATERIAL);
         mDisplaySecondsPref = findPreference(KEY_DISPLAY_ALARM_SECOND_HAND);
         mAlarmClockSecondHandPref = findPreference(KEY_ALARM_CLOCK_SECOND_HAND);
+        mAlarmFontPref = findPreference(KEY_ALARM_FONT);
         mSwipeActionPref = findPreference(KEY_SWIPE_ACTION);
         mBackgroundColorPref = findPreference(KEY_ALARM_BACKGROUND_COLOR);
         mBackgroundAmoledColorPref = findPreference(KEY_ALARM_BACKGROUND_AMOLED_COLOR);
@@ -185,17 +224,22 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
             case KEY_ALARM_CLOCK_STYLE -> {
+                boolean isAnalogClock = newValue.equals(mAnalogClock);
+                boolean isMaterialAnalogClock = newValue.equals(mMaterialAnalogClock);
+                boolean isDigitalClock = newValue.equals(mDigitalClock);
+                boolean isSecondHandDisplayed = SettingsDAO.isAlarmSecondHandDisplayed(mPrefs);
+
                 final int clockIndex = mAlarmClockStylePref.findIndexOfValue((String) newValue);
                 mAlarmClockStylePref.setSummary(mAlarmClockStylePref.getEntries()[clockIndex]);
-                mAlarmClockDialPref.setVisible(newValue.equals(mAnalogClock));
-                mAlarmClockDialMaterialPref.setVisible(newValue.equals(mMaterialAnalogClock));
-                mAlarmClockColorPref.setVisible(!newValue.equals(mMaterialAnalogClock));
-                mAlarmDigitalClockFontSizePref.setVisible(newValue.equals(mDigitalClock));
-                mDisplaySecondsPref.setVisible(!newValue.equals(mDigitalClock));
-                mAlarmClockSecondHandPref.setVisible(newValue.equals(mAnalogClock)
-                        && SettingsDAO.isAlarmSecondHandDisplayed(mPrefs));
-                mAlarmSecondHandColorPref.setVisible(newValue.equals(mAnalogClock)
-                        && SettingsDAO.isAlarmSecondHandDisplayed(mPrefs));
+
+                mAlarmClockDialPref.setVisible(isAnalogClock);
+                mAlarmClockDialMaterialPref.setVisible(isMaterialAnalogClock);
+                mAlarmClockColorPref.setVisible(!isMaterialAnalogClock);
+                mAlarmFontPref.setVisible(isDigitalClock);
+                mAlarmDigitalClockFontSizePref.setVisible(isDigitalClock);
+                mDisplaySecondsPref.setVisible(!isDigitalClock);
+                mAlarmClockSecondHandPref.setVisible(isAnalogClock && isSecondHandDisplayed);
+                mAlarmSecondHandColorPref.setVisible(isAnalogClock && isSecondHandDisplayed);
             }
 
             case KEY_ALARM_CLOCK_DIAL, KEY_ALARM_CLOCK_DIAL_MATERIAL, KEY_ALARM_CLOCK_SECOND_HAND -> {
@@ -205,28 +249,34 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
             }
 
             case KEY_DISPLAY_ALARM_SECOND_HAND -> {
-                mAlarmClockSecondHandPref.setVisible((boolean) newValue
-                        && SettingsDAO.getAlarmClockStyle(mPrefs) == DataModel.ClockStyle.ANALOG);
-                mAlarmSecondHandColorPref.setVisible((boolean) newValue
-                        && SettingsDAO.getAlarmClockStyle(mPrefs) != DataModel.ClockStyle.ANALOG_MATERIAL);
+                boolean isSecondHandDisplayed = (boolean) newValue;
+                ClockStyle alarmClockStyle = SettingsDAO.getAlarmClockStyle(mPrefs);
+
+                mAlarmClockSecondHandPref.setVisible(isSecondHandDisplayed
+                        && alarmClockStyle == ClockStyle.ANALOG);
+                mAlarmSecondHandColorPref.setVisible(isSecondHandDisplayed
+                        && alarmClockStyle != ClockStyle.ANALOG_MATERIAL);
 
                 Utils.setVibrationTime(requireContext(), 50);
             }
 
             case KEY_SWIPE_ACTION -> {
-                mSlideZoneColorPref.setVisible((boolean) newValue);
-                mSnoozeTitleColorPref.setVisible((boolean) newValue);
-                mSnoozeButtonColorPref.setVisible(!(boolean) newValue);
-                mDismissTitleColorPref.setVisible((boolean) newValue);
-                mDismissButtonColorPref.setVisible(!(boolean) newValue);
-                mAlarmButtonColorPref.setVisible((boolean) newValue);
+                boolean isSwipeActionEnabled = (boolean) newValue;
+
+                mSlideZoneColorPref.setVisible(isSwipeActionEnabled);
+                mSnoozeTitleColorPref.setVisible(isSwipeActionEnabled);
+                mSnoozeButtonColorPref.setVisible(!isSwipeActionEnabled);
+                mDismissTitleColorPref.setVisible(isSwipeActionEnabled);
+                mDismissButtonColorPref.setVisible(!isSwipeActionEnabled);
+                mAlarmButtonColorPref.setVisible(isSwipeActionEnabled);
 
                 Utils.setVibrationTime(requireContext(), 50);
             }
 
             case KEY_ALARM_DISPLAY_TEXT_SHADOW -> {
-                mShadowColorPref.setVisible((boolean) newValue);
-                mShadowOffsetPref.setVisible((boolean) newValue);
+                boolean isTextShadowDisplayed = (boolean) newValue;
+                mShadowColorPref.setVisible(isTextShadowDisplayed);
+                mShadowOffsetPref.setVisible(isTextShadowDisplayed);
 
                 Utils.setVibrationTime(requireContext(), 50);
             }
@@ -264,6 +314,36 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
         }
 
         switch (pref.getKey()) {
+            case KEY_ALARM_FONT -> {
+                if (SettingsDAO.getAlarmFont(mPrefs) == null) {
+                    selectAlarmFont();
+                } else {
+                    new MaterialAlertDialogBuilder(requireContext())
+                            .setTitle(R.string.custom_font_dialog_title)
+                            .setMessage(R.string.custom_font_title_variant)
+                            .setPositiveButton(getString(R.string.label_new_font), (dialog, which) ->
+                                    selectAlarmFont())
+                            .setNeutralButton(getString(R.string.delete), (dialog, which) ->
+                                    deleteAlarmFont())
+                            .show();
+                }
+            }
+
+            case KEY_ALARM_BACKGROUND_IMAGE -> {
+                if (SettingsDAO.getAlarmBackgroundImage(mPrefs) == null) {
+                    selectImageBackground();
+                } else {
+                    new MaterialAlertDialogBuilder(requireContext())
+                            .setTitle(R.string.background_image_dialog_title)
+                            .setMessage(R.string.background_image_title_variant)
+                            .setPositiveButton(getString(R.string.label_new_image), (dialog, which) ->
+                                    selectImageBackground())
+                            .setNeutralButton(getString(R.string.delete), (dialog, which) ->
+                                    deleteImageBackground())
+                            .show();
+                }
+            }
+
             case KEY_ALARM_PREVIEW -> {
                 startActivity(new Intent(context, AlarmDisplayPreviewActivity.class));
                 if (SettingsDAO.isFadeTransitionsEnabled(mPrefs)) {
@@ -283,35 +363,28 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
                     }
                 }
             }
-
-            case KEY_ALARM_BACKGROUND_IMAGE -> {
-                if (SettingsDAO.getAlarmBackgroundImage(mPrefs) == null) {
-                    selectImageBackground();
-                } else {
-                    new MaterialAlertDialogBuilder(requireContext())
-                            .setTitle(R.string.background_image_dialog_title)
-                            .setMessage(R.string.background_image_title_variant)
-                            .setPositiveButton(getString(R.string.label_new_image), (dialog, which) ->
-                                    selectImageBackground())
-                            .setNeutralButton(getString(R.string.delete), (dialog, which) ->
-                                    deleteImageBackground())
-                            .show();
-                }
-            }
         }
 
         return true;
     }
 
     private void setupPreferences() {
+        final boolean isAnalogClock = mAlarmClockStylePref.getValue().equals(mAnalogClock);
+        final boolean isMaterialAnalogClock = mAlarmClockStylePref.getValue().equals(mMaterialAnalogClock);
+        final boolean isDigitalClock = mAlarmClockStylePref.getValue().equals(mDigitalClock);
+        final boolean isSecondHandDisplayed = SettingsDAO.isAlarmSecondHandDisplayed(mPrefs);
+        final boolean isSwipeActionEnabled = SettingsDAO.isSwipeActionEnabled(mPrefs);
+        final boolean isTextShadowDisplayed = SettingsDAO.isAlarmTextShadowDisplayed(mPrefs);
+        final String alarmBackgroundImage = SettingsDAO.getAlarmBackgroundImage(mPrefs);
+
         mAlarmClockStylePref.setSummary(mAlarmClockStylePref.getEntry());
         mAlarmClockStylePref.setOnPreferenceChangeListener(this);
 
-        mAlarmClockDialPref.setVisible(mAlarmClockStylePref.getValue().equals(mAnalogClock));
+        mAlarmClockDialPref.setVisible(isAnalogClock);
         mAlarmClockDialPref.setSummary(mAlarmClockDialPref.getEntry());
         mAlarmClockDialPref.setOnPreferenceChangeListener(this);
 
-        mAlarmClockDialMaterialPref.setVisible(mAlarmClockStylePref.getValue().equals(mMaterialAnalogClock));
+        mAlarmClockDialMaterialPref.setVisible(isMaterialAnalogClock);
         mAlarmClockDialMaterialPref.setSummary(mAlarmClockDialMaterialPref.getEntry());
         mAlarmClockDialMaterialPref.setOnPreferenceChangeListener(this);
 
@@ -321,24 +394,28 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
 
         mBackgroundColorPref.setVisible(!isAmoledMode);
 
-        mAlarmClockColorPref.setVisible(!mAlarmClockStylePref.getValue().equals(mMaterialAnalogClock));
+        mAlarmClockColorPref.setVisible(!isMaterialAnalogClock);
 
-        mDisplaySecondsPref.setVisible(!mAlarmClockStylePref.getValue().equals(mDigitalClock));
+        mDisplaySecondsPref.setVisible(!isDigitalClock);
         mDisplaySecondsPref.setOnPreferenceChangeListener(this);
 
-        mAlarmClockSecondHandPref.setVisible(mAlarmClockStylePref.getValue().equals(mAnalogClock)
-                && SettingsDAO.isAlarmSecondHandDisplayed(mPrefs));
+        mAlarmClockSecondHandPref.setVisible(isAnalogClock && isSecondHandDisplayed);
         mAlarmClockSecondHandPref.setSummary(mAlarmClockSecondHandPref.getEntry());
         mAlarmClockSecondHandPref.setOnPreferenceChangeListener(this);
 
+        mAlarmFontPref.setVisible(isDigitalClock);
+        mAlarmFontPref.setTitle(getString(SettingsDAO.getAlarmFont(mPrefs) == null
+                ? R.string.custom_font_title
+                : R.string.custom_font_title_variant));
+        mAlarmFontPref.setOnPreferenceClickListener(this);
+
         mSwipeActionPref.setOnPreferenceChangeListener(this);
 
-        int color = MaterialColors.getColor(requireContext(), com.google.android.material.R.attr.colorPrimaryInverse, Color.BLACK);
-        mAlarmSecondHandColorPref.setVisible(mAlarmClockStylePref.getValue().equals(mAnalogClock)
-                && SettingsDAO.isAlarmSecondHandDisplayed(mPrefs));
+        int color = MaterialColors.getColor(
+                requireContext(), com.google.android.material.R.attr.colorPrimaryInverse, Color.BLACK);
+        mAlarmSecondHandColorPref.setVisible(isAnalogClock && isSecondHandDisplayed);
         mAlarmSecondHandColorPref.setDefaultValue(color);
 
-        boolean isSwipeActionEnabled = SettingsDAO.isSwipeActionEnabled(mPrefs);
         mSlideZoneColorPref.setVisible(isSwipeActionEnabled);
 
         mSnoozeTitleColorPref.setVisible(isSwipeActionEnabled);
@@ -354,32 +431,65 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
         mAlarmButtonColorPref.setVisible(isSwipeActionEnabled);
         mAlarmButtonColorPref.setDefaultValue(color);
 
-        mAlarmDigitalClockFontSizePref.setVisible(mAlarmClockStylePref.getValue().equals(mDigitalClock));
+        mAlarmDigitalClockFontSizePref.setVisible(isDigitalClock);
 
         mDisplayTextShadowPref.setOnPreferenceChangeListener(this);
 
-        mShadowColorPref.setVisible(SettingsDAO.isAlarmTextShadowDisplayed(mPrefs));
+        mShadowColorPref.setVisible(isTextShadowDisplayed);
 
-        mShadowOffsetPref.setVisible(SettingsDAO.isAlarmTextShadowDisplayed(mPrefs));
+        mShadowOffsetPref.setVisible(isTextShadowDisplayed);
 
         mDisplayRingtoneTitlePref.setOnPreferenceChangeListener(this);
 
         mRingtoneTitleColorPref.setVisible(SettingsDAO.isRingtoneTitleDisplayed(mPrefs));
 
-        mAlarmBackgroundImagePref.setTitle(getString(SettingsDAO.getAlarmBackgroundImage(mPrefs) == null
+        mAlarmBackgroundImagePref.setTitle(getString(alarmBackgroundImage == null
                 ? R.string.background_image_title
                 : R.string.background_image_title_variant));
         mAlarmBackgroundImagePref.setOnPreferenceClickListener(this);
 
         mEnableAlarmBlurEffectPref.setVisible(SdkUtils.isAtLeastAndroid12()
-                && SettingsDAO.getAlarmBackgroundImage(mPrefs) != null);
+                && alarmBackgroundImage != null);
         mEnableAlarmBlurEffectPref.setOnPreferenceChangeListener(this);
 
         mAlarmBlurIntensityPref.setVisible(SdkUtils.isAtLeastAndroid12()
-                && SettingsDAO.getAlarmBackgroundImage(mPrefs) != null
+                && alarmBackgroundImage != null
                 && SettingsDAO.isAlarmBlurEffectEnabled(mPrefs));
 
         mAlarmPreviewPref.setOnPreferenceClickListener(this);
+    }
+
+    private void selectAlarmFont() {
+        fontPickerLauncher.launch(new Intent(Intent.ACTION_OPEN_DOCUMENT)
+                .addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
+                .addCategory(Intent.CATEGORY_OPENABLE)
+                .setType("*/*")
+                .putExtra(Intent.EXTRA_MIME_TYPES,
+                        new String[]{"application/x-font-ttf", "application/x-font-otf", "font/ttf", "font/otf"})
+
+        );
+    }
+
+    private void deleteAlarmFont() {
+        clearAlarmFontFile();
+
+        mPrefs.edit().remove(KEY_ALARM_FONT).apply();
+        mAlarmFontPref.setTitle(getString(R.string.custom_font_title));
+
+        Toast.makeText(requireContext(), R.string.custom_font_toast_message_deleted, Toast.LENGTH_SHORT).show();
+    }
+
+    private void clearAlarmFontFile() {
+        String path = mPrefs.getString(KEY_ALARM_FONT, null);
+        if (path != null) {
+            File file = new File(path);
+            if (file.exists() && file.isFile()) {
+                boolean deleted = file.delete();
+                if (!deleted) {
+                    LogUtils.w("Unable to delete alarm font: " + path);
+                }
+            }
+        }
     }
 
     private void selectImageBackground() {

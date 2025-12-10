@@ -176,8 +176,8 @@ public class ScreensaverUtils {
 
         if (screensaverClockStyle == DataModel.ClockStyle.DIGITAL) {
             textClock.setTypeface(getScreensaverClockTypeface(prefs));
-            ClockUtils.setDigitalClockTimeFormat(
-                    textClock, 0.4f, areClockSecondsEnabled, false, true);
+            ClockUtils.setDigitalClockTimeFormat(textClock, 0.4f, areClockSecondsEnabled,
+                    false, false, true);
             dimScreensaverView(context, textClock, screenSaverClockColorPicker);
         } else {
             ClockUtils.setAnalogClockSecondsEnabled(screensaverClockStyle, analogClock, areClockSecondsEnabled);

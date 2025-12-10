@@ -131,12 +131,12 @@ public class ClockUtils {
      * @param includeSeconds whether or not to include seconds in the clock's time
      */
     public static void setDigitalClockTimeFormat(TextClock clock, float amPmRatio, boolean includeSeconds,
-                                                 boolean isClockTab, boolean isScreensaver) {
+                                                 boolean isAlarm, boolean isClockTab, boolean isScreensaver) {
 
         if (clock != null) {
             // Get the best format for 12 hours mode according to the locale
             clock.setFormat12Hour(get12ModeFormat(
-                    clock.getContext(), amPmRatio, includeSeconds, isClockTab, isScreensaver));
+                    clock.getContext(), amPmRatio, includeSeconds, isAlarm, isClockTab, isScreensaver));
             // Get the best format for 24 hours mode according to the locale
             clock.setFormat24Hour(get24ModeFormat(clock.getContext(), includeSeconds, isScreensaver));
         }
@@ -149,7 +149,7 @@ public class ClockUtils {
      * @return format string for 12 hours mode time, not including seconds
      */
     public static CharSequence get12ModeFormat(Context context, float amPmRatio, boolean includeSeconds,
-                                               boolean isClockTab, boolean isScreensaver) {
+                                               boolean isAlarm, boolean isClockTab, boolean isScreensaver) {
 
         SharedPreferences prefs = getDefaultSharedPreferences(context);
 
@@ -183,20 +183,10 @@ public class ClockUtils {
 
         TypefaceSpan defaultSpan = new TypefaceSpan("sans-serif-bold");
 
-        if (isClockTab) {
-            Typeface userTypeface = ThemeUtils.loadFont(SettingsDAO.getDigitalClockFont(prefs));
-
-            if (userTypeface == null) {
-                sp.setSpan(defaultSpan, amPmPos, amPmPos + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            } else {
-                Typeface boldTypeface = Typeface.create(userTypeface, Typeface.BOLD);
-
-                if (SdkUtils.isAtLeastAndroid9()) {
-                    sp.setSpan(new TypefaceSpan(boldTypeface), amPmPos, amPmPos + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                } else {
-                    sp.setSpan(new CustomTypefaceSpan(boldTypeface), amPmPos, amPmPos + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                }
-            }
+        if (isAlarm) {
+            applyTypefaceSpan(sp, amPmPos, ThemeUtils.loadFont(SettingsDAO.getAlarmFont(prefs)), defaultSpan);
+        } else if (isClockTab) {
+            applyTypefaceSpan(sp, amPmPos, ThemeUtils.loadFont(SettingsDAO.getDigitalClockFont(prefs)), defaultSpan);
         } else if (isScreensaver) {
             Typeface baseTypeface = ThemeUtils.loadFont(SettingsDAO.getScreensaverDigitalClockFont(prefs));
             boolean isItalic = SettingsDAO.isScreensaverDigitalClockInItalic(prefs);
@@ -218,6 +208,24 @@ public class ClockUtils {
         }
 
         return sp;
+    }
+
+    /**
+     * Applies the appropriate typeface span to the AM/PM marker.<br>
+     * If the provided typeface is null, a default span is used. Otherwise, a bold version
+     * of the typeface is applied, with compatibility handling for older Android versions.
+     */
+    private static void applyTypefaceSpan(Spannable sp, int amPmPos, Typeface userTypeface, TypefaceSpan defaultSpan) {
+        if (userTypeface == null) {
+            sp.setSpan(defaultSpan, amPmPos, amPmPos + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        } else {
+            Typeface boldTypeface = Typeface.create(userTypeface, Typeface.BOLD);
+            if (SdkUtils.isAtLeastAndroid9()) {
+                sp.setSpan(new TypefaceSpan(boldTypeface), amPmPos, amPmPos + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            } else {
+                sp.setSpan(new CustomTypefaceSpan(boldTypeface), amPmPos, amPmPos + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+        }
     }
 
     public static CharSequence get24ModeFormat(Context context, boolean includeSeconds, boolean isScreensaver) {
