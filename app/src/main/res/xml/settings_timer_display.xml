@@ -30,6 +30,23 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
+        <SwitchPreferenceCompat
+            android:key="key_display_timer_ringtone_title"
+            android:title="@string/display_ringtone_title"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="key_timer_color_category"
+        android:title="@string/colors_category_title"
+        app:allowDividerAbove="false"
+        app:iconSpaceReserved="false"
+        tools:layout="@layout/settings_preference_category_layout">
+
         <com.best.deskclock.settings.ColorPickerPreference
             android:key="key_running_timer_indicator_color"
             android:title="@string/running_timer_indicator_color_title"
@@ -57,22 +74,6 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:title="@string/miscellaneous_category_title"
-        app:allowDividerAbove="false"
-        app:iconSpaceReserved="false"
-        tools:layout="@layout/settings_preference_category_layout">
-
-        <SwitchPreferenceCompat
-            android:key="key_display_timer_ringtone_title"
-            android:title="@string/display_ringtone_title"
-            android:defaultValue="false"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
-
         <com.best.deskclock.settings.ColorPickerPreference
             android:key="key_timer_ringtone_title_color"
             android:title="@string/ringtone_title_color"
@@ -81,6 +82,15 @@
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="key_timer_font_category"
+        android:title="@string/font_category_title"
+        app:allowDividerAbove="false"
+        app:iconSpaceReserved="false"
+        tools:layout="@layout/settings_preference_category_layout">
 
         <SwitchPreferenceCompat
             android:key="key_timer_display_text_shadow"
@@ -108,6 +118,14 @@
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_seekbar_layout" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/miscellaneous_category_title"
+        app:allowDividerAbove="false"
+        app:iconSpaceReserved="false"
+        tools:layout="@layout/settings_preference_category_layout">
 
         <Preference
             android:key="key_timer_background_image"

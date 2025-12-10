@@ -151,11 +151,13 @@ public class PreferencesKeys {
     // Timer Display Customization
     public static final String KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER = "key_transparent_background_for_expired_timer";
     public static final String KEY_DISPLAY_TIMER_STATE_INDICATOR = "key_display_timer_state_indicator";
+    public static final String KEY_DISPLAY_TIMER_RINGTONE_TITLE = "key_display_timer_ringtone_title";
+    public static final String KEY_TIMER_COLOR_CATEGORY = "key_timer_color_category";
     public static final String KEY_RUNNING_TIMER_INDICATOR_COLOR = "key_running_timer_indicator_color";
     public static final String KEY_PAUSED_TIMER_INDICATOR_COLOR = "key_paused_timer_indicator_color";
     public static final String KEY_EXPIRED_TIMER_INDICATOR_COLOR = "key_expired_timer_indicator_color";
-    public static final String KEY_DISPLAY_TIMER_RINGTONE_TITLE = "key_display_timer_ringtone_title";
     public static final String KEY_TIMER_RINGTONE_TITLE_COLOR = "key_timer_ringtone_title_color";
+    public static final String KEY_TIMER_FONT_CATEGORY = "key_timer_font_category";
     public static final String KEY_TIMER_DISPLAY_TEXT_SHADOW = "key_timer_display_text_shadow";
     public static final String KEY_TIMER_SHADOW_COLOR = "key_timer_shadow_color";
     public static final String KEY_TIMER_SHADOW_OFFSET = "key_timer_shadow_offset";

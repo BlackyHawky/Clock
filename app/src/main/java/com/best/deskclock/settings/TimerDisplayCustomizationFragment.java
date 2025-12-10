@@ -13,7 +13,9 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_PAUSED_TIMER_INDIC
 import static com.best.deskclock.settings.PreferencesKeys.KEY_RUNNING_TIMER_INDICATOR_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_BACKGROUND_IMAGE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_BLUR_INTENSITY;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_COLOR_CATEGORY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_DISPLAY_TEXT_SHADOW;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_FONT_CATEGORY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_PREVIEW;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_RINGTONE_TITLE_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_SHADOW_COLOR;
@@ -30,6 +32,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.preference.Preference;
+import androidx.preference.PreferenceCategory;
 import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
@@ -46,11 +49,13 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
 
     SwitchPreferenceCompat mTransparentBackgroundPref;
     SwitchPreferenceCompat mDisplayTimerStateIndicatorPref;
+    SwitchPreferenceCompat mDisplayRingtoneTitlePref;
+    PreferenceCategory mTimerColorCategory;
     ColorPickerPreference mRunningTimerIndicatorColorPref;
     ColorPickerPreference mPausedTimerIndicatorColorPref;
     ColorPickerPreference mExpiredTimerIndicatorColorPref;
-    SwitchPreferenceCompat mDisplayRingtoneTitlePref;
     ColorPickerPreference mRingtoneTitleColorPref;
+    PreferenceCategory mTimerFontCategory;
     SwitchPreferenceCompat mDisplayTextShadowPref;
     ColorPickerPreference mShadowColorPref;
     Preference mShadowOffsetPref;
@@ -114,11 +119,13 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
 
         mTransparentBackgroundPref = findPreference(KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER);
         mDisplayTimerStateIndicatorPref = findPreference(KEY_DISPLAY_TIMER_STATE_INDICATOR);
+        mDisplayRingtoneTitlePref = findPreference(KEY_DISPLAY_TIMER_RINGTONE_TITLE);
+        mTimerColorCategory = findPreference(KEY_TIMER_COLOR_CATEGORY);
         mRunningTimerIndicatorColorPref = findPreference(KEY_RUNNING_TIMER_INDICATOR_COLOR);
         mPausedTimerIndicatorColorPref = findPreference(KEY_PAUSED_TIMER_INDICATOR_COLOR);
         mExpiredTimerIndicatorColorPref = findPreference(KEY_EXPIRED_TIMER_INDICATOR_COLOR);
-        mDisplayRingtoneTitlePref = findPreference(KEY_DISPLAY_TIMER_RINGTONE_TITLE);
         mRingtoneTitleColorPref = findPreference(KEY_TIMER_RINGTONE_TITLE_COLOR);
+        mTimerFontCategory = findPreference(KEY_TIMER_FONT_CATEGORY);
         mDisplayTextShadowPref = findPreference(KEY_TIMER_DISPLAY_TEXT_SHADOW);
         mShadowColorPref = findPreference(KEY_TIMER_SHADOW_COLOR);
         mShadowOffsetPref = findPreference(KEY_TIMER_SHADOW_OFFSET);
@@ -155,6 +162,8 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
             case KEY_DISPLAY_TIMER_STATE_INDICATOR -> {
                 boolean isTimerStateIndicatorDisplayed = (boolean) newValue;
 
+                mTimerColorCategory.setVisible(isTimerStateIndicatorDisplayed
+                        || SettingsDAO.isTimerRingtoneTitleDisplayed(mPrefs));
                 mRunningTimerIndicatorColorPref.setVisible(isTimerStateIndicatorDisplayed);
                 mPausedTimerIndicatorColorPref.setVisible(isTimerStateIndicatorDisplayed);
                 mExpiredTimerIndicatorColorPref.setVisible(isTimerStateIndicatorDisplayed);
@@ -166,7 +175,10 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
                 boolean isRingtoneTitleDisplayed = (boolean) newValue;
                 boolean isTextShadowDisplayed = SettingsDAO.isTimerTextShadowDisplayed(mPrefs);
 
+                mTimerColorCategory.setVisible(isRingtoneTitleDisplayed
+                        || SettingsDAO.isTimerStateIndicatorDisplayed(mPrefs));
                 mRingtoneTitleColorPref.setVisible(isRingtoneTitleDisplayed);
+                mTimerFontCategory.setVisible(isRingtoneTitleDisplayed);
                 mDisplayTextShadowPref.setVisible(isRingtoneTitleDisplayed);
                 mShadowColorPref.setVisible(isRingtoneTitleDisplayed && isTextShadowDisplayed);
                 mShadowOffsetPref.setVisible(isRingtoneTitleDisplayed && isTextShadowDisplayed);
@@ -203,6 +215,21 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
         }
 
         switch (pref.getKey()) {
+            case KEY_TIMER_BACKGROUND_IMAGE -> {
+                if (SettingsDAO.getTimerBackgroundImage(mPrefs) == null) {
+                    selectImageBackground();
+                } else {
+                    new MaterialAlertDialogBuilder(requireContext())
+                            .setTitle(R.string.background_image_dialog_title)
+                            .setMessage(R.string.background_image_title_variant)
+                            .setPositiveButton(getString(R.string.label_new_image), (dialog, which) ->
+                                    selectImageBackground())
+                            .setNeutralButton(getString(R.string.delete), (dialog, which) ->
+                                    deleteImageBackground())
+                            .show();
+                }
+            }
+
             case KEY_TIMER_PREVIEW -> {
                 startActivity(new Intent(context, TimerDisplayPreviewActivity.class));
                 if (SettingsDAO.isFadeTransitionsEnabled(mPrefs)) {
@@ -222,21 +249,6 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
                     }
                 }
             }
-
-            case KEY_TIMER_BACKGROUND_IMAGE -> {
-                if (SettingsDAO.getTimerBackgroundImage(mPrefs) == null) {
-                    selectImageBackground();
-                } else {
-                    new MaterialAlertDialogBuilder(requireContext())
-                            .setTitle(R.string.background_image_dialog_title)
-                            .setMessage(R.string.background_image_title_variant)
-                            .setPositiveButton(getString(R.string.label_new_image), (dialog, which) ->
-                                    selectImageBackground())
-                            .setNeutralButton(getString(R.string.delete), (dialog, which) ->
-                                    deleteImageBackground())
-                            .show();
-                }
-            }
         }
 
         return true;
@@ -252,22 +264,27 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
     }
 
     private void setupPreferences() {
+        final boolean isTimerStateIndicatorDisplayed = SettingsDAO.isTimerStateIndicatorDisplayed(mPrefs);
+        final boolean isTimerRingtoneTitleDisplayed = SettingsDAO.isTimerRingtoneTitleDisplayed(mPrefs);
+        final boolean isTimerTextShadowDisplayed = SettingsDAO.isTimerTextShadowDisplayed(mPrefs);
+
         mTransparentBackgroundPref.setOnPreferenceChangeListener(this);
 
         mDisplayTimerStateIndicatorPref.setOnPreferenceChangeListener(this);
 
-        mRunningTimerIndicatorColorPref.setVisible(SettingsDAO.isTimerStateIndicatorDisplayed(mPrefs));
-
-        mPausedTimerIndicatorColorPref.setVisible(SettingsDAO.isTimerStateIndicatorDisplayed(mPrefs));
-
-        mExpiredTimerIndicatorColorPref.setVisible(SettingsDAO.isTimerStateIndicatorDisplayed(mPrefs));
-
         mDisplayRingtoneTitlePref.setOnPreferenceChangeListener(this);
 
-        final boolean isTimerRingtoneTitleDisplayed = SettingsDAO.isTimerRingtoneTitleDisplayed(mPrefs);
-        final boolean isTimerTextShadowDisplayed = SettingsDAO.isTimerTextShadowDisplayed(mPrefs);
+        mTimerColorCategory.setVisible(isTimerStateIndicatorDisplayed || isTimerRingtoneTitleDisplayed);
+
+        mRunningTimerIndicatorColorPref.setVisible(isTimerStateIndicatorDisplayed);
+
+        mPausedTimerIndicatorColorPref.setVisible(isTimerStateIndicatorDisplayed);
+
+        mExpiredTimerIndicatorColorPref.setVisible(isTimerStateIndicatorDisplayed);
 
         mRingtoneTitleColorPref.setVisible(isTimerRingtoneTitleDisplayed);
+
+        mTimerFontCategory.setVisible(isTimerRingtoneTitleDisplayed);
 
         mDisplayTextShadowPref.setVisible(isTimerRingtoneTitleDisplayed);
         mDisplayTextShadowPref.setOnPreferenceChangeListener(this);
