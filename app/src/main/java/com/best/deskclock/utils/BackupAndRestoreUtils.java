@@ -17,6 +17,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BACKGROUND_I
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DEFAULT_ALARM_RINGTONE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_CLOCK_FONT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ESSENTIAL_PERMISSIONS_GRANTED;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_DIGITAL_CLOCK_FONT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_BACKGROUND_IMAGE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_RINGTONE;
 
@@ -81,8 +82,8 @@ public class BackupAndRestoreUtils {
                 String key = entry.getKey();
                 // Exclude keys from custom ringtones as this causes bugs when restoring.
                 // Also, exclude the selected alarm ringtone.
-                // Next, exclude the alarm and timer background images and the digital clock font because
-                // these files exist only on the current device and cannot be restored on another.
+                // Next, exclude keys related to images and fonts because these files exist only
+                // on the current device and cannot be restored on another.
                 // Finally, exclude the essential permissions key, as it reflects the current system state
                 // and should not be saved, restored, or reset like other preferences.
                 if (key.equals(RINGTONE_IDS)
@@ -93,6 +94,7 @@ public class BackupAndRestoreUtils {
                         || key.equals(KEY_ALARM_BACKGROUND_IMAGE)
                         || key.equals(KEY_TIMER_BACKGROUND_IMAGE)
                         || key.equals(KEY_DIGITAL_CLOCK_FONT)
+                        || key.equals(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT)
                         || key.equals(KEY_ESSENTIAL_PERMISSIONS_GRANTED)) {
                     continue;
                 }
@@ -230,8 +232,8 @@ public class BackupAndRestoreUtils {
         // Do not reset the KEY_IS_FIRST_LAUNCH key to prevent the "FirstLaunch" activity from reappearing.
         // Also, exclude keys corresponding to custom ringtones and the selected alarm ringtone,
         // as this causes bugs for alarms.
-        // Next, exclude the alarm and timer background images and the digital clock font because
-        // these files exist only on the current device and cannot be restored on another.
+        // Next, exclude keys related to images and fonts because these files exist only
+        // on the current device and cannot be restored on another.
         // Finally, exclude the essential permissions key, as it reflects the current system state
         // and should not be saved, restored, or reset like other preferences.
         for (Map.Entry<String, ?> entry : prefs.getAll().entrySet()) {
@@ -246,6 +248,7 @@ public class BackupAndRestoreUtils {
                     && !key.equals(KEY_ALARM_BACKGROUND_IMAGE)
                     && !key.equals(KEY_TIMER_BACKGROUND_IMAGE)
                     && !key.equals(KEY_DIGITAL_CLOCK_FONT)
+                    && !key.equals(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT)
                     && !key.equals(KEY_ESSENTIAL_PERMISSIONS_GRANTED)
             ) {
                 editor.remove(key);

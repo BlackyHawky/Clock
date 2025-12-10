@@ -210,21 +210,21 @@ public class MaterialYouDigitalAppWidgetProvider extends BaseDigitalAppWidgetPro
 
             if (DataModel.getDataModel().is24HourFormat()) {
                 rv.setCharSequence(getClockViewId(), "setFormat24Hour", ClockUtils.get24ModeFormat(
-                        context, WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs)));
+                        context, WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs), false));
             } else {
                 rv.setCharSequence(getClockViewId(), "setFormat12Hour", ClockUtils.get12ModeFormat(
                         context, WidgetUtils.getAmPmRatio(true, prefs),
-                        WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs), false));
+                        WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs), false, false));
             }
         } else {
             rv.setViewVisibility(getClockViewId(), GONE);
             rv.setViewVisibility(getClockCustomViewId(), VISIBLE);
             rv.setCharSequence(getClockCustomViewId(), "setFormat12Hour",
                     ClockUtils.get12ModeFormat(context, WidgetUtils.getAmPmRatio(true, prefs),
-                            WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs), false));
+                            WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs), false, false));
             rv.setCharSequence(getClockCustomViewId(), "setFormat24Hour",
                     ClockUtils.get24ModeFormat(context,
-                            WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs)));
+                            WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs), false));
             rv.setTextColor(getClockCustomViewId(),
                     WidgetDAO.getMaterialYouDigitalWidgetCustomClockColor(prefs));
         }

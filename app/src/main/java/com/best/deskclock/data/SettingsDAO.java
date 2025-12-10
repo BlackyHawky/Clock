@@ -361,6 +361,13 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return the font applied to the digital clock in the screensaver.
+     */
+    public static String getScreensaverDigitalClockFont(SharedPreferences prefs) {
+        return prefs.getString(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT, null);
+    }
+
+    /**
      * @return the clock second hand applied for the screensaver.
      */
     public static String getScreensaverClockSecondHand(SharedPreferences prefs) {

@@ -25,6 +25,13 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
+        <Preference
+            android:key="key_screensaver_digital_clock_font"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:title="@string/custom_font_title"
+            tools:layout="@layout/settings_preference_layout" />
+
         <ListPreference
             android:key="key_screensaver_clock_dial"
             android:title="@string/clock_dial_title"
