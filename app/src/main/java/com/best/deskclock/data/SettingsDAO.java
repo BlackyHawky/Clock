@@ -1110,6 +1110,13 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return the font applied to the alarm.
+     */
+    public static String getAlarmFont(SharedPreferences prefs) {
+        return prefs.getString(KEY_ALARM_FONT, null);
+    }
+
+    /**
      * @return a value indicating the alarm background color.
      */
     public static int getAlarmBackgroundColor(SharedPreferences prefs) {

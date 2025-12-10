@@ -316,7 +316,9 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         ClockUtils.setClockStyle(alarmClockStyle, digitalClock, analogClock);
 
         if (alarmClockStyle == DataModel.ClockStyle.DIGITAL) {
-            ClockUtils.setDigitalClockTimeFormat(digitalClock, 0.4f, false, false, false);
+            ClockUtils.setDigitalClockFont(digitalClock, SettingsDAO.getAlarmFont(mPrefs));
+            ClockUtils.setDigitalClockTimeFormat(digitalClock, 0.4f, false,
+                    true, false, false);
             digitalClock.setTextSize(TypedValue.COMPLEX_UNIT_SP, alarmDigitalClockFontSize);
             digitalClock.setTextColor(alarmClockColor);
         } else {

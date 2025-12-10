@@ -15,6 +15,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_VERSION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_VIEW_ON_GITHUB;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_WHATS_NEW;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BACKGROUND_IMAGE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_FONT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DEBUG_CATEGORY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_CLOCK_FONT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_DEBUG_SETTINGS;
@@ -317,6 +318,7 @@ public class AboutFragment extends ScreenFragment
                     && !key.equals(RINGTONE_IDS)
                     && !key.equals(NEXT_RINGTONE_ID)
                     && !key.startsWith(RINGTONE_TITLE)
+                    && !key.equals(KEY_ALARM_FONT)
                     && !key.equals(KEY_ALARM_BACKGROUND_IMAGE)
                     && !key.equals(KEY_TIMER_DURATION_FONT)
                     && !key.equals(KEY_TIMER_BACKGROUND_IMAGE)

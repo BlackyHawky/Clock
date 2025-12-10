@@ -131,8 +131,22 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
     }
 
     private void bindClock(Alarm alarm) {
+        String fontPath = SettingsDAO.getAlarmFont(mPrefs);
+        Typeface baseTypeface = null;
+
+        if (fontPath != null) {
+            baseTypeface = ThemeUtils.loadFont(fontPath);
+        }
+
+        int style = alarm.enabled ? Typeface.BOLD : Typeface.NORMAL;
+
+        if (baseTypeface == null) {
+            clock.setTypeface(Typeface.create("sans-serif", style));
+        } else {
+            clock.setTypeface(baseTypeface, style);
+        }
+
         clock.setTime(alarm.hour, alarm.minutes);
-        clock.setTypeface(alarm.enabled ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
     }
 
     private void bindRepeatText(Context context, Alarm alarm, AlarmInstance alarmInstance) {
