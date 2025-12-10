@@ -115,6 +115,8 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
                 findViewById(R.id.timer_setup_digit_9),
         };
 
+        mTimeView.setTypeface(ThemeUtils.loadFont(SettingsDAO.getTimerDurationFont(prefs)));
+
         for (final MaterialButton digitButton : mDigitButton) {
             if (isCardBackgroundDisplayed) {
                 digitButton.setBackgroundTintList(ColorStateList.valueOf(

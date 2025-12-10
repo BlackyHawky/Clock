@@ -14,6 +14,13 @@
         app:iconSpaceReserved="false"
         tools:layout="@layout/settings_preference_category_layout">
 
+        <Preference
+            android:key="key_timer_duration_font"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:title="@string/custom_font_title"
+            tools:layout="@layout/settings_preference_layout" />
+
         <SwitchPreferenceCompat
             android:key="key_transparent_background_for_expired_timer"
             android:title="@string/transparent_background_for_expired_timer_title"

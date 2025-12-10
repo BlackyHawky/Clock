@@ -90,7 +90,7 @@ public class ScreensaverUtils {
      * @return a Typeface object representing the chosen font with the applied style
      */
     public static Typeface getScreensaverClockTypeface(SharedPreferences prefs) {
-        Typeface baseTypeface = ClockUtils.loadDigitalClockFont(SettingsDAO.getScreensaverDigitalClockFont(prefs));
+        Typeface baseTypeface = ThemeUtils.loadFont(SettingsDAO.getScreensaverDigitalClockFont(prefs));
         boolean isBold = SettingsDAO.isScreensaverDigitalClockInBold(prefs);
         boolean isItalic = SettingsDAO.isScreensaverDigitalClockInItalic(prefs);
 

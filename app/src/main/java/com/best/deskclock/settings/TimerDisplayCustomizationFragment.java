@@ -15,6 +15,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_BACKGROUND_I
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_BLUR_INTENSITY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_COLOR_CATEGORY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_DISPLAY_TEXT_SHADOW;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_DURATION_FONT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_FONT_CATEGORY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_PREVIEW;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_RINGTONE_TITLE_COLOR;
@@ -47,6 +48,7 @@ import java.io.File;
 public class TimerDisplayCustomizationFragment extends ScreenFragment
         implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
+    Preference mTimerDurationFontPref;
     SwitchPreferenceCompat mTransparentBackgroundPref;
     SwitchPreferenceCompat mDisplayTimerStateIndicatorPref;
     SwitchPreferenceCompat mDisplayRingtoneTitlePref;
@@ -63,6 +65,42 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
     SwitchPreferenceCompat mEnableTimerBlurEffectPref;
     Preference mTimerBlurIntensityPref;
     Preference mTimerPreviewPref;
+
+    private final ActivityResultLauncher<Intent> fontPickerLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() != RESULT_OK) {
+                    return;
+                }
+
+                Intent intent = result.getData();
+                final Uri sourceUri = intent == null ? null : intent.getData();
+                if (sourceUri == null) {
+                    return;
+                }
+
+                // Take persistent permission
+                requireActivity().getContentResolver().takePersistableUriPermission(
+                        sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION
+                );
+
+                String safeTitle = Utils.toSafeFileName("timer_font");
+
+                // Delete the old font if it exists
+                clearTimerDurationFontFile();
+
+                Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(requireContext(), sourceUri, safeTitle);
+
+                // Save the new path
+                if (copiedUri != null) {
+                    mPrefs.edit().putString(KEY_TIMER_DURATION_FONT, copiedUri.getPath()).apply();
+                    mTimerDurationFontPref.setTitle(getString(R.string.custom_font_title_variant));
+
+                    Toast.makeText(requireContext(), R.string.custom_font_toast_message_selected, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(requireContext(), "Error importing font", Toast.LENGTH_SHORT).show();
+                    mTimerDurationFontPref.setTitle(getString(R.string.custom_font_title));
+                }
+            });
 
     private final ActivityResultLauncher<Intent> imagePickerLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -117,6 +155,7 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
 
         addPreferencesFromResource(R.xml.settings_timer_display);
 
+        mTimerDurationFontPref = findPreference(KEY_TIMER_DURATION_FONT);
         mTransparentBackgroundPref = findPreference(KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER);
         mDisplayTimerStateIndicatorPref = findPreference(KEY_DISPLAY_TIMER_STATE_INDICATOR);
         mDisplayRingtoneTitlePref = findPreference(KEY_DISPLAY_TIMER_RINGTONE_TITLE);
@@ -215,6 +254,21 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
         }
 
         switch (pref.getKey()) {
+            case KEY_TIMER_DURATION_FONT -> {
+                if (SettingsDAO.getTimerDurationFont(mPrefs) == null) {
+                    selectTimerDurationFont();
+                } else {
+                    new MaterialAlertDialogBuilder(requireContext())
+                            .setTitle(R.string.custom_font_dialog_title)
+                            .setMessage(R.string.custom_font_title_variant)
+                            .setPositiveButton(getString(R.string.label_new_font), (dialog, which) ->
+                                    selectTimerDurationFont())
+                            .setNeutralButton(getString(R.string.delete), (dialog, which) ->
+                                    deleteTimerDurationFont())
+                            .show();
+                }
+            }
+
             case KEY_TIMER_BACKGROUND_IMAGE -> {
                 if (SettingsDAO.getTimerBackgroundImage(mPrefs) == null) {
                     selectImageBackground();
@@ -268,6 +322,11 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
         final boolean isTimerRingtoneTitleDisplayed = SettingsDAO.isTimerRingtoneTitleDisplayed(mPrefs);
         final boolean isTimerTextShadowDisplayed = SettingsDAO.isTimerTextShadowDisplayed(mPrefs);
 
+        mTimerDurationFontPref.setTitle(getString(SettingsDAO.getTimerDurationFont(mPrefs) == null
+                ? R.string.custom_font_title
+                : R.string.custom_font_title_variant));
+        mTimerDurationFontPref.setOnPreferenceClickListener(this);
+
         mTransparentBackgroundPref.setOnPreferenceChangeListener(this);
 
         mDisplayTimerStateIndicatorPref.setOnPreferenceChangeListener(this);
@@ -314,6 +373,39 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
                 && SettingsDAO.isTimerBlurEffectEnabled(mPrefs));
 
         mTimerPreviewPref.setOnPreferenceClickListener(this);
+    }
+
+    private void selectTimerDurationFont() {
+        fontPickerLauncher.launch(new Intent(Intent.ACTION_OPEN_DOCUMENT)
+                .addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
+                .addCategory(Intent.CATEGORY_OPENABLE)
+                .setType("*/*")
+                .putExtra(Intent.EXTRA_MIME_TYPES,
+                        new String[]{"application/x-font-ttf", "application/x-font-otf", "font/ttf", "font/otf"})
+
+        );
+    }
+
+    private void deleteTimerDurationFont() {
+        clearTimerDurationFontFile();
+
+        mPrefs.edit().remove(KEY_TIMER_DURATION_FONT).apply();
+        mTimerDurationFontPref.setTitle(getString(R.string.custom_font_title));
+
+        Toast.makeText(requireContext(), R.string.custom_font_toast_message_deleted, Toast.LENGTH_SHORT).show();
+    }
+
+    private void clearTimerDurationFontFile() {
+        String path = mPrefs.getString(KEY_TIMER_DURATION_FONT, null);
+        if (path != null) {
+            File file = new File(path);
+            if (file.exists() && file.isFile()) {
+                boolean deleted = file.delete();
+                if (!deleted) {
+                    LogUtils.w("Unable to delete timer font: " + path);
+                }
+            }
+        }
     }
 
     private void selectImageBackground() {

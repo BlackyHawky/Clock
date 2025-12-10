@@ -28,7 +28,6 @@ import com.best.deskclock.settings.AlarmDisplayPreviewActivity;
 import com.best.deskclock.uicomponents.AnalogClock;
 import com.best.deskclock.uicomponents.CustomTypefaceSpan;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collection;
@@ -109,36 +108,6 @@ public class ClockUtils {
     }
 
     /**
-     * Loads a typeface from the given font file path.
-     * <p>
-     * This method attempts to create a {@link Typeface} from the specified file path.
-     * If the path is null, the file does not exist, or the font cannot be loaded,
-     * the default system font will be used.
-     * </p>
-     *
-     * @param fontPath the absolute path to the font file (.ttf or .otf), may be null
-     * @return the loaded {@link Typeface}, or {@code null} if loading fails
-     */
-    public static Typeface loadDigitalClockFont(String fontPath) {
-        if (fontPath != null) {
-            File file = new File(fontPath);
-            if (file.exists() && file.isFile()) {
-                try {
-                    return Typeface.createFromFile(file);
-                } catch (Exception e) {
-                    LogUtils.e("ClockUtils - Error loading font: " + fontPath, e);
-                    return null;
-                }
-            } else {
-                LogUtils.w("ClockUtils - Font file not found: " + fontPath);
-                return null;
-            }
-        } else {
-            return null;
-        }
-    }
-
-    /**
      * Sets the typeface of a digital clock (TextClock) based on user preferences.
      * <p>
      * This method retrieves the font path stored in SharedPreferences and attempts
@@ -150,7 +119,7 @@ public class ClockUtils {
      * @param clock the TextClock instance whose font should be updated
      */
     public static void setDigitalClockFont(TextClock clock, String fontPath) {
-        Typeface typeface = loadDigitalClockFont(fontPath);
+        Typeface typeface = ThemeUtils.loadFont(fontPath);
         clock.setTypeface(typeface);
     }
 
@@ -215,7 +184,7 @@ public class ClockUtils {
         TypefaceSpan defaultSpan = new TypefaceSpan("sans-serif-bold");
 
         if (isClockTab) {
-            Typeface userTypeface = loadDigitalClockFont(SettingsDAO.getDigitalClockFont(prefs));
+            Typeface userTypeface = ThemeUtils.loadFont(SettingsDAO.getDigitalClockFont(prefs));
 
             if (userTypeface == null) {
                 sp.setSpan(defaultSpan, amPmPos, amPmPos + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -229,7 +198,7 @@ public class ClockUtils {
                 }
             }
         } else if (isScreensaver) {
-            Typeface baseTypeface = loadDigitalClockFont(SettingsDAO.getScreensaverDigitalClockFont(prefs));
+            Typeface baseTypeface = ThemeUtils.loadFont(SettingsDAO.getScreensaverDigitalClockFont(prefs));
             boolean isItalic = SettingsDAO.isScreensaverDigitalClockInItalic(prefs);
             int style = isItalic ? Typeface.BOLD_ITALIC : Typeface.BOLD;
 

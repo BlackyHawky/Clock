@@ -24,6 +24,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.AnimatedStateListDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
@@ -43,6 +44,8 @@ import androidx.annotation.NonNull;
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 import com.google.android.material.color.MaterialColors;
+
+import java.io.File;
 
 public class ThemeUtils {
 
@@ -120,6 +123,36 @@ public class ThemeUtils {
     public static boolean areSystemAnimationsDisabled(Context context) {
         return android.provider.Settings.Global.getFloat(context.getContentResolver(),
                 android.provider.Settings.Global.ANIMATOR_DURATION_SCALE, 1f) == 0f;
+    }
+
+    /**
+     * Loads a typeface from the given font file path.
+     * <p>
+     * This method attempts to create a {@link Typeface} from the specified file path.
+     * If the path is null, the file does not exist, or the font cannot be loaded,
+     * the default system font will be used.
+     * </p>
+     *
+     * @param fontPath the absolute path to the font file (.ttf or .otf), may be null
+     * @return the loaded {@link Typeface}, or {@code null} if loading fails
+     */
+    public static Typeface loadFont(String fontPath) {
+        if (fontPath != null) {
+            File file = new File(fontPath);
+            if (file.exists() && file.isFile()) {
+                try {
+                    return Typeface.createFromFile(file);
+                } catch (Exception e) {
+                    LogUtils.e("ClockUtils - Error loading font: " + fontPath, e);
+                    return null;
+                }
+            } else {
+                LogUtils.w("ClockUtils - Font file not found: " + fontPath);
+                return null;
+            }
+        } else {
+            return null;
+        }
     }
 
     /**

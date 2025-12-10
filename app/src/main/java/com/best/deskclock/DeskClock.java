@@ -41,6 +41,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_VOLUME_UP_ACTIO
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TAB_INDICATOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TAB_TITLE_VISIBILITY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TAB_TO_DISPLAY;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_DURATION_FONT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_WEEK_START;
 import static com.best.deskclock.utils.AnimatorUtils.getScaleAnimator;
 
@@ -232,7 +233,7 @@ public class DeskClock extends BaseActivity
             // Alarm
             KEY_ENABLE_PER_ALARM_VOLUME, KEY_WEEK_START,
             // Timer
-            KEY_SORT_TIMER, KEY_DISPLAY_TIMER_STATE_INDICATOR, KEY_RUNNING_TIMER_INDICATOR_COLOR,
+            KEY_TIMER_DURATION_FONT, KEY_SORT_TIMER, KEY_DISPLAY_TIMER_STATE_INDICATOR, KEY_RUNNING_TIMER_INDICATOR_COLOR,
             KEY_PAUSED_TIMER_INDICATOR_COLOR, KEY_EXPIRED_TIMER_INDICATOR_COLOR,
             // Stopwatch
             KEY_SW_VOLUME_UP_ACTION,
@@ -665,11 +666,12 @@ public class DeskClock extends BaseActivity
                      KEY_CLOCK_STYLE, KEY_CLOCK_DIAL, KEY_CLOCK_DIAL_MATERIAL, KEY_DISPLAY_CLOCK_SECONDS,
                      KEY_CLOCK_SECOND_HAND, KEY_DIGITAL_CLOCK_FONT, KEY_SORT_CITIES, KEY_ENABLE_CITY_NOTE,
                      KEY_AUTO_HOME_CLOCK, KEY_HOME_TIME_ZONE, KEY_ENABLE_PER_ALARM_VOLUME, KEY_WEEK_START,
-                     KEY_SORT_TIMER, KEY_DISPLAY_TIMER_STATE_INDICATOR, KEY_RUNNING_TIMER_INDICATOR_COLOR,
-                     KEY_PAUSED_TIMER_INDICATOR_COLOR, KEY_EXPIRED_TIMER_INDICATOR_COLOR,
-                     KEY_SW_VOLUME_UP_ACTION, KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS,
-                     KEY_SW_VOLUME_DOWN_ACTION, KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS,
-                     KEY_ESSENTIAL_PERMISSIONS_GRANTED -> mShouldRecreate = true;
+                     KEY_TIMER_DURATION_FONT, KEY_SORT_TIMER, KEY_DISPLAY_TIMER_STATE_INDICATOR,
+                     KEY_RUNNING_TIMER_INDICATOR_COLOR, KEY_PAUSED_TIMER_INDICATOR_COLOR,
+                     KEY_EXPIRED_TIMER_INDICATOR_COLOR, KEY_SW_VOLUME_UP_ACTION,
+                     KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS, KEY_SW_VOLUME_DOWN_ACTION,
+                     KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS, KEY_ESSENTIAL_PERMISSIONS_GRANTED ->
+                        mShouldRecreate = true;
 
             }
         };
@@ -714,6 +716,7 @@ public class DeskClock extends BaseActivity
             case KEY_ENABLE_PER_ALARM_VOLUME -> SettingsDAO.isPerAlarmVolumeEnabled(mPrefs);
             case KEY_WEEK_START -> SettingsDAO.getWeekdayOrder(mPrefs);
             // Timer
+            case KEY_TIMER_DURATION_FONT -> SettingsDAO.getTimerDurationFont(mPrefs);
             case KEY_SORT_TIMER -> SettingsDAO.getTimerSortingPreference(mPrefs);
             case KEY_DISPLAY_TIMER_STATE_INDICATOR -> SettingsDAO.isTimerStateIndicatorDisplayed(mPrefs);
             case KEY_RUNNING_TIMER_INDICATOR_COLOR -> SettingsDAO.getRunningTimerIndicatorColor(mPrefs);

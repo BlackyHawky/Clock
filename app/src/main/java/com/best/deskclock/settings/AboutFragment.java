@@ -22,6 +22,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_LOCAL_LOGGI
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ESSENTIAL_PERMISSIONS_GRANTED;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_DIGITAL_CLOCK_FONT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_BACKGROUND_IMAGE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_DURATION_FONT;
 import static com.best.deskclock.utils.Utils.ACTION_LANGUAGE_CODE_CHANGED;
 
 import android.app.Activity;
@@ -316,6 +317,7 @@ public class AboutFragment extends ScreenFragment
                     && !key.equals(NEXT_RINGTONE_ID)
                     && !key.startsWith(RINGTONE_TITLE)
                     && !key.equals(KEY_ALARM_BACKGROUND_IMAGE)
+                    && !key.equals(KEY_TIMER_DURATION_FONT)
                     && !key.equals(KEY_TIMER_BACKGROUND_IMAGE)
                     && !key.equals(KEY_DIGITAL_CLOCK_FONT)
                     && !key.equals(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT)
