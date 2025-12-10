@@ -168,6 +168,7 @@ public class PreferencesKeys {
     public static final String KEY_TIMER_PREVIEW = "key_timer_preview";
 
     // Stopwatch
+    public static final String KEY_SW_FONT = "key_sw_font";
     public static final String KEY_SW_VOLUME_UP_ACTION = "key_sw_volume_up_action";
     public static final String KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS = "key_sw_volume_up_action_after_long_press";
     public static final String KEY_SW_VOLUME_DOWN_ACTION = "key_sw_volume_down_action";

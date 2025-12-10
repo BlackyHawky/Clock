@@ -1287,6 +1287,13 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return the font applied to the stopwatch.
+     */
+    public static String getStopwatchFont(SharedPreferences prefs) {
+        return prefs.getString(KEY_SW_FONT, null);
+    }
+
+    /**
      * @return the action to execute when volume up button is pressed for the stopwatch
      */
     public static String getVolumeUpActionForStopwatch(SharedPreferences prefs) {

@@ -9,6 +9,21 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <PreferenceCategory
+        android:title="@string/style_category_title"
+        app:allowDividerAbove="false"
+        app:iconSpaceReserved="false"
+        tools:layout="@layout/settings_preference_category_layout">
+
+        <Preference
+            android:key="key_sw_font"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:title="@string/custom_font_title"
+            tools:layout="@layout/settings_preference_layout" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:title="@string/actions_category_title"
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false"

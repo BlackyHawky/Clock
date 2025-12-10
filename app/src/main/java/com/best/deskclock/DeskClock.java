@@ -34,6 +34,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_PAUSED_TIMER_INDIC
 import static com.best.deskclock.settings.PreferencesKeys.KEY_RUNNING_TIMER_INDICATOR_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SORT_CITIES;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SORT_TIMER;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_FONT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_VOLUME_DOWN_ACTION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_VOLUME_UP_ACTION;
@@ -236,6 +237,7 @@ public class DeskClock extends BaseActivity
             KEY_TIMER_DURATION_FONT, KEY_SORT_TIMER, KEY_DISPLAY_TIMER_STATE_INDICATOR, KEY_RUNNING_TIMER_INDICATOR_COLOR,
             KEY_PAUSED_TIMER_INDICATOR_COLOR, KEY_EXPIRED_TIMER_INDICATOR_COLOR,
             // Stopwatch
+            KEY_SW_FONT,
             KEY_SW_VOLUME_UP_ACTION,
             KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS,
             KEY_SW_VOLUME_DOWN_ACTION,
@@ -668,7 +670,7 @@ public class DeskClock extends BaseActivity
                      KEY_AUTO_HOME_CLOCK, KEY_HOME_TIME_ZONE, KEY_ENABLE_PER_ALARM_VOLUME, KEY_WEEK_START,
                      KEY_TIMER_DURATION_FONT, KEY_SORT_TIMER, KEY_DISPLAY_TIMER_STATE_INDICATOR,
                      KEY_RUNNING_TIMER_INDICATOR_COLOR, KEY_PAUSED_TIMER_INDICATOR_COLOR,
-                     KEY_EXPIRED_TIMER_INDICATOR_COLOR, KEY_SW_VOLUME_UP_ACTION,
+                     KEY_EXPIRED_TIMER_INDICATOR_COLOR, KEY_SW_FONT, KEY_SW_VOLUME_UP_ACTION,
                      KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS, KEY_SW_VOLUME_DOWN_ACTION,
                      KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS, KEY_ESSENTIAL_PERMISSIONS_GRANTED ->
                         mShouldRecreate = true;
@@ -723,6 +725,7 @@ public class DeskClock extends BaseActivity
             case KEY_PAUSED_TIMER_INDICATOR_COLOR -> SettingsDAO.getPausedTimerIndicatorColor(mPrefs);
             case KEY_EXPIRED_TIMER_INDICATOR_COLOR -> SettingsDAO.getExpiredTimerIndicatorColor(mPrefs);
             // StopWatch
+            case KEY_SW_FONT -> SettingsDAO.getStopwatchFont(mPrefs);
             case KEY_SW_VOLUME_UP_ACTION -> SettingsDAO.getVolumeUpActionForStopwatch(mPrefs);
             case KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS -> SettingsDAO.getVolumeUpActionAfterLongPressForStopwatch(mPrefs);
             case KEY_SW_VOLUME_DOWN_ACTION -> SettingsDAO.getVolumeDownActionForStopwatch(mPrefs);
