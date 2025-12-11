@@ -493,7 +493,7 @@
     <string name="alarm_title_color">Barva názvu budíku</string>
     <string name="dismiss_button_color">Barva tlačítka „Konec“</string>
     <string name="alarm_button_color">Barva tlačítka budíku</string>
-    <string name="alarm_clock_font_size">Velikost písma hodin budíku</string>
+    <string name="clock_font_size">Velikost písma hodin</string>
     <string name="timer_shake_action_title">Zatřeste zařízením pro zastavení budíku</string>
     <string name="amoled_dark_theme_mode">AMOLED</string>
     <string name="display_card_background_title">Zobrazit pozadí karet</string>

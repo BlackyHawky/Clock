@@ -532,7 +532,7 @@
     <!-- Setting title for customizing the alarm button color. -->
     <string name="alarm_button_color">Alarm button color</string>
     <!-- Setting title for customizing the alarm clock font size. -->
-    <string name="alarm_clock_font_size">Alarm clock font size</string>
+    <string name="clock_font_size">Clock font size</string>
     <!-- Setting title for customizing the alarm title font size. -->
     <string name="alarm_title_font_size">Alarm title font size</string>
     <!-- Setting title to display a shadow on the texts of the triggered alarm. -->

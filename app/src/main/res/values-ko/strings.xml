@@ -360,7 +360,7 @@
     <string name="settings_language_spanish">스페인어</string>
     <string name="settings_language_ukrainian">우크라니아어</string>
     <string name="alarm_title_color">알람 제목 색상</string>
-    <string name="alarm_clock_font_size">알람 시계 폰트 크기</string>
+    <string name="clock_font_size">시계 폰트 크기</string>
     <string name="display_ringtone_title">벨소리 제목 표시</string>
     <string name="snooze_duration_none">없음</string>
     <string name="first_launch_version">버전 %s</string>

@@ -499,7 +499,7 @@
     <string name="snooze_button_color">「延後」按鍵色彩</string>
     <string name="dismiss_button_color">「關閉」按鍵色彩</string>
     <string name="alarm_button_color">鬧鐘按鍵色彩</string>
-    <string name="alarm_clock_font_size">鬧鐘時間大小</string>
+    <string name="clock_font_size">鬧鐘字體大小</string>
     <string name="screensaver_bold_digital_clock_title">粗體數位時鐘</string>
     <string name="screensaver_italic_next_alarm_title">斜體下個鬧鐘</string>
     <string name="swipe_action_title">滑動以延後或關閉鬧鐘</string>

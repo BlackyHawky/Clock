@@ -36,7 +36,7 @@
             android:ellipsize="none"
             android:gravity="center"
             android:singleLine="true"
-            android:textSize="@dimen/main_clock_font_size"
+            tools:textSize="70sp"
             tools:text="12:34" />
 
         <include layout="@layout/date_and_next_alarm_time" />

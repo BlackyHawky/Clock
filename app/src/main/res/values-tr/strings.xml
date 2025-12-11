@@ -469,7 +469,7 @@
     <string name="alarm_notification_reminder_12_hours">12 saat önce</string>
     <string name="settings_tab_to_display">Uygulama açıldığında gösterliecek sekme</string>
     <string name="last_tab_used_title">Son kullanılan sekme</string>
-    <string name="alarm_clock_font_size">Alarm saati yazı boyutu</string>
+    <string name="clock_font_size">Saat yazı boyutu</string>
     <string name="alarm_title_font_size">Alarm başlığı yazı boyutu</string>
     <string name="license">Açık kaynak lisansı</string>
     <string name="description_direction_both_for_occasional_non_repeatable_alarm">Alarmı kapatmak ve silmek için sağa veya sola kaydırın</string>

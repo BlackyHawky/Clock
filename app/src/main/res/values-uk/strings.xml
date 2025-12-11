@@ -461,7 +461,7 @@
     <string name="dismiss_button_color">Колір кнопки «Вимкнути»</string>
     <string name="alarm_button_color">Колір кнопки «Будильник»</string>
     <string name="transparent_background_for_expired_timer_title">Прозорий фон, коли час таймерів вичерпано</string>
-    <string name="alarm_clock_font_size">Розмір шрифту будильника</string>
+    <string name="clock_font_size">Розмір шрифту годинника</string>
     <string name="alarm_title_font_size">Розмір шрифту заголовка будильника</string>
     <string name="whats_new_dialog_message">Дізнайтеся, що нового:
 \n

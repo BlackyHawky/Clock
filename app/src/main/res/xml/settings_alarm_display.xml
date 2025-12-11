@@ -190,7 +190,7 @@
 
         <com.best.deskclock.settings.CustomSeekbarPreference
             android:key="key_alarm_digital_clock_font_size"
-            android:title="@string/alarm_clock_font_size"
+            android:title="@string/clock_font_size"
             android:summary="@string/label_default"
             android:defaultValue="70"
             android:max="200"

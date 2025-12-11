@@ -556,7 +556,7 @@
     <string name="alarm_notification_reminder_12_hours">12 horas antes</string>
     <string name="advanced_audio_playback_title">Usar reprodução de áudio avançada</string>
     <string name="alarm_button_color">Cor do botão do alarme</string>
-    <string name="alarm_clock_font_size">Tamanho da letra do relógio do alarme</string>
+    <string name="clock_font_size">Tamanho da letra do relógio</string>
     <string name="alarm_title_font_size">Tamanho da letra do título do alarme</string>
     <string name="display_ringtone_title">Exibir título do toque</string>
     <string name="ringtone_title_color">Cor do título do toque</string>

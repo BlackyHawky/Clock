@@ -187,6 +187,7 @@ public class PreferencesKeys {
     public static final String KEY_SCREENSAVER_DATE_COLOR_PICKER = "key_screensaver_date_color_picker";
     public static final String KEY_SCREENSAVER_NEXT_ALARM_COLOR_PICKER = "key_screensaver_next_alarm_color_picker";
     public static final String KEY_SCREENSAVER_BRIGHTNESS = "key_screensaver_brightness";
+    public static final String KEY_SCREENSAVER_DIGITAL_CLOCK_FONT_SIZE = "key_screensaver_digital_clock_font_size";
     public static final String KEY_SCREENSAVER_DIGITAL_CLOCK_IN_BOLD = "key_screensaver_digital_clock_in_bold";
     public static final String KEY_SCREENSAVER_DIGITAL_CLOCK_IN_ITALIC = "key_screensaver_digital_clock_in_italic";
     public static final String KEY_SCREENSAVER_DATE_IN_BOLD = "key_screensaver_date_in_bold";

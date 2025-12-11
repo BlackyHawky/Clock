@@ -525,7 +525,7 @@
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Abilita la rimozione automatica delle sveglie occasionali per impostazione predefinita</string>
     <string name="alarm_settings_general_summary">Questa impostazione può essere modificata per ogni sveglia nella visualizzazione dettagliata delle sveglie</string>
     <string name="material_time_picker_style_title">Stile di selezione orario</string>
-    <string name="alarm_clock_font_size">Dimensione caratteri della sveglia</string>
+    <string name="clock_font_size">Dimensione caratteri dell\'orologio</string>
     <string name="alarm_title_font_size">Dimensione carattere del titolo della sveglia</string>
     <string name="snooze_duration_none">Nessuno</string>
     <string name="description_direction_both_for_occasional_alarm">Scorri a sinistra per rimandare o a destra per fermare e rimuovere la sveglia</string>

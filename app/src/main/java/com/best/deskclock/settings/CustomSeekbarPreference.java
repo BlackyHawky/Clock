@@ -3,9 +3,9 @@
 package com.best.deskclock.settings;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_DIGITAL_CLOCK_FONT_SIZE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SHADOW_OFFSET;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_BLUR_INTENSITY;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_DIGITAL_CLOCK_FONT_SIZE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_TITLE_FONT_SIZE_PREF;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_BLUETOOTH_VOLUME;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_MATERIAL_YOU_WIDGET_BACKGROUND_CORNER_RADIUS;
@@ -25,6 +25,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_NEXT_
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_BACKGROUND_CORNER_RADIUS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_BRIGHTNESS;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_DIGITAL_CLOCK_FONT_SIZE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SHAKE_INTENSITY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_BLUR_INTENSITY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_SHADOW_OFFSET;
@@ -213,6 +214,8 @@ public class CustomSeekbarPreference extends SeekBarPreference {
         int currentProgress;
         if (isScreensaverBrightnessPreference()) {
             currentProgress = getScreensaverBrightnessPreferenceValue();
+        } else if (isScreensaverDigitalClockFontSizePreference()) {
+            currentProgress = getScreensaverDigitalClockFontSizeValue();
         } else if (isDigitalWidgetBackgroundCornerRadius()) {
             currentProgress = getDigitalWidgetBackgroundCornerRadius();
         } else if (isNextAlarmWidgetBackgroundCornerRadius()) {
@@ -423,8 +426,9 @@ public class CustomSeekbarPreference extends SeekBarPreference {
             return DEFAULT_SHAKE_INTENSITY;
         } else if (isTimerShakeIntensityPreference()) {
             return DEFAULT_TIMER_SHAKE_INTENSITY;
-        } else if (isAlarmDigitalClockFontSizePreference()) {
-            return DEFAULT_ALARM_DIGITAL_CLOCK_FONT_SIZE;
+        } else if (isScreensaverDigitalClockFontSizePreference()
+                || isAlarmDigitalClockFontSizePreference()) {
+            return DEFAULT_DIGITAL_CLOCK_FONT_SIZE;
         } else if (isAlarmTitleFontSizePreference()) {
             return DEFAULT_ALARM_TITLE_FONT_SIZE_PREF;
         } else if (isTimerShadowOffsetPreference() || isAlarmShadowOffsetPreference()) {
@@ -457,6 +461,7 @@ public class CustomSeekbarPreference extends SeekBarPreference {
      */
     private void updateDigitalWidgets() {
         if (!isScreensaverBrightnessPreference()
+                && !isScreensaverDigitalClockFontSizePreference()
                 && !isShakeIntensityPreference()
                 && !isTimerShakeIntensityPreference()
                 && !isTimerShadowOffsetPreference()
@@ -536,6 +541,14 @@ public class CustomSeekbarPreference extends SeekBarPreference {
     }
 
     /**
+     * Retrieves the current value of the SeekBar related to the font size of the screensaver clock
+     * from SharedPreferences.
+     */
+    private int getScreensaverDigitalClockFontSizeValue() {
+        return mPrefs.getInt(getKey(), DEFAULT_DIGITAL_CLOCK_FONT_SIZE);
+    }
+
+    /**
      * Retrieves the current value of the SeekBar related to the shake intensity from
      * the SharedPreferences.
      */
@@ -570,7 +583,7 @@ public class CustomSeekbarPreference extends SeekBarPreference {
      * from SharedPreferences.
      */
     private int getAlarmDigitalClockFontSizeValue() {
-        return mPrefs.getInt(getKey(), DEFAULT_ALARM_DIGITAL_CLOCK_FONT_SIZE);
+        return mPrefs.getInt(getKey(), DEFAULT_DIGITAL_CLOCK_FONT_SIZE);
     }
 
     /**
@@ -609,6 +622,14 @@ public class CustomSeekbarPreference extends SeekBarPreference {
      */
     private boolean isScreensaverBrightnessPreference() {
         return getKey().equals(KEY_SCREENSAVER_BRIGHTNESS);
+    }
+
+    /**
+     * @return {@code true} if the current preference is related to the font size of the screensaver
+     * clock. {@code false} otherwise.
+     */
+    private boolean isScreensaverDigitalClockFontSizePreference() {
+        return getKey().equals(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT_SIZE);
     }
 
     /**

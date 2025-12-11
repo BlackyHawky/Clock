@@ -8,6 +8,7 @@ package com.best.deskclock.uicomponents;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.widget.TextClock;
 
 /**
@@ -65,4 +66,10 @@ public class AutoSizingTextClock extends TextClock {
             }
         }
     }
+
+    public void applyUserPreferredTextSizeSp(float sizeSp) {
+        setTextSize(TypedValue.COMPLEX_UNIT_SP, sizeSp);
+        mTextSizeHelper.setMaxTextSize(getTextSize());
+    }
+
 }

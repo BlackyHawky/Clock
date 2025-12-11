@@ -123,7 +123,6 @@ public class PreferencesDefaultValues {
     public static final int DEFAULT_ALARM_TITLE_COLOR = Color.WHITE;
     public static final int DEFAULT_SNOOZE_TITLE_COLOR = Color.WHITE;
     public static final int DEFAULT_DISMISS_TITLE_COLOR = Color.WHITE;
-    public static final int DEFAULT_ALARM_DIGITAL_CLOCK_FONT_SIZE = 70;
     public static final int DEFAULT_ALARM_TITLE_FONT_SIZE_PREF = 30;
     public static final int DEFAULT_ALARM_SHADOW_COLOR = Color.parseColor("#80FFFFFF");
     public static final int DEFAULT_RINGTONE_TITLE_COLOR = Color.WHITE;
@@ -186,6 +185,7 @@ public class PreferencesDefaultValues {
     public static final boolean DEFAULT_DISPLAY_RINGTONE_TITLE = false;
     public static final boolean DEFAULT_DISPLAY_TEXT_SHADOW = false;
     public static final int DEFAULT_SHADOW_OFFSET = 10;
+    public static final int DEFAULT_DIGITAL_CLOCK_FONT_SIZE = 70;
 
     // **************
     // ** WIDGETS **

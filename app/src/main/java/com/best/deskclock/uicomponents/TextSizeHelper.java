@@ -27,7 +27,7 @@ public final class TextSizeHelper {
     private final TextPaint mMeasurePaint = new TextPaint();
 
     // The maximum size the text is allowed to be (in pixels).
-    private final float mMaxTextSize;
+    private float mMaxTextSize;
 
     // The maximum width the text is allowed to be (in pixels).
     private int mWidthConstraint = MAX_VALUE;
@@ -106,5 +106,9 @@ public final class TextSizeHelper {
             mTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
             mIgnoreRequestLayout = false;
         }
+    }
+
+    public void setMaxTextSize(float sizePx) {
+        mMaxTextSize = sizePx;
     }
 }

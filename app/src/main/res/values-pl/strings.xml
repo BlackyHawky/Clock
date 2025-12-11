@@ -438,7 +438,7 @@
     <string name="next_alarm_no_upcoming_alarm_titles_default_color">Użyj domyślnego koloru dla tytułów „Następny alarm” i „Brak nadchodzącego alarmu”</string>
     <string name="auto_silence_end_of_ringtone">Po zakończeniu dzwonka</string>
     <string name="clock_settings_summary">Ustawianie stylu, strefy czasowej oraz zmiana daty i godziny urządzenia</string>
-    <string name="alarm_clock_font_size">Rozmiar czcionki alarmu</string>
+    <string name="clock_font_size">Rozmiar czcionki zegara</string>
     <string name="alarm_title_font_size">Rozmiar czcionki tytułu alarmu</string>
     <string name="screensaver_daydream_settings">Wybór/włączenie wygaszacza ekranu</string>
     <string name="alarm_settings_summary">Ustaw styl, domyślny dźwięk dzwonka, głośność, akcje odrzucania lub drzemki alarmów, pierwszy dzień tygodnia i godzinę powiadomienia o przypomnieniu</string>

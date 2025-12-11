@@ -386,7 +386,7 @@
     <string name="dismiss_button_color">Cor do botão Dispensar</string>
     <string name="alarm_button_color">Cor do botão de Alarme</string>
     <string name="alarm_title_font_size">Tamanho da fonte do título do alarme</string>
-    <string name="alarm_clock_font_size">Tamanho da fonte do relógio de alarme</string>
+    <string name="clock_font_size">Tamanho da fonte do relógio</string>
     <string name="version">Versão</string>
     <string name="version_text">Versão <xliff:g id="VERSION_NUMBER" exemplo="1.0">%1$s</xliff:g></string>
     <string name="whats_new_title">O que há de novo</string>
