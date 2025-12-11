@@ -6,6 +6,7 @@
 
 package com.best.deskclock.screensaver;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.utils.AlarmUtils.ACTION_NEXT_ALARM_CHANGED_BY_CLOCK;
 
 import android.annotation.SuppressLint;
@@ -78,7 +79,8 @@ public final class Screensaver extends DreamService {
         mContentView = findViewById(R.id.saver_container);
         mMainClockView = mContentView.findViewById(R.id.main_clock);
 
-        ScreensaverUtils.setScreensaverMarginsAndClockStyle(this, mMainClockView);
+        ScreensaverUtils.setScreensaverMarginsAndClockStyle(
+                this, getDefaultSharedPreferences(this), mMainClockView);
 
         ScreensaverUtils.hideScreensaverSystemBars(getWindow(), mContentView);
 

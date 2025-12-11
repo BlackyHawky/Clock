@@ -50,14 +50,11 @@ import androidx.preference.SwitchPreferenceCompat;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel.ClockStyle;
 import com.best.deskclock.data.SettingsDAO;
-import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.google.android.material.color.MaterialColors;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-
-import java.io.File;
 
 public class AlarmDisplayCustomizationFragment extends ScreenFragment
         implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
@@ -115,7 +112,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
                 String safeTitle = Utils.toSafeFileName("alarm_font");
 
                 // Delete the old font if it exists
-                clearAlarmFontFile();
+                clearFile(mPrefs.getString(KEY_ALARM_FONT, null));
 
                 Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(requireContext(), sourceUri, safeTitle);
 
@@ -151,7 +148,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
                 String safeTitle = Utils.toSafeFileName("alarm_background");
 
                 // Delete the old image if it exists
-                clearAlarmBackgroundFile();
+                clearFile(mPrefs.getString(KEY_ALARM_BACKGROUND_IMAGE, null));
 
                 // Copy the new image to the device's protected storage
                 Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(requireContext(), sourceUri, safeTitle);
@@ -316,30 +313,40 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
         switch (pref.getKey()) {
             case KEY_ALARM_FONT -> {
                 if (SettingsDAO.getAlarmFont(mPrefs) == null) {
-                    selectAlarmFont();
+                    selectFile(fontPickerLauncher, true);
                 } else {
                     new MaterialAlertDialogBuilder(requireContext())
                             .setTitle(R.string.custom_font_dialog_title)
                             .setMessage(R.string.custom_font_title_variant)
                             .setPositiveButton(getString(R.string.label_new_font), (dialog, which) ->
-                                    selectAlarmFont())
-                            .setNeutralButton(getString(R.string.delete), (dialog, which) ->
-                                    deleteAlarmFont())
+                                    selectFile(fontPickerLauncher, true))
+                            .setNeutralButton(getString(R.string.delete), (dialog, which) -> {
+                                mPrefs.edit().remove(KEY_ALARM_FONT).apply();
+                                mAlarmFontPref.setTitle(getString(R.string.custom_font_title));
+                                deleteFile(mPrefs.getString(KEY_ALARM_FONT, null),
+                                        KEY_ALARM_FONT, true);
+                            })
                             .show();
                 }
             }
 
             case KEY_ALARM_BACKGROUND_IMAGE -> {
                 if (SettingsDAO.getAlarmBackgroundImage(mPrefs) == null) {
-                    selectImageBackground();
+                    selectFile(imagePickerLauncher, false);
                 } else {
                     new MaterialAlertDialogBuilder(requireContext())
                             .setTitle(R.string.background_image_dialog_title)
                             .setMessage(R.string.background_image_title_variant)
                             .setPositiveButton(getString(R.string.label_new_image), (dialog, which) ->
-                                    selectImageBackground())
-                            .setNeutralButton(getString(R.string.delete), (dialog, which) ->
-                                    deleteImageBackground())
+                                    selectFile(imagePickerLauncher, false))
+                            .setNeutralButton(getString(R.string.delete), (dialog, which) -> {
+                                mPrefs.edit().remove(KEY_ALARM_BACKGROUND_IMAGE).apply();
+                                mAlarmBackgroundImagePref.setTitle(getString(R.string.background_image_title));
+                                mEnableAlarmBlurEffectPref.setVisible(false);
+                                mAlarmBlurIntensityPref.setVisible(false);
+                                deleteFile(mPrefs.getString(KEY_ALARM_BACKGROUND_IMAGE, null),
+                                        KEY_ALARM_BACKGROUND_IMAGE, false);
+                            })
                             .show();
                 }
             }
@@ -457,72 +464,6 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
                 && SettingsDAO.isAlarmBlurEffectEnabled(mPrefs));
 
         mAlarmPreviewPref.setOnPreferenceClickListener(this);
-    }
-
-    private void selectAlarmFont() {
-        fontPickerLauncher.launch(new Intent(Intent.ACTION_OPEN_DOCUMENT)
-                .addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
-                .addCategory(Intent.CATEGORY_OPENABLE)
-                .setType("*/*")
-                .putExtra(Intent.EXTRA_MIME_TYPES,
-                        new String[]{"application/x-font-ttf", "application/x-font-otf", "font/ttf", "font/otf"})
-
-        );
-    }
-
-    private void deleteAlarmFont() {
-        clearAlarmFontFile();
-
-        mPrefs.edit().remove(KEY_ALARM_FONT).apply();
-        mAlarmFontPref.setTitle(getString(R.string.custom_font_title));
-
-        Toast.makeText(requireContext(), R.string.custom_font_toast_message_deleted, Toast.LENGTH_SHORT).show();
-    }
-
-    private void clearAlarmFontFile() {
-        String path = mPrefs.getString(KEY_ALARM_FONT, null);
-        if (path != null) {
-            File file = new File(path);
-            if (file.exists() && file.isFile()) {
-                boolean deleted = file.delete();
-                if (!deleted) {
-                    LogUtils.w("Unable to delete alarm font: " + path);
-                }
-            }
-        }
-    }
-
-    private void selectImageBackground() {
-        imagePickerLauncher.launch(new Intent(Intent.ACTION_OPEN_DOCUMENT)
-                .addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
-                .addCategory(Intent.CATEGORY_OPENABLE)
-                .setType("image/*")
-                .putExtra(Intent.EXTRA_MIME_TYPES, new String[]{"image/jpeg", "image/png"})
-        );
-    }
-
-    private void deleteImageBackground() {
-        clearAlarmBackgroundFile();
-
-        mPrefs.edit().remove(KEY_ALARM_BACKGROUND_IMAGE).apply();
-        mAlarmBackgroundImagePref.setTitle(getString(R.string.background_image_title));
-        mEnableAlarmBlurEffectPref.setVisible(false);
-        mAlarmBlurIntensityPref.setVisible(false);
-
-        Toast.makeText(requireContext(), R.string.background_image_toast_message_deleted, Toast.LENGTH_SHORT).show();
-    }
-
-    private void clearAlarmBackgroundFile() {
-        String path = mPrefs.getString(KEY_ALARM_BACKGROUND_IMAGE, null);
-        if (path != null) {
-            File file = new File(path);
-            if (file.exists() && file.isFile()) {
-                boolean deleted = file.delete();
-                if (!deleted) {
-                    LogUtils.w("Unable to delete alarm background image: " + path);
-                }
-            }
-        }
     }
 
 }

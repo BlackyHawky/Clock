@@ -23,11 +23,8 @@ import androidx.preference.Preference;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
-import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.Utils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-
-import java.io.File;
 
 public class StopwatchSettingsFragment extends ScreenFragment
         implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
@@ -58,7 +55,7 @@ public class StopwatchSettingsFragment extends ScreenFragment
                 String safeTitle = Utils.toSafeFileName("stopwatch_font");
 
                 // Delete the old font if it exists
-                clearStopwatchFontFile();
+                clearFile(mPrefs.getString(KEY_SW_FONT, null));
 
                 Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(requireContext(), sourceUri, safeTitle);
 
@@ -112,15 +109,17 @@ public class StopwatchSettingsFragment extends ScreenFragment
     public boolean onPreferenceClick(@NonNull Preference pref) {
         if (pref.getKey().equals(KEY_SW_FONT)) {
             if (SettingsDAO.getStopwatchFont(mPrefs) == null) {
-                selectStopwatchFont();
+                selectFile(fontPickerLauncher, true);
             } else {
                 new MaterialAlertDialogBuilder(requireContext())
                         .setTitle(R.string.custom_font_dialog_title)
                         .setMessage(R.string.custom_font_title_variant)
                         .setPositiveButton(getString(R.string.label_new_font), (dialog, which) ->
-                                selectStopwatchFont())
-                        .setNeutralButton(getString(R.string.delete), (dialog, which) ->
-                                deleteStopwatchFont())
+                                selectFile(fontPickerLauncher, true))
+                        .setNeutralButton(getString(R.string.delete), (dialog, which) -> {
+                            mStopwatchFontPref.setTitle(getString(R.string.custom_font_title));
+                            deleteFile(mPrefs.getString(KEY_SW_FONT, null), KEY_SW_FONT, true);
+                        })
                         .show();
             }
         }
@@ -145,39 +144,6 @@ public class StopwatchSettingsFragment extends ScreenFragment
 
         mVolumeDownActionAfterLongPressPref.setOnPreferenceChangeListener(this);
         mVolumeDownActionAfterLongPressPref.setSummary(mVolumeDownActionAfterLongPressPref.getEntry());
-    }
-
-    private void selectStopwatchFont() {
-        fontPickerLauncher.launch(new Intent(Intent.ACTION_OPEN_DOCUMENT)
-                .addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
-                .addCategory(Intent.CATEGORY_OPENABLE)
-                .setType("*/*")
-                .putExtra(Intent.EXTRA_MIME_TYPES,
-                        new String[]{"application/x-font-ttf", "application/x-font-otf", "font/ttf", "font/otf"})
-
-        );
-    }
-
-    private void deleteStopwatchFont() {
-        clearStopwatchFontFile();
-
-        mPrefs.edit().remove(KEY_SW_FONT).apply();
-        mStopwatchFontPref.setTitle(getString(R.string.custom_font_title));
-
-        Toast.makeText(requireContext(), R.string.custom_font_toast_message_deleted, Toast.LENGTH_SHORT).show();
-    }
-
-    private void clearStopwatchFontFile() {
-        String path = mPrefs.getString(KEY_SW_FONT, null);
-        if (path != null) {
-            File file = new File(path);
-            if (file.exists() && file.isFile()) {
-                boolean deleted = file.delete();
-                if (!deleted) {
-                    LogUtils.w("Unable to delete stopwatch font: " + path);
-                }
-            }
-        }
     }
 
 }

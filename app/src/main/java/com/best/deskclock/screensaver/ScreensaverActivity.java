@@ -9,6 +9,7 @@ package com.best.deskclock.screensaver;
 import static android.content.Intent.ACTION_BATTERY_CHANGED;
 import static android.os.BatteryManager.EXTRA_PLUGGED;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.utils.AlarmUtils.ACTION_NEXT_ALARM_CHANGED_BY_CLOCK;
 
 import android.annotation.SuppressLint;
@@ -83,7 +84,8 @@ public class ScreensaverActivity extends BaseActivity {
 
         mMainClockView = findViewById(R.id.main_clock);
 
-        ScreensaverUtils.setScreensaverMarginsAndClockStyle(this, mMainClockView);
+        ScreensaverUtils.setScreensaverMarginsAndClockStyle(
+                this, getDefaultSharedPreferences(this), mMainClockView);
 
         mPositionUpdater = new MoveScreensaverRunnable(mContentView, mMainClockView);
 

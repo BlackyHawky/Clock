@@ -46,12 +46,9 @@ import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.screensaver.ScreensaverActivity;
 import com.best.deskclock.uicomponents.CollapsingToolbarBaseActivity;
-import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-
-import java.io.File;
 
 /**
  * Settings for Clock screensaver
@@ -124,7 +121,7 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                     String safeTitle = Utils.toSafeFileName("screensaver_digital_clock_font");
 
                     // Delete the old font if it exists
-                    clearDigitalClockFontFile();
+                    clearFile(mPrefs.getString(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT, null));
 
                     Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(requireContext(), sourceUri, safeTitle);
 
@@ -262,15 +259,18 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
 
                 case KEY_SCREENSAVER_DIGITAL_CLOCK_FONT -> {
                     if (SettingsDAO.getScreensaverDigitalClockFont(mPrefs) == null) {
-                        selectDigitalClockFont();
+                        selectFile(fontPickerLauncher, true);
                     } else {
                         new MaterialAlertDialogBuilder(requireContext())
                                 .setTitle(R.string.custom_font_dialog_title)
                                 .setMessage(R.string.custom_font_title_variant)
                                 .setPositiveButton(getString(R.string.label_new_font), (dialog, which) ->
-                                        selectDigitalClockFont())
-                                .setNeutralButton(getString(R.string.delete), (dialog, which) ->
-                                        deleteDigitalClockFont())
+                                        selectFile(fontPickerLauncher, true))
+                                .setNeutralButton(getString(R.string.delete), (dialog, which) -> {
+                                    mDigitalClockFontPref.setTitle(getString(R.string.custom_font_title));
+                                    deleteFile(mPrefs.getString(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT, null),
+                                            KEY_SCREENSAVER_DIGITAL_CLOCK_FONT, true);
+                                })
                                 .show();
                     }
                 }
@@ -347,39 +347,6 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
             mScreensaverPreview.setOnPreferenceClickListener(this);
 
             mScreensaverMainSettings.setOnPreferenceClickListener(this);
-        }
-
-        private void selectDigitalClockFont() {
-            fontPickerLauncher.launch(new Intent(Intent.ACTION_OPEN_DOCUMENT)
-                    .addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
-                    .addCategory(Intent.CATEGORY_OPENABLE)
-                    .setType("*/*")
-                    .putExtra(Intent.EXTRA_MIME_TYPES,
-                            new String[]{"application/x-font-ttf", "application/x-font-otf", "font/ttf", "font/otf"})
-
-            );
-        }
-
-        private void deleteDigitalClockFont() {
-            clearDigitalClockFontFile();
-
-            mPrefs.edit().remove(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT).apply();
-            mDigitalClockFontPref.setTitle(getString(R.string.custom_font_title));
-
-            Toast.makeText(requireContext(), R.string.custom_font_toast_message_deleted, Toast.LENGTH_SHORT).show();
-        }
-
-        private void clearDigitalClockFontFile() {
-            String path = mPrefs.getString(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT, null);
-            if (path != null) {
-                File file = new File(path);
-                if (file.exists() && file.isFile()) {
-                    boolean deleted = file.delete();
-                    if (!deleted) {
-                        LogUtils.w("Unable to delete digital clock font: " + path);
-                    }
-                }
-            }
         }
 
     }

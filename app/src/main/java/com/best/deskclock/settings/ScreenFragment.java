@@ -34,6 +34,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_SHAKE_INTENS
 import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_WIDGET_BACKGROUND_CORNER_RADIUS;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -41,7 +42,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
@@ -61,12 +64,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.InsetsUtils;
+import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
+import java.io.File;
 import java.util.Objects;
 
 public abstract class ScreenFragment extends PreferenceFragmentCompat {
@@ -304,6 +309,61 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
         fragmentTransaction.replace(R.id.content_frame, fragment)
                 .addToBackStack(null)
                 .commit();
+    }
+
+    /**
+     * Opens a file picker allowing the user to select either a font file or an image file.
+     *
+     * @param launcher    The ActivityResultLauncher used to start the document picker.
+     * @param isFontFile  True to filter for font files, false to filter for image files.
+     */
+    protected void selectFile(ActivityResultLauncher<Intent> launcher, boolean isFontFile) {
+        final String type = isFontFile ? "*/*" : "image/*";
+        final String[] mimeTypes = isFontFile
+                ? new String[]{"application/x-font-ttf", "application/x-font-otf", "font/ttf", "font/otf"}
+                : new String[]{"image/jpeg", "image/png"};
+
+        launcher.launch(new Intent(Intent.ACTION_OPEN_DOCUMENT)
+                .addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
+                .addCategory(Intent.CATEGORY_OPENABLE)
+                .setType(type)
+                .putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
+        );
+    }
+
+    /**
+     * Deletes a file from storage and removes its associated preference entry.
+     *
+     * @param path        The absolute path of the file to delete.
+     * @param prefKey     The preference key associated with the stored file path.
+     * @param isFontFile  True if the deleted file is a font, false if it is an image.
+     */
+    protected void deleteFile(String path, String prefKey, boolean isFontFile) {
+        clearFile(path);
+
+        mPrefs.edit().remove(prefKey).apply();
+
+        Toast.makeText(requireContext(), isFontFile
+                ? R.string.custom_font_toast_message_deleted
+                : R.string.background_image_toast_message_deleted,
+                Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Deletes the file at the given path if it exists and is a regular file.
+     *
+     * @param path  The absolute path of the file to delete.
+     */
+    protected void clearFile(String path) {
+        if (path != null) {
+            File file = new File(path);
+            if (file.exists() && file.isFile()) {
+                boolean deleted = file.delete();
+                if (!deleted) {
+                    LogUtils.w("Unable to delete file: " + path);
+                }
+            }
+        }
     }
 
 }
