@@ -79,10 +79,11 @@
                 android:layout_gravity="center"
                 tools:visibility="gone" />
 
-            <TextClock
+            <com.best.deskclock.uicomponents.AutoSizingTextClock
                 android:id="@+id/digital_clock"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
                 android:includeFontPadding="false"

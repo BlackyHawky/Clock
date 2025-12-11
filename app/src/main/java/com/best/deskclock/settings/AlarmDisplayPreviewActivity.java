@@ -45,7 +45,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
-import android.widget.TextClock;
 import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
@@ -60,6 +59,7 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.uicomponents.AnalogClock;
+import com.best.deskclock.uicomponents.AutoSizingTextClock;
 import com.best.deskclock.uicomponents.PillView;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.AnimatorUtils;
@@ -196,7 +196,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
         dismissOnlyButton.setVisibility(GONE);
 
         final AnalogClock analogClock = findViewById(R.id.analog_clock);
-        final TextClock digitalClock = mContentView.findViewById(R.id.digital_clock);
+        final AutoSizingTextClock digitalClock = mContentView.findViewById(R.id.digital_clock);
         final DataModel.ClockStyle alarmClockStyle = SettingsDAO.getAlarmClockStyle(mPrefs);
         final boolean isAlarmSecondHandDisplayed = SettingsDAO.isAlarmSecondHandDisplayed(mPrefs);
 
@@ -206,7 +206,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
             ClockUtils.setDigitalClockFont(digitalClock, SettingsDAO.getAlarmFont(mPrefs));
             ClockUtils.setDigitalClockTimeFormat(digitalClock, 0.4f, false,
                     true, false, false);
-            digitalClock.setTextSize(TypedValue.COMPLEX_UNIT_SP, alarmDigitalClockFontSize);
+            digitalClock.applyUserPreferredTextSizeSp(alarmDigitalClockFontSize);
             digitalClock.setTextColor(alarmClockColor);
         } else {
             ClockUtils.setAnalogClockSecondsEnabled(alarmClockStyle, analogClock, isAlarmSecondHandDisplayed);
