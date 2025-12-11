@@ -16,7 +16,6 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.TextClock;
 import android.widget.TextView;
 
 import androidx.core.view.ViewCompat;
@@ -28,6 +27,7 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.uicomponents.AnalogClock;
+import com.best.deskclock.uicomponents.AutoSizingTextClock;
 
 public class ScreensaverUtils {
 
@@ -163,7 +163,7 @@ public class ScreensaverUtils {
         // Style
         final DataModel.ClockStyle screensaverClockStyle = SettingsDAO.getScreensaverClockStyle(prefs);
         final AnalogClock analogClock = mainClockView.findViewById(R.id.analog_clock);
-        final TextClock textClock = mainClockView.findViewById(R.id.digital_clock);
+        final AutoSizingTextClock textClock = mainClockView.findViewById(R.id.digital_clock);
         final boolean areClockSecondsEnabled = SettingsDAO.areScreensaverClockSecondsDisplayed(prefs);
         final TextView date = mainClockView.findViewById(R.id.date);
         final TextView nextAlarmIcon = mainClockView.findViewById(R.id.nextAlarmIcon);
@@ -178,6 +178,9 @@ public class ScreensaverUtils {
             textClock.setTypeface(getScreensaverClockTypeface(prefs));
             ClockUtils.setDigitalClockTimeFormat(textClock, 0.4f, areClockSecondsEnabled,
                     false, false, true);
+
+            textClock.applyUserPreferredTextSizeSp(SettingsDAO.getScreensaverDigitalClockFontSize(prefs));
+
             dimScreensaverView(context, textClock, screenSaverClockColorPicker);
         } else {
             ClockUtils.setAnalogClockSecondsEnabled(screensaverClockStyle, analogClock, areClockSecondsEnabled);

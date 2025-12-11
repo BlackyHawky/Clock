@@ -425,6 +425,14 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return the font size applied to the alarm digital clock.
+     */
+    public static int getScreensaverDigitalClockFontSize(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm_display.xml
+        return prefs.getInt(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT_SIZE, DEFAULT_DIGITAL_CLOCK_FONT_SIZE);
+    }
+
+    /**
      * @return {@code true} if the screensaver should show the clock in bold. {@code false} otherwise.
      */
     public static boolean isScreensaverDigitalClockInBold(SharedPreferences prefs) {
@@ -1209,7 +1217,7 @@ public final class SettingsDAO {
      */
     public static int getAlarmDigitalClockFontSize(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_alarm_display.xml
-        return prefs.getInt(KEY_ALARM_DIGITAL_CLOCK_FONT_SIZE, DEFAULT_ALARM_DIGITAL_CLOCK_FONT_SIZE);
+        return prefs.getInt(KEY_ALARM_DIGITAL_CLOCK_FONT_SIZE, DEFAULT_DIGITAL_CLOCK_FONT_SIZE);
     }
 
     /**

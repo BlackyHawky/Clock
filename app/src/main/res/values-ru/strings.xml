@@ -458,7 +458,7 @@
     <string name="permission_granted">Выдано</string>
     <string name="alarm_title_color">Цвет заголовка будильника</string>
     <string name="snooze_button_color">Цвет кнопки \"Отложить\"</string>
-    <string name="alarm_clock_font_size">Размер шрифта часов будильника</string>
+    <string name="clock_font_size">Размер шрифта часов</string>
     <string name="alarm_title_font_size">Размер шрифта плитки будильника</string>
     <string name="transparent_background_for_expired_timer_title">Прозрачный фон по истечению таймеров</string>
     <string name="whats_new_dialog_message">Узнайте что нового:

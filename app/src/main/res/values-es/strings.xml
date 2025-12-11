@@ -391,7 +391,7 @@
     <string name="version_text">Versión <xliff:g id="VERSION_NUMBER" example="1.0">%1$s</xliff:g></string>
     <string name="alarm_notification_reminder_1_hour">1 hora antes</string>
     <string name="alarm_notification_reminder_2_hours">2 horas antes</string>
-    <string name="alarm_clock_font_size">Tamaño de fuente del reloj de alarma</string>
+    <string name="clock_font_size">Tamaño de fuente del reloj</string>
     <string name="alarm_title_font_size">Tamaño de fuente del título de la alarma</string>
     <string name="notifications_permission_title">ACTIVAR NOTIFICACIONES</string>
     <string name="city_clock_default_color_title">Utilizar color por defecto para el reloj de ciudad</string>

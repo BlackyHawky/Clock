@@ -441,7 +441,7 @@
     <string name="snooze_button_color">„Lükka edasi“ nupu värv</string>
     <string name="dismiss_button_color">„Loobu“ nupu värv</string>
     <string name="alarm_button_color">Äratuse nupu värv</string>
-    <string name="alarm_clock_font_size">Äratuskella kirjatüübi suurus</string>
+    <string name="clock_font_size">Kella kirjatüübi suurus</string>
     <string name="alarm_title_font_size">Äratuse nime kirjatüübi suurus</string>
     <string name="transparent_background_for_expired_timer_title">Taimerite aegumisel kuva läbipaistev taust</string>
     <string name="second_hand_color_title">Sekundiseieri värv</string>

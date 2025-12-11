@@ -442,7 +442,7 @@
     <string name="snooze_button_color">Farbe des \"Schlummer\"-Buttons</string>
     <string name="dismiss_button_color">Farbe des \"Verwerfen\"-Buttons</string>
     <string name="alarm_button_color">Farbe des \"Alarm\"-Buttons</string>
-    <string name="alarm_clock_font_size">Schriftgröße der Alarm-Zeit</string>
+    <string name="clock_font_size">Schriftgröße der Uhr</string>
     <string name="alarm_title_font_size">Schriftgröße des Alarm-Namens</string>
     <string name="standard_category_title">Standard</string>
     <string name="material_you_category_title">Material You</string>

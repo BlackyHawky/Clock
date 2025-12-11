@@ -390,7 +390,7 @@
     <string name="swipe_action_title">Llisca per a descartar o ajornar les alarmes</string>
     <string name="add_label">Afegeix una etiqueta</string>
     <string name="alarm_title_font_size">Mida de la font del títol de l\'alarma</string>
-    <string name="alarm_clock_font_size">Mida de la font del rellotge d\'alarma</string>
+    <string name="clock_font_size">Mida de la font del rellotge</string>
     <string name="display_ringtone_title">Mostra el nom del so</string>
     <string name="material_time_picker_style_title">Estil del selector horari</string>
     <string name="auto_silence_end_of_ringtone">En finalitzar el so d\'alarma</string>

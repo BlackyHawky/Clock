@@ -414,7 +414,7 @@
     <string name="sort_timer_descending_duration">По трајању (опадајући редослед)</string>
     <string name="sort_name">По имену</string>
     <string name="timer_label_box_title">Ознака тајмера</string>
-    <string name="alarm_clock_font_size">Величина фонта сата аларма</string>
+    <string name="clock_font_size">Величина фонта сата</string>
     <string name="alarm_title_font_size">Величина фонта наслова аларма</string>
     <string name="preview_title">Преглед</string>
     <string name="timer_channel">Тајмер</string>

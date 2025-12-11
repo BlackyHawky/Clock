@@ -431,7 +431,7 @@
     <string name="transparent_background_for_expired_timer_title">定时器结束时的透明背景</string>
     <string name="alarm_title_color">闹钟标题颜色</string>
     <string name="second_hand_color_title">秒针颜色</string>
-    <string name="alarm_clock_font_size">闹钟字体大小</string>
+    <string name="clock_font_size">时钟字体大小</string>
     <string name="alarm_title_font_size">闹钟标题字体大小</string>
     <string name="whats_new_dialog_message">了解更新内容：
 \n

@@ -465,7 +465,7 @@
     <string name="sort_timer_descending_duration">Op duur (aflopende volgorde)</string>
     <string name="sort_name">Op labelnaam</string>
     <string name="alarm_title_font_size">Lettergrootte wekkerlabel</string>
-    <string name="alarm_clock_font_size">Lettergrootte wekkerklok</string>
+    <string name="clock_font_size">Lettergrootte klok</string>
     <string name="indigo_accent_color">Indigo</string>
     <string name="orange_accent_color">Oranje</string>
     <string name="pink_accent_color">Roze</string>
