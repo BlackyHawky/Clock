@@ -3,7 +3,6 @@
 package com.best.deskclock.utils;
 
 import static androidx.core.util.TypedValueCompat.dpToPx;
-import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -34,8 +33,10 @@ public class ScreensaverUtils {
     /**
      * Generic method to apply a color filter to the screensaver.
      */
-    private static void applyColorFilter(View view, Context context, int color, PorterDuff.Mode mode) {
-        String colorFilter = getScreensaverColorFilter(context, color);
+    private static void applyColorFilter(View view, Context context, SharedPreferences prefs,
+                                         int color, PorterDuff.Mode mode) {
+
+        String colorFilter = getScreensaverColorFilter(context, prefs, color);
         Paint paint = new Paint();
         paint.setColor(Color.WHITE);
         paint.setColorFilter(new PorterDuffColorFilter(Color.parseColor(colorFilter), mode));
@@ -47,8 +48,7 @@ public class ScreensaverUtils {
      *
      * @param color the color selected in the screensaver color picker
      */
-    private static String getScreensaverColorFilter(Context context, int color) {
-        final SharedPreferences prefs = getDefaultSharedPreferences(context);
+    private static String getScreensaverColorFilter(Context context, SharedPreferences prefs, int color) {
         final int brightnessPercentage = SettingsDAO.getScreensaverBrightness(prefs);
 
         if (SettingsDAO.areScreensaverClockDynamicColors(prefs)
@@ -68,15 +68,15 @@ public class ScreensaverUtils {
     /**
      * Dim the different views that make up the screensaver.
      */
-    private static void dimScreensaverView(Context context, View view, int color) {
-        applyColorFilter(view, context, color, PorterDuff.Mode.SRC_IN);
+    private static void dimScreensaverView(Context context, SharedPreferences prefs, View view, int color) {
+        applyColorFilter(view, context, prefs, color, PorterDuff.Mode.SRC_IN);
     }
 
     /**
      * Dim the screensaver Material analog clock.
      */
-    private static void dimMaterialAnalogClock(Context context, View materialAnalogClock) {
-        applyColorFilter(materialAnalogClock, context, Color.parseColor("#FFFFFF"), PorterDuff.Mode.MULTIPLY);
+    private static void dimMaterialAnalogClock(Context context, SharedPreferences prefs, View materialAnalogClock) {
+        applyColorFilter(materialAnalogClock, context, prefs, Color.parseColor("#FFFFFF"), PorterDuff.Mode.MULTIPLY);
     }
 
     /**
@@ -91,17 +91,10 @@ public class ScreensaverUtils {
      */
     public static Typeface getScreensaverClockTypeface(SharedPreferences prefs) {
         Typeface baseTypeface = ThemeUtils.loadFont(SettingsDAO.getScreensaverDigitalClockFont(prefs));
-        boolean isBold = SettingsDAO.isScreensaverDigitalClockInBold(prefs);
-        boolean isItalic = SettingsDAO.isScreensaverDigitalClockInItalic(prefs);
-
-        int style = Typeface.NORMAL;
-        if (isBold && isItalic) {
-            style = Typeface.BOLD_ITALIC;
-        } else if (isBold) {
-            style = Typeface.BOLD;
-        } else if (isItalic) {
-            style = Typeface.ITALIC;
-        }
+        int style = resolveTypefaceStyle(
+                SettingsDAO.isScreensaverDigitalClockInBold(prefs),
+                SettingsDAO.isScreensaverDigitalClockInItalic(prefs)
+        );
 
         if (baseTypeface == null) {
             return Typeface.create("sans-serif", style);
@@ -115,20 +108,13 @@ public class ScreensaverUtils {
      *
      * @param date Date to format
      */
-    private static void setScreensaverDateFormat(Context context, TextView date) {
-        final SharedPreferences prefs = getDefaultSharedPreferences(context);
-        final boolean isScreensaverDateInBold = SettingsDAO.isScreensaverDateInBold(prefs);
-        final boolean isScreensaverDateInItalic = SettingsDAO.isScreensaverDateInItalic(prefs);
+    private static void setScreensaverDateFormat(SharedPreferences prefs, TextView date) {
+        int style = resolveTypefaceStyle(
+                SettingsDAO.isScreensaverDateInBold(prefs),
+                SettingsDAO.isScreensaverDateInItalic(prefs)
+        );
 
-        if (isScreensaverDateInBold && isScreensaverDateInItalic) {
-            date.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD_ITALIC));
-        } else if (isScreensaverDateInBold) {
-            date.setTypeface(Typeface.DEFAULT_BOLD);
-        } else if (isScreensaverDateInItalic) {
-            date.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC));
-        } else {
-            date.setTypeface(Typeface.DEFAULT);
-        }
+        date.setTypeface(Typeface.defaultFromStyle(style));
     }
 
     /**
@@ -136,26 +122,40 @@ public class ScreensaverUtils {
      *
      * @param nextAlarm Next alarm to format
      */
-    private static void setScreensaverNextAlarmFormat(TextView nextAlarm) {
-        final Context context = nextAlarm.getContext();
-        final SharedPreferences prefs = getDefaultSharedPreferences(context);
+    private static void setScreensaverNextAlarmFormat(SharedPreferences prefs, TextView nextAlarm) {
+        int style = resolveTypefaceStyle(
+                SettingsDAO.isScreensaverNextAlarmInBold(prefs),
+                SettingsDAO.isScreensaverNextAlarmInItalic(prefs)
+        );
 
-        if (SettingsDAO.isScreensaverNextAlarmInBold(prefs) && SettingsDAO.isScreensaverNextAlarmInItalic(prefs)) {
-            nextAlarm.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD_ITALIC));
-        } else if (SettingsDAO.isScreensaverNextAlarmInBold(prefs)) {
-            nextAlarm.setTypeface(Typeface.DEFAULT_BOLD);
-        } else if (SettingsDAO.isScreensaverNextAlarmInItalic(prefs)) {
-            nextAlarm.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC));
+        nextAlarm.setTypeface(Typeface.defaultFromStyle(style));
+    }
+
+    /**
+     * Determines the appropriate Typeface style based on bold and italic flags.
+     *
+     * @param isBold   True if the text should be bold.
+     * @param isItalic True if the text should be italic.
+     * @return The corresponding Typeface style constant (NORMAL, BOLD, ITALIC, or BOLD_ITALIC).
+     */
+    private static int resolveTypefaceStyle(boolean isBold, boolean isItalic) {
+        if (isBold && isItalic) {
+            return Typeface.BOLD_ITALIC;
+        } else if (isBold) {
+            return Typeface.BOLD;
+        } else if (isItalic) {
+            return Typeface.ITALIC;
         } else {
-            nextAlarm.setTypeface(Typeface.DEFAULT);
+            return Typeface.NORMAL;
         }
     }
 
     /**
      * For screensaver, set the margins and the style of the clock.
      */
-    public static void setScreensaverMarginsAndClockStyle(final Context context, final View clock) {
-        final SharedPreferences prefs = getDefaultSharedPreferences(context);
+    public static void setScreensaverMarginsAndClockStyle(final Context context, SharedPreferences prefs,
+                                                          final View clock) {
+
         final View mainClockView = clock.findViewById(R.id.main_clock);
 
         applyMargins(context, clock);
@@ -181,23 +181,24 @@ public class ScreensaverUtils {
 
             textClock.applyUserPreferredTextSizeSp(SettingsDAO.getScreensaverDigitalClockFontSize(prefs));
 
-            dimScreensaverView(context, textClock, screenSaverClockColorPicker);
+            dimScreensaverView(context, prefs, textClock, screenSaverClockColorPicker);
         } else {
             ClockUtils.setAnalogClockSecondsEnabled(screensaverClockStyle, analogClock, areClockSecondsEnabled);
 
             if (screensaverClockStyle == DataModel.ClockStyle.ANALOG_MATERIAL) {
-                dimMaterialAnalogClock(context, analogClock);
+                dimMaterialAnalogClock(context, prefs, analogClock);
             } else {
-                dimScreensaverView(context, analogClock, screenSaverClockColorPicker);
+                dimScreensaverView(context, prefs, analogClock, screenSaverClockColorPicker);
             }
         }
 
-        dimScreensaverView(context, date, screensaverDateColorPicker);
-        dimScreensaverView(context, nextAlarmIcon, screensaverNextAlarmColorPicker);
-        dimScreensaverView(context, nextAlarm, screensaverNextAlarmColorPicker);
-        setScreensaverDateFormat(context, date);
+        setScreensaverDateFormat(prefs, date);
         ClockUtils.setClockIconTypeface(nextAlarmIcon);
-        setScreensaverNextAlarmFormat(nextAlarm);
+        setScreensaverNextAlarmFormat(prefs, nextAlarm);
+
+        dimScreensaverView(context, prefs, date, screensaverDateColorPicker);
+        dimScreensaverView(context, prefs, nextAlarmIcon, screensaverNextAlarmColorPicker);
+        dimScreensaverView(context, prefs, nextAlarm, screensaverNextAlarmColorPicker);
     }
 
     /**
