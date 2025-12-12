@@ -186,6 +186,7 @@ public class PreferencesDefaultValues {
     public static final boolean DEFAULT_DISPLAY_TEXT_SHADOW = false;
     public static final int DEFAULT_SHADOW_OFFSET = 10;
     public static final int DEFAULT_DIGITAL_CLOCK_FONT_SIZE = 70;
+    public static final int DEFAULT_ANALOG_CLOCK_SIZE = 70;
 
     // **************
     // ** WIDGETS **

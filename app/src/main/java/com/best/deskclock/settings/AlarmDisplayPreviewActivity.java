@@ -209,6 +209,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
             digitalClock.applyUserPreferredTextSizeSp(alarmDigitalClockFontSize);
             digitalClock.setTextColor(alarmClockColor);
         } else {
+            ClockUtils.adjustAnalogClockSize(analogClock, mPrefs, false);
             ClockUtils.setAnalogClockSecondsEnabled(alarmClockStyle, analogClock, isAlarmSecondHandDisplayed);
         }
 
