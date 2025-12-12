@@ -427,6 +427,13 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return the analog clock size applied to the screensaver.
+     */
+    public static int getScreensaverAnalogClockSize(SharedPreferences prefs) {
+        return prefs.getInt(KEY_SCREENSAVER_ANALOG_CLOCK_SIZE, DEFAULT_ANALOG_CLOCK_SIZE);
+    }
+
+    /**
      * @return {@code true} if the seconds are displayed on the analog or digital clock in the screensaver.
      * {@code false} otherwise.
      */

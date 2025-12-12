@@ -7,6 +7,7 @@
 package com.best.deskclock.settings;
 
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_SCREENSAVER_CLOCK_SECONDS;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_ANALOG_CLOCK_SIZE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_CLOCK_COLOR_PICKER;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_CLOCK_DIAL;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_CLOCK_DIAL_MATERIAL;
@@ -97,6 +98,7 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
         SwitchPreferenceCompat mItalicDatePref;
         SwitchPreferenceCompat mBoldNextAlarmPref;
         SwitchPreferenceCompat mItalicNextAlarmPref;
+        CustomSeekbarPreference mAnalogClockSizePref;
         Preference mDigitalClockFontPref;
         Preference mScreensaverPreview;
         Preference mScreensaverMainSettings;
@@ -152,6 +154,7 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
             mClockDialPref = findPreference(KEY_SCREENSAVER_CLOCK_DIAL);
             mClockDialMaterialPref = findPreference(KEY_SCREENSAVER_CLOCK_DIAL_MATERIAL);
             mDigitalClockFontPref = findPreference(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT);
+            mAnalogClockSizePref = findPreference(KEY_SCREENSAVER_ANALOG_CLOCK_SIZE);
             mDisplaySecondsPref = findPreference(KEY_DISPLAY_SCREENSAVER_CLOCK_SECONDS);
             mClockSecondHandPref = findPreference(KEY_SCREENSAVER_CLOCK_SECOND_HAND);
             mClockDynamicColorPref = findPreference(KEY_SCREENSAVER_CLOCK_DYNAMIC_COLORS);
@@ -201,6 +204,7 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
 
                     mClockDialPref.setVisible(isAnalogClock);
                     mClockDialMaterialPref.setVisible(isMaterialAnalogClock);
+                    mAnalogClockSizePref.setVisible(!isDigitalClock);
                     mClockSecondHandPref.setVisible(isAnalogClock
                             && SettingsDAO.areScreensaverClockSecondsDisplayed(mPrefs));
                     mDigitalClockFontPref.setVisible(isDigitalClock);
@@ -307,6 +311,8 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                     ? R.string.custom_font_title
                     : R.string.custom_font_title_variant));
             mDigitalClockFontPref.setOnPreferenceClickListener(this);
+
+            mAnalogClockSizePref.setVisible(!isDigitalClock);
 
             mDisplaySecondsPref.setOnPreferenceChangeListener(this);
 

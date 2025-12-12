@@ -322,7 +322,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
             digitalClock.applyUserPreferredTextSizeSp(alarmDigitalClockFontSize);
             digitalClock.setTextColor(alarmClockColor);
         } else {
-            ClockUtils.adjustAnalogClockSize(analogClock, mPrefs, false);
+            ClockUtils.adjustAnalogClockSize(analogClock, mPrefs, false, false);
             ClockUtils.setAnalogClockSecondsEnabled(alarmClockStyle, analogClock, isAlarmSecondHandDisplayed);
         }
 
