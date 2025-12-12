@@ -94,7 +94,9 @@ public class ClockUtils {
      * @param prefs       the SharedPreferences containing user-defined size settings
      * @param isClockTab  {@code true} if the clock is displayed in the Clock tab; {@code false} otherwise
      */
-    public static void adjustAnalogClockSize(View analogClock, SharedPreferences prefs, boolean isClockTab) {
+    public static void adjustAnalogClockSize(View analogClock, SharedPreferences prefs, boolean isClockTab,
+                                             boolean isScreensaver) {
+
         final Context context = analogClock.getContext();
         int screenHeight = context.getResources().getDisplayMetrics().heightPixels;
 
@@ -103,13 +105,11 @@ public class ClockUtils {
         if (isClockTab) {
             int sizePercent = SettingsDAO.getAnalogClockSize(prefs);
 
-            if (sizePercent <= DEFAULT_ANALOG_CLOCK_SIZE) {
-                // 1 → 70  => 0.5 → 1.0
-                factor = 0.5f + ((sizePercent - 1) / 69f) * 0.5f;
-            } else {
-                // 70 → 100 => 1.0 → 1.2
-                factor = 1.0f + ((sizePercent - 70) / 30f) * 0.2f;
-            }
+            factor = computeFactor(sizePercent);
+        } else if (isScreensaver) {
+            int sizePercent = SettingsDAO.getScreensaverAnalogClockSize(prefs);
+
+            factor = computeFactor(sizePercent);
         }
 
         int baseSize = getBaseSize(context, screenHeight);
@@ -144,6 +144,25 @@ public class ClockUtils {
                     ? (int) (screenHeight / 2.6) : (int) (screenHeight / 3.8);
         }
         return baseSize;
+    }
+
+    /**
+     * Computes a scaling factor for the analog clock size based on a user-defined
+     * percentage value. The percentage ranges from 1 to 100 and is mapped to a
+     * size multiplier between 0.5× and 1.2×. Values from 1 to 70 scale linearly
+     * from 0.5× to 1.0×, while values from 70 to 100 scale from 1.0× to 1.2×.
+     *
+     * @param sizePercent the user-selected size percentage (1–100)
+     * @return the computed scaling factor to apply to the base clock size
+     */
+    private static float computeFactor(int sizePercent) {
+        if (sizePercent <= DEFAULT_ANALOG_CLOCK_SIZE) {
+            // 1 → 70  => 0.5 → 1.0
+            return 0.5f + ((sizePercent - 1) / 69f) * 0.5f;
+        } else {
+            // 70 → 100 => 1.0 → 1.2
+            return 1.0f + ((sizePercent - 70) / 30f) * 0.2f;
+        }
     }
 
     /**
