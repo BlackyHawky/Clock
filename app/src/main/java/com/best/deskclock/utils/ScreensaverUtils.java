@@ -183,6 +183,7 @@ public class ScreensaverUtils {
 
             dimScreensaverView(context, prefs, textClock, screenSaverClockColorPicker);
         } else {
+            ClockUtils.adjustAnalogClockSize(analogClock, prefs, false);
             ClockUtils.setAnalogClockSecondsEnabled(screensaverClockStyle, analogClock, areClockSecondsEnabled);
 
             if (screensaverClockStyle == DataModel.ClockStyle.ANALOG_MATERIAL) {

@@ -4,6 +4,7 @@ package com.best.deskclock.settings;
 
 import static android.app.Activity.RESULT_OK;
 
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ANALOG_CLOCK_SIZE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_HOME_CLOCK;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_CLOCK_DIAL;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_CLOCK_DIAL_MATERIAL;
@@ -48,6 +49,7 @@ public class ClockSettingsFragment extends ScreenFragment
     ListPreference mClockStylePref;
     ListPreference mClockDialPref;
     ListPreference mClockDialMaterialPref;
+    CustomSeekbarPreference mAnalogClockSizePref;
     ListPreference mClockSecondHandPref;
     SwitchPreferenceCompat mDisplayClockSecondsPref;
     Preference mDigitalClockFontPref;
@@ -108,6 +110,7 @@ public class ClockSettingsFragment extends ScreenFragment
         mClockStylePref = findPreference(KEY_CLOCK_STYLE);
         mClockDialPref = findPreference(KEY_CLOCK_DIAL);
         mClockDialMaterialPref = findPreference(KEY_CLOCK_DIAL_MATERIAL);
+        mAnalogClockSizePref = findPreference(KEY_ANALOG_CLOCK_SIZE);
         mDisplayClockSecondsPref = findPreference(KEY_DISPLAY_CLOCK_SECONDS);
         mClockSecondHandPref = findPreference(KEY_CLOCK_SECOND_HAND);
         mDigitalClockFontPref = findPreference(KEY_DIGITAL_CLOCK_FONT);
@@ -131,11 +134,16 @@ public class ClockSettingsFragment extends ScreenFragment
             case KEY_CLOCK_STYLE -> {
                 final int clockIndex = mClockStylePref.findIndexOfValue((String) newValue);
                 mClockStylePref.setSummary(mClockStylePref.getEntries()[clockIndex]);
-                mClockDialPref.setVisible(newValue.equals(mAnalogClock));
-                mClockDialMaterialPref.setVisible(newValue.equals(mMaterialAnalogClock));
-                mClockSecondHandPref.setVisible(newValue.equals(mAnalogClock)
-                        && SettingsDAO.areClockSecondsDisplayed(mPrefs));
-                mDigitalClockFontPref.setVisible(newValue.equals(mDigitalClock));
+
+                boolean isAnalogClock = newValue.equals(mAnalogClock);
+                boolean isMaterialAnalogClock = newValue.equals(mMaterialAnalogClock);
+                boolean isDigitalClock = newValue.equals(mDigitalClock);
+
+                mClockDialPref.setVisible(isAnalogClock);
+                mClockDialMaterialPref.setVisible(isMaterialAnalogClock);
+                mAnalogClockSizePref.setVisible(!isDigitalClock);
+                mClockSecondHandPref.setVisible(isAnalogClock && SettingsDAO.areClockSecondsDisplayed(mPrefs));
+                mDigitalClockFontPref.setVisible(isDigitalClock);
             }
 
             case KEY_CLOCK_DIAL, KEY_CLOCK_DIAL_MATERIAL, KEY_CLOCK_SECOND_HAND, KEY_HOME_TIME_ZONE,
@@ -197,25 +205,31 @@ public class ClockSettingsFragment extends ScreenFragment
     }
 
     private void setupPreferences() {
+        final boolean isAnalogClock = mClockStylePref.getValue().equals(mAnalogClock);
+        final boolean isMaterialAnalogClock = mClockStylePref.getValue().equals(mMaterialAnalogClock);
+        final boolean isDigitalClock = mClockStylePref.getValue().equals(mDigitalClock);
+
         mClockStylePref.setSummary(mClockStylePref.getEntry());
         mClockStylePref.setOnPreferenceChangeListener(this);
 
-        mClockDialPref.setVisible(mClockStylePref.getValue().equals(mAnalogClock));
+        mClockDialPref.setVisible(isAnalogClock);
         mClockDialPref.setSummary(mClockDialPref.getEntry());
         mClockDialPref.setOnPreferenceChangeListener(this);
 
-        mClockDialMaterialPref.setVisible(mClockStylePref.getValue().equals(mMaterialAnalogClock));
+        mClockDialMaterialPref.setVisible(isMaterialAnalogClock);
         mClockDialMaterialPref.setSummary(mClockDialMaterialPref.getEntry());
         mClockDialMaterialPref.setOnPreferenceChangeListener(this);
 
+        mAnalogClockSizePref.setVisible(!isDigitalClock);
+
         mDisplayClockSecondsPref.setOnPreferenceChangeListener(this);
 
-        mClockSecondHandPref.setVisible(mClockStylePref.getValue().equals(mAnalogClock)
+        mClockSecondHandPref.setVisible(isAnalogClock
                 && SettingsDAO.areClockSecondsDisplayed(mPrefs));
         mClockSecondHandPref.setSummary(mClockSecondHandPref.getEntry());
         mClockSecondHandPref.setOnPreferenceChangeListener(this);
 
-        mDigitalClockFontPref.setVisible(mClockStylePref.getValue().equals(mDigitalClock));
+        mDigitalClockFontPref.setVisible(isDigitalClock);
         mDigitalClockFontPref.setTitle(getString(SettingsDAO.getDigitalClockFont(mPrefs) == null
                 ? R.string.custom_font_title
                 : R.string.custom_font_title_variant));

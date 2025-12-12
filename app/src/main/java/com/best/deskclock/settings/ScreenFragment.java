@@ -14,6 +14,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_DIGITAL_CLOC
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_SHADOW_OFFSET;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_TITLE_FONT_SIZE_PREF;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_VOLUME_SETTING;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ANALOG_CLOCK_SIZE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_BLUETOOTH_VOLUME;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE;
@@ -208,6 +209,7 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
                             || Objects.equals(subPref.getKey(), KEY_SCREENSAVER_DIGITAL_CLOCK_FONT_SIZE)
                             || Objects.equals(subPref.getKey(), KEY_BLUETOOTH_VOLUME)
                             || Objects.equals(subPref.getKey(), KEY_SHAKE_INTENSITY)
+                            || Objects.equals(subPref.getKey(), KEY_ANALOG_CLOCK_SIZE)
                             || Objects.equals(subPref.getKey(), KEY_ALARM_DIGITAL_CLOCK_FONT_SIZE)
                             || Objects.equals(subPref.getKey(), KEY_ALARM_TITLE_FONT_SIZE_PREF)
                             || Objects.equals(subPref.getKey(), KEY_ALARM_SHADOW_OFFSET)

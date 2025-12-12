@@ -144,6 +144,7 @@ public final class ClockFragment extends DeskClockFragment {
                         false, true, false);
                 ClockUtils.setDigitalClockFont(digitalClock, SettingsDAO.getDigitalClockFont(mPrefs));
             } else {
+                ClockUtils.adjustAnalogClockSize(analogClock, mPrefs, true);
                 ClockUtils.setAnalogClockSecondsEnabled(mClockStyle, analogClock, mShowSeconds);
             }
             ClockUtils.setClockIconTypeface(mClockFrame);
@@ -667,6 +668,7 @@ public final class ClockFragment extends DeskClockFragment {
 
         private static final class MainClockViewHolder extends RecyclerView.ViewHolder {
 
+            private final SharedPreferences mPrefs;
             private final View mMainClockContainer;
             private final View mEmptyCityView;
             private final TextClock mDigitalClock;
@@ -678,14 +680,14 @@ public final class ClockFragment extends DeskClockFragment {
             private MainClockViewHolder(View itemView) {
                 super(itemView);
 
-                final SharedPreferences prefs = getDefaultSharedPreferences(itemView.getContext());
+                mPrefs = getDefaultSharedPreferences(itemView.getContext());
                 mMainClockContainer = itemView.findViewById(R.id.main_clock_container);
                 mEmptyCityView = itemView.findViewById(R.id.cities_empty_view);
                 mDigitalClock = itemView.findViewById(R.id.digital_clock);
                 mAnalogClock = itemView.findViewById(R.id.analog_clock);
-                mClockStyle = SettingsDAO.getClockStyle(prefs);
-                mAreClockSecondsDisplayed = SettingsDAO.areClockSecondsDisplayed(prefs);
-                mDigitalClockFontPath = SettingsDAO.getDigitalClockFont(prefs);
+                mClockStyle = SettingsDAO.getClockStyle(mPrefs);
+                mAreClockSecondsDisplayed = SettingsDAO.areClockSecondsDisplayed(mPrefs);
+                mDigitalClockFontPath = SettingsDAO.getDigitalClockFont(mPrefs);
                 ClockUtils.setClockIconTypeface(itemView);
             }
 
@@ -720,6 +722,7 @@ public final class ClockFragment extends DeskClockFragment {
                     ClockUtils.setDigitalClockTimeFormat(mDigitalClock, 0.4f, mAreClockSecondsDisplayed,
                             false, true, false);
                 } else {
+                    ClockUtils.adjustAnalogClockSize(mAnalogClock, mPrefs, true);
                     ClockUtils.setAnalogClockSecondsEnabled(mClockStyle, mAnalogClock, mAreClockSecondsDisplayed);
                 }
             }

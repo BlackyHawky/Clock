@@ -187,6 +187,7 @@ public final class SettingsDAO {
      * @return the clock dial applied in the Clock tab.
      */
     public static String getClockDial(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_clock.xml
         return prefs.getString(KEY_CLOCK_DIAL, DEFAULT_CLOCK_DIAL);
     }
 
@@ -194,13 +195,23 @@ public final class SettingsDAO {
      * @return the material clock dial applied in the Clock tab.
      */
     public static String getClockDialMaterial(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_clock.xml
         return prefs.getString(KEY_CLOCK_DIAL_MATERIAL, DEFAULT_CLOCK_DIAL_MATERIAL);
+    }
+
+    /**
+     * @return the analog clock size applied in the Clock tab.
+     */
+    public static int getAnalogClockSize(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_clock.xml
+        return prefs.getInt(KEY_ANALOG_CLOCK_SIZE, DEFAULT_ANALOG_CLOCK_SIZE);
     }
 
     /**
      * @return the clock second hand applied in the Clock tab.
      */
     public static String getClockSecondHand(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_clock.xml
         return prefs.getString(KEY_CLOCK_SECOND_HAND, DEFAULT_CLOCK_SECOND_HAND);
     }
 

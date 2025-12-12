@@ -813,6 +813,8 @@
     <string name="clock_style_digital">Digital</string>
     <!-- Setting title for changing the clock style to Spinner. -->
     <string name="clock_style_spinner">Spinner</string>
+    <!-- Setting title for customizing the analog clock size. -->
+    <string name="analog_clock_size_title">Analog clock size</string>
     <!-- Setting title to sort cities -->
     <string name="sort_cities_title">Sort cities</string>
     <!-- Setting title to allow adding a note to cities -->
