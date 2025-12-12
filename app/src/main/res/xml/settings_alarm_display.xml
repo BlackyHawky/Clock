@@ -44,6 +44,16 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
+        <com.best.deskclock.settings.CustomSeekbarPreference
+            android:key="key_alarm_analog_clock_size"
+            android:title="@string/analog_clock_size_title"
+            android:summary="@string/label_default"
+            android:defaultValue="70"
+            android:max="100"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_seekbar_layout" />
+
         <SwitchPreferenceCompat
             android:key="key_display_alarm_second_hand"
             android:title="@string/display_clock_seconds_pref"

@@ -20,12 +20,10 @@ import android.widget.TextClock;
 import android.widget.TextView;
 
 import com.best.deskclock.R;
-import com.best.deskclock.alarms.AlarmActivity;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.screensaver.Screensaver;
 import com.best.deskclock.screensaver.ScreensaverActivity;
-import com.best.deskclock.settings.AlarmDisplayPreviewActivity;
 import com.best.deskclock.uicomponents.AnalogClock;
 import com.best.deskclock.uicomponents.CustomTypefaceSpan;
 
@@ -94,15 +92,16 @@ public class ClockUtils {
      * @param prefs       the SharedPreferences containing user-defined size settings
      * @param isClockTab  {@code true} if the clock is displayed in the Clock tab; {@code false} otherwise
      */
-    public static void adjustAnalogClockSize(View analogClock, SharedPreferences prefs, boolean isClockTab,
-                                             boolean isScreensaver) {
-
-        final Context context = analogClock.getContext();
-        int screenHeight = context.getResources().getDisplayMetrics().heightPixels;
+    public static void adjustAnalogClockSize(View analogClock, SharedPreferences prefs, boolean isAlarm,
+                                             boolean isClockTab, boolean isScreensaver) {
 
         float factor = 1.0f;
 
-        if (isClockTab) {
+        if (isAlarm) {
+            int sizePercent = SettingsDAO.getAlarmAnalogClockSize(prefs);
+
+            factor = computeFactor(sizePercent);
+        } else if (isClockTab) {
             int sizePercent = SettingsDAO.getAnalogClockSize(prefs);
 
             factor = computeFactor(sizePercent);
@@ -112,38 +111,15 @@ public class ClockUtils {
             factor = computeFactor(sizePercent);
         }
 
-        int baseSize = getBaseSize(context, screenHeight);
+        int screenHeight = analogClock.getContext().getResources().getDisplayMetrics().heightPixels;
+        int baseSize = ThemeUtils.isLandscape()
+                ? (int) (screenHeight / 2.6)
+                : (int) (screenHeight / 3.8);
+
         int finalSize = (int) (baseSize * factor);
 
         analogClock.getLayoutParams().height = finalSize;
         analogClock.getLayoutParams().width = finalSize;
-    }
-
-    /**
-     * Computes the base size of the analog clock depending on the current activity,
-     * device type (phone/tablet), and screen orientation. This base size represents
-     * the default clock size before any user-defined scaling is applied.
-     *
-     * @param context      the context used to determine the current activity and device type
-     * @param screenHeight the height of the device screen in pixels
-     * @return the base size (in pixels) to be used for the analog clock
-     */
-    private static int getBaseSize(Context context, int screenHeight) {
-        int baseSize;
-
-        if (context instanceof AlarmActivity || context instanceof AlarmDisplayPreviewActivity) {
-            if (ThemeUtils.isTablet()) {
-                baseSize = ThemeUtils.isLandscape()
-                        ? screenHeight / 2 : screenHeight / 4;
-            } else {
-                baseSize = ThemeUtils.isLandscape()
-                        ? (int) (screenHeight / 1.6) : (int) (screenHeight / 3.2);
-            }
-        } else {
-            baseSize = ThemeUtils.isLandscape()
-                    ? (int) (screenHeight / 2.6) : (int) (screenHeight / 3.8);
-        }
-        return baseSize;
     }
 
     /**

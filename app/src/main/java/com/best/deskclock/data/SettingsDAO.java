@@ -1127,6 +1127,13 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return the analog clock size for alarms.
+     */
+    public static int getAlarmAnalogClockSize(SharedPreferences prefs) {
+        return prefs.getInt(KEY_ALARM_ANALOG_CLOCK_SIZE, DEFAULT_ANALOG_CLOCK_SIZE);
+    }
+
+    /**
      * @return {@code true} if the second hand is displayed on analog clock for the alarm.
      * {@code false} otherwise.
      */
