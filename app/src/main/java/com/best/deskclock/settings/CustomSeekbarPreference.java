@@ -15,6 +15,7 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SHAKE
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TIMER_SHAKE_INTENSITY;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_WIDGETS_FONT_SIZE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_WIDGET_BACKGROUND_CORNER_RADIUS;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_ANALOG_CLOCK_SIZE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BLUR_INTENSITY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_DIGITAL_CLOCK_FONT_SIZE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_SHADOW_OFFSET;
@@ -149,7 +150,8 @@ public class CustomSeekbarPreference extends SeekBarPreference {
                         } else if (isBluetoothVolumePreference() && progress < MIN_BLUETOOTH_VOLUME) {
                             seekBar.setProgress(MIN_BLUETOOTH_VOLUME);
                         } else if ((isAnalogClockSizePreference()
-                                || isScreensaverAnalogClockSizePreference())
+                                || isScreensaverAnalogClockSizePreference()
+                                || isAlarmAnalogClockSizePreference())
                                 && progress < MIN_ANALOG_CLOCK_SIZE_VALUE) {
                             seekBar.setProgress(MIN_ANALOG_CLOCK_SIZE_VALUE);
                         } else if (!isScreensaverBrightnessPreference()
@@ -209,7 +211,8 @@ public class CustomSeekbarPreference extends SeekBarPreference {
             } else if (isBluetoothVolumePreference()) {
                 mSeekBar.setMin(MIN_BLUETOOTH_VOLUME);
             } else if (isAnalogClockSizePreference()
-                    || isScreensaverAnalogClockSizePreference()) {
+                    || isScreensaverAnalogClockSizePreference()
+                    || isAlarmAnalogClockSizePreference()) {
                 mSeekBar.setMin(MIN_ANALOG_CLOCK_SIZE_VALUE);
             } else {
                 mSeekBar.setMin(MIN_FONT_SIZE_VALUE);
@@ -261,6 +264,8 @@ public class CustomSeekbarPreference extends SeekBarPreference {
             currentProgress = getAnalogClockSizeValue();
         } else if (isScreensaverAnalogClockSizePreference()) {
             currentProgress = getScreensaverAnalogClockSizeValue();
+        } else if (isAlarmAnalogClockSizePreference()) {
+            currentProgress = getAlarmAnalogClockSizeValue();
         } else {
             currentProgress = getWidgetPreferenceValue();
         }
@@ -282,7 +287,8 @@ public class CustomSeekbarPreference extends SeekBarPreference {
         } else if (isScreensaverBrightnessPreference()
                 || isScreensaverAnalogClockSizePreference()
                 || isBluetoothVolumePreference()
-                || isAnalogClockSizePreference()) {
+                || isAnalogClockSizePreference()
+                || isAlarmAnalogClockSizePreference()) {
             String formattedText = String.format(Locale.getDefault(), "%d%%", progress);
             seekBarSummary.setText(formattedText);
         } else {
@@ -318,7 +324,8 @@ public class CustomSeekbarPreference extends SeekBarPreference {
             mSeekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_volume_down));
             mSeekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_volume_up));
         } else if (isAnalogClockSizePreference()
-                || isScreensaverAnalogClockSizePreference()) {
+                || isScreensaverAnalogClockSizePreference()
+                || isAlarmAnalogClockSizePreference()) {
             mSeekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_zoom_in));
             mSeekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_zoom_out));
         } else {
@@ -426,7 +433,8 @@ public class CustomSeekbarPreference extends SeekBarPreference {
         } else if (isBluetoothVolumePreference()) {
             return MIN_BLUETOOTH_VOLUME;
         } else if (isAnalogClockSizePreference()
-                || isScreensaverAnalogClockSizePreference()) {
+                || isScreensaverAnalogClockSizePreference()
+                || isAlarmAnalogClockSizePreference()) {
             return MIN_ANALOG_CLOCK_SIZE_VALUE;
         } else {
             return MIN_FONT_SIZE_VALUE;
@@ -463,7 +471,8 @@ public class CustomSeekbarPreference extends SeekBarPreference {
         } else if (isBluetoothVolumePreference()) {
             return DEFAULT_BLUETOOTH_VOLUME;
         } else if (isAnalogClockSizePreference()
-                || isScreensaverAnalogClockSizePreference()) {
+                || isScreensaverAnalogClockSizePreference()
+                || isAlarmAnalogClockSizePreference()) {
             return DEFAULT_ANALOG_CLOCK_SIZE;
         } else {
             return DEFAULT_WIDGETS_FONT_SIZE;
@@ -500,7 +509,8 @@ public class CustomSeekbarPreference extends SeekBarPreference {
                 && !isAlarmShadowOffsetPreference()
                 && !isAlarmBlurIntensityPreference()
                 && !isBluetoothVolumePreference()
-                && !isAnalogClockSizePreference()) {
+                && !isAnalogClockSizePreference()
+                && !isAlarmAnalogClockSizePreference()) {
 
             WidgetUtils.updateAllDigitalWidgets(mContext);
         }
@@ -620,6 +630,14 @@ public class CustomSeekbarPreference extends SeekBarPreference {
      * @return the current value of the SeekBar related to the analog clock size from SharedPreferences.
      */
     private int getAnalogClockSizeValue() {
+        return mPrefs.getInt(getKey(), DEFAULT_ANALOG_CLOCK_SIZE);
+    }
+
+    /**
+     * @return the current value of the SeekBar related to the alarm analog clock size
+     * from SharedPreferences.
+     */
+    private int getAlarmAnalogClockSizeValue() {
         return mPrefs.getInt(getKey(), DEFAULT_ANALOG_CLOCK_SIZE);
     }
 
@@ -771,6 +789,14 @@ public class CustomSeekbarPreference extends SeekBarPreference {
      */
     private boolean isAnalogClockSizePreference() {
         return getKey().equals(KEY_ANALOG_CLOCK_SIZE);
+    }
+
+    /**
+     * @return {@code true} if the current preference is related to the alarm analog clock size.
+     * {@code false} otherwise.
+     */
+    private boolean isAlarmAnalogClockSizePreference() {
+        return getKey().equals(KEY_ALARM_ANALOG_CLOCK_SIZE);
     }
 
     /**

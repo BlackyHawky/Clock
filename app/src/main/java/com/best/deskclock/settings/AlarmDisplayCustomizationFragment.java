@@ -5,6 +5,7 @@ package com.best.deskclock.settings;
 import static android.app.Activity.OVERRIDE_TRANSITION_OPEN;
 import static android.app.Activity.RESULT_OK;
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_ANALOG_CLOCK_SIZE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BACKGROUND_AMOLED_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BACKGROUND_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BLUR_INTENSITY;
@@ -67,6 +68,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
     ListPreference mAlarmClockStylePref;
     ListPreference mAlarmClockDialPref;
     ListPreference mAlarmClockDialMaterialPref;
+    CustomSeekbarPreference mAnalogClockSizePref;
     ListPreference mAlarmClockSecondHandPref;
     SwitchPreferenceCompat mDisplaySecondsPref;
     Preference mAlarmFontPref;
@@ -184,6 +186,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
         mAlarmClockStylePref = findPreference(KEY_ALARM_CLOCK_STYLE);
         mAlarmClockDialPref = findPreference(KEY_ALARM_CLOCK_DIAL);
         mAlarmClockDialMaterialPref = findPreference(KEY_ALARM_CLOCK_DIAL_MATERIAL);
+        mAnalogClockSizePref = findPreference(KEY_ALARM_ANALOG_CLOCK_SIZE);
         mDisplaySecondsPref = findPreference(KEY_DISPLAY_ALARM_SECOND_HAND);
         mAlarmClockSecondHandPref = findPreference(KEY_ALARM_CLOCK_SECOND_HAND);
         mAlarmFontPref = findPreference(KEY_ALARM_FONT);
@@ -233,6 +236,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
                 mAlarmClockDialMaterialPref.setVisible(isMaterialAnalogClock);
                 mAlarmClockColorPref.setVisible(!isMaterialAnalogClock);
                 mAlarmFontPref.setVisible(isDigitalClock);
+                mAnalogClockSizePref.setVisible(!isDigitalClock);
                 mAlarmDigitalClockFontSizePref.setVisible(isDigitalClock);
                 mDisplaySecondsPref.setVisible(!isDigitalClock);
                 mAlarmClockSecondHandPref.setVisible(isAnalogClock && isSecondHandDisplayed);
@@ -402,6 +406,8 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
         mBackgroundColorPref.setVisible(!isAmoledMode);
 
         mAlarmClockColorPref.setVisible(!isMaterialAnalogClock);
+
+        mAnalogClockSizePref.setVisible(!isDigitalClock);
 
         mDisplaySecondsPref.setVisible(!isDigitalClock);
         mDisplaySecondsPref.setOnPreferenceChangeListener(this);

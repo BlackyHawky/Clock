@@ -144,7 +144,7 @@ public final class ClockFragment extends DeskClockFragment {
                         false, true, false);
                 ClockUtils.setDigitalClockFont(digitalClock, SettingsDAO.getDigitalClockFont(mPrefs));
             } else {
-                ClockUtils.adjustAnalogClockSize(analogClock, mPrefs, true, false);
+                ClockUtils.adjustAnalogClockSize(analogClock, mPrefs, false, true, false);
                 ClockUtils.setAnalogClockSecondsEnabled(mClockStyle, analogClock, mShowSeconds);
             }
             ClockUtils.setClockIconTypeface(mClockFrame);
@@ -722,7 +722,7 @@ public final class ClockFragment extends DeskClockFragment {
                     ClockUtils.setDigitalClockTimeFormat(mDigitalClock, 0.4f, mAreClockSecondsDisplayed,
                             false, true, false);
                 } else {
-                    ClockUtils.adjustAnalogClockSize(mAnalogClock, mPrefs, true, false);
+                    ClockUtils.adjustAnalogClockSize(mAnalogClock, mPrefs, false, true, false);
                     ClockUtils.setAnalogClockSecondsEnabled(mClockStyle, mAnalogClock, mAreClockSecondsDisplayed);
                 }
             }

@@ -108,6 +108,7 @@ public class PreferencesKeys {
     public static final String KEY_ALARM_CLOCK_STYLE = "key_alarm_clock_style";
     public static final String KEY_ALARM_CLOCK_DIAL = "key_alarm_clock_dial";
     public static final String KEY_ALARM_CLOCK_DIAL_MATERIAL = "key_alarm_clock_dial_material";
+    public static final String KEY_ALARM_ANALOG_CLOCK_SIZE = "key_alarm_analog_clock_size";
     public static final String KEY_DISPLAY_ALARM_SECOND_HAND = "key_display_alarm_second_hand";
     public static final String KEY_ALARM_CLOCK_SECOND_HAND = "key_alarm_clock_second_hand";
     public static final String KEY_ALARM_FONT = "key_alarm_font";

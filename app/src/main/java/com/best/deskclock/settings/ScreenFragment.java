@@ -9,6 +9,7 @@ package com.best.deskclock.settings;
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_TITLE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_ANALOG_CLOCK_SIZE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BLUR_INTENSITY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_DIGITAL_CLOCK_FONT_SIZE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_SHADOW_OFFSET;
@@ -212,6 +213,7 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
                             || Objects.equals(subPref.getKey(), KEY_BLUETOOTH_VOLUME)
                             || Objects.equals(subPref.getKey(), KEY_SHAKE_INTENSITY)
                             || Objects.equals(subPref.getKey(), KEY_ANALOG_CLOCK_SIZE)
+                            || Objects.equals(subPref.getKey(), KEY_ALARM_ANALOG_CLOCK_SIZE)
                             || Objects.equals(subPref.getKey(), KEY_ALARM_DIGITAL_CLOCK_FONT_SIZE)
                             || Objects.equals(subPref.getKey(), KEY_ALARM_TITLE_FONT_SIZE_PREF)
                             || Objects.equals(subPref.getKey(), KEY_ALARM_SHADOW_OFFSET)
