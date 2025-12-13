@@ -223,6 +223,14 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return the font size applied in the Clock tab.
+     */
+    public static int getDigitalClockFontSize(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_clock.xml
+        return prefs.getInt(KEY_DIGITAL_CLOCK_FONT_SIZE, DEFAULT_DIGITAL_CLOCK_FONT_SIZE);
+    }
+
+    /**
      * @return the theme applied.
      */
     public static String getTheme(SharedPreferences prefs) {

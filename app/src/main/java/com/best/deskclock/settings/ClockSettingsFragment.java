@@ -14,6 +14,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_DATE_TIME;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_CLOCK_FONT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_CLOCK_SECONDS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_CITY_NOTE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_FONT_CATEGORY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_HOME_TIME_ZONE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SORT_CITIES;
 
@@ -28,6 +29,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
+import androidx.preference.PreferenceCategory;
 import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
@@ -50,11 +52,12 @@ public class ClockSettingsFragment extends ScreenFragment
     ListPreference mClockDialPref;
     ListPreference mClockDialMaterialPref;
     CustomSeekbarPreference mAnalogClockSizePref;
-    ListPreference mClockSecondHandPref;
     SwitchPreferenceCompat mDisplayClockSecondsPref;
+    ListPreference mClockSecondHandPref;
     Preference mDigitalClockFontPref;
-    SwitchPreferenceCompat mEnableCityNotePref;
+    PreferenceCategory mFontCategory;
     ListPreference mSortCitiesPref;
+    SwitchPreferenceCompat mEnableCityNotePref;
     SwitchPreferenceCompat mAutoHomeClockPref;
     ListPreference mHomeTimeZonePref;
     Preference mDateTimePref;
@@ -114,8 +117,9 @@ public class ClockSettingsFragment extends ScreenFragment
         mDisplayClockSecondsPref = findPreference(KEY_DISPLAY_CLOCK_SECONDS);
         mClockSecondHandPref = findPreference(KEY_CLOCK_SECOND_HAND);
         mDigitalClockFontPref = findPreference(KEY_DIGITAL_CLOCK_FONT);
-        mEnableCityNotePref = findPreference(KEY_ENABLE_CITY_NOTE);
+        mFontCategory = findPreference(KEY_FONT_CATEGORY);
         mSortCitiesPref = findPreference(KEY_SORT_CITIES);
+        mEnableCityNotePref = findPreference(KEY_ENABLE_CITY_NOTE);
         mAutoHomeClockPref = findPreference(KEY_AUTO_HOME_CLOCK);
         mHomeTimeZonePref = findPreference(KEY_HOME_TIME_ZONE);
         mDateTimePref = findPreference(KEY_DATE_TIME);
@@ -144,6 +148,7 @@ public class ClockSettingsFragment extends ScreenFragment
                 mAnalogClockSizePref.setVisible(!isDigitalClock);
                 mClockSecondHandPref.setVisible(isAnalogClock && SettingsDAO.areClockSecondsDisplayed(mPrefs));
                 mDigitalClockFontPref.setVisible(isDigitalClock);
+                mFontCategory.setVisible(isDigitalClock);
             }
 
             case KEY_CLOCK_DIAL, KEY_CLOCK_DIAL_MATERIAL, KEY_CLOCK_SECOND_HAND, KEY_HOME_TIME_ZONE,
@@ -234,6 +239,8 @@ public class ClockSettingsFragment extends ScreenFragment
                 ? R.string.custom_font_title
                 : R.string.custom_font_title_variant));
         mDigitalClockFontPref.setOnPreferenceClickListener(this);
+
+        mFontCategory.setVisible(isDigitalClock);
 
         mSortCitiesPref.setSummary(mSortCitiesPref.getEntry());
         mSortCitiesPref.setOnPreferenceChangeListener(this);

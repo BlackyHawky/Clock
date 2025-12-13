@@ -56,6 +56,8 @@ public class PreferencesKeys {
     public static final String KEY_CLOCK_DIAL = "key_clock_dial";
     public static final String KEY_CLOCK_DIAL_MATERIAL = "key_clock_dial_material";
     public static final String KEY_ANALOG_CLOCK_SIZE = "key_analog_clock_size";
+    public static final String KEY_FONT_CATEGORY = "key_font_category";
+    public static final String KEY_DIGITAL_CLOCK_FONT_SIZE = "key_digital_clock_font_size";
     public static final String KEY_DISPLAY_CLOCK_SECONDS = "key_display_clock_seconds";
     public static final String KEY_CLOCK_SECOND_HAND = "key_clock_second_hand";
     public static final String KEY_DIGITAL_CLOCK_FONT = "key_digital_clock_font";
