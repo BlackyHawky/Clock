@@ -24,6 +24,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_CLOCK_DIAL_MATERIA
 import static com.best.deskclock.settings.PreferencesKeys.KEY_CLOCK_SECOND_HAND;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_CLOCK_STYLE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_CLOCK_FONT;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_CLOCK_FONT_SIZE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_CLOCK_SECONDS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_TIMER_STATE_INDICATOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_CITY_NOTE;
@@ -232,7 +233,8 @@ public class DeskClock extends BaseActivity
             // Clock
             KEY_CLOCK_STYLE, KEY_CLOCK_DIAL, KEY_CLOCK_DIAL_MATERIAL, KEY_ANALOG_CLOCK_SIZE,
             KEY_DISPLAY_CLOCK_SECONDS, KEY_CLOCK_SECOND_HAND, KEY_DIGITAL_CLOCK_FONT,
-            KEY_SORT_CITIES, KEY_ENABLE_CITY_NOTE, KEY_AUTO_HOME_CLOCK, KEY_HOME_TIME_ZONE,
+            KEY_DIGITAL_CLOCK_FONT_SIZE, KEY_SORT_CITIES, KEY_ENABLE_CITY_NOTE, KEY_AUTO_HOME_CLOCK,
+            KEY_HOME_TIME_ZONE,
             // Alarm
             KEY_ENABLE_PER_ALARM_VOLUME, KEY_WEEK_START, KEY_ALARM_FONT,
             // Timer
@@ -670,11 +672,12 @@ public class DeskClock extends BaseActivity
                 case KEY_TAB_TITLE_VISIBILITY, KEY_TAB_INDICATOR, KEY_TAB_TO_DISPLAY, KEY_KEEP_SCREEN_ON,
                      KEY_CLOCK_STYLE, KEY_CLOCK_DIAL, KEY_CLOCK_DIAL_MATERIAL, KEY_ANALOG_CLOCK_SIZE,
                      KEY_DISPLAY_CLOCK_SECONDS, KEY_CLOCK_SECOND_HAND, KEY_DIGITAL_CLOCK_FONT,
-                     KEY_SORT_CITIES, KEY_ENABLE_CITY_NOTE, KEY_AUTO_HOME_CLOCK, KEY_HOME_TIME_ZONE,
-                     KEY_ENABLE_PER_ALARM_VOLUME, KEY_WEEK_START, KEY_ALARM_FONT, KEY_TIMER_DURATION_FONT,
-                     KEY_SORT_TIMER, KEY_DISPLAY_TIMER_STATE_INDICATOR, KEY_RUNNING_TIMER_INDICATOR_COLOR,
-                     KEY_PAUSED_TIMER_INDICATOR_COLOR, KEY_EXPIRED_TIMER_INDICATOR_COLOR, KEY_SW_FONT,
-                     KEY_SW_VOLUME_UP_ACTION, KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS, KEY_SW_VOLUME_DOWN_ACTION,
+                     KEY_DIGITAL_CLOCK_FONT_SIZE, KEY_SORT_CITIES, KEY_ENABLE_CITY_NOTE, KEY_AUTO_HOME_CLOCK,
+                     KEY_HOME_TIME_ZONE, KEY_ENABLE_PER_ALARM_VOLUME, KEY_WEEK_START, KEY_ALARM_FONT,
+                     KEY_TIMER_DURATION_FONT, KEY_SORT_TIMER, KEY_DISPLAY_TIMER_STATE_INDICATOR,
+                     KEY_RUNNING_TIMER_INDICATOR_COLOR, KEY_PAUSED_TIMER_INDICATOR_COLOR,
+                     KEY_EXPIRED_TIMER_INDICATOR_COLOR, KEY_SW_FONT, KEY_SW_VOLUME_UP_ACTION,
+                     KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS, KEY_SW_VOLUME_DOWN_ACTION,
                      KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS, KEY_ESSENTIAL_PERMISSIONS_GRANTED ->
                         mShouldRecreate = true;
 
@@ -714,6 +717,7 @@ public class DeskClock extends BaseActivity
             case KEY_DISPLAY_CLOCK_SECONDS -> SettingsDAO.areClockSecondsDisplayed(mPrefs);
             case KEY_CLOCK_SECOND_HAND -> SettingsDAO.getClockSecondHand(mPrefs);
             case KEY_DIGITAL_CLOCK_FONT -> SettingsDAO.getDigitalClockFont(mPrefs);
+            case KEY_DIGITAL_CLOCK_FONT_SIZE -> SettingsDAO.getDigitalClockFontSize(mPrefs);
             case KEY_SORT_CITIES -> SettingsDAO.getCitySorting(mPrefs);
             case KEY_ENABLE_CITY_NOTE -> SettingsDAO.isCityNoteEnabled(mPrefs);
             case KEY_AUTO_HOME_CLOCK -> SettingsDAO.getAutoShowHomeClock(mPrefs);

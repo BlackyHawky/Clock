@@ -22,6 +22,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_SHADOW_OFFSE
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_TITLE_FONT_SIZE_PREF;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ANALOG_CLOCK_SIZE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_BLUETOOTH_VOLUME;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_CLOCK_FONT_SIZE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_BACKGROUND_CORNER_RADIUS;
@@ -266,6 +267,8 @@ public class CustomSeekbarPreference extends SeekBarPreference {
             currentProgress = getScreensaverAnalogClockSizeValue();
         } else if (isAlarmAnalogClockSizePreference()) {
             currentProgress = getAlarmAnalogClockSizeValue();
+        } else if (isDigitalClockFontSizePreference()) {
+            currentProgress = getDigitalClockFontSizeValue();
         } else {
             currentProgress = getWidgetPreferenceValue();
         }
@@ -460,6 +463,7 @@ public class CustomSeekbarPreference extends SeekBarPreference {
         } else if (isTimerShakeIntensityPreference()) {
             return DEFAULT_TIMER_SHAKE_INTENSITY;
         } else if (isScreensaverDigitalClockFontSizePreference()
+                || isDigitalClockFontSizePreference()
                 || isAlarmDigitalClockFontSizePreference()) {
             return DEFAULT_DIGITAL_CLOCK_FONT_SIZE;
         } else if (isAlarmTitleFontSizePreference()) {
@@ -510,7 +514,8 @@ public class CustomSeekbarPreference extends SeekBarPreference {
                 && !isAlarmBlurIntensityPreference()
                 && !isBluetoothVolumePreference()
                 && !isAnalogClockSizePreference()
-                && !isAlarmAnalogClockSizePreference()) {
+                && !isAlarmAnalogClockSizePreference()
+                && !isDigitalClockFontSizePreference()) {
 
             WidgetUtils.updateAllDigitalWidgets(mContext);
         }
@@ -631,6 +636,14 @@ public class CustomSeekbarPreference extends SeekBarPreference {
      */
     private int getAnalogClockSizeValue() {
         return mPrefs.getInt(getKey(), DEFAULT_ANALOG_CLOCK_SIZE);
+    }
+
+    /**
+     * Retrieves the current value of the SeekBar related to the font size of the clock
+     * from SharedPreferences.
+     */
+    private int getDigitalClockFontSizeValue() {
+        return mPrefs.getInt(getKey(), DEFAULT_DIGITAL_CLOCK_FONT_SIZE);
     }
 
     /**
@@ -789,6 +802,14 @@ public class CustomSeekbarPreference extends SeekBarPreference {
      */
     private boolean isAnalogClockSizePreference() {
         return getKey().equals(KEY_ANALOG_CLOCK_SIZE);
+    }
+
+    /**
+     * @return {@code true} if the current preference is related to the font size of the clock.
+     * {@code false} otherwise.
+     */
+    private boolean isDigitalClockFontSizePreference() {
+        return getKey().equals(KEY_DIGITAL_CLOCK_FONT_SIZE);
     }
 
     /**

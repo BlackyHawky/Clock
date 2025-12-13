@@ -81,6 +81,25 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:key="key_font_category"
+        android:title="@string/font_category_title"
+        app:allowDividerAbove="false"
+        app:iconSpaceReserved="false"
+        tools:layout="@layout/settings_preference_category_layout">
+
+        <com.best.deskclock.settings.CustomSeekbarPreference
+            android:key="key_digital_clock_font_size"
+            android:title="@string/clock_font_size"
+            android:summary="@string/label_default"
+            android:defaultValue="70"
+            android:max="200"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_seekbar_layout" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:title="@string/miscellaneous_category_title"
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false"
