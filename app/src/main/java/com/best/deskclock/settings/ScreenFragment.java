@@ -9,35 +9,6 @@ package com.best.deskclock.settings;
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_TITLE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_ANALOG_CLOCK_SIZE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BLUR_INTENSITY;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_DIGITAL_CLOCK_FONT_SIZE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_SHADOW_OFFSET;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_TITLE_FONT_SIZE_PREF;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_VOLUME_SETTING;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ANALOG_CLOCK_SIZE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_BLUETOOTH_VOLUME;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_CLOCK_FONT_SIZE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_BACKGROUND_CORNER_RADIUS;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_MAXIMUM_FONT_SIZE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_BACKGROUND_CORNER_RADIUS;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_MAXIMUM_FONT_SIZE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_ANALOG_CLOCK_SIZE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_BLUR_INTENSITY;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_BRIGHTNESS;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_DIGITAL_CLOCK_FONT_SIZE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_SHAKE_INTENSITY;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_BLUR_INTENSITY;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_SHADOW_OFFSET;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_SHAKE_INTENSITY;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_WIDGET_BACKGROUND_CORNER_RADIUS;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -195,81 +166,25 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
     public void setPreferenceScreen(PreferenceScreen preferenceScreen) {
         super.setPreferenceScreen(preferenceScreen);
 
-        final boolean isCardBackgroundDisplayed = SettingsDAO.isCardBackgroundDisplayed(mPrefs);
-        final boolean isCardBorderDisplayed = SettingsDAO.isCardBorderDisplayed(mPrefs);
+        final boolean isBackgroundDisplayed = SettingsDAO.isCardBackgroundDisplayed(mPrefs);
+        final boolean isBorderDisplayed = SettingsDAO.isCardBorderDisplayed(mPrefs);
 
-        if (preferenceScreen == null) return;
+        if (preferenceScreen == null) {
+            return;
+        }
+
         int count = preferenceScreen.getPreferenceCount();
+
         for (int i = 0; i < count; i++) {
             final Preference pref = preferenceScreen.getPreference(i);
+
             if (pref instanceof PreferenceCategory category) {
                 category.setLayoutResource(R.layout.settings_preference_category_layout);
-
-                final int subPrefCount = category.getPreferenceCount();
-                for (int j = 0; j < subPrefCount; j++) {
-                    Preference subPref = category.getPreference(j);
-                    if (Objects.equals(subPref.getKey(), KEY_ALARM_VOLUME_SETTING)
-                            || Objects.equals(subPref.getKey(), KEY_SCREENSAVER_BRIGHTNESS)
-                            || Objects.equals(subPref.getKey(), KEY_SCREENSAVER_ANALOG_CLOCK_SIZE)
-                            || Objects.equals(subPref.getKey(), KEY_SCREENSAVER_DIGITAL_CLOCK_FONT_SIZE)
-                            || Objects.equals(subPref.getKey(), KEY_SCREENSAVER_BLUR_INTENSITY)
-                            || Objects.equals(subPref.getKey(), KEY_BLUETOOTH_VOLUME)
-                            || Objects.equals(subPref.getKey(), KEY_SHAKE_INTENSITY)
-                            || Objects.equals(subPref.getKey(), KEY_ANALOG_CLOCK_SIZE)
-                            || Objects.equals(subPref.getKey(), KEY_DIGITAL_CLOCK_FONT_SIZE)
-                            || Objects.equals(subPref.getKey(), KEY_ALARM_ANALOG_CLOCK_SIZE)
-                            || Objects.equals(subPref.getKey(), KEY_ALARM_DIGITAL_CLOCK_FONT_SIZE)
-                            || Objects.equals(subPref.getKey(), KEY_ALARM_TITLE_FONT_SIZE_PREF)
-                            || Objects.equals(subPref.getKey(), KEY_ALARM_SHADOW_OFFSET)
-                            || Objects.equals(subPref.getKey(), KEY_ALARM_BLUR_INTENSITY)
-                            || Objects.equals(subPref.getKey(), KEY_TIMER_SHAKE_INTENSITY)
-                            || Objects.equals(subPref.getKey(), KEY_TIMER_SHADOW_OFFSET)
-                            || Objects.equals(subPref.getKey(), KEY_TIMER_BLUR_INTENSITY)
-                            || Objects.equals(subPref.getKey(), KEY_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE)
-                            || Objects.equals(subPref.getKey(), KEY_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS)
-                            || Objects.equals(subPref.getKey(), KEY_NEXT_ALARM_WIDGET_BACKGROUND_CORNER_RADIUS)
-                            || Objects.equals(subPref.getKey(), KEY_VERTICAL_WIDGET_BACKGROUND_CORNER_RADIUS)
-                            || Objects.equals(subPref.getKey(), KEY_MATERIAL_YOU_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS)
-                            || Objects.equals(subPref.getKey(), KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_BACKGROUND_CORNER_RADIUS)
-                            || Objects.equals(subPref.getKey(), KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS)
-                            || Objects.equals(subPref.getKey(), KEY_MATERIAL_YOU_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE)
-                            || Objects.equals(subPref.getKey(), KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_MAXIMUM_FONT_SIZE)
-                            || Objects.equals(subPref.getKey(), KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE)
-                            || Objects.equals(subPref.getKey(), KEY_NEXT_ALARM_WIDGET_MAXIMUM_FONT_SIZE)
-                            || Objects.equals(subPref.getKey(), KEY_VERTICAL_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE)) {
-                        if (isCardBackgroundDisplayed && isCardBorderDisplayed) {
-                            subPref.setLayoutResource(R.layout.settings_preference_seekbar_layout_bordered);
-                        } else if (isCardBackgroundDisplayed) {
-                            subPref.setLayoutResource(R.layout.settings_preference_seekbar_layout);
-                        } else if (isCardBorderDisplayed) {
-                            subPref.setLayoutResource(R.layout.settings_preference_seekbar_layout_transparent_bordered);
-                        } else {
-                            subPref.setLayoutResource(R.layout.settings_preference_seekbar_layout_transparent);
-                        }
-                    } else {
-                        if (isCardBackgroundDisplayed && isCardBorderDisplayed) {
-                            subPref.setLayoutResource(R.layout.settings_preference_layout_bordered);
-                        } else if (isCardBackgroundDisplayed) {
-                            subPref.setLayoutResource(R.layout.settings_preference_layout);
-                        } else if (isCardBorderDisplayed) {
-                            subPref.setLayoutResource(R.layout.settings_preference_layout_transparent_bordered);
-                        } else {
-                            subPref.setLayoutResource(R.layout.settings_preference_layout_transparent);
-                        }
-                    }
-                }
+                applyLayoutToCategory(category, isBackgroundDisplayed, isBorderDisplayed);
             } else if (Objects.equals(pref.getKey(), KEY_ABOUT_TITLE)) {
                 pref.setLayoutResource(R.layout.settings_about_title);
             } else {
-                if (isCardBackgroundDisplayed && isCardBorderDisplayed) {
-                    pref.setLayoutResource(R.layout.settings_preference_layout_bordered);
-                } else if (isCardBackgroundDisplayed) {
-                    pref.setLayoutResource(R.layout.settings_preference_layout);
-                } else if (isCardBorderDisplayed) {
-                    pref.setLayoutResource(R.layout.settings_preference_layout_transparent_bordered);
-                } else {
-                    pref.setLayoutResource(R.layout.settings_preference_layout_transparent);
-                }
+                applyLayoutToPreference(pref, isBackgroundDisplayed, isBorderDisplayed);
             }
         }
     }
@@ -293,6 +208,52 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
             int padding = (int) dpToPx(10, mDisplayMetrics);
             mRecyclerView.setPadding(0, padding, 0, bars.bottom + padding);
         });
+    }
+
+    /**
+     * Applies the appropriate layout resource to all preferences inside the given
+     * PreferenceCategory, except for custom preference types that manage their own layout.
+     *
+     * @param category The PreferenceCategory whose child preferences should be styled.
+     * @param isBackgroundDisplayed True if the card background should be displayed.
+     * @param isBorderDisplayed True if the card border should be displayed.
+     */
+    private void applyLayoutToCategory(PreferenceCategory category, boolean isBackgroundDisplayed,
+                                       boolean isBorderDisplayed) {
+
+        int subCount = category.getPreferenceCount();
+        for (int j = 0; j < subCount; j++) {
+            Preference subPref = category.getPreference(j);
+
+            // CustomSeekbarPreference and AlarmVolumePreference manage their own layout
+            if (subPref instanceof CustomSeekbarPreference || subPref instanceof AlarmVolumePreference) {
+                continue;
+            }
+
+            applyLayoutToPreference(subPref, isBackgroundDisplayed, isBorderDisplayed);
+        }
+    }
+
+    /**
+     * Applies the correct layout resource to a single Preference based on the current
+     * background and border settings.
+     *
+     * @param pref The Preference to style.
+     * @param isBackgroundDisplayed True if the card background should be displayed.
+     * @param isBorderDisplayed True if the card border should be displayed.
+     */
+    private void applyLayoutToPreference(Preference pref, boolean isBackgroundDisplayed,
+                                         boolean isBorderDisplayed) {
+
+        if (isBackgroundDisplayed && isBorderDisplayed) {
+            pref.setLayoutResource(R.layout.settings_preference_layout_bordered);
+        } else if (isBackgroundDisplayed) {
+            pref.setLayoutResource(R.layout.settings_preference_layout);
+        } else if (isBorderDisplayed) {
+            pref.setLayoutResource(R.layout.settings_preference_layout_transparent_bordered);
+        } else {
+            pref.setLayoutResource(R.layout.settings_preference_layout_transparent);
+        }
     }
 
     /**

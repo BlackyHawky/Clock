@@ -9,12 +9,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pref_card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="10dp"
     android:layout_marginVertical="4dp"
     app:cardCornerRadius="18dp"
-    app:strokeWidth="0dp">
+    app:strokeWidth="0dp"
+    app:strokeColor="?attr/colorPrimary">
 
     <LinearLayout
         android:layout_width="match_parent"
