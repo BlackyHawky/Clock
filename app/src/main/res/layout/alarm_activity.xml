@@ -180,6 +180,22 @@
             app:layout_constraintBottom_toTopOf="@+id/alarm_horizontal_end_guide"
             tools:background="@drawable/bg_alarm_slide_zone">
 
+            <!-- Pill in the background of the Alarm button -->
+            <com.best.deskclock.uicomponents.PillView
+                android:id="@+id/pill"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:layerType="hardware"
+                android:clickable="false"
+                android:focusable="false"
+                android:importantForAccessibility="no"
+                tools:fillColor="@color/md_theme_onSurfaceVariant"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/alarm_button"
+                app:layout_constraintBottom_toBottomOf="@id/alarm_button" />
+
             <!-- Snooze text -->
             <com.best.deskclock.uicomponents.AutoSizingTextView
                 android:id="@+id/snooze_text"
@@ -217,22 +233,6 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 tools:text="@string/button_action_dismiss"
                 tools:textColor="@android:color/white" />
-
-            <!-- Pill in the background of the Alarm button -->
-            <com.best.deskclock.uicomponents.PillView
-                android:id="@+id/pill"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:gravity="center"
-                android:layerType="hardware"
-                android:clickable="false"
-                android:focusable="false"
-                android:importantForAccessibility="no"
-                tools:fillColor="@color/md_theme_onSurfaceVariant"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/alarm_button"
-                app:layout_constraintBottom_toBottomOf="@id/alarm_button" />
 
             <!-- Alarm button -->
             <com.google.android.material.button.MaterialButton

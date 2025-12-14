@@ -48,7 +48,8 @@
             android:gravity="center"
             android:singleLine="true"
             tools:textSize="70sp"
-            tools:text="12:34" />
+            tools:text="12:34"
+            tools:ignore="TextContrastCheck" />
 
         <include layout="@layout/date_and_next_alarm_time" />
 

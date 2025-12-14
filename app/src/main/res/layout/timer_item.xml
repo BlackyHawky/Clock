@@ -35,7 +35,8 @@
         app:drawableTint="?attr/colorOnSurfaceVariant"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/delete_timer"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TextContrastCheck" />
 
     <View
         android:id="@+id/indicator_state"
@@ -60,7 +61,8 @@
         android:contentDescription="@string/delete"
         app:tint="?attr/colorPrimary"
         app:layout_constraintEnd_toStartOf="@+id/indicator_state"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <com.best.deskclock.uicomponents.CircleButtonsLayout
         android:id="@+id/circle_container"
@@ -104,7 +106,8 @@
             android:scaleType="centerCrop"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/reset"
-            app:tint="?attr/colorPrimary" />
+            app:tint="?attr/colorPrimary"
+            tools:ignore="TouchTargetSizeCheck" />
 
     </com.best.deskclock.uicomponents.CircleButtonsLayout>
 
@@ -152,7 +155,8 @@
         app:tint="?android:attr/textColor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:visibility="visible" />
+        tools:visibility="visible"
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/timer_add_time_button"

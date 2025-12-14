@@ -32,6 +32,11 @@ public class ColorPickerPreference extends ColorPreference {
 
     @Override
     public void onBindViewHolder(PreferenceViewHolder holder) {
+        if (holder.itemView.isInEditMode()) {
+            // Skip logic during Android Studio preview
+            return;
+        }
+
         super.onBindViewHolder(holder);
 
         View thumbnail = addThumbnail(holder.itemView);

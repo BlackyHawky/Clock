@@ -45,6 +45,7 @@ public class TextTime extends AppCompatTextView {
     private CharSequence mFormat12;
     private CharSequence mFormat24;
     private CharSequence mFormat;
+    private Context mContext;
 
     private boolean mAttached;
 
@@ -66,12 +67,10 @@ public class TextTime extends AppCompatTextView {
         }
     };
 
-    @SuppressWarnings("UnusedDeclaration")
     public TextTime(Context context) {
         this(context, null);
     }
 
-    @SuppressWarnings("UnusedDeclaration")
     public TextTime(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
@@ -79,8 +78,12 @@ public class TextTime extends AppCompatTextView {
     public TextTime(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
-        setTimeFormat(context, 0.45f, false);
+        if (isInEditMode()) {
+            return;
+        }
 
+        mContext = context;
+        setTimeFormat(0.45f, false);
         chooseFormat();
     }
 
@@ -110,6 +113,11 @@ public class TextTime extends AppCompatTextView {
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
+
+        if (isInEditMode()) {
+            return;
+        }
+
         if (!mAttached) {
             mAttached = true;
             registerObserver();
@@ -127,31 +135,39 @@ public class TextTime extends AppCompatTextView {
     }
 
     private void registerObserver() {
-        final ContentResolver resolver = getContext().getContentResolver();
+        final ContentResolver resolver = mContext.getContentResolver();
         resolver.registerContentObserver(Settings.System.CONTENT_URI, true, mFormatChangeObserver);
     }
 
     private void unregisterObserver() {
-        final ContentResolver resolver = getContext().getContentResolver();
+        final ContentResolver resolver = mContext.getContentResolver();
         resolver.unregisterContentObserver(mFormatChangeObserver);
     }
 
     public void setTime(int hour, int minute) {
+        if (isInEditMode()) {
+            return;
+        }
+
         mHour = hour;
         mMinute = minute;
         updateTime();
     }
 
-    public void setTimeFormat(Context context, float amPmRatio, boolean includeSeconds) {
-        CharSequence format12 = ClockUtils.get12ModeFormat(context, amPmRatio, includeSeconds,
+    public void setTimeFormat(float amPmRatio, boolean includeSeconds) {
+        CharSequence format12 = ClockUtils.get12ModeFormat(mContext, amPmRatio, includeSeconds,
                 true, false, false);
         setFormat12Hour(format12);
 
-        CharSequence format24 = ClockUtils.get24ModeFormat(context, includeSeconds, false);
+        CharSequence format24 = ClockUtils.get24ModeFormat(mContext, includeSeconds, false);
         setFormat24Hour(format24);
     }
 
     private void updateTime() {
+        if (isInEditMode()) {
+            return;
+        }
+
         // Format the time relative to UTC to ensure hour and minute are not adjusted for DST.
         final Calendar calendar = DataModel.getDataModel().getCalendar();
         calendar.setTimeZone(UTC);

@@ -30,7 +30,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/arrow"
-        tools:hint="@string/add_label" />
+        tools:hint="@string/add_label"
+        tools:ignore="TextContrastCheck" />
 
     <ImageButton
         android:id="@+id/arrow"
@@ -43,7 +44,8 @@
         android:src="@drawable/ic_caret_down"
         android:scaleType="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <com.best.deskclock.uicomponents.TextTime
         android:id="@+id/digital_clock"
@@ -86,7 +88,8 @@
         android:layout_height="40dp"
         android:layout_marginEnd="12dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/days_of_week" />
+        app:layout_constraintBottom_toBottomOf="@id/days_of_week"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/preemptive_dismiss_button"

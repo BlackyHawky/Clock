@@ -476,6 +476,7 @@ public class DeskClock extends BaseActivity
         super.onDestroy();
     }
 
+    @SuppressLint("AlwaysShowAction")
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.add(0, Menu.NONE, 1, R.string.settings)

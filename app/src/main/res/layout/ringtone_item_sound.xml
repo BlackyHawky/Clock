@@ -65,7 +65,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/sound_image_selected"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible" />
+        tools:visibility="visible"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <ImageView
         android:id="@+id/sound_image_selected"
@@ -81,6 +82,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:tint="?attr/colorPrimary"
         app:tintMode="src_in"
-        tools:visibility="visible" />
+        tools:visibility="visible"
+        tools:importantForAccessibility="no" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

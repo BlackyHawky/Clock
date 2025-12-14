@@ -10,6 +10,7 @@ import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_TITLE;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -109,6 +110,7 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
         }
 
         requireActivity().addMenuProvider(new MenuProvider() {
+            @SuppressLint("AlwaysShowAction")
             @Override
             public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
                 menu.clear();
