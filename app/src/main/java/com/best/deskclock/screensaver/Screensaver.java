@@ -18,14 +18,21 @@ import android.content.res.Configuration;
 import android.service.dreams.DreamService;
 import android.view.View;
 import android.view.ViewTreeObserver.OnPreDrawListener;
+import android.widget.ImageView;
+
+import androidx.core.graphics.Insets;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.ClockUtils;
+import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.ScreensaverUtils;
 import com.best.deskclock.utils.SdkUtils;
+import com.best.deskclock.utils.ThemeUtils;
 
 public final class Screensaver extends DreamService {
 
@@ -33,6 +40,7 @@ public final class Screensaver extends DreamService {
 
     private final OnPreDrawListener mStartPositionUpdater = new StartPositionUpdater();
     private MoveScreensaverRunnable mPositionUpdater;
+    private PulseScreensaverBackgroundRunnable mBackgroundAnimator;
 
     private String mDateFormat;
     private String mDateFormatForAccessibility;
@@ -74,17 +82,28 @@ public final class Screensaver extends DreamService {
         LOGGER.v("Screensaver attached to window");
         super.onAttachedToWindow();
 
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+        ThemeUtils.allowDisplayCutout(getWindow());
+
         setContentView(R.layout.desk_clock_saver);
 
         mContentView = findViewById(R.id.saver_container);
         mMainClockView = mContentView.findViewById(R.id.main_clock);
-
-        ScreensaverUtils.setScreensaverMarginsAndClockStyle(
-                this, getDefaultSharedPreferences(this), mMainClockView);
+        ImageView background = findViewById(R.id.screensaver_background_image);
 
         ScreensaverUtils.hideScreensaverSystemBars(getWindow(), mContentView);
 
+        ScreensaverUtils.setScreensaverClockStyle(
+                this, getDefaultSharedPreferences(this), mContentView);
+
         mPositionUpdater = new MoveScreensaverRunnable(mContentView, mMainClockView);
+
+        if (background.getVisibility() == View.VISIBLE) {
+            mBackgroundAnimator = new PulseScreensaverBackgroundRunnable(background);
+            mBackgroundAnimator.start();
+        }
+
+        applyWindowInsets();
 
         // We want the screen saver to exit upon user interaction.
         setInteractive(false);
@@ -112,6 +131,9 @@ public final class Screensaver extends DreamService {
 
         UiDataModel.getUiDataModel().removePeriodicCallback(mMidnightUpdater);
         stopPositionUpdater();
+        if (mBackgroundAnimator != null) {
+            mBackgroundAnimator.stop();
+        }
 
         // Tear down handlers for time reference changes and date updates.
         unregisterReceiver(mAlarmChangedReceiver);
@@ -123,6 +145,23 @@ public final class Screensaver extends DreamService {
         super.onConfigurationChanged(newConfig);
 
         startPositionUpdater();
+        if (mBackgroundAnimator != null) {
+            mBackgroundAnimator.start();
+        }
+    }
+
+    /**
+     * This method adjusts the space occupied by system elements (such as the status bar,
+     * navigation bar or screen notch) and adjust the display of the application interface
+     * accordingly.
+     */
+    private void applyWindowInsets() {
+        InsetsUtils.doOnApplyWindowInsets(mMainClockView, (v, insets) -> {
+            // Get the notch insets
+            Insets bars = insets.getInsets(WindowInsetsCompat.Type.displayCutout());
+
+            v.setPadding(bars.left, bars.top, bars.right, 0);
+        });
     }
 
     /**

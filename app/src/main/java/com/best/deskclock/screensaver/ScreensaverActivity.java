@@ -24,6 +24,11 @@ import android.view.Window;
 import android.view.WindowInsets;
 import android.view.WindowInsetsController;
 import android.view.WindowManager;
+import android.widget.ImageView;
+
+import androidx.core.graphics.Insets;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.best.deskclock.BaseActivity;
 import com.best.deskclock.R;
@@ -31,9 +36,11 @@ import com.best.deskclock.events.Events;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.ClockUtils;
+import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.ScreensaverUtils;
 import com.best.deskclock.utils.SdkUtils;
+import com.best.deskclock.utils.ThemeUtils;
 
 import java.util.Objects;
 
@@ -71,6 +78,7 @@ public class ScreensaverActivity extends BaseActivity {
     private View mMainClockView;
 
     private MoveScreensaverRunnable mPositionUpdater;
+    private PulseScreensaverBackgroundRunnable mBackgroundAnimator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,15 +87,26 @@ public class ScreensaverActivity extends BaseActivity {
         mDateFormat = getString(R.string.abbrev_wday_month_day_no_year);
         mDateFormatForAccessibility = getString(R.string.full_wday_month_day_no_year);
 
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+        ThemeUtils.allowDisplayCutout(getWindow());
+
         setContentView(R.layout.desk_clock_saver);
         mContentView = findViewById(R.id.saver_container);
-
         mMainClockView = findViewById(R.id.main_clock);
+        ImageView background = findViewById(R.id.screensaver_background_image);
 
-        ScreensaverUtils.setScreensaverMarginsAndClockStyle(
-                this, getDefaultSharedPreferences(this), mMainClockView);
+        ScreensaverUtils.hideScreensaverSystemBars(getWindow(), getWindow().getDecorView());
+
+        ScreensaverUtils.setScreensaverClockStyle(
+                this, getDefaultSharedPreferences(this), mContentView);
 
         mPositionUpdater = new MoveScreensaverRunnable(mContentView, mMainClockView);
+
+        if (background.getVisibility() == View.VISIBLE) {
+            mBackgroundAnimator = new PulseScreensaverBackgroundRunnable(background);
+        }
+
+        applyWindowInsets();
 
         final Intent intent = getIntent();
         if (intent != null) {
@@ -118,12 +137,13 @@ public class ScreensaverActivity extends BaseActivity {
     public void onResume() {
         super.onResume();
 
-        ScreensaverUtils.hideScreensaverSystemBars(getWindow(), mContentView);
-
         ClockUtils.updateDate(mDateFormat, mDateFormatForAccessibility, mContentView);
         AlarmUtils.refreshAlarm(ScreensaverActivity.this, mContentView);
 
         startPositionUpdater();
+        if (mBackgroundAnimator != null) {
+            mBackgroundAnimator.start();
+        }
         UiDataModel.getUiDataModel().addMidnightCallback(mMidnightUpdater, 100);
 
         final Intent intent = SdkUtils.isAtLeastAndroid13()
@@ -138,6 +158,9 @@ public class ScreensaverActivity extends BaseActivity {
         super.onPause();
         UiDataModel.getUiDataModel().removePeriodicCallback(mMidnightUpdater);
         stopPositionUpdater();
+        if (mBackgroundAnimator != null) {
+            mBackgroundAnimator.stop();
+        }
     }
 
     @Override
@@ -150,6 +173,20 @@ public class ScreensaverActivity extends BaseActivity {
     public void onUserInteraction() {
         // We want the screen saver to exit upon user interaction.
         finish();
+    }
+
+    /**
+     * This method adjusts the space occupied by system elements (such as the status bar,
+     * navigation bar or screen notch) and adjust the display of the application interface
+     * accordingly.
+     */
+    private void applyWindowInsets() {
+        InsetsUtils.doOnApplyWindowInsets(mMainClockView, (v, insets) -> {
+            // Get the notch insets
+            Insets bars = insets.getInsets(WindowInsetsCompat.Type.displayCutout());
+
+            v.setPadding(bars.left, bars.top, bars.right, 0);
+        });
     }
 
     /**

@@ -29,6 +29,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_NEXT_
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_BACKGROUND_CORNER_RADIUS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_ANALOG_CLOCK_SIZE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_BLUR_INTENSITY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_BRIGHTNESS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_DIGITAL_CLOCK_FONT_SIZE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SHAKE_INTENSITY;
@@ -145,7 +146,9 @@ public class CustomSeekbarPreference extends SeekBarPreference {
                         } else if ((isTimerShadowOffsetPreference() || isAlarmShadowOffsetPreference())
                                 && progress < MIN_SHADOW_OFFSET_VALUE) {
                             seekBar.setProgress(MIN_SHADOW_OFFSET_VALUE);
-                        } else if ((isTimerBlurIntensityPreference() || isAlarmBlurIntensityPreference())
+                        } else if ((isScreensaverBlurIntensityPreference()
+                                || isTimerBlurIntensityPreference()
+                                || isAlarmBlurIntensityPreference())
                                 && progress < MIN_BLUR_INTENSITY_VALUE) {
                             seekBar.setProgress(MIN_BLUR_INTENSITY_VALUE);
                         } else if (isBluetoothVolumePreference() && progress < MIN_BLUETOOTH_VOLUME) {
@@ -207,7 +210,9 @@ public class CustomSeekbarPreference extends SeekBarPreference {
                 mSeekBar.setMin(MIN_TIMER_SHAKE_INTENSITY_VALUE);
             } else if (isTimerShadowOffsetPreference() || isAlarmShadowOffsetPreference()) {
                 mSeekBar.setMin(MIN_SHADOW_OFFSET_VALUE);
-            } else if (isTimerBlurIntensityPreference() || isAlarmBlurIntensityPreference()) {
+            } else if (isScreensaverBlurIntensityPreference()
+                    || isTimerBlurIntensityPreference()
+                    || isAlarmBlurIntensityPreference()) {
                 mSeekBar.setMin(MIN_BLUR_INTENSITY_VALUE);
             } else if (isBluetoothVolumePreference()) {
                 mSeekBar.setMin(MIN_BLUETOOTH_VOLUME);
@@ -231,6 +236,10 @@ public class CustomSeekbarPreference extends SeekBarPreference {
             currentProgress = getScreensaverBrightnessPreferenceValue();
         } else if (isScreensaverDigitalClockFontSizePreference()) {
             currentProgress = getScreensaverDigitalClockFontSizeValue();
+        } else if (isScreensaverAnalogClockSizePreference()) {
+            currentProgress = getScreensaverAnalogClockSizeValue();
+        } else if (isScreensaverBlurIntensityPreference()) {
+            currentProgress = getScreensaverBlurIntensityValue();
         } else if (isDigitalWidgetBackgroundCornerRadius()) {
             currentProgress = getDigitalWidgetBackgroundCornerRadius();
         } else if (isNextAlarmWidgetBackgroundCornerRadius()) {
@@ -263,8 +272,6 @@ public class CustomSeekbarPreference extends SeekBarPreference {
             currentProgress = getBluetoothVolumeValue();
         } else if (isAnalogClockSizePreference()) {
             currentProgress = getAnalogClockSizeValue();
-        } else if (isScreensaverAnalogClockSizePreference()) {
-            currentProgress = getScreensaverAnalogClockSizeValue();
         } else if (isAlarmAnalogClockSizePreference()) {
             currentProgress = getAlarmAnalogClockSizeValue();
         } else if (isDigitalClockFontSizePreference()) {
@@ -320,7 +327,9 @@ public class CustomSeekbarPreference extends SeekBarPreference {
         } else if (isTimerShadowOffsetPreference() || isAlarmShadowOffsetPreference()) {
             mSeekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_shadow_decrease));
             mSeekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_shadow_increase));
-        } else if (isTimerBlurIntensityPreference() || isAlarmBlurIntensityPreference()) {
+        } else if (isScreensaverBlurIntensityPreference()
+                || isTimerBlurIntensityPreference()
+                || isAlarmBlurIntensityPreference()) {
             mSeekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_blur_decrease));
             mSeekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_blur_increase));
         } else if (isBluetoothVolumePreference()) {
@@ -431,7 +440,9 @@ public class CustomSeekbarPreference extends SeekBarPreference {
             return MIN_TIMER_SHAKE_INTENSITY_VALUE;
         } else if (isTimerShadowOffsetPreference() || isAlarmShadowOffsetPreference()) {
             return MIN_SHADOW_OFFSET_VALUE;
-        } else if (isTimerBlurIntensityPreference() || isAlarmBlurIntensityPreference()) {
+        } else if (isScreensaverBlurIntensityPreference()
+                || isTimerBlurIntensityPreference()
+                || isAlarmBlurIntensityPreference()) {
             return MIN_BLUR_INTENSITY_VALUE;
         } else if (isBluetoothVolumePreference()) {
             return MIN_BLUETOOTH_VOLUME;
@@ -470,7 +481,9 @@ public class CustomSeekbarPreference extends SeekBarPreference {
             return DEFAULT_ALARM_TITLE_FONT_SIZE_PREF;
         } else if (isTimerShadowOffsetPreference() || isAlarmShadowOffsetPreference()) {
             return DEFAULT_SHADOW_OFFSET;
-        } else if (isTimerBlurIntensityPreference() || isAlarmBlurIntensityPreference()) {
+        } else if (isScreensaverBlurIntensityPreference()
+                || isTimerBlurIntensityPreference()
+                || isAlarmBlurIntensityPreference()) {
             return DEFAULT_BLUR_INTENSITY;
         } else if (isBluetoothVolumePreference()) {
             return DEFAULT_BLUETOOTH_VOLUME;
@@ -504,6 +517,7 @@ public class CustomSeekbarPreference extends SeekBarPreference {
         if (!isScreensaverBrightnessPreference()
                 && !isScreensaverDigitalClockFontSizePreference()
                 && !isScreensaverAnalogClockSizePreference()
+                && !isScreensaverBlurIntensityPreference()
                 && !isShakeIntensityPreference()
                 && !isTimerShakeIntensityPreference()
                 && !isTimerShadowOffsetPreference()
@@ -599,6 +613,13 @@ public class CustomSeekbarPreference extends SeekBarPreference {
      */
     private int getScreensaverDigitalClockFontSizeValue() {
         return mPrefs.getInt(getKey(), DEFAULT_DIGITAL_CLOCK_FONT_SIZE);
+    }
+
+    /**
+     * @return the current value of the SeekBar related to screensaver blur effect from SharedPreferences.
+     */
+    private int getScreensaverBlurIntensityValue() {
+        return mPrefs.getInt(getKey(), DEFAULT_BLUR_INTENSITY);
     }
 
     /**
@@ -714,6 +735,14 @@ public class CustomSeekbarPreference extends SeekBarPreference {
      */
     private boolean isScreensaverDigitalClockFontSizePreference() {
         return getKey().equals(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT_SIZE);
+    }
+
+    /**
+     * @return {@code true} if the current preference is related to blur intensity for screensaver.
+     * {@code false} otherwise.
+     */
+    private boolean isScreensaverBlurIntensityPreference() {
+        return getKey().equals(KEY_SCREENSAVER_BLUR_INTENSITY);
     }
 
     /**
