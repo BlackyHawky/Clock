@@ -42,7 +42,8 @@
         android:layout_height="0dp"
         android:scrollbars="none"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/ringtone_layout">
+        app:layout_constraintBottom_toTopOf="@+id/ringtone_layout"
+        tools:ignore="SpeakableTextPresentCheck">
 
         <LinearLayout
             android:id="@+id/expired_timers_list"

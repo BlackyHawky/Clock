@@ -63,13 +63,13 @@ public class AnalogClock extends FrameLayout {
     private final String MINUTE_HAND = "MINUTE_HAND";
     private final String SECOND_HAND = "SECOND_HAND";
 
-    private final Context mContext;
-    private final SharedPreferences mPrefs;
-    private final DataModel.ClockStyle mClockStyle;
-    private final ImageView mHourHand;
-    private final ImageView mMinuteHand;
-    private final ImageView mSecondHand;
-    private final String mDescFormat;
+    private Context mContext;
+    private SharedPreferences mPrefs;
+    private DataModel.ClockStyle mClockStyle;
+    private ImageView mHourHand;
+    private ImageView mMinuteHand;
+    private ImageView mSecondHand;
+    private String mDescFormat;
     private Calendar mTime;
     private TimeZone mTimeZone;
     private boolean mEnableSeconds = true;
@@ -107,38 +107,21 @@ public class AnalogClock extends FrameLayout {
     public AnalogClock(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        mContext = context;
-        mPrefs = getDefaultSharedPreferences(mContext);
-        mClockStyle = getClockStyleForContext();
-        mTime = Calendar.getInstance();
-        mDescFormat = ((SimpleDateFormat) DateFormat.getTimeFormat(mContext)).toLocalizedPattern();
+        if (isInEditMode()) {
+            // Skip logic during Android Studio preview
+            return;
+        }
 
-        final String accentColor = SettingsDAO.getAccentColor(mPrefs);
-        final int alarmClockColor = SettingsDAO.getAlarmClockColor(mPrefs);
-        final int alarmSecondHandColor = SettingsDAO.getAlarmSecondHandColor(mPrefs, mContext);
-        final int defaultClockColor = MaterialColors.getColor(mContext, android.R.attr.textColorPrimary, Color.BLACK);
-
-        // Create clock dial
-        final ImageView dial = createClockComponent(accentColor, DIAL, alarmClockColor, defaultClockColor);
-
-        // Create hour hand
-        mHourHand = createClockComponent(accentColor, HOUR_HAND, alarmClockColor, defaultClockColor);
-
-        // Create minute hand
-        mMinuteHand = createClockComponent(accentColor, MINUTE_HAND, alarmClockColor, defaultClockColor);
-
-        // Create second hand
-        mSecondHand = createSecondHand(accentColor, alarmSecondHandColor);
-
-        addView(dial);
-        addView(mHourHand);
-        addView(mMinuteHand);
-        addView(mSecondHand);
+        init(context);
     }
 
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
+
+        if (isInEditMode()) {
+            return;
+        }
 
         final IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_TIME_TICK);
@@ -167,6 +150,36 @@ public class AnalogClock extends FrameLayout {
 
         mContext.unregisterReceiver(mIntentReceiver);
         removeCallbacks(mClockTick);
+    }
+
+    private void init(Context context) {
+        mContext = context;
+        mPrefs = getDefaultSharedPreferences(mContext);
+        mClockStyle = getClockStyleForContext();
+        mTime = Calendar.getInstance();
+        mDescFormat = ((SimpleDateFormat) DateFormat.getTimeFormat(mContext)).toLocalizedPattern();
+
+        final String accentColor = SettingsDAO.getAccentColor(mPrefs);
+        final int alarmClockColor = SettingsDAO.getAlarmClockColor(mPrefs);
+        final int alarmSecondHandColor = SettingsDAO.getAlarmSecondHandColor(mPrefs, mContext);
+        final int defaultClockColor = MaterialColors.getColor(mContext, android.R.attr.textColorPrimary, Color.BLACK);
+
+        // Create clock dial
+        final ImageView dial = createClockComponent(accentColor, DIAL, alarmClockColor, defaultClockColor);
+
+        // Create hour hand
+        mHourHand = createClockComponent(accentColor, HOUR_HAND, alarmClockColor, defaultClockColor);
+
+        // Create minute hand
+        mMinuteHand = createClockComponent(accentColor, MINUTE_HAND, alarmClockColor, defaultClockColor);
+
+        // Create second hand
+        mSecondHand = createSecondHand(accentColor, alarmSecondHandColor);
+
+        addView(dial);
+        addView(mHourHand);
+        addView(mMinuteHand);
+        addView(mSecondHand);
     }
 
     /**

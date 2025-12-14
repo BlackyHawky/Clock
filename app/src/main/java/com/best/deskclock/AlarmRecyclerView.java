@@ -58,9 +58,4 @@ public class AlarmRecyclerView extends RecyclerView {
         }
     }
 
-    @Override
-    public boolean performClick() {
-        return super.performClick();
-    }
-
 }

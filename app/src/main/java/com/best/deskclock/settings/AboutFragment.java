@@ -28,6 +28,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_BACKGROUND_I
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_DURATION_FONT;
 import static com.best.deskclock.utils.Utils.ACTION_LANGUAGE_CODE_CHANGED;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -148,6 +149,7 @@ public class AboutFragment extends ScreenFragment
         super.onViewCreated(view, savedInstanceState);
 
         requireActivity().addMenuProvider(new MenuProvider() {
+            @SuppressLint("AlwaysShowAction")
             @Override
             public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
                 menu.clear();

@@ -46,7 +46,8 @@
         app:drawableTint="?attr/colorOnSurfaceVariant"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/delete_timer"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TextContrastCheck" />
 
     <ImageButton
         android:id="@+id/delete_timer"
@@ -60,7 +61,8 @@
         android:contentDescription="@string/delete"
         app:tint="?attr/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <com.best.deskclock.uicomponents.CircleButtonsLayout
         android:id="@+id/circle_container"
@@ -101,7 +103,8 @@
             android:scaleType="centerCrop"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/reset"
-            app:tint="?attr/colorPrimary" />
+            app:tint="?attr/colorPrimary"
+            tools:ignore="TouchTargetSizeCheck" />
 
     </com.best.deskclock.uicomponents.CircleButtonsLayout>
 
@@ -129,7 +132,8 @@
         android:contentDescription="@null"
         app:tint="?android:attr/textColor"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
     <!-- For tablets with single timer, the size of this button is adjusted.
          See the TimerItem.java file. -->

@@ -45,7 +45,7 @@
         android:paddingTop="3dp"
         android:ellipsize="end"
         android:maxLines="2"
-        tools:text="My personal note here"
+        tools:text="My personal note"
         tools:visibility="visible" />
 
 </LinearLayout>

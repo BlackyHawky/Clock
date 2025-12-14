@@ -105,6 +105,11 @@ public class TimerItem extends ConstraintLayout {
     protected void onFinishInflate() {
         super.onFinishInflate();
 
+        if (isInEditMode()) {
+            // Skip logic during Android Studio preview
+            return;
+        }
+
         mContext = getContext();
         mPrefs = getDefaultSharedPreferences(mContext);
         mDisplayMetrics = getResources().getDisplayMetrics();

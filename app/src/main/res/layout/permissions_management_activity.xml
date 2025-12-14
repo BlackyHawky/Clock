@@ -55,7 +55,8 @@
                     android:contentDescription="@null"
                     android:src="@drawable/ic_about"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/IBO_title" />
+                    app:layout_constraintTop_toTopOf="@id/IBO_title"
+                    tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/IBO_requirement_type_title"
@@ -76,7 +77,8 @@
                     android:textColor="@color/colorAlert"
                     app:layout_constraintStart_toEndOf="@+id/IBO_requirement_type_title"
                     app:layout_constraintEnd_toStartOf="@+id/IBO_image"
-                    app:layout_constraintTop_toBottomOf="@+id/IBO_title" />
+                    app:layout_constraintTop_toBottomOf="@+id/IBO_title"
+                    tools:ignore="TextContrastCheck" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/IBO_status_title"
@@ -98,7 +100,8 @@
                     app:layout_constraintEnd_toStartOf="@+id/IBO_image"
                     app:layout_constraintTop_toBottomOf="@+id/IBO_requirement_type_title"
                     tools:text="@string/permission_granted"
-                    tools:textColor="#66BB6A" />
+                    tools:textColor="#66BB6A"
+                    tools:ignore="TextContrastCheck" />
 
                 <ImageView
                     android:id="@+id/IBO_image"
@@ -150,7 +153,8 @@
                     android:src="@drawable/ic_about"
                     android:scaleType="center"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/notification_title" />
+                    app:layout_constraintTop_toTopOf="@id/notification_title"
+                    tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/notification_requirement_type_title"
@@ -171,7 +175,8 @@
                     android:textColor="@color/colorAlert"
                     app:layout_constraintStart_toEndOf="@+id/notification_requirement_type_title"
                     app:layout_constraintEnd_toStartOf="@+id/notification_image"
-                    app:layout_constraintTop_toBottomOf="@+id/notification_title" />
+                    app:layout_constraintTop_toBottomOf="@+id/notification_title"
+                    tools:ignore="TextContrastCheck" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/notification_status_title"
@@ -193,7 +198,8 @@
                     app:layout_constraintEnd_toStartOf="@+id/notification_image"
                     app:layout_constraintTop_toBottomOf="@+id/notification_requirement_type_title"
                     tools:text="@string/permission_granted"
-                    tools:textColor="#66BB6A" />
+                    tools:textColor="#66BB6A"
+                    tools:ignore="TextContrastCheck" />
 
                 <ImageView
                     android:id="@+id/notification_image"
@@ -247,7 +253,8 @@
                     android:src="@drawable/ic_about"
                     android:scaleType="center"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/FSN_title" />
+                    app:layout_constraintTop_toTopOf="@id/FSN_title"
+                    tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/FSN_requirement_type_title"
@@ -268,7 +275,8 @@
                     android:textColor="@color/colorAlert"
                     app:layout_constraintStart_toEndOf="@+id/FSN_requirement_type_title"
                     app:layout_constraintEnd_toStartOf="@+id/FSN_image"
-                    app:layout_constraintTop_toBottomOf="@+id/FSN_title" />
+                    app:layout_constraintTop_toBottomOf="@+id/FSN_title"
+                    tools:ignore="TextContrastCheck" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/FSN_status_title"
@@ -290,7 +298,8 @@
                     app:layout_constraintEnd_toStartOf="@+id/FSN_image"
                     app:layout_constraintTop_toBottomOf="@+id/FSN_requirement_type_title"
                     tools:text="@string/permission_granted"
-                    tools:textColor="#66BB6A" />
+                    tools:textColor="#66BB6A"
+                    tools:ignore="TextContrastCheck" />
 
                 <ImageView
                     android:id="@+id/FSN_image"
@@ -344,7 +353,8 @@
                     android:src="@drawable/ic_about"
                     android:scaleType="center"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/show_lockscreen_title" />
+                    app:layout_constraintTop_toTopOf="@id/show_lockscreen_title"
+                    tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/show_lockscreen_type_title"
@@ -365,7 +375,8 @@
                     android:textColor="@color/colorAlert"
                     app:layout_constraintStart_toEndOf="@+id/show_lockscreen_type_title"
                     app:layout_constraintEnd_toStartOf="@+id/show_lockscreen_image"
-                    app:layout_constraintTop_toBottomOf="@+id/show_lockscreen_title" />
+                    app:layout_constraintTop_toBottomOf="@+id/show_lockscreen_title"
+                    tools:ignore="TextContrastCheck" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/show_lockscreen_info_title"

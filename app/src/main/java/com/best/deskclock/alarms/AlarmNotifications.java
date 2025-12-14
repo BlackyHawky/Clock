@@ -379,6 +379,7 @@ public final class AlarmNotifications {
         updateMissedAlarmGroupNotification(context, -1, notification);
     }
 
+    @SuppressLint("FullScreenIntentPolicy")
     static synchronized void showAlarmNotification(Service service, AlarmInstance instance) {
         LogUtils.v("Displaying alarm notification for alarm instance: " + instance.mId);
 

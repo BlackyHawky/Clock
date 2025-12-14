@@ -42,7 +42,8 @@
             android:defaultValue="dial_sun"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            tools:layout="@layout/settings_preference_layout"
+            tools:isPreferenceVisible="false" />
 
         <com.best.deskclock.settings.CustomSeekbarPreference
             android:key="key_analog_clock_size"

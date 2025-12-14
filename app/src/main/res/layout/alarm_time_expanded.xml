@@ -45,7 +45,8 @@
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/arrow" />
+        app:layout_constraintEnd_toStartOf="@+id/arrow"
+        tools:ignore="TextContrastCheck" />
 
     <ImageButton
         android:id="@+id/arrow"
@@ -58,7 +59,8 @@
         android:src="@drawable/ic_caret_up"
         android:scaleType="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <com.best.deskclock.uicomponents.TextTime
         android:id="@+id/digital_clock"
@@ -92,7 +94,8 @@
         android:layout_height="40dp"
         android:layout_marginEnd="12dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/days_of_week" />
+        app:layout_constraintBottom_toBottomOf="@id/days_of_week"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <!-- Day buttons are added programmatically -->
     <LinearLayout
@@ -157,7 +160,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/repeat_days"
         app:layout_constraintBottom_toBottomOf="@+id/schedule_alarm"
-        tools:visibility="visible" />
+        tools:visibility="visible"
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/choose_ringtone"

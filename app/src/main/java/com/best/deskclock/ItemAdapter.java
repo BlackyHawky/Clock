@@ -86,6 +86,8 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder<?>>
             if (mOnItemChangedListener != null) {
                 mOnItemChangedListener.onItemChanged(itemHolder);
             }
+
+            @SuppressWarnings("SuspiciousMethodCalls")
             final int position = mItemHolders.indexOf(itemHolder);
             if (position != RecyclerView.NO_POSITION) {
                 notifyItemChanged(position);

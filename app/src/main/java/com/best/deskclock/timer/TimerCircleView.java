@@ -146,6 +146,11 @@ public final class TimerCircleView extends View {
     }
 
     private boolean isSingleTimer() {
+        if (isInEditMode()) {
+            // Skip logic during Android Studio preview
+            return false;
+        }
+
         return DataModel.getDataModel().getTimers().size() == 1;
     }
 
