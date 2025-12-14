@@ -10,12 +10,14 @@ import static android.content.Context.AUDIO_SERVICE;
 import static android.media.AudioManager.STREAM_ALARM;
 import static android.view.View.GONE;
 
+import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.utils.RingtoneUtils.ALARM_PREVIEW_DURATION_MS;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.ContentObserver;
+import android.graphics.Color;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Handler;
@@ -34,9 +36,12 @@ import androidx.preference.SeekBarPreference;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.ringtone.RingtonePreviewKlaxon;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.ThemeUtils;
+import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.color.MaterialColors;
 
 import java.util.Locale;
 
@@ -55,14 +60,38 @@ public class AlarmVolumePreference extends SeekBarPreference {
 
     public AlarmVolumePreference(Context context, AttributeSet attrs) {
         super(context, attrs);
+        setLayoutResource(R.layout.settings_preference_seekbar_layout);
     }
 
     @Override
     public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
-        super.onBindViewHolder(holder);
+        if (holder.itemView.isInEditMode()) {
+            // Skip logic during Android Studio preview
+            return;
+        }
 
         mContext = getContext();
         mPrefs = getDefaultSharedPreferences(mContext);
+
+        final MaterialCardView prefCardView = (MaterialCardView) holder.findViewById(R.id.pref_card_view);
+        final boolean isCardBackgroundDisplayed = SettingsDAO.isCardBackgroundDisplayed(mPrefs);
+        final boolean isCardBorderDisplayed = SettingsDAO.isCardBorderDisplayed(mPrefs);
+
+        float strokeWidth = dpToPx(2, mContext.getResources().getDisplayMetrics());
+
+        if (isCardBackgroundDisplayed) {
+            prefCardView.setCardBackgroundColor(MaterialColors.getColor(prefCardView, com.google.android.material.R.attr.colorSurface));
+        } else {
+            prefCardView.setCardBackgroundColor(Color.TRANSPARENT);
+        }
+
+        if (isCardBorderDisplayed) {
+            prefCardView.setStrokeWidth((int) strokeWidth);
+        } else {
+            prefCardView.setStrokeWidth(0);
+        }
+
+        super.onBindViewHolder(holder);
 
         mAudioManager = (AudioManager) mContext.getSystemService(AUDIO_SERVICE);
 

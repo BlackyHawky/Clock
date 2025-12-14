@@ -2,6 +2,7 @@
 
 package com.best.deskclock.settings;
 
+import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ANALOG_CLOCK_SIZE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_DIGITAL_CLOCK_FONT_SIZE;
@@ -61,11 +62,13 @@ import androidx.preference.SeekBarPreference;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.ringtone.RingtonePreviewKlaxon;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.WidgetUtils;
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.color.MaterialColors;
 
 import java.util.Locale;
@@ -94,6 +97,7 @@ public class CustomSeekbarPreference extends SeekBarPreference {
 
     public CustomSeekbarPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        setLayoutResource(R.layout.settings_preference_seekbar_layout);
     }
 
     /**
@@ -102,10 +106,33 @@ public class CustomSeekbarPreference extends SeekBarPreference {
      */
     @Override
     public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
-        super.onBindViewHolder(holder);
+        if (holder.itemView.isInEditMode()) {
+            // Skip logic during Android Studio preview
+            return;
+        }
 
         mContext = getContext();
         mPrefs = getDefaultSharedPreferences(mContext);
+
+        final MaterialCardView prefCardView = (MaterialCardView) holder.findViewById(R.id.pref_card_view);
+        final boolean isCardBackgroundDisplayed = SettingsDAO.isCardBackgroundDisplayed(mPrefs);
+        final boolean isCardBorderDisplayed = SettingsDAO.isCardBorderDisplayed(mPrefs);
+
+        float strokeWidth = dpToPx(2, mContext.getResources().getDisplayMetrics());
+
+        if (isCardBackgroundDisplayed) {
+            prefCardView.setCardBackgroundColor(MaterialColors.getColor(prefCardView, com.google.android.material.R.attr.colorSurface));
+        } else {
+            prefCardView.setCardBackgroundColor(Color.TRANSPARENT);
+        }
+
+        if (isCardBorderDisplayed) {
+            prefCardView.setStrokeWidth((int) strokeWidth);
+        } else {
+            prefCardView.setStrokeWidth(0);
+        }
+
+        super.onBindViewHolder(holder);
 
         holder.itemView.setClickable(false);
 
