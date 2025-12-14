@@ -11,14 +11,14 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SYSTEM_EXEMPTED" />
-    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" tools:ignore="ForegroundServicesPolicy" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" tools:ignore="FullScreenIntentPolicy" />
     <uses-permission android:name="org.codeaurora.permission.POWER_OFF_ALARM" />
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" android:maxSdkVersion="32"/>
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" tools:ignore="ExactAlarmPolicy" />
     <uses-permission android:name="android.permission.TURN_SCREEN_ON" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
     <uses-permission android:name="android.permission.FLASHLIGHT"/>
@@ -31,17 +31,14 @@
         android:name="com.best.deskclock.DeskClockApplication"
         android:allowBackup="false"
         android:appCategory="productivity"
-        android:backupAgent="DeskClockBackupAgent"
-        android:fullBackupContent="@xml/backup_scheme"
-        android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupOnly="true"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:label="${appName}"
         android:requiredForAllUsers="true"
         android:supportsRtl="true"
         android:theme="@style/Theme.DeskClock"
-        tools:targetApi="s">
+        tools:targetApi="s"
+        tools:ignore="DataExtractionRules">
 
         <!-- ============================================================== -->
         <!-- Main app components.                                           -->
@@ -182,10 +179,17 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.LOCALE_CHANGED" />
                 <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
-                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
                 <action android:name="android.intent.action.TIME_SET" />
                 <action android:name="android.intent.action.TIMEZONE_CHANGED" />
                 <action android:name="org.codeaurora.poweroffalarm.action.UPDATE_ALARM" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name="com.best.deskclock.PackageReplacedReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
             </intent-filter>
         </receiver>
 
@@ -196,7 +200,11 @@
         <service
             android:name="com.best.deskclock.alarms.AlarmService"
             android:directBootAware="true"
-            android:foregroundServiceType="systemExempted" />
+            android:foregroundServiceType="specialUse">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="Used to notify the user that alarms are running" />
+        </service>
 
         <!-- ============================================================== -->
         <!-- Timer components.                                              -->
@@ -234,7 +242,11 @@
             android:name="com.best.deskclock.timer.TimerService"
             android:description="@string/timer_service_desc"
             android:directBootAware="true"
-            android:foregroundServiceType="systemExempted" />
+            android:foregroundServiceType="specialUse">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="Used to notify the user that timers are running" />
+        </service>
 
         <!-- ============================================================== -->
         <!-- Stopwatch components.                                          -->
@@ -244,8 +256,11 @@
             android:name="com.best.deskclock.stopwatch.StopwatchService"
             android:description="@string/stopwatch_service_desc"
             android:directBootAware="true"
-            android:foregroundServiceType="systemExempted" />
-
+            android:foregroundServiceType="specialUse">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="Used to notify the user that stopwatch is running" />
+        </service>
 
         <!-- ============================================================== -->
         <!-- Screen saver components.                                       -->

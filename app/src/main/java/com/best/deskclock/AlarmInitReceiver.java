@@ -51,12 +51,11 @@ public class AlarmInitReceiver extends BroadcastReceiver {
      * This receiver handles a variety of actions:
      *
      * <ul>
-     *     <li>Clean up backup data that was recently restored to this device on
-     *     ACTION_COMPLETE_RESTORE.</li>
-     *     <li>Reset timers and stopwatch on ACTION_BOOT_COMPLETED</li>
+     *     <li>Update timers and stopwatch datas on ACTION_BOOT_COMPLETED, TIME_SET
+     *     and TIMEZONE_CHANGED</li>
+     *     <li>Rebuild notifications on ACTION_BOOT_COMPLETED and LOCALE_CHANGED</li>
      *     <li>Fix alarm states on ACTION_BOOT_COMPLETED, TIME_SET, TIMEZONE_CHANGED,
      *     and LOCALE_CHANGED</li>
-     *     <li>Rebuild notifications on MY_PACKAGE_REPLACED</li>
      * </ul>
      */
 
@@ -87,18 +86,11 @@ public class AlarmInitReceiver extends BroadcastReceiver {
         if (Intent.ACTION_BOOT_COMPLETED.equals(action)
                 || Intent.ACTION_LOCALE_CHANGED.equals(action)) {
             Controller.getController().updateShortcuts();
+            DataModel.getDataModel().updateAllNotifications();
+
             if (SdkUtils.isAtLeastAndroid8()) {
                 NotificationUtils.updateNotificationChannels(context);
             }
-        }
-
-        // Notifications are canceled by the system on application upgrade. This broadcast signals
-        // that the new app is free to rebuild the notifications using the existing data.
-        // Additionally on new app installs, make sure to enable shortcuts immediately as opposed
-        // to waiting for system reboot.
-        if (Intent.ACTION_MY_PACKAGE_REPLACED.equals(action)) {
-            DataModel.getDataModel().updateAllNotifications();
-            Controller.getController().updateShortcuts();
         }
 
         // Update alarm status once receive the status update broadcast
@@ -138,11 +130,8 @@ public class AlarmInitReceiver extends BroadcastReceiver {
 
         AsyncHandler.post(() -> {
             try {
-                // Process restored data if any exists
-                if (!DeskClockBackupAgent.processRestoredData(context)) {
-                    // Update all the alarm instances on time change event
-                    AlarmStateManager.fixAlarmInstances(context);
-                }
+                // Update all the alarm instances
+                AlarmStateManager.fixAlarmInstances(context);
             } finally {
                 result.finish();
                 wl.release();

@@ -66,11 +66,6 @@ public final class SettingsDAO {
     private static final String KEY_ALARM_GLOBAL_ID = "intent.extra.alarm.global.id";
 
     /**
-     * Key to a preference that indicates whether restore (of backup and restore) has completed.
-     */
-    private static final String KEY_RESTORE_BACKUP_FINISHED = "restore_finished";
-
-    /**
      * @return the id used to discriminate relevant AlarmManager callbacks from defunct ones
      */
     public static int getGlobalIntentId(SharedPreferences prefs) {
@@ -883,24 +878,6 @@ public final class SettingsDAO {
             case MONDAY -> MON_TO_SUN;
             default -> throw new IllegalArgumentException("Unknown weekday: " + firstCalendarDay);
         };
-    }
-
-    /**
-     * @return {@code true} if the restore process (of backup and restore) has completed. {@code false} otherwise.
-     */
-    public static boolean isRestoreBackupFinished(SharedPreferences prefs) {
-        return prefs.getBoolean(KEY_RESTORE_BACKUP_FINISHED, false);
-    }
-
-    /**
-     * @param finished {@code true} means the restore process (of backup and restore) has completed
-     */
-    public static void setRestoreBackupFinished(SharedPreferences prefs, boolean finished) {
-        if (finished) {
-            prefs.edit().putBoolean(KEY_RESTORE_BACKUP_FINISHED, true).apply();
-        } else {
-            prefs.edit().remove(KEY_RESTORE_BACKUP_FINISHED).apply();
-        }
     }
 
     /**
