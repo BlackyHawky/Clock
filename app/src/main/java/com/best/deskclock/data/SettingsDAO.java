@@ -507,6 +507,30 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return the URI of the image to be displayed in the screensaver.
+     */
+    public static String getScreensaverBackgroundImage(SharedPreferences prefs) {
+        return prefs.getString(KEY_SCREENSAVER_BACKGROUND_IMAGE, null);
+    }
+
+    /**
+     * @return {@code true} if a blur effect should be applied to the screensaver image.
+     * {@code false} otherwise.
+     */
+    public static boolean isScreensaverBlurEffectEnabled(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm_display.xml
+        return prefs.getBoolean(KEY_ENABLE_SCREENSAVER_BLUR_EFFECT, DEFAULT_ENABLE_BLUR_EFFECT);
+    }
+
+    /**
+     * @return the blur intensity applied to the screensaver image.
+     */
+    public static int getScreensaverBlurIntensity(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm_display.xml
+        return prefs.getInt(KEY_SCREENSAVER_BLUR_INTENSITY, DEFAULT_BLUR_INTENSITY);
+    }
+
+    /**
      * @return the uri of the selected ringtone or the {@code defaultUri} if no explicit selection
      * has yet been made.
      */

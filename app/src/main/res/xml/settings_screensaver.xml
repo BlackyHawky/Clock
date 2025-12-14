@@ -205,6 +205,31 @@
         tools:layout="@layout/settings_preference_category_layout">
 
         <Preference
+            android:key="key_screensaver_background_image"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:title="@string/background_image_title"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <SwitchPreferenceCompat
+            android:key="key_enable_screensaver_blur_effect"
+            android:title="@string/enable_blur_effect_title"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <com.best.deskclock.settings.CustomSeekbarPreference
+            android:key="key_screensaver_blur_intensity"
+            android:title="@string/blur_intensity_title"
+            android:summary="@string/label_default"
+            android:defaultValue="20"
+            android:max="100"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_seekbar_layout" />
+
+        <Preference
             android:key="key_screensaver_preview"
             android:title="@string/preview_title"
             android:summary="@string/screensaver_preview_summary"

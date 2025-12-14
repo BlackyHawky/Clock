@@ -2,81 +2,116 @@
 
 package com.best.deskclock.utils;
 
-import static androidx.core.util.TypedValueCompat.dpToPx;
-
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
+import android.graphics.RenderEffect;
+import android.graphics.Shader;
 import android.graphics.Typeface;
-import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.core.view.ViewCompat;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 
 import com.best.deskclock.R;
-import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.DataModel.ClockStyle;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.uicomponents.AnalogClock;
 import com.best.deskclock.uicomponents.AutoSizingTextClock;
 
+import java.io.File;
+
 public class ScreensaverUtils {
 
     /**
-     * Generic method to apply a color filter to the screensaver.
+     * Applies brightness adjustments to a view used in the screensaver.
+     *
+     * <p>The brightness level is retrieved from user preferences and applied differently
+     * depending on the type of view:</p>
+     *
+     * <ul>
+     *   <li><b>ImageView (background):</b> A ColorMatrix is applied to dim the image.</li>
+     *   <li><b>TextView (date, next alarm):</b> The text color is recalculated based on the
+     *       brightness factor.</li>
+     *   <li><b>Standard AnalogClock:</b> A PorterDuffColorFilter is applied using the tinted
+     *       and brightness-adjusted clock color.</li>
+     *   <li><b>Material AnalogClock:</b> Only the brightness ColorMatrix is applied.</li>
+     * </ul>
+     *
+     * <p>This method ensures consistent brightness behavior across all screensaver elements,
+     * while preserving the intended color styling of each clock type.</p>
+     *
+     * @param view  The view to update.
+     * @param prefs User preferences containing the brightness setting.
+     * @param color Optional base color used for analog clock tinting.
      */
-    private static void applyColorFilter(View view, Context context, SharedPreferences prefs,
-                                         int color, PorterDuff.Mode mode) {
+    private static void applyBrightness(View view, SharedPreferences prefs, @Nullable Integer color) {
+        int brightnessPercentage = SettingsDAO.getScreensaverBrightness(prefs);
 
-        String colorFilter = getScreensaverColorFilter(context, prefs, color);
+        float factor = 0.1f + (brightnessPercentage / 100f) * 0.9f;
+
+        ColorMatrix matrix = new ColorMatrix();
+        matrix.setScale(factor, factor, factor, 1f);
+
+        ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+
+        // For background
+        if (view instanceof ImageView imageView) {
+            imageView.setColorFilter(filter);
+            return;
+        }
+
+        // For date and next alarm
+        if (view instanceof TextView textView) {
+            if (color != null) {
+                textView.setTextColor(applyBrightnessToColor(color, factor));
+            }
+            return;
+        }
+
+        // For standard analog clock
+        if (view instanceof AnalogClock && color != null) {
+            Paint paint = new Paint();
+            paint.setColorFilter(new PorterDuffColorFilter(applyBrightnessToColor(color, factor), PorterDuff.Mode.SRC_IN));
+            view.setLayerType(View.LAYER_TYPE_HARDWARE, paint);
+            return;
+        }
+
+        // For Material analog clock
         Paint paint = new Paint();
-        paint.setColor(Color.WHITE);
-        paint.setColorFilter(new PorterDuffColorFilter(Color.parseColor(colorFilter), mode));
+        paint.setColorFilter(filter);
         view.setLayerType(View.LAYER_TYPE_HARDWARE, paint);
     }
 
     /**
-     * For screensaver, calculate the color filter to use to dim the color.
+     * Applies a brightness factor to a given RGB color.
      *
-     * @param color the color selected in the screensaver color picker
+     * <p>The method multiplies each color channel (red, green, blue) by the provided factor,
+     * clamping the result to the valid 0–255 range. This is used to dim or brighten colors
+     * consistently with the screensaver brightness setting.</p>
+     *
+     * @param color  The original RGB color.
+     * @param factor The brightness multiplier (0.0–1.0).
+     * @return The brightness-adjusted RGB color.
      */
-    private static String getScreensaverColorFilter(Context context, SharedPreferences prefs, int color) {
-        final int brightnessPercentage = SettingsDAO.getScreensaverBrightness(prefs);
-
-        if (SettingsDAO.areScreensaverClockDynamicColors(prefs)
-                && SettingsDAO.getScreensaverClockStyle(prefs) != DataModel.ClockStyle.ANALOG_MATERIAL) {
-            color = context.getColor(R.color.md_theme_inversePrimary);
-        }
-
-        String colorFilter = String.format("%06X", 0xFFFFFF & color);
-        // The alpha channel should range from 16 (10 hex) to 192 (C0 hex).
-        String alpha = String.format("%02X", 16 + (192 * brightnessPercentage / 100));
-
-        colorFilter = "#" + alpha + colorFilter;
-
-        return colorFilter;
-    }
-
-    /**
-     * Dim the different views that make up the screensaver.
-     */
-    private static void dimScreensaverView(Context context, SharedPreferences prefs, View view, int color) {
-        applyColorFilter(view, context, prefs, color, PorterDuff.Mode.SRC_IN);
-    }
-
-    /**
-     * Dim the screensaver Material analog clock.
-     */
-    private static void dimMaterialAnalogClock(Context context, SharedPreferences prefs, View materialAnalogClock) {
-        applyColorFilter(materialAnalogClock, context, prefs, Color.parseColor("#FFFFFF"), PorterDuff.Mode.MULTIPLY);
+    private static int applyBrightnessToColor(int color, float factor) {
+        int r = Math.min(255, (int) (Color.red(color) * factor));
+        int g = Math.min(255, (int) (Color.green(color) * factor));
+        int b = Math.min(255, (int) (Color.blue(color) * factor));
+        return Color.rgb(r, g, b);
     }
 
     /**
@@ -153,43 +188,80 @@ public class ScreensaverUtils {
     /**
      * For screensaver, set the margins and the style of the clock.
      */
-    public static void setScreensaverMarginsAndClockStyle(final Context context, SharedPreferences prefs,
-                                                          final View clock) {
+    public static void setScreensaverClockStyle(final Context context, SharedPreferences prefs,
+                                                final View view) {
 
-        final View mainClockView = clock.findViewById(R.id.main_clock);
+        final View mainClockView = view.findViewById(R.id.main_clock);
+        final ImageView backgroundImage = view.findViewById(R.id.screensaver_background_image);
+        final String imagePath = SettingsDAO.getScreensaverBackgroundImage(prefs);
 
-        applyMargins(context, clock);
+        if (imagePath != null) {
+            backgroundImage.setVisibility(View.VISIBLE);
+
+            File imageFile = new File(imagePath);
+            if (imageFile.exists()) {
+                Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
+                if (bitmap != null) {
+                    backgroundImage.setImageBitmap(bitmap);
+                    applyBrightness(backgroundImage, prefs, null);
+
+                    if (SdkUtils.isAtLeastAndroid12() && SettingsDAO.isScreensaverBlurEffectEnabled(prefs)) {
+                        float intensity = SettingsDAO.getScreensaverBlurIntensity(prefs);
+                        RenderEffect blur = RenderEffect.createBlurEffect(intensity, intensity, Shader.TileMode.CLAMP);
+                        backgroundImage.setRenderEffect(blur);
+                    }
+                } else {
+                    LogUtils.e("Bitmap null for path: " + imagePath);
+                    backgroundImage.setVisibility(View.GONE);
+                }
+            } else {
+                LogUtils.e("Image file not found: " + imagePath);
+                backgroundImage.setVisibility(View.GONE);
+            }
+        } else {
+            backgroundImage.setVisibility(View.GONE);
+        }
 
         // Style
-        final DataModel.ClockStyle screensaverClockStyle = SettingsDAO.getScreensaverClockStyle(prefs);
+        final ClockStyle screensaverClockStyle = SettingsDAO.getScreensaverClockStyle(prefs);
         final AnalogClock analogClock = mainClockView.findViewById(R.id.analog_clock);
         final AutoSizingTextClock textClock = mainClockView.findViewById(R.id.digital_clock);
         final boolean areClockSecondsEnabled = SettingsDAO.areScreensaverClockSecondsDisplayed(prefs);
         final TextView date = mainClockView.findViewById(R.id.date);
         final TextView nextAlarmIcon = mainClockView.findViewById(R.id.nextAlarmIcon);
         final TextView nextAlarm = mainClockView.findViewById(R.id.nextAlarm);
-        final int screenSaverClockColorPicker = SettingsDAO.getScreensaverClockColorPicker(prefs);
-        final int screensaverDateColorPicker = SettingsDAO.getScreensaverDateColorPicker(prefs);
-        final int screensaverNextAlarmColorPicker = SettingsDAO.getScreensaverNextAlarmColorPicker(prefs);
+        final int inversePrimaryColor = ContextCompat.getColor(context, R.color.md_theme_inversePrimary);
+        final boolean isMaterialAnalogClock = screensaverClockStyle == ClockStyle.ANALOG_MATERIAL;
+        final boolean isDynamicColors = SettingsDAO.areScreensaverClockDynamicColors(prefs);
+
+        final int screenSaverClockColorPicker = isDynamicColors
+                ? inversePrimaryColor
+                : SettingsDAO.getScreensaverClockColorPicker(prefs);
+        final int screensaverDateColorPicker = isDynamicColors && !isMaterialAnalogClock
+                ? inversePrimaryColor
+                : SettingsDAO.getScreensaverDateColorPicker(prefs);
+        final int screensaverNextAlarmColorPicker = isDynamicColors && !isMaterialAnalogClock
+                ? inversePrimaryColor
+                : SettingsDAO.getScreensaverNextAlarmColorPicker(prefs);
 
         ClockUtils.setClockStyle(screensaverClockStyle, textClock, analogClock);
 
-        if (screensaverClockStyle == DataModel.ClockStyle.DIGITAL) {
+        if (screensaverClockStyle == ClockStyle.DIGITAL) {
             textClock.setTypeface(getScreensaverClockTypeface(prefs));
             ClockUtils.setDigitalClockTimeFormat(textClock, 0.4f, areClockSecondsEnabled,
                     false, false, true);
 
             textClock.applyUserPreferredTextSizeSp(SettingsDAO.getScreensaverDigitalClockFontSize(prefs));
 
-            dimScreensaverView(context, prefs, textClock, screenSaverClockColorPicker);
+            applyBrightness(textClock, prefs, screenSaverClockColorPicker);
         } else {
             ClockUtils.adjustAnalogClockSize(analogClock, prefs, false, false, true);
             ClockUtils.setAnalogClockSecondsEnabled(screensaverClockStyle, analogClock, areClockSecondsEnabled);
 
-            if (screensaverClockStyle == DataModel.ClockStyle.ANALOG_MATERIAL) {
-                dimMaterialAnalogClock(context, prefs, analogClock);
+            if (isMaterialAnalogClock) {
+                applyBrightness(analogClock, prefs, null);
             } else {
-                dimScreensaverView(context, prefs, analogClock, screenSaverClockColorPicker);
+                applyBrightness(analogClock, prefs, screenSaverClockColorPicker);
             }
         }
 
@@ -197,40 +269,9 @@ public class ScreensaverUtils {
         ClockUtils.setClockIconTypeface(nextAlarmIcon);
         setScreensaverNextAlarmFormat(prefs, nextAlarm);
 
-        dimScreensaverView(context, prefs, date, screensaverDateColorPicker);
-        dimScreensaverView(context, prefs, nextAlarmIcon, screensaverNextAlarmColorPicker);
-        dimScreensaverView(context, prefs, nextAlarm, screensaverNextAlarmColorPicker);
-    }
-
-    /**
-     * Calculate and apply margins.
-     */
-    private static void applyMargins(Context context, View clockView) {
-        final DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-        final boolean isTablet = ThemeUtils.isTablet();
-        final boolean isLandscape = ThemeUtils.isLandscape();
-        final View mainClockView = clockView.findViewById(R.id.main_clock);
-
-        int marginLeftAndRight = (int) dpToPx(isTablet ? 20 : 16, displayMetrics);
-        int marginTop = (int) dpToPx(isTablet ? (isLandscape ? 32 : 48) : (isLandscape ? 16 : 24), displayMetrics);
-        int marginBottom = (int) dpToPx(isTablet ? 20 : 16, displayMetrics);
-
-        // Apply margins
-        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) mainClockView.getLayoutParams();
-        params.setMargins(marginLeftAndRight, marginTop, marginLeftAndRight, marginBottom);
-        mainClockView.setLayoutParams(params);
-
-        // Margins for other views (e.g., digital and analog clock)
-        int digitalClockMarginBottom = (int) dpToPx(isTablet ? -18 : -8, displayMetrics);
-        int analogClockMarginBottom = (int) dpToPx(isLandscape ? 5 : (isTablet ? 18 : 14), displayMetrics);
-
-        ViewGroup.MarginLayoutParams digitalClockParams = (ViewGroup.MarginLayoutParams) mainClockView.getLayoutParams();
-        digitalClockParams.setMargins(0, 0, 0, digitalClockMarginBottom);
-        mainClockView.setLayoutParams(digitalClockParams);
-
-        ViewGroup.MarginLayoutParams analogClockParams = (ViewGroup.MarginLayoutParams) mainClockView.getLayoutParams();
-        analogClockParams.setMargins(0, 0, 0, analogClockMarginBottom);
-        mainClockView.setLayoutParams(analogClockParams);
+        applyBrightness(date, prefs, screensaverDateColorPicker);
+        applyBrightness(nextAlarmIcon, prefs, screensaverNextAlarmColorPicker);
+        applyBrightness(nextAlarm, prefs, screensaverNextAlarmColorPicker);
     }
 
     /**
@@ -238,18 +279,9 @@ public class ScreensaverUtils {
      */
     public static void hideScreensaverSystemBars(Window window, View view) {
         if (SdkUtils.isAtLeastAndroid10()) {
-            WindowInsetsControllerCompat windowInsetsController =
-                    WindowCompat.getInsetsController(window, view);
-            windowInsetsController.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
-
-            ViewCompat.setOnApplyWindowInsetsListener(view, (v, insets) -> {
-                if (insets.isVisible(WindowInsetsCompat.Type.statusBars())
-                        || insets.isVisible(WindowInsetsCompat.Type.navigationBars())) {
-                    windowInsetsController.hide(WindowInsetsCompat.Type.systemBars());
-                }
-
-                return ViewCompat.onApplyWindowInsets(v, insets);
-            });
+            WindowInsetsControllerCompat controller = WindowCompat.getInsetsController(window, view);
+            controller.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
+            controller.hide(WindowInsetsCompat.Type.systemBars());
         } else {
             view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
                     | View.SYSTEM_UI_FLAG_IMMERSIVE

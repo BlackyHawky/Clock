@@ -14,11 +14,21 @@
     android:background="@android:color/black"
     tools:ignore="Overdraw">
 
+    <ImageView
+        android:id="@+id/screensaver_background_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/black"
+        android:scaleType="centerCrop"
+        android:visibility="gone"
+        android:contentDescription="@null" />
+
     <!--  Extra layout to let the clock float in the window -->
     <LinearLayout
         android:id="@+id/main_clock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:orientation="vertical"
         tools:ignore="UselessParent">
 
@@ -33,6 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:paddingHorizontal="10dp"
             android:ellipsize="none"
             android:gravity="center"
             android:singleLine="true"
