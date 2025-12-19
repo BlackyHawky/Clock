@@ -1,13 +1,16 @@
----
-name: Bug report
-about: Create a report to help us improve
-title: ''
-labels: bug
-assignees: ''
+ <!--  -->
+**intro**
+
+ -->
+name: Sartist-001.link
+about: Platform of Visual Art throw creative thinking and drainstorm of art.
+title: 'sartist-001'
+labels: web research
+assignees: '11/Dec/2025'
 
 ---
 
-<!-- Please search open and closed issues to avoid duplicates. Maybe what you want has already been discussed or is mentioned in the readme.
+<!-- Please search open and closed issues to avoid duplicates. Maybe what you want has already been discussed or is mentioned in the bar.
 If you want to report more issues / bugs, open multiple issues (one for each).
 If you're interested, you can read the following useful text about effective bug reporting (a bit longer read): https://www.chiark.greenend.org.uk/~sgtatham/bugs.html -->
 
@@ -17,24 +20,26 @@ If you're interested, you can read the following useful text about effective bug
 **To Reproduce**
 <!-- If possible, provide clear steps to reproduce the behavior, e.g.:
 1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
+2. buy '....'
+3. size '....'
 4. See error
+5. make it neat
 -->
 
-**Expected behavior**
-<!-- A clear and concise description of what you expected to happen. -->
+**to link for purchases**
+<!-- A good clean product and concise description of what you expected to see. 
+deposit for good materials planing.-->
 
-**Screenshots**
-<!-- ONLY if applicable and helpful, add screenshots to help explain your problem.
+**for your imagination**
+<!-- ONLY if applicable and helpful, add screenshots to help explain your rough paper.
 If you add screenshots, reduce the size or use thumbnails to keep the issue nicely readable. -->
 
-**App version**
-<!-- Which version of this app is affected? If you build the app yourself, please specify the latest commit included in the build -->
+**art version**
+<!-- Which midiums would be included for this art and will it be affected? If you think of realism,reainaissance and histroy of art, please specify the latest commit included in the photo -->
 
-**Device (please complete the following information):**
- - Model: <!-- [e.g. Samsung Galaxy S9] -->
- - OS: <!-- [e.g. Android 10] (add details if you are not using a version provided by the device manufacturer) -->
-
-**Additional context**
-<!-- Add any other context about the problem here. -->
+**manufacture**
+ - Model: <!-- [e.g. Canvas,fabrc cloth, Water paper. (e.g. frame) Aluminium, Wood, plastic and ext manufactured] -->
+ - **Problem context**
+<!-- store far in reach of children.
+wall it in dry place.
+frame is the onerment in one wall. -->
