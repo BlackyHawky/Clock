@@ -91,7 +91,13 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
 
         if (alarm.label != null && !alarm.label.isEmpty()) {
             alarmLabel.setText(alarm.label);
-            alarmLabel.setTypeface(alarm.enabled ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
+
+            Typeface typeface = alarm.enabled
+                    ? mGeneralBoldTypeface
+                    : mGeneralTypeface;
+
+            alarmLabel.setTypeface(typeface);
+
             alarmLabel.setVisibility(View.VISIBLE);
             alarmLabel.setContentDescription(context.getString(R.string.label_description)
                     + " " + alarm.label);

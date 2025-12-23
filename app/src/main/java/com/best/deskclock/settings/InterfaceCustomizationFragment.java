@@ -2,12 +2,14 @@
 
 package com.best.deskclock.settings;
 
+import static android.app.Activity.RESULT_OK;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_CARD_BACKGROUND;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_CARD_BORDER;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_CUSTOM_LANGUAGE_CODE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DARK_MODE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_GENERAL_FONT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_KEEP_SCREEN_ON;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TAB_TITLE_VISIBILITY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TAB_TO_DISPLAY;
@@ -20,14 +22,20 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_VIBRATIONS;
 import static com.best.deskclock.utils.Utils.ACTION_LANGUAGE_CODE_CHANGED;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.preference.ListPreference;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.preference.Preference;
-import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.settings.custompreference.CustomListPreference;
+import com.best.deskclock.settings.custompreference.CustomPreference;
+import com.best.deskclock.settings.custompreference.CustomSwitchPreference;
+import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
@@ -37,25 +45,62 @@ import java.util.Collections;
 import java.util.List;
 
 public class InterfaceCustomizationFragment extends ScreenFragment
-        implements Preference.OnPreferenceChangeListener {
+        implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
     private static boolean isLanguageChanged = false;
 
-    ListPreference mThemePref;
-    ListPreference mDarkModePref;
-    ListPreference mAccentColorPref;
-    SwitchPreferenceCompat mAutoNightAccentColorPref;
-    ListPreference mNightAccentColorPref;
-    SwitchPreferenceCompat mCardBackgroundPref;
-    SwitchPreferenceCompat mCardBorderPref;
-    ListPreference mCustomLanguageCodePref;
-    ListPreference mTabToDisplayPref;
-    SwitchPreferenceCompat mVibrationPref;
-    SwitchPreferenceCompat mToolbarTitlePref;
-    ListPreference mTabTitleVisibilityPref;
-    SwitchPreferenceCompat mTabIndicatorPref;
-    SwitchPreferenceCompat mFadeTransitionsPref;
-    SwitchPreferenceCompat mKeepScreenOnPref;
+    CustomListPreference mThemePref;
+    CustomListPreference mDarkModePref;
+    CustomPreference mGeneralFontPref;
+    CustomListPreference mAccentColorPref;
+    CustomSwitchPreference mAutoNightAccentColorPref;
+    CustomListPreference mNightAccentColorPref;
+    CustomSwitchPreference mCardBackgroundPref;
+    CustomSwitchPreference mCardBorderPref;
+    CustomListPreference mCustomLanguageCodePref;
+    CustomListPreference mTabToDisplayPref;
+    CustomSwitchPreference mVibrationPref;
+    CustomSwitchPreference mToolbarTitlePref;
+    CustomListPreference mTabTitleVisibilityPref;
+    CustomSwitchPreference mTabIndicatorPref;
+    CustomSwitchPreference mFadeTransitionsPref;
+    CustomSwitchPreference mKeepScreenOnPref;
+
+    private final ActivityResultLauncher<Intent> fontPickerLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() != RESULT_OK) {
+                    return;
+                }
+
+                Intent intent = result.getData();
+                final Uri sourceUri = intent == null ? null : intent.getData();
+                if (sourceUri == null) {
+                    return;
+                }
+
+                // Take persistent permission
+                requireActivity().getContentResolver().takePersistableUriPermission(
+                        sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION
+                );
+
+                String safeTitle = Utils.toSafeFileName("general_font");
+
+                // Delete the old font if it exists
+                clearFile(mPrefs.getString(KEY_GENERAL_FONT, null));
+
+                Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(requireContext(), sourceUri, safeTitle);
+
+                // Save the new path
+                if (copiedUri != null) {
+                    mPrefs.edit().putString(KEY_GENERAL_FONT, copiedUri.getPath()).apply();
+                    mGeneralFontPref.setTitle(getString(R.string.custom_font_title_variant));
+
+                    CustomToast.show(requireContext(), R.string.custom_font_toast_message_selected);
+                } else {
+                    CustomToast.show(requireContext(), "Error importing font");
+                    mGeneralFontPref.setTitle(getString(R.string.custom_font_title));
+                }
+            });
 
     @Override
     protected String getFragmentTitle() {
@@ -70,6 +115,7 @@ public class InterfaceCustomizationFragment extends ScreenFragment
 
         mThemePref = findPreference(KEY_THEME);
         mDarkModePref = findPreference(KEY_DARK_MODE);
+        mGeneralFontPref = findPreference(KEY_GENERAL_FONT);
         mAccentColorPref = findPreference(KEY_ACCENT_COLOR);
         mAutoNightAccentColorPref = findPreference(KEY_AUTO_NIGHT_ACCENT_COLOR);
         mNightAccentColorPref = findPreference(KEY_NIGHT_ACCENT_COLOR);
@@ -108,7 +154,7 @@ public class InterfaceCustomizationFragment extends ScreenFragment
         switch (pref.getKey()) {
             case KEY_THEME, KEY_ACCENT_COLOR, KEY_DARK_MODE, KEY_NIGHT_ACCENT_COLOR,
                  KEY_TAB_TITLE_VISIBILITY, KEY_TAB_TO_DISPLAY  -> {
-                final ListPreference listPreference = (ListPreference) pref;
+                final CustomListPreference listPreference = (CustomListPreference) pref;
                 final int index = listPreference.findIndexOfValue((String) newValue);
                 listPreference.setSummary(listPreference.getEntries()[index]);
             }
@@ -130,12 +176,27 @@ public class InterfaceCustomizationFragment extends ScreenFragment
         return true;
     }
 
+    @Override
+    public boolean onPreferenceClick(@NonNull Preference pref) {
+        if (pref.getKey().equals(KEY_GENERAL_FONT)) {
+            selectCustomFile(mGeneralFontPref, fontPickerLauncher,
+                    SettingsDAO.getGeneralFont(mPrefs), KEY_GENERAL_FONT, true, null);
+        }
+
+        return true;
+    }
+
     private void setupPreferences() {
         mThemePref.setSummary(mThemePref.getEntry());
         mThemePref.setOnPreferenceChangeListener(this);
 
         mDarkModePref.setSummary(mDarkModePref.getEntry());
         mDarkModePref.setOnPreferenceChangeListener(this);
+
+        mGeneralFontPref.setTitle(getString(SettingsDAO.getGeneralFont(mPrefs) == null
+                ? R.string.custom_font_title
+                : R.string.custom_font_title_variant));
+        mGeneralFontPref.setOnPreferenceClickListener(this);
 
         mAccentColorPref.setSummary(mAccentColorPref.getEntry());
         mAccentColorPref.setOnPreferenceChangeListener(this);
@@ -178,7 +239,7 @@ public class InterfaceCustomizationFragment extends ScreenFragment
         mKeepScreenOnPref.setOnPreferenceChangeListener(this);
     }
 
-    private void sortListPreference(ListPreference listPreference) {
+    private void sortListPreference(CustomListPreference listPreference) {
         if (listPreference != null) {
 
             CharSequence[] entries = listPreference.getEntries();

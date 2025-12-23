@@ -36,15 +36,16 @@ import android.os.Bundle;
 
 import android.text.format.DateFormat;
 
-import androidx.annotation.NonNull;
 import androidx.preference.Preference;
-import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.WidgetDAO;
+import com.best.deskclock.settings.custompreference.ColorPickerPreference;
+import com.best.deskclock.settings.custompreference.CustomSeekbarPreference;
+import com.best.deskclock.settings.custompreference.CustomSwitchPreference;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
 import com.best.deskclock.widgets.standardwidgets.DigitalAppWidgetProvider;
@@ -55,27 +56,27 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
 
     private int mAppWidgetId = INVALID_APPWIDGET_ID;
 
-    SwitchPreferenceCompat mDisplayTextUppercasePref;
-    SwitchPreferenceCompat mDisplayTextShadowPref;
-    SwitchPreferenceCompat mDisplaySecondsPref;
-    SwitchPreferenceCompat mHideAmPmPref;
-    SwitchPreferenceCompat mShowBackgroundOnDigitalWidgetPref;
-    SwitchPreferenceCompat mCustomizeBackgroundCornerRadiusPref;
-    Preference mBackgroundCornerRadiusPref;
-    SwitchPreferenceCompat mDisplayDatePref;
-    SwitchPreferenceCompat mDisplayNextAlarmPref;
-    SwitchPreferenceCompat mShowCitiesOnDigitalWidgetPref;
-    SwitchPreferenceCompat mApplyHorizontalPaddingPref;
+    CustomSwitchPreference mDisplayTextUppercasePref;
+    CustomSwitchPreference mDisplayTextShadowPref;
+    CustomSwitchPreference mDisplaySecondsPref;
+    CustomSwitchPreference mHideAmPmPref;
+    CustomSwitchPreference mShowBackgroundOnDigitalWidgetPref;
+    CustomSwitchPreference mCustomizeBackgroundCornerRadiusPref;
+    CustomSeekbarPreference mBackgroundCornerRadiusPref;
+    CustomSwitchPreference mDisplayDatePref;
+    CustomSwitchPreference mDisplayNextAlarmPref;
+    CustomSwitchPreference mShowCitiesOnDigitalWidgetPref;
+    CustomSwitchPreference mApplyHorizontalPaddingPref;
     ColorPickerPreference mBackgroundColorPref;
-    SwitchPreferenceCompat mDefaultClockColorPref;
+    CustomSwitchPreference mDefaultClockColorPref;
     ColorPickerPreference mCustomClockColorPref;
-    SwitchPreferenceCompat mDefaultDateColorPref;
+    CustomSwitchPreference mDefaultDateColorPref;
     ColorPickerPreference mCustomDateColorPref;
-    SwitchPreferenceCompat mDefaultNextAlarmColorPref;
+    CustomSwitchPreference mDefaultNextAlarmColorPref;
     ColorPickerPreference mCustomNextAlarmColorPref;
-    SwitchPreferenceCompat mDefaultCityClockColorPref;
+    CustomSwitchPreference mDefaultCityClockColorPref;
     ColorPickerPreference mCustomCityClockColorPref;
-    SwitchPreferenceCompat mDefaultCityNameColorPref;
+    CustomSwitchPreference mDefaultCityNameColorPref;
     ColorPickerPreference mCustomCityNameColorPref;
     CustomSeekbarPreference mDigitalWidgetMaxClockFontSizePref;
 
@@ -217,13 +218,6 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
 
         WidgetUtils.scheduleWidgetUpdate(requireContext(), DigitalAppWidgetProvider.class);
         return true;
-    }
-
-    @Override
-    public void onDisplayPreferenceDialog(@NonNull Preference preference) {
-        if (preference instanceof ColorPickerPreference colorPickerPref) {
-            colorPickerPref.showDialog(this, 0);
-        } else super.onDisplayPreferenceDialog(preference);
     }
 
     private void setupPreferences() {

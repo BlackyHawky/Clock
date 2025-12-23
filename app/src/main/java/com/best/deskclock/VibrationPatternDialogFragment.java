@@ -2,10 +2,14 @@
 
 package com.best.deskclock;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VIBRATION_PATTERN;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
@@ -21,10 +25,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 /**
  * DialogFragment to set a new vibration pattern for alarms.
@@ -51,7 +56,6 @@ public class VibrationPatternDialogFragment extends DialogFragment {
      *                          which will be preselected in the dialog.
      * @return A configured instance of {@link VibrationPatternDialogFragment}.
      */
-
     public static VibrationPatternDialogFragment newInstance(String key, String currentPatternKey) {
         Bundle args = new Bundle();
         args.putString(ARG_PREF_KEY, key);
@@ -95,6 +99,9 @@ public class VibrationPatternDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Context context = requireContext();
+        SharedPreferences prefs = getDefaultSharedPreferences(context);
+        Typeface typeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
+
         mVibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
 
         mSelectedPatternKey = requireArguments().getString(VIBRATION_PATTERN, DEFAULT_VIBRATION_PATTERN);
@@ -102,14 +109,16 @@ public class VibrationPatternDialogFragment extends DialogFragment {
             mSelectedPatternKey = savedInstanceState.getString(VIBRATION_PATTERN, mSelectedPatternKey);
         }
 
-        View view = getLayoutInflater().inflate(R.layout.vibration_pattern_dialog, null);
-        RadioGroup radioGroup = view.findViewById(R.id.vibration_options);
-        RadioButton rbDefault = view.findViewById(R.id.vibration_pattern_default);
-        RadioButton rbSoft = view.findViewById(R.id.vibration_pattern_soft);
-        RadioButton rbStrong = view.findViewById(R.id.vibration_pattern_strong);
-        RadioButton rbHeartbeat = view.findViewById(R.id.vibration_pattern_heartbeat);
-        RadioButton rbEscalating = view.findViewById(R.id.vibration_pattern_escalating);
-        RadioButton rbTickTock = view.findViewById(R.id.vibration_pattern_tick_tock);
+        @SuppressLint("InflateParams")
+        View dialogView = getLayoutInflater().inflate(R.layout.vibration_pattern_dialog, null);
+
+        RadioGroup radioGroup = dialogView.findViewById(R.id.vibration_options);
+        RadioButton rbDefault = dialogView.findViewById(R.id.vibration_pattern_default);
+        RadioButton rbSoft = dialogView.findViewById(R.id.vibration_pattern_soft);
+        RadioButton rbStrong = dialogView.findViewById(R.id.vibration_pattern_strong);
+        RadioButton rbHeartbeat = dialogView.findViewById(R.id.vibration_pattern_heartbeat);
+        RadioButton rbEscalating = dialogView.findViewById(R.id.vibration_pattern_escalating);
+        RadioButton rbTickTock = dialogView.findViewById(R.id.vibration_pattern_tick_tock);
 
         RadioButton[] buttons =
                 {rbDefault, rbSoft, rbStrong, rbHeartbeat, rbEscalating, rbTickTock};
@@ -118,6 +127,8 @@ public class VibrationPatternDialogFragment extends DialogFragment {
 
         for (int i = 0; i < buttons.length; i++) {
             buttons[i].setTag(values[i]);
+            buttons[i].setTypeface(typeface);
+
             if (values[i].equals(mSelectedPatternKey)) {
                 buttons[i].setChecked(true);
             }
@@ -132,37 +143,41 @@ public class VibrationPatternDialogFragment extends DialogFragment {
             }
         });
 
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context)
-                .setTitle(R.string.vibration_pattern_title)
-                .setView(view)
-                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+        return CustomDialog.create(
+                context,
+                null,
+                null,
+                getString(R.string.vibration_pattern_title),
+                null,
+                dialogView,
+                getString(android.R.string.ok),
+                (d, w) -> {
                     mVibrator.cancel();
                     savePattern(mSelectedPatternKey);
-                })
-                .setNegativeButton(android.R.string.cancel, (dialog, which) -> mVibrator.cancel())
-                .setNeutralButton(R.string.preview_title, null);
+                },
+                getString(android.R.string.cancel),
+                (d,w) -> mVibrator.cancel(),
+                getString(R.string.preview_title),
+                null,
+                alertDialog -> {
+                    Button neutralButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
+                    neutralButton.setOnClickListener(v -> {
+                        if (mSelectedPatternKey != null) {
+                            mVibrator.cancel();
 
-        AlertDialog alertDialog = builder.create();
+                            long[] pattern = Utils.getVibrationPatternForKey(mSelectedPatternKey);
 
-        alertDialog.setOnShowListener(dialogInterface -> {
-            Button neutralButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
-            neutralButton.setOnClickListener(v -> {
-                if (mSelectedPatternKey != null) {
-                    mVibrator.cancel();
-
-                    long[] pattern = Utils.getVibrationPatternForKey(mSelectedPatternKey);
-
-                    if (SdkUtils.isAtLeastAndroid8()) {
-                        VibrationEffect effect = VibrationEffect.createWaveform(pattern, 0);
-                        mVibrator.vibrate(effect);
-                    } else {
-                        mVibrator.vibrate(pattern, 0);
-                    }
-                }
-            });
-        });
-
-        return alertDialog;
+                            if (SdkUtils.isAtLeastAndroid8()) {
+                                VibrationEffect effect = VibrationEffect.createWaveform(pattern, 0);
+                                mVibrator.vibrate(effect);
+                            } else {
+                                mVibrator.vibrate(pattern, 0);
+                            }
+                        }
+                    });
+                },
+                CustomDialog.SoftInputMode.NONE
+        );
     }
 
     @Override

@@ -17,6 +17,7 @@ import static com.best.deskclock.utils.RingtoneUtils.RANDOM_RINGTONE;
 import static com.best.deskclock.utils.RingtoneUtils.RINGTONE_SILENT;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -62,10 +63,13 @@ final class RingtoneViewHolder extends ItemAdapter.ItemViewHolder<RingtoneHolder
 
     @Override
     protected void onBindItemView(RingtoneHolder itemHolder) {
+        final Context context = itemView.getContext();
+        final SharedPreferences prefs = getDefaultSharedPreferences(context);
         mNameView.setText(itemHolder.getName());
+        mNameView.setTypeface(ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs)));
         // Allow text scrolling (all other attributes are indicated in the "ringtone_item_sound.xml" file)
         mNameView.setSelected(true);
-        final Context context = itemView.getContext();
+
         final boolean opaque = itemHolder.isSelected();
         mNameView.setAlpha(opaque ? 1f : .63f);
         mImageView.setAlpha(opaque ? 1f : .63f);
@@ -114,7 +118,7 @@ final class RingtoneViewHolder extends ItemAdapter.ItemViewHolder<RingtoneHolder
             mSelectedView.setVisibility(GONE);
 
             if (ThemeUtils.isNight(context.getResources())
-                    && SettingsDAO.getDarkMode(getDefaultSharedPreferences(context)).equals(AMOLED_DARK_MODE)) {
+                    && SettingsDAO.getDarkMode(prefs).equals(AMOLED_DARK_MODE)) {
                 backgroundColor = Color.BLACK;
             } else {
                 backgroundColor = MaterialColors.getColor(context, android.R.attr.colorBackground, Color.BLACK);

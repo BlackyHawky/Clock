@@ -58,6 +58,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -72,6 +73,7 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
@@ -95,6 +97,7 @@ import com.best.deskclock.settings.PermissionsManagementActivity;
 import com.best.deskclock.settings.SettingsActivity;
 import com.best.deskclock.stopwatch.StopwatchService;
 import com.best.deskclock.timer.TimerService;
+import com.best.deskclock.uicomponents.CustomTooltip;
 import com.best.deskclock.uicomponents.toast.SnackbarManager;
 import com.best.deskclock.uidata.TabListener;
 import com.best.deskclock.uidata.UiDataModel;
@@ -105,6 +108,8 @@ import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
 import com.best.deskclock.widgets.materialyouwidgets.MaterialYouNextAlarmAppWidgetProvider;
 import com.best.deskclock.widgets.standardwidgets.NextAlarmAppWidgetProvider;
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.color.MaterialColors;
 import com.google.android.material.navigation.NavigationBarView;
@@ -124,6 +129,10 @@ public class DeskClock extends BaseActivity
         VolumeCrescendoDurationDialogHandler, VolumeValueDialogHandler, CityNoteDialogHandler {
 
     SharedPreferences mPrefs;
+    Typeface mRegularTypeface;
+    Typeface mBoldTypeface;
+
+
 
     /**
      * Shrinks the {@link #mFab}, {@link #mLeftButton} and {@link #mRightButton} to nothing.
@@ -222,7 +231,7 @@ public class DeskClock extends BaseActivity
 
     /**
      * List of supported preference keys used to monitor UI and behavior changes within
-     * {@link #registerClockListener()}.
+     * {@link #registerPrefListener()}.
      *
      * <p>This ensures that only relevant keys are tracked to optimize performance and avoid
      * unnecessary activity recreation.</p>
@@ -272,6 +281,9 @@ public class DeskClock extends BaseActivity
         super.onCreate(savedInstanceState);
 
         mPrefs = getDefaultSharedPreferences(this);
+        String fontPath = SettingsDAO.getGeneralFont(mPrefs);
+        mRegularTypeface = ThemeUtils.loadFont(fontPath);
+        mBoldTypeface = ThemeUtils.boldTypeface(fontPath);
         final DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
 
         if (isFirstLaunch()) {
@@ -285,7 +297,7 @@ public class DeskClock extends BaseActivity
 
         setContentView(R.layout.desk_clock);
 
-        registerClockListener();
+        registerPrefListener();
 
         mDeskClockRootView = findViewById(R.id.desk_clock_root_view);
 
@@ -397,12 +409,24 @@ public class DeskClock extends BaseActivity
         mBottomNavigation.setOnItemSelectedListener(mNavigationListener);
         mBottomNavigation.setItemActiveIndicatorEnabled(SettingsDAO.isTabIndicatorDisplayed(mPrefs));
 
-        if (SettingsDAO.getTabTitleVisibility(mPrefs).equals(DEFAULT_TAB_TITLE_VISIBILITY)) {
+        String tabTitleVisibility = SettingsDAO.getTabTitleVisibility(mPrefs);
+        if (tabTitleVisibility.equals(DEFAULT_TAB_TITLE_VISIBILITY)) {
             mBottomNavigation.setLabelVisibilityMode(NavigationBarView.LABEL_VISIBILITY_LABELED);
-        } else if (SettingsDAO.getTabTitleVisibility(mPrefs).equals(TAB_TITLE_VISIBILITY_NEVER)) {
+        } else if (tabTitleVisibility.equals(TAB_TITLE_VISIBILITY_NEVER)) {
             mBottomNavigation.setLabelVisibilityMode(NavigationBarView.LABEL_VISIBILITY_UNLABELED);
         } else {
             mBottomNavigation.setLabelVisibilityMode(NavigationBarView.LABEL_VISIBILITY_SELECTED);
+        }
+
+        if (!tabTitleVisibility.equals(TAB_TITLE_VISIBILITY_NEVER) && fontPath != null) {
+            // Apply the correct typeface (bold or regular) to the currently selected item
+            updateBottomNavTypeface();
+            // Update the typeface every time the user selects a new item
+            // The post() call ensures the view hierarchy is fully updated before applying fonts
+            mBottomNavigation.setOnItemSelectedListener(item -> {
+                mBottomNavigation.post(this::updateBottomNavTypeface);
+                return mNavigationListener.onNavigationItemSelected(item);
+            });
         }
 
         mBottomNavigation.setItemIconTintList(new ColorStateList(
@@ -425,6 +449,8 @@ public class DeskClock extends BaseActivity
                     new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
                     new int[]{primaryColor, primaryColor, onBackgroundColor}));
         }
+
+        applyBottomNavTooltips();
 
         applyWindowInsets();
 
@@ -471,7 +497,7 @@ public class DeskClock extends BaseActivity
 
     @Override
     protected void onDestroy() {
-        unregisterClockListener();
+        unregisterPrefListener();
         UiDataModel.getUiDataModel().removeTabListener(mTabChangeWatcher);
         super.onDestroy();
     }
@@ -490,6 +516,9 @@ public class DeskClock extends BaseActivity
             menu.add(0, Menu.FIRST, 0, R.string.denied_permission_label)
                     .setIcon(warningIcon).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
+
+        mToolbar.post(() -> ThemeUtils.applyToolbarTooltips(mToolbar));
+
         return true;
     }
 
@@ -644,7 +673,7 @@ public class DeskClock extends BaseActivity
      * <p>When a supported preference changes and its value is different from the cached one,
      * the activity is recreated to reflect the updated setting.</p>
      */
-    private void registerClockListener() {
+    private void registerPrefListener() {
         // Important: we use a cached map of preference values to avoid unnecessary activity recreation
         // when initializing the preference screen.
         // Without this check, any preference change (even with the same value) triggers recreate(),
@@ -691,7 +720,7 @@ public class DeskClock extends BaseActivity
     /**
      * Unregisters the internal listener to avoid memory leaks.
      */
-    private void unregisterClockListener() {
+    private void unregisterPrefListener() {
         if (mPrefListener != null) {
             mPrefs.unregisterOnSharedPreferenceChangeListener(mPrefListener);
         }
@@ -786,6 +815,61 @@ public class DeskClock extends BaseActivity
     }
 
     /**
+     * Updates the typeface of each item in the BottomNavigationView.
+     *
+     * <p>The selected item receives the bold typeface, while all other items
+     * receive the regular typeface. TextView lookup is cached for performance.</p>
+     */
+    @SuppressLint("RestrictedApi")
+    private void updateBottomNavTypeface() {
+        BottomNavigationMenuView menuView = (BottomNavigationMenuView) mBottomNavigation.getChildAt(0);
+
+        for (int i = 0; i < menuView.getChildCount(); i++) {
+            View itemView = menuView.getChildAt(i);
+            boolean isSelected = itemView.isSelected();
+
+            ThemeUtils.applyTypeface(itemView, isSelected ? mBoldTypeface : mRegularTypeface);
+        }
+    }
+
+    /**
+     * Installs custom tooltips on all items of the {@link BottomNavigationView}.
+     *
+     * <p>The system tooltips are disabled and replaced with custom tooltips
+     * displayed above each navigation icon when long‑pressed.</p>
+     */
+    @SuppressLint("RestrictedApi")
+    private void applyBottomNavTooltips() {
+        for (int i = 0; i < mBottomNavigation.getChildCount(); i++) {
+            View child = mBottomNavigation.getChildAt(i);
+
+            if (child instanceof BottomNavigationMenuView menuView) {
+                for (int j = 0; j < menuView.getChildCount(); j++) {
+                    View itemView = menuView.getChildAt(j);
+
+                    // Disable the system tooltip
+                    ViewCompat.setTooltipText(itemView, null);
+
+                    // Install the custom tooltip
+                    itemView.setOnLongClickListener(v -> {
+                        MenuItem item = ((BottomNavigationItemView) v).getItemData();
+
+                        CharSequence title;
+                        if (item != null) {
+                            title = item.getTitle();
+                            if (title != null) {
+                                CustomTooltip.showAbove(v, title.toString());
+                            }
+                        }
+
+                        return true;
+                    });
+                }
+            }
+        }
+    }
+
+    /**
      * Displays the right tab if the application has been closed and then reopened from the notification.
      */
     private void showTabFromNotifications() {
@@ -832,6 +916,7 @@ public class DeskClock extends BaseActivity
 
         if (SettingsDAO.isToolbarTitleDisplayed(mPrefs)) {
             mToolbar.setTitle(selectedTab.getLabelResId());
+            ThemeUtils.applyTypeface(mToolbar, mRegularTypeface);
         } else {
             mToolbar.setTitle(null);
         }

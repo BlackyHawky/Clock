@@ -10,6 +10,7 @@ import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreference
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -97,6 +98,11 @@ public abstract class CollapsingToolbarBaseActivity extends BaseActivity {
         if (mCollapsingToolbarLayout == null) {
             return;
         }
+
+        final Typeface typeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
+        mCollapsingToolbarLayout.setExpandedTitleTypeface(typeface);
+        mCollapsingToolbarLayout.setCollapsedTitleTypeface(typeface);
+
         if (ThemeUtils.isNight(getResources()) && getDarkMode.equals(AMOLED_DARK_MODE)) {
             mCollapsingToolbarLayout.setBackgroundColor(getColor(android.R.color.black));
             mCollapsingToolbarLayout.setContentScrimColor(getColor(android.R.color.black));

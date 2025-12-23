@@ -29,25 +29,26 @@ import android.text.SpannableStringBuilder;
 import android.text.format.DateFormat;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
-import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.preference.Preference;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.settings.custompreference.CustomPreference;
 import com.best.deskclock.uicomponents.CollapsingToolbarBaseActivity;
+import com.best.deskclock.uicomponents.CustomDialog;
+import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.BackupAndRestoreUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.WidgetUtils;
-
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -108,16 +109,16 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
     public static class SettingsFragment extends ScreenFragment implements Preference.OnPreferenceClickListener {
 
-        Preference mInterfaceCustomizationPref;
-        Preference mClockSettingsPref;
-        Preference mAlarmSettingsPref;
-        Preference mTimerSettingsPref;
-        Preference mStopwatchSettingsPref;
-        Preference mScreensaverSettings;
-        Preference mWidgetsSettings;
-        Preference mPermissionsManagement;
-        Preference mPermissionMessage;
-        Preference mBackupRestorePref;
+        CustomPreference mInterfaceCustomizationPref;
+        CustomPreference mClockSettingsPref;
+        CustomPreference mAlarmSettingsPref;
+        CustomPreference mTimerSettingsPref;
+        CustomPreference mStopwatchSettingsPref;
+        CustomPreference mScreensaverSettings;
+        CustomPreference mWidgetsSettings;
+        CustomPreference mPermissionsManagement;
+        CustomPreference mPermissionMessage;
+        CustomPreference mBackupRestorePref;
 
         /**
          * Callback for getting the backup result.
@@ -135,10 +136,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                     }
 
                     backupPreferences(uri);
-                    Toast.makeText(requireContext(),
-                            requireContext().getString(R.string.toast_message_for_backup),
-                            Toast.LENGTH_SHORT)
-                            .show();
+                    CustomToast.show(requireContext(), R.string.toast_message_for_backup);
                 });
 
         /**
@@ -241,27 +239,35 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                     animateAndShowFragment(new PermissionsManagementActivity.PermissionsManagementFragment());
 
                 case KEY_BACKUP_RESTORE_PREFERENCES ->
-                    new MaterialAlertDialogBuilder(requireContext())
-                            .setIcon(R.drawable.ic_backup_restore)
-                            .setTitle(R.string.backup_restore_title)
-                            .setMessage(R.string.backup_restore_dialog_message)
-                            .setPositiveButton(android.R.string.cancel, null)
-                            .setNegativeButton(R.string.backup_button_title, (dialog, which) -> {
-                                String currentDateAndTime = DateFormat.format("yyyy_MM_dd_HH-mm-ss", new Date()).toString();
-                                Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT)
-                                        .addCategory(Intent.CATEGORY_OPENABLE)
-                                        .putExtra(Intent.EXTRA_TITLE, requireContext().getString(R.string.app_label)
-                                                + "_backup_" + currentDateAndTime + ".json")
-                                        .setType("application/json");
-                                backupToFile.launch(intent);
-                            })
-                            .setNeutralButton(R.string.restore_button_title, (dialog, which) -> {
-                                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT)
-                                        .addCategory(Intent.CATEGORY_OPENABLE)
-                                        .setType("application/json");
-                                restoreFromFile.launch(intent);
-                            })
-                            .show();
+                        CustomDialog.create(
+                                requireContext(),
+                                null,
+                                AppCompatResources.getDrawable(requireContext(), R.drawable.ic_backup_restore),
+                                getString(R.string.backup_restore_title),
+                                getString(R.string.backup_restore_dialog_message),
+                                null,
+                                getString(android.R.string.cancel),
+                                null,
+                                getString(R.string.backup_button_title),
+                                (d, w) -> {
+                                    String currentDateAndTime = DateFormat.format("yyyy_MM_dd_HH-mm-ss", new Date()).toString();
+                                    Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT)
+                                            .addCategory(Intent.CATEGORY_OPENABLE)
+                                            .putExtra(Intent.EXTRA_TITLE, requireContext().getString(R.string.app_label)
+                                                    + "_backup_" + currentDateAndTime + ".json")
+                                            .setType("application/json");
+                                    backupToFile.launch(intent);
+                                },
+                                getString(R.string.restore_button_title),
+                                (d, w) -> {
+                                    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT)
+                                            .addCategory(Intent.CATEGORY_OPENABLE)
+                                            .setType("application/json");
+                                    restoreFromFile.launch(intent);
+                                },
+                                null,
+                                CustomDialog.SoftInputMode.NONE
+                        ).show();
             }
 
             return true;
@@ -334,8 +340,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                 UiDataModel.getUiDataModel().setSelectedTab(UiDataModel.Tab.values()[SettingsDAO.getTabToDisplay(mPrefs)]);
             }
 
-            Toast.makeText(requireContext(), requireContext().getString(R.string.toast_message_for_restore),
-                    Toast.LENGTH_SHORT).show();
+            CustomToast.show(requireContext(), R.string.toast_message_for_restore);
         }
     }
 

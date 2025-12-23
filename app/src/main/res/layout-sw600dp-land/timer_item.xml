@@ -93,8 +93,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:paddingStart="24dp"
-            android:paddingEnd="24dp"
+            android:paddingHorizontal="24dp"
             android:includeFontPadding="false"
             android:textSize="40sp"
             tools:text="01:23" />
@@ -136,10 +135,10 @@
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="5dp"
         android:padding="24dp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/play_pause"
-        tools:text="+ 1:00" />
+        tools:text="+ 1:00"
+        tools:textStyle="bold" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/play_pause"

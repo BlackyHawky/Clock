@@ -102,6 +102,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
 
     private Context mContext;
     private SharedPreferences mPrefs;
+    private Typeface mBoldTypeface;
     private DisplayMetrics mDisplayMetrics;
 
     // Updates "Today/Tomorrow" in the UI when midnight passes.
@@ -143,6 +144,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
 
         mContext = requireContext();
         mPrefs = getDefaultSharedPreferences(mContext);
+        mBoldTypeface = ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(mPrefs));
         mDisplayMetrics = getResources().getDisplayMetrics();
         mCursorLoader = LoaderManager.getInstance(this).initLoader(0, null, this);
         mItemAdapter = new ItemAdapter<>();
@@ -282,7 +284,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
                            viewHolder.itemView.getLeft() + (int) dX,
                            viewHolder.itemView.getBottom()
                    );
-                   background.setCornerRadius((int) dpToPx(12, mDisplayMetrics));
+                   background.setCornerRadius((int) dpToPx(18, mDisplayMetrics));
                    background.draw(c);
 
                    // Delete icon
@@ -322,7 +324,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
                                mContext.getResources().getDisplayMetrics()));
                        textPaint.setColor(MaterialColors.getColor(
                                mContext, com.google.android.material.R.attr.colorOnError, Color.BLACK));
-                       textPaint.setTypeface(Typeface.DEFAULT_BOLD);
+                       textPaint.setTypeface(mBoldTypeface);
 
                        int textMarginLeft = (int) (viewHolder.itemView.getLeft()
                                + 1.5 * deleteIconHorizontalMargin + deleteIconSize);

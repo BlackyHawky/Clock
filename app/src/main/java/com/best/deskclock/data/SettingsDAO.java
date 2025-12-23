@@ -266,6 +266,13 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return the font applied to the app.
+     */
+    public static String getGeneralFont(SharedPreferences prefs) {
+        return prefs.getString(KEY_GENERAL_FONT, null);
+    }
+
+    /**
      * @return {@code true} if the background should be displayed in a view. {@code false} otherwise.
      */
     public static boolean isCardBackgroundDisplayed(SharedPreferences prefs) {

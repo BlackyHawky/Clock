@@ -8,7 +8,10 @@ package com.best.deskclock.stopwatch;
 
 import static androidx.core.util.TypedValueCompat.dpToPx;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.text.format.DateUtils;
 import android.util.DisplayMetrics;
@@ -25,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Lap;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Stopwatch;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.ThemeUtils;
@@ -364,6 +368,10 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
             super(itemView);
 
             final Context context = itemView.getContext();
+            SharedPreferences prefs = getDefaultSharedPreferences(context);
+            String fontPath = SettingsDAO.getGeneralFont(prefs);
+            Typeface regularTypeface = ThemeUtils.loadFont(fontPath);
+            Typeface boldTypeface = ThemeUtils.boldTypeface(fontPath);
             boolean isTablet = ThemeUtils.isTablet();
             final DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
 
@@ -373,13 +381,15 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
 
             lapNumber = itemView.findViewById(R.id.lap_number);
             lapNumber.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-            lapNumber.setTypeface(Typeface.DEFAULT_BOLD);
+            lapNumber.setTypeface(boldTypeface);
 
             lapTime = itemView.findViewById(R.id.lap_time);
             lapTime.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+            lapTime.setTypeface(regularTypeface);
 
             accumulatedTime = itemView.findViewById(R.id.lap_total);
             accumulatedTime.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+            accumulatedTime.setTypeface(regularTypeface);
             // Due to the ViewPager and the location of FAB, set a right padding for phones
             // in landscape mode to prevent the laps from being hidden by the FAB.
             if (!isTablet && ThemeUtils.isLandscape()) {

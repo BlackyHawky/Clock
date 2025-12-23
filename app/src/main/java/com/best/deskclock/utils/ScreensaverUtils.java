@@ -2,6 +2,8 @@
 
 package com.best.deskclock.utils;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -15,6 +17,7 @@ import android.graphics.PorterDuffColorFilter;
 import android.graphics.RenderEffect;
 import android.graphics.Shader;
 import android.graphics.Typeface;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
@@ -33,6 +36,10 @@ import com.best.deskclock.uicomponents.AnalogClock;
 import com.best.deskclock.uicomponents.AutoSizingTextClock;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class ScreensaverUtils {
 
@@ -149,7 +156,7 @@ public class ScreensaverUtils {
                 SettingsDAO.isScreensaverDateInItalic(prefs)
         );
 
-        date.setTypeface(Typeface.defaultFromStyle(style));
+        applyGeneralTypeface(prefs, date, style);
     }
 
     /**
@@ -163,7 +170,7 @@ public class ScreensaverUtils {
                 SettingsDAO.isScreensaverNextAlarmInItalic(prefs)
         );
 
-        nextAlarm.setTypeface(Typeface.defaultFromStyle(style));
+        applyGeneralTypeface(prefs, nextAlarm, style);
     }
 
     /**
@@ -183,6 +190,77 @@ public class ScreensaverUtils {
         } else {
             return Typeface.NORMAL;
         }
+    }
+
+    /**
+     * Applies the general font to the given {@link TextView}.
+     */
+    private static void applyGeneralTypeface(SharedPreferences prefs, TextView textView, int style) {
+        Typeface base = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
+
+        if (base == null) {
+            textView.setTypeface(Typeface.create("sans-serif", style));
+        } else {
+            textView.setTypeface(Typeface.create(base, style));
+        }
+    }
+
+    /**
+     * Returns the formatted "next alarm" text for the screensaver.
+     * <p>
+     * This method wraps the base formatted alarm time with thin spaces when the
+     * screensaver settings specify italic text for the date or the next alarm.
+     * Thin spaces (\u2009) prevent the text from being visually cut off on some devices
+     * and help maintain proper centering in the screensaver layout.
+     *
+     * @param context    the context used to access preferences and formatting utilities
+     * @param alarmTime  the time of the next scheduled alarm
+     * @return the formatted alarm text, optionally wrapped with thin spaces
+     */
+    public static String getScreensaverFormattedTime(Context context, Calendar alarmTime) {
+        String base = AlarmUtils.getFormattedTime(context, alarmTime);
+
+        SharedPreferences prefs = getDefaultSharedPreferences(context);
+
+        boolean italicDate = SettingsDAO.isScreensaverDateInItalic(prefs);
+        boolean italicAlarm = SettingsDAO.isScreensaverNextAlarmInItalic(prefs);
+
+        if (italicDate) {
+            return "\u2009" + base + "\u2009";
+        } else if (italicAlarm) {
+            return base + "\u2009";
+        }
+
+        return base;
+    }
+
+    /**
+     * Clock views can call this to refresh their date.
+     **/
+    public static void updateScreensaverDate(String dateSkeleton, String descriptionSkeleton, View clock) {
+        final SharedPreferences prefs = getDefaultSharedPreferences(clock.getContext());
+        final TextView dateDisplay = clock.findViewById(R.id.date);
+        if (dateDisplay == null) {
+            return;
+        }
+
+        final Locale locale = Locale.getDefault();
+        String datePattern = DateFormat.getBestDateTimePattern(locale, dateSkeleton);
+
+        if (SettingsDAO.isScreensaverDateInItalic(prefs)) {
+            // Add a "Thin Space" (\u2009) at the end of the date to prevent its display
+            // from being cut off on some devices.
+            datePattern = "\u2009" + datePattern + "\u2009";
+        } else if (SettingsDAO.isScreensaverNextAlarmInItalic(prefs)) {
+            datePattern = datePattern + "\u2009";
+        }
+
+        final String descriptionPattern = DateFormat.getBestDateTimePattern(locale, descriptionSkeleton);
+
+        final Date now = new Date();
+        dateDisplay.setText(new SimpleDateFormat(datePattern, locale).format(now));
+        dateDisplay.setVisibility(View.VISIBLE);
+        dateDisplay.setContentDescription(new SimpleDateFormat(descriptionPattern, locale).format(now));
     }
 
     /**

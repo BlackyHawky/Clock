@@ -22,23 +22,23 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.preference.ListPreference;
 import androidx.preference.Preference;
-import androidx.preference.PreferenceCategory;
-import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.TimeZones;
+import com.best.deskclock.settings.custompreference.CustomListPreference;
+import com.best.deskclock.settings.custompreference.CustomPreference;
+import com.best.deskclock.settings.custompreference.CustomPreferenceCategory;
+import com.best.deskclock.settings.custompreference.CustomSeekbarPreference;
+import com.best.deskclock.settings.custompreference.CustomSwitchPreference;
+import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.utils.Utils;
-
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class ClockSettingsFragment extends ScreenFragment
         implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
@@ -48,19 +48,19 @@ public class ClockSettingsFragment extends ScreenFragment
     String mMaterialAnalogClock;
     String mDigitalClock;
 
-    ListPreference mClockStylePref;
-    ListPreference mClockDialPref;
-    ListPreference mClockDialMaterialPref;
+    CustomListPreference mClockStylePref;
+    CustomListPreference mClockDialPref;
+    CustomListPreference mClockDialMaterialPref;
     CustomSeekbarPreference mAnalogClockSizePref;
-    SwitchPreferenceCompat mDisplayClockSecondsPref;
-    ListPreference mClockSecondHandPref;
-    Preference mDigitalClockFontPref;
-    PreferenceCategory mFontCategory;
-    ListPreference mSortCitiesPref;
-    SwitchPreferenceCompat mEnableCityNotePref;
-    SwitchPreferenceCompat mAutoHomeClockPref;
-    ListPreference mHomeTimeZonePref;
-    Preference mDateTimePref;
+    CustomSwitchPreference mDisplayClockSecondsPref;
+    CustomListPreference mClockSecondHandPref;
+    CustomPreference mDigitalClockFontPref;
+    CustomPreferenceCategory mFontCategory;
+    CustomListPreference mSortCitiesPref;
+    CustomSwitchPreference mEnableCityNotePref;
+    CustomSwitchPreference mAutoHomeClockPref;
+    CustomListPreference mHomeTimeZonePref;
+    CustomPreference mDateTimePref;
 
     private final ActivityResultLauncher<Intent> fontPickerLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -91,9 +91,9 @@ public class ClockSettingsFragment extends ScreenFragment
                     mPrefs.edit().putString(KEY_DIGITAL_CLOCK_FONT, copiedUri.getPath()).apply();
                     mDigitalClockFontPref.setTitle(getString(R.string.custom_font_title_variant));
 
-                    Toast.makeText(requireContext(), R.string.custom_font_toast_message_selected, Toast.LENGTH_SHORT).show();
+                    CustomToast.show(requireContext(), R.string.custom_font_toast_message_selected);
                 } else {
-                    Toast.makeText(requireContext(), "Error importing font", Toast.LENGTH_SHORT).show();
+                    CustomToast.show(requireContext(), "Error importing font");
                     mDigitalClockFontPref.setTitle(getString(R.string.custom_font_title));
                 }
             });
@@ -153,7 +153,7 @@ public class ClockSettingsFragment extends ScreenFragment
 
             case KEY_CLOCK_DIAL, KEY_CLOCK_DIAL_MATERIAL, KEY_CLOCK_SECOND_HAND, KEY_HOME_TIME_ZONE,
                  KEY_SORT_CITIES -> {
-                final ListPreference preference = (ListPreference) pref;
+                final CustomListPreference preference = (CustomListPreference) pref;
                 final int index = preference.findIndexOfValue((String) newValue);
                 preference.setSummary(preference.getEntries()[index]);
             }
@@ -186,24 +186,8 @@ public class ClockSettingsFragment extends ScreenFragment
                 startActivity(dialogIntent);
             }
 
-            case KEY_DIGITAL_CLOCK_FONT -> {
-                if (SettingsDAO.getDigitalClockFont(mPrefs) == null) {
-                    selectFile(fontPickerLauncher, true);
-                } else {
-                    new MaterialAlertDialogBuilder(requireContext())
-                            .setTitle(R.string.custom_font_dialog_title)
-                            .setMessage(R.string.custom_font_title_variant)
-                            .setPositiveButton(getString(R.string.label_new_font), (dialog, which) ->
-                                    selectFile(fontPickerLauncher, true))
-                            .setNeutralButton(getString(R.string.delete), (dialog, which) -> {
-                                mPrefs.edit().remove(KEY_DIGITAL_CLOCK_FONT).apply();
-                                mDigitalClockFontPref.setTitle(getString(R.string.custom_font_title));
-                                deleteFile(mPrefs.getString(KEY_DIGITAL_CLOCK_FONT, null),
-                                        KEY_DIGITAL_CLOCK_FONT, true);
-                            })
-                            .show();
-                }
-            }
+            case KEY_DIGITAL_CLOCK_FONT -> selectCustomFile(mDigitalClockFontPref, fontPickerLauncher,
+                    SettingsDAO.getDigitalClockFont(mPrefs), KEY_DIGITAL_CLOCK_FONT, true, null);
         }
 
         return true;

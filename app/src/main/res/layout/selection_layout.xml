@@ -9,9 +9,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:gravity="center_horizontal|top"
     android:orientation="vertical"
-    android:paddingStart="30dp"
-    android:paddingTop="20dp"
-    android:paddingEnd="30dp">
+    android:paddingHorizontal="30dp"
+    android:paddingTop="20dp">
 
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="match_parent"

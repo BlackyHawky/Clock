@@ -27,12 +27,13 @@ import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.preference.Preference;
-import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.WidgetDAO;
+import com.best.deskclock.settings.custompreference.ColorPickerPreference;
+import com.best.deskclock.settings.custompreference.CustomSeekbarPreference;
+import com.best.deskclock.settings.custompreference.CustomSwitchPreference;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
@@ -43,21 +44,21 @@ public class MaterialYouVerticalDigitalWidgetSettingsFragment extends ScreenFrag
 
     private int mAppWidgetId = INVALID_APPWIDGET_ID;
 
-    SwitchPreferenceCompat mShowBackgroundOnDigitalWidgetPref;
-    SwitchPreferenceCompat mCustomizeBackgroundCornerRadiusPref;
-    Preference mBackgroundCornerRadiusPref;
-    SwitchPreferenceCompat mDisplayDatePref;
-    SwitchPreferenceCompat mDisplayNextAlarmPref;
-    SwitchPreferenceCompat mApplyHorizontalPaddingPref;
-    SwitchPreferenceCompat mDefaultBackgroundColorPref;
+    CustomSwitchPreference mShowBackgroundOnDigitalWidgetPref;
+    CustomSwitchPreference mCustomizeBackgroundCornerRadiusPref;
+    CustomSeekbarPreference mBackgroundCornerRadiusPref;
+    CustomSwitchPreference mDisplayDatePref;
+    CustomSwitchPreference mDisplayNextAlarmPref;
+    CustomSwitchPreference mApplyHorizontalPaddingPref;
+    CustomSwitchPreference mDefaultBackgroundColorPref;
     ColorPickerPreference mCustomBackgroundColorPref;
-    SwitchPreferenceCompat mDefaultHoursColorPref;
+    CustomSwitchPreference mDefaultHoursColorPref;
     ColorPickerPreference mCustomHoursColorPref;
-    SwitchPreferenceCompat mDefaultMinutesColorPref;
+    CustomSwitchPreference mDefaultMinutesColorPref;
     ColorPickerPreference mCustomMinutesColorPref;
-    SwitchPreferenceCompat mDefaultDateColorPref;
+    CustomSwitchPreference mDefaultDateColorPref;
     ColorPickerPreference mCustomDateColorPref;
-    SwitchPreferenceCompat mDefaultNextAlarmColorPref;
+    CustomSwitchPreference mDefaultNextAlarmColorPref;
     ColorPickerPreference mCustomNextAlarmColorPref;
 
     @Override
@@ -191,13 +192,6 @@ public class MaterialYouVerticalDigitalWidgetSettingsFragment extends ScreenFrag
 
         WidgetUtils.scheduleWidgetUpdate(requireContext(), MaterialYouVerticalDigitalAppWidgetProvider.class);
         return true;
-    }
-
-    @Override
-    public void onDisplayPreferenceDialog(@NonNull Preference preference) {
-        if (preference instanceof ColorPickerPreference colorPickerPref) {
-            colorPickerPref.showDialog(this, 0);
-        } else super.onDisplayPreferenceDialog(preference);
     }
 
     private void setupPreferences() {

@@ -170,9 +170,9 @@ public class PreferencesDefaultValues {
     public static final int DEFAULT_SCREENSAVER_BRIGHTNESS = 40;
     public static final boolean DEFAULT_SCREENSAVER_DIGITAL_CLOCK_IN_BOLD = false;
     public static final boolean DEFAULT_SCREENSAVER_DIGITAL_CLOCK_IN_ITALIC = false;
-    public static final boolean DEFAULT_SCREENSAVER_DATE_IN_BOLD = true;
+    public static final boolean DEFAULT_SCREENSAVER_DATE_IN_BOLD = false;
     public static final boolean DEFAULT_SCREENSAVER_DATE_IN_ITALIC = false;
-    public static final boolean DEFAULT_SCREENSAVER_NEXT_ALARM_IN_BOLD = true;
+    public static final boolean DEFAULT_SCREENSAVER_NEXT_ALARM_IN_BOLD = false;
     public static final boolean DEFAULT_SCREENSAVER_NEXT_ALARM_IN_ITALIC = false;
 
     // Common settings values

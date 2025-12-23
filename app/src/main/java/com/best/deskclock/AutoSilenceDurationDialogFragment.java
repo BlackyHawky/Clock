@@ -2,27 +2,27 @@
 
 package com.best.deskclock;
 
-import static android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN;
-import static android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE;
-
+import static androidx.core.util.TypedValueCompat.dpToPx;
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_AUTO_SILENCE_DURATION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TIMER_AUTO_SILENCE_DURATION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_END_OF_RINGTONE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_NEVER;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_AUTO_SILENCE_DURATION;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -37,11 +37,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.provider.Alarm;
+import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.SdkUtils;
+import com.best.deskclock.utils.ThemeUtils;
 import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.color.MaterialColors;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -76,6 +78,7 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
     private Context mContext;
     private Alarm mAlarm;
     private String mTag;
+    private String mPrefKey;
     private TextInputLayout mMinutesInputLayout;
     private TextInputLayout mSecondsInputLayout;
     private TextInputEditText mEditMinutes;
@@ -84,6 +87,7 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
     private MaterialCheckBox mNeverCheckbox;
     private Button mOkButton;
     private Button mDefaultButton;
+    private Typeface mTypeFace;
     private final TextWatcher mTextWatcher = new TextChangeListener();
     private InputMethodManager mInput;
     private boolean isUpdatingCheckboxes = false;
@@ -198,6 +202,8 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         mContext = requireContext();
+        SharedPreferences prefs = getDefaultSharedPreferences(mContext);
+        mTypeFace = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
 
         final Bundle args = requireArguments();
         mAlarm = SdkUtils.isAtLeastAndroid13()
@@ -205,6 +211,7 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
                 : args.getParcelable(ARG_ALARM);
         mTag = args.getString(ARG_TAG);
 
+        mPrefKey = args.getString(ARG_PREF_KEY, null);
         int editMinutes = args.getInt(ARG_EDIT_AUTO_SILENCE_MINUTES, 0);
         int editSeconds = args.getInt(ARG_EDIT_AUTO_SILENCE_SECONDS, 0);
         boolean isEndOfRingtone = args.getBoolean(ARG_END_OF_RINGTONE, false);
@@ -219,19 +226,24 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
 
         mInput = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
 
-        View view = getLayoutInflater().inflate(R.layout.alarm_auto_silence_duration_dialog, null);
+        @SuppressLint("InflateParams")
+        View dialogView = getLayoutInflater().inflate(R.layout.alarm_auto_silence_duration_dialog, null);
 
-        mMinutesInputLayout = view.findViewById(R.id.dialog_input_layout_minutes);
-        mSecondsInputLayout = view.findViewById(R.id.dialog_input_layout_seconds);
-        mEditMinutes = view.findViewById(R.id.edit_minutes);
-        mEditSeconds = view.findViewById(R.id.edit_seconds);
-        mEndOfRingtoneCheckbox = view.findViewById(R.id.end_of_ringtone);
-        mNeverCheckbox = view.findViewById(R.id.auto_silence_never);
+        mMinutesInputLayout = dialogView.findViewById(R.id.dialog_input_layout_minutes);
+        mSecondsInputLayout = dialogView.findViewById(R.id.dialog_input_layout_seconds);
+        mEditMinutes = dialogView.findViewById(R.id.edit_minutes);
+        mEditSeconds = dialogView.findViewById(R.id.edit_seconds);
+        mEndOfRingtoneCheckbox = dialogView.findViewById(R.id.end_of_ringtone);
+        mNeverCheckbox = dialogView.findViewById(R.id.auto_silence_never);
+
+        mEndOfRingtoneCheckbox.setTypeface(mTypeFace);
+        mNeverCheckbox.setTypeface(mTypeFace);
 
         mEndOfRingtoneCheckbox.setChecked(isEndOfRingtone);
         mNeverCheckbox.setChecked(isNever);
 
         mEditMinutes.setText(String.valueOf(editMinutes));
+        mEditMinutes.setTypeface(mTypeFace);
 
         updateInputSate();
 
@@ -250,6 +262,7 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
         } else {
             mEditSeconds.setText(String.valueOf(editSeconds));
         }
+        mEditSeconds.setTypeface(mTypeFace);
         mEditSeconds.selectAll();
         mEditSeconds.setInputType(InputType.TYPE_CLASS_NUMBER);
         mEditSeconds.setOnEditorActionListener(new ImeDoneListener());
@@ -272,9 +285,7 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
             }
 
             updateInputSate();
-
             maybeRequestMinutesFocus();
-
             isUpdatingCheckboxes = false;
         });
 
@@ -290,43 +301,37 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
             }
 
             updateInputSate();
-
             maybeRequestMinutesFocus();
-
             isUpdatingCheckboxes = false;
         });
 
-        final MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(mContext)
-                .setTitle(R.string.auto_silence_title)
-                .setView(view)
-                .setPositiveButton(android.R.string.ok, (dialog, which) ->
-                        setAutoSilenceDurationInSeconds()
-                )
-                .setNegativeButton(android.R.string.cancel, null)
-                .setNeutralButton(R.string.label_default, (dialog, which) ->
-                        applyAutoSilenceDurationInSeconds(isForTimer()
-                                ? DEFAULT_TIMER_AUTO_SILENCE_DURATION
-                                : DEFAULT_AUTO_SILENCE_DURATION));
+        String minutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
+        String secondsText = mEditSeconds.getText() != null ? mEditSeconds.getText().toString() : "";
 
-        final AlertDialog alertDialog = dialogBuilder.create();
+        return CustomDialog.create(
+                mContext,
+                null,
+                mPrefKey != null ? null : AppCompatResources.getDrawable(mContext, R.drawable.ic_ringtone_off),
+                getString(R.string.auto_silence_title),
+                null,
+                dialogView,
+                getString(android.R.string.ok),
+                (d, w) -> setAutoSilenceDurationInSeconds(),
+                getString(android.R.string.cancel),
+                null,
+                getString(R.string.label_default),
+                (d, w) -> applyAutoSilenceDurationInSeconds(isForTimer()
+                        ? DEFAULT_TIMER_AUTO_SILENCE_DURATION
+                        : DEFAULT_AUTO_SILENCE_DURATION),
+                alertDialog -> {
+                    mOkButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                    mDefaultButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
 
-        alertDialog.setOnShowListener(dialog -> {
-            mOkButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-            mDefaultButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
-
-            String minutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
-            String secondsText = mEditSeconds.getText() != null ? mEditSeconds.getText().toString() : "";
-
-            mOkButton.setEnabled(!isInvalidInput(minutesText, secondsText));
-            mDefaultButton.setEnabled(isNotDefaultAutoSilenceDuration(minutesText, secondsText));
-        });
-
-        final Window alertDialogWindow = alertDialog.getWindow();
-        if (alertDialogWindow != null) {
-            alertDialogWindow.setSoftInputMode(SOFT_INPUT_ADJUST_PAN | SOFT_INPUT_STATE_VISIBLE);
-        }
-
-        return alertDialog;
+                    mOkButton.setEnabled(!isInvalidInput(minutesText, secondsText));
+                    mDefaultButton.setEnabled(isNotDefaultAutoSilenceDuration(minutesText, secondsText));
+                },
+                CustomDialog.SoftInputMode.SHOW_KEYBOARD
+        );
     }
 
     @Override
@@ -366,6 +371,9 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
     private void updateInputSate() {
         boolean disable = mEndOfRingtoneCheckbox.isChecked() || mNeverCheckbox.isChecked();
 
+        mMinutesInputLayout.setTypeface(mTypeFace);
+        mSecondsInputLayout.setTypeface(mTypeFace);
+
         mMinutesInputLayout.setEnabled(!disable);
         mSecondsInputLayout.setEnabled(!disable);
 
@@ -377,6 +385,14 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
         } else {
             mMinutesInputLayout.setHelperText(getString(R.string.timer_button_time_minutes_warning_box_text));
             mSecondsInputLayout.setHelperText(getString(R.string.timer_button_time_seconds_warning_box_text));
+
+            TextView minutesHelper = mMinutesInputLayout.findViewById(
+                    com.google.android.material.R.id.textinput_helper_text);
+            minutesHelper.setTypeface(mTypeFace);
+
+            TextView secondsHelper = mSecondsInputLayout.findViewById(
+                    com.google.android.material.R.id.textinput_helper_text);
+            secondsHelper.setTypeface(mTypeFace);
 
             String minutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
 
@@ -485,15 +501,17 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
      * The outline color of the edit box and the hint color are also changed.
      */
     private void updateDialogForInvalidInput() {
-        final Drawable drawable = AppCompatResources.getDrawable(mContext, R.drawable.ic_error);
-        if (drawable != null) {
-            drawable.setTint(MaterialColors.getColor(
-                    mContext, com.google.android.material.R.attr.colorOnSurface, Color.BLACK));
-        }
-
         AlertDialog alertDialog = (AlertDialog) requireDialog();
-        alertDialog.setIcon(drawable);
-        alertDialog.setTitle(getString(R.string.timer_time_warning_box_title));
+
+        TextView titleText = alertDialog.findViewById(R.id.dialog_title);
+        if (titleText != null) {
+            titleText.setCompoundDrawablesWithIntrinsicBounds(
+                    AppCompatResources.getDrawable(mContext, R.drawable.ic_error), null, null, null);
+            if (mPrefKey != null) {
+                titleText.setCompoundDrawablePadding((int) dpToPx(18, getResources().getDisplayMetrics()));
+            }
+            titleText.setText(getString(R.string.timer_time_warning_box_title));
+        }
 
         String minutesText = Objects.requireNonNull(mEditMinutes.getText()).toString();
         String secondsText = Objects.requireNonNull(mEditSeconds.getText()).toString();
@@ -528,8 +546,18 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
      */
     private void updateDialogForValidInput() {
         AlertDialog alertDialog = (AlertDialog) requireDialog();
-        alertDialog.setIcon(null);
-        alertDialog.setTitle(getString(R.string.auto_silence_title));
+
+        TextView titleText = alertDialog.findViewById(R.id.dialog_title);
+        if (titleText != null) {
+            if (mPrefKey != null) {
+                titleText.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+            } else {
+                titleText.setCompoundDrawablesWithIntrinsicBounds(
+                        AppCompatResources.getDrawable(mContext, R.drawable.ic_ringtone_off), null, null, null);
+            }
+
+            titleText.setText(getString(R.string.auto_silence_title));
+        }
 
         int validColor = MaterialColors.getColor(mContext, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
 

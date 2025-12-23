@@ -37,6 +37,7 @@ public class PreferencesKeys {
     // Interface
     public static final String KEY_THEME = "key_theme";
     public static final String KEY_DARK_MODE = "key_dark_mode";
+    public static final String KEY_GENERAL_FONT = "key_general_font";
     public static final String KEY_ACCENT_COLOR = "key_accent_color";
     public static final String KEY_AUTO_NIGHT_ACCENT_COLOR = "key_auto_night_accent_color";
     public static final String KEY_NIGHT_ACCENT_COLOR = "key_night_accent_color";

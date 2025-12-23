@@ -2,6 +2,7 @@
 
 package com.best.deskclock.alarms;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.text.InputType;
@@ -23,7 +24,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.best.deskclock.R;
 
 import com.best.deskclock.data.DataModel;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.best.deskclock.uicomponents.CustomDialog;
 
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
@@ -133,13 +134,14 @@ public class SpinnerTimePickerDialogFragment extends DialogFragment {
             }
         }
 
-        View view = getLayoutInflater().inflate(R.layout.alarm_spinner_time_picker, null);
+        @SuppressLint("InflateParams")
+        View dialogView = getLayoutInflater().inflate(R.layout.alarm_spinner_time_picker, null);
 
-        mLayout = view.findViewById(R.id.timePickerLayout);
-        mHourPicker = view.findViewById(R.id.hour);
-        mMinutePicker = view.findViewById(R.id.minute);
-        mAmPmPicker = view.findViewById(R.id.amPm);
-        mDivider = view.findViewById(R.id.divider);
+        mLayout = dialogView.findViewById(R.id.timePickerLayout);
+        mHourPicker = dialogView.findViewById(R.id.hour);
+        mMinutePicker = dialogView.findViewById(R.id.minute);
+        mAmPmPicker = dialogView.findViewById(R.id.amPm);
+        mDivider = dialogView.findViewById(R.id.divider);
 
         setupNumberPickers(hourValue, minuteValue, amPmValue);
 
@@ -148,10 +150,15 @@ public class SpinnerTimePickerDialogFragment extends DialogFragment {
         setupEditTextInput(mMinutePicker, InputType.TYPE_CLASS_NUMBER, imeActionForMinute);
         setupEditTextInput(mAmPmPicker, InputType.TYPE_CLASS_TEXT, EditorInfo.IME_ACTION_DONE);
 
-        MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(requireContext(), R.style.SpinnerDialogTheme)
-                .setTitle(R.string.time_picker_dialog_title)
-                .setView(view)
-                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+        return CustomDialog.create(
+                requireContext(),
+                R.style.SpinnerDialogTheme,
+                null,
+                getString(R.string.time_picker_dialog_title),
+                null,
+                dialogView,
+                getString(android.R.string.ok),
+                (d, w) -> {
                     mHourPicker.clearFocus();
                     mMinutePicker.clearFocus();
                     if (!is24HourFormat()) {
@@ -173,10 +180,14 @@ public class SpinnerTimePickerDialogFragment extends DialogFragment {
                     }
 
                     setAlarm(selectedHour, selectedMinute);
-                })
-                .setNegativeButton(android.R.string.cancel, null);
-
-        return dialogBuilder.create();
+                },
+                getString(android.R.string.cancel),
+                null,
+                null,
+                null,
+                null,
+                CustomDialog.SoftInputMode.SHOW_KEYBOARD
+        );
     }
 
     private void setAlarm(int hours, int minutes) {
@@ -207,26 +218,12 @@ public class SpinnerTimePickerDialogFragment extends DialogFragment {
             mHourPicker.setMaxValue(12);
             mHourPicker.setValue(hour % 12 == 0 ? 12 : hour % 12);
         }
-        mHourPicker.setOnValueChangedListener((picker, oldVal, newVal) ->
-                picker.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK));
 
         // Minutes setup
         mMinutePicker.setMinValue(0);
         mMinutePicker.setMaxValue(59);
         mMinutePicker.setFormatter(value -> String.format(Locale.getDefault(), "%02d", value));
         mMinutePicker.setValue(minute);
-
-        // Prevent hours from changing when the minutes change from 59 to 0 or from 0 to 59
-        final int[] lastHour = {hour};
-        mMinutePicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
-            picker.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
-
-            if ((oldVal == 59 && newVal == 0) || (oldVal == 0 && newVal == 59)) {
-                mHourPicker.setValue(lastHour[0]);
-            } else {
-                lastHour[0] = mHourPicker.getValue();
-            }
-        });
 
         // AM/PM setup
         if (!is24HourFormat()) {
@@ -243,19 +240,40 @@ public class SpinnerTimePickerDialogFragment extends DialogFragment {
             mAmPmPicker.setDisplayedValues(getAmPmStrings());
             mAmPmPicker.setValue(amPmValue);
             mAmPmPicker.setVisibility(View.VISIBLE);
-            mAmPmPicker.setOnValueChangedListener((picker, oldVal, newVal) ->
-                    picker.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK));
+        } else {
+            mAmPmPicker.setVisibility(View.GONE);
+        }
 
-            mHourPicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
-                picker.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
-
+        // Hours listener
+        mHourPicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
+            picker.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
+            if (!is24HourFormat()) {
+                // Passage 11→12 ou 12→11 → bascule AM/PM
                 if ((oldVal == 11 && newVal == 12) || (oldVal == 12 && newVal == 11)) {
                     int currentAmPm = mAmPmPicker.getValue();
                     mAmPmPicker.setValue(currentAmPm == Calendar.AM ? Calendar.PM : Calendar.AM);
                 }
-            });
-        } else {
-            mAmPmPicker.setVisibility(View.GONE);
+            }
+        });
+
+        final int[] lastHour = {hour};
+
+        // Minutes listener
+        mMinutePicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
+            picker.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
+
+            // Prevent hours from changing when the minutes change from 59 to 0 or from 0 to 59
+            if ((oldVal == 59 && newVal == 0) || (oldVal == 0 && newVal == 59)) {
+                mHourPicker.setValue(lastHour[0]);
+            } else {
+                lastHour[0] = mHourPicker.getValue();
+            }
+        });
+
+        // AM/PM listener
+        if (!is24HourFormat()) {
+            mAmPmPicker.setOnValueChangedListener((picker, oldVal, newVal) ->
+                    picker.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK));
         }
 
         // Divider setup

@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-package com.best.deskclock.settings;
+package com.best.deskclock.settings.custompreference;
 
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_AUTO_SILENCE_DURATION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TIMER_AUTO_SILENCE_DURATION;
@@ -11,7 +11,9 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_AUTO_SILENCE
 import android.content.Context;
 import android.util.AttributeSet;
 
+import androidx.annotation.NonNull;
 import androidx.preference.DialogPreference;
+import androidx.preference.PreferenceViewHolder;
 
 import com.best.deskclock.R;
 
@@ -26,7 +28,38 @@ public class AutoSilenceDurationPreference extends DialogPreference {
      */
     public AutoSilenceDurationPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
+        setLayoutResource(R.layout.settings_preference_layout);
         setPersistent(true);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
+        PreferenceStyler.apply(holder);
+        super.onBindViewHolder(holder);
+    }
+
+    @Override
+    public CharSequence getSummary() {
+        int duration = getAutoSilenceDuration();
+
+        if (duration == TIMEOUT_END_OF_RINGTONE) {
+            return getContext().getString(R.string.auto_silence_end_of_ringtone);
+        } else if (duration == TIMEOUT_NEVER) {
+            return getContext().getString(R.string.label_never);
+        }
+
+        int m = duration / 60;
+        int s = duration % 60;
+
+        if (m > 0 && s > 0) {
+            String minutesString = getContext().getResources().getQuantityString(R.plurals.minutes, m, m);
+            String secondsString = getContext().getResources().getQuantityString(R.plurals.seconds, s, s);
+            return String.format("%s %s", minutesString, secondsString);
+        } else if (m > 0) {
+            return getContext().getResources().getQuantityString(R.plurals.minutes, m, m);
+        } else {
+            return getContext().getResources().getQuantityString(R.plurals.seconds, s, s);
+        }
     }
 
     /**
@@ -58,27 +91,4 @@ public class AutoSilenceDurationPreference extends DialogPreference {
         persistInt(duration);
     }
 
-    @Override
-    public CharSequence getSummary() {
-        int duration = getAutoSilenceDuration();
-
-        if (duration == TIMEOUT_END_OF_RINGTONE) {
-            return getContext().getString(R.string.auto_silence_end_of_ringtone);
-        } else if (duration == TIMEOUT_NEVER) {
-            return getContext().getString(R.string.label_never);
-        }
-
-        int m = duration / 60;
-        int s = duration % 60;
-
-        if (m > 0 && s > 0) {
-            String minutesString = getContext().getResources().getQuantityString(R.plurals.minutes, m, m);
-            String secondsString = getContext().getResources().getQuantityString(R.plurals.seconds, s, s);
-            return String.format("%s %s", minutesString, secondsString);
-        } else if (m > 0) {
-            return getContext().getResources().getQuantityString(R.plurals.minutes, m, m);
-        } else {
-            return getContext().getResources().getQuantityString(R.plurals.seconds, s, s);
-        }
-    }
 }

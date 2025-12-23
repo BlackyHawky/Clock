@@ -1,13 +1,15 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-package com.best.deskclock.settings;
+package com.best.deskclock.settings.custompreference;
 
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VOLUME_CRESCENDO_DURATION;
 
 import android.content.Context;
 import android.util.AttributeSet;
 
+import androidx.annotation.NonNull;
 import androidx.preference.DialogPreference;
+import androidx.preference.PreferenceViewHolder;
 
 import com.best.deskclock.R;
 
@@ -22,25 +24,14 @@ public class VolumeCrescendoDurationPreference extends DialogPreference {
      */
     public VolumeCrescendoDurationPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
+        setLayoutResource(R.layout.settings_preference_layout);
         setPersistent(true);
     }
 
-    /**
-     * Returns the currently persisted volume crescendo duration in seconds.
-     *
-     * @return The crescendo duration in seconds, or none if no value has been previously persisted.
-     */
-    public int getVolumeCrescendoDuration() {
-        return getPersistedInt(DEFAULT_VOLUME_CRESCENDO_DURATION);
-    }
-
-    /**
-     * Persists the volume crescendo duration in seconds.
-     *
-     * @param seconds The volume crescendo duration to be stored, in seconds.
-     */
-    public void setVolumeCrescendoDuration(int seconds) {
-        persistInt(seconds);
+    @Override
+    public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
+        PreferenceStyler.apply(holder);
+        super.onBindViewHolder(holder);
     }
 
     @Override
@@ -64,4 +55,23 @@ public class VolumeCrescendoDurationPreference extends DialogPreference {
             return getContext().getResources().getQuantityString(R.plurals.seconds, s, s);
         }
     }
+
+    /**
+     * Returns the currently persisted volume crescendo duration in seconds.
+     *
+     * @return The crescendo duration in seconds, or none if no value has been previously persisted.
+     */
+    public int getVolumeCrescendoDuration() {
+        return getPersistedInt(DEFAULT_VOLUME_CRESCENDO_DURATION);
+    }
+
+    /**
+     * Persists the volume crescendo duration in seconds.
+     *
+     * @param seconds The volume crescendo duration to be stored, in seconds.
+     */
+    public void setVolumeCrescendoDuration(int seconds) {
+        persistInt(seconds);
+    }
+
 }

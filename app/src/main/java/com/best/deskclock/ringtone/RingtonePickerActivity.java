@@ -24,8 +24,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -42,7 +40,6 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.Insets;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -61,15 +58,17 @@ import com.best.deskclock.R;
 import com.best.deskclock.alarms.AlarmUpdateHandler;
 import com.best.deskclock.data.CustomRingtone;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.uicomponents.CollapsingToolbarBaseActivity;
+import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
+import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 
-import com.google.android.material.color.MaterialColors;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.textview.MaterialTextView;
@@ -326,6 +325,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
         View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_progress, null);
         mCircularProgressIndicator = dialogView.findViewById(R.id.dialogProgressIndicator);
         mProgressTextView = dialogView.findViewById(R.id.dialogProgressText);
+        mProgressTextView.setTypeface(ThemeUtils.loadFont(SettingsDAO.getGeneralFont(mPrefs)));
 
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this)
                 .setView(dialogView)
@@ -557,25 +557,18 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
             final DialogInterface.OnClickListener okListener = (dialog, which) ->
                     ((RingtonePickerActivity) requireActivity()).removeCustomRingtoneAsync(toRemove);
 
-            final Drawable drawable = AppCompatResources.getDrawable(requireContext(), R.drawable.ic_error);
-            if (drawable != null) {
-                drawable.setTint(MaterialColors.getColor(
-                        requireContext(), com.google.android.material.R.attr.colorOnSurface, Color.BLACK));
-            }
+            final int message = RingtoneUtils.isRingtoneUriReadable(requireContext(), toRemove)
+                    ? R.string.confirm_remove_custom_ringtone
+                    : R.string.custom_ringtone_lost_permissions;
 
-            MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(requireContext())
-                    .setIcon(drawable)
-                    .setTitle(R.string.warning)
-                    .setPositiveButton(R.string.remove_sound, okListener)
-                    .setNegativeButton(android.R.string.cancel, null);
-
-            if (RingtoneUtils.isRingtoneUriReadable(requireContext(), toRemove)) {
-                dialogBuilder.setMessage(R.string.confirm_remove_custom_ringtone);
-            } else {
-                dialogBuilder.setMessage(R.string.custom_ringtone_lost_permissions);
-            }
-
-            return dialogBuilder.create();
+            return CustomDialog.createSimpleDialog(
+                    requireContext(),
+                    R.drawable.ic_error,
+                    R.string.warning,
+                    getString(message),
+                    R.string.remove_sound,
+                    okListener
+            );
         }
     }
 

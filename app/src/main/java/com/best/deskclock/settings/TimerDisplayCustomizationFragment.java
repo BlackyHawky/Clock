@@ -27,41 +27,43 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.preference.Preference;
-import androidx.preference.PreferenceCategory;
-import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.settings.custompreference.ColorPickerPreference;
+import com.best.deskclock.settings.custompreference.CustomPreference;
+import com.best.deskclock.settings.custompreference.CustomPreferenceCategory;
+import com.best.deskclock.settings.custompreference.CustomSeekbarPreference;
+import com.best.deskclock.settings.custompreference.CustomSwitchPreference;
+import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class TimerDisplayCustomizationFragment extends ScreenFragment
         implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
-    Preference mTimerDurationFontPref;
-    SwitchPreferenceCompat mTransparentBackgroundPref;
-    SwitchPreferenceCompat mDisplayTimerStateIndicatorPref;
-    SwitchPreferenceCompat mDisplayRingtoneTitlePref;
-    PreferenceCategory mTimerColorCategory;
+    CustomPreference mTimerDurationFontPref;
+    CustomSwitchPreference mTransparentBackgroundPref;
+    CustomSwitchPreference mDisplayTimerStateIndicatorPref;
+    CustomSwitchPreference mDisplayRingtoneTitlePref;
+    CustomPreferenceCategory mTimerColorCategory;
     ColorPickerPreference mRunningTimerIndicatorColorPref;
     ColorPickerPreference mPausedTimerIndicatorColorPref;
     ColorPickerPreference mExpiredTimerIndicatorColorPref;
     ColorPickerPreference mRingtoneTitleColorPref;
-    PreferenceCategory mTimerFontCategory;
-    SwitchPreferenceCompat mDisplayTextShadowPref;
+    CustomPreferenceCategory mTimerFontCategory;
+    CustomSwitchPreference mDisplayTextShadowPref;
     ColorPickerPreference mShadowColorPref;
-    Preference mShadowOffsetPref;
-    Preference mTimerBackgroundImagePref;
-    SwitchPreferenceCompat mEnableTimerBlurEffectPref;
-    Preference mTimerBlurIntensityPref;
-    Preference mTimerPreviewPref;
+    CustomSeekbarPreference mShadowOffsetPref;
+    CustomPreference mTimerBackgroundImagePref;
+    CustomSwitchPreference mEnableTimerBlurEffectPref;
+    CustomSeekbarPreference mTimerBlurIntensityPref;
+    CustomPreference mTimerPreviewPref;
 
     private final ActivityResultLauncher<Intent> fontPickerLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -92,9 +94,9 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
                     mPrefs.edit().putString(KEY_TIMER_DURATION_FONT, copiedUri.getPath()).apply();
                     mTimerDurationFontPref.setTitle(getString(R.string.custom_font_title_variant));
 
-                    Toast.makeText(requireContext(), R.string.custom_font_toast_message_selected, Toast.LENGTH_SHORT).show();
+                    CustomToast.show(requireContext(), R.string.custom_font_toast_message_selected);
                 } else {
-                    Toast.makeText(requireContext(), "Error importing font", Toast.LENGTH_SHORT).show();
+                    CustomToast.show(requireContext(), "Error importing font");
                     mTimerDurationFontPref.setTitle(getString(R.string.custom_font_title));
                 }
             });
@@ -132,9 +134,9 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
                     mTimerBlurIntensityPref.setVisible(SdkUtils.isAtLeastAndroid12()
                             && SettingsDAO.isTimerBlurEffectEnabled(mPrefs));
 
-                    Toast.makeText(requireContext(), R.string.background_image_toast_message_selected, Toast.LENGTH_SHORT).show();
+                    CustomToast.show(requireContext(), R.string.background_image_toast_message_selected);
                 } else {
-                    Toast.makeText(requireContext(), "Error importing image", Toast.LENGTH_SHORT).show();
+                    CustomToast.show(requireContext(), "Error importing image");
                     mTimerBackgroundImagePref.setTitle(getString(R.string.background_image_title));
                     mEnableTimerBlurEffectPref.setVisible(false);
                     mTimerBlurIntensityPref.setVisible(false);
@@ -251,43 +253,15 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
         }
 
         switch (pref.getKey()) {
-            case KEY_TIMER_DURATION_FONT -> {
-                if (SettingsDAO.getTimerDurationFont(mPrefs) == null) {
-                    selectFile(fontPickerLauncher, true);
-                } else {
-                    new MaterialAlertDialogBuilder(requireContext())
-                            .setTitle(R.string.custom_font_dialog_title)
-                            .setMessage(R.string.custom_font_title_variant)
-                            .setPositiveButton(getString(R.string.label_new_font), (dialog, which) ->
-                                    selectFile(fontPickerLauncher, true))
-                            .setNeutralButton(getString(R.string.delete), (dialog, which) -> {
-                                mTimerDurationFontPref.setTitle(getString(R.string.custom_font_title));
-                                deleteFile(mPrefs.getString(KEY_TIMER_DURATION_FONT, null),
-                                        KEY_TIMER_DURATION_FONT, true);
-                            })
-                            .show();
-                }
-            }
+            case KEY_TIMER_DURATION_FONT -> selectCustomFile(mTimerDurationFontPref, fontPickerLauncher,
+                    SettingsDAO.getTimerDurationFont(mPrefs), KEY_TIMER_DURATION_FONT, true, null);
 
-            case KEY_TIMER_BACKGROUND_IMAGE -> {
-                if (SettingsDAO.getTimerBackgroundImage(mPrefs) == null) {
-                    selectFile(imagePickerLauncher, false);
-                } else {
-                    new MaterialAlertDialogBuilder(requireContext())
-                            .setTitle(R.string.background_image_dialog_title)
-                            .setMessage(R.string.background_image_title_variant)
-                            .setPositiveButton(getString(R.string.label_new_image), (dialog, which) ->
-                                    selectFile(imagePickerLauncher, false))
-                            .setNeutralButton(getString(R.string.delete), (dialog, which) -> {
-                                mTimerBackgroundImagePref.setTitle(getString(R.string.background_image_title));
-                                mEnableTimerBlurEffectPref.setVisible(false);
-                                mTimerBlurIntensityPref.setVisible(false);
-                                deleteFile(mPrefs.getString(KEY_TIMER_BACKGROUND_IMAGE, null),
-                                        KEY_TIMER_BACKGROUND_IMAGE, false);
-                            })
-                            .show();
-                }
-            }
+            case KEY_TIMER_BACKGROUND_IMAGE -> selectCustomFile(mTimerBackgroundImagePref, imagePickerLauncher,
+                    SettingsDAO.getTimerBackgroundImage(mPrefs), KEY_TIMER_BACKGROUND_IMAGE, false,
+                    mTimerBackgroundImagePref -> {
+                mEnableTimerBlurEffectPref.setVisible(false);
+                mTimerBlurIntensityPref.setVisible(false);
+            });
 
             case KEY_TIMER_PREVIEW -> {
                 startActivity(new Intent(context, TimerDisplayPreviewActivity.class));
@@ -311,15 +285,6 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
         }
 
         return true;
-    }
-
-    @Override
-    public void onDisplayPreferenceDialog(@NonNull Preference pref) {
-        if (pref instanceof ColorPickerPreference colorPickerPref) {
-            colorPickerPref.showDialog(this, 0);
-        } else {
-            super.onDisplayPreferenceDialog(pref);
-        }
     }
 
     private void setupPreferences() {

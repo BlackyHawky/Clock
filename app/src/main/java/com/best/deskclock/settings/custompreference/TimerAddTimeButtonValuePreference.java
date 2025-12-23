@@ -1,13 +1,15 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-package com.best.deskclock.settings;
+package com.best.deskclock.settings.custompreference;
 
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TIMER_ADD_TIME_BUTTON_VALUE;
 
 import android.content.Context;
 import android.util.AttributeSet;
 
+import androidx.annotation.NonNull;
 import androidx.preference.DialogPreference;
+import androidx.preference.PreferenceViewHolder;
 
 import com.best.deskclock.R;
 
@@ -15,15 +17,14 @@ public class TimerAddTimeButtonValuePreference extends DialogPreference {
 
     public TimerAddTimeButtonValuePreference(Context context, AttributeSet attrs) {
         super(context, attrs);
+        setLayoutResource(R.layout.settings_preference_layout);
         setPersistent(true);
     }
 
-    public int getAddTimeButtonValue() {
-        return getPersistedInt(DEFAULT_TIMER_ADD_TIME_BUTTON_VALUE);
-    }
-
-    public void setAddTimeButtonValue(int minutes) {
-        persistInt(minutes);
+    @Override
+    public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
+        PreferenceStyler.apply(holder);
+        super.onBindViewHolder(holder);
     }
 
     @Override
@@ -45,4 +46,13 @@ public class TimerAddTimeButtonValuePreference extends DialogPreference {
             return getContext().getResources().getQuantityString(R.plurals.seconds, s, s);
         }
     }
+
+    public int getAddTimeButtonValue() {
+        return getPersistedInt(DEFAULT_TIMER_ADD_TIME_BUTTON_VALUE);
+    }
+
+    public void setAddTimeButtonValue(int minutes) {
+        persistInt(minutes);
+    }
+
 }

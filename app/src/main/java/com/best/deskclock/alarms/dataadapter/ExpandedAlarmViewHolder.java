@@ -35,7 +35,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.content.res.AppCompatResources;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
 import com.best.deskclock.ItemAdapter;
@@ -258,6 +257,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         final Context context = itemView.getContext();
         bindEditLabel(context, alarm);
         bindDaysOfWeekButtons(alarm, context);
+        bindScheduleAlarm();
         bindSelectedDate(alarm);
         bindRingtone(context, alarm);
         bindVibrator(alarm);
@@ -269,6 +269,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         bindMissedAlarmRepeatLimit(context, alarm);
         bindCrescendoValue(context, alarm);
         bindAlarmVolume(context, alarm);
+        bindDeleteAndDuplicateButtons();
 
         // If this view is bound without coming from a CollapsedAlarmViewHolder (e.g.
         // when calling expand() before this alarm was visible in it's collapsed state),
@@ -311,7 +312,13 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         final boolean alarmLabelIsEmpty = alarm.label == null || alarm.label.isEmpty();
 
         editLabel.setText(alarm.label);
-        editLabel.setTypeface(alarmLabelIsEmpty || !alarm.enabled ? Typeface.DEFAULT : Typeface.DEFAULT_BOLD);
+
+        Typeface typeface = alarm.enabled
+                ? mGeneralBoldTypeface
+                : mGeneralTypeface;
+
+        editLabel.setTypeface(typeface);
+
         editLabel.setContentDescription(alarmLabelIsEmpty
                 ? context.getString(R.string.no_label_specified)
                 : context.getString(R.string.label_description) + " " + alarm.label);
@@ -319,9 +326,6 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
 
     private void bindAutoSilenceValue(Context context, Alarm alarm) {
         if (SettingsDAO.isPerAlarmAutoSilenceEnabled(mPrefs)) {
-            autoSilenceDurationTitle.setVisibility(VISIBLE);
-            autoSilenceDurationValue.setVisibility(VISIBLE);
-
             int autoSilenceDuration = alarm.autoSilenceDuration;
 
             int m = autoSilenceDuration / 60;
@@ -341,6 +345,12 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
                 String secondsString = s + " " + context.getString(R.string.seconds_label);
                 autoSilenceDurationValue.setText(secondsString);
             }
+
+            autoSilenceDurationTitle.setTypeface(mGeneralTypeface);
+            autoSilenceDurationValue.setTypeface(mGeneralTypeface);
+
+            autoSilenceDurationTitle.setVisibility(VISIBLE);
+            autoSilenceDurationValue.setVisibility(VISIBLE);
         } else {
             autoSilenceDurationTitle.setVisibility(GONE);
             autoSilenceDurationValue.setVisibility(GONE);
@@ -349,9 +359,6 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
 
     private void bindSnoozeValue(Context context, Alarm alarm) {
         if (SettingsDAO.isPerAlarmSnoozeDurationEnabled(mPrefs)) {
-            snoozeDurationTitle.setVisibility(VISIBLE);
-            snoozeDurationValue.setVisibility(VISIBLE);
-
             int snoozeDuration = alarm.snoozeDuration;
 
             int h = snoozeDuration / 60;
@@ -368,6 +375,12 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
             } else {
                 snoozeDurationValue.setText(context.getResources().getQuantityString(R.plurals.minutes_short, m, m));
             }
+
+            snoozeDurationTitle.setTypeface(mGeneralTypeface);
+            snoozeDurationValue.setTypeface(mGeneralTypeface);
+
+            snoozeDurationTitle.setVisibility(VISIBLE);
+            snoozeDurationValue.setVisibility(VISIBLE);
         } else {
             snoozeDurationTitle.setVisibility(GONE);
             snoozeDurationValue.setVisibility(GONE);
@@ -379,9 +392,6 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         if (SettingsDAO.isPerAlarmMissedRepeatLimitEnabled(mPrefs)
                 && alarm.autoSilenceDuration != TIMEOUT_NEVER
                 && !isDeleteAfterUse) {
-
-            missedAlarmRepeatLimitTitle.setVisibility(VISIBLE);
-            missedAlarmRepeatLimitValue.setVisibility(VISIBLE);
 
             int missedAlarmRepeatLimit = alarm.missedAlarmRepeatLimit;
             switch (missedAlarmRepeatLimit) {
@@ -395,6 +405,12 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
                         missedAlarmRepeatLimitValue.setText(context.getString(R.string.missed_alarm_repeat_limit_10_times));
                 default -> missedAlarmRepeatLimitValue.setText(context.getString(R.string.label_never));
             }
+
+            missedAlarmRepeatLimitTitle.setTypeface(mGeneralTypeface);
+            missedAlarmRepeatLimitValue.setTypeface(mGeneralTypeface);
+
+            missedAlarmRepeatLimitTitle.setVisibility(VISIBLE);
+            missedAlarmRepeatLimitValue.setVisibility(VISIBLE);
         } else {
             missedAlarmRepeatLimitTitle.setVisibility(GONE);
             missedAlarmRepeatLimitValue.setVisibility(GONE);
@@ -403,9 +419,6 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
 
     private void bindCrescendoValue(Context context, Alarm alarm) {
         if (SettingsDAO.isPerAlarmCrescendoDurationEnabled(mPrefs)) {
-            crescendoDurationTitle.setVisibility(VISIBLE);
-            crescendoDurationValue.setVisibility(VISIBLE);
-
             int crescendoDuration = alarm.crescendoDuration;
 
             int m = crescendoDuration / 60;
@@ -423,6 +436,12 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
                 String secondsString = s + " " + context.getString(R.string.seconds_label);
                 crescendoDurationValue.setText(secondsString);
             }
+
+            crescendoDurationTitle.setTypeface(mGeneralTypeface);
+            crescendoDurationValue.setTypeface(mGeneralTypeface);
+
+            crescendoDurationTitle.setVisibility(VISIBLE);
+            crescendoDurationValue.setVisibility(VISIBLE);
         } else {
             crescendoDurationTitle.setVisibility(GONE);
             crescendoDurationValue.setVisibility(GONE);
@@ -435,20 +454,23 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         final int currentVolume = Math.min(alarm.alarmVolume, maxVolume);
 
         if (SettingsDAO.isPerAlarmVolumeEnabled(mPrefs)) {
-            alarmVolumeTitle.setVisibility(VISIBLE);
-            alarmVolumeValue.setVisibility(VISIBLE);
-
             int volumePercent = (int) (((float) currentVolume / maxVolume) * 100);
             String formatted = String.format(Locale.getDefault(), "%d%%", volumePercent);
             alarmVolumeValue.setText(formatted);
 
-            Drawable icon = ContextCompat.getDrawable(context, volumePercent < 50
+            Drawable icon = AppCompatResources.getDrawable(context, volumePercent < 50
                     ? R.drawable.ic_volume_down
                     : R.drawable.ic_volume_up);
 
             if (icon != null) {
                 alarmVolumeTitle.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
             }
+
+            alarmVolumeTitle.setTypeface(mGeneralTypeface);
+            alarmVolumeValue.setTypeface(mGeneralTypeface);
+
+            alarmVolumeTitle.setVisibility(VISIBLE);
+            alarmVolumeValue.setVisibility(VISIBLE);
         } else {
             alarmVolumeTitle.setVisibility(GONE);
             alarmVolumeValue.setVisibility(GONE);
@@ -469,7 +491,13 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
                 dayButton.setTextColor(MaterialColors.getColor(
                         context, com.google.android.material.R.attr.colorSurfaceInverse, Color.BLACK));
             }
+
+            dayButton.setTypeface(mGeneralTypeface);
         }
+    }
+
+    private void bindScheduleAlarm() {
+        scheduleAlarm.setTypeface(mGeneralTypeface);
     }
 
     private void bindSelectedDate(Alarm alarm) {
@@ -483,6 +511,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
                 clearSelectedDate();
             } else {
                 selectedDate.setText(formatAlarmDate(alarm));
+                selectedDate.setTypeface(mGeneralTypeface);
                 addDate.setVisibility(GONE);
                 removeDate.setVisibility(VISIBLE);
             }
@@ -500,6 +529,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     private void bindRingtone(Context context, Alarm alarm) {
         final String title = DataModel.getDataModel().getRingtoneTitle(alarm.alert);
         ringtone.setText(title);
+        ringtone.setTypeface(mGeneralTypeface);
 
         final String description = context.getString(R.string.ringtone_description);
         ringtone.setContentDescription(description + " " + title);
@@ -521,6 +551,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         if (mHasVibrator) {
             vibrate.setVisibility(VISIBLE);
             vibrate.setChecked(alarm.vibrate);
+            vibrate.setTypeface(mGeneralTypeface);
         } else {
             vibrate.setVisibility(GONE);
         }
@@ -530,6 +561,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         if (mHasFlash) {
             flash.setVisibility(VISIBLE);
             flash.setChecked(alarm.flash);
+            flash.setTypeface(mGeneralTypeface);
         } else {
             flash.setVisibility(GONE);
         }
@@ -541,7 +573,13 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         } else {
             deleteOccasionalAlarmAfterUse.setVisibility(VISIBLE);
             deleteOccasionalAlarmAfterUse.setChecked(alarm.deleteAfterUse);
+            deleteOccasionalAlarmAfterUse.setTypeface(mGeneralTypeface);
         }
+    }
+
+    private void bindDeleteAndDuplicateButtons() {
+        delete.setTypeface(mGeneralBoldTypeface);
+        duplicate.setTypeface(mGeneralBoldTypeface);
     }
 
     private void bindEditLabelAnnotations(Alarm alarm) {

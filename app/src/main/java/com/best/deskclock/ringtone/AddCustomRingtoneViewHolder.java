@@ -13,6 +13,7 @@ import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreference
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.text.SpannableStringBuilder;
@@ -42,11 +43,12 @@ final class AddCustomRingtoneViewHolder extends ItemViewHolder<AddCustomRingtone
     private AddCustomRingtoneViewHolder(View itemView) {
         super(itemView);
 
+        final Context context = itemView.getContext();
+        final SharedPreferences prefs = getDefaultSharedPreferences(context);
+
         itemView.setOnClickListener(this);
 
         itemView.setOnLongClickListener(this);
-
-        final Context context = itemView.getContext();
 
         final View selectedView = itemView.findViewById(R.id.sound_image_selected);
         selectedView.setVisibility(GONE);
@@ -70,6 +72,7 @@ final class AddCustomRingtoneViewHolder extends ItemViewHolder<AddCustomRingtone
         builder.setSpan(smallSpan, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         nameView.setText(builder);
+        nameView.setTypeface(ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs)));
 
         final ImageView imageView = itemView.findViewById(R.id.ringtone_image);
         imageView.setImageDrawable(AppCompatResources.getDrawable(context, R.drawable.ic_add));
@@ -81,7 +84,7 @@ final class AddCustomRingtoneViewHolder extends ItemViewHolder<AddCustomRingtone
 
         final int backgroundColor;
         if (ThemeUtils.isNight(context.getResources())
-                && SettingsDAO.getDarkMode(getDefaultSharedPreferences(context)).equals(AMOLED_DARK_MODE)) {
+                && SettingsDAO.getDarkMode(prefs).equals(AMOLED_DARK_MODE)) {
             backgroundColor = Color.BLACK;
         } else {
             backgroundColor = MaterialColors.getColor(context, android.R.attr.colorBackground, Color.BLACK);

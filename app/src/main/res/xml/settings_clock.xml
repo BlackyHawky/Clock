@@ -8,13 +8,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <PreferenceCategory
+    <com.best.deskclock.settings.custompreference.CustomPreferenceCategory
         android:title="@string/style_category_title"
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false"
         tools:layout="@layout/settings_preference_category_layout">
 
-        <ListPreference
+        <com.best.deskclock.settings.custompreference.CustomListPreference
             android:key="key_clock_style"
             android:title="@string/clock_style"
             android:entries="@array/clock_style_entries"
@@ -24,7 +24,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <ListPreference
+        <com.best.deskclock.settings.custompreference.CustomListPreference
             android:key="key_clock_dial"
             android:title="@string/clock_dial_title"
             android:entries="@array/clock_dial_entries"
@@ -34,7 +34,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <ListPreference
+        <com.best.deskclock.settings.custompreference.CustomListPreference
             android:key="key_clock_dial_material"
             android:title="@string/clock_dial_title"
             android:entries="@array/clock_dial_material_entries"
@@ -45,7 +45,7 @@
             tools:layout="@layout/settings_preference_layout"
             tools:isPreferenceVisible="false" />
 
-        <com.best.deskclock.settings.CustomSeekbarPreference
+        <com.best.deskclock.settings.custompreference.CustomSeekbarPreference
             android:key="key_analog_clock_size"
             android:title="@string/analog_clock_size_title"
             android:summary="@string/label_default"
@@ -55,14 +55,14 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_seekbar_layout" />
 
-        <SwitchPreferenceCompat
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
             android:key="key_display_clock_seconds"
             android:title="@string/display_clock_seconds_pref"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <ListPreference
+        <com.best.deskclock.settings.custompreference.CustomListPreference
             android:key="key_clock_second_hand"
             android:title="@string/clock_second_hand_title"
             android:entries="@array/clock_second_hand_entries"
@@ -72,23 +72,23 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <Preference
+        <com.best.deskclock.settings.custompreference.CustomPreference
             android:key="key_digital_clock_font"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:title="@string/custom_font_title"
             tools:layout="@layout/settings_preference_layout" />
 
-    </PreferenceCategory>
+    </com.best.deskclock.settings.custompreference.CustomPreferenceCategory>
 
-    <PreferenceCategory
+    <com.best.deskclock.settings.custompreference.CustomPreferenceCategory
         android:key="key_font_category"
         android:title="@string/font_category_title"
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false"
         tools:layout="@layout/settings_preference_category_layout">
 
-        <com.best.deskclock.settings.CustomSeekbarPreference
+        <com.best.deskclock.settings.custompreference.CustomSeekbarPreference
             android:key="key_digital_clock_font_size"
             android:title="@string/clock_font_size"
             android:summary="@string/label_default"
@@ -98,15 +98,15 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_seekbar_layout" />
 
-    </PreferenceCategory>
+    </com.best.deskclock.settings.custompreference.CustomPreferenceCategory>
 
-    <PreferenceCategory
+    <com.best.deskclock.settings.custompreference.CustomPreferenceCategory
         android:title="@string/miscellaneous_category_title"
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false"
         tools:layout="@layout/settings_preference_category_layout">
 
-        <ListPreference
+        <com.best.deskclock.settings.custompreference.CustomListPreference
             android:key="key_sort_cities"
             android:title="@string/sort_cities_title"
             android:entries="@array/sort_cities_entries"
@@ -116,7 +116,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <SwitchPreferenceCompat
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
             android:key="key_enable_city_note"
             android:title="@string/enable_city_note_title"
             android:summary="@string/enable_city_note_summary"
@@ -125,7 +125,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <SwitchPreferenceCompat
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
             android:key="key_automatic_home_clock"
             android:title="@string/automatic_home_clock"
             android:summary="@string/automatic_home_clock_summary"
@@ -134,7 +134,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <ListPreference
+        <com.best.deskclock.settings.custompreference.CustomListPreference
             android:key="key_home_time_zone"
             android:title="@string/home_time_zone"
             android:entries="@array/timezone_labels"
@@ -143,13 +143,13 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <Preference
+        <com.best.deskclock.settings.custompreference.CustomPreference
             android:key="key_date_time"
             android:title="@string/open_date_settings"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-    </PreferenceCategory>
+    </com.best.deskclock.settings.custompreference.CustomPreferenceCategory>
 
 </PreferenceScreen>

@@ -8,7 +8,6 @@ package com.best.deskclock.settings;
 
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_TITLE;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -19,11 +18,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.graphics.Insets;
 import androidx.core.view.MenuProvider;
@@ -32,14 +31,17 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.Preference;
-import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceFragmentCompat;
-import androidx.preference.PreferenceScreen;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.settings.custompreference.ColorPickerPreference;
+import com.best.deskclock.settings.custompreference.CustomListPreference;
+import com.best.deskclock.settings.custompreference.CustomPreference;
+import com.best.deskclock.uicomponents.CustomDialog;
+import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.SdkUtils;
@@ -49,7 +51,6 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 import java.io.File;
-import java.util.Objects;
 
 public abstract class ScreenFragment extends PreferenceFragmentCompat {
 
@@ -100,6 +101,7 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
         mCollapsingToolbarLayout = requireActivity().findViewById(R.id.collapsing_toolbar);
         mAppBarLayout = requireActivity().findViewById(R.id.app_bar);
         mAppBarLayout.setExpanded(true, true);
+        Toolbar toolbar = requireActivity().findViewById(R.id.action_bar);
 
         mRecyclerView = getListView();
         if (mRecyclerView != null) {
@@ -118,6 +120,8 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
                 menu.add(0, MENU_ABOUT, 0, R.string.about_title)
                         .setIcon(R.drawable.ic_about)
                         .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+                toolbar.post(() -> ThemeUtils.applyToolbarTooltips(toolbar));
             }
 
             @Override
@@ -165,29 +169,17 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
     }
 
     @Override
-    public void setPreferenceScreen(PreferenceScreen preferenceScreen) {
-        super.setPreferenceScreen(preferenceScreen);
-
-        final boolean isBackgroundDisplayed = SettingsDAO.isCardBackgroundDisplayed(mPrefs);
-        final boolean isBorderDisplayed = SettingsDAO.isCardBorderDisplayed(mPrefs);
-
-        if (preferenceScreen == null) {
-            return;
-        }
-
-        int count = preferenceScreen.getPreferenceCount();
-
-        for (int i = 0; i < count; i++) {
-            final Preference pref = preferenceScreen.getPreference(i);
-
-            if (pref instanceof PreferenceCategory category) {
-                category.setLayoutResource(R.layout.settings_preference_category_layout);
-                applyLayoutToCategory(category, isBackgroundDisplayed, isBorderDisplayed);
-            } else if (Objects.equals(pref.getKey(), KEY_ABOUT_TITLE)) {
-                pref.setLayoutResource(R.layout.settings_about_title);
-            } else {
-                applyLayoutToPreference(pref, isBackgroundDisplayed, isBorderDisplayed);
-            }
+    public void onDisplayPreferenceDialog(@NonNull Preference pref) {
+        if (pref instanceof CustomListPreference customListPref) {
+            CustomListPreferenceDialogFragment dialog =
+                    CustomListPreferenceDialogFragment.newInstance(customListPref);
+            CustomListPreferenceDialogFragment.show(getChildFragmentManager(), dialog);
+        } else if (pref instanceof ColorPickerPreference colorPickerPref) {
+            ColorPreferenceDialogFragment dialog =
+                    ColorPreferenceDialogFragment.newInstance(colorPickerPref);
+            dialog.show(getChildFragmentManager(), "color_dialog");
+        } else {
+            super.onDisplayPreferenceDialog(pref);
         }
     }
 
@@ -213,52 +205,6 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
     }
 
     /**
-     * Applies the appropriate layout resource to all preferences inside the given
-     * PreferenceCategory, except for custom preference types that manage their own layout.
-     *
-     * @param category The PreferenceCategory whose child preferences should be styled.
-     * @param isBackgroundDisplayed True if the card background should be displayed.
-     * @param isBorderDisplayed True if the card border should be displayed.
-     */
-    private void applyLayoutToCategory(PreferenceCategory category, boolean isBackgroundDisplayed,
-                                       boolean isBorderDisplayed) {
-
-        int subCount = category.getPreferenceCount();
-        for (int j = 0; j < subCount; j++) {
-            Preference subPref = category.getPreference(j);
-
-            // CustomSeekbarPreference and AlarmVolumePreference manage their own layout
-            if (subPref instanceof CustomSeekbarPreference || subPref instanceof AlarmVolumePreference) {
-                continue;
-            }
-
-            applyLayoutToPreference(subPref, isBackgroundDisplayed, isBorderDisplayed);
-        }
-    }
-
-    /**
-     * Applies the correct layout resource to a single Preference based on the current
-     * background and border settings.
-     *
-     * @param pref The Preference to style.
-     * @param isBackgroundDisplayed True if the card background should be displayed.
-     * @param isBorderDisplayed True if the card border should be displayed.
-     */
-    private void applyLayoutToPreference(Preference pref, boolean isBackgroundDisplayed,
-                                         boolean isBorderDisplayed) {
-
-        if (isBackgroundDisplayed && isBorderDisplayed) {
-            pref.setLayoutResource(R.layout.settings_preference_layout_bordered);
-        } else if (isBackgroundDisplayed) {
-            pref.setLayoutResource(R.layout.settings_preference_layout);
-        } else if (isBorderDisplayed) {
-            pref.setLayoutResource(R.layout.settings_preference_layout_transparent_bordered);
-        } else {
-            pref.setLayoutResource(R.layout.settings_preference_layout_transparent);
-        }
-    }
-
-    /**
      * Initiates a fragment transaction with custom animations to replace the current fragment.
      * The new fragment is added to the back stack, allowing for back navigation, and custom
      * slide-in/slide-out or fade_in/fade-out animations are applied to transition between fragments.
@@ -266,7 +212,8 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
      * @param fragment The new fragment to be displayed.
      */
     protected void animateAndShowFragment(Fragment fragment) {
-        FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
+        FragmentTransaction fragmentTransaction =
+                requireActivity().getSupportFragmentManager().beginTransaction();
 
         if (ThemeUtils.areSystemAnimationsDisabled(requireContext())) {
             fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_NONE);
@@ -282,6 +229,43 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
         fragmentTransaction.replace(R.id.content_frame, fragment)
                 .addToBackStack(null)
                 .commit();
+    }
+
+    protected void selectCustomFile(CustomPreference pref, ActivityResultLauncher<Intent> launcher,
+                                    String fontPath, String prefKey, boolean isFontFile,
+                                    @Nullable OnPreferenceDeleted onPreferenceDeleted) {
+
+        if (fontPath == null) {
+            selectFile(launcher, isFontFile);
+        } else {
+            CustomDialog.create(
+                    requireContext(),
+                    null,
+                    null,
+                    getString(isFontFile
+                            ? R.string.custom_font_dialog_title
+                            : R.string.background_image_dialog_title),
+                    getString(isFontFile
+                            ? R.string.custom_font_title_variant
+                            : R.string.background_image_title_variant),
+                    null,
+                    getString(isFontFile ? R.string.label_new_font : R.string.label_new_image),
+                    (d, w) -> selectFile(launcher, isFontFile),
+                    null,
+                    null,
+                    getString(R.string.delete),
+                    (d, w) -> {
+                        mPrefs.edit().remove(prefKey).apply();
+                        pref.setTitle(isFontFile ? R.string.custom_font_title : R.string.background_image_title);
+                        if (onPreferenceDeleted != null) {
+                            onPreferenceDeleted.onDeleted(pref);
+                        }
+                        deleteFile(fontPath, prefKey, isFontFile);
+                    },
+                    null,
+                    CustomDialog.SoftInputMode.NONE
+            ).show();
+        }
     }
 
     /**
@@ -316,10 +300,9 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
 
         mPrefs.edit().remove(prefKey).apply();
 
-        Toast.makeText(requireContext(), isFontFile
+        CustomToast.show(requireContext(), isFontFile
                 ? R.string.custom_font_toast_message_deleted
-                : R.string.background_image_toast_message_deleted,
-                Toast.LENGTH_SHORT).show();
+                : R.string.background_image_toast_message_deleted);
     }
 
     /**
@@ -337,6 +320,14 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
                 }
             }
         }
+    }
+
+    /**
+     * Interface for updating preference when pressing the Delete button in the dialog box
+     * that appears when a file is selected.
+     */
+    protected interface OnPreferenceDeleted {
+        void onDeleted(CustomPreference pref);
     }
 
 }

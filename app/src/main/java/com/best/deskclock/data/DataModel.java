@@ -31,13 +31,13 @@ import android.os.Looper;
 import android.os.SystemClock;
 import android.text.format.DateFormat;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import com.best.deskclock.R;
 import com.best.deskclock.timer.TimerService;
+import com.best.deskclock.uicomponents.toast.CustomToast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -865,7 +865,7 @@ public final class DataModel {
                 try {
                     context.startActivity(intent);
                 } catch (ActivityNotFoundException ex) {
-                    Toast.makeText(context, "application_not_found", Toast.LENGTH_SHORT).show();
+                    CustomToast.show(context, "application_not_found");
                 }
                 return true;
             }

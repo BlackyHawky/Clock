@@ -35,24 +35,25 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.preference.ListPreference;
 import androidx.preference.Preference;
-import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.screensaver.ScreensaverActivity;
+import com.best.deskclock.settings.custompreference.ColorPickerPreference;
+import com.best.deskclock.settings.custompreference.CustomListPreference;
+import com.best.deskclock.settings.custompreference.CustomPreference;
+import com.best.deskclock.settings.custompreference.CustomSeekbarPreference;
+import com.best.deskclock.settings.custompreference.CustomSwitchPreference;
 import com.best.deskclock.uicomponents.CollapsingToolbarBaseActivity;
+import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 /**
  * Settings for Clock screensaver
@@ -88,26 +89,26 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
         ColorPickerPreference mClockColorPref;
         ColorPickerPreference mDateColorPref;
         ColorPickerPreference mNextAlarmColorPref;
-        ListPreference mClockStylePref;
-        ListPreference mClockDialPref;
-        ListPreference mClockDialMaterialPref;
-        ListPreference mClockSecondHandPref;
-        SwitchPreferenceCompat mDisplaySecondsPref;
+        CustomListPreference mClockStylePref;
+        CustomListPreference mClockDialPref;
+        CustomListPreference mClockDialMaterialPref;
+        CustomListPreference mClockSecondHandPref;
+        CustomSwitchPreference mDisplaySecondsPref;
         CustomSeekbarPreference mDigitalClockFontSizePref;
-        SwitchPreferenceCompat mBoldDigitalClockPref;
-        SwitchPreferenceCompat mClockDynamicColorPref;
-        SwitchPreferenceCompat mItalicDigitalClockPref;
-        SwitchPreferenceCompat mBoldDatePref;
-        SwitchPreferenceCompat mItalicDatePref;
-        SwitchPreferenceCompat mBoldNextAlarmPref;
-        SwitchPreferenceCompat mItalicNextAlarmPref;
+        CustomSwitchPreference mBoldDigitalClockPref;
+        CustomSwitchPreference mClockDynamicColorPref;
+        CustomSwitchPreference mItalicDigitalClockPref;
+        CustomSwitchPreference mBoldDatePref;
+        CustomSwitchPreference mItalicDatePref;
+        CustomSwitchPreference mBoldNextAlarmPref;
+        CustomSwitchPreference mItalicNextAlarmPref;
         CustomSeekbarPreference mAnalogClockSizePref;
-        Preference mDigitalClockFontPref;
-        Preference mScreensaverBackgroundImagePref;
-        SwitchPreferenceCompat mEnableScreensaverBlurEffectPref;
+        CustomPreference mDigitalClockFontPref;
+        CustomPreference mScreensaverBackgroundImagePref;
+        CustomSwitchPreference mEnableScreensaverBlurEffectPref;
         CustomSeekbarPreference mScreensaverBlurIntensityPref;
-        Preference mScreensaverPreview;
-        Preference mScreensaverMainSettings;
+        CustomPreference mScreensaverPreview;
+        CustomPreference mScreensaverMainSettings;
 
         private final ActivityResultLauncher<Intent> fontPickerLauncher =
                 registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -138,9 +139,9 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                         mPrefs.edit().putString(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT, copiedUri.getPath()).apply();
                         mDigitalClockFontPref.setTitle(getString(R.string.custom_font_title_variant));
 
-                        Toast.makeText(requireContext(), R.string.custom_font_toast_message_selected, Toast.LENGTH_SHORT).show();
+                        CustomToast.show(requireContext(), R.string.custom_font_toast_message_selected);
                     } else {
-                        Toast.makeText(requireContext(), "Error importing font", Toast.LENGTH_SHORT).show();
+                        CustomToast.show(requireContext(), "Error importing font");
                         mDigitalClockFontPref.setTitle(getString(R.string.custom_font_title));
                     }
                 });
@@ -178,9 +179,9 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                         mScreensaverBlurIntensityPref.setVisible(SdkUtils.isAtLeastAndroid12()
                                 && SettingsDAO.isScreensaverBlurEffectEnabled(mPrefs));
 
-                        Toast.makeText(requireContext(), R.string.background_image_toast_message_selected, Toast.LENGTH_SHORT).show();
+                        CustomToast.show(requireContext(), R.string.background_image_toast_message_selected);
                     } else {
-                        Toast.makeText(requireContext(), "Error importing image", Toast.LENGTH_SHORT).show();
+                        CustomToast.show(requireContext(), "Error importing image");
                         mScreensaverBackgroundImagePref.setTitle(getString(R.string.background_image_title));
                         mEnableScreensaverBlurEffectPref.setVisible(false);
                         mScreensaverBlurIntensityPref.setVisible(false);
@@ -266,7 +267,7 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
 
                 case KEY_SCREENSAVER_CLOCK_DIAL, KEY_SCREENSAVER_CLOCK_DIAL_MATERIAL,
                      KEY_SCREENSAVER_CLOCK_SECOND_HAND -> {
-                    final ListPreference preference = (ListPreference) pref;
+                    final CustomListPreference preference = (CustomListPreference) pref;
                     final int index = preference.findIndexOfValue((String) newValue);
                     preference.setSummary(preference.getEntries()[index]);
                 }
@@ -320,54 +321,21 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                     startActivity(dialogSSMainSettingsIntent);
                 }
 
-                case KEY_SCREENSAVER_DIGITAL_CLOCK_FONT -> {
-                    if (SettingsDAO.getScreensaverDigitalClockFont(mPrefs) == null) {
-                        selectFile(fontPickerLauncher, true);
-                    } else {
-                        new MaterialAlertDialogBuilder(requireContext())
-                                .setTitle(R.string.custom_font_dialog_title)
-                                .setMessage(R.string.custom_font_title_variant)
-                                .setPositiveButton(getString(R.string.label_new_font), (dialog, which) ->
-                                        selectFile(fontPickerLauncher, true))
-                                .setNeutralButton(getString(R.string.delete), (dialog, which) -> {
-                                    mDigitalClockFontPref.setTitle(getString(R.string.custom_font_title));
-                                    deleteFile(mPrefs.getString(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT, null),
-                                            KEY_SCREENSAVER_DIGITAL_CLOCK_FONT, true);
-                                })
-                                .show();
-                    }
-                }
+                case KEY_SCREENSAVER_DIGITAL_CLOCK_FONT -> selectCustomFile(mDigitalClockFontPref,
+                        fontPickerLauncher, SettingsDAO.getScreensaverDigitalClockFont(mPrefs),
+                        KEY_SCREENSAVER_DIGITAL_CLOCK_FONT, true, null);
 
-                case KEY_SCREENSAVER_BACKGROUND_IMAGE -> {
-                    if (SettingsDAO.getScreensaverBackgroundImage(mPrefs) == null) {
-                        selectFile(imagePickerLauncher, false);
-                    } else {
-                        new MaterialAlertDialogBuilder(requireContext())
-                                .setTitle(R.string.background_image_dialog_title)
-                                .setMessage(R.string.background_image_title_variant)
-                                .setPositiveButton(getString(R.string.label_new_image), (dialog, which) ->
-                                        selectFile(imagePickerLauncher, false))
-                                .setNeutralButton(getString(R.string.delete), (dialog, which) -> {
-                                    mPrefs.edit().remove(KEY_SCREENSAVER_BACKGROUND_IMAGE).apply();
-                                    mScreensaverBackgroundImagePref.setTitle(getString(R.string.background_image_title));
-                                    mEnableScreensaverBlurEffectPref.setVisible(false);
-                                    mScreensaverBlurIntensityPref.setVisible(false);
-                                    deleteFile(mPrefs.getString(KEY_SCREENSAVER_BACKGROUND_IMAGE, null),
-                                            KEY_SCREENSAVER_BACKGROUND_IMAGE, false);
-                                })
-                                .show();
-                    }
-                }
+                case KEY_SCREENSAVER_BACKGROUND_IMAGE -> selectCustomFile(mScreensaverBackgroundImagePref,
+                        imagePickerLauncher, SettingsDAO.getScreensaverBackgroundImage(mPrefs),
+                        KEY_SCREENSAVER_BACKGROUND_IMAGE, false,
+                        mScreensaverBackgroundImagePref -> {
+
+                    mEnableScreensaverBlurEffectPref.setVisible(false);
+                    mScreensaverBlurIntensityPref.setVisible(false);
+                });
             }
 
             return true;
-        }
-
-        @Override
-        public void onDisplayPreferenceDialog(@NonNull Preference preference) {
-            if (preference instanceof ColorPickerPreference colorPickerPref) {
-                colorPickerPref.showDialog(this, 0);
-            } else super.onDisplayPreferenceDialog(preference);
         }
 
         private void setupPreferences() {

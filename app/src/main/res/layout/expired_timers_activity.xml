@@ -82,13 +82,13 @@
             android:paddingHorizontal="10dp"
             android:paddingVertical="10dp"
             android:textSize="18sp"
-            android:textStyle="bold"
             android:singleLine="true"
             android:focusable="true"
             android:ellipsize="marquee"
             android:marqueeRepeatLimit="marquee_forever"
             android:scrollHorizontally="true"
             tools:text="Daydream"
+            tools:textStyle="bold"
             tools:textColor="#888888" />
 
     </LinearLayout>

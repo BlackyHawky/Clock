@@ -2,21 +2,30 @@
 
 package com.best.deskclock.alarms;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+
+import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.best.deskclock.R;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.provider.Alarm;
+import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.SdkUtils;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.best.deskclock.utils.ThemeUtils;
 
 /**
  * DialogFragment to set a new repeat limit for missed alarms.
@@ -91,6 +100,9 @@ public class AlarmMissedRepeatLimitDialogFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        SharedPreferences prefs = getDefaultSharedPreferences(requireContext());
+        Typeface typeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
+
         final Bundle args = requireArguments();
         mAlarm = SdkUtils.isAtLeastAndroid13()
                 ? args.getParcelable(ARG_ALARM, Alarm.class)
@@ -102,9 +114,17 @@ public class AlarmMissedRepeatLimitDialogFragment extends DialogFragment {
             selectedCount = savedInstanceState.getInt(ARG_SELECTED_COUNT, selectedCount);
         }
 
-        View view = getLayoutInflater().inflate(R.layout.alarm_missed_repeat_limit_dialog, null);
+        @SuppressLint("InflateParams")
+        View dialogView = getLayoutInflater().inflate(R.layout.alarm_missed_repeat_limit_dialog, null);
 
-        mRadioGroup = view.findViewById(R.id.repeat_limit_radio_group);
+        mRadioGroup = dialogView.findViewById(R.id.repeat_limit_radio_group);
+
+        for (int i = 0; i < mRadioGroup.getChildCount(); i++) {
+            View child = mRadioGroup.getChildAt(i);
+            if (child instanceof RadioButton radioButton) {
+                radioButton.setTypeface(typeface);
+            }
+        }
 
         selectRadioButtonForLimit(selectedCount);
 
@@ -113,12 +133,22 @@ public class AlarmMissedRepeatLimitDialogFragment extends DialogFragment {
             dismiss();
         });
 
-        final MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(requireContext())
-                .setTitle(getString(R.string.missed_alarm_repeat_limit_title))
-                .setView(view)
-                .setPositiveButton(android.R.string.cancel, (dialog, which) -> dismiss());
-
-        return dialogBuilder.create();
+        return CustomDialog.create(
+                requireContext(),
+                null,
+                AppCompatResources.getDrawable(requireContext(), R.drawable.ic_repeat),
+                getString(R.string.missed_alarm_repeat_limit_title),
+                null,
+                dialogView,
+                null,
+                null,
+                getString(android.R.string.cancel),
+                null,
+                null,
+                null,
+                null,
+                CustomDialog.SoftInputMode.NONE
+        );
     }
 
     /**

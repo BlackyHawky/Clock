@@ -27,6 +27,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.util.DisplayMetrics;
@@ -149,8 +150,10 @@ public final class ClockFragment extends DeskClockFragment {
                 ClockUtils.adjustAnalogClockSize(analogClock, mPrefs, false, true, false);
                 ClockUtils.setAnalogClockSecondsEnabled(mClockStyle, analogClock, mShowSeconds);
             }
-            ClockUtils.setClockIconTypeface(mClockFrame);
             ClockUtils.updateDate(mDateFormat, mDateFormatForAccessibility, mClockFrame);
+            ClockUtils.applyBoldDateTypeface(mClockFrame);
+            ClockUtils.setClockIconTypeface(mClockFrame);
+            AlarmUtils.applyBoldNextAlarmTypeface(mClockFrame);
         }
 
         mEmptyCityViewRightPanel = fragmentView.findViewById(R.id.empty_city_view_right_panel);
@@ -370,7 +373,7 @@ public final class ClockFragment extends DeskClockFragment {
      */
     private void refreshAlarm() {
         if (mClockFrame != null) {
-            AlarmUtils.refreshAlarm(getContext(), mClockFrame);
+            AlarmUtils.refreshAlarm(getContext(), mClockFrame, false);
         } else {
             mCityAdapter.refreshAlarm();
         }
@@ -538,6 +541,8 @@ public final class ClockFragment extends DeskClockFragment {
         private static final class CityViewHolder extends RecyclerView.ViewHolder {
 
             private final SharedPreferences mPrefs;
+            private final Typeface mRegularTypeface;
+            private final Typeface mBoldTypeface;
             private final SelectedCitiesAdapter mAdapter;
             private final TextView mName;
             private final DataModel.ClockStyle mClockStyle;
@@ -551,6 +556,9 @@ public final class ClockFragment extends DeskClockFragment {
                 super(itemView);
 
                 mPrefs = getDefaultSharedPreferences(itemView.getContext());
+                String fontPath = SettingsDAO.getGeneralFont(mPrefs);
+                mRegularTypeface = ThemeUtils.loadFont(fontPath);
+                mBoldTypeface = ThemeUtils.boldTypeface(fontPath);
                 mAdapter = adapter;
                 mClockStyle = SettingsDAO.getClockStyle(mPrefs);
                 mName = itemView.findViewById(R.id.city_name);
@@ -607,6 +615,7 @@ public final class ClockFragment extends DeskClockFragment {
 
                 // Bind the city name.
                 mName.setText(city.getName());
+                mName.setTypeface(mBoldTypeface);
 
                 // Compute if the city week day matches the weekday of the current timezone.
                 final Calendar localCal = Calendar.getInstance(TimeZone.getDefault());
@@ -635,6 +644,7 @@ public final class ClockFragment extends DeskClockFragment {
                             ? R.string.world_hours_tomorrow
                             : R.string.world_hours_yesterday, timeString))
                         : timeString);
+                mHoursAhead.setTypeface(mRegularTypeface);
 
                 // Allow text scrolling by clicking on the item (all other attributes are indicated
                 // in the "world_clock_city_container.xml" file)
@@ -647,6 +657,7 @@ public final class ClockFragment extends DeskClockFragment {
                     if (note != null && !note.trim().isEmpty()) {
                         cityNoteView.setVisibility(View.VISIBLE);
                         cityNoteView.setText(note.trim());
+                        cityNoteView.setTypeface(mRegularTypeface);
                     } else {
                         cityNoteView.setVisibility(View.GONE);
                     }
@@ -692,7 +703,6 @@ public final class ClockFragment extends DeskClockFragment {
                 mAreClockSecondsDisplayed = SettingsDAO.areClockSecondsDisplayed(mPrefs);
                 mDigitalClockFontPath = SettingsDAO.getDigitalClockFont(mPrefs);
                 mDigitalClockFontSize = SettingsDAO.getDigitalClockFontSize(mPrefs);
-                ClockUtils.setClockIconTypeface(itemView);
             }
 
             private void bind(Context context, String dateFormat, String dateFormatForAccessibility,
@@ -718,8 +728,6 @@ public final class ClockFragment extends DeskClockFragment {
                     mEmptyCityView.setVisibility(View.GONE);
                 }
 
-                AlarmUtils.refreshAlarm(context, itemView);
-                ClockUtils.updateDate(dateFormat, dateFormatForAccessibility, itemView);
                 ClockUtils.setClockStyle(mClockStyle, mDigitalClock, mAnalogClock);
                 if (mClockStyle == DataModel.ClockStyle.DIGITAL) {
                     ClockUtils.setDigitalClockFont(mDigitalClock, mDigitalClockFontPath);
@@ -730,6 +738,12 @@ public final class ClockFragment extends DeskClockFragment {
                     ClockUtils.adjustAnalogClockSize(mAnalogClock, mPrefs, false, true, false);
                     ClockUtils.setAnalogClockSecondsEnabled(mClockStyle, mAnalogClock, mAreClockSecondsDisplayed);
                 }
+
+                ClockUtils.updateDate(dateFormat, dateFormatForAccessibility, itemView);
+                ClockUtils.applyBoldDateTypeface(itemView);
+                ClockUtils.setClockIconTypeface(itemView);
+                AlarmUtils.refreshAlarm(context, itemView, false);
+                AlarmUtils.applyBoldNextAlarmTypeface(itemView);
             }
         }
     }

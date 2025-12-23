@@ -88,8 +88,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:paddingStart="24dp"
-            android:paddingEnd="24dp"
+            android:paddingHorizontal="24dp"
             android:includeFontPadding="false"
             android:textSize="70sp"
             tools:text="01:23" />
@@ -146,14 +145,14 @@
         android:layout_marginTop="20dp"
         android:layout_marginBottom="5dp"
         android:maxLines="1"
-        android:textStyle="bold"
         app:layout_constraintWidth_max="320dp"
         app:layout_constraintHeight_max="100dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button_center_guide"
         app:layout_constraintTop_toBottomOf="@+id/circle_container_end_guide"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:text="+ 1:00" />
+        tools:text="+ 1:00"
+        tools:textStyle="bold" />
 
     <!--  For tablets in portrait mode with single timer, the size of this button is adjusted.
           See the TimerItem.java file. -->

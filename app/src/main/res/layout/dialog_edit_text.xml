@@ -7,15 +7,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingStart="?attr/dialogPreferredPadding"
-    android:paddingEnd="?attr/dialogPreferredPadding">
+    android:paddingHorizontal="?attr/dialogPreferredPadding">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/dialog_input_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp">
+        android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@android:id/edit"

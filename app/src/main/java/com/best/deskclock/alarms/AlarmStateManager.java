@@ -41,6 +41,7 @@ import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
+import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.LogUtils;
@@ -59,7 +60,7 @@ import java.util.Objects;
  * be activated. If a major time change has occurred (ie. TIMEZONE_CHANGE, TIMESET_CHANGE),
  * then you must also re-register instances to fix their states.
  * <p>
- * Please see {@link #registerInstance) for special transitions when major time changes occur.
+ * Please see {@link #registerInstance} for special transitions when major time changes occur.
  * <p>
  * Following states:
  * <p>
@@ -251,8 +252,12 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 Alarm.deleteAlarm(cr, alarm.id);
                 if (!DataModel.getDataModel().isApplicationInForeground()) {
                     final String time = DateFormat.getTimeFormat(context).format(instance.getAlarmTime().getTime());
-                    Toast.makeText(context, context.getString(R.string.occasional_alarm_deleted, time),
-                            Toast.LENGTH_LONG).show();
+                    if (DataModel.getDataModel().isApplicationInForeground()) {
+                        CustomToast.showLong(context, context.getString(R.string.occasional_alarm_deleted, time));
+                    } else {
+                        Toast.makeText(context, context.getString(R.string.occasional_alarm_deleted, time),
+                                Toast.LENGTH_LONG).show();
+                    }
                 }
             } else {
                 LogUtils.i("Disabling parent alarm: " + alarm.id);
@@ -465,7 +470,11 @@ public final class AlarmStateManager extends BroadcastReceiver {
             final Runnable myRunnable = () -> {
                 String displayTime = String.format(context.getResources()
                                 .getQuantityText(R.plurals.alarm_alert_snooze_set, snoozeMinutes).toString(), snoozeMinutes);
-                Toast.makeText(context, displayTime, Toast.LENGTH_LONG).show();
+                if (DataModel.getDataModel().isApplicationInForeground()) {
+                    CustomToast.showLong(context, displayTime);
+                } else {
+                    Toast.makeText(context, displayTime, Toast.LENGTH_LONG).show();
+                }
             };
             mainHandler.post(myRunnable);
         }

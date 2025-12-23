@@ -35,7 +35,6 @@ import com.best.deskclock.R;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AlarmUtils;
-import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.ScreensaverUtils;
@@ -62,7 +61,7 @@ public class ScreensaverActivity extends BaseActivity {
                 case Intent.ACTION_POWER_DISCONNECTED -> updateWakeLock(false);
                 case Intent.ACTION_USER_PRESENT -> finish();
                 case ACTION_NEXT_ALARM_CHANGED_BY_CLOCK ->
-                        AlarmUtils.refreshAlarm(ScreensaverActivity.this, mContentView);
+                        AlarmUtils.refreshAlarm(ScreensaverActivity.this, mContentView, true);
             }
         }
     };
@@ -71,7 +70,7 @@ public class ScreensaverActivity extends BaseActivity {
     private final Runnable mMidnightUpdater = new Runnable() {
         @Override
         public void run() {
-            ClockUtils.updateDate(mDateFormat, mDateFormatForAccessibility, mContentView);
+            ScreensaverUtils.updateScreensaverDate(mDateFormat, mDateFormatForAccessibility, mContentView);
         }
     };
 
@@ -137,8 +136,8 @@ public class ScreensaverActivity extends BaseActivity {
     public void onResume() {
         super.onResume();
 
-        ClockUtils.updateDate(mDateFormat, mDateFormatForAccessibility, mContentView);
-        AlarmUtils.refreshAlarm(ScreensaverActivity.this, mContentView);
+        ScreensaverUtils.updateScreensaverDate(mDateFormat, mDateFormatForAccessibility, mContentView);
+        AlarmUtils.refreshAlarm(ScreensaverActivity.this, mContentView, true);
 
         startPositionUpdater();
         if (mBackgroundAnimator != null) {

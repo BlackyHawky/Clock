@@ -21,6 +21,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.PowerManager;
@@ -33,6 +34,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
@@ -41,13 +43,14 @@ import androidx.core.view.WindowInsetsCompat;
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.uicomponents.CollapsingToolbarBaseActivity;
+import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.SdkUtils;
 
+import com.best.deskclock.utils.ThemeUtils;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.color.MaterialColors;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 /**
  * Manage the permissions required to ensure the application runs properly.
@@ -90,11 +93,23 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
         TextView mNotificationStatus;
         TextView mFullScreenNotificationsStatus;
 
+        Typeface mRegularTypeFace;
+        Typeface mBoldTypeFace;
+
         private static final String PERMISSION_POWER_OFF_ALARM = "org.codeaurora.permission.POWER_OFF_ALARM";
 
         @Override
         protected String getFragmentTitle() {
             return getString(R.string.permission_management_settings);
+        }
+
+        @Override
+        public void onCreate(@Nullable Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+
+            final String fontPath = SettingsDAO.getGeneralFont(mPrefs);
+            mRegularTypeFace = ThemeUtils.loadFont(fontPath);
+            mBoldTypeFace = ThemeUtils.boldTypeface(fontPath);
         }
 
         @NonNull
@@ -109,6 +124,18 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
             mIgnoreBatteryOptimizationsView = rootView.findViewById(R.id.IBO_view);
             mIgnoreBatteryOptimizationsView.setOnClickListener(v -> launchIgnoreBatteryOptimizationsSettings());
 
+            TextView IBOTitle = rootView.findViewById(R.id.IBO_title);
+            IBOTitle.setTypeface(mBoldTypeFace);
+
+            TextView IBORequirementTitle = rootView.findViewById(R.id.IBO_requirement_type_title);
+            IBORequirementTitle.setTypeface(mRegularTypeFace);
+
+            TextView IBORequirementAdvice = rootView.findViewById(R.id.IBO_requirement_advice);
+            IBORequirementAdvice.setTypeface(mRegularTypeFace);
+
+            TextView IBOStatusTitle = rootView.findViewById(R.id.IBO_status_title);
+            IBOStatusTitle.setTypeface(mRegularTypeFace);
+
             mIgnoreBatteryOptimizationsDetails = rootView.findViewById(R.id.IBO_details_button);
             mIgnoreBatteryOptimizationsDetails.setOnClickListener(v ->
                     displayPermissionDetailsDialog(
@@ -120,6 +147,18 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
 
             mNotificationView = rootView.findViewById(R.id.notification_view);
             mNotificationView.setOnClickListener(v -> grantOrRevokeNotificationsPermission());
+
+            TextView notificationTitle = rootView.findViewById(R.id.notification_title);
+            notificationTitle.setTypeface(mBoldTypeFace);
+
+            TextView notificationRequirementTitle = rootView.findViewById(R.id.notification_requirement_type_title);
+            notificationRequirementTitle.setTypeface(mRegularTypeFace);
+
+            TextView notificationRequirementAdvice = rootView.findViewById(R.id.notification_requirement_advice);
+            notificationRequirementAdvice.setTypeface(mRegularTypeFace);
+
+            TextView notificationStatusTitle = rootView.findViewById(R.id.notification_status_title);
+            notificationStatusTitle.setTypeface(mRegularTypeFace);
 
             mNotificationDetails = rootView.findViewById(R.id.notification_details_button);
             mNotificationDetails.setOnClickListener(v ->
@@ -140,6 +179,18 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                 mFullScreenNotificationsView.setVisibility(View.VISIBLE);
                 mFullScreenNotificationsView.setOnClickListener(v -> grantOrRevokeFullScreenNotificationsPermission());
 
+                TextView FSNTitle = rootView.findViewById(R.id.FSN_title);
+                FSNTitle.setTypeface(mBoldTypeFace);
+
+                TextView FSNRequirementTitle = rootView.findViewById(R.id.FSN_requirement_type_title);
+                FSNRequirementTitle.setTypeface(mRegularTypeFace);
+
+                TextView FSNRequirementAdvice = rootView.findViewById(R.id.FSN_requirement_advice);
+                FSNRequirementAdvice.setTypeface(mRegularTypeFace);
+
+                TextView FSNStatusTitle = rootView.findViewById(R.id.FSN_status_title);
+                FSNStatusTitle.setTypeface(mRegularTypeFace);
+
                 mFullScreenNotificationsDetails = rootView.findViewById(R.id.FSN_details_button);
                 mFullScreenNotificationsDetails.setOnClickListener(v ->
                         displayPermissionDetailsDialog(
@@ -156,6 +207,18 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                 mShowLockscreenView = rootView.findViewById(R.id.show_lockscreen_view);
                 mShowLockscreenView.setVisibility(View.VISIBLE);
                 mShowLockscreenView.setOnClickListener(v -> grantShowOnLockScreenPermissionXiaomi());
+
+                TextView showLockScreenTitle = rootView.findViewById(R.id.show_lockscreen_title);
+                showLockScreenTitle.setTypeface(mBoldTypeFace);
+
+                TextView showLockScreenRequirementTitle = rootView.findViewById(R.id.show_lockscreen_type_title);
+                showLockScreenRequirementTitle.setTypeface(mRegularTypeFace);
+
+                TextView showLockscreenRequirementAdvice = rootView.findViewById(R.id.show_lockscreen_requirement_advice);
+                showLockscreenRequirementAdvice.setTypeface(mRegularTypeFace);
+
+                TextView showLockScreenInfoTitle = rootView.findViewById(R.id.show_lockscreen_info_title);
+                showLockScreenInfoTitle.setTypeface(mRegularTypeFace);
 
                 mShowLockscreenDetails = rootView.findViewById(R.id.show_lockscreen_button);
                 mShowLockscreenDetails.setOnClickListener(v ->
@@ -236,14 +299,14 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
             if (areNotificationsEnabled(requireContext())) {
                 displayRevocationDialog(intent);
             } else if (shouldShowRequestPermissionRationale(POST_NOTIFICATIONS)) {
-                new MaterialAlertDialogBuilder(requireContext())
-                        .setIcon(R.drawable.ic_notifications)
-                        .setTitle(R.string.notifications_dialog_title)
-                        .setMessage(R.string.notifications_dialog_text)
-                        .setPositiveButton(android.R.string.ok, (dialog, which) ->
-                                startActivity(intent))
-                        .setNegativeButton(android.R.string.cancel, null)
-                        .show();
+                CustomDialog.createSimpleDialog(
+                        requireContext(),
+                        R.drawable.ic_notifications,
+                        R.string.notifications_dialog_title,
+                        getString(R.string.notifications_dialog_text),
+                        android.R.string.ok,
+                        (d, w) -> startActivity(intent)
+                ).show();
             } else {
                 if (SdkUtils.isAtLeastAndroid13()) {
                     requireActivity().requestPermissions(new String[]{POST_NOTIFICATIONS}, 0);
@@ -304,26 +367,36 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
          * Display dialog when user wants to read the permission details.
          */
         private void displayPermissionDetailsDialog(int iconId, int titleId, int messageId) {
-            new MaterialAlertDialogBuilder(requireContext())
-                    .setIcon(iconId)
-                    .setTitle(titleId)
-                    .setMessage(messageId)
-                    .setPositiveButton(R.string.dialog_close, null)
-                    .show();
+            CustomDialog.create(
+                    requireContext(),
+                    null,
+                    AppCompatResources.getDrawable(requireContext(), iconId),
+                    getString(titleId),
+                    getString(messageId),
+                    null,
+                    getString(R.string.dialog_close),
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    CustomDialog.SoftInputMode.NONE
+            ).show();
         }
 
         /**
          * Display dialog when user wants to revoke permission.
          */
         private void displayRevocationDialog(Intent intent) {
-            new MaterialAlertDialogBuilder(requireContext())
-                    .setIcon(R.drawable.ic_key_off)
-                    .setTitle(R.string.permission_dialog_revoke_title)
-                    .setMessage(R.string.revoke_permission_dialog_message)
-                    .setPositiveButton(android.R.string.ok, (dialog, which) ->
-                            startActivity(intent))
-                    .setNegativeButton(android.R.string.cancel, null)
-                    .show();
+            CustomDialog.createSimpleDialog(
+                    requireContext(),
+                    R.drawable.ic_key_off,
+                    R.string.permission_dialog_revoke_title,
+                    getString(R.string.revoke_permission_dialog_message),
+                    android.R.string.ok,
+                    (d, w) -> startActivity(intent)
+            ).show();
         }
 
         /**
@@ -333,6 +406,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
             mIgnoreBatteryOptimizationsStatus.setText(isIgnoringBatteryOptimizations(requireContext())
                     ? R.string.permission_granted
                     : R.string.permission_denied);
+            mIgnoreBatteryOptimizationsStatus.setTypeface(mRegularTypeFace);
             mIgnoreBatteryOptimizationsStatus.setTextColor(isIgnoringBatteryOptimizations(requireContext())
                     ? requireContext().getColor(R.color.colorGranted)
                     : requireContext().getColor(R.color.colorAlert));
@@ -340,6 +414,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
             mNotificationStatus.setText(areNotificationsEnabled(requireContext())
                     ? R.string.permission_granted
                     : R.string.permission_denied);
+            mNotificationStatus.setTypeface(mRegularTypeFace);
             mNotificationStatus.setTextColor(areNotificationsEnabled(requireContext())
                     ? requireContext().getColor(R.color.colorGranted)
                     : requireContext().getColor(R.color.colorAlert));
@@ -348,6 +423,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                 mFullScreenNotificationsStatus.setText(areFullScreenNotificationsEnabled(requireContext())
                         ? R.string.permission_granted
                         : R.string.permission_denied);
+                mFullScreenNotificationsStatus.setTypeface(mRegularTypeFace);
                 mFullScreenNotificationsStatus.setTextColor(areFullScreenNotificationsEnabled(requireContext())
                         ? requireContext().getColor(R.color.colorGranted)
                         : requireContext().getColor(R.color.colorAlert));

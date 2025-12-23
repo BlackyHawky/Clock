@@ -16,6 +16,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.text.BidiFormatter;
 import android.text.SpannableString;
 import android.text.TextUtils;
@@ -89,6 +90,8 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
         super.onFinishInflate();
 
         final SharedPreferences prefs = getDefaultSharedPreferences(getContext());
+        final Typeface generalTypeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
+        final Typeface timerTypeface = ThemeUtils.loadFont(SettingsDAO.getTimerDurationFont(prefs));
         final DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         final int marginButtonLeft = (int) dpToPx( 10, displayMetrics);
         final int marginButtonRight = (int) dpToPx(10, displayMetrics);
@@ -115,9 +118,11 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
                 findViewById(R.id.timer_setup_digit_9),
         };
 
-        mTimeView.setTypeface(ThemeUtils.loadFont(SettingsDAO.getTimerDurationFont(prefs)));
+        mTimeView.setTypeface(timerTypeface);
 
         for (final MaterialButton digitButton : mDigitButton) {
+            digitButton.setTypeface(generalTypeface);
+
             if (isCardBackgroundDisplayed) {
                 digitButton.setBackgroundTintList(ColorStateList.valueOf(
                         MaterialColors.getColor(getContext(), com.google.android.material.R.attr.colorSurface, Color.BLACK)));
@@ -144,6 +149,8 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
         }
 
         MaterialButton doubleZeroButton = findViewById(R.id.timer_setup_digit_00);
+        doubleZeroButton.setTypeface(generalTypeface);
+
         if (isCardBackgroundDisplayed) {
             doubleZeroButton.setBackgroundTintList(ColorStateList.valueOf(
                     MaterialColors.getColor(getContext(), com.google.android.material.R.attr.colorPrimaryContainer, Color.BLACK)));
@@ -171,6 +178,7 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
         }
         doubleZeroButton.setOnClickListener(this);
 
+        mDeleteButton.setTypeface(generalTypeface);
         mDeleteButton.setOnClickListener(this);
         mDeleteButton.setOnLongClickListener(this);
 

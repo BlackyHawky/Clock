@@ -76,7 +76,7 @@
     </style>
 
     <style name="AppSwitchPreference" parent="@style/Preference.SwitchPreferenceCompat.Material">
-        <item name="widgetLayout">@layout/settings_switch_material</item>
+        <item name="widgetLayout">@layout/settings_material_switch</item>
     </style>
 
     <style name="TimerSetupDigit" parent="@style/Widget.MaterialComponents.Button">

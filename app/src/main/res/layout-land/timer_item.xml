@@ -131,10 +131,10 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
         android:padding="12dp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/play_pause"
-        tools:text="+ 1:00" />
+        tools:text="+ 1:00"
+        tools:textStyle="bold" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/play_pause"

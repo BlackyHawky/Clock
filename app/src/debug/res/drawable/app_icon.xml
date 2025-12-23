@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Background -->
+    <path
+        android:pathData="M12,12m-12,0a12,12 0 1,1 24,0a12,12 0 1,1 -24,0"
+        android:fillColor="#EF5350" />
+
+    <!-- Hour hand -->
+    <path
+        android:pathData="M8.255 8.858c.081-.096.222-.115.325-.043l3.6 2.4c.004.003.008.006.012.009C11.452 11.17 11 11.53 11 12c0 .016 0 .032.001.048-.004-.004-.007-.007-.01-.01L8.27 9.185c-.089-.089-.095-.231-.015-.327Z"
+        android:fillColor="@android:color/white"/>
+
+    <!-- Minute hand -->
+    <path
+        android:pathData="M16.766 8.000c-.080-.096-.221-.113-.322-.040L12.111 11.098c-.008.006-.015.011-.022.017C12.538 11.160 13 11.527 13 12c0 .022-.001.044-.003.066.007-.006.014-.013.020-.019L16.750 8.325c.090-.087.097-.229.016-.325Z"
+        android:fillColor="@android:color/white"/>
+
+    <!-- Second hand -->
+    <path
+        android:pathData="M12 17V12"
+        android:strokeWidth="0.444"
+        android:strokeColor="#1565C0"
+        android:strokeLineCap="round"/>
+
+    <!-- Center -->
+    <path
+        android:pathData="M12 12m-0.889 0a0.889 0.889 0 1 1 1.778 0a0.889 0.889 0 1 1 -1.778 0"
+        android:fillColor="#9E9E9E"/>
+</vector>

@@ -9,11 +9,8 @@ package com.best.deskclock.timer;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.view.View;
 
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.R;
@@ -22,11 +19,9 @@ import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.data.TimerStringFormatter;
 import com.best.deskclock.events.Events;
+import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
-
-import com.google.android.material.color.MaterialColors;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class TimerViewHolder extends RecyclerView.ViewHolder {
 
@@ -125,11 +120,6 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
             Utils.setVibrationTime(context, 10);
 
             if (SettingsDAO.isWarningDisplayedBeforeDeletingTimer(getDefaultSharedPreferences(context))) {
-                final Drawable drawable = AppCompatResources.getDrawable(context, R.drawable.ic_delete);
-                if (drawable != null) {
-                    drawable.setTint(MaterialColors.getColor(
-                            context, com.google.android.material.R.attr.colorOnSurface, Color.BLACK));
-                }
                 // Get the title of the timer if there is one; otherwise, get the total duration.
                 final String dialogMessage;
                 if (getTimer().getLabel().isEmpty()) {
@@ -138,14 +128,14 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
                     dialogMessage = context.getString(R.string.warning_dialog_message, getTimer().getLabel());
                 }
 
-                new MaterialAlertDialogBuilder(context)
-                        .setIcon(drawable)
-                        .setTitle(R.string.warning_dialog_title)
-                        .setMessage(dialogMessage)
-                        .setPositiveButton(android.R.string.ok, (dialog1, which) ->
-                                DataModel.getDataModel().removeTimer(getTimer()))
-                        .setNegativeButton(android.R.string.cancel, null)
-                        .show();
+                CustomDialog.createSimpleDialog(
+                        context,
+                        R.drawable.ic_delete,
+                        R.string.warning_dialog_title,
+                        dialogMessage,
+                        android.R.string.ok,
+                        (d, w) -> DataModel.getDataModel().removeTimer(getTimer())
+                        ).show();
             } else {
                 DataModel.getDataModel().removeTimer(getTimer());
             }

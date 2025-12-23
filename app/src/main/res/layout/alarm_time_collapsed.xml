@@ -103,11 +103,11 @@
         android:drawablePadding="8dp"
         android:gravity="center_vertical"
         android:singleLine="true"
-        android:textStyle="bold"
         android:textColor="?attr/colorAccent"
         app:drawableTint="?attr/colorAccent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/days_of_week"
-        tools:text="@string/alarm_alert_dismiss_text" />
+        tools:text="@string/alarm_alert_dismiss_text"
+        tools:textStyle="bold" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

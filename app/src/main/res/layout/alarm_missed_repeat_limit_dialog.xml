@@ -3,7 +3,8 @@
     SPDX-License-Identifier: GPL-3.0-only
 -->
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -11,8 +12,8 @@
         android:id="@+id/repeat_limit_radio_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="?attr/dialogPreferredPadding"
-        android:paddingTop="?attr/dialogPreferredPadding">
+        android:paddingStart="?attr/dialogPreferredPadding"
+        android:paddingEnd="@null">
 
         <RadioButton
             android:id="@+id/rb_never"
@@ -61,4 +62,4 @@
 
     </RadioGroup>
 
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

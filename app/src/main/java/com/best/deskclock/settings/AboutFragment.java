@@ -21,6 +21,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_CLOCK_FONT
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_DEBUG_SETTINGS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_LOCAL_LOGGING;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ESSENTIAL_PERMISSIONS_GRANTED;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_GENERAL_FONT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_BACKGROUND_IMAGE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_DIGITAL_CLOCK_FONT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_FONT;
@@ -40,7 +41,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -48,8 +48,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.MenuProvider;
 import androidx.preference.Preference;
-import androidx.preference.PreferenceCategory;
-import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.BuildConfig;
 import com.best.deskclock.R;
@@ -57,12 +55,16 @@ import com.best.deskclock.alarms.AlarmStateManager;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.provider.Alarm;
+import com.best.deskclock.settings.custompreference.CustomAboutTitlePreference;
+import com.best.deskclock.settings.custompreference.CustomPreference;
+import com.best.deskclock.settings.custompreference.CustomPreferenceCategory;
+import com.best.deskclock.settings.custompreference.CustomSwitchPreference;
+import com.best.deskclock.uicomponents.CustomDialog;
+import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
-
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -100,20 +102,19 @@ public class AboutFragment extends ScreenFragment
                 if (!LogUtils.getSavedLocalLogs(requireContext()).isEmpty()) {
                     displayExportCompleteDialog();
                 } else {
-                    Toast.makeText(requireContext(), requireContext().getString(
-                            R.string.toast_message_for_backup), Toast.LENGTH_SHORT).show();
+                    CustomToast.show(requireContext(), R.string.toast_message_for_backup);
                 }
             });
 
-    Preference mTitlePref;
-    Preference mVersionPref;
-    Preference mWhatsNewPreference;
-    Preference mAboutFeatures;
-    Preference mViewOnGitHub;
-    Preference mTranslate;
-    Preference mReadLicence;
-    PreferenceCategory mDebugCategoryPref;
-    SwitchPreferenceCompat mEnableLocalLoggingPref;
+    CustomAboutTitlePreference mTitlePref;
+    CustomPreference mVersionPref;
+    CustomPreference mWhatsNewPreference;
+    CustomPreference mAboutFeatures;
+    CustomPreference mViewOnGitHub;
+    CustomPreference mTranslate;
+    CustomPreference mReadLicence;
+    CustomPreferenceCategory mDebugCategoryPref;
+    CustomSwitchPreference mEnableLocalLoggingPref;
 
     /**
      * Used only for release versions.
@@ -179,13 +180,14 @@ public class AboutFragment extends ScreenFragment
                     exportLogs.launch(intent);
                     return true;
                 } else if (item.getItemId() == MENU_RESET_SETTINGS) {
-                    new MaterialAlertDialogBuilder(requireContext())
-                            .setIcon(R.drawable.ic_reset_settings)
-                            .setTitle(R.string.reset_settings_title)
-                            .setMessage(R.string.reset_settings_message)
-                            .setPositiveButton(android.R.string.ok, (dialog, which) -> resetPreferences())
-                            .setNegativeButton(android.R.string.cancel, null)
-                            .show();
+                    CustomDialog.createSimpleDialog(
+                            requireContext(),
+                            R.drawable.ic_reset_settings,
+                            R.string.reset_settings_title,
+                            getString(R.string.reset_settings_message),
+                            android.R.string.ok,
+                            (d, w) -> resetPreferences()
+                    ).show();
 
                     return true;
                 }
@@ -205,7 +207,7 @@ public class AboutFragment extends ScreenFragment
                 if (tapCountOnVersion == 5) {
                     mPrefs.edit().putBoolean(KEY_DISPLAY_DEBUG_SETTINGS, true).apply();
                     mPrefs.edit().putBoolean(KEY_ENABLE_LOCAL_LOGGING, true).apply();
-                    Toast.makeText(requireContext(), R.string.toast_message_debug_displayed, Toast.LENGTH_SHORT).show();
+                    CustomToast.show(requireContext(), R.string.toast_message_debug_displayed);
                     requireActivity().recreate();
                 }
             }
@@ -239,7 +241,7 @@ public class AboutFragment extends ScreenFragment
             }
 
             case KEY_ABOUT_READ_LICENCE -> {
-                final String link = "https://github.com/BlackyHawky/Clock/blob/main/LICENSE-GPL-3";
+                final String link = "https://github.com/BlackyHawky/Clock/blob/main/LICENSE";
                 displayLinkDialog(R.drawable.ic_about_license, R.string.license, R.string.license_dialog_message, link);
             }
         }
@@ -257,7 +259,7 @@ public class AboutFragment extends ScreenFragment
 
                 mPrefs.edit().putBoolean(KEY_DISPLAY_DEBUG_SETTINGS, false).apply();
 
-                Toast.makeText(requireContext(), R.string.toast_message_debug_hidden, Toast.LENGTH_SHORT).show();
+                CustomToast.show(requireContext(), R.string.toast_message_debug_hidden);
             }
 
             requireActivity().recreate();
@@ -270,13 +272,15 @@ public class AboutFragment extends ScreenFragment
 
     private void displayLinkDialog(int iconId, int titleId, int messageId, String link) {
         final Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
-        new MaterialAlertDialogBuilder(requireContext())
-                .setIcon(iconId)
-                .setTitle(titleId)
-                .setMessage(requireContext().getString(messageId, link))
-                .setPositiveButton(android.R.string.ok, (dialog, which) -> startActivity(browserIntent))
-                .setNegativeButton(android.R.string.cancel, null)
-                .show();
+
+        CustomDialog.createSimpleDialog(
+                requireContext(),
+                iconId,
+                titleId,
+                getString(messageId, link),
+                android.R.string.ok,
+                (d, w) -> startActivity(browserIntent)
+        ).show();
     }
 
     private void setupPreferences() {
@@ -317,6 +321,7 @@ public class AboutFragment extends ScreenFragment
             // Finally, exclude the essential permissions key, as it reflects the current system state
             // and should not be saved, restored, or reset like other preferences.
             if (!key.equals(KEY_IS_FIRST_LAUNCH)
+                    && !key.startsWith(KEY_GENERAL_FONT)
                     && !key.startsWith(RINGTONE_URI)
                     && !key.equals(RINGTONE_IDS)
                     && !key.equals(NEXT_RINGTONE_ID)
@@ -354,7 +359,7 @@ public class AboutFragment extends ScreenFragment
             Alarm.deleteAlarm(requireContext().getContentResolver(), alarm.id);
         }
 
-        Toast.makeText(requireContext(), requireContext().getString(R.string.toast_message_for_reset), Toast.LENGTH_SHORT).show();
+        CustomToast.show(requireContext(), R.string.toast_message_for_reset);
     }
 
     /**
@@ -430,17 +435,17 @@ public class AboutFragment extends ScreenFragment
      * Inform that the log export was successful and allow it to delete local log after export.
      */
     private void displayExportCompleteDialog() {
-        new MaterialAlertDialogBuilder(requireContext())
-                .setIcon(R.drawable.ic_bug_report)
-                .setTitle(R.string.log_dialog_title)
-                .setMessage(requireContext().getString(R.string.log_dialog_message))
-                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+        CustomDialog.createSimpleDialog(
+                requireContext(),
+                R.drawable.ic_bug_report,
+                R.string.log_dialog_title,
+                getString(R.string.log_dialog_message),
+                android.R.string.ok,
+                (d, w) -> {
                     LogUtils.clearSavedLocalLogs(requireContext());
-                    Toast.makeText(requireContext(), requireContext().getString(
-                            R.string.toast_message_log_deleted), Toast.LENGTH_SHORT).show();
-                })
-                .setNegativeButton(android.R.string.cancel, null)
-                .show();
+                    CustomToast.show(requireContext(), R.string.toast_message_log_deleted);
+                }
+        ).show();
     }
 
 }

@@ -23,8 +23,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:textSize="18sp"
-            android:textStyle="bold"
-            tools:text="08:30" />
+            tools:text="08:30"
+            tools:textStyle="bold" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/daysOfWeek"

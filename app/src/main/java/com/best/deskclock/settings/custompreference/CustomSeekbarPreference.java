@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-package com.best.deskclock.settings;
+package com.best.deskclock.settings.custompreference;
 
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
@@ -45,6 +45,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
@@ -55,7 +56,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.widget.TextViewCompat;
 import androidx.preference.PreferenceViewHolder;
 import androidx.preference.SeekBarPreference;
@@ -113,6 +114,8 @@ public class CustomSeekbarPreference extends SeekBarPreference {
 
         mContext = getContext();
         mPrefs = getDefaultSharedPreferences(mContext);
+        String fontPath = SettingsDAO.getGeneralFont(mPrefs);
+        Typeface typeFace = ThemeUtils.loadFont(fontPath);
 
         final MaterialCardView prefCardView = (MaterialCardView) holder.findViewById(R.id.pref_card_view);
         final boolean isCardBackgroundDisplayed = SettingsDAO.isCardBackgroundDisplayed(mPrefs);
@@ -136,10 +139,15 @@ public class CustomSeekbarPreference extends SeekBarPreference {
 
         holder.itemView.setClickable(false);
 
+        final TextView seekBarTitle = (TextView) holder.findViewById(android.R.id.title);
+        seekBarTitle.setTypeface(typeFace);
+
         mSeekBar = (SeekBar) holder.findViewById(R.id.seekbar);
         configureSeekBarMinValue();
 
         final TextView seekBarSummary = (TextView) holder.findViewById(android.R.id.summary);
+        seekBarSummary.setTypeface(typeFace);
+
         setSeekBarProgress(seekBarSummary);
 
         mSeekBarMinus = (ImageView) holder.findViewById(R.id.seekbar_minus_icon);
@@ -152,6 +160,7 @@ public class CustomSeekbarPreference extends SeekBarPreference {
         updateSeekBarButtonStates();
         updateResetButtonStates();
 
+        mResetSeekBar.setTypeface(ThemeUtils.boldTypeface(fontPath));
         mResetSeekBar.setOnClickListener(v -> {
             resetPreference();
             setSeekBarProgress(seekBarSummary);
@@ -338,38 +347,38 @@ public class CustomSeekbarPreference extends SeekBarPreference {
      */
     private void configureSeekBarButtonDrawables() {
         if (isScreensaverBrightnessPreference()) {
-            mSeekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_brightness_decrease));
-            mSeekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_brightness_increase));
+            mSeekBarMinus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_brightness_decrease));
+            mSeekBarPlus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_brightness_increase));
         } else if (isDigitalWidgetBackgroundCornerRadius()
                 || isNextAlarmWidgetBackgroundCornerRadius()
                 || isVerticalWidgetBackgroundCornerRadius()
                 || isMaterialYouDigitalWidgetBackgroundCornerRadius()
                 || isMaterialYouNextAlarmWidgetBackgroundCornerRadius()
                 || isMaterialYouVerticalWidgetBackgroundCornerRadius()) {
-            mSeekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_rounded_corner_decrease));
-            mSeekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_rounded_corner_increase));
+            mSeekBarMinus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_rounded_corner_decrease));
+            mSeekBarPlus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_rounded_corner_increase));
         } else if (isShakeIntensityPreference() || isTimerShakeIntensityPreference()) {
-            mSeekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_sensor_low));
-            mSeekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_sensor_high));
+            mSeekBarMinus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_sensor_low));
+            mSeekBarPlus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_sensor_high));
         } else if (isTimerShadowOffsetPreference() || isAlarmShadowOffsetPreference()) {
-            mSeekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_shadow_decrease));
-            mSeekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_shadow_increase));
+            mSeekBarMinus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_shadow_decrease));
+            mSeekBarPlus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_shadow_increase));
         } else if (isScreensaverBlurIntensityPreference()
                 || isTimerBlurIntensityPreference()
                 || isAlarmBlurIntensityPreference()) {
-            mSeekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_blur_decrease));
-            mSeekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_blur_increase));
+            mSeekBarMinus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_blur_decrease));
+            mSeekBarPlus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_blur_increase));
         } else if (isBluetoothVolumePreference()) {
-            mSeekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_volume_down));
-            mSeekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_volume_up));
+            mSeekBarMinus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_volume_down));
+            mSeekBarPlus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_volume_up));
         } else if (isAnalogClockSizePreference()
                 || isScreensaverAnalogClockSizePreference()
                 || isAlarmAnalogClockSizePreference()) {
-            mSeekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_zoom_in));
-            mSeekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_zoom_out));
+            mSeekBarMinus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_zoom_in));
+            mSeekBarPlus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_zoom_out));
         } else {
-            mSeekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_text_decrease));
-            mSeekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_text_increase));
+            mSeekBarMinus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_text_decrease));
+            mSeekBarPlus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_text_increase));
         }
     }
 

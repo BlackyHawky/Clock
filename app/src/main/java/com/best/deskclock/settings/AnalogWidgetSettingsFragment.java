@@ -23,14 +23,14 @@ import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.preference.ListPreference;
 import androidx.preference.Preference;
-import androidx.preference.PreferenceCategory;
-import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.WidgetDAO;
+import com.best.deskclock.settings.custompreference.ColorPickerPreference;
+import com.best.deskclock.settings.custompreference.CustomListPreference;
+import com.best.deskclock.settings.custompreference.CustomPreferenceCategory;
+import com.best.deskclock.settings.custompreference.CustomSwitchPreference;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
@@ -40,17 +40,17 @@ public class AnalogWidgetSettingsFragment extends ScreenFragment implements Pref
 
     private int mAppWidgetId = INVALID_APPWIDGET_ID;
 
-    ListPreference mClockDialPref;
-    SwitchPreferenceCompat mDisplaySecondsPref;
-    ListPreference mClockSecondHandPref;
-    PreferenceCategory mWidgetColorCategory;
-    SwitchPreferenceCompat mDefaultDialColorPref;
+    CustomListPreference mClockDialPref;
+    CustomSwitchPreference mDisplaySecondsPref;
+    CustomListPreference mClockSecondHandPref;
+    CustomPreferenceCategory mWidgetColorCategory;
+    CustomSwitchPreference mDefaultDialColorPref;
     ColorPickerPreference mDialColorPref;
-    SwitchPreferenceCompat mDefaultHourHandColorPref;
+    CustomSwitchPreference mDefaultHourHandColorPref;
     ColorPickerPreference mHourHandColorPref;
-    SwitchPreferenceCompat mDefaultMinuteHandColorPref;
+    CustomSwitchPreference mDefaultMinuteHandColorPref;
     ColorPickerPreference mMinuteHandColorPref;
-    SwitchPreferenceCompat mDefaultSecondHandColorPref;
+    CustomSwitchPreference mDefaultSecondHandColorPref;
     ColorPickerPreference mSecondHandColorPref;
 
     @Override
@@ -105,7 +105,7 @@ public class AnalogWidgetSettingsFragment extends ScreenFragment implements Pref
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
             case KEY_ANALOG_WIDGET_CLOCK_DIAL, KEY_ANALOG_WIDGET_CLOCK_SECOND_HAND -> {
-                final ListPreference preference = (ListPreference) pref;
+                final CustomListPreference preference = (CustomListPreference) pref;
                 final int index = preference.findIndexOfValue((String) newValue);
                 preference.setSummary(preference.getEntries()[index]);
             }
@@ -142,13 +142,6 @@ public class AnalogWidgetSettingsFragment extends ScreenFragment implements Pref
 
         WidgetUtils.scheduleWidgetUpdate(requireContext(), AnalogAppWidgetProvider.class);
         return true;
-    }
-
-    @Override
-    public void onDisplayPreferenceDialog(@NonNull Preference preference) {
-        if (preference instanceof ColorPickerPreference colorPickerPref) {
-            colorPickerPref.showDialog(this, 0);
-        } else super.onDisplayPreferenceDialog(preference);
     }
 
     private void setupPreferences() {

@@ -8,28 +8,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <PreferenceCategory
+    <com.best.deskclock.settings.custompreference.CustomPreferenceCategory
         android:title="@string/style_category_title"
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false"
         tools:layout="@layout/settings_preference_category_layout">
 
-        <Preference
+        <com.best.deskclock.settings.custompreference.CustomPreference
             android:key="key_sw_font"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:title="@string/custom_font_title"
             tools:layout="@layout/settings_preference_layout" />
 
-    </PreferenceCategory>
+    </com.best.deskclock.settings.custompreference.CustomPreferenceCategory>
 
-    <PreferenceCategory
+    <com.best.deskclock.settings.custompreference.CustomPreferenceCategory
         android:title="@string/actions_category_title"
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false"
         tools:layout="@layout/settings_preference_category_layout">
 
-        <ListPreference
+        <com.best.deskclock.settings.custompreference.CustomListPreference
             android:key="key_sw_volume_up_action"
             android:title="@string/sw_volume_up_action_title"
             android:entries="@array/stopwatch_actions_entries"
@@ -39,7 +39,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <ListPreference
+        <com.best.deskclock.settings.custompreference.CustomListPreference
             android:key="key_sw_volume_up_action_after_long_press"
             android:title="@string/sw_long_press_volume_up_action_title"
             android:entries="@array/stopwatch_actions_entries"
@@ -49,7 +49,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <ListPreference
+        <com.best.deskclock.settings.custompreference.CustomListPreference
             android:key="key_sw_volume_down_action"
             android:title="@string/sw_volume_down_action_title"
             android:entries="@array/stopwatch_actions_entries"
@@ -59,7 +59,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <ListPreference
+        <com.best.deskclock.settings.custompreference.CustomListPreference
             android:key="key_sw_volume_down_action_after_long_press"
             android:title="@string/sw_long_press_volume_down_action_title"
             android:entries="@array/stopwatch_actions_entries"
@@ -69,6 +69,6 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-    </PreferenceCategory>
+    </com.best.deskclock.settings.custompreference.CustomPreferenceCategory>
 
 </PreferenceScreen>

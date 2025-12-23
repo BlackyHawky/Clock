@@ -8,13 +8,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <PreferenceCategory
+    <com.best.deskclock.settings.custompreference.CustomPreferenceCategory
         android:title="@string/style_category_title"
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false"
         tools:layout="@layout/settings_preference_category_layout">
 
-        <ListPreference
+        <com.best.deskclock.settings.custompreference.CustomListPreference
             android:key="key_theme"
             android:title="@string/title_theme"
             android:defaultValue="0"
@@ -24,7 +24,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <ListPreference
+        <com.best.deskclock.settings.custompreference.CustomListPreference
             android:key="key_dark_mode"
             android:title="@string/title_dark_theme_mode"
             android:defaultValue="0"
@@ -34,7 +34,14 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <SwitchPreferenceCompat
+        <com.best.deskclock.settings.custompreference.CustomPreference
+            android:key="key_general_font"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:title="@string/custom_font_title"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
             android:key="key_card_background"
             android:title="@string/display_card_background_title"
             android:summary="@string/display_card_background_summary"
@@ -43,7 +50,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <SwitchPreferenceCompat
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
             android:key="key_card_border"
             android:title="@string/display_background_border_title"
             android:summary="@string/display_background_border_summary"
@@ -52,7 +59,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <SwitchPreferenceCompat
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
             android:key="key_toolbar_title"
             android:title="@string/settings_toolbar_title"
             android:defaultValue="true"
@@ -60,7 +67,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <ListPreference
+        <com.best.deskclock.settings.custompreference.CustomListPreference
             android:key="key_tab_title_visibility"
             android:title="@string/settings_tab_title_visibility_title"
             android:defaultValue="0"
@@ -70,7 +77,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <SwitchPreferenceCompat
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
             android:key="key_tab_indicator"
             android:title="@string/settings_tab_indicator_title"
             android:defaultValue="true"
@@ -78,15 +85,15 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-    </PreferenceCategory>
+    </com.best.deskclock.settings.custompreference.CustomPreferenceCategory>
 
-    <PreferenceCategory
+    <com.best.deskclock.settings.custompreference.CustomPreferenceCategory
         android:title="@string/colors_category_title"
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false"
         tools:layout="@layout/settings_preference_category_layout">
 
-        <ListPreference
+        <com.best.deskclock.settings.custompreference.CustomListPreference
             android:key="key_accent_color"
             android:defaultValue="0"
             android:entries="@array/array_accent_color"
@@ -96,7 +103,7 @@
             tools:title="@string/title_accent_color"
             tools:layout="@layout/settings_preference_layout" />
 
-        <SwitchPreferenceCompat
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
             android:key="key_auto_night_accent_color"
             android:title="@string/auto_night_accent_color_title"
             android:defaultValue="true"
@@ -104,7 +111,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <ListPreference
+        <com.best.deskclock.settings.custompreference.CustomListPreference
             android:key="key_night_accent_color"
             android:title="@string/night_accent_color_title"
             android:defaultValue="0"
@@ -114,15 +121,15 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-    </PreferenceCategory>
+    </com.best.deskclock.settings.custompreference.CustomPreferenceCategory>
 
-    <PreferenceCategory
+    <com.best.deskclock.settings.custompreference.CustomPreferenceCategory
         android:title="@string/miscellaneous_category_title"
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false"
         tools:layout="@layout/settings_preference_category_layout">
 
-        <ListPreference
+        <com.best.deskclock.settings.custompreference.CustomListPreference
             android:key="key_custom_language_code"
             android:title="@string/settings_language_title"
             android:defaultValue="system_language_code"
@@ -132,7 +139,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <ListPreference
+        <com.best.deskclock.settings.custompreference.CustomListPreference
             android:key="key_tab_to_display"
             android:title="@string/settings_tab_to_display"
             android:defaultValue="-1"
@@ -142,7 +149,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <SwitchPreferenceCompat
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
             android:key="key_vibrations"
             android:title="@string/settings_vibration_title"
             android:summary="@string/settings_vibration_summary"
@@ -151,7 +158,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <SwitchPreferenceCompat
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
             android:key="key_fade_transitions"
             android:title="@string/settings_fade_transitions_title"
             android:defaultValue="false"
@@ -159,7 +166,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <SwitchPreferenceCompat
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
             android:key="key_keep_screen_on"
             android:title="@string/settings_keep_screen_on_title"
             android:summary="@string/settings_keep_screen_on_summary"
@@ -168,6 +175,6 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-    </PreferenceCategory>
+    </com.best.deskclock.settings.custompreference.CustomPreferenceCategory>
 
 </PreferenceScreen>
