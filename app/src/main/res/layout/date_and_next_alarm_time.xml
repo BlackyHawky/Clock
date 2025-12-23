@@ -25,10 +25,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="16sp"
-        android:textStyle="bold"
         android:textAllCaps="true"
         android:includeFontPadding="false"
-        tools:text="Sa., 01.01." />
+        tools:text="Sa., 01.01."
+        tools:textStyle="bold" />
 
     <TextView
         android:id="@+id/nextAlarmIcon"
@@ -49,9 +49,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="16sp"
-        android:textStyle="bold"
         android:textAllCaps="true"
         android:includeFontPadding="false"
-        tools:text="Mo., 07:00" />
+        tools:text="Mo., 07:00"
+        tools:textStyle="bold" />
 
 </LinearLayout>

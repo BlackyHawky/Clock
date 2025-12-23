@@ -8,20 +8,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <PreferenceCategory
+    <com.best.deskclock.settings.custompreference.CustomPreferenceCategory
         android:title="@string/style_category_title"
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false"
         tools:layout="@layout/settings_preference_category_layout">
 
-        <Preference
+        <com.best.deskclock.settings.custompreference.CustomPreference
             android:key="key_alarm_display_customization"
             android:title="@string/display_settings_title"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <ListPreference
+        <com.best.deskclock.settings.custompreference.CustomListPreference
             android:key="key_material_time_picker_style"
             android:title="@string/material_time_picker_style_title"
             android:entries="@array/time_picker_style_entries"
@@ -31,7 +31,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <ListPreference
+        <com.best.deskclock.settings.custompreference.CustomListPreference
             android:key="key_material_date_picker_style"
             android:title="@string/date_picker_style_title"
             android:entries="@array/date_picker_style_entries"
@@ -41,22 +41,22 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-    </PreferenceCategory>
+    </com.best.deskclock.settings.custompreference.CustomPreferenceCategory>
 
-    <PreferenceCategory
+    <com.best.deskclock.settings.custompreference.CustomPreferenceCategory
         android:title="@string/ringtone_category_title"
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false"
         tools:layout="@layout/settings_preference_category_layout">
 
-        <Preference
+        <com.best.deskclock.settings.custompreference.CustomPreference
             android:key="key_default_alarm_ringtone"
             android:title="@string/default_alarm_ringtone_title"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <SwitchPreferenceCompat
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
             android:key="key_enable_per_alarm_auto_silence"
             android:title="@string/enable_per_alarm_auto_silence_title"
             android:defaultValue="true"
@@ -64,14 +64,14 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <com.best.deskclock.settings.AutoSilenceDurationPreference
+        <com.best.deskclock.settings.custompreference.AutoSilenceDurationPreference
             android:key="key_auto_silence_duration"
             android:title="@string/auto_silence_title"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <SwitchPreferenceCompat
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
             android:key="key_enable_per_alarm_snooze_duration"
             android:title="@string/enable_per_alarm_snooze_duration_title"
             android:defaultValue="true"
@@ -79,14 +79,14 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <com.best.deskclock.settings.AlarmSnoozeDurationPreference
+        <com.best.deskclock.settings.custompreference.AlarmSnoozeDurationPreference
             android:key="key_alarm_snooze_duration"
             android:title="@string/snooze_duration_title"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <SwitchPreferenceCompat
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
             android:key="key_enable_per_alarm_missed_repeat_limit"
             android:title="@string/enable_per_alarm_missed_repeat_limit_title"
             android:defaultValue="true"
@@ -94,7 +94,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <ListPreference
+        <com.best.deskclock.settings.custompreference.CustomListPreference
             android:key="key_missed_alarm_repeat_limit"
             android:title="@string/missed_alarm_repeat_limit_title"
             android:entries="@array/missed_alarm_repeat_limit_entries"
@@ -104,7 +104,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <SwitchPreferenceCompat
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
             android:key="key_enable_per_alarm_volume"
             android:title="@string/enable_per_alarm_volume_title"
             android:defaultValue="false"
@@ -112,7 +112,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <com.best.deskclock.settings.AlarmVolumePreference
+        <com.best.deskclock.settings.custompreference.AlarmVolumePreference
             android:key="key_volume_setting"
             android:title="@string/alarm_volume_title"
             android:summary="0"
@@ -120,7 +120,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_seekbar_layout" />
 
-        <SwitchPreferenceCompat
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
             android:key="key_enable_per_alarm_volume_crescendo_duration"
             android:title="@string/enable_per_alarm_crescendo_duration_title"
             android:defaultValue="true"
@@ -128,14 +128,14 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <com.best.deskclock.settings.VolumeCrescendoDurationPreference
+        <com.best.deskclock.settings.custompreference.VolumeCrescendoDurationPreference
             android:key="key_alarm_volume_crescendo_duration"
             android:title="@string/crescendo_duration_title"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <SwitchPreferenceCompat
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
             android:key="key_advanced_audio_playback"
             android:title="@string/advanced_audio_playback_title"
             android:summary="@string/advanced_audio_playback_summary"
@@ -144,7 +144,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <SwitchPreferenceCompat
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
             android:key="key_auto_routing_to_bluetooth_device"
             android:title="@string/auto_routing_to_bluetooth_device_title"
             android:defaultValue="false"
@@ -152,7 +152,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <SwitchPreferenceCompat
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
             android:key="key_system_media_volume"
             android:title="@string/system_media_volume_title"
             android:summary="@string/system_media_volume_summary"
@@ -161,7 +161,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <com.best.deskclock.settings.CustomSeekbarPreference
+        <com.best.deskclock.settings.custompreference.CustomSeekbarPreference
             android:key="key_bluetooth_volume"
             android:title="@string/bluetooth_volume_title"
             android:summary="@string/label_default"
@@ -171,15 +171,15 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_seekbar_layout" />
 
-    </PreferenceCategory>
+    </com.best.deskclock.settings.custompreference.CustomPreferenceCategory>
 
-    <PreferenceCategory
+    <com.best.deskclock.settings.custompreference.CustomPreferenceCategory
         android:title="@string/actions_category_title"
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false"
         tools:layout="@layout/settings_preference_category_layout">
 
-        <ListPreference
+        <com.best.deskclock.settings.custompreference.CustomListPreference
             android:key="key_volume_button_setting"
             android:title="@string/volume_button_setting_title"
             android:entries="@array/volume_button_setting_entries"
@@ -189,7 +189,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <ListPreference
+        <com.best.deskclock.settings.custompreference.CustomListPreference
             android:key="key_power_button"
             android:title="@string/power_button_title"
             android:entries="@array/action_setting_entries"
@@ -199,7 +199,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <ListPreference
+        <com.best.deskclock.settings.custompreference.CustomListPreference
             android:key="key_flip_action"
             android:title="@string/flip_action_title"
             android:entries="@array/action_setting_entries"
@@ -209,7 +209,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <ListPreference
+        <com.best.deskclock.settings.custompreference.CustomListPreference
             android:key="key_shake_action"
             android:title="@string/shake_action_title"
             android:entries="@array/action_setting_entries"
@@ -219,7 +219,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <com.best.deskclock.settings.CustomSeekbarPreference
+        <com.best.deskclock.settings.custompreference.CustomSeekbarPreference
             android:key="key_shake_intensity"
             android:title="@string/shake_intensity_title"
             android:summary="@string/label_default"
@@ -229,15 +229,15 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_seekbar_layout" />
 
-    </PreferenceCategory>
+    </com.best.deskclock.settings.custompreference.CustomPreferenceCategory>
 
-    <PreferenceCategory
+    <com.best.deskclock.settings.custompreference.CustomPreferenceCategory
         android:title="@string/miscellaneous_category_title"
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false"
         tools:layout="@layout/settings_preference_category_layout">
 
-        <ListPreference
+        <com.best.deskclock.settings.custompreference.CustomListPreference
             android:key="key_sort_alarm"
             android:title="@string/sort_alarm_title"
             android:entries="@array/sort_alarm_entries"
@@ -247,7 +247,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <SwitchPreferenceCompat
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
             android:key="key_display_enabled_alarms_first"
             android:title="@string/display_enabled_alarms_first_title"
             android:defaultValue="false"
@@ -255,7 +255,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <SwitchPreferenceCompat
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
             android:key="key_enable_alarm_fab_long_press"
             android:title="@string/enable_alarm_fab_long_press_title"
             android:summary="@string/enable_alarm_fab_long_press_summary"
@@ -264,7 +264,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <ListPreference
+        <com.best.deskclock.settings.custompreference.CustomListPreference
             android:key="key_week_start"
             android:title="@string/week_start_title"
             android:entries="@array/week_start_entries"
@@ -273,7 +273,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <SwitchPreferenceCompat
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
             android:key="key_display_dismiss_button"
             android:title="@string/display_dismiss_button_title"
             android:summary="@string/display_dismiss_button_summary"
@@ -282,7 +282,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <ListPreference
+        <com.best.deskclock.settings.custompreference.CustomListPreference
             android:key="key_alarm_notification_reminder_time"
             android:title="@string/alarm_notification_reminder_title"
             android:entries="@array/alarm_notification_reminder_entries"
@@ -292,21 +292,21 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <com.best.deskclock.settings.VibrationPatternPreference
+        <com.best.deskclock.settings.custompreference.VibrationPatternPreference
             android:key="key_vibration_pattern"
             android:title="@string/vibration_pattern_title"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <com.best.deskclock.settings.VibrationStartDelayPreference
+        <com.best.deskclock.settings.custompreference.VibrationStartDelayPreference
             android:key="key_vibration_start_delay"
             android:title="@string/vibration_start_delay_title"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <SwitchPreferenceCompat
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
             android:key="key_enable_alarm_vibrations_by_default"
             android:title="@string/enable_alarm_vibrations_by_default_setting_title"
             android:defaultValue="false"
@@ -314,7 +314,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <SwitchPreferenceCompat
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
             android:key="key_enable_snoozed_or_dismissed_alarm_vibrations"
             android:title="@string/enable_snoozed_or_dismissed_alarm_vibrations_title"
             android:summary="@string/enable_snoozed_or_dismissed_alarm_vibrations_summary"
@@ -323,7 +323,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <SwitchPreferenceCompat
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
             android:key="key_turn_on_back_flash_for_triggered_alarm"
             android:title="@string/turn_on_back_flash_for_triggered_alarm_title"
             android:summary="@string/alarm_settings_general_summary"
@@ -332,7 +332,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <SwitchPreferenceCompat
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
             android:key="key_enable_delete_occasional_alarm_by_default"
             android:title="@string/enable_delete_occasional_alarm_by_default_setting_title"
             android:summary="@string/alarm_settings_general_summary"
@@ -341,6 +341,6 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-    </PreferenceCategory>
+    </com.best.deskclock.settings.custompreference.CustomPreferenceCategory>
 
 </PreferenceScreen>

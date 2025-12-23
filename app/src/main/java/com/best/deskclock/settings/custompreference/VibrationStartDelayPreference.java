@@ -1,13 +1,15 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-package com.best.deskclock.settings;
+package com.best.deskclock.settings.custompreference;
 
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VIBRATION_START_DELAY;
 
 import android.content.Context;
 import android.util.AttributeSet;
 
+import androidx.annotation.NonNull;
 import androidx.preference.DialogPreference;
+import androidx.preference.PreferenceViewHolder;
 
 import com.best.deskclock.R;
 
@@ -25,7 +27,14 @@ public class VibrationStartDelayPreference extends DialogPreference {
      */
     public VibrationStartDelayPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
+        setLayoutResource(R.layout.settings_preference_layout);
         setPersistent(true);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
+        PreferenceStyler.apply(holder);
+        super.onBindViewHolder(holder);
     }
 
     /**

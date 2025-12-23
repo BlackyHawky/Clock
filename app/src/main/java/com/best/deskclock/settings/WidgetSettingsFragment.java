@@ -17,17 +17,18 @@ import androidx.annotation.NonNull;
 import androidx.preference.Preference;
 
 import com.best.deskclock.R;
+import com.best.deskclock.settings.custompreference.CustomPreference;
 
 public class WidgetSettingsFragment extends ScreenFragment implements Preference.OnPreferenceClickListener {
 
-    Preference mAnalogWidgetCustomizationPref;
-    Preference mDigitalWidgetCustomizationPref;
-    Preference mVerticalDigitalWidgetCustomizationPref;
-    Preference mNextAlarmWidgetCustomizationPref;
-    Preference mMaterialYouAnalogWidgetCustomizationPref;
-    Preference mMaterialYouDigitalWidgetCustomizationPref;
-    Preference mMaterialYouVerticalDigitalWidgetCustomizationPref;
-    Preference mMaterialYouNextAlarmWidgetCustomizationPref;
+    CustomPreference mAnalogWidgetCustomizationPref;
+    CustomPreference mDigitalWidgetCustomizationPref;
+    CustomPreference mVerticalDigitalWidgetCustomizationPref;
+    CustomPreference mNextAlarmWidgetCustomizationPref;
+    CustomPreference mMaterialYouAnalogWidgetCustomizationPref;
+    CustomPreference mMaterialYouDigitalWidgetCustomizationPref;
+    CustomPreference mMaterialYouVerticalDigitalWidgetCustomizationPref;
+    CustomPreference mMaterialYouNextAlarmWidgetCustomizationPref;
 
     @Override
     protected String getFragmentTitle() {

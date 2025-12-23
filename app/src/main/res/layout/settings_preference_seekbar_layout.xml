@@ -141,9 +141,9 @@
                 android:gravity="center_vertical"
                 android:text="@string/reset"
                 android:singleLine="true"
-                android:textStyle="bold"
                 android:textColor="?attr/colorAccent"
-                app:drawableTint="?attr/colorAccent" />
+                app:drawableTint="?attr/colorAccent"
+                tools:textStyle="bold" />
 
         </LinearLayout>
 

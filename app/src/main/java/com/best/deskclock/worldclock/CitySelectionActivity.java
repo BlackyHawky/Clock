@@ -13,6 +13,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_CITY_NOTE;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -87,6 +88,8 @@ public final class CitySelectionActivity extends BaseActivity {
      */
     private CityAdapter mCitiesAdapter;
 
+    private SharedPreferences mPrefs;
+    private Toolbar mToolbar;
     private View mRootView;
     public SearchView mSearchView;
 
@@ -99,12 +102,15 @@ public final class CitySelectionActivity extends BaseActivity {
 
         ThemeUtils.allowDisplayCutout(getWindow());
 
+        mPrefs = getDefaultSharedPreferences(this);
+        Typeface typeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(mPrefs));
+
         setContentView(R.layout.cities_activity);
 
         mRootView = findViewById(R.id.city_selection_root_view);
 
-        final Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        mToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
@@ -119,6 +125,10 @@ public final class CitySelectionActivity extends BaseActivity {
         mSearchView.setBackground(ThemeUtils.pillBackground(
                 this, com.google.android.material.R.attr.colorSecondaryContainer));
 
+        // Apply custom font to the search text
+        TextView searchText = mSearchView.findViewById(androidx.appcompat.R.id.search_src_text);
+        searchText.setTypeface(typeface);
+
         // Use a rounded icon for the search icon
         ImageView searchIcon = mSearchView.findViewById(androidx.appcompat.R.id.search_mag_icon);
         if (searchIcon != null) {
@@ -131,7 +141,7 @@ public final class CitySelectionActivity extends BaseActivity {
             searchPlate.setBackground(null);
         }
 
-        toolbar.addView(mSearchView);
+        mToolbar.addView(mSearchView);
 
         mSearchView.post(() -> mSearchView.clearFocus());
 
@@ -154,6 +164,8 @@ public final class CitySelectionActivity extends BaseActivity {
         mCitiesList = findViewById(R.id.cities_list);
         View headerMainTitleView = getLayoutInflater().inflate(
                 R.layout.city_list_header_main_title, mCitiesList, false);
+        TextView headerMainTitleText = headerMainTitleView.findViewById(R.id.city_list_header_main_title);
+        headerMainTitleText.setTypeface(typeface);
 
         mCitiesList.addHeaderView(headerMainTitleView);
 
@@ -172,8 +184,7 @@ public final class CitySelectionActivity extends BaseActivity {
             @Override
             public void handleOnBackPressed() {
                 finish();
-                if (SettingsDAO.isFadeTransitionsEnabled(getDefaultSharedPreferences(
-                        CitySelectionActivity.this))) {
+                if (SettingsDAO.isFadeTransitionsEnabled(mPrefs)) {
                     if (SdkUtils.isAtLeastAndroid14()) {
                         overrideActivityTransition(OVERRIDE_TRANSITION_CLOSE,
                                 R.anim.fade_in, R.anim.fade_out);
@@ -222,6 +233,8 @@ public final class CitySelectionActivity extends BaseActivity {
         menu.add(Menu.NONE, 0, Menu.NONE, getMenuTitle()).setIcon(R.drawable.ic_sort)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
+        mToolbar.post(() -> ThemeUtils.applyToolbarTooltips(mToolbar));
+
         return true;
     }
 
@@ -260,7 +273,7 @@ public final class CitySelectionActivity extends BaseActivity {
     }
 
     private int getMenuTitle() {
-        if (SettingsDAO.getCitySort(getDefaultSharedPreferences(this)) == DataModel.CitySort.NAME) {
+        if (SettingsDAO.getCitySort(mPrefs) == DataModel.CitySort.NAME) {
             return R.string.menu_item_sort_by_gmt_offset;
         } else {
             return R.string.menu_item_sort_by_name;
@@ -319,6 +332,8 @@ public final class CitySelectionActivity extends BaseActivity {
 
         private final Context mContext;
         private final SharedPreferences mPrefs;
+        private final Typeface mRegularTypeface;
+        private final Typeface mBoldTypeface;
 
         private final LayoutInflater mInflater;
 
@@ -374,6 +389,10 @@ public final class CitySelectionActivity extends BaseActivity {
             mPrefs = getDefaultSharedPreferences(context);
             mInflater = LayoutInflater.from(context);
 
+            String fontPath = SettingsDAO.getGeneralFont(mPrefs);
+            mRegularTypeface = ThemeUtils.loadFont(fontPath);
+            mBoldTypeface = ThemeUtils.boldTypeface(fontPath);
+
             mCalendar = Calendar.getInstance();
             mCalendar.setTimeInMillis(System.currentTimeMillis());
 
@@ -428,6 +447,9 @@ public final class CitySelectionActivity extends BaseActivity {
                     if (view == null) {
                         view = mInflater.inflate(R.layout.city_list_header, parent, false);
                         view.setOnClickListener(null);
+
+                        TextView cityListHeader = view.findViewById(R.id.city_list_header);
+                        cityListHeader.setTypeface(mRegularTypeface);
                     }
                     return view;
                 }
@@ -447,6 +469,11 @@ public final class CitySelectionActivity extends BaseActivity {
                         final TextView name = view.findViewById(R.id.city_name);
                         final TextView time = view.findViewById(R.id.city_time);
                         final CheckBox selected = view.findViewById(R.id.city_onoff);
+
+                        index.setTypeface(mBoldTypeface);
+                        name.setTypeface(mRegularTypeface);
+                        time.setTypeface(mRegularTypeface);
+
                         view.setTag(new CityItemHolder(index, name, time, selected));
                     }
 

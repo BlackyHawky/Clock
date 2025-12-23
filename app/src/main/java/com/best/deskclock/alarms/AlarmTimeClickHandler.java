@@ -17,17 +17,22 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.SPINNER_TIME_
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_END_OF_RINGTONE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_NEVER;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
 
 import com.best.deskclock.AlarmClockFragment;
 import com.best.deskclock.AutoSilenceDurationDialogFragment;
@@ -42,12 +47,13 @@ import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
+import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.Calendar;
 import java.util.TimeZone;
@@ -292,6 +298,7 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
 
     public void showSpinnerDatePicker(Alarm alarm) {
         LayoutInflater inflater = mFragment.getLayoutInflater();
+        @SuppressLint("InflateParams")
         View dialogView = inflater.inflate(R.layout.spinner_date_picker, null);
 
         DatePicker datePicker = dialogView.findViewById(R.id.spinner_date_picker);
@@ -335,20 +342,28 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
         datePicker.init(selectionDate.get(Calendar.YEAR), selectionDate.get(Calendar.MONTH),
                 selectionDate.get(Calendar.DAY_OF_MONTH), null);
 
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(mContext, R.style.SpinnerDialogTheme);
-        builder
-                .setTitle(mContext.getString(R.string.date_picker_dialog_title))
-                .setView(dialogView)
-                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+        CustomDialog.create(
+                mContext,
+                R.style.SpinnerDialogTheme,
+                null,
+                mContext.getString(R.string.date_picker_dialog_title),
+                null,
+                dialogView,
+                mContext.getString(android.R.string.ok),
+                (d, w) -> {
                     int newYear = datePicker.getYear();
                     int newMonth = datePicker.getMonth();
                     int newDay = datePicker.getDayOfMonth();
 
                     onDateSet(newYear, newMonth, newDay, alarm.hour, alarm.minutes);
-                })
-                .setNegativeButton(android.R.string.cancel, null);
-
-        builder.create().show();
+                },
+                mContext.getString(android.R.string.cancel),
+                null,
+                null,
+                null,
+                null,
+                CustomDialog.SoftInputMode.SHOW_KEYBOARD
+        ).show();
     }
 
     public void showMaterialDatePicker(Alarm alarm) {
@@ -362,7 +377,6 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
 
         Calendar now = Calendar.getInstance();
         Calendar selectionDate = (Calendar) now.clone();
-        CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder();
 
         // Date selection
         boolean timePassed = alarm.isTimeBeforeOrEqual(now);
@@ -386,6 +400,11 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
             }
         }
 
+        CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder();
+
+        // Prevents navigation to past months
+        constraintsBuilder.setStart(now.getTimeInMillis());
+
         // Set validator depending on whether the alarm time has passed or not
         if (timePassed) {
             constraintsBuilder.setValidator(DateValidatorPointForward.from(now.getTimeInMillis()));
@@ -397,6 +416,56 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
         builder.setCalendarConstraints(constraintsBuilder.build());
 
         MaterialDatePicker<Long> materialDatePicker = builder.build();
+
+        materialDatePicker.getViewLifecycleOwnerLiveData().observeForever(new Observer<>() {
+            @Override public void onChanged(LifecycleOwner owner) {
+                if (owner == null) {
+                    return;
+                }
+
+                View root = materialDatePicker.getView();
+                if (root == null) {
+                    return;
+                }
+
+                Typeface generalFont = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(mPrefs));
+                if (generalFont == null) {
+                    materialDatePicker.getViewLifecycleOwnerLiveData().removeObserver(this);
+                    return;
+                }
+
+                // Bouton OK
+                TextView ok = root.findViewById(
+                        com.google.android.material.R.id.confirm_button);
+                if (ok != null) {
+                    ok.setTypeface(generalFont);
+                }
+
+                // Bouton Cancel
+                TextView cancel = root.findViewById(
+                        com.google.android.material.R.id.cancel_button);
+                if (cancel != null) {
+                    cancel.setTypeface(generalFont);
+                }
+
+                // Titre ("Select date")
+                TextView title = root.findViewById(
+                        com.google.android.material.R.id.mtrl_picker_title_text);
+                if (title != null) {
+                    title.setTypeface(generalFont);
+                }
+
+                // Texte de sélection (la date en gros)
+                TextView headerSelection = root.findViewById(
+                        com.google.android.material.R.id.mtrl_picker_header_selection_text);
+                if (headerSelection != null) {
+                    headerSelection.setTypeface(generalFont);
+                }
+
+                // Très important : on se désabonne
+                materialDatePicker.getViewLifecycleOwnerLiveData().removeObserver(this);
+            }
+        });
 
         materialDatePicker.show(((AppCompatActivity) mContext).getSupportFragmentManager(), TAG);
 

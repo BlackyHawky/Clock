@@ -19,7 +19,6 @@ import android.text.format.DateUtils;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.VisibleForTesting;
 import androidx.core.view.WindowCompat;
@@ -30,10 +29,9 @@ import com.best.deskclock.R;
 import com.best.deskclock.alarms.AlarmStateManager;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.provider.AlarmInstance;
-import com.best.deskclock.screensaver.Screensaver;
-import com.best.deskclock.screensaver.ScreensaverActivity;
+import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.uicomponents.toast.SnackbarManager;
-import com.best.deskclock.uicomponents.toast.ToastManager;
+
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Calendar;
@@ -100,9 +98,10 @@ public class AlarmUtils {
     /**
      * Clock views can call this to refresh their alarm to the next upcoming value.
      */
-    public static void refreshAlarm(Context context, View clock) {
+    public static void refreshAlarm(Context context, View clock, boolean isScreensaver) {
         final TextView nextAlarmIconView = clock.findViewById(R.id.nextAlarmIcon);
         final TextView nextAlarmView = clock.findViewById(R.id.nextAlarm);
+
         if (nextAlarmView == null) {
             return;
         }
@@ -117,7 +116,9 @@ public class AlarmUtils {
         Calendar alarmCalendar = Calendar.getInstance();
         long alarmTime = instance.getAlarmTime().getTimeInMillis();
         alarmCalendar.setTimeInMillis(alarmTime);
-        String alarmFormattedTime = getFormattedTime(context, alarmCalendar);
+        String alarmFormattedTime = isScreensaver
+                ? ScreensaverUtils.getScreensaverFormattedTime(context, alarmCalendar)
+                : getFormattedTime(context, alarmCalendar);
 
         if (TextUtils.isEmpty(alarmFormattedTime)) {
             nextAlarmView.setVisibility(View.GONE);
@@ -132,6 +133,20 @@ public class AlarmUtils {
         }
     }
 
+    /**
+     * Applies a custom bold font to the next alarm.
+     */
+    public static void applyBoldNextAlarmTypeface(View clock) {
+        SharedPreferences prefs = getDefaultSharedPreferences(clock.getContext());
+        final TextView nextAlarm = clock.findViewById(R.id.nextAlarm);
+
+        if (nextAlarm == null) {
+            return;
+        }
+
+        nextAlarm.setTypeface(ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(prefs)));
+    }
+
     public static String getAlarmText(Context context, AlarmInstance instance, boolean includeLabel) {
         String alarmTimeStr = getFormattedTime(context, instance.getAlarmTime());
         return (instance.mLabel.isEmpty() || !includeLabel)
@@ -139,6 +154,18 @@ public class AlarmUtils {
                 : alarmTimeStr + " - " + instance.mLabel;
     }
 
+    /**
+     * Returns a human‑readable string representing the time of the next alarm.
+     * <p>
+     * The returned text adapts to the user's 12/24‑hour preference and includes
+     * contextual prefixes such as "Today" or "Tomorrow" when appropriate.
+     * For alarms scheduled further in the future, the formatted output expands
+     * to include the weekday or full date depending on the distance in days.
+     *
+     * @param context    the context used to access locale and time format settings
+     * @param alarmTime  the time of the next scheduled alarm
+     * @return a formatted string describing when the alarm will ring
+     */
     public static String getFormattedTime(Context context, Calendar alarmTime) {
         final Calendar now = Calendar.getInstance();
         final Calendar today = (Calendar) now.clone();
@@ -169,18 +196,7 @@ public class AlarmUtils {
         }
 
         String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), skeleton);
-        if (context instanceof ScreensaverActivity || context instanceof Screensaver) {
-            final SharedPreferences prefs = getDefaultSharedPreferences(context);
-            // Add a "Thin Space" (\u2009) at the end of the next alarm to prevent its display from being cut off on some devices.
-            // (The display of the next alarm is only cut off at the end if it is defined in italics in the screensaver settings).
-            if (SettingsDAO.isScreensaverDateInItalic(prefs)) {
-                // A "Thin Space" (\u2009) is also added at the beginning to correctly center the date,
-                // alarm icon and next alarm only when the date is in italics.
-                pattern = "\u2009" + DateFormat.getBestDateTimePattern(Locale.getDefault(), skeleton) + "\u2009";
-            } else if (SettingsDAO.isScreensaverNextAlarmInItalic(prefs)) {
-                pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), skeleton) + "\u2009";
-            }
-        }
+
         return prefix + DateFormat.format(pattern, alarmTime);
     }
 
@@ -206,7 +222,6 @@ public class AlarmUtils {
         return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
                 cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR);
     }
-
 
     public static String getFormattedTime(Context context, long timeInMillis) {
         final Calendar c = Calendar.getInstance();
@@ -256,9 +271,7 @@ public class AlarmUtils {
     public static void popAlarmSetToast(Context context, long alarmTime) {
         final long alarmTimeDelta = alarmTime - System.currentTimeMillis();
         final String text = formatElapsedTimeUntilAlarm(context, alarmTimeDelta);
-        Toast toast = Toast.makeText(context, text, Toast.LENGTH_LONG);
-        ToastManager.setToast(toast);
-        toast.show();
+        CustomToast.showLongWithManager(context, text);
     }
 
     public static void popAlarmSetSnackbar(View snackbarAnchor, long alarmTime) {

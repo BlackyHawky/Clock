@@ -8,76 +8,76 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <PreferenceCategory
+    <com.best.deskclock.settings.custompreference.CustomPreferenceCategory
         android:title="@string/standard_category_title"
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false"
         tools:layout="@layout/settings_preference_category_layout">
 
-        <Preference
+        <com.best.deskclock.settings.custompreference.CustomPreference
             android:key="key_analog_widget_customization"
             android:title="@string/analog_widget"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <Preference
+        <com.best.deskclock.settings.custompreference.CustomPreference
             android:key="key_digital_widget_customization"
             android:title="@string/digital_widget"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <Preference
+        <com.best.deskclock.settings.custompreference.CustomPreference
             android:key="key_vertical_digital_widget_customization"
             android:title="@string/vertical_digital_widget"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <Preference
+        <com.best.deskclock.settings.custompreference.CustomPreference
             android:key="key_next_alarm_widget_customization"
             android:title="@string/next_alarm_widget"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-    </PreferenceCategory>
+    </com.best.deskclock.settings.custompreference.CustomPreferenceCategory>
 
-    <PreferenceCategory
+    <com.best.deskclock.settings.custompreference.CustomPreferenceCategory
         android:title="@string/material_you_category_title"
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false"
         tools:layout="@layout/settings_preference_category_layout">
 
-        <Preference
+        <com.best.deskclock.settings.custompreference.CustomPreference
             android:key="key_material_you_analog_widget_customization"
             android:title="@string/analog_widget_material_you"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <Preference
+        <com.best.deskclock.settings.custompreference.CustomPreference
             android:key="key_material_you_digital_widget_customization"
             android:title="@string/material_you_digital_widget"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <Preference
+        <com.best.deskclock.settings.custompreference.CustomPreference
             android:key="key_material_you_vertical_digital_widget_customization"
             android:title="@string/material_you_vertical_digital_widget"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <Preference
+        <com.best.deskclock.settings.custompreference.CustomPreference
             android:key="key_material_you_next_alarm_widget_customization"
             android:title="@string/material_you_next_alarm_widget"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-    </PreferenceCategory>
+    </com.best.deskclock.settings.custompreference.CustomPreferenceCategory>
 
 </PreferenceScreen>

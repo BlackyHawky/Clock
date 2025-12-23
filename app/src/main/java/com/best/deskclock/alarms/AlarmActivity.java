@@ -109,6 +109,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
     };
 
     private SharedPreferences mPrefs;
+    private Typeface mGeneralBoldTypeface;
     private final Handler mHandler = new Handler(Looper.getMainLooper());
     private AlarmInstance mAlarmInstance;
     private boolean mAlarmHandled;
@@ -193,6 +194,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         Context storageContext = Utils.getSafeStorageContext(this);
 
         mPrefs = getDefaultSharedPreferences(storageContext);
+        mGeneralBoldTypeface = ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(mPrefs));
 
         // Register Power button (screen off) intent receiver
         IntentFilter filter = new IntentFilter();
@@ -328,6 +330,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
         final TextView titleView = mContentView.findViewById(R.id.alarm_title);
         titleView.setText(mAlarmInstance.getLabelOrDefault(this));
+        titleView.setTypeface(mGeneralBoldTypeface);
         titleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
         titleView.setTextColor(mAlarmTitleColor);
         // Allow text scrolling (all other attributes are indicated in the "alarm_activity.xml" file)
@@ -378,12 +381,14 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
             } else {
                 mSnoozeActionText.setText(getString(R.string.button_action_snooze));
             }
+            mSnoozeActionText.setTypeface(mGeneralBoldTypeface);
             mSnoozeActionText.setTextColor(snoozeTitleColor);
 
             mDismissActionText.setText(getString(isOccasionalAlarmDeletedAfterUse()
                     ? R.string.delete
                     : R.string.button_action_dismiss)
             );
+            mDismissActionText.setTypeface(mGeneralBoldTypeface);
             mDismissActionText.setTextColor(dismissTitleColor);
 
             mPillView.setFillColor(ColorUtils.setAlphaComponent(alarmButtonColor, 128));
@@ -475,6 +480,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
                         ? R.string.delete
                         : R.string.button_action_dismiss)
                 );
+                mDismissOnlyButton.setTypeface(mGeneralBoldTypeface);
                 mDismissOnlyButton.setContentDescription(getString(isOccasionalAlarmDeletedAfterUse()
                         ? R.string.description_dismiss_button_for_occasional_alarm
                         : R.string.description_dismiss_button)
@@ -488,6 +494,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
                 mSnoozeButton.setBackgroundColor(SettingsDAO.getSnoozeButtonColor(mPrefs, this));
                 mSnoozeButton.setText(getString(R.string.button_action_snooze));
+                mSnoozeButton.setTypeface(mGeneralBoldTypeface);
                 mSnoozeButton.setContentDescription(getString(R.string.description_snooze_button));
                 mSnoozeButton.setVisibility(VISIBLE);
                 mSnoozeButton.setOnClickListener(this);
@@ -497,6 +504,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
                         ? R.string.delete
                         : R.string.button_action_dismiss)
                 );
+                mDismissButton.setTypeface(mGeneralBoldTypeface);
                 mDismissButton.setContentDescription(getString(isOccasionalAlarmDeletedAfterUse()
                         ? R.string.description_dismiss_button_for_occasional_alarm
                         : R.string.description_dismiss_button)
@@ -958,6 +966,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         }
 
         mRingtoneTitle.setText(title);
+        mRingtoneTitle.setTypeface(mGeneralBoldTypeface);
         mRingtoneTitle.setTextColor(ringtoneTitleColor);
         // Allow text scrolling (all other attributes are indicated in the "alarm_activity.xml" file)
         mRingtoneTitle.setSelected(true);
@@ -970,16 +979,16 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         mAlertView.setVisibility(View.VISIBLE);
 
         mAlertTitleView.setText(titleResId);
+        mAlertTitleView.setTypeface(mGeneralBoldTypeface);
         mAlertTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
         mAlertTitleView.setTextColor(mAlarmTitleColor);
-        mAlertTitleView.setTypeface(Typeface.DEFAULT_BOLD);
 
         if (infoText != null) {
             mAlertInfoView.setVisibility(View.VISIBLE);
+            mAlertInfoView.setTypeface(mGeneralBoldTypeface);
             mAlertInfoView.setText(infoText);
             mAlertInfoView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
             mAlertInfoView.setTextColor(mAlarmTitleColor);
-            mAlertInfoView.setTypeface(Typeface.DEFAULT_BOLD);
         }
 
         mContentView.setVisibility(View.GONE);

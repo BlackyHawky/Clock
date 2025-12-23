@@ -49,6 +49,8 @@ public class TimerItem extends ConstraintLayout {
 
     Context mContext;
     SharedPreferences mPrefs;
+    String mGeneralFontPath;
+    Typeface mTimerTimeTypeface;
     DisplayMetrics mDisplayMetrics;
 
     /** The container of TimerCircleView and TimerTextController */
@@ -112,6 +114,8 @@ public class TimerItem extends ConstraintLayout {
 
         mContext = getContext();
         mPrefs = getDefaultSharedPreferences(mContext);
+        mGeneralFontPath = SettingsDAO.getGeneralFont(mPrefs);
+        mTimerTimeTypeface = ThemeUtils.loadFont(SettingsDAO.getTimerDurationFont(mPrefs));
         mDisplayMetrics = getResources().getDisplayMetrics();
         mIsTablet = ThemeUtils.isTablet();
         mIsPortrait = ThemeUtils.isPortrait();
@@ -127,7 +131,6 @@ public class TimerItem extends ConstraintLayout {
         // Displays the remaining time or time since expiration.
         // Timer text serves as a virtual start/stop button.
         mTimerText = findViewById(R.id.timer_time_text);
-        mTimerText.setTypeface(ThemeUtils.loadFont(SettingsDAO.getTimerDurationFont(mPrefs)));
         final int colorAccent = MaterialColors.getColor(
                 mContext, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
         final int textColorPrimary = mTimerText.getCurrentTextColor();
@@ -192,16 +195,19 @@ public class TimerItem extends ConstraintLayout {
         // Initialize text for timer total duration
         if (isPortraitPhoneWithMultipleTimers() && mTimerTotalDurationText != null) {
             mTimerTotalDurationText.setText(timer.getTotalDuration());
+            mTimerTotalDurationText.setTypeface(mTimerTimeTypeface);
         }
 
         // Initialize the label
         final String label = timer.getLabel();
-        if (label.isEmpty()) {
+        final boolean isLabelEmpty = label.isEmpty();
+
+        if (isLabelEmpty) {
             mLabelView.setText(null);
-            mLabelView.setTypeface(Typeface.DEFAULT);
+            mLabelView.setTypeface(ThemeUtils.loadFont(mGeneralFontPath));
         } else {
             mLabelView.setText(label);
-            mLabelView.setTypeface(Typeface.DEFAULT_BOLD);
+            mLabelView.setTypeface(ThemeUtils.boldTypeface(mGeneralFontPath));
             mLabelView.setAlpha(1f);
         }
 
@@ -213,6 +219,7 @@ public class TimerItem extends ConstraintLayout {
 
         // Initialize the alpha value of the time text color
         mTimerText.setAlpha(1f);
+        mTimerText.setTypeface(mTimerTimeTypeface);
 
         final boolean isIndicatorStateDisplayed = SettingsDAO.isTimerStateIndicatorDisplayed(mPrefs);
         if (isIndicatorStateDisplayed && !timer.isReset()) {
@@ -233,6 +240,7 @@ public class TimerItem extends ConstraintLayout {
                 buttonTimeSeconds);
 
         mAddTimeButton.setText(mContext.getString(R.string.timer_add_custom_time, buttonTimeFormatted));
+        mAddTimeButton.setTypeface(ThemeUtils.boldTypeface(mGeneralFontPath));
 
         String buttonContentDescription = buttonTimeSeconds == 0
                 ? mContext.getString(R.string.timer_add_custom_time_description, String.valueOf(buttonTimeMinutes))

@@ -8,8 +8,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
     android:gravity="center_horizontal"
-    android:paddingHorizontal="8dp"
-    android:paddingTop="20dp">
+    android:paddingHorizontal="8dp">
 
     <!-- hour -->
     <LinearLayout
@@ -18,6 +17,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/hour_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -46,6 +46,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/minute_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

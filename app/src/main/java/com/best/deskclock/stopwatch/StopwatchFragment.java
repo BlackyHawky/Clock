@@ -28,6 +28,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.transition.TransitionManager;
 import android.util.DisplayMetrics;
@@ -149,6 +150,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle state) {
         mContext = requireContext();
         mPrefs = getDefaultSharedPreferences(mContext);
+        Typeface typeface = ThemeUtils.loadFont(SettingsDAO.getStopwatchFont(mPrefs));
         mDisplayMetrics = getResources().getDisplayMetrics();
         mIsLandscape = ThemeUtils.isLandscape();
         final boolean isTablet = ThemeUtils.isTablet();
@@ -183,8 +185,8 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
             mStopwatchWrapper.setOnTouchListener(new Utils.CircleTouchListener());
         }
 
-        mMainTimeText.setTypeface(ThemeUtils.loadFont(SettingsDAO.getStopwatchFont(mPrefs)));
-        mHundredthsTimeText.setTypeface(ThemeUtils.loadFont(SettingsDAO.getStopwatchFont(mPrefs)));
+        mMainTimeText.setTypeface(typeface);
+        mHundredthsTimeText.setTypeface(typeface);
 
         final int colorAccent = MaterialColors.getColor(mContext, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
         final int textColorPrimary = mMainTimeText.getCurrentTextColor();

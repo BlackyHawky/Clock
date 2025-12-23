@@ -10,6 +10,7 @@ import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -95,13 +96,17 @@ public class AlarmSelectionAdapter extends RecyclerView.Adapter<AlarmSelectionAd
 
         public void bind(Alarm alarm) {
             Context context = itemView.getContext();
+            SharedPreferences prefs = getDefaultSharedPreferences(context);
+            String fontPath = SettingsDAO.getAlarmFont(prefs);
 
             alarmTime.setTime(alarm.hour, alarm.minutes);
+            alarmTime.setTypeface(ThemeUtils.boldTypeface(fontPath));
             alarmLabel.setText(alarm.label);
+            alarmLabel.setTypeface(ThemeUtils.loadFont(fontPath));
 
             // Find days when alarm is firing
             if (alarm.daysOfWeek.isRepeating()) {
-                final Weekdays.Order weekdayOrder = SettingsDAO.getWeekdayOrder(getDefaultSharedPreferences(context));
+                final Weekdays.Order weekdayOrder = SettingsDAO.getWeekdayOrder(prefs);
                 final String daysOfWeekText = alarm.daysOfWeek.toString(context, weekdayOrder);
                 daysOfWeekView.setText(daysOfWeekText);
 
@@ -142,6 +147,8 @@ public class AlarmSelectionAdapter extends RecyclerView.Adapter<AlarmSelectionAd
                     daysOfWeekView.setText(context.getResources().getString(R.string.alarm_today));
                 }
             }
+
+            daysOfWeekView.setTypeface(ThemeUtils.loadFont(fontPath));
         }
     }
 }

@@ -3,17 +3,17 @@
     SPDX-License-Identifier: GPL-3.0-only
 -->
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="?attr/dialogPreferredPadding"
-        android:paddingEnd="?attr/dialogPreferredPadding"
-        android:paddingTop="20dp"
+        android:paddingHorizontal="?attr/dialogPreferredPadding"
         android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputLayout
@@ -33,13 +33,13 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <View
+        <com.google.android.material.divider.MaterialDivider
             android:id="@+id/divider"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="?attr/colorOutline"
+            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="6dp" />
+            android:layout_marginBottom="6dp"
+            app:dividerColor="?attr/colorOutline" />
 
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/vibration_start_delay_none"
@@ -57,4 +57,4 @@
 
     </LinearLayout>
 
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

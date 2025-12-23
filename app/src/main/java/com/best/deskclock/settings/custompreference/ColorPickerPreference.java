@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-package com.best.deskclock.settings;
+package com.best.deskclock.settings.custompreference;
 
 import static androidx.core.util.TypedValueCompat.dpToPx;
 
@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceViewHolder;
 
@@ -28,14 +29,17 @@ public class ColorPickerPreference extends ColorPreference {
 
     public ColorPickerPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
+        setLayoutResource(R.layout.settings_preference_layout);
     }
 
     @Override
-    public void onBindViewHolder(PreferenceViewHolder holder) {
+    public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
         if (holder.itemView.isInEditMode()) {
             // Skip logic during Android Studio preview
             return;
         }
+
+        PreferenceStyler.apply(holder);
 
         super.onBindViewHolder(holder);
 

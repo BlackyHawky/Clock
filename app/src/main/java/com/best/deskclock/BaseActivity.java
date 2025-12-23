@@ -27,6 +27,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_CARD_BORDER;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_CUSTOM_LANGUAGE_CODE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DARK_MODE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_FADE_TRANSITIONS;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_GENERAL_FONT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_THEME;
 
@@ -75,9 +76,9 @@ public class BaseActivity extends AppCompatActivity {
      * {@link #registerThemeListener()} to optimize change handling.</p>
      */
     private static final List<String> SUPPORTED_PREF_KEYS = List.of(
-            KEY_THEME, KEY_ACCENT_COLOR, KEY_CUSTOM_LANGUAGE_CODE, KEY_DARK_MODE,
-            KEY_AUTO_NIGHT_ACCENT_COLOR, KEY_NIGHT_ACCENT_COLOR, KEY_CARD_BACKGROUND,
-            KEY_CARD_BORDER, KEY_FADE_TRANSITIONS
+            KEY_THEME, KEY_DARK_MODE, KEY_GENERAL_FONT, KEY_ACCENT_COLOR, KEY_AUTO_NIGHT_ACCENT_COLOR,
+            KEY_NIGHT_ACCENT_COLOR, KEY_CUSTOM_LANGUAGE_CODE, KEY_CARD_BACKGROUND, KEY_CARD_BORDER,
+            KEY_FADE_TRANSITIONS
     );
 
     /**
@@ -273,8 +274,11 @@ public class BaseActivity extends AppCompatActivity {
             Object oldValue = cachedValues.get(key);
             Object newValue = getPreferenceValue(key);
 
+            boolean changed = (newValue == null && oldValue != null)
+                    || (newValue != null && !newValue.equals(oldValue));
+
             // If the value has not changed, do nothing
-            if (newValue == null || newValue.equals(oldValue)) {
+            if (!changed) {
                 return;
             }
 
@@ -285,7 +289,8 @@ public class BaseActivity extends AppCompatActivity {
                     String getTheme = SettingsDAO.getTheme(sharedPreferences);
                     applySystemNightMode(getTheme);
                 }
-                case KEY_ACCENT_COLOR, KEY_CUSTOM_LANGUAGE_CODE -> recreate();
+
+                case KEY_GENERAL_FONT, KEY_ACCENT_COLOR, KEY_CUSTOM_LANGUAGE_CODE -> recreate();
 
                 case KEY_DARK_MODE, KEY_NIGHT_ACCENT_COLOR -> {
                     if (ThemeUtils.isNight(getResources())) {
@@ -325,11 +330,12 @@ public class BaseActivity extends AppCompatActivity {
     private Object getPreferenceValue(String key) {
         return switch (key) {
             case KEY_THEME -> SettingsDAO.getTheme(mPrefs);
-            case KEY_CUSTOM_LANGUAGE_CODE -> SettingsDAO.getCustomLanguageCode(mPrefs);
-            case KEY_ACCENT_COLOR -> SettingsDAO.getAccentColor(mPrefs);
             case KEY_DARK_MODE -> SettingsDAO.getDarkMode(mPrefs);
+            case KEY_GENERAL_FONT -> SettingsDAO.getGeneralFont(mPrefs);
+            case KEY_ACCENT_COLOR -> SettingsDAO.getAccentColor(mPrefs);
             case KEY_AUTO_NIGHT_ACCENT_COLOR -> SettingsDAO.isAutoNightAccentColorEnabled(mPrefs);
             case KEY_NIGHT_ACCENT_COLOR -> SettingsDAO.getNightAccentColor(mPrefs);
+            case KEY_CUSTOM_LANGUAGE_CODE -> SettingsDAO.getCustomLanguageCode(mPrefs);
             case KEY_CARD_BACKGROUND -> SettingsDAO.isCardBackgroundDisplayed(mPrefs);
             case KEY_CARD_BORDER -> SettingsDAO.isCardBorderDisplayed(mPrefs);
             case KEY_FADE_TRANSITIONS -> SettingsDAO.isFadeTransitionsEnabled(mPrefs);

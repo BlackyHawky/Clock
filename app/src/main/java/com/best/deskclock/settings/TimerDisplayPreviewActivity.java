@@ -185,6 +185,7 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
         }
 
         mRingtoneTitle.setText(DataModel.getDataModel().getTimerRingtoneTitle());
+        mRingtoneTitle.setTypeface(ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(mPrefs)));
         mRingtoneTitle.setTextColor(ringtoneTitleColor);
         // Allow text scrolling (all other attributes are indicated in the "expired_timers_activity.xml" file)
         mRingtoneTitle.setSelected(true);

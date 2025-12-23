@@ -8,7 +8,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
-    android:paddingTop="20dp"
+    android:paddingHorizontal="8dp"
     android:calendarViewShown="false"
     android:datePickerMode="spinner"
     android:theme="@style/SpinnerDateTheme" />

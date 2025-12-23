@@ -2,21 +2,21 @@
 
 package com.best.deskclock.timer;
 
-import static android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN;
-import static android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE;
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -34,9 +34,11 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
+import com.best.deskclock.uicomponents.CustomDialog;
+import com.best.deskclock.utils.ThemeUtils;
 import com.google.android.material.color.MaterialColors;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
@@ -57,6 +59,7 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
     private static final String ARG_EDIT_SECONDS = "arg_edit_seconds";
     private static final String ARG_TIMER_ID = "arg_timer_id";
 
+    private Context mContext;
     private TextInputLayout mHoursInputLayout;
     private TextInputLayout mMinutesInputLayout;
     private TextInputLayout mSecondsInputLayout;
@@ -123,6 +126,10 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        mContext = requireContext();
+        SharedPreferences prefs = getDefaultSharedPreferences(mContext);
+        Typeface typeFace = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
+
         final Bundle args = getArguments() == null ? Bundle.EMPTY : getArguments();
         mTimerId = args.getInt(ARG_TIMER_ID, -1);
 
@@ -135,22 +142,38 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
             editSeconds = savedInstanceState.getInt(ARG_EDIT_SECONDS, editSeconds);
         }
 
-        View view = getLayoutInflater().inflate(R.layout.timer_dialog_edit_new_time, null);
+        mInput = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
 
-        mHoursInputLayout = view.findViewById(R.id.dialog_input_layout_hours);
+        @SuppressLint("InflateParams")
+        View dialogView = getLayoutInflater().inflate(R.layout.timer_dialog_edit_new_time, null);
+
+        mHoursInputLayout = dialogView.findViewById(R.id.dialog_input_layout_hours);
+        mHoursInputLayout.setTypeface(typeFace);
         mHoursInputLayout.setHelperText(getString(R.string.timer_hours_warning_box_text));
+        TextView hoursHelper = mHoursInputLayout.findViewById(
+                com.google.android.material.R.id.textinput_helper_text);
+        hoursHelper.setTypeface(typeFace);
 
-        mMinutesInputLayout = view.findViewById(R.id.dialog_input_layout_minutes);
+        mMinutesInputLayout = dialogView.findViewById(R.id.dialog_input_layout_minutes);
+        mMinutesInputLayout.setTypeface(typeFace);
         mMinutesInputLayout.setHelperText(getString(R.string.timer_minutes_warning_box_text));
+        TextView minutesHelper = mMinutesInputLayout.findViewById(
+                com.google.android.material.R.id.textinput_helper_text);
+        minutesHelper.setTypeface(typeFace);
 
-        mSecondsInputLayout = view.findViewById(R.id.dialog_input_layout_seconds);
+        mSecondsInputLayout = dialogView.findViewById(R.id.dialog_input_layout_seconds);
+        mSecondsInputLayout.setTypeface(typeFace);
         mSecondsInputLayout.setHelperText(getString(R.string.timer_seconds_warning_box_text));
+        TextView secondsHelper = mSecondsInputLayout.findViewById(
+                com.google.android.material.R.id.textinput_helper_text);
+        secondsHelper.setTypeface(typeFace);
 
-        mEditHours = view.findViewById(R.id.edit_hours);
-        mEditMinutes = view.findViewById(R.id.edit_minutes);
-        mEditSeconds = view.findViewById(R.id.edit_seconds);
+        mEditHours = dialogView.findViewById(R.id.edit_hours);
+        mEditMinutes = dialogView.findViewById(R.id.edit_minutes);
+        mEditSeconds = dialogView.findViewById(R.id.edit_seconds);
 
         mEditHours.setText(String.valueOf(editHours));
+        mEditHours.setTypeface(typeFace);
         if (editHours == 24) {
             mEditHours.setImeOptions(EditorInfo.IME_ACTION_DONE);
             mEditHours.setOnEditorActionListener(new ImeDoneListener());
@@ -173,6 +196,7 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
         });
 
         mEditMinutes.setText(String.valueOf(editMinutes));
+        mEditMinutes.setTypeface(typeFace);
         mEditMinutes.selectAll();
         mEditMinutes.setInputType(InputType.TYPE_CLASS_NUMBER);
         mEditMinutes.addTextChangedListener(mTextWatcher);
@@ -183,6 +207,7 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
         });
 
         mEditSeconds.setText(String.valueOf(editSeconds));
+        mEditSeconds.setTypeface(typeFace);
         mEditSeconds.selectAll();
         mEditSeconds.setInputType(InputType.TYPE_CLASS_NUMBER);
         mEditSeconds.setOnEditorActionListener(new ImeDoneListener());
@@ -197,52 +222,32 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
         String inputMinutesText = mEditMinutes.getText().toString();
         String inputSecondsText = mEditSeconds.getText().toString();
 
-        mInput = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-
-        final Drawable drawable = AppCompatResources.getDrawable(requireContext(),
-                isInvalidInput(inputHoursText, inputMinutesText, inputSecondsText)
-                        ? R.drawable.ic_error
-                        : R.drawable.ic_hourglass_top);
-        if (drawable != null) {
-            drawable.setTint(MaterialColors.getColor(
-                    requireContext(), com.google.android.material.R.attr.colorOnSurface, Color.BLACK));
-        }
-
-        final MaterialAlertDialogBuilder dialogBuilder =
-                new MaterialAlertDialogBuilder(requireContext())
-                        .setIcon(drawable)
-                        .setTitle(isInvalidInput(inputHoursText, inputMinutesText, inputSecondsText)
-                                ? getString(R.string.timer_time_warning_box_title)
-                                : getString(R.string.timer_time_box_title))
-                        .setView(view)
-                        .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                            if (isInvalidInput(inputHoursText, inputMinutesText, inputSecondsText)) {
-                                updateDialogForInvalidInput();
-                            } else {
-                                setNewDuration();
-                                dismiss();
-                            }
-                        })
-                        .setNegativeButton(android.R.string.cancel, null);
-
-        final AlertDialog alertDialog = dialogBuilder.create();
-
-        alertDialog.setOnShowListener(dialog -> {
-            mOkButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-
-            String hoursText = Objects.requireNonNull(mEditHours.getText()).toString();
-            String minutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
-            String secondsText = mEditSeconds.getText() != null ? mEditSeconds.getText().toString() : "";
-
-            mOkButton.setEnabled(!isInvalidInput(hoursText, minutesText, secondsText));
-        });
-
-        final Window alertDialogWindow = alertDialog.getWindow();
-        if (alertDialogWindow != null) {
-            alertDialogWindow.setSoftInputMode(SOFT_INPUT_ADJUST_PAN | SOFT_INPUT_STATE_VISIBLE);
-        }
-
-        return alertDialog;
+        return CustomDialog.create(
+                mContext,
+                null,
+                AppCompatResources.getDrawable(mContext, R.drawable.ic_hourglass_top),
+                getString(R.string.timer_time_box_title),
+                null,
+                dialogView,
+                getString(android.R.string.ok),
+                (d, w) -> {
+                    if (isInvalidInput(inputHoursText, inputMinutesText, inputSecondsText)) {
+                        updateDialogForInvalidInput();
+                    } else {
+                        setNewDuration();
+                        dismiss();
+                    }
+                },
+                getString(android.R.string.cancel),
+                null,
+                null,
+                null,
+                alertDialog -> {
+                    mOkButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                    mOkButton.setEnabled(!isInvalidInput(inputHoursText, inputMinutesText, inputSecondsText));
+                },
+                CustomDialog.SoftInputMode.SHOW_KEYBOARD
+        );
     }
 
     @Override
@@ -343,15 +348,14 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
      * The outline color of the edit box and the hint color are also changed.
      */
     private void updateDialogForInvalidInput() {
-        final Drawable drawable = AppCompatResources.getDrawable(requireContext(), R.drawable.ic_error);
-        if (drawable != null) {
-            drawable.setTint(MaterialColors.getColor(
-                    requireContext(), com.google.android.material.R.attr.colorOnSurface, Color.BLACK));
-        }
-
         AlertDialog alertDialog = (AlertDialog) requireDialog();
-        alertDialog.setIcon(drawable);
-        alertDialog.setTitle(getString(R.string.timer_time_warning_box_title));
+
+        TextView titleText = alertDialog.findViewById(R.id.dialog_title);
+        if (titleText != null) {
+            titleText.setCompoundDrawablesWithIntrinsicBounds(
+                    AppCompatResources.getDrawable(mContext, R.drawable.ic_error), null, null, null);
+            titleText.setText(getString(R.string.timer_time_warning_box_title));
+        }
 
         String hoursText = Objects.requireNonNull(mEditHours.getText()).toString();
         String minutesText = Objects.requireNonNull(mEditMinutes.getText()).toString();
@@ -396,15 +400,14 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
      * The outline color of the edit box and the hint color are also changed.
      */
     private void updateDialogForValidInput() {
-        final Drawable drawable = AppCompatResources.getDrawable(requireContext(), R.drawable.ic_hourglass_top);
-        if (drawable != null) {
-            drawable.setTint(MaterialColors.getColor(
-                    requireContext(), com.google.android.material.R.attr.colorOnSurface, Color.BLACK));
-        }
-
         AlertDialog alertDialog = (AlertDialog) requireDialog();
-        alertDialog.setIcon(drawable);
-        alertDialog.setTitle(getString(R.string.timer_button_time_box_title));
+
+        TextView titleText = alertDialog.findViewById(R.id.dialog_title);
+        if (titleText != null) {
+            titleText.setCompoundDrawablesWithIntrinsicBounds(
+                    AppCompatResources.getDrawable(mContext, R.drawable.ic_hourglass_top), null, null, null);
+            titleText.setText(getString(R.string.timer_button_time_box_title));
+        }
 
         int validColor = MaterialColors.getColor(requireContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
 

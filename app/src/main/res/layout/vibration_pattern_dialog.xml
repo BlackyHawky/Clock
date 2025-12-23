@@ -3,7 +3,8 @@
     SPDX-License-Identifier: GPL-3.0-only
 -->
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -11,8 +12,8 @@
         android:id="@+id/vibration_options"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="?attr/dialogPreferredPadding"
-        android:paddingTop="20dp">
+        android:paddingStart="?attr/dialogPreferredPadding"
+        android:paddingEnd="@null">
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/vibration_pattern_default"
@@ -76,4 +77,4 @@
 
     </RadioGroup>
 
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

@@ -68,6 +68,8 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
     public final TextView daysOfWeek;
     public final TextView preemptiveDismissButton;
     public final View bottomPaddingView;
+    public final Typeface mGeneralTypeface;
+    public final Typeface mGeneralBoldTypeface;
 
     public float annotationsAlpha = CLOCK_ENABLED_ALPHA;
 
@@ -77,6 +79,10 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
         final Context context = itemView.getContext();
 
         mPrefs = getDefaultSharedPreferences(context);
+        String generalFontPath = SettingsDAO.getGeneralFont(mPrefs);
+        mGeneralTypeface = ThemeUtils.loadFont(generalFontPath);
+        mGeneralBoldTypeface = ThemeUtils.boldTypeface(generalFontPath);
+
         arrow = itemView.findViewById(R.id.arrow);
         clock = itemView.findViewById(R.id.digital_clock);
         onOff = itemView.findViewById(R.id.onoff);
@@ -131,22 +137,8 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
     }
 
     private void bindClock(Alarm alarm) {
-        String fontPath = SettingsDAO.getAlarmFont(mPrefs);
-        Typeface baseTypeface = null;
-
-        if (fontPath != null) {
-            baseTypeface = ThemeUtils.loadFont(fontPath);
-        }
-
-        int style = alarm.enabled ? Typeface.BOLD : Typeface.NORMAL;
-
-        if (baseTypeface == null) {
-            clock.setTypeface(Typeface.create("sans-serif", style));
-        } else {
-            clock.setTypeface(baseTypeface, style);
-        }
-
         clock.setTime(alarm.hour, alarm.minutes);
+        clock.setTypeface(alarm.enabled);
     }
 
     private void bindRepeatText(Context context, Alarm alarm, AlarmInstance alarmInstance) {
@@ -180,15 +172,15 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
             styledDaysText = alarm.daysOfWeek.toString(context, weekdayOrder);
         }
 
-        daysOfWeek.setText(styledDaysText);
+        setDaysOfWeekText(styledDaysText);
         daysOfWeek.setContentDescription(contentDesc);
     }
 
     private void setNonRepeatingDefaultDescription(Context context, Alarm alarm) {
         if (alarm.isTomorrow(Calendar.getInstance())) {
-            daysOfWeek.setText(context.getString(R.string.alarm_tomorrow));
+            setDaysOfWeekText(context.getString(R.string.alarm_tomorrow));
         } else {
-            daysOfWeek.setText(context.getString(R.string.alarm_today));
+            setDaysOfWeekText(context.getString(R.string.alarm_today));
         }
     }
 
@@ -196,12 +188,17 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
         Calendar calendar = Calendar.getInstance();
 
         if (Alarm.isSpecifiedDateTomorrow(alarm.year, alarm.month, alarm.day)) {
-            daysOfWeek.setText(context.getString(R.string.alarm_tomorrow));
+            setDaysOfWeekText(context.getString(R.string.alarm_tomorrow));
         } else if (alarm.isDateInThePast()) {
-            daysOfWeek.setText(getTodayOrTomorrowBasedOnTime(context, alarm, calendar));
+            setDaysOfWeekText(getTodayOrTomorrowBasedOnTime(context, alarm, calendar));
         } else {
-            daysOfWeek.setText(context.getString(R.string.alarm_scheduled_for, formatAlarmDate(alarm)));
+            setDaysOfWeekText(context.getString(R.string.alarm_scheduled_for, formatAlarmDate(alarm)));
         }
+    }
+
+    private void setDaysOfWeekText(CharSequence text) {
+        daysOfWeek.setTypeface(mGeneralTypeface);
+        daysOfWeek.setText(text);
     }
 
     private String getTodayOrTomorrowBasedOnTime(Context context, Alarm alarm, Calendar now) {
@@ -225,6 +222,7 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
                     ? context.getString(R.string.alarm_alert_dismiss_and_delete_text)
                     : context.getString(R.string.alarm_alert_dismiss_text);
             preemptiveDismissButton.setText(dismissText);
+            preemptiveDismissButton.setTypeface(mGeneralBoldTypeface);
 
             if (!getItemHolder().isExpanded()) {
                 bottomPaddingView.setVisibility(GONE);

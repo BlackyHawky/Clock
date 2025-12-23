@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-package com.best.deskclock.settings;
+package com.best.deskclock.settings.custompreference;
 
 import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_SNOOZE_DURATION_DISABLED;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_SNOOZE_DURATION;
@@ -8,7 +8,9 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM
 import android.content.Context;
 import android.util.AttributeSet;
 
+import androidx.annotation.NonNull;
 import androidx.preference.DialogPreference;
+import androidx.preference.PreferenceViewHolder;
 
 import com.best.deskclock.R;
 
@@ -30,25 +32,14 @@ public class AlarmSnoozeDurationPreference extends DialogPreference {
      */
     public AlarmSnoozeDurationPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
+        setLayoutResource(R.layout.settings_preference_layout);
         setPersistent(true);
     }
 
-    /**
-     * Returns the currently persisted snooze delay duration in minutes.
-     *
-     * @return The snooze delay in minutes, or 10 if no value has been previously persisted.
-     */
-    public int getSnoozeDuration() {
-        return getPersistedInt(DEFAULT_ALARM_SNOOZE_DURATION);
-    }
-
-    /**
-     * Persists the snooze delay duration in minutes.
-     *
-     * @param minutes The snooze duration to be stored, in minutes.
-     */
-    public void setSnoozeDuration(int minutes) {
-        persistInt(minutes);
+    @Override
+    public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
+        PreferenceStyler.apply(holder);
+        super.onBindViewHolder(holder);
     }
 
     @Override
@@ -72,4 +63,23 @@ public class AlarmSnoozeDurationPreference extends DialogPreference {
             return getContext().getResources().getQuantityString(R.plurals.minutes, m, m);
         }
     }
+
+    /**
+     * Returns the currently persisted snooze delay duration in minutes.
+     *
+     * @return The snooze delay in minutes, or 10 if no value has been previously persisted.
+     */
+    public int getSnoozeDuration() {
+        return getPersistedInt(DEFAULT_ALARM_SNOOZE_DURATION);
+    }
+
+    /**
+     * Persists the snooze delay duration in minutes.
+     *
+     * @param minutes The snooze duration to be stored, in minutes.
+     */
+    public void setSnoozeDuration(int minutes) {
+        persistInt(minutes);
+    }
+
 }

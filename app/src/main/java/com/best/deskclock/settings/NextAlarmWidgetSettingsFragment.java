@@ -24,12 +24,13 @@ import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.preference.Preference;
-import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.WidgetDAO;
+import com.best.deskclock.settings.custompreference.ColorPickerPreference;
+import com.best.deskclock.settings.custompreference.CustomSeekbarPreference;
+import com.best.deskclock.settings.custompreference.CustomSwitchPreference;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
 import com.best.deskclock.widgets.standardwidgets.NextAlarmAppWidgetProvider;
@@ -39,18 +40,18 @@ public class NextAlarmWidgetSettingsFragment extends ScreenFragment
 
     private int mAppWidgetId = INVALID_APPWIDGET_ID;
 
-    SwitchPreferenceCompat mDisplayTextUppercasePref;
-    SwitchPreferenceCompat mDisplayTextShadowPref;
-    SwitchPreferenceCompat mShowBackgroundOnNextAlarmWidgetPref;
-    SwitchPreferenceCompat mCustomizeBackgroundCornerRadiusPref;
-    Preference mBackgroundCornerRadiusPref;
-    SwitchPreferenceCompat mApplyHorizontalPaddingPref;
+    CustomSwitchPreference mDisplayTextUppercasePref;
+    CustomSwitchPreference mDisplayTextShadowPref;
+    CustomSwitchPreference mShowBackgroundOnNextAlarmWidgetPref;
+    CustomSwitchPreference mCustomizeBackgroundCornerRadiusPref;
+    CustomSeekbarPreference mBackgroundCornerRadiusPref;
+    CustomSwitchPreference mApplyHorizontalPaddingPref;
     ColorPickerPreference mBackgroundColorPref;
-    SwitchPreferenceCompat mDefaultTitleColorPref;
+    CustomSwitchPreference mDefaultTitleColorPref;
     ColorPickerPreference mCustomTitleColorPref;
-    SwitchPreferenceCompat mDefaultAlarmTitleColorPref;
+    CustomSwitchPreference mDefaultAlarmTitleColorPref;
     ColorPickerPreference mCustomAlarmTitleColorPref;
-    SwitchPreferenceCompat mDefaultAlarmColorPref;
+    CustomSwitchPreference mDefaultAlarmColorPref;
     ColorPickerPreference mCustomAlarmColorPref;
 
     @Override
@@ -140,13 +141,6 @@ public class NextAlarmWidgetSettingsFragment extends ScreenFragment
 
         WidgetUtils.scheduleWidgetUpdate(requireContext(), NextAlarmAppWidgetProvider.class);
         return true;
-    }
-
-    @Override
-    public void onDisplayPreferenceDialog(@NonNull Preference preference) {
-        if (preference instanceof ColorPickerPreference colorPickerPref) {
-            colorPickerPref.showDialog(this, 0);
-        } else super.onDisplayPreferenceDialog(preference);
     }
 
     private void setupPreferences() {

@@ -39,23 +39,25 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.preference.ListPreference;
 import androidx.preference.Preference;
-import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel.ClockStyle;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.settings.custompreference.ColorPickerPreference;
+import com.best.deskclock.settings.custompreference.CustomListPreference;
+import com.best.deskclock.settings.custompreference.CustomPreference;
+import com.best.deskclock.settings.custompreference.CustomSeekbarPreference;
+import com.best.deskclock.settings.custompreference.CustomSwitchPreference;
+import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.google.android.material.color.MaterialColors;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class AlarmDisplayCustomizationFragment extends ScreenFragment
         implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
@@ -65,14 +67,14 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
     String mMaterialAnalogClock;
     String mDigitalClock;
 
-    ListPreference mAlarmClockStylePref;
-    ListPreference mAlarmClockDialPref;
-    ListPreference mAlarmClockDialMaterialPref;
+    CustomListPreference mAlarmClockStylePref;
+    CustomListPreference mAlarmClockDialPref;
+    CustomListPreference mAlarmClockDialMaterialPref;
     CustomSeekbarPreference mAnalogClockSizePref;
-    ListPreference mAlarmClockSecondHandPref;
-    SwitchPreferenceCompat mDisplaySecondsPref;
-    Preference mAlarmFontPref;
-    SwitchPreferenceCompat mSwipeActionPref;
+    CustomListPreference mAlarmClockSecondHandPref;
+    CustomSwitchPreference mDisplaySecondsPref;
+    CustomPreference mAlarmFontPref;
+    CustomSwitchPreference mSwipeActionPref;
     ColorPickerPreference mAlarmClockColorPref;
     ColorPickerPreference mAlarmSecondHandColorPref;
     ColorPickerPreference mSlideZoneColorPref;
@@ -84,15 +86,15 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
     ColorPickerPreference mBackgroundColorPref;
     ColorPickerPreference mBackgroundAmoledColorPref;
     CustomSeekbarPreference mAlarmDigitalClockFontSizePref;
-    SwitchPreferenceCompat mDisplayTextShadowPref;
+    CustomSwitchPreference mDisplayTextShadowPref;
     ColorPickerPreference mShadowColorPref;
-    Preference mShadowOffsetPref;
-    SwitchPreferenceCompat mDisplayRingtoneTitlePref;
+    CustomSeekbarPreference mShadowOffsetPref;
+    CustomSwitchPreference mDisplayRingtoneTitlePref;
     ColorPickerPreference mRingtoneTitleColorPref;
-    Preference mAlarmBackgroundImagePref;
-    SwitchPreferenceCompat mEnableAlarmBlurEffectPref;
-    Preference mAlarmBlurIntensityPref;
-    Preference mAlarmPreviewPref;
+    CustomPreference mAlarmBackgroundImagePref;
+    CustomSwitchPreference mEnableAlarmBlurEffectPref;
+    CustomSeekbarPreference mAlarmBlurIntensityPref;
+    CustomPreference mAlarmPreviewPref;
 
     private final ActivityResultLauncher<Intent> fontPickerLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -123,9 +125,9 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
                     mPrefs.edit().putString(KEY_ALARM_FONT, copiedUri.getPath()).apply();
                     mAlarmFontPref.setTitle(getString(R.string.custom_font_title_variant));
 
-                    Toast.makeText(requireContext(), R.string.custom_font_toast_message_selected, Toast.LENGTH_SHORT).show();
+                    CustomToast.show(requireContext(), R.string.custom_font_toast_message_selected);
                 } else {
-                    Toast.makeText(requireContext(), "Error importing font", Toast.LENGTH_SHORT).show();
+                    CustomToast.show(requireContext(), "Error importing font");
                     mAlarmFontPref.setTitle(getString(R.string.custom_font_title));
                 }
             });
@@ -163,9 +165,9 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
                     mAlarmBlurIntensityPref.setVisible(SdkUtils.isAtLeastAndroid12()
                             && SettingsDAO.isAlarmBlurEffectEnabled(mPrefs));
 
-                    Toast.makeText(requireContext(), R.string.background_image_toast_message_selected, Toast.LENGTH_SHORT).show();
+                    CustomToast.show(requireContext(), R.string.background_image_toast_message_selected);
                 } else {
-                    Toast.makeText(requireContext(), "Error importing image", Toast.LENGTH_SHORT).show();
+                    CustomToast.show(requireContext(), "Error importing image");
                     mAlarmBackgroundImagePref.setTitle(getString(R.string.background_image_title));
                     mEnableAlarmBlurEffectPref.setVisible(false);
                     mAlarmBlurIntensityPref.setVisible(false);
@@ -244,7 +246,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
             }
 
             case KEY_ALARM_CLOCK_DIAL, KEY_ALARM_CLOCK_DIAL_MATERIAL, KEY_ALARM_CLOCK_SECOND_HAND -> {
-                final ListPreference preference = (ListPreference) pref;
+                final CustomListPreference preference = (CustomListPreference) pref;
                 final int index = preference.findIndexOfValue((String) newValue);
                 preference.setSummary(preference.getEntries()[index]);
             }
@@ -301,13 +303,6 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
     }
 
     @Override
-    public void onDisplayPreferenceDialog(@NonNull Preference preference) {
-        if (preference instanceof ColorPickerPreference colorPickerPref) {
-            colorPickerPref.showDialog(this, 0);
-        } else super.onDisplayPreferenceDialog(preference);
-    }
-
-    @Override
     public boolean onPreferenceClick(@NonNull Preference pref) {
         final Context context = getActivity();
         if (context == null) {
@@ -315,45 +310,15 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
         }
 
         switch (pref.getKey()) {
-            case KEY_ALARM_FONT -> {
-                if (SettingsDAO.getAlarmFont(mPrefs) == null) {
-                    selectFile(fontPickerLauncher, true);
-                } else {
-                    new MaterialAlertDialogBuilder(requireContext())
-                            .setTitle(R.string.custom_font_dialog_title)
-                            .setMessage(R.string.custom_font_title_variant)
-                            .setPositiveButton(getString(R.string.label_new_font), (dialog, which) ->
-                                    selectFile(fontPickerLauncher, true))
-                            .setNeutralButton(getString(R.string.delete), (dialog, which) -> {
-                                mPrefs.edit().remove(KEY_ALARM_FONT).apply();
-                                mAlarmFontPref.setTitle(getString(R.string.custom_font_title));
-                                deleteFile(mPrefs.getString(KEY_ALARM_FONT, null),
-                                        KEY_ALARM_FONT, true);
-                            })
-                            .show();
-                }
-            }
+            case KEY_ALARM_FONT -> selectCustomFile(mAlarmFontPref, fontPickerLauncher,
+                    SettingsDAO.getAlarmFont(mPrefs), KEY_ALARM_FONT, true, null);
 
-            case KEY_ALARM_BACKGROUND_IMAGE -> {
-                if (SettingsDAO.getAlarmBackgroundImage(mPrefs) == null) {
-                    selectFile(imagePickerLauncher, false);
-                } else {
-                    new MaterialAlertDialogBuilder(requireContext())
-                            .setTitle(R.string.background_image_dialog_title)
-                            .setMessage(R.string.background_image_title_variant)
-                            .setPositiveButton(getString(R.string.label_new_image), (dialog, which) ->
-                                    selectFile(imagePickerLauncher, false))
-                            .setNeutralButton(getString(R.string.delete), (dialog, which) -> {
-                                mPrefs.edit().remove(KEY_ALARM_BACKGROUND_IMAGE).apply();
-                                mAlarmBackgroundImagePref.setTitle(getString(R.string.background_image_title));
-                                mEnableAlarmBlurEffectPref.setVisible(false);
-                                mAlarmBlurIntensityPref.setVisible(false);
-                                deleteFile(mPrefs.getString(KEY_ALARM_BACKGROUND_IMAGE, null),
-                                        KEY_ALARM_BACKGROUND_IMAGE, false);
-                            })
-                            .show();
-                }
-            }
+            case KEY_ALARM_BACKGROUND_IMAGE -> selectCustomFile(mAlarmBackgroundImagePref, imagePickerLauncher,
+                    SettingsDAO.getAlarmBackgroundImage(mPrefs), KEY_ALARM_BACKGROUND_IMAGE,
+                    false, mAlarmBackgroundImagePref -> {
+                mEnableAlarmBlurEffectPref.setVisible(false);
+                mAlarmBlurIntensityPref.setVisible(false);
+            });
 
             case KEY_ALARM_PREVIEW -> {
                 startActivity(new Intent(context, AlarmDisplayPreviewActivity.class));

@@ -6,12 +6,11 @@
 
 package com.best.deskclock;
 
-import static android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN;
-import static android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE;
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
@@ -19,7 +18,6 @@ import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -35,12 +33,13 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.provider.Alarm;
 
+import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.SdkUtils;
-import com.google.android.material.color.MaterialColors;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.best.deskclock.utils.ThemeUtils;
 
 import java.util.Objects;
 
@@ -199,21 +198,21 @@ public class LabelDialogFragment extends DialogFragment {
             title = null;
         }
 
-        // Load and tint the icon if applicable
+        // Load the icon if applicable
         if (iconResId != 0) {
             drawable = AppCompatResources.getDrawable(mContext, iconResId);
-            if (drawable != null) {
-                drawable.setTint(MaterialColors.getColor(
-                        mContext, com.google.android.material.R.attr.colorOnSurface, Color.BLACK));
-            }
         } else {
             drawable = null;
         }
 
-        View view = getLayoutInflater().inflate(R.layout.dialog_edit_text, null);
+        @SuppressLint("InflateParams")
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_edit_text, null);
 
-        mEditLabel = view.findViewById(android.R.id.edit);
+        mEditLabel = dialogView.findViewById(android.R.id.edit);
         mEditLabel.setText(label);
+        mEditLabel.setTypeface(
+                ThemeUtils.loadFont(SettingsDAO.getGeneralFont(getDefaultSharedPreferences(mContext)))
+        );
         mEditLabel.addTextChangedListener(mTextWatcher);
         mEditLabel.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
         mEditLabel.selectAll();
@@ -230,29 +229,26 @@ public class LabelDialogFragment extends DialogFragment {
             return false;
         });
 
-        final MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(mContext)
-                .setTitle(title)
-                .setIcon(drawable)
-                .setView(view)
-                .setPositiveButton(android.R.string.ok, (dialog, which) -> setLabel())
-                .setNegativeButton(android.R.string.cancel, null)
-                .setNeutralButton(R.string.delete, (dialog, which) ->
-                        applyLabel(""));
+        return CustomDialog.create(
+                mContext,
+                null,
+                drawable,
+                title,
+                null,
+                dialogView,
+                getString(android.R.string.ok),
+                (d, w) -> setLabel(),
+                getString(android.R.string.cancel),
+                null,
+                getString(R.string.delete),
+                (d, w) -> applyLabel(""),
+                alertDialog -> {
+                    mDefaultButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
 
-        final AlertDialog alertDialog = dialogBuilder.create();
-
-        alertDialog.setOnShowListener(dialog -> {
-            mDefaultButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
-
-            mDefaultButton.setEnabled(isLabelNotEmpty());
-        });
-
-        final Window alertDialogWindow = alertDialog.getWindow();
-        if (alertDialogWindow != null) {
-            alertDialogWindow.setSoftInputMode(SOFT_INPUT_ADJUST_PAN | SOFT_INPUT_STATE_VISIBLE);
-        }
-
-        return alertDialog;
+                    mDefaultButton.setEnabled(isLabelNotEmpty());
+                },
+                CustomDialog.SoftInputMode.SHOW_KEYBOARD
+        );
     }
 
     @Override

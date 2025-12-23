@@ -18,6 +18,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_FONT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DEFAULT_ALARM_RINGTONE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_CLOCK_FONT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ESSENTIAL_PERMISSIONS_GRANTED;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_GENERAL_FONT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_BACKGROUND_IMAGE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_DIGITAL_CLOCK_FONT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_FONT;
@@ -91,6 +92,7 @@ public class BackupAndRestoreUtils {
                 // Finally, exclude the essential permissions key, as it reflects the current system state
                 // and should not be saved, restored, or reset like other preferences.
                 if (key.equals(RINGTONE_IDS)
+                        || key.equals(KEY_GENERAL_FONT)
                         || key.startsWith(RINGTONE_URI)
                         || key.equals(NEXT_RINGTONE_ID)
                         || key.startsWith(RINGTONE_TITLE)
@@ -248,6 +250,7 @@ public class BackupAndRestoreUtils {
             String key = entry.getKey();
 
             if (!key.equals(KEY_IS_FIRST_LAUNCH)
+                    && !key.equals(KEY_GENERAL_FONT)
                     && !key.startsWith(RINGTONE_URI)
                     && !key.equals(RINGTONE_IDS)
                     && !key.equals(NEXT_RINGTONE_ID)

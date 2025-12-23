@@ -8,13 +8,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <PreferenceCategory
+    <com.best.deskclock.settings.custompreference.CustomPreferenceCategory
         android:title="@string/style_category_title"
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false"
         tools:layout="@layout/settings_preference_category_layout">
 
-        <SwitchPreferenceCompat
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
             android:key="key_material_you_digital_widget_seconds_displayed"
             android:title="@string/display_clock_seconds_pref"
             android:defaultValue="false"
@@ -22,7 +22,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <SwitchPreferenceCompat
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
             android:key="key_material_you_digital_widget_hide_am_pm"
             android:title="@string/hide_clock_am_pm_pref"
             android:defaultValue="false"
@@ -30,7 +30,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <SwitchPreferenceCompat
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
             android:key="key_material_you_digital_widget_display_background"
             android:title="@string/widget_background_title"
             android:defaultValue="true"
@@ -38,7 +38,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <SwitchPreferenceCompat
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
             android:key="key_material_you_digital_widget_customize_background_corner_radius"
             android:title="@string/customize_background_corner_radius_title"
             android:summary="@string/customize_background_corner_radius_summary"
@@ -47,7 +47,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <com.best.deskclock.settings.CustomSeekbarPreference
+        <com.best.deskclock.settings.custompreference.CustomSeekbarPreference
             android:key="key_material_you_digital_widget_background_corner_radius"
             android:title="@string/background_corner_radius_title"
             android:summary="@string/label_default"
@@ -57,7 +57,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_seekbar_layout" />
 
-        <SwitchPreferenceCompat
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
             android:key="key_material_you_digital_widget_display_date"
             android:title="@string/display_date_title"
             android:defaultValue="true"
@@ -65,7 +65,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <SwitchPreferenceCompat
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
             android:key="key_material_you_digital_widget_display_next_alarm"
             android:title="@string/display_next_alarm_title"
             android:defaultValue="true"
@@ -73,7 +73,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <SwitchPreferenceCompat
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
             android:key="key_material_you_digital_widget_world_cities_displayed"
             android:title="@string/display_city_title"
             android:defaultValue="true"
@@ -81,7 +81,7 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <SwitchPreferenceCompat
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
             android:key="key_material_you_digital_widget_apply_horizontal_padding"
             android:title="@string/widget_apply_horizontal_padding_title"
             android:defaultValue="true"
@@ -89,15 +89,15 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-    </PreferenceCategory>
+    </com.best.deskclock.settings.custompreference.CustomPreferenceCategory>
 
-    <PreferenceCategory
+    <com.best.deskclock.settings.custompreference.CustomPreferenceCategory
         android:title="@string/colors_category_title"
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false"
         tools:layout="@layout/settings_preference_category_layout">
 
-        <SwitchPreferenceCompat
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
             android:key="key_material_you_digital_widget_default_background_color"
             android:title="@string/background_default_color_title"
             android:defaultValue="true"
@@ -105,16 +105,15 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <com.best.deskclock.settings.ColorPickerPreference
+        <com.best.deskclock.settings.custompreference.ColorPickerPreference
             android:key="key_material_you_digital_widget_custom_background_color"
             android:title="@string/background_color_title"
             android:defaultValue="#70000000"
-            app:colorpicker_selectNoneButtonText="@string/label_default"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <SwitchPreferenceCompat
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
             android:key="key_material_you_digital_widget_default_clock_color"
             android:title="@string/clock_default_color_title"
             android:defaultValue="true"
@@ -122,16 +121,15 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <com.best.deskclock.settings.ColorPickerPreference
+        <com.best.deskclock.settings.custompreference.ColorPickerPreference
             android:key="key_material_you_digital_widget_custom_clock_color"
             android:title="@string/clock_color_title"
             android:defaultValue="#FFFFFF"
-            app:colorpicker_selectNoneButtonText="@string/label_default"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <SwitchPreferenceCompat
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
             android:key="key_material_you_digital_widget_default_date_color"
             android:title="@string/date_default_color_title"
             android:defaultValue="true"
@@ -139,16 +137,15 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <com.best.deskclock.settings.ColorPickerPreference
+        <com.best.deskclock.settings.custompreference.ColorPickerPreference
             android:key="key_material_you_digital_widget_custom_date_color"
             android:title="@string/date_color_title"
             android:defaultValue="#FFFFFF"
-            app:colorpicker_selectNoneButtonText="@string/label_default"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <SwitchPreferenceCompat
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
             android:key="key_material_you_digital_widget_default_next_alarm_color"
             android:title="@string/next_alarm_default_color_title"
             android:defaultValue="true"
@@ -156,16 +153,15 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <com.best.deskclock.settings.ColorPickerPreference
+        <com.best.deskclock.settings.custompreference.ColorPickerPreference
             android:key="key_material_you_digital_widget_custom_next_alarm_color"
             android:title="@string/next_alarm_color_title"
             android:defaultValue="#FFFFFF"
-            app:colorpicker_selectNoneButtonText="@string/label_default"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <SwitchPreferenceCompat
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
             android:key="key_material_you_digital_widget_default_city_clock_color"
             android:title="@string/city_clock_default_color_title"
             android:defaultValue="true"
@@ -173,16 +169,15 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <com.best.deskclock.settings.ColorPickerPreference
+        <com.best.deskclock.settings.custompreference.ColorPickerPreference
             android:key="key_material_you_digital_widget_custom_city_clock_color"
             android:title="@string/city_clock_color_title"
             android:defaultValue="#FFFFFF"
-            app:colorpicker_selectNoneButtonText="@string/label_default"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <SwitchPreferenceCompat
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
             android:key="key_material_you_digital_widget_default_city_name_color"
             android:title="@string/city_name_default_color_title"
             android:defaultValue="true"
@@ -190,24 +185,23 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <com.best.deskclock.settings.ColorPickerPreference
+        <com.best.deskclock.settings.custompreference.ColorPickerPreference
             android:key="key_material_you_digital_widget_custom_city_name_color"
             android:title="@string/city_name_color_title"
             android:defaultValue="#FFFFFF"
-            app:colorpicker_selectNoneButtonText="@string/label_default"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-    </PreferenceCategory>
+    </com.best.deskclock.settings.custompreference.CustomPreferenceCategory>
 
-    <PreferenceCategory
+    <com.best.deskclock.settings.custompreference.CustomPreferenceCategory
         android:title="@string/font_category_title"
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false"
         tools:layout="@layout/settings_preference_category_layout">
 
-        <com.best.deskclock.settings.CustomSeekbarPreference
+        <com.best.deskclock.settings.custompreference.CustomSeekbarPreference
             android:key="key_material_you_digital_widget_maximum_clock_font_size"
             android:title="@string/max_clock_font_size_title"
             android:summary="@string/label_default"
@@ -217,6 +211,6 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_seekbar_layout" />
 
-    </PreferenceCategory>
+    </com.best.deskclock.settings.custompreference.CustomPreferenceCategory>
 
 </PreferenceScreen>

@@ -22,8 +22,6 @@ import android.widget.TextView;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
-import com.best.deskclock.screensaver.Screensaver;
-import com.best.deskclock.screensaver.ScreensaverActivity;
 import com.best.deskclock.uicomponents.AnalogClock;
 import com.best.deskclock.uicomponents.CustomTypefaceSpan;
 
@@ -281,28 +279,33 @@ public class ClockUtils {
      **/
     public static void updateDate(String dateSkeleton, String descriptionSkeleton, View clock) {
         final TextView dateDisplay = clock.findViewById(R.id.date);
+
         if (dateDisplay == null) {
             return;
         }
 
-        final Locale l = Locale.getDefault();
-        String datePattern = DateFormat.getBestDateTimePattern(l, dateSkeleton);
-        if (dateDisplay.getContext() instanceof ScreensaverActivity || dateDisplay.getContext() instanceof Screensaver) {
-            final SharedPreferences prefs = getDefaultSharedPreferences(clock.getContext());
-            // Add a "Thin Space" (\u2009) at the end of the date to prevent its display from being cut off on some devices.
-            // (The display of the date is only cut off at the end if it is defined in italics in the screensaver settings).
-            if (SettingsDAO.isScreensaverDateInItalic(prefs)) {
-                datePattern = "\u2009" + DateFormat.getBestDateTimePattern(l, dateSkeleton) + "\u2009";
-            } else if (SettingsDAO.isScreensaverNextAlarmInItalic(prefs)) {
-                datePattern = "\u2009" + DateFormat.getBestDateTimePattern(l, dateSkeleton);
-            }
+        final Locale locale = Locale.getDefault();
+        String datePattern = DateFormat.getBestDateTimePattern(locale, dateSkeleton);
+        final String descriptionPattern = DateFormat.getBestDateTimePattern(locale, descriptionSkeleton);
+
+        final Date now = new Date();
+        dateDisplay.setText(new SimpleDateFormat(datePattern, locale).format(now));
+        dateDisplay.setVisibility(View.VISIBLE);
+        dateDisplay.setContentDescription(new SimpleDateFormat(descriptionPattern, locale).format(now));
+    }
+
+    /**
+     * Applies a bold font to the date.
+     */
+    public static void applyBoldDateTypeface(View clock) {
+        SharedPreferences prefs = getDefaultSharedPreferences(clock.getContext());
+        final TextView date = clock.findViewById(R.id.date);
+
+        if (date == null) {
+            return;
         }
 
-        final String descriptionPattern = DateFormat.getBestDateTimePattern(l, descriptionSkeleton);
-        final Date now = new Date();
-        dateDisplay.setText(new SimpleDateFormat(datePattern, l).format(now));
-        dateDisplay.setVisibility(View.VISIBLE);
-        dateDisplay.setContentDescription(new SimpleDateFormat(descriptionPattern, l).format(now));
+        date.setTypeface(ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(prefs)));
     }
 
     /**

@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
-package com.best.deskclock.settings;
+package com.best.deskclock.settings.custompreference;
 
 import static android.content.Context.AUDIO_SERVICE;
 import static android.media.AudioManager.STREAM_ALARM;
@@ -18,6 +18,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.ContentObserver;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Handler;
@@ -30,7 +31,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.preference.PreferenceViewHolder;
 import androidx.preference.SeekBarPreference;
 
@@ -72,6 +73,7 @@ public class AlarmVolumePreference extends SeekBarPreference {
 
         mContext = getContext();
         mPrefs = getDefaultSharedPreferences(mContext);
+        Typeface typeFace = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(mPrefs));
 
         final MaterialCardView prefCardView = (MaterialCardView) holder.findViewById(R.id.pref_card_view);
         final boolean isCardBackgroundDisplayed = SettingsDAO.isCardBackgroundDisplayed(mPrefs);
@@ -98,6 +100,9 @@ public class AlarmVolumePreference extends SeekBarPreference {
         // Disable click feedback for this preference.
         holder.itemView.setClickable(false);
 
+        final TextView seekBarTitle = (TextView) holder.findViewById(android.R.id.title);
+        seekBarTitle.setTypeface(typeFace);
+
         // Minimum volume for alarm is not 0, calculate it.
         mMinVolume = RingtoneUtils.getAlarmMinVolume(mAudioManager);
         int maxVolume = mAudioManager.getStreamMaxVolume(STREAM_ALARM) - mMinVolume;
@@ -107,12 +112,13 @@ public class AlarmVolumePreference extends SeekBarPreference {
 
         final TextView seekBarSummary = (TextView) holder.findViewById(android.R.id.summary);
         updateSeekBarSummary(seekBarSummary);
+        seekBarSummary.setTypeface(typeFace);
 
         mSeekBarMinus = (ImageView) holder.findViewById(R.id.seekbar_minus_icon);
-        mSeekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_volume_down));
+        mSeekBarMinus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_volume_down));
 
         mSeekBarPlus = (ImageView) holder.findViewById(R.id.seekbar_plus_icon);
-        mSeekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_volume_up));
+        mSeekBarPlus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_volume_up));
 
         setupVolumeSeekBarButton(mSeekBarMinus, -1);
         setupVolumeSeekBarButton(mSeekBarPlus, +1);

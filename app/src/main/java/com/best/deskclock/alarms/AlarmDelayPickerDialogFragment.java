@@ -2,8 +2,13 @@
 
 package com.best.deskclock.alarms;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
@@ -15,6 +20,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -24,8 +30,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.best.deskclock.R;
+import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.SdkUtils;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.best.deskclock.utils.ThemeUtils;
 
 import java.util.Locale;
 
@@ -114,6 +122,9 @@ public class AlarmDelayPickerDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         mContext = requireContext();
+        SharedPreferences prefs = getDefaultSharedPreferences(mContext);
+        Typeface typeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
+
         final Bundle args = requireArguments();
         int hourValue = args.getInt(ARG_EDIT_HOURS, 0);
         int minuteValue = args.getInt(ARG_EDIT_MINUTES, 0);
@@ -123,9 +134,16 @@ public class AlarmDelayPickerDialogFragment extends DialogFragment {
             minuteValue = savedInstanceState.getInt(ARG_EDIT_MINUTES, minuteValue);
         }
 
-        View view = getLayoutInflater().inflate(R.layout.alarm_spinner_delay_picker, null);
-        mHourPicker = view.findViewById(R.id.hour);
-        mMinutePicker = view.findViewById(R.id.minute);
+        @SuppressLint("InflateParams")
+        View dialogView = getLayoutInflater().inflate(R.layout.alarm_spinner_delay_picker, null);
+
+        TextView hourTitle = dialogView.findViewById(R.id.hour_title);
+        hourTitle.setTypeface(typeface);
+        TextView minuteTitle = dialogView.findViewById(R.id.minute_title);
+        minuteTitle.setTypeface(typeface);
+
+        mHourPicker = dialogView.findViewById(R.id.hour);
+        mMinutePicker = dialogView.findViewById(R.id.minute);
 
         // Hours and minutes setup
         mHourPicker.setHapticFeedbackEnabled(true);
@@ -145,35 +163,40 @@ public class AlarmDelayPickerDialogFragment extends DialogFragment {
         setupEditTextInput(mHourPicker);
         setupEditTextInput(mMinutePicker);
 
-        MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(requireContext(), R.style.SpinnerDialogTheme)
-                .setTitle(R.string.delay_picker_dialog_title)
-                .setView(view)
-                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+        return CustomDialog.create(
+                mContext,
+                R.style.SpinnerDialogTheme,
+                null,
+                getString(R.string.delay_picker_dialog_title),
+                null,
+                dialogView,
+                getString(android.R.string.ok),
+                (d, w) -> {
                     mHourPicker.clearFocus();
                     mMinutePicker.clearFocus();
                     setAlarmDelay();
-                })
-                .setNegativeButton(android.R.string.cancel, (dialog, which) -> dismiss());
+                },
+                getString(android.R.string.cancel),
+                null,
+                null,
+                null,
+                alertDialog -> {
+                    mOkButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
 
-        AlertDialog alertDialog = dialogBuilder.create();
+                    mHourPicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
+                        picker.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
+                        updateUiState();
+                    });
+                    mMinutePicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
+                        picker.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
+                        updateUiState();
+                    });
 
-        alertDialog.setOnShowListener(dialog -> {
-            mOkButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-
-            mHourPicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
-                picker.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
-                updateUiState();
-            });
-            mMinutePicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
-                picker.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
-                updateUiState();
-            });
-
-            // Initial state
-            updateUiState();
-        });
-
-        return alertDialog;
+                    // Initial state
+                    updateUiState();
+                },
+                CustomDialog.SoftInputMode.SHOW_KEYBOARD
+        );
     }
 
     /**

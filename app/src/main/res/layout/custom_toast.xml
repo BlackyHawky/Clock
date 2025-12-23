@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+
+<com.google.android.material.textview.MaterialTextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/toast_text"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:elevation="2dp"
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="12dp"
+    android:gravity="center_vertical"
+    android:textSize="14sp"
+    android:textColor="?android:attr/colorBackground"
+    android:maxLines="4"
+    app:drawableStartCompat="@drawable/app_icon"
+    android:drawablePadding="12dp"
+    tools:background="@drawable/bg_card_for_preview"
+    tools:backgroundTint="?android:attr/colorSecondary"
+    tools:text="Toast message" />

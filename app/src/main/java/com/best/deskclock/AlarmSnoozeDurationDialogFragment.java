@@ -2,24 +2,24 @@
 
 package com.best.deskclock;
 
-import static android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN;
-import static android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE;
-
+import static androidx.core.util.TypedValueCompat.dpToPx;
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_SNOOZE_DURATION_DISABLED;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_SNOOZE_DURATION;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -34,11 +34,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.provider.Alarm;
+import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.SdkUtils;
+import com.best.deskclock.utils.ThemeUtils;
 import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.color.MaterialColors;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -68,6 +70,7 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
     private Context mContext;
     private Alarm mAlarm;
     private String mTag;
+    private String mPrefKey;
     private TextInputLayout mHoursInputLayout;
     private TextInputLayout mMinutesInputLayout;
     private TextInputEditText mEditHours;
@@ -75,6 +78,7 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
     private MaterialCheckBox mNoneCheckbox;
     private Button mOkButton;
     private Button mDefaultButton;
+    private Typeface mTypeFace;
     private final TextWatcher mTextWatcher = new TextChangeListener();
     private InputMethodManager mInput;
     private boolean isUpdatingCheckboxes = false;
@@ -176,6 +180,8 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         mContext = requireContext();
+        SharedPreferences prefs = getDefaultSharedPreferences(mContext);
+        mTypeFace = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
 
         final Bundle args = requireArguments();
         mAlarm = SdkUtils.isAtLeastAndroid13()
@@ -183,6 +189,7 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
                 : args.getParcelable(ARG_ALARM);
         mTag = args.getString(ARG_TAG);
 
+        mPrefKey = args.getString(ARG_PREF_KEY, null);
         int editHours = args.getInt(ARG_EDIT_ALARM_HOURS, 0);
         int editMinutes = args.getInt(ARG_EDIT_ALARM_MINUTES, 0);
         boolean isNone = args.getBoolean(ARG_CRESCENDO_DURATION_NONE, false);
@@ -194,16 +201,19 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
 
         mInput = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
 
-        View view = getLayoutInflater().inflate(R.layout.alarm_snooze_duration_dialog, null);
+        @SuppressLint("InflateParams")
+        View dialogView = getLayoutInflater().inflate(R.layout.alarm_snooze_duration_dialog, null);
 
-        mHoursInputLayout = view.findViewById(R.id.dialog_input_layout_hours);
-        mMinutesInputLayout = view.findViewById(R.id.dialog_input_layout_minutes);
-        mEditHours = view.findViewById(R.id.edit_hours);
-        mEditMinutes = view.findViewById(R.id.edit_minutes);
-        mNoneCheckbox = view.findViewById(R.id.snooze_duration_none);
+        mHoursInputLayout = dialogView.findViewById(R.id.dialog_input_layout_hours);
+        mMinutesInputLayout = dialogView.findViewById(R.id.dialog_input_layout_minutes);
+        mEditHours = dialogView.findViewById(R.id.edit_hours);
+        mEditMinutes = dialogView.findViewById(R.id.edit_minutes);
+        mNoneCheckbox = dialogView.findViewById(R.id.snooze_duration_none);
 
+        mNoneCheckbox.setTypeface(mTypeFace);
         mNoneCheckbox.setChecked(isNone);
 
+        mEditHours.setTypeface(mTypeFace);
         mEditHours.setText(String.valueOf(editHours));
 
         updateInputSate();
@@ -217,6 +227,7 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
             }
         });
 
+        mEditMinutes.setTypeface(mTypeFace);
         if (editMinutes == ALARM_SNOOZE_DURATION_DISABLED) {
             mEditMinutes.setText("");
         } else {
@@ -238,42 +249,36 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
             }
 
             isUpdatingCheckboxes = true;
-
             updateInputSate();
-
             maybeRequestHoursFocus();
-
             isUpdatingCheckboxes = false;
         });
 
-        final MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(mContext)
-                .setTitle(getString(R.string.snooze_duration_title))
-                .setView(view)
-                .setPositiveButton(android.R.string.ok, (dialog, which) ->
-                        setAlarmSnoozeDurationInMinutes())
-                .setNegativeButton(android.R.string.cancel, null)
-                .setNeutralButton(R.string.label_default, (dialog, which) ->
-                        applySnoozeDurationInMinutes(DEFAULT_ALARM_SNOOZE_DURATION));
+        return CustomDialog.create(
+                mContext,
+                null,
+                mPrefKey != null ? null : AppCompatResources.getDrawable(mContext, R.drawable.ic_snooze),
+                getString(R.string.snooze_duration_title),
+                null,
+                dialogView,
+                getString(android.R.string.ok),
+                (d, w) -> setAlarmSnoozeDurationInMinutes(),
+                getString(android.R.string.cancel),
+                null,
+                getString(R.string.label_default),
+                (d, w) -> applySnoozeDurationInMinutes(DEFAULT_ALARM_SNOOZE_DURATION),
+                alertDialog -> {
+                    mOkButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                    mDefaultButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
 
-        final AlertDialog alertDialog = dialogBuilder.create();
+                    String inputHoursText = mEditHours.getText() != null ? mEditHours.getText().toString() : "";
+                    String inputMinutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
 
-        alertDialog.setOnShowListener(dialog -> {
-            mOkButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-            mDefaultButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
-
-            String hoursText = mEditHours.getText() != null ? mEditHours.getText().toString() : "";
-            String minutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
-
-            mOkButton.setEnabled(!isInvalidInput(hoursText, minutesText));
-            mDefaultButton.setEnabled(isNotDefaultAlarmSnoozeDuration(hoursText, minutesText));
-        });
-
-        final Window alertDialogWindow = alertDialog.getWindow();
-        if (alertDialogWindow != null) {
-            alertDialogWindow.setSoftInputMode(SOFT_INPUT_ADJUST_PAN | SOFT_INPUT_STATE_VISIBLE);
-        }
-
-        return alertDialog;
+                    mOkButton.setEnabled(!isInvalidInput(inputHoursText, inputMinutesText));
+                    mDefaultButton.setEnabled(isNotDefaultAlarmSnoozeDuration(inputHoursText, inputMinutesText));
+                },
+                CustomDialog.SoftInputMode.SHOW_KEYBOARD
+        );
     }
 
     @Override
@@ -312,6 +317,9 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
     private void updateInputSate() {
         boolean disable = mNoneCheckbox.isChecked();
 
+        mHoursInputLayout.setTypeface(mTypeFace);
+        mMinutesInputLayout.setTypeface(mTypeFace);
+
         mHoursInputLayout.setEnabled(!disable);
         mMinutesInputLayout.setEnabled(!disable);
 
@@ -323,6 +331,14 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
         } else {
             mHoursInputLayout.setHelperText(getString(R.string.timer_hours_warning_box_text));
             mMinutesInputLayout.setHelperText(getString(R.string.timer_button_time_minutes_warning_box_text));
+
+            TextView hoursHelper = mHoursInputLayout.findViewById(
+                    com.google.android.material.R.id.textinput_helper_text);
+            hoursHelper.setTypeface(mTypeFace);
+
+            TextView minutesHelper = mMinutesInputLayout.findViewById(
+                    com.google.android.material.R.id.textinput_helper_text);
+            minutesHelper.setTypeface(mTypeFace);
 
             String hoursText = mEditHours.getText() != null ? mEditHours.getText().toString() : "";
 
@@ -429,15 +445,17 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
      * The outline color of the edit box and the hint color are also changed.
      */
     private void updateDialogForInvalidInput() {
-        final Drawable drawable = AppCompatResources.getDrawable(mContext, R.drawable.ic_error);
-        if (drawable != null) {
-            drawable.setTint(MaterialColors.getColor(
-                    mContext, com.google.android.material.R.attr.colorOnSurface, Color.BLACK));
-        }
-
         AlertDialog alertDialog = (AlertDialog) requireDialog();
-        alertDialog.setIcon(drawable);
-        alertDialog.setTitle(getString(R.string.timer_time_warning_box_title));
+
+        TextView titleText = alertDialog.findViewById(R.id.dialog_title);
+        if (titleText != null) {
+            titleText.setCompoundDrawablesWithIntrinsicBounds(
+                    AppCompatResources.getDrawable(mContext, R.drawable.ic_error), null, null, null);
+            if (mPrefKey != null) {
+                titleText.setCompoundDrawablePadding((int) dpToPx(18, getResources().getDisplayMetrics()));
+            }
+            titleText.setText(getString(R.string.timer_time_warning_box_title));
+        }
 
         String hoursText = Objects.requireNonNull(mEditHours.getText()).toString();
         String minutesText = Objects.requireNonNull(mEditMinutes.getText()).toString();
@@ -472,8 +490,18 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
      */
     private void updateDialogForValidInput() {
         AlertDialog alertDialog = (AlertDialog) requireDialog();
-        alertDialog.setIcon(null);
-        alertDialog.setTitle(getString(R.string.snooze_duration_title));
+
+        TextView titleText = alertDialog.findViewById(R.id.dialog_title);
+        if (titleText != null) {
+            if (mPrefKey != null) {
+                titleText.setCompoundDrawables(null, null, null, null);
+            } else {
+                titleText.setCompoundDrawablesWithIntrinsicBounds(
+                        AppCompatResources.getDrawable(mContext, R.drawable.ic_snooze), null, null, null);
+            }
+
+            titleText.setText(getString(R.string.snooze_duration_title));
+        }
 
         int validColor = MaterialColors.getColor(mContext, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
 

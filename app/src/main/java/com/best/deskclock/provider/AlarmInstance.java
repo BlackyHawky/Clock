@@ -46,7 +46,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     /**
      * Offset from alarm time to stop showing missed notification.
      */
-    private static final int MISSED_TIME_TO_LIVE_HOUR_OFFSET = 12;
+    public static final int MISSED_TIME_TO_LIVE_HOUR_OFFSET = 12;
 
     private static final String[] QUERY_COLUMNS = {
             _ID,

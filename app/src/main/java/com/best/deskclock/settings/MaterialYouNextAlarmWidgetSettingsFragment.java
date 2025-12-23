@@ -23,12 +23,13 @@ import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.preference.Preference;
-import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.WidgetDAO;
+import com.best.deskclock.settings.custompreference.ColorPickerPreference;
+import com.best.deskclock.settings.custompreference.CustomSeekbarPreference;
+import com.best.deskclock.settings.custompreference.CustomSwitchPreference;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
@@ -39,17 +40,17 @@ public class MaterialYouNextAlarmWidgetSettingsFragment extends ScreenFragment
 
     private int mAppWidgetId = INVALID_APPWIDGET_ID;
 
-    SwitchPreferenceCompat mShowBackgroundOnDigitalWidgetPref;
-    SwitchPreferenceCompat mCustomizeBackgroundCornerRadiusPref;
-    Preference mBackgroundCornerRadiusPref;
-    SwitchPreferenceCompat mApplyHorizontalPaddingPref;
-    SwitchPreferenceCompat mDefaultBackgroundColorPref;
+    CustomSwitchPreference mShowBackgroundOnDigitalWidgetPref;
+    CustomSwitchPreference mCustomizeBackgroundCornerRadiusPref;
+    CustomSeekbarPreference mBackgroundCornerRadiusPref;
+    CustomSwitchPreference mApplyHorizontalPaddingPref;
+    CustomSwitchPreference mDefaultBackgroundColorPref;
     ColorPickerPreference mCustomBackgroundColorPref;
-    SwitchPreferenceCompat mDefaultTitleColorPref;
+    CustomSwitchPreference mDefaultTitleColorPref;
     ColorPickerPreference mCustomTitleColorPref;
-    SwitchPreferenceCompat mDefaultAlarmTitleColorPref;
+    CustomSwitchPreference mDefaultAlarmTitleColorPref;
     ColorPickerPreference mCustomAlarmTitleColorPref;
-    SwitchPreferenceCompat mDefaultAlarmColorPref;
+    CustomSwitchPreference mDefaultAlarmColorPref;
     ColorPickerPreference mCustomAlarmColorPref;
 
     @Override
@@ -160,13 +161,6 @@ public class MaterialYouNextAlarmWidgetSettingsFragment extends ScreenFragment
 
         WidgetUtils.scheduleWidgetUpdate(requireContext(), MaterialYouNextAlarmAppWidgetProvider.class);
         return true;
-    }
-
-    @Override
-    public void onDisplayPreferenceDialog(@NonNull Preference preference) {
-        if (preference instanceof ColorPickerPreference colorPickerPref) {
-            colorPickerPref.showDialog(this, 0);
-        } else super.onDisplayPreferenceDialog(preference);
     }
 
     private void setupPreferences() {

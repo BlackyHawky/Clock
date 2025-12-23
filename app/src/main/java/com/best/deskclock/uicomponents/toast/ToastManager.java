@@ -13,7 +13,6 @@ public final class ToastManager {
     private static Toast sToast = null;
 
     private ToastManager() {
-
     }
 
     public static void setToast(Toast toast) {

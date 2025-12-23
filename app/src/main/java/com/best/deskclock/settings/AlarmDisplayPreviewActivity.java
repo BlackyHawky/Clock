@@ -83,6 +83,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
     private static final int ALERT_DISMISS_DELAY_MILLIS = 2500;
 
     private SharedPreferences mPrefs;
+    private Typeface mGeneralBoldTypeface;
     private final Handler mHandler = new Handler(Looper.getMainLooper());
     private float mAlarmTitleFontSize;
     private int mAlarmTitleColor;
@@ -118,6 +119,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
         super.onCreate(savedInstanceState);
 
         mPrefs = getDefaultSharedPreferences(this);
+        mGeneralBoldTypeface = ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(mPrefs));
         mVibrator = getSystemService(Vibrator.class);
         mAreSnoozedOrDismissedAlarmVibrationsEnabled = SettingsDAO.areSnoozedOrDismissedAlarmVibrationsEnabled(mPrefs);
 
@@ -215,6 +217,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
 
         final TextView titleView = mContentView.findViewById(R.id.alarm_title);
         titleView.setText(R.string.app_label);
+        titleView.setTypeface(mGeneralBoldTypeface);
         titleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
         titleView.setTextColor(mAlarmTitleColor);
         // Allow text scrolling (all other attributes are indicated in the "alarm_activity.xml" file)
@@ -247,9 +250,11 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
             mAlarmButton.setContentDescription(getString(R.string.description_direction_both));
 
             mSnoozeActionText.setText(getString(R.string.button_action_snooze));
+            mSnoozeActionText.setTypeface(mGeneralBoldTypeface);
             mSnoozeActionText.setTextColor(snoozeTitleColor);
 
             mDismissActionText.setText(getString(R.string.button_action_dismiss));
+            mDismissActionText.setTypeface(mGeneralBoldTypeface);
             mDismissActionText.setTextColor(dismissTitleColor);
 
             mPillView.setFillColor(ColorUtils.setAlphaComponent(alarmButtonColor, 128));
@@ -337,8 +342,10 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
             mSnoozeButton.setBackgroundColor(SettingsDAO.getSnoozeButtonColor(mPrefs, this));
             mDismissButton.setBackgroundColor(SettingsDAO.getDismissButtonColor(mPrefs, this));
             mSnoozeButton.setText(getString(R.string.button_action_snooze));
+            mSnoozeButton.setTypeface(mGeneralBoldTypeface);
             mSnoozeButton.setContentDescription(getString(R.string.description_snooze_button));
             mDismissButton.setText(getString(R.string.button_action_dismiss));
+            mDismissButton.setTypeface(mGeneralBoldTypeface);
             mDismissButton.setContentDescription(getString(R.string.description_dismiss_button));
             // Allow text scrolling (all other attributes are indicated in the "alarm_activity.xml" file)
             mSnoozeButton.setSelected(true);
@@ -633,6 +640,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
         }
 
         mRingtoneTitle.setText(ringtone.getTitle(this));
+        mRingtoneTitle.setTypeface(mGeneralBoldTypeface);
         mRingtoneTitle.setTextColor(ringtoneTitleColor);
         // Allow text scrolling (all other attributes are indicated in the "alarm_activity.xml" file)
         mRingtoneTitle.setSelected(true);
@@ -645,16 +653,16 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
         mAlertView.setVisibility(VISIBLE);
 
         mAlertTitleView.setText(titleResId);
+        mAlertTitleView.setTypeface(mGeneralBoldTypeface);
         mAlertTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
         mAlertTitleView.setTextColor(mAlarmTitleColor);
-        mAlertTitleView.setTypeface(Typeface.DEFAULT_BOLD);
 
         if (infoText != null) {
             mAlertInfoView.setVisibility(VISIBLE);
             mAlertInfoView.setText(infoText);
+            mAlertInfoView.setTypeface(mGeneralBoldTypeface);
             mAlertInfoView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
             mAlertInfoView.setTextColor(mAlarmTitleColor);
-            mAlertInfoView.setTypeface(Typeface.DEFAULT_BOLD);
         }
 
         mContentView.setVisibility(GONE);

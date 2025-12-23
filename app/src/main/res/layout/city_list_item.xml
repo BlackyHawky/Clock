@@ -19,8 +19,8 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:textAlignment="gravity"
-        android:textStyle="bold"
-        tools:text="P" />
+        tools:text="P"
+        tools:textStyle="bold" />
 
     <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/city_onoff"

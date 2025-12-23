@@ -13,7 +13,6 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_VOLUME_UP_ACTIO
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -23,17 +22,19 @@ import androidx.preference.Preference;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.settings.custompreference.CustomListPreference;
+import com.best.deskclock.settings.custompreference.CustomPreference;
+import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.utils.Utils;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class StopwatchSettingsFragment extends ScreenFragment
         implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
-    Preference mStopwatchFontPref;
-    ListPreference mVolumeUpActionPref;
-    ListPreference mVolumeUpActionAfterLongPressPref;
-    ListPreference mVolumeDownActionPref;
-    ListPreference mVolumeDownActionAfterLongPressPref;
+    CustomPreference mStopwatchFontPref;
+    CustomListPreference mVolumeUpActionPref;
+    CustomListPreference mVolumeUpActionAfterLongPressPref;
+    CustomListPreference mVolumeDownActionPref;
+    CustomListPreference mVolumeDownActionAfterLongPressPref;
 
     private final ActivityResultLauncher<Intent> fontPickerLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -64,9 +65,9 @@ public class StopwatchSettingsFragment extends ScreenFragment
                     mPrefs.edit().putString(KEY_SW_FONT, copiedUri.getPath()).apply();
                     mStopwatchFontPref.setTitle(getString(R.string.custom_font_title_variant));
 
-                    Toast.makeText(requireContext(), R.string.custom_font_toast_message_selected, Toast.LENGTH_SHORT).show();
+                    CustomToast.show(requireContext(), R.string.custom_font_toast_message_selected);
                 } else {
-                    Toast.makeText(requireContext(), "Error importing font", Toast.LENGTH_SHORT).show();
+                    CustomToast.show(requireContext(), "Error importing font");
                     mStopwatchFontPref.setTitle(getString(R.string.custom_font_title));
                 }
             });
@@ -108,20 +109,8 @@ public class StopwatchSettingsFragment extends ScreenFragment
     @Override
     public boolean onPreferenceClick(@NonNull Preference pref) {
         if (pref.getKey().equals(KEY_SW_FONT)) {
-            if (SettingsDAO.getStopwatchFont(mPrefs) == null) {
-                selectFile(fontPickerLauncher, true);
-            } else {
-                new MaterialAlertDialogBuilder(requireContext())
-                        .setTitle(R.string.custom_font_dialog_title)
-                        .setMessage(R.string.custom_font_title_variant)
-                        .setPositiveButton(getString(R.string.label_new_font), (dialog, which) ->
-                                selectFile(fontPickerLauncher, true))
-                        .setNeutralButton(getString(R.string.delete), (dialog, which) -> {
-                            mStopwatchFontPref.setTitle(getString(R.string.custom_font_title));
-                            deleteFile(mPrefs.getString(KEY_SW_FONT, null), KEY_SW_FONT, true);
-                        })
-                        .show();
-            }
+            selectCustomFile(mStopwatchFontPref, fontPickerLauncher,
+                    SettingsDAO.getStopwatchFont(mPrefs), KEY_SW_FONT, true, null);
         }
 
         return true;

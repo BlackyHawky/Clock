@@ -27,7 +27,6 @@ import androidx.core.view.WindowInsetsCompat;
 import com.best.deskclock.R;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AlarmUtils;
-import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.ScreensaverUtils;
@@ -51,7 +50,7 @@ public final class Screensaver extends DreamService {
     private final Runnable mMidnightUpdater = new Runnable() {
         @Override
         public void run() {
-            ClockUtils.updateDate(mDateFormat, mDateFormatForAccessibility, mContentView);
+            ScreensaverUtils.updateScreensaverDate(mDateFormat, mDateFormatForAccessibility, mContentView);
         }
     };
 
@@ -61,7 +60,7 @@ public final class Screensaver extends DreamService {
     private final BroadcastReceiver mAlarmChangedReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            AlarmUtils.refreshAlarm(Screensaver.this, mContentView);
+            AlarmUtils.refreshAlarm(Screensaver.this, mContentView, true);
         }
     };
 
@@ -117,8 +116,8 @@ public final class Screensaver extends DreamService {
             registerReceiver(mAlarmChangedReceiver, filter);
         }
 
-        ClockUtils.updateDate(mDateFormat, mDateFormatForAccessibility, mContentView);
-        AlarmUtils.refreshAlarm(this, mContentView);
+        ScreensaverUtils.updateScreensaverDate(mDateFormat, mDateFormatForAccessibility, mContentView);
+        AlarmUtils.refreshAlarm(this, mContentView, true);
 
         startPositionUpdater();
         UiDataModel.getUiDataModel().addMidnightCallback(mMidnightUpdater, 100);
