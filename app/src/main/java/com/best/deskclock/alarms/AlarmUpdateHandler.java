@@ -10,7 +10,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
-import android.text.format.DateFormat;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -24,11 +23,8 @@ import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.Utils;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -186,45 +182,6 @@ public final class AlarmUpdateHandler {
                 }
             });
         });
-    }
-
-    /**
-     * Show a toast when an alarm is predismissed or predidmissed and deleted.
-     *
-     * @param instance Instance being predismissed.
-     */
-    public void showPredismissToast(Alarm alarm, AlarmInstance instance) {
-        final Context localizedContext = Utils.getLocalizedContext(mAppContext);
-        final String time = DateFormat.getTimeFormat(mAppContext).format(instance.getAlarmTime().getTime());
-        final Calendar nextTime = alarm.getNextAlarmTime(instance.getAlarmTime());
-        final String date = getDateFormat(nextTime);
-        final boolean isDeleteAfterUse = !alarm.daysOfWeek.isRepeating() && alarm.deleteAfterUse;
-
-        final String text;
-        if (isDeleteAfterUse) {
-            text = localizedContext.getString(R.string.alarm_is_dismissed_and_deleted, time);
-        } else if (alarm.daysOfWeek.isRepeating()) {
-            text = localizedContext.getString(R.string.repetitive_alarm_is_dismissed, date);
-        } else {
-            text = localizedContext.getString(R.string.alarm_is_dismissed, time);
-        }
-
-        SnackbarManager.show(Snackbar.make(mSnackbarAnchor, text, Snackbar.LENGTH_SHORT));
-    }
-
-    /**
-     * Returns a localized string representing the given date.
-     *
-     * @param calendar The {@link Calendar} instance representing the date to format.
-     * @return A formatted date string (e.g., "Tue, Oct 21" in en-US locale).
-     */
-    private String getDateFormat(Calendar calendar) {
-        Locale locale = Locale.getDefault();
-        final String skeleton = mAppContext.getString(R.string.full_wday_month_day_no_year);
-        SimpleDateFormat simpleDateFormat =
-                new SimpleDateFormat(DateFormat.getBestDateTimePattern(locale, skeleton), locale);
-
-        return simpleDateFormat.format(new Date(calendar.getTimeInMillis()));
     }
 
     /**

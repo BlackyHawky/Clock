@@ -19,6 +19,7 @@ import android.text.format.DateUtils;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.VisibleForTesting;
 import androidx.core.view.WindowCompat;
@@ -27,14 +28,18 @@ import androidx.core.view.WindowInsetsControllerCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.alarms.AlarmStateManager;
+import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.uicomponents.toast.SnackbarManager;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
@@ -67,6 +72,44 @@ public class AlarmUtils {
                             | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
             );
         }
+    }
+
+    public static void showDismissToast(Context context, Alarm alarm, AlarmInstance instance) {
+        final Context localizedContext = Utils.getLocalizedContext(context);
+        final String time = DateFormat.getTimeFormat(context).format(instance.getAlarmTime().getTime());
+        final Calendar nextTime = alarm.getNextAlarmTime(instance.getAlarmTime());
+        final String date = getDateFormat(context, nextTime);
+        final boolean isDeleteAfterUse = !alarm.daysOfWeek.isRepeating() && alarm.deleteAfterUse;
+
+        final String text;
+        if (isDeleteAfterUse) {
+            text = localizedContext.getString(R.string.alarm_is_dismissed_and_deleted, time);
+        } else if (alarm.daysOfWeek.isRepeating()) {
+            text = localizedContext.getString(R.string.repetitive_alarm_is_dismissed, date);
+        } else {
+            text = localizedContext.getString(R.string.alarm_is_dismissed, time);
+        }
+
+        if (DataModel.getDataModel().isApplicationInForeground()) {
+            CustomToast.showLongWithManager(context, text);
+        } else {
+            Toast.makeText(context, text, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    /**
+     * Returns a localized string representing the given date.
+     *
+     * @param calendar The {@link Calendar} instance representing the date to format.
+     * @return A formatted date string (e.g., "Tue, Oct 21" in en-US locale).
+     */
+    private static String getDateFormat(Context context, Calendar calendar) {
+        Locale locale = Locale.getDefault();
+        final String skeleton = context.getString(R.string.full_wday_month_day_no_year);
+        SimpleDateFormat simpleDateFormat =
+                new SimpleDateFormat(DateFormat.getBestDateTimePattern(locale, skeleton), locale);
+
+        return simpleDateFormat.format(new Date(calendar.getTimeInMillis()));
     }
 
     /**
