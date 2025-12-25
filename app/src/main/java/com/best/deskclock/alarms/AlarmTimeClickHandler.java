@@ -211,11 +211,10 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
         Utils.setVibrationTime(mContext, 10);
     }
 
-    public void dismissAlarmInstance(Alarm alarm, AlarmInstance alarmInstance) {
+    public void dismissAlarmInstance(AlarmInstance alarmInstance) {
         final Intent dismissIntent = AlarmStateManager.createStateChangeIntent(mContext,
                 AlarmStateManager.ALARM_DISMISS_TAG, alarmInstance, AlarmInstance.PREDISMISSED_STATE);
         mContext.startService(dismissIntent);
-        mAlarmUpdateHandler.showPredismissToast(alarm, alarmInstance);
         Utils.setVibrationTime(mContext, 50);
     }
 

@@ -25,6 +25,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.PowerManager;
 import android.text.format.DateFormat;
 import android.widget.Toast;
@@ -250,15 +251,6 @@ public final class AlarmStateManager extends BroadcastReceiver {
             if (alarm.deleteAfterUse) {
                 LogUtils.i("Deleting parent alarm: " + alarm.id);
                 Alarm.deleteAlarm(cr, alarm.id);
-                if (!DataModel.getDataModel().isApplicationInForeground()) {
-                    final String time = DateFormat.getTimeFormat(context).format(instance.getAlarmTime().getTime());
-                    if (DataModel.getDataModel().isApplicationInForeground()) {
-                        CustomToast.showLong(context, context.getString(R.string.occasional_alarm_deleted, time));
-                    } else {
-                        Toast.makeText(context, context.getString(R.string.occasional_alarm_deleted, time),
-                                Toast.LENGTH_LONG).show();
-                    }
-                }
             } else {
                 LogUtils.i("Disabling parent alarm: " + alarm.id);
                 alarm.enabled = false;
@@ -438,7 +430,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         Calendar newAlarmTime = Calendar.getInstance();
         // If the "Snooze duration" setting has been set to "None" simply dismiss the alarm.
         if (snoozeMinutes == ALARM_SNOOZE_DURATION_DISABLED) {
-            deleteInstanceAndUpdateParent(context, instance);
+            deleteInstanceAndUpdateParent(context, instance, true);
             return;
         }
 
@@ -500,7 +492,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
         // If it's an occasional alarm, there's no need to mark it as missed; just delete it.
         if (isDeleteAfterUse) {
-            deleteInstanceAndUpdateParent(context, instance);
+            deleteInstanceAndUpdateParent(context, instance, true);
             return;
         }
 
@@ -556,7 +548,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * @param context  application context
      * @param instance to set state to
      */
-    public static void setPreDismissState(Context context, AlarmInstance instance) {
+    public static void setPreDismissState(Context context, AlarmInstance instance, boolean showToast) {
         LogUtils.i("Setting predismissed state to instance " + instance.mId);
 
         // Stop alarm if this instance is firing it; a single vibration will be performed if enabled in settings
@@ -575,6 +567,14 @@ public final class AlarmStateManager extends BroadcastReceiver {
         AlarmNotifications.clearNotification(context, instance);
         scheduleInstanceStateChange(context, instance.getAlarmTime(), instance, AlarmInstance.DISMISSED_STATE);
 
+        final Alarm alarm = Alarm.getAlarm(contentResolver, instance.mAlarmId);
+
+        // Display the alarm dismissal warning in a toast
+        if (alarm != null && showToast) {
+            Handler mainHandler = new Handler(Looper.getMainLooper());
+            mainHandler.post(() -> AlarmUtils.showDismissToast(context, alarm, instance));
+        }
+
         // Check parent if it needs to reschedule, disable or delete itself
         if (instance.mAlarmId != null) {
             updateParentAlarm(context, instance);
@@ -583,7 +583,6 @@ public final class AlarmStateManager extends BroadcastReceiver {
         // When the alarm is dismissed from the notification and all days of the week are selected,
         // correctly display the next occurrence in the alarm item.
         final SharedPreferences prefs = getDefaultSharedPreferences(context);
-        final Alarm alarm = Alarm.getAlarm(contentResolver, instance.mAlarmId);
         if (alarm != null && !alarm.isRepeatDayStyleEnabled(prefs)) {
             alarm.enableRepeatDayStyleIfAllDaysSelected(prefs);
         }
@@ -619,7 +618,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * @param context  application context
      * @param instance to set state to
      */
-    public static void deleteInstanceAndUpdateParent(Context context, AlarmInstance instance) {
+    public static void deleteInstanceAndUpdateParent(Context context, AlarmInstance instance, boolean showToast) {
         LogUtils.i("Deleting instance " + instance.mId + " and updating parent alarm.");
 
         // Stop alarm if this instance is firing it; a single vibration will be performed if enabled in settings
@@ -634,13 +633,21 @@ public final class AlarmStateManager extends BroadcastReceiver {
         // Remove all other timers and notifications associated to it
         unregisterInstance(context, instance);
 
+        final ContentResolver contentResolver = context.getContentResolver();
+        Alarm alarm = Alarm.getAlarm(contentResolver, instance.mAlarmId);
+        // Display the alarm dismissal warning in a toast
+        if (alarm != null && showToast) {
+            Handler mainHandler = new Handler(Looper.getMainLooper());
+            mainHandler.post(() -> AlarmUtils.showDismissToast(context, alarm, instance));
+        }
+
         // Check parent if it needs to reschedule, disable or delete itself
         if (instance.mAlarmId != null) {
             updateParentAlarm(context, instance);
         }
 
         // Delete instance as it is not needed anymore
-        AlarmInstance.deleteInstance(context.getContentResolver(), instance.mId);
+        AlarmInstance.deleteInstance(contentResolver, instance.mId);
 
         // Instance is not valid anymore, so find next alarm that will fire and notify system
         updateNextAlarm(context);
@@ -707,7 +714,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         if (instance.mAlarmState == AlarmInstance.DISMISSED_STATE) {
             // This should never happen, but add a quick check here
             LogUtils.e("Alarm Instance is dismissed, but never deleted");
-            deleteInstanceAndUpdateParent(context, instance);
+            deleteInstanceAndUpdateParent(context, instance, false);
             return;
         } else if (instance.mAlarmState == AlarmInstance.FIRED_STATE) {
             // Keep alarm firing, unless it should be timed out
@@ -721,7 +728,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 if (instance.mAlarmId == null) {
                     LogUtils.i("Cannot restore missed instance for one-time alarm");
                     // This instance parent got deleted (ie. deleteAfterUse), so we should not re-activate it.
-                    deleteInstanceAndUpdateParent(context, instance);
+                    deleteInstanceAndUpdateParent(context, instance, false);
                     return;
                 }
 
@@ -736,9 +743,9 @@ public final class AlarmStateManager extends BroadcastReceiver {
             }
         } else if (instance.mAlarmState == AlarmInstance.PREDISMISSED_STATE) {
             if (currentTime.before(alarmTime)) {
-                setPreDismissState(context, instance);
+                setPreDismissState(context, instance, false);
             } else {
-                deleteInstanceAndUpdateParent(context, instance);
+                deleteInstanceAndUpdateParent(context, instance, false);
             }
             return;
         }
@@ -746,7 +753,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         // Fix states that are time sensitive
         if (currentTime.after(missedTTL)) {
             // Alarm is so old, just dismiss it
-            deleteInstanceAndUpdateParent(context, instance);
+            deleteInstanceAndUpdateParent(context, instance, false);
         } else if (currentTime.after(alarmTime)) {
             // There is a chance that the TIME_SET occurred right when the alarm should go off, so
             // we need to add a check to see if we should fire the alarm instead of marking it missed.
@@ -830,7 +837,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
                 // The time change is so dramatic the AlarmInstance doesn't make any sense;
                 // remove it and schedule the new appropriate instance.
-                deleteInstanceAndUpdateParent(context, instance);
+                deleteInstanceAndUpdateParent(context, instance, false);
             } else {
                 registerInstance(context, instance, false);
             }
@@ -857,8 +864,8 @@ public final class AlarmStateManager extends BroadcastReceiver {
             case AlarmInstance.FIRED_STATE -> setFiredState(context, instance);
             case AlarmInstance.SNOOZE_STATE -> setSnoozeState(context, instance, true);
             case AlarmInstance.MISSED_STATE -> setMissedState(context, instance);
-            case AlarmInstance.PREDISMISSED_STATE -> setPreDismissState(context, instance);
-            case AlarmInstance.DISMISSED_STATE -> deleteInstanceAndUpdateParent(context, instance);
+            case AlarmInstance.PREDISMISSED_STATE -> setPreDismissState(context, instance, true);
+            case AlarmInstance.DISMISSED_STATE -> deleteInstanceAndUpdateParent(context, instance, true);
             default -> LogUtils.e("Trying to change to unknown alarm state: " + state);
         }
     }
@@ -921,7 +928,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
             // Open DeskClock which is now positioned on the alarms tab.
             context.startActivity(viewAlarmIntent);
 
-            deleteInstanceAndUpdateParent(context, instance);
+            deleteInstanceAndUpdateParent(context, instance, false);
         }
     }
 

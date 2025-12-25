@@ -827,7 +827,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
             showAlert(titleResId, null, getString(titleResId));
 
-            AlarmStateManager.deleteInstanceAndUpdateParent(this, mAlarmInstance);
+            AlarmStateManager.deleteInstanceAndUpdateParent(this, mAlarmInstance, false);
 
             Events.sendAlarmEvent(action, R.string.label_deskclock);
         } else {
@@ -868,7 +868,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
         showAlert(titleResId, null, getString(titleResId));
 
-        AlarmStateManager.deleteInstanceAndUpdateParent(this, mAlarmInstance);
+        AlarmStateManager.deleteInstanceAndUpdateParent(this, mAlarmInstance, false);
 
         Events.sendAlarmEvent(action, R.string.label_deskclock);
 

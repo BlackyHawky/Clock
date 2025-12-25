@@ -134,10 +134,10 @@ public class HandleApiCalls extends Activity {
 
         if (instance.mAlarmState == FIRED_STATE || instance.mAlarmState == SNOOZE_STATE) {
             // Always dismiss alarms that are fired or snoozed.
-            AlarmStateManager.deleteInstanceAndUpdateParent(context, instance);
+            AlarmStateManager.deleteInstanceAndUpdateParent(context, instance, true);
         } else if (isAlarmWithin24Hours(instance)) {
             // Upcoming alarms are always predismissed.
-            AlarmStateManager.setPreDismissState(context, instance);
+            AlarmStateManager.setPreDismissState(context, instance, true);
         } else {
             // Otherwise the alarm cannot be dismissed at this time.
             final String reason = context.getString(
