@@ -6,16 +6,21 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:baselineAligned="false"
     android:orientation="horizontal">
 
+    <!-- Margins are set in the StopwatchFragment.java file. -->
     <com.best.deskclock.stopwatch.StopwatchLandscapeLayout
+        android:id="@+id/stopwatch_landscape_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:layout_marginEnd="80dp"
+        tools:layout_marginBottom="10dp">
 
-        <FrameLayout
+        <com.best.deskclock.stopwatch.StopwatchCircleFrameLayout
             android:id="@+id/stopwatch_time_wrapper"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -23,15 +28,33 @@
 
             <include layout="@layout/stopwatch_time" />
 
-        </FrameLayout>
+            <!-- Sufficient space exists to include the bounding stopwatch circle. -->
+            <com.best.deskclock.stopwatch.StopwatchCircleView
+                android:id="@+id/stopwatch_circle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                tools:visibility="visible" />
 
-        <!-- Due to the ViewPager and the location of FAB, paddings are set
-        in the StopwatchFragment.java file and in the LapsAdapter.java file. -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/laps_list"
+        </com.best.deskclock.stopwatch.StopwatchCircleFrameLayout>
+
+        <LinearLayout
+            android:id="@+id/laps_background"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clipToPadding="false" />
+            android:orientation="vertical"
+            tools:background="@drawable/bg_card_for_preview">
+
+            <include layout="@layout/lap_header" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/laps_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                tools:listitem="@layout/lap_view" />
+
+        </LinearLayout>
 
     </com.best.deskclock.stopwatch.StopwatchLandscapeLayout>
 

@@ -149,7 +149,7 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
     @NonNull
     @Override
     public LapItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        final View v = mInflater.inflate(R.layout.lap_view, parent, false /* attachToRoot */);
+        final View v = mInflater.inflate(R.layout.lap_view, parent, false);
         return new LapItemHolder(v);
     }
 
@@ -247,7 +247,6 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
     /**
      * @return a formatted textual description of lap times and total time
      */
-
     String getShareText() {
         final Stopwatch stopwatch = getStopwatch();
         final long totalTime = stopwatch.getTotalTime();
@@ -331,7 +330,6 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
      *                        set changes; they are not allowed to occur during bind
      * @return a formatted version of the accumulated time
      */
-
     private String formatAccumulatedTime(long accumulatedTime, boolean isBinding) {
         final long totalTime = getStopwatch().getTotalTime();
         final long longestAccumulatedTime = Math.max(totalTime, accumulatedTime);
@@ -379,22 +377,19 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
             final int padding = (int) dpToPx(isTablet ? 8 : 4, displayMetrics);
             itemView.setPadding(0, padding, 0, padding);
 
+            final float textSize = isTablet ? 18 : 16;
+
             lapNumber = itemView.findViewById(R.id.lap_number);
-            lapNumber.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+            lapNumber.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
             lapNumber.setTypeface(boldTypeface);
 
             lapTime = itemView.findViewById(R.id.lap_time);
-            lapTime.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+            lapTime.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
             lapTime.setTypeface(regularTypeface);
 
             accumulatedTime = itemView.findViewById(R.id.lap_total);
-            accumulatedTime.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+            accumulatedTime.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
             accumulatedTime.setTypeface(regularTypeface);
-            // Due to the ViewPager and the location of FAB, set a right padding for phones
-            // in landscape mode to prevent the laps from being hidden by the FAB.
-            if (!isTablet && ThemeUtils.isLandscape()) {
-                accumulatedTime.setPadding(0, 0, (int) dpToPx(85, displayMetrics), 0);
-            }
         }
     }
 }

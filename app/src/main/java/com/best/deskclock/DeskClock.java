@@ -190,6 +190,11 @@ public class DeskClock extends BaseActivity
     private FabState mFabState = FabState.SHOWING;
 
     /**
+     * The view containing the FABs.
+     */
+    private View mFabContainer;
+
+    /**
      * The single floating-action button shared across all tabs in the user interface.
      */
     private ImageView mFab;
@@ -306,6 +311,8 @@ public class DeskClock extends BaseActivity
         // Configure the toolbar.
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
+
+        mFabContainer = findViewById(R.id.button_layout);
 
         // Configure the buttons shared by the tabs.
         final boolean isTablet = ThemeUtils.isTablet();
@@ -812,6 +819,18 @@ public class DeskClock extends BaseActivity
 
             mBottomNavigation.setPadding(0, 0, 0, bars.bottom);
         });
+    }
+
+    /**
+     * Returns the view that contains the Floating Action Buttons (FABs).
+     *
+     * <p>This can be useful to measure the FAB height and adjust layout
+     * constraints dynamically.</p>
+     *
+     * @return the FAB container view
+     */
+    public View getFabContainer() {
+        return mFabContainer;
     }
 
     /**
