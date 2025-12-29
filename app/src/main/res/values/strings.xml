@@ -672,6 +672,12 @@
     <!-- Describes the purpose of the button to share the stopwatch value.
          Also used as title for chooser when sharing stopwatch results. -->
     <string name="sw_share_button">Share</string>
+    <!-- Title used for the laps column in the stopwatch view -->
+    <string name="sw_laps_title">Laps</string>
+    <!-- Title used for the split column in the stopwatch view -->
+    <string name="sw_split_title">Split</string>
+    <!-- Title used for the total column in the stopwatch view -->
+    <string name="sw_total_title">Total</string>
     <!-- Abbreviation for temporal hours [CHAR LIMIT=1] -->
     <string name="hours_label">h</string>
     <!-- Abbreviation for temporal minutes [CHAR LIMIT=1] -->
