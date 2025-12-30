@@ -210,7 +210,7 @@ public class MaterialYouDigitalAppWidgetProvider extends BaseDigitalAppWidgetPro
 
             if (DataModel.getDataModel().is24HourFormat()) {
                 rv.setCharSequence(getClockViewId(), "setFormat24Hour", ClockUtils.get24ModeFormat(
-                        context, WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs), false));
+                        WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs), false));
             } else {
                 rv.setCharSequence(getClockViewId(), "setFormat12Hour", ClockUtils.get12ModeFormat(
                         context, WidgetUtils.getAmPmRatio(true, prefs),
@@ -225,7 +225,7 @@ public class MaterialYouDigitalAppWidgetProvider extends BaseDigitalAppWidgetPro
                             WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs),
                             false, false, false));
             rv.setCharSequence(getClockCustomViewId(), "setFormat24Hour",
-                    ClockUtils.get24ModeFormat(context,
+                    ClockUtils.get24ModeFormat(
                             WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs), false));
             rv.setTextColor(getClockCustomViewId(),
                     WidgetDAO.getMaterialYouDigitalWidgetCustomClockColor(prefs));

@@ -175,7 +175,7 @@ public class TextTime extends AppCompatTextView {
                 true, false, false);
         setFormat12Hour(format12);
 
-        CharSequence format24 = ClockUtils.get24ModeFormat(mContext, includeSeconds, false);
+        CharSequence format24 = ClockUtils.get24ModeFormat(includeSeconds, false);
         setFormat24Hour(format24);
     }
 

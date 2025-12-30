@@ -296,7 +296,7 @@ public class ScreensaverUtils {
      * <p>
      * This method wraps the base formatted alarm time with thin spaces when the
      * screensaver settings specify italic text for the date or the next alarm.
-     * Thin spaces (\u2009) prevent the text from being visually cut off on some devices
+     * Thin spaces (u2009) prevent the text from being visually cut off on some devices
      * and help maintain proper centering in the screensaver layout.
      *
      * @param context    the context used to access preferences and formatting utilities

@@ -170,7 +170,7 @@ public class ClockUtils {
             clock.setFormat12Hour(get12ModeFormat(
                     clock.getContext(), amPmRatio, includeSeconds, isAlarm, isClockTab, isScreensaver));
             // Get the best format for 24 hours mode according to the locale
-            clock.setFormat24Hour(get24ModeFormat(clock.getContext(), includeSeconds, isScreensaver));
+            clock.setFormat24Hour(get24ModeFormat(includeSeconds, isScreensaver));
         }
     }
 
@@ -194,9 +194,9 @@ public class ClockUtils {
         if (amPmRatio <= 0) {
             pattern = pattern.replaceAll("\u200Aa", "").trim();
         } else {
-            if (isScreensaver && SettingsDAO.isScreensaverDigitalClockInItalic(prefs)) {
+            if (isScreensaver) {
                 // For screensaver, add a "Thin Space" (\u2009) at the end of the AM/PM to prevent
-                // its display from being cut off on some devices when in italic.
+                // its display from being cut off on some devices.
                 // A "Thin Space" (\u2009) is also added at the beginning to correctly center the date,
                 // alarm icon and next alarm.
                 pattern = "\u2009" + pattern.replaceAll("a", "a" + "\u2009");
@@ -260,10 +260,10 @@ public class ClockUtils {
         }
     }
 
-    public static CharSequence get24ModeFormat(Context context, boolean includeSeconds, boolean isScreensaver) {
-        if (isScreensaver && SettingsDAO.isScreensaverDigitalClockInItalic(getDefaultSharedPreferences(context))) {
+    public static CharSequence get24ModeFormat(boolean includeSeconds, boolean isScreensaver) {
+        if (isScreensaver) {
             // For screensaver, add a "Thin Space" (\u2009) at the end of the time to prevent
-            // its display from being cut off on some devices when in italic.
+            // its display from being cut off on some devices.
             // A "Thin Space" (\u2009) is also added at the beginning to correctly center the date,
             // alarm icon and next alarm.
             return "\u2009"
