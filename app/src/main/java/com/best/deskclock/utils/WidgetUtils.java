@@ -253,7 +253,7 @@ public class WidgetUtils {
                 ? WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs)
                 : WidgetDAO.areSecondsDisplayedOnDigitalWidget(prefs);
         final CharSequence format = clock.is24HourModeEnabled()
-                ? ClockUtils.get24ModeFormat(clock.getContext(), includeSeconds, false)
+                ? ClockUtils.get24ModeFormat(includeSeconds, false)
                 : ClockUtils.get12ModeFormat(clock.getContext(), getAmPmRatio(isMaterialYou, prefs),
                 includeSeconds, false, false, false);
         final Calendar longestPMTime = Calendar.getInstance();

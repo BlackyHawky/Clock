@@ -204,7 +204,7 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     protected void configureClock(RemoteViews rv, Context context, SharedPreferences prefs) {
         if (DataModel.getDataModel().is24HourFormat()) {
             rv.setCharSequence(getClockViewId(), "setFormat24Hour",
-                    ClockUtils.get24ModeFormat(context, WidgetDAO.areSecondsDisplayedOnDigitalWidget(prefs), false));
+                    ClockUtils.get24ModeFormat(WidgetDAO.areSecondsDisplayedOnDigitalWidget(prefs), false));
         } else {
             rv.setCharSequence(getClockViewId(), "setFormat12Hour",
                     ClockUtils.get12ModeFormat(context, WidgetUtils.getAmPmRatio(false, prefs),
