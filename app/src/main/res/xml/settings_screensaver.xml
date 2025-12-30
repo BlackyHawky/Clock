@@ -81,6 +81,14 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
+            android:key="key_display_screensaver_battery"
+            android:title="@string/display_battery_title"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
     </com.best.deskclock.settings.custompreference.CustomPreferenceCategory>
 
     <com.best.deskclock.settings.custompreference.CustomPreferenceCategory
@@ -103,7 +111,14 @@
             android:key="key_screensaver_clock_color_picker"
             android:title="@string/clock_color_title"
             android:defaultValue="#FFFFFF"
-            app:colorpicker_showAlpha="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <com.best.deskclock.settings.custompreference.ColorPickerPreference
+            android:key="key_screensaver_battery_color_picker"
+            android:title="@string/battery_color_title"
+            android:defaultValue="#FFFFFF"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
@@ -112,7 +127,6 @@
             android:key="key_screensaver_date_color_picker"
             android:title="@string/date_color_title"
             android:defaultValue="#FFFFFF"
-            app:colorpicker_showAlpha="false"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
@@ -121,7 +135,6 @@
             android:key="key_screensaver_next_alarm_color_picker"
             android:title="@string/next_alarm_color_title"
             android:defaultValue="#FFFFFF"
-            app:colorpicker_showAlpha="false"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
@@ -165,6 +178,22 @@
         <com.best.deskclock.settings.custompreference.CustomSwitchPreference
             android:key="key_screensaver_digital_clock_in_italic"
             android:title="@string/screensaver_italic_digital_clock_title"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
+            android:key="key_screensaver_battery_in_bold"
+            android:title="@string/screensaver_bold_battery_title"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
+            android:key="key_screensaver_battery_in_italic"
+            android:title="@string/screensaver_italic_battery_title"
             android:defaultValue="false"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"

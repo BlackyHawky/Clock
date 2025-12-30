@@ -1215,6 +1215,10 @@
     <string name="second_hand_color_title">Second hand color</string>
     <!-- Title to set the default second hand color. -->
     <string name="second_hand_default_color_title">Use default color for second hand</string>
+    <!-- Title to display the screensaver battery level. -->
+    <string name="display_battery_title">Display battery level</string>
+    <!-- Title of battery color. -->
+    <string name="battery_color_title">Battery level color</string>
     <!-- Title of date color. -->
     <string name="date_color_title">Date color</string>
     <!-- Title to set the default color of the date. -->
@@ -1241,9 +1245,13 @@
     <string name="screensaver_bold_digital_clock_title">Digital clock in bold</string>
     <!-- Title for switch to pick if the clock text is displayed in italic -->
     <string name="screensaver_italic_digital_clock_title">Digital clock in italics</string>
+    <!-- Title for switch to pick if the battery level is displayed in bold -->
+    <string name="screensaver_bold_battery_title">Battery level in bold</string>
+    <!-- Title for switch to pick if the battery level is displayed in italics -->
+    <string name="screensaver_italic_battery_title">Battery level in italics</string>
     <!-- Title for switch to pick if the date is displayed in bold -->
     <string name="screensaver_bold_date_title">Date in bold</string>
-    <!-- Title for switch to pick if the date text is displayed in italic -->
+    <!-- Title for switch to pick if the date text is displayed in italics -->
     <string name="screensaver_italic_date_title">Date in italics</string>
     <!-- Title for switch to pick if the next alarm is displayed in bold -->
     <string name="screensaver_bold_next_alarm_title">Next alarm in bold</string>

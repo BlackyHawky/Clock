@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-FileCopyrightText: Material Design Authors / Google LLC
+    modified
+    SPDX-License-Identifier: Apache-2.0
+-->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="960"
+    android:viewportHeight="960">
+  <path
+      android:fillColor="@android:color/white"
+      android:pathData="M120 640V320q0 0 0 11.5t0 28.5V600q0 17 0 28.5t0 11.5Zm40 80H680q17 0 28.5-11.5T720 680t-11.5-28.5T680 640H160q-17 0-28.5-11.5T120 600V360q0-17 11.5-28.5T160 320H680q17 0 28.5-11.5T720 280t-11.5-28.5T680 240H160q-50 0-85 35T40 360V600q0 50 35 85t85 35ZM840 520q17 0 28.5-11.5T880 480V320q0-17-11.5-28.5T840 280t-28.5 11.5T800 320V480q0 17 11.5 28.5T840 520Zm0 140q17 0 28.5-11.5T880 620t-11.5-28.5T840 580t-28.5 11.5T800 620t11.5 28.5T840 660Z" />
+</vector>

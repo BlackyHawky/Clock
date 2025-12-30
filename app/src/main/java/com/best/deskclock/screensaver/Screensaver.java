@@ -6,6 +6,7 @@
 
 package com.best.deskclock.screensaver;
 
+import static android.content.Intent.ACTION_BATTERY_CHANGED;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.utils.AlarmUtils.ACTION_NEXT_ALARM_CHANGED_BY_CLOCK;
 
@@ -61,6 +62,18 @@ public final class Screensaver extends DreamService {
         @Override
         public void onReceive(Context context, Intent intent) {
             AlarmUtils.refreshAlarm(Screensaver.this, mContentView, true);
+        }
+    };
+
+    /**
+     * Receiver for battery level changes.
+     */
+    private final BroadcastReceiver mBatteryReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (Intent.ACTION_BATTERY_CHANGED.equals(intent.getAction())) {
+                ScreensaverUtils.updateBatteryText(mContentView, intent);
+            }
         }
     };
 
@@ -121,6 +134,34 @@ public final class Screensaver extends DreamService {
 
         startPositionUpdater();
         UiDataModel.getUiDataModel().addMidnightCallback(mMidnightUpdater, 100);
+    }
+
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
+    @Override
+    public void onDreamingStarted() {
+        super.onDreamingStarted();
+
+        IntentFilter batteryFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+
+        if (SdkUtils.isAtLeastAndroid13()) {
+            registerReceiver(mBatteryReceiver, batteryFilter, Context.RECEIVER_NOT_EXPORTED);
+        } else {
+            registerReceiver(mBatteryReceiver, batteryFilter);
+        }
+
+        final Intent intent = SdkUtils.isAtLeastAndroid13()
+                ? registerReceiver(null, new IntentFilter(ACTION_BATTERY_CHANGED), Context.RECEIVER_NOT_EXPORTED)
+                : registerReceiver(null, new IntentFilter(ACTION_BATTERY_CHANGED));
+
+        if (intent != null) {
+            ScreensaverUtils.updateBatteryText(mContentView, intent);
+        }
+    }
+
+    @Override
+    public void onDreamingStopped() {
+        super.onDreamingStopped();
+        unregisterReceiver(mBatteryReceiver);
     }
 
     @Override

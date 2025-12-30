@@ -2,9 +2,11 @@
 
 package com.best.deskclock.utils;
 
+import static android.view.View.VISIBLE;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,6 +19,8 @@ import android.graphics.PorterDuffColorFilter;
 import android.graphics.RenderEffect;
 import android.graphics.Shader;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.os.BatteryManager;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.view.Window;
@@ -24,6 +28,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -51,8 +56,8 @@ public class ScreensaverUtils {
      *
      * <ul>
      *   <li><b>ImageView (background):</b> A ColorMatrix is applied to dim the image.</li>
-     *   <li><b>TextView (date, next alarm):</b> The text color is recalculated based on the
-     *       brightness factor.</li>
+     *   <li><b>TextView (battery text, date, next alarm):</b> The text color is recalculated based
+     *       on the brightness factor.</li>
      *   <li><b>Standard AnalogClock:</b> A PorterDuffColorFilter is applied using the tinted
      *       and brightness-adjusted clock color.</li>
      *   <li><b>Material AnalogClock:</b> Only the brightness ColorMatrix is applied.</li>
@@ -65,7 +70,9 @@ public class ScreensaverUtils {
      * @param prefs User preferences containing the brightness setting.
      * @param color Optional base color used for analog clock tinting.
      */
-    private static void applyBrightness(View view, SharedPreferences prefs, @Nullable Integer color) {
+    private static void applyBrightness(View view, SharedPreferences prefs, @Nullable Integer color,
+                                        @Nullable Drawable drawable) {
+
         int brightnessPercentage = SettingsDAO.getScreensaverBrightness(prefs);
 
         float factor = 0.1f + (brightnessPercentage / 100f) * 0.9f;
@@ -81,11 +88,17 @@ public class ScreensaverUtils {
             return;
         }
 
-        // For date and next alarm
+        // For battery text, date and next alarm
         if (view instanceof TextView textView) {
             if (color != null) {
                 textView.setTextColor(applyBrightnessToColor(color, factor));
+
+                if (drawable != null) {
+                    drawable.setColorFilter(new PorterDuffColorFilter(
+                            applyBrightnessToColor(color, factor), PorterDuff.Mode.SRC_IN));
+                }
             }
+
             return;
         }
 
@@ -143,6 +156,79 @@ public class ScreensaverUtils {
         }
 
         return Typeface.create(baseTypeface, style);
+    }
+
+    /**
+     * For screensaver, format the battery text to be bold and/or italic or not.
+     *
+     * @param batteryText Battery text to format
+     */
+    private static void setScreensaverBatteryFormat(SharedPreferences prefs, TextView batteryText) {
+        int style = resolveTypefaceStyle(
+                SettingsDAO.isScreensaverBatteryInBold(prefs),
+                SettingsDAO.isScreensaverBatteryInItalic(prefs)
+        );
+
+        applyGeneralTypeface(prefs, batteryText, style);
+    }
+
+    /**
+     * Updates the battery percentage text and icon based on the given battery intent.
+     *
+     * @param view   the root view containing the battery indicator TextView
+     * @param intent the Intent carrying battery status information (ACTION_BATTERY_CHANGED)
+     */
+    public static void updateBatteryText(View view, Intent intent) {
+        int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+        int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+        int percent = (int) ((level / (float) scale) * 100);
+
+        TextView batteryText = view.findViewById(R.id.battery_level);
+        batteryText.setText(percent + "%");
+
+        updateBatteryIcon(view, percent);
+    }
+
+    /**
+     * Updates the battery icon displayed next to the battery percentage.
+     *
+     * @param view      the root view containing the battery indicator TextView
+     * @param percent   the current battery level as a percentage
+     */
+    public static void updateBatteryIcon(View view, int percent) {
+        Context context = view.getContext();
+        final SharedPreferences prefs = getDefaultSharedPreferences(context);
+
+        final TextView batteryText = view.findViewById(R.id.battery_level);
+        int iconRes = getBatteryIconRes(percent);
+        final Drawable drawable = AppCompatResources.getDrawable(context, iconRes);
+
+        final boolean isDynamicColors = SettingsDAO.areScreensaverClockDynamicColors(prefs);
+        final int inversePrimaryColor = ContextCompat.getColor(context, R.color.md_theme_inversePrimary);
+        final int color = isDynamicColors
+                ? inversePrimaryColor
+                : SettingsDAO.getScreensaverBatteryColorPicker(prefs);
+
+        applyBrightness(batteryText, prefs, color, drawable);
+
+        batteryText.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+    }
+
+    /**
+     * Returns the appropriate battery icon resource based on the battery level.
+     *
+     * @param percent   the current battery level as a percentage
+     * @return the drawable resource ID representing the battery state
+     */
+    private static int getBatteryIconRes(int percent) {
+        if (percent < 10) return R.drawable.ic_battery_alert;
+        if (percent < 15) return R.drawable.ic_battery_15;
+        if (percent < 30) return R.drawable.ic_battery_30;
+        if (percent < 45) return R.drawable.ic_battery_45;
+        if (percent < 60) return R.drawable.ic_battery_60;
+        if (percent < 75) return R.drawable.ic_battery_75;
+        if (percent < 90) return R.drawable.ic_battery_90;
+        return R.drawable.ic_battery_full;
     }
 
     /**
@@ -259,7 +345,7 @@ public class ScreensaverUtils {
 
         final Date now = new Date();
         dateDisplay.setText(new SimpleDateFormat(datePattern, locale).format(now));
-        dateDisplay.setVisibility(View.VISIBLE);
+        dateDisplay.setVisibility(VISIBLE);
         dateDisplay.setContentDescription(new SimpleDateFormat(descriptionPattern, locale).format(now));
     }
 
@@ -274,14 +360,14 @@ public class ScreensaverUtils {
         final String imagePath = SettingsDAO.getScreensaverBackgroundImage(prefs);
 
         if (imagePath != null) {
-            backgroundImage.setVisibility(View.VISIBLE);
+            backgroundImage.setVisibility(VISIBLE);
 
             File imageFile = new File(imagePath);
             if (imageFile.exists()) {
                 Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
                 if (bitmap != null) {
                     backgroundImage.setImageBitmap(bitmap);
-                    applyBrightness(backgroundImage, prefs, null);
+                    applyBrightness(backgroundImage, prefs, null, null);
 
                     if (SdkUtils.isAtLeastAndroid12() && SettingsDAO.isScreensaverBlurEffectEnabled(prefs)) {
                         float intensity = SettingsDAO.getScreensaverBlurIntensity(prefs);
@@ -305,6 +391,7 @@ public class ScreensaverUtils {
         final AnalogClock analogClock = mainClockView.findViewById(R.id.analog_clock);
         final AutoSizingTextClock textClock = mainClockView.findViewById(R.id.digital_clock);
         final boolean areClockSecondsEnabled = SettingsDAO.areScreensaverClockSecondsDisplayed(prefs);
+        final TextView batteryText = mainClockView.findViewById(R.id.battery_level);
         final TextView date = mainClockView.findViewById(R.id.date);
         final TextView nextAlarmIcon = mainClockView.findViewById(R.id.nextAlarmIcon);
         final TextView nextAlarm = mainClockView.findViewById(R.id.nextAlarm);
@@ -331,25 +418,30 @@ public class ScreensaverUtils {
 
             textClock.applyUserPreferredTextSizeSp(SettingsDAO.getScreensaverDigitalClockFontSize(prefs));
 
-            applyBrightness(textClock, prefs, screenSaverClockColorPicker);
+            applyBrightness(textClock, prefs, screenSaverClockColorPicker, null);
         } else {
             ClockUtils.adjustAnalogClockSize(analogClock, prefs, false, false, true);
             ClockUtils.setAnalogClockSecondsEnabled(screensaverClockStyle, analogClock, areClockSecondsEnabled);
 
             if (isMaterialAnalogClock) {
-                applyBrightness(analogClock, prefs, null);
+                applyBrightness(analogClock, prefs, null, null);
             } else {
-                applyBrightness(analogClock, prefs, screenSaverClockColorPicker);
+                applyBrightness(analogClock, prefs, screenSaverClockColorPicker, null);
             }
+        }
+
+        if (SettingsDAO.isScreensaverBatteryDisplayed(prefs)) {
+            batteryText.setVisibility(VISIBLE);
+            setScreensaverBatteryFormat(prefs, batteryText);
         }
 
         setScreensaverDateFormat(prefs, date);
         ClockUtils.setClockIconTypeface(nextAlarmIcon);
         setScreensaverNextAlarmFormat(prefs, nextAlarm);
 
-        applyBrightness(date, prefs, screensaverDateColorPicker);
-        applyBrightness(nextAlarmIcon, prefs, screensaverNextAlarmColorPicker);
-        applyBrightness(nextAlarm, prefs, screensaverNextAlarmColorPicker);
+        applyBrightness(date, prefs, screensaverDateColorPicker, null);
+        applyBrightness(nextAlarmIcon, prefs, screensaverNextAlarmColorPicker, null);
+        applyBrightness(nextAlarm, prefs, screensaverNextAlarmColorPicker, null);
     }
 
     /**
