@@ -5,7 +5,6 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 
-<!-- Special "screen saver mode" with just the time/date on black. -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/saver_container"
@@ -31,6 +30,23 @@
         android:layout_margin="10dp"
         android:orientation="vertical"
         tools:ignore="UselessParent">
+
+        <TextView
+            android:id="@+id/battery_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:visibility="gone"
+            android:textSize="16sp"
+            android:drawablePadding="8dp"
+            tools:drawableStart="@drawable/ic_battery_60"
+            tools:drawableTint="@color/md_theme_onSurfaceVariant"
+            tools:text="80%"
+            tools:textStyle="bold"
+            tools:visibility="visible"
+            tools:ignore="TextContrastCheck" />
 
         <com.best.deskclock.uicomponents.AnalogClock
             android:id="@+id/analog_clock"

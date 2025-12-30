@@ -3,6 +3,10 @@
 package com.best.deskclock.settings;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_BATTERY_COLOR_PICKER;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_CLOCK_COLOR_PICKER;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_DATE_COLOR_PICKER;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_NEXT_ALARM_COLOR_PICKER;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -51,11 +55,7 @@ public class ColorPreferenceDialogFragment extends DialogFragment {
 
         resolvePreferenceIfNeeded();
 
-        ColorPickerView colorPickerView = new ColorPickerView(context);
-        colorPickerView.setColor(preference.getColor());
-        colorPickerView.showAlpha(true);
-        colorPickerView.showHex(true);
-        colorPickerView.showPreview(true);
+        ColorPickerView colorPickerView = getColorPickerView(context);
 
         SharedPreferences prefs = getDefaultSharedPreferences(context);
         Typeface typeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
@@ -90,6 +90,25 @@ public class ColorPreferenceDialogFragment extends DialogFragment {
                 null,
                 CustomDialog.SoftInputMode.NONE
         );
+    }
+
+    @NonNull
+    private ColorPickerView getColorPickerView(Context context) {
+        ColorPickerView colorPickerView = new ColorPickerView(context);
+
+        colorPickerView.setColor(preference.getColor());
+
+        // Don't display transparency for the screensaver color settings, as this has no effect.
+        colorPickerView.showAlpha(!preference.getKey().equals(KEY_SCREENSAVER_CLOCK_COLOR_PICKER)
+                && !preference.getKey().equals(KEY_SCREENSAVER_BATTERY_COLOR_PICKER)
+                && !preference.getKey().equals(KEY_SCREENSAVER_DATE_COLOR_PICKER)
+                && !preference.getKey().equals(KEY_SCREENSAVER_NEXT_ALARM_COLOR_PICKER));
+
+        colorPickerView.showHex(true);
+
+        colorPickerView.showPreview(true);
+
+        return colorPickerView;
     }
 
     private void resolvePreferenceIfNeeded() {

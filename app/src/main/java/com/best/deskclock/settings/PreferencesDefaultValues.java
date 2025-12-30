@@ -165,15 +165,11 @@ public class PreferencesDefaultValues {
 
     // Screensaver
     public static final boolean DEFAULT_DISPLAY_SCREENSAVER_CLOCK_SECONDS = false;
+    public static final boolean DEFAULT_DISPLAY_SCREENSAVER_BATTERY = false;
     public static final boolean DEFAULT_SCREENSAVER_CLOCK_DYNAMIC_COLORS = false;
     public static final int DEFAULT_SCREENSAVER_CUSTOM_COLOR = Color.WHITE;
     public static final int DEFAULT_SCREENSAVER_BRIGHTNESS = 40;
-    public static final boolean DEFAULT_SCREENSAVER_DIGITAL_CLOCK_IN_BOLD = false;
-    public static final boolean DEFAULT_SCREENSAVER_DIGITAL_CLOCK_IN_ITALIC = false;
-    public static final boolean DEFAULT_SCREENSAVER_DATE_IN_BOLD = false;
-    public static final boolean DEFAULT_SCREENSAVER_DATE_IN_ITALIC = false;
-    public static final boolean DEFAULT_SCREENSAVER_NEXT_ALARM_IN_BOLD = false;
-    public static final boolean DEFAULT_SCREENSAVER_NEXT_ALARM_IN_ITALIC = false;
+    public static final boolean DEFAULT_SCREENSAVER_FORMATTING = false;
 
     // Common settings values
     public static final String DEFAULT_CLOCK_DIAL = "dial_with_numbers";

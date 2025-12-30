@@ -51,6 +51,7 @@ public class ScreensaverActivity extends BaseActivity {
     private String mDateFormat;
     private String mDateFormatForAccessibility;
     private View mContentView;
+
     private final BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -62,6 +63,18 @@ public class ScreensaverActivity extends BaseActivity {
                 case Intent.ACTION_USER_PRESENT -> finish();
                 case ACTION_NEXT_ALARM_CHANGED_BY_CLOCK ->
                         AlarmUtils.refreshAlarm(ScreensaverActivity.this, mContentView, true);
+            }
+        }
+    };
+
+    /**
+     * Receiver for battery level changes.
+     */
+    private final BroadcastReceiver mBatteryReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (Intent.ACTION_BATTERY_CHANGED.equals(intent.getAction())) {
+                ScreensaverUtils.updateBatteryText(mContentView, intent);
             }
         }
     };
@@ -127,8 +140,10 @@ public class ScreensaverActivity extends BaseActivity {
 
         if (SdkUtils.isAtLeastAndroid13()) {
             registerReceiver(mIntentReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
+            registerReceiver(mBatteryReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED), Context.RECEIVER_NOT_EXPORTED);
         } else {
             registerReceiver(mIntentReceiver, filter);
+            registerReceiver(mBatteryReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
         }
     }
 
@@ -150,6 +165,10 @@ public class ScreensaverActivity extends BaseActivity {
                 : registerReceiver(null, new IntentFilter(ACTION_BATTERY_CHANGED));
         final boolean pluggedIn = intent != null && intent.getIntExtra(EXTRA_PLUGGED, 0) != 0;
         updateWakeLock(pluggedIn);
+
+        if (intent != null) {
+            ScreensaverUtils.updateBatteryText(mContentView, intent);
+        }
     }
 
     @Override
@@ -165,6 +184,7 @@ public class ScreensaverActivity extends BaseActivity {
     @Override
     public void onStop() {
         unregisterReceiver(mIntentReceiver);
+        unregisterReceiver(mBatteryReceiver);
         super.onStop();
     }
 
