@@ -421,7 +421,7 @@
     <string name="alarm_settings_summary">Nastavení stylu, výchozího vyzvánění, hlasitosti, akcí pro zrušení nebo odložení budíku, prvního dne týdnu a času oznámení s připomínkou</string>
     <string name="whats_new_title">Co je nového</string>
     <string name="whats_new_dialog_message">Podívejte se, co je nového:\n\n%s</string>
-    <string name="reset_settings_message">Opravdu chcete resetovat všechna nastavení aplikace?\n\nPoznámka: vlastní zvuky budíku nebudou resetovány.</string>
+    <string name="reset_settings_message">Opravdu chcete resetovat všechna nastavení aplikace?</string>
     <string name="sort_timer_ascending_duration">Podle času (vzestupně)</string>
     <string name="default_time_to_add_to_timer_title">Výchozí čas, který přidat k časovači</string>
     <string name="screensaver_brightness_title">Jas</string>

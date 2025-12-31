@@ -755,6 +755,20 @@ public final class DataModel {
     }
 
     /**
+     * Clears the in-memory list of custom ringtones.
+     *
+     * <p>This method removes all cached custom ringtones stored in {@code mCustomRingtones}
+     * and forces the list to be reloaded from SharedPreferences the next time it is accessed.
+     * It is typically used during a full application reset, after the ringtone-related
+     * preferences and files have been deleted.</p>
+     */
+    public void clearCustomRingtones() {
+        enforceMainLooper();
+        mRingtoneModel.clearCustomRingtones();
+    }
+
+
+    /**
      * @param silentSettingsListener to be notified when alarm-silencing settings change
      */
     public void addSilentSettingsListener(OnSilentSettingsListener silentSettingsListener) {

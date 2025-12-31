@@ -1066,9 +1066,7 @@
     <!-- Title button to reset all settings -->
     <string name="reset_settings_title">Reset settings</string>
     <!-- Confirmation message to reset all settings -->
-    <string name="reset_settings_message">Are you sure you want to reset all app settings?
-        \n\nNote: custom ringtones will not be reset.
-    </string>
+    <string name="reset_settings_message">Are you sure you want to reset all app settings?</string>
     <!-- Toast message when reset is complete -->
     <string name="toast_message_for_reset">Reset completed</string>
     <!-- Button to close a dialog where neither "ok" nor "cancel" are suitable -->

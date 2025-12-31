@@ -407,7 +407,7 @@
     <string name="clock_style_analog_material">類比 (Material)</string>
     <string name="timer_settings_summary">設定預設鈴聲、音量和計時器排序</string>
     <string name="first_launch_important_info_title">重要資訊</string>
-    <string name="reset_settings_message">您要清除所有設定嗎？\n\n請注意：自訂鈴聲將不受影響。</string>
+    <string name="reset_settings_message">您要清除所有設定嗎？</string>
     <string name="sw_settings_summary">設定音量鍵動作</string>
     <string name="blue_accent_color">藍色</string>
     <string name="alarm_title_font_size">鬧鐘標題大小</string>

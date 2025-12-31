@@ -567,7 +567,7 @@
     <string name="timer_time_warning_box_title">Falscher Wert eingegeben</string>
     <string name="settings_language_turkish">Türkisch</string>
     <string name="reset_settings_title">Einstellungen zurücksetzen</string>
-    <string name="reset_settings_message">Sind Sie sicher, dass Sie alle App-Einstellungen zurücksetzen wollen?\n\nHinweis: Benutzerdefinierte Signaltöne werden nicht zurückgesetzt.</string>
+    <string name="reset_settings_message">Sind Sie sicher, dass Sie alle App-Einstellungen zurücksetzen wollen?</string>
     <string name="blue_accent_color">Blau</string>
     <string name="toast_message_for_reset">Zurücksetzen abgeschlossen</string>
     <string name="settings_language_korean">Koreanisch</string>

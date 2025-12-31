@@ -432,7 +432,7 @@
     <string name="timer_buttons_action_summary">잠금 화면에서만 사용할 수 있습니다.</string>
     <string name="next_alarm_default_color_title">다음 알람에 기본 색상 사용</string>
     <string name="default_time_to_add_to_timer_title">타이머 기본 설정 시간</string>
-    <string name="reset_settings_message">정말 모든 앱 설정을 초기화할까요?\n\n사용자 정의 벨소리는 초기화되지 않습니다.</string>
+    <string name="reset_settings_message">정말 모든 앱 설정을 초기화할까요?</string>
     <string name="sort_manually">직접(드래그)</string>
     <string name="sort_timer_ascending_duration">길이 (오름차순)</string>
     <string name="city_clock_default_color_title">도시 시계에 기본 색상 사용</string>

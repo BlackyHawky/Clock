@@ -563,7 +563,7 @@
     <string name="occasional_alarm_alert_predismiss_title">Yaklaşan etkinlik alarmı</string>
     <string name="settings_language_turkish">Türkçe</string>
     <string name="reset_settings_title">Ayarları sıfırla</string>
-    <string name="reset_settings_message">Uygulamanın bütün ayarlarını sıfırlamak istediğinize emin misiniz?\n\nNot: özel zil sesleri sıfırlanmayacak.</string>
+    <string name="reset_settings_message">Uygulamanın bütün ayarlarını sıfırlamak istediğinize emin misiniz?</string>
     <string name="toast_message_for_reset">Sıfırlama tamamlandı</string>
     <string name="settings_language_korean">Korece</string>
     <string name="blue_accent_color">Mavi</string>

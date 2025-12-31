@@ -546,7 +546,7 @@
     <string name="clock_style_spinner">Спинер</string>
     <string name="show_lockscreen_dialog_title">Прикажи на закључаном екрану</string>
     <string name="blue_accent_color">Плава</string>
-    <string name="reset_settings_message">Да ли сте сигурни да желите да ресетујете сва подешавања апликације?\n\nНапомена: прилагођене мелодије неће бити ресетоване.</string>
+    <string name="reset_settings_message">Да ли сте сигурни да желите да ресетујете сва подешавања апликације?</string>
     <string name="show_lockscreen_dialog_text">На Xiaomi уређајима, требало би ручно да омогућите дозволу \"Прикажи на закључаном екрану\" из подешавања уређаја да би апликација исправно радила.</string>
     <string name="show_lockscreen_permission_title">ПРИКАЖИ НА ЗАКЉУЧАНОМ ЕКРАНУ</string>
     <string name="toast_message_for_reset">Ресетовање завршено</string>
