@@ -573,7 +573,7 @@
     <string name="settings_tab_to_display">Rakenduse avamisel kuvatav vahekaart</string>
     <string name="settings_language_turkish">türgi keel</string>
     <string name="reset_settings_title">Lähtesta seadistused</string>
-    <string name="reset_settings_message">Kas sa oled kindel, et soovid kõik rakenduse seadistused muuta algolekusse?\n\nMärkus: see ei puuduta kohandatud helinaid.</string>
+    <string name="reset_settings_message">Kas sa oled kindel, et soovid kõik rakenduse seadistused muuta algolekusse?</string>
     <string name="blue_accent_color">Sinine</string>
     <string name="toast_message_for_reset">Lähtestamine on tehtud</string>
     <string name="settings_language_korean">korea keel</string>

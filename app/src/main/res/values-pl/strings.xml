@@ -581,7 +581,7 @@
     <string name="timer_time_warning_box_title">Wprowadzono nieprawidłową wartość</string>
     <string name="settings_language_turkish">Turecki</string>
     <string name="reset_settings_title">Zresetuj ustawienia</string>
-    <string name="reset_settings_message">Czy na pewno chcesz zresetować wszystkie ustawienia aplikacji?\n\nUwaga: dzwonki niestandardowe nie zostaną zresetowane.</string>
+    <string name="reset_settings_message">Czy na pewno chcesz zresetować wszystkie ustawienia aplikacji?</string>
     <string name="blue_accent_color">Niebieski</string>
     <string name="toast_message_for_reset">Resetowanie zakończone</string>
     <string name="settings_language_korean">Koreański</string>

@@ -567,7 +567,7 @@
     <string name="timer_time_warning_box_title">Onjuiste waarde ingevoerd</string>
     <string name="settings_language_turkish">Turks</string>
     <string name="reset_settings_title">Instellingen opnieuw instellen</string>
-    <string name="reset_settings_message">Weet je zeker dat je alle instellingen opnieuw wilt instellen?\n\nLet op: aangepaste geluiden worden niet teruggezet.</string>
+    <string name="reset_settings_message">Weet je zeker dat je alle instellingen opnieuw wilt instellen?</string>
     <string name="blue_accent_color">Blauw</string>
     <string name="toast_message_for_reset">Terugzetten voltooid</string>
     <string name="settings_language_korean">Koreaans</string>

@@ -31,6 +31,7 @@ import static com.best.deskclock.utils.Utils.ACTION_LANGUAGE_CODE_CHANGED;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -74,14 +75,28 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 public class AboutFragment extends ScreenFragment
         implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
+
+    private static final String[] FONT_AND_IMAGE_KEYS = {
+            KEY_GENERAL_FONT,
+            KEY_ALARM_FONT,
+            KEY_TIMER_DURATION_FONT,
+            KEY_SW_FONT,
+            KEY_DIGITAL_CLOCK_FONT,
+            KEY_SCREENSAVER_DIGITAL_CLOCK_FONT,
+            KEY_ALARM_BACKGROUND_IMAGE,
+            KEY_TIMER_BACKGROUND_IMAGE,
+            KEY_SCREENSAVER_BACKGROUND_IMAGE
+    };
 
     /**
      * Callback to get the log export result.
@@ -309,36 +324,58 @@ public class AboutFragment extends ScreenFragment
         mEnableLocalLoggingPref.setOnPreferenceChangeListener(this);
     }
 
+    /**
+     * Resets the application to a clean state by removing user preferences,
+     * deleting custom ringtone data, clearing cached files, and resetting
+     * various runtime models.
+     *
+     * <p>This method performs the following steps:
+     * <ul>
+     *   <li>Removes all SharedPreferences except essential keys.</li>
+     *   <li>Releases SAF persistable permissions for custom ringtones.</li>
+     *   <li>Deletes all custom ringtone audio files stored internally.</li>
+     *   <li>Removes all ringtone-related preference entries.</li>
+     *   <li>Deletes imported fonts and background images.</li>
+     *   <li>Clears the in-memory list of custom ringtones.</li>
+     *   <li>Resets logs, widgets, timers, alarms, and UI state.</li>
+     * </ul>
+     * </p>
+     */
     private void resetPreferences() {
         SharedPreferences.Editor editor = mPrefs.edit();
         Map<String, ?> settings = mPrefs.getAll();
 
+        // 1. Delete all preferences except those to keep :
+        //    - KEY_IS_FIRST_LAUNCH key to prevent the "FirstLaunch" activity from reappearing;
+        //    - The essential permissions key, as it reflects the current system state
+        //      and should not be saved, restored, or reset like other preferences.
         for (Map.Entry<String, ?> entry : settings.entrySet()) {
             String key = entry.getKey();
-            // Do not reset the KEY_IS_FIRST_LAUNCH key to prevent the "FirstLaunch" activity from reappearing.
-            // Also, exclude keys corresponding to custom ringtones as this causes bugs for alarms.
-            // Next, exclude keys related to images and fonts because they only store the path to the imported file.
-            // Finally, exclude the essential permissions key, as it reflects the current system state
-            // and should not be saved, restored, or reset like other preferences.
-            if (!key.equals(KEY_IS_FIRST_LAUNCH)
-                    && !key.startsWith(KEY_GENERAL_FONT)
-                    && !key.startsWith(RINGTONE_URI)
-                    && !key.equals(RINGTONE_IDS)
-                    && !key.equals(NEXT_RINGTONE_ID)
-                    && !key.startsWith(RINGTONE_TITLE)
-                    && !key.equals(KEY_ALARM_FONT)
-                    && !key.equals(KEY_ALARM_BACKGROUND_IMAGE)
-                    && !key.equals(KEY_TIMER_DURATION_FONT)
-                    && !key.equals(KEY_TIMER_BACKGROUND_IMAGE)
-                    && !key.equals(KEY_SW_FONT)
-                    && !key.equals(KEY_DIGITAL_CLOCK_FONT)
-                    && !key.equals(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT)
-                    && !key.equals(KEY_SCREENSAVER_BACKGROUND_IMAGE)
-                    && !key.equals(KEY_ESSENTIAL_PERMISSIONS_GRANTED)) {
+
+            if (!key.equals(KEY_IS_FIRST_LAUNCH) && !key.equals(KEY_ESSENTIAL_PERMISSIONS_GRANTED)) {
                 editor.remove(key);
             }
         }
+
+        // 2. Release SAF permissions for custom ringtones
+        releaseAllCustomRingtonePermissions();
+
+        // 3. Delete audio files
+        deleteAllCustomRingtoneFiles();
+
+        // 4. Delete all preferences related to ringtones
+        clearAllCustomRingtones(editor);
+
+        // 5. Delete font/image files
+        for (String fontAndImageKey : FONT_AND_IMAGE_KEYS) {
+            clearFile(mPrefs.getString(fontAndImageKey, null));
+        }
+
+        // 6. Apply preferences changes
         editor.apply();
+
+        // 7. Clear the custom ringtones list
+        DataModel.getDataModel().clearCustomRingtones();
 
         tapCountOnVersion = 0;
 
@@ -360,6 +397,75 @@ public class AboutFragment extends ScreenFragment
         }
 
         CustomToast.show(requireContext(), R.string.toast_message_for_reset);
+    }
+
+    /**
+     * Removes all SharedPreferences entries related to custom ringtones.
+     *
+     * <p>This includes:
+     * <ul>
+     *   <li>The set of ringtone IDs.</li>
+     *   <li>The stored URI for each ringtone.</li>
+     *   <li>The stored title for each ringtone.</li>
+     *   <li>The next ringtone ID counter.</li>
+     * </ul>
+     * </p>
+     *
+     * <p>The provided {@link SharedPreferences.Editor} is used so that
+     * all preference changes can be applied in a single commit.</p>
+     */
+    private void clearAllCustomRingtones(SharedPreferences.Editor editor) {
+        Set<String> ids = mPrefs.getStringSet(RINGTONE_IDS, Collections.emptySet());
+
+        for (String id : ids) {
+            editor.remove(RINGTONE_URI + id);
+            editor.remove(RINGTONE_TITLE + id);
+        }
+
+        editor.remove(RINGTONE_IDS);
+        editor.remove(NEXT_RINGTONE_ID);
+    }
+
+    /**
+     * Deletes all custom ringtone audio files stored in the app's internal storage.
+     *
+     * <p>The method reads the list of ringtone IDs from SharedPreferences,
+     * retrieves the associated file paths, and removes each file if present.</p>
+     */
+    private void deleteAllCustomRingtoneFiles() {
+        Set<String> ids = mPrefs.getStringSet(RINGTONE_IDS, Collections.emptySet());
+
+        for (String id : ids) {
+            String uriString = mPrefs.getString(RINGTONE_URI + id, null);
+            if (uriString != null) {
+                Uri uri = Uri.parse(uriString);
+                clearFile(uri.getPath());
+            }
+        }
+    }
+
+    /**
+     * Releases all persistable SAF read permissions previously granted
+     * for custom ringtone URIs.
+     *
+     * <p>This ensures that the app no longer holds long-term access to
+     * external audio files selected through the Storage Access Framework.</p>
+     */
+    private void releaseAllCustomRingtonePermissions() {
+        ContentResolver contentResolver = requireContext().getContentResolver();
+        Set<String> ids = mPrefs.getStringSet(RINGTONE_IDS, Collections.emptySet());
+
+        for (String id : ids) {
+            String uriString = mPrefs.getString(RINGTONE_URI + id, null);
+            if (uriString != null) {
+                try {
+                    contentResolver.releasePersistableUriPermission(
+                            Uri.parse(uriString), Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                } catch (SecurityException ignore) {
+                    LogUtils.w("Unable to release permission for " + uriString);
+                }
+            }
+        }
     }
 
     /**

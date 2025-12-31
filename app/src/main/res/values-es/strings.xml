@@ -568,7 +568,7 @@
     <string name="settings_language_turkish">Turco</string>
     <string name="settings_tab_to_display">Pestaña a mostrar cuando se abre la aplicación</string>
     <string name="reset_settings_title">Reiniciar configuraciones</string>
-    <string name="reset_settings_message">Estás seguro que deseas reiniciar todas las configuraciones?\n\nNota: los tonos personalizados no sé reiniciaran.</string>
+    <string name="reset_settings_message">Estás seguro que deseas reiniciar todas las configuraciones?</string>
     <string name="blue_accent_color">Azul</string>
     <string name="settings_language_korean">Coreano</string>
     <string name="timer_button_time_minutes_warning_box_text">Ingresa un valor entre 0 y 60 minutos</string>

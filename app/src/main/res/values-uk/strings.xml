@@ -590,7 +590,7 @@
     <string name="timer_time_warning_box_title">Уведено неправильне значення</string>
     <string name="timer_button_time_minutes_warning_box_text">Уведіть значення від 0 до 60 хвилин</string>
     <string name="settings_language_turkish">Турецька</string>
-    <string name="reset_settings_message">Ви дійсно хочете скинути всі налаштування додатка?\n\nЗауважте, що користувацькі мелодії не скидаються.</string>
+    <string name="reset_settings_message">Ви дійсно хочете скинути всі налаштування додатка?</string>
     <string name="reset_settings_title">Скинути налаштування</string>
     <string name="blue_accent_color">Синій</string>
     <string name="toast_message_for_reset">Скидання завершено</string>

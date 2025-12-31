@@ -585,7 +585,7 @@
     <string name="permission_info_title">Только для устройств Xiaomi</string>
     <string name="settings_language_turkish">Турецкий</string>
     <string name="reset_settings_title">Сбросить настройки</string>
-    <string name="reset_settings_message">Вы уверены, что вы хотите сбросить все настройки приложения? \n\nВнимание: пользовательские рингтоны не будут сброшены.</string>
+    <string name="reset_settings_message">Вы уверены, что вы хотите сбросить все настройки приложения?</string>
     <string name="blue_accent_color">Синий</string>
     <string name="toast_message_for_reset">Сброс выполнен</string>
     <string name="settings_language_korean">Корейский</string>

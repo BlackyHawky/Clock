@@ -380,7 +380,7 @@
     <string name="gnu_gpl">Licença Pública Geral v3.0 GNU</string>
     <string name="app_slogan">Relógio FOSS 100%, baseado no AOSP</string>
     <string name="reset_settings_title">Reiniciar as definições</string>
-    <string name="reset_settings_message">Deseja reiniciar as definições da aplicação? \n\nNota: os toques personalizados não serão reiniciados.</string>
+    <string name="reset_settings_message">Deseja reiniciar as definições da aplicação?</string>
     <string name="toast_message_for_reset">Reinício concluído</string>
     <string name="dialog_close">Fechar</string>
     <string name="alarm_settings_summary">Definir estilo, toque predefinido, volume, ações para ignorar ou adiar alarmes, primeiro dia da semana e hora de notificação do lembrete</string>

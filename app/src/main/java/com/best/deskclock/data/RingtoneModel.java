@@ -289,6 +289,21 @@ public final class RingtoneModel {
     }
 
     /**
+     * Clears the in-memory list of custom ringtones.
+     *
+     * <p>This method removes all cached custom ringtones stored in {@code mCustomRingtones}
+     * and forces the list to be reloaded from SharedPreferences the next time it is accessed.
+     * It is typically used during a full application reset, after the ringtone-related
+     * preferences and files have been deleted.</p>
+     */
+    public void clearCustomRingtones() {
+        if (mCustomRingtones != null) {
+            mCustomRingtones.clear();
+            mCustomRingtones = null;
+        }
+    }
+
+    /**
      * Releases the resources used by the ringtone model, including observers and receivers.
      * <p>
      * Calling this method is crucial to avoid memory leaks, especially when the `RingtoneModel`
