@@ -65,6 +65,10 @@ public class CustomToast {
      * styling across light and dark modes. The returned Toast is not
      * shown automatically and must be displayed by the caller.</p>
      *
+     * <p>Note: even if {@link Toast#setView(View)} is obsolete, its use is not problematic;
+     * indeed, apps targeting API level 30 or higher that are in the background will
+     * not have custom toast views displayed.</p>
+     *
      * @param context the base context used to apply theming
      * @param layout the custom layout to display inside the toast
      * @param duration the toast duration (e.g., Toast.LENGTH_SHORT or Toast.LENGTH_LONG)

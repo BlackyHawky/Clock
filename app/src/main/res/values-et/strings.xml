@@ -509,7 +509,6 @@
     <string name="delete_occasional_alarm_after_use_title">Kustuta äratus peale loobumist</string>
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Vaikimisi kasuta juhuslike äratuste automaatset kustutamist</string>
     <string name="occasional_alarm_alert_predismiss_title">Tulevane juhuäratus</string>
-    <string name="occasional_alarm_deleted"><xliff:g example="14:20" id="alarm_time">%s</xliff:g> juhuäratus on kustutatud</string>
     <string name="backup_restore_dialog_message">Kas sa soovid rakenduse andmeid varundada faili või neid taastada sealt?</string>
     <string name="backup_button_title">Varunda</string>
     <string name="restore_button_title">Taasta</string>

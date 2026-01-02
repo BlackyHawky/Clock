@@ -32,6 +32,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_NIGHT_ACCENT_COLOR
 import static com.best.deskclock.settings.PreferencesKeys.KEY_THEME;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -89,12 +90,16 @@ public class BaseActivity extends AppCompatActivity {
     private SharedPreferences mPrefs;
 
     @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(Utils.getLocalizedContext(newBase));
+    }
+
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         mPrefs = getDefaultSharedPreferences(this);
 
         initDebugAndNightlyDefaults();
         applyThemeAndAccentColor();
-        setLocale();
 
         super.onCreate(savedInstanceState);
 
@@ -233,19 +238,6 @@ public class BaseActivity extends AppCompatActivity {
             case LIGHT_THEME -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             case DARK_THEME -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         }
-    }
-
-    /**
-     * Sets the locale of the given activity based on the custom language stored in SharedPreferences.
-     * <p>
-     * This method applies the selected locale and updates the activity's configuration accordingly.
-     * It ensures that the activity is localized to the specified language and the UI is refreshed
-     * with the new locale settings.</p>
-     */
-    private void setLocale() {
-        Utils.applySpecificLocale(this, SettingsDAO.getCustomLanguageCode(mPrefs));
-        getResources().updateConfiguration(
-                getResources().getConfiguration(), getResources().getDisplayMetrics());
     }
 
     /**

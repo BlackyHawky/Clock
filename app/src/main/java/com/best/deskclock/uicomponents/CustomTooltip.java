@@ -2,6 +2,7 @@ package com.best.deskclock.uicomponents;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -72,6 +73,7 @@ public class CustomTooltip {
         Typeface typeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
 
         // Inflate layout
+        @SuppressLint("InflateParams")
         View tooltipView = LayoutInflater.from(context).inflate(R.layout.custom_tooltip, null);
         TextView tooltipText = tooltipView.findViewById(R.id.tooltip_text);
         tooltipText.setText(text);

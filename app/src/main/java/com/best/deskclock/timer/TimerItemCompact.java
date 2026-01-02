@@ -15,7 +15,6 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.SystemClock;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -41,7 +40,6 @@ public class TimerItemCompact extends ConstraintLayout {
     SharedPreferences mPrefs;
     String mGeneralFontPath;
     Typeface mTimerTimeTypeface;
-    DisplayMetrics mDisplayMetrics;
 
     /** Displays timer progress as a horizontal bar. */
     private TimerBarView mTimerBar;
@@ -97,7 +95,6 @@ public class TimerItemCompact extends ConstraintLayout {
         mPrefs = getDefaultSharedPreferences(mContext);
         mGeneralFontPath = SettingsDAO.getGeneralFont(mPrefs);
         mTimerTimeTypeface = ThemeUtils.loadFont(SettingsDAO.getTimerDurationFont(mPrefs));
-        mDisplayMetrics = getResources().getDisplayMetrics();
 
         setBackground(ThemeUtils.cardBackground(mContext));
 

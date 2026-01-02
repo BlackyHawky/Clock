@@ -575,7 +575,6 @@
     <string name="display_next_alarm_title">위젯에 다음 알람 표시</string>
     <string name="description_snooze_button">눌러서 알람 잠시 미루기</string>
     <string name="alarm_is_dismissed_and_deleted"><xliff:g example="14:20" id="alarm_time">%s</xliff:g> 알람을 해제하고 삭제했습니다.</string>
-    <string name="occasional_alarm_deleted"><xliff:g example="14:20" id="alarm_time">%s</xliff:g> 일회성 알람을 삭제했습니다.</string>
     <string name="date_picker_style_title">날씨 선택 도구 스타일</string>
     <string name="date_picker_style_calendar">캘린더</string>
     <string name="date_picker_style_text">텍스트</string>

@@ -1269,8 +1269,6 @@
     <string name="alarm_undo">undo</string>
     <!-- Toast content when an alarm was deleted  -->
     <string name="alarm_deleted">Alarm deleted</string>
-    <!-- Toast content when an occasional alarm has been deleted  -->
-    <string name="occasional_alarm_deleted">Occasional <xliff:g example="14:20" id="alarm_time">%s</xliff:g> alarm deleted</string>
     <!-- Toast content when an alarm was created  -->
     <string name="alarm_created">Alarm created</string>
     <!-- slash between date and next alarm in the clock: used for the DigitalAppWidget -->

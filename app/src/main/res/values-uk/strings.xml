@@ -527,7 +527,6 @@
     <string name="alarm_settings_general_summary">Це налаштування можна змінити для кожного будильника в розгорнутому перегляді будильника</string>
     <string name="delete_occasional_alarm_after_use_title">Видалити будильник після вимкнення</string>
     <string name="occasional_alarm_alert_predismiss_title">Наступний нерегулярний будильник</string>
-    <string name="occasional_alarm_deleted">Нерегулярний будильник <xliff:g example="14:20" id="alarm_time">%s</xliff:g> видалено</string>
     <string name="backup_restore_title">Резервне копіювання та відновлення</string>
     <string name="backup_restore_dialog_message">Бажаєте створити резервну копію чи відновити дані додатка?</string>
     <string name="backup_button_title">Створити</string>

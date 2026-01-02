@@ -258,7 +258,7 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
                         mPrefs.edit().remove(prefKey).apply();
                         pref.setTitle(isFontFile ? R.string.custom_font_title : R.string.background_image_title);
                         if (onPreferenceDeleted != null) {
-                            onPreferenceDeleted.onDeleted(pref);
+                            onPreferenceDeleted.onDeleted();
                         }
                         deleteFile(fontPath, prefKey, isFontFile);
                     },
@@ -327,7 +327,7 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
      * that appears when a file is selected.
      */
     protected interface OnPreferenceDeleted {
-        void onDeleted(CustomPreference pref);
+        void onDeleted();
     }
 
 }

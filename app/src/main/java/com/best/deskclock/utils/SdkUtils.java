@@ -106,4 +106,5 @@ public class SdkUtils {
     public static boolean isAtLeastAndroid14() {
         return isAtLeastVersion(Build.VERSION_CODES.UPSIDE_DOWN_CAKE);
     }
+
 }

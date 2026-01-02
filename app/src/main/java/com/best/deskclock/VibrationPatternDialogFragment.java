@@ -102,7 +102,7 @@ public class VibrationPatternDialogFragment extends DialogFragment {
         SharedPreferences prefs = getDefaultSharedPreferences(context);
         Typeface typeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
 
-        mVibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        mVibrator = context.getSystemService(Vibrator.class);
 
         mSelectedPatternKey = requireArguments().getString(VIBRATION_PATTERN, DEFAULT_VIBRATION_PATTERN);
         if (savedInstanceState != null) {

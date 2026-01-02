@@ -315,7 +315,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
 
             case KEY_ALARM_BACKGROUND_IMAGE -> selectCustomFile(mAlarmBackgroundImagePref, imagePickerLauncher,
                     SettingsDAO.getAlarmBackgroundImage(mPrefs), KEY_ALARM_BACKGROUND_IMAGE,
-                    false, mAlarmBackgroundImagePref -> {
+                    false, () -> {
                 mEnableAlarmBlurEffectPref.setVisible(false);
                 mAlarmBlurIntensityPref.setVisible(false);
             });

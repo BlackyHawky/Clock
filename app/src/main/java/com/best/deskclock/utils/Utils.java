@@ -138,19 +138,17 @@ public class Utils {
     }
 
     /**
-     * Applies the specified locale to the given context by setting the locale
-     * to the resources' configuration. If the custom language is set to the system language,
-     * the system's locale is applied. Otherwise, a new locale is created using the custom language.
-     * <p>
-     * This method sets the default locale for the application and updates the configuration
-     * of the context to reflect the locale change.
+     * Creates and returns a {@link Context} configured with the user's preferred Locale.
      *
-     * @param context The context in which the locale should be applied.
-     * @param customLanguageCode The custom language code (e.g., "en", "fr")
-     *                           or a special keyword for the system language.
+     * <p>If the user selected the system default language, the system Locale is used.
+     * Otherwise, a Locale is built from the stored custom language code.</p>
+     *
+     * @param context The base context used to read preferences and resources.
+     * @return A new Context whose configuration applies the selected Locale.
      */
-    @SuppressLint("AppBundleLocaleChanges")
-    public static void applySpecificLocale(Context context, String customLanguageCode) {
+    public static Context getLocalizedContext(Context context) {
+        String customLanguageCode = SettingsDAO.getCustomLanguageCode(getDefaultSharedPreferences(context));
+
         Locale locale;
 
         if (DEFAULT_SYSTEM_LANGUAGE_CODE.equals(customLanguageCode)) {
@@ -170,8 +168,10 @@ public class Utils {
 
         Locale.setDefault(locale);
 
-        Configuration config = context.getResources().getConfiguration();
+        Configuration config = new Configuration(context.getResources().getConfiguration());
         config.setLocale(locale);
+
+        return context.createConfigurationContext(config);
     }
 
     /**
@@ -185,18 +185,6 @@ public class Utils {
         return SdkUtils.isAtLeastAndroid7()
                 ? context.createDeviceProtectedStorageContext()
                 : context;
-    }
-
-    /**
-     * Apply a custom locale and return a localized context.
-     *
-     * @param context the context in which the locale is to be applied.
-     * @return a localized context based on the custom language.
-     */
-    public static Context getLocalizedContext(Context context) {
-        String customLanguageCode = SettingsDAO.getCustomLanguageCode(getDefaultSharedPreferences(context));
-        applySpecificLocale(context, customLanguageCode);
-        return context.createConfigurationContext(context.getResources().getConfiguration());
     }
 
     /**

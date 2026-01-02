@@ -496,7 +496,6 @@
     <string name="description_direction_both_for_occasional_non_repeatable_alarm">Przesuń w lewo lub w prawo, aby odrzucić i usunąć alarm</string>
     <string name="timer_settings_summary">Ustaw domyślny dzwonek, głośność i sortowanie minutnika</string>
     <string name="first_launch_dialog_message">Czy na pewno chcesz wyjść z aplikacji?</string>
-    <string name="occasional_alarm_deleted">Okazjonalny alarm <xliff:g example="14:20" id="alarm_time">%s</xliff:g> usunięty</string>
     <string name="material_you_digital_widget">Zegar cyfrowy Material You</string>
     <string name="analog_widget_material_you">Zegar analogowy Material You</string>
     <string name="vertical_digital_widget">Zegar cyfrowy pionowy</string>

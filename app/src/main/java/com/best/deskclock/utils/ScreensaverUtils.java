@@ -5,6 +5,7 @@ package com.best.deskclock.utils;
 import static android.view.View.VISIBLE;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -178,6 +179,7 @@ public class ScreensaverUtils {
      * @param view   the root view containing the battery indicator TextView
      * @param intent the Intent carrying battery status information (ACTION_BATTERY_CHANGED)
      */
+    @SuppressLint("SetTextI18n")
     public static void updateBatteryText(View view, Intent intent) {
         int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
         int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);

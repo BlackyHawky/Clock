@@ -514,7 +514,6 @@
     <string name="description_direction_both_for_occasional_alarm">Glisser vers la gauche pour répéter ou vers la droite pour arrêter et supprimer l\'alarme</string>
     <string name="description_direction_both_for_occasional_non_repeatable_alarm">Glisser vers la gauche ou la droite pour arrêter et supprimer l\'alarme</string>
     <string name="occasional_alarm_alert_predismiss_title">Alarme occasionnelle imminente</string>
-    <string name="occasional_alarm_deleted">Alarme occasionnelle de <xliff:g example="14:20" id="alarm_time">%s</xliff:g> supprimée</string>
     <string name="backup_restore_title">Sauvegarde &amp; Restauration</string>
     <string name="backup_restore_dialog_message">Voulez-vous sauvegarder ou restaurer les données de l\'application ?</string>
     <string name="backup_button_title">Sauvegarder</string>

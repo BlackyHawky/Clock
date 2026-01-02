@@ -127,7 +127,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/play_pause"
         app:layout_constraintBottom_toBottomOf="@+id/play_pause"
-        tools:text="01:00" />
+        tools:text="01:00"
+        tools:ignore="InconsistentLayout" />
 
     <!-- For phones with multiple timers, this icon is not displayed. See the TimerItem.java file. -->
     <ImageButton
