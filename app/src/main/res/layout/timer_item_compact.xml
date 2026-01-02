@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2015 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+-->
+
+<com.best.deskclock.timer.TimerItemCompact xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="4dp"
+    android:layout_marginHorizontal="10dp"
+    android:paddingBottom="5dp"
+    tools:background="@drawable/bg_card_for_preview">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/timer_label"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="12dp"
+        android:background="?attr/selectableItemBackground"
+        android:drawablePadding="8dp"
+        android:hint="@string/add_label"
+        android:gravity="center_vertical"
+        android:textSize="16sp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:focusable="true"
+        app:drawableStartCompat="@drawable/ic_label"
+        app:drawableTint="?attr/colorOnSurfaceVariant"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/delete_timer"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TextContrastCheck" />
+
+    <View
+        android:id="@+id/indicator_state"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@drawable/bg_circle_for_preview"
+        tools:backgroundTint="#FF99CC00" />
+
+    <ImageButton
+        android:id="@+id/delete_timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/ic_delete"
+        android:scaleType="centerInside"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/delete"
+        app:tint="?attr/colorPrimary"
+        app:layout_constraintEnd_toStartOf="@+id/indicator_state"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <com.best.deskclock.uicomponents.AutoSizingTextView
+        android:id="@+id/timer_time_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="18dp"
+        android:includeFontPadding="false"
+        android:textSize="40sp"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/reset"
+        app:layout_constraintTop_toTopOf="@+id/play_pause"
+        app:layout_constraintBottom_toBottomOf="@+id/play_pause"
+        tools:text="01:23" />
+
+    <!-- Only displayed for phones when the timer is reset. See the TimerItem.java file. -->
+    <com.best.deskclock.uicomponents.AutoSizingTextView
+        android:id="@+id/timer_total_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"
+        android:paddingVertical="8dp"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:textSize="26sp"
+        android:drawablePadding="8dp"
+        android:visibility="gone"
+        app:drawableStartCompat="@drawable/ic_edit"
+        app:drawableTint="?android:attr/textColor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/play_pause"
+        app:layout_constraintBottom_toBottomOf="@+id/play_pause"
+        tools:text="01:00" />
+
+    <!-- Constraints, margins and paddings adjusted in the TimerItem.java file to have a suitable
+         reduced view. -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/play_pause"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="10dp"
+        android:contentDescription="@string/timer_start"
+        android:scaleType="centerInside"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timer_label"
+        tools:icon="@drawable/ic_fab_play" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/timer_add_time_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:maxLines="1"
+        app:layout_constraintEnd_toStartOf="@+id/play_pause"
+        app:layout_constraintTop_toTopOf="@+id/play_pause"
+        app:layout_constraintBottom_toBottomOf="@+id/play_pause"
+        tools:text="+ 1:00"
+        tools:textStyle="bold" />
+
+    <ImageButton
+        android:id="@+id/reset"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="18dp"
+        android:src="@drawable/ic_reset"
+        android:scaleType="centerCrop"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/reset"
+        app:tint="?attr/colorPrimary"
+        app:layout_constraintEnd_toStartOf="@+id/timer_add_time_button"
+        app:layout_constraintTop_toTopOf="@+id/timer_add_time_button"
+        app:layout_constraintBottom_toBottomOf="@+id/timer_add_time_button"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <com.best.deskclock.timer.TimerBarView
+        android:id="@+id/timer_bar"
+        android:layout_width="match_parent"
+        android:layout_height="18dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginHorizontal="12dp"
+        app:layout_constraintTop_toBottomOf="@+id/play_pause"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</com.best.deskclock.timer.TimerItemCompact>

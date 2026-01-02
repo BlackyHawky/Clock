@@ -6,6 +6,7 @@
 
 package com.best.deskclock.timer;
 
+import static android.view.View.VISIBLE;
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
@@ -29,6 +30,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -68,6 +70,7 @@ import java.util.List;
 public class ExpiredTimersActivity extends BaseActivity {
 
     private SharedPreferences mPrefs;
+    private DisplayMetrics mDisplayMetrics;
 
     /**
      * Scheduled to update the timers while at least one is expired.
@@ -113,6 +116,7 @@ public class ExpiredTimersActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         mPrefs = getDefaultSharedPreferences(this);
+        mDisplayMetrics = getResources().getDisplayMetrics();
 
         // To manually manage insets
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
@@ -197,9 +201,17 @@ public class ExpiredTimersActivity extends BaseActivity {
         }
 
         if (SettingsDAO.isTimerRingtoneTitleDisplayed(mPrefs)) {
+            View ringtoneLayout = findViewById(R.id.ringtone_layout);
+            ringtoneLayout.setVisibility(VISIBLE);
             mRingtoneTitle = findViewById(R.id.ringtone_title);
             mRingtoneIcon = findViewById(R.id.ringtone_icon);
             displayRingtoneTitle();
+
+            if (!ThemeUtils.isTablet() && ThemeUtils.isLandscape()) {
+                ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) mExpiredTimersScrollView.getLayoutParams();
+                lp.bottomMargin = (int) dpToPx(0, mDisplayMetrics);
+                mExpiredTimersScrollView.setLayoutParams(lp);
+            }
         }
 
         AlarmUtils.hideSystemBarsOfTriggeredAlarms(getWindow(), getWindow().getDecorView());
@@ -270,7 +282,7 @@ public class ExpiredTimersActivity extends BaseActivity {
         final Drawable iconRingtone = silent
                 ? AppCompatResources.getDrawable(this, R.drawable.ic_ringtone_silent)
                 : AppCompatResources.getDrawable(this, R.drawable.ic_music_note);
-        int iconRingtoneSize = (int) dpToPx(24, getResources().getDisplayMetrics());
+        int iconRingtoneSize = (int) dpToPx(24, mDisplayMetrics);
         final int ringtoneTitleColor = SettingsDAO.getTimerRingtoneTitleColor(mPrefs);
         final int shadowOffset = SettingsDAO.getTimerShadowOffset(mPrefs);
         final float shadowRadius = shadowOffset * 0.5f;
@@ -343,32 +355,43 @@ public class ExpiredTimersActivity extends BaseActivity {
         TransitionManager.beginDelayedTransition(mExpiredTimersScrollView, new AutoTransition());
 
         final int timerId = timer.getId();
-        final TimerItem timerItem = (TimerItem)
-                getLayoutInflater().inflate(R.layout.timer_item, mExpiredTimersView, false);
+        final boolean isCompact = SettingsDAO.isCompactTimersDisplayed(mPrefs);
+        final boolean useCompactLayout = ThemeUtils.isPortrait() && isCompact;
+
+        final View view = getLayoutInflater().inflate(useCompactLayout
+                ? R.layout.timer_item_compact
+                : R.layout.timer_item, mExpiredTimersView, false );
+
+        if (useCompactLayout) {
+            ((TimerItemCompact) view).bindTimer(timer);
+        } else {
+            ((TimerItem) view).bindTimer(timer);
+        }
+
         // Store the timer id as a tag on the view so it can be located on delete.
-        timerItem.setId(timerId);
-        timerItem.bindTimer(timer);
-        mExpiredTimersView.addView(timerItem);
+        view.setId(timerId);
+
+        mExpiredTimersView.addView(view);
 
         // Hide the label hint for expired timers.
-        final TextView labelView = timerItem.findViewById(R.id.timer_label);
+        final TextView labelView = view.findViewById(R.id.timer_label);
         labelView.setVisibility(TextUtils.isEmpty(timer.getLabel()) ? View.GONE : View.VISIBLE);
 
         // Add logic to the "Add Minute Or Hour" button.
-        final View addTimeButton = timerItem.findViewById(R.id.timer_add_time_button);
+        final View addTimeButton = view.findViewById(R.id.timer_add_time_button);
         addTimeButton.setOnClickListener(v -> {
-            final Timer timer12 = DataModel.getDataModel().getTimer(timerId);
-            DataModel.getDataModel().addCustomTimeToTimer(timer12);
+            final Timer timer1 = DataModel.getDataModel().getTimer(timerId);
+            DataModel.getDataModel().addCustomTimeToTimer(timer1);
         });
 
         // Add logic to hide the 'X' and reset buttons
-        final View deleteButton = timerItem.findViewById(R.id.delete_timer);
+        final View deleteButton = view.findViewById(R.id.delete_timer);
         deleteButton.setVisibility(View.GONE);
-        final View resetButton = timerItem.findViewById(R.id.reset);
+        final View resetButton = view.findViewById(R.id.reset);
         resetButton.setVisibility(View.GONE);
 
         // Add logic to the "Stop" button
-        final View stopButton = timerItem.findViewById(R.id.play_pause);
+        final View stopButton = view.findViewById(R.id.play_pause);
         stopButton.setOnClickListener(v -> {
             final Timer timer1 = DataModel.getDataModel().getTimer(timerId);
             DataModel.getDataModel().resetOrDeleteExpiredTimers(R.string.label_deskclock);
@@ -440,11 +463,20 @@ public class ExpiredTimersActivity extends BaseActivity {
         @Override
         public void run() {
             final int count = mExpiredTimersView.getChildCount();
+
             for (int i = 0; i < count; ++i) {
-                final TimerItem timerItem = (TimerItem) mExpiredTimersView.getChildAt(i);
-                final Timer timer = DataModel.getDataModel().getTimer(timerItem.getId());
-                if (timer != null) {
-                    timerItem.updateTimeDisplay(timer);
+                final View child = mExpiredTimersView.getChildAt(i);
+
+                final int timerId = child.getId();
+                final Timer timer = DataModel.getDataModel().getTimer(timerId);
+                if (timer == null) {
+                    continue;
+                }
+
+                if (child instanceof TimerItem) {
+                    ((TimerItem) child).updateTimeDisplay(timer);
+                } else if (child instanceof TimerItemCompact) {
+                    ((TimerItemCompact) child).updateTimeDisplay(timer);
                 }
             }
 

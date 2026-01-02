@@ -5,6 +5,7 @@ package com.best.deskclock.settings;
 import static android.app.Activity.OVERRIDE_TRANSITION_OPEN;
 import static android.app.Activity.RESULT_OK;
 
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_COMPACT_TIMERS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_TIMER_RINGTONE_TITLE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_TIMER_STATE_INDICATOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_TIMER_BLUR_EFFECT;
@@ -42,12 +43,14 @@ import com.best.deskclock.settings.custompreference.CustomSeekbarPreference;
 import com.best.deskclock.settings.custompreference.CustomSwitchPreference;
 import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.utils.SdkUtils;
+import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 
 public class TimerDisplayCustomizationFragment extends ScreenFragment
         implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
     CustomPreference mTimerDurationFontPref;
+    CustomSwitchPreference mDisplayCompactTimersPref;
     CustomSwitchPreference mTransparentBackgroundPref;
     CustomSwitchPreference mDisplayTimerStateIndicatorPref;
     CustomSwitchPreference mDisplayRingtoneTitlePref;
@@ -155,6 +158,7 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
         addPreferencesFromResource(R.xml.settings_timer_display);
 
         mTimerDurationFontPref = findPreference(KEY_TIMER_DURATION_FONT);
+        mDisplayCompactTimersPref = findPreference(KEY_DISPLAY_COMPACT_TIMERS);
         mTransparentBackgroundPref = findPreference(KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER);
         mDisplayTimerStateIndicatorPref = findPreference(KEY_DISPLAY_TIMER_STATE_INDICATOR);
         mDisplayRingtoneTitlePref = findPreference(KEY_DISPLAY_TIMER_RINGTONE_TITLE);
@@ -178,6 +182,8 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
     @Override
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
+            case KEY_DISPLAY_COMPACT_TIMERS -> Utils.setVibrationTime(requireContext(), 50);
+
             case KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER -> {
                 boolean isNotBackgroundTransparent = !(boolean) newValue;
                 boolean isNotTimerBackgroundImageNull = SettingsDAO.getTimerBackgroundImage(mPrefs) != null;
@@ -296,6 +302,9 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
                 ? R.string.custom_font_title
                 : R.string.custom_font_title_variant));
         mTimerDurationFontPref.setOnPreferenceClickListener(this);
+
+        mDisplayCompactTimersPref.setVisible(!ThemeUtils.isTablet());
+        mDisplayCompactTimersPref.setOnPreferenceChangeListener(this);
 
         mTransparentBackgroundPref.setOnPreferenceChangeListener(this);
 

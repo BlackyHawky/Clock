@@ -6,6 +6,7 @@
 
 package com.best.deskclock.settings;
 
+import static android.view.View.VISIBLE;
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
@@ -22,6 +23,7 @@ import android.graphics.Shader;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +33,9 @@ import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.graphics.Insets;
 import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.best.deskclock.BaseActivity;
 import com.best.deskclock.R;
@@ -39,7 +43,9 @@ import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.timer.TimerItem;
+import com.best.deskclock.timer.TimerItemCompact;
 import com.best.deskclock.utils.AlarmUtils;
+import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
@@ -50,10 +56,21 @@ import java.io.File;
 public class TimerDisplayPreviewActivity extends BaseActivity {
 
     private SharedPreferences mPrefs;
+    private DisplayMetrics mDisplayMetrics;
 
+    /**
+     * The scene root for transitions when expired timers are added/removed from this container.
+     */
+    private ViewGroup mExpiredTimersScrollView;
+
+    /**
+     * Displays the expired timers.
+     */
     private ViewGroup mExpiredTimersView;
+
     private ImageView mRingtoneIcon;
     private TextView mRingtoneTitle;
+
     private boolean mIsFadeTransitionsEnabled;
 
     @Override
@@ -61,6 +78,7 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         mPrefs = getDefaultSharedPreferences(this);
+        mDisplayMetrics = getResources().getDisplayMetrics();
 
         // To manually manage insets
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
@@ -73,6 +91,7 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
         setContentView(R.layout.expired_timers_activity);
 
         mIsFadeTransitionsEnabled = SettingsDAO.isFadeTransitionsEnabled(mPrefs);
+        mExpiredTimersScrollView = findViewById(R.id.expired_timers_scroll);
         mExpiredTimersView = findViewById(R.id.expired_timers_list);
         final ImageView timerBackgroundImage = findViewById(R.id.timer_background_image);
         final String imagePath = SettingsDAO.getTimerBackgroundImage(mPrefs);
@@ -83,7 +102,7 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
         } else {
             // Apply a background image and a blur effect.
             if (imagePath != null) {
-                timerBackgroundImage.setVisibility(View.VISIBLE);
+                timerBackgroundImage.setVisibility(VISIBLE);
 
                 File imageFile = new File(imagePath);
                 if (imageFile.exists()) {
@@ -118,12 +137,22 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
         addTimer(fakeTimer);
 
         if (SettingsDAO.isTimerRingtoneTitleDisplayed(mPrefs)) {
+            View ringtoneLayout = findViewById(R.id.ringtone_layout);
+            ringtoneLayout.setVisibility(VISIBLE);
             mRingtoneTitle = findViewById(R.id.ringtone_title);
             mRingtoneIcon = findViewById(R.id.ringtone_icon);
             displayRingtoneTitle();
+
+            if (!ThemeUtils.isTablet() && ThemeUtils.isLandscape()) {
+                ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) mExpiredTimersScrollView.getLayoutParams();
+                lp.bottomMargin = (int) dpToPx(0, mDisplayMetrics);
+                mExpiredTimersScrollView.setLayoutParams(lp);
+            }
         }
 
         AlarmUtils.hideSystemBarsOfTriggeredAlarms(getWindow(), getWindow().getDecorView());
+
+        applyWindowInsets();
 
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
@@ -141,7 +170,7 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
         final Drawable iconRingtone = silent
                 ? AppCompatResources.getDrawable(this, R.drawable.ic_ringtone_silent)
                 : AppCompatResources.getDrawable(this, R.drawable.ic_music_note);
-        int iconRingtoneSize = (int) dpToPx(24, getResources().getDisplayMetrics());
+        int iconRingtoneSize = (int) dpToPx(24, mDisplayMetrics);
         final int ringtoneTitleColor = SettingsDAO.getTimerRingtoneTitleColor(mPrefs);
         final int shadowOffset = SettingsDAO.getTimerShadowOffset(mPrefs);
         final float shadowRadius = shadowOffset * 0.5f;
@@ -192,29 +221,55 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
     }
 
     /**
+     * This method adjusts the space occupied by system elements (such as the status bar,
+     * navigation bar or screen notch) and adjust the display of the application interface
+     * accordingly.
+     */
+    private void applyWindowInsets() {
+        InsetsUtils.doOnApplyWindowInsets(mExpiredTimersScrollView, (v, insets) -> {
+            // Get the system bar and notch insets
+            Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() |
+                    WindowInsetsCompat.Type.displayCutout());
+
+            v.setPadding(bars.left, bars.top, bars.right, 0);
+        });
+    }
+
+    /**
      * Create and add a new view that corresponds with the given {@code timer}.
      */
     private void addTimer(Timer timer) {
         final int timerId = timer.getId();
-        final TimerItem timerItem = (TimerItem)
-                getLayoutInflater().inflate(R.layout.timer_item, mExpiredTimersView, false);
+        final boolean isCompact = SettingsDAO.isCompactTimersDisplayed(mPrefs);
+        final boolean useCompactLayout = ThemeUtils.isPortrait() && isCompact;
+
+        final View view = getLayoutInflater().inflate(useCompactLayout
+                ? R.layout.timer_item_compact
+                : R.layout.timer_item, mExpiredTimersView, false );
+
+        if (useCompactLayout) {
+            ((TimerItemCompact) view).bindTimer(timer);
+        } else {
+            ((TimerItem) view).bindTimer(timer);
+        }
+
         // Store the timer id as a tag on the view so it can be located on delete.
-        timerItem.setId(timerId);
-        timerItem.bindTimer(timer);
-        mExpiredTimersView.addView(timerItem);
+        view.setId(timerId);
+
+        mExpiredTimersView.addView(view);
 
         // Hide the label hint for expired timers.
-        final TextView labelView = timerItem.findViewById(R.id.timer_label);
-        labelView.setVisibility(View.VISIBLE);
+        final TextView labelView = view.findViewById(R.id.timer_label);
+        labelView.setVisibility(VISIBLE);
 
         // Add logic to hide the 'X' and reset buttons
-        final View deleteButton = timerItem.findViewById(R.id.delete_timer);
+        final View deleteButton = view.findViewById(R.id.delete_timer);
         deleteButton.setVisibility(View.GONE);
-        final View resetButton = timerItem.findViewById(R.id.reset);
+        final View resetButton = view.findViewById(R.id.reset);
         resetButton.setVisibility(View.GONE);
 
         // Add logic to the "Stop" button
-        final View stopButton = timerItem.findViewById(R.id.play_pause);
+        final View stopButton = view.findViewById(R.id.play_pause);
         stopButton.setOnClickListener(v -> finishActivity());
 
         // If the first timer was just added, center it.

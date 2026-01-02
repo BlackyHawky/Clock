@@ -9,6 +9,7 @@ package com.best.deskclock.timer;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,14 +27,26 @@ import com.best.deskclock.utils.Utils;
 public class TimerViewHolder extends RecyclerView.ViewHolder {
 
     private int mTimerId;
-    private final TimerItem mTimerItem;
+    private TimerItem mTimerItem;
+    private TimerItemCompact mTimerItemCompact;
     private final TimerClickHandler mTimerClickHandler;
 
-    public TimerViewHolder(View view, TimerClickHandler timerClickHandler) {
+    public TimerViewHolder(View view, TimerClickHandler timerClickHandler, int viewType) {
         super(view);
 
         final Context context = view.getContext();
-        mTimerItem = (TimerItem) view;
+        final SharedPreferences prefs = getDefaultSharedPreferences(context);
+
+        switch (viewType) {
+            case TimerAdapter.SINGLE_TIMER:
+            case TimerAdapter.MULTIPLE_TIMERS:
+                mTimerItem = (TimerItem) view;
+                break;
+            case TimerAdapter.MULTIPLE_TIMERS_COMPACT:
+                mTimerItemCompact = (TimerItemCompact) view;
+                break;
+        }
+
         mTimerClickHandler = timerClickHandler;
 
         View timerLabel = view.findViewById(R.id.timer_label);
@@ -110,7 +123,8 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
             circleContainer.setOnTouchListener(new Utils.CircleTouchListener());
         }
 
-        if (!ThemeUtils.isTablet() && ThemeUtils.isLandscape()) {
+        if ((!ThemeUtils.isTablet() && ThemeUtils.isLandscape()
+                || SettingsDAO.isCompactTimersDisplayed(prefs))) {
             timerTimeText.setOnClickListener(playPauseListener);
         }
 
@@ -119,7 +133,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
         deleteButton.setOnClickListener(v -> {
             Utils.setVibrationTime(context, 10);
 
-            if (SettingsDAO.isWarningDisplayedBeforeDeletingTimer(getDefaultSharedPreferences(context))) {
+            if (SettingsDAO.isWarningDisplayedBeforeDeletingTimer(prefs)) {
                 // Get the title of the timer if there is one; otherwise, get the total duration.
                 final String dialogMessage;
                 if (getTimer().getLabel().isEmpty()) {
@@ -147,7 +161,11 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
 
         final Timer timer = getTimer();
         if (timer != null) {
-            mTimerItem.bindTimer(timer);
+            if (mTimerItem != null) {
+                mTimerItem.bindTimer(timer);
+            } else if (mTimerItemCompact != null) {
+                mTimerItemCompact.bindTimer(timer);
+            }
         }
     }
 
@@ -178,15 +196,20 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
                 return;
             }
 
-            mTimerItem.updateTimeDisplay(timer);
-
             // Use a 500 ms delay for paused, expired, or missed timers to ensure
             // more frequent updates needed for smooth blinking (based on a 500 ms interval).
             // For running timers, a 1000 ms delay is sufficient to save resources.
             final long delay = timer.isPaused() || timer.isExpired() || timer.isMissed()
                     ? 500
                     : 1000;
-            mTimerItem.postDelayed(this, delay);
+
+            if (mTimerItemCompact != null) {
+                mTimerItemCompact.updateTimeDisplay(timer);
+                mTimerItemCompact.postDelayed(this, delay);
+            } else if (mTimerItem != null) {
+                mTimerItem.updateTimeDisplay(timer);
+                mTimerItem.postDelayed(this, delay);
+            }
         }
     };
 
@@ -198,7 +221,11 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
      */
     public void startUpdating() {
         stopUpdating();
-        mTimerItem.post(mUpdateRunnable);
+        if (mTimerItemCompact != null) {
+            mTimerItemCompact.post(mUpdateRunnable);
+        } else if (mTimerItem != null) {
+            mTimerItem.post(mUpdateRunnable);
+        }
     }
 
     /**
@@ -207,7 +234,11 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
      * This method cancels any pending executions of the update runnable.
      */
     public void stopUpdating() {
-        mTimerItem.removeCallbacks(mUpdateRunnable);
+        if (mTimerItemCompact != null) {
+            mTimerItemCompact.removeCallbacks(mUpdateRunnable);
+        } else if (mTimerItem != null) {
+            mTimerItem.removeCallbacks(mUpdateRunnable);
+        }
     }
 
 }

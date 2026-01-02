@@ -35,7 +35,7 @@ android {
         }
     }
 
-    def commitNumber = 40
+    def commitNumber = 41
 
     def buildCommit = providers.exec {
         commandLine('git', 'rev-parse', '--short=7', 'HEAD')

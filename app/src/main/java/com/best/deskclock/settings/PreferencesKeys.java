@@ -156,6 +156,7 @@ public class PreferencesKeys {
 
     // Timer Display Customization
     public static final String KEY_TIMER_DURATION_FONT = "key_timer_duration_font";
+    public static final String KEY_DISPLAY_COMPACT_TIMERS = "key_display_compact_timers";
     public static final String KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER = "key_transparent_background_for_expired_timer";
     public static final String KEY_DISPLAY_TIMER_STATE_INDICATOR = "key_display_timer_state_indicator";
     public static final String KEY_DISPLAY_TIMER_RINGTONE_TITLE = "key_display_timer_ringtone_title";
