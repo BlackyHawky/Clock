@@ -22,6 +22,14 @@
             tools:layout="@layout/settings_preference_layout" />
 
         <com.best.deskclock.settings.custompreference.CustomSwitchPreference
+            android:key="key_display_compact_timers"
+            android:title="@string/display_compact_timers_title"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
             android:key="key_transparent_background_for_expired_timer"
             android:title="@string/transparent_background_for_expired_timer_title"
             android:defaultValue="false"

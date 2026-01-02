@@ -36,31 +36,34 @@
         android:contentDescription="@null"
         tools:visibility="gone" />
 
-    <ScrollView
+    <!-- Bottom margin is adjusted in the ExpiredTimersActivity.java
+         and TimerDisplayPreviewActivity.java files -->
+    <HorizontalScrollView
         android:id="@+id/expired_timers_scroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:scrollbars="none"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/ringtone_layout"
+        tools:layout_marginBottom="10dp"
         tools:ignore="SpeakableTextPresentCheck">
 
         <LinearLayout
             android:id="@+id/expired_timers_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:clipToPadding="false"
-            android:orientation="vertical" />
+            android:orientation="horizontal" />
 
-    </ScrollView>
+    </HorizontalScrollView>
 
     <LinearLayout
         android:id="@+id/ringtone_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginBottom="10dp"
         android:gravity="center"
         android:visibility="gone"
         app:layout_constraintStart_toEndOf="@+id/vertical_start_guide"

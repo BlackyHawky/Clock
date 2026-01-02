@@ -1,16 +1,9 @@
-/*
- * Copyright (C) 2015 The Android Open Source Project
- * modified
- * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
- */
+// SPDX-License-Identifier: GPL-3.0-only
 
 package com.best.deskclock.timer;
 
 import static android.R.attr.state_activated;
 import static android.R.attr.state_pressed;
-
-import static androidx.core.util.TypedValueCompat.dpToPx;
-
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
 import android.content.Context;
@@ -31,21 +24,18 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.best.deskclock.R;
-import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
-import com.best.deskclock.uicomponents.CircleButtonsLayout;
 import com.best.deskclock.utils.ThemeUtils;
-
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.color.MaterialColors;
 
 import java.util.Locale;
 
 /**
- * This view is a visual representation of a {@link Timer}.
+ * This view is a visual representation of a compact {@link Timer}.
  */
-public class TimerItem extends ConstraintLayout {
+public class TimerItemCompact extends ConstraintLayout {
 
     Context mContext;
     SharedPreferences mPrefs;
@@ -53,23 +43,17 @@ public class TimerItem extends ConstraintLayout {
     Typeface mTimerTimeTypeface;
     DisplayMetrics mDisplayMetrics;
 
-    /** The container of TimerCircleView and TimerTextController */
-    private CircleButtonsLayout mCircleContainer;
+    /** Displays timer progress as a horizontal bar. */
+    private TimerBarView mTimerBar;
 
     /** Formats and displays the text in the timer. */
     private TimerTextController mTimerTextController;
-
-    /** Displays timer progress as a color circle. */
-    private TimerCircleView mCircleView;
 
     /** Displays the remaining time or time since expiration. */
     private TextView mTimerText;
 
     /** A button that resets the timer. */
     private ImageButton mResetButton;
-
-    /** A button that edits a new duration to the timer. */
-    private ImageButton mTimerEditNewDurationButton;
 
     /** A button that adds time to the timer. */
     private MaterialButton mAddTimeButton;
@@ -92,14 +76,11 @@ public class TimerItem extends ConstraintLayout {
     /** The timer duration text that appears when the timer is reset */
     private TextView mTimerTotalDurationText;
 
-    private boolean mIsTablet;
-    private boolean mIsPortrait;
-
-    public TimerItem(Context context) {
+    public TimerItemCompact(Context context) {
         this(context, null);
     }
 
-    public TimerItem(Context context, AttributeSet attrs) {
+    public TimerItemCompact(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
@@ -117,17 +98,15 @@ public class TimerItem extends ConstraintLayout {
         mGeneralFontPath = SettingsDAO.getGeneralFont(mPrefs);
         mTimerTimeTypeface = ThemeUtils.loadFont(SettingsDAO.getTimerDurationFont(mPrefs));
         mDisplayMetrics = getResources().getDisplayMetrics();
-        mIsTablet = ThemeUtils.isTablet();
-        mIsPortrait = ThemeUtils.isPortrait();
 
         setBackground(ThemeUtils.cardBackground(mContext));
 
+        mTimerBar = findViewById(R.id.timer_bar);
         mLabelView = findViewById(R.id.timer_label);
         mResetButton = findViewById(R.id.reset);
         mAddTimeButton = findViewById(R.id.timer_add_time_button);
         mPlayPauseButton = findViewById(R.id.play_pause);
-        mCircleContainer = findViewById(R.id.circle_container);
-        mCircleView = findViewById(R.id.timer_time);
+
         // Displays the remaining time or time since expiration.
         // Timer text serves as a virtual start/stop button.
         mTimerText = findViewById(R.id.timer_time_text);
@@ -139,12 +118,8 @@ public class TimerItem extends ConstraintLayout {
                 new int[]{textColorPrimary, colorAccent});
         mTimerText.setTextColor(timeTextColor);
         mTimerTextController = new TimerTextController(mTimerText);
-        mTimerEditNewDurationButton = findViewById(R.id.timer_edit_new_duration_button);
-        // Needed to avoid the null pointer exception, as only phones in portrait mode with
-        // multiple timers have this text
-        if (isPortraitPhoneWithMultipleTimers()) {
-            mTimerTotalDurationText = findViewById(R.id.timer_total_duration);
-        }
+
+        mTimerTotalDurationText = findViewById(R.id.timer_total_duration);
 
         mIndicatorState = findViewById(R.id.indicator_state);
         final Drawable drawable = ThemeUtils.circleDrawable();
@@ -160,21 +135,21 @@ public class TimerItem extends ConstraintLayout {
 
         mTimerTextController.setTimeString(timer.getRemainingTime());
 
-        if (mCircleView != null) {
+        if (mTimerBar != null) {
             final boolean isBlinking = timer.isExpired() || timer.isMissed();
             final float targetAlpha = isBlinking
                     ? (blinkOff ? 0f : 1f)
                     : 1f;
 
             // Apply circle blinking
-            mCircleView.animate()
+            mTimerBar.animate()
                     .alpha(targetAlpha)
                     .setDuration(300)
                     .start();
 
             // Update circle only if visible
             if (!isBlinking || !blinkOff) {
-                mCircleView.update(timer);
+                mTimerBar.update(timer);
             }
         }
 
@@ -193,7 +168,7 @@ public class TimerItem extends ConstraintLayout {
         mTimerTextController.setTimeString(timer.getRemainingTime());
 
         // Initialize text for timer total duration
-        if (isPortraitPhoneWithMultipleTimers() && mTimerTotalDurationText != null) {
+        if (mTimerTotalDurationText != null) {
             mTimerTotalDurationText.setText(timer.getTotalDuration());
             mTimerTotalDurationText.setTypeface(mTimerTimeTypeface);
         }
@@ -211,11 +186,9 @@ public class TimerItem extends ConstraintLayout {
             mLabelView.setAlpha(1f);
         }
 
-        // Initialize the circle
-        if (mCircleView != null) {
-            mCircleView.setAlpha(1f);
-            mCircleView.update(timer);
-        }
+        // Initialize the timer bar
+        mTimerBar.setAlpha(1f);
+        mTimerBar.update(timer);
 
         // Initialize the alpha value of the time text color
         mTimerText.setAlpha(1f);
@@ -245,23 +218,10 @@ public class TimerItem extends ConstraintLayout {
         String buttonContentDescription = buttonTimeSeconds == 0
                 ? mContext.getString(R.string.timer_add_custom_time_description, String.valueOf(buttonTimeMinutes))
                 : mContext.getString(R.string.timer_add_custom_time_with_seconds_description,
-                    String.valueOf(buttonTimeMinutes),
-                    String.valueOf(buttonTimeSeconds));
+                String.valueOf(buttonTimeMinutes),
+                String.valueOf(buttonTimeSeconds));
         mAddTimeButton.setContentDescription(buttonContentDescription);
 
-        // For tablets in portrait mode with single timer, adjust the size of the "Add time" and
-        // "Play/Pause" buttons
-        final ConstraintLayout.LayoutParams addTimeButtonParams =
-                (ConstraintLayout.LayoutParams) mAddTimeButton.getLayoutParams();
-        final ConstraintLayout.LayoutParams playPauseButtonParams =
-                (ConstraintLayout.LayoutParams) mPlayPauseButton.getLayoutParams();
-
-        if (mIsTablet && mIsPortrait && DataModel.getDataModel().getTimers().size() == 1) {
-            addTimeButtonParams.matchConstraintMaxHeight = (int) dpToPx(200, mDisplayMetrics);
-            playPauseButtonParams.matchConstraintMaxHeight = (int) dpToPx(200, mDisplayMetrics);
-        }
-
-        // Initialize some potentially expensive areas of the user interface only on state changes.
         if (timer.getState() != mLastState) {
             final String resetDesc = mContext.getString(R.string.reset);
 
@@ -269,40 +229,6 @@ public class TimerItem extends ConstraintLayout {
             mResetButton.setContentDescription(resetDesc);
             mAddTimeButton.setVisibility(VISIBLE);
             mLastState = timer.getState();
-
-            // For phones in portrait mode, when there are multiple timers and they are reset,
-            // adjust the constraints, margins and paddings of the "Play/Pause" button to have
-            // a suitable reduced view
-            if (isPortraitPhoneWithMultipleTimers()) {
-                if (mLastState.equals(Timer.State.RESET)) {
-                    playPauseButtonParams.width = LayoutParams.WRAP_CONTENT;
-
-                    playPauseButtonParams.startToStart = ConstraintLayout.LayoutParams.UNSET;
-                    playPauseButtonParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID;
-                    playPauseButtonParams.topToBottom = mLabelView.getId();
-                    playPauseButtonParams.bottomToBottom = ConstraintLayout.LayoutParams.UNSET;
-
-                    playPauseButtonParams.rightMargin = (int) dpToPx(12, mDisplayMetrics);
-                    playPauseButtonParams.topMargin = (int) dpToPx(10, mDisplayMetrics);
-
-                    mPlayPauseButton.setPadding(0, 0, 0, 0);
-                } else {
-                    int playPauseButtonPadding = (int) dpToPx(24, mDisplayMetrics);
-
-                    playPauseButtonParams.width = 0;
-
-                    playPauseButtonParams.startToStart = mAddTimeButton.getId();
-                    playPauseButtonParams.endToEnd = mAddTimeButton.getId();
-                    playPauseButtonParams.topToBottom = ConstraintLayout.LayoutParams.UNSET;
-                    playPauseButtonParams.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID;
-
-                    playPauseButtonParams.rightMargin = 0;
-                    playPauseButtonParams.topMargin = 0;
-
-                    mPlayPauseButton.setPadding(playPauseButtonPadding, playPauseButtonPadding,
-                            playPauseButtonPadding, playPauseButtonPadding);
-                }
-            }
 
             switch (mLastState) {
                 case RESET -> {
@@ -313,14 +239,10 @@ public class TimerItem extends ConstraintLayout {
 
                     mIndicatorState.setVisibility(GONE);
 
-                    if (isTabletOrLandscapePhone() || isPhoneWithSingleTimer()) {
-                        mTimerEditNewDurationButton.setVisibility(VISIBLE);
-                    }
+                    mTimerText.setVisibility(GONE);
+                    mTimerBar.setVisibility(GONE);
+                    mTimerTotalDurationText.setVisibility(VISIBLE);
 
-                    if (isPortraitPhoneWithMultipleTimers()) {
-                        mCircleContainer.setVisibility(GONE);
-                        mTimerTotalDurationText.setVisibility(VISIBLE);
-                    }
                 }
 
                 case PAUSED -> {
@@ -332,14 +254,10 @@ public class TimerItem extends ConstraintLayout {
                         mGradientDrawable.setColor(indicatorColor);
                     }
 
-                    if (isTabletOrLandscapePhone() || isPhoneWithSingleTimer()) {
-                        mTimerEditNewDurationButton.setVisibility(GONE);
-                    }
+                    mTimerText.setVisibility(VISIBLE);
+                    mTimerBar.setVisibility(VISIBLE);
+                    mTimerTotalDurationText.setVisibility(GONE);
 
-                    if (isPortraitPhoneWithMultipleTimers()) {
-                        mCircleContainer.setVisibility(VISIBLE);
-                        mTimerTotalDurationText.setVisibility(GONE);
-                    }
                 }
 
                 case RUNNING -> {
@@ -351,14 +269,10 @@ public class TimerItem extends ConstraintLayout {
                         mGradientDrawable.setColor(indicatorColor);
                     }
 
-                    if (isTabletOrLandscapePhone() || isPhoneWithSingleTimer()) {
-                        mTimerEditNewDurationButton.setVisibility(GONE);
-                    }
+                    mTimerText.setVisibility(VISIBLE);
+                    mTimerBar.setVisibility(VISIBLE);
+                    mTimerTotalDurationText.setVisibility(GONE);
 
-                    if (isPortraitPhoneWithMultipleTimers()) {
-                        mCircleContainer.setVisibility(VISIBLE);
-                        mTimerTotalDurationText.setVisibility(GONE);
-                    }
                 }
 
                 case EXPIRED, MISSED -> {
@@ -370,14 +284,9 @@ public class TimerItem extends ConstraintLayout {
                         mGradientDrawable.setColor(indicatorColor);
                     }
 
-                    if (isTabletOrLandscapePhone() || isPhoneWithSingleTimer()) {
-                        mTimerEditNewDurationButton.setVisibility(GONE);
-                    }
-
-                    if (isPortraitPhoneWithMultipleTimers()) {
-                        mCircleContainer.setVisibility(VISIBLE);
-                        mTimerTotalDurationText.setVisibility(GONE);
-                    }
+                    mTimerText.setVisibility(VISIBLE);
+                    mTimerBar.setVisibility(VISIBLE);
+                    mTimerTotalDurationText.setVisibility(GONE);
 
                     mResetButton.setVisibility(GONE);
                 }
@@ -385,26 +294,4 @@ public class TimerItem extends ConstraintLayout {
         }
     }
 
-    /**
-     * @return {@code true} if the device is a phone in portrait mode with multiple timers displayed.
-     * {@code false} otherwise.
-     */
-    private boolean isPortraitPhoneWithMultipleTimers() {
-        return !mIsTablet && mIsPortrait && DataModel.getDataModel().getTimers().size() > 1;
-    }
-
-    /**
-     * @return {@code true} if the device is a tablet or phone in landscape mode.
-     * {@code false} otherwise.
-     */
-    private boolean isTabletOrLandscapePhone() {
-        return (mIsTablet || !mIsPortrait);
-    }
-
-    /**
-     * @return {@code true} if the device is a phone with a single timer displayed.
-     */
-    private boolean isPhoneWithSingleTimer() {
-        return !mIsTablet && DataModel.getDataModel().getTimers().size() == 1;
-    }
 }

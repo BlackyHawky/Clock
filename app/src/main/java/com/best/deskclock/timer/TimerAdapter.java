@@ -41,8 +41,9 @@ import java.util.Objects;
  */
 public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements TimerListener {
 
-    private final int SINGLE_TIMER = R.layout.timer_single_item;
-    private final int MULTIPLE_TIMERS = R.layout.timer_item;
+    public static final int SINGLE_TIMER = 0;
+    public static final int MULTIPLE_TIMERS = 1;
+    public static final int MULTIPLE_TIMERS_COMPACT = 2;
 
     /** Maps each timer id to the corresponding {@link TimerViewHolder} that draws it. */
     private final Map<Integer, TimerViewHolder> mHolders = new ArrayMap<>();
@@ -63,10 +64,16 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public int getItemViewType(int position) {
+        boolean isPortrait = ThemeUtils.isPortrait();
+
         if (getTimers().size() == 1) {
-            return (ThemeUtils.isTablet() || ThemeUtils.isPortrait()) ? SINGLE_TIMER : MULTIPLE_TIMERS;
+            return (ThemeUtils.isTablet() || isPortrait) ? SINGLE_TIMER : MULTIPLE_TIMERS;
         } else {
-            return MULTIPLE_TIMERS;
+            if (isPortrait && SettingsDAO.isCompactTimersDisplayed(mPrefs)) {
+                return MULTIPLE_TIMERS_COMPACT;
+            } else {
+                return MULTIPLE_TIMERS;
+            }
         }
     }
 
@@ -78,10 +85,13 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         View view;
         if (viewType == SINGLE_TIMER) {
             view = inflater.inflate(R.layout.timer_single_item, parent, false);
-        } else {
+        } else if (viewType == MULTIPLE_TIMERS) {
             view = inflater.inflate(R.layout.timer_item, parent, false);
+        } else {
+            view = inflater.inflate(R.layout.timer_item_compact, parent, false);
         }
-        return new TimerViewHolder(view, mTimerClickHandler);
+
+        return new TimerViewHolder(view, mTimerClickHandler, viewType);
     }
 
     @Override

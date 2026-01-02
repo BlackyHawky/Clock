@@ -728,10 +728,18 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return {@code true} if active timers should remain compact. {@code false} otherwise.
+     */
+    public static boolean isCompactTimersDisplayed(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_timer_display.xml
+        return prefs.getBoolean(KEY_DISPLAY_COMPACT_TIMERS, DEFAULT_DISPLAY_COMPACT_TIMERS);
+    }
+
+    /**
      * @return {@code true} if the timer background must be transparent. {@code false} otherwise.
      */
     public static boolean isTimerBackgroundTransparent(SharedPreferences prefs) {
-        // Default value must match the one in res/xml/settings_timer.xml
+        // Default value must match the one in res/xml/settings_timer_display.xml
         return prefs.getBoolean(KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER, DEFAULT_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER);
     }
 
@@ -740,7 +748,7 @@ public final class SettingsDAO {
      * {@code false} otherwise.
      */
     public static boolean isTimerStateIndicatorDisplayed(SharedPreferences prefs) {
-        // Default value must match the one in res/xml/settings_timer.xml
+        // Default value must match the one in res/xml/settings_timer_display.xml
         return prefs.getBoolean(KEY_DISPLAY_TIMER_STATE_INDICATOR, DEFAULT_DISPLAY_TIMER_STATE_INDICATOR);
     }
 
@@ -748,7 +756,7 @@ public final class SettingsDAO {
      * @return a value indicating the running timer indicator color.
      */
     public static int getRunningTimerIndicatorColor(SharedPreferences prefs) {
-        // Default value must match the one in res/xml/settings_timer.xml
+        // Default value must match the one in res/xml/settings_timer_display.xml
         return prefs.getInt(KEY_RUNNING_TIMER_INDICATOR_COLOR, DEFAULT_RUNNING_TIMER_INDICATOR_COLOR);
     }
 
@@ -756,7 +764,7 @@ public final class SettingsDAO {
      * @return a value indicating the paused timer indicator color.
      */
     public static int getPausedTimerIndicatorColor(SharedPreferences prefs) {
-        // Default value must match the one in res/xml/settings_timer.xml
+        // Default value must match the one in res/xml/settings_timer_display.xml
         return prefs.getInt(KEY_PAUSED_TIMER_INDICATOR_COLOR, DEFAULT_PAUSED_TIMER_INDICATOR_COLOR);
     }
 
@@ -764,7 +772,7 @@ public final class SettingsDAO {
      * @return a value indicating the expired timer indicator color.
      */
     public static int getExpiredTimerIndicatorColor(SharedPreferences prefs) {
-        // Default value must match the one in res/xml/settings_timer.xml
+        // Default value must match the one in res/xml/settings_timer_display.xml
         return prefs.getInt(KEY_EXPIRED_TIMER_INDICATOR_COLOR, DEFAULT_EXPIRED_TIMER_INDICATOR_COLOR);
     }
 

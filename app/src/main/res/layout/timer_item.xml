@@ -111,31 +111,23 @@
     </com.best.deskclock.uicomponents.CircleButtonsLayout>
 
     <!-- Only displayed for phones when the timer is reset. See the TimerItem.java file. -->
-    <LinearLayout
-        android:id="@+id/timer_total_duration_container"
-        android:layout_width="0dp"
+    <com.best.deskclock.uicomponents.AutoSizingTextView
+        android:id="@+id/timer_total_duration"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="12dp"
+        android:paddingVertical="8dp"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:textSize="26sp"
+        android:drawablePadding="8dp"
+        android:visibility="gone"
+        app:drawableStartCompat="@drawable/ic_edit"
+        app:drawableTint="?android:attr/textColor"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/timer_add_time_button"
-        app:layout_constraintTop_toBottomOf="@+id/timer_label"
-        app:layout_constraintBottom_toBottomOf="@+id/play_pause">
-
-        <com.best.deskclock.uicomponents.AutoSizingTextView
-            android:id="@+id/timer_total_duration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingVertical="8dp"
-            android:background="?attr/selectableItemBackground"
-            android:gravity="center_vertical"
-            android:textSize="26sp"
-            android:drawablePadding="8dp"
-            android:visibility="gone"
-            app:drawableStartCompat="@drawable/ic_edit"
-            app:drawableTint="?android:attr/textColor"
-            tools:ignore="InconsistentLayout" />
-
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="@+id/play_pause"
+        app:layout_constraintBottom_toBottomOf="@+id/play_pause"
+        tools:text="01:00" />
 
     <!-- For phones with multiple timers, this icon is not displayed. See the TimerItem.java file. -->
     <ImageButton

@@ -1135,6 +1135,8 @@
     <string name="timer_creation_view_style_title">Timer creation view style</string>
     <!-- Keypad style when creating timer -->
     <string name="timer_creation_view_style_keypad">Keypad</string>
+    <!-- Title to display active timers in compact mode -->
+    <string name="display_compact_timers_title">Display active timers in compact mode</string>
     <!-- Title for setting transparent background when timers expires in timer settings -->
     <string name="transparent_background_for_expired_timer_title">Transparent background when timers expire</string>
     <!-- Setting title to display timer state indicator -->
