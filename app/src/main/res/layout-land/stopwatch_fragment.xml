@@ -18,7 +18,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_marginEnd="80dp"
-        tools:layout_marginBottom="10dp">
+        tools:layout_marginBottom="10dp"
+        tools:ignore="InconsistentLayout">
 
         <com.best.deskclock.stopwatch.StopwatchCircleFrameLayout
             android:id="@+id/stopwatch_time_wrapper"

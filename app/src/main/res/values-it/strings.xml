@@ -358,7 +358,6 @@
     <string name="timer_buttons_action_summary">Funzionamento solo sul blocco schermo</string>
     <string name="screensaver_bold_date_title">Data in grassetto</string>
     <string name="screensaver_bold_next_alarm_title">Prossima sveglia in grassetto</string>
-    <string name="occasional_alarm_deleted">Sveglia delle <xliff:g example="14:20" id="alarm_time">%s</xliff:g> occasionale rimossa</string>
     <string name="first_launch_button_later">Dopo</string>
     <string name="first_launch_button_now">Adesso</string>
     <string name="first_launch_main_feature_link">… ed altro ancora!</string>

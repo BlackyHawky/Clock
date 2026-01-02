@@ -398,7 +398,6 @@
     <string name="timer_label_box_title">計時器名稱</string>
     <string name="timer_time_warning_box_title">數值無效</string>
     <string name="warning_dialog_title">刪除計時器</string>
-    <string name="occasional_alarm_deleted">已刪除臨時鬧鐘「<xliff:g example="14:20" id="alarm_time">%s</xliff:g>」</string>
     <string name="first_launch_main_feature_title">主要功能</string>
     <string name="firing_alarms_timers_channel">配置鬧鐘與計時器</string>
     <string name="reset_settings_title">重設</string>

@@ -611,7 +611,6 @@
     <string name="slide_zone_color_title">Цвет зоны скольжения</string>
     <string name="snooze_title_color">Цвет заголовка \"Отложить\"</string>
     <string name="dismiss_title_color">Цвет заголовка \"Отклонить\"</string>
-    <string name="occasional_alarm_deleted">Случайный <xliff:g example="14:20" id="alarm_time">%s</xliff:g> будильник удалён</string>
     <string name="date_picker_style_calendar">Календарь</string>
     <string name="timer_add_custom_time_with_seconds_for_notification">Добавить %1$s мин %2$s с</string>
     <string name="alarm_is_dismissed_and_deleted"><xliff:g example="14:20" id="alarm_time">%s</xliff:g> будильник выключен и удалён</string>

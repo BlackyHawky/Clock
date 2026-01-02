@@ -262,9 +262,9 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
             case KEY_TIMER_DURATION_FONT -> selectCustomFile(mTimerDurationFontPref, fontPickerLauncher,
                     SettingsDAO.getTimerDurationFont(mPrefs), KEY_TIMER_DURATION_FONT, true, null);
 
-            case KEY_TIMER_BACKGROUND_IMAGE -> selectCustomFile(mTimerBackgroundImagePref, imagePickerLauncher,
-                    SettingsDAO.getTimerBackgroundImage(mPrefs), KEY_TIMER_BACKGROUND_IMAGE, false,
-                    mTimerBackgroundImagePref -> {
+            case KEY_TIMER_BACKGROUND_IMAGE -> selectCustomFile(mTimerBackgroundImagePref,
+                    imagePickerLauncher, SettingsDAO.getTimerBackgroundImage(mPrefs),
+                    KEY_TIMER_BACKGROUND_IMAGE, false, () -> {
                 mEnableTimerBlurEffectPref.setVisible(false);
                 mTimerBlurIntensityPref.setVisible(false);
             });

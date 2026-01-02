@@ -352,9 +352,7 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
 
                 case KEY_SCREENSAVER_BACKGROUND_IMAGE -> selectCustomFile(mScreensaverBackgroundImagePref,
                         imagePickerLauncher, SettingsDAO.getScreensaverBackgroundImage(mPrefs),
-                        KEY_SCREENSAVER_BACKGROUND_IMAGE, false,
-                        mScreensaverBackgroundImagePref -> {
-
+                        KEY_SCREENSAVER_BACKGROUND_IMAGE, false, () -> {
                     mEnableScreensaverBlurEffectPref.setVisible(false);
                     mScreensaverBlurIntensityPref.setVisible(false);
                 });

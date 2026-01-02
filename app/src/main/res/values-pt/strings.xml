@@ -445,7 +445,6 @@
     <string name="screensaver_italic_date_title">Data em itálico</string>
     <string name="night_accent_color_title">Cor de destaque para o modo noturno</string>
     <string name="pink_accent_color">Rosa</string>
-    <string name="occasional_alarm_deleted">Alarme ocasional das <xliff:g example="14:20" id="alarm_time">%s</xliff:g> excluído</string>
     <string name="alarm_created">Alarme criado</string>
     <string name="description_direction_both_for_occasional_non_repeatable_alarm">Deslize para esquerda ou direita para descartar e deletar alarme</string>
     <string name="auto_night_accent_color_title">Aplicar cor de destaque para o modo noturno</string>

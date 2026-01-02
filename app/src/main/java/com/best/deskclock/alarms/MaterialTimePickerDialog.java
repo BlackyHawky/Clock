@@ -4,6 +4,7 @@ package com.best.deskclock.alarms;
 
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TIME_PICKER_STYLE;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -166,6 +167,7 @@ public class MaterialTimePickerDialog {
      * @param picker the MaterialTimePicker instance
      * @param fonts the loaded custom fonts
      */
+    @SuppressLint("ClickableViewAccessibility")
     private static void installModeSwitchListener(MaterialTimePicker picker, PickerFonts fonts) {
         View root = picker.getView();
         if (root == null) {

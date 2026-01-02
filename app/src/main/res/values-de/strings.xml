@@ -491,7 +491,6 @@
     <string name="sort_name">Nach Name</string>
     <string name="sort_timer_descending_duration">Nach Dauer (absteigend)</string>
     <string name="timer_flip_action_title">Das Gerät umdrehen, um den Timer zu stoppen</string>
-    <string name="occasional_alarm_deleted">Der einmalige Alarm um <xliff:g example="14:20" id="alarm_time">%s</xliff:g> wurde gelöscht</string>
     <string name="timer_shake_action_title">Das Gerät schütteln, um den Timer zu stoppen</string>
     <string name="timer_volume_buttons_action_title">Abgelaufene Timer mit Lautstärketasten zurücksetzen</string>
     <string name="timer_power_button_action_title">Abgelaufene Timer mit Ein/Aus-Taste zurücksetzen</string>

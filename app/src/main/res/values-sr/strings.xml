@@ -462,7 +462,6 @@
     <string name="description_direction_both_for_occasional_alarm">Превуците лево да одложите или десно да одбаците и обришете аларм</string>
     <string name="description_direction_both_for_non_repeatable_alarm">Превуците лево или десно да одбаците</string>
     <string name="description_direction_both_for_occasional_non_repeatable_alarm">Превуците лево или десно да одбаците и обришете аларм</string>
-    <string name="occasional_alarm_deleted">Повремени <xliff:g example="14:20" id="alarm_time">%s</xliff:g> аларм уклоњен</string>
     <string name="first_launch_dialog_message">Да ли сте сигурни да желите да напустите апликацију?</string>
     <string name="FSN_dialog_text">Од Android 14, да би аларм био активиран када је екран искључен, неопходно је да буде омогућена дозвола \"Обавештења у целом екрану\".</string>
     <string name="city_clock_color_title">Прилагођена боја градског сата</string>

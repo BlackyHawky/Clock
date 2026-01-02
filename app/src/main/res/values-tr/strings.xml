@@ -556,7 +556,6 @@
     <string name="screensaver_bold_date_title">Kalın tarih</string>
     <string name="screensaver_italic_date_title">İtalik tarih</string>
     <string name="screensaver_italic_next_alarm_title">İtalik sonraki alarm</string>
-    <string name="occasional_alarm_deleted">Zaman zaman kullanılan <xliff:g example="14:20" id="alarm_time">%s</xliff:g> alarmı silindi</string>
     <string name="screensaver_bold_next_alarm_title">Kalın sonraki alarm</string>
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Etkinlik alarmlarının otomatik silinmesini varsayılan olarak etkinleştir</string>
     <string name="screensaver_bold_digital_clock_title">Kalın dijital saat</string>

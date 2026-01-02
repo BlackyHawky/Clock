@@ -491,7 +491,6 @@
     <string name="alarm_notification_reminder_2_hours">2 uur van te voren</string>
     <string name="description_direction_both_for_occasional_alarm">Veeg naar links om te sluimeren of naar rechts om wekker uit te zetten en te verwijderen</string>
     <string name="description_direction_both_for_occasional_non_repeatable_alarm">Veeg naar links of rechts om wekker uit te zetten en te verwijderen</string>
-    <string name="occasional_alarm_deleted">Gelegenheidswekker <xliff:g example="14:20" id="alarm_time">%s</xliff:g> verwijderd</string>
     <string name="material_you_vertical_digital_widget">Verticale digitale klok Material You</string>
     <string name="standard_category_title">Standaard</string>
     <string name="material_you_category_title">Material You</string>

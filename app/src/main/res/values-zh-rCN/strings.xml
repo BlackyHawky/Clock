@@ -492,7 +492,6 @@
     <string name="occasional_alarm_alert_predismiss_title">预定的临时闹钟</string>
     <string name="enable_delete_occasional_alarm_by_default_setting_title">默认启用自动删除临时闹钟</string>
     <string name="alarm_settings_general_summary">可以在扩展闹钟视图中为每个闹钟更改此设置</string>
-    <string name="occasional_alarm_deleted">已删除 <xliff:g example="14:20" id="alarm_time">%s</xliff:g> 的临时闹钟</string>
     <string name="backup_restore_title">备份和还原</string>
     <string name="backup_restore_summary">备份或还原应用程序数据，自定义铃声除外</string>
     <string name="backup_restore_dialog_message">是否要备份或还原应用程序数据？</string>

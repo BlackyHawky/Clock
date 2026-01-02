@@ -26,6 +26,7 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.PURPLE_ACCENT
 import static com.best.deskclock.settings.PreferencesDefaultValues.RED_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesDefaultValues.YELLOW_ACCENT_COLOR;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -349,6 +350,7 @@ public class ThemeUtils {
 
                     // Install the tooltip custom
                     itemView.setOnLongClickListener(v -> {
+                        @SuppressLint("RestrictedApi")
                         MenuItem item = ((ActionMenuItemView) v).getItemData();
                         CharSequence title = item.getTitle();
                         if (title != null) {
