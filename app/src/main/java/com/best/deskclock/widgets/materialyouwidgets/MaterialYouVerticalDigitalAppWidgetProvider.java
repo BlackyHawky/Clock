@@ -8,6 +8,7 @@ import static android.view.View.VISIBLE;
 
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_MATERIAL_YOU_WIDGET_BACKGROUND_CORNER_RADIUS;
+import static com.best.deskclock.utils.WidgetUtils.METHOD_SET_IMAGE_ICON;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -194,6 +195,21 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends BaseDigitalAppW
     }
 
     @Override
+    protected int getCityLayoutId() {
+        return 0;
+    }
+
+    @Override
+    protected int getCityClockColor(Context context, SharedPreferences prefs) {
+        return 0;
+    }
+
+    @Override
+    protected int getCityNameColor(Context context, SharedPreferences prefs) {
+        return 0;
+    }
+
+    @Override
     protected void bindDateClickAction(RemoteViews rv, SharedPreferences prefs, PendingIntent calendarPendingIntent) {
         if (WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultDateColor(prefs)) {
             rv.setOnClickPendingIntent(getDateViewId(), calendarPendingIntent);
@@ -280,7 +296,7 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends BaseDigitalAppW
 
         if (!WidgetDAO.isBackgroundDisplayedOnMaterialYouVerticalDigitalWidget(prefs)
                 || widthPx <= 0 || heightPx <= 0) {
-            rv.setIcon(R.id.materialYouDigitalWidgetBackground, "setImageIcon", null);
+            rv.setIcon(R.id.materialYouDigitalWidgetBackground, METHOD_SET_IMAGE_ICON, null);
             return;
         }
 
@@ -300,18 +316,18 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends BaseDigitalAppW
                 Icon nightIcon = WidgetUtils.createRoundedIcon(widthPx, heightPx,
                         WidgetUtils.getMaterialBackgroundColorNight(context), radius);
 
-                rv.setIcon(R.id.materialYouDigitalWidgetBackground, "setImageIcon", dayIcon, nightIcon);
+                rv.setIcon(R.id.materialYouDigitalWidgetBackground, METHOD_SET_IMAGE_ICON, dayIcon, nightIcon);
             } else {
                 Icon icon = WidgetUtils.createRoundedIcon(widthPx, heightPx, color, radius);
-                rv.setIcon(R.id.materialYouDigitalWidgetBackground, "setImageIcon", icon);
+                rv.setIcon(R.id.materialYouDigitalWidgetBackground, METHOD_SET_IMAGE_ICON, icon);
             }
         } else {
             if (isDefaultBackgroundColor) {
                 final Icon backgroundIcon = Icon.createWithResource(context, R.drawable.material_you_vertical_digital_widget_background);
-                rv.setIcon(R.id.materialYouDigitalWidgetBackground, "setImageIcon", backgroundIcon);
+                rv.setIcon(R.id.materialYouDigitalWidgetBackground, METHOD_SET_IMAGE_ICON, backgroundIcon);
             } else {
                 Icon icon = WidgetUtils.createRoundedIcon(widthPx, heightPx, color, radius);
-                rv.setIcon(R.id.materialYouDigitalWidgetBackground, "setImageIcon", icon);
+                rv.setIcon(R.id.materialYouDigitalWidgetBackground, METHOD_SET_IMAGE_ICON, icon);
             }
         }
     }

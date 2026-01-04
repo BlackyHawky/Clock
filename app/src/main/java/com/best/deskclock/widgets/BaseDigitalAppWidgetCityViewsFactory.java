@@ -8,13 +8,13 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.utils.WidgetUtils.METHOD_SET_TIME_ZONE;
 
 import static java.util.Calendar.DAY_OF_WEEK;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.text.format.DateFormat;
 import android.util.TypedValue;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService.RemoteViewsFactory;
@@ -23,7 +23,6 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
-import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.WidgetUtils;
@@ -221,6 +220,8 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory  implements RemoteVie
 
         final boolean shadowEnabled = isTextShadowDisplayed(mPrefs);
         final boolean isTextUppercase = isTextUppercaseDisplayed(mPrefs);
+        final boolean is24HourFormat = DataModel.getDataModel().is24HourFormat();
+        final float fontSize = is24HourFormat ? m24HourFontSize : m12HourFontSize;
 
         // Selection of active and inactive IDs
         int clockId = shadowEnabled ? clockWithShadowId : clockWithoutShadowId;
@@ -241,20 +242,10 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory  implements RemoteVie
         rv.setViewVisibility(clockId, VISIBLE);
         rv.setViewVisibility(labelId, VISIBLE);
 
-        if (DataModel.getDataModel().is24HourFormat()) {
-            rv.setCharSequence(clockId, "setFormat24Hour",
-                    ClockUtils.get24ModeFormat(false, false));
-        } else {
-            rv.setCharSequence(clockId, "setFormat12Hour",
-                    ClockUtils.get12ModeFormat(mContext, 0.4f, false,
-                            false, false, false));
-        }
-
-        final boolean is24HourFormat = DateFormat.is24HourFormat(mContext);
-        final float fontSize = is24HourFormat ? m24HourFontSize : m12HourFontSize;
+        WidgetUtils.applyClockFormat(rv, mContext, clockId, 0.4f, false);
 
         rv.setTextViewTextSize(clockId, TypedValue.COMPLEX_UNIT_PX, fontSize * mFontScale);
-        rv.setString(clockId, "setTimeZone", city.getTimeZone().getID());
+        rv.setString(clockId, METHOD_SET_TIME_ZONE, city.getTimeZone().getID());
 
         rv.setTextViewTextSize(labelId, TypedValue.COMPLEX_UNIT_PX, mCityAndDayFontSize * mFontScale);
         if (isTextUppercase) {

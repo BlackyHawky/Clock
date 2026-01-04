@@ -8,6 +8,7 @@ import static android.view.View.VISIBLE;
 
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_MATERIAL_YOU_WIDGET_BACKGROUND_CORNER_RADIUS;
+import static com.best.deskclock.utils.WidgetUtils.METHOD_SET_IMAGE_ICON;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -20,8 +21,9 @@ import android.widget.RemoteViews;
 import android.widget.TextClock;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+
 import com.best.deskclock.R;
-import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.SdkUtils;
@@ -194,6 +196,29 @@ public class MaterialYouDigitalAppWidgetProvider extends BaseDigitalAppWidgetPro
     }
 
     @Override
+    protected int getCityLayoutId() {
+        return R.layout.world_clock_material_you_remote_list_item_modern;
+    }
+
+    @Override
+    protected int getCityClockColor(Context context, SharedPreferences prefs) {
+        if (WidgetDAO.isMaterialYouDigitalWidgetDefaultCityClockColor(prefs)) {
+            return ContextCompat.getColor(context, R.color.digital_widget_time_color);
+        } else {
+            return WidgetDAO.getMaterialYouDigitalWidgetCustomCityClockColor(prefs);
+        }
+    }
+
+    @Override
+    protected int getCityNameColor(Context context, SharedPreferences prefs) {
+        if (WidgetDAO.isMaterialYouDigitalWidgetDefaultCityNameColor(prefs)) {
+            return ContextCompat.getColor(context, R.color.widget_text_color);
+        } else {
+            return WidgetDAO.getMaterialYouDigitalWidgetCustomCityNameColor(prefs);
+        }
+    }
+
+    @Override
     protected void bindDateClickAction(RemoteViews rv, SharedPreferences prefs, PendingIntent calendarPendingIntent) {
         if (WidgetDAO.isMaterialYouDigitalWidgetDefaultDateColor(prefs)) {
             rv.setOnClickPendingIntent(getDateViewId(), calendarPendingIntent);
@@ -208,25 +233,17 @@ public class MaterialYouDigitalAppWidgetProvider extends BaseDigitalAppWidgetPro
             rv.setViewVisibility(getClockViewId(), VISIBLE);
             rv.setViewVisibility(getClockCustomViewId(), GONE);
 
-            if (DataModel.getDataModel().is24HourFormat()) {
-                rv.setCharSequence(getClockViewId(), "setFormat24Hour", ClockUtils.get24ModeFormat(
-                        WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs), false));
-            } else {
-                rv.setCharSequence(getClockViewId(), "setFormat12Hour", ClockUtils.get12ModeFormat(
-                        context, WidgetUtils.getAmPmRatio(true, prefs),
-                        WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs),
-                        false, false, false));
-            }
+            WidgetUtils.applyClockFormat(rv, context, getClockViewId(),
+                    WidgetUtils.getAmPmRatio(true, prefs),
+                    WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs));
         } else {
             rv.setViewVisibility(getClockViewId(), GONE);
             rv.setViewVisibility(getClockCustomViewId(), VISIBLE);
-            rv.setCharSequence(getClockCustomViewId(), "setFormat12Hour",
-                    ClockUtils.get12ModeFormat(context, WidgetUtils.getAmPmRatio(true, prefs),
-                            WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs),
-                            false, false, false));
-            rv.setCharSequence(getClockCustomViewId(), "setFormat24Hour",
-                    ClockUtils.get24ModeFormat(
-                            WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs), false));
+
+            WidgetUtils.applyClockFormat(rv, context, getClockCustomViewId(),
+                    WidgetUtils.getAmPmRatio(true, prefs),
+                    WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs));
+
             rv.setTextColor(getClockCustomViewId(),
                     WidgetDAO.getMaterialYouDigitalWidgetCustomClockColor(prefs));
         }
@@ -288,7 +305,7 @@ public class MaterialYouDigitalAppWidgetProvider extends BaseDigitalAppWidgetPro
 
         if (!WidgetDAO.isBackgroundDisplayedOnMaterialYouDigitalWidget(prefs)
                 || widthPx <= 0 || heightPx <= 0) {
-            rv.setIcon(R.id.materialYouDigitalWidgetBackground, "setImageIcon", null);
+            rv.setIcon(R.id.materialYouDigitalWidgetBackground, METHOD_SET_IMAGE_ICON, null);
             return;
         }
 
@@ -308,18 +325,18 @@ public class MaterialYouDigitalAppWidgetProvider extends BaseDigitalAppWidgetPro
                 Icon nightIcon = WidgetUtils.createRoundedIcon(widthPx, heightPx,
                         WidgetUtils.getMaterialBackgroundColorNight(context), radius);
 
-                rv.setIcon(R.id.materialYouDigitalWidgetBackground, "setImageIcon", dayIcon, nightIcon);
+                rv.setIcon(R.id.materialYouDigitalWidgetBackground, METHOD_SET_IMAGE_ICON, dayIcon, nightIcon);
             } else {
                 Icon icon = WidgetUtils.createRoundedIcon(widthPx, heightPx, color, radius);
-                rv.setIcon(R.id.materialYouDigitalWidgetBackground, "setImageIcon", icon);
+                rv.setIcon(R.id.materialYouDigitalWidgetBackground, METHOD_SET_IMAGE_ICON, icon);
             }
         } else {
             if (isDefaultBackgroundColor) {
                 final Icon backgroundIcon = Icon.createWithResource(context, R.drawable.material_you_digital_widget_background);
-                rv.setIcon(R.id.materialYouDigitalWidgetBackground, "setImageIcon", backgroundIcon);
+                rv.setIcon(R.id.materialYouDigitalWidgetBackground, METHOD_SET_IMAGE_ICON, backgroundIcon);
             } else {
                 Icon icon = WidgetUtils.createRoundedIcon(widthPx, heightPx, color, radius);
-                rv.setIcon(R.id.materialYouDigitalWidgetBackground, "setImageIcon", icon);
+                rv.setIcon(R.id.materialYouDigitalWidgetBackground, METHOD_SET_IMAGE_ICON, icon);
             }
         }
     }
