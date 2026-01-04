@@ -903,15 +903,16 @@ public class DeskClock extends BaseActivity
                     case TimerService.ACTION_SHOW_TIMER -> {
                         Events.sendTimerEvent(R.string.action_show, label);
                         UiDataModel.getUiDataModel().setSelectedTab(UiDataModel.Tab.TIMERS);
+                        // Consume the action to prevent it from being reused
+                        intent.setAction(null);
                     }
                     case StopwatchService.ACTION_SHOW_STOPWATCH -> {
                         Events.sendStopwatchEvent(R.string.action_show, label);
                         UiDataModel.getUiDataModel().setSelectedTab(UiDataModel.Tab.STOPWATCH);
+                        // Consume the action to prevent it from being reused
+                        intent.setAction(null);
                     }
                 }
-
-                // Consume the action to prevent it from being reused
-                intent.setAction(null);
             }
         }
     }
