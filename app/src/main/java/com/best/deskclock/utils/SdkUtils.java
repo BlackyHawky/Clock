@@ -92,6 +92,14 @@ public class SdkUtils {
     }
 
     /**
+     * @return {@code true} if the API version is before 31 (Snow Cone).
+     * {@code false} otherwise.
+     */
+    public static boolean isBeforeAndroid12() {
+        return !isAtLeastAndroid12();
+    }
+
+    /**
      * @return {@code true} if the API version is greater than or equal to 33 (Tiramisu).
      * {@code false} otherwise.
      */

@@ -30,6 +30,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.format.DateFormat;
 import android.util.DisplayMetrics;
+import android.widget.RemoteViews;
 import android.widget.TextClock;
 
 import androidx.activity.OnBackPressedCallback;
@@ -40,6 +41,8 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.best.deskclock.R;
+import com.best.deskclock.data.City;
+import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.widgets.materialyouwidgets.MaterialYouAnalogAppWidgetProvider;
@@ -59,6 +62,15 @@ import java.util.Locale;
 public class WidgetUtils {
 
     public static final String KEY_LAUNCHED_FROM_WIDGET = "launched_from_widget";
+
+    private static final String METHOD_UPDATE_APP_WIDGET = "updateAppWidget";
+    private static final String METHOD_SET_FORMAT_24 = "setFormat24Hour";
+    private static final String METHOD_SET_FORMAT_12 = "setFormat12Hour";
+    public static final String METHOD_SET_TIME_ZONE = "setTimeZone";
+    public static final String METHOD_SET_IMAGE_ICON = "setImageIcon";
+
+    public static final String EXTRA_CITY_INDEX = "city_index";
+    public static final String EXTRA_WIDGET_ID = "widget_id";
 
     /**
      * Helper method to know if the fragment displayed comes from the widget or from the settings.
@@ -163,6 +175,43 @@ public class WidgetUtils {
     }
 
     /**
+     * Combine two 32-bit stable ids into a single 64-bit stable id.
+     *
+     * <p>The inputs are treated as unsigned 32-bit values: `a` occupies the high 32 bits
+     * (bits 63..32) and `b` the low 32 bits (bits 31..0). If the combined result equals 0L
+     * (reserved/fallback), the method returns 1L to avoid using 0 as a valid id.
+     *
+     * @param a stable 32-bit id (placed in the high part of the long)
+     * @param b stable 32-bit id (placed in the low part of the long)
+     * @return a non-zero 64-bit combined id (returns 1L if the combined value would be 0L)
+     */
+    public static long combineStableIds(long a, long b) {
+        long combined = ((a & 0xffffffffL) << 32) | (b & 0xffffffffL);
+        return combined == 0L ? 1L : combined;
+    }
+
+    /**
+     * Returns a stable identifier for a city based on its internal id.
+     *
+     * <p>Assumes city IDs follow the "C<number>" pattern (e.g. "C1", "C2").
+     * Extracts the numeric part of the id and converts it to a long. If the city
+     * object is null or the id is missing, the method returns 1L.
+     *
+     * @param city the City object to derive the stable id from (may be null)
+     * @return a long representing the stable id extracted from the city id (or 1L as fallback)
+     */
+    public static long getStableIdForCity(City city) {
+        if (city == null) {
+            return 1L;
+        }
+
+        String id = city.getId();
+        // City IDs are in the format C1, C2, C3, etc., so remove everything that is not a number
+        String digits = id.replaceAll("\\D+", "");
+        return Long.parseLong(digits);
+    }
+
+    /**
      * @param widgetProviderClass indicates the type of widget being counted
      * @param count               the number of widgets of the given type
      * @return the delta between the new count and the old count
@@ -262,6 +311,31 @@ public class WidgetUtils {
     }
 
     /**
+     * Configure the TextClock format on a RemoteViews instance.
+     *
+     * @param rv            RemoteViews to update
+     * @param context       context for resources
+     * @param clockViewId   the TextClock view id
+     * @param amPmRatio     am/pm ratio for 12h format
+     * @param showSeconds   whether seconds should be shown
+     */
+    public static void applyClockFormat(RemoteViews rv, Context context, int clockViewId, float amPmRatio,
+                                        boolean showSeconds) {
+
+        if (rv == null || clockViewId == 0) {
+            return;
+        }
+
+        if (DataModel.getDataModel().is24HourFormat()) {
+            rv.setCharSequence(clockViewId, METHOD_SET_FORMAT_24, ClockUtils.get24ModeFormat(
+                    showSeconds, false));
+        } else {
+            rv.setCharSequence(clockViewId, METHOD_SET_FORMAT_12, ClockUtils.get12ModeFormat(
+                    context, amPmRatio, showSeconds, false, false, false));
+        }
+    }
+
+    /**
      * @return the ratio to use for the AM/PM part on the digital widgets.
      */
     public static float getAmPmRatio(boolean isMaterialYou, SharedPreferences prefs) {
@@ -346,7 +420,7 @@ public class WidgetUtils {
         for (int widgetId : widgetIds) {
             try {
                 // Use the static "updateAppWidget()" method on the appropriate provider
-                widgetProviderClass.getMethod("updateAppWidget", Context.class, AppWidgetManager.class, int.class)
+                widgetProviderClass.getMethod(METHOD_UPDATE_APP_WIDGET, Context.class, AppWidgetManager.class, int.class)
                         .invoke(null, context, appWidgetManager, widgetId);
             } catch (Exception e) {
                 LogUtils.e("Error updating widget " + widgetProviderClass.getSimpleName(), e);

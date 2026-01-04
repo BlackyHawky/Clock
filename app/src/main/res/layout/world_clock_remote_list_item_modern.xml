@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2016 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/widgetItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!-- TWO-COLUMN VERSION (visible by default) -->
+    <LinearLayout
+        android:id="@+id/twoColumnContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:baselineAligned="false">
+
+        <!-- LEFT COLUMN -->
+        <LinearLayout
+            android:id="@+id/leftContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="2dp"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <TextClock
+                android:id="@+id/leftClock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="3dp"
+                android:shadowRadius="2.75"
+                android:shadowColor="@android:color/black"
+                android:shadowDx="2"
+                android:shadowDy="2"
+                tools:text="01:23 AM"
+                tools:textSize="16sp"
+                tools:textColor="@android:color/white" />
+
+            <TextClock
+                android:id="@+id/leftClockNoShadow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="3dp"
+                android:visibility="gone"
+                tools:text="01:23 AM"
+                tools:textSize="16sp"
+                tools:textColor="@android:color/white" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/cityNameLeft"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="3dp"
+                    android:ellipsize="end"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:shadowRadius="2.75"
+                    android:shadowColor="@android:color/black"
+                    android:shadowDx="2"
+                    android:shadowDy="2"
+                    tools:text="City1"
+                    tools:textColor="@android:color/white"
+                    tools:textAllCaps="true" />
+
+                <TextView
+                    android:id="@+id/cityNameLeftNoShadow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="3dp"
+                    android:ellipsize="end"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:visibility="gone"
+                    tools:text="City1"
+                    tools:textColor="@android:color/white"
+                    tools:textAllCaps="true" />
+
+                <TextView
+                    android:id="@+id/cityDayLeft"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="3dp"
+                    android:ellipsize="none"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:shadowRadius="2.75"
+                    android:shadowColor="@android:color/black"
+                    android:shadowDx="2"
+                    android:shadowDy="2"
+                    tools:text="/ Mon"
+                    tools:textColor="@android:color/white"
+                    tools:textAllCaps="true" />
+
+                <TextView
+                    android:id="@+id/cityDayLeftNoShadow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="3dp"
+                    android:ellipsize="none"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:visibility="gone"
+                    tools:text="/ Mon"
+                    tools:textColor="@android:color/white"
+                    tools:textAllCaps="true" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- RIGHT COLUMN -->
+        <LinearLayout
+            android:id="@+id/rightContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="2dp"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <TextClock
+                android:id="@+id/rightClock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="3dp"
+                android:shadowRadius="2.75"
+                android:shadowColor="@android:color/black"
+                android:shadowDx="2"
+                android:shadowDy="2"
+                tools:text="01:23 AM"
+                tools:textSize="16sp"
+                tools:textColor="@android:color/white" />
+
+            <TextClock
+                android:id="@+id/rightClockNoShadow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="3dp"
+                android:visibility="gone"
+                tools:text="01:23 AM"
+                tools:textSize="16sp"
+                tools:textColor="@android:color/white" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/cityNameRight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="3dp"
+                    android:ellipsize="end"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:shadowRadius="2.75"
+                    android:shadowColor="@android:color/black"
+                    android:shadowDx="2"
+                    android:shadowDy="2"
+                    tools:text="City2"
+                    tools:textColor="@android:color/white"
+                    tools:textAllCaps="true" />
+
+                <TextView
+                    android:id="@+id/cityNameRightNoShadow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="3dp"
+                    android:ellipsize="end"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:visibility="gone"
+                    tools:text="City2"
+                    tools:textColor="@android:color/white"
+                    tools:textAllCaps="true" />
+
+                <TextView
+                    android:id="@+id/cityDayRight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="3dp"
+                    android:ellipsize="none"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:shadowRadius="2.75"
+                    android:shadowColor="@android:color/black"
+                    android:shadowDx="2"
+                    android:shadowDy="2"
+                    tools:text="/ Mon"
+                    tools:textColor="@android:color/white"
+                    tools:textAllCaps="true" />
+
+                <TextView
+                    android:id="@+id/cityDayRightNoShadow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="3dp"
+                    android:ellipsize="none"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:visibility="gone"
+                    tools:text="/ Mon"
+                    tools:textColor="@android:color/white"
+                    tools:textAllCaps="true" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- SINGLE-COLUMN VERSION (used when there is only one city on the line) -->
+    <LinearLayout
+        android:id="@+id/singleColumnContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:baselineAligned="false">
+
+        <LinearLayout
+            android:id="@+id/singleContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="2dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextClock
+                android:id="@+id/singleClock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="3dp"
+                android:shadowRadius="2.75"
+                android:shadowColor="@android:color/black"
+                android:shadowDx="2"
+                android:shadowDy="2"
+                tools:text="01:23 AM"
+                tools:textSize="16sp"
+                tools:textColor="@android:color/white" />
+
+            <TextClock
+                android:id="@+id/singleClockNoShadow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="3dp"
+                android:visibility="gone"
+                tools:text="01:23 AM"
+                tools:textSize="16sp"
+                tools:textColor="@android:color/white" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/singleCityName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="3dp"
+                    android:ellipsize="end"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:shadowRadius="2.75"
+                    android:shadowColor="@android:color/black"
+                    android:shadowDx="2"
+                    android:shadowDy="2"
+                    tools:text="City1"
+                    tools:textColor="@android:color/white"
+                    tools:textAllCaps="true" />
+
+                <TextView
+                    android:id="@+id/singleCityNameNoShadow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="3dp"
+                    android:ellipsize="end"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:visibility="gone"
+                    tools:text="City1"
+                    tools:textColor="@android:color/white"
+                    tools:textAllCaps="true" />
+
+                <TextView
+                    android:id="@+id/singleCityDay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="3dp"
+                    android:ellipsize="none"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:shadowRadius="2.75"
+                    android:shadowColor="@android:color/black"
+                    android:shadowDx="2"
+                    android:shadowDy="2"
+                    tools:text="/ Mon"
+                    tools:textColor="@android:color/white"
+                    tools:textAllCaps="true" />
+
+                <TextView
+                    android:id="@+id/singleCityDayNoShadow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="3dp"
+                    android:ellipsize="none"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:visibility="gone"
+                    tools:text="/ Mon"
+                    tools:textColor="@android:color/white"
+                    tools:textAllCaps="true" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Empty view to have a proper alignment -->
+        <LinearLayout
+            android:id="@+id/rightSpacer"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="2dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:orientation="vertical" />
+
+    </LinearLayout>
+
+    <!-- Spacer must be a RemoteView; can't use Space -->
+    <FrameLayout
+        android:id="@+id/citySpacer"
+        android:layout_width="match_parent"
+        android:layout_height="12dp" />
+
+</LinearLayout>

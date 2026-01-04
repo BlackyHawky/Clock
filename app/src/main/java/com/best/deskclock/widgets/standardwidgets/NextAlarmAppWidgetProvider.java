@@ -8,6 +8,7 @@ import static android.view.View.VISIBLE;
 
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_WIDGETS_CUSTOM_COLOR;
+import static com.best.deskclock.utils.WidgetUtils.METHOD_SET_IMAGE_ICON;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -191,6 +192,21 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
+    protected int getCityLayoutId() {
+        return 0;
+    }
+
+    @Override
+    protected int getCityClockColor(Context context, SharedPreferences prefs) {
+        return 0;
+    }
+
+    @Override
+    protected int getCityNameColor(Context context, SharedPreferences prefs) {
+        return 0;
+    }
+
+    @Override
     protected void bindDateClickAction(RemoteViews rv, SharedPreferences prefs, PendingIntent calendarPendingIntent) {
     }
 
@@ -280,7 +296,7 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
 
         if (!WidgetDAO.isBackgroundDisplayedOnNextAlarmWidget(prefs)
                 || widthPx <= 0 || heightPx <= 0) {
-            rv.setIcon(R.id.digitalWidgetBackground, "setImageIcon", null);
+            rv.setIcon(R.id.digitalWidgetBackground, METHOD_SET_IMAGE_ICON, null);
             return;
         }
 
@@ -290,7 +306,7 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
 
         int color = WidgetDAO.getNextAlarmWidgetBackgroundColor(prefs);
         Icon icon = WidgetUtils.createRoundedIcon(widthPx, heightPx, color, radius);
-        rv.setIcon(R.id.digitalWidgetBackground, "setImageIcon", icon);
+        rv.setIcon(R.id.digitalWidgetBackground, METHOD_SET_IMAGE_ICON, icon);
     }
 
     @Override

@@ -24,6 +24,7 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel.CitySort;
 import com.best.deskclock.settings.PreferencesKeys;
 import com.best.deskclock.utils.SdkUtils;
+import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
 import com.best.deskclock.widgets.materialyouwidgets.MaterialYouDigitalAppWidgetProvider;
 import com.best.deskclock.widgets.standardwidgets.DigitalAppWidgetProvider;
@@ -142,9 +143,9 @@ final class CityModel {
      */
     City getHomeCity() {
         if (mHomeCity == null) {
-            final String name = mContext.getString(R.string.home_label);
+            final String name = Utils.getLocalizedContext(mContext).getString(R.string.home_label);
             final TimeZone timeZone = SettingsDAO.getHomeTimeZone(mContext, mPrefs, TimeZone.getDefault());
-            mHomeCity = new City(null, -1, null, name, name, timeZone);
+            mHomeCity = new City("C0", -1, null, name, name, timeZone);
         }
 
         return mHomeCity;

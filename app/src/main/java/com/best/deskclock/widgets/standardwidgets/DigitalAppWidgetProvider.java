@@ -12,6 +12,7 @@ import static android.view.View.VISIBLE;
 
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_WIDGETS_CUSTOM_COLOR;
+import static com.best.deskclock.utils.WidgetUtils.METHOD_SET_IMAGE_ICON;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -25,7 +26,6 @@ import android.widget.TextClock;
 import android.widget.TextView;
 
 import com.best.deskclock.R;
-import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.ThemeUtils;
@@ -126,6 +126,29 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
+    protected int getCityLayoutId() {
+        return R.layout.world_clock_remote_list_item_modern;
+    }
+
+    @Override
+    protected int getCityClockColor(Context context, SharedPreferences prefs) {
+        if (WidgetDAO.isDigitalWidgetDefaultCityClockColor(prefs)) {
+            return DEFAULT_WIDGETS_CUSTOM_COLOR;
+        } else {
+            return WidgetDAO.getDigitalWidgetCustomCityClockColor(prefs);
+        }
+    }
+
+    @Override
+    protected int getCityNameColor(Context context, SharedPreferences prefs) {
+        if (WidgetDAO.isDigitalWidgetDefaultCityNameColor(prefs)) {
+            return DEFAULT_WIDGETS_CUSTOM_COLOR;
+        } else {
+            return WidgetDAO.getDigitalWidgetCustomCityNameColor(prefs);
+        }
+    }
+
+    @Override
     protected int getClockCustomViewId() {
         return 0;
     }
@@ -202,15 +225,9 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
 
     @Override
     protected void configureClock(RemoteViews rv, Context context, SharedPreferences prefs) {
-        if (DataModel.getDataModel().is24HourFormat()) {
-            rv.setCharSequence(getClockViewId(), "setFormat24Hour",
-                    ClockUtils.get24ModeFormat(WidgetDAO.areSecondsDisplayedOnDigitalWidget(prefs), false));
-        } else {
-            rv.setCharSequence(getClockViewId(), "setFormat12Hour",
-                    ClockUtils.get12ModeFormat(context, WidgetUtils.getAmPmRatio(false, prefs),
-                            WidgetDAO.areSecondsDisplayedOnDigitalWidget(prefs),
-                            false, false, false));
-        }
+        WidgetUtils.applyClockFormat(rv, context, getClockViewId(),
+                WidgetUtils.getAmPmRatio(false, prefs),
+                WidgetDAO.areSecondsDisplayedOnDigitalWidget(prefs));
 
         int color = WidgetDAO.isDigitalWidgetDefaultClockColor(prefs)
                 ? DEFAULT_WIDGETS_CUSTOM_COLOR
@@ -269,7 +286,7 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
 
         if (!WidgetDAO.isBackgroundDisplayedOnDigitalWidget(prefs)
                 || widthPx <= 0 || heightPx <= 0) {
-            rv.setIcon(R.id.digitalWidgetBackground, "setImageIcon", null);
+            rv.setIcon(R.id.digitalWidgetBackground, METHOD_SET_IMAGE_ICON, null);
             return;
         }
 
@@ -279,7 +296,7 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
 
         int color = WidgetDAO.getDigitalWidgetBackgroundColor(prefs);
         Icon icon = WidgetUtils.createRoundedIcon(widthPx, heightPx, color, radius);
-        rv.setIcon(R.id.digitalWidgetBackground, "setImageIcon", icon);
+        rv.setIcon(R.id.digitalWidgetBackground, METHOD_SET_IMAGE_ICON, icon);
     }
 
     @Override
