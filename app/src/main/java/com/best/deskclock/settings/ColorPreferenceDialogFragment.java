@@ -18,6 +18,7 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
@@ -27,6 +28,7 @@ import com.best.deskclock.settings.custompreference.ColorPickerPreference;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.ThemeUtils;
 
+import com.best.deskclock.utils.Utils;
 import com.rarepebble.colorpicker.ColorPickerView;
 
 /**
@@ -34,6 +36,11 @@ import com.rarepebble.colorpicker.ColorPickerView;
  * to be displayed in the dialog box.
  */
 public class ColorPreferenceDialogFragment extends DialogFragment {
+
+    /**
+     * The tag that identifies instances of ColorPreferenceDialogFragment in the fragment manager.
+     */
+    private static final String TAG = "color_picker_dialog";
 
     private static final String ARG_PREF_KEY = "arg_pref_key";
 
@@ -46,6 +53,13 @@ public class ColorPreferenceDialogFragment extends DialogFragment {
         ColorPreferenceDialogFragment frag = new ColorPreferenceDialogFragment();
         frag.setArguments(args);
         return frag;
+    }
+
+    /**
+     * Displays {@link ColorPreferenceDialogFragment}.
+     */
+    public static void show(FragmentManager manager, ColorPreferenceDialogFragment fragment) {
+        Utils.showDialogFragment(manager, fragment, TAG);
     }
 
     @NonNull

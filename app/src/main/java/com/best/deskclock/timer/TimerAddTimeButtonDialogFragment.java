@@ -32,9 +32,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
@@ -43,6 +41,7 @@ import com.best.deskclock.data.Timer;
 
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.ThemeUtils;
+import com.best.deskclock.utils.Utils;
 import com.google.android.material.color.MaterialColors;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -126,26 +125,10 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
     }
 
     /**
-     * Replaces any existing TimerAddTimeButtonDialogFragment with the given {@code fragment}.
+     * Displays {@link TimerAddTimeButtonDialogFragment}.
      */
     public static void show(FragmentManager manager, TimerAddTimeButtonDialogFragment fragment) {
-        if (manager == null || manager.isDestroyed()) {
-            return;
-        }
-
-        // Finish any outstanding fragment work.
-        manager.executePendingTransactions();
-
-        final FragmentTransaction tx = manager.beginTransaction();
-
-        // Remove existing instance of this DialogFragment if necessary.
-        final Fragment existing = manager.findFragmentByTag(TAG);
-        if (existing != null) {
-            tx.remove(existing);
-        }
-        tx.addToBackStack(null);
-
-        fragment.show(tx, TAG);
+        Utils.showDialogFragment(manager, fragment, TAG);
     }
 
     @Override

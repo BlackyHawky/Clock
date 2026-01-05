@@ -21,7 +21,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
@@ -31,6 +30,7 @@ import com.best.deskclock.settings.custompreference.CustomListPreference;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.ThemeUtils;
 
+import com.best.deskclock.utils.Utils;
 import com.google.android.material.radiobutton.MaterialRadioButton;
 
 import java.util.Objects;
@@ -85,26 +85,10 @@ public class CustomListPreferenceDialogFragment extends DialogFragment {
     }
 
     /**
-     * Replaces any existing CustomListPreferenceDialogFragment with the given {@code fragment}.
+     * Displays {@link CustomListPreferenceDialogFragment}.
      */
     public static void show(FragmentManager manager, CustomListPreferenceDialogFragment fragment) {
-        if (manager == null || manager.isDestroyed()) {
-            return;
-        }
-
-        // Finish any outstanding fragment work.
-        manager.executePendingTransactions();
-
-        final FragmentTransaction tx = manager.beginTransaction();
-
-        // Remove existing instance of this DialogFragment if necessary.
-        final Fragment existing = manager.findFragmentByTag(TAG);
-        if (existing != null) {
-            tx.remove(existing);
-        }
-        tx.addToBackStack(null);
-
-        fragment.show(tx, TAG);
+        Utils.showDialogFragment(manager, fragment, TAG);
     }
 
     @NonNull
