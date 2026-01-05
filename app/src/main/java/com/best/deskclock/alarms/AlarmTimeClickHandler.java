@@ -29,8 +29,10 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 
@@ -72,6 +74,7 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
     private final AlarmUpdateHandler mAlarmUpdateHandler;
     private Alarm mSelectedAlarm;
     private Bundle mPreviousDaysOfWeekMap;
+    private AlertDialog mCurrentSpinnerDatePickerDialog = null;
 
     public AlarmTimeClickHandler(Fragment fragment, Bundle savedState, AlarmUpdateHandler alarmUpdateHandler) {
 
@@ -250,7 +253,7 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
 
     public void onClockClicked(Alarm alarm) {
         mSelectedAlarm = alarm;
-        Events.sendAlarmEvent(R.string.action_set_time, R.string.label_deskclock);
+
         if (SettingsDAO.getMaterialTimePickerStyle(mPrefs).equals(SPINNER_TIME_PICKER_STYLE)) {
             showSpinnerTimePickerDialog(alarm.hour, alarm.minutes);
         } else {
@@ -279,15 +282,21 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
     }
 
     public void showMaterialTimePicker(int hours, int minutes) {
+        FragmentManager fragmentManager = ((AppCompatActivity) mContext).getSupportFragmentManager();
+
+        // Prevents opening the same dialog twice
+        if (fragmentManager.findFragmentByTag(TAG) != null) {
+            return;
+        }
+
         Events.sendAlarmEvent(R.string.action_set_time, R.string.label_deskclock);
 
-        MaterialTimePickerDialog.show(mContext, ((AppCompatActivity) mContext).getSupportFragmentManager(),
-                TAG, hours, minutes, mPrefs, this);
+        MaterialTimePickerDialog.show(mContext, fragmentManager, TAG, hours, minutes, mPrefs, this);
     }
 
     public void onDateClicked(Alarm alarm) {
         mSelectedAlarm = alarm;
-        Events.sendAlarmEvent(R.string.action_set_date, R.string.label_deskclock);
+
         if (SettingsDAO.getMaterialDatePickerStyle(mPrefs).equals(SPINNER_DATE_PICKER_STYLE)) {
             showSpinnerDatePicker(alarm);
         } else {
@@ -296,6 +305,12 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
     }
 
     public void showSpinnerDatePicker(Alarm alarm) {
+        if (mCurrentSpinnerDatePickerDialog != null && mCurrentSpinnerDatePickerDialog.isShowing()) {
+            return;
+        }
+
+        Events.sendAlarmEvent(R.string.action_set_date, R.string.label_deskclock);
+
         LayoutInflater inflater = mFragment.getLayoutInflater();
         @SuppressLint("InflateParams")
         View dialogView = inflater.inflate(R.layout.spinner_date_picker, null);
@@ -341,7 +356,7 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
         datePicker.init(selectionDate.get(Calendar.YEAR), selectionDate.get(Calendar.MONTH),
                 selectionDate.get(Calendar.DAY_OF_MONTH), null);
 
-        CustomDialog.create(
+        mCurrentSpinnerDatePickerDialog = CustomDialog.create(
                 mContext,
                 R.style.SpinnerDialogTheme,
                 null,
@@ -362,10 +377,24 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
                 null,
                 null,
                 CustomDialog.SoftInputMode.SHOW_KEYBOARD
-        ).show();
+        );
+
+        mCurrentSpinnerDatePickerDialog.setOnDismissListener(dialog ->
+                mCurrentSpinnerDatePickerDialog = null);
+
+        mCurrentSpinnerDatePickerDialog.show();
     }
 
     public void showMaterialDatePicker(Alarm alarm) {
+        FragmentManager fragmentManager = ((AppCompatActivity) mContext).getSupportFragmentManager();
+
+        // Prevents opening the same dialog twice
+        if (fragmentManager.findFragmentByTag(TAG) != null) {
+            return;
+        }
+
+        Events.sendAlarmEvent(R.string.action_set_date, R.string.label_deskclock);
+
         String materialDatePickerStyle = SettingsDAO.getMaterialDatePickerStyle(mPrefs);
         MaterialDatePicker.Builder<Long> builder = MaterialDatePicker.Builder.datePicker();
 
@@ -466,7 +495,7 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
             }
         });
 
-        materialDatePicker.show(((AppCompatActivity) mContext).getSupportFragmentManager(), TAG);
+        materialDatePicker.show(fragmentManager, TAG);
 
         materialDatePicker.addOnPositiveButtonClickListener(selection -> {
             // Selection contains the selected date as a timestamp (long)

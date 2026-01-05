@@ -17,14 +17,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.best.deskclock.R;
 
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.uicomponents.CustomDialog;
+import com.best.deskclock.utils.Utils;
 
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
@@ -79,26 +78,10 @@ public class SpinnerTimePickerDialogFragment extends DialogFragment {
     }
 
     /**
-     * Replaces any existing SpinnerTimePickerDialogFragment with the given {@code fragment}.
+     * Displays {@link SpinnerTimePickerDialogFragment}.
      */
     public static void show(FragmentManager manager, SpinnerTimePickerDialogFragment fragment) {
-        if (manager == null || manager.isDestroyed()) {
-            return;
-        }
-
-        // Finish any outstanding fragment work.
-        manager.executePendingTransactions();
-
-        final FragmentTransaction tx = manager.beginTransaction();
-
-        // Remove existing instance of SpinnerTimePickerDialogFragment if necessary.
-        final Fragment existing = manager.findFragmentByTag(TAG);
-        if (existing != null) {
-            tx.remove(existing);
-        }
-        tx.addToBackStack(null);
-
-        fragment.show(tx, TAG);
+        Utils.showDialogFragment(manager, fragment, TAG);
     }
 
     @Override

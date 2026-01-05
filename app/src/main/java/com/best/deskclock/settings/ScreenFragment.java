@@ -177,7 +177,7 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
         } else if (pref instanceof ColorPickerPreference colorPickerPref) {
             ColorPreferenceDialogFragment dialog =
                     ColorPreferenceDialogFragment.newInstance(colorPickerPref);
-            dialog.show(getChildFragmentManager(), "color_dialog");
+            ColorPreferenceDialogFragment.show(getChildFragmentManager(), dialog);
         } else {
             super.onDisplayPreferenceDialog(pref);
         }

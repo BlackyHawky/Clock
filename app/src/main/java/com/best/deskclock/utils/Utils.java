@@ -33,6 +33,10 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.core.util.Function;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
@@ -105,6 +109,37 @@ public class Utils {
         // explicitly set the flag here, as getActivity() documentation states we must do so
         return PendingIntent.getActivity(context, 0, intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
                 FLAG_UPDATE_CURRENT | FLAG_IMMUTABLE);
+    }
+
+    /**
+     * Displays a {@link DialogFragment} only if it is not already shown.
+     *
+     * <p>This method checks whether a fragment with the given tag is already
+     * present in the {@link FragmentManager}. If so, the call is ignored to prevent
+     * opening the same dialog multiple times (e.g., due to fast repeated clicks).</p>
+     *
+     * @param manager  the FragmentManager used to display the dialog
+     * @param fragment the DialogFragment instance to show
+     * @param tag      the unique tag identifying this dialog in the FragmentManager
+     */
+    public static void showDialogFragment(FragmentManager manager, DialogFragment fragment, String tag) {
+        if (manager == null || manager.isDestroyed()) {
+            return;
+        }
+
+        // Finish any outstanding fragment work.
+        manager.executePendingTransactions();
+
+        final Fragment existing = manager.findFragmentByTag(tag);
+        // Prevents the same dialog from being opened twice.
+        if (existing != null) {
+            return;
+        }
+
+        final FragmentTransaction tx = manager.beginTransaction();
+
+        tx.addToBackStack(null);
+        fragment.show(tx, tag);
     }
 
     public static String getNumberFormattedQuantityString(Context context, int id, int quantity) {

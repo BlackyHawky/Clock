@@ -27,9 +27,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.DataModel;
@@ -40,6 +38,7 @@ import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
+import com.best.deskclock.utils.Utils;
 
 import java.util.Objects;
 
@@ -127,26 +126,10 @@ public class LabelDialogFragment extends DialogFragment {
     }
 
     /**
-     * Replaces any existing LabelDialogFragment with the given {@code fragment}.
+     * Displays {@link LabelDialogFragment} with the given {@code fragment}.
      */
     public static void show(FragmentManager manager, LabelDialogFragment fragment) {
-        if (manager == null || manager.isDestroyed()) {
-            return;
-        }
-
-        // Finish any outstanding fragment work.
-        manager.executePendingTransactions();
-
-        final FragmentTransaction tx = manager.beginTransaction();
-
-        // Remove existing instance of LabelDialogFragment if necessary.
-        final Fragment existing = manager.findFragmentByTag(TAG);
-        if (existing != null) {
-            tx.remove(existing);
-        }
-        tx.addToBackStack(null);
-
-        fragment.show(tx, TAG);
+        Utils.showDialogFragment(manager, fragment, TAG);
     }
 
     @Override
