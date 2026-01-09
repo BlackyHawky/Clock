@@ -174,6 +174,54 @@
     </com.best.deskclock.settings.custompreference.CustomPreferenceCategory>
 
     <com.best.deskclock.settings.custompreference.CustomPreferenceCategory
+        android:key="key_alarm_vibration_category"
+        android:title="@string/vibration_category_title"
+        app:allowDividerAbove="false"
+        app:iconSpaceReserved="false"
+        tools:layout="@layout/settings_preference_category_layout">
+
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
+            android:key="key_enable_per_alarm_vibration_pattern"
+            android:title="@string/enable_per_alarm_vibration_pattern_title"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <com.best.deskclock.settings.custompreference.VibrationPatternPreference
+            android:key="key_vibration_pattern"
+            android:title="@string/vibration_pattern_title"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <com.best.deskclock.settings.custompreference.VibrationStartDelayPreference
+            android:key="key_vibration_start_delay"
+            android:title="@string/vibration_start_delay_title"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
+            android:key="key_enable_alarm_vibrations_by_default"
+            android:title="@string/enable_alarm_vibrations_by_default_setting_title"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
+            android:key="key_enable_snoozed_or_dismissed_alarm_vibrations"
+            android:title="@string/enable_snoozed_or_dismissed_alarm_vibrations_title"
+            android:summary="@string/enable_snoozed_or_dismissed_alarm_vibrations_summary"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+    </com.best.deskclock.settings.custompreference.CustomPreferenceCategory>
+
+    <com.best.deskclock.settings.custompreference.CustomPreferenceCategory
         android:title="@string/actions_category_title"
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false"
@@ -288,45 +336,6 @@
             android:entries="@array/alarm_notification_reminder_entries"
             android:entryValues="@array/alarm_notification_reminder_values"
             android:defaultValue="30"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
-
-        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
-            android:key="key_enable_per_alarm_vibration_pattern"
-            android:title="@string/enable_per_alarm_vibration_pattern_title"
-            android:defaultValue="false"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
-
-        <com.best.deskclock.settings.custompreference.VibrationPatternPreference
-            android:key="key_vibration_pattern"
-            android:title="@string/vibration_pattern_title"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
-
-        <com.best.deskclock.settings.custompreference.VibrationStartDelayPreference
-            android:key="key_vibration_start_delay"
-            android:title="@string/vibration_start_delay_title"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
-
-        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
-            android:key="key_enable_alarm_vibrations_by_default"
-            android:title="@string/enable_alarm_vibrations_by_default_setting_title"
-            android:defaultValue="false"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
-
-        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
-            android:key="key_enable_snoozed_or_dismissed_alarm_vibrations"
-            android:title="@string/enable_snoozed_or_dismissed_alarm_vibrations_title"
-            android:summary="@string/enable_snoozed_or_dismissed_alarm_vibrations_summary"
-            android:defaultValue="false"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
