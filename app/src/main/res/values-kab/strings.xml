@@ -107,4 +107,5 @@
     <string name="settings_language_system">Tutlayt tanagrawant</string>
     <string name="settings_language_english_us">Taglizit (Iwunak Yeddukklen)</string>
     <string name="timer_add_custom_time">+ %s</string>
+    <string name="world_day_of_week_label">/ <xliff:g id="LABEL">%s</xliff:g></string>
 </resources>

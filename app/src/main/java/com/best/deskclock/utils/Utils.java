@@ -181,6 +181,7 @@ public class Utils {
      * @param context The base context used to read preferences and resources.
      * @return A new Context whose configuration applies the selected Locale.
      */
+    @SuppressLint("AppBundleLocaleChanges")
     public static Context getLocalizedContext(Context context) {
         String customLanguageCode = SettingsDAO.getCustomLanguageCode(getDefaultSharedPreferences(context));
 

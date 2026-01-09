@@ -35,7 +35,7 @@ android {
         }
     }
 
-    def commitNumber = 48
+    def commitNumber = 51
 
     def buildCommit = providers.exec {
         commandLine('git', 'rev-parse', '--short=7', 'HEAD')
@@ -113,8 +113,8 @@ android {
 
 dependencies {
     implementation 'androidx.documentfile:documentfile:1.1.0'
-    implementation 'androidx.media3:media3-exoplayer:1.8.0'
-    implementation 'androidx.media3:media3-common:1.8.0'
+    implementation 'androidx.media3:media3-exoplayer:1.9.0'
+    implementation 'androidx.media3:media3-common:1.9.0'
     implementation 'androidx.preference:preference:1.2.1'
     implementation 'androidx.recyclerview:recyclerview:1.4.0'
     implementation 'com.google.android.material:material:1.13.0'
