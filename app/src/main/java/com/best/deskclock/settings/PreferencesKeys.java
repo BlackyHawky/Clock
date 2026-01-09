@@ -85,6 +85,7 @@ public class PreferencesKeys {
     public static final String KEY_AUTO_ROUTING_TO_BLUETOOTH_DEVICE = "key_auto_routing_to_bluetooth_device";
     public static final String KEY_SYSTEM_MEDIA_VOLUME = "key_system_media_volume";
     public static final String KEY_BLUETOOTH_VOLUME = "key_bluetooth_volume";
+    public static final String KEY_ALARM_VIBRATION_CATEGORY = "key_alarm_vibration_category";
     public static final String KEY_SWIPE_ACTION = "key_swipe_action";
     public static final String KEY_VOLUME_BUTTONS = "key_volume_button_setting";
     public static final String KEY_POWER_BUTTON = "key_power_button";

@@ -275,6 +275,8 @@
     <string name="custom_font_toast_message_deleted">Font successfully deleted</string>
     <!-- Category title for ringtone settings -->
     <string name="ringtone_category_title">Ringtone</string>
+    <!-- Category title for vibration settings -->
+    <string name="vibration_category_title">Vibration</string>
     <!-- Category title for alarm actions -->
     <string name="actions_category_title">Actions</string>
     <!-- Category title for standard widgets -->

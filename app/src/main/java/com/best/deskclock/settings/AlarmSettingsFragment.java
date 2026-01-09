@@ -11,6 +11,7 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_NEVER
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_DISPLAY_CUSTOMIZATION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_NOTIFICATION_REMINDER_TIME;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_SNOOZE_DURATION;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_VIBRATION_CATEGORY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_VOLUME_CRESCENDO_DURATION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_VOLUME_SETTING;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_ROUTING_TO_BLUETOOTH_DEVICE;
@@ -41,7 +42,6 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_SORT_ALARM;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SYSTEM_MEDIA_VOLUME;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_VIBRATION_PATTERN;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_VIBRATION_START_DELAY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_VOLUME_BUTTONS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_WEEK_START;
 
@@ -78,6 +78,7 @@ import com.best.deskclock.settings.custompreference.AlarmVolumePreference;
 import com.best.deskclock.settings.custompreference.AutoSilenceDurationPreference;
 import com.best.deskclock.settings.custompreference.CustomListPreference;
 import com.best.deskclock.settings.custompreference.CustomPreference;
+import com.best.deskclock.settings.custompreference.CustomPreferenceCategory;
 import com.best.deskclock.settings.custompreference.CustomSeekbarPreference;
 import com.best.deskclock.settings.custompreference.CustomSwitchPreference;
 import com.best.deskclock.settings.custompreference.VibrationPatternPreference;
@@ -114,6 +115,7 @@ public class AlarmSettingsFragment extends ScreenFragment
     CustomSwitchPreference mAutoRoutingToBluetoothDevicePref;
     CustomSwitchPreference mSystemMediaVolume;
     CustomSeekbarPreference mBluetoothVolumePref;
+    CustomPreferenceCategory mAlarmVibrationCategory;
     CustomListPreference mVolumeButtonsPref;
     CustomListPreference mPowerButtonPref;
     CustomListPreference mFlipActionPref;
@@ -127,7 +129,6 @@ public class AlarmSettingsFragment extends ScreenFragment
     CustomListPreference mAlarmNotificationReminderTimePref;
     CustomSwitchPreference mEnablePerAlarmVibrationPatternPref;
     VibrationPatternPreference mVibrationPatternPref;
-    VibrationStartDelayPreference mVibrationStartDelayPref;
     CustomSwitchPreference mEnableAlarmVibrationsByDefaultPref;
     CustomSwitchPreference mEnableSnoozedOrDismissedAlarmVibrationsPref;
     CustomSwitchPreference mTurnOnBackFlashForTriggeredAlarmPref;
@@ -166,6 +167,7 @@ public class AlarmSettingsFragment extends ScreenFragment
         mAutoRoutingToBluetoothDevicePref = findPreference(KEY_AUTO_ROUTING_TO_BLUETOOTH_DEVICE);
         mSystemMediaVolume = findPreference(KEY_SYSTEM_MEDIA_VOLUME);
         mBluetoothVolumePref = findPreference(KEY_BLUETOOTH_VOLUME);
+        mAlarmVibrationCategory = findPreference(KEY_ALARM_VIBRATION_CATEGORY);
         mVolumeButtonsPref = findPreference(KEY_VOLUME_BUTTONS);
         mPowerButtonPref = findPreference(KEY_POWER_BUTTON);
         mFlipActionPref = findPreference(KEY_FLIP_ACTION);
@@ -179,7 +181,6 @@ public class AlarmSettingsFragment extends ScreenFragment
         mAlarmNotificationReminderTimePref = findPreference(KEY_ALARM_NOTIFICATION_REMINDER_TIME);
         mEnablePerAlarmVibrationPatternPref = findPreference(KEY_ENABLE_PER_ALARM_VIBRATION_PATTERN);
         mVibrationPatternPref = findPreference(KEY_VIBRATION_PATTERN);
-        mVibrationStartDelayPref = findPreference(KEY_VIBRATION_START_DELAY);
         mEnableAlarmVibrationsByDefaultPref = findPreference(KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT);
         mEnableSnoozedOrDismissedAlarmVibrationsPref = findPreference(KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS);
         mTurnOnBackFlashForTriggeredAlarmPref = findPreference(KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM);
@@ -477,7 +478,6 @@ public class AlarmSettingsFragment extends ScreenFragment
     }
 
     private void setupPreferences() {
-        final boolean hasVibrator = DeviceUtils.hasVibrator(requireContext());
         mAudioManager = (AudioManager) requireContext().getSystemService(Context.AUDIO_SERVICE);
 
         mAlarmRingtonePref.setOnPreferenceClickListener(this);
@@ -581,6 +581,48 @@ public class AlarmSettingsFragment extends ScreenFragment
         mBluetoothVolumePref.setEnabled(mBluetoothVolumePref.isVisible()
                 && RingtoneUtils.hasBluetoothDeviceConnected(requireContext(), mPrefs));
 
+        mAlarmVibrationCategory.setVisible(DeviceUtils.hasVibrator(requireContext()));
+
+        mEnablePerAlarmVibrationPatternPref.setOnPreferenceChangeListener(this);
+
+        mVibrationPatternPref.setVisible(!SettingsDAO.isPerAlarmVibrationPatternEnabled(mPrefs));
+        getParentFragmentManager().setFragmentResultListener(VibrationPatternDialogFragment.REQUEST_KEY,
+                this, (requestKey, bundle) -> {
+                    String key = bundle.getString(VibrationPatternDialogFragment.RESULT_PREF_KEY);
+                    String newValue = bundle.getString(VibrationPatternDialogFragment.RESULT_PATTERN_KEY);
+
+                    if (key != null) {
+                        VibrationPatternPreference pref = findPreference(key);
+                        if (pref != null) {
+                            pref.setPattern(newValue);
+                            pref.setSummary(pref.getSummary());
+                            for (Alarm alarm : mAlarmList) {
+                                alarm.vibrationPattern = newValue;
+                                mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                            }
+                        }
+                    }
+                });
+
+        // Vibration start delay preference
+        getParentFragmentManager().setFragmentResultListener(VibrationStartDelayDialogFragment.REQUEST_KEY,
+                this, (requestKey, bundle) -> {
+                    String key = bundle.getString(VibrationStartDelayDialogFragment.RESULT_PREF_KEY);
+                    int newValue = bundle.getInt(VibrationStartDelayDialogFragment.VIBRATION_DELAY_VALUE);
+
+                    if (key != null) {
+                        VibrationStartDelayPreference pref = findPreference(key);
+                        if (pref != null) {
+                            pref.setVibrationStartDelay(newValue);
+                            pref.setSummary(pref.getSummary());
+                        }
+                    }
+                });
+
+        mEnableAlarmVibrationsByDefaultPref.setOnPreferenceChangeListener(this);
+
+        mEnableSnoozedOrDismissedAlarmVibrationsPref.setOnPreferenceChangeListener(this);
+
         mVolumeButtonsPref.setOnPreferenceChangeListener(this);
         mVolumeButtonsPref.setSummary(mVolumeButtonsPref.getEntry());
 
@@ -624,49 +666,6 @@ public class AlarmSettingsFragment extends ScreenFragment
 
         mAlarmNotificationReminderTimePref.setOnPreferenceChangeListener(this);
         mAlarmNotificationReminderTimePref.setSummary(mAlarmNotificationReminderTimePref.getEntry());
-
-        mEnablePerAlarmVibrationPatternPref.setVisible(hasVibrator);
-        mEnablePerAlarmVibrationPatternPref.setOnPreferenceChangeListener(this);
-
-        mVibrationPatternPref.setVisible(hasVibrator && !SettingsDAO.isPerAlarmVibrationPatternEnabled(mPrefs));
-        getParentFragmentManager().setFragmentResultListener(VibrationPatternDialogFragment.REQUEST_KEY,
-                this, (requestKey, bundle) -> {
-            String key = bundle.getString(VibrationPatternDialogFragment.RESULT_PREF_KEY);
-            String newValue = bundle.getString(VibrationPatternDialogFragment.RESULT_PATTERN_KEY);
-
-            if (key != null) {
-                VibrationPatternPreference pref = findPreference(key);
-                if (pref != null) {
-                    pref.setPattern(newValue);
-                    pref.setSummary(pref.getSummary());
-                    for (Alarm alarm : mAlarmList) {
-                        alarm.vibrationPattern = newValue;
-                        mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
-                    }
-                }
-            }
-        });
-
-        mVibrationStartDelayPref.setVisible(hasVibrator);
-        getParentFragmentManager().setFragmentResultListener(VibrationStartDelayDialogFragment.REQUEST_KEY,
-                this, (requestKey, bundle) -> {
-            String key = bundle.getString(VibrationStartDelayDialogFragment.RESULT_PREF_KEY);
-            int newValue = bundle.getInt(VibrationStartDelayDialogFragment.VIBRATION_DELAY_VALUE);
-
-            if (key != null) {
-                VibrationStartDelayPreference pref = findPreference(key);
-                if (pref != null) {
-                    pref.setVibrationStartDelay(newValue);
-                    pref.setSummary(pref.getSummary());
-                }
-            }
-        });
-
-        mEnableAlarmVibrationsByDefaultPref.setVisible(hasVibrator);
-        mEnableAlarmVibrationsByDefaultPref.setOnPreferenceChangeListener(this);
-
-        mEnableSnoozedOrDismissedAlarmVibrationsPref.setVisible(hasVibrator);
-        mEnableSnoozedOrDismissedAlarmVibrationsPref.setOnPreferenceChangeListener(this);
 
         mTurnOnBackFlashForTriggeredAlarmPref.setVisible(AlarmUtils.hasBackFlash(requireContext()));
         mTurnOnBackFlashForTriggeredAlarmPref.setOnPreferenceChangeListener(this);
