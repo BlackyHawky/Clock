@@ -97,6 +97,7 @@ public class PreferencesKeys {
     public static final String KEY_WEEK_START = "key_week_start";
     public static final String KEY_DISPLAY_DISMISS_BUTTON = "key_display_dismiss_button";
     public static final String KEY_ALARM_NOTIFICATION_REMINDER_TIME = "key_alarm_notification_reminder_time";
+    public static final String KEY_ENABLE_PER_ALARM_VIBRATION_PATTERN = "key_enable_per_alarm_vibration_pattern";
     public static final String KEY_VIBRATION_PATTERN = "key_vibration_pattern";
     public static final String KEY_VIBRATION_START_DELAY = "key_vibration_start_delay";
     public static final String KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT = "key_enable_alarm_vibrations_by_default";

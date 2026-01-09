@@ -85,6 +85,7 @@ import com.best.deskclock.AlarmSnoozeDurationDialogFragment.SnoozeDurationDialog
 import com.best.deskclock.AutoSilenceDurationDialogFragment.AutoSilenceDurationDialogHandler;
 import com.best.deskclock.LabelDialogFragment.AlarmLabelDialogHandler;
 import com.best.deskclock.LabelDialogFragment.CityNoteDialogHandler;
+import com.best.deskclock.VibrationPatternDialogFragment.VibrationPatternDialogHandler;
 import com.best.deskclock.VolumeCrescendoDurationDialogFragment.VolumeCrescendoDurationDialogHandler;
 import com.best.deskclock.alarms.AlarmMissedRepeatLimitDialogFragment.MissedAlarmRepeatLimitDialogHandler;
 import com.best.deskclock.alarms.AlarmVolumeDialogFragment.VolumeValueDialogHandler;
@@ -125,9 +126,10 @@ import java.util.TimeZone;
  * clocks, timers and stopwatch.
  */
 public class DeskClock extends BaseActivity
-        implements FabContainer, AlarmLabelDialogHandler, AutoSilenceDurationDialogHandler,
-        SnoozeDurationDialogHandler, MissedAlarmRepeatLimitDialogHandler,
-        VolumeCrescendoDurationDialogHandler, VolumeValueDialogHandler, CityNoteDialogHandler {
+        implements FabContainer, AlarmLabelDialogHandler, VibrationPatternDialogHandler,
+        AutoSilenceDurationDialogHandler, SnoozeDurationDialogHandler,
+        MissedAlarmRepeatLimitDialogHandler, VolumeCrescendoDurationDialogHandler,
+        VolumeValueDialogHandler, CityNoteDialogHandler {
 
     SharedPreferences mPrefs;
     Typeface mRegularTypeface;
@@ -556,6 +558,14 @@ public class DeskClock extends BaseActivity
             // Update the alarm title in the “Next alarm” widget
             WidgetUtils.updateWidget(this, NextAlarmAppWidgetProvider.class);
             WidgetUtils.updateWidget(this, MaterialYouNextAlarmAppWidgetProvider.class);
+        }
+    }
+
+    @Override
+    public void onDialogVibrationPatternSet(Alarm alarm, String vibrationPattern, String tag) {
+        final Fragment frag = getSupportFragmentManager().findFragmentByTag(tag);
+        if (frag instanceof AlarmClockFragment) {
+            ((AlarmClockFragment) frag).setVibrationPattern(alarm, vibrationPattern);
         }
     }
 

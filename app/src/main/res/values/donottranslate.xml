@@ -58,6 +58,7 @@
     <string name="action_set_label">Set Label</string>
     <string name="action_set_ringtone">Set Ringtone</string>
     <string name="action_toggle_vibrate">Toggle Vibrate</string>
+    <string name="action_set_vibration_pattern">Set Vibration Pattern</string>
     <string name="action_toggle_flash">Toggle Flash</string>
     <string name="action_delete_alarm_after_use">Delete Alarm After Use</string>
     <string name="action_set_auto_silence_duration">Set Auto Silence Duration</string>

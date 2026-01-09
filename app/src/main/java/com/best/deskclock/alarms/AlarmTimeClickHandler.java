@@ -41,6 +41,7 @@ import com.best.deskclock.AutoSilenceDurationDialogFragment;
 import com.best.deskclock.AlarmSnoozeDurationDialogFragment;
 import com.best.deskclock.LabelDialogFragment;
 import com.best.deskclock.R;
+import com.best.deskclock.VibrationPatternDialogFragment;
 import com.best.deskclock.VolumeCrescendoDurationDialogFragment;
 import com.best.deskclock.alarms.dataadapter.AlarmItemHolder;
 import com.best.deskclock.data.SettingsDAO;
@@ -126,6 +127,14 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
                 Utils.setVibrationTime(mContext, 300);
             }
         }
+    }
+
+    public void setVibrationPattern(Alarm alarm) {
+        Events.sendAlarmEvent(R.string.action_set_vibration_pattern, R.string.label_deskclock);
+        String vibrationPattern = alarm.vibrationPattern;
+        final VibrationPatternDialogFragment fragment =
+                VibrationPatternDialogFragment.newInstance(alarm, vibrationPattern, mFragment.getTag());
+        VibrationPatternDialogFragment.show(mFragment.getParentFragmentManager(), fragment);
     }
 
     public void setAlarmFlashEnabled(Alarm alarm, boolean newState) {
@@ -569,6 +578,7 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
         alarm.minutes = minute;
         alarm.enabled = true;
         alarm.vibrate = SettingsDAO.areAlarmVibrationsEnabledByDefault(mPrefs);
+        alarm.vibrationPattern = SettingsDAO.getVibrationPattern(mPrefs);
         alarm.flash = SettingsDAO.shouldTurnOnBackFlashForTriggeredAlarm(mPrefs);
         alarm.deleteAfterUse = SettingsDAO.isOccasionalAlarmDeletedByDefault(mPrefs);
         alarm.autoSilenceDuration = SettingsDAO.getAlarmTimeout(mPrefs);

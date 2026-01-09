@@ -25,6 +25,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_DELETE_OCCA
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_PER_ALARM_AUTO_SILENCE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_PER_ALARM_MISSED_REPEAT_LIMIT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_PER_ALARM_SNOOZE_DURATION;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_PER_ALARM_VIBRATION_PATTERN;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_PER_ALARM_VOLUME;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_PER_ALARM_VOLUME_CRESCENDO_DURATION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS;
@@ -124,6 +125,7 @@ public class AlarmSettingsFragment extends ScreenFragment
     CustomListPreference mWeekStartPref;
     CustomSwitchPreference mDisplayDismissButtonPref;
     CustomListPreference mAlarmNotificationReminderTimePref;
+    CustomSwitchPreference mEnablePerAlarmVibrationPatternPref;
     VibrationPatternPreference mVibrationPatternPref;
     VibrationStartDelayPreference mVibrationStartDelayPref;
     CustomSwitchPreference mEnableAlarmVibrationsByDefaultPref;
@@ -175,6 +177,7 @@ public class AlarmSettingsFragment extends ScreenFragment
         mWeekStartPref = findPreference(KEY_WEEK_START);
         mDisplayDismissButtonPref = findPreference(KEY_DISPLAY_DISMISS_BUTTON);
         mAlarmNotificationReminderTimePref = findPreference(KEY_ALARM_NOTIFICATION_REMINDER_TIME);
+        mEnablePerAlarmVibrationPatternPref = findPreference(KEY_ENABLE_PER_ALARM_VIBRATION_PATTERN);
         mVibrationPatternPref = findPreference(KEY_VIBRATION_PATTERN);
         mVibrationStartDelayPref = findPreference(KEY_VIBRATION_START_DELAY);
         mEnableAlarmVibrationsByDefaultPref = findPreference(KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT);
@@ -335,6 +338,26 @@ public class AlarmSettingsFragment extends ScreenFragment
                             KEY_ENABLE_PER_ALARM_VOLUME_CRESCENDO_DURATION, mEnablePerAlarmVolumeCrescendoDurationPref,
                             mAlarmVolumeCrescendoDurationPref, alarm ->
                                     alarm.crescendoDuration = SettingsDAO.getAlarmVolumeCrescendoDuration(mPrefs));
+
+                    return false;
+                }
+            }
+
+            case KEY_ENABLE_PER_ALARM_VIBRATION_PATTERN -> {
+                Utils.setVibrationTime(requireContext(), 50);
+
+                if ((boolean) newValue) {
+                    mVibrationPatternPref.setVisible(false);
+
+                    for (Alarm alarm : mAlarmList) {
+                        alarm.vibrationPattern = SettingsDAO.getVibrationPattern(mPrefs);
+                        mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                    }
+                } else {
+                    showDisablePerAlarmSettingDialog(R.string.enable_per_alarm_vibration_pattern_dialog_message,
+                            KEY_ENABLE_PER_ALARM_VIBRATION_PATTERN, mEnablePerAlarmVibrationPatternPref,
+                            mVibrationPatternPref, alarm ->
+                                    alarm.vibrationPattern = SettingsDAO.getVibrationPattern(mPrefs));
 
                     return false;
                 }
@@ -602,7 +625,10 @@ public class AlarmSettingsFragment extends ScreenFragment
         mAlarmNotificationReminderTimePref.setOnPreferenceChangeListener(this);
         mAlarmNotificationReminderTimePref.setSummary(mAlarmNotificationReminderTimePref.getEntry());
 
-        mVibrationPatternPref.setVisible(hasVibrator);
+        mEnablePerAlarmVibrationPatternPref.setVisible(hasVibrator);
+        mEnablePerAlarmVibrationPatternPref.setOnPreferenceChangeListener(this);
+
+        mVibrationPatternPref.setVisible(hasVibrator && !SettingsDAO.isPerAlarmVibrationPatternEnabled(mPrefs));
         getParentFragmentManager().setFragmentResultListener(VibrationPatternDialogFragment.REQUEST_KEY,
                 this, (requestKey, bundle) -> {
             String key = bundle.getString(VibrationPatternDialogFragment.RESULT_PREF_KEY);
@@ -613,6 +639,10 @@ public class AlarmSettingsFragment extends ScreenFragment
                 if (pref != null) {
                     pref.setPattern(newValue);
                     pref.setSummary(pref.getSummary());
+                    for (Alarm alarm : mAlarmList) {
+                        alarm.vibrationPattern = newValue;
+                        mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                    }
                 }
             }
         });
