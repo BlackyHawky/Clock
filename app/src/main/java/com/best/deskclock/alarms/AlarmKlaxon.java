@@ -123,7 +123,9 @@ final class AlarmKlaxon {
                         .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
                         .build();
 
-                String patternKey = SettingsDAO.getVibrationPattern(prefs);
+                String patternKey = SettingsDAO.isPerAlarmVibrationPatternEnabled(prefs)
+                        ? instance.mVibrationPattern
+                        : SettingsDAO.getVibrationPattern(prefs);
                 long[] pattern = Utils.getVibrationPatternForKey(patternKey);
 
                 if (SdkUtils.isAtLeastAndroid13()) {

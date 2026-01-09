@@ -465,6 +465,10 @@
     <string name="disconnect_bluetooth_device_title">Disconnect the Bluetooth device to access this setting</string>
     <!-- Setting title to enable vibrations when creating alarms -->
     <string name="enable_alarm_vibrations_by_default_setting_title">Enable vibrations when creating alarms</string>
+    <!-- Setting title to enable the use of a custom vibration pattern for each alarm. -->
+    <string name="enable_per_alarm_vibration_pattern_title">Use a custom vibration pattern for each alarm</string>
+    <!-- Dialog message when the "Use a custom vibration pattern for each alarm" setting is disabled. -->
+    <string name="enable_per_alarm_vibration_pattern_dialog_message">Custom vibration pattern will be reset.%s</string>
     <!-- Setting title to change the vibration pattern -->
     <string name="vibration_pattern_title">Vibration pattern</string>
     <!-- Setting title to change the vibration pattern to Soft -->

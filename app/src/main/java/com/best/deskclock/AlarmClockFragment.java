@@ -830,6 +830,11 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
     }
 
+    public void setVibrationPattern(Alarm alarm, String vibrationPattern) {
+        alarm.vibrationPattern = vibrationPattern;
+        mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+    }
+
     public void setAutoSilenceDuration(Alarm alarm, int autoSilenceDuration) {
         alarm.autoSilenceDuration = autoSilenceDuration;
         mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);

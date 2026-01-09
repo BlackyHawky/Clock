@@ -46,7 +46,8 @@ public class AlarmMissedRepeatLimitDialogFragment extends DialogFragment {
 
     /**
      * Creates a new instance of {@link AlarmMissedRepeatLimitDialogFragment} for use
-     * in the expanded alarm view, where the snooze duration is configured for a specific alarm.
+     * in the expanded alarm view, where the number of times a missed alarm can be repeated is
+     * configured for a specific alarm.
      *
      * @param alarm             The alarm instance being edited.
      * @param missedRepeatLimit The number of times a missed alarm can be repeated.

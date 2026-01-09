@@ -534,6 +534,7 @@ public class HandleApiCalls extends Activity {
 
         alarm.enabled = true;
         alarm.vibrate = SettingsDAO.areAlarmVibrationsEnabledByDefault(prefs);
+        alarm.vibrationPattern = SettingsDAO.getVibrationPattern(prefs);
         alarm.flash = SettingsDAO.shouldTurnOnBackFlashForTriggeredAlarm(prefs);
         alarm.deleteAfterUse = SettingsDAO.isOccasionalAlarmDeletedByDefault(prefs);
         alarm.autoSilenceDuration = SettingsDAO.getAlarmTimeout(prefs);

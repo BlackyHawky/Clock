@@ -11,6 +11,7 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_VOLUME;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_AUTO_SILENCE_DURATION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_MISSED_ALARM_REPEAT_LIMIT;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VIBRATION_PATTERN;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VOLUME_CRESCENDO_DURATION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_END_OF_RINGTONE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_NEVER;
@@ -57,6 +58,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             MINUTES,
             LABEL,
             VIBRATE,
+            VIBRATION_PATTERN,
             FLASH,
             RINGTONE,
             ALARM_ID,
@@ -81,16 +83,17 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     private static final int MINUTES_INDEX = 5;
     private static final int LABEL_INDEX = 6;
     private static final int VIBRATE_INDEX = 7;
-    private static final int FLASH_INDEX = 8;
-    private static final int RINGTONE_INDEX = 9;
-    private static final int ALARM_ID_INDEX = 10;
-    private static final int ALARM_STATE_INDEX = 11;
-    private static final int AUTO_SILENCE_DURATION_INDEX = 12;
-    private static final int SNOOZE_DURATION_INDEX = 13;
-    private static final int MISSED_ALARM_REPEAT_COUNT_INDEX = 14;
-    private static final int MISSED_ALARM_MAX_COUNT_INDEX = 15;
-    private static final int CRESCENDO_DURATION_INDEX = 16;
-    private static final int ALARM_VOLUME_INDEX = 17;
+    private static final int VIBRATION_PATTERN_INDEX = 8;
+    private static final int FLASH_INDEX = 9;
+    private static final int RINGTONE_INDEX = 10;
+    private static final int ALARM_ID_INDEX = 11;
+    private static final int ALARM_STATE_INDEX = 12;
+    private static final int AUTO_SILENCE_DURATION_INDEX = 13;
+    private static final int SNOOZE_DURATION_INDEX = 14;
+    private static final int MISSED_ALARM_REPEAT_COUNT_INDEX = 15;
+    private static final int MISSED_ALARM_MAX_COUNT_INDEX = 16;
+    private static final int CRESCENDO_DURATION_INDEX = 17;
+    private static final int ALARM_VOLUME_INDEX = 18;
 
     private static final int COLUMN_COUNT = ALARM_VOLUME_INDEX + 1;
     // Public fields
@@ -102,6 +105,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     public int mMinute;
     public String mLabel;
     public boolean mVibrate;
+    public String mVibrationPattern;
     public boolean mFlash;
     public Uri mRingtone;
     public Long mAlarmId;
@@ -124,6 +128,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         setAlarmTime(calendar);
         mLabel = "";
         mVibrate = false;
+        mVibrationPattern = DEFAULT_VIBRATION_PATTERN;
         mFlash = false;
         mRingtone = null;
         mAlarmState = SILENT_STATE;
@@ -144,6 +149,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         this.mMinute = instance.mMinute;
         this.mLabel = instance.mLabel;
         this.mVibrate = instance.mVibrate;
+        this.mVibrationPattern = instance.mVibrationPattern;
         this.mFlash = instance.mFlash;
         this.mRingtone = instance.mRingtone;
         this.mAlarmId = instance.mAlarmId;
@@ -166,6 +172,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             mMinute = c.getInt(Alarm.INSTANCE_MINUTE_INDEX);
             mLabel = c.getString(Alarm.INSTANCE_LABEL_INDEX);
             mVibrate = c.getInt(Alarm.INSTANCE_VIBRATE_INDEX) == 1;
+            mVibrationPattern = c.getString(Alarm.INSTANCE_VIBRATION_PATTERN_INDEX);
             mFlash = c.getInt(Alarm.INSTANCE_FLASH_INDEX) == 1;
             mAutoSilenceDuration = c.getInt(Alarm.INSTANCE_AUTO_SILENCE_DURATION_INDEX);
             mSnoozeDuration = c.getInt(Alarm.INSTANCE_SNOOZE_DURATION_INDEX);
@@ -182,6 +189,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             mMinute = c.getInt(MINUTES_INDEX);
             mLabel = c.getString(LABEL_INDEX);
             mVibrate = c.getInt(VIBRATE_INDEX) == 1;
+            mVibrationPattern = c.getString(VIBRATION_PATTERN_INDEX);
             mFlash = c.getInt(FLASH_INDEX) == 1;
             mAutoSilenceDuration = c.getInt(AUTO_SILENCE_DURATION_INDEX);
             mSnoozeDuration = c.getInt(SNOOZE_DURATION_INDEX);
@@ -217,6 +225,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         values.put(MINUTES, mMinute);
         values.put(LABEL, mLabel);
         values.put(VIBRATE, mVibrate ? 1 : 0);
+        values.put(VIBRATION_PATTERN, mVibrationPattern);
         values.put(FLASH, mFlash ? 1 : 0);
         if (mRingtone == null) {
             // We want to put null in the database, so we'll be able
@@ -477,6 +486,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
                 ", mMinute=" + mMinute +
                 ", mLabel=" + mLabel +
                 ", mVibrate=" + mVibrate +
+                ", mVibrationPattern=" + mVibrationPattern +
                 ", mFlash=" + mFlash +
                 ", mRingtone=" + mRingtone +
                 ", mAlarmId=" + mAlarmId +

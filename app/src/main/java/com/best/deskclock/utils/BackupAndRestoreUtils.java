@@ -171,6 +171,7 @@ public class BackupAndRestoreUtils {
                 alarmObject.put("hour", alarm.hour);
                 alarmObject.put("minutes", alarm.minutes);
                 alarmObject.put("vibrate", alarm.vibrate);
+                alarmObject.put("vibrationPattern", alarm.vibrationPattern);
                 alarmObject.put("flash", alarm.flash);
                 alarmObject.put("daysOfWeek", alarm.daysOfWeek.getBits());
                 alarmObject.put("label", alarm.label);
@@ -380,6 +381,7 @@ public class BackupAndRestoreUtils {
         int hour = alarmObject.optInt("hour", 8);
         int minutes = alarmObject.optInt("minutes", 30);
         boolean vibrate = alarmObject.optBoolean("vibrate", SettingsDAO.areAlarmVibrationsEnabledByDefault(prefs));
+        String vibrationPattern = alarmObject.optString("vibrationPattern", SettingsDAO.getVibrationPattern(prefs));
         boolean flash = alarmObject.optBoolean("flash", SettingsDAO.shouldTurnOnBackFlashForTriggeredAlarm(prefs));
         int daysOfWeek = alarmObject.optInt("daysOfWeek", 0);
         String label = alarmObject.optString("label", "");
@@ -420,9 +422,9 @@ public class BackupAndRestoreUtils {
         }
 
         restoredAlarm = new Alarm(id, enabled, year, month, day, hour, minutes,
-                vibrate, flash, Weekdays.fromBits(daysOfWeek), label, alarmRingtone, deleteAfterUse,
-                autoSilenceDuration, snoozeDuration, missedAlarmRepeatLimit, crescendoDuration,
-                alarmVolume);
+                vibrate, vibrationPattern, flash, Weekdays.fromBits(daysOfWeek), label, alarmRingtone,
+                deleteAfterUse, autoSilenceDuration, snoozeDuration, missedAlarmRepeatLimit,
+                crescendoDuration, alarmVolume);
 
         restoredAlarm.addAlarm(contentResolver);
 

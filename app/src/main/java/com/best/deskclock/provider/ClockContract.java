@@ -54,6 +54,13 @@ public final class ClockContract {
         String VIBRATE = "vibrate";
 
         /**
+         * Alarm vibration pattern.
+         *
+         * <p>Type: STRING</p>
+         */
+        String VIBRATION_PATTERN = "vibrationPattern";
+
+        /**
          * True if flash should turn on
          * <p>Type: BOOLEAN</p>
          */

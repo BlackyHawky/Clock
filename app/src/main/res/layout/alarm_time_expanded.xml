@@ -196,6 +196,39 @@
         tools:ignore="RtlSymmetry"
         tools:checked="true" />
 
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/vibration_pattern_title"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="12dp"
+        android:background="?attr/selectableItemBackground"
+        android:drawableStart="@drawable/ic_earthquake"
+        android:paddingStart="@null"
+        android:paddingEnd="10dp"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical"
+        android:focusable="true"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="@string/vibration_pattern_title"
+        app:drawableTint="?attr/colorOnSurfaceVariant"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/vibration_pattern_value"
+        app:layout_constraintTop_toBottomOf="@id/vibrate_onoff" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/vibration_pattern_value"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginEnd="12dp"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:focusable="true"
+        android:singleLine="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vibrate_onoff"
+        tools:text="Strong" />
+
     <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/flash_onoff"
         android:layout_width="match_parent"
@@ -207,7 +240,7 @@
         android:drawableEnd="@drawable/ic_selector_checkbox"
         android:drawablePadding="10dp"
         android:text="@string/alarm_flash"
-        app:layout_constraintTop_toBottomOf="@id/vibrate_onoff"
+        app:layout_constraintTop_toBottomOf="@id/vibration_pattern_title"
         tools:ignore="RtlSymmetry"
         tools:checked="false" />
 

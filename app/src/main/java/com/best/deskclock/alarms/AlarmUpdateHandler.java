@@ -117,6 +117,7 @@ public final class AlarmUpdateHandler {
                         // exactly which minor field changed, so just copy them all.
                         newInstance.mLabel = alarm.label;
                         newInstance.mVibrate = alarm.vibrate;
+                        newInstance.mVibrationPattern = alarm.vibrationPattern;
                         newInstance.mFlash = alarm.flash;
                         newInstance.mRingtone = alarm.alert;
                         newInstance.mAutoSilenceDuration = alarm.autoSilenceDuration;
