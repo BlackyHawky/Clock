@@ -5,24 +5,24 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="6674495003718166674">"שעון"</string>
-    <string name="default_label" msgid="5590025289805630372">"שעון מעורר"</string>
+    <string name="default_label" msgid="5590025289805630372">התראה</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"רטט"</string>
-    <string name="time_picker_dialog_title">בחר שעה</string>
-    <string name="date_picker_dialog_title">יש לבחור תאריך</string>
+    <string name="time_picker_dialog_title">נא לבחור שעה</string>
+    <string name="date_picker_dialog_title">נא לבחור תאריך</string>
     <string name="delete" msgid="5732434972457000541">"מחיקה"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"צליל ברירת המחדל להתראה"</string>
     <string name="alarm_sound" msgid="8754499591391638405">"צליל שעון מעורר"</string>
     <string name="timer_sound" msgid="896163086604894735">"צליל טיימר"</string>
     <string name="add_new_sound" msgid="2546936797351540244">"צליל חדש"</string>
-    <string name="remove_sound" msgid="2064643204455734239">"הסר"</string>
+    <string name="remove_sound" msgid="2064643204455734239">הסרה</string>
     <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"התראות וטיימרים המשתמשים בצליל זה ישמיעו במקומו את צליל ברירת המחדל."</string>
     <string name="your_sounds" msgid="1672779351352629681">"הצלילים שלך"</string>
     <string name="device_sounds" msgid="1584894148222639823">"צלילים במכשיר"</string>
     <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"לא ניתן לגשת לתוכן השמע."</string>
-    <string name="default_timer_ringtone_title" msgid="1370799536406862317">"הטיימר סיים"</string>
+    <string name="default_timer_ringtone_title" msgid="1370799536406862317">הטיימר הסתיים</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"מחר"</string>
     <string name="alarm_today" msgid="7873594221106531654">"היום"</string>
-    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"שמענו אותך"</string>
+    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">סגירה</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"החמצת התראה"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%1$s</xliff:g> ‏- <xliff:g id="ALARM_LABEL">%2$s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"מצב נודניק"</string>
@@ -110,16 +110,16 @@
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"לא ידוע"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"עוצמת הקול של ההתראות הושתקה"</string>
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"בטל השתקה"</string>
-    <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"רינגטון ברירת המחדל להתראה מושתק"</string>
+    <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">צלצול ברירת המחדל להתראה מושתק</string>
     <string name="change_setting_action" msgid="1224356633832430160">"שינוי"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"המכשיר מוגדר למצב השתקה כוללת"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"לחצני עוצמת קול"</string>
     <string name="button_action_snooze">נודניק</string>
-    <string name="button_action_dismiss">שמענו אותך</string>
+    <string name="button_action_dismiss">סגירה</string>
     <string name="button_action_control_volume">שליטה בעוצמת הקול</string>
     <string name="button_action_nothing">שום דבר</string>
     <string name="label_description" msgid="8736179296142915727">"תווית"</string>
-    <string name="ringtone_description" msgid="7580922112921069925">"רינגטון"</string>
+    <string name="ringtone_description" msgid="7580922112921069925">צלצול</string>
     <string name="menu_alarm" msgid="4772010125376647519">"שעון מעורר"</string>
     <string name="menu_timer" msgid="6459070074762877114">"טיימר"</string>
     <string name="menu_clock" msgid="5612760670606829805">"שעון"</string>
@@ -163,13 +163,10 @@
     <string name="hours_minutes_seconds" msgid="5680088738059791288">"<xliff:g id="HOURS">%1$d</xliff:g>:<xliff:g id="MINUTES">%2$02d</xliff:g>:<xliff:g id="SECONDS">%3$02d</xliff:g>"</string>
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
     <string name="jocular_content_message_1">"אתה מהיר כשד משחת."</string>
-    <string name="jocular_content_message_2">"תיהנה מפירות עמלך."</string>
-    <string name="jocular_content_message_3">"ידוע שאנדרואידים מהירים, אבל לא מהירים כמוך!"</string>
-    <string name="jocular_content_message_4">"אוף."</string>
-    <string name="jocular_content_message_5">"‏זמני L33t."</string>
+    <string name="jocular_content_message_2">כל הכבוד על ההשקעה.</string>
+    <string name="jocular_content_message_3">ידוע שאנדרואידים מהירים, אבל לא כמוך!</string>
+    <string name="jocular_content_message_4">וואו.</string>
     <string name="jocular_content_message_6">"איזו מהירות עצומה."</string>
-    <string name="jocular_content_message_7">"Let\'s do the time warp again."</string>
-    <string name="jocular_content_message_8">"Just a jump to the left."</string>
     <string name="jocular_content_message_9">"יש לך תאבון לחיפזון."</string>
     <string name="jocular_content_message_10">"מהירות פוטונית."</string>
     <string name="home_label" msgid="4436139365695453870">"מקומי"</string>
@@ -180,7 +177,7 @@
     <string name="open_date_settings" msgid="7712226973337806152">"שינוי תאריך ושעה"</string>
     <string name="clock_style_analog">אנלוגי</string>
     <string name="clock_style_digital">דיגיטלי</string>
-    <string name="automatic_home_clock" msgid="6274174710735449252">"שעון בית אוטומטי"</string>
+    <string name="automatic_home_clock" msgid="6274174710735449252">אזור זמן אוטומטי לשעון</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"בעת שהייה באזור זמן שונה, הוסף שעון להצגת הזמן בבית"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"אזור זמן מקומי"</string>
     <string name="city_checked" msgid="616847871968019">"<xliff:g id="CITY_NAME">%s</xliff:g> מסומנת"</string>
@@ -297,7 +294,7 @@
     <string name="collapse_alarm" msgid="3561772046433483980">"כווץ התראה"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"ביטול"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"ההתראה נמחקה"</string>
-    <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="LABEL">%s</xliff:g></string>
+    <string name="world_day_of_week_label" msgid="5911196322328341288">‏/ <xliff:g id="label">%s</xliff:g></string>
     <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> יותר"</string>
     <string name="world_time_behind" msgid="5395771290726167865">"<xliff:g id="TIME">%1$s</xliff:g> פחות"</string>
     <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> יותר"</string>
@@ -330,4 +327,120 @@
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"ההתראה של <xliff:g id="ALARM_TIME">%s</xliff:g> הועברה למצב נודניק למשך עשר דקות"</string>
     <string name="flip_action_title">פעולת הפיכת המכשיר</string>
     <string name="shake_action_title">פעולת ניעור המכשיר</string>
+    <string name="schedule_alarm_title">תזמון התראה</string>
+    <string name="alarm_flash">הבזק</string>
+    <string name="delay_picker_dialog_title">התראה בעוד…</string>
+    <string name="alarm_label_box_title">שם התראה</string>
+    <string name="label_default">ברירת מחדל</string>
+    <string name="warning">אזהרה</string>
+    <string name="label_hours">שעות</string>
+    <string name="label_minutes">דקות</string>
+    <string name="label_seconds">שניות</string>
+    <string name="confirm_action_prompt">\n\nלהמשיך?</string>
+    <string name="more_options">אפשרויות נוספות</string>
+    <string name="next_alarm_widget">ההתראה הבאה</string>
+    <string name="style_category_title">סגנון</string>
+    <string name="colors_category_title">צבעים</string>
+    <string name="font_category_title">גופן</string>
+    <string name="miscellaneous_category_title">שונות</string>
+    <string name="actions_category_title">פעולות</string>
+    <string name="interface_customization_settings">ממשק</string>
+    <string name="title_theme">ערכת נושא</string>
+    <string name="system_theme">מערכת</string>
+    <string name="light_theme">בהירה</string>
+    <string name="dark_theme">כהה</string>
+    <string name="title_accent_color">צבע נושא</string>
+    <string name="black_accent_color">שחור</string>
+    <string name="blue_accent_color">כחול</string>
+    <string name="blue_gray_accent_color">כחול אפרפר</string>
+    <string name="brown_accent_color">חום</string>
+    <string name="green_accent_color">ירוק</string>
+    <string name="indigo_accent_color">אינדיגו</string>
+    <string name="orange_accent_color">כתום</string>
+    <string name="pink_accent_color">ורוד</string>
+    <string name="purple_accent_color">סגול</string>
+    <string name="red_accent_color">אדום</string>
+    <string name="yellow_accent_color">צהוב</string>
+    <string name="settings_language_title">שפה</string>
+    <string name="settings_language_system">שפת מערכת</string>
+    <string name="settings_language_english_us">אנגלית (ארה״ב)</string>
+    <string name="settings_language_french">צרפתית</string>
+    <string name="settings_language_german">גרמנית</string>
+    <string name="settings_language_chinese_simplified_cn">סינית (מפושטת, הרפובליקה העממית של סין)</string>
+    <string name="settings_language_estonian">אסטונית</string>
+    <string name="settings_language_italian">איטלקית</string>
+    <string name="settings_language_polish">פולנית</string>
+    <string name="settings_language_portuguese">פורטוגזית</string>
+    <string name="settings_language_serbian">סרבית</string>
+    <string name="settings_language_spanish">ספרדית</string>
+    <string name="settings_language_ukrainian">אוקראינית</string>
+    <string name="settings_language_dutch">הולנדית</string>
+    <string name="settings_language_russian">רוסית</string>
+    <string name="settings_language_turkish">טורקית</string>
+    <string name="settings_language_korean">קוריאנית</string>
+    <string name="settings_language_czech">צ׳כית</string>
+    <string name="duplicate">שכפול</string>
+    <string name="settings_language_chinese_traditional_tw">סינית (מסורתית, טאיוואן)</string>
+    <string name="settings_vibration_title">הפעלת מחוות רטט</string>
+    <string name="tab_title_visibility_always">תמיד</string>
+    <string name="missed_alarm_repeat_limit_1_time">פעם אחת</string>
+    <string name="missed_alarm_repeat_limit_3_times">3 פעמים</string>
+    <string name="missed_alarm_repeat_limit_5_times">5 פעמים</string>
+    <string name="missed_alarm_repeat_limit_10_times">10 פעמים</string>
+    <string name="alarm_notification_reminder_30_minutes">חצי שעה קודם</string>
+    <string name="alarm_notification_reminder_1_hour">שעה אחת קודם</string>
+    <string name="alarm_notification_reminder_2_hours">שעתיים קודם</string>
+    <string name="alarm_notification_reminder_4_hours">4 שעות קודם</string>
+    <string name="alarm_notification_reminder_6_hours">6 שעות קודם</string>
+    <string name="alarm_notification_reminder_8_hours">8 שעות קודם</string>
+    <string name="alarm_notification_reminder_10_hours">10 שעות קודם</string>
+    <string name="alarm_notification_reminder_12_hours">12 שעות קודם</string>
+    <string name="vibration_start_delay_warning_box_text">נא לבחור מספר דקות שנע בין 0 ל־10</string>
+    <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">’</string>
+    <string name="blur_intensity_title">עוצמת טשטוש</string>
+    <string name="background_image_dialog_title">תמונת רקע</string>
+    <string name="city_search_hint">חיפוש עיר</string>
+    <string name="hide_clock_am_pm_pref">הסתרת הכיתוב AM/PM</string>
+    <string name="sort_cities_title">מיון ערים</string>
+    <string name="sort_manually">באופן ידני (באמצעות גרירה)</string>
+    <string name="sort_cities_ascending_time_zone">לפי אזור זמן (בסדר עולה)</string>
+    <string name="sort_cities_descending_time_zone">לפי אזור זמן (בסדר יורד)</string>
+    <string name="about_title">מידע כללי</string>
+    <string name="version">גרסה</string>
+    <string name="whats_new_title">מה חדש</string>
+    <string name="features_title">תכונות עיקריות</string>
+    <string name="about_github_link">הצגה ב־Github</string>
+    <string name="about_translate_link">תרגום ב־Codeberg</string>
+    <string name="license">רישיון קוד פתוח</string>
+    <string name="reset_settings_title">איפוס ההגדרות</string>
+    <string name="toast_message_for_reset">האיפוס הושלם</string>
+    <string name="dialog_close">סגירה</string>
+    <string name="warning_dialog_message">למחוק את הטיימר „%s”?</string>
+    <string name="screensaver_clock_dynamic_colors_title">צבעי שעון דינמיים</string>
+    <string name="clock_color_title">צבע שעון</string>
+    <string name="screensaver_brightness_title">בהירות</string>
+    <string name="preview_title">תצוגה מקדימה</string>
+    <string name="alarm_created">נוצרה התראה</string>
+    <string name="stopwatch_channel">שעון עצר</string>
+    <string name="timer_channel">טיימר</string>
+    <string name="first_launch_version">גרסה %s</string>
+    <string name="first_launch_main_feature_link">… ועוד המון!</string>
+    <string name="first_launch_dialog_title">יציאה</string>
+    <string name="first_launch_dialog_message">לצאת מהיישום?</string>
+    <string name="widgets_settings">יישומונים</string>
+    <string name="clock_second_hand_vintage">וינטג׳</string>
+    <string name="clock_style_analog_material">אנלוגי (Material)</string>
+    <string name="clock_dial_sun">שמש</string>
+    <string name="clock_dial_flower">פרח</string>
+    <string name="enable_city_note_title">הוספת הערה אישית לערים</string>
+    <string name="city_note_dialog_title">הערה עבור %s</string>
+    <string name="reset_settings_message">לאפס את כל הגדרות היישום? \n \nהערה: צלצולים בהתאמה אישית לא יתאפסו.</string>
+    <string name="progress_ringtones">הצלצולים מתווספים… (%1$d/‏%2$d)</string>
+    <string name="ringtone_category_title">צלצול</string>
+    <string name="display_ringtone_title">הצגת כותרת הצלצול</string>
+    <string name="ringtone_title_color">צבע כותרת הצלצול</string>
+    <string name="auto_silence_end_of_ringtone">סוף הצלצול</string>
+    <string name="random_ringtone_title">צלצול אקראי</string>
+    <string name="delete_occasional_alarm_after_use_title">מחיקת ההתראה לאחר סגירתה</string>
+    <string name="alarm_alert_dismiss_and_delete_text">סגירה ומחיקה</string>
 </resources>

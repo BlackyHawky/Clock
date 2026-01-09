@@ -312,7 +312,7 @@
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g>のアラームを10分間スヌーズしました"</string>
     <string name="flip_action_title">デバイスを反転した時の動作</string>
     <string name="shake_action_title">デバイスを振った時の動作</string>
-    <string name="duplicate">重複</string>
+    <string name="duplicate">複製</string>
     <string name="selected">選択済み</string>
     <string name="label_default">デフォルト</string>
     <string name="alarm_label_box_title">ラベル</string>
@@ -404,4 +404,8 @@
     <string name="schedule_alarm_title">アラームを設定</string>
     <string name="alarm_flash">フラッシュ</string>
     <string name="delay_picker_dialog_title">スヌーズ時間を設定…</string>
+    <string name="standard_category_title">標準</string>
+    <string name="confirm_action_prompt">\n\n続行しますか？</string>
+    <string name="style_category_title">スタイル</string>
+    <string name="colors_category_title">配色</string>
 </resources>

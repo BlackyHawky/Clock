@@ -1,0 +1,5 @@
+Üksikasjalik paranduste ja täienduste logi on siin: 
+https://github.com/BlackyHawky/Clock/releases/tag/2.26
+
+Märkus:
+Kuna „Vaikus peale“ seadistus on muutunud, siis peale uuendamist sisesta see seadistus uuesti, tee uus varukoopia ja kustuta eelmine varukoopia.

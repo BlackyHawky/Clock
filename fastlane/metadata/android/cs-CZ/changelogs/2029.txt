@@ -1,0 +1,5 @@
+Spousta oprav a vylepšení popsaných zde:
+https://github.com/BlackyHawky/Clock/releases/tag/2.26
+
+**Poznámka:**
+ - Z důvodu změny v kódu nastavení „Ztišit po“ je doporučeno změnit hodnotu tohoto nastavení, vytvořit novou zálohu a smazat starou.

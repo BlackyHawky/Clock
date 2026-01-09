@@ -97,10 +97,10 @@
     <string name="week_start_saturday">Zaterdag</string>
     <string name="week_start_sunday">Zondag</string>
     <string name="week_start_monday">Maandag</string>
-    <string name="alarm_volume_title" msgid="8506245173912428522">Wekkervolume</string>
+    <string name="alarm_volume_title" msgid="8506245173912428522">Volume</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Stil"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Onbekend"</string>
-    <string name="alarm_volume_muted" msgid="6658289289695673569">Wekkervolume gedempt</string>
+    <string name="alarm_volume_muted" msgid="6658289289695673569">Volume gedempt</string>
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"Dempen opheffen"</string>
     <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">Standaard wekkergeluid is stil</string>
     <string name="change_setting_action" msgid="1224356633832430160">"Wijzigen"</string>
@@ -392,7 +392,7 @@
     <string name="version_text">Version <xliff:g id="VERSION_NUMBER" example="1.0">%1$s</xliff:g></string>
     <string name="whats_new_title">Wat is er nieuw</string>
     <string name="features_title">Belangrijkste kenmerken</string>
-    <string name="about_github_link">Bekijk op GitHub</string>
+    <string name="about_github_link">Bekijken op GitHub</string>
     <string name="license">Open-source licentie</string>
     <string name="dialog_close">Sluiten</string>
     <string name="first_launch_main_feature_message">► Licht, donker of systeemthema; &lt;br&gt; &lt;br&gt; ► Aanpasbare screensaver; &lt;br&gt; &lt;br&gt;► Aanpasbare widgets; &lt;br&gt; &lt;br&gt; ►Ondersteuning voor tegels in de snelle instellingen (Android 7+)&lt;br&gt; &lt;br&gt;►Backup en herstel app-data (behalve aangepaste geluiden);&lt;br&gt; &lt;br&gt; ► Material design en dynamische kleuren; &lt;br&gt; &lt;br&gt; ►Wekkers zetten voor een specifieke datum; &lt;br&gt; &lt;br&gt; ► Vegen om wekkers te verwijderen; &lt;br&gt; &lt;br&gt; ► Wekker dupliceren; &lt;br&gt; &lt;br&gt; ► Omdraaien en schudden om wekker uit te zetten/stellen; &lt;br&gt; &lt;br&gt; ► Wekker uitzetten/stellen met de aan/uit-knop of volume knoppen; &lt;br&gt; &lt;br&gt; ► %s</string>
@@ -416,7 +416,7 @@
     <string name="clock_color_title">Kleur klok</string>
     <string name="next_alarm_color_title">Kleur volgende wekker</string>
     <string name="date_color_title">Kleur datum</string>
-    <string name="auto_silence_end_of_ringtone">Het einde van het wekkergeluid</string>
+    <string name="auto_silence_end_of_ringtone">Einde van wekkergeluid</string>
     <string name="timer_label_box_title">Kookwekkerlabel</string>
     <string name="timer_button_time_box_title">Minuten om aan de kookwekker toe te voegen</string>
     <string name="timer_add_custom_time">+ %s</string>
@@ -439,7 +439,7 @@
     <string name="enable_alarm_vibrations_by_default_setting_title">Trillen bij het maken van wekkers</string>
     <string name="alarm_notification_reminder_title">Wekkerherinnering</string>
     <string name="label_default">Standaard</string>
-    <string name="delete_occasional_alarm_after_use_title">Wekker verwijderen na uitzetten</string>
+    <string name="delete_occasional_alarm_after_use_title">Verwijderen na uitzetten</string>
     <string name="alarm_alert_dismiss_and_delete_text">Uitzetten &amp; Verwijderen</string>
     <string name="alarm_alert_off_and_deleted_text">Wekker uit en verwijderd</string>
     <string name="timer_volume_buttons_action_title">Verlopen kookwekkers terugzetten met volumeknoppen</string>
@@ -448,7 +448,7 @@
     <string name="alarm_notification_reminder_6_hours">6 uur van te voren</string>
     <string name="alarm_notification_reminder_10_hours">10 uur van te voren</string>
     <string name="alarm_notification_reminder_12_hours">12 uur van te voren</string>
-    <string name="backup_restore_dialog_message">Wil je een back-up maken, of app-data herstellen uit een bestand?</string>
+    <string name="backup_restore_dialog_message">Wil je een back-up maken, of app-data herstellen vanuit een bestand?</string>
     <string name="backup_button_title">Back-up</string>
     <string name="restore_button_title">Herstel</string>
     <string name="alarm_notification_reminder_8_hours">8 uur van te voren</string>
@@ -522,7 +522,7 @@
     <string name="sw_volume_up_action_title">Volume omhoog</string>
     <string name="sw_long_press_volume_up_action_title">Volume omhoog (lang indrukken)</string>
     <string name="sw_long_press_volume_down_action_title">Volume omlaag (lang indrukken)</string>
-    <string name="sw_start_pause_action">Start / Pauze</string>
+    <string name="sw_start_pause_action">Start/Pauze</string>
     <string name="sw_volume_down_action_title">Volume omlaag</string>
     <string name="purple_accent_color">Paars</string>
     <string name="black_accent_color">Zwart</string>
@@ -536,7 +536,7 @@
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">Dubbel trillen als wekker wordt gesluimerd en één keer trillen als wekker wordt uitgezet</string>
     <string name="turn_on_back_flash_for_triggered_alarm_title">Zaklamp aanzetten als wekker gaat</string>
     <string name="alarm_flash">Zaklamp</string>
-    <string name="about_translate_link">Vertaal op Codeberg</string>
+    <string name="about_translate_link">Vertalen op Codeberg</string>
     <string name="translate_dialog_message">Bezoek de Codeberg-pagina:\n\n%s</string>
     <string name="shake_intensity_title">Schud-intensiteit</string>
     <string name="settings_language_title">Taal</string>
@@ -577,7 +577,7 @@
     <string name="tab_title_visibility_always">Altijd</string>
     <string name="tab_title_visibility_when_selected">Wanneer geselecteerd</string>
     <string name="settings_keep_screen_on_title">Scherm aanhouden</string>
-    <string name="settings_keep_screen_on_summary">Let op: Het scherm zal altijd aanblijven als een kookwekker of stopklok loopt en het overeenkomstige tabblad wordt weergegeven, ongeacht deze instelling</string>
+    <string name="settings_keep_screen_on_summary">Let op: het scherm zal altijd aanblijven als een kookwekker of stopklok loopt en het overeenkomstige tabblad wordt weergegeven, ongeacht deze instelling</string>
     <string name="slide_zone_color_title">Kleur veeggebied</string>
     <string name="dismiss_title_color">Kleur uitzettitel</string>
     <string name="ringtone_title_color">Kleur geluidtitel</string>
@@ -591,7 +591,7 @@
     <string name="date_picker_style_calendar">Kalender</string>
     <string name="date_picker_style_title">Datumkiezer</string>
     <string name="alarm_scheduled_for">Ingeroosterd voor %s</string>
-    <string name="schedule_alarm_title">Wekker inroosteren</string>
+    <string name="schedule_alarm_title">Inroosteren</string>
     <string name="random_ringtone_title">Willekeurig geluid</string>
     <string name="add_new_sound_subtitle">Lang tikken om een map te selecteren</string>
     <string name="date_picker_style_text">Tekst</string>
@@ -661,15 +661,15 @@
     <string name="vibration_start_delay_none">Geen</string>
     <string name="vibration_start_delay_warning_box_text">Voer een waarde in tussen 0 en 10 minuten</string>
     <string name="confirm_action_prompt">\n\nWil je doorgaan?</string>
-    <string name="enable_per_alarm_snooze_duration_title">Gebruik een aangepaste sluimerduur voor iedere wekker</string>
+    <string name="enable_per_alarm_snooze_duration_title">Aangepaste sluimerduur voor iedere wekker</string>
     <string name="enable_per_alarm_snooze_duration_dialog_message">Aangepaste sluimerduren zullen worden teruggezet.%s</string>
     <string name="enable_per_alarm_volume_dialog_message">Aangepaste wekkervolumes zullen worden teruggezet.%s</string>
     <string name="display_dismiss_button_title">Uitzetknop weergeven zodra wekker is ingeschakeld</string>
     <string name="display_dismiss_button_summary">Als deze optie is uitgeschakeld, wordt de knop tegelijk met de herinneringsmelding weergegeven</string>
-    <string name="enable_per_alarm_missed_repeat_limit_title">Gebruik een aangepast aantal gemiste wekkerherhalingen voor iedere wekker</string>
-    <string name="enable_per_alarm_crescendo_duration_title">Gebruik een aangepaste volumeverhogingsduur voor iedere wekker</string>
+    <string name="enable_per_alarm_missed_repeat_limit_title">Aangepast aantal gemiste wekkerherhalingen voor iedere wekker</string>
+    <string name="enable_per_alarm_crescendo_duration_title">Aangepaste volumeverhogingsduur voor iedere wekker</string>
     <string name="enable_per_alarm_crescendo_duration_dialog_message">Aangepaste volumeverhogingsduren zullen worden teruggezet.%s</string>
-    <string name="enable_per_alarm_auto_silence_title">Gebruik een aangepaste eindtijd voor iedere wekker</string>
+    <string name="enable_per_alarm_auto_silence_title">Aangepaste eindtijd voor iedere wekker</string>
     <string name="enable_per_alarm_auto_silence_dialog_message">Aangepaste eindtijden zullen worden teruggezet.%s</string>
     <string name="features_dialog_message">Bekijk de pagina met de belangrijkste kenmerken:\n\n%s</string>
     <string name="enable_per_alarm_missed_repeat_limit_dialog_message">Aangepast aantal wekkerherhalingen zullen worden teruggezet.%s</string>
@@ -690,9 +690,9 @@
     <string name="customize_background_corner_radius_summary">Hiermee kun je de hoeken van widgets afronden als het startscherm dit niet ondersteunt</string>
     <string name="background_corner_radius_title">Hoekradius achtergrond</string>
     <string name="display_timer_state_indicator_title">Statusaanwijzer kookwekker weergeven</string>
-    <string name="running_timer_indicator_color_title">Kleur aanwijzer van lopende kookwekker</string>
-    <string name="paused_timer_indicator_color_title">Kleur aanwijzer van gepauzeerde kookwekker</string>
-    <string name="expired_timer_indicator_color_title">Kleur aanwijzer van verlopen kookwekker</string>
+    <string name="running_timer_indicator_color_title">Kleur van lopende kookwekker</string>
+    <string name="paused_timer_indicator_color_title">Kleur van gepauzeerde kookwekker</string>
+    <string name="expired_timer_indicator_color_title">Kleur van verlopen kookwekker</string>
     <string name="progress_ringtones">Geluiden toevoegen… (%1$d/%2$d)</string>
     <string name="display_text_uppercase_title">Tekst in hoofdletters weergeven</string>
     <string name="label_new_image">Nieuwe afbeelding</string>
