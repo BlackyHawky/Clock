@@ -1,0 +1,10 @@
+**Korrekturen**
+ - Korrektur der Zusammenfassung „Lautstärke schrittweise erhöhen” für den Timer
+
+**Verbesserungen**
+ - Entfernen unnötiger Berechtigungen;
+ - Verbesserung von Alarm und Timer;
+ - Alle Verbesserungen finden Sie unter: https://github.com/BlackyHawky/Clock/releases/tag/2.6
+
+ **Hinweis:**
+ Aufgrund einer Änderung in der Datenbank müssen Sie die App neu installieren.
