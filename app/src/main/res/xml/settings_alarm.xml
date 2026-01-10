@@ -21,6 +21,13 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
+        <com.best.deskclock.settings.custompreference.CustomPreference
+            android:key="key_alarm_font"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:title="@string/custom_font_title"
+            tools:layout="@layout/settings_preference_layout" />
+
         <com.best.deskclock.settings.custompreference.CustomListPreference
             android:key="key_material_time_picker_style"
             android:title="@string/material_time_picker_style_title"

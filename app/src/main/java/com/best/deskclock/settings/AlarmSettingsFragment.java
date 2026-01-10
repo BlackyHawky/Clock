@@ -2,6 +2,7 @@
 
 package com.best.deskclock.settings;
 
+import static android.app.Activity.RESULT_OK;
 import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_SNOOZE_DURATION_DISABLED;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_VOLUME;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VIBRATION_START_DELAY;
@@ -9,6 +10,7 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VOLUM
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_END_OF_RINGTONE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_NEVER;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_DISPLAY_CUSTOMIZATION;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_FONT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_NOTIFICATION_REMINDER_TIME;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_SNOOZE_DURATION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_VIBRATION_CATEGORY;
@@ -47,15 +49,19 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_WEEK_START;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.media.AudioDeviceCallback;
 import android.media.AudioDeviceInfo;
 import android.media.AudioManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
@@ -85,6 +91,7 @@ import com.best.deskclock.settings.custompreference.VibrationPatternPreference;
 import com.best.deskclock.settings.custompreference.VibrationStartDelayPreference;
 import com.best.deskclock.settings.custompreference.VolumeCrescendoDurationPreference;
 import com.best.deskclock.uicomponents.CustomDialog;
+import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.RingtoneUtils;
@@ -100,6 +107,7 @@ public class AlarmSettingsFragment extends ScreenFragment
     private AlarmUpdateHandler mAlarmUpdateHandler;
     private List<Alarm> mAlarmList;
 
+    CustomPreference mAlarmFontPref;
     CustomPreference mAlarmRingtonePref;
     CustomSwitchPreference mEnablePerAlarmAutoSilencePref;
     AutoSilenceDurationPreference mAlarmAutoSilencePref;
@@ -137,6 +145,42 @@ public class AlarmSettingsFragment extends ScreenFragment
     CustomListPreference mMaterialDatePickerStylePref;
     CustomPreference mAlarmDisplayCustomizationPref;
 
+    private final ActivityResultLauncher<Intent> fontPickerLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() != RESULT_OK) {
+                    return;
+                }
+
+                Intent intent = result.getData();
+                final Uri sourceUri = intent == null ? null : intent.getData();
+                if (sourceUri == null) {
+                    return;
+                }
+
+                // Take persistent permission
+                requireActivity().getContentResolver().takePersistableUriPermission(
+                        sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION
+                );
+
+                String safeTitle = Utils.toSafeFileName("alarm_font");
+
+                // Delete the old font if it exists
+                clearFile(mPrefs.getString(KEY_ALARM_FONT, null));
+
+                Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(requireContext(), sourceUri, safeTitle);
+
+                // Save the new path
+                if (copiedUri != null) {
+                    mPrefs.edit().putString(KEY_ALARM_FONT, copiedUri.getPath()).apply();
+                    mAlarmFontPref.setTitle(getString(R.string.custom_font_title_variant));
+
+                    CustomToast.show(requireContext(), R.string.custom_font_toast_message_selected);
+                } else {
+                    CustomToast.show(requireContext(), "Error importing font");
+                    mAlarmFontPref.setTitle(getString(R.string.custom_font_title));
+                }
+            });
+
     @Override
     protected String getFragmentTitle() {
         return getString(R.string.alarm_settings);
@@ -152,6 +196,10 @@ public class AlarmSettingsFragment extends ScreenFragment
 
         addPreferencesFromResource(R.xml.settings_alarm);
 
+        mAlarmDisplayCustomizationPref = findPreference(KEY_ALARM_DISPLAY_CUSTOMIZATION);
+        mAlarmFontPref = findPreference(KEY_ALARM_FONT);
+        mMaterialTimePickerStylePref = findPreference(KEY_MATERIAL_TIME_PICKER_STYLE);
+        mMaterialDatePickerStylePref = findPreference(KEY_MATERIAL_DATE_PICKER_STYLE);
         mAlarmRingtonePref = findPreference(KEY_DEFAULT_ALARM_RINGTONE);
         mEnablePerAlarmAutoSilencePref = findPreference(KEY_ENABLE_PER_ALARM_AUTO_SILENCE);
         mAlarmAutoSilencePref = findPreference(KEY_AUTO_SILENCE_DURATION);
@@ -185,9 +233,6 @@ public class AlarmSettingsFragment extends ScreenFragment
         mEnableSnoozedOrDismissedAlarmVibrationsPref = findPreference(KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS);
         mTurnOnBackFlashForTriggeredAlarmPref = findPreference(KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM);
         mDeleteOccasionalAlarmByDefaultPref = findPreference(KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT);
-        mMaterialTimePickerStylePref = findPreference(KEY_MATERIAL_TIME_PICKER_STYLE);
-        mMaterialDatePickerStylePref = findPreference(KEY_MATERIAL_DATE_PICKER_STYLE);
-        mAlarmDisplayCustomizationPref = findPreference(KEY_ALARM_DISPLAY_CUSTOMIZATION);
 
         setupPreferences();
     }
@@ -431,10 +476,13 @@ public class AlarmSettingsFragment extends ScreenFragment
         }
 
         switch (pref.getKey()) {
+            case KEY_ALARM_DISPLAY_CUSTOMIZATION -> animateAndShowFragment(new AlarmDisplayCustomizationFragment());
+
+            case KEY_ALARM_FONT -> selectCustomFile(mAlarmFontPref, fontPickerLauncher,
+                    SettingsDAO.getAlarmFont(mPrefs), KEY_ALARM_FONT, true, null);
+
             case KEY_DEFAULT_ALARM_RINGTONE ->
                     startActivity(RingtonePickerActivity.createAlarmRingtonePickerIntentForSettings(context));
-
-            case KEY_ALARM_DISPLAY_CUSTOMIZATION -> animateAndShowFragment(new AlarmDisplayCustomizationFragment());
         }
 
         return true;
@@ -479,6 +527,19 @@ public class AlarmSettingsFragment extends ScreenFragment
 
     private void setupPreferences() {
         mAudioManager = (AudioManager) requireContext().getSystemService(Context.AUDIO_SERVICE);
+
+        mAlarmDisplayCustomizationPref.setOnPreferenceClickListener(this);
+
+        mAlarmFontPref.setTitle(getString(SettingsDAO.getAlarmFont(mPrefs) == null
+                ? R.string.custom_font_title
+                : R.string.custom_font_title_variant));
+        mAlarmFontPref.setOnPreferenceClickListener(this);
+
+        mMaterialTimePickerStylePref.setOnPreferenceChangeListener(this);
+        mMaterialTimePickerStylePref.setSummary(mMaterialTimePickerStylePref.getEntry());
+
+        mMaterialDatePickerStylePref.setOnPreferenceChangeListener(this);
+        mMaterialDatePickerStylePref.setSummary(mMaterialDatePickerStylePref.getEntry());
 
         mAlarmRingtonePref.setOnPreferenceClickListener(this);
 
@@ -671,14 +732,6 @@ public class AlarmSettingsFragment extends ScreenFragment
         mTurnOnBackFlashForTriggeredAlarmPref.setOnPreferenceChangeListener(this);
 
         mDeleteOccasionalAlarmByDefaultPref.setOnPreferenceChangeListener(this);
-
-        mMaterialTimePickerStylePref.setOnPreferenceChangeListener(this);
-        mMaterialTimePickerStylePref.setSummary(mMaterialTimePickerStylePref.getEntry());
-
-        mMaterialDatePickerStylePref.setOnPreferenceChangeListener(this);
-        mMaterialDatePickerStylePref.setSummary(mMaterialDatePickerStylePref.getEntry());
-
-        mAlarmDisplayCustomizationPref.setOnPreferenceClickListener(this);
     }
 
     private void showDisablePerAlarmSettingDialog(@StringRes int messageResId, String prefKey,
