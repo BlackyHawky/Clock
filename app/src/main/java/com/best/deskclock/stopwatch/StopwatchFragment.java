@@ -657,14 +657,18 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
 
         // Ensure only one copy of the runnable is ever scheduled by first stopping updates.
         stopUpdatingTime();
-        mMainTimeText.post(mTimeUpdateRunnable);
+        if (mMainTimeText != null) {
+            mMainTimeText.post(mTimeUpdateRunnable);
+        }
     }
 
     /**
      * Remove the runnable that updates times within the UI.
      */
     public void stopUpdatingTime() {
-        mMainTimeText.removeCallbacks(mTimeUpdateRunnable);
+        if (mMainTimeText != null) {
+            mMainTimeText.removeCallbacks(mTimeUpdateRunnable);
+        }
     }
 
     /**

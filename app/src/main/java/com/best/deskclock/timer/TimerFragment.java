@@ -508,7 +508,9 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
             return;
         }
 
-        mAdapter.updateTime();
+        if (mAdapter != null) {
+            mAdapter.updateTime();
+        }
     }
 
     public void stopUpdatingTime() {
