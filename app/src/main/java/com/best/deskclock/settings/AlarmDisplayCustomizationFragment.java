@@ -17,7 +17,6 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_CLOCK_SECOND
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_DIGITAL_CLOCK_FONT_SIZE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_CLOCK_STYLE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_DISPLAY_TEXT_SHADOW;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_FONT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_SECOND_HAND_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BACKGROUND_IMAGE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_SHADOW_COLOR;
@@ -73,7 +72,6 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
     CustomSeekbarPreference mAnalogClockSizePref;
     CustomListPreference mAlarmClockSecondHandPref;
     CustomSwitchPreference mDisplaySecondsPref;
-    CustomPreference mAlarmFontPref;
     CustomSwitchPreference mSwipeActionPref;
     ColorPickerPreference mAlarmClockColorPref;
     ColorPickerPreference mAlarmSecondHandColorPref;
@@ -95,42 +93,6 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
     CustomSwitchPreference mEnableAlarmBlurEffectPref;
     CustomSeekbarPreference mAlarmBlurIntensityPref;
     CustomPreference mAlarmPreviewPref;
-
-    private final ActivityResultLauncher<Intent> fontPickerLauncher =
-            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-                if (result.getResultCode() != RESULT_OK) {
-                    return;
-                }
-
-                Intent intent = result.getData();
-                final Uri sourceUri = intent == null ? null : intent.getData();
-                if (sourceUri == null) {
-                    return;
-                }
-
-                // Take persistent permission
-                requireActivity().getContentResolver().takePersistableUriPermission(
-                        sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION
-                );
-
-                String safeTitle = Utils.toSafeFileName("alarm_font");
-
-                // Delete the old font if it exists
-                clearFile(mPrefs.getString(KEY_ALARM_FONT, null));
-
-                Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(requireContext(), sourceUri, safeTitle);
-
-                // Save the new path
-                if (copiedUri != null) {
-                    mPrefs.edit().putString(KEY_ALARM_FONT, copiedUri.getPath()).apply();
-                    mAlarmFontPref.setTitle(getString(R.string.custom_font_title_variant));
-
-                    CustomToast.show(requireContext(), R.string.custom_font_toast_message_selected);
-                } else {
-                    CustomToast.show(requireContext(), "Error importing font");
-                    mAlarmFontPref.setTitle(getString(R.string.custom_font_title));
-                }
-            });
 
     private final ActivityResultLauncher<Intent> imagePickerLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -191,7 +153,6 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
         mAnalogClockSizePref = findPreference(KEY_ALARM_ANALOG_CLOCK_SIZE);
         mDisplaySecondsPref = findPreference(KEY_DISPLAY_ALARM_SECOND_HAND);
         mAlarmClockSecondHandPref = findPreference(KEY_ALARM_CLOCK_SECOND_HAND);
-        mAlarmFontPref = findPreference(KEY_ALARM_FONT);
         mSwipeActionPref = findPreference(KEY_SWIPE_ACTION);
         mBackgroundColorPref = findPreference(KEY_ALARM_BACKGROUND_COLOR);
         mBackgroundAmoledColorPref = findPreference(KEY_ALARM_BACKGROUND_AMOLED_COLOR);
@@ -237,7 +198,6 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
                 mAlarmClockDialPref.setVisible(isAnalogClock);
                 mAlarmClockDialMaterialPref.setVisible(isMaterialAnalogClock);
                 mAlarmClockColorPref.setVisible(!isMaterialAnalogClock);
-                mAlarmFontPref.setVisible(isDigitalClock);
                 mAnalogClockSizePref.setVisible(!isDigitalClock);
                 mAlarmDigitalClockFontSizePref.setVisible(isDigitalClock);
                 mDisplaySecondsPref.setVisible(!isDigitalClock);
@@ -310,9 +270,6 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
         }
 
         switch (pref.getKey()) {
-            case KEY_ALARM_FONT -> selectCustomFile(mAlarmFontPref, fontPickerLauncher,
-                    SettingsDAO.getAlarmFont(mPrefs), KEY_ALARM_FONT, true, null);
-
             case KEY_ALARM_BACKGROUND_IMAGE -> selectCustomFile(mAlarmBackgroundImagePref, imagePickerLauncher,
                     SettingsDAO.getAlarmBackgroundImage(mPrefs), KEY_ALARM_BACKGROUND_IMAGE,
                     false, () -> {
@@ -380,12 +337,6 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
         mAlarmClockSecondHandPref.setVisible(isAnalogClock && isSecondHandDisplayed);
         mAlarmClockSecondHandPref.setSummary(mAlarmClockSecondHandPref.getEntry());
         mAlarmClockSecondHandPref.setOnPreferenceChangeListener(this);
-
-        mAlarmFontPref.setVisible(isDigitalClock);
-        mAlarmFontPref.setTitle(getString(SettingsDAO.getAlarmFont(mPrefs) == null
-                ? R.string.custom_font_title
-                : R.string.custom_font_title_variant));
-        mAlarmFontPref.setOnPreferenceClickListener(this);
 
         mSwipeActionPref.setOnPreferenceChangeListener(this);
 

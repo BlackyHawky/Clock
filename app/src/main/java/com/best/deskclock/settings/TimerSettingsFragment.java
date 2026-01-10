@@ -2,6 +2,7 @@
 
 package com.best.deskclock.settings;
 
+import static android.app.Activity.RESULT_OK;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VOLUME_CRESCENDO_DURATION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_END_OF_RINGTONE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_NEVER;
@@ -9,6 +10,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_WARNING_BE
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SORT_TIMER;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_CREATION_VIEW_STYLE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_DISPLAY_CUSTOMIZATION;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_DURATION_FONT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_FLIP_ACTION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_POWER_BUTTON_ACTION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_RINGTONE;
@@ -18,10 +20,14 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_VIBRATE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_VOLUME_BUTTONS_ACTION;
 
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.preference.Preference;
 
@@ -39,6 +45,7 @@ import com.best.deskclock.settings.custompreference.CustomSwitchPreference;
 import com.best.deskclock.settings.custompreference.TimerAddTimeButtonValuePreference;
 import com.best.deskclock.settings.custompreference.VolumeCrescendoDurationPreference;
 import com.best.deskclock.timer.TimerAddTimeButtonDialogFragment;
+import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.Utils;
 
@@ -46,6 +53,7 @@ public class TimerSettingsFragment extends ScreenFragment
         implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
     CustomPreference mTimerDisplayCustomizationPref;
+    CustomPreference mTimerDurationFontPref;
     CustomListPreference mTimerCreationViewStylePref;
     CustomPreference mTimerRingtonePref;
     CustomSwitchPreference mTimerVibratePref;
@@ -56,6 +64,42 @@ public class TimerSettingsFragment extends ScreenFragment
     CustomSeekbarPreference mTimerShakeIntensityPref;
     CustomListPreference mSortTimerPref;
     CustomSwitchPreference mDisplayWarningBeforeDeletingTimerPref;
+
+    private final ActivityResultLauncher<Intent> fontPickerLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() != RESULT_OK) {
+                    return;
+                }
+
+                Intent intent = result.getData();
+                final Uri sourceUri = intent == null ? null : intent.getData();
+                if (sourceUri == null) {
+                    return;
+                }
+
+                // Take persistent permission
+                requireActivity().getContentResolver().takePersistableUriPermission(
+                        sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION
+                );
+
+                String safeTitle = Utils.toSafeFileName("timer_font");
+
+                // Delete the old font if it exists
+                clearFile(mPrefs.getString(KEY_TIMER_DURATION_FONT, null));
+
+                Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(requireContext(), sourceUri, safeTitle);
+
+                // Save the new path
+                if (copiedUri != null) {
+                    mPrefs.edit().putString(KEY_TIMER_DURATION_FONT, copiedUri.getPath()).apply();
+                    mTimerDurationFontPref.setTitle(getString(R.string.custom_font_title_variant));
+
+                    CustomToast.show(requireContext(), R.string.custom_font_toast_message_selected);
+                } else {
+                    CustomToast.show(requireContext(), "Error importing font");
+                    mTimerDurationFontPref.setTitle(getString(R.string.custom_font_title));
+                }
+            });
 
     @Override
     protected String getFragmentTitle() {
@@ -69,6 +113,7 @@ public class TimerSettingsFragment extends ScreenFragment
         addPreferencesFromResource(R.xml.settings_timer);
 
         mTimerDisplayCustomizationPref = findPreference(KEY_TIMER_DISPLAY_CUSTOMIZATION);
+        mTimerDurationFontPref = findPreference(KEY_TIMER_DURATION_FONT);
         mTimerCreationViewStylePref = findPreference(KEY_TIMER_CREATION_VIEW_STYLE);
         mTimerRingtonePref = findPreference(KEY_TIMER_RINGTONE);
         mTimerVibratePref = findPreference(KEY_TIMER_VIBRATE);
@@ -127,6 +172,9 @@ public class TimerSettingsFragment extends ScreenFragment
             case KEY_TIMER_DISPLAY_CUSTOMIZATION ->
                     animateAndShowFragment(new TimerDisplayCustomizationFragment());
 
+            case KEY_TIMER_DURATION_FONT -> selectCustomFile(mTimerDurationFontPref, fontPickerLauncher,
+                    SettingsDAO.getTimerDurationFont(mPrefs), KEY_TIMER_DURATION_FONT, true, null);
+
             case KEY_TIMER_RINGTONE ->
                     startActivity(RingtonePickerActivity.createTimerRingtonePickerIntent(context));
         }
@@ -161,6 +209,11 @@ public class TimerSettingsFragment extends ScreenFragment
 
     private void setupPreferences() {
         mTimerDisplayCustomizationPref.setOnPreferenceClickListener(this);
+
+        mTimerDurationFontPref.setTitle(getString(SettingsDAO.getTimerDurationFont(mPrefs) == null
+                ? R.string.custom_font_title
+                : R.string.custom_font_title_variant));
+        mTimerDurationFontPref.setOnPreferenceClickListener(this);
 
         mTimerCreationViewStylePref.setOnPreferenceChangeListener(this);
         mTimerCreationViewStylePref.setSummary(mTimerCreationViewStylePref.getEntry());
