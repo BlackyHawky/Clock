@@ -710,4 +710,25 @@
     <string name="background_image_title_variant">Sélectionner ou supprimer une image d\'arrière-plan</string>
     <string name="background_image_dialog_title">Image d\'arrière-plan</string>
     <string name="background_image_toast_message_deleted">Image supprimée avec succès</string>
+    <string name="label_new_font">Nouvelle police</string>
+    <string name="custom_font_title">Sélectionner une police personnalisée</string>
+    <string name="custom_font_title_variant">Sélectionner ou supprimer une police personnalisée</string>
+    <string name="custom_font_dialog_title">Police</string>
+    <string name="custom_font_toast_message_selected">Police sélectionnée avec succès</string>
+    <string name="custom_font_toast_message_deleted">Police supprimée avec succès</string>
+    <string name="vibration_category_title">Vibration</string>
+    <string name="display_settings_title">Paramètres d\'affichage</string>
+    <string name="enable_per_alarm_vibration_pattern_title">Utiliser un modèle de vibration personnalisé pour chaque alarme</string>
+    <string name="enable_per_alarm_vibration_pattern_dialog_message">Les modèles de vibration personnalisés seront réinitialisés.%s</string>
+    <string name="sw_laps_title">Tours</string>
+    <string name="sw_split_title">Intermédiaire</string>
+    <string name="sw_total_title">Total</string>
+    <string name="analog_clock_size_title">Taille de l\'horloge analogique</string>
+    <string name="display_compact_timers_title">Afficher les minuteurs actifs en mode compact</string>
+    <string name="display_battery_title">Afficher le niveau de batterie</string>
+    <string name="battery_color_title">Couleur du niveau de batterie</string>
+    <string name="screensaver_bold_battery_title">Niveau de batterie en gras</string>
+    <string name="screensaver_italic_battery_title">Niveau de batterie en italique</string>
+    <string name="settings_language_bulgarian">Bulgare</string>
+    <string name="settings_language_tamil">Tamoul</string>
 </resources>

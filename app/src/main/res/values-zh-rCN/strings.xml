@@ -688,4 +688,25 @@
     <string name="background_image_title_variant">选择或删除背景图片</string>
     <string name="background_image_dialog_title">背景图片</string>
     <string name="background_image_toast_message_deleted">图片已成功删除</string>
+    <string name="label_new_font">新字体</string>
+    <string name="custom_font_title">选择自定义字体</string>
+    <string name="custom_font_title_variant">选择或删除自定义字体</string>
+    <string name="custom_font_dialog_title">字体</string>
+    <string name="custom_font_toast_message_selected">字体已成功选择</string>
+    <string name="custom_font_toast_message_deleted">字体已成功删除</string>
+    <string name="vibration_category_title">振动</string>
+    <string name="display_settings_title">显示设置</string>
+    <string name="enable_per_alarm_vibration_pattern_title">为每个闹钟使用自定义振动模式</string>
+    <string name="enable_per_alarm_vibration_pattern_dialog_message">自定义振动模式将被重置。%s</string>
+    <string name="analog_clock_size_title">指针时钟大小</string>
+    <string name="display_compact_timers_title">以紧凑模式显示活动定时器</string>
+    <string name="display_battery_title">显示电池电量</string>
+    <string name="battery_color_title">电池电量颜色</string>
+    <string name="screensaver_bold_battery_title">电池电量粗体显示</string>
+    <string name="screensaver_italic_battery_title">电池电量斜体显示</string>
+    <string name="sw_total_title">总计</string>
+    <string name="sw_laps_title">圈数</string>
+    <string name="sw_split_title">分段</string>
+    <string name="settings_language_bulgarian">保加利亚语</string>
+    <string name="settings_language_tamil">泰米尔语</string>
 </resources>

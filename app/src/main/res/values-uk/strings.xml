@@ -642,7 +642,7 @@
     <string name="connect_bluetooth_device_title">Для доступу до цього налаштування підключіть пристрій Bluetooth</string>
     <string name="disconnect_bluetooth_device_title">Для доступу до цього налаштування відключіть пристрій Bluetooth</string>
     <string name="widget_apply_horizontal_padding_title">Застосувати відступи до сторін віджетів</string>
-    <string name="enable_per_alarm_volume_title">Окремі значення гучності для кожного будильника</string>
+    <string name="enable_per_alarm_volume_title">Окреме значення гучності для кожного будильника</string>
     <string name="delay_picker_dialog_title">Будильник о…</string>
     <string name="clock_dial_with_numbers">Із цифрами</string>
     <string name="colors_category_title">Кольори</string>
@@ -691,10 +691,10 @@
     <string name="confirm_action_prompt">\n\nПродовжити?</string>
     <string name="missed_alarm_repeat_limit_title">Повторювати пропущені сигнали</string>
     <string name="repetitive_alarm_is_dismissed">Будильник вимкнено. <xliff:g example="Next alarm Monday." id="alarm_day">Перенесено на %s.</xliff:g></string>
-    <string name="enable_per_alarm_snooze_duration_title">Окремі значення тривалості відкладення для кожного будильника</string>
+    <string name="enable_per_alarm_snooze_duration_title">Окреме значення тривалості відкладення для кожного будильника</string>
     <string name="enable_per_alarm_missed_repeat_limit_title">Окрема кількість повторень пропущених для кожного будильника</string>
-    <string name="enable_per_alarm_auto_silence_title">Окремі значення «Вимкнути після» для кожного будильника</string>
-    <string name="enable_per_alarm_crescendo_duration_title">Окремі значення збільшення гучності для кожного будильника</string>
+    <string name="enable_per_alarm_auto_silence_title">Окреме значення «Вимкнути після» для кожного будильника</string>
+    <string name="enable_per_alarm_crescendo_duration_title">Окреме значення збільшення гучності для кожного будильника</string>
     <string name="enable_per_alarm_snooze_duration_dialog_message">Користувацькі значення тривалості відкладення для будильників буде скинуто.%s</string>
     <string name="enable_per_alarm_volume_dialog_message">Користувацькі значення гучності для будильників буде скинуто.%s</string>
     <string name="enable_per_alarm_missed_repeat_limit_dialog_message">Користувацькі значення кількості повторень для пропущених будильників буде скинуто.%s</string>
@@ -723,4 +723,25 @@
     <string name="background_image_toast_message_deleted">Зображення успішно видалено</string>
     <string name="label_new_image">Нове зображення</string>
     <string name="background_image_title_variant">Вибрати або видалити фонове зображення</string>
+    <string name="custom_font_dialog_title">Шрифт</string>
+    <string name="label_new_font">Новий шрифт</string>
+    <string name="vibration_category_title">Вібрація</string>
+    <string name="screensaver_bold_battery_title">Рівень заряду жирним</string>
+    <string name="screensaver_italic_battery_title">Рівень заряду курсивом</string>
+    <string name="analog_clock_size_title">Розмір аналогового годинника</string>
+    <string name="display_battery_title">Показувати рівень заряду</string>
+    <string name="battery_color_title">Колір рівня заряду</string>
+    <string name="display_compact_timers_title">Показувати активні таймери в компактному режимі</string>
+    <string name="custom_font_toast_message_deleted">Шрифт успішно видалено</string>
+    <string name="custom_font_toast_message_selected">Шрифт успішно вибрано</string>
+    <string name="display_settings_title">Налаштування показу</string>
+    <string name="enable_per_alarm_vibration_pattern_dialog_message">Користувацькі ритми вібрації буде скинуто.%s</string>
+    <string name="enable_per_alarm_vibration_pattern_title">Окремий ритм вібрації для кожного будильника</string>
+    <string name="custom_font_title">Вибрати власний шрифт</string>
+    <string name="custom_font_title_variant">Вибрати або видалити власний шрифт</string>
+    <string name="sw_laps_title">Кола</string>
+    <string name="sw_split_title">Час кола</string>
+    <string name="sw_total_title">Загальний</string>
+    <string name="settings_language_tamil">Тамільська</string>
+    <string name="settings_language_bulgarian">Болгарська</string>
 </resources>

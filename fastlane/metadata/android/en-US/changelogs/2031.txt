@@ -1,0 +1,5 @@
+Many fixes and improvements detailed here:
+https://github.com/BlackyHawky/Clock/releases/tag/2.28
+
+**Note:
+ - Due to changes made to digital widgets, it is recommended to delete and re-add widgets to the home screen after updating.

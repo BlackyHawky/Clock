@@ -550,7 +550,7 @@
     <string name="settings_language_serbian">Servisch</string>
     <string name="settings_language_spanish">Spaans</string>
     <string name="settings_language_ukrainian">Oekraïens</string>
-    <string name="settings_language_chinese_simplified_cn">Chinees (Vereenvoudigd, PRC)</string>
+    <string name="settings_language_chinese_simplified_cn">Chinees (vereenvoudigd, PRC)</string>
     <string name="settings_language_english_us">Engels (VS)</string>
     <string name="permission_info_title">Enkel voor Xiaomi toestellen</string>
     <string name="show_lockscreen_dialog_title">Tonen op vergrendelscherm</string>
@@ -699,4 +699,25 @@
     <string name="background_image_title_variant">Achtergrondafbeelding selecteren of verwijderen</string>
     <string name="background_image_dialog_title">Achtergrondafbeelding</string>
     <string name="background_image_toast_message_deleted">Afbeelding succesvol verwijderd</string>
+    <string name="label_new_font">Nieuw lettertype</string>
+    <string name="custom_font_title">Selecteer een aangepast lettertype</string>
+    <string name="custom_font_title_variant">Selecteer of verwijder een aangepast lettertype</string>
+    <string name="custom_font_dialog_title">Lettertype</string>
+    <string name="custom_font_toast_message_selected">Lettertype succesvol geselecteerd</string>
+    <string name="custom_font_toast_message_deleted">Lettertype succesvol verwijderd</string>
+    <string name="vibration_category_title">Trilling</string>
+    <string name="enable_per_alarm_vibration_pattern_title">Aangepast trillingspatroon voor iedere wekker</string>
+    <string name="enable_per_alarm_vibration_pattern_dialog_message">Aangepaste trillingspatronen zulken worden teruggezet.%s</string>
+    <string name="sw_laps_title">Rondes</string>
+    <string name="sw_split_title">Verdeling</string>
+    <string name="sw_total_title">Totaal</string>
+    <string name="analog_clock_size_title">Grootte analoge klok</string>
+    <string name="display_compact_timers_title">Actieve kookwekkers in compacte modus weergeven</string>
+    <string name="display_battery_title">Batterijniveau weergeven</string>
+    <string name="battery_color_title">Kleur batterijniveau</string>
+    <string name="screensaver_bold_battery_title">Dikgedrukt batterijniveau</string>
+    <string name="screensaver_italic_battery_title">Schuingedrukt batterijniveau</string>
+    <string name="settings_language_bulgarian">Bulgaars</string>
+    <string name="settings_language_tamil">Tamil</string>
+    <string name="display_settings_title">Weergave</string>
 </resources>

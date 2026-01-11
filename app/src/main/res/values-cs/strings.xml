@@ -713,4 +713,25 @@
     <string name="background_image_title_variant">Vybrat nebo odstranit obrázek na pozadí</string>
     <string name="background_image_dialog_title">Obrázek na pozadí</string>
     <string name="background_image_toast_message_deleted">Obrázek úspěšně odstraněn</string>
+    <string name="label_new_font">Nové písmo</string>
+    <string name="custom_font_title">Vyberte vlastní písmo</string>
+    <string name="custom_font_title_variant">Vyberte nebo odstraňte vlastní písmo</string>
+    <string name="custom_font_dialog_title">Písmo</string>
+    <string name="custom_font_toast_message_selected">Písmo úspěšně vybráno</string>
+    <string name="custom_font_toast_message_deleted">Písmo úspěšně odstraněno</string>
+    <string name="vibration_category_title">Vibrace</string>
+    <string name="display_settings_title">Nastavení zobrazení</string>
+    <string name="enable_per_alarm_vibration_pattern_title">Použít vlastní vzor vibrací pro každý budík</string>
+    <string name="enable_per_alarm_vibration_pattern_dialog_message">Vlastní vzor vibrací bude resetován.%s</string>
+    <string name="sw_laps_title">Kola</string>
+    <string name="sw_split_title">Rozdělit</string>
+    <string name="sw_total_title">Celkem</string>
+    <string name="analog_clock_size_title">Velikost analogových hodin</string>
+    <string name="display_compact_timers_title">Zobrazit aktivní časovače v kompaktním režimu</string>
+    <string name="display_battery_title">Zobrazit úroveň baterie</string>
+    <string name="battery_color_title">Barva úrovně baterie</string>
+    <string name="screensaver_bold_battery_title">Úroveň baterie tučně</string>
+    <string name="screensaver_italic_battery_title">Úroveň baterie kurzívou</string>
+    <string name="settings_language_bulgarian">Bulharština</string>
+    <string name="settings_language_tamil">Tamilština</string>
 </resources>

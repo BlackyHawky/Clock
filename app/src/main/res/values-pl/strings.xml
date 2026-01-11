@@ -570,7 +570,7 @@
     <string name="settings_language_english_us">Angielski (US)</string>
     <string name="settings_language_chinese_simplified_cn">Chiński (uproszczony, ChRL)</string>
     <string name="permission_info_title">Tylko dla urządzeń Xiaomi</string>
-    <string name="clock_style_spinner">Spinner</string>
+    <string name="clock_style_spinner">Pokrętło</string>
     <string name="clock_style_analog_material">Analogowy (Material)</string>
     <string name="settings_language_dutch">Holenderski</string>
     <string name="settings_language_russian">Rosyjski</string>
@@ -713,4 +713,25 @@
     <string name="background_image_title_variant">Wybierz lub usuń obraz tła</string>
     <string name="background_image_dialog_title">Obraz tła</string>
     <string name="background_image_toast_message_deleted">Obraz został pomyślnie usunięty</string>
+    <string name="label_new_font">Nowa czcionka</string>
+    <string name="custom_font_title">Wybierz niestandardową czcionkę</string>
+    <string name="custom_font_title_variant">Wybierz lub usuń niestandardową czcionkę</string>
+    <string name="custom_font_dialog_title">Czcionka</string>
+    <string name="custom_font_toast_message_selected">Czcionka została pomyślnie wybrana</string>
+    <string name="custom_font_toast_message_deleted">Czcionka została pomyślnie usunięta</string>
+    <string name="vibration_category_title">Wibracja</string>
+    <string name="display_settings_title">Ustawienia wyświetlania</string>
+    <string name="enable_per_alarm_vibration_pattern_title">Użyj niestandardowego wzoru wibracji dla każdego alarmu</string>
+    <string name="enable_per_alarm_vibration_pattern_dialog_message">Niestandardowe wzorce wibracji zostaną zresetowane.%s</string>
+    <string name="sw_laps_title">Okrążenia</string>
+    <string name="sw_split_title">Międzyczas</string>
+    <string name="sw_total_title">Całkowity</string>
+    <string name="analog_clock_size_title">Rozmiar zegara analogowego</string>
+    <string name="display_compact_timers_title">Wyświetlaj aktywne minutniki w trybie kompaktowym</string>
+    <string name="display_battery_title">Wyświetl poziom naładowania baterii</string>
+    <string name="battery_color_title">Kolor poziomu naładowania baterii</string>
+    <string name="screensaver_bold_battery_title">Poziom naładowania baterii pogrubiony</string>
+    <string name="screensaver_italic_battery_title">Poziom naładowania baterii pochylony</string>
+    <string name="settings_language_bulgarian">Bułgarski</string>
+    <string name="settings_language_tamil">Tamil</string>
 </resources>

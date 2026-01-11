@@ -705,4 +705,25 @@
     <string name="background_image_title_variant">Lisa või kustuta taustapilt</string>
     <string name="background_image_dialog_title">Taustapilt</string>
     <string name="background_image_toast_message_deleted">Pildi kustutamine õnnestus</string>
+    <string name="label_new_font">Uus kirjatüüp</string>
+    <string name="custom_font_title">Vali soovitud kirjatüüp</string>
+    <string name="custom_font_title_variant">Vali või kustuta oma kirjatüüp</string>
+    <string name="custom_font_dialog_title">Kirjatüüp</string>
+    <string name="custom_font_toast_message_selected">Kirjatüübi valimine õnnestus</string>
+    <string name="custom_font_toast_message_deleted">Kirjatüübi kustutamine õnnestus</string>
+    <string name="vibration_category_title">Värin</string>
+    <string name="display_settings_title">Ekraani seadistused</string>
+    <string name="settings_language_bulgarian">bulgaaria keel</string>
+    <string name="settings_language_tamil">tamili keel</string>
+    <string name="enable_per_alarm_vibration_pattern_title">Kasuta iga äratuse jaoks oma tüüpi värinat</string>
+    <string name="enable_per_alarm_vibration_pattern_dialog_message">Iga äratuse jaoks oma tüüpi värinad lähtestatakse.%s</string>
+    <string name="sw_laps_title">Ringe</string>
+    <string name="sw_split_title">Jagatud</string>
+    <string name="sw_total_title">Kokku</string>
+    <string name="analog_clock_size_title">Analoogkella suurus</string>
+    <string name="display_compact_timers_title">Näita aktiivseid taimereid kompaktses vaates</string>
+    <string name="display_battery_title">Näita aku laetust</string>
+    <string name="battery_color_title">Aku laetuse värv</string>
+    <string name="screensaver_bold_battery_title">Aku laetus paksus kirjas</string>
+    <string name="screensaver_italic_battery_title">Aku laetus kaldkirjas</string>
 </resources>
