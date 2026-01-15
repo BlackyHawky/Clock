@@ -47,7 +47,8 @@ public class CustomToast {
         View layout = LayoutInflater.from(themedContext).inflate(R.layout.custom_toast, null);
 
         TextView text = layout.findViewById(R.id.toast_text);
-        text.setBackground(ThemeUtils.pillBackground(themedContext, com.google.android.material.R.attr.colorSecondary));
+        text.setBackground(ThemeUtils.pillBackgroundFromAttr(themedContext,
+                com.google.android.material.R.attr.colorSecondary));
         text.setText(message);
 
         Typeface typeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));

@@ -25,12 +25,19 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_DISMISS_BUTTON_COL
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISMISS_TITLE_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_ALARM_SECOND_HAND;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_RINGTONE_TITLE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_SNOOZE_SELECTOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_ALARM_BLUR_EFFECT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_PREVIEW;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_RINGTONE_TITLE_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SLIDE_ZONE_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SNOOZE_BUTTON_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SNOOZE_MINUS_BUTTON_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SNOOZE_MINUS_SYMBOL_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SNOOZE_PLUS_BUTTON_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SNOOZE_PLUS_SYMBOL_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SNOOZE_SELECTOR_TEXT_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SNOOZE_TITLE_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SNOOZE_ZONE_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SWIPE_ACTION;
 
 import android.content.Context;
@@ -73,6 +80,9 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
     CustomListPreference mAlarmClockSecondHandPref;
     CustomSwitchPreference mDisplaySecondsPref;
     CustomSwitchPreference mSwipeActionPref;
+    CustomSwitchPreference mDisplaySnoozeSelectorPref;
+    ColorPickerPreference mBackgroundColorPref;
+    ColorPickerPreference mBackgroundAmoledColorPref;
     ColorPickerPreference mAlarmClockColorPref;
     ColorPickerPreference mAlarmSecondHandColorPref;
     ColorPickerPreference mSlideZoneColorPref;
@@ -81,8 +91,12 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
     ColorPickerPreference mSnoozeButtonColorPref;
     ColorPickerPreference mDismissTitleColorPref;
     ColorPickerPreference mDismissButtonColorPref;
-    ColorPickerPreference mBackgroundColorPref;
-    ColorPickerPreference mBackgroundAmoledColorPref;
+    ColorPickerPreference mSnoozeZoneColorPref;
+    ColorPickerPreference mSnoozeMinusButtonColorPref;
+    ColorPickerPreference mSnoozePlusButtonColorPref;
+    ColorPickerPreference mSnoozeSelectorTextColorPref;
+    ColorPickerPreference mSnoozeMinusSymbolColorPref;
+    ColorPickerPreference mSnoozePlusSymbolColorPref;
     CustomSeekbarPreference mAlarmDigitalClockFontSizePref;
     CustomSwitchPreference mDisplayTextShadowPref;
     ColorPickerPreference mShadowColorPref;
@@ -154,6 +168,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
         mDisplaySecondsPref = findPreference(KEY_DISPLAY_ALARM_SECOND_HAND);
         mAlarmClockSecondHandPref = findPreference(KEY_ALARM_CLOCK_SECOND_HAND);
         mSwipeActionPref = findPreference(KEY_SWIPE_ACTION);
+        mDisplaySnoozeSelectorPref = findPreference(KEY_DISPLAY_SNOOZE_SELECTOR);
         mBackgroundColorPref = findPreference(KEY_ALARM_BACKGROUND_COLOR);
         mBackgroundAmoledColorPref = findPreference(KEY_ALARM_BACKGROUND_AMOLED_COLOR);
         mAlarmClockColorPref = findPreference(KEY_ALARM_CLOCK_COLOR);
@@ -164,6 +179,12 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
         mSnoozeButtonColorPref = findPreference(KEY_SNOOZE_BUTTON_COLOR);
         mDismissTitleColorPref = findPreference(KEY_DISMISS_TITLE_COLOR);
         mDismissButtonColorPref = findPreference(KEY_DISMISS_BUTTON_COLOR);
+        mSnoozeZoneColorPref = findPreference(KEY_SNOOZE_ZONE_COLOR);
+        mSnoozeMinusButtonColorPref = findPreference(KEY_SNOOZE_MINUS_BUTTON_COLOR);
+        mSnoozePlusButtonColorPref = findPreference(KEY_SNOOZE_PLUS_BUTTON_COLOR);
+        mSnoozeSelectorTextColorPref = findPreference(KEY_SNOOZE_SELECTOR_TEXT_COLOR);
+        mSnoozeMinusSymbolColorPref = findPreference(KEY_SNOOZE_MINUS_SYMBOL_COLOR);
+        mSnoozePlusSymbolColorPref = findPreference(KEY_SNOOZE_PLUS_SYMBOL_COLOR);
         mAlarmDigitalClockFontSizePref = findPreference(KEY_ALARM_DIGITAL_CLOCK_FONT_SIZE);
         mDisplayTextShadowPref = findPreference(KEY_ALARM_DISPLAY_TEXT_SHADOW);
         mShadowColorPref = findPreference(KEY_ALARM_SHADOW_COLOR);
@@ -232,6 +253,19 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
                 mDismissTitleColorPref.setVisible(isSwipeActionEnabled);
                 mDismissButtonColorPref.setVisible(!isSwipeActionEnabled);
                 mAlarmButtonColorPref.setVisible(isSwipeActionEnabled);
+
+                Utils.setVibrationTime(requireContext(), 50);
+            }
+
+            case KEY_DISPLAY_SNOOZE_SELECTOR -> {
+                boolean isSnoozeSelectorDisplayed = (boolean) newValue;
+
+                mSnoozeZoneColorPref.setVisible(isSnoozeSelectorDisplayed);
+                mSnoozeMinusButtonColorPref.setVisible(isSnoozeSelectorDisplayed);
+                mSnoozePlusButtonColorPref.setVisible(isSnoozeSelectorDisplayed);
+                mSnoozeSelectorTextColorPref.setVisible(isSnoozeSelectorDisplayed);
+                mSnoozeMinusSymbolColorPref.setVisible(isSnoozeSelectorDisplayed);
+                mSnoozePlusSymbolColorPref.setVisible(isSnoozeSelectorDisplayed);
 
                 Utils.setVibrationTime(requireContext(), 50);
             }
@@ -307,6 +341,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
         final boolean isDigitalClock = mAlarmClockStylePref.getValue().equals(mDigitalClock);
         final boolean isSecondHandDisplayed = SettingsDAO.isAlarmSecondHandDisplayed(mPrefs);
         final boolean isSwipeActionEnabled = SettingsDAO.isSwipeActionEnabled(mPrefs);
+        final boolean isSnoozeSelectorDisplayed = SettingsDAO.isSnoozeSelectorDisplayed(mPrefs);
         final boolean isTextShadowDisplayed = SettingsDAO.isAlarmTextShadowDisplayed(mPrefs);
         final String alarmBackgroundImage = SettingsDAO.getAlarmBackgroundImage(mPrefs);
 
@@ -340,12 +375,17 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
 
         mSwipeActionPref.setOnPreferenceChangeListener(this);
 
+        mDisplaySnoozeSelectorPref.setOnPreferenceChangeListener(this);
+
         int color = MaterialColors.getColor(
                 requireContext(), com.google.android.material.R.attr.colorPrimaryInverse, Color.BLACK);
         mAlarmSecondHandColorPref.setVisible(isAnalogClock && isSecondHandDisplayed);
         mAlarmSecondHandColorPref.setDefaultValue(color);
 
         mSlideZoneColorPref.setVisible(isSwipeActionEnabled);
+
+        mAlarmButtonColorPref.setVisible(isSwipeActionEnabled);
+        mAlarmButtonColorPref.setDefaultValue(color);
 
         mSnoozeTitleColorPref.setVisible(isSwipeActionEnabled);
 
@@ -357,8 +397,17 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
         mDismissButtonColorPref.setVisible(!isSwipeActionEnabled);
         mDismissButtonColorPref.setDefaultValue(color);
 
-        mAlarmButtonColorPref.setVisible(isSwipeActionEnabled);
-        mAlarmButtonColorPref.setDefaultValue(color);
+        mSnoozeZoneColorPref.setVisible(isSnoozeSelectorDisplayed);
+
+        mSnoozeMinusButtonColorPref.setVisible(isSnoozeSelectorDisplayed);
+
+        mSnoozePlusButtonColorPref.setVisible(isSnoozeSelectorDisplayed);
+
+        mSnoozeSelectorTextColorPref.setVisible(isSnoozeSelectorDisplayed);
+
+        mSnoozeMinusSymbolColorPref.setVisible(isSnoozeSelectorDisplayed);
+
+        mSnoozePlusSymbolColorPref.setVisible(isSnoozeSelectorDisplayed);
 
         mAlarmDigitalClockFontSizePref.setVisible(isDigitalClock);
 

@@ -582,7 +582,7 @@ public final class ClockFragment extends DeskClockFragment {
                 // Configure the digital clock or analog clock depending on the user preference.
                 if (isDigitalClock) {
                     mAnalogClock.setVisibility(GONE);
-                    mDigitalClock.setBackground(ThemeUtils.pillBackground(
+                    mDigitalClock.setBackground(ThemeUtils.pillBackgroundFromAttr(
                             context, com.google.android.material.R.attr.colorSecondary));
                     ClockUtils.setDigitalClockFont(mDigitalClock, mDigitalClockFont);
                     ClockUtils.setDigitalClockTimeFormat(mDigitalClock, 0.3f,
