@@ -1211,6 +1211,15 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return {@code true} if the snooze selector is displayed on the triggered alarm view.
+     * {@code false} otherwise.
+     */
+    public static boolean isSnoozeSelectorDisplayed(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm_display.xml
+        return prefs.getBoolean(KEY_DISPLAY_SNOOZE_SELECTOR, DEFAULT_DISPLAY_SNOOZE_SELECTOR);
+    }
+
+    /**
      * @return the font applied to the alarm.
      */
     public static String getAlarmFont(SharedPreferences prefs) {
@@ -1266,6 +1275,14 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return a value indicating the alarm button color.
+     */
+    public static int getAlarmButtonColor(SharedPreferences prefs, Context context) {
+        // Default value must match the one in res/xml/settings_alarm_display.xml
+        return prefs.getInt(KEY_ALARM_BUTTON_COLOR, getDefaultAlarmInversePrimaryColor(context));
+    }
+
+    /**
      * @return a value indicating the color of "Snooze" title.
      */
     public static int getSnoozeTitleColor(SharedPreferences prefs) {
@@ -1298,11 +1315,51 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return a value indicating the alarm button color.
+     * @return a value indicating the snooze zone color.
      */
-    public static int getAlarmButtonColor(SharedPreferences prefs, Context context) {
+    public static int getSnoozeZoneColor(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_alarm_display.xml
-        return prefs.getInt(KEY_ALARM_BUTTON_COLOR, getDefaultAlarmInversePrimaryColor(context));
+        return prefs.getInt(KEY_SNOOZE_ZONE_COLOR, DEFAULT_SNOOZE_ZONE_COLOR);
+    }
+
+    /**
+     * @return a value indicating the snooze minus button color.
+     */
+    public static int getSnoozeMinusButtonColor(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm_display.xml
+        return prefs.getInt(KEY_SNOOZE_MINUS_BUTTON_COLOR, DEFAULT_SNOOZE_BUTTON_COLOR);
+    }
+
+    /**
+     * @return a value indicating the snooze plus button color.
+     */
+    public static int getSnoozePlusButtonColor(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm_display.xml
+        return prefs.getInt(KEY_SNOOZE_PLUS_BUTTON_COLOR, DEFAULT_SNOOZE_BUTTON_COLOR);
+    }
+
+    /**
+     * @return a value indicating the snooze selector text color.
+     */
+    public static int getSnoozeSelectorTextColor(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm_display.xml
+        return prefs.getInt(KEY_SNOOZE_SELECTOR_TEXT_COLOR, DEFAULT_SNOOZE_TEXT_COLOR);
+    }
+
+    /**
+     * @return a value indicating the snooze minus symbol color.
+     */
+    public static int getSnoozeMinusSymbolColor(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm_display.xml
+        return prefs.getInt(KEY_SNOOZE_MINUS_SYMBOL_COLOR, DEFAULT_SNOOZE_TEXT_COLOR);
+    }
+
+    /**
+     * @return a value indicating the snooze plus symbol color.
+     */
+    public static int getSnoozePlusSymbolColor(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm_display.xml
+        return prefs.getInt(KEY_SNOOZE_PLUS_SYMBOL_COLOR, DEFAULT_SNOOZE_TEXT_COLOR);
     }
 
     /**

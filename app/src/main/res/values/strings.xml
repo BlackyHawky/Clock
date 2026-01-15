@@ -541,6 +541,18 @@
     <string name="dismiss_button_color">Color of the \"Dismiss\" button</string>
     <!-- Setting title for customizing the alarm button color. -->
     <string name="alarm_button_color">Alarm button color</string>
+    <!-- Setting title for customizing the snooze zone color. -->
+    <string name="snooze_zone_color_title">Snooze zone color</string>
+    <!-- Setting title for customizing the color of the "-" button. -->
+    <string name="snooze_minus_button_color_title">Color of the "-" button</string>
+    <!-- Setting title for customizing the color of the "+" button. -->
+    <string name="snooze_plus_button_color_title">Color of the "+" button</string>
+    <!-- Setting title for customizing the snooze selector text color. -->
+    <string name="snooze_selector_text_color_title">Snooze selector text color</string>
+    <!-- Setting title for customizing the color of the "-" symbol. -->
+    <string name="snooze_minus_symbol_color_title">Color of the "-" symbol</string>
+    <!-- Setting title for customizing the color of the "+" symbol. -->
+    <string name="snooze_plus_symbol_color_title">Color of the "+" symbol</string>
     <!-- Setting title for customizing the alarm clock font size. -->
     <string name="clock_font_size">Clock font size</string>
     <!-- Setting title for customizing the alarm title font size. -->
@@ -613,6 +625,22 @@
     <string name="alarms_blocked_by_dnd">Device is set to total silence</string>
     <!-- Title of the setting to enable swiping to dismiss or snooze alarms -->
     <string name="swipe_action_title">Swipe to dismiss or snooze alarms</string>
+    <!-- Title of the setting to display the snooze selector -->
+    <string name="display_snooze_selector_title">Display the snooze selector</string>
+    <!-- Text when changing the snooze duration value to default -->
+    <string name="snooze_selector_default">Default snooze (%s)</string>
+    <!-- Text when changing the snooze duration value to 5 minutes -->
+    <string name="snooze_selector_5_mins">Snooze 5 min</string>
+    <!-- Text when changing the snooze duration value to 10 minutes -->
+    <string name="snooze_selector_10_mins">Snooze 10 min</string>
+    <!-- Text when changing the snooze duration value to 15 minutes -->
+    <string name="snooze_selector_15_mins">Snooze 15 min</string>
+    <!-- Text when changing the snooze duration value to 20 minutes -->
+    <string name="snooze_selector_20_mins">Snooze 20 min</string>
+    <!-- Text when changing the snooze duration value to 25 minutes -->
+    <string name="snooze_selector_25_mins">Snooze 25 min</string>
+    <!-- Text when changing the snooze duration value to 30 minutes -->
+    <string name="snooze_selector_30_mins">Snooze 30 min</string>
     <!-- Title of the setting to change hardware button behavior. This string
          should be changed for each piece of hardware. [CHAR LIMIT=20] -->
     <string name="volume_button_setting_title">Volume buttons</string>
@@ -1295,9 +1323,6 @@
     <string name="world_hours_tomorrow">Tomorrow, <xliff:g example="6 hours ahead" id="time">%1$s</xliff:g></string>
     <!-- Number of hours the world city is behind the current city [CHAR LIMIT=NONE] -->
     <string name="world_hours_yesterday">Yesterday, <xliff:g example="4 hours behind" id="time">%1$s</xliff:g></string>
-    <!-- The time in a world city is the day after the time in the current city (used in landscape) [CHAR LIMIT=NONE] -->
-    <!-- The time in a world city is the day before the time in the current city (used in landscape) [CHAR LIMIT=NONE] -->
-
     <!-- Description of field showing the next alarm time in the clock page, for accessibility. -->
     <string name="next_alarm_description">Next alarm: <xliff:g example="Wed 8:00am" id="alarm_time">%s</xliff:g></string>
     <!-- String for no alarms -->

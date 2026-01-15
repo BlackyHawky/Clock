@@ -63,6 +63,10 @@ public class PreferencesDefaultValues {
     public static final String DEFAULT_HOME_TIME_ZONE = null;
 
     // Alarm
+    public static final String DEFAULT_TIME_PICKER_STYLE = "analog";
+    public static final String SPINNER_TIME_PICKER_STYLE = "spinner";
+    public static final String DEFAULT_DATE_PICKER_STYLE = "calendar";
+    public static final String SPINNER_DATE_PICKER_STYLE = "spinner";
     public static final boolean DEFAULT_ENABLE_PER_ALARM_AUTO_SILENCE = true;
     public static final int DEFAULT_AUTO_SILENCE_DURATION = 600;
     public static final boolean DEFAULT_ENABLE_PER_ALARM_SNOOZE_DURATION = true;
@@ -77,7 +81,6 @@ public class PreferencesDefaultValues {
     public static final boolean DEFAULT_AUTO_ROUTING_TO_BLUETOOTH_DEVICE = false;
     public static final boolean DEFAULT_SYSTEM_MEDIA_VOLUME = true;
     public static final int DEFAULT_BLUETOOTH_VOLUME = 70;
-    public static final boolean DEFAULT_SWIPE_ACTION = true;
     public static final String DEFAULT_VOLUME_BEHAVIOR = "-1";
     public static final String VOLUME_BEHAVIOR_CHANGE_VOLUME = "0";
     public static final String VOLUME_BEHAVIOR_SNOOZE = "1";
@@ -110,13 +113,11 @@ public class PreferencesDefaultValues {
     public static final boolean DEFAULT_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS = false;
     public static final boolean DEFAULT_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM = false;
     public static final boolean DEFAULT_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT = false;
-    public static final String DEFAULT_TIME_PICKER_STYLE = "analog";
-    public static final String SPINNER_TIME_PICKER_STYLE = "spinner";
-    public static final String DEFAULT_DATE_PICKER_STYLE = "calendar";
-    public static final String SPINNER_DATE_PICKER_STYLE = "spinner";
 
     // Alarm Display Customization
     public static final boolean DEFAULT_DISPLAY_ALARM_SECOND_HAND = true;
+    public static final boolean DEFAULT_SWIPE_ACTION = true;
+    public static final boolean DEFAULT_DISPLAY_SNOOZE_SELECTOR = false;
     public static final int DEFAULT_ALARM_BACKGROUND_COLOR = Color.parseColor("#FF191C1E");
     public static final int DEFAULT_ALARM_BACKGROUND_AMOLED_COLOR = Color.BLACK;
     public static final int DEFAULT_SLIDE_ZONE_COLOR = Color.parseColor("#FF2E3337");
@@ -124,6 +125,9 @@ public class PreferencesDefaultValues {
     public static final int DEFAULT_ALARM_TITLE_COLOR = Color.WHITE;
     public static final int DEFAULT_SNOOZE_TITLE_COLOR = Color.WHITE;
     public static final int DEFAULT_DISMISS_TITLE_COLOR = Color.WHITE;
+    public static final int DEFAULT_SNOOZE_ZONE_COLOR = Color.parseColor("#80FFFFFF");
+    public static final int DEFAULT_SNOOZE_BUTTON_COLOR = Color.parseColor("#80FFFFFF");
+    public static final int DEFAULT_SNOOZE_TEXT_COLOR = Color.parseColor("#FFFFFFFF");
     public static final int DEFAULT_ALARM_TITLE_FONT_SIZE_PREF = 30;
     public static final int DEFAULT_ALARM_SHADOW_COLOR = Color.parseColor("#80FFFFFF");
     public static final int DEFAULT_RINGTONE_TITLE_COLOR = Color.WHITE;

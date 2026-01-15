@@ -122,7 +122,7 @@ public final class CitySelectionActivity extends BaseActivity {
         mSearchView.setIconifiedByDefault(false);
         mSearchView.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
         mSearchView.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
-        mSearchView.setBackground(ThemeUtils.pillBackground(
+        mSearchView.setBackground(ThemeUtils.pillBackgroundFromAttr(
                 this, com.google.android.material.R.attr.colorSecondaryContainer));
 
         // Apply custom font to the search text

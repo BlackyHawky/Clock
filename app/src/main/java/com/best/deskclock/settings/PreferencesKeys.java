@@ -70,6 +70,10 @@ public class PreferencesKeys {
     public static final String KEY_DATE_TIME = "key_date_time";
 
     // Alarm
+    public static final String KEY_ALARM_DISPLAY_CUSTOMIZATION = "key_alarm_display_customization";
+    public static final String KEY_ALARM_FONT = "key_alarm_font";
+    public static final String KEY_MATERIAL_TIME_PICKER_STYLE = "key_material_time_picker_style";
+    public static final String KEY_MATERIAL_DATE_PICKER_STYLE = "key_material_date_picker_style";
     public static final String KEY_DEFAULT_ALARM_RINGTONE = "key_default_alarm_ringtone";
     public static final String KEY_ENABLE_PER_ALARM_AUTO_SILENCE = "key_enable_per_alarm_auto_silence";
     public static final String KEY_AUTO_SILENCE_DURATION = "key_auto_silence_duration";
@@ -86,7 +90,6 @@ public class PreferencesKeys {
     public static final String KEY_SYSTEM_MEDIA_VOLUME = "key_system_media_volume";
     public static final String KEY_BLUETOOTH_VOLUME = "key_bluetooth_volume";
     public static final String KEY_ALARM_VIBRATION_CATEGORY = "key_alarm_vibration_category";
-    public static final String KEY_SWIPE_ACTION = "key_swipe_action";
     public static final String KEY_VOLUME_BUTTONS = "key_volume_button_setting";
     public static final String KEY_POWER_BUTTON = "key_power_button";
     public static final String KEY_FLIP_ACTION = "key_flip_action";
@@ -105,9 +108,6 @@ public class PreferencesKeys {
     public static final String KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS = "key_enable_snoozed_or_dismissed_alarm_vibrations";
     public static final String KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM = "key_turn_on_back_flash_for_triggered_alarm";
     public static final String KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT = "key_enable_delete_occasional_alarm_by_default";
-    public static final String KEY_MATERIAL_TIME_PICKER_STYLE = "key_material_time_picker_style";
-    public static final String KEY_MATERIAL_DATE_PICKER_STYLE = "key_material_date_picker_style";
-    public static final String KEY_ALARM_DISPLAY_CUSTOMIZATION = "key_alarm_display_customization";
 
     // Alarm Display Customization
     public static final String KEY_ALARM_CLOCK_STYLE = "key_alarm_clock_style";
@@ -116,18 +116,25 @@ public class PreferencesKeys {
     public static final String KEY_ALARM_ANALOG_CLOCK_SIZE = "key_alarm_analog_clock_size";
     public static final String KEY_DISPLAY_ALARM_SECOND_HAND = "key_display_alarm_second_hand";
     public static final String KEY_ALARM_CLOCK_SECOND_HAND = "key_alarm_clock_second_hand";
-    public static final String KEY_ALARM_FONT = "key_alarm_font";
+    public static final String KEY_SWIPE_ACTION = "key_swipe_action";
+    public static final String KEY_DISPLAY_SNOOZE_SELECTOR = "key_display_snooze_selector";
     public static final String KEY_ALARM_BACKGROUND_COLOR = "key_alarm_background_color";
     public static final String KEY_ALARM_BACKGROUND_AMOLED_COLOR = "key_alarm_background_amoled_color";
-    public static final String KEY_SLIDE_ZONE_COLOR = "key_slide_zone_color";
     public static final String KEY_ALARM_CLOCK_COLOR = "key_alarm_clock_color";
     public static final String KEY_ALARM_SECOND_HAND_COLOR = "key_alarm_second_hand_color";
     public static final String KEY_ALARM_TITLE_COLOR = "key_alarm_title_color";
+    public static final String KEY_SLIDE_ZONE_COLOR = "key_slide_zone_color";
+    public static final String KEY_ALARM_BUTTON_COLOR = "key_alarm_button_color";
     public static final String KEY_SNOOZE_TITLE_COLOR = "key_snooze_title_color";
     public static final String KEY_SNOOZE_BUTTON_COLOR = "key_snooze_button_color";
     public static final String KEY_DISMISS_TITLE_COLOR = "key_dismiss_title_color";
     public static final String KEY_DISMISS_BUTTON_COLOR = "key_dismiss_button_color";
-    public static final String KEY_ALARM_BUTTON_COLOR = "key_alarm_button_color";
+    public static final String KEY_SNOOZE_ZONE_COLOR = "key_snooze_zone_color";
+    public static final String KEY_SNOOZE_MINUS_BUTTON_COLOR = "key_snooze_minus_button_color";
+    public static final String KEY_SNOOZE_PLUS_BUTTON_COLOR = "key_snooze_plus_button_color";
+    public static final String KEY_SNOOZE_SELECTOR_TEXT_COLOR = "key_snooze_selector_text_color";
+    public static final String KEY_SNOOZE_MINUS_SYMBOL_COLOR = "key_snooze_minus_symbol_color";
+    public static final String KEY_SNOOZE_PLUS_SYMBOL_COLOR = "key_snooze_plus_symbol_color";
     public static final String KEY_ALARM_DIGITAL_CLOCK_FONT_SIZE = "key_alarm_digital_clock_font_size";
     public static final String KEY_ALARM_TITLE_FONT_SIZE_PREF = "key_alarm_title_font_size_pref";
     public static final String KEY_ALARM_DISPLAY_TEXT_SHADOW = "key_alarm_display_text_shadow";

@@ -210,6 +210,27 @@
         <item>10</item>
     </string-array>
 
+    <!-- Entries listed in the snooze selector displayed on the triggered alarm view. -->
+    <string-array name="alarm_snooze_selector_entries">
+        <item>@string/snooze_selector_default</item>
+        <item>@string/snooze_selector_5_mins</item>
+        <item>@string/snooze_selector_10_mins</item>
+        <item>@string/snooze_selector_15_mins</item>
+        <item>@string/snooze_selector_20_mins</item>
+        <item>@string/snooze_selector_25_mins</item>
+        <item>@string/snooze_selector_30_mins</item>
+    </string-array>
+    <!-- Values that are retrieved from the snooze selector. These must match the alarm_snooze_selector_entries above. -->
+    <string-array name="alarm_snooze_selector_values">
+        <item>-1</item>
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>25</item>
+        <item>30</item>
+    </string-array>
+
     <!-- Entries listed in ListPreference for start day. -->
     <string-array name="week_start_entries">
         <item>@string/week_start_saturday</item>

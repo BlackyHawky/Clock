@@ -409,16 +409,22 @@ public class ThemeUtils {
     /**
      * Convenience method for creating pill background.
      */
-    public static Drawable pillBackground(Context context, @AttrRes int colorAttributeResId) {
+    public static Drawable pillBackground(Context context, int color) {
         final int radius = (int) dpToPx(50, context.getResources().getDisplayMetrics());
-        final GradientDrawable gradientDrawable = new GradientDrawable();
+        final GradientDrawable drawable = new GradientDrawable();
 
-        gradientDrawable.setCornerRadius(radius);
+        drawable.setCornerRadius(radius);
+        drawable.setColor(color);
 
-        gradientDrawable.setColor(
-                MaterialColors.getColor(context, colorAttributeResId, Color.BLACK));
+        return drawable;
+    }
 
-        return gradientDrawable;
+    /**
+     * Convenience method for creating pill background.
+     */
+    public static Drawable pillBackgroundFromAttr(Context context, @AttrRes int colorAttributeResId) {
+        int color = MaterialColors.getColor(context, colorAttributeResId, Color.BLACK);
+        return pillBackground(context, color);
     }
 
     /**

@@ -55,14 +55,14 @@
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintGuide_percent="0.55" />
+            app:layout_constraintGuide_percent="0.5" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/alarm_horizontal_end_guide"
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintGuide_percent="0.8" />
+            app:layout_constraintGuide_percent="0.70" />
 
         <!-- Clock view -->
         <FrameLayout
@@ -106,7 +106,7 @@
             android:ellipsize="marquee"
             android:marqueeRepeatLimit="marquee_forever"
             android:scrollHorizontally="true"
-            app:layout_constraintStart_toStartOf="@+id/alarm_vertical_start_guide"
+            app:layout_constraintStart_toEndOf="@+id/alarm_vertical_start_guide"
             app:layout_constraintEnd_toEndOf="@+id/alarm_vertical_end_guide"
             app:layout_constraintBottom_toTopOf="@+id/alarm_horizontal_middle_guide"
             tools:text="@string/menu_alarm"
@@ -250,6 +250,54 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 tools:backgroundTint="@color/md_theme_primary" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/snooze_selector_layout"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginHorizontal="20dp"
+            android:gravity="center_vertical"
+            app:layout_constraintTop_toBottomOf="@+id/slide_zone_layout"
+            app:layout_constraintBottom_toTopOf="@+id/ringtone_layout">
+
+            <ImageView
+                android:id="@+id/snooze_selector_minus"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:padding="12dp"
+                android:src="@drawable/ic_minus"
+                android:contentDescription="@null"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <com.best.deskclock.uicomponents.AutoSizingTextView
+                android:id="@+id/snooze_selector_text"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="30dp"
+                android:paddingHorizontal="4dp"
+                android:textSize="18sp"
+                android:gravity="center"
+                android:singleLine="true"
+                app:layout_constraintStart_toEndOf="@+id/snooze_selector_minus"
+                app:layout_constraintEnd_toStartOf="@+id/snooze_selector_plus"
+                tools:text="Snooze 5 mins"
+                tools:textStyle="bold"
+                tools:textColor="@android:color/white" />
+
+            <ImageView
+                android:id="@+id/snooze_selector_plus"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:padding="12dp"
+                android:src="@drawable/ic_add"
+                android:contentDescription="@null"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

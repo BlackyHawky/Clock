@@ -87,7 +87,7 @@ public class CustomTooltip {
                 false
         );
 
-        popup.setBackgroundDrawable(ThemeUtils.pillBackground(
+        popup.setBackgroundDrawable(ThemeUtils.pillBackgroundFromAttr(
                 context, com.google.android.material.R.attr.colorSecondary)
         );
         popup.setOutsideTouchable(true);
