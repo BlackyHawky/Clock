@@ -9,7 +9,7 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_DIGIT
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SHADOW_OFFSET;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_BLUR_INTENSITY;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_TITLE_FONT_SIZE_PREF;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_BLUETOOTH_VOLUME;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_EXTERNAL_AUDIO_DEVICE_VOLUME;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_MATERIAL_YOU_WIDGET_BACKGROUND_CORNER_RADIUS;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SCREENSAVER_BRIGHTNESS;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SHAKE_INTENSITY;
@@ -22,9 +22,9 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_DIGITAL_CLOC
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_SHADOW_OFFSET;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_TITLE_FONT_SIZE_PREF;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ANALOG_CLOCK_SIZE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_BLUETOOTH_VOLUME;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_CLOCK_FONT_SIZE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_EXTERNAL_AUDIO_DEVICE_VOLUME;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_BACKGROUND_CORNER_RADIUS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS;
@@ -81,7 +81,7 @@ public class CustomSeekbarPreference extends SeekBarPreference {
     private static final int MIN_SHAKE_INTENSITY_VALUE = DEFAULT_SHAKE_INTENSITY;
     private static final int MIN_TIMER_SHAKE_INTENSITY_VALUE = DEFAULT_TIMER_SHAKE_INTENSITY;
     private static final int MIN_BRIGHTNESS_VALUE = 0;
-    private static final int MIN_BLUETOOTH_VOLUME = 10;
+    private static final int MIN_EXTERNAL_AUDIO_DEVICE_VOLUME = 10;
     private static final int MIN_SHADOW_OFFSET_VALUE = 1;
     private static final int MIN_BLUR_INTENSITY_VALUE = 1;
     private static final int MIN_ANALOG_CLOCK_SIZE_VALUE = 1;
@@ -155,8 +155,8 @@ public class CustomSeekbarPreference extends SeekBarPreference {
         mResetSeekBar = (TextView) holder.findViewById(R.id.reset_seekbar_value);
 
         configureSeekBarButtonDrawables();
-        setupSeekBarButton(mSeekBarMinus, isBluetoothVolumePreference() ? -10 : -5, seekBarSummary);
-        setupSeekBarButton(mSeekBarPlus, isBluetoothVolumePreference() ? 10 : 5, seekBarSummary);
+        setupSeekBarButton(mSeekBarMinus, isExternalAudioDeviceVolumePreference() ? -10 : -5, seekBarSummary);
+        setupSeekBarButton(mSeekBarPlus, isExternalAudioDeviceVolumePreference() ? 10 : 5, seekBarSummary);
         updateSeekBarButtonStates();
         updateResetButtonStates();
 
@@ -164,7 +164,7 @@ public class CustomSeekbarPreference extends SeekBarPreference {
         mResetSeekBar.setOnClickListener(v -> {
             resetPreference();
             setSeekBarProgress(seekBarSummary);
-            startRingtonePreviewForBluetoothDevices();
+            startRingtonePreviewForExternalAudioDevices();
             updateDigitalWidgets();
             updateSeekBarButtonStates();
             updateResetButtonStates();
@@ -187,8 +187,8 @@ public class CustomSeekbarPreference extends SeekBarPreference {
                                 || isAlarmBlurIntensityPreference())
                                 && progress < MIN_BLUR_INTENSITY_VALUE) {
                             seekBar.setProgress(MIN_BLUR_INTENSITY_VALUE);
-                        } else if (isBluetoothVolumePreference() && progress < MIN_BLUETOOTH_VOLUME) {
-                            seekBar.setProgress(MIN_BLUETOOTH_VOLUME);
+                        } else if (isExternalAudioDeviceVolumePreference() && progress < MIN_EXTERNAL_AUDIO_DEVICE_VOLUME) {
+                            seekBar.setProgress(MIN_EXTERNAL_AUDIO_DEVICE_VOLUME);
                         } else if ((isAnalogClockSizePreference()
                                 || isScreensaverAnalogClockSizePreference()
                                 || isAlarmAnalogClockSizePreference())
@@ -214,7 +214,7 @@ public class CustomSeekbarPreference extends SeekBarPreference {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                startRingtonePreviewForBluetoothDevices();
+                startRingtonePreviewForExternalAudioDevices();
             }
 
             @Override
@@ -250,8 +250,8 @@ public class CustomSeekbarPreference extends SeekBarPreference {
                     || isTimerBlurIntensityPreference()
                     || isAlarmBlurIntensityPreference()) {
                 mSeekBar.setMin(MIN_BLUR_INTENSITY_VALUE);
-            } else if (isBluetoothVolumePreference()) {
-                mSeekBar.setMin(MIN_BLUETOOTH_VOLUME);
+            } else if (isExternalAudioDeviceVolumePreference()) {
+                mSeekBar.setMin(MIN_EXTERNAL_AUDIO_DEVICE_VOLUME);
             } else if (isAnalogClockSizePreference()
                     || isScreensaverAnalogClockSizePreference()
                     || isAlarmAnalogClockSizePreference()) {
@@ -304,8 +304,8 @@ public class CustomSeekbarPreference extends SeekBarPreference {
             currentProgress = getAlarmShadowOffsetValue();
         } else if (isAlarmBlurIntensityPreference()) {
             currentProgress = getAlarmBlurIntensityValue();
-        } else if (isBluetoothVolumePreference()) {
-            currentProgress = getBluetoothVolumeValue();
+        } else if (isExternalAudioDeviceVolumePreference()) {
+            currentProgress = getExternalAudioDeviceVolumeValue();
         } else if (isAnalogClockSizePreference()) {
             currentProgress = getAnalogClockSizeValue();
         } else if (isAlarmAnalogClockSizePreference()) {
@@ -332,7 +332,7 @@ public class CustomSeekbarPreference extends SeekBarPreference {
             seekBarSummary.setText(R.string.label_default);
         } else if (isScreensaverBrightnessPreference()
                 || isScreensaverAnalogClockSizePreference()
-                || isBluetoothVolumePreference()
+                || isExternalAudioDeviceVolumePreference()
                 || isAnalogClockSizePreference()
                 || isAlarmAnalogClockSizePreference()) {
             String formattedText = String.format(Locale.getDefault(), "%d%%", progress);
@@ -368,7 +368,7 @@ public class CustomSeekbarPreference extends SeekBarPreference {
                 || isAlarmBlurIntensityPreference()) {
             mSeekBarMinus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_blur_decrease));
             mSeekBarPlus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_blur_increase));
-        } else if (isBluetoothVolumePreference()) {
+        } else if (isExternalAudioDeviceVolumePreference()) {
             mSeekBarMinus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_volume_down));
             mSeekBarPlus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_volume_up));
         } else if (isAnalogClockSizePreference()
@@ -393,7 +393,7 @@ public class CustomSeekbarPreference extends SeekBarPreference {
             mSeekBar.setProgress(newSeekBarValue);
             updateSeekBarSummary(seekBarSummary, newSeekBarValue);
             saveSeekBarValue(newSeekBarValue);
-            startRingtonePreviewForBluetoothDevices();
+            startRingtonePreviewForExternalAudioDevices();
             updateDigitalWidgets();
             updateSeekBarButtonStates();
             updateResetButtonStates();
@@ -480,8 +480,8 @@ public class CustomSeekbarPreference extends SeekBarPreference {
                 || isTimerBlurIntensityPreference()
                 || isAlarmBlurIntensityPreference()) {
             return MIN_BLUR_INTENSITY_VALUE;
-        } else if (isBluetoothVolumePreference()) {
-            return MIN_BLUETOOTH_VOLUME;
+        } else if (isExternalAudioDeviceVolumePreference()) {
+            return MIN_EXTERNAL_AUDIO_DEVICE_VOLUME;
         } else if (isAnalogClockSizePreference()
                 || isScreensaverAnalogClockSizePreference()
                 || isAlarmAnalogClockSizePreference()) {
@@ -521,8 +521,8 @@ public class CustomSeekbarPreference extends SeekBarPreference {
                 || isTimerBlurIntensityPreference()
                 || isAlarmBlurIntensityPreference()) {
             return DEFAULT_BLUR_INTENSITY;
-        } else if (isBluetoothVolumePreference()) {
-            return DEFAULT_BLUETOOTH_VOLUME;
+        } else if (isExternalAudioDeviceVolumePreference()) {
+            return DEFAULT_EXTERNAL_AUDIO_DEVICE_VOLUME;
         } else if (isAnalogClockSizePreference()
                 || isScreensaverAnalogClockSizePreference()
                 || isAlarmAnalogClockSizePreference()) {
@@ -562,7 +562,7 @@ public class CustomSeekbarPreference extends SeekBarPreference {
                 && !isAlarmTitleFontSizePreference()
                 && !isAlarmShadowOffsetPreference()
                 && !isAlarmBlurIntensityPreference()
-                && !isBluetoothVolumePreference()
+                && !isExternalAudioDeviceVolumePreference()
                 && !isAnalogClockSizePreference()
                 && !isAlarmAnalogClockSizePreference()
                 && !isDigitalClockFontSizePreference()) {
@@ -742,11 +742,11 @@ public class CustomSeekbarPreference extends SeekBarPreference {
     }
 
     /**
-     * @return the current value of the SeekBar related to volume when a Bluetooth device
+     * @return the current value of the SeekBar related to volume when an external audio device
      * is connected from SharedPreferences.
      */
-    private int getBluetoothVolumeValue() {
-        return mPrefs.getInt(getKey(), DEFAULT_BLUETOOTH_VOLUME);
+    private int getExternalAudioDeviceVolumeValue() {
+        return mPrefs.getInt(getKey(), DEFAULT_EXTERNAL_AUDIO_DEVICE_VOLUME);
     }
 
     /**
@@ -918,18 +918,20 @@ public class CustomSeekbarPreference extends SeekBarPreference {
     }
 
     /**
-     * @return {@code true} if the current preference is related to volume when a Bluetooth device
-     * is connected. {@code false} otherwise.
+     * @return {@code true} if the current preference is related to volume when
+     * an external audio device is connected. {@code false} otherwise.
      */
-    private boolean isBluetoothVolumePreference() {
-        return getKey().equals(KEY_BLUETOOTH_VOLUME);
+    private boolean isExternalAudioDeviceVolumePreference() {
+        return getKey().equals(KEY_EXTERNAL_AUDIO_DEVICE_VOLUME);
     }
 
     /**
-     * Plays ringtone preview if preference is Bluetooth volume or if there is a Bluetooth device connected.
+     * Plays ringtone preview if preference is "External audio device volume" or if there is an
+     * external audio device connected.
      */
-    private void startRingtonePreviewForBluetoothDevices() {
-        if (!isBluetoothVolumePreference() || !RingtoneUtils.hasBluetoothDeviceConnected(mContext, mPrefs)) {
+    private void startRingtonePreviewForExternalAudioDevices() {
+        if (!isExternalAudioDeviceVolumePreference()
+                || !RingtoneUtils.hasExternalAudioDeviceConnected(mContext, mPrefs)) {
             return;
         }
 
@@ -948,7 +950,7 @@ public class CustomSeekbarPreference extends SeekBarPreference {
         RingtonePreviewKlaxon.start(mContext, mPrefs, ringtoneUri);
         mIsPreviewPlaying = true;
 
-        mRingtoneStopRunnable = this::stopRingtonePreviewForBluetoothDevices;
+        mRingtoneStopRunnable = this::stopRingtonePreviewForExternalAudioDevices;
 
         // Stop the preview after 5 seconds
         mRingtoneHandler.postDelayed(mRingtoneStopRunnable, ALARM_PREVIEW_DURATION_MS);
@@ -957,7 +959,7 @@ public class CustomSeekbarPreference extends SeekBarPreference {
     /**
      * Stops playing the ringtone preview if it is currently playing.
      */
-    public void stopRingtonePreviewForBluetoothDevices() {
+    public void stopRingtonePreviewForExternalAudioDevices() {
         if (!mIsPreviewPlaying) {
             return;
         }

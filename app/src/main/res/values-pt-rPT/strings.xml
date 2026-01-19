@@ -596,7 +596,7 @@
     <string name="missed_alarm_repeat_limit_5_times">5 vezes</string>
     <string name="missed_alarm_repeat_limit_10_times">10 vezes</string>
     <string name="system_media_volume_title">Usar volume de multimédia do sistema</string>
-    <string name="connect_bluetooth_device_title">Conecta um aparelho Bluetooth para acessar esta funcionalidade</string>
+    <string name="connect_external_audio_device_title">Conecta um dispositivo de áudio externo para acessar esta funcionalidade</string>
     <string name="vibration_pattern_title">Padrão de vibração</string>
     <string name="vibration_pattern_soft">Suave</string>
     <string name="vibration_pattern_strong">Forte</string>

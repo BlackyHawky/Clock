@@ -215,10 +215,10 @@ public class AlarmVolumePreference extends SeekBarPreference {
 
         ThemeUtils.updateSeekBarButtonEnabledState(mContext, mSeekBarMinus, isPrefEnabled
                 && progress > 0
-                && !RingtoneUtils.hasBluetoothDeviceConnected(mContext, mPrefs));
+                && !RingtoneUtils.hasExternalAudioDeviceConnected(mContext, mPrefs));
         ThemeUtils.updateSeekBarButtonEnabledState(mContext, mSeekBarPlus, isPrefEnabled
                 && progress < max
-                && !RingtoneUtils.hasBluetoothDeviceConnected(mContext, mPrefs));
+                && !RingtoneUtils.hasExternalAudioDeviceConnected(mContext, mPrefs));
     }
 
     private void updateVolume(AudioManager audioManager) {

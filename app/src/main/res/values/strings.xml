@@ -457,20 +457,20 @@
     <!-- Setting title to enable advanced audio playback. -->
     <string name="advanced_audio_playback_title">Use advanced audio playback</string>
     <!-- Setting summary to clarify what the "Use advanced audio playback" setting implies -->
-    <string name="advanced_audio_playback_summary">Improves Bluetooth compatibility and prevents sound interruptions during repetition
+    <string name="advanced_audio_playback_summary">Improves external audio device compatibility and prevents sound interruptions during repetition
         \n\nNote: Some ringtones may have slight audio glitches</string>
-    <!-- Setting title to enable automatic routing to bluetooth devices for ringtones -->
-    <string name="auto_routing_to_bluetooth_device_title">Enable automatic routing of ringtones to Bluetooth devices</string>
+    <!-- Setting title to enable automatic routing to external audio devices for ringtones -->
+    <string name="auto_routing_to_external_audio_device_title">Enable automatic routing of ringtones to external audio devices</string>
     <!-- Setting title to enable the use of system media volume. -->
     <string name="system_media_volume_title">Use system media volume</string>
     <!-- Setting summary about the use of system media volume. -->
-    <string name="system_media_volume_summary">Only works if a Bluetooth device is connected</string>
-    <!-- Setting title for changing the volume when a Bluetooth device is connected. -->
-    <string name="bluetooth_volume_title">Alarm volume for Bluetooth devices</string>
-    <!-- Setting title to indicate that a Bluetooth device should be connected. -->
-    <string name="connect_bluetooth_device_title">Connect a Bluetooth device to access this setting</string>
-    <!-- Setting title to indicate that a Bluetooth device should be disconnected. -->
-    <string name="disconnect_bluetooth_device_title">Disconnect the Bluetooth device to access this setting</string>
+    <string name="system_media_volume_summary">Only works if an external audio device is connected</string>
+    <!-- Setting title for changing the volume when an external audio device is connected. -->
+    <string name="external_audio_device_volume_title">Alarm volume for external audio devices</string>
+    <!-- Setting title to indicate that an external audio device should be connected. -->
+    <string name="connect_external_audio_device_title">Connect an external audio device to access this setting</string>
+    <!-- Setting title to indicate that an external audio device should be disconnected. -->
+    <string name="disconnect_external_audio_device_title">Disconnect the external audio device to access this setting</string>
     <!-- Setting title to enable vibrations when creating alarms -->
     <string name="enable_alarm_vibrations_by_default_setting_title">Enable vibrations when creating alarms</string>
     <!-- Setting title to enable the use of a custom vibration pattern for each alarm. -->

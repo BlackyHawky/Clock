@@ -371,9 +371,9 @@
     <string name="settings_language_korean">کره ای</string>
     <string name="alarm_notification_reminder_4_hours">۴ ساعت قبل</string>
     <string name="alarm_notification_reminder_8_hours">۸ ساعت قبل</string>
-    <string name="connect_bluetooth_device_title">برای دسترسی به این تنظیمات، یک دستگاه بلوتوثی را متصل کنید</string>
-    <string name="disconnect_bluetooth_device_title">برای دسترسی به این تنظیمات، دستگاه بلوتوثی را قطع کنید</string>
-    <string name="system_media_volume_summary">فقط وقتی که یک دستگاه بلوتوثی متصل باشد کار می کند</string>
+    <string name="connect_external_audio_device_title">برای دسترسی به این تنظیم، یک دستگاه صوتی خارجی را متصل کنید</string>
+    <string name="disconnect_external_audio_device_title">برای دسترسی به این تنظیم، دستگاه صوتی خارجی را قطع کنید</string>
+    <string name="system_media_volume_summary">فقط زمانی کار می‌کند که یک دستگاه صوتی خارجی متصل باشد</string>
     <string name="date_picker_style_calendar">تقویم</string>
     <string name="date_picker_style_text">متن</string>
     <string name="snooze_duration_none">هیچکدام</string>
