@@ -83,6 +83,8 @@ public class ClockProvider extends ContentProvider {
                 ALARMS_TABLE_NAME + "." + AlarmsColumns.FLASH);
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.LABEL,
                 ALARMS_TABLE_NAME + "." + AlarmsColumns.LABEL);
+        sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.SYNC_BY_LABEL,
+                ALARMS_TABLE_NAME + "." + AlarmsColumns.SYNC_BY_LABEL);
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.RINGTONE,
                 ALARMS_TABLE_NAME + "." + AlarmsColumns.RINGTONE);
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.DELETE_AFTER_USE,
@@ -114,6 +116,8 @@ public class ClockProvider extends ContentProvider {
                 INSTANCES_TABLE_NAME + "." + InstancesColumns.MINUTES);
         sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns.LABEL,
                 INSTANCES_TABLE_NAME + "." + InstancesColumns.LABEL);
+        sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns.SYNC_BY_LABEL,
+                INSTANCES_TABLE_NAME + "." + InstancesColumns.SYNC_BY_LABEL);
         sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns.VIBRATE,
                 INSTANCES_TABLE_NAME + "." + InstancesColumns.VIBRATE);
         sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns.VIBRATION_PATTERN,

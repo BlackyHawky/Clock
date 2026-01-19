@@ -825,8 +825,9 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         mItemAdapter.removeItem(itemHolder);
     }
 
-    public void setLabel(Alarm alarm, String label) {
+    public void setLabel(Alarm alarm, String label, boolean syncAlarmByLabel) {
         alarm.label = label;
+        alarm.syncByLabel = syncAlarmByLabel;
         mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
     }
 

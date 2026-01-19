@@ -27,7 +27,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
     static final String ALARMS_TABLE_NAME = "alarm_templates";
     static final String INSTANCES_TABLE_NAME = "alarm_instances";
 
-    private static final int DATABASE_VERSION = 23;
+    private static final int DATABASE_VERSION = 24;
     private static final int MINIMUM_SUPPORTED_VERSION = 15;
 
     public ClockDatabaseHelper(Context context) {
@@ -48,6 +48,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                 ClockContract.AlarmsColumns.VIBRATION_PATTERN + " TEXT NOT NULL DEFAULT 'default', " +
                 ClockContract.AlarmsColumns.FLASH + " INTEGER NOT NULL, " +
                 ClockContract.AlarmsColumns.LABEL + " TEXT NOT NULL, " +
+                ClockContract.AlarmsColumns.SYNC_BY_LABEL + " INTEGER NOT NULL, " +
                 ClockContract.AlarmsColumns.RINGTONE + " TEXT, " +
                 ClockContract.AlarmsColumns.DELETE_AFTER_USE + " INTEGER NOT NULL DEFAULT 0, " +
                 ClockContract.AlarmsColumns.AUTO_SILENCE_DURATION + " INTEGER NOT NULL DEFAULT 600, " +
@@ -71,6 +72,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                 ClockContract.InstancesColumns.VIBRATION_PATTERN + " TEXT NOT NULL DEFAULT 'default', " +
                 ClockContract.InstancesColumns.FLASH + " INTEGER NOT NULL, " +
                 ClockContract.InstancesColumns.LABEL + " TEXT NOT NULL, " +
+                ClockContract.InstancesColumns.SYNC_BY_LABEL + " INTEGER NOT NULL, " +
                 ClockContract.InstancesColumns.RINGTONE + " TEXT, " +
                 ClockContract.InstancesColumns.ALARM_STATE + " INTEGER NOT NULL, " +
                 ClockContract.InstancesColumns.AUTO_SILENCE_DURATION + " INTEGER NOT NULL, " +
@@ -240,6 +242,19 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                     + " TEXT NOT NULL DEFAULT 'default';");
 
             LogUtils.i("vibrationPattern column added for version 23 upgrade.");
+        }
+
+        if (oldVersion < 24) {
+            // Add columns related to the "synchronization of alarms by label" feature
+            db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME
+                    + " ADD COLUMN " + ClockContract.AlarmsColumns.SYNC_BY_LABEL
+                    + " INTEGER NOT NULL DEFAULT 0;");
+
+            db.execSQL("ALTER TABLE " + INSTANCES_TABLE_NAME
+                    + " ADD COLUMN " + ClockContract.InstancesColumns.SYNC_BY_LABEL
+                    + " INTEGER NOT NULL DEFAULT 0;");
+
+            LogUtils.i("syncByLabel column added for version 24 upgrade.");
         }
     }
 

@@ -25,6 +25,8 @@
     <string name="date_picker_dialog_title">Select Date</string>
     <!-- Title of dialog box for editing alarm label -->
     <string name="alarm_label_box_title">Alarm label</string>
+    <!-- Title in the dialog box for editing alarm label allowing the synchronization of alarms sharing the same label -->
+    <string name="sync_alarm_by_label_title">Synchronize alarms sharing the same label</string>
     <!-- Label "Default" -->
     <string name="label_default">Default</string>
     <!-- Label "Off" -->

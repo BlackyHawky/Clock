@@ -3,24 +3,61 @@
     SPDX-License-Identifier: GPL-3.0-only
 -->
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingHorizontal="?attr/dialogPreferredPadding">
+    android:layout_height="wrap_content">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/dialog_input_layout"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="?attr/dialogPreferredPadding"
+        android:orientation="vertical">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@android:id/edit"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/dialog_input_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@android:id/edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                tools:text="Work"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/divider"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="top"
-            tools:ignore="SpeakableTextPresentCheck" />
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="6dp"
+            android:visibility="gone"
+            app:dividerColor="?attr/colorOutline"
+            tools:visibility="visible" />
 
-    </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/sync_alarm_by_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="8dp"
+            android:background="?attr/selectableItemBackground"
+            android:button="@null"
+            android:drawableStart="@drawable/ic_selector_checkbox"
+            android:drawablePadding="20dp"
+            android:text="@string/sync_alarm_by_label_title"
+            android:textSize="16sp"
+            android:textColor="?android:attr/textColorSecondary"
+            android:visibility="gone"
+            tools:ignore="RtlSymmetry"
+            tools:checked="true"
+            tools:visibility="visible" />
 
-</FrameLayout>
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

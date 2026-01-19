@@ -42,6 +42,8 @@ public final class AlarmUpdateHandler {
 
     private AlarmUpdateCallback mUpdateCallback;
 
+    private boolean mUseGlobalNextAlarmToast = false;
+
     public AlarmUpdateHandler(Context context, ScrollHandler scrollHandler, ViewGroup snackbarAnchor) {
         mAppContext = context.getApplicationContext();
         mScrollHandler = scrollHandler;
@@ -90,8 +92,7 @@ public final class AlarmUpdateHandler {
      * @param popToast    whether or not a toast should be displayed when done.
      * @param minorUpdate if true, don't affect any currently snoozed instances.
      */
-    public void asyncUpdateAlarm(final Alarm alarm, final boolean popToast,
-                                 final boolean minorUpdate) {
+    public void asyncUpdateAlarm(final Alarm alarm, final boolean popToast, final boolean minorUpdate) {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(Looper.getMainLooper());
         executor.execute(() -> {
@@ -116,6 +117,7 @@ public final class AlarmUpdateHandler {
                         // Copy over minor change data to the instance; we don't know
                         // exactly which minor field changed, so just copy them all.
                         newInstance.mLabel = alarm.label;
+                        newInstance.mSyncByLabel = alarm.syncByLabel;
                         newInstance.mVibrate = alarm.vibrate;
                         newInstance.mVibrationPattern = alarm.vibrationPattern;
                         newInstance.mFlash = alarm.flash;
@@ -148,7 +150,15 @@ public final class AlarmUpdateHandler {
 
                 handler.post(() -> {
                     if (popToast && finalInstance != null) {
-                        AlarmUtils.popAlarmSetSnackbar(mSnackbarAnchor, finalInstance.getAlarmTime().getTimeInMillis());
+                        if (mUseGlobalNextAlarmToast) {
+                            mUseGlobalNextAlarmToast = false;
+                            AlarmInstance next = AlarmInstance.getNextAlarmInstance(cr);
+                            if (next != null) {
+                                AlarmUtils.popAlarmSetSnackbar(mSnackbarAnchor, next.getAlarmTime().getTimeInMillis());
+                            }
+                        } else {
+                            AlarmUtils.popAlarmSetSnackbar(mSnackbarAnchor, finalInstance.getAlarmTime().getTimeInMillis());
+                        }
                     }
                 });
             } finally {
@@ -183,6 +193,19 @@ public final class AlarmUpdateHandler {
                 }
             });
         });
+    }
+
+    /**
+     * Instructs the next alarm update operation to display a toast based on the next upcoming
+     * alarm instance across all alarms, rather than the instance of the alarm being updated.
+     *
+     * <p>This flag is consumed once during the next call to {@code asyncUpdateAlarm()}
+     * where {@code popToast} is {@code true}. It is used when enabling a group of synchronized
+     * alarms to ensure that only one toast is shown, corresponding to the earliest upcoming alarm
+     * in the group.
+     */
+    public void useGlobalNextAlarmToast() {
+        mUseGlobalNextAlarmToast = true;
     }
 
     /**

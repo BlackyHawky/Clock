@@ -59,6 +59,7 @@ import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
 
 import java.util.Calendar;
+import java.util.List;
 import java.util.TimeZone;
 
 /**
@@ -99,19 +100,87 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
     public void setAlarmEnabled(Alarm alarm, boolean newState) {
         if (newState != alarm.enabled) {
             alarm.enabled = newState;
-            // Necessary when an alarm is set on a specific date and it is not enabled:
-            // if the date is in the past we replace that date with the current date:
-            // indeed, an alarm cannot be triggered in the past.
-            if (alarm.isDateInThePast()) {
-                Calendar currentCalendar = Calendar.getInstance();
-                alarm.year = currentCalendar.get(Calendar.YEAR);
-                alarm.month = currentCalendar.get(Calendar.MONTH);
-                alarm.day = currentCalendar.get(Calendar.DAY_OF_MONTH);
-            }
+            // If the alarm is set for a specific date and that date is already in the past,
+            // update it to the current date. An alarm cannot be scheduled in the past.
+            fixAlarmDateIfPast(alarm);
+
             Events.sendAlarmEvent(newState ? R.string.action_enable : R.string.action_disable, R.string.label_deskclock);
+
+            // When enabling a synchronized alarm, enable all alarms sharing the same label.
+            if (alarm.syncByLabel && newState) {
+                syncAlarmsWithSameLabel(alarm, true);
+                mAlarmUpdateHandler.useGlobalNextAlarmToast();
+            }
+
+            // Update the current alarm instance.
             mAlarmUpdateHandler.asyncUpdateAlarm(alarm, alarm.enabled, false);
+
+            // When disabling a synchronized alarm, disable the entire group only if this alarm
+            // is not currently firing or snoozed.
+            if (alarm.syncByLabel && !newState) {
+                AlarmInstance activeInstance = AlarmInstance.getFiredOrSnoozedInstanceForAlarm(
+                        mContext.getContentResolver(), alarm.id);
+
+                // If the alarm is not active (neither firing nor snoozed),
+                // propagate the disabled state to the whole group.
+                if (activeInstance == null) {
+                    syncAlarmsWithSameLabel(alarm, false);
+                }
+            }
+
             Utils.setVibrationTime(mContext, 50);
             LOGGER.d("Updating alarm enabled state to " + newState);
+        }
+    }
+
+    /**
+     * Synchronizes the enabled state of all alarms sharing the same label and
+     * synchronization setting as the given source alarm.
+     *
+     * @param sourceAlarm the alarm whose label and sync settings define the group
+     * @param newState the enabled state to apply to all matching alarms
+     */
+    private void syncAlarmsWithSameLabel(Alarm sourceAlarm, boolean newState) {
+        if (sourceAlarm.label == null || sourceAlarm.label.trim().isEmpty()) {
+            // No label: nothing to synchronize
+            return;
+        }
+
+        List<Alarm> alarms = Alarm.getAlarms(mContext.getContentResolver(), null);
+
+        for (Alarm alarm : alarms) {
+            if (alarm.id != sourceAlarm.id
+                    && sourceAlarm.label.equals(alarm.label)
+                    && sourceAlarm.syncByLabel == alarm.syncByLabel) {
+
+                if (alarm.enabled != newState) {
+                    alarm.enabled = newState;
+
+                    fixAlarmDateIfPast(alarm);
+
+                    mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, false);
+                    LOGGER.d("Sync alarm " + alarm.id + " with label " + alarm.label);
+                }
+            }
+        }
+    }
+
+    /**
+     * Ensures that the alarm's scheduled date is not in the past.
+     *
+     * <p>If the alarm is configured for a specific calendar date and that date has
+     * already passed, this method updates the alarm's year, month, and day fields
+     * to the current date. This prevents the creation of alarm instances that
+     * would immediately be considered expired.</p>
+     *
+     * @param alarm the alarm whose date should be validated and corrected
+     */
+    private void fixAlarmDateIfPast(Alarm alarm) {
+        if (alarm.isDateInThePast()) {
+            Calendar currentCalendar = Calendar.getInstance();
+            alarm.year = currentCalendar.get(Calendar.YEAR);
+            alarm.month = currentCalendar.get(Calendar.MONTH);
+            alarm.day = currentCalendar.get(Calendar.DAY_OF_MONTH);
         }
     }
 
@@ -256,7 +325,8 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
 
     public void onEditLabelClicked(Alarm alarm) {
         Events.sendAlarmEvent(R.string.action_set_label, R.string.label_deskclock);
-        final LabelDialogFragment fragment = LabelDialogFragment.newInstance(alarm, alarm.label, mFragment.getTag());
+        final LabelDialogFragment fragment = LabelDialogFragment.newInstance(
+                alarm, alarm.label, alarm.syncByLabel, mFragment.getTag());
         LabelDialogFragment.show(mFragment.getParentFragmentManager(), fragment);
     }
 
@@ -576,6 +646,7 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
 
         alarm.hour = hour;
         alarm.minutes = minute;
+        alarm.syncByLabel = false;
         alarm.enabled = true;
         alarm.vibrate = SettingsDAO.areAlarmVibrationsEnabledByDefault(mPrefs);
         alarm.vibrationPattern = SettingsDAO.getVibrationPattern(mPrefs);
@@ -603,7 +674,7 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
         // Necessary when an existing alarm has been created in the past and it is not enabled.
         // Even if the date is not specified, it is saved in AlarmInstance; we need to make
         // sure that the date is not in the past when changing time, in which case we reset
-        // to the current date (an alarm cannot be triggered in the past).
+        // to the current date (an alarm cannot be scheduled in the past).
         // This is due to the change in the code made with commit : 6ac23cf.
         // Fix https://github.com/BlackyHawky/Clock/issues/299
         boolean mustResetDate = mSelectedAlarm.isDateInThePast() ||

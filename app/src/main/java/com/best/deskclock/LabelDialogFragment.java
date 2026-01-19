@@ -6,6 +6,7 @@
 
 package com.best.deskclock;
 
+import static android.view.View.VISIBLE;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
 import android.annotation.SuppressLint;
@@ -39,6 +40,8 @@ import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
+import com.google.android.material.checkbox.MaterialCheckBox;
+import com.google.android.material.divider.MaterialDivider;
 
 import java.util.Objects;
 
@@ -56,6 +59,7 @@ public class LabelDialogFragment extends DialogFragment {
 
     private static final String ARG_LABEL = "arg_label";
     private static final String ARG_ALARM = "arg_alarm";
+    private static final String ARG_SYNC_ALARM_BY_LABEL = "arg_sync_alarm_by_label";
 
     private static final String ARG_TIMER_ID = "arg_timer_id";
 
@@ -64,6 +68,7 @@ public class LabelDialogFragment extends DialogFragment {
 
     private Context mContext;
     private EditText mEditLabel;
+    private MaterialCheckBox mSyncAlarmByLabelCheckbox;
     private Button mDefaultButton;
     private Alarm mAlarm;
     private int mTimerId;
@@ -78,10 +83,13 @@ public class LabelDialogFragment extends DialogFragment {
      * @param label the current label of the alarm, or an empty string if none
      * @param tag   the tag used to identify the fragment that will receive the result
      */
-    public static LabelDialogFragment newInstance(Alarm alarm, String label, String tag) {
+    public static LabelDialogFragment newInstance(Alarm alarm, String label, boolean syncAlarmByLabel,
+                                                  String tag) {
+
         final Bundle args = new Bundle();
-        args.putString(ARG_LABEL, label);
         args.putParcelable(ARG_ALARM, alarm);
+        args.putString(ARG_LABEL, label);
+        args.putBoolean(ARG_SYNC_ALARM_BY_LABEL, syncAlarmByLabel);
         args.putString(ARG_TAG, tag);
 
         final LabelDialogFragment frag = new LabelDialogFragment();
@@ -139,6 +147,10 @@ public class LabelDialogFragment extends DialogFragment {
         if (mEditLabel != null) {
             outState.putString(ARG_LABEL, Objects.requireNonNull(mEditLabel.getText()).toString());
         }
+
+        if (mAlarm != null) {
+            outState.putBoolean(ARG_SYNC_ALARM_BY_LABEL, mSyncAlarmByLabelCheckbox.isChecked());
+        }
     }
 
     @NonNull
@@ -153,6 +165,8 @@ public class LabelDialogFragment extends DialogFragment {
                 ? args.getParcelable(ARG_ALARM, Alarm.class)
                 : args.getParcelable(ARG_ALARM);
 
+        boolean syncAlarmByLabel = mAlarm != null && args.getBoolean(ARG_SYNC_ALARM_BY_LABEL, false);
+
         mTimerId = args.getInt(ARG_TIMER_ID, -1);
 
         mCityId = requireArguments().getString(ARG_CITY_ID);
@@ -161,6 +175,7 @@ public class LabelDialogFragment extends DialogFragment {
         String label = args.getString(ARG_LABEL);
         if (savedInstanceState != null) {
             label = savedInstanceState.getString(ARG_LABEL, label);
+            syncAlarmByLabel = savedInstanceState.getBoolean(ARG_SYNC_ALARM_BY_LABEL, syncAlarmByLabel);
         }
 
         final Drawable drawable;
@@ -212,6 +227,17 @@ public class LabelDialogFragment extends DialogFragment {
             return false;
         });
 
+        if (mAlarm != null) {
+            MaterialDivider divider = dialogView.findViewById(R.id.divider);
+            mSyncAlarmByLabelCheckbox = dialogView.findViewById(R.id.sync_alarm_by_label);
+
+            divider.setVisibility(VISIBLE);
+
+            mSyncAlarmByLabelCheckbox.setVisibility(VISIBLE);
+            mSyncAlarmByLabelCheckbox.setEnabled(isLabelNotEmpty());
+            mSyncAlarmByLabelCheckbox.setChecked(syncAlarmByLabel);
+        }
+
         return CustomDialog.create(
                 mContext,
                 null,
@@ -224,7 +250,13 @@ public class LabelDialogFragment extends DialogFragment {
                 getString(android.R.string.cancel),
                 null,
                 getString(R.string.delete),
-                (d, w) -> applyLabel(""),
+                (d, w) -> {
+                    if (mSyncAlarmByLabelCheckbox != null) {
+                        mSyncAlarmByLabelCheckbox.setChecked(false);
+                    }
+
+                    applyLabel("");
+                },
                 alertDialog -> {
                     mDefaultButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
 
@@ -276,7 +308,8 @@ public class LabelDialogFragment extends DialogFragment {
      */
     private void applyLabel(String label) {
         if (mAlarm != null) {
-            ((AlarmLabelDialogHandler) requireActivity()).onDialogLabelSet(mAlarm, label.trim(), mTag);
+            ((AlarmLabelDialogHandler) requireActivity()).onDialogLabelSet(
+                    mAlarm, label.trim(), mSyncAlarmByLabelCheckbox.isChecked(), mTag);
         } else if (mTimerId >= 0) {
             final Timer timer = DataModel.getDataModel().getTimer(mTimerId);
             if (timer != null) {
@@ -302,6 +335,13 @@ public class LabelDialogFragment extends DialogFragment {
 
         @Override
         public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+            if (mSyncAlarmByLabelCheckbox != null) {
+                mSyncAlarmByLabelCheckbox.setEnabled(isLabelNotEmpty());
+                if (!isLabelNotEmpty()) {
+                    mSyncAlarmByLabelCheckbox.setChecked(false);
+                }
+            }
+
             if (mDefaultButton != null) {
                 mDefaultButton.setEnabled(isLabelNotEmpty());
             }
@@ -328,7 +368,7 @@ public class LabelDialogFragment extends DialogFragment {
          * @param label the new label entered by the user
          * @param tag   an optional tag used to identify the target fragment or context
          */
-        void onDialogLabelSet(Alarm alarm, String label, String tag);
+        void onDialogLabelSet(Alarm alarm, String label, boolean syncAlarmByLabel, String tag);
     }
 
     /**

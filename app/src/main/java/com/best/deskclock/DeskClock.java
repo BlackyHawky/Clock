@@ -551,10 +551,10 @@ public class DeskClock extends BaseActivity
      * Called by the LabelDialogFormat class after the dialog is finished.
      */
     @Override
-    public void onDialogLabelSet(Alarm alarm, String label, String tag) {
+    public void onDialogLabelSet(Alarm alarm, String label, boolean syncAlarmByLabel, String tag) {
         final Fragment frag = getSupportFragmentManager().findFragmentByTag(tag);
         if (frag instanceof AlarmClockFragment) {
-            ((AlarmClockFragment) frag).setLabel(alarm, label);
+            ((AlarmClockFragment) frag).setLabel(alarm, label, syncAlarmByLabel);
             // Update the alarm title in the “Next alarm” widget
             WidgetUtils.updateWidget(this, NextAlarmAppWidgetProvider.class);
             WidgetUtils.updateWidget(this, MaterialYouNextAlarmAppWidgetProvider.class);
