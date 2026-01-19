@@ -24,6 +24,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 
@@ -57,6 +58,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             HOUR,
             MINUTES,
             LABEL,
+            SYNC_BY_LABEL,
             VIBRATE,
             VIBRATION_PATTERN,
             FLASH,
@@ -82,18 +84,19 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     private static final int HOUR_INDEX = 4;
     private static final int MINUTES_INDEX = 5;
     private static final int LABEL_INDEX = 6;
-    private static final int VIBRATE_INDEX = 7;
-    private static final int VIBRATION_PATTERN_INDEX = 8;
-    private static final int FLASH_INDEX = 9;
-    private static final int RINGTONE_INDEX = 10;
-    private static final int ALARM_ID_INDEX = 11;
-    private static final int ALARM_STATE_INDEX = 12;
-    private static final int AUTO_SILENCE_DURATION_INDEX = 13;
-    private static final int SNOOZE_DURATION_INDEX = 14;
-    private static final int MISSED_ALARM_REPEAT_COUNT_INDEX = 15;
-    private static final int MISSED_ALARM_MAX_COUNT_INDEX = 16;
-    private static final int CRESCENDO_DURATION_INDEX = 17;
-    private static final int ALARM_VOLUME_INDEX = 18;
+    private static final int SYNC_BY_LABEL_INDEX = 7;
+    private static final int VIBRATE_INDEX = 8;
+    private static final int VIBRATION_PATTERN_INDEX = 9;
+    private static final int FLASH_INDEX = 10;
+    private static final int RINGTONE_INDEX = 11;
+    private static final int ALARM_ID_INDEX = 12;
+    private static final int ALARM_STATE_INDEX = 13;
+    private static final int AUTO_SILENCE_DURATION_INDEX = 14;
+    private static final int SNOOZE_DURATION_INDEX = 15;
+    private static final int MISSED_ALARM_REPEAT_COUNT_INDEX = 16;
+    private static final int MISSED_ALARM_MAX_COUNT_INDEX = 17;
+    private static final int CRESCENDO_DURATION_INDEX = 18;
+    private static final int ALARM_VOLUME_INDEX = 19;
 
     private static final int COLUMN_COUNT = ALARM_VOLUME_INDEX + 1;
     // Public fields
@@ -104,6 +107,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     public int mHour;
     public int mMinute;
     public String mLabel;
+    public boolean mSyncByLabel;
     public boolean mVibrate;
     public String mVibrationPattern;
     public boolean mFlash;
@@ -127,6 +131,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         mId = INVALID_ID;
         setAlarmTime(calendar);
         mLabel = "";
+        mSyncByLabel = false;
         mVibrate = false;
         mVibrationPattern = DEFAULT_VIBRATION_PATTERN;
         mFlash = false;
@@ -148,6 +153,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         this.mHour = instance.mHour;
         this.mMinute = instance.mMinute;
         this.mLabel = instance.mLabel;
+        this.mSyncByLabel = instance.mSyncByLabel;
         this.mVibrate = instance.mVibrate;
         this.mVibrationPattern = instance.mVibrationPattern;
         this.mFlash = instance.mFlash;
@@ -171,6 +177,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             mHour = c.getInt(Alarm.INSTANCE_HOUR_INDEX);
             mMinute = c.getInt(Alarm.INSTANCE_MINUTE_INDEX);
             mLabel = c.getString(Alarm.INSTANCE_LABEL_INDEX);
+            mSyncByLabel = c.getInt(Alarm.INSTANCE_SYNC_BY_LABEL_INDEX) == 1;
             mVibrate = c.getInt(Alarm.INSTANCE_VIBRATE_INDEX) == 1;
             mVibrationPattern = c.getString(Alarm.INSTANCE_VIBRATION_PATTERN_INDEX);
             mFlash = c.getInt(Alarm.INSTANCE_FLASH_INDEX) == 1;
@@ -188,6 +195,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             mHour = c.getInt(HOUR_INDEX);
             mMinute = c.getInt(MINUTES_INDEX);
             mLabel = c.getString(LABEL_INDEX);
+            mSyncByLabel = c.getInt(SYNC_BY_LABEL_INDEX) == 1;
             mVibrate = c.getInt(VIBRATE_INDEX) == 1;
             mVibrationPattern = c.getString(VIBRATION_PATTERN_INDEX);
             mFlash = c.getInt(FLASH_INDEX) == 1;
@@ -224,6 +232,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         values.put(HOUR, mHour);
         values.put(MINUTES, mMinute);
         values.put(LABEL, mLabel);
+        values.put(SYNC_BY_LABEL, mSyncByLabel ? 1 : 0);
         values.put(VIBRATE, mVibrate ? 1 : 0);
         values.put(VIBRATION_PATTERN, mVibrationPattern);
         values.put(FLASH, mFlash ? 1 : 0);
@@ -313,11 +322,60 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     }
 
     /**
+     * Returns the next upcoming alarm instance among all stored alarm instances that share the specified label.
+     *
+     * <p>This method scans all alarm instances in the database, filters them by the given {@code targetLabel},
+     * and selects the one whose scheduled time is strictly in the future and closest to the current time.
+     * If no future instance with the matching label exists, this method returns {@code null}.</p>
+     *
+     * @param contentResolver the content resolver used to query alarm instances
+     * @param targetLabel     the label used to filter the synchronized alarms
+     * @return the next upcoming {@link AlarmInstance} matching the label, or {@code null} if none exists
+     */
+    public static AlarmInstance getNextAlarmInstanceByLabel(ContentResolver contentResolver, String targetLabel) {
+        List<AlarmInstance> instances = AlarmInstance.getInstances(contentResolver, null);
+
+        long now = System.currentTimeMillis();
+        AlarmInstance next = null;
+
+        for (AlarmInstance instance : instances) {
+            if (!TextUtils.equals(instance.mLabel, targetLabel)) {
+                continue;
+            }
+
+            long time = instance.getAlarmTime().getTimeInMillis();
+            if (time > now) {
+                if (next == null || time < next.getAlarmTime().getTimeInMillis()) {
+                    next = instance;
+                }
+            }
+        }
+
+        return next;
+    }
+
+    /**
      * Get alarm instances in the specified state.
      */
-    public static List<AlarmInstance> getInstancesByState(
-            ContentResolver contentResolver, int state) {
+    public static List<AlarmInstance> getInstancesByState(ContentResolver contentResolver, int state) {
         return getInstances(contentResolver, ALARM_STATE + "=" + state);
+    }
+
+    /**
+     * Returns the alarm instance for the given alarm that is either currently firing
+     * or snoozed. If no such instance exists, {@code null} is returned.
+     */
+    public static AlarmInstance getFiredOrSnoozedInstanceForAlarm(ContentResolver cr, long alarmId) {
+        List<AlarmInstance> activeInstances = AlarmInstance.getInstancesByState(cr, AlarmInstance.FIRED_STATE);
+        activeInstances.addAll(AlarmInstance.getInstancesByState(cr, AlarmInstance.SNOOZE_STATE));
+
+        for (AlarmInstance instance : activeInstances) {
+            if (instance.mAlarmId == alarmId) {
+                return instance;
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -485,6 +543,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
                 ", mHour=" + mHour +
                 ", mMinute=" + mMinute +
                 ", mLabel=" + mLabel +
+                ", mSyncByLabel=" + mSyncByLabel +
                 ", mVibrate=" + mVibrate +
                 ", mVibrationPattern=" + mVibrationPattern +
                 ", mFlash=" + mFlash +

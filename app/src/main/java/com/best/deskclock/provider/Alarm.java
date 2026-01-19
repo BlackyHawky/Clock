@@ -123,6 +123,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             VIBRATION_PATTERN,
             FLASH,
             LABEL,
+            SYNC_BY_LABEL,
             RINGTONE,
             DELETE_AFTER_USE,
             AUTO_SILENCE_DURATION,
@@ -144,6 +145,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + VIBRATION_PATTERN,
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + FLASH,
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + LABEL,
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + SYNC_BY_LABEL,
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + RINGTONE,
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + DELETE_AFTER_USE,
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + AUTO_SILENCE_DURATION,
@@ -159,6 +161,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.HOUR,
             ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.MINUTES,
             ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.LABEL,
+            ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.SYNC_BY_LABEL,
             ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.VIBRATE,
             ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.VIBRATION_PATTERN,
             ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.FLASH,
@@ -185,31 +188,33 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     private static final int VIBRATION_PATTERN_INDEX = 9;
     private static final int FLASH_INDEX = 10;
     private static final int LABEL_INDEX = 11;
-    private static final int RINGTONE_INDEX = 12;
-    private static final int DELETE_AFTER_USE_INDEX = 13;
-    private static final int AUTO_SILENCE_DURATION_INDEX = 14;
-    private static final int SNOOZE_DURATION_INDEX = 15;
-    private static final int MISSED_ALARM_REPEAT_LIMIT_INDEX = 16;
-    private static final int CRESCENDO_DURATION_INDEX = 17;
-    private static final int ALARM_VOLUME_INDEX = 18;
+    private static final int SYNC_BY_LABEL_INDEX = 12;
+    private static final int RINGTONE_INDEX = 13;
+    private static final int DELETE_AFTER_USE_INDEX = 14;
+    private static final int AUTO_SILENCE_DURATION_INDEX = 15;
+    private static final int SNOOZE_DURATION_INDEX = 16;
+    private static final int MISSED_ALARM_REPEAT_LIMIT_INDEX = 17;
+    private static final int CRESCENDO_DURATION_INDEX = 18;
+    private static final int ALARM_VOLUME_INDEX = 19;
 
-    private static final int INSTANCE_STATE_INDEX = 19;
-    public static final int INSTANCE_ID_INDEX = 20;
-    public static final int INSTANCE_YEAR_INDEX = 21;
-    public static final int INSTANCE_MONTH_INDEX = 22;
-    public static final int INSTANCE_DAY_INDEX = 23;
-    public static final int INSTANCE_HOUR_INDEX = 24;
-    public static final int INSTANCE_MINUTE_INDEX = 25;
-    public static final int INSTANCE_LABEL_INDEX = 26;
-    public static final int INSTANCE_VIBRATE_INDEX = 27;
-    public static final int INSTANCE_VIBRATION_PATTERN_INDEX = 28;
-    public static final int INSTANCE_FLASH_INDEX = 29;
-    public static final int INSTANCE_AUTO_SILENCE_DURATION_INDEX = 30;
-    public static final int INSTANCE_SNOOZE_DURATION_INDEX = 31;
-    public static final int INSTANCE_MISSED_ALARM_REPEAT_COUNT_INDEX = 32;
-    public static final int INSTANCE_MISSED_ALARM_REPEAT_LIMIT_INDEX = 33;
-    public static final int INSTANCE_CRESCENDO_DURATION_INDEX = 34;
-    public static final int INSTANCE_ALARM_VOLUME_INDEX = 35;
+    private static final int INSTANCE_STATE_INDEX = 20;
+    public static final int INSTANCE_ID_INDEX = 21;
+    public static final int INSTANCE_YEAR_INDEX = 22;
+    public static final int INSTANCE_MONTH_INDEX = 23;
+    public static final int INSTANCE_DAY_INDEX = 24;
+    public static final int INSTANCE_HOUR_INDEX = 25;
+    public static final int INSTANCE_MINUTE_INDEX = 26;
+    public static final int INSTANCE_LABEL_INDEX = 27;
+    public static final int INSTANCE_SYNC_BY_LABEL_INDEX = 28;
+    public static final int INSTANCE_VIBRATE_INDEX = 29;
+    public static final int INSTANCE_VIBRATION_PATTERN_INDEX = 30;
+    public static final int INSTANCE_FLASH_INDEX = 31;
+    public static final int INSTANCE_AUTO_SILENCE_DURATION_INDEX = 32;
+    public static final int INSTANCE_SNOOZE_DURATION_INDEX = 33;
+    public static final int INSTANCE_MISSED_ALARM_REPEAT_COUNT_INDEX = 34;
+    public static final int INSTANCE_MISSED_ALARM_REPEAT_LIMIT_INDEX = 35;
+    public static final int INSTANCE_CRESCENDO_DURATION_INDEX = 36;
+    public static final int INSTANCE_ALARM_VOLUME_INDEX = 37;
 
     private static final int COLUMN_COUNT = ALARM_VOLUME_INDEX + 1;
     private static final int ALARM_JOIN_INSTANCE_COLUMN_COUNT = INSTANCE_ALARM_VOLUME_INDEX + 1;
@@ -226,6 +231,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     public String vibrationPattern;
     public boolean flash;
     public String label;
+    public boolean syncByLabel;
     public Uri alert;
     public boolean deleteAfterUse;
     public int autoSilenceDuration;
@@ -257,6 +263,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.flash = true;
         this.daysOfWeek = Weekdays.NONE;
         this.label = "";
+        this.syncByLabel = false;
         this.alert = DataModel.getDataModel().getAlarmRingtoneUriFromSettings();
         this.deleteAfterUse = false;
         this.autoSilenceDuration = DEFAULT_AUTO_SILENCE_DURATION;
@@ -269,7 +276,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     // Used to backup/restore the alarm
     public Alarm(long id, boolean enabled, int year, int month, int day, int hour, int minutes,
                  boolean vibrate, String vibrationPattern, boolean flash, Weekdays daysOfWeek,
-                 String label, String alert, boolean deleteAfterUse, int autoSilenceDuration,
+                 String label, boolean syncByLabel, String alert, boolean deleteAfterUse, int autoSilenceDuration,
                  int snoozeDuration, int missedAlarmRepeatLimit, int crescendoDuration,
                  int alarmVolume) {
 
@@ -285,6 +292,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.flash = flash;
         this.daysOfWeek = daysOfWeek;
         this.label = label;
+        this.syncByLabel = syncByLabel;
         this.alert = Uri.parse(alert);
         this.deleteAfterUse = deleteAfterUse;
         this.autoSilenceDuration = autoSilenceDuration;
@@ -307,6 +315,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         vibrationPattern = c.getString(VIBRATION_PATTERN_INDEX);
         flash = c.getInt(FLASH_INDEX) == 1;
         label = c.getString(LABEL_INDEX);
+        syncByLabel = c.getInt(SYNC_BY_LABEL_INDEX) == 1;
         deleteAfterUse = c.getInt(DELETE_AFTER_USE_INDEX) == 1;
         autoSilenceDuration = c.getInt(AUTO_SILENCE_DURATION_INDEX);
         snoozeDuration = c.getInt(SNOOZE_DURATION_INDEX);
@@ -340,6 +349,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         vibrationPattern = p.readString();
         flash = p.readInt() == 1;
         label = p.readString();
+        syncByLabel = p.readInt() == 1;
         alert = SdkUtils.isAtLeastAndroid13()
                 ? p.readParcelable(getClass().getClassLoader(), Uri.class)
                 : p.readParcelable(getClass().getClassLoader());
@@ -368,6 +378,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         values.put(VIBRATION_PATTERN, vibrationPattern);
         values.put(FLASH, flash ? 1 : 0);
         values.put(LABEL, label);
+        values.put(SYNC_BY_LABEL, syncByLabel ? 1 : 0);
         values.put(DELETE_AFTER_USE, deleteAfterUse ? 1 : 0);
         values.put(AUTO_SILENCE_DURATION, autoSilenceDuration);
         values.put(SNOOZE_DURATION, snoozeDuration);
@@ -397,6 +408,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         p.writeString(vibrationPattern);
         p.writeInt(flash ? 1 : 0);
         p.writeString(label);
+        p.writeInt(syncByLabel ? 1 : 0);
         p.writeParcelable(alert, flags);
         p.writeInt(deleteAfterUse ? 1 : 0);
         p.writeInt(autoSilenceDuration);
@@ -654,6 +666,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         result.mVibrationPattern = vibrationPattern;
         result.mFlash = flash;
         result.mLabel = label;
+        result.mSyncByLabel = syncByLabel;
         result.mRingtone = RingtoneUtils.isRandomRingtone(alert)
                 ? RingtoneUtils.getRandomRingtoneUri()
                 : RingtoneUtils.isRandomCustomRingtone(alert)
@@ -854,6 +867,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
                 ", vibrationPattern=" + vibrationPattern +
                 ", flash=" + flash +
                 ", label='" + label + '\'' +
+                ", syncByLabel=" + syncByLabel +
                 ", deleteAfterUse=" + deleteAfterUse +
                 ", autoSilenceDuration=" + autoSilenceDuration +
                 ", snoozeDuration=" + snoozeDuration +

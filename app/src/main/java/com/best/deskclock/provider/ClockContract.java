@@ -74,6 +74,13 @@ public final class ClockContract {
         String LABEL = "label";
 
         /**
+         * True if alarms sharing the same label should be enabled or disabled together.
+         *
+         * <p>Type: BOOLEAN</p>
+         */
+        String SYNC_BY_LABEL = "syncByLabel";
+
+        /**
          * Audio alert to play when alarm triggers. Null entry
          * means use system default and entry that equal
          * Uri.EMPTY.toString() means no ringtone.
