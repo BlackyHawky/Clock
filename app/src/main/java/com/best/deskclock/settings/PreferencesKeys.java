@@ -86,9 +86,9 @@ public class PreferencesKeys {
     public static final String KEY_ALARM_VOLUME_CRESCENDO_DURATION = "key_alarm_volume_crescendo_duration";
     public static final String KEY_ENABLE_PER_ALARM_VOLUME = "key_enable_per_alarm_volume";
     public static final String KEY_ADVANCED_AUDIO_PLAYBACK = "key_advanced_audio_playback";
-    public static final String KEY_AUTO_ROUTING_TO_BLUETOOTH_DEVICE = "key_auto_routing_to_bluetooth_device";
+    public static final String KEY_AUTO_ROUTING_TO_EXTERNAL_AUDIO_DEVICE = "key_auto_routing_to_external_audio_device";
     public static final String KEY_SYSTEM_MEDIA_VOLUME = "key_system_media_volume";
-    public static final String KEY_BLUETOOTH_VOLUME = "key_bluetooth_volume";
+    public static final String KEY_EXTERNAL_AUDIO_DEVICE_VOLUME = "key_external_audio_device_volume";
     public static final String KEY_ALARM_VIBRATION_CATEGORY = "key_alarm_vibration_category";
     public static final String KEY_VOLUME_BUTTONS = "key_volume_button_setting";
     public static final String KEY_POWER_BUTTON = "key_power_button";

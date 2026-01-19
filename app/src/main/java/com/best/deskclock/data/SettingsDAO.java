@@ -850,12 +850,12 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return {@code true} if the ringtone should be automatically routed to Bluetooth devices.
-     * {@code false} otherwise.
+     * @return {@code true} if the ringtone should be automatically routed to external audio devices
+     * (Bluetooth A2DP/SCO or wired headphones/headset). {@code false} otherwise.
      */
-    public static boolean isAutoRoutingToBluetoothDeviceEnabled(SharedPreferences prefs) {
+    public static boolean isAutoRoutingToExternalAudioDevice(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_alarm.xml
-        return prefs.getBoolean(KEY_AUTO_ROUTING_TO_BLUETOOTH_DEVICE, DEFAULT_AUTO_ROUTING_TO_BLUETOOTH_DEVICE);
+        return prefs.getBoolean(KEY_AUTO_ROUTING_TO_EXTERNAL_AUDIO_DEVICE, DEFAULT_AUTO_ROUTING_TO_EXTERNAL_AUDIO_DEVICE);
     }
 
     /**
@@ -868,11 +868,11 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return the volume applied to the ringtone when a Bluetooth device is connected.
+     * @return the volume applied to the ringtone when an external audio device is connected.
      */
-    public static int getBluetoothVolumeValue(SharedPreferences prefs) {
+    public static int getExternalAudioDeviceVolumeValue(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_alarm.xml
-        return prefs.getInt(KEY_BLUETOOTH_VOLUME, DEFAULT_BLUETOOTH_VOLUME);
+        return prefs.getInt(KEY_EXTERNAL_AUDIO_DEVICE_VOLUME, DEFAULT_EXTERNAL_AUDIO_DEVICE_VOLUME);
     }
 
     /**

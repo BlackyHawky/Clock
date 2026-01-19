@@ -579,7 +579,7 @@
     <string name="date_picker_style_calendar">캘린더</string>
     <string name="date_picker_style_text">텍스트</string>
     <string name="advanced_audio_playback_title">고급 오디오 재생 사용</string>
-    <string name="advanced_audio_playback_summary">블루투스 호환성을 높이고 반복 시 소리 끊김 현상을 방지합니다.\n\n일부 벨소리를 사용할 때 오디오가 불안정해질 수 있습니다.</string>
+    <string name="advanced_audio_playback_summary">“외부 오디오 장치와의 호환성을 높이고 반복 시 소리 끊김 현상을 방지합니다.\n\n일부 벨소리를 사용할 때 오디오가 불안정해질 수 있습니다.</string>
     <string name="label_hours">시간</string>
     <string name="timer_hours_warning_box_text">0에서 24시간 사이의 값을 입력하세요.</string>
     <string name="timer_minutes_warning_box_text">0에서 59분 사이의 값을 입력하세요.</string>
@@ -588,11 +588,11 @@
     <string name="warning">경고</string>
     <string name="schedule_alarm_title">알람 예약</string>
     <string name="add_new_sound_subtitle">길게 눌러 폴더 선택</string>
-    <string name="auto_routing_to_bluetooth_device_title">벨소리를 블루투스 장치에 자동 전달</string>
+    <string name="auto_routing_to_external_audio_device_title">외부 오디오 장치로 벨소리를 자동으로 라우팅하도록 설정합니다</string>
     <string name="timer_creation_view_style_keypad">키패드</string>
-    <string name="bluetooth_volume_title">블루투스 장치 알람 볼륨</string>
-    <string name="connect_bluetooth_device_title">이 옵션을 변경하려면 블루투스 장치를 연결하세요.</string>
-    <string name="disconnect_bluetooth_device_title">이 옵션을 변경하려면 블루투스 장치를 연결 해제하세요.</string>
+    <string name="external_audio_device_volume_title">외부 오디오 장치를 위한 알람 음량</string>
+    <string name="connect_external_audio_device_title">이 설정에 접근하려면 외부 오디오 장치를 연결하세요.</string>
+    <string name="disconnect_external_audio_device_title">이 설정에 접근하려면 외부 오디오 장치의 연결을 해제하세요.</string>
     <string name="random_ringtone_title">무작위 벨소리</string>
     <string name="timer_seconds_warning_box_text">0에서 59초 사이의 값을 입력하세요.</string>
     <string name="timer_time_box_title">새 타이머 길이</string>
@@ -600,7 +600,7 @@
     <string name="system_media_volume_title">시스템 미디어 볼륨 사용</string>
     <string name="alarm_scheduled_for">%s에 알람 예약됨</string>
     <string name="label_minutes">분</string>
-    <string name="system_media_volume_summary">블루투스 장치가 연결되어 있을 때만 옵션이 적용됩니다.</string>
+    <string name="system_media_volume_summary">외부 오디오 장치가 연결된 경우에만 작동합니다.</string>
     <string name="timer_button_time_seconds_warning_box_text">0에서 59초 사이의 값을 입력하세요.</string>
     <string name="hide_clock_am_pm_pref">오전/오후 텍스트 숨기기</string>
 </resources>

@@ -226,10 +226,10 @@ public class RingtoneUtils {
     }
 
     /**
-     * @return {@code true} if a Bluetooth output device is connected. {@code false} otherwise.
+     * @return {@code true} if an external audio device is connected. {@code false} otherwise.
      */
-    public static boolean hasBluetoothDeviceConnected(Context context, SharedPreferences prefs) {
-        if (!SettingsDAO.isAutoRoutingToBluetoothDeviceEnabled(prefs)) {
+    public static boolean hasExternalAudioDeviceConnected(Context context, SharedPreferences prefs) {
+        if (!SettingsDAO.isAutoRoutingToExternalAudioDevice(prefs)) {
             return false;
         }
 
@@ -237,7 +237,7 @@ public class RingtoneUtils {
 
         AudioDeviceInfo[] devices = audioManager.getDevices(AudioManager.GET_DEVICES_OUTPUTS);
         for (AudioDeviceInfo device : devices) {
-            if (isBluetoothDevice(device)) {
+            if (isExternalAudioDevice(device)) {
                 return true;
             }
         }
@@ -246,12 +246,25 @@ public class RingtoneUtils {
     }
 
     /**
-     * @return {@code true} if the Bluetooth device is of type A2DP or SCO Bluetooth.
-     * {@code false} otherwise.
+     * @return {@code true} if the device is an external audio output device
+     * (Bluetooth A2DP/SCO or wired headphones/headset). {@code false} otherwise.
      */
-    public static boolean isBluetoothDevice(AudioDeviceInfo device) {
+    public static boolean isExternalAudioDevice(AudioDeviceInfo device) {
         int type = device.getType();
-        return type == AudioDeviceInfo.TYPE_BLUETOOTH_A2DP || type == AudioDeviceInfo.TYPE_BLUETOOTH_SCO;
+
+        if (type == AudioDeviceInfo.TYPE_BLUETOOTH_A2DP
+                || type == AudioDeviceInfo.TYPE_BLUETOOTH_SCO
+                || type == AudioDeviceInfo.TYPE_WIRED_HEADPHONES
+                || type == AudioDeviceInfo.TYPE_WIRED_HEADSET
+                || type == AudioDeviceInfo.TYPE_USB_DEVICE) {
+            return true;
+        }
+
+        if (SdkUtils.isAtLeastAndroid8()) {
+            return type == AudioDeviceInfo.TYPE_USB_HEADSET;
+        }
+
+        return false;
     }
 
     /**
@@ -260,14 +273,14 @@ public class RingtoneUtils {
     public static boolean isInTelephoneCall(AudioManager audioManager) {
         final int audioMode = audioManager.getMode();
         if (SdkUtils.isAtLeastAndroid13()) {
-            return audioMode == AudioManager.MODE_IN_COMMUNICATION ||
-                    audioMode == AudioManager.MODE_COMMUNICATION_REDIRECT ||
-                    audioMode == AudioManager.MODE_CALL_REDIRECT ||
-                    audioMode == AudioManager.MODE_CALL_SCREENING ||
-                    audioMode == AudioManager.MODE_IN_CALL;
+            return audioMode == AudioManager.MODE_IN_COMMUNICATION
+                    || audioMode == AudioManager.MODE_COMMUNICATION_REDIRECT
+                    || audioMode == AudioManager.MODE_CALL_REDIRECT
+                    || audioMode == AudioManager.MODE_CALL_SCREENING
+                    || audioMode == AudioManager.MODE_IN_CALL;
         } else {
-            return audioMode == AudioManager.MODE_IN_COMMUNICATION ||
-                    audioMode == AudioManager.MODE_IN_CALL;
+            return audioMode == AudioManager.MODE_IN_COMMUNICATION
+                    || audioMode == AudioManager.MODE_IN_CALL;
         }
     }
 

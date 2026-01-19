@@ -152,8 +152,8 @@
             tools:layout="@layout/settings_preference_layout" />
 
         <com.best.deskclock.settings.custompreference.CustomSwitchPreference
-            android:key="key_auto_routing_to_bluetooth_device"
-            android:title="@string/auto_routing_to_bluetooth_device_title"
+            android:key="key_auto_routing_to_external_audio_device"
+            android:title="@string/auto_routing_to_external_audio_device_title"
             android:defaultValue="false"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
@@ -169,8 +169,8 @@
             tools:layout="@layout/settings_preference_layout" />
 
         <com.best.deskclock.settings.custompreference.CustomSeekbarPreference
-            android:key="key_bluetooth_volume"
-            android:title="@string/bluetooth_volume_title"
+            android:key="key_external_audio_device_volume"
+            android:title="@string/external_audio_device_volume_title"
             android:summary="@string/label_default"
             android:defaultValue="70"
             android:max="100"

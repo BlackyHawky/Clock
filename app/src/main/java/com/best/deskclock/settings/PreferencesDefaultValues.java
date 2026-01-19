@@ -78,9 +78,9 @@ public class PreferencesDefaultValues {
     public static final boolean DEFAULT_ENABLE_PER_ALARM_VOLUME = false;
     public static final int DEFAULT_ALARM_VOLUME = 5;
     public static final boolean DEFAULT_ADVANCED_AUDIO_PLAYBACK = false;
-    public static final boolean DEFAULT_AUTO_ROUTING_TO_BLUETOOTH_DEVICE = false;
+    public static final boolean DEFAULT_AUTO_ROUTING_TO_EXTERNAL_AUDIO_DEVICE = false;
     public static final boolean DEFAULT_SYSTEM_MEDIA_VOLUME = true;
-    public static final int DEFAULT_BLUETOOTH_VOLUME = 70;
+    public static final int DEFAULT_EXTERNAL_AUDIO_DEVICE_VOLUME = 70;
     public static final String DEFAULT_VOLUME_BEHAVIOR = "-1";
     public static final String VOLUME_BEHAVIOR_CHANGE_VOLUME = "0";
     public static final String VOLUME_BEHAVIOR_SNOOZE = "1";

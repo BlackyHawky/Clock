@@ -5,7 +5,7 @@ package com.best.deskclock.ringtone;
 import static androidx.media3.common.Player.REPEAT_MODE_ONE;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_ROUTING_TO_BLUETOOTH_DEVICE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_ROUTING_TO_EXTERNAL_AUDIO_DEVICE;
 import static com.best.deskclock.utils.RingtoneUtils.IN_CALL_VOLUME;
 
 import android.content.Context;
@@ -44,11 +44,12 @@ import com.best.deskclock.utils.SdkUtils;
  *     <li>Optional crescendo playback by gradually increasing volume over a configurable duration.</li>
  *     <li>In-call support with reduced playback volume.</li>
  *     <li>Automatic fallback to a default ringtone in case of failure.</li>
- *     <li>Automatic routing to Bluetooth devices if connected; otherwise to the speaker.</li>
+ *     <li>Automatic routing to external audio devices (Bluetooth or wired headphones) if connected;
+ *         otherwise to the speaker.</li>
  *     <li>Volume control:
  *         <ul>
- *             <li>When Bluetooth device is connected, media volume is increased to 70% if too low.</li>
- *             <li>When no Bluetooth device is connected, media volume is muted to isolate the alarm.</li>
+ *             <li>When an external audio device is connected, media volume is increased to 70% if too low.</li>
+ *             <li>When no external audio device is connected, media volume is muted to isolate the alarm.</li>
  *             <li>Media volume is always restored to its original state on stop or routing change.</li>
  *         </ul>
  *     </li>
@@ -70,7 +71,7 @@ public final class RingtonePlayer {
 
     private android.media.AudioFocusRequest mAudioFocusRequest;
 
-    private boolean mIsAutoRoutingToBluetoothDeviceEnabled;
+    private boolean mIsAutoRoutingToExternalAudioDevice;
     private long mCrescendoDuration = 0;
     private long mCrescendoStopTime = 0;
     private int mOriginalMediaVolume = -1;
@@ -89,19 +90,19 @@ public final class RingtonePlayer {
     };
 
     /**
-     * Allows to detect when the preference related to automatic routing to Bluetooth devices changes,
-     * in order to dynamically update the behavior of the ringtone player.
+     * Allows to detect when the preference related to automatic routing to external audio devices
+     * changes, in order to dynamically update the behavior of the ringtone player.
      */
     private final SharedPreferences.OnSharedPreferenceChangeListener mPrefListener =
             new SharedPreferences.OnSharedPreferenceChangeListener() {
 
                 @Override
                 public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-                    if (KEY_AUTO_ROUTING_TO_BLUETOOTH_DEVICE.equals(key)) {
-                        mIsAutoRoutingToBluetoothDeviceEnabled =
-                                SettingsDAO.isAutoRoutingToBluetoothDeviceEnabled(sharedPreferences);
+                    if (KEY_AUTO_ROUTING_TO_EXTERNAL_AUDIO_DEVICE.equals(key)) {
+                        mIsAutoRoutingToExternalAudioDevice =
+                                SettingsDAO.isAutoRoutingToExternalAudioDevice(sharedPreferences);
 
-                        if (mIsAutoRoutingToBluetoothDeviceEnabled) {
+                        if (mIsAutoRoutingToExternalAudioDevice) {
                             if (mAudioDeviceCallback == null) {
                                 initAudioDeviceCallback();
                             }
@@ -130,7 +131,7 @@ public final class RingtonePlayer {
         mPrefs = getDefaultSharedPreferences(mContext);
         mPrefs.registerOnSharedPreferenceChangeListener(mPrefListener);
 
-        mIsAutoRoutingToBluetoothDeviceEnabled = SettingsDAO.isAutoRoutingToBluetoothDeviceEnabled(mPrefs);
+        mIsAutoRoutingToExternalAudioDevice = SettingsDAO.isAutoRoutingToExternalAudioDevice(mPrefs);
     }
 
     /**
@@ -172,13 +173,13 @@ public final class RingtonePlayer {
      *
      * <p><strong>Key behaviors:</strong></p>
      * <ul>
-     *     <li>If a Bluetooth device is connected:
+     *     <li>If an external audio device is connected:
      *         <ul>
-     *             <li>Audio is routed to the Bluetooth device.</li>
+     *             <li>Audio is routed to the external audio device.</li>
      *             <li>Media volume is raised to 70% of the max volume (if lower).</li>
      *         </ul>
      *     </li>
-     *     <li>If no Bluetooth device is connected:
+     *     <li>If no external audio device is connected:
      *         <ul>
      *             <li>Audio is routed to the built-in speaker (if available).</li>
      *             <li>Media volume is temporarily muted (set to 0).</li>
@@ -195,27 +196,27 @@ public final class RingtonePlayer {
             stop();
         }
 
-        if (mIsAutoRoutingToBluetoothDeviceEnabled && mAudioDeviceCallback == null) {
+        if (mIsAutoRoutingToExternalAudioDevice && mAudioDeviceCallback == null) {
             initAudioDeviceCallback();
         }
 
         mCrescendoDuration = crescendoDuration;
 
-        boolean isBluetooth = false;
+        boolean isExternalAudioDevice = false;
         AudioDeviceInfo preferredDevice = null;
 
-        if (mIsAutoRoutingToBluetoothDeviceEnabled) {
-            isBluetooth = RingtoneUtils.hasBluetoothDeviceConnected(mContext, mPrefs);
-            preferredDevice = findBluetoothDevice();
+        if (mIsAutoRoutingToExternalAudioDevice) {
+            isExternalAudioDevice = RingtoneUtils.hasExternalAudioDeviceConnected(mContext, mPrefs);
+            preferredDevice = findExternalAudioDevice();
         }
 
-        // If a Bluetooth device is connected, set the media volume;
+        // If an external audio device is connected, set the media volume;
         // Otherwise, mute the media volume to so that the alarm can be heard properly
         mOriginalMediaVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
 
-        if (isBluetooth) {
+        if (isExternalAudioDevice) {
             if (SettingsDAO.shouldUseCustomMediaVolume(mPrefs)) {
-                setMediaVolumeForBluetoothDevices(getBluetoothVolumeFromPrefs());
+                setMediaVolumeForExternalAudioDevices(getExternalAudioDeviceVolumeFromPrefs());
             }
         } else {
             int reducedVolume = 0;
@@ -227,10 +228,10 @@ public final class RingtonePlayer {
         }
 
         mExoPlayer = new ExoPlayer.Builder(mContext)
-                .setAudioAttributes(buildAudioAttributes(isBluetooth), false)
+                .setAudioAttributes(buildAudioAttributes(isExternalAudioDevice), false)
                 .build();
 
-        requestAudioFocus(isBluetooth);
+        requestAudioFocus(isExternalAudioDevice);
 
         boolean inCall = RingtoneUtils.isInTelephoneCall(mAudioManager);
 
@@ -298,7 +299,7 @@ public final class RingtonePlayer {
         }
         mOriginalMediaVolume = -1;
 
-        if (mIsAutoRoutingToBluetoothDeviceEnabled && mAudioDeviceCallback != null) {
+        if (mIsAutoRoutingToExternalAudioDevice && mAudioDeviceCallback != null) {
             mAudioManager.unregisterAudioDeviceCallback(mAudioDeviceCallback);
             mAudioDeviceCallback = null;
         }
@@ -339,12 +340,12 @@ public final class RingtonePlayer {
      * Registers an {@link AudioDeviceCallback} to monitor audio output device changes,
      * such as Bluetooth connections or disconnections.
      *
-     * <p>When a Bluetooth device is connected, playback is forced to that device,
-     * and media volume is increased for proper audibility. If the Bluetooth device is
+     * <p>When an external audio device is connected, playback is forced to that device,
+     * and media volume is increased for proper audibility. If the external audio device is
      * removed, playback is redirected to the built-in speaker, and the media volume is restored.</p>
      */
     private void initAudioDeviceCallback() {
-        if (!mIsAutoRoutingToBluetoothDeviceEnabled || mAudioDeviceCallback != null) {
+        if (!mIsAutoRoutingToExternalAudioDevice || mAudioDeviceCallback != null) {
             return;
         }
 
@@ -352,8 +353,8 @@ public final class RingtonePlayer {
             @Override
             public void onAudioDevicesAdded(AudioDeviceInfo[] addedDevices) {
                 for (AudioDeviceInfo device : addedDevices) {
-                    if (RingtoneUtils.isBluetoothDevice(device)) {
-                        LOGGER.v("Bluetooth device connected: forcing playback to it");
+                    if (RingtoneUtils.isExternalAudioDevice(device)) {
+                        LOGGER.v("External audio device connected: forcing playback to it");
                         if (mExoPlayer != null) {
                             mExoPlayer.setPreferredAudioDevice(device);
 
@@ -361,9 +362,9 @@ public final class RingtonePlayer {
 
                             requestAudioFocus(true);
 
-                            // Set the media volume for Bluetooth devices
+                            // Set the media volume for exernal audio devices
                             if (SettingsDAO.shouldUseCustomMediaVolume(mPrefs) && mAudioManager != null) {
-                                setMediaVolumeForBluetoothDevices(getBluetoothVolumeFromPrefs());
+                                setMediaVolumeForExternalAudioDevices(getExternalAudioDeviceVolumeFromPrefs());
                             }
                         }
                     }
@@ -373,8 +374,8 @@ public final class RingtonePlayer {
             @Override
             public void onAudioDevicesRemoved(AudioDeviceInfo[] removedDevices) {
                 for (AudioDeviceInfo device : removedDevices) {
-                    if (RingtoneUtils.isBluetoothDevice(device)) {
-                        LOGGER.v("Bluetooth device disconnected: switching back to speaker");
+                    if (RingtoneUtils.isExternalAudioDevice(device)) {
+                        LOGGER.v("External audio device disconnected: switching back to speaker");
                         if (mExoPlayer != null) {
                             AudioDeviceInfo speaker = findSpeakerDevice(mAudioManager);
 
@@ -402,15 +403,15 @@ public final class RingtonePlayer {
     }
 
     /**
-     * Adjusts the media volume when a Bluetooth device is connected.
+     * Adjusts the media volume when an external audio device is connected.
      *
      * <p>If the current system media volume is lower than the target volume, this method starts
      * a smooth crescendo to the target volume to avoid a brief volume spike.
      * Otherwise, it immediately sets the volume to the target level.</p>
      *
-     * @param targetVolume The desired media volume level for Bluetooth devices.
+     * @param targetVolume The desired media volume level for external audio devices.
      */
-    private void setMediaVolumeForBluetoothDevices(int targetVolume) {
+    private void setMediaVolumeForExternalAudioDevices(int targetVolume) {
         if (targetVolume <= 0 || targetVolume > mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)) {
             return;
         }
@@ -472,26 +473,27 @@ public final class RingtonePlayer {
     /**
      * Builds and returns {@link AudioAttributes} for the ExoPlayer instance based on output target.
      *
-     * <p>If a Bluetooth device is connected, usage is set to {@link C#USAGE_MEDIA} to enable playback.
-     * Otherwise, {@link C#USAGE_ALARM} is used to ensure the ringtone plays over system alarm audio.</p>
+     * <p>If an external audio device is connected, usage is set to {@link C#USAGE_MEDIA}
+     * to enable playback. Otherwise, {@link C#USAGE_ALARM} is used to ensure the ringtone plays
+     * over system alarm audio.</p>
      */
-    private AudioAttributes buildAudioAttributes(boolean bluetoothConnected) {
+    private AudioAttributes buildAudioAttributes(boolean externalAudioDeviceConnected) {
         return new AudioAttributes.Builder()
-                .setUsage(bluetoothConnected ? C.USAGE_MEDIA : C.USAGE_ALARM)
+                .setUsage(externalAudioDeviceConnected ? C.USAGE_MEDIA : C.USAGE_ALARM)
                 .setContentType(C.AUDIO_CONTENT_TYPE_SONIFICATION)
                 .build();
     }
 
     /**
      * Builds the {@link android.media.AudioAttributes} used specifically for requesting audio focus,
-     * based on whether a Bluetooth device is connected or not.
+     * based on whether an external audio device is connected or not.
      *
-     * @param bluetoothConnected {@code true} if a Bluetooth audio device is connected;
+     * @param externalAudioDeviceConnected {@code true} if an external audio device is connected;
      * {@code false} otherwise.
      * @return An {@link android.media.AudioAttributes} instance configured for audio focus requests.
      */
-    private android.media.AudioAttributes buildAudioFocusAttributes(boolean bluetoothConnected) {
-        int usage = bluetoothConnected
+    private android.media.AudioAttributes buildAudioFocusAttributes(boolean externalAudioDeviceConnected) {
+        int usage = externalAudioDeviceConnected
                 ? android.media.AudioAttributes.USAGE_MEDIA
                 : android.media.AudioAttributes.USAGE_ALARM;
 
@@ -502,14 +504,15 @@ public final class RingtonePlayer {
     }
 
     /**
-     * Requests transient audio focus based on the output device (Bluetooth or speaker).
+     * Requests transient audio focus based on the output device
+     * (Bluetooth/wired headphones/headset or speaker).
      * Uses the appropriate stream type and audio attributes for each Android API level.
      *
-     * @param isBluetooth {@code true} if the output is routed through a Bluetooth device;
+     * @param isExternalAudioDevice {@code true} if the output is routed through an external audio device;
      * {@code false} for speaker.
      */
-    private void requestAudioFocus(boolean isBluetooth) {
-        android.media.AudioAttributes systemAttributes = buildAudioFocusAttributes(isBluetooth);
+    private void requestAudioFocus(boolean isExternalAudioDevice) {
+        android.media.AudioAttributes systemAttributes = buildAudioFocusAttributes(isExternalAudioDevice);
 
         if (SdkUtils.isAtLeastAndroid8()) {
             mAudioFocusRequest = new AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT)
@@ -518,7 +521,7 @@ public final class RingtonePlayer {
 
             mAudioManager.requestAudioFocus(mAudioFocusRequest);
         } else {
-            int streamType = isBluetooth ? AudioManager.STREAM_MUSIC : AudioManager.STREAM_ALARM;
+            int streamType = isExternalAudioDevice ? AudioManager.STREAM_MUSIC : AudioManager.STREAM_ALARM;
             mAudioManager.requestAudioFocus(null, streamType, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
         }
     }
@@ -536,27 +539,27 @@ public final class RingtonePlayer {
     }
 
     /**
-     * @return the volume value when a Bluetooth device is connected.
+     * @return the volume value when an external audio device is connected.
      */
-    private int getBluetoothVolumeFromPrefs() {
-        int userVolume = SettingsDAO.getBluetoothVolumeValue(mPrefs);
+    private int getExternalAudioDeviceVolumeFromPrefs() {
+        int userVolume = SettingsDAO.getExternalAudioDeviceVolumeValue(mPrefs);
         int maxVolume = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         return (int) (maxVolume * (userVolume / 100f));
     }
 
     /**
-     * Searches for and returns the first connected Bluetooth output device.
+     * Searches for and returns the first connected external audio output device.
      *
      * <p>Iterates through all available output audio devices to find one that matches
      * known Bluetooth device types (A2DP or SCO).</p>
      */
-    private AudioDeviceInfo findBluetoothDevice() {
-        if (!mIsAutoRoutingToBluetoothDeviceEnabled) {
+    private AudioDeviceInfo findExternalAudioDevice() {
+        if (!mIsAutoRoutingToExternalAudioDevice) {
             return null;
         }
 
         for (AudioDeviceInfo device : mAudioManager.getDevices(AudioManager.GET_DEVICES_OUTPUTS)) {
-            if (RingtoneUtils.isBluetoothDevice(device)) {
+            if (RingtoneUtils.isExternalAudioDevice(device)) {
                 return device;
             }
         }

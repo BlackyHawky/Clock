@@ -16,9 +16,8 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_SNOOZE_DURAT
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_VIBRATION_CATEGORY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_VOLUME_CRESCENDO_DURATION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_VOLUME_SETTING;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_ROUTING_TO_BLUETOOTH_DEVICE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_ROUTING_TO_EXTERNAL_AUDIO_DEVICE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_SILENCE_DURATION;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_BLUETOOTH_VOLUME;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DEFAULT_ALARM_RINGTONE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_DISMISS_BUTTON;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_ENABLED_ALARMS_FIRST;
@@ -32,6 +31,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_PER_ALARM_V
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_PER_ALARM_VOLUME;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_PER_ALARM_VOLUME_CRESCENDO_DURATION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_EXTERNAL_AUDIO_DEVICE_VOLUME;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_FLIP_ACTION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_DATE_PICKER_STYLE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_TIME_PICKER_STYLE;
@@ -120,9 +120,9 @@ public class AlarmSettingsFragment extends ScreenFragment
     CustomSwitchPreference mEnablePerAlarmVolumeCrescendoDurationPref;
     VolumeCrescendoDurationPreference mAlarmVolumeCrescendoDurationPref;
     CustomSwitchPreference mAdvancedAudioPlaybackPref;
-    CustomSwitchPreference mAutoRoutingToBluetoothDevicePref;
+    CustomSwitchPreference mAutoRoutingToExternalAudioDevicePref;
     CustomSwitchPreference mSystemMediaVolume;
-    CustomSeekbarPreference mBluetoothVolumePref;
+    CustomSeekbarPreference mExternalAudioDeviceVolumePref;
     CustomPreferenceCategory mAlarmVibrationCategory;
     CustomListPreference mVolumeButtonsPref;
     CustomListPreference mPowerButtonPref;
@@ -212,9 +212,9 @@ public class AlarmSettingsFragment extends ScreenFragment
         mEnablePerAlarmVolumeCrescendoDurationPref = findPreference(KEY_ENABLE_PER_ALARM_VOLUME_CRESCENDO_DURATION);
         mAlarmVolumeCrescendoDurationPref = findPreference(KEY_ALARM_VOLUME_CRESCENDO_DURATION);
         mAdvancedAudioPlaybackPref = findPreference(KEY_ADVANCED_AUDIO_PLAYBACK);
-        mAutoRoutingToBluetoothDevicePref = findPreference(KEY_AUTO_ROUTING_TO_BLUETOOTH_DEVICE);
+        mAutoRoutingToExternalAudioDevicePref = findPreference(KEY_AUTO_ROUTING_TO_EXTERNAL_AUDIO_DEVICE);
         mSystemMediaVolume = findPreference(KEY_SYSTEM_MEDIA_VOLUME);
-        mBluetoothVolumePref = findPreference(KEY_BLUETOOTH_VOLUME);
+        mExternalAudioDeviceVolumePref = findPreference(KEY_EXTERNAL_AUDIO_DEVICE_VOLUME);
         mAlarmVibrationCategory = findPreference(KEY_ALARM_VIBRATION_CATEGORY);
         mVolumeButtonsPref = findPreference(KEY_VOLUME_BUTTONS);
         mPowerButtonPref = findPreference(KEY_POWER_BUTTON);
@@ -243,12 +243,12 @@ public class AlarmSettingsFragment extends ScreenFragment
 
         mAlarmRingtonePref.setSummary(DataModel.getDataModel().getAlarmRingtoneTitle());
 
-        if (RingtoneUtils.hasBluetoothDeviceConnected(requireContext(), mPrefs)) {
-            mAlarmVolumePref.setTitle(R.string.disconnect_bluetooth_device_title);
-            mBluetoothVolumePref.setTitle(R.string.bluetooth_volume_title);
+        if (RingtoneUtils.hasExternalAudioDeviceConnected(requireContext(), mPrefs)) {
+            mAlarmVolumePref.setTitle(R.string.disconnect_external_audio_device_title);
+            mExternalAudioDeviceVolumePref.setTitle(R.string.external_audio_device_volume_title);
         } else {
             mAlarmVolumePref.setTitle(R.string.alarm_volume_title);
-            mBluetoothVolumePref.setTitle(R.string.connect_bluetooth_device_title);
+            mExternalAudioDeviceVolumePref.setTitle(R.string.connect_external_audio_device_title);
         }
 
         if (mAudioDeviceCallback == null) {
@@ -411,25 +411,26 @@ public class AlarmSettingsFragment extends ScreenFragment
 
             case KEY_ADVANCED_AUDIO_PLAYBACK -> {
                 stopRingtonePreview();
-                mAutoRoutingToBluetoothDevicePref.setVisible((boolean) newValue);
+                mAutoRoutingToExternalAudioDevicePref.setVisible((boolean) newValue);
                 mSystemMediaVolume.setVisible((boolean) newValue
-                        && SettingsDAO.isAutoRoutingToBluetoothDeviceEnabled(mPrefs));
-                mBluetoothVolumePref.setVisible((boolean) newValue
-                        && SettingsDAO.isAutoRoutingToBluetoothDeviceEnabled(mPrefs)
+                        && SettingsDAO.isAutoRoutingToExternalAudioDevice(mPrefs));
+                mExternalAudioDeviceVolumePref.setVisible((boolean) newValue
+                        && SettingsDAO.isAutoRoutingToExternalAudioDevice(mPrefs)
                         && SettingsDAO.shouldUseCustomMediaVolume(mPrefs));
                 Utils.setVibrationTime(requireContext(), 50);
             }
 
-            case KEY_AUTO_ROUTING_TO_BLUETOOTH_DEVICE -> {
+            case KEY_AUTO_ROUTING_TO_EXTERNAL_AUDIO_DEVICE -> {
                 stopRingtonePreview();
                 mSystemMediaVolume.setVisible((boolean) newValue);
-                mBluetoothVolumePref.setVisible((boolean) newValue && SettingsDAO.shouldUseCustomMediaVolume(mPrefs));
+                mExternalAudioDeviceVolumePref.setVisible((boolean) newValue
+                        && SettingsDAO.shouldUseCustomMediaVolume(mPrefs));
                 Utils.setVibrationTime(requireContext(), 50);
             }
 
             case KEY_SYSTEM_MEDIA_VOLUME -> {
                 stopRingtonePreview();
-                mBluetoothVolumePref.setVisible(!(boolean) newValue);
+                mExternalAudioDeviceVolumePref.setVisible(!(boolean) newValue);
                 Utils.setVibrationTime(requireContext(), 50);
             }
 
@@ -602,7 +603,7 @@ public class AlarmSettingsFragment extends ScreenFragment
 
         mAlarmVolumePref.setVisible(!SettingsDAO.isPerAlarmVolumeEnabled(mPrefs));
         if (mAlarmVolumePref.isVisible()) {
-            mAlarmVolumePref.setEnabled(!RingtoneUtils.hasBluetoothDeviceConnected(requireContext(), mPrefs));
+            mAlarmVolumePref.setEnabled(!RingtoneUtils.hasExternalAudioDeviceConnected(requireContext(), mPrefs));
         }
 
         mEnablePerAlarmVolumeCrescendoDurationPref.setOnPreferenceChangeListener(this);
@@ -629,18 +630,18 @@ public class AlarmSettingsFragment extends ScreenFragment
 
         mAdvancedAudioPlaybackPref.setOnPreferenceChangeListener(this);
 
-        mAutoRoutingToBluetoothDevicePref.setVisible(SettingsDAO.isAdvancedAudioPlaybackEnabled(mPrefs));
-        mAutoRoutingToBluetoothDevicePref.setOnPreferenceChangeListener(this);
+        mAutoRoutingToExternalAudioDevicePref.setVisible(SettingsDAO.isAdvancedAudioPlaybackEnabled(mPrefs));
+        mAutoRoutingToExternalAudioDevicePref.setOnPreferenceChangeListener(this);
 
         mSystemMediaVolume.setVisible(SettingsDAO.isAdvancedAudioPlaybackEnabled(mPrefs)
-                && SettingsDAO.isAutoRoutingToBluetoothDeviceEnabled(mPrefs));
+                && SettingsDAO.isAutoRoutingToExternalAudioDevice(mPrefs));
         mSystemMediaVolume.setOnPreferenceChangeListener(this);
 
-        mBluetoothVolumePref.setVisible(SettingsDAO.isAdvancedAudioPlaybackEnabled(mPrefs)
-                && SettingsDAO.isAutoRoutingToBluetoothDeviceEnabled(mPrefs)
+        mExternalAudioDeviceVolumePref.setVisible(SettingsDAO.isAdvancedAudioPlaybackEnabled(mPrefs)
+                && SettingsDAO.isAutoRoutingToExternalAudioDevice(mPrefs)
                 && SettingsDAO.shouldUseCustomMediaVolume(mPrefs));
-        mBluetoothVolumePref.setEnabled(mBluetoothVolumePref.isVisible()
-                && RingtoneUtils.hasBluetoothDeviceConnected(requireContext(), mPrefs));
+        mExternalAudioDeviceVolumePref.setEnabled(mExternalAudioDeviceVolumePref.isVisible()
+                && RingtoneUtils.hasExternalAudioDeviceConnected(requireContext(), mPrefs));
 
         mAlarmVibrationCategory.setVisible(DeviceUtils.hasVibrator(requireContext()));
 
@@ -774,26 +775,25 @@ public class AlarmSettingsFragment extends ScreenFragment
                 mAlarmVolumePref.stopRingtonePreview();
 
                 for (AudioDeviceInfo device : addedDevices) {
-                    if (RingtoneUtils.isBluetoothDevice(device)) {
+                    if (RingtoneUtils.isExternalAudioDevice(device)) {
                         mAlarmVolumePref.setEnabled(false);
-                        mAlarmVolumePref.setTitle(R.string.disconnect_bluetooth_device_title);
-                        mBluetoothVolumePref.setEnabled(true);
-                        mBluetoothVolumePref.setTitle(R.string.bluetooth_volume_title);
+                        mAlarmVolumePref.setTitle(R.string.disconnect_external_audio_device_title);
+                        mExternalAudioDeviceVolumePref.setEnabled(true);
+                        mExternalAudioDeviceVolumePref.setTitle(R.string.external_audio_device_volume_title);
                     }
                 }
             }
 
             @Override
             public void onAudioDevicesRemoved(AudioDeviceInfo[] removedDevices) {
-
-                mBluetoothVolumePref.stopRingtonePreviewForBluetoothDevices();
+                mExternalAudioDeviceVolumePref.stopRingtonePreviewForExternalAudioDevices();
 
                 for (AudioDeviceInfo device : removedDevices) {
-                    if (RingtoneUtils.isBluetoothDevice(device)) {
+                    if (RingtoneUtils.isExternalAudioDevice(device)) {
                         mAlarmVolumePref.setEnabled(true);
                         mAlarmVolumePref.setTitle(R.string.alarm_volume_title);
-                        mBluetoothVolumePref.setEnabled(false);
-                        mBluetoothVolumePref.setTitle(R.string.connect_bluetooth_device_title);
+                        mExternalAudioDeviceVolumePref.setEnabled(false);
+                        mExternalAudioDeviceVolumePref.setTitle(R.string.connect_external_audio_device_title);
                     }
                 }
             }
@@ -803,8 +803,8 @@ public class AlarmSettingsFragment extends ScreenFragment
     }
 
     private void stopRingtonePreview() {
-        if (RingtoneUtils.hasBluetoothDeviceConnected(requireContext(), mPrefs)) {
-            mBluetoothVolumePref.stopRingtonePreviewForBluetoothDevices();
+        if (RingtoneUtils.hasExternalAudioDeviceConnected(requireContext(), mPrefs)) {
+            mExternalAudioDeviceVolumePref.stopRingtonePreviewForExternalAudioDevices();
         } else {
             mAlarmVolumePref.stopRingtonePreview();
         }
