@@ -91,6 +91,12 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     private boolean mCreatingTimer;
 
     /**
+     * {@code true} when the value is greater than zero; {@code false} otherwise.
+     * Useful for updating the FAB only once, rather than every time the spinner value changes.
+     */
+    private boolean isTimerValueValid = false;
+
+    /**
      * @return an Intent that selects the timers tab with the setup screen for a new timer in place.
      */
     public static Intent createTimerSetupIntent(Context context) {
@@ -129,7 +135,12 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         mRecyclerView.setClipToPadding(false);
 
         mCreateTimerView.setFabContainer(this);
-        mCreateTimerSpinnerView.setOnChangeListener(() -> updateFab(FAB_SHRINK_AND_EXPAND));
+        mCreateTimerSpinnerView.setOnChangeListener(() -> {
+            if (hasValidInput() != isTimerValueValid) {
+                isTimerValueValid = hasValidInput();
+                updateFab(FAB_SHRINK_AND_EXPAND);
+            }
+        });
 
         DataModel.getDataModel().addTimerListener(mAdapter);
         DataModel.getDataModel().addTimerListener(mTimerWatcher);
@@ -264,8 +275,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
             // If no timers yet exist, the user is forced to create the first one.
             left.setVisibility(hasTimers() ? VISIBLE : INVISIBLE);
             left.setOnClickListener(v -> {
-                mCreateTimerView.reset();
-                mCreateTimerSpinnerView.reset();
+                resetTimerCreationViews();
                 animateToView(mTimersView, false);
                 left.announceForAccessibility(mContext.getString(R.string.timer_canceled));
                 Utils.setVibrationTime(mContext, 10);
@@ -417,9 +427,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
                         if (toTimers) {
                             showTimersView(FAB_AND_BUTTONS_EXPAND);
 
-                            // Reset the state of the create view.
-                            mCreateTimerView.reset();
-                            mCreateTimerSpinnerView.reset();
+                            resetTimerCreationViews();
                         } else {
                             showCreateTimerView(FAB_AND_BUTTONS_EXPAND);
                         }
@@ -475,10 +483,6 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         }
     }
 
-    private boolean isSpinnerCreationView() {
-        return SettingsDAO.getTimerCreationViewStyle(mPrefs).equals(TIMER_CREATION_VIEW_SPINNER_STYLE);
-    }
-
     private boolean hasValidInput() {
         if (isSpinnerCreationView()) {
             return mCreateTimerSpinnerView.getValue().toMillis() != 0;
@@ -501,6 +505,21 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         } else {
             return mCreateTimerView;
         }
+    }
+
+    /**
+     * Reset the state of timer creation views.
+     */
+    private void resetTimerCreationViews() {
+        if (isSpinnerCreationView()) {
+            mCreateTimerSpinnerView.reset();
+            isTimerValueValid = false;
+        } else {
+            mCreateTimerView.reset();
+        }
+    }
+    private boolean isSpinnerCreationView() {
+        return SettingsDAO.getTimerCreationViewStyle(mPrefs).equals(TIMER_CREATION_VIEW_SPINNER_STYLE);
     }
 
     public void startUpdatingTime() {

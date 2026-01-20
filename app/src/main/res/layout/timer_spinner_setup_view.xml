@@ -6,31 +6,33 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/durationPickerLayout"
-    android:orientation="horizontal"
-    android:layout_gravity="center_horizontal"
-    android:gravity="center_horizontal"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingHorizontal="8dp"
-    android:paddingTop="20dp">
+    android:orientation="horizontal"
+    android:baselineAligned="false"
+    tools:paddingHorizontal="20dp">
 
     <!-- hour -->
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/hour_title"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:gravity="center"
             android:text="@string/label_hours"
+            android:textSize="20sp"
             android:textColor="?attr/colorPrimary" />
 
         <NumberPicker
             android:id="@+id/hour"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="8dp"
             android:focusable="true"
@@ -41,21 +43,24 @@
 
     <!-- minute -->
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="14dp"
+        android:layout_weight="1"
+        android:layout_marginHorizontal="20dp"
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/minute_title"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:gravity="center"
             android:text="@string/label_minutes"
+            android:textSize="20sp"
             android:textColor="?attr/colorPrimary" />
 
         <NumberPicker
             android:id="@+id/minute"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="8dp"
             android:focusable="true"
@@ -66,20 +71,23 @@
 
     <!-- second -->
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/second_title"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:gravity="center"
             android:text="@string/label_seconds"
+            android:textSize="20sp"
             android:textColor="?attr/colorPrimary" />
 
         <NumberPicker
             android:id="@+id/second"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="8dp"
             android:focusable="true"
