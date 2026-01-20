@@ -312,7 +312,7 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
             mEditHours.setText("");
             mEditMinutes.setText("");
         } else {
-            mHoursInputLayout.setHelperText(getString(R.string.timer_hours_warning_box_text));
+            mHoursInputLayout.setHelperText(getString(R.string.alarm_hours_warning_box_text));
             mMinutesInputLayout.setHelperText(getString(R.string.timer_button_time_minutes_warning_box_text));
 
             TextView hoursHelper = mHoursInputLayout.findViewById(

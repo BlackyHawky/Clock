@@ -743,11 +743,7 @@
     <!-- Title of dialog box to set a new duration to an existing timer. -->
     <string name="timer_time_box_title">New timer duration</string>
     <!-- Text of dialog box to edit hours to set a new duration to an existing timer. -->
-    <string name="timer_hours_warning_box_text">Enter a value from 0 to 24 hours</string>
-    <!-- Text of dialog box to edit minutes to set a new duration to an existing timer. -->
-    <string name="timer_minutes_warning_box_text">Enter a value from 0 to 59 minutes</string>
-    <!-- Text of dialog box to edit seconds to set a new duration to an existing timer. -->
-    <string name="timer_seconds_warning_box_text">Enter a value from 0 to 59 seconds</string>
+    <string name="alarm_hours_warning_box_text">Enter a value from 0 to 24 hours</string>
     <!-- Title of dialog box to edit button for adding time to timer. -->
     <string name="timer_button_time_box_title">Minutes to add to the timer</string>
     <!-- Text of dialog box to edit minutes for adding time to timer. -->

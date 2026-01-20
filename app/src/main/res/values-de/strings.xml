@@ -603,9 +603,7 @@
     <string name="label_seconds">Sekunden</string>
     <string name="label_hours">Stunden</string>
     <string name="timer_time_box_title">Neue Timer-Dauer</string>
-    <string name="timer_hours_warning_box_text">Gib einen Wert von 0 bis 24 Stunden ein</string>
-    <string name="timer_minutes_warning_box_text">Gib einen Wert von 0 bis 59 Minuten ein</string>
-    <string name="timer_seconds_warning_box_text">Gib einen Wert von 0 bis 59 Sekunden ein</string>
+    <string name="alarm_hours_warning_box_text">Gib einen Wert von 0 bis 24 Stunden ein</string>
     <string name="auto_routing_to_external_audio_device_title">Aktiviert die automatische Weiterleitung von Klingeltönen an externe Audiogeräte</string>
     <string name="timer_creation_view_style_title">Stil der Timer-Erstellung</string>
     <string name="timer_creation_view_style_keypad">Tastatur</string>

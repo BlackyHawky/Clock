@@ -627,9 +627,7 @@
     <string name="label_seconds">Секунди</string>
     <string name="label_hours">Години</string>
     <string name="timer_time_box_title">Нова тривалість таймера</string>
-    <string name="timer_hours_warning_box_text">Уведіть значення від 0 до 24 годин</string>
-    <string name="timer_minutes_warning_box_text">Уведіть значення від 0 до 59 хвилин</string>
-    <string name="timer_seconds_warning_box_text">Уведіть значення від 0 до 59 секунд</string>
+    <string name="alarm_hours_warning_box_text">Уведіть значення від 0 до 24 годин</string>
     <string name="auto_routing_to_external_audio_device_title">Увімкнути автоматичне спрямування рингтонів на зовнішні аудіопристрої</string>
     <string name="timer_creation_view_style_keypad">Клавіатура</string>
     <string name="timer_creation_view_style_title">Стиль вікна створення таймера</string>

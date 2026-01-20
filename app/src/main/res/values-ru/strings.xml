@@ -630,11 +630,9 @@
     <string name="timer_creation_view_style_title">Стиль окна создания таймера</string>
     <string name="timer_creation_view_style_keypad">Клавиатура</string>
     <string name="timer_time_box_title">Новая продолжительность таймера</string>
-    <string name="timer_hours_warning_box_text">Введите значение от 0 до 24 часов</string>
-    <string name="timer_minutes_warning_box_text">Введите значение от 0 до 59 минут</string>
+    <string name="alarm_hours_warning_box_text">Введите значение от 0 до 24 часов</string>
     <string name="hide_clock_am_pm_pref">Скрыть отметку AM/PM</string>
     <string name="auto_routing_to_external_audio_device_title">Включает автоматическую передачу рингтонов на внешние аудиоустройства</string>
-    <string name="timer_seconds_warning_box_text">Введите значение от 0 до 59 секунд</string>
     <string name="advanced_audio_playback_summary">« Улучшает совместимость с внешними аудиоустройствами и предотвращает прерывание звука при повторении.\n\nНекоторые мелодии могут иметь незначительные звуковые сбои</string>
     <string name="system_media_volume_title">Использовать системную громкость медиа</string>
     <string name="system_media_volume_summary">Работает только при подключённом внешнем аудиоустройстве</string>

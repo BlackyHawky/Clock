@@ -38,13 +38,13 @@ public class CustomTimerSpinnerSetupView extends LinearLayout {
 
     private void setupCustomSpinnerDurationPicker() {
         mHourPicker.setMinValue(0);
-        mHourPicker.setMaxValue(24);
+        mHourPicker.setMaxValue(99);
 
         mMinutePicker.setMinValue(0);
-        mMinutePicker.setMaxValue(59);
+        mMinutePicker.setMaxValue(99);
 
         mSecondPicker.setMinValue(0);
-        mSecondPicker.setMaxValue(59);
+        mSecondPicker.setMaxValue(99);
 
         mHourPicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
             picker.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);

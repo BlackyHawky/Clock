@@ -614,9 +614,7 @@
     <string name="label_seconds">Secondes</string>
     <string name="label_hours">Heures</string>
     <string name="timer_time_box_title">Nouvelle durée du minuteur</string>
-    <string name="timer_hours_warning_box_text">Saisir une valeur de 0 à 24 heures</string>
-    <string name="timer_minutes_warning_box_text">Saisir une valeur de 0 à 59 minutes</string>
-    <string name="timer_seconds_warning_box_text">Saisir une valeur de 0 à 59 secondes</string>
+    <string name="alarm_hours_warning_box_text">Saisir une valeur de 0 à 24 heures</string>
     <string name="auto_routing_to_external_audio_device_title">Activer le routage automatique des sonneries vers les périphériques audio externes</string>
     <string name="timer_creation_view_style_title">Style de la vue de création des minuteurs</string>
     <string name="timer_creation_view_style_keypad">Clavier</string>

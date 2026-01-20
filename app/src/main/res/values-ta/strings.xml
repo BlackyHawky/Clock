@@ -511,9 +511,7 @@
     <string name="sw_start_pause_action">தொடக்கம் / இடைநிறுத்தம்</string>
     <string name="timer_label_box_title">நேரங்குறிகருவி சிட்டை</string>
     <string name="timer_time_box_title">புதிய நேரங்குறிகருவி கால அளவு</string>
-    <string name="timer_hours_warning_box_text">0 முதல் 24 மணிநேரம் வரையிலான மதிப்பை உள்ளிடவும்</string>
-    <string name="timer_minutes_warning_box_text">0 முதல் 59 நிமிடங்கள் வரையிலான மதிப்பை உள்ளிடவும்</string>
-    <string name="timer_seconds_warning_box_text">0 முதல் 59 வினாடிகள் வரையிலான மதிப்பை உள்ளிடவும்</string>
+    <string name="alarm_hours_warning_box_text">0 முதல் 24 மணிநேரம் வரையிலான மதிப்பை உள்ளிடவும்</string>
     <string name="timer_button_time_box_title">டைமரில் சேர்க்க நிமிடங்கள்</string>
     <string name="timer_button_time_minutes_warning_box_text">0 முதல் 60 நிமிடங்கள் வரையிலான மதிப்பை உள்ளிடவும்</string>
     <string name="timer_button_time_seconds_warning_box_text">0 முதல் 59 வினாடிகள் வரையிலான மதிப்பை உள்ளிடவும்</string>

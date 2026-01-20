@@ -20,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <!-- The "maxLength" attribute is set in the TimerSetNewDurationDialogFragment.java file -->
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_hours"
                 android:layout_width="match_parent"
@@ -27,7 +28,6 @@
                 android:gravity="top"
                 android:hint="@string/label_hours"
                 android:inputType="number"
-                android:maxLength="2"
                 tools:ignore="TextContrastCheck" />
 
         </com.google.android.material.textfield.TextInputLayout>

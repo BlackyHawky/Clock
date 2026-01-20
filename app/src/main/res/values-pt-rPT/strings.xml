@@ -463,9 +463,7 @@
     <string name="timer_add_custom_time_with_seconds_for_notification">Adicionar %1$s min %2$s seg</string>
     <string name="timer_add_custom_time">+ %s</string>
     <string name="timer_add_custom_time_with_seconds_description">Adicionar %1$s minuto(s) %2$s segundo(s)</string>
-    <string name="timer_hours_warning_box_text">Insira um valor entre 0 e 24 horas</string>
-    <string name="timer_minutes_warning_box_text">Insira um valor entre 0 e 59 minutos</string>
-    <string name="timer_seconds_warning_box_text">Insira um valor entre 0 e 59 segundos</string>
+    <string name="alarm_hours_warning_box_text">Insira um valor entre 0 e 24 horas</string>
     <string name="timer_button_time_box_title">Minutos a adicionar ao temporizador</string>
     <string name="timer_button_time_minutes_warning_box_text">Insira um valor entre 0 e 60 minutos</string>
     <string name="timer_button_time_seconds_warning_box_text">Insira um valor entre 0 e 59 segundos</string>
