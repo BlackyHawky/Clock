@@ -519,9 +519,7 @@
     <string name="sw_start_pause_action">Старт / пауза</string>
     <string name="timer_label_box_title">Наименование</string>
     <string name="timer_time_box_title">Нова продължителност на отброяване</string>
-    <string name="timer_hours_warning_box_text">Въведете стойност от 0 до 24 часа</string>
-    <string name="timer_minutes_warning_box_text">Въведете стойност от 0 до 59 минути</string>
-    <string name="timer_seconds_warning_box_text">Въведете стойност от 0 до 59 секунди</string>
+    <string name="alarm_hours_warning_box_text">Въведете стойност от 0 до 24 часа</string>
     <string name="timer_button_time_box_title">Добавяне на време</string>
     <string name="timer_button_time_minutes_warning_box_text">Въведете стойност от 0 до 60 минути</string>
     <string name="timer_button_time_seconds_warning_box_text">Въведете стойност от 0 до 59 секунди</string>

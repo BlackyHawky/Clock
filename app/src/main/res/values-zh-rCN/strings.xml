@@ -590,11 +590,9 @@
     <string name="label_minutes">分钟</string>
     <string name="timer_button_time_seconds_warning_box_text">请输入 0 到 59 秒之间的值</string>
     <string name="label_seconds">秒</string>
-    <string name="timer_seconds_warning_box_text">请输入 0 到 59 秒之间的值</string>
     <string name="label_hours">小时</string>
     <string name="timer_time_box_title">新定时器时长</string>
-    <string name="timer_hours_warning_box_text">请输入 0 到 24 小时之间的值</string>
-    <string name="timer_minutes_warning_box_text">请输入 0 到 59 分钟之间的值</string>
+    <string name="alarm_hours_warning_box_text">请输入 0 到 24 小时之间的值</string>
     <string name="auto_routing_to_external_audio_device_title">启用将铃声自动路由到外接音频设备</string>
     <string name="timer_creation_view_style_title">定时器创建视图样式</string>
     <string name="timer_creation_view_style_keypad">键盘</string>

@@ -605,13 +605,11 @@
     <string name="advanced_audio_playback_title">Usa riproduzione audio avanzata</string>
     <string name="random_ringtone_title">Suoneria casuale</string>
     <string name="advanced_audio_playback_summary">Migliora la compatibilità con i dispositivi audio esterni e previene le interruzioni del suono durante la ripetizione\n\nNota: alcune suonerie possono presentare lievi difetti audio</string>
-    <string name="timer_seconds_warning_box_text">Inserisci un valore tra 0 e 59 secondi</string>
     <string name="timer_add_custom_time_with_seconds_for_notification">Aggiungi %1$s min %2$s s</string>
     <string name="timer_creation_view_style_keypad">Tastierino</string>
     <string name="schedule_alarm_title">Pianificazione sveglia</string>
     <string name="timer_time_box_title">Nuova durata del contaminuti</string>
-    <string name="timer_hours_warning_box_text">Inserisci un valore tra 0 e 24 ore</string>
-    <string name="timer_minutes_warning_box_text">Inserisci un valore tra 0 e 59 minuti</string>
+    <string name="alarm_hours_warning_box_text">Inserisci un valore tra 0 e 24 ore</string>
     <string name="timer_button_time_seconds_warning_box_text">Inserisci un valore tra 0 e 59 secondi</string>
     <string name="hide_clock_am_pm_pref">Nascondi testo AM/PM</string>
     <string name="auto_routing_to_external_audio_device_title">Consente l’instradamento automatico delle suonerie verso i dispositivi audio esterni</string>

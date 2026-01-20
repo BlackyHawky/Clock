@@ -616,9 +616,7 @@
     <string name="label_seconds">Sekundy</string>
     <string name="timer_add_custom_time_with_seconds_description">Přidat %1$s minutu %2$s sekund</string>
     <string name="timer_time_box_title">Nové trvání časovače</string>
-    <string name="timer_hours_warning_box_text">Zadejte hodnotu od 0 do 24 hodin</string>
-    <string name="timer_minutes_warning_box_text">Zadejte hodnotu od 0 do 59 minut</string>
-    <string name="timer_seconds_warning_box_text">Zadejte hodnotu od 0 do 59 sekund</string>
+    <string name="alarm_hours_warning_box_text">Zadejte hodnotu od 0 do 24 hodin</string>
     <string name="label_hours">Hodiny</string>
     <string name="auto_routing_to_external_audio_device_title">Umožňuje automatické směrování vyzvánění na externí zvuková zařízení</string>
     <string name="timer_creation_view_style_title">Styl zobrazení tvorby časovače</string>

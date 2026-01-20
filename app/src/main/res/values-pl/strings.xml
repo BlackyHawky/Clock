@@ -617,9 +617,7 @@
     <string name="label_seconds">Sekundy</string>
     <string name="label_hours">Godziny</string>
     <string name="timer_time_box_title">Nowy czas trwania minutnika</string>
-    <string name="timer_minutes_warning_box_text">Wprowadź wartość od 0 do 59 minut</string>
-    <string name="timer_seconds_warning_box_text">Wprowadź wartość od 0 do 59 sekund</string>
-    <string name="timer_hours_warning_box_text">Wprowadź wartość od 0 do 24 godzin</string>
+    <string name="alarm_hours_warning_box_text">Wprowadź wartość od 0 do 24 godzin</string>
     <string name="timer_creation_view_style_title">Styl widoku tworzenia minutnika</string>
     <string name="auto_routing_to_external_audio_device_title">Umożliwia automatyczne kierowanie dzwonków do zewnętrznych urządzeń audio</string>
     <string name="timer_creation_view_style_keypad">Klawiatura</string>
