@@ -16,8 +16,8 @@ import java.util.Set;
 
 public class DeviceUtils {
 
-    private static final Set<String> POWER_OFF_ALARM_UNSUPPORTED_MANUFACTURERS = Set.of("zte", "huawei");
-    private static final Set<String> POWER_OFF_ALARM_UNSUPPORTED_MODELS = Set.of("a103zt", "noh-nx9");
+    private static final Set<String> POWER_OFF_ALARM_UNSUPPORTED_MANUFACTURERS = Set.of("zte", "huawei", "samsung");
+    private static final Set<String> POWER_OFF_ALARM_UNSUPPORTED_MODELS = Set.of("a103zt", "noh-nx9", "sm-x200");
 
     /**
      * Checks whether the current user is unlocked on the device.
