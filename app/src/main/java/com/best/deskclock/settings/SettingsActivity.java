@@ -6,7 +6,6 @@
 
 package com.best.deskclock.settings;
 
-import static com.best.deskclock.settings.PermissionsManagementActivity.PermissionsManagementFragment.areEssentialPermissionsNotGranted;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_SETTINGS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_BACKUP_RESTORE_PREFERENCES;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_CLOCK_SETTINGS;
@@ -47,6 +46,7 @@ import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.BackupAndRestoreUtils;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.PermissionUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.WidgetUtils;
 
@@ -274,7 +274,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         }
 
         private void setupPreferences() {
-            mPermissionMessage.setVisible(areEssentialPermissionsNotGranted(requireContext()));
+            mPermissionMessage.setVisible(PermissionUtils.areEssentialPermissionsNotGranted(requireContext()));
 
             mInterfaceCustomizationPref.setOnPreferenceClickListener(this);
 
@@ -296,7 +296,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         }
 
         private void displayWarningIfEssentialPermissionAreNotGranted() {
-            if (areEssentialPermissionsNotGranted(requireContext())) {
+            if (PermissionUtils.areEssentialPermissionsNotGranted(requireContext())) {
                 mPermissionMessage.setVisible(true);
                 final SpannableStringBuilder builderPermissionMessage = new SpannableStringBuilder();
                 final String messagePermission = requireContext().getString(R.string.settings_permission_message);

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.best.deskclock.settings.custompreference.PermissionsManagementPreference
+        android:key="key_ignore_battery_optimizations"
+        android:title="@string/ignore_battery_optimizations_title"
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
+        tools:layout="@layout/settings_preference_permission" />
+
+    <com.best.deskclock.settings.custompreference.PermissionsManagementPreference
+        android:key="key_notification_permission"
+        android:title="@string/notifications_permission_title"
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
+        tools:layout="@layout/settings_preference_permission" />
+
+    <com.best.deskclock.settings.custompreference.PermissionsManagementPreference
+        android:key="key_full_screen_notification_permission"
+        android:title="@string/FSN_permission_title"
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
+        tools:layout="@layout/settings_preference_permission" />
+
+    <com.best.deskclock.settings.custompreference.PermissionsManagementPreference
+        android:key="key_show_lockscreen_permission"
+        android:title="@string/show_lockscreen_permission_title"
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
+        tools:layout="@layout/settings_preference_permission" />
+
+</PreferenceScreen>

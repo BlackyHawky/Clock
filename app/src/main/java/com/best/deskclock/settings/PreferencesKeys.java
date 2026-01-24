@@ -220,6 +220,12 @@ public class PreferencesKeys {
     public static final String KEY_SCREENSAVER_PREVIEW = "key_screensaver_preview";
     public static final String KEY_SCREENSAVER_DAYDREAM_SETTINGS = "key_screensaver_daydream_settings";
 
+    // Permission management
+    public static final String KEY_IGNORE_BATTERY_OPTIMIZATIONS = "key_ignore_battery_optimizations";
+    public static final String KEY_NOTIFICATION_PERMISSION = "key_notification_permission";
+    public static final String KEY_FULL_SCREEN_NOTIFICATION_PERMISSION = "key_full_screen_notification_permission";
+    public static final String KEY_SHOW_LOCKSCREEN_PERMISSION = "key_show_lockscreen_permission";
+
     // **************
     // ** WIDGETS **
     // **************
