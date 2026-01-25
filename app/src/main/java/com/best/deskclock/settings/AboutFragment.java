@@ -7,6 +7,9 @@ import static com.best.deskclock.data.CustomRingtoneDAO.NEXT_RINGTONE_ID;
 import static com.best.deskclock.data.CustomRingtoneDAO.RINGTONE_IDS;
 import static com.best.deskclock.data.CustomRingtoneDAO.RINGTONE_TITLE;
 import static com.best.deskclock.data.CustomRingtoneDAO.RINGTONE_URI;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEBUG_LANGUAGE_CODE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.PURPLE_ACCENT_COLOR;
+import static com.best.deskclock.settings.PreferencesDefaultValues.RED_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_FEATURES;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_READ_LICENCE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_TITLE;
@@ -14,8 +17,10 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_TRANSLATE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_VERSION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_VIEW_ON_GITHUB;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_WHATS_NEW;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BACKGROUND_IMAGE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_FONT;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_CUSTOM_LANGUAGE_CODE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DEBUG_CATEGORY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_CLOCK_FONT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_DEBUG_SETTINGS;
@@ -371,10 +376,13 @@ public class AboutFragment extends ScreenFragment
             clearFile(mPrefs.getString(fontAndImageKey, null));
         }
 
-        // 6. Apply preferences changes
+        // 6. Applies the default accent color and locale for debug and nightly builds
+        applyDebugAndNightlyDefaults(editor);
+
+        // 7. Apply preferences changes
         editor.apply();
 
-        // 7. Clear the custom ringtones list
+        // 8. Clear the custom ringtones list
         DataModel.getDataModel().clearCustomRingtones();
 
         tapCountOnVersion = 0;
@@ -397,6 +405,21 @@ public class AboutFragment extends ScreenFragment
         }
 
         CustomToast.show(requireContext(), R.string.toast_message_for_reset);
+    }
+
+    /**
+     * Applies the default accent color and locale for debug and nightly builds.
+     */
+    private void applyDebugAndNightlyDefaults(SharedPreferences.Editor editor) {
+        if (BuildConfig.IS_DEBUG_BUILD) {
+            editor.putString(KEY_ACCENT_COLOR, RED_ACCENT_COLOR);
+        } else if (BuildConfig.IS_NIGHTLY_BUILD) {
+            editor.putString(KEY_ACCENT_COLOR, PURPLE_ACCENT_COLOR);
+        }
+
+        if (BuildConfig.IS_DEBUG_BUILD || BuildConfig.IS_NIGHTLY_BUILD) {
+            editor.putString(KEY_CUSTOM_LANGUAGE_CODE, DEBUG_LANGUAGE_CODE);
+        }
     }
 
     /**
