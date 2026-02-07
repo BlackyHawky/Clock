@@ -15,7 +15,6 @@ import android.text.TextUtils;
 import com.best.deskclock.data.SettingsDAO;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -32,23 +31,12 @@ final class TabModel {
     private final List<TabListener> mTabListeners = new ArrayList<>();
 
     /**
-     * The listeners to notify when the vertical scroll state of the selected tab is changed.
-     */
-    private final List<TabScrollListener> mTabScrollListeners = new ArrayList<>();
-
-    /**
-     * The scrolled-to-top state of each tab.
-     */
-    private final boolean[] mTabScrolledToTop = new boolean[Tab.values().length];
-
-    /**
      * An enumerated value indicating the currently selected tab.
      */
     private Tab mSelectedTab;
 
     TabModel(SharedPreferences prefs) {
         mPrefs = prefs;
-        Arrays.fill(mTabScrolledToTop, true);
     }
 
     //
@@ -124,43 +112,7 @@ final class TabModel {
             for (TabListener tl : mTabListeners) {
                 tl.selectedTabChanged(tab);
             }
-
-            // Notify of the vertical scroll position change if there is one.
-            final boolean tabScrolledToTop = isTabScrolledToTop(tab);
-            if (isTabScrolledToTop(oldSelectedTab) != tabScrolledToTop) {
-                for (TabScrollListener tsl : mTabScrollListeners) {
-                    tsl.selectedTabScrollToTopChanged(tabScrolledToTop);
-                }
-            }
         }
     }
 
-    //
-    // Tab scrolling
-    //
-
-    /**
-     * Updates the scrolling state in the {@link UiDataModel} for this tab.
-     *
-     * @param tab           an enumerated value indicating the tab reporting its vertical scroll position
-     * @param scrolledToTop {@code true} iff the vertical scroll position of this tab is at the top
-     */
-    void setTabScrolledToTop(Tab tab, boolean scrolledToTop) {
-        if (isTabScrolledToTop(tab) != scrolledToTop) {
-            mTabScrolledToTop[tab.ordinal()] = scrolledToTop;
-            if (tab == getSelectedTab()) {
-                for (TabScrollListener tsl : mTabScrollListeners) {
-                    tsl.selectedTabScrollToTopChanged(scrolledToTop);
-                }
-            }
-        }
-    }
-
-    /**
-     * @param tab identifies the tab
-     * @return {@code true} iff the content in the given {@code tab} is currently scrolled to top
-     */
-    boolean isTabScrolledToTop(Tab tab) {
-        return mTabScrolledToTop[tab.ordinal()];
-    }
 }

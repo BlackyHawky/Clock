@@ -6,21 +6,22 @@
 
 package com.best.deskclock.worldclock;
 
-import static android.view.Menu.NONE;
-
+import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_CITY_NOTE;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
-import android.util.ArraySet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,33 +29,36 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
-import androidx.core.view.MenuProvider;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.best.deskclock.BaseActivity;
 import com.best.deskclock.R;
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.InsetsUtils;
+import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
-import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.Set;
 import java.util.TimeZone;
 
@@ -71,7 +75,9 @@ import java.util.TimeZone;
  * As a result, {@link #onResume()} conservatively refreshes itself from the backing
  * {@link DataModel} which may have changed since this activity was last displayed.
  */
-public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
+public final class CitySelectionActivity extends BaseActivity {
+
+    private static final String KEY_SEARCH_QUERY = "search_query";
 
     /**
      * The list of all selected and unselected cities, indexed and possibly filtered.
@@ -81,15 +87,11 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
      * The adapter that presents all of the selected and unselected cities.
      */
     private CityAdapter mCitiesAdapter;
-    /**
-     * Menu item controller for search view.
-     */
-    private SearchMenuItemController mSearchMenuItemController;
 
-    @Override
-    protected String getActivityTitle() {
-        return getString(R.string.cities_activity_title);
-    }
+    private SharedPreferences mPrefs;
+    private Toolbar mToolbar;
+    private View mRootView;
+    public SearchView mSearchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,41 +100,115 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
         // To manually manage insets
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 
+        ThemeUtils.allowDisplayCutout(getWindow());
+
+        mPrefs = getDefaultSharedPreferences(this);
+        Typeface typeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(mPrefs));
+
         setContentView(R.layout.cities_activity);
 
-        mSearchMenuItemController =
-                new SearchMenuItemController(Objects.requireNonNull(getSupportActionBar()).getThemedContext(),
-                        new SearchView.OnQueryTextListener() {
-                            @Override
-                            public boolean onQueryTextSubmit(String query) {
-                                return false;
-                            }
+        mRootView = findViewById(R.id.city_selection_root_view);
 
-                            @Override
-                            public boolean onQueryTextChange(String query) {
-                                mCitiesAdapter.filter(query);
-                                updateFastScrolling();
-                                return true;
-                            }
-                        },
-                        savedInstanceState);
+        mToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
 
-        mCitiesAdapter = new CityAdapter(this, mSearchMenuItemController);
+        mSearchView = new SearchView(this);
+        mSearchView.setLayoutParams(new Toolbar.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        mSearchView.setQueryHint(getString(R.string.city_search_hint));
+        mSearchView.setIconifiedByDefault(false);
+        mSearchView.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
+        mSearchView.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
+        mSearchView.setBackground(ThemeUtils.pillBackground(
+                this, com.google.android.material.R.attr.colorSecondaryContainer));
 
-        addMenuProvider(mSearchMenuItemController);
+        // Apply custom font to the search text
+        TextView searchText = mSearchView.findViewById(androidx.appcompat.R.id.search_src_text);
+        searchText.setTypeface(typeface);
+
+        // Use a rounded icon for the search icon
+        ImageView searchIcon = mSearchView.findViewById(androidx.appcompat.R.id.search_mag_icon);
+        if (searchIcon != null) {
+            searchIcon.setImageResource(R.drawable.ic_search);
+        }
+
+        // Hide the bottom bar of the search field
+        View searchPlate = mSearchView.findViewById(androidx.appcompat.R.id.search_plate);
+        if (searchPlate != null) {
+            searchPlate.setBackground(null);
+        }
+
+        mToolbar.addView(mSearchView);
+
+        mSearchView.post(() -> mSearchView.clearFocus());
+
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                mCitiesAdapter.filter(query);
+                updateFastScrolling();
+                return true;
+            }
+        });
+
+        mCitiesAdapter = new CityAdapter(this);
 
         mCitiesList = findViewById(R.id.cities_list);
+        View headerMainTitleView = getLayoutInflater().inflate(
+                R.layout.city_list_header_main_title, mCitiesList, false);
+        TextView headerMainTitleText = headerMainTitleView.findViewById(R.id.city_list_header_main_title);
+        headerMainTitleText.setTypeface(typeface);
+
+        mCitiesList.addHeaderView(headerMainTitleView);
+
         mCitiesList.setAdapter(mCitiesAdapter);
 
         applyWindowInsets();
 
         updateFastScrolling();
+
+        if (savedInstanceState != null) {
+            String query = savedInstanceState.getString(KEY_SEARCH_QUERY, "");
+            mSearchView.setQuery(query, false);
+        }
+
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                finish();
+                if (SettingsDAO.isFadeTransitionsEnabled(mPrefs)) {
+                    if (SdkUtils.isAtLeastAndroid14()) {
+                        overrideActivityTransition(OVERRIDE_TRANSITION_CLOSE,
+                                R.anim.fade_in, R.anim.fade_out);
+                    } else {
+                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                    }
+                } else {
+                    if (SdkUtils.isAtLeastAndroid14()) {
+                        overrideActivityTransition(OVERRIDE_TRANSITION_CLOSE,
+                                R.anim.activity_slide_from_left, R.anim.activity_slide_to_right);
+                    } else {
+                        overridePendingTransition(
+                                R.anim.activity_slide_from_left, R.anim.activity_slide_to_right);
+                    }
+                }
+            }
+        });
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle bundle) {
         super.onSaveInstanceState(bundle);
-        mSearchMenuItemController.saveInstance(bundle);
+
+        bundle.putString(KEY_SEARCH_QUERY, mSearchView.getQuery().toString());
     }
 
     @Override
@@ -151,33 +227,29 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
         DataModel.getDataModel().setSelectedCities(mCitiesAdapter.getSelectedCities());
     }
 
+    @SuppressLint("AlwaysShowAction")
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (menu.size() == 1) {
-            menu.getItem(0).setTitle(getMenuTitle()).setIcon(R.drawable.ic_sort)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        } else {
-            menu.add(Menu.FIRST, 1, Menu.FIRST, getMenuTitle()).setIcon(R.drawable.ic_sort)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        }
+        menu.add(Menu.NONE, 0, Menu.NONE, getMenuTitle()).setIcon(R.drawable.ic_sort)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+        mToolbar.post(() -> ThemeUtils.applyToolbarTooltips(mToolbar));
 
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == 1) {
-            // Save the new sort order.
-            DataModel.getDataModel().toggleCitySort();
+        // Save the new sort order.
+        DataModel.getDataModel().toggleCitySort();
 
-            item.setTitle(getMenuTitle());
+        item.setTitle(getMenuTitle());
 
-            // Section headers are influenced by sort order and must be cleared.
-            mCitiesAdapter.clearSectionHeaders();
+        // Section headers are influenced by sort order and must be cleared.
+        mCitiesAdapter.clearSectionHeaders();
 
-            // Honor the new sort order in the adapter.
-            mCitiesAdapter.filter(mSearchMenuItemController.getQueryText());
-        }
+        // Honor the new sort order in the adapter.
+        mCitiesAdapter.filter(mSearchView.getQuery().toString());
 
         return super.onOptionsItemSelected(item);
     }
@@ -188,20 +260,20 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
      * accordingly.
      */
     private void applyWindowInsets() {
-        InsetsUtils.doOnApplyWindowInsets(mCoordinatorLayout, (v, insets, initialPadding) -> {
+        InsetsUtils.doOnApplyWindowInsets(mRootView, (v, insets) -> {
             // Get the system bar and notch insets
             Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() |
                     WindowInsetsCompat.Type.displayCutout());
 
             v.setPadding(bars.left, bars.top, bars.right, 0);
 
-            int bottomPadding = ThemeUtils.convertDpToPixels(10, this);
+            int bottomPadding = (int) dpToPx(10, getResources().getDisplayMetrics());
             mCitiesList.setPadding(0, 0, 0, bars.bottom + bottomPadding);
         });
     }
 
     private int getMenuTitle() {
-        if (SettingsDAO.getCitySort(getDefaultSharedPreferences(this)) == DataModel.CitySort.NAME) {
+        if (SettingsDAO.getCitySort(mPrefs) == DataModel.CitySort.NAME) {
             return R.string.menu_item_sort_by_gmt_offset;
         } else {
             return R.string.menu_item_sort_by_name;
@@ -259,6 +331,9 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
         private static final int VIEW_TYPE_CITY = 1;
 
         private final Context mContext;
+        private final SharedPreferences mPrefs;
+        private final Typeface mRegularTypeface;
+        private final Typeface mBoldTypeface;
 
         private final LayoutInflater mInflater;
 
@@ -280,12 +355,7 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
         /**
          * A mutable set of cities currently selected by the user.
          */
-        private final Set<City> mUserSelectedCities = new ArraySet<>();
-
-        /**
-         * Menu item controller for search. Search query is maintained here.
-         */
-        private final SearchMenuItemController mSearchMenuItemController;
+        private final Set<City> mUserSelectedCities = new LinkedHashSet<>();
 
         /**
          * {@code true} time should honor {@link #mPattern24}; {@link #mPattern12} otherwise.
@@ -312,10 +382,16 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
          */
         private Integer[] mSectionHeaderPositions;
 
-        public CityAdapter(Context context, SearchMenuItemController searchMenuItemController) {
+        private String mCurrentQueryText = "";
+
+        public CityAdapter(Context context) {
             mContext = context;
-            mSearchMenuItemController = searchMenuItemController;
+            mPrefs = getDefaultSharedPreferences(context);
             mInflater = LayoutInflater.from(context);
+
+            String fontPath = SettingsDAO.getGeneralFont(mPrefs);
+            mRegularTypeface = ThemeUtils.loadFont(fontPath);
+            mBoldTypeface = ThemeUtils.boldTypeface(fontPath);
 
             mCalendar = Calendar.getInstance();
             mCalendar.setTimeInMillis(System.currentTimeMillis());
@@ -371,6 +447,9 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
                     if (view == null) {
                         view = mInflater.inflate(R.layout.city_list_header, parent, false);
                         view.setOnClickListener(null);
+
+                        TextView cityListHeader = view.findViewById(R.id.city_list_header);
+                        cityListHeader.setTypeface(mRegularTypeface);
                     }
                     return view;
                 }
@@ -390,6 +469,11 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
                         final TextView name = view.findViewById(R.id.city_name);
                         final TextView time = view.findViewById(R.id.city_time);
                         final CheckBox selected = view.findViewById(R.id.city_onoff);
+
+                        index.setTypeface(mBoldTypeface);
+                        name.setTypeface(mRegularTypeface);
+                        time.setTypeface(mRegularTypeface);
+
                         view.setTag(new CityItemHolder(index, name, time, selected));
                     }
 
@@ -448,6 +532,9 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
             } else {
                 mUserSelectedCities.remove(city);
                 b.announceForAccessibility(mContext.getString(R.string.city_unchecked, city.getName()));
+
+                // Delete the associated note
+                mPrefs.edit().remove(KEY_CITY_NOTE + city.getId()).apply();
             }
         }
 
@@ -565,14 +652,14 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
             clearSectionHeaders();
 
             // Recompute filtered cities.
-            filter(mSearchMenuItemController.getQueryText());
+            filter(mCurrentQueryText);
         }
 
         /**
          * Filter the cities using the given {@code queryText}.
          */
         private void filter(String queryText) {
-            mSearchMenuItemController.setQueryText(queryText);
+            mCurrentQueryText = queryText;
 
             final String query = City.removeSpecialCharacters(queryText.toUpperCase());
 
@@ -599,7 +686,7 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
         }
 
         private boolean isFiltering() {
-            return !TextUtils.isEmpty(mSearchMenuItemController.getQueryText().trim());
+            return !TextUtils.isEmpty(mCurrentQueryText.trim());
         }
 
         private Collection<City> getSelectedCities() {
@@ -611,7 +698,7 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
         }
 
         private DataModel.CitySort getCitySort() {
-            return SettingsDAO.getCitySort(getDefaultSharedPreferences(mContext));
+            return SettingsDAO.getCitySort(mPrefs);
         }
 
         private Comparator<City> getCitySortComparator() {
@@ -664,91 +751,6 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
         private record CityItemHolder(TextView index, TextView name, TextView time, CheckBox selected) {
         }
 
-    }
-
-    /**
-     * Search menu class
-     */
-    public static final class SearchMenuItemController implements MenuProvider {
-
-        private static final String KEY_SEARCH_QUERY = "search_query";
-        private static final String KEY_SEARCH_MODE = "search_mode";
-
-        private final Context mContext;
-        private final SearchView.OnQueryTextListener mQueryListener;
-        private final SearchModeChangeListener mSearchModeChangeListener;
-
-        private String mQuery = "";
-        private boolean mSearchMode;
-
-        public SearchMenuItemController(Context context, SearchView.OnQueryTextListener queryListener,
-                                        Bundle savedState) {
-
-            mContext = context;
-            mSearchModeChangeListener = new SearchModeChangeListener();
-            mQueryListener = queryListener;
-
-            if (savedState != null) {
-                mSearchMode = savedState.getBoolean(KEY_SEARCH_MODE, false);
-                mQuery = savedState.getString(KEY_SEARCH_QUERY, "");
-            }
-        }
-
-        public void saveInstance(Bundle outState) {
-            outState.putString(KEY_SEARCH_QUERY, mQuery);
-            outState.putBoolean(KEY_SEARCH_MODE, mSearchMode);
-        }
-
-        @Override
-        public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
-            final SearchView searchView = new SearchView(mContext);
-            searchView.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
-            searchView.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
-            searchView.setQuery(mQuery, false);
-            searchView.setOnCloseListener(mSearchModeChangeListener);
-            searchView.setOnSearchClickListener(mSearchModeChangeListener);
-            searchView.setOnQueryTextListener(mQueryListener);
-
-            menu.add(NONE, 0, NONE, android.R.string.search_go)
-                    .setActionView(searchView)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-
-            if (mSearchMode) {
-                searchView.requestFocus();
-                searchView.setIconified(false);
-            }
-        }
-
-        @Override
-        public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
-            // The search view is handled by {@link #mSearchListener}. Skip handling here.
-            return false;
-        }
-
-        public String getQueryText() {
-            return mQuery;
-        }
-
-        public void setQueryText(String query) {
-            mQuery = query;
-        }
-
-        /**
-         * Listener for user actions on search view.
-         */
-        private final class SearchModeChangeListener implements View.OnClickListener,
-                SearchView.OnCloseListener {
-            @Override
-            public void onClick(View v) {
-                mSearchMode = true;
-            }
-
-            @Override
-            public boolean onClose() {
-                mSearchMode = false;
-                return false;
-            }
-        }
     }
 
 }

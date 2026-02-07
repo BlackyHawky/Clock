@@ -1,0 +1,15 @@
+**Parandused**
+- Ülemise veerise parandus mõnes seadmes
+- Äratuse + taimeri värina toimimise parandus mõnes seadmes
+
+**Täiendused**
+- Äratused kindlaks kuupäevaks
+- Helinate juhuslik valik esitamisel
+- Võimalus helinate lisamisel valida kausta 
+- Kui äratuse silti pole, siis seda ei kuvata
+- Loobusime `DISABLE_KEYGUARD` õigusest
+- Äratuse kustutamine ei toimi, kui süsteemi animatsioonid on väljas
+- Tõlgete uuendused
+- Koodiparandused
+
+Logid: https://github.com/BlackyHawky/Clock/releases/tag/2.20

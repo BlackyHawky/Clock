@@ -107,8 +107,7 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"Délka odložení zvonění"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Postupně zvyšovat hlasitost"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Ztišit po"</string>
-    <string name="auto_silence_never" msgid="4821982647348750809">"Nikdy"</string>
-    <string name="auto_silence_1_minute">1 minuta</string>
+    <string name="label_never" msgid="4821982647348750809">"Nikdy"</string>
     <string name="label_off">Vypnuto</string>
     <string name="week_start_title" msgid="4268917518596832096">"Počáteční den týdne"</string>
     <string name="week_start_saturday">sobota</string>
@@ -280,6 +279,8 @@
         <item msgid="3027153773466391728">"Fidži"</item>
         <item msgid="5911600083231840181">"Tonga"</item>
         <item msgid="5176858645450908751">"Jakarta"</item>
+        <item>"Rijád"</item>
+        <item>"Reykjavík"</item>
     </string-array>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"Nový budík"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"Vytvořit nový budík"</string>
@@ -302,6 +303,7 @@
     <string name="timers_in_use" msgid="5570729467344408506">"Časovače (<xliff:g id="NUMBER">%d</xliff:g>)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Rozbalit budík"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Sbalit budík"</string>
+    <string name="alarm_undo" msgid="5710042601177655254">"vrátit zpět"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Budík byl smazán"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="label">%s</xliff:g></string>
     <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> napřed"</string>
@@ -363,7 +365,6 @@
     <string name="actions_category_title">Akce</string>
     <string name="title_accent_color">Barva aplikace</string>
     <string name="settings_permission_summary">Klepněte sem pro zobrazení správy oprávnění.</string>
-    <string name="styles_and_colors_category_title">Styl a barvy</string>
     <string name="miscellaneous_category_title">Různé</string>
     <string name="interface_customization_settings">Rozhraní</string>
     <string name="settings_permission_message">Jedno nebo více základních oprávnění nebylo uděleno. Jejich neudělení může vést k chybám.</string>
@@ -383,22 +384,15 @@
     <string name="next_alarm_widget">Další budík</string>
     <string name="auto_night_accent_color_title">Použít barvu aplikace v nočním režimu</string>
     <string name="night_accent_color_title">Barva aplikace pro noční režim</string>
-    <string name="analog_widget_choice_title">Zvolte styl</string>
-    <string name="analog_widget_without_second_hand_title">Bez druhé ručičky</string>
-    <string name="analog_widget_with_second_hand_title">S druhou ručičkou</string>
     <string name="alarm_flash">Blesk</string>
     <string name="alarm_created">Budík vytvořen</string>
     <string name="first_launch_important_info_message_for_SDK34">• &lt;b&gt;OZNÁMENÍ NA CELÉ OBRAZOVCE;&lt;/b&gt; &lt;br&gt; &lt;br&gt;</string>
     <string name="widgets_settings">Widgety</string>
     <string name="settings_language_turkish">Turečtina</string>
     <string name="timer_time_warning_box_title">Zadána neplatná hodnota</string>
-    <string name="contributors">Přispěvatelé</string>
     <string name="about_github_link">Zobrazit na GitHubu</string>
     <string name="license">Licence open source</string>
     <string name="gnu_gpl">GNU General Public License v3.0</string>
-    <string name="default_time_to_add_to_timer_5_minutes">5 minut</string>
-    <string name="default_time_to_add_to_timer_6_minutes">6 minut</string>
-    <string name="default_time_to_add_to_timer_4_minutes">4 minuty</string>
     <string name="screensaver_daydream_settings_summary">Otevře hlavní nastavení spořiče obrazovky systému Android</string>
     <string name="screensaver_settings_summary">Nastavení stylu, barvy a písma spořiče obrazovky</string>
     <string name="screensaver_bold_next_alarm_title">Další budík tučně</string>
@@ -406,10 +400,8 @@
     <string name="background_color_title">Barva pozadí</string>
     <string name="show_lockscreen_permission_title">ZOBRAZIT NA OBRAZOVCE UZAMČENÍ</string>
     <string name="timer_volume_buttons_action_title">Resetovat vypršené časovače tlačítky hlasitosti</string>
-    <string name="default_time_to_add_to_timer_8_minutes">8 minut</string>
     <string name="timer_power_button_action_title">Resetovat vypršené časovače vypínačem</string>
     <string name="timer_buttons_action_summary">Funguje pouze na zamykací obrazovce</string>
-    <string name="default_time_to_add_to_timer_7_minutes">7 minut</string>
     <string name="transparent_background_for_expired_timer_title">Průhledné pozadí při vypršení časovače</string>
     <string name="widgets_settings_summary">Nastavení stylu, barev a velikosti písma widgetů</string>
     <string name="reset_settings_title">Resetovat nastavení</string>
@@ -425,44 +417,37 @@
     <string name="power_button_title">Vypínač</string>
     <string name="sw_long_press_volume_down_action_title">Snížení hlasitosti (dlouhé stisknutí)</string>
     <string name="sw_start_pause_action">Spustit / pozastavit</string>
-    <string name="timer_button_time_minutes_warning_box_text">Zadejte hodnotu mezi 0 a 60 minutami</string>
+    <string name="timer_button_time_minutes_warning_box_text">Zadejte hodnotu od 0 do 60 minut</string>
     <string name="alarm_settings_summary">Nastavení stylu, výchozího vyzvánění, hlasitosti, akcí pro zrušení nebo odložení budíku, prvního dne týdnu a času oznámení s připomínkou</string>
     <string name="whats_new_title">Co je nového</string>
     <string name="whats_new_dialog_message">Podívejte se, co je nového:\n\n%s</string>
-    <string name="contributors_dialog_title">Zobrazit profil</string>
-    <string name="reset_settings_message">Opravdu chcete resetovat všechna nastavení aplikace?\n\nPoznámka: vlastní zvuky budíku nebudou resetovány.</string>
+    <string name="reset_settings_message">Opravdu chcete resetovat všechna nastavení aplikace?</string>
     <string name="sort_timer_ascending_duration">Podle času (vzestupně)</string>
-    <string name="default_time_to_add_to_timer_1_minute">1 minuta</string>
     <string name="default_time_to_add_to_timer_title">Výchozí čas, který přidat k časovači</string>
-    <string name="default_time_to_add_to_timer_2_minutes">2 minuty</string>
-    <string name="default_time_to_add_to_timer_30_minutes">30 minut</string>
-    <string name="default_time_to_add_to_timer_1_hour">1 hodina</string>
-    <string name="default_time_to_add_to_timer_3_minutes">3 minuty</string>
-    <string name="default_time_to_add_to_timer_9_minutes">9 minut</string>
     <string name="screensaver_brightness_title">Jas</string>
     <string name="screensaver_italic_digital_clock_title">Digitální hodiny kurzívou</string>
     <string name="screensaver_bold_digital_clock_title">Digitální hodiny tučně</string>
     <string name="screensaver_italic_next_alarm_title">Další budík kurzívou</string>
     <string name="preview_title">Náhled</string>
     <string name="screensaver_preview_summary">Okamžitě spustí spořič obrazovky</string>
-    <string name="digital_widget_city_title">Zobrazit města ve widgetu</string>
+    <string name="display_city_title">Zobrazit města ve widgetu</string>
     <string name="show_lockscreen_dialog_text">Na zařízeních Xiaomi je nutné v nastavení zařízení ručně povolit oprávnění „Zobrazit na obrazovce uzamčení“, aby aplikace správně fungovala.</string>
     <string name="first_launch_important_info_message">Aby mohla aplikace správně fungovat, &lt;b&gt;musíte změnit některá nastavení zařízení&lt;/b&gt;: &lt;br&gt; &lt;br&gt; • &lt;b&gt;OPTIMALIZACE BATERIE;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;OZNÁMENÍ;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;V závislosti na verzi systému Android ve vašem zařízení již mohou být některá tato nastavení optimalizována (např. oznámení).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Můžete je změnit nyní nebo později v nastavení oprávnění:</string>
     <string name="toast_message_for_reset">Reset dokončen</string>
     <string name="screensaver_clock_dynamic_colors_title">Dynamické barvy hodin</string>
-    <string name="seconds_hand_color_title">Barva vteřinové ručičky</string>
+    <string name="second_hand_color_title">Barva vteřinové ručičky</string>
     <string name="settings_language_korean">Korejština</string>
     <string name="material_time_picker_style_title">Styl výběru času</string>
     <string name="sw_settings_summary">Nastavit akce pro tlačítka hlasitosti</string>
     <string name="clock_style_analog_material">Analogové (Material)</string>
     <string name="clock_style_spinner">Otáčecí</string>
-    <string name="screensaver_next_alarm_color_title">Barva dalšího budíku</string>
+    <string name="next_alarm_color_title">Barva dalšího budíku</string>
     <string name="backup_restore_title">Záloha a obnovení</string>
     <string name="backup_restore_summary">Záloha nebo obnovení dat aplikace (mimo vlastních vyzvánění)</string>
     <string name="toast_message_for_backup">Záloha dokončena</string>
     <string name="sort_timer_title">Seřadit časovače</string>
-    <string name="digital_widget_custom_minutes_color_title">Vlastní barva minut</string>
-    <string name="widget_next_alarm_default_color_title">Použít výchozí barvu pro další budík</string>
+    <string name="minute_color_title">Barva minut</string>
+    <string name="next_alarm_default_color_title">Použít výchozí barvu pro další budík</string>
     <string name="digital_widget_message_summary">Pro přístup k tomuto nastavení musí být zakázána možnost „Zobrazit města ve widgetu“</string>
     <string name="shake_intensity_title">Intenzita třesení</string>
     <string name="version">Verze</string>
@@ -480,13 +465,13 @@
     <string name="sw_volume_down_action_title">Snížení hlasitosti</string>
     <string name="timer_add_custom_time">+ %s</string>
     <string name="timer_settings_summary">Nastavení výchozího tónu, hlasitosti a řazení časovačů</string>
-    <string name="next_alarm_widget_default_alarm_title_color">Použít výchozí barvu pro název budíku</string>
+    <string name="alarm_title_default_color">Použít výchozí barvu pro název budíku</string>
     <string name="next_alarm_widget_text">Další budík</string>
-    <string name="digital_widget_clock_default_color_title">Použít výchozí barvu pro hlavní hodiny</string>
-    <string name="digital_widget_max_clock_font_size_title">Maximální velikost písma hlavních hodin</string>
+    <string name="clock_default_color_title">Použít výchozí barvu pro hlavní hodiny</string>
+    <string name="max_clock_font_size_title">Maximální velikost písma hlavních hodin</string>
     <string name="permission_management_summary">Zobrazení oprávnění potřebných ke správnému fungování aplikace</string>
     <string name="denied_permission_label">Oprávnění zamítnuto</string>
-    <string name="next_alarm_widget_custom_title_color">Vlastní barva pro názvy „Další budík“ a „Žádný nadcházející budík“</string>
+    <string name="next_alarm_no_upcoming_alarm_titles_color">Vlastní barva pro názvy „Další budík“ a „Žádný nadcházející budík“</string>
     <string name="show_lockscreen_dialog_title">Zobrazit na obrazovce uzamčení</string>
     <string name="settings_language_english_us">Angličtina (americká)</string>
     <string name="settings_language_chinese_simplified_cn">Čínština (zjednodušená, PRC)</string>
@@ -497,7 +482,6 @@
     <string name="backup_button_title">Zálohovat</string>
     <string name="restore_button_title">Obnovit</string>
     <string name="material_you_category_title">Material You</string>
-    <string name="analog_widget_configuration_warning">Tento widget lze nastavit pouze v systému Android 12+</string>
     <string name="clock_color_title">Barva hodin</string>
     <string name="settings_language_russian">Ruština</string>
     <string name="about_title">O aplikaci</string>
@@ -509,7 +493,7 @@
     <string name="alarm_title_color">Barva názvu budíku</string>
     <string name="dismiss_button_color">Barva tlačítka „Konec“</string>
     <string name="alarm_button_color">Barva tlačítka budíku</string>
-    <string name="alarm_clock_font_size">Velikost písma hodin budíku</string>
+    <string name="clock_font_size">Velikost písma hodin</string>
     <string name="timer_shake_action_title">Zatřeste zařízením pro zastavení budíku</string>
     <string name="amoled_dark_theme_mode">AMOLED</string>
     <string name="display_card_background_title">Zobrazit pozadí karet</string>
@@ -524,40 +508,29 @@
     <string name="alarm_notification_reminder_10_hours">10 hodin předem</string>
     <string name="alarm_notification_reminder_12_hours">12 hodin předem</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">Zapnout vibrace při odložení nebo zrušení budíku</string>
-    <string name="alarm_display_customization_title">Přizpůsobit zobrazení budíku</string>
-    <string name="auto_silence_5_seconds">5 sekund</string>
     <string name="auto_silence_end_of_ringtone">Konec vyzvánění</string>
-    <string name="auto_silence_10_seconds">10 sekund</string>
-    <string name="auto_silence_20_seconds">20 sekund</string>
     <string name="timer_button_time_box_title">Přidat minuty k časovači</string>
     <string name="app_slogan">100% otevřené hodiny, založené na AOSP</string>
     <string name="version_text">Verze <xliff:g id="VERSION_NUMBER" example="1.0">%1$s</xliff:g></string>
     <string name="github_dialog_message">Navštivte stránku projektu na GitHubu:\n\n%s</string>
-    <string name="contributors_dialog_message">Navštivte stránku uživatele %1$s na GitHubu:\n\n%2$s</string>
     <string name="swipe_action_title">Přejeďte pro zrušení nebo odložení budíků</string>
-    <string name="auto_silence_30_seconds">30 sekund</string>
     <string name="title_dark_theme_mode">Režim tmavého motivu</string>
     <string name="display_card_background_summary">Zobrazí pozadí u některých prvků aplikace (budíky, města, tlačítko časovače apod.)</string>
-    <string name="about_dialog_message">• Nastavení budíků na určité datum;\n\n• Otočením nebo zatřesením telefonu odložíte/zrušíte budík; \n\n• Vypnutí/odložení budíku pomocí tlačítka napájení nebo tlačítek hlasitosti; \n\n• Na některých zařízeních s procesorem Snapdragon je budík spuštěn i při vypnutém zařízení; \n\t\t Bohužel tato funkce nemusí fungovat na všech zařízeních, i když je přítomna systémová aplikace <i>„com.qualcomm.qti.poweroffalarm“</i>. \n\n• Odstranění budíku přejetím prstem; \n\n• Duplikování budíků; \n\n• Přizpůsobitelný název budíku; \n\n• Přizpůsobitelné vyzvánění budíku; \n\n• Světlý, tmavý nebo systémový motiv; \n\n• AMOLED režim pro tmavý motiv; \n\n• Digitální nebo analogový styl hodin; \n\n• Zobrazení domácího času při cestování; \n\n• Zobrazení času ve více městech po celém světě; \n\n• Obsahuje časovač a stopky; \n\n• Možnost sdílení stopek s kontakty; \n\n• Přizpůsobitelný spořič obrazovky; \n\n• Moderní widgety; \n\n• Přizpůsobitelné widgety; \n\n• Podpora dlaždic v rychlém nastavení (pro Android 7+); \n\n• Zálohování a obnovení nastavení; \n\n• Material Design; \n\n• Dynamické barvy pro Android 12+;</string>
     <string name="first_launch_main_feature_title">HLAVNÍ FUNKCE</string>
     <string name="sw_long_press_volume_up_action_title">Zvýšení hlasitosti (dlouhé stisknutí)</string>
     <string name="screensaver_bold_date_title">Datum tučně</string>
-    <string name="next_alarm_widget_custom_alarm_title_color">Vlastní barva názvu budíku</string>
-    <string name="next_alarm_widget_max_font_size_title">Maximální velikost písma widgetu</string>
+    <string name="widget_max_font_size_title">Maximální velikost písma widgetu</string>
     <string name="snooze_button_color">Barva tlačítka „Odložit“</string>
-    <string name="screensaver_date_color_title">Barva data</string>
+    <string name="date_color_title">Barva data</string>
     <string name="first_launch_main_feature_link">… a spousta dalšího!</string>
     <string name="first_launch_important_info_title">DŮLEŽITÉ INFORMACE</string>
     <string name="first_launch_dialog_title">Ukončit</string>
     <string name="first_launch_dialog_message">Opravdu chcete ukončit aplikaci?</string>
-    <string name="digital_widget_date_custom_color_title">Vlastní barva data</string>
     <string name="permission_requirement_title">Požadavek:</string>
     <string name="analog_widget_material_you">Analogové hodiny Material You</string>
-    <string name="credits">Poděkování</string>
     <string name="permission_denied">Zamítnuto</string>
     <string name="notifications_permission_title">POVOLIT OZNÁMENÍ</string>
     <string name="sort_timer_descending_duration">Podle času (sestupně)</string>
-    <string name="default_time_to_add_to_timer_10_minutes">10 minut</string>
     <string name="FSN_permission_title">POVOLIT OZNÁMENÍ NA CELÉ OBRAZOVCE</string>
     <string name="permission_granted">Uděleno</string>
     <string name="permission_dialog_revoke_title">Odvolat přístup</string>
@@ -579,7 +552,7 @@
     <string name="add_label">Přidat štítek</string>
     <string name="description_direction_both_for_occasional_non_repeatable_alarm">Přejeďte prstem doleva nebo doprava pro zrušení a odstranění budíku</string>
     <string name="description_direction_both_for_non_repeatable_alarm">Přejeďte prstem doleva nebo doprava pro zrušení</string>
-    <string name="next_alarm_widget_default_title_color">Použít výchozí barvu pro názvy „Další budík“ a „Žádný nadcházející budík“</string>
+    <string name="next_alarm_no_upcoming_alarm_titles_default_color">Použít výchozí barvu pro názvy „Další budík“ a „Žádný nadcházející budík“</string>
     <string name="permission_management_settings">Správa oprávnění</string>
     <string name="FSN_dialog_title">Oznámení na celé obrazovce</string>
     <string name="timer_flip_action_title">Otočte zařízení pro zastavení budíku</string>
@@ -590,25 +563,21 @@
     <string name="screensaver_daydream_settings">Vybrat/povolit spořič obrazovky</string>
     <string name="first_launch_button_now">Nyní</string>
     <string name="display_warning_before_deleting_timer_title">Zobrazit varování před odstraněním časovače</string>
-    <string name="sort_timer_manually">Ručně (táhnutím)</string>
-    <string name="permission_dialog_close_button">Zavřít</string>
+    <string name="sort_manually">Ručně (táhnutím)</string>
     <string name="first_launch_version">Verze %s</string>
-    <string name="digital_widget_date_default_color_title">Použít výchozí barvu pro datum</string>
-    <string name="widget_next_alarm_custom_color_title">Vlastní barva dalšího budíku</string>
-    <string name="digital_widget_city_clock_default_color_title">Použít výchozí barvu pro hodiny měst</string>
-    <string name="digital_widget_city_clock_custom_color_title">Vlastní barva hodin měst</string>
-    <string name="digital_widget_city_name_default_color_title">Použít výchozí barvu pro název města</string>
-    <string name="digital_widget_city_name_custom_color_title">Vlastní barva názvu města</string>
+    <string name="date_default_color_title">Použít výchozí barvu pro datum</string>
+    <string name="city_clock_default_color_title">Použít výchozí barvu pro hodiny měst</string>
+    <string name="city_clock_color_title">Vlastní barva hodin měst</string>
+    <string name="city_name_default_color_title">Použít výchozí barvu pro název města</string>
+    <string name="city_name_color_title">Vlastní barva názvu města</string>
     <string name="about_translate_link">Přeložit na Codebergu</string>
     <string name="translate_dialog_message">Navštivte stránku na Codebergu:\n\n%s</string>
     <string name="license_dialog_message">Přečtěte si licenci:\n\n%s</string>
-    <string name="occasional_alarm_deleted">Příležitostný budík v <xliff:g example="14:20" id="alarm_time">%s</xliff:g> odstraněn</string>
-    <string name="sort_timer_name">Podle názvu</string>
-    <string name="digital_widget_custom_hours_color_title">Vlastní barva hodin</string>
+    <string name="sort_name">Podle názvu</string>
+    <string name="hour_color_title">Vlastní barva hodin</string>
     <string name="next_alarm_widget_title_no_alarm">Žádný nadcházející budík</string>
-    <string name="digital_widget_clock_custom_color_title">Vlastní barva hlavních hodin</string>
-    <string name="digital_widget_default_hours_color_title">Použít výchozí barvu pro hodiny</string>
-    <string name="digital_widget_default_minutes_color_title">Použít výchozí barvu pro minuty</string>
+    <string name="hour_default_color_title">Použít výchozí barvu pro hodiny</string>
+    <string name="minute_default_color_title">Použít výchozí barvu pro minuty</string>
     <string name="permission_info_title">Pouze pro zařízení Xiaomi</string>
     <string name="revoke_permission_dialog_message">Opravdu chcete odvolat toto oprávnění?</string>
     <string name="material_you_digital_widget">Digitální hodiny Material You</string>
@@ -619,7 +588,6 @@
     <string name="settings_toolbar_title">Zobrazit název v panelu nástrojů</string>
     <string name="settings_tab_title_visibility_title">Zobrazit názvy karet</string>
     <string name="tab_title_visibility_always">Vždy</string>
-    <string name="tab_title_visibility_never">Nikdy</string>
     <string name="tab_title_visibility_when_selected">Při výběru</string>
     <string name="settings_language_czech">Čeština</string>
     <string name="settings_keep_screen_on_summary">Poznámka: obrazovka bude ponechána zapnuta vždy, když běží stopky nebo časovač a je zobrazena odpovídající karta, nezávisle na stavu tohoto nastavení</string>
@@ -642,15 +610,15 @@
     <string name="random_ringtone_title">Náhodné vyzvánění</string>
     <string name="add_new_sound_subtitle">Podržte pro výběr složky</string>
     <string name="warning">Varování</string>
-    <string name="timer_button_time_seconds_warning_box_text">Zadejte hodnotu mezi 0 a 59 sekundami</string>
+    <string name="timer_button_time_seconds_warning_box_text">Zadejte hodnotu od 0 do 59 sekund</string>
     <string name="timer_add_custom_time_with_seconds_for_notification">Přidat %1$s min %2$s s</string>
     <string name="label_minutes">Minuty</string>
     <string name="label_seconds">Sekundy</string>
     <string name="timer_add_custom_time_with_seconds_description">Přidat %1$s minutu %2$s sekund</string>
     <string name="timer_time_box_title">Nové trvání časovače</string>
-    <string name="timer_hours_warning_box_text">Zadejte hodnotu mezi 0 a 24 hodinami</string>
-    <string name="timer_minutes_warning_box_text">Zadejte hodnotu mezi 0 a 59 minutami</string>
-    <string name="timer_seconds_warning_box_text">Zadejte hodnotu mezi 0 a 59 sekundami</string>
+    <string name="timer_hours_warning_box_text">Zadejte hodnotu od 0 do 24 hodin</string>
+    <string name="timer_minutes_warning_box_text">Zadejte hodnotu od 0 do 59 minut</string>
+    <string name="timer_seconds_warning_box_text">Zadejte hodnotu od 0 do 59 sekund</string>
     <string name="label_hours">Hodiny</string>
     <string name="auto_routing_to_bluetooth_device_title">Povolit automatické směrování vyzvánění do zařízení Bluetooth</string>
     <string name="timer_creation_view_style_title">Styl zobrazení tvorby časovače</string>
@@ -664,4 +632,106 @@
     <string name="bluetooth_volume_title">Hlasitost budíku pro zařízení Bluetooth</string>
     <string name="connect_bluetooth_device_title">Připojte zařízení Bluetooth pro přístup k tomuto nastavení</string>
     <string name="disconnect_bluetooth_device_title">Odpojte zařízení Bluetooth pro přístup k tomuto nastavení</string>
+    <string name="enable_per_alarm_volume_title">Použít vlastní hlasitost pro každý budík</string>
+    <string name="delay_picker_dialog_title">Budík za…</string>
+    <string name="clock_dial_sun">Slunce</string>
+    <string name="clock_dial_flower">Květina</string>
+    <string name="clock_dial_title">Výběr času</string>
+    <string name="dial_default_color_title">Použít výchozí barvu pro výběr času</string>
+    <string name="hour_hand_color_title">Barva hodinové ručičky</string>
+    <string name="hour_hand_default_color_title">Použít výchozí barvu pro hodinovou ručičku</string>
+    <string name="minute_hand_color_title">Barva minutové ručičky</string>
+    <string name="second_hand_default_color_title">Použít výchozí barvu pro vteřinovou ručičku</string>
+    <string name="clock_dial_with_numbers">S čísly</string>
+    <string name="clock_dial_without_numbers">Bez čísel</string>
+    <string name="colors_category_title">Barvy</string>
+    <string name="clock_second_hand_vintage">Staromódní</string>
+    <string name="dial_color_title">Barva výběru času</string>
+    <string name="minute_hand_default_color_title">Použít výchozí barvu pro minutovou ručičku</string>
+    <string name="clock_second_hand_title">Vteřinová ručička</string>
+    <string name="background_default_color_title">Použít výchozí barvu pozadí</string>
+    <string name="sort_alarm_title">Seřadit budíky</string>
+    <string name="sort_alarm_time">Podle času budíku</string>
+    <string name="sort_next_alarm_time">Podle času dalšího budíku</string>
+    <string name="display_enabled_alarms_first_title">Zobrazit nejprve povolené budíky</string>
+    <string name="sort_cities_title">Seřadit města</string>
+    <string name="sort_cities_ascending_time_zone">Podle časového pásma (vzestupně)</string>
+    <string name="sort_cities_descending_time_zone">Podle časového pásma (sestupně)</string>
+    <string name="enable_city_note_title">Přidat osobní poznámku k městům</string>
+    <string name="enable_city_note_summary">Klepněte na město pro přidání nebo úpravu jeho osobní poznámky</string>
+    <string name="city_note_dialog_title">Poznámka pro město %s</string>
+    <string name="sort_descending_creation_order">Podle pořadí vytvoření (od nejnovějších)</string>
+    <string name="sort_ascending_creation_order">Podle pořadí vytvoření (od nejstarších)</string>
+    <string name="city_search_hint">Hledat město</string>
+    <string name="enable_alarm_fab_long_press_title">Povolit dlouhé podržení na akčním tlačítku pro vytvoření budíků se zpožděním</string>
+    <string name="enable_alarm_fab_long_press_summary">Pokud je zakázáno, budou zobrazena dvě tlačítka pro vytváření budíků</string>
+    <string name="vibration_pattern_title">Vzor vibrací</string>
+    <string name="vibration_pattern_soft">Jemný</string>
+    <string name="vibration_pattern_strong">Silný</string>
+    <string name="vibration_pattern_heartbeat">Srdeční tep</string>
+    <string name="vibration_pattern_escalating">Zvyšující se</string>
+    <string name="vibration_pattern_tick_tock">Tik tak</string>
+    <string name="vibration_start_delay_title">Zpoždění před začátkem vibrací</string>
+    <string name="vibration_start_delay_none">Žádné</string>
+    <string name="vibration_start_delay_warning_box_text">Zadejte hodnotu od 0 do 10 minut</string>
+    <string name="confirm_action_prompt">\n\nChcete pokračovat?</string>
+    <string name="enable_per_alarm_snooze_duration_title">Použít vlastní dobu odložení pro každý budík</string>
+    <string name="enable_per_alarm_snooze_duration_dialog_message">Vlastní délky odložení budíků budou resetovány.%s</string>
+    <string name="enable_per_alarm_volume_dialog_message">Vlastní hlasitosti budíků budou resetovány.%s</string>
+    <string name="display_dismiss_button_title">Zobrazit tlačítko Konec, jakmile je budík povolen</string>
+    <string name="display_dismiss_button_summary">Pokud je zakázáno, objeví se tlačítko ve stejný čas jako oznámení připomínky</string>
+    <string name="enable_per_alarm_missed_repeat_limit_title">Použít vlastní počet opakování zmeškaných budíků u každého budíku</string>
+    <string name="enable_per_alarm_missed_repeat_limit_dialog_message">Vlastní počet opakování zmeškaných budíků bude resetován.%s</string>
+    <string name="missed_alarm_repeat_limit_title">Opakovat zmeškané budíky</string>
+    <string name="missed_alarm_repeat_limit_1_time">1krát</string>
+    <string name="missed_alarm_repeat_limit_3_times">3krát</string>
+    <string name="missed_alarm_repeat_limit_5_times">5krát</string>
+    <string name="missed_alarm_repeat_limit_10_times">10krát</string>
+    <string name="enable_per_alarm_crescendo_duration_title">Použít vlastní dobu zvyšování hlasitosti pro každý budík</string>
+    <string name="enable_per_alarm_crescendo_duration_dialog_message">Vlastní doby zvyšování hlasitosti budíků budou resetovány.%s</string>
+    <string name="enable_per_alarm_auto_silence_title">Použít vlastní dobu do ukončení pro každý budík</string>
+    <string name="enable_per_alarm_auto_silence_dialog_message">Vlastní doby do ukončení budíků budou resetovány.%s</string>
+    <string name="features_dialog_message">Navštivte stránku s hlavními funkcemi:\n\n%s</string>
+    <string name="repetitive_alarm_is_dismissed">Budík zrušen. <xliff:g example="Next alarm Monday." id="alarm_day">Přesunuto na %s.</xliff:g></string>
+    <string name="blur_intensity_title">Intenzita rozostření</string>
+    <string name="background_image_title">Vyberte obrázek na pozadí</string>
+    <string name="background_image_toast_message_selected">Obrázek úspěšně vybrán</string>
+    <string name="enable_blur_effect_title">Použít efekt rozostření na obrázek na pozadí</string>
+    <string name="display_text_shadow_title">Zobrazit stín textu</string>
+    <string name="shadow_color_title">Barva stínu</string>
+    <string name="shadow_offset_title">Posunutí stínu</string>
+    <string name="customize_background_corner_radius_title">Přizpůsobit poloměr rohů pozadí</string>
+    <string name="customize_background_corner_radius_summary">Umožní vám zaoblit rohy widgetů, pokud to vaše domovská obrazovka nepodporuje</string>
+    <string name="background_corner_radius_title">Poloměr rohů pozadí</string>
+    <string name="progress_ringtones">Přidávání vyzvánění… (%1$d/%2$d)</string>
+    <string name="display_timer_state_indicator_title">Zobrazit indikátor stavu časovače</string>
+    <string name="running_timer_indicator_color_title">Barva běžícího indikátoru časovače</string>
+    <string name="paused_timer_indicator_color_title">Barva pozastaveného indikátoru časovače</string>
+    <string name="expired_timer_indicator_color_title">Barva expirovaného indikátoru časovače</string>
+    <string name="display_text_uppercase_title">Zobrazit text ve velkých písmenech</string>
+    <string name="label_new_image">Nový obrázek</string>
+    <string name="background_image_title_variant">Vybrat nebo odstranit obrázek na pozadí</string>
+    <string name="background_image_dialog_title">Obrázek na pozadí</string>
+    <string name="background_image_toast_message_deleted">Obrázek úspěšně odstraněn</string>
+    <string name="label_new_font">Nové písmo</string>
+    <string name="custom_font_title">Vyberte vlastní písmo</string>
+    <string name="custom_font_title_variant">Vyberte nebo odstraňte vlastní písmo</string>
+    <string name="custom_font_dialog_title">Písmo</string>
+    <string name="custom_font_toast_message_selected">Písmo úspěšně vybráno</string>
+    <string name="custom_font_toast_message_deleted">Písmo úspěšně odstraněno</string>
+    <string name="vibration_category_title">Vibrace</string>
+    <string name="display_settings_title">Nastavení zobrazení</string>
+    <string name="enable_per_alarm_vibration_pattern_title">Použít vlastní vzor vibrací pro každý budík</string>
+    <string name="enable_per_alarm_vibration_pattern_dialog_message">Vlastní vzor vibrací bude resetován.%s</string>
+    <string name="sw_laps_title">Kola</string>
+    <string name="sw_split_title">Rozdělit</string>
+    <string name="sw_total_title">Celkem</string>
+    <string name="analog_clock_size_title">Velikost analogových hodin</string>
+    <string name="display_compact_timers_title">Zobrazit aktivní časovače v kompaktním režimu</string>
+    <string name="display_battery_title">Zobrazit úroveň baterie</string>
+    <string name="battery_color_title">Barva úrovně baterie</string>
+    <string name="screensaver_bold_battery_title">Úroveň baterie tučně</string>
+    <string name="screensaver_italic_battery_title">Úroveň baterie kurzívou</string>
+    <string name="settings_language_bulgarian">Bulharština</string>
+    <string name="settings_language_tamil">Tamilština</string>
 </resources>

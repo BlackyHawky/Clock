@@ -91,8 +91,7 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"Snooze length"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Gradually increase volume"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Silence after"</string>
-    <string name="auto_silence_never" msgid="4821982647348750809">"Never"</string>
-    <string name="auto_silence_1_minute">1 minute</string>
+    <string name="label_never" msgid="4821982647348750809">"Never"</string>
     <string name="label_off">Off</string>
     <string name="snooze_duration_none">None</string>
     <string name="week_start_title" msgid="4268917518596832096">"Start week on"</string>
@@ -265,6 +264,8 @@
         <item msgid="3027153773466391728">"Fiji"</item>
         <item msgid="5911600083231840181">"Tonga"</item>
         <item msgid="5176858645450908751">"Jakarta"</item>
+        <item>"Riyadh"</item>
+        <item>"Reykjavik"</item>
     </string-array>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"New alarm"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"Create new alarm"</string>
@@ -287,6 +288,7 @@
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> timers"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Expand alarm"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Collapse alarm"</string>
+    <string name="alarm_undo" msgid="5710042601177655254">"Undo"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Alarm deleted"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="LABEL">%s</xliff:g></string>
     <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> ahead"</string>
@@ -326,4 +328,24 @@
     <string name="alarm_upcoming_channel">Upcoming alarms</string>
     <string name="stopwatch_channel">Stopwatch</string>
     <string name="timer_channel">Timer</string>
+    <string name="schedule_alarm_title">Schedule alarm</string>
+    <string name="alarm_flash">Flash</string>
+    <string name="delete_occasional_alarm_after_use_title">Delete alarm once dismissed</string>
+    <string name="delay_picker_dialog_title">Alarm in…</string>
+    <string name="alarm_label_box_title">Alarm label</string>
+    <string name="label_default">Default</string>
+    <string name="duplicate">Duplicate</string>
+    <string name="label_new_image">New image</string>
+    <string name="warning">Warning</string>
+    <string name="label_hours">Hours</string>
+    <string name="label_minutes">Minutes</string>
+    <string name="label_seconds">Seconds</string>
+    <string name="confirm_action_prompt">\n\nDo you want to continue?</string>
+    <string name="selected">Selected</string>
+    <string name="more_options">More options</string>
+    <string name="progress_ringtones">Adding ringtones… (%1$d/%2$d)</string>
+    <string name="alarm_scheduled_for">Scheduled for %s</string>
+    <string name="alarm_alert_dismiss_and_delete_text">Dismiss &amp; Delete</string>
+    <string name="alarm_alert_off_and_deleted_text">Alarm off and deleted</string>
+    <string name="occasional_alarm_alert_predismiss_title">Upcoming occasional alarm</string>
 </resources>

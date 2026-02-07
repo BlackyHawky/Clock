@@ -15,6 +15,7 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -33,10 +34,10 @@ import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
+import com.best.deskclock.uicomponents.TextTime;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.AnimatorUtils;
 import com.best.deskclock.utils.ThemeUtils;
-import com.best.deskclock.widget.TextTime;
 import com.google.android.material.color.MaterialColors;
 
 import java.text.SimpleDateFormat;
@@ -60,17 +61,27 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
     public static final float ANIM_LONG_DELAY_INCREMENT_MULTIPLIER =
             1f - ANIM_STANDARD_DELAY_MULTIPLIER - ANIM_SHORT_DURATION_MULTIPLIER;
 
+    public final SharedPreferences mPrefs;
     public final ImageView arrow;
     public final TextTime clock;
     public final CompoundButton onOff;
     public final TextView daysOfWeek;
     public final TextView preemptiveDismissButton;
     public final View bottomPaddingView;
+    public final Typeface mGeneralTypeface;
+    public final Typeface mGeneralBoldTypeface;
 
     public float annotationsAlpha = CLOCK_ENABLED_ALPHA;
 
     public AlarmItemViewHolder(View itemView) {
         super(itemView);
+
+        final Context context = itemView.getContext();
+
+        mPrefs = getDefaultSharedPreferences(context);
+        String generalFontPath = SettingsDAO.getGeneralFont(mPrefs);
+        mGeneralTypeface = ThemeUtils.loadFont(generalFontPath);
+        mGeneralBoldTypeface = ThemeUtils.boldTypeface(generalFontPath);
 
         arrow = itemView.findViewById(R.id.arrow);
         clock = itemView.findViewById(R.id.digital_clock);
@@ -79,16 +90,17 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
         preemptiveDismissButton = itemView.findViewById(R.id.preemptive_dismiss_button);
         bottomPaddingView = itemView.findViewById(R.id.bottom_padding_view);
 
-        final Context context = itemView.getContext();
-
-        int rippleColor = MaterialColors.getColor(context,
-                com.google.android.material.R.attr.colorControlHighlight, Color.BLACK);
+        int rippleColor = MaterialColors.getColor(context, androidx.appcompat.R.attr.colorControlHighlight, Color.BLACK);
         RippleDrawable rippleDrawable = new RippleDrawable(ColorStateList.valueOf(rippleColor),
                 ThemeUtils.cardBackground(context), null);
         itemView.setBackground(rippleDrawable);
 
         // Clock handler
         clock.setOnClickListener(v -> getAlarmTimeClickHandler().onClockClicked(getItemHolder().item));
+        clock.setOnLongClickListener(v -> {
+            getAlarmTimeClickHandler().onClockLongClicked(getItemHolder().item);
+            return true;
+        });
 
         // On/Off button handler
         onOff.setOnCheckedChangeListener((compoundButton, checked) ->
@@ -98,7 +110,7 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
         preemptiveDismissButton.setOnClickListener(v -> {
             final AlarmInstance alarmInstance = getItemHolder().getAlarmInstance();
             if (alarmInstance != null) {
-                getItemHolder().getAlarmTimeClickHandler().dismissAlarmInstance(getItemHolder().item, alarmInstance);
+                getItemHolder().getAlarmTimeClickHandler().dismissAlarmInstance(alarmInstance);
             }
         });
     }
@@ -111,75 +123,95 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
 
         bindClock(alarm);
         bindOnOffSwitch(alarm);
-        bindRepeatText(context, alarm);
+        bindRepeatText(context, alarm, alarmInstance);
         bindPreemptiveDismissButton(context, alarm, alarmInstance);
         bindAnnotations(alarm);
 
         itemView.setContentDescription(clock.getText() + " " + alarm.getLabelOrDefault(context));
     }
 
-    protected void bindOnOffSwitch(Alarm alarm) {
+    private void bindOnOffSwitch(Alarm alarm) {
         if (onOff.isChecked() != alarm.enabled) {
             onOff.setChecked(alarm.enabled);
         }
     }
 
-    protected void bindClock(Alarm alarm) {
+    private void bindClock(Alarm alarm) {
         clock.setTime(alarm.hour, alarm.minutes);
-        clock.setTypeface(alarm.enabled ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
+        clock.setTypeface(alarm.enabled);
     }
 
-    protected void bindRepeatText(Context context, Alarm alarm) {
+    private void bindRepeatText(Context context, Alarm alarm, AlarmInstance alarmInstance) {
         if (alarm.daysOfWeek.isRepeating()) {
-            final Weekdays.Order weekdayOrder = SettingsDAO.getWeekdayOrder(getDefaultSharedPreferences(context));
-            final String daysOfWeekText = alarm.daysOfWeek.toString(context, weekdayOrder);
-            daysOfWeek.setText(daysOfWeekText);
-
-            final String string = alarm.daysOfWeek.toAccessibilityString(context, weekdayOrder);
-            daysOfWeek.setContentDescription(string);
+            setRepeatingDaysDescription(context, alarm, alarmInstance);
+        } else if (alarm.isSpecifiedDate()) {
+            setSpecifiedDateDescription(context, alarm);
         } else {
-            Calendar calendar = Calendar.getInstance();
+            setNonRepeatingDefaultDescription(context, alarm);
+        }
+    }
 
-            if (Alarm.isTomorrow(alarm, calendar) && !alarm.isSpecifiedDate()) {
-                daysOfWeek.setText(context.getString(R.string.alarm_tomorrow));
-            } else if (alarm.isSpecifiedDate()) {
-                if (Alarm.isSpecifiedDateTomorrow(alarm.year, alarm.month, alarm.day)) {
-                    daysOfWeek.setText(context.getString(R.string.alarm_tomorrow));
-                } else if (alarm.isDateInThePast()) {
-                    // If the date has passed, the new alarm will be scheduled either the same day
-                    // or the next day depending on the time; the text is therefore updated accordingly.
-                    if (alarm.hour < calendar.get(Calendar.HOUR_OF_DAY)
-                            || (alarm.hour == calendar.get(Calendar.HOUR_OF_DAY) && alarm.minutes < calendar.get(Calendar.MINUTE))
-                            || (alarm.hour == calendar.get(Calendar.HOUR_OF_DAY) && alarm.minutes == calendar.get(Calendar.MINUTE))) {
-                        daysOfWeek.setText(context.getString(R.string.alarm_tomorrow));
-                    } else {
-                        daysOfWeek.setText(context.getString(R.string.alarm_today));
-                    }
+    private void setRepeatingDaysDescription(Context context, Alarm alarm, AlarmInstance alarmInstance) {
+        Weekdays.Order weekdayOrder = SettingsDAO.getWeekdayOrder(mPrefs);
+        String contentDesc = alarm.daysOfWeek.toAccessibilityString(context, weekdayOrder);
+        CharSequence styledDaysText;
+
+        if (alarm.enabled) {
+            int nextAlarmDay = alarm.getNextAlarmDayOfWeek(alarmInstance);
+
+            if (alarm.daysOfWeek.isAllDaysSelected()) {
+                if (alarm.isRepeatDayStyleEnabled(mPrefs)) {
+                    styledDaysText = alarm.daysOfWeek.toStyledString(context, weekdayOrder, false, nextAlarmDay);
                 } else {
-                    int year = alarm.year;
-                    int month = alarm.month;
-                    int dayOfMonth = alarm.day;
-                    boolean isCurrentYear = year == calendar.get(Calendar.YEAR);
-
-                    calendar.set(year, month, dayOfMonth);
-
-                    String pattern = DateFormat.getBestDateTimePattern(
-                            Locale.getDefault(), isCurrentYear ? "MMMMd" : "yyyyMMMMd");
-                    SimpleDateFormat dateFormat = new SimpleDateFormat(pattern, Locale.getDefault());
-                    String formattedDate = dateFormat.format(calendar.getTime());
-
-                    daysOfWeek.setText(context.getString(R.string.alarm_scheduled_for, formattedDate));
+                    styledDaysText = alarm.daysOfWeek.toString(context, weekdayOrder);
                 }
             } else {
-                daysOfWeek.setText(context.getString(R.string.alarm_today));
+                styledDaysText = alarm.daysOfWeek.toStyledString(context, weekdayOrder, false, nextAlarmDay);
             }
+        } else {
+            styledDaysText = alarm.daysOfWeek.toString(context, weekdayOrder);
         }
 
-        daysOfWeek.setTypeface(alarm.enabled ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
+        setDaysOfWeekText(styledDaysText);
+        daysOfWeek.setContentDescription(contentDesc);
     }
 
-    protected void bindPreemptiveDismissButton(Context context, Alarm alarm, AlarmInstance alarmInstance) {
-        final boolean canBind = alarm.canPreemptivelyDismiss() && alarmInstance != null;
+    private void setNonRepeatingDefaultDescription(Context context, Alarm alarm) {
+        if (alarm.isTomorrow(Calendar.getInstance())) {
+            setDaysOfWeekText(context.getString(R.string.alarm_tomorrow));
+        } else {
+            setDaysOfWeekText(context.getString(R.string.alarm_today));
+        }
+    }
+
+    private void setSpecifiedDateDescription(Context context, Alarm alarm) {
+        Calendar calendar = Calendar.getInstance();
+
+        if (Alarm.isSpecifiedDateTomorrow(alarm.year, alarm.month, alarm.day)) {
+            setDaysOfWeekText(context.getString(R.string.alarm_tomorrow));
+        } else if (alarm.isDateInThePast()) {
+            setDaysOfWeekText(getTodayOrTomorrowBasedOnTime(context, alarm, calendar));
+        } else {
+            setDaysOfWeekText(context.getString(R.string.alarm_scheduled_for, formatAlarmDate(alarm)));
+        }
+    }
+
+    private void setDaysOfWeekText(CharSequence text) {
+        daysOfWeek.setTypeface(mGeneralTypeface);
+        daysOfWeek.setText(text);
+    }
+
+    private String getTodayOrTomorrowBasedOnTime(Context context, Alarm alarm, Calendar now) {
+        // Used when the date has passed, the new alarm will be scheduled either the same day
+        // or the next day depending on the time.
+        // The text is therefore updated accordingly.
+        return context.getString(alarm.isTimeBeforeOrEqual(now)
+                ? R.string.alarm_tomorrow
+                : R.string.alarm_today);
+    }
+
+    private void bindPreemptiveDismissButton(Context context, Alarm alarm, AlarmInstance alarmInstance) {
+        final boolean canBind = alarm.canPreemptivelyDismiss(context) && alarmInstance != null;
 
         if (canBind) {
             preemptiveDismissButton.setVisibility(VISIBLE);
@@ -190,6 +222,7 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
                     ? context.getString(R.string.alarm_alert_dismiss_and_delete_text)
                     : context.getString(R.string.alarm_alert_dismiss_text);
             preemptiveDismissButton.setText(dismissText);
+            preemptiveDismissButton.setTypeface(mGeneralBoldTypeface);
 
             if (!getItemHolder().isExpanded()) {
                 bottomPaddingView.setVisibility(GONE);
@@ -223,6 +256,17 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
     protected void setChangingViewsAlpha(float alpha) {
         daysOfWeek.setAlpha(alpha);
         preemptiveDismissButton.setAlpha(alpha);
+    }
+
+    protected String formatAlarmDate(Alarm alarm) {
+        Calendar calendar = Calendar.getInstance();
+        boolean isCurrentYear = alarm.year == calendar.get(Calendar.YEAR);
+
+        calendar.set(alarm.year, alarm.month, alarm.day);
+
+        String pattern = DateFormat.getBestDateTimePattern(
+                Locale.getDefault(), isCurrentYear ? "MMMMd" : "yyyyMMMMd");
+        return new SimpleDateFormat(pattern, Locale.getDefault()).format(calendar.getTime());
     }
 
     protected Animator getBoundsAnimator(View from, View to, long duration) {

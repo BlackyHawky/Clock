@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2016 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+-->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:width="240dp"
+    android:height="240dp"
+    android:viewportWidth="1176"
+    android:viewportHeight="1176"
+    tools:ignore="VectorRaster">
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M588 647.9c-4.4 0-8-3.6-8-8v-448c0-4.4 3.6-8 8-8s8 3.6 8 8v448c0 4.4-3.6 8-8 8z" />
+</vector>

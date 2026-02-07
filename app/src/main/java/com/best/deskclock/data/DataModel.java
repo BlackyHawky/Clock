@@ -31,13 +31,13 @@ import android.os.Looper;
 import android.os.SystemClock;
 import android.text.format.DateFormat;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import com.best.deskclock.R;
 import com.best.deskclock.timer.TimerService;
+import com.best.deskclock.uicomponents.toast.CustomToast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -286,6 +286,15 @@ public final class DataModel {
     }
 
     /**
+     * Updates the order of selected cities and persists it to SharedPreferences.
+     * @param newOrder the new list of selected cities, in the desired order
+     */
+    public void updateSelectedCitiesOrder(List<City> newOrder) {
+        enforceMainLooper();
+        mCityModel.updateSelectedCitiesOrder(newOrder);
+    }
+
+    /**
      * @return a comparator used to locate index positions
      */
     public Comparator<City> getCityIndexComparator() {
@@ -521,14 +530,6 @@ public final class DataModel {
     public Uri getDefaultTimerRingtoneUri() {
         enforceMainLooper();
         return mTimerModel.getDefaultTimerRingtoneUri();
-    }
-
-    /**
-     * @return {@code true} iff the ringtone to play for all timers is the silent ringtone
-     */
-    public boolean isTimerRingtoneSilent() {
-        enforceMainLooper();
-        return mTimerModel.isTimerRingtoneSilent();
     }
 
     /**
@@ -775,6 +776,20 @@ public final class DataModel {
     }
 
     /**
+     * Clears the in-memory list of custom ringtones.
+     *
+     * <p>This method removes all cached custom ringtones stored in {@code mCustomRingtones}
+     * and forces the list to be reloaded from SharedPreferences the next time it is accessed.
+     * It is typically used during a full application reset, after the ringtone-related
+     * preferences and files have been deleted.</p>
+     */
+    public void clearCustomRingtones() {
+        enforceMainLooper();
+        mRingtoneModel.clearCustomRingtones();
+    }
+
+
+    /**
      * @param silentSettingsListener to be notified when alarm-silencing settings change
      */
     public void addSilentSettingsListener(OnSilentSettingsListener silentSettingsListener) {
@@ -885,7 +900,7 @@ public final class DataModel {
                 try {
                     context.startActivity(intent);
                 } catch (ActivityNotFoundException ex) {
-                    Toast.makeText(context, "application_not_found", Toast.LENGTH_SHORT).show();
+                    CustomToast.show(context, "application_not_found");
                 }
                 return true;
             }

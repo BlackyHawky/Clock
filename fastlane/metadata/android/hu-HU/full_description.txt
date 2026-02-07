@@ -1,0 +1,33 @@
+A Vekker egy privát szférát tiszteletben tartó nyílt forráskódú óra, mely AOSP alapokon nyugszik.
+Nem használ internet hozzáférést, ezért 100%-ban offline.
+
+Funkciók:
+<ul>
+  <li>Ébresztő beállítása konkrét dátumra;</li>
+  <li>Ébresztő kikapcsolása/halogatása átforgatással vagy rázással;</li>
+  <li>Ébresztő kikapcsolása/halogatás a kikapcsoló- vagy hangerő gombokkal;</li>
+  <li>Egyes Snapdragon készülékek esetében az ébresztő kikapcsolt állapotban kapcsolódik be</li>
+    <ul>
+      <li>Sajnos ez a funkció nem minden készülék esetében működik, még akkor sem ha jelen van a <i>"com.qualcomm.qti.poweroffalarm"</i> rendszer app.</li>
+    </ul>
+  <li>Félrehúzás ébresztő törléshez;</li>
+  <li>Ébresztő klónozása;</li>
+  <li>Egyéni címek ébresztőkhöz;</li>
+  <li>Egyéni csengőhang;</li>
+  <li>Akár véletlenszerű csengőhang lejátszása is;</li>
+  <li>Világos, sötét, vagy rendszerkövető téma;</li>
+  <li>AMOLED a sötét módhoz;</li>
+  <li>Személyre szabható felület;</li>
+  <li>Digitális vagy analóg óralap;</li>
+  <li>Otthoni időzóna megjelenítése utazáskor;</li>
+  <li>Egyszerre több város helyi idejének megjelenítése;</li>
+  <li>Időzítő és stopper funkciókkal;</li>
+  <li>Stopper megosztható a címjegyzékkel;</li>
+  <li>Személyre szabható képernyőkímélő;</li>
+  <li>Modern widgetek;</li>
+  <li>Személyre szabható widgetek;</li>
+  <li>Csempék támogatása a gyors beállításoknál (Android 7+ esetén);</li>
+  <li>App adat mentése és visszaállítása (csengőhangok kivételével);</li>
+  <li>Material design;</li>
+  <li>Dinamikus színek Android 12+ esetén;</li>
+</ul>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Drawable from https://github.com/you-apps/ClockYou/blob/4e121b6541b72402f3424f47f06a0c7d364e9ce2/app/src/main/res/drawable/blob.xml
+    Design by SuhasDissa
+    modified
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="480"
+    android:viewportHeight="480">
+    <path
+        android:fillColor="?attr/colorSurface"
+        android:pathData="M431.5 295.5Q411 240 416 192.5t-18-98T319 48 213 44.5t-90.5 24T56 144 31 239.5t39.5 84T142 383t78.5 48 91-.5 93-50.5 27-84.5Z" />
+</vector>

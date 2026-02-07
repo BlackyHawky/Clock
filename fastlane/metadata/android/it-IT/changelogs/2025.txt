@@ -1,0 +1,13 @@
+**Fix**
+- Corretto “OK” su selezione ora con il tastierino
+
+**Miglioramenti
+- Impostazione dei secondi per il pulsante ‘+ 1:00’ sui contaminuti
+- Miglioramento prestazioni contaminuti
+- Non ridimension la finestra di dialogo sugli schermi piccoli
+- Suonerie casuali per il sistema e suonerie personalizzate separate
+- Sveglie ripetibili se non disattivate
+- Migliore riproduzione delle suonerie
+- Traduzioni aggiornate
+
+Tutte le modifiche qui: https://github.com/BlackyHawky/Clock/releases/tag/2.22

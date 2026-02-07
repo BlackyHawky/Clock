@@ -11,8 +11,8 @@ import static android.provider.Settings.ACTION_MANAGE_APP_USE_FULL_SCREEN_INTENT
 import static android.provider.Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS;
 import static android.provider.Settings.EXTRA_APP_PACKAGE;
 
-import static com.best.deskclock.DeskClock.REQUEST_CHANGE_PERMISSIONS;
-import static com.best.deskclock.DeskClock.REQUEST_CHANGE_SETTINGS;
+import static androidx.core.util.TypedValueCompat.dpToPx;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ESSENTIAL_PERMISSIONS_GRANTED;
 
 import android.annotation.SuppressLint;
 import android.app.NotificationManager;
@@ -21,8 +21,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.provider.Settings;
@@ -34,6 +34,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
@@ -41,21 +42,15 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.uicomponents.CollapsingToolbarBaseActivity;
+import com.best.deskclock.uicomponents.CustomDialog;
+import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.SdkUtils;
-import com.best.deskclock.utils.ThemeUtils;
-import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 
+import com.best.deskclock.utils.ThemeUtils;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.color.MaterialColors;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Manage the permissions required to ensure the application runs properly.
@@ -98,11 +93,23 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
         TextView mNotificationStatus;
         TextView mFullScreenNotificationsStatus;
 
+        Typeface mRegularTypeFace;
+        Typeface mBoldTypeFace;
+
         private static final String PERMISSION_POWER_OFF_ALARM = "org.codeaurora.permission.POWER_OFF_ALARM";
 
         @Override
         protected String getFragmentTitle() {
             return getString(R.string.permission_management_settings);
+        }
+
+        @Override
+        public void onCreate(@Nullable Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+
+            final String fontPath = SettingsDAO.getGeneralFont(mPrefs);
+            mRegularTypeFace = ThemeUtils.loadFont(fontPath);
+            mBoldTypeFace = ThemeUtils.boldTypeface(fontPath);
         }
 
         @NonNull
@@ -117,6 +124,18 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
             mIgnoreBatteryOptimizationsView = rootView.findViewById(R.id.IBO_view);
             mIgnoreBatteryOptimizationsView.setOnClickListener(v -> launchIgnoreBatteryOptimizationsSettings());
 
+            TextView IBOTitle = rootView.findViewById(R.id.IBO_title);
+            IBOTitle.setTypeface(mBoldTypeFace);
+
+            TextView IBORequirementTitle = rootView.findViewById(R.id.IBO_requirement_type_title);
+            IBORequirementTitle.setTypeface(mRegularTypeFace);
+
+            TextView IBORequirementAdvice = rootView.findViewById(R.id.IBO_requirement_advice);
+            IBORequirementAdvice.setTypeface(mRegularTypeFace);
+
+            TextView IBOStatusTitle = rootView.findViewById(R.id.IBO_status_title);
+            IBOStatusTitle.setTypeface(mRegularTypeFace);
+
             mIgnoreBatteryOptimizationsDetails = rootView.findViewById(R.id.IBO_details_button);
             mIgnoreBatteryOptimizationsDetails.setOnClickListener(v ->
                     displayPermissionDetailsDialog(
@@ -128,6 +147,18 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
 
             mNotificationView = rootView.findViewById(R.id.notification_view);
             mNotificationView.setOnClickListener(v -> grantOrRevokeNotificationsPermission());
+
+            TextView notificationTitle = rootView.findViewById(R.id.notification_title);
+            notificationTitle.setTypeface(mBoldTypeFace);
+
+            TextView notificationRequirementTitle = rootView.findViewById(R.id.notification_requirement_type_title);
+            notificationRequirementTitle.setTypeface(mRegularTypeFace);
+
+            TextView notificationRequirementAdvice = rootView.findViewById(R.id.notification_requirement_advice);
+            notificationRequirementAdvice.setTypeface(mRegularTypeFace);
+
+            TextView notificationStatusTitle = rootView.findViewById(R.id.notification_status_title);
+            notificationStatusTitle.setTypeface(mRegularTypeFace);
 
             mNotificationDetails = rootView.findViewById(R.id.notification_details_button);
             mNotificationDetails.setOnClickListener(v ->
@@ -148,6 +179,18 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                 mFullScreenNotificationsView.setVisibility(View.VISIBLE);
                 mFullScreenNotificationsView.setOnClickListener(v -> grantOrRevokeFullScreenNotificationsPermission());
 
+                TextView FSNTitle = rootView.findViewById(R.id.FSN_title);
+                FSNTitle.setTypeface(mBoldTypeFace);
+
+                TextView FSNRequirementTitle = rootView.findViewById(R.id.FSN_requirement_type_title);
+                FSNRequirementTitle.setTypeface(mRegularTypeFace);
+
+                TextView FSNRequirementAdvice = rootView.findViewById(R.id.FSN_requirement_advice);
+                FSNRequirementAdvice.setTypeface(mRegularTypeFace);
+
+                TextView FSNStatusTitle = rootView.findViewById(R.id.FSN_status_title);
+                FSNStatusTitle.setTypeface(mRegularTypeFace);
+
                 mFullScreenNotificationsDetails = rootView.findViewById(R.id.FSN_details_button);
                 mFullScreenNotificationsDetails.setOnClickListener(v ->
                         displayPermissionDetailsDialog(
@@ -160,10 +203,22 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                 updateFullScreenNotificationsCard(isCardBackgroundDisplayed, isCardBorderDisplayed);
             }
 
-            if (MiuiCheck.isMiui()) {
+            if (DeviceUtils.isMiui()) {
                 mShowLockscreenView = rootView.findViewById(R.id.show_lockscreen_view);
                 mShowLockscreenView.setVisibility(View.VISIBLE);
                 mShowLockscreenView.setOnClickListener(v -> grantShowOnLockScreenPermissionXiaomi());
+
+                TextView showLockScreenTitle = rootView.findViewById(R.id.show_lockscreen_title);
+                showLockScreenTitle.setTypeface(mBoldTypeFace);
+
+                TextView showLockScreenRequirementTitle = rootView.findViewById(R.id.show_lockscreen_type_title);
+                showLockScreenRequirementTitle.setTypeface(mRegularTypeFace);
+
+                TextView showLockscreenRequirementAdvice = rootView.findViewById(R.id.show_lockscreen_requirement_advice);
+                showLockscreenRequirementAdvice.setTypeface(mRegularTypeFace);
+
+                TextView showLockScreenInfoTitle = rootView.findViewById(R.id.show_lockscreen_info_title);
+                showLockScreenInfoTitle.setTypeface(mRegularTypeFace);
 
                 mShowLockscreenDetails = rootView.findViewById(R.id.show_lockscreen_button);
                 mShowLockscreenDetails.setOnClickListener(v ->
@@ -191,6 +246,8 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
         public void onResume() {
             super.onResume();
 
+            updateEssentialPermissionsPref();
+
             setStatusText();
         }
 
@@ -200,7 +257,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
          * accordingly.
          */
         private void applyWindowInsets() {
-            InsetsUtils.doOnApplyWindowInsets(mCoordinatorLayout, (v, insets, initialPadding) -> {
+            InsetsUtils.doOnApplyWindowInsets(mCoordinatorLayout, (v, insets) -> {
                 // Get the system bar and notch insets
                 Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() |
                         WindowInsetsCompat.Type.displayCutout());
@@ -222,11 +279,10 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
             final Intent intentRevoke =
                     new Intent(ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS).addFlags(FLAG_ACTIVITY_NEW_TASK);
 
-            if (!isIgnoringBatteryOptimizations(requireContext())) {
-                startActivity(intentGrant);
-                sendPermissionResult();
-            } else {
+            if (isIgnoringBatteryOptimizations(requireContext())) {
                 displayRevocationDialog(intentRevoke);
+            } else {
+                startActivity(intentGrant);
             }
         }
 
@@ -243,16 +299,14 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
             if (areNotificationsEnabled(requireContext())) {
                 displayRevocationDialog(intent);
             } else if (shouldShowRequestPermissionRationale(POST_NOTIFICATIONS)) {
-                new MaterialAlertDialogBuilder(requireContext())
-                        .setIcon(R.drawable.ic_notifications)
-                        .setTitle(R.string.notifications_dialog_title)
-                        .setMessage(R.string.notifications_dialog_text)
-                        .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                            startActivity(intent);
-                            sendPermissionResult();
-                        })
-                        .setNegativeButton(android.R.string.cancel, null)
-                        .show();
+                CustomDialog.createSimpleDialog(
+                        requireContext(),
+                        R.drawable.ic_notifications,
+                        R.string.notifications_dialog_title,
+                        getString(R.string.notifications_dialog_text),
+                        android.R.string.ok,
+                        (d, w) -> startActivity(intent)
+                ).show();
             } else {
                 if (SdkUtils.isAtLeastAndroid13()) {
                     requireActivity().requestPermissions(new String[]{POST_NOTIFICATIONS}, 0);
@@ -260,8 +314,6 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                     startActivity(intent);
                 }
             }
-
-            sendPermissionResult();
         }
 
         /**
@@ -274,7 +326,6 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
 
                 if (!areFullScreenNotificationsEnabled(requireContext())) {
                     startActivity(intent);
-                    sendPermissionResult();
                 } else {
                     displayRevocationDialog(intent);
                 }
@@ -295,7 +346,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
          * Grant Show On Lock Screen permission for Xiaomi devices
          */
         private void grantShowOnLockScreenPermissionXiaomi() {
-            if (!MiuiCheck.isMiui()) {
+            if (!DeviceUtils.isMiui()) {
                 return;
             }
 
@@ -316,41 +367,36 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
          * Display dialog when user wants to read the permission details.
          */
         private void displayPermissionDetailsDialog(int iconId, int titleId, int messageId) {
-            new MaterialAlertDialogBuilder(requireContext())
-                    .setIcon(iconId)
-                    .setTitle(titleId)
-                    .setMessage(messageId)
-                    .setPositiveButton(R.string.permission_dialog_close_button, null)
-                    .show();
+            CustomDialog.create(
+                    requireContext(),
+                    null,
+                    AppCompatResources.getDrawable(requireContext(), iconId),
+                    getString(titleId),
+                    getString(messageId),
+                    null,
+                    getString(R.string.dialog_close),
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    CustomDialog.SoftInputMode.NONE
+            ).show();
         }
 
         /**
          * Display dialog when user wants to revoke permission.
          */
         private void displayRevocationDialog(Intent intent) {
-            new MaterialAlertDialogBuilder(requireContext())
-                    .setIcon(R.drawable.ic_key_off)
-                    .setTitle(R.string.permission_dialog_revoke_title)
-                    .setMessage(R.string.revoke_permission_dialog_message)
-                    .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                        startActivity(intent);
-                        sendPermissionResult();
-                    })
-                    .setNegativeButton(android.R.string.cancel, null)
-                    .show();
-        }
-
-        /**
-         * Sends the result of a permission request to the calling activity or parent fragment.
-         * If the permission is granted, a result indicating success is sent.
-         * This can be used by the calling component to perform any subsequent actions based on the permission result.
-         */
-        private void sendPermissionResult() {
-            if (requireActivity() instanceof SettingsActivity) {
-                requireActivity().setResult(REQUEST_CHANGE_SETTINGS);
-            } else {
-                requireActivity().setResult(REQUEST_CHANGE_PERMISSIONS);
-            }
+            CustomDialog.createSimpleDialog(
+                    requireContext(),
+                    R.drawable.ic_key_off,
+                    R.string.permission_dialog_revoke_title,
+                    getString(R.string.revoke_permission_dialog_message),
+                    android.R.string.ok,
+                    (d, w) -> startActivity(intent)
+            ).show();
         }
 
         /**
@@ -360,6 +406,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
             mIgnoreBatteryOptimizationsStatus.setText(isIgnoringBatteryOptimizations(requireContext())
                     ? R.string.permission_granted
                     : R.string.permission_denied);
+            mIgnoreBatteryOptimizationsStatus.setTypeface(mRegularTypeFace);
             mIgnoreBatteryOptimizationsStatus.setTextColor(isIgnoringBatteryOptimizations(requireContext())
                     ? requireContext().getColor(R.color.colorGranted)
                     : requireContext().getColor(R.color.colorAlert));
@@ -367,6 +414,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
             mNotificationStatus.setText(areNotificationsEnabled(requireContext())
                     ? R.string.permission_granted
                     : R.string.permission_denied);
+            mNotificationStatus.setTypeface(mRegularTypeFace);
             mNotificationStatus.setTextColor(areNotificationsEnabled(requireContext())
                     ? requireContext().getColor(R.color.colorGranted)
                     : requireContext().getColor(R.color.colorAlert));
@@ -375,6 +423,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                 mFullScreenNotificationsStatus.setText(areFullScreenNotificationsEnabled(requireContext())
                         ? R.string.permission_granted
                         : R.string.permission_denied);
+                mFullScreenNotificationsStatus.setTypeface(mRegularTypeFace);
                 mFullScreenNotificationsStatus.setTextColor(areFullScreenNotificationsEnabled(requireContext())
                         ? requireContext().getColor(R.color.colorGranted)
                         : requireContext().getColor(R.color.colorAlert));
@@ -420,6 +469,11 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                     || SdkUtils.isAtLeastAndroid14() && !areFullScreenNotificationsEnabled(context);
         }
 
+        private void updateEssentialPermissionsPref() {
+            boolean granted = !areEssentialPermissionsNotGranted(requireContext());
+            mPrefs.edit().putBoolean(KEY_ESSENTIAL_PERMISSIONS_GRANTED, granted).apply();
+        }
+
         private void updateCardViews(boolean isCardBackgroundDisplayed, boolean isCardBorderDisplayed) {
             if (isCardBackgroundDisplayed) {
                 mIgnoreBatteryOptimizationsView.setCardBackgroundColor(
@@ -434,14 +488,14 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
             }
 
             if (isCardBorderDisplayed) {
-                mIgnoreBatteryOptimizationsView.setStrokeWidth(ThemeUtils.convertDpToPixels(2, requireContext()));
-                mIgnoreBatteryOptimizationsView.setStrokeColor(
-                        MaterialColors.getColor(requireContext(), com.google.android.material.R.attr.colorPrimary, Color.BLACK)
+                mIgnoreBatteryOptimizationsView.setStrokeWidth((int) dpToPx(2, mDisplayMetrics));
+                mIgnoreBatteryOptimizationsView.setStrokeColor(MaterialColors.getColor(
+                        requireContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK)
                 );
 
-                mNotificationView.setStrokeWidth(ThemeUtils.convertDpToPixels(2, requireContext()));
-                mNotificationView.setStrokeColor(
-                        MaterialColors.getColor(requireContext(), com.google.android.material.R.attr.colorPrimary, Color.BLACK)
+                mNotificationView.setStrokeWidth((int) dpToPx(2, mDisplayMetrics));
+                mNotificationView.setStrokeColor(MaterialColors.getColor(
+                        requireContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK)
                 );
             }
         }
@@ -455,9 +509,9 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
             }
 
             if (isCardBorderDisplayed) {
-                mFullScreenNotificationsView.setStrokeWidth(ThemeUtils.convertDpToPixels(2, requireContext()));
-                mFullScreenNotificationsView.setStrokeColor(
-                        MaterialColors.getColor(requireContext(), com.google.android.material.R.attr.colorPrimary, Color.BLACK));
+                mFullScreenNotificationsView.setStrokeWidth((int) dpToPx(2, mDisplayMetrics));
+                mFullScreenNotificationsView.setStrokeColor(MaterialColors.getColor(
+                        requireContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK));
             }
         }
 
@@ -470,72 +524,10 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
             }
 
             if (isCardBorderDisplayed) {
-                mShowLockscreenView.setStrokeWidth(ThemeUtils.convertDpToPixels(2, requireContext()));
-                mShowLockscreenView.setStrokeColor(
-                        MaterialColors.getColor(requireContext(), com.google.android.material.R.attr.colorPrimary, Color.BLACK));
+                mShowLockscreenView.setStrokeWidth((int) dpToPx(2, mDisplayMetrics));
+                mShowLockscreenView.setStrokeColor(MaterialColors.getColor(
+                        requireContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK));
             }
-        }
-
-    }
-
-    /**
-     * Class called to check if the device is running MIUI.
-     */
-    public static class MiuiCheck {
-
-        /**
-         * Check if the device is running MIUI.
-         * <p>
-         * By default, HyperOS is excluded from verification.
-         * If you want to include HyperOS in the verification, pass excludeHyperOS as false.
-         *
-         * @param excludeHyperOS Indicate whether to exclude HyperOS.
-         * @return {@code true} if the device is running MIUI ; {@code false} otherwise.
-         */
-        public static boolean isMiui(boolean excludeHyperOS) {
-            // Check if the device is from Xiaomi, Redmi or POCO.
-            String brand = Build.BRAND.toLowerCase();
-            Set<String> xiaomiBrands = new HashSet<>(Arrays.asList("xiaomi", "redmi", "poco"));
-            if (!xiaomiBrands.contains(brand)) {
-                return false;
-            }
-
-            // This feature is present in both MIUI and HyperOS.
-            String miuiVersion = getProperty("ro.miui.ui.version.name");
-            boolean isMiui = miuiVersion != null && !miuiVersion.trim().isEmpty();
-            // This feature is exclusive to HyperOS and is not present in MIUI.
-            String hyperOSVersion = getProperty("ro.mi.os.version.name");
-            boolean isHyperOS = hyperOSVersion != null && !hyperOSVersion.trim().isEmpty();
-
-            return isMiui && (!excludeHyperOS || !isHyperOS);
-        }
-
-        /**
-         * Private method to get the value of a system property.
-         */
-        private static String getProperty(String property) {
-            BufferedReader reader = null;
-            try {
-                Process process = Runtime.getRuntime().exec("getprop " + property);
-                reader = new BufferedReader(new InputStreamReader(process.getInputStream()), 1024);
-                return reader.readLine();
-            } catch (IOException ignored) {
-                return null;
-            } finally {
-                if (reader != null) {
-                    try {
-                        reader.close();
-                    } catch (IOException ignored) {
-                    }
-                }
-            }
-        }
-
-        /**
-         * Overload of isMiui method with excludeHyperOS set to true by default.
-         */
-        public static boolean isMiui() {
-            return isMiui(true);
         }
 
     }

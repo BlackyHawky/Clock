@@ -1,0 +1,10 @@
+Lots of improvements in this version; everything is detailed here:
+https://github.com/BlackyHawky/Clock/releases/tag/2.24
+
+**Note: Due to code changes, some alarm settings have been reset:**
+- `Silence after`
+* On the "Customize alarm display" page:
+- `Display time with seconds`
+- `Second hand color`
+
+**Please make a new backup after updating the app and delete the old one**

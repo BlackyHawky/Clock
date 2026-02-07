@@ -48,7 +48,7 @@ import com.best.deskclock.R;
  */
 public class StopwatchLandscapeLayout extends ViewGroup {
 
-    private View mLapsListView;
+    private View mLapsBackground;
     private View mStopwatchView;
 
     public StopwatchLandscapeLayout(Context context) {
@@ -67,7 +67,7 @@ public class StopwatchLandscapeLayout extends ViewGroup {
     protected void onFinishInflate() {
         super.onFinishInflate();
 
-        mLapsListView = findViewById(R.id.laps_list);
+        mLapsBackground = findViewById(R.id.laps_background);
         mStopwatchView = findViewById(R.id.stopwatch_time_wrapper);
     }
 
@@ -82,14 +82,14 @@ public class StopwatchLandscapeLayout extends ViewGroup {
 
         // First determine the width of the laps list.
         final int lapsListWidth;
-        if (mLapsListView != null && mLapsListView.getVisibility() != GONE) {
+        if (mLapsBackground != null && mLapsBackground.getVisibility() != GONE) {
             // Measure the intrinsic size of the laps list.
-            mLapsListView.measure(minWidthSpec, maxHeightSpec);
+            mLapsBackground.measure(minWidthSpec, maxHeightSpec);
 
             // Actual laps list width is the larger of half the container and its intrinsic width.
-            lapsListWidth = Math.max(mLapsListView.getMeasuredWidth(), halfWidth);
+            lapsListWidth = Math.max(mLapsBackground.getMeasuredWidth(), halfWidth);
             final int lapsListWidthSpec = MeasureSpec.makeMeasureSpec(lapsListWidth, EXACTLY);
-            mLapsListView.measure(lapsListWidthSpec, maxHeightSpec);
+            mLapsBackground.measure(lapsListWidthSpec, maxHeightSpec);
         } else {
             lapsListWidth = 0;
         }
@@ -100,7 +100,7 @@ public class StopwatchLandscapeLayout extends ViewGroup {
         mStopwatchView.measure(stopwatchWidthSpec, maxHeightSpec);
 
         // Record the measured size of this container.
-        setMeasuredDimension(widthMeasureSpec, heightMeasureSpec);
+        setMeasuredDimension(width, height);
     }
 
     @Override
@@ -116,10 +116,10 @@ public class StopwatchLandscapeLayout extends ViewGroup {
         final boolean isLTR = getLayoutDirection() == LAYOUT_DIRECTION_LTR;
 
         final int lapsListWidth;
-        if (mLapsListView != null && mLapsListView.getVisibility() != GONE) {
+        if (mLapsBackground != null && mLapsBackground.getVisibility() != GONE) {
             // Layout the laps list, centering it vertically.
-            lapsListWidth = mLapsListView.getMeasuredWidth();
-            final int lapsListHeight = mLapsListView.getMeasuredHeight();
+            lapsListWidth = mLapsBackground.getMeasuredWidth();
+            final int lapsListHeight = mLapsBackground.getMeasuredHeight();
             final int lapsListTop = top + halfHeight - (lapsListHeight / 2);
             final int lapsListBottom = lapsListTop + lapsListHeight;
             final int lapsListLeft;
@@ -132,7 +132,7 @@ public class StopwatchLandscapeLayout extends ViewGroup {
                 lapsListRight = left + lapsListWidth;
             }
 
-            mLapsListView.layout(lapsListLeft, lapsListTop, lapsListRight, lapsListBottom);
+            mLapsBackground.layout(lapsListLeft, lapsListTop, lapsListRight, lapsListBottom);
         } else {
             lapsListWidth = 0;
         }

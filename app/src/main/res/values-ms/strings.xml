@@ -83,8 +83,7 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"Tempoh tunda"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Tinggikan kelantangan beransur-ansur"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Senyap selepas"</string>
-    <string name="auto_silence_never" msgid="4821982647348750809">"Jangan sekali-kali"</string>
-    <string name="auto_silence_1_minute">1 minit</string>
+    <string name="label_never" msgid="4821982647348750809">"Jangan sekali-kali"</string>
     <string name="label_off">Dimatikan</string>
     <string name="week_start_title" msgid="4268917518596832096">"Mulakan minggu pada"</string>
     <string name="week_start_saturday">Sabtu</string>
@@ -255,6 +254,8 @@
         <item msgid="3027153773466391728">"Fiji"</item>
         <item msgid="5911600083231840181">"Tonga"</item>
         <item msgid="5176858645450908751">"Jakarta"</item>
+        <item>"Riyadh"</item>
+        <item>"Reykjavik"</item>
     </string-array>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"Pgera baru"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"Buat penggera baharu"</string>
@@ -277,6 +278,7 @@
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> pemasa"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Kembangkan penggera"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Runtuhkan penggera"</string>
+    <string name="alarm_undo" msgid="5710042601177655254">"buat asal"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Penggera dikesan"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="LABEL">%s</xliff:g></string>
     <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> awal"</string>

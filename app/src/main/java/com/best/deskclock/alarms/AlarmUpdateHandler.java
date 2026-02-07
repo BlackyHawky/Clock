@@ -10,7 +10,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
-import android.text.format.DateFormat;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -18,9 +17,10 @@ import com.best.deskclock.R;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
+import com.best.deskclock.uicomponents.toast.SnackbarManager;
 import com.best.deskclock.utils.AlarmUtils;
+import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.Utils;
-import com.best.deskclock.widget.toast.SnackbarManager;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Calendar;
@@ -39,6 +39,8 @@ public final class AlarmUpdateHandler {
 
     // For undo
     private Alarm mDeletedAlarm;
+
+    private AlarmUpdateCallback mUpdateCallback;
 
     public AlarmUpdateHandler(Context context, ScrollHandler scrollHandler, ViewGroup snackbarAnchor) {
         mAppContext = context.getApplicationContext();
@@ -61,7 +63,7 @@ public final class AlarmUpdateHandler {
                 ContentResolver cr = mAppContext.getContentResolver();
 
                 // Add alarm to db
-                Alarm newAlarm = Alarm.addAlarm(cr, alarm);
+                Alarm newAlarm = alarm.addAlarm(cr);
 
                 // Be ready to scroll to this alarm on UI later.
                 mScrollHandler.setSmoothScrollStableId(newAlarm.id);
@@ -95,45 +97,65 @@ public final class AlarmUpdateHandler {
         executor.execute(() -> {
             ContentResolver cr = mAppContext.getContentResolver();
 
-            // Update alarm
-            Alarm.updateAlarm(cr, alarm);
-
-            if (minorUpdate) {
-                // just update the instance in the database and update notifications.
-                final List<AlarmInstance> instanceList =
-                        AlarmInstance.getInstancesByAlarmId(cr, alarm.id);
-                for (AlarmInstance instance : instanceList) {
-                    // Make a copy of the existing instance
-                    final AlarmInstance newInstance = new AlarmInstance(instance);
-                    // Copy over minor change data to the instance; we don't know
-                    // exactly which minor field changed, so just copy them all.
-                    newInstance.mLabel = alarm.label;
-                    newInstance.mVibrate = alarm.vibrate;
-                    newInstance.mFlash = alarm.flash;
-                    newInstance.mRingtone = alarm.alert;
-                    newInstance.mAutoSilenceDuration = alarm.autoSilenceDuration;
-                    newInstance.mSnoozeDuration = alarm.snoozeDuration;
-                    newInstance.mCrescendoDuration = alarm.crescendoDuration;
-                    newInstance.mAlarmVolume = alarm.alarmVolume;
-                    // Since we copied the mId of the old instance and the mId is used
-                    // as the primary key in the AlarmInstance table, this will replace
-                    // the existing instance.
-                    AlarmInstance.updateInstance(cr, newInstance);
-                    // Update the notification for this instance.
-                    AlarmNotifications.updateNotification(mAppContext, newInstance);
-                }
-                return;
+            if (mUpdateCallback != null) {
+                LogUtils.v("AlarmUpdateHandler: notifying update started");
+                handler.post(() -> mUpdateCallback.onAlarmUpdateStarted());
             }
-            // Otherwise, this is a major update and we're going to re-create the alarm
-            AlarmStateManager.deleteAllInstances(mAppContext, alarm.id);
 
-            final AlarmInstance finalInstance = alarm.enabled ? setupAlarmInstance(alarm) : null;
+            try {
+                // Update alarm
+                alarm.updateAlarm(cr);
 
-            handler.post(() -> {
-                if (popToast && finalInstance != null) {
-                    AlarmUtils.popAlarmSetSnackbar(mSnackbarAnchor, finalInstance.getAlarmTime().getTimeInMillis());
+                if (minorUpdate) {
+                    // just update the instance in the database and update notifications.
+                    final List<AlarmInstance> instanceList =
+                            AlarmInstance.getInstancesByAlarmId(cr, alarm.id);
+                    for (AlarmInstance instance : instanceList) {
+                        // Make a copy of the existing instance
+                        final AlarmInstance newInstance = new AlarmInstance(instance);
+                        // Copy over minor change data to the instance; we don't know
+                        // exactly which minor field changed, so just copy them all.
+                        newInstance.mLabel = alarm.label;
+                        newInstance.mVibrate = alarm.vibrate;
+                        newInstance.mVibrationPattern = alarm.vibrationPattern;
+                        newInstance.mFlash = alarm.flash;
+                        newInstance.mRingtone = alarm.alert;
+                        newInstance.mAutoSilenceDuration = alarm.autoSilenceDuration;
+                        newInstance.mSnoozeDuration = alarm.snoozeDuration;
+                        newInstance.mMissedAlarmRepeatLimit = alarm.missedAlarmRepeatLimit;
+                        newInstance.mCrescendoDuration = alarm.crescendoDuration;
+                        newInstance.mAlarmVolume = alarm.alarmVolume;
+
+                        // If the alarm is in Missed state, mark it as Dismissed and clear its notification.
+                        if (newInstance.mAlarmState == AlarmInstance.MISSED_STATE) {
+                            LogUtils.i("Minor update: resetting missed alarm " + instance.mId);
+                            newInstance.mAlarmState = AlarmInstance.DISMISSED_STATE;
+                            AlarmNotifications.clearNotification(mAppContext, newInstance);
+                        }
+                        // Since we copied the mId of the old instance and the mId is used
+                        // as the primary key in the AlarmInstance table, this will replace
+                        // the existing instance.
+                        newInstance.updateInstance(cr);
+                        // Update the notification for this instance.
+                        AlarmNotifications.updateNotification(mAppContext, newInstance);
+                    }
+                    return;
                 }
-            });
+                // Otherwise, this is a major update and we're going to re-create the alarm
+                AlarmStateManager.deleteAllInstances(mAppContext, alarm.id);
+
+                final AlarmInstance finalInstance = alarm.enabled ? setupAlarmInstance(alarm) : null;
+
+                handler.post(() -> {
+                    if (popToast && finalInstance != null) {
+                        AlarmUtils.popAlarmSetSnackbar(mSnackbarAnchor, finalInstance.getAlarmTime().getTimeInMillis());
+                    }
+                });
+            } finally {
+                if (mUpdateCallback != null) {
+                    handler.post(() -> mUpdateCallback.onAlarmUpdateFinished());
+                }
+            }
         });
     }
 
@@ -164,20 +186,6 @@ public final class AlarmUpdateHandler {
     }
 
     /**
-     * Show a toast when an alarm is predismissed or predidmissed and deleted.
-     *
-     * @param instance Instance being predismissed.
-     */
-    public void showPredismissToast(Alarm alarm, AlarmInstance instance) {
-        final Context localizedContext = Utils.getLocalizedContext(mAppContext);
-        final String time = DateFormat.getTimeFormat(mAppContext).format(instance.getAlarmTime().getTime());
-        final String text = alarm.deleteAfterUse && !alarm.daysOfWeek.isRepeating()
-                ? localizedContext.getString(R.string.alarm_is_dismissed_and_deleted, time)
-                : localizedContext.getString(R.string.alarm_is_dismissed, time);
-        SnackbarManager.show(Snackbar.make(mSnackbarAnchor, text, Snackbar.LENGTH_SHORT));
-    }
-
-    /**
      * Hides any undo toast.
      */
     public void hideUndoBar() {
@@ -189,7 +197,7 @@ public final class AlarmUpdateHandler {
         final Context localizedContext = Utils.getLocalizedContext(mAppContext);
         final Alarm deletedAlarm = mDeletedAlarm;
         final Snackbar snackbar = Snackbar.make(mSnackbarAnchor, localizedContext.getString(R.string.alarm_deleted),
-                Snackbar.LENGTH_LONG).setAction(android.R.string.cancel, v -> {
+                Snackbar.LENGTH_LONG).setAction(R.string.alarm_undo, v -> {
                     mDeletedAlarm = null;
                     asyncAddAlarm(deletedAlarm);
                 });
@@ -199,9 +207,19 @@ public final class AlarmUpdateHandler {
     private AlarmInstance setupAlarmInstance(Alarm alarm) {
         final ContentResolver cr = mAppContext.getContentResolver();
         AlarmInstance newInstance = alarm.createInstanceAfter(Calendar.getInstance());
-        AlarmInstance.addInstance(cr, newInstance);
+        newInstance.addInstance(cr);
         // Register instance to state manager
         AlarmStateManager.registerInstance(mAppContext, newInstance, true);
         return newInstance;
     }
+
+    /**
+     * Registers a callback to be notified when an alarm update starts or finishes.
+     *
+     * @param callback the callback to receive update lifecycle events
+     */
+    public void setAlarmUpdateCallback(AlarmUpdateCallback callback) {
+        this.mUpdateCallback = callback;
+    }
+
 }

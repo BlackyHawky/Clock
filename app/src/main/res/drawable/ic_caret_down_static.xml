@@ -29,7 +29,7 @@
                     <path
                         android:name="caret_l_rect"
                         android:fillColor="?android:attr/textColor"
-                        android:pathData="M-1-4H1V4H-1V-4Z" />
+                        android:pathData="M1-4H-1V3c0 2 2 2 2-0Z" />
                 </group>
             </group>
         </group>
@@ -45,7 +45,7 @@
                     <path
                         android:name="caret_r_rect"
                         android:fillColor="?android:attr/textColor"
-                        android:pathData="M-1-4H1V4H-1V-4Z" />
+                        android:pathData="M-1 4H1V-3C1-5-1-5-1-3Z" />
                 </group>
             </group>
         </group>

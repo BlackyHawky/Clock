@@ -6,38 +6,27 @@
 -->
 
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:aapt="http://schemas.android.com/aapt"
-    xmlns:tools="http://schemas.android.com/tools"
     android:width="108dp"
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <group>
-        <clip-path
-            android:pathData="M0,0h108v108h-108z"
-            tools:ignore="VectorRaster" />
-        <path
-            android:pathData="M54,79L54,54"
-            android:strokeWidth="2"
-            android:fillColor="#00000000"
-            android:strokeColor="#1565C0"
-            android:strokeLineCap="round"/>
-        <path
-            android:pathData="M54,54m-6,0a6,6 0,1 1,12 0a6,6 0,1 1,-12 0"
-            android:fillColor="#9E9E9E"/>
-        <path
-            android:pathData="M28.54,28.54m-72,0a72,72 0,1 1,144 0a72,72 0,1 1,-144 0"
-            android:fillAlpha="0.6">
-            <aapt:attr name="android:fillColor">
-                <gradient
-                    android:gradientRadius="72"
-                    android:centerX="28.54"
-                    android:centerY="28.54"
-                    android:type="radial">
-                    <item android:offset="0" android:color="#19FFFFFF"/>
-                    <item android:offset="1" android:color="#00FFFFFF"/>
-                </gradient>
-            </aapt:attr>
-        </path>
-    </group>
+    <!-- Hour hand -->
+    <path
+        android:pathData="M37.147 39.859c.364-.434.999-.519 1.464-.196L53.465 49.989c.019.013.037.026.055.039C51.537 50.266 50 51.953 50 54c0 .073.002.145.006.217-.017-.016-.033-.031-.048-.047L37.209 41.334c-.399-.402-.426-1.042-.062-1.475Z"
+        android:fillColor="@android:color/white"/>
+    <!-- Minute hand -->
+    <path
+        android:pathData="M75.449 36.002c-.362-.432-.996-.51-1.452-.18L54.501 49.942c-.035.025-.069.051-.102.078C56.421 50.22 58 51.925 58 54c0 .1-.004.2-.011.298.032-.028.063-.057.094-.087L75.374 37.464c.405-.393.438-1.031.075-1.462Z"
+        android:fillColor="@android:color/white"/>
+    <!-- Second hand -->
+    <path
+        android:pathData="M54 79V54"
+        android:fillColor="#00000000"
+        android:strokeWidth="2"
+        android:strokeColor="#1565C0"
+        android:strokeLineCap="round"/>
+    <!-- Center -->
+    <path
+        android:pathData="M54 54m-4 0a4 4 0 1 1 8 0a4 4 0 1 1-8 0"
+        android:fillColor="#9E9E9E"/>
 </vector>

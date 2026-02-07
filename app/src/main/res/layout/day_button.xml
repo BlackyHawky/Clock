@@ -6,9 +6,11 @@
 -->
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="0dp"
     android:layout_height="48dp"
-    android:layout_weight="1">
+    android:layout_weight="1"
+    tools:layout_width="48dp">
 
     <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/day_button_box"
@@ -19,4 +21,5 @@
         android:button="@null"
         android:gravity="center"
         android:textSize="18sp" />
+
 </FrameLayout>

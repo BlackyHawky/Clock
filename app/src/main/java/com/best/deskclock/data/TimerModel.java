@@ -11,6 +11,8 @@ import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
 
 import static com.best.deskclock.data.Timer.State.EXPIRED;
 import static com.best.deskclock.data.Timer.State.RESET;
+import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_END_OF_RINGTONE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_NEVER;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_RINGTONE;
 
 import android.Manifest;
@@ -409,13 +411,6 @@ final class TimerModel {
     }
 
     /**
-     * @return {@code true} iff the ringtone to play for all timers is the silent ringtone
-     */
-    boolean isTimerRingtoneSilent() {
-        return Uri.EMPTY.equals(getTimerRingtoneUri());
-    }
-
-    /**
      * @return the uri of the ringtone to play for all timers
      */
     Uri getTimerRingtoneUri() {
@@ -438,7 +433,7 @@ final class TimerModel {
      */
     String getTimerRingtoneTitle() {
         if (mTimerRingtoneTitle == null) {
-            if (isTimerRingtoneSilent()) {
+            if (RingtoneUtils.RINGTONE_SILENT.equals(getTimerRingtoneUri())) {
                 // Special case: no ringtone has a title of "Silent".
                 mTimerRingtoneTitle = mContext.getString(R.string.silent_ringtone_title);
             } else {
@@ -730,12 +725,12 @@ final class TimerModel {
         long duration;
 
         // Timer silence has been set to "Never"
-        if (getTimerAutoSilenceDuration() == -1) {
+        if (getTimerAutoSilenceDuration() == TIMEOUT_NEVER) {
             return;
         }
 
         // Timer silence has been set to "At the end of the ringtone"
-        if (getTimerAutoSilenceDuration() == -2) {
+        if (getTimerAutoSilenceDuration() == TIMEOUT_END_OF_RINGTONE) {
             duration = RingtoneUtils.getRingtoneDuration(mContext, mTimerRingtoneUri);
         } else {
             duration = getTimerAutoSilenceDuration() * 1000;

@@ -4,6 +4,7 @@ package com.best.deskclock.timer;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.HapticFeedbackConstants;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
@@ -11,8 +12,6 @@ import android.widget.NumberPicker;
 import androidx.annotation.Nullable;
 
 import com.best.deskclock.R;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * Custom component to display a time selection view using spinners used when creating timers.
@@ -47,24 +46,26 @@ public class CustomTimerSpinnerSetupView extends LinearLayout {
         mSecondPicker.setMinValue(0);
         mSecondPicker.setMaxValue(59);
 
-        mHourPicker.setOnValueChangedListener((_picker, _oldVal, _newVal) -> {
-            if (mOnValueChangeListener != null) mOnValueChangeListener.onValueChange(getValue());
+        mHourPicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
+            picker.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
+            if (mOnValueChangeListener != null) {
+                mOnValueChangeListener.onValueChange();
+            }
         });
 
-        mMinutePicker.setOnValueChangedListener((_picker, _oldVal, _newVal) -> {
-            if (mOnValueChangeListener != null) mOnValueChangeListener.onValueChange(getValue());
+        mMinutePicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
+            picker.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
+            if (mOnValueChangeListener != null) {
+                mOnValueChangeListener.onValueChange();
+            }
         });
 
-        mSecondPicker.setOnValueChangedListener((_picker, _oldVal, _newVal) -> {
-            if (mOnValueChangeListener != null) mOnValueChangeListener.onValueChange(getValue());
+        mSecondPicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
+            picker.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
+            if (mOnValueChangeListener != null) {
+                mOnValueChangeListener.onValueChange();
+            }
         });
-    }
-
-    public void setValue(long valueMillis) {
-        long hours = TimeUnit.MILLISECONDS.toHours(valueMillis);
-        long minutes = TimeUnit.MILLISECONDS.toMinutes(valueMillis) % 60;
-        long seconds = TimeUnit.MILLISECONDS.toSeconds(valueMillis) % 60;
-        setValue(new DurationObject((int) hours, (int) minutes, (int) seconds));
     }
 
     public void setValue(DurationObject value) {
@@ -82,11 +83,11 @@ public class CustomTimerSpinnerSetupView extends LinearLayout {
     }
 
     public void setOnChangeListener(OnValueChangeListener onValueChangeListener) {
-        this.mOnValueChangeListener = onValueChangeListener;
+        mOnValueChangeListener = onValueChangeListener;
     }
 
     public interface OnValueChangeListener {
-        void onValueChange(DurationObject duration);
+        void onValueChange();
     }
 
     public record DurationObject(int hour, int minute, int second) {

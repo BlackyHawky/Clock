@@ -99,8 +99,7 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"Durata amânării"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Mărește treptat volumul"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Dezactivează după"</string>
-    <string name="auto_silence_never" msgid="4821982647348750809">"Niciodată"</string>
-    <string name="auto_silence_1_minute">1 minut</string>
+    <string name="label_never" msgid="4821982647348750809">"Niciodată"</string>
     <string name="label_off">Dezactivat</string>
     <string name="week_start_title" msgid="4268917518596832096">"Săptămâna începe"</string>
     <string name="week_start_saturday">Sâmbătă</string>
@@ -272,6 +271,8 @@
         <item msgid="3027153773466391728">"Fiji"</item>
         <item msgid="5911600083231840181">"Tonga"</item>
         <item msgid="5176858645450908751">"Jakarta"</item>
+        <item>"Riad"</item>
+        <item>"Reykjavik"</item>
     </string-array>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"Alarmă nouă"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">Creează o alarmă nouă</string>
@@ -294,6 +295,7 @@
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> contoare"</string>
     <string name="expand_alarm" msgid="7392616528943305020">Extinde alarma</string>
     <string name="collapse_alarm" msgid="3561772046433483980">Restrânge alarma</string>
+    <string name="alarm_undo" msgid="5710042601177655254">anulare</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Alarma a fost ștearsă"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="LABEL">%s</xliff:g></string>
     <string name="world_time_ahead" msgid="625559988238637652">"cu <xliff:g id="TIME">%1$s</xliff:g> înainte"</string>
@@ -336,7 +338,6 @@
     <string name="timer_channel">Numărătoare inversă</string>
     <string name="title_accent_color">Culoare accent</string>
     <string name="permission_denied">Refuzată</string>
-    <string name="permission_dialog_close_button">Închidere</string>
     <string name="selected">Selectat</string>
     <string name="more_options">Mai multe opțiuni</string>
     <string name="settings_permission_summary">Clic aici pentru a afișa pagina de gestionare a permisiunilor.</string>
@@ -357,8 +358,6 @@
     <string name="about_github_link">Vezi pe GitHub</string>
     <string name="license">Licență open-source</string>
     <string name="gnu_gpl">Licență GNU General Public v3.0</string>
-    <string name="contributors">Contribuitori</string>
-    <string name="credits">Autori</string>
     <string name="dialog_close">Închidere</string>
     <string name="permission_status_title">Stare: </string>
     <string name="screensaver_settings_summary">Deschide setările screensaver-ului</string>
@@ -404,7 +403,6 @@
     <string name="display_card_background_summary">Afișează un fundal pentru unele elemente ale aplicației (alarme, orașe, buton cronometru etc.)</string>
     <string name="first_launch_main_feature_title">CARACTERISTICI PRINCIPALE</string>
     <string name="permission_granted">Acordată</string>
-    <string name="about_dialog_message">• Acțiune de întoarcere și agitare pentru a anula/amâna alarma; \n \n• Oprește/amână alarma cu butonul de pornire sau butoanele de volum; \n \n• Numai pentru telefoanele Snapdragon, alarma este declanșată când telefonul este oprit; \n \n• Glisează pentru a șterge o alarmă; \n \n• Alarme duplicate; \n \n• Personalizează titlul alarmei; \n \n• Ton de apel personalizabil; \n \n• Temă luminoasă, întunecată sau de sistem; \n \n• Modul AMOLED pentru tema întunecată; \n \n• Stil de ceas digital sau analog; \n \n• Afișează ora acasă când călătorești; \n \n• Afișează ora din multe orașe din întreaga lume; \n \n• Cronometru, cronometru și ora de culcare <i>(experimentală)</i> incluse; \n \n• Posibilitatea de a partaja cronometrul cu persoanele de contact; \n \n• Screensaver personalizabil; \n \n• Widgeturi moderne; \n \n• Widgeturi personalizabil; \n \n• Design material; \n \n• Culori dinamice pentru Android 12+; \u0020</string>
     <string name="title_theme">Temă</string>
     <string name="display_card_background_title">Afișează fundalurile cardului</string>
     <string name="first_launch_main_feature_message">► Temă deschisă, întunecată sau de sistem; &lt;br&gt; &lt;br&gt; ► Screensaver personalizabil; &lt;br&gt; &lt;br&gt; ► Widgeturi personalizabil; &lt;br&gt; &lt;br&gt; ► Design material și culori dinamice; &lt;br&gt; &lt;br&gt; ► Glisează pentru a șterge o alarmă; &lt;br&gt; &lt;br&gt; ► Dublează o alarmă; &lt;br&gt; &lt;br&gt; ► Acțiune de întoarcere și agitare pentru a anula/amâna alarma; &lt;br&gt; &lt;br&gt; ► Oprește/amână alarma cu butonul de pornire sau butoanele de volum;&lt;br&gt; &lt;br&gt; ► %s</string>

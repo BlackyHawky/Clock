@@ -8,10 +8,12 @@ package com.best.deskclock.ringtone;
 
 import static android.view.View.GONE;
 
+import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.text.SpannableStringBuilder;
@@ -41,11 +43,12 @@ final class AddCustomRingtoneViewHolder extends ItemViewHolder<AddCustomRingtone
     private AddCustomRingtoneViewHolder(View itemView) {
         super(itemView);
 
+        final Context context = itemView.getContext();
+        final SharedPreferences prefs = getDefaultSharedPreferences(context);
+
         itemView.setOnClickListener(this);
 
         itemView.setOnLongClickListener(this);
-
-        final Context context = itemView.getContext();
 
         final View selectedView = itemView.findViewById(R.id.sound_image_selected);
         selectedView.setVisibility(GONE);
@@ -54,7 +57,7 @@ final class AddCustomRingtoneViewHolder extends ItemViewHolder<AddCustomRingtone
         nameView.setSingleLine(false);
 
         //Add vertical spacing between lines
-        nameView.setLineSpacing(ThemeUtils.convertDpToPixels(4, context), 1.0f);
+        nameView.setLineSpacing((int) dpToPx(4, context.getResources().getDisplayMetrics()), 1.0f);
 
         String title = context.getString(R.string.add_new_sound);
         String subtitle = context.getString(R.string.add_new_sound_subtitle);
@@ -69,18 +72,19 @@ final class AddCustomRingtoneViewHolder extends ItemViewHolder<AddCustomRingtone
         builder.setSpan(smallSpan, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         nameView.setText(builder);
+        nameView.setTypeface(ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs)));
 
         final ImageView imageView = itemView.findViewById(R.id.ringtone_image);
         imageView.setImageDrawable(AppCompatResources.getDrawable(context, R.drawable.ic_add));
         imageView.getDrawable().setTint(MaterialColors.getColor(context, android.R.attr.colorBackground, Color.BLACK));
-        imageView.setBackgroundResource(R.drawable.bg_circle);
-        imageView.setBackgroundTintList(ColorStateList.valueOf(
-                MaterialColors.getColor(context, com.google.android.material.R.attr.colorPrimary, Color.BLACK))
+        imageView.setBackground(ThemeUtils.circleDrawable());
+        imageView.setBackgroundTintList(ColorStateList.valueOf(MaterialColors.getColor(
+                context, androidx.appcompat.R.attr.colorPrimary, Color.BLACK))
         );
 
         final int backgroundColor;
         if (ThemeUtils.isNight(context.getResources())
-                && SettingsDAO.getDarkMode(getDefaultSharedPreferences(context)).equals(AMOLED_DARK_MODE)) {
+                && SettingsDAO.getDarkMode(prefs).equals(AMOLED_DARK_MODE)) {
             backgroundColor = Color.BLACK;
         } else {
             backgroundColor = MaterialColors.getColor(context, android.R.attr.colorBackground, Color.BLACK);
@@ -100,13 +104,7 @@ final class AddCustomRingtoneViewHolder extends ItemViewHolder<AddCustomRingtone
         return true;
     }
 
-    public static class Factory implements ItemViewHolder.Factory {
-
-        private final LayoutInflater mInflater;
-
-        Factory(LayoutInflater inflater) {
-            mInflater = inflater;
-        }
+    public record Factory(LayoutInflater mInflater) implements ItemViewHolder.Factory {
 
         @Override
         public ItemViewHolder<?> createViewHolder(ViewGroup parent, int viewType) {

@@ -1,0 +1,11 @@
+**Korrektur**
+ - Korrektur der Größe der Markierung im Stoppuhrkreis;
+
+**Verbesserungen**
+ - Möglichkeit zum Ändern der Akzentfarbe hinzugefügt;
+ - Möglichkeit zum Ausblenden/Anzeigen von Kartenhintergründen hinzugefügt (gilt nicht für Einstellungen);
+ - Möglichkeit zum Ein- und Ausblenden von Hintergrundrahmen hinzugefügt (gilt nicht für Einstellungen);
+ - Möglichkeit zum Aktivieren/Deaktivieren von Vibrationen für einige UI-Elemente hinzugefügt (betrifft nur Geräte, die mit einem Vibrationsmotor ausgestattet sind);
+ - Vibrationen wurden zu den Einstellungsschaltern hinzugefügt (betrifft nur Geräte, die mit einem Vibrationsmotor ausgestattet sind);
+ - Die Überprüfung der erforderlichen Berechtigungen beim Öffnen der App wurde entfernt: Wenn die erforderlichen Berechtigungen nicht erteilt werden, wird nun oben in den Einstellungen eine Meldung angezeigt.
+ - Screenshots wurden aktualisiert (hauptsächlich für F-Droid), wie hier beschrieben: https://github.com/BlackyHawky/Clock/discussions/23#discussioncomment-9346357

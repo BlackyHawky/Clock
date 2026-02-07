@@ -32,9 +32,12 @@ public interface FabController {
 
     /**
      * Handles a click on the fab.
-     *
-     * @param fab the fab component on which the click occurred
      */
-    void onFabClick(@NonNull ImageView fab);
+    void onFabClick();
+
+    /**
+     * Handles a long click on the fab.
+     */
+    void onFabLongClick(@NonNull ImageView fab);
 
 }

@@ -83,8 +83,7 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"រយៈពេល​ផ្អាក"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"ដំឡើងសំឡេងសន្សឹមៗ"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"បិទ​សំឡេង​បន្ទាប់ពី"</string>
-    <string name="auto_silence_never" msgid="4821982647348750809">"កុំឲ្យសោះ"</string>
-    <string name="auto_silence_1_minute">១​នាទី</string>
+    <string name="label_never" msgid="4821982647348750809">"កុំឲ្យសោះ"</string>
     <string name="label_off">បិទ</string>
     <string name="week_start_title" msgid="4268917518596832096">"ចាប់ផ្តើមសប្តាហ៍នៅថ្ងៃ"</string>
     <string name="week_start_saturday">សៅរ៍</string>
@@ -256,6 +255,8 @@
         <item msgid="3027153773466391728">"ហ្វីជី​"</item>
         <item msgid="5911600083231840181">"តុងហ្គា"</item>
         <item msgid="5176858645450908751">"ហ្សាការតា"</item>
+        <item>"រីយ៉ាដ"</item>
+        <item>"រីក្យាវីក"</item>
     </string-array>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"ម៉ោងរ៉ោទិ៍ថ្មី"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"បង្កើតម៉ោងរោទិ៍ថ្មី"</string>
@@ -278,6 +279,7 @@
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> កម្មវិធី​កំណត់​ពេល"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"ពង្រីក​សំឡេង​រោទ៍"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"បង្រួម​សំឡេង​រោទ៍"</string>
+    <string name="alarm_undo" msgid="5710042601177655254">"​មិន​​ធ្វើ​វិញ"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"បានលុបម៉ោងរោទិ៍"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="LABEL">%s</xliff:g></string>
     <string name="world_time_ahead" msgid="625559988238637652">"លឿនជាង <xliff:g id="TIME">%1$s</xliff:g>"</string>

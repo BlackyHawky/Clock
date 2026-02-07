@@ -5,7 +5,6 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 
-<!-- Special "screen saver mode" with just the time/date on black. -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/saver_container"
@@ -14,21 +13,48 @@
     android:background="@android:color/black"
     tools:ignore="Overdraw">
 
+    <ImageView
+        android:id="@+id/screensaver_background_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/black"
+        android:scaleType="centerCrop"
+        android:visibility="gone"
+        android:contentDescription="@null" />
+
     <!--  Extra layout to let the clock float in the window -->
     <LinearLayout
         android:id="@+id/main_clock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:orientation="vertical"
         tools:ignore="UselessParent">
 
-        <com.best.deskclock.widget.AnalogClock
+        <TextView
+            android:id="@+id/battery_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:visibility="gone"
+            android:textSize="16sp"
+            android:drawablePadding="8dp"
+            tools:drawableStart="@drawable/ic_battery_60"
+            tools:drawableTint="@color/md_theme_onSurfaceVariant"
+            tools:text="80%"
+            tools:textStyle="bold"
+            tools:visibility="visible"
+            tools:ignore="TextContrastCheck" />
+
+        <com.best.deskclock.uicomponents.AnalogClock
             android:id="@+id/analog_clock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal" />
 
-        <com.best.deskclock.widget.AutoSizingTextClock
+        <com.best.deskclock.uicomponents.AutoSizingTextClock
             android:id="@+id/digital_clock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,8 +62,9 @@
             android:ellipsize="none"
             android:gravity="center"
             android:singleLine="true"
-            android:textSize="@dimen/main_clock_font_size"
-            tools:text="12:34" />
+            tools:textSize="70sp"
+            tools:text="12:34"
+            tools:ignore="TextContrastCheck" />
 
         <include layout="@layout/date_and_next_alarm_time" />
 

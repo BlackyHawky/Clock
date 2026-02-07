@@ -6,6 +6,7 @@
 
 package com.best.deskclock.timer;
 
+import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.FabContainer.FAB_REQUEST_FOCUS;
 import static com.best.deskclock.FabContainer.FAB_SHRINK_AND_EXPAND;
@@ -15,6 +16,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.text.BidiFormatter;
 import android.text.SpannableString;
 import android.text.TextUtils;
@@ -22,6 +24,7 @@ import android.text.format.DateUtils;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -87,10 +90,13 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
         super.onFinishInflate();
 
         final SharedPreferences prefs = getDefaultSharedPreferences(getContext());
-        final int marginButtonLeft = ThemeUtils.convertDpToPixels( 10, getContext());
-        final int marginButtonRight = ThemeUtils.convertDpToPixels(10, getContext());
-        final int marginButtonTop = ThemeUtils.convertDpToPixels(10, getContext());
-        final int marginButtonBottom = ThemeUtils.convertDpToPixels(10, getContext());
+        final Typeface generalTypeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
+        final Typeface timerTypeface = ThemeUtils.loadFont(SettingsDAO.getTimerDurationFont(prefs));
+        final DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        final int marginButtonLeft = (int) dpToPx( 10, displayMetrics);
+        final int marginButtonRight = (int) dpToPx(10, displayMetrics);
+        final int marginButtonTop = (int) dpToPx(10, displayMetrics);
+        final int marginButtonBottom = (int) dpToPx(10, displayMetrics);
         final boolean isCardBackgroundDisplayed = SettingsDAO.isCardBackgroundDisplayed(prefs);
         final boolean isCardBorderDisplayed = SettingsDAO.isCardBorderDisplayed(prefs);
         final String darkMode = SettingsDAO.getDarkMode(prefs);
@@ -112,7 +118,11 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
                 findViewById(R.id.timer_setup_digit_9),
         };
 
+        mTimeView.setTypeface(timerTypeface);
+
         for (final MaterialButton digitButton : mDigitButton) {
+            digitButton.setTypeface(generalTypeface);
+
             if (isCardBackgroundDisplayed) {
                 digitButton.setBackgroundTintList(ColorStateList.valueOf(
                         MaterialColors.getColor(getContext(), com.google.android.material.R.attr.colorSurface, Color.BLACK)));
@@ -125,9 +135,9 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
             }
 
             if (isCardBorderDisplayed) {
-                digitButton.setStrokeWidth(ThemeUtils.convertDpToPixels(2, getContext()));
-                digitButton.setStrokeColor(ColorStateList.valueOf(
-                        MaterialColors.getColor(getContext(), com.google.android.material.R.attr.colorPrimary, Color.BLACK)));
+                digitButton.setStrokeWidth((int) dpToPx(2, displayMetrics));
+                digitButton.setStrokeColor(ColorStateList.valueOf(MaterialColors.getColor(getContext(),
+                        androidx.appcompat.R.attr.colorPrimary, Color.BLACK)));
             }
 
             if (isTablet) {
@@ -139,6 +149,8 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
         }
 
         MaterialButton doubleZeroButton = findViewById(R.id.timer_setup_digit_00);
+        doubleZeroButton.setTypeface(generalTypeface);
+
         if (isCardBackgroundDisplayed) {
             doubleZeroButton.setBackgroundTintList(ColorStateList.valueOf(
                     MaterialColors.getColor(getContext(), com.google.android.material.R.attr.colorPrimaryContainer, Color.BLACK)));
@@ -157,15 +169,16 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
         }
 
         if (isCardBorderDisplayed) {
-            doubleZeroButton.setStrokeWidth(ThemeUtils.convertDpToPixels(2, getContext()));
+            doubleZeroButton.setStrokeWidth((int) dpToPx(2, displayMetrics));
             doubleZeroButton.setStrokeColor(ColorStateList.valueOf(
                     MaterialColors.getColor(getContext(), com.google.android.material.R.attr.colorPrimaryInverse, Color.BLACK)));
-            mDeleteButton.setStrokeWidth(ThemeUtils.convertDpToPixels(2, getContext()));
+            mDeleteButton.setStrokeWidth((int) dpToPx(2, displayMetrics));
             mDeleteButton.setStrokeColor(ColorStateList.valueOf(
                     MaterialColors.getColor(getContext(), com.google.android.material.R.attr.colorPrimaryInverse, Color.BLACK)));
         }
         doubleZeroButton.setOnClickListener(this);
 
+        mDeleteButton.setTypeface(generalTypeface);
         mDeleteButton.setOnClickListener(this);
         mDeleteButton.setOnLongClickListener(this);
 
@@ -177,11 +190,6 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
             final ConstraintLayout.LayoutParams deleteButtonParams = (ConstraintLayout.LayoutParams) mDeleteButton.getLayoutParams();
             deleteButtonParams.setMargins(marginButtonLeft, marginButtonTop, marginButtonRight, marginButtonBottom);
             mDeleteButton.setLayoutParams(deleteButtonParams);
-            // In landscape mode, we don't want buttons to take up the full height of the screen.
-            if (ThemeUtils.isLandscape()) {
-                final View tabletDigits = findViewById(R.id.timer_setup_digits);
-                tabletDigits.getLayoutParams().height = ThemeUtils.convertDpToPixels(450, getContext());
-            }
         }
 
         updateTime();
@@ -277,7 +285,7 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
         startIdx = minutes > 0 ? 4 : startIdx;
         startIdx = hours > 0 ? 0 : startIdx;
         if (startIdx != endIdx) {
-            int highlightColor = MaterialColors.getColor(getContext(), com.google.android.material.R.attr.colorPrimary, Color.BLACK);
+            int highlightColor = MaterialColors.getColor(getContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
             text.setSpan(new ForegroundColorSpan(highlightColor), startIdx, endIdx, 0);
         }
         mTimeView.setText(text);

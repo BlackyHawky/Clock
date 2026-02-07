@@ -1,0 +1,10 @@
+Selles versioonis on palju täiendusi, üksikasjalik logi on siin:
+https://github.com/BlackyHawky/Clock/releases/tag/2.24
+
+**Märkus: Muudatuste tõttu lähtekoodis on mõned äratuste seadistused lähtestatud:**
+- „Summuta peale...“
+* Vaates „Äratuse kuhandamine“:
+- „Näita aega sekunditega“
+- „Teise seieri värv“
+
+**Peale rakenduse uuendamist palun tee uus varukoopia ja kustuta eelmine**

@@ -9,44 +9,58 @@ package com.best.deskclock.alarms;
 import static android.content.Context.AUDIO_SERVICE;
 import static android.media.AudioManager.STREAM_ALARM;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_TIMEOUT_END_OF_RINGTONE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_SNOOZE_DURATION_DISABLED;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_DATE_PICKER_STYLE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VOLUME_CRESCENDO_DURATION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SPINNER_DATE_PICKER_STYLE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SPINNER_TIME_PICKER_STYLE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_END_OF_RINGTONE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_NEVER;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
 
 import com.best.deskclock.AlarmClockFragment;
 import com.best.deskclock.AutoSilenceDurationDialogFragment;
 import com.best.deskclock.AlarmSnoozeDurationDialogFragment;
 import com.best.deskclock.LabelDialogFragment;
 import com.best.deskclock.R;
+import com.best.deskclock.VibrationPatternDialogFragment;
 import com.best.deskclock.VolumeCrescendoDurationDialogFragment;
 import com.best.deskclock.alarms.dataadapter.AlarmItemHolder;
 import com.best.deskclock.holiday.HolidayDialogFragment;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
+import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.Calendar;
+import java.util.TimeZone;
 
 /**
  * Click handler for an alarm time item.
@@ -58,14 +72,17 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
     private static final String KEY_PREVIOUS_DAY_MAP = "previousDayMap";
     private final Fragment mFragment;
     private final Context mContext;
+    private final SharedPreferences mPrefs;
     private final AlarmUpdateHandler mAlarmUpdateHandler;
     private Alarm mSelectedAlarm;
     private Bundle mPreviousDaysOfWeekMap;
+    private AlertDialog mCurrentSpinnerDatePickerDialog = null;
 
     public AlarmTimeClickHandler(Fragment fragment, Bundle savedState, AlarmUpdateHandler alarmUpdateHandler) {
 
         mFragment = fragment;
         mContext = mFragment.requireContext();
+        mPrefs = getDefaultSharedPreferences(mContext);
         mAlarmUpdateHandler = alarmUpdateHandler;
 
         if (savedState != null) {
@@ -113,6 +130,14 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
         }
     }
 
+    public void setVibrationPattern(Alarm alarm) {
+        Events.sendAlarmEvent(R.string.action_set_vibration_pattern, R.string.label_deskclock);
+        String vibrationPattern = alarm.vibrationPattern;
+        final VibrationPatternDialogFragment fragment =
+                VibrationPatternDialogFragment.newInstance(alarm, vibrationPattern, mFragment.getTag());
+        VibrationPatternDialogFragment.show(mFragment.getParentFragmentManager(), fragment);
+    }
+
     public void setAlarmFlashEnabled(Alarm alarm, boolean newState) {
         if (newState != alarm.flash) {
             alarm.flash = newState;
@@ -138,22 +163,35 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
         int autoSilenceDuration = alarm.autoSilenceDuration;
         final AutoSilenceDurationDialogFragment fragment =
                 AutoSilenceDurationDialogFragment.newInstance(alarm, autoSilenceDuration,
-                        autoSilenceDuration == ALARM_TIMEOUT_END_OF_RINGTONE,
-                        mFragment.getTag());
+                        autoSilenceDuration == TIMEOUT_END_OF_RINGTONE,
+                        autoSilenceDuration == TIMEOUT_NEVER, mFragment.getTag());
         AutoSilenceDurationDialogFragment.show(mFragment.getParentFragmentManager(), fragment);
     }
 
     public void setSnoozeDuration(Alarm alarm) {
         Events.sendAlarmEvent(R.string.action_set_snooze_duration, R.string.label_deskclock);
+        int snoozeDuration = alarm.snoozeDuration;
         final AlarmSnoozeDurationDialogFragment fragment =
-                AlarmSnoozeDurationDialogFragment.newInstance(alarm, alarm.snoozeDuration, mFragment.getTag());
+                AlarmSnoozeDurationDialogFragment.newInstance(alarm, snoozeDuration,
+                        snoozeDuration == ALARM_SNOOZE_DURATION_DISABLED, mFragment.getTag());
         AlarmSnoozeDurationDialogFragment.show(mFragment.getParentFragmentManager(), fragment);
+    }
+
+    public void setMissedAlarmRepeatLimit(Alarm alarm) {
+        Events.sendAlarmEvent(R.string.action_set_missed_alarm_repeat_limit, R.string.label_deskclock);
+        int missedAlarmRepeatLimit = alarm.missedAlarmRepeatLimit;
+        final AlarmMissedRepeatLimitDialogFragment fragment =
+                AlarmMissedRepeatLimitDialogFragment.newInstance(alarm, missedAlarmRepeatLimit, mFragment.getTag());
+        AlarmMissedRepeatLimitDialogFragment.show(mFragment.getParentFragmentManager(), fragment);
     }
 
     public void setCrescendoDuration(Alarm alarm) {
         Events.sendAlarmEvent(R.string.action_set_crescendo_duration, R.string.label_deskclock);
+        int crescendoDuration = alarm.crescendoDuration;
         final VolumeCrescendoDurationDialogFragment fragment =
-                VolumeCrescendoDurationDialogFragment.newInstance(alarm, alarm.crescendoDuration, mFragment.getTag());
+                VolumeCrescendoDurationDialogFragment.newInstance(alarm, crescendoDuration,
+                        crescendoDuration == DEFAULT_VOLUME_CRESCENDO_DURATION,
+                        mFragment.getTag());
         VolumeCrescendoDurationDialogFragment.show(mFragment.getParentFragmentManager(), fragment);
     }
 
@@ -168,10 +206,17 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
         final Calendar now = Calendar.getInstance();
         final Calendar oldNextAlarmTime = alarm.getNextAlarmTime(now);
 
-        final int weekday = SettingsDAO.getWeekdayOrder(getDefaultSharedPreferences(mContext)).getCalendarDays().get(index);
+        // Reset date if a date is specified
+        if (alarm.isSpecifiedDate()) {
+            alarm.year = now.get(Calendar.YEAR);
+            alarm.month = now.get(Calendar.MONTH);
+            alarm.day = now.get(Calendar.DAY_OF_MONTH);
+        }
+
+        final int weekday = SettingsDAO.getWeekdayOrder(mPrefs).getCalendarDays().get(index);
         alarm.daysOfWeek = alarm.daysOfWeek.setBit(weekday, checked);
 
-        // if the change altered the next scheduled alarm time, tell the user
+        // If the change altered the next scheduled alarm time, tell the user
         final Calendar newNextAlarmTime = alarm.getNextAlarmTime(now);
         final boolean popupToast = !oldNextAlarmTime.equals(newNextAlarmTime);
         mAlarmUpdateHandler.asyncUpdateAlarm(alarm, popupToast, false);
@@ -179,11 +224,10 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
         Utils.setVibrationTime(mContext, 10);
     }
 
-    public void dismissAlarmInstance(Alarm alarm, AlarmInstance alarmInstance) {
+    public void dismissAlarmInstance(AlarmInstance alarmInstance) {
         final Intent dismissIntent = AlarmStateManager.createStateChangeIntent(mContext,
                 AlarmStateManager.ALARM_DISMISS_TAG, alarmInstance, AlarmInstance.PREDISMISSED_STATE);
         mContext.startService(dismissIntent);
-        mAlarmUpdateHandler.showPredismissToast(alarm, alarmInstance);
         Utils.setVibrationTime(mContext, 50);
     }
 
@@ -224,29 +268,51 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
 
     public void onClockClicked(Alarm alarm) {
         mSelectedAlarm = alarm;
-        Events.sendAlarmEvent(R.string.action_set_time, R.string.label_deskclock);
-        if (SettingsDAO.getMaterialTimePickerStyle(
-                getDefaultSharedPreferences(mContext)).equals(SPINNER_TIME_PICKER_STYLE)) {
-            showCustomSpinnerTimePicker(alarm.hour, alarm.minutes);
+
+        if (SettingsDAO.getMaterialTimePickerStyle(mPrefs).equals(SPINNER_TIME_PICKER_STYLE)) {
+            showSpinnerTimePickerDialog(alarm.hour, alarm.minutes);
         } else {
             showMaterialTimePicker(alarm.hour, alarm.minutes);
         }
     }
 
-    private void showCustomSpinnerTimePicker(int hour, int minutes) {
-        CustomSpinnerTimePickerDialog.show(mContext, mFragment, hour, minutes, this);
+    public void onClockLongClicked(Alarm alarm) {
+        mSelectedAlarm = alarm;
+        showAlarmDelayPickerDialog();
     }
 
-    private void showMaterialTimePicker(int hour, int minutes) {
-        MaterialTimePickerDialog.show(mContext, ((AppCompatActivity) mContext).getSupportFragmentManager(),
-                TAG, hour, minutes, getDefaultSharedPreferences(mContext), this);
+    public void showAlarmDelayPickerDialog() {
+        Events.sendAlarmEvent(R.string.action_set_delay, R.string.label_deskclock);
+
+        final AlarmDelayPickerDialogFragment fragment =
+                AlarmDelayPickerDialogFragment.newInstance(0, 0);
+        AlarmDelayPickerDialogFragment.show(mFragment.getParentFragmentManager(), fragment);
+    }
+
+    public void showSpinnerTimePickerDialog(int hours, int minutes) {
+        Events.sendAlarmEvent(R.string.action_set_time, R.string.label_deskclock);
+
+        final SpinnerTimePickerDialogFragment fragment = SpinnerTimePickerDialogFragment.newInstance(hours, minutes);
+        SpinnerTimePickerDialogFragment.show(mFragment.getParentFragmentManager(), fragment);
+    }
+
+    public void showMaterialTimePicker(int hours, int minutes) {
+        FragmentManager fragmentManager = ((AppCompatActivity) mContext).getSupportFragmentManager();
+
+        // Prevents opening the same dialog twice
+        if (fragmentManager.findFragmentByTag(TAG) != null) {
+            return;
+        }
+
+        Events.sendAlarmEvent(R.string.action_set_time, R.string.label_deskclock);
+
+        MaterialTimePickerDialog.show(mContext, fragmentManager, TAG, hours, minutes, mPrefs, this);
     }
 
     public void onDateClicked(Alarm alarm) {
         mSelectedAlarm = alarm;
-        Events.sendAlarmEvent(R.string.action_set_date, R.string.label_deskclock);
-        if (SettingsDAO.getMaterialDatePickerStyle(
-                getDefaultSharedPreferences(mContext)).equals(SPINNER_DATE_PICKER_STYLE)) {
+
+        if (SettingsDAO.getMaterialDatePickerStyle(mPrefs).equals(SPINNER_DATE_PICKER_STYLE)) {
             showSpinnerDatePicker(alarm);
         } else {
             showMaterialDatePicker(alarm);
@@ -254,52 +320,97 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
     }
 
     public void showSpinnerDatePicker(Alarm alarm) {
+        if (mCurrentSpinnerDatePickerDialog != null && mCurrentSpinnerDatePickerDialog.isShowing()) {
+            return;
+        }
+
+        Events.sendAlarmEvent(R.string.action_set_date, R.string.label_deskclock);
+
         LayoutInflater inflater = mFragment.getLayoutInflater();
+        @SuppressLint("InflateParams")
         View dialogView = inflater.inflate(R.layout.spinner_date_picker, null);
 
         DatePicker datePicker = dialogView.findViewById(R.id.spinner_date_picker);
-        Calendar currentCalendar = Calendar.getInstance();
-        long currentDateInMillis = currentCalendar.getTimeInMillis();
+        Calendar now = Calendar.getInstance();
+        Calendar selectionDate = (Calendar) now.clone();
+        Calendar minDate = (Calendar) now.clone();
 
-        // If the alarm is set for today or is still set in the past, and the time has already
-        // passed, prevent today from being selected. Otherwise, allow the current day to be selected.
-        int currentMonth = currentCalendar.get(Calendar.MONTH);
-        if (alarm.year == currentCalendar.get(Calendar.YEAR)
-                && alarm.month == currentMonth
-                && alarm.day == currentCalendar.get(Calendar.DAY_OF_MONTH)) {
+        // Date selection and minimum date to display
+        boolean timePassed = alarm.isTimeBeforeOrEqual(now);
+        boolean isTomorrow = alarm.isTomorrow(now);
 
-            if (alarm.hour < currentCalendar.get(Calendar.HOUR_OF_DAY)
-                    || (alarm.hour == currentCalendar.get(Calendar.HOUR_OF_DAY) && alarm.minutes < currentCalendar.get(Calendar.MINUTE))
-                    || (alarm.hour == currentCalendar.get(Calendar.HOUR_OF_DAY) && alarm.minutes == currentCalendar.get(Calendar.MINUTE))) {
-                currentCalendar.add(Calendar.DAY_OF_MONTH, 1);
-                datePicker.setMinDate(currentCalendar.getTimeInMillis());
-            } else {
-                datePicker.setMinDate(currentDateInMillis);
+        // Date not specified
+        if (!alarm.isSpecifiedDate()) {
+            // Case 1: today or tomorrow depending on isTomorrow()
+            if (isTomorrow) {
+                selectionDate.add(Calendar.DAY_OF_MONTH, 1);
+                minDate.add(Calendar.DAY_OF_MONTH, 1);
             }
+            // else: keep today as selection and minDate
         } else {
-            datePicker.setMinDate(currentDateInMillis);
+            // Alarm has specified date
+            if (alarm.isDateInThePast() || alarm.isScheduledForToday(now)) {
+                // Case 2.1: date in the past or today
+                if (timePassed) {
+                    selectionDate.add(Calendar.DAY_OF_MONTH, 1);
+                    minDate.add(Calendar.DAY_OF_MONTH, 1);
+                }
+                // else: today is valid
+            } else {
+                // Case 2.2: future date
+                selectionDate.set(alarm.year, alarm.month, alarm.day);
+
+                if (timePassed) {
+                    minDate.add(Calendar.DAY_OF_MONTH, 1);
+                }
+            }
         }
 
-        datePicker.init(alarm.year, alarm.month, alarm.day, null);
+        datePicker.setMinDate(minDate.getTimeInMillis());
 
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(mContext, R.style.SpinnerDialogTheme);
-        builder
-                .setTitle(mContext.getString(R.string.date_picker_dialog_title))
-                .setView(dialogView)
-                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+        datePicker.init(selectionDate.get(Calendar.YEAR), selectionDate.get(Calendar.MONTH),
+                selectionDate.get(Calendar.DAY_OF_MONTH), null);
+
+        mCurrentSpinnerDatePickerDialog = CustomDialog.create(
+                mContext,
+                R.style.SpinnerDialogTheme,
+                null,
+                mContext.getString(R.string.date_picker_dialog_title),
+                null,
+                dialogView,
+                mContext.getString(android.R.string.ok),
+                (d, w) -> {
                     int newYear = datePicker.getYear();
                     int newMonth = datePicker.getMonth();
                     int newDay = datePicker.getDayOfMonth();
 
                     onDateSet(newYear, newMonth, newDay, alarm.hour, alarm.minutes);
-                })
-                .setNegativeButton(android.R.string.cancel, null);
+                },
+                mContext.getString(android.R.string.cancel),
+                null,
+                null,
+                null,
+                null,
+                CustomDialog.SoftInputMode.SHOW_KEYBOARD
+        );
 
-        builder.create().show();
+        mCurrentSpinnerDatePickerDialog.setOnDismissListener(dialog ->
+                mCurrentSpinnerDatePickerDialog = null);
+
+        mCurrentSpinnerDatePickerDialog.show();
     }
 
     public void showMaterialDatePicker(Alarm alarm) {
-        String materialDatePickerStyle = SettingsDAO.getMaterialDatePickerStyle(getDefaultSharedPreferences(mContext));
+        FragmentManager fragmentManager = ((AppCompatActivity) mContext).getSupportFragmentManager();
+
+        // Prevents opening the same dialog twice
+        if (fragmentManager.findFragmentByTag(TAG) != null) {
+            return;
+        }
+
+        Events.sendAlarmEvent(R.string.action_set_date, R.string.label_deskclock);
+
+        String materialDatePickerStyle = SettingsDAO.getMaterialDatePickerStyle(mPrefs);
         MaterialDatePicker.Builder<Long> builder = MaterialDatePicker.Builder.datePicker();
 
         // Set date picker style
@@ -307,55 +418,103 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
                 ? MaterialDatePicker.INPUT_MODE_CALENDAR
                 : MaterialDatePicker.INPUT_MODE_TEXT);
 
-        // If a date has already been selected, select it when opening the MaterialDatePicker.
-        if (alarm.isSpecifiedDate()) {
-            Calendar currentCalendar = Calendar.getInstance();
-            // If the date is in the past, select today's date.
-            if (alarm.isDateInThePast()) {
-                long currentDateInMillis = currentCalendar.getTimeInMillis();
-                builder.setSelection(currentDateInMillis);
+        Calendar now = Calendar.getInstance();
+        Calendar selectionDate = (Calendar) now.clone();
+
+        // Date selection
+        boolean timePassed = alarm.isTimeBeforeOrEqual(now);
+
+        // Date not specified
+        if (!alarm.isSpecifiedDate()) {
+            // Case 1: today or tomorrow depending on isTomorrow()
+            if (alarm.isTomorrow(now)) {
+                selectionDate.add(Calendar.DAY_OF_MONTH, 1);
+            }
+        } else {
+            // Alarm has specified date
+            if (alarm.isDateInThePast() || alarm.isScheduledForToday(now)) {
+                // Case 2.1: Date in the past or today's date
+                if (timePassed) {
+                    selectionDate.add(Calendar.DAY_OF_MONTH, 1);
+                }
             } else {
-                currentCalendar.set(alarm.year, alarm.month, alarm.day);
-                long alarmDate = currentCalendar.getTimeInMillis();
-                builder.setSelection(alarmDate);
+                // Case 2.2: Date in the future
+                selectionDate.set(alarm.year, alarm.month, alarm.day);
             }
         }
 
-        // If the alarm is set for today or is still set in the past, and the time has already
-        // passed, prevent today from being selected. Otherwise, allow the current day to be selected.
         CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder();
 
-        Calendar currentTime = Calendar.getInstance();
-        int currentMonth = currentTime.get(Calendar.MONTH);
+        // Prevents navigation to past months
+        constraintsBuilder.setStart(now.getTimeInMillis());
 
-        if (alarm.isDateInThePast()
-                || (alarm.year == currentTime.get(Calendar.YEAR)
-                && alarm.month == currentMonth
-                && alarm.day == currentTime.get(Calendar.DAY_OF_MONTH))) {
-
-            if (alarm.hour < currentTime.get(Calendar.HOUR_OF_DAY)
-                    || (alarm.hour == currentTime.get(Calendar.HOUR_OF_DAY) && alarm.minutes < currentTime.get(Calendar.MINUTE))
-                    || (alarm.hour == currentTime.get(Calendar.HOUR_OF_DAY) && alarm.minutes == currentTime.get(Calendar.MINUTE))) {
-                constraintsBuilder.setValidator(DateValidatorPointForward.from(currentTime.getTimeInMillis()));
-            } else {
-                constraintsBuilder.setValidator(DateValidatorPointForward.now());
-            }
+        // Set validator depending on whether the alarm time has passed or not
+        if (timePassed) {
+            constraintsBuilder.setValidator(DateValidatorPointForward.from(now.getTimeInMillis()));
         } else {
             constraintsBuilder.setValidator(DateValidatorPointForward.now());
         }
 
-        // Don't display past months and years
-        constraintsBuilder.setStart(currentTime.getTimeInMillis());
-
+        builder.setSelection(selectionDate.getTimeInMillis());
         builder.setCalendarConstraints(constraintsBuilder.build());
 
         MaterialDatePicker<Long> materialDatePicker = builder.build();
 
-        materialDatePicker.show(((AppCompatActivity) mContext).getSupportFragmentManager(), TAG);
+        materialDatePicker.getViewLifecycleOwnerLiveData().observeForever(new Observer<>() {
+            @Override public void onChanged(LifecycleOwner owner) {
+                if (owner == null) {
+                    return;
+                }
+
+                View root = materialDatePicker.getView();
+                if (root == null) {
+                    return;
+                }
+
+                Typeface generalFont = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(mPrefs));
+                if (generalFont == null) {
+                    materialDatePicker.getViewLifecycleOwnerLiveData().removeObserver(this);
+                    return;
+                }
+
+                // Bouton OK
+                TextView ok = root.findViewById(
+                        com.google.android.material.R.id.confirm_button);
+                if (ok != null) {
+                    ok.setTypeface(generalFont);
+                }
+
+                // Bouton Cancel
+                TextView cancel = root.findViewById(
+                        com.google.android.material.R.id.cancel_button);
+                if (cancel != null) {
+                    cancel.setTypeface(generalFont);
+                }
+
+                // Titre ("Select date")
+                TextView title = root.findViewById(
+                        com.google.android.material.R.id.mtrl_picker_title_text);
+                if (title != null) {
+                    title.setTypeface(generalFont);
+                }
+
+                // Texte de sélection (la date en gros)
+                TextView headerSelection = root.findViewById(
+                        com.google.android.material.R.id.mtrl_picker_header_selection_text);
+                if (headerSelection != null) {
+                    headerSelection.setTypeface(generalFont);
+                }
+
+                // Très important : on se désabonne
+                materialDatePicker.getViewLifecycleOwnerLiveData().removeObserver(this);
+            }
+        });
+
+        materialDatePicker.show(fragmentManager, TAG);
 
         materialDatePicker.addOnPositiveButtonClickListener(selection -> {
             // Selection contains the selected date as a timestamp (long)
-            Calendar calendar = Calendar.getInstance();
+            Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
             calendar.setTimeInMillis(selection);
 
             int year = calendar.get(Calendar.YEAR);
@@ -368,6 +527,10 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
 
     public void onDateSet(int year, int month, int day, int hourOfDay, int minute) {
         if (mSelectedAlarm != null) {
+            // Disable days of the week if one or more are selected
+            if (mSelectedAlarm.daysOfWeek.isRepeating()) {
+                mSelectedAlarm.daysOfWeek = Weekdays.NONE;
+            }
             mSelectedAlarm.year = year;
             mSelectedAlarm.month = month;
             mSelectedAlarm.day = day;
@@ -387,44 +550,81 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
 
     @Override
     public void onTimeSet(int hourOfDay, int minute) {
+        setAlarm(hourOfDay, minute);
+    }
+
+    public void setAlarm(int hour, int minute) {
         if (mSelectedAlarm == null) {
-            // If mSelectedAlarm is null then we're creating a new alarm.
-            final Alarm alarm = new Alarm();
-            final SharedPreferences prefs = getDefaultSharedPreferences(mContext);
-            final AudioManager audioManager = (AudioManager) mContext.getSystemService(AUDIO_SERVICE);
-
-            alarm.hour = hourOfDay;
-            alarm.minutes = minute;
-            alarm.enabled = true;
-            alarm.vibrate = SettingsDAO.areAlarmVibrationsEnabledByDefault(prefs);
-            alarm.flash = SettingsDAO.shouldTurnOnBackFlashForTriggeredAlarm(prefs);
-            alarm.deleteAfterUse = SettingsDAO.isOccasionalAlarmDeletedByDefault(prefs);
-            alarm.autoSilenceDuration = SettingsDAO.getAlarmTimeout(prefs);
-            alarm.snoozeDuration = SettingsDAO.getSnoozeLength(prefs);
-            alarm.crescendoDuration = SettingsDAO.getAlarmVolumeCrescendoDuration(prefs);
-            alarm.alarmVolume = audioManager.getStreamVolume(STREAM_ALARM);
-
-            mAlarmUpdateHandler.asyncAddAlarm(alarm);
+            mAlarmUpdateHandler.asyncAddAlarm(buildNewAlarm(hour, minute));
         } else {
-            mSelectedAlarm.hour = hourOfDay;
-            mSelectedAlarm.minutes = minute;
-            // Necessary when an existing alarm has been created in the past and it is not enabled.
-            // Even if the date is not specified, it is saved in AlarmInstance; we need to make
-            // sure that the date is not in the past when changing time, in which case we reset
-            // to the current date (an alarm cannot be triggered in the past).
-            // This is due to the change in the code made with commit : 6ac23cf.
-            // Fix https://github.com/BlackyHawky/Clock/issues/299
-            if (mSelectedAlarm.isDateInThePast()) {
-                Calendar currentCalendar = Calendar.getInstance();
-                mSelectedAlarm.year = currentCalendar.get(Calendar.YEAR);
-                mSelectedAlarm.month = currentCalendar.get(Calendar.MONTH);
-                mSelectedAlarm.day = currentCalendar.get(Calendar.DAY_OF_MONTH);
-            }
-            mSelectedAlarm.enabled = true;
-
-            mAlarmUpdateHandler.asyncUpdateAlarm(mSelectedAlarm, true, false);
-
-            mSelectedAlarm = null;
+            updateExistingAlarm(hour, minute, false, false);
         }
     }
+
+    public void setAlarmWithDelay(int hour, int minute) {
+        Calendar alarmTime = Calendar.getInstance();
+        alarmTime.add(Calendar.HOUR_OF_DAY, hour);
+        alarmTime.add(Calendar.MINUTE, minute);
+
+        int h = alarmTime.get(Calendar.HOUR_OF_DAY);
+        int m = alarmTime.get(Calendar.MINUTE);
+
+        if (mSelectedAlarm == null) {
+            mAlarmUpdateHandler.asyncAddAlarm(buildNewAlarm(h, m));
+        } else {
+            updateExistingAlarm(h, m, true, true);
+        }
+    }
+
+    private Alarm buildNewAlarm(int hour, int minute) {
+        final Alarm alarm = new Alarm();
+        final AudioManager audioManager = (AudioManager) mContext.getSystemService(AUDIO_SERVICE);
+
+        alarm.hour = hour;
+        alarm.minutes = minute;
+        alarm.enabled = true;
+        alarm.vibrate = SettingsDAO.areAlarmVibrationsEnabledByDefault(mPrefs);
+        alarm.vibrationPattern = SettingsDAO.getVibrationPattern(mPrefs);
+        alarm.flash = SettingsDAO.shouldTurnOnBackFlashForTriggeredAlarm(mPrefs);
+        alarm.deleteAfterUse = SettingsDAO.isOccasionalAlarmDeletedByDefault(mPrefs);
+        alarm.autoSilenceDuration = SettingsDAO.getAlarmTimeout(mPrefs);
+        alarm.snoozeDuration = SettingsDAO.getSnoozeLength(mPrefs);
+        alarm.missedAlarmRepeatLimit = SettingsDAO.getMissedAlarmRepeatLimit(mPrefs);
+        alarm.crescendoDuration = SettingsDAO.getAlarmVolumeCrescendoDuration(mPrefs);
+        alarm.alarmVolume = audioManager.getStreamVolume(STREAM_ALARM);
+
+        return alarm;
+    }
+
+    private void updateExistingAlarm(int hour, int minute, boolean resetDaysOfWeek, boolean checkSpecifiedDate) {
+        mSelectedAlarm.hour = hour;
+        mSelectedAlarm.minutes = minute;
+
+        if (resetDaysOfWeek) {
+            mSelectedAlarm.daysOfWeek = Weekdays.fromBits(0);
+        }
+
+        Calendar currentCalendar = Calendar.getInstance();
+
+        // Necessary when an existing alarm has been created in the past and it is not enabled.
+        // Even if the date is not specified, it is saved in AlarmInstance; we need to make
+        // sure that the date is not in the past when changing time, in which case we reset
+        // to the current date (an alarm cannot be triggered in the past).
+        // This is due to the change in the code made with commit : 6ac23cf.
+        // Fix https://github.com/BlackyHawky/Clock/issues/299
+        boolean mustResetDate = mSelectedAlarm.isDateInThePast() ||
+                (checkSpecifiedDate && mSelectedAlarm.isSpecifiedDate());
+
+        if (mustResetDate) {
+            mSelectedAlarm.year = currentCalendar.get(Calendar.YEAR);
+            mSelectedAlarm.month = currentCalendar.get(Calendar.MONTH);
+            mSelectedAlarm.day = currentCalendar.get(Calendar.DAY_OF_MONTH);
+        }
+
+        mSelectedAlarm.enabled = true;
+
+        mAlarmUpdateHandler.asyncUpdateAlarm(mSelectedAlarm, true, false);
+        mSelectedAlarm = null;
+    }
+
 }

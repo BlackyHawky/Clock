@@ -6,6 +6,7 @@
 
 package com.best.deskclock;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.PowerManager;
 
@@ -23,17 +24,18 @@ public class AlarmAlertWakeLock {
         return pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
     }
 
+    @SuppressLint("WakelockTimeout")
     public static void acquireCpuWakeLock(Context context) {
         if (sCpuWakeLock != null) {
             return;
         }
 
         sCpuWakeLock = createPartialWakeLock(context);
-        sCpuWakeLock.acquire(10000L);
+        sCpuWakeLock.acquire();
     }
 
     public static void releaseCpuLock() {
-        if (sCpuWakeLock != null) {
+        if (sCpuWakeLock != null && sCpuWakeLock.isHeld()) {
             sCpuWakeLock.release();
             sCpuWakeLock = null;
         }

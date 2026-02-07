@@ -6,11 +6,13 @@ import static androidx.media3.common.Player.REPEAT_MODE_ONE;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_ROUTING_TO_BLUETOOTH_DEVICE;
+import static com.best.deskclock.utils.RingtoneUtils.IN_CALL_VOLUME;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.AudioDeviceCallback;
 import android.media.AudioDeviceInfo;
+import android.media.AudioFocusRequest;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
@@ -26,7 +28,6 @@ import androidx.media3.common.Player;
 import androidx.media3.common.util.UnstableApi;
 import androidx.media3.exoplayer.ExoPlayer;
 
-import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
@@ -61,13 +62,13 @@ public final class RingtonePlayer {
 
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger("RingtonePlayer");
 
-    private static final float IN_CALL_VOLUME = 0.12f;
-
     private final Context mContext;
     private final SharedPreferences mPrefs;
     private ExoPlayer mExoPlayer;
     private final AudioManager mAudioManager;
     private AudioDeviceCallback mAudioDeviceCallback;
+
+    private android.media.AudioFocusRequest mAudioFocusRequest;
 
     private boolean mIsAutoRoutingToBluetoothDeviceEnabled;
     private long mCrescendoDuration = 0;
@@ -122,13 +123,8 @@ public final class RingtonePlayer {
      * to dynamically respond to changes in audio output devices, such as Bluetooth connections.</p>
      */
     public RingtonePlayer(Context context) {
-        // Use a DirectBoot aware context if supported
-        if (SdkUtils.isAtLeastAndroid7()) {
-            mContext = context.createDeviceProtectedStorageContext();
-        }
-        else {
-            mContext = context;
-        }
+        mContext = context;
+
         mAudioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
 
         mPrefs = getDefaultSharedPreferences(mContext);
@@ -154,7 +150,7 @@ public final class RingtonePlayer {
             if (state == Player.STATE_READY) {
                 mExoPlayer.play();
 
-                if (isInTelephoneCall(mAudioManager)) {
+                if (RingtoneUtils.isInTelephoneCall(mAudioManager)) {
                     mExoPlayer.setVolume(IN_CALL_VOLUME);
                 } else if (mCrescendoDuration > 0) {
                     mCrescendoStopTime = System.currentTimeMillis() + mCrescendoDuration;
@@ -231,13 +227,15 @@ public final class RingtonePlayer {
         }
 
         mExoPlayer = new ExoPlayer.Builder(mContext)
-                .setAudioAttributes(buildAudioAttributes(isBluetooth), isBluetooth)
+                .setAudioAttributes(buildAudioAttributes(isBluetooth), false)
                 .build();
 
-        boolean inCall = isInTelephoneCall(mAudioManager);
+        requestAudioFocus(isBluetooth);
+
+        boolean inCall = RingtoneUtils.isInTelephoneCall(mAudioManager);
 
         if (inCall) {
-            ringtoneUri = getInCallRingtoneUri(mContext);
+            ringtoneUri = RingtoneUtils.getInCallRingtoneUri(mContext);
         }
 
         if (RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).equals(ringtoneUri)) {
@@ -245,8 +243,10 @@ public final class RingtonePlayer {
         }
 
         if (ringtoneUri == null || !RingtoneUtils.isRingtoneUriReadable(mContext, ringtoneUri)) {
-            ringtoneUri = getFallbackRingtoneUri(mContext);
+            ringtoneUri = RingtoneUtils.getFallbackRingtoneUri(mContext);
         }
+
+        LOGGER.d("RingtonePlayer - Playing ringtone URI: " + ringtoneUri);
 
         mExoPlayer.setMediaItem(MediaItem.fromUri(ringtoneUri));
 
@@ -302,6 +302,8 @@ public final class RingtonePlayer {
             mAudioManager.unregisterAudioDeviceCallback(mAudioDeviceCallback);
             mAudioDeviceCallback = null;
         }
+
+        abandonAudioFocus();
     }
 
     /**
@@ -327,32 +329,10 @@ public final class RingtonePlayer {
             return false;
         }
 
-        float volume = computeVolume(currentTime, mCrescendoStopTime, mCrescendoDuration);
+        float volume = RingtoneUtils.computeVolume(currentTime, mCrescendoStopTime, mCrescendoDuration);
         mExoPlayer.setVolume(volume);
 
         return true;
-    }
-
-    /**
-     * @param currentTime current time of the device
-     * @param stopTime    time at which the crescendo finishes
-     * @param duration    length of time over which the crescendo occurs
-     * @return the scalar volume value that produces a linear increase in volume (in decibels)
-     */
-    private static float computeVolume(long currentTime, long stopTime, long duration) {
-        // Compute the percentage of the crescendo that has completed.
-        float fractionComplete = 1 - Math.max(0f, Math.min(1f, (stopTime - currentTime) / (float) duration));
-
-        // Use the fraction to compute a target decibel between -40dB (near silent) and 0dB (max).
-        final float gain = (fractionComplete * 40) - 40;
-
-        // Convert the target gain (in decibels) into the corresponding volume scalar.
-        final float volume = (float) Math.pow(10f, gain / 20f);
-
-        LOGGER.v("Ringtone crescendo %,.2f%% complete (scalar: %f, volume: %f dB)",
-                fractionComplete * 100, volume, gain);
-
-        return volume;
     }
 
     /**
@@ -377,7 +357,9 @@ public final class RingtonePlayer {
                         if (mExoPlayer != null) {
                             mExoPlayer.setPreferredAudioDevice(device);
 
-                            mExoPlayer.setAudioAttributes(buildAudioAttributes(true), true);
+                            mExoPlayer.setAudioAttributes(buildAudioAttributes(true), false);
+
+                            requestAudioFocus(true);
 
                             // Set the media volume for Bluetooth devices
                             if (SettingsDAO.shouldUseCustomMediaVolume(mPrefs) && mAudioManager != null) {
@@ -501,43 +483,65 @@ public final class RingtonePlayer {
     }
 
     /**
+     * Builds the {@link android.media.AudioAttributes} used specifically for requesting audio focus,
+     * based on whether a Bluetooth device is connected or not.
+     *
+     * @param bluetoothConnected {@code true} if a Bluetooth audio device is connected;
+     * {@code false} otherwise.
+     * @return An {@link android.media.AudioAttributes} instance configured for audio focus requests.
+     */
+    private android.media.AudioAttributes buildAudioFocusAttributes(boolean bluetoothConnected) {
+        int usage = bluetoothConnected
+                ? android.media.AudioAttributes.USAGE_MEDIA
+                : android.media.AudioAttributes.USAGE_ALARM;
+
+        return new android.media.AudioAttributes.Builder()
+                .setUsage(usage)
+                .setContentType(android.media.AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .build();
+    }
+
+    /**
+     * Requests transient audio focus based on the output device (Bluetooth or speaker).
+     * Uses the appropriate stream type and audio attributes for each Android API level.
+     *
+     * @param isBluetooth {@code true} if the output is routed through a Bluetooth device;
+     * {@code false} for speaker.
+     */
+    private void requestAudioFocus(boolean isBluetooth) {
+        android.media.AudioAttributes systemAttributes = buildAudioFocusAttributes(isBluetooth);
+
+        if (SdkUtils.isAtLeastAndroid8()) {
+            mAudioFocusRequest = new AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT)
+                    .setAudioAttributes(systemAttributes)
+                    .build();
+
+            mAudioManager.requestAudioFocus(mAudioFocusRequest);
+        } else {
+            int streamType = isBluetooth ? AudioManager.STREAM_MUSIC : AudioManager.STREAM_ALARM;
+            mAudioManager.requestAudioFocus(null, streamType, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
+        }
+    }
+
+    /**
+     * Abandons the previously acquired audio focus.
+     */
+    private void abandonAudioFocus() {
+        if (SdkUtils.isAtLeastAndroid8() && mAudioFocusRequest != null) {
+            mAudioManager.abandonAudioFocusRequest(mAudioFocusRequest);
+            mAudioFocusRequest = null;
+        } else {
+            mAudioManager.abandonAudioFocus(null);
+        }
+    }
+
+    /**
      * @return the volume value when a Bluetooth device is connected.
      */
     private int getBluetoothVolumeFromPrefs() {
         int userVolume = SettingsDAO.getBluetoothVolumeValue(mPrefs);
         int maxVolume = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         return (int) (maxVolume * (userVolume / 100f));
-    }
-
-    /**
-     * @return {@code true} if the device is currently in a telephone call. {@code false} otherwise.
-     */
-    private static boolean isInTelephoneCall(AudioManager audioManager) {
-        final int audioMode = audioManager.getMode();
-        if (SdkUtils.isAtLeastAndroid13()) {
-            return audioMode == AudioManager.MODE_IN_COMMUNICATION ||
-                    audioMode == AudioManager.MODE_COMMUNICATION_REDIRECT ||
-                    audioMode == AudioManager.MODE_CALL_REDIRECT ||
-                    audioMode == AudioManager.MODE_CALL_SCREENING ||
-                    audioMode == AudioManager.MODE_IN_CALL;
-        } else {
-            return audioMode == AudioManager.MODE_IN_COMMUNICATION ||
-                    audioMode == AudioManager.MODE_IN_CALL;
-        }
-    }
-
-    /**
-     * @return Uri of the ringtone to play when the user is in a telephone call
-     */
-    private static Uri getInCallRingtoneUri(Context context) {
-        return RingtoneUtils.getResourceUri(context, R.raw.alarm_expire);
-    }
-
-    /**
-     * @return Uri of the ringtone to play when the chosen ringtone fails to play
-     */
-    private static Uri getFallbackRingtoneUri(Context context) {
-        return RingtoneUtils.getResourceUri(context, R.raw.alarm_expire);
     }
 
     /**

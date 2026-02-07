@@ -67,8 +67,7 @@
     <string name="snooze_duration_title">Repetir alarma dempués de</string>
     <string name="crescendo_duration_title">Aumentar adulces el volume</string>
     <string name="auto_silence_title">Silenciar dempués de</string>
-    <string name="auto_silence_never">Enxamás</string>
-    <string name="auto_silence_1_minute">1 minutu</string>
+    <string name="label_never">Enxamás</string>
     <string name="label_off">Non</string>
     <string name="week_start_title">Entamar la selmana el</string>
     <string name="week_start_saturday">Sábadu</string>
@@ -234,6 +233,8 @@
         <item>"Fixi"</item>
         <item>"Tonga"</item>
         <item>"Xakarta"</item>
+        <item>"Riyadh"</item>
+        <item>"Reykjavik"</item>
     </string-array>
     <string name="shortcut_new_alarm_short">Alarma nueva</string>
     <string name="shortcut_new_alarm_long">Crear una alarma nueva</string>
@@ -256,6 +257,7 @@
     <string name="timers_in_use"><xliff:g id="NUMBER">%d</xliff:g> temporizadores</string>
     <string name="expand_alarm">Espander alarma</string>
     <string name="collapse_alarm">Contrayer alarma</string>
+    <string name="alarm_undo">desfacer</string>
     <string name="alarm_deleted">Alarma desaniciada</string>
     <string name="world_day_of_week_label">/ <xliff:g id="LABEL">%s</xliff:g></string>
     <string name="world_time_ahead"><xliff:g example="6 hours" id="time">%1$s</xliff:g> alantre</string>
@@ -289,5 +291,4 @@
     <string name="alarm_is_snoozed">L\'alarma <xliff:g example="14:20" id="alarm_time">%s</xliff:g> pospúsose por diez minutos</string>
     <string name="flip_action_title">Aición al voltiar el preséu</string>
     <string name="shake_action_title">Aición al ximelgar el preséu</string>
-    <string name="analog_widget_choice_title">Escueyi\'l to estilu</string>
 </resources>

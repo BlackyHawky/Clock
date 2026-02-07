@@ -52,14 +52,6 @@ public final class RingtonePreviewKlaxon {
         getAsyncRingtonePlayer(context).play(uri, 0);
     }
 
-    public static void deactivateRingtonePlayback(SharedPreferences prefs) {
-        if (SettingsDAO.isAdvancedAudioPlaybackEnabled(prefs)) {
-            stopListeningToPreferences();
-        } else {
-            releaseResources();
-        }
-    }
-
     // MediaPlayer
     private static synchronized AsyncRingtonePlayer getAsyncRingtonePlayer(Context context) {
         if (sAsyncRingtonePlayer == null) {

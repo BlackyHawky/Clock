@@ -1,0 +1,229 @@
+// SPDX-License-Identifier: GPL-3.0-only
+
+package com.best.deskclock;
+
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VIBRATION_PATTERN;
+
+import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Typeface;
+import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
+import android.view.View;
+import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
+
+import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.provider.Alarm;
+import com.best.deskclock.uicomponents.CustomDialog;
+import com.best.deskclock.utils.SdkUtils;
+import com.best.deskclock.utils.ThemeUtils;
+import com.best.deskclock.utils.Utils;
+
+/**
+ * DialogFragment to set a new vibration pattern for alarms.
+ */
+public class VibrationPatternDialogFragment extends DialogFragment {
+
+    private static final String TAG = "vibration_pattern_dialog";
+
+    private static final String ARG_PREF_KEY = "arg_pref_key";
+    public static final String REQUEST_KEY = "request_key";
+    public static final String RESULT_PATTERN_KEY = "result_pattern_key";
+    public static final String RESULT_PREF_KEY = "result_pref_key";
+    private static final String VIBRATION_PATTERN = "vibration_pattern";
+
+    private static final String ARG_ALARM = "arg_alarm";
+    private static final String ARG_TAG = "arg_tag";
+
+    private Alarm mAlarm;
+    private String mTag;
+    private String mSelectedPatternKey;
+    private Vibrator mVibrator;
+
+    /**
+     * Creates a new instance of {@link VibrationPatternDialogFragment} for use
+     * in the settings screen, allowing the user to choose a vibration pattern.
+     *
+     * @param key               The shared preference key used to identify the setting.
+     * @param currentPatternKey The currently selected vibration pattern key,
+     *                          which will be preselected in the dialog.
+     * @return A configured instance of {@link VibrationPatternDialogFragment}.
+     */
+    public static VibrationPatternDialogFragment newInstance(String key, String currentPatternKey) {
+        Bundle args = new Bundle();
+        args.putString(ARG_PREF_KEY, key);
+        args.putString(VIBRATION_PATTERN, currentPatternKey);
+
+        VibrationPatternDialogFragment frag = new VibrationPatternDialogFragment();
+        frag.setArguments(args);
+        return frag;
+    }
+
+    /**
+     * Creates a new instance of {@link VibrationPatternDialogFragment} for use
+     * in the expanded alarm view, where the vibration pattern is configured for a specific alarm.
+     *
+     * @param alarm            The alarm instance being edited.
+     * @param vibrationPattern The vibration pattern.
+     * @param tag              A tag identifying the fragment in the fragment manager.
+     */
+    public static VibrationPatternDialogFragment newInstance(Alarm alarm, String vibrationPattern,
+                                                             String tag) {
+        final Bundle args = new Bundle();
+
+        args.putParcelable(ARG_ALARM, alarm);
+        args.putString(ARG_TAG, tag);
+        args.putString(VIBRATION_PATTERN, vibrationPattern);
+
+        final VibrationPatternDialogFragment fragment = new VibrationPatternDialogFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    /**
+     * Displays {@link VibrationPatternDialogFragment}.
+     */
+    public static void show(FragmentManager manager, VibrationPatternDialogFragment fragment) {
+        Utils.showDialogFragment(manager, fragment, TAG);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(VIBRATION_PATTERN, mSelectedPatternKey);
+    }
+
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        Context context = requireContext();
+        SharedPreferences prefs = getDefaultSharedPreferences(context);
+        Typeface typeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
+
+        final Bundle args = requireArguments();
+        mAlarm = SdkUtils.isAtLeastAndroid13()
+                ? args.getParcelable(ARG_ALARM, Alarm.class)
+                : args.getParcelable(ARG_ALARM);
+        mTag = args.getString(ARG_TAG);
+        String prefKey = args.getString(ARG_PREF_KEY, null);
+
+        mVibrator = context.getSystemService(Vibrator.class);
+
+        mSelectedPatternKey = args.getString(VIBRATION_PATTERN, DEFAULT_VIBRATION_PATTERN);
+        if (savedInstanceState != null) {
+            mSelectedPatternKey = savedInstanceState.getString(VIBRATION_PATTERN, mSelectedPatternKey);
+        }
+
+        @SuppressLint("InflateParams")
+        View dialogView = getLayoutInflater().inflate(R.layout.vibration_pattern_dialog, null);
+
+        RadioGroup radioGroup = dialogView.findViewById(R.id.vibration_options);
+        RadioButton rbDefault = dialogView.findViewById(R.id.vibration_pattern_default);
+        RadioButton rbSoft = dialogView.findViewById(R.id.vibration_pattern_soft);
+        RadioButton rbStrong = dialogView.findViewById(R.id.vibration_pattern_strong);
+        RadioButton rbHeartbeat = dialogView.findViewById(R.id.vibration_pattern_heartbeat);
+        RadioButton rbEscalating = dialogView.findViewById(R.id.vibration_pattern_escalating);
+        RadioButton rbTickTock = dialogView.findViewById(R.id.vibration_pattern_tick_tock);
+
+        RadioButton[] buttons =
+                {rbDefault, rbSoft, rbStrong, rbHeartbeat, rbEscalating, rbTickTock};
+
+        String[] values = context.getResources().getStringArray(R.array.vibration_pattern_values);
+
+        for (int i = 0; i < buttons.length; i++) {
+            buttons[i].setTag(values[i]);
+            buttons[i].setTypeface(typeface);
+
+            if (values[i].equals(mSelectedPatternKey)) {
+                buttons[i].setChecked(true);
+            }
+        }
+
+        radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            RadioButton rb = group.findViewById(checkedId);
+            if (rb != null) {
+                mSelectedPatternKey = (String) rb.getTag();
+                mVibrator.cancel();
+                ThemeUtils.cancelRadioButtonDrawableAnimations(group);
+            }
+        });
+
+        return CustomDialog.create(
+                context,
+                null,
+                prefKey != null ? null : AppCompatResources.getDrawable(requireContext(), R.drawable.ic_earthquake),
+                getString(R.string.vibration_pattern_title),
+                null,
+                dialogView,
+                getString(android.R.string.ok),
+                (d, w) -> {
+                    mVibrator.cancel();
+                    savePattern(mSelectedPatternKey);
+                },
+                getString(android.R.string.cancel),
+                (d,w) -> mVibrator.cancel(),
+                getString(R.string.preview_title),
+                null,
+                alertDialog -> {
+                    Button neutralButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
+                    neutralButton.setOnClickListener(v -> {
+                        if (mSelectedPatternKey != null) {
+                            mVibrator.cancel();
+
+                            long[] pattern = Utils.getVibrationPatternForKey(mSelectedPatternKey);
+
+                            if (SdkUtils.isAtLeastAndroid8()) {
+                                VibrationEffect effect = VibrationEffect.createWaveform(pattern, 0);
+                                mVibrator.vibrate(effect);
+                            } else {
+                                mVibrator.vibrate(pattern, 0);
+                            }
+                        }
+                    });
+                },
+                CustomDialog.SoftInputMode.NONE
+        );
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        mVibrator.cancel();
+    }
+
+    /**
+     * Saves the selected vibration pattern by posting a fragment result.
+     *
+     * @param patternKey The key representing the selected vibration pattern.
+     */
+    private void savePattern(String patternKey) {
+        if (mAlarm != null) {
+            ((VibrationPatternDialogHandler) requireActivity())
+                    .onDialogVibrationPatternSet(mAlarm, patternKey, mTag);
+        } else {
+            Bundle result = new Bundle();
+            result.putString(RESULT_PATTERN_KEY, patternKey);
+            result.putString(RESULT_PREF_KEY, requireArguments().getString(ARG_PREF_KEY));
+            getParentFragmentManager().setFragmentResult(REQUEST_KEY, result);
+        }
+    }
+
+    public interface VibrationPatternDialogHandler {
+        void onDialogVibrationPatternSet(Alarm alarm, String vibrationPattern, String tag);
+    }
+
+}
+

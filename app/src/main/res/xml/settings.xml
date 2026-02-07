@@ -10,14 +10,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <Preference
+    <com.best.deskclock.settings.custompreference.CustomPreference
         android:key="key_permission_message"
         android:summary="@string/settings_permission_summary"
         android:icon="@drawable/ic_error"
         app:singleLineTitle="false"
         tools:layout="@layout/settings_preference_layout" />
 
-    <Preference
+    <com.best.deskclock.settings.custompreference.CustomPreference
         android:key="key_interface_customization"
         android:title="@string/interface_customization_settings"
         android:summary="@string/interface_customization_summary"
@@ -25,7 +25,7 @@
         app:singleLineTitle="false"
         tools:layout="@layout/settings_preference_layout" />
 
-    <Preference
+    <com.best.deskclock.settings.custompreference.CustomPreference
         android:key="key_clock_settings"
         android:title="@string/clock_settings"
         android:summary="@string/clock_settings_summary"
@@ -33,7 +33,7 @@
         app:singleLineTitle="false"
         tools:layout="@layout/settings_preference_layout" />
 
-    <Preference
+    <com.best.deskclock.settings.custompreference.CustomPreference
         android:key="key_alarm_settings"
         android:title="@string/alarm_settings"
         android:summary="@string/alarm_settings_summary"
@@ -41,7 +41,7 @@
         app:singleLineTitle="false"
         tools:layout="@layout/settings_preference_layout" />
 
-    <Preference
+    <com.best.deskclock.settings.custompreference.CustomPreference
         android:key="key_timer_settings"
         android:title="@string/timer_settings"
         android:summary="@string/timer_settings_summary"
@@ -49,7 +49,7 @@
         app:singleLineTitle="false"
         tools:layout="@layout/settings_preference_layout" />
 
-    <Preference
+    <com.best.deskclock.settings.custompreference.CustomPreference
         android:key="key_stopwatch_settings"
         android:title="@string/menu_stopwatch"
         android:summary="@string/sw_settings_summary"
@@ -57,7 +57,7 @@
         app:singleLineTitle="false"
         tools:layout="@layout/settings_preference_layout" />
 
-    <Preference
+    <com.best.deskclock.settings.custompreference.CustomPreference
         android:key="key_screensaver_settings"
         android:title="@string/screensaver_settings_title"
         android:summary="@string/screensaver_settings_summary"
@@ -65,7 +65,7 @@
         app:singleLineTitle="false"
         tools:layout="@layout/settings_preference_layout" />
 
-    <Preference
+    <com.best.deskclock.settings.custompreference.CustomPreference
         android:key="key_widgets_settings"
         android:title="@string/widgets_settings"
         android:summary="@string/widgets_settings_summary"
@@ -73,7 +73,7 @@
         app:singleLineTitle="false"
         tools:layout="@layout/settings_preference_layout" />
 
-    <Preference
+    <com.best.deskclock.settings.custompreference.CustomPreference
         android:key="key_permissions_management"
         android:title="@string/permission_management_settings"
         android:summary="@string/permission_management_summary"
@@ -81,7 +81,7 @@
         app:singleLineTitle="false"
         tools:layout="@layout/settings_preference_layout" />
 
-    <Preference
+    <com.best.deskclock.settings.custompreference.CustomPreference
         android:key="key_backup_restore_preferences"
         android:title="@string/backup_restore_title"
         android:summary="@string/backup_restore_summary"

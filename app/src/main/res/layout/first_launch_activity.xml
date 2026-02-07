@@ -19,10 +19,11 @@
         android:paddingVertical="10dp">
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal"
             android:layout_marginBottom="10dp"
-            app:srcCompat="@mipmap/ic_launcher"
+            app:srcCompat="@drawable/app_icon"
             android:contentDescription="@null">
         </ImageView>
 
@@ -53,11 +54,11 @@
 
     </LinearLayout>
 
-    <View
-        android:background="?attr/colorOutline"
+    <com.google.android.material.divider.MaterialDivider
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginHorizontal="22dp" />
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="22dp"
+        app:dividerColor="?attr/colorOutline" />
 
     <ScrollView
         android:id="@+id/first_launch_content"
@@ -88,11 +89,11 @@
                 android:textSize="16sp"
                 tools:text="@string/first_launch_main_feature_message"/>
 
-            <View
-                android:background="?attr/colorOutline"
+            <com.google.android.material.divider.MaterialDivider
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="20dp" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:dividerColor="?attr/colorOutline" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="match_parent"

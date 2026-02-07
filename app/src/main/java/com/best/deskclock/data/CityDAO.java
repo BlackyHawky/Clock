@@ -67,8 +67,38 @@ final class CityDAO {
                 selectedCities.add(city);
             }
         }
-
         return selectedCities;
+    }
+
+    /**
+     * Saves the selected cities in the given order into SharedPreferences.
+     * <p>
+     * If the new list is shorter than the previously saved one, any excess
+     * keys are removed to avoid leftover data.
+     * <p>
+     * @param prefs  the SharedPreferences instance where cities are saved
+     * @param cities the list of selected cities, in the desired order
+     */
+    static void saveSelectedCitiesOrder(SharedPreferences prefs, List<City> cities) {
+        SharedPreferences.Editor editor = prefs.edit();
+
+        int oldSize = prefs.getInt(NUMBER_OF_CITIES, 0);
+        int newSize = cities.size();
+
+        // Update the size
+        editor.putInt(NUMBER_OF_CITIES, newSize);
+
+        // Save cities
+        for (int i = 0; i < newSize; i++) {
+            editor.putString(CITY_ID + i, cities.get(i).getId());
+        }
+
+        // Delete only old excess keys (if newSize < oldSize)
+        for (int i = newSize; i < oldSize; i++) {
+            editor.remove(CITY_ID + i);
+        }
+
+        editor.apply();
     }
 
     /**

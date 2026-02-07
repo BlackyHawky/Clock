@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import java.text.Collator;
 import java.util.Comparator;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.TimeZone;
 
 /**
@@ -142,6 +143,30 @@ public final class City {
                 "City {id=%s, index=%d, indexString=%s, name=%s, phonetic=%s, tz=%s}",
                 mId, mIndex, mIndexString, mName, mPhoneticName, mTimeZone.getID());
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (!(o instanceof City city)) {
+            return false;
+        }
+
+        return mIndex == city.mIndex &&
+                Objects.equals(mId, city.mId) &&
+                Objects.equals(mIndexString, city.mIndexString) &&
+                Objects.equals(mName, city.mName) &&
+                Objects.equals(mPhoneticName, city.mPhoneticName) &&
+                Objects.equals(mTimeZone, city.mTimeZone);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mId, mIndex, mIndexString, mName, mPhoneticName, mTimeZone);
+    }
+
 
     /**
      * Orders by:

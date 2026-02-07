@@ -1,69 +1,106 @@
 <!--suppress CheckImageSize -->
-# GKUIClock
-基于BlackyHawkyClock的开源项目，并添加跳过节假日等本土化功能
+# <img width="24" height="24" alt="image" src="/fastlane/metadata/android/en-US/images/icon.png" /> Clock
+**Clock** is a customizable, privacy‑first, open-source clock app inspired by AOSP Clock.  
+It combines modern design, powerful features, and transparency — giving you full control over your time.
 
+# 📑 Table of Contents
 
+- [Download](#-download)
+- [Features](#-features)
+- [Common Issues](#-common-issues)
+- [Contributing](#-contributing)
+- [License](#-license)
+- [Screenshots](#-screenshots)
+- [Credits](#-credits)
 
+# 📥 Download
 
-## 目录
+[<img src="/images/badge_github.png" alt="Get it on GitHub" height="80">](https://github.com/BlackyHawky/Clock/releases)
+[<img src="/images/badge_f-droid.png" alt="Get it on F-Droid" height="80">](https://f-droid.org/packages/com.best.deskclock/)
+[<img src="/images/badge_izzy_on_droid.png" alt="Get it on IzzyOnDroid" height="80">](https://apt.izzysoft.de/fdroid/index/apk/com.best.deskclock/)
+[<img src="/images/badge_obtainium.png" alt="Get it on Obtainium" height="80">](https://apps.obtainium.imranr.dev/redirect?r=obtainium://add/https://github.com/BlackyHawky/Clock/releases)
+[<img src="/images/badge_openApk.png" alt="Get it on OpenApk" height="80">](https://www.openapk.net/clock/com.best.deskclock/)
 
-- [功能](#features)
-  * [通病](#common-issues)
-- [贡献](#contributing-)
-  * [报告问题](#reporting-issues)
-  * [翻译](#translation)
-  * [贡献代码](#code-contribution)
-- [License](#license)
-- [截图](#screenshots)
-- [来源](#credits)
+> [!NOTE]  
+> **Build variants:**
+> - **Release:** Stable versions recommended for everyday use (available on all platforms above).
+> - **Nightly:** Experimental builds with the latest changes, may be unstable (available on GitHub, and also on Obtainium if you enable _"Include prereleases"_).
+> - **Debug:** Developer-oriented builds with extra logging and diagnostics (available only on GitHub).
+>
+> All variants (Release, Nightly, Debug) can be installed side by side without conflict.
 
-# 功能
-* 跳过节假日；
-* 可设置大小周/单休工作模式；
-* 翻转/摇晃手机以静音/关闭闹钟;
-* 用音量/电源键以推迟/关闭闹钟;
-* 部分骁龙机型可以关机后仍响铃;
-  * 不幸的是, 尽管有 _“com.qualcomm.qti.poweroffalarm”_ 开头的应用，该功能可能无效，  [详情请点击](https://github.com/BlackyHawky/Clock/issues/88).
-* 滑动删除闹钟;
-* 复制闹钟;
-* 自定义闹钟标题;
-* 自定义铃声;
-* 随机铃声;
-* 亮/暗/跟随系统设置主题;
-* AMOLED 暗色主题;
-* 电子/传统时钟样式;
-* 出门在外时显示家乡时区;
-* 显示多个城市的时区;
-* 秒表和计时器;
-* 可以与你的联系人分享你的计时器;
-* 可自定义界面;
-* 可自定义屏保;
-* 焕然一新的小组件;
-* 可自定义小组件;
-* 支持控制中心磁贴 (Android 7+);
-* 可备份闹钟 (除自定义铃声外均可备份);
-* Material design;
-* 支持动态取色（Android 12+）;
-* 支持 [Reproducible Builds](https://reproducible-builds.org/).  [详情请点击](https://github.com/BlackyHawky/Clock/issues/140).
+# ✨ Features
 
-## 通病
+### • ⏰ **Advanced alarms**
 
-由于缺乏测试设备，某些问题可能在这些设备上出现.
+* Set alarms to a specific date
+* Flip or shake to dismiss/postpone
+* Use power or volume buttons to snooze/stop
+* Swipe to delete, duplicate, or customize alarms
+* Custom titles, backgrounds, and ringtones (including random playback)
 
-⚠ _<b>我不是专家,一些问题没有帮助可能解决不了.</b>_ ⚠
+### • 🎨 **Customization**
+  * Light, dark, or system theme
+  * AMOLED mode for deep blacks
+  * Digital or analog clock styles
+  * Customizable interface, screensaver, and widgets
+  * Dynamic colors for Android 12+
 
+### • 🌍 **World clock**
+  * Display home time when abroad
+  * View time in multiple cities worldwide
 
-# License
+### • ⏱️ **Timer & stopwatch**
+  * Built-in timer and stopwatch
+  * Share stopwatch results with contacts
 
-Clock is licensed under GNU General Public License v3.0.
+### • ⚙️ **Extra features**
+  * Quick settings tiles (Android 7+)
+  * Backup & restore (except custom ringtones)
+  * Material Design UI
+  * Support for [Direct Boot](https://developer.android.com/privacy-and-security/direct-boot)
+  * Alarm support on some Snapdragon devices when powered off
+  * [Reproducible Builds](https://reproducible-builds.org/) for transparency
 
-> Permissions of this strong copyleft license are conditioned on making available complete source code of licensed works and modifications, which include larger works using a licensed work, under the same license. Copyright and license notices must be preserved. Contributors provide an express grant of patent rights.
+> [!NOTE]  
+> Some extra features may not work on certain devices:
+> - **Direct Boot support**: see the discussion [here](https://github.com/BlackyHawky/Clock/issues/396).
+> - **Power‑off alarm on Snapdragon devices**: may fail even if the _"com.qualcomm.qti.poweroffalarm"_ system app is present. See the discussion [here](https://github.com/BlackyHawky/Clock/issues/88).
 
-See repo's [LICENSE](/LICENSE) file.
+# 🐞 Common Issues
 
-Since the app is based on Apache 2.0 licensed AOSP Clock, an [Apache 2.0](LICENSE-Apache-2.0) license file is provided too.
+* Device-specific issues may occur due to limited testing.
+* On Android 14+ with HyperOS, the _"Full screen notification"_ permission may be revoked. Possible solution [here](https://github.com/BlackyHawky/Clock/discussions/303#discussioncomment-13407709).
+* MIUI users may face problems due to aggressive battery optimizations.
+  * Please make sure that battery optimizations are disabled for the app before opening an issue.
 
-# 截图
+> [!NOTE]  
+> I’m not an expert developer, so some problems may require community help to solve.
+
+# 🤝 Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on reporting issues, translations, and code contributions.
+
+<details>
+<summary><b>Click here to see the translation status</b></summary>
+<br>
+
+[![Translation status](https://translate.codeberg.org/widget/clock/clock/multi-auto.svg)](https://translate.codeberg.org/engage/clock/)
+</details>
+
+# 📜 License
+
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
+
+Clock is licensed under **GNU General Public License v3.0 (GPLv3)**.
+This strong copyleft license requires that any modifications or larger works using Clock must also be distributed under the same license, with complete source code available.
+
+See the [LICENSE](LICENSE) file for full details.
+
+> [!NOTE]  
+> Since Clock is based on **AOSP Clock**, which is licensed under **Apache License 2.0**, an additional [Apache 2.0](LICENSE-Apache-2.0) license file is provided in this repository.
+
+# 📷 Screenshots
 
 <details>
 <summary><b>查看截图</b></summary>
@@ -84,8 +121,10 @@ Since the app is based on Apache 2.0 licensed AOSP Clock, an [Apache 2.0](LICENS
  <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/14.jpg" alt="Screenshot 14" width="200" />
 </details>
 
-# Credits
-- [qw123wh](https://github.com/qw123wh)
-- [crDroid Android](https://github.com/crdroidandroid/android_packages_apps_DeskClock)
-- [LineageOS](https://github.com/LineageOS/android_packages_apps_DeskClock)
-- [BlackyHawkyClock](https://github.com/BlackyHawky/Clock)
+# 🏅 Credits
+* 🖼️ **App icon** inspired by [LineageOS DeskClock](https://github.com/LineageOS/android_packages_apps_DeskClock), modified by [BlackyHawky](https://github.com/BlackyHawky)
+* 💻 Code references and inspiration from:
+    * [LineageOS](https://github.com/LineageOS/android_packages_apps_DeskClock)
+    * [crDroid Android](https://github.com/crdroidandroid/android_packages_apps_DeskClock)
+* 🌍 Translations provided by the community via [Weblate](https://translate.codeberg.org/projects/clock/)
+* 🤝 Thanks to all [contributors](https://github.com/BlackyHawky/Clock/graphs/contributors) who help improve Clock

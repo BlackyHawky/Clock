@@ -3,16 +3,16 @@
     SPDX-License-Identifier: GPL-3.0-only
 -->
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="?attr/dialogPreferredPadding"
-        android:paddingEnd="?attr/dialogPreferredPadding"
-        android:paddingTop="20dp"
+        android:paddingHorizontal="?attr/dialogPreferredPadding"
         android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputLayout
@@ -27,7 +27,8 @@
                 android:gravity="top"
                 android:hint="@string/label_minutes"
                 android:inputType="number"
-                android:maxLength="2" />
+                android:maxLength="2"
+                tools:ignore="TextContrastCheck" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -43,10 +44,11 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/label_seconds"
                 android:inputType="number"
-                android:maxLength="2" />
+                android:maxLength="2"
+                tools:ignore="TextContrastCheck" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

@@ -83,8 +83,7 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"延後時間長度"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"逐漸提升音量"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"鈴聲持續時間："</string>
-    <string name="auto_silence_never" msgid="4821982647348750809">"永不"</string>
-    <string name="auto_silence_1_minute">1 分鐘</string>
+    <string name="label_never" msgid="4821982647348750809">"永不"</string>
     <string name="label_off">關閉</string>
     <string name="week_start_title" msgid="4268917518596832096">"一個星期開始於"</string>
     <string name="week_start_saturday">星期六</string>
@@ -255,6 +254,8 @@
         <item msgid="3027153773466391728">"斐濟"</item>
         <item msgid="5911600083231840181">"湯加"</item>
         <item msgid="5176858645450908751">"雅加達"</item>
+        <item>"利雅得"</item>
+        <item>"雷克雅未克"</item>
     </string-array>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"新鬧鐘"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"建立新鬧鐘"</string>
@@ -277,6 +278,7 @@
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> 個計時器"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"展開鬧鐘"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"收合鬧鐘"</string>
+    <string name="alarm_undo" msgid="5710042601177655254">"復原"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"已刪除鬧鐘"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="LABEL">%s</xliff:g></string>
     <string name="world_time_ahead" msgid="625559988238637652">"早 <xliff:g id="TIME">%1$s</xliff:g>"</string>

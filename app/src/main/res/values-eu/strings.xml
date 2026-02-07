@@ -91,8 +91,7 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"Atzerapenaren luzera"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Igo bolumena apurka-apurka"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Gelditu tarte hau igaro ondoren"</string>
-    <string name="auto_silence_never" msgid="4821982647348750809">"Inoiz ez"</string>
-    <string name="auto_silence_1_minute">1 minutu</string>
+    <string name="label_never" msgid="4821982647348750809">"Inoiz ez"</string>
     <string name="label_off">Desaktibatuta</string>
     <string name="week_start_title" msgid="4268917518596832096">"Asteko lehen eguna"</string>
     <string name="week_start_saturday">Larunbata</string>
@@ -264,6 +263,8 @@
         <item msgid="3027153773466391728">"Fiji"</item>
         <item msgid="5911600083231840181">"Tonga"</item>
         <item msgid="5176858645450908751">"Jakarta"</item>
+        <item>"Riad"</item>
+        <item>"Reykjavik"</item>
     </string-array>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"Alarma berria"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"Sortu alarma"</string>
@@ -286,6 +287,7 @@
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> tenporizadore"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Zabaldu alarma"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Tolestu alarma"</string>
+    <string name="alarm_undo" msgid="5710042601177655254">"desegin"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Ezabatu da alarma"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="LABEL">%s</xliff:g></string>
     <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> aurrerago"</string>
@@ -321,7 +323,6 @@
     <string name="shake_action_title">Gailua astientzen denerako ekintza</string>
     <string name="blue_accent_color">Urdina</string>
     <string name="settings_permission_summary">Egin klik hemen baimenak kudeatzeko orria bistaratzeko.</string>
-    <string name="analog_widget_without_second_hand_title">Esku bakarrarekin</string>
     <string name="font_category_title">Letra-tipoa</string>
     <string name="light_theme">Argia</string>
     <string name="dark_theme">Iluna</string>
@@ -351,13 +352,10 @@
     <string name="interface_customization_settings">Interfazea</string>
     <string name="interface_customization_summary">Ezarri estiloa eta kolorea aplikazioari</string>
     <string name="more_options">Aukera gehiago</string>
-    <string name="analog_widget_choice_title">Aukeratu zure estiloa</string>
     <string name="purple_accent_color">Morea</string>
     <string name="display_card_background_summary">Atzealdea erakusten du aplikazioaren elementu batzuetan (Alarmak, hiriak, tenporizadorea, etab.)</string>
     <string name="yellow_accent_color">Horia</string>
     <string name="warning">Ohartarazpen</string>
-    <string name="styles_and_colors_category_title">Estiloa eta koloreak</string>
-    <string name="analog_widget_configuration_warning">Widget hau Android 12tik bakarrik konfigura daiteke</string>
     <string name="alarm_alert_dismiss_and_delete_text">Baztertu ta ezabatu</string>
     <string name="system_theme">Sistema</string>
     <string name="green_accent_color">Berdea</string>

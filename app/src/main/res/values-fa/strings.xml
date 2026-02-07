@@ -8,7 +8,7 @@
     <string name="default_label" msgid="5590025289805630372">"هشدار"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"لرزش"</string>
     <string name="time_picker_dialog_title">انتخاب زمان</string>
-    <string name="date_picker_dialog_title">انتخاب تاریخ</string>
+    <string name="date_picker_dialog_title">گزیدن تاریخ</string>
     <string name="delete" msgid="5732434972457000541">"حذف"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"آهنگ زنگ پیش‌فرض"</string>
     <string name="alarm_sound" msgid="8754499591391638405">"صدای هشدار"</string>
@@ -91,8 +91,7 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"طول تعویق"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"افزایش تدریجی صدا"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"سکوت پس از"</string>
-    <string name="auto_silence_never" msgid="4821982647348750809">"هیچ‌وقت"</string>
-    <string name="auto_silence_1_minute">۱ دقیقه</string>
+    <string name="label_never" msgid="4821982647348750809">"هیچ‌وقت"</string>
     <string name="label_off">خاموش</string>
     <string name="week_start_title" msgid="4268917518596832096">"روز اول هفته"</string>
     <string name="week_start_saturday">شنبه</string>
@@ -263,6 +262,8 @@
         <item msgid="3027153773466391728">"فیجی"</item>
         <item msgid="5911600083231840181">"تونگا"</item>
         <item msgid="5176858645450908751">"جاکارتا"</item>
+        <item>"ریاض"</item>
+        <item>"ریکیاویک"</item>
     </string-array>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"هشدار جدید"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"ایجاد زنگ ساعت جدید"</string>
@@ -285,6 +286,7 @@
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> تایمر‌"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"هشدار بزرگ‌کردن"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"هشدار کوچک‌کردن"</string>
+    <string name="alarm_undo" msgid="5710042601177655254">"واگرد"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"هشدار حذف شد"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="LABEL">%s</xliff:g></string>
     <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> جلوتر است"</string>
@@ -346,23 +348,19 @@
     <string name="selected">انتخاب شده</string>
     <string name="settings_language_polish">لهستانی</string>
     <string name="red_accent_color">قرمز</string>
-    <string name="auto_silence_30_seconds">۳۰ ثانیه</string>
     <string name="yellow_accent_color">زرد</string>
     <string name="warning">اخطار</string>
     <string name="settings_language_czech">چکی</string>
     <string name="settings_language_chinese_traditional_tw">چینی (سنتی، تایوان)</string>
     <string name="style_category_title">استایل</string>
     <string name="orange_accent_color">نارنجی</string>
-    <string name="auto_silence_10_seconds">۱۰ ثانیه</string>
     <string name="font_category_title">فونت</string>
     <string name="dark_theme">تیره</string>
-    <string name="styles_and_colors_category_title">استایل و رنگ ها</string>
     <string name="next_alarm_widget">هشدار بعدی</string>
     <string name="auto_night_accent_color_title">استفاده از رنگ تاکیدی برای حالت شب</string>
     <string name="night_accent_color_title">رنگ تاکیدی برای حالت شب</string>
     <string name="turn_on_back_flash_for_triggered_alarm_title">وقتی هشدار فعال شد، فلاش عقب روشن شود</string>
     <string name="alarm_button_color">رنگ دکمه هشدار</string>
-    <string name="analog_widget_choice_title">استایل خود را انتخاب کنید</string>
     <string name="system_theme">سیستم</string>
     <string name="settings_language_english_us">انگلیسی (ایالات متحده)</string>
     <string name="display_card_background_summary">پس زمینه ای برای بعضی از عناصر اپلیکیشن نشان می دهد (هشدار ها، شهر ها، دکمه زمان سنج و غیره)</string>
@@ -372,9 +370,7 @@
     <string name="title_accent_color">رنگ تاکیدی</string>
     <string name="settings_language_korean">کره ای</string>
     <string name="alarm_notification_reminder_4_hours">۴ ساعت قبل</string>
-    <string name="auto_silence_5_seconds">۵ ثانیه</string>
     <string name="alarm_notification_reminder_8_hours">۸ ساعت قبل</string>
-    <string name="auto_silence_20_seconds">۲۰ ثانیه</string>
     <string name="connect_bluetooth_device_title">برای دسترسی به این تنظیمات، یک دستگاه بلوتوثی را متصل کنید</string>
     <string name="disconnect_bluetooth_device_title">برای دسترسی به این تنظیمات، دستگاه بلوتوثی را قطع کنید</string>
     <string name="system_media_volume_summary">فقط وقتی که یک دستگاه بلوتوثی متصل باشد کار می کند</string>

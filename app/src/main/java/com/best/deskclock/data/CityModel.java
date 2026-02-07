@@ -6,7 +6,9 @@
 
 package com.best.deskclock.data;
 
-import static com.best.alarmclock.WidgetUtils.ACTION_WORLD_CITIES_CHANGED;
+import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_CITIES_BY_DESCENDING_TIME_ZONE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_CITIES_BY_NAME;
+import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_CITIES_MANUALLY;
 import static com.best.deskclock.utils.Utils.ACTION_LANGUAGE_CODE_CHANGED;
 
 import android.annotation.SuppressLint;
@@ -22,6 +24,10 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel.CitySort;
 import com.best.deskclock.settings.PreferencesKeys;
 import com.best.deskclock.utils.SdkUtils;
+import com.best.deskclock.utils.Utils;
+import com.best.deskclock.utils.WidgetUtils;
+import com.best.deskclock.widgets.materialyouwidgets.MaterialYouDigitalAppWidgetProvider;
+import com.best.deskclock.widgets.standardwidgets.DigitalAppWidgetProvider;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -137,9 +143,9 @@ final class CityModel {
      */
     City getHomeCity() {
         if (mHomeCity == null) {
-            final String name = mContext.getString(R.string.home_label);
+            final String name = Utils.getLocalizedContext(mContext).getString(R.string.home_label);
             final TimeZone timeZone = SettingsDAO.getHomeTimeZone(mContext, mPrefs, TimeZone.getDefault());
-            mHomeCity = new City(null, -1, null, name, name, timeZone);
+            mHomeCity = new City("C0", -1, null, name, name, timeZone);
         }
 
         return mHomeCity;
@@ -185,7 +191,20 @@ final class CityModel {
     List<City> getSelectedCities() {
         if (mSelectedCities == null) {
             final List<City> selectedCities = CityDAO.getSelectedCities(mPrefs, getCityMap());
-            Collections.sort(selectedCities, new City.UtcOffsetComparator());
+
+            final String citySorting = SettingsDAO.getCitySorting(mPrefs);
+
+            Comparator<City> comparator = switch (citySorting) {
+                case SORT_CITIES_BY_DESCENDING_TIME_ZONE -> Collections.reverseOrder(new City.UtcOffsetComparator());
+                case SORT_CITIES_BY_NAME -> new City.NameComparator();
+                case SORT_CITIES_MANUALLY -> null; // Don't sort
+                default -> new City.UtcOffsetComparator();
+            };
+
+            if (comparator != null) {
+                Collections.sort(selectedCities, comparator);
+            }
+
             mSelectedCities = Collections.unmodifiableList(selectedCities);
         }
 
@@ -204,6 +223,19 @@ final class CityModel {
         mUnselectedCities = null;
 
         // Broadcast the change to the selected cities for the benefit of widgets.
+        fireCitiesChanged();
+    }
+
+    /**
+     * Updates the order of selected cities and persists it to SharedPreferences.
+     * @param newOrder the new list of selected cities, in the desired order
+     */
+    void updateSelectedCitiesOrder(List<City> newOrder) {
+        CityDAO.saveSelectedCitiesOrder(mPrefs, newOrder);
+
+        // Clean cache to force a clean reload
+        mSelectedCities = null;
+
         fireCitiesChanged();
     }
 
@@ -249,10 +281,18 @@ final class CityModel {
         throw new IllegalStateException("unexpected city sort: " + citySort);
     }
 
+    /**
+     * Notifies all registered {@link CityListener} instances that the list of
+     * selected cities has changed.
+     *
+     * <p>Also updates the list of cities in digital widgets.</p>
+     */
     private void fireCitiesChanged() {
-        mContext.sendBroadcast(new Intent(ACTION_WORLD_CITIES_CHANGED));
-        for (CityListener cityListener : mCityListeners) {
-            cityListener.citiesChanged();
+        WidgetUtils.updateWidget(mContext, DigitalAppWidgetProvider.class);
+        WidgetUtils.updateWidget(mContext, MaterialYouDigitalAppWidgetProvider.class);
+
+        for (CityListener listener : mCityListeners) {
+            listener.citiesChanged();
         }
     }
 
@@ -282,6 +322,10 @@ final class CityModel {
                     case PreferencesKeys.KEY_HOME_TIME_ZONE:
                         mHomeCity = null;
                     case PreferencesKeys.KEY_AUTO_HOME_CLOCK:
+                        fireCitiesChanged();
+                        break;
+                    case PreferencesKeys.KEY_SORT_CITIES:
+                        mSelectedCities = null;
                         fireCitiesChanged();
                         break;
                 }

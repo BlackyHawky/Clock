@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:name="vector"
+	android:height="380dp"
+	android:width="380dp"
+	android:viewportWidth="380"
+	android:viewportHeight="380"
+    tools:ignore="VectorRaster">
+	<path
+		android:fillColor="@color/widget_background_color"
+        android:pathData="M190 1c-17.9 0-34.02 7.54-45.38 19.62-15.88-4.77-33.62-3.24-49.12 5.7S69.81 49.87 66.01 66.01C49.87 69.81 35.26 80 26.32 95.5s-10.47 33.24-5.7 49.12C8.54 155.98 1 172.1 1 190s7.54 34.02 19.62 45.38c-4.77 15.88-3.24 33.62 5.7 49.12s23.55 25.69 39.69 29.49c3.8 16.14 13.99 30.75 29.49 39.69s33.24 10.47 49.12 5.7C155.98 371.46 172.1 379 190 379s34.02-7.54 45.38-19.62c15.88 4.77 33.62 3.24 49.12-5.7s25.69-23.55 29.49-39.69c16.14-3.8 30.75-13.99 39.69-29.49s10.47-33.24 5.7-49.12C371.46 224.02 379 207.9 379 190s-7.54-34.02-19.62-45.38c4.77-15.88 3.24-33.62-5.7-49.12s-23.55-25.69-39.69-29.49C310.19 49.87 300 35.26 284.5 26.32s-33.24-10.47-49.12-5.7C224.02 8.54 207.9 1 190 1Z" />
+</vector>

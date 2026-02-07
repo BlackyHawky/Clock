@@ -3,16 +3,17 @@
     SPDX-License-Identifier: GPL-3.0-only
 -->
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="?attr/dialogPreferredPadding"
-        android:paddingEnd="?attr/dialogPreferredPadding"
-        android:paddingTop="20dp"
+        android:paddingHorizontal="?attr/dialogPreferredPadding"
         android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputLayout
@@ -27,7 +28,8 @@
                 android:gravity="top"
                 android:hint="@string/label_minutes"
                 android:inputType="number"
-                android:maxLength="2" />
+                android:maxLength="2"
+                tools:ignore="TextContrastCheck" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -43,10 +45,33 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/label_seconds"
                 android:inputType="number"
-                android:maxLength="2" />
+                android:maxLength="2"
+                tools:ignore="TextContrastCheck" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="6dp"
+            app:dividerColor="?attr/colorOutline" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/crescendo_off"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackground"
+            android:button="@null"
+            android:drawableStart="@drawable/ic_selector_checkbox"
+            android:drawablePadding="20dp"
+            android:text="@string/label_off"
+            android:textSize="16sp"
+            android:textColor="?android:attr/textColorSecondary"
+            tools:ignore="RtlSymmetry"
+            tools:checked="true" />
+
     </LinearLayout>
 
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

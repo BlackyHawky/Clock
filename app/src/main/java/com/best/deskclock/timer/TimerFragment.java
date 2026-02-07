@@ -12,6 +12,7 @@ import static android.view.View.INVISIBLE;
 import static android.view.View.TRANSLATION_Y;
 import static android.view.View.VISIBLE;
 
+import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMER_CREATION_VIEW_SPINNER_STYLE;
 import static com.best.deskclock.uidata.UiDataModel.Tab.TIMERS;
@@ -24,6 +25,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +44,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.DeskClockFragment;
 import com.best.deskclock.R;
+import com.best.deskclock.RunnableFragment;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
@@ -58,7 +61,7 @@ import java.util.Objects;
 /**
  * Displays a vertical list of timers in all states.
  */
-public final class TimerFragment extends DeskClockFragment {
+public final class TimerFragment extends DeskClockFragment implements RunnableFragment {
 
     private static final String EXTRA_TIMER_SETUP = "com.best.deskclock.action.TIMER_SETUP";
 
@@ -76,11 +79,6 @@ public final class TimerFragment extends DeskClockFragment {
     private ItemTouchHelper mItemTouchHelper;
     private boolean mIsTablet;
     private boolean mIsLandscape;
-
-    /**
-     * Scheduled to update the timers while at least one is running.
-     */
-    private final Runnable mTimeUpdateRunnable = new TimeUpdateRunnable();
 
     /**
      * Updates the FABs in response to timers being added or removed.
@@ -112,6 +110,7 @@ public final class TimerFragment extends DeskClockFragment {
 
         mContext = requireContext();
         mPrefs = getDefaultSharedPreferences(mContext);
+        final DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         mAdapter = new TimerAdapter(mContext, mPrefs, new TimerClickHandler(this));
         mRecyclerView = view.findViewById(R.id.recycler_view);
         mTimersView = view.findViewById(R.id.timer_view);
@@ -124,14 +123,13 @@ public final class TimerFragment extends DeskClockFragment {
         mRecyclerView.setLayoutManager(getLayoutManager(mContext));
         // Due to the ViewPager and the location of FAB, set a bottom padding and/or a right padding
         // to prevent the reset button from being hidden by the FAB (e.g. when scrolling down).
-        final int bottomPadding = ThemeUtils.convertDpToPixels(mIsTablet ? 110 : mIsLandscape ? 4 : 95, mContext);
-        final int rightPadding = ThemeUtils.convertDpToPixels(!mIsTablet && mIsLandscape ? 85 : 0, mContext);
+        final int bottomPadding = (int) dpToPx(mIsTablet ? 110 : mIsLandscape ? 4 : 95, displayMetrics);
+        final int rightPadding = (int) dpToPx(!mIsTablet && mIsLandscape ? 85 : 0, displayMetrics);
         mRecyclerView.setPadding(0, 0, rightPadding, bottomPadding);
         mRecyclerView.setClipToPadding(false);
 
         mCreateTimerView.setFabContainer(this);
-        mCreateTimerSpinnerView.setOnChangeListener((durationObject) ->
-                updateFab(FAB_SHRINK_AND_EXPAND));
+        mCreateTimerSpinnerView.setOnChangeListener(() -> updateFab(FAB_SHRINK_AND_EXPAND));
 
         DataModel.getDataModel().addTimerListener(mAdapter);
         DataModel.getDataModel().addTimerListener(mTimerWatcher);
@@ -203,10 +201,9 @@ public final class TimerFragment extends DeskClockFragment {
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onPause() {
+        super.onPause();
 
-        // Stop updating the timers when this fragment is no longer visible.
         stopUpdatingTime();
     }
 
@@ -229,51 +226,14 @@ public final class TimerFragment extends DeskClockFragment {
         }
     }
 
-    private void updateFab(@NonNull ImageView fab) {
-        if (mContext != null) {
-            if (mCurrentView == mTimersView) {
-                fab.setImageResource(R.drawable.ic_add);
-                fab.setContentDescription(mContext.getString(R.string.timer_add_timer));
-                fab.setVisibility(VISIBLE);
-            } else if (mCurrentView == getTimerCreationView()) {
-                if (hasValidInput()) {
-                    fab.setImageResource(R.drawable.ic_fab_play);
-                    fab.setContentDescription(mContext.getString(R.string.timer_start));
-                    fab.setVisibility(VISIBLE);
-                } else {
-                    fab.setContentDescription(null);
-                    fab.setVisibility(INVISIBLE);
-                }
-            }
-        }
+    @Override
+    public void startRunnable() {
+        startUpdatingTime();
     }
 
-    private boolean isSpinnerCreationView() {
-        return SettingsDAO.getTimerCreationViewStyle(mPrefs).equals(TIMER_CREATION_VIEW_SPINNER_STYLE);
-    }
-
-    private boolean hasValidInput() {
-        if (isSpinnerCreationView()) {
-            return mCreateTimerSpinnerView.getValue().toMillis() != 0;
-        } else {
-            return mCreateTimerView.hasValidInput();
-        }
-    }
-
-    private long getTimeInMillis() {
-        if (isSpinnerCreationView()) {
-            return mCreateTimerSpinnerView.getValue().toMillis();
-        } else {
-            return mCreateTimerView.getTimeInMillis();
-        }
-    }
-
-    private View getTimerCreationView() {
-        if (isSpinnerCreationView()) {
-            return mCreateTimerSpinnerView;
-        } else {
-            return mCreateTimerView;
-        }
+    @Override
+    public void stopRunnable() {
+        stopUpdatingTime();
     }
 
     @Override
@@ -314,7 +274,7 @@ public final class TimerFragment extends DeskClockFragment {
     }
 
     @Override
-    public void onFabClick(@NonNull ImageView fab) {
+    public void onFabClick() {
         if (mCurrentView == mTimersView) {
             animateToView(getTimerCreationView(), true);
         } else if (mCurrentView == getTimerCreationView()) {
@@ -341,6 +301,11 @@ public final class TimerFragment extends DeskClockFragment {
     }
 
     @Override
+    public void onFabLongClick(@NonNull ImageView fab) {
+        fab.setHapticFeedbackEnabled(false);
+    }
+
+    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (mCurrentView == mCreateTimerView) {
             return mCreateTimerView.onKeyDown(keyCode, event);
@@ -352,7 +317,7 @@ public final class TimerFragment extends DeskClockFragment {
      * Display the view that creates a new timer.
      */
     private void showCreateTimerView(int updateTypes) {
-        // Stop animating the timers.
+        // Stop periodic updates for active timers.
         stopUpdatingTime();
 
         // Show the creation view; hide the timer view.
@@ -385,11 +350,11 @@ public final class TimerFragment extends DeskClockFragment {
         // Record the fact that the create view is visible.
         mCurrentView = mTimersView;
 
+        // Start periodic updates for active timers.
+        startUpdatingTime();
+
         // Update the fab and buttons.
         updateFab(updateTypes);
-
-        // Start animating the timers.
-        startUpdatingTime();
     }
 
     /**
@@ -491,18 +456,69 @@ public final class TimerFragment extends DeskClockFragment {
         });
     }
 
+    private void updateFab(@NonNull ImageView fab) {
+        if (mContext != null) {
+            if (mCurrentView == mTimersView) {
+                fab.setImageResource(R.drawable.ic_add);
+                fab.setContentDescription(mContext.getString(R.string.timer_add_timer));
+                fab.setVisibility(VISIBLE);
+            } else if (mCurrentView == getTimerCreationView()) {
+                if (hasValidInput()) {
+                    fab.setImageResource(R.drawable.ic_fab_play);
+                    fab.setContentDescription(mContext.getString(R.string.timer_start));
+                    fab.setVisibility(VISIBLE);
+                } else {
+                    fab.setContentDescription(null);
+                    fab.setVisibility(INVISIBLE);
+                }
+            }
+        }
+    }
+
+    private boolean isSpinnerCreationView() {
+        return SettingsDAO.getTimerCreationViewStyle(mPrefs).equals(TIMER_CREATION_VIEW_SPINNER_STYLE);
+    }
+
+    private boolean hasValidInput() {
+        if (isSpinnerCreationView()) {
+            return mCreateTimerSpinnerView.getValue().toMillis() != 0;
+        } else {
+            return mCreateTimerView.hasValidInput();
+        }
+    }
+
+    private long getTimeInMillis() {
+        if (isSpinnerCreationView()) {
+            return mCreateTimerSpinnerView.getValue().toMillis();
+        } else {
+            return mCreateTimerView.getTimeInMillis();
+        }
+    }
+
+    private View getTimerCreationView() {
+        if (isSpinnerCreationView()) {
+            return mCreateTimerSpinnerView;
+        } else {
+            return mCreateTimerView;
+        }
+    }
+
+    public void startUpdatingTime() {
+        if (!isTabSelected() || !DataModel.getDataModel().hasActiveTimer()) {
+            return;
+        }
+
+        if (mAdapter != null) {
+            mAdapter.updateTime();
+        }
+    }
+
+    public void stopUpdatingTime() {
+        mAdapter.stopAllUpdating();
+    }
+
     private boolean hasTimers() {
         return mAdapter.getItemCount() > 0;
-    }
-
-    private void startUpdatingTime() {
-        // Ensure only one copy of the runnable is ever scheduled by first stopping updates.
-        stopUpdatingTime();
-        mRecyclerView.post(mTimeUpdateRunnable);
-    }
-
-    private void stopUpdatingTime() {
-        mRecyclerView.removeCallbacks(mTimeUpdateRunnable);
     }
 
     private RecyclerView.LayoutManager getLayoutManager(Context context) {
@@ -531,23 +547,6 @@ public final class TimerFragment extends DeskClockFragment {
         }
     }
 
-    /**
-     * Periodically refreshes the state of each timer.
-     */
-    private class TimeUpdateRunnable implements Runnable {
-        @Override
-        public void run() {
-            // If no timer require continuous updates, avoid scheduling the next update
-            // and don't keep the screen on.
-            if (!mAdapter.updateTime()) {
-                return;
-            }
-
-            // Try to maintain a consistent period of time between redraws
-            mTimersView.postDelayed(this, 500);
-        }
-    }
-
     /** Update the fab in response to the visible timer changing.
      */
     private class TimerWatcher implements TimerListener {
@@ -573,7 +572,6 @@ public final class TimerFragment extends DeskClockFragment {
         public void timerUpdated(Timer before, Timer after) {
             // If the timer started, animate the timers and scroll to its position.
             if (before.isReset() && !after.isReset()) {
-                startUpdatingTime();
                 Objects.requireNonNull(mRecyclerView.getLayoutManager()).scrollToPosition(mAdapter.getTimers().indexOf(before));
             }
 

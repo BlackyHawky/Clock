@@ -15,7 +15,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -24,11 +23,10 @@ import com.best.deskclock.settings.PermissionsManagementActivity;
 import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
-import com.best.deskclock.utils.Utils;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
-public class FirstLaunch extends AppCompatActivity {
+public class FirstLaunch extends BaseActivity {
 
     public static final String KEY_IS_FIRST_LAUNCH = "key_is_first_launch";
 
@@ -101,7 +99,7 @@ public class FirstLaunch extends AppCompatActivity {
      * accordingly.
      */
     private void applyWindowInsets() {
-        InsetsUtils.doOnApplyWindowInsets(mFirstLaunchRootView, (v, insets, initialPadding) -> {
+        InsetsUtils.doOnApplyWindowInsets(mFirstLaunchRootView, (v, insets) -> {
             // Get the system bar and notch insets
             Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() |
                     WindowInsetsCompat.Type.displayCutout());
@@ -116,8 +114,10 @@ public class FirstLaunch extends AppCompatActivity {
      * Automatically sets the application title according to whether it's the debug version or not.
      */
     private void setupTitle() {
-        if (Utils.isDebugConfig()) {
+        if (BuildConfig.IS_DEBUG_BUILD) {
             mAppTitle.setText(R.string.about_debug_app_title);
+        } else if (BuildConfig.IS_NIGHTLY_BUILD) {
+            mAppTitle.setText(R.string.about_nightly_app_title);
         } else {
             mAppTitle.setText(R.string.app_label);
         }

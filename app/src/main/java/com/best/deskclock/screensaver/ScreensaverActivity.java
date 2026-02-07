@@ -9,6 +9,7 @@ package com.best.deskclock.screensaver;
 import static android.content.Intent.ACTION_BATTERY_CHANGED;
 import static android.os.BatteryManager.EXTRA_PLUGGED;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.utils.AlarmUtils.ACTION_NEXT_ALARM_CHANGED_BY_CLOCK;
 
 import android.annotation.SuppressLint;
@@ -23,21 +24,26 @@ import android.view.Window;
 import android.view.WindowInsets;
 import android.view.WindowInsetsController;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
 
+import com.best.deskclock.BaseActivity;
 import com.best.deskclock.R;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AlarmUtils;
-import com.best.deskclock.utils.ClockUtils;
+import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.ScreensaverUtils;
 import com.best.deskclock.utils.SdkUtils;
+import com.best.deskclock.utils.ThemeUtils;
 
 import java.util.Objects;
 
-public class ScreensaverActivity extends AppCompatActivity {
+public class ScreensaverActivity extends BaseActivity {
 
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger("ScreensaverActivity");
 
@@ -45,6 +51,7 @@ public class ScreensaverActivity extends AppCompatActivity {
     private String mDateFormat;
     private String mDateFormatForAccessibility;
     private View mContentView;
+
     private final BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -55,7 +62,19 @@ public class ScreensaverActivity extends AppCompatActivity {
                 case Intent.ACTION_POWER_DISCONNECTED -> updateWakeLock(false);
                 case Intent.ACTION_USER_PRESENT -> finish();
                 case ACTION_NEXT_ALARM_CHANGED_BY_CLOCK ->
-                        AlarmUtils.refreshAlarm(ScreensaverActivity.this, mContentView);
+                        AlarmUtils.refreshAlarm(ScreensaverActivity.this, mContentView, true);
+            }
+        }
+    };
+
+    /**
+     * Receiver for battery level changes.
+     */
+    private final BroadcastReceiver mBatteryReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (Intent.ACTION_BATTERY_CHANGED.equals(intent.getAction())) {
+                ScreensaverUtils.updateBatteryText(mContentView, intent);
             }
         }
     };
@@ -64,13 +83,14 @@ public class ScreensaverActivity extends AppCompatActivity {
     private final Runnable mMidnightUpdater = new Runnable() {
         @Override
         public void run() {
-            ClockUtils.updateDate(mDateFormat, mDateFormatForAccessibility, mContentView);
+            ScreensaverUtils.updateScreensaverDate(mDateFormat, mDateFormatForAccessibility, mContentView);
         }
     };
 
     private View mMainClockView;
 
     private MoveScreensaverRunnable mPositionUpdater;
+    private PulseScreensaverBackgroundRunnable mBackgroundAnimator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,16 +99,26 @@ public class ScreensaverActivity extends AppCompatActivity {
         mDateFormat = getString(R.string.abbrev_wday_month_day_no_year);
         mDateFormatForAccessibility = getString(R.string.full_wday_month_day_no_year);
 
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+        ThemeUtils.allowDisplayCutout(getWindow());
+
         setContentView(R.layout.desk_clock_saver);
         mContentView = findViewById(R.id.saver_container);
-
-        ScreensaverUtils.hideScreensaverSystemBars(getWindow(), mContentView);
-
         mMainClockView = findViewById(R.id.main_clock);
+        ImageView background = findViewById(R.id.screensaver_background_image);
 
-        ScreensaverUtils.setScreensaverMarginsAndClockStyle(this, mMainClockView);
+        ScreensaverUtils.hideScreensaverSystemBars(getWindow(), getWindow().getDecorView());
+
+        ScreensaverUtils.setScreensaverClockStyle(
+                this, getDefaultSharedPreferences(this), mContentView);
 
         mPositionUpdater = new MoveScreensaverRunnable(mContentView, mMainClockView);
+
+        if (background.getVisibility() == View.VISIBLE) {
+            mBackgroundAnimator = new PulseScreensaverBackgroundRunnable(background);
+        }
+
+        applyWindowInsets();
 
         final Intent intent = getIntent();
         if (intent != null) {
@@ -110,8 +140,10 @@ public class ScreensaverActivity extends AppCompatActivity {
 
         if (SdkUtils.isAtLeastAndroid13()) {
             registerReceiver(mIntentReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
+            registerReceiver(mBatteryReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED), Context.RECEIVER_NOT_EXPORTED);
         } else {
             registerReceiver(mIntentReceiver, filter);
+            registerReceiver(mBatteryReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
         }
     }
 
@@ -119,10 +151,13 @@ public class ScreensaverActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
 
-        ClockUtils.updateDate(mDateFormat, mDateFormatForAccessibility, mContentView);
-        AlarmUtils.refreshAlarm(ScreensaverActivity.this, mContentView);
+        ScreensaverUtils.updateScreensaverDate(mDateFormat, mDateFormatForAccessibility, mContentView);
+        AlarmUtils.refreshAlarm(ScreensaverActivity.this, mContentView, true);
 
         startPositionUpdater();
+        if (mBackgroundAnimator != null) {
+            mBackgroundAnimator.start();
+        }
         UiDataModel.getUiDataModel().addMidnightCallback(mMidnightUpdater, 100);
 
         final Intent intent = SdkUtils.isAtLeastAndroid13()
@@ -130,6 +165,10 @@ public class ScreensaverActivity extends AppCompatActivity {
                 : registerReceiver(null, new IntentFilter(ACTION_BATTERY_CHANGED));
         final boolean pluggedIn = intent != null && intent.getIntExtra(EXTRA_PLUGGED, 0) != 0;
         updateWakeLock(pluggedIn);
+
+        if (intent != null) {
+            ScreensaverUtils.updateBatteryText(mContentView, intent);
+        }
     }
 
     @Override
@@ -137,11 +176,15 @@ public class ScreensaverActivity extends AppCompatActivity {
         super.onPause();
         UiDataModel.getUiDataModel().removePeriodicCallback(mMidnightUpdater);
         stopPositionUpdater();
+        if (mBackgroundAnimator != null) {
+            mBackgroundAnimator.stop();
+        }
     }
 
     @Override
     public void onStop() {
         unregisterReceiver(mIntentReceiver);
+        unregisterReceiver(mBatteryReceiver);
         super.onStop();
     }
 
@@ -149,6 +192,20 @@ public class ScreensaverActivity extends AppCompatActivity {
     public void onUserInteraction() {
         // We want the screen saver to exit upon user interaction.
         finish();
+    }
+
+    /**
+     * This method adjusts the space occupied by system elements (such as the status bar,
+     * navigation bar or screen notch) and adjust the display of the application interface
+     * accordingly.
+     */
+    private void applyWindowInsets() {
+        InsetsUtils.doOnApplyWindowInsets(mMainClockView, (v, insets) -> {
+            // Get the notch insets
+            Insets bars = insets.getInsets(WindowInsetsCompat.Type.displayCutout());
+
+            v.setPadding(bars.left, bars.top, bars.right, 0);
+        });
     }
 
     /**
@@ -161,10 +218,10 @@ public class ScreensaverActivity extends AppCompatActivity {
         if (SdkUtils.isAtLeastAndroid11()) {
             WindowInsetsController insetsController = win.getInsetsController();
             if (insetsController != null) {
-                insetsController.hide(WindowInsets.Type.statusBars());
                 insetsController.setSystemBarsBehavior(
                         WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
                 );
+                insetsController.hide(WindowInsets.Type.systemBars());
             }
         } else {
             winParams.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;

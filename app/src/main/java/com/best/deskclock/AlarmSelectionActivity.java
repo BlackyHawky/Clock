@@ -11,22 +11,21 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.widget.Button;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.provider.Alarm;
+import com.best.deskclock.uicomponents.selector.AlarmSelection;
+import com.best.deskclock.uicomponents.selector.AlarmSelectionAdapter;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.SdkUtils;
-import com.best.deskclock.widget.selector.AlarmSelection;
-import com.best.deskclock.widget.selector.AlarmSelectionAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class AlarmSelectionActivity extends AppCompatActivity implements AlarmSelectionAdapter.OnAlarmClickListener {
+public class AlarmSelectionActivity extends BaseActivity implements AlarmSelectionAdapter.OnAlarmClickListener {
 
     /**
      * Action used to signify alarm should be dismissed on selection.

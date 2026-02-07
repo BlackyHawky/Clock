@@ -9,6 +9,7 @@ package com.best.deskclock.ringtone;
 import static android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION;
 import static android.media.RingtoneManager.TYPE_ALARM;
 import static android.provider.OpenableColumns.DISPLAY_NAME;
+import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.ItemAdapter.ItemViewHolder.Factory;
 import static com.best.deskclock.ringtone.AddCustomRingtoneViewHolder.VIEW_TYPE_ADD_NEW;
@@ -23,8 +24,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -32,13 +31,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.MediaStore;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
+import android.view.View;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
-import androidx.appcompat.content.res.AppCompatResources;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.graphics.Insets;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -57,18 +58,22 @@ import com.best.deskclock.R;
 import com.best.deskclock.alarms.AlarmUpdateHandler;
 import com.best.deskclock.data.CustomRingtone;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.provider.Alarm;
+import com.best.deskclock.uicomponents.CollapsingToolbarBaseActivity;
+import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
-import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 
-import com.google.android.material.color.MaterialColors;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.progressindicator.CircularProgressIndicator;
+import com.google.android.material.textview.MaterialTextView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -156,8 +161,11 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
     private int mTitleResourceId;
 
     private FragmentManager mFragmentManager;
-
     private SharedPreferences mPrefs;
+    private DisplayMetrics mDisplayMetrics;
+    private CircularProgressIndicator mCircularProgressIndicator;
+    private MaterialTextView mProgressTextView;
+    private AlertDialog mProgressDialog;
 
     /**
      * Callback for getting the result from Activity
@@ -255,6 +263,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
         super.onCreate(savedInstanceState);
 
         mPrefs = getDefaultSharedPreferences(this);
+        mDisplayMetrics = getResources().getDisplayMetrics();
 
         // To manually manage insets
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
@@ -313,6 +322,17 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
 
         LoaderManager.getInstance(this).initLoader(0, null, this);
 
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_progress, null);
+        mCircularProgressIndicator = dialogView.findViewById(R.id.dialogProgressIndicator);
+        mProgressTextView = dialogView.findViewById(R.id.dialogProgressText);
+        mProgressTextView.setTypeface(ThemeUtils.loadFont(SettingsDAO.getGeneralFont(mPrefs)));
+
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this)
+                .setView(dialogView)
+                .setCancelable(false);
+
+        mProgressDialog = builder.create();
+
         applyWindowInsets();
     }
 
@@ -357,8 +377,6 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
         if (!isChangingConfigurations()) {
             stopPlayingRingtone(getSelectedRingtoneHolder(), false);
         }
-
-        RingtonePreviewKlaxon.deactivateRingtonePlayback(mPrefs);
 
         super.onStop();
     }
@@ -413,15 +431,15 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
      * accordingly.
      */
     private void applyWindowInsets() {
-        InsetsUtils.doOnApplyWindowInsets(mCoordinatorLayout, (v, insets, initialPadding) -> {
+        InsetsUtils.doOnApplyWindowInsets(mCoordinatorLayout, (v, insets) -> {
             // Get the system bar and notch insets
             Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() |
                     WindowInsetsCompat.Type.displayCutout());
 
             v.setPadding(bars.left, bars.top, bars.right, 0);
 
-            int paddingTop = ThemeUtils.convertDpToPixels(14, this);
-            int paddingBottom = ThemeUtils.convertDpToPixels(10, this);
+            int paddingTop = (int) dpToPx(14, mDisplayMetrics);
+            int paddingBottom = (int) dpToPx(10, mDisplayMetrics);
             mRingtoneContent.setPadding(0, paddingTop, 0, bars.bottom + paddingBottom);
         });
     }
@@ -539,25 +557,18 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
             final DialogInterface.OnClickListener okListener = (dialog, which) ->
                     ((RingtonePickerActivity) requireActivity()).removeCustomRingtoneAsync(toRemove);
 
-            final Drawable drawable = AppCompatResources.getDrawable(requireContext(), R.drawable.ic_error);
-            if (drawable != null) {
-                drawable.setTint(MaterialColors.getColor(
-                        requireContext(), com.google.android.material.R.attr.colorOnSurface, Color.BLACK));
-            }
+            final int message = RingtoneUtils.isRingtoneUriReadable(requireContext(), toRemove)
+                    ? R.string.confirm_remove_custom_ringtone
+                    : R.string.custom_ringtone_lost_permissions;
 
-            MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(requireContext())
-                    .setIcon(drawable)
-                    .setTitle(R.string.warning)
-                    .setPositiveButton(R.string.remove_sound, okListener)
-                    .setNegativeButton(android.R.string.cancel, null);
-
-            if (RingtoneUtils.isRingtoneUriReadable(requireContext(), toRemove)) {
-                dialogBuilder.setMessage(R.string.confirm_remove_custom_ringtone);
-            } else {
-                dialogBuilder.setMessage(R.string.custom_ringtone_lost_permissions);
-            }
-
-            return dialogBuilder.create();
+            return CustomDialog.createSimpleDialog(
+                    requireContext(),
+                    R.drawable.ic_error,
+                    R.string.warning,
+                    getString(message),
+                    R.string.remove_sound,
+                    okListener
+            );
         }
     }
 
@@ -670,6 +681,8 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
                 // Reload the data to reflect the change in the UI.
                 LoaderManager.getInstance(this).restartLoader(0, null, RingtonePickerActivity.this);
             });
+
+            executor.shutdown();
         });
     }
 
@@ -687,35 +700,72 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
             DocumentFile directory = DocumentFile.fromTreeUri(this, treeUri);
             if (directory == null || !directory.isDirectory()) {
                 LogUtils.e("Invalid directory selected: %s", treeUri);
+                handler.post(() -> mProgressDialog.dismiss());
+                executor.shutdown();
                 return;
             }
 
+            // Recover all audio files
+            List<DocumentFile> audioFiles = new ArrayList<>();
             for (DocumentFile file : directory.listFiles()) {
                 if (file.isFile() && file.getType() != null && file.getType().startsWith("audio/")) {
-                    Uri fileUri = file.getUri();
-
-                    String name = file.getName();
-                    if (name != null && name.contains(".")) {
-                        name = name.substring(0, name.lastIndexOf("."));
-                    }
-
-                    long size = file.length();
-
-                    if (DataModel.getDataModel().isCustomRingtoneAlreadyAdded(name, size)) {
-                        continue;
-                    }
-
-                    String finalName = name;
-
-                    handler.post(() -> {
-                        // Add the new custom ringtone to the data model.
-                        DataModel.getDataModel().customRingtoneToAdd(fileUri, finalName);
-
-                        // Reload the data to reflect the change in the UI.
-                        LoaderManager.getInstance(this).restartLoader(0, null, RingtonePickerActivity.this);
-                    });
+                    audioFiles.add(file);
                 }
             }
+
+            final int totalFiles = audioFiles.size();
+
+            // Case where no file is found
+            if (totalFiles == 0) {
+                handler.post(() -> mProgressDialog.dismiss());
+                executor.shutdown();
+                return;
+            }
+
+            handler.post(() -> {
+                mProgressDialog.show();
+                mCircularProgressIndicator.setMax(totalFiles);
+                mCircularProgressIndicator.setProgress(0);
+                mProgressTextView.setText(getString(R.string.progress_ringtones, 0, totalFiles));
+            });
+
+            int processed = 0;
+
+            for (DocumentFile file : audioFiles) {
+                Uri fileUri = file.getUri();
+
+                String name = file.getName();
+                if (name != null && name.contains(".")) {
+                    name = name.substring(0, name.lastIndexOf("."));
+                }
+
+                long size = file.length();
+
+                if (DataModel.getDataModel().isCustomRingtoneAlreadyAdded(name, size)) {
+                    continue;
+                }
+
+                String finalName = name;
+
+                handler.post(() -> {
+                    // Add the new custom ringtone to the data model.
+                    DataModel.getDataModel().customRingtoneToAdd(fileUri, finalName);
+
+                    // Reload the data to reflect the change in the UI.
+                    LoaderManager.getInstance(this).restartLoader(0, null, RingtonePickerActivity.this);
+                });
+
+                processed++;
+                int finalProcessed = processed;
+                handler.post(() -> {
+                    mCircularProgressIndicator.setProgress(finalProcessed);
+                    mProgressTextView.setText(
+                            getString(R.string.progress_ringtones, finalProcessed, totalFiles));
+                });
+            }
+
+            handler.post(() -> mProgressDialog.dismiss());
+            executor.shutdown();
         });
     }
 
@@ -772,6 +822,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
                 // Find the ringtone to be removed from the adapter.
                 final RingtoneHolder toRemove = getRingtoneHolder(removeUri);
                 if (toRemove == null) {
+                    executor.shutdown();
                     return;
                 }
 
@@ -817,6 +868,8 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
 
                 // Reload the data to reflect the change in the UI.
                 LoaderManager.getInstance(this).restartLoader(0, null, RingtonePickerActivity.this);
+
+                executor.shutdown();
             });
         });
     }

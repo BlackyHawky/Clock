@@ -16,7 +16,7 @@
     android:layoutDirection="ltr"
     android:orientation="vertical">
 
-    <com.best.deskclock.widget.AutoSizingTextView
+    <com.best.deskclock.uicomponents.AutoSizingTextView
         android:id="@+id/stopwatch_time_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,7 +26,7 @@
         android:textSize="70sp"
         tools:text="01" />
 
-    <com.best.deskclock.widget.AutoSizingTextView
+    <com.best.deskclock.uicomponents.AutoSizingTextView
         android:id="@+id/stopwatch_hundredths_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

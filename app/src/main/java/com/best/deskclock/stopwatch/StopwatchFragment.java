@@ -12,6 +12,7 @@ import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 
+import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SW_ACTION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SW_ACTION_LAP;
@@ -26,9 +27,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.transition.TransitionManager;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,19 +43,22 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
 
+import com.best.deskclock.DeskClock;
 import com.best.deskclock.DeskClockFragment;
 import com.best.deskclock.R;
+import com.best.deskclock.RunnableFragment;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Lap;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Stopwatch;
 import com.best.deskclock.data.StopwatchListener;
 import com.best.deskclock.events.Events;
-import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AnimatorUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.ThemeUtils;
@@ -62,7 +70,7 @@ import java.util.Objects;
 /**
  * Fragment that shows the stopwatch and recorded laps.
  */
-public final class StopwatchFragment extends DeskClockFragment {
+public final class StopwatchFragment extends DeskClockFragment implements RunnableFragment {
 
     /**
      * Milliseconds between redraws while running.
@@ -95,14 +103,24 @@ public final class StopwatchFragment extends DeskClockFragment {
     private LinearLayoutManager mLapsLayoutManager;
 
     /**
+     * The view containing the stopwatch time in landscape mode.
+     */
+    private View mStopwatchLandscapeLayout;
+
+    /**
      * Draws the reference lap while the stopwatch is running.
      */
-    private StopwatchCircleView mTime;
+    private StopwatchCircleView mStopwatchCircleView;
 
     /**
      * The View containing both TextViews of the stopwatch.
      */
     private View mStopwatchWrapper;
+
+    /**
+     * The view containing the lap list.
+     */
+    private View mLapsBackground;
 
     /**
      * Displays the recorded lap times.
@@ -134,67 +152,86 @@ public final class StopwatchFragment extends DeskClockFragment {
     private Activity mActivity;
     private Context mContext;
     private SharedPreferences mPrefs;
+    private DisplayMetrics mDisplayMetrics;
     private String mVolumeUpAction;
     private String mVolumeUpActionAfterLongPress;
     private String mVolumeDownAction;
     private String mVolumeDownActionAfterLongPress;
     private boolean mIsVolumeUpLongPressed;
     private boolean mIsVolumeDownLongPressed;
-    private boolean mIsLandscape;
+    private boolean mIsPortrait;
+    private boolean mIsTablet;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle state) {
         mContext = requireContext();
         mPrefs = getDefaultSharedPreferences(mContext);
-        mIsLandscape = ThemeUtils.isLandscape();
-        final boolean isTablet = ThemeUtils.isTablet();
+        Typeface stopwatchTypeface = ThemeUtils.loadFont(SettingsDAO.getStopwatchFont(mPrefs));
+        Typeface boldTypeface = ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(mPrefs));
+        mDisplayMetrics = getResources().getDisplayMetrics();
+        mIsPortrait = ThemeUtils.isPortrait();
+        mIsTablet = ThemeUtils.isTablet();
         mLapsAdapter = new LapsAdapter(mContext);
         mLapsLayoutManager = new LinearLayoutManager(mContext);
 
         final View v = inflater.inflate(R.layout.stopwatch_fragment, container, false);
-        mTime = v.findViewById(R.id.stopwatch_circle);
-        mLapsList = v.findViewById(R.id.laps_list);
-        ((SimpleItemAnimator) Objects.requireNonNull(mLapsList.getItemAnimator())).setSupportsChangeAnimations(false);
-        mLapsList.setLayoutManager(mLapsLayoutManager);
 
-        // In landscape layouts, the laps list can reach the top of the screen and thus can cause
-        // a drop shadow to appear. The same is not true for portrait landscapes.
-        if (mIsLandscape) {
-            final ScrollPositionWatcher scrollPositionWatcher = new ScrollPositionWatcher();
-            mLapsList.addOnLayoutChangeListener(scrollPositionWatcher);
-            mLapsList.addOnScrollListener(scrollPositionWatcher);
-        } else {
-            setTabScrolledToTop(true);
-        }
-        mLapsList.setAdapter(mLapsAdapter);
-
-        // Timer text serves as a virtual start/stop button.
+        mStopwatchLandscapeLayout = v.findViewById(R.id.stopwatch_landscape_layout);
+        mStopwatchWrapper = v.findViewById(R.id.stopwatch_time_wrapper);
         mMainTimeText = v.findViewById(R.id.stopwatch_time_text);
         mHundredthsTimeText = v.findViewById(R.id.stopwatch_hundredths_text);
-        mStopwatchTextController = new StopwatchTextController(mMainTimeText, mHundredthsTimeText);
-        mStopwatchWrapper = v.findViewById(R.id.stopwatch_time_wrapper);
-        // Set a bottom padding for tablets in landscape mode to center correctly the stopwatch
-        // between the FAB and the top of the screen.
-        // A bottom padding is also set for the laps list to prevent it from being hidden by the FAB.
-        if (isTablet && mIsLandscape) {
-            mLapsList.setPadding(0, 0, 0, ThemeUtils.convertDpToPixels(110, mContext));
-            mStopwatchWrapper.setPadding(0, 0, 0, ThemeUtils.convertDpToPixels(80, mContext));
-        }
+        mStopwatchCircleView = v.findViewById(R.id.stopwatch_circle);
+        mLapsBackground = v.findViewById(R.id.laps_background);
+        mLapsList = v.findViewById(R.id.laps_list);
 
-        DataModel.getDataModel().addStopwatchListener(mStopwatchWatcher);
-
-        mStopwatchWrapper.setOnClickListener(new TimeClickListener());
-        if (mTime != null) {
+        if (hasEnoughSpaceForCircle()) {
+            mStopwatchCircleView.setVisibility(VISIBLE);
             mStopwatchWrapper.setOnTouchListener(new Utils.CircleTouchListener());
         }
 
-        final int colorAccent = MaterialColors.getColor(mContext, com.google.android.material.R.attr.colorPrimary, Color.BLACK);
+        mStopwatchWrapper.setOnClickListener(new TimeClickListener());
+
+        mMainTimeText.setTypeface(stopwatchTypeface);
+        mHundredthsTimeText.setTypeface(stopwatchTypeface);
+        final int colorAccent = MaterialColors.getColor(mContext, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
         final int textColorPrimary = mMainTimeText.getCurrentTextColor();
         final ColorStateList timeTextColor = new ColorStateList(
                 new int[][]{{-state_activated, -state_pressed}, {}},
                 new int[]{textColorPrimary, colorAccent});
         mMainTimeText.setTextColor(timeTextColor);
         mHundredthsTimeText.setTextColor(timeTextColor);
+
+        mLapsBackground.setBackground(ThemeUtils.cardBackground(mContext));
+
+        View lapHeader = v.findViewById(R.id.lap_header);
+        if (lapHeader != null) {
+            // Add space between the top of the header and the top of the background
+            // equal to the lap padding
+            final int padding = (int) dpToPx(mIsTablet ? 8 : 4, mDisplayMetrics);
+            lapHeader.setPadding(0, padding, 0, padding);
+
+            // Handle header text size and font
+            final float textSize = mIsTablet ? 18 : 16;
+            TextView[] titles = {
+                    v.findViewById(R.id.lap_title),
+                    v.findViewById(R.id.split_title),
+                    v.findViewById(R.id.total_title)
+            };
+
+            for (TextView tv : titles) {
+                tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
+                tv.setTypeface(boldTypeface);
+            }
+        }
+
+        // Timer text serves as a virtual start/stop button.
+        mStopwatchTextController = new StopwatchTextController(mMainTimeText, mHundredthsTimeText);
+
+        ((SimpleItemAnimator) Objects.requireNonNull(mLapsList.getItemAnimator())).setSupportsChangeAnimations(false);
+        mLapsList.setLayoutManager(mLapsLayoutManager);
+        mLapsList.setAdapter(mLapsAdapter);
+
+        DataModel.getDataModel().addStopwatchListener(mStopwatchWatcher);
 
         mVolumeUpAction = SettingsDAO.getVolumeUpActionForStopwatch(mPrefs);
         mVolumeUpActionAfterLongPress = SettingsDAO.getVolumeUpActionAfterLongPressForStopwatch(mPrefs);
@@ -276,11 +313,18 @@ public final class StopwatchFragment extends DeskClockFragment {
 
         // Synchronize the user interface with the data model.
         updateUI(FAB_AND_BUTTONS_IMMEDIATE);
+
+        // In portrait mode, re‑apply dynamic layout constraints after the UI has been refreshed.
+        // This ensures that the stopwatch circle and the laps list are resized correctly based on
+        // the screen height and the FAB container.
+        if (mIsPortrait) {
+            applyPortraitConstraints(requireView());
+        }
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onPause() {
+        super.onPause();
 
         // Stop all updates while the fragment is not visible.
         stopUpdatingTime();
@@ -294,21 +338,13 @@ public final class StopwatchFragment extends DeskClockFragment {
     }
 
     @Override
-    public void onFabClick(@NonNull ImageView fab) {
+    public void onFabClick() {
         toggleStopwatchState();
     }
 
-    private void updateFab(@NonNull ImageView fab) {
-        if (mContext != null) {
-            if (getStopwatch().isRunning()) {
-                fab.setImageResource(R.drawable.ic_fab_pause);
-                fab.setContentDescription(mContext.getString(R.string.sw_pause_button));
-            } else {
-                fab.setImageResource(R.drawable.ic_fab_play);
-                fab.setContentDescription(mContext.getString(R.string.sw_start_button));
-            }
-            fab.setVisibility(VISIBLE);
-        }
+    @Override
+    public void onFabLongClick(@NonNull ImageView fab) {
+        fab.setHapticFeedbackEnabled(false);
     }
 
     @Override
@@ -356,6 +392,91 @@ public final class StopwatchFragment extends DeskClockFragment {
                     right.setOnClickListener(v -> doShare());
                 }
             }
+        }
+    }
+
+    @Override
+    public void startRunnable() {
+        startUpdatingTime();
+    }
+
+    @Override
+    public void stopRunnable() {
+        stopUpdatingTime();
+    }
+
+    /**
+     * Applies dynamic layout constraints when the device is in portrait mode.
+     *
+     * <p>This method limits the maximum height of the stopwatch circle and the
+     * laps background based on the screen height. It also adjusts the bottom
+     * margin of the laps background so that it remains above the FAB container.
+     *
+     * <p>The FAB container height is retrieved asynchronously using {@code post()}
+     * to ensure that measurements are available before applying the constraints.</p>
+     *
+     * @param view the root view of the stopwatch fragment
+     */
+    private void applyPortraitConstraints(View view) {
+        ConstraintLayout layout = view.findViewById(R.id.stopwatch_root);
+        ConstraintSet set = new ConstraintSet();
+        set.clone(layout);
+
+        int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
+        int maxCircleHeight = (int) (screenHeight * 0.40f);
+        int maxLapsHeight = (int) (screenHeight * 0.35f);
+
+        set.constrainMaxHeight(R.id.stopwatch_time_wrapper, maxCircleHeight);
+        set.constrainMaxHeight(R.id.laps_background, maxLapsHeight);
+
+        View fabContainer = ((DeskClock) requireActivity()).getFabContainer();
+        fabContainer.post(() -> {
+            int fabHeight = fabContainer.getHeight();
+            int margin = fabHeight + (int) dpToPx(15, mDisplayMetrics);
+
+            set.setMargin(R.id.laps_background, ConstraintSet.BOTTOM, margin);
+            set.applyTo(layout);
+        });
+    }
+
+    /**
+     * Determines whether the device screen is wide enough to display the stopwatch circle
+     * in landscape mode.
+     *
+     * @return {@code true} if the screen width meets the minimum required dp value.
+     * {@code false} otherwise.
+     */
+    private boolean hasEnoughSpaceForCircle() {
+        int minWidthDp = 320;
+        float widthDp = mDisplayMetrics.widthPixels / mDisplayMetrics.density;
+
+        return widthDp >= minWidthDp;
+    }
+
+    /**
+     * @return {@code true} if the stopwatch circle view is currently visible.
+     * {@code false} otherwise.
+     */
+    private boolean isCircleVisible() {
+        return mStopwatchCircleView.getVisibility() == VISIBLE;
+    }
+
+    /**
+     * Updates the floating action button to reflect the current stopwatch state.
+     * Sets the appropriate icon, content description, and ensures the button is visible.
+     *
+     * @param fab the ImageView used as the stopwatch action button
+     */
+    private void updateFab(@NonNull ImageView fab) {
+        if (mContext != null) {
+            if (getStopwatch().isRunning()) {
+                fab.setImageResource(R.drawable.ic_fab_pause);
+                fab.setContentDescription(mContext.getString(R.string.sw_pause_button));
+            } else {
+                fab.setImageResource(R.drawable.ic_fab_play);
+                fab.setContentDescription(mContext.getString(R.string.sw_start_button));
+            }
+            fab.setVisibility(VISIBLE);
         }
     }
 
@@ -440,9 +561,9 @@ public final class StopwatchFragment extends DeskClockFragment {
             // to ensure they aren't seen as the first lap is drawn.
             mLapsList.removeAllViewsInLayout();
 
-            if (mTime != null) {
+            if (isCircleVisible()) {
                 // Start animating the reference lap.
-                mTime.update();
+                mStopwatchCircleView.update();
             }
 
             // Recording the first lap transitions the UI to display the laps list.
@@ -469,17 +590,34 @@ public final class StopwatchFragment extends DeskClockFragment {
         }
 
         final boolean lapsVisible = mLapsAdapter.getItemCount() > 0;
-        mLapsList.setVisibility(lapsVisible ? VISIBLE : GONE);
+        mLapsBackground.setVisibility(lapsVisible ? VISIBLE : GONE);
 
-        if (!mIsLandscape) {
+        if (mIsPortrait) {
             // When the lap list is visible, it includes the bottom padding. When it is absent the
             // appropriate bottom padding must be applied to the container.
-            final int bottom = ThemeUtils.convertDpToPixels(lapsVisible ? 0 : 80, mContext);
+            final int bottom = (int) dpToPx(lapsVisible ? 0 : 80, mDisplayMetrics);
             final int top = sceneRoot.getPaddingTop();
             final int left = sceneRoot.getPaddingLeft();
             final int right = sceneRoot.getPaddingRight();
             sceneRoot.setPadding(left, top, right, bottom);
+            return;
         }
+
+        // Handle margins dynamically for the landscape mode
+        ViewGroup.MarginLayoutParams layoutParams =
+                (ViewGroup.MarginLayoutParams) mStopwatchLandscapeLayout.getLayoutParams();
+
+        final int marginStart = (int) dpToPx(mIsTablet ? 10 : 0, mDisplayMetrics);
+        final int marginEnd = (int) dpToPx(mIsTablet ? 10 : 90, mDisplayMetrics);
+        final int marginBottom = (int) dpToPx(mIsTablet ? 110 : 10, mDisplayMetrics);
+        if (lapsVisible) {
+            layoutParams.setMargins(marginStart, 0, marginEnd, marginBottom);
+        } else {
+            layoutParams.setMargins(0, 0, 0, marginBottom);
+        }
+
+        mStopwatchLandscapeLayout.setLayoutParams(layoutParams);
+
     }
 
     private void adjustWakeLock() {
@@ -512,17 +650,25 @@ public final class StopwatchFragment extends DeskClockFragment {
     /**
      * Post the first runnable to update times within the UI. It will reschedule itself as needed.
      */
-    private void startUpdatingTime() {
+    public void startUpdatingTime() {
+        if (!isTabSelected() || getStopwatch().isReset()) {
+            return;
+        }
+
         // Ensure only one copy of the runnable is ever scheduled by first stopping updates.
         stopUpdatingTime();
-        mMainTimeText.post(mTimeUpdateRunnable);
+        if (mMainTimeText != null) {
+            mMainTimeText.post(mTimeUpdateRunnable);
+        }
     }
 
     /**
      * Remove the runnable that updates times within the UI.
      */
-    private void stopUpdatingTime() {
-        mMainTimeText.removeCallbacks(mTimeUpdateRunnable);
+    public void stopUpdatingTime() {
+        if (mMainTimeText != null) {
+            mMainTimeText.removeCallbacks(mTimeUpdateRunnable);
+        }
     }
 
     /**
@@ -535,6 +681,14 @@ public final class StopwatchFragment extends DeskClockFragment {
         final Stopwatch stopwatch = getStopwatch();
         final long totalTime = stopwatch.getTotalTime();
         mStopwatchTextController.setTimeString(totalTime);
+
+        // Explicitly reset alpha to 1f to ensure the text is visible when the stopwatch resumes.
+        if (mMainTimeText.getAlpha() != 1f) {
+            mMainTimeText.setAlpha(1f);
+        }
+        if (mHundredthsTimeText.getAlpha() != 1f) {
+            mHundredthsTimeText.setAlpha(1f);
+        }
 
         // Update the current lap.
         final boolean currentLapIsVisible = mLapsLayoutManager.findFirstVisibleItemPosition() == 0;
@@ -550,16 +704,14 @@ public final class StopwatchFragment extends DeskClockFragment {
         // Draw the latest stopwatch and current lap times.
         updateTime();
 
-        if (mTime != null) {
-            mTime.update();
+        if (isCircleVisible()) {
+            mStopwatchCircleView.update();
         }
 
-        final Stopwatch stopwatch = getStopwatch();
-        if (!stopwatch.isReset()) {
-            startUpdatingTime();
-        }
+        startUpdatingTime();
 
         // Adjust the visibility of the list of laps.
+        final Stopwatch stopwatch = getStopwatch();
         showOrHideLaps(stopwatch.isReset());
 
         // Update button states.
@@ -639,19 +791,22 @@ public final class StopwatchFragment extends DeskClockFragment {
             updateTime();
 
             // Blink text iff the stopwatch is paused and not pressed.
-            final View touchTarget = mTime != null ? mTime : mStopwatchWrapper;
+            final View touchTarget = isCircleVisible() ? mStopwatchCircleView : mStopwatchWrapper;
             final Stopwatch stopwatch = getStopwatch();
             final boolean blink = stopwatch.isPaused()
                     && startTime % 1000 < 500
                     && !touchTarget.isPressed();
+            final float textTargetAlpha = blink ? 0f : 1f;
 
-            if (blink) {
-                mMainTimeText.setAlpha(0f);
-                mHundredthsTimeText.setAlpha(0f);
-            } else {
-                mMainTimeText.setAlpha(1f);
-                mHundredthsTimeText.setAlpha(1f);
-            }
+            mMainTimeText.animate()
+                    .alpha(textTargetAlpha)
+                    .setDuration(200)
+                    .start();
+
+            mHundredthsTimeText.animate()
+                    .alpha(textTargetAlpha)
+                    .setDuration(200)
+                    .start();
 
             if (!stopwatch.isReset()) {
                 final long period = stopwatch.isPaused()
@@ -673,7 +828,6 @@ public final class StopwatchFragment extends DeskClockFragment {
             adjustWakeLock();
 
             if (after.isReset()) {
-                setTabScrolledToTop(true);
                 if (DataModel.getDataModel().isApplicationInForeground()) {
                     updateUI(BUTTONS_IMMEDIATE);
                 }
@@ -683,7 +837,6 @@ public final class StopwatchFragment extends DeskClockFragment {
                 updateUI(FAB_MORPH | BUTTONS_IMMEDIATE);
             }
         }
-
     }
 
     /**
@@ -701,21 +854,4 @@ public final class StopwatchFragment extends DeskClockFragment {
         }
     }
 
-    /**
-     * Updates the vertical scroll state of this tab in the {@link UiDataModel} as the user scrolls
-     * the recyclerview or when the size/position of elements within the recyclerview changes.
-     */
-    private final class ScrollPositionWatcher extends RecyclerView.OnScrollListener
-            implements View.OnLayoutChangeListener {
-        @Override
-        public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-            setTabScrolledToTop(Utils.isScrolledToTop(mLapsList));
-        }
-
-        @Override
-        public void onLayoutChange(View v, int left, int top, int right, int bottom,
-                                   int oldLeft, int oldTop, int oldRight, int oldBottom) {
-            setTabScrolledToTop(Utils.isScrolledToTop(mLapsList));
-        }
-    }
 }

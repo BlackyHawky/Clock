@@ -91,8 +91,7 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"स्नुज लम्बाइ"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"बिस्तारै मात्रा  बढाउनुहोस्"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"यस पछि मौन"</string>
-    <string name="auto_silence_never" msgid="4821982647348750809">"कहिले पनि होइन"</string>
-    <string name="auto_silence_1_minute">१ मिनेट</string>
+    <string name="label_never" msgid="4821982647348750809">"कहिले पनि होइन"</string>
     <string name="label_off">निष्क्रिय</string>
     <string name="week_start_title" msgid="4268917518596832096">"हप्ता सुरु हुने दिन"</string>
     <string name="week_start_saturday">शनिबार</string>
@@ -263,6 +262,8 @@
         <item msgid="3027153773466391728">"फिजी"</item>
         <item msgid="5911600083231840181">"टोन्गा"</item>
         <item msgid="5176858645450908751">"जाकार्ता"</item>
+        <item>"रियाद"</item>
+        <item>"रिक्याविक"</item>
     </string-array>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"नयाँ अलार्म"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"नयाँ अलार्म सिर्जना गर्नु"</string>
@@ -285,6 +286,7 @@
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> घडीहरू"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"अलार्म विस्तार गर्नुहोस्"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"अलार्म ढाल्नुहोस्"</string>
+    <string name="alarm_undo" msgid="5710042601177655254">"अन्डू गर्नुहोस्"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"अलार्म मेटाइयो"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">\"<xliff:g id="LABEL">%s</xliff:g>\"</string>
     <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> अघि"</string>

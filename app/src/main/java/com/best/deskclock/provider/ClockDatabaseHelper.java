@@ -27,7 +27,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
     static final String ALARMS_TABLE_NAME = "alarm_templates";
     static final String INSTANCES_TABLE_NAME = "alarm_instances";
 
-    private static final int DATABASE_VERSION = 21;
+    private static final int DATABASE_VERSION = 23;
     private static final int MINIMUM_SUPPORTED_VERSION = 15;
 
     public ClockDatabaseHelper(Context context) {
@@ -45,14 +45,16 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                 ClockContract.AlarmsColumns.DAYS_OF_WEEK + " INTEGER NOT NULL, " +
                 ClockContract.AlarmsColumns.ENABLED + " INTEGER NOT NULL, " +
                 ClockContract.AlarmsColumns.VIBRATE + " INTEGER NOT NULL, " +
+                ClockContract.AlarmsColumns.VIBRATION_PATTERN + " TEXT NOT NULL DEFAULT 'default', " +
                 ClockContract.AlarmsColumns.FLASH + " INTEGER NOT NULL, " +
                 ClockContract.AlarmsColumns.LABEL + " TEXT NOT NULL, " +
                 ClockContract.AlarmsColumns.RINGTONE + " TEXT, " +
                 ClockContract.AlarmsColumns.DELETE_AFTER_USE + " INTEGER NOT NULL DEFAULT 0, " +
-                ClockContract.AlarmsColumns.AUTO_SILENCE_DURATION + " INTEGER NOT NULL DEFAULT 10, " +
+                ClockContract.AlarmsColumns.AUTO_SILENCE_DURATION + " INTEGER NOT NULL DEFAULT 600, " +
                 ClockContract.AlarmsColumns.SNOOZE_DURATION + " INTEGER NOT NULL DEFAULT 10, " +
+                ClockContract.AlarmsColumns.MISSED_ALARM_REPEAT_LIMIT + " INTEGER NOT NULL DEFAULT -1, " +
                 ClockContract.AlarmsColumns.CRESCENDO_DURATION + " INTEGER NOT NULL DEFAULT 0, " +
-                ClockContract.AlarmsColumns.ALARM_VOLUME + " INTEGER NOT NULL DEFAULT 11);");
+                ClockContract.AlarmsColumns.ALARM_VOLUME + " INTEGER NOT NULL DEFAULT 5);");
 
         LogUtils.i("Alarms Table created");
     }
@@ -66,12 +68,15 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                 ClockContract.InstancesColumns.HOUR + " INTEGER NOT NULL, " +
                 ClockContract.InstancesColumns.MINUTES + " INTEGER NOT NULL, " +
                 ClockContract.InstancesColumns.VIBRATE + " INTEGER NOT NULL, " +
+                ClockContract.InstancesColumns.VIBRATION_PATTERN + " TEXT NOT NULL DEFAULT 'default', " +
                 ClockContract.InstancesColumns.FLASH + " INTEGER NOT NULL, " +
                 ClockContract.InstancesColumns.LABEL + " TEXT NOT NULL, " +
                 ClockContract.InstancesColumns.RINGTONE + " TEXT, " +
                 ClockContract.InstancesColumns.ALARM_STATE + " INTEGER NOT NULL, " +
                 ClockContract.InstancesColumns.AUTO_SILENCE_DURATION + " INTEGER NOT NULL, " +
                 ClockContract.InstancesColumns.SNOOZE_DURATION + " INTEGER NOT NULL, " +
+                ClockContract.InstancesColumns.MISSED_ALARM_REPEAT_COUNT + " INTEGER NOT NULL, " +
+                ClockContract.InstancesColumns.MISSED_ALARM_REPEAT_LIMIT + " INTEGER NOT NULL, " +
                 ClockContract.InstancesColumns.CRESCENDO_DURATION + " INTEGER NOT NULL, " +
                 ClockContract.InstancesColumns.ALARM_VOLUME + " INTEGER NOT NULL, " +
                 ClockContract.InstancesColumns.ALARM_ID + " INTEGER REFERENCES " +
@@ -178,11 +183,11 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                 while (cursor.moveToNext()) {
                     final Alarm alarm = new Alarm(cursor);
                     // Save new version of alarm and create alarm instance for it
-                    db.insert(TEMP_ALARMS_TABLE_NAME, null, Alarm.createContentValues(alarm));
+                    db.insert(TEMP_ALARMS_TABLE_NAME, null, alarm.createContentValues());
                     if (alarm.enabled) {
                         AlarmInstance newInstance = alarm.createInstanceAfter(currentTime);
                         db.insert(TEMP_INSTANCES_TABLE_NAME, null,
-                                AlarmInstance.createContentValues(newInstance));
+                                newInstance.createContentValues());
                     }
                 }
             }
@@ -193,6 +198,48 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
 
             LogUtils.i("dismissAlarmWhenRingtoneEnds, alarmSnoozeActions and increasingVolume" +
                     " columns removed for version 21 upgrade.");
+        }
+
+        if (oldVersion < 22) {
+            // Convert the auto silence duration into seconds
+            db.execSQL("UPDATE " + ALARMS_TABLE_NAME +
+                    " SET " + ClockContract.AlarmsColumns.AUTO_SILENCE_DURATION +
+                    " = " + ClockContract.AlarmsColumns.AUTO_SILENCE_DURATION + " * 60 " +
+                    "WHERE " + ClockContract.AlarmsColumns.AUTO_SILENCE_DURATION + " > 0");
+
+            db.execSQL("UPDATE " + INSTANCES_TABLE_NAME +
+                    " SET " + ClockContract.InstancesColumns.AUTO_SILENCE_DURATION +
+                    " = " + ClockContract.InstancesColumns.AUTO_SILENCE_DURATION + " * 60 " +
+                    "WHERE " + ClockContract.InstancesColumns.AUTO_SILENCE_DURATION + " > 0");
+
+            // Add columns related to the “Repeat missed alarms” feature
+            db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME
+                    + " ADD COLUMN " + ClockContract.AlarmsColumns.MISSED_ALARM_REPEAT_LIMIT
+                    + " INTEGER NOT NULL DEFAULT -1;");
+
+            db.execSQL("ALTER TABLE " + INSTANCES_TABLE_NAME
+                    + " ADD COLUMN " + ClockContract.InstancesColumns.MISSED_ALARM_REPEAT_COUNT
+                    + " INTEGER NOT NULL DEFAULT 0;");
+
+            db.execSQL("ALTER TABLE " + INSTANCES_TABLE_NAME
+                    + " ADD COLUMN " + ClockContract.InstancesColumns.MISSED_ALARM_REPEAT_LIMIT
+                    + " INTEGER NOT NULL DEFAULT -1;");
+
+            LogUtils.i("Migrating autoSilenceDuration values from minutes to seconds and" +
+                    " added missed_alarm_repeat_count + missed_alarm_repeat_limit columns for version 22 upgrade.");
+        }
+
+        if (oldVersion < 23) {
+            // Add columns related to the "Vibration pattern" feature
+            db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME
+                    + " ADD COLUMN " + ClockContract.AlarmsColumns.VIBRATION_PATTERN
+                    + " TEXT NOT NULL DEFAULT 'default';");
+
+            db.execSQL("ALTER TABLE " + INSTANCES_TABLE_NAME
+                    + " ADD COLUMN " + ClockContract.InstancesColumns.VIBRATION_PATTERN
+                    + " TEXT NOT NULL DEFAULT 'default';");
+
+            LogUtils.i("vibrationPattern column added for version 23 upgrade.");
         }
     }
 

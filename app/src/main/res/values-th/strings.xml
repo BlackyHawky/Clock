@@ -83,8 +83,7 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"ระยะเวลาปิดเสียงเตือนชั่วคราว"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"ค่อยๆ เพิ่มระดับเสียง"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"ปิดเสียงหลังจาก"</string>
-    <string name="auto_silence_never" msgid="4821982647348750809">"ไม่ใช้"</string>
-    <string name="auto_silence_1_minute">1 นาที</string>
+    <string name="label_never" msgid="4821982647348750809">"ไม่ใช้"</string>
     <string name="label_off">ปิด</string>
     <string name="week_start_title" msgid="4268917518596832096">"เริ่มต้นสัปดาห์ใน"</string>
     <string name="week_start_saturday">วันเสาร์</string>
@@ -256,6 +255,8 @@
         <item msgid="3027153773466391728">"ฟิจิ"</item>
         <item msgid="5911600083231840181">"ตองกา"</item>
         <item msgid="5176858645450908751">"จาการ์ตา"</item>
+        <item>"ริยาด"</item>
+        <item>"เรคยาวิก"</item>
     </string-array>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"ตั้งปลุก"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"ตั้งปลุกรายการใหม่"</string>
@@ -278,6 +279,7 @@
     <string name="timers_in_use" msgid="5570729467344408506">"นาฬิกาจับเวลา <xliff:g id="NUMBER">%d</xliff:g> เรือน"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"ขยายการแจ้งเตือน"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"ยุบการแจ้งเตือน"</string>
+    <string name="alarm_undo" msgid="5710042601177655254">"เลิกทำ"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"ลบการแจ้งเตือนแล้ว"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="LABEL">%s</xliff:g></string>
     <string name="world_time_ahead" msgid="625559988238637652">"เร็วกว่า <xliff:g id="TIME">%1$s</xliff:g>"</string>

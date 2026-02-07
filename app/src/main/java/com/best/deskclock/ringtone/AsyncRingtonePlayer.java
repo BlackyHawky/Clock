@@ -2,6 +2,8 @@
 
 package com.best.deskclock.ringtone;
 
+import static com.best.deskclock.utils.RingtoneUtils.IN_CALL_VOLUME;
+
 import android.content.Context;
 import android.media.AudioAttributes;
 import android.media.AudioFocusRequest;
@@ -10,8 +12,9 @@ import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 
-import com.best.deskclock.R;
+import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
@@ -48,9 +51,6 @@ public final class AsyncRingtonePlayer {
 
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger("AsyncRingtonePlayer");
 
-    // Volume suggested by media team for in-call alarms.
-    private static final float IN_CALL_VOLUME = 0.125f;
-
     private final Context mContext;
 
     /**
@@ -66,67 +66,8 @@ public final class AsyncRingtonePlayer {
     private MediaPlayerPlaybackDelegate mPlaybackDelegate;
 
     public AsyncRingtonePlayer(Context context) {
-        // Use a DirectBoot aware context if supported
-        if (SdkUtils.isAtLeastAndroid7()) {
-            mContext = context.createDeviceProtectedStorageContext();
-        }
-        else {
-            mContext = context;
-        }
-    }
-
-    /**
-     * @return <code>true</code> iff the device is currently in a telephone call
-     */
-    private static boolean isInTelephoneCall(AudioManager audioManager) {
-        final int audioMode = audioManager.getMode();
-        if (SdkUtils.isAtLeastAndroid13()) {
-            return audioMode == AudioManager.MODE_IN_COMMUNICATION ||
-                    audioMode == AudioManager.MODE_COMMUNICATION_REDIRECT ||
-                    audioMode == AudioManager.MODE_CALL_REDIRECT ||
-                    audioMode == AudioManager.MODE_CALL_SCREENING ||
-                    audioMode == AudioManager.MODE_IN_CALL;
-        } else {
-            return audioMode == AudioManager.MODE_IN_COMMUNICATION ||
-                    audioMode == AudioManager.MODE_IN_CALL;
-        }
-    }
-
-    /**
-     * @return Uri of the ringtone to play when the user is in a telephone call
-     */
-    private static Uri getInCallRingtoneUri(Context context) {
-        return RingtoneUtils.getResourceUri(context, R.raw.alarm_expire);
-    }
-
-    /**
-     * @return Uri of the ringtone to play when the chosen ringtone fails to play
-     */
-    private static Uri getFallbackRingtoneUri(Context context) {
-        return RingtoneUtils.getResourceUri(context, R.raw.alarm_expire);
-    }
-
-    /**
-     * @param currentTime current time of the device
-     * @param stopTime    time at which the crescendo finishes
-     * @param duration    length of time over which the crescendo occurs
-     * @return the scalar volume value that produces a linear increase in volume (in decibels)
-     */
-    private static float computeVolume(long currentTime, long stopTime, long duration) {
-        // Compute the percentage of the crescendo that has completed.
-        final float elapsedCrescendoTime = stopTime - currentTime;
-        final float fractionComplete = 1 - (elapsedCrescendoTime / duration);
-
-        // Use the fraction to compute a target decibel between -40dB (near silent) and 0dB (max).
-        final float gain = (fractionComplete * 40) - 40;
-
-        // Convert the target gain (in decibels) into the corresponding volume scalar.
-        final float volume = (float) Math.pow(10f, gain / 20f);
-
-        LOGGER.v("Ringtone crescendo %,.2f%% complete (scalar: %f, volume: %f dB)",
-                fractionComplete * 100, volume, gain);
-
-        return volume;
+        // Use a DirectBoot compatible context if supported
+        mContext = Utils.getSafeStorageContext(context);
     }
 
     /**
@@ -216,17 +157,35 @@ public final class AsyncRingtonePlayer {
             mCrescendoDuration = crescendoDuration;
 
             mAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-            boolean inCall = isInTelephoneCall(mAudioManager);
+            boolean inCall = RingtoneUtils.isInTelephoneCall(mAudioManager);
 
             if (inCall) {
-                ringtoneUri = getInCallRingtoneUri(context);
+                ringtoneUri = RingtoneUtils.getInCallRingtoneUri(context);
             }
+
+            // Special handling for OnePlus devices that do not appear to be able to read
+            // the default URI "content://settings/system/alarm_alert"
+            // and system URIs in Direct Boot mode.
+            // See https://github.com/BlackyHawky/Clock/issues/395
+            if (Build.MANUFACTURER.equalsIgnoreCase("oneplus")) {
+                if (DeviceUtils.isUserUnlocked(context)) {
+                    if (RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).equals(ringtoneUri)) {
+                        ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_ALARM);
+                    }
+                } else {
+                    if (RingtoneUtils.isSystemRingtone(ringtoneUri)) {
+                        ringtoneUri = RingtoneUtils.getFallbackRingtoneUri(context);
+                    }
+                }
+            }
+
+            LOGGER.d("AsyncRingtonePlayer - Playing ringtone URI: " + ringtoneUri);
 
             mMediaPlayer = RingtoneUtils.createPreparedMediaPlayer(
                     context,
                     ringtoneUri,
                     RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM),
-                    getFallbackRingtoneUri(context)
+                    RingtoneUtils.getFallbackRingtoneUri(context)
             );
 
             if (mMediaPlayer == null) {
@@ -279,7 +238,7 @@ public final class AsyncRingtonePlayer {
                 return false;
             }
 
-            float volume = computeVolume(currentTime, mCrescendoStopTime, mCrescendoDuration);
+            float volume = RingtoneUtils.computeVolume(currentTime, mCrescendoStopTime, mCrescendoDuration);
             mMediaPlayer.setVolume(volume, volume);
 
             return true;

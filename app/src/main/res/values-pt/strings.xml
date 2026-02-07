@@ -99,8 +99,7 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"Duração da soneca"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Aumentar gradualmente o volume"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Silenciar depois de"</string>
-    <string name="auto_silence_never" msgid="4821982647348750809">"Nunca"</string>
-    <string name="auto_silence_1_minute">1 minuto</string>
+    <string name="label_never" msgid="4821982647348750809">"Nunca"</string>
     <string name="label_off">Desativar</string>
     <string name="week_start_title" msgid="4268917518596832096">"Começar a semana em"</string>
     <string name="week_start_saturday">Sábado</string>
@@ -271,6 +270,8 @@
         <item msgid="3027153773466391728">"Fiji"</item>
         <item msgid="5911600083231840181">"Tonga"</item>
         <item msgid="5176858645450908751">"Jacarta"</item>
+        <item>"Riad"</item>
+        <item>"Reykjavik"</item>
     </string-array>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"Novo alarme"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"Criar novo alarme"</string>
@@ -293,6 +294,7 @@
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> timers"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Expandir alarme"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Recolher alarme"</string>
+    <string name="alarm_undo" msgid="5710042601177655254">"desfazer"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Alarme excluído"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="label">%s</xliff:g></string>
     <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> à frente"</string>
@@ -348,7 +350,6 @@
     <string name="auto_silence_end_of_ringtone">O fim do toque</string>
     <string name="add_label">Adicionar nome</string>
     <string name="style_category_title">Estilo</string>
-    <string name="styles_and_colors_category_title">Estilo e cores</string>
     <string name="font_category_title">Fonte</string>
     <string name="miscellaneous_category_title">Variadas</string>
     <string name="ringtone_category_title">Toque</string>
@@ -363,9 +364,7 @@
     <string name="default_time_to_add_to_timer_title">Tempo padrão para adicionar ao timer</string>
     <string name="preview_title">Prévia</string>
     <string name="screensaver_preview_summary">Inicia o protetor de tela imediatamente</string>
-    <string name="contributors">Contribuidores</string>
     <string name="gnu_gpl">GNU General Public License v3.0</string>
-    <string name="alarm_display_customization_title">Personalizar exibição de alarme</string>
     <string name="timer_label_box_title">Etiqueta de Timer</string>
     <string name="timer_button_time_box_title">Minutos para adicionar ao timer</string>
     <string name="alarm_settings_summary">Definir toque padrão, volume, ações para ignorar ou adiar alarmes, o primeiro dia da semana e a hora da notificação do lembrete</string>
@@ -387,34 +386,21 @@
     <string name="dismiss_button_color">Cor do botão Dispensar</string>
     <string name="alarm_button_color">Cor do botão de Alarme</string>
     <string name="alarm_title_font_size">Tamanho da fonte do título do alarme</string>
-    <string name="alarm_clock_font_size">Tamanho da fonte do relógio de alarme</string>
+    <string name="clock_font_size">Tamanho da fonte do relógio</string>
     <string name="version">Versão</string>
     <string name="version_text">Versão <xliff:g id="VERSION_NUMBER" exemplo="1.0">%1$s</xliff:g></string>
     <string name="whats_new_title">O que há de novo</string>
     <string name="clock_color_title">Cor do relógio</string>
     <string name="blue_gray_accent_color">Azul Cinzento</string>
-    <string name="auto_silence_5_seconds">5 segundos</string>
-    <string name="auto_silence_10_seconds">10 segundos</string>
     <string name="brown_accent_color">Marrom</string>
     <string name="green_accent_color">Verde</string>
     <string name="button_action_nothing">Nada</string>
     <string name="sort_timer_descending_duration">Por duração (ordem descendente)</string>
-    <string name="sort_timer_name">Por nome</string>
-    <string name="default_time_to_add_to_timer_1_minute">1 minuto</string>
-    <string name="default_time_to_add_to_timer_2_minutes">2 minutos</string>
+    <string name="sort_name">Por nome</string>
     <string name="timer_settings_summary">Definir toque padrão, volume e classificação do timer</string>
     <string name="sort_timer_ascending_duration">Por duração (ordem ascendente)</string>
-    <string name="default_time_to_add_to_timer_3_minutes">3 minutos</string>
-    <string name="default_time_to_add_to_timer_4_minutes">4 minutos</string>
-    <string name="default_time_to_add_to_timer_5_minutes">5 minutos</string>
-    <string name="default_time_to_add_to_timer_6_minutes">6 minutos</string>
-    <string name="default_time_to_add_to_timer_8_minutes">8 minutos</string>
-    <string name="default_time_to_add_to_timer_7_minutes">7 minutos</string>
-    <string name="default_time_to_add_to_timer_10_minutes">10 minutos</string>
-    <string name="default_time_to_add_to_timer_30_minutes">30 minutos</string>
-    <string name="default_time_to_add_to_timer_1_hour">1 hora</string>
     <string name="screensaver_clock_dynamic_colors_title">Cores dinâmicas do relógio</string>
-    <string name="seconds_hand_color_title">Cor do ponteiro de segundos</string>
+    <string name="second_hand_color_title">Cor do ponteiro de segundos</string>
     <string name="clock_settings_summary">Definir estilo, fuso horário e alterar a data e a hora do dispositivo</string>
     <string name="dialog_close">Fechar</string>
     <string name="screensaver_bold_digital_clock_title">Relógio digital em negrito</string>
@@ -423,13 +409,12 @@
     <string name="screensaver_settings_summary">Definir estilo, cor e fonte do protetor de tela</string>
     <string name="screensaver_daydream_settings">Selecione/ative o protetor de tela</string>
     <string name="screensaver_daydream_settings_summary">Abre as configurações do protetor de tela do Android</string>
-    <string name="screensaver_date_color_title">Cor da data</string>
-    <string name="screensaver_next_alarm_color_title">Cor do próximo alarme</string>
+    <string name="date_color_title">Cor da data</string>
+    <string name="next_alarm_color_title">Cor do próximo alarme</string>
     <string name="screensaver_brightness_title">Brilho</string>
     <string name="screensaver_italic_next_alarm_title">Próximo alarme em itálico</string>
     <string name="screensaver_bold_next_alarm_title">Próximo alarme em negrito</string>
     <string name="whats_new_dialog_message">Descubra o que há de novo:\n\n%s</string>
-    <string name="credits">Créditos</string>
     <string name="delete_occasional_alarm_after_use_title">Delete alarme quando dispensado</string>
     <string name="alarm_alert_dismiss_and_delete_text">Dispensar &amp; Deletar</string>
     <string name="alarm_alert_off_and_deleted_text">Alarme desativado e deletado</string>
@@ -441,8 +426,6 @@
     <string name="dark_theme">Escuro</string>
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Habilitar exclusão automática de alarmes ocasionais por padrão</string>
     <string name="alarm_settings_general_summary">Essa configuração pode ser alterada para cada alarme na exibição de alarme expandida</string>
-    <string name="auto_silence_20_seconds">20 segundos</string>
-    <string name="auto_silence_30_seconds">30 segundos</string>
     <string name="snooze_duration_none">Nenhum</string>
     <string name="about_github_link">Veja no GitHub</string>
     <string name="vertical_digital_widget">Relógio digital vertical</string>
@@ -453,73 +436,65 @@
     <string name="license">Licença Open-source</string>
     <string name="material_you_next_alarm_widget">Próximo alarme Material You</string>
     <string name="settings_fade_transitions_title">Habilitar esmaecimento de transições ao alternar entre telas</string>
-    <string name="contributors_dialog_message">Visite a página do GitHub de %1$s:\n\n%2$s</string>
     <string name="next_alarm_widget">Próximo alarme</string>
     <string name="features_title">Principais funcionalidades</string>
     <string name="github_dialog_message">Visite a página do projeto no GitHub:\n\n%s</string>
     <string name="license_dialog_message">Leia a licença:\n\n%s</string>
     <string name="timer_flip_action_title">Vire o dispositivo para parar o alarme</string>
     <string name="timer_shake_action_title">Chacoalhe o dispositivo para parar o alarme</string>
-    <string name="default_time_to_add_to_timer_9_minutes">9 minutos</string>
     <string name="screensaver_italic_date_title">Data em itálico</string>
     <string name="night_accent_color_title">Cor de destaque para o modo noturno</string>
     <string name="pink_accent_color">Rosa</string>
-    <string name="occasional_alarm_deleted">Alarme ocasional das <xliff:g example="14:20" id="alarm_time">%s</xliff:g> excluído</string>
     <string name="alarm_created">Alarme criado</string>
-    <string name="about_dialog_message">• Ação de virar e chacoalhar para desativar/adiar o alarme;\n\n• Desligue/adie o alarme com o botão liga/desliga ou com os botões de volume;\n\n• Apenas para alguns dispositivos Snapdragon, o alarme é acionado quando eles são desligados;\n\t\tInfelizmente, esse recurso pode não funcionar em alguns dispositivos, apesar da presença do aplicativo de sistema <i>\"com.qualcomm.qti.poweroffalarm\"</i>.\n\n• Deslize para excluir um alarme;\n\n• Duplique alarmes;\n\n• Personalização do título do alarme;\n\n• Ringtone personalizável;\n\n• Tema claro, escuro ou do sistema;\n\n• Modo AMOLED para tema escuro;\n\n• Estilo de relógio digital ou analógico;\n\n• Exibir a hora de casa quando estiver viajando;\n\n• Exibir a hora em várias cidades do mundo;\n\n• Timer, cronômetro e hora de dormir <i>(experimental)</i> incluídos;\n\n• Possibilidade de compartilhar o cronômetro com seus contatos;\n\n• Protetor de tela personalizável;\n\n• Widgets modernos;\n\n• Widgets personalizáveis;\n\n• Suporte para blocos em configurações rápidas (para Android 7+);\n\n• Backup e restauração de configurações;\n\n• Material design;\n\n• Cores dinâmicas para Android 12+;</string>
     <string name="description_direction_both_for_occasional_non_repeatable_alarm">Deslize para esquerda ou direita para descartar e deletar alarme</string>
     <string name="auto_night_accent_color_title">Aplicar cor de destaque para o modo noturno</string>
     <string name="first_launch_button_now">Agora</string>
-    <string name="widget_next_alarm_custom_color_title">Cor personalizada para próximo alarme</string>
-    <string name="digital_widget_city_name_custom_color_title">Cor personalizada para o nome da cidade</string>
-    <string name="digital_widget_max_clock_font_size_title">Tamanho máximo da fonte do relógio principal</string>
+    <string name="city_name_color_title">Cor personalizada para o nome da cidade</string>
+    <string name="max_clock_font_size_title">Tamanho máximo da fonte do relógio principal</string>
     <string name="digital_widget_message_summary">\"Mostrar cidades no widget\" deve estar desativado para acessar essa configuração</string>
     <string name="about_title">Sobre</string>
     <string name="background_color_title">Cor do plano de fundo</string>
-    <string name="digital_widget_city_title">Mostrar cidades no widget</string>
-    <string name="digital_widget_clock_default_color_title">Use as cores padrão para o relógio principal</string>
+    <string name="display_city_title">Mostrar cidades no widget</string>
+    <string name="clock_default_color_title">Use as cores padrão para o relógio principal</string>
     <string name="shake_action_title">Ação de chacoalhar o dispositivo</string>
     <string name="alarm_snooze_channel">Alarmes com soneca</string>
     <string name="stopwatch_channel">Cronômetro</string>
     <string name="first_launch_important_info_message_for_SDK34">• &lt;b&gt;NOTIFICAÇÕES DE TELA CHEIA;&lt;/b&gt; &lt;br&gt; &lt;br&gt;</string>
     <string name="first_launch_important_info_message">Para garantir que o aplicativo funcione corretamente, &lt;b&gt;algumas das configurações do seu dispositivo devem ser alteradas:&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;OTIMIZAÇÃO DE BATERIA;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;NOTIFICAÇÕES;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;Dependendo da versão do Android de seu dispositivo, algumas dessas configurações já estão otimizadas (ex.: notificações).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Você pode alterá-las agora ou posteriormente nas configurações de gerenciamento de permissões:</string>
     <string name="widget_background_title">Mostrar plano de fundo</string>
-    <string name="digital_widget_default_hours_color_title">Use a cor padrão para as horas</string>
-    <string name="digital_widget_custom_hours_color_title">Cor das horas personalizada</string>
-    <string name="digital_widget_default_minutes_color_title">Usar a cor padrão para os minutos</string>
-    <string name="widget_next_alarm_default_color_title">Usar a cor padrão para o próximo alarme</string>
+    <string name="hour_default_color_title">Use a cor padrão para as horas</string>
+    <string name="hour_color_title">Cor das horas personalizada</string>
+    <string name="minute_default_color_title">Usar a cor padrão para os minutos</string>
+    <string name="next_alarm_default_color_title">Usar a cor padrão para o próximo alarme</string>
     <string name="firing_alarms_timers_channel">Disparando alarmes &amp; timers</string>
     <string name="alarm_missed_channel">Alarmes perdidos</string>
-    <string name="digital_widget_city_clock_default_color_title">Usar a cor padrão para o relógio da cidade</string>
+    <string name="city_clock_default_color_title">Usar a cor padrão para o relógio da cidade</string>
     <string name="flip_action_title">Ação de virar o dispositivo</string>
     <string name="first_launch_main_feature_link">… e muito mais!</string>
     <string name="first_launch_main_feature_message">► Claro, escuro ou tema do sistema; &lt;br&gt; &lt;br&gt; ► Protetor de tela personalizável; &lt;br&gt; &lt;br&gt; ► Widgets personalizáveis; &lt;br&gt; &lt;br&gt; ► Suporte para blocos em configurações rápidas (para Android 7+); &lt;br&gt; &lt;br&gt; ► Configurações de backup e restauração &lt;br&gt; &lt;br &gt; ► Material design e cores dinâmicas; &lt;br&gt; &lt;br&gt; ► Deslize para deletar um alarme; &lt;br&gt; &lt;br&gt; ► Duplique um alarme; &lt;br&gt; &lt;br&gt; ► Ação de virar e chacoalhar para desativar/adiar alarme; &lt;br&gt; &lt;br&gt; ► Desligar/adiar o alarme com os botões de ligar ou de volume; &lt;br&gt; &lt;br&gt; ► %s</string>
-    <string name="digital_widget_city_clock_custom_color_title">Cor personalizada do relógio da cidade</string>
-    <string name="digital_widget_custom_minutes_color_title">Cor dos minutos personalizada</string>
-    <string name="digital_widget_date_default_color_title">Usar a cor padrão para a data</string>
-    <string name="digital_widget_date_custom_color_title">Cor personalizada para a data</string>
-    <string name="digital_widget_city_name_default_color_title">Usar a cor padrão para o nome da cidade</string>
+    <string name="city_clock_color_title">Cor personalizada do relógio da cidade</string>
+    <string name="minute_color_title">Cor dos minutos personalizada</string>
+    <string name="date_default_color_title">Usar a cor padrão para a data</string>
+    <string name="city_name_default_color_title">Usar a cor padrão para o nome da cidade</string>
     <string name="alarm_upcoming_channel">Próximos alarmes</string>
-    <string name="next_alarm_widget_default_title_color">Usar a cor padrão para os títulos “Próximo alarme” e “Sem próximo alarme”</string>
+    <string name="next_alarm_no_upcoming_alarm_titles_default_color">Usar a cor padrão para os títulos “Próximo alarme” e “Sem próximo alarme”</string>
     <string name="timer_channel">Timer</string>
     <string name="first_launch_version">Versão %s</string>
     <string name="first_launch_main_feature_title">PRINCIPAIS RECURSOS</string>
-    <string name="digital_widget_clock_custom_color_title">Cor personalizada do relógio principal</string>
     <string name="first_launch_button_later">Depois</string>
     <string name="first_launch_dialog_title">Sair</string>
     <string name="widgets_settings_summary">Definir o estilo, as cores e o tamanho da fonte dos widgets</string>
     <string name="first_launch_important_info_title">INFORMAÇÕES IMPORTANTES</string>
     <string name="first_launch_dialog_message">Tem certeza de que deseja sair do aplicativo?</string>
     <string name="widgets_settings">Widgets</string>
-    <string name="next_alarm_widget_custom_alarm_title_color">Cor personalizada do título do alarme</string>
-    <string name="next_alarm_widget_max_font_size_title">Tamanho máximo da fonte do widget</string>
+    <string name="widget_max_font_size_title">Tamanho máximo da fonte do widget</string>
     <string name="next_alarm_widget_text">Próximo alarme</string>
     <string name="ignore_battery_optimizations_dialog_title">Otimizações de bateria</string>
     <string name="ignore_battery_optimizations_title">IGNORAR OTIMIZAÇÕES DE BATERIA</string>
     <string name="notifications_dialog_text">Além de definir alarmes, esse aplicativo também tem um timer, cronômetro e modo hora de dormir. \n\nPara que as notificações sejam exibidas corretamente para todos os módulos e, principalmente, para que o alarme seja acionado, recomendamos ativar as notificações para esse aplicativo.</string>
     <string name="permission_management_summary">Mostrar as permissões necessárias para que o aplicativo funcione corretamente</string>
-    <string name="next_alarm_widget_default_alarm_title_color">Usar a cor padrão para o título do alarme</string>
-    <string name="next_alarm_widget_custom_title_color">Cor personalizada para os títulos “Próximo alarme” e “Sem próximo alarme”</string>
+    <string name="alarm_title_default_color">Usar a cor padrão para o título do alarme</string>
+    <string name="next_alarm_no_upcoming_alarm_titles_color">Cor personalizada para os títulos “Próximo alarme” e “Sem próximo alarme”</string>
     <string name="notifications_permission_title">PERMITIR NOTIFICAÇÕES</string>
     <string name="FSN_permission_title">ATIVAR NOTIFICAÇÕES EM TELA CHEIA</string>
     <string name="FSN_dialog_title">Notificações em tela cheia</string>
@@ -533,7 +508,6 @@
     <string name="permission_highly_recommended">Altamente recomendado</string>
     <string name="permission_status_title">Status:</string>
     <string name="permission_dialog_revoke_title">Revogar acesso</string>
-    <string name="permission_dialog_close_button">Fechar</string>
     <string name="timer_add_custom_time">+ %s</string>
     <string name="backup_restore_dialog_message">Deseja fazer backup ou restaurar as configurações a partir de um arquivo?</string>
     <string name="backup_restore_title">Backup &amp; Restauração</string>
@@ -545,7 +519,7 @@
     <string name="next_alarm_widget_title_no_alarm">Sem próximo alarme</string>
     <string name="denied_permission_label">Permissão negada</string>
     <string name="revoke_permission_dialog_message">Tem certeza de que deseja revogar essa permissão?</string>
-    <string name="sort_timer_manually">Manualmente (arrastando)</string>
+    <string name="sort_manually">Manualmente (arrastando)</string>
     <string name="timer_volume_buttons_action_title">Reiniciar os timers expirados com os botões de volume</string>
     <string name="sw_volume_up_action_title">Aumentar o volume</string>
     <string name="sw_settings_summary">Definir ações para os botões de volume</string>
@@ -583,4 +557,25 @@
     <string name="alarm_flash">Flash</string>
     <string name="about_translate_link">Traduza no Codeberg</string>
     <string name="translate_dialog_message">Visite a página do Codeberg:\n\n%s</string>
+    <string name="settings_language_turkish">Turco</string>
+    <string name="label_hours">Horas</string>
+    <string name="settings_language_korean">Coreano</string>
+    <string name="settings_language_russian">Russo</string>
+    <string name="last_tab_used_title">Última aba utilizada</string>
+    <string name="label_minutes">Minutos</string>
+    <string name="label_seconds">Segundos</string>
+    <string name="tab_title_visibility_always">Sempre</string>
+    <string name="tab_title_visibility_when_selected">Quando selecionado</string>
+    <string name="settings_language_czech">Tcheco</string>
+    <string name="settings_keep_screen_on_title">Manter a tela ligada</string>
+    <string name="settings_keep_screen_on_summary">Nota: A tela permanecerá ligada sempre que estiver na aba de um timer ou cronômetro ativo, independente dessa opção</string>
+    <string name="settings_language_chinese_traditional_tw">Chinês (tradicional, Taiwan)</string>
+    <string name="add_new_sound_subtitle">Toque e segure para selecionar uma pasta</string>
+    <string name="warning">Atenção</string>
+    <string name="alarm_scheduled_for">Definido para %s</string>
+    <string name="blue_accent_color">Azul</string>
+    <string name="settings_language_dutch">Holandês</string>
+    <string name="settings_tab_to_display">Aba exibida ao abir o app</string>
+    <string name="enable_per_alarm_volume_title">Usar um volume personalizado para cada alarme</string>
+    <string name="settings_tab_title_visibility_title">Exibir título das abas</string>
 </resources>

@@ -54,6 +54,13 @@ public final class ClockContract {
         String VIBRATE = "vibrate";
 
         /**
+         * Alarm vibration pattern.
+         *
+         * <p>Type: STRING</p>
+         */
+        String VIBRATION_PATTERN = "vibrationPattern";
+
+        /**
          * True if flash should turn on
          * <p>Type: BOOLEAN</p>
          */
@@ -86,6 +93,12 @@ public final class ClockContract {
          * <p>Type: INTEGER</p>
          */
         String SNOOZE_DURATION = "snoozeDuration";
+
+        /**
+         * Missed alarm repeat limit
+         * <p>Type: INTEGER</p>
+         */
+        String MISSED_ALARM_REPEAT_LIMIT = "missed_alarm_repeat_limit";
 
         /**
          * Alarm crescendo duration.
@@ -278,5 +291,11 @@ public final class ClockContract {
          * <p>Type: INTEGER</p>
          */
         String ALARM_STATE = "alarm_state";
+
+        /**
+         * Missed alarm repeat count
+         * <p>Type: INTEGER</p>
+         */
+        String MISSED_ALARM_REPEAT_COUNT = "missed_alarm_repeat_count";
     }
 }

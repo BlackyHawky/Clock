@@ -58,6 +58,8 @@
 
     <!-- WIDGET COLORS -->
     <color name="widget_background_color">#EEF0FF</color>
+    <color name="md_theme_analogWidgetPrimary">#6076AC</color>
+    <color name="md_theme_analogWidgetSecondary">#404659</color>
     <color name="digital_widget_time_color">#475D92</color>
     <color name="widget_text_color">#1D1B20</color>
     <color name="vertical_digital_widget_hour_color">#575E71</color>
@@ -75,6 +77,11 @@
     • xxxOnPrimary: https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : #FFFFFF
     • xxxSecondaryContainer: https://mdigi.tools/lighten-color/ : Lighten the color n°200 by 40%.
     • xxxColorSurface: https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : n°50
+    • xxxColorInverseSurface: https://colordesigner.io/color-mixer
+        - Choose only 2 colors
+        - 1st color = xxxColorSurface (Night mode) ==> Quantity 1
+        - 2nd color = xxxColorBackground (Night mode) ==> Quantity 1
+        - Select mixed color
     • xxxColorSurfaceHighest: https://colorffy.com/color-scheme-generator
         - Color: xxxColorSurface
         - Mixing colors: Move the cursor to the end which makes 20 tones appear
@@ -90,6 +97,12 @@
         - 1st color = xxxColorPrimary ==> Quantity 1
         - 2nd color = xxxColorSecondary ==> Quantity 1
         - Select mixed color
+    • xxxAnalogWidgetPrimary: https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : n°500
+    • xxxAnalogWidgetSecondary: https://colordesigner.io/color-mixer
+        - Choose only 2 colors
+        - 1st color = xxxColorPrimary ==> Quantity 1
+        - 2nd color = #000000 ==> Quantity 1
+        - Select mixed color
     -->
 
     <!-- BLACK COLORS -->
@@ -97,10 +110,13 @@
     <color name="blackColorPrimary">@android:color/black</color>
     <color name="blackColorSecondary">#777777</color>
     <color name="blackColorTertiary">#3C3C3C</color>
+    <color name="blackColorInverseSurface">#222222</color>
     <color name="blackColorBackground">@android:color/white</color>
     <color name="blackColorGray1">#D9D9D9</color>
     <color name="blackColorGray2">#EEEEEE</color>
     <color name="blackColorGray3">#BDBDBD</color>
+    <color name="blackAnalogWidgetPrimary">#777777</color>
+    <color name="blackAnalogWidgetSecondary">#222222</color>
 
     <!-- BLUE COLORS -->
     <color name="blueColorAccent">#1E88E5</color>
@@ -110,10 +126,13 @@
     <color name="blueOnPrimary">#FFFFFF</color>
     <color name="blueSecondaryContainer">#BCDFFB</color>
     <color name="blueColorSurface">#E3F2FD</color>
+    <color name="blueColorInverseSurface">#252A2F</color>
     <color name="blueSurfaceContainerHighest">#D3DFE7</color>
     <color name="blueColorBackground">#FEFBFF</color>
     <color name="blueColorSecondary">#5B606C</color>
     <color name="blueColorTertiary">#3C74A9</color>
+    <color name="blueAnalogWidgetPrimary">#2196F3</color>
+    <color name="blueAnalogWidgetSecondary">#0F4473</color>
 
     <!-- BLUE GRAY COLORS -->
     <color name="blueGrayColorAccent">#546E7A</color>
@@ -123,10 +142,13 @@
     <color name="blueGrayOnPrimary">#FFFFFF</color>
     <color name="blueGraySecondaryContainer">#D0D8DC</color>
     <color name="blueGrayColorSurface">#ECEFF1</color>
+    <color name="blueGrayColorInverseSurface">#27292A</color>
     <color name="blueGraySurfaceContainerHighest">#DBDDDF</color>
     <color name="blueGrayColorBackground">#FEFBFF</color>
     <color name="blueGrayColorSecondary">#5A5D5F</color>
     <color name="blueGrayColorTertiary">#57656C</color>
+    <color name="blueGrayAnalogWidgetPrimary">#607D8B</color>
+    <color name="blueGrayAnalogWidgetSecondary">#2A373D</color>
 
     <!-- BROWN COLORS -->
     <color name="brownColorAccent">#6D4C41</color>
@@ -136,10 +158,13 @@
     <color name="brownOnPrimary">#FFFFFF</color>
     <color name="brownSecondaryContainer">#D7CCC8</color>
     <color name="brownColorSurface">#EFEBE9</color>
+    <color name="brownColorInverseSurface">#292727</color>
     <color name="brownSurfaceContainerHighest">#DDD9D8</color>
     <color name="brownColorBackground">#FEFBFF</color>
     <color name="brownColorSecondary">#5D5857</color>
     <color name="brownColorTertiary">#64524C</color>
+    <color name="brownAnalogWidgetPrimary">#795548</color>
+    <color name="brownAnalogWidgetSecondary">#372621</color>
 
     <!-- GREEN COLORS -->
     <color name="greenColorAccent">#43A047</color>
@@ -149,10 +174,13 @@
     <color name="greenOnPrimary">#FFFFFF</color>
     <color name="greenSecondaryContainer">#C9E6CA</color>
     <color name="greenColorSurface">#E8F5E9</color>
+    <color name="greenColorInverseSurface">#272C27</color>
     <color name="greenSurfaceContainerHighest">#D8E2D9</color>
     <color name="greenColorBackground">#FEFBFF</color>
     <color name="greenColorSecondary">#5A6458</color>
     <color name="greenColorTertiary">#508351</color>
+    <color name="greenAnalogWidgetPrimary">#4CAF50</color>
+    <color name="greenAnalogWidgetSecondary">#225024</color>
 
     <!-- INDIGO COLORS -->
     <color name="indigoColorAccent">#3949AB</color>
@@ -162,10 +190,13 @@
     <color name="indigoOnPrimary">#FFFFFF</color>
     <color name="indigoSecondaryContainer">#C5CBE9</color>
     <color name="indigoColorSurface">#E8EAF6</color>
+    <color name="indigoColorInverseSurface">#26272C</color>
     <color name="indigoSurfaceContainerHighest">#D5D7E2</color>
     <color name="indigoColorBackground">#FEFBFF</color>
     <color name="indigoColorSecondary">#595865</color>
     <color name="indigoColorTertiary">#495188</color>
+    <color name="indigoAnalogWidgetPrimary">#3F51B5</color>
+    <color name="indigoAnalogWidgetSecondary">#1D2556</color>
 
     <!-- ORANGE COLORS -->
     <color name="orangeColorAccent">#FB8C00</color>
@@ -175,10 +206,13 @@
     <color name="orangeOnPrimary">#FFFFFF</color>
     <color name="orangeSecondaryContainer">#FFE0B3</color>
     <color name="orangeColorSurface">#FFF3E0</color>
+    <color name="orangeColorInverseSurface">#312B22</color>
     <color name="orangeSurfaceContainerHighest">#EAE0D0</color>
     <color name="orangeColorBackground">#FEFBFF</color>
     <color name="orangeColorSecondary">#726154</color>
     <color name="orangeColorTertiary">#B6752B</color>
+    <color name="orangeAnalogWidgetPrimary">#FF9800</color>
+    <color name="orangeAnalogWidgetSecondary">#7E4600</color>
 
     <!-- PINK COLORS -->
     <color name="pinkColorAccent">#D81B60</color>
@@ -188,10 +222,13 @@
     <color name="pinkOnPrimary">#FFFFFF</color>
     <color name="pinkSecondaryContainer">#F8BCD0</color>
     <color name="pinkColorSurface">#FCE4EC</color>
+    <color name="pinkColorInverseSurface">#2F2527</color>
     <color name="pinkSurfaceContainerHighest">#E7D3DA</color>
     <color name="pinkColorBackground">#FEFBFF</color>
     <color name="pinkColorSecondary">#6D585B</color>
     <color name="pinkColorTertiary">#A43A5F</color>
+    <color name="pinkAnalogWidgetPrimary">#E91E63</color>
+    <color name="pinkAnalogWidgetSecondary">#6C0E30</color>
 
     <!-- PURPLE COLORS -->
     <color name="purpleColorAccent">#8E24AA</color>
@@ -201,10 +238,13 @@
     <color name="purpleOnPrimary">#FFFFFF</color>
     <color name="purpleSecondaryContainer">#E2BEE8</color>
     <color name="purpleColorSurface">#F3E5F5</color>
+    <color name="purpleColorInverseSurface">#2B252C</color>
     <color name="purpleSurfaceContainerHighest">#E0D4E2</color>
     <color name="purpleColorBackground">#FEFBFF</color>
     <color name="purpleColorSecondary">#635665</color>
     <color name="purpleColorTertiary">#783E87</color>
+    <color name="purpleAnalogWidgetPrimary">#9C27B0</color>
+    <color name="purpleAnalogWidgetSecondary">#471255</color>
 
     <!-- RED COLORS -->
     <color name="redColorAccent">#E53935</color>
@@ -214,10 +254,13 @@
     <color name="redOnPrimary">#FFFFFF</color>
     <color name="redSecondaryContainer">#F5C2C2</color>
     <color name="redColorSurface">#FFEBEE</color>
+    <color name="redColorInverseSurface">#2F2525</color>
     <color name="redSurfaceContainerHighest">#EAD9DC</color>
     <color name="redColorBackground">#FEFBFF</color>
     <color name="redColorSecondary">#705A56</color>
     <color name="redColorTertiary">#AB4946</color>
+    <color name="redAnalogWidgetPrimary">#F44336</color>
+    <color name="redAnalogWidgetSecondary">#731D1B</color>
 
     <!-- YELLOW COLORS -->
     <color name="yellowColorAccent">#FDD835</color>
@@ -227,10 +270,13 @@
     <color name="yellowOnPrimary">#FFFFFF</color>
     <color name="yellowSecondaryContainer">#FFF9C4</color>
     <color name="yellowColorSurface">#FFFDE7</color>
+    <color name="yellowColorInverseSurface">#312F26</color>
     <color name="yellowSurfaceContainerHighest">#EAE8D7</color>
     <color name="yellowColorBackground">#FEFBFF</color>
     <color name="yellowColorSecondary">#706A59</color>
     <color name="yellowColorTertiary">#B6A147</color>
+    <color name="yellowAnalogWidgetPrimary">#FFEB3B</color>
+    <color name="yellowAnalogWidgetSecondary">#7F6C1B</color>
 
     <!-- MISCELLANEOUS -->
     <!-- https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : n°400 -->

@@ -6,11 +6,7 @@
 
 package com.best.deskclock.settings;
 
-import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static com.best.deskclock.settings.PermissionsManagementActivity.PermissionsManagementFragment.areEssentialPermissionsNotGranted;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DARK_THEME;
-import static com.best.deskclock.settings.PreferencesDefaultValues.LIGHT_THEME;
-import static com.best.deskclock.settings.PreferencesDefaultValues.SYSTEM_THEME;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_SETTINGS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_BACKUP_RESTORE_PREFERENCES;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_CLOCK_SETTINGS;
@@ -27,32 +23,32 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.format.DateFormat;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
-import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.preference.Preference;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.settings.custompreference.CustomPreference;
+import com.best.deskclock.uicomponents.CollapsingToolbarBaseActivity;
+import com.best.deskclock.uicomponents.CustomDialog;
+import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.BackupAndRestoreUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.SdkUtils;
-import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
-
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.best.deskclock.utils.WidgetUtils;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -65,6 +61,9 @@ import java.util.Date;
  */
 public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
+    private static final String KEY_APPBAR_EXPANDED = "key_appbar_expanded";
+    private boolean mIsAppBarExpanded  = true;
+
     @Override
     protected String getActivityTitle() {
         // Already defined in the fragment.
@@ -75,6 +74,13 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if (mAppBarLayout != null) {
+            mAppBarLayout.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
+                // verticalOffset == 0 when extended, negative when collapsed
+                mIsAppBarExpanded = (verticalOffset == 0);
+            });
+        }
+
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.content_frame, new SettingsFragment())
@@ -83,18 +89,36 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         }
     }
 
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+
+        if (savedInstanceState != null && savedInstanceState.containsKey(KEY_APPBAR_EXPANDED)) {
+            final boolean shouldExpand = savedInstanceState.getBoolean(KEY_APPBAR_EXPANDED);
+            if (mAppBarLayout != null) {
+                mAppBarLayout.setExpanded(shouldExpand, false);
+            }
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(KEY_APPBAR_EXPANDED, mIsAppBarExpanded);
+    }
+
     public static class SettingsFragment extends ScreenFragment implements Preference.OnPreferenceClickListener {
 
-        Preference mInterfaceCustomizationPref;
-        Preference mClockSettingsPref;
-        Preference mAlarmSettingsPref;
-        Preference mTimerSettingsPref;
-        Preference mStopwatchSettingsPref;
-        Preference mScreensaverSettings;
-        Preference mWidgetsSettings;
-        Preference mPermissionsManagement;
-        Preference mPermissionMessage;
-        Preference mBackupRestorePref;
+        CustomPreference mInterfaceCustomizationPref;
+        CustomPreference mClockSettingsPref;
+        CustomPreference mAlarmSettingsPref;
+        CustomPreference mTimerSettingsPref;
+        CustomPreference mStopwatchSettingsPref;
+        CustomPreference mScreensaverSettings;
+        CustomPreference mWidgetsSettings;
+        CustomPreference mPermissionsManagement;
+        CustomPreference mPermissionMessage;
+        CustomPreference mBackupRestorePref;
 
         /**
          * Callback for getting the backup result.
@@ -112,10 +136,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                     }
 
                     backupPreferences(uri);
-                    Toast.makeText(requireContext(),
-                            requireContext().getString(R.string.toast_message_for_backup),
-                            Toast.LENGTH_SHORT)
-                            .show();
+                    CustomToast.show(requireContext(), R.string.toast_message_for_backup);
                 });
 
         /**
@@ -218,27 +239,35 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                     animateAndShowFragment(new PermissionsManagementActivity.PermissionsManagementFragment());
 
                 case KEY_BACKUP_RESTORE_PREFERENCES ->
-                    new MaterialAlertDialogBuilder(requireContext())
-                            .setIcon(R.drawable.ic_backup_restore)
-                            .setTitle(R.string.backup_restore_title)
-                            .setMessage(R.string.backup_restore_dialog_message)
-                            .setPositiveButton(android.R.string.cancel, null)
-                            .setNegativeButton(R.string.backup_button_title, (dialog, which) -> {
-                                String currentDateAndTime = DateFormat.format("yyyy_MM_dd_HH-mm-ss", new Date()).toString();
-                                Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT)
-                                        .addCategory(Intent.CATEGORY_OPENABLE)
-                                        .putExtra(Intent.EXTRA_TITLE, requireContext().getString(R.string.app_label)
-                                                + "_backup_" + currentDateAndTime + ".json")
-                                        .setType("application/json");
-                                backupToFile.launch(intent);
-                            })
-                            .setNeutralButton(R.string.restore_button_title, (dialog, which) -> {
-                                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT)
-                                        .addCategory(Intent.CATEGORY_OPENABLE)
-                                        .setType("application/json");
-                                restoreFromFile.launch(intent);
-                            })
-                            .show();
+                        CustomDialog.create(
+                                requireContext(),
+                                null,
+                                AppCompatResources.getDrawable(requireContext(), R.drawable.ic_backup_restore),
+                                getString(R.string.backup_restore_title),
+                                getString(R.string.backup_restore_dialog_message),
+                                null,
+                                getString(android.R.string.cancel),
+                                null,
+                                getString(R.string.backup_button_title),
+                                (d, w) -> {
+                                    String currentDateAndTime = DateFormat.format("yyyy_MM_dd_HH-mm-ss", new Date()).toString();
+                                    Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT)
+                                            .addCategory(Intent.CATEGORY_OPENABLE)
+                                            .putExtra(Intent.EXTRA_TITLE, requireContext().getString(R.string.app_label)
+                                                    + "_backup_" + currentDateAndTime + ".json")
+                                            .setType("application/json");
+                                    backupToFile.launch(intent);
+                                },
+                                getString(R.string.restore_button_title),
+                                (d, w) -> {
+                                    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT)
+                                            .addCategory(Intent.CATEGORY_OPENABLE)
+                                            .setType("application/json");
+                                    restoreFromFile.launch(intent);
+                                },
+                                null,
+                                CustomDialog.SoftInputMode.NONE
+                        ).show();
             }
 
             return true;
@@ -299,23 +328,10 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         }
 
         private void applySettingsAfterRestore() {
-            // Required to load the night mode.
-            String getTheme = SettingsDAO.getTheme(mPrefs);
-            switch (getTheme) {
-                case SYSTEM_THEME ->
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-                case LIGHT_THEME ->
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                case DARK_THEME ->
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-            }
-
-            new Handler(requireContext().getMainLooper()).postDelayed(() -> {
-                // Required to update Locale.
-                requireContext().sendBroadcast(new Intent(ACTION_LANGUAGE_CODE_CHANGED));
-                // Required to update widgets.
-                requireContext().sendBroadcast(new Intent(ACTION_APPWIDGET_UPDATE));
-            }, 300);
+            // Required to update Locale.
+            requireContext().sendBroadcast(new Intent(ACTION_LANGUAGE_CODE_CHANGED));
+            // Required to update widgets.
+            WidgetUtils.updateAllWidgets(requireContext());
 
             // Required to update the timer list.
             DataModel.getDataModel().loadTimers();
@@ -324,10 +340,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                 UiDataModel.getUiDataModel().setSelectedTab(UiDataModel.Tab.values()[SettingsDAO.getTabToDisplay(mPrefs)]);
             }
 
-            recreateActivity();
-
-            Toast.makeText(requireContext(), requireContext().getString(R.string.toast_message_for_restore),
-                    Toast.LENGTH_SHORT).show();
+            CustomToast.show(requireContext(), R.string.toast_message_for_restore);
         }
     }
 

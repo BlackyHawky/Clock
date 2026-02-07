@@ -2,35 +2,40 @@
 
 package com.best.deskclock.alarms;
 
+import static androidx.core.util.TypedValueCompat.dpToPx;
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.utils.RingtoneUtils.ALARM_PREVIEW_DURATION_MS;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.best.deskclock.R;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.ringtone.RingtonePreviewKlaxon;
+import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.best.deskclock.utils.Utils;
 
 import java.util.Locale;
 
@@ -49,12 +54,15 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
     private static final String ARG_TAG = "arg_tag";
 
     private Context mContext;
+    private AudioManager mAudioManager;
     private Alarm mAlarm;
     private String mTag;
     private SeekBar mSeekBar;
     private ImageView mVolumeMinus;
     private ImageView mVolumePlus;
     private TextView mVolumeValue;
+    private TextView mDialogText;
+    private Typeface mTypeface;
     private final Handler mRingtoneHandler = new Handler(Looper.getMainLooper());
     private Runnable mRingtoneStopRunnable;
     private int mMinVolume;
@@ -81,26 +89,10 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
     }
 
     /**
-     * Replaces any existing AlarmVolumeDialogFragment with the given {@code fragment}.
+     * Displays {@link AlarmVolumeDialogFragment}.
      */
     public static void show(FragmentManager manager, AlarmVolumeDialogFragment fragment) {
-        if (manager == null || manager.isDestroyed()) {
-            return;
-        }
-
-        // Finish any outstanding fragment work.
-        manager.executePendingTransactions();
-
-        final FragmentTransaction tx = manager.beginTransaction();
-
-        // Remove existing instance of this DialogFragment if necessary.
-        final Fragment existing = manager.findFragmentByTag(TAG);
-        if (existing != null) {
-            tx.remove(existing);
-        }
-        tx.addToBackStack(null);
-
-        fragment.show(tx, TAG);
+        Utils.showDialogFragment(manager, fragment, TAG);
     }
 
     @Override
@@ -115,6 +107,8 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         mContext = requireContext();
+        SharedPreferences prefs = getDefaultSharedPreferences(mContext);
+        mTypeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
 
         final Bundle args = requireArguments();
         mAlarm = SdkUtils.isAtLeastAndroid13()
@@ -128,22 +122,25 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
             volumeValue = savedInstanceState.getInt(ARG_ALARM_VOLUME_VALUE, volumeValue);
         }
 
-        View view = LayoutInflater.from(mContext).inflate(R.layout.alarm_volume_dialog, null);
+        mAudioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
 
-        mSeekBar = view.findViewById(R.id.alarm_volume_seekbar);
-        mVolumeValue = view.findViewById(R.id.alarm_volume_value);
-        mVolumeMinus = view.findViewById(R.id.volume_minus_icon);
-        mVolumePlus = view.findViewById(R.id.volume_plus_icon);
+        int maxVolume = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
+        mMinVolume = RingtoneUtils.getAlarmMinVolume(mAudioManager);
+        int clampedVolume = Math.min(volumeValue, maxVolume);
+        int currentVolume = clampedVolume - mMinVolume;
 
-        AudioManager audioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
-        int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
-        mMinVolume = RingtoneUtils.getAlarmMinVolume(audioManager);
-        int currentVolume = volumeValue - mMinVolume;
+        @SuppressLint("InflateParams")
+        View dialogView = getLayoutInflater().inflate(R.layout.alarm_volume_dialog, null);
+
+        mSeekBar = dialogView.findViewById(R.id.alarm_volume_seekbar);
+        mVolumeValue = dialogView.findViewById(R.id.alarm_volume_value);
+        mVolumeMinus = dialogView.findViewById(R.id.volume_minus_icon);
+        mVolumePlus = dialogView.findViewById(R.id.volume_plus_icon);
 
         mSeekBar.setMax(maxVolume - mMinVolume);
         mSeekBar.setProgress(currentVolume);
 
-        updateVolumeText(volumeValue, maxVolume);
+        updateVolumeText(clampedVolume, maxVolume);
         updateVolumeButtonStates(currentVolume, maxVolume - mMinVolume);
 
         mVolumeMinus.setOnClickListener(v -> {
@@ -151,6 +148,7 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
             if (progress > 0) {
                 mSeekBar.setProgress(progress - 1);
                 int newVolume = mSeekBar.getProgress() + mMinVolume;
+                updateDialogIcon(newVolume, maxVolume);
                 updateVolumeText(newVolume, maxVolume);
                 updateVolumeButtonStates(mSeekBar.getProgress(), maxVolume - mMinVolume);
                 startRingtonePreview(mAlarm, newVolume);
@@ -162,6 +160,7 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
             if (progress < mSeekBar.getMax()) {
                 mSeekBar.setProgress(progress + 1);
                 int newVolume = mSeekBar.getProgress() + mMinVolume;
+                updateDialogIcon(newVolume, maxVolume);
                 updateVolumeText(newVolume, maxVolume);
                 updateVolumeButtonStates(mSeekBar.getProgress(), maxVolume - mMinVolume);
                 startRingtonePreview(mAlarm, newVolume);
@@ -173,34 +172,47 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (fromUser) {
                     int newVolume = progress + mMinVolume;
+                    updateDialogIcon(newVolume, maxVolume);
                     updateVolumeText(newVolume, maxVolume);
                     updateVolumeButtonStates(progress, maxVolume - mMinVolume);
+                    mAudioManager.setStreamVolume(AudioManager.STREAM_ALARM, newVolume, 0);
                 }
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
+                int newVolume = seekBar.getProgress() + mMinVolume;
+                startRingtonePreview(mAlarm, newVolume);
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                int newVolume = seekBar.getProgress() + mMinVolume;
-                startRingtonePreview(mAlarm, newVolume);
             }
         });
 
-        final MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(mContext)
-                .setTitle(R.string.alarm_volume_title)
-                .setView(view)
-                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+        return CustomDialog.create(
+                mContext,
+                null,
+                null,
+                getString(R.string.alarm_volume_title),
+                null,
+                dialogView,
+                getString(android.R.string.ok),
+                (d, w) -> {
                     stopRingtonePreview();
                     setVolumeValue();
-                })
-                .setNegativeButton(android.R.string.cancel, (dialog, which) ->
-                        stopRingtonePreview()
-                );
-
-        return dialogBuilder.create();
+                },
+                getString(android.R.string.cancel),
+                (d, w) -> stopRingtonePreview(),
+                null,
+                null,
+                alertDialog -> {
+                    mDialogText = alertDialog.findViewById(R.id.dialog_title);
+                    int volume = mSeekBar.getProgress() + mMinVolume;
+                    updateDialogIcon(volume, maxVolume);
+                },
+                CustomDialog.SoftInputMode.NONE
+        );
     }
 
     @Override
@@ -235,6 +247,22 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
     }
 
     /**
+     * Updates the dialog icon based on the set volume.
+     *
+     * @param currentVolume The current volume value (in steps).
+     * @param maxVolume     The maximum possible volume (in steps).
+     */
+    private void updateDialogIcon(int currentVolume, int maxVolume) {
+        int percent = (int) (((float) currentVolume / maxVolume) * 100);
+        mDialogText.setCompoundDrawablesWithIntrinsicBounds(AppCompatResources.getDrawable(
+                mContext, percent < 50
+                        ? R.drawable.ic_volume_down
+                        : R.drawable.ic_volume_up),
+                null, null, null);
+        mDialogText.setCompoundDrawablePadding((int) dpToPx(18, getResources().getDisplayMetrics()));
+    }
+
+    /**
      * Updates the text view displaying the current alarm volume as a percentage.
      *
      * @param currentVolume The current volume value (in steps).
@@ -243,6 +271,7 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
     private void updateVolumeText(int currentVolume, int maxVolume) {
         int percent = (int) (((float) currentVolume / maxVolume) * 100);
         mVolumeValue.setText(String.format(Locale.getDefault(), "%d%%", percent));
+        mVolumeValue.setTypeface(mTypeface);
     }
 
     /**
@@ -264,19 +293,17 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
      * @param newVolume  The volume level (in steps) to apply during the preview.
      */
     public void startRingtonePreview(Alarm alarm, int newVolume) {
-        final AudioManager audioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
-
         if (mRingtoneStopRunnable != null) {
             mRingtoneHandler.removeCallbacks(mRingtoneStopRunnable);
         }
 
         // Save the current system volume
         if (mPreviousVolume == -1) {
-            mPreviousVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
+            mPreviousVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_ALARM);
         }
 
         // Temporarily apply the new volume
-        audioManager.setStreamVolume(AudioManager.STREAM_ALARM, newVolume, 0);
+        mAudioManager.setStreamVolume(AudioManager.STREAM_ALARM, newVolume, 0);
 
         Uri ringtoneUri = alarm.alert;
         if (RingtoneUtils.isRandomRingtone(ringtoneUri)) {
@@ -304,8 +331,6 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
             return;
         }
 
-        final AudioManager audioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
-
         if (mRingtoneStopRunnable != null) {
             mRingtoneHandler.removeCallbacks(mRingtoneStopRunnable);
         }
@@ -316,7 +341,7 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
 
         // Restore the system volume
         if (mPreviousVolume != -1) {
-            audioManager.setStreamVolume(AudioManager.STREAM_ALARM, mPreviousVolume, 0);
+            mAudioManager.setStreamVolume(AudioManager.STREAM_ALARM, mPreviousVolume, 0);
             mPreviousVolume = -1;
         }
 

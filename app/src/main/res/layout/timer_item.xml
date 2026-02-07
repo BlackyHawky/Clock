@@ -15,7 +15,7 @@
     android:layout_marginVertical="4dp"
     android:layout_marginHorizontal="10dp"
     android:paddingBottom="5dp"
-    tools:background="@drawable/card_background_for_preview">
+    tools:background="@drawable/bg_card_for_preview">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/timer_label"
@@ -35,7 +35,19 @@
         app:drawableTint="?attr/colorOnSurfaceVariant"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/delete_timer"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TextContrastCheck" />
+
+    <View
+        android:id="@+id/indicator_state"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@drawable/bg_circle_for_preview"
+        tools:backgroundTint="#FF99CC00" />
 
     <ImageButton
         android:id="@+id/delete_timer"
@@ -48,10 +60,11 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/delete"
         app:tint="?attr/colorPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/indicator_state"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TouchTargetSizeCheck" />
 
-    <com.best.deskclock.widget.CircleButtonsLayout
+    <com.best.deskclock.uicomponents.CircleButtonsLayout
         android:id="@+id/circle_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -72,14 +85,13 @@
             android:layout_height="match_parent"
             tools:ignore="InconsistentLayout" />
 
-        <com.best.deskclock.widget.AutoSizingTextView
+        <com.best.deskclock.uicomponents.AutoSizingTextView
             android:id="@+id/timer_time_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:paddingStart="24dp"
-            android:paddingEnd="24dp"
+            android:paddingHorizontal="24dp"
             android:includeFontPadding="false"
             android:textSize="40sp"
             tools:text="01:23" />
@@ -93,37 +105,30 @@
             android:scaleType="centerCrop"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/reset"
-            app:tint="?attr/colorPrimary" />
+            app:tint="?attr/colorPrimary"
+            tools:ignore="TouchTargetSizeCheck" />
 
-    </com.best.deskclock.widget.CircleButtonsLayout>
+    </com.best.deskclock.uicomponents.CircleButtonsLayout>
 
     <!-- Only displayed for phones when the timer is reset. See the TimerItem.java file. -->
-    <LinearLayout
-        android:id="@+id/timer_total_duration_container"
-        android:layout_width="0dp"
+    <com.best.deskclock.uicomponents.AutoSizingTextView
+        android:id="@+id/timer_total_duration"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="12dp"
+        android:paddingVertical="8dp"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:textSize="26sp"
+        android:drawablePadding="8dp"
+        android:visibility="gone"
+        app:drawableStartCompat="@drawable/ic_edit"
+        app:drawableTint="?android:attr/textColor"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/timer_add_time_button"
-        app:layout_constraintTop_toBottomOf="@+id/timer_label"
-        app:layout_constraintBottom_toBottomOf="@+id/play_pause">
-
-        <com.best.deskclock.widget.AutoSizingTextView
-            android:id="@+id/timer_total_duration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingVertical="8dp"
-            android:background="?attr/selectableItemBackground"
-            android:gravity="center_vertical"
-            android:textStyle="bold"
-            android:textSize="26sp"
-            android:drawablePadding="8dp"
-            android:visibility="gone"
-            app:drawableStartCompat="@drawable/ic_edit"
-            app:drawableTint="?android:attr/textColor"
-            tools:ignore="InconsistentLayout" />
-
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="@+id/play_pause"
+        app:layout_constraintBottom_toBottomOf="@+id/play_pause"
+        tools:text="01:00"
+        tools:ignore="InconsistentLayout" />
 
     <!-- For phones with multiple timers, this icon is not displayed. See the TimerItem.java file. -->
     <ImageButton
@@ -141,7 +146,8 @@
         app:tint="?android:attr/textColor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:visibility="visible" />
+        tools:visibility="visible"
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/timer_add_time_button"
@@ -150,10 +156,10 @@
         android:layout_marginEnd="12dp"
         android:padding="24dp"
         android:maxLines="1"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/play_pause"
-        tools:text="+ 1:00" />
+        tools:text="+ 1:00"
+        tools:textStyle="bold" />
 
     <!-- Constraints, margins and paddings adjusted in the TimerItem.java file to have a suitable
          reduced view. -->

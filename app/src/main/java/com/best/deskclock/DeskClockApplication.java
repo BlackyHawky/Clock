@@ -15,7 +15,6 @@ import android.net.Uri;
 import androidx.preference.PreferenceManager;
 
 import com.best.deskclock.controller.Controller;
-import com.best.deskclock.controller.ThemeController;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.events.LogEventTracker;
 import com.best.deskclock.uidata.UiDataModel;
@@ -37,7 +36,6 @@ public class DeskClockApplication extends Application {
         applicationContext = getApplicationContext();
         final SharedPreferences prefs = getDefaultSharedPreferences(applicationContext);
 
-        ThemeController.initialize(this);
         DataModel.getDataModel().init(applicationContext, prefs);
         UiDataModel.getUiDataModel().init(applicationContext, prefs);
         Controller.getController().setContext(applicationContext);

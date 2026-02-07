@@ -1,0 +1,15 @@
+**Correzioni**
+- Corrette rientranze
+- Corrette vibrazioni sveglia e timer
+
+**Miglioramenti**
+- Imposta sveglie a data specifica
+- Riproduzione suonerie casuali
+- Seleziona cartella per aggiunta suonerie
+- Nascondi etichetta della sveglia se non specificata
+- Rimosso permesso `DISABLE_KEYGUARD`
+- Disattivato scorrimento di eliminazione sveglie se animazioni disattivate
+- Traduzioni aggiornate
+- Migliorato il codice
+
+Tutte le modifiche qui: https://github.com/BlackyHawky/Clock/releases/tag/2.20

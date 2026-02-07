@@ -1,40 +1,40 @@
-**Fehlerkorrekturen:**
-* Alarm-Auslösung für Android 14 repariert;
-* Benachrichtigen für Stoppuhr und Timer;
-* Programmabsturz im Schlafmodus repariert, der bei nicht gestelltem Alarm oder beim Drehen der Anzeige auftrat;
-* Einige Fehlfunktionen im Schlafmodus bereinigt;
-* Start des Bildschirmschoners bei Android 13+ repariert;
-* Fix display and update of digital widget for Android 12+;
-* Weckerlautstärke in den Einstellungen behoben;
-* Fix background color of bottom navigation bar (tablets are the most affected);
+**Fehlerbehebungen:**
+* Fehlerbehebung beim Auslösen des Alarms für Android 14;
+* Fehlerbehebung bei Stoppuhr- und Timer-Benachrichtigungen;
+* Fehlerbehebung beim erzwungenen Schließen für die Schlafenszeit, wenn kein Alarm eingestellt ist oder wenn das Gerät gedreht wird;
+* Fehlerbehebung bei einigen Fehlfunktionen für den Schlafenszeitmodus;
+* Fehlerbehebung beim Starten des Bildschirmschoners für Android 13+;
+* Anzeige und Aktualisierung des digitalen Widgets für Android 12+ korrigiert;
+* Einstellung der Alarmlautstärke in den Einstellungen korrigiert;
+* Hintergrundfarbe der unteren Navigationsleiste korrigiert (Tablets sind am stärksten betroffen);
 
 **Verbesserungen:**
-* Implement material design (switches, time picker, rounded icons, card background,...);
-* Dynamische Farben hinzufügen;
-* AMOLED-Modus für schwarzen Hintergrund hinzufügen;
-* Neue Berechtigungsverwaltung hinzufügen;
-* Add monochrome icon;
-* Add collapsing toolbar;
-* Add Material You analog and digital widgets;
-* "Schlafenszeit"-Modus hinzufügen (von @Nilsu11);
-* Replace icons with more rounded ones;
-* When the application is launched for the first time, a presentation of the main features as well as the possibility of managing permissions is included;
-* Add verification that essential permissions are granted at app launch to ensure the app is working properly;
-* Allow debug version to be installed along with release version;
-* Set default ringtone for alarms in settings;
-* Add screensaver display options;
-* Activate screensaver with a long press on the clock;
-* Reduce screensaver animation to 30 seconds;
-* Menus are displayed by icons;
-* Modernize the appearance of settings;
-* Add "About" section in settings;
-* Schlafenszeit-Icon animieren;
-* Displays keyboard automatically when editing an alarm;
-* Add a delete icon and the text "Delete" when swiping to delete an alarm;
-* Add a button to duplicate an alarm (except for the bedtime alarm, which is useless);
-* The vibrator is not activated when an alarm is created and on alarms initially created;
-* Increase vibrator duration when activating an alarm;
-* Allow display of analog clock in the alarm trigger view;
-* Update Fragment related code to use AndroidX;
-* Lizenzüberschriften aktualisieren;
-* Unnötige Dateien und Code löschen;
+* Material Design implementiert (Schalter, Zeitauswahl, abgerundete Symbole, Kartenhintergrund, ...);
+* Hinzufügen dynamischer Farben;
+* Hinzufügen des AMOLED-Modus für dunkles Design;
+* Hinzufügen einer neuen Berechtigungsverwaltung;
+* Hinzufügen eines monochromen Symbols;
+* Hinzufügen einer ausblendbaren Symbolleiste;
+* Hinzufügen analoger und digitaler Widgets im Material You-Design;
+* Hinzufügen des Modus „Bedtime” (von @Nilsu11);
+* Ersetzen der Symbole durch abgerundete Symbole;
+* Beim ersten Start der Anwendung werden die wichtigsten Funktionen vorgestellt und die Möglichkeit zur Verwaltung von Berechtigungen angezeigt;
+* Hinzufügen einer Überprüfung, ob beim Start der App die erforderlichen Berechtigungen erteilt wurden, um sicherzustellen, dass die App ordnungsgemäß funktioniert;
+* Ermöglichen der Installation einer Debug-Version zusammen mit der Release-Version;
+* Festlegen des Standardklingeltons für Alarme in den Einstellungen;
+* Hinzufügen von Bildschirmschoner-Anzeigeoptionen;
+* Aktivieren des Bildschirmschoners durch langes Drücken auf die Uhr;
+* Die Bildschirmschoner-Animation wurde auf 30 Sekunden reduziert.
+* Die Menüs werden durch Symbole angezeigt.
+* Modernisierung des Erscheinungsbilds der Einstellungen.
+* Hinzufügen eines Abschnitts „Über” in den Einstellungen.
+* Animation des Schlafenszeit-Symbols.
+* Automatische Anzeige der Tastatur beim Bearbeiten eines Alarms.
+* Hinzufügen eines Löschsymbols und des Textes „Löschen” beim Wischen zum Löschen eines Alarms.
+* Hinzufügen einer Schaltfläche zum Duplizieren eines Alarms (außer für den Schlafenszeit-Alarm, der nutzlos ist);
+* Der Vibrator wird beim Erstellen eines Alarms und bei ursprünglich erstellten Alarmen nicht aktiviert;
+* Verlängern der Vibrationsdauer beim Aktivieren eines Alarms;
+* Anzeigen einer analogen Uhr in der Alarmauslöseansicht ermöglichen;
+* Aktualisieren des Fragment-bezogenen Codes für die Verwendung von AndroidX;
+* Aktualisieren der Lizenz-Header;
+* Löschen unnötiger Dateien und Codes;

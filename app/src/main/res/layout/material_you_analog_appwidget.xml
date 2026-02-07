@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    layout from https://github.com/ProjectInfinity-X/packages_apps_DeskClock
+    modified
+    SPDX-License-Identifier: Apache-2.0
+-->
+
+<!--suppress ALL -->
+<AnalogClock
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/materialYouAnalogAppwidget"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:dial="@drawable/material_you_analog_clock_dial_sun"
+    android:hand_hour="@drawable/material_you_analog_clock_hour"
+    android:hand_minute="@drawable/material_you_analog_clock_minute"
+    android:importantForAccessibility="no" />

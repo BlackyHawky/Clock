@@ -6,11 +6,23 @@
 
 package com.best.deskclock.provider;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_SNOOZE_DURATION;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_VOLUME;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_AUTO_SILENCE_DURATION;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_MISSED_ALARM_REPEAT_LIMIT;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SORT_BY_ALARM_TIME;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VIBRATION_PATTERN;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VOLUME_CRESCENDO_DURATION;
+import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_ALARM_BY_ASCENDING_CREATION_ORDER;
+import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_ALARM_BY_DESCENDING_CREATION_ORDER;
+
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -22,6 +34,7 @@ import androidx.loader.content.CursorLoader;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
@@ -37,6 +50,11 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     public static final long INVALID_ID = -1;
 
     public int holidayOption;
+    /**
+     * SharedPreferences key used to indicate whether the styled repeat day display is enabled
+     * for a specific alarm. Used to customize how repeat days are shown in the UI.
+     */
+    private static final String KEY_SHOW_STYLED_REPEAT_DAY = "show_styled_repeat_day_";
 
     public static final Parcelable.Creator<Alarm> CREATOR = new Parcelable.Creator<>() {
         public Alarm createFromParcel(Parcel p) {
@@ -47,13 +65,52 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             return new Alarm[size];
         }
     };
+
     /**
      * The default sort order for this table
      */
     private static final String DEFAULT_SORT_ORDER =
-            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + HOUR + ", " +
-                    ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + MINUTES + " ASC" + ", " +
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + HOUR + " ASC, " +
+                    ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + MINUTES + " ASC, " +
                     ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ClockContract.AlarmsColumns._ID + " DESC";
+
+    /**
+     * The default sort order for this table with enabled alarms first
+     */
+    private static final String DEFAULT_SORT_ORDER_WITH_ENABLED_FIRST =
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ENABLED + " DESC, " +
+                    ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + HOUR + " ASC, " +
+                    ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + MINUTES + " ASC, " +
+                    ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ClockContract.AlarmsColumns._ID + " DESC";
+
+    /**
+     * The sort order by descending ID to display oldest alarms last.
+     */
+    private static final String SORT_ORDER_BY_DESCENDING_CREATION =
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + _ID + " DESC";
+
+    /**
+     * The sort order that places enabled alarms first, then sorts alarms by descending ID
+     * with the oldest last.
+     */
+    private static final String SORT_ORDER_BY_DESCENDING_CREATION_WITH_ENABLED_FIRST =
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ENABLED + " DESC, " +
+                    ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + _ID + " DESC";
+
+    /**
+     * The sort order by ascending ID to display oldest alarms first.
+     */
+    private static final String SORT_ORDER_BY_ASCENDING_CREATION =
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + _ID + " ASC";
+
+    /**
+     * The sort order that places enabled alarms first, then sorts alarms by ascending ID
+     * with the oldest first.
+     */
+    private static final String SORT_ORDER_BY_ASCENDING_CREATION_WITH_ENABLED_FIRST =
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ENABLED + " DESC, " +
+                    ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + _ID + " ASC";
+
     private static final String[] QUERY_COLUMNS = {
             _ID,
             YEAR,
@@ -64,12 +121,14 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             DAYS_OF_WEEK,
             ENABLED,
             VIBRATE,
+            VIBRATION_PATTERN,
             FLASH,
             LABEL,
             RINGTONE,
             DELETE_AFTER_USE,
             AUTO_SILENCE_DURATION,
             SNOOZE_DURATION,
+            MISSED_ALARM_REPEAT_LIMIT,
             CRESCENDO_DURATION,
             ALARM_VOLUME
     };
@@ -83,12 +142,14 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + DAYS_OF_WEEK,
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ENABLED,
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + VIBRATE,
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + VIBRATION_PATTERN,
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + FLASH,
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + LABEL,
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + RINGTONE,
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + DELETE_AFTER_USE,
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + AUTO_SILENCE_DURATION,
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + SNOOZE_DURATION,
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + MISSED_ALARM_REPEAT_LIMIT,
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + CRESCENDO_DURATION,
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ALARM_VOLUME,
             ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.ALARM_STATE,
@@ -100,9 +161,12 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.MINUTES,
             ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.LABEL,
             ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.VIBRATE,
+            ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.VIBRATION_PATTERN,
             ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.FLASH,
             ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.AUTO_SILENCE_DURATION,
             ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.SNOOZE_DURATION,
+            ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.MISSED_ALARM_REPEAT_COUNT,
+            ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.MISSED_ALARM_REPEAT_LIMIT,
             ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.CRESCENDO_DURATION,
             ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.ALARM_VOLUME
     };
@@ -119,29 +183,34 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     private static final int DAYS_OF_WEEK_INDEX = 6;
     private static final int ENABLED_INDEX = 7;
     private static final int VIBRATE_INDEX = 8;
-    private static final int FLASH_INDEX = 9;
-    private static final int LABEL_INDEX = 10;
-    private static final int RINGTONE_INDEX = 11;
-    private static final int DELETE_AFTER_USE_INDEX = 12;
-    private static final int AUTO_SILENCE_DURATION_INDEX = 13;
-    private static final int SNOOZE_DURATION_INDEX = 14;
-    private static final int CRESCENDO_DURATION_INDEX = 15;
-    private static final int ALARM_VOLUME_INDEX = 16;
+    private static final int VIBRATION_PATTERN_INDEX = 9;
+    private static final int FLASH_INDEX = 10;
+    private static final int LABEL_INDEX = 11;
+    private static final int RINGTONE_INDEX = 12;
+    private static final int DELETE_AFTER_USE_INDEX = 13;
+    private static final int AUTO_SILENCE_DURATION_INDEX = 14;
+    private static final int SNOOZE_DURATION_INDEX = 15;
+    private static final int MISSED_ALARM_REPEAT_LIMIT_INDEX = 16;
+    private static final int CRESCENDO_DURATION_INDEX = 17;
+    private static final int ALARM_VOLUME_INDEX = 18;
 
-    private static final int INSTANCE_STATE_INDEX = 17;
-    public static final int INSTANCE_ID_INDEX = 18;
-    public static final int INSTANCE_YEAR_INDEX = 19;
-    public static final int INSTANCE_MONTH_INDEX = 20;
-    public static final int INSTANCE_DAY_INDEX = 21;
-    public static final int INSTANCE_HOUR_INDEX = 22;
-    public static final int INSTANCE_MINUTE_INDEX = 23;
-    public static final int INSTANCE_LABEL_INDEX = 24;
-    public static final int INSTANCE_VIBRATE_INDEX = 25;
-    public static final int INSTANCE_FLASH_INDEX = 26;
-    public static final int INSTANCE_AUTO_SILENCE_DURATION_INDEX = 27;
-    public static final int INSTANCE_SNOOZE_DURATION_INDEX = 28;
-    public static final int INSTANCE_CRESCENDO_DURATION_INDEX = 29;
-    public static final int INSTANCE_ALARM_VOLUME_INDEX = 30;
+    private static final int INSTANCE_STATE_INDEX = 19;
+    public static final int INSTANCE_ID_INDEX = 20;
+    public static final int INSTANCE_YEAR_INDEX = 21;
+    public static final int INSTANCE_MONTH_INDEX = 22;
+    public static final int INSTANCE_DAY_INDEX = 23;
+    public static final int INSTANCE_HOUR_INDEX = 24;
+    public static final int INSTANCE_MINUTE_INDEX = 25;
+    public static final int INSTANCE_LABEL_INDEX = 26;
+    public static final int INSTANCE_VIBRATE_INDEX = 27;
+    public static final int INSTANCE_VIBRATION_PATTERN_INDEX = 28;
+    public static final int INSTANCE_FLASH_INDEX = 29;
+    public static final int INSTANCE_AUTO_SILENCE_DURATION_INDEX = 30;
+    public static final int INSTANCE_SNOOZE_DURATION_INDEX = 31;
+    public static final int INSTANCE_MISSED_ALARM_REPEAT_COUNT_INDEX = 32;
+    public static final int INSTANCE_MISSED_ALARM_REPEAT_LIMIT_INDEX = 33;
+    public static final int INSTANCE_CRESCENDO_DURATION_INDEX = 34;
+    public static final int INSTANCE_ALARM_VOLUME_INDEX = 35;
 
     private static final int COLUMN_COUNT = ALARM_VOLUME_INDEX + 1;
     private static final int ALARM_JOIN_INSTANCE_COLUMN_COUNT = INSTANCE_ALARM_VOLUME_INDEX + 1;
@@ -155,17 +224,18 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     public int minutes;
     public Weekdays daysOfWeek;
     public boolean vibrate;
+    public String vibrationPattern;
     public boolean flash;
     public String label;
     public Uri alert;
     public boolean deleteAfterUse;
     public int autoSilenceDuration;
     public int snoozeDuration;
+    public int missedAlarmRepeatLimit;
     public int crescendoDuration;
     // Alarm volume level in steps; not a percentage
     public int alarmVolume;
     public int instanceState;
-    public int instanceId;
 
     // Creates a default alarm at the current time.
     public Alarm() {
@@ -184,22 +254,25 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.hour = hour;
         this.minutes = minutes;
         this.vibrate = true;
+        this.vibrationPattern = DEFAULT_VIBRATION_PATTERN;
         this.flash = true;
         this.daysOfWeek = Weekdays.NONE;
         this.label = "";
         this.alert = DataModel.getDataModel().getAlarmRingtoneUriFromSettings();
         this.deleteAfterUse = false;
-        this.autoSilenceDuration = 10;
-        this.snoozeDuration = 10;
-        this.crescendoDuration = 0;
-        this.alarmVolume = 11;
+        this.autoSilenceDuration = DEFAULT_AUTO_SILENCE_DURATION;
+        this.snoozeDuration = DEFAULT_ALARM_SNOOZE_DURATION;
+        this.missedAlarmRepeatLimit = Integer.parseInt(DEFAULT_MISSED_ALARM_REPEAT_LIMIT);
+        this.crescendoDuration = DEFAULT_VOLUME_CRESCENDO_DURATION;
+        this.alarmVolume = DEFAULT_ALARM_VOLUME;
     }
 
     // Used to backup/restore the alarm
     public Alarm(long id, boolean enabled, int year, int month, int day, int hour, int minutes,
-                 boolean vibrate, boolean flash, Weekdays daysOfWeek, String label, String alert,
-                 boolean deleteAfterUse, int autoSilenceDuration, int snoozeDuration,
-                 int crescendoDuration, int alarmVolume) {
+                 boolean vibrate, String vibrationPattern, boolean flash, Weekdays daysOfWeek,
+                 String label, String alert, boolean deleteAfterUse, int autoSilenceDuration,
+                 int snoozeDuration, int missedAlarmRepeatLimit, int crescendoDuration,
+                 int alarmVolume) {
 
         this.id = id;
         this.enabled = enabled;
@@ -209,6 +282,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.hour = hour;
         this.minutes = minutes;
         this.vibrate = vibrate;
+        this.vibrationPattern = vibrationPattern;
         this.flash = flash;
         this.daysOfWeek = daysOfWeek;
         this.label = label;
@@ -216,6 +290,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.deleteAfterUse = deleteAfterUse;
         this.autoSilenceDuration = autoSilenceDuration;
         this.snoozeDuration = snoozeDuration;
+        this.missedAlarmRepeatLimit = missedAlarmRepeatLimit;
         this.crescendoDuration = crescendoDuration;
         this.alarmVolume = alarmVolume;
     }
@@ -230,17 +305,18 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         minutes = c.getInt(MINUTES_INDEX);
         daysOfWeek = Weekdays.fromBits(c.getInt(DAYS_OF_WEEK_INDEX));
         vibrate = c.getInt(VIBRATE_INDEX) == 1;
+        vibrationPattern = c.getString(VIBRATION_PATTERN_INDEX);
         flash = c.getInt(FLASH_INDEX) == 1;
         label = c.getString(LABEL_INDEX);
         deleteAfterUse = c.getInt(DELETE_AFTER_USE_INDEX) == 1;
         autoSilenceDuration = c.getInt(AUTO_SILENCE_DURATION_INDEX);
         snoozeDuration = c.getInt(SNOOZE_DURATION_INDEX);
+        missedAlarmRepeatLimit = c.getInt(MISSED_ALARM_REPEAT_LIMIT_INDEX);
         crescendoDuration = c.getInt(CRESCENDO_DURATION_INDEX);
         alarmVolume = c.getInt(ALARM_VOLUME_INDEX);
 
         if (c.getColumnCount() == ALARM_JOIN_INSTANCE_COLUMN_COUNT) {
             instanceState = c.getInt(INSTANCE_STATE_INDEX);
-            instanceId = c.getInt(INSTANCE_ID_INDEX);
         }
 
         if (c.isNull(RINGTONE_INDEX)) {
@@ -262,6 +338,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         minutes = p.readInt();
         daysOfWeek = Weekdays.fromBits(p.readInt());
         vibrate = p.readInt() == 1;
+        vibrationPattern = p.readString();
         flash = p.readInt() == 1;
         label = p.readString();
         alert = SdkUtils.isAtLeastAndroid13()
@@ -270,39 +347,68 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         deleteAfterUse = p.readInt() == 1;
         autoSilenceDuration = p.readInt();
         snoozeDuration = p.readInt();
+        missedAlarmRepeatLimit = p.readInt();
         crescendoDuration = p.readInt();
         alarmVolume = p.readInt();
     }
 
-    public static ContentValues createContentValues(Alarm alarm) {
+    public ContentValues createContentValues() {
         ContentValues values = new ContentValues(COLUMN_COUNT);
-        if (alarm.id != INVALID_ID) {
-            values.put(ClockContract.AlarmsColumns._ID, alarm.id);
+        if (id != INVALID_ID) {
+            values.put(ClockContract.AlarmsColumns._ID, id);
         }
 
-        values.put(ENABLED, alarm.enabled ? 1 : 0);
-        values.put(YEAR, alarm.year);
-        values.put(MONTH, alarm.month);
-        values.put(DAY, alarm.day);
-        values.put(HOUR, alarm.hour);
-        values.put(MINUTES, alarm.minutes);
-        values.put(DAYS_OF_WEEK, alarm.daysOfWeek.getBits());
-        values.put(VIBRATE, alarm.vibrate ? 1 : 0);
-        values.put(FLASH, alarm.flash ? 1 : 0);
-        values.put(LABEL, alarm.label);
-        values.put(DELETE_AFTER_USE, alarm.deleteAfterUse ? 1 : 0);
-        values.put(AUTO_SILENCE_DURATION, alarm.autoSilenceDuration);
-        values.put(SNOOZE_DURATION, alarm.snoozeDuration);
-        values.put(CRESCENDO_DURATION, alarm.crescendoDuration);
-        values.put(ALARM_VOLUME, alarm.alarmVolume);
-        if (alarm.alert == null) {
+        values.put(ENABLED, enabled ? 1 : 0);
+        values.put(YEAR, year);
+        values.put(MONTH, month);
+        values.put(DAY, day);
+        values.put(HOUR, hour);
+        values.put(MINUTES, minutes);
+        values.put(DAYS_OF_WEEK, daysOfWeek.getBits());
+        values.put(VIBRATE, vibrate ? 1 : 0);
+        values.put(VIBRATION_PATTERN, vibrationPattern);
+        values.put(FLASH, flash ? 1 : 0);
+        values.put(LABEL, label);
+        values.put(DELETE_AFTER_USE, deleteAfterUse ? 1 : 0);
+        values.put(AUTO_SILENCE_DURATION, autoSilenceDuration);
+        values.put(SNOOZE_DURATION, snoozeDuration);
+        values.put(MISSED_ALARM_REPEAT_LIMIT, missedAlarmRepeatLimit);
+        values.put(CRESCENDO_DURATION, crescendoDuration);
+        values.put(ALARM_VOLUME, alarmVolume);
+        if (alert == null) {
             // We want to put null, so default alarm changes
             values.putNull(RINGTONE);
         } else {
-            values.put(RINGTONE, alarm.alert.toString());
+            values.put(RINGTONE, alert.toString());
         }
 
         return values;
+    }
+
+    public void writeToParcel(Parcel p, int flags) {
+        p.writeLong(id);
+        p.writeInt(enabled ? 1 : 0);
+        p.writeInt(year);
+        p.writeInt(month);
+        p.writeInt(day);
+        p.writeInt(hour);
+        p.writeInt(minutes);
+        p.writeInt(daysOfWeek.getBits());
+        p.writeInt(vibrate ? 1 : 0);
+        p.writeString(vibrationPattern);
+        p.writeInt(flash ? 1 : 0);
+        p.writeString(label);
+        p.writeParcelable(alert, flags);
+        p.writeInt(deleteAfterUse ? 1 : 0);
+        p.writeInt(autoSilenceDuration);
+        p.writeInt(snoozeDuration);
+        p.writeInt(missedAlarmRepeatLimit);
+        p.writeInt(crescendoDuration);
+        p.writeInt(alarmVolume);
+    }
+
+    public int describeContents() {
+        return 0;
     }
 
     public static Intent createIntent(Context context, Class<?> cls, long alarmId) {
@@ -324,8 +430,38 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
      * @return cursor loader with all the alarms.
      */
     public static CursorLoader getAlarmsCursorLoader(Context context) {
+        final SharedPreferences prefs = getDefaultSharedPreferences(context);
+        boolean areEnabledAlarmsFirst = SettingsDAO.areEnabledAlarmsDisplayedFirst(prefs);
+
+        String sortOrder = DEFAULT_SORT_ORDER;
+        String sortingPref = SettingsDAO.getAlarmSorting(prefs);
+
+        switch (sortingPref) {
+            case DEFAULT_SORT_BY_ALARM_TIME -> {
+                if (areEnabledAlarmsFirst) {
+                    sortOrder = DEFAULT_SORT_ORDER_WITH_ENABLED_FIRST;
+                }
+            }
+
+            case SORT_ALARM_BY_DESCENDING_CREATION_ORDER -> {
+                if (areEnabledAlarmsFirst) {
+                    sortOrder = SORT_ORDER_BY_DESCENDING_CREATION_WITH_ENABLED_FIRST;
+                } else {
+                    sortOrder = SORT_ORDER_BY_DESCENDING_CREATION;
+                }
+            }
+
+            case SORT_ALARM_BY_ASCENDING_CREATION_ORDER -> {
+                if (areEnabledAlarmsFirst) {
+                    sortOrder = SORT_ORDER_BY_ASCENDING_CREATION_WITH_ENABLED_FIRST;
+                } else {
+                    sortOrder = SORT_ORDER_BY_ASCENDING_CREATION;
+                }
+            }
+        }
+
         return new CursorLoader(context, ALARMS_WITH_INSTANCES_URI,
-                QUERY_ALARMS_WITH_INSTANCES_COLUMNS, null, null, DEFAULT_SORT_ORDER) {
+                QUERY_ALARMS_WITH_INSTANCES_COLUMNS, null, null, sortOrder) {
             @Override
             public Cursor loadInBackground() {
                 // Prime the ringtone title cache for later access. Most alarms will refer to
@@ -380,17 +516,17 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         return result;
     }
 
-    public static Alarm addAlarm(ContentResolver contentResolver, Alarm alarm) {
-        ContentValues values = createContentValues(alarm);
+    public Alarm addAlarm(ContentResolver contentResolver) {
+        ContentValues values = createContentValues();
         Uri uri = contentResolver.insert(CONTENT_URI, values);
-        alarm.id = getId(uri);
-        return alarm;
+        id = getId(uri);
+        return this;
     }
 
-    public static void updateAlarm(ContentResolver contentResolver, Alarm alarm) {
-        if (alarm.id == Alarm.INVALID_ID) return;
-        ContentValues values = createContentValues(alarm);
-        contentResolver.update(getContentUri(alarm.id), values, null, null);
+    public void updateAlarm(ContentResolver contentResolver) {
+        if (id == Alarm.INVALID_ID) return;
+        ContentValues values = createContentValues();
+        contentResolver.update(getContentUri(id), values, null, null);
     }
 
     public static boolean deleteAlarm(ContentResolver contentResolver, long alarmId) {
@@ -404,19 +540,58 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     }
 
     /**
-     * Whether the alarm is in a state to show preemptive dismiss. Valid states are
-     * SNOOZE_STATE or NOTIFICATION_STATE.
+     * Determines whether the alarm is eligible to show a preemptive dismiss button.
+     * <p>
+     * The behavior depends on user settings and the current alarm state:</p>
+     * <ul>
+     *      <li>If the dismiss button is configured to be shown when the alarm is enabled,
+     *          the method returns {@code true} if the alarm is enabled or currently snoozed.</li>
+     *      <li>Otherwise, it returns true only if the alarm is in SNOOZE_STATE or NOTIFICATION_STATE.</li>
+     * </ul>
+     * @param context the context used to access shared preferences
+     * @return {@code true} if the alarm can show a preemptive dismiss button; {@code false} otherwise.
      */
-    public boolean canPreemptivelyDismiss() {
-        return instanceState == AlarmInstance.SNOOZE_STATE || instanceState == AlarmInstance.NOTIFICATION_STATE;
+    public boolean canPreemptivelyDismiss(Context context) {
+        if (SettingsDAO.isDismissButtonDisplayedWhenAlarmEnabled(getDefaultSharedPreferences(context))) {
+            return enabled || instanceState == AlarmInstance.SNOOZE_STATE;
+        } else {
+            return instanceState == AlarmInstance.SNOOZE_STATE || instanceState == AlarmInstance.NOTIFICATION_STATE;
+        }
     }
 
-    public static boolean isTomorrow(Alarm alarm, Calendar now) {
-        if (alarm.instanceState == AlarmInstance.SNOOZE_STATE) {
+    /**
+     * @return {@code true} if the styled repeat day display is enabled for this alarm;
+     * {@code false} otherwise.
+     */
+    public boolean isRepeatDayStyleEnabled(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_SHOW_STYLED_REPEAT_DAY + id, false);
+    }
+
+    /**
+     * Enables the styled repeat day display for this alarm only if all days are selected.
+     */
+    public void enableRepeatDayStyleIfAllDaysSelected(SharedPreferences prefs) {
+        if (!daysOfWeek.isAllDaysSelected()) {
+            return;
+        }
+
+        prefs.edit().putBoolean(KEY_SHOW_STYLED_REPEAT_DAY + id, true).apply();
+    }
+
+    /**
+     * Removes the styled repeat day display preference for this alarm.
+     * This disables the styled repeat day behavior.
+     */
+    public void removeRepeatDayStyle(SharedPreferences prefs) {
+        prefs.edit().remove(KEY_SHOW_STYLED_REPEAT_DAY + id).apply();
+    }
+
+    public boolean isTomorrow(Calendar now) {
+        if (instanceState == AlarmInstance.SNOOZE_STATE) {
             return false;
         }
 
-        final int totalAlarmMinutes = alarm.hour * 60 + alarm.minutes;
+        final int totalAlarmMinutes = hour * 60 + minutes;
         final int totalNowMinutes = now.get(Calendar.HOUR_OF_DAY) * 60 + now.get(Calendar.MINUTE);
 
         return totalAlarmMinutes <= totalNowMinutes;
@@ -459,34 +634,25 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
                 alarmDayOfMonth == tomorrow.get(Calendar.DAY_OF_MONTH);
     }
 
-    public void writeToParcel(Parcel p, int flags) {
-        p.writeLong(id);
-        p.writeInt(enabled ? 1 : 0);
-        p.writeInt(year);
-        p.writeInt(month);
-        p.writeInt(day);
-        p.writeInt(hour);
-        p.writeInt(minutes);
-        p.writeInt(daysOfWeek.getBits());
-        p.writeInt(vibrate ? 1 : 0);
-        p.writeInt(flash ? 1 : 0);
-        p.writeString(label);
-        p.writeParcelable(alert, flags);
-        p.writeInt(deleteAfterUse ? 1 : 0);
-        p.writeInt(autoSilenceDuration);
-        p.writeInt(snoozeDuration);
-        p.writeInt(crescendoDuration);
-        p.writeInt(alarmVolume);
+    public boolean isTimeBeforeOrEqual(Calendar referenceTime) {
+        int currentHour = referenceTime.get(Calendar.HOUR_OF_DAY);
+        int currentMinute = referenceTime.get(Calendar.MINUTE);
+
+        return hour < currentHour || (hour == currentHour && minutes <= currentMinute);
     }
 
-    public int describeContents() {
-        return 0;
+    public boolean isScheduledForToday(Calendar reference) {
+        int currentMonth = reference.get(Calendar.MONTH);
+        return year == reference.get(Calendar.YEAR)
+                && month == currentMonth
+                && day == reference.get(Calendar.DAY_OF_MONTH);
     }
 
     public AlarmInstance createInstanceAfter(Calendar time) {
         Calendar nextInstanceTime = getNextAlarmTime(time);
         AlarmInstance result = new AlarmInstance(nextInstanceTime, id);
         result.mVibrate = vibrate;
+        result.mVibrationPattern = vibrationPattern;
         result.mFlash = flash;
         result.mLabel = label;
         result.mRingtone = RingtoneUtils.isRandomRingtone(alert)
@@ -496,6 +662,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
                 : alert;
         result.mAutoSilenceDuration = autoSilenceDuration;
         result.mSnoozeDuration = snoozeDuration;
+        result.mMissedAlarmRepeatLimit = missedAlarmRepeatLimit;
         result.mCrescendoDuration = crescendoDuration;
         result.mAlarmVolume = alarmVolume;
         return result;
@@ -524,6 +691,19 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         }
     }
 
+    /**
+     * Calculates the next scheduled occurrence time.
+     *
+     *  <p>This method determines when the alarm should trigger again based on its
+     *  configuration. It handles both repeating alarms (with specific days of the week)
+     *  and one-time alarms (with a fixed date). Daylight Savings Time (DST) adjustments
+     *  are also taken into account by resetting the hour and minute after shifting days.
+     *
+     * @return a {@link Calendar} instance representing the next valid alarm time.
+     *         <p>- For repeating alarms: the next valid day of the week at the configured hour/minute.</p>
+     *         <p>- For one-time alarms: the configured date and time, or the following day if the
+     *           specified time has already passed relative to {@code currentTime}.</p>
+     */
     public Calendar getNextAlarmTime(Calendar currentTime) {
         final Calendar nextInstanceTime = Calendar.getInstance(currentTime.getTimeZone());
         nextInstanceTime.set(Calendar.SECOND, 0);
@@ -565,6 +745,88 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         return nextInstanceTime;
     }
 
+    /**
+     * Returns the day of the week (as Calendar.DAY_OF_WEEK) when the alarm will next trigger.
+     * <p>
+     * If a valid AlarmInstance is provided and its scheduled time is in the future,
+     * that time is used to determine the next alarm day.
+     * Otherwise, the method calculates the next scheduled alarm time based on the current time
+     * and the alarm's repeat settings.</p>
+     *
+     * @param alarmInstance the current AlarmInstance, or null if not yet created
+     * @return the day of the week (e.g., Calendar.MONDAY, Calendar.TUESDAY, ...)
+     */
+    public int getNextAlarmDayOfWeek(AlarmInstance alarmInstance) {
+        Calendar referenceTime = Calendar.getInstance();
+        Calendar nextAlarmTime;
+
+        if (alarmInstance != null && alarmInstance.getAlarmTime().after(referenceTime)) {
+            nextAlarmTime = alarmInstance.getAlarmTime();
+        } else {
+            nextAlarmTime = getNextAlarmTime(referenceTime);
+        }
+
+        return nextAlarmTime.get(Calendar.DAY_OF_WEEK);
+    }
+
+    /**
+     * Returns the next alarm time for sorting purposes.
+     */
+    public Calendar getSortableNextAlarmTime(AlarmInstance instance, Calendar now) {
+        Calendar result = Calendar.getInstance(now.getTimeZone());
+        result.set(Calendar.SECOND, 0);
+        result.set(Calendar.MILLISECOND, 0);
+
+        if (daysOfWeek.isRepeating()) {
+            // If a future instance exists (e.g. after Dismiss), use it.
+            // Otherwise compute the next valid occurrence from "now".
+            if (instance != null && instance.getAlarmTime().getTimeInMillis() > now.getTimeInMillis()) {
+                return instance.getAlarmTime();
+            }
+
+            return getNextAlarmTime(now);
+        } else {
+            if (isSpecifiedDate()) {
+                if (isDateInThePast()) {
+                    // Expired specific date → anchor to today at the alarm's time
+                    result.set(Calendar.YEAR, now.get(Calendar.YEAR));
+                    result.set(Calendar.MONTH, now.get(Calendar.MONTH));
+                    result.set(Calendar.DAY_OF_MONTH, now.get(Calendar.DAY_OF_MONTH));
+                    result.set(Calendar.HOUR_OF_DAY, hour);
+                    result.set(Calendar.MINUTE, minutes);
+
+                    // If the time has already passed today, shift to tomorrow
+                    if (result.getTimeInMillis() < now.getTimeInMillis()) {
+                        result.add(Calendar.DAY_OF_YEAR, 1);
+                    }
+                } else {
+                    // Future or today’s specified date → respect the defined date/time
+                    result.set(Calendar.YEAR, year);
+                    result.set(Calendar.MONTH, month);
+                    result.set(Calendar.DAY_OF_MONTH, day);
+                    result.set(Calendar.HOUR_OF_DAY, hour);
+                    result.set(Calendar.MINUTE, minutes);
+                }
+
+                return result;
+            }
+        }
+
+        // Alarms with no date and no repetition → today at the alarm time,
+        // and if the time has passed, shift to tomorrow
+        result.set(Calendar.YEAR, now.get(Calendar.YEAR));
+        result.set(Calendar.MONTH, now.get(Calendar.MONTH));
+        result.set(Calendar.DAY_OF_MONTH, now.get(Calendar.DAY_OF_MONTH));
+        result.set(Calendar.HOUR_OF_DAY, hour);
+        result.set(Calendar.MINUTE, minutes);
+
+        if (result.getTimeInMillis() < now.getTimeInMillis()) {
+            result.add(Calendar.DAY_OF_YEAR, 1);
+        }
+
+        return result;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof final Alarm other)) return false;
@@ -590,11 +852,13 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
                 ", minutes=" + minutes +
                 ", daysOfWeek=" + daysOfWeek +
                 ", vibrate=" + vibrate +
+                ", vibrationPattern=" + vibrationPattern +
                 ", flash=" + flash +
                 ", label='" + label + '\'' +
                 ", deleteAfterUse=" + deleteAfterUse +
                 ", autoSilenceDuration=" + autoSilenceDuration +
                 ", snoozeDuration=" + snoozeDuration +
+                ", missedAlarmRepeatLimit=" + missedAlarmRepeatLimit +
                 ", crescendoDuration=" + crescendoDuration +
                 ", alarmVolume=" + alarmVolume +
                 '}';

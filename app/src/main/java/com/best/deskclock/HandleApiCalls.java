@@ -134,10 +134,10 @@ public class HandleApiCalls extends Activity {
 
         if (instance.mAlarmState == FIRED_STATE || instance.mAlarmState == SNOOZE_STATE) {
             // Always dismiss alarms that are fired or snoozed.
-            AlarmStateManager.deleteInstanceAndUpdateParent(context, instance);
+            AlarmStateManager.deleteInstanceAndUpdateParent(context, instance, true);
         } else if (isAlarmWithin24Hours(instance)) {
             // Upcoming alarms are always predismissed.
-            AlarmStateManager.setPreDismissState(context, instance);
+            AlarmStateManager.setPreDismissState(context, instance, true);
         } else {
             // Otherwise the alarm cannot be dismissed at this time.
             final String reason = context.getString(
@@ -159,19 +159,9 @@ public class HandleApiCalls extends Activity {
         return nextAlarmTimeMillis - System.currentTimeMillis() <= DateUtils.DAY_IN_MILLIS;
     }
 
-    private static class DismissAlarmAsync {
+    private record DismissAlarmAsync(Context mContext, Intent mIntent, Activity mActivity) {
 
-        private final Context mContext;
-        private final Intent mIntent;
-        private final Activity mActivity;
-
-        public DismissAlarmAsync(Context context, Intent intent, Activity activity) {
-            mContext = context;
-            mIntent = intent;
-            mActivity = activity;
-        }
-
-        protected void execute() {
+        private void execute() {
             ExecutorService executor = Executors.newSingleThreadExecutor();
             executor.execute(() -> {
                 final ContentResolver cr = mContext.getContentResolver();
@@ -184,7 +174,7 @@ public class HandleApiCalls extends Activity {
                 }
 
                 // remove Alarms in MISSED, DISMISSED, and PREDISMISSED states
-                for (Iterator<Alarm> i = alarms.iterator(); i.hasNext();) {
+                for (Iterator<Alarm> i = alarms.iterator(); i.hasNext(); ) {
                     final AlarmInstance instance = AlarmInstance.getNextUpcomingInstanceByAlarmId(
                             cr, i.next().id);
                     if (instance == null || instance.mAlarmState > FIRED_STATE) {
@@ -238,7 +228,7 @@ public class HandleApiCalls extends Activity {
 
         private static List<Alarm> getEnabledAlarms(Context context) {
             final String selection = String.format("%s=?", Alarm.ENABLED);
-            final String[] args = { "1" };
+            final String[] args = {"1"};
             return Alarm.getAlarms(context.getContentResolver(), selection, args);
         }
     }
@@ -338,7 +328,7 @@ public class HandleApiCalls extends Activity {
             // Enable the first matching alarm.
             alarm = alarms.get(0);
             alarm.enabled = true;
-            Alarm.updateAlarm(cr, alarm);
+            alarm.updateAlarm(cr);
 
             // Delete all old instances.
             AlarmStateManager.deleteAllInstances(this, alarm.id);
@@ -352,7 +342,7 @@ public class HandleApiCalls extends Activity {
             applyAlarmSettings(alarm, mAppContext, mPrefs);
 
             // Save the new alarm.
-            Alarm.addAlarm(cr, alarm);
+            alarm.addAlarm(cr);
 
             Events.sendAlarmEvent(R.string.action_create, R.string.label_intent);
             LOGGER.i("Created new alarm: " + alarm);
@@ -500,7 +490,7 @@ public class HandleApiCalls extends Activity {
     }
 
     private void setupInstance(AlarmInstance instance, boolean skipUi) {
-        AlarmInstance.addInstance(this.getContentResolver(), instance);
+        instance.addInstance(this.getContentResolver());
         AlarmStateManager.registerInstance(this, instance, true);
         AlarmUtils.popAlarmSetToast(this, instance.getAlarmTime().getTimeInMillis());
         if (!skipUi) {
@@ -544,10 +534,12 @@ public class HandleApiCalls extends Activity {
 
         alarm.enabled = true;
         alarm.vibrate = SettingsDAO.areAlarmVibrationsEnabledByDefault(prefs);
+        alarm.vibrationPattern = SettingsDAO.getVibrationPattern(prefs);
         alarm.flash = SettingsDAO.shouldTurnOnBackFlashForTriggeredAlarm(prefs);
         alarm.deleteAfterUse = SettingsDAO.isOccasionalAlarmDeletedByDefault(prefs);
         alarm.autoSilenceDuration = SettingsDAO.getAlarmTimeout(prefs);
         alarm.snoozeDuration = SettingsDAO.getSnoozeLength(prefs);
+        alarm.missedAlarmRepeatLimit = SettingsDAO.getMissedAlarmRepeatLimit(prefs);
         alarm.crescendoDuration = SettingsDAO.getAlarmVolumeCrescendoDuration(prefs);
         alarm.alarmVolume = audioManager.getStreamVolume(STREAM_ALARM);
     }

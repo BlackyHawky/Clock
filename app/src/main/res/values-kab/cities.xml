@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="C1">A<xliff:g id="separator">=</xliff:g>Abidjan<xliff:g id="timezone">|Africa/Abiǧan</xliff:g></string>
+    <string name="C4">A<xliff:g id="separator">=</xliff:g>Lezzayer<xliff:g id="timezone">|Africa/Algiers</xliff:g></string>
+    <string name="C5">B<xliff:g id="separator">=</xliff:g>Blantir<xliff:g id="timezone">|Africa/Blantyre</xliff:g></string>
+</resources>

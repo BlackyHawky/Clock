@@ -66,7 +66,7 @@
     <string name="C62" msgid="2667958702401099683">"V<xliff:g id="SEPARATOR">=</xliff:g>Vincennes<xliff:g id="TIMEZONE">|America/Indiana/Vincennes</xliff:g>"</string>
     <string name="C63" msgid="2251274863869460838">"W<xliff:g id="SEPARATOR">=</xliff:g>Winamac<xliff:g id="TIMEZONE">|America/Indiana/Winamac</xliff:g>"</string>
     <string name="C64" msgid="1051183687128385699">"K<xliff:g id="SEPARATOR">=</xliff:g>Kingston<xliff:g id="TIMEZONE">|America/Jamaica</xliff:g>"</string>
-    <string name="C65" msgid="4484953311341882894">"N<xliff:g id="SEPARATOR">=</xliff:g>Nuestra Señora de La Paz<xliff:g id="TIMEZONE">|America/La_Paz</xliff:g>"</string>
+    <string name="C65" msgid="4484953311341882894">N<xliff:g id="SEPARATOR">=</xliff:g>La Paz<xliff:g id="TIMEZONE">|America/La_Paz</xliff:g></string>
     <string name="C66" msgid="4486852398001333122">"L<xliff:g id="SEPARATOR">=</xliff:g>Lima<xliff:g id="TIMEZONE">|America/Lima</xliff:g>"</string>
     <string name="C67" msgid="4874799181719358019">"L<xliff:g id="SEPARATOR">=</xliff:g>Los Angeles<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g>"</string>
     <string name="C68" msgid="5526012011469271690">"L<xliff:g id="SEPARATOR">=</xliff:g>Louisville<xliff:g id="TIMEZONE">|America/Louisville</xliff:g>"</string>

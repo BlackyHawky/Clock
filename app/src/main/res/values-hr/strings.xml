@@ -99,8 +99,7 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"Trajanje odgode alarma"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Postupno pojačavanje glasnoće"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Utišaj nakon"</string>
-    <string name="auto_silence_never" msgid="4821982647348750809">"Nikada"</string>
-    <string name="auto_silence_1_minute">1 minuta</string>
+    <string name="label_never" msgid="4821982647348750809">"Nikada"</string>
     <string name="label_off">Isključeno</string>
     <string name="week_start_title" msgid="4268917518596832096">"Počni tjedan u"</string>
     <string name="week_start_saturday">subotu</string>
@@ -272,6 +271,8 @@
         <item msgid="3027153773466391728">"Fiji"</item>
         <item msgid="5911600083231840181">"Tonga"</item>
         <item msgid="5176858645450908751">"Jakarta"</item>
+        <item>"Rijad"</item>
+        <item>"Reykjavik"</item>
     </string-array>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"Novi alarm"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"Izradi novi alarm"</string>
@@ -294,6 +295,7 @@
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> tajmera"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Proširi alarm"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Sažmi alarm"</string>
+    <string name="alarm_undo" msgid="5710042601177655254">"poništi"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Alarm je izbrisan"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="LABEL">%s</xliff:g></string>
     <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> naprijed"</string>

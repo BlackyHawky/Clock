@@ -7,8 +7,14 @@
 package com.best.deskclock.provider;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_TIMEOUT_END_OF_RINGTONE;
-import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_TIMEOUT_NEVER;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_SNOOZE_DURATION;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_VOLUME;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_AUTO_SILENCE_DURATION;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_MISSED_ALARM_REPEAT_LIMIT;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VIBRATION_PATTERN;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VOLUME_CRESCENDO_DURATION;
+import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_END_OF_RINGTONE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_NEVER;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -41,7 +47,8 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     /**
      * Offset from alarm time to stop showing missed notification.
      */
-    private static final int MISSED_TIME_TO_LIVE_HOUR_OFFSET = 12;
+    public static final int MISSED_TIME_TO_LIVE_HOUR_OFFSET = 12;
+
     private static final String[] QUERY_COLUMNS = {
             _ID,
             YEAR,
@@ -51,12 +58,15 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             MINUTES,
             LABEL,
             VIBRATE,
+            VIBRATION_PATTERN,
             FLASH,
             RINGTONE,
             ALARM_ID,
             ALARM_STATE,
             AUTO_SILENCE_DURATION,
             SNOOZE_DURATION,
+            MISSED_ALARM_REPEAT_COUNT,
+            MISSED_ALARM_REPEAT_LIMIT,
             CRESCENDO_DURATION,
             ALARM_VOLUME
     };
@@ -73,14 +83,17 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     private static final int MINUTES_INDEX = 5;
     private static final int LABEL_INDEX = 6;
     private static final int VIBRATE_INDEX = 7;
-    private static final int FLASH_INDEX = 8;
-    private static final int RINGTONE_INDEX = 9;
-    private static final int ALARM_ID_INDEX = 10;
-    private static final int ALARM_STATE_INDEX = 11;
-    private static final int AUTO_SILENCE_DURATION_INDEX = 12;
-    private static final int SNOOZE_DURATION_INDEX = 13;
-    private static final int CRESCENDO_DURATION_INDEX = 14;
-    private static final int ALARM_VOLUME_INDEX = 15;
+    private static final int VIBRATION_PATTERN_INDEX = 8;
+    private static final int FLASH_INDEX = 9;
+    private static final int RINGTONE_INDEX = 10;
+    private static final int ALARM_ID_INDEX = 11;
+    private static final int ALARM_STATE_INDEX = 12;
+    private static final int AUTO_SILENCE_DURATION_INDEX = 13;
+    private static final int SNOOZE_DURATION_INDEX = 14;
+    private static final int MISSED_ALARM_REPEAT_COUNT_INDEX = 15;
+    private static final int MISSED_ALARM_MAX_COUNT_INDEX = 16;
+    private static final int CRESCENDO_DURATION_INDEX = 17;
+    private static final int ALARM_VOLUME_INDEX = 18;
 
     private static final int COLUMN_COUNT = ALARM_VOLUME_INDEX + 1;
     // Public fields
@@ -92,12 +105,15 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     public int mMinute;
     public String mLabel;
     public boolean mVibrate;
+    public String mVibrationPattern;
     public boolean mFlash;
     public Uri mRingtone;
     public Long mAlarmId;
     public int mAlarmState;
     public int mAutoSilenceDuration;
     public int mSnoozeDuration;
+    public int mMissedAlarmCurrentCount;
+    public int mMissedAlarmRepeatLimit;
     public int mCrescendoDuration;
     // Alarm volume level in steps; not a percentage
     public int mAlarmVolume;
@@ -112,13 +128,16 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         setAlarmTime(calendar);
         mLabel = "";
         mVibrate = false;
+        mVibrationPattern = DEFAULT_VIBRATION_PATTERN;
         mFlash = false;
         mRingtone = null;
         mAlarmState = SILENT_STATE;
-        mAutoSilenceDuration = 10;
-        mSnoozeDuration = 10;
-        mCrescendoDuration = 0;
-        mAlarmVolume = 11;
+        mAutoSilenceDuration = DEFAULT_AUTO_SILENCE_DURATION;
+        mSnoozeDuration = DEFAULT_ALARM_SNOOZE_DURATION;
+        mMissedAlarmCurrentCount = 0;
+        mMissedAlarmRepeatLimit = Integer.parseInt(DEFAULT_MISSED_ALARM_REPEAT_LIMIT);
+        mCrescendoDuration = DEFAULT_VOLUME_CRESCENDO_DURATION;
+        mAlarmVolume = DEFAULT_ALARM_VOLUME;
     }
 
     public AlarmInstance(AlarmInstance instance) {
@@ -130,12 +149,15 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         this.mMinute = instance.mMinute;
         this.mLabel = instance.mLabel;
         this.mVibrate = instance.mVibrate;
+        this.mVibrationPattern = instance.mVibrationPattern;
         this.mFlash = instance.mFlash;
         this.mRingtone = instance.mRingtone;
         this.mAlarmId = instance.mAlarmId;
         this.mAlarmState = instance.mAlarmState;
         this.mAutoSilenceDuration = instance.mAutoSilenceDuration;
         this.mSnoozeDuration = instance.mSnoozeDuration;
+        this.mMissedAlarmCurrentCount = instance.mMissedAlarmCurrentCount;
+        this.mMissedAlarmRepeatLimit = instance.mMissedAlarmRepeatLimit;
         this.mCrescendoDuration = instance.mCrescendoDuration;
         this.mAlarmVolume = instance.mAlarmVolume;
     }
@@ -150,9 +172,12 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             mMinute = c.getInt(Alarm.INSTANCE_MINUTE_INDEX);
             mLabel = c.getString(Alarm.INSTANCE_LABEL_INDEX);
             mVibrate = c.getInt(Alarm.INSTANCE_VIBRATE_INDEX) == 1;
+            mVibrationPattern = c.getString(Alarm.INSTANCE_VIBRATION_PATTERN_INDEX);
             mFlash = c.getInt(Alarm.INSTANCE_FLASH_INDEX) == 1;
             mAutoSilenceDuration = c.getInt(Alarm.INSTANCE_AUTO_SILENCE_DURATION_INDEX);
             mSnoozeDuration = c.getInt(Alarm.INSTANCE_SNOOZE_DURATION_INDEX);
+            mMissedAlarmCurrentCount = c.getInt(Alarm.INSTANCE_MISSED_ALARM_REPEAT_COUNT_INDEX);
+            mMissedAlarmRepeatLimit = c.getInt(Alarm.INSTANCE_MISSED_ALARM_REPEAT_LIMIT_INDEX);
             mCrescendoDuration = c.getInt(Alarm.INSTANCE_CRESCENDO_DURATION_INDEX);
             mAlarmVolume = c.getInt(Alarm.INSTANCE_ALARM_VOLUME_INDEX);
         } else {
@@ -164,9 +189,12 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             mMinute = c.getInt(MINUTES_INDEX);
             mLabel = c.getString(LABEL_INDEX);
             mVibrate = c.getInt(VIBRATE_INDEX) == 1;
+            mVibrationPattern = c.getString(VIBRATION_PATTERN_INDEX);
             mFlash = c.getInt(FLASH_INDEX) == 1;
             mAutoSilenceDuration = c.getInt(AUTO_SILENCE_DURATION_INDEX);
             mSnoozeDuration = c.getInt(SNOOZE_DURATION_INDEX);
+            mMissedAlarmCurrentCount = c.getInt(MISSED_ALARM_REPEAT_COUNT_INDEX);
+            mMissedAlarmRepeatLimit = c.getInt(MISSED_ALARM_MAX_COUNT_INDEX);
             mCrescendoDuration = c.getInt(CRESCENDO_DURATION_INDEX);
             mAlarmVolume = c.getInt(ALARM_VOLUME_INDEX);
         }
@@ -184,33 +212,36 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         mAlarmState = c.getInt(ALARM_STATE_INDEX);
     }
 
-    public static ContentValues createContentValues(AlarmInstance instance) {
+    public ContentValues createContentValues() {
         ContentValues values = new ContentValues(COLUMN_COUNT);
-        if (instance.mId != INVALID_ID) {
-            values.put(_ID, instance.mId);
+        if (mId != INVALID_ID) {
+            values.put(_ID, mId);
         }
 
-        values.put(YEAR, instance.mYear);
-        values.put(MONTH, instance.mMonth);
-        values.put(DAY, instance.mDay);
-        values.put(HOUR, instance.mHour);
-        values.put(MINUTES, instance.mMinute);
-        values.put(LABEL, instance.mLabel);
-        values.put(VIBRATE, instance.mVibrate ? 1 : 0);
-        values.put(FLASH, instance.mFlash ? 1 : 0);
-        if (instance.mRingtone == null) {
+        values.put(YEAR, mYear);
+        values.put(MONTH, mMonth);
+        values.put(DAY, mDay);
+        values.put(HOUR, mHour);
+        values.put(MINUTES, mMinute);
+        values.put(LABEL, mLabel);
+        values.put(VIBRATE, mVibrate ? 1 : 0);
+        values.put(VIBRATION_PATTERN, mVibrationPattern);
+        values.put(FLASH, mFlash ? 1 : 0);
+        if (mRingtone == null) {
             // We want to put null in the database, so we'll be able
             // to pick up on changes to the default alarm
             values.putNull(RINGTONE);
         } else {
-            values.put(RINGTONE, instance.mRingtone.toString());
+            values.put(RINGTONE, mRingtone.toString());
         }
-        values.put(ALARM_ID, instance.mAlarmId);
-        values.put(ALARM_STATE, instance.mAlarmState);
-        values.put(AUTO_SILENCE_DURATION, instance.mAutoSilenceDuration);
-        values.put(SNOOZE_DURATION, instance.mSnoozeDuration);
-        values.put(CRESCENDO_DURATION, instance.mCrescendoDuration);
-        values.put(ALARM_VOLUME, instance.mAlarmVolume);
+        values.put(ALARM_ID, mAlarmId);
+        values.put(ALARM_STATE, mAlarmState);
+        values.put(AUTO_SILENCE_DURATION, mAutoSilenceDuration);
+        values.put(SNOOZE_DURATION, mSnoozeDuration);
+        values.put(MISSED_ALARM_REPEAT_COUNT, mMissedAlarmCurrentCount);
+        values.put(MISSED_ALARM_REPEAT_LIMIT, mMissedAlarmRepeatLimit);
+        values.put(CRESCENDO_DURATION, mCrescendoDuration);
+        values.put(ALARM_VOLUME, mAlarmVolume);
 
         return values;
     }
@@ -315,31 +346,30 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         return result;
     }
 
-    public static void addInstance(ContentResolver contentResolver,
-                                   AlarmInstance instance) {
+    public void addInstance(ContentResolver contentResolver) {
         // Make sure we are not adding a duplicate instances. This is not a
         // fix and should never happen. This is only a safe guard against bad code, and you
         // should fix the root issue if you see the error message.
-        String dupSelector = AlarmInstance.ALARM_ID + " = " + instance.mAlarmId;
+        String dupSelector = AlarmInstance.ALARM_ID + " = " + mAlarmId;
         for (AlarmInstance otherInstances : getInstances(contentResolver, dupSelector)) {
-            if (otherInstances.getAlarmTime().equals(instance.getAlarmTime())) {
-                LogUtils.i("Detected duplicate instance in DB. Updating " + otherInstances + " to " + instance);
+            if (otherInstances.getAlarmTime().equals(getAlarmTime())) {
+                LogUtils.i("Detected duplicate instance in DB. Updating " + otherInstances + " to " + this);
                 // Copy over the new instance values and update the db
-                instance.mId = otherInstances.mId;
-                updateInstance(contentResolver, instance);
+                mId = otherInstances.mId;
+                updateInstance(contentResolver);
                 return;
             }
         }
 
-        ContentValues values = createContentValues(instance);
+        ContentValues values = createContentValues();
         Uri uri = contentResolver.insert(CONTENT_URI, values);
-        instance.mId = getId(uri);
+        mId = getId(uri);
     }
 
-    public static void updateInstance(ContentResolver contentResolver, AlarmInstance instance) {
-        if (instance.mId == INVALID_ID) return;
-        ContentValues values = createContentValues(instance);
-        contentResolver.update(getContentUri(instance.mId), values, null, null);
+    public void updateInstance(ContentResolver contentResolver) {
+        if (mId == INVALID_ID) return;
+        ContentValues values = createContentValues();
+        contentResolver.update(getContentUri(mId), values, null, null);
     }
 
     public static void deleteInstance(ContentResolver contentResolver, long instanceId) {
@@ -418,16 +448,16 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     public Calendar getTimeout(Context context) {
         Calendar calendar = getAlarmTime();
 
-        // Alarm silence has been set to "Never"
-        if (mAutoSilenceDuration == ALARM_TIMEOUT_NEVER) {
+        if (mAutoSilenceDuration == TIMEOUT_NEVER) {
+            // Alarm silence has been set to "Never"
             return null;
-        // Alarm silence has been set to "At the end of the ringtone"
-        // or "Dismiss alarm when ringtone ends" has been ticked in the expanded alarm view
-        } else if (mAutoSilenceDuration == ALARM_TIMEOUT_END_OF_RINGTONE) {
+        } else if (mAutoSilenceDuration == TIMEOUT_END_OF_RINGTONE) {
+            // Alarm silence has been set to "At the end of the ringtone"
+            // or "Dismiss alarm when ringtone ends" has been ticked in the expanded alarm view
             int milliSeconds = RingtoneUtils.getRingtoneDuration(context, mRingtone);
             calendar.add(Calendar.MILLISECOND, milliSeconds);
         } else {
-            calendar.add(Calendar.MINUTE, mAutoSilenceDuration);
+            calendar.add(Calendar.SECOND, mAutoSilenceDuration);
         }
 
         return calendar;
@@ -456,12 +486,15 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
                 ", mMinute=" + mMinute +
                 ", mLabel=" + mLabel +
                 ", mVibrate=" + mVibrate +
+                ", mVibrationPattern=" + mVibrationPattern +
                 ", mFlash=" + mFlash +
                 ", mRingtone=" + mRingtone +
                 ", mAlarmId=" + mAlarmId +
                 ", mAlarmState=" + mAlarmState +
                 ", mAutoSilenceDuration=" + mAutoSilenceDuration +
                 ", mSnoozeDuration=" + mSnoozeDuration +
+                ", mMissedAlarmCurrentCount=" + mMissedAlarmCurrentCount +
+                ", mMissedAlarmRepeatLimit=" + mMissedAlarmRepeatLimit +
                 ", mCrescendoDuration=" + mCrescendoDuration +
                 ", mAlarmVolume=" + mAlarmVolume +
                 '}';

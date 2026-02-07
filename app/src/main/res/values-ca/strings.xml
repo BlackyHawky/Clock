@@ -99,8 +99,7 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"Repeteix alarma després de"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Apuja el volum gradualment"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Silencia després de"</string>
-    <string name="auto_silence_never" msgid="4821982647348750809">"Mai"</string>
-    <string name="auto_silence_1_minute">1 minut</string>
+    <string name="label_never" msgid="4821982647348750809">"Mai"</string>
     <string name="label_off">Desactivada</string>
     <string name="week_start_title" msgid="4268917518596832096">La setmana comença el</string>
     <string name="week_start_saturday">Dissabte</string>
@@ -272,6 +271,8 @@
         <item msgid="3027153773466391728">"Fiji"</item>
         <item msgid="5911600083231840181">"Tonga"</item>
         <item msgid="5176858645450908751">"Jakarta"</item>
+        <item>"Riad"</item>
+        <item>"Reykjavík"</item>
     </string-array>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"Alarma nova"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"Crea una alarma"</string>
@@ -294,6 +295,7 @@
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> temporitzadors"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Amplia l\'alarma"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Redueix l\'alarma"</string>
+    <string name="alarm_undo" msgid="5710042601177655254">"desfés"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Alarma suprimida"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="LABEL">%s</xliff:g></string>
     <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> més"</string>
@@ -368,7 +370,6 @@
     <string name="vertical_digital_widget">Rellotge digital vertical</string>
     <string name="material_you_digital_widget">Rellotge digital Material You</string>
     <string name="settings_permission_summary">Toqueu aquí per a l\'administració de permisos.</string>
-    <string name="styles_and_colors_category_title">Aparença i colors</string>
     <string name="standard_category_title">Estàndard</string>
     <string name="occasional_alarm_alert_predismiss_title">Propera alarma ocasional</string>
     <string name="material_you_next_alarm_widget">Propera alarma Material You</string>
@@ -389,19 +390,14 @@
     <string name="swipe_action_title">Llisca per a descartar o ajornar les alarmes</string>
     <string name="add_label">Afegeix una etiqueta</string>
     <string name="alarm_title_font_size">Mida de la font del títol de l\'alarma</string>
-    <string name="alarm_clock_font_size">Mida de la font del rellotge d\'alarma</string>
+    <string name="clock_font_size">Mida de la font del rellotge</string>
     <string name="display_ringtone_title">Mostra el nom del so</string>
-    <string name="auto_silence_5_seconds">5 segons</string>
     <string name="material_time_picker_style_title">Estil del selector horari</string>
     <string name="auto_silence_end_of_ringtone">En finalitzar el so d\'alarma</string>
     <string name="display_card_background_title">Mostra el fons</string>
-    <string name="auto_silence_10_seconds">10 segons</string>
-    <string name="auto_silence_20_seconds">20 segons</string>
-    <string name="auto_silence_30_seconds">30 segons</string>
     <string name="display_card_background_summary">Mostra el fons de la targeta en alguns elements de l\'aplicació (alarmes, ciutats, botons, etc.)</string>
     <string name="alarm_notification_reminder_2_hours">2 hores abans</string>
     <string name="enable_alarm_vibrations_by_default_setting_title">Habilita la vibració en crear alarmes</string>
-    <string name="alarm_display_customization_title">Personalització de l\'alarma</string>
     <string name="alarm_title_color">Color del títol de l\'alarma</string>
     <string name="snooze_button_color">Color del botó Posposa</string>
     <string name="settings_vibration_title">Habilita la vibració</string>

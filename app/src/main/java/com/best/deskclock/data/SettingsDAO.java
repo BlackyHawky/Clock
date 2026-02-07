@@ -66,11 +66,6 @@ public final class SettingsDAO {
     private static final String KEY_ALARM_GLOBAL_ID = "intent.extra.alarm.global.id";
 
     /**
-     * Key to a preference that indicates whether restore (of backup and restore) has completed.
-     */
-    private static final String KEY_RESTORE_BACKUP_FINISHED = "restore_finished";
-
-    /**
      * @return the id used to discriminate relevant AlarmManager callbacks from defunct ones
      */
     public static int getGlobalIntentId(SharedPreferences prefs) {
@@ -104,6 +99,22 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return sorting of cities by time zone in ascending order, by name or manually.
+     */
+    public static String getCitySorting(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_clock.xml
+        return prefs.getString(KEY_SORT_CITIES, DEFAULT_SORT_CITIES_BY_ASCENDING_TIME_ZONE);
+    }
+
+    /**
+     * @return {@code true} if if a note can be added to the cities; {@code false} otherwise.
+     */
+    public static boolean isCityNoteEnabled(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_clock.xml
+        return prefs.getBoolean(KEY_ENABLE_CITY_NOTE, DEFAULT_ENABLE_CITY_NOTE);
+    }
+
+    /**
      * @return {@code true} if a clock for the user's home timezone should be automatically
      * displayed when it doesn't match the current timezone
      */
@@ -132,7 +143,7 @@ public final class SettingsDAO {
     /**
      * @return the user's home timezone
      */
-    static TimeZone getHomeTimeZone(Context context, SharedPreferences prefs, TimeZone defaultTZ) {
+    public static TimeZone getHomeTimeZone(Context context, SharedPreferences prefs, TimeZone defaultTZ) {
         String timeZoneId = prefs.getString(KEY_HOME_TIME_ZONE, DEFAULT_HOME_TIME_ZONE);
 
         // If the recorded home timezone is legal, use it.
@@ -165,6 +176,53 @@ public final class SettingsDAO {
      */
     public static ClockStyle getClockStyle(SharedPreferences prefs) {
         return getClockStyle(prefs, KEY_CLOCK_STYLE);
+    }
+
+    /**
+     * @return the clock dial applied in the Clock tab.
+     */
+    public static String getClockDial(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_clock.xml
+        return prefs.getString(KEY_CLOCK_DIAL, DEFAULT_CLOCK_DIAL);
+    }
+
+    /**
+     * @return the material clock dial applied in the Clock tab.
+     */
+    public static String getClockDialMaterial(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_clock.xml
+        return prefs.getString(KEY_CLOCK_DIAL_MATERIAL, DEFAULT_CLOCK_DIAL_MATERIAL);
+    }
+
+    /**
+     * @return the analog clock size applied in the Clock tab.
+     */
+    public static int getAnalogClockSize(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_clock.xml
+        return prefs.getInt(KEY_ANALOG_CLOCK_SIZE, DEFAULT_ANALOG_CLOCK_SIZE);
+    }
+
+    /**
+     * @return the clock second hand applied in the Clock tab.
+     */
+    public static String getClockSecondHand(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_clock.xml
+        return prefs.getString(KEY_CLOCK_SECOND_HAND, DEFAULT_CLOCK_SECOND_HAND);
+    }
+
+    /**
+     * @return the font applied to the digital clock in the Clock tab.
+     */
+    public static String getDigitalClockFont(SharedPreferences prefs) {
+        return prefs.getString(KEY_DIGITAL_CLOCK_FONT, null);
+    }
+
+    /**
+     * @return the font size applied in the Clock tab.
+     */
+    public static int getDigitalClockFontSize(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_clock.xml
+        return prefs.getInt(KEY_DIGITAL_CLOCK_FONT_SIZE, DEFAULT_DIGITAL_CLOCK_FONT_SIZE);
     }
 
     /**
@@ -205,6 +263,13 @@ public final class SettingsDAO {
     public static String getDarkMode(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_interface_customization.xml
         return prefs.getString(KEY_DARK_MODE, DEFAULT_DARK_MODE);
+    }
+
+    /**
+     * @return the font applied to the app.
+     */
+    public static String getGeneralFont(SharedPreferences prefs) {
+        return prefs.getString(KEY_GENERAL_FONT, null);
     }
 
     /**
@@ -303,6 +368,43 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return the clock dial applied for the screensaver.
+     */
+    public static String getScreensaverClockDial(SharedPreferences prefs) {
+        return prefs.getString(KEY_SCREENSAVER_CLOCK_DIAL, DEFAULT_CLOCK_DIAL);
+    }
+
+    /**
+     * @return the material clock dial applied for the screensaver.
+     */
+    public static String getScreensaverClockDialMaterial(SharedPreferences prefs) {
+        return prefs.getString(KEY_SCREENSAVER_CLOCK_DIAL_MATERIAL, DEFAULT_CLOCK_DIAL_MATERIAL);
+    }
+
+    /**
+     * @return the font applied to the digital clock in the screensaver.
+     */
+    public static String getScreensaverDigitalClockFont(SharedPreferences prefs) {
+        return prefs.getString(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT, null);
+    }
+
+    /**
+     * @return the clock second hand applied for the screensaver.
+     */
+    public static String getScreensaverClockSecondHand(SharedPreferences prefs) {
+        return prefs.getString(KEY_SCREENSAVER_CLOCK_SECOND_HAND, DEFAULT_CLOCK_SECOND_HAND);
+    }
+
+    /**
+     * @return {@code true} if the screensaver battery level is displayed.
+     * {@code false} otherwise.
+     */
+    public static boolean isScreensaverBatteryDisplayed(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_clock.xml
+        return prefs.getBoolean(KEY_DISPLAY_SCREENSAVER_BATTERY, DEFAULT_DISPLAY_SCREENSAVER_BATTERY);
+    }
+
+    /**
      * @return {@code true} if dynamic colors are applied to analog or digital clock.
      * {@code false} otherwise.
      */
@@ -312,7 +414,7 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return a value indicating the color of the clock of the screensaver
+     * @return a value indicating the screensaver clock color.
      */
     public static int getScreensaverClockColorPicker(SharedPreferences prefs) {
         // Default value must match the one in res/xml/screensaver_settings.xml
@@ -320,7 +422,15 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return a value indicating the color of the date of the screensaver
+     * @return a value indicating the screensaver battery level color.
+     */
+    public static int getScreensaverBatteryColorPicker(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/screensaver_settings.xml
+        return prefs.getInt(KEY_SCREENSAVER_BATTERY_COLOR_PICKER, DEFAULT_SCREENSAVER_CUSTOM_COLOR);
+    }
+
+    /**
+     * @return a value indicating the screensaver date color.
      */
     public static int getScreensaverDateColorPicker(SharedPreferences prefs) {
         // Default value must match the one in res/xml/screensaver_settings.xml
@@ -328,7 +438,7 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return a value indicating the color of the next alarm of the screensaver
+     * @return a value indicating the screensaver next alarm color.
      */
     public static int getScreensaverNextAlarmColorPicker(SharedPreferences prefs) {
         // Default value must match the one in res/xml/screensaver_settings.xml
@@ -344,6 +454,13 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return the analog clock size applied to the screensaver.
+     */
+    public static int getScreensaverAnalogClockSize(SharedPreferences prefs) {
+        return prefs.getInt(KEY_SCREENSAVER_ANALOG_CLOCK_SIZE, DEFAULT_ANALOG_CLOCK_SIZE);
+    }
+
+    /**
      * @return {@code true} if the seconds are displayed on the analog or digital clock in the screensaver.
      * {@code false} otherwise.
      */
@@ -353,11 +470,19 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return the font size applied to the alarm digital clock.
+     */
+    public static int getScreensaverDigitalClockFontSize(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm_display.xml
+        return prefs.getInt(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT_SIZE, DEFAULT_DIGITAL_CLOCK_FONT_SIZE);
+    }
+
+    /**
      * @return {@code true} if the screensaver should show the clock in bold. {@code false} otherwise.
      */
     public static boolean isScreensaverDigitalClockInBold(SharedPreferences prefs) {
         // Default value must match the one in res/xml/screensaver_settings.xml
-        return prefs.getBoolean(KEY_SCREENSAVER_DIGITAL_CLOCK_IN_BOLD, DEFAULT_SCREENSAVER_DIGITAL_CLOCK_IN_BOLD);
+        return prefs.getBoolean(KEY_SCREENSAVER_DIGITAL_CLOCK_IN_BOLD, DEFAULT_SCREENSAVER_FORMATTING);
     }
 
     /**
@@ -365,7 +490,25 @@ public final class SettingsDAO {
      */
     public static boolean isScreensaverDigitalClockInItalic(SharedPreferences prefs) {
         // Default value must match the one in res/xml/screensaver_settings.xml
-        return prefs.getBoolean(KEY_SCREENSAVER_DIGITAL_CLOCK_IN_ITALIC, DEFAULT_SCREENSAVER_DIGITAL_CLOCK_IN_ITALIC);
+        return prefs.getBoolean(KEY_SCREENSAVER_DIGITAL_CLOCK_IN_ITALIC, DEFAULT_SCREENSAVER_FORMATTING);
+    }
+
+    /**
+     * @return {@code true} if the screensaver should show the battery level in bold.
+     * {@code false} otherwise.
+     */
+    public static boolean isScreensaverBatteryInBold(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/screensaver_settings.xml
+        return prefs.getBoolean(KEY_SCREENSAVER_BATTERY_IN_BOLD, DEFAULT_SCREENSAVER_FORMATTING);
+    }
+
+    /**
+     * @return {@code true} if the screensaver should show the battery level in italic.
+     * {@code false} otherwise.
+     */
+    public static boolean isScreensaverBatteryInItalic(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/screensaver_settings.xml
+        return prefs.getBoolean(KEY_SCREENSAVER_BATTERY_IN_ITALIC, DEFAULT_SCREENSAVER_FORMATTING);
     }
 
     /**
@@ -373,15 +516,15 @@ public final class SettingsDAO {
      */
     public static boolean isScreensaverDateInBold(SharedPreferences prefs) {
         // Default value must match the one in res/xml/screensaver_settings.xml
-        return prefs.getBoolean(KEY_SCREENSAVER_DATE_IN_BOLD, DEFAULT_SCREENSAVER_DATE_IN_BOLD);
+        return prefs.getBoolean(KEY_SCREENSAVER_DATE_IN_BOLD, DEFAULT_SCREENSAVER_FORMATTING);
     }
 
     /**
-     * @return {@code true} if the screensaver should show the date in italic. {@code false} otherwise.
+     * @return {@code true} if the screensaver should show the date in italics. {@code false} otherwise.
      */
     public static boolean isScreensaverDateInItalic(SharedPreferences prefs) {
         // Default value must match the one in res/xml/screensaver_settings.xml
-        return prefs.getBoolean(KEY_SCREENSAVER_DATE_IN_ITALIC, DEFAULT_SCREENSAVER_DATE_IN_ITALIC);
+        return prefs.getBoolean(KEY_SCREENSAVER_DATE_IN_ITALIC, DEFAULT_SCREENSAVER_FORMATTING);
     }
 
     /**
@@ -389,7 +532,7 @@ public final class SettingsDAO {
      */
     public static boolean isScreensaverNextAlarmInBold(SharedPreferences prefs) {
         // Default value must match the one in res/xml/screensaver_settings.xml
-        return prefs.getBoolean(KEY_SCREENSAVER_NEXT_ALARM_IN_BOLD, DEFAULT_SCREENSAVER_NEXT_ALARM_IN_BOLD);
+        return prefs.getBoolean(KEY_SCREENSAVER_NEXT_ALARM_IN_BOLD, DEFAULT_SCREENSAVER_FORMATTING);
     }
 
     /**
@@ -397,7 +540,31 @@ public final class SettingsDAO {
      */
     public static boolean isScreensaverNextAlarmInItalic(SharedPreferences prefs) {
         // Default value must match the one in res/xml/screensaver_settings.xml
-        return prefs.getBoolean(KEY_SCREENSAVER_NEXT_ALARM_IN_ITALIC, DEFAULT_SCREENSAVER_NEXT_ALARM_IN_ITALIC);
+        return prefs.getBoolean(KEY_SCREENSAVER_NEXT_ALARM_IN_ITALIC, DEFAULT_SCREENSAVER_FORMATTING);
+    }
+
+    /**
+     * @return the URI of the image to be displayed in the screensaver.
+     */
+    public static String getScreensaverBackgroundImage(SharedPreferences prefs) {
+        return prefs.getString(KEY_SCREENSAVER_BACKGROUND_IMAGE, null);
+    }
+
+    /**
+     * @return {@code true} if a blur effect should be applied to the screensaver image.
+     * {@code false} otherwise.
+     */
+    public static boolean isScreensaverBlurEffectEnabled(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm_display.xml
+        return prefs.getBoolean(KEY_ENABLE_SCREENSAVER_BLUR_EFFECT, DEFAULT_ENABLE_BLUR_EFFECT);
+    }
+
+    /**
+     * @return the blur intensity applied to the screensaver image.
+     */
+    public static int getScreensaverBlurIntensity(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm_display.xml
+        return prefs.getInt(KEY_SCREENSAVER_BLUR_INTENSITY, DEFAULT_BLUR_INTENSITY);
     }
 
     /**
@@ -412,10 +579,8 @@ public final class SettingsDAO {
     /**
      * @return the duration for which a timer can ring before expiring and being reset.
      */
-    static long getTimerAutoSilenceDuration(SharedPreferences prefs) {
-        // Default value must match the one in res/xml/settings_timer.xml
-        final String string = prefs.getString(KEY_TIMER_AUTO_SILENCE, DEFAULT_TIMER_AUTO_SILENCE);
-        return Long.parseLong(string);
+    static int getTimerAutoSilenceDuration(SharedPreferences prefs) {
+        return prefs.getInt(KEY_TIMER_AUTO_SILENCE_DURATION, DEFAULT_TIMER_AUTO_SILENCE_DURATION);
     }
 
     /**
@@ -424,6 +589,72 @@ public final class SettingsDAO {
     public static boolean isTimerVibrate(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_timer.xml
         return prefs.getBoolean(KEY_TIMER_VIBRATE, DEFAULT_TIMER_VIBRATE);
+    }
+
+    /**
+     * @return {@code true} if the ringtone title should be displayed on the lock screen
+     * when the timer is expired. {@code false} otherwise.
+     */
+    public static boolean isTimerRingtoneTitleDisplayed(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_timer.xml
+        return prefs.getBoolean(KEY_DISPLAY_TIMER_RINGTONE_TITLE, DEFAULT_DISPLAY_RINGTONE_TITLE);
+    }
+
+    /**
+     * @return a value indicating the timer ringtone title color.
+     */
+    public static int getTimerRingtoneTitleColor(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_timer.xml
+        return prefs.getInt(KEY_TIMER_RINGTONE_TITLE_COLOR, DEFAULT_TIMER_RINGTONE_TITLE_COLOR);
+    }
+
+    /**
+     * @return {@code true} if a shadow is displayed on the texts of the expired timer.
+     * {@code false} otherwise.
+     */
+    public static boolean isTimerTextShadowDisplayed(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_timer.xml
+        return prefs.getBoolean(KEY_TIMER_DISPLAY_TEXT_SHADOW, DEFAULT_DISPLAY_TEXT_SHADOW);
+    }
+
+    /**
+     * @return a value indicating the shadow color displayed on the expired timer texts.
+     */
+    public static int getTimerShadowColor(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_timer_display.xml
+        return prefs.getInt(KEY_TIMER_SHADOW_COLOR, DEFAULT_TIMER_SHADOW_COLOR);
+    }
+
+    /**
+     * @return a value indicating the shadow offset for the expired timer texts.
+     */
+    public static int getTimerShadowOffset(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_timer_display.xml
+        return prefs.getInt(KEY_TIMER_SHADOW_OFFSET, DEFAULT_SHADOW_OFFSET);
+    }
+
+    /**
+     * @return the URI of the image to be displayed on the lock screen when the timer is expired.
+     */
+    public static String getTimerBackgroundImage(SharedPreferences prefs) {
+        return prefs.getString(KEY_TIMER_BACKGROUND_IMAGE, null);
+    }
+
+    /**
+     * @return {@code true} if a blur effect should be applied to the image when the timer is expired.
+     * {@code false} otherwise.
+     */
+    public static boolean isTimerBlurEffectEnabled(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_timer_display.xml
+        return prefs.getBoolean(KEY_ENABLE_TIMER_BLUR_EFFECT, DEFAULT_ENABLE_BLUR_EFFECT);
+    }
+
+    /**
+     * @return the blur intensity applied to the image when the timer is expired.
+     */
+    public static int getTimerBlurIntensity(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_timer_display.xml
+        return prefs.getInt(KEY_TIMER_BLUR_INTENSITY, DEFAULT_BLUR_INTENSITY);
     }
 
     /**
@@ -475,12 +706,10 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return the default minutes in seconds to add to timer when the "Add Minute" button is clicked.
+     * @return the default duration in seconds to add to timer when the "Add Minute" button is clicked.
      */
     public static int getDefaultTimeToAddToTimer(SharedPreferences prefs) {
-        // Default value must match the one in res/xml/settings_timer.xml
-        final String string = prefs.getString(KEY_DEFAULT_TIME_TO_ADD_TO_TIMER, DEFAULT_TIME_TO_ADD_TO_TIMER);
-        return Integer.parseInt(string) * 60;
+        return prefs.getInt(KEY_TIMER_ADD_TIME_BUTTON_VALUE, DEFAULT_TIMER_ADD_TIME_BUTTON_VALUE);
     }
 
     /**
@@ -492,11 +721,59 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return the font applied to the timer duration.
+     */
+    public static String getTimerDurationFont(SharedPreferences prefs) {
+        return prefs.getString(KEY_TIMER_DURATION_FONT, null);
+    }
+
+    /**
+     * @return {@code true} if active timers should remain compact. {@code false} otherwise.
+     */
+    public static boolean isCompactTimersDisplayed(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_timer_display.xml
+        return prefs.getBoolean(KEY_DISPLAY_COMPACT_TIMERS, DEFAULT_DISPLAY_COMPACT_TIMERS);
+    }
+
+    /**
      * @return {@code true} if the timer background must be transparent. {@code false} otherwise.
      */
     public static boolean isTimerBackgroundTransparent(SharedPreferences prefs) {
-        // Default value must match the one in res/xml/settings_timer.xml
+        // Default value must match the one in res/xml/settings_timer_display.xml
         return prefs.getBoolean(KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER, DEFAULT_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER);
+    }
+
+    /**
+     * @return {@code true} if the vertical scrollbar is displayed in the timer list.
+     * {@code false} otherwise.
+     */
+    public static boolean isTimerStateIndicatorDisplayed(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_timer_display.xml
+        return prefs.getBoolean(KEY_DISPLAY_TIMER_STATE_INDICATOR, DEFAULT_DISPLAY_TIMER_STATE_INDICATOR);
+    }
+
+    /**
+     * @return a value indicating the running timer indicator color.
+     */
+    public static int getRunningTimerIndicatorColor(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_timer_display.xml
+        return prefs.getInt(KEY_RUNNING_TIMER_INDICATOR_COLOR, DEFAULT_RUNNING_TIMER_INDICATOR_COLOR);
+    }
+
+    /**
+     * @return a value indicating the paused timer indicator color.
+     */
+    public static int getPausedTimerIndicatorColor(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_timer_display.xml
+        return prefs.getInt(KEY_PAUSED_TIMER_INDICATOR_COLOR, DEFAULT_PAUSED_TIMER_INDICATOR_COLOR);
+    }
+
+    /**
+     * @return a value indicating the expired timer indicator color.
+     */
+    public static int getExpiredTimerIndicatorColor(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_timer_display.xml
+        return prefs.getInt(KEY_EXPIRED_TIMER_INDICATOR_COLOR, DEFAULT_EXPIRED_TIMER_INDICATOR_COLOR);
     }
 
     /**
@@ -546,11 +823,21 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return {@code true} if a custom volume increase duration can be set for each alarm.
+     * {@code false} otherwise.
+     */
+    public static boolean isPerAlarmCrescendoDurationEnabled(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        return prefs.getBoolean(KEY_ENABLE_PER_ALARM_VOLUME_CRESCENDO_DURATION,
+                DEFAULT_ENABLE_PER_ALARM_VOLUME_CRESCENDO_DURATION);
+    }
+
+    /**
      * @return the duration, in seconds, of the crescendo to apply to alarm ringtone playback;
      * {@code 0} implies no crescendo should be applied.
      */
     public static int getAlarmVolumeCrescendoDuration(SharedPreferences prefs) {
-        return prefs.getInt(KEY_ALARM_VOLUME_CRESCENDO_DURATION, DEFAULT_ALARM_VOLUME_CRESCENDO_DURATION);
+        return prefs.getInt(KEY_ALARM_VOLUME_CRESCENDO_DURATION, DEFAULT_VOLUME_CRESCENDO_DURATION);
     }
 
     /**
@@ -593,7 +880,7 @@ public final class SettingsDAO {
      * {@code 0} implies no crescendo should be applied.
      */
     public static int getTimerVolumeCrescendoDuration(SharedPreferences prefs) {
-        return prefs.getInt(KEY_TIMER_VOLUME_CRESCENDO_DURATION, DEFAULT_TIMER_VOLUME_CRESCENDO_DURATION);
+        return prefs.getInt(KEY_TIMER_VOLUME_CRESCENDO_DURATION, DEFAULT_VOLUME_CRESCENDO_DURATION);
     }
 
     /**
@@ -602,6 +889,30 @@ public final class SettingsDAO {
     public static boolean isSwipeActionEnabled(SharedPreferences pref) {
         // Default value must match the one in res/xml/settings_alarm.xml
         return pref.getBoolean(KEY_SWIPE_ACTION, DEFAULT_SWIPE_ACTION);
+    }
+
+    /**
+     * @return the alarm sorting by time, by time of next alarm and by name.
+     */
+    public static String getAlarmSorting(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_timer.xml
+        return prefs.getString(KEY_SORT_ALARM, DEFAULT_SORT_BY_ALARM_TIME);
+    }
+
+    /**
+     * @return {@code true} if the enabled alarms are displayed first; {@code false} otherwise.
+     */
+    public static boolean areEnabledAlarmsDisplayedFirst(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        return prefs.getBoolean(KEY_DISPLAY_ENABLED_ALARMS_FIRST, DEFAULT_DISPLAY_ENABLED_ALARMS_FIRST);
+    }
+
+    /**
+     * @return {@code true} if the long press on the alarm FAB is enabled; {@code false} otherwise.
+     */
+    public static boolean isAlarmFabLongPressEnabled(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        return prefs.getBoolean(KEY_ENABLE_ALARM_FAB_LONG_PRESS, DEFAULT_ENABLE_ALARM_FAB_LONG_PRESS);
     }
 
     /**
@@ -617,24 +928,6 @@ public final class SettingsDAO {
             case MONDAY -> MON_TO_SUN;
             default -> throw new IllegalArgumentException("Unknown weekday: " + firstCalendarDay);
         };
-    }
-
-    /**
-     * @return {@code true} if the restore process (of backup and restore) has completed. {@code false} otherwise.
-     */
-    public static boolean isRestoreBackupFinished(SharedPreferences prefs) {
-        return prefs.getBoolean(KEY_RESTORE_BACKUP_FINISHED, false);
-    }
-
-    /**
-     * @param finished {@code true} means the restore process (of backup and restore) has completed
-     */
-    public static void setRestoreBackupFinished(SharedPreferences prefs, boolean finished) {
-        if (finished) {
-            prefs.edit().putBoolean(KEY_RESTORE_BACKUP_FINISHED, true).apply();
-        } else {
-            prefs.edit().remove(KEY_RESTORE_BACKUP_FINISHED).apply();
-        }
     }
 
     /**
@@ -667,6 +960,15 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return {@code true} if a custom auto silence duration can be set for each alarm.
+     * {@code false} otherwise.
+     */
+    public static boolean isPerAlarmAutoSilenceEnabled(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        return prefs.getBoolean(KEY_ENABLE_PER_ALARM_AUTO_SILENCE, DEFAULT_ENABLE_PER_ALARM_AUTO_SILENCE);
+    }
+
+    /**
      * @return the number of minutes an alarm may ring before it has timed out
      */
     public static int getAlarmTimeout(SharedPreferences prefs) {
@@ -674,10 +976,37 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return {@code true} if a custom snooze duration can be set for each alarm.
+     * {@code false} otherwise.
+     */
+    public static boolean isPerAlarmSnoozeDurationEnabled(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        return prefs.getBoolean(KEY_ENABLE_PER_ALARM_SNOOZE_DURATION, DEFAULT_ENABLE_PER_ALARM_SNOOZE_DURATION);
+    }
+
+    /**
      * @return the number of minutes an alarm will remain snoozed before it rings again
      */
     public static int getSnoozeLength(SharedPreferences prefs) {
         return prefs.getInt(KEY_ALARM_SNOOZE_DURATION, DEFAULT_ALARM_SNOOZE_DURATION);
+    }
+
+    /**
+     * @return {@code true} if a custom repeat limit can be set for each missed alarm.
+     * {@code false} otherwise.
+     */
+    public static boolean isPerAlarmMissedRepeatLimitEnabled(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        return prefs.getBoolean(KEY_ENABLE_PER_ALARM_MISSED_REPEAT_LIMIT, DEFAULT_ENABLE_PER_ALARM_MISSED_REPEAT_LIMIT);
+    }
+
+    /**
+     * @return the number of times a missed alarm can be repeated.
+     */
+    public static int getMissedAlarmRepeatLimit(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        final String string = prefs.getString(KEY_MISSED_ALARM_REPEAT_LIMIT, DEFAULT_MISSED_ALARM_REPEAT_LIMIT);
+        return Integer.parseInt(string);
     }
 
     /**
@@ -747,12 +1076,44 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return {@code true} if the Dismiss button should appear as soon as the alarm is enabled.
+     * {@code false} otherwise.
+     */
+    public static boolean isDismissButtonDisplayedWhenAlarmEnabled(SharedPreferences pref) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        return pref.getBoolean(KEY_DISPLAY_DISMISS_BUTTON, DEFAULT_DISPLAY_DISMISS_BUTTON);
+    }
+
+    /**
      * @return the number of minutes before the upcoming alarm notification appears
      */
     public static int getAlarmNotificationReminderTime(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_alarm.xml
         final String string = prefs.getString(KEY_ALARM_NOTIFICATION_REMINDER_TIME, DEFAULT_ALARM_NOTIFICATION_REMINDER_TIME);
         return Integer.parseInt(string);
+    }
+
+    /**
+     * @return {@code true} if a custom vibration pattern can be set for each alarm.
+     * {@code false} otherwise.
+     */
+    public static boolean isPerAlarmVibrationPatternEnabled(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        return prefs.getBoolean(KEY_ENABLE_PER_ALARM_VIBRATION_PATTERN, DEFAULT_ENABLE_PER_ALARM_VIBRATION_PATTERN);
+    }
+
+    /**
+     * @return the vibration pattern applied to alarms.
+     */
+    public static String getVibrationPattern(SharedPreferences prefs) {
+        return prefs.getString(KEY_VIBRATION_PATTERN, DEFAULT_VIBRATION_PATTERN);
+    }
+
+    /**
+     * @return the vibration start delay applied to alarms.
+     */
+    public static int getVibrationStartDelay(SharedPreferences prefs) {
+        return prefs.getInt(KEY_VIBRATION_START_DELAY, DEFAULT_VIBRATION_START_DELAY);
     }
 
     /**
@@ -813,12 +1174,47 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return the clock dial applied for alarms.
+     */
+    public static String getAlarmClockDial(SharedPreferences prefs) {
+        return prefs.getString(KEY_ALARM_CLOCK_DIAL, DEFAULT_CLOCK_DIAL);
+    }
+
+    /**
+     * @return the clock second hand applied for alarms.
+     */
+    public static String getAlarmClockSecondHand(SharedPreferences prefs) {
+        return prefs.getString(KEY_ALARM_CLOCK_SECOND_HAND, DEFAULT_CLOCK_SECOND_HAND);
+    }
+
+    /**
+     * @return the material clock dial applied for alarms.
+     */
+    public static String getAlarmClockDialMaterial(SharedPreferences prefs) {
+        return prefs.getString(KEY_ALARM_CLOCK_DIAL_MATERIAL, DEFAULT_CLOCK_DIAL_MATERIAL);
+    }
+
+    /**
+     * @return the analog clock size for alarms.
+     */
+    public static int getAlarmAnalogClockSize(SharedPreferences prefs) {
+        return prefs.getInt(KEY_ALARM_ANALOG_CLOCK_SIZE, DEFAULT_ANALOG_CLOCK_SIZE);
+    }
+
+    /**
      * @return {@code true} if the second hand is displayed on analog clock for the alarm.
      * {@code false} otherwise.
      */
-    public static boolean isAlarmSecondsHandDisplayed(SharedPreferences prefs) {
+    public static boolean isAlarmSecondHandDisplayed(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_alarm_display.xml
-        return prefs.getBoolean(KEY_DISPLAY_ALARM_SECONDS_HAND, DEFAULT_DISPLAY_ALARM_SECONDS_HAND);
+        return prefs.getBoolean(KEY_DISPLAY_ALARM_SECOND_HAND, DEFAULT_DISPLAY_ALARM_SECOND_HAND);
+    }
+
+    /**
+     * @return the font applied to the alarm.
+     */
+    public static String getAlarmFont(SharedPreferences prefs) {
+        return prefs.getString(KEY_ALARM_FONT, null);
     }
 
     /**
@@ -846,11 +1242,11 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return a value indicating the alarm seconds hand color.
+     * @return a value indicating the alarm second hand color.
      */
-    public static int getAlarmSecondsHandColor(SharedPreferences prefs, Context context) {
+    public static int getAlarmSecondHandColor(SharedPreferences prefs, Context context) {
         // Default value must match the one in res/xml/settings_alarm_display.xml
-        return prefs.getInt(KEY_ALARM_SECONDS_HAND_COLOR, getDefaultAlarmInversePrimaryColor(context));
+        return prefs.getInt(KEY_ALARM_SECOND_HAND_COLOR, getDefaultAlarmInversePrimaryColor(context));
     }
 
     /**
@@ -914,7 +1310,7 @@ public final class SettingsDAO {
      */
     public static int getAlarmDigitalClockFontSize(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_alarm_display.xml
-        return prefs.getInt(KEY_ALARM_DIGITAL_CLOCK_FONT_SIZE, DEFAULT_ALARM_DIGITAL_CLOCK_FONT_SIZE);
+        return prefs.getInt(KEY_ALARM_DIGITAL_CLOCK_FONT_SIZE, DEFAULT_DIGITAL_CLOCK_FONT_SIZE);
     }
 
     /**
@@ -923,6 +1319,31 @@ public final class SettingsDAO {
     public static int getAlarmTitleFontSize(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_alarm_display.xml
         return prefs.getInt(KEY_ALARM_TITLE_FONT_SIZE_PREF, DEFAULT_ALARM_TITLE_FONT_SIZE_PREF);
+    }
+
+    /**
+     * @return {@code true} if a shadow is displayed on the texts of the triggered alarm.
+     * {@code false} otherwise.
+     */
+    public static boolean isAlarmTextShadowDisplayed(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm_display.xml
+        return prefs.getBoolean(KEY_ALARM_DISPLAY_TEXT_SHADOW, DEFAULT_DISPLAY_TEXT_SHADOW);
+    }
+
+    /**
+     * @return a value indicating the shadow color displayed on the triggered alarm texts.
+     */
+    public static int getAlarmShadowColor(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm_display.xml
+        return prefs.getInt(KEY_ALARM_SHADOW_COLOR, DEFAULT_ALARM_SHADOW_COLOR);
+    }
+
+    /**
+     * @return a value indicating the shadow offset for the triggered alarm texts.
+     */
+    public static int getAlarmShadowOffset(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm_display.xml
+        return prefs.getInt(KEY_ALARM_SHADOW_OFFSET, DEFAULT_SHADOW_OFFSET);
     }
 
     /**
@@ -955,6 +1376,27 @@ public final class SettingsDAO {
      */
     public static void setHolidayDataUrl(SharedPreferences prefs, String url) {
         prefs.edit().putString(KEY_HOLIDAY_DATA_URL, url).apply();
+     * @return the URI of the image to be displayed on the lock screen when the alarm is triggered.
+     */
+    public static String getAlarmBackgroundImage(SharedPreferences prefs) {
+        return prefs.getString(KEY_ALARM_BACKGROUND_IMAGE, null);
+    }
+
+    /**
+     * @return {@code true} if a blur effect should be applied to the image when the alarm is triggered.
+     * {@code false} otherwise.
+     */
+    public static boolean isAlarmBlurEffectEnabled(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm_display.xml
+        return prefs.getBoolean(KEY_ENABLE_ALARM_BLUR_EFFECT, DEFAULT_ENABLE_BLUR_EFFECT);
+    }
+
+    /**
+     * @return the blur intensity applied to the image when the alarm is triggered.
+     */
+    public static int getAlarmBlurIntensity(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm_display.xml
+        return prefs.getInt(KEY_ALARM_BLUR_INTENSITY, DEFAULT_BLUR_INTENSITY);
     }
 
     private static ClockStyle getClockStyle(SharedPreferences prefs, String key) {
@@ -962,6 +1404,13 @@ public final class SettingsDAO {
         // Use hardcoded locale to perform toUpperCase, because in some languages toUpperCase adds
         // accent to character, which breaks the enum conversion.
         return ClockStyle.valueOf(clockStyle.toUpperCase(Locale.US));
+    }
+
+    /**
+     * @return the font applied to the stopwatch.
+     */
+    public static String getStopwatchFont(SharedPreferences prefs) {
+        return prefs.getString(KEY_SW_FONT, null);
     }
 
     /**

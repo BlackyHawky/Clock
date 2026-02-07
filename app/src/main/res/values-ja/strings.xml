@@ -83,8 +83,7 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"スヌーズの長さ"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"徐々に音量を上げる"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"消音までの時間"</string>
-    <string name="auto_silence_never" msgid="4821982647348750809">"なし"</string>
-    <string name="auto_silence_1_minute">1分</string>
+    <string name="label_never" msgid="4821982647348750809">"なし"</string>
     <string name="label_off">OFF</string>
     <string name="week_start_title" msgid="4268917518596832096">"週の始まり"</string>
     <string name="week_start_saturday">土曜日</string>
@@ -256,6 +255,8 @@
         <item msgid="3027153773466391728">"フィジー"</item>
         <item msgid="5911600083231840181">"トンガ"</item>
         <item msgid="5176858645450908751">"ジャカルタ"</item>
+        <item>"リヤド"</item>
+        <item>"レイキャビク"</item>
     </string-array>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"新しいアラーム"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"新しいアラームを作成"</string>
@@ -278,6 +279,7 @@
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g>件のタイマー"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"アラームを展開"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"アラームを折りたたむ"</string>
+    <string name="alarm_undo" msgid="5710042601177655254">"元に戻す"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"アラームを削除しました"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="LABEL">%s</xliff:g></string>
     <string name="world_time_ahead" msgid="625559988238637652">"+ <xliff:g id="TIME">%1$s</xliff:g>"</string>
@@ -310,19 +312,17 @@
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g>のアラームを10分間スヌーズしました"</string>
     <string name="flip_action_title">デバイスを反転した時の動作</string>
     <string name="shake_action_title">デバイスを振った時の動作</string>
-    <string name="duplicate">重複</string>
+    <string name="duplicate">複製</string>
     <string name="selected">選択済み</string>
     <string name="label_default">デフォルト</string>
     <string name="alarm_label_box_title">ラベル</string>
     <string name="more_options">その他のオプション</string>
-    <string name="credits">クレジット</string>
     <string name="sw_settings_summary">音量ボタンの動作設定</string>
     <string name="sw_volume_up_action_title">音量を上げる</string>
     <string name="sw_long_press_volume_up_action_title">音量を上げる (長押し)</string>
     <string name="sw_volume_down_action_title">音量を下げる</string>
     <string name="sw_start_pause_action">開始 / 一時停止</string>
     <string name="features_title">主な機能</string>
-    <string name="contributors_dialog_message">%1$sさんのGitHubページはこちら:\n\n%2$s</string>
     <string name="stopwatch_channel">ストップウォッチ</string>
     <string name="sw_long_press_volume_down_action_title">音量を下げる (長押し)</string>
     <string name="version">バージョン</string>
@@ -331,7 +331,6 @@
     <string name="yellow_accent_color">黄色</string>
     <string name="day_accent_color_title">デイモードのアクセントカラー</string>
     <string name="whats_new_title">更新内容</string>
-    <string name="contributors">貢献者</string>
     <string name="blue_gray_accent_color">青灰色</string>
     <string name="dialog_close">閉じる</string>
     <string name="actions_category_title">動作</string>
@@ -346,7 +345,6 @@
     <string name="red_accent_color">赤色</string>
     <string name="about_github_link">GitHubで見る</string>
     <string name="timer_label_box_title">タイマーラベル</string>
-    <string name="permission_dialog_close_button">閉じる</string>
     <string name="delete_occasional_alarm_after_use_title">アラームを一度停止したら削除する</string>
     <string name="title_dark_theme_mode">ダークテーマモード</string>
     <string name="title_accent_color">アクセントカラー</string>
@@ -357,7 +355,6 @@
     <string name="auto_night_accent_color_title">ナイトモードにアクセントカラーを適用</string>
     <string name="night_accent_color_title">ナイトモードのアクセントカラー</string>
     <string name="settings_language_title">言語</string>
-    <string name="styles_and_colors_category_title">スタイルと色</string>
     <string name="permission_highly_recommended">強く推奨</string>
     <string name="font_category_title">フォント</string>
     <string name="permission_denied">未付与</string>
@@ -389,30 +386,26 @@
     <string name="settings_permission_summary">ここをクリックして権限管理画面を表示</string>
     <string name="backup_restore_summary">通知音を除くデータのバックアップまたは復元</string>
     <string name="timer_volume_buttons_action_title">音量ボタンで終了したタイマーをリセット</string>
-    <string name="auto_silence_5_seconds">5秒</string>
-    <string name="auto_silence_20_seconds">20秒</string>
-    <string name="auto_silence_30_seconds">30秒</string>
-    <string name="auto_silence_10_seconds">10秒</string>
     <string name="timer_power_button_action_title">電源ボタンで終了したタイマーをリセット</string>
     <string name="timer_buttons_action_summary">ロック画面でのみ動作</string>
     <string name="timer_shake_action_title">デバイスを振ってアラームを停止</string>
     <string name="timer_flip_action_title">デバイスを反転してアラームを停止</string>
-    <string name="default_time_to_add_to_timer_6_minutes">6分</string>
-    <string name="default_time_to_add_to_timer_1_hour">1時間</string>
-    <string name="default_time_to_add_to_timer_8_minutes">8分</string>
-    <string name="default_time_to_add_to_timer_7_minutes">7分</string>
-    <string name="default_time_to_add_to_timer_9_minutes">9分</string>
-    <string name="default_time_to_add_to_timer_10_minutes">10分</string>
-    <string name="default_time_to_add_to_timer_1_minute">1分</string>
-    <string name="default_time_to_add_to_timer_2_minutes">2分</string>
-    <string name="default_time_to_add_to_timer_3_minutes">3分</string>
-    <string name="default_time_to_add_to_timer_4_minutes">4分</string>
-    <string name="default_time_to_add_to_timer_5_minutes">5分</string>
-    <string name="default_time_to_add_to_timer_30_minutes">30分</string>
     <string name="sort_timer_title">タイマーの並べ替え</string>
     <string name="sort_timer_descending_duration">時間順 (降順)</string>
     <string name="sort_timer_ascending_duration">時間順 (昇順)</string>
-    <string name="sort_timer_name">名前順</string>
-    <string name="sort_timer_manually">手動 (ドラッグ)</string>
+    <string name="sort_name">名前順</string>
+    <string name="sort_manually">手動 (ドラッグ)</string>
     <string name="default_time_to_add_to_timer_title">タイマーに追加するデフォルトの時間</string>
+    <string name="label_seconds">秒</string>
+    <string name="label_minutes">分</string>
+    <string name="label_hours">時</string>
+    <string name="add_new_sound_subtitle">フォルダーを長押しすると選択できます</string>
+    <string name="warning">注意</string>
+    <string name="schedule_alarm_title">アラームを設定</string>
+    <string name="alarm_flash">フラッシュ</string>
+    <string name="delay_picker_dialog_title">スヌーズ時間を設定…</string>
+    <string name="standard_category_title">標準</string>
+    <string name="confirm_action_prompt">\n\n続行しますか？</string>
+    <string name="style_category_title">スタイル</string>
+    <string name="colors_category_title">配色</string>
 </resources>

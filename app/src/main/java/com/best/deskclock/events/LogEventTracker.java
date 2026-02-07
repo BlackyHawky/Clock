@@ -12,15 +12,9 @@ import androidx.annotation.StringRes;
 
 import com.best.deskclock.utils.LogUtils;
 
-public final class LogEventTracker implements EventTracker {
+public record LogEventTracker(Context mContext) implements EventTracker {
 
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger("Events");
-
-    private final Context mContext;
-
-    public LogEventTracker(Context context) {
-        mContext = context;
-    }
 
     @Override
     public void sendEvent(@StringRes int category, @StringRes int action, @StringRes int label) {

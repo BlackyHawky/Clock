@@ -22,9 +22,9 @@
         android:marqueeRepeatLimit="marquee_forever"
         android:scrollHorizontally="true"
         android:textSize="18sp"
-        android:textStyle="bold"
         android:textColor="?attr/colorPrimary"
-        tools:text="Fictive city"/>
+        tools:text="Fictive city"
+        tools:textStyle="bold" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/hours_ahead"
@@ -35,6 +35,18 @@
         android:paddingTop="3dp"
         android:scrollHorizontally="true"
         tools:text="1 hour ahead"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/city_note"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:textColor="?attr/colorTertiary"
+        android:paddingTop="3dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        tools:text="My personal note"
+        tools:visibility="visible" />
 
 </LinearLayout>
 

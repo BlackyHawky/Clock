@@ -83,8 +83,7 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"延後時間長度"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"漸漸提高音量"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">鬧鐘鈴響持續時間</string>
-    <string name="auto_silence_never" msgid="4821982647348750809">"無限期"</string>
-    <string name="auto_silence_1_minute">1 分鐘</string>
+    <string name="label_never" msgid="4821982647348750809">"無限期"</string>
     <string name="label_off">關閉</string>
     <string name="week_start_title" msgid="4268917518596832096">每週起始日</string>
     <string name="week_start_saturday">星期六</string>
@@ -256,6 +255,8 @@
         <item msgid="3027153773466391728">"斐濟"</item>
         <item msgid="5911600083231840181">"東加"</item>
         <item msgid="5176858645450908751">"雅加達"</item>
+        <item>"利雅得"</item>
+        <item>"雷克雅未克"</item>
     </string-array>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"新鬧鐘"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"建立新鬧鐘"</string>
@@ -278,6 +279,7 @@
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> 個計時器"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"展開鬧鐘"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"收合鬧鐘"</string>
+    <string name="alarm_undo" msgid="5710042601177655254">"復原"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"已刪除鬧鐘"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">／ <xliff:g id="label">%s</xliff:g></string>
     <string name="world_time_ahead" msgid="625559988238637652">"快 <xliff:g id="TIME">%1$s</xliff:g>"</string>
@@ -313,7 +315,6 @@
     <string name="about_title">關於</string>
     <string name="style_category_title">樣式</string>
     <string name="screensaver_daydream_settings">選擇 / 啟用螢幕保護程式</string>
-    <string name="contributors">貢獻者</string>
     <string name="permission_requirement_title">要求： </string>
     <string name="title_theme">主題</string>
     <string name="screensaver_brightness_title">亮度</string>
@@ -327,7 +328,6 @@
     <string name="permission_denied">已拒絕</string>
     <string name="power_button_title">電源按鈕</string>
     <string name="add_label">增加標籤</string>
-    <string name="credits">銘謝</string>
     <string name="dialog_close">關閉</string>
     <string name="features_title">主要特點</string>
     <string name="license">開放原始碼授權</string>
@@ -346,7 +346,6 @@
     <string name="title_accent_color">強調色</string>
     <string name="settings_vibration_title">啟用震動</string>
     <string name="permission_granted">已授予</string>
-    <string name="permission_dialog_close_button">關閉</string>
     <string name="material_you_digital_widget">Material You 數位時鐘</string>
     <string name="alarm_label_box_title">鬧鐘標籤</string>
     <string name="label_default">預設</string>
@@ -361,30 +360,14 @@
     <string name="pink_accent_color">粉紅色</string>
     <string name="red_accent_color">紅色</string>
     <string name="amoled_dark_theme_mode">AMOLED</string>
-    <string name="auto_silence_5_seconds">5 秒</string>
-    <string name="auto_silence_10_seconds">10 秒</string>
-    <string name="auto_silence_20_seconds">20 秒</string>
-    <string name="auto_silence_30_seconds">30 秒</string>
-    <string name="default_time_to_add_to_timer_2_minutes">2 分鐘</string>
-    <string name="default_time_to_add_to_timer_3_minutes">3 分鐘</string>
-    <string name="default_time_to_add_to_timer_5_minutes">5 分鐘</string>
-    <string name="default_time_to_add_to_timer_6_minutes">6 分鐘</string>
-    <string name="default_time_to_add_to_timer_7_minutes">7 分鐘</string>
-    <string name="default_time_to_add_to_timer_8_minutes">8 分鐘</string>
-    <string name="default_time_to_add_to_timer_9_minutes">9 分鐘</string>
-    <string name="default_time_to_add_to_timer_10_minutes">10 分鐘</string>
-    <string name="default_time_to_add_to_timer_30_minutes">30 分鐘</string>
-    <string name="default_time_to_add_to_timer_1_hour">1 小時</string>
     <string name="first_launch_version">版本 %s</string>
     <string name="widget_background_title">顯示背景</string>
     <string name="widgets_settings">小工具</string>
-    <string name="screensaver_date_color_title">日期顏色</string>
-    <string name="default_time_to_add_to_timer_1_minute">1 分鐘</string>
+    <string name="date_color_title">日期顏色</string>
     <string name="system_theme">系統</string>
     <string name="brown_accent_color">棕色</string>
     <string name="snooze_duration_none">無</string>
     <string name="alarm_created">鬧鐘已建立</string>
-    <string name="default_time_to_add_to_timer_4_minutes">4 分鐘</string>
     <string name="notifications_permission_title">啟用通知</string>
     <string name="ignore_battery_optimizations_dialog_title">電池最佳化</string>
     <string name="background_color_title">背景顏色</string>
@@ -412,21 +395,18 @@
     <string name="turn_on_back_flash_for_triggered_alarm_title">鬧鐘鈴響時啟用後置閃光燈</string>
     <string name="enable_delete_occasional_alarm_by_default_setting_title">啟用自動刪除臨時鬧鐘</string>
     <string name="alarm_settings_general_summary">您可展開鬧鐘面板並各別設定</string>
-    <string name="alarm_display_customization_title">自訂鬧鐘顯示</string>
     <string name="timer_label_box_title">計時器名稱</string>
     <string name="timer_time_warning_box_title">數值無效</string>
     <string name="warning_dialog_title">刪除計時器</string>
-    <string name="occasional_alarm_deleted">已刪除臨時鬧鐘「<xliff:g example="14:20" id="alarm_time">%s</xliff:g>」</string>
     <string name="first_launch_main_feature_title">主要功能</string>
     <string name="firing_alarms_timers_channel">配置鬧鐘與計時器</string>
     <string name="reset_settings_title">重設</string>
     <string name="sort_timer_descending_duration">長度 (降序)</string>
-    <string name="sort_timer_name">名稱</string>
+    <string name="sort_name">名稱</string>
     <string name="clock_style_analog_material">類比 (Material)</string>
     <string name="timer_settings_summary">設定預設鈴聲、音量和計時器排序</string>
     <string name="first_launch_important_info_title">重要資訊</string>
-    <string name="contributors_dialog_title">檢視名單</string>
-    <string name="reset_settings_message">您要清除所有設定嗎？\n\n請注意：自訂鈴聲將不受影響。</string>
+    <string name="reset_settings_message">您要清除所有設定嗎？</string>
     <string name="sw_settings_summary">設定音量鍵動作</string>
     <string name="blue_accent_color">藍色</string>
     <string name="alarm_title_font_size">鬧鐘標題大小</string>
@@ -435,9 +415,8 @@
     <string name="toast_message_for_reset">重設完成</string>
     <string name="alarm_settings_summary">設定樣式、預設鈴聲、音量、延後及關閉鬧鐘動作，每週起始日和提醒時間</string>
     <string name="display_warning_before_deleting_timer_title">刪除計時器前警告</string>
-    <string name="digital_widget_clock_custom_color_title">自訂主時鐘色彩</string>
     <string name="denied_permission_label">權限遭拒</string>
-    <string name="next_alarm_widget_default_title_color">「下個鬧鐘」與「沒有即將啟動的鬧鐘」使用預設色彩</string>
+    <string name="next_alarm_no_upcoming_alarm_titles_default_color">「下個鬧鐘」與「沒有即將啟動的鬧鐘」使用預設色彩</string>
     <string name="backup_restore_dialog_message">您要備份或還原應用程式資料嗎？</string>
     <string name="settings_language_korean">韓文</string>
     <string name="auto_silence_end_of_ringtone">鈴聲播放完畢時靜音</string>
@@ -450,7 +429,7 @@
     <string name="screensaver_daydream_settings_summary">開啟系統螢幕保護程式設定</string>
     <string name="first_launch_dialog_message">要離開應用程式嗎？</string>
     <string name="first_launch_main_feature_message">► 淺色、深色及系統主題&lt;br&gt; &lt;br&gt; ► 自訂螢幕保護程式&lt;br&gt; &lt;br&gt; ► 自訂小工具&lt;br&gt; &lt;br&gt; ► 快速設定方塊 (Android 7 以上)&lt;br&gt; &lt;br&gt; ► 備份與還原資料 (不含自訂鈴聲)&lt;br&gt; &lt;br&gt; ► Material 外觀與動態色彩&lt;br&gt; &lt;br&gt; ► 為指定日期配置鬧鐘&lt;br&gt; &lt;br&gt; ► 滑動刪除鬧鐘&lt;br&gt; &lt;br&gt; ► 複製鬧鐘&lt;br&gt; &lt;br&gt; ► 翻轉或搖動裝置以關閉 / 延後鬧鐘&lt;br&gt; &lt;br&gt; ► 按下電源鍵或音量鍵以關閉 / 延後鬧鐘&lt;br&gt; &lt;br&gt; ► %s</string>
-    <string name="next_alarm_widget_max_font_size_title">小工具文字大小</string>
+    <string name="widget_max_font_size_title">小工具文字大小</string>
     <string name="toast_message_for_restore">還原完成</string>
     <string name="alarm_upcoming_channel">即將啟動的鬧鐘</string>
     <string name="settings_language_french">法文</string>
@@ -458,15 +437,15 @@
     <string name="settings_language_estonian">愛沙尼亞</string>
     <string name="settings_language_system">系統語言</string>
     <string name="settings_language_italian">義大利</string>
-    <string name="seconds_hand_color_title">秒針色彩</string>
-    <string name="sort_timer_manually">手動 (拖曳)</string>
+    <string name="second_hand_color_title">秒針色彩</string>
+    <string name="sort_manually">手動 (拖曳)</string>
     <string name="settings_language_german">德文</string>
     <string name="settings_language_chinese_simplified_cn">中文 (簡體，中國)</string>
     <string name="settings_language_english_us">英文</string>
     <string name="settings_language_dutch">荷蘭</string>
     <string name="clock_style_spinner">下拉式選單</string>
     <string name="timer_power_button_action_title">電源鍵重設到期的計時器</string>
-    <string name="screensaver_next_alarm_color_title">下個鬧鐘色彩</string>
+    <string name="next_alarm_color_title">下個鬧鐘色彩</string>
     <string name="screensaver_italic_digital_clock_title">斜體數位時鐘</string>
     <string name="backup_restore_summary">備份或還原應用程式資料 (不含自訂鈴聲)</string>
     <string name="warning_dialog_message">您要刪除計時器「%s」嗎？</string>
@@ -483,15 +462,10 @@
     <string name="alarm_notification_reminder_2_hours">2 小時前</string>
     <string name="alarm_title_color">鬧鐘標題色彩</string>
     <string name="shake_intensity_title">搖動強度</string>
-    <string name="next_alarm_widget_custom_alarm_title_color">自訂鬧鐘標題色彩</string>
     <string name="display_date_title">顯示日期</string>
     <string name="ignore_battery_optimizations_title">停用電池效能最佳化</string>
     <string name="backup_restore_title">備份與還原</string>
     <string name="toast_message_for_backup">備份完成</string>
-    <string name="analog_widget_choice_title">選擇樣式</string>
-    <string name="analog_widget_without_second_hand_title">無秒針</string>
-    <string name="analog_widget_with_second_hand_title">含秒針</string>
-    <string name="analog_widget_configuration_warning">這個小工具僅支援 Android 12</string>
     <string name="title_dark_theme_mode">深色主題</string>
     <string name="display_card_background_title">顯示卡片式背景</string>
     <string name="settings_tab_to_display">啟動時的頁面</string>
@@ -508,10 +482,9 @@
     <string name="settings_toolbar_title">顯示工具列標題</string>
     <string name="settings_tab_title_visibility_title">顯示分頁標題</string>
     <string name="tab_title_visibility_always">一律顯示</string>
-    <string name="tab_title_visibility_never">隱藏</string>
     <string name="tab_title_visibility_when_selected">僅選取時</string>
     <string name="settings_language_czech">捷克</string>
-    <string name="timer_button_time_minutes_warning_box_text">請輸入 0~60 分鐘間的數值</string>
+    <string name="timer_button_time_minutes_warning_box_text">請輸入 0–60 分鐘</string>
     <string name="transparent_background_for_expired_timer_title">計時器到期透明背景</string>
     <string name="settings_keep_screen_on_title">保持螢幕開啟</string>
     <string name="sw_start_pause_action">開始 / 暫停</string>
@@ -525,13 +498,13 @@
     <string name="snooze_button_color">「延後」按鍵色彩</string>
     <string name="dismiss_button_color">「關閉」按鍵色彩</string>
     <string name="alarm_button_color">鬧鐘按鍵色彩</string>
-    <string name="alarm_clock_font_size">鬧鐘時間大小</string>
+    <string name="clock_font_size">鬧鐘字體大小</string>
     <string name="screensaver_bold_digital_clock_title">粗體數位時鐘</string>
     <string name="screensaver_italic_next_alarm_title">斜體下個鬧鐘</string>
     <string name="swipe_action_title">滑動以延後或關閉鬧鐘</string>
     <string name="app_slogan">源自 AOSP，100% 自由與開源的鬧鐘</string>
     <string name="material_time_picker_style_title">選取時間面板樣式</string>
-    <string name="digital_widget_city_name_custom_color_title">自訂城市名稱色彩</string>
+    <string name="city_name_color_title">自訂城市名稱色彩</string>
     <string name="github_dialog_message">造訪這個計畫的 GitHub 頁面\n\n%s</string>
     <string name="whats_new_dialog_message">探索新功能：\n\n%s</string>
     <string name="about_github_link">檢視 GitHub</string>
@@ -541,18 +514,17 @@
     <string name="display_background_border_summary">部分元件顯示邊框 (鬧鐘、城市、計時器按鍵等)</string>
     <string name="settings_permission_summary">輕觸即可顯示權限管理頁面。</string>
     <string name="display_card_background_summary">部分元件顯示卡片式背景 (鬧鐘、城市、計時器按鍵等)</string>
-    <string name="digital_widget_city_title">顯示城市</string>
-    <string name="digital_widget_clock_default_color_title">主時鐘使用預設色彩</string>
+    <string name="display_city_title">顯示城市</string>
+    <string name="clock_default_color_title">主時鐘使用預設色彩</string>
     <string name="sort_timer_ascending_duration">長度 (升序)</string>
-    <string name="digital_widget_custom_hours_color_title">自訂小時色彩</string>
+    <string name="hour_color_title">自訂小時色彩</string>
     <string name="gnu_gpl">GNU 通用公眾授權條款 v3.0</string>
     <string name="material_you_next_alarm_widget">Material You 下個鬧鐘</string>
     <string name="settings_fade_transitions_title">啟用頁面切換淡化效果</string>
-    <string name="digital_widget_date_default_color_title">日期使用預設色彩</string>
-    <string name="digital_widget_date_custom_color_title">自訂日期色彩</string>
-    <string name="digital_widget_city_clock_default_color_title">城市時間使用預設色彩</string>
-    <string name="digital_widget_city_clock_custom_color_title">自訂城市時間色彩</string>
-    <string name="digital_widget_city_name_default_color_title">城市名稱使用預設色彩</string>
+    <string name="date_default_color_title">日期使用預設色彩</string>
+    <string name="city_clock_default_color_title">城市時間使用預設色彩</string>
+    <string name="city_clock_color_title">自訂城市時間色彩</string>
+    <string name="city_name_default_color_title">城市名稱使用預設色彩</string>
     <string name="permission_highly_recommended">強烈建議</string>
     <string name="permission_management_summary">顯示應用程式運作所需權限</string>
     <string name="digital_widget_message_summary">必須停用「顯示城市」才能存取這個選項</string>
@@ -562,8 +534,8 @@
     <string name="night_accent_color_title">夜間模式強調色</string>
     <string name="alarm_notification_reminder_30_minutes">30 分前</string>
     <string name="version_text">版本 <xliff:g id="VERSION_NUMBER" example="1.0">%1$s</xliff:g></string>
-    <string name="next_alarm_widget_custom_title_color">自訂「下個鬧鐘」與「沒有即將啟動的鬧鐘」色彩</string>
-    <string name="next_alarm_widget_default_alarm_title_color">鬧鐘標題使用預設色彩</string>
+    <string name="next_alarm_no_upcoming_alarm_titles_color">自訂「下個鬧鐘」與「沒有即將啟動的鬧鐘」色彩</string>
+    <string name="alarm_title_default_color">鬧鐘標題使用預設色彩</string>
     <string name="notifications_dialog_text">除了設定鬧鐘，還具備計時器與碼表。\n\n我們建議啟用通知使所有元件正常運作，特別是啟動鬧鐘。</string>
     <string name="first_launch_main_feature_link">…還有更多！</string>
     <string name="alarm_snooze_channel">延後的鬧鐘</string>
@@ -574,20 +546,17 @@
     <string name="about_translate_link">Codeberg 翻譯</string>
     <string name="translate_dialog_message">造訪 Codeberg 頁面：\n\n%s</string>
     <string name="description_direction_both_for_non_repeatable_alarm">向左或向右滑動關閉</string>
-    <string name="about_dialog_message">• 為指定日期配置鬧鐘\n\n• 翻轉或搖動裝置以關閉 / 延後鬧鐘\n\n• 按下電源鍵或音量鍵以關閉 / 延後鬧鐘\n• 關機狀態觸發鬧鐘，僅支援部分搭載 Snapdragon 處理器的裝置\n\t\t 請注意，這項功能在某些預裝<i>「com.qualcomm.qti.poweroffalarm」</i> 系統元件的裝置上仍有可能無法運作。\n\n• 滑動刪除鬧鐘\n\n• 複製鬧鐘\n\n• 自訂鬧鐘標題\n\n• 自訂鈴聲\n\n• 淺色、深色及系統主題\n\n• AMOLED 螢幕專用深色模式\n\n• 數位及類比時鐘樣式\n\n• 旅行時主頁顯示當地時間\n\n• 顯示世界多個城市時間\n\n• 計時器與碼表\n\n• 與您的聯絡人分享碼表\n\n• 自訂螢幕保護程式\n\n• 現代小工具\n\n• 自訂小工具\n\n• 快速設定方塊 (Android 7 以上)\n\n• 備份與還原資料 (不含自訂鈴聲)\n\n• Material 外觀\n\n• 動態色彩樣式 (Android 12 以上)</string>
     <string name="timer_volume_buttons_action_title">音量鍵重設到期的計時器</string>
     <string name="timer_flip_action_title">翻轉裝置停止鬧鐘</string>
     <string name="timer_shake_action_title">搖動裝置停止鬧鐘</string>
     <string name="sort_timer_title">計時器排序</string>
     <string name="license_dialog_message">參閱授權書：\n\n%s</string>
-    <string name="contributors_dialog_message">造訪 %1$s 的 GitHub 頁面：\n\n%2$s</string>
     <string name="description_direction_both_for_occasional_non_repeatable_alarm">向左或向右滑動關閉並刪除鬧鐘</string>
-    <string name="digital_widget_default_hours_color_title">小時使用預設色彩</string>
-    <string name="digital_widget_default_minutes_color_title">分鐘使用預設色彩</string>
-    <string name="digital_widget_custom_minutes_color_title">自訂分鐘色彩</string>
-    <string name="widget_next_alarm_default_color_title">下個鬧鐘使用預設色彩</string>
-    <string name="widget_next_alarm_custom_color_title">自訂下個鬧鐘色彩</string>
-    <string name="digital_widget_max_clock_font_size_title">主時鐘文字大小</string>
+    <string name="hour_default_color_title">小時使用預設色彩</string>
+    <string name="minute_default_color_title">分鐘使用預設色彩</string>
+    <string name="minute_color_title">分鐘色彩</string>
+    <string name="next_alarm_default_color_title">下個鬧鐘使用預設色彩</string>
+    <string name="max_clock_font_size_title">主時鐘文字大小</string>
     <string name="FSN_permission_title">啟用全螢幕通知</string>
     <string name="FSN_dialog_title">全螢幕通知</string>
     <string name="show_lockscreen_permission_title">於鎖定螢幕顯示</string>
@@ -595,7 +564,6 @@
     <string name="show_lockscreen_dialog_text">您需要前往小米裝置中的設定並啟用「鎖定螢幕顯示」權限才能使應用程式正常運作。</string>
     <string name="permission_info_title">僅適用小米裝置</string>
     <string name="ignore_battery_optimizations_dialog_text">Android 系統預設為所有已安裝應用程式套用最佳化以節省電力。\n\n這對多數應用程式有所助益，但對仰賴通知的鬧鐘容易造成問題。\n最佳化將使系統能夠隨時停止服務或取消預定通知，影響相關功能運作。\n\n我們建議將本應用程式加入電池效能最佳化白名單。</string>
-    <string name="styles_and_colors_category_title">色彩與樣式</string>
     <string name="blue_gray_accent_color">藍灰色</string>
     <string name="slide_zone_color_title">滑動區域色彩</string>
     <string name="snooze_title_color">「延後」標題色彩</string>
@@ -615,7 +583,7 @@
     <string name="date_picker_style_calendar">日曆</string>
     <string name="date_picker_style_text">文字</string>
     <string name="random_ringtone_title">隨機鈴聲</string>
-    <string name="timer_button_time_seconds_warning_box_text">請輸入 0 到 59 秒間的數值</string>
+    <string name="timer_button_time_seconds_warning_box_text">請輸入 0–59 秒</string>
     <string name="timer_add_custom_time_with_seconds_for_notification">新增 %1$s 分 %2$s 秒</string>
     <string name="label_seconds">秒</string>
     <string name="label_minutes">分</string>
@@ -635,7 +603,7 @@
     <string name="system_media_volume_title">使用系統媒體音量</string>
     <string name="system_media_volume_summary">僅適用連接藍牙裝置期間</string>
     <string name="bluetooth_volume_title">藍牙裝置鬧鐘音量</string>
-    <string name="connect_bluetooth_device_title">請連接藍牙裝置以變更這項設定</string>
+    <string name="connect_bluetooth_device_title">請連接藍牙裝置以存取這項設定</string>
     <string name="disconnect_bluetooth_device_title">請中斷連接藍牙裝置以存取這項設定</string>
     <!-- Category title for holiday alarm settings -->
     <string name="holiday_alarm_category_title">節假日鬧鐘</string>
@@ -649,4 +617,85 @@
     <string name="holiday_data_url_summary">設定節假日和工作日資料的 URL</string>
     <!-- Dialog message for the preference to set the holiday data URL -->
     <string name="holiday_data_url_dialog_message">輸入節假日和工作日資料的 URL</string>
+    <string name="enable_per_alarm_volume_title">為每個鬧鐘自訂音量</string>
+    <string name="delay_picker_dialog_title">鈴響於…</string>
+    <string name="colors_category_title">色彩</string>
+    <string name="clock_second_hand_title">秒針</string>
+    <string name="clock_second_hand_vintage">古典</string>
+    <string name="clock_dial_title">面板</string>
+    <string name="clock_dial_sun">日晷</string>
+    <string name="clock_dial_flower">花鐘</string>
+    <string name="dial_color_title">面板色彩</string>
+    <string name="dial_default_color_title">面板使用預設色彩</string>
+    <string name="hour_hand_color_title">時針色彩</string>
+    <string name="minute_hand_color_title">分針色彩</string>
+    <string name="minute_hand_default_color_title">分針使用預設色彩</string>
+    <string name="second_hand_default_color_title">秒針使用預設色彩</string>
+    <string name="clock_dial_with_numbers">包含數字</string>
+    <string name="clock_dial_without_numbers">不含數字</string>
+    <string name="background_default_color_title">背景使用預設色彩</string>
+    <string name="hour_hand_default_color_title">時針使用預設色彩</string>
+    <string name="sort_alarm_title">鬧鐘排序</string>
+    <string name="sort_alarm_time">依據鬧鐘時間</string>
+    <string name="sort_next_alarm_time">依據下個鬧鐘時間</string>
+    <string name="display_enabled_alarms_first_title">優先顯示啟動的鬧鐘</string>
+    <string name="sort_cities_title">城市排序</string>
+    <string name="enable_city_note_title">為城市新增個人註解</string>
+    <string name="enable_city_note_summary">輕觸城市即可新增或編輯註解</string>
+    <string name="city_note_dialog_title">%s 的註解</string>
+    <string name="sort_cities_ascending_time_zone">依據時區 (升序)</string>
+    <string name="sort_cities_descending_time_zone">依據時區 (降序)</string>
+    <string name="sort_descending_creation_order">依據建立順序 (最早在後)</string>
+    <string name="sort_ascending_creation_order">依據建立順序 (最早在前)</string>
+    <string name="city_search_hint">搜尋城市</string>
+    <string name="enable_alarm_fab_long_press_title">啟用按住新增延遲性鬧鐘動作</string>
+    <string name="enable_alarm_fab_long_press_summary">停用將會顯示兩種建立鬧鐘按鍵</string>
+    <string name="vibration_pattern_title">震動模式</string>
+    <string name="vibration_pattern_soft">柔和</string>
+    <string name="vibration_pattern_strong">強力</string>
+    <string name="vibration_pattern_heartbeat">心跳</string>
+    <string name="vibration_pattern_escalating">攀升</string>
+    <string name="vibration_pattern_tick_tock">滴答聲</string>
+    <string name="vibration_start_delay_title">震動前的延遲</string>
+    <string name="vibration_start_delay_none">無</string>
+    <string name="vibration_start_delay_warning_box_text">請輸入 0–10 分鐘</string>
+    <string name="confirm_action_prompt">\n\n您想要繼續嗎？</string>
+    <string name="enable_per_alarm_snooze_duration_title">為每個鬧鐘自訂延後時間</string>
+    <string name="enable_per_alarm_snooze_duration_dialog_message">將會重設自訂鬧鐘延後時間。\n%s</string>
+    <string name="enable_per_alarm_volume_dialog_message">將會重設自訂鬧鐘音量。\n%s</string>
+    <string name="display_dismiss_button_title">啟動鬧鐘時立即顯示關閉按鍵</string>
+    <string name="display_dismiss_button_summary">停用狀態下僅會和提醒同時顯示</string>
+    <string name="enable_per_alarm_missed_repeat_limit_title">為每個鬧鐘自訂重複錯過次數</string>
+    <string name="enable_per_alarm_missed_repeat_limit_dialog_message">將會重設自訂鬧鐘重複錯過計數。\n%s</string>
+    <string name="missed_alarm_repeat_limit_title">重複錯過的鬧鐘</string>
+    <string name="missed_alarm_repeat_limit_1_time">1 次</string>
+    <string name="missed_alarm_repeat_limit_3_times">3 次</string>
+    <string name="missed_alarm_repeat_limit_5_times">5 次</string>
+    <string name="missed_alarm_repeat_limit_10_times">10 次</string>
+    <string name="enable_per_alarm_crescendo_duration_title">為每個鬧鐘自訂提高音量間隔</string>
+    <string name="enable_per_alarm_crescendo_duration_dialog_message">將會重設自訂鬧鐘提高音量間隔。\n%s</string>
+    <string name="enable_per_alarm_auto_silence_title">為每個鬧鐘自訂停止時間</string>
+    <string name="enable_per_alarm_auto_silence_dialog_message">將會重設自訂鬧鐘停止時間。\n%s</string>
+    <string name="features_dialog_message">造訪主要功能介紹：\n\n%s</string>
+    <string name="repetitive_alarm_is_dismissed">已關閉鬧鐘，<xliff:g example="Next alarm Monday." id="alarm_day">重新排定至 %s</xliff:g>。</string>
+    <string name="display_text_shadow_title">顯示文字陰影</string>
+    <string name="shadow_color_title">陰影色彩</string>
+    <string name="shadow_offset_title">陰影偏移</string>
+    <string name="blur_intensity_title">模糊強度</string>
+    <string name="background_image_title">選取背景圖片</string>
+    <string name="background_image_toast_message_selected">已選取圖片</string>
+    <string name="enable_blur_effect_title">背景圖片套用模糊效果</string>
+    <string name="display_timer_state_indicator_title">顯示計時器狀態指標</string>
+    <string name="running_timer_indicator_color_title">進行中的計時器指標色彩</string>
+    <string name="paused_timer_indicator_color_title">暫停時的計時器指標色彩</string>
+    <string name="expired_timer_indicator_color_title">已到期的計時器指標色彩</string>
+    <string name="customize_background_corner_radius_title">自訂背景圓角弧度</string>
+    <string name="customize_background_corner_radius_summary">允許不支援圓角小工具的主螢幕調整邊框</string>
+    <string name="background_corner_radius_title">背景圓角弧度</string>
+    <string name="progress_ringtones">正在新增鈴聲… (%1$d / %2$d)</string>
+    <string name="display_text_uppercase_title">顯示大寫文字</string>
+    <string name="label_new_image">新圖片</string>
+    <string name="background_image_title_variant">選取或刪除背景圖片</string>
+    <string name="background_image_dialog_title">背景圖片</string>
+    <string name="background_image_toast_message_deleted">已刪除圖片</string>
 </resources>

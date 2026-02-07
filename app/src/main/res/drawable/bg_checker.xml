@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- White circle background -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M12,12m-12,0a12,12 0,1,0 24,0a12,12 0,1,0 -24,0" />
+
+    <!-- Group with circular cutout -->
+    <group>
+        <clip-path
+            android:pathData="M12,12m-12,0a12,12 0,1,0 24,0a12,12 0,1,0 -24,0" />
+        <!-- Gray squares on the checkerboard -->
+        <path
+            android:fillColor="#808080"
+            android:pathData="M0 0h6v6H0zM12 0h6v6h-6zM6 6h6v6H6zM18 6h6v6h-6zM0 12h6v6H0zm12 0h6v6h-6zM6 18h6v6H6zm12 0h6v6h-6z" />
+    </group>
+
+</vector>

@@ -6,9 +6,15 @@
 
 package com.best.deskclock.stopwatch;
 
+import static androidx.core.util.TypedValueCompat.dpToPx;
+
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.text.format.DateUtils;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,11 +23,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Lap;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Stopwatch;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.ThemeUtils;
@@ -63,6 +71,10 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
      * Used to determine when the time format for the total time column has changed length.
      */
     private int mLastFormattedAccumulatedTimeLength;
+
+    private long minLapTime = Long.MAX_VALUE;
+    private long maxLapTime = Long.MIN_VALUE;
+    private int defaultLapColor = -1;
 
     LapsAdapter(Context context) {
         mContext = context;
@@ -142,12 +154,17 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
     @NonNull
     @Override
     public LapItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        final View v = mInflater.inflate(R.layout.lap_view, parent, false /* attachToRoot */);
+        final View v = mInflater.inflate(R.layout.lap_view, parent, false);
         return new LapItemHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull LapItemHolder viewHolder, int position) {
+        // Initialize default color
+        if (defaultLapColor == -1) {
+            defaultLapColor = viewHolder.lapTime.getCurrentTextColor();
+        }
+
         final long lapTime;
         final int lapNumber;
         final long totalTime;
@@ -166,6 +183,10 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
             lapNumber = getLaps().size() + 1;
         }
 
+        ensureMinMaxComputed();
+
+        applyLapColor(viewHolder, lap, lapTime);
+
         // Bind data into the child views.
         viewHolder.lapTime.setText(formatLapTime(lapTime, true));
         viewHolder.accumulatedTime.setText(formatAccumulatedTime(totalTime, true));
@@ -183,6 +204,93 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
     }
 
     /**
+     * Ensures that the minimum and maximum lap times are computed.
+     *
+     * <p>This method recalculates both values only if they have not been
+     * initialized yet, typically after the adapter is recreated with
+     * existing lap data.</p>
+     */
+    private void ensureMinMaxComputed() {
+        if (minLapTime != Long.MAX_VALUE && maxLapTime != Long.MIN_VALUE) {
+            return;
+        }
+
+        List<Lap> laps = getLaps();
+        if (laps.isEmpty()) {
+            return;
+        }
+
+        long min = Long.MAX_VALUE;
+        long max = Long.MIN_VALUE;
+
+        for (Lap lap : laps) {
+            long time = lap.getLapTime();
+
+            if (time < min) {
+                min = time;
+            }
+
+            if (time > max) {
+                max = time;
+            }
+        }
+
+        minLapTime = min;
+        maxLapTime = max;
+    }
+
+    /**
+     * Applies the appropriate text color to all lap-related TextViews based on
+     * the lap's duration. The fastest lap is colored green, the slowest lap is
+     * colored red, and all others use the default text color.
+     *
+     * @param holder   the ViewHolder containing the lap TextViews
+     * @param lap      the Lap object, or null if this is the current (running) lap
+     * @param lapTime  the duration of the lap in milliseconds
+     */
+    private void applyLapColor(LapItemHolder holder, Lap lap, long lapTime) {
+        // Current lap or only one recorded lap → always default color
+        if (lap == null || getLaps().size() <= 1) {
+            setColor(holder, defaultLapColor);
+            return;
+        }
+
+        // If 2 laps have the same duration, apply the default color
+        if (minLapTime == maxLapTime) {
+            setColor(holder, defaultLapColor);
+            return;
+        }
+
+        if (lapTime == minLapTime) {
+            setColor(holder, ContextCompat.getColor(mContext, android.R.color.holo_green_light));
+        } else if (lapTime == maxLapTime) {
+            setColor(holder, ContextCompat.getColor(mContext, android.R.color.holo_red_light));
+        } else {
+            setColor(holder, defaultLapColor);
+        }
+    }
+
+    /**
+     * Sets the given text color on all lap-related TextViews contained in the
+     * provided ViewHolder. This includes the lap number, lap time, and
+     * accumulated time columns.
+     *
+     * @param holder the ViewHolder whose TextViews should be updated
+     * @param color  the color value to apply
+     */
+    private void setColor(LapItemHolder holder, int color) {
+        TextView[] views = {
+                holder.lapNumber,
+                holder.lapTime,
+                holder.accumulatedTime
+        };
+
+        for (TextView textView : views) {
+            textView.setTextColor(color);
+        }
+    }
+
+    /**
      * @param rv        the RecyclerView that contains the {@code childView}
      * @param totalTime time accumulated for the current lap and all prior laps
      */
@@ -192,14 +300,18 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
             return;
         }
 
-        final View currentLapView = rv.getChildAt(0);
-        if (currentLapView != null) {
+        RecyclerView.ViewHolder holder = rv.findViewHolderForAdapterPosition(0);
+        if (holder instanceof LapItemHolder lapHolder && holder.itemView.isAttachedToWindow()) {
             // Compute the lap time using the total time.
-            final long lapTime = DataModel.getDataModel().getCurrentLapTime(totalTime);
+            long lapTime = DataModel.getDataModel().getCurrentLapTime(totalTime);
 
-            final LapItemHolder holder = (LapItemHolder) rv.getChildViewHolder(currentLapView);
-            holder.lapTime.setText(formatLapTime(lapTime, false));
-            holder.accumulatedTime.setText(formatAccumulatedTime(totalTime, false));
+            lapHolder.lapTime.setText(formatLapTime(lapTime, false));
+            lapHolder.accumulatedTime.setText(formatAccumulatedTime(totalTime, false));
+
+            // IMPORTANT : remettre la couleur par défaut
+            if (defaultLapColor != -1) {
+                lapHolder.lapTime.setTextColor(defaultLapColor);
+            }
         }
     }
 
@@ -213,16 +325,17 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
 
         Utils.setVibrationTime(mContext, 10);
 
-        if (getItemCount() == 10) {
-            // 10 total laps indicates all items switch from 1 to 2 digit lap numbers.
-            notifyDataSetChanged();
-        } else {
-            // New current lap now exists.
-            notifyItemInserted(0);
+        long lapTime = lap.getLapTime();
 
-            // Prior current lap must be refreshed once with the true values in place.
-            notifyItemChanged(1);
+        if (lapTime < minLapTime) {
+            minLapTime = lapTime;
         }
+
+        if (lapTime > maxLapTime) {
+            maxLapTime = lapTime;
+        }
+
+        notifyDataSetChanged();
 
         return lap;
     }
@@ -235,13 +348,16 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
         mLastFormattedLapTimeLength = 0;
         mLastFormattedAccumulatedTimeLength = 0;
 
+        minLapTime = Long.MAX_VALUE;
+        maxLapTime = Long.MIN_VALUE;
+        defaultLapColor = -1;
+
         notifyDataSetChanged();
     }
 
     /**
      * @return a formatted textual description of lap times and total time
      */
-
     String getShareText() {
         final Stopwatch stopwatch = getStopwatch();
         final long totalTime = stopwatch.getTotalTime();
@@ -325,7 +441,6 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
      *                        set changes; they are not allowed to occur during bind
      * @return a formatted version of the accumulated time
      */
-
     private String formatAccumulatedTime(long accumulatedTime, boolean isBinding) {
         final long totalTime = getStopwatch().getTotalTime();
         final long longestAccumulatedTime = Math.max(totalTime, accumulatedTime);
@@ -362,26 +477,30 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
             super(itemView);
 
             final Context context = itemView.getContext();
+            SharedPreferences prefs = getDefaultSharedPreferences(context);
+            String fontPath = SettingsDAO.getGeneralFont(prefs);
+            Typeface regularTypeface = ThemeUtils.loadFont(fontPath);
+            Typeface boldTypeface = ThemeUtils.boldTypeface(fontPath);
             boolean isTablet = ThemeUtils.isTablet();
+            final DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
 
             // Set top and bottom padding between each item
-            final int padding =  ThemeUtils.convertDpToPixels(isTablet ? 8 : 4, context);
+            final int padding = (int) dpToPx(isTablet ? 8 : 4, displayMetrics);
             itemView.setPadding(0, padding, 0, padding);
 
+            final float textSize = isTablet ? 18 : 16;
+
             lapNumber = itemView.findViewById(R.id.lap_number);
-            lapNumber.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-            lapNumber.setTypeface(Typeface.DEFAULT_BOLD);
+            lapNumber.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
+            lapNumber.setTypeface(boldTypeface);
 
             lapTime = itemView.findViewById(R.id.lap_time);
-            lapTime.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+            lapTime.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
+            lapTime.setTypeface(regularTypeface);
 
             accumulatedTime = itemView.findViewById(R.id.lap_total);
-            accumulatedTime.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-            // Due to the ViewPager and the location of FAB, set a right padding for phones
-            // in landscape mode to prevent the laps from being hidden by the FAB.
-            if (!isTablet && ThemeUtils.isLandscape()) {
-                accumulatedTime.setPadding(0, 0, ThemeUtils.convertDpToPixels(85, context), 0);
-            }
+            accumulatedTime.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
+            accumulatedTime.setTypeface(regularTypeface);
         }
     }
 }

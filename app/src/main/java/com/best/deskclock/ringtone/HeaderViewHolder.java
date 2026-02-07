@@ -6,6 +6,8 @@
 
 package com.best.deskclock.ringtone;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,8 @@ import android.widget.TextView;
 
 import com.best.deskclock.ItemAdapter;
 import com.best.deskclock.R;
+import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.utils.ThemeUtils;
 
 final class HeaderViewHolder extends ItemAdapter.ItemViewHolder<HeaderHolder> {
 
@@ -28,15 +32,11 @@ final class HeaderViewHolder extends ItemAdapter.ItemViewHolder<HeaderHolder> {
     @Override
     protected void onBindItemView(HeaderHolder itemHolder) {
         mItemHeader.setText(itemHolder.getTextResId());
+        mItemHeader.setTypeface(ThemeUtils.loadFont(
+                SettingsDAO.getGeneralFont(getDefaultSharedPreferences(mItemHeader.getContext()))));
     }
 
-    public static class Factory implements ItemAdapter.ItemViewHolder.Factory {
-
-        private final LayoutInflater mInflater;
-
-        Factory(LayoutInflater inflater) {
-            mInflater = inflater;
-        }
+    public record Factory(LayoutInflater mInflater) implements ItemAdapter.ItemViewHolder.Factory {
 
         @Override
         public ItemAdapter.ItemViewHolder<?> createViewHolder(ViewGroup parent, int viewType) {

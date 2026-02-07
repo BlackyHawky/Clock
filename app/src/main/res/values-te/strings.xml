@@ -91,8 +91,7 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"తాత్కాలిక ఆపివేత నిడివి"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"వాల్యూమ్‌ను క్రమంగా పెంచు"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"ఇంత సమయం తర్వాత నిశ్శబ్దంగా ఉండాలి"</string>
-    <string name="auto_silence_never" msgid="4821982647348750809">"ఎప్పటికీ వద్దు"</string>
-    <string name="auto_silence_1_minute">1 నిమిషం</string>
+    <string name="label_never" msgid="4821982647348750809">"ఎప్పటికీ వద్దు"</string>
     <string name="label_off">ఆఫ్ చేయి</string>
     <string name="week_start_title" msgid="4268917518596832096">"వారం ప్రారంభ రోజు"</string>
     <string name="week_start_saturday">శనివారం</string>
@@ -263,6 +262,8 @@
         <item msgid="3027153773466391728">"ఫిజి"</item>
         <item msgid="5911600083231840181">"టోంగా"</item>
         <item msgid="5176858645450908751">"జకార్తా"</item>
+        <item>"రియాద్"</item>
+        <item>"రెక్జావిక్"</item>
     </string-array>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"కొత్త అలారం"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"కొత్త అలారాన్ని సృష్టించు"</string>
@@ -285,6 +286,7 @@
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> టైమర్‌లు"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"అలారంను విస్తరింపజేయండి"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"అలారం వివరాలు కుదించు"</string>
+    <string name="alarm_undo" msgid="5710042601177655254">"చర్య రద్దు చేయి"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"తొలగించబడింది"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="LABEL">%s</xliff:g></string>
     <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> ముందు ఉంది"</string>

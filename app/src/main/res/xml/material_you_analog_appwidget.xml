@@ -6,7 +6,7 @@
 <appwidget-provider
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:initialLayout="@layout/material_you_analog_appwidget_without_second_hand"
+    android:initialLayout="@layout/material_you_analog_appwidget"
     android:minWidth="72dp"
     android:minHeight="72dp"
     android:minResizeWidth="24dp"
@@ -15,5 +15,5 @@
     android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="0"
     android:widgetFeatures="configuration_optional|reconfigurable"
-    android:configure="com.best.alarmclock.materialyouwidgets.MaterialYouAnalogAppWidgetConfiguration"
+    android:configure="com.best.deskclock.widgets.WidgetConfiguration$MaterialYouAnalogWidgetConfiguration"
     tools:targetApi="p" />

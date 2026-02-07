@@ -6,6 +6,7 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
@@ -14,28 +15,33 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/lap_number"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_weight="1"
         android:fontFeatureSettings="tnum"
-        android:gravity="start"
-        android:textAllCaps="false" />
+        android:gravity="center"
+        android:textAllCaps="false"
+        tools:text="# 1"
+        tools:textStyle="bold" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/lap_time"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_weight="1"
         android:fontFeatureSettings="tnum"
-        android:gravity="end"
-        android:textAllCaps="false" />
+        android:gravity="center"
+        android:textAllCaps="false"
+        tools:text="0 00.10" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/lap_total"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:fontFeatureSettings="tnum"
-        android:gravity="end"
-        android:textAllCaps="false" />
+        android:gravity="center"
+        android:textAllCaps="false"
+        tools:text="0 01.10" />
 
 </LinearLayout>

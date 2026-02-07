@@ -1,0 +1,7 @@
+**Verbesserungen**
+ - Wählen Sie den Standardstil für die Zeitauswahl.
+ - Fügen Sie einen Überblendungseffekt beim Durchsuchen der Einstellungen hinzu.
+ - Passen Sie die Anzeige der Alarmanimation an.
+ - Fügen Sie den Lautstärketasten die Aktion „Nichts“ hinzu.
+ - Aktualisieren Sie die Übersetzungen.
+ - Alle Verbesserungen finden Sie unter: https://github.com/BlackyHawky/Clock/releases/tag/2.7

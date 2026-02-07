@@ -99,8 +99,7 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"Дужина одлагања"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Постепено појачавај звук"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Утишај после"</string>
-    <string name="auto_silence_never" msgid="4821982647348750809">"Никада"</string>
-    <string name="auto_silence_1_minute">1 минут</string>
+    <string name="label_never" msgid="4821982647348750809">"Никада"</string>
     <string name="label_off">Искључено</string>
     <string name="week_start_title" msgid="4268917518596832096">"Недеља почиње у"</string>
     <string name="week_start_saturday">суботу</string>
@@ -272,6 +271,8 @@
         <item msgid="3027153773466391728">"Фиџи"</item>
         <item msgid="5911600083231840181">"Тонга"</item>
         <item msgid="5176858645450908751">"Џакарта"</item>
+        <item>"Ријад"</item>
+        <item>"Рејкјавик"</item>
     </string-array>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"Нови аларм"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"Направи нов аларм"</string>
@@ -294,6 +295,7 @@
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> тајмера"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Прошири аларм"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Скупи аларм"</string>
+    <string name="alarm_undo" msgid="5710042601177655254">"опозови"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Аларм је избрисан"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="LABEL">%s</xliff:g></string>
     <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> унапред"</string>
@@ -354,24 +356,20 @@
     <string name="license">Лиценца отвореног кода</string>
     <string name="about_github_link">Погледај на GitHub-у</string>
     <string name="gnu_gpl">GNU Генерална Јавна Лиценца v3.0</string>
-    <string name="contributors">Доприносиоци</string>
     <string name="screensaver_settings_summary">Поставити стил, боју и фонт чувара екрана</string>
     <string name="screensaver_daydream_settings">Изаберите/омогућите чувар екрана</string>
     <string name="settings_vibration_title">Омогућити вибрације</string>
     <string name="settings_vibration_summary">Само нека дугмад интерфејса су погођена (нпр.: дугме за пуштање/паузу тајмера или прекидачи)</string>
-    <string name="credits">Захвалнице</string>
     <string name="alarm_created">Аларм креирано</string>
     <string name="title_theme">Тема</string>
     <string name="display_card_background_title">Приказ позадина картица</string>
     <string name="display_card_background_summary">Приказује позадину за неке елементе апликације (аларми, градови, дугме за тајмер, итд.)</string>
     <string name="display_background_border_title">Приказ граница позадине</string>
     <string name="display_background_border_summary">Приказује границу позадине за неке елементе апликације (аларми, градови, дугме за тајмер, итд.)</string>
-    <string name="about_dialog_message">• Окрените и протресите уређај да одложите/одбијете аларм; \n\n• Искључите/одложите аларм помоћу дугмета за напајање или дугмета за јачину звука; \n\n• За неке Snapdragon уређаје, аларм се активира када су они искључени; \n\t\t Нажалост, ова функција можда не ради на неким уређајима упркос присуству <i>\"com.qualcomm.qti.poweroffalarm\"</i> системске апликације. \n\n• Превуците да обришете аларм; \n\n• Дуплирајте аларме; \n\n• Прилагодите наслов аларма; \n\n• Прилагођена мелодија; \n\n• Светла, тамна или системска тема; \n\n• AMOLED режим за тамну тему; \n\n• Дигитални или аналогни стил сата; \n\n• Приказујте локално време када путујете; \n\n• Приказујте време у многим градовима широм света; \n\n• Тајмер и штоперицу укључени; \n\n• Могућност да делите вашу штоперицу са вашим контактима; \n\n• Прилагодљив чувар екрана; \n\n• Модерни виџети; \n\n• Прилагодљиви виџети; \n\n• Подршка за плочице у брзим подешавањима (за Android 7+); \n\n• Резервна копија и обнова података апликације (осим прилагођених мелодија); \n\n• Материјални дизајн; \n\n• Динамичне боје за Android 12+;</string>
     <string name="screensaver_italic_next_alarm_title">Следећи аларм у италику</string>
     <string name="screensaver_bold_digital_clock_title">Дигитални сат у подебљаном</string>
     <string name="screensaver_clock_dynamic_colors_title">Динамичне боје сата</string>
     <string name="ignore_battery_optimizations_title">ИГНОРИШИ ОПТИМИЗАЦИЈЕ БАТЕРИЈЕ</string>
-    <string name="permission_dialog_close_button">Затвори</string>
     <string name="notifications_dialog_title">Обавештења</string>
     <string name="permission_dialog_revoke_title">Опозови приступ</string>
     <string name="ignore_battery_optimizations_dialog_title">Оптимизације батерије</string>
@@ -381,7 +379,7 @@
     <string name="auto_silence_end_of_ringtone">Крај мелодије</string>
     <string name="alarm_label_box_title">Ознака аларма</string>
     <string name="FSN_permission_title">ОМОГУЋИ ОБАВЕШТЕЊА ПУНОГ ЕКРАНА</string>
-    <string name="digital_widget_default_minutes_color_title">Употреба подразумеване боје за минуте</string>
+    <string name="minute_default_color_title">Употреба подразумеване боје за минуте</string>
     <string name="sort_timer_title">Сортирај тајмере</string>
     <string name="permission_highly_recommended">Високо препоручено</string>
     <string name="alarm_settings_summary">Поставити стил, подразумевану мелодију, јачину звука, акције за одбацивање или одлагање аларма, први дан недеље и време обавештења подсетника</string>
@@ -403,38 +401,25 @@
     <string name="dismiss_button_color">Боја дугмета \"Одбаци\"</string>
     <string name="snooze_duration_none">Нема</string>
     <string name="clock_settings_summary">Поставите стил, временску зону и промените датум и време уређаја</string>
-    <string name="default_time_to_add_to_timer_8_minutes">8 минута</string>
-    <string name="default_time_to_add_to_timer_4_minutes">4 минуте</string>
-    <string name="default_time_to_add_to_timer_6_minutes">6 минута</string>
-    <string name="default_time_to_add_to_timer_7_minutes">7 минута</string>
-    <string name="default_time_to_add_to_timer_5_minutes">5 минута</string>
-    <string name="default_time_to_add_to_timer_9_minutes">9 минута</string>
     <string name="stopwatch_channel">Штоперица</string>
     <string name="permission_granted">Одобрено</string>
     <string name="next_alarm_widget_title_no_alarm">Нема надолазећег аларма</string>
     <string name="permission_denied">Одбијено</string>
     <string name="permission_management_settings">Управљање дозволама</string>
-    <string name="next_alarm_widget_custom_alarm_title_color">Прилагођена боја наслова аларма</string>
-    <string name="next_alarm_widget_max_font_size_title">Максимална величина фонта виџета</string>
+    <string name="widget_max_font_size_title">Максимална величина фонта виџета</string>
     <string name="denied_permission_label">Дозвола одбијена</string>
     <string name="permission_status_title">Статус: </string>
     <string name="next_alarm_widget_text">Следећи аларм</string>
     <string name="sort_timer_ascending_duration">По трајању (растући редослед)</string>
     <string name="sort_timer_descending_duration">По трајању (опадајући редослед)</string>
-    <string name="sort_timer_name">По имену</string>
-    <string name="default_time_to_add_to_timer_1_minute">1 минута</string>
-    <string name="default_time_to_add_to_timer_2_minutes">2 минуте</string>
-    <string name="default_time_to_add_to_timer_3_minutes">3 минуте</string>
-    <string name="default_time_to_add_to_timer_10_minutes">10 минута</string>
-    <string name="default_time_to_add_to_timer_30_minutes">30 минута</string>
-    <string name="default_time_to_add_to_timer_1_hour">1 сат</string>
+    <string name="sort_name">По имену</string>
     <string name="timer_label_box_title">Ознака тајмера</string>
-    <string name="alarm_clock_font_size">Величина фонта сата аларма</string>
+    <string name="clock_font_size">Величина фонта сата</string>
     <string name="alarm_title_font_size">Величина фонта наслова аларма</string>
     <string name="preview_title">Преглед</string>
     <string name="timer_channel">Тајмер</string>
-    <string name="next_alarm_widget_custom_title_color">Прилагођена боја за наслове \"Следећи аларм\" и \"Нема надолазећег аларма\"</string>
-    <string name="next_alarm_widget_default_alarm_title_color">Употребити подразумевану боју за наслов аларма</string>
+    <string name="next_alarm_no_upcoming_alarm_titles_color">Прилагођена боја за наслове \"Следећи аларм\" и \"Нема надолазећег аларма\"</string>
+    <string name="alarm_title_default_color">Употребити подразумевану боју за наслов аларма</string>
     <string name="FSN_dialog_title">Обавештења пуног екрана</string>
     <string name="swipe_action_title">Превуците да одбаците или одложите аларме</string>
     <string name="system_theme">Систем</string>
@@ -455,20 +440,14 @@
     <string name="alarm_notification_reminder_10_hours">10 сата пре</string>
     <string name="alarm_notification_reminder_12_hours">12 сата пре</string>
     <string name="enable_alarm_vibrations_by_default_setting_title">Омогућити вибрације када стварате аларме</string>
-    <string name="alarm_display_customization_title">Прилагодите приказ аларма</string>
     <string name="alarm_title_color">Боја наслова аларма</string>
     <string name="snooze_button_color">Боја дугмета \"Одложи\"</string>
     <string name="alarm_button_color">Боја дугмета аларма</string>
-    <string name="auto_silence_5_seconds">5 секунди</string>
-    <string name="auto_silence_10_seconds">10 секунди</string>
-    <string name="auto_silence_20_seconds">20 секунди</string>
-    <string name="auto_silence_30_seconds">30 секунди</string>
     <string name="whats_new_dialog_message">Откријте шта је ново:\n\n%s</string>
     <string name="github_dialog_message">Посетите страницу пројекта на GitHub-у:\n\n%s</string>
     <string name="clock_color_title">Боја сата</string>
     <string name="material_time_picker_style_title">Стил бирача времена</string>
     <string name="style_category_title">Стил</string>
-    <string name="styles_and_colors_category_title">Стил и боје</string>
     <string name="first_launch_important_info_title">ВАЖНА ИНФОРМАЦИЈА</string>
     <string name="delete_occasional_alarm_after_use_title">Обришите аларм након одбацивања</string>
     <string name="alarm_alert_dismiss_and_delete_text">Одбаци и обриши</string>
@@ -476,25 +455,21 @@
     <string name="timer_button_time_box_title">Минути за додавање тајмеру</string>
     <string name="timer_add_custom_time">+ %s</string>
     <string name="license_dialog_message">Прочитајте лиценцу:\n\n%s</string>
-    <string name="contributors_dialog_message">Посетите %1$s-ову GitHub страницу:\n\n%2$s</string>
-    <string name="seconds_hand_color_title">Боја секундарне казаљке</string>
-    <string name="digital_widget_custom_minutes_color_title">Прилагођена боја минута</string>
+    <string name="second_hand_color_title">Боја секундарне казаљке</string>
+    <string name="minute_color_title">Прилагођена боја минута</string>
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Омогућити аутоматских брисање повремених аларма од подразумевани</string>
     <string name="occasional_alarm_alert_predismiss_title">Надолазећи повремени аларм</string>
     <string name="description_direction_both_for_occasional_alarm">Превуците лево да одложите или десно да одбаците и обришете аларм</string>
     <string name="description_direction_both_for_non_repeatable_alarm">Превуците лево или десно да одбаците</string>
     <string name="description_direction_both_for_occasional_non_repeatable_alarm">Превуците лево или десно да одбаците и обришете аларм</string>
-    <string name="occasional_alarm_deleted">Повремени <xliff:g example="14:20" id="alarm_time">%s</xliff:g> аларм уклоњен</string>
     <string name="first_launch_dialog_message">Да ли сте сигурни да желите да напустите апликацију?</string>
     <string name="FSN_dialog_text">Од Android 14, да би аларм био активиран када је екран искључен, неопходно је да буде омогућена дозвола \"Обавештења у целом екрану\".</string>
-    <string name="digital_widget_date_custom_color_title">Прилагођена боја датума</string>
-    <string name="digital_widget_city_clock_custom_color_title">Прилагођена боја градског сата</string>
-    <string name="digital_widget_city_name_default_color_title">Употреба подразумеване боје за име града</string>
-    <string name="digital_widget_city_name_custom_color_title">Прилагођена боја имена града</string>
-    <string name="digital_widget_max_clock_font_size_title">Максимална величина фонта главног сата</string>
+    <string name="city_clock_color_title">Прилагођена боја градског сата</string>
+    <string name="city_name_default_color_title">Употреба подразумеване боје за име града</string>
+    <string name="city_name_color_title">Прилагођена боја имена града</string>
+    <string name="max_clock_font_size_title">Максимална величина фонта главног сата</string>
     <string name="digital_widget_message_summary">\"Приказуј градове на виџету\" мора бити онемогућено да бисте имали приступ овом подешавању</string>
-    <string name="widget_next_alarm_default_color_title">Употребити подразумевану боју за следећи аларм</string>
-    <string name="widget_next_alarm_custom_color_title">Прилагођена боја за следећи аларм</string>
+    <string name="next_alarm_default_color_title">Употребити подразумевану боју за следећи аларм</string>
     <string name="analog_widget_material_you">Аналогни сат Material You</string>
     <string name="vertical_digital_widget">Вертикални дигитални сат</string>
     <string name="material_you_digital_widget">Дигитални сат Material You</string>
@@ -507,23 +482,22 @@
     <string name="material_you_category_title">Material You</string>
     <string name="settings_tab_indicator_title">Приказати индикатор картице у доњем навигационом менију</string>
     <string name="material_you_next_alarm_widget">Следећи аларм Material You</string>
-    <string name="screensaver_next_alarm_color_title">Боја следећег аларма</string>
+    <string name="next_alarm_color_title">Боја следећег аларма</string>
     <string name="transparent_background_for_expired_timer_title">Транспарентна позадина када тајмери истекну</string>
-    <string name="screensaver_date_color_title">Боја датума</string>
+    <string name="date_color_title">Боја датума</string>
     <string name="alarm_missed_channel">Пропуштени аларми</string>
     <string name="settings_fade_transitions_title">Омогућити прелазе са бледењем када се мењају екрани</string>
-    <string name="digital_widget_clock_custom_color_title">Прилагођена боја главног сата</string>
     <string name="first_launch_important_info_message_for_SDK34">• &lt;b&gt;ОБАВЕШТЕЊА ПУНОГ ЕКРАНА;&lt;/b&gt; &lt;br&gt; &lt;br&gt;</string>
     <string name="widgets_settings">Виџети</string>
     <string name="widget_background_title">Приказ позадина</string>
     <string name="next_alarm_widget">Следећи аларм</string>
-    <string name="digital_widget_date_default_color_title">Употреба подразумеване боје за датум</string>
+    <string name="date_default_color_title">Употреба подразумеване боје за датум</string>
     <string name="background_color_title">Боја позадине</string>
-    <string name="digital_widget_default_hours_color_title">Употреба подразумеване боје за сате</string>
-    <string name="digital_widget_custom_hours_color_title">Прилагођена боја сати</string>
+    <string name="hour_default_color_title">Употреба подразумеване боје за сате</string>
+    <string name="hour_color_title">Прилагођена боја сати</string>
     <string name="amoled_dark_theme_mode">AMOLED</string>
-    <string name="digital_widget_clock_default_color_title">Употреба подразумеване боје за главни сат</string>
-    <string name="next_alarm_widget_default_title_color">Употребити подразумевану боју за наслове \"Следећи аларм\" и \"Нема надолазећег аларма\"</string>
+    <string name="clock_default_color_title">Употреба подразумеване боје за главни сат</string>
+    <string name="next_alarm_no_upcoming_alarm_titles_default_color">Употребити подразумевану боју за наслове \"Следећи аларм\" и \"Нема надолазећег аларма\"</string>
     <string name="ignore_battery_optimizations_dialog_text">По подразумеваном, Android систем конфигурише све кориснички инсталиране апликације да буду оптимизоване за уштеду батерије. \n\nДок је ово прихватљиво за многе апликације, ова апликација је аларм апликација и често узрокује проблеме ако је конфигурисана за оптимизацију батерије. Када је омогућена, Android систем може убити апликацију у било ком тренутку и/или отказати аларме које је заказала, што би негативно утицало на рад апликације. \n\nПрепоручујемо да ставите ову апликацију на белу листу од оптимизација батерије.</string>
     <string name="alarm_notification_reminder_title">Подсетник обавештења</string>
     <string name="alarm_settings_general_summary">Ово подешавање може бити промењено за сваки аларм у проширеном приказу аларма</string>
@@ -531,8 +505,8 @@
     <string name="first_launch_main_feature_message">► Светла, тамна или системска тема; &lt;br&gt; &lt;br&gt; ► Прилагодљив чувар екрана; &lt;br&gt; &lt;br&gt; ► Прилагодљиви виџети; &lt;br&gt; &lt;br&gt; ► Подршка за плочице у брзим подешавањима (за Android 7+); &lt;br&gt; &lt;br&gt; ► Резервна копија и обнова података апликације (осим прилагођених мелодија); &lt;br&gt; &lt;br&gt; ► Материјални дизајн и динамичне боје; &lt;br&gt; &lt;br&gt; ► Превуците да обришете аларм; &lt;br&gt; &lt;br&gt; ► Дуплирајте аларм; &lt;br&gt; &lt;br&gt; ► Окрените и протресите уређај да одложите/одбијете аларм; &lt;br&gt; &lt;br&gt; ► Искључите/одложите аларм помоћу дугмета за напајање или дугмета за јачину звука; &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="first_launch_important_info_message">Да бисте осигурали да апликација ради исправно, &lt;b&gt;нека од ваших подешавања уређаја морају бити промењена:&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;ОПТИМИЗАЦИЈА БАТЕРИЈЕ;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;ОБАВЕШТЕЊА;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;У зависности од Android верзије вашег уређаја, нека од ових подешавања су већ оптимизована (нпр. обавештења).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Можете их променити одмах или касније у подешавањима за управљање дозволама:</string>
     <string name="notifications_dialog_text">Поред подешавања аларма, ова апликација такође има тајмер и режим штоперице.\n\nДа би се обавештења исправно приказивала за све модуле, а посебно да би аларм био активиран, препоручујемо да активирате обавештења за ову апликацију.</string>
-    <string name="digital_widget_city_title">Прикажи градове на виџету</string>
-    <string name="digital_widget_city_clock_default_color_title">Употреба подразумеване боје за градски сат</string>
+    <string name="display_city_title">Прикажи градове на виџету</string>
+    <string name="city_clock_default_color_title">Употреба подразумеване боје за градски сат</string>
     <string name="indigo_accent_color">Индиго</string>
     <string name="auto_night_accent_color_title">Примените акцент боју на ноћни режим</string>
     <string name="backup_button_title">Резервна копија</string>
@@ -545,7 +519,7 @@
     <string name="timer_flip_action_title">Окрените уређај да бисте зауставили аларм</string>
     <string name="timer_shake_action_title">Протресите уређај да бисте зауставили аларм</string>
     <string name="night_accent_color_title">Акцент боја за ноћни режим</string>
-    <string name="sort_timer_manually">Ручно (померањем)</string>
+    <string name="sort_manually">Ручно (померањем)</string>
     <string name="timer_power_button_action_title">Ресетуј истекле тајмере са дугметом за укључивање</string>
     <string name="timer_buttons_action_summary">Ради само на закључаном екрану</string>
     <string name="timer_volume_buttons_action_title">Ресетуј истекле тајмере са дугметима за јачину звука</string>
@@ -571,8 +545,7 @@
     <string name="clock_style_spinner">Спинер</string>
     <string name="show_lockscreen_dialog_title">Прикажи на закључаном екрану</string>
     <string name="blue_accent_color">Плава</string>
-    <string name="contributors_dialog_title">Погледајте профил</string>
-    <string name="reset_settings_message">Да ли сте сигурни да желите да ресетујете сва подешавања апликације?\n\nНапомена: прилагођене мелодије неће бити ресетоване.</string>
+    <string name="reset_settings_message">Да ли сте сигурни да желите да ресетујете сва подешавања апликације?</string>
     <string name="show_lockscreen_dialog_text">На Xiaomi уређајима, требало би ручно да омогућите дозволу \"Прикажи на закључаном екрану\" из подешавања уређаја да би апликација исправно радила.</string>
     <string name="show_lockscreen_permission_title">ПРИКАЖИ НА ЗАКЉУЧАНОМ ЕКРАНУ</string>
     <string name="toast_message_for_reset">Ресетовање завршено</string>
@@ -596,10 +569,6 @@
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">Омогућите вибрације када се аларм одложи или одбаци</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">Дупла вибрација када се аларм одложи и једна вибрација када се аларм одбаци</string>
     <string name="reset_settings_title">Ресетујте подешавања</string>
-    <string name="analog_widget_choice_title">Изабери свој стил</string>
-    <string name="analog_widget_without_second_hand_title">Без секунди</string>
-    <string name="analog_widget_with_second_hand_title">Са секундама</string>
-    <string name="analog_widget_configuration_warning">Овај виџет је конфигурисан само од Android 12</string>
     <string name="settings_tab_to_display">Картица за приказивање при отварању апликације</string>
     <string name="last_tab_used_title">Последња коришћена картица</string>
     <string name="timer_button_time_minutes_warning_box_text">Унесите вредност између 0 и 60 минута</string>
@@ -611,7 +580,6 @@
     <string name="settings_toolbar_title">Приказати наслов на алатној траци</string>
     <string name="settings_tab_title_visibility_title">Приказати наслове картица</string>
     <string name="tab_title_visibility_always">Увек</string>
-    <string name="tab_title_visibility_never">Никада</string>
     <string name="tab_title_visibility_when_selected">Када је изабрано</string>
     <string name="settings_language_czech">Чешки</string>
     <string name="settings_keep_screen_on_title">Држати екран укљученим</string>

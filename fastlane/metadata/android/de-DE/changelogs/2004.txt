@@ -1,0 +1,11 @@
+**Fehlerbehebung**
+ - Die Farbe der Minutenanzeige des Timers für die französische Sprache wurde korrigiert.
+ - Die Funktion „Schütteln zum Schlummern” für Android 14+ wurde korrigiert.
+
+**Verbesserungen**
+ - Die Readme-Datei wurde aktualisiert, um die Verwendung von Weblate für Übersetzungen zu verdeutlichen.
+ - Anstehende Alarmtage werden immer angezeigt, auch wenn der Alarm deaktiviert ist.
+ - Die Timer-Anzeige wird beim Anhalten verkleinert (betrifft nur Telefone im Hochformat);
+ - Timer durch Klicken auf die verbleibende Zeit abspielen/anhalten;
+ - Einige Übersetzungen aktualisiert;
+ - Screenshots aktualisiert (hauptsächlich für F-Droid), wie hier besprochen: https://github.com/BlackyHawky/Clock/discussions/23#discussioncomment-9346357

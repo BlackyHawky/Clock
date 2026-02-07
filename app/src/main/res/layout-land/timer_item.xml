@@ -15,7 +15,7 @@
     android:layout_marginVertical="4dp"
     android:layout_marginHorizontal="10dp"
     android:paddingBottom="5dp"
-    tools:background="@drawable/card_background_for_preview">
+    tools:background="@drawable/bg_card_for_preview">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/timer_label"
@@ -35,7 +35,8 @@
         app:drawableTint="?attr/colorOnSurfaceVariant"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/delete_timer"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TextContrastCheck" />
 
     <ImageButton
         android:id="@+id/delete_timer"
@@ -49,7 +50,8 @@
         app:tint="?attr/colorPrimary"
         android:scaleType="centerInside"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/time_container"
@@ -63,7 +65,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <com.best.deskclock.widget.AutoSizingTextView
+        <com.best.deskclock.uicomponents.AutoSizingTextView
             android:id="@+id/timer_time_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -91,9 +93,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/timer_time_text"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:ignore="TouchTargetSizeCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/indicator_state"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/delete_timer"
+        app:layout_constraintBottom_toTopOf="@+id/timer_add_time_button"
+        tools:background="@drawable/bg_circle_for_preview"
+        tools:backgroundTint="#FF99CC00" />
 
     <ImageButton
         android:id="@+id/timer_edit_new_duration_button"
@@ -108,7 +122,8 @@
         android:contentDescription="@null"
         app:tint="?android:attr/textColor"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/timer_add_time_button"
@@ -116,10 +131,10 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
         android:padding="12dp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/play_pause"
-        tools:text="+ 1:00" />
+        tools:text="+ 1:00"
+        tools:textStyle="bold" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/play_pause"

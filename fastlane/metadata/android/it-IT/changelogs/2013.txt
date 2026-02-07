@@ -1,13 +1,13 @@
 **Correzioni**
-- Correzione dell'arresto dell'anteprima della suoneria nelle impostazioni degli allarmi
+- Corretto blocco dell'anteprima della suoneria nelle impostazioni delle sveglie
 
-**Miglioramenti
-- Aggiunta della possibilità di visualizzare un avviso prima di cancellare un timer
-- Sostituzione dell'icona `X` con l'icona del cestino per i timer
-- Visualizzazione del titolo della suoneria quando viene attivata la sveglia
-- Aggiunta del badge IzzyOnDroid nel Readme
-- Supporto per le build riproducibili
-- Aggiornare le traduzioni
+**Miglioramenti**
+- Aggiunto un avviso prima di cancellare un contaminuti
+- Sostituita icona `X` con icona cestino per i contaminuti
+- Visualizzazione titolo suoneria quando viene attivata la sveglia
+- Aggiunto badge IzzyOnDroid nel Readme
+- Build riproducibili
+- Aggiornare traduzioni
 - Miglioramento del codice
 
-Per vedere tutti i miglioramenti, visitare: https://github.com/BlackyHawky/Clock/releases/tag/2.11
+Tutti i miglioramenti su: https://github.com/BlackyHawky/Clock/releases/tag/2.11

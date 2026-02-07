@@ -10,8 +10,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingHorizontal="?attr/dialogPreferredPadding"
-    android:paddingTop="?attr/dialogPreferredPadding">
+    android:paddingHorizontal="?attr/dialogPreferredPadding">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/alarm_volume_value"

@@ -89,8 +89,7 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"ସ୍ନୁଜ୍ ଦୀର୍ଘତା"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"ଧୀରେ ଧୀରେ ଭଲ୍ୟୁମ୍ ବଢ଼ିବ"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"ଏହାପରେ ନିରବ କରନ୍ତୁ"</string>
-    <string name="auto_silence_never" msgid="4821982647348750809">"ଆଦୌ ନୁହେଁ"</string>
-    <string name="auto_silence_1_minute">1 ମିନିଟ୍</string>
+    <string name="label_never" msgid="4821982647348750809">"ଆଦୌ ନୁହେଁ"</string>
     <string name="label_off">ଅଫ୍</string>
     <string name="week_start_title" msgid="4268917518596832096">"ଏଥିରେ ସପ୍ତାହ ଆରମ୍ଭ କରନ୍ତୁ"</string>
     <string name="week_start_saturday">ଶନିବାର</string>
@@ -261,6 +260,8 @@
         <item msgid="3027153773466391728">"ଫିଜି"</item>
         <item msgid="5911600083231840181">"ଟୋଙ୍ଗା"</item>
         <item msgid="5176858645450908751">"ଜକାର୍ତା"</item>
+        <item>"ରିୟାଧ୍"</item>
+        <item>"ରେକଜାଭିକ୍"</item>
     </string-array>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"ନୂଆ ଆଲାର୍ମ"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"ନୂଆ ଆଲାର୍ମ ତିଆରି କରନ୍ତୁ"</string>
@@ -283,6 +284,7 @@
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> ଟାଇମର୍‌"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"ଆଲାର୍ମକୁ ବଡ଼ କରନ୍ତୁ"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"ଆଲାର୍ମକୁ ଛୋଟ କରନ୍ତୁ"</string>
+    <string name="alarm_undo" msgid="5710042601177655254">"ପୂର୍ବାବସ୍ଥା"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"ଆଲାର୍ମକୁ ଡିଲିଟ୍ କରାଗଲା"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">\"<xliff:g id="LABEL">%s</xliff:g>\"</string>
     <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> ଆଗରେ"</string>

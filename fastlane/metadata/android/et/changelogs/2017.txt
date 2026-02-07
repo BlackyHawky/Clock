@@ -10,4 +10,4 @@ Selle versiooniga sai parandatud m채rgatav viga versioonis 2.13, kus helin ei l�
 - Seadistuste animatsioonid j채rgivad nutiseadme ligip채채setavuse reegleid
 - Standardiseerisime analoogkellade suurused
 - Lisaime hollandi keele seadistustesse
-- T천lgete uuednused
+- T천lgete uuendused

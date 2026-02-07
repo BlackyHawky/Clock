@@ -17,13 +17,7 @@ import com.best.deskclock.events.Events;
 /**
  * Click handler for a timer item.
  */
-public final class TimerClickHandler {
-
-    private final Fragment mFragment;
-
-    public TimerClickHandler(Fragment fragment) {
-        mFragment = fragment;
-    }
+public record TimerClickHandler(Fragment mFragment) {
 
     public void onEditLabelClicked(Timer timer) {
         Events.sendAlarmEvent(R.string.action_set_label, R.string.label_deskclock);
@@ -42,5 +36,5 @@ public final class TimerClickHandler {
         final TimerSetNewDurationDialogFragment fragment = TimerSetNewDurationDialogFragment.newInstance(timer);
         TimerSetNewDurationDialogFragment.show(mFragment.getParentFragmentManager(), fragment);
     }
-    
+
 }

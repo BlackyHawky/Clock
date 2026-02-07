@@ -6,59 +6,60 @@
 
 package com.best.deskclock.settings;
 
+import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_TITLE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_DIGITAL_CLOCK_FONT_SIZE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_TITLE_FONT_SIZE_PREF;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_VOLUME_SETTING;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_BLUETOOTH_VOLUME;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_MAXIMUM_FONT_SIZE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_MAXIMUM_FONT_SIZE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_BRIGHTNESS;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_SHAKE_INTENSITY;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_SHAKE_INTENSITY;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.graphics.Insets;
+import androidx.core.view.MenuProvider;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.Preference;
-import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceFragmentCompat;
-import androidx.preference.PreferenceScreen;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.R;
-import com.best.deskclock.controller.ThemeController;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.settings.custompreference.ColorPickerPreference;
+import com.best.deskclock.settings.custompreference.CustomListPreference;
+import com.best.deskclock.settings.custompreference.CustomPreference;
+import com.best.deskclock.uicomponents.CustomDialog;
+import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.utils.InsetsUtils;
+import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
-import java.util.Objects;
+import java.io.File;
 
 public abstract class ScreenFragment extends PreferenceFragmentCompat {
 
+    protected static final int MENU_ABOUT = 1;
+    protected static final int MENU_BUG_REPORT = 2;
+    protected static final int MENU_RESET_SETTINGS = 3;
+
     SharedPreferences mPrefs;
+    DisplayMetrics mDisplayMetrics;
     CoordinatorLayout mCoordinatorLayout;
     AppBarLayout mAppBarLayout;
     CollapsingToolbarLayout mCollapsingToolbarLayout;
@@ -86,34 +87,10 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
         }
 
         mPrefs = getDefaultSharedPreferences(requireContext());
-
-        setHasOptionsMenu(true);
+        mDisplayMetrics = getResources().getDisplayMetrics();
 
         // To manually manage insets
         WindowCompat.setDecorFitsSystemWindows(requireActivity().getWindow(), false);
-    }
-
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        menu.add(0, Menu.NONE, 0, R.string.about_title)
-                .setIcon(R.drawable.ic_about)
-                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == 0) {
-            Fragment existingFragment =
-                    requireActivity().getSupportFragmentManager().findFragmentByTag(AboutFragment.class.getSimpleName());
-
-            if (existingFragment == null) {
-                animateAndShowFragment(new AboutFragment());
-            }
-
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -124,6 +101,7 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
         mCollapsingToolbarLayout = requireActivity().findViewById(R.id.collapsing_toolbar);
         mAppBarLayout = requireActivity().findViewById(R.id.app_bar);
         mAppBarLayout.setExpanded(true, true);
+        Toolbar toolbar = requireActivity().findViewById(R.id.action_bar);
 
         mRecyclerView = getListView();
         if (mRecyclerView != null) {
@@ -132,6 +110,35 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
             mRecyclerView.setVerticalScrollBarEnabled(false);
             mLinearLayoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
         }
+
+        requireActivity().addMenuProvider(new MenuProvider() {
+            @SuppressLint("AlwaysShowAction")
+            @Override
+            public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
+                menu.clear();
+
+                menu.add(0, MENU_ABOUT, 0, R.string.about_title)
+                        .setIcon(R.drawable.ic_about)
+                        .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+                toolbar.post(() -> ThemeUtils.applyToolbarTooltips(toolbar));
+            }
+
+            @Override
+            public boolean onMenuItemSelected(@NonNull MenuItem item) {
+                if (item.getItemId() == MENU_ABOUT) {
+                    Fragment existingFragment =
+                            requireActivity().getSupportFragmentManager()
+                                    .findFragmentByTag(AboutFragment.class.getSimpleName());
+
+                    if (existingFragment == null) {
+                        animateAndShowFragment(new AboutFragment());
+                    }
+                    return true;
+                }
+                return false;
+            }
+        }, getViewLifecycleOwner());
     }
 
     @Override
@@ -162,69 +169,17 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
     }
 
     @Override
-    public void setPreferenceScreen(PreferenceScreen preferenceScreen) {
-        super.setPreferenceScreen(preferenceScreen);
-
-        final boolean isCardBackgroundDisplayed = SettingsDAO.isCardBackgroundDisplayed(mPrefs);
-        final boolean isCardBorderDisplayed = SettingsDAO.isCardBorderDisplayed(mPrefs);
-
-        if (preferenceScreen == null) return;
-        int count = preferenceScreen.getPreferenceCount();
-        for (int i = 0; i < count; i++) {
-            final Preference pref = preferenceScreen.getPreference(i);
-            if (pref instanceof PreferenceCategory category) {
-                category.setLayoutResource(R.layout.settings_preference_category_layout);
-
-                final int subPrefCount = category.getPreferenceCount();
-                for (int j = 0; j < subPrefCount; j++) {
-                    Preference subPref = category.getPreference(j);
-                    if (Objects.equals(subPref.getKey(), KEY_ALARM_VOLUME_SETTING)
-                            || Objects.equals(subPref.getKey(), KEY_SCREENSAVER_BRIGHTNESS)
-                            || Objects.equals(subPref.getKey(), KEY_BLUETOOTH_VOLUME)
-                            || Objects.equals(subPref.getKey(), KEY_SHAKE_INTENSITY)
-                            || Objects.equals(subPref.getKey(), KEY_ALARM_DIGITAL_CLOCK_FONT_SIZE)
-                            || Objects.equals(subPref.getKey(), KEY_ALARM_TITLE_FONT_SIZE_PREF)
-                            || Objects.equals(subPref.getKey(), KEY_TIMER_SHAKE_INTENSITY)
-                            || Objects.equals(subPref.getKey(), KEY_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE)
-                            || Objects.equals(subPref.getKey(), KEY_MATERIAL_YOU_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE)
-                            || Objects.equals(subPref.getKey(), KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_MAXIMUM_FONT_SIZE)
-                            || Objects.equals(subPref.getKey(), KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE)
-                            || Objects.equals(subPref.getKey(), KEY_NEXT_ALARM_WIDGET_MAXIMUM_FONT_SIZE)
-                            || Objects.equals(subPref.getKey(), KEY_VERTICAL_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE)) {
-                        if (isCardBackgroundDisplayed && isCardBorderDisplayed) {
-                            subPref.setLayoutResource(R.layout.settings_preference_seekbar_layout_bordered);
-                        } else if (isCardBackgroundDisplayed) {
-                            subPref.setLayoutResource(R.layout.settings_preference_seekbar_layout);
-                        } else if (isCardBorderDisplayed) {
-                            subPref.setLayoutResource(R.layout.settings_preference_seekbar_layout_transparent_bordered);
-                        } else {
-                            subPref.setLayoutResource(R.layout.settings_preference_seekbar_layout_transparent);
-                        }
-                    } else {
-                        if (isCardBackgroundDisplayed && isCardBorderDisplayed) {
-                            subPref.setLayoutResource(R.layout.settings_preference_layout_bordered);
-                        } else if (isCardBackgroundDisplayed) {
-                            subPref.setLayoutResource(R.layout.settings_preference_layout);
-                        } else if (isCardBorderDisplayed) {
-                            subPref.setLayoutResource(R.layout.settings_preference_layout_transparent_bordered);
-                        } else {
-                            subPref.setLayoutResource(R.layout.settings_preference_layout_transparent);
-                        }
-                    }
-                }
-            } else if (Objects.equals(pref.getKey(), KEY_ABOUT_TITLE)) {
-                pref.setLayoutResource(R.layout.settings_about_title);
-            } else {
-                if (isCardBackgroundDisplayed && isCardBorderDisplayed) {
-                    pref.setLayoutResource(R.layout.settings_preference_layout_bordered);
-                } else if (isCardBackgroundDisplayed) {
-                    pref.setLayoutResource(R.layout.settings_preference_layout);
-                } else if (isCardBorderDisplayed) {
-                    pref.setLayoutResource(R.layout.settings_preference_layout_transparent_bordered);
-                } else {
-                    pref.setLayoutResource(R.layout.settings_preference_layout_transparent);
-                }
-            }
+    public void onDisplayPreferenceDialog(@NonNull Preference pref) {
+        if (pref instanceof CustomListPreference customListPref) {
+            CustomListPreferenceDialogFragment dialog =
+                    CustomListPreferenceDialogFragment.newInstance(customListPref);
+            CustomListPreferenceDialogFragment.show(getChildFragmentManager(), dialog);
+        } else if (pref instanceof ColorPickerPreference colorPickerPref) {
+            ColorPreferenceDialogFragment dialog =
+                    ColorPreferenceDialogFragment.newInstance(colorPickerPref);
+            ColorPreferenceDialogFragment.show(getChildFragmentManager(), dialog);
+        } else {
+            super.onDisplayPreferenceDialog(pref);
         }
     }
 
@@ -237,14 +192,14 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
      * fragment because it does not have a RecyclerView. Therefore, this fragment has its own method.
      */
     private void applyWindowInsets() {
-        InsetsUtils.doOnApplyWindowInsets(mCoordinatorLayout, (v, insets, initialPadding) -> {
+        InsetsUtils.doOnApplyWindowInsets(mCoordinatorLayout, (v, insets) -> {
             // Get the system bar and notch insets
             Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() |
                     WindowInsetsCompat.Type.displayCutout());
 
             v.setPadding(bars.left, bars.top, bars.right, 0);
 
-            int padding = ThemeUtils.convertDpToPixels(10, requireContext());
+            int padding = (int) dpToPx(10, mDisplayMetrics);
             mRecyclerView.setPadding(0, padding, 0, bars.bottom + padding);
         });
     }
@@ -257,7 +212,8 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
      * @param fragment The new fragment to be displayed.
      */
     protected void animateAndShowFragment(Fragment fragment) {
-        FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
+        FragmentTransaction fragmentTransaction =
+                requireActivity().getSupportFragmentManager().beginTransaction();
 
         if (ThemeUtils.areSystemAnimationsDisabled(requireContext())) {
             fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_NONE);
@@ -275,18 +231,103 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
                 .commit();
     }
 
-    /**
-     * Recreate the activity while ensuring smooth animation when resetting the fragment view:
-     * scrolling to the top of the list and expanding the AppBarLayout.
-     * <p>
-     * This applies to settings that need to be applied immediately (eg: changing the accent color).
-     */
-    protected void recreateActivity() {
-        ThemeController.setNewSettingWithDelay();
+    protected void selectCustomFile(CustomPreference pref, ActivityResultLauncher<Intent> launcher,
+                                    String fontPath, String prefKey, boolean isFontFile,
+                                    @Nullable OnPreferenceDeleted onPreferenceDeleted) {
 
-        mRecyclerView.post(() -> {
-            mLinearLayoutManager.scrollToPosition(0);
-            mAppBarLayout.setExpanded(true, true);
-        });
+        if (fontPath == null) {
+            selectFile(launcher, isFontFile);
+        } else {
+            CustomDialog.create(
+                    requireContext(),
+                    null,
+                    null,
+                    getString(isFontFile
+                            ? R.string.custom_font_dialog_title
+                            : R.string.background_image_dialog_title),
+                    getString(isFontFile
+                            ? R.string.custom_font_title_variant
+                            : R.string.background_image_title_variant),
+                    null,
+                    getString(isFontFile ? R.string.label_new_font : R.string.label_new_image),
+                    (d, w) -> selectFile(launcher, isFontFile),
+                    null,
+                    null,
+                    getString(R.string.delete),
+                    (d, w) -> {
+                        mPrefs.edit().remove(prefKey).apply();
+                        pref.setTitle(isFontFile ? R.string.custom_font_title : R.string.background_image_title);
+                        if (onPreferenceDeleted != null) {
+                            onPreferenceDeleted.onDeleted();
+                        }
+                        deleteFile(fontPath, prefKey, isFontFile);
+                    },
+                    null,
+                    CustomDialog.SoftInputMode.NONE
+            ).show();
+        }
     }
+
+    /**
+     * Opens a file picker allowing the user to select either a font file or an image file.
+     *
+     * @param launcher    The ActivityResultLauncher used to start the document picker.
+     * @param isFontFile  True to filter for font files, false to filter for image files.
+     */
+    protected void selectFile(ActivityResultLauncher<Intent> launcher, boolean isFontFile) {
+        final String type = isFontFile ? "*/*" : "image/*";
+        final String[] mimeTypes = isFontFile
+                ? new String[]{"application/x-font-ttf", "application/x-font-otf", "font/ttf", "font/otf"}
+                : new String[]{"image/jpeg", "image/png"};
+
+        launcher.launch(new Intent(Intent.ACTION_OPEN_DOCUMENT)
+                .addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
+                .addCategory(Intent.CATEGORY_OPENABLE)
+                .setType(type)
+                .putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
+        );
+    }
+
+    /**
+     * Deletes a file from storage and removes its associated preference entry.
+     *
+     * @param path        The absolute path of the file to delete.
+     * @param prefKey     The preference key associated with the stored file path.
+     * @param isFontFile  True if the deleted file is a font, false if it is an image.
+     */
+    protected void deleteFile(String path, String prefKey, boolean isFontFile) {
+        clearFile(path);
+
+        mPrefs.edit().remove(prefKey).apply();
+
+        CustomToast.show(requireContext(), isFontFile
+                ? R.string.custom_font_toast_message_deleted
+                : R.string.background_image_toast_message_deleted);
+    }
+
+    /**
+     * Deletes the file at the given path if it exists and is a regular file.
+     *
+     * @param path  The absolute path of the file to delete.
+     */
+    protected void clearFile(String path) {
+        if (path != null) {
+            File file = new File(path);
+            if (file.exists() && file.isFile()) {
+                boolean deleted = file.delete();
+                if (!deleted) {
+                    LogUtils.w("Unable to delete file: " + path);
+                }
+            }
+        }
+    }
+
+    /**
+     * Interface for updating preference when pressing the Delete button in the dialog box
+     * that appears when a file is selected.
+     */
+    protected interface OnPreferenceDeleted {
+        void onDeleted();
+    }
+
 }

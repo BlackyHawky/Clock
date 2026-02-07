@@ -91,8 +91,7 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"ಸ್ನೂಜ್ ಅವಧಿ"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"ಕ್ರಮೇಣವಾಗಿ ವಾಲ್ಯೂಮ್ ಹೆಚ್ಚಿಸಿ"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"ಇಷ್ಟೊತ್ತಿನ ಮೇಲೆ ಮೌನವಾಗು"</string>
-    <string name="auto_silence_never" msgid="4821982647348750809">"ಎಂದಿಗೂ ಬೇಡ"</string>
-    <string name="auto_silence_1_minute">1 ನಿಮಿಷ</string>
+    <string name="label_never" msgid="4821982647348750809">"ಎಂದಿಗೂ ಬೇಡ"</string>
     <string name="label_off">ಆಫ್ ಆಗಿದೆ</string>
     <string name="week_start_title" msgid="4268917518596832096">"ವಾರದ ಪ್ರಾರಂಭ"</string>
     <string name="week_start_saturday">ಶನಿವಾರ</string>
@@ -264,6 +263,8 @@
         <item msgid="3027153773466391728">"ಫಿಜಿ"</item>
         <item msgid="5911600083231840181">"ಟೊಂಗಾ"</item>
         <item msgid="5176858645450908751">"ಜಕಾರ್ತಾ"</item>
+        <item>"ರಿಯಾದ್"</item>
+        <item>"ರೇಕ್‌ಜಾವಿಕ್"</item>
     </string-array>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"ಹೊಸ ಅಲಾರಮ್"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"ಹೊಸ ಅಲಾರಮ್ ರಚಿಸಿ"</string>
@@ -286,6 +287,7 @@
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> ಟೈಮರ್‌ಗಳು"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"ಅಲಾರಮ್ ವಿಸ್ತರಿಸಿ"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"ಅಲಾರಮ್ ಸಂಕುಚಿಸು"</string>
+    <string name="alarm_undo" msgid="5710042601177655254">"ರದ್ದುಮಾಡಿ"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"ಅಲಾರಮ್ ಅಳಿಸಲಾಗಿದೆ"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="LABEL">%s</xliff:g></string>
     <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> ಮುಂದಕ್ಕೆ"</string>
@@ -319,7 +321,7 @@
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> ಅಲಾರಮ್ 10 ನಿಮಿಷಗಳವರೆಗೆ ಸ್ನೂಜ್ ಮಾಡಲಾಗಿದೆ"</string>
     <string name="flip_action_title">ಸಾಧನದ ಮಗುಚು ಕ್ರಿಯೆ</string>
     <string name="shake_action_title">ಸಾಧನದ ಕುಲುಕು ಕ್ರಿಯೆ</string>
-    <string name="sort_timer_manually">ಹಸ್ತಚಾಲಿತವಾಗಿ (ಡ್ರ್ಯಾಗ್ ಮಾಡುವ ಮೂಲಕ)</string>
+    <string name="sort_manually">ಹಸ್ತಚಾಲಿತವಾಗಿ (ಡ್ರ್ಯಾಗ್ ಮಾಡುವ ಮೂಲಕ)</string>
     <string name="timer_shake_action_title">ಗಡಿಯಾರದ ಯೆಚ್ಚರಿಕೆಯನ್ನು ನಿಲ್ಲಿಸಲು, ಸಾಧನವನ್ನು ಅಲ್ಲಾಡಿಸಿ</string>
     <string name="sort_timer_title">ಟೈಮರ್ಗಳನ್ನು ಕ್ರಮಬದ್ದಗೋಳಿಸಿ</string>
     <string name="sort_timer_ascending_duration">ಅವಧಿಯ ಪ್ರಕಾರ (ಆರೋಹಣ ಕ್ರಮ)</string>
@@ -328,7 +330,7 @@
     <string name="alarm_label_box_title">ಗಡಿಯಾರ ಅಲಾರಾಂ ಲೇಬಲ್</string>
     <string name="delete_occasional_alarm_after_use_title">ಒಮ್ಮೆ ವಜಾಗೊಳಿಸಿದ ಗಡಿಯಾರ ಎಚ್ಚರಿಕೆಯನ್ನು ಅಳಿಸಿ</string>
     <string name="alarm_flash">ಗಡಿಯಾರ ಅಲಾರಾಂ ಫ್ಲಾಶ್</string>
-    <string name="sort_timer_name">ಹೆಸರಿನಾ ಕ್ರಮದಲ್ಲಿ</string>
+    <string name="sort_name">ಹೆಸರಿನಾ ಕ್ರಮದಲ್ಲಿ</string>
     <string name="label_default">ಪೂರ್ವನಿಯೋಜಿತ</string>
     <string name="selected">ಆಯ್ಕೆ ಮಾಡಲಾಗಿದೆ</string>
     <string name="more_options">ಹೆಚ್ಚಿನ ಆಯ್ಕೆಗಳು</string>
