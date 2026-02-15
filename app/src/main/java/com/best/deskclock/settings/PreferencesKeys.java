@@ -80,7 +80,7 @@ public class PreferencesKeys {
     public static final String KEY_ENABLE_PER_ALARM_SNOOZE_DURATION = "key_enable_per_alarm_snooze_duration";
     public static final String KEY_ALARM_SNOOZE_DURATION = "key_alarm_snooze_duration";
     public static final String KEY_ENABLE_PER_ALARM_MISSED_REPEAT_LIMIT = "key_enable_per_alarm_missed_repeat_limit";
-    public static final String KEY_MISSED_ALARM_REPEAT_LIMIT = "key_missed_alarm_repeat_limit";
+    public static final String KEY_REPEAT_MISSED_ALARM = "key_repeat_missed_alarm";
     public static final String KEY_ALARM_VOLUME_SETTING = "key_volume_setting";
     public static final String KEY_ENABLE_PER_ALARM_VOLUME_CRESCENDO_DURATION = "key_enable_per_alarm_volume_crescendo_duration";
     public static final String KEY_ALARM_VOLUME_CRESCENDO_DURATION = "key_alarm_volume_crescendo_duration";

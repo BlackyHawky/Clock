@@ -1001,11 +1001,11 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return the number of times a missed alarm can be repeated.
+     * @return the number of times an alarm can ring before being missed.
      */
     public static int getMissedAlarmRepeatLimit(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_alarm.xml
-        final String string = prefs.getString(KEY_MISSED_ALARM_REPEAT_LIMIT, DEFAULT_MISSED_ALARM_REPEAT_LIMIT);
+        final String string = prefs.getString(KEY_REPEAT_MISSED_ALARM, DEFAULT_MISSED_ALARM_REPEAT_LIMIT);
         return Integer.parseInt(string);
     }
 

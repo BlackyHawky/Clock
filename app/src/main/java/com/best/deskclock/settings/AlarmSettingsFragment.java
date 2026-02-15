@@ -9,6 +9,7 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VIBRA
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VOLUME_CRESCENDO_DURATION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_END_OF_RINGTONE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_NEVER;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ADVANCED_AUDIO_PLAYBACK;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_DISPLAY_CUSTOMIZATION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_FONT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_NOTIFICATION_REMINDER_TIME;
@@ -35,9 +36,8 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_EXTERNAL_AUDIO_DEV
 import static com.best.deskclock.settings.PreferencesKeys.KEY_FLIP_ACTION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_DATE_PICKER_STYLE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_TIME_PICKER_STYLE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MISSED_ALARM_REPEAT_LIMIT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_POWER_BUTTON;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ADVANCED_AUDIO_PLAYBACK;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_REPEAT_MISSED_ALARM;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SHAKE_ACTION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SHAKE_INTENSITY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SORT_ALARM;
@@ -114,7 +114,7 @@ public class AlarmSettingsFragment extends ScreenFragment
     CustomSwitchPreference mEnablePerAlarmSnoozeDurationPref;
     AlarmSnoozeDurationPreference mAlarmSnoozeDurationPref;
     CustomSwitchPreference mEnablePerAlarmMissedRepeatLimitPref;
-    CustomListPreference mMissedAlarmRepeatLimitPref;
+    CustomListPreference mRepeatMissedAlarmPref;
     CustomSwitchPreference mEnablePerAlarmVolumePref;
     AlarmVolumePreference mAlarmVolumePref;
     CustomSwitchPreference mEnablePerAlarmVolumeCrescendoDurationPref;
@@ -206,7 +206,7 @@ public class AlarmSettingsFragment extends ScreenFragment
         mEnablePerAlarmSnoozeDurationPref = findPreference(KEY_ENABLE_PER_ALARM_SNOOZE_DURATION);
         mAlarmSnoozeDurationPref = findPreference(KEY_ALARM_SNOOZE_DURATION);
         mEnablePerAlarmMissedRepeatLimitPref = findPreference(KEY_ENABLE_PER_ALARM_MISSED_REPEAT_LIMIT);
-        mMissedAlarmRepeatLimitPref = findPreference(KEY_MISSED_ALARM_REPEAT_LIMIT);
+        mRepeatMissedAlarmPref = findPreference(KEY_REPEAT_MISSED_ALARM);
         mEnablePerAlarmVolumePref = findPreference(KEY_ENABLE_PER_ALARM_VOLUME);
         mAlarmVolumePref = findPreference(KEY_ALARM_VOLUME_SETTING);
         mEnablePerAlarmVolumeCrescendoDurationPref = findPreference(KEY_ENABLE_PER_ALARM_VOLUME_CRESCENDO_DURATION);
@@ -322,7 +322,7 @@ public class AlarmSettingsFragment extends ScreenFragment
                 Utils.setVibrationTime(requireContext(), 50);
 
                 if ((boolean) newValue) {
-                    mMissedAlarmRepeatLimitPref.setVisible(false);
+                    mRepeatMissedAlarmPref.setVisible(false);
 
                     for (Alarm alarm : mAlarmList) {
                         alarm.missedAlarmRepeatLimit = SettingsDAO.getMissedAlarmRepeatLimit(mPrefs);
@@ -331,16 +331,16 @@ public class AlarmSettingsFragment extends ScreenFragment
                 } else {
                     showDisablePerAlarmSettingDialog(R.string.enable_per_alarm_missed_repeat_limit_dialog_message,
                             KEY_ENABLE_PER_ALARM_MISSED_REPEAT_LIMIT, mEnablePerAlarmMissedRepeatLimitPref,
-                            mMissedAlarmRepeatLimitPref, alarm ->
+                            mRepeatMissedAlarmPref, alarm ->
                                     alarm.missedAlarmRepeatLimit = SettingsDAO.getMissedAlarmRepeatLimit(mPrefs));
 
                     return false;
                 }
             }
 
-            case KEY_MISSED_ALARM_REPEAT_LIMIT -> {
-                final int index = mMissedAlarmRepeatLimitPref.findIndexOfValue((String) newValue);
-                mMissedAlarmRepeatLimitPref.setSummary(mMissedAlarmRepeatLimitPref.getEntries()[index]);
+            case KEY_REPEAT_MISSED_ALARM -> {
+                final int index = mRepeatMissedAlarmPref.findIndexOfValue((String) newValue);
+                mRepeatMissedAlarmPref.setSummary(mRepeatMissedAlarmPref.getEntries()[index]);
 
                 for (Alarm alarm : mAlarmList) {
                     alarm.missedAlarmRepeatLimit = Integer.parseInt((String) newValue);
@@ -559,7 +559,7 @@ public class AlarmSettingsFragment extends ScreenFragment
                     pref.setAutoSilenceDuration(newValue);
                     pref.setSummary(pref.getSummary());
                     mEnablePerAlarmMissedRepeatLimitPref.setVisible(newValue != TIMEOUT_NEVER);
-                    mMissedAlarmRepeatLimitPref.setVisible(newValue != TIMEOUT_NEVER
+                    mRepeatMissedAlarmPref.setVisible(newValue != TIMEOUT_NEVER
                             && !SettingsDAO.isPerAlarmMissedRepeatLimitEnabled(mPrefs));
                     for (Alarm alarm : mAlarmList) {
                         alarm.autoSilenceDuration = newValue;
@@ -594,10 +594,10 @@ public class AlarmSettingsFragment extends ScreenFragment
         mEnablePerAlarmMissedRepeatLimitPref.setVisible(SettingsDAO.getAlarmTimeout(mPrefs) != TIMEOUT_NEVER);
         mEnablePerAlarmMissedRepeatLimitPref.setOnPreferenceChangeListener(this);
 
-        mMissedAlarmRepeatLimitPref.setVisible(SettingsDAO.getAlarmTimeout(mPrefs) != TIMEOUT_NEVER
+        mRepeatMissedAlarmPref.setVisible(SettingsDAO.getAlarmTimeout(mPrefs) != TIMEOUT_NEVER
                 && !SettingsDAO.isPerAlarmMissedRepeatLimitEnabled(mPrefs));
-        mMissedAlarmRepeatLimitPref.setOnPreferenceChangeListener(this);
-        mMissedAlarmRepeatLimitPref.setSummary(mMissedAlarmRepeatLimitPref.getEntry());
+        mRepeatMissedAlarmPref.setOnPreferenceChangeListener(this);
+        mRepeatMissedAlarmPref.setSummary(mRepeatMissedAlarmPref.getEntry());
 
         mEnablePerAlarmVolumePref.setOnPreferenceChangeListener(this);
 

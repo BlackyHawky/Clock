@@ -33,6 +33,8 @@
     <string name="label_off">Off</string>
     <!-- Label "Never" -->
     <string name="label_never">Never</string>
+    <!-- Label "Indefinitely" -->
+    <string name="label_indefinitely">Indefinitely</string>
     <!-- Label "Delete" -->
     <string name="delete">Delete</string>
     <!-- Setting labels on Set alarm screen: Duplicate -->
@@ -91,10 +93,9 @@
     <string name="alarm_alert_dismiss_text">Dismiss</string>
     <!-- Button label on the alarm notification panel: Dismiss & Delete -->
     <string name="alarm_alert_dismiss_and_delete_text">Dismiss &amp; Delete</string>
-    <!-- Alarm Alert screen: this message is shown after an alarm rung
-         unattended for a number of minutes.  It tells the user that
-         the alarm has been silenced.-->
+    <!-- Notification title when an alarm is missed -->
     <string name="alarm_missed_title">Missed alarm</string>
+    <!-- Notification content for a missed alarm. -->
     <string name="alarm_missed_text"><xliff:g id="alarm_time">%1$s</xliff:g> - <xliff:g id="alarm_label">%2$s</xliff:g></string>
     <!-- The text shown after user snoozed an alerting alarm. The text will be shown
          together with the number of minutes in two separate lines. For example:

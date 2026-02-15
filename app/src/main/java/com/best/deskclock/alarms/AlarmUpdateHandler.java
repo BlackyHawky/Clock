@@ -79,6 +79,7 @@ public final class AlarmUpdateHandler {
             final AlarmInstance finalInstance = instance;
             handler.post(() -> {
                 if (finalInstance != null) {
+                    LogUtils.v("Alarm created: " + finalInstance);
                     AlarmUtils.popAlarmSetSnackbar(mSnackbarAnchor, finalInstance.getAlarmTime().getTimeInMillis());
                 }
             });
@@ -108,7 +109,7 @@ public final class AlarmUpdateHandler {
                 alarm.updateAlarm(cr);
 
                 if (minorUpdate) {
-                    // just update the instance in the database and update notifications.
+                    // Just update the instance in the database and update notifications.
                     final List<AlarmInstance> instanceList =
                             AlarmInstance.getInstancesByAlarmId(cr, alarm.id);
                     for (AlarmInstance instance : instanceList) {

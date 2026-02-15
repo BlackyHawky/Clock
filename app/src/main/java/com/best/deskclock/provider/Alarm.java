@@ -535,15 +535,23 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     }
 
     public void updateAlarm(ContentResolver contentResolver) {
-        if (id == Alarm.INVALID_ID) return;
+        if (id == Alarm.INVALID_ID) {
+            return;
+        }
         ContentValues values = createContentValues();
         contentResolver.update(getContentUri(id), values, null, null);
     }
 
     public static boolean deleteAlarm(ContentResolver contentResolver, long alarmId) {
-        if (alarmId == INVALID_ID) return false;
+        if (alarmId == INVALID_ID) {
+            return false;
+        }
         int deletedRows = contentResolver.delete(getContentUri(alarmId), "", null);
         return deletedRows == 1;
+    }
+
+    public boolean isDeleteAfterUse() {
+        return !daysOfWeek.isRepeating() && deleteAfterUse;
     }
 
     public String getLabelOrDefault(Context context) {

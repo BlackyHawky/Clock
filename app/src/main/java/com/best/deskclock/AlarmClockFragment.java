@@ -43,6 +43,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.Loader;
@@ -51,6 +52,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.alarms.AlarmDelayPickerDialogFragment;
+import com.best.deskclock.alarms.AlarmNotifications;
+import com.best.deskclock.alarms.AlarmStateManager;
 import com.best.deskclock.alarms.AlarmTimeClickHandler;
 import com.best.deskclock.alarms.AlarmUpdateCallback;
 import com.best.deskclock.alarms.AlarmUpdateHandler;
@@ -81,6 +84,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.Executors;
 
 /**
  * A fragment that displays a list of alarm time and allows interaction with them.
@@ -430,6 +434,37 @@ public final class AlarmClockFragment extends DeskClockFragment implements
                     // We need to force a reload here to make sure we have the latest view
                     // of the data to scroll to.
                     mCursorLoader.forceLoad();
+                }
+            }
+
+            if (intent.hasExtra(AlarmNotifications.EXTRA_MISSED_ALARM_NOTIFICATION)) {
+                if (intent.getBooleanExtra(AlarmNotifications.EXTRA_MISSED_ALARM_NOTIFICATION, false)) {
+                    int notificationId = intent.getIntExtra(AlarmNotifications.EXTRA_NOTIFICATION_ID, -1);
+                    long instanceId = intent.getLongExtra(AlarmNotifications.EXTRA_MISSED_ALARM_INSTANCE_ID, -1);
+
+                    // Cancel the missed alarm notification
+                    if (notificationId != -1) {
+                        NotificationManagerCompat.from(mContext).cancel(notificationId);
+                    }
+
+                    // Update the missed alarm notifications group
+                    AlarmNotifications.updateMissedAlarmGroupNotification(mContext, notificationId, null);
+
+                    // Clean instance
+                    if (instanceId != -1) {
+                        Context appContext = mContext.getApplicationContext();
+                        Executors.newSingleThreadExecutor().execute(() -> {
+                            AlarmInstance instance = AlarmInstance.getInstance(appContext.getContentResolver(), instanceId);
+                            if (instance != null) {
+                                AlarmStateManager.deleteInstanceAndUpdateParent(appContext, instance, false);
+                            }
+                        });
+                    }
+
+                    // Remove Extras related to missed alarms
+                    intent.removeExtra(AlarmNotifications.EXTRA_MISSED_ALARM_NOTIFICATION);
+                    intent.removeExtra(AlarmNotifications.EXTRA_NOTIFICATION_ID);
+                    intent.removeExtra(AlarmNotifications.EXTRA_MISSED_ALARM_INSTANCE_ID);
                 }
             }
 

@@ -102,7 +102,7 @@
             tools:layout="@layout/settings_preference_layout" />
 
         <com.best.deskclock.settings.custompreference.CustomListPreference
-            android:key="key_missed_alarm_repeat_limit"
+            android:key="key_repeat_missed_alarm"
             android:title="@string/missed_alarm_repeat_limit_title"
             android:entries="@array/missed_alarm_repeat_limit_entries"
             android:entryValues="@array/missed_alarm_repeat_limit_values"

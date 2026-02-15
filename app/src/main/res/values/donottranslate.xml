@@ -200,14 +200,16 @@
         <item>@string/missed_alarm_repeat_limit_3_times</item>
         <item>@string/missed_alarm_repeat_limit_5_times</item>
         <item>@string/missed_alarm_repeat_limit_10_times</item>
+        <item>@string/label_indefinitely</item>
     </string-array>
     <!-- Values that are retrieved from the ListPreference. These must match the missed_alarm_repeat_limit_entries above. -->
     <string-array name="missed_alarm_repeat_limit_values" translatable="false">
-        <item>-1</item>
+        <item>0</item>
         <item>1</item>
         <item>3</item>
         <item>5</item>
         <item>10</item>
+        <item>-1</item>
     </string-array>
 
     <!-- Entries listed in the snooze selector displayed on the triggered alarm view. -->

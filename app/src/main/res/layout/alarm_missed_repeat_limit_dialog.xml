@@ -60,6 +60,15 @@
             android:text="@string/missed_alarm_repeat_limit_10_times"
             android:textSize="16sp" />
 
+        <RadioButton
+            android:id="@+id/rb_indefinitely"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:paddingEnd="@null"
+            android:text="@string/label_indefinitely"
+            android:textSize="16sp" />
+
     </RadioGroup>
 
 </androidx.core.widget.NestedScrollView>

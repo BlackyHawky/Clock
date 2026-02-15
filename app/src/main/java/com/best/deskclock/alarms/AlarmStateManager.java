@@ -30,12 +30,8 @@ import android.os.PowerManager;
 import android.text.format.DateFormat;
 import android.widget.Toast;
 
-import androidx.core.app.NotificationManagerCompat;
-
 import com.best.deskclock.AlarmAlertWakeLock;
-import com.best.deskclock.AlarmClockFragment;
 import com.best.deskclock.AsyncHandler;
-import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
@@ -99,9 +95,6 @@ public final class AlarmStateManager extends BroadcastReceiver {
     // Intent action to trigger an instance state change.
     public static final String CHANGE_STATE_ACTION = "change_state";
 
-    // Intent action to show the alarm and dismiss the instance
-    public static final String SHOW_AND_DISMISS_ALARM_ACTION = "show_and_dismiss_alarm";
-
     // Extra key to set the desired state change.
     public static final String ALARM_STATE_EXTRA = "intent.extra.alarm.state";
 
@@ -111,6 +104,8 @@ public final class AlarmStateManager extends BroadcastReceiver {
     // Intent category tags used to dismiss or snooze an alarm
     public static final String ALARM_DISMISS_TAG = "DISMISS_TAG";
     public static final String ALARM_SNOOZE_TAG = "SNOOZE_TAG";
+
+    public static final String ACTION_DISMISS_MISSED_ALARM = "dismiss_missed_alarm";
 
     // Buffer time in seconds to fire alarm instead of marking it missed.
     public static final int ALARM_FIRE_BUFFER = 15;
@@ -487,14 +482,6 @@ public final class AlarmStateManager extends BroadcastReceiver {
         LogUtils.i("Setting missed state to instance " + instance.mId);
 
         ContentResolver contentResolver = context.getContentResolver();
-        Alarm alarm = Alarm.getAlarm(contentResolver, instance.mAlarmId);
-        boolean isDeleteAfterUse = alarm != null && !alarm.daysOfWeek.isRepeating() && alarm.deleteAfterUse;
-
-        // If it's an occasional alarm, there's no need to mark it as missed; just delete it.
-        if (isDeleteAfterUse) {
-            deleteInstanceAndUpdateParent(context, instance, true);
-            return;
-        }
 
         final int maxMissedAlarmRepeatCount = instance.mMissedAlarmRepeatLimit;
 
@@ -511,7 +498,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         instance.mMissedAlarmCurrentCount += 1;
 
         // Snooze the alarm until the missed alarm repeat limit is reached.
-        if (instance.mMissedAlarmCurrentCount >= maxMissedAlarmRepeatCount) {
+        if (instance.mMissedAlarmCurrentCount >= maxMissedAlarmRepeatCount + 1) {
             LogUtils.i("Max count reached. Marking instance as MISSED: " + instance.mId);
 
             // Stop alarm if this instance is firing it
@@ -906,29 +893,20 @@ public final class AlarmStateManager extends BroadcastReceiver {
             } else {
                 registerInstance(context, instance, true);
             }
-        } else if (SHOW_AND_DISMISS_ALARM_ACTION.equals(action)) {
-            Uri uri = intent.getData();
-            AlarmInstance instance = AlarmInstance.getInstance(context.getContentResolver(), AlarmInstance.getId(uri));
+        } else if (ACTION_DISMISS_MISSED_ALARM.equals(action)) {
+            int notificationId = intent.getIntExtra(AlarmNotifications.EXTRA_NOTIFICATION_ID, -1);
+            long instanceId = intent.getLongExtra(AlarmNotifications.EXTRA_MISSED_ALARM_INSTANCE_ID, -1);
 
-            if (instance == null) {
-                LogUtils.e("Null AlarmInstance for SHOW_AND_DISMISS");
-                // Dismiss the notification
-                final int id = intent.getIntExtra(AlarmNotifications.EXTRA_NOTIFICATION_ID, -1);
-                if (id != -1) {
-                    NotificationManagerCompat.from(context).cancel(id);
+            // Update the missed alarm notifications group
+            AlarmNotifications.updateMissedAlarmGroupNotification(context, notificationId, null);
+
+            // Clean instance
+            if (instanceId != -1) {
+                AlarmInstance instance = AlarmInstance.getInstance(context.getContentResolver(), instanceId);
+                if (instance != null) {
+                    deleteInstanceAndUpdateParent(context, instance, false);
                 }
-                return;
             }
-
-            long alarmId = instance.mAlarmId == null ? Alarm.INVALID_ID : instance.mAlarmId;
-            final Intent viewAlarmIntent = Alarm.createIntent(context, DeskClock.class, alarmId)
-                    .putExtra(AlarmClockFragment.SCROLL_TO_ALARM_INTENT_EXTRA, alarmId)
-                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-            // Open DeskClock which is now positioned on the alarms tab.
-            context.startActivity(viewAlarmIntent);
-
-            deleteInstanceAndUpdateParent(context, instance, false);
         }
     }
 

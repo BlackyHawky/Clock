@@ -407,13 +407,13 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     }
 
     private void bindMissedAlarmRepeatLimit(Context context, Alarm alarm) {
-        boolean isDeleteAfterUse = !alarm.daysOfWeek.isRepeating() && alarm.deleteAfterUse;
         if (SettingsDAO.isPerAlarmMissedRepeatLimitEnabled(mPrefs)
-                && alarm.autoSilenceDuration != TIMEOUT_NEVER
-                && !isDeleteAfterUse) {
+                && alarm.autoSilenceDuration != TIMEOUT_NEVER) {
 
             int missedAlarmRepeatLimit = alarm.missedAlarmRepeatLimit;
             switch (missedAlarmRepeatLimit) {
+                case 0 ->
+                        missedAlarmRepeatLimitValue.setText(context.getString(R.string.label_never));
                 case 1 ->
                         missedAlarmRepeatLimitValue.setText(context.getString(R.string.missed_alarm_repeat_limit_1_time));
                 case 3 ->
@@ -422,7 +422,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
                         missedAlarmRepeatLimitValue.setText(context.getString(R.string.missed_alarm_repeat_limit_5_times));
                 case 10 ->
                         missedAlarmRepeatLimitValue.setText(context.getString(R.string.missed_alarm_repeat_limit_10_times));
-                default -> missedAlarmRepeatLimitValue.setText(context.getString(R.string.label_never));
+                default -> missedAlarmRepeatLimitValue.setText(context.getString(R.string.label_indefinitely));
             }
 
             missedAlarmRepeatLimitTitle.setTypeface(mGeneralTypeface);

@@ -149,6 +149,9 @@ public class AlarmMissedRepeatLimitDialogFragment extends DialogFragment {
 
     private int getLimitFromSelectedRadioButton() {
         int id = mRadioGroup.getCheckedRadioButtonId();
+        if (id == R.id.rb_never) {
+            return 0;
+        }
         if (id == R.id.rb_1_time) {
             return 1;
         }
@@ -161,18 +164,19 @@ public class AlarmMissedRepeatLimitDialogFragment extends DialogFragment {
         else if (id == R.id.rb_10_times) {
             return 10;
         } else {
-            // Never
+            // Indefinitely
             return -1;
         }
     }
 
     private void selectRadioButtonForLimit(int limit) {
         int id = switch (limit) {
+            case 0 -> R.id.rb_never;
             case 1 -> R.id.rb_1_time;
             case 3 -> R.id.rb_3_times;
             case 5 -> R.id.rb_5_times;
             case 10 -> R.id.rb_10_times;
-            default -> R.id.rb_never;
+            default -> R.id.rb_indefinitely;
         };
 
         mRadioGroup.check(id);
