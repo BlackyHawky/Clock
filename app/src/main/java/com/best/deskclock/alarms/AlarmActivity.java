@@ -130,10 +130,8 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
     private int mShadowOffset;
     private float mShadowRadius;
     private boolean mIsSwipeActionEnabled;
-    private boolean mReceiverRegistered;
-    /**
-     * Whether the AlarmService is currently bound
-     */
+    private boolean mReceiverRegistered = false;
+    private boolean mPowerBtnReceiverRegistered = false;
     private boolean mServiceBound;
     private ViewGroup mAlertView;
     private TextView mAlertTitleView;
@@ -191,16 +189,16 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
     private final BroadcastReceiver PowerBtnReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent != null && intent.getAction() != null) {
-                if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)
-                        || intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
-                    // Power keys dismiss the alarm.
-                    if (!mAlarmHandled) {
-                        if (mPowerBehavior == PowerButtonBehavior.SNOOZE) {
-                            snooze();
-                        } else if (mPowerBehavior == PowerButtonBehavior.DISMISS) {
-                            dismiss();
-                        }
+            final String action = intent.getAction();
+            LOGGER.v("Received broadcast: %s", action);
+
+            if (Intent.ACTION_SCREEN_OFF.equals(action)) {
+                // Power keys dismiss the alarm.
+                if (!mAlarmHandled && !isFinishing()) {
+                    if (mPowerBehavior == PowerButtonBehavior.SNOOZE) {
+                        snooze();
+                    } else if (mPowerBehavior == PowerButtonBehavior.DISMISS) {
+                        dismiss();
                     }
                 }
             }
@@ -217,15 +215,6 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         mPrefs = getDefaultSharedPreferences(storageContext);
         mGeneralBoldTypeface = ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(mPrefs));
 
-        // Register Power button (screen off) intent receiver
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(Intent.ACTION_SCREEN_OFF);
-        if (SdkUtils.isAtLeastAndroid13()) {
-            registerReceiver(PowerBtnReceiver, filter, Context.RECEIVER_EXPORTED);
-        } else {
-            registerReceiver(PowerBtnReceiver, filter);
-        }
-
         setVolumeControlStream(AudioManager.STREAM_ALARM);
 
         initAlarmAndInstance();
@@ -239,6 +228,18 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
         // Get the power button behavior setting
         mPowerBehavior = SettingsDAO.getAlarmPowerButtonBehavior(mPrefs);
+
+        // Register Power button (screen off) intent receiver
+        if (mPowerBehavior != PowerButtonBehavior.NOTHING) {
+            IntentFilter powerFilter = new IntentFilter(Intent.ACTION_SCREEN_OFF);
+            if (SdkUtils.isAtLeastAndroid13()) {
+                registerReceiver(PowerBtnReceiver, powerFilter, Context.RECEIVER_EXPORTED);
+            } else {
+                registerReceiver(PowerBtnReceiver, powerFilter);
+            }
+
+            mPowerBtnReceiverRegistered = true;
+        }
 
         // To manually manage insets
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
@@ -368,6 +369,16 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         if (mReceiverRegistered) {
             unregisterReceiver(mReceiver);
             mReceiverRegistered = false;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (mPowerBtnReceiverRegistered) {
+            unregisterReceiver(PowerBtnReceiver);
+            mPowerBtnReceiverRegistered = false;
         }
     }
 
