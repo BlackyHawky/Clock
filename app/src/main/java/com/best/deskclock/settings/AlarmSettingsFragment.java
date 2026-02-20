@@ -65,7 +65,10 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
+import androidx.preference.ListPreference;
 import androidx.preference.Preference;
+import androidx.preference.PreferenceCategory;
+import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.AlarmSnoozeDurationDialogFragment;
 import com.best.deskclock.AutoSilenceDurationDialogFragment;
@@ -82,11 +85,7 @@ import com.best.deskclock.ringtone.RingtonePickerActivity;
 import com.best.deskclock.settings.custompreference.AlarmSnoozeDurationPreference;
 import com.best.deskclock.settings.custompreference.AlarmVolumePreference;
 import com.best.deskclock.settings.custompreference.AutoSilenceDurationPreference;
-import com.best.deskclock.settings.custompreference.CustomListPreference;
-import com.best.deskclock.settings.custompreference.CustomPreference;
-import com.best.deskclock.settings.custompreference.CustomPreferenceCategory;
-import com.best.deskclock.settings.custompreference.CustomSeekbarPreference;
-import com.best.deskclock.settings.custompreference.CustomSwitchPreference;
+import com.best.deskclock.settings.custompreference.CustomSliderPreference;
 import com.best.deskclock.settings.custompreference.VibrationPatternPreference;
 import com.best.deskclock.settings.custompreference.VibrationStartDelayPreference;
 import com.best.deskclock.settings.custompreference.VolumeCrescendoDurationPreference;
@@ -107,43 +106,43 @@ public class AlarmSettingsFragment extends ScreenFragment
     private AlarmUpdateHandler mAlarmUpdateHandler;
     private List<Alarm> mAlarmList;
 
-    CustomPreference mAlarmFontPref;
-    CustomPreference mAlarmRingtonePref;
-    CustomSwitchPreference mEnablePerAlarmAutoSilencePref;
+    Preference mAlarmFontPref;
+    Preference mAlarmRingtonePref;
+    SwitchPreferenceCompat mEnablePerAlarmAutoSilencePref;
     AutoSilenceDurationPreference mAlarmAutoSilencePref;
-    CustomSwitchPreference mEnablePerAlarmSnoozeDurationPref;
+    SwitchPreferenceCompat mEnablePerAlarmSnoozeDurationPref;
     AlarmSnoozeDurationPreference mAlarmSnoozeDurationPref;
-    CustomSwitchPreference mEnablePerAlarmMissedRepeatLimitPref;
-    CustomListPreference mRepeatMissedAlarmPref;
-    CustomSwitchPreference mEnablePerAlarmVolumePref;
+    SwitchPreferenceCompat mEnablePerAlarmMissedRepeatLimitPref;
+    ListPreference mRepeatMissedAlarmPref;
+    SwitchPreferenceCompat mEnablePerAlarmVolumePref;
     AlarmVolumePreference mAlarmVolumePref;
-    CustomSwitchPreference mEnablePerAlarmVolumeCrescendoDurationPref;
+    SwitchPreferenceCompat mEnablePerAlarmVolumeCrescendoDurationPref;
     VolumeCrescendoDurationPreference mAlarmVolumeCrescendoDurationPref;
-    CustomSwitchPreference mAdvancedAudioPlaybackPref;
-    CustomSwitchPreference mAutoRoutingToExternalAudioDevicePref;
-    CustomSwitchPreference mSystemMediaVolume;
-    CustomSeekbarPreference mExternalAudioDeviceVolumePref;
-    CustomPreferenceCategory mAlarmVibrationCategory;
-    CustomListPreference mVolumeButtonsPref;
-    CustomListPreference mPowerButtonPref;
-    CustomListPreference mFlipActionPref;
-    CustomListPreference mShakeActionPref;
-    CustomSeekbarPreference mShakeIntensityPref;
-    CustomListPreference mSortAlarmPref;
-    CustomSwitchPreference mDisplayEnabledAlarmsFirstPref;
-    CustomSwitchPreference mEnableAlarmFabLongPressPref;
-    CustomListPreference mWeekStartPref;
-    CustomSwitchPreference mDisplayDismissButtonPref;
-    CustomListPreference mAlarmNotificationReminderTimePref;
-    CustomSwitchPreference mEnablePerAlarmVibrationPatternPref;
+    SwitchPreferenceCompat mAdvancedAudioPlaybackPref;
+    SwitchPreferenceCompat mAutoRoutingToExternalAudioDevicePref;
+    SwitchPreferenceCompat mSystemMediaVolume;
+    CustomSliderPreference mExternalAudioDeviceVolumePref;
+    PreferenceCategory mAlarmVibrationCategory;
+    ListPreference mVolumeButtonsPref;
+    ListPreference mPowerButtonPref;
+    ListPreference mFlipActionPref;
+    ListPreference mShakeActionPref;
+    CustomSliderPreference mShakeIntensityPref;
+    ListPreference mSortAlarmPref;
+    SwitchPreferenceCompat mDisplayEnabledAlarmsFirstPref;
+    SwitchPreferenceCompat mEnableAlarmFabLongPressPref;
+    ListPreference mWeekStartPref;
+    SwitchPreferenceCompat mDisplayDismissButtonPref;
+    ListPreference mAlarmNotificationReminderTimePref;
+    SwitchPreferenceCompat mEnablePerAlarmVibrationPatternPref;
     VibrationPatternPreference mVibrationPatternPref;
-    CustomSwitchPreference mEnableAlarmVibrationsByDefaultPref;
-    CustomSwitchPreference mEnableSnoozedOrDismissedAlarmVibrationsPref;
-    CustomSwitchPreference mTurnOnBackFlashForTriggeredAlarmPref;
-    CustomSwitchPreference mDeleteOccasionalAlarmByDefaultPref;
-    CustomListPreference mMaterialTimePickerStylePref;
-    CustomListPreference mMaterialDatePickerStylePref;
-    CustomPreference mAlarmDisplayCustomizationPref;
+    SwitchPreferenceCompat mEnableAlarmVibrationsByDefaultPref;
+    SwitchPreferenceCompat mEnableSnoozedOrDismissedAlarmVibrationsPref;
+    SwitchPreferenceCompat mTurnOnBackFlashForTriggeredAlarmPref;
+    SwitchPreferenceCompat mDeleteOccasionalAlarmByDefaultPref;
+    ListPreference mMaterialTimePickerStylePref;
+    ListPreference mMaterialDatePickerStylePref;
+    Preference mAlarmDisplayCustomizationPref;
 
     private final ActivityResultLauncher<Intent> fontPickerLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -437,7 +436,7 @@ public class AlarmSettingsFragment extends ScreenFragment
             case KEY_VOLUME_BUTTONS, KEY_POWER_BUTTON, KEY_FLIP_ACTION,
                  KEY_MATERIAL_TIME_PICKER_STYLE, KEY_MATERIAL_DATE_PICKER_STYLE,
                  KEY_SORT_ALARM, KEY_VIBRATION_PATTERN -> {
-                final CustomListPreference preference = (CustomListPreference) pref;
+                final ListPreference preference = (ListPreference) pref;
                 final int index = preference.findIndexOfValue((String) newValue);
                 preference.setSummary(preference.getEntries()[index]);
             }
@@ -736,7 +735,7 @@ public class AlarmSettingsFragment extends ScreenFragment
     }
 
     private void showDisablePerAlarmSettingDialog(@StringRes int messageResId, String prefKey,
-                                                  CustomSwitchPreference switchPref, Preference dependentPref,
+                                                  SwitchPreferenceCompat switchPref, Preference dependentPref,
                                                   AlarmUpdater alarmUpdater) {
 
         String confirmAction = requireContext().getString(R.string.confirm_action_prompt);

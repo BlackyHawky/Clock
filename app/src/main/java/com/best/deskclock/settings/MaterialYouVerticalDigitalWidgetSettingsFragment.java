@@ -28,12 +28,12 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.preference.Preference;
+import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.settings.custompreference.ColorPickerPreference;
-import com.best.deskclock.settings.custompreference.CustomSeekbarPreference;
-import com.best.deskclock.settings.custompreference.CustomSwitchPreference;
+import com.best.deskclock.settings.custompreference.CustomSliderPreference;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
@@ -44,21 +44,21 @@ public class MaterialYouVerticalDigitalWidgetSettingsFragment extends ScreenFrag
 
     private int mAppWidgetId = INVALID_APPWIDGET_ID;
 
-    CustomSwitchPreference mShowBackgroundOnDigitalWidgetPref;
-    CustomSwitchPreference mCustomizeBackgroundCornerRadiusPref;
-    CustomSeekbarPreference mBackgroundCornerRadiusPref;
-    CustomSwitchPreference mDisplayDatePref;
-    CustomSwitchPreference mDisplayNextAlarmPref;
-    CustomSwitchPreference mApplyHorizontalPaddingPref;
-    CustomSwitchPreference mDefaultBackgroundColorPref;
+    SwitchPreferenceCompat mShowBackgroundOnDigitalWidgetPref;
+    SwitchPreferenceCompat mCustomizeBackgroundCornerRadiusPref;
+    CustomSliderPreference mBackgroundCornerRadiusPref;
+    SwitchPreferenceCompat mDisplayDatePref;
+    SwitchPreferenceCompat mDisplayNextAlarmPref;
+    SwitchPreferenceCompat mApplyHorizontalPaddingPref;
+    SwitchPreferenceCompat mDefaultBackgroundColorPref;
     ColorPickerPreference mCustomBackgroundColorPref;
-    CustomSwitchPreference mDefaultHoursColorPref;
+    SwitchPreferenceCompat mDefaultHoursColorPref;
     ColorPickerPreference mCustomHoursColorPref;
-    CustomSwitchPreference mDefaultMinutesColorPref;
+    SwitchPreferenceCompat mDefaultMinutesColorPref;
     ColorPickerPreference mCustomMinutesColorPref;
-    CustomSwitchPreference mDefaultDateColorPref;
+    SwitchPreferenceCompat mDefaultDateColorPref;
     ColorPickerPreference mCustomDateColorPref;
-    CustomSwitchPreference mDefaultNextAlarmColorPref;
+    SwitchPreferenceCompat mDefaultNextAlarmColorPref;
     ColorPickerPreference mCustomNextAlarmColorPref;
 
     @Override

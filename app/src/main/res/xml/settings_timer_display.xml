@@ -8,160 +8,156 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <com.best.deskclock.settings.custompreference.CustomPreferenceCategory
+    <PreferenceCategory
         android:title="@string/style_category_title"
         app:allowDividerAbove="false"
-        app:iconSpaceReserved="false"
-        tools:layout="@layout/settings_preference_category_layout">
+        app:iconSpaceReserved="false">
 
-        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
+        <SwitchPreferenceCompat
             android:key="key_display_compact_timers"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/display_compact_timers_title"
             android:defaultValue="false"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
-        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
+        <SwitchPreferenceCompat
             android:key="key_transparent_background_for_expired_timer"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/transparent_background_for_expired_timer_title"
             android:defaultValue="false"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
-        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
+        <SwitchPreferenceCompat
             android:key="key_display_timer_state_indicator"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/display_timer_state_indicator_title"
             android:defaultValue="false"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
-        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
+        <SwitchPreferenceCompat
             android:key="key_display_timer_ringtone_title"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/display_ringtone_title"
             android:defaultValue="false"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
-    </com.best.deskclock.settings.custompreference.CustomPreferenceCategory>
+    </PreferenceCategory>
 
-    <com.best.deskclock.settings.custompreference.CustomPreferenceCategory
+    <PreferenceCategory
         android:key="key_timer_color_category"
         android:title="@string/colors_category_title"
         app:allowDividerAbove="false"
-        app:iconSpaceReserved="false"
-        tools:layout="@layout/settings_preference_category_layout">
+        app:iconSpaceReserved="false">
 
         <com.best.deskclock.settings.custompreference.ColorPickerPreference
             android:key="key_running_timer_indicator_color"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/running_timer_indicator_color_title"
             android:defaultValue="#FF99CC00"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
         <com.best.deskclock.settings.custompreference.ColorPickerPreference
             android:key="key_paused_timer_indicator_color"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/paused_timer_indicator_color_title"
             android:defaultValue="#FFFFBB33"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
         <com.best.deskclock.settings.custompreference.ColorPickerPreference
             android:key="key_expired_timer_indicator_color"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/expired_timer_indicator_color_title"
             android:defaultValue="#FFFF4444"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
         <com.best.deskclock.settings.custompreference.ColorPickerPreference
             android:key="key_timer_ringtone_title_color"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/ringtone_title_color"
             android:defaultValue="#888888"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
-    </com.best.deskclock.settings.custompreference.CustomPreferenceCategory>
+    </PreferenceCategory>
 
-    <com.best.deskclock.settings.custompreference.CustomPreferenceCategory
+    <PreferenceCategory
         android:key="key_timer_font_category"
         android:title="@string/font_category_title"
         app:allowDividerAbove="false"
-        app:iconSpaceReserved="false"
-        tools:layout="@layout/settings_preference_category_layout">
+        app:iconSpaceReserved="false">
 
-        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
+        <SwitchPreferenceCompat
             android:key="key_timer_display_text_shadow"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/display_text_shadow_title"
             android:defaultValue="false"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
         <com.best.deskclock.settings.custompreference.ColorPickerPreference
             android:key="key_timer_shadow_color"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/shadow_color_title"
             android:defaultValue="#BF808080"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
-        <com.best.deskclock.settings.custompreference.CustomSeekbarPreference
+        <com.best.deskclock.settings.custompreference.CustomSliderPreference
             android:key="key_timer_shadow_offset"
+            android:layout="@layout/settings_preference_slider_layout"
             android:title="@string/shadow_offset_title"
             android:summary="@string/label_default"
             android:defaultValue="10"
             android:max="20"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_seekbar_layout" />
+            app:singleLineTitle="false" />
 
-    </com.best.deskclock.settings.custompreference.CustomPreferenceCategory>
+    </PreferenceCategory>
 
-    <com.best.deskclock.settings.custompreference.CustomPreferenceCategory
+    <PreferenceCategory
         android:title="@string/miscellaneous_category_title"
         app:allowDividerAbove="false"
-        app:iconSpaceReserved="false"
-        tools:layout="@layout/settings_preference_category_layout">
+        app:iconSpaceReserved="false">
 
-        <com.best.deskclock.settings.custompreference.CustomPreference
+        <Preference
             android:key="key_timer_background_image"
+            android:layout="@layout/settings_preference_layout"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
-            tools:title="@string/background_image_title"
-            tools:layout="@layout/settings_preference_layout" />
+            tools:title="@string/background_image_title" />
 
-        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
+        <SwitchPreferenceCompat
             android:key="key_enable_timer_blur_effect"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/enable_blur_effect_title"
             android:defaultValue="false"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
-        <com.best.deskclock.settings.custompreference.CustomSeekbarPreference
+        <com.best.deskclock.settings.custompreference.CustomSliderPreference
             android:key="key_timer_blur_intensity"
+            android:layout="@layout/settings_preference_slider_layout"
             android:title="@string/blur_intensity_title"
             android:summary="@string/label_default"
             android:defaultValue="20"
             android:max="100"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_seekbar_layout" />
+            app:singleLineTitle="false" />
 
-        <com.best.deskclock.settings.custompreference.CustomPreference
+        <Preference
             android:key="key_timer_preview"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/preview_title"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
-    </com.best.deskclock.settings.custompreference.CustomPreferenceCategory>
+    </PreferenceCategory>
 
 </PreferenceScreen>

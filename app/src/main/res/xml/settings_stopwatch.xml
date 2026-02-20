@@ -8,67 +8,65 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <com.best.deskclock.settings.custompreference.CustomPreferenceCategory
+    <PreferenceCategory
         android:title="@string/style_category_title"
         app:allowDividerAbove="false"
-        app:iconSpaceReserved="false"
-        tools:layout="@layout/settings_preference_category_layout">
+        app:iconSpaceReserved="false">
 
-        <com.best.deskclock.settings.custompreference.CustomPreference
+        <Preference
             android:key="key_sw_font"
+            android:layout="@layout/settings_preference_layout"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
-            tools:title="@string/custom_font_title"
-            tools:layout="@layout/settings_preference_layout" />
+            tools:title="@string/custom_font_title" />
 
-    </com.best.deskclock.settings.custompreference.CustomPreferenceCategory>
+    </PreferenceCategory>
 
-    <com.best.deskclock.settings.custompreference.CustomPreferenceCategory
+    <PreferenceCategory
         android:title="@string/actions_category_title"
         app:allowDividerAbove="false"
-        app:iconSpaceReserved="false"
-        tools:layout="@layout/settings_preference_category_layout">
+        app:iconSpaceReserved="false">
 
-        <com.best.deskclock.settings.custompreference.CustomListPreference
+        <ListPreference
             android:key="key_sw_volume_up_action"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/sw_volume_up_action_title"
             android:entries="@array/stopwatch_actions_entries"
             android:entryValues="@array/stopwatch_actions_values"
             android:defaultValue="0"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
-        <com.best.deskclock.settings.custompreference.CustomListPreference
+        <ListPreference
             android:key="key_sw_volume_up_action_after_long_press"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/sw_long_press_volume_up_action_title"
             android:entries="@array/stopwatch_actions_entries"
             android:entryValues="@array/stopwatch_actions_values"
             android:defaultValue="0"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
-        <com.best.deskclock.settings.custompreference.CustomListPreference
+        <ListPreference
             android:key="key_sw_volume_down_action"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/sw_volume_down_action_title"
             android:entries="@array/stopwatch_actions_entries"
             android:entryValues="@array/stopwatch_actions_values"
             android:defaultValue="0"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
-        <com.best.deskclock.settings.custompreference.CustomListPreference
+        <ListPreference
             android:key="key_sw_volume_down_action_after_long_press"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/sw_long_press_volume_down_action_title"
             android:entries="@array/stopwatch_actions_entries"
             android:entryValues="@array/stopwatch_actions_values"
             android:defaultValue="0"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
-    </com.best.deskclock.settings.custompreference.CustomPreferenceCategory>
+    </PreferenceCategory>
 
 </PreferenceScreen>

@@ -19,7 +19,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -36,6 +35,7 @@ import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
+import com.google.android.material.slider.Slider;
 
 import java.util.Locale;
 
@@ -57,7 +57,7 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
     private AudioManager mAudioManager;
     private Alarm mAlarm;
     private String mTag;
-    private SeekBar mSeekBar;
+    private Slider mSlider;
     private ImageView mVolumeMinus;
     private ImageView mVolumePlus;
     private TextView mVolumeValue;
@@ -98,8 +98,8 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        if (mVolumeValue != null) {
-            outState.putInt(ARG_ALARM_VOLUME_VALUE, mSeekBar.getProgress() + mMinVolume);
+        if (mSlider != null) {
+            outState.putInt(ARG_ALARM_VOLUME_VALUE, (int) mSlider.getValue() + mMinVolume);
         }
     }
 
@@ -126,67 +126,70 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
 
         int maxVolume = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
         mMinVolume = RingtoneUtils.getAlarmMinVolume(mAudioManager);
-        int clampedVolume = Math.min(volumeValue, maxVolume);
+        int clampedVolume = Math.max(mMinVolume, Math.min(volumeValue, maxVolume));
         int currentVolume = clampedVolume - mMinVolume;
 
         @SuppressLint("InflateParams")
         View dialogView = getLayoutInflater().inflate(R.layout.alarm_volume_dialog, null);
 
-        mSeekBar = dialogView.findViewById(R.id.alarm_volume_seekbar);
+        mSlider = dialogView.findViewById(R.id.alarm_volume_slider);
         mVolumeValue = dialogView.findViewById(R.id.alarm_volume_value);
         mVolumeMinus = dialogView.findViewById(R.id.volume_minus_icon);
         mVolumePlus = dialogView.findViewById(R.id.volume_plus_icon);
 
-        mSeekBar.setMax(maxVolume - mMinVolume);
-        mSeekBar.setProgress(currentVolume);
+        float maxRange = Math.max(1f, (float) (maxVolume - mMinVolume));
+        mSlider.setValueTo(maxRange);
+        mSlider.setValueFrom(0f);
+        mSlider.setStepSize(1f);
+        mSlider.setValue((float) currentVolume);
 
         updateVolumeText(clampedVolume, maxVolume);
         updateVolumeButtonStates(currentVolume, maxVolume - mMinVolume);
 
         mVolumeMinus.setOnClickListener(v -> {
-            int progress = mSeekBar.getProgress();
-            if (progress > 0) {
-                mSeekBar.setProgress(progress - 1);
-                int newVolume = mSeekBar.getProgress() + mMinVolume;
-                updateDialogIcon(newVolume, maxVolume);
-                updateVolumeText(newVolume, maxVolume);
-                updateVolumeButtonStates(mSeekBar.getProgress(), maxVolume - mMinVolume);
+            float newValue = mSlider.getValue() - 1f;
+            if (newValue >= mSlider.getValueFrom()) {
+                mSlider.setValue(newValue);
+
+                int newVolume = (int) newValue + mMinVolume;
                 startRingtonePreview(mAlarm, newVolume);
             }
         });
 
         mVolumePlus.setOnClickListener(v -> {
-            int progress = mSeekBar.getProgress();
-            if (progress < mSeekBar.getMax()) {
-                mSeekBar.setProgress(progress + 1);
-                int newVolume = mSeekBar.getProgress() + mMinVolume;
-                updateDialogIcon(newVolume, maxVolume);
-                updateVolumeText(newVolume, maxVolume);
-                updateVolumeButtonStates(mSeekBar.getProgress(), maxVolume - mMinVolume);
+            float newValue = mSlider.getValue() + 1f;
+            if (newValue <= mSlider.getValueTo()) {
+                mSlider.setValue(newValue);
+
+                int newVolume = (int) newValue + mMinVolume;
                 startRingtonePreview(mAlarm, newVolume);
             }
         });
 
-        mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if (fromUser) {
-                    int newVolume = progress + mMinVolume;
-                    updateDialogIcon(newVolume, maxVolume);
-                    updateVolumeText(newVolume, maxVolume);
-                    updateVolumeButtonStates(progress, maxVolume - mMinVolume);
+        mSlider.addOnChangeListener((slider, progress, fromUser) -> {
+            int intProgress = (int) progress;
+            int newVolume = intProgress + mMinVolume;
+
+            updateDialogIcon(newVolume, maxVolume);
+            updateVolumeText(newVolume, maxVolume);
+            updateVolumeButtonStates(intProgress, (int) slider.getValueTo());
+
+            if (fromUser) {
+                if (mIsPreviewPlaying) {
                     mAudioManager.setStreamVolume(AudioManager.STREAM_ALARM, newVolume, 0);
                 }
             }
+        });
 
+        mSlider.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-                int newVolume = seekBar.getProgress() + mMinVolume;
+            public void onStartTrackingTouch(@NonNull Slider slider) {
+                int newVolume = (int) slider.getValue() + mMinVolume;
                 startRingtonePreview(mAlarm, newVolume);
             }
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
+            public void onStopTrackingTouch(@NonNull Slider slider) {
             }
         });
 
@@ -208,7 +211,7 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
                 null,
                 alertDialog -> {
                     mDialogText = alertDialog.findViewById(R.id.dialog_title);
-                    int volume = mSeekBar.getProgress() + mMinVolume;
+                    int volume = (int) mSlider.getValue() + mMinVolume;
                     updateDialogIcon(volume, maxVolume);
                 },
                 CustomDialog.SoftInputMode.NONE
@@ -241,7 +244,7 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
      */
     private void setVolumeValue() {
         if (mAlarm != null) {
-            int volumeValue = mSeekBar.getProgress() + mMinVolume;
+            int volumeValue = (int) mSlider.getValue() + mMinVolume;
             ((VolumeValueDialogHandler) requireActivity()).onVolumeValueSet(mAlarm, volumeValue, mTag);
         }
     }
@@ -275,14 +278,14 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
     }
 
     /**
-     * Enables or disables the volume plus/minus buttons based on the current SeekBar progress.
+     * Enables or disables the volume plus/minus buttons based on the current slider progress.
      *
-     * @param progress     The current progress of the SeekBar (volume level in steps).
-     * @param maxProgress  The maximum progress of the SeekBar.
+     * @param progress     The current progress of the slider (volume level in steps).
+     * @param maxProgress  The maximum progress of the slider.
      */
     private void updateVolumeButtonStates(int progress, int maxProgress) {
-        ThemeUtils.updateSeekBarButtonEnabledState(mContext, mVolumeMinus, progress > 0);
-        ThemeUtils.updateSeekBarButtonEnabledState(mContext, mVolumePlus, progress < maxProgress);
+        ThemeUtils.updateSliderButtonEnabledState(mContext, mVolumeMinus, progress > 0);
+        ThemeUtils.updateSliderButtonEnabledState(mContext, mVolumePlus, progress < maxProgress);
     }
 
     /**

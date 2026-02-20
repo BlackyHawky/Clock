@@ -150,12 +150,14 @@
         style="@style/TimerSetupDigit"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:text="&#9003;"
         app:backgroundTint="?attr/colorPrimaryContainer"
+        app:icon="@drawable/ic_backspace"
+        app:iconSize="40dp"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp"
         app:layout_constraintStart_toEndOf="@id/timer_setup_digit_0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/timer_setup_digit_9"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:ignore="HardcodedText" />
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

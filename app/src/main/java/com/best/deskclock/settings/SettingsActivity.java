@@ -39,7 +39,6 @@ import androidx.preference.Preference;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
-import com.best.deskclock.settings.custompreference.CustomPreference;
 import com.best.deskclock.uicomponents.CollapsingToolbarBaseActivity;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.uicomponents.toast.CustomToast;
@@ -109,16 +108,16 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
     public static class SettingsFragment extends ScreenFragment implements Preference.OnPreferenceClickListener {
 
-        CustomPreference mInterfaceCustomizationPref;
-        CustomPreference mClockSettingsPref;
-        CustomPreference mAlarmSettingsPref;
-        CustomPreference mTimerSettingsPref;
-        CustomPreference mStopwatchSettingsPref;
-        CustomPreference mScreensaverSettings;
-        CustomPreference mWidgetsSettings;
-        CustomPreference mPermissionsManagement;
-        CustomPreference mPermissionMessage;
-        CustomPreference mBackupRestorePref;
+        Preference mInterfaceCustomizationPref;
+        Preference mClockSettingsPref;
+        Preference mAlarmSettingsPref;
+        Preference mTimerSettingsPref;
+        Preference mStopwatchSettingsPref;
+        Preference mScreensaverSettings;
+        Preference mWidgetsSettings;
+        Preference mPermissionsManagement;
+        Preference mPermissionMessage;
+        Preference mBackupRestorePref;
 
         /**
          * Callback for getting the backup result.

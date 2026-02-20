@@ -5,23 +5,21 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/pref_card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="10dp"
-    android:layout_marginVertical="4dp"
-    app:cardCornerRadius="18dp"
-    app:strokeWidth="0dp"
-    app:strokeColor="?attr/colorPrimary">
+    android:layout_marginBottom="2dp"
+    android:background="@android:color/transparent"
+    tools:background="@drawable/bg_card_for_preview">
 
     <LinearLayout
+        android:id="@+id/pref_card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="?android:attr/listPreferredItemHeightSmall"
+        android:minHeight="?android:attr/listPreferredItemHeightLarge"
         android:gravity="center_vertical"
         android:paddingStart="?android:attr/listPreferredItemPaddingStart"
         android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
@@ -48,7 +46,6 @@
 
                 <TextView
                     android:id="@android:id/title"
-                    android:labelFor="@id/seekbar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
@@ -76,61 +73,39 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:gravity="center_vertical"
                 android:clipChildren="false"
                 android:clipToPadding="false">
 
                 <ImageView
-                    android:id="@+id/seekbar_minus_icon"
+                    android:id="@+id/slider_minus_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@null"
-                    app:maxWidth="48dp"
-                    app:maxHeight="48dp"
                     tools:src="@drawable/ic_text_decrease" />
 
-                <SeekBar
-                    android:id="@+id/seekbar"
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/slider"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:paddingStart="0dp"
-                    android:paddingEnd="0dp"
-                    android:paddingTop="15dp"
-                    android:paddingBottom="15dp"
-                    android:background="@null" />
+                    android:layout_weight="1"
+                    android:layout_marginHorizontal="6dp"
+                    app:labelBehavior="gone" />
 
                 <ImageView
-                    android:id="@+id/seekbar_plus_icon"
+                    android:id="@+id/slider_plus_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@null"
-                    app:maxWidth="48dp"
-                    app:maxHeight="48dp"
                     tools:src="@drawable/ic_text_increase" />
-
-                <TextView
-                    android:id="@+id/seekbar_value"
-                    android:minWidth="36dp"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="0dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:singleLine="true"
-                    android:textAppearance="?android:attr/textAppearanceListItem"
-                    android:ellipsize="marquee"
-                    android:fadingEdge="horizontal"
-                    android:scrollbars="none" />
 
             </LinearLayout>
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/reset_seekbar_value"
+                android:id="@+id/reset_slider_value"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:background="?attr/selectableItemBackground"
@@ -149,4 +124,4 @@
 
     </LinearLayout>
 
-</com.google.android.material.card.MaterialCardView>
+</FrameLayout>

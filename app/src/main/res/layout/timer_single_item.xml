@@ -10,8 +10,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginVertical="4dp"
-    android:layout_marginHorizontal="10dp"
+    android:layout_marginBottom="10dp"
     tools:background="@drawable/bg_card_for_preview">
 
     <androidx.constraintlayout.widget.Guideline

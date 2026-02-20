@@ -26,6 +26,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -34,9 +35,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.content.res.AppCompatResources;
@@ -54,7 +53,8 @@ import com.best.deskclock.utils.AnimatorUtils;
 import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 
-import com.google.android.material.chip.Chip;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.color.MaterialColors;
 
 import java.util.List;
@@ -68,8 +68,9 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
 
     private final ImageView editLabelIcon;
     private final TextView editLabel;
-    private final LinearLayout repeatDays;
-    private final CompoundButton[] dayButtons = new CompoundButton[7];
+    private final MaterialButtonToggleGroup.OnButtonCheckedListener dayCheckedListener;
+    private final MaterialButtonToggleGroup repeatDaysGroup;
+    private final MaterialButton[] dayButtons = new MaterialButton[7];
     private final TextView scheduleAlarm;
     private final TextView selectedDate;
     private final ImageView addDate;
@@ -90,8 +91,8 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     private final TextView crescendoDurationValue;
     private final TextView alarmVolumeTitle;
     private final TextView alarmVolumeValue;
-    private final Chip delete;
-    private final Chip duplicate;
+    private final MaterialButton delete;
+    private final MaterialButton duplicate;
 
     private final boolean mHasVibrator;
     private final boolean mHasFlash;
@@ -105,7 +106,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
 
         editLabelIcon = itemView.findViewById(R.id.edit_label_icon);
         editLabel = itemView.findViewById(R.id.edit_label);
-        repeatDays = itemView.findViewById(R.id.repeat_days);
+        repeatDaysGroup = itemView.findViewById(R.id.repeat_days_group);
         scheduleAlarm = itemView.findViewById(R.id.schedule_alarm);
         selectedDate = itemView.findViewById(R.id.selected_date);
         addDate = itemView.findViewById(R.id.add_date);
@@ -148,25 +149,32 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         // Build button for each day.
         final LayoutInflater inflater = LayoutInflater.from(context);
         final List<Integer> weekdays = SettingsDAO.getWeekdayOrder(mPrefs).getCalendarDays();
+
         for (int i = 0; i < 7; i++) {
-            final View dayButtonFrame = inflater.inflate(R.layout.day_button, repeatDays, false);
-            final CompoundButton dayButton = dayButtonFrame.findViewById(R.id.day_button_box);
+            final MaterialButton dayButton = (MaterialButton) inflater.inflate(R.layout.day_button, repeatDaysGroup, false);
+
+            dayButton.setId(View.generateViewId());
+
             final int weekday = weekdays.get(i);
             dayButton.setText(UiDataModel.getUiDataModel().getShortWeekday(weekday));
             dayButton.setContentDescription(UiDataModel.getUiDataModel().getLongWeekday(weekday));
-            repeatDays.addView(dayButtonFrame);
+
+            repeatDaysGroup.addView(dayButton);
             dayButtons[i] = dayButton;
         }
 
         // Day buttons handler
-        for (int i = 0; i < dayButtons.length; i++) {
-            final int buttonIndex = i;
-            dayButtons[i].setOnClickListener(view -> {
-                final boolean isChecked = ((CompoundButton) view).isChecked();
-                getAlarmTimeClickHandler().setDayOfWeekEnabled(getItemHolder().item,
-                        isChecked, buttonIndex);
-            });
-        }
+        dayCheckedListener = (group, checkedId, isChecked) -> {
+            for (int i = 0; i < dayButtons.length; i++) {
+                if (dayButtons[i].getId() == checkedId) {
+                    getAlarmTimeClickHandler().setDayOfWeekEnabled(getItemHolder().item, isChecked, i);
+                    updateDaysOfWeekButtonVisuals(dayButtons[i], isChecked, context);
+                    break;
+                }
+            }
+        };
+
+        repeatDaysGroup.addOnButtonCheckedListener(dayCheckedListener);
 
         // Schedule date handler
         scheduleAlarm.setOnClickListener(v ->
@@ -301,7 +309,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         // and to avoid flickering when turning the alarm on/off
         final boolean labelIsEmpty = alarm.label == null || alarm.label.isEmpty();
         editLabel.setAlpha(labelIsEmpty || alarm.enabled ? 1f : editLabel.getAlpha());
-        repeatDays.setAlpha(1f);
+        repeatDaysGroup.setAlpha(1f);
         scheduleAlarm.setAlpha(1f);
         selectedDate.setAlpha(1f);
         addDate.setAlpha(1f);
@@ -498,21 +506,40 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
 
     private void bindDaysOfWeekButtons(Alarm alarm, Context context) {
         final List<Integer> weekdays = SettingsDAO.getWeekdayOrder(mPrefs).getCalendarDays();
+
+        repeatDaysGroup.removeOnButtonCheckedListener(dayCheckedListener);
+
         for (int i = 0; i < weekdays.size(); i++) {
-            final CompoundButton dayButton = dayButtons[i];
-            if (alarm.daysOfWeek.isBitOn(weekdays.get(i))) {
-                dayButton.setChecked(true);
-                dayButton.setTextColor(MaterialColors.getColor(
-                        context, com.google.android.material.R.attr.colorOnSurfaceInverse, Color.BLACK));
+            final MaterialButton dayButton = dayButtons[i];
+            boolean isSelected = alarm.daysOfWeek.isBitOn(weekdays.get(i));
 
-            } else {
-                dayButton.setChecked(false);
-                dayButton.setTextColor(MaterialColors.getColor(
-                        context, com.google.android.material.R.attr.colorSurfaceInverse, Color.BLACK));
-            }
-
+            dayButton.setChecked(isSelected);
             dayButton.setTypeface(mGeneralTypeface);
+
+            updateDaysOfWeekButtonVisuals(dayButton, isSelected, context);
         }
+
+        repeatDaysGroup.addOnButtonCheckedListener(dayCheckedListener);
+    }
+
+    private void updateDaysOfWeekButtonVisuals(MaterialButton dayButton, boolean isSelected, Context context) {
+        final int backgroundColor = isSelected
+                ? MaterialColors.getColor(context, androidx.appcompat.R.attr.colorPrimary, Color.BLACK)
+                : Color.TRANSPARENT;
+
+        final ColorStateList strokeColor = ColorStateList.valueOf(
+                MaterialColors.getColor(context, isSelected
+                        ? androidx.appcompat.R.attr.colorPrimary
+                        : com.google.android.material.R.attr.colorOnSurface, Color.BLACK)
+        );
+
+        final int textColor = MaterialColors.getColor(context, isSelected
+                ? android.R.attr.colorBackground
+                : android.R.attr.textColorPrimary, Color.BLACK);
+
+        dayButton.setBackgroundTintList(ColorStateList.valueOf(backgroundColor));
+        dayButton.setStrokeColor(strokeColor);
+        dayButton.setTextColor(textColor);
     }
 
     private void bindScheduleAlarm() {
@@ -625,8 +652,8 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     }
 
     private void bindDeleteAndDuplicateButtons() {
-        delete.setTypeface(mGeneralBoldTypeface);
-        duplicate.setTypeface(mGeneralBoldTypeface);
+        delete.setTypeface(mGeneralTypeface);
+        duplicate.setTypeface(mGeneralTypeface);
     }
 
     private void bindEditLabelAnnotations(Alarm alarm) {
@@ -694,9 +721,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
                 AnimatorUtils.setBackgroundAlpha(itemView, 255);
-                arrow.setTranslationY(0f);
                 setChangingViewsAlpha(annotationsAlpha);
-                arrow.jumpDrawablesToCurrentState();
                 arrow.setVisibility(isExpanding ? VISIBLE : INVISIBLE);
                 clock.setVisibility(isExpanding ? VISIBLE : INVISIBLE);
                 onOff.setVisibility(isExpanding ? VISIBLE : INVISIBLE);
@@ -725,7 +750,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         final Animator editLabelAnimation = ObjectAnimator.ofFloat(editLabel, View.ALPHA, 0f)
                 .setDuration(shortDuration);
 
-        final Animator repeatDaysAnimation = ObjectAnimator.ofFloat(repeatDays, View.ALPHA, 0f)
+        final Animator repeatDaysGroupAnimation = ObjectAnimator.ofFloat(repeatDaysGroup, View.ALPHA, 0f)
                 .setDuration(shortDuration);
 
         final Animator scheduleAlarmAnimation = ObjectAnimator.ofFloat(scheduleAlarm, View.ALPHA, 0f)
@@ -888,10 +913,10 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
 
         ringtoneAnimation.setStartDelay(startDelay);
 
-        repeatDaysAnimation.setStartDelay(startDelay);
+        repeatDaysGroupAnimation.setStartDelay(startDelay);
 
         final AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.playTogether(backgroundAnimator, boundsAnimator, repeatDaysAnimation,
+        animatorSet.playTogether(backgroundAnimator, boundsAnimator, repeatDaysGroupAnimation,
                 editLabelAnimation, editLabelIconAnimation, flashAnimation,
                 deleteOccasionalAlarmAfterUseAnimation, vibrateAnimation, ringtoneAnimation,
                 deleteAnimation, duplicateAnimation, dismissAnimation, switchAnimator,
@@ -904,7 +929,6 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
                 alarmVolumeValueAnimation, vibrationPatternTitleAnimation, vibrationPatternValueAnimation);
 
         animatorSet.addListener(new AnimatorListenerAdapter() {
-
             @Override
             public void onAnimationStart(Animator animation) {
                 super.onAnimationStart(animation);
@@ -987,7 +1011,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         final Animator removeDateAnimation = ObjectAnimator.ofFloat(removeDate, View.ALPHA, 1f)
                 .setDuration(longDuration);
 
-        final Animator repeatDaysAnimation = ObjectAnimator.ofFloat(repeatDays, View.ALPHA, 1f)
+        final Animator repeatDaysGroupAnimation = ObjectAnimator.ofFloat(repeatDaysGroup, View.ALPHA, 1f)
                 .setDuration(longDuration);
 
         final Animator ringtoneAnimation = ObjectAnimator.ofFloat(ringtone, View.ALPHA, 1f)
@@ -1047,11 +1071,6 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         final Animator duplicateAnimation = ObjectAnimator.ofFloat(duplicate, View.ALPHA, 1f)
                 .setDuration(longDuration);
 
-        final Animator arrowAnimation = ObjectAnimator.ofFloat(arrow, View.TRANSLATION_Y, 0f)
-                .setDuration(duration);
-
-        arrowAnimation.setInterpolator(AnimatorUtils.INTERPOLATOR_FAST_OUT_SLOW_IN);
-
         // Set the stagger delays; delay the first by the amount of time it takes for the collapse
         // to complete, then stagger the expansion with the remaining time.
         long startDelay = (long) (duration * ANIM_STANDARD_DELAY_MULTIPLIER);
@@ -1072,7 +1091,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
 
         editLabelAnimation.setStartDelay(startDelay);
 
-        repeatDaysAnimation.setStartDelay(startDelay);
+        repeatDaysGroupAnimation.setStartDelay(startDelay);
 
         scheduleAlarmAnimation.setStartDelay(startDelay);
 
@@ -1145,24 +1164,21 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         duplicateAnimation.setStartDelay(startDelay);
 
         final AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.playTogether(backgroundAnimator, boundsAnimator, repeatDaysAnimation,
+        animatorSet.playTogether(backgroundAnimator, boundsAnimator, repeatDaysGroupAnimation,
                 editLabelAnimation, editLabelIconAnimation, flashAnimation, vibrateAnimation,
                 deleteOccasionalAlarmAfterUseAnimation, ringtoneAnimation, deleteAnimation,
-                duplicateAnimation, dismissAnimation, arrowAnimation, scheduleAlarmAnimation,
-                selectedDateAnimation, addDateAnimation, removeDateAnimation,
-                snoozeDurationTitleAnimation, snoozeDurationValueAnimation,
-                crescendoDurationTitleAnimation, crescendoDurationValueAnimation,
-                silenceAfterDurationTitleAnimation, silenceAfterDurationValueAnimation,
-                missedAlarmRepeatLimitTitleAnimation, missedAlarmRepeatLimitValueAnimation,
-                alarmVolumeTitleAnimation, alarmVolumeValueAnimation, vibrationPatternTitleAnimation,
-                vibrationPatternValueAnimation);
+                duplicateAnimation, dismissAnimation, scheduleAlarmAnimation, selectedDateAnimation,
+                addDateAnimation, removeDateAnimation, snoozeDurationTitleAnimation,
+                snoozeDurationValueAnimation, crescendoDurationTitleAnimation,
+                crescendoDurationValueAnimation, silenceAfterDurationTitleAnimation,
+                silenceAfterDurationValueAnimation, missedAlarmRepeatLimitTitleAnimation,
+                missedAlarmRepeatLimitValueAnimation, alarmVolumeTitleAnimation,
+                alarmVolumeValueAnimation, vibrationPatternTitleAnimation, vibrationPatternValueAnimation);
 
         animatorSet.addListener(new AnimatorListenerAdapter() {
-
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                AnimatorUtils.startDrawableAnimation(arrow);
                 // Allow text scrolling (all other attributes are indicated in the "alarm_time_expanded.xml" file)
                 ringtone.setSelected(true);
             }

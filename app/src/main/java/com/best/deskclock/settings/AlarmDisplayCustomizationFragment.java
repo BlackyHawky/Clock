@@ -49,16 +49,15 @@ import android.os.Bundle;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.preference.ListPreference;
 import androidx.preference.Preference;
+import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel.ClockStyle;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.settings.custompreference.ColorPickerPreference;
-import com.best.deskclock.settings.custompreference.CustomListPreference;
-import com.best.deskclock.settings.custompreference.CustomPreference;
-import com.best.deskclock.settings.custompreference.CustomSeekbarPreference;
-import com.best.deskclock.settings.custompreference.CustomSwitchPreference;
+import com.best.deskclock.settings.custompreference.CustomSliderPreference;
 import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
@@ -73,14 +72,14 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
     String mMaterialAnalogClock;
     String mDigitalClock;
 
-    CustomListPreference mAlarmClockStylePref;
-    CustomListPreference mAlarmClockDialPref;
-    CustomListPreference mAlarmClockDialMaterialPref;
-    CustomSeekbarPreference mAnalogClockSizePref;
-    CustomListPreference mAlarmClockSecondHandPref;
-    CustomSwitchPreference mDisplaySecondsPref;
-    CustomSwitchPreference mSwipeActionPref;
-    CustomSwitchPreference mDisplaySnoozeSelectorPref;
+    ListPreference mAlarmClockStylePref;
+    ListPreference mAlarmClockDialPref;
+    ListPreference mAlarmClockDialMaterialPref;
+    CustomSliderPreference mAnalogClockSizePref;
+    ListPreference mAlarmClockSecondHandPref;
+    SwitchPreferenceCompat mDisplaySecondsPref;
+    SwitchPreferenceCompat mSwipeActionPref;
+    SwitchPreferenceCompat mDisplaySnoozeSelectorPref;
     ColorPickerPreference mBackgroundColorPref;
     ColorPickerPreference mBackgroundAmoledColorPref;
     ColorPickerPreference mAlarmClockColorPref;
@@ -97,16 +96,16 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
     ColorPickerPreference mSnoozeSelectorTextColorPref;
     ColorPickerPreference mSnoozeMinusSymbolColorPref;
     ColorPickerPreference mSnoozePlusSymbolColorPref;
-    CustomSeekbarPreference mAlarmDigitalClockFontSizePref;
-    CustomSwitchPreference mDisplayTextShadowPref;
+    CustomSliderPreference mAlarmDigitalClockFontSizePref;
+    SwitchPreferenceCompat mDisplayTextShadowPref;
     ColorPickerPreference mShadowColorPref;
-    CustomSeekbarPreference mShadowOffsetPref;
-    CustomSwitchPreference mDisplayRingtoneTitlePref;
+    CustomSliderPreference mShadowOffsetPref;
+    SwitchPreferenceCompat mDisplayRingtoneTitlePref;
     ColorPickerPreference mRingtoneTitleColorPref;
-    CustomPreference mAlarmBackgroundImagePref;
-    CustomSwitchPreference mEnableAlarmBlurEffectPref;
-    CustomSeekbarPreference mAlarmBlurIntensityPref;
-    CustomPreference mAlarmPreviewPref;
+    Preference mAlarmBackgroundImagePref;
+    SwitchPreferenceCompat mEnableAlarmBlurEffectPref;
+    CustomSliderPreference mAlarmBlurIntensityPref;
+    Preference mAlarmPreviewPref;
 
     private final ActivityResultLauncher<Intent> imagePickerLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -227,7 +226,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
             }
 
             case KEY_ALARM_CLOCK_DIAL, KEY_ALARM_CLOCK_DIAL_MATERIAL, KEY_ALARM_CLOCK_SECOND_HAND -> {
-                final CustomListPreference preference = (CustomListPreference) pref;
+                final ListPreference preference = (ListPreference) pref;
                 final int index = preference.findIndexOfValue((String) newValue);
                 preference.setSummary(preference.getEntries()[index]);
             }

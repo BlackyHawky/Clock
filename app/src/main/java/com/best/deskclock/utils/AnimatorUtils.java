@@ -13,13 +13,11 @@ import android.animation.PropertyValuesHolder;
 import android.animation.TypeEvaluator;
 import android.animation.ValueAnimator;
 import android.graphics.Rect;
-import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.util.Property;
 import android.view.View;
 import android.view.animation.Interpolator;
-import android.widget.ImageView;
 
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 
@@ -173,10 +171,4 @@ public class AnimatorUtils {
                 PropertyValuesHolder.ofInt(VIEW_BOTTOM, toBottom));
     }
 
-    public static void startDrawableAnimation(ImageView view) {
-        final Drawable d = view.getDrawable();
-        if (d instanceof Animatable) {
-            ((Animatable) d).start();
-        }
-    }
 }

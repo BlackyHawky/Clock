@@ -26,17 +26,16 @@ import android.provider.Settings;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.preference.ListPreference;
 import androidx.preference.Preference;
+import androidx.preference.PreferenceCategory;
+import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.TimeZones;
-import com.best.deskclock.settings.custompreference.CustomListPreference;
-import com.best.deskclock.settings.custompreference.CustomPreference;
-import com.best.deskclock.settings.custompreference.CustomPreferenceCategory;
-import com.best.deskclock.settings.custompreference.CustomSeekbarPreference;
-import com.best.deskclock.settings.custompreference.CustomSwitchPreference;
+import com.best.deskclock.settings.custompreference.CustomSliderPreference;
 import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.utils.Utils;
 
@@ -48,19 +47,19 @@ public class ClockSettingsFragment extends ScreenFragment
     String mMaterialAnalogClock;
     String mDigitalClock;
 
-    CustomListPreference mClockStylePref;
-    CustomListPreference mClockDialPref;
-    CustomListPreference mClockDialMaterialPref;
-    CustomSeekbarPreference mAnalogClockSizePref;
-    CustomSwitchPreference mDisplayClockSecondsPref;
-    CustomListPreference mClockSecondHandPref;
-    CustomPreference mDigitalClockFontPref;
-    CustomPreferenceCategory mFontCategory;
-    CustomListPreference mSortCitiesPref;
-    CustomSwitchPreference mEnableCityNotePref;
-    CustomSwitchPreference mAutoHomeClockPref;
-    CustomListPreference mHomeTimeZonePref;
-    CustomPreference mDateTimePref;
+    ListPreference mClockStylePref;
+    ListPreference mClockDialPref;
+    ListPreference mClockDialMaterialPref;
+    CustomSliderPreference mAnalogClockSizePref;
+    SwitchPreferenceCompat mDisplayClockSecondsPref;
+    ListPreference mClockSecondHandPref;
+    Preference mDigitalClockFontPref;
+    PreferenceCategory mFontCategory;
+    ListPreference mSortCitiesPref;
+    SwitchPreferenceCompat mEnableCityNotePref;
+    SwitchPreferenceCompat mAutoHomeClockPref;
+    ListPreference mHomeTimeZonePref;
+    Preference mDateTimePref;
 
     private final ActivityResultLauncher<Intent> fontPickerLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -153,7 +152,7 @@ public class ClockSettingsFragment extends ScreenFragment
 
             case KEY_CLOCK_DIAL, KEY_CLOCK_DIAL_MATERIAL, KEY_CLOCK_SECOND_HAND, KEY_HOME_TIME_ZONE,
                  KEY_SORT_CITIES -> {
-                final CustomListPreference preference = (CustomListPreference) pref;
+                final ListPreference preference = (ListPreference) pref;
                 final int index = preference.findIndexOfValue((String) newValue);
                 preference.setSummary(preference.getEntries()[index]);
             }

@@ -25,12 +25,12 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.preference.Preference;
+import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.settings.custompreference.ColorPickerPreference;
-import com.best.deskclock.settings.custompreference.CustomSeekbarPreference;
-import com.best.deskclock.settings.custompreference.CustomSwitchPreference;
+import com.best.deskclock.settings.custompreference.CustomSliderPreference;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
 import com.best.deskclock.widgets.standardwidgets.NextAlarmAppWidgetProvider;
@@ -40,18 +40,18 @@ public class NextAlarmWidgetSettingsFragment extends ScreenFragment
 
     private int mAppWidgetId = INVALID_APPWIDGET_ID;
 
-    CustomSwitchPreference mDisplayTextUppercasePref;
-    CustomSwitchPreference mDisplayTextShadowPref;
-    CustomSwitchPreference mShowBackgroundOnNextAlarmWidgetPref;
-    CustomSwitchPreference mCustomizeBackgroundCornerRadiusPref;
-    CustomSeekbarPreference mBackgroundCornerRadiusPref;
-    CustomSwitchPreference mApplyHorizontalPaddingPref;
+    SwitchPreferenceCompat mDisplayTextUppercasePref;
+    SwitchPreferenceCompat mDisplayTextShadowPref;
+    SwitchPreferenceCompat mShowBackgroundOnNextAlarmWidgetPref;
+    SwitchPreferenceCompat mCustomizeBackgroundCornerRadiusPref;
+    CustomSliderPreference mBackgroundCornerRadiusPref;
+    SwitchPreferenceCompat mApplyHorizontalPaddingPref;
     ColorPickerPreference mBackgroundColorPref;
-    CustomSwitchPreference mDefaultTitleColorPref;
+    SwitchPreferenceCompat mDefaultTitleColorPref;
     ColorPickerPreference mCustomTitleColorPref;
-    CustomSwitchPreference mDefaultAlarmTitleColorPref;
+    SwitchPreferenceCompat mDefaultAlarmTitleColorPref;
     ColorPickerPreference mCustomAlarmTitleColorPref;
-    CustomSwitchPreference mDefaultAlarmColorPref;
+    SwitchPreferenceCompat mDefaultAlarmColorPref;
     ColorPickerPreference mCustomAlarmColorPref;
 
     @Override

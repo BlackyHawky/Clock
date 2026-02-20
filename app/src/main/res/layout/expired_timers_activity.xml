@@ -49,6 +49,7 @@
             android:id="@+id/expired_timers_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingVertical="10dp"
             android:clipToPadding="false"
             android:orientation="vertical" />
 

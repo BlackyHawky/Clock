@@ -166,6 +166,7 @@ public final class CitySelectionActivity extends BaseActivity {
                 R.layout.city_list_header_main_title, mCitiesList, false);
         TextView headerMainTitleText = headerMainTitleView.findViewById(R.id.city_list_header_main_title);
         headerMainTitleText.setTypeface(typeface);
+        headerMainTitleText.setOnClickListener(null);
 
         mCitiesList.addHeaderView(headerMainTitleView);
 

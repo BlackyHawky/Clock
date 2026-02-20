@@ -5,28 +5,24 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/pref_card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="80dp"
     android:layout_marginHorizontal="10dp"
-    android:layout_marginVertical="4dp"
-    app:cardCornerRadius="18dp"
-    app:strokeWidth="0dp"
-    app:strokeColor="?attr/colorPrimary">
+    android:layout_marginBottom="2dp"
+    android:background="@android:color/transparent">
 
     <LinearLayout
+        android:id="@+id/pref_card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
+        android:minHeight="?android:attr/listPreferredItemHeightLarge"
         android:gravity="center_vertical"
         android:paddingStart="?android:attr/listPreferredItemPaddingStart"
         android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
-        android:baselineAligned="false">
+        android:baselineAligned="false"
+        tools:background="@drawable/bg_card_for_preview">
 
         <include layout="@layout/settings_preference_image_frame" />
 
@@ -45,7 +41,6 @@
                 android:textSize="16sp"
                 android:fontFamily="sans-serif-medium"
                 android:ellipsize="marquee"
-                android:fadingEdge="horizontal"
                 tools:text="Preference title" />
 
             <TextView
@@ -72,4 +67,4 @@
 
     </LinearLayout>
 
-</com.google.android.material.card.MaterialCardView>
+</FrameLayout>

@@ -4,116 +4,113 @@
 -->
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.best.deskclock.settings.custompreference.CustomPreferenceCategory
+    <PreferenceCategory
         android:title="@string/style_category_title"
         app:allowDividerAbove="false"
-        app:iconSpaceReserved="false"
-        tools:layout="@layout/settings_preference_category_layout">
+        app:iconSpaceReserved="false">
 
-        <com.best.deskclock.settings.custompreference.CustomListPreference
+        <ListPreference
             android:key="key_analog_widget_clock_dial"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/clock_dial_title"
             android:entries="@array/analog_widget_clock_dial_entries"
             android:entryValues="@array/analog_widget_clock_dial_values"
             android:defaultValue="default"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
-        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
+        <SwitchPreferenceCompat
             android:key="key_analog_widget_with_second_hand"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/display_clock_seconds_pref"
             android:defaultValue="false"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
-        <com.best.deskclock.settings.custompreference.CustomListPreference
+        <ListPreference
             android:key="key_analog_widget_clock_second_hand"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/clock_second_hand_title"
             android:entries="@array/clock_second_hand_entries"
             android:entryValues="@array/clock_second_hand_values"
             android:defaultValue="default"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
-    </com.best.deskclock.settings.custompreference.CustomPreferenceCategory>
+    </PreferenceCategory>
 
-    <com.best.deskclock.settings.custompreference.CustomPreferenceCategory
+    <PreferenceCategory
         android:key="key_widget_color_category"
         android:title="@string/colors_category_title"
         app:allowDividerAbove="false"
-        app:iconSpaceReserved="false"
-        tools:layout="@layout/settings_preference_category_layout">
+        app:iconSpaceReserved="false">
 
-        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
+        <SwitchPreferenceCompat
             android:key="key_analog_widget_default_dial_color"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/dial_default_color_title"
             android:defaultValue="true"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
         <com.best.deskclock.settings.custompreference.ColorPickerPreference
             android:key="key_analog_widget_custom_dial_color"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/dial_color_title"
             android:defaultValue="#FFFFFF"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
-        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
+        <SwitchPreferenceCompat
             android:key="key_analog_widget_default_hour_hand_color"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/hour_hand_default_color_title"
             android:defaultValue="true"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
         <com.best.deskclock.settings.custompreference.ColorPickerPreference
             android:key="key_analog_widget_custom_hour_hand_color"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/hour_hand_color_title"
             android:defaultValue="#FFFFFF"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
-        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
+        <SwitchPreferenceCompat
             android:key="key_analog_widget_default_minute_hand_color"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/minute_hand_default_color_title"
             android:defaultValue="true"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
         <com.best.deskclock.settings.custompreference.ColorPickerPreference
             android:key="key_analog_widget_custom_minute_hand_color"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/minute_hand_color_title"
             android:defaultValue="#FFFFFF"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
-        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
+        <SwitchPreferenceCompat
             android:key="key_analog_widget_default_second_hand_color"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/second_hand_default_color_title"
             android:defaultValue="true"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
         <com.best.deskclock.settings.custompreference.ColorPickerPreference
             android:key="key_analog_widget_custom_second_hand_color"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/second_hand_color_title"
             android:defaultValue="#FFFFFF"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
-    </com.best.deskclock.settings.custompreference.CustomPreferenceCategory>
+    </PreferenceCategory>
 
 </PreferenceScreen>

@@ -12,8 +12,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginVertical="4dp"
-    android:layout_marginHorizontal="10dp"
     android:paddingBottom="5dp"
     tools:background="@drawable/bg_card_for_preview"
     tools:layout_width="400dp">

@@ -70,7 +70,6 @@ import android.widget.ImageView;
 
 import androidx.annotation.StringRes;
 import androidx.appcompat.content.res.AppCompatResources;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
@@ -110,6 +109,7 @@ import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
 import com.best.deskclock.widgets.materialyouwidgets.MaterialYouNextAlarmAppWidgetProvider;
 import com.best.deskclock.widgets.standardwidgets.NextAlarmAppWidgetProvider;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -133,9 +133,7 @@ public class DeskClock extends BaseActivity
 
     SharedPreferences mPrefs;
     Typeface mRegularTypeface;
-    Typeface mBoldTypeface;
-
-
+    String mFontPath;
 
     /**
      * Shrinks the {@link #mFab}, {@link #mLeftButton} and {@link #mRightButton} to nothing.
@@ -215,7 +213,7 @@ public class DeskClock extends BaseActivity
     /**
      * The Toolbar to display the title of the different tabs.
      */
-    private Toolbar mToolbar;
+    private MaterialToolbar mToolbar;
 
     /**
      * The ViewPager that pages through the fragments representing the content of the tabs.
@@ -289,14 +287,14 @@ public class DeskClock extends BaseActivity
         super.onCreate(savedInstanceState);
 
         mPrefs = getDefaultSharedPreferences(this);
-        String fontPath = SettingsDAO.getGeneralFont(mPrefs);
-        mRegularTypeface = ThemeUtils.loadFont(fontPath);
-        mBoldTypeface = ThemeUtils.boldTypeface(fontPath);
-        final DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
 
         if (isFirstLaunch()) {
             return;
         }
+
+        mFontPath = SettingsDAO.getGeneralFont(mPrefs);
+        mRegularTypeface = ThemeUtils.loadFont(mFontPath);
+        final DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
 
         // To manually manage insets
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
@@ -407,58 +405,7 @@ public class DeskClock extends BaseActivity
         mFragmentTabPager.addOnPageChangeListener(new PageChangeWatcher());
         mFragmentTabPager.setAdapter(mFragmentTabPagerAdapter);
 
-        // Mirror changes made to the selected tab into UiDataModel.
-        final int primaryColor = MaterialColors.getColor(
-                this, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
-        final int surfaceColor = MaterialColors.getColor(
-                this, com.google.android.material.R.attr.colorSurface, Color.BLACK);
-        final int onBackgroundColor = MaterialColors.getColor(
-                this, com.google.android.material.R.attr.colorOnBackground, Color.BLACK);
-
-        mBottomNavigation = findViewById(R.id.bottom_view);
-        mBottomNavigation.setOnItemSelectedListener(mNavigationListener);
-        mBottomNavigation.setItemActiveIndicatorEnabled(SettingsDAO.isTabIndicatorDisplayed(mPrefs));
-
-        String tabTitleVisibility = SettingsDAO.getTabTitleVisibility(mPrefs);
-        if (tabTitleVisibility.equals(DEFAULT_TAB_TITLE_VISIBILITY)) {
-            mBottomNavigation.setLabelVisibilityMode(NavigationBarView.LABEL_VISIBILITY_LABELED);
-        } else if (tabTitleVisibility.equals(TAB_TITLE_VISIBILITY_NEVER)) {
-            mBottomNavigation.setLabelVisibilityMode(NavigationBarView.LABEL_VISIBILITY_UNLABELED);
-        } else {
-            mBottomNavigation.setLabelVisibilityMode(NavigationBarView.LABEL_VISIBILITY_SELECTED);
-        }
-
-        if (!tabTitleVisibility.equals(TAB_TITLE_VISIBILITY_NEVER) && fontPath != null) {
-            // Apply the correct typeface (bold or regular) to the currently selected item
-            updateBottomNavTypeface();
-            // Update the typeface every time the user selects a new item
-            // The post() call ensures the view hierarchy is fully updated before applying fonts
-            mBottomNavigation.setOnItemSelectedListener(item -> {
-                mBottomNavigation.post(this::updateBottomNavTypeface);
-                return mNavigationListener.onNavigationItemSelected(item);
-            });
-        }
-
-        mBottomNavigation.setItemIconTintList(new ColorStateList(
-                new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
-                new int[]{primaryColor, primaryColor, onBackgroundColor}));
-
-        if (ThemeUtils.isNight(getResources()) && SettingsDAO.getDarkMode(mPrefs).equals(AMOLED_DARK_MODE)) {
-            mBottomNavigation.setBackgroundColor(Color.BLACK);
-            mBottomNavigation.setItemTextColor(new ColorStateList(
-                    new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
-                    new int[]{primaryColor, primaryColor, Color.WHITE}));
-        } else {
-            final boolean isCardBackgroundDisplayed = SettingsDAO.isCardBackgroundDisplayed(mPrefs);
-            if (isCardBackgroundDisplayed) {
-                mBottomNavigation.setBackgroundColor(surfaceColor);
-            } else {
-                mBottomNavigation.setBackgroundColor(Color.TRANSPARENT);
-            }
-            mBottomNavigation.setItemTextColor(new ColorStateList(
-                    new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
-                    new int[]{primaryColor, primaryColor, onBackgroundColor}));
-        }
+        configureBottomNavigationView();
 
         applyBottomNavTooltips();
 
@@ -846,7 +793,71 @@ public class DeskClock extends BaseActivity
     }
 
     /**
-     * Updates the typeface of each item in the BottomNavigationView.
+     * Configures the {@link BottomNavigationView}, such as the icon color, text color,
+     * text visibility, font update, etc.
+     */
+    private void configureBottomNavigationView() {
+        mBottomNavigation = findViewById(R.id.bottom_view);
+
+        final int primaryColor = MaterialColors.getColor(
+                this, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
+        final int surfaceColor = MaterialColors.getColor(
+                this, com.google.android.material.R.attr.colorSurface, Color.BLACK);
+        final int onBackgroundColor = MaterialColors.getColor(
+                this, com.google.android.material.R.attr.colorOnBackground, Color.BLACK);
+
+        String tabTitleVisibility = SettingsDAO.getTabTitleVisibility(mPrefs);
+        final boolean shouldUpdateTypeface =
+                !tabTitleVisibility.equals(TAB_TITLE_VISIBILITY_NEVER) && mFontPath != null;
+
+        if (shouldUpdateTypeface) {
+            updateBottomNavTypeface();
+        }
+
+        mBottomNavigation.setOnItemSelectedListener(item -> {
+            if (shouldUpdateTypeface) {
+                mBottomNavigation.post(this::updateBottomNavTypeface);
+            }
+
+            return mNavigationListener.onNavigationItemSelected(item);
+        });
+
+        mBottomNavigation.setItemActiveIndicatorEnabled(SettingsDAO.isTabIndicatorDisplayed(mPrefs));
+
+        if (tabTitleVisibility.equals(DEFAULT_TAB_TITLE_VISIBILITY)) {
+            mBottomNavigation.setLabelVisibilityMode(NavigationBarView.LABEL_VISIBILITY_LABELED);
+        } else if (tabTitleVisibility.equals(TAB_TITLE_VISIBILITY_NEVER)) {
+            mBottomNavigation.setLabelVisibilityMode(NavigationBarView.LABEL_VISIBILITY_UNLABELED);
+        } else {
+            mBottomNavigation.setLabelVisibilityMode(NavigationBarView.LABEL_VISIBILITY_SELECTED);
+        }
+
+        mBottomNavigation.setItemIconTintList(new ColorStateList(
+                new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
+                new int[]{primaryColor, primaryColor, onBackgroundColor}));
+
+        if (ThemeUtils.isNight(getResources()) && SettingsDAO.getDarkMode(mPrefs).equals(AMOLED_DARK_MODE)) {
+            mBottomNavigation.setBackgroundColor(Color.BLACK);
+            mBottomNavigation.setItemTextColor(new ColorStateList(
+                    new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
+                    new int[]{primaryColor, primaryColor, Color.WHITE}));
+        } else {
+            final boolean isCardBackgroundDisplayed = SettingsDAO.isCardBackgroundDisplayed(mPrefs);
+
+            if (isCardBackgroundDisplayed) {
+                mBottomNavigation.setBackgroundColor(surfaceColor);
+            } else {
+                mBottomNavigation.setBackgroundColor(Color.TRANSPARENT);
+            }
+
+            mBottomNavigation.setItemTextColor(new ColorStateList(
+                    new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
+                    new int[]{primaryColor, primaryColor, onBackgroundColor}));
+        }
+    }
+
+    /**
+     * Updates the typeface of each item in the {@link BottomNavigationView}.
      *
      * <p>The selected item receives the bold typeface, while all other items
      * receive the regular typeface. TextView lookup is cached for performance.</p>
@@ -857,9 +868,8 @@ public class DeskClock extends BaseActivity
 
         for (int i = 0; i < menuView.getChildCount(); i++) {
             View itemView = menuView.getChildAt(i);
-            boolean isSelected = itemView.isSelected();
 
-            ThemeUtils.applyTypeface(itemView, isSelected ? mBoldTypeface : mRegularTypeface);
+            ThemeUtils.applyTypeface(itemView, mRegularTypeface);
         }
     }
 

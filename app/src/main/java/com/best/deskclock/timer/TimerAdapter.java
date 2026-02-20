@@ -339,6 +339,12 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
             // Save the list of timers once the user interaction is complete.
             mAdapter.saveTimerList();
+
+            recyclerView.post(() -> {
+                // Notifies the adapter that all items may have changed positions,
+                // which will force the system to call onBind() for each visible timer.
+                mAdapter.notifyItemRangeChanged(0, mAdapter.getItemCount());
+            });
         }
     }
 

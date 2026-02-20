@@ -36,14 +36,6 @@ public class SdkUtils {
     }
 
     /**
-     * @return {@code true} if the API version is before 26 (Oreo).
-     * {@code false} otherwise.
-     */
-    public static boolean isBeforeAndroid8() {
-        return !isAtLeastAndroid8();
-    }
-
-    /**
      * @return {@code true} if the API version is greater than or equal to 26 (Oreo).
      * {@code false} otherwise.
      */

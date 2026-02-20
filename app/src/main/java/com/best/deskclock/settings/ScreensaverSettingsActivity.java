@@ -42,7 +42,9 @@ import android.provider.Settings;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.preference.ListPreference;
 import androidx.preference.Preference;
+import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
@@ -50,10 +52,7 @@ import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.screensaver.ScreensaverActivity;
 import com.best.deskclock.settings.custompreference.ColorPickerPreference;
-import com.best.deskclock.settings.custompreference.CustomListPreference;
-import com.best.deskclock.settings.custompreference.CustomPreference;
-import com.best.deskclock.settings.custompreference.CustomSeekbarPreference;
-import com.best.deskclock.settings.custompreference.CustomSwitchPreference;
+import com.best.deskclock.settings.custompreference.CustomSliderPreference;
 import com.best.deskclock.uicomponents.CollapsingToolbarBaseActivity;
 import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.utils.SdkUtils;
@@ -89,29 +88,29 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
         ColorPickerPreference mBatteryColorPref;
         ColorPickerPreference mDateColorPref;
         ColorPickerPreference mNextAlarmColorPref;
-        CustomListPreference mClockStylePref;
-        CustomListPreference mClockDialPref;
-        CustomListPreference mClockDialMaterialPref;
-        CustomListPreference mClockSecondHandPref;
-        CustomSwitchPreference mDisplaySecondsPref;
-        CustomSwitchPreference mDisplayBatteryPref;
-        CustomSeekbarPreference mDigitalClockFontSizePref;
-        CustomSwitchPreference mBoldDigitalClockPref;
-        CustomSwitchPreference mClockDynamicColorPref;
-        CustomSwitchPreference mItalicDigitalClockPref;
-        CustomSwitchPreference mBoldBatteryPref;
-        CustomSwitchPreference mItalicBatteryPref;
-        CustomSwitchPreference mBoldDatePref;
-        CustomSwitchPreference mItalicDatePref;
-        CustomSwitchPreference mBoldNextAlarmPref;
-        CustomSwitchPreference mItalicNextAlarmPref;
-        CustomSeekbarPreference mAnalogClockSizePref;
-        CustomPreference mDigitalClockFontPref;
-        CustomPreference mScreensaverBackgroundImagePref;
-        CustomSwitchPreference mEnableScreensaverBlurEffectPref;
-        CustomSeekbarPreference mScreensaverBlurIntensityPref;
-        CustomPreference mScreensaverPreview;
-        CustomPreference mScreensaverMainSettings;
+        ListPreference mClockStylePref;
+        ListPreference mClockDialPref;
+        ListPreference mClockDialMaterialPref;
+        ListPreference mClockSecondHandPref;
+        SwitchPreferenceCompat mDisplaySecondsPref;
+        SwitchPreferenceCompat mDisplayBatteryPref;
+        CustomSliderPreference mDigitalClockFontSizePref;
+        SwitchPreferenceCompat mBoldDigitalClockPref;
+        SwitchPreferenceCompat mClockDynamicColorPref;
+        SwitchPreferenceCompat mItalicDigitalClockPref;
+        SwitchPreferenceCompat mBoldBatteryPref;
+        SwitchPreferenceCompat mItalicBatteryPref;
+        SwitchPreferenceCompat mBoldDatePref;
+        SwitchPreferenceCompat mItalicDatePref;
+        SwitchPreferenceCompat mBoldNextAlarmPref;
+        SwitchPreferenceCompat mItalicNextAlarmPref;
+        CustomSliderPreference mAnalogClockSizePref;
+        Preference mDigitalClockFontPref;
+        Preference mScreensaverBackgroundImagePref;
+        SwitchPreferenceCompat mEnableScreensaverBlurEffectPref;
+        CustomSliderPreference mScreensaverBlurIntensityPref;
+        Preference mScreensaverPreview;
+        Preference mScreensaverMainSettings;
 
         String[] mClockStyleValues;
         String mAnalogClock;
@@ -290,7 +289,7 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
 
                 case KEY_SCREENSAVER_CLOCK_DIAL, KEY_SCREENSAVER_CLOCK_DIAL_MATERIAL,
                      KEY_SCREENSAVER_CLOCK_SECOND_HAND -> {
-                    final CustomListPreference preference = (CustomListPreference) pref;
+                    final ListPreference preference = (ListPreference) pref;
                     final int index = preference.findIndexOfValue((String) newValue);
                     preference.setSummary(preference.getEntries()[index]);
                 }

@@ -8,9 +8,7 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM
 import android.content.Context;
 import android.util.AttributeSet;
 
-import androidx.annotation.NonNull;
 import androidx.preference.DialogPreference;
-import androidx.preference.PreferenceViewHolder;
 
 import com.best.deskclock.R;
 
@@ -32,14 +30,7 @@ public class AlarmSnoozeDurationPreference extends DialogPreference {
      */
     public AlarmSnoozeDurationPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setLayoutResource(R.layout.settings_preference_layout);
         setPersistent(true);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
-        PreferenceStyler.apply(holder);
-        super.onBindViewHolder(holder);
     }
 
     @Override

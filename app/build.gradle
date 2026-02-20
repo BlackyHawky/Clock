@@ -3,12 +3,12 @@ plugins {
 }
 
 android {
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.best.deskclock"
         minSdk = 23
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 2031
         versionName = '2.29'
         ndk {
@@ -35,7 +35,7 @@ android {
         }
     }
 
-    def commitNumber = 11
+    def commitNumber = 12
 
     def buildCommit = providers.exec {
         commandLine('git', 'rev-parse', '--short=7', 'HEAD')
@@ -113,10 +113,10 @@ android {
 
 dependencies {
     implementation 'androidx.documentfile:documentfile:1.1.0'
-    implementation 'androidx.media3:media3-exoplayer:1.9.0'
-    implementation 'androidx.media3:media3-common:1.9.0'
+    implementation 'androidx.media3:media3-exoplayer:1.9.2'
+    implementation 'androidx.media3:media3-common:1.9.2'
     implementation 'androidx.preference:preference:1.2.1'
     implementation 'androidx.recyclerview:recyclerview:1.4.0'
-    implementation 'com.google.android.material:material:1.13.0'
+    implementation 'com.google.android.material:material:1.14.0-alpha09'
     implementation 'com.github.martin-stone:hsv-alpha-color-picker-android:3.1.0'
 }

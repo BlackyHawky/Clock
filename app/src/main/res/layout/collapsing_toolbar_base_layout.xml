@@ -25,15 +25,15 @@
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/collapsingToolbarLayoutLargeSize"
+            android:layout_height="?attr/collapsingToolbarLayoutMediumSize"
             android:clipToPadding="false"
             app:statusBarScrim="@null"
             app:contentScrim="?android:attr/colorBackground"
             app:scrimAnimationDuration="?attr/motionDurationMedium2"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
             app:titleCollapseMode="scale"
-            app:collapsedTitleTextAppearance="@style/CollapsingToolbarTitle.Collapsed"
-            app:expandedTitleTextAppearance="@style/CollapsingToolbarTitle.Expanded"
+            app:collapsedTitleTextAppearance="?attr/textAppearanceTitleLarge"
+            app:expandedTitleTextAppearance="?attr/textAppearanceHeadlineMedium"
             app:expandedTitleMarginStart="24dp"
             app:expandedTitleMarginEnd="24dp"
             app:toolbarId="@id/action_bar">

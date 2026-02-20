@@ -13,6 +13,6 @@
     android:gravity="start"
     android:padding="16dp"
     android:textAlignment="viewStart"
-    android:textSize="18sp"
     android:textColor="?attr/colorAccent"
+    android:textAppearance="?attr/textAppearanceTitleLarge"
     tools:text="Device sounds" />

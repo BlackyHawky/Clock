@@ -5,7 +5,7 @@
 
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Theme.DeskClock" parent="Theme.Material3.Dark.NoActionBar">
+    <style name="Theme.DeskClock" parent="Theme.Material3Expressive.Dark.NoActionBar">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
@@ -64,8 +64,6 @@
         <item name="alertDialogTheme">@style/AppAlertDialogTheme</item>
         <item name="materialAlertDialogTheme">@style/AppAlertDialogTheme</item>
 
-        <item name="switchPreferenceCompatStyle">@style/AppSwitchPreference</item>
-
         <item name="snackbarStyle">@style/SnackBarStyle</item>
 
         <item name="elevationOverlayEnabled">false</item>
@@ -95,6 +93,7 @@
         <item name="colorPrimaryContainer">@color/blackColorGray3</item>
         <item name="colorPrimaryInverse">@color/blackColorGray1</item>
         <item name="colorOnPrimary">@color/blackColorBackground</item>
+        <item name="colorOnPrimaryContainer">@color/blackColorInverseSurface</item>
         <item name="colorSecondaryContainer">@color/blackColorGray1</item>
         <item name="colorSurface">@color/blackColorGray2</item>
         <item name="colorSurfaceContainerHighest">@color/blackColorGray1</item>
@@ -115,6 +114,7 @@
         <item name="colorPrimaryContainer">@color/bluePrimaryContainer</item>
         <item name="colorPrimaryInverse">@color/bluePrimaryInverse</item>
         <item name="colorOnPrimary">@color/blueOnPrimary</item>
+        <item name="colorOnPrimaryContainer">@color/blueOnPrimaryContainer</item>
         <item name="colorSecondaryContainer">@color/blueSecondaryContainer</item>
         <item name="colorSurface">@color/blueColorSurface</item>
         <item name="colorSurfaceInverse">@color/blueColorInverseSurface</item>
@@ -132,6 +132,7 @@
         <item name="colorPrimaryContainer">@color/blueGrayPrimaryContainer</item>
         <item name="colorPrimaryInverse">@color/blueGrayPrimaryInverse</item>
         <item name="colorOnPrimary">@color/blueGrayOnPrimary</item>
+        <item name="colorOnPrimaryContainer">@color/blueGrayOnPrimaryContainer</item>
         <item name="colorSecondaryContainer">@color/blueGraySecondaryContainer</item>
         <item name="colorSurface">@color/blueGrayColorSurface</item>
         <item name="colorSurfaceInverse">@color/blueGrayColorInverseSurface</item>
@@ -149,6 +150,7 @@
         <item name="colorPrimaryContainer">@color/brownPrimaryContainer</item>
         <item name="colorPrimaryInverse">@color/brownPrimaryInverse</item>
         <item name="colorOnPrimary">@color/brownOnPrimary</item>
+        <item name="colorOnPrimaryContainer">@color/brownOnPrimaryContainer</item>
         <item name="colorSecondaryContainer">@color/brownSecondaryContainer</item>
         <item name="colorSurface">@color/brownColorSurface</item>
         <item name="colorSurfaceInverse">@color/brownColorInverseSurface</item>
@@ -166,6 +168,7 @@
         <item name="colorPrimaryContainer">@color/greenPrimaryContainer</item>
         <item name="colorPrimaryInverse">@color/greenPrimaryInverse</item>
         <item name="colorOnPrimary">@color/greenOnPrimary</item>
+        <item name="colorOnPrimaryContainer">@color/greenOnPrimaryContainer</item>
         <item name="colorSecondaryContainer">@color/greenSecondaryContainer</item>
         <item name="colorSurface">@color/greenColorSurface</item>
         <item name="colorSurfaceInverse">@color/greenColorInverseSurface</item>
@@ -183,6 +186,7 @@
         <item name="colorPrimaryContainer">@color/indigoPrimaryContainer</item>
         <item name="colorPrimaryInverse">@color/indigoPrimaryInverse</item>
         <item name="colorOnPrimary">@color/indigoOnPrimary</item>
+        <item name="colorOnPrimaryContainer">@color/indigoOnPrimaryContainer</item>
         <item name="colorSecondaryContainer">@color/indigoSecondaryContainer</item>
         <item name="colorSurface">@color/indigoColorSurface</item>
         <item name="colorSurfaceInverse">@color/indigoColorInverseSurface</item>
@@ -200,6 +204,7 @@
         <item name="colorPrimaryContainer">@color/orangePrimaryContainer</item>
         <item name="colorPrimaryInverse">@color/orangePrimaryInverse</item>
         <item name="colorOnPrimary">@color/orangeOnPrimary</item>
+        <item name="colorOnPrimaryContainer">@color/orangeOnPrimaryContainer</item>
         <item name="colorSecondaryContainer">@color/orangeSecondaryContainer</item>
         <item name="colorSurface">@color/orangeColorSurface</item>
         <item name="colorSurfaceInverse">@color/orangeColorInverseSurface</item>
@@ -217,6 +222,7 @@
         <item name="colorPrimaryContainer">@color/pinkPrimaryContainer</item>
         <item name="colorPrimaryInverse">@color/pinkPrimaryInverse</item>
         <item name="colorOnPrimary">@color/pinkOnPrimary</item>
+        <item name="colorOnPrimaryContainer">@color/pinkOnPrimaryContainer</item>
         <item name="colorSecondaryContainer">@color/pinkSecondaryContainer</item>
         <item name="colorSurface">@color/pinkColorSurface</item>
         <item name="colorSurfaceInverse">@color/pinkColorInverseSurface</item>
@@ -234,6 +240,7 @@
         <item name="colorPrimaryContainer">@color/purplePrimaryContainer</item>
         <item name="colorPrimaryInverse">@color/purplePrimaryInverse</item>
         <item name="colorOnPrimary">@color/purpleOnPrimary</item>
+        <item name="colorOnPrimaryContainer">@color/purpleOnPrimaryContainer</item>
         <item name="colorSecondaryContainer">@color/purpleSecondaryContainer</item>
         <item name="colorSurface">@color/purpleColorSurface</item>
         <item name="colorSurfaceInverse">@color/purpleColorInverseSurface</item>
@@ -251,6 +258,7 @@
         <item name="colorPrimaryContainer">@color/redPrimaryContainer</item>
         <item name="colorPrimaryInverse">@color/redPrimaryInverse</item>
         <item name="colorOnPrimary">@color/redOnPrimary</item>
+        <item name="colorOnPrimaryContainer">@color/redOnPrimaryContainer</item>
         <item name="colorSecondaryContainer">@color/redSecondaryContainer</item>
         <item name="colorSurface">@color/redColorSurface</item>
         <item name="colorSurfaceInverse">@color/redColorInverseSurface</item>
@@ -268,6 +276,7 @@
         <item name="colorPrimaryContainer">@color/yellowPrimaryContainer</item>
         <item name="colorPrimaryInverse">@color/yellowPrimaryInverse</item>
         <item name="colorOnPrimary">@color/yellowOnPrimary</item>
+        <item name="colorOnPrimaryContainer">@color/yellowOnPrimaryContainer</item>
         <item name="colorSecondaryContainer">@color/yellowSecondaryContainer</item>
         <item name="colorSurface">@color/yellowColorSurface</item>
         <item name="colorSurfaceInverse">@color/yellowColorInverseSurface</item>

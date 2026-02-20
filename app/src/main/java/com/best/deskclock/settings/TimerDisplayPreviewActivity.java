@@ -57,6 +57,9 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
 
     private SharedPreferences mPrefs;
     private DisplayMetrics mDisplayMetrics;
+    private boolean mIsPortrait;
+    private boolean mIsTablet;
+    private int mMargin10;
 
     /**
      * The scene root for transitions when expired timers are added/removed from this container.
@@ -79,12 +82,15 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
 
         mPrefs = getDefaultSharedPreferences(this);
         mDisplayMetrics = getResources().getDisplayMetrics();
+        mIsPortrait = ThemeUtils.isPortrait();
+        mIsTablet = ThemeUtils.isTablet();
+        mMargin10 = (int) dpToPx(10, mDisplayMetrics);
 
         // To manually manage insets
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 
         // Honor rotation on tablets; fix the orientation on phones.
-        if (ThemeUtils.isPortrait()) {
+        if (mIsPortrait) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         }
 
@@ -93,8 +99,16 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
         mIsFadeTransitionsEnabled = SettingsDAO.isFadeTransitionsEnabled(mPrefs);
         mExpiredTimersScrollView = findViewById(R.id.expired_timers_scroll);
         mExpiredTimersView = findViewById(R.id.expired_timers_list);
+        View ringtoneLayout = findViewById(R.id.ringtone_layout);
+        mRingtoneTitle = findViewById(R.id.ringtone_title);
+        mRingtoneIcon = findViewById(R.id.ringtone_icon);
         final ImageView timerBackgroundImage = findViewById(R.id.timer_background_image);
         final String imagePath = SettingsDAO.getTimerBackgroundImage(mPrefs);
+
+        if (SettingsDAO.isTimerRingtoneTitleDisplayed(mPrefs)) {
+            displayRingtoneTitle();
+            ringtoneLayout.setVisibility(VISIBLE);
+        }
 
         if (SettingsDAO.isTimerBackgroundTransparent(mPrefs)) {
             timerBackgroundImage.setVisibility(View.GONE);
@@ -135,20 +149,6 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
 
         // Add dummy timer to view
         addTimer(fakeTimer);
-
-        if (SettingsDAO.isTimerRingtoneTitleDisplayed(mPrefs)) {
-            View ringtoneLayout = findViewById(R.id.ringtone_layout);
-            ringtoneLayout.setVisibility(VISIBLE);
-            mRingtoneTitle = findViewById(R.id.ringtone_title);
-            mRingtoneIcon = findViewById(R.id.ringtone_icon);
-            displayRingtoneTitle();
-
-            if (!ThemeUtils.isTablet() && ThemeUtils.isLandscape()) {
-                ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) mExpiredTimersScrollView.getLayoutParams();
-                lp.bottomMargin = (int) dpToPx(0, mDisplayMetrics);
-                mExpiredTimersScrollView.setLayoutParams(lp);
-            }
-        }
 
         AlarmUtils.hideSystemBarsOfTriggeredAlarms(getWindow(), getWindow().getDecorView());
 
@@ -274,6 +274,8 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
 
         // If the first timer was just added, center it.
         centerFirstTimer();
+
+        setTimerBackground();
     }
 
     private void centerFirstTimer() {
@@ -281,6 +283,21 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
                 (FrameLayout.LayoutParams) mExpiredTimersView.getLayoutParams();
         lp.gravity = Gravity.CENTER;
         mExpiredTimersView.requestLayout();
+    }
+
+    private void setTimerBackground() {
+        View child = mExpiredTimersView.getChildAt(0);
+
+        child.setBackground(ThemeUtils.cardBackground(this));
+
+        final boolean isTabletOrPortrait = mIsTablet || mIsPortrait;
+
+        if (isTabletOrPortrait && child.getLayoutParams() instanceof ViewGroup.MarginLayoutParams layoutParams) {
+            layoutParams.leftMargin = mMargin10;
+            layoutParams.rightMargin = mMargin10;
+
+            child.setLayoutParams(layoutParams);
+        }
     }
 
     private void finishActivity() {

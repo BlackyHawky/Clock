@@ -8,337 +8,333 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <com.best.deskclock.settings.custompreference.CustomPreferenceCategory
+    <PreferenceCategory
         android:title="@string/style_category_title"
         app:allowDividerAbove="false"
-        app:iconSpaceReserved="false"
-        tools:layout="@layout/settings_preference_category_layout">
+        app:iconSpaceReserved="false">
 
-        <com.best.deskclock.settings.custompreference.CustomListPreference
+        <ListPreference
             android:key="key_alarm_clock_style"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/clock_style"
             android:defaultValue="digital"
             android:entries="@array/clock_style_entries"
             android:entryValues="@array/clock_style_values"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
-        <com.best.deskclock.settings.custompreference.CustomListPreference
+        <ListPreference
             android:key="key_alarm_clock_dial"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/clock_dial_title"
             android:entries="@array/clock_dial_entries"
             android:entryValues="@array/clock_dial_values"
             android:defaultValue="dial_with_numbers"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
-        <com.best.deskclock.settings.custompreference.CustomListPreference
+        <ListPreference
             android:key="key_alarm_clock_dial_material"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/clock_dial_title"
             android:entries="@array/clock_dial_material_entries"
             android:entryValues="@array/clock_dial_material_values"
             android:defaultValue="dial_sun"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout"
             tools:isPreferenceVisible="false" />
 
-        <com.best.deskclock.settings.custompreference.CustomSeekbarPreference
+        <com.best.deskclock.settings.custompreference.CustomSliderPreference
             android:key="key_alarm_analog_clock_size"
+            android:layout="@layout/settings_preference_slider_layout"
             android:title="@string/analog_clock_size_title"
             android:summary="@string/label_default"
             android:defaultValue="70"
             android:max="100"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_seekbar_layout" />
+            app:singleLineTitle="false" />
 
-        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
+        <SwitchPreferenceCompat
             android:key="key_display_alarm_second_hand"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/display_clock_seconds_pref"
             android:defaultValue="true"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
-        <com.best.deskclock.settings.custompreference.CustomListPreference
+        <ListPreference
             android:key="key_alarm_clock_second_hand"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/clock_second_hand_title"
             android:entries="@array/clock_second_hand_entries"
             android:entryValues="@array/clock_second_hand_values"
             android:defaultValue="default"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
-        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
+        <SwitchPreferenceCompat
             android:key="key_swipe_action"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/swipe_action_title"
             android:defaultValue="true"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
-        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
+        <SwitchPreferenceCompat
             android:key="key_display_snooze_selector"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/display_snooze_selector_title"
             android:defaultValue="false"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
-    </com.best.deskclock.settings.custompreference.CustomPreferenceCategory>
+    </PreferenceCategory>
 
-    <com.best.deskclock.settings.custompreference.CustomPreferenceCategory
+    <PreferenceCategory
         android:title="@string/colors_category_title"
         app:allowDividerAbove="false"
-        app:iconSpaceReserved="false"
-        tools:layout="@layout/settings_preference_category_layout">
+        app:iconSpaceReserved="false">
 
         <com.best.deskclock.settings.custompreference.ColorPickerPreference
             android:key="key_alarm_background_color"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/background_color_title"
             android:defaultValue="#FF191C1E"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
         <com.best.deskclock.settings.custompreference.ColorPickerPreference
             android:key="key_alarm_background_amoled_color"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/background_color_title"
             android:defaultValue="#FF000000"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
         <com.best.deskclock.settings.custompreference.ColorPickerPreference
             android:key="key_alarm_clock_color"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/clock_color_title"
             android:defaultValue="#FFFFFFFF"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
         <com.best.deskclock.settings.custompreference.ColorPickerPreference
             android:key="key_alarm_second_hand_color"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/second_hand_color_title"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
         <com.best.deskclock.settings.custompreference.ColorPickerPreference
             android:key="key_alarm_title_color"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/alarm_title_color"
             android:defaultValue="#FFFFFFFF"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
         <com.best.deskclock.settings.custompreference.ColorPickerPreference
             android:key="key_slide_zone_color"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/slide_zone_color_title"
             android:defaultValue="#FF2E3337"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
         <com.best.deskclock.settings.custompreference.ColorPickerPreference
             android:key="key_alarm_button_color"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/alarm_button_color"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
         <com.best.deskclock.settings.custompreference.ColorPickerPreference
             android:key="key_snooze_title_color"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/snooze_title_color"
             android:defaultValue="#FFFFFFFF"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
         <com.best.deskclock.settings.custompreference.ColorPickerPreference
             android:key="key_snooze_button_color"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/snooze_button_color"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
         <com.best.deskclock.settings.custompreference.ColorPickerPreference
             android:key="key_dismiss_title_color"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/dismiss_title_color"
             android:defaultValue="#FFFFFFFF"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
         <com.best.deskclock.settings.custompreference.ColorPickerPreference
             android:key="key_dismiss_button_color"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/dismiss_button_color"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
         <com.best.deskclock.settings.custompreference.ColorPickerPreference
             android:key="key_snooze_zone_color"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/snooze_zone_color_title"
             android:defaultValue="#80FFFFFF"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
         <com.best.deskclock.settings.custompreference.ColorPickerPreference
             android:key="key_snooze_minus_button_color"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/snooze_minus_button_color_title"
             android:defaultValue="#80FFFFFF"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
         <com.best.deskclock.settings.custompreference.ColorPickerPreference
             android:key="key_snooze_plus_button_color"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/snooze_plus_button_color_title"
             android:defaultValue="#80FFFFFF"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
         <com.best.deskclock.settings.custompreference.ColorPickerPreference
             android:key="key_snooze_selector_text_color"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/snooze_selector_text_color_title"
             android:defaultValue="#FFFFFFFF"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
         <com.best.deskclock.settings.custompreference.ColorPickerPreference
             android:key="key_snooze_minus_symbol_color"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/snooze_minus_symbol_color_title"
             android:defaultValue="#FFFFFFFF"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
         <com.best.deskclock.settings.custompreference.ColorPickerPreference
             android:key="key_snooze_plus_symbol_color"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/snooze_plus_symbol_color_title"
             android:defaultValue="#FFFFFFFF"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
-    </com.best.deskclock.settings.custompreference.CustomPreferenceCategory>
+    </PreferenceCategory>
 
-    <com.best.deskclock.settings.custompreference.CustomPreferenceCategory
+    <PreferenceCategory
         android:title="@string/font_category_title"
         app:allowDividerAbove="false"
-        app:iconSpaceReserved="false"
-        tools:layout="@layout/settings_preference_category_layout">
+        app:iconSpaceReserved="false">
 
-        <com.best.deskclock.settings.custompreference.CustomSeekbarPreference
+        <com.best.deskclock.settings.custompreference.CustomSliderPreference
             android:key="key_alarm_digital_clock_font_size"
+            android:layout="@layout/settings_preference_slider_layout"
             android:title="@string/clock_font_size"
             android:summary="@string/label_default"
             android:defaultValue="70"
             android:max="200"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_seekbar_layout" />
+            app:singleLineTitle="false" />
 
-        <com.best.deskclock.settings.custompreference.CustomSeekbarPreference
+        <com.best.deskclock.settings.custompreference.CustomSliderPreference
             android:key="key_alarm_title_font_size_pref"
+            android:layout="@layout/settings_preference_slider_layout"
             android:title="@string/alarm_title_font_size"
             android:summary="@string/label_default"
             android:defaultValue="30"
             android:max="200"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_seekbar_layout" />
+            app:singleLineTitle="false" />
 
-        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
+        <SwitchPreferenceCompat
             android:key="key_alarm_display_text_shadow"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/display_text_shadow_title"
             android:defaultValue="false"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
         <com.best.deskclock.settings.custompreference.ColorPickerPreference
             android:key="key_alarm_shadow_color"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/shadow_color_title"
             android:defaultValue="#80FFFFFF"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
-        <com.best.deskclock.settings.custompreference.CustomSeekbarPreference
+        <com.best.deskclock.settings.custompreference.CustomSliderPreference
             android:key="key_alarm_shadow_offset"
+            android:layout="@layout/settings_preference_slider_layout"
             android:title="@string/shadow_offset_title"
             android:summary="@string/label_default"
             android:defaultValue="10"
             android:max="20"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_seekbar_layout" />
+            app:singleLineTitle="false" />
 
-    </com.best.deskclock.settings.custompreference.CustomPreferenceCategory>
+    </PreferenceCategory>
 
-    <com.best.deskclock.settings.custompreference.CustomPreferenceCategory
+    <PreferenceCategory
         android:title="@string/miscellaneous_category_title"
         app:allowDividerAbove="false"
-        app:iconSpaceReserved="false"
-        tools:layout="@layout/settings_preference_category_layout">
+        app:iconSpaceReserved="false">
 
-        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
+        <SwitchPreferenceCompat
             android:key="key_display_ringtone_title"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/display_ringtone_title"
             android:defaultValue="false"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
         <com.best.deskclock.settings.custompreference.ColorPickerPreference
             android:key="key_ringtone_title_color"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/ringtone_title_color"
             android:defaultValue="#FFFFFFFF"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
-        <com.best.deskclock.settings.custompreference.CustomPreference
+        <Preference
             android:key="key_alarm_background_image"
+            android:layout="@layout/settings_preference_layout"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
-            tools:title="@string/background_image_title"
-            tools:layout="@layout/settings_preference_layout" />
+            tools:title="@string/background_image_title" />
 
-        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
+        <SwitchPreferenceCompat
             android:key="key_enable_alarm_blur_effect"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/enable_blur_effect_title"
             android:defaultValue="false"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
-        <com.best.deskclock.settings.custompreference.CustomSeekbarPreference
+        <com.best.deskclock.settings.custompreference.CustomSliderPreference
             android:key="key_alarm_blur_intensity"
+            android:layout="@layout/settings_preference_slider_layout"
             android:title="@string/blur_intensity_title"
             android:summary="@string/label_default"
             android:defaultValue="20"
             android:max="100"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_seekbar_layout" />
+            app:singleLineTitle="false" />
 
-        <com.best.deskclock.settings.custompreference.CustomPreference
+        <Preference
             android:key="key_alarm_preview"
+            android:layout="@layout/settings_preference_layout"
             android:title="@string/preview_title"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            app:singleLineTitle="false" />
 
-    </com.best.deskclock.settings.custompreference.CustomPreferenceCategory>
+    </PreferenceCategory>
 
 </PreferenceScreen>

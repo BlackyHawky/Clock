@@ -11,9 +11,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_AUTO_SILENCE
 import android.content.Context;
 import android.util.AttributeSet;
 
-import androidx.annotation.NonNull;
 import androidx.preference.DialogPreference;
-import androidx.preference.PreferenceViewHolder;
 
 import com.best.deskclock.R;
 
@@ -28,14 +26,7 @@ public class AutoSilenceDurationPreference extends DialogPreference {
      */
     public AutoSilenceDurationPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setLayoutResource(R.layout.settings_preference_layout);
         setPersistent(true);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
-        PreferenceStyler.apply(holder);
-        super.onBindViewHolder(holder);
     }
 
     @Override

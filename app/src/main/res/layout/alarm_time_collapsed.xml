@@ -12,8 +12,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="10dp"
-    android:layout_marginVertical="4dp"
-    android:elevation="0dp"
+    android:layout_marginBottom="2dp"
     android:importantForAccessibility="no"
     tools:background="@drawable/bg_card_for_preview">
 
@@ -41,7 +40,7 @@
         android:layout_marginEnd="12dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/expand_alarm"
-        android:src="@drawable/ic_caret_down"
+        android:src="@drawable/ic_arrow_down"
         android:scaleType="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -53,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:background="?attr/selectableItemBackground"
-        android:textSize="38sp"
+        android:textSize="40sp"
         android:includeFontPadding="false"
         android:focusable="true"
         app:layout_constraintStart_toStartOf="parent"
@@ -84,6 +83,7 @@
 
     <com.google.android.material.materialswitch.MaterialSwitch
         android:id="@+id/onoff"
+        android:theme="@style/AlarmMaterialSwitch"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_marginEnd="12dp"

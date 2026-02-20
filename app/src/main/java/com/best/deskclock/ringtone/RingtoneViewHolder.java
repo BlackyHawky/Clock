@@ -19,6 +19,7 @@ import static com.best.deskclock.utils.RingtoneUtils.RINGTONE_SILENT;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,7 +33,6 @@ import androidx.appcompat.content.res.AppCompatResources;
 import com.best.deskclock.ItemAdapter;
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
-import com.best.deskclock.utils.AnimatorUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.ThemeUtils;
 
@@ -111,8 +111,8 @@ final class RingtoneViewHolder extends ItemAdapter.ItemViewHolder<RingtoneHolder
 
             backgroundColor = MaterialColors.getColor(context, com.google.android.material.R.attr.colorSurface, Color.BLACK);
 
-            if (itemHolder.isPlaying()) {
-                AnimatorUtils.startDrawableAnimation(mImageView);
+            if (itemHolder.isPlaying() && mImageView.getDrawable() instanceof Animatable) {
+                ((Animatable) mImageView.getDrawable()).start();
             }
         } else {
             mSelectedView.setVisibility(GONE);

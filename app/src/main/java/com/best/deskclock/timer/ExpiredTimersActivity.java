@@ -71,6 +71,10 @@ public class ExpiredTimersActivity extends BaseActivity {
 
     private SharedPreferences mPrefs;
     private DisplayMetrics mDisplayMetrics;
+    private boolean mIsPortrait;
+    private boolean mIsTablet;
+    private int mMargin10;
+    private int mMargin2;
 
     /**
      * Scheduled to update the timers while at least one is expired.
@@ -117,6 +121,10 @@ public class ExpiredTimersActivity extends BaseActivity {
 
         mPrefs = getDefaultSharedPreferences(this);
         mDisplayMetrics = getResources().getDisplayMetrics();
+        mIsPortrait = ThemeUtils.isPortrait();
+        mIsTablet = ThemeUtils.isTablet();
+        mMargin10 = (int) dpToPx(10, mDisplayMetrics);
+        mMargin2 = (int) dpToPx(2, mDisplayMetrics);
 
         // To manually manage insets
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
@@ -152,7 +160,7 @@ public class ExpiredTimersActivity extends BaseActivity {
         }
 
         // Honor rotation on tablets; fix the orientation on phones.
-        if (ThemeUtils.isPortrait()) {
+        if (mIsPortrait) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         }
 
@@ -160,8 +168,16 @@ public class ExpiredTimersActivity extends BaseActivity {
 
         mExpiredTimersScrollView = findViewById(R.id.expired_timers_scroll);
         mExpiredTimersView = findViewById(R.id.expired_timers_list);
+        View ringtoneLayout = findViewById(R.id.ringtone_layout);
+        mRingtoneTitle = findViewById(R.id.ringtone_title);
+        mRingtoneIcon = findViewById(R.id.ringtone_icon);
         final ImageView timerBackgroundImage = findViewById(R.id.timer_background_image);
         final String imagePath = SettingsDAO.getTimerBackgroundImage(mPrefs);
+
+        if (SettingsDAO.isTimerRingtoneTitleDisplayed(mPrefs)) {
+            displayRingtoneTitle();
+            ringtoneLayout.setVisibility(VISIBLE);
+        }
 
         if (SettingsDAO.isTimerBackgroundTransparent(mPrefs)) {
             timerBackgroundImage.setVisibility(View.GONE);
@@ -198,20 +214,6 @@ public class ExpiredTimersActivity extends BaseActivity {
         // Create views for each of the expired timers.
         for (Timer timer : expiredTimers) {
             addTimer(timer);
-        }
-
-        if (SettingsDAO.isTimerRingtoneTitleDisplayed(mPrefs)) {
-            View ringtoneLayout = findViewById(R.id.ringtone_layout);
-            ringtoneLayout.setVisibility(VISIBLE);
-            mRingtoneTitle = findViewById(R.id.ringtone_title);
-            mRingtoneIcon = findViewById(R.id.ringtone_icon);
-            displayRingtoneTitle();
-
-            if (!ThemeUtils.isTablet() && ThemeUtils.isLandscape()) {
-                ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) mExpiredTimersScrollView.getLayoutParams();
-                lp.bottomMargin = (int) dpToPx(0, mDisplayMetrics);
-                mExpiredTimersScrollView.setLayoutParams(lp);
-            }
         }
 
         AlarmUtils.hideSystemBarsOfTriggeredAlarms(getWindow(), getWindow().getDecorView());
@@ -405,6 +407,8 @@ public class ExpiredTimersActivity extends BaseActivity {
         } else if (expiredTimers.size() == 2) {
             uncenterFirstTimer();
         }
+
+        updateAllTimerBackgrounds();
     }
 
     /**
@@ -430,6 +434,8 @@ public class ExpiredTimersActivity extends BaseActivity {
         } else if (expiredTimers.size() == 1) {
             centerFirstTimer();
         }
+
+        updateAllTimerBackgrounds();
     }
 
     /**
@@ -450,6 +456,40 @@ public class ExpiredTimersActivity extends BaseActivity {
                 (FrameLayout.LayoutParams) mExpiredTimersView.getLayoutParams();
         lp.gravity = Gravity.NO_GRAVITY;
         mExpiredTimersView.requestLayout();
+    }
+
+    private void updateAllTimerBackgrounds() {
+        final int totalCount = mExpiredTimersView.getChildCount();
+
+        if (totalCount == 0) {
+            return;
+        }
+
+        final boolean isPhoneInLandscapeMode = !mIsTablet && !mIsPortrait;
+        final boolean isTabletOrPortrait = mIsTablet || mIsPortrait;
+
+        for (int i = 0; i < totalCount; i++) {
+            View child = mExpiredTimersView.getChildAt(i);
+            child.setBackground(isPhoneInLandscapeMode
+                    ? ThemeUtils.expressiveCardBackgroundForLandscape(this, i, totalCount)
+                    : ThemeUtils.expressiveCardBackground(this, i, totalCount));
+
+            if (child.getLayoutParams() instanceof ViewGroup.MarginLayoutParams layoutParams) {
+                if (isTabletOrPortrait) {
+                    layoutParams.leftMargin = mMargin10;
+                    layoutParams.rightMargin = mMargin10;
+                    layoutParams.topMargin = (i > 0) ? mMargin2 : 0;
+                } else {
+                    layoutParams.leftMargin = (i > 0) ? mMargin2 : 0;
+                    layoutParams.rightMargin = 0;
+                    layoutParams.topMargin = 0;
+                }
+
+                layoutParams.bottomMargin = 0;
+
+                child.setLayoutParams(layoutParams);
+            }
+        }
     }
 
     private List<Timer> getExpiredTimers() {

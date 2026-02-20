@@ -27,6 +27,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.format.DateUtils;
@@ -35,7 +36,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextClock;
 import android.widget.TextView;
 
@@ -91,6 +91,7 @@ public final class ClockFragment extends DeskClockFragment {
     private String mDateFormat;
     private String mDateFormatForAccessibility;
     private boolean mIsPortrait;
+    private boolean mIsTablet;
     private boolean mShowHomeClock;
 
     /**
@@ -112,6 +113,7 @@ public final class ClockFragment extends DeskClockFragment {
         mShowSeconds = SettingsDAO.areClockSecondsDisplayed(mPrefs);
         mIsDigitalClock = mClockStyle == DataModel.ClockStyle.DIGITAL;
         mIsPortrait = ThemeUtils.isPortrait();
+        mIsTablet = ThemeUtils.isTablet();
         mDateFormat = mContext.getString(R.string.abbrev_wday_month_day_no_year);
         mDateFormatForAccessibility = mContext.getString(R.string.full_wday_month_day_no_year);
 
@@ -160,15 +162,15 @@ public final class ClockFragment extends DeskClockFragment {
 
         final RecyclerView cityList = fragmentView.findViewById(R.id.cities);
         cityList.setAdapter(mCityAdapter);
+        cityList.addItemDecoration(new CitySpacingItemDecoration(mContext, mIsPortrait, mIsTablet));
         cityList.setLayoutManager(new LinearLayoutManager(mContext));
         // Due to the ViewPager and the location of FAB, set a bottom padding to prevent
         // the city list from being hidden by the FAB (e.g. when scrolling down).
-        cityList.setPadding(0, 0, 0, (int) dpToPx(ThemeUtils.isTablet() && mIsPortrait
-                ? 106 : mIsPortrait
-                ? 91 : 0, mDisplayMetrics));
+        cityList.setPadding(0, 0, 0, (int) dpToPx(mIsTablet && mIsPortrait
+                ? 110 : mIsPortrait
+                ? 90 : 0, mDisplayMetrics));
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
-
             @Override
             public int getMovementFlags(@NonNull RecyclerView recyclerView,
                                         @NonNull RecyclerView.ViewHolder viewHolder) {
@@ -393,6 +395,70 @@ public final class ClockFragment extends DeskClockFragment {
     }
 
     /**
+     * A custom {@link RecyclerView.ItemDecoration} that applies dynamic spacing
+     * to the list of world cities.
+     *
+     * <p>It calculates and sets specific margins based on the device's orientation
+     * (portrait/landscape) and screen type (phone/tablet). It also ensures proper
+     * bottom spacing for the last item in the list, while intentionally ignoring
+     * the main home clock at the top.</p>
+     */
+    private static class CitySpacingItemDecoration extends RecyclerView.ItemDecoration {
+
+        private final int leftMargin;
+        private final int rightMargin;
+        private final int standardBottomMargin;
+        private final int lastBottomMargin;
+        private final int mainClockCount;
+
+        public CitySpacingItemDecoration(Context context, boolean isPortrait, boolean isTablet) {
+            DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+            boolean isPhoneInLandscapeMode = !isTablet && !isPortrait;
+
+            // Determine whether the main clock is present (so that margins are not applied to it)
+            this.mainClockCount = isPortrait ? 1 : 0;
+
+            this.leftMargin = (int) dpToPx(isPhoneInLandscapeMode ? 0 : 10, metrics);
+            this.rightMargin = (int) dpToPx(isPhoneInLandscapeMode ? 90 : 10, metrics);
+            this.standardBottomMargin = (int) dpToPx(2, metrics);
+            this.lastBottomMargin = (int) dpToPx(isPortrait ? 10 : 8, metrics);
+        }
+
+        @Override
+        public void getItemOffsets(@NonNull Rect outRect, @NonNull View view,
+                                   @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+
+            boolean isRTL = ThemeUtils.isRTL();
+            int position = parent.getChildAdapterPosition(view);
+            RecyclerView.Adapter<?> adapter = parent.getAdapter();
+
+            if (position == RecyclerView.NO_POSITION || adapter == null) {
+                return;
+            }
+
+            // Ignore the main clock
+            if (position < mainClockCount) {
+                return;
+            }
+
+            // Side margins
+            outRect.left = isRTL ? rightMargin : leftMargin;
+            outRect.right = isRTL ? leftMargin : rightMargin;
+
+            int itemCount = adapter.getItemCount();
+
+            if (position == itemCount - 1) {
+                // Bottom margin for the very last city
+                outRect.bottom = lastBottomMargin;
+            } else {
+                // Bottom margin if it is a city in the middle of the list
+                int totalCitiesAndHomeClock = itemCount - mainClockCount;
+                outRect.bottom = (totalCitiesAndHomeClock > 1) ? standardBottomMargin : 0;
+            }
+        }
+    }
+
+    /**
      * This adapter lists all of the selected world clocks. Optionally, it also includes a clock at
      * the top for the home timezone if "Automatic home clock" is turned on in settings and the
      * current time at home does not match the current time in the timezone of the current location.
@@ -460,7 +526,7 @@ public final class ClockFragment extends DeskClockFragment {
                     final int positionAdjuster = (mIsPortrait ? 1 : 0) + (mShowHomeClock ? 1 : 0);
                     city = getCities().get(position - positionAdjuster);
                 }
-                ((CityViewHolder) holder).bind(mContext, mCities, city, mShowHomeClock, mIsPortrait);
+                ((CityViewHolder) holder).bind(mContext, city, mIsPortrait);
             } else if (viewType == MAIN_CLOCK) {
                 ((MainClockViewHolder) holder).bind(mContext, mDateFormat, mDateFormatForAccessibility,
                         mCities, mShowHomeClock, mIsPortrait);
@@ -569,14 +635,22 @@ public final class ClockFragment extends DeskClockFragment {
                 mIsTablet = ThemeUtils.isTablet();
             }
 
-            private void bind(Context context, List<City> cities, City city, boolean showHomeClock, boolean isPortrait) {
+            private void bind(Context context, City city, boolean isPortrait) {
                 final DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
                 final String cityTimeZoneId = city.getTimeZone().getID();
-                final boolean isPhoneInLandscapeMode = !mIsTablet && !isPortrait;
                 final boolean isDigitalClock = mClockStyle == DataModel.ClockStyle.DIGITAL;
                 int paddingVertical = (int) dpToPx(isDigitalClock ? 18 : 12, displayMetrics);
+                int absolutePosition = getBindingAdapterPosition();
+                int mainClockCount = isPortrait ? 1 : 0;
+                int cityPosition = absolutePosition != RecyclerView.NO_POSITION
+                        ? absolutePosition - mainClockCount
+                        : -1;
+                int totalCities = mAdapter.getItemCount() - mainClockCount;
 
-                itemView.setBackground(ThemeUtils.cardBackground(context));
+                if (cityPosition >= 0) {
+                    itemView.setBackground(ThemeUtils.expressiveCardBackground(context, cityPosition, totalCities));
+                }
+
                 itemView.setPadding(itemView.getPaddingLeft(), paddingVertical, itemView.getPaddingRight(), paddingVertical);
 
                 // Configure the digital clock or analog clock depending on the user preference.
@@ -600,18 +674,6 @@ public final class ClockFragment extends DeskClockFragment {
                     mAnalogClock.setTimeZone(cityTimeZoneId);
                     mAnalogClock.enableSeconds(false);
                 }
-
-                // Due to the ViewPager and the location of FAB, set margins to prevent
-                // the city list from being hidden by the FAB (e.g. when scrolling down).
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                final int leftMargin = (int) dpToPx(isPhoneInLandscapeMode ? 0 : 10, displayMetrics);
-                final int rightMargin =  (int) dpToPx(isPhoneInLandscapeMode ? 90 : 10, displayMetrics);
-                final int bottomMargin = (int) dpToPx(cities.size() > 1 || showHomeClock
-                        ? 8
-                        : 0, displayMetrics);
-                params.setMargins(leftMargin, 0, rightMargin, bottomMargin);
-                itemView.setLayoutParams(params);
 
                 // Bind the city name.
                 mName.setText(city.getName());

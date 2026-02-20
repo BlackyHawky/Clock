@@ -24,6 +24,7 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
@@ -40,6 +41,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.DeskClockFragment;
@@ -127,12 +129,23 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
 
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(getLayoutManager(mContext));
+
+        int spacingInPx = (int) dpToPx(10, getResources().getDisplayMetrics());
+        mRecyclerView.addItemDecoration(new GridSpacingItemDecoration(spacingInPx));
+
         // Due to the ViewPager and the location of FAB, set a bottom padding and/or a right padding
         // to prevent the reset button from being hidden by the FAB (e.g. when scrolling down).
         final int bottomPadding = (int) dpToPx(mIsTablet ? 110 : mIsLandscape ? 4 : 95, displayMetrics);
+        final int leftPadding = (int) dpToPx(!mIsTablet && mIsLandscape ? 10 : 0, displayMetrics);
         final int rightPadding = (int) dpToPx(!mIsTablet && mIsLandscape ? 85 : 0, displayMetrics);
-        mRecyclerView.setPadding(0, 0, rightPadding, bottomPadding);
+        mRecyclerView.setPaddingRelative(leftPadding, 0, rightPadding, bottomPadding);
         mRecyclerView.setClipToPadding(false);
+
+        RecyclerView.ItemAnimator animator = mRecyclerView.getItemAnimator();
+        if (animator instanceof SimpleItemAnimator) {
+            // Disable flash/blinking during updates (notifyItemChanged)
+            ((SimpleItemAnimator) animator).setSupportsChangeAnimations(false);
+        }
 
         mCreateTimerView.setFabContainer(this);
         mCreateTimerSpinnerView.setOnChangeListener(() -> {
@@ -256,8 +269,6 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     public void onMorphFab(@NonNull ImageView fab) {
         // Update the fab's drawable to match the current timer state.
         updateFab(fab);
-        // Animate the drawable.
-        AnimatorUtils.startDrawableAnimation(fab);
     }
 
     @Override
@@ -533,7 +544,9 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     }
 
     public void stopUpdatingTime() {
-        mAdapter.stopAllUpdating();
+        if (mAdapter != null) {
+            mAdapter.stopAllUpdating();
+        }
     }
 
     private boolean hasTimers() {
@@ -591,7 +604,9 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         public void timerUpdated(Timer before, Timer after) {
             // If the timer started, animate the timers and scroll to its position.
             if (before.isReset() && !after.isReset()) {
-                Objects.requireNonNull(mRecyclerView.getLayoutManager()).scrollToPosition(mAdapter.getTimers().indexOf(before));
+                Objects.requireNonNull(
+                        mRecyclerView.getLayoutManager()).scrollToPosition(mAdapter.getTimers().indexOf(before)
+                );
             }
 
             adjustWakeLock();
@@ -616,4 +631,45 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
             adjustWakeLock();
         }
     }
+
+    /**
+     * A custom {@link RecyclerView.ItemDecoration} that applies consistent and even spacing
+     * between items in a grid layout for tablets.
+     *
+     * <p>It dynamically calculates the item offsets to ensure that both the internal
+     * spacing between columns/rows and the outer edges of the grid are perfectly aligned.
+     * This decoration only affects the layout if the {@link RecyclerView} uses a
+     * {@link GridLayoutManager}.</p>
+     */
+    private static class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
+        private final int spacing;
+
+        public GridSpacingItemDecoration(int spacing) {
+            this.spacing = spacing;
+        }
+
+        @Override
+        public void getItemOffsets(@NonNull Rect outRect, @NonNull View view,
+                                   @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+
+            if (!(parent.getLayoutManager() instanceof GridLayoutManager layoutManager)) {
+                return;
+            }
+
+            int spanCount = layoutManager.getSpanCount();
+            int position = parent.getChildAdapterPosition(view);
+
+            if (position >= 0) {
+                int column = position % spanCount;
+
+                // Formula for having, for example, 10dp on the outside and 5dp on the inside
+                outRect.left = spacing - column * spacing / spanCount;
+                outRect.right = (column + 1) * spacing / spanCount;
+
+                // Bottom margin of 10dp, for example, for each item
+                outRect.bottom = spacing;
+            }
+        }
+    }
+
 }

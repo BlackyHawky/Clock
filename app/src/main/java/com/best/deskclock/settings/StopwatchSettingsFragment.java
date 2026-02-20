@@ -22,19 +22,17 @@ import androidx.preference.Preference;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
-import com.best.deskclock.settings.custompreference.CustomListPreference;
-import com.best.deskclock.settings.custompreference.CustomPreference;
 import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.utils.Utils;
 
 public class StopwatchSettingsFragment extends ScreenFragment
         implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
-    CustomPreference mStopwatchFontPref;
-    CustomListPreference mVolumeUpActionPref;
-    CustomListPreference mVolumeUpActionAfterLongPressPref;
-    CustomListPreference mVolumeDownActionPref;
-    CustomListPreference mVolumeDownActionAfterLongPressPref;
+    Preference mStopwatchFontPref;
+    ListPreference mVolumeUpActionPref;
+    ListPreference mVolumeUpActionAfterLongPressPref;
+    ListPreference mVolumeDownActionPref;
+    ListPreference mVolumeDownActionAfterLongPressPref;
 
     private final ActivityResultLauncher<Intent> fontPickerLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {

@@ -54,6 +54,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.MenuProvider;
 import androidx.preference.Preference;
+import androidx.preference.PreferenceCategory;
+import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.BuildConfig;
 import com.best.deskclock.R;
@@ -62,9 +64,6 @@ import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.settings.custompreference.CustomAboutTitlePreference;
-import com.best.deskclock.settings.custompreference.CustomPreference;
-import com.best.deskclock.settings.custompreference.CustomPreferenceCategory;
-import com.best.deskclock.settings.custompreference.CustomSwitchPreference;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.uidata.UiDataModel;
@@ -127,14 +126,14 @@ public class AboutFragment extends ScreenFragment
             });
 
     CustomAboutTitlePreference mTitlePref;
-    CustomPreference mVersionPref;
-    CustomPreference mWhatsNewPreference;
-    CustomPreference mAboutFeatures;
-    CustomPreference mViewOnGitHub;
-    CustomPreference mTranslate;
-    CustomPreference mReadLicence;
-    CustomPreferenceCategory mDebugCategoryPref;
-    CustomSwitchPreference mEnableLocalLoggingPref;
+    Preference mVersionPref;
+    Preference mWhatsNewPreference;
+    Preference mAboutFeatures;
+    Preference mViewOnGitHub;
+    Preference mTranslate;
+    Preference mReadLicence;
+    PreferenceCategory mDebugCategoryPref;
+    SwitchPreferenceCompat mEnableLocalLoggingPref;
 
     /**
      * Used only for release versions.

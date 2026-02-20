@@ -29,7 +29,9 @@ import android.os.Bundle;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.preference.ListPreference;
 import androidx.preference.Preference;
+import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.AutoSilenceDurationDialogFragment;
 import com.best.deskclock.R;
@@ -38,10 +40,7 @@ import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
 import com.best.deskclock.settings.custompreference.AutoSilenceDurationPreference;
-import com.best.deskclock.settings.custompreference.CustomListPreference;
-import com.best.deskclock.settings.custompreference.CustomPreference;
-import com.best.deskclock.settings.custompreference.CustomSeekbarPreference;
-import com.best.deskclock.settings.custompreference.CustomSwitchPreference;
+import com.best.deskclock.settings.custompreference.CustomSliderPreference;
 import com.best.deskclock.settings.custompreference.TimerAddTimeButtonValuePreference;
 import com.best.deskclock.settings.custompreference.VolumeCrescendoDurationPreference;
 import com.best.deskclock.timer.TimerAddTimeButtonDialogFragment;
@@ -52,18 +51,18 @@ import com.best.deskclock.utils.Utils;
 public class TimerSettingsFragment extends ScreenFragment
         implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
-    CustomPreference mTimerDisplayCustomizationPref;
-    CustomPreference mTimerDurationFontPref;
-    CustomListPreference mTimerCreationViewStylePref;
-    CustomPreference mTimerRingtonePref;
-    CustomSwitchPreference mTimerVibratePref;
-    CustomSwitchPreference mTimerVolumeButtonsActionPref;
-    CustomSwitchPreference mTimerPowerButtonActionPref;
-    CustomSwitchPreference mTimerFlipActionPref;
-    CustomSwitchPreference mTimerShakeActionPref;
-    CustomSeekbarPreference mTimerShakeIntensityPref;
-    CustomListPreference mSortTimerPref;
-    CustomSwitchPreference mDisplayWarningBeforeDeletingTimerPref;
+    Preference mTimerDisplayCustomizationPref;
+    Preference mTimerDurationFontPref;
+    ListPreference mTimerCreationViewStylePref;
+    Preference mTimerRingtonePref;
+    SwitchPreferenceCompat mTimerVibratePref;
+    SwitchPreferenceCompat mTimerVolumeButtonsActionPref;
+    SwitchPreferenceCompat mTimerPowerButtonActionPref;
+    SwitchPreferenceCompat mTimerFlipActionPref;
+    SwitchPreferenceCompat mTimerShakeActionPref;
+    CustomSliderPreference mTimerShakeIntensityPref;
+    ListPreference mSortTimerPref;
+    SwitchPreferenceCompat mDisplayWarningBeforeDeletingTimerPref;
 
     private final ActivityResultLauncher<Intent> fontPickerLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -139,7 +138,7 @@ public class TimerSettingsFragment extends ScreenFragment
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
             case KEY_TIMER_CREATION_VIEW_STYLE, KEY_SORT_TIMER -> {
-                final CustomListPreference preference = (CustomListPreference) pref;
+                final ListPreference preference = (ListPreference) pref;
                 final int index = preference.findIndexOfValue((String) newValue);
                 preference.setSummary(preference.getEntries()[index]);
             }

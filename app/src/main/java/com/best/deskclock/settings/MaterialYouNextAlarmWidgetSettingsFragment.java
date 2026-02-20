@@ -24,12 +24,12 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.preference.Preference;
+import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.settings.custompreference.ColorPickerPreference;
-import com.best.deskclock.settings.custompreference.CustomSeekbarPreference;
-import com.best.deskclock.settings.custompreference.CustomSwitchPreference;
+import com.best.deskclock.settings.custompreference.CustomSliderPreference;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
@@ -40,17 +40,17 @@ public class MaterialYouNextAlarmWidgetSettingsFragment extends ScreenFragment
 
     private int mAppWidgetId = INVALID_APPWIDGET_ID;
 
-    CustomSwitchPreference mShowBackgroundOnDigitalWidgetPref;
-    CustomSwitchPreference mCustomizeBackgroundCornerRadiusPref;
-    CustomSeekbarPreference mBackgroundCornerRadiusPref;
-    CustomSwitchPreference mApplyHorizontalPaddingPref;
-    CustomSwitchPreference mDefaultBackgroundColorPref;
+    SwitchPreferenceCompat mShowBackgroundOnDigitalWidgetPref;
+    SwitchPreferenceCompat mCustomizeBackgroundCornerRadiusPref;
+    CustomSliderPreference mBackgroundCornerRadiusPref;
+    SwitchPreferenceCompat mApplyHorizontalPaddingPref;
+    SwitchPreferenceCompat mDefaultBackgroundColorPref;
     ColorPickerPreference mCustomBackgroundColorPref;
-    CustomSwitchPreference mDefaultTitleColorPref;
+    SwitchPreferenceCompat mDefaultTitleColorPref;
     ColorPickerPreference mCustomTitleColorPref;
-    CustomSwitchPreference mDefaultAlarmTitleColorPref;
+    SwitchPreferenceCompat mDefaultAlarmTitleColorPref;
     ColorPickerPreference mCustomAlarmTitleColorPref;
-    CustomSwitchPreference mDefaultAlarmColorPref;
+    SwitchPreferenceCompat mDefaultAlarmColorPref;
     ColorPickerPreference mCustomAlarmColorPref;
 
     @Override

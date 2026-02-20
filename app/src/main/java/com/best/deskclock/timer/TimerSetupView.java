@@ -124,8 +124,8 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
             digitButton.setTypeface(generalTypeface);
 
             if (isCardBackgroundDisplayed) {
-                digitButton.setBackgroundTintList(ColorStateList.valueOf(
-                        MaterialColors.getColor(getContext(), com.google.android.material.R.attr.colorSurface, Color.BLACK)));
+                digitButton.setBackgroundTintList(ColorStateList.valueOf(MaterialColors.getColor(
+                        getContext(), com.google.android.material.R.attr.colorSurface, Color.BLACK)));
             } else if (isNight && darkMode.equals(AMOLED_DARK_MODE)) {
                 digitButton.setBackgroundTintList(ColorStateList.valueOf(Color.BLACK));
             } else {

@@ -23,14 +23,14 @@ import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.preference.ListPreference;
 import androidx.preference.Preference;
+import androidx.preference.PreferenceCategory;
+import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.settings.custompreference.ColorPickerPreference;
-import com.best.deskclock.settings.custompreference.CustomListPreference;
-import com.best.deskclock.settings.custompreference.CustomPreferenceCategory;
-import com.best.deskclock.settings.custompreference.CustomSwitchPreference;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
@@ -40,17 +40,17 @@ public class AnalogWidgetSettingsFragment extends ScreenFragment implements Pref
 
     private int mAppWidgetId = INVALID_APPWIDGET_ID;
 
-    CustomListPreference mClockDialPref;
-    CustomSwitchPreference mDisplaySecondsPref;
-    CustomListPreference mClockSecondHandPref;
-    CustomPreferenceCategory mWidgetColorCategory;
-    CustomSwitchPreference mDefaultDialColorPref;
+    ListPreference mClockDialPref;
+    SwitchPreferenceCompat mDisplaySecondsPref;
+    ListPreference mClockSecondHandPref;
+    PreferenceCategory mWidgetColorCategory;
+    SwitchPreferenceCompat mDefaultDialColorPref;
     ColorPickerPreference mDialColorPref;
-    CustomSwitchPreference mDefaultHourHandColorPref;
+    SwitchPreferenceCompat mDefaultHourHandColorPref;
     ColorPickerPreference mHourHandColorPref;
-    CustomSwitchPreference mDefaultMinuteHandColorPref;
+    SwitchPreferenceCompat mDefaultMinuteHandColorPref;
     ColorPickerPreference mMinuteHandColorPref;
-    CustomSwitchPreference mDefaultSecondHandColorPref;
+    SwitchPreferenceCompat mDefaultSecondHandColorPref;
     ColorPickerPreference mSecondHandColorPref;
 
     @Override
@@ -105,7 +105,7 @@ public class AnalogWidgetSettingsFragment extends ScreenFragment implements Pref
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
             case KEY_ANALOG_WIDGET_CLOCK_DIAL, KEY_ANALOG_WIDGET_CLOCK_SECOND_HAND -> {
-                final CustomListPreference preference = (CustomListPreference) pref;
+                final ListPreference preference = (ListPreference) pref;
                 final int index = preference.findIndexOfValue((String) newValue);
                 preference.setSummary(preference.getEntries()[index]);
             }

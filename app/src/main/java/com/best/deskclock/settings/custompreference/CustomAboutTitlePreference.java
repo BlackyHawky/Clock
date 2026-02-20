@@ -25,7 +25,6 @@ public class CustomAboutTitlePreference extends Preference {
 
     public CustomAboutTitlePreference(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        setLayoutResource(R.layout.settings_about_title);
     }
 
     @Override
@@ -33,6 +32,8 @@ public class CustomAboutTitlePreference extends Preference {
         if (holder.itemView.isInEditMode()) {
             return;
         }
+
+        super.onBindViewHolder(holder);
 
         Context context = holder.itemView.getContext();
         SharedPreferences prefs = getDefaultSharedPreferences(context);
@@ -42,11 +43,6 @@ public class CustomAboutTitlePreference extends Preference {
         if (slogan != null) {
             slogan.setTypeface(ThemeUtils.loadFont(fontPath));
         }
-
-        super.onBindViewHolder(holder);
-
-        TextView title = (TextView) holder.findViewById(android.R.id.title);
-        title.setTypeface(ThemeUtils.boldTypeface(fontPath));
     }
 
 }

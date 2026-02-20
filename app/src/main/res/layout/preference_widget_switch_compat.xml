@@ -5,11 +5,13 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 
+<!-- Layout used by SwitchPreference for the switch widget style.
+     This is automatically inflated inside android.R.layout.preference. -->
 <com.google.android.material.materialswitch.MaterialSwitch
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/switchWidget"
+    android:theme="@style/PreferenceMaterialSwitch"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:focusable="false"
-    android:clickable="false"
-    android:background="@null" />
+    android:clickable="false" />

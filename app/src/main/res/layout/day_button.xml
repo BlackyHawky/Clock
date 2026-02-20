@@ -5,21 +5,20 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.button.MaterialButton
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    style="?attr/materialButtonOutlinedStyle"
     android:layout_width="0dp"
-    android:layout_height="48dp"
+    android:layout_height="32dp"
     android:layout_weight="1"
-    tools:layout_width="48dp">
-
-    <com.google.android.material.checkbox.MaterialCheckBox
-        android:id="@+id/day_button_box"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/toggle_circle_for_anim"
-        android:button="@null"
-        android:gravity="center"
-        android:textSize="18sp" />
-
-</FrameLayout>
+    android:insetLeft="0dp"
+    android:insetRight="0dp"
+    android:insetTop="0dp"
+    android:insetBottom="0dp"
+    android:paddingStart="0dp"
+    android:paddingEnd="0dp"
+    android:paddingTop="0dp"
+    android:paddingBottom="0dp"
+    tools:layout_width="wrap_content"
+    tools:text="L" />

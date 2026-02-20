@@ -96,8 +96,6 @@ public class TimerItemCompact extends ConstraintLayout {
         mGeneralFontPath = SettingsDAO.getGeneralFont(mPrefs);
         mTimerTimeTypeface = ThemeUtils.loadFont(SettingsDAO.getTimerDurationFont(mPrefs));
 
-        setBackground(ThemeUtils.cardBackground(mContext));
-
         mTimerBar = findViewById(R.id.timer_bar);
         mLabelView = findViewById(R.id.timer_label);
         mResetButton = findViewById(R.id.reset);

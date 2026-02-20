@@ -75,6 +75,12 @@
     • xxxPrimaryInverse: https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : n°200
     • xxxPrimaryContainer: https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : n°100
     • xxxOnPrimary: https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : #FFFFFF
+    • xxxOnPrimaryContainer: https://colordesigner.io/color-mixer
+      (Note: Color only used for switch button icons when enabled)
+        - Choose only 2 colors
+        - 1st color = https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : n°900 ==> Quantity 1
+        - 2nd color = #000000 ==> Quantity 1
+        - Select mixed color
     • xxxSecondaryContainer: https://mdigi.tools/lighten-color/ : Lighten the color n°200 by 40%.
     • xxxColorSurface: https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : n°50
     • xxxColorInverseSurface: https://colordesigner.io/color-mixer
@@ -124,6 +130,7 @@
     <color name="bluePrimaryInverse">#90CAF9</color>
     <color name="bluePrimaryContainer">#BBDEFB</color>
     <color name="blueOnPrimary">#FFFFFF</color>
+    <color name="blueOnPrimaryContainer">#072451</color>
     <color name="blueSecondaryContainer">#BCDFFB</color>
     <color name="blueColorSurface">#E3F2FD</color>
     <color name="blueColorInverseSurface">#252A2F</color>
@@ -140,6 +147,7 @@
     <color name="blueGrayPrimaryInverse">#B0BEC5</color>
     <color name="blueGrayPrimaryContainer">#CFD8DC</color>
     <color name="blueGrayOnPrimary">#FFFFFF</color>
+    <color name="blueGrayOnPrimaryContainer">#13191C</color>
     <color name="blueGraySecondaryContainer">#D0D8DC</color>
     <color name="blueGrayColorSurface">#ECEFF1</color>
     <color name="blueGrayColorInverseSurface">#27292A</color>
@@ -156,6 +164,7 @@
     <color name="brownPrimaryInverse">#BCAAA4</color>
     <color name="brownPrimaryContainer">#BCAAA4</color>
     <color name="brownOnPrimary">#FFFFFF</color>
+    <color name="brownOnPrimaryContainer">#1F1412</color>
     <color name="brownSecondaryContainer">#D7CCC8</color>
     <color name="brownColorSurface">#EFEBE9</color>
     <color name="brownColorInverseSurface">#292727</color>
@@ -172,6 +181,7 @@
     <color name="greenPrimaryInverse">#A5D6A7</color>
     <color name="greenPrimaryContainer">#C8E6C9</color>
     <color name="greenOnPrimary">#FFFFFF</color>
+    <color name="greenOnPrimaryContainer">#0E2F10</color>
     <color name="greenSecondaryContainer">#C9E6CA</color>
     <color name="greenColorSurface">#E8F5E9</color>
     <color name="greenColorInverseSurface">#272C27</color>
@@ -188,6 +198,7 @@
     <color name="indigoPrimaryInverse">#9FA8DA</color>
     <color name="indigoPrimaryContainer">#C5CAE9</color>
     <color name="indigoOnPrimary">#FFFFFF</color>
+    <color name="indigoOnPrimaryContainer">#0D123F</color>
     <color name="indigoSecondaryContainer">#C5CBE9</color>
     <color name="indigoColorSurface">#E8EAF6</color>
     <color name="indigoColorInverseSurface">#26272C</color>
@@ -204,6 +215,7 @@
     <color name="orangePrimaryInverse">#FFCC80</color>
     <color name="orangePrimaryContainer">#FFE0B2</color>
     <color name="orangeOnPrimary">#FFFFFF</color>
+    <color name="orangeOnPrimaryContainer">#732900</color>
     <color name="orangeSecondaryContainer">#FFE0B3</color>
     <color name="orangeColorSurface">#FFF3E0</color>
     <color name="orangeColorInverseSurface">#312B22</color>
@@ -220,6 +232,7 @@
     <color name="pinkPrimaryInverse">#F48FB1</color>
     <color name="pinkPrimaryContainer">#F8BBD0</color>
     <color name="pinkOnPrimary">#FFFFFF</color>
+    <color name="pinkOnPrimaryContainer">#440728</color>
     <color name="pinkSecondaryContainer">#F8BCD0</color>
     <color name="pinkColorSurface">#FCE4EC</color>
     <color name="pinkColorInverseSurface">#2F2527</color>
@@ -236,6 +249,7 @@
     <color name="purplePrimaryInverse">#CE93D8</color>
     <color name="purplePrimaryContainer">#E1BEE7</color>
     <color name="purpleOnPrimary">#FFFFFF</color>
+    <color name="purpleOnPrimaryContainer">#250A46</color>
     <color name="purpleSecondaryContainer">#E2BEE8</color>
     <color name="purpleColorSurface">#F3E5F5</color>
     <color name="purpleColorInverseSurface">#2B252C</color>
@@ -252,6 +266,7 @@
     <color name="redPrimaryInverse">#EF9A9A</color>
     <color name="redPrimaryContainer">#FFCDD2</color>
     <color name="redOnPrimary">#FFFFFF</color>
+    <color name="redOnPrimaryContainer">#5C0E0E</color>
     <color name="redSecondaryContainer">#F5C2C2</color>
     <color name="redColorSurface">#FFEBEE</color>
     <color name="redColorInverseSurface">#2F2525</color>
@@ -268,6 +283,7 @@
     <color name="yellowPrimaryInverse">#FFF59D</color>
     <color name="yellowPrimaryContainer">#FFF9C4</color>
     <color name="yellowOnPrimary">#FFFFFF</color>
+    <color name="yellowOnPrimaryContainer">#7B400C</color>
     <color name="yellowSecondaryContainer">#FFF9C4</color>
     <color name="yellowColorSurface">#FFFDE7</color>
     <color name="yellowColorInverseSurface">#312F26</color>
@@ -283,6 +299,6 @@
     <color name="colorGranted">#66BB6A</color>
     <!-- https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : n°400 -->
     <color name="colorAlert">#EF5350</color>
-    <!-- Used e.g. for SeekBar buttons -->
+    <!-- Used e.g. for slider buttons -->
     <color name="colorDisabled">#611D1B20</color>
 </resources>

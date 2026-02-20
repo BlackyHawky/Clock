@@ -59,13 +59,10 @@ import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Stopwatch;
 import com.best.deskclock.data.StopwatchListener;
 import com.best.deskclock.events.Events;
-import com.best.deskclock.utils.AnimatorUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.google.android.material.color.MaterialColors;
-
-import java.util.Objects;
 
 /**
  * Fragment that shows the stopwatch and recorded laps.
@@ -227,7 +224,12 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
         // Timer text serves as a virtual start/stop button.
         mStopwatchTextController = new StopwatchTextController(mMainTimeText, mHundredthsTimeText);
 
-        ((SimpleItemAnimator) Objects.requireNonNull(mLapsList.getItemAnimator())).setSupportsChangeAnimations(false);
+        RecyclerView.ItemAnimator animator = mLapsList.getItemAnimator();
+        if (animator instanceof SimpleItemAnimator) {
+            // Disable flash/blinking during updates (notifyItemChanged)
+            ((SimpleItemAnimator) animator).setSupportsChangeAnimations(false);
+        }
+
         mLapsList.setLayoutManager(mLapsLayoutManager);
         mLapsList.setAdapter(mLapsAdapter);
 
@@ -356,8 +358,6 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
     public void onMorphFab(@NonNull ImageView fab) {
         // Update the fab's drawable to match the current timer state.
         updateFab(fab);
-        // Animate the drawable.
-        AnimatorUtils.startDrawableAnimation(fab);
     }
 
     @Override
@@ -611,10 +611,15 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
         final int marginEnd = (int) dpToPx(mIsTablet ? 10 : 90, mDisplayMetrics);
         final int marginBottom = (int) dpToPx(mIsTablet ? 110 : 10, mDisplayMetrics);
         if (lapsVisible) {
-            layoutParams.setMargins(marginStart, 0, marginEnd, marginBottom);
+            layoutParams.setMarginStart(marginStart);
+            layoutParams.setMarginEnd(marginEnd);
         } else {
-            layoutParams.setMargins(0, 0, 0, marginBottom);
+            layoutParams.setMarginStart(0);
+            layoutParams.setMarginEnd(0);
         }
+
+        layoutParams.topMargin = 0;
+        layoutParams.bottomMargin = marginBottom;
 
         mStopwatchLandscapeLayout.setLayoutParams(layoutParams);
 

@@ -29,7 +29,6 @@ public class ColorPickerPreference extends ColorPreference {
 
     public ColorPickerPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setLayoutResource(R.layout.settings_preference_layout);
     }
 
     @Override
@@ -38,8 +37,6 @@ public class ColorPickerPreference extends ColorPreference {
             // Skip logic during Android Studio preview
             return;
         }
-
-        PreferenceStyler.apply(holder);
 
         super.onBindViewHolder(holder);
 

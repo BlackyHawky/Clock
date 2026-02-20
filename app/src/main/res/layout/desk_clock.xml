@@ -19,16 +19,16 @@
         android:background="@null"
         app:elevation="0dp">
 
-        <androidx.appcompat.widget.Toolbar
+        <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:titleMarginStart="14dp"
-            app:titleTextAppearance="@style/CollapsingToolbarTitle.Collapsed"
+            app:titleTextAppearance="?attr/textAppearanceTitleLarge"
             tools:ignore="RtlSymmetry"
             tools:title="Alarm">
 
-        </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.MaterialToolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 

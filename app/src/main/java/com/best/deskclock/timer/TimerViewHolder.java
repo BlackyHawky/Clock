@@ -167,6 +167,29 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
                 mTimerItemCompact.bindTimer(timer);
             }
         }
+
+        Context context = itemView.getContext();
+        int position = getBindingAdapterPosition();
+        RecyclerView.Adapter<?> adapter = getBindingAdapter();
+
+
+        if (position != RecyclerView.NO_POSITION && adapter != null) {
+            int totalCount = adapter.getItemCount();
+
+            if (ThemeUtils.isTablet()) {
+                itemView.setBackground(ThemeUtils.cardBackground(context));
+            } else {
+                if (totalCount == 1) {
+                    itemView.setBackground(ThemeUtils.cardBackground(context));
+                } else {
+                    if (ThemeUtils.isLandscape()) {
+                        itemView.setBackground(ThemeUtils.expressiveCardBackgroundForLandscape(context, position, totalCount));
+                    } else {
+                        itemView.setBackground(ThemeUtils.expressiveCardBackground(context, position, totalCount));
+                    }
+                }
+            }
+        }
     }
 
     int getTimerId() {

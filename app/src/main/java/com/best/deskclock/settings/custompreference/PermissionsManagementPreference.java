@@ -4,7 +4,6 @@ package com.best.deskclock.settings.custompreference;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
-import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_FULL_SCREEN_NOTIFICATION_PERMISSION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_IGNORE_BATTERY_OPTIMIZATIONS;
@@ -13,7 +12,6 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_SHOW_LOCKSCREEN_PE
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.widget.ImageButton;
@@ -30,8 +28,6 @@ import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.PermissionUtils;
 import com.best.deskclock.utils.ThemeUtils;
-import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.color.MaterialColors;
 
 public class PermissionsManagementPreference extends Preference {
 
@@ -41,7 +37,6 @@ public class PermissionsManagementPreference extends Preference {
 
     public PermissionsManagementPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        setLayoutResource(R.layout.settings_preference_permission);
     }
 
     @Override
@@ -56,33 +51,13 @@ public class PermissionsManagementPreference extends Preference {
         String fontPath = SettingsDAO.getGeneralFont(prefs);
         Typeface regularTypeFace = ThemeUtils.loadFont(fontPath);
 
-        final MaterialCardView prefCardView = (MaterialCardView) holder.findViewById(R.id.pref_card_view);
-        final boolean isCardBackgroundDisplayed = SettingsDAO.isCardBackgroundDisplayed(prefs);
-        final boolean isCardBorderDisplayed = SettingsDAO.isCardBorderDisplayed(prefs);
-
-        float strokeWidth = dpToPx(2, mContext.getResources().getDisplayMetrics());
-
-        if (isCardBackgroundDisplayed) {
-            prefCardView.setCardBackgroundColor(MaterialColors.getColor(prefCardView, com.google.android.material.R.attr.colorSurface));
-        } else {
-            prefCardView.setCardBackgroundColor(Color.TRANSPARENT);
-        }
-
-        if (isCardBorderDisplayed) {
-            prefCardView.setStrokeWidth((int) strokeWidth);
-        } else {
-            prefCardView.setStrokeWidth(0);
-        }
-
         super.onBindViewHolder(holder);
 
-        TextView prefTitle = (TextView) holder.findViewById(android.R.id.title);
         final TextView requirementTitle = (TextView) holder.findViewById(R.id.requirement_title);
         final TextView requirementAdvice = (TextView) holder.findViewById(R.id.requirement_advice);
         final TextView statusTitle = (TextView) holder.findViewById(R.id.status_title);
         mStatusState = (TextView) holder.findViewById(R.id.status_state);
 
-        prefTitle.setTypeface(ThemeUtils.boldTypeface(fontPath));
         requirementTitle.setTypeface(regularTypeFace);
         requirementAdvice.setTypeface(regularTypeFace);
         statusTitle.setTypeface(regularTypeFace);

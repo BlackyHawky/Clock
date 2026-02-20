@@ -8,10 +8,10 @@
 <com.google.android.material.textview.MaterialTextView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/city_list_header"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingStart="32dp"
     android:paddingEnd="@null"
     android:paddingTop="10dp"
     android:text="@string/selected_cities_label"
-    android:textSize="20sp" />
+    android:textAppearance="?attr/textAppearanceTitleLarge" />

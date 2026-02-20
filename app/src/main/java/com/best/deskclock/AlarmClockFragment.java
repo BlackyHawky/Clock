@@ -22,7 +22,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Typeface;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
@@ -106,7 +106,6 @@ public final class AlarmClockFragment extends DeskClockFragment implements
 
     private Context mContext;
     private SharedPreferences mPrefs;
-    private Typeface mBoldTypeface;
     private DisplayMetrics mDisplayMetrics;
 
     // Updates "Today/Tomorrow" in the UI when midnight passes.
@@ -135,6 +134,21 @@ public final class AlarmClockFragment extends DeskClockFragment implements
 
     private boolean sideButtonsVisible = false;
 
+    // Resources for ItemTouchHelper
+    float mLargeRadius;
+    float mSmallRadius;
+    int mDeleteIconHorizontalMargin;
+    String mDeleteText;
+    GradientDrawable mSwipeBackground;
+    Drawable mDeleteIcon;
+    int mDeleteIconSize = 0;
+    TextPaint mDeleteTextPaint;
+    private float[] mTopRadii;
+    private float[] mBottomRadii;
+    private int mDeleteIconHalfSize;
+    private int mTextHorizontalOffset;
+    private float mTextVerticalOffset;
+
     /**
      * The public no-arg constructor required by all fragments.
      */
@@ -148,7 +162,6 @@ public final class AlarmClockFragment extends DeskClockFragment implements
 
         mContext = requireContext();
         mPrefs = getDefaultSharedPreferences(mContext);
-        mBoldTypeface = ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(mPrefs));
         mDisplayMetrics = getResources().getDisplayMetrics();
         mCursorLoader = LoaderManager.getInstance(this).initLoader(0, null, this);
         mItemAdapter = new ItemAdapter<>();
@@ -159,6 +172,43 @@ public final class AlarmClockFragment extends DeskClockFragment implements
             mExpandedAlarmId = savedState.getLong(KEY_EXPANDED_ID, Alarm.INVALID_ID);
             sideButtonsVisible = savedState.getBoolean(KEY_SIDE_BUTTONS_VISIBLE, false);
         }
+
+        mLargeRadius = dpToPx(18, mDisplayMetrics);
+        mSmallRadius = dpToPx(4, mDisplayMetrics);
+        mDeleteIconHorizontalMargin = (int) dpToPx(16, mDisplayMetrics);
+        mDeleteText = mContext.getString(R.string.delete);
+
+        mSwipeBackground = new GradientDrawable();
+        mSwipeBackground.setColor(mContext.getColor(R.color.colorAlert));
+
+        mDeleteIcon = AppCompatResources.getDrawable(mContext, R.drawable.ic_delete);
+        if (mDeleteIcon != null) {
+            DrawableCompat.setTint(mDeleteIcon, MaterialColors.getColor(
+                    mContext, com.google.android.material.R.attr.colorOnError, Color.BLACK));
+            mDeleteIconSize = mDeleteIcon.getIntrinsicHeight();
+        }
+
+        mDeleteTextPaint = new TextPaint();
+        mDeleteTextPaint.setAntiAlias(true);
+        mDeleteTextPaint.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 16,
+                mContext.getResources().getDisplayMetrics()));
+        mDeleteTextPaint.setColor(MaterialColors.getColor(
+                mContext, com.google.android.material.R.attr.colorOnError, Color.BLACK));
+        mDeleteTextPaint.setTypeface(ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(mPrefs)));
+        mDeleteTextPaint.setTextAlign(ThemeUtils.isRTL() ? Paint.Align.RIGHT : Paint.Align.LEFT);
+
+        mTopRadii = new float[]{
+                mLargeRadius, mLargeRadius, mLargeRadius, mLargeRadius,
+                mSmallRadius, mSmallRadius, mSmallRadius, mSmallRadius};
+
+        mBottomRadii = new float[]{
+                mSmallRadius, mSmallRadius, mSmallRadius, mSmallRadius,
+                mLargeRadius, mLargeRadius, mLargeRadius, mLargeRadius};
+
+        mDeleteIconHalfSize = mDeleteIconSize / 2;
+        mTextHorizontalOffset = (int) (1.5 * mDeleteIconHorizontalMargin + mDeleteIconSize);
+
+        mTextVerticalOffset = (mDeleteTextPaint.getTextSize() - mDeleteTextPaint.getFontMetrics().descent) / 2;
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -181,17 +231,8 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         mAlarmUpdateHandler = new AlarmUpdateHandler(mContext, this, mMainLayout);
         mAlarmUpdateHandler.setAlarmUpdateCallback(this);
         mAlarmTimeClickHandler = new AlarmTimeClickHandler(this, savedState, mAlarmUpdateHandler);
-        mLayoutManager = new LinearLayoutManager(mContext) {
-            @Override
-            protected void calculateExtraLayoutSpace(@NonNull RecyclerView.State state,
-                                                     @NonNull int[] extraLayoutSpace) {
-                // We need enough space so after expand/collapse, other items are still
-                // shown properly. The multiplier was chosen after tests
-                extraLayoutSpace[0] = 2 * getHeight();
-                extraLayoutSpace[1] = extraLayoutSpace[0];
+        mLayoutManager = new LinearLayoutManager(mContext);
 
-            }
-        };
         final GestureDetector gestureDetector = new GestureDetector(mContext, new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onSingleTapUp(@NonNull MotionEvent e) {
@@ -211,9 +252,9 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         mRecyclerView.setLayoutManager(mLayoutManager);
         // Due to the ViewPager and the location of FAB, set a bottom padding and/or a right padding
         // to prevent the alarm list from being hidden by the FAB (e.g. when scrolling down).
-        final int rightPadding = (int) dpToPx(mIsPhoneInLandscape ? 85 : 0, mDisplayMetrics);
-        final int bottomPadding = (int) dpToPx(mIsTablet ? 110 : mIsPhoneInLandscape ? 5 : 95, mDisplayMetrics);
-        mRecyclerView.setPadding(0, 0, rightPadding, bottomPadding);
+        final int rightPadding = (int) dpToPx(mIsPhoneInLandscape ? 80 : 0, mDisplayMetrics);
+        final int bottomPadding = (int) dpToPx(mIsTablet ? 120 : mIsPhoneInLandscape ? 5 : 100, mDisplayMetrics);
+        mRecyclerView.setPaddingRelative(0, 0, rightPadding, bottomPadding);
 
         mItemAdapter.setHasStableIds();
         mItemAdapter.withViewTypes(new CollapsedAlarmViewHolder.Factory(inflater),
@@ -252,7 +293,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         mRecyclerView.setItemAnimator(itemAnimator);
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(
-                new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+                new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.END) {
 
            @Override
            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder,
@@ -268,78 +309,80 @@ public final class AlarmClockFragment extends DeskClockFragment implements
 
                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
 
-               // Swiping Right
-               if (dX > 0) {
+               if (dX != 0) {
                    hideSideButtonsWithFabAnimation();
+                   c.save();
 
-                   // Background
-                   c.clipRect(
-                           viewHolder.itemView.getLeft(),
-                           viewHolder.itemView.getTop(),
-                           viewHolder.itemView.getLeft() + (int) dX,
-                           viewHolder.itemView.getBottom()
-                   );
+                   View itemView = viewHolder.itemView;
+                   int itemTop = itemView.getTop();
+                   int itemBottom = itemView.getBottom();
+                   int itemLeft = itemView.getLeft();
+                   int itemRight = itemView.getRight();
 
-                   final GradientDrawable background = new GradientDrawable();
-                   background.setColor(mContext.getColor(R.color.colorAlert));
-                   background.setBounds(
-                           viewHolder.itemView.getLeft(),
-                           viewHolder.itemView.getTop(),
-                           viewHolder.itemView.getLeft() + (int) dX,
-                           viewHolder.itemView.getBottom()
-                   );
-                   background.setCornerRadius((int) dpToPx(18, mDisplayMetrics));
-                   background.draw(c);
+                   AlarmItemViewHolder alarmHolder = (AlarmItemViewHolder) viewHolder;
+                   int position = alarmHolder.itemPosition;
+                   int totalCount = alarmHolder.totalCount;
 
-                   // Delete icon
-                   int deleteIconSize = 0;
-                   int deleteIconHorizontalMargin = (int) dpToPx(16, mDisplayMetrics);
+                   // Radius setting
+                   if (totalCount <= 1) {
+                       mSwipeBackground.setCornerRadius(mLargeRadius);
+                   } else if (position == 0) {
+                       mSwipeBackground.setCornerRadii(mTopRadii);
+                   } else if (position == totalCount - 1) {
+                       mSwipeBackground.setCornerRadii(mBottomRadii);
+                   } else {
+                       mSwipeBackground.setCornerRadius(mSmallRadius);
+                   }
 
-                   if (dX > deleteIconHorizontalMargin) {
-                       Drawable deleteIcon = AppCompatResources.getDrawable(mContext, R.drawable.ic_delete);
-                       if (deleteIcon != null) {
-                           DrawableCompat.setTint(deleteIcon, MaterialColors.getColor(
-                                   mContext, com.google.android.material.R.attr.colorOnError, Color.BLACK));
-                           deleteIconSize = deleteIcon.getIntrinsicHeight();
-                           int halfIcon = deleteIconSize / 2;
-                           int top = viewHolder.itemView.getTop()
-                                   + ((viewHolder.itemView.getBottom()
-                                   - viewHolder.itemView.getTop()) / 2 - halfIcon);
+                   int topIcon = itemTop + ((itemBottom - itemTop) / 2 - mDeleteIconHalfSize);
+                   int textMarginTop = (int) (itemTop + ((itemBottom - itemTop) / 2.0) + mTextVerticalOffset);
 
-                           deleteIcon.setBounds(
-                                   viewHolder.itemView.getLeft() + deleteIconHorizontalMargin,
-                                   top,
-                                   viewHolder.itemView.getLeft()
-                                           + deleteIconHorizontalMargin
-                                           + deleteIcon.getIntrinsicWidth(),
-                                   top + deleteIcon.getIntrinsicHeight()
+                   // Drawing according to the swipe direction
+                   if (dX > 0) {
+                       // Swipe right
+                       c.clipRect(itemLeft, itemTop, itemLeft + (int) dX, itemBottom);
+                       mSwipeBackground.setBounds(itemLeft, itemTop, itemLeft + (int) dX, itemBottom);
+                       mSwipeBackground.draw(c);
+
+                       // Icon
+                       if (dX > mDeleteIconHorizontalMargin && mDeleteIcon != null) {
+                           mDeleteIcon.setBounds(
+                                   itemLeft + mDeleteIconHorizontalMargin,
+                                   topIcon,
+                                   itemLeft + mDeleteIconHorizontalMargin + mDeleteIconSize,
+                                   topIcon + mDeleteIconSize
                            );
+                           mDeleteIcon.draw(c);
+                       }
 
-                           deleteIcon.draw(c);
+                       // Text
+                       if (dX > mTextHorizontalOffset) {
+                           c.drawText(mDeleteText, itemLeft + mTextHorizontalOffset, textMarginTop, mDeleteTextPaint);
+                       }
+                   } else {
+                       // Swipe left (for RTL)
+                       c.clipRect(itemRight + (int) dX, itemTop, itemRight, itemBottom);
+                       mSwipeBackground.setBounds(itemRight + (int) dX, itemTop, itemRight, itemBottom);
+                       mSwipeBackground.draw(c);
+
+                       // Icon
+                       if (-dX > mDeleteIconHorizontalMargin && mDeleteIcon != null) {
+                           mDeleteIcon.setBounds(
+                                   itemRight - mDeleteIconHorizontalMargin - mDeleteIconSize,
+                                   topIcon,
+                                   itemRight - mDeleteIconHorizontalMargin,
+                                   topIcon + mDeleteIconSize
+                           );
+                           mDeleteIcon.draw(c);
+                       }
+
+                       // Text
+                       if (-dX > mTextHorizontalOffset) {
+                           c.drawText(mDeleteText, itemRight - mTextHorizontalOffset, textMarginTop, mDeleteTextPaint);
                        }
                    }
 
-                   // Delete text
-                   final String deleteText = mContext.getString(R.string.delete);
-                   if (dX > deleteIconHorizontalMargin + deleteIconSize) {
-                       TextPaint textPaint = new TextPaint();
-                       textPaint.setAntiAlias(true);
-                       textPaint.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 16,
-                               mContext.getResources().getDisplayMetrics()));
-                       textPaint.setColor(MaterialColors.getColor(
-                               mContext, com.google.android.material.R.attr.colorOnError, Color.BLACK));
-                       textPaint.setTypeface(mBoldTypeface);
-
-                       int textMarginLeft = (int) (viewHolder.itemView.getLeft()
-                               + 1.5 * deleteIconHorizontalMargin + deleteIconSize);
-
-                       int textMarginTop = (int) (viewHolder.itemView.getTop()
-                               + ((viewHolder.itemView.getBottom()
-                               - viewHolder.itemView.getTop()) / 2.0)
-                               + (textPaint.getTextSize() - textPaint.getFontMetrics().descent) / 2);
-
-                       c.drawText(deleteText, textMarginLeft, textMarginTop, textPaint);
-                   }
+                   c.restore();
                }
            }
 

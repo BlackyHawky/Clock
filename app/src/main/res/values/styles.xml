@@ -5,7 +5,7 @@
 
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Theme.DeskClock" parent="Theme.Material3.Light.NoActionBar">
+    <style name="Theme.DeskClock" parent="Theme.Material3Expressive.Light.NoActionBar">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
@@ -64,8 +64,6 @@
         <item name="alertDialogTheme">@style/AppAlertDialogTheme</item>
         <item name="materialAlertDialogTheme">@style/AppAlertDialogTheme</item>
 
-        <item name="switchPreferenceCompatStyle">@style/AppSwitchPreference</item>
-
         <item name="snackbarStyle">@style/SnackBarStyle</item>
 
         <item name="elevationOverlayEnabled">false</item>
@@ -75,12 +73,16 @@
         <item name="materialCalendarTheme">@style/AppMaterialCalendarTheme</item>
     </style>
 
-    <style name="AppSwitchPreference" parent="@style/Preference.SwitchPreferenceCompat.Material">
-        <item name="widgetLayout">@layout/settings_material_switch</item>
+    <style name="AlarmMaterialSwitch" parent="Widget.Material3.CompoundButton.MaterialSwitch">
+        <item name="thumbIcon">@drawable/alarm_switch_thumb_icon</item>
     </style>
 
-    <style name="TimerSetupDigit" parent="@style/Widget.MaterialComponents.Button">
-        <item name="shapeAppearance">@style/ShapeAppearanceOverlay.MaterialComponents.FloatingActionButton</item>
+    <style name="PreferenceMaterialSwitch" parent="Widget.Material3.CompoundButton.MaterialSwitch">
+        <item name="thumbIcon">@drawable/pref_switch_thumb_icon</item>
+    </style>
+
+    <style name="TimerSetupDigit" parent="@style/Widget.Material3Expressive.Button.TonalButton">
+        <item name="shapeAppearanceOverlay">@style/TimerSetupDigit.CircleOverlay</item>
         <item name="backgroundTint">?attr/colorSurface</item>
         <item name="android:textColor">?android:attr/textColorPrimary</item>
         <item name="android:layout_margin">2dp</item>
@@ -96,12 +98,9 @@
         <item name="android:stateListAnimator">@null</item>
     </style>
 
-    <style name="CollapsingToolbarTitle.Collapsed" parent="@style/TextAppearance.Material3.ActionBar.Title">
-        <item name="android:textSize">20sp</item>
-    </style>
-
-    <style name="CollapsingToolbarTitle.Expanded" parent="CollapsingToolbarTitle.Collapsed">
-        <item name="android:textSize">28sp</item>
+    <style name="TimerSetupDigit.CircleOverlay">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
     </style>
 
     <style name="FloatingActionButton" parent="@style/Widget.MaterialComponents.FloatingActionButton">
@@ -213,6 +212,7 @@
         <item name="colorPrimaryContainer">@color/blackColorGray3</item>
         <item name="colorPrimaryInverse">@color/blackColorGray1</item>
         <item name="colorOnPrimary">@color/blackColorBackground</item>
+        <item name="colorOnPrimaryContainer">@color/blackColorPrimary</item>
         <item name="colorSecondaryContainer">@color/blackColorGray1</item>
         <item name="colorSurface">@color/blackColorGray2</item>
         <item name="colorSurfaceInverse">@color/blackColorInverseSurface</item>
@@ -233,6 +233,7 @@
         <item name="colorPrimaryContainer">@color/bluePrimaryContainer</item>
         <item name="colorPrimaryInverse">@color/bluePrimaryInverse</item>
         <item name="colorOnPrimary">@color/blueOnPrimary</item>
+        <item name="colorOnPrimaryContainer">@color/blueOnPrimaryContainer</item>
         <item name="colorSecondaryContainer">@color/blueSecondaryContainer</item>
         <item name="colorSurface">@color/blueColorSurface</item>
         <item name="colorSurfaceInverse">@color/blueColorInverseSurface</item>
@@ -251,6 +252,7 @@
         <item name="colorPrimaryInverse">@color/blueGrayPrimaryInverse</item>
         <item name="colorSecondaryContainer">@color/blueGraySecondaryContainer</item>
         <item name="colorOnPrimary">@color/blueGrayOnPrimary</item>
+        <item name="colorOnPrimaryContainer">@color/blueGrayOnPrimaryContainer</item>
         <item name="colorSurface">@color/blueGrayColorSurface</item>
         <item name="colorSurfaceInverse">@color/blueGrayColorInverseSurface</item>
         <item name="colorSurfaceContainerHighest">@color/blueGraySurfaceContainerHighest</item>
@@ -267,6 +269,7 @@
         <item name="colorPrimaryContainer">@color/brownPrimaryContainer</item>
         <item name="colorPrimaryInverse">@color/brownPrimaryInverse</item>
         <item name="colorOnPrimary">@color/brownOnPrimary</item>
+        <item name="colorOnPrimaryContainer">@color/brownOnPrimaryContainer</item>
         <item name="colorSecondaryContainer">@color/brownSecondaryContainer</item>
         <item name="colorSurface">@color/brownColorSurface</item>
         <item name="colorSurfaceInverse">@color/brownColorInverseSurface</item>
@@ -284,6 +287,7 @@
         <item name="colorPrimaryContainer">@color/greenPrimaryContainer</item>
         <item name="colorPrimaryInverse">@color/greenPrimaryInverse</item>
         <item name="colorOnPrimary">@color/greenOnPrimary</item>
+        <item name="colorOnPrimaryContainer">@color/greenOnPrimaryContainer</item>
         <item name="colorSecondaryContainer">@color/greenSecondaryContainer</item>
         <item name="colorSurface">@color/greenColorSurface</item>
         <item name="colorSurfaceInverse">@color/greenColorInverseSurface</item>
@@ -301,6 +305,7 @@
         <item name="colorPrimaryContainer">@color/indigoPrimaryContainer</item>
         <item name="colorPrimaryInverse">@color/indigoPrimaryInverse</item>
         <item name="colorOnPrimary">@color/indigoOnPrimary</item>
+        <item name="colorOnPrimaryContainer">@color/indigoOnPrimaryContainer</item>
         <item name="colorSecondaryContainer">@color/indigoSecondaryContainer</item>
         <item name="colorSurface">@color/indigoColorSurface</item>
         <item name="colorSurfaceInverse">@color/indigoColorInverseSurface</item>
@@ -318,6 +323,7 @@
         <item name="colorPrimaryContainer">@color/orangePrimaryContainer</item>
         <item name="colorPrimaryInverse">@color/orangePrimaryInverse</item>
         <item name="colorOnPrimary">@color/orangeOnPrimary</item>
+        <item name="colorOnPrimaryContainer">@color/orangeOnPrimaryContainer</item>
         <item name="colorSecondaryContainer">@color/orangeSecondaryContainer</item>
         <item name="colorSurface">@color/orangeColorSurface</item>
         <item name="colorSurfaceInverse">@color/orangeColorInverseSurface</item>
@@ -335,6 +341,7 @@
         <item name="colorPrimaryContainer">@color/pinkPrimaryContainer</item>
         <item name="colorPrimaryInverse">@color/pinkPrimaryInverse</item>
         <item name="colorOnPrimary">@color/pinkOnPrimary</item>
+        <item name="colorOnPrimaryContainer">@color/pinkOnPrimaryContainer</item>
         <item name="colorSecondaryContainer">@color/pinkSecondaryContainer</item>
         <item name="colorSurface">@color/pinkColorSurface</item>
         <item name="colorSurfaceInverse">@color/pinkColorInverseSurface</item>
@@ -352,6 +359,7 @@
         <item name="colorPrimaryContainer">@color/purplePrimaryContainer</item>
         <item name="colorPrimaryInverse">@color/purplePrimaryInverse</item>
         <item name="colorOnPrimary">@color/purpleOnPrimary</item>
+        <item name="colorOnPrimaryContainer">@color/purpleOnPrimaryContainer</item>
         <item name="colorSecondaryContainer">@color/purpleSecondaryContainer</item>
         <item name="colorSurface">@color/purpleColorSurface</item>
         <item name="colorSurfaceInverse">@color/purpleColorInverseSurface</item>
@@ -369,6 +377,7 @@
         <item name="colorPrimaryContainer">@color/redPrimaryContainer</item>
         <item name="colorPrimaryInverse">@color/redPrimaryInverse</item>
         <item name="colorOnPrimary">@color/redOnPrimary</item>
+        <item name="colorOnPrimaryContainer">@color/redOnPrimaryContainer</item>
         <item name="colorSecondaryContainer">@color/redSecondaryContainer</item>
         <item name="colorSurface">@color/redColorSurface</item>
         <item name="colorSurfaceInverse">@color/redColorInverseSurface</item>
@@ -386,6 +395,7 @@
         <item name="colorPrimaryContainer">@color/yellowPrimaryContainer</item>
         <item name="colorPrimaryInverse">@color/yellowPrimaryInverse</item>
         <item name="colorOnPrimary">@color/yellowOnPrimary</item>
+        <item name="colorOnPrimaryContainer">@color/yellowOnPrimaryContainer</item>
         <item name="colorSecondaryContainer">@color/yellowSecondaryContainer</item>
         <item name="colorSurface">@color/yellowColorSurface</item>
         <item name="colorSurfaceInverse">@color/yellowColorInverseSurface</item>

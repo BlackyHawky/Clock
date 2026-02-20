@@ -10,14 +10,22 @@ import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.RippleDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
@@ -30,16 +38,21 @@ import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.preference.ListPreference;
 import androidx.preference.Preference;
+import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.PreferenceGroup;
+import androidx.preference.PreferenceGroupAdapter;
+import androidx.preference.PreferenceScreen;
+import androidx.preference.PreferenceViewHolder;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.settings.custompreference.ColorPickerPreference;
-import com.best.deskclock.settings.custompreference.CustomListPreference;
-import com.best.deskclock.settings.custompreference.CustomPreference;
+import com.best.deskclock.settings.custompreference.CustomAboutTitlePreference;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.utils.InsetsUtils;
@@ -49,6 +62,7 @@ import com.best.deskclock.utils.ThemeUtils;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.color.MaterialColors;
 
 import java.io.File;
 
@@ -65,6 +79,8 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
     CollapsingToolbarLayout mCollapsingToolbarLayout;
     RecyclerView mRecyclerView;
     LinearLayoutManager mLinearLayoutManager;
+    Typeface mRegularTypeface;
+    Typeface mBoldTypeface;
 
     int mRecyclerViewPosition = -1;
 
@@ -88,6 +104,9 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
 
         mPrefs = getDefaultSharedPreferences(requireContext());
         mDisplayMetrics = getResources().getDisplayMetrics();
+        String fontPath = SettingsDAO.getGeneralFont(mPrefs);
+        mRegularTypeface = ThemeUtils.loadFont(fontPath);
+        mBoldTypeface = ThemeUtils.boldTypeface(fontPath);
 
         // To manually manage insets
         WindowCompat.setDecorFitsSystemWindows(requireActivity().getWindow(), false);
@@ -168,9 +187,117 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
         // so there is no possibility of calling setStorageDeviceProtected before this is called...
     }
 
+    /**
+     * Overrides the default preference adapter to apply custom Material 3 Expressive styling.
+     *
+     * <p>This method intercepts the binding of each preference to its view (ViewHolder) to:
+     * <ul>
+     * <li>Apply custom fonts (regular/bold) and text sizes to titles and summaries.</li>
+     * <li>Calculate the exact visual position of a preference within its contiguous block.</li>
+     * <li>Apply dynamic rounded corners and a ripple effect based on that position.</li>
+     * </ul>
+     *
+     * @param preferenceScreen The root preference screen containing the preferences.
+     * @return A custom {@link PreferenceGroupAdapter} handling the UI updates.
+     */
+    @SuppressLint("RestrictedApi")
+    @NonNull
+    @Override
+    protected RecyclerView.Adapter<?> onCreateAdapter(@NonNull PreferenceScreen preferenceScreen) {
+        return new PreferenceGroupAdapter(preferenceScreen) {
+            @Override
+            public void onBindViewHolder(@NonNull PreferenceViewHolder holder, int position) {
+                int adapterPosition = holder.getBindingAdapterPosition();
+                if (adapterPosition == RecyclerView.NO_POSITION) {
+                    adapterPosition = position;
+                }
+
+                super.onBindViewHolder(holder, adapterPosition);
+
+                Preference pref = getItem(adapterPosition);
+                if (pref == null) {
+                    return;
+                }
+
+                Context context = holder.itemView.getContext();
+                TextView title = (TextView) holder.findViewById(android.R.id.title);
+                TextView summary = (TextView) holder.findViewById(android.R.id.summary);
+
+                // Categories
+                if (pref instanceof PreferenceCategory) {
+                    if (title != null) {
+                        title.setTypeface(mBoldTypeface);
+                        title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+                    }
+                    return;
+                }
+
+                // Normal preferences
+                if (title != null) {
+                    title.setTypeface(mRegularTypeface);
+                }
+                if (summary != null) {
+                    summary.setTypeface(mRegularTypeface);
+                }
+
+                View cardView = holder.itemView.findViewById(R.id.pref_card_view);
+
+                if (cardView != null) {
+                    int visibleCount = 1;
+                    int visibleIndex = 0;
+
+                    PreferenceGroup parent = pref.getParent();
+                    if (parent != null) {
+                        int tempCount = 0;
+                        boolean foundTarget = false;
+
+                        for (int i = 0; i < parent.getPreferenceCount(); i++) {
+                            Preference child = parent.getPreference(i);
+
+                            if (!child.isVisible()) {
+                                // Ignore hidden items
+                                continue;
+                            }
+
+                            if (isCardPreference(child)) {
+                                if (child == pref) {
+                                    foundTarget = true;
+                                    visibleIndex = tempCount;
+                                }
+                                tempCount++;
+                            } else {
+                                if (foundTarget) {
+                                    break;
+                                } else {
+                                    tempCount = 0;
+                                }
+                            }
+                        }
+
+                        if (foundTarget) {
+                            visibleCount = tempCount;
+                        }
+                    }
+
+                    // Apply the Material Expressive background
+                    Drawable cardBackground = ThemeUtils.expressiveCardBackground(
+                            context, visibleIndex, visibleCount);
+
+                    int rippleColor = MaterialColors.getColor(
+                            context, androidx.appcompat.R.attr.colorControlHighlight, Color.BLACK);
+
+                    RippleDrawable rippleDrawable = new RippleDrawable(
+                            ColorStateList.valueOf(rippleColor), cardBackground, null);
+
+                    cardView.setBackground(rippleDrawable);
+                }
+            }
+        };
+    }
+
     @Override
     public void onDisplayPreferenceDialog(@NonNull Preference pref) {
-        if (pref instanceof CustomListPreference customListPref) {
+        if (pref instanceof ListPreference customListPref) {
             CustomListPreferenceDialogFragment dialog =
                     CustomListPreferenceDialogFragment.newInstance(customListPref);
             CustomListPreferenceDialogFragment.show(getChildFragmentManager(), dialog);
@@ -181,6 +308,12 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
         } else {
             super.onDisplayPreferenceDialog(pref);
         }
+    }
+
+    private boolean isCardPreference(Preference preference) {
+        return preference != null
+                && !(preference instanceof PreferenceCategory)
+                && !(preference instanceof CustomAboutTitlePreference);
     }
 
     /**
@@ -231,7 +364,7 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
                 .commit();
     }
 
-    protected void selectCustomFile(CustomPreference pref, ActivityResultLauncher<Intent> launcher,
+    protected void selectCustomFile(Preference pref, ActivityResultLauncher<Intent> launcher,
                                     String fontPath, String prefKey, boolean isFontFile,
                                     @Nullable OnPreferenceDeleted onPreferenceDeleted) {
 

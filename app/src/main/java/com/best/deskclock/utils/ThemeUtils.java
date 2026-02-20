@@ -146,6 +146,13 @@ public class ThemeUtils {
     }
 
     /**
+     * @return {@code true} if the current layout direction is RTL. {@code false} otherwise.
+     */
+    public static boolean isRTL() {
+        return Resources.getSystem().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
+    }
+
+    /**
      * @return {@code true} if the system animations are disabled. {@code false} otherwise.
      */
     public static boolean areSystemAnimationsDisabled(Context context) {
@@ -364,36 +371,118 @@ public class ThemeUtils {
     }
 
     /**
-     * Convenience method for creating card background.
+     * @return a Material card.
      */
     public static Drawable cardBackground(Context context) {
-        final SharedPreferences prefs = getDefaultSharedPreferences(context);
-        final String darkMode = SettingsDAO.getDarkMode(prefs);
-        final DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-        final int radius = (int) dpToPx(18, displayMetrics);
         final GradientDrawable gradientDrawable = new GradientDrawable();
+        final float radius = dpToPx(18, context.getResources().getDisplayMetrics());
 
         gradientDrawable.setCornerRadius(radius);
 
+        return applyCardStyle(context, gradientDrawable);
+    }
+
+    /**
+     * @return a Material Expressive card.
+     */
+    public static Drawable expressiveCardBackground(Context context, int position, int totalCount) {
+        return buildExpressiveCard(context, position, totalCount, false);
+    }
+
+    /**
+     * @return a Material Expressive card for the landscape mode.
+     */
+    public static Drawable expressiveCardBackgroundForLandscape(Context context, int position, int totalCount) {
+        return buildExpressiveCard(context, position, totalCount, true);
+    }
+
+    /**
+     * Convenience method for creating a Material Expressive card.
+     */
+    private static Drawable buildExpressiveCard(Context context, int position, int totalCount, boolean isHorizontal) {
+        final DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        final float largeRadius = dpToPx(18, displayMetrics);
+        final float smallRadius = dpToPx(4, displayMetrics);
+        final GradientDrawable gradientDrawable = new GradientDrawable();
+
+        if (totalCount <= 1) {
+            gradientDrawable.setCornerRadius(largeRadius);
+        } else if (position == 0) {
+            // First horizontal item
+            if (isHorizontal) {
+                if (isRTL()) {
+                    // RTL : rounded on the right, square on the left
+                    gradientDrawable.setCornerRadii(new float[]{
+                            smallRadius, smallRadius, largeRadius, largeRadius,
+                            largeRadius, largeRadius, smallRadius, smallRadius});
+                } else {
+                    // LTR : rounded on the left, square on the right
+                    gradientDrawable.setCornerRadii(new float[]{
+                            largeRadius, largeRadius, smallRadius, smallRadius,
+                            smallRadius, smallRadius, largeRadius, largeRadius});
+                }
+            } else {
+                // First vertical item: rounded at the top, square at the bottom
+                gradientDrawable.setCornerRadii(new float[]{
+                        largeRadius, largeRadius, largeRadius, largeRadius,
+                        smallRadius, smallRadius, smallRadius, smallRadius});
+            }
+        } else if (position == totalCount - 1) {
+            // Last horizontal item
+            if (isHorizontal) {
+                if (isRTL()) {
+                    // RTL : square on the right, rounded on the left
+                    gradientDrawable.setCornerRadii(new float[]{
+                            largeRadius, largeRadius, smallRadius, smallRadius,
+                            smallRadius, smallRadius, largeRadius, largeRadius});
+                } else {
+                    // LTR : square on the left, rounded on the right
+                    gradientDrawable.setCornerRadii(new float[]{
+                            smallRadius, smallRadius, largeRadius, largeRadius,
+                            largeRadius, largeRadius, smallRadius, smallRadius});
+                }
+            } else {
+                // Last vertical item: square at the top, rounded at the bottom
+                gradientDrawable.setCornerRadii(new float[]{
+                        smallRadius, smallRadius, smallRadius, smallRadius,
+                        largeRadius, largeRadius, largeRadius, largeRadius});
+            }
+        } else {
+            // Middle item: completely square
+            gradientDrawable.setCornerRadius(smallRadius);
+        }
+
+        return applyCardStyle(context, gradientDrawable);
+    }
+
+    /**
+     * Convenience methode for applying a background color and border to a drawable
+     * according to user preferences.
+     */
+    private static Drawable applyCardStyle(Context context, GradientDrawable drawable) {
+        final SharedPreferences prefs = getDefaultSharedPreferences(context);
+        final String darkMode = SettingsDAO.getDarkMode(prefs);
+        final DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+
         if (SettingsDAO.isCardBackgroundDisplayed(prefs)) {
-            gradientDrawable.setColor(MaterialColors.getColor(
+            drawable.setColor(MaterialColors.getColor(
                     context, com.google.android.material.R.attr.colorSurface, Color.BLACK));
         } else {
             if (isNight(context.getResources()) && darkMode.equals(AMOLED_DARK_MODE)) {
-                gradientDrawable.setColor(Color.BLACK);
+                drawable.setColor(Color.BLACK);
             } else {
-                gradientDrawable.setColor(MaterialColors.getColor(context, android.R.attr.colorBackground, Color.BLACK));
+                drawable.setColor(MaterialColors.getColor(context, android.R.attr.colorBackground, Color.BLACK));
             }
         }
 
         if (SettingsDAO.isCardBorderDisplayed(prefs)) {
-            gradientDrawable.setShape(GradientDrawable.RECTANGLE);
-            gradientDrawable.setStroke((int) dpToPx(2, displayMetrics), MaterialColors.getColor(
+            drawable.setShape(GradientDrawable.RECTANGLE);
+            drawable.setStroke((int) dpToPx(2, displayMetrics), MaterialColors.getColor(
                     context, androidx.appcompat.R.attr.colorPrimary, Color.BLACK)
             );
         }
 
-        return gradientDrawable;
+        return drawable;
     }
 
     /**
@@ -462,13 +551,13 @@ public class ThemeUtils {
     }
 
     /**
-     * Updates the enabled state and image tint of a SeekBar-related {@link ImageView} button
+     * Updates the enabled state and image tint of a slider-related {@link ImageView} button
      * (e.g. minus or plus) based on a given enabled flag.
      *
      * @param button   The ImageView button to update.
      * @param enabled  Whether the button should be enabled.
      */
-    public static void updateSeekBarButtonEnabledState(Context context, ImageView button, boolean enabled) {
+    public static void updateSliderButtonEnabledState(Context context, ImageView button, boolean enabled) {
         button.setEnabled(enabled);
 
         if (enabled) {

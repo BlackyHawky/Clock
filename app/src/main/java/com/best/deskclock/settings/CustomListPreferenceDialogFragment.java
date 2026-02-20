@@ -21,12 +21,12 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
-import com.best.deskclock.settings.custompreference.CustomListPreference;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.ThemeUtils;
 
@@ -37,7 +37,7 @@ import java.util.Objects;
 
 /**
  * A dialog fragment that displays the selectable entries of a
- * {@link CustomListPreference} using a custom Material-styled layout.
+ * {@link ListPreference} using a custom Material-styled layout.
  *
  * <p>The dialog highlights the currently selected value and updates the
  * associated preference when the user selects a new option. The change
@@ -53,25 +53,25 @@ public class CustomListPreferenceDialogFragment extends DialogFragment {
     private static final String ARG_ENTRY_VALUES = "entry_values";
     private static final String ARG_CURRENT_VALUE = "current_value";
 
-    private CustomListPreference preference;
+    private ListPreference preference;
 
     /**
      * Creates a new instance of {@link CustomListPreferenceDialogFragment} for use
      * in the settings screen, allowing the user to select a value from a list of options.
      *
      * <p>This method extracts all necessary information from the provided
-     * {@link CustomListPreference}, including its key, title, entries, entry values,
+     * {@link ListPreference}, including its key, title, entries, entry values,
      * and currently selected value. These details are then passed to the dialog so it
      * can display the correct options and highlight the active selection.</p>
      *
-     * @param pref The {@link CustomListPreference} associated with this dialog.
+     * @param pref The {@link ListPreference} associated with this dialog.
      *             Its configuration and current value will be used to initialize
      *             the dialog.
      *
      * @return A fully configured instance of {@link CustomListPreferenceDialogFragment}
      *         ready to be displayed.
      */
-    public static CustomListPreferenceDialogFragment newInstance(CustomListPreference pref) {
+    public static CustomListPreferenceDialogFragment newInstance(ListPreference pref) {
         Bundle args = new Bundle();
         args.putString(ARG_PREF_KEY, pref.getKey());
         args.putCharSequence(ARG_TITLE, pref.getTitle());
@@ -179,8 +179,8 @@ public class CustomListPreferenceDialogFragment extends DialogFragment {
         }
 
         Preference pref = preferenceFragmentCompat.findPreference(key);
-        if (pref instanceof CustomListPreference customListPreference) {
-            preference = customListPreference;
+        if (pref instanceof ListPreference ListPreference) {
+            preference = ListPreference;
         }
     }
 

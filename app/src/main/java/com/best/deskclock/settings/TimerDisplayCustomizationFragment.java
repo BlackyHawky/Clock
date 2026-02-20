@@ -32,14 +32,13 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.preference.Preference;
+import androidx.preference.PreferenceCategory;
+import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.settings.custompreference.ColorPickerPreference;
-import com.best.deskclock.settings.custompreference.CustomPreference;
-import com.best.deskclock.settings.custompreference.CustomPreferenceCategory;
-import com.best.deskclock.settings.custompreference.CustomSeekbarPreference;
-import com.best.deskclock.settings.custompreference.CustomSwitchPreference;
+import com.best.deskclock.settings.custompreference.CustomSliderPreference;
 import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
@@ -48,23 +47,23 @@ import com.best.deskclock.utils.Utils;
 public class TimerDisplayCustomizationFragment extends ScreenFragment
         implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
-    CustomSwitchPreference mDisplayCompactTimersPref;
-    CustomSwitchPreference mTransparentBackgroundPref;
-    CustomSwitchPreference mDisplayTimerStateIndicatorPref;
-    CustomSwitchPreference mDisplayRingtoneTitlePref;
-    CustomPreferenceCategory mTimerColorCategory;
+    SwitchPreferenceCompat mDisplayCompactTimersPref;
+    SwitchPreferenceCompat mTransparentBackgroundPref;
+    SwitchPreferenceCompat mDisplayTimerStateIndicatorPref;
+    SwitchPreferenceCompat mDisplayRingtoneTitlePref;
+    PreferenceCategory mTimerColorCategory;
     ColorPickerPreference mRunningTimerIndicatorColorPref;
     ColorPickerPreference mPausedTimerIndicatorColorPref;
     ColorPickerPreference mExpiredTimerIndicatorColorPref;
     ColorPickerPreference mRingtoneTitleColorPref;
-    CustomPreferenceCategory mTimerFontCategory;
-    CustomSwitchPreference mDisplayTextShadowPref;
+    PreferenceCategory mTimerFontCategory;
+    SwitchPreferenceCompat mDisplayTextShadowPref;
     ColorPickerPreference mShadowColorPref;
-    CustomSeekbarPreference mShadowOffsetPref;
-    CustomPreference mTimerBackgroundImagePref;
-    CustomSwitchPreference mEnableTimerBlurEffectPref;
-    CustomSeekbarPreference mTimerBlurIntensityPref;
-    CustomPreference mTimerPreviewPref;
+    CustomSliderPreference mShadowOffsetPref;
+    Preference mTimerBackgroundImagePref;
+    SwitchPreferenceCompat mEnableTimerBlurEffectPref;
+    CustomSliderPreference mTimerBlurIntensityPref;
+    Preference mTimerPreviewPref;
 
     private final ActivityResultLauncher<Intent> imagePickerLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {

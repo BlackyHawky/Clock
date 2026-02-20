@@ -19,12 +19,15 @@ import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.RippleDrawable;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.ItemAdapter;
 import com.best.deskclock.ItemAnimator;
@@ -71,6 +74,9 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
     public final Typeface mGeneralTypeface;
     public final Typeface mGeneralBoldTypeface;
 
+    public int itemPosition = 0;
+    public int totalCount = 0;
+
     public float annotationsAlpha = CLOCK_ENABLED_ALPHA;
 
     public AlarmItemViewHolder(View itemView) {
@@ -89,11 +95,6 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
         daysOfWeek = itemView.findViewById(R.id.days_of_week);
         preemptiveDismissButton = itemView.findViewById(R.id.preemptive_dismiss_button);
         bottomPaddingView = itemView.findViewById(R.id.bottom_padding_view);
-
-        int rippleColor = MaterialColors.getColor(context, androidx.appcompat.R.attr.colorControlHighlight, Color.BLACK);
-        RippleDrawable rippleDrawable = new RippleDrawable(ColorStateList.valueOf(rippleColor),
-                ThemeUtils.cardBackground(context), null);
-        itemView.setBackground(rippleDrawable);
 
         // Clock handler
         clock.setOnClickListener(v -> getAlarmTimeClickHandler().onClockClicked(getItemHolder().item));
@@ -121,6 +122,7 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
         final AlarmInstance alarmInstance = itemHolder.getAlarmInstance();
         final Context context = itemView.getContext();
 
+        bindExpressiveCardBackground(context);
         bindClock(alarm);
         bindOnOffSwitch(alarm);
         bindRepeatText(context, alarm, alarmInstance);
@@ -128,6 +130,24 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
         bindAnnotations(alarm);
 
         itemView.setContentDescription(clock.getText() + " " + alarm.getLabelOrDefault(context));
+    }
+
+    private void bindExpressiveCardBackground(Context context) {
+        int position = getBindingAdapterPosition();
+        RecyclerView.Adapter<?> adapter = getBindingAdapter();
+
+        if (position != RecyclerView.NO_POSITION && adapter != null) {
+            int totalCount = adapter.getItemCount();
+
+            this.itemPosition = position;
+            this.totalCount = totalCount;
+
+            Drawable cardBackground = ThemeUtils.expressiveCardBackground(context, position, totalCount);
+            int rippleColor = MaterialColors.getColor(context, androidx.appcompat.R.attr.colorControlHighlight, Color.BLACK);
+            RippleDrawable rippleDrawable = new RippleDrawable(ColorStateList.valueOf(rippleColor), cardBackground, null);
+
+            itemView.setBackground(rippleDrawable);
+        }
     }
 
     private void bindOnOffSwitch(Alarm alarm) {

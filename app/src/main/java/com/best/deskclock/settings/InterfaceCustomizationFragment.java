@@ -28,13 +28,12 @@ import android.os.Bundle;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.preference.ListPreference;
 import androidx.preference.Preference;
+import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
-import com.best.deskclock.settings.custompreference.CustomListPreference;
-import com.best.deskclock.settings.custompreference.CustomPreference;
-import com.best.deskclock.settings.custompreference.CustomSwitchPreference;
 import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.Utils;
@@ -49,22 +48,22 @@ public class InterfaceCustomizationFragment extends ScreenFragment
 
     private static boolean isLanguageChanged = false;
 
-    CustomListPreference mThemePref;
-    CustomListPreference mDarkModePref;
-    CustomPreference mGeneralFontPref;
-    CustomListPreference mAccentColorPref;
-    CustomSwitchPreference mAutoNightAccentColorPref;
-    CustomListPreference mNightAccentColorPref;
-    CustomSwitchPreference mCardBackgroundPref;
-    CustomSwitchPreference mCardBorderPref;
-    CustomListPreference mCustomLanguageCodePref;
-    CustomListPreference mTabToDisplayPref;
-    CustomSwitchPreference mVibrationPref;
-    CustomSwitchPreference mToolbarTitlePref;
-    CustomListPreference mTabTitleVisibilityPref;
-    CustomSwitchPreference mTabIndicatorPref;
-    CustomSwitchPreference mFadeTransitionsPref;
-    CustomSwitchPreference mKeepScreenOnPref;
+    ListPreference mThemePref;
+    ListPreference mDarkModePref;
+    Preference mGeneralFontPref;
+    ListPreference mAccentColorPref;
+    SwitchPreferenceCompat mAutoNightAccentColorPref;
+    ListPreference mNightAccentColorPref;
+    SwitchPreferenceCompat mCardBackgroundPref;
+    SwitchPreferenceCompat mCardBorderPref;
+    ListPreference mCustomLanguageCodePref;
+    ListPreference mTabToDisplayPref;
+    SwitchPreferenceCompat mVibrationPref;
+    SwitchPreferenceCompat mToolbarTitlePref;
+    ListPreference mTabTitleVisibilityPref;
+    SwitchPreferenceCompat mTabIndicatorPref;
+    SwitchPreferenceCompat mFadeTransitionsPref;
+    SwitchPreferenceCompat mKeepScreenOnPref;
 
     private final ActivityResultLauncher<Intent> fontPickerLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -154,7 +153,7 @@ public class InterfaceCustomizationFragment extends ScreenFragment
         switch (pref.getKey()) {
             case KEY_THEME, KEY_ACCENT_COLOR, KEY_DARK_MODE, KEY_NIGHT_ACCENT_COLOR,
                  KEY_TAB_TITLE_VISIBILITY, KEY_TAB_TO_DISPLAY  -> {
-                final CustomListPreference listPreference = (CustomListPreference) pref;
+                final ListPreference listPreference = (ListPreference) pref;
                 final int index = listPreference.findIndexOfValue((String) newValue);
                 listPreference.setSummary(listPreference.getEntries()[index]);
             }
@@ -239,7 +238,7 @@ public class InterfaceCustomizationFragment extends ScreenFragment
         mKeepScreenOnPref.setOnPreferenceChangeListener(this);
     }
 
-    private void sortListPreference(CustomListPreference listPreference) {
+    private void sortListPreference(ListPreference listPreference) {
         if (listPreference != null) {
 
             CharSequence[] entries = listPreference.getEntries();
