@@ -385,6 +385,9 @@ public final class CitySelectionActivity extends BaseActivity {
 
         private String mCurrentQueryText = "";
 
+        private Comparator<City> mCachedComparator;
+        private DataModel.CitySort mCachedCitySort;
+
         public CityAdapter(Context context) {
             mContext = context;
             mPrefs = getDefaultSharedPreferences(context);
@@ -497,7 +500,8 @@ public final class CitySelectionActivity extends BaseActivity {
                                 holder.index.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
                             }
                             case UTC_OFFSET -> {
-                                holder.index.setText(getGMTHourOffset(timeZone, false));
+                                final long now = System.currentTimeMillis();
+                                holder.index.setText(getGMTHourOffset(timeZone, false, now));
                                 holder.index.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
                             }
                         }
@@ -559,6 +563,8 @@ public final class CitySelectionActivity extends BaseActivity {
                     positions.add(0);
                 }
 
+                final long now = System.currentTimeMillis();
+
                 for (int position = 0; position < getCount(); position++) {
                     // Add a section if this position should show the section index.
                     if (getShowIndex(position)) {
@@ -571,7 +577,7 @@ public final class CitySelectionActivity extends BaseActivity {
                             case NAME -> sections.add(city.getIndexString());
                             case UTC_OFFSET -> {
                                 final TimeZone timezone = city.getTimeZone();
-                                sections.add(getGMTHourOffset(timezone, false));
+                                sections.add(getGMTHourOffset(timezone, false, now));
                             }
                         }
 
@@ -614,15 +620,19 @@ public final class CitySelectionActivity extends BaseActivity {
          * @param useShortForm Whether to return a short form of the header that rounds to the
          *                     nearest hour and excludes the "GMT" prefix
          */
-        public static String getGMTHourOffset(TimeZone timezone, boolean useShortForm) {
-            final int gmtOffset = timezone.getRawOffset();
-            final long hour = gmtOffset / DateUtils.HOUR_IN_MILLIS;
-            final long min = (Math.abs(gmtOffset) % DateUtils.HOUR_IN_MILLIS) / DateUtils.MINUTE_IN_MILLIS;
+        public static String getGMTHourOffset(TimeZone timezone, boolean useShortForm, long now) {
+            final int gmtOffset = timezone.getOffset(now);
+
+            final int absGmtOffset = Math.abs(gmtOffset);
+            final long hour = absGmtOffset / DateUtils.HOUR_IN_MILLIS;
+            final long min = (absGmtOffset % DateUtils.HOUR_IN_MILLIS) / DateUtils.MINUTE_IN_MILLIS;
+
+            final String sign = gmtOffset >= 0 ? "+" : "-";
 
             if (useShortForm) {
-                return String.format(Locale.ENGLISH, "%+d", hour);
+                return String.format(Locale.ENGLISH, "%s%d", sign, hour);
             } else {
-                return String.format(Locale.ENGLISH, "GMT %+d:%02d", hour, min);
+                return String.format(Locale.ENGLISH, "GMT %s%d:%02d", sign, hour, min);
             }
         }
 
@@ -703,7 +713,14 @@ public final class CitySelectionActivity extends BaseActivity {
         }
 
         private Comparator<City> getCitySortComparator() {
-            return DataModel.getDataModel().getCityIndexComparator();
+            DataModel.CitySort currentSort = getCitySort();
+
+            if (mCachedComparator == null || mCachedCitySort != currentSort) {
+                mCachedComparator = DataModel.getDataModel().getCityIndexComparator();
+                mCachedCitySort = currentSort;
+            }
+
+            return mCachedComparator;
         }
 
         private CharSequence getTimeCharSequence(TimeZone timeZone) {

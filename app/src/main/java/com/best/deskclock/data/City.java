@@ -204,10 +204,8 @@ public final class City {
      */
     public static final class UtcOffsetIndexComparator implements Comparator<City> {
 
-        // Snapshot the current time when the Comparator is created to obtain consistent offsets.
-        private final long now = System.currentTimeMillis();
-
         public int compare(City c1, City c2) {
+            final long now = System.currentTimeMillis();
             final int utcOffset1 = c1.getTimeZone().getOffset(now);
             final int utcOffset2 = c2.getTimeZone().getOffset(now);
             return Integer.compare(utcOffset1, utcOffset2);
