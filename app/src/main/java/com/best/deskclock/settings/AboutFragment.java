@@ -346,6 +346,7 @@ public class AboutFragment extends ScreenFragment
      * </p>
      */
     private void resetPreferences() {
+        DataModel dataModel = DataModel.getDataModel();
         SharedPreferences.Editor editor = mPrefs.edit();
         Map<String, ?> settings = mPrefs.getAll();
 
@@ -382,10 +383,17 @@ public class AboutFragment extends ScreenFragment
         editor.apply();
 
         // 8. Clear the custom ringtones list
-        DataModel.getDataModel().clearCustomRingtones();
+        dataModel.clearCustomRingtones();
 
+        // 9. Reset stopwatch if necessary
+        if (!dataModel.getStopwatch().isReset()) {
+            dataModel.resetStopwatch();
+        }
+
+        // 10. Reset the number of taps on the version
         tapCountOnVersion = 0;
 
+        // 11. Clear local logs
         LogUtils.clearSavedLocalLogs(requireContext());
 
         // Required to update Locale.
@@ -393,7 +401,7 @@ public class AboutFragment extends ScreenFragment
         // Required to update widgets.
         WidgetUtils.updateAllWidgets(requireContext());
         // Required to update the timer list.
-        DataModel.getDataModel().loadTimers();
+        dataModel.loadTimers();
         // Required to update the tab to display.
         UiDataModel.getUiDataModel().setSelectedTab(UiDataModel.Tab.CLOCKS);
         // Delete all alarms.
