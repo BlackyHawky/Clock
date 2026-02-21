@@ -351,6 +351,17 @@
         <item>@string/C348</item>
         <item>@string/C349</item>
         <item>@string/C350</item>
+        <item>@string/C351</item>
+        <item>@string/C352</item>
+        <item>@string/C353</item>
+        <item>@string/C354</item>
+        <item>@string/C355</item>
+        <item>@string/C356</item>
+        <item>@string/C357</item>
+        <item>@string/C358</item>
+        <item>@string/C359</item>
+        <item>@string/C360</item>
+        <item>@string/C361</item>
     </array>
 
     <!--
@@ -1066,4 +1077,32 @@
     <string name="C349">P<xliff:g id="separator">=</xliff:g>Ponta Delgada<xliff:g id="timezone">|Atlantic/Azores</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] (To get UTC time) -->
     <string name="C350">U<xliff:g id="separator">=</xliff:g>UTC Time<xliff:g id="timezone">|UTC</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id]
+         For [timezone id] : No specific geographic identifier, so use "|Etc/GMT+12" instead.
+         (GMT+12 will correctly display GMT-12 in the app)
+    -->
+    <string name="C351">B<xliff:g id="separator">=</xliff:g>Baker Island<xliff:g id="timezone">|Etc/GMT+12</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id]
+         For [timezone id] : No specific geographic identifier, so use "|Etc/GMT+12" instead.
+         (GMT+12 will correctly display GMT-12 in the app)
+    -->
+    <string name="C352">H<xliff:g id="separator">=</xliff:g>Howland Island<xliff:g id="timezone">|Etc/GMT+12</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C353">A<xliff:g id="separator">=</xliff:g>Alofi<xliff:g id="timezone">|Pacific/Niue</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C354">M<xliff:g id="separator">=</xliff:g>Midway Atoll<xliff:g id="timezone">|Pacific/Midway</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C355">P<xliff:g id="separator">=</xliff:g>Pago Pago<xliff:g id="timezone">|Pacific/Pago_Pago</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C356">M<xliff:g id="separator">=</xliff:g>Marquesas Islands<xliff:g id="timezone">|Pacific/Marquesas</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C357">F<xliff:g id="separator">=</xliff:g>Fernando de Noronha<xliff:g id="timezone">|America/Noronha</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C358">N<xliff:g id="separator">=</xliff:g>Nuuk<xliff:g id="timezone">|America/Nuuk</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C359">E<xliff:g id="separator">=</xliff:g>Eucla<xliff:g id="timezone">|Australia/Eucla</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C360">L<xliff:g id="separator">=</xliff:g>Lord Howe Island<xliff:g id="timezone">|Australia/Lord_Howe</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C361">C<xliff:g id="separator">=</xliff:g>Chatham Islands<xliff:g id="timezone">|Pacific/Chatham</xliff:g></string>
 </resources>

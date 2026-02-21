@@ -345,4 +345,16 @@
     <string name="C347" msgid="6291282205599716861">"や<xliff:g id="SEPARATOR">=</xliff:g>ヤレン地区<xliff:g id="TIMEZONE">|Pacific/Nauru</xliff:g>"</string>
     <string name="C348" msgid="8462071023392592539">"あ<xliff:g id="SEPARATOR">=</xliff:g>エレバン<xliff:g id="TIMEZONE">|Asia/Yerevan</xliff:g>"</string>
     <string name="C349">は<xliff:g id="separator">=</xliff:g>ポンタ デルガーダ<xliff:g id="timezone">|Atlantic/Azores</xliff:g></string>
+    <string name="C350">U<xliff:g id="separator">=</xliff:g>UTC Time<xliff:g id="timezone">|UTC</xliff:g></string>
+    <string name="C351">B<xliff:g id="separator">=</xliff:g>Baker Island<xliff:g id="timezone">|Etc/GMT+12</xliff:g></string>
+    <string name="C352">H<xliff:g id="separator">=</xliff:g>Howland Island<xliff:g id="timezone">|Etc/GMT+12</xliff:g></string>
+    <string name="C353">A<xliff:g id="separator">=</xliff:g>Alofi<xliff:g id="timezone">|Pacific/Niue</xliff:g></string>
+    <string name="C354">M<xliff:g id="separator">=</xliff:g>Midway Atoll<xliff:g id="timezone">|Pacific/Midway</xliff:g></string>
+    <string name="C355">P<xliff:g id="separator">=</xliff:g>Pago Pago<xliff:g id="timezone">|Pacific/Pago_Pago</xliff:g></string>
+    <string name="C356">M<xliff:g id="separator">=</xliff:g>Marquesas Islands<xliff:g id="timezone">|Pacific/Marquesas</xliff:g></string>
+    <string name="C357">F<xliff:g id="separator">=</xliff:g>Fernando de Noronha<xliff:g id="timezone">|America/Noronha</xliff:g></string>
+    <string name="C358">N<xliff:g id="separator">=</xliff:g>Nuuk<xliff:g id="timezone">|America/Nuuk</xliff:g></string>
+    <string name="C359">E<xliff:g id="separator">=</xliff:g>Eucla<xliff:g id="timezone">|Australia/Eucla</xliff:g></string>
+    <string name="C360">L<xliff:g id="separator">=</xliff:g>Lord Howe Island<xliff:g id="timezone">|Australia/Lord_Howe</xliff:g></string>
+    <string name="C361">C<xliff:g id="separator">=</xliff:g>Chatham Islands<xliff:g id="timezone">|Pacific/Chatham</xliff:g></string>
 </resources>
