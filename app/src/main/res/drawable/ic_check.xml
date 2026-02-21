@@ -6,10 +6,12 @@
 -->
 
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:width="24dp"
     android:height="24dp"
     android:viewportWidth="960"
-    android:viewportHeight="960">
+    android:viewportHeight="960"
+    tools:keep="@drawable/ic_check">
     <path
         android:fillColor="@android:color/white"
         android:pathData="M382 606 721 267q12-12 28-12t28 12 12 28.5T777 324L410 692q-12 12-28 12t-28-12L182 520q-12-12-11.5-28.5T183 463t28.5-12T240 463L382 606Z" />

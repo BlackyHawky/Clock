@@ -39,6 +39,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.best.deskclock.AlarmAlertWakeLock;
+import com.best.deskclock.AppExecutors;
 import com.best.deskclock.R;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.timer.TimerKlaxon;
@@ -66,6 +67,8 @@ final class TimerModel {
     private final Context mContext;
 
     private final SharedPreferences mPrefs;
+    private final Handler mMainHandler = new Handler(Looper.getMainLooper());
+    private Runnable mAutoSilenceRunnable;
 
     /**
      * The alarm manager system service that calls back when timers expire.
@@ -677,7 +680,7 @@ final class TimerModel {
         } else if (nextExpiringTimer.getRemainingTime() < 5000) {
             PowerManager.WakeLock wl = AlarmAlertWakeLock.createPartialWakeLock(mContext);
             wl.acquire(nextExpiringTimer.getRemainingTime());
-            new Handler(Looper.getMainLooper()).postDelayed(this::updateAlarmManager, nextExpiringTimer.getRemainingTime());
+            AppExecutors.getMainThread().postDelayed(this::updateAlarmManager, nextExpiringTimer.getRemainingTime());
         } else {
             // Update the existing timer expiration callback.
             final PendingIntent pi = PendingIntent.getService(mContext,
@@ -714,6 +717,11 @@ final class TimerModel {
             TimerKlaxon.stop(mContext, mPrefs);
             TimerKlaxon.deactivateRingtonePlayback(mPrefs);
             AlarmAlertWakeLock.releaseCpuLock();
+
+            if (mAutoSilenceRunnable != null) {
+                mMainHandler.removeCallbacks(mAutoSilenceRunnable);
+                mAutoSilenceRunnable = null;
+            }
         }
     }
 
@@ -721,7 +729,6 @@ final class TimerModel {
      * Stop timer ringing after a duration selected in Timers settings.
      */
     private void stopRingtoneAfterDelay() {
-        Handler handler = new Handler(Looper.getMainLooper());
         long duration;
 
         // Timer silence has been set to "Never"
@@ -736,12 +743,14 @@ final class TimerModel {
             duration = getTimerAutoSilenceDuration() * 1000;
         }
 
-        handler.postDelayed(() -> {
+        mAutoSilenceRunnable = () -> {
             TimerKlaxon.stop(mContext, mPrefs);
             TimerKlaxon.deactivateRingtonePlayback(mPrefs);
             resetOrDeleteExpiredTimers(R.string.label_deskclock);
             AlarmAlertWakeLock.releaseCpuLock();
-        }, duration);
+        };
+
+        mMainHandler.postDelayed(mAutoSilenceRunnable, duration);
     }
 
     /**

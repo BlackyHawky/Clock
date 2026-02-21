@@ -24,14 +24,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.os.Handler;
-import android.os.Looper;
 import android.os.PowerManager;
 import android.text.format.DateFormat;
 import android.widget.Toast;
 
 import com.best.deskclock.AlarmAlertWakeLock;
-import com.best.deskclock.AsyncHandler;
+import com.best.deskclock.AppExecutors;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
@@ -163,7 +161,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         updateNextAlarmInAlarmManager(context, nextAlarm);
 
         // Adding a Handler ensures better fluidity when activating/deactivating the alarm
-        new Handler(context.getMainLooper()).postDelayed(() -> {
+        AppExecutors.getMainThread().postDelayed(() -> {
             Intent nextAlarmChangedIntent = new Intent(ACTION_NEXT_ALARM_CHANGED_BY_CLOCK);
             nextAlarmChangedIntent.setPackage(context.getPackageName());
             context.sendBroadcast(nextAlarmChangedIntent);
@@ -453,17 +451,15 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
         // Display the snooze minutes in a toast.
         if (showToast) {
-            final Handler mainHandler = new Handler(context.getMainLooper());
-            final Runnable myRunnable = () -> {
+            AppExecutors.getMainThread().post(() -> {
                 String displayTime = String.format(context.getResources()
-                                .getQuantityText(R.plurals.alarm_alert_snooze_set, snoozeMinutes).toString(), snoozeMinutes);
+                        .getQuantityText(R.plurals.alarm_alert_snooze_set, snoozeMinutes).toString(), snoozeMinutes);
                 if (DataModel.getDataModel().isApplicationInForeground()) {
                     CustomToast.showLong(context, displayTime);
                 } else {
                     Toast.makeText(context, displayTime, Toast.LENGTH_LONG).show();
                 }
-            };
-            mainHandler.post(myRunnable);
+            });
         }
 
         // Instance time changed, so find next alarm that will fire and notify system
@@ -558,8 +554,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
         // Display the alarm dismissal warning in a toast
         if (alarm != null && showToast) {
-            Handler mainHandler = new Handler(Looper.getMainLooper());
-            mainHandler.post(() -> AlarmUtils.showDismissToast(context, alarm, instance));
+            AppExecutors.getMainThread().post(() -> AlarmUtils.showDismissToast(context, alarm, instance));
         }
 
         // Check parent if it needs to reschedule, disable or delete itself
@@ -624,8 +619,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         Alarm alarm = Alarm.getAlarm(contentResolver, instance.mAlarmId);
         // Display the alarm dismissal warning in a toast
         if (alarm != null && showToast) {
-            Handler mainHandler = new Handler(Looper.getMainLooper());
-            mainHandler.post(() -> AlarmUtils.showDismissToast(context, alarm, instance));
+            AppExecutors.getMainThread().post(() -> AlarmUtils.showDismissToast(context, alarm, instance));
         }
 
         // Check parent if it needs to reschedule, disable or delete itself
@@ -975,7 +969,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         final PendingResult result = goAsync();
         final PowerManager.WakeLock wl = AlarmAlertWakeLock.createPartialWakeLock(context);
         wl.acquire();
-        AsyncHandler.post(() -> {
+        AppExecutors.getDiskIO().execute(() -> {
             handleIntent(context, intent);
             result.finish();
             wl.release();

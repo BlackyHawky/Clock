@@ -9,9 +9,11 @@
      This is automatically inflated inside android.R.layout.preference. -->
 <com.google.android.material.materialswitch.MaterialSwitch
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/PreferenceMaterialSwitch"
     android:id="@+id/switchWidget"
-    android:theme="@style/PreferenceMaterialSwitch"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:focusable="false"
-    android:clickable="false" />
+    android:clickable="false"
+    tools:keep="@layout/preference_widget_switch_compat" />

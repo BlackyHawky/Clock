@@ -28,13 +28,12 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 
+import com.best.deskclock.AppExecutors;
 import com.best.deskclock.data.DataModel.SilentSetting;
 import com.best.deskclock.utils.SdkUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * This model fetches and stores reasons that alarms may be suppressed or silenced by system
@@ -109,16 +108,11 @@ final class SilentSettingsModel {
      * those settings were inspected.
      */
     void updateSilentState() {
-        // Cancel any task in flight, the result is no longer relevant.
-        if (mCheckSilenceSettingsTask != null) {
-            mCheckSilenceSettingsTask.cancel();
-            mCheckSilenceSettingsTask = null;
-        }
-
         if (mNotificationModel.isApplicationInForeground()) {
             mCheckSilenceSettingsTask = new CheckSilenceSettingsTask();
             mCheckSilenceSettingsTask.execute();
         } else {
+            mCheckSilenceSettingsTask = null;
             setSilentState(null);
         }
     }
@@ -139,11 +133,13 @@ final class SilentSettingsModel {
      * making noise, a description of the setting is reported to this model on the main thread.
      */
     private final class CheckSilenceSettingsTask {
-        final ExecutorService mExecutor = Executors.newSingleThreadExecutor();
-        final Handler mHandler = new Handler(Looper.getMainLooper());
 
         private void execute() {
-            mExecutor.execute(() -> {
+            AppExecutors.getDiskIO().execute(() -> {
+                if (mCheckSilenceSettingsTask != this) {
+                    return;
+                }
+
                 final SilentSetting silentSetting;
                 if (isDoNotDisturbBlockingAlarms()) {
                     silentSetting = SilentSetting.DO_NOT_DISTURB;
@@ -155,17 +151,13 @@ final class SilentSettingsModel {
                     silentSetting = null;
                 }
 
-                mHandler.post(() -> {
+                AppExecutors.getMainThread().post(() -> {
                     if (mCheckSilenceSettingsTask == this) {
                         mCheckSilenceSettingsTask = null;
                         setSilentState(silentSetting);
                     }
                 });
             });
-        }
-
-        private void cancel() {
-            mExecutor.shutdownNow();
         }
 
         private boolean isDoNotDisturbBlockingAlarms() {

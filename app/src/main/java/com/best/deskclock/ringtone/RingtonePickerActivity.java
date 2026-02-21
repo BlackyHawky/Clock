@@ -28,8 +28,6 @@ import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -51,6 +49,7 @@ import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.best.deskclock.AppExecutors;
 import com.best.deskclock.ItemAdapter;
 import com.best.deskclock.ItemAdapter.OnItemClickedListener;
 import com.best.deskclock.ItemAdapter.OnItemLongClickedListener;
@@ -75,8 +74,6 @@ import com.google.android.material.textview.MaterialTextView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * This activity presents a set of ringtones from which the user may select one. The set includes:
@@ -347,14 +344,12 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
                     final ContentResolver cr = getContentResolver();
 
                     // Start a background task to fetch the alarm whose ringtone must be updated.
-                    ExecutorService executor = Executors.newSingleThreadExecutor();
-                    Handler handler = new Handler(Looper.getMainLooper());
-                    executor.execute(() -> {
+                    AppExecutors.getDiskIO().execute(() -> {
                         final Alarm alarm = Alarm.getAlarm(cr, mAlarmId);
                         if (alarm != null) {
                             alarm.alert = mSelectedRingtoneUri;
 
-                            handler.post(() -> {
+                            AppExecutors.getMainThread().post(() -> {
                                 DataModel.getDataModel().setSelectedAlarmRingtoneUri(alarm.alert);
 
                                 // Start a second background task to persist the updated alarm.
@@ -632,10 +627,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
      * the audio content. It adds a custom ringtone using the uri and title on the main thread.
      */
     private void addCustomRingtoneAsync(Uri uri) {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        Handler handler = new Handler(Looper.getMainLooper());
-
-        executor.execute(() -> {
+        AppExecutors.getDiskIO().execute(() -> {
             final Context context = getApplicationContext();
             final ContentResolver contentResolver = context.getContentResolver();
             String name = null;
@@ -673,7 +665,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
             }
 
             final String title = name;
-            handler.post(() -> {
+            AppExecutors.getMainThread().post(() -> {
                 // When the loader completes, it must play the new ringtone.
                 mSelectedRingtoneUri = DataModel.getDataModel().customRingtoneToAdd(uri, title);
                 mIsPlaying = true;
@@ -681,8 +673,6 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
                 // Reload the data to reflect the change in the UI.
                 LoaderManager.getInstance(this).restartLoader(0, null, RingtonePickerActivity.this);
             });
-
-            executor.shutdown();
         });
     }
 
@@ -691,17 +681,12 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
      * the audio content. It adds a custom ringtone using the uri and title on the main thread.
      */
     private void addCustomRingtonesFromFolderAsync(Uri treeUri) {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        Handler handler = new Handler(Looper.getMainLooper());
-
-        executor.execute(() -> {
-
+        AppExecutors.getDiskIO().execute(() -> {
             // Convert the treeUri to a DocumentFile to browse the folder
             DocumentFile directory = DocumentFile.fromTreeUri(this, treeUri);
             if (directory == null || !directory.isDirectory()) {
                 LogUtils.e("Invalid directory selected: %s", treeUri);
-                handler.post(() -> mProgressDialog.dismiss());
-                executor.shutdown();
+                AppExecutors.getMainThread().post(() -> mProgressDialog.dismiss());
                 return;
             }
 
@@ -717,12 +702,11 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
 
             // Case where no file is found
             if (totalFiles == 0) {
-                handler.post(() -> mProgressDialog.dismiss());
-                executor.shutdown();
+                AppExecutors.getMainThread().post(() -> mProgressDialog.dismiss());
                 return;
             }
 
-            handler.post(() -> {
+            AppExecutors.getMainThread().post(() -> {
                 mProgressDialog.show();
                 mCircularProgressIndicator.setMax(totalFiles);
                 mCircularProgressIndicator.setProgress(0);
@@ -747,7 +731,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
 
                 String finalName = name;
 
-                handler.post(() -> {
+                AppExecutors.getMainThread().post(() -> {
                     // Add the new custom ringtone to the data model.
                     DataModel.getDataModel().customRingtoneToAdd(fileUri, finalName);
 
@@ -757,15 +741,14 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
 
                 processed++;
                 int finalProcessed = processed;
-                handler.post(() -> {
+                AppExecutors.getMainThread().post(() -> {
                     mCircularProgressIndicator.setProgress(finalProcessed);
                     mProgressTextView.setText(
                             getString(R.string.progress_ringtones, finalProcessed, totalFiles));
                 });
             }
 
-            handler.post(() -> mProgressDialog.dismiss());
-            executor.shutdown();
+            AppExecutors.getMainThread().post(() -> mProgressDialog.dismiss());
         });
     }
 
@@ -777,9 +760,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
      * it is reset to the application's default timer ringtone.
      */
     private void removeCustomRingtoneAsync(Uri removeUri) {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        Handler handler = new Handler(Looper.getMainLooper());
-        executor.execute(() -> {
+        AppExecutors.getDiskIO().execute(() -> {
             final Uri systemDefaultRingtoneUri =
                     RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
 
@@ -804,7 +785,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
                 LogUtils.w("SecurityException while releasing read permission for " + removeUri);
             }
 
-            handler.post(() -> {
+            AppExecutors.getMainThread().post(() -> {
                 // Reset the default alarm ringtone if it was just removed.
                 if (removeUri.equals(DataModel.getDataModel().getAlarmRingtoneUriFromSettings())) {
                     DataModel.getDataModel().setAlarmRingtoneUriFromSettings(systemDefaultRingtoneUri);
@@ -822,7 +803,6 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
                 // Find the ringtone to be removed from the adapter.
                 final RingtoneHolder toRemove = getRingtoneHolder(removeUri);
                 if (toRemove == null) {
-                    executor.shutdown();
                     return;
                 }
 
@@ -868,8 +848,6 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
 
                 // Reload the data to reflect the change in the UI.
                 LoaderManager.getInstance(this).restartLoader(0, null, RingtonePickerActivity.this);
-
-                executor.shutdown();
             });
         });
     }

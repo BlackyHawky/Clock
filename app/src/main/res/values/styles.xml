@@ -77,7 +77,8 @@
         <item name="thumbIcon">@drawable/alarm_switch_thumb_icon</item>
     </style>
 
-    <style name="PreferenceMaterialSwitch" parent="Widget.Material3.CompoundButton.MaterialSwitch">
+    <style name="PreferenceMaterialSwitch" parent="Widget.Material3.CompoundButton.MaterialSwitch"
+        tools:keep="@style/PreferenceMaterialSwitch">
         <item name="thumbIcon">@drawable/pref_switch_thumb_icon</item>
     </style>
 

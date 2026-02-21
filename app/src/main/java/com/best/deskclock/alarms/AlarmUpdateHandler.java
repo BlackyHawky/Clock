@@ -8,11 +8,10 @@ package com.best.deskclock.alarms;
 
 import android.content.ContentResolver;
 import android.content.Context;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.best.deskclock.AppExecutors;
 import com.best.deskclock.R;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
@@ -25,8 +24,6 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Calendar;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * API for asynchronously mutating a single alarm.
@@ -56,9 +53,7 @@ public final class AlarmUpdateHandler {
      * @param alarm The alarm to be added.
      */
     public void asyncAddAlarm(final Alarm alarm) {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        Handler handler = new Handler(Looper.getMainLooper());
-        executor.execute(() -> {
+        AppExecutors.getDiskIO().execute(() -> {
             AlarmInstance instance = null;
             if (alarm != null) {
                 Events.sendAlarmEvent(R.string.action_create, R.string.label_deskclock);
@@ -77,7 +72,7 @@ public final class AlarmUpdateHandler {
             }
 
             final AlarmInstance finalInstance = instance;
-            handler.post(() -> {
+            AppExecutors.getMainThread().post(() -> {
                 if (finalInstance != null) {
                     LogUtils.v("Alarm created: " + finalInstance);
                     AlarmUtils.popAlarmSetSnackbar(mSnackbarAnchor, finalInstance.getAlarmTime().getTimeInMillis());
@@ -94,14 +89,12 @@ public final class AlarmUpdateHandler {
      * @param minorUpdate if true, don't affect any currently snoozed instances.
      */
     public void asyncUpdateAlarm(final Alarm alarm, final boolean popToast, final boolean minorUpdate) {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        Handler handler = new Handler(Looper.getMainLooper());
-        executor.execute(() -> {
+        AppExecutors.getDiskIO().execute(() -> {
             ContentResolver cr = mAppContext.getContentResolver();
 
             if (mUpdateCallback != null) {
                 LogUtils.v("AlarmUpdateHandler: notifying update started");
-                handler.post(() -> mUpdateCallback.onAlarmUpdateStarted());
+                AppExecutors.getMainThread().post(() -> mUpdateCallback.onAlarmUpdateStarted());
             }
 
             try {
@@ -149,24 +142,31 @@ public final class AlarmUpdateHandler {
                 AlarmStateManager.deleteAllInstances(mAppContext, alarm.id);
 
                 final AlarmInstance finalInstance = alarm.enabled ? setupAlarmInstance(alarm) : null;
+                Long tempTime = null;
 
-                handler.post(() -> {
-                    if (popToast && finalInstance != null) {
-                        if (mSyncToastLabel != null) {
-                            String labelToSearch = mSyncToastLabel;
-                            mSyncToastLabel = null;
-                            AlarmInstance next = AlarmInstance.getNextAlarmInstanceByLabel(cr, labelToSearch);
-                            if (next != null) {
-                                AlarmUtils.popAlarmSetSnackbar(mSnackbarAnchor, next.getAlarmTime().getTimeInMillis());
-                            }
-                        } else {
-                            AlarmUtils.popAlarmSetSnackbar(mSnackbarAnchor, finalInstance.getAlarmTime().getTimeInMillis());
+                if (popToast && finalInstance != null) {
+                    if (mSyncToastLabel != null) {
+                        String labelToSearch = mSyncToastLabel;
+                        mSyncToastLabel = null;
+                        AlarmInstance next = AlarmInstance.getNextAlarmInstanceByLabel(cr, labelToSearch);
+                        if (next != null) {
+                            tempTime = next.getAlarmTime().getTimeInMillis();
                         }
+                    } else {
+                        tempTime = finalInstance.getAlarmTime().getTimeInMillis();
                     }
-                });
+                }
+
+                final Long timeToDisplay = tempTime;
+
+                if (timeToDisplay != null) {
+                    AppExecutors.getMainThread().post(() ->
+                            AlarmUtils.popAlarmSetSnackbar(mSnackbarAnchor, timeToDisplay)
+                    );
+                }
             } finally {
                 if (mUpdateCallback != null) {
-                    handler.post(() -> mUpdateCallback.onAlarmUpdateFinished());
+                    AppExecutors.getMainThread().post(() -> mUpdateCallback.onAlarmUpdateFinished());
                 }
             }
         });
@@ -178,9 +178,7 @@ public final class AlarmUpdateHandler {
      * @param alarm The alarm to be deleted.
      */
     public void asyncDeleteAlarm(final Alarm alarm) {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        Handler handler = new Handler(Looper.getMainLooper());
-        executor.execute(() -> {
+        AppExecutors.getDiskIO().execute(() -> {
             // Activity may be closed at this point , make sure data is still valid
             if (alarm == null) {
                 // Nothing to do here, just return.
@@ -189,7 +187,7 @@ public final class AlarmUpdateHandler {
             AlarmStateManager.deleteAllInstances(mAppContext, alarm.id);
             final boolean deleted = Alarm.deleteAlarm(mAppContext.getContentResolver(), alarm.id);
 
-            handler.post(() -> {
+            AppExecutors.getMainThread().post(() -> {
                 if (deleted) {
                     mDeletedAlarm = alarm;
                     showUndoBar();

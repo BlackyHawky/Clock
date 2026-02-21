@@ -380,6 +380,10 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
             unregisterReceiver(PowerBtnReceiver);
             mPowerBtnReceiverRegistered = false;
         }
+
+        if (mHandler != null) {
+            mHandler.removeCallbacksAndMessages(null);
+        }
     }
 
     @Override

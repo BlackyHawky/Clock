@@ -36,8 +36,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
@@ -291,7 +289,7 @@ public class BaseActivity extends AppCompatActivity {
                 }
 
                 // Add a short delay to have a smooth animation when the setting is a switch button
-                default -> new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                default -> AppExecutors.getMainThread().postDelayed(() -> {
                     if (!isFinishing() && !isDestroyed()) {
                         recreate();
                     }

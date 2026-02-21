@@ -55,8 +55,6 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * This activity is never visible. It processes all public intents defined by {@link AlarmClock}
@@ -162,8 +160,7 @@ public class HandleApiCalls extends Activity {
     private record DismissAlarmAsync(Context mContext, Intent mIntent, Activity mActivity) {
 
         private void execute() {
-            ExecutorService executor = Executors.newSingleThreadExecutor();
-            executor.execute(() -> {
+            AppExecutors.getDiskIO().execute(() -> {
                 final ContentResolver cr = mContext.getContentResolver();
                 final List<Alarm> alarms = getEnabledAlarms(mContext);
                 if (alarms.isEmpty()) {
@@ -234,8 +231,7 @@ public class HandleApiCalls extends Activity {
     }
 
     private void handleSnoozeAlarm() {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        executor.execute(() -> {
+        AppExecutors.getDiskIO().execute(() -> {
             final Context context = getApplicationContext();
             final ContentResolver cr = context.getContentResolver();
             final List<AlarmInstance> alarmInstances = AlarmInstance.getInstancesByState(

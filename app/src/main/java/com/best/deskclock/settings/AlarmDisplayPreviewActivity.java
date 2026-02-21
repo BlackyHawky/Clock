@@ -226,6 +226,15 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (mHandler != null) {
+            mHandler.removeCallbacksAndMessages(null);
+        }
+    }
+
+    @Override
     public void onClick(View view) {
         // If alarm swiping is disabled in settings, allow snooze/dismiss by tapping on respective buttons.
         if (!mIsSwipeActionEnabled) {

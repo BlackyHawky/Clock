@@ -26,8 +26,6 @@ import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.os.SystemClock;
 import android.text.TextPaint;
 import android.util.DisplayMetrics;
@@ -84,7 +82,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.concurrent.Executors;
 
 /**
  * A fragment that displays a list of alarm time and allows interaction with them.
@@ -496,7 +493,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
                     // Clean instance
                     if (instanceId != -1) {
                         Context appContext = mContext.getApplicationContext();
-                        Executors.newSingleThreadExecutor().execute(() -> {
+                        AppExecutors.getDiskIO().execute(() -> {
                             AlarmInstance instance = AlarmInstance.getInstance(appContext.getContentResolver(), instanceId);
                             if (instance != null) {
                                 AlarmStateManager.deleteInstanceAndUpdateParent(appContext, instance, false);
@@ -770,7 +767,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         if (mExpandedAlarmId == Alarm.INVALID_ID) {
             // We are in collapsed view: do not block sorting
             mBlockSortingUntilCollapse = false;
-            new Handler(Looper.getMainLooper()).post(() ->
+            AppExecutors.getMainThread().post(() ->
                     LoaderManager.getInstance(AlarmClockFragment.this)
                             .restartLoader(0, null, AlarmClockFragment.this)
             );

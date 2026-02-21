@@ -4,7 +4,10 @@
      SPDX-License-Identifier: Apache-2.0
 -->
 
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@drawable/pref_switch_thumb_icon">
+
     <item android:state_checked="true" android:drawable="@drawable/ic_check" />
     <item android:drawable="@drawable/ic_close" />
 </selector>

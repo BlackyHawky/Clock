@@ -128,7 +128,7 @@ public class AlarmInitReceiver extends BroadcastReceiver {
             }
         }
 
-        AsyncHandler.post(() -> {
+        AppExecutors.getDiskIO().execute(() -> {
             try {
                 // Update all the alarm instances
                 AlarmStateManager.fixAlarmInstances(context);

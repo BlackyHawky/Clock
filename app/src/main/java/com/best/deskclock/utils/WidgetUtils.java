@@ -27,7 +27,6 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.drawable.Icon;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.format.DateFormat;
 import android.util.DisplayMetrics;
 import android.widget.RemoteViews;
@@ -40,6 +39,7 @@ import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.best.deskclock.AppExecutors;
 import com.best.deskclock.R;
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.DataModel;
@@ -432,8 +432,8 @@ public class WidgetUtils {
      * Helper method to update a specific widget with a 300ms delay.
      */
     public static void scheduleWidgetUpdate(Context context, Class<?> widgetProviderClass) {
-        new Handler(context.getMainLooper()).postDelayed(() ->
-                updateWidget(context, widgetProviderClass), 300);
+        AppExecutors.getMainThread().postDelayed(() ->
+                updateWidget(context, widgetProviderClass), 600);
     }
 
     /**

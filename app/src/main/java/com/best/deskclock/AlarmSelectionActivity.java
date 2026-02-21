@@ -22,8 +22,6 @@ import com.best.deskclock.utils.SdkUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class AlarmSelectionActivity extends BaseActivity implements AlarmSelectionAdapter.OnAlarmClickListener {
 
@@ -89,8 +87,7 @@ public class AlarmSelectionActivity extends BaseActivity implements AlarmSelecti
     }
 
     void processAlarmActionAsync(Alarm alarm) {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        executor.execute(() -> {
+        AppExecutors.getDiskIO().execute(() -> {
             switch (mAction) {
                 case ACTION_DISMISS -> HandleApiCalls.dismissAlarm(alarm, this);
                 case ACTION_INVALID -> LogUtils.i("Invalid action");

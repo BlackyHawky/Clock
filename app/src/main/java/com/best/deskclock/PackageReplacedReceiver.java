@@ -38,7 +38,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
         final PowerManager.WakeLock wl = AlarmAlertWakeLock.createPartialWakeLock(context);
         wl.acquire();
 
-        AsyncHandler.post(() -> {
+        AppExecutors.getDiskIO().execute(() -> {
             try {
                 // Update all the alarm instances
                 AlarmStateManager.fixAlarmInstances(context);
