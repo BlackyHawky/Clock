@@ -14,7 +14,7 @@ import android.content.Context;
 import android.widget.TextView;
 
 import com.best.deskclock.uidata.UiDataModel;
-import com.best.deskclock.utils.Utils;
+import com.best.deskclock.utils.FormattedTextUtils;
 
 /**
  * A controller which will format a provided time in millis to display as a stopwatch.
@@ -54,7 +54,7 @@ public final class StopwatchTextController {
         // last layout pass.
         if ((mLastTime / SECOND_IN_MILLIS) != (accumulatedTime / SECOND_IN_MILLIS)) {
             final Context context = mMainTextView.getContext();
-            final String time = Utils.getTimeString(context, hours, minutes, seconds);
+            final String time = FormattedTextUtils.getTimeString(context, hours, minutes, seconds);
             mMainTextView.setText(time);
         }
         mLastTime = accumulatedTime;

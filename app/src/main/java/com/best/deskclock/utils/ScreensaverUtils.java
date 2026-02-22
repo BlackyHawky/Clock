@@ -346,17 +346,20 @@ public class ScreensaverUtils {
         final String descriptionPattern = DateFormat.getBestDateTimePattern(locale, descriptionSkeleton);
 
         final Date now = new Date();
-        dateDisplay.setText(new SimpleDateFormat(datePattern, locale).format(now));
+        String formattedDate = new SimpleDateFormat(datePattern, locale).format(now);
+
+        dateDisplay.setAllCaps(SettingsDAO.isScreensaverTextUppercaseDisplayed(prefs));
+        dateDisplay.setText(FormattedTextUtils.capitalizeFirstLetter(formattedDate, locale));
         dateDisplay.setVisibility(VISIBLE);
         dateDisplay.setContentDescription(new SimpleDateFormat(descriptionPattern, locale).format(now));
     }
 
     /**
-     * For screensaver, set the margins and the style of the clock.
+     * For screensaver, set the margins and the clock style.
      */
-    public static void setScreensaverClockStyle(final Context context, SharedPreferences prefs,
-                                                final View view) {
-
+    public static void setScreensaverClockStyle(View view) {
+        final Context context = view.getContext();
+        final SharedPreferences prefs = getDefaultSharedPreferences(context);
         final View mainClockView = view.findViewById(R.id.main_clock);
         final ImageView backgroundImage = view.findViewById(R.id.screensaver_background_image);
         final String imagePath = SettingsDAO.getScreensaverBackgroundImage(prefs);

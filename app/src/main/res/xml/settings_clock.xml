@@ -86,6 +86,13 @@
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false">
 
+        <SwitchPreferenceCompat
+            android:key="key_display_text_uppercase"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/display_text_uppercase_title"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
         <com.best.deskclock.settings.custompreference.CustomSliderPreference
             android:key="key_digital_clock_font_size"
             android:layout="@layout/settings_preference_slider_layout"

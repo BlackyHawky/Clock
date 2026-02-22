@@ -80,6 +80,7 @@ import com.best.deskclock.uicomponents.PillView;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.AnimatorUtils;
 import com.best.deskclock.utils.ClockUtils;
+import com.best.deskclock.utils.FormattedTextUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
@@ -1048,7 +1049,8 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
             if (mDefaultSnoozeMinutes == ALARM_SNOOZE_DURATION_DISABLED) {
                 mSnoozeSelectorText.setText(getString(R.string.snooze_selector_default, getString(R.string.snooze_duration_none)));
             } else {
-                String minShort = Utils.getNumberFormattedQuantityString(this, R.plurals.minutes_short, mDefaultSnoozeMinutes);
+                String minShort = FormattedTextUtils.getNumberFormattedQuantityString(
+                        this, R.plurals.minutes_short, mDefaultSnoozeMinutes);
                 mSnoozeSelectorText.setText(getString(R.string.snooze_selector_default, minShort));
             }
         } else {

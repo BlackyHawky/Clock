@@ -38,7 +38,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 
@@ -48,7 +47,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.Normalizer;
-import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -142,34 +140,12 @@ public class Utils {
         fragment.show(tx, tag);
     }
 
-    public static String getNumberFormattedQuantityString(Context context, int id, int quantity) {
-        final String localizedQuantity = NumberFormat.getInstance().format(quantity);
-        return context.getResources().getQuantityString(id, quantity, localizedQuantity);
-    }
-
     public static long now() {
         return DataModel.getDataModel().elapsedRealtime();
     }
 
     public static long wallClock() {
         return DataModel.getDataModel().currentTimeMillis();
-    }
-
-    /**
-     * @param context The context from which to obtain strings
-     * @param hours   Hours to display (if any)
-     * @param minutes Minutes to display (if any)
-     * @param seconds Seconds to display
-     * @return Provided time formatted as a String
-     */
-    public static String getTimeString(Context context, int hours, int minutes, int seconds) {
-        if (hours != 0) {
-            return context.getString(R.string.hours_minutes_seconds, hours, minutes, seconds);
-        }
-        if (minutes != 0) {
-            return context.getString(R.string.minutes_seconds, minutes, seconds);
-        }
-        return context.getString(R.string.seconds_only, seconds);
     }
 
     /**

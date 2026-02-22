@@ -354,7 +354,9 @@ public class WidgetUtils {
         SimpleDateFormat simpleDateFormat =
                 new SimpleDateFormat(DateFormat.getBestDateTimePattern(locale, skeleton), locale);
 
-        return simpleDateFormat.format(new Date());
+        String formattedDate = simpleDateFormat.format(new Date());
+
+        return FormattedTextUtils.capitalizeFirstLetter(formattedDate, locale);
     }
 
     /**

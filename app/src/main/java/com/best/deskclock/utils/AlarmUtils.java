@@ -140,7 +140,8 @@ public class AlarmUtils {
     /**
      * Clock views can call this to refresh their alarm to the next upcoming value.
      */
-    public static void refreshAlarm(Context context, View clock, boolean isScreensaver) {
+    public static void refreshAlarm(View clock, boolean isScreensaver) {
+        final Context context = clock.getContext();
         final TextView nextAlarmIconView = clock.findViewById(R.id.nextAlarmIcon);
         final TextView nextAlarmView = clock.findViewById(R.id.nextAlarm);
 
@@ -166,7 +167,13 @@ public class AlarmUtils {
             nextAlarmView.setVisibility(View.GONE);
             nextAlarmIconView.setVisibility(View.GONE);
         } else {
+            SharedPreferences prefs = getDefaultSharedPreferences(context);
+            boolean isUppercase = isScreensaver
+                    ? SettingsDAO.isScreensaverTextUppercaseDisplayed(prefs)
+                    : SettingsDAO.isTextUppercaseDisplayed(prefs);
+
             String description = context.getString(R.string.next_alarm_description, alarmFormattedTime);
+            nextAlarmView.setAllCaps(isUppercase);
             nextAlarmView.setText(alarmFormattedTime);
             nextAlarmView.setContentDescription(description);
             nextAlarmView.setVisibility(View.VISIBLE);
@@ -179,14 +186,14 @@ public class AlarmUtils {
      * Applies a custom bold font to the next alarm.
      */
     public static void applyBoldNextAlarmTypeface(View clock) {
-        SharedPreferences prefs = getDefaultSharedPreferences(clock.getContext());
         final TextView nextAlarm = clock.findViewById(R.id.nextAlarm);
 
         if (nextAlarm == null) {
             return;
         }
 
-        nextAlarm.setTypeface(ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(prefs)));
+        nextAlarm.setTypeface(ThemeUtils.boldTypeface(
+                SettingsDAO.getGeneralFont(getDefaultSharedPreferences(clock.getContext()))));
     }
 
     public static String getAlarmText(Context context, AlarmInstance instance, boolean includeLabel) {
@@ -237,9 +244,11 @@ public class AlarmUtils {
             }
         }
 
-        String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), skeleton);
+        final Locale locale = Locale.getDefault();
+        String pattern = DateFormat.getBestDateTimePattern(locale, skeleton);
+        String formattedTime = prefix + DateFormat.format(pattern, alarmTime).toString();
 
-        return prefix + DateFormat.format(pattern, alarmTime);
+        return FormattedTextUtils.capitalizeFirstLetter(formattedTime, locale);
     }
 
     /**
@@ -296,9 +305,9 @@ public class AlarmUtils {
 
         long minutes = remainingMillis / (1000 * 60);
 
-        String daySeq = Utils.getNumberFormattedQuantityString(context, R.plurals.days, (int) days);
-        String hourSeq = Utils.getNumberFormattedQuantityString(context, R.plurals.hours, (int) hours);
-        String minSeq = Utils.getNumberFormattedQuantityString(context, R.plurals.minutes, (int) minutes);
+        String daySeq = FormattedTextUtils.getNumberFormattedQuantityString(context, R.plurals.days, (int) days);
+        String hourSeq = FormattedTextUtils.getNumberFormattedQuantityString(context, R.plurals.hours, (int) hours);
+        String minSeq = FormattedTextUtils.getNumberFormattedQuantityString(context, R.plurals.minutes, (int) minutes);
 
         final boolean showDays = days > 0;
         final boolean showHours = hours > 0;

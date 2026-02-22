@@ -69,10 +69,11 @@ import com.best.deskclock.uicomponents.PillView;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.AnimatorUtils;
 import com.best.deskclock.utils.ClockUtils;
+import com.best.deskclock.utils.FormattedTextUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
-import com.best.deskclock.utils.Utils;
+
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.color.MaterialColors;
 
@@ -731,7 +732,8 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
      */
     private void updateSnoozeText() {
         if (mSnoozeSelectorIndex == 0) {
-            String minShort = Utils.getNumberFormattedQuantityString(this, R.plurals.minutes_short, mDefaultSnoozeMinutes);
+            String minShort = FormattedTextUtils.getNumberFormattedQuantityString(
+                    this, R.plurals.minutes_short, mDefaultSnoozeMinutes);
             mSnoozeSelectorText.setText(getString(R.string.snooze_selector_default, minShort));
         } else {
             mSnoozeSelectorText.setText(mSnoozeSelectorEntries[mSnoozeSelectorIndex]);

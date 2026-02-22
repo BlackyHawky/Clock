@@ -54,6 +54,7 @@ public class PreferencesDefaultValues {
     // Clock
     public static final String DEFAULT_CLOCK_STYLE = "digital";
     public static final boolean DEFAULT_DISPLAY_CLOCK_SECONDS = false;
+    public static final boolean DEFAULT_TEXT_UPPERCASE_DISPLAYED = false;
     public static final String DEFAULT_SORT_CITIES_BY_ASCENDING_TIME_ZONE = "0";
     public static final String SORT_CITIES_BY_DESCENDING_TIME_ZONE = "1";
     public static final String SORT_CITIES_BY_NAME = "2";
@@ -175,6 +176,7 @@ public class PreferencesDefaultValues {
     public static final boolean DEFAULT_SCREENSAVER_CLOCK_DYNAMIC_COLORS = false;
     public static final int DEFAULT_SCREENSAVER_CUSTOM_COLOR = Color.WHITE;
     public static final int DEFAULT_SCREENSAVER_BRIGHTNESS = 40;
+    public static final boolean DEFAULT_SCREENSAVER_TEXT_UPPERCASE_DISPLAYED = false;
     public static final boolean DEFAULT_SCREENSAVER_FORMATTING = false;
 
     // Common settings values

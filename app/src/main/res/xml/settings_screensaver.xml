@@ -165,6 +165,13 @@
             app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
+            android:key="key_screensaver_display_text_uppercase"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/display_text_uppercase_title"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <SwitchPreferenceCompat
             android:key="key_screensaver_digital_clock_in_bold"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/screensaver_bold_digital_clock_title"

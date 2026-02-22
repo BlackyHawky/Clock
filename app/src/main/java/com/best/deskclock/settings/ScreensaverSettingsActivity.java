@@ -29,6 +29,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_DIGITA
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_DIGITAL_CLOCK_FONT_SIZE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_DIGITAL_CLOCK_IN_BOLD;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_DIGITAL_CLOCK_IN_ITALIC;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_DISPLAY_TEXT_UPPERCASE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_NEXT_ALARM_COLOR_PICKER;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_NEXT_ALARM_IN_BOLD;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_NEXT_ALARM_IN_ITALIC;
@@ -95,6 +96,7 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
         SwitchPreferenceCompat mDisplaySecondsPref;
         SwitchPreferenceCompat mDisplayBatteryPref;
         CustomSliderPreference mDigitalClockFontSizePref;
+        SwitchPreferenceCompat mDisplayTextUppercasePref;
         SwitchPreferenceCompat mBoldDigitalClockPref;
         SwitchPreferenceCompat mClockDynamicColorPref;
         SwitchPreferenceCompat mItalicDigitalClockPref;
@@ -220,6 +222,7 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
             mDateColorPref = findPreference(KEY_SCREENSAVER_DATE_COLOR_PICKER);
             mNextAlarmColorPref = findPreference(KEY_SCREENSAVER_NEXT_ALARM_COLOR_PICKER);
             mDigitalClockFontSizePref = findPreference(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT_SIZE);
+            mDisplayTextUppercasePref = findPreference(KEY_SCREENSAVER_DISPLAY_TEXT_UPPERCASE);
             mBoldDigitalClockPref = findPreference(KEY_SCREENSAVER_DIGITAL_CLOCK_IN_BOLD);
             mItalicDigitalClockPref = findPreference(KEY_SCREENSAVER_DIGITAL_CLOCK_IN_ITALIC);
             mBoldBatteryPref = findPreference(KEY_SCREENSAVER_BATTERY_IN_BOLD);
@@ -301,10 +304,10 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                     Utils.setVibrationTime(requireContext(), 50);
                 }
 
-                case KEY_SCREENSAVER_DIGITAL_CLOCK_IN_BOLD, KEY_SCREENSAVER_DIGITAL_CLOCK_IN_ITALIC,
-                     KEY_SCREENSAVER_BATTERY_IN_BOLD, KEY_SCREENSAVER_BATTERY_IN_ITALIC,
-                     KEY_SCREENSAVER_DATE_IN_BOLD, KEY_SCREENSAVER_DATE_IN_ITALIC,
-                     KEY_SCREENSAVER_NEXT_ALARM_IN_BOLD,
+                case KEY_SCREENSAVER_DISPLAY_TEXT_UPPERCASE, KEY_SCREENSAVER_DIGITAL_CLOCK_IN_BOLD,
+                     KEY_SCREENSAVER_DIGITAL_CLOCK_IN_ITALIC, KEY_SCREENSAVER_BATTERY_IN_BOLD,
+                     KEY_SCREENSAVER_BATTERY_IN_ITALIC, KEY_SCREENSAVER_DATE_IN_BOLD,
+                     KEY_SCREENSAVER_DATE_IN_ITALIC, KEY_SCREENSAVER_NEXT_ALARM_IN_BOLD,
                      KEY_SCREENSAVER_NEXT_ALARM_IN_ITALIC ->
                         Utils.setVibrationTime(requireContext(), 50);
 
@@ -383,6 +386,8 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                     ? R.string.custom_font_title
                     : R.string.custom_font_title_variant));
             mDigitalClockFontPref.setOnPreferenceClickListener(this);
+
+            mDisplayTextUppercasePref.setOnPreferenceChangeListener(this);
 
             mAnalogClockSizePref.setVisible(!isDigitalClock);
 

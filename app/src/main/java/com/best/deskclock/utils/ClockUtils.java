@@ -278,6 +278,8 @@ public class ClockUtils {
      * Clock views can call this to refresh their date.
      **/
     public static void updateDate(String dateSkeleton, String descriptionSkeleton, View clock) {
+        final Context context = clock.getContext();
+        final SharedPreferences prefs = getDefaultSharedPreferences(context);
         final TextView dateDisplay = clock.findViewById(R.id.date);
 
         if (dateDisplay == null) {
@@ -289,7 +291,10 @@ public class ClockUtils {
         final String descriptionPattern = DateFormat.getBestDateTimePattern(locale, descriptionSkeleton);
 
         final Date now = new Date();
-        dateDisplay.setText(new SimpleDateFormat(datePattern, locale).format(now));
+        String formattedDate = new SimpleDateFormat(datePattern, locale).format(now);
+
+        dateDisplay.setAllCaps(SettingsDAO.isTextUppercaseDisplayed(prefs));
+        dateDisplay.setText(FormattedTextUtils.capitalizeFirstLetter(formattedDate, locale));
         dateDisplay.setVisibility(View.VISIBLE);
         dateDisplay.setContentDescription(new SimpleDateFormat(descriptionPattern, locale).format(now));
     }

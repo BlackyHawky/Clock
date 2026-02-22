@@ -16,7 +16,7 @@ import android.content.Context;
 import androidx.annotation.StringRes;
 
 import com.best.deskclock.R;
-import com.best.deskclock.utils.Utils;
+import com.best.deskclock.utils.FormattedTextUtils;
 
 public class TimerStringFormatter {
 
@@ -57,12 +57,12 @@ public class TimerStringFormatter {
         }
         hours = roundedHours;
 
-        final String minSeq = Utils.getNumberFormattedQuantityString(context, R.plurals.minutes,
-                minutes);
-        final String hourSeq = Utils.getNumberFormattedQuantityString(context, R.plurals.hours,
-                hours);
-        final String secSeq = Utils.getNumberFormattedQuantityString(context, R.plurals.seconds,
-                seconds);
+        final String minSeq = FormattedTextUtils.getNumberFormattedQuantityString(
+                context, R.plurals.minutes, minutes);
+        final String hourSeq = FormattedTextUtils.getNumberFormattedQuantityString(
+                context, R.plurals.hours, hours);
+        final String secSeq = FormattedTextUtils.getNumberFormattedQuantityString(
+                context, R.plurals.seconds, seconds);
 
         // The verb "remaining" may have to change tense for singular subjects in some languages.
         final String remainingSuffix = context.getString((minutes > 1 || hours > 1 || seconds > 1)

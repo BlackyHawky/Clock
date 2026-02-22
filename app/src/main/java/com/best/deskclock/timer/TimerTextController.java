@@ -12,7 +12,7 @@ import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 
 import android.widget.TextView;
 
-import com.best.deskclock.utils.Utils;
+import com.best.deskclock.utils.FormattedTextUtils;
 
 /**
  * A controller which will format a provided time in millis to display as a timer.
@@ -48,7 +48,7 @@ public record TimerTextController(TextView mTextView) {
             }
         }
 
-        String time = Utils.getTimeString(mTextView.getContext(), hours, minutes, seconds);
+        String time = FormattedTextUtils.getTimeString(mTextView.getContext(), hours, minutes, seconds);
         if (isNegative && !(hours == 0 && minutes == 0 && seconds == 0)) {
             time = "−" + time;
         }

@@ -248,6 +248,15 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return {@code true} if the text is displayed in uppercase in the clock tab;
+     * {@code false} otherwise.
+     */
+    public static boolean isTextUppercaseDisplayed(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_digital_widget.xml
+        return prefs.getBoolean(KEY_DISPLAY_TEXT_UPPERCASE, DEFAULT_TEXT_UPPERCASE_DISPLAYED);
+    }
+
+    /**
      * @return the font size applied in the Clock tab.
      */
     public static int getDigitalClockFontSize(SharedPreferences prefs) {
@@ -394,6 +403,7 @@ public final class SettingsDAO {
      * @return a value indicating whether analog or digital clocks are displayed on the screensaver.
      */
     public static ClockStyle getScreensaverClockStyle(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_screensaver.xml
         return getClockStyle(prefs, KEY_SCREENSAVER_CLOCK_STYLE);
     }
 
@@ -401,6 +411,7 @@ public final class SettingsDAO {
      * @return the clock dial applied for the screensaver.
      */
     public static String getScreensaverClockDial(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_screensaver.xml
         return prefs.getString(KEY_SCREENSAVER_CLOCK_DIAL, DEFAULT_CLOCK_DIAL);
     }
 
@@ -408,6 +419,7 @@ public final class SettingsDAO {
      * @return the material clock dial applied for the screensaver.
      */
     public static String getScreensaverClockDialMaterial(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_screensaver.xml
         return prefs.getString(KEY_SCREENSAVER_CLOCK_DIAL_MATERIAL, DEFAULT_CLOCK_DIAL_MATERIAL);
     }
 
@@ -415,6 +427,7 @@ public final class SettingsDAO {
      * @return the font applied to the digital clock in the screensaver.
      */
     public static String getScreensaverDigitalClockFont(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_screensaver.xml
         return prefs.getString(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT, null);
     }
 
@@ -422,6 +435,7 @@ public final class SettingsDAO {
      * @return the clock second hand applied for the screensaver.
      */
     public static String getScreensaverClockSecondHand(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_screensaver.xml
         return prefs.getString(KEY_SCREENSAVER_CLOCK_SECOND_HAND, DEFAULT_CLOCK_SECOND_HAND);
     }
 
@@ -430,7 +444,7 @@ public final class SettingsDAO {
      * {@code false} otherwise.
      */
     public static boolean isScreensaverBatteryDisplayed(SharedPreferences prefs) {
-        // Default value must match the one in res/xml/settings_clock.xml
+        // Default value must match the one in res/xml/settings_screensaver.xml
         return prefs.getBoolean(KEY_DISPLAY_SCREENSAVER_BATTERY, DEFAULT_DISPLAY_SCREENSAVER_BATTERY);
     }
 
@@ -439,7 +453,7 @@ public final class SettingsDAO {
      * {@code false} otherwise.
      */
     public static boolean areScreensaverClockDynamicColors(SharedPreferences prefs) {
-        // Default value must match the one in res/xml/screensaver_settings.xml
+        // Default value must match the one in res/xml/settings_screensaver.xml
         return prefs.getBoolean(KEY_SCREENSAVER_CLOCK_DYNAMIC_COLORS, DEFAULT_SCREENSAVER_CLOCK_DYNAMIC_COLORS);
     }
 
@@ -447,7 +461,7 @@ public final class SettingsDAO {
      * @return a value indicating the screensaver clock color.
      */
     public static int getScreensaverClockColorPicker(SharedPreferences prefs) {
-        // Default value must match the one in res/xml/screensaver_settings.xml
+        // Default value must match the one in res/xml/settings_screensaver.xml
         return prefs.getInt(KEY_SCREENSAVER_CLOCK_COLOR_PICKER, DEFAULT_SCREENSAVER_CUSTOM_COLOR);
     }
 
@@ -455,7 +469,7 @@ public final class SettingsDAO {
      * @return a value indicating the screensaver battery level color.
      */
     public static int getScreensaverBatteryColorPicker(SharedPreferences prefs) {
-        // Default value must match the one in res/xml/screensaver_settings.xml
+        // Default value must match the one in res/xml/settings_screensaver.xml
         return prefs.getInt(KEY_SCREENSAVER_BATTERY_COLOR_PICKER, DEFAULT_SCREENSAVER_CUSTOM_COLOR);
     }
 
@@ -463,7 +477,7 @@ public final class SettingsDAO {
      * @return a value indicating the screensaver date color.
      */
     public static int getScreensaverDateColorPicker(SharedPreferences prefs) {
-        // Default value must match the one in res/xml/screensaver_settings.xml
+        // Default value must match the one in res/xml/settings_screensaver.xml
         return prefs.getInt(KEY_SCREENSAVER_DATE_COLOR_PICKER, DEFAULT_SCREENSAVER_CUSTOM_COLOR);
     }
 
@@ -471,7 +485,7 @@ public final class SettingsDAO {
      * @return a value indicating the screensaver next alarm color.
      */
     public static int getScreensaverNextAlarmColorPicker(SharedPreferences prefs) {
-        // Default value must match the one in res/xml/screensaver_settings.xml
+        // Default value must match the one in res/xml/settings_screensaver.xml
         return prefs.getInt(KEY_SCREENSAVER_NEXT_ALARM_COLOR_PICKER, DEFAULT_SCREENSAVER_CUSTOM_COLOR);
     }
 
@@ -479,7 +493,7 @@ public final class SettingsDAO {
      * @return {@code int} the screensaver brightness level at night
      */
     public static int getScreensaverBrightness(SharedPreferences prefs) {
-        // Default value must match the one in res/xml/screensaver_settings.xml
+        // Default value must match the one in res/xml/settings_screensaver.xml
         return prefs.getInt(KEY_SCREENSAVER_BRIGHTNESS, DEFAULT_SCREENSAVER_BRIGHTNESS);
     }
 
@@ -487,6 +501,7 @@ public final class SettingsDAO {
      * @return the analog clock size applied to the screensaver.
      */
     public static int getScreensaverAnalogClockSize(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_screensaver.xml
         return prefs.getInt(KEY_SCREENSAVER_ANALOG_CLOCK_SIZE, DEFAULT_ANALOG_CLOCK_SIZE);
     }
 
@@ -495,7 +510,7 @@ public final class SettingsDAO {
      * {@code false} otherwise.
      */
     public static boolean areScreensaverClockSecondsDisplayed(SharedPreferences prefs) {
-        // Default value must match the one in res/xml/screensaver_settings.xml
+        // Default value must match the one in res/xml/settings_screensaver.xml
         return prefs.getBoolean(KEY_DISPLAY_SCREENSAVER_CLOCK_SECONDS, DEFAULT_DISPLAY_SCREENSAVER_CLOCK_SECONDS);
     }
 
@@ -503,15 +518,24 @@ public final class SettingsDAO {
      * @return the font size applied to the alarm digital clock.
      */
     public static int getScreensaverDigitalClockFontSize(SharedPreferences prefs) {
-        // Default value must match the one in res/xml/settings_alarm_display.xml
+        // Default value must match the one in res/xml/settings_screensaver.xml
         return prefs.getInt(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT_SIZE, DEFAULT_DIGITAL_CLOCK_FONT_SIZE);
+    }
+
+    /**
+     * @return {@code true} if the text is displayed in uppercase in the screensaver;
+     * {@code false} otherwise.
+     */
+    public static boolean isScreensaverTextUppercaseDisplayed(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_screensaver.xml
+        return prefs.getBoolean(KEY_SCREENSAVER_DISPLAY_TEXT_UPPERCASE, DEFAULT_SCREENSAVER_TEXT_UPPERCASE_DISPLAYED);
     }
 
     /**
      * @return {@code true} if the screensaver should show the clock in bold. {@code false} otherwise.
      */
     public static boolean isScreensaverDigitalClockInBold(SharedPreferences prefs) {
-        // Default value must match the one in res/xml/screensaver_settings.xml
+        // Default value must match the one in res/xml/settings_screensaver.xml
         return prefs.getBoolean(KEY_SCREENSAVER_DIGITAL_CLOCK_IN_BOLD, DEFAULT_SCREENSAVER_FORMATTING);
     }
 
@@ -519,7 +543,7 @@ public final class SettingsDAO {
      * @return {@code true} if the screensaver should show the clock in italic. {@code false} otherwise.
      */
     public static boolean isScreensaverDigitalClockInItalic(SharedPreferences prefs) {
-        // Default value must match the one in res/xml/screensaver_settings.xml
+        // Default value must match the one in res/xml/settings_screensaver.xml
         return prefs.getBoolean(KEY_SCREENSAVER_DIGITAL_CLOCK_IN_ITALIC, DEFAULT_SCREENSAVER_FORMATTING);
     }
 
@@ -528,7 +552,7 @@ public final class SettingsDAO {
      * {@code false} otherwise.
      */
     public static boolean isScreensaverBatteryInBold(SharedPreferences prefs) {
-        // Default value must match the one in res/xml/screensaver_settings.xml
+        // Default value must match the one in res/xml/settings_screensaver.xml
         return prefs.getBoolean(KEY_SCREENSAVER_BATTERY_IN_BOLD, DEFAULT_SCREENSAVER_FORMATTING);
     }
 
@@ -537,7 +561,7 @@ public final class SettingsDAO {
      * {@code false} otherwise.
      */
     public static boolean isScreensaverBatteryInItalic(SharedPreferences prefs) {
-        // Default value must match the one in res/xml/screensaver_settings.xml
+        // Default value must match the one in res/xml/settings_screensaver.xml
         return prefs.getBoolean(KEY_SCREENSAVER_BATTERY_IN_ITALIC, DEFAULT_SCREENSAVER_FORMATTING);
     }
 
@@ -545,7 +569,7 @@ public final class SettingsDAO {
      * @return {@code true} if the screensaver should show the date in bold. {@code false} otherwise.
      */
     public static boolean isScreensaverDateInBold(SharedPreferences prefs) {
-        // Default value must match the one in res/xml/screensaver_settings.xml
+        // Default value must match the one in res/xml/settings_screensaver.xml
         return prefs.getBoolean(KEY_SCREENSAVER_DATE_IN_BOLD, DEFAULT_SCREENSAVER_FORMATTING);
     }
 
@@ -553,7 +577,7 @@ public final class SettingsDAO {
      * @return {@code true} if the screensaver should show the date in italics. {@code false} otherwise.
      */
     public static boolean isScreensaverDateInItalic(SharedPreferences prefs) {
-        // Default value must match the one in res/xml/screensaver_settings.xml
+        // Default value must match the one in res/xml/settings_screensaver.xml
         return prefs.getBoolean(KEY_SCREENSAVER_DATE_IN_ITALIC, DEFAULT_SCREENSAVER_FORMATTING);
     }
 
@@ -561,7 +585,7 @@ public final class SettingsDAO {
      * @return {@code true} if the screensaver should show the next alarm in bold. {@code false} otherwise.
      */
     public static boolean isScreensaverNextAlarmInBold(SharedPreferences prefs) {
-        // Default value must match the one in res/xml/screensaver_settings.xml
+        // Default value must match the one in res/xml/settings_screensaver.xml
         return prefs.getBoolean(KEY_SCREENSAVER_NEXT_ALARM_IN_BOLD, DEFAULT_SCREENSAVER_FORMATTING);
     }
 
@@ -569,7 +593,7 @@ public final class SettingsDAO {
      * @return {@code true} if the screensaver should show the next alarm in italic. {@code false} otherwise.
      */
     public static boolean isScreensaverNextAlarmInItalic(SharedPreferences prefs) {
-        // Default value must match the one in res/xml/screensaver_settings.xml
+        // Default value must match the one in res/xml/settings_screensaver.xml
         return prefs.getBoolean(KEY_SCREENSAVER_NEXT_ALARM_IN_ITALIC, DEFAULT_SCREENSAVER_FORMATTING);
     }
 

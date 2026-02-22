@@ -56,9 +56,9 @@ import com.best.deskclock.uicomponents.AutoSizingTextClock;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.ClockUtils;
+import com.best.deskclock.utils.FormattedTextUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
-import com.best.deskclock.utils.Utils;
 import com.best.deskclock.worldclock.CitySelectionActivity;
 
 import java.util.ArrayList;
@@ -375,7 +375,7 @@ public final class ClockFragment extends DeskClockFragment {
      */
     private void refreshAlarm() {
         if (mClockFrame != null) {
-            AlarmUtils.refreshAlarm(getContext(), mClockFrame, false);
+            AlarmUtils.refreshAlarm(mClockFrame, false);
         } else {
             mCityAdapter.refreshAlarm();
         }
@@ -804,7 +804,7 @@ public final class ClockFragment extends DeskClockFragment {
                 ClockUtils.updateDate(dateFormat, dateFormatForAccessibility, itemView);
                 ClockUtils.applyBoldDateTypeface(itemView);
                 ClockUtils.setClockIconTypeface(itemView);
-                AlarmUtils.refreshAlarm(context, itemView, false);
+                AlarmUtils.refreshAlarm(itemView, false);
                 AlarmUtils.applyBoldNextAlarmTypeface(itemView);
             }
         }
@@ -824,14 +824,18 @@ public final class ClockFragment extends DeskClockFragment {
         String timeString;
         if (displayMinutes && hoursDifferent != 0) {
             // Both minutes and hours
-            final String hoursShortQuantityString = Utils.getNumberFormattedQuantityString(context, R.plurals.hours_short, Math.abs(hoursDifferent));
-            final String minsShortQuantityString = Utils.getNumberFormattedQuantityString(context, R.plurals.minutes_short, Math.abs(minutesDifferent));
+            final String hoursShortQuantityString = FormattedTextUtils.getNumberFormattedQuantityString(
+                    context, R.plurals.hours_short, Math.abs(hoursDifferent));
+            final String minsShortQuantityString = FormattedTextUtils.getNumberFormattedQuantityString(
+                    context, R.plurals.minutes_short, Math.abs(minutesDifferent));
             final @StringRes int stringType = isAhead ? R.string.world_hours_minutes_ahead : R.string.world_hours_minutes_behind;
             timeString = context.getString(stringType, hoursShortQuantityString, minsShortQuantityString);
         } else {
             // Minutes alone or hours alone
-            final String hoursQuantityString = Utils.getNumberFormattedQuantityString(context, R.plurals.hours, Math.abs(hoursDifferent));
-            final String minutesQuantityString = Utils.getNumberFormattedQuantityString(context, R.plurals.minutes, Math.abs(minutesDifferent));
+            final String hoursQuantityString = FormattedTextUtils.getNumberFormattedQuantityString(
+                    context, R.plurals.hours, Math.abs(hoursDifferent));
+            final String minutesQuantityString = FormattedTextUtils.getNumberFormattedQuantityString(
+                    context, R.plurals.minutes, Math.abs(minutesDifferent));
             final @StringRes int stringType = isAhead ? R.string.world_time_ahead : R.string.world_time_behind;
             timeString = context.getString(stringType, displayMinutes ? minutesQuantityString : hoursQuantityString);
         }
