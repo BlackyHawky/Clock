@@ -235,8 +235,8 @@ public class ClockSettingsFragment extends ScreenFragment
         mHomeTimeZonePref.setEnabled(SettingsDAO.getAutoShowHomeClock(mPrefs));
         // Reconstruct the timezone list.
         final TimeZones timezones = SettingsDAO.getTimeZones(requireContext(), System.currentTimeMillis());
-        mHomeTimeZonePref.setEntryValues(timezones.getTimeZoneIds());
-        mHomeTimeZonePref.setEntries(timezones.getTimeZoneNames());
+        mHomeTimeZonePref.setEntryValues(timezones.timeZoneIds());
+        mHomeTimeZonePref.setEntries(timezones.timeZoneNames());
         mHomeTimeZonePref.setSummary(mHomeTimeZonePref.getEntry());
         mHomeTimeZonePref.setOnPreferenceChangeListener(this);
 

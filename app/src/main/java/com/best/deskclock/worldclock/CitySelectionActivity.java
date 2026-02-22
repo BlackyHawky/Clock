@@ -632,7 +632,7 @@ public final class CitySelectionActivity extends BaseActivity {
             if (useShortForm) {
                 return String.format(Locale.ENGLISH, "%s%d", sign, hour);
             } else {
-                return String.format(Locale.ENGLISH, "GMT %s%d:%02d", sign, hour, min);
+                return String.format(Locale.ENGLISH, "UTC %s%d:%02d", sign, hour, min);
             }
         }
 

@@ -135,8 +135,6 @@
             android:key="key_home_time_zone"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/home_time_zone"
-            android:entries="@array/timezone_labels"
-            android:entryValues="@array/timezone_values"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 

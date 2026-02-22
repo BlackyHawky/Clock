@@ -28,7 +28,7 @@ import static java.util.Calendar.SUNDAY;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
+import android.icu.text.TimeZoneNames;
 import android.net.Uri;
 
 import androidx.annotation.NonNull;
@@ -38,6 +38,7 @@ import com.best.deskclock.data.DataModel.CitySort;
 import com.best.deskclock.data.DataModel.ClockStyle;
 import com.best.deskclock.data.DataModel.PowerButtonBehavior;
 import com.best.deskclock.data.DataModel.VolumeButtonBehavior;
+import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
 
 import java.util.Arrays;
@@ -161,6 +162,35 @@ public final class SettingsDAO {
         // The timezone returned here may be valid or invalid. When it matches TimeZone.getDefault()
         // the Home city will not show, regardless of its validity.
         return defaultTZ;
+    }
+
+    /**
+     * @param currentTime timezone offsets created relative to this time
+     * @return a description of the time zones available for selection
+     */
+    public static TimeZones getTimeZones(Context context, long currentTime) {
+        final Locale locale = Locale.getDefault();
+        final Context localizedContext = Utils.getLocalizedContext(context);
+        final String[] timeZoneIds = localizedContext.getResources().getStringArray(R.array.timezone_values);
+
+        // Create TimeZoneDescriptors for each TimeZone so they can be sorted.
+        final TimeZoneDescriptor[] descriptors = new TimeZoneDescriptor[timeZoneIds.length];
+        for (int i = 0; i < timeZoneIds.length; i++) {
+            // Pass only the ID; the name will be generated automatically.
+            descriptors[i] = TimeZoneDescriptor.create(localizedContext, locale, timeZoneIds[i], currentTime);
+        }
+        Arrays.sort(descriptors);
+
+        // Transfer the TimeZoneDescriptors into parallel arrays for easy consumption by the caller.
+        final CharSequence[] tzIds = new CharSequence[descriptors.length];
+        final CharSequence[] tzNames = new CharSequence[descriptors.length];
+        for (int i = 0; i < descriptors.length; i++) {
+            final TimeZoneDescriptor descriptor = descriptors[i];
+            tzIds[i] = descriptor.timeZoneId();
+            tzNames[i] = descriptor.timeZoneName();
+        }
+
+        return new TimeZones(tzIds, tzNames);
     }
 
     /**
@@ -1010,46 +1040,6 @@ public final class SettingsDAO {
     }
 
     /**
-     * @param currentTime timezone offsets created relative to this time
-     * @return a description of the time zones available for selection
-     */
-    public static TimeZones getTimeZones(Context context, long currentTime) {
-        final Locale locale = Locale.getDefault();
-        final Context localizedContext = Utils.getLocalizedContext(context);
-        final Resources resources = localizedContext.getResources();
-        final String[] timeZoneIds = resources.getStringArray(R.array.timezone_values);
-        final String[] timeZoneNames = resources.getStringArray(R.array.timezone_labels);
-
-        // Verify the data is consistent.
-        if (timeZoneIds.length != timeZoneNames.length) {
-            final String message = String.format(Locale.US,
-                    "id count (%d) does not match name count (%d) for locale %s",
-                    timeZoneIds.length, timeZoneNames.length, locale);
-            throw new IllegalStateException(message);
-        }
-
-        // Create TimeZoneDescriptors for each TimeZone so they can be sorted.
-        final TimeZoneDescriptor[] descriptors = new TimeZoneDescriptor[timeZoneIds.length];
-        for (int i = 0; i < timeZoneIds.length; i++) {
-            final String id = timeZoneIds[i];
-            final String name = timeZoneNames[i].replaceAll("\"", "");
-            descriptors[i] = new TimeZoneDescriptor(locale, id, name, currentTime);
-        }
-        Arrays.sort(descriptors);
-
-        // Transfer the TimeZoneDescriptors into parallel arrays for easy consumption by the caller.
-        final CharSequence[] tzIds = new CharSequence[descriptors.length];
-        final CharSequence[] tzNames = new CharSequence[descriptors.length];
-        for (int i = 0; i < descriptors.length; i++) {
-            final TimeZoneDescriptor descriptor = descriptors[i];
-            tzIds[i] = descriptor.mTimeZoneId;
-            tzNames[i] = descriptor.mTimeZoneName;
-        }
-
-        return new TimeZones(tzIds, tzNames);
-    }
-
-    /**
      * @return the action to be performed after flipping the device.
      */
     public static int getFlipAction(SharedPreferences prefs) {
@@ -1491,30 +1481,72 @@ public final class SettingsDAO {
     }
 
     /**
-     * These descriptors have a natural order from furthest ahead of GMT to furthest behind GMT.
+     * These descriptors have a natural order from furthest behind of GMT to furthest ahead GMT.
      */
-    private static class TimeZoneDescriptor implements Comparable<TimeZoneDescriptor> {
+    private record TimeZoneDescriptor(int offset, String timeZoneId, String timeZoneName)
+            implements Comparable<TimeZoneDescriptor> {
 
-        private final int mOffset;
-        private final String mTimeZoneId;
-        private final String mTimeZoneName;
-
-        private TimeZoneDescriptor(Locale locale, String id, String name, long currentTime) {
-            mTimeZoneId = id;
-
+        public static TimeZoneDescriptor create(Context context, Locale locale, String id, long currentTime) {
             final TimeZone tz = TimeZone.getTimeZone(id);
-            mOffset = tz.getOffset(currentTime);
+            final int currentOffset = tz.getOffset(currentTime);
 
-            final char sign = mOffset < 0 ? '-' : '+';
-            final int absoluteGMTOffset = Math.abs(mOffset);
+            final char sign = currentOffset < 0 ? '-' : '+';
+            final int absoluteGMTOffset = Math.abs(currentOffset);
             final long hour = absoluteGMTOffset / HOUR_IN_MILLIS;
             final long minute = (absoluteGMTOffset / MINUTE_IN_MILLIS) % 60;
-            mTimeZoneName = String.format(locale, "(GMT%s%d:%02d) %s", sign, hour, minute, name);
+
+            String locationName = null;
+
+            // Edge case: UTC-12 covers only Baker Island and Howland Island.
+            // Since they are uninhabited, the IANA database does not provide a specific
+            // geographic identifier (like "Pacific/Baker") and strictly uses the generic "Etc/GMT+12".
+            // We manually map it to a translatable string to avoid displaying the confusing
+            // fallback name "GMT-12:00 GMT+12".
+            switch (id) {
+                // Islands
+                case "Etc/GMT+12" -> locationName = context.getString(R.string.timezone_baker_howland);
+                case "Pacific/Marquesas" -> locationName = context.getString(R.string.timezone_marquesas);
+                case "Pacific/Chatham" -> locationName = context.getString(R.string.timezone_chatham);
+                case "Pacific/Gambier" -> locationName = context.getString(R.string.timezone_gambier);
+                case "Pacific/Pitcairn" -> locationName = context.getString(R.string.timezone_pitcairn);
+                case "Chile/EasterIsland" -> locationName = context.getString(R.string.timezone_easter_island);
+                case "America/Miquelon" -> locationName = context.getString(R.string.timezone_miquelon);
+                case "America/Noronha" -> locationName = context.getString(R.string.timezone_noronha);
+                case "Australia/Lord_Howe" -> locationName = context.getString(R.string.timezone_lord_howe);
+                case "Pacific/Norfolk" -> locationName = context.getString(R.string.timezone_norfolk);
+                case "Antarctica/Macquarie" -> locationName = context.getString(R.string.timezone_macquarie);
+                default -> {
+                    // For all other time zones, retrieve the city name automatically
+                    if (SdkUtils.isAtLeastAndroid7()) {
+                        TimeZoneNames tzNames = TimeZoneNames.getInstance(locale);
+                        locationName = tzNames.getExemplarLocationName(id);
+                    }
+
+                    // Fallback API < 24
+                    // Note: the city name will be in English regardless of the device language.)
+                    if (locationName == null) {
+                        // Manually extract the city from the ID
+                        // (e.g., “America/Buenos_Aires” -> “Buenos Aires”)
+                        int lastSlashIndex = id.lastIndexOf('/');
+                        if (lastSlashIndex >= 0 && lastSlashIndex < id.length() - 1) {
+                            locationName = id.substring(lastSlashIndex + 1).replace('_', ' ');
+                        } else {
+                            // Last resort
+                            locationName = id;
+                        }
+                    }
+                }
+            }
+
+            final String generatedName =
+                    String.format(locale, "(UTC%s%d:%02d) %s", sign, hour, minute, locationName);
+
+            return new TimeZoneDescriptor(currentOffset, id, generatedName);
         }
 
-        @Override
-        public int compareTo(@NonNull TimeZoneDescriptor other) {
-            return mOffset - other.mOffset;
+         @Override
+         public int compareTo(@NonNull TimeZoneDescriptor other) {
+            return Integer.compare(this.offset, other.offset);
         }
     }
 

@@ -5,7 +5,7 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- String of debug application title in "About" page. -->
     <string name="about_debug_app_title">Clock debug</string>
     <!-- String of nightly application title in "About" page. -->
@@ -223,7 +223,7 @@
         <item>@string/snooze_selector_30_mins</item>
     </string-array>
     <!-- Values that are retrieved from the snooze selector. These must match the alarm_snooze_selector_entries above. -->
-    <string-array name="alarm_snooze_selector_values">
+    <string-array name="alarm_snooze_selector_values" translatable="false">
         <item>-1</item>
         <item>5</item>
         <item>10</item>
@@ -469,7 +469,7 @@
     </string-array>
     <!-- Values that are retrieved from the ListPreference. These must match the tab entries above
          and respect the order of the bottom navigation menu. -->
-    <string-array name="tab_values">
+    <string-array name="tab_values" translatable="false">
         <item>-1</item>
         <item>0</item>
         <item>1</item>
@@ -538,5 +538,155 @@
         <item>1</item>
         <item>2</item>
         <item>3</item>
+    </string-array>
+
+    <!-- Values for the "Home time zone" setting -->
+    <string-array name="timezone_values" translatable="false" tools:ignore="Typos">
+        <item>Pacific/Majuro</item>
+        <item>Pacific/Honolulu</item>
+        <item>America/Anchorage</item>
+        <item>America/Los_Angeles</item>
+        <item>America/Tijuana</item>
+        <item>America/Phoenix</item>
+        <item>America/Denver</item>
+        <item>America/Costa_Rica</item>
+        <item>America/Chicago</item>
+        <item>America/Mexico_City</item>
+        <item>America/Regina</item>
+        <item>America/Bogota</item>
+        <item>America/New_York</item>
+        <item>America/Caracas</item>
+        <item>America/Barbados</item>
+        <item>America/Halifax</item>
+        <item>America/Manaus</item>
+        <item>America/Santiago</item>
+        <item>America/St_Johns</item>
+        <item>America/Sao_Paulo</item>
+        <item>America/Argentina/Buenos_Aires</item>
+        <item>America/Godthab</item>
+        <item>America/Montevideo</item>
+        <item>Atlantic/Azores</item>
+        <item>Atlantic/Cape_Verde</item>
+        <item>Africa/Casablanca</item>
+        <item>Europe/London</item>
+        <item>Europe/Amsterdam</item>
+        <item>Europe/Belgrade</item>
+        <item>Europe/Brussels</item>
+        <item>Africa/Windhoek</item>
+        <item>Asia/Amman</item>
+        <item>Europe/Athens</item>
+        <item>Asia/Beirut</item>
+        <item>Africa/Cairo</item>
+        <item>Europe/Helsinki</item>
+        <item>Asia/Jerusalem</item>
+        <item>Europe/Minsk</item>
+        <item>Africa/Harare</item>
+        <item>Asia/Baghdad</item>
+        <item>Europe/Moscow</item>
+        <item>Asia/Kuwait</item>
+        <item>Africa/Nairobi</item>
+        <item>Asia/Tehran</item>
+        <item>Asia/Baku</item>
+        <item>Asia/Tbilisi</item>
+        <item>Asia/Yerevan</item>
+        <item>Asia/Dubai</item>
+        <item>Asia/Kabul</item>
+        <item>Asia/Karachi</item>
+        <item>Asia/Yekaterinburg</item>
+        <item>Asia/Calcutta</item>
+        <item>Asia/Colombo</item>
+        <item>Asia/Katmandu</item>
+        <item>Asia/Almaty</item>
+        <item>Asia/Rangoon</item>
+        <item>Asia/Krasnoyarsk</item>
+        <item>Asia/Bangkok</item>
+        <item>Asia/Shanghai</item>
+        <item>Asia/Hong_Kong</item>
+        <item>Asia/Irkutsk</item>
+        <item>Asia/Kuala_Lumpur</item>
+        <item>Australia/Perth</item>
+        <item>Asia/Taipei</item>
+        <item>Asia/Seoul</item>
+        <item>Asia/Tokyo</item>
+        <item>Asia/Yakutsk</item>
+        <item>Australia/Adelaide</item>
+        <item>Australia/Darwin</item>
+        <item>Australia/Brisbane</item>
+        <item>Australia/Hobart</item>
+        <item>Australia/Sydney</item>
+        <item>Asia/Vladivostok</item>
+        <item>Pacific/Guam</item>
+        <item>Asia/Magadan</item>
+        <item>Pacific/Auckland</item>
+        <item>Pacific/Fiji</item>
+        <item>Pacific/Tongatapu</item>
+        <item>Asia/Jakarta</item>
+        <item>Asia/Riyadh</item>
+        <item>Atlantic/Reykjavik</item>
+        <item>Etc/GMT+12</item>
+        <item>Pacific/Marquesas</item>
+        <item>Asia/Bishkek</item>
+        <item>Asia/Dhaka</item>
+        <item>Asia/Omsk</item>
+        <item>Asia/Thimphu</item>
+        <item>Australia/Eucla</item>
+        <item>Pacific/Chatham</item>
+        <item>Pacific/Kiritimati</item>
+        <item>Pacific/Niue</item>
+        <item>Pacific/Pago_Pago</item>
+        <item>America/Adak</item>
+        <item>Pacific/Tahiti</item>
+        <item>Pacific/Gambier</item>
+        <item>Pacific/Pitcairn</item>
+        <item>America/Vancouver</item>
+        <item>America/Winnipeg</item>
+        <item>Chile/EasterIsland</item>
+        <item>America/Lima</item>
+        <item>America/Toronto</item>
+        <item>America/La_Paz</item>
+        <item>America/Miquelon</item>
+        <item>America/Noronha</item>
+        <item>Africa/Abidjan</item>
+        <item>Africa/Dakar</item>
+        <item>Africa/Lome</item>
+        <item>Europe/Dublin</item>
+        <item>Europe/Lisbon</item>
+        <item>Africa/Algiers</item>
+        <item>Africa/Kinshasa</item>
+        <item>Africa/Lagos</item>
+        <item>Africa/Luanda</item>
+        <item>Europe/Berlin</item>
+        <item>Europe/Madrid</item>
+        <item>Europe/Paris</item>
+        <item>Europe/Rome</item>
+        <item>Europe/Stockholm</item>
+        <item>Europe/Bucharest</item>
+        <item>Africa/Johannesburg</item>
+        <item>Europe/Kiev</item>
+        <item>Africa/Lubumbashi</item>
+        <item>Africa/Maputo</item>
+        <item>Africa/Addis_Ababa</item>
+        <item>Indian/Antananarivo</item>
+        <item>Africa/Dar_es_Salaam</item>
+        <item>Asia/Istanbul</item>
+        <item>Asia/Muscat</item>
+        <item>Europe/Samara</item>
+        <item>Asia/Ashgabat</item>
+        <item>Asia/Dushanbe</item>
+        <item>Indian/Maldives</item>
+        <item>Asia/Tashkent</item>
+        <item>Asia/Hanoi</item>
+        <item>Asia/Novosibirsk</item>
+        <item>Asia/Singapore</item>
+        <item>Asia/Ulaanbaatar</item>
+        <item>Asia/Dili</item>
+        <item>Pacific/Port_Moresby</item>
+        <item>Australia/Lord_Howe</item>
+        <item>Pacific/Guadalcanal</item>
+        <item>Pacific/Noumea</item>
+        <item>Asia/Sakhalin</item>
+        <item>Pacific/Norfolk</item>
+        <item>Antarctica/Macquarie</item>
+        <item>Asia/Kamchatka</item>
     </string-array>
 </resources>

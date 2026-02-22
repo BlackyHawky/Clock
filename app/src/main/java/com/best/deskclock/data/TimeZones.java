@@ -11,24 +11,16 @@ import android.text.TextUtils;
 /**
  * A read-only domain object representing the timezones from which to choose a "home" timezone.
  */
-public record TimeZones(CharSequence[] mTimeZoneIds, CharSequence[] mTimeZoneNames) {
-
-    public CharSequence[] getTimeZoneIds() {
-        return mTimeZoneIds;
-    }
-
-    public CharSequence[] getTimeZoneNames() {
-        return mTimeZoneNames;
-    }
+public record TimeZones(CharSequence[] timeZoneIds, CharSequence[] timeZoneNames) {
 
     /**
      * @param timeZoneId identifies the timezone to locate
      * @return the timezone name with the {@code timeZoneId}; {@code null} if it does not exist
      */
     CharSequence getTimeZoneName(CharSequence timeZoneId) {
-        for (int i = 0; i < mTimeZoneIds.length; i++) {
-            if (TextUtils.equals(timeZoneId, mTimeZoneIds[i])) {
-                return mTimeZoneNames[i];
+        for (int i = 0; i < timeZoneIds.length; i++) {
+            if (TextUtils.equals(timeZoneId, timeZoneIds[i])) {
+                return timeZoneNames[i];
             }
         }
 
