@@ -304,7 +304,9 @@ public final class AlarmClockFragment extends DeskClockFragment implements
                                    @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY,
                                    int actionState, boolean isCurrentlyActive) {
 
-               super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+               // Don't call super.onChildDraw() to prevent the shadow from appearing
+               // under the card when dragging.
+               viewHolder.itemView.setTranslationX(dX);
 
                if (dX != 0) {
                    hideSideButtonsWithFabAnimation();

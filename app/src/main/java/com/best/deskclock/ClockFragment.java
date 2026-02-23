@@ -214,20 +214,9 @@ public final class ClockFragment extends DeskClockFragment {
             }
 
             @Override
-            public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-                super.clearView(recyclerView, viewHolder);
-
-                // Saving the new order
-                DataModel.getDataModel().updateSelectedCitiesOrder(mMutableCities);
-            }
-
-            @Override
             public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView,
                                     @NonNull RecyclerView.ViewHolder viewHolder,
                                     float dX, float dY, int actionState, boolean isCurrentlyActive) {
-
-                // Draw a shadow under the timer card when it's dragging
-                viewHolder.itemView.setTranslationZ(dpToPx(isCurrentlyActive ? 6 : 0, mDisplayMetrics));
 
                 // Calculation of upper and lower limits for drag
                 int position = viewHolder.getBindingAdapterPosition();
@@ -269,6 +258,27 @@ public final class ClockFragment extends DeskClockFragment {
                 } else {
                     super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
                 }
+            }
+
+            @Override
+            public void onSelectedChanged(@Nullable RecyclerView.ViewHolder viewHolder, int actionState) {
+                super.onSelectedChanged(viewHolder, actionState);
+
+                // Draw a shadow under the city card when it's dragging
+                if (actionState == ItemTouchHelper.ACTION_STATE_DRAG && viewHolder != null) {
+                    viewHolder.itemView.setTranslationZ(dpToPx(6, mDisplayMetrics));
+                }
+            }
+
+            @Override
+            public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+                super.clearView(recyclerView, viewHolder);
+
+                // Remove the shadow under the city card when the drag is complete.
+                viewHolder.itemView.setTranslationZ(0f);
+
+                // Saving the new order
+                DataModel.getDataModel().updateSelectedCitiesOrder(mMutableCities);
             }
         });
 

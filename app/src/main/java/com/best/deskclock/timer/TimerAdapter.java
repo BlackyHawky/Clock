@@ -11,7 +11,6 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SORT_
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Canvas;
 import android.text.TextUtils;
 import android.util.ArrayMap;
 import android.view.LayoutInflater;
@@ -20,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -322,20 +322,22 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
 
         @Override
-        public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView,
-                                @NonNull RecyclerView.ViewHolder viewHolder,
-                                float dX, float dY, int actionState, boolean isCurrentlyActive) {
-
-            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+        public void onSelectedChanged(@Nullable RecyclerView.ViewHolder viewHolder, int actionState) {
+            super.onSelectedChanged(viewHolder, actionState);
 
             // Draw a shadow under the timer card when it's dragging.
-            viewHolder.itemView.setTranslationZ(
-                    dpToPx(isCurrentlyActive ? 6 : 0, recyclerView.getContext().getResources().getDisplayMetrics()));
+            if (actionState == ItemTouchHelper.ACTION_STATE_DRAG && viewHolder != null) {
+                viewHolder.itemView.setTranslationZ(
+                        dpToPx(6, viewHolder.itemView.getContext().getResources().getDisplayMetrics()));
+            }
         }
 
         @Override
         public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
             super.clearView(recyclerView, viewHolder);
+
+            // Remove the shadow under the city card when the drag is complete.
+            viewHolder.itemView.setTranslationZ(0f);
 
             // Save the list of timers once the user interaction is complete.
             mAdapter.saveTimerList();
