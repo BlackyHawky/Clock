@@ -83,7 +83,12 @@
             android:label="@string/settings"
             android:parentActivityName=".DeskClock"
             android:taskAffinity=""
-            android:theme="@style/Theme.DeskClock" />
+            android:theme="@style/Theme.DeskClock"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.APPLICATION_PREFERENCES" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name="com.best.deskclock.settings.PermissionsManagementActivity"
