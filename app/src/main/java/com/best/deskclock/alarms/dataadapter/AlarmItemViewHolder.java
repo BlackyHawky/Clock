@@ -105,13 +105,13 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
 
         // On/Off button handler
         onOff.setOnCheckedChangeListener((compoundButton, checked) ->
-                getItemHolder().getAlarmTimeClickHandler().setAlarmEnabled(getItemHolder().item, checked));
+                getAlarmTimeClickHandler().setAlarmEnabled(getItemHolder().item, checked));
 
         // Preemptive dismiss button handler
         preemptiveDismissButton.setOnClickListener(v -> {
             final AlarmInstance alarmInstance = getItemHolder().getAlarmInstance();
             if (alarmInstance != null) {
-                getItemHolder().getAlarmTimeClickHandler().dismissAlarmInstance(alarmInstance);
+                getAlarmTimeClickHandler().dismissAlarmInstance(getItemHolder(), alarmInstance);
             }
         });
     }

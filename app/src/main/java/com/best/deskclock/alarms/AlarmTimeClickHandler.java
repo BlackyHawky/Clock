@@ -292,7 +292,16 @@ public final class AlarmTimeClickHandler implements OnTimeSetListener {
         Utils.setVibrationTime(mContext, 10);
     }
 
-    public void dismissAlarmInstance(AlarmInstance alarmInstance) {
+    public void dismissAlarmInstance(AlarmItemHolder itemHolder, AlarmInstance alarmInstance) {
+        final Alarm alarm = itemHolder.item;
+
+        // For occasional alarms, handle in the same way as the Delete button.
+        if (alarm.isDeleteAfterUse()) {
+            onDeleteClicked(itemHolder);
+            return;
+        }
+
+        // Otherwise, standard behavior: disable the alarm.
         final Intent dismissIntent = AlarmStateManager.createStateChangeIntent(mContext,
                 AlarmStateManager.ALARM_DISMISS_TAG, alarmInstance, AlarmInstance.PREDISMISSED_STATE);
         mContext.startService(dismissIntent);
