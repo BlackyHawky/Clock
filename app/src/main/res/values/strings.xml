@@ -473,8 +473,10 @@
     <string name="connect_external_audio_device_title">Connect an external audio device to access this setting</string>
     <!-- Setting title to indicate that an external audio device should be disconnected. -->
     <string name="disconnect_external_audio_device_title">Disconnect the external audio device to access this setting</string>
-    <!-- Setting title to enable vibrations when creating alarms -->
-    <string name="enable_alarm_vibrations_by_default_setting_title">Enable vibrations when creating alarms</string>
+    <!-- Setting title to enable vibrations when alarm is triggered -->
+    <string name="enable_alarm_vibrations_by_default_setting_title">Enable vibrations when alarm is triggered</string>
+    <!-- Dialog message when the "Enable vibrations when alarm is triggered" setting is disabled. -->
+    <string name="enable_alarm_vibrations_by_default_dialog_message">Vibrations will be disabled for all alarms.%s</string>
     <!-- Setting title to enable the use of a custom vibration pattern for each alarm. -->
     <string name="enable_per_alarm_vibration_pattern_title">Use a custom vibration pattern for each alarm</string>
     <!-- Dialog message when the "Use a custom vibration pattern for each alarm" setting is disabled. -->
@@ -505,6 +507,8 @@
     <string name="turn_on_back_flash_for_triggered_alarm_title">Turn on back flash when alarm is triggered</string>
     <!-- Setting title to display the button for deleting single alarms in the expanded alarm view -->
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Enable automatic deletion of occasional alarms by default</string>
+    <!-- Dialog message when the "Enable automatic deletion of occasional alarms by default" setting is disabled. -->
+    <string name="enable_delete_occasional_alarm_by_default_dialog_message">The \"Delete alarm once dismissed\" feature will be disabled for all alarms.%s</string>
     <!-- Setting title for changing the time picker style. -->
     <string name="material_time_picker_style_title">Time picker style</string>
     <!-- Setting title for changing the date picker style. -->

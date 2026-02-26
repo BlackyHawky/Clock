@@ -10,6 +10,7 @@ import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreference
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_SNOOZE_DURATION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_VOLUME;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_AUTO_SILENCE_DURATION;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_MISSED_ALARM_REPEAT_LIMIT;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SORT_BY_ALARM_TIME;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VIBRATION_PATTERN;
@@ -265,7 +266,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.label = "";
         this.syncByLabel = false;
         this.alert = DataModel.getDataModel().getAlarmRingtoneUriFromSettings();
-        this.deleteAfterUse = false;
+        this.deleteAfterUse = DEFAULT_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT;
         this.autoSilenceDuration = DEFAULT_AUTO_SILENCE_DURATION;
         this.snoozeDuration = DEFAULT_ALARM_SNOOZE_DURATION;
         this.missedAlarmRepeatLimit = Integer.parseInt(DEFAULT_MISSED_ALARM_REPEAT_LIMIT);

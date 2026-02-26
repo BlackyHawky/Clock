@@ -3,6 +3,9 @@
 package com.best.deskclock.utils;
 
 import android.content.Context;
+import android.hardware.camera2.CameraAccessException;
+import android.hardware.camera2.CameraCharacteristics;
+import android.hardware.camera2.CameraManager;
 import android.os.Build;
 import android.os.UserManager;
 import android.os.Vibrator;
@@ -123,6 +126,27 @@ public class DeviceUtils {
     public static boolean hasVibrator(Context context) {
         Vibrator vibrator = context.getSystemService(Vibrator.class);
         return vibrator != null && vibrator.hasVibrator();
+    }
+
+    /**
+     * @return {@code true} if the device has a back flash. {@code false} otherwise.
+     */
+    public static boolean hasBackFlash(Context context) {
+        CameraManager cameraManager = (CameraManager) context.getSystemService(Context.CAMERA_SERVICE);
+        try {
+            for (String cameraId : cameraManager.getCameraIdList()) {
+                CameraCharacteristics characteristics = cameraManager.getCameraCharacteristics(cameraId);
+                Integer lensFacing = characteristics.get(CameraCharacteristics.LENS_FACING);
+                Boolean hasFlash = characteristics.get(CameraCharacteristics.FLASH_INFO_AVAILABLE);
+
+                if (lensFacing != null && lensFacing == CameraCharacteristics.LENS_FACING_BACK && hasFlash != null && hasFlash) {
+                    return true;
+                }
+            }
+        } catch (CameraAccessException e) {
+            LogUtils.e("AlarmUtils - Failed to access the flash unit", e);
+        }
+        return false;
     }
 
 }

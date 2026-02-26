@@ -48,7 +48,6 @@ import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.uidata.UiDataModel;
-import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.AnimatorUtils;
 import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.RingtoneUtils;
@@ -1267,7 +1266,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         public Factory(Context context) {
             mLayoutInflater = LayoutInflater.from(context);
             mHasVibrator = DeviceUtils.hasVibrator(context);
-            mHasFlash = AlarmUtils.hasBackFlash(context);
+            mHasFlash = DeviceUtils.hasBackFlash(context);
         }
 
         @Override
