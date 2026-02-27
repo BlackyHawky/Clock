@@ -82,7 +82,9 @@ final class AlarmKlaxon {
         // Make sure we are stopped before starting
         stop(context, prefs);
 
-        if (!RingtoneUtils.RINGTONE_SILENT.equals(instance.mRingtone)) {
+        boolean isRingtoneSilent = RingtoneUtils.RINGTONE_SILENT.equals(instance.mRingtone);
+
+        if (!isRingtoneSilent) {
             // Crescendo duration always in milliseconds
             final int crescendoDuration = instance.mCrescendoDuration * 1000;
             if (DeviceUtils.isUserUnlocked(context) && SettingsDAO.isAdvancedAudioPlaybackEnabled(prefs)) {
@@ -108,11 +110,18 @@ final class AlarmKlaxon {
         }
 
         if (instance.mVibrate) {
-            long delayInMillis = SettingsDAO.getVibrationStartDelay(prefs) * 1000L;
-            // Add a small safety margin in case the vibration pattern starts with 0 ms,
-            // to prevent any vibration if the alarm stops right at the delay limit.
-            final long SAFETY_MARGIN_MS = 300;
-            delayInMillis += SAFETY_MARGIN_MS;
+            long delayInMillis;
+
+            if (isRingtoneSilent) {
+                delayInMillis = 0;
+                LogUtils.v("AlarmKlaxon: Ringtone is silent, bypassing vibration delay");
+            } else {
+                delayInMillis = SettingsDAO.getVibrationStartDelay(prefs) * 1000L;
+                // Add a small safety margin in case the vibration pattern starts with 0 ms,
+                // to prevent any vibration if the alarm stops right at the delay limit.
+                final long SAFETY_MARGIN_MS = 300;
+                delayInMillis += SAFETY_MARGIN_MS;
+            }
 
             sHandler = new Handler(Looper.getMainLooper());
 
