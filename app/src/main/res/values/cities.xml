@@ -159,7 +159,6 @@
         <item>@string/C153</item>
         <item>@string/C154</item>
         <item>@string/C155</item>
-        <item>@string/C156</item>
         <item>@string/C157</item>
         <item>@string/C158</item>
         <item>@string/C159</item>
@@ -468,7 +467,7 @@
     <!-- Format: [index]=[city name]|[timezone id] -->
     <string name="C38">C<xliff:g id="separator">=</xliff:g>Caracas<xliff:g id="timezone">|America/Caracas</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
-    <string name="C39">C<xliff:g id="separator">=</xliff:g>Cayman<xliff:g id="timezone">|America/Cayman</xliff:g></string>
+    <string name="C39">G<xliff:g id="separator">=</xliff:g>George Town<xliff:g id="timezone">|America/Cayman</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
     <string name="C40">C<xliff:g id="separator">=</xliff:g>Chicago<xliff:g id="timezone">|America/Chicago</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
@@ -484,7 +483,7 @@
     <!-- Format: [index]=[city name]|[timezone id] -->
     <string name="C47">E<xliff:g id="separator">=</xliff:g>Edmonton<xliff:g id="timezone">|America/Edmonton</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
-    <string name="C48">E<xliff:g id="separator">=</xliff:g>El Salvador<xliff:g id="timezone">|America/El_Salvador</xliff:g></string>
+    <string name="C48">S<xliff:g id="separator">=</xliff:g>San Salvador<xliff:g id="timezone">|America/El_Salvador</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
     <string name="C49">F<xliff:g id="separator">=</xliff:g>Fortaleza<xliff:g id="timezone">|America/Fortaleza</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
@@ -518,7 +517,7 @@
     <!-- Format: [index]=[city name]|[timezone id] -->
     <string name="C64">K<xliff:g id="separator">=</xliff:g>Kingston<xliff:g id="timezone">|America/Jamaica</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
-    <string name="C65">N<xliff:g id="separator">=</xliff:g>Nuestra Señora de La Paz<xliff:g id="timezone">|America/La_Paz</xliff:g></string>
+    <string name="C65">L<xliff:g id="separator">=</xliff:g>La Paz<xliff:g id="timezone">|America/La_Paz</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
     <string name="C66">L<xliff:g id="separator">=</xliff:g>Lima<xliff:g id="timezone">|America/Lima</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
@@ -528,7 +527,7 @@
     <!-- Format: [index]=[city name]|[timezone id] -->
     <string name="C69">M<xliff:g id="separator">=</xliff:g>Managua<xliff:g id="timezone">|America/Managua</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
-    <string name="C70">M<xliff:g id="separator">=</xliff:g>Martinique<xliff:g id="timezone">|America/Martinique</xliff:g></string>
+    <string name="C70">F<xliff:g id="separator">=</xliff:g>Fort-de-France<xliff:g id="timezone">|America/Martinique</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
     <string name="C71">M<xliff:g id="separator">=</xliff:g>Mendoza<xliff:g id="timezone">|America/Mendoza</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
@@ -548,11 +547,11 @@
     <!-- Format: [index]=[city name]|[timezone id] -->
     <string name="C79">B<xliff:g id="separator">=</xliff:g>Beulah<xliff:g id="timezone">|America/North_Dakota/Beulah</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
-    <string name="C80">C<xliff:g id="separator">=</xliff:g>Center<xliff:g id="timezone">|America/North_Dakota/Center</xliff:g></string>
+    <string name="C80">B<xliff:g id="separator">=</xliff:g>Bismarck<xliff:g id="timezone">|America/North_Dakota/Center</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
     <string name="C81">N<xliff:g id="separator">=</xliff:g>New Salem<xliff:g id="timezone">|America/North_Dakota/New_Salem</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
-    <string name="C82">P<xliff:g id="separator">=</xliff:g>Panama<xliff:g id="timezone">|America/Panama</xliff:g></string>
+    <string name="C82">P<xliff:g id="separator">=</xliff:g>Panama City<xliff:g id="timezone">|America/Panama</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
     <string name="C83">P<xliff:g id="separator">=</xliff:g>Phoenix<xliff:g id="timezone">|America/Phoenix</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
@@ -560,13 +559,13 @@
     <!-- Format: [index]=[city name]|[timezone id] -->
     <string name="C85">P<xliff:g id="separator">=</xliff:g>Port-au-Prince<xliff:g id="timezone">|America/Port-au-Prince</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
-    <string name="C86">P<xliff:g id="separator">=</xliff:g>Puerto Rico<xliff:g id="timezone">|America/Puerto_Rico</xliff:g></string>
+    <string name="C86">S<xliff:g id="separator">=</xliff:g>Santa Cruz de Tenerife<xliff:g id="timezone">|Atlantic/Canary</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
     <string name="C87">S<xliff:g id="separator">=</xliff:g>Santo Domingo<xliff:g id="timezone">|America/Santo_Domingo</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
     <string name="C88">S<xliff:g id="separator">=</xliff:g>São Paulo<xliff:g id="timezone">|America/Sao_Paulo</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
-    <string name="C89">S<xliff:g id="separator">=</xliff:g>St. Johns<xliff:g id="timezone">|America/St_Johns</xliff:g></string>
+    <string name="C89">S<xliff:g id="separator">=</xliff:g>St. John\'s<xliff:g id="timezone">|America/St_Johns</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
     <string name="C90">S<xliff:g id="separator">=</xliff:g>St. Kitts<xliff:g id="timezone">|America/St_Kitts</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
@@ -582,7 +581,7 @@
     <!-- Format: [index]=[city name]|[timezone id] -->
     <string name="C96">W<xliff:g id="separator">=</xliff:g>Winnipeg<xliff:g id="timezone">|America/Winnipeg</xliff:g></string>
     <!-- Format: [index]=[city name]:[phonetic name]|[timezone id] -->
-    <string name="C97">S<xliff:g id="separator">=</xliff:g>South Pole<xliff:g id="phonetic">:</xliff:g><xliff:g id="timezone">|Antarctica/South_Pole</xliff:g></string>
+    <string name="C97">S<xliff:g id="separator">=</xliff:g>South Pole Station<xliff:g id="phonetic">:</xliff:g><xliff:g id="timezone">|Antarctica/South_Pole</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
     <string name="C98">L<xliff:g id="separator">=</xliff:g>Longyearbyen<xliff:g id="timezone">|Arctic/Longyearbyen</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
@@ -666,9 +665,9 @@
     <!-- Format: [index]=[city name]|[timezone id] -->
     <string name="C141">B<xliff:g id="separator">=</xliff:g>Bermuda<xliff:g id="timezone">|Atlantic/Bermuda</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
-    <string name="C142">C<xliff:g id="separator">=</xliff:g>Canary<xliff:g id="timezone">|Atlantic/Canary</xliff:g></string>
+    <string name="C142">L<xliff:g id="separator">=</xliff:g>Las Palmas de Gran Canaria<xliff:g id="timezone">|Atlantic/Canary</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
-    <string name="C143">C<xliff:g id="separator">=</xliff:g>Cape Verde<xliff:g id="timezone">|Atlantic/Cape_Verde</xliff:g></string>
+    <string name="C143">P<xliff:g id="separator">=</xliff:g>Praia<xliff:g id="timezone">|Atlantic/Cape_Verde</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
     <string name="C144">R<xliff:g id="separator">=</xliff:g>Reykjavik<xliff:g id="timezone">|Atlantic/Reykjavik</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
@@ -694,15 +693,13 @@
     <!-- Format: [index]=[city name]|[timezone id] -->
     <string name="C155">V<xliff:g id="separator">=</xliff:g>Victoria<xliff:g id="timezone">|Australia/Victoria</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
-    <string name="C156">N<xliff:g id="separator">=</xliff:g>Newfoundland<xliff:g id="timezone">|Canada/Newfoundland</xliff:g></string>
-    <!-- Format: [index]=[city name]|[timezone id] -->
     <string name="C157">S<xliff:g id="separator">=</xliff:g>Saskatchewan<xliff:g id="timezone">|Canada/Saskatchewan</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
-    <string name="C158">E<xliff:g id="separator">=</xliff:g>Easter Island<xliff:g id="timezone">|Chile/EasterIsland</xliff:g></string>
+    <string name="C158">H<xliff:g id="separator">=</xliff:g>Hanga Roa<xliff:g id="timezone">|Chile/EasterIsland</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
     <string name="C159">A<xliff:g id="separator">=</xliff:g>Amsterdam<xliff:g id="timezone">|Europe/Amsterdam</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
-    <string name="C160">A<xliff:g id="separator">=</xliff:g>Andorra<xliff:g id="timezone">|Europe/Andorra</xliff:g></string>
+    <string name="C160">A<xliff:g id="separator">=</xliff:g>Andorra la Vella<xliff:g id="timezone">|Europe/Andorra</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
     <string name="C161">A<xliff:g id="separator">=</xliff:g>Athens<xliff:g id="timezone">|Europe/Athens</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
@@ -744,7 +741,7 @@
     <!-- Format: [index]=[city name]|[timezone id] -->
     <string name="C180">M<xliff:g id="separator">=</xliff:g>Madrid<xliff:g id="timezone">|Europe/Madrid</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
-    <string name="C181">M<xliff:g id="separator">=</xliff:g>Malta<xliff:g id="timezone">|Europe/Malta</xliff:g></string>
+    <string name="C181">V<xliff:g id="separator">=</xliff:g>Valletta<xliff:g id="timezone">|Europe/Malta</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
     <string name="C182">M<xliff:g id="separator">=</xliff:g>Minsk<xliff:g id="timezone">|Europe/Minsk</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
@@ -790,13 +787,13 @@
     <!-- Format: [index]=[city name]|[timezone id] -->
     <string name="C203">A<xliff:g id="separator">=</xliff:g>Antananarivo<xliff:g id="timezone">|Indian/Antananarivo</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
-    <string name="C204">M<xliff:g id="separator">=</xliff:g>Maldives<xliff:g id="timezone">|Indian/Maldives</xliff:g></string>
+    <string name="C204">M<xliff:g id="separator">=</xliff:g>Malé<xliff:g id="timezone">|Indian/Maldives</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
     <string name="C205">M<xliff:g id="separator">=</xliff:g>Mauritius<xliff:g id="timezone">|Indian/Mauritius</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
     <string name="C206">A<xliff:g id="separator">=</xliff:g>Auckland<xliff:g id="timezone">|Pacific/Auckland</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
-    <string name="C207">F<xliff:g id="separator">=</xliff:g>Fiji<xliff:g id="timezone">|Pacific/Fiji</xliff:g></string>
+    <string name="C207">S<xliff:g id="separator">=</xliff:g>Suva<xliff:g id="timezone">|Pacific/Fiji</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
     <string name="C208">G<xliff:g id="separator">=</xliff:g>Guam<xliff:g id="timezone">|Pacific/Guam</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
@@ -838,9 +835,9 @@
     <!-- Format: [index]=[city name]|[timezone id] -->
     <string name="C229">S<xliff:g id="separator">=</xliff:g>Salt Lake City<xliff:g id="timezone">|America/Denver</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
-    <string name="C230">S<xliff:g id="separator">=</xliff:g>San Jose<xliff:g id="timezone">|America/Los_Angeles</xliff:g></string>
+    <string name="C230">S<xliff:g id="separator">=</xliff:g>San José<xliff:g id="timezone">|America/Los_Angeles</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
-    <string name="C231">S<xliff:g id="separator">=</xliff:g>San Salvador<xliff:g id="timezone">|America/Guatemala</xliff:g></string>
+    <string name="C231">G<xliff:g id="separator">=</xliff:g>Guatemala City<xliff:g id="timezone">|America/Guatemala</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
     <string name="C232">S<xliff:g id="separator">=</xliff:g>Seattle<xliff:g id="timezone">|America/Los_Angeles</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
@@ -1076,7 +1073,7 @@
     <!-- Format: [index]=[city name]|[timezone id] -->
     <string name="C349">P<xliff:g id="separator">=</xliff:g>Ponta Delgada<xliff:g id="timezone">|Atlantic/Azores</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] (To get UTC time) -->
-    <string name="C350">U<xliff:g id="separator">=</xliff:g>UTC Time<xliff:g id="timezone">|UTC</xliff:g></string>
+    <string name="C350">U<xliff:g id="separator">=</xliff:g>UTC<xliff:g id="timezone">|UTC</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id]
          For [timezone id] : No specific geographic identifier, so use "|Etc/GMT+12" instead.
          (GMT+12 will correctly display GMT-12 in the app)

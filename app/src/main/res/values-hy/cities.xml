@@ -89,7 +89,7 @@
     <string name="C83" msgid="3734366600481445363">"Ֆ<xliff:g id="SEPARATOR">=</xliff:g>Ֆենիքս<xliff:g id="TIMEZONE">|America/Phoenix</xliff:g>"</string>
     <string name="C84" msgid="2410152141185166321">"Պ<xliff:g id="SEPARATOR">=</xliff:g>Պորտ օֆ Սպեյն<xliff:g id="TIMEZONE">|America/Port_of_Spain</xliff:g>"</string>
     <string name="C85" msgid="2883572094139689939">"Պ<xliff:g id="SEPARATOR">=</xliff:g>Պորտ-օ-Պրինս<xliff:g id="TIMEZONE">|America/Port-au-Prince</xliff:g>"</string>
-    <string name="C86" msgid="274590042868724214">"Պ<xliff:g id="SEPARATOR">=</xliff:g>Պուերտո Ռիկո<xliff:g id="TIMEZONE">|America/Puerto_Rico</xliff:g>"</string>
+    <string name="C86">S<xliff:g id="separator">=</xliff:g>Santa Cruz de Tenerife<xliff:g id="timezone">|Atlantic/Canary</xliff:g></string>
     <string name="C87" msgid="2866918562243248306">"Ս<xliff:g id="SEPARATOR">=</xliff:g>Սանտո Դոմինգո<xliff:g id="TIMEZONE">|America/Santo_Domingo</xliff:g>"</string>
     <string name="C88" msgid="2261702707416420550">"Ս<xliff:g id="SEPARATOR">=</xliff:g>Սան Պաուլո<xliff:g id="TIMEZONE">|America/Sao_Paulo</xliff:g>"</string>
     <string name="C89" msgid="8517952667962700432">"Ս<xliff:g id="SEPARATOR">=</xliff:g>Սենտ Ջոնս<xliff:g id="TIMEZONE">|America/St_Johns</xliff:g>"</string>
@@ -142,7 +142,7 @@
     <string name="C139" msgid="7060339477340222608">"Տ<xliff:g id="SEPARATOR">=</xliff:g>Տոկիո<xliff:g id="PHONETIC">:</xliff:g><xliff:g id="TIMEZONE">|Asia/Tokyo</xliff:g>"</string>
     <string name="C140" msgid="6273911458061121975">"Ու<xliff:g id="SEPARATOR">=</xliff:g>Ուլան Բատոր<xliff:g id="TIMEZONE">|Asia/Ulaanbaatar</xliff:g>"</string>
     <string name="C141" msgid="2799340184229547409">"Բ<xliff:g id="SEPARATOR">=</xliff:g>Բերմուդյան կղզիներ<xliff:g id="TIMEZONE">|Atlantic/Bermuda</xliff:g>"</string>
-    <string name="C142" msgid="6015789133959684677">"Կ<xliff:g id="SEPARATOR">=</xliff:g>Կանարյան կղզիներ<xliff:g id="TIMEZONE">|Atlantic/Canary</xliff:g>"</string>
+    <string name="C142">L<xliff:g id="separator">=</xliff:g>Las Palmas de Gran Canaria<xliff:g id="timezone">|Atlantic/Canary</xliff:g></string>
     <string name="C143" msgid="4888764215053863961">"Կ<xliff:g id="SEPARATOR">=</xliff:g>Կապե Վերդե<xliff:g id="TIMEZONE">|Atlantic/Cape_Verde</xliff:g>"</string>
     <string name="C144" msgid="3338105941475340049">"Ռ<xliff:g id="SEPARATOR">=</xliff:g>Ռեյկյավիկ<xliff:g id="TIMEZONE">|Atlantic/Reykjavik</xliff:g>"</string>
     <string name="C145" msgid="8684297689430494031">"Ս<xliff:g id="SEPARATOR">=</xliff:g>Ստենլի<xliff:g id="TIMEZONE">|Atlantic/Stanley</xliff:g>"</string>
@@ -156,7 +156,6 @@
     <string name="C153" msgid="7506204460601953711">"Ք<xliff:g id="SEPARATOR">=</xliff:g>Քուինսլենդ<xliff:g id="TIMEZONE">|Australia/Queensland</xliff:g>"</string>
     <string name="C154" msgid="1193262944948312063">"Ս<xliff:g id="SEPARATOR">=</xliff:g>Սիդնեյ<xliff:g id="TIMEZONE">|Australia/Sydney</xliff:g>"</string>
     <string name="C155" msgid="7079072802229033042">"Վ<xliff:g id="SEPARATOR">=</xliff:g>Վիկտորիա<xliff:g id="TIMEZONE">|Australia/Victoria</xliff:g>"</string>
-    <string name="C156" msgid="4003110220147338835">"Ն<xliff:g id="SEPARATOR">=</xliff:g>Նյուֆաունդլենդ<xliff:g id="TIMEZONE">|Canada/Newfoundland</xliff:g>"</string>
     <string name="C157" msgid="2861486997803753970">"Ս<xliff:g id="SEPARATOR">=</xliff:g>Սասկաչևան<xliff:g id="TIMEZONE">|Canada/Saskatchewan</xliff:g>"</string>
     <string name="C158" msgid="6882933026191056506">"Զ<xliff:g id="SEPARATOR">=</xliff:g>Զատիկի կղզի<xliff:g id="TIMEZONE">|Chile/EasterIsland</xliff:g>"</string>
     <string name="C159" msgid="4128429767051043903">"Ա<xliff:g id="SEPARATOR">=</xliff:g>Ամստերդամ<xliff:g id="TIMEZONE">|Europe/Amsterdam</xliff:g>"</string>

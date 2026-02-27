@@ -89,7 +89,7 @@
     <string name="C83">P<xliff:g id="separator">=</xliff:g>Phoenix<xliff:g id="timezone">|America/Phoenix</xliff:g></string>
     <string name="C84">P<xliff:g id="separator">=</xliff:g>Port na Spàinne<xliff:g id="timezone">|America/Port_of_Spain</xliff:g></string>
     <string name="C85">P<xliff:g id="separator">=</xliff:g>Port-au-Prince<xliff:g id="timezone">|America/Port-au-Prince</xliff:g></string>
-    <string name="C86">P<xliff:g id="separator">=</xliff:g>Porto Rìceo<xliff:g id="timezone">|America/Puerto_Rico</xliff:g></string>
+    <string name="C86">S<xliff:g id="separator">=</xliff:g>Santa Cruz de Tenerife<xliff:g id="timezone">|Atlantic/Canary</xliff:g></string>
     <string name="C87">S<xliff:g id="separator">=</xliff:g>Santo Domingo<xliff:g id="timezone">|America/Santo_Domingo</xliff:g></string>
     <string name="C88">S<xliff:g id="separator">=</xliff:g>São Paulo<xliff:g id="timezone">|America/Sao_Paulo</xliff:g></string>
     <string name="C89">S<xliff:g id="separator">=</xliff:g>St. John’s<xliff:g id="timezone">|America/St_Johns</xliff:g></string>
@@ -142,7 +142,7 @@
     <string name="C139">T<xliff:g id="separator">=</xliff:g>Tōkyō<xliff:g id="timezone">|Asia/Tokyo</xliff:g></string>
     <string name="C140">U<xliff:g id="separator">=</xliff:g>Ulaanbaatar<xliff:g id="timezone">|Asia/Ulaanbaatar</xliff:g></string>
     <string name="C141">B<xliff:g id="separator">=</xliff:g>Bearmùda<xliff:g id="timezone">|Atlantic/Bermuda</xliff:g></string>
-    <string name="C142">C<xliff:g id="separator">=</xliff:g>Na h-Eileanan Canàrach<xliff:g id="timezone">|Atlantic/Canary</xliff:g></string>
+    <string name="C142">L<xliff:g id="separator">=</xliff:g>Las Palmas de Gran Canaria<xliff:g id="timezone">|Atlantic/Canary</xliff:g></string>
     <string name="C143">C<xliff:g id="separator">=</xliff:g>An Ceap Uaine<xliff:g id="timezone">|Atlantic/Cape_Verde</xliff:g></string>
     <string name="C144">R<xliff:g id="separator">=</xliff:g>Reykjavík<xliff:g id="timezone">|Atlantic/Reykjavik</xliff:g></string>
     <string name="C145">S<xliff:g id="separator">=</xliff:g>Stanley<xliff:g id="timezone">|Atlantic/Stanley</xliff:g></string>
@@ -156,7 +156,6 @@
     <string name="C153">Q<xliff:g id="separator">=</xliff:g>Queensland<xliff:g id="timezone">|Australia/Queensland</xliff:g></string>
     <string name="C154">S<xliff:g id="separator">=</xliff:g>Sidni<xliff:g id="timezone">|Australia/Sydney</xliff:g></string>
     <string name="C155">V<xliff:g id="separator">=</xliff:g>Victoria<xliff:g id="timezone">|Australia/Victoria</xliff:g></string>
-    <string name="C156">T<xliff:g id="separator">=</xliff:g>Talamh an Èisg<xliff:g id="timezone">|Canada/Newfoundland</xliff:g></string>
     <string name="C157">S<xliff:g id="separator">=</xliff:g>Saskatchewan<xliff:g id="timezone">|Canada/Saskatchewan</xliff:g></string>
     <string name="C158">C<xliff:g id="separator">=</xliff:g>Eilean na Càisge (Rapa Nui)<xliff:g id="timezone">|Chile/EasterIsland</xliff:g></string>
     <string name="C159">A<xliff:g id="separator">=</xliff:g>Amsterdam<xliff:g id="timezone">|Europe/Amsterdam</xliff:g></string>

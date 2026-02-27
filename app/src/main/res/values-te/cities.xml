@@ -89,7 +89,7 @@
     <string name="C83" msgid="3734366600481445363">"ఫ<xliff:g id="SEPARATOR">=</xliff:g>ఫినిక్స్<xliff:g id="TIMEZONE">|America/Phoenix</xliff:g>"</string>
     <string name="C84" msgid="2410152141185166321">"ప<xliff:g id="SEPARATOR">=</xliff:g>పోర్ట్ ఆఫ్ స్పెయిన్<xliff:g id="TIMEZONE">|America/Port_of_Spain</xliff:g>"</string>
     <string name="C85" msgid="2883572094139689939">"ప<xliff:g id="SEPARATOR">=</xliff:g>పోర్టో ప్రిన్స్<xliff:g id="TIMEZONE">|America/Port-au-Prince</xliff:g>"</string>
-    <string name="C86" msgid="274590042868724214">"ప<xliff:g id="SEPARATOR">=</xliff:g>ప్యూర్టో రికో<xliff:g id="TIMEZONE">|America/Puerto_Rico</xliff:g>"</string>
+    <string name="C86">S<xliff:g id="separator">=</xliff:g>Santa Cruz de Tenerife<xliff:g id="timezone">|Atlantic/Canary</xliff:g></string>
     <string name="C87" msgid="2866918562243248306">"శ<xliff:g id="SEPARATOR">=</xliff:g>శాంటో డొమింగో<xliff:g id="TIMEZONE">|America/Santo_Domingo</xliff:g>"</string>
     <string name="C88" msgid="2261702707416420550">"స<xliff:g id="SEPARATOR">=</xliff:g>సావో పాలో<xliff:g id="TIMEZONE">|America/Sao_Paulo</xliff:g>"</string>
     <string name="C89" msgid="8517952667962700432">"స<xliff:g id="SEPARATOR">=</xliff:g>సెయిం. జాన్స్<xliff:g id="TIMEZONE">|America/St_Johns</xliff:g>"</string>
@@ -142,7 +142,7 @@
     <string name="C139" msgid="7060339477340222608">"ట<xliff:g id="SEPARATOR">=</xliff:g>టోక్యో<xliff:g id="PHONETIC">:</xliff:g><xliff:g id="TIMEZONE">|Asia/Tokyo</xliff:g>"</string>
     <string name="C140" msgid="6273911458061121975">"య<xliff:g id="SEPARATOR">=</xliff:g>యులాన్‌బాటర్<xliff:g id="TIMEZONE">|Asia/Ulaanbaatar</xliff:g>"</string>
     <string name="C141" msgid="2799340184229547409">"బ<xliff:g id="SEPARATOR">=</xliff:g>బెర్ముడా<xliff:g id="TIMEZONE">|Atlantic/Bermuda</xliff:g>"</string>
-    <string name="C142" msgid="6015789133959684677">"క<xliff:g id="SEPARATOR">=</xliff:g>క్యానరీ<xliff:g id="TIMEZONE">|Atlantic/Canary</xliff:g>"</string>
+    <string name="C142">L<xliff:g id="separator">=</xliff:g>Las Palmas de Gran Canaria<xliff:g id="timezone">|Atlantic/Canary</xliff:g></string>
     <string name="C143" msgid="4888764215053863961">"క<xliff:g id="SEPARATOR">=</xliff:g>కేప్ వెర్డె<xliff:g id="TIMEZONE">|Atlantic/Cape_Verde</xliff:g>"</string>
     <string name="C144" msgid="3338105941475340049">"ర<xliff:g id="SEPARATOR">=</xliff:g>రెక్జావిక్<xliff:g id="TIMEZONE">|Atlantic/Reykjavik</xliff:g>"</string>
     <string name="C145" msgid="8684297689430494031">"స<xliff:g id="SEPARATOR">=</xliff:g>స్టాన్లీ<xliff:g id="TIMEZONE">|Atlantic/Stanley</xliff:g>"</string>
@@ -156,7 +156,6 @@
     <string name="C153" msgid="7506204460601953711">"క<xliff:g id="SEPARATOR">=</xliff:g>క్వీన్స్‌ల్యాండ్<xliff:g id="TIMEZONE">|Australia/Queensland</xliff:g>"</string>
     <string name="C154" msgid="1193262944948312063">"స<xliff:g id="SEPARATOR">=</xliff:g>సిడ్నీ<xliff:g id="TIMEZONE">|Australia/Sydney</xliff:g>"</string>
     <string name="C155" msgid="7079072802229033042">"వ<xliff:g id="SEPARATOR">=</xliff:g>విక్టోరియా<xliff:g id="TIMEZONE">|Australia/Victoria</xliff:g>"</string>
-    <string name="C156" msgid="4003110220147338835">"న<xliff:g id="SEPARATOR">=</xliff:g>న్యూఫౌండ్‌ల్యాండ్<xliff:g id="TIMEZONE">|Canada/Newfoundland</xliff:g>"</string>
     <string name="C157" msgid="2861486997803753970">"స<xliff:g id="SEPARATOR">=</xliff:g>సాస్కాచువన్<xliff:g id="TIMEZONE">|Canada/Saskatchewan</xliff:g>"</string>
     <string name="C158" msgid="6882933026191056506">"ఈ<xliff:g id="SEPARATOR">=</xliff:g>ఈస్టర్ దీవి<xliff:g id="TIMEZONE">|Chile/EasterIsland</xliff:g>"</string>
     <string name="C159" msgid="4128429767051043903">"ఆ<xliff:g id="SEPARATOR">=</xliff:g>ఆమ్‌స్టర్‌డామ్<xliff:g id="TIMEZONE">|Europe/Amsterdam</xliff:g>"</string>

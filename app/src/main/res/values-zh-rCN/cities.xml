@@ -87,7 +87,7 @@
     <string name="C83" msgid="3734366600481445363">"F<xliff:g id="SEPARATOR">=</xliff:g>菲尼克斯<xliff:g id="TIMEZONE">|America/Phoenix</xliff:g>"</string>
     <string name="C84" msgid="2410152141185166321">"X<xliff:g id="SEPARATOR">=</xliff:g>西班牙港<xliff:g id="TIMEZONE">|America/Port_of_Spain</xliff:g>"</string>
     <string name="C85" msgid="2883572094139689939">"T<xliff:g id="SEPARATOR">=</xliff:g>太子港<xliff:g id="TIMEZONE">|America/Port-au-Prince</xliff:g>"</string>
-    <string name="C86" msgid="274590042868724214">"B<xliff:g id="SEPARATOR">=</xliff:g>波多黎各<xliff:g id="TIMEZONE">|America/Puerto_Rico</xliff:g>"</string>
+    <string name="C86">S<xliff:g id="separator">=</xliff:g>Santa Cruz de Tenerife<xliff:g id="timezone">|Atlantic/Canary</xliff:g></string>
     <string name="C87" msgid="2866918562243248306">"S<xliff:g id="SEPARATOR">=</xliff:g>圣多明戈<xliff:g id="TIMEZONE">|America/Santo_Domingo</xliff:g>"</string>
     <string name="C88" msgid="2261702707416420550">"S<xliff:g id="SEPARATOR">=</xliff:g>圣保罗<xliff:g id="TIMEZONE">|America/Sao_Paulo</xliff:g>"</string>
     <string name="C89" msgid="8517952667962700432">"S<xliff:g id="SEPARATOR">=</xliff:g>圣约翰斯<xliff:g id="TIMEZONE">|America/St_Johns</xliff:g>"</string>
@@ -140,7 +140,7 @@
     <string name="C139" msgid="7060339477340222608">"D<xliff:g id="SEPARATOR">=</xliff:g>东京<xliff:g id="PHONETIC">:</xliff:g><xliff:g id="TIMEZONE">|Asia/Tokyo</xliff:g>"</string>
     <string name="C140" msgid="6273911458061121975">"W<xliff:g id="SEPARATOR">=</xliff:g>乌兰巴托<xliff:g id="TIMEZONE">|Asia/Ulaanbaatar</xliff:g>"</string>
     <string name="C141" msgid="2799340184229547409">"B<xliff:g id="SEPARATOR">=</xliff:g>百慕大<xliff:g id="TIMEZONE">|Atlantic/Bermuda</xliff:g>"</string>
-    <string name="C142" msgid="6015789133959684677">"J<xliff:g id="SEPARATOR">=</xliff:g>加那利<xliff:g id="TIMEZONE">|Atlantic/Canary</xliff:g>"</string>
+    <string name="C142">L<xliff:g id="separator">=</xliff:g>Las Palmas de Gran Canaria<xliff:g id="timezone">|Atlantic/Canary</xliff:g></string>
     <string name="C143" msgid="4888764215053863961">"F<xliff:g id="SEPARATOR">=</xliff:g>佛得角<xliff:g id="TIMEZONE">|Atlantic/Cape_Verde</xliff:g>"</string>
     <string name="C144" msgid="3338105941475340049">"L<xliff:g id="SEPARATOR">=</xliff:g>雷克雅未克<xliff:g id="TIMEZONE">|Atlantic/Reykjavik</xliff:g>"</string>
     <string name="C145" msgid="8684297689430494031">"S<xliff:g id="SEPARATOR">=</xliff:g>斯坦利<xliff:g id="TIMEZONE">|Atlantic/Stanley</xliff:g>"</string>
@@ -154,7 +154,6 @@
     <string name="C153" msgid="7506204460601953711">"K<xliff:g id="SEPARATOR">=</xliff:g>昆士兰<xliff:g id="TIMEZONE">|Australia/Queensland</xliff:g>"</string>
     <string name="C154" msgid="1193262944948312063">"X<xliff:g id="SEPARATOR">=</xliff:g>悉尼<xliff:g id="TIMEZONE">|Australia/Sydney</xliff:g>"</string>
     <string name="C155" msgid="7079072802229033042">"W<xliff:g id="SEPARATOR">=</xliff:g>维多利亚<xliff:g id="TIMEZONE">|Australia/Victoria</xliff:g>"</string>
-    <string name="C156" msgid="4003110220147338835">"N<xliff:g id="SEPARATOR">=</xliff:g>纽芬兰<xliff:g id="TIMEZONE">|Canada/Newfoundland</xliff:g>"</string>
     <string name="C157" msgid="2861486997803753970">"S<xliff:g id="SEPARATOR">=</xliff:g>萨斯喀彻温<xliff:g id="TIMEZONE">|Canada/Saskatchewan</xliff:g>"</string>
     <string name="C158" msgid="6882933026191056506">"F<xliff:g id="SEPARATOR">=</xliff:g>复活节岛<xliff:g id="TIMEZONE">|Chile/EasterIsland</xliff:g>"</string>
     <string name="C159" msgid="4128429767051043903">"A<xliff:g id="SEPARATOR">=</xliff:g>阿姆斯特丹<xliff:g id="TIMEZONE">|Europe/Amsterdam</xliff:g>"</string>
