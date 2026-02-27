@@ -30,6 +30,8 @@ import android.os.Looper;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 
+import androidx.annotation.NonNull;
+
 import com.best.deskclock.AlarmAlertWakeLock;
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
@@ -124,6 +126,9 @@ public class AlarmService extends Service {
     private CameraManager mCameraManager;
     private String mCameraId;
     private boolean mFlashState = false;
+    private boolean mIsFlashActive = false;
+    private boolean mIsUserFlashlightOn = false;
+    private CameraManager.TorchCallback mTorchCallback;
     private Handler mHandler;
     private Runnable mFlashRunnable;
 
@@ -302,10 +307,28 @@ public class AlarmService extends Service {
 
         mVibrator = getSystemService(Vibrator.class);
         mCameraManager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
+        mHandler = new Handler(Looper.getMainLooper());
 
         getBackCameraId();
 
-        mHandler = new Handler(Looper.getMainLooper());
+        mTorchCallback = new CameraManager.TorchCallback() {
+            @Override
+            public void onTorchModeChanged(@NonNull String cameraId, boolean enabled) {
+                super.onTorchModeChanged(cameraId, enabled);
+                if (mCameraId != null && mCameraId.equals(cameraId)) {
+                    // La magie est ici : on ne met à jour l'état initial QUE si
+                    // ce n'est pas notre alarme qui est en train de faire clignoter le flash !
+                    if (!mIsFlashActive) {
+                        mIsUserFlashlightOn = enabled;
+                    }
+                }
+            }
+        };
+
+        if (mCameraManager != null) {
+            mCameraManager.registerTorchCallback(mTorchCallback, mHandler);
+        }
+
         mFlashRunnable = new Runnable() {
             @Override
             public void run() {
@@ -392,9 +415,10 @@ public class AlarmService extends Service {
             stopCurrentAlarm();
         }
 
-        mHandler.removeCallbacks(mFlashRunnable);
-        if (DeviceUtils.hasBackFlash(this)) {
-            toggleFlash(false);
+        stopFlash();
+
+        if (mCameraManager != null && mTorchCallback != null) {
+            mCameraManager.unregisterTorchCallback(mTorchCallback);
         }
 
         if (mIsRegistered) {
@@ -413,11 +437,22 @@ public class AlarmService extends Service {
         AlarmAlertWakeLock.acquireCpuWakeLock(this);
 
         mCurrentAlarm = instance;
+
         AlarmNotifications.showAlarmNotification(this, mCurrentAlarm);
         AlarmKlaxon.start(this, mPrefs, mCurrentAlarm);
+
         if (mCurrentAlarm.mFlash) {
-            mHandler.post(mFlashRunnable);
+            if (mIsUserFlashlightOn) {
+                LogUtils.v("Flashlight is already on by user. Bypassing alarm flash.");
+                mIsFlashActive = false;
+            } else {
+                mIsFlashActive = true;
+                mHandler.post(mFlashRunnable);
+            }
+        } else {
+            mIsFlashActive = false;
         }
+
         sendBroadcast(new Intent(ALARM_ALERT_ACTION));
         attachListeners();
     }
@@ -435,6 +470,8 @@ public class AlarmService extends Service {
 
         AlarmKlaxon.deactivateRingtonePlayback(mPrefs);
 
+        stopFlash();
+
         sendBroadcast(new Intent(ALARM_DONE_ACTION));
 
         if (SdkUtils.isAtLeastAndroid7()) {
@@ -446,6 +483,14 @@ public class AlarmService extends Service {
         mCurrentAlarm = null;
         detachListeners();
         AlarmAlertWakeLock.releaseCpuLock();
+    }
+
+    private void stopFlash() {
+        mHandler.removeCallbacks(mFlashRunnable);
+        if (mIsFlashActive && DeviceUtils.hasBackFlash(this)) {
+            toggleFlash(false);
+        }
+        mIsFlashActive = false;
     }
 
     private void performSingleVibration() {
