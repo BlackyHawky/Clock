@@ -46,17 +46,17 @@ public class MaterialYouAnalogAppWidgetProvider extends BaseAnalogAppWidgetProvi
     }
 
     @Override
-    protected Icon getHourHandIcon(Context context) {
+    protected Icon getHourHandIcon(Context context, SharedPreferences prefs) {
         return Icon.createWithResource(context, R.drawable.material_you_analog_clock_hour);
     }
 
     @Override
-    protected Icon getMinuteHandIcon(Context context) {
+    protected Icon getMinuteHandIcon(Context context, SharedPreferences prefs) {
         return Icon.createWithResource(context, R.drawable.material_you_analog_clock_minute);
     }
 
     @Override
-    protected Icon getSecondHandIcon(Context context) {
+    protected Icon getSecondHandIcon(Context context, SharedPreferences prefs) {
         return Icon.createWithResource(context, R.drawable.material_you_analog_clock_second);
     }
 

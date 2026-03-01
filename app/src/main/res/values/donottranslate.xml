@@ -313,11 +313,13 @@
     <string-array name="clock_dial_entries">
         <item>@string/clock_dial_with_numbers</item>
         <item>@string/clock_dial_without_numbers</item>
+        <item>@string/clock_dial_with_roman_numbers</item>
     </string-array>
     <!-- Values that are retrieved from the ListPreference. These must match the clock_dial_entries above. -->
     <string-array name="clock_dial_values" translatable="false">
         <item>dial_with_numbers</item>
         <item>dial_without_numbers</item>
+        <item>dial_with_roman_numbers</item>
     </string-array>
 
     <!-- Entries listed in the ListPreference when invoking the material clock dial preference. -->
@@ -336,6 +338,7 @@
         <item>@string/label_default</item>
         <item>@string/clock_dial_with_numbers</item>
         <item>@string/clock_dial_without_numbers</item>
+        <item>@string/clock_dial_with_roman_numbers</item>
     </string-array>
     <!-- Values that are retrieved from the ListPreference.
          These must match the analog_widget_clock_dial_entries above. -->
@@ -343,17 +346,20 @@
         <item>default</item>
         <item>dial_with_numbers</item>
         <item>dial_without_numbers</item>
+        <item>dial_with_roman_numbers</item>
     </string-array>
 
     <!-- Entries listed in the ListPreference when invoking the clock second hand preference. -->
     <string-array name="clock_second_hand_entries">
         <item>@string/label_default</item>
         <item>@string/clock_second_hand_vintage</item>
+        <item>@string/clock_second_hand_lollipop</item>
     </string-array>
     <!-- Values that are retrieved from the ListPreference. These must match the clock_second_hand_entries above. -->
     <string-array name="clock_second_hand_values" translatable="false">
         <item>default</item>
         <item>second_hand_vintage</item>
+        <item>second_hand_lollipop</item>
     </string-array>
 
     <!-- Entries listed in the ListPreference when invoking the time picker style preference. -->

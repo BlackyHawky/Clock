@@ -32,9 +32,9 @@ public abstract class BaseAnalogAppWidgetProvider extends AppWidgetProvider {
     protected abstract int getLayoutId(SharedPreferences prefs);
     protected abstract int getWidgetViewId();
     protected abstract Icon getDialIcon(Context context, SharedPreferences prefs);
-    protected abstract Icon getHourHandIcon(Context context);
-    protected abstract Icon getMinuteHandIcon(Context context);
-    protected abstract Icon getSecondHandIcon(Context context);
+    protected abstract Icon getHourHandIcon(Context context, SharedPreferences prefs);
+    protected abstract Icon getMinuteHandIcon(Context context, SharedPreferences prefs);
+    protected abstract Icon getSecondHandIcon(Context context, SharedPreferences prefs);
     protected abstract boolean isSecondHandDisplayed(SharedPreferences prefs);
     protected abstract void applyDialColor(Icon dialIcon, SharedPreferences prefs);
     protected abstract void applyHourHandColor(Icon hourHandIcon, SharedPreferences prefs);
@@ -62,9 +62,9 @@ public abstract class BaseAnalogAppWidgetProvider extends AppWidgetProvider {
         // Configure child views of the remote view for Android 12+.
         if (SdkUtils.isAtLeastAndroid12()) {
             Icon dialIcon = getDialIcon(context, prefs);
-            Icon hourHandIcon = getHourHandIcon(context);
-            Icon minuteHandIcon = getMinuteHandIcon(context);
-            Icon secondHandIcon = getSecondHandIcon(context);
+            Icon hourHandIcon = getHourHandIcon(context, prefs);
+            Icon minuteHandIcon = getMinuteHandIcon(context, prefs);
+            Icon secondHandIcon = getSecondHandIcon(context, prefs);
 
             rv.setIcon(getWidgetViewId(), "setDial", dialIcon);
             rv.setIcon(getWidgetViewId(), "setHourHand", hourHandIcon);

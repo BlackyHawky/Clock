@@ -181,8 +181,11 @@ public class PreferencesDefaultValues {
 
     // Common settings values
     public static final String DEFAULT_CLOCK_DIAL = "dial_with_numbers";
+    public static final String CLOCK_DIAL_WITH_ROMAN_NUMBERS = "dial_with_roman_numbers";
     public static final String DEFAULT_CLOCK_DIAL_MATERIAL = "dial_sun";
     public static final String DEFAULT_CLOCK_SECOND_HAND = "default";
+    public static final String CLOCK_SECOND_HAND_VINTAGE = "second_hand_vintage";
+    public static final String CLOCK_SECOND_HAND_LOLLIPOP = "second_hand_lollipop";
     public static final int TIMEOUT_NEVER = -1;
     public static final int TIMEOUT_END_OF_RINGTONE = -2;
     public static final int DEFAULT_VOLUME_CRESCENDO_DURATION = 0;
@@ -200,6 +203,7 @@ public class PreferencesDefaultValues {
     public static final String DEFAULT_ANALOG_WIDGET_CLOCK_DIAL = "default";
     public static final String ANALOG_WIDGET_CLOCK_DIAL_WITH_NUMBERS = "dial_with_numbers";
     public static final String ANALOG_WIDGET_CLOCK_DIAL_WITHOUT_NUMBERS = "dial_without_numbers";
+    public static final String ANALOG_WIDGET_CLOCK_DIAL_WITH_ROMAN_NUMBERS = "dial_with_roman_numbers";
 
     // DigitalWidgetSettingsFragment
     public static final boolean DEFAULT_DIGITAL_WIDGET_DISPLAY_SECONDS = false;

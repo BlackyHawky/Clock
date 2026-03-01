@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+    Designed by iJahangard
+-->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:height="240dp"
+    android:width="240dp"
+    android:viewportWidth="360"
+    android:viewportHeight="360"
+    tools:ignore="VectorRaster">
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M182.8,173.75l-.89-73.61c3.81-.89,6.64-4.3,6.64-8.38s-2.94-7.62-6.85-8.44l-.36-29.95-1.41-33.12-1.4,32.74-.37,30.33c-3.91.82-6.85,4.28-6.85,8.44s2.84,7.49,6.65,8.38l-.9,73.68c-2.31,1.1-3.91,3.45-3.91,6.18,0,3.79,3.07,6.85,6.85,6.85s6.85-3.07,6.85-6.85c0-2.78-1.67-5.17-4.05-6.25ZM180,182.97c-1.64,0-2.98-1.33-2.98-2.97s1.34-2.98,2.98-2.98,2.98,1.33,2.98,2.98-1.34,2.97-2.98,2.97Z" />
+
+</vector>

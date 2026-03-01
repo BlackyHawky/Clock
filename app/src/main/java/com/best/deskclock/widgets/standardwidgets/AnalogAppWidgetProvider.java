@@ -6,10 +6,11 @@
 
 package com.best.deskclock.widgets.standardwidgets;
 
-import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.ANALOG_WIDGET_CLOCK_DIAL_WITHOUT_NUMBERS;
 import static com.best.deskclock.settings.PreferencesDefaultValues.ANALOG_WIDGET_CLOCK_DIAL_WITH_NUMBERS;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_CLOCK_SECOND_HAND;
+import static com.best.deskclock.settings.PreferencesDefaultValues.ANALOG_WIDGET_CLOCK_DIAL_WITH_ROMAN_NUMBERS;
+import static com.best.deskclock.settings.PreferencesDefaultValues.CLOCK_SECOND_HAND_LOLLIPOP;
+import static com.best.deskclock.settings.PreferencesDefaultValues.CLOCK_SECOND_HAND_VINTAGE;
 
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
@@ -54,27 +55,38 @@ public class AnalogAppWidgetProvider extends BaseAnalogAppWidgetProvider {
                     Icon.createWithResource(context, R.drawable.analog_clock_dial_with_numbers);
             case ANALOG_WIDGET_CLOCK_DIAL_WITHOUT_NUMBERS ->
                     Icon.createWithResource(context, R.drawable.analog_clock_dial_without_numbers);
+            case ANALOG_WIDGET_CLOCK_DIAL_WITH_ROMAN_NUMBERS ->
+                    Icon.createWithResource(context, R.drawable.analog_clock_dial_with_roman_numbers);
             default ->
                     Icon.createWithResource(context, R.drawable.standard_analog_appwidget_clock_dial);
         };
     }
 
     @Override
-    protected Icon getHourHandIcon(Context context) {
-        return Icon.createWithResource(context, R.drawable.analog_clock_hour);
+    protected Icon getHourHandIcon(Context context, SharedPreferences prefs) {
+        if (WidgetDAO.getAnalogWidgetClockDial(prefs).equals(ANALOG_WIDGET_CLOCK_DIAL_WITH_ROMAN_NUMBERS)) {
+            return Icon.createWithResource(context, R.drawable.analog_clock_roman_hour);
+        } else {
+            return Icon.createWithResource(context, R.drawable.analog_clock_hour);
+        }
     }
 
     @Override
-    protected Icon getMinuteHandIcon(Context context) {
-        return Icon.createWithResource(context, R.drawable.analog_clock_minute);
+    protected Icon getMinuteHandIcon(Context context, SharedPreferences prefs) {
+        if (WidgetDAO.getAnalogWidgetClockDial(prefs).equals(ANALOG_WIDGET_CLOCK_DIAL_WITH_ROMAN_NUMBERS)) {
+            return Icon.createWithResource(context, R.drawable.analog_clock_roman_minute);
+        } else {
+            return Icon.createWithResource(context, R.drawable.analog_clock_minute);
+        }
     }
 
     @Override
-    protected Icon getSecondHandIcon(Context context) {
-        return Icon.createWithResource(context,
-                WidgetDAO.getAnalogWidgetClockSecondHand(getDefaultSharedPreferences(context)).equals(DEFAULT_CLOCK_SECOND_HAND)
-                        ? R.drawable.analog_clock_second
-                        : R.drawable.analog_clock_second_vintage);
+    protected Icon getSecondHandIcon(Context context, SharedPreferences prefs) {
+        return switch (WidgetDAO.getAnalogWidgetClockSecondHand(prefs)) {
+            case CLOCK_SECOND_HAND_VINTAGE -> Icon.createWithResource(context, R.drawable.analog_clock_second_vintage);
+            case CLOCK_SECOND_HAND_LOLLIPOP -> Icon.createWithResource(context, R.drawable.analog_clock_second_lollipop);
+            default -> Icon.createWithResource(context, R.drawable.analog_clock_second);
+        };
     }
 
     @Override

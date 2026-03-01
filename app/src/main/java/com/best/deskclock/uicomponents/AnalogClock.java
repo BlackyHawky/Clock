@@ -13,6 +13,8 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.BLACK_ACCENT_
 import static com.best.deskclock.settings.PreferencesDefaultValues.BLUE_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesDefaultValues.BLUE_GRAY_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesDefaultValues.BROWN_ACCENT_COLOR;
+import static com.best.deskclock.settings.PreferencesDefaultValues.CLOCK_DIAL_WITH_ROMAN_NUMBERS;
+import static com.best.deskclock.settings.PreferencesDefaultValues.CLOCK_SECOND_HAND_LOLLIPOP;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_CLOCK_DIAL;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_CLOCK_DIAL_MATERIAL;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_CLOCK_SECOND_HAND;
@@ -234,10 +236,16 @@ public class AnalogClock extends FrameLayout {
             secondHand.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.material_you_analog_clock_second));
             secondHand.setColorFilter(getMaterialAnalogClockColor(accentColor, SECOND_HAND));
         } else {
-            secondHand.setImageDrawable(AppCompatResources.getDrawable(mContext,
-                    getAnalogSecondHandPreference().equals(DEFAULT_CLOCK_SECOND_HAND)
-                            ? R.drawable.analog_clock_second
-                            : R.drawable.analog_clock_second_vintage));
+            final String analogSecondHandPref = getAnalogSecondHandPreference();
+            final boolean isDefaultSecondHand = analogSecondHandPref.equals(DEFAULT_CLOCK_SECOND_HAND);
+            final boolean isLollipopSecondHand = analogSecondHandPref.equals(CLOCK_SECOND_HAND_LOLLIPOP);
+
+            secondHand.setImageDrawable(AppCompatResources.getDrawable(mContext, isDefaultSecondHand
+                    ? R.drawable.analog_clock_second
+                    : isLollipopSecondHand
+                    ? R.drawable.analog_clock_second_lollipop
+                    : R.drawable.analog_clock_second_vintage));
+
             boolean isAutoNightAccentColorEnabled = SettingsDAO.isAutoNightAccentColorEnabled(mPrefs);
             String nightAccentColor = SettingsDAO.getNightAccentColor(mPrefs);
 
@@ -286,12 +294,22 @@ public class AnalogClock extends FrameLayout {
      * Helper method to get the drawable resource ID for analog components (non-material).
      */
     private int getAnalogDrawableResId(String componentType) {
+        final String analogDialPref = getAnalogDialPreference();
+        final boolean isDefaultStyle = analogDialPref.equals(DEFAULT_CLOCK_DIAL);
+        final boolean isRomanStyle = analogDialPref.equals(CLOCK_DIAL_WITH_ROMAN_NUMBERS);
+
         return switch (componentType) {
-            case DIAL -> getAnalogDialPreference().equals(DEFAULT_CLOCK_DIAL)
+            case DIAL -> isDefaultStyle
                     ? R.drawable.analog_clock_dial_with_numbers
+                    : isRomanStyle
+                    ? R.drawable.analog_clock_dial_with_roman_numbers
                     : R.drawable.analog_clock_dial_without_numbers;
-            case HOUR_HAND -> R.drawable.analog_clock_hour;
-            case MINUTE_HAND -> R.drawable.analog_clock_minute;
+            case HOUR_HAND -> isRomanStyle
+                    ? R.drawable.analog_clock_roman_hour
+                    : R.drawable.analog_clock_hour;
+            case MINUTE_HAND -> isRomanStyle
+                    ? R.drawable.analog_clock_roman_minute
+                    : R.drawable.analog_clock_minute;
             default -> 0; // Default, should never happen
         };
     }
