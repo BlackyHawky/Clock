@@ -513,7 +513,6 @@
     <string name="schedule_alarm_title">Programmer alarme</string>
     <string name="alarm_scheduled_for">Planifiée pour le %s</string>
     <string name="random_ringtone_title">Sonnerie aléatoire</string>
-    <string name="add_new_sound_subtitle">Appui long pour sélectionner un dossier</string>
     <string name="date_picker_style_title">Style de sélection de la date</string>
     <string name="date_picker_style_calendar">Calendrier</string>
     <string name="date_picker_style_text">Texte</string>

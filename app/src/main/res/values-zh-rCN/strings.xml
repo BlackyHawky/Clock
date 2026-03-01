@@ -493,7 +493,6 @@
     <string name="date_picker_style_calendar">日历</string>
     <string name="date_picker_style_text">文本</string>
     <string name="date_picker_style_title">日期选择器样式</string>
-    <string name="add_new_sound_subtitle">长按选择文件夹</string>
     <string name="random_ringtone_title">随机铃声</string>
     <string name="warning">警告</string>
     <string name="timer_add_custom_time_with_seconds_description">添加 %1$s 分钟 %2$s 秒</string>

@@ -510,7 +510,6 @@
     <string name="label_minutes">Minuti</string>
     <string name="timer_add_custom_time_with_seconds_description">Aggiungi %1$s Minuti %2$s Secondi</string>
     <string name="warning">Avviso</string>
-    <string name="add_new_sound_subtitle">Clicca a lungo per selezionare una cartella</string>
     <string name="alarm_scheduled_for">Pianificata per %s</string>
     <string name="enable_per_alarm_volume_title">Utilizza un volume personalizzato per ogni sveglia</string>
     <string name="advanced_audio_playback_title">Usa riproduzione audio avanzata</string>

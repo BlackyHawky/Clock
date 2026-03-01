@@ -481,7 +481,6 @@
     <string name="settings_keep_screen_on_title">Manter a tela ligada</string>
     <string name="settings_keep_screen_on_summary">Nota: A tela permanecerá ligada sempre que estiver na aba de um timer ou cronômetro ativo, independente dessa opção</string>
     <string name="settings_language_chinese_traditional_tw">Chinês (tradicional, Taiwan)</string>
-    <string name="add_new_sound_subtitle">Toque e segure para selecionar uma pasta</string>
     <string name="warning">Atenção</string>
     <string name="alarm_scheduled_for">Definido para %s</string>
     <string name="blue_accent_color">Azul</string>

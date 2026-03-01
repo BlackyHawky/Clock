@@ -497,7 +497,6 @@
     <string name="label_seconds">초</string>
     <string name="warning">경고</string>
     <string name="schedule_alarm_title">알람 예약</string>
-    <string name="add_new_sound_subtitle">길게 눌러 폴더 선택</string>
     <string name="auto_routing_to_external_audio_device_title">외부 오디오 장치로 벨소리를 자동으로 라우팅하도록 설정합니다</string>
     <string name="timer_creation_view_style_keypad">키패드</string>
     <string name="external_audio_device_volume_title">외부 오디오 장치를 위한 알람 음량</string>

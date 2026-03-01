@@ -489,7 +489,6 @@
     <string name="warning">警告</string>
     <string name="schedule_alarm_title">排定鬧鐘</string>
     <string name="alarm_scheduled_for">已預定 %s</string>
-    <string name="add_new_sound_subtitle">按住以選取資料夾</string>
     <string name="date_picker_style_title">選取日期面板樣式</string>
     <string name="date_picker_style_calendar">日曆</string>
     <string name="date_picker_style_text">文字</string>

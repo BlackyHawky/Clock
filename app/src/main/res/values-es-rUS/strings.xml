@@ -249,7 +249,6 @@
     <string name="label_hours">Horas</string>
     <string name="label_minutes">Minutos</string>
     <string name="label_seconds">Segundos</string>
-    <string name="add_new_sound_subtitle">Pulse prolongadamente para seleccionar una carpeta</string>
     <string name="selected">Selecionado</string>
     <string name="more_options">Más opciones</string>
     <string name="alarm_alert_dismiss_and_delete_text">Descartar y eliminar</string>

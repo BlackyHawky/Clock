@@ -279,7 +279,6 @@
     <string name="label_minutes">நிமிடங்கள்</string>
     <string name="label_seconds">நொடிகள்</string>
     <string name="confirm_action_prompt">\n\nதொடர வேண்டுமா?</string>
-    <string name="add_new_sound_subtitle">கோப்புறையைத் தேர்ந்தெடுக்க நீண்ட சொடுக்கு செய்யவும்</string>
     <string name="more_options">மேலும் விருப்பங்கள்</string>
     <string name="progress_ringtones">ரிங்டோன்களைச் சேர்க்கிறது… (%1$d/%2$d)</string>
     <string name="alarm_scheduled_for">%sக்கு திட்டமிடப்பட்டது</string>

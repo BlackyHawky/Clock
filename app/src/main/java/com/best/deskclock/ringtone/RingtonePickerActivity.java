@@ -6,13 +6,14 @@
 
 package com.best.deskclock.ringtone;
 
+import static android.content.Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION;
 import static android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION;
 import static android.media.RingtoneManager.TYPE_ALARM;
 import static android.provider.OpenableColumns.DISPLAY_NAME;
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.ItemAdapter.ItemViewHolder.Factory;
-import static com.best.deskclock.ringtone.AddCustomRingtoneViewHolder.VIEW_TYPE_ADD_NEW;
+import static com.best.deskclock.ringtone.AddButtonTipViewHolder.VIEW_TYPE_BUTTON_TIP;
 import static com.best.deskclock.ringtone.HeaderViewHolder.VIEW_TYPE_ITEM_HEADER;
 import static com.best.deskclock.ringtone.RingtoneViewHolder.VIEW_TYPE_CUSTOM_SOUND;
 import static com.best.deskclock.ringtone.RingtoneViewHolder.VIEW_TYPE_SYSTEM_SOUND;
@@ -32,6 +33,7 @@ import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -52,7 +54,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.best.deskclock.AppExecutors;
 import com.best.deskclock.ItemAdapter;
 import com.best.deskclock.ItemAdapter.OnItemClickedListener;
-import com.best.deskclock.ItemAdapter.OnItemLongClickedListener;
 import com.best.deskclock.R;
 import com.best.deskclock.alarms.AlarmUpdateHandler;
 import com.best.deskclock.data.CustomRingtone;
@@ -69,6 +70,7 @@ import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.textview.MaterialTextView;
 
@@ -160,6 +162,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
     private FragmentManager mFragmentManager;
     private SharedPreferences mPrefs;
     private DisplayMetrics mDisplayMetrics;
+    private FloatingActionButton mAddRingtoneButton;
     private CircularProgressIndicator mCircularProgressIndicator;
     private MaterialTextView mProgressTextView;
     private AlertDialog mProgressDialog;
@@ -296,14 +299,13 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
 
         final LayoutInflater inflater = getLayoutInflater();
         final OnItemClickedListener listener = new ItemClickWatcher();
-        final OnItemLongClickedListener onLongClickedListener = new ItemLongClickWatcher();
         final Factory ringtoneFactory = new RingtoneViewHolder.Factory(inflater);
         final Factory headerFactory = new HeaderViewHolder.Factory(inflater);
-        final Factory addNewFactory = new AddCustomRingtoneViewHolder.Factory(inflater);
+        final Factory buttonTipFactory = new AddButtonTipViewHolder.Factory(inflater);
 
         mRingtoneAdapter = new ItemAdapter<>();
         mRingtoneAdapter.withViewTypes(headerFactory, null, null, VIEW_TYPE_ITEM_HEADER)
-                .withViewTypes(addNewFactory, listener, onLongClickedListener, VIEW_TYPE_ADD_NEW)
+                .withViewTypes(buttonTipFactory, null, null, VIEW_TYPE_BUTTON_TIP)
                 .withViewTypes(ringtoneFactory, listener, null, VIEW_TYPE_SYSTEM_SOUND)
                 .withViewTypes(ringtoneFactory, listener, null, VIEW_TYPE_CUSTOM_SOUND);
 
@@ -318,6 +320,26 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
         mFragmentManager = getSupportFragmentManager();
 
         LoaderManager.getInstance(this).initLoader(0, null, this);
+
+        View addButtonLayout = inflater.inflate(R.layout.ringtone_add_button, mCoordinatorLayout, false);
+        mCoordinatorLayout.addView(addButtonLayout);
+
+        mAddRingtoneButton = addButtonLayout.findViewById(R.id.add_ringtone_button);
+        mAddRingtoneButton.setOnClickListener(v -> {
+            stopPlayingRingtone(getSelectedRingtoneHolder(), false);
+            getActivityOnClick.launch(new Intent(Intent.ACTION_OPEN_DOCUMENT)
+                    .addFlags(FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
+                    .addCategory(Intent.CATEGORY_OPENABLE)
+                    .setType("audio/*"));
+        });
+
+        mAddRingtoneButton.setOnLongClickListener(v -> {
+            stopPlayingRingtone(getSelectedRingtoneHolder(), false);
+            getActivityOnLongClick.launch(new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
+                    .addFlags(FLAG_GRANT_READ_URI_PERMISSION | FLAG_GRANT_PERSISTABLE_URI_PERMISSION));
+
+            return true;
+        });
 
         View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_progress, null);
         mCircularProgressIndicator = dialogView.findViewById(R.id.dialogProgressIndicator);
@@ -431,11 +453,15 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
             Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() |
                     WindowInsetsCompat.Type.displayCutout());
 
-            v.setPadding(bars.left, bars.top, bars.right, 0);
+            v.setPadding(bars.left, bars.top, bars.right, bars.bottom);
 
-            int paddingTop = (int) dpToPx(14, mDisplayMetrics);
-            int paddingBottom = (int) dpToPx(10, mDisplayMetrics);
-            mRingtoneContent.setPadding(0, paddingTop, 0, bars.bottom + paddingBottom);
+            mAddRingtoneButton.post(() -> {
+                int buttonHeight = mAddRingtoneButton.getHeight();
+                int bottomButtonMargin = ((FrameLayout.LayoutParams) mAddRingtoneButton.getLayoutParams()).bottomMargin;
+                int safetyPadding = (int) dpToPx(10, mDisplayMetrics);
+
+                mRingtoneContent.setPadding(0, 0, 0, buttonHeight + bottomButtonMargin + safetyPadding);
+            });
         });
     }
 
@@ -576,13 +602,6 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
         @Override
         public void onItemClicked(ItemAdapter.ItemViewHolder<?> viewHolder, int id) {
             switch (id) {
-                case AddCustomRingtoneViewHolder.CLICK_ADD_NEW -> {
-                    stopPlayingRingtone(getSelectedRingtoneHolder(), false);
-                    getActivityOnClick.launch(new Intent(Intent.ACTION_OPEN_DOCUMENT)
-                            .addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
-                            .addCategory(Intent.CATEGORY_OPENABLE)
-                            .setType("audio/*"));
-                }
                 case RingtoneViewHolder.CLICK_NORMAL -> {
                     final RingtoneHolder oldSelection = getSelectedRingtoneHolder();
                     final RingtoneHolder newSelection = (RingtoneHolder) viewHolder.getItemHolder();
@@ -601,23 +620,6 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
                     }
                 }
                 case RingtoneViewHolder.CLICK_REMOVE -> onItemRemovedClicked(viewHolder.getBindingAdapterPosition());
-            }
-        }
-    }
-
-    /**
-     * This long click handler alters selection and playback of ringtones. It also launches the system
-     * folder chooser to search for openable audio files that may serve as ringtones.
-     */
-    private class ItemLongClickWatcher implements OnItemLongClickedListener {
-
-        @Override
-        public void onItemLongClicked(ItemAdapter.ItemViewHolder<?> viewHolder, int id) {
-            if (id == AddCustomRingtoneViewHolder.CLICK_ADD_FOLDER) {
-                stopPlayingRingtone(getSelectedRingtoneHolder(), false);
-                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
-                intent.addFlags(FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
-                getActivityOnLongClick.launch(intent);
             }
         }
     }

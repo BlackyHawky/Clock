@@ -258,7 +258,6 @@
     <string name="label_hours">Horas</string>
     <string name="label_minutes">MInutos</string>
     <string name="label_seconds">Segundos</string>
-    <string name="add_new_sound_subtitle">Clique longo para selecionar uma pasta</string>
     <string name="clock_settings_summary">Definir estilo, fuso horário e alterar data e hora do dispositivo</string>
     <string name="hide_clock_am_pm_pref">Ocultar texto AM/PM</string>
     <string name="clock_dial_with_numbers">Com números</string>

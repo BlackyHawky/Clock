@@ -535,7 +535,6 @@
     <string name="date_picker_style_text">Текст</string>
     <string name="timer_button_time_seconds_warning_box_text">Введите значение от 0 до 59 секунд</string>
     <string name="random_ringtone_title">Случайный рингтон</string>
-    <string name="add_new_sound_subtitle">Удерживайте чтобы выбрать папку</string>
     <string name="advanced_audio_playback_title">Расширенные возможности воспроизведения аудио</string>
     <string name="label_hours">Часы</string>
     <string name="timer_creation_view_style_title">Стиль окна создания таймера</string>

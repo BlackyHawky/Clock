@@ -310,7 +310,6 @@
     <string name="label_seconds">秒</string>
     <string name="label_minutes">分</string>
     <string name="label_hours">時</string>
-    <string name="add_new_sound_subtitle">フォルダーを長押しすると選択できます</string>
     <string name="warning">注意</string>
     <string name="schedule_alarm_title">アラームを設定</string>
     <string name="alarm_flash">フラッシュ</string>

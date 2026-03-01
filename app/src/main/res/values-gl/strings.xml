@@ -265,7 +265,6 @@
     <string name="alarm_label_box_title">Nome da alarma</string>
     <string name="schedule_alarm_title">Programar alarma</string>
     <string name="duplicate">Duplicar</string>
-    <string name="add_new_sound_subtitle">Mantén pulsado para seleccionar un cartafol</string>
     <string name="selected">Seleccionado</string>
     <string name="more_options">Máis opcións</string>
     <string name="alarm_scheduled_for">Definido para %s</string>

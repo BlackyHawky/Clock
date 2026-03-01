@@ -238,7 +238,6 @@
     <string name="duplicate">Nhân bản</string>
     <string name="label_new_image">Ảnh khác</string>
     <string name="confirm_action_prompt">\n\nBạn có muốn tiếp tục không?</string>
-    <string name="add_new_sound_subtitle">Giữ để chọn một thư mục</string>
     <string name="progress_ringtones">Đang thêm nhạc chuông… (%1$d/%2$d)</string>
     <string name="alarm_scheduled_for">Đã lên lịch cho %s</string>
     <string name="alarm_alert_dismiss_and_delete_text">Bỏ qua và xóa</string>

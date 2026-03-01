@@ -294,7 +294,6 @@
     <string name="label_default">Defektuz</string>
     <string name="alarm_scheduled_for">%s(e)rako programatua</string>
     <string name="material_you_next_alarm_widget">Hurrengo alarma Material You</string>
-    <string name="add_new_sound_subtitle">Klik zulea karpeta bat aukeratzeko</string>
     <string name="alarm_alert_off_and_deleted_text">Alarma itzalia eta ezabatua</string>
     <string name="occasional_alarm_alert_predismiss_title">Noizbehinkako alarma berealakoan</string>
 </resources>

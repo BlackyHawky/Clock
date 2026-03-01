@@ -504,7 +504,6 @@
     <string name="date_picker_style_text">Tastatur</string>
     <string name="schedule_alarm_title">Alarm-Datum</string>
     <string name="alarm_scheduled_for">Geplant für %s</string>
-    <string name="add_new_sound_subtitle">Lange Tippen zur Auswahl eines Ordners</string>
     <string name="random_ringtone_title">Zufälliger Signalton</string>
     <string name="warning">Warnung</string>
     <string name="timer_button_time_seconds_warning_box_text">Gib einen Wert von 0 bis 59 Sekunden ein</string>

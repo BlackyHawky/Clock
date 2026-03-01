@@ -251,7 +251,6 @@
     <string name="label_minutes">Минути</string>
     <string name="label_seconds">Секунди</string>
     <string name="confirm_action_prompt">\n\nЖелаете ли да продължите?</string>
-    <string name="add_new_sound_subtitle">Задръжте за избиране на папка</string>
     <string name="selected">Избрано</string>
     <string name="more_options">Повече настройки</string>
     <string name="progress_ringtones">Добавяне на звуци… (%1$d/%2$d)</string>

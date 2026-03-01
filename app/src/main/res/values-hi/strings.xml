@@ -245,7 +245,6 @@
     <string name="notifications_dialog_title">सूचनाएं</string>
     <string name="delete_occasional_alarm_after_use_title">अलार्म बंद होने पर हटाएँ</string>
     <string name="schedule_alarm_title">अलार्म तय करें</string>
-    <string name="add_new_sound_subtitle">फ़ोल्डर चुनने के लिए लंबा दबाएँ</string>
     <string name="alarm_scheduled_for">निर्धारित %s के लिए</string>
     <string name="notifications_permission_title">सूचनाएं चालू करें</string>
     <string name="notifications_dialog_text">अलार्म सेट करने के अलावा, इस ऐप में टाइमर और स्टॉपवॉच मोड भी है।\n\nसभी मोड के नोटिफ़िकेशन सही ढंग से दिखने और खासकर अलार्म बजने के लिए, हम सुझाव देते हैं कि इस ऐप के लिए नोटिफ़िकेशन चालू करें।</string>

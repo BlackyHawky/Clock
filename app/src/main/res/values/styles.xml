@@ -109,7 +109,7 @@
         <!-- Remove animation when floating action button is pressed -->
         <item name="pressedTranslationZ">0dp</item>
         <!-- Color used by the icon -->
-        <item name="tint">@color/md_theme_inverseOnSurface</item>
+        <item name="tint">?android:attr/colorBackground</item>
         <!-- Remove shadow -->
         <item name="elevation">0dp</item>
         <item name="android:stateListAnimator">@null</item>

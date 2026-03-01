@@ -504,7 +504,6 @@
     <string name="alarm_scheduled_for">Ingeroosterd voor %s</string>
     <string name="schedule_alarm_title">Inroosteren</string>
     <string name="random_ringtone_title">Willekeurig geluid</string>
-    <string name="add_new_sound_subtitle">Lang tikken om een map te selecteren</string>
     <string name="date_picker_style_text">Tekst</string>
     <string name="warning">Waarschuwing</string>
     <string name="timer_add_custom_time_with_seconds_for_notification">%1$s min. %2$s sec. toevoegen</string>

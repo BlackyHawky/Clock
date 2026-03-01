@@ -65,7 +65,7 @@ class RingtoneLoader extends AsyncTaskLoader<List<ItemAdapter.ItemHolder<Uri>>> 
 
         try (Cursor systemRingtoneCursor = ringtoneManager.getCursor()) {
             final int systemRingtoneCount = systemRingtoneCursor.getCount();
-            // item count = # system ringtones + # custom ringtones + 2 headers + Add new music item
+            // item count = # system ringtones + # custom ringtones + 2 headers + button tip
             final int itemCount = systemRingtoneCount + mCustomRingtones.size() + 3;
 
             final List<ItemAdapter.ItemHolder<Uri>> itemHolders = new ArrayList<>(itemCount);
@@ -73,8 +73,8 @@ class RingtoneLoader extends AsyncTaskLoader<List<ItemAdapter.ItemHolder<Uri>>> 
             // Add the item holder for the Music heading.
             itemHolders.add(new HeaderHolder(R.string.your_sounds));
 
-            // Add an item holder for the "Add new" music ringtone.
-            itemHolders.add(new AddCustomRingtoneHolder());
+            // Add an item holder for the "+" button tip.
+            itemHolders.add(new AddButtonTipHolder());
 
             // Add the item holder for the random custom ringtones only if at least 2 files can be read.
             int readableCount = 0;
