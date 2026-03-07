@@ -11,7 +11,6 @@ import static android.view.View.VISIBLE;
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.BLACK_ACCENT_COLOR;
-import static com.best.deskclock.uidata.UiDataModel.Tab.CLOCKS;
 import static java.util.Calendar.DAY_OF_WEEK;
 
 import android.content.Context;
@@ -165,8 +164,7 @@ public class CityViewHolder extends RecyclerView.ViewHolder {
                 LabelDialogFragment labelDialogFragment = LabelDialogFragment.newInstance(
                         city.getId(),
                         city.getName(),
-                        note,
-                        CLOCKS.name());
+                        note);
 
                 LabelDialogFragment.show(
                         ((AppCompatActivity) context).getSupportFragmentManager(),

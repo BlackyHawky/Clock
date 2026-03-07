@@ -42,6 +42,7 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.dialogfragment.LabelDialogFragment;
 import com.best.deskclock.uicomponents.AnalogClock;
 import com.best.deskclock.uicomponents.AutoSizingTextClock;
 import com.best.deskclock.uidata.UiDataModel;
@@ -284,6 +285,22 @@ public final class ClockFragment extends DeskClockFragment {
         return fragmentView;
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        getParentFragmentManager().setFragmentResultListener(
+                LabelDialogFragment.REQUEST_CITY_NOTE, getViewLifecycleOwner(),
+                (requestKey, bundle) -> {
+                    String cityId = bundle.getString(LabelDialogFragment.RESULT_CITY_ID);
+                    String note = bundle.getString(LabelDialogFragment.RESULT_CITY_NOTE);
+
+                    if (cityId != null && note != null) {
+                        mCityAdapter.setCityNote(cityId, note);
+                    }
+                });
+    }
+
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
     @Override
     public void onResume() {
@@ -379,19 +396,6 @@ public final class ClockFragment extends DeskClockFragment {
         } else {
             mCityAdapter.refreshAlarm();
         }
-    }
-
-    /**
-     * Updates the note associated with a specific city by delegating to the adapter.
-     * <p>
-     * This method is typically called by the hosting activity after the user saves a city note
-     * via the dialog. It ensures that the adapter updates the displayed note and persists it as needed.
-     *
-     * @param cityId the unique identifier of the city whose note is being updated
-     * @param note   the new note text to associate with the city
-     */
-    public void setCityNote(String cityId, String note) {
-        mCityAdapter.setCityNote(cityId, note);
     }
 
     /**

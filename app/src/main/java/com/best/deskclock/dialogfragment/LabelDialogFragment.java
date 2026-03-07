@@ -60,16 +60,17 @@ public class LabelDialogFragment extends DialogFragment {
     public static final String RESULT_LABEL = "result_label";
     public static final String RESULT_SYNC = "result_sync";
 
-    private static final String ARG_TAG = "arg_tag";
+    public static final String REQUEST_CITY_NOTE = "label_request_city_note";
+    public static final String RESULT_CITY_ID = "result_city_id";
+    public static final String RESULT_CITY_NOTE = "result_city_note";
+    private static final String ARG_CITY_ID = "city_id";
+    private static final String ARG_CITY_NAME = "city_name";
+
+    private static final String ARG_TIMER_ID = "arg_timer_id";
 
     private static final String ARG_LABEL = "arg_label";
     private static final String ARG_IS_ALARM = "arg_is_alarm";
     private static final String ARG_SYNC_ALARM_BY_LABEL = "arg_sync_alarm_by_label";
-
-    private static final String ARG_TIMER_ID = "arg_timer_id";
-
-    private static final String ARG_CITY_ID = "city_id";
-    private static final String ARG_CITY_NAME = "city_name";
 
     private Context mContext;
     private EditText mEditLabel;
@@ -78,7 +79,7 @@ public class LabelDialogFragment extends DialogFragment {
     private boolean mIsAlarm;
     private int mTimerId;
     private String mCityId;
-    private String mTag;
+
     private final TextWatcher mTextWatcher = new TextChangeListener();
 
     /**
@@ -119,17 +120,15 @@ public class LabelDialogFragment extends DialogFragment {
      * @param cityId      the unique identifier of the city
      * @param cityName    the name of the {@link City} to display in the dialog title
      * @param currentNote the existing note for the city, or an empty string if none
-     * @param tag         the tag used to identify the fragment that will receive the result
      */
-    public static LabelDialogFragment newInstance(String cityId, String cityName, String currentNote,
-                                                  String tag) {
+    public static LabelDialogFragment newInstance(String cityId, String cityName, String currentNote) {
 
         LabelDialogFragment fragment = new LabelDialogFragment();
         Bundle args = new Bundle();
         args.putString(ARG_CITY_ID, cityId);
         args.putString(ARG_CITY_NAME, cityName);
         args.putString(ARG_LABEL, currentNote);
-        args.putString(ARG_TAG, tag);
+
         fragment.setArguments(args);
         return fragment;
     }
@@ -160,7 +159,6 @@ public class LabelDialogFragment extends DialogFragment {
         mContext = requireContext();
 
         final Bundle args = requireArguments();
-        mTag = args.getString(ARG_TAG);
         mIsAlarm = args.getBoolean(ARG_IS_ALARM, false);
         String label = args.getString(ARG_LABEL);
         boolean syncAlarmByLabel = mIsAlarm && args.getBoolean(ARG_SYNC_ALARM_BY_LABEL, false);
@@ -304,16 +302,21 @@ public class LabelDialogFragment extends DialogFragment {
      * Apply the label.
      */
     private void applyLabel(String label) {
+        String trimmedLabel = label.trim();
+
         if (mTimerId >= 0) {
             final Timer timer = DataModel.getDataModel().getTimer(mTimerId);
             if (timer != null) {
                 DataModel.getDataModel().setTimerLabel(timer, label.trim());
             }
         } else if (mCityId != null) {
-            ((CityNoteDialogHandler) requireActivity()).onDialogCityNoteSet(mCityId, label.trim(), mTag);
+            Bundle result = new Bundle();
+            result.putString(RESULT_CITY_ID, mCityId);
+            result.putString(RESULT_CITY_NOTE, trimmedLabel);
+            getParentFragmentManager().setFragmentResult(REQUEST_CITY_NOTE, result);
         } else {
             Bundle result = new Bundle();
-            result.putString(RESULT_LABEL, label.trim());
+            result.putString(RESULT_LABEL, trimmedLabel);
             result.putBoolean(RESULT_SYNC, mSyncAlarmByLabelCheckbox.isChecked());
             getParentFragmentManager().setFragmentResult(REQUEST_KEY, result);
         }
@@ -355,18 +358,4 @@ public class LabelDialogFragment extends DialogFragment {
         }
     }
 
-    /**
-     * Callback interface for handling the result of the city note dialog.
-     */
-    public interface CityNoteDialogHandler {
-
-        /**
-         * Called when the user confirms a note for a city.
-         *
-         * @param cityId the ID of the city being edited
-         * @param note   the note entered by the user
-         * @param tag    an optional tag used to identify the target fragment or context
-         */
-        void onDialogCityNoteSet(String cityId, String note, String tag);
-    }
 }

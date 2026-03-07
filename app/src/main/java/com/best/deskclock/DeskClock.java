@@ -76,17 +76,14 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
 
 import com.best.deskclock.alarms.AlarmFragment;
-import com.best.deskclock.clock.ClockFragment;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.DataModel.SilentSetting;
 import com.best.deskclock.data.OnSilentSettingsListener;
 import com.best.deskclock.data.SettingsDAO;
-import com.best.deskclock.dialogfragment.LabelDialogFragment.CityNoteDialogHandler;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.settings.PermissionsManagementActivity;
 import com.best.deskclock.settings.SettingsActivity;
@@ -117,7 +114,7 @@ import java.util.TimeZone;
  * The main activity of the application which displays 4 different tabs contains alarms, world
  * clocks, timers and stopwatch.
  */
-public class DeskClock extends BaseActivity implements FabContainer, CityNoteDialogHandler {
+public class DeskClock extends BaseActivity implements FabContainer {
 
     SharedPreferences mPrefs;
     Typeface mRegularTypeface;
@@ -480,17 +477,6 @@ public class DeskClock extends BaseActivity implements FabContainer, CityNoteDia
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * Called by the LabelDialogFormat class after the dialog is finished.
-     */
-    @Override
-    public void onDialogCityNoteSet(String cityId, String note, String tag) {
-        final Fragment frag = getSupportFragmentManager().findFragmentByTag(tag);
-        if (frag instanceof ClockFragment) {
-            ((ClockFragment) frag).setCityNote(cityId, note);
-        }
     }
 
     /**
