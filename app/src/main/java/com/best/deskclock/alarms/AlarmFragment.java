@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
-package com.best.deskclock;
+package com.best.deskclock.alarms;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
@@ -55,19 +55,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
 
-import com.best.deskclock.alarms.AlarmAdapter;
-import com.best.deskclock.alarms.AlarmDelayPickerDialogFragment;
-import com.best.deskclock.alarms.AlarmEditBottomSheetFragment;
-import com.best.deskclock.alarms.AlarmItemHolder;
-import com.best.deskclock.alarms.AlarmItemViewHolder;
-import com.best.deskclock.alarms.AlarmNotifications;
-import com.best.deskclock.alarms.AlarmStateManager;
-import com.best.deskclock.alarms.AlarmTimeClickHandler;
-import com.best.deskclock.alarms.AlarmUpdateHandler;
-import com.best.deskclock.alarms.MaterialTimePickerDialog;
-import com.best.deskclock.alarms.ScrollHandler;
-import com.best.deskclock.alarms.SpinnerTimePickerDialogFragment;
+import com.best.deskclock.AppExecutors;
+import com.best.deskclock.DeskClockFragment;
+import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.dialogfragment.AlarmDelayPickerDialogFragment;
+import com.best.deskclock.dialogfragment.MaterialTimePickerDialogFragment;
+import com.best.deskclock.dialogfragment.SpinnerTimePickerDialogFragment;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
@@ -90,7 +84,7 @@ import java.util.Objects;
 /**
  * A fragment that displays a list of alarm time and allows interaction with them.
  */
-public final class AlarmClockFragment extends DeskClockFragment implements
+public final class AlarmFragment extends DeskClockFragment implements
         LoaderManager.LoaderCallbacks<Cursor>, ScrollHandler {
 
     // This extra is used when receiving an intent to create an alarm, but no alarm details
@@ -149,7 +143,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     /**
      * The public no-arg constructor required by all fragments.
      */
-    public AlarmClockFragment() {
+    public AlarmFragment() {
         super(ALARMS);
     }
 
@@ -636,10 +630,10 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         );
 
         parentFragmentManager.setFragmentResultListener(
-                MaterialTimePickerDialog.REQUEST_KEY, viewLifecycleOwner,
+                MaterialTimePickerDialogFragment.REQUEST_KEY, viewLifecycleOwner,
                 (requestKey, result) -> {
-                    int hours = result.getInt(MaterialTimePickerDialog.BUNDLE_KEY_HOURS);
-                    int minutes = result.getInt(MaterialTimePickerDialog.BUNDLE_KEY_MINUTES);
+                    int hours = result.getInt(MaterialTimePickerDialogFragment.BUNDLE_KEY_HOURS);
+                    int minutes = result.getInt(MaterialTimePickerDialogFragment.BUNDLE_KEY_MINUTES);
 
                     Alarm selected = mAlarmTimeClickHandler.getSelectedAlarm();
                     if (selected != null) {

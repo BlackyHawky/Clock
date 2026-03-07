@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
-package com.best.deskclock;
+package com.best.deskclock.alarmselection;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,9 +14,11 @@ import android.widget.Button;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.best.deskclock.AppExecutors;
+import com.best.deskclock.BaseActivity;
+import com.best.deskclock.HandleApiCalls;
+import com.best.deskclock.R;
 import com.best.deskclock.provider.Alarm;
-import com.best.deskclock.uicomponents.selector.AlarmSelection;
-import com.best.deskclock.uicomponents.selector.AlarmSelectionAdapter;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.SdkUtils;
 

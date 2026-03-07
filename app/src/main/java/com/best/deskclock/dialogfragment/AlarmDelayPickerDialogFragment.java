@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-package com.best.deskclock.alarms;
+package com.best.deskclock.dialogfragment;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 

@@ -166,7 +166,7 @@
             android:theme="@style/Theme.DeskClock.Wallpaper" />
 
         <activity
-            android:name="com.best.deskclock.AlarmSelectionActivity"
+            android:name="com.best.deskclock.alarmselection.AlarmSelectionActivity"
             android:label="@string/dismiss_alarm"
             android:theme="@android:style/Theme.Material.Dialog.NoActionBar" />
 

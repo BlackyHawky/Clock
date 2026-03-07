@@ -50,16 +50,22 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.best.deskclock.AlarmSnoozeDurationDialogFragment;
 import com.best.deskclock.AppExecutors;
-import com.best.deskclock.AutoSilenceDurationDialogFragment;
-import com.best.deskclock.LabelDialogFragment;
 import com.best.deskclock.R;
-import com.best.deskclock.VibrationPatternDialogFragment;
-import com.best.deskclock.VolumeCrescendoDurationDialogFragment;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Weekdays;
+import com.best.deskclock.dialogfragment.AlarmDelayPickerDialogFragment;
+import com.best.deskclock.dialogfragment.AlarmMissedRepeatLimitDialogFragment;
+import com.best.deskclock.dialogfragment.AlarmSnoozeDurationDialogFragment;
+import com.best.deskclock.dialogfragment.AlarmVolumeDialogFragment;
+import com.best.deskclock.dialogfragment.AutoSilenceDurationDialogFragment;
+import com.best.deskclock.dialogfragment.DatePickerDialogFragment;
+import com.best.deskclock.dialogfragment.LabelDialogFragment;
+import com.best.deskclock.dialogfragment.MaterialTimePickerDialogFragment;
+import com.best.deskclock.dialogfragment.SpinnerTimePickerDialogFragment;
+import com.best.deskclock.dialogfragment.VibrationPatternDialogFragment;
+import com.best.deskclock.dialogfragment.VolumeCrescendoDurationDialogFragment;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
@@ -314,7 +320,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
                         SpinnerTimePickerDialogFragment.show(getChildFragmentManager(), fragment));
             } else {
                 hideBottomSheetAndRun(() ->
-                        MaterialTimePickerDialog.show(requireContext(), getChildFragmentManager(), TAG,
+                        MaterialTimePickerDialogFragment.show(requireContext(), getChildFragmentManager(), TAG,
                                 mAlarm.hour, mAlarm.minutes, mPrefs));
             }
         });
@@ -399,7 +405,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         int openCalendarText = R.string.schedule_alarm_title;
 
         View.OnClickListener openCalendarListener = v -> hideBottomSheetAndRun(() ->
-                DatePickerDialog.show(
+                DatePickerDialogFragment.show(
                         requireContext(),
                         getChildFragmentManager(),
                         mPrefs,
@@ -843,10 +849,10 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         FragmentManager childFragmentManager = getChildFragmentManager();
 
         childFragmentManager.setFragmentResultListener(
-                MaterialTimePickerDialog.REQUEST_KEY, this,
+                MaterialTimePickerDialogFragment.REQUEST_KEY, this,
                 (requestKey, bundle) -> {
-                    int h = bundle.getInt(MaterialTimePickerDialog.BUNDLE_KEY_HOURS);
-                    int m = bundle.getInt(MaterialTimePickerDialog.BUNDLE_KEY_MINUTES);
+                    int h = bundle.getInt(MaterialTimePickerDialogFragment.BUNDLE_KEY_HOURS);
+                    int m = bundle.getInt(MaterialTimePickerDialogFragment.BUNDLE_KEY_MINUTES);
                     applyTime(h, m, false);
                 }
         );

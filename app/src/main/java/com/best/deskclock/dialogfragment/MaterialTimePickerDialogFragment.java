@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-package com.best.deskclock.alarms;
+package com.best.deskclock.dialogfragment;
 
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TIME_PICKER_STYLE;
 
@@ -28,7 +28,7 @@ import com.google.android.material.timepicker.TimeFormat;
 /**
  * Utility class to show a Material Design time picker dialog.
  */
-public class MaterialTimePickerDialog {
+public class MaterialTimePickerDialogFragment {
 
     public static final String REQUEST_KEY = "material_time_picker_request_key";
     public static final String BUNDLE_KEY_HOURS = "material_time_picker_hours";

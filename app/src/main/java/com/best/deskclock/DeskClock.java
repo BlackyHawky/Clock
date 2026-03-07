@@ -80,11 +80,13 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
 
-import com.best.deskclock.LabelDialogFragment.CityNoteDialogHandler;
+import com.best.deskclock.alarms.AlarmFragment;
+import com.best.deskclock.clock.ClockFragment;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.DataModel.SilentSetting;
 import com.best.deskclock.data.OnSilentSettingsListener;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.dialogfragment.LabelDialogFragment.CityNoteDialogHandler;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.settings.PermissionsManagementActivity;
 import com.best.deskclock.settings.SettingsActivity;
@@ -1027,7 +1029,7 @@ public class DeskClock extends BaseActivity implements FabContainer, CityNoteDia
             DeskClockFragment fragment = mFragmentTabPagerAdapter.getDeskClockFragment(position);
             fragment.selectTab();
 
-            if (fragment instanceof AlarmClockFragment alarmFragment) {
+            if (fragment instanceof AlarmFragment alarmFragment) {
                 alarmFragment.hideSideButtonsOnlyAnimated();
             }
         }

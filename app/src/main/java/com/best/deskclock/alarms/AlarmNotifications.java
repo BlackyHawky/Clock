@@ -28,7 +28,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import com.best.deskclock.AlarmClockFragment;
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
 import com.best.deskclock.provider.Alarm;
@@ -488,7 +487,7 @@ public final class AlarmNotifications {
     static Intent createViewAlarmIntent(Context context, AlarmInstance instance) {
         final long alarmId = instance.mAlarmId == null ? Alarm.INVALID_ID : instance.mAlarmId;
         return Alarm.createIntent(context, DeskClock.class, alarmId)
-                .putExtra(AlarmClockFragment.SCROLL_TO_ALARM_INTENT_EXTRA, alarmId)
+                .putExtra(AlarmFragment.SCROLL_TO_ALARM_INTENT_EXTRA, alarmId)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     }
 

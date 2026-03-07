@@ -8,10 +8,10 @@ package com.best.deskclock;
 
 import static android.media.AudioManager.STREAM_ALARM;
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
-import static com.best.deskclock.AlarmSelectionActivity.ACTION_DISMISS;
-import static com.best.deskclock.AlarmSelectionActivity.EXTRA_ACTION;
-import static com.best.deskclock.AlarmSelectionActivity.EXTRA_ALARMS;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.alarmselection.AlarmSelectionActivity.ACTION_DISMISS;
+import static com.best.deskclock.alarmselection.AlarmSelectionActivity.EXTRA_ACTION;
+import static com.best.deskclock.alarmselection.AlarmSelectionActivity.EXTRA_ALARMS;
 import static com.best.deskclock.provider.AlarmInstance.FIRED_STATE;
 import static com.best.deskclock.provider.AlarmInstance.SNOOZE_STATE;
 import static com.best.deskclock.uidata.UiDataModel.Tab.ALARMS;
@@ -32,7 +32,9 @@ import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 
+import com.best.deskclock.alarms.AlarmFragment;
 import com.best.deskclock.alarms.AlarmStateManager;
+import com.best.deskclock.alarmselection.AlarmSelectionActivity;
 import com.best.deskclock.controller.Controller;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
@@ -301,7 +303,7 @@ public class HandleApiCalls extends Activity {
             // Intent has no time or an invalid time, open the alarm creation UI.
             final Intent createAlarm = Alarm.createIntent(this, DeskClock.class, Alarm.INVALID_ID)
                     .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    .putExtra(AlarmClockFragment.ALARM_CREATE_NEW_INTENT_EXTRA, true);
+                    .putExtra(AlarmFragment.ALARM_CREATE_NEW_INTENT_EXTRA, true);
 
             // Open DeskClock which is now positioned on the alarms tab.
             startActivity(createAlarm);
@@ -495,7 +497,7 @@ public class HandleApiCalls extends Activity {
 
             // Open DeskClock which is now positioned on the alarms tab.
             final Intent showAlarm = Alarm.createIntent(this, DeskClock.class, instance.mAlarmId)
-                    .putExtra(AlarmClockFragment.SCROLL_TO_ALARM_INTENT_EXTRA, instance.mAlarmId)
+                    .putExtra(AlarmFragment.SCROLL_TO_ALARM_INTENT_EXTRA, instance.mAlarmId)
                     .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(showAlarm);
         }

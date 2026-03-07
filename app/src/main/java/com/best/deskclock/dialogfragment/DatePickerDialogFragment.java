@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-package com.best.deskclock.alarms;
+package com.best.deskclock.dialogfragment;
 
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_DATE_PICKER_STYLE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SPINNER_DATE_PICKER_STYLE;
@@ -32,7 +32,7 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 import java.util.Calendar;
 import java.util.TimeZone;
 
-public class DatePickerDialog {
+public class DatePickerDialogFragment {
 
     private static final String TAG = "DatePickerDialog";
     private static AlertDialog mCurrentSpinnerDatePickerDialog = null;

@@ -19,10 +19,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.best.deskclock.AlarmClockFragment;
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Weekdays;
+import com.best.deskclock.dialogfragment.AlarmDelayPickerDialogFragment;
+import com.best.deskclock.dialogfragment.MaterialTimePickerDialogFragment;
+import com.best.deskclock.dialogfragment.SpinnerTimePickerDialogFragment;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
@@ -84,8 +86,8 @@ public final class AlarmTimeClickHandler {
                 mAlarmUpdateHandler.useSyncToastForLabel(alarm.label);
             }
 
-            if (newState && mFragment instanceof AlarmClockFragment) {
-                ((AlarmClockFragment) mFragment).setSmoothScrollStableId(alarm.id);
+            if (newState && mFragment instanceof AlarmFragment) {
+                ((AlarmFragment) mFragment).setSmoothScrollStableId(alarm.id);
             }
 
             // Update the current alarm instance.
@@ -165,8 +167,8 @@ public final class AlarmTimeClickHandler {
 
         // For occasional alarms, handle in the same way as the Delete button.
         if (alarm.isDeleteAfterUse()) {
-            if (mFragment instanceof AlarmClockFragment) {
-                ((AlarmClockFragment) mFragment).removeItem(itemHolder);
+            if (mFragment instanceof AlarmFragment) {
+                ((AlarmFragment) mFragment).removeItem(itemHolder);
             }
 
             Events.sendAlarmEvent(R.string.action_delete, R.string.label_deskclock);
@@ -222,7 +224,7 @@ public final class AlarmTimeClickHandler {
 
         Events.sendAlarmEvent(R.string.action_set_time, R.string.label_deskclock);
 
-        MaterialTimePickerDialog.show(mContext, fragmentManager, TAG, hours, minutes, mPrefs);
+        MaterialTimePickerDialogFragment.show(mContext, fragmentManager, TAG, hours, minutes, mPrefs);
     }
 
     public void setAlarm(int hour, int minute) {
