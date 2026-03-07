@@ -6,27 +6,25 @@
 
 package com.best.deskclock.ringtone;
 
-import static androidx.recyclerview.widget.RecyclerView.NO_ID;
-
 import android.net.Uri;
 
-import com.best.deskclock.ItemAdapter;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.utils.RingtoneUtils;
 
-abstract class RingtoneHolder extends ItemAdapter.ItemHolder<Uri> {
+public abstract class RingtoneHolder implements RingtoneAdapter.RingtoneItem {
 
+    private final Uri mUri;
     private final String mName;
     private boolean mSelected;
     private boolean mPlaying;
 
     RingtoneHolder(Uri uri, String name) {
-        super(uri, NO_ID);
+        mUri = uri;
         mName = name;
     }
 
     Uri getUri() {
-        return item;
+        return mUri;
     }
 
     boolean isSilent() {
@@ -47,6 +45,11 @@ abstract class RingtoneHolder extends ItemAdapter.ItemHolder<Uri> {
 
     void setPlaying(boolean playing) {
         mPlaying = playing;
+    }
+
+    boolean isRandom() {
+        return RingtoneUtils.RANDOM_RINGTONE.equals(mUri)
+                || RingtoneUtils.RANDOM_CUSTOM_RINGTONE.equals(mUri);
     }
 
     String getName() {

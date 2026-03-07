@@ -2,20 +2,10 @@
 
 package com.best.deskclock.ringtone;
 
-import static androidx.recyclerview.widget.RecyclerView.NO_ID;
-
-import android.net.Uri;
-
-import com.best.deskclock.ItemAdapter;
-
-final class AddButtonTipHolder extends ItemAdapter.ItemHolder<Uri> {
-
-    AddButtonTipHolder() {
-        super(null, NO_ID);
-    }
+public class AddButtonTipHolder implements RingtoneAdapter.RingtoneItem {
 
     @Override
-    public int getItemViewType() {
-        return AddButtonTipViewHolder.VIEW_TYPE_BUTTON_TIP;
+    public int getViewType() {
+        return RingtoneAdapter.VIEW_TYPE_BUTTON_TIP;
     }
 }

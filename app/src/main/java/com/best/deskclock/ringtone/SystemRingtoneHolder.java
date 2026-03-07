@@ -8,14 +8,13 @@ package com.best.deskclock.ringtone;
 
 import android.net.Uri;
 
-final class SystemRingtoneHolder extends RingtoneHolder {
-
+public class SystemRingtoneHolder extends RingtoneHolder {
     SystemRingtoneHolder(Uri uri, String name) {
         super(uri, name);
     }
 
     @Override
-    public int getItemViewType() {
-        return RingtoneViewHolder.VIEW_TYPE_SYSTEM_SOUND;
+    public int getViewType() {
+        return RingtoneAdapter.VIEW_TYPE_SYSTEM_SOUND;
     }
 }

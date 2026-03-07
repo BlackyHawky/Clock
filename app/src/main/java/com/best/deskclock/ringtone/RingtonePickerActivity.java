@@ -12,11 +12,6 @@ import static android.media.RingtoneManager.TYPE_ALARM;
 import static android.provider.OpenableColumns.DISPLAY_NAME;
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-import static com.best.deskclock.ItemAdapter.ItemViewHolder.Factory;
-import static com.best.deskclock.ringtone.AddButtonTipViewHolder.VIEW_TYPE_BUTTON_TIP;
-import static com.best.deskclock.ringtone.HeaderViewHolder.VIEW_TYPE_ITEM_HEADER;
-import static com.best.deskclock.ringtone.RingtoneViewHolder.VIEW_TYPE_CUSTOM_SOUND;
-import static com.best.deskclock.ringtone.RingtoneViewHolder.VIEW_TYPE_SYSTEM_SOUND;
 
 import android.app.Dialog;
 import android.content.ContentResolver;
@@ -50,10 +45,9 @@ import androidx.loader.app.LoaderManager;
 import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import com.best.deskclock.AppExecutors;
-import com.best.deskclock.ItemAdapter;
-import com.best.deskclock.ItemAdapter.OnItemClickedListener;
 import com.best.deskclock.R;
 import com.best.deskclock.alarms.AlarmUpdateHandler;
 import com.best.deskclock.data.CustomRingtone;
@@ -87,7 +81,7 @@ import java.util.List;
  * </ul>
  */
 public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
-        implements LoaderManager.LoaderCallbacks<List<ItemAdapter.ItemHolder<Uri>>> {
+        implements LoaderManager.LoaderCallbacks<List<RingtoneAdapter.RingtoneItem>> {
 
     /**
      * Key to an extra that defines resource id to the title of this activity.
@@ -123,7 +117,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
     /**
      * Stores the set of ItemHolders that wrap the selectable ringtones.
      */
-    private ItemAdapter<ItemAdapter.ItemHolder<Uri>> mRingtoneAdapter;
+    private RingtoneAdapter mRingtoneAdapter;
 
     /**
      * Displays a set of selectable ringtones.
@@ -262,6 +256,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
 
         mPrefs = getDefaultSharedPreferences(this);
         mDisplayMetrics = getResources().getDisplayMetrics();
+        mFragmentManager = getSupportFragmentManager();
 
         // To manually manage insets
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
@@ -295,30 +290,46 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
         final Context localizedContext = Utils.getLocalizedContext(context);
         mDefaultRingtoneTitle = localizedContext.getString(defaultRingtoneTitleId);
 
-        final LayoutInflater inflater = getLayoutInflater();
-        final OnItemClickedListener listener = new ItemClickWatcher();
-        final Factory ringtoneFactory = new RingtoneViewHolder.Factory(inflater);
-        final Factory headerFactory = new HeaderViewHolder.Factory(inflater);
-        final Factory buttonTipFactory = new AddButtonTipViewHolder.Factory(inflater);
-
-        mRingtoneAdapter = new ItemAdapter<>();
-        mRingtoneAdapter.withViewTypes(headerFactory, null, VIEW_TYPE_ITEM_HEADER)
-                .withViewTypes(buttonTipFactory, null, VIEW_TYPE_BUTTON_TIP)
-                .withViewTypes(ringtoneFactory, listener, VIEW_TYPE_SYSTEM_SOUND)
-                .withViewTypes(ringtoneFactory, listener, VIEW_TYPE_CUSTOM_SOUND);
-
-        mRingtoneContent = findViewById(R.id.ringtone_content);
-        mRingtoneContent.setLayoutManager(new LinearLayoutManager(context));
-        mRingtoneContent.setAdapter(mRingtoneAdapter);
-        mRingtoneContent.setItemAnimator(null);
-
         mTitleResourceId = intent.getIntExtra(EXTRA_TITLE, 0);
         setTitle(context.getString(mTitleResourceId));
 
-        mFragmentManager = getSupportFragmentManager();
+        mRingtoneContent = findViewById(R.id.ringtone_content);
+        mRingtoneContent.setLayoutManager(new LinearLayoutManager(context));
+
+        mRingtoneAdapter = new RingtoneAdapter(new RingtoneAdapter.OnRingtoneClickListener() {
+            @Override
+            public void onRingtoneClick(RingtoneHolder newSelection) {
+                final RingtoneHolder oldSelection = getSelectedRingtoneHolder();
+
+                if (oldSelection == newSelection) {
+                    if (newSelection.isPlaying()) {
+                        stopPlayingRingtone(newSelection, false);
+                    } else {
+                        startPlayingRingtone(newSelection);
+                    }
+                } else {
+                    stopPlayingRingtone(oldSelection, true);
+                    startPlayingRingtone(newSelection);
+                }
+            }
+
+            @Override
+            public void onRemoveRingtoneClick(RingtoneHolder toRemove) {
+                ConfirmRemoveCustomRingtoneDialogFragment.show(mFragmentManager, toRemove.getUri());
+            }
+        });
+
+        mRingtoneContent.setAdapter(mRingtoneAdapter);
+
+        RecyclerView.ItemAnimator animator = mRingtoneContent.getItemAnimator();
+        if (animator instanceof SimpleItemAnimator) {
+            // Disable flash/blinking during updates (notifyItemChanged)
+            ((SimpleItemAnimator) animator).setSupportsChangeAnimations(false);
+        }
 
         LoaderManager.getInstance(this).initLoader(0, null, this);
 
+        final LayoutInflater inflater = getLayoutInflater();
         View addButtonLayout = inflater.inflate(R.layout.ringtone_add_button, mCoordinatorLayout, false);
         mCoordinatorLayout.addView(addButtonLayout);
 
@@ -395,13 +406,13 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
 
     @NonNull
     @Override
-    public Loader<List<ItemAdapter.ItemHolder<Uri>>> onCreateLoader(int id, Bundle args) {
+    public Loader<List<RingtoneAdapter.RingtoneItem>> onCreateLoader(int id, Bundle args) {
         return new RingtoneLoader(getApplicationContext(), mDefaultRingtoneUri, mDefaultRingtoneTitle);
     }
 
     @Override
-    public void onLoadFinished(@NonNull Loader<List<ItemAdapter.ItemHolder<Uri>>> loader,
-                               List<ItemAdapter.ItemHolder<Uri>> itemHolders) {
+    public void onLoadFinished(@NonNull Loader<List<RingtoneAdapter.RingtoneItem>> loader,
+                               List<RingtoneAdapter.RingtoneItem> itemHolders) {
 
         // Update the adapter with fresh data.
         mRingtoneAdapter.setItems(itemHolders);
@@ -411,7 +422,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
         if (toSelect != null) {
             toSelect.setSelected(true);
             mSelectedRingtoneUri = toSelect.getUri();
-            toSelect.notifyItemChanged();
+            mRingtoneAdapter.notifyItemChanged(findPositionByHolder(toSelect));
 
             // Start playing the ringtone if indicated.
             if (mIsPlaying) {
@@ -426,7 +437,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
     }
 
     @Override
-    public void onLoaderReset(@NonNull Loader<List<ItemAdapter.ItemHolder<Uri>>> loader) {
+    public void onLoaderReset(@NonNull Loader<List<RingtoneAdapter.RingtoneItem>> loader) {
     }
 
     /**
@@ -452,24 +463,22 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
         });
     }
 
-    private void onItemRemovedClicked(int indexOfRingtoneToRemove) {
-        // Find the ringtone to be removed.
-        final List<ItemAdapter.ItemHolder<Uri>> items = mRingtoneAdapter.getItems();
-        final RingtoneHolder toRemove = (RingtoneHolder) items.get(indexOfRingtoneToRemove);
-
-        // Launch the confirmation dialog.
-        ConfirmRemoveCustomRingtoneDialogFragment.show(mFragmentManager, toRemove.getUri());
+    private int findPositionByHolder(RingtoneAdapter.RingtoneItem holder) {
+        return mRingtoneAdapter.getItems().indexOf(holder);
     }
 
     private RingtoneHolder getRingtoneHolder(Uri uri) {
-        for (ItemAdapter.ItemHolder<Uri> itemHolder : mRingtoneAdapter.getItems()) {
-            if (itemHolder instanceof final RingtoneHolder ringtoneHolder) {
-                if (ringtoneHolder.getUri().equals(uri)) {
+        if (uri == null) {
+            return null;
+        }
+
+        for (RingtoneAdapter.RingtoneItem item : mRingtoneAdapter.getItems()) {
+            if (item instanceof RingtoneHolder ringtoneHolder) {
+                if (uri.equals(ringtoneHolder.getUri())) {
                     return ringtoneHolder;
                 }
             }
         }
-
         return null;
     }
 
@@ -506,7 +515,10 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
             mSelectedRingtoneUri = ringtone.getUri();
         }
 
-        ringtone.notifyItemChanged();
+        int position = findPositionByHolder(ringtone);
+        if (position != -1) {
+            mRingtoneAdapter.notifyItemChanged(position);
+        }
     }
 
     /**
@@ -530,7 +542,10 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
             mSelectedRingtoneUri = null;
         }
 
-        ringtone.notifyItemChanged();
+        int position = findPositionByHolder(ringtone);
+        if (position != -1) {
+            mRingtoneAdapter.notifyItemChanged(position);
+        }
     }
 
     /**
@@ -577,37 +592,6 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
                     R.string.remove_sound,
                     okListener
             );
-        }
-    }
-
-    /**
-     * This click handler alters selection and playback of ringtones. It also launches the system
-     * file chooser to search for openable audio files that may serve as ringtones.
-     */
-    private class ItemClickWatcher implements OnItemClickedListener {
-
-        @Override
-        public void onItemClicked(ItemAdapter.ItemViewHolder<?> viewHolder, int id) {
-            switch (id) {
-                case RingtoneViewHolder.CLICK_NORMAL -> {
-                    final RingtoneHolder oldSelection = getSelectedRingtoneHolder();
-                    final RingtoneHolder newSelection = (RingtoneHolder) viewHolder.getItemHolder();
-
-                    // Tapping the existing selection toggles playback of the ringtone.
-                    if (oldSelection == newSelection) {
-                        if (newSelection.isPlaying()) {
-                            stopPlayingRingtone(newSelection, false);
-                        } else {
-                            startPlayingRingtone(newSelection);
-                        }
-                    } else {
-                        // Tapping a new selection changes the selection and playback.
-                        stopPlayingRingtone(oldSelection, true);
-                        startPlayingRingtone(newSelection);
-                    }
-                }
-                case RingtoneViewHolder.CLICK_REMOVE -> onItemRemovedClicked(viewHolder.getBindingAdapterPosition());
-            }
         }
     }
 
@@ -819,7 +803,10 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
                         if (remainingHolder != null) {
                             stopPlayingRingtone(toRemove, false);
                             remainingHolder.setSelected(true);
-                            remainingHolder.notifyItemChanged();
+                            int position = findPositionByHolder(remainingHolder);
+                            if (position != -1) {
+                                mRingtoneAdapter.notifyItemChanged(position);
+                            }
                         }
                     }
                 } else if (toRemove.isSelected()) {
@@ -828,12 +815,19 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
                     if (defaultRingtone != null) {
                         defaultRingtone.setSelected(true);
                         mSelectedRingtoneUri = defaultRingtone.getUri();
-                        defaultRingtone.notifyItemChanged();
+                        int position = findPositionByHolder(defaultRingtone);
+                        if (position != -1) {
+                            mRingtoneAdapter.notifyItemChanged(position);
+                        }
                     }
                 }
 
                 // Remove the ringtone from the adapter.
-                mRingtoneAdapter.removeItem(toRemove);
+                int positionToRemove = findPositionByHolder(toRemove);
+                if (positionToRemove != -1) {
+                    mRingtoneAdapter.getItems().remove(positionToRemove);
+                    mRingtoneAdapter.notifyItemRemoved(positionToRemove);
+                }
 
                 // Reload the data to reflect the change in the UI.
                 LoaderManager.getInstance(this).restartLoader(0, null, RingtonePickerActivity.this);

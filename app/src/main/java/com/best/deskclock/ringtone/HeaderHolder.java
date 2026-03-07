@@ -6,23 +6,9 @@
 
 package com.best.deskclock.ringtone;
 
-import static androidx.recyclerview.widget.RecyclerView.NO_ID;
-
-import android.net.Uri;
-
 import androidx.annotation.StringRes;
 
-import com.best.deskclock.ItemAdapter;
-
-final class HeaderHolder extends ItemAdapter.ItemHolder<Uri> {
-
-    private final @StringRes
-    int mTextResId;
-
-    HeaderHolder(@StringRes int textResId) {
-        super(null, NO_ID);
-        mTextResId = textResId;
-    }
+public record HeaderHolder(@StringRes int mTextResId) implements RingtoneAdapter.RingtoneItem {
 
     @StringRes
     int getTextResId() {
@@ -30,7 +16,7 @@ final class HeaderHolder extends ItemAdapter.ItemHolder<Uri> {
     }
 
     @Override
-    public int getItemViewType() {
-        return HeaderViewHolder.VIEW_TYPE_ITEM_HEADER;
+    public int getViewType() {
+        return RingtoneAdapter.VIEW_TYPE_HEADER;
     }
 }

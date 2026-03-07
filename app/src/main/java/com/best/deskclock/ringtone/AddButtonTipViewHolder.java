@@ -11,25 +11,21 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.best.deskclock.ItemAdapter.ItemViewHolder;
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.ThemeUtils;
 import com.google.android.material.color.MaterialColors;
 
-final class AddButtonTipViewHolder extends ItemViewHolder<AddButtonTipHolder> {
+public class AddButtonTipViewHolder extends RecyclerView.ViewHolder {
 
-    static final int VIEW_TYPE_BUTTON_TIP = Integer.MIN_VALUE;
-
-    private AddButtonTipViewHolder(View itemView) {
+    public AddButtonTipViewHolder(View itemView) {
         super(itemView);
 
         final Context context = itemView.getContext();
@@ -62,12 +58,4 @@ final class AddButtonTipViewHolder extends ItemViewHolder<AddButtonTipHolder> {
         nameView.setText(context.getString(R.string.button_tip_title));
     }
 
-    public record Factory(LayoutInflater mInflater) implements ItemViewHolder.Factory {
-
-        @Override
-        public ItemViewHolder<?> createViewHolder(ViewGroup parent, int viewType) {
-            final View itemView = mInflater.inflate(R.layout.ringtone_item_sound, parent, false);
-            return new AddButtonTipViewHolder(itemView);
-        }
-    }
 }

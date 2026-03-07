@@ -19,7 +19,6 @@ import android.net.Uri;
 
 import androidx.loader.content.AsyncTaskLoader;
 
-import com.best.deskclock.ItemAdapter;
 import com.best.deskclock.R;
 import com.best.deskclock.data.CustomRingtone;
 import com.best.deskclock.data.DataModel;
@@ -33,7 +32,7 @@ import java.util.List;
 /**
  * Assembles the list of ItemHolders that back the RecyclerView used to choose a ringtone.
  */
-class RingtoneLoader extends AsyncTaskLoader<List<ItemAdapter.ItemHolder<Uri>>> {
+public class RingtoneLoader extends AsyncTaskLoader<List<RingtoneAdapter.RingtoneItem>> {
 
     private final Uri mDefaultRingtoneUri;
     private final String mDefaultRingtoneTitle;
@@ -54,7 +53,7 @@ class RingtoneLoader extends AsyncTaskLoader<List<ItemAdapter.ItemHolder<Uri>>> 
     }
 
     @Override
-    public List<ItemAdapter.ItemHolder<Uri>> loadInBackground() {
+    public List<RingtoneAdapter.RingtoneItem> loadInBackground() {
         // Prime the ringtone title cache for later access.
         DataModel.getDataModel().loadRingtoneTitles();
         DataModel.getDataModel().loadRingtonePermissions();
@@ -68,7 +67,7 @@ class RingtoneLoader extends AsyncTaskLoader<List<ItemAdapter.ItemHolder<Uri>>> 
             // item count = # system ringtones + # custom ringtones + 2 headers + button tip
             final int itemCount = systemRingtoneCount + mCustomRingtones.size() + 3;
 
-            final List<ItemAdapter.ItemHolder<Uri>> itemHolders = new ArrayList<>(itemCount);
+            final List<RingtoneAdapter.RingtoneItem> itemHolders = new ArrayList<>(itemCount);
 
             // Add the item holder for the Music heading.
             itemHolders.add(new HeaderHolder(R.string.your_sounds));
