@@ -435,7 +435,7 @@ public final class AlarmNotifications {
                 .setLocalOnly(true);
 
         // Setup Snooze Action only if snooze duration has NOT been set to "None" in the settings
-        // or if "Enable alarm snooze actions" is enabled in the expanded alarm view
+        // or if "Enable alarm snooze actions" is enabled in the alarm edit panel.
         if (instance.mSnoozeDuration != ALARM_SNOOZE_DURATION_DISABLED) {
             Intent snoozeIntent = AlarmStateManager.createStateChangeIntent(service,
                     AlarmStateManager.ALARM_SNOOZE_TAG, instance, AlarmInstance.SNOOZE_STATE);

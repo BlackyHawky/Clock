@@ -482,7 +482,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         final int maxMissedAlarmRepeatCount = instance.mMissedAlarmRepeatLimit;
 
         // If the "Silence after" or the "Repeat missed alarms" feature has been set to "Never"
-        // in Settings or in the expanded alarm view, the alarm is snoozed instead of marked as missed.
+        // in Settings or in the alarm edit panel, the alarm is snoozed instead of marked as missed.
         if (instance.mAutoSilenceDuration == TIMEOUT_NEVER
                 || maxMissedAlarmRepeatCount == Integer.parseInt(DEFAULT_MISSED_ALARM_REPEAT_LIMIT)) {
 

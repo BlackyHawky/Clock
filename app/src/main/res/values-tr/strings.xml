@@ -196,8 +196,6 @@
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Zamanlayıcı titreşimi"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Zamanlayıcı duraklatıldı"</string>
     <string name="timers_in_use" msgid="5570729467344408506"><xliff:g id="NUMBER">%d</xliff:g> zamanlayıcı</string>
-    <string name="expand_alarm" msgid="7392616528943305020">"Alarmı genişlet"</string>
-    <string name="collapse_alarm" msgid="3561772046433483980">"Alarmı daralt"</string>
     <string name="alarm_undo" msgid="5710042601177655254">geri al</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Alarm silindi"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="LABEL">%s</xliff:g></string>
@@ -349,7 +347,6 @@
     <string name="next_alarm_color_title">Sonraki alarm rengi</string>
     <string name="screensaver_italic_digital_clock_title">İtalik dijital saat</string>
     <string name="screensaver_preview_summary">Ekran koruyucuyu anında başlatır</string>
-    <string name="alarm_created">Alarm oluşturuldu</string>
     <string name="first_launch_button_now">Şimdi</string>
     <string name="first_launch_dialog_message">Uygulamadan çıkmak istediğinize emin misiniz?</string>
     <string name="settings_language_title">Dil</string>

@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+        android:id="@+id/drag_handle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.best.deskclock.uicomponents.TextTime
+                android:id="@+id/digital_clock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="14dp"
+                android:paddingHorizontal="10dp"
+                android:gravity="center"
+                android:textSize="48sp"
+                android:textStyle="bold"
+                android:focusable="true"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="08:30" />
+
+            <!-- Day buttons are added programmatically -->
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                style="@style/Widget.Material3.MaterialButtonGroup.Connected"
+                android:id="@+id/repeat_days_group"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginHorizontal="14dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                app:singleSelection="false"
+                app:layout_constraintTop_toBottomOf="@id/digital_clock" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/selected_date"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="4dp"
+                android:paddingHorizontal="10dp"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:drawableStart="@drawable/ic_calendar_clock"
+                android:drawablePadding="10dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/repeat_days_group"
+                app:layout_constraintEnd_toStartOf="@+id/schedule_alarm"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintHorizontal_bias="1"
+                tools:text="01/01/2024" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/schedule_alarm"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="4dp"
+                android:paddingHorizontal="10dp"
+                android:focusable="true"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:ellipsize="end"
+                app:drawableTint="?attr/colorOnSurfaceVariant"
+                app:layout_constraintStart_toEndOf="@+id/selected_date"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/repeat_days_group"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintHorizontal_bias="1"
+                tools:text="@string/schedule_alarm_title"
+                tools:drawableStart="@drawable/ic_calendar_clock" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/edit_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="10dp"
+                android:minHeight="48dp"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="10dp"
+                android:drawableStart="@drawable/ic_label"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:focusable="true"
+                android:text="@string/add_label"
+                app:drawableTint="?attr/colorOnSurfaceVariant"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/schedule_alarm" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/choose_ringtone"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="2dp"
+                android:paddingHorizontal="10dp"
+                android:drawableStart="@drawable/ic_ringtone"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:focusable="true"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                app:drawableTint="?attr/colorOnSurfaceVariant"
+                app:layout_constraintTop_toBottomOf="@id/edit_label"
+                tools:text="Standard (Hassium)" />
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/vibrate_onoff"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="10dp"
+                android:paddingHorizontal="10dp"
+                android:button="@null"
+                android:drawableStart="@drawable/ic_vibrate"
+                android:drawableEnd="@drawable/ic_selector_checkbox"
+                android:drawablePadding="10dp"
+                android:text="@string/alarm_vibrate"
+                app:layout_constraintTop_toBottomOf="@id/choose_ringtone"
+                tools:ignore="RtlSymmetry"
+                tools:checked="true" />
+
+            <LinearLayout
+                android:id="@+id/vibration_pattern_layout"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="2dp"
+                android:paddingHorizontal="10dp"
+                app:layout_constraintTop_toBottomOf="@id/vibrate_onoff">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/vibration_pattern_title"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_earthquake"
+                    android:paddingStart="@null"
+                    android:paddingEnd="10dp"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical"
+                    android:focusable="true"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="@string/vibration_pattern_title"
+                    app:drawableTint="?attr/colorOnSurfaceVariant" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/vibration_pattern_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:focusable="true"
+                    android:singleLine="true"
+                    tools:text="Strong" />
+
+            </LinearLayout>
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/flash_onoff"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="2dp"
+                android:paddingHorizontal="10dp"
+                android:button="@null"
+                android:drawableStart="@drawable/ic_flash"
+                android:drawableEnd="@drawable/ic_selector_checkbox"
+                android:drawablePadding="10dp"
+                android:text="@string/alarm_flash"
+                app:layout_constraintTop_toBottomOf="@id/vibration_pattern_layout"
+                tools:ignore="RtlSymmetry"
+                tools:checked="false" />
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/delete_occasional_alarm_after_use"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="2dp"
+                android:paddingHorizontal="10dp"
+                android:button="@null"
+                android:drawableStart="@drawable/ic_clear"
+                android:drawableEnd="@drawable/ic_selector_checkbox"
+                android:drawablePadding="10dp"
+                android:text="@string/delete_occasional_alarm_after_use_title"
+                app:layout_constraintTop_toBottomOf="@id/flash_onoff"
+                app:layout_goneMarginTop="10dp"
+                tools:ignore="RtlSymmetry"
+                tools:checked="true" />
+
+            <LinearLayout
+                android:id="@+id/auto_silence_duration_layout"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="10dp"
+                android:paddingHorizontal="10dp"
+                app:layout_constraintTop_toBottomOf="@id/delete_occasional_alarm_after_use">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/auto_silence_duration_title"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_ringtone_off"
+                    android:paddingStart="@null"
+                    android:paddingEnd="10dp"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical"
+                    android:focusable="true"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="@string/auto_silence_title"
+                    app:drawableTint="?attr/colorOnSurfaceVariant" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/auto_silence_duration_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:focusable="true"
+                    android:singleLine="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/delete_occasional_alarm_after_use"
+                    tools:text="5 min" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/snooze_duration_layout"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="2dp"
+                android:paddingHorizontal="10dp"
+                app:layout_constraintTop_toBottomOf="@id/auto_silence_duration_layout">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/snooze_duration_title"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_snooze"
+                    android:paddingStart="@null"
+                    android:paddingEnd="10dp"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical"
+                    android:focusable="true"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="@string/snooze_duration_title"
+                    app:drawableTint="?attr/colorOnSurfaceVariant" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/snooze_duration_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:focusable="true"
+                    android:singleLine="true"
+                    tools:text="1 min" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/missed_alarm_repeat_limit_layout"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="2dp"
+                android:paddingHorizontal="10dp"
+                app:layout_constraintTop_toBottomOf="@id/snooze_duration_layout">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/missed_alarm_repeat_limit_title"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_repeat"
+                    android:paddingStart="@null"
+                    android:paddingEnd="10dp"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical"
+                    android:focusable="true"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="@string/missed_alarm_repeat_limit_title" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/missed_alarm_repeat_limit_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:focusable="true"
+                    android:singleLine="true"
+                    tools:text="3 times" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/crescendo_duration_layout"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="2dp"
+                android:paddingHorizontal="10dp"
+                app:layout_constraintTop_toBottomOf="@id/missed_alarm_repeat_limit_layout">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/crescendo_duration_title"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_crescendo"
+                    android:paddingStart="@null"
+                    android:paddingEnd="10dp"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical"
+                    android:focusable="true"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="@string/crescendo_duration_title" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/crescendo_duration_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:focusable="true"
+                    android:singleLine="true"
+                    tools:text="1 min" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/alarm_volume_layout"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="2dp"
+                android:paddingHorizontal="10dp"
+                app:layout_constraintTop_toBottomOf="@id/crescendo_duration_layout">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/alarm_volume_title"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:paddingStart="@null"
+                    android:paddingEnd="10dp"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical"
+                    android:focusable="true"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="@string/alarm_volume_title"
+                    app:drawableTint="?attr/colorOnSurfaceVariant"
+                    tools:drawableStart="@drawable/ic_volume_up" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/alarm_volume_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:focusable="true"
+                    android:singleLine="true"
+                    tools:text="70%" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="14dp"
+        android:paddingVertical="10dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorAlert"
+            android:text="@string/delete"
+            android:textColor="?attr/colorOnError"
+            android:textAllCaps="false"
+            app:icon="@drawable/ic_delete"
+            app:iconTint="?attr/colorOnError"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/duplicate"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constrainedWidth="true"
+            tools:ignore="TextContrastCheck" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/duplicate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="?attr/colorPrimary"
+            android:text="@string/duplicate"
+            android:textColor="?attr/colorSurfaceContainerLowest"
+            android:textAllCaps="false"
+            app:icon="@drawable/ic_duplicate"
+            app:iconTint="?attr/colorSurfaceContainerLowest"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/delete"
+            app:layout_constrainedWidth="true"
+            tools:textStyle="bold" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

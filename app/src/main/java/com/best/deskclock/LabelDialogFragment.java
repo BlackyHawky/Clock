@@ -37,7 +37,6 @@ import com.best.deskclock.data.Timer;
 import com.best.deskclock.provider.Alarm;
 
 import com.best.deskclock.uicomponents.CustomDialog;
-import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.google.android.material.checkbox.MaterialCheckBox;
@@ -55,10 +54,15 @@ public class LabelDialogFragment extends DialogFragment {
      */
     private static final String TAG = "label_dialog";
 
+
+    public static final String REQUEST_KEY = "label_request_key";
+    public static final String RESULT_LABEL = "result_label";
+    public static final String RESULT_SYNC = "result_sync";
+
     private static final String ARG_TAG = "arg_tag";
 
     private static final String ARG_LABEL = "arg_label";
-    private static final String ARG_ALARM = "arg_alarm";
+    private static final String ARG_IS_ALARM = "arg_is_alarm";
     private static final String ARG_SYNC_ALARM_BY_LABEL = "arg_sync_alarm_by_label";
 
     private static final String ARG_TIMER_ID = "arg_timer_id";
@@ -70,7 +74,7 @@ public class LabelDialogFragment extends DialogFragment {
     private EditText mEditLabel;
     private MaterialCheckBox mSyncAlarmByLabelCheckbox;
     private Button mDefaultButton;
-    private Alarm mAlarm;
+    private boolean mIsAlarm;
     private int mTimerId;
     private String mCityId;
     private String mTag;
@@ -79,18 +83,14 @@ public class LabelDialogFragment extends DialogFragment {
     /**
      * Creates a new instance of {@link LabelDialogFragment} to edit the label of the given alarm.
      *
-     * @param alarm the {@link Alarm} whose label will be edited
-     * @param label the current label of the alarm, or an empty string if none
-     * @param tag   the tag used to identify the fragment that will receive the result
+     * @param alarmLabel the current label of the alarm, or an empty string if none
      */
-    public static LabelDialogFragment newInstance(Alarm alarm, String label, boolean syncAlarmByLabel,
-                                                  String tag) {
+    public static LabelDialogFragment newInstance(String alarmLabel, boolean syncAlarmByLabel) {
 
         final Bundle args = new Bundle();
-        args.putParcelable(ARG_ALARM, alarm);
-        args.putString(ARG_LABEL, label);
+        args.putBoolean(ARG_IS_ALARM, true);
+        args.putString(ARG_LABEL, alarmLabel);
         args.putBoolean(ARG_SYNC_ALARM_BY_LABEL, syncAlarmByLabel);
-        args.putString(ARG_TAG, tag);
 
         final LabelDialogFragment frag = new LabelDialogFragment();
         frag.setArguments(args);
@@ -148,7 +148,7 @@ public class LabelDialogFragment extends DialogFragment {
             outState.putString(ARG_LABEL, Objects.requireNonNull(mEditLabel.getText()).toString());
         }
 
-        if (mAlarm != null) {
+        if (mIsAlarm && mSyncAlarmByLabelCheckbox != null) {
             outState.putBoolean(ARG_SYNC_ALARM_BY_LABEL, mSyncAlarmByLabelCheckbox.isChecked());
         }
     }
@@ -160,19 +160,15 @@ public class LabelDialogFragment extends DialogFragment {
 
         final Bundle args = requireArguments();
         mTag = args.getString(ARG_TAG);
-
-        mAlarm = SdkUtils.isAtLeastAndroid13()
-                ? args.getParcelable(ARG_ALARM, Alarm.class)
-                : args.getParcelable(ARG_ALARM);
-
-        boolean syncAlarmByLabel = mAlarm != null && args.getBoolean(ARG_SYNC_ALARM_BY_LABEL, false);
+        mIsAlarm = args.getBoolean(ARG_IS_ALARM, false);
+        String label = args.getString(ARG_LABEL);
+        boolean syncAlarmByLabel = mIsAlarm && args.getBoolean(ARG_SYNC_ALARM_BY_LABEL, false);
 
         mTimerId = args.getInt(ARG_TIMER_ID, -1);
 
         mCityId = requireArguments().getString(ARG_CITY_ID);
         String cityName = requireArguments().getString(ARG_CITY_NAME);
 
-        String label = args.getString(ARG_LABEL);
         if (savedInstanceState != null) {
             label = savedInstanceState.getString(ARG_LABEL, label);
             syncAlarmByLabel = savedInstanceState.getBoolean(ARG_SYNC_ALARM_BY_LABEL, syncAlarmByLabel);
@@ -182,7 +178,7 @@ public class LabelDialogFragment extends DialogFragment {
         int iconResId;
         final CharSequence title;
 
-        if (mAlarm != null) {
+        if (mIsAlarm) {
             iconResId = R.drawable.ic_label;
             title = getString(R.string.alarm_label_box_title);
         } else if (mTimerId >= 0) {
@@ -227,7 +223,7 @@ public class LabelDialogFragment extends DialogFragment {
             return false;
         });
 
-        if (mAlarm != null) {
+        if (mIsAlarm) {
             MaterialDivider divider = dialogView.findViewById(R.id.divider);
             mSyncAlarmByLabelCheckbox = dialogView.findViewById(R.id.sync_alarm_by_label);
 
@@ -307,16 +303,18 @@ public class LabelDialogFragment extends DialogFragment {
      * Apply the label.
      */
     private void applyLabel(String label) {
-        if (mAlarm != null) {
-            ((AlarmLabelDialogHandler) requireActivity()).onDialogLabelSet(
-                    mAlarm, label.trim(), mSyncAlarmByLabelCheckbox.isChecked(), mTag);
-        } else if (mTimerId >= 0) {
+        if (mTimerId >= 0) {
             final Timer timer = DataModel.getDataModel().getTimer(mTimerId);
             if (timer != null) {
                 DataModel.getDataModel().setTimerLabel(timer, label.trim());
             }
         } else if (mCityId != null) {
             ((CityNoteDialogHandler) requireActivity()).onDialogCityNoteSet(mCityId, label.trim(), mTag);
+        } else {
+            Bundle result = new Bundle();
+            result.putString(RESULT_LABEL, label.trim());
+            result.putBoolean(RESULT_SYNC, mSyncAlarmByLabelCheckbox.isChecked());
+            getParentFragmentManager().setFragmentResult(REQUEST_KEY, result);
         }
     }
 
@@ -354,21 +352,6 @@ public class LabelDialogFragment extends DialogFragment {
         @Override
         public void afterTextChanged(Editable editable) {
         }
-    }
-
-    /**
-     * Callback interface for handling the result of the alarm label dialog.
-     */
-    public interface AlarmLabelDialogHandler {
-
-        /**
-         * Called when the user confirms the new label for the given alarm.
-         *
-         * @param alarm the {@link Alarm} that was labeled
-         * @param label the new label entered by the user
-         * @param tag   an optional tag used to identify the target fragment or context
-         */
-        void onDialogLabelSet(Alarm alarm, String label, boolean syncAlarmByLabel, String tag);
     }
 
     /**

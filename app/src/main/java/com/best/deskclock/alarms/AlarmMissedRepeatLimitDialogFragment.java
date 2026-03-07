@@ -20,9 +20,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
-import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.uicomponents.CustomDialog;
-import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 
@@ -36,29 +34,23 @@ public class AlarmMissedRepeatLimitDialogFragment extends DialogFragment {
      */
     private static final String TAG = "alarm_missed_repeat_count_dialog";
 
+    public static final String REQUEST_KEY = "missed_repeat_limit_request_key";
+    public static final String RESULT_MISSED_REPEAT_LIMIT = "result_missed_repeat_limit";
+
     private static final String ARG_SELECTED_COUNT = "selected_count";
-    private static final String ARG_ALARM = "arg_alarm";
-    private static final String ARG_TAG = "arg_tag";
 
     private RadioGroup mRadioGroup;
-    private Alarm mAlarm;
-    private String mTag;
 
     /**
      * Creates a new instance of {@link AlarmMissedRepeatLimitDialogFragment} for use
-     * in the expanded alarm view, where the number of times a missed alarm can be repeated is
+     * in the alarm edit panel, where the number of times a missed alarm can be repeated is
      * configured for a specific alarm.
      *
-     * @param alarm             The alarm instance being edited.
      * @param missedRepeatLimit The number of times a missed alarm can be repeated.
-     * @param tag               A tag identifying the fragment in the fragment manager.
      */
-    public static AlarmMissedRepeatLimitDialogFragment newInstance(Alarm alarm, int missedRepeatLimit,
-                                                                   String tag) {
+    public static AlarmMissedRepeatLimitDialogFragment newInstance(int missedRepeatLimit) {
         final Bundle args = new Bundle();
 
-        args.putParcelable(ARG_ALARM, alarm);
-        args.putString(ARG_TAG, tag);
         args.putInt(ARG_SELECTED_COUNT, missedRepeatLimit);
 
         final AlarmMissedRepeatLimitDialogFragment fragment = new AlarmMissedRepeatLimitDialogFragment();
@@ -86,12 +78,6 @@ public class AlarmMissedRepeatLimitDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         SharedPreferences prefs = getDefaultSharedPreferences(requireContext());
         Typeface typeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
-
-        final Bundle args = requireArguments();
-        mAlarm = SdkUtils.isAtLeastAndroid13()
-                ? args.getParcelable(ARG_ALARM, Alarm.class)
-                : args.getParcelable(ARG_ALARM);
-        mTag = args.getString(ARG_TAG);
 
         int selectedCount = requireArguments().getInt(ARG_SELECTED_COUNT, 0);
         if (savedInstanceState != null) {
@@ -141,10 +127,10 @@ public class AlarmMissedRepeatLimitDialogFragment extends DialogFragment {
     private void setMissedAlarmRepeatLimit() {
         int missedAlarmRepeatLimit = getLimitFromSelectedRadioButton();
 
-        if (mAlarm != null) {
-            ((MissedAlarmRepeatLimitDialogHandler) requireActivity())
-                    .onMissedAlarmRepeatLimitSet(mAlarm, missedAlarmRepeatLimit, mTag);
-        }
+        Bundle result = new Bundle();
+        result.putInt(RESULT_MISSED_REPEAT_LIMIT, missedAlarmRepeatLimit);
+
+        getParentFragmentManager().setFragmentResult(REQUEST_KEY, result);
     }
 
     private int getLimitFromSelectedRadioButton() {
@@ -180,10 +166,6 @@ public class AlarmMissedRepeatLimitDialogFragment extends DialogFragment {
         };
 
         mRadioGroup.check(id);
-    }
-
-    public interface MissedAlarmRepeatLimitDialogHandler {
-        void onMissedAlarmRepeatLimitSet(Alarm alarm, int missedAlarmRepeatLimit, String tag);
     }
 
 }

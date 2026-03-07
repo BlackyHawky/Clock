@@ -28,11 +28,9 @@ import androidx.fragment.app.FragmentManager;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
-import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.ringtone.RingtonePreviewKlaxon;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.RingtoneUtils;
-import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.google.android.material.slider.Slider;
@@ -49,14 +47,14 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
      */
     private static final String TAG = "set_alarm_volume_dialog";
 
+    public static final String REQUEST_KEY = "volume_request_key";
+    public static final String RESULT_VOLUME_VALUE = "result_volume_value";
     private static final String ARG_ALARM_VOLUME_VALUE = "arg_alarm_volume_value";
-    private static final String ARG_ALARM = "arg_alarm";
-    private static final String ARG_TAG = "arg_tag";
+    private static final String ARG_RINGTONE_URI = "arg_ringtone_uri";
 
     private Context mContext;
     private AudioManager mAudioManager;
-    private Alarm mAlarm;
-    private String mTag;
+    private Uri mRingtoneUri;
     private Slider mSlider;
     private ImageView mVolumeMinus;
     private ImageView mVolumePlus;
@@ -71,17 +69,17 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
 
     /**
      * Creates a new instance of {@link AlarmVolumeDialogFragment} for use
-     * in the expanded alarm view, where the volume value is configured for a specific alarm.
+     * in the alarm edit panel, where the volume value is configured for a specific alarm.
      *
-     * @param alarm             The alarm instance being edited.
      * @param alarmVolumeValue  The volume value in step.
-     * @param tag               A tag identifying the fragment in the fragment manager.
      */
-    public static AlarmVolumeDialogFragment newInstance(Alarm alarm, int alarmVolumeValue, String tag) {
+    public static AlarmVolumeDialogFragment newInstance(int alarmVolumeValue, Uri ringtoneUri) {
         final Bundle args = new Bundle();
-        args.putParcelable(ARG_ALARM, alarm);
-        args.putString(ARG_TAG, tag);
         args.putInt(ARG_ALARM_VOLUME_VALUE, alarmVolumeValue);
+
+        if (ringtoneUri != null) {
+            args.putString(ARG_RINGTONE_URI, ringtoneUri.toString());
+        }
 
         final AlarmVolumeDialogFragment fragment = new AlarmVolumeDialogFragment();
         fragment.setArguments(args);
@@ -101,6 +99,10 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
         if (mSlider != null) {
             outState.putInt(ARG_ALARM_VOLUME_VALUE, (int) mSlider.getValue() + mMinVolume);
         }
+
+        if (mRingtoneUri != null) {
+            outState.putString(ARG_RINGTONE_URI, mRingtoneUri.toString());
+        }
     }
 
     @NonNull
@@ -111,15 +113,18 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
         mTypeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
 
         final Bundle args = requireArguments();
-        mAlarm = SdkUtils.isAtLeastAndroid13()
-                ? args.getParcelable(ARG_ALARM, Alarm.class)
-                : args.getParcelable(ARG_ALARM);
-        mTag = args.getString(ARG_TAG);
-
+        String uriString = args.getString(ARG_RINGTONE_URI);
         int volumeValue = args.getInt(ARG_ALARM_VOLUME_VALUE, 0);
 
         if (savedInstanceState != null) {
+            uriString = savedInstanceState.getString(ARG_RINGTONE_URI, uriString);
             volumeValue = savedInstanceState.getInt(ARG_ALARM_VOLUME_VALUE, volumeValue);
+        }
+
+        if (uriString != null) {
+            mRingtoneUri = Uri.parse(uriString);
+        } else {
+            mRingtoneUri = RingtoneUtils.getFallbackRingtoneUri(mContext);
         }
 
         mAudioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
@@ -152,7 +157,7 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
                 mSlider.setValue(newValue);
 
                 int newVolume = (int) newValue + mMinVolume;
-                startRingtonePreview(mAlarm, newVolume);
+                startRingtonePreview(newVolume);
             }
         });
 
@@ -162,7 +167,7 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
                 mSlider.setValue(newValue);
 
                 int newVolume = (int) newValue + mMinVolume;
-                startRingtonePreview(mAlarm, newVolume);
+                startRingtonePreview(newVolume);
             }
         });
 
@@ -185,7 +190,7 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
             @Override
             public void onStartTrackingTouch(@NonNull Slider slider) {
                 int newVolume = (int) slider.getValue() + mMinVolume;
-                startRingtonePreview(mAlarm, newVolume);
+                startRingtonePreview(newVolume);
             }
 
             @Override
@@ -243,10 +248,11 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
      * Set the alarm volume.
      */
     private void setVolumeValue() {
-        if (mAlarm != null) {
-            int volumeValue = (int) mSlider.getValue() + mMinVolume;
-            ((VolumeValueDialogHandler) requireActivity()).onVolumeValueSet(mAlarm, volumeValue, mTag);
-        }
+        Bundle result = new Bundle();
+        int volumeValue = (int) mSlider.getValue() + mMinVolume;
+        result.putInt(RESULT_VOLUME_VALUE, volumeValue);
+
+        getParentFragmentManager().setFragmentResult(REQUEST_KEY, result);
     }
 
     /**
@@ -292,10 +298,9 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
      * Starts a preview of the alarm ringtone at the given volume level.
      * Temporarily sets the alarm stream volume and restores it after a short delay.
      *
-     * @param alarm      The alarm containing the ringtone to play.
      * @param newVolume  The volume level (in steps) to apply during the preview.
      */
-    public void startRingtonePreview(Alarm alarm, int newVolume) {
+    public void startRingtonePreview(int newVolume) {
         if (mRingtoneStopRunnable != null) {
             mRingtoneHandler.removeCallbacks(mRingtoneStopRunnable);
         }
@@ -308,7 +313,7 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
         // Temporarily apply the new volume
         mAudioManager.setStreamVolume(AudioManager.STREAM_ALARM, newVolume, 0);
 
-        Uri ringtoneUri = alarm.alert;
+        Uri ringtoneUri = mRingtoneUri;
         if (RingtoneUtils.isRandomRingtone(ringtoneUri)) {
             ringtoneUri = RingtoneUtils.getRandomRingtoneUri();
         } else if (RingtoneUtils.isRandomCustomRingtone(ringtoneUri)) {
@@ -351,7 +356,4 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
         mIsPreviewPlaying = false;
     }
 
-    public interface VolumeValueDialogHandler {
-        void onVolumeValueSet(Alarm alarm, int volumeValue, String tag);
-    }
 }

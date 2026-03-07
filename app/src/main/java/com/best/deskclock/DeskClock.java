@@ -80,20 +80,12 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
 
-import com.best.deskclock.AlarmSnoozeDurationDialogFragment.SnoozeDurationDialogHandler;
-import com.best.deskclock.AutoSilenceDurationDialogFragment.AutoSilenceDurationDialogHandler;
-import com.best.deskclock.LabelDialogFragment.AlarmLabelDialogHandler;
 import com.best.deskclock.LabelDialogFragment.CityNoteDialogHandler;
-import com.best.deskclock.VibrationPatternDialogFragment.VibrationPatternDialogHandler;
-import com.best.deskclock.VolumeCrescendoDurationDialogFragment.VolumeCrescendoDurationDialogHandler;
-import com.best.deskclock.alarms.AlarmMissedRepeatLimitDialogFragment.MissedAlarmRepeatLimitDialogHandler;
-import com.best.deskclock.alarms.AlarmVolumeDialogFragment.VolumeValueDialogHandler;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.DataModel.SilentSetting;
 import com.best.deskclock.data.OnSilentSettingsListener;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.events.Events;
-import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.settings.PermissionsManagementActivity;
 import com.best.deskclock.settings.SettingsActivity;
 import com.best.deskclock.stopwatch.StopwatchService;
@@ -105,11 +97,8 @@ import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.PermissionUtils;
 import com.best.deskclock.utils.ThemeUtils;
-
 import com.best.deskclock.utils.Utils;
-import com.best.deskclock.utils.WidgetUtils;
-import com.best.deskclock.widgets.materialyouwidgets.MaterialYouNextAlarmAppWidgetProvider;
-import com.best.deskclock.widgets.standardwidgets.NextAlarmAppWidgetProvider;
+
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
@@ -126,11 +115,7 @@ import java.util.TimeZone;
  * The main activity of the application which displays 4 different tabs contains alarms, world
  * clocks, timers and stopwatch.
  */
-public class DeskClock extends BaseActivity
-        implements FabContainer, AlarmLabelDialogHandler, VibrationPatternDialogHandler,
-        AutoSilenceDurationDialogHandler, SnoozeDurationDialogHandler,
-        MissedAlarmRepeatLimitDialogHandler, VolumeCrescendoDurationDialogHandler,
-        VolumeValueDialogHandler, CityNoteDialogHandler {
+public class DeskClock extends BaseActivity implements FabContainer, CityNoteDialogHandler {
 
     SharedPreferences mPrefs;
     Typeface mRegularTypeface;
@@ -493,80 +478,6 @@ public class DeskClock extends BaseActivity
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * Called by the LabelDialogFormat class after the dialog is finished.
-     */
-    @Override
-    public void onDialogLabelSet(Alarm alarm, String label, boolean syncAlarmByLabel, String tag) {
-        final Fragment frag = getSupportFragmentManager().findFragmentByTag(tag);
-        if (frag instanceof AlarmClockFragment) {
-            ((AlarmClockFragment) frag).setLabel(alarm, label, syncAlarmByLabel);
-            // Update the alarm title in the “Next alarm” widget
-            WidgetUtils.updateWidget(this, NextAlarmAppWidgetProvider.class);
-            WidgetUtils.updateWidget(this, MaterialYouNextAlarmAppWidgetProvider.class);
-        }
-    }
-
-    @Override
-    public void onDialogVibrationPatternSet(Alarm alarm, String vibrationPattern, String tag) {
-        final Fragment frag = getSupportFragmentManager().findFragmentByTag(tag);
-        if (frag instanceof AlarmClockFragment) {
-            ((AlarmClockFragment) frag).setVibrationPattern(alarm, vibrationPattern);
-        }
-    }
-
-    /**
-     * Called by the AutoSilenceDurationDialogFragment class after the dialog is finished.
-     */
-    @Override
-    public void onDialogAutoSilenceDurationSet(Alarm alarm, int silenceAfterDuration, String tag) {
-        final Fragment frag = getSupportFragmentManager().findFragmentByTag(tag);
-        if (frag instanceof AlarmClockFragment) {
-            ((AlarmClockFragment) frag).setAutoSilenceDuration(alarm, silenceAfterDuration);
-        }
-    }
-
-    /**
-     * Called by the AlarmSnoozeDurationDialogFragment class after the dialog is finished.
-     */
-    @Override
-    public void onDialogSnoozeDurationSet(Alarm alarm, int snoozeDuration, String tag) {
-        final Fragment frag = getSupportFragmentManager().findFragmentByTag(tag);
-        if (frag instanceof AlarmClockFragment) {
-            ((AlarmClockFragment) frag).setSnoozeDuration(alarm, snoozeDuration);
-        }
-    }
-
-    @Override
-    public void onMissedAlarmRepeatLimitSet(Alarm alarm, int missedAlarmRepeatLimit, String tag) {
-        final Fragment frag = getSupportFragmentManager().findFragmentByTag(tag);
-        if (frag instanceof AlarmClockFragment) {
-            ((AlarmClockFragment) frag).setMissedAlarmRepeatLimit(alarm, missedAlarmRepeatLimit);
-        }
-    }
-
-    /**
-     * Called by the VolumeCrescendoDurationDialogFragment class after the dialog is finished.
-     */
-    @Override
-    public void onDialogCrescendoDurationSet(Alarm alarm, int crescendoDuration, String tag) {
-        final Fragment frag = getSupportFragmentManager().findFragmentByTag(tag);
-        if (frag instanceof AlarmClockFragment) {
-            ((AlarmClockFragment) frag).setCrescendoDuration(alarm, crescendoDuration);
-        }
-    }
-
-    /**
-     * Called by the AlarmVolumeDialogFragment class after the dialog is finished.
-     */
-    @Override
-    public void onVolumeValueSet(Alarm alarm, int volumeValue, String tag) {
-        final Fragment frag = getSupportFragmentManager().findFragmentByTag(tag);
-        if (frag instanceof AlarmClockFragment) {
-            ((AlarmClockFragment) frag).setAlarmVolume(alarm, volumeValue);
-        }
     }
 
     /**

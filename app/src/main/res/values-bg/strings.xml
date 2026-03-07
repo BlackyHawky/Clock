@@ -196,8 +196,6 @@
     <string name="timer_vibrate_title" msgid="7788920024785587518">Вибриране при отброяване</string>
     <string name="timer_paused" msgid="5941160896040771462">Спряно на пауза</string>
     <string name="timers_in_use" msgid="5570729467344408506"><xliff:g id="number">%d</xliff:g> отброявания</string>
-    <string name="expand_alarm" msgid="7392616528943305020">"Разгъване на будилника"</string>
-    <string name="collapse_alarm" msgid="3561772046433483980">"Свиване на будилника"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"отмяна"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">Будилникът е премахнат</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="label">%s</xliff:g></string>
@@ -545,7 +543,6 @@
     <string name="screensaver_italic_next_alarm_title">Следващият будилник е с наклонен шрифт</string>
     <string name="preview_title">Преглед</string>
     <string name="screensaver_preview_summary">Включва заставката сега</string>
-    <string name="alarm_created">Будилникът е създаден</string>
     <string name="shake_intensity_title">Сила на разклащане</string>
     <string name="first_launch_version">Издание %s</string>
     <string name="first_launch_button_now">Сега</string>

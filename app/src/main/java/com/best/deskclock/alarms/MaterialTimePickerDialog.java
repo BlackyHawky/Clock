@@ -9,13 +9,13 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
@@ -30,11 +30,15 @@ import com.google.android.material.timepicker.TimeFormat;
  */
 public class MaterialTimePickerDialog {
 
+    public static final String REQUEST_KEY = "material_time_picker_request_key";
+    public static final String BUNDLE_KEY_HOURS = "material_time_picker_hours";
+    public static final String BUNDLE_KEY_MINUTES = "material_time_picker_minutes";
+
     /**
      * Displays a dialog to select the hour and minutes and AM/PM for 12-hour mode.
      */
     public static void show(Context context, FragmentManager fragmentManager, String tag, int initialHour,
-                            int initialMinute, SharedPreferences prefs, @NonNull OnTimeSetListener listener) {
+                            int initialMinute, SharedPreferences prefs) {
 
         @TimeFormat int clockFormat;
         boolean isSystem24Hour = DateFormat.is24HourFormat(context);
@@ -52,8 +56,12 @@ public class MaterialTimePickerDialog {
                 .setMinute(initialMinute)
                 .build();
 
-        picker.addOnPositiveButtonClickListener(dialog ->
-                listener.onTimeSet(picker.getHour(), picker.getMinute()));
+        picker.addOnPositiveButtonClickListener(dialog -> {
+            Bundle result = new Bundle();
+            result.putInt(BUNDLE_KEY_HOURS, picker.getHour());
+            result.putInt(BUNDLE_KEY_MINUTES, picker.getMinute());
+            fragmentManager.setFragmentResult(REQUEST_KEY, result);
+        });
 
         picker.getViewLifecycleOwnerLiveData().observeForever(new Observer<>() {
 

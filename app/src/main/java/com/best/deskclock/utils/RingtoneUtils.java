@@ -288,14 +288,14 @@ public class RingtoneUtils {
      * @return Uri of the ringtone to play when the user is in a telephone call
      */
     public static Uri getInCallRingtoneUri(Context context) {
-        return RingtoneUtils.getResourceUri(context, R.raw.alarm_expire);
+        return getResourceUri(context, R.raw.alarm_expire);
     }
 
     /**
      * @return Uri of the ringtone to play when the chosen ringtone fails to play
      */
     public static Uri getFallbackRingtoneUri(Context context) {
-        return RingtoneUtils.getResourceUri(context, R.raw.alarm_expire);
+        return getResourceUri(context, R.raw.alarm_expire);
     }
 
     /**

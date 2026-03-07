@@ -204,8 +204,6 @@
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Vibración del temporizador"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Temporizador pausado"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> temporizadores"</string>
-    <string name="expand_alarm" msgid="7392616528943305020">"Expandir alarma"</string>
-    <string name="collapse_alarm" msgid="3561772046433483980">"Contraer alarma"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"Deshacer"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Alarma eliminada"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="label">%s</xliff:g></string>
@@ -450,7 +448,6 @@
     <string name="description_direction_both_for_occasional_alarm">Deslice el dedo hacia la izquierda para posponer la alarma o hacia la derecha para descartarla y eliminarla</string>
     <string name="transparent_background_for_expired_timer_title">Fondo transparente cuando expiran los temporizadores</string>
     <string name="screensaver_bold_date_title">Fecha en negrita</string>
-    <string name="alarm_created">Alarma creada</string>
     <string name="clock_settings_summary">Definir el estilo, la zona horaria y cambiar la fecha y hora del dispositivo</string>
     <string name="alarm_settings_summary">Configura el tono predeterminado, el volumen, las acciones para descartar o posponer las alarmas, el primer día de la semana y la hora de notificación del recordatorio</string>
     <string name="permission_denied">Denegado</string>

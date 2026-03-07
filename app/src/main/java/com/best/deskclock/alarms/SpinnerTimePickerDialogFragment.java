@@ -50,9 +50,9 @@ public class SpinnerTimePickerDialogFragment extends DialogFragment {
     private static final String ARG_HOURS = "arg_hours";
     private static final String ARG_MINUTES = "arg_minutes";
     private static final String ARG_AM_PM = "arg_am_pm";
-    public static final String REQUEST_KEY = "alarm_result";
-    public static final String BUNDLE_KEY_HOURS = "hours";
-    public static final String BUNDLE_KEY_MINUTES = "minutes";
+    public static final String REQUEST_KEY = "spinner_time_picker_request_key";
+    public static final String BUNDLE_KEY_HOURS = "spinner_time_picker_hours";
+    public static final String BUNDLE_KEY_MINUTES = "spinner_time_picker_minutes";
 
     private LinearLayout mLayout;
     private NumberPicker mHourPicker;
@@ -62,7 +62,7 @@ public class SpinnerTimePickerDialogFragment extends DialogFragment {
 
     /**
      * Creates a new instance of {@link SpinnerTimePickerDialogFragment} for use
-     * in the alarm view, where the volume value is configured for a specific alarm.
+     * in the alarm view, where the time is configured for a specific alarm.
      *
      * @param hours    The alarm hours.
      * @param minutes  The alarm minutes.

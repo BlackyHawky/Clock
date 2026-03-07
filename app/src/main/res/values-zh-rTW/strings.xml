@@ -188,8 +188,6 @@
     <string name="timer_vibrate_title" msgid="7788920024785587518">"計時器震動"</string>
     <string name="timer_paused" msgid="5941160896040771462">"計時器已暫停"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> 個計時器"</string>
-    <string name="expand_alarm" msgid="7392616528943305020">"展開鬧鐘"</string>
-    <string name="collapse_alarm" msgid="3561772046433483980">"收合鬧鐘"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"復原"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"已刪除鬧鐘"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">／ <xliff:g id="label">%s</xliff:g></string>
@@ -278,7 +276,6 @@
     <string name="system_theme">系統</string>
     <string name="brown_accent_color">棕色</string>
     <string name="snooze_duration_none">無</string>
-    <string name="alarm_created">鬧鐘已建立</string>
     <string name="notifications_permission_title">啟用通知</string>
     <string name="ignore_battery_optimizations_dialog_title">電池最佳化</string>
     <string name="background_color_title">背景顏色</string>

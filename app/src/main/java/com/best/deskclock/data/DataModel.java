@@ -568,14 +568,6 @@ public final class DataModel {
     }
 
     /**
-     * @param uri the uri of the ringtone of an existing alarm
-     */
-    public void setSelectedAlarmRingtoneUri(Uri uri) {
-        enforceMainLooper();
-        mAlarmModel.setSelectedAlarmRingtoneUri(uri);
-    }
-
-    /**
      * @param stopwatchListener to be notified when stopwatch changes or laps are added
      */
     public void addStopwatchListener(StopwatchListener stopwatchListener) {

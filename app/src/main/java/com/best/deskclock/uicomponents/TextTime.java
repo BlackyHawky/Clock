@@ -6,15 +6,12 @@
 
 package com.best.deskclock.uicomponents;
 
-import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static java.util.Calendar.HOUR_OF_DAY;
 import static java.util.Calendar.MINUTE;
 
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.database.ContentObserver;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
@@ -26,9 +23,7 @@ import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.best.deskclock.data.DataModel;
-import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.ClockUtils;
-import com.best.deskclock.utils.ThemeUtils;
 
 import java.util.Calendar;
 import java.util.TimeZone;
@@ -51,7 +46,6 @@ public class TextTime extends AppCompatTextView {
     private CharSequence mFormat24;
     private CharSequence mFormat;
     private Context mContext;
-    private SharedPreferences mPrefs;
 
     private boolean mAttached;
 
@@ -89,7 +83,7 @@ public class TextTime extends AppCompatTextView {
         }
 
         mContext = context;
-        mPrefs = getDefaultSharedPreferences(context);
+
         setTimeFormat(0.45f, false);
         chooseFormat();
     }
@@ -159,15 +153,6 @@ public class TextTime extends AppCompatTextView {
         mHour = hour;
         mMinute = minute;
         updateTime();
-    }
-
-    public void setTypeface(boolean isAlarmEnabled) {
-        String fontPath = SettingsDAO.getAlarmFont(mPrefs);
-        Typeface typeface = isAlarmEnabled
-                ? ThemeUtils.boldTypeface(fontPath)
-                : ThemeUtils.loadFont(fontPath);
-
-        setTypeface(typeface);
     }
 
     public void setTimeFormat(float amPmRatio, boolean includeSeconds) {

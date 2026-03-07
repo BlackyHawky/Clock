@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2016 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+-->
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/alarm_item_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="130dp"
+    android:importantForAccessibility="no"
+    android:paddingVertical="6dp"
+    tools:background="@drawable/bg_card_for_preview"
+    tools:layout_marginHorizontal="10dp"
+    tools:layout_marginBottom="2dp">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/label"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:paddingBottom="4dp"
+        android:gravity="center_vertical"
+        android:focusable="true"
+        android:ellipsize="end"
+        android:textSize="16sp"
+        android:maxLines="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/digital_clock"
+        app:layout_constraintWidth_percent="0.7"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="@string/category_alarm"
+        tools:ignore="TextContrastCheck" />
+
+    <com.best.deskclock.uicomponents.TextTime
+        android:id="@+id/digital_clock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:background="?attr/selectableItemBackground"
+        android:textStyle="bold"
+        android:includeFontPadding="false"
+        android:focusable="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/label"
+        app:layout_constraintBottom_toTopOf="@+id/days_of_week"
+        tools:text="08:30"
+        tools:textSize="40sp" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/days_of_week"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="20dp"
+        android:textSize="14sp"
+        android:maxLines="2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/preemptive_dismiss_button"
+        app:layout_constraintTop_toBottomOf="@+id/digital_clock"
+        app:layout_constraintBottom_toTopOf="@+id/upcoming_date"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintHorizontal_bias="0.0"
+        tools:text="Mon, Tue, Wed" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/upcoming_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="20dp"
+        android:textSize="14sp"
+        android:textColor="?attr/colorTertiary"
+        android:maxLines="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/preemptive_dismiss_button"
+        app:layout_constraintTop_toBottomOf="@+id/days_of_week"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintHorizontal_bias="0.0"
+        tools:text="Jan, 01 Monday"
+        tools:visibility="visible" />
+
+    <com.google.android.material.materialswitch.MaterialSwitch
+        android:id="@+id/onoff"
+        android:theme="@style/AlarmMaterialSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/preemptive_dismiss_button"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/preemptive_dismiss_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="16dp"
+        android:minHeight="40dp"
+        android:padding="6dp"
+        android:gravity="center"
+        android:maxLines="2"
+        android:textColor="?attr/colorAccent"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/onoff"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintHorizontal_bias="1.0"
+        tools:text="@string/alarm_alert_dismiss_and_delete_text_button" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

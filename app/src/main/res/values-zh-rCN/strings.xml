@@ -188,8 +188,6 @@
     <string name="timer_vibrate_title" msgid="7788920024785587518">"定时器振动"</string>
     <string name="timer_paused" msgid="5941160896040771462">"定时器已暂停"</string>
     <string name="timers_in_use" msgid="5570729467344408506"><xliff:g example="7" id="number">%d</xliff:g> 个定时器</string>
-    <string name="expand_alarm" msgid="7392616528943305020">"展开闹钟"</string>
-    <string name="collapse_alarm" msgid="3561772046433483980">收起闹钟</string>
     <string name="alarm_undo" msgid="5710042601177655254">撤销</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"闹钟已删除"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="label">%s</xliff:g></string>
@@ -263,7 +261,6 @@
     <string name="material_time_picker_style_title">时间选择器样式</string>
     <string name="timer_label_box_title">定时器标签</string>
     <string name="whats_new_title">更新日志</string>
-    <string name="alarm_created">闹钟已创建</string>
     <string name="first_launch_important_info_message">为了确保应用程序正常工作，&lt;b&gt;必须更改某些设备设置：&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;电池优化；&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;通知；&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;根据设备的 Android 版本，其中一些设置已经过优化（例如通知）。&lt;/i&gt; &lt;br&gt; &lt;br&gt; 您可以现在或以后在权限管理设置中更改它们：</string>
     <string name="first_launch_main_feature_link">…还有更多！</string>
     <string name="screensaver_italic_date_title">日期以斜体显示</string>

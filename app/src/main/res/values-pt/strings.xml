@@ -203,8 +203,6 @@
     <string name="timer_vibrate_title" msgid="7788920024785587518">Timer com vibração</string>
     <string name="timer_paused" msgid="5941160896040771462">"Timer pausado"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> timers"</string>
-    <string name="expand_alarm" msgid="7392616528943305020">"Expandir alarme"</string>
-    <string name="collapse_alarm" msgid="3561772046433483980">"Recolher alarme"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"desfazer"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Alarme excluído"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="label">%s</xliff:g></string>
@@ -356,7 +354,6 @@
     <string name="screensaver_italic_date_title">Data em itálico</string>
     <string name="night_accent_color_title">Cor de destaque para o modo noturno</string>
     <string name="pink_accent_color">Rosa</string>
-    <string name="alarm_created">Alarme criado</string>
     <string name="description_direction_both_for_occasional_non_repeatable_alarm">Deslize para esquerda ou direita para descartar e deletar alarme</string>
     <string name="auto_night_accent_color_title">Aplicar cor de destaque para o modo noturno</string>
     <string name="first_launch_button_now">Agora</string>

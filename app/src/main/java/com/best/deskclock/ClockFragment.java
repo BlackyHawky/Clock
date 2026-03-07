@@ -162,13 +162,15 @@ public final class ClockFragment extends DeskClockFragment {
 
         final RecyclerView cityList = fragmentView.findViewById(R.id.cities);
         cityList.setAdapter(mCityAdapter);
-        cityList.addItemDecoration(new CitySpacingItemDecoration(mContext, mIsPortrait, mIsTablet));
         cityList.setLayoutManager(new LinearLayoutManager(mContext));
+
         // Due to the ViewPager and the location of FAB, set a bottom padding to prevent
         // the city list from being hidden by the FAB (e.g. when scrolling down).
         cityList.setPadding(0, 0, 0, (int) dpToPx(mIsTablet && mIsPortrait
                 ? 110 : mIsPortrait
                 ? 90 : 0, mDisplayMetrics));
+
+        cityList.addItemDecoration(new CitySpacingItemDecoration(mContext, mIsPortrait, mIsTablet));
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
             @Override
@@ -417,8 +419,8 @@ public final class ClockFragment extends DeskClockFragment {
 
         private final int leftMargin;
         private final int rightMargin;
-        private final int standardBottomMargin;
-        private final int lastBottomMargin;
+        private final int bottomMargin;
+        private final int spacing;
         private final int mainClockCount;
 
         public CitySpacingItemDecoration(Context context, boolean isPortrait, boolean isTablet) {
@@ -430,8 +432,8 @@ public final class ClockFragment extends DeskClockFragment {
 
             this.leftMargin = (int) dpToPx(isPhoneInLandscapeMode ? 0 : 10, metrics);
             this.rightMargin = (int) dpToPx(isPhoneInLandscapeMode ? 90 : 10, metrics);
-            this.standardBottomMargin = (int) dpToPx(2, metrics);
-            this.lastBottomMargin = (int) dpToPx(isPortrait ? 10 : 8, metrics);
+            this.spacing = (int) dpToPx(2, metrics);
+            this.bottomMargin = (int) dpToPx(10, metrics);
         }
 
         @Override
@@ -459,11 +461,11 @@ public final class ClockFragment extends DeskClockFragment {
 
             if (position == itemCount - 1) {
                 // Bottom margin for the very last city
-                outRect.bottom = lastBottomMargin;
+                outRect.bottom = bottomMargin;
             } else {
                 // Bottom margin if it is a city in the middle of the list
                 int totalCitiesAndHomeClock = itemCount - mainClockCount;
-                outRect.bottom = (totalCitiesAndHomeClock > 1) ? standardBottomMargin : 0;
+                outRect.bottom = (totalCitiesAndHomeClock > 1) ? spacing : 0;
             }
         }
     }

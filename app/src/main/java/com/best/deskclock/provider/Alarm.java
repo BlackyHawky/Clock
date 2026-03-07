@@ -43,6 +43,7 @@ import com.best.deskclock.utils.SdkUtils;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     /**
@@ -301,6 +302,31 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.missedAlarmRepeatLimit = missedAlarmRepeatLimit;
         this.crescendoDuration = crescendoDuration;
         this.alarmVolume = alarmVolume;
+    }
+
+    // Used to create a clone of the given alarm
+    public Alarm(Alarm original) {
+        this.id = original.id;
+        this.enabled = original.enabled;
+        this.year = original.year;
+        this.month = original.month;
+        this.day = original.day;
+        this.hour = original.hour;
+        this.minutes = original.minutes;
+        this.vibrate = original.vibrate;
+        this.vibrationPattern = original.vibrationPattern;
+        this.flash = original.flash;
+        this.daysOfWeek = Weekdays.fromBits(original.daysOfWeek.getBits());
+        this.label = original.label;
+        this.syncByLabel = original.syncByLabel;
+        this.alert = original.alert;
+        this.deleteAfterUse = original.deleteAfterUse;
+        this.autoSilenceDuration = original.autoSilenceDuration;
+        this.snoozeDuration = original.snoozeDuration;
+        this.missedAlarmRepeatLimit = original.missedAlarmRepeatLimit;
+        this.crescendoDuration = original.crescendoDuration;
+        this.alarmVolume = original.alarmVolume;
+        this.instanceState = original.instanceState;
     }
 
     public Alarm(Cursor c) {
@@ -606,6 +632,52 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         prefs.edit().remove(KEY_SHOW_STYLED_REPEAT_DAY + id).apply();
     }
 
+    /**
+     * Checks if the user has modified the time, date, or repeat days.
+     * These changes are considered "major" because they require recalculating and recreating
+     * the alarm instance.
+     *
+     * @param other The original alarm to compare against.
+     * @return {@code true} if a major time-related field has changed, {@code false} otherwise.
+     */
+    public boolean hasTimeChanged(Alarm other) {
+        if (other == null) {
+            return false;
+        }
+
+        return year != other.year
+                || month != other.month
+                || day != other.day
+                || hour != other.hour
+                || minutes != other.minutes
+                || daysOfWeek.getBits() != other.daysOfWeek.getBits();
+    }
+
+    /**
+     * Checks if the user has modified the alarm's behavior settings.
+     * These changes are considered "minor" because they can be applied directly to the existing
+     * instance without having to cancel and recreate the schedule in the {@code AlarmManager}.
+     *
+     * @param other The original alarm to compare against.
+     * @return {@code true} if a minor behavior-related field has changed, {@code false} otherwise.
+     */
+    public boolean hasMinorFieldsChanged(Alarm other) {
+        if (other == null) return false;
+
+        return !Objects.equals(label, other.label)
+                || syncByLabel != other.syncByLabel
+                || vibrate != other.vibrate
+                || !Objects.equals(vibrationPattern, other.vibrationPattern)
+                || flash != other.flash
+                || !Objects.equals(alert, other.alert)
+                || deleteAfterUse != other.deleteAfterUse
+                || autoSilenceDuration != other.autoSilenceDuration
+                || snoozeDuration != other.snoozeDuration
+                || missedAlarmRepeatLimit != other.missedAlarmRepeatLimit
+                || crescendoDuration != other.crescendoDuration
+                || alarmVolume != other.alarmVolume;
+    }
+
     public boolean isTomorrow(Calendar now) {
         if (instanceState == AlarmInstance.SNOOZE_STATE) {
             return false;
@@ -768,26 +840,38 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
 
     /**
      * Returns the day of the week (as Calendar.DAY_OF_WEEK) when the alarm will next trigger.
-     * <p>
-     * If a valid AlarmInstance is provided and its scheduled time is in the future,
+     *
+     * <p>If a valid {@link AlarmInstance} is provided and its scheduled time is in the future,
      * that time is used to determine the next alarm day.
      * Otherwise, the method calculates the next scheduled alarm time based on the current time
      * and the alarm's repeat settings.</p>
      *
-     * @param alarmInstance the current AlarmInstance, or null if not yet created
-     * @return the day of the week (e.g., Calendar.MONDAY, Calendar.TUESDAY, ...)
+     * @param alarmInstance the current {@link AlarmInstance}, or null if not yet created
+     * @return the day of the week (e.g., {@link Calendar#MONDAY}, {@link Calendar#TUESDAY}, ...)
      */
     public int getNextAlarmDayOfWeek(AlarmInstance alarmInstance) {
+        return getNextAlarmTimeCalendar(alarmInstance).get(Calendar.DAY_OF_WEEK);
+    }
+
+    /**
+     * Retrieves the exact {@link Calendar} date and time when the alarm will next trigger.
+     *
+     * <p>This method ensures temporal accuracy by verifying the provided {@link AlarmInstance}.
+     * If the instance exists and is scheduled in the future, its time is returned directly.
+     * If the instance is null or its scheduled time has already passed (e.g., the alarm just fired),
+     * this method dynamically calculates the next valid chronological trigger time based on the
+     * current time and the alarm's recurrence rules.</p>
+     *
+     * @param alarmInstance the current {@link AlarmInstance} associated with this alarm, or null.
+     * @return a {@link Calendar} object representing the next valid upcoming alarm time.
+     */
+    public Calendar getNextAlarmTimeCalendar(AlarmInstance alarmInstance) {
         Calendar referenceTime = Calendar.getInstance();
-        Calendar nextAlarmTime;
-
         if (alarmInstance != null && alarmInstance.getAlarmTime().after(referenceTime)) {
-            nextAlarmTime = alarmInstance.getAlarmTime();
+            return alarmInstance.getAlarmTime();
         } else {
-            nextAlarmTime = getNextAlarmTime(referenceTime);
+            return getNextAlarmTime(referenceTime);
         }
-
-        return nextAlarmTime.get(Calendar.DAY_OF_WEEK);
     }
 
     /**

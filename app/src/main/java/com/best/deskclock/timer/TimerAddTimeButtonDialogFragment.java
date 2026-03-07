@@ -62,7 +62,7 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
     private static final String ARG_TIMER_ID = "arg_timer_id";
     private static final String ARG_PREF_KEY = "arg_pref_key";
     public static final String RESULT_PREF_KEY = "result_pref_key";
-    public static final String REQUEST_KEY = "request_key";
+    public static final String REQUEST_KEY = "add_time_button_request_key";
     public static final String ADD_TIME_BUTTON_VALUE = "add_time_button_value";
 
     private Context mContext;

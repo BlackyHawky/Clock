@@ -7,7 +7,7 @@
 package com.best.deskclock.alarms;
 
 /**
- * API that handles scrolling when an alarm item is expanded/collapsed.
+ * API that handles scrolling.
  */
 public interface ScrollHandler {
 

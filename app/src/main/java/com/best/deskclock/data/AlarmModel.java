@@ -11,7 +11,6 @@ import android.net.Uri;
 import android.provider.Settings;
 
 import com.best.deskclock.settings.PreferencesKeys;
-import com.best.deskclock.utils.RingtoneUtils;
 
 /**
  * All alarm data will eventually be accessed via this model.
@@ -91,16 +90,6 @@ final class AlarmModel {
      */
     void setAlarmRingtoneUriFromSettings(Uri uri) {
         SettingsDAO.setAlarmRingtoneUriFromSettings(mPrefs, uri);
-    }
-
-    /**
-     * @param uri the uri of the ringtone of an existing alarm
-     */
-    void setSelectedAlarmRingtoneUri(Uri uri) {
-        // Never set the silent ringtone as default; new alarms should always make sound by default.
-        if (!RingtoneUtils.RINGTONE_SILENT.equals(uri)) {
-            SettingsDAO.setSelectedAlarmRingtoneUri(mPrefs, uri);
-        }
     }
 
     /**

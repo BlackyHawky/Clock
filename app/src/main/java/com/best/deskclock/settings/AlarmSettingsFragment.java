@@ -3,11 +3,8 @@
 package com.best.deskclock.settings;
 
 import static android.app.Activity.RESULT_OK;
-import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_SNOOZE_DURATION_DISABLED;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_VOLUME;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VIBRATION_START_DELAY;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VOLUME_CRESCENDO_DURATION;
-import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_END_OF_RINGTONE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_NEVER;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ADVANCED_AUDIO_PLAYBACK;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_DISPLAY_CUSTOMIZATION;
@@ -59,6 +56,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.View;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -66,6 +64,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
@@ -238,6 +238,13 @@ public class AlarmSettingsFragment extends ScreenFragment
     }
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        setupFragmentResultListeners();
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
 
@@ -333,7 +340,7 @@ public class AlarmSettingsFragment extends ScreenFragment
                 final int index = mRepeatMissedAlarmPref.findIndexOfValue((String) newValue);
                 mRepeatMissedAlarmPref.setSummary(mRepeatMissedAlarmPref.getEntries()[index]);
 
-                if (!SettingsDAO.isPerAlarmMissedRepeatLimitEnabled(mPrefs)) {
+                if (SettingsDAO.isPerAlarmMissedRepeatLimitDisabled(mPrefs)) {
                     for (Alarm alarm : mAlarmList) {
                         alarm.missedAlarmRepeatLimit = Integer.parseInt((String) newValue);
                         mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
@@ -526,21 +533,17 @@ public class AlarmSettingsFragment extends ScreenFragment
         if (pref instanceof AutoSilenceDurationPreference autoSilenceDurationPreference) {
             int currentValue = autoSilenceDurationPreference.getAutoSilenceDuration();
             AutoSilenceDurationDialogFragment dialogFragment =
-                    AutoSilenceDurationDialogFragment.newInstance(pref.getKey(), currentValue,
-                            currentValue == TIMEOUT_END_OF_RINGTONE,
-                            currentValue == TIMEOUT_NEVER);
+                    AutoSilenceDurationDialogFragment.newInstance(pref.getKey(), currentValue);
             AutoSilenceDurationDialogFragment.show(getParentFragmentManager(), dialogFragment);
         } else if (pref instanceof AlarmSnoozeDurationPreference alarmSnoozeDurationPreference) {
             int currentValue = alarmSnoozeDurationPreference.getSnoozeDuration();
             AlarmSnoozeDurationDialogFragment dialogFragment =
-                    AlarmSnoozeDurationDialogFragment.newInstance(pref.getKey(), currentValue,
-                            currentValue == ALARM_SNOOZE_DURATION_DISABLED);
+                    AlarmSnoozeDurationDialogFragment.newInstance(pref.getKey(), currentValue);
             AlarmSnoozeDurationDialogFragment.show(getParentFragmentManager(), dialogFragment);
         } else if (pref instanceof VolumeCrescendoDurationPreference volumeCrescendoDurationPreference) {
             int currentValue = volumeCrescendoDurationPreference.getVolumeCrescendoDuration();
             VolumeCrescendoDurationDialogFragment dialogFragment =
-                    VolumeCrescendoDurationDialogFragment.newInstance(pref.getKey(), currentValue,
-                            currentValue == DEFAULT_VOLUME_CRESCENDO_DURATION);
+                    VolumeCrescendoDurationDialogFragment.newInstance(pref.getKey(), currentValue);
             VolumeCrescendoDurationDialogFragment.show(getParentFragmentManager(), dialogFragment);
         } else if (pref instanceof VibrationPatternPreference vibrationPatternPreference) {
             String currentValue = vibrationPatternPreference.getPattern();
@@ -580,53 +583,7 @@ public class AlarmSettingsFragment extends ScreenFragment
 
         mAlarmRingtonePref.setOnPreferenceClickListener(this);
 
-        // Alarm auto silence duration preference
-        getParentFragmentManager().setFragmentResultListener(AutoSilenceDurationDialogFragment.REQUEST_KEY,
-                this, (requestKey, bundle) -> {
-            String key = bundle.getString(AutoSilenceDurationDialogFragment.RESULT_PREF_KEY);
-            int newValue = bundle.getInt(AutoSilenceDurationDialogFragment.AUTO_SILENCE_DURATION_VALUE);
-
-            if (key != null) {
-                AutoSilenceDurationPreference pref = findPreference(key);
-                if (pref != null) {
-                    pref.setAutoSilenceDuration(newValue);
-                    pref.setSummary(pref.getSummary());
-                    mEnablePerAlarmMissedRepeatLimitPref.setVisible(newValue != TIMEOUT_NEVER);
-                    mRepeatMissedAlarmPref.setVisible(newValue != TIMEOUT_NEVER);
-
-                    if (!SettingsDAO.isPerAlarmAutoSilenceEnabled(mPrefs)) {
-                        for (Alarm alarm : mAlarmList) {
-                            alarm.autoSilenceDuration = newValue;
-                            mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
-                        }
-                    }
-                }
-            }
-        });
-
         mEnablePerAlarmAutoSilencePref.setOnPreferenceChangeListener(this);
-
-        // Alarm snooze duration preference
-        getParentFragmentManager().setFragmentResultListener(AlarmSnoozeDurationDialogFragment.REQUEST_KEY,
-                this, (requestKey, bundle) -> {
-            String key = bundle.getString(AlarmSnoozeDurationDialogFragment.RESULT_PREF_KEY);
-            int newValue = bundle.getInt(AlarmSnoozeDurationDialogFragment.ALARM_SNOOZE_DURATION_VALUE);
-
-            if (key != null) {
-                AlarmSnoozeDurationPreference pref = findPreference(key);
-                if (pref != null) {
-                    pref.setSnoozeDuration(newValue);
-                    pref.setSummary(pref.getSummary());
-
-                    if (!SettingsDAO.isPerAlarmSnoozeDurationEnabled(mPrefs)) {
-                        for (Alarm alarm : mAlarmList) {
-                            alarm.snoozeDuration = newValue;
-                            mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
-                        }
-                    }
-                }
-            }
-        });
 
         mEnablePerAlarmSnoozeDurationPref.setOnPreferenceChangeListener(this);
 
@@ -642,28 +599,6 @@ public class AlarmSettingsFragment extends ScreenFragment
         }
 
         mEnablePerAlarmVolumePref.setOnPreferenceChangeListener(this);
-
-        // Alarm volume crescendo duration preference
-        getParentFragmentManager().setFragmentResultListener(VolumeCrescendoDurationDialogFragment.REQUEST_KEY,
-                this, (requestKey, bundle) -> {
-            String key = bundle.getString(VolumeCrescendoDurationDialogFragment.RESULT_PREF_KEY);
-            int newValue = bundle.getInt(VolumeCrescendoDurationDialogFragment.VOLUME_CRESCENDO_DURATION_VALUE);
-
-            if (key != null) {
-                VolumeCrescendoDurationPreference pref = findPreference(key);
-                if (pref != null) {
-                    pref.setVolumeCrescendoDuration(newValue);
-                    pref.setSummary(pref.getSummary());
-
-                    if (!SettingsDAO.isPerAlarmCrescendoDurationEnabled(mPrefs)) {
-                        for (Alarm alarm : mAlarmList) {
-                            alarm.crescendoDuration = newValue;
-                            mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
-                        }
-                    }
-                }
-            }
-        });
 
         mEnablePerAlarmVolumeCrescendoDurationPref.setOnPreferenceChangeListener(this);
 
@@ -685,44 +620,7 @@ public class AlarmSettingsFragment extends ScreenFragment
 
         mEnableAlarmVibrationsByDefaultPref.setOnPreferenceChangeListener(this);
 
-        // Vibration pattern preference
-        getParentFragmentManager().setFragmentResultListener(VibrationPatternDialogFragment.REQUEST_KEY,
-                this, (requestKey, bundle) -> {
-                    String key = bundle.getString(VibrationPatternDialogFragment.RESULT_PREF_KEY);
-                    String newValue = bundle.getString(VibrationPatternDialogFragment.RESULT_PATTERN_KEY);
-
-                    if (key != null) {
-                        VibrationPatternPreference pref = findPreference(key);
-                        if (pref != null) {
-                            pref.setPattern(newValue);
-                            pref.setSummary(pref.getSummary());
-
-                            if (!SettingsDAO.isPerAlarmVibrationPatternEnabled(mPrefs)) {
-                                for (Alarm alarm : mAlarmList) {
-                                    alarm.vibrationPattern = newValue;
-                                    mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
-                                }
-                            }
-                        }
-                    }
-                });
-
         mEnablePerAlarmVibrationPatternPref.setOnPreferenceChangeListener(this);
-
-        // Vibration start delay preference
-        getParentFragmentManager().setFragmentResultListener(VibrationStartDelayDialogFragment.REQUEST_KEY,
-                this, (requestKey, bundle) -> {
-                    String key = bundle.getString(VibrationStartDelayDialogFragment.RESULT_PREF_KEY);
-                    int newValue = bundle.getInt(VibrationStartDelayDialogFragment.VIBRATION_DELAY_VALUE);
-
-                    if (key != null) {
-                        VibrationStartDelayPreference pref = findPreference(key);
-                        if (pref != null) {
-                            pref.setVibrationStartDelay(newValue);
-                            pref.setSummary(pref.getSummary());
-                        }
-                    }
-                });
 
         mEnableSnoozedOrDismissedAlarmVibrationsPref.setOnPreferenceChangeListener(this);
 
@@ -774,6 +672,116 @@ public class AlarmSettingsFragment extends ScreenFragment
         mTurnOnBackFlashForTriggeredAlarmPref.setOnPreferenceChangeListener(this);
 
         mDeleteOccasionalAlarmByDefaultPref.setOnPreferenceChangeListener(this);
+    }
+
+    private void setupFragmentResultListeners() {
+        FragmentManager parentFragmentManager = getParentFragmentManager();
+        LifecycleOwner viewLifecycleOwner = getViewLifecycleOwner();
+
+        // Alarm auto silence duration preference
+        parentFragmentManager.setFragmentResultListener(AutoSilenceDurationDialogFragment.REQUEST_KEY,
+                viewLifecycleOwner, (requestKey, bundle) -> {
+                    String key = bundle.getString(AutoSilenceDurationDialogFragment.RESULT_PREF_KEY);
+                    int newValue = bundle.getInt(AutoSilenceDurationDialogFragment.AUTO_SILENCE_DURATION_VALUE);
+
+                    if (key != null) {
+                        AutoSilenceDurationPreference pref = findPreference(key);
+                        if (pref != null) {
+                            pref.setAutoSilenceDuration(newValue);
+                            pref.setSummary(pref.getSummary());
+                            mEnablePerAlarmMissedRepeatLimitPref.setVisible(newValue != TIMEOUT_NEVER);
+                            mRepeatMissedAlarmPref.setVisible(newValue != TIMEOUT_NEVER);
+
+                            if (SettingsDAO.isPerAlarmAutoSilenceDisabled(mPrefs)) {
+                                for (Alarm alarm : mAlarmList) {
+                                    alarm.autoSilenceDuration = newValue;
+                                    mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                                }
+                            }
+                        }
+                    }
+                });
+
+        // Alarm snooze duration preference
+        parentFragmentManager.setFragmentResultListener(AlarmSnoozeDurationDialogFragment.REQUEST_KEY,
+                viewLifecycleOwner, (requestKey, bundle) -> {
+                    String key = bundle.getString(AlarmSnoozeDurationDialogFragment.RESULT_PREF_KEY);
+                    int newValue = bundle.getInt(AlarmSnoozeDurationDialogFragment.ALARM_SNOOZE_DURATION_VALUE);
+
+                    if (key != null) {
+                        AlarmSnoozeDurationPreference pref = findPreference(key);
+                        if (pref != null) {
+                            pref.setSnoozeDuration(newValue);
+                            pref.setSummary(pref.getSummary());
+
+                            if (SettingsDAO.isPerAlarmSnoozeDurationDisabled(mPrefs)) {
+                                for (Alarm alarm : mAlarmList) {
+                                    alarm.snoozeDuration = newValue;
+                                    mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                                }
+                            }
+                        }
+                    }
+                });
+
+        // Alarm volume crescendo duration preference
+        parentFragmentManager.setFragmentResultListener(VolumeCrescendoDurationDialogFragment.REQUEST_KEY,
+                viewLifecycleOwner, (requestKey, bundle) -> {
+                    String key = bundle.getString(VolumeCrescendoDurationDialogFragment.RESULT_PREF_KEY);
+                    int newValue = bundle.getInt(VolumeCrescendoDurationDialogFragment.VOLUME_CRESCENDO_DURATION_VALUE);
+
+                    if (key != null) {
+                        VolumeCrescendoDurationPreference pref = findPreference(key);
+                        if (pref != null) {
+                            pref.setVolumeCrescendoDuration(newValue);
+                            pref.setSummary(pref.getSummary());
+
+                            if (SettingsDAO.isPerAlarmCrescendoDurationDisabled(mPrefs)) {
+                                for (Alarm alarm : mAlarmList) {
+                                    alarm.crescendoDuration = newValue;
+                                    mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                                }
+                            }
+                        }
+                    }
+                });
+
+        // Vibration pattern preference
+        parentFragmentManager.setFragmentResultListener(VibrationPatternDialogFragment.REQUEST_KEY,
+                viewLifecycleOwner, (requestKey, bundle) -> {
+                    String key = bundle.getString(VibrationPatternDialogFragment.RESULT_PREF_KEY);
+                    String newValue = bundle.getString(VibrationPatternDialogFragment.RESULT_PATTERN_KEY);
+
+                    if (key != null) {
+                        VibrationPatternPreference pref = findPreference(key);
+                        if (pref != null) {
+                            pref.setPattern(newValue);
+                            pref.setSummary(pref.getSummary());
+
+                            if (!SettingsDAO.isPerAlarmVibrationPatternEnabled(mPrefs)) {
+                                for (Alarm alarm : mAlarmList) {
+                                    alarm.vibrationPattern = newValue;
+                                    mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                                }
+                            }
+                        }
+                    }
+                });
+
+        // Vibration start delay preference
+        parentFragmentManager.setFragmentResultListener(VibrationStartDelayDialogFragment.REQUEST_KEY,
+                viewLifecycleOwner, (requestKey, bundle) -> {
+                    String key = bundle.getString(VibrationStartDelayDialogFragment.RESULT_PREF_KEY);
+                    int newValue = bundle.getInt(VibrationStartDelayDialogFragment.VIBRATION_DELAY_VALUE);
+
+                    if (key != null) {
+                        VibrationStartDelayPreference pref = findPreference(key);
+                        if (pref != null) {
+                            pref.setVibrationStartDelay(newValue);
+                            pref.setSummary(pref.getSummary());
+                        }
+                    }
+                });
     }
 
     private void showDisablePerAlarmSettingDialog(@StringRes int messageResId, String prefKey,

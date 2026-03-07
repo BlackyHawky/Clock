@@ -14,12 +14,12 @@
 
     <!-- Due to the ViewPager and the location of FAB, paddings are set
          in the AlarmClockFragment.java file. -->
-    <com.best.deskclock.AlarmRecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/alarms_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        tools:listitem="@layout/alarm_time_collapsed" />
+        tools:listitem="@layout/alarm_item" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/alarms_empty_view"

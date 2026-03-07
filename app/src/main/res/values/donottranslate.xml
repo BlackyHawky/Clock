@@ -37,6 +37,7 @@
     <string name="action_snooze">Snooze</string>
     <string name="action_create">Create</string>
     <string name="action_delete">Delete</string>
+    <string name="action_duplicate">Duplicate</string>
     <string name="action_update">Update</string>
     <string name="action_start">Start</string>
     <string name="action_pause">Pause</string>
@@ -48,10 +49,6 @@
     <string name="action_lap">Lap</string>
     <string name="action_enable">Enable</string>
     <string name="action_disable">Disable</string>
-    <string name="action_expand">Expand</string>
-    <string name="action_collapse">Collapse</string>
-    <string name="action_expand_implied">Expand Implied</string>
-    <string name="action_collapse_implied">Collapse Implied</string>
     <string name="action_set_time">Set Time</string>
     <string name="action_set_delay">Set Delay</string>
     <string name="action_set_date">Set Date</string>

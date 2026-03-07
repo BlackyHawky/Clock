@@ -196,8 +196,6 @@
     <string name="timer_vibrate_title" msgid="7788920024785587518">Trillen voor kookwekker</string>
     <string name="timer_paused" msgid="5941160896040771462">Kookwekker gepauzeerd</string>
     <string name="timers_in_use" msgid="5570729467344408506"><xliff:g id="NUMBER">%d</xliff:g> kookwekkers</string>
-    <string name="expand_alarm" msgid="7392616528943305020">"Wekker uitvouwen"</string>
-    <string name="collapse_alarm" msgid="3561772046433483980">"Wekker samenvouwen"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"ongedaan maken"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Verwijderd"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="label">%s</xliff:g></string>
@@ -264,7 +262,6 @@
     <string name="screensaver_italic_next_alarm_title">Schuingedrukte volgende wekker</string>
     <string name="preview_title">Voorvertoning</string>
     <string name="screensaver_preview_summary">Start de screensaver meteen</string>
-    <string name="alarm_created">Wekker aangemaakt</string>
     <string name="alarm_missed_channel">Gemiste wekkers</string>
     <string name="alarm_snooze_channel">Gesluimerde wekkers</string>
     <string name="alarm_upcoming_channel">Volgende wekkers</string>

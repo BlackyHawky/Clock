@@ -212,8 +212,6 @@
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Вибросигнал таймера"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Таймер приостановлен"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"Таймеров: <xliff:g id="NUMBER">%d</xliff:g>"</string>
-    <string name="expand_alarm" msgid="7392616528943305020">"Развернуть"</string>
-    <string name="collapse_alarm" msgid="3561772046433483980">"Свернуть"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"отмена"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Будильник удален"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="метка">%s</xliff:g></string>
@@ -279,7 +277,6 @@
     <string name="timer_add_custom_time">+ %s</string>
     <string name="clock_settings_summary">Выбрать стиль, часовой пояс и изменить дату и время девайса</string>
     <string name="next_alarm_color_title">Следующий цвет будильника</string>
-    <string name="alarm_created">Будильник создан</string>
     <string name="first_launch_important_info_message">Чтобы убедиться в правильной работе приложения, &lt;b&gt;некоторые настройки вашего девайса должны быть изменены:&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;ОПТИМИЗАЦИЯ БАТАРЕИ;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;УВЕДОМЛЕНИЯ;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;В зависимости от версии Android вашего девайса, некоторые из этих настроек уже оптимизированы (такие как уведомления).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Вы можете изменить их сейчас или позже в настройках управления разрешениями:</string>
     <string name="first_launch_dialog_message">Вы уверены, что вы хотите покинуть приложение?</string>
     <string name="display_city_title">Отображать города на виджете</string>

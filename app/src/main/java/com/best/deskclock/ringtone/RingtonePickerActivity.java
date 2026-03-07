@@ -95,11 +95,6 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
     private static final String EXTRA_TITLE = "extra_title";
 
     /**
-     * Key to an extra that identifies the alarm to which the selected ringtone is attached.
-     */
-    private static final String EXTRA_ALARM_ID = "extra_alarm_id";
-
-    /**
      * Key to an extra that identifies the selected ringtone.
      */
     private static final String EXTRA_RINGTONE_URI = "extra_ringtone_uri";
@@ -113,6 +108,12 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
      * Key to an extra that defines the name of the default ringtone.
      */
     private static final String EXTRA_DEFAULT_RINGTONE_NAME = "extra_default_ringtone_name";
+
+    /**
+     * Extra key used to indicate that the ringtone picker should only return the selected URI
+     * as an activity result, rather than automatically saving it to the data model.
+     */
+    public static final String EXTRA_RETURN_RESULT_ONLY = "extra_return_result_only";
 
     /**
      * Key to an instance state value indicating if the selected ringtone is currently playing.
@@ -150,14 +151,11 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
     private boolean mIsPlaying;
 
     /**
-     * Identifies the alarm to receive the selected ringtone; -1 indicates there is no alarm.
-     */
-    private long mAlarmId;
-
-    /**
      * Identifies the title of the ringtone picker activity that appears in the action bar.
      */
     private int mTitleResourceId;
+
+    private boolean mReturnResultOnly;
 
     private FragmentManager mFragmentManager;
     private SharedPreferences mPrefs;
@@ -223,10 +221,10 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
     public static Intent createAlarmRingtonePickerIntent(Context context, Alarm alarm) {
         return new Intent(context, RingtonePickerActivity.class)
                 .putExtra(EXTRA_TITLE, R.string.alarm_sound)
-                .putExtra(EXTRA_ALARM_ID, alarm.id)
                 .putExtra(EXTRA_RINGTONE_URI, alarm.alert)
                 .putExtra(EXTRA_DEFAULT_RINGTONE_URI, RingtoneManager.getDefaultUri(TYPE_ALARM))
-                .putExtra(EXTRA_DEFAULT_RINGTONE_NAME, R.string.default_alarm_ringtone_title);
+                .putExtra(EXTRA_DEFAULT_RINGTONE_NAME, R.string.default_alarm_ringtone_title)
+                .putExtra(EXTRA_RETURN_RESULT_ONLY, true);
     }
 
     /**
@@ -288,7 +286,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
                     : intent.getParcelableExtra(EXTRA_RINGTONE_URI);
         }
 
-        mAlarmId = intent.getLongExtra(EXTRA_ALARM_ID, -1);
+        mReturnResultOnly = intent.getBooleanExtra(EXTRA_RETURN_RESULT_ONLY, false);
 
         mDefaultRingtoneUri = SdkUtils.isAtLeastAndroid13()
                 ? intent.getParcelableExtra(EXTRA_DEFAULT_RINGTONE_URI, Uri.class)
@@ -304,10 +302,10 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
         final Factory buttonTipFactory = new AddButtonTipViewHolder.Factory(inflater);
 
         mRingtoneAdapter = new ItemAdapter<>();
-        mRingtoneAdapter.withViewTypes(headerFactory, null, null, VIEW_TYPE_ITEM_HEADER)
-                .withViewTypes(buttonTipFactory, null, null, VIEW_TYPE_BUTTON_TIP)
-                .withViewTypes(ringtoneFactory, listener, null, VIEW_TYPE_SYSTEM_SOUND)
-                .withViewTypes(ringtoneFactory, listener, null, VIEW_TYPE_CUSTOM_SOUND);
+        mRingtoneAdapter.withViewTypes(headerFactory, null, VIEW_TYPE_ITEM_HEADER)
+                .withViewTypes(buttonTipFactory, null, VIEW_TYPE_BUTTON_TIP)
+                .withViewTypes(ringtoneFactory, listener, VIEW_TYPE_SYSTEM_SOUND)
+                .withViewTypes(ringtoneFactory, listener, VIEW_TYPE_CUSTOM_SOUND);
 
         mRingtoneContent = findViewById(R.id.ringtone_content);
         mRingtoneContent.setLayoutManager(new LinearLayoutManager(context));
@@ -357,32 +355,11 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
 
     @Override
     protected void onPause() {
-        if (mSelectedRingtoneUri != null) {
+        if (mSelectedRingtoneUri != null && !mReturnResultOnly) {
             if (mTitleResourceId == R.string.default_alarm_ringtone_title) {
                 DataModel.getDataModel().setAlarmRingtoneUriFromSettings(mSelectedRingtoneUri);
             } else {
-                if (mAlarmId != -1) {
-                    final Context context = getApplicationContext();
-                    final ContentResolver cr = getContentResolver();
-
-                    // Start a background task to fetch the alarm whose ringtone must be updated.
-                    AppExecutors.getDiskIO().execute(() -> {
-                        final Alarm alarm = Alarm.getAlarm(cr, mAlarmId);
-                        if (alarm != null) {
-                            alarm.alert = mSelectedRingtoneUri;
-
-                            AppExecutors.getMainThread().post(() -> {
-                                DataModel.getDataModel().setSelectedAlarmRingtoneUri(alarm.alert);
-
-                                // Start a second background task to persist the updated alarm.
-                                new AlarmUpdateHandler(context, null, null)
-                                        .asyncUpdateAlarm(alarm, false, true);
-                            });
-                        }
-                    });
-                } else {
-                    DataModel.getDataModel().setTimerRingtoneUri(mSelectedRingtoneUri);
-                }
+                DataModel.getDataModel().setTimerRingtoneUri(mSelectedRingtoneUri);
             }
         }
 
@@ -396,6 +373,16 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
         }
 
         super.onStop();
+    }
+
+    @Override
+    public void finish() {
+        if (mReturnResultOnly && mSelectedRingtoneUri != null) {
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI, mSelectedRingtoneUri);
+            setResult(RESULT_OK, resultIntent);
+        }
+        super.finish();
     }
 
     @Override

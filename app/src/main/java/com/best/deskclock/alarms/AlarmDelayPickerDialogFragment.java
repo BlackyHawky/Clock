@@ -56,8 +56,8 @@ public class AlarmDelayPickerDialogFragment extends DialogFragment {
     private static final String ARG_EDIT_HOURS = "arg_edit_hours";
     private static final String ARG_EDIT_MINUTES = "arg_edit_minutes";
     public static final String REQUEST_KEY = "alarm_delay_result";
-    public static final String BUNDLE_KEY_HOURS = "hours";
-    public static final String BUNDLE_KEY_MINUTES = "minutes";
+    public static final String BUNDLE_KEY_HOURS = "alarm_delay_dialog_hours";
+    public static final String BUNDLE_KEY_MINUTES = "alarm_delay_dialog_minutes";
 
     private Context mContext;
     private Button mOkButton;

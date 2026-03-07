@@ -204,8 +204,6 @@
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Vibrare pentru temporizator"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Temporizator întrerupt"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> contoare"</string>
-    <string name="expand_alarm" msgid="7392616528943305020">Extinde alarma</string>
-    <string name="collapse_alarm" msgid="3561772046433483980">Restrânge alarma</string>
     <string name="alarm_undo" msgid="5710042601177655254">anulare</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Alarma a fost ștearsă"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="LABEL">%s</xliff:g></string>
@@ -284,7 +282,6 @@
     <string name="screensaver_italic_next_alarm_title">Următoarea alarmă cursiv</string>
     <string name="preview_title">Previzualizare</string>
     <string name="screensaver_preview_summary">Pornește imediat screensaver-ul</string>
-    <string name="alarm_created">Alarmă creată</string>
     <string name="permission_management_summary">Afișează permisiunile necesare pentru ca aplicația să funcționeze corect</string>
     <string name="permission_requirement_title">Cerință: </string>
     <string name="permission_highly_recommended">Foarte recomandat</string>

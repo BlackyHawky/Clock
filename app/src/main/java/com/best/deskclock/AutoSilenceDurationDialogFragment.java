@@ -36,9 +36,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.best.deskclock.data.SettingsDAO;
-import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.uicomponents.CustomDialog;
-import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.google.android.material.checkbox.MaterialCheckBox;
@@ -71,12 +69,8 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
     public static final String RESULT_PREF_KEY = AUTO_SILENCE_DURATION + "result_pref_key";
     public static final String REQUEST_KEY = AUTO_SILENCE_DURATION + "request_key";
     public static final String AUTO_SILENCE_DURATION_VALUE = AUTO_SILENCE_DURATION + "value";
-    private static final String ARG_ALARM = "arg_alarm";
-    private static final String ARG_TAG = "arg_tag";
 
     private Context mContext;
-    private Alarm mAlarm;
-    private String mTag;
     private String mPrefKey;
     private TextInputLayout mMinutesInputLayout;
     private TextInputLayout mSecondsInputLayout;
@@ -96,21 +90,23 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
      * in the settings screen, where the auto silence duration is configured independently
      * of a specific alarm or for timers.
      *
-     * @param key              The shared preference key used to identify the setting.
-     * @param totalDuration    The auto silence duration, in seconds for timers, or in minutes for alarms.
-     * @param isEndOfRingtone  {@code true} if the auto silence duration should correspond
-     *                         to the end of the ringtone playback rather than a fixed time.
-     * @param isNever          {@code true} if the alarm or timer should never be automatically silenced.
-     *                         This overrides the duration value if set.
+     * @param key                 The shared preference key used to identify the setting.
+     * @param autoSilenceDuration The auto silence duration, in seconds for timers or in minutes for alarms.
      */
-    public static AutoSilenceDurationDialogFragment newInstance(String key, int totalDuration,
-                                                                boolean isEndOfRingtone,
-                                                                boolean isNever) {
+    public static AutoSilenceDurationDialogFragment newInstance(String key, int autoSilenceDuration) {
 
         Bundle args = new Bundle();
 
-        int minutes = totalDuration / 60;
-        int seconds = totalDuration % 60;
+        boolean isNever = autoSilenceDuration == TIMEOUT_NEVER;
+        boolean isEndOfRingtone = autoSilenceDuration == TIMEOUT_END_OF_RINGTONE;
+
+        int minutes = 0;
+        int seconds = 0;
+
+        if (!isNever && !isEndOfRingtone) {
+            minutes = autoSilenceDuration / 60;
+            seconds = autoSilenceDuration % 60;
+        }
 
         args.putString(ARG_PREF_KEY, key);
         args.putInt(ARG_EDIT_AUTO_SILENCE_MINUTES, minutes);
@@ -125,26 +121,25 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
 
     /**
      * Creates a new instance of {@link AutoSilenceDurationDialogFragment} for use
-     * in the expanded alarm view, where the auto silence duration is configured for a specific alarm.
+     * in the alarm edit panel, where the auto silence duration is configured for a specific alarm.
      *
-     * @param alarm                The alarm instance being edited.
-     * @param autoSilenceDuration  The silence duration in minutes.
-     * @param isEndOfRingtone      true if the auto silence duration should correspond
-     *                             to the end of the ringtone playback rather than a fixed time.
-     * @param isNever              {@code true} if the alarm should never be automatically silenced.
-     *                             This overrides the duration value if set.
-     * @param tag                  A tag identifying the fragment in the fragment manager.
+     * @param autoSilenceDuration The silence duration in minutes.
      */
-    public static AutoSilenceDurationDialogFragment newInstance(Alarm alarm, int autoSilenceDuration,
-                                                                boolean isEndOfRingtone, boolean isNever,
-                                                                String tag) {
+    public static AutoSilenceDurationDialogFragment newInstance(int autoSilenceDuration) {
+
         final Bundle args = new Bundle();
 
-        int minutes = autoSilenceDuration / 60;
-        int seconds = autoSilenceDuration % 60;
+        boolean isNever = autoSilenceDuration == TIMEOUT_NEVER;
+        boolean isEndOfRingtone = autoSilenceDuration == TIMEOUT_END_OF_RINGTONE;
 
-        args.putParcelable(ARG_ALARM, alarm);
-        args.putString(ARG_TAG, tag);
+        int minutes = 0;
+        int seconds = 0;
+
+        if (!isNever && !isEndOfRingtone) {
+            minutes = autoSilenceDuration / 60;
+            seconds = autoSilenceDuration % 60;
+        }
+
         args.putInt(ARG_EDIT_AUTO_SILENCE_MINUTES, minutes);
         args.putInt(ARG_EDIT_AUTO_SILENCE_SECONDS, seconds);
         args.putBoolean(ARG_END_OF_RINGTONE, isEndOfRingtone);
@@ -189,10 +184,6 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
         mTypeFace = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
 
         final Bundle args = requireArguments();
-        mAlarm = SdkUtils.isAtLeastAndroid13()
-                ? args.getParcelable(ARG_ALARM, Alarm.class)
-                : args.getParcelable(ARG_ALARM);
-        mTag = args.getString(ARG_TAG);
 
         mPrefKey = args.getString(ARG_PREF_KEY, null);
         int editMinutes = args.getInt(ARG_EDIT_AUTO_SILENCE_MINUTES, 0);
@@ -240,12 +231,11 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
             }
         });
 
-        if (editSeconds == TIMEOUT_END_OF_RINGTONE || editSeconds == TIMEOUT_NEVER) {
-            mEditSeconds.setText("");
-        } else {
+        mEditSeconds.setTypeface(mTypeFace);
+
+        if (!isNever && !isEndOfRingtone) {
             mEditSeconds.setText(String.valueOf(editSeconds));
         }
-        mEditSeconds.setTypeface(mTypeFace);
         mEditSeconds.selectAll();
         mEditSeconds.setInputType(InputType.TYPE_CLASS_NUMBER);
         mEditSeconds.setOnEditorActionListener(new ImeDoneListener());
@@ -288,9 +278,6 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
             isUpdatingCheckboxes = false;
         });
 
-        String minutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
-        String secondsText = mEditSeconds.getText() != null ? mEditSeconds.getText().toString() : "";
-
         return CustomDialog.create(
                 mContext,
                 null,
@@ -310,8 +297,11 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
                     mOkButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
                     mDefaultButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
 
-                    mOkButton.setEnabled(!isInvalidInput(minutesText, secondsText));
-                    mDefaultButton.setEnabled(isNotDefaultAutoSilenceDuration(minutesText, secondsText));
+                    String inputMinutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
+                    String inputSecondsText = mEditSeconds.getText() != null ? mEditSeconds.getText().toString() : "";
+
+                    mOkButton.setEnabled(!isInvalidInput(inputMinutesText, inputSecondsText));
+                    mDefaultButton.setEnabled(isNotDefaultAutoSilenceDuration(inputMinutesText, inputSecondsText));
                 },
                 CustomDialog.SoftInputMode.SHOW_KEYBOARD
         );
@@ -445,15 +435,14 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
      * Apply the auto silence duration in seconds for alarms or timers.
      */
     private void applyAutoSilenceDurationInSeconds(int autoSilenceDurationInSeconds) {
-        if (mAlarm != null) {
-            ((AutoSilenceDurationDialogHandler) requireActivity())
-                    .onDialogAutoSilenceDurationSet(mAlarm, autoSilenceDurationInSeconds, mTag);
-        } else {
-            Bundle result = new Bundle();
-            result.putInt(AUTO_SILENCE_DURATION_VALUE, autoSilenceDurationInSeconds);
+        Bundle result = new Bundle();
+        result.putInt(AUTO_SILENCE_DURATION_VALUE, autoSilenceDurationInSeconds);
+
+        if (mPrefKey != null) {
             result.putString(RESULT_PREF_KEY, requireArguments().getString(ARG_PREF_KEY));
-            getParentFragmentManager().setFragmentResult(REQUEST_KEY, result);
         }
+
+        getParentFragmentManager().setFragmentResult(REQUEST_KEY, result);
     }
 
     /**
@@ -664,7 +653,4 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
         }
     }
 
-    public interface AutoSilenceDurationDialogHandler {
-        void onDialogAutoSilenceDurationSet(Alarm alarm, int autoSilenceDuration, String tag);
-    }
 }

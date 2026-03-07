@@ -10,7 +10,7 @@
     <string name="app_label">Clock</string>
     <!-- Default label to display for an alarm -->
     <string name="default_label">Alarm</string>
-    <!-- Label title on the expanded alarm view to schedule alarm -->
+    <!-- Label title in the alarm edit panel to schedule alarm -->
     <string name="schedule_alarm_title">Schedule alarm</string>
     <!-- Setting labels on Set alarm screen: Vibration on or off -->
     <string name="alarm_vibrate">Vibrate</string>
@@ -94,6 +94,8 @@
     <string name="alarm_alert_dismiss_text">Dismiss</string>
     <!-- Button label on the alarm notification panel: Dismiss & Delete -->
     <string name="alarm_alert_dismiss_and_delete_text">Dismiss &amp; Delete</string>
+    <!-- Button label on the alarm edit panel: Dismiss & Delete -->
+    <string name="alarm_alert_dismiss_and_delete_text_button">Dismiss &amp;\nDelete</string>
     <!-- Notification title when an alarm is missed -->
     <string name="alarm_missed_title">Missed alarm</string>
     <!-- Notification content for a missed alarm. -->
@@ -505,7 +507,7 @@
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">Double vibration when alarm is snoozed and single vibration when alarm is dismissed</string>
     <!-- Setting title to turn on flash when alarm is triggered -->
     <string name="turn_on_back_flash_for_triggered_alarm_title">Turn on back flash when alarm is triggered</string>
-    <!-- Setting title to display the button for deleting single alarms in the expanded alarm view -->
+    <!-- Setting title to display the button for deleting single alarms in the alarm edit panel -->
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Enable automatic deletion of occasional alarms by default</string>
     <!-- Dialog message when the "Enable automatic deletion of occasional alarms by default" setting is disabled. -->
     <string name="enable_delete_occasional_alarm_by_default_dialog_message">The \"Delete alarm once dismissed\" feature will be disabled for all alarms.%s</string>
@@ -536,7 +538,7 @@
     <!-- Setting title for changing the date picker style to text. -->
     <string name="date_picker_style_text">Text</string>
     <!-- Setting summary to indicate that this setting can be changed for each alarm -->
-    <string name="alarm_settings_general_summary">This setting can be changed for each alarm in the expanded alarm view</string>
+    <string name="alarm_settings_general_summary">This setting can be changed for each alarm in the alarm edit panel</string>
     <!-- Setting title for customizing the slide zone color. -->
     <string name="slide_zone_color_title">Slide zone color</string>
     <!-- Setting title for customizing the color of "Snooze" title. -->
@@ -1149,16 +1151,10 @@
     <string name="preview_title">Preview</string>
     <!-- Summary for the screensaver preview in settings -->
     <string name="screensaver_preview_summary">Starts the screensaver immediately</string>
-    <!-- Description of the down caret in the alarm alert screen to expand the alarm content to edit perspective. [CHAR LIMIT=NONE] -->
-    <string name="expand_alarm">Expand alarm</string>
-    <!-- Description of the up caret in the alarm alert screen to collapse the alarm content to summary perspective. [CHAR LIMIT=NONE] -->
-    <string name="collapse_alarm">Collapse alarm</string>
     <!-- Description of the button to undo change to alarm -->
     <string name="alarm_undo">undo</string>
     <!-- Toast content when an alarm was deleted  -->
     <string name="alarm_deleted">Alarm deleted</string>
-    <!-- Toast content when an alarm was created  -->
-    <string name="alarm_created">Alarm created</string>
     <!-- slash between date and next alarm in the clock: used for the DigitalAppWidget -->
     <string name="world_day_of_week_label">/ <xliff:g id="label">%s</xliff:g></string>
     <!-- Number of hours or minutes the world city is ahead of the current city [CHAR LIMIT=NONE] -->

@@ -211,8 +211,6 @@
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Вібросигнал таймера"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Таймер призупинено"</string>
     <string name="timers_in_use" msgid="5570729467344408506">Таймерів: <xliff:g example="7" id="number">%d</xliff:g></string>
-    <string name="expand_alarm" msgid="7392616528943305020">Розгорнути</string>
-    <string name="collapse_alarm" msgid="3561772046433483980">"Згорнути"</string>
     <string name="alarm_undo" msgid="5710042601177655254">Скасувати</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Будильник видалено"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="label">%s</xliff:g></string>
@@ -321,7 +319,6 @@
     <string name="display_background_border_title">Рамки фону</string>
     <string name="display_background_border_summary">Відображає рамки фону для деяких елементів (будильники, міста, кнопка таймера тощо)</string>
     <string name="title_dark_theme_mode">Темна тема</string>
-    <string name="alarm_created">Будильник створено</string>
     <string name="screensaver_bold_digital_clock_title">Цифровий годинник жирним</string>
     <string name="screensaver_italic_digital_clock_title">Цифровий годинник курсивом</string>
     <string name="screensaver_italic_date_title">Дата курсивом</string>

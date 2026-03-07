@@ -195,8 +195,6 @@
     <string name="timer_vibrate_title" msgid="7788920024785587518">"टाइमर भाइब्रेट"</string>
     <string name="timer_paused" msgid="5941160896040771462">"टाइमर रोकियो"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> घडीहरू"</string>
-    <string name="expand_alarm" msgid="7392616528943305020">"अलार्म विस्तार गर्नुहोस्"</string>
-    <string name="collapse_alarm" msgid="3561772046433483980">"अलार्म ढाल्नुहोस्"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"अन्डू गर्नुहोस्"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"अलार्म मेटाइयो"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">\"<xliff:g id="LABEL">%s</xliff:g>\"</string>

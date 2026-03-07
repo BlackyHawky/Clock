@@ -379,27 +379,38 @@ public class ThemeUtils {
 
         gradientDrawable.setCornerRadius(radius);
 
-        return applyCardStyle(context, gradientDrawable);
+        return applyCardStyle(context, gradientDrawable, null);
     }
 
     /**
      * @return a Material Expressive card.
      */
     public static Drawable expressiveCardBackground(Context context, int position, int totalCount) {
-        return buildExpressiveCard(context, position, totalCount, false);
+        return buildExpressiveCard(context, position, totalCount, false, null);
+    }
+
+    /**
+     * @return a Material Expressive card with a custom background color.
+     */
+    public static Drawable expressiveCardBackgroundWithColor(Context context, int position, int totalCount,
+                                                             @ColorInt Integer color) {
+
+        return buildExpressiveCard(context, position, totalCount, false, color);
     }
 
     /**
      * @return a Material Expressive card for the landscape mode.
      */
     public static Drawable expressiveCardBackgroundForLandscape(Context context, int position, int totalCount) {
-        return buildExpressiveCard(context, position, totalCount, true);
+        return buildExpressiveCard(context, position, totalCount, true, null);
     }
 
     /**
      * Convenience method for creating a Material Expressive card.
      */
-    private static Drawable buildExpressiveCard(Context context, int position, int totalCount, boolean isHorizontal) {
+    private static Drawable buildExpressiveCard(Context context, int position, int totalCount,
+                                                boolean isHorizontal, @ColorInt Integer color) {
+
         final DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         final float largeRadius = dpToPx(18, displayMetrics);
         final float smallRadius = dpToPx(4, displayMetrics);
@@ -452,19 +463,21 @@ public class ThemeUtils {
             gradientDrawable.setCornerRadius(smallRadius);
         }
 
-        return applyCardStyle(context, gradientDrawable);
+        return applyCardStyle(context, gradientDrawable, color);
     }
 
     /**
      * Convenience methode for applying a background color and border to a drawable
      * according to user preferences.
      */
-    private static Drawable applyCardStyle(Context context, GradientDrawable drawable) {
+    private static Drawable applyCardStyle(Context context, GradientDrawable drawable, @ColorInt Integer color) {
         final SharedPreferences prefs = getDefaultSharedPreferences(context);
         final String darkMode = SettingsDAO.getDarkMode(prefs);
         final DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
 
-        if (SettingsDAO.isCardBackgroundDisplayed(prefs)) {
+        if (color != null) {
+            drawable.setColor(color);
+        } else if (SettingsDAO.isCardBackgroundDisplayed(prefs)) {
             drawable.setColor(MaterialColors.getColor(
                     context, com.google.android.material.R.attr.colorSurface, Color.BLACK));
         } else {

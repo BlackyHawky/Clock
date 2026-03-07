@@ -861,13 +861,6 @@ public final class SettingsDAO {
     }
 
     /**
-     * @param uri identifies the ringtone to play of an existing alarm
-     */
-    static void setSelectedAlarmRingtoneUri(SharedPreferences prefs, Uri uri) {
-        prefs.edit().putString(KEY_SELECTED_ALARM_RINGTONE_URI, uri.toString()).apply();
-    }
-
-    /**
      * @return {@code true} if a custom volume can be set for each alarm.
      * {@code false} otherwise.
      */
@@ -880,9 +873,9 @@ public final class SettingsDAO {
      * @return {@code true} if a custom volume increase duration can be set for each alarm.
      * {@code false} otherwise.
      */
-    public static boolean isPerAlarmCrescendoDurationEnabled(SharedPreferences prefs) {
+    public static boolean isPerAlarmCrescendoDurationDisabled(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_alarm.xml
-        return prefs.getBoolean(KEY_ENABLE_PER_ALARM_VOLUME_CRESCENDO_DURATION,
+        return !prefs.getBoolean(KEY_ENABLE_PER_ALARM_VOLUME_CRESCENDO_DURATION,
                 DEFAULT_ENABLE_PER_ALARM_VOLUME_CRESCENDO_DURATION);
     }
 
@@ -1017,9 +1010,9 @@ public final class SettingsDAO {
      * @return {@code true} if a custom auto silence duration can be set for each alarm.
      * {@code false} otherwise.
      */
-    public static boolean isPerAlarmAutoSilenceEnabled(SharedPreferences prefs) {
+    public static boolean isPerAlarmAutoSilenceDisabled(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_alarm.xml
-        return prefs.getBoolean(KEY_ENABLE_PER_ALARM_AUTO_SILENCE, DEFAULT_ENABLE_PER_ALARM_AUTO_SILENCE);
+        return !prefs.getBoolean(KEY_ENABLE_PER_ALARM_AUTO_SILENCE, DEFAULT_ENABLE_PER_ALARM_AUTO_SILENCE);
     }
 
     /**
@@ -1033,9 +1026,9 @@ public final class SettingsDAO {
      * @return {@code true} if a custom snooze duration can be set for each alarm.
      * {@code false} otherwise.
      */
-    public static boolean isPerAlarmSnoozeDurationEnabled(SharedPreferences prefs) {
+    public static boolean isPerAlarmSnoozeDurationDisabled(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_alarm.xml
-        return prefs.getBoolean(KEY_ENABLE_PER_ALARM_SNOOZE_DURATION, DEFAULT_ENABLE_PER_ALARM_SNOOZE_DURATION);
+        return !prefs.getBoolean(KEY_ENABLE_PER_ALARM_SNOOZE_DURATION, DEFAULT_ENABLE_PER_ALARM_SNOOZE_DURATION);
     }
 
     /**
@@ -1049,9 +1042,9 @@ public final class SettingsDAO {
      * @return {@code true} if a custom repeat limit can be set for each missed alarm.
      * {@code false} otherwise.
      */
-    public static boolean isPerAlarmMissedRepeatLimitEnabled(SharedPreferences prefs) {
+    public static boolean isPerAlarmMissedRepeatLimitDisabled(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_alarm.xml
-        return prefs.getBoolean(KEY_ENABLE_PER_ALARM_MISSED_REPEAT_LIMIT, DEFAULT_ENABLE_PER_ALARM_MISSED_REPEAT_LIMIT);
+        return !prefs.getBoolean(KEY_ENABLE_PER_ALARM_MISSED_REPEAT_LIMIT, DEFAULT_ENABLE_PER_ALARM_MISSED_REPEAT_LIMIT);
     }
 
     /**

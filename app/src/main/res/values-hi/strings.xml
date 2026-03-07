@@ -195,8 +195,6 @@
     <string name="timer_vibrate_title" msgid="7788920024785587518">"टाइमर कंपन"</string>
     <string name="timer_paused" msgid="5941160896040771462">"टाइमर रोका गया"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> टाइमर"</string>
-    <string name="expand_alarm" msgid="7392616528943305020">"अलार्म विस्तृत करें"</string>
-    <string name="collapse_alarm" msgid="3561772046433483980">"अलार्म संक्षिप्त करें"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"वापस लाएं"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"अलार्म हटा दिया गया"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="LABEL">%s</xliff:g></string>

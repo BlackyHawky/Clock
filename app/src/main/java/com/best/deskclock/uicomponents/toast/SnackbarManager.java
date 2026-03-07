@@ -28,7 +28,7 @@ public final class SnackbarManager {
 
     public static void show(Snackbar snackbar) {
         sSnackbar = new WeakReference<>(snackbar);
-        if (ThemeUtils.isTablet() || (!ThemeUtils.isTablet() && ThemeUtils.isPortrait())) {
+        if (ThemeUtils.isTablet() || ThemeUtils.isPortrait()) {
             snackbar.setAnchorView(R.id.button_layout);
         }
 

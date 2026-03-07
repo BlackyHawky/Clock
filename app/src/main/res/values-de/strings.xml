@@ -196,8 +196,6 @@
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Vibrationsalarm des Timers"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Timer pausiert"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> Timer"</string>
-    <string name="expand_alarm" msgid="7392616528943305020">Alarm maximieren</string>
-    <string name="collapse_alarm" msgid="3561772046433483980">Alarm minimieren</string>
     <string name="alarm_undo" msgid="5710042601177655254">"Rückgängig"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">Alarm gelöscht</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="label">%s</xliff:g></string>
@@ -241,7 +239,6 @@
     <string name="selected">Ausgewählt</string>
     <string name="alarm_label_box_title">Alarm-Name</string>
     <string name="alarm_settings_summary">Stil, Standardsignalton, Lautstärke, Aktionen zum Verwerfen oder Schlummern von Alarmen, erster Wochentag und Benachrichtigung über anstehende Alarme einstellen</string>
-    <string name="alarm_created">Alarm eingestellt</string>
     <string name="first_launch_button_later">Später</string>
     <string name="first_launch_button_now">Jetzt</string>
     <string name="first_launch_important_info_title">WICHTIGE INFORMATION</string>

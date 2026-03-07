@@ -33,9 +33,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.best.deskclock.data.SettingsDAO;
-import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.uicomponents.CustomDialog;
-import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.google.android.material.checkbox.MaterialCheckBox;
@@ -59,16 +57,12 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
     private static final String ARG_PREF_KEY = ALARM_SNOOZE_DURATION + "arg_pref_key";
     private static final String ARG_EDIT_ALARM_HOURS = ALARM_SNOOZE_DURATION + "arg_edit_alarm_hours";
     private static final String ARG_EDIT_ALARM_MINUTES = ALARM_SNOOZE_DURATION + "arg_edit_alarm_minutes";
-    private static final String ARG_CRESCENDO_DURATION_NONE = ALARM_SNOOZE_DURATION + "arg_crescendo_duration_none";
+    private static final String ARG_SNOOZE_DURATION_NONE = ALARM_SNOOZE_DURATION + "arg_crescendo_duration_none";
     public static final String RESULT_PREF_KEY = ALARM_SNOOZE_DURATION + "result_pref_key";
     public static final String REQUEST_KEY = ALARM_SNOOZE_DURATION + "request_key";
     public static final String ALARM_SNOOZE_DURATION_VALUE = ALARM_SNOOZE_DURATION + "value";
-    private static final String ARG_ALARM = "arg_alarm";
-    private static final String ARG_TAG = "arg_tag";
 
     private Context mContext;
-    private Alarm mAlarm;
-    private String mTag;
     private String mPrefKey;
     private TextInputLayout mHoursInputLayout;
     private TextInputLayout mMinutesInputLayout;
@@ -87,21 +81,27 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
      * in the settings screen, where the snooze duration is configured independently
      * of a specific alarm.
      *
-     * @param key          The shared preference key used to identify the setting.
-     * @param totalMinutes The snooze duration in minutes.
+     * @param key            The shared preference key used to identify the setting.
+     * @param snoozeDuration The snooze duration in minutes.
      */
-    public static AlarmSnoozeDurationDialogFragment newInstance(String key, int totalMinutes,
-                                                                boolean isNone) {
+    public static AlarmSnoozeDurationDialogFragment newInstance(String key, int snoozeDuration) {
 
         Bundle args = new Bundle();
 
-        int hours = totalMinutes / 60;
-        int minutes = totalMinutes % 60;
+        boolean isNone = snoozeDuration == ALARM_SNOOZE_DURATION_DISABLED;
+
+        int hours = 0;
+        int minutes = 0;
+
+        if (!isNone) {
+            hours = snoozeDuration / 60;
+            minutes = snoozeDuration % 60;
+        }
 
         args.putString(ARG_PREF_KEY, key);
         args.putInt(ARG_EDIT_ALARM_HOURS, hours);
         args.putInt(ARG_EDIT_ALARM_MINUTES, minutes);
-        args.putBoolean(ARG_CRESCENDO_DURATION_NONE, isNone);
+        args.putBoolean(ARG_SNOOZE_DURATION_NONE, isNone);
 
         AlarmSnoozeDurationDialogFragment frag = new AlarmSnoozeDurationDialogFragment();
         frag.setArguments(args);
@@ -110,24 +110,26 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
 
     /**
      * Creates a new instance of {@link AlarmSnoozeDurationDialogFragment} for use
-     * in the expanded alarm view, where the snooze duration is configured for a specific alarm.
+     * in the alarm edit panel, where the snooze duration is configured for a specific alarm.
      *
-     * @param alarm           The alarm instance being edited.
      * @param snoozeDuration  The snooze duration in minutes.
-     * @param tag             A tag identifying the fragment in the fragment manager.
      */
-    public static AlarmSnoozeDurationDialogFragment newInstance(Alarm alarm, int snoozeDuration,
-                                                                boolean isNone, String tag) {
+    public static AlarmSnoozeDurationDialogFragment newInstance(int snoozeDuration) {
         final Bundle args = new Bundle();
 
-        int hours = snoozeDuration / 60;
-        int minutes = snoozeDuration % 60;
+        boolean isNone = snoozeDuration == ALARM_SNOOZE_DURATION_DISABLED;
 
-        args.putParcelable(ARG_ALARM, alarm);
-        args.putString(ARG_TAG, tag);
+        int hours = 0;
+        int minutes = 0;
+
+        if (!isNone) {
+            hours = snoozeDuration / 60;
+            minutes = snoozeDuration % 60;
+        }
+
         args.putInt(ARG_EDIT_ALARM_HOURS, hours);
         args.putInt(ARG_EDIT_ALARM_MINUTES, minutes);
-        args.putBoolean(ARG_CRESCENDO_DURATION_NONE, isNone);
+        args.putBoolean(ARG_SNOOZE_DURATION_NONE, isNone);
 
         final AlarmSnoozeDurationDialogFragment fragment = new AlarmSnoozeDurationDialogFragment();
         fragment.setArguments(args);
@@ -156,7 +158,7 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
             outState.putInt(ARG_EDIT_ALARM_MINUTES, minutes);
         }
 
-        outState.putBoolean(ARG_CRESCENDO_DURATION_NONE, mNoneCheckbox.isChecked());
+        outState.putBoolean(ARG_SNOOZE_DURATION_NONE, mNoneCheckbox.isChecked());
     }
 
     @NonNull
@@ -167,19 +169,16 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
         mTypeFace = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
 
         final Bundle args = requireArguments();
-        mAlarm = SdkUtils.isAtLeastAndroid13()
-                ? args.getParcelable(ARG_ALARM, Alarm.class)
-                : args.getParcelable(ARG_ALARM);
-        mTag = args.getString(ARG_TAG);
 
         mPrefKey = args.getString(ARG_PREF_KEY, null);
         int editHours = args.getInt(ARG_EDIT_ALARM_HOURS, 0);
         int editMinutes = args.getInt(ARG_EDIT_ALARM_MINUTES, 0);
-        boolean isNone = args.getBoolean(ARG_CRESCENDO_DURATION_NONE, false);
+        boolean isNone = args.getBoolean(ARG_SNOOZE_DURATION_NONE, false);
+
         if (savedInstanceState != null) {
             editHours = savedInstanceState.getInt(ARG_EDIT_ALARM_HOURS, editHours);
             editMinutes = savedInstanceState.getInt(ARG_EDIT_ALARM_MINUTES, editMinutes);
-            isNone = savedInstanceState.getBoolean(ARG_CRESCENDO_DURATION_NONE, isNone);
+            isNone = savedInstanceState.getBoolean(ARG_SNOOZE_DURATION_NONE, isNone);
         }
 
         mInput = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -211,9 +210,7 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
         });
 
         mEditMinutes.setTypeface(mTypeFace);
-        if (editMinutes == ALARM_SNOOZE_DURATION_DISABLED) {
-            mEditMinutes.setText("");
-        } else {
+        if (!isNone) {
             mEditMinutes.setText(String.valueOf(editMinutes));
         }
         mEditMinutes.selectAll();
@@ -389,15 +386,14 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
      * Apply the snooze duration in minutes.
      */
     private void applySnoozeDurationInMinutes(int snoozeDurationInMinutes) {
-        if (mAlarm != null) {
-            ((SnoozeDurationDialogHandler) requireActivity())
-                    .onDialogSnoozeDurationSet(mAlarm, snoozeDurationInMinutes, mTag);
-        } else {
-            Bundle result = new Bundle();
-            result.putInt(ALARM_SNOOZE_DURATION_VALUE, snoozeDurationInMinutes);
+        Bundle result = new Bundle();
+        result.putInt(ALARM_SNOOZE_DURATION_VALUE, snoozeDurationInMinutes);
+
+        if (mPrefKey != null) {
             result.putString(RESULT_PREF_KEY, requireArguments().getString(ARG_PREF_KEY));
-            getParentFragmentManager().setFragmentResult(REQUEST_KEY, result);
         }
+
+        getParentFragmentManager().setFragmentResult(REQUEST_KEY, result);
     }
 
     /**
@@ -597,10 +593,6 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
 
             return false;
         }
-    }
-
-    public interface SnoozeDurationDialogHandler {
-        void onDialogSnoozeDurationSet(Alarm alarm, int crescendoDuration, String tag);
     }
 
 }

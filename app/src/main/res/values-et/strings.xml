@@ -196,8 +196,6 @@
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Taimeri vibratsioon"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Taimer peatati"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> taimerit"</string>
-    <string name="expand_alarm" msgid="7392616528943305020">Laienda äratus</string>
-    <string name="collapse_alarm" msgid="3561772046433483980">Ahenda äratus</string>
     <string name="alarm_undo" msgid="5710042601177655254">"võta tagasi"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Äratus on kustutatud"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="LABEL">%s</xliff:g></string>
@@ -283,7 +281,6 @@
     <string name="features_title">Põhifunktsionaalsused</string>
     <string name="about_title">Rakenduse teave</string>
     <string name="dialog_close">Sulge</string>
-    <string name="alarm_created">Äratus on loodud</string>
     <string name="screensaver_daydream_settings_summary">Järgnevaga avame Androidi ekraanisäästja seadistused</string>
     <string name="notifications_dialog_text">Lisaks äratamisele saad seda rakendust kasutada ka taimerina ja stopperina. \n \nEt kõik teavitused toimiksid korrektsel kõikide nende valikute, eriti aga äratuste, puhul, siis palun luba rakendusel kuvada teavitusi.</string>
     <string name="first_launch_main_feature_message">► Hele, tume või süsteemi poolt määratud kujundus; &lt;br&gt; &lt;br&gt; ► Kohandatav ekraanisäästja; &lt;br&gt; &lt;br&gt; ► Kohandatavad vidinad; &lt;br&gt; &lt;br&gt; ► Paanide tugi kiirseadistustes (alates Androidi versioonist 7); &lt;br&gt; &lt;br&gt; ► Rakenduse andmete varundamine ja taastamine (v.a. kohandatud helinad); &lt;br&gt; &lt;br&gt; ► Material design ja dünaamilised värvid; &lt;br&gt; &lt;br&gt; ► Äratuse lisamine kindlaks kuupäevaks; &lt;br&gt; &lt;br&gt;► Äratuse kustutamiseks viipa; &lt;br&gt; &lt;br&gt; ► Saad teha äratusest koopa; &lt;br&gt; &lt;br&gt; ► Kasuta pööramist ja raputamist äratusest loobumiseks või tema edasilükkamiseks; &lt;br&gt; &lt;br&gt; ► Saad lülitada äratuse välja või ta edasi lükata toimetnupuga või helivaljuse nuppudega; &lt;br&gt; &lt;br&gt; ► %s</string>

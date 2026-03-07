@@ -129,16 +129,13 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
 
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(getLayoutManager(mContext));
-
-        int spacingInPx = (int) dpToPx(10, getResources().getDisplayMetrics());
-        mRecyclerView.addItemDecoration(new GridSpacingItemDecoration(spacingInPx));
+        mRecyclerView.addItemDecoration(new GridSpacingItemDecoration(displayMetrics));
 
         // Due to the ViewPager and the location of FAB, set a bottom padding and/or a right padding
         // to prevent the reset button from being hidden by the FAB (e.g. when scrolling down).
-        final int bottomPadding = (int) dpToPx(mIsTablet ? 110 : mIsLandscape ? 4 : 95, displayMetrics);
-        final int leftPadding = (int) dpToPx(!mIsTablet && mIsLandscape ? 10 : 0, displayMetrics);
-        final int rightPadding = (int) dpToPx(!mIsTablet && mIsLandscape ? 85 : 0, displayMetrics);
-        mRecyclerView.setPaddingRelative(leftPadding, 0, rightPadding, bottomPadding);
+        final int rightPadding = (int) dpToPx(!mIsTablet && mIsLandscape ? 80 : 0, displayMetrics);
+        final int bottomPadding = (int) dpToPx(mIsTablet ? 110 : mIsLandscape ? 0 : 100, displayMetrics);
+        mRecyclerView.setPaddingRelative(0, 0, rightPadding, bottomPadding);
         mRecyclerView.setClipToPadding(false);
 
         RecyclerView.ItemAnimator animator = mRecyclerView.getItemAnimator();
@@ -642,32 +639,56 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
      * {@link GridLayoutManager}.</p>
      */
     private static class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
+        private final int margin;
         private final int spacing;
 
-        public GridSpacingItemDecoration(int spacing) {
-            this.spacing = spacing;
+        public GridSpacingItemDecoration(DisplayMetrics displayMetrics) {
+            this.margin = (int) dpToPx(10, displayMetrics);
+            this.spacing = (int) dpToPx(2, displayMetrics);
         }
 
         @Override
         public void getItemOffsets(@NonNull Rect outRect, @NonNull View view,
                                    @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
 
-            if (!(parent.getLayoutManager() instanceof GridLayoutManager layoutManager)) {
+            int position = parent.getChildAdapterPosition(view);
+
+            if (position == RecyclerView.NO_POSITION) {
+                position = parent.getChildLayoutPosition(view);
+            }
+
+            if (position < 0) {
                 return;
             }
 
-            int spanCount = layoutManager.getSpanCount();
-            int position = parent.getChildAdapterPosition(view);
+            boolean isRTL = ThemeUtils.isRTL();
+            RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
 
-            if (position >= 0) {
+            if (layoutManager instanceof GridLayoutManager gridLayoutManager) {
+                int spanCount = gridLayoutManager.getSpanCount();
                 int column = position % spanCount;
 
                 // Formula for having, for example, 10dp on the outside and 5dp on the inside
-                outRect.left = spacing - column * spacing / spanCount;
-                outRect.right = (column + 1) * spacing / spanCount;
+                int standardLeft = margin - column * margin / spanCount;
+                int standardRight = (column + 1) * margin / spanCount;
 
-                // Bottom margin of 10dp, for example, for each item
-                outRect.bottom = spacing;
+                outRect.left = isRTL ? standardRight : standardLeft;
+                outRect.right = isRTL ? standardLeft : standardRight;
+                outRect.bottom = margin;
+            } else if (layoutManager instanceof LinearLayoutManager linearLayoutManager) {
+                if (linearLayoutManager.getOrientation() == RecyclerView.HORIZONTAL) {
+                    int standardLeft = (position == 0) ? margin : spacing;
+                    int itemCount = state.getItemCount();
+                    int standardRight = (position == itemCount - 1) ? margin : 0;
+
+                    outRect.left = isRTL ? standardRight : standardLeft;
+                    outRect.right = isRTL ? standardLeft : standardRight;
+                    outRect.bottom = margin;
+                } else {
+                    outRect.left = margin;
+                    outRect.right = margin;
+                    outRect.bottom = spacing;
+                }
             }
         }
     }

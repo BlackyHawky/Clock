@@ -8,7 +8,6 @@ package com.best.deskclock;
 
 import static androidx.recyclerview.widget.RecyclerView.NO_ID;
 
-import android.os.Bundle;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,11 +36,6 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder<?>>
     private final SparseArray<OnItemClickedListener> mListenersByViewType = new SparseArray<>();
 
     /**
-     * Listeners to invoke in {@link #mOnItemLongClickedListener}.
-     */
-    private final SparseArray<OnItemLongClickedListener> mListenersOnLongClickByViewType = new SparseArray<>();
-
-    /**
      * Invokes the {@link OnItemClickedListener} in {@link #mListenersByViewType} corresponding
      * to {@link ItemViewHolder#getItemViewType()}
      */
@@ -52,23 +46,6 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder<?>>
             listener.onItemClicked(viewHolder, id);
         }
     };
-
-    /**
-     * Invokes the {@link OnItemLongClickedListener} in {@link #mListenersOnLongClickByViewType}
-     * corresponding to {@link ItemViewHolder#getItemViewType()}
-     */
-    private final OnItemLongClickedListener mOnItemLongClickedListener = (viewHolder, id) -> {
-        final OnItemLongClickedListener listener =
-                mListenersOnLongClickByViewType.get(viewHolder.getItemViewType());
-        if (listener != null) {
-            listener.onItemLongClicked(viewHolder, id);
-        }
-    };
-
-    /**
-     * Invoked when any item changes.
-     */
-    private OnItemChangedListener mOnItemChangedListener;
 
     /**
      * List of current item holders represented by this adapter.
@@ -83,10 +60,6 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder<?>>
     private final OnItemChangedListener mItemChangedNotifier = new OnItemChangedListener() {
         @Override
         public void onItemChanged(ItemHolder<?> itemHolder) {
-            if (mOnItemChangedListener != null) {
-                mOnItemChangedListener.onItemChanged(itemHolder);
-            }
-
             @SuppressWarnings("SuspiciousMethodCalls")
             final int position = mItemHolders.indexOf(itemHolder);
             if (position != RecyclerView.NO_POSITION) {
@@ -96,33 +69,22 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder<?>>
     };
 
     /**
-     * Convenience for calling {@link #setHasStableIds(boolean)} with {@code true}.
-     */
-    public void setHasStableIds() {
-        setHasStableIds(true);
-    }
-
-    /**
      * Sets the {@link ItemViewHolder.Factory} and {@link OnItemClickedListener} used to create
      * new item view holders in {@link #onCreateViewHolder(ViewGroup, int)}.
      *
      * @param factory   the {@link ItemViewHolder.Factory} used to create new item view holders
      * @param listener  the {@link OnItemClickedListener} to be invoked by
      *                  {@link #mItemChangedNotifier}
-     * @param onLongClickedListener the {@link OnItemLongClickedListener} to be invoked by
-     *                              {@link #mItemChangedNotifier}
      * @param viewTypes the unique identifier for the view types to be created
      * @return this object, allowing calls to methods in this class to be chained
      */
     public ItemAdapter<T> withViewTypes(ItemViewHolder.Factory factory,
                                         OnItemClickedListener listener,
-                                        OnItemLongClickedListener onLongClickedListener,
                                         int... viewTypes) {
 
         for (int viewType : viewTypes) {
             mFactoriesByViewType.put(viewType, factory);
             mListenersByViewType.put(viewType, listener);
-            mListenersOnLongClickByViewType.put(viewType, onLongClickedListener);
         }
 
         return this;
@@ -151,28 +113,6 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder<?>>
                 // remove the item change listener from the old item holders
                 for (T oldItemHolder : oldItemHolders) {
                     oldItemHolder.removeOnItemChangedListener(mItemChangedNotifier);
-                }
-            }
-
-            if (oldItemHolders != null && itemHolders != null && hasStableIds()) {
-                // transfer instance state from old to new item holders based on item id,
-                // we use a simple O(N^2) implementation since we assume the number of items is
-                // relatively small and generating a temporary map would be more expensive
-                final Bundle bundle = new Bundle();
-                for (T newItemHolder : itemHolders) {
-                    for (T oldItemHolder : oldItemHolders) {
-                        if (newItemHolder.itemId == oldItemHolder.itemId
-                                && newItemHolder != oldItemHolder) {
-                            // clear any existing state from the bundle
-                            bundle.clear();
-
-                            // transfer instance state from old to new item holder
-                            oldItemHolder.onSaveInstanceState(bundle);
-                            newItemHolder.onRestoreInstanceState(bundle);
-
-                            break;
-                        }
-                    }
                 }
             }
 
@@ -205,13 +145,6 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder<?>>
         }
     }
 
-    /**
-     * Sets the listener to be invoked whenever any item changes.
-     */
-    public void setOnItemChangedListener(OnItemChangedListener listener) {
-        mOnItemChangedListener = listener;
-    }
-
     @Override
     public int getItemCount() {
         return mItemHolders == null ? 0 : mItemHolders.size();
@@ -220,15 +153,6 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder<?>>
     @Override
     public long getItemId(int position) {
         return hasStableIds() ? mItemHolders.get(position).itemId : NO_ID;
-    }
-
-    public T findItemById(long id) {
-        for (T holder : mItemHolders) {
-            if (holder.itemId == id) {
-                return holder;
-            }
-        }
-        return null;
     }
 
     @Override
@@ -253,13 +177,11 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder<?>>
         // compatibility of their view holders with the item holder at the corresponding position
         viewHolder.bindItemView(mItemHolders.get(position));
         viewHolder.setOnItemClickedListener(mOnItemClickedListener);
-        viewHolder.setOnItemLongClickedListener(mOnItemLongClickedListener);
     }
 
     @Override
     public void onViewRecycled(ItemViewHolder viewHolder) {
         viewHolder.setOnItemClickedListener(null);
-        viewHolder.setOnItemLongClickedListener(null);
         viewHolder.recycleItemView();
     }
 
@@ -291,27 +213,11 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder<?>>
     }
 
     /**
-     * Callback interface for handling when an item is long clicked.
-     */
-    public interface OnItemLongClickedListener {
-
-        /**
-         * Invoked by {@link ItemViewHolder#notifyItemLongClicked(int)}
-         *
-         * @param viewHolder the {@link ItemViewHolder} containing the view that was clicked
-         * @param id         the unique identifier for the click action that has occurred
-         */
-        void onItemLongClicked(ItemViewHolder<?> viewHolder, int id);
-    }
-
-    /**
      * Base class for wrapping an item for compatibility with an {@link ItemHolder}.
      * <p/>
      * An {@link ItemHolder} serves as bridge between the model and view layer; subclassers should
      * implement properties that fall beyond the scope of their model layer but are necessary for
-     * the view layer. Properties that should be persisted across dataset changes can be
-     * preserved via the {@link #onSaveInstanceState(Bundle)} and
-     * {@link #onRestoreInstanceState(Bundle)} methods.
+     * the view layer.
      * <p/>
      * Note: An {@link ItemHolder} can be used by multiple {@link ItemHolder} and any state changes
      * should simultaneously be reflected in both UIs.  It is not thread-safe however and should
@@ -383,32 +289,6 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder<?>>
                 listener.onItemChanged(this);
             }
         }
-
-        /**
-         * Called to retrieve per-instance state when the item may disappear or change so that
-         * state can be restored in {@link #onRestoreInstanceState(Bundle)}.
-         * <p/>
-         * Note: Subclasses must not maintain a reference to the {@link Bundle} as it may be
-         * reused for other items in the {@link ItemHolder}.
-         *
-         * @param bundle the {@link Bundle} in which to place saved state
-         */
-        public void onSaveInstanceState(Bundle bundle) {
-            // for subclassers
-        }
-
-        /**
-         * Called to restore any per-instance state which was previously saved in
-         * {@link #onSaveInstanceState(Bundle)} for an item with a matching {@link #itemId}.
-         * <p/>
-         * Note: Subclasses must not maintain a reference to the {@link Bundle} as it may be
-         * reused for other items in the {@link ItemHolder}.
-         *
-         * @param bundle the {@link Bundle} in which to retrieve saved state
-         */
-        public void onRestoreInstanceState(Bundle bundle) {
-            // for subclassers
-        }
     }
 
     /**
@@ -427,11 +307,6 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder<?>>
          * The current {@link OnItemClickedListener} associated with this holder.
          */
         private OnItemClickedListener mOnItemClickedListener;
-
-        /**
-         * The current {@link OnItemLongClickedListener} associated with this holder.
-         */
-        private OnItemLongClickedListener mOnItemLongClickedListener;
 
         /**
          * Designated constructor.
@@ -475,7 +350,6 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder<?>>
         public final void recycleItemView() {
             mItemHolder = null;
             mOnItemClickedListener = null;
-            mOnItemLongClickedListener = null;
             onRecycleItemView();
         }
 
@@ -499,16 +373,6 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder<?>>
         }
 
         /**
-         * Sets the current {@link OnItemLongClickedListener} to be invoked via
-         * {@link #notifyItemLongClicked}.
-         *
-         * @param listener the new {@link OnItemLongClickedListener}, or {@code null} to clear
-         */
-        public final void setOnItemLongClickedListener(OnItemLongClickedListener listener) {
-            mOnItemLongClickedListener = listener;
-        }
-
-        /**
          * Called by subclasses to invoke the current {@link OnItemClickedListener} for a
          * particular click event so it can be handled at a higher level.
          *
@@ -517,18 +381,6 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder<?>>
         public final void notifyItemClicked(int id) {
             if (mOnItemClickedListener != null) {
                 mOnItemClickedListener.onItemClicked(this, id);
-            }
-        }
-
-        /**
-         * Called by subclasses to invoke the current {@link OnItemLongClickedListener} for a
-         * particular long click event so it can be handled at a higher level.
-         *
-         * @param id the unique identifier for the long click action that has occurred
-         */
-        public final void notifyItemLongClicked(int id) {
-            if (mOnItemLongClickedListener != null) {
-                mOnItemLongClickedListener.onItemLongClicked(this, id);
             }
         }
 

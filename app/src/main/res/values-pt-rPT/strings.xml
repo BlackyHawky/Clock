@@ -204,8 +204,6 @@
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Vibração do temporizador"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Temporizador interrompido"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> temporizadores"</string>
-    <string name="expand_alarm" msgid="7392616528943305020">"Expandir alarme"</string>
-    <string name="collapse_alarm" msgid="3561772046433483980">Ocultar alarme</string>
     <string name="alarm_undo" msgid="5710042601177655254">"anular"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Alarme eliminado"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="label">%s</xliff:g></string>
@@ -325,7 +323,6 @@
     <string name="screensaver_bold_date_title">Data em negrito</string>
     <string name="screensaver_italic_date_title">Data em itálico</string>
     <string name="preview_title">Pré-visualizar</string>
-    <string name="alarm_created">Alarme criado</string>
     <string name="alarm_is_dismissed_and_deleted">Alarme das <xliff:g example="14:20" id="alarm_time">%s</xliff:g> ignorado e eliminado</string>
     <string name="shake_intensity_title">Intensidade de abanar</string>
     <string name="first_launch_version">Versão %s</string>

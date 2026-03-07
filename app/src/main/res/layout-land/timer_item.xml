@@ -12,10 +12,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    android:layout_marginBottom="4dp"
-    android:layout_marginEnd="2dp"
     android:paddingBottom="5dp"
-    tools:background="@drawable/bg_card_for_preview">
+    tools:background="@drawable/bg_card_for_preview"
+    tools:layout_marginEnd="2dp"
+    tools:layout_marginBottom="10dp">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/timer_label"

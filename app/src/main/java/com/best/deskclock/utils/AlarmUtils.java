@@ -109,6 +109,22 @@ public class AlarmUtils {
     }
 
     /**
+     * Formats the date of the given alarm into a localized string.
+     * The year is automatically omitted if the alarm is scheduled for the current year.
+     *
+     * @param alarm The alarm containing the date to be formatted.
+     * @return A localized string representing the alarm's date.
+     */
+    public static String formatAlarmDate(Alarm alarm) {
+        Calendar calendar = Calendar.getInstance();
+        boolean isCurrentYear = alarm.year == calendar.get(Calendar.YEAR);
+        calendar.set(alarm.year, alarm.month, alarm.day);
+        String pattern = DateFormat.getBestDateTimePattern(
+                Locale.getDefault(), isCurrentYear ? "MMMMd" : "yyyyMMMMd");
+        return new SimpleDateFormat(pattern, Locale.getDefault()).format(calendar.getTime());
+    }
+
+    /**
      * @return The text of the next alarm.
      */
     public static String getNextAlarm(Context context) {

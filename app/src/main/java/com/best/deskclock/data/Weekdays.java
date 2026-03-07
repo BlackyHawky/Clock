@@ -29,6 +29,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 
 import com.best.deskclock.R;
+import com.best.deskclock.utils.FormattedTextUtils;
 import com.google.android.material.color.MaterialColors;
 
 import java.text.DateFormatSymbols;
@@ -36,6 +37,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -317,7 +319,9 @@ public record Weekdays(int mBits) {
                 if (!TextUtils.isEmpty(builder)) {
                     builder.append(separator);
                 }
-                builder.append(weekdays[calendarDay]);
+
+                String dayName = FormattedTextUtils.capitalizeFirstLetter(weekdays[calendarDay], Locale.getDefault());
+                builder.append(dayName);
             }
         }
         return builder.toString();
@@ -355,7 +359,8 @@ public record Weekdays(int mBits) {
                     builder.append(separator);
                 }
 
-                String dayName = weekdays[calendarDay];
+                String dayName = FormattedTextUtils.capitalizeFirstLetter(weekdays[calendarDay], Locale.getDefault());
+
                 int start = builder.length();
                 builder.append(dayName);
                 int end = builder.length();

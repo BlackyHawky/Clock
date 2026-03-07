@@ -32,9 +32,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.best.deskclock.data.SettingsDAO;
-import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.uicomponents.CustomDialog;
-import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.google.android.material.checkbox.MaterialCheckBox;
@@ -64,12 +62,8 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
     public static final String RESULT_PREF_KEY = VOLUME_CRESCENDO_DURATION + "result_pref_key";
     public static final String REQUEST_KEY = VOLUME_CRESCENDO_DURATION + "request_key";
     public static final String VOLUME_CRESCENDO_DURATION_VALUE = VOLUME_CRESCENDO_DURATION + "value";
-    private static final String ARG_ALARM = "arg_alarm";
-    private static final String ARG_TAG = "arg_tag";
 
     private Context mContext;
-    private Alarm mAlarm;
-    private String mTag;
     private String mPrefKey;
     private TextInputLayout mMinutesInputLayout;
     private TextInputLayout mSecondsInputLayout;
@@ -88,14 +82,21 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
      * in the settings screen, where the crescendo duration is configured independently
      * of a specific alarm.
      *
-     * @param key          The shared preference key used to identify the setting.
-     * @param totalSeconds The crescendo duration in seconds.
+     * @param key               The shared preference key used to identify the setting.
+     * @param crescendoDuration The crescendo duration in seconds.
      */
-    public static VolumeCrescendoDurationDialogFragment newInstance(String key, int totalSeconds, boolean isOff) {
+    public static VolumeCrescendoDurationDialogFragment newInstance(String key, int crescendoDuration) {
         Bundle args = new Bundle();
 
-        int minutes = totalSeconds / 60;
-        int seconds = totalSeconds % 60;
+        boolean isOff = crescendoDuration == DEFAULT_VOLUME_CRESCENDO_DURATION;
+
+        int minutes = 0;
+        int seconds = 0;
+
+        if (!isOff) {
+            minutes = crescendoDuration / 60;
+            seconds = crescendoDuration % 60;
+        }
 
         args.putString(ARG_PREF_KEY, key);
         args.putInt(ARG_EDIT_VOLUME_CRESCENDO_MINUTES, minutes);
@@ -109,22 +110,24 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
 
     /**
      * Creates a new instance of {@link VolumeCrescendoDurationDialogFragment} for use
-     * in the expanded alarm view, where the crescendo duration is configured for a specific alarm.
+     * in the alarm edit panel, where the crescendo duration is configured for a specific alarm.
      *
-     * @param alarm              The alarm instance being edited.
      * @param crescendoDuration  The crescendo duration in seconds.
-     * @param tag                A tag identifying the fragment in the fragment manager.
      */
-    public static VolumeCrescendoDurationDialogFragment newInstance(Alarm alarm, int crescendoDuration,
-                                                                    boolean isOff, String tag) {
+    public static VolumeCrescendoDurationDialogFragment newInstance(int crescendoDuration) {
 
         final Bundle args = new Bundle();
 
-        int minutes = crescendoDuration / 60;
-        int seconds = crescendoDuration % 60;
+        boolean isOff = crescendoDuration == DEFAULT_VOLUME_CRESCENDO_DURATION;
 
-        args.putParcelable(ARG_ALARM, alarm);
-        args.putString(ARG_TAG, tag);
+        int minutes = 0;
+        int seconds = 0;
+
+        if (!isOff) {
+            minutes = crescendoDuration / 60;
+            seconds = crescendoDuration % 60;
+        }
+
         args.putInt(ARG_EDIT_VOLUME_CRESCENDO_MINUTES, minutes);
         args.putInt(ARG_EDIT_VOLUME_CRESCENDO_SECONDS, seconds);
         args.putBoolean(ARG_CRESCENDO_OFF, isOff);
@@ -167,10 +170,6 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
         mTypeFace = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
 
         final Bundle args = requireArguments();
-        mAlarm = SdkUtils.isAtLeastAndroid13()
-                ? args.getParcelable(ARG_ALARM, Alarm.class)
-                : args.getParcelable(ARG_ALARM);
-        mTag = args.getString(ARG_TAG);
 
         mPrefKey = args.getString(ARG_PREF_KEY, null);
         int editMinutes = args.getInt(ARG_EDIT_VOLUME_CRESCENDO_MINUTES, 0);
@@ -210,9 +209,7 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
             }
         });
 
-        if (editSeconds == DEFAULT_VOLUME_CRESCENDO_DURATION) {
-            mEditSeconds.setText("");
-        } else {
+        if (!isOff) {
             mEditSeconds.setText(String.valueOf(editSeconds));
         }
         mEditSeconds.setTypeface(mTypeFace);
@@ -240,9 +237,6 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
             isUpdatingCheckboxes = false;
         });
 
-        String minutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
-        String secondsText = mEditSeconds.getText() != null ? mEditSeconds.getText().toString() : "";
-
         return CustomDialog.create(
                 mContext,
                 null,
@@ -260,8 +254,11 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
                     mOkButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
                     mDefaultButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
 
-                    mOkButton.setEnabled(!isInvalidInput(minutesText, secondsText));
-                    mDefaultButton.setEnabled(isNotDefaultVolumeCrescendoDuration(minutesText, secondsText));
+                    String inputMinutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
+                    String inputSecondsText = mEditSeconds.getText() != null ? mEditSeconds.getText().toString() : "";
+
+                    mOkButton.setEnabled(!isInvalidInput(inputMinutesText, inputSecondsText));
+                    mDefaultButton.setEnabled(isNotDefaultVolumeCrescendoDuration(inputMinutesText, inputSecondsText));
                 },
                 CustomDialog.SoftInputMode.SHOW_KEYBOARD
         );
@@ -392,15 +389,14 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
      * Apply the volume crescendo duration in seconds for alarms or timers.
      */
     private void applyVolumeCrescendoDurationInSeconds(int crescendoDurationInSeconds) {
-        if (mAlarm != null) {
-            ((VolumeCrescendoDurationDialogHandler) requireActivity())
-                    .onDialogCrescendoDurationSet(mAlarm, crescendoDurationInSeconds, mTag);
-        } else {
-            Bundle result = new Bundle();
-            result.putInt(VOLUME_CRESCENDO_DURATION_VALUE, crescendoDurationInSeconds);
+        Bundle result = new Bundle();
+        result.putInt(VOLUME_CRESCENDO_DURATION_VALUE, crescendoDurationInSeconds);
+
+        if (mPrefKey != null) {
             result.putString(RESULT_PREF_KEY, requireArguments().getString(ARG_PREF_KEY));
-            getParentFragmentManager().setFragmentResult(REQUEST_KEY, result);
         }
+
+        getParentFragmentManager().setFragmentResult(REQUEST_KEY, result);
     }
 
     /**
@@ -599,10 +595,6 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
 
             return false;
         }
-    }
-
-    public interface VolumeCrescendoDurationDialogHandler {
-        void onDialogCrescendoDurationSet(Alarm alarm, int crescendoDuration, String tag);
     }
 
 }
