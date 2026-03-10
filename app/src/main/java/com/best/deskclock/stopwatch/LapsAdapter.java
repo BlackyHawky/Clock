@@ -12,6 +12,7 @@ import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreference
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.format.DateUtils;
 import android.util.DisplayMetrics;
@@ -34,6 +35,7 @@ import com.best.deskclock.data.Stopwatch;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
+import com.google.android.material.color.MaterialColors;
 
 import java.text.DecimalFormatSymbols;
 import java.util.List;
@@ -74,97 +76,42 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
 
     private long minLapTime = Long.MAX_VALUE;
     private long maxLapTime = Long.MIN_VALUE;
-    private int defaultLapColor = -1;
+    private int mLastComputedLapCount = -1;
+    private final Typeface mRegularTypeface;
+    private final Typeface mBoldTypeface;
+    private final int mPadding;
+    private final float mTextSize;
+    private final int mDefaultLapColor;
+    private final int mMinLapColor;
+    private final int mMaxLapColor;
 
     LapsAdapter(Context context) {
         mContext = context;
+        SharedPreferences prefs = getDefaultSharedPreferences(context);
         mInflater = LayoutInflater.from(context);
+        String fontPath = SettingsDAO.getGeneralFont(prefs);
+        mRegularTypeface = ThemeUtils.loadFont(fontPath);
+        mBoldTypeface = ThemeUtils.boldTypeface(fontPath);
+        boolean isTablet = ThemeUtils.isTablet();
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        mPadding = (int) dpToPx(isTablet ? 8 : 4, displayMetrics);
+        mTextSize = isTablet ? 18 : 16;
+        mDefaultLapColor = MaterialColors.getColor(context, android.R.attr.textColorPrimary, Color.BLACK);
+        mMinLapColor = ContextCompat.getColor(context, android.R.color.holo_green_light);
+        mMaxLapColor = ContextCompat.getColor(context, android.R.color.holo_red_light);
+
         setHasStableIds(true);
-    }
-
-    /**
-     * @param maxTime   the maximum amount of time; used to choose a time format
-     * @param time      the time to format guaranteed not to exceed {@code maxTime}
-     * @param separator displayed between hours and minutes as well as minutes and seconds
-     * @return a formatted version of the time
-     */
-    @VisibleForTesting
-    static String formatTime(long maxTime, long time, String separator) {
-        final int hours, minutes, seconds, hundredths;
-        if (time <= 0) {
-            // A negative time should be impossible, but is tolerated to avoid crashing the app.
-            hours = minutes = seconds = hundredths = 0;
-        } else {
-            hours = (int) (time / DateUtils.HOUR_IN_MILLIS);
-            int remainder = (int) (time % DateUtils.HOUR_IN_MILLIS);
-
-            minutes = (int) (remainder / DateUtils.MINUTE_IN_MILLIS);
-            remainder = (int) (remainder % DateUtils.MINUTE_IN_MILLIS);
-
-            seconds = (int) (remainder / DateUtils.SECOND_IN_MILLIS);
-            remainder = (int) (remainder % DateUtils.SECOND_IN_MILLIS);
-
-            hundredths = remainder / 10;
-        }
-
-        final char decimalSeparator = DecimalFormatSymbols.getInstance().getDecimalSeparator();
-
-        sTimeBuilder.setLength(0);
-
-        // The display of hours and minutes varies based on maxTime.
-        if (maxTime < TEN_MINUTES) {
-            sTimeBuilder.append(UiDataModel.getUiDataModel().getFormattedNumber(minutes, 1));
-        } else if (maxTime < HOUR) {
-            sTimeBuilder.append(UiDataModel.getUiDataModel().getFormattedNumber(minutes, 2));
-        } else if (maxTime < TEN_HOURS) {
-            sTimeBuilder.append(UiDataModel.getUiDataModel().getFormattedNumber(hours, 1));
-            sTimeBuilder.append(separator);
-            sTimeBuilder.append(UiDataModel.getUiDataModel().getFormattedNumber(minutes, 2));
-        } else if (maxTime < HUNDRED_HOURS) {
-            sTimeBuilder.append(UiDataModel.getUiDataModel().getFormattedNumber(hours, 2));
-            sTimeBuilder.append(separator);
-            sTimeBuilder.append(UiDataModel.getUiDataModel().getFormattedNumber(minutes, 2));
-        } else {
-            sTimeBuilder.append(UiDataModel.getUiDataModel().getFormattedNumber(hours, 3));
-            sTimeBuilder.append(separator);
-            sTimeBuilder.append(UiDataModel.getUiDataModel().getFormattedNumber(minutes, 2));
-        }
-
-        // The display of seconds and hundredths-of-a-second is constant.
-        sTimeBuilder.append(separator);
-        sTimeBuilder.append(UiDataModel.getUiDataModel().getFormattedNumber(seconds, 2));
-        sTimeBuilder.append(decimalSeparator);
-        sTimeBuilder.append(UiDataModel.getUiDataModel().getFormattedNumber(hundredths, 2));
-
-        return sTimeBuilder.toString();
-    }
-
-    /**
-     * After recording the first lap, there is always a "current lap" in progress.
-     *
-     * @return 0 if no laps are yet recorded; lap count + 1 if any laps exist
-     */
-    @Override
-    public int getItemCount() {
-        final int lapCount = getLaps().size();
-        final int currentLapCount = lapCount == 0 ? 0 : 1;
-        return currentLapCount + lapCount;
     }
 
     @NonNull
     @Override
     public LapItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         final View v = mInflater.inflate(R.layout.lap_view, parent, false);
-        return new LapItemHolder(v);
+        return new LapItemHolder(v, mRegularTypeface, mBoldTypeface, mPadding, mTextSize);
     }
 
     @Override
     public void onBindViewHolder(@NonNull LapItemHolder viewHolder, int position) {
-        // Initialize default color
-        if (defaultLapColor == -1) {
-            defaultLapColor = viewHolder.lapTime.getCurrentTextColor();
-        }
-
         final long lapTime;
         final int lapNumber;
         final long totalTime;
@@ -193,6 +140,18 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
         viewHolder.lapNumber.setText(formatLapNumber(getLaps().size() + 1, lapNumber));
     }
 
+    /**
+     * After recording the first lap, there is always a "current lap" in progress.
+     *
+     * @return 0 if no laps are yet recorded; lap count + 1 if any laps exist
+     */
+    @Override
+    public int getItemCount() {
+        final int lapCount = getLaps().size();
+        final int currentLapCount = lapCount == 0 ? 0 : 1;
+        return currentLapCount + lapCount;
+    }
+
     @Override
     public long getItemId(int position) {
         final List<Lap> laps = getLaps();
@@ -203,6 +162,14 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
         return laps.get(position - 1).getLapNumber();
     }
 
+    private Stopwatch getStopwatch() {
+        return DataModel.getDataModel().getStopwatch();
+    }
+
+    private List<Lap> getLaps() {
+        return DataModel.getDataModel().getLaps();
+    }
+
     /**
      * Ensures that the minimum and maximum lap times are computed.
      *
@@ -211,12 +178,12 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
      * existing lap data.</p>
      */
     private void ensureMinMaxComputed() {
-        if (minLapTime != Long.MAX_VALUE && maxLapTime != Long.MIN_VALUE) {
+        List<Lap> laps = getLaps();
+        if (laps.isEmpty()) {
             return;
         }
 
-        List<Lap> laps = getLaps();
-        if (laps.isEmpty()) {
+        if (laps.size() == mLastComputedLapCount) {
             return;
         }
 
@@ -237,6 +204,7 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
 
         minLapTime = min;
         maxLapTime = max;
+        mLastComputedLapCount = laps.size();
     }
 
     /**
@@ -251,22 +219,22 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
     private void applyLapColor(LapItemHolder holder, Lap lap, long lapTime) {
         // Current lap or only one recorded lap → always default color
         if (lap == null || getLaps().size() <= 1) {
-            setColor(holder, defaultLapColor);
+            setColor(holder, mDefaultLapColor);
             return;
         }
 
         // If 2 laps have the same duration, apply the default color
         if (minLapTime == maxLapTime) {
-            setColor(holder, defaultLapColor);
+            setColor(holder, mDefaultLapColor);
             return;
         }
 
         if (lapTime == minLapTime) {
-            setColor(holder, ContextCompat.getColor(mContext, android.R.color.holo_green_light));
+            setColor(holder, mMinLapColor);
         } else if (lapTime == maxLapTime) {
-            setColor(holder, ContextCompat.getColor(mContext, android.R.color.holo_red_light));
+            setColor(holder, mMaxLapColor);
         } else {
-            setColor(holder, defaultLapColor);
+            setColor(holder, mDefaultLapColor);
         }
     }
 
@@ -308,10 +276,7 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
             lapHolder.lapTime.setText(formatLapTime(lapTime, false));
             lapHolder.accumulatedTime.setText(formatAccumulatedTime(totalTime, false));
 
-            // IMPORTANT : remettre la couleur par défaut
-            if (defaultLapColor != -1) {
-                lapHolder.lapTime.setTextColor(defaultLapColor);
-            }
+            lapHolder.lapTime.setTextColor(mDefaultLapColor);
         }
     }
 
@@ -324,16 +289,6 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
         final Lap lap = DataModel.getDataModel().addLap();
 
         Utils.setVibrationTime(mContext, 10);
-
-        long lapTime = lap.getLapTime();
-
-        if (lapTime < minLapTime) {
-            minLapTime = lapTime;
-        }
-
-        if (lapTime > maxLapTime) {
-            maxLapTime = lapTime;
-        }
 
         notifyDataSetChanged();
 
@@ -350,7 +305,8 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
 
         minLapTime = Long.MAX_VALUE;
         maxLapTime = Long.MIN_VALUE;
-        defaultLapColor = -1;
+
+        mLastComputedLapCount = -1;
 
         notifyDataSetChanged();
     }
@@ -456,12 +412,61 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
         return formattedTime;
     }
 
-    private Stopwatch getStopwatch() {
-        return DataModel.getDataModel().getStopwatch();
-    }
+    /**
+     * @param maxTime   the maximum amount of time; used to choose a time format
+     * @param time      the time to format guaranteed not to exceed {@code maxTime}
+     * @param separator displayed between hours and minutes as well as minutes and seconds
+     * @return a formatted version of the time
+     */
+    @VisibleForTesting
+    static String formatTime(long maxTime, long time, String separator) {
+        final int hours, minutes, seconds, hundredths;
+        if (time <= 0) {
+            // A negative time should be impossible, but is tolerated to avoid crashing the app.
+            hours = minutes = seconds = hundredths = 0;
+        } else {
+            hours = (int) (time / DateUtils.HOUR_IN_MILLIS);
+            int remainder = (int) (time % DateUtils.HOUR_IN_MILLIS);
 
-    private List<Lap> getLaps() {
-        return DataModel.getDataModel().getLaps();
+            minutes = (int) (remainder / DateUtils.MINUTE_IN_MILLIS);
+            remainder = (int) (remainder % DateUtils.MINUTE_IN_MILLIS);
+
+            seconds = (int) (remainder / DateUtils.SECOND_IN_MILLIS);
+            remainder = (int) (remainder % DateUtils.SECOND_IN_MILLIS);
+
+            hundredths = remainder / 10;
+        }
+
+        final char decimalSeparator = DecimalFormatSymbols.getInstance().getDecimalSeparator();
+
+        sTimeBuilder.setLength(0);
+
+        // The display of hours and minutes varies based on maxTime.
+        if (maxTime < TEN_MINUTES) {
+            sTimeBuilder.append(UiDataModel.getUiDataModel().getFormattedNumber(minutes, 1));
+        } else if (maxTime < HOUR) {
+            sTimeBuilder.append(UiDataModel.getUiDataModel().getFormattedNumber(minutes, 2));
+        } else if (maxTime < TEN_HOURS) {
+            sTimeBuilder.append(UiDataModel.getUiDataModel().getFormattedNumber(hours, 1));
+            sTimeBuilder.append(separator);
+            sTimeBuilder.append(UiDataModel.getUiDataModel().getFormattedNumber(minutes, 2));
+        } else if (maxTime < HUNDRED_HOURS) {
+            sTimeBuilder.append(UiDataModel.getUiDataModel().getFormattedNumber(hours, 2));
+            sTimeBuilder.append(separator);
+            sTimeBuilder.append(UiDataModel.getUiDataModel().getFormattedNumber(minutes, 2));
+        } else {
+            sTimeBuilder.append(UiDataModel.getUiDataModel().getFormattedNumber(hours, 3));
+            sTimeBuilder.append(separator);
+            sTimeBuilder.append(UiDataModel.getUiDataModel().getFormattedNumber(minutes, 2));
+        }
+
+        // The display of seconds and hundredths-of-a-second is constant.
+        sTimeBuilder.append(separator);
+        sTimeBuilder.append(UiDataModel.getUiDataModel().getFormattedNumber(seconds, 2));
+        sTimeBuilder.append(decimalSeparator);
+        sTimeBuilder.append(UiDataModel.getUiDataModel().getFormattedNumber(hundredths, 2));
+
+        return sTimeBuilder.toString();
     }
 
     /**
@@ -473,34 +478,22 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
         private final TextView lapTime;
         private final TextView accumulatedTime;
 
-        LapItemHolder(View itemView) {
+        LapItemHolder(View itemView, Typeface regular, Typeface bold, int padding, float textSize) {
             super(itemView);
 
-            final Context context = itemView.getContext();
-            SharedPreferences prefs = getDefaultSharedPreferences(context);
-            String fontPath = SettingsDAO.getGeneralFont(prefs);
-            Typeface regularTypeface = ThemeUtils.loadFont(fontPath);
-            Typeface boldTypeface = ThemeUtils.boldTypeface(fontPath);
-            boolean isTablet = ThemeUtils.isTablet();
-            final DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-
-            // Set top and bottom padding between each item
-            final int padding = (int) dpToPx(isTablet ? 8 : 4, displayMetrics);
             itemView.setPadding(0, padding, 0, padding);
-
-            final float textSize = isTablet ? 18 : 16;
 
             lapNumber = itemView.findViewById(R.id.lap_number);
             lapNumber.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
-            lapNumber.setTypeface(boldTypeface);
+            lapNumber.setTypeface(bold);
 
             lapTime = itemView.findViewById(R.id.lap_time);
             lapTime.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
-            lapTime.setTypeface(regularTypeface);
+            lapTime.setTypeface(regular);
 
             accumulatedTime = itemView.findViewById(R.id.lap_total);
             accumulatedTime.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
-            accumulatedTime.setTypeface(regularTypeface);
+            accumulatedTime.setTypeface(regular);
         }
     }
 }

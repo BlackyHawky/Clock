@@ -12,7 +12,6 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SORT_
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
-import android.util.ArrayMap;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -33,8 +32,6 @@ import com.best.deskclock.utils.ThemeUtils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
 /**
  * This adapter produces a {@link TimerViewHolder} for each timer.
@@ -45,16 +42,60 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public static final int MULTIPLE_TIMERS = 1;
     public static final int MULTIPLE_TIMERS_COMPACT = 2;
 
-    /** Maps each timer id to the corresponding {@link TimerViewHolder} that draws it. */
-    private final Map<Integer, TimerViewHolder> mHolders = new ArrayMap<>();
+    private static final String PAYLOAD_UPDATE_BACKGROUND = "PAYLOAD_UPDATE_BACKGROUND";
+    private static final String PAYLOAD_UPDATE_STATE = "PAYLOAD_UPDATE_STATE";
+
+    private List<Timer> mCachedTimers = new ArrayList<>();
     private final TimerClickHandler mTimerClickHandler;
     private final Context mContext;
     private final SharedPreferences mPrefs;
+    private RecyclerView mRecyclerView;
 
     public TimerAdapter(Context context, SharedPreferences sharedPreferences, TimerClickHandler timerClickHandler) {
         mContext = context;
         mPrefs = sharedPreferences;
         mTimerClickHandler = timerClickHandler;
+
+        loadTimerList();
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        mRecyclerView = recyclerView;
+    }
+
+    @Override
+    public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView);
+        mRecyclerView = null;
+    }
+
+    @Override
+    public void onViewAttachedToWindow(@NonNull RecyclerView.ViewHolder itemViewHolder) {
+        super.onViewAttachedToWindow(itemViewHolder);
+        TimerViewHolder holder = (TimerViewHolder) itemViewHolder;
+        Timer timer = holder.getTimer();
+
+        if (timer != null) {
+            if (holder.mTimerItemCompact != null) {
+                holder.mTimerItemCompact.updateTimeDisplay(timer);
+            } else if (holder.mTimerItem != null) {
+                holder.mTimerItem.updateTimeDisplay(timer);
+            }
+
+            if (!timer.isReset()) {
+                holder.startUpdating();
+            }
+        }
+    }
+
+    @Override
+    public void onViewDetachedFromWindow(@NonNull RecyclerView.ViewHolder itemViewHolder) {
+        super.onViewDetachedFromWindow(itemViewHolder);
+        TimerViewHolder holder = (TimerViewHolder) itemViewHolder;
+
+        holder.stopUpdating();
     }
 
     @Override
@@ -98,38 +139,118 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder itemViewHolder, int position) {
         TimerViewHolder holder = (TimerViewHolder) itemViewHolder;
         Timer timer = getTimer(position);
-        mHolders.put(timer.getId(), holder);
-        holder.onBind(timer.getId());
 
-        if (!timer.isReset()) {
-            holder.startUpdating();
+        holder.onBind(timer.getId());
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder itemViewHolder, int position, @NonNull List<Object> payloads) {
+        if (!payloads.isEmpty()) {
+            TimerViewHolder holder = (TimerViewHolder) itemViewHolder;
+
+            if (payloads.contains(PAYLOAD_UPDATE_BACKGROUND)) {
+                holder.updateBackground();
+            }
+
+            if (payloads.contains(PAYLOAD_UPDATE_STATE)) {
+                Timer timer = getTimer(position);
+                holder.onBind(timer.getId());
+            }
         } else {
-            holder.stopUpdating();
+            super.onBindViewHolder(itemViewHolder, position, payloads);
         }
     }
 
     @Override
     public void timerAdded(Timer timer) {
+        refreshTimersCache();
         saveTimerList();
-        notifyDataSetChanged();
+        notifyItemInserted(getTimers().indexOf(timer));
         updateTime();
     }
 
     @Override
     public void timerRemoved(Timer timer) {
-        TimerViewHolder holder = mHolders.get(timer.getId());
-        if (holder != null) {
-            holder.stopUpdating();
-        }
-        mHolders.remove(timer.getId());
+        int positionToRemove = getTimerPosition(timer.getId());
+
+        refreshTimersCache();
         saveTimerList();
-        notifyDataSetChanged();
+
+        if (positionToRemove != RecyclerView.NO_POSITION) {
+            notifyItemRemoved(positionToRemove);
+
+            if (getItemCount() == 1) {
+                // Use notifyDataSetChanged() to avoid flickering when switching
+                // from two timers to a single timer.
+                notifyDataSetChanged();
+            }
+        } else {
+            // Fallback
+            notifyDataSetChanged();
+        }
     }
 
     @Override
     public void timerUpdated(Timer before, Timer after) {
+        int oldPosition = getTimerPosition(before.getId());
+
+        refreshTimersCache();
+
+        int newPosition = getTimerPosition(after.getId());
+
+        if (oldPosition != RecyclerView.NO_POSITION && newPosition != RecyclerView.NO_POSITION) {
+            if (oldPosition != newPosition) {
+                // Dynamic sorting: Use notifyItemMoved() to automatically animate the timer to its
+                // new position when its state changes (unlike swapTimers which handles manual drag-and-drop).
+                notifyItemMoved(oldPosition, newPosition);
+
+                int startPosition = Math.min(oldPosition, newPosition);
+                int itemCount = Math.abs(oldPosition - newPosition) + 1;
+
+                // Update timer backgrounds.
+                notifyItemRangeChanged(startPosition, itemCount, PAYLOAD_UPDATE_BACKGROUND);
+
+                // Update the Play/Pause button icon.
+                notifyItemChanged(newPosition, PAYLOAD_UPDATE_STATE);
+            }
+
+            boolean isTablet = ThemeUtils.isTablet();
+            // Returns true if the circle or the progress bar is displayed
+            // (on tablets, the circle is always displayed).
+            boolean isExpanding = !isTablet && before.isReset() && !after.isReset();
+            // Returns true if the circle or the progress bar is gone.
+            // (on tablets, the circle is always displayed).
+            boolean isShrinking = !isTablet && !before.isReset() && after.isReset();
+
+            if (isExpanding) {
+                // Expanding: Use notifyDataSetChanged() to avoid overlapping with other timers when
+                // the circle or progress bar appears.
+                notifyDataSetChanged();
+            } else if (oldPosition == newPosition) {
+                // Static position: Use notifyItemChanged() to perform a lightweight, targeted update
+                // when the timer shrinks or simply ticks without changing its position in the list.
+                notifyItemChanged(newPosition, null);
+            } else if (isShrinking) {
+                // Shrinking and moving: Use notifyDataSetChanged() to avoid visual glitches when
+                // the circle or progress bar disappears.
+                notifyDataSetChanged();
+            }
+        } else {
+            // Fallback
+            notifyDataSetChanged();
+        }
+
         updateTime();
-        notifyDataSetChanged();
+    }
+
+    private int getTimerPosition(int timerId) {
+        for (int i = 0; i < mCachedTimers.size(); i++) {
+            if (mCachedTimers.get(i).getId() == timerId) {
+                return i;
+            }
+        }
+
+        return RecyclerView.NO_POSITION;
     }
 
     /**
@@ -139,7 +260,14 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
      * based on its current state (e.g., paused or running).</p>
      */
     void updateTime() {
-        for (TimerViewHolder holder : mHolders.values()) {
+        if (mRecyclerView == null) {
+            return;
+        }
+
+        for (int i = 0; i < mRecyclerView.getChildCount(); i++) {
+            View child = mRecyclerView.getChildAt(i);
+            TimerViewHolder holder = (TimerViewHolder) mRecyclerView.getChildViewHolder(child);
+
             Timer timer = holder.getTimer();
             if (timer != null && !timer.isReset()) {
                 holder.startUpdating();
@@ -156,7 +284,13 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
      * is paused to prevent unnecessary background updates and potential memory leaks.
      */
     public void stopAllUpdating() {
-        for (TimerViewHolder holder : mHolders.values()) {
+        if (mRecyclerView == null) {
+            return;
+        }
+
+        for (int i = 0; i < mRecyclerView.getChildCount(); i++) {
+            View child = mRecyclerView.getChildAt(i);
+            TimerViewHolder holder = (TimerViewHolder) mRecyclerView.getChildViewHolder(child);
             holder.stopUpdating();
         }
     }
@@ -166,12 +300,44 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     public List<Timer> getTimers() {
-        List<Timer> timers = DataModel.getDataModel().getTimers();
+        return mCachedTimers;
+    }
+
+    public void refreshTimersCache() {
+        List<Timer> sourceTimers = new ArrayList<>(DataModel.getDataModel().getTimers());
         String timerSortingPreference = SettingsDAO.getTimerSortingPreference(mPrefs);
+
         if (!timerSortingPreference.equals(DEFAULT_SORT_TIMER_MANUALLY)) {
-            Collections.sort(timers, Timer.createTimerStateComparator(mContext));
+            Collections.sort(sourceTimers, Timer.createTimerStateComparator(mContext));
+            mCachedTimers = sourceTimers;
+        } else {
+            String savedOrder = mPrefs.getString("timerOrder", null);
+
+            if (savedOrder != null) {
+                String[] timerIds = savedOrder.split(",");
+                List<Timer> orderedList = new ArrayList<>();
+
+                for (String id : timerIds) {
+                    int timerId = Integer.parseInt(id);
+                    for (Timer timer : sourceTimers) {
+                        if (timer.getId() == timerId) {
+                            orderedList.add(timer);
+                            break;
+                        }
+                    }
+                }
+
+                for (Timer timer : sourceTimers) {
+                    if (!orderedList.contains(timer)) {
+                        orderedList.add(0, timer);
+                    }
+                }
+
+                mCachedTimers = orderedList;
+            } else {
+                mCachedTimers = sourceTimers;
+            }
         }
-        return timers;
     }
 
     public void saveTimerList() {
@@ -198,28 +364,14 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     public void loadTimerList() {
-        String savedOrder = mPrefs.getString("timerOrder", null);
+        refreshTimersCache();
+        notifyDataSetChanged();
+    }
 
-        if (savedOrder != null) {
-            String[] timerIds = savedOrder.split(",");
-
-            List<Timer> tempList = new ArrayList<>(getTimers());
-            getTimers().clear();
-
-            // Fill mTimers according to the saved order
-            for (String id : timerIds) {
-                int timerId = Integer.parseInt(id);
-                for (Timer timer : tempList) {
-                    if (timer.getId() == timerId) {
-                        getTimers().add(timer);
-                        break;
-                    }
-                }
-            }
-
-            // Notify adapter
-            notifyDataSetChanged();
-        }
+    public void swapTimers(int fromPosition, int toPosition) {
+        Collections.swap(mCachedTimers, fromPosition, toPosition);
+        Collections.swap(DataModel.getDataModel().getTimers(), fromPosition, toPosition);
+        notifyItemMoved(fromPosition, toPosition);
     }
 
     /**
@@ -284,8 +436,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             int fromPosition = viewHolder.getBindingAdapterPosition();
             int toPosition = target.getBindingAdapterPosition();
 
-            Collections.swap(DataModel.getDataModel().getTimers(), fromPosition, toPosition);
-            Objects.requireNonNull(recyclerView.getAdapter()).notifyItemMoved(fromPosition, toPosition);
+            mAdapter.swapTimers(fromPosition, toPosition);
 
             return true;
         }

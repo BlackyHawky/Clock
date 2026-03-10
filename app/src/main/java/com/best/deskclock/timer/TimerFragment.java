@@ -58,7 +58,6 @@ import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * Displays a vertical list of timers in all states.
@@ -154,8 +153,6 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
 
         DataModel.getDataModel().addTimerListener(mAdapter);
         DataModel.getDataModel().addTimerListener(mTimerWatcher);
-
-        mAdapter.loadTimerList();
 
         mItemTouchHelper = new ItemTouchHelper(new TimerAdapter.TimerItemTouchHelper(mAdapter, mRecyclerView));
         handleItemTouchHelper();
@@ -547,12 +544,17 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     }
 
     private boolean hasTimers() {
-        return mAdapter.getItemCount() > 0;
+        return mAdapter != null && mAdapter.getItemCount() > 0;
+    }
+
+    private boolean hasMultipleTimers() {
+        return mAdapter != null && mAdapter.getItemCount() > 1;
     }
 
     private RecyclerView.LayoutManager getLayoutManager(Context context) {
-        if (mIsTablet && mAdapter.getItemCount() > 1) {
-            return new GridLayoutManager(context, mIsLandscape ? 3 : 2);
+        if (mIsTablet) {
+            int spanCount = hasMultipleTimers() ? (mIsLandscape ? 3 : 2) : 1;
+            return new GridLayoutManager(context, spanCount);
         }
 
         return new LinearLayoutManager(context, mIsLandscape
@@ -561,7 +563,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     }
 
     private void handleItemTouchHelper() {
-        if (mAdapter.getItemCount() > 1) {
+        if (hasMultipleTimers()) {
             mItemTouchHelper.attachToRecyclerView(mRecyclerView);
         } else {
             mItemTouchHelper.attachToRecyclerView(null);
@@ -589,8 +591,12 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
             }
 
             // Required to adjust the layout for tablets that use either a GridLayoutManager or a LinearLayoutManager.
-            if (mIsTablet) {
-                mRecyclerView.setLayoutManager(getLayoutManager(mContext));
+            if (mIsTablet && mRecyclerView.getLayoutManager() instanceof GridLayoutManager gridLayoutManager) {
+                int newSpanCount = hasMultipleTimers() ? (mIsLandscape ? 3 : 2) : 1;
+
+                if (gridLayoutManager.getSpanCount() != newSpanCount) {
+                    gridLayoutManager.setSpanCount(newSpanCount);
+                }
             }
 
             // Required to attach the ItemTouchHelper when there is more than one timer.
@@ -599,11 +605,36 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
 
         @Override
         public void timerUpdated(Timer before, Timer after) {
-            // If the timer started, animate the timers and scroll to its position.
-            if (before.isReset() && !after.isReset()) {
-                Objects.requireNonNull(
-                        mRecyclerView.getLayoutManager()).scrollToPosition(mAdapter.getTimers().indexOf(before)
-                );
+            int position = mAdapter.getTimers().indexOf(after);
+            boolean justStarted = before.isReset() && !after.isReset();
+            boolean justPaused = !before.isPaused() && after.isPaused();
+            boolean justReset = !before.isReset() && after.isReset();
+            boolean justResumed = before.isPaused() && !after.isPaused();
+            boolean justExpired = !before.isExpired() && after.isExpired();
+            boolean timeAdded = before.getTotalLength() != after.getTotalLength();
+            boolean stoppedExpired = (before.isExpired() && !after.isExpired())
+                    || (before.isMissed() && !after.isMissed());
+
+            RecyclerView.LayoutManager layoutManager = mRecyclerView.getLayoutManager();
+
+            if (layoutManager != null && hasMultipleTimers() && position != RecyclerView.NO_POSITION) {
+                if (justReset || stoppedExpired) {
+                    if (mIsTablet && layoutManager instanceof LinearLayoutManager linearLayoutManager) {
+                        int firstVisible = linearLayoutManager.findFirstVisibleItemPosition();
+                        View firstView = linearLayoutManager.findViewByPosition(firstVisible);
+                        int offset = (firstView != null) ? firstView.getTop() : 0;
+
+                        linearLayoutManager.scrollToPositionWithOffset(firstVisible, offset);
+                    }
+                } else if (justStarted || timeAdded || justResumed || justExpired) {
+                    layoutManager.scrollToPosition(position);
+                } else if ((justPaused) && layoutManager instanceof LinearLayoutManager linearLayoutManager) {
+                    int firstVisible = linearLayoutManager.findFirstVisibleItemPosition();
+                    View firstView = linearLayoutManager.findViewByPosition(firstVisible);
+                    int offset = (firstView != null) ? firstView.getTop() : 0;
+
+                    linearLayoutManager.scrollToPositionWithOffset(firstVisible, offset);
+                }
             }
 
             adjustWakeLock();
@@ -618,8 +649,12 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
             }
 
             // Required to adjust the layout for tablets that use either a GridLayoutManager or a LinearLayoutManager.
-            if (mIsTablet) {
-                mRecyclerView.setLayoutManager(getLayoutManager(mContext));
+            if (mIsTablet && mRecyclerView.getLayoutManager() instanceof GridLayoutManager gridLayoutManager) {
+                int newSpanCount = hasMultipleTimers() ? (mIsLandscape ? 3 : 2) : 1;
+
+                if (gridLayoutManager.getSpanCount() != newSpanCount) {
+                    gridLayoutManager.setSpanCount(newSpanCount);
+                }
             }
 
             // Required to detach the ItemTouchHelper when there is only one timer left.

@@ -11,6 +11,8 @@ import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreference
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,43 +26,40 @@ import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 
+import com.google.android.material.button.MaterialButton;
+
 public class TimerViewHolder extends RecyclerView.ViewHolder {
 
+    private final Context mContext;
     private int mTimerId;
-    private TimerItem mTimerItem;
-    private TimerItemCompact mTimerItemCompact;
-    private final TimerClickHandler mTimerClickHandler;
+    public TimerItem mTimerItem;
+    public TimerItemCompact mTimerItemCompact;
 
     public TimerViewHolder(View view, TimerClickHandler timerClickHandler, int viewType) {
         super(view);
 
-        final Context context = view.getContext();
-        final SharedPreferences prefs = getDefaultSharedPreferences(context);
+        mContext = view.getContext();
+        final SharedPreferences prefs = getDefaultSharedPreferences(mContext);
 
         switch (viewType) {
-            case TimerAdapter.SINGLE_TIMER:
-            case TimerAdapter.MULTIPLE_TIMERS:
-                mTimerItem = (TimerItem) view;
-                break;
-            case TimerAdapter.MULTIPLE_TIMERS_COMPACT:
-                mTimerItemCompact = (TimerItemCompact) view;
-                break;
+            case TimerAdapter.SINGLE_TIMER, TimerAdapter.MULTIPLE_TIMERS ->
+                    mTimerItem = (TimerItem) view;
+            case TimerAdapter.MULTIPLE_TIMERS_COMPACT ->
+                    mTimerItemCompact = (TimerItemCompact) view;
         }
 
-        mTimerClickHandler = timerClickHandler;
-
-        View timerLabel = view.findViewById(R.id.timer_label);
-        View resetButton = view.findViewById(R.id.reset);
-        View timerTotalDuration = view.findViewById(R.id.timer_total_duration);
-        View timerEditNewDurationButton = view.findViewById(R.id.timer_edit_new_duration_button);
-        View addTimeButton = view.findViewById(R.id.timer_add_time_button);
+        TextView timerLabel = view.findViewById(R.id.timer_label);
+        ImageButton resetButton = view.findViewById(R.id.reset);
+        TextView timerTotalDuration = view.findViewById(R.id.timer_total_duration);
+        ImageButton timerEditNewDurationButton = view.findViewById(R.id.timer_edit_new_duration_button);
+        MaterialButton addTimeButton = view.findViewById(R.id.timer_add_time_button);
         View circleContainer = view.findViewById(R.id.circle_container);
-        View timerTimeText = view.findViewById(R.id.timer_time_text);
-        View playPauseButton = view.findViewById(R.id.play_pause);
-        View deleteButton = view.findViewById(R.id.delete_timer);
+        TextView timerTimeText = view.findViewById(R.id.timer_time_text);
+        MaterialButton playPauseButton = view.findViewById(R.id.play_pause);
+        ImageButton deleteButton = view.findViewById(R.id.delete_timer);
 
         View.OnClickListener playPauseListener = v -> {
-            Utils.setVibrationTime(context, 50);
+            Utils.setVibrationTime(mContext, 50);
             if (getTimer().isPaused() || getTimer().isReset()) {
                 DataModel.getDataModel().startTimer(getTimer());
             } else if (getTimer().isRunning()) {
@@ -70,29 +69,29 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
             }
         };
 
-        timerLabel.setOnClickListener(v -> mTimerClickHandler.onEditLabelClicked(getTimer()));
+        timerLabel.setOnClickListener(v -> timerClickHandler.onEditLabelClicked(getTimer()));
 
         resetButton.setOnClickListener(v -> {
             DataModel.getDataModel().resetOrDeleteTimer(getTimer(), R.string.label_deskclock);
-            Utils.setVibrationTime(context, 10);
+            Utils.setVibrationTime(mContext, 10);
         });
 
         addTimeButton.setOnClickListener(v -> {
             DataModel.getDataModel().addCustomTimeToTimer(getTimer());
-            Utils.setVibrationTime(context, 10);
+            Utils.setVibrationTime(mContext, 10);
             Events.sendTimerEvent(R.string.action_add_custom_time_to_timer, R.string.label_deskclock);
 
             // Must use getTimer() because old timer is no longer accurate.
             final long currentTime = getTimer().getRemainingTime();
             final String buttonTime = getTimer().getButtonTime();
             if (currentTime > 0) {
-                v.announceForAccessibility(TimerStringFormatter.formatString(context,
+                v.announceForAccessibility(TimerStringFormatter.formatString(mContext,
                         R.string.timer_accessibility_custom_time_added, buttonTime, currentTime, true));
             }
         });
 
         addTimeButton.setOnLongClickListener(v -> {
-            mTimerClickHandler.onEditAddTimeButtonLongClicked(getTimer());
+            timerClickHandler.onEditAddTimeButtonLongClicked(getTimer());
             return true;
         });
 
@@ -103,7 +102,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
                     return;
                 }
 
-                mTimerClickHandler.onDurationClicked(getTimer());
+                timerClickHandler.onDurationClicked(getTimer());
             });
         }
 
@@ -114,7 +113,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
                     return;
                 }
 
-                mTimerClickHandler.onDurationClicked(getTimer());
+                timerClickHandler.onDurationClicked(getTimer());
             });
         }
 
@@ -131,19 +130,19 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
         playPauseButton.setOnClickListener(playPauseListener);
 
         deleteButton.setOnClickListener(v -> {
-            Utils.setVibrationTime(context, 10);
+            Utils.setVibrationTime(mContext, 10);
 
             if (SettingsDAO.isWarningDisplayedBeforeDeletingTimer(prefs)) {
                 // Get the title of the timer if there is one; otherwise, get the total duration.
                 final String dialogMessage;
                 if (getTimer().getLabel().isEmpty()) {
-                    dialogMessage = context.getString(R.string.warning_dialog_message, getTimer().getTotalDuration());
+                    dialogMessage = mContext.getString(R.string.warning_dialog_message, getTimer().getTotalDuration());
                 } else {
-                    dialogMessage = context.getString(R.string.warning_dialog_message, getTimer().getLabel());
+                    dialogMessage = mContext.getString(R.string.warning_dialog_message, getTimer().getLabel());
                 }
 
                 CustomDialog.createSimpleDialog(
-                        context,
+                        mContext,
                         R.drawable.ic_delete,
                         R.string.warning_dialog_title,
                         dialogMessage,
@@ -168,24 +167,26 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
             }
         }
 
-        Context context = itemView.getContext();
+        updateBackground();
+    }
+
+    public void updateBackground() {
         int position = getBindingAdapterPosition();
         RecyclerView.Adapter<?> adapter = getBindingAdapter();
-
 
         if (position != RecyclerView.NO_POSITION && adapter != null) {
             int totalCount = adapter.getItemCount();
 
             if (ThemeUtils.isTablet()) {
-                itemView.setBackground(ThemeUtils.cardBackground(context));
+                itemView.setBackground(ThemeUtils.cardBackground(mContext));
             } else {
                 if (totalCount == 1) {
-                    itemView.setBackground(ThemeUtils.cardBackground(context));
+                    itemView.setBackground(ThemeUtils.cardBackground(mContext));
                 } else {
                     if (ThemeUtils.isLandscape()) {
-                        itemView.setBackground(ThemeUtils.expressiveCardBackgroundForLandscape(context, position, totalCount));
+                        itemView.setBackground(ThemeUtils.expressiveCardBackgroundForLandscape(mContext, position, totalCount));
                     } else {
-                        itemView.setBackground(ThemeUtils.expressiveCardBackground(context, position, totalCount));
+                        itemView.setBackground(ThemeUtils.expressiveCardBackground(mContext, position, totalCount));
                     }
                 }
             }
@@ -222,9 +223,16 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
             // Use a 500 ms delay for paused, expired, or missed timers to ensure
             // more frequent updates needed for smooth blinking (based on a 500 ms interval).
             // For running timers, a 1000 ms delay is sufficient to save resources.
-            final long delay = timer.isPaused() || timer.isExpired() || timer.isMissed()
-                    ? 500
-                    : 1000;
+            long delay;
+            if (timer.isPaused() || timer.isExpired() || timer.isMissed()) {
+                delay = 500;
+            } else {
+                long remainingTime = timer.getRemainingTime();
+                delay = remainingTime % 1000;
+                if (delay == 0) {
+                    delay = 1000;
+                }
+            }
 
             if (mTimerItemCompact != null) {
                 mTimerItemCompact.updateTimeDisplay(timer);

@@ -107,6 +107,7 @@
         android:scaleType="centerInside"
         app:iconGravity="textStart"
         app:iconPadding="0dp"
+        app:shapeAppearance="@style/TimerSetupDigit.CircleOverlay"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timer_label"
         tools:icon="@drawable/ic_fab_play" />
@@ -117,6 +118,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
         android:maxLines="1"
+        app:shapeAppearance="@style/TimerSetupDigit.CircleOverlay"
         app:layout_constraintEnd_toStartOf="@+id/play_pause"
         app:layout_constraintTop_toTopOf="@+id/play_pause"
         app:layout_constraintBottom_toBottomOf="@+id/play_pause"

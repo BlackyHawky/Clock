@@ -38,8 +38,24 @@ public class TimerItemCompact extends ConstraintLayout {
 
     Context mContext;
     SharedPreferences mPrefs;
-    String mGeneralFontPath;
+    Typeface mRegularTypeface;
+    Typeface mBoldTypeface;
     Typeface mTimerTimeTypeface;
+    private boolean mIsIndicatorStateDisplay;
+
+    private Drawable mIconPlay;
+    private Drawable mIconPause;
+    private Drawable mIconStop;
+
+    private int mColorPaused;
+    private int mColorRunning;
+    private int mColorExpired;
+
+    private String mLastButtonTimeRaw;
+    private String mCachedAddButtonText;
+    private String mCachedAddButtonContentDesc;
+    private String mLastLabel = null;
+    private String mLastTotalDuration = null;
 
     /** Displays timer progress as a horizontal bar. */
     private TimerBarView mTimerBar;
@@ -93,18 +109,37 @@ public class TimerItemCompact extends ConstraintLayout {
 
         mContext = getContext();
         mPrefs = getDefaultSharedPreferences(mContext);
-        mGeneralFontPath = SettingsDAO.getGeneralFont(mPrefs);
+        String generalFontPath = SettingsDAO.getGeneralFont(mPrefs);
+        mRegularTypeface = ThemeUtils.loadFont(generalFontPath);
+        mBoldTypeface = ThemeUtils.boldTypeface(generalFontPath);
         mTimerTimeTypeface = ThemeUtils.loadFont(SettingsDAO.getTimerDurationFont(mPrefs));
+        mIsIndicatorStateDisplay = SettingsDAO.isTimerStateIndicatorDisplayed(mPrefs);
 
         mTimerBar = findViewById(R.id.timer_bar);
         mLabelView = findViewById(R.id.timer_label);
         mResetButton = findViewById(R.id.reset);
         mAddTimeButton = findViewById(R.id.timer_add_time_button);
         mPlayPauseButton = findViewById(R.id.play_pause);
-
-        // Displays the remaining time or time since expiration.
-        // Timer text serves as a virtual start/stop button.
         mTimerText = findViewById(R.id.timer_time_text);
+        mTimerTextController = new TimerTextController(mTimerText);
+        mTimerTotalDurationText = findViewById(R.id.timer_total_duration);
+        if (mTimerTotalDurationText != null) {
+            mTimerTotalDurationText.setTypeface(mTimerTimeTypeface);
+        }
+
+        mIndicatorState = findViewById(R.id.indicator_state);
+        final Drawable drawable = ThemeUtils.circleDrawable();
+        mIndicatorState.setBackground(drawable);
+        mGradientDrawable = (GradientDrawable) mIndicatorState.getBackground();
+
+        mIconPlay = AppCompatResources.getDrawable(mContext, R.drawable.ic_fab_play);
+        mIconPause = AppCompatResources.getDrawable(mContext, R.drawable.ic_fab_pause);
+        mIconStop = AppCompatResources.getDrawable(mContext, R.drawable.ic_fab_stop);
+
+        mColorPaused = SettingsDAO.getPausedTimerIndicatorColor(mPrefs);
+        mColorRunning = SettingsDAO.getRunningTimerIndicatorColor(mPrefs);
+        mColorExpired = SettingsDAO.getExpiredTimerIndicatorColor(mPrefs);
+
         final int colorAccent = MaterialColors.getColor(
                 mContext, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
         final int textColorPrimary = mTimerText.getCurrentTextColor();
@@ -112,14 +147,9 @@ public class TimerItemCompact extends ConstraintLayout {
                 new int[][]{{-state_activated, -state_pressed}, {}},
                 new int[]{textColorPrimary, colorAccent});
         mTimerText.setTextColor(timeTextColor);
-        mTimerTextController = new TimerTextController(mTimerText);
+        mTimerText.setTypeface(mTimerTimeTypeface);
 
-        mTimerTotalDurationText = findViewById(R.id.timer_total_duration);
-
-        mIndicatorState = findViewById(R.id.indicator_state);
-        final Drawable drawable = ThemeUtils.circleDrawable();
-        mIndicatorState.setBackground(drawable);
-        mGradientDrawable = (GradientDrawable) mIndicatorState.getBackground();
+        mAddTimeButton.setTypeface(mBoldTypeface);
     }
 
     /**
@@ -137,10 +167,12 @@ public class TimerItemCompact extends ConstraintLayout {
                     : 1f;
 
             // Apply circle blinking
-            mTimerBar.animate()
-                    .alpha(targetAlpha)
-                    .setDuration(300)
-                    .start();
+            if (mTimerBar.getAlpha() != targetAlpha) {
+                mTimerBar.animate()
+                        .alpha(targetAlpha)
+                        .setDuration(300)
+                        .start();
+            }
 
             // Update circle only if visible
             if (!isBlinking || !blinkOff) {
@@ -149,10 +181,12 @@ public class TimerItemCompact extends ConstraintLayout {
         }
 
         final float textTargetAlpha = (!timer.isPaused() || !blinkOff || mTimerText.isPressed()) ? 1f : 0f;
-        mTimerText.animate()
-                .alpha(textTargetAlpha)
-                .setDuration(200)
-                .start();
+        if (mTimerText.getAlpha() != textTargetAlpha) {
+            mTimerText.animate()
+                    .alpha(textTargetAlpha)
+                    .setDuration(200)
+                    .start();
+        }
     }
 
     /**
@@ -164,60 +198,69 @@ public class TimerItemCompact extends ConstraintLayout {
 
         // Initialize text for timer total duration
         if (mTimerTotalDurationText != null) {
-            mTimerTotalDurationText.setText(timer.getTotalDuration());
-            mTimerTotalDurationText.setTypeface(mTimerTimeTypeface);
+            String totalDuration = timer.getTotalDuration();
+            if (!totalDuration.equals(mLastTotalDuration)) {
+                mLastTotalDuration = totalDuration;
+                mTimerTotalDurationText.setText(totalDuration);
+            }
         }
 
         // Initialize the label
         final String label = timer.getLabel();
-        final boolean isLabelEmpty = label.isEmpty();
 
-        if (isLabelEmpty) {
-            mLabelView.setText(null);
-            mLabelView.setTypeface(ThemeUtils.loadFont(mGeneralFontPath));
-        } else {
-            mLabelView.setText(label);
-            mLabelView.setTypeface(ThemeUtils.boldTypeface(mGeneralFontPath));
-            mLabelView.setAlpha(1f);
+        if (!label.equals(mLastLabel)) {
+            mLastLabel = label;
+
+            if (label.isEmpty()) {
+                mLabelView.setText(null);
+                mLabelView.setTypeface(mRegularTypeface);
+            } else {
+                mLabelView.setText(label);
+                mLabelView.setTypeface(mBoldTypeface);
+                mLabelView.setAlpha(1f);
+            }
         }
 
         // Initialize the timer bar
+        mTimerBar.animate().cancel();
         mTimerBar.setAlpha(1f);
         mTimerBar.update(timer);
 
         // Initialize the alpha value of the time text color
+        mTimerText.animate().cancel();
         mTimerText.setAlpha(1f);
-        mTimerText.setTypeface(mTimerTimeTypeface);
-
-        final boolean isIndicatorStateDisplayed = SettingsDAO.isTimerStateIndicatorDisplayed(mPrefs);
-        if (isIndicatorStateDisplayed && !timer.isReset()) {
-            mIndicatorState.setVisibility(VISIBLE);
-        } else {
-            mIndicatorState.setVisibility(GONE);
-        }
 
         // Initialize the time value to add to timer in the "Add time" button
         String buttonTime = timer.getButtonTime();
-        long totalSeconds = Long.parseLong(buttonTime);
-        long buttonTimeMinutes = (totalSeconds) / 60;
-        long buttonTimeSeconds = totalSeconds % 60;
-        String buttonTimeFormatted = String.format(
-                Locale.getDefault(),
-                buttonTimeMinutes < 10 ? "%d:%02d" : "%02d:%02d",
-                buttonTimeMinutes,
-                buttonTimeSeconds);
 
-        mAddTimeButton.setText(mContext.getString(R.string.timer_add_custom_time, buttonTimeFormatted));
-        mAddTimeButton.setTypeface(ThemeUtils.boldTypeface(mGeneralFontPath));
+        if (!buttonTime.equals(mLastButtonTimeRaw)) {
+            mLastButtonTimeRaw = buttonTime;
 
-        String buttonContentDescription = buttonTimeSeconds == 0
-                ? mContext.getString(R.string.timer_add_custom_time_description, String.valueOf(buttonTimeMinutes))
-                : mContext.getString(R.string.timer_add_custom_time_with_seconds_description,
-                String.valueOf(buttonTimeMinutes),
-                String.valueOf(buttonTimeSeconds));
-        mAddTimeButton.setContentDescription(buttonContentDescription);
+            long totalSeconds = Long.parseLong(buttonTime);
+            long buttonTimeMinutes = (totalSeconds) / 60;
+            long buttonTimeSeconds = totalSeconds % 60;
+
+            String buttonTimeFormatted = String.format(
+                    Locale.getDefault(),
+                    buttonTimeMinutes < 10 ? "%d:%02d" : "%02d:%02d",
+                    buttonTimeMinutes,
+                    buttonTimeSeconds);
+
+            mCachedAddButtonText = mContext.getString(R.string.timer_add_custom_time, buttonTimeFormatted);
+
+            mCachedAddButtonContentDesc = buttonTimeSeconds == 0
+                    ? mContext.getString(R.string.timer_add_custom_time_description, String.valueOf(buttonTimeMinutes))
+                    : mContext.getString(R.string.timer_add_custom_time_with_seconds_description,
+                    String.valueOf(buttonTimeMinutes),
+                    String.valueOf(buttonTimeSeconds));
+        }
+
+        mAddTimeButton.setText(mCachedAddButtonText);
+        mAddTimeButton.setContentDescription(mCachedAddButtonContentDesc);
 
         if (timer.getState() != mLastState) {
+            boolean isReset = timer.getState() == Timer.State.RESET;
+
             final String resetDesc = mContext.getString(R.string.reset);
 
             mResetButton.setVisibility(VISIBLE);
@@ -230,63 +273,41 @@ public class TimerItemCompact extends ConstraintLayout {
                     mResetButton.setVisibility(GONE);
                     mResetButton.setContentDescription(null);
                     mAddTimeButton.setVisibility(INVISIBLE);
-                    mPlayPauseButton.setIcon(AppCompatResources.getDrawable(mContext, R.drawable.ic_fab_play));
-
+                    mPlayPauseButton.setIcon(mIconPlay);
                     mIndicatorState.setVisibility(GONE);
-
-                    mTimerText.setVisibility(GONE);
-                    mTimerBar.setVisibility(GONE);
-                    mTimerTotalDurationText.setVisibility(VISIBLE);
-
                 }
 
                 case PAUSED -> {
-                    mPlayPauseButton.setIcon(AppCompatResources.getDrawable(mContext, R.drawable.ic_fab_play));
-
-                    if (isIndicatorStateDisplayed) {
-                        mIndicatorState.setVisibility(VISIBLE);
-                        int indicatorColor = SettingsDAO.getPausedTimerIndicatorColor(mPrefs);
-                        mGradientDrawable.setColor(indicatorColor);
-                    }
-
-                    mTimerText.setVisibility(VISIBLE);
-                    mTimerBar.setVisibility(VISIBLE);
-                    mTimerTotalDurationText.setVisibility(GONE);
-
+                    mPlayPauseButton.setIcon(mIconPlay);
+                    updateIndicatorState(mColorPaused);
                 }
 
                 case RUNNING -> {
-                    mPlayPauseButton.setIcon(AppCompatResources.getDrawable(mContext, R.drawable.ic_fab_pause));
-
-                    if (isIndicatorStateDisplayed) {
-                        mIndicatorState.setVisibility(VISIBLE);
-                        int indicatorColor = SettingsDAO.getRunningTimerIndicatorColor(mPrefs);
-                        mGradientDrawable.setColor(indicatorColor);
-                    }
-
-                    mTimerText.setVisibility(VISIBLE);
-                    mTimerBar.setVisibility(VISIBLE);
-                    mTimerTotalDurationText.setVisibility(GONE);
-
+                    mPlayPauseButton.setIcon(mIconPause);
+                    updateIndicatorState(mColorRunning);
                 }
 
                 case EXPIRED, MISSED -> {
-                    mPlayPauseButton.setIcon(AppCompatResources.getDrawable(mContext, R.drawable.ic_fab_stop));
-
-                    if (isIndicatorStateDisplayed) {
-                        mIndicatorState.setVisibility(VISIBLE);
-                        int indicatorColor = SettingsDAO.getExpiredTimerIndicatorColor(mPrefs);
-                        mGradientDrawable.setColor(indicatorColor);
-                    }
-
-                    mTimerText.setVisibility(VISIBLE);
-                    mTimerBar.setVisibility(VISIBLE);
-                    mTimerTotalDurationText.setVisibility(GONE);
-
+                    mPlayPauseButton.setIcon(mIconStop);
                     mResetButton.setVisibility(GONE);
+                    updateIndicatorState(mColorExpired);
                 }
             }
+
+            mTimerText.setVisibility(isReset ? GONE : VISIBLE);
+            mTimerBar.setVisibility(isReset ? GONE : VISIBLE);
+            mTimerTotalDurationText.setVisibility(isReset ? VISIBLE : GONE);
         }
+    }
+
+    private void updateIndicatorState(int color) {
+        if (!mIsIndicatorStateDisplay) {
+            mIndicatorState.setVisibility(GONE);
+            return;
+        }
+
+        mGradientDrawable.setColor(color);
+        mIndicatorState.setVisibility(VISIBLE);
     }
 
 }
