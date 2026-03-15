@@ -34,6 +34,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_ESSENTIAL_PERMISSI
 import static com.best.deskclock.settings.PreferencesKeys.KEY_EXPIRED_TIMER_INDICATOR_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_HOME_TIME_ZONE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_KEEP_SCREEN_ON;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_MISSED_TIMER_INDICATOR_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_PAUSED_TIMER_INDICATOR_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_RUNNING_TIMER_INDICATOR_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SORT_CITIES;
@@ -241,6 +242,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
             KEY_TIMER_DURATION_FONT, KEY_DISPLAY_COMPACT_TIMERS, KEY_SORT_TIMER,
             KEY_DISPLAY_TIMER_STATE_INDICATOR, KEY_RUNNING_TIMER_INDICATOR_COLOR,
             KEY_PAUSED_TIMER_INDICATOR_COLOR, KEY_EXPIRED_TIMER_INDICATOR_COLOR,
+            KEY_MISSED_TIMER_INDICATOR_COLOR,
             // Stopwatch
             KEY_SW_FONT,
             KEY_SW_VOLUME_UP_ACTION,
@@ -572,10 +574,10 @@ public class DeskClock extends BaseActivity implements FabContainer {
                      KEY_ENABLE_PER_ALARM_VOLUME, KEY_WEEK_START, KEY_ALARM_FONT, KEY_TIMER_DURATION_FONT,
                      KEY_DISPLAY_COMPACT_TIMERS, KEY_SORT_TIMER, KEY_DISPLAY_TIMER_STATE_INDICATOR,
                      KEY_RUNNING_TIMER_INDICATOR_COLOR, KEY_PAUSED_TIMER_INDICATOR_COLOR,
-                     KEY_EXPIRED_TIMER_INDICATOR_COLOR, KEY_SW_FONT, KEY_SW_VOLUME_UP_ACTION,
-                     KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS, KEY_SW_VOLUME_DOWN_ACTION,
-                     KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS, KEY_ESSENTIAL_PERMISSIONS_GRANTED ->
-                        mShouldRecreate = true;
+                     KEY_EXPIRED_TIMER_INDICATOR_COLOR, KEY_MISSED_TIMER_INDICATOR_COLOR,
+                     KEY_SW_FONT, KEY_SW_VOLUME_UP_ACTION, KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS,
+                     KEY_SW_VOLUME_DOWN_ACTION, KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS,
+                     KEY_ESSENTIAL_PERMISSIONS_GRANTED -> mShouldRecreate = true;
 
             }
         };
@@ -631,6 +633,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
             case KEY_RUNNING_TIMER_INDICATOR_COLOR -> SettingsDAO.getRunningTimerIndicatorColor(mPrefs);
             case KEY_PAUSED_TIMER_INDICATOR_COLOR -> SettingsDAO.getPausedTimerIndicatorColor(mPrefs);
             case KEY_EXPIRED_TIMER_INDICATOR_COLOR -> SettingsDAO.getExpiredTimerIndicatorColor(mPrefs);
+            case KEY_MISSED_TIMER_INDICATOR_COLOR -> SettingsDAO.getMissedTimerIndicatorColor(mPrefs);
             // StopWatch
             case KEY_SW_FONT -> SettingsDAO.getStopwatchFont(mPrefs);
             case KEY_SW_VOLUME_UP_ACTION -> SettingsDAO.getVolumeUpActionForStopwatch(mPrefs);

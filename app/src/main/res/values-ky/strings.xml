@@ -146,11 +146,9 @@
     <string name="timer_canceled" msgid="7327923392567128060">"Таймер жокко чыгарылды"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Бүттү"</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> таймердин мөөнөтү бүттү"</string>
-    <string name="timer_multi_missed" msgid="9085073572920385362">"<xliff:g id="NUMBER">%d</xliff:g> таймер байкалбай калган"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Таймер"</string>
     <string name="missed_named_timer_notification_label" msgid="665604640028289175">"Байкалбай калган таймер: <xliff:g id="NAME">%s</xliff:g>"</string>
     <string name="timer_pause" msgid="3748323712728398743">"Тындыруу"</string>
-    <string name="timer_reset_all" msgid="7530633132757866087">"Бардык таймерлерди кайра коюу"</string>
     <string name="hours_minutes_seconds" msgid="5680088738059791288">"<xliff:g id="HOURS">%1$d</xliff:g>:<xliff:g id="MINUTES">%2$02d</xliff:g>:<xliff:g id="SECONDS">%3$02d</xliff:g>"</string>
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
     <string name="jocular_content_message_1">"Чагылгандай тездик менен кыймылдайсыз го?!"</string>

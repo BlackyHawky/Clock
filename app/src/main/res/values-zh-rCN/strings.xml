@@ -139,11 +139,9 @@
     <string name="timer_canceled" msgid="7327923392567128060">定时器已取消</string>
     <string name="timer_times_up" msgid="9190440395938519009">"时间到"</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409"><xliff:g example="2" id="NUM_TIMERS">%d</xliff:g> 个定时器已到期</string>
-    <string name="timer_multi_missed" msgid="9085073572920385362"><xliff:g example="2" id="number">%d</xliff:g> 个定时器已错过</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"定时器"</string>
     <string name="missed_named_timer_notification_label" msgid="665604640028289175">错过的定时器：<xliff:g example="Pick up kids" id="name">%s</xliff:g></string>
     <string name="timer_pause" msgid="3748323712728398743">"暂停"</string>
-    <string name="timer_reset_all" msgid="7530633132757866087">"重置所有定时器"</string>
     <string name="hours_minutes_seconds" msgid="5680088738059791288"><xliff:g example="2" id="hours">%1$d</xliff:g>:<xliff:g example="3" id="minutes">%2$02d</xliff:g>:<xliff:g example="44" id="seconds">%3$02d</xliff:g></string>
     <string name="minutes_seconds" msgid="6189446107009577914"><xliff:g example="3" id="minutes">%1$d</xliff:g>:<xliff:g example="44" id="seconds">%2$02d</xliff:g></string>
     <string name="jocular_content_message_1">"您简直就像闪电侠。"</string>

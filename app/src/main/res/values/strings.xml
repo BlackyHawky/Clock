@@ -789,11 +789,6 @@
         remaining. Arg is the number of timers. [CHAR LIMIT=25]
     -->
     <string name="timer_multi_times_up"><xliff:g example="2" id="NUM_TIMERS">%d</xliff:g> timers expired</string>
-    <!--
-        Notification content shown when multiple timers have been missed. Arg is the number of
-        timers. [CHAR LIMIT=25]
-    -->
-    <string name="timer_multi_missed"><xliff:g example="2" id="number">%d</xliff:g> timers missed</string>
     <!-- Label associated with a notification for a Timer -->
     <string name="timer_notification_label">Timer</string>
     <!-- Label associated with a notification for a missed Timer. [CHAR LIMIT=30] -->
@@ -801,8 +796,6 @@
     <string name="missed_named_timer_notification_label">Missed timer: <xliff:g example="Pick up kids" id="name">%s</xliff:g></string>
     <!-- Describes the purpose of the notification button to pause the timer. [CHAR LIMIT=15] -->
     <string name="timer_pause">Pause</string>
-    <!-- Describes the purpose of the notification button to reset all running timers. [CHAR LIMIT=31] -->
-    <string name="timer_reset_all">Reset all timers</string>
     <string name="hours_minutes_seconds"><xliff:g example="2" id="hours">%1$d</xliff:g>:<xliff:g example="3" id="minutes">%2$02d</xliff:g>:<xliff:g example="44" id="seconds">%3$02d</xliff:g></string>
     <string name="minutes_seconds"><xliff:g example="3" id="minutes">%1$d</xliff:g>:<xliff:g example="44" id="seconds">%2$02d</xliff:g></string>
     <string name="seconds_only" translatable="false"><xliff:g example="44" id="seconds">%1$02d</xliff:g></string>
@@ -1037,6 +1030,8 @@
     <string name="paused_timer_indicator_color_title">Paused timer indicator color</string>
     <!-- Setting title to choose the expired timer indicator color -->
     <string name="expired_timer_indicator_color_title">Expired timer indicator color</string>
+    <!-- Setting title to choose the missed timer indicator color -->
+    <string name="missed_timer_indicator_color_title">Missed timer indicator color</string>
     <!-- Description for timer vibration. -->
     <string name="timer_vibrate_title">Timer vibrate</string>
     <!-- Setting title to reset expired timers with volume buttons. -->

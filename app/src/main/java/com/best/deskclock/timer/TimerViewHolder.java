@@ -64,8 +64,10 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
                 DataModel.getDataModel().startTimer(getTimer());
             } else if (getTimer().isRunning()) {
                 DataModel.getDataModel().pauseTimer(getTimer());
-            } else if (getTimer().isExpired() || getTimer().isMissed()) {
+            } else if (getTimer().isExpired()) {
                 DataModel.getDataModel().resetOrDeleteExpiredTimers(R.string.label_deskclock);
+            } else if (getTimer().isMissed()) {
+                DataModel.getDataModel().resetMissedTimers(R.string.label_deskclock);
             }
         };
 

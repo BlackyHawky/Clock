@@ -87,11 +87,6 @@ public final class TimerService extends Service {
                 .setAction(ACTION_RESET_EXPIRED_TIMERS);
     }
 
-    public static Intent createResetMissedTimersIntent(Context context) {
-        return new Intent(context, TimerService.class)
-                .setAction(ACTION_RESET_MISSED_TIMERS);
-    }
-
 
     public static Intent createAddCustomTimeToTimerIntent(Context context, int timerId) {
         return new Intent(context, TimerService.class)

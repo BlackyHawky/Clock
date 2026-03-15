@@ -831,6 +831,14 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return a value indicating the missed timer indicator color.
+     */
+    public static int getMissedTimerIndicatorColor(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_timer_display.xml
+        return prefs.getInt(KEY_MISSED_TIMER_INDICATOR_COLOR, DEFAULT_MISSED_TIMER_INDICATOR_COLOR);
+    }
+
+    /**
      * @return {@code true} if a warning is displayed before deleting a timer. {@code false} otherwise.
      */
     public static boolean isWarningDisplayedBeforeDeletingTimer(SharedPreferences prefs) {

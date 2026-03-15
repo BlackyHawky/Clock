@@ -69,8 +69,8 @@ final class NotificationModel {
     /**
      * @return a value that identifies the notification for missed timers
      */
-    int getMissedTimerNotificationId() {
-        return Integer.MAX_VALUE - 6;
+    int getMissedTimerNotificationId(int timerId) {
+        return Integer.MAX_VALUE - 8 - timerId;
     }
 
     //
@@ -101,18 +101,20 @@ final class NotificationModel {
     //
 
     /**
-     * @return the sort key for the timer notification
-     */
-    @SuppressWarnings("SameReturnValue")
-    String getTimerNotificationSortKey() {
-        return "0";
-    }
-
-    /**
      * @return the sort key for the missed timer notification
      */
     @SuppressWarnings("SameReturnValue")
     String getTimerNotificationMissedSortKey() {
+        return "0";
+    }
+
+    /**
+     * @return the sort key for the timer notification
+     */
+    @SuppressWarnings("SameReturnValue")
+    String getTimerNotificationSortKey() {
         return "1";
     }
+
+
 }

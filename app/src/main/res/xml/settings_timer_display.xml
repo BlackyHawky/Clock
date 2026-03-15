@@ -78,6 +78,14 @@
             app:singleLineTitle="false" />
 
         <com.best.deskclock.settings.custompreference.ColorPickerPreference
+            android:key="key_missed_timer_indicator_color"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/missed_timer_indicator_color_title"
+            android:defaultValue="#FFAA66CC"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <com.best.deskclock.settings.custompreference.ColorPickerPreference
             android:key="key_timer_ringtone_title_color"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/ringtone_title_color"

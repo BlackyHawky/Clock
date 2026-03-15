@@ -121,7 +121,6 @@
     <string name="timer_multi_times_up">Dh’fhalbh an ùine air tìmearan (<xliff:g example="2" id="NUM_TIMERS">%d</xliff:g>)</string>
     <string name="timer_notification_label">Tìmear</string>
     <string name="timer_pause">Cuir ’na stad</string>
-    <string name="timer_reset_all">Ath-shuidhich gach tìmear</string>
     <string name="jocular_content_message_1">Nach tusa a tha luath!</string>
     <string name="jocular_content_message_2">Meal d’ obair.</string>
     <string name="jocular_content_message_3">Ruigidh each mall muileann.</string>

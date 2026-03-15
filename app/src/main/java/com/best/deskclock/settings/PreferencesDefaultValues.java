@@ -147,6 +147,7 @@ public class PreferencesDefaultValues {
     public static final int DEFAULT_RUNNING_TIMER_INDICATOR_COLOR = Color.parseColor("#FF99CC00");
     public static final int DEFAULT_PAUSED_TIMER_INDICATOR_COLOR = Color.parseColor("#FFFFBB33");
     public static final int DEFAULT_EXPIRED_TIMER_INDICATOR_COLOR = Color.parseColor("#FFFF4444");
+    public static final int DEFAULT_MISSED_TIMER_INDICATOR_COLOR = Color.parseColor("#FFAA66CC");
     public static final int DEFAULT_TIMER_AUTO_SILENCE_DURATION = 30; // 30 seconds
     public static final boolean DEFAULT_TIMER_VIBRATE = false;
     public static final int DEFAULT_TIMER_RINGTONE_TITLE_COLOR = Color.GRAY;

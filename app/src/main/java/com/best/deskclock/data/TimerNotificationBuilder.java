@@ -21,11 +21,14 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.net.Uri;
+import android.os.Build;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.widget.RemoteViews;
 
 import androidx.annotation.DrawableRes;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
 import com.best.deskclock.DeskClock;
@@ -46,6 +49,12 @@ import java.util.List;
  */
 class TimerNotificationBuilder {
 
+    private static final String URI_SCHEME_TIMER_START = "timer:start:";
+    private static final String URI_SCHEME_TIMER_PAUSE = "timer:pause:";
+    private static final String URI_SCHEME_TIMER_RESET = "timer:reset:";
+    private static final String URI_SCHEME_TIMER_SHOW = "timer:show:";
+    private static final String URI_SCHEME_TIMER_ADD = "timer:add:";
+
     private static final int REQUEST_CODE_UPCOMING = 0;
 
     /**
@@ -56,6 +65,19 @@ class TimerNotificationBuilder {
         // The in-app timer display rounds *up* to the next second for positive timer values. Mirror
         // that behavior in the notification's Chronometer by padding in an extra second as needed.
         final long remaining = timer.getRemainingTime();
+
+        // If the timer is paused, align the notification's Chronometer with the in-app
+        // display's rounded-up value. This prevents render delay desynchronization.
+        if (timer.isPaused() && remaining > 0) {
+            long displaySeconds = (long) Math.ceil(remaining / 1000.0);
+
+            // Add a 500ms buffer to absorb system rendering delays, ensuring the
+            // Chronometer (which truncates downwards) displays the correct rounded second.
+            return SystemClock.elapsedRealtime() + (displaySeconds * 1000) + 500;
+        }
+
+        // The in-app timer display rounds *up* to the next second for positive timer values. Mirror
+        // that behavior in the notification's Chronometer by padding in an extra second as needed.
         final long adjustedRemaining = remaining < 0 ? remaining : remaining + SECOND_IN_MILLIS;
 
         // Chronometer will/did reach 0:00 adjustedRemaining milliseconds from now.
@@ -63,25 +85,23 @@ class TimerNotificationBuilder {
     }
 
     public Notification build(Context context, NotificationModel nm, Timer timer) {
-        // Compute some values required below.
         final boolean running = timer.isRunning();
-
         final long base = getChronometerBase(timer);
-
         final List<Action> actions = new ArrayList<>(2);
-
         final CharSequence titleText;
         final CharSequence stateText;
         final CharSequence contentTitle;
-
+        final CharSequence contentText;
         final int timerId = timer.getId();
+
+        contentTitle = context.getString(R.string.timer_notification_label);
 
         if (TextUtils.isEmpty(timer.getLabel())) {
             titleText = context.getString(R.string.timer_notification_label);
-            contentTitle = context.getString(R.string.timer_notification_label);
+            contentText = timer.getTotalDuration();
         } else {
-            titleText = timer.getLabel();
-            contentTitle = timer.getLabel();
+            titleText = context.getString(R.string.timer_notification_label) + " - " + timer.getLabel();
+            contentText = timer.getLabel() + " - " + timer.getTotalDuration();
         }
 
         if (running) {
@@ -89,6 +109,7 @@ class TimerNotificationBuilder {
             // Left button: Pause
             final Intent pause = new Intent(context, TimerService.class)
                     .setAction(TimerService.ACTION_PAUSE_TIMER)
+                    .setData(Uri.parse(URI_SCHEME_TIMER_PAUSE + timerId))
                     .putExtra(TimerService.EXTRA_TIMER_ID, timerId);
 
             @DrawableRes final int icon1 = R.drawable.ic_fab_pause;
@@ -99,6 +120,7 @@ class TimerNotificationBuilder {
             // Right Button: +x Minutes
             final Intent addMinute = new Intent(context, TimerService.class)
                     .setAction(TimerService.ACTION_ADD_CUSTOM_TIME_TO_TIMER)
+                    .setData(Uri.parse(URI_SCHEME_TIMER_ADD + timerId))
                     .putExtra(TimerService.EXTRA_TIMER_ID, timerId);
 
             @DrawableRes final int icon2 = R.drawable.ic_add;
@@ -122,6 +144,7 @@ class TimerNotificationBuilder {
             // Left button: Start
             final Intent start = new Intent(context, TimerService.class)
                     .setAction(TimerService.ACTION_START_TIMER)
+                    .setData(Uri.parse(URI_SCHEME_TIMER_START + timerId))
                     .putExtra(TimerService.EXTRA_TIMER_ID, timerId);
 
             @DrawableRes final int icon1 = R.drawable.ic_fab_play;
@@ -132,17 +155,19 @@ class TimerNotificationBuilder {
             // Right Button: Reset
             final Intent reset = new Intent(context, TimerService.class)
                     .setAction(TimerService.ACTION_RESET_TIMER)
+                    .setData(Uri.parse(URI_SCHEME_TIMER_RESET + timerId))
                     .putExtra(TimerService.EXTRA_TIMER_ID, timerId);
 
-            @DrawableRes final int icon2 = R.drawable.ic_reset;
-            final CharSequence title2 = context.getText(R.string.reset);
-            final PendingIntent intent2 = Utils.pendingServiceIntent(context, reset, timerId);
-            actions.add(new Action.Builder(icon2, title2, intent2).build());
+            @DrawableRes final int icon = R.drawable.ic_reset;
+            final CharSequence title = context.getText(R.string.reset);
+            final PendingIntent intent = Utils.pendingServiceIntent(context, reset, timerId);
+            actions.add(new Action.Builder(icon, title, intent).build());
         }
 
         // Intent to load the app and show the timer when the notification is tapped.
         final Intent showApp = new Intent(context, DeskClock.class)
                 .setAction(TimerService.ACTION_SHOW_TIMER)
+                .setData(Uri.parse(URI_SCHEME_TIMER_SHOW + timerId))
                 .putExtra(TimerService.EXTRA_TIMER_ID, timerId)
                 .putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_notification);
 
@@ -154,7 +179,7 @@ class TimerNotificationBuilder {
                 .setShowWhen(false)
                 .setAutoCancel(false)
                 .setContentTitle(contentTitle)
-                .setContentText(timer.getTotalDuration())
+                .setContentText(contentText)
                 .setContentIntent(pendingShowApp)
                 .setPriority(SdkUtils.isAtLeastAndroid7()
                         ? NotificationManager.IMPORTANCE_LOW
@@ -164,7 +189,8 @@ class TimerNotificationBuilder {
                 .setSortKey(nm.getTimerNotificationSortKey())
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
-                .setColor(context.getColor(R.color.md_theme_primary));
+                .setColor(context.getColor(R.color.md_theme_primary))
+                .setGroup(nm.getTimerNotificationGroupKey());
 
         for (Action action : actions) {
             notification.addAction(action);
@@ -172,13 +198,13 @@ class TimerNotificationBuilder {
 
         if (SdkUtils.isAtLeastAndroid7()) {
             notification.setCustomContentView(buildChronometer(context.getPackageName(), base,
-                            running, titleText, stateText)).setGroup(nm.getTimerNotificationGroupKey());
+                            running, titleText, stateText));
         } else {
-            final CharSequence contentText = stateText != null
+            final CharSequence preNText = stateText != null
                     ? stateText
                     : TimerStringFormatter.formatTimeRemaining(context, timer.getRemainingTime(), false);
 
-            notification.setContentTitle(titleText).setContentText(contentText);
+            notification.setContentTitle(titleText).setContentText(preNText);
 
             final AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             final Intent updateNotification = TimerService.createUpdateNotificationIntent(context);
@@ -222,15 +248,15 @@ class TimerNotificationBuilder {
         // Generate some descriptive text, a title, and an action name based on the timer count.
         final CharSequence titleText;
         final String label = timer.getLabel();
-
         final CharSequence stateText;
         final int count = expired.size();
         final List<Action> actions = new ArrayList<>(2);
+
         if (count == 1) {
             if (TextUtils.isEmpty(label)) {
-                titleText = context.getString(R.string.timer_notification_label);
+                titleText = context.getString(R.string.timer_notification_label) + " - " + timer.getTotalDuration();
             } else {
-                titleText = label;
+                titleText = context.getString(R.string.timer_notification_label) + " - " + timer.getLabel();
             }
 
             stateText = context.getString(R.string.timer_times_up);
@@ -311,74 +337,59 @@ class TimerNotificationBuilder {
         }
 
         // Stop and reset the timer if user clears notification.
-        Intent dismissIntent = new Intent(context, TimerService.class);
-            dismissIntent.setAction(TimerService.ACTION_RESET_EXPIRED_TIMERS);
-            dismissIntent.putExtra(TimerService.EXTRA_TIMER_ID, timerId);
-            PendingIntent deletePendingIntent = Utils.pendingServiceIntent(context, dismissIntent, timerId);
-            notification.setDeleteIntent(deletePendingIntent);
+        Intent dismissIntent = new Intent(context, TimerService.class)
+                .setAction(TimerService.ACTION_RESET_EXPIRED_TIMERS)
+                .setData(Uri.parse(URI_SCHEME_TIMER_RESET + timerId))
+                .putExtra(TimerService.EXTRA_TIMER_ID, timerId);
+        PendingIntent deletePendingIntent = Utils.pendingServiceIntent(context, dismissIntent, timerId);
+        notification.setDeleteIntent(deletePendingIntent);
 
         return notification.build();
     }
 
-    Notification buildMissed(Context context, NotificationModel nm, List<Timer> missedTimers) {
-        final Timer timer = missedTimers.get(0);
-        final int count = missedTimers.size();
+    Notification buildMissed(Context context, NotificationModel nm, Timer timer) {
         final int timerId = timer.getId();
-
-        // Compute some values required below.
         final long base = getChronometerBase(timer);
         final Resources res = context.getResources();
-
         final Action action;
+        final CharSequence contentTitle;
+        String label = timer.getLabel();
+        final CharSequence contentText;
 
-        final CharSequence titleText;
-        final String label = timer.getLabel();
-        final CharSequence stateText;
-        if (count == 1) {
-            // Single timer is missed.
-            if (TextUtils.isEmpty(label)) {
-                titleText = context.getString(R.string.timer_notification_label);
-            } else {
-                titleText = label;
-            }
+        contentTitle = context.getString(R.string.timer_notification_label);
 
-            stateText = res.getString(R.string.missed_named_timer_notification_label, label);
-
-            // Reset button
-            final Intent reset = new Intent(context, TimerService.class)
-                    .setAction(TimerService.ACTION_RESET_TIMER)
-                    .putExtra(TimerService.EXTRA_TIMER_ID, timerId);
-
-            @DrawableRes final int icon1 = R.drawable.ic_reset;
-            final CharSequence title1 = res.getText(R.string.reset);
-            final PendingIntent intent1 = Utils.pendingServiceIntent(context, reset);
-            action = new Action.Builder(icon1, title1, intent1).build();
-        } else {
-            // Multiple missed timers.
-            titleText = res.getString(R.string.timer_multi_missed, count);
-
-            stateText = null;
-
-            final Intent reset = TimerService.createResetMissedTimersIntent(context);
-
-            @DrawableRes final int icon1 = R.drawable.ic_reset;
-            final CharSequence title1 = res.getText(R.string.timer_reset_all);
-            final PendingIntent intent1 = Utils.pendingServiceIntent(context, reset);
-            action = new Action.Builder(icon1, title1, intent1).build();
+        if (TextUtils.isEmpty(label)) {
+            label = timer.getTotalDuration();
         }
+
+        contentText = res.getString(R.string.missed_named_timer_notification_label, label);
+
+        // Reset button
+        final Intent reset = new Intent(context, TimerService.class)
+                .setAction(TimerService.ACTION_RESET_TIMER)
+                .setData(Uri.parse(URI_SCHEME_TIMER_RESET + timerId))
+                .putExtra(TimerService.EXTRA_TIMER_ID, timerId);
 
         // Intent to load the app and show the timer when the notification is tapped.
         final Intent showApp = new Intent(context, DeskClock.class)
                 .setAction(TimerService.ACTION_SHOW_TIMER)
+                .setData(Uri.parse(URI_SCHEME_TIMER_SHOW + timerId))
                 .putExtra(TimerService.EXTRA_TIMER_ID, timerId)
                 .putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_notification);
 
         final PendingIntent pendingShowApp = Utils.pendingActivityIntent(context, showApp);
 
+        @DrawableRes final int icon = R.drawable.ic_reset;
+        final CharSequence title = res.getText(R.string.reset);
+        final PendingIntent intent = Utils.pendingServiceIntent(context, reset);
+        action = new Action.Builder(icon, title, intent).build();
+
         final Builder notification = new Builder(context, TIMER_MODEL_NOTIFICATION_CHANNEL_ID)
                 .setLocalOnly(true)
                 .setShowWhen(false)
                 .setAutoCancel(false)
+                .setContentTitle(contentTitle)
+                .setContentText(contentText)
                 .setContentIntent(pendingShowApp)
                 .setPriority(SdkUtils.isAtLeastAndroid7()
                         ? NotificationManager.IMPORTANCE_HIGH
@@ -389,19 +400,21 @@ class TimerNotificationBuilder {
                 .setSortKey(nm.getTimerNotificationMissedSortKey())
                 .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
                 .addAction(action)
-                .setColor(context.getColor(R.color.md_theme_primary));
+                .setColor(context.getColor(R.color.md_theme_primary))
+                .setGroup(nm.getTimerNotificationGroupKey());
 
         if (SdkUtils.isAtLeastAndroid7()) {
             notification.setCustomContentView(buildChronometer(context.getPackageName(), base,
-                    true, titleText, stateText)).setGroup(nm.getTimerNotificationGroupKey());
+                    true, contentTitle, contentText));
         } else {
-            final CharSequence contentText = AlarmUtils.getFormattedTime(context, timer.getWallClockExpirationTime());
-            notification.setContentTitle(titleText).setContentText(contentText);
+            final CharSequence preNText = AlarmUtils.getFormattedTime(context, timer.getWallClockExpirationTime());
+            notification.setContentTitle(contentTitle).setContentText(preNText);
         }
 
         if (SdkUtils.isAtLeastAndroid8()) {
             NotificationUtils.createChannel(context, TIMER_MODEL_NOTIFICATION_CHANNEL_ID);
         }
+
         return notification.build();
     }
 
@@ -409,6 +422,7 @@ class TimerNotificationBuilder {
         // Intent to load the app and show the timer when the notification is tapped.
         final Intent showApp = new Intent(context, DeskClock.class)
                 .setAction(TimerService.ACTION_SHOW_TIMER)
+                .setData(Uri.parse(URI_SCHEME_TIMER_SHOW + "-1"))
                 .putExtra(TimerService.EXTRA_TIMER_ID, -1)
                 .putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_notification);
 
@@ -434,13 +448,12 @@ class TimerNotificationBuilder {
                 .build();
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     private RemoteViews buildChronometer(String packageName, long base, boolean running, CharSequence titleText,
                                          CharSequence stateText) {
 
         final RemoteViews content = new RemoteViews(packageName, R.layout.chronometer_notif_content);
-        if (SdkUtils.isAtLeastAndroid7()) {
-            content.setChronometerCountDown(R.id.chronometer, true);
-        }
+        content.setChronometerCountDown(R.id.chronometer, true);
         content.setChronometer(R.id.chronometer, base, null, running);
         content.setTextViewText(R.id.title, titleText);
         content.setTextViewText(R.id.state, stateText);

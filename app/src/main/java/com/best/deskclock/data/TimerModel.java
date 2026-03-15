@@ -746,11 +746,24 @@ final class TimerModel {
         mAutoSilenceRunnable = () -> {
             TimerKlaxon.stop(mContext, mPrefs);
             TimerKlaxon.deactivateRingtonePlayback(mPrefs);
-            resetOrDeleteExpiredTimers(R.string.label_deskclock);
+            markExpiredTimersAsMissed();
             AlarmAlertWakeLock.releaseCpuLock();
         };
 
         mMainHandler.postDelayed(mAutoSilenceRunnable, duration);
+    }
+
+    void markExpiredTimersAsMissed() {
+        final List<Timer> timers = new ArrayList<>(getTimers());
+        for (Timer timer : timers) {
+            if (timer.isExpired()) {
+                doUpdateTimer(timer.miss());
+            }
+        }
+
+        updateMissedNotification();
+
+        updateHeadsUpNotification();
     }
 
     /**
@@ -764,39 +777,22 @@ final class TimerModel {
             return;
         }
 
-        final List<Timer> unexpired = getMutableTimers();
+        final boolean inForeground = mNotificationModel.isApplicationInForeground();
 
-        // Notifications should be hidden if the app is open.
-        if (mNotificationModel.isApplicationInForeground()) {
-            for (Timer timer : unexpired) {
-                mNotificationManager.cancel(mNotificationModel.getUnexpiredTimerNotificationId(timer.getId()));
-                mNotificationManager.cancel(mNotificationModel.getSummaryNotificationId());
-            }
-            return;
-        }
-
-        boolean hasActiveTimers = false;
-
-        // Create notifications for each unexpired timers
-        for (Timer timer : unexpired) {
+        for (Timer timer : getMutableTimers()) {
             int notificationId = mNotificationModel.getUnexpiredTimerNotificationId(timer.getId());
 
-            if (timer.isRunning() || timer.isPaused()) {
+            // Notifications should be displayed if the app is not open and the timer is unexpired.
+            if (!inForeground && (timer.isRunning() || timer.isPaused())) {
                 Notification notification = mNotificationBuilder.build(mContext, mNotificationModel, timer);
                 mNotificationManager.notify(notificationId, notification);
-                hasActiveTimers = true;
             } else {
                 mNotificationManager.cancel(notificationId);
             }
         }
 
         // Display or delete the summary notification
-        if (hasActiveTimers) {
-            Notification summary = mNotificationBuilder.buildSummaryNotification(mContext, mNotificationModel);
-            mNotificationManager.notify(mNotificationModel.getSummaryNotificationId(), summary);
-        } else {
-            mNotificationManager.cancel(mNotificationModel.getSummaryNotificationId());
-        }
+        updateSummaryNotification();
     }
 
     /**
@@ -810,24 +806,40 @@ final class TimerModel {
             return;
         }
 
-        // Notifications should be hidden if the app is open.
-        if (mNotificationModel.isApplicationInForeground()) {
-            mNotificationManager.cancel(mNotificationModel.getMissedTimerNotificationId());
-            return;
+        final boolean inForeground = mNotificationModel.isApplicationInForeground();
+
+        for (Timer timer : getMutableTimers()) {
+            int notificationId = mNotificationModel.getMissedTimerNotificationId(timer.getId());
+
+            // Notifications should be displayed if the app is not open and the timer is missed.
+            if (!inForeground && timer.isMissed()) {
+                Notification notification = mNotificationBuilder.buildMissed(mContext, mNotificationModel, timer);
+                mNotificationManager.notify(notificationId, notification);
+            } else {
+                mNotificationManager.cancel(notificationId);
+            }
         }
 
-        final List<Timer> missed = getMissedTimers();
+        updateSummaryNotification();
+    }
 
-        if (missed.isEmpty()) {
-            mNotificationManager.cancel(mNotificationModel.getMissedTimerNotificationId());
-            return;
+    private void updateSummaryNotification() {
+        boolean hasActiveTimers = false;
+        for (Timer timer : getMutableTimers()) {
+            if (timer.isRunning() || timer.isPaused()) {
+                hasActiveTimers = true;
+                break;
+            }
         }
 
-        final Notification notification = mNotificationBuilder.buildMissed(mContext,
-                mNotificationModel, missed);
-        final int notificationId = mNotificationModel.getMissedTimerNotificationId();
+        boolean hasMissedTimers = !getMissedTimers().isEmpty();
 
-        mNotificationManager.notify(notificationId, notification);
+        if ((hasActiveTimers || hasMissedTimers) && !mNotificationModel.isApplicationInForeground()) {
+            Notification summary = mNotificationBuilder.buildSummaryNotification(mContext, mNotificationModel);
+            mNotificationManager.notify(mNotificationModel.getSummaryNotificationId(), summary);
+        } else {
+            mNotificationManager.cancel(mNotificationModel.getSummaryNotificationId());
+        }
     }
 
     /**

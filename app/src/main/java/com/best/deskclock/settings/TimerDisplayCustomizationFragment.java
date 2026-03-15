@@ -10,6 +10,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_TIMER_RING
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_TIMER_STATE_INDICATOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_TIMER_BLUR_EFFECT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_EXPIRED_TIMER_INDICATOR_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_MISSED_TIMER_INDICATOR_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_PAUSED_TIMER_INDICATOR_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_RUNNING_TIMER_INDICATOR_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_BACKGROUND_IMAGE;
@@ -55,6 +56,7 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
     ColorPickerPreference mRunningTimerIndicatorColorPref;
     ColorPickerPreference mPausedTimerIndicatorColorPref;
     ColorPickerPreference mExpiredTimerIndicatorColorPref;
+    ColorPickerPreference mMissedTimerIndicatorColorPref;
     ColorPickerPreference mRingtoneTitleColorPref;
     PreferenceCategory mTimerFontCategory;
     SwitchPreferenceCompat mDisplayTextShadowPref;
@@ -126,6 +128,7 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
         mRunningTimerIndicatorColorPref = findPreference(KEY_RUNNING_TIMER_INDICATOR_COLOR);
         mPausedTimerIndicatorColorPref = findPreference(KEY_PAUSED_TIMER_INDICATOR_COLOR);
         mExpiredTimerIndicatorColorPref = findPreference(KEY_EXPIRED_TIMER_INDICATOR_COLOR);
+        mMissedTimerIndicatorColorPref = findPreference(KEY_MISSED_TIMER_INDICATOR_COLOR);
         mRingtoneTitleColorPref = findPreference(KEY_TIMER_RINGTONE_TITLE_COLOR);
         mTimerFontCategory = findPreference(KEY_TIMER_FONT_CATEGORY);
         mDisplayTextShadowPref = findPreference(KEY_TIMER_DISPLAY_TEXT_SHADOW);
@@ -171,6 +174,7 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
                 mRunningTimerIndicatorColorPref.setVisible(isTimerStateIndicatorDisplayed);
                 mPausedTimerIndicatorColorPref.setVisible(isTimerStateIndicatorDisplayed);
                 mExpiredTimerIndicatorColorPref.setVisible(isTimerStateIndicatorDisplayed);
+                mMissedTimerIndicatorColorPref.setVisible(isTimerStateIndicatorDisplayed);
 
                 Utils.setVibrationTime(requireContext(), 50);
             }
@@ -271,6 +275,8 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
         mPausedTimerIndicatorColorPref.setVisible(isTimerStateIndicatorDisplayed);
 
         mExpiredTimerIndicatorColorPref.setVisible(isTimerStateIndicatorDisplayed);
+
+        mMissedTimerIndicatorColorPref.setVisible(isTimerStateIndicatorDisplayed);
 
         mRingtoneTitleColorPref.setVisible(isTimerRingtoneTitleDisplayed);
 

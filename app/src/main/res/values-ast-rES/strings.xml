@@ -119,11 +119,9 @@
     <string name="timer_canceled">Encaboxóse\'l temporizador</string>
     <string name="timer_times_up">Tiempu agotáu</string>
     <string name="timer_multi_times_up"><xliff:g example="2" id="NUM_TIMERS">%d</xliff:g> temporizadores deteníos</string>
-    <string name="timer_multi_missed"><xliff:g example="2" id="number">%d</xliff:g> cronos despaecíos</string>
     <string name="timer_notification_label">Temporizador</string>
     <string name="missed_named_timer_notification_label">Cronu desapaecíu: <xliff:g example="Pick up kids" id="name">%s</xliff:g></string>
     <string name="timer_pause">Posar</string>
-    <string name="timer_reset_all">Reaniciar tolos temporizadores</string>
     <string name="jocular_content_message_1">Yes el rei de la velocidá.</string>
     <string name="jocular_content_message_2">Esfruta de los frutos del to trabayu.</string>
     <string name="jocular_content_message_3">Los androides son conocíos por ser rápidos, pero non tanto como tu.</string>

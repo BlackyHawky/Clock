@@ -173,6 +173,7 @@ public class PreferencesKeys {
     public static final String KEY_RUNNING_TIMER_INDICATOR_COLOR = "key_running_timer_indicator_color";
     public static final String KEY_PAUSED_TIMER_INDICATOR_COLOR = "key_paused_timer_indicator_color";
     public static final String KEY_EXPIRED_TIMER_INDICATOR_COLOR = "key_expired_timer_indicator_color";
+    public static final String KEY_MISSED_TIMER_INDICATOR_COLOR = "key_missed_timer_indicator_color";
     public static final String KEY_TIMER_RINGTONE_TITLE_COLOR = "key_timer_ringtone_title_color";
     public static final String KEY_TIMER_FONT_CATEGORY = "key_timer_font_category";
     public static final String KEY_TIMER_DISPLAY_TEXT_SHADOW = "key_timer_display_text_shadow";

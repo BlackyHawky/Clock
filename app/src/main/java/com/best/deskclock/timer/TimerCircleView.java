@@ -104,7 +104,7 @@ public final class TimerCircleView extends View {
             return;
         }
 
-        if (mTimer.isExpired()) {
+        if (mTimer.isExpired() || mTimer.isMissed()) {
             canvas.drawCircle(xCenter, yCenter, radius, mCompletedPaint);
             return;
         }

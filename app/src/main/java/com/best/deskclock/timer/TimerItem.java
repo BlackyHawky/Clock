@@ -70,6 +70,7 @@ public class TimerItem extends ConstraintLayout {
     private int mColorPaused;
     private int mColorRunning;
     private int mColorExpired;
+    private int mColorMissed;
 
     private String mLastButtonTimeRaw;
     private String mCachedAddButtonText;
@@ -177,6 +178,7 @@ public class TimerItem extends ConstraintLayout {
         mColorPaused = SettingsDAO.getPausedTimerIndicatorColor(mPrefs);
         mColorRunning = SettingsDAO.getRunningTimerIndicatorColor(mPrefs);
         mColorExpired = SettingsDAO.getExpiredTimerIndicatorColor(mPrefs);
+        mColorMissed = SettingsDAO.getMissedTimerIndicatorColor(mPrefs);
 
         final int colorAccent = MaterialColors.getColor(
                 mContext, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
@@ -387,7 +389,7 @@ public class TimerItem extends ConstraintLayout {
                 case EXPIRED, MISSED -> {
                     mPlayPauseButton.setIcon(mIconStop);
                     mResetButton.setVisibility(GONE);
-                    updateIndicatorState(mColorExpired);
+                    updateIndicatorState(mLastState == Timer.State.EXPIRED ? mColorExpired : mColorMissed);
                 }
             }
 
