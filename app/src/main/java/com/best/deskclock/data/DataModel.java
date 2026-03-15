@@ -290,6 +290,15 @@ public final class DataModel {
     }
 
     /**
+     * Clears all cached city data.
+     * Must be called when app preferences are reset or locale changes.
+     */
+    public void clearCityCache() {
+        enforceMainLooper();
+        mCityModel.clearCache();
+    }
+
+    /**
      * @param cityListener listener to be notified when the world city list changes
      */
     public void addCityListener(CityListener cityListener) {

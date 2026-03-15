@@ -271,6 +271,20 @@ final class CityModel {
         return mCityMap;
     }
 
+    /**
+     * Clears all cached city data.
+     * Must be called when app preferences are reset or locale changes.
+     */
+    void clearCache() {
+        mAllCities = null;
+        mSelectedCities = null;
+        mUnselectedCities = null;
+        mHomeCity = null;
+        mCityMap = null;
+
+        fireCitiesChanged();
+    }
+
     private Comparator<City> getCitySortComparator() {
         final CitySort citySort = SettingsDAO.getCitySort(mPrefs);
         if (citySort == CitySort.NAME) {

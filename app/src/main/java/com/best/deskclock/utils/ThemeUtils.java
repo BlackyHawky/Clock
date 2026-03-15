@@ -28,6 +28,7 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.YELLOW_ACCENT
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
@@ -326,14 +327,20 @@ public class ThemeUtils {
      * @return a ContextThemeWrapper applying the correct accent style
      */
     public static Context getThemedContext(Context context, SharedPreferences prefs) {
+        Context baseContext = context;
+
+        if (context instanceof Application) {
+            baseContext = new ContextThemeWrapper(context, R.style.Theme_DeskClock);
+        }
+
         int style = ThemeUtils.getAccentStyle(
-                context,
+                baseContext,
                 SettingsDAO.isAutoNightAccentColorEnabled(prefs),
                 SettingsDAO.getAccentColor(prefs),
                 SettingsDAO.getNightAccentColor(prefs)
         );
 
-        return new ContextThemeWrapper(context, style);
+        return new ContextThemeWrapper(baseContext, style);
     }
 
     /**

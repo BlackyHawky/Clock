@@ -3,9 +3,7 @@
 package com.best.deskclock.settings;
 
 import static com.best.deskclock.FirstLaunch.KEY_IS_FIRST_LAUNCH;
-import static com.best.deskclock.data.CustomRingtoneDAO.NEXT_RINGTONE_ID;
 import static com.best.deskclock.data.CustomRingtoneDAO.RINGTONE_IDS;
-import static com.best.deskclock.data.CustomRingtoneDAO.RINGTONE_TITLE;
 import static com.best.deskclock.data.CustomRingtoneDAO.RINGTONE_URI;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEBUG_LANGUAGE_CODE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.PURPLE_ACCENT_COLOR;
@@ -57,6 +55,7 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 import androidx.preference.SwitchPreferenceCompat;
 
+import com.best.deskclock.AppExecutors;
 import com.best.deskclock.BuildConfig;
 import com.best.deskclock.R;
 import com.best.deskclock.alarms.AlarmStateManager;
@@ -116,13 +115,23 @@ public class AboutFragment extends ScreenFragment
                     return;
                 }
 
-                exportLogsAsZip(requireContext(), uri);
+                final Context appContext = requireContext().getApplicationContext();
 
-                if (!LogUtils.getSavedLocalLogs(requireContext()).isEmpty()) {
-                    displayExportCompleteDialog();
-                } else {
-                    CustomToast.show(requireContext(), R.string.toast_message_for_backup);
-                }
+                AppExecutors.getDiskIO().execute(() -> {
+                    exportLogsAsZip(appContext, uri);
+
+                    boolean hasLogs = !LogUtils.getSavedLocalLogs(appContext).isEmpty();
+
+                    AppExecutors.getMainThread().post(() -> {
+                        if (hasLogs) {
+                            if (isAdded()) {
+                                displayExportCompleteDialog();
+                            }
+                        } else {
+                            CustomToast.show(appContext, R.string.toast_message_for_backup);
+                        }
+                    });
+                });
             });
 
     CustomAboutTitlePreference mTitlePref;
@@ -226,7 +235,8 @@ public class AboutFragment extends ScreenFragment
                 if (tapCountOnVersion == 5) {
                     mPrefs.edit().putBoolean(KEY_DISPLAY_DEBUG_SETTINGS, true).apply();
                     mPrefs.edit().putBoolean(KEY_ENABLE_LOCAL_LOGGING, true).apply();
-                    CustomToast.show(requireContext(), R.string.toast_message_debug_displayed);
+
+                    CustomToast.show(requireContext().getApplicationContext(), R.string.toast_message_debug_displayed);
                     requireActivity().recreate();
                 }
             }
@@ -278,7 +288,7 @@ public class AboutFragment extends ScreenFragment
 
                 mPrefs.edit().putBoolean(KEY_DISPLAY_DEBUG_SETTINGS, false).apply();
 
-                CustomToast.show(requireContext(), R.string.toast_message_debug_hidden);
+                CustomToast.show(requireContext().getApplicationContext(), R.string.toast_message_debug_hidden);
             }
 
             requireActivity().recreate();
@@ -309,8 +319,8 @@ public class AboutFragment extends ScreenFragment
             mVersionPref.setOnPreferenceClickListener(null);
         } else if (BuildConfig.IS_NIGHTLY_BUILD) {
             mTitlePref.setTitle(R.string.about_nightly_app_title);
-            mVersionPref.setSelectable(false);
-            mVersionPref.setOnPreferenceClickListener(null);
+            mVersionPref.setSelectable(true);
+            mVersionPref.setOnPreferenceClickListener(this);
         } else {
             mTitlePref.setTitle(R.string.app_label);
             mVersionPref.setSelectable(true);
@@ -345,73 +355,60 @@ public class AboutFragment extends ScreenFragment
      * </ul>
      * </p>
      */
+    @SuppressLint("ApplySharedPref")
     private void resetPreferences() {
-        DataModel dataModel = DataModel.getDataModel();
-        SharedPreferences.Editor editor = mPrefs.edit();
-        Map<String, ?> settings = mPrefs.getAll();
+        final Context appContext = requireContext().getApplicationContext();
+        final DataModel dataModel = DataModel.getDataModel();
 
-        // 1. Delete all preferences except those to keep :
-        //    - KEY_IS_FIRST_LAUNCH key to prevent the "FirstLaunch" activity from reappearing;
-        //    - The essential permissions key, as it reflects the current system state
-        //      and should not be saved, restored, or reset like other preferences.
-        for (Map.Entry<String, ?> entry : settings.entrySet()) {
-            String key = entry.getKey();
-
-            if (!key.equals(KEY_IS_FIRST_LAUNCH) && !key.equals(KEY_ESSENTIAL_PERMISSIONS_GRANTED)) {
-                editor.remove(key);
-            }
-        }
-
-        // 2. Release SAF permissions for custom ringtones
-        releaseAllCustomRingtonePermissions();
-
-        // 3. Delete audio files
-        deleteAllCustomRingtoneFiles();
-
-        // 4. Delete all preferences related to ringtones
-        clearAllCustomRingtones(editor);
-
-        // 5. Delete font/image files
-        for (String fontAndImageKey : FONT_AND_IMAGE_KEYS) {
-            clearFile(mPrefs.getString(fontAndImageKey, null));
-        }
-
-        // 6. Applies the default accent color and locale for debug and nightly builds
-        applyDebugAndNightlyDefaults(editor);
-
-        // 7. Apply preferences changes
-        editor.apply();
-
-        // 8. Clear the custom ringtones list
-        dataModel.clearCustomRingtones();
-
-        // 9. Reset stopwatch if necessary
-        if (!dataModel.getStopwatch().isReset()) {
-            dataModel.resetStopwatch();
-        }
-
-        // 10. Reset the number of taps on the version
         tapCountOnVersion = 0;
-
-        // 11. Clear local logs
-        LogUtils.clearSavedLocalLogs(requireContext());
-
-        // Required to update Locale.
-        requireContext().sendBroadcast(new Intent(ACTION_LANGUAGE_CODE_CHANGED));
-        // Required to update widgets.
-        WidgetUtils.updateAllWidgets(requireContext());
-        // Required to update the timer list.
-        dataModel.loadTimers();
-        // Required to update the tab to display.
         UiDataModel.getUiDataModel().setSelectedTab(UiDataModel.Tab.CLOCKS);
-        // Delete all alarms.
-        final List<Alarm> alarms = Alarm.getAlarms(requireContext().getContentResolver(), null);
-        for (Alarm alarm : alarms) {
-            AlarmStateManager.deleteAllInstances(requireContext(), alarm.id);
-            Alarm.deleteAlarm(requireContext().getContentResolver(), alarm.id);
-        }
 
-        CustomToast.show(requireContext(), R.string.toast_message_for_reset);
+        AppExecutors.getDiskIO().execute(() -> {
+            SharedPreferences.Editor editor = mPrefs.edit();
+            Map<String, ?> settings = mPrefs.getAll();
+
+            releaseAllCustomRingtonePermissions();
+            deleteAllCustomRingtoneFiles();
+
+            for (String fontAndImageKey : FONT_AND_IMAGE_KEYS) {
+                clearFile(mPrefs.getString(fontAndImageKey, null));
+            }
+
+            LogUtils.clearSavedLocalLogs(appContext);
+
+            final List<Alarm> alarms = Alarm.getAlarms(appContext.getContentResolver(), null);
+            for (Alarm alarm : alarms) {
+                AlarmStateManager.deleteAllInstances(appContext, alarm.id);
+                Alarm.deleteAlarm(appContext.getContentResolver(), alarm.id);
+            }
+
+            for (Map.Entry<String, ?> entry : settings.entrySet()) {
+                String key = entry.getKey();
+                if (!key.equals(KEY_IS_FIRST_LAUNCH) && !key.equals(KEY_ESSENTIAL_PERMISSIONS_GRANTED)) {
+                    editor.remove(key);
+                }
+            }
+
+            applyDebugAndNightlyDefaults(editor);
+
+            editor.commit();
+
+            AppExecutors.getMainThread().post(() -> {
+                dataModel.clearCustomRingtones();
+
+                if (!dataModel.getStopwatch().isReset()) {
+                    dataModel.resetStopwatch();
+                }
+
+                dataModel.clearCityCache();
+
+                appContext.sendBroadcast(new Intent(ACTION_LANGUAGE_CODE_CHANGED));
+                WidgetUtils.updateAllWidgets(appContext);
+                dataModel.loadTimers();
+
+                CustomToast.show(appContext, R.string.toast_message_for_reset);
+            });
+        });
     }
 
     /**
@@ -427,33 +424,6 @@ public class AboutFragment extends ScreenFragment
         if (BuildConfig.IS_DEBUG_BUILD || BuildConfig.IS_NIGHTLY_BUILD) {
             editor.putString(KEY_CUSTOM_LANGUAGE_CODE, DEBUG_LANGUAGE_CODE);
         }
-    }
-
-    /**
-     * Removes all SharedPreferences entries related to custom ringtones.
-     *
-     * <p>This includes:
-     * <ul>
-     *   <li>The set of ringtone IDs.</li>
-     *   <li>The stored URI for each ringtone.</li>
-     *   <li>The stored title for each ringtone.</li>
-     *   <li>The next ringtone ID counter.</li>
-     * </ul>
-     * </p>
-     *
-     * <p>The provided {@link SharedPreferences.Editor} is used so that
-     * all preference changes can be applied in a single commit.</p>
-     */
-    private void clearAllCustomRingtones(SharedPreferences.Editor editor) {
-        Set<String> ids = mPrefs.getStringSet(RINGTONE_IDS, Collections.emptySet());
-
-        for (String id : ids) {
-            editor.remove(RINGTONE_URI + id);
-            editor.remove(RINGTONE_TITLE + id);
-        }
-
-        editor.remove(RINGTONE_IDS);
-        editor.remove(NEXT_RINGTONE_ID);
     }
 
     /**
@@ -510,7 +480,7 @@ public class AboutFragment extends ScreenFragment
             File localLogFile = new File(context.getCacheDir(), "local_logs.txt");
 
             // 1. Save Logcat logs
-            Process process = Runtime.getRuntime().exec("logcat -d -b all");
+            Process process = Runtime.getRuntime().exec("logcat -d -v threadtime");
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             FileWriter logcatWriter = new FileWriter(logcatFile);
             String line;
@@ -579,7 +549,7 @@ public class AboutFragment extends ScreenFragment
                 android.R.string.ok,
                 (d, w) -> {
                     LogUtils.clearSavedLocalLogs(requireContext());
-                    CustomToast.show(requireContext(), R.string.toast_message_log_deleted);
+                    CustomToast.show(requireContext().getApplicationContext(), R.string.toast_message_log_deleted);
                 }
         ).show();
     }

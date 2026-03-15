@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.util.Log;
 
+import com.best.deskclock.AppExecutors;
 import com.best.deskclock.BuildConfig;
 import com.best.deskclock.DeskClockApplication;
 import com.best.deskclock.data.SettingsDAO;
@@ -23,6 +24,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 public class LogUtils {
 
@@ -147,6 +149,13 @@ public class LogUtils {
 
     public record Logger(String logTag) {
 
+        private static final ThreadLocal<SimpleDateFormat> DATE_FORMAT = new ThreadLocal<>() {
+            @Override
+            protected SimpleDateFormat initialValue() {
+                return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+            }
+        };
+
         private boolean isLoggingEnabled() {
             Context context = DeskClockApplication.getContext();
             if (context == null) return false;
@@ -157,7 +166,7 @@ public class LogUtils {
 
         private String format(String level, String message, Object... args) {
             String formatted = (args == null || args.length == 0) ? message : String.format(message, args);
-            String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
+            String timestamp = Objects.requireNonNull(DATE_FORMAT.get()).format(new Date());
             return timestamp + " [" + level + "] " + logTag + ": " + formatted;
         }
 
@@ -226,10 +235,12 @@ public class LogUtils {
         }
 
         private void appendToFileCompat(String log) {
-            Context context = DeskClockApplication.getContext();
-            if (context != null) {
-                appendToFile(context, log);
-            }
+            AppExecutors.getDiskIO().execute(() -> {
+                Context context = DeskClockApplication.getContext();
+                if (context != null) {
+                    appendToFile(context, log);
+                }
+            });
         }
 
         public boolean isVerboseLoggable() {

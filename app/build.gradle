@@ -35,7 +35,7 @@ android {
         }
     }
 
-    def commitNumber = 33
+    def commitNumber = 34
 
     def buildCommit = providers.exec {
         commandLine('git', 'rev-parse', '--short=7', 'HEAD')
@@ -66,10 +66,11 @@ android {
         }
 
         nightly {
-            initWith debug
+            initWith release
             manifestPlaceholders = [appName: "@string/app_label_nightly"]
             versionNameSuffix = "-nightly-${commitNumber}-${buildCommit}"
             applicationIdSuffix = ".nightly"
+            signingConfig signingConfigs.debug
             buildConfigField "boolean", "IS_DEBUG_BUILD", "false"
             buildConfigField "boolean", "IS_NIGHTLY_BUILD", "true"
             buildConfigField "String", "COMMIT_NUMBER", "\"${commitNumber}\""
