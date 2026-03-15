@@ -18,6 +18,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_SETTINGS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_WIDGETS_SETTINGS;
 import static com.best.deskclock.utils.Utils.ACTION_LANGUAGE_CODE_CHANGED;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -36,6 +37,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.preference.Preference;
 
+import com.best.deskclock.AppExecutors;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
@@ -134,8 +136,15 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                         return;
                     }
 
-                    backupPreferences(uri);
-                    CustomToast.show(requireContext(), R.string.toast_message_for_backup);
+                    final Context appContext = requireContext().getApplicationContext();
+
+                    AppExecutors.getDiskIO().execute(() -> {
+                        backupPreferences(appContext, uri);
+
+                        AppExecutors.getMainThread().post(() ->
+                                CustomToast.show(appContext, R.string.toast_message_for_backup));
+
+                    });
                 });
 
         /**
@@ -153,12 +162,21 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                         return;
                     }
 
-                    try {
-                        restorePreferences(uri);
-                        applySettingsAfterRestore();
-                    } catch (FileNotFoundException e) {
-                        throw new RuntimeException(e);
-                    }
+                    final Context appContext = requireContext().getApplicationContext();
+
+                    AppExecutors.getDiskIO().execute(() -> {
+                        try {
+                            restorePreferences(appContext, uri);
+
+                            AppExecutors.getMainThread().post(() -> {
+                                applySettingsAfterRestore(appContext);
+
+                                CustomToast.show(appContext, R.string.toast_message_for_restore);
+                            });
+                        } catch (FileNotFoundException e) {
+                            LogUtils.e("Restore file not found", e);
+                        }
+                    });
                 });
 
         @Override
@@ -313,24 +331,24 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             }
         }
 
-        private void backupPreferences(Uri uri) {
-            try (OutputStream outputStream = requireContext().getContentResolver().openOutputStream(uri)) {
-                BackupAndRestoreUtils.settingsToJsonStream(requireContext(), mPrefs, mPrefs.getAll(), outputStream);
+        private void backupPreferences(Context context, Uri uri) {
+            try (OutputStream outputStream = context.getContentResolver().openOutputStream(uri)) {
+                BackupAndRestoreUtils.settingsToJsonStream(context, mPrefs, mPrefs.getAll(), outputStream);
             } catch (IOException e) {
                 LogUtils.wtf("Error during backup");
             }
         }
 
-        private void restorePreferences(Uri uri) throws FileNotFoundException {
-            InputStream inputStream = requireContext().getContentResolver().openInputStream(uri);
-            BackupAndRestoreUtils.readJson(requireContext(), mPrefs, inputStream);
+        private void restorePreferences(Context context, Uri uri) throws FileNotFoundException {
+            InputStream inputStream = context.getContentResolver().openInputStream(uri);
+            BackupAndRestoreUtils.readJson(context, mPrefs, inputStream);
         }
 
-        private void applySettingsAfterRestore() {
+        private void applySettingsAfterRestore(Context context) {
             // Required to update Locale.
-            requireContext().sendBroadcast(new Intent(ACTION_LANGUAGE_CODE_CHANGED));
+            context.sendBroadcast(new Intent(ACTION_LANGUAGE_CODE_CHANGED));
             // Required to update widgets.
-            WidgetUtils.updateAllWidgets(requireContext());
+            WidgetUtils.updateAllWidgets(context);
 
             // Required to update the timer list.
             DataModel.getDataModel().loadTimers();
@@ -338,8 +356,6 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             if (SettingsDAO.getTabToDisplay(mPrefs) != -1) {
                 UiDataModel.getUiDataModel().setSelectedTab(UiDataModel.Tab.values()[SettingsDAO.getTabToDisplay(mPrefs)]);
             }
-
-            CustomToast.show(requireContext(), R.string.toast_message_for_restore);
         }
     }
 

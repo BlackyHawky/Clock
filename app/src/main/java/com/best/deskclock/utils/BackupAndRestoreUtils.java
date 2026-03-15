@@ -26,6 +26,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_BACKGROUND_I
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_DURATION_FONT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_RINGTONE;
 
+import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -130,7 +131,7 @@ public class BackupAndRestoreUtils {
             }
         }
 
-        try {
+        try (out) {
             JSONObject jsonObject = new JSONObject();
 
             // Header
@@ -200,7 +201,6 @@ public class BackupAndRestoreUtils {
             jsonObject.put("Alarms with specified date", alarmsWithDateArray);
 
             out.write(jsonObject.toString(4).getBytes(StandardCharsets.UTF_8));
-            out.close();
         } catch (JSONException e) {
             LogUtils.e("JSON parsing error", e);
         } catch (IOException e) {
@@ -237,8 +237,8 @@ public class BackupAndRestoreUtils {
     /**
      * Read and apply values to restore in SharedPreferences.
      */
+    @SuppressLint("ApplySharedPref")
     public static void readJson(Context context, SharedPreferences prefs, InputStream inputStream) {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         SharedPreferences.Editor editor = prefs.edit();
 
         // Do not reset the KEY_IS_FIRST_LAUNCH key to prevent the "FirstLaunch" activity from reappearing.
@@ -269,11 +269,10 @@ public class BackupAndRestoreUtils {
                     && !key.equals(KEY_ESSENTIAL_PERMISSIONS_GRANTED)
             ) {
                 editor.remove(key);
-                editor.apply();
             }
         }
 
-        try {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
             StringBuilder jsonBuilder = new StringBuilder();
             String line;
             while ((line = reader.readLine()) != null) {
@@ -332,8 +331,6 @@ public class BackupAndRestoreUtils {
                 editor.putStringSet(TIMER_IDS, timerIds);
             }
 
-            editor.apply();
-
             final ContentResolver contentResolver = context.getContentResolver();
             // Clear the alarm list before restoring to avoid adding duplicates
             final List<Alarm> alarms = Alarm.getAlarms(contentResolver, null);
@@ -357,14 +354,10 @@ public class BackupAndRestoreUtils {
                     restoreAlarm(context, prefs, contentResolver, alarmObject, true);
                 }
             }
+
+            editor.commit();
         } catch (IOException | JSONException e) {
             LogUtils.e("Error during restore", e);
-        } finally {
-            try {
-                reader.close();
-            } catch (IOException e) {
-                LogUtils.e("Error closing reader", e);
-            }
         }
     }
 
