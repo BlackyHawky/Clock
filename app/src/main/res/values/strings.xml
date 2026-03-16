@@ -583,6 +583,8 @@
     <string name="background_image_title">Select a background image</string>
     <!-- Setting title to choose or delete background image. -->
     <string name="background_image_title_variant">Select or delete background image</string>
+    <!-- Setting summary when a background image has been selected. -->
+    <string name="background_image_summary">Set background color to transparent to see the image</string>
     <!-- Dialog title for the alarm background image. -->
     <string name="background_image_dialog_title">Background image</string>
     <!-- Toast message when an image is successfully selected. -->

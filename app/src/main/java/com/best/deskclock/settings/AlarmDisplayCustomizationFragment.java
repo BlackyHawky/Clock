@@ -136,6 +136,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
                 if (copiedUri != null) {
                     mPrefs.edit().putString(KEY_ALARM_BACKGROUND_IMAGE, copiedUri.getPath()).apply();
                     mAlarmBackgroundImagePref.setTitle(getString(R.string.background_image_title_variant));
+                    mAlarmBackgroundImagePref.setSummary(getString(R.string.background_image_summary));
                     mEnableAlarmBlurEffectPref.setVisible(SdkUtils.isAtLeastAndroid12());
                     mAlarmBlurIntensityPref.setVisible(SdkUtils.isAtLeastAndroid12()
                             && SettingsDAO.isAlarmBlurEffectEnabled(mPrefs));
@@ -144,6 +145,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
                 } else {
                     CustomToast.show(requireContext(), "Error importing image");
                     mAlarmBackgroundImagePref.setTitle(getString(R.string.background_image_title));
+                    mAlarmBackgroundImagePref.setSummary(null);
                     mEnableAlarmBlurEffectPref.setVisible(false);
                     mAlarmBlurIntensityPref.setVisible(false);
                 }
@@ -420,9 +422,14 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
 
         mRingtoneTitleColorPref.setVisible(SettingsDAO.isRingtoneTitleDisplayed(mPrefs));
 
-        mAlarmBackgroundImagePref.setTitle(getString(alarmBackgroundImage == null
-                ? R.string.background_image_title
-                : R.string.background_image_title_variant));
+        if (alarmBackgroundImage == null) {
+            mAlarmBackgroundImagePref.setTitle(getString(R.string.background_image_title));
+            mAlarmBackgroundImagePref.setSummary(null);
+        } else {
+            mAlarmBackgroundImagePref.setTitle(getString(R.string.background_image_title_variant));
+            mAlarmBackgroundImagePref.setSummary(getString(R.string.background_image_summary));
+        }
+
         mAlarmBackgroundImagePref.setOnPreferenceClickListener(this);
 
         mEnableAlarmBlurEffectPref.setVisible(SdkUtils.isAtLeastAndroid12()

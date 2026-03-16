@@ -390,6 +390,7 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
                     (d, w) -> {
                         mPrefs.edit().remove(prefKey).apply();
                         pref.setTitle(isFontFile ? R.string.custom_font_title : R.string.background_image_title);
+                        pref.setSummary(null);
                         if (onPreferenceDeleted != null) {
                             onPreferenceDeleted.onDeleted();
                         }
