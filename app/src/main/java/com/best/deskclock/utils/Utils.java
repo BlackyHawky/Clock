@@ -110,6 +110,31 @@ public class Utils {
     }
 
     /**
+     * Convenience method to start a service.
+     *
+     * @param context The context required to start the service.
+     */
+    public static void startService(Context context, Class<?> cls) {
+        Intent serviceIntent = new Intent(context, cls);
+
+        if (SdkUtils.isAtLeastAndroid8()) {
+            context.startForegroundService(serviceIntent);
+        } else {
+            context.startService(serviceIntent);
+        }
+    }
+
+    /**
+     * Convenience method to stop a service.
+     *
+     * @param context The context required to stop the service.
+     */
+    public static void stopService(Context context, Class<?> cls) {
+        Intent serviceIntent = new Intent(context, cls);
+        context.stopService(serviceIntent);
+    }
+
+    /**
      * Displays a {@link DialogFragment} only if it is not already shown.
      *
      * <p>This method checks whether a fragment with the given tag is already

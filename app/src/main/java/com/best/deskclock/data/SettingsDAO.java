@@ -82,6 +82,14 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return {@code true} if the foreground service is enabled to display a persistent notification.
+     * {@code false} otherwise.
+     */
+    public static boolean isForegroundServiceEnabled(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_ENABLE_FOREGROUND_SERVICE, DEFAULT_ENABLE_FOREGROUND_SERVICE);
+    }
+
+    /**
      * @return an enumerated value indicating the order in which cities are ordered
      */
     public static CitySort getCitySort(SharedPreferences prefs) {

@@ -38,6 +38,7 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.preference.Preference;
 
 import com.best.deskclock.AppExecutors;
+import com.best.deskclock.KeepAliveService;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
@@ -49,6 +50,7 @@ import com.best.deskclock.utils.BackupAndRestoreUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.PermissionUtils;
 import com.best.deskclock.utils.SdkUtils;
+import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
 
 import java.io.FileNotFoundException;
@@ -355,6 +357,12 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             // Required to update the tab to display.
             if (SettingsDAO.getTabToDisplay(mPrefs) != -1) {
                 UiDataModel.getUiDataModel().setSelectedTab(UiDataModel.Tab.values()[SettingsDAO.getTabToDisplay(mPrefs)]);
+            }
+            // Required to start/stop the foreground notification
+            if (SettingsDAO.isForegroundServiceEnabled(mPrefs)) {
+                Utils.startService(context, KeepAliveService.class);
+            } else {
+                Utils.stopService(context, KeepAliveService.class);
             }
         }
     }

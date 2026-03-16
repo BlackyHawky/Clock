@@ -267,6 +267,8 @@
     <string name="colors_category_title">Colors</string>
     <!-- Category title for font -->
     <string name="font_category_title">Font</string>
+    <!-- Category title for permissions -->
+    <string name="permissions_category_title">Permissions</string>
     <!-- Category title for miscellaneous settings -->
     <string name="miscellaneous_category_title">Miscellaneous</string>
     <!-- Setting title for changing the font for the alarm, timer, screen saver, etc. -->
@@ -1285,6 +1287,8 @@
     <!-- Setting title for the shake intensity setting. -->
     <string name="shake_intensity_title">Shake intensity</string>
     <!-- Strings for notification channel. -->
+    <string name="foreground_service_channel">Foreground notification</string>
+    <string name="foreground_service_message">Running in the background</string>
     <string name="firing_alarms_timers_channel">Firing alarms &amp; timers</string>
     <string name="alarm_missed_channel">Missed alarms</string>
     <string name="alarm_snooze_channel">Snoozed alarms</string>
@@ -1398,6 +1402,9 @@
     <string name="show_lockscreen_permission_title">SHOW ON LOCKSCREEN</string>
     <string name="show_lockscreen_dialog_title">Show on lockscreen</string>
     <string name="show_lockscreen_dialog_text">On Xiaomi devices, you should manually enable the \"Show on Lock screen\" permission from the device settings in order for the application to work properly.</string>
+    <!-- Foreground service -->
+    <string name="foreground_service_title">Display a foreground notification</string>
+    <string name="foreground_service_dialog_message">To prevent your device from aggressively closing the app and missing alarms, this will display a persistent, silent notification.\n\nThis ensures the app stays in memory, though it may slightly increase battery usage.\n\nNote: Enabling this setting is not necessary for most devices. Only enable it if you experience missed alarms.</string>
     <!--
     Backup & Restore
     -->

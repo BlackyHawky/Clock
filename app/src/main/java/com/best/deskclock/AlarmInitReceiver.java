@@ -6,6 +6,8 @@
 
 package com.best.deskclock;
 
+import static android.content.Intent.ACTION_LOCALE_CHANGED;
+import static android.content.Intent.ACTION_TIME_CHANGED;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
 import android.annotation.SuppressLint;
@@ -13,6 +15,7 @@ import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.PowerManager.WakeLock;
 
 import com.best.deskclock.alarms.AlarmNotifications;
@@ -24,6 +27,7 @@ import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.NotificationUtils;
 import com.best.deskclock.utils.SdkUtils;
+import com.best.deskclock.utils.Utils;
 
 import java.util.Calendar;
 import java.util.List;
@@ -51,11 +55,10 @@ public class AlarmInitReceiver extends BroadcastReceiver {
      * This receiver handles a variety of actions:
      *
      * <ul>
-     *     <li>Update timers and stopwatch datas on ACTION_BOOT_COMPLETED, TIME_SET
-     *     and TIMEZONE_CHANGED</li>
+     *     <li>Update timers and stopwatch datas on ACTION_BOOT_COMPLETED, TIME_SET and TIMEZONE_CHANGED</li>
+     *     <li>Starts the {@link KeepAliveService} if enabled in the settings on ACTION_BOOT_COMPLETED</li>
      *     <li>Rebuild notifications on ACTION_BOOT_COMPLETED and LOCALE_CHANGED</li>
-     *     <li>Fix alarm states on ACTION_BOOT_COMPLETED, TIME_SET, TIMEZONE_CHANGED,
-     *     and LOCALE_CHANGED</li>
+     *     <li>Fix alarm states on ACTION_BOOT_COMPLETED, TIME_SET, TIMEZONE_CHANGED, and LOCALE_CHANGED</li>
      * </ul>
      */
 
@@ -65,26 +68,33 @@ public class AlarmInitReceiver extends BroadcastReceiver {
         final String action = intent.getAction();
         LogUtils.i("AlarmInitReceiver " + action);
 
+        SharedPreferences prefs = getDefaultSharedPreferences(context);
+
         final PendingResult result = goAsync();
         final WakeLock wl = AlarmAlertWakeLock.createPartialWakeLock(context);
         wl.acquire();
 
         // We need to increment the global id out of the async task to prevent race conditions
-        SettingsDAO.updateGlobalIntentId(getDefaultSharedPreferences(context));
+        SettingsDAO.updateGlobalIntentId(prefs);
 
         // Updates stopwatch and timer data after a device reboot so they are as accurate as
         // possible.
+        // Starts the KeepAliveService if enabled in the settings.
         if (ACTION_BOOT_COMPLETED.equals(action)) {
             DataModel.getDataModel().updateAfterReboot();
+
+            if (SettingsDAO.isForegroundServiceEnabled(prefs)) {
+                Utils.startService(context, KeepAliveService.class);
+            }
+        } else if (ACTION_TIME_CHANGED.equals(action)) {
             // Stopwatch and timer data need to be updated on time change so the reboot
             // functionality works as expected.
-        } else if (Intent.ACTION_TIME_CHANGED.equals(action)) {
             DataModel.getDataModel().updateAfterTimeSet();
         }
 
         // Update shortcuts so they exist for the user.
-        if (Intent.ACTION_BOOT_COMPLETED.equals(action)
-                || Intent.ACTION_LOCALE_CHANGED.equals(action)) {
+        if (ACTION_BOOT_COMPLETED.equals(action)
+                || ACTION_LOCALE_CHANGED.equals(action)) {
             Controller.getController().updateShortcuts();
             DataModel.getDataModel().updateAllNotifications();
 

@@ -6,32 +6,54 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.best.deskclock.settings.custompreference.PermissionsManagementPreference
-        android:key="key_ignore_battery_optimizations"
-        android:layout="@layout/settings_preference_permission"
-        android:title="@string/ignore_battery_optimizations_title"
-        app:iconSpaceReserved="false"
-        app:singleLineTitle="false" />
+    <PreferenceCategory
+        android:title="@string/permissions_category_title"
+        app:allowDividerAbove="false"
+        app:iconSpaceReserved="false">
 
-    <com.best.deskclock.settings.custompreference.PermissionsManagementPreference
-        android:key="key_notification_permission"
-        android:layout="@layout/settings_preference_permission"
-        android:title="@string/notifications_permission_title"
-        app:iconSpaceReserved="false"
-        app:singleLineTitle="false" />
+        <com.best.deskclock.settings.custompreference.PermissionsManagementPreference
+            android:key="key_ignore_battery_optimizations"
+            android:layout="@layout/settings_preference_permission"
+            android:title="@string/ignore_battery_optimizations_title"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
 
-    <com.best.deskclock.settings.custompreference.PermissionsManagementPreference
-        android:key="key_full_screen_notification_permission"
-        android:layout="@layout/settings_preference_permission"
-        android:title="@string/FSN_permission_title"
-        app:iconSpaceReserved="false"
-        app:singleLineTitle="false" />
+        <com.best.deskclock.settings.custompreference.PermissionsManagementPreference
+            android:key="key_notification_permission"
+            android:layout="@layout/settings_preference_permission"
+            android:title="@string/notifications_permission_title"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
 
-    <com.best.deskclock.settings.custompreference.PermissionsManagementPreference
-        android:key="key_show_lockscreen_permission"
-        android:layout="@layout/settings_preference_permission"
-        android:title="@string/show_lockscreen_permission_title"
-        app:iconSpaceReserved="false"
-        app:singleLineTitle="false" />
+        <com.best.deskclock.settings.custompreference.PermissionsManagementPreference
+            android:key="key_full_screen_notification_permission"
+            android:layout="@layout/settings_preference_permission"
+            android:title="@string/FSN_permission_title"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <com.best.deskclock.settings.custompreference.PermissionsManagementPreference
+            android:key="key_show_lockscreen_permission"
+            android:layout="@layout/settings_preference_permission"
+            android:title="@string/show_lockscreen_permission_title"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/miscellaneous_category_title"
+        app:allowDividerAbove="false"
+        app:iconSpaceReserved="false">
+
+        <SwitchPreferenceCompat
+            android:key="key_enable_foreground_service"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/foreground_service_title"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+    </PreferenceCategory>
 
 </PreferenceScreen>

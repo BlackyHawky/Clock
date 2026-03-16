@@ -104,6 +104,16 @@
             android:taskAffinity=""
             android:theme="@android:style/Theme.NoDisplay" />
 
+        <service
+            android:name="com.best.deskclock.KeepAliveService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="specialUse">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="Used to keep the app alive" />
+        </service>
+
         <!-- ============================================================== -->
         <!-- AlarmClock API components.                                     -->
         <!-- ============================================================== -->

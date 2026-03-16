@@ -196,6 +196,9 @@ public class PreferencesDefaultValues {
     public static final int DEFAULT_DIGITAL_CLOCK_FONT_SIZE = 70;
     public static final int DEFAULT_ANALOG_CLOCK_SIZE = 70;
 
+    // Permission management
+    public static final boolean DEFAULT_ENABLE_FOREGROUND_SERVICE = false;
+
     // **************
     // ** WIDGETS **
     // **************

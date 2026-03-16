@@ -33,9 +33,10 @@ final class NotificationModel {
     // Notification IDs
     //
     // Used elsewhere:
-    // Integer.MAX_VALUE - 4
-    // Integer.MAX_VALUE - 5
-    // Integer.MAX_VALUE - 7
+    // Integer.MAX_VALUE - 4 in AlarmNotifications
+    // Integer.MAX_VALUE - 5 in AlarmNotifications
+    // Integer.MAX_VALUE - 6 in KeepAliveService
+    // Integer.MAX_VALUE - 7 in AlarmNotifications
     //
 
     /**
@@ -77,8 +78,8 @@ final class NotificationModel {
     // Notification Group keys
     //
     // Used elsewhere:
-    // "1"
-    // "4"
+    // "1" in AlarmNotifications
+    // "4" in AlarmNotifications
 
     /**
      * @return the group key for the stopwatch notification

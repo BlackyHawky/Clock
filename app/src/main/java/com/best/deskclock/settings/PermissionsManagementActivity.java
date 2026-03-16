@@ -11,6 +11,7 @@ import static android.provider.Settings.ACTION_MANAGE_APP_USE_FULL_SCREEN_INTENT
 import static android.provider.Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS;
 import static android.provider.Settings.EXTRA_APP_PACKAGE;
 
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_FOREGROUND_SERVICE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ESSENTIAL_PERMISSIONS_GRANTED;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_FULL_SCREEN_NOTIFICATION_PERMISSION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_IGNORE_BATTERY_OPTIMIZATIONS;
@@ -27,7 +28,9 @@ import android.provider.Settings;
 
 import androidx.annotation.NonNull;
 import androidx.preference.Preference;
+import androidx.preference.SwitchPreferenceCompat;
 
+import com.best.deskclock.KeepAliveService;
 import com.best.deskclock.R;
 import com.best.deskclock.settings.custompreference.PermissionsManagementPreference;
 import com.best.deskclock.uicomponents.CollapsingToolbarBaseActivity;
@@ -35,6 +38,7 @@ import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.PermissionUtils;
 import com.best.deskclock.utils.SdkUtils;
+import com.best.deskclock.utils.Utils;
 
 /**
  * Manage the permissions required to ensure the application runs properly.
@@ -60,7 +64,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
     }
 
     public static class PermissionsManagementFragment extends ScreenFragment
-            implements Preference.OnPreferenceClickListener {
+            implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
         private static final String[] DYNAMIC_PERMISSION_KEYS = {
                 KEY_IGNORE_BATTERY_OPTIMIZATIONS,
@@ -72,6 +76,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
         PermissionsManagementPreference mNotificationPermissionPref;
         PermissionsManagementPreference mFullScreenNotificationPref;
         PermissionsManagementPreference mShowLockScreenPref;
+        SwitchPreferenceCompat mEnableForegroundServicePref;
 
         @Override
         protected String getFragmentTitle() {
@@ -88,6 +93,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
             mNotificationPermissionPref = findPreference(KEY_NOTIFICATION_PERMISSION);
             mFullScreenNotificationPref = findPreference(KEY_FULL_SCREEN_NOTIFICATION_PERMISSION);
             mShowLockScreenPref = findPreference(KEY_SHOW_LOCKSCREEN_PERMISSION);
+            mEnableForegroundServicePref = findPreference(KEY_ENABLE_FOREGROUND_SERVICE);
 
             setupPreferences();
         }
@@ -101,6 +107,34 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
             for (String key : DYNAMIC_PERMISSION_KEYS) {
                 updateSinglePreference(key);
             }
+        }
+
+        @Override
+        public boolean onPreferenceChange(Preference pref, Object newValue) {
+            if (pref.getKey().equals(KEY_ENABLE_FOREGROUND_SERVICE)) {
+                Utils.setVibrationTime(requireContext(), 50);
+
+                if ((boolean) newValue) {
+                    CustomDialog.createSimpleDialog(
+                            requireContext(),
+                            R.drawable.ic_notifications,
+                            R.string.foreground_service_title,
+                            getString(R.string.foreground_service_dialog_message),
+                            android.R.string.ok,
+                            (d, w) -> {
+                                mPrefs.edit().putBoolean(KEY_ENABLE_FOREGROUND_SERVICE, true).apply();
+                                mEnableForegroundServicePref.setChecked(true);
+                                Utils.startService(requireContext(), KeepAliveService.class);
+                            }
+                    ).show();
+
+                    return false;
+                } else {
+                    Utils.stopService(requireContext(), KeepAliveService.class);
+                }
+            }
+
+            return true;
         }
 
         @Override
@@ -130,6 +164,8 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
 
             mShowLockScreenPref.setVisible(DeviceUtils.isMiui());
             mShowLockScreenPref.setOnPreferenceClickListener(this);
+
+            mEnableForegroundServicePref.setOnPreferenceChangeListener(this);
 
             PermissionUtils.grantPowerOffPermissionForSupportedDevices(requireActivity());
         }

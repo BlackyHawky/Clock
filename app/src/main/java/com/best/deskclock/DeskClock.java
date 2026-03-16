@@ -12,6 +12,7 @@ import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_DRAGGING;
 import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_IDLE;
 import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_SETTLING;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.KeepAliveService.FOREGROUND_SERVICE_NOTIFICATION_ID;
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TAB_TITLE_VISIBILITY;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TAB_TITLE_VISIBILITY_NEVER;
@@ -95,6 +96,7 @@ import com.best.deskclock.uicomponents.toast.SnackbarManager;
 import com.best.deskclock.uidata.TabListener;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.InsetsUtils;
+import com.best.deskclock.utils.NotificationUtils;
 import com.best.deskclock.utils.PermissionUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
@@ -427,6 +429,11 @@ public class DeskClock extends BaseActivity implements FabContainer {
         updateCurrentTab();
 
         updateKeepScreenOn(UiDataModel.getUiDataModel().getSelectedTab());
+
+        if (SettingsDAO.isForegroundServiceEnabled(mPrefs)
+                && !NotificationUtils.isNotificationVisible(this, FOREGROUND_SERVICE_NOTIFICATION_ID)) {
+            Utils.startService(this, KeepAliveService.class);
+        }
     }
 
     @Override

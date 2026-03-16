@@ -57,6 +57,7 @@ import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.AppExecutors;
 import com.best.deskclock.BuildConfig;
+import com.best.deskclock.KeepAliveService;
 import com.best.deskclock.R;
 import com.best.deskclock.alarms.AlarmStateManager;
 import com.best.deskclock.data.DataModel;
@@ -405,6 +406,8 @@ public class AboutFragment extends ScreenFragment
                 appContext.sendBroadcast(new Intent(ACTION_LANGUAGE_CODE_CHANGED));
                 WidgetUtils.updateAllWidgets(appContext);
                 dataModel.loadTimers();
+
+                Utils.stopService(appContext, KeepAliveService.class);
 
                 CustomToast.show(appContext, R.string.toast_message_for_reset);
             });

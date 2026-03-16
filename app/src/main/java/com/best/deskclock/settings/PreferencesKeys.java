@@ -227,6 +227,7 @@ public class PreferencesKeys {
     public static final String KEY_NOTIFICATION_PERMISSION = "key_notification_permission";
     public static final String KEY_FULL_SCREEN_NOTIFICATION_PERMISSION = "key_full_screen_notification_permission";
     public static final String KEY_SHOW_LOCKSCREEN_PERMISSION = "key_show_lockscreen_permission";
+    public static final String KEY_ENABLE_FOREGROUND_SERVICE = "key_enable_foreground_service";
 
     // **************
     // ** WIDGETS **

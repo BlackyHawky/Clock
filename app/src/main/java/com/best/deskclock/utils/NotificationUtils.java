@@ -10,12 +10,15 @@ import static androidx.core.app.NotificationManagerCompat.IMPORTANCE_HIGH;
 import static androidx.core.app.NotificationManagerCompat.IMPORTANCE_LOW;
 
 import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.os.Build;
+import android.service.notification.StatusBarNotification;
 import android.util.ArraySet;
 import android.util.Log;
 
 import androidx.annotation.RequiresApi;
+import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.best.deskclock.R;
@@ -28,62 +31,85 @@ import java.util.Set;
 public class NotificationUtils {
 
     /**
+     * Notification channel containing the foreground service.
+     */
+    public static final String FOREGROUND_SERVICE_CHANNEL_ID = "foregroundService";
+
+    /**
      * Notification channel containing all missed alarm notifications.
      */
     public static final String ALARM_MISSED_NOTIFICATION_CHANNEL_ID = "alarmMissedNotification";
+
     /**
      * Notification channel containing all upcoming alarm notifications.
      */
     public static final String ALARM_UPCOMING_NOTIFICATION_CHANNEL_ID = "alarmUpcomingNotification";
+
     /**
      * Notification channel containing all snooze notifications.
      */
     public static final String ALARM_SNOOZE_NOTIFICATION_CHANNEL_ID = "alarmSnoozingNotification";
+
     /**
      * Notification channel containing all firing alarm and timer notifications.
      */
     public static final String FIRING_NOTIFICATION_CHANNEL_ID = "firingAlarmsAndTimersNotification";
+
     /**
      * Notification channel containing all TimerModel notifications.
      */
     public static final String TIMER_MODEL_NOTIFICATION_CHANNEL_ID = "timerNotification";
+
     /**
      * Notification channel containing all stopwatch notifications.
      */
     public static final String STOPWATCH_NOTIFICATION_CHANNEL_ID = "stopwatchNotification";
 
     private static final String TAG = NotificationUtils.class.getSimpleName();
+
     /**
      * Values used to bitmask certain channel defaults
      */
     private static final int PLAY_SOUND = 0x01;
     private static final int ENABLE_LIGHTS = 0x02;
     private static final int ENABLE_VIBRATION = 0x04;
+    private static final int LOCKSCREEN_PUBLIC = 0x08;
+    private static final int HIDE_BADGE = 0x10;
 
     private static final Map<String, int[]> CHANNEL_PROPS = new HashMap<>();
 
     static {
+        CHANNEL_PROPS.put(FOREGROUND_SERVICE_CHANNEL_ID, new int[]{
+                R.string.foreground_service_channel,
+                IMPORTANCE_LOW, LOCKSCREEN_PUBLIC | HIDE_BADGE
+        });
+
         CHANNEL_PROPS.put(ALARM_MISSED_NOTIFICATION_CHANNEL_ID, new int[]{
                 R.string.alarm_missed_channel,
                 IMPORTANCE_HIGH
         });
+
         CHANNEL_PROPS.put(ALARM_SNOOZE_NOTIFICATION_CHANNEL_ID, new int[]{
                 R.string.alarm_snooze_channel,
                 IMPORTANCE_LOW
         });
+
         CHANNEL_PROPS.put(ALARM_UPCOMING_NOTIFICATION_CHANNEL_ID, new int[]{
                 R.string.alarm_upcoming_channel,
                 IMPORTANCE_LOW
         });
+
         CHANNEL_PROPS.put(FIRING_NOTIFICATION_CHANNEL_ID, new int[]{
                 R.string.firing_alarms_timers_channel,
                 IMPORTANCE_HIGH,
                 ENABLE_LIGHTS
         });
+
         CHANNEL_PROPS.put(STOPWATCH_NOTIFICATION_CHANNEL_ID, new int[]{
                 R.string.stopwatch_channel,
                 IMPORTANCE_LOW
         });
+
         CHANNEL_PROPS.put(TIMER_MODEL_NOTIFICATION_CHANNEL_ID, new int[]{
                 R.string.timer_channel,
                 IMPORTANCE_LOW
@@ -102,14 +128,26 @@ public class NotificationUtils {
         int importance = properties[1];
         NotificationChannel channel = new NotificationChannel(
                 id, context.getString(nameId), importance);
+
         if (properties.length >= 3) {
             int bits = properties[2];
+
             channel.enableLights((bits & ENABLE_LIGHTS) != 0);
             channel.enableVibration((bits & ENABLE_VIBRATION) != 0);
+
             if ((bits & PLAY_SOUND) == 0) {
                 channel.setSound(null, null);
             }
+
+            if ((bits & LOCKSCREEN_PUBLIC) != 0) {
+                channel.setLockscreenVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+            }
+
+            if ((bits & HIDE_BADGE) != 0) {
+                channel.setShowBadge(false);
+            }
         }
+
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
         nm.createNotificationChannel(channel);
     }
@@ -150,4 +188,25 @@ public class NotificationUtils {
             createChannel(context, id);
         }
     }
+
+    /**
+     * Checks if the notification is currently active. Useful to detect if the user has dismissed
+     * the notification (on Android 14+).
+     *
+     * @return {@code true} if the notification is visible in the status bar, {@code false} otherwise.
+     */
+    public static boolean isNotificationVisible(Context context, int notificationId) {
+        NotificationManager mNotificationManager =
+                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        StatusBarNotification[] notifications = mNotificationManager.getActiveNotifications();
+        for (StatusBarNotification notification : notifications) {
+            if (notification.getId() == notificationId) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 }
