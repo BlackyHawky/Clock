@@ -100,8 +100,6 @@
     <string name="alarm_volume_title" msgid="8506245173912428522">"അലാറം വോളിയം"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"നിശബ്‌ദം"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"അജ്ഞാതം"</string>
-    <string name="alarm_volume_muted" msgid="6658289289695673569">"അലാറം വോളിയം നിശബ്ദമാക്കി"</string>
-    <string name="unmute_alarm_volume" msgid="2655009276035357497">"ശബ്‌ദമുള്ളതാക്കുക"</string>
     <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"ഡിഫോൾട്ട് അലാറം റിംഗ്‌ടോൺ നിശബ്ദമാണ്"</string>
     <string name="change_setting_action" msgid="1224356633832430160">"മാറ്റുക"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"ഉപകരണം സമ്പൂർണ്ണ നിശബ്ദമാക്കി സജ്ജീകരിച്ചിരിക്കുന്നു"</string>

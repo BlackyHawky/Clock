@@ -92,8 +92,6 @@
     <string name="alarm_volume_title" msgid="8506245173912428522">"闹钟音量"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"静音"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"未知"</string>
-    <string name="alarm_volume_muted" msgid="6658289289695673569">闹钟音量已静音</string>
-    <string name="unmute_alarm_volume" msgid="2655009276035357497">"取消静音"</string>
     <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">默认闹钟铃声为静音</string>
     <string name="change_setting_action" msgid="1224356633832430160">"更改"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">设备设置为完全静音</string>

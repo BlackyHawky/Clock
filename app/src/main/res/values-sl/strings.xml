@@ -116,8 +116,6 @@
     <string name="alarm_volume_title" msgid="8506245173912428522">"Glasnost alarma"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Tiho"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Neznano"</string>
-    <string name="alarm_volume_muted" msgid="6658289289695673569">"Glasnost alarma – izklopljen zvok"</string>
-    <string name="unmute_alarm_volume" msgid="2655009276035357497">"Vklop zvoka"</string>
     <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"Privzeti ton zvonjenja alarma je »tiho«"</string>
     <string name="change_setting_action" msgid="1224356633832430160">"Spremeni"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Naprava je nastavljena na popolno tišino"</string>

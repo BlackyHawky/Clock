@@ -21,10 +21,13 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
@@ -33,6 +36,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -53,9 +57,12 @@ import com.best.deskclock.data.Timer;
 import com.best.deskclock.data.TimerListener;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.utils.AnimatorUtils;
+import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
 
 import java.io.Serializable;
 
@@ -70,13 +77,17 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
 
     private SharedPreferences mPrefs;
     private Context mContext;
+    private DisplayMetrics mDisplayMetrics;
+    private Typeface mBoldTypeface;
+
     private RecyclerView mRecyclerView;
     private Serializable mTimerSetupState;
     private TimerSetupView mCreateTimerView;
     private CustomTimerSpinnerSetupView mCreateTimerSpinnerView;
     private TimerAdapter mAdapter;
-    private View mTimersView;
-    private View mCurrentView;
+    private ViewGroup mTimersView;
+    private ViewGroup mCurrentView;
+    private MaterialCardView mVolumeWarningBanner;
     private ItemTouchHelper mItemTouchHelper;
     private boolean mIsTablet;
     private boolean mIsLandscape;
@@ -104,6 +115,15 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         return new Intent(context, DeskClock.class).putExtra(EXTRA_TIMER_SETUP, true);
     }
 
+    private final BroadcastReceiver mVolumeReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (RingtoneUtils.VOLUME_CHANGED_ACTION.equals(intent.getAction())) {
+                updateWarningBannerVisibility();
+            }
+        }
+    };
+
     /**
      * The public no-arg constructor required by all fragments.
      */
@@ -112,30 +132,44 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.timer_fragment, container, false);
+    public void onCreate(Bundle savedState) {
+        super.onCreate(savedState);
 
         mContext = requireContext();
         mPrefs = getDefaultSharedPreferences(mContext);
-        final DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        mDisplayMetrics = getResources().getDisplayMetrics();
+        mBoldTypeface = ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(mPrefs));
+        mIsTablet = ThemeUtils.isTablet();
+        mIsLandscape = ThemeUtils.isLandscape();
         mAdapter = new TimerAdapter(mContext, mPrefs, new TimerClickHandler(this));
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        final View view = inflater.inflate(R.layout.timer_fragment, container, false);
+
         mRecyclerView = view.findViewById(R.id.recycler_view);
         mTimersView = view.findViewById(R.id.timer_view);
         mCreateTimerView = view.findViewById(R.id.timer_setup);
         mCreateTimerSpinnerView = view.findViewById(R.id.timer_spinner_setup);
-        mIsTablet = ThemeUtils.isTablet();
-        mIsLandscape = ThemeUtils.isLandscape();
+        mVolumeWarningBanner = view.findViewById(R.id.volume_warning_banner);
+        TextView volumeWarningText = view.findViewById(R.id.volume_warning_text);
+        MaterialButton volumeWarningButton = view.findViewById(R.id.volume_warning_button);
+
+        volumeWarningText.setTypeface(mBoldTypeface);
+
+        volumeWarningButton.setTypeface(mBoldTypeface);
+        volumeWarningButton.setOnClickListener(v -> RingtoneUtils.fixAlarmStreamLow(mContext));
 
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(getLayoutManager(mContext));
-        mRecyclerView.addItemDecoration(new GridSpacingItemDecoration(displayMetrics));
+        mRecyclerView.addItemDecoration(new GridSpacingItemDecoration(mDisplayMetrics));
 
         // Due to the ViewPager and the location of FAB, set a bottom padding and/or a right padding
         // to prevent the reset button from being hidden by the FAB (e.g. when scrolling down).
-        final int rightPadding = (int) dpToPx(!mIsTablet && mIsLandscape ? 80 : 0, displayMetrics);
-        final int bottomPadding = (int) dpToPx(mIsTablet ? 110 : mIsLandscape ? 0 : 100, displayMetrics);
+        final int rightPadding = (int) dpToPx(!mIsTablet && mIsLandscape ? 80 : 0, mDisplayMetrics);
+        final int bottomPadding = (int) dpToPx(mIsTablet ? 110 : mIsLandscape ? 0 : 100, mDisplayMetrics);
         mRecyclerView.setPaddingRelative(0, 0, rightPadding, bottomPadding);
-        mRecyclerView.setClipToPadding(false);
 
         RecyclerView.ItemAnimator animator = mRecyclerView.getItemAnimator();
         if (animator instanceof SimpleItemAnimator) {
@@ -165,6 +199,18 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         }
 
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        IntentFilter filter = new IntentFilter(RingtoneUtils.VOLUME_CHANGED_ACTION);
+        if (SdkUtils.isAtLeastAndroid13()) {
+            mContext.registerReceiver(mVolumeReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
+        } else {
+            mContext.registerReceiver(mVolumeReceiver, filter);
+        }
     }
 
     @Override
@@ -223,6 +269,13 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         super.onPause();
 
         stopUpdatingTime();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        mContext.unregisterReceiver(mVolumeReceiver);
     }
 
     @Override
@@ -370,6 +423,8 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
 
         // Update the fab and buttons.
         updateFab(updateTypes);
+
+        updateWarningBannerVisibility();
     }
 
     /**
@@ -504,7 +559,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         }
     }
 
-    private View getTimerCreationView() {
+    private ViewGroup getTimerCreationView() {
         if (isSpinnerCreationView()) {
             return mCreateTimerSpinnerView;
         } else {
@@ -578,6 +633,26 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         }
     }
 
+    /**
+     * Updates the visibility of the volume warning banner.
+     *
+     * <p>Note: We intentionally perform a direct visibility update here without TransitionManager.
+     * Since the RecyclerView items (timers) are constantly ticking and triggering adapter
+     * updates (e.g., notifyItemChanged), running a layout transition simultaneously
+     * causes severe layout conflicts and visual glitches (freezing or abrupt jumps).
+     * An instant visibility change guarantees perfect stability across all orientations.</p>
+     */
+    public void updateWarningBannerVisibility() {
+        boolean isStreamLow = RingtoneUtils.isAlarmStreamLow(mContext);
+        boolean shouldShow = isStreamLow && DataModel.getDataModel().hasRunningTimer();
+
+        int targetVisibility = shouldShow ? VISIBLE : GONE;
+
+        if (mVolumeWarningBanner != null && mVolumeWarningBanner.getVisibility() != targetVisibility) {
+            mVolumeWarningBanner.setVisibility(targetVisibility);
+        }
+    }
+
     /** Update the fab in response to the visible timer changing.
      */
     private class TimerWatcher implements TimerListener {
@@ -637,6 +712,8 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
                 }
             }
 
+            updateWarningBannerVisibility();
+
             adjustWakeLock();
         }
 
@@ -659,6 +736,8 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
 
             // Required to detach the ItemTouchHelper when there is only one timer left.
             handleItemTouchHelper();
+
+            updateWarningBannerVisibility();
 
             adjustWakeLock();
         }

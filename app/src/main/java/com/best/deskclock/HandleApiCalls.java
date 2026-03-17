@@ -164,7 +164,7 @@ public class HandleApiCalls extends Activity {
         private void execute() {
             AppExecutors.getDiskIO().execute(() -> {
                 final ContentResolver cr = mContext.getContentResolver();
-                final List<Alarm> alarms = getEnabledAlarms(mContext);
+                final List<Alarm> alarms = Alarm.getEnabledAlarms(mContext);
                 if (alarms.isEmpty()) {
                     final String reason = mContext.getString(R.string.no_scheduled_alarms);
                     Controller.getController().notifyVoiceFailure(mActivity, reason);
@@ -223,12 +223,6 @@ public class HandleApiCalls extends Activity {
                     LOGGER.i("Alarm dismissed: " + alarm);
                 }
             });
-        }
-
-        private static List<Alarm> getEnabledAlarms(Context context) {
-            final String selection = String.format("%s=?", Alarm.ENABLED);
-            final String[] args = {"1"};
-            return Alarm.getAlarms(context.getContentResolver(), selection, args);
         }
     }
 

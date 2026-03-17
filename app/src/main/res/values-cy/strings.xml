@@ -131,8 +131,6 @@
     <string name="alarm_volume_title">Uchder sain larymau</string>
     <string name="silent_ringtone_title">Distaw</string>
     <string name="unknown_ringtone_title">Anhysbys</string>
-    <string name="alarm_volume_muted">Larymau wedi\'u distewi</string>
-    <string name="unmute_alarm_volume">Dad-distewi</string>
     <string name="silent_default_alarm_ringtone">Mae\'r tôn larwm arferol yn ddistaw</string>
     <string name="change_setting_action">Newid</string>
     <string name="alarms_blocked_by_dnd">Mae\'r ddyfais wedi\'i gosod i ddistawrwydd llwyr</string>

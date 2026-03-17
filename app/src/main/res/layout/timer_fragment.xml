@@ -6,24 +6,38 @@
 -->
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/timer_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/volume_warning_banner"
+            layout="@layout/volume_warning_banner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <!-- Due to the ViewPager and the location of FAB, paddings are set
              in the TimerFragment.java file. -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:clipToPadding="false"
+            app:layout_constraintTop_toBottomOf="@+id/volume_warning_banner"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_goneMarginTop="0dp"
             tools:listitem="@layout/timer_item" />
 
-    </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.best.deskclock.timer.TimerSetupView
         android:id="@+id/timer_setup"

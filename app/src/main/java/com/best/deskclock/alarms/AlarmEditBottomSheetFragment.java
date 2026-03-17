@@ -111,6 +111,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     private Alarm mOriginalAlarm;
     private AlarmUpdateHandler mAlarmUpdateHandler;
     private FragmentManager.FragmentLifecycleCallbacks mLifecycleCallbacks;
+    private String mTag;
     private int mRippleColor;
     private boolean mIsActionPending = false;
 
@@ -179,6 +180,8 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mTag = requireArguments().getString(ARG_TAG);
         mPrefs = getDefaultSharedPreferences(requireContext());
         mGeneralTypeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(mPrefs));
         mAlarmBoldTypeface = ThemeUtils.boldTypeface(SettingsDAO.getAlarmFont(mPrefs));
@@ -292,6 +295,24 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
         saveAlarmSettings();
+
+
+        // When the per-alarm volume feature is enabled, AlarmFragment temporarily "freezes"
+        // its volume warning banner.
+        // This prevents the banner from glitching or disappearing when the user tests
+        // the alarm volume in the sub-dialog (AlarmVolumeDialogFragment).
+        // Therefore, when this BottomSheet is fully dismissed, we must force the parent
+        // AlarmFragment to re-evaluate the actual system volume.
+        // This catches any system volume changes the user might have made
+        // (e.g., using hardware buttons) while the UI was frozen, ensuring the banner state
+        // remains perfectly synchronized.
+        if (SettingsDAO.isPerAlarmVolumeEnabled(mPrefs)) {
+            Fragment parentFragment = getParentFragmentManager().findFragmentByTag(mTag);
+            if (parentFragment instanceof AlarmFragment alarmFragment) {
+                alarmFragment.updateWarningBannerVisibility();
+            }
+        }
+
         super.onDismiss(dialog);
     }
 

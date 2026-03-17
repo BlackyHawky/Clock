@@ -1088,9 +1088,9 @@ public class DeskClock extends BaseActivity implements FabContainer {
             final Snackbar snackbar = createSnackbar(mSilentSetting.getLabelResId());
 
             // Set the associated corrective action if one exists.
-            if (mSilentSetting.isActionEnabled(DeskClock.this)) {
+            if (mSilentSetting.isActionEnabled()) {
                 final int actionResId = mSilentSetting.getActionResId();
-                snackbar.setAction(actionResId, mSilentSetting.getActionListener());
+                snackbar.setAction(actionResId, v -> mSilentSetting.executeAction(v.getContext()));
             }
 
             SnackbarManager.show(snackbar);

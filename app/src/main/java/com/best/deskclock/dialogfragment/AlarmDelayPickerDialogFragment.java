@@ -52,7 +52,7 @@ public class AlarmDelayPickerDialogFragment extends DialogFragment {
     /**
      * The tag that identifies instances of AlarmDelayPickerDialogFragment in the fragment manager.
      */
-    private static final String TAG = "alarm_delay_dialog";
+    public static final String TAG = "alarm_delay_dialog";
     private static final String ARG_EDIT_HOURS = "arg_edit_hours";
     private static final String ARG_EDIT_MINUTES = "arg_edit_minutes";
     public static final String REQUEST_KEY = "alarm_delay_result";

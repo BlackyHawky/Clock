@@ -554,6 +554,15 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         return result;
     }
 
+    /**
+     * @return a list of enabled alarms.
+     */
+    public static List<Alarm> getEnabledAlarms(Context context) {
+        final String selection = String.format("%s=?", Alarm.ENABLED);
+        final String[] args = {"1"};
+        return Alarm.getAlarms(context.getContentResolver(), selection, args);
+    }
+
     public Alarm addAlarm(ContentResolver contentResolver) {
         ContentValues values = createContentValues();
         Uri uri = contentResolver.insert(CONTENT_URI, values);

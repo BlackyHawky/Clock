@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/volume_warning_banner"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:visibility="gone"
+    app:cardBackgroundColor="?attr/colorErrorContainer"
+    app:strokeColor="?attr/colorError"
+    tools:visibility="visible">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="10dp">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/volume_warning_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:gravity="center_vertical"
+            android:text="@string/alarm_volume_low"
+            android:textColor="?attr/colorOnErrorContainer"
+            android:textStyle="bold"
+            android:maxLines="2"
+            android:drawableStart="@drawable/ic_error"
+            android:drawableTint="?attr/colorOnErrorContainer"
+            android:drawablePadding="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/volume_warning_button"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_chainStyle="spread_inside" />
+
+        <com.google.android.material.button.MaterialButton
+            style="?attr/materialButtonOutlinedStyle"
+            android:id="@+id/volume_warning_button"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:gravity="center"
+            android:text="@string/fix_alarm_volume"
+            android:textColor="?attr/colorOnErrorContainer"
+            android:clickable="true"
+            android:focusable="true"
+            app:strokeColor="?attr/colorOnErrorContainer"
+            app:layout_constraintStart_toEndOf="@+id/volume_warning_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

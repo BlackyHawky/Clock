@@ -2,6 +2,8 @@
 
 package com.best.deskclock.dialogfragment;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.utils.RingtoneUtils.ALARM_PREVIEW_DURATION_MS;
@@ -45,7 +47,7 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
     /**
      * The tag that identifies instances of AlarmVolumeDialogFragment in the fragment manager.
      */
-    private static final String TAG = "set_alarm_volume_dialog";
+    public static final String TAG = "set_alarm_volume_dialog";
 
     public static final String REQUEST_KEY = "volume_request_key";
     public static final String RESULT_VOLUME_VALUE = "result_volume_value";
@@ -59,8 +61,7 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
     private ImageView mVolumeMinus;
     private ImageView mVolumePlus;
     private TextView mVolumeValue;
-    private TextView mDialogText;
-    private Typeface mTypeface;
+    private TextView mDialogTitle;
     private final Handler mRingtoneHandler = new Handler(Looper.getMainLooper());
     private Runnable mRingtoneStopRunnable;
     private int mMinVolume;
@@ -110,7 +111,7 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         mContext = requireContext();
         SharedPreferences prefs = getDefaultSharedPreferences(mContext);
-        mTypeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
+        Typeface typeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
 
         final Bundle args = requireArguments();
         String uriString = args.getString(ARG_RINGTONE_URI);
@@ -141,6 +142,11 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
         mVolumeValue = dialogView.findViewById(R.id.alarm_volume_value);
         mVolumeMinus = dialogView.findViewById(R.id.volume_minus_icon);
         mVolumePlus = dialogView.findViewById(R.id.volume_plus_icon);
+        TextView warningText = dialogView.findViewById(R.id.alarm_volume_warning);
+
+        mVolumeValue.setTypeface(typeface);
+
+        warningText.setTypeface(typeface, Typeface.ITALIC);
 
         float maxRange = Math.max(1f, (float) (maxVolume - mMinVolume));
         mSlider.setValueTo(maxRange);
@@ -150,6 +156,7 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
 
         updateVolumeText(clampedVolume, maxVolume);
         updateVolumeButtonStates(currentVolume, maxVolume - mMinVolume);
+        updateWarningVisibility(warningText, currentVolume);
 
         mVolumeMinus.setOnClickListener(v -> {
             float newValue = mSlider.getValue() - 1f;
@@ -178,6 +185,7 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
             updateDialogIcon(newVolume, maxVolume);
             updateVolumeText(newVolume, maxVolume);
             updateVolumeButtonStates(intProgress, (int) slider.getValueTo());
+            updateWarningVisibility(warningText, intProgress);
 
             if (fromUser) {
                 if (mIsPreviewPlaying) {
@@ -215,7 +223,7 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
                 null,
                 null,
                 alertDialog -> {
-                    mDialogText = alertDialog.findViewById(R.id.dialog_title);
+                    mDialogTitle = alertDialog.findViewById(R.id.dialog_title);
                     int volume = (int) mSlider.getValue() + mMinVolume;
                     updateDialogIcon(volume, maxVolume);
                 },
@@ -263,12 +271,12 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
      */
     private void updateDialogIcon(int currentVolume, int maxVolume) {
         int percent = (int) (((float) currentVolume / maxVolume) * 100);
-        mDialogText.setCompoundDrawablesWithIntrinsicBounds(AppCompatResources.getDrawable(
+        mDialogTitle.setCompoundDrawablesWithIntrinsicBounds(AppCompatResources.getDrawable(
                 mContext, percent < 50
                         ? R.drawable.ic_volume_down
                         : R.drawable.ic_volume_up),
                 null, null, null);
-        mDialogText.setCompoundDrawablePadding((int) dpToPx(18, getResources().getDisplayMetrics()));
+        mDialogTitle.setCompoundDrawablePadding((int) dpToPx(18, getResources().getDisplayMetrics()));
     }
 
     /**
@@ -280,7 +288,6 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
     private void updateVolumeText(int currentVolume, int maxVolume) {
         int percent = (int) (((float) currentVolume / maxVolume) * 100);
         mVolumeValue.setText(String.format(Locale.getDefault(), "%d%%", percent));
-        mVolumeValue.setTypeface(mTypeface);
     }
 
     /**
@@ -292,6 +299,17 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
     private void updateVolumeButtonStates(int progress, int maxProgress) {
         ThemeUtils.updateSliderButtonEnabledState(mContext, mVolumeMinus, progress > 0);
         ThemeUtils.updateSliderButtonEnabledState(mContext, mVolumePlus, progress < maxProgress);
+    }
+
+    /**
+     * Shows or hides the low volume warning text based on the slider's progress.
+     * The warning becomes visible when the volume reaches the minimum allowed level.
+     *
+     * @param warningText The TextView used for the warning message.
+     * @param progress    The current slider value.
+     */
+    private void updateWarningVisibility(TextView warningText, int progress) {
+        warningText.setVisibility(progress <= 0 ? VISIBLE : GONE);
     }
 
     /**

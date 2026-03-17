@@ -100,8 +100,6 @@
     <string name="alarm_volume_title" msgid="8506245173912428522">"ඇඟවීම් ශබ්දය"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"නිහඬ"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"නොදනී"</string>
-    <string name="alarm_volume_muted" msgid="6658289289695673569">"එලාම හඬ නිහඬ කරන ලදී"</string>
-    <string name="unmute_alarm_volume" msgid="2655009276035357497">"නිහඬ කිරීම ඉවත් කරන්න"</string>
     <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"පෙරනිමි එලාම රිංටෝනය නිහඬයි"</string>
     <string name="change_setting_action" msgid="1224356633832430160">"වෙනස් කරන්න"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"උපාංගය පූර්ණ නිහඬ බවට සකසා ඇත"</string>

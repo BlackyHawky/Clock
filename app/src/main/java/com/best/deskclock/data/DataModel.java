@@ -6,10 +6,6 @@
 
 package com.best.deskclock.data;
 
-import static android.content.Context.AUDIO_SERVICE;
-import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
-import static android.media.AudioManager.FLAG_SHOW_UI;
-import static android.media.AudioManager.STREAM_ALARM;
 import static android.provider.Settings.ACTION_SOUND_SETTINGS;
 
 import static com.best.deskclock.settings.PreferencesDefaultValues.DARK_THEME;
@@ -24,13 +20,11 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.SystemClock;
 import android.text.format.DateFormat;
-import android.view.View;
 
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -339,12 +333,25 @@ public final class DataModel {
     }
 
     /**
-     * @return {@code true} if at least one timer is running, paused, or has expired.
+     * @return {@code true} if at least one timer is running, paused, has expired or has been missed.
      * {@code false} otherwise.
      */
     public boolean hasActiveTimer() {
         for (Timer timer : getTimers()) {
             if (!timer.isReset()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @return {@code true} if at least one timer is running or paused.
+     * {@code false} otherwise.
+     */
+    public boolean hasRunningTimer() {
+        for (Timer timer : getTimers()) {
+            if (!timer.isReset() && !timer.isMissed() && !timer.isExpired()) {
                 return true;
             }
         }
@@ -809,29 +816,17 @@ public final class DataModel {
      * Indicates the reason alarms may not fire or may fire silently.
      */
     public enum SilentSetting {
-        DO_NOT_DISTURB(R.string.alarms_blocked_by_dnd, 0, Predicate.FALSE, null),
-        MUTED_VOLUME(R.string.alarm_volume_muted,
-                R.string.unmute_alarm_volume,
-                Predicate.TRUE,
-                new UnmuteAlarmVolumeListener()),
-        SILENT_RINGTONE(R.string.silent_default_alarm_ringtone,
-                R.string.change_setting_action,
-                new ChangeSoundActionPredicate(),
-                new ChangeSoundSettingsListener());
+        DO_NOT_DISTURB(R.string.alarms_blocked_by_dnd, 0),
+        SILENT_RINGTONE(R.string.silent_default_alarm_ringtone, R.string.change_setting_action);
 
         private final @StringRes
         int mLabelResId;
         private final @StringRes
         int mActionResId;
-        private final Predicate<Context> mActionEnabled;
-        private final View.OnClickListener mActionListener;
 
-        SilentSetting(int labelResId, int actionResId, Predicate<Context> actionEnabled,
-                      View.OnClickListener actionListener) {
+        SilentSetting(int labelResId, int actionResId) {
             mLabelResId = labelResId;
             mActionResId = actionResId;
-            mActionEnabled = actionEnabled;
-            mActionListener = actionListener;
         }
 
         public @StringRes
@@ -844,45 +839,18 @@ public final class DataModel {
             return mActionResId;
         }
 
-        public View.OnClickListener getActionListener() {
-            return mActionListener;
+        public boolean isActionEnabled() {
+            return mActionResId != 0;
         }
 
-        public boolean isActionEnabled(Context context) {
-            return mLabelResId != 0 && mActionEnabled.apply(context);
-        }
-
-        private static class UnmuteAlarmVolumeListener implements View.OnClickListener {
-            @Override
-            public void onClick(View v) {
-                // Set the alarm volume to 11/16th of max and show the slider UI.
-                // 11/16th of max is the initial volume of the alarm stream on a fresh install.
-                final Context context = v.getContext();
-                final AudioManager am = (AudioManager) context.getSystemService(AUDIO_SERVICE);
-                final int index = Math.round(am.getStreamMaxVolume(STREAM_ALARM) * 11f / 16f);
-                am.setStreamVolume(STREAM_ALARM, index, FLAG_SHOW_UI);
-            }
-        }
-
-        private static class ChangeSoundSettingsListener implements View.OnClickListener {
-            @Override
-            public void onClick(View v) {
-                final Context context = v.getContext();
-                context.startActivity(new Intent(ACTION_SOUND_SETTINGS)
-                        .addFlags(FLAG_ACTIVITY_NEW_TASK));
-            }
-        }
-
-        private static class ChangeSoundActionPredicate implements Predicate<Context> {
-            @Override
-            public boolean apply(Context context) {
-                final Intent intent = new Intent(ACTION_SOUND_SETTINGS);
+        public void executeAction(Context context) {
+            if (this == SILENT_RINGTONE) {
                 try {
-                    context.startActivity(intent);
+                    context.startActivity(new Intent(ACTION_SOUND_SETTINGS)
+                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                 } catch (ActivityNotFoundException ex) {
                     CustomToast.show(context, "application_not_found");
                 }
-                return true;
             }
         }
     }

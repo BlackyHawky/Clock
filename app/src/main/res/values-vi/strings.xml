@@ -92,8 +92,6 @@
     <string name="alarm_volume_title" msgid="8506245173912428522">"Âm lượng báo thức"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Im lặng"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Không xác định"</string>
-    <string name="alarm_volume_muted" msgid="6658289289695673569">"Đã tắt âm lượng báo thức"</string>
-    <string name="unmute_alarm_volume" msgid="2655009276035357497">"Hiển thị"</string>
     <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"Nhạc chuông báo thức mặc định là im lặng"</string>
     <string name="change_setting_action" msgid="1224356633832430160">"Thay đổi"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Thiết bị được đặt thành hoàn toàn tắt tiếng"</string>

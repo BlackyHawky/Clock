@@ -76,8 +76,6 @@
     <string name="alarm_volume_title">Volume d\'alarma</string>
     <string name="silent_ringtone_title">Silenciu</string>
     <string name="unknown_ringtone_title">Desconocíu</string>
-    <string name="alarm_volume_muted">Volume de l\'alarma matáu</string>
-    <string name="unmute_alarm_volume">Activar soníu</string>
     <string name="silent_default_alarm_ringtone">El tonu por defeutu de l\'alarma ta matáu</string>
     <string name="change_setting_action">Camudar</string>
     <string name="alarms_blocked_by_dnd">El preséu ta configuráu pa silenciu ensembre</string>

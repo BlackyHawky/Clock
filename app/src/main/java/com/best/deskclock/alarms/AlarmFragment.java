@@ -6,6 +6,7 @@
 
 package com.best.deskclock.alarms;
 
+import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static androidx.core.util.TypedValueCompat.dpToPx;
@@ -16,14 +17,17 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.SPINNER_TIME_
 import static com.best.deskclock.uidata.UiDataModel.Tab.ALARMS;
 
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
@@ -37,6 +41,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -54,12 +59,17 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
+import androidx.transition.ChangeBounds;
+import androidx.transition.Fade;
+import androidx.transition.TransitionManager;
+import androidx.transition.TransitionSet;
 
 import com.best.deskclock.AppExecutors;
 import com.best.deskclock.DeskClockFragment;
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.dialogfragment.AlarmDelayPickerDialogFragment;
+import com.best.deskclock.dialogfragment.AlarmVolumeDialogFragment;
 import com.best.deskclock.dialogfragment.MaterialTimePickerDialogFragment;
 import com.best.deskclock.dialogfragment.SpinnerTimePickerDialogFragment;
 import com.best.deskclock.events.Events;
@@ -70,7 +80,11 @@ import com.best.deskclock.uicomponents.toast.SnackbarManager;
 import com.best.deskclock.uicomponents.toast.ToastManager;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.RingtoneUtils;
+import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.color.MaterialColors;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -100,6 +114,7 @@ public final class AlarmFragment extends DeskClockFragment implements
     private Context mContext;
     private SharedPreferences mPrefs;
     private DisplayMetrics mDisplayMetrics;
+    private Typeface mBoldTypeface;
 
     // Updates "Today/Tomorrow" in the UI when midnight passes.
     private final Runnable mMidnightUpdater = new MidnightRunnable();
@@ -107,6 +122,7 @@ public final class AlarmFragment extends DeskClockFragment implements
     // Views
     private ViewGroup mMainLayout;
     private RecyclerView mRecyclerView;
+    private MaterialCardView mVolumeWarningBanner;
     private boolean mIsTablet;
     private boolean mIsLandscape;
     private boolean mIsPhoneInLandscape;
@@ -140,6 +156,15 @@ public final class AlarmFragment extends DeskClockFragment implements
     private int mTextHorizontalOffset;
     private float mTextVerticalOffset;
 
+    private final BroadcastReceiver mVolumeReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (RingtoneUtils.VOLUME_CHANGED_ACTION.equals(intent.getAction())) {
+                updateWarningBannerVisibility();
+            }
+        }
+    };
+
     /**
      * The public no-arg constructor required by all fragments.
      */
@@ -154,6 +179,7 @@ public final class AlarmFragment extends DeskClockFragment implements
         mContext = requireContext();
         mPrefs = getDefaultSharedPreferences(mContext);
         mDisplayMetrics = getResources().getDisplayMetrics();
+        mBoldTypeface = ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(mPrefs));
         mCursorLoader = LoaderManager.getInstance(this).initLoader(0, null, this);
         mItemAdapter = new AlarmAdapter();
         mIsTablet = ThemeUtils.isTablet();
@@ -185,7 +211,7 @@ public final class AlarmFragment extends DeskClockFragment implements
                 mContext.getResources().getDisplayMetrics()));
         mDeleteTextPaint.setColor(MaterialColors.getColor(
                 mContext, com.google.android.material.R.attr.colorOnError, Color.BLACK));
-        mDeleteTextPaint.setTypeface(ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(mPrefs)));
+        mDeleteTextPaint.setTypeface(mBoldTypeface);
         mDeleteTextPaint.setTextAlign(ThemeUtils.isRTL() ? Paint.Align.RIGHT : Paint.Align.LEFT);
 
         mTopRadii = new float[]{
@@ -206,11 +232,21 @@ public final class AlarmFragment extends DeskClockFragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedState) {
         // Inflate the layout for this fragment
-        final View v = inflater.inflate(R.layout.alarm_fragment, container, false);
+        final View view = inflater.inflate(R.layout.alarm_fragment, container, false);
 
-        mMainLayout = v.findViewById(R.id.main);
-        mRecyclerView = v.findViewById(R.id.alarms_recycler_view);
-        ConstraintLayout emptyAlarmView = v.findViewById(R.id.alarms_empty_view);
+        mMainLayout = view.findViewById(R.id.main);
+
+        mVolumeWarningBanner = view.findViewById(R.id.volume_warning_banner);
+        TextView volumeWarningText = view.findViewById(R.id.volume_warning_text);
+        MaterialButton volumeWarningButton = view.findViewById(R.id.volume_warning_button);
+
+        volumeWarningText.setTypeface(mBoldTypeface);
+
+        volumeWarningButton.setTypeface(mBoldTypeface);
+        volumeWarningButton.setOnClickListener(v -> RingtoneUtils.fixAlarmStreamLow(mContext));
+
+        mRecyclerView = view.findViewById(R.id.alarms_recycler_view);
+        ConstraintLayout emptyAlarmView = view.findViewById(R.id.alarms_empty_view);
 
         // Set a bottom padding for phones in portrait mode and tablets to center correctly
         // the alarms empty view between the FAB and the top of the screen
@@ -230,9 +266,9 @@ public final class AlarmFragment extends DeskClockFragment implements
             }
         });
 
-        mMainLayout.setOnClickListener(view -> hideSideButtonsWithFabAnimation());
+        mMainLayout.setOnClickListener(v -> hideSideButtonsWithFabAnimation());
 
-        mRecyclerView.setOnTouchListener((view, event) -> {
+        mRecyclerView.setOnTouchListener((v, event) -> {
             gestureDetector.onTouchEvent(event);
             view.performClick();
             return false;
@@ -262,17 +298,13 @@ public final class AlarmFragment extends DeskClockFragment implements
 
             @Override
             public int getSwipeDirs(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-                boolean isSwipeDisabled = false;
+                Fragment bottomSheet = getParentFragmentManager().findFragmentByTag(AlarmEditBottomSheetFragment.TAG);
+                Fragment delayDialog = getParentFragmentManager().findFragmentByTag(AlarmDelayPickerDialogFragment.TAG);
 
-                for (Fragment fragment : getParentFragmentManager().getFragments()) {
-                    if (fragment instanceof AlarmEditBottomSheetFragment
-                            || fragment instanceof AlarmDelayPickerDialogFragment) {
-                        isSwipeDisabled = true;
-                        break;
-                    }
-                }
+                boolean areFragmentsOpen = (bottomSheet != null && bottomSheet.isAdded())
+                        || (delayDialog != null && delayDialog.isAdded());
 
-                if (isSwipeDisabled) {
+                if (areFragmentsOpen) {
                     return 0;
                 }
 
@@ -411,7 +443,7 @@ public final class AlarmFragment extends DeskClockFragment implements
             itemTouchHelper.attachToRecyclerView(mRecyclerView);
         }
 
-        return v;
+        return view;
     }
 
     @Override
@@ -419,6 +451,18 @@ public final class AlarmFragment extends DeskClockFragment implements
         super.onViewCreated(view, savedInstanceState);
 
         setupFragmentResultListeners();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        IntentFilter filter = new IntentFilter(RingtoneUtils.VOLUME_CHANGED_ACTION);
+        if (SdkUtils.isAtLeastAndroid13()) {
+            mContext.registerReceiver(mVolumeReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
+        } else {
+            mContext.registerReceiver(mVolumeReceiver, filter);
+        }
     }
 
     @Override
@@ -499,6 +543,8 @@ public final class AlarmFragment extends DeskClockFragment implements
             // Remove the SCROLL_TO_ALARM extra now that we've processed it.
             intent.removeExtra(SCROLL_TO_ALARM_INTENT_EXTRA);
         }
+
+        updateWarningBannerVisibility();
     }
 
     @Override
@@ -523,6 +569,13 @@ public final class AlarmFragment extends DeskClockFragment implements
      */
     public void smoothScrollTo(int position) {
         mRecyclerView.smoothScrollToPosition(position);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        mContext.unregisterReceiver(mVolumeReceiver);
     }
 
     @Override
@@ -553,6 +606,7 @@ public final class AlarmFragment extends DeskClockFragment implements
             final Alarm alarm = new Alarm(data);
             final AlarmInstance alarmInstance = new AlarmInstance(data, true);
             final AlarmItemHolder itemHolder = new AlarmItemHolder(alarm, alarmInstance, mAlarmTimeClickHandler);
+
             itemHolders.add(itemHolder);
         }
 
@@ -700,7 +754,16 @@ public final class AlarmFragment extends DeskClockFragment implements
 
             // Show or hide the empty view as appropriate.
             final boolean noAlarms = items.isEmpty();
-            mEmptyViewController.setEmpty(noAlarms);
+            boolean hasActiveAlarms = false;
+
+            for (AlarmItemHolder holder : items) {
+                if (holder.item.enabled) {
+                    hasActiveAlarms = true;
+                    break;
+                }
+            }
+
+            updateUIStatesAndAnimate(noAlarms, hasActiveAlarms);
 
             // Scroll to the selected alarm.
             if (mScrollToAlarmId != Alarm.INVALID_ID) {
@@ -858,6 +921,75 @@ public final class AlarmFragment extends DeskClockFragment implements
 
     public void removeItem(AlarmItemHolder itemHolder) {
         mItemAdapter.removeItem(itemHolder);
+    }
+
+    /**
+     * Handles the display and animation of the volume banner and the empty view, ensuring there are no visual conflicts.
+     */
+    private void updateUIStatesAndAnimate(boolean noAlarms, boolean hasActiveAlarms) {
+        boolean shouldShowBanner = hasActiveAlarms && RingtoneUtils.isAlarmStreamLow(mContext);
+        int targetVisibility = shouldShowBanner ? VISIBLE : GONE;
+        boolean bannerWillChange = mVolumeWarningBanner.getVisibility() != targetVisibility;
+
+        if (bannerWillChange) {
+            TransitionSet combinedTransition = new TransitionSet()
+                    .setOrdering(TransitionSet.ORDERING_TOGETHER)
+                    .addTransition(mEmptyViewController.getTransition())
+                    .addTransition(new ChangeBounds())
+                    .addTransition(new Fade().addTarget(mVolumeWarningBanner));
+
+            TransitionManager.beginDelayedTransition(mMainLayout, combinedTransition);
+
+            mVolumeWarningBanner.setVisibility(targetVisibility);
+            mEmptyViewController.setEmpty(noAlarms, false);
+        } else {
+            mEmptyViewController.setEmpty(noAlarms, true);
+        }
+    }
+
+    /**
+     * Updates the visibility of the volume warning banner.
+     */
+    public void updateWarningBannerVisibility() {
+        Fragment bottomSheet = getParentFragmentManager().findFragmentByTag(AlarmEditBottomSheetFragment.TAG);
+
+        boolean isCustomAlarmVolumePlaying = false;
+        if (SettingsDAO.isPerAlarmVolumeEnabled(mPrefs) && bottomSheet != null && bottomSheet.isAdded()) {
+            Fragment volumeDialog = bottomSheet.getChildFragmentManager().findFragmentByTag(AlarmVolumeDialogFragment.TAG);
+            isCustomAlarmVolumePlaying = volumeDialog != null && volumeDialog.isAdded();
+        }
+
+        if (isCustomAlarmVolumePlaying) {
+            return;
+        }
+
+        if (!RingtoneUtils.isAlarmStreamLow(mContext)) {
+            if (mVolumeWarningBanner != null && mVolumeWarningBanner.getVisibility() != View.GONE) {
+                if (mMainLayout != null) {
+                    TransitionSet strictTransition = new TransitionSet()
+                            .setOrdering(TransitionSet.ORDERING_TOGETHER)
+                            .addTransition(new ChangeBounds())
+                            .addTransition(new Fade(Fade.OUT).addTarget(mVolumeWarningBanner));
+
+                    TransitionManager.beginDelayedTransition(mMainLayout, strictTransition);
+                }
+
+                mVolumeWarningBanner.setVisibility(View.GONE);
+            }
+
+            return;
+        }
+
+        AppExecutors.getDiskIO().execute(() -> {
+            List<Alarm> activeAlarms = Alarm.getEnabledAlarms(mContext);
+            boolean shouldShow = !activeAlarms.isEmpty();
+
+            AppExecutors.getMainThread().post(() -> {
+                if (mVolumeWarningBanner != null) {
+                    mVolumeWarningBanner.setVisibility(shouldShow ? VISIBLE : GONE);
+                }
+            });
+        });
     }
 
     /**

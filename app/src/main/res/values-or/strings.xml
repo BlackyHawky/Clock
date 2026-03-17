@@ -98,8 +98,6 @@
     <string name="alarm_volume_title" msgid="8506245173912428522">"ଆଲାର୍ମ ଭଲ୍ୟୁମ୍"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"ନୀରବ"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"ଅଜଣା"</string>
-    <string name="alarm_volume_muted" msgid="6658289289695673569">"ଆଲାର୍ମ ଭଲ୍ୟୁମ୍‌କୁ ମ୍ୟୁଟ୍ କରାଯାଇଛି"</string>
-    <string name="unmute_alarm_volume" msgid="2655009276035357497">"ଅନମ୍ୟୁଟ୍ କରନ୍ତୁ"</string>
     <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"ଡିଫଲ୍ଟ ଆଲାର୍ମ ରିଙ୍ଗଟୋନ୍ ହେଉଛି ନୀରବ"</string>
     <string name="change_setting_action" msgid="1224356633832430160">"ବଦଳାନ୍ତୁ"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"ଡିଭାଇସ୍‌କୁ ସମ୍ପୂର୍ଣ୍ଣ ନୀରବକୁ ସେଟ୍‌ କରାଯାଇଛି"</string>

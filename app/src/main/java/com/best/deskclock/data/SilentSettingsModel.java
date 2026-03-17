@@ -8,9 +8,7 @@ package com.best.deskclock.data;
 
 import static android.app.NotificationManager.ACTION_INTERRUPTION_FILTER_CHANGED;
 import static android.app.NotificationManager.INTERRUPTION_FILTER_NONE;
-import static android.content.Context.AUDIO_SERVICE;
 import static android.content.Context.NOTIFICATION_SERVICE;
-import static android.media.AudioManager.STREAM_ALARM;
 import static android.media.RingtoneManager.TYPE_ALARM;
 import static android.provider.Settings.System.CONTENT_URI;
 import static android.provider.Settings.System.DEFAULT_ALARM_ALERT_URI;
@@ -22,7 +20,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.ContentObserver;
-import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Handler;
@@ -50,11 +47,6 @@ final class SilentSettingsModel {
     private final Context mContext;
 
     /**
-     * Used to query the alarm volume and display the system control to change the alarm volume.
-     */
-    private final AudioManager mAudioManager;
-
-    /**
      * Used to query the do-not-disturb setting value, also called "interruption filter".
      */
     private final NotificationManager mNotificationManager;
@@ -78,7 +70,6 @@ final class SilentSettingsModel {
         mContext = context;
         mNotificationModel = notificationModel;
 
-        mAudioManager = (AudioManager) context.getSystemService(AUDIO_SERVICE);
         mNotificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
 
         // Watch for changes to the settings that may silence alarms.
@@ -143,8 +134,6 @@ final class SilentSettingsModel {
                 final SilentSetting silentSetting;
                 if (isDoNotDisturbBlockingAlarms()) {
                     silentSetting = SilentSetting.DO_NOT_DISTURB;
-                } else if (isAlarmStreamMuted()) {
-                    silentSetting = SilentSetting.MUTED_VOLUME;
                 } else if (isSystemAlarmRingtoneSilent()) {
                     silentSetting = SilentSetting.SILENT_RINGTONE;
                 } else {
@@ -164,15 +153,6 @@ final class SilentSettingsModel {
             try {
                 final int interruptionFilter = mNotificationManager.getCurrentInterruptionFilter();
                 return interruptionFilter == INTERRUPTION_FILTER_NONE;
-            } catch (Exception e) {
-                // Since this is purely informational, avoid crashing the app.
-                return false;
-            }
-        }
-
-        private boolean isAlarmStreamMuted() {
-            try {
-                return mAudioManager.getStreamVolume(STREAM_ALARM) <= 0;
             } catch (Exception e) {
                 // Since this is purely informational, avoid crashing the app.
                 return false;

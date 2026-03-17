@@ -2,6 +2,10 @@
 
 package com.best.deskclock.utils;
 
+import static android.content.Context.AUDIO_SERVICE;
+import static android.media.AudioManager.FLAG_SHOW_UI;
+import static android.media.AudioManager.STREAM_ALARM;
+
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -33,6 +37,15 @@ public class RingtoneUtils {
      * The ringtone preview duration in ms.
      */
     public static final long ALARM_PREVIEW_DURATION_MS = 5000;
+
+    /**
+     * Broadcast intent action when the volume for a particular stream type changes.
+     *
+     * <p>Note: We define this constant manually because {@code AudioManager.VOLUME_CHANGED_ACTION}
+     * is marked as {@code @hide} and {@code @UnsupportedAppUsage} in the Android SDK,
+     * preventing direct access.</p>
+     */
+    public static final String VOLUME_CHANGED_ACTION = "android.media.VOLUME_CHANGED_ACTION";
 
     /**
      * The volume applied to the player during a call.
@@ -329,6 +342,42 @@ public class RingtoneUtils {
      */
     public static int getAlarmMinVolume(AudioManager audioManager) {
         return SdkUtils.isAtLeastAndroid9() ? audioManager.getStreamMinVolume(AudioManager.STREAM_ALARM) : 0;
+    }
+
+    /**
+     * Checks if the alarm stream volume is currently set to its minimum level or lower.
+     *
+     * @return {@code true} if the alarm volume is too low, {@code false} otherwise or if an error occurs.
+     */
+    public static boolean isAlarmStreamLow(Context context) {
+        AudioManager audioManager = (AudioManager) context.getSystemService(AUDIO_SERVICE);
+
+        try {
+            final int currentVolume = audioManager.getStreamVolume(STREAM_ALARM);
+            int minVolume = RingtoneUtils.getAlarmMinVolume(audioManager);
+
+            return currentVolume <= minVolume;
+        } catch (Exception e) {
+            // Since this is purely informational, avoid crashing the app.
+            return false;
+        }
+    }
+
+    /**
+     * Increases the alarm stream volume to a safe and audible level (two-thirds of the usable range).
+     * It also triggers the system volume UI to provide immediate visual feedback to the user.
+     *
+     * @param context The context used to retrieve the audio service.
+     */
+    public static void fixAlarmStreamLow(Context context) {
+        AudioManager audioManager = (AudioManager) context.getSystemService(AUDIO_SERVICE);
+
+        final int maxVolume = audioManager.getStreamMaxVolume(STREAM_ALARM);
+        final int minVolume = RingtoneUtils.getAlarmMinVolume(audioManager);
+        final int usableRange = maxVolume - minVolume;
+        final int index = minVolume + (2 * usableRange / 3);
+
+        audioManager.setStreamVolume(STREAM_ALARM, index, FLAG_SHOW_UI);
     }
 
 }

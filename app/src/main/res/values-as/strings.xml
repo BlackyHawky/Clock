@@ -98,8 +98,6 @@
     <string name="alarm_volume_title" msgid="8506245173912428522">"এলাৰ্মৰ ভলিউম"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"নীৰৱ ম\'ড"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"অজ্ঞাত"</string>
-    <string name="alarm_volume_muted" msgid="6658289289695673569">"এলাৰ্মৰ ভ\'লিউম মিউট কৰা হ’ল"</string>
-    <string name="unmute_alarm_volume" msgid="2655009276035357497">"আনমিউট কৰক"</string>
     <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"ডিফ\'ল্ট এলাৰ্ম ৰিংট\'ন নীৰৱ ম\'ডত আছে"</string>
     <string name="change_setting_action" msgid="1224356633832430160">"সলনি কৰক"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"ডিভাইচক সম্পূৰ্ণ নীৰৱ ম\'ডত ছেট কৰা হৈছে"</string>

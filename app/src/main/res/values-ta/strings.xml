@@ -100,8 +100,6 @@
     <string name="alarm_volume_title" msgid="8506245173912428522">"அலாரத்தின் ஒலியளவு"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"நிசப்தம்"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"அறியப்படாதது"</string>
-    <string name="alarm_volume_muted" msgid="6658289289695673569">"அலார ஒலி முடக்கப்பட்டது"</string>
-    <string name="unmute_alarm_volume" msgid="2655009276035357497">"ஒலி இயக்கு"</string>
     <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"இயல்புநிலை அலார ரிங்டோன்: நிசப்தம்"</string>
     <string name="change_setting_action" msgid="1224356633832430160">"மாற்று"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"\"தொந்தரவு செய்ய வேண்டாம்\" அம்சம் இயக்கத்திலுள்ளது"</string>
