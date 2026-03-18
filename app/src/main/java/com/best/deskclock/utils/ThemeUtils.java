@@ -544,10 +544,31 @@ public class ThemeUtils {
         gradientDrawable.setCornerRadius((int) dpToPx(18, context.getResources().getDisplayMetrics()));
         gradientDrawable.setColor(color);
 
+        return rippleDrawable(context, gradientDrawable);
+    }
+
+    /**
+     * Convenience method to create ripple drawable.
+     */
+    public static RippleDrawable rippleDrawable(Context context, Drawable background) {
         int rippleColor = MaterialColors.getColor(
                 context, androidx.appcompat.R.attr.colorControlHighlight, Color.BLACK);
 
-        return new RippleDrawable(ColorStateList.valueOf(rippleColor), gradientDrawable, null);
+        return new RippleDrawable(ColorStateList.valueOf(rippleColor), background, null);
+    }
+
+    /**
+     * Convenience method to create a pill-shaped ripple drawable using the default system ripple color.
+     * A mask is automatically applied if the background color is transparent.
+     */
+    public static RippleDrawable pillRippleDrawable(Context context, @ColorInt int backgroundColor) {
+        Drawable background = pillBackground(context, backgroundColor);
+        Drawable mask = (backgroundColor == Color.TRANSPARENT) ? pillBackground(context, Color.BLACK) : null;
+
+        int rippleColor = MaterialColors.getColor(
+                context, androidx.appcompat.R.attr.colorControlHighlight, Color.BLACK);
+
+        return new RippleDrawable(ColorStateList.valueOf(rippleColor), background, mask);
     }
 
     /**

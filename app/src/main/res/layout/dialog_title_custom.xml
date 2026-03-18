@@ -13,6 +13,6 @@
     android:paddingBottom="16dp"
     android:textSize="18sp"
     android:drawableTint="?attr/colorOnSurface"
-    tools:drawableStartCompat="@drawable/ic_error"
+    tools:drawableStart="@drawable/ic_error"
     tools:drawablePadding="18dp"
     tools:text="Dialog title" />

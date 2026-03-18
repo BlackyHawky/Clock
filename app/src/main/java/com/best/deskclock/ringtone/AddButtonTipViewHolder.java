@@ -42,19 +42,10 @@ public class AddButtonTipViewHolder extends RecyclerView.ViewHolder {
 
         final TextView nameView = itemView.findViewById(R.id.ringtone_name);
         final int textColor = MaterialColors.getColor(context, android.R.attr.textColorSecondary, Color.BLACK);
-        Typeface baseTypeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
-        int style = Typeface.ITALIC;
 
-        if (baseTypeface == null) {
-            baseTypeface = Typeface.create("sans-serif", style);
-        }
-
-        Typeface styledTypeface = Typeface.create(baseTypeface, style);
-
-        nameView.setTypeface(styledTypeface);
+        nameView.setTypeface(ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs)), Typeface.ITALIC);
         nameView.setTextColor(textColor);
         nameView.setSingleLine(false);
-
         nameView.setText(context.getString(R.string.button_tip_title));
     }
 

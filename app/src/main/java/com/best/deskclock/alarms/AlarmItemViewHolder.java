@@ -13,11 +13,9 @@ import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreference
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.RippleDrawable;
 import android.text.format.DateFormat;
 import android.util.TypedValue;
 import android.view.View;
@@ -34,7 +32,6 @@ import com.best.deskclock.uicomponents.TextTime;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.FormattedTextUtils;
 import com.best.deskclock.utils.ThemeUtils;
-import com.google.android.material.color.MaterialColors;
 import com.google.android.material.textview.MaterialTextView;
 
 import java.util.Calendar;
@@ -58,7 +55,6 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
     private final Typeface mGeneralBoldTypeface;
     private final Locale mLocale;
     private final String mDatePattern;
-    private final int mRippleColor;
     public int mItemPosition = 0;
     public int mTotalCount = 0;
 
@@ -80,7 +76,6 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         mGeneralBoldTypeface = ThemeUtils.boldTypeface(generalFontPath);
         mLocale = Locale.getDefault();
         mDatePattern = DateFormat.getBestDateTimePattern(mLocale, SKELETON);
-        mRippleColor = MaterialColors.getColor(context, androidx.appcompat.R.attr.colorControlHighlight, Color.BLACK);
 
         mAlarmLabel = itemView.findViewById(R.id.label);
         mClock = itemView.findViewById(R.id.digital_clock);
@@ -108,10 +103,7 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         mUpcomingDate.setTypeface(mGeneralTypeface);
 
         // Preemptive dismiss button handler
-        Drawable cardBackground = ThemeUtils.pillBackground(context, Color.TRANSPARENT);
-        Drawable rippleMask = ThemeUtils.pillBackground(context, Color.BLACK);
-        RippleDrawable rippleDrawable = new RippleDrawable(ColorStateList.valueOf(mRippleColor), cardBackground, rippleMask);
-        mPreemptiveDismissButton.setBackground(rippleDrawable);
+        mPreemptiveDismissButton.setBackground(ThemeUtils.pillRippleDrawable(context, Color.TRANSPARENT));
         mPreemptiveDismissButton.setTypeface(mGeneralBoldTypeface);
         mPreemptiveDismissButton.setOnClickListener(v -> {
             final AlarmInstance alarmInstance = mItemHolder.getAlarmInstance();
@@ -164,8 +156,7 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
             }
         }
 
-        RippleDrawable rippleDrawable = new RippleDrawable(ColorStateList.valueOf(mRippleColor), cardBackground, null);
-        itemView.setBackground(rippleDrawable);
+        itemView.setBackground(ThemeUtils.rippleDrawable(context, cardBackground));
     }
 
     private void bindAlarmLabel(Context context, Alarm alarm) {

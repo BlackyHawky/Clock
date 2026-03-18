@@ -37,10 +37,10 @@
     <color name="md_theme_onTertiaryFixed">#2A122C</color>
     <color name="md_theme_onTertiaryFixedVariant">#593D59</color>
 
-    <color name="md_theme_error">#FFB4AB</color>
-    <color name="md_theme_onError">#690005</color>
-    <color name="md_theme_errorContainer">#93000A</color>
-    <color name="md_theme_onErrorContainer">#FFDAD6</color>
+    <color name="md_theme_error">#F2B8B5</color>
+    <color name="md_theme_onError">#601410</color>
+    <color name="md_theme_errorContainer">#8C1D18</color>
+    <color name="md_theme_onErrorContainer">#F9DEDC</color>
     <color name="md_theme_outline">#8F9099</color>
     <color name="md_theme_outlineVariant">#44464F</color>
     <color name="md_theme_background">#1A1B20</color>

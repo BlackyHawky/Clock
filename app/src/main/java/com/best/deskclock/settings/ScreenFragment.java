@@ -13,11 +13,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.RippleDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -62,7 +59,6 @@ import com.best.deskclock.utils.ThemeUtils;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.google.android.material.color.MaterialColors;
 
 import java.io.File;
 
@@ -283,13 +279,7 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
                     Drawable cardBackground = ThemeUtils.expressiveCardBackground(
                             context, visibleIndex, visibleCount);
 
-                    int rippleColor = MaterialColors.getColor(
-                            context, androidx.appcompat.R.attr.colorControlHighlight, Color.BLACK);
-
-                    RippleDrawable rippleDrawable = new RippleDrawable(
-                            ColorStateList.valueOf(rippleColor), cardBackground, null);
-
-                    cardView.setBackground(rippleDrawable);
+                    cardView.setBackground(ThemeUtils.rippleDrawable(context, cardBackground));
                 }
             }
         };

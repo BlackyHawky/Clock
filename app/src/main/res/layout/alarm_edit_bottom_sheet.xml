@@ -80,10 +80,10 @@
                 android:paddingHorizontal="10dp"
                 android:focusable="true"
                 android:drawablePadding="10dp"
+                android:drawableTint="?attr/colorOnSurfaceVariant"
                 android:gravity="center_vertical"
                 android:maxLines="1"
                 android:ellipsize="end"
-                app:drawableTint="?attr/colorOnSurfaceVariant"
                 app:layout_constraintStart_toEndOf="@+id/selected_date"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/repeat_days_group"
@@ -103,10 +103,10 @@
                 android:paddingVertical="10dp"
                 android:drawableStart="@drawable/ic_label"
                 android:drawablePadding="10dp"
+                android:drawableTint="?attr/colorOnSurfaceVariant"
                 android:gravity="center_vertical"
                 android:focusable="true"
                 android:text="@string/add_label"
-                app:drawableTint="?attr/colorOnSurfaceVariant"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/schedule_alarm" />
 
@@ -119,13 +119,13 @@
                 android:paddingHorizontal="10dp"
                 android:drawableStart="@drawable/ic_ringtone"
                 android:drawablePadding="10dp"
+                android:drawableTint="?attr/colorOnSurfaceVariant"
                 android:gravity="center_vertical"
                 android:focusable="true"
                 android:ellipsize="marquee"
                 android:marqueeRepeatLimit="marquee_forever"
                 android:scrollHorizontally="true"
                 android:singleLine="true"
-                app:drawableTint="?attr/colorOnSurfaceVariant"
                 app:layout_constraintTop_toBottomOf="@id/edit_label"
                 tools:text="Standard (Hassium)" />
 
@@ -163,12 +163,12 @@
                     android:paddingStart="@null"
                     android:paddingEnd="10dp"
                     android:drawablePadding="10dp"
+                    android:drawableTint="?attr/colorOnSurfaceVariant"
                     android:gravity="center_vertical"
                     android:focusable="true"
                     android:ellipsize="end"
                     android:maxLines="2"
-                    android:text="@string/vibration_pattern_title"
-                    app:drawableTint="?attr/colorOnSurfaceVariant" />
+                    android:text="@string/vibration_pattern_title" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/vibration_pattern_value"
@@ -232,12 +232,12 @@
                     android:paddingStart="@null"
                     android:paddingEnd="10dp"
                     android:drawablePadding="10dp"
+                    android:drawableTint="?attr/colorOnSurfaceVariant"
                     android:gravity="center_vertical"
                     android:focusable="true"
                     android:ellipsize="end"
                     android:maxLines="2"
-                    android:text="@string/auto_silence_title"
-                    app:drawableTint="?attr/colorOnSurfaceVariant" />
+                    android:text="@string/auto_silence_title" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/auto_silence_duration_value"
@@ -270,12 +270,12 @@
                     android:paddingStart="@null"
                     android:paddingEnd="10dp"
                     android:drawablePadding="10dp"
+                    android:drawableTint="?attr/colorOnSurfaceVariant"
                     android:gravity="center_vertical"
                     android:focusable="true"
                     android:ellipsize="end"
                     android:maxLines="2"
-                    android:text="@string/snooze_duration_title"
-                    app:drawableTint="?attr/colorOnSurfaceVariant" />
+                    android:text="@string/snooze_duration_title" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/snooze_duration_value"
@@ -375,12 +375,12 @@
                     android:paddingStart="@null"
                     android:paddingEnd="10dp"
                     android:drawablePadding="10dp"
+                    android:drawableTint="?attr/colorOnSurfaceVariant"
                     android:gravity="center_vertical"
                     android:focusable="true"
                     android:ellipsize="end"
                     android:maxLines="2"
                     android:text="@string/alarm_volume_title"
-                    app:drawableTint="?attr/colorOnSurfaceVariant"
                     tools:drawableStart="@drawable/ic_volume_up" />
 
                 <com.google.android.material.textview.MaterialTextView

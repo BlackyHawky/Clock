@@ -20,7 +20,6 @@ import android.animation.PropertyValuesHolder;
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
-import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BlurMaskFilter;
@@ -33,7 +32,6 @@ import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.RippleDrawable;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -75,7 +73,6 @@ import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.color.MaterialColors;
 
 import java.io.File;
 
@@ -638,13 +635,8 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
     private void initSnoozeSelectorStyle() {
         int snoozeZoneColor = SettingsDAO.getSnoozeZoneColor(mPrefs);
         int snoozeTextColor = SettingsDAO.getSnoozeSelectorTextColor(mPrefs);
-        int rippleColor = MaterialColors.getColor(this,
-                androidx.appcompat.R.attr.colorControlHighlight, Color.BLACK);
 
-        RippleDrawable rippleTextBackground = new RippleDrawable(ColorStateList.valueOf(rippleColor),
-                ThemeUtils.pillBackground(this, snoozeZoneColor), null);
-
-        mSnoozeSelectorText.setBackground(rippleTextBackground);
+        mSnoozeSelectorText.setBackground(ThemeUtils.pillRippleDrawable(this, snoozeZoneColor));
         mSnoozeSelectorText.setTypeface(mGeneralBoldTypeface);
         mSnoozeSelectorText.setTextColor(snoozeTextColor);
 
@@ -707,8 +699,6 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
                                    boolean enabled) {
 
         GradientDrawable circle = (GradientDrawable) ThemeUtils.circleDrawable();
-        int rippleColor = MaterialColors.getColor(this,
-                androidx.appcompat.R.attr.colorControlHighlight, Color.BLACK);
 
         if (!enabled) {
             circle.setColor(Color.parseColor("#80808080"));
@@ -719,10 +709,8 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
         }
 
         circle.setColor(backgroundColor);
-        RippleDrawable ripple = new RippleDrawable(ColorStateList.valueOf(rippleColor),
-                circle, null);
 
-        imageView.setBackground(ripple);
+        imageView.setBackground(ThemeUtils.rippleDrawable(this, circle));
         imageView.setColorFilter(symbolColor);
         imageView.setClickable(true);
     }

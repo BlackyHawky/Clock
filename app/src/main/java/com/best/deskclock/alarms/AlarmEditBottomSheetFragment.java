@@ -28,7 +28,6 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.RippleDrawable;
 import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -112,7 +111,6 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     private AlarmUpdateHandler mAlarmUpdateHandler;
     private FragmentManager.FragmentLifecycleCallbacks mLifecycleCallbacks;
     private String mTag;
-    private int mRippleColor;
     private boolean mIsActionPending = false;
 
     private TextTime mClock;
@@ -188,7 +186,6 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
         View rootView = requireActivity().findViewById(R.id.content);
         mAlarmUpdateHandler = new AlarmUpdateHandler(requireContext(), null, (ViewGroup) rootView);
-        mRippleColor = MaterialColors.getColor(requireContext(), androidx.appcompat.R.attr.colorControlHighlight, Color.BLACK);
     }
 
     @Override
@@ -1134,10 +1131,8 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
             Drawable cardBackground =
                     ThemeUtils.expressiveCardBackgroundWithColor(requireContext(), i, totalCount, backgroundColor);
-            RippleDrawable rippleDrawable =
-                    new RippleDrawable(ColorStateList.valueOf(mRippleColor), cardBackground, null);
 
-            view.setBackground(rippleDrawable);
+            view.setBackground(ThemeUtils.rippleDrawable(requireContext(), cardBackground));
         }
     }
 
@@ -1180,11 +1175,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     }
 
     private void applyRipplePillBackground(View view) {
-        final Drawable background = ThemeUtils.pillBackground(requireContext(), android.R.color.transparent);
-        Drawable rippleMask = ThemeUtils.pillBackground(requireContext(), Color.BLACK);
-        RippleDrawable rippleDrawable = new RippleDrawable(ColorStateList.valueOf(mRippleColor), background, rippleMask);
-
-        view.setBackground(rippleDrawable);
+        view.setBackground(ThemeUtils.pillRippleDrawable(requireContext(), Color.TRANSPARENT));
     }
 
 }

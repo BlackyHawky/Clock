@@ -286,11 +286,7 @@ public class ScreensaverUtils {
     private static void applyGeneralTypeface(SharedPreferences prefs, TextView textView, int style) {
         Typeface base = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
 
-        if (base == null) {
-            textView.setTypeface(Typeface.create("sans-serif", style));
-        } else {
-            textView.setTypeface(Typeface.create(base, style));
-        }
+        textView.setTypeface(base, style);
     }
 
     /**

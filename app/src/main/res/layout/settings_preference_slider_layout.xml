@@ -113,11 +113,11 @@
                 android:paddingStart="0dp"
                 android:paddingEnd="2dp"
                 android:drawablePadding="8dp"
+                android:drawableTint="?attr/colorAccent"
                 android:gravity="center_vertical"
                 android:text="@string/reset"
                 android:singleLine="true"
                 android:textColor="?attr/colorAccent"
-                app:drawableTint="?attr/colorAccent"
                 tools:textStyle="bold" />
 
         </LinearLayout>

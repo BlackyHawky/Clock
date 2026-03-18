@@ -14,11 +14,12 @@
     android:orientation="horizontal"
     android:paddingHorizontal="8dp">
 
-    <LinearLayout android:orientation="horizontal"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingHorizontal="8dp"
-        android:layoutDirection="ltr">
+        android:layoutDirection="ltr"
+        android:orientation="horizontal">
 
         <!-- hour -->
         <NumberPicker

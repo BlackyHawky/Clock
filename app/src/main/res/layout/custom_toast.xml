@@ -5,7 +5,6 @@
 
 <com.google.android.material.textview.MaterialTextView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/toast_text"
     android:layout_width="wrap_content"
@@ -18,7 +17,7 @@
     android:textSize="14sp"
     android:textColor="?android:attr/colorBackground"
     android:maxLines="4"
-    app:drawableStartCompat="@drawable/app_icon"
+    android:drawableStart="@drawable/app_icon"
     android:drawablePadding="12dp"
     tools:background="@drawable/bg_card_for_preview"
     tools:backgroundTint="?android:attr/colorSecondary"
