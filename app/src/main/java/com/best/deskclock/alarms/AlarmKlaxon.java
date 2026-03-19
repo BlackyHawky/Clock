@@ -10,12 +10,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
-import android.os.Handler;
-import android.os.Looper;
 import android.os.VibrationAttributes;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 
+import com.best.deskclock.AppExecutors;
+import com.best.deskclock.DeskClockApplication;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.ringtone.AsyncRingtonePlayer;
@@ -29,87 +29,101 @@ import com.best.deskclock.utils.Utils;
 /**
  * Manages playing alarm ringtones and vibrating the device.
  */
-final class AlarmKlaxon {
+public final class AlarmKlaxon {
 
-    private static boolean sStarted = false;
+    private static AlarmKlaxon sInstance;
 
-    private static AsyncRingtonePlayer sAsyncRingtonePlayer;
-
-    private static RingtonePlayer sRingtonePlayer;
-
-    private static Handler sHandler;
-    private static Runnable sVibrationRunnable;
-
-    private static int sPreviousAlarmVolume = -1;
+    private boolean mStarted = false;
+    private AsyncRingtonePlayer mAsyncRingtonePlayer;
+    private RingtonePlayer mRingtonePlayer;
+    private Runnable mVibrationRunnable;
+    private int mPreviousAlarmVolume = -1;
 
     private AlarmKlaxon() {
     }
 
-    public static void stop(Context context, SharedPreferences prefs) {
-        if (sHandler != null && sVibrationRunnable != null) {
-            sHandler.removeCallbacks(sVibrationRunnable);
-            sVibrationRunnable = null;
-            sHandler = null;
+    private static synchronized AlarmKlaxon getInstance() {
+        if (sInstance == null) {
+            sInstance = new AlarmKlaxon();
         }
 
-        if (sStarted) {
-            sStarted = false;
-            if (DeviceUtils.isUserUnlocked(context) && SettingsDAO.isAdvancedAudioPlaybackEnabled(prefs)) {
+        return sInstance;
+    }
+
+    public static void stop() {
+        AlarmKlaxon instance = getInstance();
+        Context appContext = DeskClockApplication.getAppContext();
+        SharedPreferences prefs = DeskClockApplication.getDefaultSharedPreferences(appContext);
+
+        if (instance.mVibrationRunnable != null) {
+            AppExecutors.getMainThread().removeCallbacks(instance.mVibrationRunnable);
+            instance.mVibrationRunnable = null;
+        }
+
+        if (instance.mStarted) {
+            instance.mStarted = false;
+            if (DeviceUtils.isUserUnlocked(appContext) && SettingsDAO.isAdvancedAudioPlaybackEnabled(prefs)) {
                 LogUtils.v("AlarmKlaxon.stop() ExoPlayer");
-                getRingtonePlayer(context).stop();
+                instance.getRingtonePlayer().stop();
             } else {
                 LogUtils.v("AlarmKlaxon.stop() MediaPlayer");
-                getAsyncRingtonePlayer(context).stop();
+                instance.getAsyncRingtonePlayer().stop();
 
-                if (SettingsDAO.isPerAlarmVolumeEnabled(prefs) && sPreviousAlarmVolume != -1) {
-                    AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+                if (SettingsDAO.isPerAlarmVolumeEnabled(prefs) && instance.mPreviousAlarmVolume != -1) {
+                    AudioManager audioManager = (AudioManager) appContext.getSystemService(Context.AUDIO_SERVICE);
                     int currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
                     // Restore the original alarm volume only if it was changed
-                    if (currentVolume != sPreviousAlarmVolume) {
-                        audioManager.setStreamVolume(AudioManager.STREAM_ALARM, sPreviousAlarmVolume, 0);
+                    if (currentVolume != instance.mPreviousAlarmVolume) {
+                        audioManager.setStreamVolume(AudioManager.STREAM_ALARM, instance.mPreviousAlarmVolume, 0);
                     }
 
-                    sPreviousAlarmVolume = -1;
+
+                    instance.mPreviousAlarmVolume = -1;
                 }
             }
 
-            final Vibrator vibrator = context.getSystemService(Vibrator.class);
+            final Vibrator vibrator = appContext.getSystemService(Vibrator.class);
             vibrator.cancel();
         }
     }
 
-    public static void start(Context context, SharedPreferences prefs, AlarmInstance instance) {
+    public static void start(AlarmInstance alarmInstance) {
         // Make sure we are stopped before starting
-        stop(context, prefs);
+        stop();
 
-        boolean isRingtoneSilent = RingtoneUtils.RINGTONE_SILENT.equals(instance.mRingtone);
+        Context appContext = DeskClockApplication.getAppContext();
+        SharedPreferences prefs = DeskClockApplication.getDefaultSharedPreferences(appContext);
+        AlarmKlaxon instance = getInstance();
+        boolean isRingtoneSilent = RingtoneUtils.RINGTONE_SILENT.equals(alarmInstance.mRingtone);
 
         if (!isRingtoneSilent) {
             // Crescendo duration always in milliseconds
-            final int crescendoDuration = instance.mCrescendoDuration * 1000;
-            if (DeviceUtils.isUserUnlocked(context) && SettingsDAO.isAdvancedAudioPlaybackEnabled(prefs)) {
+            final int crescendoDuration = alarmInstance.mCrescendoDuration * 1000;
+            if (DeviceUtils.isUserUnlocked(appContext) && SettingsDAO.isAdvancedAudioPlaybackEnabled(prefs)) {
                 LogUtils.v("AlarmKlaxon.start() with ExoPlayer");
-                getRingtonePlayer(context).play(instance.mRingtone, crescendoDuration);
+
+                instance.getRingtonePlayer().play(alarmInstance.mRingtone, crescendoDuration);
             } else {
                 LogUtils.v("AlarmKlaxon.start() with MediaPlayer");
-                if (SettingsDAO.isPerAlarmVolumeEnabled(prefs)) {
-                    AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
 
-                    if (sPreviousAlarmVolume == -1) {
-                        sPreviousAlarmVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
+                if (SettingsDAO.isPerAlarmVolumeEnabled(prefs)) {
+                    AudioManager audioManager = (AudioManager) appContext.getSystemService(Context.AUDIO_SERVICE);
+
+                    if (instance.mPreviousAlarmVolume == -1) {
+                        instance.mPreviousAlarmVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
                     }
 
                     int currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
-                    if (currentVolume != instance.mAlarmVolume) {
-                        audioManager.setStreamVolume(AudioManager.STREAM_ALARM, instance.mAlarmVolume, 0);
+                    if (currentVolume != alarmInstance.mAlarmVolume) {
+                        audioManager.setStreamVolume(AudioManager.STREAM_ALARM, alarmInstance.mAlarmVolume, 0);
                     }
                 }
 
-                getAsyncRingtonePlayer(context).play(instance.mRingtone, crescendoDuration);
+                instance.getAsyncRingtonePlayer().play(alarmInstance.mRingtone, crescendoDuration);
             }
         }
 
-        if (instance.mVibrate) {
+        if (alarmInstance.mVibrate) {
             long delayInMillis;
 
             if (isRingtoneSilent) {
@@ -123,17 +137,15 @@ final class AlarmKlaxon {
                 delayInMillis += SAFETY_MARGIN_MS;
             }
 
-            sHandler = new Handler(Looper.getMainLooper());
-
-            sVibrationRunnable = () -> {
-                final Vibrator vibrator = context.getSystemService(Vibrator.class);
+            instance.mVibrationRunnable = () -> {
+                final Vibrator vibrator = appContext.getSystemService(Vibrator.class);
                 AudioAttributes audioAttributes = new AudioAttributes.Builder()
                         .setUsage(AudioAttributes.USAGE_ALARM)
                         .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
                         .build();
 
                 String patternKey = SettingsDAO.isPerAlarmVibrationPatternEnabled(prefs)
-                        ? instance.mVibrationPattern
+                        ? alarmInstance.mVibrationPattern
                         : SettingsDAO.getVibrationPattern(prefs);
                 long[] pattern = Utils.getVibrationPatternForKey(patternKey);
 
@@ -153,17 +165,20 @@ final class AlarmKlaxon {
 
             if (delayInMillis > 0) {
                 LogUtils.v("AlarmKlaxon: vibration scheduled in " + delayInMillis + "ms");
-                sHandler.postDelayed(sVibrationRunnable, delayInMillis);
+                AppExecutors.getMainThread().postDelayed(instance.mVibrationRunnable, delayInMillis);
             } else {
                 LogUtils.v("AlarmKlaxon: vibration started immediately");
-                sVibrationRunnable.run();
+                instance.mVibrationRunnable.run();
             }
         }
 
-        sStarted = true;
+        instance.mStarted = true;
     }
 
-    public static void deactivateRingtonePlayback(SharedPreferences prefs) {
+    public static void deactivateRingtonePlayback() {
+        Context appContext = DeskClockApplication.getAppContext();
+        SharedPreferences prefs = DeskClockApplication.getDefaultSharedPreferences(appContext);
+
         if (SettingsDAO.isAdvancedAudioPlaybackEnabled(prefs)) {
             stopListeningToPreferences();
         } else {
@@ -172,34 +187,34 @@ final class AlarmKlaxon {
     }
 
     // MediaPlayer
-    private static synchronized AsyncRingtonePlayer getAsyncRingtonePlayer(Context context) {
-        if (sAsyncRingtonePlayer == null) {
-            sAsyncRingtonePlayer = new AsyncRingtonePlayer(context.getApplicationContext());
+    private AsyncRingtonePlayer getAsyncRingtonePlayer() {
+        if (mAsyncRingtonePlayer == null) {
+            mAsyncRingtonePlayer = new AsyncRingtonePlayer(DeskClockApplication.getAppContext());
         }
 
-        return sAsyncRingtonePlayer;
+        return mAsyncRingtonePlayer;
     }
 
     public static synchronized void releaseResources() {
-        if (sAsyncRingtonePlayer != null) {
-            sAsyncRingtonePlayer.shutdown();
-            sAsyncRingtonePlayer = null;
+        if (sInstance != null && sInstance.mAsyncRingtonePlayer != null) {
+            sInstance.mAsyncRingtonePlayer.shutdown();
+            sInstance.mAsyncRingtonePlayer = null;
         }
     }
 
     // ExoPlayer
-    private static synchronized RingtonePlayer getRingtonePlayer(Context context) {
-        if (sRingtonePlayer == null) {
-            sRingtonePlayer = new RingtonePlayer(context.getApplicationContext());
+    private RingtonePlayer getRingtonePlayer() {
+        if (mRingtonePlayer == null) {
+            mRingtonePlayer = new RingtonePlayer(DeskClockApplication.getAppContext());
         }
 
-        return sRingtonePlayer;
+        return mRingtonePlayer;
     }
 
     public static synchronized void stopListeningToPreferences() {
-        if (sRingtonePlayer != null) {
-            sRingtonePlayer.stopListeningToPreferences();
-            sRingtonePlayer = null;
+        if (sInstance != null && sInstance.mRingtonePlayer != null) {
+            sInstance.mRingtonePlayer.stopListeningToPreferences();
+            sInstance.mRingtonePlayer = null;
         }
     }
 }

@@ -708,14 +708,14 @@ final class TimerModel {
         // If the timer is the first to expire, start ringing.
         if (afterState == EXPIRED && mRingingIds.add(after.getId()) && mRingingIds.size() == 1) {
             AlarmAlertWakeLock.acquireCpuWakeLock(mContext);
-            TimerKlaxon.start(mContext, mPrefs);
+            TimerKlaxon.start();
             stopRingtoneAfterDelay();
         }
 
         // If the expired timer was the last to reset, stop ringing.
         if (beforeState == EXPIRED && mRingingIds.remove(before.getId()) && mRingingIds.isEmpty()) {
-            TimerKlaxon.stop(mContext, mPrefs);
-            TimerKlaxon.deactivateRingtonePlayback(mPrefs);
+            TimerKlaxon.stop();
+            TimerKlaxon.deactivateRingtonePlayback();
             AlarmAlertWakeLock.releaseCpuLock();
 
             if (mAutoSilenceRunnable != null) {
@@ -744,8 +744,8 @@ final class TimerModel {
         }
 
         mAutoSilenceRunnable = () -> {
-            TimerKlaxon.stop(mContext, mPrefs);
-            TimerKlaxon.deactivateRingtonePlayback(mPrefs);
+            TimerKlaxon.stop();
+            TimerKlaxon.deactivateRingtonePlayback();
             markExpiredTimersAsMissed();
             AlarmAlertWakeLock.releaseCpuLock();
         };

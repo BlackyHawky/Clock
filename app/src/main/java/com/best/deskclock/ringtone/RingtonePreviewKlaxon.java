@@ -10,77 +10,96 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 
+import com.best.deskclock.DeskClockApplication;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.LogUtils;
 
 public final class RingtonePreviewKlaxon {
 
-    private static AsyncRingtonePlayer sAsyncRingtonePlayer;
+    private static RingtonePreviewKlaxon sInstance;
 
-    private static RingtonePlayer sRingtonePlayer;
+    private AsyncRingtonePlayer mAsyncRingtonePlayer;
+
+    private RingtonePlayer mRingtonePlayer;
 
     private RingtonePreviewKlaxon() {
     }
 
-    public static void stop(Context context, SharedPreferences prefs) {
+    private static synchronized RingtonePreviewKlaxon getInstance() {
+        if (sInstance == null) {
+            sInstance = new RingtonePreviewKlaxon();
+        }
+        return sInstance;
+    }
+
+    public static void stop() {
         LogUtils.i("RingtonePreviewKlaxon.stop()");
+
+        Context appContext = DeskClockApplication.getAppContext();
+        SharedPreferences prefs = DeskClockApplication.getDefaultSharedPreferences(appContext);
+
         if (SettingsDAO.isAdvancedAudioPlaybackEnabled(prefs)) {
-            getRingtonePlayer(context).stop();
+            getInstance().getRingtonePlayer().stop();
         } else {
-            getAsyncRingtonePlayer(context).stop();
+            getInstance().getAsyncRingtonePlayer().stop();
         }
     }
 
-    public static void stopPreviewFromSpeakers(Context context) {
+    public static void stopPreviewFromSpeakers() {
         LogUtils.i("RingtonePreviewKlaxon.stop()");
-        getAsyncRingtonePlayer(context).stop();
+        getInstance().getAsyncRingtonePlayer().stop();
     }
 
-    public static void start(Context context, SharedPreferences prefs, Uri uri) {
-        stop(context, prefs);
+    public static void start(Uri uri) {
+        stop();
         LogUtils.i("RingtonePreviewKlaxon.start()");
+
+        Context appContext = DeskClockApplication.getAppContext();
+        SharedPreferences prefs = DeskClockApplication.getDefaultSharedPreferences(appContext);
+
         if (SettingsDAO.isAdvancedAudioPlaybackEnabled(prefs)) {
-            getRingtonePlayer(context).play(uri, 0);
+            getInstance().getRingtonePlayer().play(uri, 0);
         } else {
-            getAsyncRingtonePlayer(context).play(uri, 0);
+            getInstance().getAsyncRingtonePlayer().play(uri, 0);
         }
     }
 
-    public static void startPreviewOnlyFromSpeakers(Context context, Uri uri) {
-        stopPreviewFromSpeakers(context);
+    public static void startPreviewOnlyFromSpeakers(Uri uri) {
+        stopPreviewFromSpeakers();
         LogUtils.i("RingtonePreviewKlaxon.start()");
-        getAsyncRingtonePlayer(context).play(uri, 0);
-    }
-
-    // MediaPlayer
-    private static synchronized AsyncRingtonePlayer getAsyncRingtonePlayer(Context context) {
-        if (sAsyncRingtonePlayer == null) {
-            sAsyncRingtonePlayer = new AsyncRingtonePlayer(context.getApplicationContext());
-        }
-
-        return sAsyncRingtonePlayer;
+        getInstance().getAsyncRingtonePlayer().play(uri, 0);
     }
 
     public static synchronized void releaseResources() {
-        if (sAsyncRingtonePlayer != null) {
-            sAsyncRingtonePlayer.shutdown();
-            sAsyncRingtonePlayer = null;
+        if (sInstance != null && sInstance.mAsyncRingtonePlayer != null) {
+            sInstance.mAsyncRingtonePlayer.shutdown();
+            sInstance.mAsyncRingtonePlayer = null;
         }
-    }
-
-    // ExoPlayer
-    private static synchronized RingtonePlayer getRingtonePlayer(Context context) {
-        if (sRingtonePlayer == null) {
-            sRingtonePlayer = new RingtonePlayer(context.getApplicationContext());
-        }
-
-        return sRingtonePlayer;
     }
 
     public static synchronized void stopListeningToPreferences() {
-        if (sRingtonePlayer != null) {
-            sRingtonePlayer.stopListeningToPreferences();
-            sRingtonePlayer = null;
+        if (sInstance != null && sInstance.mRingtonePlayer != null) {
+            sInstance.mRingtonePlayer.stopListeningToPreferences();
+            sInstance.mRingtonePlayer = null;
         }
     }
+
+    // MediaPlayer
+    private AsyncRingtonePlayer getAsyncRingtonePlayer() {
+        if (mAsyncRingtonePlayer == null) {
+            mAsyncRingtonePlayer = new AsyncRingtonePlayer(DeskClockApplication.getAppContext());
+        }
+
+        return mAsyncRingtonePlayer;
+    }
+
+    // ExoPlayer
+    private RingtonePlayer getRingtonePlayer() {
+        if (mRingtonePlayer == null) {
+            mRingtonePlayer = new RingtonePlayer(DeskClockApplication.getAppContext());
+        }
+
+        return mRingtonePlayer;
+    }
+
 }

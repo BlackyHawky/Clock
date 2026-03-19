@@ -13,6 +13,7 @@ import android.content.SharedPreferences;
 
 import androidx.annotation.StringRes;
 
+import com.best.deskclock.DeskClockApplication;
 import com.best.deskclock.R;
 import com.best.deskclock.alarms.AlarmFragment;
 import com.best.deskclock.clock.ClockFragment;
@@ -30,8 +31,6 @@ public final class UiDataModel {
      * The single instance of this data model that exists for the life of the application.
      */
     private static final UiDataModel sUiDataModel = new UiDataModel();
-
-    private Context mContext;
 
     /**
      * The model from which tab data are fetched.
@@ -58,14 +57,13 @@ public final class UiDataModel {
     /**
      * The context may be set precisely once during the application life.
      */
-    public void init(Context context, SharedPreferences prefs) {
-        if (mContext != context) {
-            mContext = context.getApplicationContext();
+    public void init() {
+        Context appContext = DeskClockApplication.getAppContext();
+        SharedPreferences prefs = DeskClockApplication.getDefaultSharedPreferences(appContext);
 
-            mPeriodicCallbackModel = new PeriodicCallbackModel(mContext);
-            mFormattedStringModel = new FormattedStringModel(mContext);
-            mTabModel = new TabModel(prefs);
-        }
+        mPeriodicCallbackModel = new PeriodicCallbackModel(appContext);
+        mFormattedStringModel = new FormattedStringModel(appContext);
+        mTabModel = new TabModel(prefs);
     }
 
     // ***********************
@@ -201,10 +199,12 @@ public final class UiDataModel {
      * @return the id of the shortcut
      */
     public String getShortcutId(@StringRes int category, @StringRes int action) {
+        Context appContext = DeskClockApplication.getAppContext();
+
         if (category == R.string.category_stopwatch) {
-            return mContext.getString(category);
+            return appContext.getString(category);
         }
-        return mContext.getString(category) + "_" + mContext.getString(action);
+        return appContext.getString(category) + "_" + appContext.getString(action);
     }
 
     // *********************

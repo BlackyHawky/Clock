@@ -339,7 +339,7 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
         }
 
         // Start ringtone with volume applied
-        RingtonePreviewKlaxon.startPreviewOnlyFromSpeakers(mContext, ringtoneUri);
+        RingtonePreviewKlaxon.startPreviewOnlyFromSpeakers(ringtoneUri);
 
         mIsPreviewPlaying = true;
 
@@ -361,7 +361,7 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
             mRingtoneHandler.removeCallbacks(mRingtoneStopRunnable);
         }
 
-        RingtonePreviewKlaxon.stopPreviewFromSpeakers(mContext);
+        RingtonePreviewKlaxon.stopPreviewFromSpeakers();
 
         RingtonePreviewKlaxon.releaseResources();
 

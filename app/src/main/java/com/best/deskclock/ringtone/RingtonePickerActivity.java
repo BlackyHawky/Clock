@@ -152,7 +152,6 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
     private boolean mReturnResultOnly;
 
     private FragmentManager mFragmentManager;
-    private SharedPreferences mPrefs;
     private DisplayMetrics mDisplayMetrics;
     private FloatingActionButton mAddRingtoneButton;
     private CircularProgressIndicator mCircularProgressIndicator;
@@ -254,7 +253,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mPrefs = getDefaultSharedPreferences(this);
+        SharedPreferences prefs = getDefaultSharedPreferences(this);
         mDisplayMetrics = getResources().getDisplayMetrics();
         mFragmentManager = getSupportFragmentManager();
 
@@ -353,7 +352,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
         View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_progress, null);
         mCircularProgressIndicator = dialogView.findViewById(R.id.dialogProgressIndicator);
         mProgressTextView = dialogView.findViewById(R.id.dialogProgressText);
-        mProgressTextView.setTypeface(ThemeUtils.loadFont(SettingsDAO.getGeneralFont(mPrefs)));
+        mProgressTextView.setTypeface(ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs)));
 
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this)
                 .setView(dialogView)
@@ -430,7 +429,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
             }
         } else {
             // Clear the selection since it does not exist in the data.
-            RingtonePreviewKlaxon.stop(this, mPrefs);
+            RingtonePreviewKlaxon.stop();
             mSelectedRingtoneUri = null;
             mIsPlaying = false;
         }
@@ -502,7 +501,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
 
         if (!ringtone.isPlaying() && !ringtone.isSilent()) {
             if (RingtoneUtils.isRingtoneUriReadable(this, ringtoneUri)) {
-                RingtonePreviewKlaxon.start(getApplicationContext(), mPrefs, ringtoneUri);
+                RingtonePreviewKlaxon.start(ringtoneUri);
                 ringtone.setPlaying(true);
                 mIsPlaying = true;
             } else {
@@ -532,7 +531,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
         }
 
         if (ringtone.isPlaying()) {
-            RingtonePreviewKlaxon.stop(this, mPrefs);
+            RingtonePreviewKlaxon.stop();
             ringtone.setPlaying(false);
             mIsPlaying = false;
         }

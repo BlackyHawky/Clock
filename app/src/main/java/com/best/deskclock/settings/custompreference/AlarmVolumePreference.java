@@ -211,7 +211,7 @@ public class AlarmVolumePreference extends Preference {
             ringtoneUri = RingtoneUtils.getRandomCustomRingtoneUri();
         }
 
-        RingtonePreviewKlaxon.start(mContext, mPrefs, ringtoneUri);
+        RingtonePreviewKlaxon.start(ringtoneUri);
         mIsPreviewPlaying = true;
 
         mRingtoneStopRunnable = this::stopRingtonePreview;
@@ -228,7 +228,7 @@ public class AlarmVolumePreference extends Preference {
             mRingtoneHandler.removeCallbacks(mRingtoneStopRunnable);
         }
 
-        RingtonePreviewKlaxon.stop(mContext, mPrefs);
+        RingtonePreviewKlaxon.stop();
         RingtonePreviewKlaxon.releaseResources();
 
         mIsPreviewPlaying = false;

@@ -14,6 +14,7 @@ import android.util.ArraySet;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 
+import com.best.deskclock.DeskClockApplication;
 import com.best.deskclock.R;
 import com.best.deskclock.uidata.UiDataModel;
 
@@ -25,8 +26,9 @@ public final class ShortcutEventTracker implements EventTracker {
     private final ShortcutManager mShortcutManager;
     private final Set<String> shortcuts = new ArraySet<>(5);
 
-    public ShortcutEventTracker(Context context) {
-        mShortcutManager = context.getSystemService(ShortcutManager.class);
+    public ShortcutEventTracker() {
+        Context appContext = DeskClockApplication.getAppContext();
+        mShortcutManager = appContext.getSystemService(ShortcutManager.class);
         final UiDataModel uidm = UiDataModel.getUiDataModel();
         shortcuts.add(uidm.getShortcutId(R.string.category_alarm, R.string.action_create));
         shortcuts.add(uidm.getShortcutId(R.string.category_timer, R.string.action_create));

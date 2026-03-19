@@ -9,7 +9,6 @@ package com.best.deskclock.controller;
 import static com.best.deskclock.utils.Utils.enforceMainLooper;
 
 import android.app.Activity;
-import android.content.Context;
 
 import androidx.annotation.StringRes;
 
@@ -23,8 +22,6 @@ import com.best.deskclock.utils.SdkUtils;
 public final class Controller {
 
     private static final Controller sController = new Controller();
-
-    private Context mContext;
 
     /**
      * The controller that dispatches app events to event trackers.
@@ -48,14 +45,11 @@ public final class Controller {
         return sController;
     }
 
-    public void setContext(Context context) {
-        if (mContext != context) {
-            mContext = context.getApplicationContext();
-            mEventController = new EventController();
-            mVoiceController = new VoiceController();
-            if (SdkUtils.isAtLeastAndroid71()) {
-                mShortcutController = new ShortcutController(mContext);
-            }
+    public void init() {
+        mEventController = new EventController();
+        mVoiceController = new VoiceController();
+        if (SdkUtils.isAtLeastAndroid71()) {
+            mShortcutController = new ShortcutController();
         }
     }
 

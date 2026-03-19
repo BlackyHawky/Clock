@@ -157,7 +157,7 @@ public class LogUtils {
         };
 
         private boolean isLoggingEnabled() {
-            Context context = DeskClockApplication.getContext();
+            Context context = DeskClockApplication.getAppContext();
             if (context == null) return false;
 
             SharedPreferences prefs = DeskClockApplication.getDefaultSharedPreferences(context);
@@ -236,7 +236,7 @@ public class LogUtils {
 
         private void appendToFileCompat(String log) {
             AppExecutors.getDiskIO().execute(() -> {
-                Context context = DeskClockApplication.getContext();
+                Context context = DeskClockApplication.getAppContext();
                 if (context != null) {
                     appendToFile(context, log);
                 }

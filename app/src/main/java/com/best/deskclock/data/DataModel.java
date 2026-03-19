@@ -29,6 +29,7 @@ import android.text.format.DateFormat;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import com.best.deskclock.DeskClockApplication;
 import com.best.deskclock.R;
 import com.best.deskclock.timer.TimerService;
 import com.best.deskclock.uicomponents.toast.CustomToast;
@@ -50,8 +51,6 @@ public final class DataModel {
     private static final DataModel sDataModel = new DataModel();
 
     private Handler mHandler;
-
-    private Context mContext;
 
     /**
      * The model from which city data are fetched.
@@ -98,28 +97,27 @@ public final class DataModel {
     /**
      * Initializes the data model with the context and shared preferences to be used.
      */
-    public void init(Context context, SharedPreferences prefs) {
-        if (mContext != context) {
-            mContext = context.getApplicationContext();
+    public void init() {
+         Context appContext = DeskClockApplication.getAppContext();
+         SharedPreferences prefs = DeskClockApplication.getDefaultSharedPreferences(appContext);
 
-            final String themeValue = prefs.getString(KEY_THEME, SYSTEM_THEME);
-            switch (themeValue) {
-                case SYSTEM_THEME ->
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-                case LIGHT_THEME ->
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                case DARK_THEME ->
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-            }
+         final String themeValue = prefs.getString(KEY_THEME, SYSTEM_THEME);
+         switch (themeValue) {
+             case SYSTEM_THEME ->
+                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+             case LIGHT_THEME ->
+                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+             case DARK_THEME ->
+                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+         }
 
-            mNotificationModel = new NotificationModel();
-            mRingtoneModel = new RingtoneModel(mContext, prefs);
-            mCityModel = new CityModel(mContext, prefs);
-            mAlarmModel = new AlarmModel(prefs, mRingtoneModel);
-            mSilentSettingsModel = new SilentSettingsModel(mContext, mNotificationModel);
-            mStopwatchModel = new StopwatchModel(mContext, prefs, mNotificationModel);
-            mTimerModel = new TimerModel(mContext, prefs, mRingtoneModel, mNotificationModel);
-        }
+         mNotificationModel = new NotificationModel();
+         mRingtoneModel = new RingtoneModel(appContext, prefs);
+         mCityModel = new CityModel(appContext, prefs);
+         mAlarmModel = new AlarmModel(prefs, mRingtoneModel);
+         mSilentSettingsModel = new SilentSettingsModel(appContext, mNotificationModel);
+         mStopwatchModel = new StopwatchModel(appContext, prefs, mNotificationModel);
+         mTimerModel = new TimerModel(appContext, prefs, mRingtoneModel, mNotificationModel);
     }
 
     /**
@@ -421,7 +419,8 @@ public final class DataModel {
             if (service != null) {
                 expireTimer(service, started);
             } else {
-                mContext.startService(TimerService.createTimerExpiredIntent(mContext, started));
+                Context context = DeskClockApplication.getAppContext();
+                context.startService(TimerService.createTimerExpiredIntent(context, started));
             }
         }
     }
@@ -690,7 +689,7 @@ public final class DataModel {
      * @return {@code true} if 24 hour time format is selected; {@code false} otherwise
      */
     public boolean is24HourFormat() {
-        return DateFormat.is24HourFormat(mContext);
+        return DateFormat.is24HourFormat(DeskClockApplication.getAppContext());
     }
 
     /**

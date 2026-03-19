@@ -640,7 +640,7 @@ public class CustomSliderPreference extends Preference {
             ringtoneUri = RingtoneUtils.getRandomCustomRingtoneUri();
         }
 
-        RingtonePreviewKlaxon.start(mContext, mPrefs, ringtoneUri);
+        RingtonePreviewKlaxon.start(ringtoneUri);
         mIsPreviewPlaying = true;
 
         mRingtoneStopRunnable = this::stopRingtonePreviewForExternalAudioDevices;
@@ -661,7 +661,7 @@ public class CustomSliderPreference extends Preference {
             mRingtoneHandler.removeCallbacks(mRingtoneStopRunnable);
         }
 
-        RingtonePreviewKlaxon.stop(mContext, mPrefs);
+        RingtonePreviewKlaxon.stop();
         RingtonePreviewKlaxon.stopListeningToPreferences();
 
         mIsPreviewPlaying = false;

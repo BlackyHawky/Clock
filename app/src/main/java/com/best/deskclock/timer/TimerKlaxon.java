@@ -14,6 +14,7 @@ import android.os.VibrationAttributes;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 
+import com.best.deskclock.DeskClockApplication;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.ringtone.AsyncRingtonePlayer;
@@ -25,38 +26,56 @@ import com.best.deskclock.utils.SdkUtils;
 /**
  * Manages playing the timer ringtone and vibrating the device.
  */
-public abstract class TimerKlaxon {
+public final class TimerKlaxon {
 
     private static final long[] VIBRATE_PATTERN = {500, 500};
 
-    private static boolean sStarted = false;
+    private static TimerKlaxon sInstance;
 
-    private static AsyncRingtonePlayer sAsyncRingtonePlayer;
-
-    private static RingtonePlayer sRingtonePlayer;
+    private boolean mStarted = false;
+    private AsyncRingtonePlayer mAsyncRingtonePlayer;
+    private RingtonePlayer mRingtonePlayer;
 
     private TimerKlaxon() {
     }
 
-    public static void stop(Context context, SharedPreferences prefs) {
-        if (sStarted) {
+    private static synchronized TimerKlaxon getInstance() {
+        if (sInstance == null) {
+            sInstance = new TimerKlaxon();
+        }
+
+        return sInstance;
+    }
+
+    public static void stop() {
+        TimerKlaxon instance = getInstance();
+
+        if (instance.mStarted) {
             LogUtils.i("TimerKlaxon.stop()");
-            sStarted = false;
+            instance.mStarted = false;
+
+            Context appContext = DeskClockApplication.getAppContext();
+            SharedPreferences prefs = DeskClockApplication.getDefaultSharedPreferences(appContext);
+
             if (SettingsDAO.isAdvancedAudioPlaybackEnabled(prefs)) {
-                getRingtonePlayer(context).stop();
+                instance.getRingtonePlayer().stop();
             } else {
-                getAsyncRingtonePlayer(context).stop();
+                instance.getAsyncRingtonePlayer().stop();
             }
-            Vibrator vibrator = context.getSystemService(Vibrator.class);
+
+            Vibrator vibrator = appContext.getSystemService(Vibrator.class);
             vibrator.cancel();
         }
     }
 
-    public static void start(Context context, SharedPreferences prefs) {
+    public static void start() {
         // Make sure we are stopped before starting
-        stop(context, prefs);
+        stop();
         LogUtils.i("TimerKlaxon.start()");
 
+        Context appContext = DeskClockApplication.getAppContext();
+        SharedPreferences prefs = DeskClockApplication.getDefaultSharedPreferences(appContext);
+        TimerKlaxon instance = getInstance();
         Uri uri = DataModel.getDataModel().getTimerRingtoneUri();
 
         // Look up user-selected timer ringtone.
@@ -74,14 +93,14 @@ public abstract class TimerKlaxon {
             final int crescendoDuration = SettingsDAO.getTimerVolumeCrescendoDuration(prefs) * 1000;
 
             if (SettingsDAO.isAdvancedAudioPlaybackEnabled(prefs)) {
-                getRingtonePlayer(context).play(uri, crescendoDuration);
+                instance.getRingtonePlayer().play(uri, crescendoDuration);
             } else {
-                getAsyncRingtonePlayer(context).play(uri, crescendoDuration);
+                instance.getAsyncRingtonePlayer().play(uri, crescendoDuration);
             }
         }
 
         if (SettingsDAO.isTimerVibrate(prefs)) {
-            final Vibrator vibrator = context.getSystemService(Vibrator.class);
+            final Vibrator vibrator = appContext.getSystemService(Vibrator.class);
             AudioAttributes audioAttributes = new AudioAttributes.Builder()
                     .setUsage(AudioAttributes.USAGE_ALARM)
                     .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
@@ -101,10 +120,13 @@ public abstract class TimerKlaxon {
             }
         }
 
-        sStarted = true;
+        instance.mStarted = true;
     }
 
-    public static void deactivateRingtonePlayback(SharedPreferences prefs) {
+    public static void deactivateRingtonePlayback() {
+        Context context = DeskClockApplication.getAppContext();
+        SharedPreferences prefs = DeskClockApplication.getDefaultSharedPreferences(context);
+
         if (SettingsDAO.isAdvancedAudioPlaybackEnabled(prefs)) {
             stopListeningToPreferences();
         } else {
@@ -113,34 +135,34 @@ public abstract class TimerKlaxon {
     }
 
     // MediaPlayer
-    private static synchronized AsyncRingtonePlayer getAsyncRingtonePlayer(Context context) {
-        if (sAsyncRingtonePlayer == null) {
-            sAsyncRingtonePlayer = new AsyncRingtonePlayer(context.getApplicationContext());
+    private AsyncRingtonePlayer getAsyncRingtonePlayer() {
+        if (mAsyncRingtonePlayer == null) {
+            mAsyncRingtonePlayer = new AsyncRingtonePlayer(DeskClockApplication.getAppContext());
         }
 
-        return sAsyncRingtonePlayer;
+        return mAsyncRingtonePlayer;
     }
 
     public static synchronized void releaseResources() {
-        if (sAsyncRingtonePlayer != null) {
-            sAsyncRingtonePlayer.shutdown();
-            sAsyncRingtonePlayer = null;
+        if (sInstance != null && sInstance.mAsyncRingtonePlayer != null) {
+            sInstance.mAsyncRingtonePlayer.shutdown();
+            sInstance.mAsyncRingtonePlayer = null;
         }
     }
 
     // ExoPlayer
-    private static synchronized RingtonePlayer getRingtonePlayer(Context context) {
-        if (sRingtonePlayer == null) {
-            sRingtonePlayer = new RingtonePlayer(context.getApplicationContext());
+    private RingtonePlayer getRingtonePlayer() {
+        if (mRingtonePlayer == null) {
+            mRingtonePlayer = new RingtonePlayer(DeskClockApplication.getAppContext());
         }
 
-        return sRingtonePlayer;
+        return mRingtonePlayer;
     }
 
     public static synchronized void stopListeningToPreferences() {
-        if (sRingtonePlayer != null) {
-            sRingtonePlayer.stopListeningToPreferences();
-            sRingtonePlayer = null;
+        if (sInstance != null && sInstance.mRingtonePlayer != null) {
+            sInstance.mRingtonePlayer.stopListeningToPreferences();
+            sInstance.mRingtonePlayer = null;
         }
     }
 }

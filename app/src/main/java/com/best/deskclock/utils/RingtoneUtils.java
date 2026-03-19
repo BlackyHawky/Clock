@@ -187,7 +187,7 @@ public class RingtoneUtils {
      * If no valid ringtones are found, the system's default alarm ringtone is returned.
      */
     public static Uri getRandomRingtoneUri() {
-        Context context = DeskClockApplication.getContext();
+        Context context = DeskClockApplication.getAppContext();
 
         RingtoneManager manager = new RingtoneManager(context);
         manager.setType(RingtoneManager.TYPE_ALARM);
@@ -218,7 +218,7 @@ public class RingtoneUtils {
      * If no valid ringtones are found, the system's default alarm ringtone is returned.
      */
     public static Uri getRandomCustomRingtoneUri() {
-        Context context = DeskClockApplication.getContext();
+        Context context = DeskClockApplication.getAppContext();
 
         List<Uri> uris = new ArrayList<>();
 
