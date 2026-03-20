@@ -125,8 +125,7 @@ public class VibrationPatternDialogFragment extends DialogFragment {
         RadioButton rbEscalating = dialogView.findViewById(R.id.vibration_pattern_escalating);
         RadioButton rbTickTock = dialogView.findViewById(R.id.vibration_pattern_tick_tock);
 
-        RadioButton[] buttons =
-                {rbDefault, rbSoft, rbStrong, rbHeartbeat, rbEscalating, rbTickTock};
+        RadioButton[] buttons = {rbDefault, rbSoft, rbStrong, rbHeartbeat, rbEscalating, rbTickTock};
 
         String[] values = context.getResources().getStringArray(R.array.vibration_pattern_values);
 
@@ -149,39 +148,39 @@ public class VibrationPatternDialogFragment extends DialogFragment {
         });
 
         return CustomDialog.create(
-                context,
-                null,
-                mPrefKey != null ? null : AppCompatResources.getDrawable(requireContext(), R.drawable.ic_earthquake),
-                getString(R.string.vibration_pattern_title),
-                null,
-                dialogView,
-                getString(android.R.string.ok),
-                (d, w) -> {
-                    mVibrator.cancel();
-                    savePattern(mSelectedPatternKey);
-                },
-                getString(android.R.string.cancel),
-                (d,w) -> mVibrator.cancel(),
-                getString(R.string.preview_title),
-                null,
-                alertDialog -> {
-                    Button neutralButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
-                    neutralButton.setOnClickListener(v -> {
-                        if (mSelectedPatternKey != null) {
-                            mVibrator.cancel();
+            context,
+            null,
+            mPrefKey != null ? null : AppCompatResources.getDrawable(requireContext(), R.drawable.ic_earthquake),
+            getString(R.string.vibration_pattern_title),
+            null,
+            dialogView,
+            getString(android.R.string.ok),
+            (d, w) -> {
+                mVibrator.cancel();
+                savePattern(mSelectedPatternKey);
+            },
+            getString(android.R.string.cancel),
+            (d, w) -> mVibrator.cancel(),
+            getString(R.string.preview_title),
+            null,
+            alertDialog -> {
+                Button neutralButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
+                neutralButton.setOnClickListener(v -> {
+                    if (mSelectedPatternKey != null) {
+                        mVibrator.cancel();
 
-                            long[] pattern = Utils.getVibrationPatternForKey(mSelectedPatternKey);
+                        long[] pattern = Utils.getVibrationPatternForKey(mSelectedPatternKey);
 
-                            if (SdkUtils.isAtLeastAndroid8()) {
-                                VibrationEffect effect = VibrationEffect.createWaveform(pattern, 0);
-                                mVibrator.vibrate(effect);
-                            } else {
-                                mVibrator.vibrate(pattern, 0);
-                            }
+                        if (SdkUtils.isAtLeastAndroid8()) {
+                            VibrationEffect effect = VibrationEffect.createWaveform(pattern, 0);
+                            mVibrator.vibrate(effect);
+                        } else {
+                            mVibrator.vibrate(pattern, 0);
                         }
-                    });
-                },
-                CustomDialog.SoftInputMode.NONE
+                    }
+                });
+            },
+            CustomDialog.SoftInputMode.NONE
         );
     }
 

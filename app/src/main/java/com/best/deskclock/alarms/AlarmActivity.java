@@ -246,12 +246,12 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
             setTurnScreenOn(true);
             setShowWhenLocked(true);
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
-                    | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON);
+                | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON);
         } else {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
-                    | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
-                    | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
-                    | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON);
+                | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+                | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
+                | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON);
         }
 
         // Honor rotation on tablets; fix the orientation on phones.
@@ -509,8 +509,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         }
 
         final int actionIndex = event.getActionIndex();
-        if (mInitialPointerIndex == MotionEvent.INVALID_POINTER_ID
-                || mInitialPointerIndex != event.getPointerId(actionIndex)) {
+        if (mInitialPointerIndex == MotionEvent.INVALID_POINTER_ID || mInitialPointerIndex != event.getPointerId(actionIndex)) {
             // Ignore any pointers other than the initial one, bail early.
             return true;
         }
@@ -593,8 +592,8 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         final String darkMode = SettingsDAO.getDarkMode(mPrefs);
         final boolean isAmoledMode = ThemeUtils.isNight(getResources()) && darkMode.equals(AMOLED_DARK_MODE);
         int alarmBackgroundColor = isAmoledMode
-                ? SettingsDAO.getAlarmBackgroundAmoledColor(mPrefs)
-                : SettingsDAO.getAlarmBackgroundColor(mPrefs);
+            ? SettingsDAO.getAlarmBackgroundAmoledColor(mPrefs)
+            : SettingsDAO.getAlarmBackgroundColor(mPrefs);
         final String imagePath = SettingsDAO.getAlarmBackgroundImage(mPrefs);
         final ImageView alarmBackgroundImage = findViewById(R.id.alarm_background_image);
 
@@ -642,8 +641,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
         if (alarmClockStyle == DataModel.ClockStyle.DIGITAL) {
             ClockUtils.setDigitalClockFont(digitalClock, SettingsDAO.getAlarmFont(mPrefs));
-            ClockUtils.setDigitalClockTimeFormat(digitalClock, 0.4f, false,
-                    true, false, false);
+            ClockUtils.setDigitalClockTimeFormat(digitalClock, 0.4f, false, true, false, false);
             digitalClock.applyUserPreferredTextSizeSp(alarmDigitalClockFontSize);
             digitalClock.setTextColor(alarmClockColor);
 
@@ -710,27 +708,28 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
     private void initSlideTexts() {
         boolean disabled = isSnoozeDisabledForAlarmInstance();
 
-        mAlarmButton.setContentDescription(getString(
-                disabled
-                        ? (isOccasionalAlarmDeletedAfterUse()
-                        ? R.string.description_direction_both_for_occasional_non_repeatable_alarm
-                        : R.string.description_direction_both_for_non_repeatable_alarm)
-                        : (isOccasionalAlarmDeletedAfterUse()
-                        ? R.string.description_direction_both_for_occasional_alarm
-                        : R.string.description_direction_both)
+        mAlarmButton.setContentDescription(getString(disabled
+            ? (isOccasionalAlarmDeletedAfterUse()
+            ? R.string.description_direction_both_for_occasional_non_repeatable_alarm
+            : R.string.description_direction_both_for_non_repeatable_alarm)
+            : (isOccasionalAlarmDeletedAfterUse()
+            ? R.string.description_direction_both_for_occasional_alarm
+            : R.string.description_direction_both)
         ));
 
         mSnoozeActionText.setTypeface(mGeneralBoldTypeface);
         mSnoozeActionText.setTextColor(SettingsDAO.getSnoozeTitleColor(mPrefs));
         int snoozeTextRes = isSnoozeDisabledForAlarmInstance()
-                ? (isOccasionalAlarmDeletedAfterUse() ? R.string.delete : R.string.button_action_dismiss)
-                : R.string.button_action_snooze;
+            ? (isOccasionalAlarmDeletedAfterUse()
+            ? R.string.delete
+            : R.string.button_action_dismiss)
+            : R.string.button_action_snooze;
 
         mSnoozeActionText.setText(getString(snoozeTextRes));
 
         mDismissActionText.setText(getString(isOccasionalAlarmDeletedAfterUse()
-                ? R.string.delete
-                : R.string.button_action_dismiss
+            ? R.string.delete
+            : R.string.button_action_dismiss
         ));
         mDismissActionText.setTypeface(mGeneralBoldTypeface);
         mDismissActionText.setTextColor(SettingsDAO.getDismissTitleColor(mPrefs));
@@ -751,10 +750,8 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
             // Move to left
             AnimatorSet toLeftAnimator = new AnimatorSet();
-            toLeftAnimator.playTogether(
-                    translationAnimator(mPillView, pillStretchWidth,
-                            mPillView.getPillCenterX() - pillStretchWidth / 2),
-                    alphaAnimator(mPillView, originalFillColor)
+            toLeftAnimator.playTogether(translationAnimator(mPillView, pillStretchWidth,
+                mPillView.getPillCenterX() - pillStretchWidth / 2), alphaAnimator(mPillView, originalFillColor)
             );
             toLeftAnimator.setStartDelay(TRANSLATION_DURATION_START_DELAY);
             toLeftAnimator.setDuration(TRANSLATION_DURATION_MILLIS);
@@ -765,15 +762,13 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
             // Reset position and alpha
             AnimatorSet resetAndRestoreLeft = new AnimatorSet();
-            resetAndRestoreLeft.playTogether(
-                    translationAnimator(mPillView, 0, mPillView.getPillCenterX()),
-                    alphaAnimator(mPillView, originalFillColor)
+            resetAndRestoreLeft.playTogether(translationAnimator(mPillView, 0, mPillView.getPillCenterX()),
+                alphaAnimator(mPillView, originalFillColor)
             );
             resetAndRestoreLeft.setDuration(0);
 
             // Move to right
-            Animator toRightAnimator = translationAnimator(mPillView, pillStretchWidth,
-                    mPillView.getPillCenterX() + pillStretchWidth / 2);
+            Animator toRightAnimator = translationAnimator(mPillView, pillStretchWidth, mPillView.getPillCenterX() + pillStretchWidth / 2);
             toRightAnimator.setStartDelay(TRANSLATION_DURATION_DELAY);
             toRightAnimator.setDuration(TRANSLATION_DURATION_MILLIS);
 
@@ -783,16 +778,15 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
             // Reset position and alpha
             AnimatorSet resetAndRestoreRight = new AnimatorSet();
-            resetAndRestoreRight.playTogether(
-                    translationAnimator(mPillView, 0, mPillView.getPillCenterX()),
-                    alphaAnimator(mPillView, originalFillColor)
+            resetAndRestoreRight.playTogether(translationAnimator(mPillView, 0, mPillView.getPillCenterX()),
+                alphaAnimator(mPillView, originalFillColor)
             );
             resetAndRestoreRight.setDuration(0);
 
             // Sequence
             AnimatorSet translationSequence = new AnimatorSet();
-            translationSequence.playSequentially(toLeftAnimator, alphaLeft, resetAndRestoreLeft,
-                    toRightAnimator, alphaRight, resetAndRestoreRight);
+            translationSequence.playSequentially(toLeftAnimator, alphaLeft, resetAndRestoreLeft, toRightAnimator,
+                alphaRight, resetAndRestoreRight);
             translationSequence.setInterpolator(new AccelerateDecelerateInterpolator());
 
             // Listener to repeat animation if needed
@@ -843,10 +837,9 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
         mDismissOnlyButton.setBackgroundColor(SettingsDAO.getDismissButtonColor(mPrefs, this));
         mDismissOnlyButton.setTypeface(mGeneralBoldTypeface);
-        mDismissOnlyButton.setContentDescription(getString(
-                isOccasionalAlarmDeletedAfterUse()
-                        ? R.string.description_dismiss_button_for_occasional_alarm
-                        : R.string.description_dismiss_button
+        mDismissOnlyButton.setContentDescription(getString(isOccasionalAlarmDeletedAfterUse()
+            ? R.string.description_dismiss_button_for_occasional_alarm
+            : R.string.description_dismiss_button
         ));
 
         mDismissOnlyButton.setVisibility(VISIBLE);
@@ -869,14 +862,11 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         mSnoozeButton.setOnClickListener(this);
 
         mDismissButton.setBackgroundColor(SettingsDAO.getDismissButtonColor(mPrefs, this));
-        mDismissButton.setText(getString(isOccasionalAlarmDeletedAfterUse()
-                ? R.string.delete
-                : R.string.button_action_dismiss
-        ));
+        mDismissButton.setText(getString(isOccasionalAlarmDeletedAfterUse() ? R.string.delete : R.string.button_action_dismiss));
         mDismissButton.setTypeface(mGeneralBoldTypeface);
         mDismissButton.setContentDescription(getString(isOccasionalAlarmDeletedAfterUse()
-                ? R.string.description_dismiss_button_for_occasional_alarm
-                : R.string.description_dismiss_button
+            ? R.string.description_dismiss_button_for_occasional_alarm
+            : R.string.description_dismiss_button
         ));
         mDismissButton.setVisibility(VISIBLE);
         mDismissButton.setOnClickListener(this);
@@ -963,7 +953,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
      * <p>Index 0 represents the "Default" option.</p>
      *
      * @param instanceValue the snooze value of the alarm instance
-     * @param defaultValue the default snooze value of the alarm
+     * @param defaultValue  the default snooze value of the alarm
      * @return the matching index, or 0 if no match is found
      */
     private int findIndexForInstanceSnooze(int instanceValue, int defaultValue) {
@@ -1038,7 +1028,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
                 mSnoozeSelectorText.setText(getString(R.string.snooze_selector_default, getString(R.string.snooze_duration_none)));
             } else {
                 String minShort = FormattedTextUtils.getNumberFormattedQuantityString(
-                        this, R.plurals.minutes_short, mDefaultSnoozeMinutes);
+                    this, R.plurals.minutes_short, mDefaultSnoozeMinutes);
                 mSnoozeSelectorText.setText(getString(R.string.snooze_selector_default, minShort));
             }
         } else {
@@ -1052,8 +1042,10 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
         boolean isDefault = mSnoozeSelectorIndex == 0;
         int textRes = isDefault
-                ? isOccasionalAlarmDeletedAfterUse() ? R.string.delete : R.string.button_action_dismiss
-                : R.string.button_action_snooze;
+            ? isOccasionalAlarmDeletedAfterUse()
+            ? R.string.delete
+            : R.string.button_action_dismiss
+            : R.string.button_action_snooze;
 
         if (mIsSwipeActionEnabled) {
             mSnoozeActionText.setText(getString(textRes));
@@ -1075,8 +1067,8 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
      */
     private Animator translationAnimator(View view, float targetWidth, float targetCenterX) {
         return ObjectAnimator.ofPropertyValuesHolder(view,
-                PropertyValuesHolder.ofFloat(PillView.PILL_WIDTH, targetWidth),
-                PropertyValuesHolder.ofFloat(PillView.PILL_CENTER_X, targetCenterX));
+            PropertyValuesHolder.ofFloat(PillView.PILL_WIDTH, targetWidth),
+            PropertyValuesHolder.ofFloat(PillView.PILL_CENTER_X, targetCenterX));
     }
 
     /**
@@ -1084,7 +1076,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
      */
     private Animator alphaAnimator(View view, int alphaColor) {
         return ObjectAnimator.ofPropertyValuesHolder(view,
-                PropertyValuesHolder.ofObject(PillView.FILL_COLOR, AnimatorUtils.ARGB_EVALUATOR, alphaColor));
+            PropertyValuesHolder.ofObject(PillView.FILL_COLOR, AnimatorUtils.ARGB_EVALUATOR, alphaColor));
     }
 
     /**
@@ -1131,9 +1123,9 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         mDismissActionText.setAlpha(1.0f);
 
         mAlarmButton.animate()
-                .translationX(0)
-                .setDuration(200)
-                .start();
+            .translationX(0)
+            .setDuration(200)
+            .start();
 
         if (mTranslationAnimator != null && !mTranslationAnimator.isRunning()) {
             mTranslationAnimator.start();
@@ -1169,9 +1161,9 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         } else {
             int snoozeDuration = mAlarmInstance.mSnoozeDuration;
             final String infoText = getResources().getQuantityString(
-                    R.plurals.alarm_alert_snooze_duration, snoozeDuration, snoozeDuration);
+                R.plurals.alarm_alert_snooze_duration, snoozeDuration, snoozeDuration);
             final String accessibilityText = getResources().getQuantityString(
-                    R.plurals.alarm_alert_snooze_set, snoozeDuration, snoozeDuration);
+                R.plurals.alarm_alert_snooze_set, snoozeDuration, snoozeDuration);
 
             showAlert(R.string.alarm_alert_snoozed_text, infoText, accessibilityText);
 
@@ -1270,8 +1262,8 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         final boolean silent = RingtoneUtils.RINGTONE_SILENT.equals(mAlarmInstance.mRingtone);
         final String title = DataModel.getDataModel().getRingtoneTitle(mAlarmInstance.mRingtone);
         final Drawable musicIcon = silent
-                ? AppCompatResources.getDrawable(this, R.drawable.ic_ringtone_silent)
-                : AppCompatResources.getDrawable(this, R.drawable.ic_music_note);
+            ? AppCompatResources.getDrawable(this, R.drawable.ic_ringtone_silent)
+            : AppCompatResources.getDrawable(this, R.drawable.ic_music_note);
         int ringtoneIconSize = (int) dpToPx(24, getResources().getDisplayMetrics());
         final int ringtoneTitleColor = SettingsDAO.getRingtoneTitleColor(mPrefs);
 
@@ -1342,13 +1334,13 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
         mAlertView.setAlpha(0f);
         mAlertView.animate()
-                .alpha(1f)
-                .setDuration(ALERT_REVEAL_DURATION_MILLIS)
-                .withEndAction(() -> {
-                    mAlertView.announceForAccessibility(accessibilityText);
-                    mHandler.postDelayed(this::finish, ALERT_DISMISS_DELAY_MILLIS);
-                })
-                .start();
+            .alpha(1f)
+            .setDuration(ALERT_REVEAL_DURATION_MILLIS)
+            .withEndAction(() -> {
+                mAlertView.announceForAccessibility(accessibilityText);
+                mHandler.postDelayed(this::finish, ALERT_DISMISS_DELAY_MILLIS);
+            })
+            .start();
     }
 
 }

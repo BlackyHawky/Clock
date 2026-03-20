@@ -46,18 +46,17 @@ public final class TextSizeHelper {
     public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int widthConstraint = MAX_VALUE;
         if (View.MeasureSpec.getMode(widthMeasureSpec) != View.MeasureSpec.UNSPECIFIED) {
-            widthConstraint = View.MeasureSpec.getSize(widthMeasureSpec)
-                    - mTextView.getCompoundPaddingLeft() - mTextView.getCompoundPaddingRight();
+            widthConstraint =
+                View.MeasureSpec.getSize(widthMeasureSpec) - mTextView.getCompoundPaddingLeft() - mTextView.getCompoundPaddingRight();
         }
 
         int heightConstraint = MAX_VALUE;
         if (View.MeasureSpec.getMode(heightMeasureSpec) != View.MeasureSpec.UNSPECIFIED) {
-            heightConstraint = View.MeasureSpec.getSize(heightMeasureSpec)
-                    - mTextView.getCompoundPaddingTop() - mTextView.getCompoundPaddingBottom();
+            heightConstraint =
+                View.MeasureSpec.getSize(heightMeasureSpec) - mTextView.getCompoundPaddingTop() - mTextView.getCompoundPaddingBottom();
         }
 
-        if (mTextView.isLayoutRequested() || mWidthConstraint != widthConstraint
-                || mHeightConstraint != heightConstraint) {
+        if (mTextView.isLayoutRequested() || mWidthConstraint != widthConstraint || mHeightConstraint != heightConstraint) {
             mWidthConstraint = widthConstraint;
             mHeightConstraint = heightConstraint;
 

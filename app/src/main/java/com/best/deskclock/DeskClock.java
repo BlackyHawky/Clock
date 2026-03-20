@@ -16,40 +16,7 @@ import static com.best.deskclock.KeepAliveService.FOREGROUND_SERVICE_NOTIFICATIO
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TAB_TITLE_VISIBILITY;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TAB_TITLE_VISIBILITY_NEVER;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_FONT;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ANALOG_CLOCK_SIZE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_HOME_CLOCK;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_CLOCK_DIAL;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_CLOCK_DIAL_MATERIAL;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_CLOCK_SECOND_HAND;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_CLOCK_STYLE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_CLOCK_FONT;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_CLOCK_FONT_SIZE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_CLOCK_SECONDS;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_COMPACT_TIMERS;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_TEXT_UPPERCASE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_TIMER_STATE_INDICATOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_CITY_NOTE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_PER_ALARM_VOLUME;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ESSENTIAL_PERMISSIONS_GRANTED;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_EXPIRED_TIMER_INDICATOR_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_HOME_TIME_ZONE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_KEEP_SCREEN_ON;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MISSED_TIMER_INDICATOR_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_PAUSED_TIMER_INDICATOR_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_RUNNING_TIMER_INDICATOR_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_SORT_CITIES;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_SORT_TIMER;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_FONT;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_VOLUME_DOWN_ACTION;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_VOLUME_UP_ACTION;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_TAB_INDICATOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_TAB_TITLE_VISIBILITY;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_TAB_TO_DISPLAY;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_DURATION_FONT;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_WEEK_START;
+import static com.best.deskclock.settings.PreferencesKeys.*;
 import static com.best.deskclock.utils.AnimatorUtils.getScaleAnimator;
 
 import android.animation.Animator;
@@ -100,7 +67,6 @@ import com.best.deskclock.utils.NotificationUtils;
 import com.best.deskclock.utils.PermissionUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
-
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
@@ -231,28 +197,23 @@ public class DeskClock extends BaseActivity implements FabContainer {
      * unnecessary activity recreation.</p>
      */
     private static final List<String> SUPPORTED_PREF_KEYS = List.of(
-            // Interface
-            KEY_TAB_TITLE_VISIBILITY, KEY_TAB_INDICATOR, KEY_TAB_TO_DISPLAY, KEY_KEEP_SCREEN_ON,
-            // Clock
-            KEY_CLOCK_STYLE, KEY_CLOCK_DIAL, KEY_CLOCK_DIAL_MATERIAL, KEY_ANALOG_CLOCK_SIZE,
-            KEY_DISPLAY_CLOCK_SECONDS, KEY_CLOCK_SECOND_HAND, KEY_DISPLAY_TEXT_UPPERCASE,
-            KEY_DIGITAL_CLOCK_FONT, KEY_DIGITAL_CLOCK_FONT_SIZE, KEY_SORT_CITIES,
-            KEY_ENABLE_CITY_NOTE, KEY_AUTO_HOME_CLOCK, KEY_HOME_TIME_ZONE,
-            // Alarm
-            KEY_ENABLE_PER_ALARM_VOLUME, KEY_WEEK_START, KEY_ALARM_FONT,
-            // Timer
-            KEY_TIMER_DURATION_FONT, KEY_DISPLAY_COMPACT_TIMERS, KEY_SORT_TIMER,
-            KEY_DISPLAY_TIMER_STATE_INDICATOR, KEY_RUNNING_TIMER_INDICATOR_COLOR,
-            KEY_PAUSED_TIMER_INDICATOR_COLOR, KEY_EXPIRED_TIMER_INDICATOR_COLOR,
-            KEY_MISSED_TIMER_INDICATOR_COLOR,
-            // Stopwatch
-            KEY_SW_FONT,
-            KEY_SW_VOLUME_UP_ACTION,
-            KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS,
-            KEY_SW_VOLUME_DOWN_ACTION,
-            KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS,
-            // Permission
-            KEY_ESSENTIAL_PERMISSIONS_GRANTED
+        // Interface
+        KEY_TAB_TITLE_VISIBILITY, KEY_TAB_INDICATOR, KEY_TAB_TO_DISPLAY, KEY_KEEP_SCREEN_ON,
+        // Clock
+        KEY_CLOCK_STYLE, KEY_CLOCK_DIAL, KEY_CLOCK_DIAL_MATERIAL, KEY_ANALOG_CLOCK_SIZE, KEY_DISPLAY_CLOCK_SECONDS, KEY_CLOCK_SECOND_HAND,
+        KEY_DISPLAY_TEXT_UPPERCASE, KEY_DIGITAL_CLOCK_FONT, KEY_DIGITAL_CLOCK_FONT_SIZE, KEY_SORT_CITIES, KEY_ENABLE_CITY_NOTE,
+        KEY_AUTO_HOME_CLOCK, KEY_HOME_TIME_ZONE,
+        // Alarm
+        KEY_ENABLE_PER_ALARM_VOLUME, KEY_WEEK_START, KEY_ALARM_FONT,
+        // Timer
+        KEY_TIMER_DURATION_FONT, KEY_DISPLAY_COMPACT_TIMERS, KEY_SORT_TIMER, KEY_DISPLAY_TIMER_STATE_INDICATOR,
+        KEY_RUNNING_TIMER_INDICATOR_COLOR, KEY_PAUSED_TIMER_INDICATOR_COLOR, KEY_EXPIRED_TIMER_INDICATOR_COLOR,
+        KEY_MISSED_TIMER_INDICATOR_COLOR,
+        // Stopwatch
+        KEY_SW_FONT, KEY_SW_VOLUME_UP_ACTION, KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS, KEY_SW_VOLUME_DOWN_ACTION,
+        KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS,
+        // Permission
+        KEY_ESSENTIAL_PERMISSIONS_GRANTED
     );
 
     /**
@@ -357,30 +318,30 @@ public class DeskClock extends BaseActivity implements FabContainer {
         // Build the reusable animations that hide and show the fab and left/right buttons.
         // These may be used independently or be chained together.
         mHideAnimation
-                .setDuration(duration)
-                .play(hideFabAnimation)
-                .with(leftHideAnimation)
-                .with(rightHideAnimation);
+            .setDuration(duration)
+            .play(hideFabAnimation)
+            .with(leftHideAnimation)
+            .with(rightHideAnimation);
 
         mShowAnimation
-                .setDuration(duration)
-                .play(showFabAnimation)
-                .with(leftShowAnimation)
-                .with(rightShowAnimation);
+            .setDuration(duration)
+            .play(showFabAnimation)
+            .with(leftShowAnimation)
+            .with(rightShowAnimation);
 
         // Build the reusable animation that hides and shows only the fab.
         mUpdateFabOnlyAnimation
-                .setDuration(duration)
-                .play(showFabAnimation)
-                .after(hideFabAnimation);
+            .setDuration(duration)
+            .play(showFabAnimation)
+            .after(hideFabAnimation);
 
         // Build the reusable animation that hides and shows only the buttons.
         mUpdateButtonsOnlyAnimation
-                .setDuration(duration)
-                .play(leftShowAnimation)
-                .with(rightShowAnimation)
-                .after(leftHideAnimation)
-                .after(rightHideAnimation);
+            .setDuration(duration)
+            .play(leftShowAnimation)
+            .with(rightShowAnimation)
+            .after(leftHideAnimation)
+            .after(rightHideAnimation);
 
         // Customize the view pager.
         mFragmentTabPagerAdapter = new FragmentTabPagerAdapter(this);
@@ -431,7 +392,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
         updateKeepScreenOn(UiDataModel.getUiDataModel().getSelectedTab());
 
         if (SettingsDAO.isForegroundServiceEnabled(mPrefs)
-                && !NotificationUtils.isNotificationVisible(this, FOREGROUND_SERVICE_NOTIFICATION_ID)) {
+            && !NotificationUtils.isNotificationVisible(this, FOREGROUND_SERVICE_NOTIFICATION_ID)) {
             Utils.startService(this, KeepAliveService.class);
         }
     }
@@ -456,16 +417,14 @@ public class DeskClock extends BaseActivity implements FabContainer {
     @SuppressLint("AlwaysShowAction")
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        menu.add(0, Menu.NONE, 1, R.string.settings)
-                .setIcon(R.drawable.ic_settings).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        menu.add(0, Menu.NONE, 1, R.string.settings).setIcon(R.drawable.ic_settings).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
         if (PermissionUtils.areEssentialPermissionsNotGranted(this)) {
             final Drawable warningIcon = AppCompatResources.getDrawable(this, R.drawable.ic_error);
             if (warningIcon != null) {
                 DrawableCompat.setTint(warningIcon, this.getColor(R.color.colorAlert));
             }
-            menu.add(0, Menu.FIRST, 0, R.string.denied_permission_label)
-                    .setIcon(warningIcon).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+            menu.add(0, Menu.FIRST, 0, R.string.denied_permission_label).setIcon(warningIcon).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
 
         mToolbar.post(() -> ThemeUtils.applyToolbarTooltips(mToolbar));
@@ -563,8 +522,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
             Object oldValue = cachedValues.get(key);
             Object newValue = getPreferenceValue(key);
 
-            boolean changed = (newValue == null && oldValue != null)
-                    || (newValue != null && !newValue.equals(oldValue));
+            boolean changed = (newValue == null && oldValue != null) || (newValue != null && !newValue.equals(oldValue));
 
             if (!changed) {
                 return;
@@ -683,8 +641,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
     private void applyWindowInsets() {
         InsetsUtils.doOnApplyWindowInsets(mDeskClockRootView, (v, insets) -> {
             // Get the system bar and notch insets
-            Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() |
-                    WindowInsetsCompat.Type.displayCutout());
+            Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout());
 
             v.setPadding(bars.left, bars.top, bars.right, 0);
 
@@ -711,16 +668,12 @@ public class DeskClock extends BaseActivity implements FabContainer {
     private void configureBottomNavigationView() {
         mBottomNavigation = findViewById(R.id.bottom_view);
 
-        final int primaryColor = MaterialColors.getColor(
-                this, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
-        final int surfaceColor = MaterialColors.getColor(
-                this, com.google.android.material.R.attr.colorSurface, Color.BLACK);
-        final int onBackgroundColor = MaterialColors.getColor(
-                this, com.google.android.material.R.attr.colorOnBackground, Color.BLACK);
+        final int primaryColor = MaterialColors.getColor(this, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
+        final int surfaceColor = MaterialColors.getColor(this, com.google.android.material.R.attr.colorSurface, Color.BLACK);
+        final int onBackgroundColor = MaterialColors.getColor(this, com.google.android.material.R.attr.colorOnBackground, Color.BLACK);
 
         String tabTitleVisibility = SettingsDAO.getTabTitleVisibility(mPrefs);
-        final boolean shouldUpdateTypeface =
-                !tabTitleVisibility.equals(TAB_TITLE_VISIBILITY_NEVER) && mFontPath != null;
+        final boolean shouldUpdateTypeface = !tabTitleVisibility.equals(TAB_TITLE_VISIBILITY_NEVER) && mFontPath != null;
 
         if (shouldUpdateTypeface) {
             updateBottomNavTypeface();
@@ -745,14 +698,14 @@ public class DeskClock extends BaseActivity implements FabContainer {
         }
 
         mBottomNavigation.setItemIconTintList(new ColorStateList(
-                new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
-                new int[]{primaryColor, primaryColor, onBackgroundColor}));
+            new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
+            new int[]{primaryColor, primaryColor, onBackgroundColor}));
 
         if (ThemeUtils.isNight(getResources()) && SettingsDAO.getDarkMode(mPrefs).equals(AMOLED_DARK_MODE)) {
             mBottomNavigation.setBackgroundColor(Color.BLACK);
             mBottomNavigation.setItemTextColor(new ColorStateList(
-                    new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
-                    new int[]{primaryColor, primaryColor, Color.WHITE}));
+                new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
+                new int[]{primaryColor, primaryColor, Color.WHITE}));
         } else {
             final boolean isCardBackgroundDisplayed = SettingsDAO.isCardBackgroundDisplayed(mPrefs);
 
@@ -763,8 +716,8 @@ public class DeskClock extends BaseActivity implements FabContainer {
             }
 
             mBottomNavigation.setItemTextColor(new ColorStateList(
-                    new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
-                    new int[]{primaryColor, primaryColor, onBackgroundColor}));
+                new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
+                new int[]{primaryColor, primaryColor, onBackgroundColor}));
         }
     }
 
@@ -888,19 +841,11 @@ public class DeskClock extends BaseActivity implements FabContainer {
         final boolean screenShouldStayOn;
 
         switch (selectedTab) {
-            case ALARMS, CLOCKS ->
-                screenShouldStayOn = SettingsDAO.shouldScreenRemainOn(mPrefs);
-
-            case TIMERS ->
-                screenShouldStayOn = DataModel.getDataModel().hasActiveTimer()
-                        || SettingsDAO.shouldScreenRemainOn(mPrefs);
-
+            case ALARMS, CLOCKS -> screenShouldStayOn = SettingsDAO.shouldScreenRemainOn(mPrefs);
+            case TIMERS -> screenShouldStayOn = DataModel.getDataModel().hasActiveTimer() || SettingsDAO.shouldScreenRemainOn(mPrefs);
             case STOPWATCH ->
-                screenShouldStayOn = DataModel.getDataModel().getStopwatch().isRunning()
-                        || SettingsDAO.shouldScreenRemainOn(mPrefs);
-
+                screenShouldStayOn = DataModel.getDataModel().getStopwatch().isRunning() || SettingsDAO.shouldScreenRemainOn(mPrefs);
             default -> screenShouldStayOn = false;
-
         }
 
         if (screenShouldStayOn) {

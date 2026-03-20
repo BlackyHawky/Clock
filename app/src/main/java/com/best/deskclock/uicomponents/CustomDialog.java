@@ -35,20 +35,20 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 public class CustomDialog {
 
     public static AlertDialog create(
-            @NonNull Context context,
-            @Nullable @StyleRes Integer styleRes,
-            @Nullable Drawable icon,
-            @Nullable CharSequence title,
-            @Nullable CharSequence message,
-            @Nullable View customView,
-            @Nullable CharSequence positiveText,
-            @Nullable DialogInterface.OnClickListener positiveListener,
-            @Nullable CharSequence negativeText,
-            @Nullable DialogInterface.OnClickListener negativeListener,
-            @Nullable CharSequence neutralText,
-            @Nullable DialogInterface.OnClickListener neutralListener,
-            @Nullable OnDialogReady onDialogReady,
-            @NonNull SoftInputMode softInputMode
+        @NonNull Context context,
+        @Nullable @StyleRes Integer styleRes,
+        @Nullable Drawable icon,
+        @Nullable CharSequence title,
+        @Nullable CharSequence message,
+        @Nullable View customView,
+        @Nullable CharSequence positiveText,
+        @Nullable DialogInterface.OnClickListener positiveListener,
+        @Nullable CharSequence negativeText,
+        @Nullable DialogInterface.OnClickListener negativeListener,
+        @Nullable CharSequence neutralText,
+        @Nullable DialogInterface.OnClickListener neutralListener,
+        @Nullable OnDialogReady onDialogReady,
+        @NonNull SoftInputMode softInputMode
     ) {
 
         SharedPreferences prefs = getDefaultSharedPreferences(context);
@@ -89,12 +89,12 @@ public class CustomDialog {
 
         // Builder
         MaterialAlertDialogBuilder builder = (styleRes != null)
-                ? new MaterialAlertDialogBuilder(context, styleRes)
-                : new MaterialAlertDialogBuilder(context);
+            ? new MaterialAlertDialogBuilder(context, styleRes)
+            : new MaterialAlertDialogBuilder(context);
 
         builder
-                .setCustomTitle(titleView)
-                .setView(dialogContent);
+            .setCustomTitle(titleView)
+            .setView(dialogContent);
 
         if (positiveText != null) {
             builder.setPositiveButton(positiveText, positiveListener);
@@ -137,9 +137,8 @@ public class CustomDialog {
         if (softInputMode == SoftInputMode.SHOW_KEYBOARD) {
             Window window = dialog.getWindow();
             if (window != null) {
-                window.setSoftInputMode(
-                        WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN |
-                                WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE
+                window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN
+                    | WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE
                 );
             }
         }
@@ -148,43 +147,41 @@ public class CustomDialog {
     }
 
     public static AlertDialog createSimpleDialog(
-            Context context,
-            @DrawableRes int iconRes,
-            @StringRes int titleRes,
-            CharSequence message,
-            @StringRes int positiveTextRes,
-            DialogInterface.OnClickListener positiveListener
+        Context context,
+        @DrawableRes int iconRes,
+        @StringRes int titleRes,
+        CharSequence message,
+        @StringRes int positiveTextRes,
+        DialogInterface.OnClickListener positiveListener
     ) {
         return create(
-                context,
-                null,
-                AppCompatResources.getDrawable(context, iconRes),
-                context.getString(titleRes),
-                message,
-                null,
-                context.getString(positiveTextRes),
-                positiveListener,
-                context.getString(android.R.string.cancel),
-                null,
-                null,
-                null,
-                null,
-                SoftInputMode.NONE
+            context,
+            null,
+            AppCompatResources.getDrawable(context, iconRes),
+            context.getString(titleRes),
+            message,
+            null,
+            context.getString(positiveTextRes),
+            positiveListener,
+            context.getString(android.R.string.cancel),
+            null,
+            null,
+            null,
+            null,
+            SoftInputMode.NONE
         );
     }
 
     private static void configureScrollView(View dialogView) {
         NestedScrollView scrollView = dialogView.findViewById(R.id.scrollView);
 
-        boolean scrollable = scrollView.canScrollVertically(1)
-                || scrollView.canScrollVertically(-1);
+        boolean scrollable = scrollView.canScrollVertically(1) || scrollView.canScrollVertically(-1);
 
         if (scrollable) {
             scrollView.setScrollIndicators(View.SCROLL_INDICATOR_BOTTOM);
         }
 
-        scrollView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) (
-                v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+        scrollView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
 
             scrollView.setScrollIndicators(View.SCROLL_INDICATOR_TOP | View.SCROLL_INDICATOR_BOTTOM);
 

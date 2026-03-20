@@ -49,8 +49,7 @@ public class KeepAliveService extends Service {
 
         Intent notificationIntent = new Intent(this, DeskClock.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(
-                this, 0, notificationIntent, PendingIntent.FLAG_IMMUTABLE
-        );
+            this, 0, notificationIntent, PendingIntent.FLAG_IMMUTABLE);
 
         CharSequence notificationTitle;
         if (BuildConfig.IS_DEBUG_BUILD) {
@@ -62,17 +61,17 @@ public class KeepAliveService extends Service {
         }
 
         Notification notification = new NotificationCompat.Builder(this, FOREGROUND_SERVICE_CHANNEL_ID)
-                .setContentTitle(notificationTitle)
-                .setContentText(getString(R.string.foreground_service_message))
-                .setColor(getColor(R.color.md_theme_primary))
-                .setSmallIcon(R.drawable.ic_tab_alarm_static)
-                .setContentIntent(pendingIntent)
-                .setOngoing(true)
-                .setPriority(NotificationCompat.PRIORITY_LOW)
-                .setCategory(NotificationCompat.CATEGORY_SERVICE)
-                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-                .setShowWhen(false)
-                .build();
+            .setContentTitle(notificationTitle)
+            .setContentText(getString(R.string.foreground_service_message))
+            .setColor(getColor(R.color.md_theme_primary))
+            .setSmallIcon(R.drawable.ic_tab_alarm_static)
+            .setContentIntent(pendingIntent)
+            .setOngoing(true)
+            .setPriority(NotificationCompat.PRIORITY_LOW)
+            .setCategory(NotificationCompat.CATEGORY_SERVICE)
+            .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+            .setShowWhen(false)
+            .build();
 
         int foregroundServiceType = 0;
 
@@ -80,12 +79,7 @@ public class KeepAliveService extends Service {
             foregroundServiceType = ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE;
         }
 
-        ServiceCompat.startForeground(
-                this,
-                FOREGROUND_SERVICE_NOTIFICATION_ID,
-                notification,
-                foregroundServiceType
-        );
+        ServiceCompat.startForeground(this, FOREGROUND_SERVICE_NOTIFICATION_ID, notification, foregroundServiceType);
 
         return START_STICKY;
     }

@@ -9,7 +9,6 @@ package com.best.deskclock.settings.custompreference;
 import static android.content.Context.AUDIO_SERVICE;
 import static android.media.AudioManager.STREAM_ALARM;
 import static android.view.View.GONE;
-
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.utils.RingtoneUtils.ALARM_PREVIEW_DURATION_MS;
 
@@ -112,8 +111,7 @@ public class AlarmVolumePreference extends Preference {
         mSlider.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
             @Override
             public void onViewAttachedToWindow(@NonNull View v) {
-                mContext.getContentResolver().registerContentObserver(Settings.System.CONTENT_URI,
-                        true, volumeObserver);
+                mContext.getContentResolver().registerContentObserver(Settings.System.CONTENT_URI, true, volumeObserver);
             }
 
             @Override
@@ -186,11 +184,11 @@ public class AlarmVolumePreference extends Preference {
         int max = (int) mSlider.getValueTo();
 
         ThemeUtils.updateSliderButtonEnabledState(mContext, mSliderMinus, isPrefEnabled
-                && progress > 0
-                && !RingtoneUtils.hasExternalAudioDeviceConnected(mContext, mPrefs));
+            && progress > 0
+            && !RingtoneUtils.hasExternalAudioDeviceConnected(mContext, mPrefs));
         ThemeUtils.updateSliderButtonEnabledState(mContext, mSliderPlus, isPrefEnabled
-                && progress < max
-                && !RingtoneUtils.hasExternalAudioDeviceConnected(mContext, mPrefs));
+            && progress < max
+            && !RingtoneUtils.hasExternalAudioDeviceConnected(mContext, mPrefs));
     }
 
     private void updateVolume(AudioManager audioManager) {

@@ -8,7 +8,6 @@ package com.best.deskclock.data;
 
 import static android.text.format.DateUtils.HOUR_IN_MILLIS;
 import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
-
 import static com.best.deskclock.data.DataModel.PowerButtonBehavior.DISMISS;
 import static com.best.deskclock.data.DataModel.PowerButtonBehavior.NOTHING;
 import static com.best.deskclock.data.DataModel.PowerButtonBehavior.SNOOZE;
@@ -21,7 +20,6 @@ import static com.best.deskclock.data.Weekdays.Order.SAT_TO_FRI;
 import static com.best.deskclock.data.Weekdays.Order.SUN_TO_SAT;
 import static com.best.deskclock.settings.PreferencesDefaultValues.*;
 import static com.best.deskclock.settings.PreferencesKeys.*;
-
 import static java.util.Calendar.MONDAY;
 import static java.util.Calendar.SATURDAY;
 import static java.util.Calendar.SUNDAY;
@@ -891,8 +889,7 @@ public final class SettingsDAO {
      */
     public static boolean isPerAlarmCrescendoDurationDisabled(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_alarm.xml
-        return !prefs.getBoolean(KEY_ENABLE_PER_ALARM_VOLUME_CRESCENDO_DURATION,
-                DEFAULT_ENABLE_PER_ALARM_VOLUME_CRESCENDO_DURATION);
+        return !prefs.getBoolean(KEY_ENABLE_PER_ALARM_VOLUME_CRESCENDO_DURATION, DEFAULT_ENABLE_PER_ALARM_VOLUME_CRESCENDO_DURATION);
     }
 
     /**
@@ -1517,7 +1514,7 @@ public final class SettingsDAO {
      * These descriptors have a natural order from furthest behind of GMT to furthest ahead GMT.
      */
     private record TimeZoneDescriptor(int offset, String timeZoneId, String timeZoneName)
-            implements Comparable<TimeZoneDescriptor> {
+        implements Comparable<TimeZoneDescriptor> {
 
         public static TimeZoneDescriptor create(Context context, Locale locale, String id, long currentTime) {
             final TimeZone tz = TimeZone.getTimeZone(id);
@@ -1571,14 +1568,13 @@ public final class SettingsDAO {
                 }
             }
 
-            final String generatedName =
-                    String.format(locale, "(UTC%s%d:%02d) %s", sign, hour, minute, locationName);
+            final String generatedName = String.format(locale, "(UTC%s%d:%02d) %s", sign, hour, minute, locationName);
 
             return new TimeZoneDescriptor(currentOffset, id, generatedName);
         }
 
-         @Override
-         public int compareTo(@NonNull TimeZoneDescriptor other) {
+        @Override
+        public int compareTo(@NonNull TimeZoneDescriptor other) {
             return Integer.compare(this.offset, other.offset);
         }
     }

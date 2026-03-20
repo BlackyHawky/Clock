@@ -47,8 +47,7 @@ public class CustomToast {
         View layout = LayoutInflater.from(themedContext).inflate(R.layout.custom_toast, null);
 
         TextView text = layout.findViewById(R.id.toast_text);
-        text.setBackground(ThemeUtils.pillBackgroundFromAttr(themedContext,
-                com.google.android.material.R.attr.colorSecondary));
+        text.setBackground(ThemeUtils.pillBackgroundFromAttr(themedContext, com.google.android.material.R.attr.colorSecondary));
         text.setText(message);
 
         Typeface typeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
@@ -70,8 +69,8 @@ public class CustomToast {
      * indeed, apps targeting API level 30 or higher that are in the background will
      * not have custom toast views displayed.</p>
      *
-     * @param context the base context used to apply theming
-     * @param layout the custom layout to display inside the toast
+     * @param context  the base context used to apply theming
+     * @param layout   the custom layout to display inside the toast
      * @param duration the toast duration (e.g., Toast.LENGTH_SHORT or Toast.LENGTH_LONG)
      * @return a configured Toast instance ready to be shown
      */

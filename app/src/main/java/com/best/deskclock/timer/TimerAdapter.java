@@ -22,11 +22,11 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.data.TimerListener;
-import com.best.deskclock.R;
 import com.best.deskclock.utils.ThemeUtils;
 
 import java.util.ArrayList;
@@ -406,7 +406,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                                 float x = e.getRawX();
                                 float y = e.getRawY();
                                 isTouchOnDragBlockingView = x >= loc[0] && x <= loc[0] + addTimeButton.getWidth()
-                                        && y >= loc[1] && y <= loc[1] + addTimeButton.getHeight();
+                                    && y >= loc[1] && y <= loc[1] + addTimeButton.getHeight();
                             } else {
                                 isTouchOnDragBlockingView = false;
                             }
@@ -478,8 +478,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
             // Draw a shadow under the timer card when it's dragging.
             if (actionState == ItemTouchHelper.ACTION_STATE_DRAG && viewHolder != null) {
-                viewHolder.itemView.setTranslationZ(
-                        dpToPx(6, viewHolder.itemView.getContext().getResources().getDisplayMetrics()));
+                viewHolder.itemView.setTranslationZ(dpToPx(6, viewHolder.itemView.getContext().getResources().getDisplayMetrics()));
             }
         }
 

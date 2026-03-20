@@ -48,8 +48,7 @@ public abstract class RingtoneHolder implements RingtoneAdapter.RingtoneItem {
     }
 
     boolean isRandom() {
-        return RingtoneUtils.RANDOM_RINGTONE.equals(mUri)
-                || RingtoneUtils.RANDOM_CUSTOM_RINGTONE.equals(mUri);
+        return RingtoneUtils.RANDOM_RINGTONE.equals(mUri) || RingtoneUtils.RANDOM_CUSTOM_RINGTONE.equals(mUri);
     }
 
     String getName() {

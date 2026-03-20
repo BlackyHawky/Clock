@@ -7,7 +7,6 @@
 package com.best.deskclock.alarms;
 
 import static android.content.Context.ALARM_SERVICE;
-
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_SNOOZE_DURATION_DISABLED;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_MISSED_ALARM_REPEAT_LIMIT;
@@ -201,8 +200,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         final AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
 
         final int flags = (nextAlarm == null ? PendingIntent.FLAG_NO_CREATE : 0) | PendingIntent.FLAG_IMMUTABLE;
-        final PendingIntent operation = PendingIntent.getBroadcast(
-                context, 0, createIndicatorIntent(context), flags);
+        final PendingIntent operation = PendingIntent.getBroadcast(context, 0, createIndicatorIntent(context), flags);
 
         if (nextAlarm != null) {
             LogUtils.i("Setting upcoming AlarmClockInfo for alarm: " + nextAlarm.mId);
@@ -210,8 +208,8 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
             // Create an intent that can be used to show or edit details of the next alarm.
             PendingIntent viewIntent = PendingIntent.getActivity(context, nextAlarm.hashCode(),
-                    AlarmNotifications.createViewAlarmIntent(context, nextAlarm),
-                    PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+                AlarmNotifications.createViewAlarmIntent(context, nextAlarm),
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
             final AlarmClockInfo info = new AlarmClockInfo(alarmTime, viewIntent);
             updateNextAlarm(alarmManager, info, operation);
@@ -261,13 +259,13 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 // and has already been fired, schedule the subsequent instance.
                 nextRepeatedInstance = alarm.createInstanceAfter(getCurrentTime());
                 if (instance.mAlarmState > AlarmInstance.FIRED_STATE
-                        && nextRepeatedInstance.getAlarmTime().equals(instance.getAlarmTime())) {
+                    && nextRepeatedInstance.getAlarmTime().equals(instance.getAlarmTime())) {
                     nextRepeatedInstance = alarm.createInstanceAfter(instance.getAlarmTime());
                 }
             }
 
             LogUtils.i("Creating new instance for repeating alarm " + alarm.id + " at " +
-                    AlarmUtils.getFormattedTime(context, nextRepeatedInstance.getAlarmTime()));
+                AlarmUtils.getFormattedTime(context, nextRepeatedInstance.getAlarmTime()));
             nextRepeatedInstance.addInstance(cr);
             registerInstance(context, nextRepeatedInstance, true);
         }
@@ -340,8 +338,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
         // Setup instance notification and scheduling timers
         AlarmNotifications.clearNotification(context, instance);
-        scheduleInstanceStateChange(context, instance.getNotificationTime(context),
-                instance, AlarmInstance.NOTIFICATION_STATE);
+        scheduleInstanceStateChange(context, instance.getNotificationTime(context), instance, AlarmInstance.NOTIFICATION_STATE);
     }
 
     /**
@@ -440,7 +437,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
         // Update alarm state and new alarm time in db.
         LogUtils.i("Setting snoozed state to instance " + instance.mId + " for "
-                + AlarmUtils.getFormattedTime(context, newAlarmTime));
+            + AlarmUtils.getFormattedTime(context, newAlarmTime));
         instance.setAlarmTime(newAlarmTime);
         instance.mAlarmState = AlarmInstance.SNOOZE_STATE;
         instance.updateInstance(context.getContentResolver());
@@ -452,8 +449,8 @@ public final class AlarmStateManager extends BroadcastReceiver {
         // Display the snooze minutes in a toast.
         if (showToast) {
             AppExecutors.getMainThread().post(() -> {
-                String displayTime = String.format(context.getResources()
-                        .getQuantityText(R.plurals.alarm_alert_snooze_set, snoozeMinutes).toString(), snoozeMinutes);
+                String displayTime = String.format(
+                    context.getResources().getQuantityText(R.plurals.alarm_alert_snooze_set, snoozeMinutes).toString(), snoozeMinutes);
                 if (DataModel.getDataModel().isApplicationInForeground()) {
                     CustomToast.showLong(context, displayTime);
                 } else {
@@ -484,7 +481,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         // If the "Silence after" or the "Repeat missed alarms" feature has been set to "Never"
         // in Settings or in the alarm edit panel, the alarm is snoozed instead of marked as missed.
         if (instance.mAutoSilenceDuration == TIMEOUT_NEVER
-                || maxMissedAlarmRepeatCount == Integer.parseInt(DEFAULT_MISSED_ALARM_REPEAT_LIMIT)) {
+            || maxMissedAlarmRepeatCount == Integer.parseInt(DEFAULT_MISSED_ALARM_REPEAT_LIMIT)) {
 
             LogUtils.i("Alarm auto-silenced. Snoozing");
             setSnoozeState(context, instance, true);
@@ -511,15 +508,13 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
             // Setup instance notification and scheduling timers
             AlarmNotifications.showMissedNotification(context, instance);
-            scheduleInstanceStateChange(
-                    context, instance.getMissedTimeToLive(), instance, AlarmInstance.DISMISSED_STATE);
+            scheduleInstanceStateChange(context, instance.getMissedTimeToLive(), instance, AlarmInstance.DISMISSED_STATE);
 
             cancelPowerOffAlarm(context, instance);
             // Instance is not valid anymore, so find next alarm that will fire and notify system
             updateNextAlarm(context);
         } else {
-            LogUtils.i("Alarm auto-silenced. Snoozing (missedAlarmCurrentCount = "
-                    + instance.mMissedAlarmCurrentCount + ")");
+            LogUtils.i("Alarm auto-silenced. Snoozing (missedAlarmCurrentCount = " + instance.mMissedAlarmCurrentCount + ")");
             setSnoozeState(context, instance, true);
         }
     }
@@ -814,7 +809,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 final CharSequence oldTime = DateFormat.format("MM/dd/yyyy hh:mm a", oldAlarmTime);
                 final CharSequence newTime = DateFormat.format("MM/dd/yyyy hh:mm a", newAlarmTime);
                 LogUtils.i("A time change has caused an existing alarm scheduled to fire at %s to" +
-                        " be replaced by a new alarm scheduled to fire at %s", oldTime, newTime);
+                    " be replaced by a new alarm scheduled to fire at %s", oldTime, newTime);
 
                 // The time change is so dramatic the AlarmInstance doesn't make any sense;
                 // remove it and schedule the new appropriate instance.
@@ -986,12 +981,12 @@ public final class AlarmStateManager extends BroadcastReceiver {
         public void scheduleInstanceStateChange(Context context, Calendar time, AlarmInstance instance, int newState) {
             final long timeInMillis = time.getTimeInMillis();
             LogUtils.i("Scheduling state change %d to instance %d at %s (%d)", newState,
-                    instance.mId, AlarmUtils.getFormattedTime(context, time), timeInMillis);
+                instance.mId, AlarmUtils.getFormattedTime(context, time), timeInMillis);
             final Intent stateChangeIntent = createStateChangeIntent(context, ALARM_MANAGER_TAG, instance, newState);
             // Treat alarm state change as high priority, use foreground broadcasts
             stateChangeIntent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
             PendingIntent pendingIntent = PendingIntent.getService(context, instance.hashCode(),
-                    stateChangeIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+                stateChangeIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
             final AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);
             // Ensure the alarm fires even if the device is dozing.
@@ -1004,8 +999,8 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
             // Create a PendingIntent that will match any one set for this instance
             PendingIntent pendingIntent = PendingIntent.getService(context, instance.hashCode(),
-                    createStateChangeIntent(context, ALARM_MANAGER_TAG, instance, null),
-                    PendingIntent.FLAG_NO_CREATE | PendingIntent.FLAG_IMMUTABLE);
+                createStateChangeIntent(context, ALARM_MANAGER_TAG, instance, null),
+                PendingIntent.FLAG_NO_CREATE | PendingIntent.FLAG_IMMUTABLE);
 
             if (pendingIntent != null) {
                 AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);

@@ -139,12 +139,12 @@ public class LogUtils {
      */
     public static String generateLocalLogFileHeader() {
         return "Device Manufacturer: " + Build.MANUFACTURER + "\n" +
-                "Device Model: " + Build.MODEL + "\n" +
-                "Device Code Name: " + Build.DEVICE + "\n" +
-                "Android Version: " + Build.VERSION.RELEASE + " (SDK " + Build.VERSION.SDK_INT + ")" + "\n" +
-                "App Version: " + BuildConfig.VERSION_NAME + " (Code " + BuildConfig.VERSION_CODE + ")" + "\n" +
-                // Empty line to separate header and logs
-                "\n";
+            "Device Model: " + Build.MODEL + "\n" +
+            "Device Code Name: " + Build.DEVICE + "\n" +
+            "Android Version: " + Build.VERSION.RELEASE + " (SDK " + Build.VERSION.SDK_INT + ")" + "\n" +
+            "App Version: " + BuildConfig.VERSION_NAME + " (Code " + BuildConfig.VERSION_CODE + ")" + "\n" +
+            // Empty line to separate header and logs
+            "\n";
     }
 
     public record Logger(String logTag) {

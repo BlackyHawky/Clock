@@ -53,8 +53,8 @@ public class MainClockViewHolder extends RecyclerView.ViewHolder {
         mDigitalClockFontSize = SettingsDAO.getDigitalClockFontSize(mPrefs);
     }
 
-    public void bind(Context context, String dateFormat, String dateFormatForAccessibility,
-                      List<City> selectedCities, boolean showHomeClock, boolean isPortrait) {
+    public void bind(Context context, String dateFormat, String dateFormatForAccessibility, List<City> selectedCities,
+                     boolean showHomeClock, boolean isPortrait) {
 
         ViewGroup.LayoutParams mainClockparams = mMainClockContainer.getLayoutParams();
 
@@ -66,8 +66,7 @@ public class MainClockViewHolder extends RecyclerView.ViewHolder {
                 mEmptyCityView.setVisibility(View.VISIBLE);
             } else {
                 mainClockparams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                mMainClockContainer.setPadding(0, 0, 0,
-                        (int) dpToPx(20, context.getResources().getDisplayMetrics()));
+                mMainClockContainer.setPadding(0, 0, 0, (int) dpToPx(20, context.getResources().getDisplayMetrics()));
                 mEmptyCityView.setVisibility(View.GONE);
             }
 
@@ -79,8 +78,8 @@ public class MainClockViewHolder extends RecyclerView.ViewHolder {
         ClockUtils.setClockStyle(mClockStyle, mDigitalClock, mAnalogClock);
         if (mClockStyle == DataModel.ClockStyle.DIGITAL) {
             ClockUtils.setDigitalClockFont(mDigitalClock, mDigitalClockFontPath);
-            ClockUtils.setDigitalClockTimeFormat(mDigitalClock, 0.4f, mAreClockSecondsDisplayed,
-                    false, true, false);
+            ClockUtils.setDigitalClockTimeFormat(
+                mDigitalClock, 0.4f, mAreClockSecondsDisplayed, false, true, false);
             mDigitalClock.applyUserPreferredTextSizeSp(mDigitalClockFontSize);
         } else {
             ClockUtils.adjustAnalogClockSize(mAnalogClock, mPrefs, false, true, false);

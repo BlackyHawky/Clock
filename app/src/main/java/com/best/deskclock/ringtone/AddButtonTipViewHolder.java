@@ -3,7 +3,6 @@
 package com.best.deskclock.ringtone;
 
 import static android.view.View.GONE;
-
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 

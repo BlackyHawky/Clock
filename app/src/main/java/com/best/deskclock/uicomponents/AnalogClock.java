@@ -7,24 +7,8 @@
 package com.best.deskclock.uicomponents;
 
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
-
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-import static com.best.deskclock.settings.PreferencesDefaultValues.BLACK_ACCENT_COLOR;
-import static com.best.deskclock.settings.PreferencesDefaultValues.BLUE_ACCENT_COLOR;
-import static com.best.deskclock.settings.PreferencesDefaultValues.BLUE_GRAY_ACCENT_COLOR;
-import static com.best.deskclock.settings.PreferencesDefaultValues.BROWN_ACCENT_COLOR;
-import static com.best.deskclock.settings.PreferencesDefaultValues.CLOCK_DIAL_WITH_ROMAN_NUMBERS;
-import static com.best.deskclock.settings.PreferencesDefaultValues.CLOCK_SECOND_HAND_LOLLIPOP;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_CLOCK_DIAL;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_CLOCK_DIAL_MATERIAL;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_CLOCK_SECOND_HAND;
-import static com.best.deskclock.settings.PreferencesDefaultValues.GREEN_ACCENT_COLOR;
-import static com.best.deskclock.settings.PreferencesDefaultValues.INDIGO_ACCENT_COLOR;
-import static com.best.deskclock.settings.PreferencesDefaultValues.ORANGE_ACCENT_COLOR;
-import static com.best.deskclock.settings.PreferencesDefaultValues.PINK_ACCENT_COLOR;
-import static com.best.deskclock.settings.PreferencesDefaultValues.PURPLE_ACCENT_COLOR;
-import static com.best.deskclock.settings.PreferencesDefaultValues.RED_ACCENT_COLOR;
-import static com.best.deskclock.settings.PreferencesDefaultValues.YELLOW_ACCENT_COLOR;
+import static com.best.deskclock.settings.PreferencesDefaultValues.*;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -241,17 +225,17 @@ public class AnalogClock extends FrameLayout {
             final boolean isLollipopSecondHand = analogSecondHandPref.equals(CLOCK_SECOND_HAND_LOLLIPOP);
 
             secondHand.setImageDrawable(AppCompatResources.getDrawable(mContext, isDefaultSecondHand
-                    ? R.drawable.analog_clock_second
-                    : isLollipopSecondHand
-                    ? R.drawable.analog_clock_second_lollipop
-                    : R.drawable.analog_clock_second_vintage));
+                ? R.drawable.analog_clock_second
+                : isLollipopSecondHand
+                ? R.drawable.analog_clock_second_lollipop
+                : R.drawable.analog_clock_second_vintage));
 
             boolean isAutoNightAccentColorEnabled = SettingsDAO.isAutoNightAccentColorEnabled(mPrefs);
             String nightAccentColor = SettingsDAO.getNightAccentColor(mPrefs);
 
             secondHand.setColorFilter(isAlarmContext()
-                    ? alarmSecondHandColor
-                    : getAccentColor(isAutoNightAccentColorEnabled, accentColor, nightAccentColor));
+                ? alarmSecondHandColor
+                : getAccentColor(isAutoNightAccentColorEnabled, accentColor, nightAccentColor));
         }
 
         // Must call mutate on these instances, otherwise the drawables will blur, because they're
@@ -267,8 +251,8 @@ public class AnalogClock extends FrameLayout {
     private int getMaterialAnalogDrawableResId(String componentType) {
         return switch (componentType) {
             case DIAL -> getMaterialAnalogDialPreference().equals(DEFAULT_CLOCK_DIAL_MATERIAL)
-                    ? R.drawable.material_you_analog_clock_dial_sun
-                    : R.drawable.material_you_analog_clock_dial_flower;
+                ? R.drawable.material_you_analog_clock_dial_sun
+                : R.drawable.material_you_analog_clock_dial_flower;
             case HOUR_HAND -> R.drawable.material_you_analog_clock_hour;
             case MINUTE_HAND -> R.drawable.material_you_analog_clock_minute;
             default -> 0; // Default, should never happen
@@ -300,16 +284,16 @@ public class AnalogClock extends FrameLayout {
 
         return switch (componentType) {
             case DIAL -> isDefaultStyle
-                    ? R.drawable.analog_clock_dial_with_numbers
-                    : isRomanStyle
-                    ? R.drawable.analog_clock_dial_with_roman_numbers
-                    : R.drawable.analog_clock_dial_without_numbers;
+                ? R.drawable.analog_clock_dial_with_numbers
+                : isRomanStyle
+                ? R.drawable.analog_clock_dial_with_roman_numbers
+                : R.drawable.analog_clock_dial_without_numbers;
             case HOUR_HAND -> isRomanStyle
-                    ? R.drawable.analog_clock_roman_hour
-                    : R.drawable.analog_clock_hour;
+                ? R.drawable.analog_clock_roman_hour
+                : R.drawable.analog_clock_hour;
             case MINUTE_HAND -> isRomanStyle
-                    ? R.drawable.analog_clock_roman_minute
-                    : R.drawable.analog_clock_minute;
+                ? R.drawable.analog_clock_roman_minute
+                : R.drawable.analog_clock_minute;
             default -> 0; // Default, should never happen
         };
     }
@@ -356,8 +340,8 @@ public class AnalogClock extends FrameLayout {
      */
     private int getAccentColor(boolean isAutoNightAccentColorEnabled, String accentColor, String nightAccentColor) {
         String colorKey = isAutoNightAccentColorEnabled
-                ? accentColor
-                : (ThemeUtils.isNight(mContext.getResources()) ? nightAccentColor : accentColor);
+            ? accentColor
+            : (ThemeUtils.isNight(mContext.getResources()) ? nightAccentColor : accentColor);
 
         return switch (colorKey) {
             case BLACK_ACCENT_COLOR -> mContext.getColor(R.color.blackColorPrimary);
@@ -381,77 +365,77 @@ public class AnalogClock extends FrameLayout {
     private int getMaterialAnalogClockColor(String accentColor, String componentType) {
         int colorResId = switch (accentColor) {
             case BLACK_ACCENT_COLOR -> getColorResourceForComponent(
-                    R.color.blackColorGray1,
-                    R.color.blackAnalogWidgetSecondary,
-                    R.color.blackAnalogWidgetPrimary,
-                    R.color.blackColorTertiary,
-                    componentType);
+                R.color.blackColorGray1,
+                R.color.blackAnalogWidgetSecondary,
+                R.color.blackAnalogWidgetPrimary,
+                R.color.blackColorTertiary,
+                componentType);
             case BLUE_ACCENT_COLOR -> getColorResourceForComponent(
-                    R.color.blueSecondaryContainer,
-                    R.color.blueAnalogWidgetSecondary,
-                    R.color.blueAnalogWidgetPrimary,
-                    R.color.blueColorTertiary,
-                    componentType);
+                R.color.blueSecondaryContainer,
+                R.color.blueAnalogWidgetSecondary,
+                R.color.blueAnalogWidgetPrimary,
+                R.color.blueColorTertiary,
+                componentType);
             case BLUE_GRAY_ACCENT_COLOR -> getColorResourceForComponent(
-                    R.color.blueGraySecondaryContainer,
-                    R.color.blueGrayAnalogWidgetSecondary,
-                    R.color.blueGrayAnalogWidgetPrimary,
-                    R.color.blueGrayColorTertiary,
-                    componentType);
+                R.color.blueGraySecondaryContainer,
+                R.color.blueGrayAnalogWidgetSecondary,
+                R.color.blueGrayAnalogWidgetPrimary,
+                R.color.blueGrayColorTertiary,
+                componentType);
             case BROWN_ACCENT_COLOR -> getColorResourceForComponent(
-                    R.color.brownSecondaryContainer,
-                    R.color.brownAnalogWidgetSecondary,
-                    R.color.brownAnalogWidgetPrimary,
-                    R.color.brownColorTertiary,
-                    componentType);
+                R.color.brownSecondaryContainer,
+                R.color.brownAnalogWidgetSecondary,
+                R.color.brownAnalogWidgetPrimary,
+                R.color.brownColorTertiary,
+                componentType);
             case GREEN_ACCENT_COLOR -> getColorResourceForComponent(
-                    R.color.greenSecondaryContainer,
-                    R.color.greenAnalogWidgetSecondary,
-                    R.color.greenAnalogWidgetPrimary,
-                    R.color.greenColorTertiary,
-                    componentType);
+                R.color.greenSecondaryContainer,
+                R.color.greenAnalogWidgetSecondary,
+                R.color.greenAnalogWidgetPrimary,
+                R.color.greenColorTertiary,
+                componentType);
             case INDIGO_ACCENT_COLOR -> getColorResourceForComponent(
-                    R.color.indigoSecondaryContainer,
-                    R.color.indigoAnalogWidgetSecondary,
-                    R.color.indigoAnalogWidgetPrimary,
-                    R.color.indigoColorTertiary,
-                    componentType);
+                R.color.indigoSecondaryContainer,
+                R.color.indigoAnalogWidgetSecondary,
+                R.color.indigoAnalogWidgetPrimary,
+                R.color.indigoColorTertiary,
+                componentType);
             case ORANGE_ACCENT_COLOR -> getColorResourceForComponent(
-                    R.color.orangeSecondaryContainer,
-                    R.color.orangeAnalogWidgetSecondary,
-                    R.color.orangeAnalogWidgetPrimary,
-                    R.color.orangeColorTertiary,
-                    componentType);
+                R.color.orangeSecondaryContainer,
+                R.color.orangeAnalogWidgetSecondary,
+                R.color.orangeAnalogWidgetPrimary,
+                R.color.orangeColorTertiary,
+                componentType);
             case PINK_ACCENT_COLOR -> getColorResourceForComponent(
-                    R.color.pinkSecondaryContainer,
-                    R.color.pinkAnalogWidgetSecondary,
-                    R.color.pinkAnalogWidgetPrimary,
-                    R.color.pinkColorTertiary,
-                    componentType);
+                R.color.pinkSecondaryContainer,
+                R.color.pinkAnalogWidgetSecondary,
+                R.color.pinkAnalogWidgetPrimary,
+                R.color.pinkColorTertiary,
+                componentType);
             case PURPLE_ACCENT_COLOR -> getColorResourceForComponent(
-                    R.color.purpleSecondaryContainer,
-                    R.color.purpleAnalogWidgetSecondary,
-                    R.color.purpleAnalogWidgetPrimary,
-                    R.color.purpleColorTertiary,
-                    componentType);
+                R.color.purpleSecondaryContainer,
+                R.color.purpleAnalogWidgetSecondary,
+                R.color.purpleAnalogWidgetPrimary,
+                R.color.purpleColorTertiary,
+                componentType);
             case RED_ACCENT_COLOR -> getColorResourceForComponent(
-                    R.color.redSecondaryContainer,
-                    R.color.redAnalogWidgetSecondary,
-                    R.color.redAnalogWidgetPrimary,
-                    R.color.redColorTertiary,
-                    componentType);
+                R.color.redSecondaryContainer,
+                R.color.redAnalogWidgetSecondary,
+                R.color.redAnalogWidgetPrimary,
+                R.color.redColorTertiary,
+                componentType);
             case YELLOW_ACCENT_COLOR -> getColorResourceForComponent(
-                    R.color.yellowSecondaryContainer,
-                    R.color.yellowAnalogWidgetSecondary,
-                    R.color.yellowAnalogWidgetPrimary,
-                    R.color.yellowColorTertiary,
-                    componentType);
+                R.color.yellowSecondaryContainer,
+                R.color.yellowAnalogWidgetSecondary,
+                R.color.yellowAnalogWidgetPrimary,
+                R.color.yellowColorTertiary,
+                componentType);
             default -> getColorResourceForComponent(
-                    R.color.md_theme_secondaryContainer,
-                    R.color.md_theme_analogWidgetSecondary,
-                    R.color.md_theme_analogWidgetPrimary,
-                    R.color.md_theme_tertiary,
-                    componentType);
+                R.color.md_theme_secondaryContainer,
+                R.color.md_theme_analogWidgetSecondary,
+                R.color.md_theme_analogWidgetPrimary,
+                R.color.md_theme_tertiary,
+                componentType);
         };
 
         return mContext.getColor(colorResId);

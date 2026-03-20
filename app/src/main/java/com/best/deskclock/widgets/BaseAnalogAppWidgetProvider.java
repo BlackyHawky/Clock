@@ -30,25 +30,34 @@ import com.best.deskclock.utils.WidgetUtils;
 public abstract class BaseAnalogAppWidgetProvider extends AppWidgetProvider {
 
     protected abstract int getLayoutId(SharedPreferences prefs);
+
     protected abstract int getWidgetViewId();
+
     protected abstract Icon getDialIcon(Context context, SharedPreferences prefs);
+
     protected abstract Icon getHourHandIcon(Context context, SharedPreferences prefs);
+
     protected abstract Icon getMinuteHandIcon(Context context, SharedPreferences prefs);
+
     protected abstract Icon getSecondHandIcon(Context context, SharedPreferences prefs);
+
     protected abstract boolean isSecondHandDisplayed(SharedPreferences prefs);
+
     protected abstract void applyDialColor(Icon dialIcon, SharedPreferences prefs);
+
     protected abstract void applyHourHandColor(Icon hourHandIcon, SharedPreferences prefs);
+
     protected abstract void applyMinuteHandColor(Icon minuteHandIcon, SharedPreferences prefs);
+
     protected abstract void applySecondHandColor(Icon secondHandIcon, SharedPreferences prefs);
 
     protected void updateAnalogWidget(Context context, AppWidgetManager wm, int widgetId) {
         SharedPreferences prefs = getDefaultSharedPreferences(context);
-        RemoteViews views = relayoutWidget(context,prefs, wm, widgetId);
+        RemoteViews views = relayoutWidget(context, prefs, wm, widgetId);
         wm.updateAppWidget(widgetId, views);
     }
 
-    protected RemoteViews relayoutWidget(Context context, SharedPreferences prefs,
-                                         AppWidgetManager wm, int widgetId) {
+    protected RemoteViews relayoutWidget(Context context, SharedPreferences prefs, AppWidgetManager wm, int widgetId) {
 
         RemoteViews rv = new RemoteViews(context.getPackageName(), getLayoutId(prefs));
 

@@ -109,8 +109,8 @@ public final class ClockFragment extends DeskClockFragment {
         mMutableCities.clear();
         mMutableCities.addAll(DataModel.getDataModel().getSelectedCities());
 
-        mCityAdapter = new SelectedCitiesAdapter(mContext, mDateFormat, mDateFormatForAccessibility,
-                mMutableCities, mShowHomeClock, mIsPortrait);
+        mCityAdapter = new SelectedCitiesAdapter(
+            mContext, mDateFormat, mDateFormatForAccessibility, mMutableCities, mShowHomeClock, mIsPortrait);
         DataModel.getDataModel().addCityListener(mCityAdapter);
 
         mAlarmChangeReceiver = new AlarmChangedBroadcastReceiver();
@@ -134,8 +134,7 @@ public final class ClockFragment extends DeskClockFragment {
             ClockUtils.setClockStyle(mClockStyle, digitalClock, analogClock);
             if (mIsDigitalClock) {
                 ClockUtils.setDigitalClockFont(digitalClock, SettingsDAO.getDigitalClockFont(mPrefs));
-                ClockUtils.setDigitalClockTimeFormat(digitalClock, 0.4f, mShowSeconds,
-                        false, true, false);
+                ClockUtils.setDigitalClockTimeFormat(digitalClock, 0.4f, mShowSeconds, false, true, false);
                 digitalClock.applyUserPreferredTextSizeSp(SettingsDAO.getDigitalClockFontSize(mPrefs));
             } else {
                 ClockUtils.adjustAnalogClockSize(analogClock, mPrefs, false, true, false);
@@ -156,15 +155,17 @@ public final class ClockFragment extends DeskClockFragment {
         // Due to the ViewPager and the location of FAB, set a bottom padding to prevent
         // the city list from being hidden by the FAB (e.g. when scrolling down).
         cityList.setPadding(0, 0, 0, (int) dpToPx(mIsTablet && mIsPortrait
-                ? 110 : mIsPortrait
-                ? 90 : 0, mDisplayMetrics));
+            ? 110
+            : mIsPortrait
+            ? 90
+            : 0, mDisplayMetrics)
+        );
 
         cityList.addItemDecoration(new CitySpacingItemDecoration(mContext, mIsPortrait, mIsTablet));
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
             @Override
-            public int getMovementFlags(@NonNull RecyclerView recyclerView,
-                                        @NonNull RecyclerView.ViewHolder viewHolder) {
+            public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
 
                 int position = viewHolder.getBindingAdapterPosition();
 
@@ -205,8 +206,7 @@ public final class ClockFragment extends DeskClockFragment {
             }
 
             @Override
-            public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView,
-                                    @NonNull RecyclerView.ViewHolder viewHolder,
+            public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder,
                                     float dX, float dY, int actionState, boolean isCurrentlyActive) {
 
                 // Calculation of upper and lower limits for drag
@@ -217,16 +217,16 @@ public final class ClockFragment extends DeskClockFragment {
                     // Upper limit
                     RecyclerView.ViewHolder firstHolder = recyclerView.findViewHolderForAdapterPosition(offset);
                     float minY = firstHolder != null
-                            ? firstHolder.itemView.getTop()
-                            : 0; // Fallback
+                        ? firstHolder.itemView.getTop()
+                        : 0; // Fallback
 
                     // Bottom limit
                     int lastIndex = mCityAdapter.getItemCount() - 1;
                     RecyclerView.ViewHolder lastHolder = recyclerView.findViewHolderForAdapterPosition(lastIndex);
 
                     float maxY = lastHolder != null
-                            ? lastHolder.itemView.getBottom()
-                            : recyclerView.getHeight() - recyclerView.getPaddingBottom();
+                        ? lastHolder.itemView.getBottom()
+                        : recyclerView.getHeight() - recyclerView.getPaddingBottom();
 
                     // Calculation of the projection
                     View movingView = viewHolder.itemView;
@@ -289,16 +289,15 @@ public final class ClockFragment extends DeskClockFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        getParentFragmentManager().setFragmentResultListener(
-                LabelDialogFragment.REQUEST_CITY_NOTE, getViewLifecycleOwner(),
-                (requestKey, bundle) -> {
-                    String cityId = bundle.getString(LabelDialogFragment.RESULT_CITY_ID);
-                    String note = bundle.getString(LabelDialogFragment.RESULT_CITY_NOTE);
+        getParentFragmentManager().setFragmentResultListener(LabelDialogFragment.REQUEST_CITY_NOTE, getViewLifecycleOwner(),
+            (requestKey, bundle) -> {
+                String cityId = bundle.getString(LabelDialogFragment.RESULT_CITY_ID);
+                String note = bundle.getString(LabelDialogFragment.RESULT_CITY_NOTE);
 
-                    if (cityId != null && note != null) {
-                        mCityAdapter.setCityNote(cityId, note);
-                    }
-                });
+                if (cityId != null && note != null) {
+                    mCityAdapter.setCityNote(cityId, note);
+                }
+            });
     }
 
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
@@ -353,18 +352,16 @@ public final class ClockFragment extends DeskClockFragment {
         startActivity(new Intent(mContext, CitySelectionActivity.class));
         if (SettingsDAO.isFadeTransitionsEnabled(mPrefs)) {
             if (SdkUtils.isAtLeastAndroid14()) {
-                requireActivity().overrideActivityTransition(OVERRIDE_TRANSITION_OPEN,
-                        R.anim.fade_in, R.anim.fade_out);
+                requireActivity().overrideActivityTransition(OVERRIDE_TRANSITION_OPEN, R.anim.fade_in, R.anim.fade_out);
             } else {
                 requireActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         } else {
             if (SdkUtils.isAtLeastAndroid14()) {
-                requireActivity().overrideActivityTransition(OVERRIDE_TRANSITION_OPEN,
-                        R.anim.activity_slide_from_right, R.anim.activity_slide_to_left);
+                requireActivity().overrideActivityTransition(
+                    OVERRIDE_TRANSITION_OPEN, R.anim.activity_slide_from_right, R.anim.activity_slide_to_left);
             } else {
-                requireActivity().overridePendingTransition(
-                        R.anim.activity_slide_from_right, R.anim.activity_slide_to_left);
+                requireActivity().overridePendingTransition(R.anim.activity_slide_from_right, R.anim.activity_slide_to_left);
             }
         }
     }
@@ -429,8 +426,8 @@ public final class ClockFragment extends DeskClockFragment {
         }
 
         @Override
-        public void getItemOffsets(@NonNull Rect outRect, @NonNull View view,
-                                   @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+        public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent,
+                                   @NonNull RecyclerView.State state) {
 
             boolean isRTL = ThemeUtils.isRTL();
             int position = parent.getChildAdapterPosition(view);

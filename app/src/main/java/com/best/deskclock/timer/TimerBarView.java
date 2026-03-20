@@ -45,10 +45,8 @@ public final class TimerBarView extends View {
 
         mBarHeight = dpToPx(6, getResources().getDisplayMetrics());
 
-        final int remainingColor = MaterialColors.getColor(
-                context, com.google.android.material.R.attr.colorOnSurfaceVariant, Color.BLACK);
-        final int completedColor = MaterialColors.getColor(
-                context, com.google.android.material.R.attr.colorPrimaryInverse, Color.BLACK);
+        final int remainingColor = MaterialColors.getColor(context, com.google.android.material.R.attr.colorOnSurfaceVariant, Color.BLACK);
+        final int completedColor = MaterialColors.getColor(context, com.google.android.material.R.attr.colorPrimaryInverse, Color.BLACK);
 
         mCompletedPaint.setAntiAlias(true);
         mCompletedPaint.setStyle(Paint.Style.FILL);
@@ -94,8 +92,8 @@ public final class TimerBarView extends View {
 
         final float totalLength = mTimer.getTotalLength();
         final float completedPercent = totalLength > 0
-                ? Math.min(1f, (float) mTimer.getElapsedTime() / totalLength)
-                : 0f;
+            ? Math.min(1f, (float) mTimer.getElapsedTime() / totalLength)
+            : 0f;
 
         final float completedWidth = completedPercent * width;
 
@@ -125,13 +123,17 @@ public final class TimerBarView extends View {
         }
 
         // Left rounded
-        mRadiiLeft[0] = radius; mRadiiLeft[1] = radius;
-        mRadiiLeft[6] = radius; mRadiiLeft[7] = radius;
+        mRadiiLeft[0] = radius;
+        mRadiiLeft[1] = radius;
+        mRadiiLeft[6] = radius;
+        mRadiiLeft[7] = radius;
         mRadiiLeft[2] = mRadiiLeft[3] = mRadiiLeft[4] = mRadiiLeft[5] = 0f;
 
         // Right rounded
-        mRadiiRight[2] = radius; mRadiiRight[3] = radius;
-        mRadiiRight[4] = radius; mRadiiRight[5] = radius;
+        mRadiiRight[2] = radius;
+        mRadiiRight[3] = radius;
+        mRadiiRight[4] = radius;
+        mRadiiRight[5] = radius;
         mRadiiRight[0] = mRadiiRight[1] = mRadiiRight[6] = mRadiiRight[7] = 0f;
     }
 

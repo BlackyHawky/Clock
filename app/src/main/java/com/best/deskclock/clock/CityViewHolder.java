@@ -79,8 +79,8 @@ public class CityViewHolder extends RecyclerView.ViewHolder {
         int absolutePosition = getBindingAdapterPosition();
         int mainClockCount = isPortrait ? 1 : 0;
         int cityPosition = absolutePosition != RecyclerView.NO_POSITION
-                ? absolutePosition - mainClockCount
-                : -1;
+            ? absolutePosition - mainClockCount
+            : -1;
         int totalCities = mAdapter.getItemCount() - mainClockCount;
 
         if (cityPosition >= 0) {
@@ -93,10 +93,9 @@ public class CityViewHolder extends RecyclerView.ViewHolder {
         if (isDigitalClock) {
             mAnalogClock.setVisibility(GONE);
             mDigitalClock.setBackground(ThemeUtils.pillBackgroundFromAttr(
-                    context, com.google.android.material.R.attr.colorSecondary));
+                context, com.google.android.material.R.attr.colorSecondary));
             ClockUtils.setDigitalClockFont(mDigitalClock, mDigitalClockFont);
-            ClockUtils.setDigitalClockTimeFormat(mDigitalClock, 0.3f,
-                    false, false, true, false);
+            ClockUtils.setDigitalClockTimeFormat(mDigitalClock, 0.3f, false, false, true, false);
             if (SettingsDAO.getAccentColor(mPrefs).equals(BLACK_ACCENT_COLOR)) {
                 mDigitalClock.setTextColor(Color.WHITE);
             }
@@ -136,12 +135,12 @@ public class CityViewHolder extends RecyclerView.ViewHolder {
 
         mHoursAhead.setVisibility(displayDifference ? VISIBLE : GONE);
         final String timeString = createHoursDifferentString(
-                context, displayMinutes, isAhead, hoursDifferent, minutesDifferent);
+            context, displayMinutes, isAhead, hoursDifferent, minutesDifferent);
         mHoursAhead.setText(displayDayOfWeek
-                ? (context.getString(isAhead
-                ? R.string.world_hours_tomorrow
-                : R.string.world_hours_yesterday, timeString))
-                : timeString);
+            ? (context.getString(isAhead
+            ? R.string.world_hours_tomorrow
+            : R.string.world_hours_yesterday, timeString))
+            : timeString);
         mHoursAhead.setTypeface(mRegularTypeface);
 
         // Allow text scrolling by clicking on the item (all other attributes are indicated
@@ -161,14 +160,9 @@ public class CityViewHolder extends RecyclerView.ViewHolder {
             }
 
             itemView.setOnClickListener(v -> {
-                LabelDialogFragment labelDialogFragment = LabelDialogFragment.newInstance(
-                        city.getId(),
-                        city.getName(),
-                        note);
+                LabelDialogFragment labelDialogFragment = LabelDialogFragment.newInstance(city.getId(), city.getName(), note);
 
-                LabelDialogFragment.show(
-                        ((AppCompatActivity) context).getSupportFragmentManager(),
-                        labelDialogFragment);
+                LabelDialogFragment.show(((AppCompatActivity) context).getSupportFragmentManager(), labelDialogFragment);
             });
         } else {
             cityNoteView.setVisibility(View.GONE);
@@ -191,17 +185,17 @@ public class CityViewHolder extends RecyclerView.ViewHolder {
         if (displayMinutes && hoursDifferent != 0) {
             // Both minutes and hours
             final String hoursShortQuantityString = FormattedTextUtils.getNumberFormattedQuantityString(
-                    context, R.plurals.hours_short, Math.abs(hoursDifferent));
+                context, R.plurals.hours_short, Math.abs(hoursDifferent));
             final String minsShortQuantityString = FormattedTextUtils.getNumberFormattedQuantityString(
-                    context, R.plurals.minutes_short, Math.abs(minutesDifferent));
+                context, R.plurals.minutes_short, Math.abs(minutesDifferent));
             final @StringRes int stringType = isAhead ? R.string.world_hours_minutes_ahead : R.string.world_hours_minutes_behind;
             timeString = context.getString(stringType, hoursShortQuantityString, minsShortQuantityString);
         } else {
             // Minutes alone or hours alone
             final String hoursQuantityString = FormattedTextUtils.getNumberFormattedQuantityString(
-                    context, R.plurals.hours, Math.abs(hoursDifferent));
+                context, R.plurals.hours, Math.abs(hoursDifferent));
             final String minutesQuantityString = FormattedTextUtils.getNumberFormattedQuantityString(
-                    context, R.plurals.minutes, Math.abs(minutesDifferent));
+                context, R.plurals.minutes, Math.abs(minutesDifferent));
             final @StringRes int stringType = isAhead ? R.string.world_time_ahead : R.string.world_time_behind;
             timeString = context.getString(stringType, displayMinutes ? minutesQuantityString : hoursQuantityString);
         }

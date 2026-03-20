@@ -51,26 +51,26 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     public static final int MISSED_TIME_TO_LIVE_HOUR_OFFSET = 12;
 
     private static final String[] QUERY_COLUMNS = {
-            _ID,
-            YEAR,
-            MONTH,
-            DAY,
-            HOUR,
-            MINUTES,
-            LABEL,
-            SYNC_BY_LABEL,
-            VIBRATE,
-            VIBRATION_PATTERN,
-            FLASH,
-            RINGTONE,
-            ALARM_ID,
-            ALARM_STATE,
-            AUTO_SILENCE_DURATION,
-            SNOOZE_DURATION,
-            MISSED_ALARM_REPEAT_COUNT,
-            MISSED_ALARM_REPEAT_LIMIT,
-            CRESCENDO_DURATION,
-            ALARM_VOLUME
+        _ID,
+        YEAR,
+        MONTH,
+        DAY,
+        HOUR,
+        MINUTES,
+        LABEL,
+        SYNC_BY_LABEL,
+        VIBRATE,
+        VIBRATION_PATTERN,
+        FLASH,
+        RINGTONE,
+        ALARM_ID,
+        ALARM_STATE,
+        AUTO_SILENCE_DURATION,
+        SNOOZE_DURATION,
+        MISSED_ALARM_REPEAT_COUNT,
+        MISSED_ALARM_REPEAT_LIMIT,
+        CRESCENDO_DURATION,
+        ALARM_VOLUME
     };
 
     /**
@@ -294,8 +294,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
      * @param alarmId         of instances desired.
      * @return list of alarms instances that are owned by alarmId.
      */
-    public static List<AlarmInstance> getInstancesByAlarmId(ContentResolver contentResolver,
-                                                            long alarmId) {
+    public static List<AlarmInstance> getInstancesByAlarmId(ContentResolver contentResolver, long alarmId) {
         return getInstances(contentResolver, ALARM_ID + "=" + alarmId);
     }
 
@@ -306,8 +305,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
      * @param alarmId         of instance desired
      * @return the next instance of an alarm by alarmId.
      */
-    public static AlarmInstance getNextUpcomingInstanceByAlarmId(ContentResolver contentResolver,
-                                                                 long alarmId) {
+    public static AlarmInstance getNextUpcomingInstanceByAlarmId(ContentResolver contentResolver, long alarmId) {
         final List<AlarmInstance> alarmInstances = getInstancesByAlarmId(contentResolver, alarmId);
         if (alarmInstances.isEmpty()) {
             return null;
@@ -390,8 +388,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
      *                      appear in the selection. The values will be bound as Strings.
      * @return list of alarms matching where clause or empty list if none found.
      */
-    public static List<AlarmInstance> getInstances(ContentResolver cr, String selection,
-                                                   String... selectionArgs) {
+    public static List<AlarmInstance> getInstances(ContentResolver cr, String selection, String... selectionArgs) {
         final List<AlarmInstance> result = new LinkedList<>();
         try (Cursor cursor = cr.query(CONTENT_URI, QUERY_COLUMNS, selection, selectionArgs, null)) {
             if (cursor != null && cursor.moveToFirst()) {
@@ -435,8 +432,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         contentResolver.delete(getContentUri(instanceId), "", null);
     }
 
-    public static void deleteOtherInstances(Context context, ContentResolver contentResolver,
-                                            long alarmId, long instanceId) {
+    public static void deleteOtherInstances(Context context, ContentResolver contentResolver, long alarmId, long instanceId) {
         final List<AlarmInstance> instances = getInstancesByAlarmId(contentResolver, alarmId);
         for (AlarmInstance instance : instances) {
             if (instance.mId != instanceId) {
@@ -536,26 +532,26 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     @Override
     public String toString() {
         return "AlarmInstance{" +
-                "mId=" + mId +
-                ", mYear=" + mYear +
-                ", mMonth=" + mMonth +
-                ", mDay=" + mDay +
-                ", mHour=" + mHour +
-                ", mMinute=" + mMinute +
-                ", mLabel=" + mLabel +
-                ", mSyncByLabel=" + mSyncByLabel +
-                ", mVibrate=" + mVibrate +
-                ", mVibrationPattern=" + mVibrationPattern +
-                ", mFlash=" + mFlash +
-                ", mRingtone=" + mRingtone +
-                ", mAlarmId=" + mAlarmId +
-                ", mAlarmState=" + mAlarmState +
-                ", mAutoSilenceDuration=" + mAutoSilenceDuration +
-                ", mSnoozeDuration=" + mSnoozeDuration +
-                ", mMissedAlarmCurrentCount=" + mMissedAlarmCurrentCount +
-                ", mMissedAlarmRepeatLimit=" + mMissedAlarmRepeatLimit +
-                ", mCrescendoDuration=" + mCrescendoDuration +
-                ", mAlarmVolume=" + mAlarmVolume +
-                '}';
+            "mId=" + mId +
+            ", mYear=" + mYear +
+            ", mMonth=" + mMonth +
+            ", mDay=" + mDay +
+            ", mHour=" + mHour +
+            ", mMinute=" + mMinute +
+            ", mLabel=" + mLabel +
+            ", mSyncByLabel=" + mSyncByLabel +
+            ", mVibrate=" + mVibrate +
+            ", mVibrationPattern=" + mVibrationPattern +
+            ", mFlash=" + mFlash +
+            ", mRingtone=" + mRingtone +
+            ", mAlarmId=" + mAlarmId +
+            ", mAlarmState=" + mAlarmState +
+            ", mAutoSilenceDuration=" + mAutoSilenceDuration +
+            ", mSnoozeDuration=" + mSnoozeDuration +
+            ", mMissedAlarmCurrentCount=" + mMissedAlarmCurrentCount +
+            ", mMissedAlarmRepeatLimit=" + mMissedAlarmRepeatLimit +
+            ", mCrescendoDuration=" + mCrescendoDuration +
+            ", mAlarmVolume=" + mAlarmVolume +
+            '}';
     }
 }

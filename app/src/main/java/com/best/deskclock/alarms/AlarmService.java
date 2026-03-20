@@ -110,7 +110,7 @@ public class AlarmService extends Service {
      * Binder given to AlarmActivity.
      */
     private final IBinder mBinder = new Binder();
-    
+
     /**
      * Whether the service is currently bound to AlarmActivity
      */
@@ -171,69 +171,70 @@ public class AlarmService extends Service {
     private SensorManager mSensorManager;
     private int mFlipAction;
     private final ResettableSensorEventListener mFlipListener = new ResettableSensorEventListener() {
-                // Accelerometers are not quite accurate.
-                private static final float GRAVITY_UPPER_THRESHOLD = 1.3f * SensorManager.STANDARD_GRAVITY;
-                private static final float GRAVITY_LOWER_THRESHOLD = 0.7f * SensorManager.STANDARD_GRAVITY;
-                private static final int SENSOR_SAMPLES = 3;
-                private final boolean[] mSamples = new boolean[SENSOR_SAMPLES];
-                private boolean mStopped;
-                private boolean mWasFaceUp;
-                private int mSampleIndex;
+        // Accelerometers are not quite accurate.
+        private static final float GRAVITY_UPPER_THRESHOLD = 1.3f * SensorManager.STANDARD_GRAVITY;
+        private static final float GRAVITY_LOWER_THRESHOLD = 0.7f * SensorManager.STANDARD_GRAVITY;
+        private static final int SENSOR_SAMPLES = 3;
+        private final boolean[] mSamples = new boolean[SENSOR_SAMPLES];
+        private boolean mStopped;
+        private boolean mWasFaceUp;
+        private int mSampleIndex;
 
-                @Override
-                public void onAccuracyChanged(Sensor sensor, int acc) {
-                }
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int acc) {
+        }
 
-                @Override
-                public void reset() {
-                    mWasFaceUp = false;
-                    mStopped = false;
+        @Override
+        public void reset() {
+            mWasFaceUp = false;
+            mStopped = false;
+            Arrays.fill(mSamples, false);
+        }
+
+        private boolean filterSamples() {
+            boolean allPass = true;
+            for (boolean sample : mSamples) {
+                allPass = allPass && sample;
+            }
+
+            return allPass;
+        }
+
+        @Override
+        public void onSensorChanged(SensorEvent event) {
+            // Add a sample overwriting the oldest one. Several samples are used to avoid
+            // the erroneous values the sensor sometimes returns.
+            float z = event.values[2];
+
+            if (mStopped) {
+                return;
+            }
+
+            if (!mWasFaceUp) {
+                // Check if its face up enough.
+                mSamples[mSampleIndex] = (z > GRAVITY_LOWER_THRESHOLD) &&
+                    (z < GRAVITY_UPPER_THRESHOLD);
+
+                // Face up
+                if (filterSamples()) {
+                    mWasFaceUp = true;
                     Arrays.fill(mSamples, false);
                 }
+            } else {
+                // Check if its face down enough.
+                mSamples[mSampleIndex] = (z < -GRAVITY_LOWER_THRESHOLD) &&
+                    (z > -GRAVITY_UPPER_THRESHOLD);
 
-                private boolean filterSamples() {
-                    boolean allPass = true;
-                    for (boolean sample : mSamples) {
-                        allPass = allPass && sample;
-                    }
-                    return allPass;
+                // Face down
+                if (filterSamples()) {
+                    mStopped = true;
+                    handleAction(mFlipAction);
                 }
+            }
 
-                @Override
-                public void onSensorChanged(SensorEvent event) {
-                    // Add a sample overwriting the oldest one. Several samples are used to avoid
-                    // the erroneous values the sensor sometimes returns.
-                    float z = event.values[2];
-
-                    if (mStopped) {
-                        return;
-                    }
-
-                    if (!mWasFaceUp) {
-                        // Check if its face up enough.
-                        mSamples[mSampleIndex] = (z > GRAVITY_LOWER_THRESHOLD) &&
-                                (z < GRAVITY_UPPER_THRESHOLD);
-
-                        // Face up
-                        if (filterSamples()) {
-                            mWasFaceUp = true;
-                            Arrays.fill(mSamples, false);
-                        }
-                    } else {
-                        // Check if its face down enough.
-                        mSamples[mSampleIndex] = (z < -GRAVITY_LOWER_THRESHOLD) &&
-                                (z > -GRAVITY_UPPER_THRESHOLD);
-
-                        // Face down
-                        if (filterSamples()) {
-                            mStopped = true;
-                            handleAction(mFlipAction);
-                        }
-                    }
-
-                    mSampleIndex = ((mSampleIndex + 1) % SENSOR_SAMPLES);
-                }
-            };
+            mSampleIndex = ((mSampleIndex + 1) % SENSOR_SAMPLES);
+        }
+    };
 
     private int mShakeAction;
     private final SensorEventListener mShakeListener = new SensorEventListener() {
@@ -377,8 +378,7 @@ public class AlarmService extends Service {
             }
             case STOP_ALARM_ACTION -> {
                 if (mCurrentAlarm != null && mCurrentAlarm.mId != instanceId) {
-                    LogUtils.e("Can't stop alarm for instance: %d because current alarm is: %d",
-                            instanceId, mCurrentAlarm.mId);
+                    LogUtils.e("Can't stop alarm for instance: %d because current alarm is: %d", instanceId, mCurrentAlarm.mId);
                     break;
                 }
                 stopCurrentAlarm();
@@ -386,8 +386,8 @@ public class AlarmService extends Service {
             }
             case STOP_ALARM_WITH_DOUBLE_VIBRATION_ACTION -> {
                 if (mCurrentAlarm != null && mCurrentAlarm.mId != instanceId) {
-                    LogUtils.e("Can't perform double vibration and stop alarm for instance: %d " +
-                                    "because current alarm is: %d", instanceId, mCurrentAlarm.mId);
+                    LogUtils.e("Can't perform double vibration and stop alarm for instance: %d because current alarm is: %d",
+                        instanceId, mCurrentAlarm.mId);
                     break;
                 }
                 performDoubleVibration();
@@ -395,8 +395,8 @@ public class AlarmService extends Service {
             }
             case STOP_ALARM_WITH_SINGLE_VIBRATION_ACTION -> {
                 if (mCurrentAlarm != null && mCurrentAlarm.mId != instanceId) {
-                    LogUtils.e("Can't perform single vibration and stop alarm for instance: %d " +
-                                    "because current alarm is: %d", instanceId, mCurrentAlarm.mId);
+                    LogUtils.e("Can't perform single vibration and stop alarm for instance: %d because current alarm is: %d",
+                        instanceId, mCurrentAlarm.mId);
                     break;
                 }
                 performSingleVibration();
@@ -595,8 +595,7 @@ public class AlarmService extends Service {
      * @param instance you are trying to stop
      */
     public static void stopAlarm(Context context, AlarmInstance instance) {
-        final Intent intent = AlarmInstance.createIntent(context, AlarmService.class, instance.mId)
-                .setAction(STOP_ALARM_ACTION);
+        final Intent intent = AlarmInstance.createIntent(context, AlarmService.class, instance.mId).setAction(STOP_ALARM_ACTION);
 
         // We don't need a wake lock here, since we are trying to kill an alarm
         context.startService(intent);
@@ -636,14 +635,14 @@ public class AlarmService extends Service {
         if (mFlipAction != ALARM_NO_ACTION) {
             mFlipListener.reset();
             mSensorManager.registerListener(mFlipListener,
-                    mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
-                    SensorManager.SENSOR_DELAY_NORMAL, 300 * 1000); // Batch every 300 milliseconds
+                mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+                SensorManager.SENSOR_DELAY_NORMAL, 300 * 1000); // Batch every 300 milliseconds
         }
 
         if (mShakeAction != ALARM_NO_ACTION) {
             mSensorManager.registerListener(mShakeListener,
-                    mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
-                    SensorManager.SENSOR_DELAY_GAME, 50 * 1000); // Batch every 50 milliseconds
+                mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+                SensorManager.SENSOR_DELAY_GAME, 50 * 1000); // Batch every 50 milliseconds
         }
     }
 
@@ -658,11 +657,11 @@ public class AlarmService extends Service {
 
     private void handleAction(int action) {
         if (action == ALARM_SNOOZE) { // Setup Snooze Action
-            startService(AlarmStateManager.createStateChangeIntent(this,
-                    AlarmStateManager.ALARM_SNOOZE_TAG, mCurrentAlarm, AlarmInstance.SNOOZE_STATE));
+            startService(AlarmStateManager.createStateChangeIntent(
+                this, AlarmStateManager.ALARM_SNOOZE_TAG, mCurrentAlarm, AlarmInstance.SNOOZE_STATE));
         } else if (action == ALARM_DISMISS) { // Setup Dismiss Action
-            startService(AlarmStateManager.createStateChangeIntent(this,
-                    AlarmStateManager.ALARM_DISMISS_TAG, mCurrentAlarm, AlarmInstance.DISMISSED_STATE));
+            startService(AlarmStateManager.createStateChangeIntent(
+                this, AlarmStateManager.ALARM_DISMISS_TAG, mCurrentAlarm, AlarmInstance.DISMISSED_STATE));
         }
     }
 

@@ -10,21 +10,9 @@ import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
 import static android.graphics.Bitmap.Config.ARGB_8888;
 import static android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
-
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
-import static com.best.deskclock.settings.PreferencesDefaultValues.BLACK_ACCENT_COLOR;
-import static com.best.deskclock.settings.PreferencesDefaultValues.BLUE_ACCENT_COLOR;
-import static com.best.deskclock.settings.PreferencesDefaultValues.BLUE_GRAY_ACCENT_COLOR;
-import static com.best.deskclock.settings.PreferencesDefaultValues.BROWN_ACCENT_COLOR;
-import static com.best.deskclock.settings.PreferencesDefaultValues.GREEN_ACCENT_COLOR;
-import static com.best.deskclock.settings.PreferencesDefaultValues.INDIGO_ACCENT_COLOR;
-import static com.best.deskclock.settings.PreferencesDefaultValues.ORANGE_ACCENT_COLOR;
-import static com.best.deskclock.settings.PreferencesDefaultValues.PINK_ACCENT_COLOR;
-import static com.best.deskclock.settings.PreferencesDefaultValues.PURPLE_ACCENT_COLOR;
-import static com.best.deskclock.settings.PreferencesDefaultValues.RED_ACCENT_COLOR;
-import static com.best.deskclock.settings.PreferencesDefaultValues.YELLOW_ACCENT_COLOR;
+import static com.best.deskclock.settings.PreferencesDefaultValues.*;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -110,8 +98,7 @@ public class ThemeUtils {
     public static void allowDisplayCutout(Window window) {
         if (SdkUtils.isAtLeastAndroid9()) {
             WindowManager.LayoutParams layoutParams = window.getAttributes();
-            layoutParams.layoutInDisplayCutoutMode =
-                    WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+            layoutParams.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
             window.setAttributes(layoutParams);
         }
     }
@@ -158,7 +145,7 @@ public class ThemeUtils {
      */
     public static boolean areSystemAnimationsDisabled(Context context) {
         return android.provider.Settings.Global.getFloat(context.getContentResolver(),
-                android.provider.Settings.Global.ANIMATOR_DURATION_SCALE, 1f) == 0f;
+            android.provider.Settings.Global.ANIMATOR_DURATION_SCALE, 1f) == 0f;
     }
 
     /**
@@ -287,18 +274,18 @@ public class ThemeUtils {
      * Otherwise, the method selects between the normal and night accent color depending
      * on whether the system is currently in night mode.</p>
      *
-     * @param context the context used to check night mode
+     * @param context                       the context used to check night mode
      * @param isAutoNightAccentColorEnabled true if automatic night accent colors are enabled
-     * @param accentColor the accent color selected for day mode
-     * @param nightAccentColor the accent color selected for night mode
+     * @param accentColor                   the accent color selected for day mode
+     * @param nightAccentColor              the accent color selected for night mode
      * @return the style resource ID matching the resolved accent color
      */
     public static int getAccentStyle(Context context, boolean isAutoNightAccentColorEnabled,
                                      String accentColor, String nightAccentColor) {
 
         String colorKey = isAutoNightAccentColorEnabled
-                ? accentColor
-                : (ThemeUtils.isNight(context.getResources()) ? nightAccentColor : accentColor);
+            ? accentColor
+            : (ThemeUtils.isNight(context.getResources()) ? nightAccentColor : accentColor);
 
         return switch (colorKey) {
             case BLACK_ACCENT_COLOR -> R.style.BlackAccentColor;
@@ -323,7 +310,7 @@ public class ThemeUtils {
      * such as {@code colorSecondary}, even when called from non-UI contexts.</p>
      *
      * @param context the base context
-     * @param prefs the shared preferences containing theme settings
+     * @param prefs   the shared preferences containing theme settings
      * @return a ContextThemeWrapper applying the correct accent style
      */
     public static Context getThemedContext(Context context, SharedPreferences prefs) {
@@ -334,10 +321,10 @@ public class ThemeUtils {
         }
 
         int style = ThemeUtils.getAccentStyle(
-                baseContext,
-                SettingsDAO.isAutoNightAccentColorEnabled(prefs),
-                SettingsDAO.getAccentColor(prefs),
-                SettingsDAO.getNightAccentColor(prefs)
+            baseContext,
+            SettingsDAO.isAutoNightAccentColorEnabled(prefs),
+            SettingsDAO.getAccentColor(prefs),
+            SettingsDAO.getNightAccentColor(prefs)
         );
 
         return new ContextThemeWrapper(baseContext, style);
@@ -431,19 +418,19 @@ public class ThemeUtils {
                 if (isRTL()) {
                     // RTL : rounded on the right, square on the left
                     gradientDrawable.setCornerRadii(new float[]{
-                            smallRadius, smallRadius, largeRadius, largeRadius,
-                            largeRadius, largeRadius, smallRadius, smallRadius});
+                        smallRadius, smallRadius, largeRadius, largeRadius,
+                        largeRadius, largeRadius, smallRadius, smallRadius});
                 } else {
                     // LTR : rounded on the left, square on the right
                     gradientDrawable.setCornerRadii(new float[]{
-                            largeRadius, largeRadius, smallRadius, smallRadius,
-                            smallRadius, smallRadius, largeRadius, largeRadius});
+                        largeRadius, largeRadius, smallRadius, smallRadius,
+                        smallRadius, smallRadius, largeRadius, largeRadius});
                 }
             } else {
                 // First vertical item: rounded at the top, square at the bottom
                 gradientDrawable.setCornerRadii(new float[]{
-                        largeRadius, largeRadius, largeRadius, largeRadius,
-                        smallRadius, smallRadius, smallRadius, smallRadius});
+                    largeRadius, largeRadius, largeRadius, largeRadius,
+                    smallRadius, smallRadius, smallRadius, smallRadius});
             }
         } else if (position == totalCount - 1) {
             // Last horizontal item
@@ -451,19 +438,19 @@ public class ThemeUtils {
                 if (isRTL()) {
                     // RTL : square on the right, rounded on the left
                     gradientDrawable.setCornerRadii(new float[]{
-                            largeRadius, largeRadius, smallRadius, smallRadius,
-                            smallRadius, smallRadius, largeRadius, largeRadius});
+                        largeRadius, largeRadius, smallRadius, smallRadius,
+                        smallRadius, smallRadius, largeRadius, largeRadius});
                 } else {
                     // LTR : square on the left, rounded on the right
                     gradientDrawable.setCornerRadii(new float[]{
-                            smallRadius, smallRadius, largeRadius, largeRadius,
-                            largeRadius, largeRadius, smallRadius, smallRadius});
+                        smallRadius, smallRadius, largeRadius, largeRadius,
+                        largeRadius, largeRadius, smallRadius, smallRadius});
                 }
             } else {
                 // Last vertical item: square at the top, rounded at the bottom
                 gradientDrawable.setCornerRadii(new float[]{
-                        smallRadius, smallRadius, smallRadius, smallRadius,
-                        largeRadius, largeRadius, largeRadius, largeRadius});
+                    smallRadius, smallRadius, smallRadius, smallRadius,
+                    largeRadius, largeRadius, largeRadius, largeRadius});
             }
         } else {
             // Middle item: completely square
@@ -485,8 +472,7 @@ public class ThemeUtils {
         if (color != null) {
             drawable.setColor(color);
         } else if (SettingsDAO.isCardBackgroundDisplayed(prefs)) {
-            drawable.setColor(MaterialColors.getColor(
-                    context, com.google.android.material.R.attr.colorSurface, Color.BLACK));
+            drawable.setColor(MaterialColors.getColor(context, com.google.android.material.R.attr.colorSurface, Color.BLACK));
         } else {
             if (isNight(context.getResources()) && darkMode.equals(AMOLED_DARK_MODE)) {
                 drawable.setColor(Color.BLACK);
@@ -498,7 +484,7 @@ public class ThemeUtils {
         if (SettingsDAO.isCardBorderDisplayed(prefs)) {
             drawable.setShape(GradientDrawable.RECTANGLE);
             drawable.setStroke((int) dpToPx(2, displayMetrics), MaterialColors.getColor(
-                    context, androidx.appcompat.R.attr.colorPrimary, Color.BLACK)
+                context, androidx.appcompat.R.attr.colorPrimary, Color.BLACK)
             );
         }
 
@@ -551,8 +537,7 @@ public class ThemeUtils {
      * Convenience method to create ripple drawable.
      */
     public static RippleDrawable rippleDrawable(Context context, Drawable background) {
-        int rippleColor = MaterialColors.getColor(
-                context, androidx.appcompat.R.attr.colorControlHighlight, Color.BLACK);
+        int rippleColor = MaterialColors.getColor(context, androidx.appcompat.R.attr.colorControlHighlight, Color.BLACK);
 
         return new RippleDrawable(ColorStateList.valueOf(rippleColor), background, null);
     }
@@ -565,8 +550,7 @@ public class ThemeUtils {
         Drawable background = pillBackground(context, backgroundColor);
         Drawable mask = (backgroundColor == Color.TRANSPARENT) ? pillBackground(context, Color.BLACK) : null;
 
-        int rippleColor = MaterialColors.getColor(
-                context, androidx.appcompat.R.attr.colorControlHighlight, Color.BLACK);
+        int rippleColor = MaterialColors.getColor(context, androidx.appcompat.R.attr.colorControlHighlight, Color.BLACK);
 
         return new RippleDrawable(ColorStateList.valueOf(rippleColor), background, mask);
     }
@@ -595,8 +579,8 @@ public class ThemeUtils {
      * Updates the enabled state and image tint of a slider-related {@link ImageView} button
      * (e.g. minus or plus) based on a given enabled flag.
      *
-     * @param button   The ImageView button to update.
-     * @param enabled  Whether the button should be enabled.
+     * @param button  The ImageView button to update.
+     * @param enabled Whether the button should be enabled.
      */
     public static void updateSliderButtonEnabledState(Context context, ImageView button, boolean enabled) {
         button.setEnabled(enabled);

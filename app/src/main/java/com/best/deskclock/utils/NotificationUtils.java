@@ -80,39 +80,31 @@ public class NotificationUtils {
 
     static {
         CHANNEL_PROPS.put(FOREGROUND_SERVICE_CHANNEL_ID, new int[]{
-                R.string.foreground_service_channel,
-                IMPORTANCE_LOW, LOCKSCREEN_PUBLIC | HIDE_BADGE
+            R.string.foreground_service_channel, IMPORTANCE_LOW, LOCKSCREEN_PUBLIC | HIDE_BADGE
         });
 
         CHANNEL_PROPS.put(ALARM_MISSED_NOTIFICATION_CHANNEL_ID, new int[]{
-                R.string.alarm_missed_channel,
-                IMPORTANCE_HIGH
+            R.string.alarm_missed_channel, IMPORTANCE_HIGH
         });
 
         CHANNEL_PROPS.put(ALARM_SNOOZE_NOTIFICATION_CHANNEL_ID, new int[]{
-                R.string.alarm_snooze_channel,
-                IMPORTANCE_LOW
+            R.string.alarm_snooze_channel, IMPORTANCE_LOW
         });
 
         CHANNEL_PROPS.put(ALARM_UPCOMING_NOTIFICATION_CHANNEL_ID, new int[]{
-                R.string.alarm_upcoming_channel,
-                IMPORTANCE_LOW
+            R.string.alarm_upcoming_channel, IMPORTANCE_LOW
         });
 
         CHANNEL_PROPS.put(FIRING_NOTIFICATION_CHANNEL_ID, new int[]{
-                R.string.firing_alarms_timers_channel,
-                IMPORTANCE_HIGH,
-                ENABLE_LIGHTS
+            R.string.firing_alarms_timers_channel, IMPORTANCE_HIGH, ENABLE_LIGHTS
         });
 
         CHANNEL_PROPS.put(STOPWATCH_NOTIFICATION_CHANNEL_ID, new int[]{
-                R.string.stopwatch_channel,
-                IMPORTANCE_LOW
+            R.string.stopwatch_channel, IMPORTANCE_LOW
         });
 
         CHANNEL_PROPS.put(TIMER_MODEL_NOTIFICATION_CHANNEL_ID, new int[]{
-                R.string.timer_channel,
-                IMPORTANCE_LOW
+            R.string.timer_channel, IMPORTANCE_LOW
         });
     }
 
@@ -126,8 +118,7 @@ public class NotificationUtils {
         int[] properties = CHANNEL_PROPS.get(id);
         int nameId = Objects.requireNonNull(properties)[0];
         int importance = properties[1];
-        NotificationChannel channel = new NotificationChannel(
-                id, context.getString(nameId), importance);
+        NotificationChannel channel = new NotificationChannel(id, context.getString(nameId), importance);
 
         if (properties.length >= 3) {
             int bits = properties[2];
@@ -196,8 +187,7 @@ public class NotificationUtils {
      * @return {@code true} if the notification is visible in the status bar, {@code false} otherwise.
      */
     public static boolean isNotificationVisible(Context context, int notificationId) {
-        NotificationManager mNotificationManager =
-                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
         StatusBarNotification[] notifications = mNotificationManager.getActiveNotifications();
         for (StatusBarNotification notification : notifications) {

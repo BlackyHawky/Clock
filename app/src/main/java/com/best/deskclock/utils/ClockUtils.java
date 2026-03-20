@@ -111,8 +111,8 @@ public class ClockUtils {
 
         int screenHeight = analogClock.getContext().getResources().getDisplayMetrics().heightPixels;
         int baseSize = ThemeUtils.isLandscape()
-                ? (int) (screenHeight / 2.6)
-                : (int) (screenHeight / 3.8);
+            ? (int) (screenHeight / 2.6)
+            : (int) (screenHeight / 3.8);
 
         int finalSize = (int) (baseSize * factor);
 
@@ -167,8 +167,7 @@ public class ClockUtils {
 
         if (clock != null) {
             // Get the best format for 12 hours mode according to the locale
-            clock.setFormat12Hour(get12ModeFormat(
-                    clock.getContext(), amPmRatio, includeSeconds, isAlarm, isClockTab, isScreensaver));
+            clock.setFormat12Hour(get12ModeFormat(clock.getContext(), amPmRatio, includeSeconds, isAlarm, isClockTab, isScreensaver));
             // Get the best format for 24 hours mode according to the locale
             clock.setFormat24Hour(get24ModeFormat(includeSeconds, isScreensaver));
         }
@@ -185,8 +184,7 @@ public class ClockUtils {
 
         SharedPreferences prefs = getDefaultSharedPreferences(context);
 
-        String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(),
-                includeSeconds ? "hmsa" : "hma");
+        String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), includeSeconds ? "hmsa" : "hma");
 
         // Replace spaces with "Hair Space"
         pattern = pattern.replaceAll("\\s", "\u200A");
@@ -267,8 +265,8 @@ public class ClockUtils {
             // A "Thin Space" (\u2009) is also added at the beginning to correctly center the date,
             // alarm icon and next alarm.
             return "\u2009"
-                    + DateFormat.getBestDateTimePattern(Locale.getDefault(), includeSeconds ? "Hms" : "Hm")
-                    + "\u2009";
+                + DateFormat.getBestDateTimePattern(Locale.getDefault(), includeSeconds ? "Hms" : "Hm")
+                + "\u2009";
         } else {
             return DateFormat.getBestDateTimePattern(Locale.getDefault(), includeSeconds ? "Hms" : "Hm");
         }

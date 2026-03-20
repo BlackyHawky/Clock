@@ -8,7 +8,6 @@ package com.best.deskclock.data;
 
 import static android.media.AudioManager.STREAM_ALARM;
 import static android.media.RingtoneManager.TITLE_COLUMN_INDEX;
-
 import static com.best.deskclock.utils.RingtoneUtils.RANDOM_CUSTOM_RINGTONE;
 import static com.best.deskclock.utils.RingtoneUtils.RANDOM_RINGTONE;
 
@@ -80,7 +79,7 @@ public final class RingtoneModel {
      * <p>
      * The observer is registered to listen for changes to the URI
      * `Settings.System.DEFAULT_ALARM_ALERT_URI`, which corresponds to the default alarm ringtone
-     *  on the device.
+     * on the device.
      */
     private final ContentObserver mSystemObserver = new SystemAlarmAlertChangeObserver();
 
@@ -123,7 +122,7 @@ public final class RingtoneModel {
 
         File destFile = new File(mContext.getFilesDir(), filename);
         try (InputStream inputStream = mContext.getContentResolver().openInputStream(uri);
-            OutputStream outputStream = new FileOutputStream(destFile)) {
+             OutputStream outputStream = new FileOutputStream(destFile)) {
             if (inputStream != null) {
                 byte[] buffer = new byte[4096];
                 int bytesRead;
@@ -207,8 +206,7 @@ public final class RingtoneModel {
             return;
         }
 
-        final List<UriPermission> uriPermissions =
-                mContext.getContentResolver().getPersistedUriPermissions();
+        final List<UriPermission> uriPermissions = mContext.getContentResolver().getPersistedUriPermissions();
         final Set<Uri> permissions = new ArraySet<>(uriPermissions.size());
         for (UriPermission uriPermission : uriPermissions) {
             permissions.add(uriPermission.getUri());

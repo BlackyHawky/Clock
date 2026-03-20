@@ -91,10 +91,8 @@ public class StopwatchCircleFrameLayout extends FrameLayout {
         final int size = Math.min(smallestDimension, maxSize);
 
         // Set the size of this container.
-        widthMeasureSpec = MeasureSpec.makeMeasureSpec(size + paddingLeft + paddingRight,
-                MeasureSpec.EXACTLY);
-        heightMeasureSpec = MeasureSpec.makeMeasureSpec(size + paddingTop + paddingBottom,
-                MeasureSpec.EXACTLY);
+        widthMeasureSpec = MeasureSpec.makeMeasureSpec(size + paddingLeft + paddingRight, MeasureSpec.EXACTLY);
+        heightMeasureSpec = MeasureSpec.makeMeasureSpec(size + paddingTop + paddingBottom, MeasureSpec.EXACTLY);
 
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }

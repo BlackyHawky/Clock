@@ -36,11 +36,11 @@ public final class EmptyViewController {
         mContentView = contentView;
         mEmptyView = emptyView;
         mEmptyViewTransition = new TransitionSet()
-                .setOrdering(TransitionSet.ORDERING_SEQUENTIAL)
-                .addTarget(contentView)
-                .addTarget(emptyView)
-                .addTransition(new Fade(Fade.OUT))
-                .addTransition(new Fade(Fade.IN));
+            .setOrdering(TransitionSet.ORDERING_SEQUENTIAL)
+            .addTarget(contentView)
+            .addTarget(emptyView)
+            .addTransition(new Fade(Fade.OUT))
+            .addTransition(new Fade(Fade.IN));
     }
 
     /**

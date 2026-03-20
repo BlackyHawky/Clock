@@ -25,7 +25,6 @@ import com.best.deskclock.events.Events;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
-
 import com.google.android.material.button.MaterialButton;
 
 public class TimerViewHolder extends RecyclerView.ViewHolder {
@@ -42,10 +41,8 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
         final SharedPreferences prefs = getDefaultSharedPreferences(mContext);
 
         switch (viewType) {
-            case TimerAdapter.SINGLE_TIMER, TimerAdapter.MULTIPLE_TIMERS ->
-                    mTimerItem = (TimerItem) view;
-            case TimerAdapter.MULTIPLE_TIMERS_COMPACT ->
-                    mTimerItemCompact = (TimerItemCompact) view;
+            case TimerAdapter.SINGLE_TIMER, TimerAdapter.MULTIPLE_TIMERS -> mTimerItem = (TimerItem) view;
+            case TimerAdapter.MULTIPLE_TIMERS_COMPACT -> mTimerItemCompact = (TimerItemCompact) view;
         }
 
         TextView timerLabel = view.findViewById(R.id.timer_label);
@@ -87,8 +84,8 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
             final long currentTime = getTimer().getRemainingTime();
             final String buttonTime = getTimer().getButtonTime();
             if (currentTime > 0) {
-                v.announceForAccessibility(TimerStringFormatter.formatString(mContext,
-                        R.string.timer_accessibility_custom_time_added, buttonTime, currentTime, true));
+                v.announceForAccessibility(TimerStringFormatter.formatString(
+                    mContext, R.string.timer_accessibility_custom_time_added, buttonTime, currentTime, true));
             }
         });
 
@@ -124,8 +121,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
             circleContainer.setOnTouchListener(new Utils.CircleTouchListener());
         }
 
-        if ((!ThemeUtils.isTablet() && ThemeUtils.isLandscape()
-                || SettingsDAO.isCompactTimersDisplayed(prefs))) {
+        if ((!ThemeUtils.isTablet() && ThemeUtils.isLandscape() || SettingsDAO.isCompactTimersDisplayed(prefs))) {
             timerTimeText.setOnClickListener(playPauseListener);
         }
 
@@ -144,13 +140,13 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
                 }
 
                 CustomDialog.createSimpleDialog(
-                        mContext,
-                        R.drawable.ic_delete,
-                        R.string.warning_dialog_title,
-                        dialogMessage,
-                        android.R.string.ok,
-                        (d, w) -> DataModel.getDataModel().removeTimer(getTimer())
-                        ).show();
+                    mContext,
+                    R.drawable.ic_delete,
+                    R.string.warning_dialog_title,
+                    dialogMessage,
+                    android.R.string.ok,
+                    (d, w) -> DataModel.getDataModel().removeTimer(getTimer())
+                ).show();
             } else {
                 DataModel.getDataModel().removeTimer(getTimer());
             }

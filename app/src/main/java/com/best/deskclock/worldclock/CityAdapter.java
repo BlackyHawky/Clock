@@ -65,8 +65,7 @@ import java.util.TimeZone;
  *   ...
  * </pre>
  */
-public class CityAdapter extends BaseAdapter implements View.OnClickListener,
-        CompoundButton.OnCheckedChangeListener, SectionIndexer {
+public class CityAdapter extends BaseAdapter implements View.OnClickListener, CompoundButton.OnCheckedChangeListener, SectionIndexer {
 
     /**
      * The type of the single optional "Selected Cities" header entry.

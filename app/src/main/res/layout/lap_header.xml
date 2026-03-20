@@ -57,5 +57,4 @@
         app:dividerColor="?attr/colorOutline"
         tools:layout_marginTop="4dp" />
 
-
 </LinearLayout>

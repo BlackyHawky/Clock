@@ -33,7 +33,8 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.85" />
 
-    <include layout="@layout/timer_setup_time"
+    <include
+        layout="@layout/timer_setup_time"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintWidth_max="315dp"

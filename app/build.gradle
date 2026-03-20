@@ -16,8 +16,8 @@ android {
         }
     }
 
-	def keystorePropertiesFile = rootProject.file("keystore.properties")
-	def keystoreProperties = new Properties()
+    def keystorePropertiesFile = rootProject.file("keystore.properties")
+    def keystoreProperties = new Properties()
     if (keystorePropertiesFile.exists()) {
         keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
     }
@@ -35,7 +35,7 @@ android {
         }
     }
 
-    def commitNumber = 41
+    def commitNumber = 42
 
     def buildCommit = providers.exec {
         commandLine('git', 'rev-parse', '--short=7', 'HEAD')
@@ -53,7 +53,7 @@ android {
             buildConfigField "boolean", "IS_DEBUG_BUILD", "false"
             buildConfigField "boolean", "IS_NIGHTLY_BUILD", "false"
             buildConfigField "String", "COMMIT_NUMBER", "\"\""
-			proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
 
         debug {
@@ -83,7 +83,7 @@ android {
                 outputFileName = "Clock_${defaultConfig.versionName}-nightly-${commitNumber}-${buildCommit}.apk"
             } else {
                 def suffix = variant.buildType.versionNameSuffix ?:
-                        keystorePropertiesFile.exists() ? "-release" : "-unsigned"
+                    keystorePropertiesFile.exists() ? "-release" : "-unsigned"
                 outputFileName = "Clock_${defaultConfig.versionName}${suffix}.apk"
             }
         }

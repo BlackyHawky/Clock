@@ -103,10 +103,8 @@ public class ExpiredTimersActivity extends BaseActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent != null && intent.getAction() != null) {
-                if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)
-                        || intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
-                    final boolean isExpiredTimerResetWithPowerButton =
-                            SettingsDAO.isExpiredTimerResetWithPowerButton(mPrefs);
+                if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF) || intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
+                    final boolean isExpiredTimerResetWithPowerButton = SettingsDAO.isExpiredTimerResetWithPowerButton(mPrefs);
                     if (isExpiredTimerResetWithPowerButton) {
                         DataModel.getDataModel().resetOrDeleteExpiredTimers(R.string.label_hardware_button);
                     }
@@ -151,12 +149,12 @@ public class ExpiredTimersActivity extends BaseActivity {
             setTurnScreenOn(true);
             setShowWhenLocked(true);
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
-                    | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON);
+                | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON);
         } else {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
-                    | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
-                    | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
-                    | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON);
+                | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+                | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
+                | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON);
         }
 
         // Honor rotation on tablets; fix the orientation on phones.
@@ -246,10 +244,9 @@ public class ExpiredTimersActivity extends BaseActivity {
     public boolean dispatchKeyEvent(@NonNull KeyEvent event) {
         switch (event.getKeyCode()) {
             case KeyEvent.KEYCODE_VOLUME_UP, KeyEvent.KEYCODE_VOLUME_DOWN, KeyEvent.KEYCODE_VOLUME_MUTE,
-                    KeyEvent.KEYCODE_CAMERA, KeyEvent.KEYCODE_FOCUS, KeyEvent.KEYCODE_HEADSETHOOK -> {
+                 KeyEvent.KEYCODE_CAMERA, KeyEvent.KEYCODE_FOCUS, KeyEvent.KEYCODE_HEADSETHOOK -> {
                 if (event.getAction() == KeyEvent.ACTION_UP) {
-                    final boolean isExpiredTimerResetWithVolumeButtons =
-                            SettingsDAO.isExpiredTimerResetWithVolumeButtons(mPrefs);
+                    final boolean isExpiredTimerResetWithVolumeButtons = SettingsDAO.isExpiredTimerResetWithVolumeButtons(mPrefs);
                     if (isExpiredTimerResetWithVolumeButtons) {
                         DataModel.getDataModel().resetOrDeleteExpiredTimers(R.string.label_hardware_button);
                     }
@@ -269,8 +266,7 @@ public class ExpiredTimersActivity extends BaseActivity {
     private void applyWindowInsets() {
         InsetsUtils.doOnApplyWindowInsets(mExpiredTimersScrollView, (v, insets) -> {
             // Get the system bar and notch insets
-            Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() |
-                    WindowInsetsCompat.Type.displayCutout());
+            Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout());
 
             v.setPadding(bars.left, bars.top, bars.right, 0);
         });
@@ -282,8 +278,8 @@ public class ExpiredTimersActivity extends BaseActivity {
     private void displayRingtoneTitle() {
         final boolean silent = RingtoneUtils.RINGTONE_SILENT.equals(DataModel.getDataModel().getTimerRingtoneUri());
         final Drawable iconRingtone = silent
-                ? AppCompatResources.getDrawable(this, R.drawable.ic_ringtone_silent)
-                : AppCompatResources.getDrawable(this, R.drawable.ic_music_note);
+            ? AppCompatResources.getDrawable(this, R.drawable.ic_ringtone_silent)
+            : AppCompatResources.getDrawable(this, R.drawable.ic_music_note);
         int iconRingtoneSize = (int) dpToPx(24, mDisplayMetrics);
         final int ringtoneTitleColor = SettingsDAO.getTimerRingtoneTitleColor(mPrefs);
         final int shadowOffset = SettingsDAO.getTimerShadowOffset(mPrefs);
@@ -361,8 +357,8 @@ public class ExpiredTimersActivity extends BaseActivity {
         final boolean useCompactLayout = ThemeUtils.isPortrait() && isCompact;
 
         final View view = getLayoutInflater().inflate(useCompactLayout
-                ? R.layout.timer_item_compact
-                : R.layout.timer_item, mExpiredTimersView, false );
+            ? R.layout.timer_item_compact
+            : R.layout.timer_item, mExpiredTimersView, false);
 
         if (useCompactLayout) {
             ((TimerItemCompact) view).bindTimer(timer);
@@ -442,8 +438,7 @@ public class ExpiredTimersActivity extends BaseActivity {
      * Center the single timer.
      */
     private void centerFirstTimer() {
-        final FrameLayout.LayoutParams lp =
-                (FrameLayout.LayoutParams) mExpiredTimersView.getLayoutParams();
+        final FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) mExpiredTimersView.getLayoutParams();
         lp.gravity = Gravity.CENTER;
         mExpiredTimersView.requestLayout();
     }
@@ -452,8 +447,7 @@ public class ExpiredTimersActivity extends BaseActivity {
      * Display the multiple timers as a scrollable list.
      */
     private void uncenterFirstTimer() {
-        final FrameLayout.LayoutParams lp =
-                (FrameLayout.LayoutParams) mExpiredTimersView.getLayoutParams();
+        final FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) mExpiredTimersView.getLayoutParams();
         lp.gravity = Gravity.NO_GRAVITY;
         mExpiredTimersView.requestLayout();
     }
@@ -471,8 +465,8 @@ public class ExpiredTimersActivity extends BaseActivity {
         for (int i = 0; i < totalCount; i++) {
             View child = mExpiredTimersView.getChildAt(i);
             child.setBackground(isPhoneInLandscapeMode
-                    ? ThemeUtils.expressiveCardBackgroundForLandscape(this, i, totalCount)
-                    : ThemeUtils.expressiveCardBackground(this, i, totalCount));
+                ? ThemeUtils.expressiveCardBackgroundForLandscape(this, i, totalCount)
+                : ThemeUtils.expressiveCardBackground(this, i, totalCount));
 
             if (child.getLayoutParams() instanceof ViewGroup.MarginLayoutParams layoutParams) {
                 if (isTabletOrPortrait) {

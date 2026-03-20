@@ -136,8 +136,8 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
         mEditHours.setText(String.valueOf(editHours));
         mEditHours.setTypeface(typeFace);
         mEditHours.setInputType(InputType.TYPE_CLASS_NUMBER);
-        mEditHours.setFilters(new InputFilter[] {
-                new InputFilter.LengthFilter(3)
+        mEditHours.setFilters(new InputFilter[]{
+            new InputFilter.LengthFilter(3)
         });
         mEditHours.selectAll();
         mEditHours.requestFocus();
@@ -173,20 +173,20 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
         });
 
         return CustomDialog.create(
-                context,
-                null,
-                AppCompatResources.getDrawable(context, R.drawable.ic_hourglass_top),
-                getString(R.string.timer_time_box_title),
-                null,
-                dialogView,
-                getString(android.R.string.ok),
-                (d, w) -> setNewDuration(),
-                getString(android.R.string.cancel),
-                null,
-                null,
-                null,
-                null,
-                CustomDialog.SoftInputMode.SHOW_KEYBOARD
+            context,
+            null,
+            AppCompatResources.getDrawable(context, R.drawable.ic_hourglass_top),
+            getString(R.string.timer_time_box_title),
+            null,
+            dialogView,
+            getString(android.R.string.ok),
+            (d, w) -> setNewDuration(),
+            getString(android.R.string.cancel),
+            null,
+            null,
+            null,
+            null,
+            CustomDialog.SoftInputMode.SHOW_KEYBOARD
         );
     }
 
@@ -239,8 +239,7 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
             seconds = Integer.parseInt(secondsText);
         }
 
-        if ((hoursText.isEmpty() && minutesText.isEmpty() && secondsText.isEmpty())
-                || (hours == 0 && minutes == 0 && seconds == 0)) {
+        if ((hoursText.isEmpty() && minutesText.isEmpty() && secondsText.isEmpty()) || (hours == 0 && minutes == 0 && seconds == 0)) {
             seconds = 1;
         }
 
@@ -265,7 +264,7 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
         public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
             if (!mMaxLengthReduce) {
                 mEditHours.setFilters(new InputFilter[]{
-                        new InputFilter.LengthFilter(2)
+                    new InputFilter.LengthFilter(2)
                 });
 
                 mMaxLengthReduce = true;

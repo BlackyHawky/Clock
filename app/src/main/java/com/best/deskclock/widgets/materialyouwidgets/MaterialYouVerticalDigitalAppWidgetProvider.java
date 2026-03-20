@@ -5,7 +5,6 @@ package com.best.deskclock.widgets.materialyouwidgets;
 import static android.util.TypedValue.COMPLEX_UNIT_PX;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
-
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_MATERIAL_YOU_WIDGET_BACKGROUND_CORNER_RADIUS;
 import static com.best.deskclock.utils.WidgetUtils.METHOD_SET_IMAGE_ICON;
@@ -235,8 +234,7 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends BaseDigitalAppW
         } else {
             rv.setViewVisibility(getClockMinutesViewId(), GONE);
             rv.setViewVisibility(getClockMinutesCustomViewId(), VISIBLE);
-            rv.setTextColor(getClockMinutesCustomViewId(),
-                    WidgetDAO.getMaterialYouVerticalDigitalWidgetCustomMinutesColor(prefs));
+            rv.setTextColor(getClockMinutesCustomViewId(), WidgetDAO.getMaterialYouVerticalDigitalWidgetCustomMinutesColor(prefs));
         }
     }
 
@@ -279,30 +277,26 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends BaseDigitalAppW
                 rv.setViewVisibility(getNextAlarmCustomViewId(), VISIBLE);
                 rv.setViewVisibility(getNextAlarmIconCustomId(), VISIBLE);
                 rv.setTextViewText(getNextAlarmCustomViewId(), nextAlarmTime);
-                rv.setTextColor(getNextAlarmCustomViewId(),
-                        WidgetDAO.getMaterialYouVerticalDigitalWidgetCustomNextAlarmColor(prefs));
+                rv.setTextColor(getNextAlarmCustomViewId(), WidgetDAO.getMaterialYouVerticalDigitalWidgetCustomNextAlarmColor(prefs));
             }
         }
     }
 
     @Override
-    protected void configureNextAlarmTitle(RemoteViews rv, SharedPreferences prefs, String nextAlarmTime,
-                                           String nextAlarmTitle) {
+    protected void configureNextAlarmTitle(RemoteViews rv, SharedPreferences prefs, String nextAlarmTime, String nextAlarmTitle) {
     }
 
     @Override
-    protected void configureBackground(RemoteViews rv, Context context, SharedPreferences prefs,
-                                       int widthPx, int heightPx) {
+    protected void configureBackground(RemoteViews rv, Context context, SharedPreferences prefs, int widthPx, int heightPx) {
 
-        if (!WidgetDAO.isBackgroundDisplayedOnMaterialYouVerticalDigitalWidget(prefs)
-                || widthPx <= 0 || heightPx <= 0) {
+        if (!WidgetDAO.isBackgroundDisplayedOnMaterialYouVerticalDigitalWidget(prefs) || widthPx <= 0 || heightPx <= 0) {
             rv.setIcon(R.id.materialYouDigitalWidgetBackground, METHOD_SET_IMAGE_ICON, null);
             return;
         }
 
         int radius = (int) dpToPx(WidgetDAO.isMaterialYouVerticalDigitalWidgetBackgroundCornerRadiusCustomizable(prefs)
-                ? WidgetDAO.getMaterialYouVerticalDigitalWidgetBackgroundCornerRadius(prefs)
-                : DEFAULT_MATERIAL_YOU_WIDGET_BACKGROUND_CORNER_RADIUS, context.getResources().getDisplayMetrics());
+            ? WidgetDAO.getMaterialYouVerticalDigitalWidgetBackgroundCornerRadius(prefs)
+            : DEFAULT_MATERIAL_YOU_WIDGET_BACKGROUND_CORNER_RADIUS, context.getResources().getDisplayMetrics());
 
         int color = WidgetDAO.getMaterialYouVerticalDigitalWidgetBackgroundColor(prefs);
 
@@ -310,11 +304,9 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends BaseDigitalAppW
 
         if (SdkUtils.isAtLeastAndroid12()) {
             if (isDefaultBackgroundColor) {
-                Icon dayIcon = WidgetUtils.createRoundedIcon(widthPx, heightPx,
-                        WidgetUtils.getMaterialBackgroundColorDay(context), radius);
+                Icon dayIcon = WidgetUtils.createRoundedIcon(widthPx, heightPx, WidgetUtils.getMaterialBackgroundColorDay(context), radius);
 
-                Icon nightIcon = WidgetUtils.createRoundedIcon(widthPx, heightPx,
-                        WidgetUtils.getMaterialBackgroundColorNight(context), radius);
+                Icon nightIcon = WidgetUtils.createRoundedIcon(widthPx, heightPx, WidgetUtils.getMaterialBackgroundColorNight(context), radius);
 
                 rv.setIcon(R.id.materialYouDigitalWidgetBackground, METHOD_SET_IMAGE_ICON, dayIcon, nightIcon);
             } else {
@@ -404,8 +396,7 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends BaseDigitalAppW
                 nextAlarmForCustomColor.setVisibility(VISIBLE);
                 nextAlarmIconForCustomColor.setVisibility(VISIBLE);
                 nextAlarmIconForCustomColor.setTypeface(ClockUtils.getAlarmIconTypeface(context));
-                nextAlarmIconForCustomColor.setTextColor(
-                        WidgetDAO.getMaterialYouVerticalDigitalWidgetCustomNextAlarmColor(prefs));
+                nextAlarmIconForCustomColor.setTextColor(WidgetDAO.getMaterialYouVerticalDigitalWidgetCustomNextAlarmColor(prefs));
             }
         }
     }

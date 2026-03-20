@@ -98,8 +98,7 @@ import java.util.Objects;
 /**
  * A fragment that displays a list of alarm time and allows interaction with them.
  */
-public final class AlarmFragment extends DeskClockFragment implements
-        LoaderManager.LoaderCallbacks<Cursor>, ScrollHandler {
+public final class AlarmFragment extends DeskClockFragment implements LoaderManager.LoaderCallbacks<Cursor>, ScrollHandler {
 
     // This extra is used when receiving an intent to create an alarm, but no alarm details
     // have been passed in, so the alarm page should start the process of creating a new alarm.
@@ -201,26 +200,25 @@ public final class AlarmFragment extends DeskClockFragment implements
         mDeleteIcon = AppCompatResources.getDrawable(mContext, R.drawable.ic_delete);
         if (mDeleteIcon != null) {
             DrawableCompat.setTint(mDeleteIcon, MaterialColors.getColor(
-                    mContext, com.google.android.material.R.attr.colorOnError, Color.BLACK));
+                mContext, com.google.android.material.R.attr.colorOnError, Color.BLACK));
             mDeleteIconSize = mDeleteIcon.getIntrinsicHeight();
         }
 
         mDeleteTextPaint = new TextPaint();
         mDeleteTextPaint.setAntiAlias(true);
-        mDeleteTextPaint.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 16,
-                mContext.getResources().getDisplayMetrics()));
-        mDeleteTextPaint.setColor(MaterialColors.getColor(
-                mContext, com.google.android.material.R.attr.colorOnError, Color.BLACK));
+        mDeleteTextPaint.setTextSize(TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_SP, 16, mContext.getResources().getDisplayMetrics()));
+        mDeleteTextPaint.setColor(MaterialColors.getColor(mContext, com.google.android.material.R.attr.colorOnError, Color.BLACK));
         mDeleteTextPaint.setTypeface(mBoldTypeface);
         mDeleteTextPaint.setTextAlign(ThemeUtils.isRTL() ? Paint.Align.RIGHT : Paint.Align.LEFT);
 
         mTopRadii = new float[]{
-                mLargeRadius, mLargeRadius, mLargeRadius, mLargeRadius,
-                mSmallRadius, mSmallRadius, mSmallRadius, mSmallRadius};
+            mLargeRadius, mLargeRadius, mLargeRadius, mLargeRadius,
+            mSmallRadius, mSmallRadius, mSmallRadius, mSmallRadius};
 
         mBottomRadii = new float[]{
-                mSmallRadius, mSmallRadius, mSmallRadius, mSmallRadius,
-                mLargeRadius, mLargeRadius, mLargeRadius, mLargeRadius};
+            mSmallRadius, mSmallRadius, mSmallRadius, mSmallRadius,
+            mLargeRadius, mLargeRadius, mLargeRadius, mLargeRadius};
 
         mDeleteIconHalfSize = mDeleteIconSize / 2;
         mTextHorizontalOffset = (int) (1.5 * mDeleteIconHorizontalMargin + mDeleteIconSize);
@@ -302,7 +300,7 @@ public final class AlarmFragment extends DeskClockFragment implements
                 Fragment delayDialog = getParentFragmentManager().findFragmentByTag(AlarmDelayPickerDialogFragment.TAG);
 
                 boolean areFragmentsOpen = (bottomSheet != null && bottomSheet.isAdded())
-                        || (delayDialog != null && delayDialog.isAdded());
+                    || (delayDialog != null && delayDialog.isAdded());
 
                 if (areFragmentsOpen) {
                     return 0;
@@ -311,123 +309,122 @@ public final class AlarmFragment extends DeskClockFragment implements
                 return super.getSwipeDirs(recyclerView, viewHolder);
             }
 
-           @Override
-           public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder,
-                                 @NonNull RecyclerView.ViewHolder target) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder,
+                                  @NonNull RecyclerView.ViewHolder target) {
 
-               return false;
-           }
+                return false;
+            }
 
-           @Override
-           public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView,
-                                   @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY,
-                                   int actionState, boolean isCurrentlyActive) {
+            @Override
+            public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder,
+                                    float dX, float dY, int actionState, boolean isCurrentlyActive) {
 
-               // Don't call super.onChildDraw() to prevent the shadow from appearing
-               // under the card when dragging.
+                // Don't call super.onChildDraw() to prevent the shadow from appearing
+                // under the card when dragging.
 
-               View itemView = viewHolder.itemView;
-               int width = itemView.getWidth();
-               int height = itemView.getHeight();
+                View itemView = viewHolder.itemView;
+                int width = itemView.getWidth();
+                int height = itemView.getHeight();
 
-               if (dX == 0) {
-                   itemView.setClipBounds(null);
-                   return;
-               }
+                if (dX == 0) {
+                    itemView.setClipBounds(null);
+                    return;
+                }
 
-               hideSideButtonsWithFabAnimation();
-               c.save();
+                hideSideButtonsWithFabAnimation();
+                c.save();
 
-               int itemTop = itemView.getTop();
-               int itemBottom = itemView.getBottom();
-               int itemLeft = itemView.getLeft();
-               int itemRight = itemView.getRight();
+                int itemTop = itemView.getTop();
+                int itemBottom = itemView.getBottom();
+                int itemLeft = itemView.getLeft();
+                int itemRight = itemView.getRight();
 
-               if (dX > 0) {
-                   mClipBounds.set((int) dX, 0, width, height);
-               } else {
-                   mClipBounds.set(0, 0, width + (int) dX, height);
-               }
-               itemView.setClipBounds(mClipBounds);
+                if (dX > 0) {
+                    mClipBounds.set((int) dX, 0, width, height);
+                } else {
+                    mClipBounds.set(0, 0, width + (int) dX, height);
+                }
+                itemView.setClipBounds(mClipBounds);
 
-               AlarmItemViewHolder alarmHolder = (AlarmItemViewHolder) viewHolder;
-               int position = alarmHolder.mItemPosition;
-               int totalCount = alarmHolder.mTotalCount;
+                AlarmItemViewHolder alarmHolder = (AlarmItemViewHolder) viewHolder;
+                int position = alarmHolder.mItemPosition;
+                int totalCount = alarmHolder.mTotalCount;
 
-               // Radius setting
-               if (totalCount <= 1) {
-                   mSwipeBackground.setCornerRadius(mLargeRadius);
-               } else if (position == 0) {
-                   mSwipeBackground.setCornerRadii(mTopRadii);
-               } else if (position == totalCount - 1) {
-                   mSwipeBackground.setCornerRadii(mBottomRadii);
-               } else {
-                   mSwipeBackground.setCornerRadius(mSmallRadius);
-               }
+                // Radius setting
+                if (totalCount <= 1) {
+                    mSwipeBackground.setCornerRadius(mLargeRadius);
+                } else if (position == 0) {
+                    mSwipeBackground.setCornerRadii(mTopRadii);
+                } else if (position == totalCount - 1) {
+                    mSwipeBackground.setCornerRadii(mBottomRadii);
+                } else {
+                    mSwipeBackground.setCornerRadius(mSmallRadius);
+                }
 
-               mSwipeBackground.setBounds(itemLeft, itemTop, itemRight, itemBottom);
+                mSwipeBackground.setBounds(itemLeft, itemTop, itemRight, itemBottom);
 
-               int topIcon = itemTop + ((itemBottom - itemTop) / 2 - mDeleteIconHalfSize);
-               int textMarginTop = (int) (itemTop + ((itemBottom - itemTop) / 2.0) + mTextVerticalOffset);
+                int topIcon = itemTop + ((itemBottom - itemTop) / 2 - mDeleteIconHalfSize);
+                int textMarginTop = (int) (itemTop + ((itemBottom - itemTop) / 2.0) + mTextVerticalOffset);
 
-               // Drawing according to the swipe direction
-               if (dX > 0) {
-                   // Swipe right
-                   int rightEdge = Math.min(itemLeft + (int) dX, itemRight);
-                   c.clipRect(itemLeft, itemTop, rightEdge, itemBottom);
-                   mSwipeBackground.draw(c);
+                // Drawing according to the swipe direction
+                if (dX > 0) {
+                    // Swipe right
+                    int rightEdge = Math.min(itemLeft + (int) dX, itemRight);
+                    c.clipRect(itemLeft, itemTop, rightEdge, itemBottom);
+                    mSwipeBackground.draw(c);
 
-                   // Icon
-                   if (dX > mDeleteIconHorizontalMargin && mDeleteIcon != null) {
-                       mDeleteIcon.setBounds(
-                               itemLeft + mDeleteIconHorizontalMargin,
-                               topIcon,
-                               itemLeft + mDeleteIconHorizontalMargin + mDeleteIconSize,
-                               topIcon + mDeleteIconSize
-                       );
-                       mDeleteIcon.draw(c);
-                   }
+                    // Icon
+                    if (dX > mDeleteIconHorizontalMargin && mDeleteIcon != null) {
+                        mDeleteIcon.setBounds(
+                            itemLeft + mDeleteIconHorizontalMargin,
+                            topIcon,
+                            itemLeft + mDeleteIconHorizontalMargin + mDeleteIconSize,
+                            topIcon + mDeleteIconSize
+                        );
+                        mDeleteIcon.draw(c);
+                    }
 
-                   // Text
-                   if (dX > mTextHorizontalOffset) {
-                       c.drawText(mDeleteText, itemLeft + mTextHorizontalOffset, textMarginTop, mDeleteTextPaint);
-                   }
-               } else {
-                   // Swipe left (for RTL)
-                   int leftEdge = Math.max(itemRight + (int) dX, itemLeft);
-                   c.clipRect(leftEdge, itemTop, itemRight, itemBottom);
-                   mSwipeBackground.draw(c);
+                    // Text
+                    if (dX > mTextHorizontalOffset) {
+                        c.drawText(mDeleteText, itemLeft + mTextHorizontalOffset, textMarginTop, mDeleteTextPaint);
+                    }
+                } else {
+                    // Swipe left (for RTL)
+                    int leftEdge = Math.max(itemRight + (int) dX, itemLeft);
+                    c.clipRect(leftEdge, itemTop, itemRight, itemBottom);
+                    mSwipeBackground.draw(c);
 
-                   // Icon
-                   if (-dX > mDeleteIconHorizontalMargin && mDeleteIcon != null) {
-                       mDeleteIcon.setBounds(
-                               itemRight - mDeleteIconHorizontalMargin - mDeleteIconSize,
-                               topIcon,
-                               itemRight - mDeleteIconHorizontalMargin,
-                               topIcon + mDeleteIconSize
-                       );
-                       mDeleteIcon.draw(c);
-                   }
+                    // Icon
+                    if (-dX > mDeleteIconHorizontalMargin && mDeleteIcon != null) {
+                        mDeleteIcon.setBounds(
+                            itemRight - mDeleteIconHorizontalMargin - mDeleteIconSize,
+                            topIcon,
+                            itemRight - mDeleteIconHorizontalMargin,
+                            topIcon + mDeleteIconSize
+                        );
+                        mDeleteIcon.draw(c);
+                    }
 
-                   // Text
-                   if (-dX > mTextHorizontalOffset) {
-                       c.drawText(mDeleteText, itemRight - mTextHorizontalOffset, textMarginTop, mDeleteTextPaint);
-                   }
-               }
+                    // Text
+                    if (-dX > mTextHorizontalOffset) {
+                        c.drawText(mDeleteText, itemRight - mTextHorizontalOffset, textMarginTop, mDeleteTextPaint);
+                    }
+                }
 
-               c.restore();
-           }
+                c.restore();
+            }
 
-           @Override
-           public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-               AlarmItemViewHolder alarmHolder = (AlarmItemViewHolder) viewHolder;
-               AlarmItemHolder itemHolder = alarmHolder.getItemHolder();
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                AlarmItemViewHolder alarmHolder = (AlarmItemViewHolder) viewHolder;
+                AlarmItemHolder itemHolder = alarmHolder.getItemHolder();
 
-               removeItem(itemHolder);
-               final Alarm alarm = itemHolder.item;
-               Events.sendAlarmEvent(R.string.action_delete, R.string.label_deskclock);
-               mAlarmUpdateHandler.asyncDeleteAlarm(alarm);
-           }
+                removeItem(itemHolder);
+                final Alarm alarm = itemHolder.item;
+                Events.sendAlarmEvent(R.string.action_delete, R.string.label_deskclock);
+                mAlarmUpdateHandler.asyncDeleteAlarm(alarm);
+            }
 
             @Override
             public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
@@ -480,8 +477,9 @@ public final class AlarmFragment extends DeskClockFragment implements
         }
 
         // If the sort order has changed since last time, reload the alarms
-        String currentSortOrder = SettingsDAO.getAlarmSorting(mPrefs) +
-                "_enabledFirst=" + SettingsDAO.areEnabledAlarmsDisplayedFirst(mPrefs);
+        String currentSortOrder = SettingsDAO.getAlarmSorting(mPrefs)
+            + "_enabledFirst="
+            + SettingsDAO.areEnabledAlarmsDisplayedFirst(mPrefs);
         if (!currentSortOrder.equals(mLastSortOrder)) {
             mLastSortOrder = currentSortOrder;
             LoaderManager.getInstance(this).restartLoader(0, null, this);
@@ -674,57 +672,53 @@ public final class AlarmFragment extends DeskClockFragment implements
         LifecycleOwner viewLifecycleOwner = getViewLifecycleOwner();
 
         parentFragmentManager.setFragmentResultListener(
-                AlarmEditBottomSheetFragment.REQUEST_KEY, viewLifecycleOwner,
-                (requestKey, bundle) -> {
-                    long alarmId = bundle.getLong(AlarmEditBottomSheetFragment.SCROLL_TO_ALARM_ID, Alarm.INVALID_ID);
-                    if (alarmId != Alarm.INVALID_ID) {
-                        setSmoothScrollStableId(alarmId);
-                    }
+            AlarmEditBottomSheetFragment.REQUEST_KEY, viewLifecycleOwner,
+            (requestKey, bundle) -> {
+                long alarmId = bundle.getLong(AlarmEditBottomSheetFragment.SCROLL_TO_ALARM_ID, Alarm.INVALID_ID);
+                if (alarmId != Alarm.INVALID_ID) {
+                    setSmoothScrollStableId(alarmId);
                 }
+            }
         );
 
-        parentFragmentManager.setFragmentResultListener(
-                MaterialTimePickerDialogFragment.REQUEST_KEY, viewLifecycleOwner,
-                (requestKey, result) -> {
-                    int hours = result.getInt(MaterialTimePickerDialogFragment.BUNDLE_KEY_HOURS);
-                    int minutes = result.getInt(MaterialTimePickerDialogFragment.BUNDLE_KEY_MINUTES);
+        parentFragmentManager.setFragmentResultListener(MaterialTimePickerDialogFragment.REQUEST_KEY, viewLifecycleOwner,
+            (requestKey, result) -> {
+                int hours = result.getInt(MaterialTimePickerDialogFragment.BUNDLE_KEY_HOURS);
+                int minutes = result.getInt(MaterialTimePickerDialogFragment.BUNDLE_KEY_MINUTES);
 
-                    Alarm selected = mAlarmTimeClickHandler.getSelectedAlarm();
-                    if (selected != null) {
-                        setSmoothScrollStableId(selected.id);
-                    }
-
-                    mAlarmTimeClickHandler.setAlarm(hours, minutes);
+                Alarm selected = mAlarmTimeClickHandler.getSelectedAlarm();
+                if (selected != null) {
+                    setSmoothScrollStableId(selected.id);
                 }
-        );
 
-        parentFragmentManager.setFragmentResultListener(
-                SpinnerTimePickerDialogFragment.REQUEST_KEY, viewLifecycleOwner,
-                (requestKey, result) -> {
-                    int hours = result.getInt(SpinnerTimePickerDialogFragment.BUNDLE_KEY_HOURS);
-                    int minutes = result.getInt(SpinnerTimePickerDialogFragment.BUNDLE_KEY_MINUTES);
+                mAlarmTimeClickHandler.setAlarm(hours, minutes);
+            });
 
-                    Alarm selectedAlarm = mAlarmTimeClickHandler.getSelectedAlarm();
-                    if (selectedAlarm != null) {
-                        setSmoothScrollStableId(selectedAlarm.id);
-                    }
+        parentFragmentManager.setFragmentResultListener(SpinnerTimePickerDialogFragment.REQUEST_KEY, viewLifecycleOwner,
+            (requestKey, result) -> {
+                int hours = result.getInt(SpinnerTimePickerDialogFragment.BUNDLE_KEY_HOURS);
+                int minutes = result.getInt(SpinnerTimePickerDialogFragment.BUNDLE_KEY_MINUTES);
 
-                    mAlarmTimeClickHandler.setAlarm(hours, minutes);
-                });
+                Alarm selectedAlarm = mAlarmTimeClickHandler.getSelectedAlarm();
+                if (selectedAlarm != null) {
+                    setSmoothScrollStableId(selectedAlarm.id);
+                }
 
-        parentFragmentManager.setFragmentResultListener(
-                AlarmDelayPickerDialogFragment.REQUEST_KEY, viewLifecycleOwner,
-                (requestKey, result) -> {
-                    int hours = result.getInt(AlarmDelayPickerDialogFragment.BUNDLE_KEY_HOURS);
-                    int minutes = result.getInt(AlarmDelayPickerDialogFragment.BUNDLE_KEY_MINUTES);
+                mAlarmTimeClickHandler.setAlarm(hours, minutes);
+            });
 
-                    Alarm selectedAlarm = mAlarmTimeClickHandler.getSelectedAlarm();
-                    if (selectedAlarm != null) {
-                        setSmoothScrollStableId(selectedAlarm.id);
-                    }
+        parentFragmentManager.setFragmentResultListener(AlarmDelayPickerDialogFragment.REQUEST_KEY, viewLifecycleOwner,
+            (requestKey, result) -> {
+                int hours = result.getInt(AlarmDelayPickerDialogFragment.BUNDLE_KEY_HOURS);
+                int minutes = result.getInt(AlarmDelayPickerDialogFragment.BUNDLE_KEY_MINUTES);
 
-                    mAlarmTimeClickHandler.setAlarmWithDelay(hours, minutes);
-                });
+                Alarm selectedAlarm = mAlarmTimeClickHandler.getSelectedAlarm();
+                if (selectedAlarm != null) {
+                    setSmoothScrollStableId(selectedAlarm.id);
+                }
+
+                mAlarmTimeClickHandler.setAlarmWithDelay(hours, minutes);
+            });
     }
 
     /**
@@ -792,8 +786,7 @@ public final class AlarmFragment extends DeskClockFragment implements
         } else {
             // Trying to display a deleted alarm should only happen from a missed notification for
             // an alarm that has been marked deleted after use.
-            SnackbarManager.show(Snackbar.make(mMainLayout, R.string
-                    .missed_alarm_has_been_deleted, Snackbar.LENGTH_LONG));
+            SnackbarManager.show(Snackbar.make(mMainLayout, R.string.missed_alarm_has_been_deleted, Snackbar.LENGTH_LONG));
         }
     }
 
@@ -933,10 +926,10 @@ public final class AlarmFragment extends DeskClockFragment implements
 
         if (bannerWillChange) {
             TransitionSet combinedTransition = new TransitionSet()
-                    .setOrdering(TransitionSet.ORDERING_TOGETHER)
-                    .addTransition(mEmptyViewController.getTransition())
-                    .addTransition(new ChangeBounds())
-                    .addTransition(new Fade().addTarget(mVolumeWarningBanner));
+                .setOrdering(TransitionSet.ORDERING_TOGETHER)
+                .addTransition(mEmptyViewController.getTransition())
+                .addTransition(new ChangeBounds())
+                .addTransition(new Fade().addTarget(mVolumeWarningBanner));
 
             TransitionManager.beginDelayedTransition(mMainLayout, combinedTransition);
 
@@ -967,9 +960,9 @@ public final class AlarmFragment extends DeskClockFragment implements
             if (mVolumeWarningBanner != null && mVolumeWarningBanner.getVisibility() != View.GONE) {
                 if (mMainLayout != null) {
                     TransitionSet strictTransition = new TransitionSet()
-                            .setOrdering(TransitionSet.ORDERING_TOGETHER)
-                            .addTransition(new ChangeBounds())
-                            .addTransition(new Fade(Fade.OUT).addTarget(mVolumeWarningBanner));
+                        .setOrdering(TransitionSet.ORDERING_TOGETHER)
+                        .addTransition(new ChangeBounds())
+                        .addTransition(new Fade(Fade.OUT).addTarget(mVolumeWarningBanner));
 
                     TransitionManager.beginDelayedTransition(mMainLayout, strictTransition);
                 }

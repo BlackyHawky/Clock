@@ -3,40 +3,8 @@
 package com.best.deskclock.settings.custompreference;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ANALOG_CLOCK_SIZE;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_DIGITAL_CLOCK_FONT_SIZE;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SHADOW_OFFSET;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_BLUR_INTENSITY;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_TITLE_FONT_SIZE_PREF;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_EXTERNAL_AUDIO_DEVICE_VOLUME;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_MATERIAL_YOU_WIDGET_BACKGROUND_CORNER_RADIUS;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SCREENSAVER_BRIGHTNESS;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SHAKE_INTENSITY;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TIMER_SHAKE_INTENSITY;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_WIDGETS_FONT_SIZE;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_WIDGET_BACKGROUND_CORNER_RADIUS;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_ANALOG_CLOCK_SIZE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BLUR_INTENSITY;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_DIGITAL_CLOCK_FONT_SIZE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_SHADOW_OFFSET;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_TITLE_FONT_SIZE_PREF;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ANALOG_CLOCK_SIZE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_CLOCK_FONT_SIZE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_EXTERNAL_AUDIO_DEVICE_VOLUME;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_BACKGROUND_CORNER_RADIUS;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_BACKGROUND_CORNER_RADIUS;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_ANALOG_CLOCK_SIZE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_BLUR_INTENSITY;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_BRIGHTNESS;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_DIGITAL_CLOCK_FONT_SIZE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_SHAKE_INTENSITY;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_BLUR_INTENSITY;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_SHADOW_OFFSET;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_SHAKE_INTENSITY;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_WIDGET_BACKGROUND_CORNER_RADIUS;
+import static com.best.deskclock.settings.PreferencesDefaultValues.*;
+import static com.best.deskclock.settings.PreferencesKeys.*;
 import static com.best.deskclock.utils.RingtoneUtils.ALARM_PREVIEW_DURATION_MS;
 
 import android.content.Context;
@@ -183,11 +151,11 @@ public class CustomSliderPreference extends Preference {
             mSlider.setValueTo(MAX_BRIGHTNESS_VALUE);
             mSlider.setValueFrom(MIN_BRIGHTNESS_VALUE);
         } else if (isDigitalWidgetBackgroundCornerRadius()
-                || isNextAlarmWidgetBackgroundCornerRadius()
-                || isVerticalWidgetBackgroundCornerRadius()
-                || isMaterialYouDigitalWidgetBackgroundCornerRadius()
-                || isMaterialYouNextAlarmWidgetBackgroundCornerRadius()
-                || isMaterialYouVerticalWidgetBackgroundCornerRadius()) {
+            || isNextAlarmWidgetBackgroundCornerRadius()
+            || isVerticalWidgetBackgroundCornerRadius()
+            || isMaterialYouDigitalWidgetBackgroundCornerRadius()
+            || isMaterialYouNextAlarmWidgetBackgroundCornerRadius()
+            || isMaterialYouVerticalWidgetBackgroundCornerRadius()) {
             mSlider.setValueTo(MAX_CORNER_RADIUS_VALUE);
             mSlider.setValueFrom(MIN_CORNER_RADIUS_VALUE);
         } else if (isShakeIntensityPreference()) {
@@ -200,16 +168,16 @@ public class CustomSliderPreference extends Preference {
             mSlider.setValueTo(MAX_SHADOW_OFFSET_VALUE);
             mSlider.setValueFrom(MIN_SHADOW_OFFSET_VALUE);
         } else if (isScreensaverBlurIntensityPreference()
-                || isTimerBlurIntensityPreference()
-                || isAlarmBlurIntensityPreference()) {
+            || isTimerBlurIntensityPreference()
+            || isAlarmBlurIntensityPreference()) {
             mSlider.setValueTo(MAX_BLUR_INTENSITY_VALUE);
             mSlider.setValueFrom(MIN_BLUR_INTENSITY_VALUE);
         } else if (isExternalAudioDeviceVolumePreference()) {
             mSlider.setValueTo(MAX_EXTERNAL_AUDIO_DEVICE_VOLUME);
             mSlider.setValueFrom(MIN_EXTERNAL_AUDIO_DEVICE_VOLUME);
         } else if (isAnalogClockSizePreference()
-                || isScreensaverAnalogClockSizePreference()
-                || isAlarmAnalogClockSizePreference()) {
+            || isScreensaverAnalogClockSizePreference()
+            || isAlarmAnalogClockSizePreference()) {
             mSlider.setValueTo(MAX_ANALOG_CLOCK_SIZE_VALUE);
             mSlider.setValueFrom(MIN_ANALOG_CLOCK_SIZE_VALUE);
         } else {
@@ -236,10 +204,10 @@ public class CustomSliderPreference extends Preference {
         if (progress == getDefaultSliderValue()) {
             sliderSummary.setText(R.string.label_default);
         } else if (isScreensaverBrightnessPreference()
-                || isScreensaverAnalogClockSizePreference()
-                || isExternalAudioDeviceVolumePreference()
-                || isAnalogClockSizePreference()
-                || isAlarmAnalogClockSizePreference()) {
+            || isScreensaverAnalogClockSizePreference()
+            || isExternalAudioDeviceVolumePreference()
+            || isAnalogClockSizePreference()
+            || isAlarmAnalogClockSizePreference()) {
             String formattedText = String.format(Locale.getDefault(), "%d%%", progress);
             sliderSummary.setText(formattedText);
         } else {
@@ -255,11 +223,11 @@ public class CustomSliderPreference extends Preference {
             mSliderMinus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_brightness_decrease));
             mSliderPlus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_brightness_increase));
         } else if (isDigitalWidgetBackgroundCornerRadius()
-                || isNextAlarmWidgetBackgroundCornerRadius()
-                || isVerticalWidgetBackgroundCornerRadius()
-                || isMaterialYouDigitalWidgetBackgroundCornerRadius()
-                || isMaterialYouNextAlarmWidgetBackgroundCornerRadius()
-                || isMaterialYouVerticalWidgetBackgroundCornerRadius()) {
+            || isNextAlarmWidgetBackgroundCornerRadius()
+            || isVerticalWidgetBackgroundCornerRadius()
+            || isMaterialYouDigitalWidgetBackgroundCornerRadius()
+            || isMaterialYouNextAlarmWidgetBackgroundCornerRadius()
+            || isMaterialYouVerticalWidgetBackgroundCornerRadius()) {
             mSliderMinus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_rounded_corner_decrease));
             mSliderPlus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_rounded_corner_increase));
         } else if (isShakeIntensityPreference() || isTimerShakeIntensityPreference()) {
@@ -269,16 +237,16 @@ public class CustomSliderPreference extends Preference {
             mSliderMinus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_shadow_decrease));
             mSliderPlus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_shadow_increase));
         } else if (isScreensaverBlurIntensityPreference()
-                || isTimerBlurIntensityPreference()
-                || isAlarmBlurIntensityPreference()) {
+            || isTimerBlurIntensityPreference()
+            || isAlarmBlurIntensityPreference()) {
             mSliderMinus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_blur_decrease));
             mSliderPlus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_blur_increase));
         } else if (isExternalAudioDeviceVolumePreference()) {
             mSliderMinus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_volume_down));
             mSliderPlus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_volume_up));
         } else if (isAnalogClockSizePreference()
-                || isScreensaverAnalogClockSizePreference()
-                || isAlarmAnalogClockSizePreference()) {
+            || isScreensaverAnalogClockSizePreference()
+            || isAlarmAnalogClockSizePreference()) {
             mSliderMinus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_zoom_in));
             mSliderPlus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_zoom_out));
         } else {
@@ -369,34 +337,34 @@ public class CustomSliderPreference extends Preference {
         if (isScreensaverBrightnessPreference()) {
             return DEFAULT_SCREENSAVER_BRIGHTNESS;
         } else if (isDigitalWidgetBackgroundCornerRadius()
-                || isNextAlarmWidgetBackgroundCornerRadius()
-                || isVerticalWidgetBackgroundCornerRadius()) {
+            || isNextAlarmWidgetBackgroundCornerRadius()
+            || isVerticalWidgetBackgroundCornerRadius()) {
             return DEFAULT_WIDGET_BACKGROUND_CORNER_RADIUS;
         } else if (isMaterialYouDigitalWidgetBackgroundCornerRadius()
-                || isMaterialYouNextAlarmWidgetBackgroundCornerRadius()
-                || isMaterialYouVerticalWidgetBackgroundCornerRadius()) {
+            || isMaterialYouNextAlarmWidgetBackgroundCornerRadius()
+            || isMaterialYouVerticalWidgetBackgroundCornerRadius()) {
             return DEFAULT_MATERIAL_YOU_WIDGET_BACKGROUND_CORNER_RADIUS;
         } else if (isShakeIntensityPreference()) {
             return DEFAULT_SHAKE_INTENSITY;
         } else if (isTimerShakeIntensityPreference()) {
             return DEFAULT_TIMER_SHAKE_INTENSITY;
         } else if (isScreensaverDigitalClockFontSizePreference()
-                || isDigitalClockFontSizePreference()
-                || isAlarmDigitalClockFontSizePreference()) {
+            || isDigitalClockFontSizePreference()
+            || isAlarmDigitalClockFontSizePreference()) {
             return DEFAULT_DIGITAL_CLOCK_FONT_SIZE;
         } else if (isAlarmTitleFontSizePreference()) {
             return DEFAULT_ALARM_TITLE_FONT_SIZE_PREF;
         } else if (isTimerShadowOffsetPreference() || isAlarmShadowOffsetPreference()) {
             return DEFAULT_SHADOW_OFFSET;
         } else if (isScreensaverBlurIntensityPreference()
-                || isTimerBlurIntensityPreference()
-                || isAlarmBlurIntensityPreference()) {
+            || isTimerBlurIntensityPreference()
+            || isAlarmBlurIntensityPreference()) {
             return DEFAULT_BLUR_INTENSITY;
         } else if (isExternalAudioDeviceVolumePreference()) {
             return DEFAULT_EXTERNAL_AUDIO_DEVICE_VOLUME;
         } else if (isAnalogClockSizePreference()
-                || isScreensaverAnalogClockSizePreference()
-                || isAlarmAnalogClockSizePreference()) {
+            || isScreensaverAnalogClockSizePreference()
+            || isAlarmAnalogClockSizePreference()) {
             return DEFAULT_ANALOG_CLOCK_SIZE;
         } else {
             return DEFAULT_WIDGETS_FONT_SIZE;
@@ -422,21 +390,21 @@ public class CustomSliderPreference extends Preference {
      */
     private void updateDigitalWidgets() {
         if (!isScreensaverBrightnessPreference()
-                && !isScreensaverDigitalClockFontSizePreference()
-                && !isScreensaverAnalogClockSizePreference()
-                && !isScreensaverBlurIntensityPreference()
-                && !isShakeIntensityPreference()
-                && !isTimerShakeIntensityPreference()
-                && !isTimerShadowOffsetPreference()
-                && !isTimerBlurIntensityPreference()
-                && !isAlarmDigitalClockFontSizePreference()
-                && !isAlarmTitleFontSizePreference()
-                && !isAlarmShadowOffsetPreference()
-                && !isAlarmBlurIntensityPreference()
-                && !isExternalAudioDeviceVolumePreference()
-                && !isAnalogClockSizePreference()
-                && !isAlarmAnalogClockSizePreference()
-                && !isDigitalClockFontSizePreference()) {
+            && !isScreensaverDigitalClockFontSizePreference()
+            && !isScreensaverAnalogClockSizePreference()
+            && !isScreensaverBlurIntensityPreference()
+            && !isShakeIntensityPreference()
+            && !isTimerShakeIntensityPreference()
+            && !isTimerShadowOffsetPreference()
+            && !isTimerBlurIntensityPreference()
+            && !isAlarmDigitalClockFontSizePreference()
+            && !isAlarmTitleFontSizePreference()
+            && !isAlarmShadowOffsetPreference()
+            && !isAlarmBlurIntensityPreference()
+            && !isExternalAudioDeviceVolumePreference()
+            && !isAnalogClockSizePreference()
+            && !isAlarmAnalogClockSizePreference()
+            && !isDigitalClockFontSizePreference()) {
 
             WidgetUtils.updateAllDigitalWidgets(mContext);
         }
@@ -623,8 +591,7 @@ public class CustomSliderPreference extends Preference {
      * external audio device connected.
      */
     private void startRingtonePreviewForExternalAudioDevices() {
-        if (!isExternalAudioDeviceVolumePreference()
-                || !RingtoneUtils.hasExternalAudioDeviceConnected(mContext, mPrefs)) {
+        if (!isExternalAudioDeviceVolumePreference() || !RingtoneUtils.hasExternalAudioDeviceConnected(mContext, mPrefs)) {
             return;
         }
 

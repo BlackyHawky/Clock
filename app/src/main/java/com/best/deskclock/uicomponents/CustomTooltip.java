@@ -81,15 +81,13 @@ public class CustomTooltip {
 
         // Create a popup window
         PopupWindow popup = new PopupWindow(
-                tooltipView,
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                false
+            tooltipView,
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            false
         );
 
-        popup.setBackgroundDrawable(ThemeUtils.pillBackgroundFromAttr(
-                context, com.google.android.material.R.attr.colorSecondary)
-        );
+        popup.setBackgroundDrawable(ThemeUtils.pillBackgroundFromAttr(context, com.google.android.material.R.attr.colorSecondary));
         popup.setOutsideTouchable(true);
 
         // Position
@@ -107,8 +105,8 @@ public class CustomTooltip {
 
         // Vertical position
         int y = position == Position.BELOW
-                ? location[1] + anchorHeight
-                : location[1] - tooltipHeight;
+            ? location[1] + anchorHeight
+            : location[1] - tooltipHeight;
 
         popup.showAtLocation(anchor, Gravity.NO_GRAVITY, x, y);
 

@@ -93,14 +93,12 @@ public final class CitySelectionActivity extends BaseActivity {
         }
 
         mSearchView = new SearchView(this);
-        mSearchView.setLayoutParams(new Toolbar.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        mSearchView.setLayoutParams(new Toolbar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         mSearchView.setQueryHint(getString(R.string.city_search_hint));
         mSearchView.setIconifiedByDefault(false);
         mSearchView.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
         mSearchView.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
-        mSearchView.setBackground(ThemeUtils.pillBackgroundFromAttr(
-                this, com.google.android.material.R.attr.colorSecondaryContainer));
+        mSearchView.setBackground(ThemeUtils.pillBackgroundFromAttr(this, com.google.android.material.R.attr.colorSecondaryContainer));
 
         // Apply custom font to the search text
         TextView searchText = mSearchView.findViewById(androidx.appcompat.R.id.search_src_text);
@@ -139,8 +137,7 @@ public final class CitySelectionActivity extends BaseActivity {
         mCitiesAdapter = new CityAdapter(this);
 
         mCitiesList = findViewById(R.id.cities_list);
-        View headerMainTitleView = getLayoutInflater().inflate(
-                R.layout.city_list_header_main_title, mCitiesList, false);
+        View headerMainTitleView = getLayoutInflater().inflate(R.layout.city_list_header_main_title, mCitiesList, false);
         TextView headerMainTitleText = headerMainTitleView.findViewById(R.id.city_list_header_main_title);
         headerMainTitleText.setTypeface(typeface);
         headerMainTitleText.setOnClickListener(null);
@@ -164,18 +161,16 @@ public final class CitySelectionActivity extends BaseActivity {
                 finish();
                 if (SettingsDAO.isFadeTransitionsEnabled(mPrefs)) {
                     if (SdkUtils.isAtLeastAndroid14()) {
-                        overrideActivityTransition(OVERRIDE_TRANSITION_CLOSE,
-                                R.anim.fade_in, R.anim.fade_out);
+                        overrideActivityTransition(OVERRIDE_TRANSITION_CLOSE, R.anim.fade_in, R.anim.fade_out);
                     } else {
                         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                     }
                 } else {
                     if (SdkUtils.isAtLeastAndroid14()) {
-                        overrideActivityTransition(OVERRIDE_TRANSITION_CLOSE,
-                                R.anim.activity_slide_from_left, R.anim.activity_slide_to_right);
+                        overrideActivityTransition(
+                            OVERRIDE_TRANSITION_CLOSE, R.anim.activity_slide_from_left, R.anim.activity_slide_to_right);
                     } else {
-                        overridePendingTransition(
-                                R.anim.activity_slide_from_left, R.anim.activity_slide_to_right);
+                        overridePendingTransition(R.anim.activity_slide_from_left, R.anim.activity_slide_to_right);
                     }
                 }
             }
@@ -208,8 +203,7 @@ public final class CitySelectionActivity extends BaseActivity {
     @SuppressLint("AlwaysShowAction")
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        menu.add(Menu.NONE, 0, Menu.NONE, getMenuTitle()).setIcon(R.drawable.ic_sort)
-                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        menu.add(Menu.NONE, 0, Menu.NONE, getMenuTitle()).setIcon(R.drawable.ic_sort).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
         mToolbar.post(() -> ThemeUtils.applyToolbarTooltips(mToolbar));
 
@@ -240,8 +234,7 @@ public final class CitySelectionActivity extends BaseActivity {
     private void applyWindowInsets() {
         InsetsUtils.doOnApplyWindowInsets(mRootView, (v, insets) -> {
             // Get the system bar and notch insets
-            Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() |
-                    WindowInsetsCompat.Type.displayCutout());
+            Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout());
 
             v.setPadding(bars.left, bars.top, bars.right, 0);
 

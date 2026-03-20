@@ -3,7 +3,6 @@
 package com.best.deskclock.ringtone;
 
 import static androidx.media3.common.Player.REPEAT_MODE_ONE;
-
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_ROUTING_TO_EXTERNAL_AUDIO_DEVICE;
 import static com.best.deskclock.utils.RingtoneUtils.IN_CALL_VOLUME;
@@ -94,27 +93,27 @@ public final class RingtonePlayer {
      * changes, in order to dynamically update the behavior of the ringtone player.
      */
     private final SharedPreferences.OnSharedPreferenceChangeListener mPrefListener =
-            new SharedPreferences.OnSharedPreferenceChangeListener() {
+        new SharedPreferences.OnSharedPreferenceChangeListener() {
 
-                @Override
-                public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-                    if (KEY_AUTO_ROUTING_TO_EXTERNAL_AUDIO_DEVICE.equals(key)) {
-                        mIsAutoRoutingToExternalAudioDevice =
-                                SettingsDAO.isAutoRoutingToExternalAudioDevice(sharedPreferences);
+            @Override
+            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+                if (KEY_AUTO_ROUTING_TO_EXTERNAL_AUDIO_DEVICE.equals(key)) {
+                    mIsAutoRoutingToExternalAudioDevice =
+                        SettingsDAO.isAutoRoutingToExternalAudioDevice(sharedPreferences);
 
-                        if (mIsAutoRoutingToExternalAudioDevice) {
-                            if (mAudioDeviceCallback == null) {
-                                initAudioDeviceCallback();
-                            }
-                        } else {
-                            if (mAudioDeviceCallback != null) {
-                                mAudioManager.unregisterAudioDeviceCallback(mAudioDeviceCallback);
-                                mAudioDeviceCallback = null;
-                            }
+                    if (mIsAutoRoutingToExternalAudioDevice) {
+                        if (mAudioDeviceCallback == null) {
+                            initAudioDeviceCallback();
+                        }
+                    } else {
+                        if (mAudioDeviceCallback != null) {
+                            mAudioManager.unregisterAudioDeviceCallback(mAudioDeviceCallback);
+                            mAudioDeviceCallback = null;
                         }
                     }
                 }
-            };
+            }
+        };
 
     /**
      * Constructs a new {@link RingtonePlayer} instance responsible for managing alarm playback,
@@ -228,8 +227,8 @@ public final class RingtonePlayer {
         }
 
         mExoPlayer = new ExoPlayer.Builder(mContext)
-                .setAudioAttributes(buildAudioAttributes(isExternalAudioDevice), false)
-                .build();
+            .setAudioAttributes(buildAudioAttributes(isExternalAudioDevice), false)
+            .build();
 
         requestAudioFocus(isExternalAudioDevice);
 
@@ -317,8 +316,7 @@ public final class RingtonePlayer {
         }
 
         int state = mExoPlayer.getPlaybackState();
-        boolean isPlaying = (state == Player.STATE_READY || state == Player.STATE_BUFFERING)
-                && mExoPlayer.getPlayWhenReady();
+        boolean isPlaying = (state == Player.STATE_READY || state == Player.STATE_BUFFERING) && mExoPlayer.getPlayWhenReady();
 
         if (!isPlaying) {
             return false;
@@ -479,9 +477,9 @@ public final class RingtonePlayer {
      */
     private AudioAttributes buildAudioAttributes(boolean externalAudioDeviceConnected) {
         return new AudioAttributes.Builder()
-                .setUsage(externalAudioDeviceConnected ? C.USAGE_MEDIA : C.USAGE_ALARM)
-                .setContentType(C.AUDIO_CONTENT_TYPE_SONIFICATION)
-                .build();
+            .setUsage(externalAudioDeviceConnected ? C.USAGE_MEDIA : C.USAGE_ALARM)
+            .setContentType(C.AUDIO_CONTENT_TYPE_SONIFICATION)
+            .build();
     }
 
     /**
@@ -489,18 +487,18 @@ public final class RingtonePlayer {
      * based on whether an external audio device is connected or not.
      *
      * @param externalAudioDeviceConnected {@code true} if an external audio device is connected;
-     * {@code false} otherwise.
+     *                                     {@code false} otherwise.
      * @return An {@link android.media.AudioAttributes} instance configured for audio focus requests.
      */
     private android.media.AudioAttributes buildAudioFocusAttributes(boolean externalAudioDeviceConnected) {
         int usage = externalAudioDeviceConnected
-                ? android.media.AudioAttributes.USAGE_MEDIA
-                : android.media.AudioAttributes.USAGE_ALARM;
+            ? android.media.AudioAttributes.USAGE_MEDIA
+            : android.media.AudioAttributes.USAGE_ALARM;
 
         return new android.media.AudioAttributes.Builder()
-                .setUsage(usage)
-                .setContentType(android.media.AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                .build();
+            .setUsage(usage)
+            .setContentType(android.media.AudioAttributes.CONTENT_TYPE_SONIFICATION)
+            .build();
     }
 
     /**
@@ -509,15 +507,15 @@ public final class RingtonePlayer {
      * Uses the appropriate stream type and audio attributes for each Android API level.
      *
      * @param isExternalAudioDevice {@code true} if the output is routed through an external audio device;
-     * {@code false} for speaker.
+     *                              {@code false} for speaker.
      */
     private void requestAudioFocus(boolean isExternalAudioDevice) {
         android.media.AudioAttributes systemAttributes = buildAudioFocusAttributes(isExternalAudioDevice);
 
         if (SdkUtils.isAtLeastAndroid8()) {
             mAudioFocusRequest = new AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT)
-                    .setAudioAttributes(systemAttributes)
-                    .build();
+                .setAudioAttributes(systemAttributes)
+                .build();
 
             mAudioManager.requestAudioFocus(mAudioFocusRequest);
         } else {

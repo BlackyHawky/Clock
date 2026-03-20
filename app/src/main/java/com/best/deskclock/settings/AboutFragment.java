@@ -8,28 +8,7 @@ import static com.best.deskclock.data.CustomRingtoneDAO.RINGTONE_URI;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEBUG_LANGUAGE_CODE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.PURPLE_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesDefaultValues.RED_ACCENT_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_FEATURES;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_READ_LICENCE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_TITLE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_TRANSLATE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_VERSION;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_VIEW_ON_GITHUB;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_WHATS_NEW;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ACCENT_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BACKGROUND_IMAGE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_FONT;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_CUSTOM_LANGUAGE_CODE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_DEBUG_CATEGORY;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_CLOCK_FONT;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_DEBUG_SETTINGS;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_LOCAL_LOGGING;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ESSENTIAL_PERMISSIONS_GRANTED;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_GENERAL_FONT;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_BACKGROUND_IMAGE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_DIGITAL_CLOCK_FONT;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_FONT;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_BACKGROUND_IMAGE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_DURATION_FONT;
+import static com.best.deskclock.settings.PreferencesKeys.*;
 import static com.best.deskclock.utils.Utils.ACTION_LANGUAGE_CODE_CHANGED;
 
 import android.annotation.SuppressLint;
@@ -88,52 +67,52 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 public class AboutFragment extends ScreenFragment
-        implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
+    implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
     private static final String[] FONT_AND_IMAGE_KEYS = {
-            KEY_GENERAL_FONT,
-            KEY_ALARM_FONT,
-            KEY_TIMER_DURATION_FONT,
-            KEY_SW_FONT,
-            KEY_DIGITAL_CLOCK_FONT,
-            KEY_SCREENSAVER_DIGITAL_CLOCK_FONT,
-            KEY_ALARM_BACKGROUND_IMAGE,
-            KEY_TIMER_BACKGROUND_IMAGE,
-            KEY_SCREENSAVER_BACKGROUND_IMAGE
+        KEY_GENERAL_FONT,
+        KEY_ALARM_FONT,
+        KEY_TIMER_DURATION_FONT,
+        KEY_SW_FONT,
+        KEY_DIGITAL_CLOCK_FONT,
+        KEY_SCREENSAVER_DIGITAL_CLOCK_FONT,
+        KEY_ALARM_BACKGROUND_IMAGE,
+        KEY_TIMER_BACKGROUND_IMAGE,
+        KEY_SCREENSAVER_BACKGROUND_IMAGE
     };
 
     /**
      * Callback to get the log export result.
      */
     private final ActivityResultLauncher<Intent> exportLogs = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(), result -> {
-                if (result.getResultCode() != Activity.RESULT_OK) {
-                    return;
-                }
+        new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (result.getResultCode() != Activity.RESULT_OK) {
+                return;
+            }
 
-                Uri uri = result.getData() != null ? result.getData().getData() : null;
-                if (uri == null) {
-                    return;
-                }
+            Uri uri = result.getData() != null ? result.getData().getData() : null;
+            if (uri == null) {
+                return;
+            }
 
-                final Context appContext = requireContext().getApplicationContext();
+            final Context appContext = requireContext().getApplicationContext();
 
-                AppExecutors.getDiskIO().execute(() -> {
-                    exportLogsAsZip(appContext, uri);
+            AppExecutors.getDiskIO().execute(() -> {
+                exportLogsAsZip(appContext, uri);
 
-                    boolean hasLogs = !LogUtils.getSavedLocalLogs(appContext).isEmpty();
+                boolean hasLogs = !LogUtils.getSavedLocalLogs(appContext).isEmpty();
 
-                    AppExecutors.getMainThread().post(() -> {
-                        if (hasLogs) {
-                            if (isAdded()) {
-                                displayExportCompleteDialog();
-                            }
-                        } else {
-                            CustomToast.show(appContext, R.string.toast_message_for_backup);
+                AppExecutors.getMainThread().post(() -> {
+                    if (hasLogs) {
+                        if (isAdded()) {
+                            displayExportCompleteDialog();
                         }
-                    });
+                    } else {
+                        CustomToast.show(appContext, R.string.toast_message_for_backup);
+                    }
                 });
             });
+        });
 
     CustomAboutTitlePreference mTitlePref;
     Preference mVersionPref;
@@ -186,13 +165,13 @@ public class AboutFragment extends ScreenFragment
 
                 if (BuildConfig.DEBUG || SettingsDAO.isDebugSettingsDisplayed(mPrefs)) {
                     menu.add(0, MENU_BUG_REPORT, 0, R.string.log_backup_icon_title)
-                            .setIcon(R.drawable.ic_bug_report)
-                            .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+                        .setIcon(R.drawable.ic_bug_report)
+                        .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
                 }
 
                 menu.add(0, MENU_RESET_SETTINGS, 0, R.string.reset_settings_title)
-                        .setIcon(R.drawable.ic_reset_settings)
-                        .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+                    .setIcon(R.drawable.ic_reset_settings)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
             }
 
             @Override
@@ -201,21 +180,21 @@ public class AboutFragment extends ScreenFragment
                     String currentDateAndTime = DateFormat.format("yyyy_MM_dd_HH-mm-ss", new Date()).toString();
 
                     Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT)
-                            .addCategory(Intent.CATEGORY_OPENABLE)
-                            .putExtra(Intent.EXTRA_TITLE, getString(R.string.app_label_debug)
-                                    .replace(" ", "_") + "_log_" + currentDateAndTime)
-                            .setType("application/zip");
+                        .addCategory(Intent.CATEGORY_OPENABLE)
+                        .putExtra(Intent.EXTRA_TITLE, getString(R.string.app_label_debug)
+                            .replace(" ", "_") + "_log_" + currentDateAndTime)
+                        .setType("application/zip");
 
                     exportLogs.launch(intent);
                     return true;
                 } else if (item.getItemId() == MENU_RESET_SETTINGS) {
                     CustomDialog.createSimpleDialog(
-                            requireContext(),
-                            R.drawable.ic_reset_settings,
-                            R.string.reset_settings_title,
-                            getString(R.string.reset_settings_message),
-                            android.R.string.ok,
-                            (d, w) -> resetPreferences()
+                        requireContext(),
+                        R.drawable.ic_reset_settings,
+                        R.string.reset_settings_title,
+                        getString(R.string.reset_settings_message),
+                        android.R.string.ok,
+                        (d, w) -> resetPreferences()
                     ).show();
 
                     return true;
@@ -304,12 +283,12 @@ public class AboutFragment extends ScreenFragment
         final Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
 
         CustomDialog.createSimpleDialog(
-                requireContext(),
-                iconId,
-                titleId,
-                getString(messageId, link),
-                android.R.string.ok,
-                (d, w) -> startActivity(browserIntent)
+            requireContext(),
+            iconId,
+            titleId,
+            getString(messageId, link),
+            android.R.string.ok,
+            (d, w) -> startActivity(browserIntent)
         ).show();
     }
 
@@ -462,8 +441,7 @@ public class AboutFragment extends ScreenFragment
             String uriString = mPrefs.getString(RINGTONE_URI + id, null);
             if (uriString != null) {
                 try {
-                    contentResolver.releasePersistableUriPermission(
-                            Uri.parse(uriString), Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    contentResolver.releasePersistableUriPermission(Uri.parse(uriString), Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 } catch (SecurityException ignore) {
                     LogUtils.w("Unable to release permission for " + uriString);
                 }
@@ -545,15 +523,15 @@ public class AboutFragment extends ScreenFragment
      */
     private void displayExportCompleteDialog() {
         CustomDialog.createSimpleDialog(
-                requireContext(),
-                R.drawable.ic_bug_report,
-                R.string.log_dialog_title,
-                getString(R.string.log_dialog_message),
-                android.R.string.ok,
-                (d, w) -> {
-                    LogUtils.clearSavedLocalLogs(requireContext());
-                    CustomToast.show(requireContext().getApplicationContext(), R.string.toast_message_log_deleted);
-                }
+            requireContext(),
+            R.drawable.ic_bug_report,
+            R.string.log_dialog_title,
+            getString(R.string.log_dialog_message),
+            android.R.string.ok,
+            (d, w) -> {
+                LogUtils.clearSavedLocalLogs(requireContext());
+                CustomToast.show(requireContext().getApplicationContext(), R.string.toast_message_log_deleted);
+            }
         ).show();
     }
 

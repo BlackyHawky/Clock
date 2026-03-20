@@ -163,8 +163,7 @@ public final class WidgetDAO {
      */
     public static boolean isDigitalWidgetBackgroundCornerRadiusCustomizable(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_customize_digital_widget.xml
-        return prefs.getBoolean(KEY_DIGITAL_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS,
-                DEFAULT_WIDGETS_CUSTOMIZE_BACKGROUND_CORNER_RADIUS);
+        return prefs.getBoolean(KEY_DIGITAL_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS, DEFAULT_WIDGETS_CUSTOMIZE_BACKGROUND_CORNER_RADIUS);
     }
 
     /**
@@ -172,8 +171,7 @@ public final class WidgetDAO {
      */
     public static int getDigitalWidgetBackgroundCornerRadius(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_customize_digital_widget.xml
-        return prefs.getInt(KEY_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS,
-                DEFAULT_WIDGET_BACKGROUND_CORNER_RADIUS);
+        return prefs.getInt(KEY_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS, DEFAULT_WIDGET_BACKGROUND_CORNER_RADIUS);
     }
 
     /**
@@ -206,8 +204,7 @@ public final class WidgetDAO {
      */
     public static boolean isDigitalWidgetHorizontalPaddingApplied(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_customize_digital_widget.xml
-        return prefs.getBoolean(KEY_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING,
-                DEFAULT_WIDGETS_APPLY_HORIZONTAL_PADDING);
+        return prefs.getBoolean(KEY_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING, DEFAULT_WIDGETS_APPLY_HORIZONTAL_PADDING);
     }
 
     /**
@@ -348,8 +345,7 @@ public final class WidgetDAO {
      */
     public static boolean isVerticalWidgetBackgroundCornerRadiusCustomizable(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_customize_digital_widget.xml
-        return prefs.getBoolean(KEY_VERTICAL_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS,
-                DEFAULT_WIDGETS_CUSTOMIZE_BACKGROUND_CORNER_RADIUS);
+        return prefs.getBoolean(KEY_VERTICAL_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS, DEFAULT_WIDGETS_CUSTOMIZE_BACKGROUND_CORNER_RADIUS);
     }
 
     /**
@@ -357,8 +353,7 @@ public final class WidgetDAO {
      */
     public static int getVerticalWidgetBackgroundCornerRadius(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_customize_digital_widget.xml
-        return prefs.getInt(KEY_VERTICAL_WIDGET_BACKGROUND_CORNER_RADIUS,
-                DEFAULT_WIDGET_BACKGROUND_CORNER_RADIUS);
+        return prefs.getInt(KEY_VERTICAL_WIDGET_BACKGROUND_CORNER_RADIUS, DEFAULT_WIDGET_BACKGROUND_CORNER_RADIUS);
     }
 
     /**
@@ -375,8 +370,7 @@ public final class WidgetDAO {
      */
     public static boolean isNextAlarmDisplayedOnVerticalDigitalWidget(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_customize_vertical_digital_widget.xml
-        return prefs.getBoolean(KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM,
-                DEFAULT_VERTICAL_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM);
+        return prefs.getBoolean(KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM, DEFAULT_VERTICAL_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM);
     }
 
     /**
@@ -385,8 +379,7 @@ public final class WidgetDAO {
      */
     public static boolean isVerticalDigitalWidgetHorizontalPaddingApplied(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_customize_vertical_digital_widget.xml
-        return prefs.getBoolean(KEY_VERTICAL_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING,
-                DEFAULT_WIDGETS_APPLY_HORIZONTAL_PADDING);
+        return prefs.getBoolean(KEY_VERTICAL_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING, DEFAULT_WIDGETS_APPLY_HORIZONTAL_PADDING);
     }
 
     /**
@@ -511,7 +504,7 @@ public final class WidgetDAO {
     public static boolean isNextAlarmWidgetBackgroundCornerRadiusCustomizable(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_customize_digital_widget.xml
         return prefs.getBoolean(KEY_NEXT_ALARM_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS,
-                DEFAULT_WIDGETS_CUSTOMIZE_BACKGROUND_CORNER_RADIUS);
+            DEFAULT_WIDGETS_CUSTOMIZE_BACKGROUND_CORNER_RADIUS);
     }
 
     /**
@@ -519,8 +512,7 @@ public final class WidgetDAO {
      */
     public static int getNextAlarmWidgetBackgroundCornerRadius(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_customize_digital_widget.xml
-        return prefs.getInt(KEY_NEXT_ALARM_WIDGET_BACKGROUND_CORNER_RADIUS,
-                DEFAULT_WIDGET_BACKGROUND_CORNER_RADIUS);
+        return prefs.getInt(KEY_NEXT_ALARM_WIDGET_BACKGROUND_CORNER_RADIUS, DEFAULT_WIDGET_BACKGROUND_CORNER_RADIUS);
     }
 
     /**
@@ -529,8 +521,7 @@ public final class WidgetDAO {
      */
     public static boolean isNextAlarmWidgetHorizontalPaddingApplied(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_customize_next_alarm_widget.xml
-        return prefs.getBoolean(KEY_NEXT_ALARM_WIDGET_APPLY_HORIZONTAL_PADDING,
-                DEFAULT_WIDGETS_APPLY_HORIZONTAL_PADDING);
+        return prefs.getBoolean(KEY_NEXT_ALARM_WIDGET_APPLY_HORIZONTAL_PADDING, DEFAULT_WIDGETS_APPLY_HORIZONTAL_PADDING);
     }
 
     /**
@@ -635,8 +626,7 @@ public final class WidgetDAO {
      */
     public static int getMaterialYouAnalogWidgetDialColor(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_customize_material_you_analog_widget.xml
-        return prefs.getInt(KEY_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_DIAL_COLOR,
-                DEFAULT_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_DIAL_COLOR);
+        return prefs.getInt(KEY_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_DIAL_COLOR, DEFAULT_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_DIAL_COLOR);
     }
 
     /**
@@ -654,7 +644,7 @@ public final class WidgetDAO {
     public static int getMaterialYouAnalogWidgetHourHandColor(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_customize_material_you_analog_widget.xml
         return prefs.getInt(KEY_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_HOUR_HAND_COLOR,
-                DEFAULT_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_HOUR_HAND_COLOR);
+            DEFAULT_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_HOUR_HAND_COLOR);
     }
 
     /**
@@ -672,7 +662,7 @@ public final class WidgetDAO {
     public static int getMaterialYouAnalogWidgetMinuteHandColor(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_customize_material_you_analog_widget.xml
         return prefs.getInt(KEY_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_MINUTE_HAND_COLOR,
-                DEFAULT_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_MINUTE_HAND_COLOR);
+            DEFAULT_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_MINUTE_HAND_COLOR);
     }
 
     /**
@@ -690,7 +680,7 @@ public final class WidgetDAO {
     public static int getMaterialYouAnalogWidgetSecondHandColor(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_customize_material_you_analog_widget.xml
         return prefs.getInt(KEY_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_SECOND_HAND_COLOR,
-                DEFAULT_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_SECOND_HAND_COLOR);
+            DEFAULT_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_SECOND_HAND_COLOR);
     }
 
     // *********************************
@@ -703,8 +693,7 @@ public final class WidgetDAO {
      */
     public static boolean areSecondsDisplayedOnMaterialYouDigitalWidget(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_customize_material_you_digital_widget.xml
-        return prefs.getBoolean(KEY_MATERIAL_YOU_DIGITAL_WIDGET_SECONDS_DISPLAYED,
-                DEFAULT_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_SECONDS);
+        return prefs.getBoolean(KEY_MATERIAL_YOU_DIGITAL_WIDGET_SECONDS_DISPLAYED, DEFAULT_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_SECONDS);
     }
 
     /**
@@ -714,7 +703,7 @@ public final class WidgetDAO {
     public static boolean isAmPmHiddenOnMaterialYouDigitalWidget(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_customize_material_you_digital_widget.xml
         return prefs.getBoolean(KEY_MATERIAL_YOU_DIGITAL_WIDGET_HIDE_AM_PM,
-                DEFAULT_MATERIAL_YOU_DIGITAL_WIDGET_HIDE_AM_PM);
+            DEFAULT_MATERIAL_YOU_DIGITAL_WIDGET_HIDE_AM_PM);
     }
 
     /**
@@ -723,8 +712,7 @@ public final class WidgetDAO {
      */
     public static boolean isBackgroundDisplayedOnMaterialYouDigitalWidget(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_customize_material_you_digital_widget.xml
-        return prefs.getBoolean(KEY_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_BACKGROUND,
-                DEFAULT_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_BACKGROUND);
+        return prefs.getBoolean(KEY_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_BACKGROUND, DEFAULT_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_BACKGROUND);
     }
 
     /**
@@ -734,7 +722,7 @@ public final class WidgetDAO {
     public static boolean isMaterialYouDigitalWidgetBackgroundCornerRadiusCustomizable(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_customize_digital_widget.xml
         return prefs.getBoolean(KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS,
-                DEFAULT_WIDGETS_CUSTOMIZE_BACKGROUND_CORNER_RADIUS);
+            DEFAULT_WIDGETS_CUSTOMIZE_BACKGROUND_CORNER_RADIUS);
     }
 
     /**
@@ -742,8 +730,7 @@ public final class WidgetDAO {
      */
     public static int getMaterialYouDigitalWidgetBackgroundCornerRadius(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_customize_digital_widget.xml
-        return prefs.getInt(KEY_MATERIAL_YOU_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS,
-                DEFAULT_MATERIAL_YOU_WIDGET_BACKGROUND_CORNER_RADIUS);
+        return prefs.getInt(KEY_MATERIAL_YOU_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS, DEFAULT_MATERIAL_YOU_WIDGET_BACKGROUND_CORNER_RADIUS);
     }
 
     /**
@@ -759,8 +746,7 @@ public final class WidgetDAO {
      */
     public static boolean isNextAlarmDisplayedOnMaterialYouDigitalWidget(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_customize_material_you_digital_widget.xml
-        return prefs.getBoolean(KEY_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM,
-                DEFAULT_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM);
+        return prefs.getBoolean(KEY_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM, DEFAULT_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM);
     }
 
     /**
@@ -770,7 +756,7 @@ public final class WidgetDAO {
     public static boolean areWorldCitiesDisplayedOnMaterialYouDigitalWidget(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_customize_material_you_digital_widget.xml
         return prefs.getBoolean(KEY_MATERIAL_YOU_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED,
-                DEFAULT_MATERIAL_YOU_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED);
+            DEFAULT_MATERIAL_YOU_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED);
     }
 
     /**
@@ -779,8 +765,7 @@ public final class WidgetDAO {
      */
     public static boolean isMaterialYouDigitalWidgetHorizontalPaddingApplied(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_customize_material_you_digital_widget.xml
-        return prefs.getBoolean(KEY_MATERIAL_YOU_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING,
-                DEFAULT_WIDGETS_APPLY_HORIZONTAL_PADDING);
+        return prefs.getBoolean(KEY_MATERIAL_YOU_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING, DEFAULT_WIDGETS_APPLY_HORIZONTAL_PADDING);
     }
 
     /**
@@ -904,7 +889,7 @@ public final class WidgetDAO {
     public static boolean isBackgroundDisplayedOnMaterialYouVerticalDigitalWidget(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_customize_material_you_vertical_digital_widget.xml
         return prefs.getBoolean(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_BACKGROUND,
-                DEFAULT_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_BACKGROUND);
+            DEFAULT_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_BACKGROUND);
     }
 
     /**
@@ -914,7 +899,7 @@ public final class WidgetDAO {
     public static boolean isMaterialYouVerticalDigitalWidgetBackgroundCornerRadiusCustomizable(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_customize_digital_widget.xml
         return prefs.getBoolean(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS,
-                DEFAULT_WIDGETS_CUSTOMIZE_BACKGROUND_CORNER_RADIUS);
+            DEFAULT_WIDGETS_CUSTOMIZE_BACKGROUND_CORNER_RADIUS);
     }
 
     /**
@@ -923,7 +908,7 @@ public final class WidgetDAO {
     public static int getMaterialYouVerticalDigitalWidgetBackgroundCornerRadius(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_customize_digital_widget.xml
         return prefs.getInt(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS,
-                DEFAULT_MATERIAL_YOU_WIDGET_BACKGROUND_CORNER_RADIUS);
+            DEFAULT_MATERIAL_YOU_WIDGET_BACKGROUND_CORNER_RADIUS);
     }
 
     /**
@@ -933,7 +918,7 @@ public final class WidgetDAO {
     public static boolean isDateDisplayedOnMaterialYouVerticalDigitalWidget(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_customize_material_you_vertical_digital_widget.xml
         return prefs.getBoolean(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_DATE,
-                DEFAULT_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_DATE);
+            DEFAULT_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_DATE);
     }
 
     /**
@@ -943,7 +928,7 @@ public final class WidgetDAO {
     public static boolean isNextAlarmDisplayedOnMaterialYouVerticalDigitalWidget(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_customize_material_you_vertical_digital_widget.xml
         return prefs.getBoolean(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM,
-                DEFAULT_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM);
+            DEFAULT_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM);
     }
 
     /**
@@ -953,7 +938,7 @@ public final class WidgetDAO {
     public static boolean isMaterialYouVerticalDigitalWidgetHorizontalPaddingApplied(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_customize_material_you_vertical_digital_widget.xml
         return prefs.getBoolean(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING,
-                DEFAULT_WIDGETS_APPLY_HORIZONTAL_PADDING);
+            DEFAULT_WIDGETS_APPLY_HORIZONTAL_PADDING);
     }
 
     /**
@@ -1060,7 +1045,7 @@ public final class WidgetDAO {
     public static boolean isBackgroundDisplayedOnMaterialYouNextAlarmWidget(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_customize_material_you_next_alarm_widget.xml
         return prefs.getBoolean(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DISPLAY_BACKGROUND,
-                DEFAULT_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_BACKGROUND);
+            DEFAULT_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_BACKGROUND);
     }
 
     /**
@@ -1070,7 +1055,7 @@ public final class WidgetDAO {
     public static boolean isMaterialYouNextAlarmWidgetBackgroundCornerRadiusCustomizable(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_customize_digital_widget.xml
         return prefs.getBoolean(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS,
-                DEFAULT_WIDGETS_CUSTOMIZE_BACKGROUND_CORNER_RADIUS);
+            DEFAULT_WIDGETS_CUSTOMIZE_BACKGROUND_CORNER_RADIUS);
     }
 
     /**
@@ -1079,7 +1064,7 @@ public final class WidgetDAO {
     public static int getMaterialYouNextAlarmWidgetBackgroundCornerRadius(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_customize_digital_widget.xml
         return prefs.getInt(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_BACKGROUND_CORNER_RADIUS,
-                DEFAULT_MATERIAL_YOU_WIDGET_BACKGROUND_CORNER_RADIUS);
+            DEFAULT_MATERIAL_YOU_WIDGET_BACKGROUND_CORNER_RADIUS);
     }
 
     /**
@@ -1088,8 +1073,7 @@ public final class WidgetDAO {
      */
     public static boolean isMaterialYouNextAlarmWidgetHorizontalPaddingApplied(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_customize_material_you_next_alarm_widget.xml
-        return prefs.getBoolean(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_APPLY_HORIZONTAL_PADDING,
-                DEFAULT_WIDGETS_APPLY_HORIZONTAL_PADDING);
+        return prefs.getBoolean(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_APPLY_HORIZONTAL_PADDING, DEFAULT_WIDGETS_APPLY_HORIZONTAL_PADDING);
     }
 
     /**

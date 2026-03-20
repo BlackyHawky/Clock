@@ -36,10 +36,10 @@
             android:name="hour_hand_pivot"
             android:translateX="-480"
             android:translateY="-480">
-                <path
-                    android:name="hour_hand_path"
-                    android:fillColor="@android:color/white"
-                    android:pathData="M520 464V320q0-17-11.5-28.5T480 280t-28.5 11.5T440 320V479q0 8 3 15.5t9 13.5L584 640q11 11 28 11t28-11 11-28-11-28L520 464Z" />
+            <path
+                android:name="hour_hand_path"
+                android:fillColor="@android:color/white"
+                android:pathData="M520 464V320q0-17-11.5-28.5T480 280t-28.5 11.5T440 320V479q0 8 3 15.5t9 13.5L584 640q11 11 28 11t28-11 11-28-11-28L520 464Z" />
         </group>
     </group>
 </vector>

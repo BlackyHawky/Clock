@@ -4,20 +4,7 @@ package com.best.deskclock.settings;
 
 import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
 import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
-
-import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_APPLY_HORIZONTAL_PADDING;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_BACKGROUND_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_BACKGROUND_CORNER_RADIUS;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_TITLE_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_CUSTOM_TITLE_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_TITLE_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_DEFAULT_TITLE_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_DISPLAY_BACKGROUND;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_DISPLAY_TEXT_SHADOW;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_DISPLAY_TEXT_UPPERCASE;
+import static com.best.deskclock.settings.PreferencesKeys.*;
 
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
@@ -36,7 +23,7 @@ import com.best.deskclock.utils.WidgetUtils;
 import com.best.deskclock.widgets.standardwidgets.NextAlarmAppWidgetProvider;
 
 public class NextAlarmWidgetSettingsFragment extends ScreenFragment
-        implements Preference.OnPreferenceChangeListener {
+    implements Preference.OnPreferenceChangeListener {
 
     private int mAppWidgetId = INVALID_APPWIDGET_ID;
 
@@ -107,13 +94,12 @@ public class NextAlarmWidgetSettingsFragment extends ScreenFragment
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
             case KEY_NEXT_ALARM_WIDGET_DISPLAY_TEXT_UPPERCASE, KEY_NEXT_ALARM_WIDGET_DISPLAY_TEXT_SHADOW,
-                 KEY_NEXT_ALARM_WIDGET_APPLY_HORIZONTAL_PADDING ->
-                    Utils.setVibrationTime(requireContext(), 50);
+                 KEY_NEXT_ALARM_WIDGET_APPLY_HORIZONTAL_PADDING -> Utils.setVibrationTime(requireContext(), 50);
 
             case KEY_NEXT_ALARM_WIDGET_DISPLAY_BACKGROUND -> {
                 mCustomizeBackgroundCornerRadiusPref.setVisible((boolean) newValue);
                 mBackgroundCornerRadiusPref.setVisible((boolean) newValue
-                        && WidgetDAO.isNextAlarmWidgetBackgroundCornerRadiusCustomizable(mPrefs));
+                    && WidgetDAO.isNextAlarmWidgetBackgroundCornerRadiusCustomizable(mPrefs));
                 mBackgroundColorPref.setVisible((boolean) newValue);
                 Utils.setVibrationTime(requireContext(), 50);
             }
@@ -154,7 +140,7 @@ public class NextAlarmWidgetSettingsFragment extends ScreenFragment
         mCustomizeBackgroundCornerRadiusPref.setOnPreferenceChangeListener(this);
 
         mBackgroundCornerRadiusPref.setVisible(WidgetDAO.isBackgroundDisplayedOnNextAlarmWidget(mPrefs)
-                && WidgetDAO.isNextAlarmWidgetBackgroundCornerRadiusCustomizable(mPrefs));
+            && WidgetDAO.isNextAlarmWidgetBackgroundCornerRadiusCustomizable(mPrefs));
 
         mApplyHorizontalPaddingPref.setOnPreferenceChangeListener(this);
 

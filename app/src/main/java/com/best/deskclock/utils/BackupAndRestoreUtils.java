@@ -13,18 +13,7 @@ import static com.best.deskclock.data.CustomRingtoneDAO.RINGTONE_TITLE;
 import static com.best.deskclock.data.CustomRingtoneDAO.RINGTONE_URI;
 import static com.best.deskclock.data.SettingsDAO.KEY_SELECTED_ALARM_RINGTONE_URI;
 import static com.best.deskclock.data.TimerDAO.TIMER_IDS;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BACKGROUND_IMAGE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_FONT;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_DEFAULT_ALARM_RINGTONE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_CLOCK_FONT;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ESSENTIAL_PERMISSIONS_GRANTED;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_GENERAL_FONT;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_BACKGROUND_IMAGE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_DIGITAL_CLOCK_FONT;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_FONT;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_BACKGROUND_IMAGE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_DURATION_FONT;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_RINGTONE;
+import static com.best.deskclock.settings.PreferencesKeys.*;
 
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;
@@ -74,8 +63,7 @@ public class BackupAndRestoreUtils {
     /**
      * Read and export values in SharedPreferences to a file.
      */
-    public static void settingsToJsonStream(Context context, SharedPreferences prefs,
-                                            Map<String, ?> settings, OutputStream out) {
+    public static void settingsToJsonStream(Context context, SharedPreferences prefs, Map<String, ?> settings, OutputStream out) {
 
         Map<String, Boolean> booleans = new HashMap<>();
         Map<String, String> strings = new HashMap<>();
@@ -93,20 +81,20 @@ public class BackupAndRestoreUtils {
                 // Finally, exclude the essential permissions key, as it reflects the current system state
                 // and should not be saved, restored, or reset like other preferences.
                 if (key.equals(RINGTONE_IDS)
-                        || key.equals(KEY_GENERAL_FONT)
-                        || key.startsWith(RINGTONE_URI)
-                        || key.equals(NEXT_RINGTONE_ID)
-                        || key.startsWith(RINGTONE_TITLE)
-                        || key.equals(KEY_SELECTED_ALARM_RINGTONE_URI)
-                        || key.equals(KEY_ALARM_FONT)
-                        || key.equals(KEY_ALARM_BACKGROUND_IMAGE)
-                        || key.equals(KEY_TIMER_DURATION_FONT)
-                        || key.equals(KEY_TIMER_BACKGROUND_IMAGE)
-                        || key.equals(KEY_SW_FONT)
-                        || key.equals(KEY_DIGITAL_CLOCK_FONT)
-                        || key.equals(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT)
-                        || key.equals(KEY_SCREENSAVER_BACKGROUND_IMAGE)
-                        || key.equals(KEY_ESSENTIAL_PERMISSIONS_GRANTED)) {
+                    || key.equals(KEY_GENERAL_FONT)
+                    || key.startsWith(RINGTONE_URI)
+                    || key.equals(NEXT_RINGTONE_ID)
+                    || key.startsWith(RINGTONE_TITLE)
+                    || key.equals(KEY_SELECTED_ALARM_RINGTONE_URI)
+                    || key.equals(KEY_ALARM_FONT)
+                    || key.equals(KEY_ALARM_BACKGROUND_IMAGE)
+                    || key.equals(KEY_TIMER_DURATION_FONT)
+                    || key.equals(KEY_TIMER_BACKGROUND_IMAGE)
+                    || key.equals(KEY_SW_FONT)
+                    || key.equals(KEY_DIGITAL_CLOCK_FONT)
+                    || key.equals(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT)
+                    || key.equals(KEY_SCREENSAVER_BACKGROUND_IMAGE)
+                    || key.equals(KEY_ESSENTIAL_PERMISSIONS_GRANTED)) {
                     continue;
                 }
 
@@ -252,21 +240,21 @@ public class BackupAndRestoreUtils {
             String key = entry.getKey();
 
             if (!key.equals(KEY_IS_FIRST_LAUNCH)
-                    && !key.equals(KEY_GENERAL_FONT)
-                    && !key.startsWith(RINGTONE_URI)
-                    && !key.equals(RINGTONE_IDS)
-                    && !key.equals(NEXT_RINGTONE_ID)
-                    && !key.startsWith(RINGTONE_TITLE)
-                    && !key.equals(KEY_SELECTED_ALARM_RINGTONE_URI)
-                    && !key.equals(KEY_ALARM_FONT)
-                    && !key.equals(KEY_ALARM_BACKGROUND_IMAGE)
-                    && !key.equals(KEY_TIMER_DURATION_FONT)
-                    && !key.equals(KEY_TIMER_BACKGROUND_IMAGE)
-                    && !key.equals(KEY_SW_FONT)
-                    && !key.equals(KEY_DIGITAL_CLOCK_FONT)
-                    && !key.equals(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT)
-                    && !key.equals(KEY_SCREENSAVER_BACKGROUND_IMAGE)
-                    && !key.equals(KEY_ESSENTIAL_PERMISSIONS_GRANTED)
+                && !key.equals(KEY_GENERAL_FONT)
+                && !key.startsWith(RINGTONE_URI)
+                && !key.equals(RINGTONE_IDS)
+                && !key.equals(NEXT_RINGTONE_ID)
+                && !key.startsWith(RINGTONE_TITLE)
+                && !key.equals(KEY_SELECTED_ALARM_RINGTONE_URI)
+                && !key.equals(KEY_ALARM_FONT)
+                && !key.equals(KEY_ALARM_BACKGROUND_IMAGE)
+                && !key.equals(KEY_TIMER_DURATION_FONT)
+                && !key.equals(KEY_TIMER_BACKGROUND_IMAGE)
+                && !key.equals(KEY_SW_FONT)
+                && !key.equals(KEY_DIGITAL_CLOCK_FONT)
+                && !key.equals(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT)
+                && !key.equals(KEY_SCREENSAVER_BACKGROUND_IMAGE)
+                && !key.equals(KEY_ESSENTIAL_PERMISSIONS_GRANTED)
             ) {
                 editor.remove(key);
             }
@@ -282,14 +270,14 @@ public class BackupAndRestoreUtils {
             JSONObject jsonObject = new JSONObject(jsonBuilder.toString());
 
             JSONObject booleans = jsonObject.getJSONObject("Boolean settings");
-            for (Iterator<String> it = booleans.keys(); it.hasNext();) {
+            for (Iterator<String> it = booleans.keys(); it.hasNext(); ) {
                 String key = it.next();
                 boolean value = booleans.getBoolean(key);
                 editor.putBoolean(key, value);
             }
 
             JSONObject strings = jsonObject.getJSONObject("String settings");
-            for (Iterator<String> it = strings.keys(); it.hasNext();) {
+            for (Iterator<String> it = strings.keys(); it.hasNext(); ) {
                 String key = it.next();
                 String value = strings.getString(key);
 
@@ -309,14 +297,14 @@ public class BackupAndRestoreUtils {
             }
 
             JSONObject integers = jsonObject.getJSONObject("Integer settings");
-            for (Iterator<String> it = integers.keys(); it.hasNext();) {
+            for (Iterator<String> it = integers.keys(); it.hasNext(); ) {
                 String key = it.next();
                 int value = integers.getInt(key);
                 editor.putInt(key, value);
             }
 
             JSONObject longs = jsonObject.getJSONObject("Long settings");
-            for (Iterator<String> it = longs.keys(); it.hasNext();) {
+            for (Iterator<String> it = longs.keys(); it.hasNext(); ) {
                 String key = it.next();
                 long value = longs.getLong(key);
                 editor.putLong(key, value);
@@ -416,10 +404,9 @@ public class BackupAndRestoreUtils {
             day = calendar.get(Calendar.DAY_OF_MONTH);
         }
 
-        restoredAlarm = new Alarm(id, enabled, year, month, day, hour, minutes,
-                vibrate, vibrationPattern, flash, Weekdays.fromBits(daysOfWeek), label, syncAlarmByLabel,
-                alarmRingtone, deleteAfterUse, autoSilenceDuration, snoozeDuration, missedAlarmRepeatLimit,
-                crescendoDuration, alarmVolume);
+        restoredAlarm = new Alarm(id, enabled, year, month, day, hour, minutes, vibrate, vibrationPattern, flash,
+            Weekdays.fromBits(daysOfWeek), label, syncAlarmByLabel, alarmRingtone, deleteAfterUse, autoSilenceDuration, snoozeDuration,
+            missedAlarmRepeatLimit, crescendoDuration, alarmVolume);
 
         restoredAlarm.addAlarm(contentResolver);
 
@@ -450,8 +437,7 @@ public class BackupAndRestoreUtils {
             try {
                 if ("content".equals(ringtoneUri.getScheme())) {
                     // For URI content:// (managed by ContentResolver)
-                    try (Cursor cursor = context.getContentResolver().query(ringtoneUri, null,
-                            null, null, null)) {
+                    try (Cursor cursor = context.getContentResolver().query(ringtoneUri, null, null, null, null)) {
                         if (cursor != null && cursor.moveToFirst()) {
                             int columnIndex = cursor.getColumnIndex(MediaStore.Audio.Media.DATA);
 

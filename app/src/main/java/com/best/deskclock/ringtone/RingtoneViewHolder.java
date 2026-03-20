@@ -27,7 +27,6 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.ThemeUtils;
-
 import com.google.android.material.color.MaterialColors;
 
 public class RingtoneViewHolder extends RecyclerView.ViewHolder {
@@ -67,8 +66,7 @@ public class RingtoneViewHolder extends RecyclerView.ViewHolder {
         Drawable silent = AppCompatResources.getDrawable(mContext, R.drawable.ic_ringtone_silent);
         if (silent != null) {
             mSilentIcon = silent.mutate();
-            mSilentIcon.setTint(MaterialColors.getColor(mContext,
-                    com.google.android.material.R.attr.colorOnSurfaceVariant, Color.BLACK));
+            mSilentIcon.setTint(MaterialColors.getColor(mContext, com.google.android.material.R.attr.colorOnSurfaceVariant, Color.BLACK));
         } else {
             mSilentIcon = null;
         }

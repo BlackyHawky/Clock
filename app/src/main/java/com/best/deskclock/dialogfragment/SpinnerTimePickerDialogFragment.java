@@ -20,7 +20,6 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.best.deskclock.R;
-
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.Utils;
@@ -64,8 +63,8 @@ public class SpinnerTimePickerDialogFragment extends DialogFragment {
      * Creates a new instance of {@link SpinnerTimePickerDialogFragment} for use
      * in the alarm view, where the time is configured for a specific alarm.
      *
-     * @param hours    The alarm hours.
-     * @param minutes  The alarm minutes.
+     * @param hours   The alarm hours.
+     * @param minutes The alarm minutes.
      */
     public static SpinnerTimePickerDialogFragment newInstance(int hours, int minutes) {
         final Bundle args = new Bundle();
@@ -134,42 +133,42 @@ public class SpinnerTimePickerDialogFragment extends DialogFragment {
         setupEditTextInput(mAmPmPicker, InputType.TYPE_CLASS_TEXT, EditorInfo.IME_ACTION_DONE);
 
         return CustomDialog.create(
-                requireContext(),
-                R.style.SpinnerDialogTheme,
-                null,
-                getString(R.string.time_picker_dialog_title),
-                null,
-                dialogView,
-                getString(android.R.string.ok),
-                (d, w) -> {
-                    mHourPicker.clearFocus();
-                    mMinutePicker.clearFocus();
-                    if (!is24HourFormat()) {
-                        mAmPmPicker.clearFocus();
+            requireContext(),
+            R.style.SpinnerDialogTheme,
+            null,
+            getString(R.string.time_picker_dialog_title),
+            null,
+            dialogView,
+            getString(android.R.string.ok),
+            (d, w) -> {
+                mHourPicker.clearFocus();
+                mMinutePicker.clearFocus();
+                if (!is24HourFormat()) {
+                    mAmPmPicker.clearFocus();
+                }
+
+                int selectedHour = mHourPicker.getValue();
+                int selectedMinute = mMinutePicker.getValue();
+                int amPm = mAmPmPicker.getValue();
+
+                if (!is24HourFormat()) {
+                    if (amPm == Calendar.PM && selectedHour < 12) {
+                        selectedHour += 12;
                     }
 
-                    int selectedHour = mHourPicker.getValue();
-                    int selectedMinute = mMinutePicker.getValue();
-                    int amPm = mAmPmPicker.getValue();
-
-                    if (!is24HourFormat()) {
-                        if (amPm == Calendar.PM && selectedHour < 12) {
-                            selectedHour += 12;
-                        }
-
-                        if (amPm == Calendar.AM && selectedHour == 12) {
-                            selectedHour = 0;
-                        }
+                    if (amPm == Calendar.AM && selectedHour == 12) {
+                        selectedHour = 0;
                     }
+                }
 
-                    setAlarm(selectedHour, selectedMinute);
-                },
-                getString(android.R.string.cancel),
-                null,
-                null,
-                null,
-                null,
-                CustomDialog.SoftInputMode.SHOW_KEYBOARD
+                setAlarm(selectedHour, selectedMinute);
+            },
+            getString(android.R.string.cancel),
+            null,
+            null,
+            null,
+            null,
+            CustomDialog.SoftInputMode.SHOW_KEYBOARD
         );
     }
 
@@ -256,7 +255,7 @@ public class SpinnerTimePickerDialogFragment extends DialogFragment {
         // AM/PM listener
         if (!is24HourFormat()) {
             mAmPmPicker.setOnValueChangedListener((picker, oldVal, newVal) ->
-                    picker.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK));
+                picker.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK));
         }
 
         // Divider setup

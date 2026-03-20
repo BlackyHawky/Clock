@@ -113,18 +113,17 @@ public class DigitalAppWidgetCityViewsFactory extends BaseDigitalAppWidgetCityVi
     }
 
     @Override
-    protected void configureColors(RemoteViews rv, Context context, SharedPreferences prefs,
-                                   int clockId, int labelId, int dayId) {
+    protected void configureColors(RemoteViews rv, Context context, SharedPreferences prefs, int clockId, int labelId, int dayId) {
 
         int cityClockColor = WidgetDAO.isDigitalWidgetDefaultCityClockColor(prefs)
-                ? DEFAULT_WIDGETS_CUSTOM_COLOR
-                : WidgetDAO.getDigitalWidgetCustomCityClockColor(prefs);
+            ? DEFAULT_WIDGETS_CUSTOM_COLOR
+            : WidgetDAO.getDigitalWidgetCustomCityClockColor(prefs);
 
         rv.setTextColor(clockId, cityClockColor);
 
         int cityNameColor = WidgetDAO.isDigitalWidgetDefaultCityNameColor(prefs)
-                ? DEFAULT_WIDGETS_CUSTOM_COLOR
-                : WidgetDAO.getDigitalWidgetCustomCityNameColor(prefs);
+            ? DEFAULT_WIDGETS_CUSTOM_COLOR
+            : WidgetDAO.getDigitalWidgetCustomCityNameColor(prefs);
 
         rv.setTextColor(labelId, cityNameColor);
         rv.setTextColor(dayId, cityNameColor);

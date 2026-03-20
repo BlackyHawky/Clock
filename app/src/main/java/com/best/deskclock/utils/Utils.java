@@ -8,7 +8,6 @@ package com.best.deskclock.utils;
 
 import static android.app.PendingIntent.FLAG_IMMUTABLE;
 import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
-
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SYSTEM_LANGUAGE_CODE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.VIBRATION_PATTERN_ESCALATING;
@@ -88,8 +87,8 @@ public class Utils {
      * Creates and returns a {@link PendingIntent} to start a service, using a specific
      * {@code requestCode} to distinguish intents.
      *
-     * @param context the Context in which the PendingIntent should start the service
-     * @param intent  an Intent describing the service to be started
+     * @param context     the Context in which the PendingIntent should start the service
+     * @param intent      an Intent describing the service to be started
      * @param requestCode a unique identifier to differentiate between multiple PendingIntents
      */
     public static PendingIntent pendingServiceIntent(Context context, Intent intent, int requestCode) {
@@ -106,7 +105,7 @@ public class Utils {
     public static PendingIntent pendingActivityIntent(Context context, Intent intent) {
         // explicitly set the flag here, as getActivity() documentation states we must do so
         return PendingIntent.getActivity(context, 0, intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
-                FLAG_UPDATE_CURRENT | FLAG_IMMUTABLE);
+            FLAG_UPDATE_CURRENT | FLAG_IMMUTABLE);
     }
 
     /**
@@ -220,14 +219,14 @@ public class Utils {
      */
     public static Context getSafeStorageContext(Context context) {
         return SdkUtils.isAtLeastAndroid7()
-                ? context.createDeviceProtectedStorageContext()
-                : context;
+            ? context.createDeviceProtectedStorageContext()
+            : context;
     }
 
     /**
      * Set the vibration duration if the device is equipped with a vibrator and if vibrations are enabled in the settings.
      *
-     * @param context to define whether the device is equipped with a vibrator.
+     * @param context      to define whether the device is equipped with a vibrator.
      * @param milliseconds Hours to display (if any)
      */
     public static void setVibrationTime(Context context, long milliseconds) {
@@ -247,7 +246,7 @@ public class Utils {
      *
      * @param patternKey the key identifying the vibration pattern
      * @return a long array representing the vibration pattern durations in milliseconds;
-     *         if the pattern key is unknown, returns a default vibration pattern
+     * if the pattern key is unknown, returns a default vibration pattern
      */
     public static long[] getVibrationPatternForKey(String patternKey) {
         return switch (patternKey) {
@@ -266,7 +265,7 @@ public class Utils {
      * This cache is used to compare old and new values during preference changes,
      * preventing unnecessary actions if the value has not actually changed.</p>
      *
-     * @param keys List of preference keys to retrieve and cache.
+     * @param keys   List of preference keys to retrieve and cache.
      * @param getter Function that returns the value for a given key.
      * @return A map of preference keys to their current values.
      */
@@ -315,7 +314,8 @@ public class Utils {
                 int bytesRead;
                 while ((bytesRead = inputStream.read(buffer)) != -1) {
                     outputStream.write(buffer, 0, bytesRead);
-                } return Uri.fromFile(destFile);
+                }
+                return Uri.fromFile(destFile);
             } else {
                 LogUtils.e("InputStream null for URI: " + sourceUri);
             }
@@ -343,7 +343,7 @@ public class Utils {
             }
         } else if ("content".equalsIgnoreCase(scheme)) {
             try (Cursor cursor = context.getContentResolver().query(
-                    uri, new String[]{OpenableColumns.SIZE}, null, null, null)) {
+                uri, new String[]{OpenableColumns.SIZE}, null, null, null)) {
                 if (cursor != null && cursor.moveToFirst()) {
                     int sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE);
                     if (!cursor.isNull(sizeIndex)) {
@@ -387,9 +387,8 @@ public class Utils {
      * @return A sanitized string that can be safely used as a filename in app storage.
      */
     public static String toSafeFileName(String title) {
-        // Normalize accented characters to their base form (é → e, ü → u, etc.)
-        String normalized = Normalizer.normalize(title, Normalizer.Form.NFD)
-                .replaceAll("\\p{M}", ""); // Remove diacritical marks
+        // Normalize accented characters to their base form (é → e, ü → u, etc.) and remove diacritical marks
+        String normalized = Normalizer.normalize(title, Normalizer.Form.NFD).replaceAll("\\p{M}", "");
 
         // Replace any remaining non-alphanumeric character (except dot or hyphen) with an underscore
         return normalized.replaceAll("[^a-zA-Z0-9.\\-]", "_");

@@ -3,21 +3,7 @@
 package com.best.deskclock.settings;
 
 import static android.app.Activity.RESULT_OK;
-
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ANALOG_CLOCK_SIZE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_HOME_CLOCK;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_CLOCK_DIAL;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_CLOCK_DIAL_MATERIAL;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_CLOCK_SECOND_HAND;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_CLOCK_STYLE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_DATE_TIME;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_CLOCK_FONT;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_CLOCK_FONT_SIZE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_CLOCK_SECONDS;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_TEXT_UPPERCASE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_CITY_NOTE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_HOME_TIME_ZONE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_SORT_CITIES;
+import static com.best.deskclock.settings.PreferencesKeys.*;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -40,7 +26,7 @@ import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.utils.Utils;
 
 public class ClockSettingsFragment extends ScreenFragment
-        implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
+    implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
     String[] mClockStyleValues;
     String mAnalogClock;
@@ -63,40 +49,40 @@ public class ClockSettingsFragment extends ScreenFragment
     Preference mDateTimePref;
 
     private final ActivityResultLauncher<Intent> fontPickerLauncher =
-            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-                if (result.getResultCode() != RESULT_OK) {
-                    return;
-                }
+        registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (result.getResultCode() != RESULT_OK) {
+                return;
+            }
 
-                Intent intent = result.getData();
-                final Uri sourceUri = intent == null ? null : intent.getData();
-                if (sourceUri == null) {
-                    return;
-                }
+            Intent intent = result.getData();
+            final Uri sourceUri = intent == null ? null : intent.getData();
+            if (sourceUri == null) {
+                return;
+            }
 
-                // Take persistent permission
-                requireActivity().getContentResolver().takePersistableUriPermission(
-                        sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION
-                );
+            // Take persistent permission
+            requireActivity().getContentResolver().takePersistableUriPermission(
+                sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION
+            );
 
-                String safeTitle = Utils.toSafeFileName("digital_clock_font");
+            String safeTitle = Utils.toSafeFileName("digital_clock_font");
 
-                // Delete the old font if it exists
-                clearFile(mPrefs.getString(KEY_DIGITAL_CLOCK_FONT, null));
+            // Delete the old font if it exists
+            clearFile(mPrefs.getString(KEY_DIGITAL_CLOCK_FONT, null));
 
-                Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(requireContext(), sourceUri, safeTitle);
+            Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(requireContext(), sourceUri, safeTitle);
 
-                // Save the new path
-                if (copiedUri != null) {
-                    mPrefs.edit().putString(KEY_DIGITAL_CLOCK_FONT, copiedUri.getPath()).apply();
-                    mDigitalClockFontPref.setTitle(getString(R.string.custom_font_title_variant));
+            // Save the new path
+            if (copiedUri != null) {
+                mPrefs.edit().putString(KEY_DIGITAL_CLOCK_FONT, copiedUri.getPath()).apply();
+                mDigitalClockFontPref.setTitle(getString(R.string.custom_font_title_variant));
 
-                    CustomToast.show(requireContext(), R.string.custom_font_toast_message_selected);
-                } else {
-                    CustomToast.show(requireContext(), "Error importing font");
-                    mDigitalClockFontPref.setTitle(getString(R.string.custom_font_title));
-                }
-            });
+                CustomToast.show(requireContext(), R.string.custom_font_toast_message_selected);
+            } else {
+                CustomToast.show(requireContext(), "Error importing font");
+                mDigitalClockFontPref.setTitle(getString(R.string.custom_font_title));
+            }
+        });
 
 
     @Override
@@ -160,8 +146,7 @@ public class ClockSettingsFragment extends ScreenFragment
             }
 
             case KEY_DISPLAY_CLOCK_SECONDS -> {
-                mClockSecondHandPref.setVisible((boolean) newValue
-                        && SettingsDAO.getClockStyle(mPrefs) == DataModel.ClockStyle.ANALOG);
+                mClockSecondHandPref.setVisible((boolean) newValue && SettingsDAO.getClockStyle(mPrefs) == DataModel.ClockStyle.ANALOG);
 
                 Utils.setVibrationTime(requireContext(), 50);
             }
@@ -172,8 +157,7 @@ public class ClockSettingsFragment extends ScreenFragment
                 Utils.setVibrationTime(requireContext(), 50);
             }
 
-            case KEY_DISPLAY_TEXT_UPPERCASE, KEY_ENABLE_CITY_NOTE ->
-                    Utils.setVibrationTime(requireContext(), 50);
+            case KEY_DISPLAY_TEXT_UPPERCASE, KEY_ENABLE_CITY_NOTE -> Utils.setVibrationTime(requireContext(), 50);
         }
 
         return true;
@@ -188,8 +172,8 @@ public class ClockSettingsFragment extends ScreenFragment
                 startActivity(dialogIntent);
             }
 
-            case KEY_DIGITAL_CLOCK_FONT -> selectCustomFile(mDigitalClockFontPref, fontPickerLauncher,
-                    SettingsDAO.getDigitalClockFont(mPrefs), KEY_DIGITAL_CLOCK_FONT, true, null);
+            case KEY_DIGITAL_CLOCK_FONT -> selectCustomFile(
+                mDigitalClockFontPref, fontPickerLauncher, SettingsDAO.getDigitalClockFont(mPrefs), KEY_DIGITAL_CLOCK_FONT, true, null);
         }
 
         return true;
@@ -215,15 +199,14 @@ public class ClockSettingsFragment extends ScreenFragment
 
         mDisplayClockSecondsPref.setOnPreferenceChangeListener(this);
 
-        mClockSecondHandPref.setVisible(isAnalogClock
-                && SettingsDAO.areClockSecondsDisplayed(mPrefs));
+        mClockSecondHandPref.setVisible(isAnalogClock && SettingsDAO.areClockSecondsDisplayed(mPrefs));
         mClockSecondHandPref.setSummary(mClockSecondHandPref.getEntry());
         mClockSecondHandPref.setOnPreferenceChangeListener(this);
 
         mDigitalClockFontPref.setVisible(isDigitalClock);
         mDigitalClockFontPref.setTitle(getString(SettingsDAO.getDigitalClockFont(mPrefs) == null
-                ? R.string.custom_font_title
-                : R.string.custom_font_title_variant));
+            ? R.string.custom_font_title
+            : R.string.custom_font_title_variant));
         mDigitalClockFontPref.setOnPreferenceClickListener(this);
 
         mDisplayTextUppercasePref.setOnPreferenceChangeListener(this);

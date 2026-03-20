@@ -57,19 +57,19 @@ public class PermissionUtils {
      */
     public static boolean areEssentialPermissionsNotGranted(Context context) {
         return !isIgnoringBatteryOptimizations(context)
-                || !areNotificationsEnabled(context)
-                || SdkUtils.isAtLeastAndroid14() && !areFullScreenNotificationsEnabled(context);
+            || !areNotificationsEnabled(context)
+            || SdkUtils.isAtLeastAndroid14() && !areFullScreenNotificationsEnabled(context);
     }
 
     /**
      * Grant or revoke Power-off alarm permission (available only on specific devices).
      */
-     public static void grantPowerOffAlarmPermission(FragmentActivity activity) {
-         int powerOffAlarmCode = 1001;
+    public static void grantPowerOffAlarmPermission(FragmentActivity activity) {
+        int powerOffAlarmCode = 1001;
 
-         if (activity.checkSelfPermission(PERMISSION_POWER_OFF_ALARM) != PackageManager.PERMISSION_GRANTED) {
-             activity.requestPermissions(new String[]{PERMISSION_POWER_OFF_ALARM}, powerOffAlarmCode);
-         }
-     }
+        if (activity.checkSelfPermission(PERMISSION_POWER_OFF_ALARM) != PackageManager.PERMISSION_GRANTED) {
+            activity.requestPermissions(new String[]{PERMISSION_POWER_OFF_ALARM}, powerOffAlarmCode);
+        }
+    }
 
 }

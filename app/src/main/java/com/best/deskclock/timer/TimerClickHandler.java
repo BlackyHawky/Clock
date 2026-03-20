@@ -6,10 +6,9 @@
 
 package com.best.deskclock.timer;
 
-import com.best.deskclock.R;
-
 import androidx.fragment.app.Fragment;
 
+import com.best.deskclock.R;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.dialogfragment.LabelDialogFragment;
 import com.best.deskclock.dialogfragment.TimerAddTimeButtonDialogFragment;

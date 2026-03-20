@@ -27,7 +27,6 @@ import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.settings.custompreference.ColorPickerPreference;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.ThemeUtils;
-
 import com.best.deskclock.utils.Utils;
 import com.rarepebble.colorpicker.ColorPickerView;
 
@@ -80,29 +79,29 @@ public class ColorPreferenceDialogFragment extends DialogFragment {
         }
 
         return CustomDialog.create(
-                context,
-                null,
-                null,
-                preference.getTitle(),
-                null,
-                colorPickerView,
-                getString(android.R.string.ok),
-                (d, w) -> {
-                    int color = colorPickerView.getColor();
-                    if (preference.callChangeListener(color)) {
-                        preference.setColor(color);
-                    }
-                },
-                getString(android.R.string.cancel),
-                null,
-                getString(R.string.label_default),
-                (d, w) -> {
-                    if (preference.callChangeListener(null)) {
-                        preference.setColor(null);
-                    }
-                },
-                null,
-                CustomDialog.SoftInputMode.NONE
+            context,
+            null,
+            null,
+            preference.getTitle(),
+            null,
+            colorPickerView,
+            getString(android.R.string.ok),
+            (d, w) -> {
+                int color = colorPickerView.getColor();
+                if (preference.callChangeListener(color)) {
+                    preference.setColor(color);
+                }
+            },
+            getString(android.R.string.cancel),
+            null,
+            getString(R.string.label_default),
+            (d, w) -> {
+                if (preference.callChangeListener(null)) {
+                    preference.setColor(null);
+                }
+            },
+            null,
+            CustomDialog.SoftInputMode.NONE
         );
     }
 
@@ -114,9 +113,9 @@ public class ColorPreferenceDialogFragment extends DialogFragment {
 
         // Don't display transparency for the screensaver color settings, as this has no effect.
         colorPickerView.showAlpha(!preference.getKey().equals(KEY_SCREENSAVER_CLOCK_COLOR_PICKER)
-                && !preference.getKey().equals(KEY_SCREENSAVER_BATTERY_COLOR_PICKER)
-                && !preference.getKey().equals(KEY_SCREENSAVER_DATE_COLOR_PICKER)
-                && !preference.getKey().equals(KEY_SCREENSAVER_NEXT_ALARM_COLOR_PICKER));
+            && !preference.getKey().equals(KEY_SCREENSAVER_BATTERY_COLOR_PICKER)
+            && !preference.getKey().equals(KEY_SCREENSAVER_DATE_COLOR_PICKER)
+            && !preference.getKey().equals(KEY_SCREENSAVER_NEXT_ALARM_COLOR_PICKER));
 
         colorPickerView.showHex(true);
 

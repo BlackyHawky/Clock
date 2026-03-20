@@ -12,7 +12,7 @@ package com.best.deskclock.data;
 public interface StopwatchListener {
 
     /**
-     * @param after  the stopwatch state after the update
+     * @param after the stopwatch state after the update
      */
     void stopwatchUpdated(Stopwatch after);
 

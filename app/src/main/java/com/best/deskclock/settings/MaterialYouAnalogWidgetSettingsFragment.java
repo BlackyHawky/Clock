@@ -4,18 +4,7 @@ package com.best.deskclock.settings;
 
 import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
 import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
-
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_ANALOG_WIDGET_CLOCK_DIAL;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_DIAL_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_HOUR_HAND_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_MINUTE_HAND_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_SECOND_HAND_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_ANALOG_WIDGET_DEFAULT_DIAL_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_ANALOG_WIDGET_DEFAULT_HOUR_HAND_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_ANALOG_WIDGET_DEFAULT_MINUTE_HAND_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_ANALOG_WIDGET_DEFAULT_SECOND_HAND_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_ANALOG_WIDGET_WITH_SECOND_HAND;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_WIDGET_COLOR_CATEGORY;
+import static com.best.deskclock.settings.PreferencesKeys.*;
 
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
@@ -109,8 +98,7 @@ public class MaterialYouAnalogWidgetSettingsFragment extends ScreenFragment impl
 
             case KEY_MATERIAL_YOU_ANALOG_WIDGET_WITH_SECOND_HAND -> {
                 mDefaultSecondHandColorPref.setVisible((boolean) newValue);
-                mSecondHandColorPref.setVisible((boolean) newValue
-                        && !WidgetDAO.isMaterialYouAnalogWidgetDefaultSecondHandColor(mPrefs));
+                mSecondHandColorPref.setVisible((boolean) newValue && !WidgetDAO.isMaterialYouAnalogWidgetDefaultSecondHandColor(mPrefs));
 
                 Utils.setVibrationTime(requireContext(), 50);
             }
@@ -131,8 +119,7 @@ public class MaterialYouAnalogWidgetSettingsFragment extends ScreenFragment impl
             }
 
             case KEY_MATERIAL_YOU_ANALOG_WIDGET_DEFAULT_SECOND_HAND_COLOR -> {
-                mSecondHandColorPref.setVisible(!(boolean) newValue
-                        && WidgetDAO.isSecondHandDisplayedOnMaterialYouAnalogWidget(mPrefs));
+                mSecondHandColorPref.setVisible(!(boolean) newValue && WidgetDAO.isSecondHandDisplayedOnMaterialYouAnalogWidget(mPrefs));
                 Utils.setVibrationTime(requireContext(), 50);
             }
         }
@@ -143,7 +130,7 @@ public class MaterialYouAnalogWidgetSettingsFragment extends ScreenFragment impl
 
     private void setupPreferences() {
         final boolean isSecondHandEnabled = SdkUtils.isAtLeastAndroid12()
-                && WidgetDAO.isSecondHandDisplayedOnMaterialYouAnalogWidget(mPrefs);
+            && WidgetDAO.isSecondHandDisplayedOnMaterialYouAnalogWidget(mPrefs);
 
         mClockDialPref.setSummary(mClockDialPref.getEntry());
         mClockDialPref.setOnPreferenceChangeListener(this);
@@ -171,8 +158,7 @@ public class MaterialYouAnalogWidgetSettingsFragment extends ScreenFragment impl
         mDefaultSecondHandColorPref.setVisible(isSecondHandEnabled);
         mDefaultSecondHandColorPref.setOnPreferenceChangeListener(this);
 
-        mSecondHandColorPref.setVisible(isSecondHandEnabled
-                && !WidgetDAO.isMaterialYouAnalogWidgetDefaultSecondHandColor(mPrefs));
+        mSecondHandColorPref.setVisible(isSecondHandEnabled && !WidgetDAO.isMaterialYouAnalogWidgetDefaultSecondHandColor(mPrefs));
         mSecondHandColorPref.setOnPreferenceChangeListener(this);
     }
 

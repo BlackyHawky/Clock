@@ -7,7 +7,6 @@
 package com.best.deskclock.data;
 
 import static android.provider.Settings.ACTION_SOUND_SETTINGS;
-
 import static com.best.deskclock.settings.PreferencesDefaultValues.DARK_THEME;
 import static com.best.deskclock.settings.PreferencesDefaultValues.LIGHT_THEME;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SYSTEM_THEME;
@@ -98,26 +97,23 @@ public final class DataModel {
      * Initializes the data model with the context and shared preferences to be used.
      */
     public void init() {
-         Context appContext = DeskClockApplication.getAppContext();
-         SharedPreferences prefs = DeskClockApplication.getDefaultSharedPreferences(appContext);
+        Context appContext = DeskClockApplication.getAppContext();
+        SharedPreferences prefs = DeskClockApplication.getDefaultSharedPreferences(appContext);
 
-         final String themeValue = prefs.getString(KEY_THEME, SYSTEM_THEME);
-         switch (themeValue) {
-             case SYSTEM_THEME ->
-                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-             case LIGHT_THEME ->
-                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-             case DARK_THEME ->
-                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-         }
+        final String themeValue = prefs.getString(KEY_THEME, SYSTEM_THEME);
+        switch (themeValue) {
+            case SYSTEM_THEME -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+            case LIGHT_THEME -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            case DARK_THEME -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
 
-         mNotificationModel = new NotificationModel();
-         mRingtoneModel = new RingtoneModel(appContext, prefs);
-         mCityModel = new CityModel(appContext, prefs);
-         mAlarmModel = new AlarmModel(prefs, mRingtoneModel);
-         mSilentSettingsModel = new SilentSettingsModel(appContext, mNotificationModel);
-         mStopwatchModel = new StopwatchModel(appContext, prefs, mNotificationModel);
-         mTimerModel = new TimerModel(appContext, prefs, mRingtoneModel, mNotificationModel);
+        mNotificationModel = new NotificationModel();
+        mRingtoneModel = new RingtoneModel(appContext, prefs);
+        mCityModel = new CityModel(appContext, prefs);
+        mAlarmModel = new AlarmModel(prefs, mRingtoneModel);
+        mSilentSettingsModel = new SilentSettingsModel(appContext, mNotificationModel);
+        mStopwatchModel = new StopwatchModel(appContext, prefs, mNotificationModel);
+        mTimerModel = new TimerModel(appContext, prefs, mRingtoneModel, mNotificationModel);
     }
 
     /**
@@ -151,6 +147,7 @@ public final class DataModel {
     /**
      * Posts a runnable to the main thread and blocks until the runnable executes. Used to access
      * the data model from the main thread.
+     *
      * @noinspection SynchronizationOnLocalVariableOrMethodParameter
      */
     public void run(Runnable runnable, long waitMillis) throws InterruptedException {
@@ -258,6 +255,7 @@ public final class DataModel {
 
     /**
      * Updates the order of selected cities and persists it to SharedPreferences.
+     *
      * @param newOrder the new list of selected cities, in the desired order
      */
     public void updateSelectedCitiesOrder(List<City> newOrder) {
@@ -493,7 +491,7 @@ public final class DataModel {
     }
 
     /**
-     * @param timer the timer to which the new {@code newLength} belongs
+     * @param timer     the timer to which the new {@code newLength} belongs
      * @param newLength the new duration to store for the {@code timer}
      */
     public void setNewTimerDuration(Timer timer, long newLength) {
@@ -502,7 +500,7 @@ public final class DataModel {
     }
 
     /**
-     * @param timer the timer to which the new {@code buttonTime} belongs
+     * @param timer      the timer to which the new {@code buttonTime} belongs
      * @param buttonTime the new add button text to store for the {@code timer}
      */
     public void setTimerButtonTime(Timer timer, String buttonTime) {
@@ -845,8 +843,7 @@ public final class DataModel {
         public void executeAction(Context context) {
             if (this == SILENT_RINGTONE) {
                 try {
-                    context.startActivity(new Intent(ACTION_SOUND_SETTINGS)
-                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                    context.startActivity(new Intent(ACTION_SOUND_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                 } catch (ActivityNotFoundException ex) {
                     CustomToast.show(context, "application_not_found");
                 }

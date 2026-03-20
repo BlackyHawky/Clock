@@ -32,7 +32,6 @@
         tools:textColor="@android:color/white"
         tools:textAllCaps="true" />
 
-
     <!-- A horizontal padding is added because on some devices
     the text shadow is cut off. -->
     <TextView

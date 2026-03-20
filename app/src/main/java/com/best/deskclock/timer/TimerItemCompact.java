@@ -58,37 +58,59 @@ public class TimerItemCompact extends ConstraintLayout {
     private String mLastLabel = null;
     private String mLastTotalDuration = null;
 
-    /** Displays timer progress as a horizontal bar. */
+    /**
+     * Displays timer progress as a horizontal bar.
+     */
     private TimerBarView mTimerBar;
 
-    /** Formats and displays the text in the timer. */
+    /**
+     * Formats and displays the text in the timer.
+     */
     private TimerTextController mTimerTextController;
 
-    /** Displays the remaining time or time since expiration. */
+    /**
+     * Displays the remaining time or time since expiration.
+     */
     private TextView mTimerText;
 
-    /** A button that resets the timer. */
+    /**
+     * A button that resets the timer.
+     */
     private ImageButton mResetButton;
 
-    /** A button that adds time to the timer. */
+    /**
+     * A button that adds time to the timer.
+     */
     private MaterialButton mAddTimeButton;
 
-    /** Displays the label associated with the timer. Tapping it presents an edit dialog. */
+    /**
+     * Displays the label associated with the timer. Tapping it presents an edit dialog.
+     */
     private TextView mLabelView;
 
-    /** A button to start / stop the timer */
+    /**
+     * A button to start / stop the timer
+     */
     private MaterialButton mPlayPauseButton;
 
-    /** View representing the visual indicator of the timer state (running, paused, expired). */
+    /**
+     * View representing the visual indicator of the timer state (running, paused, expired).
+     */
     private View mIndicatorState;
 
-    /** Drawable used to style the timer state indicator as a circle with dynamic fill. */
+    /**
+     * Drawable used to style the timer state indicator as a circle with dynamic fill.
+     */
     private GradientDrawable mGradientDrawable;
 
-    /** The last state of the timer that was rendered; used to avoid expensive operations. */
+    /**
+     * The last state of the timer that was rendered; used to avoid expensive operations.
+     */
     private Timer.State mLastState;
 
-    /** The timer duration text that appears when the timer is reset */
+    /**
+     * The timer duration text that appears when the timer is reset
+     */
     private TextView mTimerTotalDurationText;
 
     public TimerItemCompact(Context context) {
@@ -142,12 +164,11 @@ public class TimerItemCompact extends ConstraintLayout {
         mColorExpired = SettingsDAO.getExpiredTimerIndicatorColor(mPrefs);
         mColorMissed = SettingsDAO.getMissedTimerIndicatorColor(mPrefs);
 
-        final int colorAccent = MaterialColors.getColor(
-                mContext, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
+        final int colorAccent = MaterialColors.getColor(mContext, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
         final int textColorPrimary = mTimerText.getCurrentTextColor();
         final ColorStateList timeTextColor = new ColorStateList(
-                new int[][]{{-state_activated, -state_pressed}, {}},
-                new int[]{textColorPrimary, colorAccent});
+            new int[][]{{-state_activated, -state_pressed}, {}},
+            new int[]{textColorPrimary, colorAccent});
         mTimerText.setTextColor(timeTextColor);
         mTimerText.setTypeface(mTimerTimeTypeface);
 
@@ -165,15 +186,15 @@ public class TimerItemCompact extends ConstraintLayout {
         if (mTimerBar != null) {
             final boolean isBlinking = timer.isExpired() || timer.isMissed();
             final float targetAlpha = isBlinking
-                    ? (blinkOff ? 0f : 1f)
-                    : 1f;
+                ? (blinkOff ? 0f : 1f)
+                : 1f;
 
             // Apply circle blinking
             if (mTimerBar.getAlpha() != targetAlpha) {
                 mTimerBar.animate()
-                        .alpha(targetAlpha)
-                        .setDuration(300)
-                        .start();
+                    .alpha(targetAlpha)
+                    .setDuration(300)
+                    .start();
             }
 
             // Update circle only if visible
@@ -185,9 +206,9 @@ public class TimerItemCompact extends ConstraintLayout {
         final float textTargetAlpha = (!timer.isPaused() || !blinkOff || mTimerText.isPressed()) ? 1f : 0f;
         if (mTimerText.getAlpha() != textTargetAlpha) {
             mTimerText.animate()
-                    .alpha(textTargetAlpha)
-                    .setDuration(200)
-                    .start();
+                .alpha(textTargetAlpha)
+                .setDuration(200)
+                .start();
         }
     }
 
@@ -243,18 +264,18 @@ public class TimerItemCompact extends ConstraintLayout {
             long buttonTimeSeconds = totalSeconds % 60;
 
             String buttonTimeFormatted = String.format(
-                    Locale.getDefault(),
-                    buttonTimeMinutes < 10 ? "%d:%02d" : "%02d:%02d",
-                    buttonTimeMinutes,
-                    buttonTimeSeconds);
+                Locale.getDefault(),
+                buttonTimeMinutes < 10 ? "%d:%02d" : "%02d:%02d",
+                buttonTimeMinutes,
+                buttonTimeSeconds);
 
             mCachedAddButtonText = mContext.getString(R.string.timer_add_custom_time, buttonTimeFormatted);
 
             mCachedAddButtonContentDesc = buttonTimeSeconds == 0
-                    ? mContext.getString(R.string.timer_add_custom_time_description, String.valueOf(buttonTimeMinutes))
-                    : mContext.getString(R.string.timer_add_custom_time_with_seconds_description,
-                    String.valueOf(buttonTimeMinutes),
-                    String.valueOf(buttonTimeSeconds));
+                ? mContext.getString(R.string.timer_add_custom_time_description, String.valueOf(buttonTimeMinutes))
+                : mContext.getString(R.string.timer_add_custom_time_with_seconds_description,
+                String.valueOf(buttonTimeMinutes),
+                String.valueOf(buttonTimeSeconds));
         }
 
         mAddTimeButton.setText(mCachedAddButtonText);

@@ -38,7 +38,6 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
-
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
@@ -147,7 +146,7 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
         mContext = requireContext();
         SharedPreferences prefs = getDefaultSharedPreferences(mContext);
         Typeface typeFace = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
-        
+
         final Bundle args = getArguments() == null ? Bundle.EMPTY : getArguments();
         mTimerId = args.getInt(ARG_TIMER_ID, -1);
 
@@ -167,15 +166,13 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
         mMinutesInputLayout = dialogView.findViewById(R.id.dialog_input_layout_minutes);
         mMinutesInputLayout.setTypeface(typeFace);
         mMinutesInputLayout.setHelperText(getString(R.string.timer_button_time_minutes_warning_box_text));
-        TextView minutesHelper = mMinutesInputLayout.findViewById(
-                com.google.android.material.R.id.textinput_helper_text);
+        TextView minutesHelper = mMinutesInputLayout.findViewById(com.google.android.material.R.id.textinput_helper_text);
         minutesHelper.setTypeface(typeFace);
 
         mSecondsInputLayout = dialogView.findViewById(R.id.dialog_input_layout_seconds);
         mSecondsInputLayout.setTypeface(typeFace);
         mSecondsInputLayout.setHelperText(getString(R.string.timer_button_time_seconds_warning_box_text));
-        TextView secondsHelper = mSecondsInputLayout.findViewById(
-                com.google.android.material.R.id.textinput_helper_text);
+        TextView secondsHelper = mSecondsInputLayout.findViewById(com.google.android.material.R.id.textinput_helper_text);
         secondsHelper.setTypeface(typeFace);
 
         mEditMinutes = dialogView.findViewById(R.id.edit_minutes);
@@ -217,26 +214,26 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
         String inputSecondsText = mEditSeconds.getText().toString();
 
         return CustomDialog.create(
-                mContext,
-                null,
-                mPrefKey != null ? null : AppCompatResources.getDrawable(requireContext(), R.drawable.ic_hourglass_top),
-                getString(R.string.timer_button_time_box_title),
-                null,
-                dialogView,
-                getString(android.R.string.ok),
-                (d, w) -> setDurationInSeconds(),
-                getString(android.R.string.cancel),
-                null,
-                getString(R.string.label_default),
-                (d, w) -> applyDurationInSeconds(DEFAULT_TIMER_ADD_TIME_BUTTON_VALUE),
-                alertDialog -> {
-                    mOkButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-                    mDefaultButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
+            mContext,
+            null,
+            mPrefKey != null ? null : AppCompatResources.getDrawable(requireContext(), R.drawable.ic_hourglass_top),
+            getString(R.string.timer_button_time_box_title),
+            null,
+            dialogView,
+            getString(android.R.string.ok),
+            (d, w) -> setDurationInSeconds(),
+            getString(android.R.string.cancel),
+            null,
+            getString(R.string.label_default),
+            (d, w) -> applyDurationInSeconds(DEFAULT_TIMER_ADD_TIME_BUTTON_VALUE),
+            alertDialog -> {
+                mOkButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                mDefaultButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
 
-                    mOkButton.setEnabled(!isInvalidInput(inputMinutesText, inputSecondsText));
-                    mDefaultButton.setEnabled(isNotDefaultDuration(inputMinutesText, inputSecondsText));
-                },
-                CustomDialog.SoftInputMode.SHOW_KEYBOARD
+                mOkButton.setEnabled(!isInvalidInput(inputMinutesText, inputSecondsText));
+                mDefaultButton.setEnabled(isNotDefaultDuration(inputMinutesText, inputSecondsText));
+            },
+            CustomDialog.SoftInputMode.SHOW_KEYBOARD
         );
     }
 
@@ -335,8 +332,8 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
 
         TextView titleText = alertDialog.findViewById(R.id.dialog_title);
         if (titleText != null) {
-            titleText.setCompoundDrawablesWithIntrinsicBounds(
-                    AppCompatResources.getDrawable(mContext, R.drawable.ic_error), null, null, null);
+            titleText.setCompoundDrawablesWithIntrinsicBounds(AppCompatResources.getDrawable(
+                mContext, R.drawable.ic_error), null, null, null);
             if (mPrefKey != null) {
                 titleText.setCompoundDrawablePadding((int) dpToPx(18, getResources().getDisplayMetrics()));
             }
@@ -346,22 +343,22 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
         String minutesText = Objects.requireNonNull(mEditMinutes.getText()).toString();
         String secondsText = Objects.requireNonNull(mEditSeconds.getText()).toString();
         boolean minutesInvalid = (!minutesText.isEmpty() && Integer.parseInt(minutesText) < 0)
-                || (!minutesText.isEmpty() && Integer.parseInt(minutesText) > 60);
+            || (!minutesText.isEmpty() && Integer.parseInt(minutesText) > 60);
         boolean secondsInvalid = (!secondsText.isEmpty() && Integer.parseInt(secondsText) < 0)
-                || (!secondsText.isEmpty() && Integer.parseInt(secondsText) > 59);
+            || (!secondsText.isEmpty() && Integer.parseInt(secondsText) > 59);
         int invalidColor = ContextCompat.getColor(mContext, R.color.md_theme_error);
         int validColor = MaterialColors.getColor(mContext, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
 
         mMinutesInputLayout.setBoxStrokeColor(minutesInvalid ? invalidColor : validColor);
         mMinutesInputLayout.setHintTextColor(minutesInvalid
-                ? ColorStateList.valueOf(invalidColor)
-                : ColorStateList.valueOf(validColor));
+            ? ColorStateList.valueOf(invalidColor)
+            : ColorStateList.valueOf(validColor));
         mMinutesInputLayout.setEnabled(!secondsInvalid);
 
         mSecondsInputLayout.setBoxStrokeColor(secondsInvalid ? invalidColor : validColor);
         mSecondsInputLayout.setHintTextColor(secondsInvalid
-                ? ColorStateList.valueOf(invalidColor)
-                : ColorStateList.valueOf(validColor));
+            ? ColorStateList.valueOf(invalidColor)
+            : ColorStateList.valueOf(validColor));
         mSecondsInputLayout.setEnabled(!minutesInvalid);
 
         if (mOkButton != null) {
@@ -382,8 +379,8 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
             if (mPrefKey != null) {
                 titleText.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
             } else {
-                titleText.setCompoundDrawablesWithIntrinsicBounds(
-                        AppCompatResources.getDrawable(mContext, R.drawable.ic_hourglass_top), null, null, null);
+                titleText.setCompoundDrawablesWithIntrinsicBounds(AppCompatResources.getDrawable(
+                    mContext, R.drawable.ic_hourglass_top), null, null, null);
             }
             titleText.setText(getString(R.string.timer_button_time_box_title));
         }
@@ -452,7 +449,7 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
                 mEditMinutes.setOnEditorActionListener(new ImeDoneListener());
                 mSecondsInputLayout.setEnabled(false);
 
-                if(!"0".equals(secondsText)) {
+                if (!"0".equals(secondsText)) {
                     mEditSeconds.setText("0");
                 }
             } else {

@@ -63,7 +63,7 @@
             android:gravity="end|center_vertical"
             android:paddingStart="16dp"
             android:paddingEnd="0dp"
-            android:orientation="vertical"/>
+            android:orientation="vertical" />
 
     </LinearLayout>
 

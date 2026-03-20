@@ -97,21 +97,21 @@ public class DigitalWidgetSizes {
         final StringBuilder builder = new StringBuilder(1000);
         builder.append("\n");
         append(builder, "Target dimensions: %dpx x %dpx\n",
-                mTargetWidthPx, mTargetHeightPx);
+            mTargetWidthPx, mTargetHeightPx);
         append(builder, "Last valid widget container measurement: %dpx x %dpx\n",
-                mMeasuredWidthPx, mMeasuredHeightPx);
+            mMeasuredWidthPx, mMeasuredHeightPx);
         append(builder, "Last text clock measurement: %dpx x %dpx\n",
-                mMeasuredTextWidthPx, mMeasuredTextHeightPx);
+            mMeasuredTextWidthPx, mMeasuredTextHeightPx);
         append(builder, "Last text clock measurement: %dpx x %dpx\n",
-                mMeasuredTextForCustomColorWidthPx, mMeasuredTextForCustomColorHeightPx);
+            mMeasuredTextForCustomColorWidthPx, mMeasuredTextForCustomColorHeightPx);
 
         if (mMeasuredWidthPx > mTargetWidthPx) {
             append(builder, "Measured width %dpx exceeded widget width %dpx\n",
-                    mMeasuredWidthPx, mTargetWidthPx);
+                mMeasuredWidthPx, mTargetWidthPx);
         }
         if (mMeasuredHeightPx > mTargetHeightPx) {
             append(builder, "Measured height %dpx exceeded widget height %dpx\n",
-                    mMeasuredHeightPx, mTargetHeightPx);
+                mMeasuredHeightPx, mTargetHeightPx);
         }
         append(builder, "Clock font: %dpx\n", mWidgetFontSizePx);
         return builder.toString();

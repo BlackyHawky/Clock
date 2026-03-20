@@ -7,7 +7,6 @@
 package com.best.deskclock.screensaver;
 
 import static android.content.Intent.ACTION_BATTERY_CHANGED;
-
 import static com.best.deskclock.utils.AlarmUtils.ACTION_NEXT_ALARM_CHANGED_BY_CLOCK;
 
 import android.annotation.SuppressLint;
@@ -149,8 +148,8 @@ public final class Screensaver extends DreamService {
         }
 
         final Intent intent = SdkUtils.isAtLeastAndroid13()
-                ? registerReceiver(null, new IntentFilter(ACTION_BATTERY_CHANGED), Context.RECEIVER_NOT_EXPORTED)
-                : registerReceiver(null, new IntentFilter(ACTION_BATTERY_CHANGED));
+            ? registerReceiver(null, new IntentFilter(ACTION_BATTERY_CHANGED), Context.RECEIVER_NOT_EXPORTED)
+            : registerReceiver(null, new IntentFilter(ACTION_BATTERY_CHANGED));
 
         if (intent != null) {
             ScreensaverUtils.updateBatteryText(mContentView, intent);

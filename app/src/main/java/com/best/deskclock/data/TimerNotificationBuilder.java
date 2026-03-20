@@ -108,9 +108,9 @@ class TimerNotificationBuilder {
             stateText = null;
             // Left button: Pause
             final Intent pause = new Intent(context, TimerService.class)
-                    .setAction(TimerService.ACTION_PAUSE_TIMER)
-                    .setData(Uri.parse(URI_SCHEME_TIMER_PAUSE + timerId))
-                    .putExtra(TimerService.EXTRA_TIMER_ID, timerId);
+                .setAction(TimerService.ACTION_PAUSE_TIMER)
+                .setData(Uri.parse(URI_SCHEME_TIMER_PAUSE + timerId))
+                .putExtra(TimerService.EXTRA_TIMER_ID, timerId);
 
             @DrawableRes final int icon1 = R.drawable.ic_fab_pause;
             final CharSequence title1 = context.getText(R.string.timer_pause);
@@ -119,9 +119,9 @@ class TimerNotificationBuilder {
 
             // Right Button: +x Minutes
             final Intent addMinute = new Intent(context, TimerService.class)
-                    .setAction(TimerService.ACTION_ADD_CUSTOM_TIME_TO_TIMER)
-                    .setData(Uri.parse(URI_SCHEME_TIMER_ADD + timerId))
-                    .putExtra(TimerService.EXTRA_TIMER_ID, timerId);
+                .setAction(TimerService.ACTION_ADD_CUSTOM_TIME_TO_TIMER)
+                .setData(Uri.parse(URI_SCHEME_TIMER_ADD + timerId))
+                .putExtra(TimerService.EXTRA_TIMER_ID, timerId);
 
             @DrawableRes final int icon2 = R.drawable.ic_add;
             int customTimeToAdd = Integer.parseInt(timer.getButtonTime());
@@ -129,11 +129,11 @@ class TimerNotificationBuilder {
             int secondsToAdd = customTimeToAdd % 60;
 
             final CharSequence title2 = secondsToAdd == 0
-                    ? context.getString(R.string.timer_add_custom_time_for_notification,
-                        String.valueOf(minutesToAdd))
-                    : context.getString(R.string.timer_add_custom_time_with_seconds_for_notification,
-                        String.valueOf(minutesToAdd),
-                        String.valueOf(secondsToAdd));
+                ? context.getString(R.string.timer_add_custom_time_for_notification,
+                String.valueOf(minutesToAdd))
+                : context.getString(R.string.timer_add_custom_time_with_seconds_for_notification,
+                String.valueOf(minutesToAdd),
+                String.valueOf(secondsToAdd));
 
             final PendingIntent intent2 = Utils.pendingServiceIntent(context, addMinute, timerId);
             actions.add(new Action.Builder(icon2, title2, intent2).build());
@@ -143,9 +143,9 @@ class TimerNotificationBuilder {
 
             // Left button: Start
             final Intent start = new Intent(context, TimerService.class)
-                    .setAction(TimerService.ACTION_START_TIMER)
-                    .setData(Uri.parse(URI_SCHEME_TIMER_START + timerId))
-                    .putExtra(TimerService.EXTRA_TIMER_ID, timerId);
+                .setAction(TimerService.ACTION_START_TIMER)
+                .setData(Uri.parse(URI_SCHEME_TIMER_START + timerId))
+                .putExtra(TimerService.EXTRA_TIMER_ID, timerId);
 
             @DrawableRes final int icon1 = R.drawable.ic_fab_play;
             final CharSequence title1 = context.getText(R.string.sw_resume_button);
@@ -154,9 +154,9 @@ class TimerNotificationBuilder {
 
             // Right Button: Reset
             final Intent reset = new Intent(context, TimerService.class)
-                    .setAction(TimerService.ACTION_RESET_TIMER)
-                    .setData(Uri.parse(URI_SCHEME_TIMER_RESET + timerId))
-                    .putExtra(TimerService.EXTRA_TIMER_ID, timerId);
+                .setAction(TimerService.ACTION_RESET_TIMER)
+                .setData(Uri.parse(URI_SCHEME_TIMER_RESET + timerId))
+                .putExtra(TimerService.EXTRA_TIMER_ID, timerId);
 
             @DrawableRes final int icon = R.drawable.ic_reset;
             final CharSequence title = context.getText(R.string.reset);
@@ -166,31 +166,31 @@ class TimerNotificationBuilder {
 
         // Intent to load the app and show the timer when the notification is tapped.
         final Intent showApp = new Intent(context, DeskClock.class)
-                .setAction(TimerService.ACTION_SHOW_TIMER)
-                .setData(Uri.parse(URI_SCHEME_TIMER_SHOW + timerId))
-                .putExtra(TimerService.EXTRA_TIMER_ID, timerId)
-                .putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_notification);
+            .setAction(TimerService.ACTION_SHOW_TIMER)
+            .setData(Uri.parse(URI_SCHEME_TIMER_SHOW + timerId))
+            .putExtra(TimerService.EXTRA_TIMER_ID, timerId)
+            .putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_notification);
 
         final PendingIntent pendingShowApp = Utils.pendingActivityIntent(context, showApp);
 
         final Builder notification = new Builder(context, TIMER_MODEL_NOTIFICATION_CHANNEL_ID)
-                .setOngoing(true)
-                .setLocalOnly(true)
-                .setShowWhen(false)
-                .setAutoCancel(false)
-                .setContentTitle(contentTitle)
-                .setContentText(contentText)
-                .setContentIntent(pendingShowApp)
-                .setPriority(SdkUtils.isAtLeastAndroid7()
-                        ? NotificationManager.IMPORTANCE_LOW
-                        : Notification.PRIORITY_LOW)
-                .setCategory(NotificationCompat.CATEGORY_ALARM)
-                .setSmallIcon(R.drawable.ic_hourglass_bottom)
-                .setSortKey(nm.getTimerNotificationSortKey())
-                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-                .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
-                .setColor(context.getColor(R.color.md_theme_primary))
-                .setGroup(nm.getTimerNotificationGroupKey());
+            .setOngoing(true)
+            .setLocalOnly(true)
+            .setShowWhen(false)
+            .setAutoCancel(false)
+            .setContentTitle(contentTitle)
+            .setContentText(contentText)
+            .setContentIntent(pendingShowApp)
+            .setPriority(SdkUtils.isAtLeastAndroid7()
+                ? NotificationManager.IMPORTANCE_LOW
+                : Notification.PRIORITY_LOW)
+            .setCategory(NotificationCompat.CATEGORY_ALARM)
+            .setSmallIcon(R.drawable.ic_hourglass_bottom)
+            .setSortKey(nm.getTimerNotificationSortKey())
+            .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+            .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
+            .setColor(context.getColor(R.color.md_theme_primary))
+            .setGroup(nm.getTimerNotificationGroupKey());
 
         for (Action action : actions) {
             notification.addAction(action);
@@ -198,11 +198,11 @@ class TimerNotificationBuilder {
 
         if (SdkUtils.isAtLeastAndroid7()) {
             notification.setCustomContentView(buildChronometer(context.getPackageName(), base,
-                            running, titleText, stateText));
+                running, titleText, stateText));
         } else {
             final CharSequence preNText = stateText != null
-                    ? stateText
-                    : TimerStringFormatter.formatTimeRemaining(context, timer.getRemainingTime(), false);
+                ? stateText
+                : TimerStringFormatter.formatTimeRemaining(context, timer.getRemainingTime(), false);
 
             notification.setContentTitle(titleText).setContentText(preNText);
 
@@ -212,8 +212,7 @@ class TimerNotificationBuilder {
             if (timer.isRunning() && remainingTime > MINUTE_IN_MILLIS) {
                 // Schedule a callback to update the time-sensitive information of the running timer
                 final PendingIntent pi = PendingIntent.getService(context, REQUEST_CODE_UPCOMING, updateNotification,
-                                PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT
-                                        | PendingIntent.FLAG_IMMUTABLE);
+                    PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
                 final long nextMinuteChange = remainingTime % MINUTE_IN_MILLIS;
                 final long triggerTime = SystemClock.elapsedRealtime() + nextMinuteChange;
@@ -221,8 +220,7 @@ class TimerNotificationBuilder {
             } else {
                 // Cancel the update notification callback.
                 final PendingIntent pi = PendingIntent.getService(context, 0, updateNotification,
-                        PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_NO_CREATE
-                                | PendingIntent.FLAG_IMMUTABLE);
+                    PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_NO_CREATE | PendingIntent.FLAG_IMMUTABLE);
                 if (pi != null) {
                     am.cancel(pi);
                     pi.cancel();
@@ -274,11 +272,11 @@ class TimerNotificationBuilder {
             int secondsToAdd = customTimeToAdd % 60;
 
             final CharSequence title2 = secondsToAdd == 0
-                    ? context.getString(R.string.timer_add_custom_time_for_notification,
-                        String.valueOf(minutesToAdd))
-                    : context.getString(R.string.timer_add_custom_time_with_seconds_for_notification,
-                        String.valueOf(minutesToAdd),
-                        String.valueOf(secondsToAdd));
+                ? context.getString(R.string.timer_add_custom_time_for_notification,
+                String.valueOf(minutesToAdd))
+                : context.getString(R.string.timer_add_custom_time_with_seconds_for_notification,
+                String.valueOf(minutesToAdd),
+                String.valueOf(secondsToAdd));
 
             actions.add(new Action.Builder(icon2, title2, intent2).build());
         } else {
@@ -298,36 +296,34 @@ class TimerNotificationBuilder {
 
         // Full screen intent has flags so it is different than the content intent.
         final Intent fullScreen = new Intent(context, ExpiredTimersActivity.class)
-                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_USER_ACTION);
+            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_USER_ACTION);
         final PendingIntent pendingFullScreen = Utils.pendingActivityIntent(context, fullScreen);
 
-        @SuppressLint("FullScreenIntentPolicy")
-        final Builder notification = new Builder(context, FIRING_NOTIFICATION_CHANNEL_ID)
-                .setOngoing(true)
-                .setLocalOnly(true)
-                .setShowWhen(false)
-                .setAutoCancel(false)
-                .setContentIntent(contentIntent)
-                .setPriority(SdkUtils.isAtLeastAndroid7()
-                        ? NotificationManager.IMPORTANCE_HIGH
-                        : Notification.PRIORITY_HIGH)
-                .setDefaults(Notification.DEFAULT_LIGHTS)
-                .setSmallIcon(R.drawable.ic_hourglass_bottom)
-                .setFullScreenIntent(pendingFullScreen, true)
-                .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
-                .setColor(context.getColor(R.color.md_theme_primary));
+        @SuppressLint("FullScreenIntentPolicy") final Builder notification = new Builder(context, FIRING_NOTIFICATION_CHANNEL_ID)
+            .setOngoing(true)
+            .setLocalOnly(true)
+            .setShowWhen(false)
+            .setAutoCancel(false)
+            .setContentIntent(contentIntent)
+            .setPriority(SdkUtils.isAtLeastAndroid7()
+                ? NotificationManager.IMPORTANCE_HIGH
+                : Notification.PRIORITY_HIGH)
+            .setDefaults(Notification.DEFAULT_LIGHTS)
+            .setSmallIcon(R.drawable.ic_hourglass_bottom)
+            .setFullScreenIntent(pendingFullScreen, true)
+            .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
+            .setColor(context.getColor(R.color.md_theme_primary));
 
         for (Action action : actions) {
             notification.addAction(action);
         }
 
         if (SdkUtils.isAtLeastAndroid7()) {
-            notification.setCustomContentView(buildChronometer(context.getPackageName(), base,
-                    true, titleText, stateText));
+            notification.setCustomContentView(buildChronometer(context.getPackageName(), base, true, titleText, stateText));
         } else {
             final CharSequence contentTextPreN = count == 1
-                    ? context.getString(R.string.timer_times_up)
-                    : null;
+                ? context.getString(R.string.timer_times_up)
+                : null;
 
             notification.setContentTitle(titleText).setContentText(contentTextPreN);
         }
@@ -338,9 +334,9 @@ class TimerNotificationBuilder {
 
         // Stop and reset the timer if user clears notification.
         Intent dismissIntent = new Intent(context, TimerService.class)
-                .setAction(TimerService.ACTION_RESET_EXPIRED_TIMERS)
-                .setData(Uri.parse(URI_SCHEME_TIMER_RESET + timerId))
-                .putExtra(TimerService.EXTRA_TIMER_ID, timerId);
+            .setAction(TimerService.ACTION_RESET_EXPIRED_TIMERS)
+            .setData(Uri.parse(URI_SCHEME_TIMER_RESET + timerId))
+            .putExtra(TimerService.EXTRA_TIMER_ID, timerId);
         PendingIntent deletePendingIntent = Utils.pendingServiceIntent(context, dismissIntent, timerId);
         notification.setDeleteIntent(deletePendingIntent);
 
@@ -366,16 +362,16 @@ class TimerNotificationBuilder {
 
         // Reset button
         final Intent reset = new Intent(context, TimerService.class)
-                .setAction(TimerService.ACTION_RESET_TIMER)
-                .setData(Uri.parse(URI_SCHEME_TIMER_RESET + timerId))
-                .putExtra(TimerService.EXTRA_TIMER_ID, timerId);
+            .setAction(TimerService.ACTION_RESET_TIMER)
+            .setData(Uri.parse(URI_SCHEME_TIMER_RESET + timerId))
+            .putExtra(TimerService.EXTRA_TIMER_ID, timerId);
 
         // Intent to load the app and show the timer when the notification is tapped.
         final Intent showApp = new Intent(context, DeskClock.class)
-                .setAction(TimerService.ACTION_SHOW_TIMER)
-                .setData(Uri.parse(URI_SCHEME_TIMER_SHOW + timerId))
-                .putExtra(TimerService.EXTRA_TIMER_ID, timerId)
-                .putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_notification);
+            .setAction(TimerService.ACTION_SHOW_TIMER)
+            .setData(Uri.parse(URI_SCHEME_TIMER_SHOW + timerId))
+            .putExtra(TimerService.EXTRA_TIMER_ID, timerId)
+            .putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_notification);
 
         final PendingIntent pendingShowApp = Utils.pendingActivityIntent(context, showApp);
 
@@ -385,27 +381,26 @@ class TimerNotificationBuilder {
         action = new Action.Builder(icon, title, intent).build();
 
         final Builder notification = new Builder(context, TIMER_MODEL_NOTIFICATION_CHANNEL_ID)
-                .setLocalOnly(true)
-                .setShowWhen(false)
-                .setAutoCancel(false)
-                .setContentTitle(contentTitle)
-                .setContentText(contentText)
-                .setContentIntent(pendingShowApp)
-                .setPriority(SdkUtils.isAtLeastAndroid7()
-                        ? NotificationManager.IMPORTANCE_HIGH
-                        : Notification.PRIORITY_HIGH)
-                .setCategory(NotificationCompat.CATEGORY_ALARM)
-                .setSmallIcon(R.drawable.ic_hourglass_bottom)
-                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-                .setSortKey(nm.getTimerNotificationMissedSortKey())
-                .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
-                .addAction(action)
-                .setColor(context.getColor(R.color.md_theme_primary))
-                .setGroup(nm.getTimerNotificationGroupKey());
+            .setLocalOnly(true)
+            .setShowWhen(false)
+            .setAutoCancel(false)
+            .setContentTitle(contentTitle)
+            .setContentText(contentText)
+            .setContentIntent(pendingShowApp)
+            .setPriority(SdkUtils.isAtLeastAndroid7()
+                ? NotificationManager.IMPORTANCE_HIGH
+                : Notification.PRIORITY_HIGH)
+            .setCategory(NotificationCompat.CATEGORY_ALARM)
+            .setSmallIcon(R.drawable.ic_hourglass_bottom)
+            .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+            .setSortKey(nm.getTimerNotificationMissedSortKey())
+            .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
+            .addAction(action)
+            .setColor(context.getColor(R.color.md_theme_primary))
+            .setGroup(nm.getTimerNotificationGroupKey());
 
         if (SdkUtils.isAtLeastAndroid7()) {
-            notification.setCustomContentView(buildChronometer(context.getPackageName(), base,
-                    true, contentTitle, contentText));
+            notification.setCustomContentView(buildChronometer(context.getPackageName(), base, true, contentTitle, contentText));
         } else {
             final CharSequence preNText = AlarmUtils.getFormattedTime(context, timer.getWallClockExpirationTime());
             notification.setContentTitle(contentTitle).setContentText(preNText);
@@ -421,10 +416,10 @@ class TimerNotificationBuilder {
     public Notification buildSummaryNotification(Context context, NotificationModel nm) {
         // Intent to load the app and show the timer when the notification is tapped.
         final Intent showApp = new Intent(context, DeskClock.class)
-                .setAction(TimerService.ACTION_SHOW_TIMER)
-                .setData(Uri.parse(URI_SCHEME_TIMER_SHOW + "-1"))
-                .putExtra(TimerService.EXTRA_TIMER_ID, -1)
-                .putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_notification);
+            .setAction(TimerService.ACTION_SHOW_TIMER)
+            .setData(Uri.parse(URI_SCHEME_TIMER_SHOW + "-1"))
+            .putExtra(TimerService.EXTRA_TIMER_ID, -1)
+            .putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_notification);
 
         final PendingIntent pendingShowApp = Utils.pendingActivityIntent(context, showApp);
 
@@ -433,19 +428,19 @@ class TimerNotificationBuilder {
         }
 
         return new NotificationCompat.Builder(context, TIMER_MODEL_NOTIFICATION_CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_hourglass_bottom)
-                .setGroup(nm.getTimerNotificationGroupKey())
-                .setGroupSummary(true)
-                .setOngoing(true)
-                .setContentIntent(pendingShowApp)
-                .setPriority(SdkUtils.isAtLeastAndroid7()
-                        ? NotificationManager.IMPORTANCE_LOW
-                        : Notification.PRIORITY_LOW)
-                .setCategory(NotificationCompat.CATEGORY_EVENT)
-                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-                .setLocalOnly(true)
-                .setColor(context.getColor(R.color.md_theme_primary))
-                .build();
+            .setSmallIcon(R.drawable.ic_hourglass_bottom)
+            .setGroup(nm.getTimerNotificationGroupKey())
+            .setGroupSummary(true)
+            .setOngoing(true)
+            .setContentIntent(pendingShowApp)
+            .setPriority(SdkUtils.isAtLeastAndroid7()
+                ? NotificationManager.IMPORTANCE_LOW
+                : Notification.PRIORITY_LOW)
+            .setCategory(NotificationCompat.CATEGORY_EVENT)
+            .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+            .setLocalOnly(true)
+            .setColor(context.getColor(R.color.md_theme_primary))
+            .build();
     }
 
     @RequiresApi(Build.VERSION_CODES.N)

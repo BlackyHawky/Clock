@@ -71,8 +71,7 @@ class FetchMatchingAlarmsAction implements Runnable {
                 if (badInput) {
                     final String[] ampm = new DateFormatSymbols().getAmPmStrings();
                     final String amPm = isPm ? ampm[1] : ampm[0];
-                    final String reason = mContext.getString(R.string.invalid_time, hour, minutes,
-                            amPm);
+                    final String reason = mContext.getString(R.string.invalid_time, hour, minutes, amPm);
                     notifyFailureAndLog(reason, mActivity);
                     return;
                 }
@@ -93,9 +92,8 @@ class FetchMatchingAlarmsAction implements Runnable {
                 // Match currently firing alarms before scheduled alarms.
                 for (Alarm alarm : mAlarms) {
                     final AlarmInstance alarmInstance =
-                            AlarmInstance.getNextUpcomingInstanceByAlarmId(cr, alarm.id);
-                    if (alarmInstance != null
-                            && alarmInstance.mAlarmState == AlarmInstance.FIRED_STATE) {
+                        AlarmInstance.getNextUpcomingInstanceByAlarmId(cr, alarm.id);
+                    if (alarmInstance != null && alarmInstance.mAlarmState == AlarmInstance.FIRED_STATE) {
                         mMatchingAlarms.add(alarm);
                     }
                 }
@@ -113,7 +111,7 @@ class FetchMatchingAlarmsAction implements Runnable {
                 // get time from nextAlarm and see if there are any other alarms matching this time
                 final Calendar nextTime = nextAlarm.getAlarmTime();
                 final List<Alarm> alarmsFiringAtSameTime = getAlarmsByHourMinutes(
-                        nextTime.get(Calendar.HOUR_OF_DAY), nextTime.get(Calendar.MINUTE), cr);
+                    nextTime.get(Calendar.HOUR_OF_DAY), nextTime.get(Calendar.MINUTE), cr);
                 // there might me multiple alarms firing next
                 mMatchingAlarms.addAll(alarmsFiringAtSameTime);
             }
@@ -143,8 +141,7 @@ class FetchMatchingAlarmsAction implements Runnable {
 
     private List<Alarm> getAlarmsByHourMinutes(int hour24, int minutes, ContentResolver cr) {
         // if we want to dismiss we should only add enabled alarms
-        final String selection = String.format("%s=? AND %s=? AND %s=?",
-                Alarm.HOUR, Alarm.MINUTES, Alarm.ENABLED);
+        final String selection = String.format("%s=? AND %s=? AND %s=?", Alarm.HOUR, Alarm.MINUTES, Alarm.ENABLED);
         final String[] args = {String.valueOf(hour24), String.valueOf(minutes), "1"};
         return Alarm.getAlarms(cr, selection, args);
     }

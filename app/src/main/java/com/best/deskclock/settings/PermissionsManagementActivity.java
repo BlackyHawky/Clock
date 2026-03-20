@@ -10,7 +10,6 @@ import static android.provider.Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTI
 import static android.provider.Settings.ACTION_MANAGE_APP_USE_FULL_SCREEN_INTENT;
 import static android.provider.Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS;
 import static android.provider.Settings.EXTRA_APP_PACKAGE;
-
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_FOREGROUND_SERVICE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ESSENTIAL_PERMISSIONS_GRANTED;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_FULL_SCREEN_NOTIFICATION_PERMISSION;
@@ -57,19 +56,19 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.content_frame, new PermissionsManagementFragment())
-                    .disallowAddToBackStack()
-                    .commit();
+                .replace(R.id.content_frame, new PermissionsManagementFragment())
+                .disallowAddToBackStack()
+                .commit();
         }
     }
 
     public static class PermissionsManagementFragment extends ScreenFragment
-            implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
+        implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
         private static final String[] DYNAMIC_PERMISSION_KEYS = {
-                KEY_IGNORE_BATTERY_OPTIMIZATIONS,
-                KEY_NOTIFICATION_PERMISSION,
-                KEY_FULL_SCREEN_NOTIFICATION_PERMISSION
+            KEY_IGNORE_BATTERY_OPTIMIZATIONS,
+            KEY_NOTIFICATION_PERMISSION,
+            KEY_FULL_SCREEN_NOTIFICATION_PERMISSION
         };
 
         PermissionsManagementPreference mIgnoreBatteryOptimizationsPref;
@@ -116,16 +115,16 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
 
                 if ((boolean) newValue) {
                     CustomDialog.createSimpleDialog(
-                            requireContext(),
-                            R.drawable.ic_notifications,
-                            R.string.foreground_service_title,
-                            getString(R.string.foreground_service_dialog_message),
-                            android.R.string.ok,
-                            (d, w) -> {
-                                mPrefs.edit().putBoolean(KEY_ENABLE_FOREGROUND_SERVICE, true).apply();
-                                mEnableForegroundServicePref.setChecked(true);
-                                Utils.startService(requireContext(), KeepAliveService.class);
-                            }
+                        requireContext(),
+                        R.drawable.ic_notifications,
+                        R.string.foreground_service_title,
+                        getString(R.string.foreground_service_dialog_message),
+                        android.R.string.ok,
+                        (d, w) -> {
+                            mPrefs.edit().putBoolean(KEY_ENABLE_FOREGROUND_SERVICE, true).apply();
+                            mEnableForegroundServicePref.setChecked(true);
+                            Utils.startService(requireContext(), KeepAliveService.class);
+                        }
                     ).show();
 
                     return false;
@@ -175,11 +174,10 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
          */
         private void launchIgnoreBatteryOptimizationsSettings() {
             @SuppressLint("BatteryLife") final Intent intentGrant =
-                    new Intent().setAction(ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS).setData(
-                            Uri.fromParts("package", requireContext().getPackageName(), null));
+                new Intent().setAction(ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS).setData(
+                    Uri.fromParts("package", requireContext().getPackageName(), null));
 
-            final Intent intentRevoke =
-                    new Intent(ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS).addFlags(FLAG_ACTIVITY_NEW_TASK);
+            final Intent intentRevoke = new Intent(ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS).addFlags(FLAG_ACTIVITY_NEW_TASK);
 
             if (PermissionUtils.isIgnoringBatteryOptimizations(requireContext())) {
                 displayRevocationDialog(intentRevoke);
@@ -193,21 +191,21 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
          */
         private void grantOrRevokeNotificationsPermission() {
             Intent intent = SdkUtils.isAtLeastAndroid8()
-                    ? new Intent(ACTION_APP_NOTIFICATION_SETTINGS).putExtra(EXTRA_APP_PACKAGE, requireContext().getPackageName())
-                    .addFlags(FLAG_ACTIVITY_NEW_TASK)
-                    : new Intent(ACTION_APPLICATION_DETAILS_SETTINGS)
-                    .setData(Uri.fromParts("package", requireContext().getPackageName(), null)).addFlags(FLAG_ACTIVITY_NEW_TASK);
+                ? new Intent(ACTION_APP_NOTIFICATION_SETTINGS).putExtra(EXTRA_APP_PACKAGE, requireContext().getPackageName())
+                .addFlags(FLAG_ACTIVITY_NEW_TASK)
+                : new Intent(ACTION_APPLICATION_DETAILS_SETTINGS)
+                .setData(Uri.fromParts("package", requireContext().getPackageName(), null)).addFlags(FLAG_ACTIVITY_NEW_TASK);
 
             if (PermissionUtils.areNotificationsEnabled(requireContext())) {
                 displayRevocationDialog(intent);
             } else if (shouldShowRequestPermissionRationale(POST_NOTIFICATIONS)) {
                 CustomDialog.createSimpleDialog(
-                        requireContext(),
-                        R.drawable.ic_notifications,
-                        R.string.notifications_dialog_title,
-                        getString(R.string.notifications_dialog_text),
-                        android.R.string.ok,
-                        (d, w) -> startActivity(intent)
+                    requireContext(),
+                    R.drawable.ic_notifications,
+                    R.string.notifications_dialog_title,
+                    getString(R.string.notifications_dialog_text),
+                    android.R.string.ok,
+                    (d, w) -> startActivity(intent)
                 ).show();
             } else {
                 if (SdkUtils.isAtLeastAndroid13()) {
@@ -224,7 +222,8 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
         private void grantOrRevokeFullScreenNotificationsPermission() {
             if (SdkUtils.isAtLeastAndroid14()) {
                 final Intent intent = new Intent(ACTION_MANAGE_APP_USE_FULL_SCREEN_INTENT)
-                        .setData(Uri.fromParts("package", requireContext().getPackageName(), null)).addFlags(FLAG_ACTIVITY_NEW_TASK);
+                    .setData(Uri.fromParts("package", requireContext().getPackageName(), null))
+                    .addFlags(FLAG_ACTIVITY_NEW_TASK);
 
                 if (!PermissionUtils.areFullScreenNotificationsEnabled(requireContext())) {
                     startActivity(intent);
@@ -244,7 +243,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
 
             Intent intent = new Intent("miui.intent.action.APP_PERM_EDITOR");
             intent.setClassName("com.miui.securitycenter",
-                    "com.miui.permcenter.permissions.PermissionsEditorActivity");
+                "com.miui.permcenter.permissions.PermissionsEditorActivity");
             intent.putExtra("extra_pkgname", requireContext().getPackageName());
             try {
                 startActivity(intent);
@@ -260,12 +259,12 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
          */
         private void displayRevocationDialog(Intent intent) {
             CustomDialog.createSimpleDialog(
-                    requireContext(),
-                    R.drawable.ic_key_off,
-                    R.string.permission_dialog_revoke_title,
-                    getString(R.string.revoke_permission_dialog_message),
-                    android.R.string.ok,
-                    (d, w) -> startActivity(intent)
+                requireContext(),
+                R.drawable.ic_key_off,
+                R.string.permission_dialog_revoke_title,
+                getString(R.string.revoke_permission_dialog_message),
+                android.R.string.ok,
+                (d, w) -> startActivity(intent)
             ).show();
         }
 

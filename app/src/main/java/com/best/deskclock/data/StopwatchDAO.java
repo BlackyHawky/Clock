@@ -82,14 +82,14 @@ final class StopwatchDAO {
 
         if (stopwatch.isReset()) {
             editor.remove(STATE)
-                    .remove(LAST_START_TIME)
-                    .remove(LAST_WALL_CLOCK_TIME)
-                    .remove(ACCUMULATED_TIME);
+                .remove(LAST_START_TIME)
+                .remove(LAST_WALL_CLOCK_TIME)
+                .remove(ACCUMULATED_TIME);
         } else {
             editor.putInt(STATE, stopwatch.getState().ordinal())
-                    .putLong(LAST_START_TIME, stopwatch.getLastStartTime())
-                    .putLong(LAST_WALL_CLOCK_TIME, stopwatch.getLastWallClockTime())
-                    .putLong(ACCUMULATED_TIME, stopwatch.getAccumulatedTime());
+                .putLong(LAST_START_TIME, stopwatch.getLastStartTime())
+                .putLong(LAST_WALL_CLOCK_TIME, stopwatch.getLastWallClockTime())
+                .putLong(ACCUMULATED_TIME, stopwatch.getAccumulatedTime());
         }
 
         editor.apply();
@@ -133,9 +133,9 @@ final class StopwatchDAO {
      */
     static void addLap(SharedPreferences prefs, int newLapCount, long accumulatedTime) {
         prefs.edit()
-                .putInt(LAP_COUNT, newLapCount)
-                .putLong(LAP_ACCUMULATED_TIME + newLapCount, accumulatedTime)
-                .apply();
+            .putInt(LAP_COUNT, newLapCount)
+            .putLong(LAP_ACCUMULATED_TIME + newLapCount, accumulatedTime)
+            .apply();
     }
 
     /**

@@ -36,7 +36,6 @@ import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.provider.Alarm;
-
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
@@ -203,9 +202,7 @@ public class LabelDialogFragment extends DialogFragment {
 
         mEditLabel = dialogView.findViewById(android.R.id.edit);
         mEditLabel.setText(label);
-        mEditLabel.setTypeface(
-                ThemeUtils.loadFont(SettingsDAO.getGeneralFont(getDefaultSharedPreferences(mContext)))
-        );
+        mEditLabel.setTypeface(ThemeUtils.loadFont(SettingsDAO.getGeneralFont(getDefaultSharedPreferences(mContext))));
         mEditLabel.addTextChangedListener(mTextWatcher);
         mEditLabel.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
         mEditLabel.selectAll();
@@ -234,30 +231,30 @@ public class LabelDialogFragment extends DialogFragment {
         }
 
         return CustomDialog.create(
-                mContext,
-                null,
-                drawable,
-                title,
-                null,
-                dialogView,
-                getString(android.R.string.ok),
-                (d, w) -> setLabel(),
-                getString(android.R.string.cancel),
-                null,
-                getString(R.string.delete),
-                (d, w) -> {
-                    if (mSyncAlarmByLabelCheckbox != null) {
-                        mSyncAlarmByLabelCheckbox.setChecked(false);
-                    }
+            mContext,
+            null,
+            drawable,
+            title,
+            null,
+            dialogView,
+            getString(android.R.string.ok),
+            (d, w) -> setLabel(),
+            getString(android.R.string.cancel),
+            null,
+            getString(R.string.delete),
+            (d, w) -> {
+                if (mSyncAlarmByLabelCheckbox != null) {
+                    mSyncAlarmByLabelCheckbox.setChecked(false);
+                }
 
-                    applyLabel("");
-                },
-                alertDialog -> {
-                    mDefaultButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
+                applyLabel("");
+            },
+            alertDialog -> {
+                mDefaultButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
 
-                    mDefaultButton.setEnabled(isLabelNotEmpty());
-                },
-                CustomDialog.SoftInputMode.SHOW_KEYBOARD
+                mDefaultButton.setEnabled(isLabelNotEmpty());
+            },
+            CustomDialog.SoftInputMode.SHOW_KEYBOARD
         );
     }
 

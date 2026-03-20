@@ -20,6 +20,6 @@
         android:ellipsize="none"
         android:singleLine="true"
         android:textSize="70sp"
-        tools:text="12h34m56s"/>
+        tools:text="12h34m56s" />
 
 </LinearLayout>

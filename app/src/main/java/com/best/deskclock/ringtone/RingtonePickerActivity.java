@@ -62,7 +62,6 @@ import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
-
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
@@ -81,7 +80,7 @@ import java.util.List;
  * </ul>
  */
 public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
-        implements LoaderManager.LoaderCallbacks<List<RingtoneAdapter.RingtoneItem>> {
+    implements LoaderManager.LoaderCallbacks<List<RingtoneAdapter.RingtoneItem>> {
 
     /**
      * Key to an extra that defines resource id to the title of this activity.
@@ -162,50 +161,50 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
      * Callback for getting the result from Activity
      */
     private final ActivityResultLauncher<Intent> getActivityOnClick = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(), (result) -> {
-                if (result.getResultCode() != RESULT_OK ) {
-                    return;
-                }
+        new ActivityResultContracts.StartActivityForResult(), (result) -> {
+            if (result.getResultCode() != RESULT_OK) {
+                return;
+            }
 
-                Intent intent = result.getData();
-                final Uri uri = intent == null ? null : intent.getData();
-                if (uri == null) {
-                    return;
-                }
+            Intent intent = result.getData();
+            final Uri uri = intent == null ? null : intent.getData();
+            if (uri == null) {
+                return;
+            }
 
-                // Bail if the permission to read (playback) the audio at the uri was not granted.
-                final int flags = intent.getFlags() & FLAG_GRANT_READ_URI_PERMISSION;
-                if (flags != FLAG_GRANT_READ_URI_PERMISSION) {
-                    return;
-                }
+            // Bail if the permission to read (playback) the audio at the uri was not granted.
+            final int flags = intent.getFlags() & FLAG_GRANT_READ_URI_PERMISSION;
+            if (flags != FLAG_GRANT_READ_URI_PERMISSION) {
+                return;
+            }
 
-                // Start a task to fetch the display name of the audio content and add the custom ringtone.
-                addCustomRingtoneAsync(uri);
-            });
+            // Start a task to fetch the display name of the audio content and add the custom ringtone.
+            addCustomRingtoneAsync(uri);
+        });
 
     /**
      * Callback for getting the result from Activity
      */
     private final ActivityResultLauncher<Intent> getActivityOnLongClick = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(), (result) -> {
-                if (result.getResultCode() != RESULT_OK ) {
-                    return;
-                }
+        new ActivityResultContracts.StartActivityForResult(), (result) -> {
+            if (result.getResultCode() != RESULT_OK) {
+                return;
+            }
 
-                Intent intent = result.getData();
-                final Uri treeUri = intent == null ? null : intent.getData();
-                if (treeUri == null) {
-                    return;
-                }
+            Intent intent = result.getData();
+            final Uri treeUri = intent == null ? null : intent.getData();
+            if (treeUri == null) {
+                return;
+            }
 
-                // Take persistent permission
-                getContentResolver().takePersistableUriPermission(
-                        treeUri, Intent.FLAG_GRANT_READ_URI_PERMISSION
-                );
+            // Take persistent permission
+            getContentResolver().takePersistableUriPermission(
+                treeUri, Intent.FLAG_GRANT_READ_URI_PERMISSION
+            );
 
-                // Start a task to fetch the display name of the audio content and add the custom ringtone.
-                addCustomRingtonesFromFolderAsync(treeUri);
-            });
+            // Start a task to fetch the display name of the audio content and add the custom ringtone.
+            addCustomRingtonesFromFolderAsync(treeUri);
+        });
 
     /**
      * @return an intent that launches the ringtone picker to edit the ringtone of the given
@@ -213,11 +212,11 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
      */
     public static Intent createAlarmRingtonePickerIntent(Context context, Alarm alarm) {
         return new Intent(context, RingtonePickerActivity.class)
-                .putExtra(EXTRA_TITLE, R.string.alarm_sound)
-                .putExtra(EXTRA_RINGTONE_URI, alarm.alert)
-                .putExtra(EXTRA_DEFAULT_RINGTONE_URI, RingtoneManager.getDefaultUri(TYPE_ALARM))
-                .putExtra(EXTRA_DEFAULT_RINGTONE_NAME, R.string.default_alarm_ringtone_title)
-                .putExtra(EXTRA_RETURN_RESULT_ONLY, true);
+            .putExtra(EXTRA_TITLE, R.string.alarm_sound)
+            .putExtra(EXTRA_RINGTONE_URI, alarm.alert)
+            .putExtra(EXTRA_DEFAULT_RINGTONE_URI, RingtoneManager.getDefaultUri(TYPE_ALARM))
+            .putExtra(EXTRA_DEFAULT_RINGTONE_NAME, R.string.default_alarm_ringtone_title)
+            .putExtra(EXTRA_RETURN_RESULT_ONLY, true);
     }
 
     /**
@@ -226,10 +225,10 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
     public static Intent createTimerRingtonePickerIntent(Context context) {
         final DataModel dataModel = DataModel.getDataModel();
         return new Intent(context, RingtonePickerActivity.class)
-                .putExtra(EXTRA_TITLE, R.string.timer_sound)
-                .putExtra(EXTRA_RINGTONE_URI, dataModel.getTimerRingtoneUri())
-                .putExtra(EXTRA_DEFAULT_RINGTONE_URI, dataModel.getDefaultTimerRingtoneUri())
-                .putExtra(EXTRA_DEFAULT_RINGTONE_NAME, R.string.default_timer_ringtone_title);
+            .putExtra(EXTRA_TITLE, R.string.timer_sound)
+            .putExtra(EXTRA_RINGTONE_URI, dataModel.getTimerRingtoneUri())
+            .putExtra(EXTRA_DEFAULT_RINGTONE_URI, dataModel.getDefaultTimerRingtoneUri())
+            .putExtra(EXTRA_DEFAULT_RINGTONE_NAME, R.string.default_timer_ringtone_title);
     }
 
     /**
@@ -238,10 +237,10 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
     public static Intent createAlarmRingtonePickerIntentForSettings(Context context) {
         final DataModel dataModel = DataModel.getDataModel();
         return new Intent(context, RingtonePickerActivity.class)
-                .putExtra(EXTRA_TITLE, R.string.default_alarm_ringtone_title)
-                .putExtra(EXTRA_RINGTONE_URI, dataModel.getAlarmRingtoneUriFromSettings())
-                .putExtra(EXTRA_DEFAULT_RINGTONE_URI, dataModel.getDefaultAlarmRingtoneUriFromSettings())
-                .putExtra(EXTRA_DEFAULT_RINGTONE_NAME, R.string.default_alarm_ringtone_title);
+            .putExtra(EXTRA_TITLE, R.string.default_alarm_ringtone_title)
+            .putExtra(EXTRA_RINGTONE_URI, dataModel.getAlarmRingtoneUriFromSettings())
+            .putExtra(EXTRA_DEFAULT_RINGTONE_URI, dataModel.getDefaultAlarmRingtoneUriFromSettings())
+            .putExtra(EXTRA_DEFAULT_RINGTONE_NAME, R.string.default_alarm_ringtone_title);
     }
 
     @Override
@@ -270,21 +269,21 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
         if (savedInstanceState != null) {
             mIsPlaying = savedInstanceState.getBoolean(STATE_KEY_PLAYING);
             mSelectedRingtoneUri = SdkUtils.isAtLeastAndroid13()
-                    ? savedInstanceState.getParcelable(EXTRA_RINGTONE_URI, Uri.class)
-                    : savedInstanceState.getParcelable(EXTRA_RINGTONE_URI);
+                ? savedInstanceState.getParcelable(EXTRA_RINGTONE_URI, Uri.class)
+                : savedInstanceState.getParcelable(EXTRA_RINGTONE_URI);
         }
 
         if (mSelectedRingtoneUri == null) {
             mSelectedRingtoneUri = SdkUtils.isAtLeastAndroid13()
-                    ? intent.getParcelableExtra(EXTRA_RINGTONE_URI, Uri.class)
-                    : intent.getParcelableExtra(EXTRA_RINGTONE_URI);
+                ? intent.getParcelableExtra(EXTRA_RINGTONE_URI, Uri.class)
+                : intent.getParcelableExtra(EXTRA_RINGTONE_URI);
         }
 
         mReturnResultOnly = intent.getBooleanExtra(EXTRA_RETURN_RESULT_ONLY, false);
 
         mDefaultRingtoneUri = SdkUtils.isAtLeastAndroid13()
-                ? intent.getParcelableExtra(EXTRA_DEFAULT_RINGTONE_URI, Uri.class)
-                : intent.getParcelableExtra(EXTRA_DEFAULT_RINGTONE_URI);
+            ? intent.getParcelableExtra(EXTRA_DEFAULT_RINGTONE_URI, Uri.class)
+            : intent.getParcelableExtra(EXTRA_DEFAULT_RINGTONE_URI);
         final int defaultRingtoneTitleId = intent.getIntExtra(EXTRA_DEFAULT_RINGTONE_NAME, 0);
         final Context localizedContext = Utils.getLocalizedContext(context);
         mDefaultRingtoneTitle = localizedContext.getString(defaultRingtoneTitleId);
@@ -336,15 +335,15 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
         mAddRingtoneButton.setOnClickListener(v -> {
             stopPlayingRingtone(getSelectedRingtoneHolder(), false);
             getActivityOnClick.launch(new Intent(Intent.ACTION_OPEN_DOCUMENT)
-                    .addFlags(FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
-                    .addCategory(Intent.CATEGORY_OPENABLE)
-                    .setType("audio/*"));
+                .addFlags(FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
+                .addCategory(Intent.CATEGORY_OPENABLE)
+                .setType("audio/*"));
         });
 
         mAddRingtoneButton.setOnLongClickListener(v -> {
             stopPlayingRingtone(getSelectedRingtoneHolder(), false);
             getActivityOnLongClick.launch(new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
-                    .addFlags(FLAG_GRANT_READ_URI_PERMISSION | FLAG_GRANT_PERSISTABLE_URI_PERMISSION));
+                .addFlags(FLAG_GRANT_READ_URI_PERMISSION | FLAG_GRANT_PERSISTABLE_URI_PERMISSION));
 
             return true;
         });
@@ -355,8 +354,8 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
         mProgressTextView.setTypeface(ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs)));
 
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this)
-                .setView(dialogView)
-                .setCancelable(false);
+            .setView(dialogView)
+            .setCancelable(false);
 
         mProgressDialog = builder.create();
 
@@ -447,8 +446,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
     private void applyWindowInsets() {
         InsetsUtils.doOnApplyWindowInsets(mCoordinatorLayout, (v, insets) -> {
             // Get the system bar and notch insets
-            Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() |
-                    WindowInsetsCompat.Type.displayCutout());
+            Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout());
 
             v.setPadding(bars.left, bars.top, bars.right, bars.bottom);
 
@@ -573,23 +571,23 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             final Bundle arguments = requireArguments();
             final Uri toRemove = SdkUtils.isAtLeastAndroid13()
-                    ? arguments.getParcelable(ARG_RINGTONE_URI_TO_REMOVE, Uri.class)
-                    : arguments.getParcelable(ARG_RINGTONE_URI_TO_REMOVE);
+                ? arguments.getParcelable(ARG_RINGTONE_URI_TO_REMOVE, Uri.class)
+                : arguments.getParcelable(ARG_RINGTONE_URI_TO_REMOVE);
 
             final DialogInterface.OnClickListener okListener = (dialog, which) ->
-                    ((RingtonePickerActivity) requireActivity()).removeCustomRingtoneAsync(toRemove);
+                ((RingtonePickerActivity) requireActivity()).removeCustomRingtoneAsync(toRemove);
 
             final int message = RingtoneUtils.isRingtoneUriReadable(requireContext(), toRemove)
-                    ? R.string.confirm_remove_custom_ringtone
-                    : R.string.custom_ringtone_lost_permissions;
+                ? R.string.confirm_remove_custom_ringtone
+                : R.string.custom_ringtone_lost_permissions;
 
             return CustomDialog.createSimpleDialog(
-                    requireContext(),
-                    R.drawable.ic_error,
-                    R.string.warning,
-                    getString(message),
-                    R.string.remove_sound,
-                    okListener
+                requireContext(),
+                R.drawable.ic_error,
+                R.string.warning,
+                getString(message),
+                R.string.remove_sound,
+                okListener
             );
         }
     }
@@ -715,8 +713,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
                 int finalProcessed = processed;
                 AppExecutors.getMainThread().post(() -> {
                     mCircularProgressIndicator.setProgress(finalProcessed);
-                    mProgressTextView.setText(
-                            getString(R.string.progress_ringtones, finalProcessed, totalFiles));
+                    mProgressTextView.setText(getString(R.string.progress_ringtones, finalProcessed, totalFiles));
                 });
             }
 
@@ -733,8 +730,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
      */
     private void removeCustomRingtoneAsync(Uri removeUri) {
         AppExecutors.getDiskIO().execute(() -> {
-            final Uri systemDefaultRingtoneUri =
-                    RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+            final Uri systemDefaultRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
 
             // Update all alarms that use the custom ringtone to use the system default.
             final ContentResolver cr = getContentResolver();
@@ -744,7 +740,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
                     alarm.alert = systemDefaultRingtoneUri;
                     // Start a second background task to persist the updated alarm.
                     new AlarmUpdateHandler(RingtonePickerActivity.this, null, null)
-                            .asyncUpdateAlarm(alarm, false, true);
+                        .asyncUpdateAlarm(alarm, false, true);
                 }
             }
 

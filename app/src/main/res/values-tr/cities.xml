@@ -3,7 +3,8 @@
     Copyright (C) 2016 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
---><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="C1" msgid="3622720549928625541">"<xliff:g id="SEPARATOR">=</xliff:g>Abican<xliff:g id="TIMEZONE">|Africa/Abidjan</xliff:g>"</string>
     <string name="C2" msgid="9073993995416728918">"<xliff:g id="SEPARATOR">=</xliff:g>Akra<xliff:g id="TIMEZONE">|Africa/Accra</xliff:g>"</string>
     <string name="C3" msgid="5172979423931428620">"<xliff:g id="SEPARATOR">=</xliff:g>Addis Ababa<xliff:g id="TIMEZONE">|Africa/Addis_Ababa</xliff:g>"</string>

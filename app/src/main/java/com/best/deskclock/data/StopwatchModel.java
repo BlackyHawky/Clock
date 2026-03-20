@@ -58,8 +58,7 @@ final class StopwatchModel {
     /**
      * Delegate that builds platform-specific stopwatch notifications.
      */
-    private final StopwatchNotificationBuilder mNotificationBuilder =
-            new StopwatchNotificationBuilder();
+    private final StopwatchNotificationBuilder mNotificationBuilder = new StopwatchNotificationBuilder();
 
     /**
      * The current state of the stopwatch.
@@ -239,8 +238,7 @@ final class StopwatchModel {
         // Otherwise build and post a notification reflecting the latest stopwatch state.
         final Notification notification = mNotificationBuilder.build(mContext, mNotificationModel, stopwatch);
 
-        if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.POST_NOTIFICATIONS)
-                != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
             // Always false, because notification activation is always checked when the application is started.
             return;
         }

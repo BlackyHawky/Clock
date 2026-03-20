@@ -51,9 +51,9 @@ public class FormattedTextUtils {
 
         for (int i = 0; i < text.length(); i++) {
             if (Character.isLetter(text.charAt(i))) {
-                return text.substring(0, i) +
-                        text.substring(i, i + 1).toUpperCase(locale) +
-                        text.substring(i + 1);
+                return text.substring(0, i)
+                    + text.substring(i, i + 1).toUpperCase(locale)
+                    + text.substring(i + 1);
             }
         }
 

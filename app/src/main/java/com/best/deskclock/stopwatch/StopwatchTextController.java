@@ -47,8 +47,7 @@ public final class StopwatchTextController {
         final int seconds = (int) (remainder / SECOND_IN_MILLIS);
         remainder = (int) (remainder % SECOND_IN_MILLIS);
 
-        mHundredthsTextView.setText(UiDataModel.getUiDataModel().getFormattedNumber(
-                remainder / 10, 2));
+        mHundredthsTextView.setText(UiDataModel.getUiDataModel().getFormattedNumber(remainder / 10, 2));
 
         // Avoid unnecessary computations and garbage creation if seconds have not changed since
         // last layout pass.

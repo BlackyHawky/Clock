@@ -6,16 +6,7 @@
 
 package com.best.deskclock.settings;
 
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_SETTINGS;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_BACKUP_RESTORE_PREFERENCES;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_CLOCK_SETTINGS;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_INTERFACE_CUSTOMIZATION;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_PERMISSIONS_MANAGEMENT;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_PERMISSION_MESSAGE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_SETTINGS;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_STOPWATCH_SETTINGS;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_SETTINGS;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_WIDGETS_SETTINGS;
+import static com.best.deskclock.settings.PreferencesKeys.*;
 import static com.best.deskclock.utils.Utils.ACTION_LANGUAGE_CODE_CHANGED;
 
 import android.content.Context;
@@ -65,7 +56,7 @@ import java.util.Date;
 public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
     private static final String KEY_APPBAR_EXPANDED = "key_appbar_expanded";
-    private boolean mIsAppBarExpanded  = true;
+    private boolean mIsAppBarExpanded = true;
 
     @Override
     protected String getActivityTitle() {
@@ -86,9 +77,9 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.content_frame, new SettingsFragment())
-                    .disallowAddToBackStack()
-                    .commit();
+                .replace(R.id.content_frame, new SettingsFragment())
+                .disallowAddToBackStack()
+                .commit();
         }
     }
 
@@ -127,59 +118,59 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
          * Callback for getting the backup result.
          */
         private final ActivityResultLauncher<Intent> backupToFile = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(), (result) -> {
-                    if (result.getResultCode() != RESULT_OK) {
-                        return;
-                    }
+            new ActivityResultContracts.StartActivityForResult(), (result) -> {
+                if (result.getResultCode() != RESULT_OK) {
+                    return;
+                }
 
-                    Intent intent = result.getData();
-                    final Uri uri = intent == null ? null : intent.getData();
-                    if (uri == null) {
-                        return;
-                    }
+                Intent intent = result.getData();
+                final Uri uri = intent == null ? null : intent.getData();
+                if (uri == null) {
+                    return;
+                }
 
-                    final Context appContext = requireContext().getApplicationContext();
+                final Context appContext = requireContext().getApplicationContext();
 
-                    AppExecutors.getDiskIO().execute(() -> {
-                        backupPreferences(appContext, uri);
+                AppExecutors.getDiskIO().execute(() -> {
+                    backupPreferences(appContext, uri);
 
-                        AppExecutors.getMainThread().post(() ->
-                                CustomToast.show(appContext, R.string.toast_message_for_backup));
+                    AppExecutors.getMainThread().post(() ->
+                        CustomToast.show(appContext, R.string.toast_message_for_backup));
 
-                    });
                 });
+            });
 
         /**
          * Callback for getting the restoration result.
          */
         private final ActivityResultLauncher<Intent> restoreFromFile = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(), (result) -> {
-                    if (result.getResultCode() != RESULT_OK) {
-                        return;
+            new ActivityResultContracts.StartActivityForResult(), (result) -> {
+                if (result.getResultCode() != RESULT_OK) {
+                    return;
+                }
+
+                Intent intent = result.getData();
+                final Uri uri = intent == null ? null : intent.getData();
+                if (uri == null) {
+                    return;
+                }
+
+                final Context appContext = requireContext().getApplicationContext();
+
+                AppExecutors.getDiskIO().execute(() -> {
+                    try {
+                        restorePreferences(appContext, uri);
+
+                        AppExecutors.getMainThread().post(() -> {
+                            applySettingsAfterRestore(appContext);
+
+                            CustomToast.show(appContext, R.string.toast_message_for_restore);
+                        });
+                    } catch (FileNotFoundException e) {
+                        LogUtils.e("Restore file not found", e);
                     }
-
-                    Intent intent = result.getData();
-                    final Uri uri = intent == null ? null : intent.getData();
-                    if (uri == null) {
-                        return;
-                    }
-
-                    final Context appContext = requireContext().getApplicationContext();
-
-                    AppExecutors.getDiskIO().execute(() -> {
-                        try {
-                            restorePreferences(appContext, uri);
-
-                            AppExecutors.getMainThread().post(() -> {
-                                applySettingsAfterRestore(appContext);
-
-                                CustomToast.show(appContext, R.string.toast_message_for_restore);
-                            });
-                        } catch (FileNotFoundException e) {
-                            LogUtils.e("Restore file not found", e);
-                        }
-                    });
                 });
+            });
 
         @Override
         protected String getFragmentTitle() {
@@ -211,18 +202,16 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                     requireActivity().finish();
                     if (SettingsDAO.isFadeTransitionsEnabled(mPrefs)) {
                         if (SdkUtils.isAtLeastAndroid14()) {
-                            requireActivity().overrideActivityTransition(OVERRIDE_TRANSITION_CLOSE,
-                                    R.anim.fade_in, R.anim.fade_out);
+                            requireActivity().overrideActivityTransition(OVERRIDE_TRANSITION_CLOSE, R.anim.fade_in, R.anim.fade_out);
                         } else {
                             requireActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                         }
                     } else {
                         if (SdkUtils.isAtLeastAndroid14()) {
-                            requireActivity().overrideActivityTransition(OVERRIDE_TRANSITION_CLOSE,
-                                    R.anim.activity_slide_from_left, R.anim.activity_slide_to_right);
+                            requireActivity().overrideActivityTransition(
+                                OVERRIDE_TRANSITION_CLOSE, R.anim.activity_slide_from_left, R.anim.activity_slide_to_right);
                         } else {
-                            requireActivity().overridePendingTransition(
-                                    R.anim.activity_slide_from_left, R.anim.activity_slide_to_right);
+                            requireActivity().overridePendingTransition(R.anim.activity_slide_from_left, R.anim.activity_slide_to_right);
                         }
                     }
                 }
@@ -249,44 +238,42 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
                 case KEY_STOPWATCH_SETTINGS -> animateAndShowFragment(new StopwatchSettingsFragment());
 
-                case KEY_SCREENSAVER_SETTINGS ->
-                    animateAndShowFragment(new ScreensaverSettingsActivity.ScreensaverSettingsFragment());
+                case KEY_SCREENSAVER_SETTINGS -> animateAndShowFragment(new ScreensaverSettingsActivity.ScreensaverSettingsFragment());
 
                 case KEY_WIDGETS_SETTINGS -> animateAndShowFragment(new WidgetSettingsFragment());
 
                 case KEY_PERMISSION_MESSAGE, KEY_PERMISSIONS_MANAGEMENT ->
                     animateAndShowFragment(new PermissionsManagementActivity.PermissionsManagementFragment());
 
-                case KEY_BACKUP_RESTORE_PREFERENCES ->
-                        CustomDialog.create(
-                                requireContext(),
-                                null,
-                                AppCompatResources.getDrawable(requireContext(), R.drawable.ic_backup_restore),
-                                getString(R.string.backup_restore_title),
-                                getString(R.string.backup_restore_dialog_message),
-                                null,
-                                getString(android.R.string.cancel),
-                                null,
-                                getString(R.string.backup_button_title),
-                                (d, w) -> {
-                                    String currentDateAndTime = DateFormat.format("yyyy_MM_dd_HH-mm-ss", new Date()).toString();
-                                    Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT)
-                                            .addCategory(Intent.CATEGORY_OPENABLE)
-                                            .putExtra(Intent.EXTRA_TITLE, requireContext().getString(R.string.app_label)
-                                                    + "_backup_" + currentDateAndTime + ".json")
-                                            .setType("application/json");
-                                    backupToFile.launch(intent);
-                                },
-                                getString(R.string.restore_button_title),
-                                (d, w) -> {
-                                    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT)
-                                            .addCategory(Intent.CATEGORY_OPENABLE)
-                                            .setType("application/json");
-                                    restoreFromFile.launch(intent);
-                                },
-                                null,
-                                CustomDialog.SoftInputMode.NONE
-                        ).show();
+                case KEY_BACKUP_RESTORE_PREFERENCES -> CustomDialog.create(
+                    requireContext(),
+                    null,
+                    AppCompatResources.getDrawable(requireContext(), R.drawable.ic_backup_restore),
+                    getString(R.string.backup_restore_title),
+                    getString(R.string.backup_restore_dialog_message),
+                    null,
+                    getString(android.R.string.cancel),
+                    null,
+                    getString(R.string.backup_button_title),
+                    (d, w) -> {
+                        String currentDateAndTime = DateFormat.format("yyyy_MM_dd_HH-mm-ss", new Date()).toString();
+                        Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT)
+                            .addCategory(Intent.CATEGORY_OPENABLE)
+                            .putExtra(Intent.EXTRA_TITLE, requireContext().getString(R.string.app_label)
+                                + "_backup_" + currentDateAndTime + ".json")
+                            .setType("application/json");
+                        backupToFile.launch(intent);
+                    },
+                    getString(R.string.restore_button_title),
+                    (d, w) -> {
+                        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT)
+                            .addCategory(Intent.CATEGORY_OPENABLE)
+                            .setType("application/json");
+                        restoreFromFile.launch(intent);
+                    },
+                    null,
+                    CustomDialog.SoftInputMode.NONE
+                ).show();
             }
 
             return true;
@@ -320,11 +307,9 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                 final SpannableStringBuilder builderPermissionMessage = new SpannableStringBuilder();
                 final String messagePermission = requireContext().getString(R.string.settings_permission_message);
                 final Spannable spannableMessagePermission = new SpannableString(messagePermission);
-                spannableMessagePermission.setSpan(
-                        new ForegroundColorSpan(requireContext().getColor(R.color.colorAlert)),
-                        0, messagePermission.length(), 0);
-                spannableMessagePermission.setSpan(
-                        new StyleSpan(Typeface.BOLD), 0, messagePermission.length(), 0);
+                spannableMessagePermission.setSpan(new ForegroundColorSpan(requireContext().getColor(R.color.colorAlert)),
+                    0, messagePermission.length(), 0);
+                spannableMessagePermission.setSpan(new StyleSpan(Typeface.BOLD), 0, messagePermission.length(), 0);
                 builderPermissionMessage.append(spannableMessagePermission);
                 mPermissionMessage.setTitle(builderPermissionMessage);
                 mPermissionMessage.setOnPreferenceClickListener(this);

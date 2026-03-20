@@ -18,7 +18,6 @@ import androidx.preference.PreferenceViewHolder;
 
 import com.best.deskclock.R;
 import com.best.deskclock.utils.ThemeUtils;
-
 import com.rarepebble.colorpicker.ColorPreference;
 
 /**
@@ -56,8 +55,8 @@ public class ColorPickerPreference extends ColorPreference {
                 borderCircle.setShape(GradientDrawable.OVAL);
                 borderCircle.setColor(Color.TRANSPARENT);
                 borderCircle.setStroke(
-                        (int) dpToPx(2, getContext().getResources().getDisplayMetrics()),
-                        ContextCompat.getColor(getContext(), R.color.md_theme_outline)
+                    (int) dpToPx(2, getContext().getResources().getDisplayMetrics()),
+                    ContextCompat.getColor(getContext(), R.color.md_theme_outline)
                 );
                 border.setBackground(borderCircle);
             }
@@ -73,8 +72,7 @@ public class ColorPickerPreference extends ColorPreference {
         widgetFrameView.setVisibility(View.VISIBLE);
         widgetFrameView.removeAllViews();
 
-        LayoutInflater.from(getContext()).inflate(R.layout.settings_preference_color_thumbnail,
-                widgetFrameView);
+        LayoutInflater.from(getContext()).inflate(R.layout.settings_preference_color_thumbnail, widgetFrameView);
 
         return widgetFrameView.findViewById(R.id.thumbnail);
     }

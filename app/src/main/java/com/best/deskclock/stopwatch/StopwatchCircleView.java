@@ -60,10 +60,8 @@ public final class StopwatchCircleView extends View {
 
         mRadiusOffset = ThemeUtils.calculateRadiusOffset(strokeSize, dotDiameter, markerStrokeSize);
 
-        int remainingArcColor = MaterialColors.getColor(
-                context, com.google.android.material.R.attr.colorOnSurfaceVariant, Color.BLACK);
-        int completedArcColor = MaterialColors.getColor(
-                context, com.google.android.material.R.attr.colorPrimaryInverse, Color.BLACK);
+        int remainingArcColor = MaterialColors.getColor(context, com.google.android.material.R.attr.colorOnSurfaceVariant, Color.BLACK);
+        int completedArcColor = MaterialColors.getColor(context, com.google.android.material.R.attr.colorPrimaryInverse, Color.BLACK);
 
         mCompletedPaint.setAntiAlias(true);
         mCompletedPaint.setStyle(Paint.Style.STROKE);
@@ -120,8 +118,7 @@ public final class StopwatchCircleView extends View {
         final float remainingPercent = 1 - (completedPercent > 1 ? 1 : completedPercent);
 
         // Draw an arc to indicate the amount of reference lap that remains.
-        canvas.drawArc(mArcRect, 270 + (1 - remainingPercent) * 360,
-                remainingPercent * 360, false, mRemainingPaint);
+        canvas.drawArc(mArcRect, 270 + (1 - remainingPercent) * 360, remainingPercent * 360, false, mRemainingPaint);
 
         // Draw an arc to indicate the amount of reference lap completed.
         canvas.drawArc(mArcRect, 270, completedPercent * 360, false, mCompletedPaint);

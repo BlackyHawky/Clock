@@ -34,8 +34,7 @@ import java.util.List;
 
 public class AlarmInitReceiver extends BroadcastReceiver {
 
-    private static final String ACTION_UPDATE_ALARM_STATUS =
-            "org.codeaurora.poweroffalarm.action.UPDATE_ALARM";
+    private static final String ACTION_UPDATE_ALARM_STATUS = "org.codeaurora.poweroffalarm.action.UPDATE_ALARM";
 
     private static final int SNOOZE_STATUS = 2;
     private static final int DISMISS_STATUS = 3;
@@ -49,7 +48,8 @@ public class AlarmInitReceiver extends BroadcastReceiver {
      * the user is still locked, so that we can schedule alarms.
      */
     private static final String ACTION_BOOT_COMPLETED = SdkUtils.isAtLeastAndroid7()
-            ? Intent.ACTION_LOCKED_BOOT_COMPLETED : Intent.ACTION_BOOT_COMPLETED;
+        ? Intent.ACTION_LOCKED_BOOT_COMPLETED
+        : Intent.ACTION_BOOT_COMPLETED;
 
     /**
      * This receiver handles a variety of actions:
@@ -93,8 +93,7 @@ public class AlarmInitReceiver extends BroadcastReceiver {
         }
 
         // Update shortcuts so they exist for the user.
-        if (ACTION_BOOT_COMPLETED.equals(action)
-                || ACTION_LOCALE_CHANGED.equals(action)) {
+        if (ACTION_BOOT_COMPLETED.equals(action) || ACTION_LOCALE_CHANGED.equals(action)) {
             Controller.getController().updateShortcuts();
             DataModel.getDataModel().updateAllNotifications();
 

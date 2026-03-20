@@ -21,43 +21,43 @@ import com.best.deskclock.R;
 public class PillView extends View {
 
     public static final Property<PillView, Float> PILL_CENTER_X =
-            new Property<>(Float.class, "pillCenterX") {
-                @Override
-                public Float get(PillView view) {
-                    return view.getPillCenterX();
-                }
+        new Property<>(Float.class, "pillCenterX") {
+            @Override
+            public Float get(PillView view) {
+                return view.getPillCenterX();
+            }
 
-                @Override
-                public void set(PillView view, Float value) {
-                    view.setPillCenterX(value);
-                }
-            };
+            @Override
+            public void set(PillView view, Float value) {
+                view.setPillCenterX(value);
+            }
+        };
 
     public static final Property<PillView, Float> PILL_WIDTH =
-            new Property<>(Float.class, "pillWidth") {
-                @Override
-                public Float get(PillView view) {
-                    return view.getPillWidth();
-                }
+        new Property<>(Float.class, "pillWidth") {
+            @Override
+            public Float get(PillView view) {
+                return view.getPillWidth();
+            }
 
-                @Override
-                public void set(PillView view, Float value) {
-                    view.setPillWidth(value);
-                }
-            };
+            @Override
+            public void set(PillView view, Float value) {
+                view.setPillWidth(value);
+            }
+        };
 
     public static final Property<PillView, Integer> FILL_COLOR =
-            new Property<>(Integer.class, "pillFillColor") {
-                @Override
-                public Integer get(PillView view) {
-                    return view.getFillColor();
-                }
+        new Property<>(Integer.class, "pillFillColor") {
+            @Override
+            public Integer get(PillView view) {
+                return view.getFillColor();
+            }
 
-                @Override
-                public void set(PillView view, Integer value) {
-                    view.setFillColor(value);
-                }
-            };
+            @Override
+            public void set(PillView view, Integer value) {
+                view.setFillColor(value);
+            }
+        };
 
     private final Paint mPillPaint = new Paint();
     private final RectF mRect = new RectF();
@@ -117,10 +117,10 @@ public class PillView extends View {
         super.onDraw(canvas);
 
         mRect.set(
-                mCenterX - mWidth / 2,
-                mCenterY - mHeight / 2,
-                mCenterX + mWidth / 2,
-                mCenterY + mHeight / 2
+            mCenterX - mWidth / 2,
+            mCenterY - mHeight / 2,
+            mCenterX + mWidth / 2,
+            mCenterY + mHeight / 2
         );
         canvas.drawRoundRect(mRect, mHeight / 2, mHeight / 2, mPillPaint);
     }

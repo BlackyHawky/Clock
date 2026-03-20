@@ -1,0 +1,26 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_size = 4
+indent_style = space
+insert_final_newline = true
+max_line_length = 140
+tab_width = 4
+trim_trailing_whitespace = true
+
+[{*.markdown,*.md}]
+trim_trailing_whitespace = false
+indent_size = 2
+
+[*.java]
+ij_java_class_count_to_use_import_on_demand = 999
+ij_java_names_count_to_use_import_on_demand = 10
+ij_java_use_single_class_imports = true
+
+[*.xml]
+ij_xml_keep_blank_lines = 1
+ij_xml_space_inside_empty_tag = true
+ij_xml_align_attributes = false
+ij_xml_keep_line_breaks = true

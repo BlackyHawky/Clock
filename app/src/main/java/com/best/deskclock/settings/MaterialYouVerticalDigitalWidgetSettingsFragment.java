@@ -4,23 +4,7 @@ package com.best.deskclock.settings;
 
 import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
 import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
-
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_BACKGROUND_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_DATE_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_HOURS_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_MINUTES_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_BACKGROUND_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_DATE_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_HOURS_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_MINUTES_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_BACKGROUND;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_DATE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM;
+import static com.best.deskclock.settings.PreferencesKeys.*;
 
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
@@ -40,7 +24,7 @@ import com.best.deskclock.utils.WidgetUtils;
 import com.best.deskclock.widgets.materialyouwidgets.MaterialYouVerticalDigitalAppWidgetProvider;
 
 public class MaterialYouVerticalDigitalWidgetSettingsFragment extends ScreenFragment
-        implements Preference.OnPreferenceChangeListener {
+    implements Preference.OnPreferenceChangeListener {
 
     private int mAppWidgetId = INVALID_APPWIDGET_ID;
 
@@ -122,11 +106,11 @@ public class MaterialYouVerticalDigitalWidgetSettingsFragment extends ScreenFrag
                 boolean isRadiusCustomizable = WidgetDAO.isMaterialYouVerticalDigitalWidgetBackgroundCornerRadiusCustomizable(mPrefs);
 
                 mCustomizeBackgroundCornerRadiusPref.setVisible(SdkUtils.isAtLeastAndroid12()
-                        ? displayBackground
-                        : displayBackground && isCustomColor);
+                    ? displayBackground
+                    : displayBackground && isCustomColor);
                 mBackgroundCornerRadiusPref.setVisible(SdkUtils.isAtLeastAndroid12()
-                        ? displayBackground && isRadiusCustomizable
-                        : displayBackground && isCustomColor && isRadiusCustomizable);
+                    ? displayBackground && isRadiusCustomizable
+                    : displayBackground && isCustomColor && isRadiusCustomizable);
                 mDefaultBackgroundColorPref.setVisible(displayBackground);
                 mCustomBackgroundColorPref.setVisible(displayBackground && isCustomColor);
                 Utils.setVibrationTime(requireContext(), 50);
@@ -140,19 +124,18 @@ public class MaterialYouVerticalDigitalWidgetSettingsFragment extends ScreenFrag
             case KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_DATE -> {
                 mDefaultDateColorPref.setVisible((boolean) newValue);
                 mCustomDateColorPref.setVisible(mDefaultDateColorPref.isVisible()
-                        && !WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultDateColor(mPrefs));
+                    && !WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultDateColor(mPrefs));
                 Utils.setVibrationTime(requireContext(), 50);
             }
 
             case KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM -> {
                 mDefaultNextAlarmColorPref.setVisible((boolean) newValue);
                 mCustomNextAlarmColorPref.setVisible(mDefaultNextAlarmColorPref.isVisible()
-                        && !WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultNextAlarmColor(mPrefs));
+                    && !WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultNextAlarmColor(mPrefs));
                 Utils.setVibrationTime(requireContext(), 50);
             }
 
-            case KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING ->
-                    Utils.setVibrationTime(requireContext(), 50);
+            case KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING -> Utils.setVibrationTime(requireContext(), 50);
 
             case KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_BACKGROUND_COLOR -> {
                 boolean isCustomColor = !(boolean) newValue;
@@ -199,7 +182,7 @@ public class MaterialYouVerticalDigitalWidgetSettingsFragment extends ScreenFrag
 
         boolean isBackgroundVisible = WidgetDAO.isBackgroundDisplayedOnMaterialYouVerticalDigitalWidget(mPrefs);
         boolean isBackgroundCornerRadiusCustomizable =
-                WidgetDAO.isMaterialYouVerticalDigitalWidgetBackgroundCornerRadiusCustomizable(mPrefs);
+            WidgetDAO.isMaterialYouVerticalDigitalWidgetBackgroundCornerRadiusCustomizable(mPrefs);
         boolean isCustomColor = !WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultBackgroundColor(mPrefs);
 
         if (SdkUtils.isAtLeastAndroid12()) {
@@ -208,8 +191,8 @@ public class MaterialYouVerticalDigitalWidgetSettingsFragment extends ScreenFrag
         } else {
             mCustomizeBackgroundCornerRadiusPref.setVisible(isBackgroundVisible && isCustomColor);
             mBackgroundCornerRadiusPref.setVisible(isBackgroundVisible
-                    && isCustomColor
-                    && isBackgroundCornerRadiusCustomizable);
+                && isCustomColor
+                && isBackgroundCornerRadiusCustomizable);
         }
 
         mCustomizeBackgroundCornerRadiusPref.setOnPreferenceChangeListener(this);
@@ -240,14 +223,14 @@ public class MaterialYouVerticalDigitalWidgetSettingsFragment extends ScreenFrag
         mDefaultDateColorPref.setOnPreferenceChangeListener(this);
 
         mCustomDateColorPref.setVisible(mDefaultDateColorPref.isVisible()
-                && !WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultDateColor(mPrefs));
+            && !WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultDateColor(mPrefs));
         mCustomDateColorPref.setOnPreferenceChangeListener(this);
 
         mDefaultNextAlarmColorPref.setVisible(WidgetDAO.isNextAlarmDisplayedOnMaterialYouVerticalDigitalWidget(mPrefs));
         mDefaultNextAlarmColorPref.setOnPreferenceChangeListener(this);
 
         mCustomNextAlarmColorPref.setVisible(mDefaultNextAlarmColorPref.isVisible()
-                && !WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultNextAlarmColor(mPrefs));
+            && !WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultNextAlarmColor(mPrefs));
         mCustomNextAlarmColorPref.setOnPreferenceChangeListener(this);
     }
 

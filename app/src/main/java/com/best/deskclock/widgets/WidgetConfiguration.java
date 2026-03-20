@@ -155,9 +155,9 @@ public class WidgetConfiguration {
             fragment.setArguments(args);
 
             activity.getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.content_frame, fragment)
-                    .disallowAddToBackStack()
-                    .commit();
+                .replace(R.id.content_frame, fragment)
+                .disallowAddToBackStack()
+                .commit();
         }
     }
 

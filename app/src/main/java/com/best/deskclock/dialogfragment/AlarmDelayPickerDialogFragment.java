@@ -68,8 +68,8 @@ public class AlarmDelayPickerDialogFragment extends DialogFragment {
      * Creates a new instance of {@link AlarmDelayPickerDialogFragment} for use
      * in the alarm view, where the volume value is configured for a specific alarm.
      *
-     * @param hours    The alarm hours.
-     * @param minutes  The alarm minutes.
+     * @param hours   The alarm hours.
+     * @param minutes The alarm minutes.
      */
     public static AlarmDelayPickerDialogFragment newInstance(int hours, int minutes) {
         final Bundle args = new Bundle();
@@ -147,38 +147,38 @@ public class AlarmDelayPickerDialogFragment extends DialogFragment {
         setupEditTextInput(mMinutePicker);
 
         return CustomDialog.create(
-                mContext,
-                R.style.SpinnerDialogTheme,
-                null,
-                getString(R.string.delay_picker_dialog_title),
-                null,
-                dialogView,
-                getString(android.R.string.ok),
-                (d, w) -> {
-                    mHourPicker.clearFocus();
-                    mMinutePicker.clearFocus();
-                    setAlarmDelay();
-                },
-                getString(android.R.string.cancel),
-                null,
-                null,
-                null,
-                alertDialog -> {
-                    mOkButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            mContext,
+            R.style.SpinnerDialogTheme,
+            null,
+            getString(R.string.delay_picker_dialog_title),
+            null,
+            dialogView,
+            getString(android.R.string.ok),
+            (d, w) -> {
+                mHourPicker.clearFocus();
+                mMinutePicker.clearFocus();
+                setAlarmDelay();
+            },
+            getString(android.R.string.cancel),
+            null,
+            null,
+            null,
+            alertDialog -> {
+                mOkButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
 
-                    mHourPicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
-                        picker.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
-                        updateUiState();
-                    });
-                    mMinutePicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
-                        picker.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
-                        updateUiState();
-                    });
-
-                    // Initial state
+                mHourPicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
+                    picker.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
                     updateUiState();
-                },
-                CustomDialog.SoftInputMode.SHOW_KEYBOARD
+                });
+                mMinutePicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
+                    picker.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
+                    updateUiState();
+                });
+
+                // Initial state
+                updateUiState();
+            },
+            CustomDialog.SoftInputMode.SHOW_KEYBOARD
         );
     }
 
@@ -241,8 +241,8 @@ public class AlarmDelayPickerDialogFragment extends DialogFragment {
 
         if (SdkUtils.isAtLeastAndroid10()) {
             mMinutePicker.setTextColor(enabled
-                    ? mHourPicker.getTextColor()
-                    : mContext.getColor(R.color.colorDisabled));
+                ? mHourPicker.getTextColor()
+                : mContext.getColor(R.color.colorDisabled));
         } else {
             mMinutePicker.setAlpha(enabled ? 1f : 0.5f);
         }
@@ -287,11 +287,11 @@ public class AlarmDelayPickerDialogFragment extends DialogFragment {
                             }
 
                             editText.setImeOptions(hour == 24
-                                    ? EditorInfo.IME_ACTION_DONE
-                                    : EditorInfo.IME_ACTION_NEXT);
+                                ? EditorInfo.IME_ACTION_DONE
+                                : EditorInfo.IME_ACTION_NEXT);
 
                             final InputMethodManager inputMethodManager =
-                                    (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+                                (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
                             editText.setInputType(InputType.TYPE_CLASS_NUMBER);
                             inputMethodManager.restartInput(editText);
                         } else if (numberPicker == mMinutePicker) {
@@ -313,6 +313,7 @@ public class AlarmDelayPickerDialogFragment extends DialogFragment {
                     public void afterTextChanged(Editable s) {
                     }
                 });
+
                 editText.setOnEditorActionListener((v, actionId, event) -> {
                     if (actionId == EditorInfo.IME_ACTION_DONE) {
                         numberPicker.clearFocus();

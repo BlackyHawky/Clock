@@ -8,7 +8,6 @@ package com.best.deskclock.screensaver;
 
 import static android.content.Intent.ACTION_BATTERY_CHANGED;
 import static android.os.BatteryManager.EXTRA_PLUGGED;
-
 import static com.best.deskclock.utils.AlarmUtils.ACTION_NEXT_ALARM_CHANGED_BY_CLOCK;
 
 import android.annotation.SuppressLint;
@@ -60,8 +59,7 @@ public class ScreensaverActivity extends BaseActivity {
                 case Intent.ACTION_POWER_CONNECTED -> updateWakeLock(true);
                 case Intent.ACTION_POWER_DISCONNECTED -> updateWakeLock(false);
                 case Intent.ACTION_USER_PRESENT -> finish();
-                case ACTION_NEXT_ALARM_CHANGED_BY_CLOCK ->
-                        AlarmUtils.refreshAlarm(mContentView, true);
+                case ACTION_NEXT_ALARM_CHANGED_BY_CLOCK -> AlarmUtils.refreshAlarm(mContentView, true);
             }
         }
     };
@@ -159,8 +157,8 @@ public class ScreensaverActivity extends BaseActivity {
         UiDataModel.getUiDataModel().addMidnightCallback(mMidnightUpdater, 100);
 
         final Intent intent = SdkUtils.isAtLeastAndroid13()
-                ? registerReceiver(null, new IntentFilter(ACTION_BATTERY_CHANGED), Context.RECEIVER_NOT_EXPORTED)
-                : registerReceiver(null, new IntentFilter(ACTION_BATTERY_CHANGED));
+            ? registerReceiver(null, new IntentFilter(ACTION_BATTERY_CHANGED), Context.RECEIVER_NOT_EXPORTED)
+            : registerReceiver(null, new IntentFilter(ACTION_BATTERY_CHANGED));
         final boolean pluggedIn = intent != null && intent.getIntExtra(EXTRA_PLUGGED, 0) != 0;
         updateWakeLock(pluggedIn);
 
@@ -216,9 +214,7 @@ public class ScreensaverActivity extends BaseActivity {
         if (SdkUtils.isAtLeastAndroid11()) {
             WindowInsetsController insetsController = win.getInsetsController();
             if (insetsController != null) {
-                insetsController.setSystemBarsBehavior(
-                        WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-                );
+                insetsController.setSystemBarsBehavior(WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
                 insetsController.hide(WindowInsets.Type.systemBars());
             }
         } else {
@@ -253,8 +249,7 @@ public class ScreensaverActivity extends BaseActivity {
      */
     private static int getWindowFlags() {
         if (SdkUtils.isAtLeastAndroid81()) {
-            return WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
-                    | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON;
+            return WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON;
         } else {
             return getLegacyWindowFlags();
         }
@@ -265,8 +260,8 @@ public class ScreensaverActivity extends BaseActivity {
      */
     private static int getLegacyWindowFlags() {
         return WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
-                | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON
-                | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
+            | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON
+            | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
     }
 
     /**

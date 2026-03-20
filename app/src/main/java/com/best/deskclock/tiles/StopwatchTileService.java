@@ -38,8 +38,8 @@ public class StopwatchTileService extends TileService {
         super.onClick();
 
         final Intent intent = new Intent(this, DeskClock.class)
-                .addFlags(FLAG_ACTIVITY_NEW_TASK)
-                .addFlags(FLAG_ACTIVITY_CLEAR_TOP);
+            .addFlags(FLAG_ACTIVITY_NEW_TASK)
+            .addFlags(FLAG_ACTIVITY_CLEAR_TOP);
 
         UiDataModel.getUiDataModel().setSelectedTab(STOPWATCH);
 

@@ -8,7 +8,6 @@ package com.best.deskclock.alarms;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
-
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
 import android.content.Context;
@@ -21,6 +20,7 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.R;
@@ -84,8 +84,7 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         mUpcomingDate = itemView.findViewById(R.id.upcoming_date);
         mPreemptiveDismissButton = itemView.findViewById(R.id.preemptive_dismiss_button);
 
-        itemView.setOnClickListener(v ->
-                mItemHolder.getAlarmTimeClickHandler().displayBottomSheetDialog(mItemHolder.item));
+        itemView.setOnClickListener(v -> mItemHolder.getAlarmTimeClickHandler().displayBottomSheetDialog(mItemHolder.item));
 
         // Clock handler
         mClock.setTypeface(ThemeUtils.boldTypeface(SettingsDAO.getAlarmFont(mPrefs)));
@@ -97,7 +96,7 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
 
         // On/Off button handler
         mOnOff.setOnCheckedChangeListener((compoundButton, checked) ->
-                mItemHolder.getAlarmTimeClickHandler().setAlarmEnabled(mItemHolder.item, checked));
+            mItemHolder.getAlarmTimeClickHandler().setAlarmEnabled(mItemHolder.item, checked));
 
         // Upcoming date font
         mUpcomingDate.setTypeface(mGeneralTypeface);
@@ -185,11 +184,11 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
 
     private void bindRepeatText(Context context, Alarm alarm, AlarmInstance alarmInstance) {
         if (alarmInstance != null
-                && alarm.canPreemptivelyDismiss(context)
-                && alarm.instanceState == AlarmInstance.SNOOZE_STATE) {
+            && alarm.canPreemptivelyDismiss(context)
+            && alarm.instanceState == AlarmInstance.SNOOZE_STATE) {
             mDaysOfWeek.setTypeface(mGeneralBoldTypeface);
             mDaysOfWeek.setText(context.getString(R.string.alarm_alert_snooze_until,
-                    AlarmUtils.getAlarmText(context, alarmInstance, false)));
+                AlarmUtils.getAlarmText(context, alarmInstance, false)));
         } else if (alarmInstance != null && alarm.daysOfWeek.isRepeating()) {
             setRepeatingDaysDescription(context, alarm, alarmInstance);
         } else if (alarm.isSpecifiedDate()) {
@@ -234,8 +233,8 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         }
 
         final String dismissText = alarm.isDeleteAfterUse()
-                ? context.getString(R.string.alarm_alert_dismiss_and_delete_text_button)
-                : context.getString(R.string.alarm_alert_dismiss_text);
+            ? context.getString(R.string.alarm_alert_dismiss_and_delete_text_button)
+            : context.getString(R.string.alarm_alert_dismiss_text);
 
         mPreemptiveDismissButton.setText(dismissText);
         mPreemptiveDismissButton.setVisibility(VISIBLE);

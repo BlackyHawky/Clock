@@ -25,8 +25,8 @@ public class ScreensaverTileService extends TileService {
         super.onClick();
 
         final Intent intent = new Intent(this, ScreensaverActivity.class)
-                .addFlags(FLAG_ACTIVITY_NEW_TASK)
-                .addFlags(FLAG_ACTIVITY_CLEAR_TOP);
+            .addFlags(FLAG_ACTIVITY_NEW_TASK)
+            .addFlags(FLAG_ACTIVITY_CLEAR_TOP);
 
         if (SdkUtils.isAtLeastAndroid14()) {
             startActivityAndCollapse(PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE));

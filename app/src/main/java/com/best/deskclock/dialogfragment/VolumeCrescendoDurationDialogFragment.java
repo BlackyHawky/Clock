@@ -56,9 +56,9 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
     private static final String VOLUME_CRESCENDO_DURATION = "volume_crescendo_duration_";
     private static final String ARG_PREF_KEY = VOLUME_CRESCENDO_DURATION + "arg_pref_key";
     private static final String ARG_EDIT_VOLUME_CRESCENDO_MINUTES =
-            VOLUME_CRESCENDO_DURATION + "arg_edit_volume_crescendo_minutes";
+        VOLUME_CRESCENDO_DURATION + "arg_edit_volume_crescendo_minutes";
     private static final String ARG_EDIT_VOLUME_CRESCENDO_SECONDS =
-            VOLUME_CRESCENDO_DURATION + "arg_edit_volume_crescendo_seconds";
+        VOLUME_CRESCENDO_DURATION + "arg_edit_volume_crescendo_seconds";
     private static final String ARG_CRESCENDO_OFF = "arg_crescendo_off";
     public static final String RESULT_PREF_KEY = VOLUME_CRESCENDO_DURATION + "result_pref_key";
     public static final String REQUEST_KEY = VOLUME_CRESCENDO_DURATION + "request_key";
@@ -113,7 +113,7 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
      * Creates a new instance of {@link VolumeCrescendoDurationDialogFragment} for use
      * in the alarm edit panel, where the crescendo duration is configured for a specific alarm.
      *
-     * @param crescendoDuration  The crescendo duration in seconds.
+     * @param crescendoDuration The crescendo duration in seconds.
      */
     public static VolumeCrescendoDurationDialogFragment newInstance(int crescendoDuration) {
 
@@ -239,29 +239,29 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
         });
 
         return CustomDialog.create(
-                mContext,
-                null,
-                mPrefKey != null ? null : AppCompatResources.getDrawable(mContext, R.drawable.ic_crescendo),
-                getString(R.string.crescendo_duration_title),
-                null,
-                dialogView,
-                getString(android.R.string.ok),
-                (d, w) -> setVolumeCrescendoDurationInSeconds(),
-                getString(android.R.string.cancel),
-                null,
-                getString(R.string.label_default),
-                (d, w) -> applyVolumeCrescendoDurationInSeconds(DEFAULT_VOLUME_CRESCENDO_DURATION),
-                alertDialog -> {
-                    mOkButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-                    mDefaultButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
+            mContext,
+            null,
+            mPrefKey != null ? null : AppCompatResources.getDrawable(mContext, R.drawable.ic_crescendo),
+            getString(R.string.crescendo_duration_title),
+            null,
+            dialogView,
+            getString(android.R.string.ok),
+            (d, w) -> setVolumeCrescendoDurationInSeconds(),
+            getString(android.R.string.cancel),
+            null,
+            getString(R.string.label_default),
+            (d, w) -> applyVolumeCrescendoDurationInSeconds(DEFAULT_VOLUME_CRESCENDO_DURATION),
+            alertDialog -> {
+                mOkButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                mDefaultButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
 
-                    String inputMinutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
-                    String inputSecondsText = mEditSeconds.getText() != null ? mEditSeconds.getText().toString() : "";
+                String inputMinutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
+                String inputSecondsText = mEditSeconds.getText() != null ? mEditSeconds.getText().toString() : "";
 
-                    mOkButton.setEnabled(!isInvalidInput(inputMinutesText, inputSecondsText));
-                    mDefaultButton.setEnabled(isNotDefaultVolumeCrescendoDuration(inputMinutesText, inputSecondsText));
-                },
-                CustomDialog.SoftInputMode.SHOW_KEYBOARD
+                mOkButton.setEnabled(!isInvalidInput(inputMinutesText, inputSecondsText));
+                mDefaultButton.setEnabled(isNotDefaultVolumeCrescendoDuration(inputMinutesText, inputSecondsText));
+            },
+            CustomDialog.SoftInputMode.SHOW_KEYBOARD
         );
     }
 
@@ -316,12 +316,10 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
             mMinutesInputLayout.setHelperText(getString(R.string.timer_button_time_minutes_warning_box_text));
             mSecondsInputLayout.setHelperText(getString(R.string.timer_button_time_seconds_warning_box_text));
 
-            TextView minutesHelper = mMinutesInputLayout.findViewById(
-                    com.google.android.material.R.id.textinput_helper_text);
+            TextView minutesHelper = mMinutesInputLayout.findViewById(com.google.android.material.R.id.textinput_helper_text);
             minutesHelper.setTypeface(mTypeFace);
 
-            TextView secondsHelper = mSecondsInputLayout.findViewById(
-                    com.google.android.material.R.id.textinput_helper_text);
+            TextView secondsHelper = mSecondsInputLayout.findViewById(com.google.android.material.R.id.textinput_helper_text);
             secondsHelper.setTypeface(mTypeFace);
 
             String minutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
@@ -432,8 +430,8 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
 
         TextView titleText = alertDialog.findViewById(R.id.dialog_title);
         if (titleText != null) {
-            titleText.setCompoundDrawablesWithIntrinsicBounds(
-                    AppCompatResources.getDrawable(mContext, R.drawable.ic_error), null, null, null);
+            titleText.setCompoundDrawablesWithIntrinsicBounds(AppCompatResources.getDrawable(
+                mContext, R.drawable.ic_error), null, null, null);
             if (mPrefKey != null) {
                 titleText.setCompoundDrawablePadding((int) dpToPx(18, getResources().getDisplayMetrics()));
             }
@@ -443,22 +441,22 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
         String minutesText = Objects.requireNonNull(mEditMinutes.getText()).toString();
         String secondsText = Objects.requireNonNull(mEditSeconds.getText()).toString();
         boolean minutesInvalid = (!minutesText.isEmpty() && Integer.parseInt(minutesText) < 0)
-                || (!minutesText.isEmpty() && Integer.parseInt(minutesText) > 60);
+            || (!minutesText.isEmpty() && Integer.parseInt(minutesText) > 60);
         boolean secondsInvalid = (!secondsText.isEmpty() && Integer.parseInt(secondsText) < 0)
-                || (!secondsText.isEmpty() && Integer.parseInt(secondsText) > 59);
+            || (!secondsText.isEmpty() && Integer.parseInt(secondsText) > 59);
         int invalidColor = ContextCompat.getColor(mContext, R.color.md_theme_error);
         int validColor = MaterialColors.getColor(mContext, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
 
         mMinutesInputLayout.setBoxStrokeColor(minutesInvalid ? invalidColor : validColor);
         mMinutesInputLayout.setHintTextColor(minutesInvalid
-                ? ColorStateList.valueOf(invalidColor)
-                : ColorStateList.valueOf(validColor));
+            ? ColorStateList.valueOf(invalidColor)
+            : ColorStateList.valueOf(validColor));
         mMinutesInputLayout.setEnabled(!secondsInvalid);
 
         mSecondsInputLayout.setBoxStrokeColor(secondsInvalid ? invalidColor : validColor);
         mSecondsInputLayout.setHintTextColor(secondsInvalid
-                ? ColorStateList.valueOf(invalidColor)
-                : ColorStateList.valueOf(validColor));
+            ? ColorStateList.valueOf(invalidColor)
+            : ColorStateList.valueOf(validColor));
         mSecondsInputLayout.setEnabled(!minutesInvalid);
 
         if (mOkButton != null) {
@@ -479,8 +477,8 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
             if (mPrefKey != null) {
                 titleText.setCompoundDrawables(null, null, null, null);
             } else {
-                titleText.setCompoundDrawablesWithIntrinsicBounds(
-                        AppCompatResources.getDrawable(mContext, R.drawable.ic_crescendo), null, null, null);
+                titleText.setCompoundDrawablesWithIntrinsicBounds(AppCompatResources.getDrawable(
+                    mContext, R.drawable.ic_crescendo), null, null, null);
             }
             titleText.setText(getString(R.string.crescendo_duration_title));
         }
@@ -554,7 +552,7 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
                 mEditMinutes.setOnEditorActionListener(new ImeDoneListener());
                 mSecondsInputLayout.setEnabled(false);
 
-                if(!"0".equals(secondsText)) {
+                if (!"0".equals(secondsText)) {
                     mEditSeconds.setText("0");
                 }
             } else {

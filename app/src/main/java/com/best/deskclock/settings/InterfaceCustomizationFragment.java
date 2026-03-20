@@ -3,22 +3,7 @@
 package com.best.deskclock.settings;
 
 import static android.app.Activity.RESULT_OK;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ACCENT_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_NIGHT_ACCENT_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_CARD_BACKGROUND;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_CARD_BORDER;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_CUSTOM_LANGUAGE_CODE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_DARK_MODE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_GENERAL_FONT;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_KEEP_SCREEN_ON;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_TAB_TITLE_VISIBILITY;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_TAB_TO_DISPLAY;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_FADE_TRANSITIONS;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_NIGHT_ACCENT_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_TAB_INDICATOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_THEME;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_TOOLBAR_TITLE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_VIBRATIONS;
+import static com.best.deskclock.settings.PreferencesKeys.*;
 import static com.best.deskclock.utils.Utils.ACTION_LANGUAGE_CODE_CHANGED;
 
 import android.content.Intent;
@@ -44,7 +29,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class InterfaceCustomizationFragment extends ScreenFragment
-        implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
+    implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
     private static boolean isLanguageChanged = false;
 
@@ -66,40 +51,40 @@ public class InterfaceCustomizationFragment extends ScreenFragment
     SwitchPreferenceCompat mKeepScreenOnPref;
 
     private final ActivityResultLauncher<Intent> fontPickerLauncher =
-            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-                if (result.getResultCode() != RESULT_OK) {
-                    return;
-                }
+        registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (result.getResultCode() != RESULT_OK) {
+                return;
+            }
 
-                Intent intent = result.getData();
-                final Uri sourceUri = intent == null ? null : intent.getData();
-                if (sourceUri == null) {
-                    return;
-                }
+            Intent intent = result.getData();
+            final Uri sourceUri = intent == null ? null : intent.getData();
+            if (sourceUri == null) {
+                return;
+            }
 
-                // Take persistent permission
-                requireActivity().getContentResolver().takePersistableUriPermission(
-                        sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION
-                );
+            // Take persistent permission
+            requireActivity().getContentResolver().takePersistableUriPermission(
+                sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION
+            );
 
-                String safeTitle = Utils.toSafeFileName("general_font");
+            String safeTitle = Utils.toSafeFileName("general_font");
 
-                // Delete the old font if it exists
-                clearFile(mPrefs.getString(KEY_GENERAL_FONT, null));
+            // Delete the old font if it exists
+            clearFile(mPrefs.getString(KEY_GENERAL_FONT, null));
 
-                Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(requireContext(), sourceUri, safeTitle);
+            Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(requireContext(), sourceUri, safeTitle);
 
-                // Save the new path
-                if (copiedUri != null) {
-                    mPrefs.edit().putString(KEY_GENERAL_FONT, copiedUri.getPath()).apply();
-                    mGeneralFontPref.setTitle(getString(R.string.custom_font_title_variant));
+            // Save the new path
+            if (copiedUri != null) {
+                mPrefs.edit().putString(KEY_GENERAL_FONT, copiedUri.getPath()).apply();
+                mGeneralFontPref.setTitle(getString(R.string.custom_font_title_variant));
 
-                    CustomToast.show(requireContext(), R.string.custom_font_toast_message_selected);
-                } else {
-                    CustomToast.show(requireContext(), "Error importing font");
-                    mGeneralFontPref.setTitle(getString(R.string.custom_font_title));
-                }
-            });
+                CustomToast.show(requireContext(), R.string.custom_font_toast_message_selected);
+            } else {
+                CustomToast.show(requireContext(), "Error importing font");
+                mGeneralFontPref.setTitle(getString(R.string.custom_font_title));
+            }
+        });
 
     @Override
     protected String getFragmentTitle() {
@@ -151,17 +136,14 @@ public class InterfaceCustomizationFragment extends ScreenFragment
     @Override
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
-            case KEY_THEME, KEY_ACCENT_COLOR, KEY_DARK_MODE, KEY_NIGHT_ACCENT_COLOR,
-                 KEY_TAB_TITLE_VISIBILITY, KEY_TAB_TO_DISPLAY  -> {
+            case KEY_THEME, KEY_ACCENT_COLOR, KEY_DARK_MODE, KEY_NIGHT_ACCENT_COLOR, KEY_TAB_TITLE_VISIBILITY, KEY_TAB_TO_DISPLAY -> {
                 final ListPreference listPreference = (ListPreference) pref;
                 final int index = listPreference.findIndexOfValue((String) newValue);
                 listPreference.setSummary(listPreference.getEntries()[index]);
             }
 
-            case KEY_AUTO_NIGHT_ACCENT_COLOR, KEY_CARD_BACKGROUND, KEY_CARD_BORDER,
-                 KEY_FADE_TRANSITIONS, KEY_VIBRATIONS, KEY_TOOLBAR_TITLE, KEY_TAB_INDICATOR,
-                 KEY_KEEP_SCREEN_ON ->
-                    Utils.setVibrationTime(requireContext(), 50);
+            case KEY_AUTO_NIGHT_ACCENT_COLOR, KEY_CARD_BACKGROUND, KEY_CARD_BORDER, KEY_FADE_TRANSITIONS, KEY_VIBRATIONS, KEY_TOOLBAR_TITLE,
+                 KEY_TAB_INDICATOR, KEY_KEEP_SCREEN_ON -> Utils.setVibrationTime(requireContext(), 50);
 
             case KEY_CUSTOM_LANGUAGE_CODE -> {
                 final int index = mCustomLanguageCodePref.findIndexOfValue((String) newValue);
@@ -179,7 +161,7 @@ public class InterfaceCustomizationFragment extends ScreenFragment
     public boolean onPreferenceClick(@NonNull Preference pref) {
         if (pref.getKey().equals(KEY_GENERAL_FONT)) {
             selectCustomFile(mGeneralFontPref, fontPickerLauncher,
-                    SettingsDAO.getGeneralFont(mPrefs), KEY_GENERAL_FONT, true, null);
+                SettingsDAO.getGeneralFont(mPrefs), KEY_GENERAL_FONT, true, null);
         }
 
         return true;
@@ -193,8 +175,8 @@ public class InterfaceCustomizationFragment extends ScreenFragment
         mDarkModePref.setOnPreferenceChangeListener(this);
 
         mGeneralFontPref.setTitle(getString(SettingsDAO.getGeneralFont(mPrefs) == null
-                ? R.string.custom_font_title
-                : R.string.custom_font_title_variant));
+            ? R.string.custom_font_title
+            : R.string.custom_font_title_variant));
         mGeneralFontPref.setOnPreferenceClickListener(this);
 
         mAccentColorPref.setSummary(mAccentColorPref.getEntry());
@@ -259,7 +241,7 @@ public class InterfaceCustomizationFragment extends ScreenFragment
                 // Sort elements starting from second (index 1)
                 List<Pair> remainingPairs = entryValuePairs.subList(1, entryValuePairs.size());
                 Collections.sort(remainingPairs, (pair1, pair2) ->
-                        CharSequence.compare(pair1.entry.toString(), pair2.entry.toString()));
+                    CharSequence.compare(pair1.entry.toString(), pair2.entry.toString()));
 
                 CharSequence[] sortedEntries = new CharSequence[entries.length];
                 CharSequence[] sortedValues = new CharSequence[values.length];

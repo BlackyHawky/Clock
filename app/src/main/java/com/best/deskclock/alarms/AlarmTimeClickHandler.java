@@ -64,8 +64,7 @@ public final class AlarmTimeClickHandler {
     }
 
     public void displayBottomSheetDialog(Alarm alarm) {
-        AlarmEditBottomSheetFragment fragment =
-                AlarmEditBottomSheetFragment.newInstance(alarm, alarm.id, mFragment.getTag());
+        AlarmEditBottomSheetFragment fragment = AlarmEditBottomSheetFragment.newInstance(alarm, alarm.id, mFragment.getTag());
 
         AlarmEditBottomSheetFragment.show(mFragment.getParentFragmentManager(), fragment);
         LOGGER.v("Opening BottomSheet to edit alarm: " + alarm.id);
@@ -96,8 +95,7 @@ public final class AlarmTimeClickHandler {
             // When disabling a synchronized alarm, disable the entire group only if this alarm
             // is not currently firing or snoozed.
             if (alarm.syncByLabel && !newState) {
-                AlarmInstance activeInstance = AlarmInstance.getFiredOrSnoozedInstanceForAlarm(
-                        mContext.getContentResolver(), alarm.id);
+                AlarmInstance activeInstance = AlarmInstance.getFiredOrSnoozedInstanceForAlarm(mContext.getContentResolver(), alarm.id);
 
                 // If the alarm is not active (neither firing nor snoozed),
                 // propagate the disabled state to the whole group.
@@ -116,7 +114,7 @@ public final class AlarmTimeClickHandler {
      * synchronization setting as the given source alarm.
      *
      * @param sourceAlarm the alarm whose label and sync settings define the group
-     * @param newState the enabled state to apply to all matching alarms
+     * @param newState    the enabled state to apply to all matching alarms
      */
     private void syncAlarmsWithSameLabel(Alarm sourceAlarm, boolean newState) {
         if (sourceAlarm.label == null || sourceAlarm.label.trim().isEmpty()) {
@@ -128,8 +126,8 @@ public final class AlarmTimeClickHandler {
 
         for (Alarm alarm : alarms) {
             if (alarm.id != sourceAlarm.id
-                    && sourceAlarm.label.equals(alarm.label)
-                    && sourceAlarm.syncByLabel == alarm.syncByLabel) {
+                && sourceAlarm.label.equals(alarm.label)
+                && sourceAlarm.syncByLabel == alarm.syncByLabel) {
 
                 if (alarm.enabled != newState) {
                     alarm.enabled = newState;
@@ -178,8 +176,8 @@ public final class AlarmTimeClickHandler {
         }
 
         // Otherwise, standard behavior: disable the alarm.
-        final Intent dismissIntent = AlarmStateManager.createStateChangeIntent(mContext,
-                AlarmStateManager.ALARM_DISMISS_TAG, alarmInstance, AlarmInstance.PREDISMISSED_STATE);
+        final Intent dismissIntent = AlarmStateManager.createStateChangeIntent(
+            mContext, AlarmStateManager.ALARM_DISMISS_TAG, alarmInstance, AlarmInstance.PREDISMISSED_STATE);
         mContext.startService(dismissIntent);
         Utils.setVibrationTime(mContext, 50);
     }
@@ -202,8 +200,7 @@ public final class AlarmTimeClickHandler {
     public void showAlarmDelayPickerDialog() {
         Events.sendAlarmEvent(R.string.action_set_delay, R.string.label_deskclock);
 
-        final AlarmDelayPickerDialogFragment fragment =
-                AlarmDelayPickerDialogFragment.newInstance(0, 0);
+        final AlarmDelayPickerDialogFragment fragment = AlarmDelayPickerDialogFragment.newInstance(0, 0);
         AlarmDelayPickerDialogFragment.show(mFragment.getParentFragmentManager(), fragment);
     }
 
@@ -287,8 +284,7 @@ public final class AlarmTimeClickHandler {
         // to the current date (an alarm cannot be scheduled in the past).
         // This is due to the change in the code made with commit : 6ac23cf.
         // Fix https://github.com/BlackyHawky/Clock/issues/299
-        boolean mustResetDate = mSelectedAlarm.isDateInThePast() ||
-                (isFromDelay && mSelectedAlarm.isSpecifiedDate());
+        boolean mustResetDate = mSelectedAlarm.isDateInThePast() || (isFromDelay && mSelectedAlarm.isSpecifiedDate());
 
         if (mustResetDate) {
             mSelectedAlarm.year = currentCalendar.get(Calendar.YEAR);

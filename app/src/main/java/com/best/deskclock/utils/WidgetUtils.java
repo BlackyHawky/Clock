@@ -8,7 +8,6 @@ package com.best.deskclock.utils;
 
 import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_HOST_CATEGORY;
 import static android.appwidget.AppWidgetProviderInfo.WIDGET_CATEGORY_KEYGUARD;
-
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
@@ -87,13 +86,13 @@ public class WidgetUtils {
     public static void addFinishOnBackPressedIfLaunchedFromWidget(@NonNull Fragment fragment) {
         if (isLaunchedFromWidget(fragment.getArguments())) {
             fragment.requireActivity()
-                    .getOnBackPressedDispatcher()
-                    .addCallback(fragment, new OnBackPressedCallback(true) {
-                        @Override
-                        public void handleOnBackPressed() {
-                            fragment.requireActivity().finish();
-                        }
-                    });
+                .getOnBackPressedDispatcher()
+                .addCallback(fragment, new OnBackPressedCallback(true) {
+                    @Override
+                    public void handleOnBackPressed() {
+                        fragment.requireActivity().finish();
+                    }
+                });
         }
     }
 
@@ -280,8 +279,8 @@ public class WidgetUtils {
      */
     public static int getMaterialBackgroundColorDay(Context context) {
         return SdkUtils.isAtLeastAndroid12()
-                ? ContextCompat.getColor(context, android.R.color.system_accent2_50)
-                : Color.TRANSPARENT;
+            ? ContextCompat.getColor(context, android.R.color.system_accent2_50)
+            : Color.TRANSPARENT;
     }
 
     /**
@@ -289,8 +288,8 @@ public class WidgetUtils {
      */
     public static int getMaterialBackgroundColorNight(Context context) {
         return SdkUtils.isAtLeastAndroid12()
-                ? ContextCompat.getColor(context, android.R.color.system_accent2_800)
-                : Color.TRANSPARENT;
+            ? ContextCompat.getColor(context, android.R.color.system_accent2_800)
+            : Color.TRANSPARENT;
     }
 
     /**
@@ -299,12 +298,12 @@ public class WidgetUtils {
     public static CharSequence getLongestTimeString(TextClock clock, boolean isMaterialYou) {
         final SharedPreferences prefs = getDefaultSharedPreferences(clock.getContext());
         boolean includeSeconds = isMaterialYou
-                ? WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs)
-                : WidgetDAO.areSecondsDisplayedOnDigitalWidget(prefs);
+            ? WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs)
+            : WidgetDAO.areSecondsDisplayedOnDigitalWidget(prefs);
         final CharSequence format = clock.is24HourModeEnabled()
-                ? ClockUtils.get24ModeFormat(includeSeconds, false)
-                : ClockUtils.get12ModeFormat(clock.getContext(), getAmPmRatio(isMaterialYou, prefs),
-                includeSeconds, false, false, false);
+            ? ClockUtils.get24ModeFormat(includeSeconds, false)
+            : ClockUtils.get12ModeFormat(clock.getContext(), getAmPmRatio(isMaterialYou, prefs),
+            includeSeconds, false, false, false);
         final Calendar longestPMTime = Calendar.getInstance();
         longestPMTime.set(0, 0, 0, 23, 59);
         return DateFormat.format(format, longestPMTime);
@@ -313,11 +312,11 @@ public class WidgetUtils {
     /**
      * Configure the TextClock format on a RemoteViews instance.
      *
-     * @param rv            RemoteViews to update
-     * @param context       context for resources
-     * @param clockViewId   the TextClock view id
-     * @param amPmRatio     am/pm ratio for 12h format
-     * @param showSeconds   whether seconds should be shown
+     * @param rv          RemoteViews to update
+     * @param context     context for resources
+     * @param clockViewId the TextClock view id
+     * @param amPmRatio   am/pm ratio for 12h format
+     * @param showSeconds whether seconds should be shown
      */
     public static void applyClockFormat(RemoteViews rv, Context context, int clockViewId, float amPmRatio,
                                         boolean showSeconds) {
@@ -327,11 +326,9 @@ public class WidgetUtils {
         }
 
         if (DataModel.getDataModel().is24HourFormat()) {
-            rv.setCharSequence(clockViewId, METHOD_SET_FORMAT_24, ClockUtils.get24ModeFormat(
-                    showSeconds, false));
+            rv.setCharSequence(clockViewId, METHOD_SET_FORMAT_24, ClockUtils.get24ModeFormat(showSeconds, false));
         } else {
-            rv.setCharSequence(clockViewId, METHOD_SET_FORMAT_12, ClockUtils.get12ModeFormat(
-                    context, amPmRatio, showSeconds, false, false, false));
+            rv.setCharSequence(clockViewId, METHOD_SET_FORMAT_12, ClockUtils.get12ModeFormat(context, amPmRatio, showSeconds, false, false, false));
         }
     }
 
@@ -340,8 +337,8 @@ public class WidgetUtils {
      */
     public static float getAmPmRatio(boolean isMaterialYou, SharedPreferences prefs) {
         boolean areAmPmHidden = isMaterialYou
-                ? WidgetDAO.isAmPmHiddenOnMaterialYouDigitalWidget(prefs)
-                : WidgetDAO.isAmPmHiddenOnDigitalWidget(prefs);
+            ? WidgetDAO.isAmPmHiddenOnMaterialYouDigitalWidget(prefs)
+            : WidgetDAO.isAmPmHiddenOnDigitalWidget(prefs);
         return areAmPmHidden ? 0 : 0.4f;
     }
 
@@ -352,7 +349,7 @@ public class WidgetUtils {
         Locale locale = Locale.getDefault();
         final String skeleton = context.getString(R.string.abbrev_wday_month_day_no_year);
         SimpleDateFormat simpleDateFormat =
-                new SimpleDateFormat(DateFormat.getBestDateTimePattern(locale, skeleton), locale);
+            new SimpleDateFormat(DateFormat.getBestDateTimePattern(locale, skeleton), locale);
 
         String formattedDate = simpleDateFormat.format(new Date());
 
@@ -374,8 +371,8 @@ public class WidgetUtils {
         }
 
         Intent intent = new Intent(context, receiverClass);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent,
+            PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         getAlarmManager(context).setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
 
@@ -388,8 +385,8 @@ public class WidgetUtils {
     public static void cancelDailyWidgetUpdate(Context context, Class<? extends BroadcastReceiver> receiverClass) {
         Intent intent = new Intent(context, receiverClass);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent,
+            PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         if (getAlarmManager(context) != null && pendingIntent != null) {
             getAlarmManager(context).cancel(pendingIntent);
@@ -423,7 +420,7 @@ public class WidgetUtils {
             try {
                 // Use the static "updateAppWidget()" method on the appropriate provider
                 widgetProviderClass.getMethod(METHOD_UPDATE_APP_WIDGET, Context.class, AppWidgetManager.class, int.class)
-                        .invoke(null, context, appWidgetManager, widgetId);
+                    .invoke(null, context, appWidgetManager, widgetId);
             } catch (Exception e) {
                 LogUtils.e("Error updating widget " + widgetProviderClass.getSimpleName(), e);
             }
@@ -435,7 +432,7 @@ public class WidgetUtils {
      */
     public static void scheduleWidgetUpdate(Context context, Class<?> widgetProviderClass) {
         AppExecutors.getMainThread().postDelayed(() ->
-                updateWidget(context, widgetProviderClass), 600);
+            updateWidget(context, widgetProviderClass), 600);
     }
 
     /**
@@ -443,14 +440,14 @@ public class WidgetUtils {
      */
     public static void updateAllWidgets(Context context) {
         Class<?>[] widgetProviders = {
-                AnalogAppWidgetProvider.class,
-                DigitalAppWidgetProvider.class,
-                NextAlarmAppWidgetProvider.class,
-                VerticalDigitalAppWidgetProvider.class,
-                MaterialYouAnalogAppWidgetProvider.class,
-                MaterialYouDigitalAppWidgetProvider.class,
-                MaterialYouNextAlarmAppWidgetProvider.class,
-                MaterialYouVerticalDigitalAppWidgetProvider.class
+            AnalogAppWidgetProvider.class,
+            DigitalAppWidgetProvider.class,
+            NextAlarmAppWidgetProvider.class,
+            VerticalDigitalAppWidgetProvider.class,
+            MaterialYouAnalogAppWidgetProvider.class,
+            MaterialYouDigitalAppWidgetProvider.class,
+            MaterialYouNextAlarmAppWidgetProvider.class,
+            MaterialYouVerticalDigitalAppWidgetProvider.class
         };
 
         for (Class<?> provider : widgetProviders) {
@@ -463,12 +460,12 @@ public class WidgetUtils {
      */
     public static void updateAllDigitalWidgets(Context context) {
         Class<?>[] widgetProviders = {
-                DigitalAppWidgetProvider.class,
-                NextAlarmAppWidgetProvider.class,
-                VerticalDigitalAppWidgetProvider.class,
-                MaterialYouDigitalAppWidgetProvider.class,
-                MaterialYouNextAlarmAppWidgetProvider.class,
-                MaterialYouVerticalDigitalAppWidgetProvider.class
+            DigitalAppWidgetProvider.class,
+            NextAlarmAppWidgetProvider.class,
+            VerticalDigitalAppWidgetProvider.class,
+            MaterialYouDigitalAppWidgetProvider.class,
+            MaterialYouNextAlarmAppWidgetProvider.class,
+            MaterialYouVerticalDigitalAppWidgetProvider.class
         };
 
         for (Class<?> provider : widgetProviders) {

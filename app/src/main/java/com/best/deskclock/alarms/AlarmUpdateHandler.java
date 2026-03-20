@@ -97,8 +97,8 @@ public final class AlarmUpdateHandler {
 
             if (minorUpdate) {
                 // Just update the instance in the database and update notifications.
-                final List<AlarmInstance> instanceList =
-                        AlarmInstance.getInstancesByAlarmId(cr, alarm.id);
+                final List<AlarmInstance> instanceList = AlarmInstance.getInstancesByAlarmId(cr, alarm.id);
+
                 for (AlarmInstance instance : instanceList) {
                     // Make a copy of the existing instance
                     final AlarmInstance newInstance = new AlarmInstance(instance);
@@ -155,7 +155,7 @@ public final class AlarmUpdateHandler {
 
             if (timeToDisplay != null) {
                 AppExecutors.getMainThread().post(() ->
-                        AlarmUtils.popAlarmSetSnackbar(mSnackbarAnchor, timeToDisplay)
+                    AlarmUtils.popAlarmSetSnackbar(mSnackbarAnchor, timeToDisplay)
                 );
             }
 
@@ -213,10 +213,11 @@ public final class AlarmUpdateHandler {
         final Context localizedContext = Utils.getLocalizedContext(mAppContext);
         final Alarm deletedAlarm = mDeletedAlarm;
         final Snackbar snackbar = Snackbar.make(mSnackbarAnchor, localizedContext.getString(R.string.alarm_deleted),
-                Snackbar.LENGTH_LONG).setAction(R.string.alarm_undo, v -> {
-                    mDeletedAlarm = null;
-                    asyncAddAlarm(deletedAlarm);
-                });
+            Snackbar.LENGTH_LONG).setAction(R.string.alarm_undo, v -> {
+            mDeletedAlarm = null;
+            asyncAddAlarm(deletedAlarm);
+        });
+
         SnackbarManager.show(snackbar);
     }
 

@@ -228,6 +228,7 @@ final class CityModel {
 
     /**
      * Updates the order of selected cities and persists it to SharedPreferences.
+     *
      * @param newOrder the new list of selected cities, in the desired order
      */
     void updateSelectedCitiesOrder(List<City> newOrder) {

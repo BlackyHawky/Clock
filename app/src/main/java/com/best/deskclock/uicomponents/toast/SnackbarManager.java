@@ -14,7 +14,6 @@ import android.graphics.Typeface;
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.ThemeUtils;
-
 import com.google.android.material.snackbar.Snackbar;
 
 import java.lang.ref.WeakReference;

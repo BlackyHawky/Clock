@@ -3,33 +3,8 @@
 package com.best.deskclock;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
-import static com.best.deskclock.settings.PreferencesDefaultValues.BLACK_ACCENT_COLOR;
-import static com.best.deskclock.settings.PreferencesDefaultValues.BLUE_ACCENT_COLOR;
-import static com.best.deskclock.settings.PreferencesDefaultValues.BLUE_GRAY_ACCENT_COLOR;
-import static com.best.deskclock.settings.PreferencesDefaultValues.BROWN_ACCENT_COLOR;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DARK_THEME;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEBUG_LANGUAGE_CODE;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_DARK_MODE;
-import static com.best.deskclock.settings.PreferencesDefaultValues.GREEN_ACCENT_COLOR;
-import static com.best.deskclock.settings.PreferencesDefaultValues.INDIGO_ACCENT_COLOR;
-import static com.best.deskclock.settings.PreferencesDefaultValues.LIGHT_THEME;
-import static com.best.deskclock.settings.PreferencesDefaultValues.ORANGE_ACCENT_COLOR;
-import static com.best.deskclock.settings.PreferencesDefaultValues.PINK_ACCENT_COLOR;
-import static com.best.deskclock.settings.PreferencesDefaultValues.PURPLE_ACCENT_COLOR;
-import static com.best.deskclock.settings.PreferencesDefaultValues.RED_ACCENT_COLOR;
-import static com.best.deskclock.settings.PreferencesDefaultValues.SYSTEM_THEME;
-import static com.best.deskclock.settings.PreferencesDefaultValues.YELLOW_ACCENT_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ACCENT_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_NIGHT_ACCENT_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_CARD_BACKGROUND;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_CARD_BORDER;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_CUSTOM_LANGUAGE_CODE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_DARK_MODE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_FADE_TRANSITIONS;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_GENERAL_FONT;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_NIGHT_ACCENT_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_THEME;
+import static com.best.deskclock.settings.PreferencesDefaultValues.*;
+import static com.best.deskclock.settings.PreferencesKeys.*;
 
 import android.app.Activity;
 import android.content.Context;
@@ -75,9 +50,8 @@ public class BaseActivity extends AppCompatActivity {
      * {@link #registerThemeListener()} to optimize change handling.</p>
      */
     private static final List<String> SUPPORTED_PREF_KEYS = List.of(
-            KEY_THEME, KEY_DARK_MODE, KEY_GENERAL_FONT, KEY_ACCENT_COLOR, KEY_AUTO_NIGHT_ACCENT_COLOR,
-            KEY_NIGHT_ACCENT_COLOR, KEY_CUSTOM_LANGUAGE_CODE, KEY_CARD_BACKGROUND, KEY_CARD_BORDER,
-            KEY_FADE_TRANSITIONS
+        KEY_THEME, KEY_DARK_MODE, KEY_GENERAL_FONT, KEY_ACCENT_COLOR, KEY_AUTO_NIGHT_ACCENT_COLOR, KEY_NIGHT_ACCENT_COLOR,
+        KEY_CUSTOM_LANGUAGE_CODE, KEY_CARD_BACKGROUND, KEY_CARD_BORDER, KEY_FADE_TRANSITIONS
     );
 
     /**
@@ -171,8 +145,8 @@ public class BaseActivity extends AppCompatActivity {
                                   String nightAccentColor, String darkMode) {
 
         String color = isAutoNightAccentColorEnabled
-                ? accentColor
-                : (ThemeUtils.isNight(getResources()) ? nightAccentColor : accentColor);
+            ? accentColor
+            : (ThemeUtils.isNight(getResources()) ? nightAccentColor : accentColor);
 
         switch (color) {
             case BLACK_ACCENT_COLOR -> setTheme(R.style.BlackAccentColor);
@@ -209,13 +183,11 @@ public class BaseActivity extends AppCompatActivity {
             if (ThemeUtils.isNight(getResources()) && darkMode.equals(AMOLED_DARK_MODE)) {
                 getWindow().setNavigationBarColor(Color.BLACK);
             } else if (this instanceof DeskClock) {
-                getWindow().setNavigationBarColor(MaterialColors.getColor(this,
-                        isPhoneInLandscapeMode || !isCardBackgroundDisplayed
-                                ? android.R.attr.colorBackground
-                                : com.google.android.material.R.attr.colorSurface, Color.BLACK));
+                getWindow().setNavigationBarColor(MaterialColors.getColor(this, isPhoneInLandscapeMode || !isCardBackgroundDisplayed
+                    ? android.R.attr.colorBackground
+                    : com.google.android.material.R.attr.colorSurface, Color.BLACK));
             } else {
-                getWindow().setNavigationBarColor(MaterialColors.getColor(this,
-                        android.R.attr.colorBackground, Color.BLACK));
+                getWindow().setNavigationBarColor(MaterialColors.getColor(this, android.R.attr.colorBackground, Color.BLACK));
             }
         }
     }
@@ -264,8 +236,7 @@ public class BaseActivity extends AppCompatActivity {
             Object oldValue = cachedValues.get(key);
             Object newValue = getPreferenceValue(key);
 
-            boolean changed = (newValue == null && oldValue != null)
-                    || (newValue != null && !newValue.equals(oldValue));
+            boolean changed = (newValue == null && oldValue != null) || (newValue != null && !newValue.equals(oldValue));
 
             // If the value has not changed, do nothing
             if (!changed) {

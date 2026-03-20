@@ -77,6 +77,7 @@ public class RingtoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     public interface OnRingtoneClickListener {
         void onRingtoneClick(RingtoneHolder holder);
+
         void onRemoveRingtoneClick(RingtoneHolder holder);
     }
 

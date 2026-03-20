@@ -7,16 +7,7 @@
 package com.best.deskclock.provider;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_SNOOZE_DURATION;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_VOLUME;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_AUTO_SILENCE_DURATION;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_MISSED_ALARM_REPEAT_LIMIT;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SORT_BY_ALARM_TIME;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VIBRATION_PATTERN;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VOLUME_CRESCENDO_DURATION;
-import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_ALARM_BY_ASCENDING_CREATION_ORDER;
-import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_ALARM_BY_DESCENDING_CREATION_ORDER;
+import static com.best.deskclock.settings.PreferencesDefaultValues.*;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -71,108 +62,108 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
      * The default sort order for this table
      */
     private static final String DEFAULT_SORT_ORDER =
-            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + HOUR + " ASC, " +
-                    ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + MINUTES + " ASC, " +
-                    ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ClockContract.AlarmsColumns._ID + " DESC";
+        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + HOUR + " ASC, " +
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + MINUTES + " ASC, " +
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ClockContract.AlarmsColumns._ID + " DESC";
 
     /**
      * The default sort order for this table with enabled alarms first
      */
     private static final String DEFAULT_SORT_ORDER_WITH_ENABLED_FIRST =
-            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ENABLED + " DESC, " +
-                    ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + HOUR + " ASC, " +
-                    ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + MINUTES + " ASC, " +
-                    ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ClockContract.AlarmsColumns._ID + " DESC";
+        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ENABLED + " DESC, " +
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + HOUR + " ASC, " +
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + MINUTES + " ASC, " +
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ClockContract.AlarmsColumns._ID + " DESC";
 
     /**
      * The sort order by descending ID to display oldest alarms last.
      */
     private static final String SORT_ORDER_BY_DESCENDING_CREATION =
-            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + _ID + " DESC";
+        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + _ID + " DESC";
 
     /**
      * The sort order that places enabled alarms first, then sorts alarms by descending ID
      * with the oldest last.
      */
     private static final String SORT_ORDER_BY_DESCENDING_CREATION_WITH_ENABLED_FIRST =
-            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ENABLED + " DESC, " +
-                    ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + _ID + " DESC";
+        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ENABLED + " DESC, " +
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + _ID + " DESC";
 
     /**
      * The sort order by ascending ID to display oldest alarms first.
      */
     private static final String SORT_ORDER_BY_ASCENDING_CREATION =
-            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + _ID + " ASC";
+        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + _ID + " ASC";
 
     /**
      * The sort order that places enabled alarms first, then sorts alarms by ascending ID
      * with the oldest first.
      */
     private static final String SORT_ORDER_BY_ASCENDING_CREATION_WITH_ENABLED_FIRST =
-            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ENABLED + " DESC, " +
-                    ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + _ID + " ASC";
+        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ENABLED + " DESC, " +
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + _ID + " ASC";
 
     private static final String[] QUERY_COLUMNS = {
-            _ID,
-            YEAR,
-            MONTH,
-            DAY,
-            HOUR,
-            MINUTES,
-            DAYS_OF_WEEK,
-            ENABLED,
-            VIBRATE,
-            VIBRATION_PATTERN,
-            FLASH,
-            LABEL,
-            SYNC_BY_LABEL,
-            RINGTONE,
-            DELETE_AFTER_USE,
-            AUTO_SILENCE_DURATION,
-            SNOOZE_DURATION,
-            MISSED_ALARM_REPEAT_LIMIT,
-            CRESCENDO_DURATION,
-            ALARM_VOLUME
+        _ID,
+        YEAR,
+        MONTH,
+        DAY,
+        HOUR,
+        MINUTES,
+        DAYS_OF_WEEK,
+        ENABLED,
+        VIBRATE,
+        VIBRATION_PATTERN,
+        FLASH,
+        LABEL,
+        SYNC_BY_LABEL,
+        RINGTONE,
+        DELETE_AFTER_USE,
+        AUTO_SILENCE_DURATION,
+        SNOOZE_DURATION,
+        MISSED_ALARM_REPEAT_LIMIT,
+        CRESCENDO_DURATION,
+        ALARM_VOLUME
     };
     private static final String[] QUERY_ALARMS_WITH_INSTANCES_COLUMNS = {
-            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + _ID,
-            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + YEAR,
-            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + MONTH,
-            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + DAY,
-            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + HOUR,
-            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + MINUTES,
-            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + DAYS_OF_WEEK,
-            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ENABLED,
-            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + VIBRATE,
-            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + VIBRATION_PATTERN,
-            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + FLASH,
-            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + LABEL,
-            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + SYNC_BY_LABEL,
-            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + RINGTONE,
-            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + DELETE_AFTER_USE,
-            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + AUTO_SILENCE_DURATION,
-            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + SNOOZE_DURATION,
-            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + MISSED_ALARM_REPEAT_LIMIT,
-            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + CRESCENDO_DURATION,
-            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ALARM_VOLUME,
-            ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.ALARM_STATE,
-            ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns._ID,
-            ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.YEAR,
-            ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.MONTH,
-            ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.DAY,
-            ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.HOUR,
-            ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.MINUTES,
-            ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.LABEL,
-            ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.SYNC_BY_LABEL,
-            ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.VIBRATE,
-            ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.VIBRATION_PATTERN,
-            ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.FLASH,
-            ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.AUTO_SILENCE_DURATION,
-            ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.SNOOZE_DURATION,
-            ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.MISSED_ALARM_REPEAT_COUNT,
-            ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.MISSED_ALARM_REPEAT_LIMIT,
-            ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.CRESCENDO_DURATION,
-            ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.ALARM_VOLUME
+        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + _ID,
+        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + YEAR,
+        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + MONTH,
+        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + DAY,
+        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + HOUR,
+        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + MINUTES,
+        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + DAYS_OF_WEEK,
+        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ENABLED,
+        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + VIBRATE,
+        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + VIBRATION_PATTERN,
+        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + FLASH,
+        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + LABEL,
+        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + SYNC_BY_LABEL,
+        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + RINGTONE,
+        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + DELETE_AFTER_USE,
+        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + AUTO_SILENCE_DURATION,
+        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + SNOOZE_DURATION,
+        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + MISSED_ALARM_REPEAT_LIMIT,
+        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + CRESCENDO_DURATION,
+        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ALARM_VOLUME,
+        ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.ALARM_STATE,
+        ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns._ID,
+        ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.YEAR,
+        ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.MONTH,
+        ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.DAY,
+        ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.HOUR,
+        ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.MINUTES,
+        ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.LABEL,
+        ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.SYNC_BY_LABEL,
+        ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.VIBRATE,
+        ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.VIBRATION_PATTERN,
+        ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.FLASH,
+        ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.AUTO_SILENCE_DURATION,
+        ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.SNOOZE_DURATION,
+        ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.MISSED_ALARM_REPEAT_COUNT,
+        ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.MISSED_ALARM_REPEAT_LIMIT,
+        ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.CRESCENDO_DURATION,
+        ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.ALARM_VOLUME
     };
     /**
      * These save calls to cursor.getColumnIndexOrThrow()
@@ -247,10 +238,10 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     // Creates a default alarm at the current time.
     public Alarm() {
         this(Calendar.getInstance().get(Calendar.YEAR),
-                Calendar.getInstance().get(Calendar.MONTH),
-                Calendar.getInstance().get(Calendar.DAY_OF_MONTH),
-                0,
-                0);
+            Calendar.getInstance().get(Calendar.MONTH),
+            Calendar.getInstance().get(Calendar.DAY_OF_MONTH),
+            0,
+            0);
     }
 
     public Alarm(int year, int month, int day, int hour, int minutes) {
@@ -378,8 +369,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         label = p.readString();
         syncByLabel = p.readInt() == 1;
         alert = SdkUtils.isAtLeastAndroid13()
-                ? p.readParcelable(getClass().getClassLoader(), Uri.class)
-                : p.readParcelable(getClass().getClassLoader());
+            ? p.readParcelable(getClass().getClassLoader(), Uri.class)
+            : p.readParcelable(getClass().getClassLoader());
         deleteAfterUse = p.readInt() == 1;
         autoSilenceDuration = p.readInt();
         snoozeDuration = p.readInt();
@@ -498,8 +489,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             }
         }
 
-        return new CursorLoader(context, ALARMS_WITH_INSTANCES_URI,
-                QUERY_ALARMS_WITH_INSTANCES_COLUMNS, null, null, sortOrder) {
+        return new CursorLoader(context, ALARMS_WITH_INSTANCES_URI, QUERY_ALARMS_WITH_INSTANCES_COLUMNS, null, null, sortOrder) {
             @Override
             public Cursor loadInBackground() {
                 // Prime the ringtone title cache for later access. Most alarms will refer to
@@ -603,6 +593,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
      *          the method returns {@code true} if the alarm is enabled or currently snoozed.</li>
      *      <li>Otherwise, it returns true only if the alarm is in SNOOZE_STATE or NOTIFICATION_STATE.</li>
      * </ul>
+     *
      * @param context the context used to access shared preferences
      * @return {@code true} if the alarm can show a preemptive dismiss button; {@code false} otherwise.
      */
@@ -655,11 +646,11 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         }
 
         return year != other.year
-                || month != other.month
-                || day != other.day
-                || hour != other.hour
-                || minutes != other.minutes
-                || daysOfWeek.getBits() != other.daysOfWeek.getBits();
+            || month != other.month
+            || day != other.day
+            || hour != other.hour
+            || minutes != other.minutes
+            || daysOfWeek.getBits() != other.daysOfWeek.getBits();
     }
 
     /**
@@ -674,17 +665,17 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         if (other == null) return false;
 
         return !Objects.equals(label, other.label)
-                || syncByLabel != other.syncByLabel
-                || vibrate != other.vibrate
-                || !Objects.equals(vibrationPattern, other.vibrationPattern)
-                || flash != other.flash
-                || !Objects.equals(alert, other.alert)
-                || deleteAfterUse != other.deleteAfterUse
-                || autoSilenceDuration != other.autoSilenceDuration
-                || snoozeDuration != other.snoozeDuration
-                || missedAlarmRepeatLimit != other.missedAlarmRepeatLimit
-                || crescendoDuration != other.crescendoDuration
-                || alarmVolume != other.alarmVolume;
+            || syncByLabel != other.syncByLabel
+            || vibrate != other.vibrate
+            || !Objects.equals(vibrationPattern, other.vibrationPattern)
+            || flash != other.flash
+            || !Objects.equals(alert, other.alert)
+            || deleteAfterUse != other.deleteAfterUse
+            || autoSilenceDuration != other.autoSilenceDuration
+            || snoozeDuration != other.snoozeDuration
+            || missedAlarmRepeatLimit != other.missedAlarmRepeatLimit
+            || crescendoDuration != other.crescendoDuration
+            || alarmVolume != other.alarmVolume;
     }
 
     public boolean isTomorrow(Calendar now) {
@@ -717,8 +708,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         int currentMonth = now.get(Calendar.MONTH);
 
         return year != now.get(Calendar.YEAR)
-                || month != currentMonth
-                || day != now.get(Calendar.DAY_OF_MONTH);
+            || month != currentMonth
+            || day != now.get(Calendar.DAY_OF_MONTH);
     }
 
     public static boolean isSpecifiedDateTomorrow(int alarmYear, int alarmMonth, int alarmDayOfMonth) {
@@ -731,8 +722,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         int nextDayMonth = tomorrow.get(Calendar.MONTH);
 
         return alarmYear == tomorrow.get(Calendar.YEAR) &&
-                alarmMonth == nextDayMonth &&
-                alarmDayOfMonth == tomorrow.get(Calendar.DAY_OF_MONTH);
+            alarmMonth == nextDayMonth &&
+            alarmDayOfMonth == tomorrow.get(Calendar.DAY_OF_MONTH);
     }
 
     public boolean isTimeBeforeOrEqual(Calendar referenceTime) {
@@ -745,8 +736,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     public boolean isScheduledForToday(Calendar reference) {
         int currentMonth = reference.get(Calendar.MONTH);
         return year == reference.get(Calendar.YEAR)
-                && month == currentMonth
-                && day == reference.get(Calendar.DAY_OF_MONTH);
+            && month == currentMonth
+            && day == reference.get(Calendar.DAY_OF_MONTH);
     }
 
     public AlarmInstance createInstanceAfter(Calendar time) {
@@ -758,10 +749,10 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         result.mLabel = label;
         result.mSyncByLabel = syncByLabel;
         result.mRingtone = RingtoneUtils.isRandomRingtone(alert)
-                ? RingtoneUtils.getRandomRingtoneUri()
-                : RingtoneUtils.isRandomCustomRingtone(alert)
-                ? RingtoneUtils.getRandomCustomRingtoneUri()
-                : alert;
+            ? RingtoneUtils.getRandomRingtoneUri()
+            : RingtoneUtils.isRandomCustomRingtone(alert)
+            ? RingtoneUtils.getRandomCustomRingtoneUri()
+            : alert;
         result.mAutoSilenceDuration = autoSilenceDuration;
         result.mSnoozeDuration = snoozeDuration;
         result.mMissedAlarmRepeatLimit = missedAlarmRepeatLimit;
@@ -796,15 +787,15 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     /**
      * Calculates the next scheduled occurrence time.
      *
-     *  <p>This method determines when the alarm should trigger again based on its
-     *  configuration. It handles both repeating alarms (with specific days of the week)
-     *  and one-time alarms (with a fixed date). Daylight Savings Time (DST) adjustments
-     *  are also taken into account by resetting the hour and minute after shifting days.
+     * <p>This method determines when the alarm should trigger again based on its
+     * configuration. It handles both repeating alarms (with specific days of the week)
+     * and one-time alarms (with a fixed date). Daylight Savings Time (DST) adjustments
+     * are also taken into account by resetting the hour and minute after shifting days.
      *
      * @return a {@link Calendar} instance representing the next valid alarm time.
-     *         <p>- For repeating alarms: the next valid day of the week at the configured hour/minute.</p>
-     *         <p>- For one-time alarms: the configured date and time, or the following day if the
-     *           specified time has already passed relative to {@code currentTime}.</p>
+     * <p>- For repeating alarms: the next valid day of the week at the configured hour/minute.</p>
+     * <p>- For one-time alarms: the configured date and time, or the following day if the
+     * specified time has already passed relative to {@code currentTime}.</p>
      */
     public Calendar getNextAlarmTime(Calendar currentTime) {
         final Calendar nextInstanceTime = Calendar.getInstance(currentTime.getTimeZone());
@@ -956,27 +947,27 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     @Override
     public String toString() {
         return "Alarm{" +
-                "alert=" + alert +
-                ", id=" + id +
-                ", enabled=" + enabled +
-                ", year=" + year +
-                ", month=" + month +
-                ", day=" + day +
-                ", hour=" + hour +
-                ", minutes=" + minutes +
-                ", daysOfWeek=" + daysOfWeek +
-                ", vibrate=" + vibrate +
-                ", vibrationPattern=" + vibrationPattern +
-                ", flash=" + flash +
-                ", label='" + label + '\'' +
-                ", syncByLabel=" + syncByLabel +
-                ", deleteAfterUse=" + deleteAfterUse +
-                ", autoSilenceDuration=" + autoSilenceDuration +
-                ", snoozeDuration=" + snoozeDuration +
-                ", missedAlarmRepeatLimit=" + missedAlarmRepeatLimit +
-                ", crescendoDuration=" + crescendoDuration +
-                ", alarmVolume=" + alarmVolume +
-                '}';
+            "alert=" + alert +
+            ", id=" + id +
+            ", enabled=" + enabled +
+            ", year=" + year +
+            ", month=" + month +
+            ", day=" + day +
+            ", hour=" + hour +
+            ", minutes=" + minutes +
+            ", daysOfWeek=" + daysOfWeek +
+            ", vibrate=" + vibrate +
+            ", vibrationPattern=" + vibrationPattern +
+            ", flash=" + flash +
+            ", label='" + label + '\'' +
+            ", syncByLabel=" + syncByLabel +
+            ", deleteAfterUse=" + deleteAfterUse +
+            ", autoSilenceDuration=" + autoSilenceDuration +
+            ", snoozeDuration=" + snoozeDuration +
+            ", missedAlarmRepeatLimit=" + missedAlarmRepeatLimit +
+            ", crescendoDuration=" + crescendoDuration +
+            ", alarmVolume=" + alarmVolume +
+            '}';
     }
 
 }

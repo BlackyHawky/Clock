@@ -7,7 +7,6 @@
 package com.best.deskclock.stopwatch;
 
 import static androidx.core.util.TypedValueCompat.dpToPx;
-
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
 import android.content.Context;
@@ -212,9 +211,9 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
      * the lap's duration. The fastest lap is colored green, the slowest lap is
      * colored red, and all others use the default text color.
      *
-     * @param holder   the ViewHolder containing the lap TextViews
-     * @param lap      the Lap object, or null if this is the current (running) lap
-     * @param lapTime  the duration of the lap in milliseconds
+     * @param holder  the ViewHolder containing the lap TextViews
+     * @param lap     the Lap object, or null if this is the current (running) lap
+     * @param lapTime the duration of the lap in milliseconds
      */
     private void applyLapColor(LapItemHolder holder, Lap lap, long lapTime) {
         // Current lap or only one recorded lap → always default color
@@ -248,9 +247,9 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
      */
     private void setColor(LapItemHolder holder, int color) {
         TextView[] views = {
-                holder.lapNumber,
-                holder.lapTime,
-                holder.accumulatedTime
+            holder.lapNumber,
+            holder.lapTime,
+            holder.accumulatedTime
         };
 
         for (TextView textView : views) {

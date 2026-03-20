@@ -3,7 +3,8 @@
     Copyright (C) 2016 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
---><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="6674495003718166674">"နာရီ"</string>
     <string name="default_label" msgid="5590025289805630372">"နှိုးစက်"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"တုန်ခါရန်"</string>

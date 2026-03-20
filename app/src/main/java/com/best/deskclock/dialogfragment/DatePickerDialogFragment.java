@@ -41,9 +41,8 @@ public class DatePickerDialogFragment {
         void onDateSet(int year, int month, int day, int hour, int minute);
     }
 
-    public static void show(Context context, FragmentManager fragmentManager,
-                                      SharedPreferences prefs, Alarm alarm,
-                                      OnDateSelectedListener listener) {
+    public static void show(Context context, FragmentManager fragmentManager, SharedPreferences prefs, Alarm alarm,
+                            OnDateSelectedListener listener) {
 
         if (SettingsDAO.getMaterialDatePickerStyle(prefs).equals(SPINNER_DATE_PICKER_STYLE)) {
             showSpinnerDatePicker(context, alarm, listener);
@@ -102,42 +101,39 @@ public class DatePickerDialogFragment {
 
         datePicker.setMinDate(minDate.getTimeInMillis());
 
-        datePicker.init(selectionDate.get(Calendar.YEAR), selectionDate.get(Calendar.MONTH),
-                selectionDate.get(Calendar.DAY_OF_MONTH), null);
+        datePicker.init(selectionDate.get(Calendar.YEAR), selectionDate.get(Calendar.MONTH), selectionDate.get(Calendar.DAY_OF_MONTH), null);
 
         mCurrentSpinnerDatePickerDialog = CustomDialog.create(
-                context,
-                R.style.SpinnerDialogTheme,
-                null,
-                context.getString(R.string.date_picker_dialog_title),
-                null,
-                dialogView,
-                context.getString(android.R.string.ok),
-                (d, w) -> {
-                    int newYear = datePicker.getYear();
-                    int newMonth = datePicker.getMonth();
-                    int newDay = datePicker.getDayOfMonth();
+            context,
+            R.style.SpinnerDialogTheme,
+            null,
+            context.getString(R.string.date_picker_dialog_title),
+            null,
+            dialogView,
+            context.getString(android.R.string.ok),
+            (d, w) -> {
+                int newYear = datePicker.getYear();
+                int newMonth = datePicker.getMonth();
+                int newDay = datePicker.getDayOfMonth();
 
-                    if (listener != null) {
-                        listener.onDateSet(newYear, newMonth, newDay, alarm.hour, alarm.minutes);
-                    }
-                },
-                context.getString(android.R.string.cancel),
-                null,
-                null,
-                null,
-                null,
-                CustomDialog.SoftInputMode.SHOW_KEYBOARD
+                if (listener != null) {
+                    listener.onDateSet(newYear, newMonth, newDay, alarm.hour, alarm.minutes);
+                }
+            },
+            context.getString(android.R.string.cancel),
+            null,
+            null,
+            null,
+            null,
+            CustomDialog.SoftInputMode.SHOW_KEYBOARD
         );
 
-        mCurrentSpinnerDatePickerDialog.setOnDismissListener(dialog ->
-                mCurrentSpinnerDatePickerDialog = null);
+        mCurrentSpinnerDatePickerDialog.setOnDismissListener(dialog -> mCurrentSpinnerDatePickerDialog = null);
 
         mCurrentSpinnerDatePickerDialog.show();
     }
 
-    private static void showMaterialDatePicker(FragmentManager fragmentManager,
-                                               SharedPreferences prefs, Alarm alarm,
+    private static void showMaterialDatePicker(FragmentManager fragmentManager, SharedPreferences prefs, Alarm alarm,
                                                OnDateSelectedListener listener) {
 
         if (fragmentManager.findFragmentByTag(TAG) != null) {
@@ -151,8 +147,8 @@ public class DatePickerDialogFragment {
 
         // Set date picker style
         builder.setInputMode(materialDatePickerStyle.equals(DEFAULT_DATE_PICKER_STYLE)
-                ? MaterialDatePicker.INPUT_MODE_CALENDAR
-                : MaterialDatePicker.INPUT_MODE_TEXT);
+            ? MaterialDatePicker.INPUT_MODE_CALENDAR
+            : MaterialDatePicker.INPUT_MODE_TEXT);
 
         Calendar now = Calendar.getInstance();
         Calendar selectionDate = (Calendar) now.clone();
@@ -197,7 +193,8 @@ public class DatePickerDialogFragment {
         MaterialDatePicker<Long> materialDatePicker = builder.build();
 
         materialDatePicker.getViewLifecycleOwnerLiveData().observeForever(new Observer<>() {
-            @Override public void onChanged(LifecycleOwner owner) {
+            @Override
+            public void onChanged(LifecycleOwner owner) {
                 if (owner == null) {
                     return;
                 }
@@ -214,29 +211,25 @@ public class DatePickerDialogFragment {
                 }
 
                 // OK button
-                TextView ok = root.findViewById(
-                        com.google.android.material.R.id.confirm_button);
+                TextView ok = root.findViewById(com.google.android.material.R.id.confirm_button);
                 if (ok != null) {
                     ok.setTypeface(generalFont);
                 }
 
                 // Cancel button
-                TextView cancel = root.findViewById(
-                        com.google.android.material.R.id.cancel_button);
+                TextView cancel = root.findViewById(com.google.android.material.R.id.cancel_button);
                 if (cancel != null) {
                     cancel.setTypeface(generalFont);
                 }
 
                 // "Select date" title
-                TextView title = root.findViewById(
-                        com.google.android.material.R.id.mtrl_picker_title_text);
+                TextView title = root.findViewById(com.google.android.material.R.id.mtrl_picker_title_text);
                 if (title != null) {
                     title.setTypeface(generalFont);
                 }
 
                 // Selection text (date in big letters)
-                TextView headerSelection = root.findViewById(
-                        com.google.android.material.R.id.mtrl_picker_header_selection_text);
+                TextView headerSelection = root.findViewById(com.google.android.material.R.id.mtrl_picker_header_selection_text);
                 if (headerSelection != null) {
                     headerSelection.setTypeface(generalFont);
                 }

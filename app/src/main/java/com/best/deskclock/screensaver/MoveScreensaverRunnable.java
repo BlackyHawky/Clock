@@ -133,14 +133,14 @@ public final class MoveScreensaverRunnable implements Runnable {
             hide.setDuration(FADE_TIME);
             hide.setInterpolator(mAcceleration);
             hide.play(getAlphaAnimator(mSaverView, 1f, 0f))
-                    .with(getScaleAnimator(mSaverView, 1f, 0.85f));
+                .with(getScaleAnimator(mSaverView, 1f, 0.85f));
 
             // Fade in and grow the saver view after altering its position.
             final AnimatorSet show = new AnimatorSet();
             show.setDuration(FADE_TIME);
             show.setInterpolator(mDeceleration);
             show.play(getAlphaAnimator(mSaverView, 0f, 1f))
-                    .with(getScaleAnimator(mSaverView, 0.85f, 1f));
+                .with(getScaleAnimator(mSaverView, 0.85f, 1f));
             show.addListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationStart(Animator animation) {

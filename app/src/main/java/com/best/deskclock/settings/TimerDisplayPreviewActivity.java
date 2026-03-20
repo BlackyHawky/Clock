@@ -143,9 +143,8 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
         }
 
         // Creating a dummy timer
-        Timer fakeTimer = new Timer(-1, Timer.State.EXPIRED, 60_000L, 60_000L,
-                System.currentTimeMillis(), System.currentTimeMillis(), 0L,
-                "Timer preview", "60", false);
+        Timer fakeTimer = new Timer(-1, Timer.State.EXPIRED, 60_000L, 60_000L, System.currentTimeMillis(),
+            System.currentTimeMillis(), 0L, "Timer preview", "60", false);
 
         // Add dummy timer to view
         addTimer(fakeTimer);
@@ -168,8 +167,8 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
     private void displayRingtoneTitle() {
         final boolean silent = RingtoneUtils.RINGTONE_SILENT.equals(DataModel.getDataModel().getTimerRingtoneUri());
         final Drawable iconRingtone = silent
-                ? AppCompatResources.getDrawable(this, R.drawable.ic_ringtone_silent)
-                : AppCompatResources.getDrawable(this, R.drawable.ic_music_note);
+            ? AppCompatResources.getDrawable(this, R.drawable.ic_ringtone_silent)
+            : AppCompatResources.getDrawable(this, R.drawable.ic_music_note);
         int iconRingtoneSize = (int) dpToPx(24, mDisplayMetrics);
         final int ringtoneTitleColor = SettingsDAO.getTimerRingtoneTitleColor(mPrefs);
         final int shadowOffset = SettingsDAO.getTimerShadowOffset(mPrefs);
@@ -228,8 +227,7 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
     private void applyWindowInsets() {
         InsetsUtils.doOnApplyWindowInsets(mExpiredTimersScrollView, (v, insets) -> {
             // Get the system bar and notch insets
-            Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() |
-                    WindowInsetsCompat.Type.displayCutout());
+            Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout());
 
             v.setPadding(bars.left, bars.top, bars.right, 0);
         });
@@ -244,8 +242,8 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
         final boolean useCompactLayout = ThemeUtils.isPortrait() && isCompact;
 
         final View view = getLayoutInflater().inflate(useCompactLayout
-                ? R.layout.timer_item_compact
-                : R.layout.timer_item, mExpiredTimersView, false );
+            ? R.layout.timer_item_compact
+            : R.layout.timer_item, mExpiredTimersView, false);
 
         if (useCompactLayout) {
             ((TimerItemCompact) view).bindTimer(timer);
@@ -279,8 +277,7 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
     }
 
     private void centerFirstTimer() {
-        final FrameLayout.LayoutParams lp =
-                (FrameLayout.LayoutParams) mExpiredTimersView.getLayoutParams();
+        final FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) mExpiredTimersView.getLayoutParams();
         lp.gravity = Gravity.CENTER;
         mExpiredTimersView.requestLayout();
     }
@@ -310,11 +307,9 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
             }
         } else {
             if (SdkUtils.isAtLeastAndroid14()) {
-                overrideActivityTransition(OVERRIDE_TRANSITION_CLOSE,
-                        R.anim.activity_slide_from_left, R.anim.activity_slide_to_right);
+                overrideActivityTransition(OVERRIDE_TRANSITION_CLOSE, R.anim.activity_slide_from_left, R.anim.activity_slide_to_right);
             } else {
-                overridePendingTransition(
-                        R.anim.activity_slide_from_left, R.anim.activity_slide_to_right);
+                overridePendingTransition(R.anim.activity_slide_from_left, R.anim.activity_slide_to_right);
             }
         }
     }

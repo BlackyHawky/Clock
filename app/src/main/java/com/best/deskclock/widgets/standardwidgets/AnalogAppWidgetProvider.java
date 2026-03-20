@@ -35,10 +35,8 @@ public class AnalogAppWidgetProvider extends BaseAnalogAppWidgetProvider {
 
         String clockDial = WidgetDAO.getAnalogWidgetClockDial(prefs);
         return switch (clockDial) {
-            case ANALOG_WIDGET_CLOCK_DIAL_WITH_NUMBERS ->
-                    R.layout.standard_analog_appwidget_dial_with_number;
-            case ANALOG_WIDGET_CLOCK_DIAL_WITHOUT_NUMBERS ->
-                    R.layout.standard_analog_appwidget_dial_without_number;
+            case ANALOG_WIDGET_CLOCK_DIAL_WITH_NUMBERS -> R.layout.standard_analog_appwidget_dial_with_number;
+            case ANALOG_WIDGET_CLOCK_DIAL_WITHOUT_NUMBERS -> R.layout.standard_analog_appwidget_dial_without_number;
             default -> R.layout.standard_analog_appwidget;
         };
     }
@@ -51,14 +49,11 @@ public class AnalogAppWidgetProvider extends BaseAnalogAppWidgetProvider {
     @Override
     protected Icon getDialIcon(Context context, SharedPreferences prefs) {
         return switch (WidgetDAO.getAnalogWidgetClockDial(prefs)) {
-            case ANALOG_WIDGET_CLOCK_DIAL_WITH_NUMBERS ->
-                    Icon.createWithResource(context, R.drawable.analog_clock_dial_with_numbers);
-            case ANALOG_WIDGET_CLOCK_DIAL_WITHOUT_NUMBERS ->
-                    Icon.createWithResource(context, R.drawable.analog_clock_dial_without_numbers);
+            case ANALOG_WIDGET_CLOCK_DIAL_WITH_NUMBERS -> Icon.createWithResource(context, R.drawable.analog_clock_dial_with_numbers);
+            case ANALOG_WIDGET_CLOCK_DIAL_WITHOUT_NUMBERS -> Icon.createWithResource(context, R.drawable.analog_clock_dial_without_numbers);
             case ANALOG_WIDGET_CLOCK_DIAL_WITH_ROMAN_NUMBERS ->
-                    Icon.createWithResource(context, R.drawable.analog_clock_dial_with_roman_numbers);
-            default ->
-                    Icon.createWithResource(context, R.drawable.standard_analog_appwidget_clock_dial);
+                Icon.createWithResource(context, R.drawable.analog_clock_dial_with_roman_numbers);
+            default -> Icon.createWithResource(context, R.drawable.standard_analog_appwidget_clock_dial);
         };
     }
 

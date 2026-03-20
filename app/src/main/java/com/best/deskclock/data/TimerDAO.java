@@ -102,14 +102,15 @@ public final class TimerDAO {
                 final long length = prefs.getLong(LENGTH + id, Long.MIN_VALUE);
                 final long totalLength = prefs.getLong(TOTAL_LENGTH + id, Long.MIN_VALUE);
                 final long lastStartTime = prefs.getLong(LAST_START_TIME + id, Timer.UNUSED);
-                final long lastWallClockTime = prefs.getLong(LAST_WALL_CLOCK_TIME + id,
-                        Timer.UNUSED);
+                final long lastWallClockTime = prefs.getLong(LAST_WALL_CLOCK_TIME + id, Timer.UNUSED);
                 final long remainingTime = prefs.getLong(REMAINING_TIME + id, totalLength);
                 final String label = prefs.getString(LABEL + id, null);
                 final String buttonTime = prefs.getString(BUTTON_TIME + id, "1");
                 final boolean deleteAfterUse = prefs.getBoolean(DELETE_AFTER_USE + id, false);
-                timers.add(new Timer(id, state, length, totalLength, lastStartTime,
-                        lastWallClockTime, remainingTime, label, buttonTime, deleteAfterUse));
+
+                timers.add(new Timer(id, state, length, totalLength, lastStartTime, lastWallClockTime, remainingTime, label, buttonTime,
+                    deleteAfterUse)
+                );
             }
         }
 
@@ -145,9 +146,9 @@ public final class TimerDAO {
         editor.apply();
 
         // Return a new timer with the generated timer id present.
-        return new Timer(id, timer.getState(), timer.getLength(), timer.getTotalLength(),
-                timer.getLastStartTime(), timer.getLastWallClockTime(), timer.getRemainingTime(),
-                timer.getLabel(), timer.getButtonTime(), timer.getDeleteAfterUse());
+        return new Timer(id, timer.getState(), timer.getLength(), timer.getTotalLength(), timer.getLastStartTime(),
+            timer.getLastWallClockTime(), timer.getRemainingTime(), timer.getLabel(), timer.getButtonTime(), timer.getDeleteAfterUse()
+        );
     }
 
     /**

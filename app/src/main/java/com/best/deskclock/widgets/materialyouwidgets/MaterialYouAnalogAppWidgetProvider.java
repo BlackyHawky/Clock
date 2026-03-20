@@ -40,9 +40,9 @@ public class MaterialYouAnalogAppWidgetProvider extends BaseAnalogAppWidgetProvi
     @Override
     protected Icon getDialIcon(Context context, SharedPreferences prefs) {
         return Icon.createWithResource(context,
-                WidgetDAO.getMaterialYouAnalogWidgetClockDial(prefs).equals(MATERIAL_YOU_ANALOG_WIDGET_CLOCK_DIAL_FLOWER)
-                        ? R.drawable.material_you_analog_clock_dial_flower
-                        : R.drawable.material_you_analog_clock_dial_sun);
+            WidgetDAO.getMaterialYouAnalogWidgetClockDial(prefs).equals(MATERIAL_YOU_ANALOG_WIDGET_CLOCK_DIAL_FLOWER)
+                ? R.drawable.material_you_analog_clock_dial_flower
+                : R.drawable.material_you_analog_clock_dial_sun);
     }
 
     @Override

@@ -7,7 +7,6 @@
 package com.best.deskclock.data;
 
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
-
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.data.Timer.State.EXPIRED;
 import static com.best.deskclock.data.Timer.State.MISSED;
@@ -82,12 +81,10 @@ public record Timer(int mId, State mState, long mLength, long mTotalLength, long
 
                     if (state == RESET) {
                         switch (timerSortingPreference) {
-                            case SORT_TIMER_BY_ASCENDING_DURATION ->
-                                    sorting = Long.compare(-timer2.getLength(), -timer1.getLength());
-                            case SORT_TIMER_BY_DESCENDING_DURATION ->
-                                    sorting = Long.compare(timer2.getLength(), timer1.getLength());
-                            case SORT_TIMER_BY_NAME -> sorting =
-                                    CharSequence.compare(timer1.getLabel().toLowerCase(Locale.ROOT), timer2.getLabel().toLowerCase(Locale.ROOT));
+                            case SORT_TIMER_BY_ASCENDING_DURATION -> sorting = Long.compare(-timer2.getLength(), -timer1.getLength());
+                            case SORT_TIMER_BY_DESCENDING_DURATION -> sorting = Long.compare(timer2.getLength(), timer1.getLength());
+                            case SORT_TIMER_BY_NAME -> sorting = CharSequence.compare(
+                                timer1.getLabel().toLowerCase(Locale.ROOT), timer2.getLabel().toLowerCase(Locale.ROOT));
                         }
                     } else {
                         sorting = Long.compare(timer1.getRemainingTime(), timer2.getRemainingTime());
@@ -124,7 +121,7 @@ public record Timer(int mId, State mState, long mLength, long mTotalLength, long
         }
 
         return new Timer(mId, mState, mLength, mTotalLength, mLastStartTime,
-                mLastStartWallClockTime, mRemainingTime, label, mButtonTime, mDeleteAfterUse);
+            mLastStartWallClockTime, mRemainingTime, label, mButtonTime, mDeleteAfterUse);
     }
 
     /**
@@ -139,9 +136,8 @@ public record Timer(int mId, State mState, long mLength, long mTotalLength, long
             return this;
         }
 
-        return new Timer(mId, mState, newLength, newLength, mLastStartTime, mLastStartWallClockTime,
-                newLength, mLabel, mButtonTime, mDeleteAfterUse
-        );
+        return new Timer(mId, mState, newLength, newLength, mLastStartTime, mLastStartWallClockTime, newLength, mLabel, mButtonTime,
+            mDeleteAfterUse);
     }
 
     /**
@@ -152,8 +148,8 @@ public record Timer(int mId, State mState, long mLength, long mTotalLength, long
             return this;
         }
 
-        return new Timer(mId, mState, mLength, mTotalLength, mLastStartTime,
-                mLastStartWallClockTime, mRemainingTime, mLabel, buttonTime, mDeleteAfterUse);
+        return new Timer(mId, mState, mLength, mTotalLength, mLastStartTime, mLastStartWallClockTime, mRemainingTime, mLabel, buttonTime,
+            mDeleteAfterUse);
     }
 
     public long getLength() {
@@ -255,7 +251,7 @@ public record Timer(int mId, State mState, long mLength, long mTotalLength, long
         }
 
         return new Timer(mId, state, mLength, totalLength, lastStartTime,
-                lastWallClockTime, remainingTime, mLabel, mButtonTime, mDeleteAfterUse);
+            lastWallClockTime, remainingTime, mLabel, mButtonTime, mDeleteAfterUse);
     }
 
     /**
@@ -304,8 +300,7 @@ public record Timer(int mId, State mState, long mLength, long mTotalLength, long
             return this;
         }
 
-        return new Timer(mId, RUNNING, mLength, mTotalLength, now(), wallClock(), mRemainingTime,
-                mLabel, mButtonTime, mDeleteAfterUse);
+        return new Timer(mId, RUNNING, mLength, mTotalLength, now(), wallClock(), mRemainingTime, mLabel, mButtonTime, mDeleteAfterUse);
     }
 
     /**
@@ -319,8 +314,7 @@ public record Timer(int mId, State mState, long mLength, long mTotalLength, long
         }
 
         final long remainingTime = getRemainingTime();
-        return new Timer(mId, PAUSED, mLength, mTotalLength, UNUSED, UNUSED, remainingTime, mLabel,
-                mButtonTime, mDeleteAfterUse);
+        return new Timer(mId, PAUSED, mLength, mTotalLength, UNUSED, UNUSED, remainingTime, mLabel, mButtonTime, mDeleteAfterUse);
     }
 
     /**
@@ -332,8 +326,7 @@ public record Timer(int mId, State mState, long mLength, long mTotalLength, long
         }
 
         final long remainingTime = Math.min(0L, getRemainingTime());
-        return new Timer(mId, EXPIRED, mLength, 0L, now(), wallClock(), remainingTime, mLabel,
-                mButtonTime, mDeleteAfterUse);
+        return new Timer(mId, EXPIRED, mLength, 0L, now(), wallClock(), remainingTime, mLabel, mButtonTime, mDeleteAfterUse);
     }
 
     /**
@@ -345,8 +338,7 @@ public record Timer(int mId, State mState, long mLength, long mTotalLength, long
         }
 
         final long remainingTime = Math.min(0L, getRemainingTime());
-        return new Timer(mId, MISSED, mLength, 0L, now(), wallClock(), remainingTime, mLabel,
-                mButtonTime, mDeleteAfterUse);
+        return new Timer(mId, MISSED, mLength, 0L, now(), wallClock(), remainingTime, mLabel, mButtonTime, mDeleteAfterUse);
     }
 
     /**
@@ -357,8 +349,7 @@ public record Timer(int mId, State mState, long mLength, long mTotalLength, long
             return this;
         }
 
-        return new Timer(mId, RESET, mLength, mLength, UNUSED, UNUSED, mLength, mLabel,
-                mButtonTime, mDeleteAfterUse);
+        return new Timer(mId, RESET, mLength, mLength, UNUSED, UNUSED, mLength, mLabel, mButtonTime, mDeleteAfterUse);
     }
 
     /**
@@ -375,8 +366,8 @@ public record Timer(int mId, State mState, long mLength, long mTotalLength, long
         // update the recorded times and proceed with no change in accumulated time.
         final long delta = Math.max(0, wallClockTime - mLastStartWallClockTime);
         final long remainingTime = mRemainingTime - delta;
-        return new Timer(mId, mState, mLength, mTotalLength, timeSinceBoot, wallClockTime,
-                remainingTime, mLabel, mButtonTime, mDeleteAfterUse);
+        return new Timer(mId, mState, mLength, mTotalLength, timeSinceBoot, wallClockTime, remainingTime, mLabel, mButtonTime,
+            mDeleteAfterUse);
     }
 
     /**
@@ -397,8 +388,8 @@ public record Timer(int mId, State mState, long mLength, long mTotalLength, long
             // updateAfterReboot() can successfully correct the data at a later time.
             return this;
         }
-        return new Timer(mId, mState, mLength, mTotalLength, timeSinceBoot, wallClockTime,
-                remainingTime, mLabel, mButtonTime, mDeleteAfterUse);
+        return new Timer(mId, mState, mLength, mTotalLength, timeSinceBoot, wallClockTime, remainingTime, mLabel, mButtonTime,
+            mDeleteAfterUse);
     }
 
     /**

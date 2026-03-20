@@ -71,13 +71,12 @@ import com.best.deskclock.utils.FormattedTextUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
-
 import com.google.android.material.button.MaterialButton;
 
 import java.io.File;
 
 public class AlarmDisplayPreviewActivity extends BaseActivity
-        implements View.OnClickListener, View.OnTouchListener {
+    implements View.OnClickListener, View.OnTouchListener {
 
     private static final float TEXT_FADE_START_THRESHOLD = 0.5f;
     private static final int TRANSLATION_DURATION_START_DELAY = 1000;
@@ -290,8 +289,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
         }
 
         final int actionIndex = event.getActionIndex();
-        if (mInitialPointerIndex == MotionEvent.INVALID_POINTER_ID
-                || mInitialPointerIndex != event.getPointerId(actionIndex)) {
+        if (mInitialPointerIndex == MotionEvent.INVALID_POINTER_ID || mInitialPointerIndex != event.getPointerId(actionIndex)) {
             // Ignore any pointers other than the initial one, bail early.
             return true;
         }
@@ -353,8 +351,8 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
         final String getDarkMode = SettingsDAO.getDarkMode(mPrefs);
         final boolean isAmoledMode = ThemeUtils.isNight(getResources()) && getDarkMode.equals(AMOLED_DARK_MODE);
         int alarmBackgroundColor = isAmoledMode
-                ? SettingsDAO.getAlarmBackgroundAmoledColor(mPrefs)
-                : SettingsDAO.getAlarmBackgroundColor(mPrefs);
+            ? SettingsDAO.getAlarmBackgroundAmoledColor(mPrefs)
+            : SettingsDAO.getAlarmBackgroundColor(mPrefs);
         final ImageView alarmBackgroundImage = findViewById(R.id.alarm_background_image);
         final String imagePath = SettingsDAO.getAlarmBackgroundImage(mPrefs);
 
@@ -402,8 +400,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
 
         if (alarmClockStyle == DataModel.ClockStyle.DIGITAL) {
             ClockUtils.setDigitalClockFont(digitalClock, SettingsDAO.getAlarmFont(mPrefs));
-            ClockUtils.setDigitalClockTimeFormat(digitalClock, 0.4f, false,
-                    true, false, false);
+            ClockUtils.setDigitalClockTimeFormat(digitalClock, 0.4f, false, true, false, false);
             digitalClock.applyUserPreferredTextSizeSp(alarmDigitalClockFontSize);
             digitalClock.setTextColor(alarmClockColor);
 
@@ -493,10 +490,8 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
 
             // Move to left
             AnimatorSet toLeftAnimator = new AnimatorSet();
-            toLeftAnimator.playTogether(
-                    translationAnimator(mPillView, pillStretchWidth,
-                            mPillView.getPillCenterX() - pillStretchWidth / 2),
-                    alphaAnimator(mPillView, originalFillColor)
+            toLeftAnimator.playTogether(translationAnimator(mPillView, pillStretchWidth,
+                mPillView.getPillCenterX() - pillStretchWidth / 2), alphaAnimator(mPillView, originalFillColor)
             );
             toLeftAnimator.setStartDelay(TRANSLATION_DURATION_START_DELAY);
             toLeftAnimator.setDuration(TRANSLATION_DURATION_MILLIS);
@@ -507,15 +502,14 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
 
             // Reset position and alpha
             AnimatorSet resetAndRestoreLeft = new AnimatorSet();
-            resetAndRestoreLeft.playTogether(
-                    translationAnimator(mPillView, 0, mPillView.getPillCenterX()),
-                    alphaAnimator(mPillView, originalFillColor)
+            resetAndRestoreLeft.playTogether(translationAnimator(mPillView, 0, mPillView.getPillCenterX()),
+                alphaAnimator(mPillView, originalFillColor)
             );
             resetAndRestoreLeft.setDuration(0);
 
             // Move to right
             Animator toRightAnimator = translationAnimator(mPillView, pillStretchWidth,
-                    mPillView.getPillCenterX() + pillStretchWidth / 2);
+                mPillView.getPillCenterX() + pillStretchWidth / 2);
             toRightAnimator.setStartDelay(TRANSLATION_DURATION_DELAY);
             toRightAnimator.setDuration(TRANSLATION_DURATION_MILLIS);
 
@@ -525,16 +519,15 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
 
             // Reset position and alpha
             AnimatorSet resetAndRestoreRight = new AnimatorSet();
-            resetAndRestoreRight.playTogether(
-                    translationAnimator(mPillView, 0, mPillView.getPillCenterX()),
-                    alphaAnimator(mPillView, originalFillColor)
+            resetAndRestoreRight.playTogether(translationAnimator(mPillView, 0, mPillView.getPillCenterX()),
+                alphaAnimator(mPillView, originalFillColor)
             );
             resetAndRestoreRight.setDuration(0);
 
             // Sequence
             AnimatorSet translationSequence = new AnimatorSet();
-            translationSequence.playSequentially(toLeftAnimator, alphaLeft, resetAndRestoreLeft,
-                    toRightAnimator, alphaRight, resetAndRestoreRight);
+            translationSequence.playSequentially(
+                toLeftAnimator, alphaLeft, resetAndRestoreLeft, toRightAnimator, alphaRight, resetAndRestoreRight);
             translationSequence.setInterpolator(new AccelerateDecelerateInterpolator());
             // Listener to repeat animation if needed
             translationSequence.addListener(new AnimatorListenerAdapter() {
@@ -720,8 +713,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
      */
     private void updateSnoozeText() {
         if (mSnoozeSelectorIndex == 0) {
-            String minShort = FormattedTextUtils.getNumberFormattedQuantityString(
-                    this, R.plurals.minutes_short, mDefaultSnoozeMinutes);
+            String minShort = FormattedTextUtils.getNumberFormattedQuantityString(this, R.plurals.minutes_short, mDefaultSnoozeMinutes);
             mSnoozeSelectorText.setText(getString(R.string.snooze_selector_default, minShort));
         } else {
             mSnoozeSelectorText.setText(mSnoozeSelectorEntries[mSnoozeSelectorIndex]);
@@ -741,16 +733,16 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
      */
     private Animator translationAnimator(View view, float targetWidth, float targetCenterX) {
         return ObjectAnimator.ofPropertyValuesHolder(view,
-                PropertyValuesHolder.ofFloat(PillView.PILL_WIDTH, targetWidth),
-                PropertyValuesHolder.ofFloat(PillView.PILL_CENTER_X, targetCenterX));
+            PropertyValuesHolder.ofFloat(PillView.PILL_WIDTH, targetWidth),
+            PropertyValuesHolder.ofFloat(PillView.PILL_CENTER_X, targetCenterX));
     }
 
     /**
      * Helper method to create an alpha color change animation.
      */
     private Animator alphaAnimator(View view, int alphaColor) {
-        return ObjectAnimator.ofPropertyValuesHolder(view,
-                PropertyValuesHolder.ofObject(PillView.FILL_COLOR, AnimatorUtils.ARGB_EVALUATOR, alphaColor));
+        return ObjectAnimator.ofPropertyValuesHolder(view, PropertyValuesHolder.ofObject(
+            PillView.FILL_COLOR, AnimatorUtils.ARGB_EVALUATOR, alphaColor));
     }
 
     /**
@@ -797,9 +789,9 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
         mDismissActionText.setAlpha(1.0f);
 
         mAlarmButton.animate()
-                .translationX(0)
-                .setDuration(200)
-                .start();
+            .translationX(0)
+            .setDuration(200)
+            .start();
 
         if (mTranslationAnimator != null && !mTranslationAnimator.isRunning()) {
             mTranslationAnimator.start();
@@ -815,7 +807,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
         }
 
         final String infoText = getResources().getQuantityString(
-                    R.plurals.alarm_alert_snooze_duration, mSnoozeMinutes, mSnoozeMinutes);
+            R.plurals.alarm_alert_snooze_duration, mSnoozeMinutes, mSnoozeMinutes);
         showAlert(R.string.alarm_alert_snoozed_text, infoText);
     }
 
@@ -834,8 +826,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
      */
     private void performSingleVibration() {
         if (SdkUtils.isAtLeastAndroid8()) {
-            mVibrator.vibrate(VibrationEffect.createWaveform(
-                    new long[]{700, 500}, VibrationEffect.DEFAULT_AMPLITUDE));
+            mVibrator.vibrate(VibrationEffect.createWaveform(new long[]{700, 500}, VibrationEffect.DEFAULT_AMPLITUDE));
         } else {
             mVibrator.vibrate(new long[]{700, 500}, -1);
         }
@@ -846,8 +837,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
      */
     private void performDoubleVibration() {
         if (SdkUtils.isAtLeastAndroid8()) {
-            mVibrator.vibrate(VibrationEffect.createWaveform(
-                    new long[]{700, 200, 100, 500}, VibrationEffect.DEFAULT_AMPLITUDE));
+            mVibrator.vibrate(VibrationEffect.createWaveform(new long[]{700, 200, 100, 500}, VibrationEffect.DEFAULT_AMPLITUDE));
         } else {
             mVibrator.vibrate(new long[]{700, 200, 100, 500}, -1);
         }
@@ -930,10 +920,10 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
 
         mAlertView.setAlpha(0f);
         mAlertView.animate()
-                .alpha(1f)
-                .setDuration(ALERT_REVEAL_DURATION_MILLIS)
-                .withEndAction(() -> mHandler.postDelayed(this::finishActivity, ALERT_DISMISS_DELAY_MILLIS))
-                .start();
+            .alpha(1f)
+            .setDuration(ALERT_REVEAL_DURATION_MILLIS)
+            .withEndAction(() -> mHandler.postDelayed(this::finishActivity, ALERT_DISMISS_DELAY_MILLIS))
+            .start();
     }
 
     private void finishActivity() {
@@ -946,11 +936,9 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
             }
         } else {
             if (SdkUtils.isAtLeastAndroid14()) {
-                overrideActivityTransition(OVERRIDE_TRANSITION_CLOSE,
-                        R.anim.activity_slide_from_left, R.anim.activity_slide_to_right);
+                overrideActivityTransition(OVERRIDE_TRANSITION_CLOSE, R.anim.activity_slide_from_left, R.anim.activity_slide_to_right);
             } else {
-                overridePendingTransition(
-                        R.anim.activity_slide_from_left, R.anim.activity_slide_to_right);
+                overridePendingTransition(R.anim.activity_slide_from_left, R.anim.activity_slide_to_right);
             }
         }
     }

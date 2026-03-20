@@ -4,7 +4,6 @@ package com.best.deskclock.tiles;
 
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
-
 import static com.best.deskclock.uidata.UiDataModel.Tab.TIMERS;
 
 import android.annotation.SuppressLint;
@@ -40,8 +39,8 @@ public class TimerTileService extends TileService {
         super.onClick();
 
         final Intent intent = new Intent(this, DeskClock.class)
-                .addFlags(FLAG_ACTIVITY_NEW_TASK)
-                .addFlags(FLAG_ACTIVITY_CLEAR_TOP);
+            .addFlags(FLAG_ACTIVITY_NEW_TASK)
+            .addFlags(FLAG_ACTIVITY_CLEAR_TOP);
 
         UiDataModel.getUiDataModel().setSelectedTab(TIMERS);
 

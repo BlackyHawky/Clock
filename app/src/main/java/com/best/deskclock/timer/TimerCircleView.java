@@ -22,7 +22,6 @@ import androidx.annotation.NonNull;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.utils.ThemeUtils;
-
 import com.google.android.material.color.MaterialColors;
 
 /**
@@ -60,10 +59,8 @@ public final class TimerCircleView extends View {
         final float mStrokeSize = dpToPx(isSingleTimer() ? 8 : 6, mDisplayMetrics);
         mRadiusOffset = ThemeUtils.calculateRadiusOffset(mStrokeSize, dotDiameter, 0);
 
-        final int remainingArcColor = MaterialColors.getColor(
-                context, com.google.android.material.R.attr.colorOnSurfaceVariant, Color.BLACK);
-        final int completedArcColor = MaterialColors.getColor(
-                context, com.google.android.material.R.attr.colorPrimaryInverse, Color.BLACK);
+        final int remainingArcColor = MaterialColors.getColor(context, com.google.android.material.R.attr.colorOnSurfaceVariant, Color.BLACK);
+        final int completedArcColor = MaterialColors.getColor(context, com.google.android.material.R.attr.colorPrimaryInverse, Color.BLACK);
 
         mCompletedPaint.setAntiAlias(true);
         mCompletedPaint.setStyle(Paint.Style.STROKE);
@@ -93,10 +90,10 @@ public final class TimerCircleView extends View {
         float gapAngle = (float) Math.toDegrees(gapSize / radius);
 
         mArcRect.set(
-                xCenter - radius,
-                yCenter - radius,
-                xCenter + radius,
-                yCenter + radius
+            xCenter - radius,
+            yCenter - radius,
+            xCenter + radius,
+            yCenter + radius
         );
 
         if (mTimer.isReset()) {
@@ -111,8 +108,8 @@ public final class TimerCircleView extends View {
 
         final float totalLength = mTimer.getTotalLength();
         final float completedPercent = totalLength > 0
-                ? Math.min(1f, (float) mTimer.getElapsedTime() / totalLength)
-                : 0f;
+            ? Math.min(1f, (float) mTimer.getElapsedTime() / totalLength)
+            : 0f;
 
         final float totalAngle = 360f - 2 * gapAngle;
         final float completedAngle = completedPercent * totalAngle;

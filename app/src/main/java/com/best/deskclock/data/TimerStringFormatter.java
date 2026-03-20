@@ -58,16 +58,16 @@ public class TimerStringFormatter {
         hours = roundedHours;
 
         final String minSeq = FormattedTextUtils.getNumberFormattedQuantityString(
-                context, R.plurals.minutes, minutes);
+            context, R.plurals.minutes, minutes);
         final String hourSeq = FormattedTextUtils.getNumberFormattedQuantityString(
-                context, R.plurals.hours, hours);
+            context, R.plurals.hours, hours);
         final String secSeq = FormattedTextUtils.getNumberFormattedQuantityString(
-                context, R.plurals.seconds, seconds);
+            context, R.plurals.seconds, seconds);
 
         // The verb "remaining" may have to change tense for singular subjects in some languages.
         final String remainingSuffix = context.getString((minutes > 1 || hours > 1 || seconds > 1)
-                ? R.string.timer_remaining_multiple
-                : R.string.timer_remaining_single);
+            ? R.string.timer_remaining_multiple
+            : R.string.timer_remaining_single);
 
         final boolean showHours = hours > 0;
         final boolean showMinutes = minutes > 0;
@@ -101,13 +101,12 @@ public class TimerStringFormatter {
         if (formatStringId == -1) {
             return null;
         }
-        return String.format(context.getString(formatStringId), hourSeq, minSeq, remainingSuffix,
-                secSeq);
+        return String.format(context.getString(formatStringId), hourSeq, minSeq, remainingSuffix, secSeq);
     }
 
     public static String formatString(Context context, @StringRes int stringResId, String buttonTime, long currentTime,
                                       boolean shouldShowSeconds) {
-        return String.format(context.getString(stringResId), buttonTime,
-                formatTimeRemaining(context, currentTime, shouldShowSeconds));
+
+        return String.format(context.getString(stringResId), buttonTime, formatTimeRemaining(context, currentTime, shouldShowSeconds));
     }
 }

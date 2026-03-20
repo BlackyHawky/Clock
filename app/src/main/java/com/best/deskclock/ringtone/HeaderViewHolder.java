@@ -25,8 +25,7 @@ public class HeaderViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         mItemHeader = itemView.findViewById(R.id.ringtone_item_header);
 
-        mItemHeader.setTypeface(ThemeUtils.loadFont(
-                SettingsDAO.getGeneralFont(getDefaultSharedPreferences(mItemHeader.getContext()))));
+        mItemHeader.setTypeface(ThemeUtils.loadFont(SettingsDAO.getGeneralFont(getDefaultSharedPreferences(mItemHeader.getContext()))));
     }
 
     public void bind(HeaderHolder itemHolder) {

@@ -174,28 +174,28 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
         });
 
         return CustomDialog.create(
-                mContext,
-                null,
-                null,
-                getString(R.string.vibration_start_delay_title),
-                null,
-                dialogView,
-                getString(android.R.string.ok),
-                (d, w) -> setVibrationStartDelayInSeconds(),
-                getString(android.R.string.cancel),
-                null,
-                getString(R.string.label_default),
-                (d, w) -> applyVibrationStartDelayInSeconds(DEFAULT_VIBRATION_START_DELAY),
-                alertDialog -> {
-                    mOkButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-                    mDefaultButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
+            mContext,
+            null,
+            null,
+            getString(R.string.vibration_start_delay_title),
+            null,
+            dialogView,
+            getString(android.R.string.ok),
+            (d, w) -> setVibrationStartDelayInSeconds(),
+            getString(android.R.string.cancel),
+            null,
+            getString(R.string.label_default),
+            (d, w) -> applyVibrationStartDelayInSeconds(DEFAULT_VIBRATION_START_DELAY),
+            alertDialog -> {
+                mOkButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                mDefaultButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
 
-                    String minutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
+                String minutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
 
-                    mOkButton.setEnabled(!isInvalidInput(minutesText));
-                    mDefaultButton.setEnabled(isNotDefaultVibrationStartDelay(minutesText));
-                },
-                CustomDialog.SoftInputMode.SHOW_KEYBOARD
+                mOkButton.setEnabled(!isInvalidInput(minutesText));
+                mDefaultButton.setEnabled(isNotDefaultVibrationStartDelay(minutesText));
+            },
+            CustomDialog.SoftInputMode.SHOW_KEYBOARD
         );
     }
 
@@ -240,8 +240,7 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
             mEditMinutes.setText("");
         } else {
             mMinutesInputLayout.setHelperText(getString(R.string.vibration_start_delay_warning_box_text));
-            TextView minuteHelper = mMinutesInputLayout.findViewById(
-                    com.google.android.material.R.id.textinput_helper_text);
+            TextView minuteHelper = mMinutesInputLayout.findViewById(com.google.android.material.R.id.textinput_helper_text);
             minuteHelper.setTypeface(mTypeFace);
         }
     }
@@ -319,22 +318,22 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
 
         TextView titleText = alertDialog.findViewById(R.id.dialog_title);
         if (titleText != null) {
-            titleText.setCompoundDrawablesWithIntrinsicBounds(
-                    AppCompatResources.getDrawable(mContext, R.drawable.ic_error), null, null, null);
+            titleText.setCompoundDrawablesWithIntrinsicBounds(AppCompatResources.getDrawable(
+                mContext, R.drawable.ic_error), null, null, null);
             titleText.setCompoundDrawablePadding((int) dpToPx(18, getResources().getDisplayMetrics()));
             titleText.setText(getString(R.string.timer_time_warning_box_title));
         }
 
         String minutesText = Objects.requireNonNull(mEditMinutes.getText()).toString();
         boolean minutesInvalid = (!minutesText.isEmpty() && Integer.parseInt(minutesText) < 0)
-                || (!minutesText.isEmpty() && Integer.parseInt(minutesText) > 10);
+            || (!minutesText.isEmpty() && Integer.parseInt(minutesText) > 10);
         int invalidColor = ContextCompat.getColor(mContext, R.color.md_theme_error);
         int validColor = MaterialColors.getColor(mContext, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
 
         mMinutesInputLayout.setBoxStrokeColor(minutesInvalid ? invalidColor : validColor);
         mMinutesInputLayout.setHintTextColor(minutesInvalid
-                ? ColorStateList.valueOf(invalidColor)
-                : ColorStateList.valueOf(validColor));
+            ? ColorStateList.valueOf(invalidColor)
+            : ColorStateList.valueOf(validColor));
 
         if (mOkButton != null) {
             mOkButton.setEnabled(false);
@@ -405,7 +404,7 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
             }
 
             updateDialogForValidInput();
-       }
+        }
 
         @Override
         public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {

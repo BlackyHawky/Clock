@@ -90,11 +90,9 @@ public interface FabContainer {
     void updateFab(@UpdateFabFlag int updateTypes);
 
     @IntDef(
-            flag = true,
-            value = {FAB_IMMEDIATE, FAB_SHRINK_AND_EXPAND, FAB_MORPH, FAB_REQUEST_FOCUS,
-                    BUTTONS_IMMEDIATE, BUTTONS_SHRINK_AND_EXPAND, BUTTONS_DISABLE,
-                    FAB_AND_BUTTONS_IMMEDIATE, FAB_AND_BUTTONS_SHRINK_AND_EXPAND,
-                    FAB_AND_BUTTONS_SHRINK, FAB_AND_BUTTONS_EXPAND}
+        flag = true,
+        value = {FAB_IMMEDIATE, FAB_SHRINK_AND_EXPAND, FAB_MORPH, FAB_REQUEST_FOCUS, BUTTONS_IMMEDIATE, BUTTONS_SHRINK_AND_EXPAND,
+            BUTTONS_DISABLE, FAB_AND_BUTTONS_IMMEDIATE, FAB_AND_BUTTONS_SHRINK_AND_EXPAND, FAB_AND_BUTTONS_SHRINK, FAB_AND_BUTTONS_EXPAND}
     )
     @interface UpdateFabFlag {
     }

@@ -95,8 +95,7 @@ public class ScreensaverUtils {
                 textView.setTextColor(applyBrightnessToColor(color, factor));
 
                 if (drawable != null) {
-                    drawable.setColorFilter(new PorterDuffColorFilter(
-                            applyBrightnessToColor(color, factor), PorterDuff.Mode.SRC_IN));
+                    drawable.setColorFilter(new PorterDuffColorFilter(applyBrightnessToColor(color, factor), PorterDuff.Mode.SRC_IN));
                 }
             }
 
@@ -148,8 +147,8 @@ public class ScreensaverUtils {
     public static Typeface getScreensaverClockTypeface(SharedPreferences prefs) {
         Typeface baseTypeface = ThemeUtils.loadFont(SettingsDAO.getScreensaverDigitalClockFont(prefs));
         int style = resolveTypefaceStyle(
-                SettingsDAO.isScreensaverDigitalClockInBold(prefs),
-                SettingsDAO.isScreensaverDigitalClockInItalic(prefs)
+            SettingsDAO.isScreensaverDigitalClockInBold(prefs),
+            SettingsDAO.isScreensaverDigitalClockInItalic(prefs)
         );
 
         if (baseTypeface == null) {
@@ -166,8 +165,8 @@ public class ScreensaverUtils {
      */
     private static void setScreensaverBatteryFormat(SharedPreferences prefs, TextView batteryText) {
         int style = resolveTypefaceStyle(
-                SettingsDAO.isScreensaverBatteryInBold(prefs),
-                SettingsDAO.isScreensaverBatteryInItalic(prefs)
+            SettingsDAO.isScreensaverBatteryInBold(prefs),
+            SettingsDAO.isScreensaverBatteryInItalic(prefs)
         );
 
         applyGeneralTypeface(prefs, batteryText, style);
@@ -194,8 +193,8 @@ public class ScreensaverUtils {
     /**
      * Updates the battery icon displayed next to the battery percentage.
      *
-     * @param view      the root view containing the battery indicator TextView
-     * @param percent   the current battery level as a percentage
+     * @param view    the root view containing the battery indicator TextView
+     * @param percent the current battery level as a percentage
      */
     public static void updateBatteryIcon(View view, int percent) {
         Context context = view.getContext();
@@ -208,8 +207,8 @@ public class ScreensaverUtils {
         final boolean isDynamicColors = SettingsDAO.areScreensaverClockDynamicColors(prefs);
         final int inversePrimaryColor = ContextCompat.getColor(context, R.color.md_theme_inversePrimary);
         final int color = isDynamicColors
-                ? inversePrimaryColor
-                : SettingsDAO.getScreensaverBatteryColorPicker(prefs);
+            ? inversePrimaryColor
+            : SettingsDAO.getScreensaverBatteryColorPicker(prefs);
 
         applyBrightness(batteryText, prefs, color, drawable);
 
@@ -219,7 +218,7 @@ public class ScreensaverUtils {
     /**
      * Returns the appropriate battery icon resource based on the battery level.
      *
-     * @param percent   the current battery level as a percentage
+     * @param percent the current battery level as a percentage
      * @return the drawable resource ID representing the battery state
      */
     private static int getBatteryIconRes(int percent) {
@@ -240,8 +239,8 @@ public class ScreensaverUtils {
      */
     private static void setScreensaverDateFormat(SharedPreferences prefs, TextView date) {
         int style = resolveTypefaceStyle(
-                SettingsDAO.isScreensaverDateInBold(prefs),
-                SettingsDAO.isScreensaverDateInItalic(prefs)
+            SettingsDAO.isScreensaverDateInBold(prefs),
+            SettingsDAO.isScreensaverDateInItalic(prefs)
         );
 
         applyGeneralTypeface(prefs, date, style);
@@ -254,8 +253,8 @@ public class ScreensaverUtils {
      */
     private static void setScreensaverNextAlarmFormat(SharedPreferences prefs, TextView nextAlarm) {
         int style = resolveTypefaceStyle(
-                SettingsDAO.isScreensaverNextAlarmInBold(prefs),
-                SettingsDAO.isScreensaverNextAlarmInItalic(prefs)
+            SettingsDAO.isScreensaverNextAlarmInBold(prefs),
+            SettingsDAO.isScreensaverNextAlarmInItalic(prefs)
         );
 
         applyGeneralTypeface(prefs, nextAlarm, style);
@@ -297,8 +296,8 @@ public class ScreensaverUtils {
      * Thin spaces (u2009) prevent the text from being visually cut off on some devices
      * and help maintain proper centering in the screensaver layout.
      *
-     * @param context    the context used to access preferences and formatting utilities
-     * @param alarmTime  the time of the next scheduled alarm
+     * @param context   the context used to access preferences and formatting utilities
+     * @param alarmTime the time of the next scheduled alarm
      * @return the formatted alarm text, optionally wrapped with thin spaces
      */
     public static String getScreensaverFormattedTime(Context context, Calendar alarmTime) {
@@ -401,21 +400,20 @@ public class ScreensaverUtils {
         final boolean isDynamicColors = SettingsDAO.areScreensaverClockDynamicColors(prefs);
 
         final int screenSaverClockColorPicker = isDynamicColors
-                ? inversePrimaryColor
-                : SettingsDAO.getScreensaverClockColorPicker(prefs);
+            ? inversePrimaryColor
+            : SettingsDAO.getScreensaverClockColorPicker(prefs);
         final int screensaverDateColorPicker = isDynamicColors && !isMaterialAnalogClock
-                ? inversePrimaryColor
-                : SettingsDAO.getScreensaverDateColorPicker(prefs);
+            ? inversePrimaryColor
+            : SettingsDAO.getScreensaverDateColorPicker(prefs);
         final int screensaverNextAlarmColorPicker = isDynamicColors && !isMaterialAnalogClock
-                ? inversePrimaryColor
-                : SettingsDAO.getScreensaverNextAlarmColorPicker(prefs);
+            ? inversePrimaryColor
+            : SettingsDAO.getScreensaverNextAlarmColorPicker(prefs);
 
         ClockUtils.setClockStyle(screensaverClockStyle, textClock, analogClock);
 
         if (screensaverClockStyle == ClockStyle.DIGITAL) {
             textClock.setTypeface(getScreensaverClockTypeface(prefs));
-            ClockUtils.setDigitalClockTimeFormat(textClock, 0.4f, areClockSecondsEnabled,
-                    false, false, true);
+            ClockUtils.setDigitalClockTimeFormat(textClock, 0.4f, areClockSecondsEnabled, false, false, true);
 
             textClock.applyUserPreferredTextSizeSp(SettingsDAO.getScreensaverDigitalClockFontSize(prefs));
 
@@ -455,10 +453,10 @@ public class ScreensaverUtils {
             controller.hide(WindowInsetsCompat.Type.systemBars());
         } else {
             view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
-                    | View.SYSTEM_UI_FLAG_IMMERSIVE
-                    | View.SYSTEM_UI_FLAG_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+                | View.SYSTEM_UI_FLAG_IMMERSIVE
+                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }
     }
 }

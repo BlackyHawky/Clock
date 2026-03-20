@@ -55,29 +55,23 @@ public class WidgetSettingsFragment extends ScreenFragment implements Preference
     @Override
     public boolean onPreferenceClick(@NonNull Preference pref) {
         switch (pref.getKey()) {
-            case KEY_ANALOG_WIDGET_CUSTOMIZATION ->
-                    animateAndShowFragment(new AnalogWidgetSettingsFragment());
+            case KEY_ANALOG_WIDGET_CUSTOMIZATION -> animateAndShowFragment(new AnalogWidgetSettingsFragment());
 
-            case KEY_DIGITAL_WIDGET_CUSTOMIZATION ->
-                    animateAndShowFragment(new DigitalWidgetSettingsFragment());
+            case KEY_DIGITAL_WIDGET_CUSTOMIZATION -> animateAndShowFragment(new DigitalWidgetSettingsFragment());
 
-            case KEY_VERTICAL_DIGITAL_WIDGET_CUSTOMIZATION ->
-                    animateAndShowFragment(new VerticalDigitalWidgetSettingsFragment());
+            case KEY_VERTICAL_DIGITAL_WIDGET_CUSTOMIZATION -> animateAndShowFragment(new VerticalDigitalWidgetSettingsFragment());
 
-            case KEY_NEXT_ALARM_WIDGET_CUSTOMIZATION ->
-                    animateAndShowFragment(new NextAlarmWidgetSettingsFragment());
+            case KEY_NEXT_ALARM_WIDGET_CUSTOMIZATION -> animateAndShowFragment(new NextAlarmWidgetSettingsFragment());
 
-            case KEY_MATERIAL_YOU_ANALOG_WIDGET_CUSTOMIZATION ->
-                    animateAndShowFragment(new MaterialYouAnalogWidgetSettingsFragment());
+            case KEY_MATERIAL_YOU_ANALOG_WIDGET_CUSTOMIZATION -> animateAndShowFragment(new MaterialYouAnalogWidgetSettingsFragment());
 
-            case KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOMIZATION ->
-                    animateAndShowFragment(new MaterialYouDigitalWidgetSettingsFragment());
+            case KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOMIZATION -> animateAndShowFragment(new MaterialYouDigitalWidgetSettingsFragment());
 
             case KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZATION ->
-                    animateAndShowFragment(new MaterialYouVerticalDigitalWidgetSettingsFragment());
+                animateAndShowFragment(new MaterialYouVerticalDigitalWidgetSettingsFragment());
 
             case KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOMIZATION ->
-                    animateAndShowFragment(new MaterialYouNextAlarmWidgetSettingsFragment());
+                animateAndShowFragment(new MaterialYouNextAlarmWidgetSettingsFragment());
         }
 
         return true;

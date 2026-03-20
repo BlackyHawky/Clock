@@ -23,7 +23,6 @@ import com.best.deskclock.settings.PermissionsManagementActivity;
 import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
-
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class FirstLaunch extends BaseActivity {
@@ -101,8 +100,7 @@ public class FirstLaunch extends BaseActivity {
     private void applyWindowInsets() {
         InsetsUtils.doOnApplyWindowInsets(mFirstLaunchRootView, (v, insets) -> {
             // Get the system bar and notch insets
-            Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() |
-                    WindowInsetsCompat.Type.displayCutout());
+            Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout());
 
             v.setPadding(bars.left, bars.top, bars.right, 0);
 
@@ -136,13 +134,13 @@ public class FirstLaunch extends BaseActivity {
      */
     private void showDialogToQuit() {
         new MaterialAlertDialogBuilder(this)
-                .setTitle(getString(R.string.first_launch_dialog_title))
-                .setIcon(R.drawable.ic_logout)
-                .setMessage(getString(R.string.first_launch_dialog_message))
-                .setPositiveButton(android.R.string.ok, (dialog, which) -> finishAffinity())
-                .setNegativeButton(android.R.string.cancel, null)
-                .setCancelable(false)
-                .show();
+            .setTitle(getString(R.string.first_launch_dialog_title))
+            .setIcon(R.drawable.ic_logout)
+            .setMessage(getString(R.string.first_launch_dialog_message))
+            .setPositiveButton(android.R.string.ok, (dialog, which) -> finishAffinity())
+            .setNegativeButton(android.R.string.cancel, null)
+            .setCancelable(false)
+            .show();
     }
 
     /**
@@ -150,12 +148,11 @@ public class FirstLaunch extends BaseActivity {
      */
     private void setupMainFeaturesText() {
         String link = ("<a href=\"https://github.com/BlackyHawky/Clock#features-\">"
-                + getString(R.string.first_launch_main_feature_link) + "</a>");
+            + getString(R.string.first_launch_main_feature_link) + "</a>");
 
         Spanned mainFeaturesMessage;
         if (SdkUtils.isAtLeastAndroid7()) {
-            mainFeaturesMessage = Html.fromHtml(
-                    getString(R.string.first_launch_main_feature_message, link), Html.FROM_HTML_MODE_LEGACY);
+            mainFeaturesMessage = Html.fromHtml(getString(R.string.first_launch_main_feature_message, link), Html.FROM_HTML_MODE_LEGACY);
         } else {
             mainFeaturesMessage = Html.fromHtml(getString(R.string.first_launch_main_feature_message, link));
         }
@@ -176,8 +173,7 @@ public class FirstLaunch extends BaseActivity {
 
         Spanned importantInfoMessage;
         if (SdkUtils.isAtLeastAndroid7()) {
-            importantInfoMessage = Html.fromHtml(
-                    getString(R.string.first_launch_important_info_message, android14message), Html.FROM_HTML_MODE_LEGACY);
+            importantInfoMessage = Html.fromHtml(getString(R.string.first_launch_important_info_message, android14message), Html.FROM_HTML_MODE_LEGACY);
         } else {
             importantInfoMessage = Html.fromHtml(getString(R.string.first_launch_important_info_message, android14message));
         }

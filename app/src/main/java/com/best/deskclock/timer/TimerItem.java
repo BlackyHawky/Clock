@@ -8,9 +8,7 @@ package com.best.deskclock.timer;
 
 import static android.R.attr.state_activated;
 import static android.R.attr.state_pressed;
-
 import static androidx.core.util.TypedValueCompat.dpToPx;
-
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
 import android.content.Context;
@@ -36,7 +34,6 @@ import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.uicomponents.CircleButtonsLayout;
 import com.best.deskclock.utils.ThemeUtils;
-
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.color.MaterialColors;
 
@@ -79,43 +76,69 @@ public class TimerItem extends ConstraintLayout {
     private String mLastTotalDuration = null;
     private int mLastTimerCount = -1;
 
-    /** The container of TimerCircleView and TimerTextController */
+    /**
+     * The container of TimerCircleView and TimerTextController
+     */
     private CircleButtonsLayout mCircleContainer;
 
-    /** Formats and displays the text in the timer. */
+    /**
+     * Formats and displays the text in the timer.
+     */
     private TimerTextController mTimerTextController;
 
-    /** Displays timer progress as a color circle. */
+    /**
+     * Displays timer progress as a color circle.
+     */
     private TimerCircleView mCircleView;
 
-    /** Displays the remaining time or time since expiration. */
+    /**
+     * Displays the remaining time or time since expiration.
+     */
     private TextView mTimerText;
 
-    /** A button that resets the timer. */
+    /**
+     * A button that resets the timer.
+     */
     private ImageButton mResetButton;
 
-    /** A button that edits a new duration to the timer. */
+    /**
+     * A button that edits a new duration to the timer.
+     */
     private ImageButton mTimerEditNewDurationButton;
 
-    /** A button that adds time to the timer. */
+    /**
+     * A button that adds time to the timer.
+     */
     private MaterialButton mAddTimeButton;
 
-    /** Displays the label associated with the timer. Tapping it presents an edit dialog. */
+    /**
+     * Displays the label associated with the timer. Tapping it presents an edit dialog.
+     */
     private TextView mLabelView;
 
-    /** A button to start / stop the timer */
+    /**
+     * A button to start / stop the timer
+     */
     private MaterialButton mPlayPauseButton;
 
-    /** View representing the visual indicator of the timer state (running, paused, expired). */
+    /**
+     * View representing the visual indicator of the timer state (running, paused, expired).
+     */
     private View mIndicatorState;
 
-    /** Drawable used to style the timer state indicator as a circle with dynamic fill. */
+    /**
+     * Drawable used to style the timer state indicator as a circle with dynamic fill.
+     */
     private GradientDrawable mGradientDrawable;
 
-    /** The last state of the timer that was rendered; used to avoid expensive operations. */
+    /**
+     * The last state of the timer that was rendered; used to avoid expensive operations.
+     */
     private Timer.State mLastState;
 
-    /** The timer duration text that appears when the timer is reset */
+    /**
+     * The timer duration text that appears when the timer is reset
+     */
     private TextView mTimerTotalDurationText;
 
     public TimerItem(Context context) {
@@ -180,12 +203,11 @@ public class TimerItem extends ConstraintLayout {
         mColorExpired = SettingsDAO.getExpiredTimerIndicatorColor(mPrefs);
         mColorMissed = SettingsDAO.getMissedTimerIndicatorColor(mPrefs);
 
-        final int colorAccent = MaterialColors.getColor(
-                mContext, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
+        final int colorAccent = MaterialColors.getColor(mContext, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
         final int textColorPrimary = mTimerText.getCurrentTextColor();
         final ColorStateList timeTextColor = new ColorStateList(
-                new int[][]{{-state_activated, -state_pressed}, {}},
-                new int[]{textColorPrimary, colorAccent});
+            new int[][]{{-state_activated, -state_pressed}, {}},
+            new int[]{textColorPrimary, colorAccent});
         mTimerText.setTextColor(timeTextColor);
         mTimerText.setTypeface(mTimerTimeTypeface);
 
@@ -203,15 +225,15 @@ public class TimerItem extends ConstraintLayout {
         if (mCircleView != null) {
             final boolean isBlinking = timer.isExpired() || timer.isMissed();
             final float targetAlpha = isBlinking
-                    ? (blinkOff ? 0f : 1f)
-                    : 1f;
+                ? (blinkOff ? 0f : 1f)
+                : 1f;
 
             // Apply circle blinking
             if (mCircleView.getAlpha() != targetAlpha) {
                 mCircleView.animate()
-                        .alpha(targetAlpha)
-                        .setDuration(300)
-                        .start();
+                    .alpha(targetAlpha)
+                    .setDuration(300)
+                    .start();
             }
 
             // Update circle only if visible
@@ -223,9 +245,9 @@ public class TimerItem extends ConstraintLayout {
         final float textTargetAlpha = (!timer.isPaused() || !blinkOff || mTimerText.isPressed()) ? 1f : 0f;
         if (mTimerText.getAlpha() != textTargetAlpha) {
             mTimerText.animate()
-                    .alpha(textTargetAlpha)
-                    .setDuration(200)
-                    .start();
+                .alpha(textTargetAlpha)
+                .setDuration(200)
+                .start();
         }
     }
 
@@ -285,18 +307,18 @@ public class TimerItem extends ConstraintLayout {
             long buttonTimeSeconds = totalSeconds % 60;
 
             String buttonTimeFormatted = String.format(
-                    Locale.getDefault(),
-                    buttonTimeMinutes < 10 ? "%d:%02d" : "%02d:%02d",
-                    buttonTimeMinutes,
-                    buttonTimeSeconds);
+                Locale.getDefault(),
+                buttonTimeMinutes < 10 ? "%d:%02d" : "%02d:%02d",
+                buttonTimeMinutes,
+                buttonTimeSeconds);
 
             mCachedAddButtonText = mContext.getString(R.string.timer_add_custom_time, buttonTimeFormatted);
 
             mCachedAddButtonContentDesc = buttonTimeSeconds == 0
-                    ? mContext.getString(R.string.timer_add_custom_time_description, String.valueOf(buttonTimeMinutes))
-                    : mContext.getString(R.string.timer_add_custom_time_with_seconds_description,
-                    String.valueOf(buttonTimeMinutes),
-                    String.valueOf(buttonTimeSeconds));
+                ? mContext.getString(R.string.timer_add_custom_time_description, String.valueOf(buttonTimeMinutes))
+                : mContext.getString(R.string.timer_add_custom_time_with_seconds_description,
+                String.valueOf(buttonTimeMinutes),
+                String.valueOf(buttonTimeSeconds));
         }
 
         mAddTimeButton.setText(mCachedAddButtonText);
@@ -304,10 +326,8 @@ public class TimerItem extends ConstraintLayout {
 
         // For tablets in portrait mode with single timer, adjust the size of the "Add time" and
         // "Play/Pause" buttons
-        final ConstraintLayout.LayoutParams addTimeButtonParams =
-                (ConstraintLayout.LayoutParams) mAddTimeButton.getLayoutParams();
-        final ConstraintLayout.LayoutParams playPauseButtonParams =
-                (ConstraintLayout.LayoutParams) mPlayPauseButton.getLayoutParams();
+        final ConstraintLayout.LayoutParams addTimeButtonParams = (ConstraintLayout.LayoutParams) mAddTimeButton.getLayoutParams();
+        final ConstraintLayout.LayoutParams playPauseButtonParams = (ConstraintLayout.LayoutParams) mPlayPauseButton.getLayoutParams();
 
         if (currentTimerCount != mLastTimerCount) {
             mLastTimerCount = currentTimerCount;

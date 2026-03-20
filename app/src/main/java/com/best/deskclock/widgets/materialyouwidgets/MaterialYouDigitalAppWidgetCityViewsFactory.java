@@ -111,14 +111,14 @@ public class MaterialYouDigitalAppWidgetCityViewsFactory extends BaseDigitalAppW
     @Override
     protected void configureColors(RemoteViews rv, Context context, SharedPreferences prefs, int clockId, int labelId, int dayId) {
         int cityClockColor = WidgetDAO.isMaterialYouDigitalWidgetDefaultCityClockColor(prefs)
-                ? ContextCompat.getColor(context, R.color.digital_widget_time_color)
-                : WidgetDAO.getMaterialYouDigitalWidgetCustomCityClockColor(prefs);
+            ? ContextCompat.getColor(context, R.color.digital_widget_time_color)
+            : WidgetDAO.getMaterialYouDigitalWidgetCustomCityClockColor(prefs);
 
         rv.setTextColor(clockId, cityClockColor);
 
         int cityNameColor = WidgetDAO.isMaterialYouDigitalWidgetDefaultCityNameColor(prefs)
-                ? ContextCompat.getColor(context, R.color.widget_text_color)
-                : WidgetDAO.getMaterialYouDigitalWidgetCustomCityNameColor(prefs);
+            ? ContextCompat.getColor(context, R.color.widget_text_color)
+            : WidgetDAO.getMaterialYouDigitalWidgetCustomCityNameColor(prefs);
 
         rv.setTextColor(labelId, cityNameColor);
         rv.setTextColor(dayId, cityNameColor);

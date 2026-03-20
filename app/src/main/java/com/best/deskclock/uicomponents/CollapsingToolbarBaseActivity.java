@@ -28,12 +28,10 @@ import androidx.core.view.WindowInsetsCompat;
 import com.best.deskclock.BaseActivity;
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
-
 import com.best.deskclock.settings.SettingsActivity;
 import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
-
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
@@ -75,8 +73,7 @@ public abstract class CollapsingToolbarBaseActivity extends BaseActivity {
             }
         } else {
             if (SdkUtils.isAtLeastAndroid14()) {
-                overrideActivityTransition(OVERRIDE_TRANSITION_OPEN,
-                        R.anim.activity_slide_from_right, R.anim.activity_slide_to_left);
+                overrideActivityTransition(OVERRIDE_TRANSITION_OPEN, R.anim.activity_slide_from_right, R.anim.activity_slide_to_left);
             } else {
                 overridePendingTransition(R.anim.activity_slide_from_right, R.anim.activity_slide_to_left);
             }
@@ -124,18 +121,16 @@ public abstract class CollapsingToolbarBaseActivity extends BaseActivity {
                     finish();
                     if (isFadeTransitionEnabled) {
                         if (SdkUtils.isAtLeastAndroid14()) {
-                            overrideActivityTransition(OVERRIDE_TRANSITION_CLOSE,
-                                    R.anim.fade_in, R.anim.fade_out);
+                            overrideActivityTransition(OVERRIDE_TRANSITION_CLOSE, R.anim.fade_in, R.anim.fade_out);
                         } else {
                             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                         }
                     } else {
                         if (SdkUtils.isAtLeastAndroid14()) {
-                            overrideActivityTransition(OVERRIDE_TRANSITION_CLOSE,
-                                    R.anim.activity_slide_from_left, R.anim.activity_slide_to_right);
+                            overrideActivityTransition(
+                                OVERRIDE_TRANSITION_CLOSE, R.anim.activity_slide_from_left, R.anim.activity_slide_to_right);
                         } else {
-                            overridePendingTransition(
-                                    R.anim.activity_slide_from_left, R.anim.activity_slide_to_right);
+                            overridePendingTransition(R.anim.activity_slide_from_left, R.anim.activity_slide_to_right);
                         }
                     }
                 }
@@ -209,11 +204,12 @@ public abstract class CollapsingToolbarBaseActivity extends BaseActivity {
         final CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) mAppBarLayout.getLayoutParams();
         final AppBarLayout.Behavior behavior = new AppBarLayout.Behavior();
         behavior.setDragCallback(new AppBarLayout.Behavior.DragCallback() {
-                    @Override
-                    public boolean canDrag(@NonNull AppBarLayout appBarLayout) {
-                        return false;
-                    }
-                });
+            @Override
+            public boolean canDrag(@NonNull AppBarLayout appBarLayout) {
+                return false;
+            }
+        });
+
         params.setBehavior(behavior);
     }
 
@@ -225,8 +221,7 @@ public abstract class CollapsingToolbarBaseActivity extends BaseActivity {
     private void applyWindowInsets() {
         InsetsUtils.doOnApplyWindowInsets(mAppBarLayout, (v, insets) -> {
             // Get the system bar and notch insets
-            Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() |
-                    WindowInsetsCompat.Type.displayCutout());
+            Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout());
 
             v.setPadding(bars.left, bars.top, bars.right, 0);
         });

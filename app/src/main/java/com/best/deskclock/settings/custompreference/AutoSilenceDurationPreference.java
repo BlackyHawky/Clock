@@ -62,8 +62,8 @@ public class AutoSilenceDurationPreference extends DialogPreference {
      */
     public int getAutoSilenceDuration() {
         return getPersistedInt(isForTimer()
-                ? DEFAULT_TIMER_AUTO_SILENCE_DURATION
-                : DEFAULT_AUTO_SILENCE_DURATION);
+            ? DEFAULT_TIMER_AUTO_SILENCE_DURATION
+            : DEFAULT_AUTO_SILENCE_DURATION);
     }
 
     /**

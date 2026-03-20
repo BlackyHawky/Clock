@@ -102,14 +102,14 @@ public final class TimerKlaxon {
         if (SettingsDAO.isTimerVibrate(prefs)) {
             final Vibrator vibrator = appContext.getSystemService(Vibrator.class);
             AudioAttributes audioAttributes = new AudioAttributes.Builder()
-                    .setUsage(AudioAttributes.USAGE_ALARM)
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                    .build();
+                .setUsage(AudioAttributes.USAGE_ALARM)
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .build();
 
             if (SdkUtils.isAtLeastAndroid13()) {
                 VibrationAttributes vibrationAttributes = new VibrationAttributes.Builder()
-                        .setUsage(VibrationAttributes.USAGE_ALARM)
-                        .build();
+                    .setUsage(VibrationAttributes.USAGE_ALARM)
+                    .build();
                 VibrationEffect vibrationEffect = VibrationEffect.createWaveform(VIBRATE_PATTERN, 0);
                 vibrator.vibrate(vibrationEffect, vibrationAttributes);
             } else if (SdkUtils.isAtLeastAndroid8()) {

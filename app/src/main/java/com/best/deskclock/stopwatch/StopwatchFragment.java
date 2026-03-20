@@ -11,7 +11,6 @@ import static android.R.attr.state_pressed;
 import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
-
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SW_ACTION;
@@ -193,8 +192,8 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
         final int colorAccent = MaterialColors.getColor(mContext, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
         final int textColorPrimary = mMainTimeText.getCurrentTextColor();
         final ColorStateList timeTextColor = new ColorStateList(
-                new int[][]{{-state_activated, -state_pressed}, {}},
-                new int[]{textColorPrimary, colorAccent});
+            new int[][]{{-state_activated, -state_pressed}, {}},
+            new int[]{textColorPrimary, colorAccent});
         mMainTimeText.setTextColor(timeTextColor);
         mHundredthsTimeText.setTextColor(timeTextColor);
 
@@ -210,9 +209,9 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
             // Handle header text size and font
             final float textSize = mIsTablet ? 18 : 16;
             TextView[] titles = {
-                    v.findViewById(R.id.lap_title),
-                    v.findViewById(R.id.split_title),
-                    v.findViewById(R.id.total_title)
+                v.findViewById(R.id.lap_title),
+                v.findViewById(R.id.split_title),
+                v.findViewById(R.id.total_title)
             };
 
             for (TextView tv : titles) {
@@ -248,16 +247,14 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
             switch (keyCode) {
                 case KeyEvent.KEYCODE_VOLUME_UP:
-                    if (mVolumeUpAction.equals(DEFAULT_SW_ACTION)
-                            && mVolumeUpActionAfterLongPress.equals(DEFAULT_SW_ACTION)) {
+                    if (mVolumeUpAction.equals(DEFAULT_SW_ACTION) && mVolumeUpActionAfterLongPress.equals(DEFAULT_SW_ACTION)) {
                         return false;
                     }
                     mIsVolumeUpLongPressed = event.getRepeatCount() >= 2;
                     return true;
 
                 case KeyEvent.KEYCODE_VOLUME_DOWN:
-                    if (mVolumeDownAction.equals(DEFAULT_SW_ACTION)
-                            && mVolumeDownActionAfterLongPress.equals(DEFAULT_SW_ACTION)) {
+                    if (mVolumeDownAction.equals(DEFAULT_SW_ACTION) && mVolumeDownActionAfterLongPress.equals(DEFAULT_SW_ACTION)) {
                         return false;
                     }
                     mIsVolumeDownLongPressed = event.getRepeatCount() >= 2;
@@ -525,10 +522,10 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
         final String text = mLapsAdapter.getShareText();
 
         final Intent shareIntent = new Intent(Intent.ACTION_SEND)
-                .addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT)
-                .putExtra(Intent.EXTRA_SUBJECT, subject)
-                .putExtra(Intent.EXTRA_TEXT, text)
-                .setType("text/plain");
+            .addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT)
+            .putExtra(Intent.EXTRA_SUBJECT, subject)
+            .putExtra(Intent.EXTRA_TEXT, text)
+            .setType("text/plain");
 
         final String title = mContext.getString(R.string.sw_share_button);
         final Intent shareChooserIntent = Intent.createChooser(shareIntent, title);
@@ -604,8 +601,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
         }
 
         // Handle margins dynamically for the landscape mode
-        ViewGroup.MarginLayoutParams layoutParams =
-                (ViewGroup.MarginLayoutParams) mStopwatchLandscapeLayout.getLayoutParams();
+        ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) mStopwatchLandscapeLayout.getLayoutParams();
 
         final int marginStart = (int) dpToPx(mIsTablet ? 10 : 0, mDisplayMetrics);
         final int marginEnd = (int) dpToPx(mIsTablet ? 10 : 90, mDisplayMetrics);
@@ -799,24 +795,24 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
             final View touchTarget = isCircleVisible() ? mStopwatchCircleView : mStopwatchWrapper;
             final Stopwatch stopwatch = getStopwatch();
             final boolean blink = stopwatch.isPaused()
-                    && startTime % 1000 < 500
-                    && !touchTarget.isPressed();
+                && startTime % 1000 < 500
+                && !touchTarget.isPressed();
             final float textTargetAlpha = blink ? 0f : 1f;
 
             mMainTimeText.animate()
-                    .alpha(textTargetAlpha)
-                    .setDuration(200)
-                    .start();
+                .alpha(textTargetAlpha)
+                .setDuration(200)
+                .start();
 
             mHundredthsTimeText.animate()
-                    .alpha(textTargetAlpha)
-                    .setDuration(200)
-                    .start();
+                .alpha(textTargetAlpha)
+                .setDuration(200)
+                .start();
 
             if (!stopwatch.isReset()) {
                 final long period = stopwatch.isPaused()
-                        ? REDRAW_PERIOD_PAUSED
-                        : REDRAW_PERIOD_RUNNING;
+                    ? REDRAW_PERIOD_PAUSED
+                    : REDRAW_PERIOD_RUNNING;
                 final long endTime = Utils.now();
                 final long delay = Math.max(0, startTime + period - endTime);
                 mMainTimeText.postDelayed(this, delay);

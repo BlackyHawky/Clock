@@ -56,7 +56,6 @@ import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
-
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
@@ -89,7 +88,7 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
      *
      * @return The title of the fragment to be displayed in the collapsing toolbar.
      */
-    protected abstract String getFragmentTitle() ;
+    protected abstract String getFragmentTitle();
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
@@ -133,8 +132,8 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
                 menu.clear();
 
                 menu.add(0, MENU_ABOUT, 0, R.string.about_title)
-                        .setIcon(R.drawable.ic_about)
-                        .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+                    .setIcon(R.drawable.ic_about)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
                 toolbar.post(() -> ThemeUtils.applyToolbarTooltips(toolbar));
             }
@@ -143,8 +142,7 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
             public boolean onMenuItemSelected(@NonNull MenuItem item) {
                 if (item.getItemId() == MENU_ABOUT) {
                     Fragment existingFragment =
-                            requireActivity().getSupportFragmentManager()
-                                    .findFragmentByTag(AboutFragment.class.getSimpleName());
+                        requireActivity().getSupportFragmentManager().findFragmentByTag(AboutFragment.class.getSimpleName());
 
                     if (existingFragment == null) {
                         animateAndShowFragment(new AboutFragment());
@@ -276,8 +274,7 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
                     }
 
                     // Apply the Material Expressive background
-                    Drawable cardBackground = ThemeUtils.expressiveCardBackground(
-                            context, visibleIndex, visibleCount);
+                    Drawable cardBackground = ThemeUtils.expressiveCardBackground(context, visibleIndex, visibleCount);
 
                     cardView.setBackground(ThemeUtils.rippleDrawable(context, cardBackground));
                 }
@@ -288,12 +285,10 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
     @Override
     public void onDisplayPreferenceDialog(@NonNull Preference pref) {
         if (pref instanceof ListPreference customListPref) {
-            CustomListPreferenceDialogFragment dialog =
-                    CustomListPreferenceDialogFragment.newInstance(customListPref);
+            CustomListPreferenceDialogFragment dialog = CustomListPreferenceDialogFragment.newInstance(customListPref);
             CustomListPreferenceDialogFragment.show(getChildFragmentManager(), dialog);
         } else if (pref instanceof ColorPickerPreference colorPickerPref) {
-            ColorPreferenceDialogFragment dialog =
-                    ColorPreferenceDialogFragment.newInstance(colorPickerPref);
+            ColorPreferenceDialogFragment dialog = ColorPreferenceDialogFragment.newInstance(colorPickerPref);
             ColorPreferenceDialogFragment.show(getChildFragmentManager(), dialog);
         } else {
             super.onDisplayPreferenceDialog(pref);
@@ -302,8 +297,8 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
 
     private boolean isCardPreference(Preference preference) {
         return preference != null
-                && !(preference instanceof PreferenceCategory)
-                && !(preference instanceof CustomAboutTitlePreference);
+            && !(preference instanceof PreferenceCategory)
+            && !(preference instanceof CustomAboutTitlePreference);
     }
 
     /**
@@ -317,8 +312,7 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
     private void applyWindowInsets() {
         InsetsUtils.doOnApplyWindowInsets(mCoordinatorLayout, (v, insets) -> {
             // Get the system bar and notch insets
-            Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() |
-                    WindowInsetsCompat.Type.displayCutout());
+            Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout());
 
             v.setPadding(bars.left, bars.top, bars.right, 0);
 
@@ -336,22 +330,22 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
      */
     protected void animateAndShowFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction =
-                requireActivity().getSupportFragmentManager().beginTransaction();
+            requireActivity().getSupportFragmentManager().beginTransaction();
 
         if (ThemeUtils.areSystemAnimationsDisabled(requireContext())) {
             fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_NONE);
         } else if (SettingsDAO.isFadeTransitionsEnabled(mPrefs)) {
             fragmentTransaction.setCustomAnimations(
-                    R.anim.fade_in, R.anim.fade_out,
-                    R.anim.fade_in, R.anim.fade_out);
+                R.anim.fade_in, R.anim.fade_out,
+                R.anim.fade_in, R.anim.fade_out);
         } else {
             fragmentTransaction.setCustomAnimations(
-                    R.anim.fragment_slide_from_right, R.anim.fragment_slide_to_left,
-                    R.anim.fragment_slide_from_left, R.anim.fragment_slide_to_right);
+                R.anim.fragment_slide_from_right, R.anim.fragment_slide_to_left,
+                R.anim.fragment_slide_from_left, R.anim.fragment_slide_to_right);
         }
         fragmentTransaction.replace(R.id.content_frame, fragment)
-                .addToBackStack(null)
-                .commit();
+            .addToBackStack(null)
+            .commit();
     }
 
     protected void selectCustomFile(Preference pref, ActivityResultLauncher<Intent> launcher,
@@ -362,32 +356,32 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
             selectFile(launcher, isFontFile);
         } else {
             CustomDialog.create(
-                    requireContext(),
-                    null,
-                    null,
-                    getString(isFontFile
-                            ? R.string.custom_font_dialog_title
-                            : R.string.background_image_dialog_title),
-                    getString(isFontFile
-                            ? R.string.custom_font_title_variant
-                            : R.string.background_image_title_variant),
-                    null,
-                    getString(isFontFile ? R.string.label_new_font : R.string.label_new_image),
-                    (d, w) -> selectFile(launcher, isFontFile),
-                    null,
-                    null,
-                    getString(R.string.delete),
-                    (d, w) -> {
-                        mPrefs.edit().remove(prefKey).apply();
-                        pref.setTitle(isFontFile ? R.string.custom_font_title : R.string.background_image_title);
-                        pref.setSummary(null);
-                        if (onPreferenceDeleted != null) {
-                            onPreferenceDeleted.onDeleted();
-                        }
-                        deleteFile(fontPath, prefKey, isFontFile);
-                    },
-                    null,
-                    CustomDialog.SoftInputMode.NONE
+                requireContext(),
+                null,
+                null,
+                getString(isFontFile
+                    ? R.string.custom_font_dialog_title
+                    : R.string.background_image_dialog_title),
+                getString(isFontFile
+                    ? R.string.custom_font_title_variant
+                    : R.string.background_image_title_variant),
+                null,
+                getString(isFontFile ? R.string.label_new_font : R.string.label_new_image),
+                (d, w) -> selectFile(launcher, isFontFile),
+                null,
+                null,
+                getString(R.string.delete),
+                (d, w) -> {
+                    mPrefs.edit().remove(prefKey).apply();
+                    pref.setTitle(isFontFile ? R.string.custom_font_title : R.string.background_image_title);
+                    pref.setSummary(null);
+                    if (onPreferenceDeleted != null) {
+                        onPreferenceDeleted.onDeleted();
+                    }
+                    deleteFile(fontPath, prefKey, isFontFile);
+                },
+                null,
+                CustomDialog.SoftInputMode.NONE
             ).show();
         }
     }
@@ -395,29 +389,29 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
     /**
      * Opens a file picker allowing the user to select either a font file or an image file.
      *
-     * @param launcher    The ActivityResultLauncher used to start the document picker.
-     * @param isFontFile  True to filter for font files, false to filter for image files.
+     * @param launcher   The ActivityResultLauncher used to start the document picker.
+     * @param isFontFile True to filter for font files, false to filter for image files.
      */
     protected void selectFile(ActivityResultLauncher<Intent> launcher, boolean isFontFile) {
         final String type = isFontFile ? "*/*" : "image/*";
         final String[] mimeTypes = isFontFile
-                ? new String[]{"application/x-font-ttf", "application/x-font-otf", "font/ttf", "font/otf"}
-                : new String[]{"image/jpeg", "image/png"};
+            ? new String[]{"application/x-font-ttf", "application/x-font-otf", "font/ttf", "font/otf"}
+            : new String[]{"image/jpeg", "image/png"};
 
         launcher.launch(new Intent(Intent.ACTION_OPEN_DOCUMENT)
-                .addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
-                .addCategory(Intent.CATEGORY_OPENABLE)
-                .setType(type)
-                .putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
+            .addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
+            .addCategory(Intent.CATEGORY_OPENABLE)
+            .setType(type)
+            .putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
         );
     }
 
     /**
      * Deletes a file from storage and removes its associated preference entry.
      *
-     * @param path        The absolute path of the file to delete.
-     * @param prefKey     The preference key associated with the stored file path.
-     * @param isFontFile  True if the deleted file is a font, false if it is an image.
+     * @param path       The absolute path of the file to delete.
+     * @param prefKey    The preference key associated with the stored file path.
+     * @param isFontFile True if the deleted file is a font, false if it is an image.
      */
     protected void deleteFile(String path, String prefKey, boolean isFontFile) {
         clearFile(path);
@@ -425,14 +419,14 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
         mPrefs.edit().remove(prefKey).apply();
 
         CustomToast.show(requireContext(), isFontFile
-                ? R.string.custom_font_toast_message_deleted
-                : R.string.background_image_toast_message_deleted);
+            ? R.string.custom_font_toast_message_deleted
+            : R.string.background_image_toast_message_deleted);
     }
 
     /**
      * Deletes the file at the given path if it exists and is a regular file.
      *
-     * @param path  The absolute path of the file to delete.
+     * @param path The absolute path of the file to delete.
      */
     protected void clearFile(String path) {
         if (path != null) {

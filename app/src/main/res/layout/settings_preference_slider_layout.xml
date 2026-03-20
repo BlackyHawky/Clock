@@ -27,7 +27,7 @@
         android:clipToPadding="false"
         android:baselineAligned="false">
 
-        <include layout="@layout/settings_preference_image_frame"/>
+        <include layout="@layout/settings_preference_image_frame" />
 
         <LinearLayout
             android:layout_width="match_parent"

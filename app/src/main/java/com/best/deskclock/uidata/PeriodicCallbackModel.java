@@ -164,7 +164,7 @@ final class PeriodicCallbackModel {
     /**
      * Schedules the execution of the given delegate Runnable at the next callback time.
      */
-        private record PeriodicRunnable(Runnable mDelegate, Period mPeriod, long mOffset) implements Runnable {
+    private record PeriodicRunnable(Runnable mDelegate, Period mPeriod, long mOffset) implements Runnable {
 
         @Override
         public void run() {

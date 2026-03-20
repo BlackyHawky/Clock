@@ -3,7 +3,6 @@
 package com.best.deskclock.settings;
 
 import static androidx.core.util.TypedValueCompat.dpToPx;
-
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
 import android.annotation.SuppressLint;
@@ -29,7 +28,6 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.ThemeUtils;
-
 import com.best.deskclock.utils.Utils;
 import com.google.android.material.radiobutton.MaterialRadioButton;
 
@@ -67,9 +65,8 @@ public class CustomListPreferenceDialogFragment extends DialogFragment {
      * @param pref The {@link ListPreference} associated with this dialog.
      *             Its configuration and current value will be used to initialize
      *             the dialog.
-     *
      * @return A fully configured instance of {@link CustomListPreferenceDialogFragment}
-     *         ready to be displayed.
+     * ready to be displayed.
      */
     public static CustomListPreferenceDialogFragment newInstance(ListPreference pref) {
         Bundle args = new Bundle();
@@ -123,7 +120,7 @@ public class CustomListPreferenceDialogFragment extends DialogFragment {
         for (int i = 0; i < Objects.requireNonNull(entries).length; i++) {
             MaterialRadioButton radioButton = new MaterialRadioButton(context);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             radioButton.setLayoutParams(params);
             radioButton.setText(entries[i]);
             radioButton.setTag(i);
@@ -150,20 +147,20 @@ public class CustomListPreferenceDialogFragment extends DialogFragment {
         }
 
         return CustomDialog.create(
-                context,
-                null,
-                null,
-                title,
-                null,
-                listView,
-                null,
-                null,
-                getString(android.R.string.cancel),
-                null,
-                null,
-                null,
-                null,
-                CustomDialog.SoftInputMode.NONE
+            context,
+            null,
+            null,
+            title,
+            null,
+            listView,
+            null,
+            null,
+            getString(android.R.string.cancel),
+            null,
+            null,
+            null,
+            null,
+            CustomDialog.SoftInputMode.NONE
         );
     }
 

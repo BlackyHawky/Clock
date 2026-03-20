@@ -76,6 +76,7 @@ final class CityDAO {
      * If the new list is shorter than the previously saved one, any excess
      * keys are removed to avoid leftover data.
      * <p>
+     *
      * @param prefs  the SharedPreferences instance where cities are saved
      * @param cities the list of selected cities, in the desired order
      */
@@ -133,8 +134,7 @@ final class CityDAO {
                 // Attempt to locate the resource id defining the city as a string.
                 final int cityResourceId = cityStrings.getResourceId(i, 0);
                 if (cityResourceId == 0) {
-                    final String message = String.format(Locale.ENGLISH,
-                            "Unable to locate city resource id for index %d", i);
+                    final String message = String.format(Locale.ENGLISH, "Unable to locate city resource id for index %d", i);
                     throw new IllegalStateException(message);
                 }
 
@@ -148,8 +148,7 @@ final class CityDAO {
                 // Attempt to parse the time zone from the city entry.
                 final String[] cityParts = cityString.split("[|]");
                 if (cityParts.length != 2) {
-                    final String message = String.format(
-                            "Error parsing malformed city %s", cityString);
+                    final String message = String.format("Error parsing malformed city %s", cityString);
                     throw new IllegalStateException(message);
                 }
 
@@ -186,7 +185,8 @@ final class CityDAO {
         // Extract index string from input, use the first character of city name as the index string
         // if one is not explicitly provided.
         final String indexString = TextUtils.isEmpty(parts[0])
-                ? name.substring(0, 1) : parts[0];
+            ? name.substring(0, 1)
+            : parts[0];
         final String phoneticName = parts.length == 3 ? parts[2] : name;
 
         final Matcher matcher = NUMERIC_INDEX_REGEX.matcher(indexString);

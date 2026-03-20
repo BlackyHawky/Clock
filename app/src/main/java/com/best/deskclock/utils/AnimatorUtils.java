@@ -25,8 +25,8 @@ public class AnimatorUtils {
 
     public static ValueAnimator getScaleAnimator(View view, float... values) {
         return ObjectAnimator.ofPropertyValuesHolder(view,
-                PropertyValuesHolder.ofFloat(View.SCALE_X, values),
-                PropertyValuesHolder.ofFloat(View.SCALE_Y, values));
+            PropertyValuesHolder.ofFloat(View.SCALE_X, values),
+            PropertyValuesHolder.ofFloat(View.SCALE_Y, values));
     }
 
     public static ValueAnimator getAlphaAnimator(View view, float... values) {

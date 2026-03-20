@@ -4,24 +4,7 @@ package com.best.deskclock.settings;
 
 import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
 import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
-
-import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_BACKGROUND_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_DATE_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_HOURS_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_MINUTES_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_DATE_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_HOURS_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_MINUTES_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_BACKGROUND;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_DATE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_TEXT_SHADOW;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_TEXT_UPPERCASE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_WIDGET_BACKGROUND_CORNER_RADIUS;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS;
+import static com.best.deskclock.settings.PreferencesKeys.*;
 
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
@@ -40,7 +23,7 @@ import com.best.deskclock.utils.WidgetUtils;
 import com.best.deskclock.widgets.standardwidgets.VerticalDigitalAppWidgetProvider;
 
 public class VerticalDigitalWidgetSettingsFragment extends ScreenFragment
-        implements Preference.OnPreferenceChangeListener {
+    implements Preference.OnPreferenceChangeListener {
 
     private int mAppWidgetId = INVALID_APPWIDGET_ID;
 
@@ -118,15 +101,13 @@ public class VerticalDigitalWidgetSettingsFragment extends ScreenFragment
     @Override
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
-            case KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_TEXT_UPPERCASE,
-                 KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_TEXT_SHADOW,
-                 KEY_VERTICAL_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING ->
-                    Utils.setVibrationTime(requireContext(), 50);
+            case KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_TEXT_UPPERCASE, KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_TEXT_SHADOW,
+                 KEY_VERTICAL_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING -> Utils.setVibrationTime(requireContext(), 50);
 
             case KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_BACKGROUND -> {
                 mCustomizeBackgroundCornerRadiusPref.setVisible((boolean) newValue);
                 mBackgroundCornerRadiusPref.setVisible((boolean) newValue
-                        && WidgetDAO.isVerticalWidgetBackgroundCornerRadiusCustomizable(mPrefs));
+                    && WidgetDAO.isVerticalWidgetBackgroundCornerRadiusCustomizable(mPrefs));
                 mBackgroundColorPref.setVisible((boolean) newValue);
                 Utils.setVibrationTime(requireContext(), 50);
             }
@@ -139,14 +120,14 @@ public class VerticalDigitalWidgetSettingsFragment extends ScreenFragment
             case KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_DATE -> {
                 mDefaultDateColorPref.setVisible((boolean) newValue);
                 mCustomDateColorPref.setVisible(mDefaultDateColorPref.isVisible()
-                        && !WidgetDAO.isVerticalDigitalWidgetDefaultDateColor(mPrefs));
+                    && !WidgetDAO.isVerticalDigitalWidgetDefaultDateColor(mPrefs));
                 Utils.setVibrationTime(requireContext(), 50);
             }
 
             case KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM -> {
                 mDefaultNextAlarmColorPref.setVisible((boolean) newValue);
                 mCustomNextAlarmColorPref.setVisible(mDefaultNextAlarmColorPref.isVisible()
-                        && !WidgetDAO.isVerticalDigitalWidgetDefaultNextAlarmColor(mPrefs));
+                    && !WidgetDAO.isVerticalDigitalWidgetDefaultNextAlarmColor(mPrefs));
                 Utils.setVibrationTime(requireContext(), 50);
             }
 
@@ -186,7 +167,7 @@ public class VerticalDigitalWidgetSettingsFragment extends ScreenFragment
         mCustomizeBackgroundCornerRadiusPref.setOnPreferenceChangeListener(this);
 
         mBackgroundCornerRadiusPref.setVisible(WidgetDAO.isBackgroundDisplayedOnVerticalDigitalWidget(mPrefs)
-                && WidgetDAO.isVerticalWidgetBackgroundCornerRadiusCustomizable(mPrefs));
+            && WidgetDAO.isVerticalWidgetBackgroundCornerRadiusCustomizable(mPrefs));
 
         mDisplayDatePref.setOnPreferenceChangeListener(this);
 
@@ -210,15 +191,14 @@ public class VerticalDigitalWidgetSettingsFragment extends ScreenFragment
         mDefaultDateColorPref.setVisible(WidgetDAO.isDateDisplayedOnVerticalDigitalWidget(mPrefs));
         mDefaultDateColorPref.setOnPreferenceChangeListener(this);
 
-        mCustomDateColorPref.setVisible(mDefaultDateColorPref.isVisible()
-                && !WidgetDAO.isVerticalDigitalWidgetDefaultDateColor(mPrefs));
+        mCustomDateColorPref.setVisible(mDefaultDateColorPref.isVisible() && !WidgetDAO.isVerticalDigitalWidgetDefaultDateColor(mPrefs));
         mCustomDateColorPref.setOnPreferenceChangeListener(this);
 
         mDefaultNextAlarmColorPref.setVisible(WidgetDAO.isNextAlarmDisplayedOnVerticalDigitalWidget(mPrefs));
         mDefaultNextAlarmColorPref.setOnPreferenceChangeListener(this);
 
         mCustomNextAlarmColorPref.setVisible(mDefaultNextAlarmColorPref.isVisible()
-                && !WidgetDAO.isVerticalDigitalWidgetDefaultNextAlarmColor(mPrefs));
+            && !WidgetDAO.isVerticalDigitalWidgetDefaultNextAlarmColor(mPrefs));
         mCustomNextAlarmColorPref.setOnPreferenceChangeListener(this);
     }
 

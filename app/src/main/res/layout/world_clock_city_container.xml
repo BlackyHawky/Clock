@@ -34,7 +34,7 @@
         android:maxLines="2"
         android:paddingTop="3dp"
         android:scrollHorizontally="true"
-        tools:text="1 hour ahead"/>
+        tools:text="1 hour ahead" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/city_note"

@@ -9,7 +9,6 @@ package com.best.deskclock.widgets.standardwidgets;
 import static android.util.TypedValue.COMPLEX_UNIT_PX;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
-
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_WIDGETS_CUSTOM_COLOR;
 import static com.best.deskclock.utils.WidgetUtils.METHOD_SET_IMAGE_ICON;
@@ -29,10 +28,10 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.ThemeUtils;
+import com.best.deskclock.utils.WidgetUtils;
 import com.best.deskclock.widgets.AppWidgetCityService;
 import com.best.deskclock.widgets.BaseDigitalAppWidgetProvider;
 import com.best.deskclock.widgets.DigitalWidgetSizes;
-import com.best.deskclock.utils.WidgetUtils;
 
 /**
  * <p>This provider produces a widget resembling one of the formats below.</p>
@@ -225,13 +224,12 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
 
     @Override
     protected void configureClock(RemoteViews rv, Context context, SharedPreferences prefs) {
-        WidgetUtils.applyClockFormat(rv, context, getClockViewId(),
-                WidgetUtils.getAmPmRatio(false, prefs),
-                WidgetDAO.areSecondsDisplayedOnDigitalWidget(prefs));
+        WidgetUtils.applyClockFormat(rv, context, getClockViewId(), WidgetUtils.getAmPmRatio(false, prefs),
+            WidgetDAO.areSecondsDisplayedOnDigitalWidget(prefs));
 
         int color = WidgetDAO.isDigitalWidgetDefaultClockColor(prefs)
-                ? DEFAULT_WIDGETS_CUSTOM_COLOR
-                : WidgetDAO.getDigitalWidgetCustomClockColor(prefs);
+            ? DEFAULT_WIDGETS_CUSTOM_COLOR
+            : WidgetDAO.getDigitalWidgetCustomClockColor(prefs);
         rv.setTextColor(getClockViewId(), color);
     }
 
@@ -246,8 +244,8 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
             }
 
             int color = WidgetDAO.isDigitalWidgetDefaultDateColor(prefs)
-                    ? DEFAULT_WIDGETS_CUSTOM_COLOR
-                    : WidgetDAO.getDigitalWidgetCustomDateColor(prefs);
+                ? DEFAULT_WIDGETS_CUSTOM_COLOR
+                : WidgetDAO.getDigitalWidgetCustomDateColor(prefs);
             rv.setTextColor(getDateViewId(), color);
         } else {
             rv.setViewVisibility(getDateViewId(), GONE);
@@ -269,30 +267,27 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
             rv.setViewVisibility(getNextAlarmIconId(), VISIBLE);
 
             int color = WidgetDAO.isDigitalWidgetDefaultNextAlarmColor(prefs)
-                    ? DEFAULT_WIDGETS_CUSTOM_COLOR
-                    : WidgetDAO.getDigitalWidgetCustomNextAlarmColor(prefs);
+                ? DEFAULT_WIDGETS_CUSTOM_COLOR
+                : WidgetDAO.getDigitalWidgetCustomNextAlarmColor(prefs);
             rv.setTextColor(getNextAlarmViewId(), color);
         }
     }
 
     @Override
-    protected void configureNextAlarmTitle(RemoteViews rv, SharedPreferences prefs, String nextAlarmTime,
-                                           String nextAlarmTitle) {
+    protected void configureNextAlarmTitle(RemoteViews rv, SharedPreferences prefs, String nextAlarmTime, String nextAlarmTitle) {
     }
 
     @Override
-    protected void configureBackground(RemoteViews rv, Context context, SharedPreferences prefs,
-                                       int widthPx, int heightPx) {
+    protected void configureBackground(RemoteViews rv, Context context, SharedPreferences prefs, int widthPx, int heightPx) {
 
-        if (!WidgetDAO.isBackgroundDisplayedOnDigitalWidget(prefs)
-                || widthPx <= 0 || heightPx <= 0) {
+        if (!WidgetDAO.isBackgroundDisplayedOnDigitalWidget(prefs) || widthPx <= 0 || heightPx <= 0) {
             rv.setIcon(R.id.digitalWidgetBackground, METHOD_SET_IMAGE_ICON, null);
             return;
         }
 
         int radius = (int) dpToPx(WidgetDAO.isDigitalWidgetBackgroundCornerRadiusCustomizable(prefs)
-                ? WidgetDAO.getDigitalWidgetBackgroundCornerRadius(prefs)
-                : 0, context.getResources().getDisplayMetrics());
+            ? WidgetDAO.getDigitalWidgetBackgroundCornerRadius(prefs)
+            : 0, context.getResources().getDisplayMetrics());
 
         int color = WidgetDAO.getDigitalWidgetBackgroundColor(prefs);
         Icon icon = WidgetUtils.createRoundedIcon(widthPx, heightPx, color, radius);

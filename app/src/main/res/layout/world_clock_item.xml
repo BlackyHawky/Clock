@@ -15,31 +15,31 @@
     tools:background="@drawable/bg_card_for_preview"
     tools:paddingVertical="18dp">
 
-        <include
-            layout="@layout/world_clock_city_container"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginEnd="12dp" />
+    <include
+        layout="@layout/world_clock_city_container"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginEnd="12dp" />
 
-        <TextClock
-            android:id="@+id/digital_clock"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="14dp"
-            android:paddingVertical="6dp"
-            android:textSize="24sp"
-            android:textColor="?android:attr/colorBackground"
-            android:singleLine="true"
-            tools:ignore="RtlSymmetry"
-            tools:text="12:34"
-            tools:background="@drawable/bg_card_for_preview"
-            tools:backgroundTint="?attr/colorSecondary" />
+    <TextClock
+        android:id="@+id/digital_clock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="14dp"
+        android:paddingVertical="6dp"
+        android:textSize="24sp"
+        android:textColor="?android:attr/colorBackground"
+        android:singleLine="true"
+        tools:ignore="RtlSymmetry"
+        tools:text="12:34"
+        tools:background="@drawable/bg_card_for_preview"
+        tools:backgroundTint="?attr/colorSecondary" />
 
-        <com.best.deskclock.uicomponents.AnalogClock
-            android:id="@+id/analog_clock"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            tools:visibility="gone" />
+    <com.best.deskclock.uicomponents.AnalogClock
+        android:id="@+id/analog_clock"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        tools:visibility="gone" />
 
 </LinearLayout>

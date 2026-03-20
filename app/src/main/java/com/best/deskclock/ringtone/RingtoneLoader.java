@@ -7,7 +7,6 @@
 package com.best.deskclock.ringtone;
 
 import static android.media.AudioManager.STREAM_ALARM;
-
 import static com.best.deskclock.utils.RingtoneUtils.RANDOM_CUSTOM_RINGTONE;
 import static com.best.deskclock.utils.RingtoneUtils.RANDOM_RINGTONE;
 import static com.best.deskclock.utils.RingtoneUtils.RINGTONE_SILENT;

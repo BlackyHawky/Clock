@@ -133,46 +133,46 @@ public class PermissionsManagementPreference extends Preference {
     /**
      * Display dialog when user wants to read the permission details.
      */
-     private void displayPermissionDetailsDialog() {
-         int iconId;
-         int titleId;
-         int messageId;
+    private void displayPermissionDetailsDialog() {
+        int iconId;
+        int titleId;
+        int messageId;
 
-         if (isIgnoreBatteryOtimizationsPreference()) {
-             iconId = R.drawable.ic_battery_settings;
-             titleId = R.string.ignore_battery_optimizations_dialog_title;
-             messageId = R.string.ignore_battery_optimizations_dialog_text;
-         } else if (isNotificationPermissionPreference()) {
-             iconId = R.drawable.ic_notifications;
-             titleId = R.string.notifications_dialog_title;
-             messageId = R.string.notifications_dialog_text;
-         } else if (isFullScreenNotificationPermissionPreference()) {
-             iconId = R.drawable.ic_fullscreen;
-             titleId = R.string.FSN_dialog_title;
-             messageId = R.string.FSN_dialog_text;
-         } else {
-             iconId = R.drawable.ic_screen_lock;
-             titleId = R.string.show_lockscreen_dialog_title;
-             messageId = R.string.show_lockscreen_dialog_text;
-         }
+        if (isIgnoreBatteryOtimizationsPreference()) {
+            iconId = R.drawable.ic_battery_settings;
+            titleId = R.string.ignore_battery_optimizations_dialog_title;
+            messageId = R.string.ignore_battery_optimizations_dialog_text;
+        } else if (isNotificationPermissionPreference()) {
+            iconId = R.drawable.ic_notifications;
+            titleId = R.string.notifications_dialog_title;
+            messageId = R.string.notifications_dialog_text;
+        } else if (isFullScreenNotificationPermissionPreference()) {
+            iconId = R.drawable.ic_fullscreen;
+            titleId = R.string.FSN_dialog_title;
+            messageId = R.string.FSN_dialog_text;
+        } else {
+            iconId = R.drawable.ic_screen_lock;
+            titleId = R.string.show_lockscreen_dialog_title;
+            messageId = R.string.show_lockscreen_dialog_text;
+        }
 
-         CustomDialog.create(
-                 mContext,
-                 null,
-                 AppCompatResources.getDrawable(mContext, iconId),
-                 mContext.getString(titleId),
-                 mContext.getString(messageId),
-                 null,
-                 mContext.getString(R.string.dialog_close),
-                 null,
-                 null,
-                 null,
-                 null,
-                 null,
-                 null,
-                 CustomDialog.SoftInputMode.NONE
-         ).show();
-     }
+        CustomDialog.create(
+            mContext,
+            null,
+            AppCompatResources.getDrawable(mContext, iconId),
+            mContext.getString(titleId),
+            mContext.getString(messageId),
+            null,
+            mContext.getString(R.string.dialog_close),
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            CustomDialog.SoftInputMode.NONE
+        ).show();
+    }
 
     public void refreshState() {
         notifyChanged();

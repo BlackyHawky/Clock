@@ -8,7 +8,6 @@ package com.best.deskclock.data;
 
 import static android.app.AlarmManager.ELAPSED_REALTIME_WAKEUP;
 import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
-
 import static com.best.deskclock.data.Timer.State.EXPIRED;
 import static com.best.deskclock.data.Timer.State.RESET;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_END_OF_RINGTONE;
@@ -158,8 +157,7 @@ final class TimerModel {
      */
     private Service mService;
 
-    TimerModel(Context context, SharedPreferences prefs, RingtoneModel ringtoneModel,
-               NotificationModel notificationModel) {
+    TimerModel(Context context, SharedPreferences prefs, RingtoneModel ringtoneModel, NotificationModel notificationModel) {
 
         mContext = context;
         mPrefs = prefs;
@@ -244,8 +242,7 @@ final class TimerModel {
      */
     Timer addTimer(long length, String label, String buttonTime, boolean deleteAfterUse) {
         // Create the timer instance.
-        Timer timer = new Timer(-1, RESET, length, length, Timer.UNUSED, Timer.UNUSED, length,
-                label, buttonTime, deleteAfterUse);
+        Timer timer = new Timer(-1, RESET, length, length, Timer.UNUSED, Timer.UNUSED, length, label, buttonTime, deleteAfterUse);
 
         // Add the timer to permanent storage.
         timer = TimerDAO.addTimer(mPrefs, timer);
@@ -611,8 +608,7 @@ final class TimerModel {
      * @param eventLabelId the label of the timer event to send; 0 if no event should be sent
      */
     private void doResetOrDeleteTimer(Timer timer, boolean allowDelete, @StringRes int eventLabelId) {
-        if (allowDelete && (timer.isExpired()
-                || timer.isMissed()) && timer.getDeleteAfterUse()) {
+        if (allowDelete && (timer.isExpired() || timer.isMissed()) && timer.getDeleteAfterUse()) {
             doRemoveTimer(timer);
             if (eventLabelId != 0) {
                 Events.sendTimerEvent(R.string.action_delete, eventLabelId);
@@ -667,14 +663,13 @@ final class TimerModel {
 
         if (nextExpiringTimer == null) {
             // Cancel the existing timer expiration callback.
-            final PendingIntent pi = PendingIntent.getService(mContext,
-                    0, intent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_NO_CREATE | PendingIntent.FLAG_IMMUTABLE);
+            final PendingIntent pi = PendingIntent.getService(mContext, 0, intent,
+                PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_NO_CREATE | PendingIntent.FLAG_IMMUTABLE);
+
             if (pi != null) {
                 mAlarmManager.cancel(pi);
                 pi.cancel();
             }
-        /* TODO: we can consider that issue #5 is solved as indicated in the discussion here: https://github.com/BlackyHawky/Clock/issues/5).
-            Added out of curiosity to see how it will be solved in the LineageOS clock app (https://gitlab.com/LineageOS/issues/android/-/issues/5579). */
         } else if (nextExpiringTimer.getRemainingTime() <= 0) {
             mContext.startService(intent);
         } else if (nextExpiringTimer.getRemainingTime() < 5000) {
@@ -683,8 +678,9 @@ final class TimerModel {
             AppExecutors.getMainThread().postDelayed(this::updateAlarmManager, nextExpiringTimer.getRemainingTime());
         } else {
             // Update the existing timer expiration callback.
-            final PendingIntent pi = PendingIntent.getService(mContext,
-                    0, intent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+            final PendingIntent pi = PendingIntent.getService(mContext, 0, intent,
+                PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+
             schedulePendingIntent(mAlarmManager, nextExpiringTimer.getExpirationTime(), pi);
         }
     }
@@ -771,8 +767,7 @@ final class TimerModel {
      * when the application is not open.
      */
     void updateNotification() {
-        if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.POST_NOTIFICATIONS)
-                != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
             // Always false, because notification activation is always checked when the application is started.
             return;
         }
@@ -800,8 +795,7 @@ final class TimerModel {
      * the application is not open.
      */
     void updateMissedNotification() {
-        if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.POST_NOTIFICATIONS)
-                != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
             // Always false, because notification activation is always checked when the application is started.
             return;
         }

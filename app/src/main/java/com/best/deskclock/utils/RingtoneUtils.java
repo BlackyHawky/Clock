@@ -75,10 +75,10 @@ public class RingtoneUtils {
     public static boolean isSystemRingtone(Uri uri) {
         String uriString = uri.toString().toLowerCase();
         return (uriString.startsWith("content://media/external/audio/") ||
-                uriString.startsWith("content://media/internal/audio/") ||
-                uriString.startsWith("content://media/") ||
-                uriString.startsWith("file:///system/media/audio/") ||
-                uriString.startsWith("file:///system/media/"));
+            uriString.startsWith("content://media/internal/audio/") ||
+            uriString.startsWith("content://media/") ||
+            uriString.startsWith("file:///system/media/audio/") ||
+            uriString.startsWith("file:///system/media/"));
     }
 
     /**
@@ -101,10 +101,10 @@ public class RingtoneUtils {
      */
     public static Uri getResourceUri(Context context, @AnyRes int resourceId) {
         return new Uri.Builder()
-                .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
-                .authority(context.getPackageName())
-                .path(String.valueOf(resourceId))
-                .build();
+            .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
+            .authority(context.getPackageName())
+            .path(String.valueOf(resourceId))
+            .build();
     }
 
     /**
@@ -137,9 +137,9 @@ public class RingtoneUtils {
         MediaPlayer player = new MediaPlayer();
 
         player.setAudioAttributes(new AudioAttributes.Builder()
-                .setUsage(AudioAttributes.USAGE_ALARM)
-                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                .build());
+            .setUsage(AudioAttributes.USAGE_ALARM)
+            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+            .build());
 
         for (Uri uri : ringtoneUris) {
             try {
@@ -165,11 +165,7 @@ public class RingtoneUtils {
      * @return the duration of the ringtone.
      */
     public static int getRingtoneDuration(Context context, Uri ringtoneUri) {
-        MediaPlayer player = createPreparedMediaPlayer(
-                context,
-                ringtoneUri,
-                RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
-        );
+        MediaPlayer player = createPreparedMediaPlayer(context, ringtoneUri, RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM));
 
         if (player == null) {
             return 0;
@@ -266,10 +262,10 @@ public class RingtoneUtils {
         int type = device.getType();
 
         if (type == AudioDeviceInfo.TYPE_BLUETOOTH_A2DP
-                || type == AudioDeviceInfo.TYPE_BLUETOOTH_SCO
-                || type == AudioDeviceInfo.TYPE_WIRED_HEADPHONES
-                || type == AudioDeviceInfo.TYPE_WIRED_HEADSET
-                || type == AudioDeviceInfo.TYPE_USB_DEVICE) {
+            || type == AudioDeviceInfo.TYPE_BLUETOOTH_SCO
+            || type == AudioDeviceInfo.TYPE_WIRED_HEADPHONES
+            || type == AudioDeviceInfo.TYPE_WIRED_HEADSET
+            || type == AudioDeviceInfo.TYPE_USB_DEVICE) {
             return true;
         }
 
@@ -287,13 +283,12 @@ public class RingtoneUtils {
         final int audioMode = audioManager.getMode();
         if (SdkUtils.isAtLeastAndroid13()) {
             return audioMode == AudioManager.MODE_IN_COMMUNICATION
-                    || audioMode == AudioManager.MODE_COMMUNICATION_REDIRECT
-                    || audioMode == AudioManager.MODE_CALL_REDIRECT
-                    || audioMode == AudioManager.MODE_CALL_SCREENING
-                    || audioMode == AudioManager.MODE_IN_CALL;
+                || audioMode == AudioManager.MODE_COMMUNICATION_REDIRECT
+                || audioMode == AudioManager.MODE_CALL_REDIRECT
+                || audioMode == AudioManager.MODE_CALL_SCREENING
+                || audioMode == AudioManager.MODE_IN_CALL;
         } else {
-            return audioMode == AudioManager.MODE_IN_COMMUNICATION
-                    || audioMode == AudioManager.MODE_IN_CALL;
+            return audioMode == AudioManager.MODE_IN_COMMUNICATION || audioMode == AudioManager.MODE_IN_CALL;
         }
     }
 
@@ -327,8 +322,7 @@ public class RingtoneUtils {
         // Convert the target gain (in decibels) into the corresponding volume scalar.
         final float volume = (float) Math.pow(10f, gain / 20f);
 
-        LogUtils.v("Ringtone crescendo %,.2f%% complete (scalar: %f, volume: %f dB)",
-                fractionComplete * 100, volume, gain);
+        LogUtils.v("Ringtone crescendo %,.2f%% complete (scalar: %f, volume: %f dB)", fractionComplete * 100, volume, gain);
 
         return volume;
     }

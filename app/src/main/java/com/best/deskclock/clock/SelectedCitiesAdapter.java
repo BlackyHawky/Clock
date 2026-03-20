@@ -46,8 +46,7 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private final boolean mIsPortrait;
     private final boolean mShowHomeClock;
 
-    public SelectedCitiesAdapter(Context context, String dateFormat,
-                                 String dateFormatForAccessibility, List<City> cities,
+    public SelectedCitiesAdapter(Context context, String dateFormat, String dateFormatForAccessibility, List<City> cities,
                                  boolean showHomeClock, boolean isPortrait) {
 
         mContext = context;
@@ -95,8 +94,7 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             }
             ((CityViewHolder) holder).bind(mContext, city, mIsPortrait);
         } else if (viewType == MAIN_CLOCK) {
-            ((MainClockViewHolder) holder).bind(mContext, mDateFormat, mDateFormatForAccessibility,
-                    mCities, mShowHomeClock, mIsPortrait);
+            ((MainClockViewHolder) holder).bind(mContext, mDateFormat, mDateFormatForAccessibility, mCities, mShowHomeClock, mIsPortrait);
         } else {
             throw new IllegalArgumentException("Unexpected view type: " + viewType);
         }

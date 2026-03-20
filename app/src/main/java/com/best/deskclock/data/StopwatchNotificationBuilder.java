@@ -45,8 +45,8 @@ class StopwatchNotificationBuilder {
 
         // Intent to load the app when the notification is tapped.
         final Intent showApp = new Intent(context, DeskClock.class)
-                .setAction(StopwatchService.ACTION_SHOW_STOPWATCH)
-                .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
+            .setAction(StopwatchService.ACTION_SHOW_STOPWATCH)
+            .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
 
         final PendingIntent pendingShowApp = Utils.pendingActivityIntent(context, showApp);
 
@@ -63,8 +63,8 @@ class StopwatchNotificationBuilder {
         if (running) {
             // Left button: Pause
             final Intent pause = new Intent(context, StopwatchService.class)
-                    .setAction(StopwatchService.ACTION_PAUSE_STOPWATCH)
-                    .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
+                .setAction(StopwatchService.ACTION_PAUSE_STOPWATCH)
+                .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
 
             @DrawableRes final int icon1 = R.drawable.ic_fab_pause;
             final CharSequence title1 = context.getText(R.string.sw_pause_button);
@@ -74,8 +74,8 @@ class StopwatchNotificationBuilder {
             // Right button: Add Lap
             if (DataModel.getDataModel().canAddMoreLaps()) {
                 final Intent lap = new Intent(context, StopwatchService.class)
-                        .setAction(StopwatchService.ACTION_LAP_STOPWATCH)
-                        .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
+                    .setAction(StopwatchService.ACTION_LAP_STOPWATCH)
+                    .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
 
                 @DrawableRes final int icon2 = R.drawable.ic_stopwatch_lap;
                 final CharSequence title2 = context.getText(R.string.sw_lap_button);
@@ -96,8 +96,8 @@ class StopwatchNotificationBuilder {
         } else {
             // Left button: Start
             final Intent start = new Intent(context, StopwatchService.class)
-                    .setAction(StopwatchService.ACTION_START_STOPWATCH)
-                    .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
+                .setAction(StopwatchService.ACTION_START_STOPWATCH)
+                .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
 
             @DrawableRes final int icon1 = R.drawable.ic_fab_play;
             final CharSequence title1 = context.getText(R.string.sw_start_button);
@@ -106,8 +106,8 @@ class StopwatchNotificationBuilder {
 
             // Right button: Reset (dismisses notification and resets stopwatch)
             final Intent reset = new Intent(context, StopwatchService.class)
-                    .setAction(StopwatchService.ACTION_RESET_STOPWATCH)
-                    .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
+                .setAction(StopwatchService.ACTION_RESET_STOPWATCH)
+                .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
 
             @DrawableRes final int icon2 = R.drawable.ic_reset;
             final CharSequence title2 = context.getText(R.string.reset);
@@ -120,18 +120,18 @@ class StopwatchNotificationBuilder {
         }
 
         final Builder notification = new Builder(context, STOPWATCH_NOTIFICATION_CHANNEL_ID)
-                .setLocalOnly(true)
-                .setOngoing(running)
-                .setCustomContentView(content)
-                .setContentIntent(pendingShowApp)
-                .setAutoCancel(stopwatch.isPaused())
-                .setPriority(SdkUtils.isAtLeastAndroid7()
-                        ? NotificationManager.IMPORTANCE_LOW
-                        : Notification.PRIORITY_LOW)
-                .setSmallIcon(R.drawable.ic_tab_stopwatch_static)
-                .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
-                .setColor(context.getColor(R.color.md_theme_primary))
-                .setGroup(nm.getStopwatchNotificationGroupKey());
+            .setLocalOnly(true)
+            .setOngoing(running)
+            .setCustomContentView(content)
+            .setContentIntent(pendingShowApp)
+            .setAutoCancel(stopwatch.isPaused())
+            .setPriority(SdkUtils.isAtLeastAndroid7()
+                ? NotificationManager.IMPORTANCE_LOW
+                : Notification.PRIORITY_LOW)
+            .setSmallIcon(R.drawable.ic_tab_stopwatch_static)
+            .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
+            .setColor(context.getColor(R.color.md_theme_primary))
+            .setGroup(nm.getStopwatchNotificationGroupKey());
 
         for (Action action : actions) {
             notification.addAction(action);

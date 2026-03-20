@@ -54,8 +54,7 @@ public class CircleButtonsLayout extends FrameLayout {
         final int circleDiam = (int) (minBound - mDiamOffset);
 
         if (mResetAddButton != null) {
-            final MarginLayoutParams resetParams = (MarginLayoutParams) mResetAddButton
-                    .getLayoutParams();
+            final MarginLayoutParams resetParams = (MarginLayoutParams) mResetAddButton.getLayoutParams();
             resetParams.bottomMargin = circleDiam / 8;
             if (minBound == frameWidth) {
                 resetParams.bottomMargin += (frameHeight - frameWidth) / 2;

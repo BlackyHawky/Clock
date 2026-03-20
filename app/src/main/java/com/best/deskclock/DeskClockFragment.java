@@ -53,6 +53,7 @@ public abstract class DeskClockFragment extends Fragment implements FabContainer
 
     /**
      * Called before onUpdateFab when the fab should be animated.
+     *
      * @param fab the fab component to be configured based on current state
      */
     public void onMorphFab(@NonNull ImageView fab) {

@@ -5,7 +5,6 @@ package com.best.deskclock.widgets.standardwidgets;
 import static android.util.TypedValue.COMPLEX_UNIT_PX;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
-
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_WIDGETS_CUSTOM_COLOR;
 import static com.best.deskclock.utils.WidgetUtils.METHOD_SET_IMAGE_ICON;
@@ -229,11 +228,9 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
             rv.setViewVisibility(getNextAlarmViewId(), GONE);
             rv.setViewVisibility(getNextAlarmIconId(), GONE);
             if (isTextUppercaseDisplayed) {
-                rv.setTextViewText(getNextAlarmTextViewId(),
-                        localizedContext.getString(R.string.next_alarm_widget_title_no_alarm).toUpperCase());
+                rv.setTextViewText(getNextAlarmTextViewId(), localizedContext.getString(R.string.next_alarm_widget_title_no_alarm).toUpperCase());
             } else {
-                rv.setTextViewText(getNextAlarmTextViewId(),
-                        localizedContext.getString(R.string.next_alarm_widget_title_no_alarm));
+                rv.setTextViewText(getNextAlarmTextViewId(), localizedContext.getString(R.string.next_alarm_widget_title_no_alarm));
             }
 
             if (isDefaultTitleColor) {
@@ -245,12 +242,10 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
             rv.setViewVisibility(getNextAlarmViewId(), VISIBLE);
             rv.setViewVisibility(getNextAlarmIconId(), VISIBLE);
             if (isTextUppercaseDisplayed) {
-                rv.setTextViewText(getNextAlarmTextViewId(),
-                        localizedContext.getString(R.string.next_alarm_widget_text).toUpperCase());
+                rv.setTextViewText(getNextAlarmTextViewId(), localizedContext.getString(R.string.next_alarm_widget_text).toUpperCase());
                 rv.setTextViewText(getNextAlarmViewId(), nextAlarmTime.toUpperCase());
             } else {
-                rv.setTextViewText(getNextAlarmTextViewId(),
-                        localizedContext.getString(R.string.next_alarm_widget_text));
+                rv.setTextViewText(getNextAlarmTextViewId(), localizedContext.getString(R.string.next_alarm_widget_text));
                 rv.setTextViewText(getNextAlarmViewId(), nextAlarmTime);
             }
 
@@ -269,8 +264,7 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
-    protected void configureNextAlarmTitle(RemoteViews rv, SharedPreferences prefs, String nextAlarmTime,
-                                           String nextAlarmTitle) {
+    protected void configureNextAlarmTitle(RemoteViews rv, SharedPreferences prefs, String nextAlarmTime, String nextAlarmTitle) {
 
         if (TextUtils.isEmpty(nextAlarmTime) || TextUtils.isEmpty(nextAlarmTitle)) {
             rv.setViewVisibility(getNextAlarmTitleViewId(), GONE);
@@ -291,18 +285,16 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
-    protected void configureBackground(RemoteViews rv, Context context, SharedPreferences prefs,
-                                       int widthPx, int heightPx) {
+    protected void configureBackground(RemoteViews rv, Context context, SharedPreferences prefs, int widthPx, int heightPx) {
 
-        if (!WidgetDAO.isBackgroundDisplayedOnNextAlarmWidget(prefs)
-                || widthPx <= 0 || heightPx <= 0) {
+        if (!WidgetDAO.isBackgroundDisplayedOnNextAlarmWidget(prefs) || widthPx <= 0 || heightPx <= 0) {
             rv.setIcon(R.id.digitalWidgetBackground, METHOD_SET_IMAGE_ICON, null);
             return;
         }
 
         int radius = (int) dpToPx(WidgetDAO.isNextAlarmWidgetBackgroundCornerRadiusCustomizable(prefs)
-                ? WidgetDAO.getNextAlarmWidgetBackgroundCornerRadius(prefs)
-                : 0, context.getResources().getDisplayMetrics());
+            ? WidgetDAO.getNextAlarmWidgetBackgroundCornerRadius(prefs)
+            : 0, context.getResources().getDisplayMetrics());
 
         int color = WidgetDAO.getNextAlarmWidgetBackgroundColor(prefs);
         Icon icon = WidgetUtils.createRoundedIcon(widthPx, heightPx, color, radius);

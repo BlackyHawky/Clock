@@ -42,7 +42,7 @@ import java.util.Locale;
 /**
  * DialogFragment to set the volume for alarms.
  */
-public class AlarmVolumeDialogFragment  extends DialogFragment {
+public class AlarmVolumeDialogFragment extends DialogFragment {
 
     /**
      * The tag that identifies instances of AlarmVolumeDialogFragment in the fragment manager.
@@ -72,7 +72,7 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
      * Creates a new instance of {@link AlarmVolumeDialogFragment} for use
      * in the alarm edit panel, where the volume value is configured for a specific alarm.
      *
-     * @param alarmVolumeValue  The volume value in step.
+     * @param alarmVolumeValue The volume value in step.
      */
     public static AlarmVolumeDialogFragment newInstance(int alarmVolumeValue, Uri ringtoneUri) {
         final Bundle args = new Bundle();
@@ -207,27 +207,27 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
         });
 
         return CustomDialog.create(
-                mContext,
-                null,
-                null,
-                getString(R.string.alarm_volume_title),
-                null,
-                dialogView,
-                getString(android.R.string.ok),
-                (d, w) -> {
-                    stopRingtonePreview();
-                    setVolumeValue();
-                },
-                getString(android.R.string.cancel),
-                (d, w) -> stopRingtonePreview(),
-                null,
-                null,
-                alertDialog -> {
-                    mDialogTitle = alertDialog.findViewById(R.id.dialog_title);
-                    int volume = (int) mSlider.getValue() + mMinVolume;
-                    updateDialogIcon(volume, maxVolume);
-                },
-                CustomDialog.SoftInputMode.NONE
+            mContext,
+            null,
+            null,
+            getString(R.string.alarm_volume_title),
+            null,
+            dialogView,
+            getString(android.R.string.ok),
+            (d, w) -> {
+                stopRingtonePreview();
+                setVolumeValue();
+            },
+            getString(android.R.string.cancel),
+            (d, w) -> stopRingtonePreview(),
+            null,
+            null,
+            alertDialog -> {
+                mDialogTitle = alertDialog.findViewById(R.id.dialog_title);
+                int volume = (int) mSlider.getValue() + mMinVolume;
+                updateDialogIcon(volume, maxVolume);
+            },
+            CustomDialog.SoftInputMode.NONE
         );
     }
 
@@ -271,11 +271,9 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
      */
     private void updateDialogIcon(int currentVolume, int maxVolume) {
         int percent = (int) (((float) currentVolume / maxVolume) * 100);
-        mDialogTitle.setCompoundDrawablesWithIntrinsicBounds(AppCompatResources.getDrawable(
-                mContext, percent < 50
-                        ? R.drawable.ic_volume_down
-                        : R.drawable.ic_volume_up),
-                null, null, null);
+        mDialogTitle.setCompoundDrawablesWithIntrinsicBounds(AppCompatResources.getDrawable(mContext, percent < 50
+            ? R.drawable.ic_volume_down
+            : R.drawable.ic_volume_up), null, null, null);
         mDialogTitle.setCompoundDrawablePadding((int) dpToPx(18, getResources().getDisplayMetrics()));
     }
 
@@ -293,8 +291,8 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
     /**
      * Enables or disables the volume plus/minus buttons based on the current slider progress.
      *
-     * @param progress     The current progress of the slider (volume level in steps).
-     * @param maxProgress  The maximum progress of the slider.
+     * @param progress    The current progress of the slider (volume level in steps).
+     * @param maxProgress The maximum progress of the slider.
      */
     private void updateVolumeButtonStates(int progress, int maxProgress) {
         ThemeUtils.updateSliderButtonEnabledState(mContext, mVolumeMinus, progress > 0);
@@ -316,7 +314,7 @@ public class AlarmVolumeDialogFragment  extends DialogFragment {
      * Starts a preview of the alarm ringtone at the given volume level.
      * Temporarily sets the alarm stream volume and restores it after a short delay.
      *
-     * @param newVolume  The volume level (in steps) to apply during the preview.
+     * @param newVolume The volume level (in steps) to apply during the preview.
      */
     public void startRingtonePreview(int newVolume) {
         if (mRingtoneStopRunnable != null) {

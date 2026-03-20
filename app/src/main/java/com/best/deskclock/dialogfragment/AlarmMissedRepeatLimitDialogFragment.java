@@ -104,20 +104,20 @@ public class AlarmMissedRepeatLimitDialogFragment extends DialogFragment {
         });
 
         return CustomDialog.create(
-                requireContext(),
-                null,
-                AppCompatResources.getDrawable(requireContext(), R.drawable.ic_repeat),
-                getString(R.string.missed_alarm_repeat_limit_title),
-                null,
-                dialogView,
-                null,
-                null,
-                getString(android.R.string.cancel),
-                null,
-                null,
-                null,
-                null,
-                CustomDialog.SoftInputMode.NONE
+            requireContext(),
+            null,
+            AppCompatResources.getDrawable(requireContext(), R.drawable.ic_repeat),
+            getString(R.string.missed_alarm_repeat_limit_title),
+            null,
+            dialogView,
+            null,
+            null,
+            getString(android.R.string.cancel),
+            null,
+            null,
+            null,
+            null,
+            CustomDialog.SoftInputMode.NONE
         );
     }
 
@@ -140,14 +140,11 @@ public class AlarmMissedRepeatLimitDialogFragment extends DialogFragment {
         }
         if (id == R.id.rb_1_time) {
             return 1;
-        }
-        else if (id == R.id.rb_3_times) {
+        } else if (id == R.id.rb_3_times) {
             return 3;
-        }
-        else if (id == R.id.rb_5_times) {
+        } else if (id == R.id.rb_5_times) {
             return 5;
-        }
-        else if (id == R.id.rb_10_times) {
+        } else if (id == R.id.rb_10_times) {
             return 10;
         } else {
             // Indefinitely

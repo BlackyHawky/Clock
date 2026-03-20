@@ -140,8 +140,8 @@ public final class City {
     @Override
     public String toString() {
         return String.format(Locale.US,
-                "City {id=%s, index=%d, indexString=%s, name=%s, phonetic=%s, tz=%s}",
-                mId, mIndex, mIndexString, mName, mPhoneticName, mTimeZone.getID());
+            "City {id=%s, index=%d, indexString=%s, name=%s, phonetic=%s, tz=%s}",
+            mId, mIndex, mIndexString, mName, mPhoneticName, mTimeZone.getID());
     }
 
     @Override
@@ -154,12 +154,12 @@ public final class City {
             return false;
         }
 
-        return mIndex == city.mIndex &&
-                Objects.equals(mId, city.mId) &&
-                Objects.equals(mIndexString, city.mIndexString) &&
-                Objects.equals(mName, city.mName) &&
-                Objects.equals(mPhoneticName, city.mPhoneticName) &&
-                Objects.equals(mTimeZone, city.mTimeZone);
+        return mIndex == city.mIndex
+            && Objects.equals(mId, city.mId)
+            && Objects.equals(mIndexString, city.mIndexString)
+            && Objects.equals(mName, city.mName)
+            && Objects.equals(mPhoneticName, city.mPhoneticName)
+            && Objects.equals(mTimeZone, city.mTimeZone);
     }
 
     @Override

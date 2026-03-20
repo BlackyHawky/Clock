@@ -79,7 +79,8 @@ public final class AsyncRingtonePlayer {
             if (getPlaybackDelegate().play(mContext, ringtoneUri, crescendoDuration)) {
                 scheduleVolumeAdjustment();
             }
-        });    }
+        });
+    }
 
     /**
      * Stops playing the ringtone.
@@ -182,10 +183,10 @@ public final class AsyncRingtonePlayer {
             LOGGER.d("AsyncRingtonePlayer - Playing ringtone URI: " + ringtoneUri);
 
             mMediaPlayer = RingtoneUtils.createPreparedMediaPlayer(
-                    context,
-                    ringtoneUri,
-                    RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM),
-                    RingtoneUtils.getFallbackRingtoneUri(context)
+                context,
+                ringtoneUri,
+                RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM),
+                RingtoneUtils.getFallbackRingtoneUri(context)
             );
 
             if (mMediaPlayer == null) {
@@ -247,11 +248,11 @@ public final class AsyncRingtonePlayer {
         private void requestAudioFocus() {
             if (SdkUtils.isAtLeastAndroid8()) {
                 AudioFocusRequest focusRequest = new AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT)
-                        .setAudioAttributes(new AudioAttributes.Builder()
-                                .setUsage(AudioAttributes.USAGE_ALARM)
-                                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                                .build())
-                        .build();
+                    .setAudioAttributes(new AudioAttributes.Builder()
+                        .setUsage(AudioAttributes.USAGE_ALARM)
+                        .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                        .build())
+                    .build();
 
                 mAudioManager.requestAudioFocus(focusRequest);
             } else {
@@ -263,11 +264,11 @@ public final class AsyncRingtonePlayer {
             if (mAudioManager != null) {
                 if (SdkUtils.isAtLeastAndroid8()) {
                     AudioFocusRequest focusRequest = new AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT)
-                            .setAudioAttributes(new AudioAttributes.Builder()
-                                    .setUsage(AudioAttributes.USAGE_ALARM)
-                                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                                    .build())
-                            .build();
+                        .setAudioAttributes(new AudioAttributes.Builder()
+                            .setUsage(AudioAttributes.USAGE_ALARM)
+                            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                            .build())
+                        .build();
 
                     mAudioManager.abandonAudioFocusRequest(focusRequest);
                 } else {

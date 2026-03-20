@@ -78,25 +78,23 @@ public final class TimerService extends Service {
     public static Intent createTimerExpiredIntent(Context context, Timer timer) {
         final int timerId = timer == null ? -1 : timer.getId();
         return new Intent(context, TimerService.class)
-                .setAction(ACTION_TIMER_EXPIRED)
-                .putExtra(EXTRA_TIMER_ID, timerId);
+            .setAction(ACTION_TIMER_EXPIRED)
+            .putExtra(EXTRA_TIMER_ID, timerId);
     }
 
     public static Intent createResetExpiredTimersIntent(Context context) {
-        return new Intent(context, TimerService.class)
-                .setAction(ACTION_RESET_EXPIRED_TIMERS);
+        return new Intent(context, TimerService.class).setAction(ACTION_RESET_EXPIRED_TIMERS);
     }
 
 
     public static Intent createAddCustomTimeToTimerIntent(Context context, int timerId) {
         return new Intent(context, TimerService.class)
-                .setAction(ACTION_ADD_CUSTOM_TIME_TO_TIMER)
-                .putExtra(EXTRA_TIMER_ID, timerId);
+            .setAction(ACTION_ADD_CUSTOM_TIME_TO_TIMER)
+            .putExtra(EXTRA_TIMER_ID, timerId);
     }
 
     public static Intent createUpdateNotificationIntent(Context context) {
-        return new Intent(context, TimerService.class)
-                .setAction(ACTION_UPDATE_NOTIFICATION);
+        return new Intent(context, TimerService.class).setAction(ACTION_UPDATE_NOTIFICATION);
     }
 
     private SharedPreferences mPrefs;
@@ -298,17 +296,13 @@ public final class TimerService extends Service {
     private void attachListeners() {
         if (mIsFlipActionEnabled) {
             mFlipListener.reset();
-            mSensorManager.registerListener(mFlipListener,
-                    mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
-                    SensorManager.SENSOR_DELAY_NORMAL,
-                    300 * 1000); //batch every 300 milliseconds
+            mSensorManager.registerListener(mFlipListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+                SensorManager.SENSOR_DELAY_NORMAL, 300 * 1000); //batch every 300 milliseconds
         }
 
         if (mIsShakeActionEnabled) {
-            mSensorManager.registerListener(mShakeListener,
-                    mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
-                    SensorManager.SENSOR_DELAY_GAME,
-                    50 * 1000); //batch every 50 milliseconds
+            mSensorManager.registerListener(mShakeListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+                SensorManager.SENSOR_DELAY_GAME, 50 * 1000); //batch every 50 milliseconds
         }
     }
 

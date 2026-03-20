@@ -140,19 +140,19 @@ public final class AlarmKlaxon {
             instance.mVibrationRunnable = () -> {
                 final Vibrator vibrator = appContext.getSystemService(Vibrator.class);
                 AudioAttributes audioAttributes = new AudioAttributes.Builder()
-                        .setUsage(AudioAttributes.USAGE_ALARM)
-                        .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                        .build();
+                    .setUsage(AudioAttributes.USAGE_ALARM)
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                    .build();
 
                 String patternKey = SettingsDAO.isPerAlarmVibrationPatternEnabled(prefs)
-                        ? alarmInstance.mVibrationPattern
-                        : SettingsDAO.getVibrationPattern(prefs);
+                    ? alarmInstance.mVibrationPattern
+                    : SettingsDAO.getVibrationPattern(prefs);
                 long[] pattern = Utils.getVibrationPatternForKey(patternKey);
 
                 if (SdkUtils.isAtLeastAndroid13()) {
                     VibrationAttributes vibrationAttributes = new VibrationAttributes.Builder()
-                            .setUsage(VibrationAttributes.USAGE_ALARM)
-                            .build();
+                        .setUsage(VibrationAttributes.USAGE_ALARM)
+                        .build();
                     VibrationEffect vibrationEffect = VibrationEffect.createWaveform(pattern, 0);
                     vibrator.vibrate(vibrationEffect, vibrationAttributes);
                 } else if (SdkUtils.isAtLeastAndroid8()) {

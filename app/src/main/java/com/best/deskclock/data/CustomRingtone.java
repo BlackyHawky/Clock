@@ -18,8 +18,7 @@ import androidx.annotation.NonNull;
  * @param mTitle          The title describing the file at the given uri; typically the file name.
  * @param mHasPermissions {@code true} iff the application has permission to read the content of {@code mUri uri}.
  */
-public record CustomRingtone(long mId, Uri mUri, String mTitle, boolean mHasPermissions)
-        implements Comparable<CustomRingtone> {
+public record CustomRingtone(long mId, Uri mUri, String mTitle, boolean mHasPermissions) implements Comparable<CustomRingtone> {
 
     public long getId() {
         return mId;

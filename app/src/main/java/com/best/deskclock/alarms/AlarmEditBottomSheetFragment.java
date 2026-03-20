@@ -5,18 +5,8 @@ package com.best.deskclock.alarms;
 import static android.app.Activity.RESULT_OK;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
-
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_SNOOZE_DURATION_DISABLED;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VOLUME_CRESCENDO_DURATION;
-import static com.best.deskclock.settings.PreferencesDefaultValues.SPINNER_TIME_PICKER_STYLE;
-import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_END_OF_RINGTONE;
-import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_NEVER;
-import static com.best.deskclock.settings.PreferencesDefaultValues.VIBRATION_PATTERN_ESCALATING;
-import static com.best.deskclock.settings.PreferencesDefaultValues.VIBRATION_PATTERN_HEARTBEAT;
-import static com.best.deskclock.settings.PreferencesDefaultValues.VIBRATION_PATTERN_SOFT;
-import static com.best.deskclock.settings.PreferencesDefaultValues.VIBRATION_PATTERN_STRONG;
-import static com.best.deskclock.settings.PreferencesDefaultValues.VIBRATION_PATTERN_TICK_TOCK;
+import static com.best.deskclock.settings.PreferencesDefaultValues.*;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -77,7 +67,6 @@ import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
-
 import com.best.deskclock.utils.WidgetUtils;
 import com.best.deskclock.widgets.materialyouwidgets.MaterialYouNextAlarmAppWidgetProvider;
 import com.best.deskclock.widgets.standardwidgets.NextAlarmAppWidgetProvider;
@@ -161,18 +150,17 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     }
 
     private final ActivityResultLauncher<Intent> mRingtonePickerLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(), result -> {
+        new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                Uri uri = SdkUtils.isAtLeastAndroid13()
+                    ? result.getData().getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI, Uri.class)
+                    : result.getData().getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
 
-                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                    Uri uri = SdkUtils.isAtLeastAndroid13()
-                            ? result.getData().getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI, Uri.class)
-                            : result.getData().getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
+                mAlarm.alert = (uri != null) ? uri : RingtoneUtils.RINGTONE_SILENT;
 
-                    mAlarm.alert = (uri != null) ? uri : RingtoneUtils.RINGTONE_SILENT;
-
-                    bindRingtone();
-                }
+                bindRingtone();
             }
+        }
     );
 
     @Override
@@ -216,8 +204,8 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
         final Bundle bundleToUse = (savedInstanceState != null) ? savedInstanceState : requireArguments();
         Alarm alarmFromArguments = SdkUtils.isAtLeastAndroid13()
-                ? bundleToUse.getParcelable(ARG_ALARM, Alarm.class)
-                : bundleToUse.getParcelable(ARG_ALARM);
+            ? bundleToUse.getParcelable(ARG_ALARM, Alarm.class)
+            : bundleToUse.getParcelable(ARG_ALARM);
 
         if (alarmFromArguments == null) {
             dismiss();
@@ -331,26 +319,21 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             Events.sendAlarmEvent(R.string.action_set_time, R.string.label_deskclock);
 
             if (SettingsDAO.getMaterialTimePickerStyle(mPrefs).equals(SPINNER_TIME_PICKER_STYLE)) {
-                final SpinnerTimePickerDialogFragment fragment =
-                        SpinnerTimePickerDialogFragment.newInstance(mAlarm.hour, mAlarm.minutes);
+                final SpinnerTimePickerDialogFragment fragment = SpinnerTimePickerDialogFragment.newInstance(mAlarm.hour, mAlarm.minutes);
 
-                hideBottomSheetAndRun(() ->
-                        SpinnerTimePickerDialogFragment.show(getChildFragmentManager(), fragment));
+                hideBottomSheetAndRun(() -> SpinnerTimePickerDialogFragment.show(getChildFragmentManager(), fragment));
             } else {
-                hideBottomSheetAndRun(() ->
-                        MaterialTimePickerDialogFragment.show(requireContext(), getChildFragmentManager(), TAG,
-                                mAlarm.hour, mAlarm.minutes, mPrefs));
+                hideBottomSheetAndRun(() -> MaterialTimePickerDialogFragment.show(requireContext(), getChildFragmentManager(), TAG,
+                    mAlarm.hour, mAlarm.minutes, mPrefs));
             }
         });
 
         mClock.setOnLongClickListener(v -> {
             Events.sendAlarmEvent(R.string.action_set_delay, R.string.label_deskclock);
 
-            final AlarmDelayPickerDialogFragment fragment =
-                    AlarmDelayPickerDialogFragment.newInstance(0, 0);
+            final AlarmDelayPickerDialogFragment fragment = AlarmDelayPickerDialogFragment.newInstance(0, 0);
 
-            hideBottomSheetAndRun(() ->
-                    AlarmDelayPickerDialogFragment.show(getChildFragmentManager(), fragment));
+            hideBottomSheetAndRun(() -> AlarmDelayPickerDialogFragment.show(getChildFragmentManager(), fragment));
 
             return true;
         });
@@ -423,26 +406,26 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         int openCalendarText = R.string.schedule_alarm_title;
 
         View.OnClickListener openCalendarListener = v -> hideBottomSheetAndRun(() ->
-                DatePickerDialogFragment.show(
-                        requireContext(),
-                        getChildFragmentManager(),
-                        mPrefs,
-                        mAlarm,
-                        (year, month, day, hour, minute) -> {
-                            if (mAlarm.daysOfWeek.isRepeating()) {
-                                mAlarm.daysOfWeek = Weekdays.NONE;
-                            }
-                            mAlarm.year = year;
-                            mAlarm.month = month;
-                            mAlarm.day = day;
-                            mAlarm.hour = hour;
-                            mAlarm.minutes = minute;
+            DatePickerDialogFragment.show(
+                requireContext(),
+                getChildFragmentManager(),
+                mPrefs,
+                mAlarm,
+                (year, month, day, hour, minute) -> {
+                    if (mAlarm.daysOfWeek.isRepeating()) {
+                        mAlarm.daysOfWeek = Weekdays.NONE;
+                    }
+                    mAlarm.year = year;
+                    mAlarm.month = month;
+                    mAlarm.day = day;
+                    mAlarm.hour = hour;
+                    mAlarm.minutes = minute;
 
-                            bindSelectedDate();
-                            bindDaysOfWeekButtons();
-                            bindDeleteOccasionalAlarmAfterUse();
-                        }
-                ));
+                    bindSelectedDate();
+                    bindDaysOfWeekButtons();
+                    bindDeleteOccasionalAlarmAfterUse();
+                }
+            ));
 
         View.OnClickListener removeDateListener = v -> {
             Calendar now = Calendar.getInstance();
@@ -465,7 +448,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
                 mSelectedDate.setOnClickListener(openCalendarListener);
                 mSelectedDate.setVisibility(VISIBLE);
                 mScheduleAlarm.setCompoundDrawablesWithIntrinsicBounds(AppCompatResources.getDrawable(
-                        requireContext(), R.drawable.ic_calendar_cancel), null, null, null);
+                    requireContext(), R.drawable.ic_calendar_cancel), null, null, null);
                 mScheduleAlarm.setText(getString(android.R.string.cancel));
                 mScheduleAlarm.setOnClickListener(removeDateListener);
             }
@@ -482,17 +465,15 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         mLabel.setTypeface(mGeneralTypeface);
 
         mLabel.setContentDescription(alarmLabelIsEmpty
-                ? getString(R.string.no_label_specified)
-                : getString(R.string.label_description) + " " + mAlarm.label);
+            ? getString(R.string.no_label_specified)
+            : getString(R.string.label_description) + " " + mAlarm.label);
 
         mLabel.setOnClickListener(v -> {
             Events.sendAlarmEvent(R.string.action_set_label, R.string.label_deskclock);
 
-            final LabelDialogFragment fragment =
-                    LabelDialogFragment.newInstance(mAlarm.label, mAlarm.syncByLabel);
+            final LabelDialogFragment fragment = LabelDialogFragment.newInstance(mAlarm.label, mAlarm.syncByLabel);
 
-            hideBottomSheetAndRun(() ->
-                    LabelDialogFragment.show(getChildFragmentManager(), fragment));
+            hideBottomSheetAndRun(() -> LabelDialogFragment.show(getChildFragmentManager(), fragment));
         });
     }
 
@@ -507,8 +488,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         final Drawable iconRingtone;
         if (RingtoneUtils.RINGTONE_SILENT.equals(mAlarm.alert)) {
             iconRingtone = AppCompatResources.getDrawable(requireContext(), R.drawable.ic_ringtone_silent);
-        } else if (RingtoneUtils.isRandomRingtone(mAlarm.alert)
-                || RingtoneUtils.isRandomCustomRingtone(mAlarm.alert)) {
+        } else if (RingtoneUtils.isRandomRingtone(mAlarm.alert) || RingtoneUtils.isRandomCustomRingtone(mAlarm.alert)) {
             iconRingtone = AppCompatResources.getDrawable(requireContext(), R.drawable.ic_random);
         } else {
             iconRingtone = AppCompatResources.getDrawable(requireContext(), R.drawable.ic_ringtone);
@@ -559,27 +539,20 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
         String vibrationPatternText = mAlarm.vibrationPattern;
         switch (vibrationPatternText) {
-            case VIBRATION_PATTERN_SOFT ->
-                    mVibrationPatternValue.setText(getString(R.string.vibration_pattern_soft));
-            case VIBRATION_PATTERN_STRONG ->
-                    mVibrationPatternValue.setText(getString(R.string.vibration_pattern_strong));
-            case VIBRATION_PATTERN_HEARTBEAT ->
-                    mVibrationPatternValue.setText(getString(R.string.vibration_pattern_heartbeat));
-            case VIBRATION_PATTERN_ESCALATING ->
-                    mVibrationPatternValue.setText(getString(R.string.vibration_pattern_escalating));
-            case VIBRATION_PATTERN_TICK_TOCK ->
-                    mVibrationPatternValue.setText(getString(R.string.vibration_pattern_tick_tock));
+            case VIBRATION_PATTERN_SOFT -> mVibrationPatternValue.setText(getString(R.string.vibration_pattern_soft));
+            case VIBRATION_PATTERN_STRONG -> mVibrationPatternValue.setText(getString(R.string.vibration_pattern_strong));
+            case VIBRATION_PATTERN_HEARTBEAT -> mVibrationPatternValue.setText(getString(R.string.vibration_pattern_heartbeat));
+            case VIBRATION_PATTERN_ESCALATING -> mVibrationPatternValue.setText(getString(R.string.vibration_pattern_escalating));
+            case VIBRATION_PATTERN_TICK_TOCK -> mVibrationPatternValue.setText(getString(R.string.vibration_pattern_tick_tock));
             default -> mVibrationPatternValue.setText(getString(R.string.label_default));
         }
 
         View.OnClickListener openVibrationPatternFragment = v -> {
             Events.sendAlarmEvent(R.string.action_set_vibration_pattern, R.string.label_deskclock);
 
-            final VibrationPatternDialogFragment fragment =
-                    VibrationPatternDialogFragment.newInstance(mAlarm.vibrationPattern);
+            final VibrationPatternDialogFragment fragment = VibrationPatternDialogFragment.newInstance(mAlarm.vibrationPattern);
 
-            hideBottomSheetAndRun(() ->
-                    VibrationPatternDialogFragment.show(getChildFragmentManager(), fragment));
+            hideBottomSheetAndRun(() -> VibrationPatternDialogFragment.show(getChildFragmentManager(), fragment));
         };
 
         mVibrationPatternLayout.setOnClickListener(openVibrationPatternFragment);
@@ -644,7 +617,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
                 mAutoSilenceDurationValue.setText(String.format("%s %s", minutesString, secondsString));
             } else if (m > 0) {
                 mAutoSilenceDurationValue.setText(getResources().getQuantityString(R.plurals.minutes_short, m, m));
-            }else {
+            } else {
                 String secondsString = s + " " + getString(R.string.seconds_label);
                 mAutoSilenceDurationValue.setText(secondsString);
             }
@@ -655,11 +628,9 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         View.OnClickListener openAutoSilenceDurationFragment = v -> {
             Events.sendAlarmEvent(R.string.action_set_auto_silence_duration, R.string.label_deskclock);
 
-            final AutoSilenceDurationDialogFragment fragment =
-                    AutoSilenceDurationDialogFragment.newInstance(mAlarm.autoSilenceDuration);
+            final AutoSilenceDurationDialogFragment fragment = AutoSilenceDurationDialogFragment.newInstance(mAlarm.autoSilenceDuration);
 
-            hideBottomSheetAndRun(() ->
-                    AutoSilenceDurationDialogFragment.show(getChildFragmentManager(), fragment));
+            hideBottomSheetAndRun(() -> AutoSilenceDurationDialogFragment.show(getChildFragmentManager(), fragment));
         };
 
         mAutoSilenceDurationLayout.setOnClickListener(openAutoSilenceDurationFragment);
@@ -698,11 +669,9 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         View.OnClickListener openAlarmSnoozeDurationFragment = v -> {
             Events.sendAlarmEvent(R.string.action_set_snooze_duration, R.string.label_deskclock);
 
-            final AlarmSnoozeDurationDialogFragment fragment =
-                    AlarmSnoozeDurationDialogFragment.newInstance(mAlarm.snoozeDuration);
+            final AlarmSnoozeDurationDialogFragment fragment = AlarmSnoozeDurationDialogFragment.newInstance(mAlarm.snoozeDuration);
 
-            hideBottomSheetAndRun(() ->
-                    AlarmSnoozeDurationDialogFragment.show(getChildFragmentManager(), fragment));
+            hideBottomSheetAndRun(() -> AlarmSnoozeDurationDialogFragment.show(getChildFragmentManager(), fragment));
         };
 
         mSnoozeDurationLayout.setOnClickListener(openAlarmSnoozeDurationFragment);
@@ -710,7 +679,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
     private void bindMissedAlarmRepeatLimit() {
         if (SettingsDAO.isPerAlarmMissedRepeatLimitDisabled(mPrefs)
-                || mAlarm.autoSilenceDuration == TIMEOUT_NEVER) {
+            || mAlarm.autoSilenceDuration == TIMEOUT_NEVER) {
             mMissedAlarmRepeatLimitLayout.setVisibility(GONE);
             return;
         }
@@ -721,16 +690,11 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         int missedAlarmRepeatLimit = mAlarm.missedAlarmRepeatLimit;
 
         switch (missedAlarmRepeatLimit) {
-            case 0 ->
-                    mMissedAlarmRepeatLimitValue.setText(getString(R.string.label_never));
-            case 1 ->
-                    mMissedAlarmRepeatLimitValue.setText(getString(R.string.missed_alarm_repeat_limit_1_time));
-            case 3 ->
-                    mMissedAlarmRepeatLimitValue.setText(getString(R.string.missed_alarm_repeat_limit_3_times));
-            case 5 ->
-                    mMissedAlarmRepeatLimitValue.setText(getString(R.string.missed_alarm_repeat_limit_5_times));
-            case 10 ->
-                    mMissedAlarmRepeatLimitValue.setText(getString(R.string.missed_alarm_repeat_limit_10_times));
+            case 0 -> mMissedAlarmRepeatLimitValue.setText(getString(R.string.label_never));
+            case 1 -> mMissedAlarmRepeatLimitValue.setText(getString(R.string.missed_alarm_repeat_limit_1_time));
+            case 3 -> mMissedAlarmRepeatLimitValue.setText(getString(R.string.missed_alarm_repeat_limit_3_times));
+            case 5 -> mMissedAlarmRepeatLimitValue.setText(getString(R.string.missed_alarm_repeat_limit_5_times));
+            case 10 -> mMissedAlarmRepeatLimitValue.setText(getString(R.string.missed_alarm_repeat_limit_10_times));
             default -> mMissedAlarmRepeatLimitValue.setText(getString(R.string.label_indefinitely));
         }
 
@@ -740,10 +704,9 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             Events.sendAlarmEvent(R.string.action_set_missed_alarm_repeat_limit, R.string.label_deskclock);
 
             final AlarmMissedRepeatLimitDialogFragment fragment =
-                    AlarmMissedRepeatLimitDialogFragment.newInstance(mAlarm.missedAlarmRepeatLimit);
+                AlarmMissedRepeatLimitDialogFragment.newInstance(mAlarm.missedAlarmRepeatLimit);
 
-            hideBottomSheetAndRun(() ->
-                    AlarmMissedRepeatLimitDialogFragment.show(getChildFragmentManager(), fragment));
+            hideBottomSheetAndRun(() -> AlarmMissedRepeatLimitDialogFragment.show(getChildFragmentManager(), fragment));
         };
 
         mMissedAlarmRepeatLimitLayout.setOnClickListener(openAlarmMissedRepeatLimitFragment);
@@ -784,10 +747,9 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             Events.sendAlarmEvent(R.string.action_set_crescendo_duration, R.string.label_deskclock);
 
             final VolumeCrescendoDurationDialogFragment fragment =
-                    VolumeCrescendoDurationDialogFragment.newInstance(mAlarm.crescendoDuration);
+                VolumeCrescendoDurationDialogFragment.newInstance(mAlarm.crescendoDuration);
 
-            hideBottomSheetAndRun(() ->
-                    VolumeCrescendoDurationDialogFragment.show(getChildFragmentManager(), fragment));
+            hideBottomSheetAndRun(() -> VolumeCrescendoDurationDialogFragment.show(getChildFragmentManager(), fragment));
         };
 
         mCrescendoDurationLayout.setOnClickListener(openVolumeCrescendoFragment);
@@ -811,8 +773,8 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         mAlarmVolumeValue.setText(formatted);
 
         Drawable icon = AppCompatResources.getDrawable(requireContext(), volumePercent < 50
-                ? R.drawable.ic_volume_down
-                : R.drawable.ic_volume_up);
+            ? R.drawable.ic_volume_down
+            : R.drawable.ic_volume_up);
 
         if (icon != null) {
             mAlarmVolumeTitle.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
@@ -823,11 +785,9 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         View.OnClickListener openVolumeFragment = v -> {
             Events.sendAlarmEvent(R.string.action_set_alarm_volume, R.string.label_deskclock);
 
-            final AlarmVolumeDialogFragment fragment =
-                    AlarmVolumeDialogFragment.newInstance(mAlarm.alarmVolume, mAlarm.alert);
+            final AlarmVolumeDialogFragment fragment = AlarmVolumeDialogFragment.newInstance(mAlarm.alarmVolume, mAlarm.alert);
 
-            hideBottomSheetAndRun(() ->
-                    AlarmVolumeDialogFragment.show(getChildFragmentManager(), fragment));
+            hideBottomSheetAndRun(() -> AlarmVolumeDialogFragment.show(getChildFragmentManager(), fragment));
         };
 
         mAlarmVolumeLayout.setOnClickListener(openVolumeFragment);
@@ -866,94 +826,74 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     private void setupFragmentResultListeners() {
         FragmentManager childFragmentManager = getChildFragmentManager();
 
-        childFragmentManager.setFragmentResultListener(
-                MaterialTimePickerDialogFragment.REQUEST_KEY, this,
-                (requestKey, bundle) -> {
-                    int h = bundle.getInt(MaterialTimePickerDialogFragment.BUNDLE_KEY_HOURS);
-                    int m = bundle.getInt(MaterialTimePickerDialogFragment.BUNDLE_KEY_MINUTES);
-                    applyTime(h, m, false);
-                }
-        );
+        childFragmentManager.setFragmentResultListener(MaterialTimePickerDialogFragment.REQUEST_KEY, this,
+            (requestKey, bundle) -> {
+                int h = bundle.getInt(MaterialTimePickerDialogFragment.BUNDLE_KEY_HOURS);
+                int m = bundle.getInt(MaterialTimePickerDialogFragment.BUNDLE_KEY_MINUTES);
+                applyTime(h, m, false);
+            });
 
-        childFragmentManager.setFragmentResultListener(
-                SpinnerTimePickerDialogFragment.REQUEST_KEY, this,
-                (requestKey, bundle) -> {
-                    int h = bundle.getInt(SpinnerTimePickerDialogFragment.BUNDLE_KEY_HOURS);
-                    int m = bundle.getInt(SpinnerTimePickerDialogFragment.BUNDLE_KEY_MINUTES);
-                    applyTime(h, m, false);
-                }
-        );
+        childFragmentManager.setFragmentResultListener(SpinnerTimePickerDialogFragment.REQUEST_KEY, this,
+            (requestKey, bundle) -> {
+                int h = bundle.getInt(SpinnerTimePickerDialogFragment.BUNDLE_KEY_HOURS);
+                int m = bundle.getInt(SpinnerTimePickerDialogFragment.BUNDLE_KEY_MINUTES);
+                applyTime(h, m, false);
+            });
 
-        childFragmentManager.setFragmentResultListener(
-                AlarmDelayPickerDialogFragment.REQUEST_KEY, this,
-                (requestKey, bundle) -> {
-                    int h = bundle.getInt(AlarmDelayPickerDialogFragment.BUNDLE_KEY_HOURS);
-                    int m = bundle.getInt(AlarmDelayPickerDialogFragment.BUNDLE_KEY_MINUTES);
-                    applyDelay(h, m);
-                }
-        );
+        childFragmentManager.setFragmentResultListener(AlarmDelayPickerDialogFragment.REQUEST_KEY, this,
+            (requestKey, bundle) -> {
+                int h = bundle.getInt(AlarmDelayPickerDialogFragment.BUNDLE_KEY_HOURS);
+                int m = bundle.getInt(AlarmDelayPickerDialogFragment.BUNDLE_KEY_MINUTES);
+                applyDelay(h, m);
+            });
 
-        childFragmentManager.setFragmentResultListener(
-                LabelDialogFragment.REQUEST_KEY, this,
-                (requestKey, bundle) -> {
-                    mAlarm.label = bundle.getString(LabelDialogFragment.RESULT_LABEL);
-                    mAlarm.syncByLabel = bundle.getBoolean(LabelDialogFragment.RESULT_SYNC, false);
-                    bindLabel();
-                }
-        );
+        childFragmentManager.setFragmentResultListener(LabelDialogFragment.REQUEST_KEY, this,
+            (requestKey, bundle) -> {
+                mAlarm.label = bundle.getString(LabelDialogFragment.RESULT_LABEL);
+                mAlarm.syncByLabel = bundle.getBoolean(LabelDialogFragment.RESULT_SYNC, false);
+                bindLabel();
+            });
 
-        childFragmentManager.setFragmentResultListener(
-                VibrationPatternDialogFragment.REQUEST_KEY, this,
-                (requestKey, bundle) -> {
-                    String selectedPattern = bundle.getString(VibrationPatternDialogFragment.RESULT_PATTERN_KEY);
-                    if (selectedPattern != null) {
-                        mAlarm.vibrationPattern = selectedPattern;
-                        bindVibrationPattern();
-                    }
+        childFragmentManager.setFragmentResultListener(VibrationPatternDialogFragment.REQUEST_KEY, this,
+            (requestKey, bundle) -> {
+                String selectedPattern = bundle.getString(VibrationPatternDialogFragment.RESULT_PATTERN_KEY);
+                if (selectedPattern != null) {
+                    mAlarm.vibrationPattern = selectedPattern;
+                    bindVibrationPattern();
                 }
-        );
+            });
 
-        childFragmentManager.setFragmentResultListener(
-                AutoSilenceDurationDialogFragment.REQUEST_KEY, this,
-                (requestKey, bundle) -> {
-                    mAlarm.autoSilenceDuration = bundle.getInt(AutoSilenceDurationDialogFragment.AUTO_SILENCE_DURATION_VALUE);
-                    bindAutoSilenceValue();
-                    bindMissedAlarmRepeatLimit();
-                    updateThirdGroup();
-                }
-        );
+        childFragmentManager.setFragmentResultListener(AutoSilenceDurationDialogFragment.REQUEST_KEY, this,
+            (requestKey, bundle) -> {
+                mAlarm.autoSilenceDuration = bundle.getInt(AutoSilenceDurationDialogFragment.AUTO_SILENCE_DURATION_VALUE);
+                bindAutoSilenceValue();
+                bindMissedAlarmRepeatLimit();
+                updateThirdGroup();
+            });
 
-        childFragmentManager.setFragmentResultListener(
-                AlarmSnoozeDurationDialogFragment.REQUEST_KEY, this,
-                (requestKey, bundle) -> {
-                    mAlarm.snoozeDuration = bundle.getInt(AlarmSnoozeDurationDialogFragment.ALARM_SNOOZE_DURATION_VALUE);
-                    bindSnoozeDurationValue();
-                }
-        );
+        childFragmentManager.setFragmentResultListener(AlarmSnoozeDurationDialogFragment.REQUEST_KEY, this,
+            (requestKey, bundle) -> {
+                mAlarm.snoozeDuration = bundle.getInt(AlarmSnoozeDurationDialogFragment.ALARM_SNOOZE_DURATION_VALUE);
+                bindSnoozeDurationValue();
+            });
 
-        childFragmentManager.setFragmentResultListener(
-                AlarmMissedRepeatLimitDialogFragment.REQUEST_KEY, this,
-                (requestKey, bundle) -> {
-                    mAlarm.missedAlarmRepeatLimit = bundle.getInt(AlarmMissedRepeatLimitDialogFragment.RESULT_MISSED_REPEAT_LIMIT);
-                    bindMissedAlarmRepeatLimit();
-                }
-        );
+        childFragmentManager.setFragmentResultListener(AlarmMissedRepeatLimitDialogFragment.REQUEST_KEY, this,
+            (requestKey, bundle) -> {
+                mAlarm.missedAlarmRepeatLimit = bundle.getInt(AlarmMissedRepeatLimitDialogFragment.RESULT_MISSED_REPEAT_LIMIT);
+                bindMissedAlarmRepeatLimit();
+            });
 
-        childFragmentManager.setFragmentResultListener(
-                VolumeCrescendoDurationDialogFragment.REQUEST_KEY, this,
-                (requestKey, bundle) -> {
-                    mAlarm.crescendoDuration = bundle.getInt(VolumeCrescendoDurationDialogFragment.VOLUME_CRESCENDO_DURATION_VALUE);
-                    bindCrescendoDuration();
-                }
-        );
+        childFragmentManager.setFragmentResultListener(VolumeCrescendoDurationDialogFragment.REQUEST_KEY, this,
+            (requestKey, bundle) -> {
+                mAlarm.crescendoDuration = bundle.getInt(VolumeCrescendoDurationDialogFragment.VOLUME_CRESCENDO_DURATION_VALUE);
+                bindCrescendoDuration();
+            });
 
-        childFragmentManager.setFragmentResultListener(
-                AlarmVolumeDialogFragment.REQUEST_KEY, this,
-                (requestKey, bundle) -> {
-                    mAlarm.alarmVolume = bundle.getInt(AlarmVolumeDialogFragment.RESULT_VOLUME_VALUE);
-                    bindAlarmVolume();
-                }
-        );
+        childFragmentManager.setFragmentResultListener(AlarmVolumeDialogFragment.REQUEST_KEY, this,
+            (requestKey, bundle) -> {
+                mAlarm.alarmVolume = bundle.getInt(AlarmVolumeDialogFragment.RESULT_VOLUME_VALUE);
+                bindAlarmVolume();
+            });
     }
 
     private void applyDelay(int hoursToAdd, int minutesToAdd) {
@@ -1001,18 +941,18 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
     private void updateDaysOfWeekButtonVisuals(MaterialButton dayButton, boolean isSelected) {
         final int backgroundColor = isSelected
-                ? MaterialColors.getColor(requireContext(), com.google.android.material.R.attr.colorTertiary, Color.BLACK)
-                : Color.TRANSPARENT;
+            ? MaterialColors.getColor(requireContext(), com.google.android.material.R.attr.colorTertiary, Color.BLACK)
+            : Color.TRANSPARENT;
 
         final ColorStateList strokeColor = ColorStateList.valueOf(
-                MaterialColors.getColor(requireContext(), isSelected
-                        ? com.google.android.material.R.attr.colorTertiary
-                        : com.google.android.material.R.attr.colorOnSurface, Color.BLACK)
+            MaterialColors.getColor(requireContext(), isSelected
+                ? com.google.android.material.R.attr.colorTertiary
+                : com.google.android.material.R.attr.colorOnSurface, Color.BLACK)
         );
 
         final int textColor = MaterialColors.getColor(requireContext(), isSelected
-                ? android.R.attr.colorBackground
-                : android.R.attr.textColorPrimary, Color.BLACK);
+            ? android.R.attr.colorBackground
+            : android.R.attr.textColorPrimary, Color.BLACK);
 
         dayButton.setBackgroundTintList(ColorStateList.valueOf(backgroundColor));
         dayButton.setStrokeColor(strokeColor);
@@ -1022,7 +962,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     private void clearSelectedDate(View.OnClickListener listener, @StringRes int text) {
         mSelectedDate.setVisibility(GONE);
         mScheduleAlarm.setCompoundDrawablesWithIntrinsicBounds(AppCompatResources.getDrawable(
-                requireContext(), R.drawable.ic_calendar_clock), null, null, null);
+            requireContext(), R.drawable.ic_calendar_clock), null, null, null);
         mScheduleAlarm.setText(getString(text));
         mScheduleAlarm.setOnClickListener(listener);
     }
@@ -1122,15 +1062,14 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
         Integer backgroundColor = null;
         if (!SettingsDAO.isCardBackgroundDisplayed(mPrefs)) {
-            backgroundColor = MaterialColors.getColor(requireContext(),
-                    com.google.android.material.R.attr.colorSurfaceContainerLowest, Color.BLACK);
+            backgroundColor = MaterialColors.getColor(
+                requireContext(), com.google.android.material.R.attr.colorSurfaceContainerLowest, Color.BLACK);
         }
 
         for (int i = 0; i < totalCount; i++) {
             View view = visibleViews.get(i);
 
-            Drawable cardBackground =
-                    ThemeUtils.expressiveCardBackgroundWithColor(requireContext(), i, totalCount, backgroundColor);
+            Drawable cardBackground = ThemeUtils.expressiveCardBackgroundWithColor(requireContext(), i, totalCount, backgroundColor);
 
             view.setBackground(ThemeUtils.rippleDrawable(requireContext(), cardBackground));
         }
@@ -1138,20 +1077,20 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
     private void updateSecondGroup() {
         applyExpressiveBackgroundsToGroup(
-                mVibrate,
-                mVibrationPatternLayout,
-                mFlash,
-                mDeleteOccasionalAlarmAfterUse
+            mVibrate,
+            mVibrationPatternLayout,
+            mFlash,
+            mDeleteOccasionalAlarmAfterUse
         );
     }
 
     private void updateThirdGroup() {
         applyExpressiveBackgroundsToGroup(
-                mAutoSilenceDurationLayout,
-                mSnoozeDurationLayout,
-                mMissedAlarmRepeatLimitLayout,
-                mCrescendoDurationLayout,
-                mAlarmVolumeLayout
+            mAutoSilenceDurationLayout,
+            mSnoozeDurationLayout,
+            mMissedAlarmRepeatLimitLayout,
+            mCrescendoDurationLayout,
+            mAlarmVolumeLayout
         );
     }
 
@@ -1159,18 +1098,18 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         applyExpressiveBackgroundsToGroup(mLabel, mRingtone);
 
         applyExpressiveBackgroundsToGroup(
-                mVibrate,
-                mVibrationPatternLayout,
-                mFlash,
-                mDeleteOccasionalAlarmAfterUse
+            mVibrate,
+            mVibrationPatternLayout,
+            mFlash,
+            mDeleteOccasionalAlarmAfterUse
         );
 
         applyExpressiveBackgroundsToGroup(
-                mAutoSilenceDurationLayout,
-                mSnoozeDurationLayout,
-                mMissedAlarmRepeatLimitLayout,
-                mCrescendoDurationLayout,
-                mAlarmVolumeLayout
+            mAutoSilenceDurationLayout,
+            mSnoozeDurationLayout,
+            mMissedAlarmRepeatLimitLayout,
+            mCrescendoDurationLayout,
+            mAlarmVolumeLayout
         );
     }
 

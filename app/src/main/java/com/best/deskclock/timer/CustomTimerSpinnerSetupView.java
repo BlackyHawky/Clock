@@ -46,15 +46,15 @@ public class CustomTimerSpinnerSetupView extends LinearLayout {
         int paddingLeft = (int) dpToPx(ThemeUtils.isTablet() ? 120 : 20, displayMetrics);
 
         int paddingRight = (int) dpToPx(ThemeUtils.isTablet()
-                ? 120
-                : ThemeUtils.isLandscape()
-                ? 90
-                : 20, displayMetrics
+            ? 120
+            : ThemeUtils.isLandscape()
+            ? 90
+            : 20, displayMetrics
         );
 
         int paddingBottom = (int) dpToPx(ThemeUtils.isTablet() && ThemeUtils.isLandscape()
-                ? 60
-                : 0, displayMetrics
+            ? 60
+            : 0, displayMetrics
         );
 
         rootView.setPadding(paddingLeft, 0, paddingRight, paddingBottom);

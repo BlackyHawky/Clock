@@ -87,7 +87,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
-                tools:text="@string/first_launch_main_feature_message"/>
+                tools:text="@string/first_launch_main_feature_message" />
 
             <com.google.android.material.divider.MaterialDivider
                 android:layout_width="match_parent"

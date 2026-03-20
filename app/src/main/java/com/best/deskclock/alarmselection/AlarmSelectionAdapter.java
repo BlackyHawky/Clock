@@ -57,7 +57,7 @@ public class AlarmSelectionAdapter extends RecyclerView.Adapter<AlarmSelectionAd
 
         int alarmRowMarginBottom = (int) dpToPx(ThemeUtils.isTablet() ? 64 : 8, context.getResources().getDisplayMetrics());
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
+            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
         );
         params.setMargins(0, 0, 0, alarmRowMarginBottom);
         row.setLayoutParams(params);
@@ -124,8 +124,8 @@ public class AlarmSelectionAdapter extends RecyclerView.Adapter<AlarmSelectionAd
                         // If the date has passed, the new alarm will be scheduled either the same day
                         // or the next day depending on the time; the text is therefore updated accordingly.
                         if (alarm.hour < calendar.get(Calendar.HOUR_OF_DAY)
-                                || (alarm.hour == calendar.get(Calendar.HOUR_OF_DAY) && alarm.minutes < calendar.get(Calendar.MINUTE))
-                                || (alarm.hour == calendar.get(Calendar.HOUR_OF_DAY) && alarm.minutes == calendar.get(Calendar.MINUTE))) {
+                            || (alarm.hour == calendar.get(Calendar.HOUR_OF_DAY) && alarm.minutes < calendar.get(Calendar.MINUTE))
+                            || (alarm.hour == calendar.get(Calendar.HOUR_OF_DAY) && alarm.minutes == calendar.get(Calendar.MINUTE))) {
                             daysOfWeekView.setText(context.getString(R.string.alarm_tomorrow));
                         } else {
                             daysOfWeekView.setText(context.getString(R.string.alarm_today));

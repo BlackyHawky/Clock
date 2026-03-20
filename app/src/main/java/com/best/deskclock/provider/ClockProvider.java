@@ -44,98 +44,98 @@ public class ClockProvider extends ContentProvider {
      */
     private static final Map<String, String> sAlarmsWithInstancesProjection = new ArrayMap<>();
     private static final String ALARM_JOIN_INSTANCE_TABLE_STATEMENT =
-            ALARMS_TABLE_NAME + " LEFT JOIN " + INSTANCES_TABLE_NAME + " ON (" +
-                    ALARMS_TABLE_NAME + "." + AlarmsColumns._ID + " = " + InstancesColumns.ALARM_ID + ")";
+        ALARMS_TABLE_NAME + " LEFT JOIN " + INSTANCES_TABLE_NAME + " ON (" +
+            ALARMS_TABLE_NAME + "." + AlarmsColumns._ID + " = " + InstancesColumns.ALARM_ID + ")";
     private static final String ALARM_JOIN_INSTANCE_WHERE_STATEMENT =
-            INSTANCES_TABLE_NAME + "." + InstancesColumns._ID + " IS NULL OR " +
-                    INSTANCES_TABLE_NAME + "." + InstancesColumns._ID + " = (" +
-                    "SELECT " + InstancesColumns._ID +
-                    " FROM " + INSTANCES_TABLE_NAME +
-                    " WHERE " + InstancesColumns.ALARM_ID +
-                    " = " + ALARMS_TABLE_NAME + "." + AlarmsColumns._ID +
-                    " ORDER BY " + InstancesColumns.ALARM_STATE + ", " +
-                    InstancesColumns.YEAR + ", " + InstancesColumns.MONTH + ", " +
-                    InstancesColumns.DAY + " LIMIT 1)";
+        INSTANCES_TABLE_NAME + "." + InstancesColumns._ID + " IS NULL OR " +
+            INSTANCES_TABLE_NAME + "." + InstancesColumns._ID + " = (" +
+            "SELECT " + InstancesColumns._ID +
+            " FROM " + INSTANCES_TABLE_NAME +
+            " WHERE " + InstancesColumns.ALARM_ID +
+            " = " + ALARMS_TABLE_NAME + "." + AlarmsColumns._ID +
+            " ORDER BY " + InstancesColumns.ALARM_STATE + ", " +
+            InstancesColumns.YEAR + ", " + InstancesColumns.MONTH + ", " +
+            InstancesColumns.DAY + " LIMIT 1)";
     private static final UriMatcher sURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
     static {
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns._ID,
-                ALARMS_TABLE_NAME + "." + AlarmsColumns._ID);
+            ALARMS_TABLE_NAME + "." + AlarmsColumns._ID);
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.YEAR,
-                ALARMS_TABLE_NAME + "." + AlarmsColumns.YEAR);
+            ALARMS_TABLE_NAME + "." + AlarmsColumns.YEAR);
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.MONTH,
-                ALARMS_TABLE_NAME + "." + AlarmsColumns.MONTH);
+            ALARMS_TABLE_NAME + "." + AlarmsColumns.MONTH);
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.DAY,
-                ALARMS_TABLE_NAME + "." + AlarmsColumns.DAY);
+            ALARMS_TABLE_NAME + "." + AlarmsColumns.DAY);
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.HOUR,
-                ALARMS_TABLE_NAME + "." + AlarmsColumns.HOUR);
+            ALARMS_TABLE_NAME + "." + AlarmsColumns.HOUR);
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.MINUTES,
-                ALARMS_TABLE_NAME + "." + AlarmsColumns.MINUTES);
+            ALARMS_TABLE_NAME + "." + AlarmsColumns.MINUTES);
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.DAYS_OF_WEEK,
-                ALARMS_TABLE_NAME + "." + AlarmsColumns.DAYS_OF_WEEK);
+            ALARMS_TABLE_NAME + "." + AlarmsColumns.DAYS_OF_WEEK);
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.ENABLED,
-                ALARMS_TABLE_NAME + "." + AlarmsColumns.ENABLED);
+            ALARMS_TABLE_NAME + "." + AlarmsColumns.ENABLED);
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.VIBRATE,
-                ALARMS_TABLE_NAME + "." + AlarmsColumns.VIBRATE);
+            ALARMS_TABLE_NAME + "." + AlarmsColumns.VIBRATE);
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.VIBRATION_PATTERN,
-                ALARMS_TABLE_NAME + "." + AlarmsColumns.VIBRATION_PATTERN);
+            ALARMS_TABLE_NAME + "." + AlarmsColumns.VIBRATION_PATTERN);
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.FLASH,
-                ALARMS_TABLE_NAME + "." + AlarmsColumns.FLASH);
+            ALARMS_TABLE_NAME + "." + AlarmsColumns.FLASH);
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.LABEL,
-                ALARMS_TABLE_NAME + "." + AlarmsColumns.LABEL);
+            ALARMS_TABLE_NAME + "." + AlarmsColumns.LABEL);
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.SYNC_BY_LABEL,
-                ALARMS_TABLE_NAME + "." + AlarmsColumns.SYNC_BY_LABEL);
+            ALARMS_TABLE_NAME + "." + AlarmsColumns.SYNC_BY_LABEL);
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.RINGTONE,
-                ALARMS_TABLE_NAME + "." + AlarmsColumns.RINGTONE);
+            ALARMS_TABLE_NAME + "." + AlarmsColumns.RINGTONE);
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.DELETE_AFTER_USE,
-                ALARMS_TABLE_NAME + "." + AlarmsColumns.DELETE_AFTER_USE);
+            ALARMS_TABLE_NAME + "." + AlarmsColumns.DELETE_AFTER_USE);
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.AUTO_SILENCE_DURATION,
-                ALARMS_TABLE_NAME + "." + AlarmsColumns.AUTO_SILENCE_DURATION);
+            ALARMS_TABLE_NAME + "." + AlarmsColumns.AUTO_SILENCE_DURATION);
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.SNOOZE_DURATION,
-                ALARMS_TABLE_NAME + "." + AlarmsColumns.SNOOZE_DURATION);
+            ALARMS_TABLE_NAME + "." + AlarmsColumns.SNOOZE_DURATION);
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.MISSED_ALARM_REPEAT_LIMIT,
-                ALARMS_TABLE_NAME + "." + AlarmsColumns.MISSED_ALARM_REPEAT_LIMIT);
+            ALARMS_TABLE_NAME + "." + AlarmsColumns.MISSED_ALARM_REPEAT_LIMIT);
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.CRESCENDO_DURATION,
-                ALARMS_TABLE_NAME + "." + AlarmsColumns.CRESCENDO_DURATION);
+            ALARMS_TABLE_NAME + "." + AlarmsColumns.CRESCENDO_DURATION);
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.ALARM_VOLUME,
-                ALARMS_TABLE_NAME + "." + AlarmsColumns.ALARM_VOLUME);
+            ALARMS_TABLE_NAME + "." + AlarmsColumns.ALARM_VOLUME);
 
         sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns.ALARM_STATE,
-                INSTANCES_TABLE_NAME + "." + InstancesColumns.ALARM_STATE);
+            INSTANCES_TABLE_NAME + "." + InstancesColumns.ALARM_STATE);
         sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns._ID,
-                INSTANCES_TABLE_NAME + "." + InstancesColumns._ID);
+            INSTANCES_TABLE_NAME + "." + InstancesColumns._ID);
         sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns.YEAR,
-                INSTANCES_TABLE_NAME + "." + InstancesColumns.YEAR);
+            INSTANCES_TABLE_NAME + "." + InstancesColumns.YEAR);
         sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns.MONTH,
-                INSTANCES_TABLE_NAME + "." + InstancesColumns.MONTH);
+            INSTANCES_TABLE_NAME + "." + InstancesColumns.MONTH);
         sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns.DAY,
-                INSTANCES_TABLE_NAME + "." + InstancesColumns.DAY);
+            INSTANCES_TABLE_NAME + "." + InstancesColumns.DAY);
         sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns.HOUR,
-                INSTANCES_TABLE_NAME + "." + InstancesColumns.HOUR);
+            INSTANCES_TABLE_NAME + "." + InstancesColumns.HOUR);
         sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns.MINUTES,
-                INSTANCES_TABLE_NAME + "." + InstancesColumns.MINUTES);
+            INSTANCES_TABLE_NAME + "." + InstancesColumns.MINUTES);
         sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns.LABEL,
-                INSTANCES_TABLE_NAME + "." + InstancesColumns.LABEL);
+            INSTANCES_TABLE_NAME + "." + InstancesColumns.LABEL);
         sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns.SYNC_BY_LABEL,
-                INSTANCES_TABLE_NAME + "." + InstancesColumns.SYNC_BY_LABEL);
+            INSTANCES_TABLE_NAME + "." + InstancesColumns.SYNC_BY_LABEL);
         sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns.VIBRATE,
-                INSTANCES_TABLE_NAME + "." + InstancesColumns.VIBRATE);
+            INSTANCES_TABLE_NAME + "." + InstancesColumns.VIBRATE);
         sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns.VIBRATION_PATTERN,
-                INSTANCES_TABLE_NAME + "." + InstancesColumns.VIBRATION_PATTERN);
+            INSTANCES_TABLE_NAME + "." + InstancesColumns.VIBRATION_PATTERN);
         sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns.FLASH,
-                INSTANCES_TABLE_NAME + "." + InstancesColumns.FLASH);
+            INSTANCES_TABLE_NAME + "." + InstancesColumns.FLASH);
         sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns.AUTO_SILENCE_DURATION,
-                INSTANCES_TABLE_NAME + "." + InstancesColumns.AUTO_SILENCE_DURATION);
+            INSTANCES_TABLE_NAME + "." + InstancesColumns.AUTO_SILENCE_DURATION);
         sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns.SNOOZE_DURATION,
-                INSTANCES_TABLE_NAME + "." + InstancesColumns.SNOOZE_DURATION);
+            INSTANCES_TABLE_NAME + "." + InstancesColumns.SNOOZE_DURATION);
         sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns.MISSED_ALARM_REPEAT_COUNT,
-                INSTANCES_TABLE_NAME + "." + InstancesColumns.MISSED_ALARM_REPEAT_COUNT);
+            INSTANCES_TABLE_NAME + "." + InstancesColumns.MISSED_ALARM_REPEAT_COUNT);
         sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns.MISSED_ALARM_REPEAT_LIMIT,
-                INSTANCES_TABLE_NAME + "." + InstancesColumns.MISSED_ALARM_REPEAT_LIMIT);
+            INSTANCES_TABLE_NAME + "." + InstancesColumns.MISSED_ALARM_REPEAT_LIMIT);
         sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns.CRESCENDO_DURATION,
-                INSTANCES_TABLE_NAME + "." + InstancesColumns.CRESCENDO_DURATION);
+            INSTANCES_TABLE_NAME + "." + InstancesColumns.CRESCENDO_DURATION);
         sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns.ALARM_VOLUME,
-                INSTANCES_TABLE_NAME + "." + InstancesColumns.ALARM_VOLUME);
+            INSTANCES_TABLE_NAME + "." + InstancesColumns.ALARM_VOLUME);
     }
 
     static {
@@ -236,15 +236,11 @@ public class ClockProvider extends ContentProvider {
         switch (sURIMatcher.match(uri)) {
             case ALARMS_ID -> {
                 alarmId = uri.getLastPathSegment();
-                count = db.update(ALARMS_TABLE_NAME, values,
-                        AlarmsColumns._ID + "=" + alarmId,
-                        null);
+                count = db.update(ALARMS_TABLE_NAME, values, AlarmsColumns._ID + "=" + alarmId, null);
             }
             case INSTANCES_ID -> {
                 alarmId = uri.getLastPathSegment();
-                count = db.update(INSTANCES_TABLE_NAME, values,
-                        InstancesColumns._ID + "=" + alarmId,
-                        null);
+                count = db.update(INSTANCES_TABLE_NAME, values, InstancesColumns._ID + "=" + alarmId, null);
             }
             default -> throw new UnsupportedOperationException("Cannot update URI: " + uri);
         }

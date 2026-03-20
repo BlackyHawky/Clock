@@ -5,7 +5,6 @@ package com.best.deskclock.widgets.standardwidgets;
 import static android.util.TypedValue.COMPLEX_UNIT_PX;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
-
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_WIDGETS_CUSTOM_COLOR;
 import static com.best.deskclock.utils.WidgetUtils.METHOD_SET_IMAGE_ICON;
@@ -271,23 +270,19 @@ public class VerticalDigitalAppWidgetProvider extends BaseDigitalAppWidgetProvid
     }
 
     @Override
-    protected void configureNextAlarmTitle(RemoteViews rv, SharedPreferences prefs, String nextAlarmTime,
-                                           String nextAlarmTitle) {
+    protected void configureNextAlarmTitle(RemoteViews rv, SharedPreferences prefs, String nextAlarmTime, String nextAlarmTitle) {
     }
 
     @Override
-    protected void configureBackground(RemoteViews rv, Context context, SharedPreferences prefs,
-                                       int widthPx, int heightPx) {
-
-        if (!WidgetDAO.isBackgroundDisplayedOnVerticalDigitalWidget(prefs)
-                || widthPx <= 0 || heightPx <= 0) {
+    protected void configureBackground(RemoteViews rv, Context context, SharedPreferences prefs, int widthPx, int heightPx) {
+        if (!WidgetDAO.isBackgroundDisplayedOnVerticalDigitalWidget(prefs) || widthPx <= 0 || heightPx <= 0) {
             rv.setIcon(R.id.digitalWidgetBackground, METHOD_SET_IMAGE_ICON, null);
             return;
         }
 
         int radius = (int) dpToPx(WidgetDAO.isVerticalWidgetBackgroundCornerRadiusCustomizable(prefs)
-                ? WidgetDAO.getVerticalWidgetBackgroundCornerRadius(prefs)
-                : 0, context.getResources().getDisplayMetrics());
+            ? WidgetDAO.getVerticalWidgetBackgroundCornerRadius(prefs)
+            : 0, context.getResources().getDisplayMetrics());
 
         int color = WidgetDAO.getVerticalDigitalWidgetBackgroundColor(prefs);
         Icon icon = WidgetUtils.createRoundedIcon(widthPx, heightPx, color, radius);

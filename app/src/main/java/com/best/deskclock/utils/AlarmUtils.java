@@ -31,7 +31,6 @@ import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.uicomponents.toast.SnackbarManager;
-
 import com.google.android.material.snackbar.Snackbar;
 
 import java.text.SimpleDateFormat;
@@ -62,11 +61,11 @@ public class AlarmUtils {
             controller.hide(WindowInsetsCompat.Type.systemBars());
         } else {
             view.setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
             );
         }
     }
@@ -102,8 +101,7 @@ public class AlarmUtils {
     private static String getDateFormat(Context context, Calendar calendar) {
         Locale locale = Locale.getDefault();
         final String skeleton = context.getString(R.string.full_wday_month_day_no_year);
-        SimpleDateFormat simpleDateFormat =
-                new SimpleDateFormat(DateFormat.getBestDateTimePattern(locale, skeleton), locale);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DateFormat.getBestDateTimePattern(locale, skeleton), locale);
 
         return simpleDateFormat.format(new Date(calendar.getTimeInMillis()));
     }
@@ -119,8 +117,7 @@ public class AlarmUtils {
         Calendar calendar = Calendar.getInstance();
         boolean isCurrentYear = alarm.year == calendar.get(Calendar.YEAR);
         calendar.set(alarm.year, alarm.month, alarm.day);
-        String pattern = DateFormat.getBestDateTimePattern(
-                Locale.getDefault(), isCurrentYear ? "MMMMd" : "yyyyMMMMd");
+        String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), isCurrentYear ? "MMMMd" : "yyyyMMMMd");
         return new SimpleDateFormat(pattern, Locale.getDefault()).format(calendar.getTime());
     }
 
@@ -173,8 +170,8 @@ public class AlarmUtils {
         long alarmTime = instance.getAlarmTime().getTimeInMillis();
         alarmCalendar.setTimeInMillis(alarmTime);
         String alarmFormattedTime = isScreensaver
-                ? ScreensaverUtils.getScreensaverFormattedTime(context, alarmCalendar)
-                : getFormattedTime(context, alarmCalendar);
+            ? ScreensaverUtils.getScreensaverFormattedTime(context, alarmCalendar)
+            : getFormattedTime(context, alarmCalendar);
 
         if (TextUtils.isEmpty(alarmFormattedTime)) {
             nextAlarmView.setVisibility(View.GONE);
@@ -182,8 +179,8 @@ public class AlarmUtils {
         } else {
             SharedPreferences prefs = getDefaultSharedPreferences(context);
             boolean isUppercase = isScreensaver
-                    ? SettingsDAO.isScreensaverTextUppercaseDisplayed(prefs)
-                    : SettingsDAO.isTextUppercaseDisplayed(prefs);
+                ? SettingsDAO.isScreensaverTextUppercaseDisplayed(prefs)
+                : SettingsDAO.isTextUppercaseDisplayed(prefs);
 
             String description = context.getString(R.string.next_alarm_description, alarmFormattedTime);
             nextAlarmView.setAllCaps(isUppercase);
@@ -206,14 +203,14 @@ public class AlarmUtils {
         }
 
         nextAlarm.setTypeface(ThemeUtils.boldTypeface(
-                SettingsDAO.getGeneralFont(getDefaultSharedPreferences(clock.getContext()))));
+            SettingsDAO.getGeneralFont(getDefaultSharedPreferences(clock.getContext()))));
     }
 
     public static String getAlarmText(Context context, AlarmInstance instance, boolean includeLabel) {
         String alarmTimeStr = getFormattedTime(context, instance.getAlarmTime());
         return (instance.mLabel.isEmpty() || !includeLabel)
-                ? alarmTimeStr
-                : alarmTimeStr + " - " + instance.mLabel;
+            ? alarmTimeStr
+            : alarmTimeStr + " - " + instance.mLabel;
     }
 
     /**
@@ -224,8 +221,8 @@ public class AlarmUtils {
      * For alarms scheduled further in the future, the formatted output expands
      * to include the weekday or full date depending on the distance in days.
      *
-     * @param context    the context used to access locale and time format settings
-     * @param alarmTime  the time of the next scheduled alarm
+     * @param context   the context used to access locale and time format settings
+     * @param alarmTime the time of the next scheduled alarm
      * @return a formatted string describing when the alarm will ring
      */
     public static String getFormattedTime(Context context, Calendar alarmTime) {
@@ -273,7 +270,6 @@ public class AlarmUtils {
      *
      * @param cal1 the first calendar instance
      * @param cal2 the second calendar instance
-     *
      * @return {@code true} if both calendars are in the same time zone and represent the same day;
      * {@code false} otherwise.
      */
@@ -283,8 +279,7 @@ public class AlarmUtils {
             return false;
         }
 
-        return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
-                cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR);
+        return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) && cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR);
     }
 
     public static String getFormattedTime(Context context, long timeInMillis) {
@@ -340,8 +335,7 @@ public class AlarmUtils {
 
     public static void popAlarmSetSnackbar(View snackbarAnchor, long alarmTime) {
         final long alarmTimeDelta = alarmTime - System.currentTimeMillis();
-        final String text = formatElapsedTimeUntilAlarm(
-                snackbarAnchor.getContext(), alarmTimeDelta);
+        final String text = formatElapsedTimeUntilAlarm(snackbarAnchor.getContext(), alarmTimeDelta);
         SnackbarManager.show(Snackbar.make(snackbarAnchor, text, Snackbar.LENGTH_SHORT));
         snackbarAnchor.announceForAccessibility(text);
     }

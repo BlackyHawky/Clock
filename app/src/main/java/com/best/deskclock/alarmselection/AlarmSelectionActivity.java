@@ -62,8 +62,8 @@ public class AlarmSelectionActivity extends BaseActivity implements AlarmSelecti
 
         final Intent intent = getIntent();
         final Parcelable[] alarmsFromIntent = SdkUtils.isAtLeastAndroid13()
-                ? intent.getParcelableArrayExtra(EXTRA_ALARMS, Alarm.class)
-                : intent.getParcelableArrayExtra(EXTRA_ALARMS);
+            ? intent.getParcelableArrayExtra(EXTRA_ALARMS, Alarm.class)
+            : intent.getParcelableArrayExtra(EXTRA_ALARMS);
         mAction = intent.getIntExtra(EXTRA_ACTION, ACTION_INVALID);
 
         // reading alarms from intent

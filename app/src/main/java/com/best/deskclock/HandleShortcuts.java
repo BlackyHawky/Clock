@@ -36,8 +36,7 @@ public class HandleShortcuts extends Activity {
 
                         // Open DeskClock positioned on the stopwatch tab.
                         UiDataModel.getUiDataModel().setSelectedTab(STOPWATCH);
-                        startActivity(new Intent(this, DeskClock.class)
-                                .setAction(StopwatchService.ACTION_PAUSE_STOPWATCH));
+                        startActivity(new Intent(this, DeskClock.class).setAction(StopwatchService.ACTION_PAUSE_STOPWATCH));
                         setResult(RESULT_OK);
                     }
                     case StopwatchService.ACTION_START_STOPWATCH -> {
@@ -45,8 +44,7 @@ public class HandleShortcuts extends Activity {
 
                         // Open DeskClock positioned on the stopwatch tab.
                         UiDataModel.getUiDataModel().setSelectedTab(STOPWATCH);
-                        startActivity(new Intent(this, DeskClock.class)
-                                .setAction(StopwatchService.ACTION_START_STOPWATCH));
+                        startActivity(new Intent(this, DeskClock.class).setAction(StopwatchService.ACTION_START_STOPWATCH));
                         setResult(RESULT_OK);
                     }
                     default -> throw new IllegalArgumentException("Unsupported action: " + action);

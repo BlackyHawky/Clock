@@ -54,7 +54,6 @@
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
-
         <SwitchPreferenceCompat
             android:key="key_next_alarm_widget_apply_horizontal_padding"
             android:layout="@layout/settings_preference_layout"
