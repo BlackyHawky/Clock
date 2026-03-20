@@ -918,21 +918,16 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * On certain models (e.g., ZTE Libero 5G II), this action is blocked by the system.
      * This method performs a compatibility check before sending the broadcast.</p>
      */
-
     private static void setPowerOffAlarm(Context context, AlarmInstance instance) {
-        if (DeviceUtils.isPowerOffAlarmUnSupported()) {
-            return;
-        }
-
         try {
-            LogUtils.i("Set next power off alarm : instance id " + instance.mId);
+            LogUtils.i("Set next Power-off alarm : instance id " + instance.mId);
             Intent intent = new Intent(ACTION_SET_POWEROFF_ALARM);
             intent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
             intent.setPackage(POWER_OFF_ALARM_PACKAGE);
             intent.putExtra(TIME, instance.getAlarmTime().getTimeInMillis());
             context.sendBroadcast(intent);
-        } catch (SecurityException e) {
-            LogUtils.e("Failed to send power off alarm broadcast: " + e);
+        } catch (Exception ignored) {
+            // Power-off alarm feature is unsupported or blocked.
         }
     }
 
@@ -943,19 +938,15 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * in which case the method safely aborts and logs a warning.
      */
     private static void cancelPowerOffAlarm(Context context, AlarmInstance instance) {
-        if (DeviceUtils.isPowerOffAlarmUnSupported()) {
-            LogUtils.w("Power-off alarm cancel is not supported on this device.");
-            return;
-        }
-
         try {
+            LogUtils.i("Cancel Power-off alarm : instance id " + instance.mId);
             Intent intent = new Intent(ACTION_CANCEL_POWEROFF_ALARM);
             intent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
             intent.putExtra(TIME, instance.getAlarmTime().getTimeInMillis());
             intent.setPackage(POWER_OFF_ALARM_PACKAGE);
             context.sendBroadcast(intent);
-        } catch (SecurityException e) {
-            LogUtils.e("Failed to cancel power off alarm broadcast: " + e);
+        } catch (Exception ignored) {
+            // Power-off alarm feature is unsupported or blocked.
         }
     }
 

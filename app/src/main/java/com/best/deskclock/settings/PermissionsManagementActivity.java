@@ -167,7 +167,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
 
             mEnableForegroundServicePref.setOnPreferenceChangeListener(this);
 
-            PermissionUtils.grantPowerOffPermissionForSupportedDevices(requireActivity());
+            PermissionUtils.grantPowerOffAlarmPermission(requireActivity());
         }
 
         /**

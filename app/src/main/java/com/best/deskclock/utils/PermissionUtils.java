@@ -62,16 +62,13 @@ public class PermissionUtils {
     }
 
     /**
-     * Grant or revoke Power Off Alarm permission (available only on specific devices).
+     * Grant or revoke Power-off alarm permission (available only on specific devices).
      */
-     public static void grantPowerOffPermissionForSupportedDevices(FragmentActivity activity) {
-         if (DeviceUtils.isPowerOffAlarmUnSupported()) {
-             return;
-         }
+     public static void grantPowerOffAlarmPermission(FragmentActivity activity) {
+         int powerOffAlarmCode = 1001;
 
-         int codeForPowerOffAlarm = 0;
          if (activity.checkSelfPermission(PERMISSION_POWER_OFF_ALARM) != PackageManager.PERMISSION_GRANTED) {
-             activity.requestPermissions(new String[]{PERMISSION_POWER_OFF_ALARM}, codeForPowerOffAlarm);
+             activity.requestPermissions(new String[]{PERMISSION_POWER_OFF_ALARM}, powerOffAlarmCode);
          }
      }
 

@@ -19,9 +19,6 @@ import java.util.Set;
 
 public class DeviceUtils {
 
-    private static final Set<String> POWER_OFF_ALARM_UNSUPPORTED_MANUFACTURERS = Set.of("zte", "huawei", "samsung");
-    private static final Set<String> POWER_OFF_ALARM_UNSUPPORTED_MODELS = Set.of("a103zt", "noh-nx9", "sm-x200");
-
     /**
      * Checks whether the current user is unlocked on the device.
      *
@@ -49,20 +46,6 @@ public class DeviceUtils {
         }
 
         return userManager.isUserUnlocked();
-    }
-
-    /**
-     * @return {@code true} if the device is known to not support power-off alarms;
-     * {@code false} otherwise.
-     */
-    public static boolean isPowerOffAlarmUnSupported() {
-        String manufacturer = Build.MANUFACTURER.toLowerCase();
-        String model = Build.MODEL.toLowerCase();
-
-        boolean isUnsupportedManufacturer = POWER_OFF_ALARM_UNSUPPORTED_MANUFACTURERS.contains(manufacturer);
-        boolean isUnsupportedModel = POWER_OFF_ALARM_UNSUPPORTED_MODELS.contains(model);
-
-        return isUnsupportedManufacturer && isUnsupportedModel;
     }
 
     /**
