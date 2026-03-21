@@ -27,7 +27,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
     static final String ALARMS_TABLE_NAME = "alarm_templates";
     static final String INSTANCES_TABLE_NAME = "alarm_instances";
 
-    private static final int DATABASE_VERSION = 24;
+    private static final int DATABASE_VERSION = 25;
     private static final int MINIMUM_SUPPORTED_VERSION = 15;
 
     public ClockDatabaseHelper(Context context) {
@@ -55,7 +55,8 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
             ClockContract.AlarmsColumns.SNOOZE_DURATION + " INTEGER NOT NULL DEFAULT 10, " +
             ClockContract.AlarmsColumns.MISSED_ALARM_REPEAT_LIMIT + " INTEGER NOT NULL DEFAULT -1, " +
             ClockContract.AlarmsColumns.CRESCENDO_DURATION + " INTEGER NOT NULL DEFAULT 0, " +
-            ClockContract.AlarmsColumns.ALARM_VOLUME + " INTEGER NOT NULL DEFAULT 5);");
+            ClockContract.AlarmsColumns.ALARM_VOLUME + " INTEGER NOT NULL DEFAULT 5, " +
+            ClockContract.AlarmsColumns.MANUAL_SORT_ORDER + " INTEGER NOT NULL DEFAULT 0);");
 
         LogUtils.i("Alarms Table created");
     }
@@ -254,6 +255,14 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                 + " INTEGER NOT NULL DEFAULT 0;");
 
             LogUtils.i("syncByLabel column added for version 24 upgrade.");
+        }
+
+        if (oldVersion < 25) {
+            db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME
+                + " ADD COLUMN " + ClockContract.AlarmsColumns.MANUAL_SORT_ORDER
+                + " INTEGER NOT NULL DEFAULT 0;");
+
+            LogUtils.i("manualSortOrder column added for version 25 upgrade.");
         }
     }
 

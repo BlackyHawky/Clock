@@ -103,6 +103,25 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ENABLED + " DESC, " +
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + _ID + " ASC";
 
+    /**
+     * The sort order by ascending sort_order to display manually sorted alarms.
+     */
+    private static final String SORT_ORDER_MANUALLY_ASC =
+        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + MANUAL_SORT_ORDER + " ASC, " +
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + HOUR + " ASC, " +
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + MINUTES + " ASC, " +
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + _ID + " DESC";
+
+    /**
+     * The sort order that places enabled alarms first, then sorts manually.
+     */
+    private static final String SORT_ORDER_MANUALLY_WITH_ENABLED_FIRST =
+        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ENABLED + " DESC, " +
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + MANUAL_SORT_ORDER + " ASC, " +
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + HOUR + " ASC, " +
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + MINUTES + " ASC, " +
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + _ID + " DESC";
+
     private static final String[] QUERY_COLUMNS = {
         _ID,
         YEAR,
@@ -123,7 +142,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         SNOOZE_DURATION,
         MISSED_ALARM_REPEAT_LIMIT,
         CRESCENDO_DURATION,
-        ALARM_VOLUME
+        ALARM_VOLUME,
+        MANUAL_SORT_ORDER
     };
     private static final String[] QUERY_ALARMS_WITH_INSTANCES_COLUMNS = {
         ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + _ID,
@@ -146,6 +166,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + MISSED_ALARM_REPEAT_LIMIT,
         ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + CRESCENDO_DURATION,
         ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ALARM_VOLUME,
+        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + MANUAL_SORT_ORDER,
         ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.ALARM_STATE,
         ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns._ID,
         ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.YEAR,
@@ -189,27 +210,28 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     private static final int MISSED_ALARM_REPEAT_LIMIT_INDEX = 17;
     private static final int CRESCENDO_DURATION_INDEX = 18;
     private static final int ALARM_VOLUME_INDEX = 19;
+    private static final int MANUAL_SORT_ORDER_INDEX = 20;
 
-    private static final int INSTANCE_STATE_INDEX = 20;
-    public static final int INSTANCE_ID_INDEX = 21;
-    public static final int INSTANCE_YEAR_INDEX = 22;
-    public static final int INSTANCE_MONTH_INDEX = 23;
-    public static final int INSTANCE_DAY_INDEX = 24;
-    public static final int INSTANCE_HOUR_INDEX = 25;
-    public static final int INSTANCE_MINUTE_INDEX = 26;
-    public static final int INSTANCE_LABEL_INDEX = 27;
-    public static final int INSTANCE_SYNC_BY_LABEL_INDEX = 28;
-    public static final int INSTANCE_VIBRATE_INDEX = 29;
-    public static final int INSTANCE_VIBRATION_PATTERN_INDEX = 30;
-    public static final int INSTANCE_FLASH_INDEX = 31;
-    public static final int INSTANCE_AUTO_SILENCE_DURATION_INDEX = 32;
-    public static final int INSTANCE_SNOOZE_DURATION_INDEX = 33;
-    public static final int INSTANCE_MISSED_ALARM_REPEAT_COUNT_INDEX = 34;
-    public static final int INSTANCE_MISSED_ALARM_REPEAT_LIMIT_INDEX = 35;
-    public static final int INSTANCE_CRESCENDO_DURATION_INDEX = 36;
-    public static final int INSTANCE_ALARM_VOLUME_INDEX = 37;
+    private static final int INSTANCE_STATE_INDEX = 21;
+    public static final int INSTANCE_ID_INDEX = 22;
+    public static final int INSTANCE_YEAR_INDEX = 23;
+    public static final int INSTANCE_MONTH_INDEX = 24;
+    public static final int INSTANCE_DAY_INDEX = 25;
+    public static final int INSTANCE_HOUR_INDEX = 26;
+    public static final int INSTANCE_MINUTE_INDEX = 27;
+    public static final int INSTANCE_LABEL_INDEX = 28;
+    public static final int INSTANCE_SYNC_BY_LABEL_INDEX = 29;
+    public static final int INSTANCE_VIBRATE_INDEX = 30;
+    public static final int INSTANCE_VIBRATION_PATTERN_INDEX = 31;
+    public static final int INSTANCE_FLASH_INDEX = 32;
+    public static final int INSTANCE_AUTO_SILENCE_DURATION_INDEX = 33;
+    public static final int INSTANCE_SNOOZE_DURATION_INDEX = 34;
+    public static final int INSTANCE_MISSED_ALARM_REPEAT_COUNT_INDEX = 35;
+    public static final int INSTANCE_MISSED_ALARM_REPEAT_LIMIT_INDEX = 36;
+    public static final int INSTANCE_CRESCENDO_DURATION_INDEX = 37;
+    public static final int INSTANCE_ALARM_VOLUME_INDEX = 38;
 
-    private static final int COLUMN_COUNT = ALARM_VOLUME_INDEX + 1;
+    private static final int COLUMN_COUNT = MANUAL_SORT_ORDER_INDEX + 1;
     private static final int ALARM_JOIN_INSTANCE_COLUMN_COUNT = INSTANCE_ALARM_VOLUME_INDEX + 1;
     // Public fields
     public long id;
@@ -233,6 +255,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     public int crescendoDuration;
     // Alarm volume level in steps; not a percentage
     public int alarmVolume;
+    public int manualSortOrder;
     public int instanceState;
 
     // Creates a default alarm at the current time.
@@ -264,14 +287,14 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.missedAlarmRepeatLimit = Integer.parseInt(DEFAULT_MISSED_ALARM_REPEAT_LIMIT);
         this.crescendoDuration = DEFAULT_VOLUME_CRESCENDO_DURATION;
         this.alarmVolume = DEFAULT_ALARM_VOLUME;
+        this.manualSortOrder = 0;
     }
 
     // Used to backup/restore the alarm
-    public Alarm(long id, boolean enabled, int year, int month, int day, int hour, int minutes,
-                 boolean vibrate, String vibrationPattern, boolean flash, Weekdays daysOfWeek,
-                 String label, boolean syncByLabel, String alert, boolean deleteAfterUse, int autoSilenceDuration,
-                 int snoozeDuration, int missedAlarmRepeatLimit, int crescendoDuration,
-                 int alarmVolume) {
+    public Alarm(long id, boolean enabled, int year, int month, int day, int hour, int minutes, boolean vibrate, String vibrationPattern,
+                 boolean flash, Weekdays daysOfWeek, String label, boolean syncByLabel, String alert, boolean deleteAfterUse,
+                 int autoSilenceDuration, int snoozeDuration, int missedAlarmRepeatLimit, int crescendoDuration, int alarmVolume,
+                 int manualSortOrder) {
 
         this.id = id;
         this.enabled = enabled;
@@ -293,6 +316,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.missedAlarmRepeatLimit = missedAlarmRepeatLimit;
         this.crescendoDuration = crescendoDuration;
         this.alarmVolume = alarmVolume;
+        this.manualSortOrder = manualSortOrder;
     }
 
     // Used to create a clone of the given alarm
@@ -318,6 +342,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.crescendoDuration = original.crescendoDuration;
         this.alarmVolume = original.alarmVolume;
         this.instanceState = original.instanceState;
+        this.manualSortOrder = original.manualSortOrder;
     }
 
     public Alarm(Cursor c) {
@@ -340,6 +365,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         missedAlarmRepeatLimit = c.getInt(MISSED_ALARM_REPEAT_LIMIT_INDEX);
         crescendoDuration = c.getInt(CRESCENDO_DURATION_INDEX);
         alarmVolume = c.getInt(ALARM_VOLUME_INDEX);
+        manualSortOrder = c.getInt(MANUAL_SORT_ORDER_INDEX);
 
         if (c.getColumnCount() == ALARM_JOIN_INSTANCE_COLUMN_COUNT) {
             instanceState = c.getInt(INSTANCE_STATE_INDEX);
@@ -377,6 +403,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         missedAlarmRepeatLimit = p.readInt();
         crescendoDuration = p.readInt();
         alarmVolume = p.readInt();
+        manualSortOrder = p.readInt();
     }
 
     public ContentValues createContentValues() {
@@ -403,6 +430,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         values.put(MISSED_ALARM_REPEAT_LIMIT, missedAlarmRepeatLimit);
         values.put(CRESCENDO_DURATION, crescendoDuration);
         values.put(ALARM_VOLUME, alarmVolume);
+        values.put(MANUAL_SORT_ORDER, manualSortOrder);
         if (alert == null) {
             // We want to put null, so default alarm changes
             values.putNull(RINGTONE);
@@ -434,6 +462,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         p.writeInt(missedAlarmRepeatLimit);
         p.writeInt(crescendoDuration);
         p.writeInt(alarmVolume);
+        p.writeInt(manualSortOrder);
     }
 
     public int describeContents() {
@@ -485,6 +514,14 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
                     sortOrder = SORT_ORDER_BY_ASCENDING_CREATION_WITH_ENABLED_FIRST;
                 } else {
                     sortOrder = SORT_ORDER_BY_ASCENDING_CREATION;
+                }
+            }
+
+            case SORT_ALARM_MANUALLY -> {
+                if (areEnabledAlarmsFirst) {
+                    sortOrder = SORT_ORDER_MANUALLY_WITH_ENABLED_FIRST;
+                } else {
+                    sortOrder = SORT_ORDER_MANUALLY_ASC;
                 }
             }
         }
@@ -967,6 +1004,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             ", missedAlarmRepeatLimit=" + missedAlarmRepeatLimit +
             ", crescendoDuration=" + crescendoDuration +
             ", alarmVolume=" + alarmVolume +
+            ", manualSortOrder=" + manualSortOrder +
             '}';
     }
 

@@ -267,6 +267,10 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
     // ** HELPER METHODS **
     // ********************
 
+    public void updateBackground() {
+        bindExpressiveCardBackground(itemView.getContext());
+    }
+
     private void setRepeatingDaysDescription(Context context, Alarm alarm, AlarmInstance alarmInstance) {
         Weekdays.Order weekdayOrder = SettingsDAO.getWeekdayOrder(mPrefs);
         String contentDesc = alarm.daysOfWeek.toAccessibilityString(context, weekdayOrder);

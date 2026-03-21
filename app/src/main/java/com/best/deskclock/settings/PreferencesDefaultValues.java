@@ -97,6 +97,7 @@ public class PreferencesDefaultValues {
     public static final String SORT_ALARM_BY_NAME = "2";
     public static final String SORT_ALARM_BY_DESCENDING_CREATION_ORDER = "3";
     public static final String SORT_ALARM_BY_ASCENDING_CREATION_ORDER = "4";
+    public static final String SORT_ALARM_MANUALLY = "5";
     public static final boolean DEFAULT_DISPLAY_ENABLED_ALARMS_FIRST = false;
     public static final boolean DEFAULT_ENABLE_ALARM_FAB_LONG_PRESS = false;
     public static final String DEFAULT_WEEK_START = String.valueOf(Calendar.getInstance().getFirstDayOfWeek());

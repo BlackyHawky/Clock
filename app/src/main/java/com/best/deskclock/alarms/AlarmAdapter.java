@@ -12,9 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.best.deskclock.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class AlarmAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
+
+    private static final String PAYLOAD_UPDATE_BACKGROUND = "PAYLOAD_UPDATE_BACKGROUND";
 
     private List<AlarmItemHolder> mItems = new ArrayList<>();
 
@@ -27,6 +30,15 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
     public AlarmItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.alarm_item, parent, false);
         return new AlarmItemViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull AlarmItemViewHolder holder, int position, @NonNull List<Object> payloads) {
+        if (payloads.contains(PAYLOAD_UPDATE_BACKGROUND)) {
+            holder.updateBackground();
+        } else {
+            super.onBindViewHolder(holder, position, payloads);
+        }
     }
 
     @Override
@@ -56,6 +68,25 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
             mItems.remove(position);
             notifyItemRemoved(position);
         }
+    }
+
+    public void swapItems(int fromPosition, int toPosition) {
+        if (fromPosition < toPosition) {
+            for (int i = fromPosition; i < toPosition; i++) {
+                Collections.swap(mItems, i, i + 1);
+            }
+        } else {
+            for (int i = fromPosition; i > toPosition; i--) {
+                Collections.swap(mItems, i, i - 1);
+            }
+        }
+
+        notifyItemMoved(fromPosition, toPosition);
+        notifyItemRangeChanged(0, mItems.size(), PAYLOAD_UPDATE_BACKGROUND);
+    }
+
+    public List<AlarmItemHolder> getItems() {
+        return mItems;
     }
 
 }

@@ -392,6 +392,7 @@
         <item>@string/sort_name</item>
         <item>@string/sort_descending_creation_order</item>
         <item>@string/sort_ascending_creation_order</item>
+        <item>@string/sort_manually</item>
     </string-array>
     <!-- Values that are retrieved from the ListPreference. These must match
          the sort_alarm_entries above. -->
@@ -401,6 +402,7 @@
         <item>2</item>
         <item>3</item>
         <item>4</item>
+        <item>5</item>
     </string-array>
 
     <!-- Entries listed in the ListPreference when invoking the timer creation view style preference. -->

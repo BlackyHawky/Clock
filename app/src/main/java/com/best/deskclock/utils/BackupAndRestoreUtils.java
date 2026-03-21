@@ -172,6 +172,7 @@ public class BackupAndRestoreUtils {
                 alarmObject.put("missedAlarmRepeatLimit", alarm.missedAlarmRepeatLimit);
                 alarmObject.put("crescendoDuration", alarm.crescendoDuration);
                 alarmObject.put("alarmVolume", alarm.alarmVolume);
+                alarmObject.put("manualSortOrder", alarm.manualSortOrder);
 
                 if (alarm.daysOfWeek.isRepeating() || !alarm.isSpecifiedDate()) {
                     alarmsArray.put(alarmObject);
@@ -375,6 +376,7 @@ public class BackupAndRestoreUtils {
         int missedAlarmRepeatLimit = alarmObject.optInt("missedAlarmRepeatLimit", SettingsDAO.getMissedAlarmRepeatLimit(prefs));
         int crescendoDuration = alarmObject.optInt("crescendoDuration", SettingsDAO.getAlarmVolumeCrescendoDuration(prefs));
         int alarmVolume = alarmObject.optInt("alarmVolume", audioManager.getStreamVolume(STREAM_ALARM));
+        int manualSortOrder = alarmObject.optInt("manualSortOrder", 0);
 
         String alarmRingtone;
         if (RingtoneUtils.isRandomRingtone(Uri.parse(alert))) {
@@ -406,7 +408,7 @@ public class BackupAndRestoreUtils {
 
         restoredAlarm = new Alarm(id, enabled, year, month, day, hour, minutes, vibrate, vibrationPattern, flash,
             Weekdays.fromBits(daysOfWeek), label, syncAlarmByLabel, alarmRingtone, deleteAfterUse, autoSilenceDuration, snoozeDuration,
-            missedAlarmRepeatLimit, crescendoDuration, alarmVolume);
+            missedAlarmRepeatLimit, crescendoDuration, alarmVolume, manualSortOrder);
 
         restoredAlarm.addAlarm(contentResolver);
 

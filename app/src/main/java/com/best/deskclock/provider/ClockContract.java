@@ -118,6 +118,12 @@ public final class ClockContract {
          * <p>Type: INTEGER</p>
          */
         String ALARM_VOLUME = "alarmVolume";
+
+        /**
+         * Manuel sort order.
+         * <p>Type: INTEGER</p>
+         */
+        String MANUAL_SORT_ORDER = "manualSortOrder";
     }
 
     /**

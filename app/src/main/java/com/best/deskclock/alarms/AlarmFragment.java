@@ -13,28 +13,23 @@ import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_ALARM_BY_NAME;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_ALARM_BY_NEXT_ALARM_TIME;
+import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_ALARM_MANUALLY;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SPINNER_TIME_PICKER_STYLE;
 import static com.best.deskclock.uidata.UiDataModel.Tab.ALARMS;
 
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.text.TextPaint;
 import android.util.DisplayMetrics;
-import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -48,7 +43,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.NotificationManagerCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.LifecycleOwner;
@@ -85,7 +79,6 @@ import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.color.MaterialColors;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.text.Collator;
@@ -98,7 +91,8 @@ import java.util.Objects;
 /**
  * A fragment that displays a list of alarm time and allows interaction with them.
  */
-public final class AlarmFragment extends DeskClockFragment implements LoaderManager.LoaderCallbacks<Cursor>, ScrollHandler {
+public final class AlarmFragment extends DeskClockFragment
+    implements LoaderManager.LoaderCallbacks<Cursor>, ScrollHandler, AlarmTouchContract {
 
     // This extra is used when receiving an intent to create an alarm, but no alarm details
     // have been passed in, so the alarm page should start the process of creating a new alarm.
@@ -125,6 +119,8 @@ public final class AlarmFragment extends DeskClockFragment implements LoaderMana
     private boolean mIsTablet;
     private boolean mIsLandscape;
     private boolean mIsPhoneInLandscape;
+    private boolean mSideButtonsVisible = false;
+    private boolean mIsReordering = false;
 
     // Data
     private Loader<?> mCursorLoader;
@@ -137,23 +133,6 @@ public final class AlarmFragment extends DeskClockFragment implements LoaderMana
     private AlarmUpdateHandler mAlarmUpdateHandler;
     private EmptyViewController mEmptyViewController;
     private AlarmTimeClickHandler mAlarmTimeClickHandler;
-
-    private boolean sideButtonsVisible = false;
-
-    // Resources for ItemTouchHelper
-    float mLargeRadius;
-    float mSmallRadius;
-    int mDeleteIconHorizontalMargin;
-    String mDeleteText;
-    GradientDrawable mSwipeBackground;
-    Drawable mDeleteIcon;
-    int mDeleteIconSize = 0;
-    TextPaint mDeleteTextPaint;
-    private float[] mTopRadii;
-    private float[] mBottomRadii;
-    private int mDeleteIconHalfSize;
-    private int mTextHorizontalOffset;
-    private float mTextVerticalOffset;
 
     private final BroadcastReceiver mVolumeReceiver = new BroadcastReceiver() {
         @Override
@@ -186,44 +165,8 @@ public final class AlarmFragment extends DeskClockFragment implements LoaderMana
         mIsPhoneInLandscape = !mIsTablet && mIsLandscape;
 
         if (savedState != null) {
-            sideButtonsVisible = savedState.getBoolean(KEY_SIDE_BUTTONS_VISIBLE, false);
+            mSideButtonsVisible = savedState.getBoolean(KEY_SIDE_BUTTONS_VISIBLE, false);
         }
-
-        mLargeRadius = dpToPx(18, mDisplayMetrics);
-        mSmallRadius = dpToPx(4, mDisplayMetrics);
-        mDeleteIconHorizontalMargin = (int) dpToPx(16, mDisplayMetrics);
-        mDeleteText = mContext.getString(R.string.delete);
-
-        mSwipeBackground = new GradientDrawable();
-        mSwipeBackground.setColor(mContext.getColor(R.color.colorAlert));
-
-        mDeleteIcon = AppCompatResources.getDrawable(mContext, R.drawable.ic_delete);
-        if (mDeleteIcon != null) {
-            DrawableCompat.setTint(mDeleteIcon, MaterialColors.getColor(
-                mContext, com.google.android.material.R.attr.colorOnError, Color.BLACK));
-            mDeleteIconSize = mDeleteIcon.getIntrinsicHeight();
-        }
-
-        mDeleteTextPaint = new TextPaint();
-        mDeleteTextPaint.setAntiAlias(true);
-        mDeleteTextPaint.setTextSize(TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_SP, 16, mContext.getResources().getDisplayMetrics()));
-        mDeleteTextPaint.setColor(MaterialColors.getColor(mContext, com.google.android.material.R.attr.colorOnError, Color.BLACK));
-        mDeleteTextPaint.setTypeface(mBoldTypeface);
-        mDeleteTextPaint.setTextAlign(ThemeUtils.isRTL() ? Paint.Align.RIGHT : Paint.Align.LEFT);
-
-        mTopRadii = new float[]{
-            mLargeRadius, mLargeRadius, mLargeRadius, mLargeRadius,
-            mSmallRadius, mSmallRadius, mSmallRadius, mSmallRadius};
-
-        mBottomRadii = new float[]{
-            mSmallRadius, mSmallRadius, mSmallRadius, mSmallRadius,
-            mLargeRadius, mLargeRadius, mLargeRadius, mLargeRadius};
-
-        mDeleteIconHalfSize = mDeleteIconSize / 2;
-        mTextHorizontalOffset = (int) (1.5 * mDeleteIconHorizontalMargin + mDeleteIconSize);
-
-        mTextVerticalOffset = (mDeleteTextPaint.getTextSize() - mDeleteTextPaint.getFontMetrics().descent) / 2;
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -233,18 +176,16 @@ public final class AlarmFragment extends DeskClockFragment implements LoaderMana
         final View view = inflater.inflate(R.layout.alarm_fragment, container, false);
 
         mMainLayout = view.findViewById(R.id.main);
-
         mVolumeWarningBanner = view.findViewById(R.id.volume_warning_banner);
         TextView volumeWarningText = view.findViewById(R.id.volume_warning_text);
         MaterialButton volumeWarningButton = view.findViewById(R.id.volume_warning_button);
+        mRecyclerView = view.findViewById(R.id.alarms_recycler_view);
+        ConstraintLayout emptyAlarmView = view.findViewById(R.id.alarms_empty_view);
 
         volumeWarningText.setTypeface(mBoldTypeface);
 
         volumeWarningButton.setTypeface(mBoldTypeface);
         volumeWarningButton.setOnClickListener(v -> RingtoneUtils.fixAlarmStreamLow(mContext));
-
-        mRecyclerView = view.findViewById(R.id.alarms_recycler_view);
-        ConstraintLayout emptyAlarmView = view.findViewById(R.id.alarms_empty_view);
 
         // Set a bottom padding for phones in portrait mode and tablets to center correctly
         // the alarms empty view between the FAB and the top of the screen
@@ -290,149 +231,8 @@ public final class AlarmFragment extends DeskClockFragment implements LoaderMana
             ((SimpleItemAnimator) animator).setSupportsChangeAnimations(false);
         }
 
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.END) {
-
-            private final Rect mClipBounds = new Rect();
-
-            @Override
-            public int getSwipeDirs(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-                Fragment bottomSheet = getParentFragmentManager().findFragmentByTag(AlarmEditBottomSheetFragment.TAG);
-                Fragment delayDialog = getParentFragmentManager().findFragmentByTag(AlarmDelayPickerDialogFragment.TAG);
-
-                boolean areFragmentsOpen = (bottomSheet != null && bottomSheet.isAdded())
-                    || (delayDialog != null && delayDialog.isAdded());
-
-                if (areFragmentsOpen) {
-                    return 0;
-                }
-
-                return super.getSwipeDirs(recyclerView, viewHolder);
-            }
-
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder,
-                                  @NonNull RecyclerView.ViewHolder target) {
-
-                return false;
-            }
-
-            @Override
-            public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder,
-                                    float dX, float dY, int actionState, boolean isCurrentlyActive) {
-
-                // Don't call super.onChildDraw() to prevent the shadow from appearing
-                // under the card when dragging.
-
-                View itemView = viewHolder.itemView;
-                int width = itemView.getWidth();
-                int height = itemView.getHeight();
-
-                if (dX == 0) {
-                    itemView.setClipBounds(null);
-                    return;
-                }
-
-                hideSideButtonsWithFabAnimation();
-                c.save();
-
-                int itemTop = itemView.getTop();
-                int itemBottom = itemView.getBottom();
-                int itemLeft = itemView.getLeft();
-                int itemRight = itemView.getRight();
-
-                if (dX > 0) {
-                    mClipBounds.set((int) dX, 0, width, height);
-                } else {
-                    mClipBounds.set(0, 0, width + (int) dX, height);
-                }
-                itemView.setClipBounds(mClipBounds);
-
-                AlarmItemViewHolder alarmHolder = (AlarmItemViewHolder) viewHolder;
-                int position = alarmHolder.mItemPosition;
-                int totalCount = alarmHolder.mTotalCount;
-
-                // Radius setting
-                if (totalCount <= 1) {
-                    mSwipeBackground.setCornerRadius(mLargeRadius);
-                } else if (position == 0) {
-                    mSwipeBackground.setCornerRadii(mTopRadii);
-                } else if (position == totalCount - 1) {
-                    mSwipeBackground.setCornerRadii(mBottomRadii);
-                } else {
-                    mSwipeBackground.setCornerRadius(mSmallRadius);
-                }
-
-                mSwipeBackground.setBounds(itemLeft, itemTop, itemRight, itemBottom);
-
-                int topIcon = itemTop + ((itemBottom - itemTop) / 2 - mDeleteIconHalfSize);
-                int textMarginTop = (int) (itemTop + ((itemBottom - itemTop) / 2.0) + mTextVerticalOffset);
-
-                // Drawing according to the swipe direction
-                if (dX > 0) {
-                    // Swipe right
-                    int rightEdge = Math.min(itemLeft + (int) dX, itemRight);
-                    c.clipRect(itemLeft, itemTop, rightEdge, itemBottom);
-                    mSwipeBackground.draw(c);
-
-                    // Icon
-                    if (dX > mDeleteIconHorizontalMargin && mDeleteIcon != null) {
-                        mDeleteIcon.setBounds(
-                            itemLeft + mDeleteIconHorizontalMargin,
-                            topIcon,
-                            itemLeft + mDeleteIconHorizontalMargin + mDeleteIconSize,
-                            topIcon + mDeleteIconSize
-                        );
-                        mDeleteIcon.draw(c);
-                    }
-
-                    // Text
-                    if (dX > mTextHorizontalOffset) {
-                        c.drawText(mDeleteText, itemLeft + mTextHorizontalOffset, textMarginTop, mDeleteTextPaint);
-                    }
-                } else {
-                    // Swipe left (for RTL)
-                    int leftEdge = Math.max(itemRight + (int) dX, itemLeft);
-                    c.clipRect(leftEdge, itemTop, itemRight, itemBottom);
-                    mSwipeBackground.draw(c);
-
-                    // Icon
-                    if (-dX > mDeleteIconHorizontalMargin && mDeleteIcon != null) {
-                        mDeleteIcon.setBounds(
-                            itemRight - mDeleteIconHorizontalMargin - mDeleteIconSize,
-                            topIcon,
-                            itemRight - mDeleteIconHorizontalMargin,
-                            topIcon + mDeleteIconSize
-                        );
-                        mDeleteIcon.draw(c);
-                    }
-
-                    // Text
-                    if (-dX > mTextHorizontalOffset) {
-                        c.drawText(mDeleteText, itemRight - mTextHorizontalOffset, textMarginTop, mDeleteTextPaint);
-                    }
-                }
-
-                c.restore();
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                AlarmItemViewHolder alarmHolder = (AlarmItemViewHolder) viewHolder;
-                AlarmItemHolder itemHolder = alarmHolder.getItemHolder();
-
-                removeItem(itemHolder);
-                final Alarm alarm = itemHolder.item;
-                Events.sendAlarmEvent(R.string.action_delete, R.string.label_deskclock);
-                mAlarmUpdateHandler.asyncDeleteAlarm(alarm);
-            }
-
-            @Override
-            public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-                super.clearView(recyclerView, viewHolder);
-
-                viewHolder.itemView.setClipBounds(null);
-            }
-        });
+        AlarmItemTouchHelper callback = new AlarmItemTouchHelper(mContext, this, mRecyclerView, mIsTablet, mIsLandscape);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
 
         if (ThemeUtils.areSystemAnimationsDisabled(mContext)) {
             itemTouchHelper.attachToRecyclerView(null);
@@ -580,7 +380,7 @@ public final class AlarmFragment extends DeskClockFragment implements LoaderMana
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putBoolean(KEY_SIDE_BUTTONS_VISIBLE, sideButtonsVisible);
+        outState.putBoolean(KEY_SIDE_BUTTONS_VISIBLE, mSideButtonsVisible);
     }
 
     @Override
@@ -599,7 +399,9 @@ public final class AlarmFragment extends DeskClockFragment implements LoaderMana
     public void onLoadFinished(@NonNull Loader<Cursor> cursorLoader, Cursor data) {
         final List<AlarmItemHolder> itemHolders = new ArrayList<>(data.getCount());
 
-        // Convert each row in the cursor into an AlarmItemHolder
+        // Convert each row in the cursor into an AlarmItemHolder.
+        // Note: If the user selected Manual Sort or Creation Date, the cursor is ALREADY correctly sorted by the SQL query
+        // in getAlarmsCursorLoader().
         for (data.moveToFirst(); !data.isAfterLast(); data.moveToNext()) {
             final Alarm alarm = new Alarm(data);
             final AlarmInstance alarmInstance = new AlarmInstance(data, true);
@@ -611,6 +413,9 @@ public final class AlarmFragment extends DeskClockFragment implements LoaderMana
         final boolean wantsSortByNextAlarmTime = SettingsDAO.getAlarmSorting(mPrefs).equals(SORT_ALARM_BY_NEXT_ALARM_TIME);
         final boolean wantsSortByName = SettingsDAO.getAlarmSorting(mPrefs).equals(SORT_ALARM_BY_NAME);
         final boolean areEnabledAlarmsFirst = SettingsDAO.areEnabledAlarmsDisplayedFirst(mPrefs);
+
+        // We only need to manually sort in memory for complex calculations that SQL cannot handle natively
+        // (like Collator accents or Calendar next alarm times).
 
         // Sort by name if requested
         if (wantsSortByName) {
@@ -647,6 +452,138 @@ public final class AlarmFragment extends DeskClockFragment implements LoaderMana
 
         // Apply the final list to the adapter
         setAdapterItems(itemHolders, SystemClock.elapsedRealtime());
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader<Cursor> cursorLoader) {
+    }
+
+    @Override
+    public void setSmoothScrollStableId(long stableId) {
+        mScrollToAlarmId = stableId;
+    }
+
+    @Override
+    public void onFabClick() {
+        mAlarmUpdateHandler.hideUndoBar();
+
+        if (SettingsDAO.isAlarmFabLongPressEnabled(mPrefs)) {
+            startCreatingAlarm();
+        } else {
+            mSideButtonsVisible = true;
+            updateFab(FAB_AND_BUTTONS_SHRINK_AND_EXPAND);
+        }
+    }
+
+    @Override
+    public void onFabLongClick(@NonNull ImageView fab) {
+        if (SettingsDAO.isAlarmFabLongPressEnabled(mPrefs)) {
+            fab.setHapticFeedbackEnabled(true);
+            mAlarmUpdateHandler.hideUndoBar();
+            startCreatingAlarmWithDelay();
+        } else {
+            fab.setHapticFeedbackEnabled(false);
+        }
+    }
+
+    @Override
+    public void onUpdateFab(@NonNull ImageView fab) {
+        fab.setImageResource(R.drawable.ic_add);
+        fab.setContentDescription(fab.getResources().getString(R.string.button_alarms));
+
+        if (SettingsDAO.isAlarmFabLongPressEnabled(mPrefs)) {
+            fab.setVisibility(VISIBLE);
+        } else {
+            if (mSideButtonsVisible) {
+                fab.setVisibility(INVISIBLE);
+            } else {
+                fab.setVisibility(VISIBLE);
+            }
+        }
+    }
+
+    @Override
+    public void onUpdateFabButtons(@NonNull ImageView left, @NonNull ImageView right) {
+        if (SettingsDAO.isAlarmFabLongPressEnabled(mPrefs)) {
+            left.setVisibility(INVISIBLE);
+            right.setVisibility(INVISIBLE);
+        } else {
+            if (mSideButtonsVisible) {
+                left.setVisibility(VISIBLE);
+                right.setVisibility(VISIBLE);
+
+                left.setClickable(true);
+                left.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_av_timer));
+                left.setContentDescription(mContext.getString(R.string.button_alarms));
+                left.setOnClickListener(v -> {
+                    startCreatingAlarmWithDelay();
+                    hideSideButtonsWithFabAnimation();
+                });
+
+                right.setClickable(true);
+                right.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_alarm_add));
+                right.setContentDescription(mContext.getString(R.string.button_alarms));
+                right.setOnClickListener(v -> {
+                    startCreatingAlarm();
+                    hideSideButtonsWithFabAnimation();
+                });
+            } else {
+                left.setVisibility(INVISIBLE);
+                right.setVisibility(INVISIBLE);
+            }
+        }
+    }
+
+    @Override
+    public boolean canDrag() {
+        return SettingsDAO.getAlarmSorting(mPrefs).equals(SORT_ALARM_MANUALLY);
+    }
+
+    @Override
+    public boolean canSwipe() {
+        Fragment bottomSheet = getParentFragmentManager().findFragmentByTag(AlarmEditBottomSheetFragment.TAG);
+        Fragment delayDialog = getParentFragmentManager().findFragmentByTag(AlarmDelayPickerDialogFragment.TAG);
+
+        return !(bottomSheet != null && bottomSheet.isAdded()) && !(delayDialog != null && delayDialog.isAdded());
+    }
+
+    @Override
+    public void onRowMoved(int fromPosition, int toPosition) {
+        mItemAdapter.swapItems(fromPosition, toPosition);
+    }
+
+    @Override
+    public void onRowSelected(RecyclerView.ViewHolder viewHolder) {
+        // Draw a shadow under the alarm card when it's dragging
+        viewHolder.itemView.setTranslationZ(dpToPx(6, mDisplayMetrics));
+    }
+
+    @Override
+    public void onRowClear(RecyclerView.ViewHolder viewHolder) {
+        // Remove the shadow under the alarm card when the drag is complete.
+        viewHolder.itemView.setTranslationZ(0f);
+    }
+
+    @Override
+    public void onRowSaved() {
+        mIsReordering = true;
+        saveManualSortOrder();
+    }
+
+    @Override
+    public void onRowSwiped(RecyclerView.ViewHolder viewHolder) {
+        AlarmItemViewHolder alarmHolder = (AlarmItemViewHolder) viewHolder;
+        AlarmItemHolder itemHolder = alarmHolder.getItemHolder();
+
+        mItemAdapter.removeItem(itemHolder);
+        final Alarm alarm = itemHolder.item;
+        Events.sendAlarmEvent(R.string.action_delete, R.string.label_deskclock);
+        mAlarmUpdateHandler.asyncDeleteAlarm(alarm);
+    }
+
+    @Override
+    public void onSwipeStarted() {
+        hideSideButtonsWithFabAnimation();
     }
 
     private LinearLayoutManager getLayoutManager() {
@@ -730,6 +667,10 @@ public final class AlarmFragment extends DeskClockFragment implements LoaderMana
      *                    updates
      */
     private void setAdapterItems(final List<AlarmItemHolder> items, final long updateToken) {
+        if (mIsReordering) {
+            return;
+        }
+
         if (updateToken < mCurrentUpdateToken) {
             LogUtils.v("Ignoring adapter update: %d < %d", updateToken, mCurrentUpdateToken);
             return;
@@ -772,7 +713,7 @@ public final class AlarmFragment extends DeskClockFragment implements LoaderMana
      */
     private void scrollToAlarm(long alarmId) {
         final int alarmCount = mItemAdapter.getItemCount();
-        int alarmPosition = -1;
+        int alarmPosition = RecyclerView.NO_POSITION;
         for (int i = 0; i < alarmCount; i++) {
             long id = mItemAdapter.getItemId(i);
             if (id == alarmId) {
@@ -781,8 +722,9 @@ public final class AlarmFragment extends DeskClockFragment implements LoaderMana
             }
         }
 
-        if (alarmPosition >= 0) {
-            smoothScrollTo(alarmPosition);
+        if (alarmPosition != RecyclerView.NO_POSITION) {
+            final int finalPosition = alarmPosition;
+            mRecyclerView.post(() -> smoothScrollTo(finalPosition));
         } else {
             // Trying to display a deleted alarm should only happen from a missed notification for
             // an alarm that has been marked deleted after use.
@@ -790,103 +732,23 @@ public final class AlarmFragment extends DeskClockFragment implements LoaderMana
         }
     }
 
-    @Override
-    public void onLoaderReset(@NonNull Loader<Cursor> cursorLoader) {
-    }
-
-    @Override
-    public void setSmoothScrollStableId(long stableId) {
-        mScrollToAlarmId = stableId;
-    }
-
-    @Override
-    public void onFabClick() {
-        mAlarmUpdateHandler.hideUndoBar();
-
-        if (SettingsDAO.isAlarmFabLongPressEnabled(mPrefs)) {
-            startCreatingAlarm();
-        } else {
-            sideButtonsVisible = true;
-            updateFab(FAB_AND_BUTTONS_SHRINK_AND_EXPAND);
-        }
-    }
-
-    @Override
-    public void onFabLongClick(@NonNull ImageView fab) {
-        if (SettingsDAO.isAlarmFabLongPressEnabled(mPrefs)) {
-            fab.setHapticFeedbackEnabled(true);
-            mAlarmUpdateHandler.hideUndoBar();
-            startCreatingAlarmWithDelay();
-        } else {
-            fab.setHapticFeedbackEnabled(false);
-        }
-    }
-
-    @Override
-    public void onUpdateFab(@NonNull ImageView fab) {
-        fab.setImageResource(R.drawable.ic_add);
-        fab.setContentDescription(fab.getResources().getString(R.string.button_alarms));
-
-        if (SettingsDAO.isAlarmFabLongPressEnabled(mPrefs)) {
-            fab.setVisibility(VISIBLE);
-        } else {
-            if (sideButtonsVisible) {
-                fab.setVisibility(INVISIBLE);
-            } else {
-                fab.setVisibility(VISIBLE);
-            }
-        }
-    }
-
-    @Override
-    public void onUpdateFabButtons(@NonNull ImageView left, @NonNull ImageView right) {
-        if (SettingsDAO.isAlarmFabLongPressEnabled(mPrefs)) {
-            left.setVisibility(INVISIBLE);
-            right.setVisibility(INVISIBLE);
-        } else {
-            if (sideButtonsVisible) {
-                left.setVisibility(VISIBLE);
-                right.setVisibility(VISIBLE);
-
-                left.setClickable(true);
-                left.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_av_timer));
-                left.setContentDescription(mContext.getString(R.string.button_alarms));
-                left.setOnClickListener(v -> {
-                    startCreatingAlarmWithDelay();
-                    hideSideButtonsWithFabAnimation();
-                });
-
-                right.setClickable(true);
-                right.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_alarm_add));
-                right.setContentDescription(mContext.getString(R.string.button_alarms));
-                right.setOnClickListener(v -> {
-                    startCreatingAlarm();
-                    hideSideButtonsWithFabAnimation();
-                });
-            } else {
-                left.setVisibility(INVISIBLE);
-                right.setVisibility(INVISIBLE);
-            }
-        }
-    }
-
     private void hideSideButtonsWithFabAnimation() {
-        if (sideButtonsVisible) {
-            sideButtonsVisible = false;
+        if (mSideButtonsVisible) {
+            mSideButtonsVisible = false;
             updateFab(FAB_AND_BUTTONS_SHRINK_AND_EXPAND);
         }
     }
 
     public void hideSideButtonsOnlyAnimated() {
-        if (sideButtonsVisible) {
-            sideButtonsVisible = false;
+        if (mSideButtonsVisible) {
+            mSideButtonsVisible = false;
             updateFab(BUTTONS_SHRINK_AND_EXPAND);
         }
     }
 
     public void resetFabAndButtonsState() {
-        if (sideButtonsVisible) {
-            sideButtonsVisible = false;
+        if (mSideButtonsVisible) {
+            mSideButtonsVisible = false;
             updateFab(FAB_AND_BUTTONS_IMMEDIATE);
         }
     }
@@ -914,6 +776,32 @@ public final class AlarmFragment extends DeskClockFragment implements LoaderMana
 
     public void removeItem(AlarmItemHolder itemHolder) {
         mItemAdapter.removeItem(itemHolder);
+    }
+
+    private void saveManualSortOrder() {
+        List<AlarmItemHolder> currentItems = mItemAdapter.getItems();
+
+        AppExecutors.getDiskIO().execute(() -> {
+            ContentResolver cr = mContext.getContentResolver();
+
+            for (int i = 0; i < currentItems.size(); i++) {
+                Alarm alarm = currentItems.get(i).item;
+
+                if (alarm.manualSortOrder != i) {
+                    alarm.manualSortOrder = i;
+
+                    alarm.updateAlarm(cr);
+                }
+            }
+
+            AppExecutors.getMainThread().post(() -> {
+                mIsReordering = false;
+
+                if (mCursorLoader != null) {
+                    mCursorLoader.forceLoad();
+                }
+            });
+        });
     }
 
     /**
@@ -1005,8 +893,8 @@ public final class AlarmFragment extends DeskClockFragment implements LoaderMana
         }
 
         @Override
-        public void getItemOffsets(@NonNull Rect outRect, @NonNull View view,
-                                   @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+        public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent,
+                                   @NonNull RecyclerView.State state) {
 
             int position = parent.getChildAdapterPosition(view);
 
