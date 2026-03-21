@@ -160,6 +160,7 @@ public class PreferencesKeys {
     public static final String KEY_TIMER_SHAKE_ACTION = "key_timer_shake_action";
     public static final String KEY_TIMER_SHAKE_INTENSITY = "key_timer_shake_intensity";
     public static final String KEY_SORT_TIMER = "key_sort_timer";
+    public static final String KEY_TIMER_ORDER = "timerOrder";
     public static final String KEY_TIMER_ADD_TIME_BUTTON_VALUE = "key_timer_add_time_button_value";
     public static final String KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER = "key_display_warning_before_deleting_timer";
 

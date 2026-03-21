@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: GPL-3.0-only
+
 package com.best.deskclock.timer;
 
 import static androidx.core.util.TypedValueCompat.dpToPx;

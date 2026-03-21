@@ -22,7 +22,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -53,7 +52,6 @@ import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.worldclock.CitySelectionActivity;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -163,115 +161,8 @@ public final class ClockFragment extends DeskClockFragment {
 
         cityList.addItemDecoration(new CitySpacingItemDecoration(mContext, mIsPortrait, mIsTablet));
 
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
-            @Override
-            public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-
-                int position = viewHolder.getBindingAdapterPosition();
-
-                boolean isMainClock = position == 0 && mIsPortrait;
-                boolean isHomeClock = mShowHomeClock && position == (mIsPortrait ? 1 : 0);
-                if (isMainClock || isHomeClock) {
-                    return 0;
-                }
-
-                return makeMovementFlags(ItemTouchHelper.UP | ItemTouchHelper.DOWN, 0);
-            }
-
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView,
-                                  @NonNull RecyclerView.ViewHolder viewHolder,
-                                  @NonNull RecyclerView.ViewHolder target) {
-
-                int from = viewHolder.getBindingAdapterPosition();
-                int to = target.getBindingAdapterPosition();
-
-                int offset = (mIsPortrait ? 1 : 0) + (mShowHomeClock ? 1 : 0);
-                if (from < offset || to < offset) {
-                    return false;
-                }
-
-                int fromIndex = from - offset;
-                int toIndex = to - offset;
-
-                Collections.swap(mMutableCities, fromIndex, toIndex);
-
-                mCityAdapter.notifyItemMoved(from, to);
-
-                return true;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-            }
-
-            @Override
-            public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder,
-                                    float dX, float dY, int actionState, boolean isCurrentlyActive) {
-
-                // Calculation of upper and lower limits for drag
-                int position = viewHolder.getBindingAdapterPosition();
-                int offset = (mIsPortrait ? 1 : 0) + (mShowHomeClock ? 1 : 0);
-
-                if (actionState == ItemTouchHelper.ACTION_STATE_DRAG && position >= offset) {
-                    // Upper limit
-                    RecyclerView.ViewHolder firstHolder = recyclerView.findViewHolderForAdapterPosition(offset);
-                    float minY = firstHolder != null
-                        ? firstHolder.itemView.getTop()
-                        : 0; // Fallback
-
-                    // Bottom limit
-                    int lastIndex = mCityAdapter.getItemCount() - 1;
-                    RecyclerView.ViewHolder lastHolder = recyclerView.findViewHolderForAdapterPosition(lastIndex);
-
-                    float maxY = lastHolder != null
-                        ? lastHolder.itemView.getBottom()
-                        : recyclerView.getHeight() - recyclerView.getPaddingBottom();
-
-                    // Calculation of the projection
-                    View movingView = viewHolder.itemView;
-                    float currentTop = movingView.getTop();
-                    float currentBottom = movingView.getBottom();
-
-                    float projectedTop = currentTop + dY;
-                    float projectedBottom = currentBottom + dY;
-
-                    // Adjustment
-                    float newDY = dY;
-
-                    if (projectedTop < minY) {
-                        newDY = minY - currentTop;
-                    } else if (projectedBottom > maxY) {
-                        newDY = maxY - currentBottom;
-                    }
-
-                    super.onChildDraw(c, recyclerView, viewHolder, dX, newDY, actionState, isCurrentlyActive);
-                } else {
-                    super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
-                }
-            }
-
-            @Override
-            public void onSelectedChanged(@Nullable RecyclerView.ViewHolder viewHolder, int actionState) {
-                super.onSelectedChanged(viewHolder, actionState);
-
-                // Draw a shadow under the city card when it's dragging
-                if (actionState == ItemTouchHelper.ACTION_STATE_DRAG && viewHolder != null) {
-                    viewHolder.itemView.setTranslationZ(dpToPx(6, mDisplayMetrics));
-                }
-            }
-
-            @Override
-            public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-                super.clearView(recyclerView, viewHolder);
-
-                // Remove the shadow under the city card when the drag is complete.
-                viewHolder.itemView.setTranslationZ(0f);
-
-                // Saving the new order
-                DataModel.getDataModel().updateSelectedCitiesOrder(mMutableCities);
-            }
-        });
+        CityItemTouchHelper callback = new CityItemTouchHelper(mCityAdapter, mIsPortrait, mShowHomeClock);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
 
         if (SettingsDAO.getCitySorting(mPrefs).equals(SORT_CITIES_MANUALLY)) {
             itemTouchHelper.attachToRecyclerView(cityList);

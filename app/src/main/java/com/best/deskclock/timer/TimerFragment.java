@@ -13,6 +13,7 @@ import static android.view.View.TRANSLATION_Y;
 import static android.view.View.VISIBLE;
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SORT_TIMER_MANUALLY;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMER_CREATION_VIEW_SPINNER_STYLE;
 import static com.best.deskclock.uidata.UiDataModel.Tab.TIMERS;
 
@@ -74,8 +75,9 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
 
     private static final String KEY_TIMER_SETUP_STATE = "timer_setup_input";
 
-    private SharedPreferences mPrefs;
     private Context mContext;
+    private SharedPreferences mPrefs;
+    private boolean mIsManualSorting;
     private DisplayMetrics mDisplayMetrics;
     private Typeface mBoldTypeface;
 
@@ -136,6 +138,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
 
         mContext = requireContext();
         mPrefs = getDefaultSharedPreferences(mContext);
+        mIsManualSorting = SettingsDAO.getTimerSortingPreference(mPrefs).equals(DEFAULT_SORT_TIMER_MANUALLY);
         mDisplayMetrics = getResources().getDisplayMetrics();
         mBoldTypeface = ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(mPrefs));
         mIsTablet = ThemeUtils.isTablet();
@@ -187,7 +190,8 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         DataModel.getDataModel().addTimerListener(mAdapter);
         DataModel.getDataModel().addTimerListener(mTimerWatcher);
 
-        mItemTouchHelper = new ItemTouchHelper(new TimerAdapter.TimerItemTouchHelper(mAdapter, mRecyclerView));
+        TimerItemTouchHelper callback = new TimerItemTouchHelper(mAdapter, mRecyclerView, mIsTablet, mIsLandscape, mIsManualSorting);
+        mItemTouchHelper = new ItemTouchHelper(callback);
         handleItemTouchHelper();
 
         // If timer setup state is present, retrieve it to be later honored.

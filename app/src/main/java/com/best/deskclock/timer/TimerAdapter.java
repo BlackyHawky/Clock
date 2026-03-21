@@ -8,20 +8,19 @@ package com.best.deskclock.timer;
 
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SORT_TIMER_MANUALLY;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_ORDER;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.best.deskclock.ItemTouchHelperContract;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
@@ -36,7 +35,7 @@ import java.util.List;
 /**
  * This adapter produces a {@link TimerViewHolder} for each timer.
  */
-public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements TimerListener {
+public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements TimerListener, ItemTouchHelperContract {
 
     public static final int SINGLE_TIMER = 0;
     public static final int MULTIPLE_TIMERS = 1;
@@ -243,6 +242,28 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         updateTime();
     }
 
+    @Override
+    public void onRowMoved(int fromPosition, int toPosition) {
+        swapTimers(fromPosition, toPosition);
+    }
+
+    @Override
+    public void onRowSelected(RecyclerView.ViewHolder viewHolder) {
+        // Draw a shadow under the timer card when it's dragging.
+        viewHolder.itemView.setTranslationZ(dpToPx(6, mContext.getResources().getDisplayMetrics()));
+    }
+
+    @Override
+    public void onRowClear(RecyclerView.ViewHolder viewHolder) {
+        // Remove the shadow under the city card when the drag is complete.
+        viewHolder.itemView.setTranslationZ(0f);
+    }
+
+    public void onRowSaved() {
+        // Save the timer list once the user interaction is complete.
+        saveTimerList();
+    }
+
     private int getTimerPosition(int timerId) {
         for (int i = 0; i < mCachedTimers.size(); i++) {
             if (mCachedTimers.get(i).getId() == timerId) {
@@ -311,7 +332,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             Collections.sort(sourceTimers, Timer.createTimerStateComparator(mContext));
             mCachedTimers = sourceTimers;
         } else {
-            String savedOrder = mPrefs.getString("timerOrder", null);
+            String savedOrder = mPrefs.getString(KEY_TIMER_ORDER, null);
 
             if (savedOrder != null) {
                 String[] timerIds = savedOrder.split(",");
@@ -344,7 +365,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         SharedPreferences.Editor editor = mPrefs.edit();
 
         if (getTimers().isEmpty()) {
-            editor.remove("timerOrder");
+            editor.remove(KEY_TIMER_ORDER);
         } else {
             // Convert list of IDs to string
             StringBuilder sb = new StringBuilder();
@@ -357,7 +378,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 sb.setLength(sb.length() - 1);
             }
 
-            editor.putString("timerOrder", sb.toString());
+            editor.putString(KEY_TIMER_ORDER, sb.toString());
         }
 
         editor.apply();
@@ -369,135 +390,22 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     public void swapTimers(int fromPosition, int toPosition) {
-        Collections.swap(mCachedTimers, fromPosition, toPosition);
-        Collections.swap(DataModel.getDataModel().getTimers(), fromPosition, toPosition);
+        List<Timer> dataModelTimers = DataModel.getDataModel().getTimers();
+
+        if (fromPosition < toPosition) {
+            for (int i = fromPosition; i < toPosition; i++) {
+                Collections.swap(mCachedTimers, i, i + 1);
+                Collections.swap(dataModelTimers, i, i + 1);
+            }
+        } else {
+            for (int i = fromPosition; i > toPosition; i--) {
+                Collections.swap(mCachedTimers, i, i - 1);
+                Collections.swap(dataModelTimers, i, i - 1);
+            }
+        }
+
         notifyItemMoved(fromPosition, toPosition);
-    }
-
-    /**
-     * Custom ItemTouchHelper.Callback for managing drag & drop of Timer items in a RecyclerView.
-     *
-     * <p>This implementation allows manual reordering of timers via drag gestures,
-     * but disables dragging when the user initiates a touch event on the {@code + 1:00} button.
-     *
-     * <p>Drag directions are enabled or disabled based on user preferences and device orientation,
-     * ensuring consistent UX whether on tablets, phones, portrait or landscape modes.</p>
-     */
-    public static class TimerItemTouchHelper extends ItemTouchHelper.Callback {
-
-        private final TimerAdapter mAdapter;
-
-        private boolean isTouchOnDragBlockingView = false;
-
-        public TimerItemTouchHelper(TimerAdapter adapter, RecyclerView recyclerView) {
-            mAdapter = adapter;
-
-            // Prevent the timer from dragging if the "Add a minute" button is long-pressed
-            recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
-                @Override
-                public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
-                    if (e.getAction() == MotionEvent.ACTION_DOWN) {
-                        View child = rv.findChildViewUnder(e.getX(), e.getY());
-                        if (child != null) {
-                            View addTimeButton = child.findViewById(R.id.timer_add_time_button);
-                            if (addTimeButton != null && addTimeButton.getVisibility() == View.VISIBLE) {
-                                int[] loc = new int[2];
-                                addTimeButton.getLocationOnScreen(loc);
-                                float x = e.getRawX();
-                                float y = e.getRawY();
-                                isTouchOnDragBlockingView = x >= loc[0] && x <= loc[0] + addTimeButton.getWidth()
-                                    && y >= loc[1] && y <= loc[1] + addTimeButton.getHeight();
-                            } else {
-                                isTouchOnDragBlockingView = false;
-                            }
-                        } else {
-                            isTouchOnDragBlockingView = false;
-                        }
-                    }
-
-                    return false;
-                }
-
-                @Override
-                public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
-                }
-
-                @Override
-                public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-                }
-            });
-        }
-
-        @Override
-        public boolean onMove(@NonNull RecyclerView recyclerView,
-                              @NonNull RecyclerView.ViewHolder viewHolder,
-                              @NonNull RecyclerView.ViewHolder target) {
-
-            int fromPosition = viewHolder.getBindingAdapterPosition();
-            int toPosition = target.getBindingAdapterPosition();
-
-            mAdapter.swapTimers(fromPosition, toPosition);
-
-            return true;
-        }
-
-        @Override
-        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-        }
-
-        @Override
-        public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-            if (isTouchOnDragBlockingView) {
-                return 0;
-            }
-
-            final int dragFlags;
-            String timerSortingPreference = SettingsDAO.getTimerSortingPreference(mAdapter.mPrefs);
-
-            // Allow dragging only if timers are sorted manually
-            if (timerSortingPreference.equals(DEFAULT_SORT_TIMER_MANUALLY)) {
-                if (ThemeUtils.isTablet()) {
-                    dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.START | ItemTouchHelper.END;
-                } else {
-                    if (ThemeUtils.isLandscape()) {
-                        dragFlags = ItemTouchHelper.START | ItemTouchHelper.END;
-                    } else {
-                        dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
-                    }
-                }
-            } else {
-                dragFlags = 0;
-            }
-
-            return makeMovementFlags(dragFlags, 0);
-        }
-
-        @Override
-        public void onSelectedChanged(@Nullable RecyclerView.ViewHolder viewHolder, int actionState) {
-            super.onSelectedChanged(viewHolder, actionState);
-
-            // Draw a shadow under the timer card when it's dragging.
-            if (actionState == ItemTouchHelper.ACTION_STATE_DRAG && viewHolder != null) {
-                viewHolder.itemView.setTranslationZ(dpToPx(6, viewHolder.itemView.getContext().getResources().getDisplayMetrics()));
-            }
-        }
-
-        @Override
-        public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-            super.clearView(recyclerView, viewHolder);
-
-            // Remove the shadow under the city card when the drag is complete.
-            viewHolder.itemView.setTranslationZ(0f);
-
-            // Save the list of timers once the user interaction is complete.
-            mAdapter.saveTimerList();
-
-            recyclerView.post(() -> {
-                // Notifies the adapter that all items may have changed positions,
-                // which will force the system to call onBind() for each visible timer.
-                mAdapter.notifyItemRangeChanged(0, mAdapter.getItemCount());
-            });
-        }
+        notifyItemRangeChanged(0, mCachedTimers.size(), PAYLOAD_UPDATE_BACKGROUND);
     }
 
 }
