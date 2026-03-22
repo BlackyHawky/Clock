@@ -727,16 +727,17 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     }
 
     public boolean isDateInThePast() {
-        Calendar alarmCalendar = Calendar.getInstance();
-        alarmCalendar.set(year, month, day);
-        alarmCalendar.set(Calendar.MILLISECOND, 0);
+        Calendar alarmDate = Calendar.getInstance();
+        alarmDate.clear();
+        alarmDate.set(year, month, day);
 
-        Calendar currentCalendar = Calendar.getInstance();
+        Calendar today = Calendar.getInstance();
+        today.set(Calendar.HOUR_OF_DAY, 0);
+        today.set(Calendar.MINUTE, 0);
+        today.set(Calendar.SECOND, 0);
+        today.set(Calendar.MILLISECOND, 0);
 
-        long alarmTimeInMillis = alarmCalendar.getTimeInMillis();
-        long currentTimeInMillis = currentCalendar.getTimeInMillis();
-
-        return alarmTimeInMillis < currentTimeInMillis;
+        return alarmDate.before(today);
     }
 
     public boolean isSpecifiedDate() {

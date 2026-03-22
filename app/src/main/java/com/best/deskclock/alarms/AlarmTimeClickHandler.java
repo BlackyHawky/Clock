@@ -155,6 +155,10 @@ public final class AlarmTimeClickHandler {
      * @param alarm the alarm whose date should be validated and corrected
      */
     private void fixAlarmDateIfPast(Alarm alarm) {
+        if (alarm.daysOfWeek.isRepeating()) {
+            return;
+        }
+
         if (alarm.isDateInThePast()) {
             Calendar currentCalendar = Calendar.getInstance();
             alarm.year = currentCalendar.get(Calendar.YEAR);
