@@ -1,0 +1,15 @@
+**Fehlerbehebungen**
+- Korrektur der Farbe des Reiter-Indikators
+- Korrektur der Farbe des Sekundenzeigers im Uhr-Reiter
+- Behebung eines Anzeigefehlers beim Starten des Bildschirmschoners aus den Geräteeinstellungen heraus
+
+**Verbesserungen**
+- Sicherungs- und Wiederherstellungsfunktion hinzugefügt
+- Sortieren der Timer und neue Einstellungen hinzugefügt
+- Separate Akzentfarben für Tag- und Nachtmodi
+- Aktualisierte Nachtakzentfarbe
+- Aktualisierte Übersetzungen
+
+- Um alle Verbesserungen zu sehe, besuchen Sie https://github.com/BlackyHawky/Clock/releases/tag/2.9
+
+Hinweis: Sie müssen die Einstellung "Benachrichtigungserinnerung" zurücksetzen

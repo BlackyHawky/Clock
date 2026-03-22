@@ -16,7 +16,7 @@
     <string name="dark_theme">Aberkan</string>
     <string name="black_accent_color">Ubrik</string>
     <string name="brown_accent_color">Aqehwi</string>
-    <string name="settings">Iɣewwaṛen</string>
+    <string name="settings">Iɣewwaren</string>
     <string name="app_label">Tamrint</string>
     <string name="snooze_duration_none">Ulac</string>
     <string name="label_never">Urǧin</string>
@@ -25,9 +25,9 @@
     <string name="silent_ringtone_title">Tasusmi</string>
     <string name="week_start_saturday">Sed</string>
     <string name="button_action_dismiss">Anef</string>
-    <string name="menu_alarm">Tamrilt</string>
+    <string name="menu_alarm">Tangedwit</string>
     <string name="label_description">Tabzimt</string>
-    <string name="default_label">Tamrilt</string>
+    <string name="default_label">Tangedwit</string>
     <string name="label_off">Yensa</string>
     <string name="duplicate">Sleg</string>
     <string name="day_concat">", "</string>
@@ -107,4 +107,59 @@
     <string name="settings_language_english_us">Taglizit (Iwunak Yeddukklen)</string>
     <string name="timer_add_custom_time">+ %s</string>
     <string name="world_day_of_week_label">/ <xliff:g id="LABEL">%s</xliff:g></string>
+    <plurals name="alarm_alert_snooze_duration">
+        <item quantity="one">1 sd</item>
+        <item quantity="other"><xliff:g example="7" id="number">%d</xliff:g> sd</item>
+    </plurals>
+    <plurals name="hours">
+        <item quantity="one">1 n wesrag</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> n yesragen</item>
+    </plurals>
+    <plurals name="hours_short">
+        <item quantity="one">1 sr</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> sr</item>
+    </plurals>
+    <plurals name="minutes">
+        <item quantity="one">1 n tesdat</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> n tesdatin</item>
+    </plurals>
+    <plurals name="minutes_short">
+        <item quantity="one">1 sd</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> sd</item>
+    </plurals>
+    <plurals name="seconds">
+        <item quantity="one">1 n tasint</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> n tasinin</item>
+    </plurals>
+    <string name="hours_label">sr</string>
+    <string name="minutes_label">sd</string>
+    <string name="seconds_label">sn</string>
+    <string name="timer_notification_label">Amakud</string>
+    <string name="home_label">Axxam</string>
+    <string name="cities_activity_title">Tiɣeṛmin</string>
+    <string name="sw_pause_button">Seṛǧu</string>
+    <string name="permission_status_title">Addad:</string>
+    <string name="clock_style_spinner">Asebrin</string>
+    <string name="custom_font_dialog_title">Tasefsit</string>
+    <string name="sw_total_title">Aɣrud</string>
+    <string name="alarm_undo">semmet</string>
+    <string name="button_alarms">Rnu tangedwit</string>
+    <string name="alarm_settings">Tingedwiyin</string>
+    <string name="alarm_label_box_title">Tabzimt n tengedwit</string>
+    <string name="next_alarm_widget">Tangedwit d-iteddun</string>
+    <string name="shortcut_new_alarm_short">Tangedwit tamaynut</string>
+    <string name="alarm_deleted">Tettwakkes tengedwit</string>
+    <string name="no_alarms">Ulac tangedwit</string>
+    <string name="dismiss_alarm">Seḥbes tangedwit</string>
+    <string name="next_alarm_widget_text">Tangedwit d-iteddun</string>
+    <string name="delay_picker_dialog_title">Tangedwit deg …</string>
+    <string name="alarm_title_color">Ini n wezwel n tengedwit</string>
+    <string name="alarm_button_color">Ini n tqeffalt n tengedwit</string>
+    <string name="shortcut_new_alarm_long">Snulfu-d tangedwit tamaynut</string>
+    <string name="alarm_alert_dismiss_and_delete_text">Zgel-itt syen kkes-itt</string>
+    <string name="settings_language_tamil">Taṭamilit</string>
+    <string name="settings_language_bulgarian">Tabulgarit</string>
+    <string name="license">Turagt n uɣbalu yeldin</string>
+    <string name="add_label">Rnu tabzimt</string>
+    <string name="lap_number_single_digit"># <xliff:g id="lapNumber">%d</xliff:g></string>
 </resources>

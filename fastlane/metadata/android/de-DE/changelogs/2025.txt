@@ -1,0 +1,13 @@
+**Fehlerbehebung**
+- Fehlerbehebung bei der „OK“-Schaltfläche der benutzerdefinierten Zeitauswahl bei der Eingabe von Werten über die Tastatur
+
+**Verbesserungen**
+- Möglichkeit, die Sekunden der Schaltfläche „+ 1:00“ bei Timern einzustellen
+- Verbesserung der App-Leistung, wenn ein Timer läuft
+- Keine Größenänderung des Dialogfelds für kleine Bildschirme
+- Separate Einstellung von zufälligen Klingeltönen für System- und benutzerdefinierte Klingeltöne
+- Wiederholbare Wecker bei Verpassen
+- Verbesserte Wiedergabe von Klingeltönen
+- Aktualisierte Übersetzungen
+
+Alle Änderungen hier: https://github.com/BlackyHawky/Clock/releases/tag/2.22

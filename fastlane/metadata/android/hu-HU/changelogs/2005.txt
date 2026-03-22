@@ -1,0 +1,9 @@
+**Javítás**
+ - Digitális widget frissítés Android13+ esetén;
+
+**Fejlesztések**
+ - Digitális widgetek testreszabhatóak:
+  • Minden elem színe megváltoztatható;
+  • A fő óra betűtípusa változtatható (ha nincs megjelenített város);
+  • Digitális widgetek testreszabása Android 9+ esetén hosszú nyomással;
+ - Egyes fordítások frissítése;

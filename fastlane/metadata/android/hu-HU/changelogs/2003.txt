@@ -1,0 +1,11 @@
+**Javítás**
+ - A stopper kör jelzés méret nagyítása;
+
+**Fejlesztések**
+ - Hangsúlyos szín módosítása;
+ - Kártya hátterek megjelenítése/kikapcsolása (nem vonatkozik a beállításokra);
+ - Háttér körvonal megjelenítése/kikapcsolása (nem vonatkozik a beállításokra);
+ - Egyes felületi elemek megnyomásához rezgés társítása (csak a rezgéssel rendelkező eszközöknél érvényes);
+ - Beállítások kapcsolói rezgést kaptak (csak a rezgéssel rendelkező eszközöknél érvényes);
+ - Az alapvető engedélyek ellenőrzésének eltávolítása indításkor: immáron ha nincsenek meg, akkor a beállítások tetején jelenik meg;
+ - Képernyőfotók frissítve (főleg F-Droid) ahogy itt megbeszélésre került: https://github.com/BlackyHawky/Clock/discussions/23#discussioncomment-9346357

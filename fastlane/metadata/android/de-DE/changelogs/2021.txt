@@ -1,0 +1,13 @@
+**Fehlerbehebungen**
+- Fehlerbehebung bei der Suchleiste für die Einstellung „Schüttelintensität“
+
+**Verbesserungen**
+- Verbessertes Verhalten der Suchleiste für Android-Versionen unter Android 8
+- Anzeige der Stoppuhrzeit wie in der Google-App
+- Aktualisierung auf SDK 35
+- Aktualisierung der Übersetzungen
+- Verbesserung und Bereinigung des Codes
+
+Alle Verbesserungen finden Sie unter: https://github.com/BlackyHawky/Clock/releases/tag/2.18
+
+HINWEIS: LÖSCHEN SIE NACH DER VERSION v2.17 IHRE ALTE SICHERUNGSKOPIE UND ERSTELLEN SIE EINE NEUE

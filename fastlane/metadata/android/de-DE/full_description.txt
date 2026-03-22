@@ -1,20 +1,20 @@
-"Clock" ist eine datenschutzbewusste Open-Source-Uhr, die auf AOSP basiert.
+"Uhr" ist eine datenschutzbewusste Open-Source-Uhr, die auf AOSP basiert.
 Sie verwendet keine Internet-Berechtigung und ist daher zu 100% offline.
 
 Merkmale:
 <ul>
-  <li>Einstellen der Alarme auf ein bestimmtes Datum;</li>
-  <li>Kippen und Schütteln zum Ausschalten/Aufschieben eines Alarms;</li>
-  <li>Ausschalten/Aufschieben des Alarms mit der Power- oder den Lautstärketasten;</li>
-  <li>Nur bei Snapdragon-Smartphones: Der Alarm wird auch ausgelöst, wenn sie ausgeschaltet sind;</li>
+  <li>Einstellen der Wecker auf ein bestimmtes Datum;</li>
+  <li>Kippen und Schütteln zum Ausschalten/Aufschieben eines Weckers;</li>
+  <li>Ausschalten/Aufschieben des Weckers mit der Power- oder den Lautstärketasten;</li>
+  <li>Nur bei Snapdragon-Smartphones: Der Wecker wird auch ausgelöst, wenn sie ausgeschaltet sind;</li>
     <ul>
       <li>Leider funktioniert dies auf einigen Geräten nicht, obwohl die System-App <i>"com.qualcomm.qti.poweroffalarm"</i> vorhanden ist.</li>
     </ul>
-  <li>Wischen, um einen Alarm zu beenden;</li>
-  <li>Möglichkeit, Alarme zu duplizieren;</li>
-  <li>Alarm-Titel erstellen und ändern;</li>
-  <li>Individuell anpassbare Signaltöne;</li>
-  <li>Möglichkeit, Signaltöne zufällig abzuspielen;</li>
+  <li>Wischen, um einen Wecker zu beenden;</li>
+  <li>Möglichkeit, Wecker zu duplizieren;</li>
+  <li>Wecker-Titel erstellen und ändern;</li>
+  <li>Individuell anpassbare Wecktöne;</li>
+  <li>Möglichkeit, Wecktöne zufällig abzuspielen;</li>
   <li>Helles, dunkles oder System-Thema;</li>
   <li>AMOLED-Modus für dunkles Thema;</li>
   <li>Anpassbare Oberfläche;</li>
@@ -27,7 +27,7 @@ Merkmale:
   <li>Moderne Widgets;</li>
   <li>Anpassbare Widgets;</li>
   <li>Unterstützung für Kacheln in den Schnelleinstellungen (Android 7+) </li>
-  <li>Sichern und Wiederherstellen von Einstellungen (außer benutzerdefinierte Signaltöne)</li>
-  <li>Material You Design;</li>
+  <li>Sichern und Wiederherstellen von Einstellungen (außer benutzerdefinierte Wecktöne)</li>
+  <li>Material-You-Design;</li>
   <li>Dynamische Farben für Android 12+;</li>
 </ul>

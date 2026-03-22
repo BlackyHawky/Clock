@@ -225,4 +225,8 @@
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Velg hvilken alarm du vil fjerne"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"Ingen alarmer ringer nå"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"Alarmen <xliff:g id="ALARM_TIME">%s</xliff:g> slumrer i ti minutter"</string>
+    <string name="label_seconds">Sekunder</string>
+    <string name="delay_picker_dialog_title">Alarm om…</string>
+    <string name="label_new_image">Nytt bilde</string>
+    <string name="label_hours">Timer</string>
 </resources>

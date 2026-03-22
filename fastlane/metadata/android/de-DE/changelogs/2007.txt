@@ -3,7 +3,7 @@
 
 **Verbesserungen**
  - Entfernen unnötiger Berechtigungen;
- - Verbesserung von Alarm und Timer;
+ - Verbesserung von Wecker und Timer;
  - Alle Verbesserungen finden Sie unter: https://github.com/BlackyHawky/Clock/releases/tag/2.6
 
  **Hinweis:**

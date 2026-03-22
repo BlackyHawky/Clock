@@ -1,0 +1,15 @@
+**Fehlerbehebungen**
+- Behebung des Fehlers beim Ziehen, wenn sich das Telefon im Querformat befindet
+- Korrektur der Farbe des Sekundenzeigers im Uhr-Reiter
+
+**Verbesserungen**
+- Wecker für ein bestimmtes Datum stellen
+- Stil der Datumsauswahl auswählen
+- Die Designs „Schwarz“, „Lila“ und „Gelb“ hinzugefügt
+- Abgelaufenen Timer mit Lautstärke- und Ein-/Aus-Tasten zurücksetzen
+- Aktionen der Lautstärketasten für die Stoppuhr hinzugefügt
+- Optimierung und Aktualisierung der Vektorsymbole
+- Aktualisierung der Übersetzungen
+- Verbesserung des Codes
+
+Alle Verbesserungen finden Sie unter: https://github.com/BlackyHawky/Clock/releases/tag/2.10

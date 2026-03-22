@@ -1,0 +1,5 @@
+Viele Korrekturen und Verbesserungen sind hier aufgeführt:
+https://github.com/BlackyHawky/Clock/releases/tag/2.26
+
+**Hinweis:
+ - Aufgrund einer Änderung im Code für die Einstellung „Stille nach“ wird empfohlen, den Wert dieser Einstellung neu zu definieren, ein neues Backup zu erstellen und das alte zu löschen.

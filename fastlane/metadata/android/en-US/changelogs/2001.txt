@@ -9,7 +9,7 @@
 * Fix background color of bottom navigation bar (tablets are the most affected);
 
 **Improvements:**
-* Implement material design (switches, time picker, rounded icons, card background,...);
+* Implement material design (switches, time picker, rounded icons, card background,…);
 * Add dynamic colors;
 * Add AMOLED mode for dark theme;
 * Add new permission management;

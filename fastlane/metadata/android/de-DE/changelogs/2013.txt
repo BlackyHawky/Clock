@@ -1,0 +1,13 @@
+**Korrekturen**
+- Korrektur des Anhaltens der Klingeltonvorschau in den Weckereinstellungen
+
+**Verbesserungen**
+- Möglichkeit hinzugefügt, vor dem Löschen eines Timers eine Warnung anzuzeigen
+- Symbol „X” für Timer durch Papierkorb-Symbol ersetzt
+- Anzeige des Klingelton-Titels, wenn der Wecker klingelt
+- IzzyOnDroid-Badge in Readme hinzugefügt
+- Unterstützung für reproduzierbare Builds
+- Übersetzungen aktualisiert
+- Code verbessert
+
+Alle Verbesserungen finden Sie unter: https://github.com/BlackyHawky/Clock/releases/tag/2.11

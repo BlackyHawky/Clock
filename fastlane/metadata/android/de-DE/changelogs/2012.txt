@@ -1,0 +1,3 @@
+Aufgrund eines schwerwiegenden Fehlers, der durch die Funktion „Wecker für ein bestimmtes Datum stellen” verursacht wurde, wurde diese Funktion entfernt, bis eine Lösung gefunden ist.
+
+Die anderen Funktionen der Version 2.10 bleiben erhalten und können hier eingesehen werden: https://github.com/BlackyHawky/Clock/releases/tag/2.10

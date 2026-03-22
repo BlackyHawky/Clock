@@ -1,0 +1,12 @@
+**Oplossingen**
+- De weergave van digitale widgets is gecorrigeerd voor sommige Androidversies;
+- Alleen voor telefoons in landschapsmodus kan de titel van de kookwekker opnieuw worden ingevoerd;
+
+**Verbeteringen**
+- Openen van app verbeterd;
+- Wekkers kunnen uitgeschakeld of gesluimerd worden door te vegen of te tikken;
+- Kleurenkiezer toegevoegd aan de instellingen voor de screensaver en digitale widgets;
+- Bekijk alle verbeteringen op: https://github.com/BlackyHawky/Clock/releases/tag/2.5
+
+**Opmerking:**
+Vanwege een wijziging in de instellingen moet je de instelling "Donkere themastijl" opnieuw definiëren.

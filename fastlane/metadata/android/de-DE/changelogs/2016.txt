@@ -1,0 +1,12 @@
+**Korrekturen**
+- Absturz behoben, wenn die Einstellung „Klingelton-Titel anzeigen” deaktiviert ist
+- Standardfarbe des Sekundenzeigers für Wecker korrigiert
+
+**Verbesserungen**
+- Analoge Material-Uhr zu den Uhrenstilen hinzugefügt
+- Verbesserung des Laufs des Stundenzeigers
+- Bildschirmschoner für Apps von Drittanbietern verfügbar gemacht
+- Code bereinigt
+- Übersetzungen aktualisiert
+
+Alle Verbesserungen finden Sie unter: https://github.com/BlackyHawky/Clock/releases/tag/2.13

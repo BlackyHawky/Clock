@@ -1,0 +1,11 @@
+**Javítások**
+ - Francia nyelvnél javítva a perc időzítő javítva;
+ - "Rázás szundihoz" javításr Android 14+ esetén;
+
+**Fejlesztések**
+ - Olvassel fájlban tisztázni, hogy a Weblate-n történik a fordítás;
+ - Hátralevő napok száma mindig megjelenítve, az ébresztő kikapcsolásakor is;
+ - Időzítő kisebb, amikor le van állítva (Portré üzemmódú telefonok esetén);
+ - Hátralevő időre koppintva megállítható/folytatható a hátralevő időzítő;
+ - Néhány fordítás frissítve;
+ - Képernyőképek frissítve (F-Droid) ahogy itt is megbeszélve: https://github.com/BlackyHawky/Clock/discussions/23#discussioncomment-9346357

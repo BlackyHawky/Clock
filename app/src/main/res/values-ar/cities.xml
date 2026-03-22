@@ -5,8 +5,8 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="C1" msgid="3622720549928625541">"ا<xliff:g id="SEPARATOR">=</xliff:g>أبيدجان<xliff:g id="TIMEZONE">|Africa/Abidjan</xliff:g>"</string>
-    <string name="C2" msgid="9073993995416728918">"ا<xliff:g id="SEPARATOR">=</xliff:g>أكرا<xliff:g id="TIMEZONE">|Africa/Accra</xliff:g>"</string>
+    <string name="C1" msgid="3622720549928625541">أ<xliff:g id="separator">=</xliff:g>أبيدجان<xliff:g id="timezone">|أفريقيا/أبيدجان</xliff:g></string>
+    <string name="C2" msgid="9073993995416728918">أ<xliff:g id="separator">=</xliff:g>أكرا<xliff:g id="timezone">|أفريقيا/أكرا</xliff:g></string>
     <string name="C3" msgid="5172979423931428620">"ا<xliff:g id="SEPARATOR">=</xliff:g>أديس أبابا<xliff:g id="TIMEZONE">|Africa/Addis_Ababa</xliff:g>"</string>
     <string name="C4" msgid="4450258423854546267">"ا<xliff:g id="SEPARATOR">=</xliff:g>الجزائر<xliff:g id="TIMEZONE">|Africa/Algiers</xliff:g>"</string>
     <string name="C5" msgid="8063142106679202722">"<xliff:g id="SEPARATOR">=</xliff:g>بلانتيري<xliff:g id="TIMEZONE">|Africa/Blantyre</xliff:g>"</string>

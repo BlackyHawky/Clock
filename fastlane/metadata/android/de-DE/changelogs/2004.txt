@@ -4,7 +4,7 @@
 
 **Verbesserungen**
  - Die Readme-Datei wurde aktualisiert, um die Verwendung von Weblate für Übersetzungen zu verdeutlichen.
- - Anstehende Alarmtage werden immer angezeigt, auch wenn der Alarm deaktiviert ist.
+ - Anstehende Tage mit Wecker werden immer angezeigt, auch wenn der Wecker deaktiviert ist.
  - Die Timer-Anzeige wird beim Anhalten verkleinert (betrifft nur Telefone im Hochformat);
  - Timer durch Klicken auf die verbleibende Zeit abspielen/anhalten;
  - Einige Übersetzungen aktualisiert;

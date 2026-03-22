@@ -1,0 +1,14 @@
+**Fehlerbehebungen**
+- Anzeige bevorstehender Wecker aus anderen Apps korrigiert
+- Behebung des Fehlers, dass ausgelöste Wecker nicht angezeigt wurden, wenn das Gerät für MIUI-Geräte gesperrt ist
+
+**Verbesserungen**
+- Schlafenszeitmodus entfernt
+- Kachelunterstützung im Schnellkonfigurationsfeld
+- Möglichkeit, das LED-Blitzlicht einzuschalten, wenn der Wecker klingelt.
+- Möglichkeit, die Intensität des Schüttelns anzupassen
+- Möglichkeit, die Sprache der Anwendung zu ändern
+- Verbesserung der Nutzbarkeit des Querformatmodus für Telefone
+
+Viele weitere Änderungen sind auf der GitHub-Seite aufgeführt:
+https://github.com/BlackyHawky/Clock/releases/tag/2.12

@@ -1,0 +1,15 @@
+**Korrekturen**
+- Korrektur der oberen Abstände bei Geräten mit Notch
+- Korrektur der Wecker- und Timer-Vibrationen bei einigen Geräten
+
+**Verbesserungen**
+- Wecker auf ein bestimmtes Datum stellen
+- Möglichkeit, Klingeltöne zufällig abzuspielen
+- Möglichkeit, einen Ordner zum Hinzufügen von Klingeltönen auszuwählen
+- Ausblenden der Weckerbezeichnung, wenn nicht angegeben
+- Entfernen der Berechtigung „DISABLE_KEYGUARD“
+- Deaktivieren des Wischens zum Löschen von Weckern, wenn Systemanimationen deaktiviert sind
+- Aktualisieren der Übersetzungen
+- Verbessern und Bereinigen des Codes
+
+Alle Änderungen hier: https://github.com/BlackyHawky/Clock/releases/tag/2.20

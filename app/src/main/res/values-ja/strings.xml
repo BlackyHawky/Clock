@@ -313,4 +313,6 @@
     <string name="confirm_action_prompt">\n\n続行しますか？</string>
     <string name="style_category_title">スタイル</string>
     <string name="colors_category_title">配色</string>
+    <string name="progress_ringtones">着信音を追加… (%1$d/%2$d)</string>
+    <string name="FSN_dialog_title">全画面通知</string>
 </resources>

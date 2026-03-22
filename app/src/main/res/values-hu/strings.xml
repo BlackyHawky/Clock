@@ -7,58 +7,58 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="6674495003718166674">Vekker</string>
     <string name="default_label" msgid="5590025289805630372">"Ébresztő"</string>
-    <string name="alarm_vibrate" msgid="3476686921490362230">"Rezgés"</string>
-    <string name="time_picker_dialog_title">Időpont kiválasztása</string>
+    <string name="alarm_vibrate" msgid="3476686921490362230">Rezeg</string>
+    <string name="time_picker_dialog_title">Idő kiválasztása</string>
     <string name="date_picker_dialog_title">Válasszon dátumot</string>
     <string name="delete" msgid="5732434972457000541">"Törlés"</string>
-    <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Alapértelmezett ébresztési hang"</string>
-    <string name="alarm_sound" msgid="8754499591391638405">"Ébresztőhang"</string>
+    <string name="default_alarm_ringtone_title" msgid="2916376768509623643">Alapértelmezett ébresztő hang</string>
+    <string name="alarm_sound" msgid="8754499591391638405">Ébresztő hang</string>
     <string name="timer_sound" msgid="896163086604894735">"Időzítőhang"</string>
     <string name="add_new_sound" msgid="2546936797351540244">"Új hozzáadása"</string>
     <string name="remove_sound" msgid="2064643204455734239">"Eltávolítás"</string>
-    <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"A hangot használó ébresztők és időzítők az alapértelmezett hangon szólalnak majd meg."</string>
+    <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">Ezt a hangfájlt használó ébresztők és időzítők az alapértelmezettet fogják használni.</string>
     <string name="your_sounds" msgid="1672779351352629681">"Saját hangok"</string>
     <string name="device_sounds" msgid="1584894148222639823">"Eszközhangok"</string>
-    <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"A hangtartalomhoz nem lehet hozzáférni."</string>
+    <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">A hangtartalomhoz nem hozzáférhető.</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Az időzítő lejárt"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Holnap"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Ma"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Elvetés"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Elmulasztott ébresztő"</string>
-    <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%1$s</xliff:g> – <xliff:g id="ALARM_LABEL">%2$s</xliff:g>"</string>
+    <string name="alarm_missed_text" msgid="6585658367289194023"><xliff:g id="alarm_time">%1$s</xliff:g> - <xliff:g id="alarm_label">%2$s</xliff:g></string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Szundi"</string>
     <plurals name="alarm_alert_snooze_duration" formatted="false" msgid="7844300009062867865">
         <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> perc</item>
         <item quantity="one">1 perc</item>
     </plurals>
-    <string name="alarm_alert_off_text" msgid="4472073417593915002">"Értesítés ki"</string>
+    <string name="alarm_alert_off_text" msgid="4472073417593915002">Ébresztő KI</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Szundi"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-        <item quantity="other">Elhalasztva <xliff:g id="MINUTES">%d</xliff:g> perccel.</item>
-        <item quantity="one">Elhalasztva 1 perccel.</item>
+        <item quantity="one">Szundi 1 percre.</item>
+        <item quantity="other">Szundi <xliff:g id="MINUTES">%d</xliff:g> percre.</item>
     </plurals>
-    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Ébresztés elhalasztása eddig: <xliff:g id="TIME">%s</xliff:g>"</string>
-    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Következő ébresztés"</string>
-    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Elmulasztott ébresztés törölve"</string>
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">Szundi <xliff:g id="time">%s</xliff:g> időpontig</string>
+    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">Közelgő ébresztő</string>
+    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">Az elmulasztott ébresztője törlésre került</string>
     <string name="timer_notifications_less_min" msgid="5481375048976427255">"Kevesebb mint 1 perc van hátra"</string>
-    <string name="timer_notifications_hours" msgid="1613266446037145138">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
-    <string name="timer_notifications_minutes" msgid="8543138714519498893">"<xliff:g id="MINUTES">%2$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
-    <string name="timer_notifications_hours_minutes" msgid="4788475350933275505">"<xliff:g id="HOURS">%1$s</xliff:g> óra <xliff:g id="MINUTES"> %2$s</xliff:g> perc van hátra"</string>
-    <string name="timer_notifications_seconds" msgid="122102514929728907">"<xliff:g id="SECONDS">%4$s</xliff:g> <xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
-    <string name="timer_notifications_minutes_seconds" msgid="7059651926379491350">"<xliff:g id="MINUTES">%2$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g> <xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
-    <string name="timer_notifications_hours_seconds" msgid="8168090805113197804">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g> <xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
-    <string name="timer_notifications_hours_minutes_seconds" msgid="4666176878038730417">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES"> %2$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g> <xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
-    <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">"%1$s perc hozzáadva az időzítőhöz: <xliff:g id="TIME">%2$s</xliff:g>"</string>
-    <string name="timer_remaining_single" msgid="6782851171906765864">"hátralévő idő"</string>
+    <string name="timer_notifications_hours" msgid="1613266446037145138"><xliff:g example="2 óra" id="HOURS">%1$s</xliff:g><xliff:g example="van hátra" id="REMAINING"> %3$s</xliff:g></string>
+    <string name="timer_notifications_minutes" msgid="8543138714519498893"><xliff:g example="2 perc" id="MINUTES">%2$s</xliff:g><xliff:g example="van hátra" id="REMAINING"> %3$s</xliff:g></string>
+    <string name="timer_notifications_hours_minutes" msgid="4788475350933275505"><xliff:g example="2 óra" id="HOURS">%1$s</xliff:g><xliff:g example="2 perc" id="MINUTES"> %2$s</xliff:g> van hátra</string>
+    <string name="timer_notifications_seconds" msgid="122102514929728907"><xliff:g example="2 másodperc" id="SECONDS">%4$s</xliff:g><xliff:g example="van hátra" id="REMAINING"> %3$s</xliff:g></string>
+    <string name="timer_notifications_minutes_seconds" msgid="7059651926379491350"><xliff:g example="2 perc" id="MINUTES">%2$s</xliff:g> <xliff:g example="2 másodperc" id="SECONDS"> %4$s</xliff:g><xliff:g example="van hátra" id="REMAINING"> %3$s</xliff:g></string>
+    <string name="timer_notifications_hours_seconds" msgid="8168090805113197804"><xliff:g example="2 óra" id="HOURS">%1$s</xliff:g> <xliff:g example="2 másodperc" id="SECONDS"> %4$s</xliff:g><xliff:g example="van hátra" id="REMAINING"> %3$s</xliff:g></string>
+    <string name="timer_notifications_hours_minutes_seconds" msgid="4666176878038730417"><xliff:g example="2 óra" id="HOURS">%1$s</xliff:g><xliff:g example="2 perc" id="MINUTES"> %2$s</xliff:g><xliff:g example="2 másodperc" id="SECONDS"> %4$s</xliff:g><xliff:g example="van hátra" id="REMAINING"> %3$s</xliff:g></string>
+    <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">%1$s perccel növelve az időzítő, <xliff:g example="5 óra van hátra" id="TIME">%2$s</xliff:g></string>
+    <string name="timer_remaining_single" msgid="6782851171906765864">van hátra</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"van hátra"</string>
-    <string name="alarm_confirmation_toast_1">"Ébresztés beállítva: a jelenlegi időponttól számított kevesebb mint 1 perc múlva."</string>
-    <string name="alarm_confirmation_toast_2">"Ébresztés beállítva: a jelenlegi időponttól számított <xliff:g id="DAYS">%1$s</xliff:g> múlva."</string>
-    <string name="alarm_confirmation_toast_3">"Ébresztés beállítva: a jelenlegi időponttól számított <xliff:g id="HOURS">%2$s</xliff:g> múlva."</string>
-    <string name="alarm_confirmation_toast_4">"Ébresztés beállítva: a jelenlegi időponttól számított <xliff:g id="DAYS">%1$s</xliff:g> és <xliff:g id="HOURS">%2$s</xliff:g> múlva."</string>
-    <string name="alarm_confirmation_toast_5">"Ébresztés beállítva: a jelenlegi időponttól számított <xliff:g id="MINUTES">%3$s</xliff:g> perc múlva."</string>
-    <string name="alarm_confirmation_toast_6">"Ébresztés beállítva: a jelenlegi időponttól számított <xliff:g id="DAYS">%1$s</xliff:g> és <xliff:g id="MINUTES">%3$s</xliff:g> múlva."</string>
-    <string name="alarm_confirmation_toast_7">"Ébresztés beállítva: a jelenlegi időponttól számított <xliff:g id="HOURS">%2$s</xliff:g> és <xliff:g id="MINUTES">%3$s</xliff:g> múlva."</string>
-    <string name="alarm_confirmation_toast_8">"Ébresztés beállítva: a jelenlegi időponttól számított <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> és <xliff:g id="MINUTES">%3$s</xliff:g> múlva."</string>
+    <string name="alarm_confirmation_toast_1">Kevesebb mint 1 perc van hátra a beállított ébresztőig.</string>
+    <string name="alarm_confirmation_toast_2">Az ébresztő mostantól <xliff:g example="2 nap" id="DAYS">%1$s</xliff:g>-ra került beállításra.</string>
+    <string name="alarm_confirmation_toast_3">Az ébresztő mostantól <xliff:g example="2 óra" id="HOURS">%2$s</xliff:g>-ra került beállításra.</string>
+    <string name="alarm_confirmation_toast_4">Az ébresztő mostantól <xliff:g id="DAYS">%1$s</xliff:g> és <xliff:g id="HOURS">%2$s</xliff:g>-ra került beállításra.</string>
+    <string name="alarm_confirmation_toast_5">Az ébresztő mostantól <xliff:g id="MINUTES">%3$s</xliff:g>-ra került beállításra.</string>
+    <string name="alarm_confirmation_toast_6">Az ébresztő mostantól <xliff:g id="DAYS">%1$s</xliff:g> és <xliff:g id="MINUTES">%3$s</xliff:g>-re került beállításra.</string>
+    <string name="alarm_confirmation_toast_7">Az ébresztő mostantól <xliff:g id="HOURS">%2$s</xliff:g> és <xliff:g id="MINUTES">%3$s</xliff:g>-re került beállításra.</string>
+    <string name="alarm_confirmation_toast_8">Az ébresztő mostantól <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> és <xliff:g id="MINUTES">%3$s</xliff:g>-re került beállításra.</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> nap</item>
         <item quantity="one">1 nap</item>
@@ -76,22 +76,22 @@
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> perc</item>
     </plurals>
     <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> perc</item>
-        <item quantity="one">1 perc</item>
+        <item quantity="one">1 p</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> p</item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
         <item quantity="one">1 másodperc</item>
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> másodperc</item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"Minden nap"</string>
-    <string name="day_concat" msgid="971998564991636532">", "</string>
+    <string name="day_concat" msgid="971998564991636532">"; "</string>
     <string name="loading_widget" msgid="5306242862476796500">"Betöltés…"</string>
     <string name="analog_widget" msgid="1670505720837152766">"Analóg óra"</string>
     <string name="digital_widget" msgid="2326954556720571358">"Digitális óra"</string>
     <string name="settings" msgid="5849739030579520686">"Beállítások"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Szundi időtartama"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Hangerő fokozatos növelése"</string>
-    <string name="auto_silence_title" msgid="2012754009554434544">"Elnémítás ennyi idő után:"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">Utána elnémítás</string>
     <string name="label_never" msgid="4821982647348750809">"Soha"</string>
     <string name="label_off">Ki</string>
     <string name="week_start_title" msgid="4268917518596832096">"Hét kezdőnapja"</string>
@@ -101,28 +101,28 @@
     <string name="alarm_volume_title" msgid="8506245173912428522">"Ébresztés hangereje"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Néma"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Ismeretlen"</string>
-    <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"Az alapértelmezett csengőhang a néma"</string>
+    <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">Az alapértelmezett csengőhang néma</string>
     <string name="change_setting_action" msgid="1224356633832430160">"Módosítás"</string>
-    <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Az eszköz teljesen le van némítva"</string>
+    <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">Az eszköz teljesen lenémítva</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Hangerőgombok"</string>
     <string name="button_action_snooze">Szundi</string>
     <string name="button_action_dismiss">Elvetés</string>
-    <string name="button_action_control_volume">Hangerő-szabályozás</string>
+    <string name="button_action_control_volume">Hangerő szabályozása</string>
     <string name="button_action_nothing">Semmi</string>
     <string name="label_description" msgid="8736179296142915727">"Címke"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Csengőhang"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"Ébresztő"</string>
     <string name="menu_timer" msgid="6459070074762877114">"Időzítő"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Óra"</string>
-    <string name="menu_stopwatch" msgid="3396117705293574701">"Stopperóra"</string>
-    <string name="button_alarms" msgid="3907838219512538763">"Ébresztés hozzáadása"</string>
+    <string name="menu_stopwatch" msgid="3396117705293574701">Stopper</string>
+    <string name="button_alarms" msgid="3907838219512538763">Ébresztő hozzáadása</string>
     <string name="button_cities" msgid="4555761857494501363">"Városok"</string>
     <string name="screensaver_settings_title" msgid="2930695838866189483">"Képernyővédő"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Rendezés idő szerint"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Rendezés név szerint"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"Kiválasztott városok"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"Folytatás"</string>
-    <string name="reset" msgid="6616804728322906117">"Nullázás"</string>
+    <string name="reset" msgid="6616804728322906117">Alaphelyzetbe állítás</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Indítás"</string>
     <string name="sw_pause_button" msgid="2422084453454138042">"Szünet"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"Kör"</string>
@@ -130,50 +130,50 @@
     <string name="hours_label" msgid="3393478155635368097">"ó"</string>
     <string name="minutes_label" msgid="3568098128251438588">"p"</string>
     <string name="seconds_label" msgid="124655952824003246">"m"</string>
-    <string name="timer_setup_description" msgid="2488277921227564704">"<xliff:g id="HOURS">%1$s</xliff:g>, <xliff:g id="MINUTES">%2$s</xliff:g>, <xliff:g id="SECONDS">%3$s</xliff:g>"</string>
-    <string name="lap_number_single_digit" msgid="1051159504304610877">"# <xliff:g id="LAPNUMBER">%d</xliff:g>"</string>
-    <string name="lap_number_double_digit" msgid="2138536756534362037">"# <xliff:g id="LAPNUMBER">%02d</xliff:g>"</string>
-    <string name="sw_share_main" msgid="7703563468204234405">"Az én időm: <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="timer_setup_description" msgid="2488277921227564704"><xliff:g example="1 hour" id="hours">%1$s</xliff:g>, <xliff:g example="15 minutes" id="minutes">%2$s</xliff:g>, <xliff:g example="30 seconds" id="seconds">%3$s</xliff:g></string>
+    <string name="lap_number_single_digit" msgid="1051159504304610877"># <xliff:g id="lapNumber">%d</xliff:g></string>
+    <string name="lap_number_double_digit" msgid="2138536756534362037"># <xliff:g id="lapNumber">%02d</xliff:g></string>
+    <string name="sw_share_main" msgid="7703563468204234405">Az időm: <xliff:g id="time">%s</xliff:g></string>
     <string name="sw_share_laps" msgid="614390674795945007">"Köridők:"</string>
-    <string name="sw_notification_lap_number" msgid="3535420316052647126">"<xliff:g id="NUMBER">%d</xliff:g>. kör"</string>
+    <string name="sw_notification_lap_number" msgid="3535420316052647126">Lap <xliff:g id="number">%d</xliff:g>. kör</string>
     <string name="timer_add_timer" msgid="862733633862574752">"Időzítő hozzáadása"</string>
-    <string name="timer_start" msgid="6158486445614356442">"Kezdés"</string>
-    <string name="timer_descriptive_delete" msgid="8794915342760383536">"Törlés: <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
+    <string name="timer_start" msgid="6158486445614356442">Indítás</string>
+    <string name="timer_descriptive_delete" msgid="8794915342760383536"><xliff:g id="number_string">%s</xliff:g> törlése</string>
     <string name="timer_add_custom_time_description" msgid="6631211310420106116">"%s perc hozzáadása"</string>
     <string name="timer_add_custom_time_for_notification" msgid="8645224089494875062">"%s perc hozzáadása"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Leállítás"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"Az összes időzítő leállítása"</string>
     <string name="timer_canceled" msgid="7327923392567128060">"Időzítés visszavonva"</string>
-    <string name="timer_times_up" msgid="9190440395938519009">"Az idő lejárt!"</string>
-    <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> időzítő lejárt"</string>
+    <string name="timer_times_up" msgid="9190440395938519009">Lejárt idő</string>
+    <string name="timer_multi_times_up" msgid="1239104626836080409"><xliff:g example="2" id="NUM_TIMERS">%d</xliff:g> időzítő járt le</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Időzítő"</string>
-    <string name="missed_named_timer_notification_label" msgid="665604640028289175">"Elmulasztott időzítő: <xliff:g id="NAME">%s</xliff:g>"</string>
-    <string name="timer_pause" msgid="3748323712728398743">"Szüneteltetés"</string>
-    <string name="hours_minutes_seconds" msgid="5680088738059791288">"<xliff:g id="HOURS">%1$d</xliff:g>:<xliff:g id="MINUTES">%2$02d</xliff:g>:<xliff:g id="SECONDS">%3$02d</xliff:g>"</string>
-    <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
+    <string name="missed_named_timer_notification_label" msgid="665604640028289175">Elmulasztott időzítő: <xliff:g example="Pick up kids" id="name">%s</xliff:g></string>
+    <string name="timer_pause" msgid="3748323712728398743">Szünet</string>
+    <string name="hours_minutes_seconds" msgid="5680088738059791288"><xliff:g example="2" id="hours">%1$d</xliff:g>:<xliff:g example="3" id="minutes">%2$02d</xliff:g>:<xliff:g example="44" id="seconds">%3$02d</xliff:g></string>
+    <string name="minutes_seconds" msgid="6189446107009577914"><xliff:g example="3" id="minutes">%1$d</xliff:g>:<xliff:g example="44" id="seconds">%2$02d</xliff:g></string>
     <string name="jocular_content_message_1">"Ön valósággal a sebesség ördöge."</string>
     <string name="jocular_content_message_2">"Élvezze a munkája gyümölcsét."</string>
     <string name="jocular_content_message_3">"Az androidok köztudottan gyorsak, de nem annyira, mint Ön!"</string>
-    <string name="jocular_content_message_4">"Tyű."</string>
-    <string name="jocular_content_message_5">"L33t idő."</string>
-    <string name="jocular_content_message_6">"Micsoda bődületes sebesség."</string>
+    <string name="jocular_content_message_4">Azta.</string>
+    <string name="jocular_content_message_5">Élenjáró teljesítmény.</string>
+    <string name="jocular_content_message_6">Bámulatos sebesség.</string>
     <string name="jocular_content_message_7">"Állítsuk meg újra az időt."</string>
     <string name="jocular_content_message_8">"Csak egy ugrás balra."</string>
-    <string name="jocular_content_message_9">"Van érzéke a sietséghez."</string>
-    <string name="jocular_content_message_10">"Fotonikus sebesség!"</string>
+    <string name="jocular_content_message_9">A fürgeség a vérében van.</string>
+    <string name="jocular_content_message_10">Döbbenetes sebesség.</string>
     <string name="home_label" msgid="4436139365695453870">"Otthoni"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Városok"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Óra"</string>
     <string name="clock_style" msgid="2265011060429742344">"Stílus"</string>
-    <string name="display_clock_seconds_pref" msgid="691506643469501643">"Az idő megjelenítése másodpercben"</string>
+    <string name="display_clock_seconds_pref" msgid="691506643469501643">Másodperc számláló megjelenítése is</string>
     <string name="open_date_settings" msgid="7712226973337806152">"Dátum és idő módosítása"</string>
     <string name="clock_style_analog">Analóg</string>
     <string name="clock_style_digital">Digitális</string>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Automatikus otthoni óra"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Amikor másik időzónába utazik, hozzáadhat egy órát az otthoni idővel"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Otthoni időzóna"</string>
-    <string name="city_checked" msgid="616847871968019">"<xliff:g id="CITY_NAME">%s</xliff:g> bejelölve"</string>
-    <string name="city_unchecked" msgid="710212932781145918">"<xliff:g id="CITY_NAME">%s</xliff:g> jelölése eltávolítva"</string>
+    <string name="city_checked" msgid="616847871968019"><xliff:g id="city_name">%s</xliff:g> bejelölve</string>
+    <string name="city_unchecked" msgid="710212932781145918"><xliff:g id="city_name">%s</xliff:g> kijelölés kivéve</string>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"Új ébresztő"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"Új ébresztő létrehozása"</string>
     <string name="shortcut_new_timer_short" msgid="3793414543219297884">"Új időzítő"</string>
@@ -184,91 +184,434 @@
     <string name="shortcut_pause_stopwatch_long" msgid="435026905074898334">"Stopper szüneteltetése"</string>
     <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"Képernyővédő"</string>
     <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Képernyővédő indítása"</string>
-    <string name="alarm_settings" msgid="2947147071388290814">"Ébresztés"</string>
+    <string name="alarm_settings" msgid="2947147071388290814">Ébresztők</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Feldolgozza az időzítő értesítéseiből származó műveleteket."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Feldolgozza a stopperóra értesítéseiből származó műveleteket."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Szüneteltetve"</string>
-    <string name="description_direction_both" msgid="1841309486023845685">"A szundihoz csúsztassa gyorsan balra, az elvetéshez pedig jobbra"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">A szundihoz húzza balra, az elvetéshez pedig jobbra</string>
     <string name="timer_settings" msgid="7955522143086154795">"Időzítők"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Időzítő rezgése"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Időzítő szüneteltetve"</string>
-    <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> időzítő"</string>
+    <string name="timers_in_use" msgid="5570729467344408506"><xliff:g example="7" id="number">%d</xliff:g> időzítő</string>
     <string name="alarm_undo" msgid="5710042601177655254">"visszavonás"</string>
-    <string name="alarm_deleted" msgid="6131529309389084785">"Ébresztés törölve"</string>
-    <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="LABEL">%s</xliff:g></string>
-    <string name="world_time_ahead" msgid="625559988238637652">"Ennyivel előrébb: <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="world_time_behind" msgid="5395771290726167865">"Ennyivel visszább: <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"Ennyivel előrébb: <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</string>
-    <string name="world_hours_minutes_behind" msgid="8978567362140923698">"Ennyivel visszább: <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</string>
-    <string name="world_hours_tomorrow" msgid="2504465609269004794">"Holnap, <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="world_hours_yesterday" msgid="4425086322610882745">"Tegnap, <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="next_alarm_description" msgid="2650244835760747046">"Következő ébresztés: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="no_alarms" msgid="6429431324842022917">"Nincs ébresztés"</string>
-    <string name="invalid_time" msgid="2782334750243998633">"Érvénytelen időpont: <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
-    <string name="no_alarm_at" msgid="8140632482969193119">"Nincs ébresztés ekkor: <xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>"</string>
-    <string name="no_scheduled_alarms" msgid="2115420148192753534">"Nincs ütemezett ébresztés"</string>
+    <string name="alarm_deleted" msgid="6131529309389084785">Ébresztő törölve</string>
+    <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="label">%s</xliff:g></string>
+    <string name="world_time_ahead" msgid="625559988238637652">Ennyivel előrébb: <xliff:g example="6 hours" id="time">%1$s</xliff:g></string>
+    <string name="world_time_behind" msgid="5395771290726167865">Ennyivel visszább: <xliff:g example="4 hours" id="time">%1$s</xliff:g></string>
+    <string name="world_hours_minutes_ahead" msgid="5132012793021696377">Ennyivel előrébb: <xliff:g example="6 hr" id="hours">%1$s</xliff:g> <xliff:g example="30 min" id="minutes">%2$s</xliff:g></string>
+    <string name="world_hours_minutes_behind" msgid="8978567362140923698">Ennyivel visszább: <xliff:g example="4 hr" id="hours">%1$s</xliff:g> <xliff:g example="30 min" id="minutes">%2$s</xliff:g></string>
+    <string name="world_hours_tomorrow" msgid="2504465609269004794">Holnap, <xliff:g example="6 hours ahead" id="time">%1$s</xliff:g></string>
+    <string name="world_hours_yesterday" msgid="4425086322610882745">Tegnap, <xliff:g example="4 hours behind" id="time">%1$s</xliff:g></string>
+    <string name="next_alarm_description" msgid="2650244835760747046">Következő ébresztő: <xliff:g example="Wed 8:00am" id="alarm_time">%s</xliff:g></string>
+    <string name="no_alarms" msgid="6429431324842022917">Nincs ébresztő</string>
+    <string name="invalid_time" msgid="2782334750243998633"><xliff:g example="25" id="invalid_hour">%1$d</xliff:g>:<xliff:g example="63" id="invalid_minutes">%2$d</xliff:g> <xliff:g example="PM" id="invalid_ampm">%3$s</xliff:g> érvénytelen időpont</string>
+    <string name="no_alarm_at" msgid="8140632482969193119"><xliff:g example="14" id="alarm_time_hour">%1$d</xliff:g>:<xliff:g example="23" id="alarm_time_minutes">%2$d</xliff:g> időpontban nincs ébresztés</string>
+    <string name="no_scheduled_alarms" msgid="2115420148192753534">Nincs ütemezett ébresztő</string>
     <string name="no_label_specified" msgid="2008482054428460626">"Nincs megadva címke"</string>
-    <string name="no_alarms_with_label" msgid="6250998794542941665">"Egy ébresztés sem tartalmazza a címkét"</string>
-    <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Nincs ébresztés beállítva erre az időpontra"</string>
-    <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> – ébresztés elvetve"</string>
-    <string name="alarm_is_set" msgid="5503226382620011088">"Az ébresztés időpontja: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="no_alarms_with_label" msgid="6250998794542941665">Egy ébresztés sem tartalmaz címkét</string>
+    <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">Erre az időpontra nincs ébresztő beállítva</string>
+    <string name="alarm_is_dismissed" msgid="5509897230565826642"><xliff:g example="14:20" id="alarm_time">%s</xliff:g> ébresztő elvetve</string>
+    <string name="alarm_is_set" msgid="5503226382620011088">Az ébresztő <xliff:g example="14:20" id="alarm_time">%s</xliff:g> időpontra beállítva</string>
     <string name="timer_created" msgid="4381027137335885547">"Időzítő létrehozva"</string>
     <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
-        <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> időzítés elvetve</item>
-        <item quantity="one">Időzítés elvetve</item>
+        <item quantity="one">Időzítő elvetve</item>
+        <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> időzítő elvetve</item>
     </plurals>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Az időzítő hossza érvénytelen"</string>
-    <string name="invalid_timer" msgid="900957020728335675">"Érvénytelen időzítés kiválasztva"</string>
-    <string name="no_expired_timers" msgid="4624192298397846876">"Nincsenek lejárt időzítések"</string>
-    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g> – az ébresztést még nem lehet elvetni, több mint 24 óra múlva esedékes"</string>
-    <string name="dismiss_alarm" msgid="7204593078688533541">"Ébresztés elvetése"</string>
+    <string name="invalid_timer" msgid="900957020728335675">A kiválasztott időzítő érvénytelen</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">Nincs lejárt időzítő</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">Az <xliff:g id="ALARM_TIME">%s</xliff:g> ébresztőt még nem lehet elvetni, több mint 24 óra múlva esedékes</string>
+    <string name="dismiss_alarm" msgid="7204593078688533541">Ébresztő elvetése</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Válassza ki az elvetni kívánt ébresztést"</string>
-    <string name="no_firing_alarms" msgid="4986161963178722289">"Nincs beállítva ébresztés"</string>
-    <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> – ébresztés elhalasztva 10 perccel"</string>
-    <string name="flip_action_title">Készülék-megfordítással kiváltott művelet</string>
-    <string name="shake_action_title">Készülék-megrázással kiváltott művelet</string>
-    <string name="firing_alarms_timers_channel">Elévülő értesítések és időzítők</string>
+    <string name="no_firing_alarms" msgid="4986161963178722289">Nincs jelenleg szóló ébresztő</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846"><xliff:g example="14:20" id="alarm_time">%s</xliff:g> ébresztő 10 perc szundira rakva</string>
+    <string name="flip_action_title">Felfordítás művelet</string>
+    <string name="shake_action_title">Rázás művelet</string>
+    <string name="firing_alarms_timers_channel">Éppen szóló ébresztők és időzítők</string>
     <string name="alarm_missed_channel">Elmulasztott ébresztők</string>
-    <string name="alarm_snooze_channel">Elhalasztott ébresztők</string>
-    <string name="alarm_upcoming_channel">Következő ébresztések</string>
-    <string name="stopwatch_channel">Stopperóra</string>
+    <string name="alarm_snooze_channel">Szundira rakott ébresztők</string>
+    <string name="alarm_upcoming_channel">Közelgő ébresztések</string>
+    <string name="stopwatch_channel">Stopper</string>
     <string name="timer_channel">Időzítő</string>
-    <string name="style_category_title">Téma</string>
-    <string name="settings_vibration_title">Rezgések bekapcsolása</string>
+    <string name="style_category_title">Stílus</string>
+    <string name="settings_vibration_title">Rezgések engedélyezése</string>
     <string name="dialog_close">Bezárás</string>
     <string name="font_category_title">Betűtípus</string>
-    <string name="license">Nyílt Forráskódú Felhasználás</string>
+    <string name="license">Nyílt Forráskódú Licenc</string>
     <string name="title_theme">Téma</string>
     <string name="add_label">Címke hozzáadása</string>
     <string name="selected">Kiválasztott</string>
-    <string name="more_options">Több</string>
+    <string name="more_options">További beállítások</string>
     <string name="whats_new_title">Frissítések</string>
     <string name="ringtone_category_title">Csengőhang</string>
     <string name="interface_customization_settings">Felület</string>
-    <string name="title_dark_theme_mode">Sötét téma</string>
-    <string name="title_accent_color">Kiemelő szín</string>
+    <string name="title_dark_theme_mode">Sötét téma mód</string>
+    <string name="title_accent_color">Hangsúlyos szín</string>
     <string name="timer_label_box_title">Időzítő címke</string>
-    <string name="timer_button_time_box_title">Percek hozzáadása az időzítőhöz</string>
-    <string name="power_button_title">Kikapcs. gomb</string>
+    <string name="timer_button_time_box_title">Perc hozzáadása az időzítőhöz</string>
+    <string name="power_button_title">Kikapcsolás gomb</string>
     <string name="version">Verzió</string>
     <string name="about_github_link">Megtekintés a GitHubon</string>
     <string name="label_default">Alapértelmezett</string>
-    <string name="clock_settings_summary">Stílus, időzóna, dátum és idő módosítása</string>
-    <string name="hide_clock_am_pm_pref">AM/PM elrejtése</string>
+    <string name="clock_settings_summary">Stílus, időzóna, dátum és idő beállítása</string>
+    <string name="hide_clock_am_pm_pref">DE/DU szöveg elrejtése</string>
     <string name="clock_dial_with_numbers">Számokkal</string>
     <string name="clock_dial_without_numbers">Számok nélkül</string>
     <string name="clock_second_hand_title">Másodpercmutató</string>
-    <string name="sort_cities_ascending_time_zone">Időzóna szerint növekvő sorrendben</string>
-    <string name="sort_cities_descending_time_zone">Időzóna szerint csökkenő sorrendben</string>
+    <string name="sort_cities_ascending_time_zone">Időzóna szerint (növekvő sorrendben)</string>
+    <string name="sort_cities_descending_time_zone">Időzóna szerint (csökkenő sorrendben)</string>
     <string name="screensaver_brightness_title">Fényerő</string>
-    <string name="screensaver_bold_digital_clock_title">Félkövér betűs óra</string>
-    <string name="screensaver_italic_digital_clock_title">Dőlt betűs óra</string>
-    <string name="screensaver_bold_date_title">Félkövér betűs dátum</string>
-    <string name="screensaver_italic_date_title">Dőlt betűs dátum</string>
-    <string name="screensaver_bold_next_alarm_title">Következő ébresztő félkövér betűs</string>
-    <string name="screensaver_italic_next_alarm_title">következő ébresztő dőlt betűs</string>
+    <string name="screensaver_bold_digital_clock_title">Félkövér digitális óra</string>
+    <string name="screensaver_italic_digital_clock_title">Dőlt digitális óra</string>
+    <string name="screensaver_bold_date_title">Félkövér dátum</string>
+    <string name="screensaver_italic_date_title">Dőlt dátum</string>
+    <string name="screensaver_bold_next_alarm_title">Következő ébresztő félkövér</string>
+    <string name="screensaver_italic_next_alarm_title">Következő ébresztő dőlt</string>
     <string name="preview_title">Előnézet</string>
-    <string name="screensaver_preview_summary">Képernyővédő bekapcsolása</string>
+    <string name="screensaver_preview_summary">Képernyőkímélő bekapcsolása egyből</string>
     <string name="schedule_alarm_title">Ébresztő ütemezése</string>
-    <string name="alarm_flash">Beállítja a címkéket a \'Riasztó beállítása\' képernyőn: Flash be- vagy kikapcsolása</string>
+    <string name="alarm_flash">Vaku</string>
+    <string name="delete_occasional_alarm_after_use_title">Ébresztő elvetésekor annak törlése</string>
+    <string name="delay_picker_dialog_title">Ébresztő késleltetés…</string>
+    <string name="alarm_label_box_title">Ébresztő címe</string>
+    <string name="duplicate">Duplikálás</string>
+    <string name="label_new_image">Új kép</string>
+    <string name="label_new_font">Új betűtípus</string>
+    <string name="warning">Figyelem</string>
+    <string name="label_hours">Óra</string>
+    <string name="label_minutes">Perc</string>
+    <string name="label_seconds">Másodperc</string>
+    <string name="confirm_action_prompt">\n\nBiztosan folytatni kívánja?</string>
+    <string name="progress_ringtones">Hangok hozzáadása… (%1$d/%2$d)</string>
+    <string name="alarm_scheduled_for">%s időpontra ütemezve</string>
+    <string name="alarm_alert_dismiss_and_delete_text">Elvet &amp; Töröl</string>
+    <string name="alarm_alert_off_and_deleted_text">Ébresztő kikapcsolva és törölve</string>
+    <string name="occasional_alarm_alert_predismiss_title">Közelgő alkalmi ébresztő</string>
+    <string name="analog_widget_material_you">Material You analóg óra</string>
+    <string name="vertical_digital_widget">Függőleges digitális óra</string>
+    <string name="next_alarm_widget">Következő ébresztő</string>
+    <string name="next_alarm_widget_title_no_alarm">Nincs közelgő ébresztő</string>
+    <string name="material_you_digital_widget">Material You digitális óra</string>
+    <string name="material_you_vertical_digital_widget">Material You függőleges digitális óra</string>
+    <string name="material_you_next_alarm_widget">Material You következő ébresztő</string>
+    <string name="settings_permission_message">Egy vagy több szükséges engedély nem áll rendelkezésre. Hiányuk hibás működést is okozhat.</string>
+    <string name="settings_permission_summary">Koppintson ide az Engedély kezelő oldalra.</string>
+    <string name="colors_category_title">Színek</string>
+    <string name="miscellaneous_category_title">Egyéb</string>
+    <string name="custom_font_title">Állítson be egyedi betűtípust</string>
+    <string name="custom_font_title_variant">Válasszon ki vagy töröljön egy egyedi betűtípust</string>
+    <string name="custom_font_dialog_title">Betűtípus</string>
+    <string name="custom_font_toast_message_selected">Betűtípus sikeresen kiválasztva</string>
+    <string name="custom_font_toast_message_deleted">Betűtípus sikeresen törölve</string>
+    <string name="vibration_category_title">Rezgés</string>
+    <string name="actions_category_title">Műveletek</string>
+    <string name="standard_category_title">Hagyományos</string>
+    <string name="material_you_category_title">Material You</string>
+    <string name="interface_customization_summary">Az applikációra vonatkozó stílus és szín beállítása</string>
+    <string name="display_settings_title">Megjelenítési beállítások</string>
+    <string name="system_theme">Rendszer</string>
+    <string name="light_theme">Világos</string>
+    <string name="dark_theme">Sötét</string>
+    <string name="auto_night_accent_color_title">Hangsúlyos szín alkalmazása a sötét módra</string>
+    <string name="day_accent_color_title">Hangsúlyos szín alkalmazása a világos módra</string>
+    <string name="night_accent_color_title">Hangsúlyos szín sötét módhoz</string>
+    <string name="black_accent_color">Fekete</string>
+    <string name="blue_accent_color">Kék</string>
+    <string name="blue_gray_accent_color">Kékes szürke</string>
+    <string name="brown_accent_color">Barna</string>
+    <string name="green_accent_color">Zöld</string>
+    <string name="indigo_accent_color">Indigó</string>
+    <string name="orange_accent_color">Narancssárga</string>
+    <string name="pink_accent_color">Rózsaszín</string>
+    <string name="purple_accent_color">Lila</string>
+    <string name="red_accent_color">Piros</string>
+    <string name="yellow_accent_color">Citromsárga</string>
+    <string name="amoled_dark_theme_mode">AMOLED</string>
+    <string name="display_card_background_title">Kártyák hátterének megjelenítése</string>
+    <string name="display_card_background_summary">Megjeleníti az egyes applikáció elemek hátterét (ébresztők, városok, időzítő gomb, stb.)</string>
+    <string name="display_background_border_title">Háttér keretek megjelenítése</string>
+    <string name="display_background_border_summary">Megjeleníti az egyes applikáció elemek körvonalát (ébresztők, városok, időzítő gomb, stb.)</string>
+    <string name="settings_language_title">Nyelv</string>
+    <string name="settings_language_system">Rendszer nyelv</string>
+    <string name="settings_language_english_us">Angol (US)</string>
+    <string name="settings_language_french">Francia</string>
+    <string name="settings_language_german">Német</string>
+    <string name="settings_language_chinese_simplified_cn">Kínai (egyszerűsített, PRC)</string>
+    <string name="settings_language_estonian">Észt</string>
+    <string name="settings_language_italian">Olasz</string>
+    <string name="settings_language_polish">Lengyel</string>
+    <string name="settings_language_portuguese">Portugál</string>
+    <string name="settings_language_serbian">Szerb</string>
+    <string name="settings_language_spanish">Spanyol</string>
+    <string name="settings_language_ukrainian">Ukrán</string>
+    <string name="settings_language_dutch">Holland</string>
+    <string name="settings_language_russian">Orosz</string>
+    <string name="settings_language_turkish">Török</string>
+    <string name="settings_language_korean">Kóreai</string>
+    <string name="settings_language_czech">Cseh</string>
+    <string name="settings_language_chinese_traditional_tw">Kínai (hagyományos, Taiwan)</string>
+    <string name="settings_language_bulgarian">Bolgár</string>
+    <string name="settings_language_tamil">Tamil</string>
+    <string name="settings_tab_to_display">Applikáció megnyitáskor megjelenő fülek</string>
+    <string name="last_tab_used_title">Utoljára használt fül</string>
+    <string name="settings_vibration_summary">Csak egyes gombokat érint (pl.: időzítő folytatás/szüneteltetés gomb vagy kapcsolók)</string>
+    <string name="settings_toolbar_title">Cím megjelenítése az eszközsávban</string>
+    <string name="settings_tab_title_visibility_title">Fülek címének megjelenítése</string>
+    <string name="tab_title_visibility_always">Mindig</string>
+    <string name="tab_title_visibility_when_selected">Amikor ki van jelölve</string>
+    <string name="settings_tab_indicator_title">Fül jelző megjelenítése az alsó navigációs menüben</string>
+    <string name="settings_fade_transitions_title">Átmenet a képernyők közötti váltáskor</string>
+    <string name="settings_keep_screen_on_title">Képernyő bekapcsolva marad</string>
+    <string name="settings_keep_screen_on_summary">Figyelem: Ettől a beállítástól függetlenül a képernyő mindig bekapcsolva marad ha egy időzítő vagy stopper éppen fut és a hozzátartozó fül van megnyitva</string>
+    <string name="enable_per_alarm_snooze_duration_title">Egyedi szundi időtartam minden ébresztőhöz</string>
+    <string name="enable_per_alarm_snooze_duration_dialog_message">Egyedi ébresztő szundi időtartam visszaáll az eredeti értékre.%s</string>
+    <string name="enable_per_alarm_volume_title">Egyedi hangerő minden ébresztőhöz</string>
+    <string name="enable_per_alarm_volume_dialog_message">Egyedi ébresztő hangerő visszaáll az eredeti értékre.%s</string>
+    <string name="display_dismiss_button_title">Az elvetés gomb megjelenik ahogy az ébresztő bekapcsolásra kerül</string>
+    <string name="display_dismiss_button_summary">Kikapcsoláskor a gomb az értesítővel együtt jelenik meg</string>
+    <string name="enable_per_alarm_missed_repeat_limit_title">Egyedi elmulasztott ébresztő újraindítás minden ébresztőhöz</string>
+    <string name="enable_per_alarm_missed_repeat_limit_dialog_message">Egyedi elmulasztott ébresztő újraindítás visszaáll az eredeti értékre.%s</string>
+    <string name="missed_alarm_repeat_limit_title">Elmulasztott ébresztők újraindítása</string>
+    <string name="missed_alarm_repeat_limit_1_time">1 alkalommal</string>
+    <string name="missed_alarm_repeat_limit_3_times">3 alkalommal</string>
+    <string name="missed_alarm_repeat_limit_5_times">5 alkalommal</string>
+    <string name="missed_alarm_repeat_limit_10_times">10 alkalommal</string>
+    <string name="alarm_notification_reminder_title">Emlékeztető értesítés</string>
+    <string name="alarm_notification_reminder_30_minutes">30 perccel előtte</string>
+    <string name="alarm_notification_reminder_1_hour">1 órával előtte</string>
+    <string name="alarm_notification_reminder_2_hours">2 órával előtte</string>
+    <string name="alarm_notification_reminder_4_hours">4 órával előtte</string>
+    <string name="alarm_notification_reminder_6_hours">6 órával előtte</string>
+    <string name="alarm_notification_reminder_8_hours">8 órával előtte</string>
+    <string name="alarm_notification_reminder_10_hours">10 órával előtte</string>
+    <string name="alarm_notification_reminder_12_hours">12 órával előtte</string>
+    <string name="advanced_audio_playback_title">Összetett hang lejátszás használata</string>
+    <string name="advanced_audio_playback_summary">Javítja a Bluetooth kompatibilitást és megakadályozza, hogy más hang megszakítsa az ismétlést \n\nFigyelem: Egyes csengőhangok lejátszási hibát generálhatnak</string>
+    <string name="system_media_volume_title">Használja a rendszer média hangerőt</string>
+    <string name="system_media_volume_summary">Csak akkor működik, ha egy Bluetooth eszköz csatlakoztatva van</string>
+    <string name="enable_alarm_vibrations_by_default_setting_title">Ébresztők létrehozásánál rezgés engedélyezése</string>
+    <string name="enable_per_alarm_vibration_pattern_title">Egyedi rezgés minta használata minden ébresztéshez</string>
+    <string name="enable_per_alarm_vibration_pattern_dialog_message">Egyedi ébresztő rezgés minta visszaáll az eredeti értékre.%s</string>
+    <string name="vibration_pattern_title">Rezgés minta</string>
+    <string name="vibration_pattern_soft">Enyhe</string>
+    <string name="vibration_pattern_strong">Erős</string>
+    <string name="vibration_pattern_heartbeat">Szívdobogás</string>
+    <string name="vibration_pattern_escalating">Felgyorsuló</string>
+    <string name="vibration_pattern_tick_tock">Tik-Tak</string>
+    <string name="vibration_start_delay_title">Késleltetve kezd rezegni</string>
+    <string name="vibration_start_delay_none">Nincs</string>
+    <string name="vibration_start_delay_warning_box_text">Adjon meg egy értéket 0 és 10 perc között</string>
+    <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">Rezgés engedélyezése szundi vagy ébresztő elvetésekor</string>
+    <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">Dupla rezgés szundikor, és egyszeri rezgés amikor az ébresztést elveti</string>
+    <string name="turn_on_back_flash_for_triggered_alarm_title">Vaku bekapcsolása ha elindul az ébresztő</string>
+    <string name="enable_delete_occasional_alarm_by_default_setting_title">Alkalmi ébresztések automatikus törlése alapbeállításként</string>
+    <string name="material_time_picker_style_title">Idő választási stílus</string>
+    <string name="date_picker_style_title">Dátum választási stílus</string>
+    <string name="sort_alarm_title">Ébresztések rendezése</string>
+    <string name="sort_alarm_time">Idő szerint</string>
+    <string name="sort_next_alarm_time">Legközelebbi ébresztés szerint</string>
+    <string name="sort_name">Név szerint</string>
+    <string name="sort_descending_creation_order">Létrehozás szerint (legrégebbi utoljára)</string>
+    <string name="sort_ascending_creation_order">Létrehozás szerint (legrégebbi legelöl)</string>
+    <string name="display_enabled_alarms_first_title">Bekapcsolt állapot szerint</string>
+    <string name="enable_alarm_fab_long_press_title">Műveleti gomb hosszan nyomásával létrehozható késleltetett ébresztő</string>
+    <string name="enable_alarm_fab_long_press_summary">Kikapcsolása esetén, két gomb áll rendelkezésre az ébresztés létrehozásához</string>
+    <string name="date_picker_style_calendar">Naptár</string>
+    <string name="date_picker_style_text">Szöveg</string>
+    <string name="alarm_settings_general_summary">Ez a beállítás megváltoztatható minden ébresztőnél a haladó nézetben</string>
+    <string name="slide_zone_color_title">Csúsztató zóna szín</string>
+    <string name="snooze_title_color">A \"Szundi\" szöveg színe</string>
+    <string name="snooze_button_color">A \"Szundi\" gomb színe</string>
+    <string name="dismiss_title_color">Az \"Elvetés\" szöveg színe</string>
+    <string name="dismiss_button_color">Az \"Elvetés\" gomb színe</string>
+    <string name="alarm_button_color">Ébresztő gomb szín</string>
+    <string name="clock_font_size">Óra betűtípus méret</string>
+    <string name="alarm_title_font_size">Ébresztő cím betűtípus méret</string>
+    <string name="display_text_shadow_title">Szöveg árnyék megjelenítése</string>
+    <string name="shadow_color_title">Árnyék szín</string>
+    <string name="shadow_offset_title">Árnyék távolság</string>
+    <string name="display_ringtone_title">Csengőhang címének megjelenítése</string>
+    <string name="ringtone_title_color">Csengőhang cím szín</string>
+    <string name="blur_intensity_title">Homályosítás intenzitás</string>
+    <string name="background_image_title">Háttérkép kiválasztása</string>
+    <string name="background_image_title_variant">Háttérkép törlése vagy kiválasztása</string>
+    <string name="background_image_dialog_title">Háttérkép</string>
+    <string name="background_image_toast_message_selected">Kép sikeresen kiválasztva</string>
+    <string name="background_image_toast_message_deleted">Kép sikeresen törölve</string>
+    <string name="enable_blur_effect_title">Homályosítás effekt a háttérképen</string>
+    <string name="enable_per_alarm_crescendo_duration_title">Egyedi hangerő növekedési időtartam használata ébresztőnként</string>
+    <string name="enable_per_alarm_crescendo_duration_dialog_message">Egyedi ébresztő hangerő növekedési időtartam visszaáll az eredeti értékre.%s</string>
+    <string name="enable_per_alarm_auto_silence_title">Egyedi ébresztő megállási időtartam használata ébresztőnként</string>
+    <string name="enable_per_alarm_auto_silence_dialog_message">Egyedi ébresztő megállási időtartam visszaáll az eredeti értékre.%s</string>
+    <string name="auto_silence_end_of_ringtone">A csengőhang vége</string>
+    <string name="snooze_duration_none">Nincs</string>
+    <string name="random_ringtone_title">Véletlenszerű csengőhang</string>
+    <string name="swipe_action_title">Szundi vagy ébresztő elvetés félrehúzással</string>
+    <string name="city_search_hint">Rendezés város szerint</string>
+    <string name="sw_settings_summary">Funkciók társítása hangerőgombokhoz</string>
+    <string name="sw_volume_up_action_title">Hang fel</string>
+    <string name="sw_long_press_volume_up_action_title">Hang fel (hosszú nyomást követően)</string>
+    <string name="sw_volume_down_action_title">Hang le</string>
+    <string name="sw_long_press_volume_down_action_title">Hang le (hosszú nyomást követően)</string>
+    <string name="sw_start_pause_action">Indítás / Szünet</string>
+    <string name="sw_laps_title">Kör</string>
+    <string name="sw_split_title">Részidő</string>
+    <string name="sw_total_title">Teljes</string>
+    <string name="timer_time_box_title">Új időzítő hossz</string>
+    <string name="alarm_hours_warning_box_text">Adjon meg egy értéket 0 és 24 óra között</string>
+    <string name="timer_button_time_minutes_warning_box_text">Adjon meg egy értéket 0 és 60 perc között</string>
+    <string name="timer_button_time_seconds_warning_box_text">Adjon meg egy értéket 0 és 59 másodperc között</string>
+    <string name="timer_time_warning_box_title">Hibás értéket adott meg</string>
+    <string name="timer_add_custom_time_with_seconds_description">%1$s perc %2$s másodperc hozzáadása</string>
+    <string name="timer_add_custom_time_with_seconds_for_notification">%1$s p %2$s mp hozzáadása</string>
+    <string name="timer_add_custom_time">+ %s</string>
+    <string name="clock_second_hand_vintage">Antik</string>
+    <string name="clock_style_analog_material">Analóg (Material)</string>
+    <string name="clock_dial_title">Számlap</string>
+    <string name="clock_dial_sun">Nap</string>
+    <string name="clock_dial_flower">Virág</string>
+    <string name="clock_style_spinner">Forgó</string>
+    <string name="analog_clock_size_title">Analóg óra méret</string>
+    <string name="sort_cities_title">Városok rendezése</string>
+    <string name="enable_city_note_title">Saját címke városokhoz rendelése</string>
+    <string name="enable_city_note_summary">Koppintson a városra a címke hozzáadásához vagy szerkesztéséhez</string>
+    <string name="city_note_dialog_title">%s címkéje</string>
+    <string name="sort_manually">Kézzel (ráhúzva)</string>
+    <string name="about_title">Névjegy</string>
+    <string name="app_slogan">100% FOSS C Óra, az AOSP alapján</string>
+    <string name="version_text">Verzió <xliff:g id="VERSION_NUMBER" example="1.0">%1$s</xliff:g></string>
+    <string name="whats_new_dialog_message">Tekintse át a változásokat:\n\n%s</string>
+    <string name="features_title">Fő funkciók</string>
+    <string name="features_dialog_message">Látogassa meg a fő funkció oldalt:\n\n%s</string>
+    <string name="github_dialog_message">Keresse fel a projekt GitHub oldalát:\n\n%s</string>
+    <string name="about_translate_link">Fordítsa le a Codeberg-en</string>
+    <string name="translate_dialog_message">Keresse fel a Codeberg oldalt:\n\n%s</string>
+    <string name="license_dialog_message">Licenc elolvasása:\n\n%s</string>
+    <string name="gnu_gpl">GNU Általános Publikus Licenc v3.0</string>
+    <string name="reset_settings_title">Beállítások visszaállítása alaphelyzetbe</string>
+    <string name="reset_settings_message">Biztosan minden beállítást vissza akar állítani alaphelyzetbe?</string>
+    <string name="toast_message_for_reset">Visszaállítva alaphelyzetbe</string>
+    <string name="alarm_settings_summary">Állítson be stílust, alap csengőhangot, hangerőt, szundi és elvető műveleteket, hét első napját és emlékeztető értesítő időt</string>
+    <string name="description_direction_both_for_occasional_alarm">Húzza balra a szundihoz, és jobbra az elvetéshez majd törléshez</string>
+    <string name="description_direction_both_for_non_repeatable_alarm">Húzza balra vagy jobbra az elvetéshez</string>
+    <string name="description_direction_both_for_occasional_non_repeatable_alarm">Húzza balra vagy jobbra az elvetésre majd törlésre</string>
+    <string name="description_snooze_button">Koppintson a szundihoz</string>
+    <string name="description_dismiss_button">Koppintson az elvetéshez</string>
+    <string name="description_dismiss_button_for_occasional_alarm">Koppintson az elvetéshez majd törléshez</string>
+    <string name="timer_settings_summary">Alap csengőhang beállítása, hangerő és időzítő rendezés</string>
+    <string name="timer_creation_view_style_title">Időzítő létrehozás stílusa</string>
+    <string name="timer_creation_view_style_keypad">Billentyű</string>
+    <string name="display_compact_timers_title">Aktív időzítők megjelenítése kompakt módban</string>
+    <string name="transparent_background_for_expired_timer_title">Átlátszó háttér amikor az időzítők lejárnak</string>
+    <string name="display_timer_state_indicator_title">Időzítő állapot jelző megjelenítése</string>
+    <string name="running_timer_indicator_color_title">Futó időzítő jelző szín</string>
+    <string name="paused_timer_indicator_color_title">Megállított időzítő jelző szín</string>
+    <string name="expired_timer_indicator_color_title">Lejárt időzítő jelző szín</string>
+    <string name="timer_volume_buttons_action_title">Lejárt időzítők visszaállítása a hangerő gombokkal</string>
+    <string name="timer_power_button_action_title">Lejárt időzítők visszaállítása a bekapcsoló gombbal</string>
+    <string name="timer_buttons_action_summary">Csak a zárolási képernyőn működik</string>
+    <string name="timer_flip_action_title">Az ébresztő megállítása az eszköz felfordításával</string>
+    <string name="timer_shake_action_title">Az ébresztő megállítása az eszköz megrázásával</string>
+    <string name="sort_timer_title">Időzítők rendezése</string>
+    <string name="sort_timer_ascending_duration">Hossz szerint (emelkedő sorrendben)</string>
+    <string name="sort_timer_descending_duration">Hossz szerint (csökkenő sorrendben)</string>
+    <string name="default_time_to_add_to_timer_title">Alap időzítőhöz adható időintervallum</string>
+    <string name="display_warning_before_deleting_timer_title">Figyelmeztetés megjelenítése időzítő törlése előtt</string>
+    <string name="warning_dialog_title">Időzítő törlése</string>
+    <string name="warning_dialog_message">Biztosan törölni kívánja a(z) \"%s\" időzítőt?</string>
+    <string name="screensaver_settings_summary">Képernyővédő stílus, szín és betűtípus beállítások</string>
+    <string name="screensaver_daydream_settings">Képernyőkímélő kiválasztása/bekapcsolása</string>
+    <string name="screensaver_daydream_settings_summary">Megnyitja az alap Android képernyőkímélő beállításokat</string>
+    <string name="screensaver_clock_dynamic_colors_title">Dinamikus óra színek</string>
+    <string name="clock_color_title">Óra szín</string>
+    <string name="clock_default_color_title">Alap szín használata a fő óránál</string>
+    <string name="hour_color_title">Óra szín</string>
+    <string name="hour_default_color_title">Alap szín használata az órákhoz</string>
+    <string name="minute_color_title">Perc szín</string>
+    <string name="minute_default_color_title">Alap szín használata a percekhez</string>
+    <string name="dial_color_title">Számlap szín</string>
+    <string name="dial_default_color_title">Alap szín használata a számlaphoz</string>
+    <string name="hour_hand_color_title">Óramutató szín</string>
+    <string name="hour_hand_default_color_title">Alap szín használata az óramutatóhoz</string>
+    <string name="minute_hand_color_title">Percmutató szín</string>
+    <string name="minute_hand_default_color_title">Alap szín használata a percmutatóhoz</string>
+    <string name="second_hand_color_title">Másodpercmutató szín</string>
+    <string name="second_hand_default_color_title">Alap szín használata a másodpercmutatóhoz</string>
+    <string name="display_battery_title">Töltöttségi szint megjelenítése</string>
+    <string name="battery_color_title">Töltöttségi szint szín</string>
+    <string name="date_color_title">Dátum szín</string>
+    <string name="date_default_color_title">Alap szín használata a dátumhoz</string>
+    <string name="next_alarm_color_title">Következő ébresztő színe</string>
+    <string name="next_alarm_default_color_title">Alap szín használata a következő ébresztőhöz</string>
+    <string name="city_clock_color_title">Város óra színe</string>
+    <string name="city_clock_default_color_title">Alap szín használata a város órához</string>
+    <string name="city_name_color_title">Város név színe</string>
+    <string name="city_name_default_color_title">Alap szín használata a város nevéhez</string>
+    <string name="alarm_title_color">Ébresztő cím színe</string>
+    <string name="alarm_title_default_color">Alap szín használata az ébresztő címhez</string>
+    <string name="screensaver_bold_battery_title">Félkövér töltöttség</string>
+    <string name="screensaver_italic_battery_title">Dőlt töltöttség</string>
+    <string name="repetitive_alarm_is_dismissed">Ébresztő elvetve. <xliff:g example="Next alarm Monday." id="alarm_day">Rescheduled for %s.</xliff:g></string>
+    <string name="alarm_is_dismissed_and_deleted"><xliff:g example="14:20" id="alarm_time">%s</xliff:g> ébresztő elvetve és törölve</string>
+    <string name="shake_intensity_title">Rázás intenzitás</string>
+    <string name="first_launch_version">Verzió %s</string>
+    <string name="first_launch_main_feature_title">FŐ FUNKCIÓK</string>
+    <string name="first_launch_button_now">Most</string>
+    <string name="first_launch_button_later">Később</string>
+    <string name="first_launch_main_feature_message">► Világos, sötét vagy rendszerkövető téma; &lt;br&gt; &lt;br&gt; ► Személyre szabható képernyőkímélő; &lt;br&gt; &lt;br&gt; ► Szmeélyre szabható widgetek; &lt;br&gt; &lt;br&gt; ► A gyors beállítáokban levő csempe támogatása (Android 7+ esetén); &lt;br&gt; &lt;br&gt; ► App adatok mentése és visszaállítása (kivétel az egyedi csengőhang); &lt;br&gt; &lt;br&gt; ► Material dizájn és dinamikus színek; &lt;br&gt; &lt;br&gt; ► Ébresztő beállítása bizonyos dátumra; &lt;br&gt; &lt;br&gt; ► Félrehúzás az ébresztő törléséhez; &lt;br&gt; &lt;br&gt; ► Ébresztő duplikálása; &lt;br&gt; &lt;br&gt; ► Átforgatás és rázás műveletekkel való ébresztőelvetés/késleltetés; &lt;br&gt; &lt;br&gt; ► Ébresztő kikapcsolása / késleltetése a bekapcsoló- és hangerőgombokkal; &lt;br&gt; &lt;br&gt; ► %s</string>
+    <string name="first_launch_main_feature_link">…és még sok más!</string>
+    <string name="first_launch_important_info_title">FONTOS INFORMÁCIÓ</string>
+    <string name="first_launch_important_info_message">Az app megfelelő működésének biztosítása érdekében, &lt;b&gt;bizonyos beállításokat engedélyezni kell:&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;AKKSI OPTIMALIZÁCIÓ;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;ÉRTESÍTÉSEK;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;A készüléke Android verziójától függően egyes beállítások már alapból optimalizálásra kerültek (pl. értesítések).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Most, vagy akár később is meg tudja őket változtatni az engedély kezelés beállításoknál:</string>
+    <string name="first_launch_important_info_message_for_SDK34">• &lt;b&gt;TELJES KÉPERNYŐS ÉRTESÍTÉSEK;&lt;/b&gt; &lt;br&gt; &lt;br&gt;</string>
+    <string name="first_launch_dialog_title">Kilépés</string>
+    <string name="first_launch_dialog_message">Biztosan ki akar lépni az applikációból?</string>
+    <string name="widgets_settings">Widgetek</string>
+    <string name="widgets_settings_summary">Állítsa be a widgetek stílusát, színét és betűméretét</string>
+    <string name="display_text_uppercase_title">Nagybetűs szöveg megjelenítés</string>
+    <string name="widget_background_title">Háttér megjelenítése</string>
+    <string name="customize_background_corner_radius_title">Háttérsarkok kerekítés sugarának személyre szabása</string>
+    <string name="customize_background_corner_radius_summary">Lehetővé teszi a widget sarkainak lekerekítését, hogy ha alapból ez nem támogatott készülékén</string>
+    <string name="background_corner_radius_title">Háttérsarok kerekítés sugara</string>
+    <string name="background_color_title">Háttér szín</string>
+    <string name="background_default_color_title">Alap szín használata a háttérhez</string>
+    <string name="display_city_title">Városok megjelenítése a widgeteken</string>
+    <string name="display_date_title">Dátum megjelenítése a widgeten</string>
+    <string name="display_next_alarm_title">Következő ébresztő megjelenítése a widgeten</string>
+    <string name="max_clock_font_size_title">A fő óra legnagyobb betűmérete</string>
+    <string name="digital_widget_message_summary">Ehhez ki kell kapcsolnia a \"Városok megjelenítése a widgeteken\" beállítást</string>
+    <string name="widget_apply_horizontal_padding_title">Margók hozzáadása a widgetek széleihez</string>
+    <string name="next_alarm_no_upcoming_alarm_titles_default_color">Alap szín használata a \"Következő ébresztő\" és \"Nincs közelgő ébresztő\" címekhez</string>
+    <string name="next_alarm_no_upcoming_alarm_titles_color">Szín a \"Következő ébresztő\" és \"Nincs közelgő ébresztő\" címekhez</string>
+    <string name="widget_max_font_size_title">Legnagyobb widget betűméret</string>
+    <string name="next_alarm_widget_text">Következő ébresztő</string>
+    <string name="permission_management_settings">Engedély kezelés</string>
+    <string name="permission_management_summary">Mutassa meg melyek az alkalmazás működéséhez elengedhetetlen engedélyek</string>
+    <string name="permission_requirement_title">Követelmények:</string>
+    <string name="permission_highly_recommended">Erősen ajánlott</string>
+    <string name="permission_status_title">Státusz:</string>
+    <string name="permission_info_title">Csak Xiaomi eszközök esetében</string>
+    <string name="permission_granted">Engedélyezve</string>
+    <string name="permission_denied">Megtagadva</string>
+    <string name="denied_permission_label">Engedély megtagadva</string>
+    <string name="permission_dialog_revoke_title">Hozzáférés visszavonása</string>
+    <string name="revoke_permission_dialog_message">Biztosan vissza akarja vonni ezt az engedélyt?</string>
+    <string name="ignore_battery_optimizations_title">AKKU OPTIMALIZÁCIÓ FIGYELMEN KÍVÜL HAGYÁSA</string>
+    <string name="ignore_battery_optimizations_dialog_title">Akku Optimalizáció</string>
+    <string name="ignore_battery_optimizations_dialog_text">Alapból az Android rendszer beállítások minden a felhasználó által telepített alkalmazás akkumulátor használatát optimalizálja. \n\nHabár ez elfogadható a legtöbb esetben, egy óra alkalmazás esetében gondokat okozhat. Ha bekapcsolva marad, a rendszer bármikor letilthatja a háttérben az alkalmazást és az ébresztőket is, amely hátrányosan befolyásolná a funkciókat. \n\nEmiatt azt ajánljuk, hogy vegye ki az optimalizált alkalmazások listájából.</string>
+    <string name="notifications_permission_title">ÉRTESÍTÉSEK BEKAPCSOLÁSA</string>
+    <string name="notifications_dialog_title">Értesítések</string>
+    <string name="notifications_dialog_text">Az ébresztőkön felül az app időzítő és stopper módra is képes. \n\nAnnak érdekében, hogy ezek a módok megfelelően megjelenítődjenek meg valamint az ébresztő beinduljon, erősen ajánlott az értesítések engedélyezése.</string>
+    <string name="FSN_permission_title">TELJHES KÉPERNYŐS ÉRTESÍTÉSEK BEKAPCSOLÁSA</string>
+    <string name="FSN_dialog_title">Teljes képernyős értesítések</string>
+    <string name="FSN_dialog_text">Android 14 után a kikapcsolt képernyő után csak akkor aktiválódik az ébresztő, ha a teljes képernyős értesítések is engedélyezésre kerülnek.</string>
+    <string name="show_lockscreen_permission_title">MEGJELENÍTÉS LEZÁRÁSI KÉPERNYŐN</string>
+    <string name="show_lockscreen_dialog_title">Megjelenítés lezárási képernyőn</string>
+    <string name="show_lockscreen_dialog_text">Xiaomi eszközök esetén kézileg be kell állítani a \"Megjelenítés lezárási képernyőn\" engedélyt, biztosítva ezzel az alkalmazás megfelelő működését.</string>
+    <string name="backup_restore_title">Mentés és Visszaállítás</string>
+    <string name="backup_restore_summary">Alkalmazás adatok mentése vagy visszaállítása, kivétel az egyedi csengőhangok</string>
+    <string name="backup_restore_dialog_message">Akarja menteni vagy visszaállítani az app adatait?</string>
+    <string name="backup_button_title">Mentés</string>
+    <string name="restore_button_title">Visszaállítás</string>
+    <string name="toast_message_for_backup">Sikeres mentés</string>
+    <string name="toast_message_for_restore">Sikeres visszaállítás</string>
 </resources>

@@ -171,7 +171,7 @@
     <string name="clock_style_digital">Цифров</string>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Часът у дома"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">При пътуване в различен часови пояс добавете часовник за времето у дома</string>
-    <string name="home_time_zone" msgid="9199730676287974501">"Часова зона у дома"</string>
+    <string name="home_time_zone" msgid="9199730676287974501">Часови пояс у дома</string>
     <string name="city_checked" msgid="616847871968019"><xliff:g id="city_name">%s</xliff:g>, избран</string>
     <string name="city_unchecked" msgid="710212932781145918"><xliff:g id="city_name">%s</xliff:g> отменен избор</string>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"Нов будилник"</string>
@@ -466,7 +466,7 @@
     <string name="license_dialog_message">Прочетете лиценза:\n\n%s</string>
     <string name="gnu_gpl">Общ публичен лиценз на GNU издание 3.0</string>
     <string name="reset_settings_title">Нулиране на настройките</string>
-    <string name="reset_settings_message">Желаете ли настройките на приложението да бъдат нулирани?\n\nЗабележка: избраните мелодии няма да бъдат загубени.</string>
+    <string name="reset_settings_message">Желаете ли настройките на приложението да бъдат нулирани?</string>
     <string name="toast_message_for_reset">Нулирането е извършено</string>
     <string name="dialog_close">Затваряне</string>
     <string name="alarm_settings_summary">Задаване на стила, подразбирана мелодия, отлагане и изключване на будилника, първи ден от седмицата и време на известието за напомняне</string>
@@ -597,4 +597,25 @@
     <string name="notifications_dialog_text">Освен настройка на будилници, това приложение разполага с отброяване и хронометър.\n\nЗа да бъдат показвани правилно известията за всички модули и особено за да се задействат будилниците, препоръчваме да включите известията за приложението.</string>
     <string name="FSN_dialog_text">От Андроид 14 нататък, за да се задействат будилниците докато екранът е изключен, е задължително да бъде получено разрешението „Известия на цял екран“.</string>
     <string name="show_lockscreen_dialog_text">За да работи правилно приложението на устройствата на Xiaomi трябва ръчно да дадете разрешението „Показване на екрана за заключване“ от настройките на устройството.</string>
+    <string name="label_new_font">Нов шрифт</string>
+    <string name="custom_font_title">Избиране на потребителски шрифт</string>
+    <string name="custom_font_title_variant">Избиране или премахване на потребителски шрифт</string>
+    <string name="custom_font_dialog_title">Шрифт</string>
+    <string name="custom_font_toast_message_selected">Шрифтът е избран</string>
+    <string name="custom_font_toast_message_deleted">Шрифтът е премахнат</string>
+    <string name="vibration_category_title">Вибриране</string>
+    <string name="display_settings_title">Настройки на показване</string>
+    <string name="settings_language_bulgarian">Български</string>
+    <string name="display_battery_title">Ниво на батерията</string>
+    <string name="settings_language_tamil">Тамилски</string>
+    <string name="enable_per_alarm_vibration_pattern_title">Различна вибрация за всеки будилник</string>
+    <string name="enable_per_alarm_vibration_pattern_dialog_message">Потребителските вибрации ще бъдат нулирани. %s</string>
+    <string name="sw_laps_title">Обиколки</string>
+    <string name="sw_split_title">Отсечка</string>
+    <string name="sw_total_title">Общо</string>
+    <string name="analog_clock_size_title">Размер на аналоговия часовник</string>
+    <string name="display_compact_timers_title">Работещите отброявания видими при компактен режим</string>
+    <string name="battery_color_title">Цвят на нивото на батерията</string>
+    <string name="screensaver_bold_battery_title">Нивото на батерията в получер шрифт</string>
+    <string name="screensaver_italic_battery_title">Нивото на батерията в наклонен шрифт</string>
 </resources>

@@ -1,0 +1,5 @@
+Viele Fehlerbehebungen und Verbesserungen sind hier aufgeführt:
+https://github.com/BlackyHawky/Clock/releases/tag/2.28
+
+**Hinweis:
+ - Aufgrund von Änderungen an digitalen Widgets wird empfohlen, Widgets nach der Aktualisierung zu löschen und erneut zum Startbildschirm hinzuzufügen.

@@ -1,0 +1,15 @@
+**Fehlerbehebung**
+- Behebung eines in Version 2.20 aufgetretenen Fehlers bezüglich der Stoppuhr-Tasten
+
+**Hinweis**
+Die anderen Funktionen der Version 2.20 bleiben erhalten und können unter dem untenstehenden Link eingesehen werden:
+
+- Korrektur der oberen Abstände für Geräte mit Notch
+- Korrektur der Wecker- und Timer-Vibrationen für einige Geräte
+- Stellen von Weckern auf ein bestimmtes Datum
+- Möglichkeit, Klingeltöne zufällig abzuspielen
+- Möglichkeit, einen Ordner zum Hinzufügen von Klingeltönen auszuwählen
+- Entfernen der Berechtigung „DISABLE_KEYGUARD”
+… und mehr
+
+https://github.com/BlackyHawky/Clock/releases/tag/2.20

@@ -1,0 +1,5 @@
+Palju parandusi ja täiendusi - detailne logi on kirjas siin:
+https://github.com/BlackyHawky/Clock/releases/tag/2.28
+
+**Märkus:
+ - Kuna digividinad on muutunud, siis soovitame, et peale uuendamist eemalda nad avaekraanilt ja lisa uuesti tagasi.

@@ -1,0 +1,8 @@
+Viele Fehlerbehebungen und Verbesserungen sind hier aufgeführt:
+https://github.com/BlackyHawky/Clock/releases/tag/2.25
+
+**Hinweis: Aufgrund von Codeänderungen wurden zwei Timer-Einstellungen zurückgesetzt:**
+- `Stille nach`
+- `Standardzeit zum Timer hinzufügen`
+
+**Bitte erstellen Sie nach der Aktualisierung der App ein neues Backup und löschen Sie das alte.**

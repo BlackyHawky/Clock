@@ -1,0 +1,11 @@
+**Korrekturen**
+- Anzeige der Statusleiste im Bildschirmschoner korrigiert (wenn sich das Gerät im Dunkelmodus befindet und in den Einstellungen der AMOLED-Modus ausgewählt ist)
+- Aktualisierung der Widgets nach einer Einstellungsänderung korrigiert
+- Automatische Datumsänderung für digitale Widgets korrigiert (das Datum wird nun täglich um Mitternacht aktualisiert)
+
+**Verbesserungen**
+- Möglichkeit hinzugefügt, den Sekundenzeiger für analoge Widgets anzuzeigen oder auszublenden (nur für Android 12+)
+- Schatten beim Ziehen von Timern anzeigen
+- Russische Sprache zu den Spracheinstellungen der App hinzugefügt
+- Code verbessert und bereinigt
+- Übersetzungen aktualisiert

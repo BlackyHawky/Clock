@@ -23,7 +23,7 @@
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Timer expirado"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Amanhã"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Hoje"</string>
-    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Encerrar"</string>
+    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">Dispensar</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Alarme perdido"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%1$s</xliff:g> - <xliff:g id="ALARM_LABEL">%2$s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Adiado"</string>
@@ -114,7 +114,7 @@
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"O dispositivo está configurado para silêncio total"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Botões de volume"</string>
     <string name="button_action_snooze">Ativa soneca</string>
-    <string name="button_action_dismiss">Dispensa alarme</string>
+    <string name="button_action_dismiss">Dispensar</string>
     <string name="button_action_control_volume">Controla volume</string>
     <string name="label_description" msgid="8736179296142915727">"Marcador"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Toque"</string>
@@ -228,7 +228,7 @@
     <string name="invalid_timer_length" msgid="3104567893212932487">"Duração do timer inválida"</string>
     <string name="invalid_timer" msgid="900957020728335675">"Timer inválido selecionado"</string>
     <string name="no_expired_timers" msgid="4624192298397846876">"Nenhum timer expirado"</string>
-    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Não é possível dispensar o alarme <xliff:g id="ALARM_TIME">%s</xliff:g> ainda, pois ainda faltam mais de 24 horas para ele"</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">Não é possível dispensar o alarme <xliff:g id="ALARM_TIME">%s</xliff:g> ainda, pois faltam mais de 24 horas para ele</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Dispensar alarme"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Escolher qual alarme dispensar"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"Nenhum alarme disparando"</string>
@@ -263,7 +263,7 @@
     <string name="settings_permission_message">Uma ou mais permissões essenciais foram recusadas. Não as permitindo pode levar à mal funcionamento.</string>
     <string name="settings_permission_summary">Toque aqui para mostrar a Página de gerenciamento de permissões.</string>
     <string name="material_time_picker_style_title">Estilo do seletor de horário</string>
-    <string name="swipe_action_title">Deslize para dispensar ou para soneca</string>
+    <string name="swipe_action_title">Deslizar para dispensar ou para soneca</string>
     <string name="label_default">Padrão</string>
     <string name="sort_timer_title">Classificar timers</string>
     <string name="transparent_background_for_expired_timer_title">Fundo transparente quando os timers expiram</string>
@@ -289,7 +289,7 @@
     <string name="alarm_notification_reminder_12_hours">12 horas antes</string>
     <string name="alarm_title_color">Cor do título do alarme</string>
     <string name="snooze_button_color">Cor do botão de Soneca</string>
-    <string name="dismiss_button_color">Cor do botão Dispensar</string>
+    <string name="dismiss_button_color">Cor do botão \"Dispensar\"</string>
     <string name="alarm_button_color">Cor do botão de Alarme</string>
     <string name="alarm_title_font_size">Tamanho da fonte do título do alarme</string>
     <string name="clock_font_size">Tamanho da fonte do relógio</string>
@@ -321,11 +321,11 @@
     <string name="screensaver_italic_next_alarm_title">Próximo alarme em itálico</string>
     <string name="screensaver_bold_next_alarm_title">Próximo alarme em negrito</string>
     <string name="whats_new_dialog_message">Descubra o que há de novo:\n\n%s</string>
-    <string name="delete_occasional_alarm_after_use_title">Delete alarme quando dispensado</string>
-    <string name="alarm_alert_dismiss_and_delete_text">Dispensar &amp; Deletar</string>
-    <string name="alarm_alert_off_and_deleted_text">Alarme desativado e deletado</string>
-    <string name="description_direction_both_for_occasional_alarm">Deslize para esquerda para soneca ou direita para descartar e deletar alarme</string>
-    <string name="description_direction_both_for_non_repeatable_alarm">Deslize para esquerda ou direita para descartar</string>
+    <string name="delete_occasional_alarm_after_use_title">Excluir alarme ao dispensar</string>
+    <string name="alarm_alert_dismiss_and_delete_text">Dispensar &amp; Excluir</string>
+    <string name="alarm_alert_off_and_deleted_text">Alarme desativado e excluído</string>
+    <string name="description_direction_both_for_occasional_alarm">Deslize para esquerda para soneca ou direita para dispensar e excluir o alarme</string>
+    <string name="description_direction_both_for_non_repeatable_alarm">Deslize para esquerda ou direita para dispensar</string>
     <string name="system_theme">Sistema</string>
     <string name="occasional_alarm_alert_predismiss_title">Alarme ocasional próximo</string>
     <string name="light_theme">Claro</string>
@@ -351,7 +351,7 @@
     <string name="screensaver_italic_date_title">Data em itálico</string>
     <string name="night_accent_color_title">Cor de destaque para o modo noturno</string>
     <string name="pink_accent_color">Rosa</string>
-    <string name="description_direction_both_for_occasional_non_repeatable_alarm">Deslize para esquerda ou direita para descartar e deletar alarme</string>
+    <string name="description_direction_both_for_occasional_non_repeatable_alarm">Deslize para esquerda ou direita para dispensar e excluir o alarme</string>
     <string name="auto_night_accent_color_title">Aplicar cor de destaque para o modo noturno</string>
     <string name="first_launch_button_now">Agora</string>
     <string name="city_name_color_title">Cor personalizada para o nome da cidade</string>
@@ -376,7 +376,7 @@
     <string name="city_clock_default_color_title">Usar a cor padrão para o relógio da cidade</string>
     <string name="flip_action_title">Ação de virar o dispositivo</string>
     <string name="first_launch_main_feature_link">… e muito mais!</string>
-    <string name="first_launch_main_feature_message">► Claro, escuro ou tema do sistema; &lt;br&gt; &lt;br&gt; ► Protetor de tela personalizável; &lt;br&gt; &lt;br&gt; ► Widgets personalizáveis; &lt;br&gt; &lt;br&gt; ► Suporte para blocos em configurações rápidas (para Android 7+); &lt;br&gt; &lt;br&gt; ► Configurações de backup e restauração &lt;br&gt; &lt;br &gt; ► Material design e cores dinâmicas; &lt;br&gt; &lt;br&gt; ► Deslize para deletar um alarme; &lt;br&gt; &lt;br&gt; ► Duplique um alarme; &lt;br&gt; &lt;br&gt; ► Ação de virar e chacoalhar para desativar/adiar alarme; &lt;br&gt; &lt;br&gt; ► Desligar/adiar o alarme com os botões de ligar ou de volume; &lt;br&gt; &lt;br&gt; ► %s</string>
+    <string name="first_launch_main_feature_message">► Claro, escuro ou tema do sistema; &lt;br&gt; &lt;br&gt; ► Protetor de tela personalizável; &lt;br&gt; &lt;br&gt; ► Widgets personalizáveis; &lt;br&gt; &lt;br&gt; ► Suporte para blocos em configurações rápidas (para Android 7+); &lt;br&gt; &lt;br&gt; ► Configurações de backup e restauração &lt;br&gt; &lt;br &gt; ► Material design e cores dinâmicas; &lt;br&gt; &lt;br&gt; ► Deslize para excluir um alarme; &lt;br&gt; &lt;br&gt; ► Duplique um alarme; &lt;br&gt; &lt;br&gt; ► Ação de virar e chacoalhar para desativar/adiar alarme; &lt;br&gt; &lt;br&gt; ► Desligar/adiar o alarme com os botões de ligar ou de volume; &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="city_clock_color_title">Cor personalizada do relógio da cidade</string>
     <string name="minute_color_title">Cor dos minutos personalizada</string>
     <string name="date_default_color_title">Usar a cor padrão para a data</string>
@@ -445,7 +445,7 @@
     <string name="settings_language_portuguese">Português</string>
     <string name="settings_language_spanish">Espanhol</string>
     <string name="settings_language_ukrainian">Ucraniano</string>
-    <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">Duas vibrações quando o alarme for adiado, e uma vibração quando o alarme for descartado</string>
+    <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">Duas vibrações quando o alarme for adiado, e uma vibração quando o alarme for dispensado</string>
     <string name="settings_language_serbian">Sérvio</string>
     <string name="settings_language_german">Alemão</string>
     <string name="settings_language_chinese_simplified_cn">Chinês (simplificado, PRC)</string>
@@ -454,11 +454,11 @@
     <string name="black_accent_color">Preto</string>
     <string name="day_accent_color_title">Cor de destaque para o modo diurno</string>
     <string name="yellow_accent_color">Amarelo</string>
-    <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">Habilitar vibrações quando o alarme for adiado ou descartado</string>
+    <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">Habilitar vibrações quando o alarme for adiado ou dispensado</string>
     <string name="turn_on_back_flash_for_triggered_alarm_title">Ligue o flash traseiro quando o alarme for disparado</string>
     <string name="display_warning_before_deleting_timer_title">Exibir um aviso antes de excluir um cronômetro</string>
-    <string name="warning_dialog_title">Deletar cronômetro</string>
-    <string name="warning_dialog_message">Você tem certeza que quer deletar o cronômetro \"%s\"?</string>
+    <string name="warning_dialog_title">Excluir timer</string>
+    <string name="warning_dialog_message">Você tem certeza que quer excluir o timer \"%s\"?</string>
     <string name="alarm_flash">Flash</string>
     <string name="about_translate_link">Traduza no Codeberg</string>
     <string name="translate_dialog_message">Visite a página do Codeberg:\n\n%s</string>
@@ -482,4 +482,55 @@
     <string name="settings_tab_to_display">Aba exibida ao abir o app</string>
     <string name="enable_per_alarm_volume_title">Usar um volume personalizado para cada alarme</string>
     <string name="settings_tab_title_visibility_title">Exibir título das abas</string>
+    <string name="schedule_alarm_title">Agendar alarme</string>
+    <string name="repetitive_alarm_is_dismissed">Alarme dispensado. <xliff:g id="alarm_day">Remarcado para %s.</xliff:g></string>
+    <string name="alarm_is_dismissed_and_deleted"><xliff:g example="14:20" id="alarm_time">%s</xliff:g> alarme dispensado e excluído</string>
+    <string name="custom_font_title_variant">Selecionar ou excluir fonte personalizada</string>
+    <string name="custom_font_toast_message_deleted">Fonte excluída com sucesso</string>
+    <string name="background_image_title_variant">Selecionar ou excluir a imagem de fundo</string>
+    <string name="background_image_toast_message_deleted">Imagem excluída com sucesso</string>
+    <string name="description_dismiss_button_for_occasional_alarm">Clique para dispensar e excluir o alarme</string>
+    <string name="display_dismiss_button_title">Mostrar botão de Dispensar assim que o alarme for ativado</string>
+    <string name="display_dismiss_button_summary">Se desativado, o botão vai aparecer ao mesmo tempo que a notificação de lembrete</string>
+    <string name="dismiss_title_color">Cor do título \"Dispensar\"</string>
+    <string name="description_dismiss_button">Clique para dispensar o alarme</string>
+    <string name="delay_picker_dialog_title">Alarme em…</string>
+    <string name="label_new_image">Nova imagem</string>
+    <string name="label_new_font">Nova fonte</string>
+    <string name="confirm_action_prompt">\n\nVocê quer continuar?</string>
+    <string name="progress_ringtones">Adicionando toques… (%1$d/%2$d)</string>
+    <string name="colors_category_title">Cores</string>
+    <string name="custom_font_title">Selecionar uma fonte personalizada</string>
+    <string name="custom_font_dialog_title">Fonte</string>
+    <string name="custom_font_toast_message_selected">Fonte selecionada com sucesso</string>
+    <string name="vibration_category_title">Vibração</string>
+    <string name="display_settings_title">Configurações de exibição</string>
+    <string name="settings_language_bulgarian">Búlgaro</string>
+    <string name="settings_language_tamil">Tâmil</string>
+    <string name="settings_toolbar_title">Mostrar o título na barra de ferramentas</string>
+    <string name="enable_per_alarm_snooze_duration_title">Usar uma duração de soneca personalizada para cada alarme</string>
+    <string name="enable_per_alarm_snooze_duration_dialog_message">Durações personalizadas de soneca voltarão ao padrão.%s</string>
+    <string name="enable_per_alarm_volume_dialog_message">Volumes personalizados de alarme voltarão ao padrão.%s</string>
+    <string name="enable_per_alarm_missed_repeat_limit_title">Usar número de repetição de alarme perdido personalizado para cada alarme</string>
+    <string name="enable_per_alarm_missed_repeat_limit_dialog_message">Números de repetições de alarmes perdidos voltarão ao padrão.%s</string>
+    <string name="missed_alarm_repeat_limit_title">Repetir alarmes perdidos</string>
+    <string name="missed_alarm_repeat_limit_1_time">1 vez</string>
+    <string name="missed_alarm_repeat_limit_3_times">3 vezes</string>
+    <string name="missed_alarm_repeat_limit_5_times">5 vezes</string>
+    <string name="missed_alarm_repeat_limit_10_times">10 vezes</string>
+    <string name="advanced_audio_playback_title">Usar reprodução avançada de aúdio</string>
+    <string name="advanced_audio_playback_summary">Melhora a compatibilidade Bluetooth e previne interrupções de som durante repetição \n\nNota: Alguns toques podem ter pequenas falhas de áudio</string>
+    <string name="system_media_volume_title">Usar volume de mídia do sistema</string>
+    <string name="system_media_volume_summary">Só funciona se um dispositivo Bluetooth estiver conectado</string>
+    <string name="enable_per_alarm_vibration_pattern_title">Usar vibrações personalizadas para cada alarme</string>
+    <string name="enable_per_alarm_vibration_pattern_dialog_message">Vibrações personalizadas voltarão ao padrão.%s</string>
+    <string name="vibration_pattern_title">Estilo de vibração</string>
+    <string name="vibration_pattern_soft">Leve</string>
+    <string name="vibration_pattern_strong">Forte</string>
+    <string name="vibration_pattern_heartbeat">Batimento</string>
+    <string name="vibration_pattern_escalating">Aumentando</string>
+    <string name="vibration_pattern_tick_tock">Tick-Tock</string>
+    <string name="vibration_start_delay_title">Atraso antes do inicio da vibração</string>
+    <string name="vibration_start_delay_none">Nenhum</string>
+    <string name="vibration_start_delay_warning_box_text">Digite um valor de 0 a 10 minutos</string>
 </resources>

@@ -1,0 +1,12 @@
+**Korrekturen**
+- Korrektur der Anzeige von Stunden und Minuten im Weckzeit-Auswahlfeld
+- Korrektur eines möglichen Fehlers beim Löschen eines Timers
+
+**Verbesserungen**
+- Möglichkeit, beim Öffnen der App auszuwählen, welche Registerkarte angezeigt werden soll
+- Verbesserung der Zeitanzeige auf der Schaltfläche „1 Minute hinzufügen”
+- Festlegung eines Bereichs für die benutzerdefinierte Anzahl von Minuten, die zum Timer hinzugefügt werden sollen, um einen Absturz der App zu vermeiden
+- Neuanpassung der Farbe des analogen Material-Widget-Zifferblatts
+- Verbesserung der Fensteranimationen
+- Bereinigung und Verbesserung des Codes
+- Aktualisierung der Übersetzungen

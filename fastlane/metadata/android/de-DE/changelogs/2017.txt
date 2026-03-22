@@ -1,0 +1,13 @@
+Dieses Update behebt einen schwerwiegenden Fehler in Version 2.13, bei dem der Klingelton nicht aufhörte.
+
+**Fehlerbehebungen**
+- Klingelton-Stopp behoben
+- Fehler bei Aktualisierung der Anzeige/Ausblendung des nächsten Weckers in der Registerkarte „Uhr” für Android 14+ behoben
+- Fehler bei Aktualisierung der Anzeige/Ausblendung des nächsten Weckers in digitalen Widgets behoben
+
+**Verbesserungen**
+- Unnötige Kameraberechtigung entfernt
+- Animationen in den Einstellungen berücksichtigen die Barrierefreiheitseinstellungen des Geräts
+- Standardisierung der Größe von Analoguhren
+- Hinzufügen der niederländischen Sprache zu den Spracheinstellungen der App
+- Aktualisierung der Übersetzungen

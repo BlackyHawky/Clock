@@ -1,0 +1,7 @@
+**Javítás:**
+* App ikon hosszú nyomásánál megjelenő parancsikonok megjelenése;
+
+**Fejlesztés:**
+* Szükségtelen engedélyek eltávolítása;
+
+Fő változások megtekinthetőek itt: https://github.com/BlackyHawky/Clock/releases/tag/2.0

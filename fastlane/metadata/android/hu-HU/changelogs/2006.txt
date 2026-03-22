@@ -1,0 +1,12 @@
+**Javítások**
+ - Digitális widgetek javítása egyes Android vetzióknál;
+ - Fekvő tájolású telefonok esetén az időzítő címe újra beírható;
+
+**Fejlesztések**
+ - App megnyitás;
+ - Ébresztő kikapcsolása vagy halasztása félrehúzással vagy koppintással;
+ - Szín kiválasztó hozzáadása a képernyőkímélőhöz és digitális widget beállításokhoz;
+ - Az összes fejlesztés megtekintéséhez látogasson az https://github.com/BlackyHawky/Clock/releases/tag/2.5 oldalra
+
+ **Megjegyzés:**
+A beállításokban eszközölt változások miatt újra be kell állítania a "Sötét téma mód" beállításokat.

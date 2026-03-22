@@ -1,0 +1,7 @@
+修复：
+修复长按应用图标时快捷方式不显示的问题；
+
+改进：
+移除不必要的权限申请；
+
+详细更新内容请参阅： https://github.com/BlackyHawky/Clock/releases/tag/2.0

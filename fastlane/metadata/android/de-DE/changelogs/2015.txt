@@ -1,0 +1,8 @@
+**Fehlerbehebung**
+- Absturz beim Auswählen des Drehreglers in den Einstellungen für Uhr oder Bildschirmschoner behoben
+
+**Verbesserung**
+- Übersetzungen aktualisiert
+
+Die weiteren Funktionen der Version 2.12 bleiben unverändert und können hier eingesehen werden:
+https://github.com/BlackyHawky/Clock/releases/tag/2.12

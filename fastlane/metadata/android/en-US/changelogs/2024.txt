@@ -10,6 +10,6 @@ Other features of version 2.20 are retained and can be viewed in the link below:
 - Ability to play ringtones randomly
 - Ability to select folder to add ringtones
 - Remove the `DISABLE_KEYGUARD` permission
-... and more
+… and more
 
 https://github.com/BlackyHawky/Clock/releases/tag/2.20

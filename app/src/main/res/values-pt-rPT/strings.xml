@@ -506,4 +506,20 @@
     <string name="vibration_pattern_tick_tock">Tick Tock</string>
     <string name="vibration_start_delay_none">Nenhum</string>
     <string name="turn_on_back_flash_for_triggered_alarm_title">Ligar lanterna de volta quando o alarme é iniciado</string>
+    <string name="label_new_font">Nova fonte</string>
+    <string name="settings_permission_message">Uma ou mais permissões essenciais foram recusadas. Não permiti-las pode resultar em falhas na aplicação.</string>
+    <string name="custom_font_title">Selecionar uma fonte personalizada</string>
+    <string name="custom_font_title_variant">Selecionar ou apagar um fonte personalizada</string>
+    <string name="custom_font_dialog_title">Fonte</string>
+    <string name="custom_font_toast_message_selected">Fonte selecionada com sucesso</string>
+    <string name="custom_font_toast_message_deleted">Fonte apagada com sucesso</string>
+    <string name="vibration_category_title">Vibração</string>
+    <string name="display_settings_title">Definições do ecrã</string>
+    <string name="day_accent_color_title">Cor de destaque para o modo dia</string>
+    <string name="display_card_background_title">Planos de fundo dos cartões de visualização</string>
+    <string name="display_card_background_summary">Exibe um fundo para alguns elementos da aplicação (alarmes, cidades, botão de temporizador, etc.)</string>
+    <string name="display_background_border_summary">Exibe uma borda do fundo para alguns elementos da aplicação (alarmes, cidades, botão de temporizador, etc.)</string>
+    <string name="settings_language_bulgarian">Búlgaro</string>
+    <string name="settings_language_tamil">Tâmil</string>
+    <string name="settings_vibration_summary">Apenas alguns botões na interface são afetados (ex: o cronómetro botão de reproduzir/pausar ou interruptores)</string>
 </resources>

@@ -6,7 +6,7 @@
 **Improvements**
 - Add 2 new widgets
 - Fade transitions are disabled by default
- 
+
 - To see all the improvements, visit: https://github.com/BlackyHawky/Clock/releases/tag/2.8
 
  **Note:**

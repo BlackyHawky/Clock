@@ -1,0 +1,13 @@
+**Fehlerbehebungen:**
+- Fehlerbehebung am Timer, der weiterlief, wenn er auf weniger als 5 Sekunden eingestellt war.
+- Fehlerbehebung an den Farben des Material You Widgets, die nicht dem Tag/Nacht-Themas des Geräts folgten.
+- Fehlerbehebung an den Uhreinstellungen, die auf manchen Geräten nicht richtig übernommen wurden.
+
+**Verbesserungen:**
+- 2 neue Widgets hinzugefügt.
+- Übergänge beim Bildschirmwechsel sind standardmäßig ausgeschaltet.
+
+- Um alle Verbesserungen zu sehe, besuchen Sie https://github.com/BlackyHawky/Clock/releases/tag/2.8
+
+**Hinweis:**
+Aufgrund von internen Änderungen an den Widgets, kann es sein, dass Sie diese neu laden müssen

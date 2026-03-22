@@ -1,0 +1,15 @@
+**Düzeltmeler**
+- 2.20 sürümünde ortaya çıkan kronometre düğmeleriyle alakalı bir bug düzeltildi
+
+**Not**
+2.20'nin diğer özellikleri korunmuştur ve aşağıdaki bağlantıdan görüntülenebilir:
+
+- Çentikli cihazlar için üst dolgu düzeltildi
+- Bazı cihazlar için alarm ve zamanlayıcı titreşimi düzeltildi
+- Alarmları belli bir tarihe ayarlama
+- Zil tonlarını rastgele çalma kabiliyeti
+- Zil tonu eklenecek klasörü seçme kabiliyeti
+- DISABLE_KEYGUARD` izni silindi
+... ve fazlası
+
+https://github.com/BlackyHawky/Clock/releases/tag/2.20

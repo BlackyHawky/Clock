@@ -1,0 +1,10 @@
+Viele Verbesserungen in dieser Version; alles ist hier detailliert aufgeführt:
+https://github.com/BlackyHawky/Clock/releases/tag/2.24
+
+**Hinweis: Aufgrund von Codeänderungen wurden einige Weckereinstellungen zurückgesetzt:**
+- `Stummschalten nach`
+* Auf der Seite „Weckeranzeige anpassen”:
+- `Zeit mit Sekunden anzeigen`
+- `Farbe des Sekundenzeigers`
+
+**Bitte erstellen Sie nach der Aktualisierung der App ein neues Backup und löschen Sie das alte.**

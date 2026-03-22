@@ -1,0 +1,5 @@
+Mnoho oprav a vylepšení popsaných zde:
+https://github.com/BlackyHawky/Clock/releases/tag/2.28
+
+**Poznámka:**
+- Z důvodu změn provedených u digitálních widgetů je doporučeno po aktualizaci odstranit a znovu přidat widgety na domovskou stránku.

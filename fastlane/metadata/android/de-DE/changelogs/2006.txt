@@ -4,7 +4,7 @@
 
 **Verbesserungen**
  - Verbesserung des App-Starts;
- - Alarm durch Wischen oder Tippen ausschalten oder snoozen;
+ - Wecker durch Wischen oder Tippen ausschalten oder schlummern;
  - Hinzufügen einer Farbauswahl zu den Einstellungen für Bildschirmschoner und digitale Widgets;
  - Alle Verbesserungen finden Sie unter: https://github.com/BlackyHawky/Clock/releases/tag/2.5
 

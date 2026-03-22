@@ -1,0 +1,14 @@
+**Fehlerbehebungen**
+- Fehler beim Erstellen eines Timers, Starten oder Anhalten der Stoppuhr über die App-Verknüpfung behoben
+
+**Verbesserungen**
+- Wecker, Timer, Städte und Systemklingeltöne können gesichert und wiederhergestellt werden
+- Möglichkeit, das Datum in digitalen Widgets anzuzeigen/auszublenden
+- Das Thema „Blau” wurde hinzugefügt
+- Die UTC-Zeit wurde zur Städte-Liste hinzugefügt
+- Hinzufügen der Sprachen Türkisch und Koreanisch zu den Spracheinstellungen der App
+- Aktualisierung der Übersetzungen
+
+Alle Verbesserungen finden Sie unter: https://github.com/BlackyHawky/Clock/releases/tag/2.17
+
+LÖSCHEN SIE IHRE ALTE SICHERUNG UND ERSTELLEN SIE NACH DEM UPDATE EINE NEUE

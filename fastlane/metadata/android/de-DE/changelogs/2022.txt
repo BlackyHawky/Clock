@@ -1,0 +1,16 @@
+**Fehlerbehebungen**
+- Farbe des Symbolleisten-Titels korrigiert
+- Anzeige von Datum und nächstem Wecker korrigiert
+- Weckton nach einer Wiederherstellung korrigiert
+… und mehr
+
+**Verbesserungen**
+- Edge-to-Edge für Android 10+ aktiviert
+- Möglichkeit zum Exportieren von Protokollen
+- Wecker durch Wischen ausschalten/stummschalten wie in der Google-App
+- Möglichkeit, die Schüttelintensität für abgelaufener Timer anzupassen
+- Aktualisierung der Übersetzungen
+- Verbesserung und Bereinigung des Codes
+… und mehr
+
+Alle Fehlerbehebungen und Verbesserungen sind hier aufgelistet: https://github.com/BlackyHawky/Clock/releases/tag/2.19

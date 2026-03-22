@@ -343,10 +343,10 @@
     <string name="missed_alarm_repeat_limit_5_times">5 முறை</string>
     <string name="missed_alarm_repeat_limit_10_times">10 முறை</string>
     <string name="advanced_audio_playback_title">மேம்பட்ட ஆடியோ பிளேபேக்கைப் பயன்படுத்தவும்</string>
-    <string name="advanced_audio_playback_summary">« வெளிப்புற ஆடியோ சாதனங்களுடன் இணக்கத்தன்மையை மேம்படுத்துகிறது மற்றும் மீண்டும் ஒலிக்கும் போது ஒலி குறுக்கீடுகளைத் தடுக்கிறது \n\nகுறிப்பு: சில ரிங்டோன்களில் சிறிய ஆடியோ குறைபாடுகள் இருக்கலாம்</string>
+    <string name="advanced_audio_playback_summary">ஊடலை இணக்கத்தன்மையை மேம்படுத்துகிறது மற்றும் மீண்டும் ஒலிக்கும் போது ஒலி குறுக்கீடுகளைத் தடுக்கிறது \n\nகுறிப்பு: சில ரிங்டோன்களில் சிறிய ஆடியோ குறைபாடுகள் இருக்கலாம்</string>
     <string name="auto_routing_to_external_audio_device_title">வெளிப்புற ஆடியோ சாதனங்களுக்கு ரிங்டோன்களை தானாக மாற்றும் வசதியை இயக்குகிறது</string>
     <string name="system_media_volume_title">கணினி ஊடக அளவைப் பயன்படுத்தவும்</string>
-    <string name="system_media_volume_summary">வெளிப்புற ஆடியோ சாதனம் இணைக்கப்பட்டிருந்தால் மட்டுமே இது செயல்படும்</string>
+    <string name="system_media_volume_summary">ஊடலை சாதனம் இணைக்கப்பட்டிருந்தால் மட்டுமே வேலை செய்யும்</string>
     <string name="external_audio_device_volume_title">வெளிப்புற ஆடியோ சாதனங்களுக்கான அலாரம் ஒலியளவு</string>
     <string name="connect_external_audio_device_title">இந்த அமைப்பை அணுக வெளிப்புற ஆடியோ சாதனத்தை இணைக்கவும்</string>
     <string name="disconnect_external_audio_device_title">இந்த அமைப்பை அணுக வெளிப்புற ஆடியோ சாதனத்தை துண்டிக்கவும்</string>
@@ -458,7 +458,7 @@
     <string name="license_dialog_message">உரிமத்தைப் படிக்கவும்: \n\n%s</string>
     <string name="gnu_gpl">குனு பொது பொதுமக்கள் உரிமம் v3.0</string>
     <string name="reset_settings_title">அமைப்புகளை மீட்டமைக்கவும்</string>
-    <string name="reset_settings_message">எல்லா ஆப்ச் அமைப்புகளையும் மீட்டமைக்க விரும்புகிறீர்களா? \n\nகுறிப்பு: தனிப்பயன் ரிங்டோன்கள் மீட்டமைக்கப்படாது.</string>
+    <string name="reset_settings_message">எல்லா ஆப்ச் அமைப்புகளையும் மீட்டமைக்க விரும்புகிறீர்களா?</string>
     <string name="toast_message_for_reset">மீட்டமைப்பு முடிந்தது</string>
     <string name="dialog_close">மூடு</string>
     <string name="alarm_settings_summary">நடை, இயல்புநிலை ரிங்டோன், வால்யூம், அலாரங்களை நிராகரிப்பதற்கான அல்லது உறக்கநிலையில் வைக்கும் செயல்கள், வாரத்தின் முதல் நாள் மற்றும் நினைவூட்டல் அறிவிப்பு நேரத்தை அமைக்கவும்</string>
@@ -597,4 +597,25 @@
     <string name="restore_button_title">மீட்டெடு</string>
     <string name="toast_message_for_backup">காப்புப்பிரதி முடிந்தது</string>
     <string name="toast_message_for_restore">மீட்டெடுப்பு முடிந்தது</string>
+    <string name="label_new_font">புதிய எழுத்துரு</string>
+    <string name="custom_font_title">தனிப்பயன் எழுத்துருவைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="custom_font_title_variant">தனிப்பயன் எழுத்துருவைத் தேர்ந்தெடுக்கவும் அல்லது நீக்கவும்</string>
+    <string name="custom_font_dialog_title">எழுத்துரு</string>
+    <string name="custom_font_toast_message_selected">எழுத்துரு வெற்றிகரமாக தேர்ந்தெடுக்கப்பட்டது</string>
+    <string name="custom_font_toast_message_deleted">எழுத்துரு வெற்றிகரமாக நீக்கப்பட்டது</string>
+    <string name="vibration_category_title">அதிர்வு</string>
+    <string name="display_settings_title">காட்சி அமைப்புகள்</string>
+    <string name="settings_language_bulgarian">பல்கேரியன்</string>
+    <string name="settings_language_tamil">தமிழ்</string>
+    <string name="enable_per_alarm_vibration_pattern_title">ஒவ்வொரு அலாரத்திற்கும் தனிப்பயன் அதிர்வு வடிவத்தைப் பயன்படுத்தவும்</string>
+    <string name="enable_per_alarm_vibration_pattern_dialog_message">தனிப்பயன் அதிர்வு வடிவங்கள் மீட்டமைக்கப்படும்.%s</string>
+    <string name="sw_laps_title">மடியில்</string>
+    <string name="sw_split_title">பிளவு</string>
+    <string name="sw_total_title">மொத்தம்</string>
+    <string name="analog_clock_size_title">அனலாக் கடிகார அளவு</string>
+    <string name="display_compact_timers_title">செயலில் உள்ள டைமர்களைக் கச்சிதமான முறையில் காண்பி</string>
+    <string name="display_battery_title">பேட்டரி அளவைக் காட்டவும்</string>
+    <string name="battery_color_title">பேட்டரி நிலை நிறம்</string>
+    <string name="screensaver_bold_battery_title">தடிமனான பேட்டரி நிலை</string>
+    <string name="screensaver_italic_battery_title">சாய்வுகளில் பேட்டரி நிலை</string>
 </resources>

@@ -1,0 +1,10 @@
+**Javítás**
+ - "Folyamatosan erősödő hangerő" összesítő javítása
+
+**Fejlesztések**
+ - Szükségtelen engedélyek eltávolítása;
+ - Ébresztő és időzítő fejlesztése;
+ - Az összes fejlesztés megtekintéséhez látogasson az https://github.com/BlackyHawky/Clock/releases/tag/2.6 oldalra
+
+ **Megjegyzés:**
+ Az adatbázis változás miatt újra kell telepítenie az appot.

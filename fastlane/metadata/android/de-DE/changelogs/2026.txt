@@ -1,0 +1,9 @@
+**Korrekturen**
+- Korrektur der Weckeranzeige für Geräte mit Android-Version unter 12
+- Korrektur von Weckern, die in der Vergangenheit erstellt und nicht aktiviert wurden
+- Korrektur der falschen Tagesauswahl im Weckdatumswähler
+- Zurücksetzen des Standard-Klingeltons in den Weckereinstellungen, falls dieser gelöscht wurde
+
+Viele Verbesserungen sind hier detailliert aufgeführt: https://github.com/BlackyHawky/Clock/releases/tag/2.23
+
+Hinweis: Aufgrund des Zurücksetzens der Einstellungen „Schlummerdauer” und „Lautstärke schrittweise erhöhen” erstellen Sie bitte nach der Aktualisierung der App ein neues Backup und löschen Sie das alte
