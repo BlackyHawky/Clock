@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.best.deskclock.AppExecutors;
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Weekdays;
@@ -122,23 +123,25 @@ public final class AlarmTimeClickHandler {
             return;
         }
 
-        List<Alarm> alarms = Alarm.getAlarms(mContext.getContentResolver(), null);
+        AppExecutors.getDiskIO().execute(() -> {
+            List<Alarm> alarms = Alarm.getAlarms(mContext.getContentResolver(), null);
 
-        for (Alarm alarm : alarms) {
-            if (alarm.id != sourceAlarm.id
-                && sourceAlarm.label.equals(alarm.label)
-                && sourceAlarm.syncByLabel == alarm.syncByLabel) {
+            for (Alarm alarm : alarms) {
+                if (alarm.id != sourceAlarm.id
+                    && sourceAlarm.label.equals(alarm.label)
+                    && sourceAlarm.syncByLabel == alarm.syncByLabel) {
 
-                if (alarm.enabled != newState) {
-                    alarm.enabled = newState;
+                    if (alarm.enabled != newState) {
+                        alarm.enabled = newState;
 
-                    fixAlarmDateIfPast(alarm);
+                        fixAlarmDateIfPast(alarm);
 
-                    mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, false);
-                    LOGGER.d("Sync alarm " + alarm.id + " with label " + alarm.label);
+                        mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, false);
+                        LOGGER.d("Sync alarm " + alarm.id + " with label " + alarm.label);
+                    }
                 }
             }
-        }
+        });
     }
 
     /**
