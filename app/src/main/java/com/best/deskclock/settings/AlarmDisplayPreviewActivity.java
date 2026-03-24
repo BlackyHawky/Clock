@@ -78,6 +78,7 @@ import java.io.File;
 public class AlarmDisplayPreviewActivity extends BaseActivity
     implements View.OnClickListener, View.OnTouchListener {
 
+    private static final int DEFAULT_SNOOZE_VALUE = 10;
     private static final float TEXT_FADE_START_THRESHOLD = 0.5f;
     private static final int TRANSLATION_DURATION_START_DELAY = 1000;
     private static final int TRANSLATION_DURATION_DELAY = 400;
@@ -340,7 +341,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
     }
 
     private void initDefaultSnoozeValue() {
-        mDefaultSnoozeMinutes = SettingsDAO.getSnoozeLength(mPrefs);
+        mDefaultSnoozeMinutes = DEFAULT_SNOOZE_VALUE;
         mSnoozeMinutes = mDefaultSnoozeMinutes;
     }
 
@@ -604,15 +605,18 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
         mSnoozeSelectorMinusButton = mSnoozeSelectorLayout.findViewById(R.id.snooze_selector_minus);
         mSnoozeSelectorText = mSnoozeSelectorLayout.findViewById(R.id.snooze_selector_text);
 
-        mSnoozeSelectorEntries = getResources().getStringArray(R.array.alarm_snooze_selector_entries);
+        mSnoozeSelectorValues = getResources().getIntArray(R.array.alarm_snooze_selector_values);
+        mSnoozeSelectorEntries = new String[mSnoozeSelectorValues.length];
 
-        String[] valuesStr = getResources().getStringArray(R.array.alarm_snooze_selector_values);
-        mSnoozeSelectorValues = new int[valuesStr.length];
-        for (int i = 0; i < valuesStr.length; i++) {
-            if ("-1".equals(valuesStr[i])) {
-                mSnoozeSelectorValues[i] = mDefaultSnoozeMinutes;
+        for (int i = 0; i < mSnoozeSelectorValues.length; i++) {
+            int snoozeValue = mSnoozeSelectorValues[i];
+
+            if (snoozeValue == -1) {
+                String defaultTimeStr = buildTimeString(mDefaultSnoozeMinutes);
+                mSnoozeSelectorEntries[i] = String.format("%s (%s)", getString(R.string.label_default), defaultTimeStr);
             } else {
-                mSnoozeSelectorValues[i] = Integer.parseInt(valuesStr[i]);
+                String timeStr = buildTimeString(snoozeValue);
+                mSnoozeSelectorEntries[i] = getString(R.string.alarm_alert_snooze_text) + " " + timeStr;
             }
         }
 
@@ -708,16 +712,26 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
         imageView.setClickable(true);
     }
 
+    private String buildTimeString(int totalMinutes) {
+        int hour = totalMinutes / 60;
+        int minute = totalMinutes % 60;
+
+        if (hour > 0) {
+            return FormattedTextUtils.getNumberFormattedQuantityString(this, R.plurals.hours_short, hour);
+        } else {
+            return FormattedTextUtils.getNumberFormattedQuantityString(this, R.plurals.minutes_short, minute);
+        }
+    }
+
     /**
      * Updates the displayed snooze text according to the current selector index.
      */
     private void updateSnoozeText() {
-        if (mSnoozeSelectorIndex == 0) {
-            String minShort = FormattedTextUtils.getNumberFormattedQuantityString(this, R.plurals.minutes_short, mDefaultSnoozeMinutes);
-            mSnoozeSelectorText.setText(getString(R.string.snooze_selector_default, minShort));
-        } else {
-            mSnoozeSelectorText.setText(mSnoozeSelectorEntries[mSnoozeSelectorIndex]);
+        if (!mIsSnoozeSelectorDisplayed || mSnoozeSelectorEntries == null) {
+            return;
         }
+
+        mSnoozeSelectorText.setText(mSnoozeSelectorEntries[mSnoozeSelectorIndex]);
     }
 
     /**
@@ -806,8 +820,14 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
             performDoubleVibration();
         }
 
-        final String infoText = getResources().getQuantityString(
-            R.plurals.alarm_alert_snooze_duration, mSnoozeMinutes, mSnoozeMinutes);
+        final String infoText;
+
+        if (mSnoozeSelectorIndex == 0) {
+            infoText = buildTimeString(DEFAULT_SNOOZE_VALUE);
+        } else {
+            infoText = buildTimeString(mSnoozeMinutes);
+        }
+
         showAlert(R.string.alarm_alert_snoozed_text, infoText);
     }
 

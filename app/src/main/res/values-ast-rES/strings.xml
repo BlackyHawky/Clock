@@ -15,10 +15,6 @@
     <string name="alarm_alert_dismiss_text">Escartar</string>
     <string name="alarm_missed_title">Alarma perdida</string>
     <string name="alarm_alert_snoozed_text">Snoozed</string>
-    <plurals name="alarm_alert_snooze_duration">
-        <item quantity="one">1 min</item>
-        <item quantity="other"><xliff:g example="7" id="number">%d</xliff:g> mins</item>
-    </plurals>
     <string name="alarm_alert_off_text">Alarma apagada</string>
     <string name="alarm_alert_snooze_text">Posponer</string>
     <plurals name="alarm_alert_snooze_set">

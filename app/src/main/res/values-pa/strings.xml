@@ -27,10 +27,6 @@
     <string name="alarm_missed_title" msgid="3828345099754063392">"ਮਿਸਡ ਅਲਾਰਮ"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%1$s</xliff:g> - <xliff:g id="ALARM_LABEL">%2$s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"ਸਨੂਜ਼ ਕੀਤਾ"</string>
-    <plurals name="alarm_alert_snooze_duration" formatted="false" msgid="7844300009062867865">
-        <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> ਮਿੰਟ</item>
-        <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> ਮਿੰਟ</item>
-    </plurals>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"ਅਲਾਰਮ ਬੰਦ"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"ਸਨੂਜ਼ ਕਰੋ"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">

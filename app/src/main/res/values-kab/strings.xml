@@ -107,10 +107,6 @@
     <string name="settings_language_english_us">Taglizit (Iwunak Yeddukklen)</string>
     <string name="timer_add_custom_time">+ %s</string>
     <string name="world_day_of_week_label">/ <xliff:g id="LABEL">%s</xliff:g></string>
-    <plurals name="alarm_alert_snooze_duration">
-        <item quantity="one">1 sd</item>
-        <item quantity="other"><xliff:g example="7" id="number">%d</xliff:g> sd</item>
-    </plurals>
     <plurals name="hours">
         <item quantity="one">1 n wesrag</item>
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> n yesragen</item>

@@ -884,12 +884,27 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         mSnoozeSelectorMinusButton = mSnoozeSelectorLayout.findViewById(R.id.snooze_selector_minus);
         mSnoozeSelectorText = mSnoozeSelectorLayout.findViewById(R.id.snooze_selector_text);
 
-        mSnoozeSelectorEntries = getResources().getStringArray(R.array.alarm_snooze_selector_entries);
+        mSnoozeSelectorValues = getResources().getIntArray(R.array.alarm_snooze_selector_values);
+        mSnoozeSelectorEntries = new String[mSnoozeSelectorValues.length];
 
-        String[] valuesStr = getResources().getStringArray(R.array.alarm_snooze_selector_values);
-        mSnoozeSelectorValues = new int[valuesStr.length];
-        for (int i = 0; i < valuesStr.length; i++) {
-            mSnoozeSelectorValues[i] = Integer.parseInt(valuesStr[i]);
+        for (int i = 0; i < mSnoozeSelectorValues.length; i++) {
+            int snoozeValue = mSnoozeSelectorValues[i];
+
+            if (snoozeValue == -1) {
+                if (mDefaultSnoozeMinutes == ALARM_SNOOZE_DURATION_DISABLED) {
+                    // "Default (None)"
+                    mSnoozeSelectorEntries[i] =
+                        String.format("%s (%s)", getString(R.string.label_default), getString(R.string.snooze_duration_none));
+                } else {
+                    // "Default (X min)"
+                    String defaultTimeStr = buildTimeString(mDefaultSnoozeMinutes);
+                    mSnoozeSelectorEntries[i] = String.format("%s (%s)", getString(R.string.label_default), defaultTimeStr);
+                }
+            } else {
+                // "Snooze X min"
+                String timeStr = buildTimeString(snoozeValue);
+                mSnoozeSelectorEntries[i] = getString(R.string.alarm_alert_snooze_text) + " " + timeStr;
+            }
         }
 
         initSnoozeSelectorStyle();
@@ -957,19 +972,19 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
      * @return the matching index, or 0 if no match is found
      */
     private int findIndexForInstanceSnooze(int instanceValue, int defaultValue) {
-        // Si la valeur de l’instance == valeur par défaut de l’alarme → "Default"
+        // If the instance value == the alarm's default value : "Default"
         if (instanceValue == defaultValue) {
             return 0;
         }
 
-        // Sinon, on cherche une correspondance explicite (en ignorant l’entrée -1)
+        // Otherwise, we look for an explicit match (ignoring the entry -1)
         for (int i = 1; i < mSnoozeSelectorValues.length; i++) {
             if (mSnoozeSelectorValues[i] == instanceValue) {
                 return i;
             }
         }
 
-        // Si on ne trouve rien, on retombe sur Default
+        // If nothing is found, it falls back to the default
         return 0;
     }
 
@@ -1014,6 +1029,21 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         imageView.setClickable(true);
     }
 
+    private String buildTimeString(int totalMinutes) {
+        int hour = totalMinutes / 60;
+        int minute = totalMinutes % 60;
+
+        if (hour > 0 && minute > 0) {
+            String hourString = FormattedTextUtils.getNumberFormattedQuantityString(this, R.plurals.hours_short, hour);
+            String minuteString = FormattedTextUtils.getNumberFormattedQuantityString(this, R.plurals.minutes_short, minute);
+            return String.format("%s %s", hourString, minuteString);
+        } else if (hour > 0) {
+            return FormattedTextUtils.getNumberFormattedQuantityString(this, R.plurals.hours_short, hour);
+        } else {
+            return FormattedTextUtils.getNumberFormattedQuantityString(this, R.plurals.minutes_short, minute);
+        }
+    }
+
     /**
      * Updates the displayed snooze text and the action button text according to the current
      * selector index and alarm settings.
@@ -1023,17 +1053,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
             return;
         }
 
-        if (mSnoozeSelectorIndex == 0) {
-            if (mDefaultSnoozeMinutes == ALARM_SNOOZE_DURATION_DISABLED) {
-                mSnoozeSelectorText.setText(getString(R.string.snooze_selector_default, getString(R.string.snooze_duration_none)));
-            } else {
-                String minShort = FormattedTextUtils.getNumberFormattedQuantityString(
-                    this, R.plurals.minutes_short, mDefaultSnoozeMinutes);
-                mSnoozeSelectorText.setText(getString(R.string.snooze_selector_default, minShort));
-            }
-        } else {
-            mSnoozeSelectorText.setText(mSnoozeSelectorEntries[mSnoozeSelectorIndex]);
-        }
+        mSnoozeSelectorText.setText(mSnoozeSelectorEntries[mSnoozeSelectorIndex]);
 
         if (!isSnoozeDisabledForAlarm()) {
             // Nothing to change if snooze is enabled
@@ -1160,8 +1180,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
             Events.sendAlarmEvent(action, R.string.label_deskclock);
         } else {
             int snoozeDuration = mAlarmInstance.mSnoozeDuration;
-            final String infoText = getResources().getQuantityString(
-                R.plurals.alarm_alert_snooze_duration, snoozeDuration, snoozeDuration);
+            final String infoText = buildTimeString(snoozeDuration);
             final String accessibilityText = getResources().getQuantityString(
                 R.plurals.alarm_alert_snooze_set, snoozeDuration, snoozeDuration);
 
