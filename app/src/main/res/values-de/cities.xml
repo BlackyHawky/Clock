@@ -4,6 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
+
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="C1" msgid="3622720549928625541">"<xliff:g id="SEPARATOR">=</xliff:g>Abidjan<xliff:g id="TIMEZONE">|Africa/Abidjan</xliff:g>"</string>
     <string name="C2" msgid="9073993995416728918">"<xliff:g id="SEPARATOR">=</xliff:g>Accra<xliff:g id="TIMEZONE">|Africa/Accra</xliff:g>"</string>
@@ -227,7 +228,7 @@
     <string name="C228" msgid="4215672329797580482">"<xliff:g id="SEPARATOR">=</xliff:g>San Francisco<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g>"</string>
     <string name="C229" msgid="4196312467437357156">"<xliff:g id="SEPARATOR">=</xliff:g>Salt Lake City<xliff:g id="TIMEZONE">|America/Denver</xliff:g>"</string>
     <string name="C230" msgid="5521643115321121383"><xliff:g id="SEPARATOR">=</xliff:g>San José<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g></string>
-    <string name="C231" msgid="19294357270942004">"<xliff:g id="SEPARATOR">=</xliff:g>San Salvador<xliff:g id="TIMEZONE">|America/Guatemala</xliff:g>"</string>
+    <string name="C231" msgid="19294357270942004"><xliff:g id="SEPARATOR">=</xliff:g>San Salvador<xliff:g id="TIMEZONE">|America/Guatemala</xliff:g></string>
     <string name="C232" msgid="4714655032274833316">"<xliff:g id="SEPARATOR">=</xliff:g>Seattle<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g>"</string>
     <string name="C233" msgid="7162834873553109876">"<xliff:g id="SEPARATOR">=</xliff:g>St. Louis<xliff:g id="TIMEZONE">|America/Chicago</xliff:g>"</string>
     <string name="C234" msgid="8431913494781960891">"<xliff:g id="SEPARATOR">=</xliff:g>Washington D.C.<xliff:g id="TIMEZONE">|America/New_York</xliff:g>"</string>

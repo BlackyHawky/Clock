@@ -614,4 +614,8 @@
     <string name="battery_color_title">Цвят на нивото на батерията</string>
     <string name="screensaver_bold_battery_title">Нивото на батерията в получер шрифт</string>
     <string name="screensaver_italic_battery_title">Нивото на батерията в наклонен шрифт</string>
+    <string name="sync_alarm_by_label_title">Синхронизиране на будилниците с еднакви етикети</string>
+    <string name="label_indefinitely">Без край</string>
+    <string name="button_tip_title">Докоснете бутона с „+“ за добавяне на папка</string>
+    <string name="alarm_alert_dismiss_and_delete_text_button">Затваряне и\nПремахвае</string>
 </resources>

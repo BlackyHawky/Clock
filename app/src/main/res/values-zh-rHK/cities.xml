@@ -4,6 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
+
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="C1" msgid="3622720549928625541">"8劃<xliff:g id="SEPARATOR">=</xliff:g>阿比讓<xliff:g id="TIMEZONE">|Africa/Abidjan</xliff:g>"</string>
     <string name="C2" msgid="9073993995416728918">"8劃<xliff:g id="SEPARATOR">=</xliff:g>阿克拉<xliff:g id="TIMEZONE">|Africa/Accra</xliff:g>"</string>
@@ -42,7 +43,7 @@
     <string name="C36" msgid="5404342554664613950">"5劃<xliff:g id="SEPARATOR">=</xliff:g>布宜諾斯艾利斯<xliff:g id="TIMEZONE">|America/Buenos_Aires</xliff:g>"</string>
     <string name="C37" msgid="210142862572070093">"7劃<xliff:g id="SEPARATOR">=</xliff:g>坎昆<xliff:g id="TIMEZONE">|America/Cancun</xliff:g>"</string>
     <string name="C38" msgid="3882347315148425276">"5劃<xliff:g id="SEPARATOR">=</xliff:g>卡拉卡斯<xliff:g id="TIMEZONE">|America/Caracas</xliff:g>"</string>
-    <string name="C39" msgid="1273212484626323439">"12劃<xliff:g id="SEPARATOR">=</xliff:g>開曼<xliff:g id="TIMEZONE">|America/Cayman</xliff:g>"</string>
+    <string name="C39" msgid="1273212484626323439">12劃<xliff:g id="SEPARATOR">=</xliff:g>開曼<xliff:g id="TIMEZONE">|America/Cayman</xliff:g></string>
     <string name="C40" msgid="3106173663723475314">"8劃<xliff:g id="SEPARATOR">=</xliff:g>芝加哥<xliff:g id="TIMEZONE">|America/Chicago</xliff:g>"</string>
     <string name="C42" msgid="5638414063615009004">"10劃<xliff:g id="SEPARATOR">=</xliff:g>庫拉索<xliff:g id="TIMEZONE">|America/Curacao</xliff:g>"</string>
     <string name="C43" msgid="6826097241516998181">"13劃<xliff:g id="SEPARATOR">=</xliff:g>道森溪<xliff:g id="TIMEZONE">|America/Dawson_Creek</xliff:g>"</string>
@@ -50,7 +51,7 @@
     <string name="C45" msgid="8943178793317201894">"8劃<xliff:g id="SEPARATOR">=</xliff:g>底特律<xliff:g id="TIMEZONE">|America/Detroit</xliff:g>"</string>
     <string name="C46" msgid="5190250990574320177">"6劃<xliff:g id="SEPARATOR">=</xliff:g>多明尼加<xliff:g id="TIMEZONE">|America/Dominica</xliff:g>"</string>
     <string name="C47" msgid="369754396219379227">"10劃<xliff:g id="SEPARATOR">=</xliff:g>埃德蒙頓<xliff:g id="TIMEZONE">|America/Edmonton</xliff:g>"</string>
-    <string name="C48" msgid="7918902616648922410">"18劃<xliff:g id="SEPARATOR">=</xliff:g>薩爾瓦多<xliff:g id="TIMEZONE">|America/El_Salvador</xliff:g>"</string>
+    <string name="C48" msgid="7918902616648922410">18劃<xliff:g id="SEPARATOR">=</xliff:g>薩爾瓦多<xliff:g id="TIMEZONE">|America/El_Salvador</xliff:g></string>
     <string name="C49" msgid="6326857727742458931">"14劃<xliff:g id="SEPARATOR">=</xliff:g>福塔萊薩<xliff:g id="TIMEZONE">|America/Fortaleza</xliff:g>"</string>
     <string name="C50" msgid="3131498820508584398">"3劃<xliff:g id="SEPARATOR">=</xliff:g>大特克<xliff:g id="TIMEZONE">|America/Grand_Turk</xliff:g>"</string>
     <string name="C51" msgid="3122278921760822414">"10劃<xliff:g id="SEPARATOR">=</xliff:g>格瑞納達<xliff:g id="TIMEZONE">|America/Grenada</xliff:g>"</string>
@@ -67,12 +68,12 @@
     <string name="C62" msgid="2667958702401099683">"13劃<xliff:g id="SEPARATOR">=</xliff:g>萬塞訥<xliff:g id="TIMEZONE">|America/Indiana/Vincennes</xliff:g>"</string>
     <string name="C63" msgid="2251274863869460838">"9劃<xliff:g id="SEPARATOR">=</xliff:g>威納馬克<xliff:g id="TIMEZONE">|America/Indiana/Winamac</xliff:g>"</string>
     <string name="C64" msgid="1051183687128385699">"8劃<xliff:g id="SEPARATOR">=</xliff:g>京士敦<xliff:g id="TIMEZONE">|America/Jamaica</xliff:g>"</string>
-    <string name="C65" msgid="4484953311341882894">"8劃<xliff:g id="SEPARATOR">=</xliff:g>拉巴斯<xliff:g id="TIMEZONE">|America/La_Paz</xliff:g>"</string>
+    <string name="C65" msgid="4484953311341882894">8劃<xliff:g id="SEPARATOR">=</xliff:g>拉巴斯<xliff:g id="TIMEZONE">|America/La_Paz</xliff:g></string>
     <string name="C66" msgid="4486852398001333122">"7劃<xliff:g id="SEPARATOR">=</xliff:g>利瑪<xliff:g id="TIMEZONE">|America/Lima</xliff:g>"</string>
     <string name="C67" msgid="4874799181719358019">"9劃<xliff:g id="SEPARATOR">=</xliff:g>洛杉磯<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g>"</string>
     <string name="C68" msgid="5526012011469271690">"13劃<xliff:g id="SEPARATOR">=</xliff:g>路易斯維爾<xliff:g id="TIMEZONE">|America/Louisville</xliff:g>"</string>
     <string name="C69" msgid="6147580167560875608">"10劃<xliff:g id="SEPARATOR">=</xliff:g>馬那瓜<xliff:g id="TIMEZONE">|America/Managua</xliff:g>"</string>
-    <string name="C70" msgid="3277881296053225577">"10劃<xliff:g id="SEPARATOR">=</xliff:g>馬提尼克<xliff:g id="TIMEZONE">|America/Martinique</xliff:g>"</string>
+    <string name="C70" msgid="3277881296053225577">10劃<xliff:g id="SEPARATOR">=</xliff:g>馬提尼克<xliff:g id="TIMEZONE">|America/Martinique</xliff:g></string>
     <string name="C71" msgid="4017941126335556194">"8劃<xliff:g id="SEPARATOR">=</xliff:g>門多薩<xliff:g id="TIMEZONE">|America/Mendoza</xliff:g>"</string>
     <string name="C72" msgid="3992109594245379480">"11劃<xliff:g id="SEPARATOR">=</xliff:g>梅特拉卡特拉<xliff:g id="TIMEZONE">|America/Metlakatla</xliff:g>"</string>
     <string name="C73" msgid="2715229408279026929">"15劃<xliff:g id="SEPARATOR">=</xliff:g>墨西哥市<xliff:g id="TIMEZONE">|America/Mexico_City</xliff:g>"</string>
@@ -82,16 +83,16 @@
     <string name="C77" msgid="7071675194537613715">"10劃<xliff:g id="SEPARATOR">=</xliff:g>納索<xliff:g id="TIMEZONE">|America/Nassau</xliff:g>"</string>
     <string name="C78" msgid="705452895809394827">"10劃<xliff:g id="SEPARATOR">=</xliff:g>紐約<xliff:g id="TIMEZONE">|America/New_York</xliff:g>"</string>
     <string name="C79" msgid="615046244335186458">"4劃<xliff:g id="SEPARATOR">=</xliff:g>比尤萊<xliff:g id="TIMEZONE">|America/North_Dakota/Beulah</xliff:g>"</string>
-    <string name="C80" msgid="7462541787750301851">"4劃<xliff:g id="SEPARATOR">=</xliff:g>中心<xliff:g id="TIMEZONE">|America/North_Dakota/Center</xliff:g>"</string>
+    <string name="C80" msgid="7462541787750301851">4劃<xliff:g id="SEPARATOR">=</xliff:g>中心<xliff:g id="TIMEZONE">|America/North_Dakota/Center</xliff:g></string>
     <string name="C81" msgid="5467118811364466464">"13劃<xliff:g id="SEPARATOR">=</xliff:g>新塞勒姆<xliff:g id="TIMEZONE">|America/North_Dakota/New_Salem</xliff:g>"</string>
-    <string name="C82" msgid="1040250446144596478">"4劃<xliff:g id="SEPARATOR">=</xliff:g>巴拿馬<xliff:g id="TIMEZONE">|America/Panama</xliff:g>"</string>
+    <string name="C82" msgid="1040250446144596478">4劃<xliff:g id="SEPARATOR">=</xliff:g>巴拿馬<xliff:g id="TIMEZONE">|America/Panama</xliff:g></string>
     <string name="C83" msgid="3734366600481445363">"14劃<xliff:g id="SEPARATOR">=</xliff:g>鳳凰城<xliff:g id="TIMEZONE">|America/Phoenix</xliff:g>"</string>
     <string name="C84" msgid="2410152141185166321">"6劃<xliff:g id="SEPARATOR">=</xliff:g>西班牙港<xliff:g id="TIMEZONE">|America/Port_of_Spain</xliff:g>"</string>
     <string name="C85" msgid="2883572094139689939">"4劃<xliff:g id="SEPARATOR">=</xliff:g>太子港<xliff:g id="TIMEZONE">|America/Port-au-Prince</xliff:g>"</string>
     <string name="C86">S<xliff:g id="separator">=</xliff:g>Santa Cruz de Tenerife<xliff:g id="timezone">|Atlantic/Canary</xliff:g></string>
     <string name="C87" msgid="2866918562243248306">"13劃<xliff:g id="SEPARATOR">=</xliff:g>聖多明各<xliff:g id="TIMEZONE">|America/Santo_Domingo</xliff:g>"</string>
     <string name="C88" msgid="2261702707416420550">"13劃<xliff:g id="SEPARATOR">=</xliff:g>聖保羅<xliff:g id="TIMEZONE">|America/Sao_Paulo</xliff:g>"</string>
-    <string name="C89" msgid="8517952667962700432">"13劃<xliff:g id="SEPARATOR">=</xliff:g>聖約翰<xliff:g id="TIMEZONE">|America/St_Johns</xliff:g>"</string>
+    <string name="C89" msgid="8517952667962700432">13劃<xliff:g id="SEPARATOR">=</xliff:g>聖約翰<xliff:g id="TIMEZONE">|America/St_Johns</xliff:g></string>
     <string name="C90" msgid="1703939848190669830">"13劃<xliff:g id="SEPARATOR">=</xliff:g>聖基茨<xliff:g id="TIMEZONE">|America/St_Kitts</xliff:g>"</string>
     <string name="C91" msgid="4438261556294969442">"13劃<xliff:g id="SEPARATOR">=</xliff:g>聖露西亞<xliff:g id="TIMEZONE">|America/St_Lucia</xliff:g>"</string>
     <string name="C92" msgid="3717300223413621820">"13劃<xliff:g id="SEPARATOR">=</xliff:g>聖托馬斯<xliff:g id="TIMEZONE">|America/St_Thomas</xliff:g>"</string>
@@ -99,7 +100,7 @@
     <string name="C94" msgid="6254783598629305021">"6劃<xliff:g id="SEPARATOR">=</xliff:g>多倫多<xliff:g id="TIMEZONE">|America/Toronto</xliff:g>"</string>
     <string name="C95" msgid="2144206125989179089">"13劃<xliff:g id="SEPARATOR">=</xliff:g>溫哥華<xliff:g id="TIMEZONE">|America/Vancouver</xliff:g>"</string>
     <string name="C96" msgid="3995904432128369027">"13劃<xliff:g id="SEPARATOR">=</xliff:g>溫尼伯<xliff:g id="TIMEZONE">|America/Winnipeg</xliff:g>"</string>
-    <string name="C97" msgid="5667595440938233073">"9劃<xliff:g id="SEPARATOR">=</xliff:g>南極<xliff:g id="PHONETIC">:</xliff:g><xliff:g id="TIMEZONE">|Antarctica/South_Pole</xliff:g>"</string>
+    <string name="C97" msgid="5667595440938233073">9劃<xliff:g id="SEPARATOR">=</xliff:g>南極<xliff:g id="PHONETIC">:</xliff:g><xliff:g id="TIMEZONE">|Antarctica/South_Pole</xliff:g></string>
     <string name="C98" msgid="2067640513126652156">"10劃<xliff:g id="SEPARATOR">=</xliff:g>朗伊爾城<xliff:g id="TIMEZONE">|Arctic/Longyearbyen</xliff:g>"</string>
     <string name="C99" msgid="6750041547603679548">"8劃<xliff:g id="SEPARATOR">=</xliff:g>阿拉木圖<xliff:g id="TIMEZONE">|Asia/Almaty</xliff:g>"</string>
     <string name="C100" msgid="5995329947852415813">"6劃<xliff:g id="SEPARATOR">=</xliff:g>安曼<xliff:g id="TIMEZONE">|Asia/Amman</xliff:g>"</string>
@@ -142,7 +143,7 @@
     <string name="C140" msgid="6273911458061121975">"10劃<xliff:g id="SEPARATOR">=</xliff:g>烏蘭巴托<xliff:g id="TIMEZONE">|Asia/Ulaanbaatar</xliff:g>"</string>
     <string name="C141" msgid="2799340184229547409">"6劃<xliff:g id="SEPARATOR">=</xliff:g>百慕達<xliff:g id="TIMEZONE">|Atlantic/Bermuda</xliff:g>"</string>
     <string name="C142">L<xliff:g id="separator">=</xliff:g>Las Palmas de Gran Canaria<xliff:g id="timezone">|Atlantic/Canary</xliff:g></string>
-    <string name="C143" msgid="4888764215053863961">"7劃<xliff:g id="SEPARATOR">=</xliff:g>佛得角<xliff:g id="TIMEZONE">|Atlantic/Cape_Verde</xliff:g>"</string>
+    <string name="C143" msgid="4888764215053863961">7劃<xliff:g id="SEPARATOR">=</xliff:g>佛得角<xliff:g id="TIMEZONE">|Atlantic/Cape_Verde</xliff:g></string>
     <string name="C144" msgid="3338105941475340049">"13劃<xliff:g id="SEPARATOR">=</xliff:g>雷克雅未克<xliff:g id="TIMEZONE">|Atlantic/Reykjavik</xliff:g>"</string>
     <string name="C145" msgid="8684297689430494031">"12劃<xliff:g id="SEPARATOR">=</xliff:g>斯坦利<xliff:g id="TIMEZONE">|Atlantic/Stanley</xliff:g>"</string>
     <string name="C146" msgid="843808286721172656">"8劃<xliff:g id="SEPARATOR">=</xliff:g>阿德萊德<xliff:g id="TIMEZONE">|Australia/Adelaide</xliff:g>"</string>
@@ -156,9 +157,9 @@
     <string name="C154" msgid="1193262944948312063">"11劃<xliff:g id="SEPARATOR">=</xliff:g>悉尼<xliff:g id="TIMEZONE">|Australia/Sydney</xliff:g>"</string>
     <string name="C155" msgid="7079072802229033042">"14劃<xliff:g id="SEPARATOR">=</xliff:g>維多利亞<xliff:g id="TIMEZONE">|Australia/Victoria</xliff:g>"</string>
     <string name="C157" msgid="2861486997803753970">"18劃<xliff:g id="SEPARATOR">=</xliff:g>薩斯喀徹溫<xliff:g id="TIMEZONE">|Canada/Saskatchewan</xliff:g>"</string>
-    <string name="C158" msgid="6882933026191056506">"12劃<xliff:g id="SEPARATOR">=</xliff:g>復活島<xliff:g id="TIMEZONE">|Chile/EasterIsland</xliff:g>"</string>
+    <string name="C158" msgid="6882933026191056506">12劃<xliff:g id="SEPARATOR">=</xliff:g>復活島<xliff:g id="TIMEZONE">|Chile/EasterIsland</xliff:g></string>
     <string name="C159" msgid="4128429767051043903">"8劃<xliff:g id="SEPARATOR">=</xliff:g>阿姆斯特丹<xliff:g id="TIMEZONE">|Europe/Amsterdam</xliff:g>"</string>
-    <string name="C160" msgid="3488513735205092653">"6劃<xliff:g id="SEPARATOR">=</xliff:g>安道爾<xliff:g id="TIMEZONE">|Europe/Andorra</xliff:g>"</string>
+    <string name="C160" msgid="3488513735205092653">6劃<xliff:g id="SEPARATOR">=</xliff:g>安道爾<xliff:g id="TIMEZONE">|Europe/Andorra</xliff:g></string>
     <string name="C161" msgid="7244325364130392348">"12劃<xliff:g id="SEPARATOR">=</xliff:g>雅典<xliff:g id="TIMEZONE">|Europe/Athens</xliff:g>"</string>
     <string name="C162" msgid="7484009548361072313">"7劃<xliff:g id="SEPARATOR">=</xliff:g>貝爾法斯特<xliff:g id="TIMEZONE">|Europe/Belfast</xliff:g>"</string>
     <string name="C163" msgid="6106990061397073808">"7劃<xliff:g id="SEPARATOR">=</xliff:g>貝爾格萊德<xliff:g id="TIMEZONE">|Europe/Belgrade</xliff:g>"</string>
@@ -179,7 +180,7 @@
     <string name="C178" msgid="8805696770032311110">"10劃<xliff:g id="SEPARATOR">=</xliff:g>倫敦<xliff:g id="TIMEZONE">|Europe/London</xliff:g>"</string>
     <string name="C179" msgid="3767343883668628062">"16劃<xliff:g id="SEPARATOR">=</xliff:g>盧森堡<xliff:g id="TIMEZONE">|Europe/Luxembourg</xliff:g>"</string>
     <string name="C180" msgid="7678392789982322642">"10劃<xliff:g id="SEPARATOR">=</xliff:g>馬德里<xliff:g id="TIMEZONE">|Europe/Madrid</xliff:g>"</string>
-    <string name="C181" msgid="7514462880775616081">"10劃<xliff:g id="SEPARATOR">=</xliff:g>馬耳他<xliff:g id="TIMEZONE">|Europe/Malta</xliff:g>"</string>
+    <string name="C181" msgid="7514462880775616081">10劃<xliff:g id="SEPARATOR">=</xliff:g>馬耳他<xliff:g id="TIMEZONE">|Europe/Malta</xliff:g></string>
     <string name="C182" msgid="1916950203622380579">"8劃<xliff:g id="SEPARATOR">=</xliff:g>明斯克<xliff:g id="TIMEZONE">|Europe/Minsk</xliff:g>"</string>
     <string name="C183" msgid="4964892686115215073">"15劃<xliff:g id="SEPARATOR">=</xliff:g>摩納哥<xliff:g id="TIMEZONE">|Europe/Monaco</xliff:g>"</string>
     <string name="C184" msgid="4848586310907586448">"11劃<xliff:g id="SEPARATOR">=</xliff:g>莫斯科<xliff:g id="TIMEZONE">|Europe/Moscow</xliff:g>"</string>
@@ -202,10 +203,10 @@
     <string name="C201" msgid="5026927396527258914">"18劃<xliff:g id="SEPARATOR">=</xliff:g>薩格勒布<xliff:g id="TIMEZONE">|Europe/Zagreb</xliff:g>"</string>
     <string name="C202" msgid="7479245034393288391">"20劃<xliff:g id="SEPARATOR">=</xliff:g>蘇黎世<xliff:g id="TIMEZONE">|Europe/Zurich</xliff:g>"</string>
     <string name="C203" msgid="1651234331866937237">"13劃<xliff:g id="SEPARATOR">=</xliff:g>塔那那利佛<xliff:g id="TIMEZONE">|Indian/Antananarivo</xliff:g>"</string>
-    <string name="C204" msgid="3101091022126098393">"10劃<xliff:g id="SEPARATOR">=</xliff:g>馬爾代夫<xliff:g id="TIMEZONE">|Indian/Maldives</xliff:g>"</string>
+    <string name="C204" msgid="3101091022126098393">10劃<xliff:g id="SEPARATOR">=</xliff:g>馬爾代夫<xliff:g id="TIMEZONE">|Indian/Maldives</xliff:g></string>
     <string name="C205" msgid="9173530407684443044">"4劃<xliff:g id="SEPARATOR">=</xliff:g>毛里裘斯<xliff:g id="TIMEZONE">|Indian/Mauritius</xliff:g>"</string>
     <string name="C206" msgid="7294622489478378014">"13劃<xliff:g id="SEPARATOR">=</xliff:g>奧克蘭<xliff:g id="TIMEZONE">|Pacific/Auckland</xliff:g>"</string>
-    <string name="C207" msgid="6369257832191627783">"12劃<xliff:g id="SEPARATOR">=</xliff:g>斐濟<xliff:g id="TIMEZONE">|Pacific/Fiji</xliff:g>"</string>
+    <string name="C207" msgid="6369257832191627783">12劃<xliff:g id="SEPARATOR">=</xliff:g>斐濟<xliff:g id="TIMEZONE">|Pacific/Fiji</xliff:g></string>
     <string name="C208" msgid="1022999101729302391">"19劃<xliff:g id="SEPARATOR">=</xliff:g>關島<xliff:g id="TIMEZONE">|Pacific/Guam</xliff:g>"</string>
     <string name="C209" msgid="8326714755257287010">"17劃<xliff:g id="SEPARATOR">=</xliff:g>檀香山<xliff:g id="TIMEZONE">|Pacific/Honolulu</xliff:g>"</string>
     <string name="C210" msgid="4118975261202718577">"11劃<xliff:g id="SEPARATOR">=</xliff:g>基里地馬地<xliff:g id="TIMEZONE">|Pacific/Kiritimati</xliff:g>"</string>
@@ -226,8 +227,8 @@
     <string name="C227" msgid="5652209241017010001">"13劃<xliff:g id="SEPARATOR">=</xliff:g>聖地牙哥<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g>"</string>
     <string name="C228" msgid="4215672329797580482">"3劃<xliff:g id="SEPARATOR">=</xliff:g>三藩市<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g>"</string>
     <string name="C229" msgid="4196312467437357156">"24劃<xliff:g id="SEPARATOR">=</xliff:g>鹽湖城<xliff:g id="TIMEZONE">|America/Denver</xliff:g>"</string>
-    <string name="C230" msgid="5521643115321121383">"13劃<xliff:g id="SEPARATOR">=</xliff:g>聖荷西<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g>"</string>
-    <string name="C231" msgid="19294357270942004">"13劃<xliff:g id="SEPARATOR">=</xliff:g>聖薩爾瓦多<xliff:g id="TIMEZONE">|America/Guatemala</xliff:g>"</string>
+    <string name="C230" msgid="5521643115321121383">13劃<xliff:g id="SEPARATOR">=</xliff:g>聖荷西<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g></string>
+    <string name="C231" msgid="19294357270942004">13劃<xliff:g id="SEPARATOR">=</xliff:g>聖薩爾瓦多<xliff:g id="TIMEZONE">|America/Guatemala</xliff:g></string>
     <string name="C232" msgid="4714655032274833316">"6劃<xliff:g id="SEPARATOR">=</xliff:g>西雅圖<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g>"</string>
     <string name="C233" msgid="7162834873553109876">"13劃<xliff:g id="SEPARATOR">=</xliff:g>聖路易斯<xliff:g id="TIMEZONE">|America/Chicago</xliff:g>"</string>
     <string name="C234" msgid="8431913494781960891">"12劃<xliff:g id="SEPARATOR">=</xliff:g>華盛頓特區<xliff:g id="TIMEZONE">|America/New_York</xliff:g>"</string>

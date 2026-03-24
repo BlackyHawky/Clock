@@ -4,6 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
+
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="C1" msgid="3622720549928625541">A<xliff:g id="separator">=</xliff:g>Abidjan<xliff:g id="timezone">|Africa/Abidjan</xliff:g></string>
     <string name="C2" msgid="9073993995416728918">A<xliff:g id="separator">=</xliff:g>Accra<xliff:g id="timezone">|Africa/Accra</xliff:g></string>

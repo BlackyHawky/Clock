@@ -25,15 +25,15 @@
     <string name="alarm_today" msgid="7873594221106531654">"Vandaag"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Uitzetten"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Wekker gemist"</string>
-    <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%1$s</xliff:g> - <xliff:g id="ALARM_LABEL">%2$s</xliff:g>"</string>
+    <string name="alarm_missed_text" msgid="6585658367289194023"><xliff:g id="alarm_time">%1$s</xliff:g> - <xliff:g id="alarm_label">%2$s</xliff:g></string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">Gesluimerd</string>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"Wekker uit"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">Sluimeren</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
         <item quantity="one">Sluimeren is ingesteld op 1 minuut.</item>
-        <item quantity="other">Sluimeren is ingesteld op <xliff:g id="MINUTES">%d</xliff:g> minuten.</item>
+        <item quantity="other">Sluimeren voor <xliff:g id="minutes">%d</xliff:g> minuten.</item>
     </plurals>
-    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">Sluimeren tot <xliff:g id="TIME">%s</xliff:g></string>
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">Sluimeren tot <xliff:g id="time">%s</xliff:g></string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">Aankomende wekker</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Je gemiste wekker is verwijderd"</string>
     <string name="timer_notifications_less_min" msgid="5481375048976427255">"Nog minder dan een minuut"</string>
@@ -56,28 +56,28 @@
     <string name="alarm_confirmation_toast_7">Wekker gaat over <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> en <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g></string>
     <string name="alarm_confirmation_toast_8">Wekker gaat over <xliff:g example="2 days" id="DAYS">%1$s</xliff:g>, <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g>, en <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g></string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> dagen</item>
         <item quantity="one">1 dag</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> dagen</item>
     </plurals>
     <plurals name="hours" formatted="false" msgid="3871283109767171655">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> uur</item>
         <item quantity="one">1 uur</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> uur</item>
     </plurals>
     <plurals name="hours_short" formatted="false" msgid="3709250715691092925">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> u</item>
         <item quantity="one">1 u</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> u</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
         <item quantity="one">1 minuut</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minuten</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> minuten</item>
     </plurals>
     <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> min.</item>
         <item quantity="one">1 min.</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> min.</item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
         <item quantity="one">1 seconde</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> seconden</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> seconden</item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"Elke dag"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
@@ -126,15 +126,15 @@
     <string name="hours_label" msgid="3393478155635368097">"u"</string>
     <string name="minutes_label" msgid="3568098128251438588">"m"</string>
     <string name="seconds_label" msgid="124655952824003246">"s"</string>
-    <string name="timer_setup_description" msgid="2488277921227564704">"<xliff:g id="HOURS">%1$s</xliff:g>, <xliff:g id="MINUTES">%2$s</xliff:g>, <xliff:g id="SECONDS">%3$s</xliff:g>"</string>
-    <string name="lap_number_single_digit" msgid="1051159504304610877">"Nr. <xliff:g id="LAPNUMBER">%d</xliff:g>"</string>
-    <string name="lap_number_double_digit" msgid="2138536756534362037">"Nr. <xliff:g id="LAPNUMBER">%02d</xliff:g>"</string>
-    <string name="sw_share_main" msgid="7703563468204234405">"Mijn tijd is <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="timer_setup_description" msgid="2488277921227564704"><xliff:g example="1 hour" id="hours">%1$s</xliff:g>, <xliff:g example="15 minutes" id="minutes">%2$s</xliff:g>, <xliff:g example="30 seconds" id="seconds">%3$s</xliff:g></string>
+    <string name="lap_number_single_digit" msgid="1051159504304610877"># <xliff:g id="lapNumber">%d</xliff:g></string>
+    <string name="lap_number_double_digit" msgid="2138536756534362037"># <xliff:g id="lapNumber">%02d</xliff:g></string>
+    <string name="sw_share_main" msgid="7703563468204234405">Mijn tijd is <xliff:g id="time">%s</xliff:g></string>
     <string name="sw_share_laps" msgid="614390674795945007">"Rondetijden:"</string>
-    <string name="sw_notification_lap_number" msgid="3535420316052647126">"Ronde <xliff:g id="NUMBER">%d</xliff:g>"</string>
+    <string name="sw_notification_lap_number" msgid="3535420316052647126">Ronde <xliff:g id="number">%d</xliff:g></string>
     <string name="timer_add_timer" msgid="862733633862574752">Kookwekker toevoegen</string>
     <string name="timer_start" msgid="6158486445614356442">"Starten"</string>
-    <string name="timer_descriptive_delete" msgid="8794915342760383536">"<xliff:g id="NUMBER_STRING">%s</xliff:g> verwijderen"</string>
+    <string name="timer_descriptive_delete" msgid="8794915342760383536"><xliff:g id="number_string">%s</xliff:g> verwijderen</string>
     <string name="timer_add_custom_time_description" msgid="6631211310420106116">"%s minuut toevoegen"</string>
     <string name="timer_add_custom_time_for_notification" msgid="8645224089494875062">"%s min. toevoegen"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Stoppen"</string>
@@ -143,10 +143,10 @@
     <string name="timer_times_up" msgid="9190440395938519009">"De tijd is om"</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409"><xliff:g id="NUM_TIMERS">%d</xliff:g> kookwekkers verlopen</string>
     <string name="timer_notification_label" msgid="4933184831583137249">Kookwekker</string>
-    <string name="missed_named_timer_notification_label" msgid="665604640028289175">Gemiste kookwekker: <xliff:g id="NAME">%s</xliff:g></string>
+    <string name="missed_named_timer_notification_label" msgid="665604640028289175">Gemiste kookwekker: <xliff:g example="Pick up kids" id="name">%s</xliff:g></string>
     <string name="timer_pause" msgid="3748323712728398743">"Pauzeren"</string>
-    <string name="hours_minutes_seconds" msgid="5680088738059791288">"<xliff:g id="HOURS">%1$d</xliff:g>:<xliff:g id="MINUTES">%2$02d</xliff:g>:<xliff:g id="SECONDS">%3$02d</xliff:g>"</string>
-    <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
+    <string name="hours_minutes_seconds" msgid="5680088738059791288"><xliff:g example="2" id="hours">%1$d</xliff:g>:<xliff:g example="3" id="minutes">%2$02d</xliff:g>:<xliff:g example="44" id="seconds">%3$02d</xliff:g></string>
+    <string name="minutes_seconds" msgid="6189446107009577914"><xliff:g example="3" id="minutes">%1$d</xliff:g>:<xliff:g example="44" id="seconds">%2$02d</xliff:g></string>
     <string name="jocular_content_message_1">"Je bent wel erg snel."</string>
     <string name="jocular_content_message_2">"Profiteer van je inspanningen."</string>
     <string name="jocular_content_message_3">Androids staan bekend om hun snelheid, maar jij bent nog sneller!</string>
@@ -168,8 +168,8 @@
     <string name="automatic_home_clock" msgid="6274174710735449252">"Automatische klok voor thuis"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">Voeg een klok voor thuis toe wanneer je in een andere tijdzone reist</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Eigen tijdzone"</string>
-    <string name="city_checked" msgid="616847871968019">"<xliff:g id="CITY_NAME">%s</xliff:g> aangevinkt"</string>
-    <string name="city_unchecked" msgid="710212932781145918">"<xliff:g id="CITY_NAME">%s</xliff:g> niet aangevinkt"</string>
+    <string name="city_checked" msgid="616847871968019"><xliff:g id="city_name">%s</xliff:g> aangevinkt</string>
+    <string name="city_unchecked" msgid="710212932781145918"><xliff:g id="city_name">%s</xliff:g> niet aangevinkt</string>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"Nieuwe wekker"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">Nieuwe wekker maken</string>
     <string name="shortcut_new_timer_short" msgid="3793414543219297884">Nieuwe kookwekker</string>
@@ -188,39 +188,39 @@
     <string name="timer_settings" msgid="7955522143086154795">Kookwekkers</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">Trillen voor kookwekker</string>
     <string name="timer_paused" msgid="5941160896040771462">Kookwekker gepauzeerd</string>
-    <string name="timers_in_use" msgid="5570729467344408506"><xliff:g id="NUMBER">%d</xliff:g> kookwekkers</string>
+    <string name="timers_in_use" msgid="5570729467344408506"><xliff:g example="7" id="number">%d</xliff:g> kookwekkers</string>
     <string name="alarm_undo" msgid="5710042601177655254">"ongedaan maken"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Verwijderd"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="label">%s</xliff:g></string>
-    <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> later"</string>
-    <string name="world_time_behind" msgid="5395771290726167865">"<xliff:g id="TIME">%1$s</xliff:g> vroeger"</string>
-    <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> later"</string>
-    <string name="world_hours_minutes_behind" msgid="8978567362140923698">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> vroeger"</string>
-    <string name="world_hours_tomorrow" msgid="2504465609269004794">"Morgen, <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="world_hours_yesterday" msgid="4425086322610882745">"Gisteren, <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="next_alarm_description" msgid="2650244835760747046">"Volgende wekker: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="world_time_ahead" msgid="625559988238637652"><xliff:g example="6 hours" id="time">%1$s</xliff:g> later</string>
+    <string name="world_time_behind" msgid="5395771290726167865"><xliff:g example="4 hours" id="time">%1$s</xliff:g> vroeger</string>
+    <string name="world_hours_minutes_ahead" msgid="5132012793021696377"><xliff:g example="6 hr" id="hours">%1$s</xliff:g> <xliff:g example="30 min" id="minutes">%2$s</xliff:g> later</string>
+    <string name="world_hours_minutes_behind" msgid="8978567362140923698"><xliff:g example="4 hr" id="hours">%1$s</xliff:g> <xliff:g example="30 min" id="minutes">%2$s</xliff:g> vroeger</string>
+    <string name="world_hours_tomorrow" msgid="2504465609269004794">Morgen, <xliff:g example="6 hours ahead" id="time">%1$s</xliff:g></string>
+    <string name="world_hours_yesterday" msgid="4425086322610882745">Gisteren, <xliff:g example="4 hours behind" id="time">%1$s</xliff:g></string>
+    <string name="next_alarm_description" msgid="2650244835760747046">Volgende wekker: <xliff:g example="Wed 8:00am" id="alarm_time">%s</xliff:g></string>
     <string name="no_alarms" msgid="6429431324842022917">"Geen wekkers"</string>
     <string name="invalid_time" msgid="2782334750243998633">"Ongeldige tijd: <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
-    <string name="no_alarm_at" msgid="8140632482969193119">"Geen wekker om <xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>"</string>
+    <string name="no_alarm_at" msgid="8140632482969193119">Geen wekker om <xliff:g example="14" id="alarm_time_hour">%1$d</xliff:g>:<xliff:g example="23" id="alarm_time_minutes">%2$d</xliff:g></string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"Geen geplande wekkers"</string>
     <string name="no_label_specified" msgid="2008482054428460626">"Geen label opgegeven"</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"Er zijn geen wekkers die het label bevatten"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Geen wekker gepland op deze tijd"</string>
-    <string name="alarm_is_dismissed" msgid="5509897230565826642"><xliff:g id="ALARM_TIME">%s</xliff:g> wekker uitgezet</string>
-    <string name="alarm_is_set" msgid="5503226382620011088">"Wekker is ingesteld voor <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="alarm_is_dismissed" msgid="5509897230565826642"><xliff:g example="14:20" id="alarm_time">%s</xliff:g> wekker uitgezet</string>
+    <string name="alarm_is_set" msgid="5503226382620011088">Wekker is ingesteld voor <xliff:g example="14:20" id="alarm_time">%s</xliff:g></string>
     <string name="timer_created" msgid="4381027137335885547">Kookwekker gemaakt</string>
     <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
         <item quantity="one">Kookwekker gesloten</item>
-        <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> kookwekkers uitgezet</item>
+        <item quantity="other"><xliff:g example="5" id="number">%d</xliff:g> kookwekkers uitgezet</item>
     </plurals>
     <string name="invalid_timer_length" msgid="3104567893212932487">Ongeldige kookwekkerduur</string>
     <string name="invalid_timer" msgid="900957020728335675">Ongeldige kookwekker geselecteerd</string>
     <string name="no_expired_timers" msgid="4624192298397846876">Geen verlopen kookwekkers</string>
-    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437"><xliff:g id="ALARM_TIME">%s</xliff:g> wekker kan nog niet uitgezet worden omdat deze over meer dan 24 uur afgaat</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437"><xliff:g example="14:20" id="alarm_time">%s</xliff:g> wekker kan nog niet uitgezet worden omdat deze over meer dan 24 uur afgaat</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Wekker sluiten"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Kiezen welke wekker je wilt sluiten"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"Geen actieve wekkers"</string>
-    <string name="alarm_is_snoozed" msgid="7044644119744928846"><xliff:g id="ALARM_TIME">%s</xliff:g> wekker tien minuten gesluimerd\"</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846"><xliff:g example="14:20" id="alarm_time">%s</xliff:g> wekker tien minuten gesluimerd</string>
     <string name="flip_action_title">Actie bij apparaat omdraaien</string>
     <string name="shake_action_title">Actie bij apparaat schudden</string>
     <string name="title_theme">Thema</string>
@@ -337,7 +337,7 @@
     <string name="max_clock_font_size_title">Maximum lettergrootte van de klok</string>
     <string name="miscellaneous_category_title">Overig</string>
     <string name="ringtone_category_title">Geluid</string>
-    <string name="enable_alarm_vibrations_by_default_setting_title">Trillen bij het maken van wekkers</string>
+    <string name="enable_alarm_vibrations_by_default_setting_title">Trillen als wekker gaat</string>
     <string name="alarm_notification_reminder_title">Wekkerherinnering</string>
     <string name="label_default">Standaard</string>
     <string name="delete_occasional_alarm_after_use_title">Verwijderen na uitzetten</string>
@@ -395,7 +395,7 @@
     <string name="material_you_vertical_digital_widget">Verticale digitale klok Material You</string>
     <string name="standard_category_title">Standaard</string>
     <string name="material_you_category_title">Material You</string>
-    <string name="settings_tab_indicator_title">Tabbladindicator in het onderste navigatiemenu weergeven</string>
+    <string name="settings_tab_indicator_title">Tabbladaanwijzer in het onderste navigatiemenu weergeven</string>
     <string name="widgets_settings">Widgets</string>
     <string name="material_you_next_alarm_widget">Volgende wekker Material You</string>
     <string name="settings_fade_transitions_title">Vervagingsovergangen bij het wisselen van scherm</string>
@@ -507,7 +507,7 @@
     <string name="auto_routing_to_external_audio_device_title">Schakelt het automatisch doorsturen van beltonen naar externe audioapparaten in</string>
     <string name="timer_creation_view_style_keypad">Toetsenbord</string>
     <string name="timer_creation_view_style_title">Weergavestijl kookwekker maken</string>
-    <string name="advanced_audio_playback_summary">Verbetert Bluetooth-compatibiliteit en voorkomt geluidsonderbrekingen tijdens herhalen\n\nLet op: sommige geluiden kunnen lichte audiostoringen hebben</string>
+    <string name="advanced_audio_playback_summary">Verbetert compatibiliteit met externe audioapparaten en voorkomt geluidsonderbrekingen tijdens herhalen\n\nLet op: sommige geluiden kunnen lichte audiostoringen hebben</string>
     <string name="advanced_audio_playback_title">Geavanceerde audioweergave gebruiken</string>
     <string name="hide_clock_am_pm_pref">AM/PM-tekst verbergen</string>
     <string name="system_media_volume_title">Mediavolume van systeem gebruiken</string>
@@ -618,4 +618,39 @@
     <string name="settings_language_bulgarian">Bulgaars</string>
     <string name="settings_language_tamil">Tamil</string>
     <string name="display_settings_title">Weergave</string>
+    <string name="sync_alarm_by_label_title">Wekkers met hetzelfde label synchroniseren</string>
+    <string name="label_indefinitely">Voor onbepaalde tijd</string>
+    <string name="button_tip_title">Houd de \"+\" knop lang ingedrukt om een map toe te voegen</string>
+    <string name="alarm_alert_dismiss_and_delete_text_button">Uitzetten &amp;\nVerwijderen</string>
+    <string name="permissions_category_title">Rechten</string>
+    <string name="enable_alarm_vibrations_by_default_dialog_message">Trillen zal uitgeschakeld worden voor alle wekkers.%s</string>
+    <string name="enable_delete_occasional_alarm_by_default_dialog_message">De \"Verwijderen na uitzetten\" optie zal uitgeschakeld worden voor alle wekkers.%s</string>
+    <string name="snooze_zone_color_title">Kleur sluimergebied</string>
+    <string name="snooze_minus_button_color_title">Kleur \"-\" knop</string>
+    <string name="snooze_plus_button_color_title">Kleur \"+\" knop</string>
+    <string name="snooze_selector_text_color_title">Tekstkleur sluimerkiezer</string>
+    <string name="snooze_minus_symbol_color_title">Kleur \"-\" symbool</string>
+    <string name="snooze_plus_symbol_color_title">Kleur \"+\" symbool</string>
+    <string name="background_image_summary">Stel de achtergrondkleur in op transparant om de afbeelding te zien</string>
+    <string name="alarm_volume_low">Het wekkervolume is laag</string>
+    <string name="fix_alarm_volume">Oplossen</string>
+    <string name="display_snooze_selector_title">Sluimerkiezer weergeven</string>
+    <string name="clock_dial_with_roman_numbers">Met Romeinse cijfers</string>
+    <string name="clock_second_hand_lollipop">Lollipop</string>
+    <string name="timezone_baker_howland">Baker- en Howlandeilanden</string>
+    <string name="timezone_marquesas">Marquesaseilanden</string>
+    <string name="timezone_chatham">Chathameilanden</string>
+    <string name="timezone_gambier">Gambiereilanden</string>
+    <string name="timezone_pitcairn">Pitcairneilanden</string>
+    <string name="timezone_easter_island">Paaseiland</string>
+    <string name="timezone_miquelon">Saint-Pierre en Miquelon</string>
+    <string name="timezone_noronha">Fernando de Noronha</string>
+    <string name="timezone_lord_howe">Lord Howe-eiland</string>
+    <string name="timezone_norfolk">Norfolk</string>
+    <string name="timezone_macquarie">Macquarie-eiland</string>
+    <string name="missed_timer_indicator_color_title">Kleur van gemiste kookwekker</string>
+    <string name="foreground_service_channel">Voorgrondmelding</string>
+    <string name="foreground_service_message">Draait op de achtergrond</string>
+    <string name="foreground_service_title">Voorgrondmelding weergeven</string>
+    <string name="foreground_service_dialog_message">Om te voorkomen dat je apparaat de app abrupt afsluit en meldingen mist, wordt er een permanente, stille melding weergegeven..\n\nDit zorgt ervoor dat de app in het geheugen blijft, maar kan het batterijverbruik iets verhogen.\n\nLet op: Het inschakelen van deze instelling is voor de meeste apparaten niet nodig. Schakel deze alleen in als je meldingen mist.</string>
 </resources>

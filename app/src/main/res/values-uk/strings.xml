@@ -216,7 +216,7 @@
     <string name="invalid_time" msgid="2782334750243998633">Недійсний час — <xliff:g example="25" id="invalid_hour">%1$d</xliff:g>:<xliff:g example="63" id="invalid_minutes">%2$d</xliff:g> <xliff:g example="PM" id="invalid_ampm">%3$s</xliff:g></string>
     <string name="no_alarm_at" msgid="8140632482969193119">Немає будильника на <xliff:g example="14" id="alarm_time_hour">%1$d</xliff:g>:<xliff:g example="23" id="alarm_time_minutes">%2$d</xliff:g></string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">Немає запланованих будильників</string>
-    <string name="no_label_specified" msgid="2008482054428460626">"Укажіть мітку"</string>
+    <string name="no_label_specified" msgid="2008482054428460626">Мітку не вказано</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"Немає будильників із такою міткою"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Немає будильника на цей час"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">Будильник на <xliff:g example="14:20" id="alarm_time">%s</xliff:g> вимкнено</string>
@@ -286,7 +286,7 @@
     <string name="miscellaneous_category_title">Різне</string>
     <string name="actions_category_title">Дії</string>
     <string name="ringtone_category_title">Сигнал</string>
-    <string name="enable_alarm_vibrations_by_default_setting_title">Увімкнути вібрацію під час налаштування будильників</string>
+    <string name="enable_alarm_vibrations_by_default_setting_title">Увімкнути вібрацію при спрацьовуванні будильника</string>
     <string name="auto_silence_end_of_ringtone">Відтворення сигналу</string>
     <string name="alarm_notification_reminder_title">Нагадування про сповіщення</string>
     <string name="about_github_link">Подивитися на GitHub</string>
@@ -423,7 +423,7 @@
     <string name="description_direction_both_for_occasional_alarm">Проведіть пальцем ліворуч, щоб відкласти, або праворуч, щоб вимкнути і видалити будильник</string>
     <string name="description_direction_both_for_occasional_non_repeatable_alarm">Проведіть пальцем ліворуч або праворуч, щоб вимкнути і видалити будильник</string>
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Увімкнути за замовчуванням автоматичне видалення нерегулярних будильників</string>
-    <string name="alarm_settings_general_summary">Це налаштування можна змінити для кожного будильника в розгорнутому перегляді будильника</string>
+    <string name="alarm_settings_general_summary">Це налаштування можна змінити для кожного будильника на панелі редагування будильника</string>
     <string name="delete_occasional_alarm_after_use_title">Видалити будильник після вимкнення</string>
     <string name="occasional_alarm_alert_predismiss_title">Наступний нерегулярний будильник</string>
     <string name="backup_restore_title">Резервне копіювання та відновлення</string>
@@ -640,4 +640,39 @@
     <string name="sw_total_title">Загальний</string>
     <string name="settings_language_tamil">Тамільська</string>
     <string name="settings_language_bulgarian">Болгарська</string>
+    <string name="timezone_baker_howland">Острови Бейкер і Гауленд</string>
+    <string name="timezone_marquesas">Маркізькі острови</string>
+    <string name="timezone_chatham">Острови Чатем</string>
+    <string name="timezone_noronha">Фернанду-ді-Норонья</string>
+    <string name="timezone_lord_howe">Острів Лорд-Гау</string>
+    <string name="timezone_gambier">Острови Гамб’є</string>
+    <string name="timezone_pitcairn">Острови Піткерн</string>
+    <string name="timezone_easter_island">Острів Пасхи</string>
+    <string name="timezone_miquelon">Сен-П’єр і Мікелон</string>
+    <string name="timezone_norfolk">Острів Норфолк</string>
+    <string name="timezone_macquarie">Острів Маккуорі</string>
+    <string name="label_indefinitely">Постійно</string>
+    <string name="button_tip_title">Натисніть і утримуйте кнопку «+», щоб додати папку</string>
+    <string name="alarm_alert_dismiss_and_delete_text_button">Вимкнути\nі видалити</string>
+    <string name="permissions_category_title">Дозволи</string>
+    <string name="enable_alarm_vibrations_by_default_dialog_message">Вібрацію буде вимкнено для всіх будильників.%s</string>
+    <string name="enable_delete_occasional_alarm_by_default_dialog_message">Функцію «Видалити будильник після вимкнення» буде вимкнено для всіх будильників.%s</string>
+    <string name="sync_alarm_by_label_title">Синхронізувати будильники з однаковою міткою</string>
+    <string name="snooze_minus_button_color_title">Колір кнопки «−»</string>
+    <string name="snooze_plus_button_color_title">Колір кнопки «+»</string>
+    <string name="snooze_minus_symbol_color_title">Колір символа «−»</string>
+    <string name="snooze_plus_symbol_color_title">Колір символа «+»</string>
+    <string name="snooze_zone_color_title">Колір зони «Відкласти»</string>
+    <string name="clock_dial_with_roman_numbers">Римські цифри</string>
+    <string name="clock_second_hand_lollipop">Lollipop</string>
+    <string name="missed_timer_indicator_color_title">Колір індикатора пропущеного таймера</string>
+    <string name="fix_alarm_volume">Виправити</string>
+    <string name="foreground_service_title">Показувати сповіщення на передньому плані</string>
+    <string name="foreground_service_dialog_message">Щоб Ваш пристрій не закрив примусово Годинник і Ви не пропускали будильників, буде відображатися постійне беззвучне сповіщення.\n\nТак додаток гарантовано залишиться в пам’яті, хоча використання заряду акумулятора може дещо збільшитися.\n\nПримітка: для більшості пристроїв не обов’язково вмикати це налаштування. Ввімкніть його лише якщо Ви помітили, що будильники пропускаються.</string>
+    <string name="foreground_service_channel">Сповіщення на передньому плані</string>
+    <string name="foreground_service_message">Працює у фоновому режимі</string>
+    <string name="alarm_volume_low">Низька гучність будильника</string>
+    <string name="background_image_summary">Щоб побачити зображення, встановіть прозорий колір фону</string>
+    <string name="snooze_selector_text_color_title">Колір тексту при виборі відкладення</string>
+    <string name="display_snooze_selector_title">Показувати вибір відкладення</string>
 </resources>

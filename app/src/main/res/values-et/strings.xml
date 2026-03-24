@@ -249,7 +249,7 @@
     <string name="interface_customization_settings">Kasutajaliides</string>
     <string name="style_category_title">Välimus</string>
     <string name="alarm_notification_reminder_title">Teavituse meeldetuletus</string>
-    <string name="enable_alarm_vibrations_by_default_setting_title">Äratuse puhul lülita vibreerimine sisse</string>
+    <string name="enable_alarm_vibrations_by_default_setting_title">Äratuse käivitamisel lülita vibreerimine sisse</string>
     <string name="timer_add_custom_time">+ %s</string>
     <string name="app_slogan">AOSP-l põhinev, 100% avatud lähtekoodiga kell</string>
     <string name="display_background_border_summary">See eelistus võimaldab mõnede rakenduse elementide (äratused, linnad, taimeri nupud, jne) puhul kuvada taustu äärejoontega</string>
@@ -404,7 +404,7 @@
     <string name="sort_timer_ascending_duration">Kestuse alusel (kasvavalt)</string>
     <string name="alarm_alert_dismiss_and_delete_text">Loobu ja kustuta</string>
     <string name="alarm_alert_off_and_deleted_text">Loobusid äratusest ja kustutasid ta</string>
-    <string name="alarm_settings_general_summary">Seda seadistust saad iga äratuse puhul muuta äratuse laiendatud vaates</string>
+    <string name="alarm_settings_general_summary">Seda seadistust saad iga äratuse puhul muuta äratuse muutmisvaates</string>
     <string name="description_direction_both_for_occasional_alarm">Edasilükkamiseks viipa vasakule ja äratusest loobumiseks ning tema kustutamiseks paremale</string>
     <string name="description_direction_both_for_occasional_non_repeatable_alarm">Äratusest loobumiseks ning tema kustutamiseks viipa vasakule või paremale</string>
     <string name="delete_occasional_alarm_after_use_title">Kustuta äratus peale loobumist</string>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
     Copyright (C) 2016 The Android Open Source Project
     modified
@@ -43,7 +43,7 @@
     <string name="C36" msgid="5404342554664613950">"ବ<xliff:g id="SEPARATOR">=</xliff:g>ବ୍ୟୁନୋସ୍ ଏୟାର୍ସ<xliff:g id="TIMEZONE">|America/Buenos_Aires</xliff:g>"</string>
     <string name="C37" msgid="210142862572070093">"କ<xliff:g id="SEPARATOR">=</xliff:g>କ୍ୟାନକୁନ୍<xliff:g id="TIMEZONE">|America/Cancun</xliff:g>"</string>
     <string name="C38" msgid="3882347315148425276">"କ<xliff:g id="SEPARATOR">=</xliff:g>କାରାକାସ୍<xliff:g id="TIMEZONE">|America/Caracas</xliff:g>"</string>
-    <string name="C39" msgid="1273212484626323439">"କ<xliff:g id="SEPARATOR">=</xliff:g>କେମ୍ୟାନ୍<xliff:g id="TIMEZONE">|America/Cayman</xliff:g>"</string>
+    <string name="C39" msgid="1273212484626323439">କ<xliff:g id="SEPARATOR">=</xliff:g>କେମ୍ୟାନ୍<xliff:g id="TIMEZONE">|America/Cayman</xliff:g></string>
     <string name="C40" msgid="3106173663723475314">"ଶ<xliff:g id="SEPARATOR">=</xliff:g>ଶିକାଗୋ<xliff:g id="TIMEZONE">|America/Chicago</xliff:g>"</string>
     <string name="C42" msgid="5638414063615009004">"କ<xliff:g id="SEPARATOR">=</xliff:g>କ୍ୟୁରାସାଓ<xliff:g id="TIMEZONE">|America/Curacao</xliff:g>"</string>
     <string name="C43" msgid="6826097241516998181">"ଡ<xliff:g id="SEPARATOR">=</xliff:g>ଡୋସନ୍ କ୍ରୀକ୍<xliff:g id="TIMEZONE">|America/Dawson_Creek</xliff:g>"</string>
@@ -51,7 +51,7 @@
     <string name="C45" msgid="8943178793317201894">"ଡ<xliff:g id="SEPARATOR">=</xliff:g>ଡେଟ୍ରୋଇଟ୍<xliff:g id="TIMEZONE">|America/Detroit</xliff:g>"</string>
     <string name="C46" msgid="5190250990574320177">"ଡ<xliff:g id="SEPARATOR">=</xliff:g>ଡୋମିନିକା<xliff:g id="TIMEZONE">|America/Dominica</xliff:g>"</string>
     <string name="C47" msgid="369754396219379227">"ଏ<xliff:g id="SEPARATOR">=</xliff:g>ଏଡମୋଣ୍ଟୋନ୍<xliff:g id="TIMEZONE">|America/Edmonton</xliff:g>"</string>
-    <string name="C48" msgid="7918902616648922410">"ଏ<xliff:g id="SEPARATOR">=</xliff:g>ଏଲ୍ ସାଲଭାଡୋର୍<xliff:g id="TIMEZONE">|America/El_Salvador</xliff:g>"</string>
+    <string name="C48" msgid="7918902616648922410">ଏ<xliff:g id="SEPARATOR">=</xliff:g>ଏଲ୍ ସାଲଭାଡୋର୍<xliff:g id="TIMEZONE">|America/El_Salvador</xliff:g></string>
     <string name="C49" msgid="6326857727742458931">"ଫ<xliff:g id="SEPARATOR">=</xliff:g>ଫୋର୍ଟାଲେଜା<xliff:g id="TIMEZONE">|America/Fortaleza</xliff:g>"</string>
     <string name="C50" msgid="3131498820508584398">"ଗ<xliff:g id="SEPARATOR">=</xliff:g>ଗ୍ରାଣ୍ଡ ଟର୍କ<xliff:g id="TIMEZONE">|America/Grand_Turk</xliff:g>"</string>
     <string name="C51" msgid="3122278921760822414">"ଗ<xliff:g id="SEPARATOR">=</xliff:g>ଗ୍ରେନାଡା<xliff:g id="TIMEZONE">|America/Grenada</xliff:g>"</string>
@@ -68,12 +68,12 @@
     <string name="C62" msgid="2667958702401099683">"ଭି<xliff:g id="SEPARATOR">=</xliff:g>ଭିନ୍ସେନ୍ସ<xliff:g id="TIMEZONE">|America/Indiana/Vincennes</xliff:g>"</string>
     <string name="C63" msgid="2251274863869460838">"ୱ<xliff:g id="SEPARATOR">=</xliff:g>ୱିନାମାକ୍<xliff:g id="TIMEZONE">|America/Indiana/Winamac</xliff:g>"</string>
     <string name="C64" msgid="1051183687128385699">"କ<xliff:g id="SEPARATOR">=</xliff:g>କିଙ୍ଗସଟନ୍<xliff:g id="TIMEZONE">|America/Jamaica</xliff:g>"</string>
-    <string name="C65" msgid="4484953311341882894">"ନ<xliff:g id="SEPARATOR">=</xliff:g>ନ୍ୟୁଷ୍ଟ୍ରା ସେନୋରା ଡେ ଲା ପାଜ୍<xliff:g id="TIMEZONE">|America/La_Paz</xliff:g>"</string>
+    <string name="C65" msgid="4484953311341882894">ନ<xliff:g id="SEPARATOR">=</xliff:g>ନ୍ୟୁଷ୍ଟ୍ରା ସେନୋରା ଡେ ଲା ପାଜ୍<xliff:g id="TIMEZONE">|America/La_Paz</xliff:g></string>
     <string name="C66" msgid="4486852398001333122">"ଲ<xliff:g id="SEPARATOR">=</xliff:g>ଲିମା<xliff:g id="TIMEZONE">|America/Lima</xliff:g>"</string>
     <string name="C67" msgid="4874799181719358019">"ଲ<xliff:g id="SEPARATOR">=</xliff:g>ଲସ୍ ଆଞ୍ଜେଲ୍ସ<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g>"</string>
     <string name="C68" msgid="5526012011469271690">"ଲ<xliff:g id="SEPARATOR">=</xliff:g>ଲୁଇସଭିଲ୍<xliff:g id="TIMEZONE">|America/Louisville</xliff:g>"</string>
     <string name="C69" msgid="6147580167560875608">"ମ<xliff:g id="SEPARATOR">=</xliff:g>ମାନାଗୁଆ<xliff:g id="TIMEZONE">|America/Managua</xliff:g>"</string>
-    <string name="C70" msgid="3277881296053225577">"ମ<xliff:g id="SEPARATOR">=</xliff:g>ମାର୍ଟିନିକ୍<xliff:g id="TIMEZONE">|America/Martinique</xliff:g>"</string>
+    <string name="C70" msgid="3277881296053225577">ମ<xliff:g id="SEPARATOR">=</xliff:g>ମାର୍ଟିନିକ୍<xliff:g id="TIMEZONE">|America/Martinique</xliff:g></string>
     <string name="C71" msgid="4017941126335556194">"ମ<xliff:g id="SEPARATOR">=</xliff:g>ମେଣ୍ଡୋଜା<xliff:g id="TIMEZONE">|America/Mendoza</xliff:g>"</string>
     <string name="C72" msgid="3992109594245379480">"ମ<xliff:g id="SEPARATOR">=</xliff:g>ମେଟ୍‌ଲାକାଟ୍‌ଲା<xliff:g id="TIMEZONE">|America/Metlakatla</xliff:g>"</string>
     <string name="C73" msgid="2715229408279026929">"ମ<xliff:g id="SEPARATOR">=</xliff:g>ମେକ୍ସିକୋ ସିଟୀ<xliff:g id="TIMEZONE">|America/Mexico_City</xliff:g>"</string>
@@ -83,16 +83,16 @@
     <string name="C77" msgid="7071675194537613715">"ନ<xliff:g id="SEPARATOR">=</xliff:g>ନାସାଉ<xliff:g id="TIMEZONE">|America/Nassau</xliff:g>"</string>
     <string name="C78" msgid="705452895809394827">"ନ<xliff:g id="SEPARATOR">=</xliff:g>ନ୍ୟୁ ୟର୍କ<xliff:g id="TIMEZONE">|America/New_York</xliff:g>"</string>
     <string name="C79" msgid="615046244335186458">"ବ<xliff:g id="SEPARATOR">=</xliff:g>ବ୍ୟୁଲା<xliff:g id="TIMEZONE">|America/North_Dakota/Beulah</xliff:g>"</string>
-    <string name="C80" msgid="7462541787750301851">"ସ<xliff:g id="SEPARATOR">=</xliff:g>ସେଣ୍ଟର୍<xliff:g id="TIMEZONE">|America/North_Dakota/Center</xliff:g>"</string>
+    <string name="C80" msgid="7462541787750301851">ସ<xliff:g id="SEPARATOR">=</xliff:g>ସେଣ୍ଟର୍<xliff:g id="TIMEZONE">|America/North_Dakota/Center</xliff:g></string>
     <string name="C81" msgid="5467118811364466464">"ନ<xliff:g id="SEPARATOR">=</xliff:g>ନ୍ୟୁ ସାଲେମ୍<xliff:g id="TIMEZONE">|America/North_Dakota/New_Salem</xliff:g>"</string>
-    <string name="C82" msgid="1040250446144596478">"ପ<xliff:g id="SEPARATOR">=</xliff:g>ପାନାମା<xliff:g id="TIMEZONE">|America/Panama</xliff:g>"</string>
+    <string name="C82" msgid="1040250446144596478">ପ<xliff:g id="SEPARATOR">=</xliff:g>ପାନାମା<xliff:g id="TIMEZONE">|America/Panama</xliff:g></string>
     <string name="C83" msgid="3734366600481445363">"ଫ<xliff:g id="SEPARATOR">=</xliff:g>ଫିନିକ୍ସ<xliff:g id="TIMEZONE">|America/Phoenix</xliff:g>"</string>
     <string name="C84" msgid="2410152141185166321">"ପ<xliff:g id="SEPARATOR">=</xliff:g>ପୋର୍ଟ ଅଫ୍ ସ୍ପେନ୍<xliff:g id="TIMEZONE">|America/Port_of_Spain</xliff:g>"</string>
     <string name="C85" msgid="2883572094139689939">"ପ<xliff:g id="SEPARATOR">=</xliff:g>ପୋର୍ଟ-ଓଉ-ପ୍ରିନ୍ସ<xliff:g id="TIMEZONE">|America/Port-au-Prince</xliff:g>"</string>
     <string name="C86">S<xliff:g id="separator">=</xliff:g>Santa Cruz de Tenerife<xliff:g id="timezone">|Atlantic/Canary</xliff:g></string>
     <string name="C87" msgid="2866918562243248306">"ସ<xliff:g id="SEPARATOR">=</xliff:g>ସାଣ୍ଟୋ ଡୋମିଙ୍ଗୋ<xliff:g id="TIMEZONE">|America/Santo_Domingo</xliff:g>"</string>
     <string name="C88" msgid="2261702707416420550">"ସ<xliff:g id="SEPARATOR">=</xliff:g>ସାଉ ପାଉଲୋ<xliff:g id="TIMEZONE">|America/Sao_Paulo</xliff:g>"</string>
-    <string name="C89" msgid="8517952667962700432">"ସ<xliff:g id="SEPARATOR">=</xliff:g>ସେଣ୍ଟ ଜୋନ୍ସ<xliff:g id="TIMEZONE">|America/St_Johns</xliff:g>"</string>
+    <string name="C89" msgid="8517952667962700432">ସ<xliff:g id="SEPARATOR">=</xliff:g>ସେଣ୍ଟ ଜୋନ୍ସ<xliff:g id="TIMEZONE">|America/St_Johns</xliff:g></string>
     <string name="C90" msgid="1703939848190669830">"ସ<xliff:g id="SEPARATOR">=</xliff:g>ସେଣ୍ଟ କିଟ୍ସ<xliff:g id="TIMEZONE">|America/St_Kitts</xliff:g>"</string>
     <string name="C91" msgid="4438261556294969442">"ସ<xliff:g id="SEPARATOR">=</xliff:g>ସେଣ୍ଟ ଲୁସିଆ<xliff:g id="TIMEZONE">|America/St_Lucia</xliff:g>"</string>
     <string name="C92" msgid="3717300223413621820">"ସ<xliff:g id="SEPARATOR">=</xliff:g>ସେଣ୍ଟ ଥୋମାସ୍<xliff:g id="TIMEZONE">|America/St_Thomas</xliff:g>"</string>
@@ -100,7 +100,7 @@
     <string name="C94" msgid="6254783598629305021">"ଟ<xliff:g id="SEPARATOR">=</xliff:g>ଟୋରୋଣ୍ଟୋ<xliff:g id="TIMEZONE">|America/Toronto</xliff:g>"</string>
     <string name="C95" msgid="2144206125989179089">"ଭ<xliff:g id="SEPARATOR">=</xliff:g>ଭେଙ୍କୋଭର୍<xliff:g id="TIMEZONE">|America/Vancouver</xliff:g>"</string>
     <string name="C96" msgid="3995904432128369027">"ୱ<xliff:g id="SEPARATOR">=</xliff:g>ୱିନିପେଗ୍<xliff:g id="TIMEZONE">|America/Winnipeg</xliff:g>"</string>
-    <string name="C97" msgid="5667595440938233073">"ସ<xliff:g id="SEPARATOR">=</xliff:g>ସାଉଥ୍ ପୋଲ୍<xliff:g id="PHONETIC">:</xliff:g><xliff:g id="TIMEZONE">|Antarctica/South_Pole</xliff:g>"</string>
+    <string name="C97" msgid="5667595440938233073">ସ<xliff:g id="SEPARATOR">=</xliff:g>ସାଉଥ୍ ପୋଲ୍<xliff:g id="PHONETIC">:</xliff:g><xliff:g id="TIMEZONE">|Antarctica/South_Pole</xliff:g></string>
     <string name="C98" msgid="2067640513126652156">"ଲ<xliff:g id="SEPARATOR">=</xliff:g>ଲଙ୍ଗୟରବ୍ୟେନ୍<xliff:g id="TIMEZONE">|Arctic/Longyearbyen</xliff:g>"</string>
     <string name="C99" msgid="6750041547603679548">"ଅ<xliff:g id="SEPARATOR">=</xliff:g>ଅଲ୍‌ମାଟୀ<xliff:g id="TIMEZONE">|Asia/Almaty</xliff:g>"</string>
     <string name="C100" msgid="5995329947852415813">"ଅ<xliff:g id="SEPARATOR">=</xliff:g>ଅମ୍ମାନ୍<xliff:g id="TIMEZONE">|Asia/Amman</xliff:g>"</string>
@@ -143,7 +143,7 @@
     <string name="C140" msgid="6273911458061121975">"ଉ<xliff:g id="SEPARATOR">=</xliff:g>ଉଲାନବାତର୍<xliff:g id="TIMEZONE">|Asia/Ulaanbaatar</xliff:g>"</string>
     <string name="C141" msgid="2799340184229547409">"ବ<xliff:g id="SEPARATOR">=</xliff:g>ବର୍‌ମୁଡା<xliff:g id="TIMEZONE">|Atlantic/Bermuda</xliff:g>"</string>
     <string name="C142">L<xliff:g id="separator">=</xliff:g>Las Palmas de Gran Canaria<xliff:g id="timezone">|Atlantic/Canary</xliff:g></string>
-    <string name="C143" msgid="4888764215053863961">"କ<xliff:g id="SEPARATOR">=</xliff:g>କେପ୍ ଭର୍ଡେ<xliff:g id="TIMEZONE">|Atlantic/Cape_Verde</xliff:g>"</string>
+    <string name="C143" msgid="4888764215053863961">କ<xliff:g id="SEPARATOR">=</xliff:g>କେପ୍ ଭର୍ଡେ<xliff:g id="TIMEZONE">|Atlantic/Cape_Verde</xliff:g></string>
     <string name="C144" msgid="3338105941475340049">"ର<xliff:g id="SEPARATOR">=</xliff:g>ରେକଜାଭିକ୍<xliff:g id="TIMEZONE">|Atlantic/Reykjavik</xliff:g>"</string>
     <string name="C145" msgid="8684297689430494031">"ଷ<xliff:g id="SEPARATOR">=</xliff:g>ଷ୍ଟେନ୍‌ଲୀ<xliff:g id="TIMEZONE">|Atlantic/Stanley</xliff:g>"</string>
     <string name="C146" msgid="843808286721172656">"ଏ<xliff:g id="SEPARATOR">=</xliff:g>ଏଡିଲେଡ୍<xliff:g id="TIMEZONE">|Australia/Adelaide</xliff:g>"</string>
@@ -157,9 +157,9 @@
     <string name="C154" msgid="1193262944948312063">"ସ<xliff:g id="SEPARATOR">=</xliff:g>ସିଡ୍‌ନୀ<xliff:g id="TIMEZONE">|Australia/Sydney</xliff:g>"</string>
     <string name="C155" msgid="7079072802229033042">"ଭ<xliff:g id="SEPARATOR">=</xliff:g>ଭିକ୍ଟୋରିଆ<xliff:g id="TIMEZONE">|Australia/Victoria</xliff:g>"</string>
     <string name="C157" msgid="2861486997803753970">"ସ<xliff:g id="SEPARATOR">=</xliff:g>ସାସ୍କେଚେୱାନ୍<xliff:g id="TIMEZONE">|Canada/Saskatchewan</xliff:g>"</string>
-    <string name="C158" msgid="6882933026191056506">"ଇ<xliff:g id="SEPARATOR">=</xliff:g>ଇଷ୍ଟର୍ ଦ୍ୱୀପ<xliff:g id="TIMEZONE">|Chile/EasterIsland</xliff:g>"</string>
+    <string name="C158" msgid="6882933026191056506">ଇ<xliff:g id="SEPARATOR">=</xliff:g>ଇଷ୍ଟର୍ ଦ୍ୱୀପ<xliff:g id="TIMEZONE">|Chile/EasterIsland</xliff:g></string>
     <string name="C159" msgid="4128429767051043903">"ଅ<xliff:g id="SEPARATOR">=</xliff:g>ଅମଷ୍ଟରଡମ୍<xliff:g id="TIMEZONE">|Europe/Amsterdam</xliff:g>"</string>
-    <string name="C160" msgid="3488513735205092653">"ଏ<xliff:g id="SEPARATOR">=</xliff:g>ଏଣ୍ଡୋରା<xliff:g id="TIMEZONE">|Europe/Andorra</xliff:g>"</string>
+    <string name="C160" msgid="3488513735205092653">ଏ<xliff:g id="SEPARATOR">=</xliff:g>ଏଣ୍ଡୋରା<xliff:g id="TIMEZONE">|Europe/Andorra</xliff:g></string>
     <string name="C161" msgid="7244325364130392348">"ଏ<xliff:g id="SEPARATOR">=</xliff:g>ଏଥେନ୍ସ<xliff:g id="TIMEZONE">|Europe/Athens</xliff:g>"</string>
     <string name="C162" msgid="7484009548361072313">"ବ<xliff:g id="SEPARATOR">=</xliff:g>ବେଲ୍‌ଫାଷ୍ଟ<xliff:g id="TIMEZONE">|Europe/Belfast</xliff:g>"</string>
     <string name="C163" msgid="6106990061397073808">"ବ<xliff:g id="SEPARATOR">=</xliff:g>ବେଲଗ୍ରେଡ୍‍<xliff:g id="TIMEZONE">|Europe/Belgrade</xliff:g>"</string>
@@ -180,7 +180,7 @@
     <string name="C178" msgid="8805696770032311110">"ଲ<xliff:g id="SEPARATOR">=</xliff:g>ଲଣ୍ଡନ୍<xliff:g id="TIMEZONE">|Europe/London</xliff:g>"</string>
     <string name="C179" msgid="3767343883668628062">"ଲ<xliff:g id="SEPARATOR">=</xliff:g>ଲକ୍ସେମ୍‌ବର୍ଗ<xliff:g id="TIMEZONE">|Europe/Luxembourg</xliff:g>"</string>
     <string name="C180" msgid="7678392789982322642">"ମ<xliff:g id="SEPARATOR">=</xliff:g>ମାଡ୍ରିଡ୍<xliff:g id="TIMEZONE">|Europe/Madrid</xliff:g>"</string>
-    <string name="C181" msgid="7514462880775616081">"ମ<xliff:g id="SEPARATOR">=</xliff:g>ମାଲ୍‌ଟା<xliff:g id="TIMEZONE">|Europe/Malta</xliff:g>"</string>
+    <string name="C181" msgid="7514462880775616081">ମ<xliff:g id="SEPARATOR">=</xliff:g>ମାଲ୍‌ଟା<xliff:g id="TIMEZONE">|Europe/Malta</xliff:g></string>
     <string name="C182" msgid="1916950203622380579">"ମ<xliff:g id="SEPARATOR">=</xliff:g>ମିନ୍‌ସ୍କ<xliff:g id="TIMEZONE">|Europe/Minsk</xliff:g>"</string>
     <string name="C183" msgid="4964892686115215073">"ମ<xliff:g id="SEPARATOR">=</xliff:g>ମୋନାକୋ<xliff:g id="TIMEZONE">|Europe/Monaco</xliff:g>"</string>
     <string name="C184" msgid="4848586310907586448">"ମ<xliff:g id="SEPARATOR">=</xliff:g>ମସ୍କୋ<xliff:g id="TIMEZONE">|Europe/Moscow</xliff:g>"</string>
@@ -203,10 +203,10 @@
     <string name="C201" msgid="5026927396527258914">"ଜ<xliff:g id="SEPARATOR">=</xliff:g>ଜାଗ୍ରେବ୍<xliff:g id="TIMEZONE">|Europe/Zagreb</xliff:g>"</string>
     <string name="C202" msgid="7479245034393288391">"ଜ<xliff:g id="SEPARATOR">=</xliff:g>ଜ୍ୟୁରିଖ୍<xliff:g id="TIMEZONE">|Europe/Zurich</xliff:g>"</string>
     <string name="C203" msgid="1651234331866937237">"ଏ<xliff:g id="SEPARATOR">=</xliff:g>ଏଣ୍ଟାନାନରିଭୋ<xliff:g id="TIMEZONE">|Indian/Antananarivo</xliff:g>"</string>
-    <string name="C204" msgid="3101091022126098393">"ମ<xliff:g id="SEPARATOR">=</xliff:g>ମାଲଡିଭ୍<xliff:g id="TIMEZONE">|Indian/Maldives</xliff:g>"</string>
+    <string name="C204" msgid="3101091022126098393">ମ<xliff:g id="SEPARATOR">=</xliff:g>ମାଲଡିଭ୍<xliff:g id="TIMEZONE">|Indian/Maldives</xliff:g></string>
     <string name="C205" msgid="9173530407684443044">"ମ<xliff:g id="SEPARATOR">=</xliff:g>ମରିସସ୍<xliff:g id="TIMEZONE">|Indian/Mauritius</xliff:g>"</string>
     <string name="C206" msgid="7294622489478378014">"ଅ<xliff:g id="SEPARATOR">=</xliff:g>ଅକ୍‌ଲାଣ୍ଡ<xliff:g id="TIMEZONE">|Pacific/Auckland</xliff:g>"</string>
-    <string name="C207" msgid="6369257832191627783">"ଫ<xliff:g id="SEPARATOR">=</xliff:g>ଫିଜି<xliff:g id="TIMEZONE">|Pacific/Fiji</xliff:g>"</string>
+    <string name="C207" msgid="6369257832191627783">ଫ<xliff:g id="SEPARATOR">=</xliff:g>ଫିଜି<xliff:g id="TIMEZONE">|Pacific/Fiji</xliff:g></string>
     <string name="C208" msgid="1022999101729302391">"ଗ<xliff:g id="SEPARATOR">=</xliff:g>ଗୁଆମ୍<xliff:g id="TIMEZONE">|Pacific/Guam</xliff:g>"</string>
     <string name="C209" msgid="8326714755257287010">"ହ<xliff:g id="SEPARATOR">=</xliff:g>ହୋନୋଲୁଲୁ<xliff:g id="TIMEZONE">|Pacific/Honolulu</xliff:g>"</string>
     <string name="C210" msgid="4118975261202718577">"କ<xliff:g id="SEPARATOR">=</xliff:g>କିରିତିମାଟି<xliff:g id="TIMEZONE">|Pacific/Kiritimati</xliff:g>"</string>
@@ -227,8 +227,8 @@
     <string name="C227" msgid="5652209241017010001">"ସ<xliff:g id="SEPARATOR">=</xliff:g>ସାନ୍ ଡିଏଗୋ<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g>"</string>
     <string name="C228" msgid="4215672329797580482">"ସ<xliff:g id="SEPARATOR">=</xliff:g>ସାନ୍ ଫ୍ରାନ୍ସିସ୍କୋ<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g>"</string>
     <string name="C229" msgid="4196312467437357156">"ସ<xliff:g id="SEPARATOR">=</xliff:g>ସଲ୍ଟ ଲେକ୍ ସିଟୀ<xliff:g id="TIMEZONE">|America/Denver</xliff:g>"</string>
-    <string name="C230" msgid="5521643115321121383">"ସ<xliff:g id="SEPARATOR">=</xliff:g>ସାନ୍ ଜୋସ୍<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g>"</string>
-    <string name="C231" msgid="19294357270942004">"ସ<xliff:g id="SEPARATOR">=</xliff:g>ସାନ୍ ସାଲଭାଡୋର୍<xliff:g id="TIMEZONE">|America/Guatemala</xliff:g>"</string>
+    <string name="C230" msgid="5521643115321121383">ସ<xliff:g id="SEPARATOR">=</xliff:g>ସାନ୍ ଜୋସ୍<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g></string>
+    <string name="C231" msgid="19294357270942004">ସ<xliff:g id="SEPARATOR">=</xliff:g>ସାନ୍ ସାଲଭାଡୋର୍<xliff:g id="TIMEZONE">|America/Guatemala</xliff:g></string>
     <string name="C232" msgid="4714655032274833316">"ସ<xliff:g id="SEPARATOR">=</xliff:g>ସିଟଲ୍<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g>"</string>
     <string name="C233" msgid="7162834873553109876">"ସ<xliff:g id="SEPARATOR">=</xliff:g>ସେଣ୍ଟ ଲୁଇସ୍<xliff:g id="TIMEZONE">|America/Chicago</xliff:g>"</string>
     <string name="C234" msgid="8431913494781960891">"ୱ<xliff:g id="SEPARATOR">=</xliff:g>ୱାସିଙ୍ଗଟନ୍ D.C.<xliff:g id="TIMEZONE">|America/New_York</xliff:g>"</string>

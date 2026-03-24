@@ -271,7 +271,7 @@
     <string name="screensaver_daydream_settings">Bildschirmschoner auswählen/aktivieren</string>
     <string name="screensaver_daydream_settings_summary">Öffnet die Android-Einstellungen für den Bildschirmschoner</string>
     <string name="screensaver_clock_dynamic_colors_title">Dynamische Uhrenfarben</string>
-    <string name="clock_color_title">Uhrenfarbe</string>
+    <string name="clock_color_title">Schriftfarbe der Uhr</string>
     <string name="screensaver_bold_date_title">Datum <b>fett</b></string>
     <string name="screensaver_italic_date_title">Datum <i>kursiv</i></string>
     <string name="screensaver_bold_next_alarm_title">Nächster Wecker <b>fett</b></string>
@@ -480,8 +480,8 @@
     <string name="settings_language_chinese_traditional_tw">Chinesisch (traditionell, Taiwan)</string>
     <string name="alarm_is_dismissed_and_deleted">Der Wecker um <xliff:g example="14:20" id="alarm_time">%s</xliff:g> wurde verworfen und gelöscht</string>
     <string name="slide_zone_color_title">Farbe der Wischzone</string>
-    <string name="snooze_title_color">Titelfarbe „Schlummern“</string>
-    <string name="dismiss_title_color">Titelfarbe „Verwerfen“</string>
+    <string name="snooze_title_color">Schriftfarbe „Schlummern“</string>
+    <string name="dismiss_title_color">Schriftfarbe „Verwerfen“</string>
     <string name="description_dismiss_button">Zum Verwerfen des Weckers tippen</string>
     <string name="description_snooze_button">Zum Schlummern des Weckers tippen</string>
     <string name="description_dismiss_button_for_occasional_alarm">Zum Verwerfen und Löschen des Weckers tippen</string>
@@ -582,9 +582,9 @@
     <string name="repetitive_alarm_is_dismissed">Wecker verworfen. <xliff:g example="Nächster Wecker am Montag" id="alarm_day">Neu geplant für %s.</xliff:g></string>
     <string name="progress_ringtones">Klingeltöne hinzufügen… (%1$d/%2$d)</string>
     <string name="display_timer_state_indicator_title">Timer-Zustandsanzeige anzeigen</string>
-    <string name="running_timer_indicator_color_title">Farbe der Laufzeitanzeige</string>
-    <string name="paused_timer_indicator_color_title">Farbe der Timer-Pause-Anzeige</string>
-    <string name="expired_timer_indicator_color_title">Farbe der Anzeige für abgelaufenen Timer</string>
+    <string name="running_timer_indicator_color_title">Farbe für laufendenen Timer</string>
+    <string name="paused_timer_indicator_color_title">Farbe für pausierten Timer</string>
+    <string name="expired_timer_indicator_color_title">Farbe für abgelaufenen Timer</string>
     <string name="customize_background_corner_radius_title">Hintergrund-Eckenradius anpassen</string>
     <string name="customize_background_corner_radius_summary">Ermöglicht es Ihnen, die Ecken von Widgets abzurunden, wenn Ihr Startbildschirm dies nicht unterstützt</string>
     <string name="background_corner_radius_title">Hintergrund-Eckenradius</string>
@@ -614,4 +614,39 @@
     <string name="screensaver_bold_battery_title">Batteriestand in fett</string>
     <string name="screensaver_italic_battery_title">Batteriestand in kursiv</string>
     <string name="enable_per_alarm_vibration_pattern_dialog_message">Eigene Vibrationsmuster werden zurückgesetzt.%s</string>
+    <string name="sync_alarm_by_label_title">Ein- und Ausschalten mit anderen Weckern synchronisieren, die den gleichen Namen haben</string>
+    <string name="label_indefinitely">Unendlich</string>
+    <string name="alarm_alert_dismiss_and_delete_text_button">Verwerfen &amp;\nLöschen</string>
+    <string name="permissions_category_title">Berechtigungen</string>
+    <string name="enable_alarm_vibrations_by_default_dialog_message">Vibration wird für alle Wecker deaktiviert.%s</string>
+    <string name="enable_delete_occasional_alarm_by_default_dialog_message">Die Funktion \"Wecker löschen, sobald er verworfen wurde\" wird für alle Wecker deaktiviert.%s</string>
+    <string name="snooze_plus_symbol_color_title">Farbe des „+“ Symbols</string>
+    <string name="snooze_minus_symbol_color_title">Farbe des „-“ Symbols</string>
+    <string name="clock_dial_with_roman_numbers">Mit römischen Ziffern</string>
+    <string name="timezone_baker_howland">Bakerinsel &amp; Howlandinsel</string>
+    <string name="timezone_marquesas">Marquesas-Inseln</string>
+    <string name="timezone_chatham">Chathaminseln</string>
+    <string name="timezone_gambier">Gambierinseln</string>
+    <string name="timezone_pitcairn">Pitcairn</string>
+    <string name="timezone_easter_island">Osterinsel</string>
+    <string name="timezone_miquelon">Saint-Pierre und Miquelon</string>
+    <string name="timezone_noronha">Fernando de Noronha</string>
+    <string name="timezone_lord_howe">Lord-Howe-Insel</string>
+    <string name="timezone_norfolk">Norfolkinsel</string>
+    <string name="timezone_macquarie">Macquarieinsel</string>
+    <string name="foreground_service_dialog_message">Um zu verhindern, dass Ihr Gerät die App zwangsweise schließt und Sie dadurch Wecker verpassen, wird dauerhaft eine Benachrichtigung eingeblendet.\n\nDadurch bleibt die App im Arbeitsspeicher, was jedoch zu einem leicht erhöhten Akkuverbrauch führen kann.\n\nHinweis: Bei den meisten Geräten ist es nicht notwendig, diese Einstellung zu aktivieren. Aktivieren Sie sie nur, wenn Sie Wecker verpassen.</string>
+    <string name="button_tip_title">Taste „+“ gedrückt halten, um Ordner hinzuzufügen</string>
+    <string name="snooze_minus_button_color_title">Farbe der „-“ Taste</string>
+    <string name="snooze_plus_button_color_title">Farbe der „+“ Taste</string>
+    <string name="display_snooze_selector_title">Schaltflächen für abweichende Schlummerdauer anzeigen</string>
+    <string name="snooze_zone_color_title">Hintergrundfarbe der Schlummerdauer-Schaltfläche</string>
+    <string name="snooze_selector_text_color_title">Schriftfarbe der Schlummerdauer-Schaltfläche</string>
+    <string name="background_image_summary">Hintergrundfarbe auf transparent einstellen, um Hintergrundbild sichtbar zu machen</string>
+    <string name="missed_timer_indicator_color_title">Farbe für verpassten Timer</string>
+    <string name="clock_second_hand_lollipop">Breguet</string>
+    <string name="alarm_volume_low">Die Wecker-Lautstärke ist niedrig</string>
+    <string name="foreground_service_message">Läuft im Hintergrund</string>
+    <string name="foreground_service_channel">Dauerhafte Benachrichtigung</string>
+    <string name="foreground_service_title">Dauerhafte Benachrichtigung anzeigen</string>
+    <string name="fix_alarm_volume">Korrigieren</string>
 </resources>
