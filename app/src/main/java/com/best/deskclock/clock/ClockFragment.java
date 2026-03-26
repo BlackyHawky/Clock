@@ -159,7 +159,7 @@ public final class ClockFragment extends DeskClockFragment {
             : 0, mDisplayMetrics)
         );
 
-        cityList.addItemDecoration(new CitySpacingItemDecoration(mContext, mIsPortrait, mIsTablet));
+        cityList.addItemDecoration(new CitySpacingItemDecoration(mContext, mDisplayMetrics, mIsPortrait, mIsTablet));
 
         CityItemTouchHelper callback = new CityItemTouchHelper(mCityAdapter, mIsPortrait, mShowHomeClock);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
@@ -302,25 +302,25 @@ public final class ClockFragment extends DeskClockFragment {
         private final int bottomMargin;
         private final int spacing;
         private final int mainClockCount;
+        private final boolean mIsRTL;
 
-        public CitySpacingItemDecoration(Context context, boolean isPortrait, boolean isTablet) {
-            DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+        public CitySpacingItemDecoration(Context context, DisplayMetrics displayMetrics, boolean isPortrait, boolean isTablet) {
             boolean isPhoneInLandscapeMode = !isTablet && !isPortrait;
 
             // Determine whether the main clock is present (so that margins are not applied to it)
             this.mainClockCount = isPortrait ? 1 : 0;
 
-            this.leftMargin = (int) dpToPx(isPhoneInLandscapeMode ? 0 : 10, metrics);
-            this.rightMargin = (int) dpToPx(isPhoneInLandscapeMode ? 90 : 10, metrics);
-            this.spacing = (int) dpToPx(2, metrics);
-            this.bottomMargin = (int) dpToPx(10, metrics);
+            this.leftMargin = (int) dpToPx(isPhoneInLandscapeMode ? 0 : 10, displayMetrics);
+            this.rightMargin = (int) dpToPx(isPhoneInLandscapeMode ? 90 : 10, displayMetrics);
+            this.spacing = (int) dpToPx(2, displayMetrics);
+            this.bottomMargin = (int) dpToPx(10, displayMetrics);
+            this.mIsRTL = ThemeUtils.isRTL(context);
         }
 
         @Override
         public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent,
                                    @NonNull RecyclerView.State state) {
 
-            boolean isRTL = ThemeUtils.isRTL();
             int position = parent.getChildAdapterPosition(view);
             RecyclerView.Adapter<?> adapter = parent.getAdapter();
 
@@ -334,8 +334,8 @@ public final class ClockFragment extends DeskClockFragment {
             }
 
             // Side margins
-            outRect.left = isRTL ? rightMargin : leftMargin;
-            outRect.right = isRTL ? leftMargin : rightMargin;
+            outRect.left = mIsRTL ? rightMargin : leftMargin;
+            outRect.right = mIsRTL ? leftMargin : rightMargin;
 
             int itemCount = adapter.getItemCount();
 

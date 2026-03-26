@@ -376,6 +376,10 @@
     <string name="settings_language_bulgarian">Bulgarian</string>
     <!-- Setting title for changing the language to Tamil. -->
     <string name="settings_language_tamil">Tamil</string>
+    <!-- Setting title for changing the language to Arabic. -->
+    <string name="settings_language_arabic">Arabic</string>
+    <!-- Setting title for changing the language to Hungarian. -->
+    <string name="settings_language_hungarian">Hungarian</string>
     <!-- Setting title for changing the tab to display when opening the application. -->
     <string name="settings_tab_to_display">Tab to display when opening the application</string>
     <!-- Setting title to switch to last tab used -->

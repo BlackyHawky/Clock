@@ -165,7 +165,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
 
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(getLayoutManager(mContext));
-        mRecyclerView.addItemDecoration(new GridSpacingItemDecoration(mDisplayMetrics));
+        mRecyclerView.addItemDecoration(new GridSpacingItemDecoration(mContext, mDisplayMetrics));
 
         // Due to the ViewPager and the location of FAB, set a bottom padding and/or a right padding
         // to prevent the reset button from being hidden by the FAB (e.g. when scrolling down).
@@ -758,10 +758,12 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     private static class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
         private final int margin;
         private final int spacing;
+        private final boolean mIsRTL;
 
-        public GridSpacingItemDecoration(DisplayMetrics displayMetrics) {
+        public GridSpacingItemDecoration(Context context, DisplayMetrics displayMetrics) {
             this.margin = (int) dpToPx(10, displayMetrics);
             this.spacing = (int) dpToPx(2, displayMetrics);
+            this.mIsRTL = ThemeUtils.isRTL(context);
         }
 
         @Override
@@ -778,7 +780,6 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
                 return;
             }
 
-            boolean isRTL = ThemeUtils.isRTL();
             RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
 
             if (layoutManager instanceof GridLayoutManager gridLayoutManager) {
@@ -789,8 +790,8 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
                 int standardLeft = margin - column * margin / spanCount;
                 int standardRight = (column + 1) * margin / spanCount;
 
-                outRect.left = isRTL ? standardRight : standardLeft;
-                outRect.right = isRTL ? standardLeft : standardRight;
+                outRect.left = mIsRTL ? standardRight : standardLeft;
+                outRect.right = mIsRTL ? standardLeft : standardRight;
                 outRect.bottom = margin;
             } else if (layoutManager instanceof LinearLayoutManager linearLayoutManager) {
                 if (linearLayoutManager.getOrientation() == RecyclerView.HORIZONTAL) {
@@ -798,8 +799,8 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
                     int itemCount = state.getItemCount();
                     int standardRight = (position == itemCount - 1) ? margin : 0;
 
-                    outRect.left = isRTL ? standardRight : standardLeft;
-                    outRect.right = isRTL ? standardLeft : standardRight;
+                    outRect.left = mIsRTL ? standardRight : standardLeft;
+                    outRect.right = mIsRTL ? standardLeft : standardRight;
                     outRect.bottom = margin;
                 } else {
                     outRect.left = margin;

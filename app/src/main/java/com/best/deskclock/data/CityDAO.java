@@ -123,8 +123,7 @@ final class CityDAO {
      * @noinspection resource
      */
     static Map<String, City> getCities(Context context) {
-        final Context localizedContext = Utils.getLocalizedContext(context);
-        final Resources resources = localizedContext.getResources();
+        final Resources resources = Utils.getLocalizedContext(context).getResources();
         final TypedArray cityStrings = resources.obtainTypedArray(R.array.city_ids);
         final int citiesCount = cityStrings.length();
 

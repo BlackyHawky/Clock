@@ -96,7 +96,7 @@ public class AlarmItemTouchHelper extends ItemTouchHelper.SimpleCallback {
             TypedValue.COMPLEX_UNIT_SP, 16, context.getResources().getDisplayMetrics()));
         mDeleteTextPaint.setColor(MaterialColors.getColor(context, com.google.android.material.R.attr.colorOnError, Color.BLACK));
         mDeleteTextPaint.setTypeface(ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(getDefaultSharedPreferences(context))));
-        mDeleteTextPaint.setTextAlign(ThemeUtils.isRTL() ? Paint.Align.RIGHT : Paint.Align.LEFT);
+        mDeleteTextPaint.setTextAlign(ThemeUtils.isRTL(context) ? Paint.Align.RIGHT : Paint.Align.LEFT);
 
         mTopRadii = new float[]{
             mLargeRadius, mLargeRadius, mLargeRadius, mLargeRadius,

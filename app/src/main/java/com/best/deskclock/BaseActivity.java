@@ -72,6 +72,7 @@ public class BaseActivity extends AppCompatActivity {
 
         initDebugAndNightlyDefaults();
         applyThemeAndAccentColor();
+        getWindow().getDecorView().setLayoutDirection(getResources().getConfiguration().getLayoutDirection());
 
         super.onCreate(savedInstanceState);
 

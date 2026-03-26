@@ -223,7 +223,7 @@ public final class AlarmFragment extends DeskClockFragment
 
         mRecyclerView.setAdapter(mItemAdapter);
 
-        mRecyclerView.addItemDecoration(new GridSpacingItemDecoration(mDisplayMetrics));
+        mRecyclerView.addItemDecoration(new GridSpacingItemDecoration(mContext, mDisplayMetrics));
 
         RecyclerView.ItemAnimator animator = mRecyclerView.getItemAnimator();
         if (animator instanceof SimpleItemAnimator) {
@@ -886,10 +886,12 @@ public final class AlarmFragment extends DeskClockFragment
 
         private final int margin;
         private final int bottomMargin;
+        private final boolean mIsRTL;
 
-        public GridSpacingItemDecoration(DisplayMetrics displayMetrics) {
+        public GridSpacingItemDecoration(Context context, DisplayMetrics displayMetrics) {
             this.margin = (int) dpToPx(10, displayMetrics);
             this.bottomMargin = (int) dpToPx(2, displayMetrics);
+            this.mIsRTL = ThemeUtils.isRTL(context);
         }
 
         @Override
@@ -908,7 +910,6 @@ public final class AlarmFragment extends DeskClockFragment
 
             RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
             if (layoutManager instanceof GridLayoutManager gridLayoutManager) {
-                boolean isRTL = ThemeUtils.isRTL();
                 int spanCount = gridLayoutManager.getSpanCount();
                 int column = position % spanCount;
 
@@ -916,8 +917,8 @@ public final class AlarmFragment extends DeskClockFragment
                 int standardLeft = margin - column * margin / spanCount;
                 int standardRight = (column + 1) * margin / spanCount;
 
-                outRect.left = isRTL ? standardRight : standardLeft;
-                outRect.right = isRTL ? standardLeft : standardRight;
+                outRect.left = mIsRTL ? standardRight : standardLeft;
+                outRect.right = mIsRTL ? standardLeft : standardRight;
                 outRect.bottom = margin;
             } else {
                 outRect.left = margin;

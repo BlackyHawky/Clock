@@ -496,6 +496,8 @@
         <item>@string/settings_language_chinese_traditional_tw</item>
         <item>@string/settings_language_bulgarian</item>
         <item>@string/settings_language_tamil</item>
+        <item>@string/settings_language_arabic</item>
+        <item>@string/settings_language_hungarian</item>
     </string-array>
     <!-- Values that are retrieved from the ListPreference. These must match the language_entries above. -->
     <string-array name="language_values" translatable="false">
@@ -519,6 +521,8 @@
         <item>zh_TW</item>
         <item>bg</item>
         <item>ta</item>
+        <item>ar</item>
+        <item>hu</item>
     </string-array>
 
     <!-- Entries listed in the ListPreference when invoking the city sort preference -->

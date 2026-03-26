@@ -322,6 +322,8 @@ final class CityModel {
             mAllCities = null;
             mSelectedCities = null;
             mUnselectedCities = null;
+
+            fireCitiesChanged();
         }
     }
 

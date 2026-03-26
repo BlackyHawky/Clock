@@ -136,8 +136,8 @@ public class ThemeUtils {
     /**
      * @return {@code true} if the current layout direction is RTL. {@code false} otherwise.
      */
-    public static boolean isRTL() {
-        return Resources.getSystem().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
+    public static boolean isRTL(Context context) {
+        return context.getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
     }
 
     /**
@@ -415,7 +415,7 @@ public class ThemeUtils {
         } else if (position == 0) {
             // First horizontal item
             if (isHorizontal) {
-                if (isRTL()) {
+                if (isRTL(context)) {
                     // RTL : rounded on the right, square on the left
                     gradientDrawable.setCornerRadii(new float[]{
                         smallRadius, smallRadius, largeRadius, largeRadius,
@@ -435,7 +435,7 @@ public class ThemeUtils {
         } else if (position == totalCount - 1) {
             // Last horizontal item
             if (isHorizontal) {
-                if (isRTL()) {
+                if (isRTL(context)) {
                     // RTL : square on the right, rounded on the left
                     gradientDrawable.setCornerRadii(new float[]{
                         largeRadius, largeRadius, smallRadius, smallRadius,
