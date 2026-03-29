@@ -189,6 +189,22 @@
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
+        <SwitchPreferenceCompat
+            android:key="key_material_you_digital_widget_default_city_note_color"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/city_note_default_color_title"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <com.best.deskclock.settings.custompreference.ColorPickerPreference
+            android:key="key_material_you_digital_widget_custom_city_note_color"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/city_note_color_title"
+            android:defaultValue="#FFFFFF"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

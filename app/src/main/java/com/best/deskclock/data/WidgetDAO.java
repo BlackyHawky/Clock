@@ -301,6 +301,23 @@ public final class WidgetDAO {
     }
 
     /**
+     * @return {@code true} if the default color is applied to the city note on the digital widget;
+     * {@code false} otherwise.
+     */
+    public static boolean isDigitalWidgetDefaultCityNoteColor(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_digital_widget.xml
+        return prefs.getBoolean(KEY_DIGITAL_WIDGET_DEFAULT_CITY_NOTE_COLOR, DEFAULT_WIDGETS_DEFAULT_COLOR);
+    }
+
+    /**
+     * @return a value indicating the color of the city note on the digital widget.
+     */
+    public static int getDigitalWidgetCustomCityNoteColor(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_digital_widget.xml
+        return prefs.getInt(KEY_DIGITAL_WIDGET_CUSTOM_CITY_NOTE_COLOR, DEFAULT_WIDGETS_CUSTOM_COLOR);
+    }
+
+    /**
      * @return the font size applied to the clock in the digital widget.
      */
     public static int getDigitalWidgetMaxClockFontSize(SharedPreferences prefs) {
@@ -868,6 +885,23 @@ public final class WidgetDAO {
     public static int getMaterialYouDigitalWidgetCustomCityNameColor(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_customize_material_you_digital_widget.xml
         return prefs.getInt(KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CITY_NAME_COLOR, DEFAULT_WIDGETS_CUSTOM_COLOR);
+    }
+
+    /**
+     * @return {@code true} if the default color is applied to the city note on the Material You digital widget;
+     * {@code false} otherwise.
+     */
+    public static boolean isMaterialYouDigitalWidgetDefaultCityNoteColor(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_material_you_digital_widget.xml
+        return prefs.getBoolean(KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_CITY_NOTE_COLOR, DEFAULT_WIDGETS_DEFAULT_COLOR);
+    }
+
+    /**
+     * @return a value indicating the color of the city note on the Material You digital widget.
+     */
+    public static int getMaterialYouDigitalWidgetCustomCityNoteColor(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_material_you_digital_widget.xml
+        return prefs.getInt(KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CITY_NOTE_COLOR, DEFAULT_WIDGETS_CUSTOM_COLOR);
     }
 
     /**

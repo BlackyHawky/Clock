@@ -55,6 +55,8 @@ public class MaterialYouDigitalWidgetSettingsFragment extends ScreenFragment
     ColorPickerPreference mCustomCityClockColorPref;
     SwitchPreferenceCompat mDefaultCityNameColorPref;
     ColorPickerPreference mCustomCityNameColorPref;
+    SwitchPreferenceCompat mDefaultCityNoteColorPref;
+    ColorPickerPreference mCustomCityNoteColorPref;
     CustomSliderPreference mDigitalWidgetMaxClockFontSizePref;
 
     @Override
@@ -89,6 +91,8 @@ public class MaterialYouDigitalWidgetSettingsFragment extends ScreenFragment
         mCustomCityClockColorPref = findPreference(KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CITY_CLOCK_COLOR);
         mDefaultCityNameColorPref = findPreference(KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_CITY_NAME_COLOR);
         mCustomCityNameColorPref = findPreference(KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CITY_NAME_COLOR);
+        mDefaultCityNoteColorPref = findPreference(KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_CITY_NOTE_COLOR);
+        mCustomCityNoteColorPref = findPreference(KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CITY_NOTE_COLOR);
         mDigitalWidgetMaxClockFontSizePref = findPreference(KEY_MATERIAL_YOU_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE);
 
         setupPreferences();
@@ -157,18 +161,27 @@ public class MaterialYouDigitalWidgetSettingsFragment extends ScreenFragment
             }
 
             case KEY_MATERIAL_YOU_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED -> {
-                mDefaultCityClockColorPref.setVisible((boolean) newValue);
-                mCustomCityClockColorPref.setVisible((boolean) newValue
+                boolean areWorldCitiesDisplayed = (boolean) newValue;
+                boolean isCityNoteEnabled = SettingsDAO.isCityNoteEnabled(mPrefs);
+
+                mDefaultCityClockColorPref.setVisible(areWorldCitiesDisplayed);
+                mCustomCityClockColorPref.setVisible(areWorldCitiesDisplayed
                     && !WidgetDAO.isMaterialYouDigitalWidgetDefaultCityClockColor(mPrefs));
-                mDefaultCityNameColorPref.setVisible((boolean) newValue);
-                mCustomCityNameColorPref.setVisible((boolean) newValue
+                mDefaultCityNameColorPref.setVisible(areWorldCitiesDisplayed);
+                mCustomCityNameColorPref.setVisible(areWorldCitiesDisplayed
                     && !WidgetDAO.isMaterialYouDigitalWidgetDefaultCityNameColor(mPrefs));
-                mDigitalWidgetMaxClockFontSizePref.setEnabled(!(boolean) newValue);
-                if ((boolean) newValue) {
+                mDefaultCityNoteColorPref.setVisible(areWorldCitiesDisplayed && isCityNoteEnabled);
+                mCustomCityNoteColorPref.setVisible(areWorldCitiesDisplayed
+                    && isCityNoteEnabled
+                    && !WidgetDAO.isMaterialYouDigitalWidgetDefaultCityNoteColor(mPrefs));
+
+                mDigitalWidgetMaxClockFontSizePref.setEnabled(!areWorldCitiesDisplayed);
+                if (areWorldCitiesDisplayed) {
                     mDigitalWidgetMaxClockFontSizePref.setTitle(R.string.digital_widget_message_summary);
                 } else {
                     mDigitalWidgetMaxClockFontSizePref.setTitle(R.string.max_clock_font_size_title);
                 }
+
                 Utils.setVibrationTime(requireContext(), 50);
             }
 
@@ -211,6 +224,11 @@ public class MaterialYouDigitalWidgetSettingsFragment extends ScreenFragment
                 mCustomCityNameColorPref.setVisible(!(boolean) newValue);
                 Utils.setVibrationTime(requireContext(), 50);
             }
+
+            case KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_CITY_NOTE_COLOR -> {
+                mCustomCityNoteColorPref.setVisible(!(boolean) newValue);
+                Utils.setVibrationTime(requireContext(), 50);
+            }
         }
 
         WidgetUtils.scheduleWidgetUpdate(requireContext(), MaterialYouDigitalAppWidgetProvider.class);
@@ -221,6 +239,7 @@ public class MaterialYouDigitalWidgetSettingsFragment extends ScreenFragment
         final boolean areWorldCitiesDisplayed = WidgetDAO.areWorldCitiesDisplayedOnMaterialYouDigitalWidget(mPrefs);
         List<City> selectedCities = DataModel.getDataModel().getSelectedCities();
         final boolean showHomeClock = SettingsDAO.getShowHomeClock(requireContext(), mPrefs);
+        final boolean isCityNoteEnabled = SettingsDAO.isCityNoteEnabled(mPrefs);
 
         mDisplaySecondsPref.setOnPreferenceChangeListener(this);
 
@@ -294,6 +313,15 @@ public class MaterialYouDigitalWidgetSettingsFragment extends ScreenFragment
             && !WidgetDAO.isMaterialYouDigitalWidgetDefaultCityNameColor(mPrefs));
         mCustomCityNameColorPref.setOnPreferenceChangeListener(this);
 
+        mDefaultCityNoteColorPref.setVisible(mShowCitiesOnDigitalWidgetPref.isVisible() && areWorldCitiesDisplayed && isCityNoteEnabled);
+        mDefaultCityNoteColorPref.setOnPreferenceChangeListener(this);
+
+        mCustomCityNoteColorPref.setVisible(mShowCitiesOnDigitalWidgetPref.isVisible()
+            && areWorldCitiesDisplayed
+            && isCityNoteEnabled
+            && !WidgetDAO.isMaterialYouDigitalWidgetDefaultCityNoteColor(mPrefs));
+        mCustomCityNoteColorPref.setOnPreferenceChangeListener(this);
+
         if (mShowCitiesOnDigitalWidgetPref.isVisible() && areWorldCitiesDisplayed) {
             mDigitalWidgetMaxClockFontSizePref.setEnabled(false);
             mDigitalWidgetMaxClockFontSizePref.setTitle(R.string.digital_widget_message_summary);
@@ -318,6 +346,7 @@ public class MaterialYouDigitalWidgetSettingsFragment extends ScreenFragment
         mDefaultNextAlarmColorPref.setChecked(WidgetDAO.isMaterialYouDigitalWidgetDefaultNextAlarmColor(mPrefs));
         mDefaultCityClockColorPref.setChecked(WidgetDAO.isMaterialYouDigitalWidgetDefaultCityClockColor(mPrefs));
         mDefaultCityNameColorPref.setChecked(WidgetDAO.isMaterialYouDigitalWidgetDefaultCityNameColor(mPrefs));
+        mDefaultCityNoteColorPref.setChecked(WidgetDAO.isMaterialYouDigitalWidgetDefaultCityNoteColor(mPrefs));
     }
 
     private void updateMaterialYouDigitalWidget() {

@@ -280,6 +280,8 @@ public class PreferencesKeys {
     public static final String KEY_DIGITAL_WIDGET_CUSTOM_CITY_CLOCK_COLOR = "key_digital_widget_custom_city_clock_color";
     public static final String KEY_DIGITAL_WIDGET_DEFAULT_CITY_NAME_COLOR = "key_digital_widget_default_city_name_color";
     public static final String KEY_DIGITAL_WIDGET_CUSTOM_CITY_NAME_COLOR = "key_digital_widget_custom_city_name_color";
+    public static final String KEY_DIGITAL_WIDGET_DEFAULT_CITY_NOTE_COLOR = "key_digital_widget_default_city_note_color";
+    public static final String KEY_DIGITAL_WIDGET_CUSTOM_CITY_NOTE_COLOR = "key_digital_widget_custom_city_note_color";
     public static final String KEY_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE = "key_digital_widget_maximum_clock_font_size";
 
     // Next Alarm Widget
@@ -352,6 +354,8 @@ public class PreferencesKeys {
     public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CITY_CLOCK_COLOR = "key_material_you_digital_widget_custom_city_clock_color";
     public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_CITY_NAME_COLOR = "key_material_you_digital_widget_default_city_name_color";
     public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CITY_NAME_COLOR = "key_material_you_digital_widget_custom_city_name_color";
+    public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_CITY_NOTE_COLOR = "key_material_you_digital_widget_default_city_note_color";
+    public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CITY_NOTE_COLOR = "key_material_you_digital_widget_custom_city_note_color";
     public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE = "key_material_you_digital_widget_maximum_clock_font_size";
 
     // Material You Vertical Digital Widget

@@ -68,6 +68,16 @@ public class DigitalAppWidgetCityViewsFactory extends BaseDigitalAppWidgetCityVi
     }
 
     @Override
+    protected int getLeftCityNoteWithShadowId() {
+        return R.id.cityNoteLeft;
+    }
+
+    @Override
+    protected int getLeftCityNoteWithoutShadowId() {
+        return R.id.cityNoteLeftNoShadow;
+    }
+
+    @Override
     protected int getRightClockWithShadowId() {
         return R.id.rightClock;
     }
@@ -98,6 +108,16 @@ public class DigitalAppWidgetCityViewsFactory extends BaseDigitalAppWidgetCityVi
     }
 
     @Override
+    protected int getRightCityNoteWithShadowId() {
+        return R.id.cityNoteRight;
+    }
+
+    @Override
+    protected int getRightCityNoteWithoutShadowId() {
+        return R.id.cityNoteRightNoShadow;
+    }
+
+    @Override
     protected int getCitySpacerId() {
         return R.id.citySpacer;
     }
@@ -113,20 +133,25 @@ public class DigitalAppWidgetCityViewsFactory extends BaseDigitalAppWidgetCityVi
     }
 
     @Override
-    protected void configureColors(RemoteViews rv, Context context, SharedPreferences prefs, int clockId, int labelId, int dayId) {
+    protected void configureColors(RemoteViews rv, Context context, SharedPreferences prefs, int clockId, int labelId, int dayId,
+                                   int noteId) {
 
         int cityClockColor = WidgetDAO.isDigitalWidgetDefaultCityClockColor(prefs)
             ? DEFAULT_WIDGETS_CUSTOM_COLOR
             : WidgetDAO.getDigitalWidgetCustomCityClockColor(prefs);
 
-        rv.setTextColor(clockId, cityClockColor);
-
         int cityNameColor = WidgetDAO.isDigitalWidgetDefaultCityNameColor(prefs)
             ? DEFAULT_WIDGETS_CUSTOM_COLOR
             : WidgetDAO.getDigitalWidgetCustomCityNameColor(prefs);
 
+        int cityNoteColor = WidgetDAO.isDigitalWidgetDefaultCityNoteColor(prefs)
+            ? DEFAULT_WIDGETS_CUSTOM_COLOR
+            : WidgetDAO.getDigitalWidgetCustomCityNoteColor(prefs);
+
+        rv.setTextColor(clockId, cityClockColor);
         rv.setTextColor(labelId, cityNameColor);
         rv.setTextColor(dayId, cityNameColor);
+        rv.setTextColor(noteId, cityNoteColor);
     }
 
 }

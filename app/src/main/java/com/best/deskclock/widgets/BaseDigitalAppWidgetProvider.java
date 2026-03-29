@@ -18,6 +18,7 @@ import static android.view.View.MeasureSpec.UNSPECIFIED;
 import static android.view.View.VISIBLE;
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_CITY_NOTE;
 import static com.best.deskclock.utils.WidgetUtils.EXTRA_CITY_INDEX;
 import static com.best.deskclock.utils.WidgetUtils.EXTRA_WIDGET_ID;
 import static com.best.deskclock.utils.WidgetUtils.METHOD_SET_TIME_ZONE;
@@ -159,6 +160,8 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
     protected abstract int getCityClockColor(Context context, SharedPreferences prefs);
 
     protected abstract int getCityNameColor(Context context, SharedPreferences prefs);
+
+    protected abstract int getCityNoteColor(Context context, SharedPreferences prefs);
 
     protected abstract void bindDateClickAction(RemoteViews rv, SharedPreferences prefs, PendingIntent calendarPendingIntent);
 
@@ -522,18 +525,18 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
 
                 fillColumn(rowRv, left, i, widgetId, true, false, shadowEnabled, isTextUppercase, is24HourFormat,
                     hour12FontSize, hour24FontSize, cityAndDayFontSize, fontScale, getCityClockColor(context, prefs),
-                    getCityNameColor(context, prefs), context, localCal);
+                    getCityNameColor(context, prefs), getCityNoteColor(context, prefs), context, prefs, localCal);
 
                 fillColumn(rowRv, right, i + 1, widgetId, false, false, shadowEnabled, isTextUppercase, is24HourFormat,
                     hour12FontSize, hour24FontSize, cityAndDayFontSize, fontScale, getCityClockColor(context, prefs),
-                    getCityNameColor(context, prefs), context, localCal);
+                    getCityNameColor(context, prefs), getCityNoteColor(context, prefs), context, prefs, localCal);
             } else {
                 rowRv.setViewVisibility(R.id.twoColumnContainer, View.GONE);
                 rowRv.setViewVisibility(R.id.singleColumnContainer, View.VISIBLE);
 
                 fillColumn(rowRv, left, i, widgetId, true, true, shadowEnabled, isTextUppercase, is24HourFormat,
                     hour12FontSize, hour24FontSize, cityAndDayFontSize, fontScale, getCityClockColor(context, prefs),
-                    getCityNameColor(context, prefs), context, localCal);
+                    getCityNameColor(context, prefs), getCityNoteColor(context, prefs), context, prefs, localCal);
             }
 
             boolean lastRow = (rowIndex == totalRows - 1);
@@ -575,7 +578,8 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
     private void fillColumn(RemoteViews rowRv, City city, int cityIndex, int widgetId, boolean isLeft,
                             boolean isSingle, boolean shadowEnabled, boolean isTextUppercase, boolean is24HourFormat,
                             float hour12FontSize, float hour24FontSize, float cityAndDayFontSize, float fontScale,
-                            int cityClockColor, int cityNameColor, Context context, Calendar localCal) {
+                            int cityClockColor, int cityNameColor, int cityNoteColor, Context context, SharedPreferences prefs,
+                            Calendar localCal) {
 
         if (city == null) {
             // Hide the corresponding container
@@ -590,7 +594,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
         }
 
         // Choice of IDs according to left/right/single and shadow
-        final int clockId, clockOffId, nameId, nameOffId, dayId, dayOffId, containerId;
+        final int clockId, clockOffId, nameId, nameOffId, dayId, dayOffId, noteId, noteOffId, containerId;
 
         if (isSingle) {
             clockId = shadowEnabled ? R.id.singleClock : R.id.singleClockNoShadow;
@@ -599,6 +603,8 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
             nameOffId = shadowEnabled ? R.id.singleCityNameNoShadow : R.id.singleCityName;
             dayId = shadowEnabled ? R.id.singleCityDay : R.id.singleCityDayNoShadow;
             dayOffId = shadowEnabled ? R.id.singleCityDayNoShadow : R.id.singleCityDay;
+            noteId = shadowEnabled ? R.id.singleCityNote : R.id.singleCityNoteNoShadow;
+            noteOffId = shadowEnabled ? R.id.singleCityNoteNoShadow : R.id.singleCityNote;
             containerId = R.id.singleContainer;
         } else if (isLeft) {
             clockId = shadowEnabled ? R.id.leftClock : R.id.leftClockNoShadow;
@@ -607,6 +613,8 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
             nameOffId = shadowEnabled ? R.id.cityNameLeftNoShadow : R.id.cityNameLeft;
             dayId = shadowEnabled ? R.id.cityDayLeft : R.id.cityDayLeftNoShadow;
             dayOffId = shadowEnabled ? R.id.cityDayLeftNoShadow : R.id.cityDayLeft;
+            noteId = shadowEnabled ? R.id.cityNoteLeft : R.id.cityNoteLeftNoShadow;
+            noteOffId = shadowEnabled ? R.id.cityNoteLeftNoShadow : R.id.cityNoteLeft;
             containerId = R.id.leftContainer;
         } else {
             clockId = shadowEnabled ? R.id.rightClock : R.id.rightClockNoShadow;
@@ -615,6 +623,8 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
             nameOffId = shadowEnabled ? R.id.cityNameRightNoShadow : R.id.cityNameRight;
             dayId = shadowEnabled ? R.id.cityDayRight : R.id.cityDayRightNoShadow;
             dayOffId = shadowEnabled ? R.id.cityDayRightNoShadow : R.id.cityDayRight;
+            noteId = shadowEnabled ? R.id.cityNoteRight : R.id.cityNoteRightNoShadow;
+            noteOffId = shadowEnabled ? R.id.cityNoteRightNoShadow : R.id.cityNoteRight;
             containerId = R.id.rightContainer;
         }
 
@@ -624,6 +634,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
         showActiveVariant(rowRv, clockId, clockOffId);
         showActiveVariant(rowRv, nameId, nameOffId);
         showActiveVariant(rowRv, dayId, dayOffId);
+        showActiveVariant(rowRv, noteId, noteOffId);
 
         // Time format
         WidgetUtils.applyClockFormat(rowRv, context, clockId, 0.4f, false);
@@ -649,6 +660,16 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
         }
         rowRv.setViewVisibility(dayId, displayDay ? View.VISIBLE : View.GONE);
 
+        // City note
+        String cityNote = prefs.getString(KEY_CITY_NOTE + city.getId(), null);
+        boolean displayCityNote = cityNote != null && SettingsDAO.isCityNoteEnabled(prefs);
+        if (displayCityNote) {
+            rowRv.setTextViewTextSize(noteId, TypedValue.COMPLEX_UNIT_PX, cityAndDayFontSize * fontScale);
+            rowRv.setTextViewText(noteId, isTextUppercase ? cityNote.toUpperCase() : cityNote);
+            rowRv.setTextColor(noteId, cityNoteColor);
+        }
+        rowRv.setViewVisibility(noteId, displayCityNote ? View.VISIBLE : View.GONE);
+
         // Fill-in intent
         Intent fill = new Intent();
         fill.putExtra(EXTRA_CITY_INDEX, cityIndex);
@@ -671,7 +692,10 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
      * @param inactiveIds ids of the views to hide (GONE)
      */
     private void showActiveVariant(RemoteViews rv, int activeId, int... inactiveIds) {
-        for (int id : inactiveIds) rv.setViewVisibility(id, View.GONE);
+        for (int id : inactiveIds) {
+            rv.setViewVisibility(id, View.GONE);
+        }
+
         rv.setViewVisibility(activeId, View.VISIBLE);
     }
 

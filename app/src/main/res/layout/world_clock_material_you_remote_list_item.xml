@@ -78,6 +78,18 @@
 
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/cityNoteLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingHorizontal="6dp"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                tools:text="Family"
+                tools:textColor="@color/widget_text_color" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -138,6 +150,18 @@
                     tools:textColor="@color/widget_text_color" />
 
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/cityNoteRight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingHorizontal="6dp"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                tools:text="Family"
+                tools:textColor="@color/widget_text_color" />
 
         </LinearLayout>
 

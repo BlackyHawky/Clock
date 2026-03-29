@@ -428,7 +428,7 @@ public class WidgetUtils {
     }
 
     /**
-     * Helper method to update a specific widget with a 300ms delay.
+     * Helper method to update a specific widget with a 600ms delay.
      */
     public static void scheduleWidgetUpdate(Context context, Class<?> widgetProviderClass) {
         AppExecutors.getMainThread().postDelayed(() ->

@@ -1099,8 +1099,12 @@
     <string name="city_clock_default_color_title">Use default color for city clock</string>
     <!-- Title to set the color of the city name. -->
     <string name="city_name_color_title">City name color</string>
+    <!-- Title to set the color of the city note. -->
+    <string name="city_note_color_title">City note color</string>
     <!-- Title to set the default color of the city name. -->
     <string name="city_name_default_color_title">Use default color for city name</string>
+    <!-- Title to set the default color of the city note. -->
+    <string name="city_note_default_color_title">Use default color for city note</string>
     <!-- Title to set the color of the alarm title. -->
     <string name="alarm_title_color">Alarm title color</string>
     <!-- Title to set the default color of the alarm title. -->

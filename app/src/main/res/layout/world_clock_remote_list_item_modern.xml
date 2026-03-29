@@ -118,6 +118,35 @@
 
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/cityNoteLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="6dp"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:shadowRadius="2.75"
+                android:shadowColor="@android:color/black"
+                android:shadowDx="2"
+                android:shadowDy="2"
+                tools:text="Family"
+                tools:textColor="@android:color/white"
+                tools:textAllCaps="true" />
+
+            <TextView
+                android:id="@+id/cityNoteLeftNoShadow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="6dp"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:visibility="gone"
+                tools:text="City1"
+                tools:textColor="@android:color/white"
+                tools:textAllCaps="true" />
+
         </LinearLayout>
 
         <!-- RIGHT COLUMN -->
@@ -217,6 +246,35 @@
                     tools:textAllCaps="true" />
 
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/cityNoteRight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="6dp"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:shadowRadius="2.75"
+                android:shadowColor="@android:color/black"
+                android:shadowDx="2"
+                android:shadowDy="2"
+                tools:text="Family"
+                tools:textColor="@android:color/white"
+                tools:textAllCaps="true" />
+
+            <TextView
+                android:id="@+id/cityNoteRightNoShadow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="6dp"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:visibility="gone"
+                tools:text="City1"
+                tools:textColor="@android:color/white"
+                tools:textAllCaps="true" />
 
         </LinearLayout>
 
@@ -327,6 +385,38 @@
                     tools:textAllCaps="true" />
 
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/singleCityNote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="6dp"
+                android:layout_gravity="center"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:shadowRadius="2.75"
+                android:shadowColor="@android:color/black"
+                android:shadowDx="2"
+                android:shadowDy="2"
+                tools:text="Family"
+                tools:textColor="@android:color/white"
+                tools:textAllCaps="true" />
+
+            <TextView
+                android:id="@+id/singleCityNoteNoShadow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="6dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:visibility="gone"
+                tools:text="Family"
+                tools:textColor="@android:color/white"
+                tools:textAllCaps="true" />
 
         </LinearLayout>
 

@@ -209,6 +209,11 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends BaseDigitalAppW
     }
 
     @Override
+    protected int getCityNoteColor(Context context, SharedPreferences prefs) {
+        return 0;
+    }
+
+    @Override
     protected void bindDateClickAction(RemoteViews rv, SharedPreferences prefs, PendingIntent calendarPendingIntent) {
         if (WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultDateColor(prefs)) {
             rv.setOnClickPendingIntent(getDateViewId(), calendarPendingIntent);

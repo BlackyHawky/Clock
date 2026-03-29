@@ -24,6 +24,9 @@ import com.best.deskclock.data.TimeZones;
 import com.best.deskclock.settings.custompreference.CustomSliderPreference;
 import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.utils.Utils;
+import com.best.deskclock.utils.WidgetUtils;
+import com.best.deskclock.widgets.materialyouwidgets.MaterialYouDigitalAppWidgetProvider;
+import com.best.deskclock.widgets.standardwidgets.DigitalAppWidgetProvider;
 
 public class ClockSettingsFragment extends ScreenFragment
     implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
@@ -157,7 +160,14 @@ public class ClockSettingsFragment extends ScreenFragment
                 Utils.setVibrationTime(requireContext(), 50);
             }
 
-            case KEY_DISPLAY_TEXT_UPPERCASE, KEY_ENABLE_CITY_NOTE -> Utils.setVibrationTime(requireContext(), 50);
+            case KEY_DISPLAY_TEXT_UPPERCASE -> Utils.setVibrationTime(requireContext(), 50);
+
+            case KEY_ENABLE_CITY_NOTE -> {
+                Utils.setVibrationTime(requireContext(), 50);
+
+                WidgetUtils.scheduleWidgetUpdate(requireContext(), DigitalAppWidgetProvider.class);
+                WidgetUtils.scheduleWidgetUpdate(requireContext(), MaterialYouDigitalAppWidgetProvider.class);
+            }
         }
 
         return true;

@@ -148,6 +148,15 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
+    protected int getCityNoteColor(Context context, SharedPreferences prefs) {
+        if (WidgetDAO.isDigitalWidgetDefaultCityNoteColor(prefs)) {
+            return DEFAULT_WIDGETS_CUSTOM_COLOR;
+        } else {
+            return WidgetDAO.getDigitalWidgetCustomCityNoteColor(prefs);
+        }
+    }
+
+    @Override
     protected int getClockCustomViewId() {
         return 0;
     }

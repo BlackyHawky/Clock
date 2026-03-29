@@ -7,6 +7,7 @@ import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_CITY_NOTE;
 import static com.best.deskclock.utils.WidgetUtils.METHOD_SET_TIME_ZONE;
 import static java.util.Calendar.DAY_OF_WEEK;
 
@@ -62,6 +63,10 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory implements RemoteView
 
     protected abstract int getLeftCityDayWithoutShadowId();
 
+    protected abstract int getLeftCityNoteWithShadowId();
+
+    protected abstract int getLeftCityNoteWithoutShadowId();
+
     protected abstract int getRightClockWithShadowId();
 
     protected abstract int getRightClockWithoutShadowId();
@@ -74,13 +79,18 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory implements RemoteView
 
     protected abstract int getRightCityDayWithoutShadowId();
 
+    protected abstract int getRightCityNoteWithShadowId();
+
+    protected abstract int getRightCityNoteWithoutShadowId();
+
     protected abstract int getCitySpacerId();
 
     protected abstract boolean isTextUppercaseDisplayed(SharedPreferences prefs);
 
     protected abstract boolean isTextShadowDisplayed(SharedPreferences prefs);
 
-    protected abstract void configureColors(RemoteViews rv, Context context, SharedPreferences prefs, int clockId, int labelId, int dayId);
+    protected abstract void configureColors(RemoteViews rv, Context context, SharedPreferences prefs, int clockId, int labelId, int dayId,
+                                            int noteId);
 
     private final Intent mFillInIntent = new Intent();
 
@@ -158,22 +168,26 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory implements RemoteView
         if (left != null) {
             update(rv, left, getLeftClockWithShadowId(), getLeftClockWithoutShadowId(),
                 getLeftCityNameWithShadowId(), getLeftCityNameWithoutShadowId(),
-                getLeftCityDayWithShadowId(), getLeftCityDayWithoutShadowId());
+                getLeftCityDayWithShadowId(), getLeftCityDayWithoutShadowId(),
+                getLeftCityNoteWithShadowId(), getLeftCityNoteWithoutShadowId());
         } else {
             hide(rv, getLeftClockWithShadowId(), getLeftClockWithoutShadowId(),
                 getLeftCityNameWithShadowId(), getLeftCityNameWithoutShadowId(),
-                getLeftCityDayWithShadowId(), getLeftCityDayWithoutShadowId());
+                getLeftCityDayWithShadowId(), getLeftCityDayWithoutShadowId(),
+                getLeftCityNoteWithShadowId(), getLeftCityNoteWithoutShadowId());
         }
 
         // Show the right clock if one exists.
         if (right != null) {
             update(rv, right, getRightClockWithShadowId(), getRightClockWithoutShadowId(),
                 getRightCityNameWithShadowId(), getRightCityNameWithoutShadowId(),
-                getRightCityDayWithShadowId(), getRightCityDayWithoutShadowId());
+                getRightCityDayWithShadowId(), getRightCityDayWithoutShadowId(),
+                getRightCityNoteWithShadowId(), getRightCityNoteWithoutShadowId());
         } else {
             hide(rv, getRightClockWithShadowId(), getRightClockWithoutShadowId(),
                 getRightCityNameWithShadowId(), getRightCityNameWithoutShadowId(),
-                getRightCityDayWithShadowId(), getRightCityDayWithoutShadowId());
+                getRightCityDayWithShadowId(), getRightCityDayWithoutShadowId(),
+                getRightCityNoteWithShadowId(), getRightCityNoteWithoutShadowId());
         }
 
         // Hide last spacer in last row; show for all others.
@@ -225,7 +239,8 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory implements RemoteView
 
     private void update(RemoteViews rv, City city, int clockWithShadowId, int clockWithoutShadowId,
                         int nameWithShadowId, int nameWithoutShadowId,
-                        int dayWithShadowId, int dayWithoutShadowId) {
+                        int dayWithShadowId, int dayWithoutShadowId,
+                        int noteWithShadowId, int noteWithoutShadowId) {
 
         final boolean shadowEnabled = isTextShadowDisplayed(mPrefs);
         final boolean isTextUppercase = isTextUppercaseDisplayed(mPrefs);
@@ -242,10 +257,14 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory implements RemoteView
         int dayId = shadowEnabled ? dayWithShadowId : dayWithoutShadowId;
         int dayOffId = shadowEnabled ? dayWithoutShadowId : dayWithShadowId;
 
+        int noteId = shadowEnabled ? noteWithShadowId : noteWithoutShadowId;
+        int noteOffId = shadowEnabled ? noteWithoutShadowId : noteWithShadowId;
+
         // Hide inactive variants
         rv.setViewVisibility(clockOffId, GONE);
         rv.setViewVisibility(labelOffId, GONE);
         rv.setViewVisibility(dayOffId, GONE);
+        rv.setViewVisibility(noteOffId, GONE);
 
         // Make active variants visible
         rv.setViewVisibility(clockId, VISIBLE);
@@ -283,12 +302,29 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory implements RemoteView
 
         rv.setViewVisibility(dayId, displayDayOfWeek ? VISIBLE : GONE);
 
-        configureColors(rv, mContext, mPrefs, clockId, labelId, dayId);
+        // Bind the city note
+        String cityNote = mPrefs.getString(KEY_CITY_NOTE + city.getId(), null);
+        boolean displayCityNote = cityNote != null && SettingsDAO.isCityNoteEnabled(mPrefs);
+
+        if (displayCityNote) {
+            rv.setTextViewTextSize(noteId, TypedValue.COMPLEX_UNIT_PX, mCityAndDayFontSize * mFontScale);
+
+            if (isTextUppercase) {
+                rv.setTextViewText(noteId, cityNote.toUpperCase());
+            } else {
+                rv.setTextViewText(noteId, cityNote);
+            }
+        }
+
+        rv.setViewVisibility(noteId, displayCityNote ? VISIBLE : GONE);
+
+        configureColors(rv, mContext, mPrefs, clockId, labelId, dayId, noteId);
     }
 
     private void hide(RemoteViews clock, int clockWithShadowId, int clockWithoutShadowId,
                       int nameWithShadowId, int nameWithoutShadowId,
-                      int dayWithShadowId, int dayWithoutShadowId) {
+                      int dayWithShadowId, int dayWithoutShadowId,
+                      int noteWithShadowId, int noteWithoutShadowId) {
 
         // Hide all variants to avoid any visual residue
         clock.setViewVisibility(clockWithShadowId, GONE);
@@ -297,6 +333,8 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory implements RemoteView
         clock.setViewVisibility(nameWithoutShadowId, GONE);
         clock.setViewVisibility(dayWithShadowId, GONE);
         clock.setViewVisibility(dayWithoutShadowId, GONE);
+        clock.setViewVisibility(noteWithShadowId, GONE);
+        clock.setViewVisibility(noteWithoutShadowId, GONE);
     }
 
     /**

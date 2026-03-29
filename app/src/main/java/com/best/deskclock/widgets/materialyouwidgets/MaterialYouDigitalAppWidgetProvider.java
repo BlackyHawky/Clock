@@ -218,6 +218,15 @@ public class MaterialYouDigitalAppWidgetProvider extends BaseDigitalAppWidgetPro
     }
 
     @Override
+    protected int getCityNoteColor(Context context, SharedPreferences prefs) {
+        if (WidgetDAO.isMaterialYouDigitalWidgetDefaultCityNoteColor(prefs)) {
+            return ContextCompat.getColor(context, R.color.widget_text_color);
+        } else {
+            return WidgetDAO.getMaterialYouDigitalWidgetCustomCityNoteColor(prefs);
+        }
+    }
+
+    @Override
     protected void bindDateClickAction(RemoteViews rv, SharedPreferences prefs, PendingIntent calendarPendingIntent) {
         if (WidgetDAO.isMaterialYouDigitalWidgetDefaultDateColor(prefs)) {
             rv.setOnClickPendingIntent(getDateViewId(), calendarPendingIntent);

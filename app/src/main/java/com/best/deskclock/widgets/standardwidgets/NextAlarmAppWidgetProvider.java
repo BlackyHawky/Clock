@@ -206,6 +206,11 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
+    protected int getCityNoteColor(Context context, SharedPreferences prefs) {
+        return 0;
+    }
+
+    @Override
     protected void bindDateClickAction(RemoteViews rv, SharedPreferences prefs, PendingIntent calendarPendingIntent) {
     }
 

@@ -25,6 +25,9 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.CityListener;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.utils.WidgetUtils;
+import com.best.deskclock.widgets.materialyouwidgets.MaterialYouDigitalAppWidgetProvider;
+import com.best.deskclock.widgets.standardwidgets.DigitalAppWidgetProvider;
 
 import java.util.Collections;
 import java.util.List;
@@ -211,6 +214,9 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         int position = getCityPositionById(cityId);
         if (position != RecyclerView.NO_POSITION) {
             notifyItemChanged(position);
+
+            WidgetUtils.updateWidget(mContext, DigitalAppWidgetProvider.class);
+            WidgetUtils.updateWidget(mContext, MaterialYouDigitalAppWidgetProvider.class);
         }
     }
 

@@ -72,6 +72,17 @@
 
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/cityNoteLeftNoShadow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="6dp"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                tools:text="Family"
+                tools:textColor="@color/widget_text_color" />
+
         </LinearLayout>
 
         <!-- RIGHT COLUMN -->
@@ -126,6 +137,17 @@
                     tools:textColor="@color/widget_text_color" />
 
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/cityNoteRightNoShadow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="6dp"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                tools:text="Family"
+                tools:textColor="@color/widget_text_color" />
 
         </LinearLayout>
 
@@ -190,6 +212,17 @@
                     tools:textColor="@color/widget_text_color" />
 
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/singleCityNoteNoShadow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="6dp"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                tools:text="Family"
+                tools:textColor="@color/widget_text_color" />
 
         </LinearLayout>
 

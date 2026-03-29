@@ -54,6 +54,8 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
     ColorPickerPreference mCustomCityClockColorPref;
     SwitchPreferenceCompat mDefaultCityNameColorPref;
     ColorPickerPreference mCustomCityNameColorPref;
+    SwitchPreferenceCompat mDefaultCityNoteColorPref;
+    ColorPickerPreference mCustomCityNoteColorPref;
     CustomSliderPreference mDigitalWidgetMaxClockFontSizePref;
 
     @Override
@@ -89,6 +91,8 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
         mCustomCityClockColorPref = findPreference(KEY_DIGITAL_WIDGET_CUSTOM_CITY_CLOCK_COLOR);
         mDefaultCityNameColorPref = findPreference(KEY_DIGITAL_WIDGET_DEFAULT_CITY_NAME_COLOR);
         mCustomCityNameColorPref = findPreference(KEY_DIGITAL_WIDGET_CUSTOM_CITY_NAME_COLOR);
+        mDefaultCityNoteColorPref = findPreference(KEY_DIGITAL_WIDGET_DEFAULT_CITY_NOTE_COLOR);
+        mCustomCityNoteColorPref = findPreference(KEY_DIGITAL_WIDGET_CUSTOM_CITY_NOTE_COLOR);
         mDigitalWidgetMaxClockFontSizePref = findPreference(KEY_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE);
 
         setupPreferences();
@@ -148,16 +152,25 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
             }
 
             case KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED -> {
-                mDefaultCityClockColorPref.setVisible((boolean) newValue);
-                mCustomCityClockColorPref.setVisible((boolean) newValue && !WidgetDAO.isDigitalWidgetDefaultCityClockColor(mPrefs));
-                mDefaultCityNameColorPref.setVisible((boolean) newValue);
-                mCustomCityNameColorPref.setVisible((boolean) newValue && !WidgetDAO.isDigitalWidgetDefaultCityNameColor(mPrefs));
-                mDigitalWidgetMaxClockFontSizePref.setEnabled(!(boolean) newValue);
-                if ((boolean) newValue) {
+                boolean areWorldCitiesDisplayed = (boolean) newValue;
+                boolean isCityNoteEnabled = SettingsDAO.isCityNoteEnabled(mPrefs);
+
+                mDefaultCityClockColorPref.setVisible(areWorldCitiesDisplayed);
+                mCustomCityClockColorPref.setVisible(areWorldCitiesDisplayed && !WidgetDAO.isDigitalWidgetDefaultCityClockColor(mPrefs));
+                mDefaultCityNameColorPref.setVisible(areWorldCitiesDisplayed);
+                mCustomCityNameColorPref.setVisible(areWorldCitiesDisplayed && !WidgetDAO.isDigitalWidgetDefaultCityNameColor(mPrefs));
+                mDefaultCityNoteColorPref.setVisible(areWorldCitiesDisplayed && isCityNoteEnabled);
+                mCustomCityNoteColorPref.setVisible(areWorldCitiesDisplayed
+                    && isCityNoteEnabled
+                    && !WidgetDAO.isDigitalWidgetDefaultCityNoteColor(mPrefs));
+                mDigitalWidgetMaxClockFontSizePref.setEnabled(!areWorldCitiesDisplayed);
+
+                if (areWorldCitiesDisplayed) {
                     mDigitalWidgetMaxClockFontSizePref.setTitle(R.string.digital_widget_message_summary);
                 } else {
                     mDigitalWidgetMaxClockFontSizePref.setTitle(R.string.max_clock_font_size_title);
                 }
+
                 Utils.setVibrationTime(requireContext(), 50);
             }
 
@@ -185,6 +198,11 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
                 mCustomCityNameColorPref.setVisible(!(boolean) newValue);
                 Utils.setVibrationTime(requireContext(), 50);
             }
+
+            case KEY_DIGITAL_WIDGET_DEFAULT_CITY_NOTE_COLOR -> {
+                mCustomCityNoteColorPref.setVisible(!(boolean) newValue);
+                Utils.setVibrationTime(requireContext(), 50);
+            }
         }
 
         WidgetUtils.scheduleWidgetUpdate(requireContext(), DigitalAppWidgetProvider.class);
@@ -195,6 +213,7 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
         final boolean areWorldCitiesDisplayed = WidgetDAO.areWorldCitiesDisplayedOnDigitalWidget(mPrefs);
         final boolean showHomeClock = SettingsDAO.getShowHomeClock(requireContext(), mPrefs);
         List<City> selectedCities = DataModel.getDataModel().getSelectedCities();
+        final boolean isCityNoteEnabled = SettingsDAO.isCityNoteEnabled(mPrefs);
 
         mDisplayTextUppercasePref.setOnPreferenceChangeListener(this);
 
@@ -259,6 +278,15 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
             && !WidgetDAO.isDigitalWidgetDefaultCityNameColor(mPrefs));
         mCustomCityNameColorPref.setOnPreferenceChangeListener(this);
 
+        mDefaultCityNoteColorPref.setVisible(mShowCitiesOnDigitalWidgetPref.isVisible() && areWorldCitiesDisplayed && isCityNoteEnabled);
+        mDefaultCityNoteColorPref.setOnPreferenceChangeListener(this);
+
+        mCustomCityNoteColorPref.setVisible(mShowCitiesOnDigitalWidgetPref.isVisible()
+            && areWorldCitiesDisplayed
+            && isCityNoteEnabled
+            && !WidgetDAO.isDigitalWidgetDefaultCityNoteColor(mPrefs));
+        mCustomCityNoteColorPref.setOnPreferenceChangeListener(this);
+
         if (mShowCitiesOnDigitalWidgetPref.isVisible() && areWorldCitiesDisplayed) {
             mDigitalWidgetMaxClockFontSizePref.setEnabled(false);
             mDigitalWidgetMaxClockFontSizePref.setTitle(R.string.digital_widget_message_summary);
@@ -284,6 +312,7 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
         mDefaultNextAlarmColorPref.setChecked(WidgetDAO.isDigitalWidgetDefaultNextAlarmColor(mPrefs));
         mDefaultCityClockColorPref.setChecked(WidgetDAO.isDigitalWidgetDefaultCityClockColor(mPrefs));
         mDefaultCityNameColorPref.setChecked(WidgetDAO.isDigitalWidgetDefaultCityNameColor(mPrefs));
+        mDefaultCityNoteColorPref.setChecked(WidgetDAO.isDigitalWidgetDefaultCityNoteColor(mPrefs));
     }
 
     private void updateDigitalWidget() {
