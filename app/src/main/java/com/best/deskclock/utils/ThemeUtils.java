@@ -8,7 +8,6 @@ package com.best.deskclock.utils;
 
 import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
-import static android.graphics.Bitmap.Config.ARGB_8888;
 import static android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
@@ -22,8 +21,6 @@ import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimatedStateListDrawable;
@@ -553,18 +550,6 @@ public class ThemeUtils {
         int rippleColor = MaterialColors.getColor(context, androidx.appcompat.R.attr.colorControlHighlight, Color.BLACK);
 
         return new RippleDrawable(ColorStateList.valueOf(rippleColor), background, mask);
-    }
-
-    /**
-     * This method assumes the given {@code view} has already been layed out.
-     *
-     * @return a Bitmap containing an image of the {@code view} at its current size
-     */
-    public static Bitmap createBitmap(View view) {
-        final Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), ARGB_8888);
-        final Canvas canvas = new Canvas(bitmap);
-        view.draw(canvas);
-        return bitmap;
     }
 
     /**

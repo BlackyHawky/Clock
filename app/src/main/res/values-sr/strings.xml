@@ -309,7 +309,6 @@
     <string name="widget_max_font_size_title">Максимална величина фонта виџета</string>
     <string name="denied_permission_label">Дозвола одбијена</string>
     <string name="permission_status_title">Статус: </string>
-    <string name="next_alarm_widget_text">Следећи аларм</string>
     <string name="sort_timer_ascending_duration">По трајању (растући редослед)</string>
     <string name="sort_timer_descending_duration">По трајању (опадајући редослед)</string>
     <string name="sort_name">По имену</string>
@@ -370,18 +369,12 @@
     <string name="max_clock_font_size_title">Максимална величина фонта главног сата</string>
     <string name="digital_widget_message_summary">\"Приказуј градове на виџету\" мора бити онемогућено да бисте имали приступ овом подешавању</string>
     <string name="next_alarm_default_color_title">Употребити подразумевану боју за следећи аларм</string>
-    <string name="analog_widget_material_you">Аналогни сат Material You</string>
-    <string name="vertical_digital_widget">Вертикални дигитални сат</string>
-    <string name="material_you_digital_widget">Дигитални сат Material You</string>
+    <string name="vertical_widget">Вертикални дигитални сат</string>
     <string name="ringtone_category_title">Мелодија</string>
     <string name="actions_category_title">Акције</string>
     <string name="miscellaneous_category_title">Разно</string>
     <string name="interface_customization_settings">Интерфејс</string>
-    <string name="material_you_vertical_digital_widget">Вертикални дигитални сат Material You</string>
-    <string name="standard_category_title">Стандард</string>
-    <string name="material_you_category_title">Material You</string>
     <string name="settings_tab_indicator_title">Приказати индикатор картице у доњем навигационом менију</string>
-    <string name="material_you_next_alarm_widget">Следећи аларм Material You</string>
     <string name="next_alarm_color_title">Боја следећег аларма</string>
     <string name="transparent_background_for_expired_timer_title">Транспарентна позадина када тајмери истекну</string>
     <string name="date_color_title">Боја датума</string>

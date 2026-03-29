@@ -235,12 +235,8 @@
     <string name="alarm_alert_dismiss_and_delete_text">Bỏ qua và xóa</string>
     <string name="alarm_alert_off_and_deleted_text">Tắt báo thức và xoá</string>
     <string name="occasional_alarm_alert_predismiss_title">Báo động thỉnh thoảng sắp tới</string>
-    <string name="analog_widget_material_you">Đồng hồ kiểu Material You</string>
-    <string name="vertical_digital_widget">Đồng hồ kỹ thuật số dọc</string>
+    <string name="vertical_widget">Đồng hồ kỹ thuật số dọc</string>
     <string name="next_alarm_widget">Báo thức tiếp theo</string>
-    <string name="material_you_digital_widget">Đồng hồ kỹ thuật số kiểu Material You</string>
-    <string name="material_you_vertical_digital_widget">Đồng hồ kỹ thuật số kiểu Material You</string>
-    <string name="material_you_next_alarm_widget">Báo thức tiếp theo kiểu Material You</string>
     <string name="settings_permission_message">Một số quyền có thể bị thiếu. Vui lòng cấp quyền để tránh sự cố.</string>
     <string name="settings_permission_summary">Nhấp vào đây để đến mục Quản lý quyền.</string>
     <string name="style_category_title">Phong cách</string>
@@ -249,8 +245,6 @@
     <string name="miscellaneous_category_title">Nâng cao</string>
     <string name="ringtone_category_title">Nhạc chuông</string>
     <string name="actions_category_title">Hành động</string>
-    <string name="standard_category_title">Mặc định</string>
-    <string name="material_you_category_title">Material You</string>
     <string name="interface_customization_settings">Giao diện</string>
     <string name="interface_customization_summary">Áp dụng phong cách và màu cho ứng dụng</string>
     <string name="title_theme">Chủ đề</string>

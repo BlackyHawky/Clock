@@ -247,7 +247,6 @@
     <string name="timer_channel">Časovač</string>
     <string name="alarm_alert_dismiss_and_delete_text">Ukončit a smazat</string>
     <string name="alarm_alert_off_and_deleted_text">Alarm vypnut a vymazán</string>
-    <string name="standard_category_title">Standardní</string>
     <string name="black_accent_color">Černá</string>
     <string name="purple_accent_color">Fialová</string>
     <string name="yellow_accent_color">Žlutá</string>
@@ -276,7 +275,7 @@
     <string name="green_accent_color">Zelená</string>
     <string name="indigo_accent_color">Indigo</string>
     <string name="occasional_alarm_alert_predismiss_title">Nadcházející příležitostní budík</string>
-    <string name="vertical_digital_widget">Vertikální digitální hodiny</string>
+    <string name="vertical_widget">Vertikální digitální hodiny</string>
     <string name="style_category_title">Styl</string>
     <string name="dark_theme">Tmavý</string>
     <string name="orange_accent_color">Oranžová</string>
@@ -306,7 +305,6 @@
     <string name="reset_settings_title">Resetovat nastavení</string>
     <string name="sw_volume_up_action_title">Zvýšení hlasitosti</string>
     <string name="screensaver_italic_date_title">Datum kurzívou</string>
-    <string name="material_you_vertical_digital_widget">Vertikální digitální hodiny Material You</string>
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Ve výchozím nastavení zapnout automatické odstranění příležitostných budíků</string>
     <string name="blue_accent_color">Modrá</string>
     <string name="settings_language_portuguese">Portugalština</string>
@@ -365,7 +363,6 @@
     <string name="timer_add_custom_time">+ %s</string>
     <string name="timer_settings_summary">Nastavení výchozího tónu, hlasitosti a řazení časovačů</string>
     <string name="alarm_title_default_color">Použít výchozí barvu pro název budíku</string>
-    <string name="next_alarm_widget_text">Další budík</string>
     <string name="clock_default_color_title">Použít výchozí barvu pro hlavní hodiny</string>
     <string name="max_clock_font_size_title">Maximální velikost písma hlavních hodin</string>
     <string name="permission_management_summary">Zobrazení oprávnění potřebných ke správnému fungování aplikace</string>
@@ -380,7 +377,6 @@
     <string name="backup_restore_dialog_message">Chcete zálohovat nebo obnovit data aplikace?</string>
     <string name="backup_button_title">Zálohovat</string>
     <string name="restore_button_title">Obnovit</string>
-    <string name="material_you_category_title">Material You</string>
     <string name="clock_color_title">Barva hodin</string>
     <string name="settings_language_russian">Ruština</string>
     <string name="about_title">O aplikaci</string>
@@ -426,7 +422,6 @@
     <string name="first_launch_dialog_title">Ukončit</string>
     <string name="first_launch_dialog_message">Opravdu chcete ukončit aplikaci?</string>
     <string name="permission_requirement_title">Požadavek:</string>
-    <string name="analog_widget_material_you">Analogové hodiny Material You</string>
     <string name="permission_denied">Zamítnuto</string>
     <string name="notifications_permission_title">POVOLIT OZNÁMENÍ</string>
     <string name="sort_timer_descending_duration">Podle času (sestupně)</string>
@@ -445,7 +440,6 @@
     <string name="notifications_dialog_title">Oznámení</string>
     <string name="description_direction_both_for_occasional_alarm">Přejeďte prstem doleva pro odložení nebo doprava pro zrušení a odstranění budíku</string>
     <string name="enable_alarm_vibrations_by_default_setting_title">Povolit vibrace při spuštění budíku</string>
-    <string name="material_you_next_alarm_widget">Další budík Material You</string>
     <string name="settings_tab_indicator_title">Zobrazit indikátor karty ve spodním navigačním panelu</string>
     <string name="alarm_title_font_size">Velikost písma názvu budíku</string>
     <string name="add_label">Přidat štítek</string>
@@ -479,7 +473,6 @@
     <string name="minute_default_color_title">Použít výchozí barvu pro minuty</string>
     <string name="permission_info_title">Pouze pro zařízení Xiaomi</string>
     <string name="revoke_permission_dialog_message">Opravdu chcete odvolat toto oprávnění?</string>
-    <string name="material_you_digital_widget">Digitální hodiny Material You</string>
     <string name="display_background_border_summary">Zobrazí okraj pozadí u některých prvků aplikace (budíky, města, tlačítko časovače apod.)</string>
     <string name="settings_language_spanish">Španělština</string>
     <string name="settings_language_ukrainian">Ukrajinština</string>

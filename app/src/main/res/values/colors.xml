@@ -61,9 +61,10 @@
     <color name="md_theme_analogWidgetPrimary">#6076AC</color>
     <color name="md_theme_analogWidgetSecondary">#404659</color>
     <color name="digital_widget_time_color">#475D92</color>
+    <color name="widget_city_note_color">#725572</color>
     <color name="widget_text_color">#1D1B20</color>
-    <color name="vertical_digital_widget_hour_color">#575E71</color>
-    <color name="vertical_digital_widget_minute_color">#475D92</color>
+    <color name="vertical_widget_hour_color">#575E71</color>
+    <color name="vertical_widget_minute_color">#475D92</color>
     <color name="next_alarm_widget_title_color">#575E71</color>
     <color name="next_alarm_widget_alarm_color">#475D92</color>
 

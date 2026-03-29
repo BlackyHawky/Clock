@@ -68,8 +68,7 @@ import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
-import com.best.deskclock.widgets.materialyouwidgets.MaterialYouNextAlarmAppWidgetProvider;
-import com.best.deskclock.widgets.standardwidgets.NextAlarmAppWidgetProvider;
+import com.best.deskclock.widgets.NextAlarmAppWidgetProvider;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -996,7 +995,6 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
         if (updateWidgets) {
             WidgetUtils.updateWidget(requireContext(), NextAlarmAppWidgetProvider.class);
-            WidgetUtils.updateWidget(requireContext(), MaterialYouNextAlarmAppWidgetProvider.class);
         }
     }
 

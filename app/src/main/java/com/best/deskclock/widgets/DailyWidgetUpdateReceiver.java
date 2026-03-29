@@ -10,10 +10,6 @@ import android.content.Intent;
 
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.WidgetUtils;
-import com.best.deskclock.widgets.materialyouwidgets.MaterialYouDigitalAppWidgetProvider;
-import com.best.deskclock.widgets.materialyouwidgets.MaterialYouVerticalDigitalAppWidgetProvider;
-import com.best.deskclock.widgets.standardwidgets.DigitalAppWidgetProvider;
-import com.best.deskclock.widgets.standardwidgets.VerticalDigitalAppWidgetProvider;
 
 import java.util.Calendar;
 
@@ -31,9 +27,7 @@ public class DailyWidgetUpdateReceiver extends BroadcastReceiver {
         LOGGER.i("onReceive:" + intent);
 
         WidgetUtils.updateWidget(context, DigitalAppWidgetProvider.class);
-        WidgetUtils.updateWidget(context, MaterialYouDigitalAppWidgetProvider.class);
-        WidgetUtils.updateWidget(context, VerticalDigitalAppWidgetProvider.class);
-        WidgetUtils.updateWidget(context, MaterialYouVerticalDigitalAppWidgetProvider.class);
+        WidgetUtils.updateWidget(context, VerticalAppWidgetProvider.class);
 
         // Reschedule the alarm for the next day at midnight
         Calendar calendar = Calendar.getInstance();

@@ -328,6 +328,8 @@
         <item>@string/clock_dial_with_numbers</item>
         <item>@string/clock_dial_without_numbers</item>
         <item>@string/clock_dial_with_roman_numbers</item>
+        <item>@string/clock_dial_sun</item>
+        <item>@string/clock_dial_flower</item>
     </string-array>
     <!-- Values that are retrieved from the ListPreference.
          These must match the analog_widget_clock_dial_entries above. -->
@@ -336,6 +338,8 @@
         <item>dial_with_numbers</item>
         <item>dial_without_numbers</item>
         <item>dial_with_roman_numbers</item>
+        <item>dial_sun</item>
+        <item>dial_flower</item>
     </string-array>
 
     <!-- Entries listed in the ListPreference when invoking the clock second hand preference. -->

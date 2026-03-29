@@ -231,7 +231,6 @@
     <string name="timer_channel">Temporizador</string>
     <string name="label_hours">Horas</string>
     <string name="occasional_alarm_alert_predismiss_title">Alarma ocasional próxima</string>
-    <string name="analog_widget_material_you">Reloxio analóxico con Material You</string>
     <string name="blue_gray_accent_color">Gris azulado</string>
     <string name="brown_accent_color">Marrón</string>
     <string name="green_accent_color">Verde</string>
@@ -260,18 +259,14 @@
     <string name="more_options">Máis opcións</string>
     <string name="alarm_scheduled_for">Definido para %s</string>
     <string name="alarm_alert_dismiss_and_delete_text">Apagar e borrar</string>
-    <string name="vertical_digital_widget">Reloxio dixital vertical</string>
+    <string name="vertical_widget">Reloxio dixital vertical</string>
     <string name="next_alarm_widget">Seguinte alarma</string>
-    <string name="material_you_digital_widget">Reloxio dixital Material You</string>
-    <string name="material_you_vertical_digital_widget">Reloxio dixital vertical Material You</string>
-    <string name="material_you_next_alarm_widget">Segunte alarma Material You</string>
     <string name="settings_permission_summary">Clica aqui para amosar a páxina de xestión de permisos.</string>
     <string name="style_category_title">Estilo</string>
     <string name="font_category_title">Fonte</string>
     <string name="miscellaneous_category_title">Miscelanea</string>
     <string name="ringtone_category_title">Ton</string>
     <string name="actions_category_title">Accións</string>
-    <string name="standard_category_title">Estándar</string>
     <string name="interface_customization_summary">Define o estilo e cor da aplicación</string>
     <string name="system_theme">Sistema</string>
     <string name="light_theme">Claro</string>

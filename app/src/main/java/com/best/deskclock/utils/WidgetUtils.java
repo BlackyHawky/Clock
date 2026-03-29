@@ -8,6 +8,7 @@ package com.best.deskclock.utils;
 
 import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_HOST_CATEGORY;
 import static android.appwidget.AppWidgetProviderInfo.WIDGET_CATEGORY_KEYGUARD;
+import static android.graphics.Bitmap.Config.ARGB_8888;
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
@@ -28,6 +29,7 @@ import android.graphics.drawable.Icon;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.DisplayMetrics;
+import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.TextClock;
 
@@ -44,14 +46,10 @@ import com.best.deskclock.data.City;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.events.Events;
-import com.best.deskclock.widgets.materialyouwidgets.MaterialYouAnalogAppWidgetProvider;
-import com.best.deskclock.widgets.materialyouwidgets.MaterialYouDigitalAppWidgetProvider;
-import com.best.deskclock.widgets.materialyouwidgets.MaterialYouNextAlarmAppWidgetProvider;
-import com.best.deskclock.widgets.materialyouwidgets.MaterialYouVerticalDigitalAppWidgetProvider;
-import com.best.deskclock.widgets.standardwidgets.AnalogAppWidgetProvider;
-import com.best.deskclock.widgets.standardwidgets.DigitalAppWidgetProvider;
-import com.best.deskclock.widgets.standardwidgets.NextAlarmAppWidgetProvider;
-import com.best.deskclock.widgets.standardwidgets.VerticalDigitalAppWidgetProvider;
+import com.best.deskclock.widgets.DigitalAppWidgetProvider;
+import com.best.deskclock.widgets.NextAlarmAppWidgetProvider;
+import com.best.deskclock.widgets.VerticalAppWidgetProvider;
+import com.best.deskclock.widgets.AnalogAppWidgetProvider;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -250,6 +248,18 @@ public class WidgetUtils {
     }
 
     /**
+     * This method assumes the given {@code view} has already been layed out.
+     *
+     * @return a Bitmap containing an image of the {@code view} at its current size
+     */
+    public static Bitmap createBitmap(View view) {
+        final Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), ARGB_8888);
+        final Canvas canvas = new Canvas(bitmap);
+        view.draw(canvas);
+        return bitmap;
+    }
+
+    /**
      * Creates a rounded icon with the specified dimensions, color, and corner radius.
      * <p>
      * This method generates a {@link Bitmap} with rounded corners using the given width,
@@ -275,18 +285,18 @@ public class WidgetUtils {
     }
 
     /**
-     * @return the default Material You background color for day mode.
+     * @return the default background color for day mode.
      */
-    public static int getMaterialBackgroundColorDay(Context context) {
+    public static int getBackgroundColorDay(Context context) {
         return SdkUtils.isAtLeastAndroid12()
             ? ContextCompat.getColor(context, android.R.color.system_accent2_50)
             : Color.TRANSPARENT;
     }
 
     /**
-     * @return the default Material You background color for night mode.
+     * @return the default background color for night mode.
      */
-    public static int getMaterialBackgroundColorNight(Context context) {
+    public static int getBackgroundColorNight(Context context) {
         return SdkUtils.isAtLeastAndroid12()
             ? ContextCompat.getColor(context, android.R.color.system_accent2_800)
             : Color.TRANSPARENT;
@@ -295,14 +305,12 @@ public class WidgetUtils {
     /**
      * @return "11:59" or "23:59" in the current locale
      */
-    public static CharSequence getLongestTimeString(TextClock clock, boolean isMaterialYou) {
+    public static CharSequence getLongestTimeString(TextClock clock) {
         final SharedPreferences prefs = getDefaultSharedPreferences(clock.getContext());
-        boolean includeSeconds = isMaterialYou
-            ? WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs)
-            : WidgetDAO.areSecondsDisplayedOnDigitalWidget(prefs);
+        boolean includeSeconds = WidgetDAO.areSecondsDisplayedOnDigitalWidget(prefs);
         final CharSequence format = clock.is24HourModeEnabled()
             ? ClockUtils.get24ModeFormat(includeSeconds, false)
-            : ClockUtils.get12ModeFormat(clock.getContext(), getAmPmRatio(isMaterialYou, prefs),
+            : ClockUtils.get12ModeFormat(clock.getContext(), getAmPmRatio(prefs),
             includeSeconds, false, false, false);
         final Calendar longestPMTime = Calendar.getInstance();
         longestPMTime.set(0, 0, 0, 23, 59);
@@ -335,11 +343,8 @@ public class WidgetUtils {
     /**
      * @return the ratio to use for the AM/PM part on the digital widgets.
      */
-    public static float getAmPmRatio(boolean isMaterialYou, SharedPreferences prefs) {
-        boolean areAmPmHidden = isMaterialYou
-            ? WidgetDAO.isAmPmHiddenOnMaterialYouDigitalWidget(prefs)
-            : WidgetDAO.isAmPmHiddenOnDigitalWidget(prefs);
-        return areAmPmHidden ? 0 : 0.4f;
+    public static float getAmPmRatio(SharedPreferences prefs) {
+        return WidgetDAO.isAmPmHiddenOnDigitalWidget(prefs) ? 0 : 0.4f;
     }
 
     /**
@@ -443,11 +448,7 @@ public class WidgetUtils {
             AnalogAppWidgetProvider.class,
             DigitalAppWidgetProvider.class,
             NextAlarmAppWidgetProvider.class,
-            VerticalDigitalAppWidgetProvider.class,
-            MaterialYouAnalogAppWidgetProvider.class,
-            MaterialYouDigitalAppWidgetProvider.class,
-            MaterialYouNextAlarmAppWidgetProvider.class,
-            MaterialYouVerticalDigitalAppWidgetProvider.class
+            VerticalAppWidgetProvider.class
         };
 
         for (Class<?> provider : widgetProviders) {
@@ -462,10 +463,7 @@ public class WidgetUtils {
         Class<?>[] widgetProviders = {
             DigitalAppWidgetProvider.class,
             NextAlarmAppWidgetProvider.class,
-            VerticalDigitalAppWidgetProvider.class,
-            MaterialYouDigitalAppWidgetProvider.class,
-            MaterialYouNextAlarmAppWidgetProvider.class,
-            MaterialYouVerticalDigitalAppWidgetProvider.class
+            VerticalAppWidgetProvider.class
         };
 
         for (Class<?> provider : widgetProviders) {

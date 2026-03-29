@@ -257,8 +257,6 @@
     <string name="brown_accent_color">Marró</string>
     <string name="purple_accent_color">Porpra</string>
     <string name="day_accent_color_title">Color destacat del mode diürn</string>
-    <string name="analog_widget_material_you">Rellotge analògic Material You</string>
-    <string name="material_you_category_title">Material You</string>
     <string name="title_dark_theme_mode">Tema fosc</string>
     <string name="font_category_title">Font</string>
     <string name="miscellaneous_category_title">Miscel·lània</string>
@@ -268,14 +266,10 @@
     <string name="interface_customization_summary">Trieu l\'aparença i color per a l\'aplicació</string>
     <string name="title_theme">Tema</string>
     <string name="title_accent_color">Color destacat</string>
-    <string name="vertical_digital_widget">Rellotge digital vertical</string>
-    <string name="material_you_digital_widget">Rellotge digital Material You</string>
+    <string name="vertical_widget">Rellotge digital vertical</string>
     <string name="settings_permission_summary">Toqueu aquí per a l\'administració de permisos.</string>
-    <string name="standard_category_title">Estàndard</string>
     <string name="occasional_alarm_alert_predismiss_title">Propera alarma ocasional</string>
-    <string name="material_you_next_alarm_widget">Propera alarma Material You</string>
     <string name="next_alarm_widget">Propera alarma</string>
-    <string name="material_you_vertical_digital_widget">Rellotge digital Material You</string>
     <string name="black_accent_color">Negre</string>
     <string name="yellow_accent_color">Groc</string>
     <string name="auto_night_accent_color_title">Aplica el color destacat al mode nocturn</string>

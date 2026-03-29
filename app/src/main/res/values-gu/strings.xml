@@ -246,7 +246,6 @@
     <string name="second_hand_color_title">સેકેન્ડ હાથ નો રંગ</string>
     <string name="timer_channel">ટાઈમર</string>
     <string name="settings_language_english_us">આંગરગી(યુઍસ)</string>
-    <string name="material_you_digital_widget">મટિરિયલ યૂ ડિજિટલ ઘડિયાળ</string>
     <string name="purple_accent_color">જાંબલી</string>
     <string name="date_color_title">તરીક નો રંગ</string>
     <string name="green_accent_color">લીલો</string>
@@ -268,7 +267,7 @@
     <string name="alarm_notification_reminder_2_hours">૨ કલાગ પેહલા</string>
     <string name="alarm_title_color">અલાર્મ શીર્ષક નો રંગ</string>
     <string name="occasional_alarm_alert_predismiss_title">આવતા નૈમિત્ત અલાર્મ</string>
-    <string name="vertical_digital_widget">ઊભી ડિજિટલ ઘડિયાળ</string>
+    <string name="vertical_widget">ઊભી ડિજિટલ ઘડિયાળ</string>
     <string name="alarm_notification_reminder_30_minutes">૩૦ મિનિટ પેહલા</string>
     <string name="next_alarm_widget">પછી નો અલાર્મ</string>
     <string name="permission_dialog_revoke_title">ઍક્સેસ રદ કરો</string>
@@ -277,10 +276,8 @@
     <string name="alarm_alert_dismiss_and_delete_text">બંદ કરીને કાઢી નાખો</string>
     <string name="screensaver_brightness_title">તેજ</string>
     <string name="widgets_settings">વિડજેટ્સ</string>
-    <string name="material_you_next_alarm_widget">મટિરિયલ યૂ પછી નો અલાર્મ</string>
     <string name="settings_permission_summary">અહિયાં દબાવો પરવાનગી વ્યવસ્થાપન પૃષ્ટ પ્રદર્શિત કરવા માટે.</string>
     <string name="actions_category_title">ક્રિયાઓ</string>
-    <string name="material_you_category_title">મટિરિયલ યૂ</string>
     <string name="title_accent_color">એક્સેંટ રંગ</string>
     <string name="auto_night_accent_color_title">નાઇટ મોડે પર એક્સેંટ રંગ લાગુ કરો</string>
     <string name="night_accent_color_title">નાઇટ મોડે માટે નો એક્સેંટ રંગ</string>
@@ -293,8 +290,6 @@
     <string name="selected">ચયન કરેલી</string>
     <string name="more_options">અન્ય વિકલ્પો</string>
     <string name="alarm_alert_off_and_deleted_text">અલાર્મ બંધ કરીને કાઢી નાખ્યું</string>
-    <string name="analog_widget_material_you">મટિરિયલ યૂ એનેલોગ ઘડિયાળ</string>
-    <string name="material_you_vertical_digital_widget">મટિરિયલ યૂ ઊભી ડિજિટલ ઘડિયાળ</string>
     <string name="font_category_title">ફૉન્ટ</string>
     <string name="ringtone_category_title">રિંગટોન</string>
     <string name="title_theme">થીમ</string>

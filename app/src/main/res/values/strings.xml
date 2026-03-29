@@ -228,20 +228,12 @@
     <string name="loading_widget">Loading\u2026</string>
     <!-- Label for analog clock widget displayed in the widget picker -->
     <string name="analog_widget">Analog clock</string>
-    <!-- Label for analog clock widget displayed in the widget picker -->
-    <string name="analog_widget_material_you">Analog clock Material You</string>
     <!-- Label for digital clock widget displayed in the widget picker -->
     <string name="digital_widget">Digital clock</string>
-    <!-- Label for vertical digital clock widget displayed in the widget picker -->
-    <string name="vertical_digital_widget">Vertical digital clock</string>
+    <!-- Label for vertical clock widget displayed in the widget picker -->
+    <string name="vertical_widget">Vertical clock</string>
     <!-- Label for next alarm widget displayed in the widget picker -->
     <string name="next_alarm_widget">Next alarm</string>
-    <!-- Label for Material You digital clock widget displayed in the widget picker -->
-    <string name="material_you_digital_widget">Digital clock Material You</string>
-    <!-- Label for Material You vertical digital clock widget displayed in the widget picker -->
-    <string name="material_you_vertical_digital_widget">Vertical digital clock Material You</string>
-    <!-- Label for Material You next alarm widget displayed in the widget picker -->
-    <string name="material_you_next_alarm_widget">Next alarm Material You</string>
     <!-- Label for the Settings activity displayed on-screen when that activity must be represented to the user. -->
     <string name="settings">Settings</string>
     <!-- Message displayed at the top of the settings if one or more permissions are missing -->
@@ -274,10 +266,6 @@
     <string name="vibration_category_title">Vibration</string>
     <!-- Category title for alarm actions -->
     <string name="actions_category_title">Actions</string>
-    <!-- Category title for standard widgets -->
-    <string name="standard_category_title">Standard</string>
-    <!-- Category title for Material You widgets -->
-    <string name="material_you_category_title">Material You</string>
     <!-- Interface customization title in the settings -->
     <string name="interface_customization_settings">Interface</string>
     <!-- Interface preference summary -->
@@ -1339,14 +1327,12 @@
     <string name="digital_widget_message_summary">\"Display cities on the widget\" must be disabled to access this setting</string>
     <!-- Title to apply horizontal padding the widgets. -->
     <string name="widget_apply_horizontal_padding_title">Apply padding to widget sides</string>
-    <!-- Title to set the default color of the "Next alarm" and "No upcoming alarm" titles in the Next alarm widget. -->
-    <string name="next_alarm_no_upcoming_alarm_titles_default_color">Use default color for \"Next alarm\" and \"No upcoming alarm\" titles</string>
-    <!-- Title to set the color of the "Next alarm" and "No upcoming alarm" titles in the Next alarm widget. -->
-    <string name="next_alarm_no_upcoming_alarm_titles_color">Color for \"Next alarm\" and \"No upcoming alarm\" titles</string>
+    <!-- Title to set the default color of the "No upcoming alarm" title in the Next alarm widget. -->
+    <string name="next_alarm_no_upcoming_alarm_titles_default_color">Use default color for the \"No upcoming alarm\" title</string>
+    <!-- Title to set the color of the "No upcoming alarm" title in the Next alarm widget. -->
+    <string name="next_alarm_no_upcoming_alarm_titles_color">Color for the \"No upcoming alarm\" title</string>
     <!-- Title to set the font size of the widget. -->
     <string name="widget_max_font_size_title">Maximum widget font size</string>
-    <!-- Title in the next alarm widget if an alarm is set -->
-    <string name="next_alarm_widget_text">Next alarm</string>
     <!-- Title in the next alarm widget if no alarm is set -->
     <string name="next_alarm_widget_title_no_alarm">No upcoming alarm</string>
     <!--

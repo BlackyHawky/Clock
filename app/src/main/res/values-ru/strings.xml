@@ -264,7 +264,6 @@
     <string name="alarm_settings_summary">Настроить оформление, рингтон по умолчанию, громкость, действия для выключения или откладывания будильника, первый день недели и время уведомления о следующем будильнике</string>
     <string name="gnu_gpl">GNU General Public License v3.0</string>
     <string name="clock_color_title">Цвет основных часов</string>
-    <string name="analog_widget_material_you">Аналоговый Material You</string>
     <string name="timer_add_custom_time">+ %s</string>
     <string name="clock_settings_summary">Настроить оформление, часовой пояс и дату и время устройства</string>
     <string name="next_alarm_color_title">Цвет следующего будильника</string>
@@ -276,7 +275,6 @@
     <string name="more_options">Другие параметры</string>
     <string name="FSN_dialog_title">Уведомления в полноэкранном режиме</string>
     <string name="duplicate">Дублировать</string>
-    <string name="material_you_digital_widget">Цифровой Material You</string>
     <string name="settings_permission_summary">Нажмите здесь, чтобы открыть страницу управления разрешениями.</string>
     <string name="settings_vibration_title">Включить вибрацию</string>
     <string name="miscellaneous_category_title">Прочее</string>
@@ -359,13 +357,9 @@
     <string name="whats_new_dialog_message">Узнайте, что нового: \n \n%s</string>
     <string name="github_dialog_message">Посетите страницу проекта на GitHub:\n \n%s</string>
     <string name="license_dialog_message">Ознакомьтесь с лицензией: \n \n%s</string>
-    <string name="material_you_category_title">Material You</string>
-    <string name="vertical_digital_widget">Вертикальный</string>
-    <string name="material_you_vertical_digital_widget">Вертикальный Material You</string>
-    <string name="standard_category_title">Стандартные</string>
+    <string name="vertical_widget">Вертикальный</string>
     <string name="settings_tab_indicator_title">Показывать индикатор вкладки в нижней панели навигации</string>
     <string name="widgets_settings">Виджеты</string>
-    <string name="material_you_next_alarm_widget">Следующий будильник Material You</string>
     <string name="settings_fade_transitions_title">Включить переходы с затуханием при переключении между экранами</string>
     <string name="dismiss_button_color">Цвет кнопки \"Выключить\"</string>
     <string name="alarm_button_color">Цвет кнопки будильника</string>
@@ -374,7 +368,6 @@
     <string name="minute_default_color_title">Цвет по умолчанию для минут</string>
     <string name="minute_color_title">Цвет минут</string>
     <string name="widget_max_font_size_title">Максимальный размер шрифта виджета</string>
-    <string name="next_alarm_widget_text">Следующий будильник</string>
     <string name="next_alarm_widget_title_no_alarm">Будильники не установлены</string>
     <string name="second_hand_color_title">Цвет секундной стрелки</string>
     <string name="hour_color_title">Цвет часов</string>

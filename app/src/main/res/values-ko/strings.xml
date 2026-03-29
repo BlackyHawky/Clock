@@ -242,7 +242,6 @@
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">알람을 잠시 미루거나 해제했을 때 진동</string>
     <string name="miscellaneous_category_title">기타</string>
     <string name="ringtone_category_title">벨소리</string>
-    <string name="material_you_category_title">Material You</string>
     <string name="interface_customization_settings">인터페이스</string>
     <string name="interface_customization_summary">앱에 사용할 스타일 및 색상 설정</string>
     <string name="light_theme">라이트</string>
@@ -274,7 +273,6 @@
     <string name="background_color_title">배경 색상</string>
     <string name="display_city_title">위젯에 도시 이름 표시</string>
     <string name="clock_default_color_title">메인 시계에 기본 색상 사용</string>
-    <string name="next_alarm_widget_text">다음 알람</string>
     <string name="swipe_action_title">스와이프로 알람 잠시 미루기 또는 해제</string>
     <string name="alarm_title_font_size">알람 제목 폰트 크기</string>
     <string name="day_accent_color_title">주간 모드 강조 색상</string>
@@ -285,7 +283,6 @@
     <string name="system_theme">시스템</string>
     <string name="title_theme">테마</string>
     <string name="alarm_notification_reminder_1_hour">1시간 전</string>
-    <string name="material_you_next_alarm_widget">다음 알람 Material You</string>
     <string name="next_alarm_widget">다음 알람</string>
     <string name="auto_night_accent_color_title">야간 모드에 강조 색상 적용</string>
     <string name="night_accent_color_title">야간 모드 강조 색상</string>
@@ -299,9 +296,7 @@
     <string name="selected">선택됨</string>
     <string name="more_options">추가 옵션</string>
     <string name="alarm_alert_dismiss_and_delete_text">알람 해제 및 삭제</string>
-    <string name="material_you_digital_widget">디지털 시계 Material You</string>
-    <string name="vertical_digital_widget">세로형 디지털 시계</string>
-    <string name="material_you_vertical_digital_widget">세로형 디지털 시계 Material You</string>
+    <string name="vertical_widget">세로형 디지털 시계</string>
     <string name="settings_permission_message">허용하지 않은 필수 권한이 있습니다. 권한을 허용하지 않으면 앱이 정상적으로 동작하지 않을 수 있습니다.</string>
     <string name="settings_permission_summary">여기를 눌러 권한 관리 페이지를 열 수 있습니다.</string>
     <string name="style_category_title">스타일</string>
@@ -421,7 +416,6 @@
     <string name="description_direction_both_for_occasional_non_repeatable_alarm">왼쪽이나 오른쪽으로 스와이프하여 해제 및 알람 삭제</string>
     <string name="digital_widget_message_summary">이 설정을 변경하려면 \"위젯에 도시 이름 표시\" 옵션이 꺼져 있어야 합니다.</string>
     <string name="alarm_alert_off_and_deleted_text">알람을 끄고 삭제했습니다.</string>
-    <string name="analog_widget_material_you">아날로그 시계 Material You</string>
     <string name="settings_language_turkish">튀르키예어</string>
     <string name="settings_language_korean">한국어</string>
     <string name="alarm_notification_reminder_title">알람 시작 전 알림</string>
@@ -441,7 +435,6 @@
     <string name="timer_time_warning_box_title">잘못된 값 입력됨</string>
     <string name="sw_long_press_volume_up_action_title">볼륨 위(길게 눌렀을 때)</string>
     <string name="actions_category_title">동작</string>
-    <string name="standard_category_title">일반</string>
     <string name="black_accent_color">검은색</string>
     <string name="orange_accent_color">오렌지색</string>
     <string name="red_accent_color">빨간색</string>

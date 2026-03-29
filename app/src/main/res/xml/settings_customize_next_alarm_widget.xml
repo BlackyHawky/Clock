@@ -15,7 +15,7 @@
             android:key="key_next_alarm_widget_display_text_uppercase"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/display_text_uppercase_title"
-            android:defaultValue="true"
+            android:defaultValue="false"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
@@ -23,7 +23,7 @@
             android:key="key_next_alarm_widget_display_text_shadow"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/display_text_shadow_title"
-            android:defaultValue="true"
+            android:defaultValue="false"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
@@ -31,7 +31,7 @@
             android:key="key_next_alarm_widget_display_background"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/widget_background_title"
-            android:defaultValue="false"
+            android:defaultValue="true"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
@@ -69,8 +69,16 @@
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false">
 
+        <SwitchPreferenceCompat
+            android:key="key_next_alarm_widget_default_background_color"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/background_default_color_title"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
         <com.best.deskclock.settings.custompreference.ColorPickerPreference
-            android:key="key_next_alarm_widget_background_color"
+            android:key="key_next_alarm_widget_custom_background_color"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/background_color_title"
             android:defaultValue="#70000000"

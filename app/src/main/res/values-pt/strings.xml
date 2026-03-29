@@ -232,8 +232,6 @@
     <string name="power_button_title">Botão de ligar</string>
     <string name="selected">Selecionado</string>
     <string name="more_options">Mais opções</string>
-    <string name="analog_widget_material_you">Relógio analógico com Material You</string>
-    <string name="material_you_digital_widget">Relógio digital com Material You</string>
     <string name="display_background_border_summary">Mostra a borda do plano de fundo para elementos do app (alarmes, cidades, botão do timer, etc.)</string>
     <string name="settings_vibration_summary">Apenas alguns botões da interface são afetados (ex: o botão play/pause ou os interruptores do timer)</string>
     <string name="settings_vibration_title">Habilitar vibrações</string>
@@ -329,13 +327,9 @@
     <string name="alarm_settings_general_summary">Essa configuração pode ser alterada para cada alarme na exibição de alarme expandida</string>
     <string name="snooze_duration_none">Nenhum</string>
     <string name="about_github_link">Veja no GitHub</string>
-    <string name="vertical_digital_widget">Relógio digital vertical</string>
-    <string name="material_you_vertical_digital_widget">Relógio digital vertical Material You</string>
-    <string name="standard_category_title">Padrão</string>
-    <string name="material_you_category_title">Material You</string>
+    <string name="vertical_widget">Relógio digital vertical</string>
     <string name="settings_tab_indicator_title">Mostre o indicador de aba no menu de navegação inferior</string>
     <string name="license">Licença Open-source</string>
-    <string name="material_you_next_alarm_widget">Próximo alarme Material You</string>
     <string name="settings_fade_transitions_title">Habilitar esmaecimento de transições ao alternar entre telas</string>
     <string name="next_alarm_widget">Próximo alarme</string>
     <string name="features_title">Principais funcionalidades</string>
@@ -388,7 +382,6 @@
     <string name="first_launch_dialog_message">Tem certeza de que deseja sair do aplicativo?</string>
     <string name="widgets_settings">Widgets</string>
     <string name="widget_max_font_size_title">Tamanho máximo da fonte do widget</string>
-    <string name="next_alarm_widget_text">Próximo alarme</string>
     <string name="ignore_battery_optimizations_dialog_title">Otimizações de bateria</string>
     <string name="ignore_battery_optimizations_title">IGNORAR OTIMIZAÇÕES DE BATERIA</string>
     <string name="notifications_dialog_text">Além de definir alarmes, esse aplicativo também tem um timer, cronômetro e modo hora de dormir. \n\nPara que as notificações sejam exibidas corretamente para todos os módulos e, principalmente, para que o alarme seja acionado, recomendamos ativar as notificações para esse aplicativo.</string>

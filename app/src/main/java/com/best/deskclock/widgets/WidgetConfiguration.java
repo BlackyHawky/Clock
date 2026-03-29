@@ -10,14 +10,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.best.deskclock.R;
-import com.best.deskclock.settings.AnalogWidgetSettingsFragment;
-import com.best.deskclock.settings.DigitalWidgetSettingsFragment;
-import com.best.deskclock.settings.MaterialYouAnalogWidgetSettingsFragment;
-import com.best.deskclock.settings.MaterialYouDigitalWidgetSettingsFragment;
-import com.best.deskclock.settings.MaterialYouNextAlarmWidgetSettingsFragment;
-import com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetSettingsFragment;
-import com.best.deskclock.settings.NextAlarmWidgetSettingsFragment;
-import com.best.deskclock.settings.VerticalDigitalWidgetSettingsFragment;
+import com.best.deskclock.settings.AppWidgetAnalogSettingsFragment;
+import com.best.deskclock.settings.AppWidgetDigitalSettingsFragment;
+import com.best.deskclock.settings.AppWidgetNextAlarmSettingsFragment;
+import com.best.deskclock.settings.AppWidgetVerticalSettingsFragment;
 import com.best.deskclock.uicomponents.CollapsingToolbarBaseActivity;
 
 /**
@@ -36,7 +32,7 @@ public class WidgetConfiguration {
         public void onCreate(final Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
-            showFragmentFromWidget(this, savedInstanceState, new AnalogWidgetSettingsFragment());
+            showFragmentFromWidget(this, savedInstanceState, new AppWidgetAnalogSettingsFragment());
         }
     }
 
@@ -51,11 +47,11 @@ public class WidgetConfiguration {
         public void onCreate(final Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
-            showFragmentFromWidget(this, savedInstanceState, new DigitalWidgetSettingsFragment());
+            showFragmentFromWidget(this, savedInstanceState, new AppWidgetDigitalSettingsFragment());
         }
     }
 
-    public static class VerticalDigitalWidgetConfiguration extends CollapsingToolbarBaseActivity {
+    public static class VerticalWidgetConfiguration extends CollapsingToolbarBaseActivity {
 
         @Override
         protected String getActivityTitle() {
@@ -66,7 +62,7 @@ public class WidgetConfiguration {
         public void onCreate(final Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
-            showFragmentFromWidget(this, savedInstanceState, new VerticalDigitalWidgetSettingsFragment());
+            showFragmentFromWidget(this, savedInstanceState, new AppWidgetVerticalSettingsFragment());
         }
     }
 
@@ -81,67 +77,7 @@ public class WidgetConfiguration {
         public void onCreate(final Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
-            showFragmentFromWidget(this, savedInstanceState, new NextAlarmWidgetSettingsFragment());
-        }
-    }
-
-    public static class MaterialYouAnalogWidgetConfiguration extends CollapsingToolbarBaseActivity {
-
-        @Override
-        protected String getActivityTitle() {
-            return getString(R.string.analog_widget_material_you);
-        }
-
-        @Override
-        public void onCreate(final Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-
-            showFragmentFromWidget(this, savedInstanceState, new MaterialYouAnalogWidgetSettingsFragment());
-        }
-    }
-
-    public static class MaterialYouDigitalWidgetConfiguration extends CollapsingToolbarBaseActivity {
-
-        @Override
-        protected String getActivityTitle() {
-            return getString(R.string.digital_widget);
-        }
-
-        @Override
-        public void onCreate(final Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-
-            showFragmentFromWidget(this, savedInstanceState, new MaterialYouDigitalWidgetSettingsFragment());
-        }
-    }
-
-    public static class MaterialYouVerticalDigitalWidgetConfiguration extends CollapsingToolbarBaseActivity {
-
-        @Override
-        protected String getActivityTitle() {
-            return getString(R.string.digital_widget);
-        }
-
-        @Override
-        public void onCreate(final Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-
-            showFragmentFromWidget(this, savedInstanceState, new MaterialYouVerticalDigitalWidgetSettingsFragment());
-        }
-    }
-
-    public static class MaterialYouNextAlarmWidgetConfiguration extends CollapsingToolbarBaseActivity {
-
-        @Override
-        protected String getActivityTitle() {
-            return getString(R.string.digital_widget);
-        }
-
-        @Override
-        public void onCreate(final Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-
-            showFragmentFromWidget(this, savedInstanceState, new MaterialYouNextAlarmWidgetSettingsFragment());
+            showFragmentFromWidget(this, savedInstanceState, new AppWidgetNextAlarmSettingsFragment());
         }
     }
 

@@ -26,8 +26,7 @@ import com.best.deskclock.settings.PreferencesKeys;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
-import com.best.deskclock.widgets.materialyouwidgets.MaterialYouDigitalAppWidgetProvider;
-import com.best.deskclock.widgets.standardwidgets.DigitalAppWidgetProvider;
+import com.best.deskclock.widgets.DigitalAppWidgetProvider;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -304,7 +303,6 @@ final class CityModel {
      */
     private void fireCitiesChanged() {
         WidgetUtils.updateWidget(mContext, DigitalAppWidgetProvider.class);
-        WidgetUtils.updateWidget(mContext, MaterialYouDigitalAppWidgetProvider.class);
 
         for (CityListener listener : mCityListeners) {
             listener.citiesChanged();

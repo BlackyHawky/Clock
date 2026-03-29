@@ -249,7 +249,6 @@
     <string name="title_accent_color">強調色</string>
     <string name="settings_vibration_title">啟用震動</string>
     <string name="permission_granted">已授予</string>
-    <string name="material_you_digital_widget">Material You 數位時鐘</string>
     <string name="alarm_label_box_title">鬧鐘標籤</string>
     <string name="label_default">預設</string>
     <string name="timer_add_custom_time">+ %s</string>
@@ -274,7 +273,6 @@
     <string name="ignore_battery_optimizations_dialog_title">電池最佳化</string>
     <string name="background_color_title">背景顏色</string>
     <string name="permission_management_settings">權限管理</string>
-    <string name="standard_category_title">標準</string>
     <string name="settings_language_title">語言</string>
     <string name="backup_button_title">備份</string>
     <string name="restore_button_title">還原</string>
@@ -283,12 +281,10 @@
     <string name="yellow_accent_color">黃色</string>
     <string name="alarm_flash">閃光燈</string>
     <string name="alarm_alert_off_and_deleted_text">已關閉並刪除鬧鐘</string>
-    <string name="material_you_vertical_digital_widget">Material You 直式數位時鐘</string>
-    <string name="analog_widget_material_you">Material You 指針時鐘</string>
     <string name="delete_occasional_alarm_after_use_title">關閉後立即刪除鬧鐘</string>
     <string name="alarm_alert_dismiss_and_delete_text">關閉並刪除</string>
     <string name="occasional_alarm_alert_predismiss_title">預定的臨時鬧鐘</string>
-    <string name="vertical_digital_widget">直式數位時鐘</string>
+    <string name="vertical_widget">直式數位時鐘</string>
     <string name="next_alarm_widget">下個鬧鐘</string>
     <string name="alarm_notification_reminder_4_hours">4 小時前</string>
     <string name="settings_language_turkish">土耳其</string>
@@ -390,7 +386,6 @@
     <string name="transparent_background_for_expired_timer_title">計時器到期透明背景</string>
     <string name="settings_keep_screen_on_title">保持螢幕開啟</string>
     <string name="sw_start_pause_action">開始 / 暫停</string>
-    <string name="next_alarm_widget_text">下個鬧鐘</string>
     <string name="settings_permission_message">缺少一項或多項權限，若不授予將無法正常運作。</string>
     <string name="settings_keep_screen_on_summary">請注意：計時器或碼表執行期間停留相應頁面時不會進入休眠，不受這個選項影響</string>
     <string name="description_direction_both_for_occasional_alarm">向左滑動延後或向右滑動關閉並刪除鬧鐘</string>
@@ -421,7 +416,6 @@
     <string name="sort_timer_ascending_duration">長度 (升序)</string>
     <string name="hour_color_title">自訂小時色彩</string>
     <string name="gnu_gpl">GNU 通用公眾授權條款 v3.0</string>
-    <string name="material_you_next_alarm_widget">Material You 下個鬧鐘</string>
     <string name="settings_fade_transitions_title">啟用頁面切換淡化效果</string>
     <string name="date_default_color_title">日期使用預設色彩</string>
     <string name="city_clock_default_color_title">城市時間使用預設色彩</string>
@@ -443,7 +437,6 @@
     <string name="alarm_snooze_channel">延後的鬧鐘</string>
     <string name="display_ringtone_title">顯示鈴聲名稱</string>
     <string name="interface_customization_summary">設定應用程式整體外觀</string>
-    <string name="material_you_category_title">Material You</string>
     <string name="first_launch_important_info_message_for_SDK34">• &lt;b&gt;全螢幕通知&lt;/b&gt; &lt;br&gt; &lt;br&gt;</string>
     <string name="about_translate_link">Codeberg 翻譯</string>
     <string name="translate_dialog_message">造訪 Codeberg 頁面：\n\n%s</string>

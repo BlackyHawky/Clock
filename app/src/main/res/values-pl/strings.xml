@@ -395,14 +395,8 @@
     <string name="description_direction_both_for_occasional_non_repeatable_alarm">Przesuń w lewo lub w prawo, aby odrzucić i usunąć alarm</string>
     <string name="timer_settings_summary">Ustaw domyślny dzwonek, głośność i sortowanie minutnika</string>
     <string name="first_launch_dialog_message">Czy na pewno chcesz wyjść z aplikacji?</string>
-    <string name="material_you_digital_widget">Zegar cyfrowy Material You</string>
-    <string name="analog_widget_material_you">Zegar analogowy Material You</string>
-    <string name="vertical_digital_widget">Zegar cyfrowy pionowy</string>
-    <string name="material_you_vertical_digital_widget">Zegar cyfrowy pionowy Material You</string>
-    <string name="standard_category_title">Standardowe</string>
-    <string name="material_you_category_title">Material You</string>
+    <string name="vertical_widget">Zegar cyfrowy pionowy</string>
     <string name="settings_tab_indicator_title">Wyświetl wskaźnik karty w dolnym menu nawigacyjnym</string>
-    <string name="material_you_next_alarm_widget">Następny alarm Material You</string>
     <string name="alarm_upcoming_channel">Nadchodzące alarmy</string>
     <string name="stopwatch_channel">Stoper</string>
     <string name="screensaver_bold_next_alarm_title">Następny alarm pogrubiony</string>
@@ -433,7 +427,6 @@
     <string name="next_alarm_no_upcoming_alarm_titles_color">Niestandardowy kolor dla tytułów „Następny alarm” i „Brak nadchodzącego alarmu”</string>
     <string name="alarm_title_default_color">Użyj domyślnego koloru dla tytułu alarmu</string>
     <string name="widget_max_font_size_title">Maksymalny rozmiar czcionki widżetu</string>
-    <string name="next_alarm_widget_text">Następny alarm</string>
     <string name="next_alarm_widget_title_no_alarm">Brak nadchodzącego alarmu</string>
     <string name="permission_management_summary">Pokaż uprawnienia niezbędne do prawidłowego działania aplikacji</string>
     <string name="permission_highly_recommended">Wysoce zalecane</string>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingVertical="5dp"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/nextAlarmText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="3dp"
+        android:gravity="center"
+        android:ellipsize="none"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:textColor="@color/widget_text_color"
+        android:shadowRadius="2.75"
+        android:shadowColor="@android:color/black"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        tools:textSize="18sp"
+        tools:visibility="gone" />
+
+    <TextView
+        android:id="@+id/nextAlarmTextForCustomColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="3dp"
+        android:gravity="center"
+        android:ellipsize="none"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:shadowRadius="2.75"
+        android:shadowColor="@android:color/black"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        tools:visibility="gone" />
+
+    <TextView
+        android:id="@+id/nextAlarmTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="3dp"
+        android:gravity="center"
+        android:ellipsize="none"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:textColor="@color/next_alarm_widget_title_color"
+        android:shadowRadius="2.75"
+        android:shadowColor="@android:color/black"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        tools:text="Test"
+        tools:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/nextAlarmTitleForCustomColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="3dp"
+        android:gravity="center"
+        android:ellipsize="none"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:shadowRadius="2.75"
+        android:shadowColor="@android:color/black"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        tools:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <!-- This view is drawn to a Bitmap and sent to the widget as an icon. -->
+        <TextView
+            android:id="@+id/nextAlarmIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:ellipsize="none"
+            android:maxLines="1"
+            android:text="@string/clock_emoji"
+            android:textColor="@android:color/white"
+            android:includeFontPadding="false"
+            android:shadowRadius="2.75"
+            android:shadowColor="@android:color/black"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            tools:text=""
+            tools:drawableStart="@drawable/ic_tab_alarm_static"
+            tools:paddingEnd="3dp"
+            tools:drawableTint="@color/next_alarm_widget_alarm_color" />
+
+        <TextView
+            android:id="@+id/nextAlarmIconForCustomColor"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:ellipsize="none"
+            android:maxLines="1"
+            android:text="@string/clock_emoji"
+            android:includeFontPadding="false"
+            android:shadowRadius="2.75"
+            android:shadowColor="@android:color/black"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            tools:visibility="gone" />
+
+        <TextView
+            android:id="@+id/nextAlarm"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingStart="@null"
+            android:paddingEnd="6dp"
+            android:gravity="center"
+            android:ellipsize="none"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:textColor="@color/next_alarm_widget_alarm_color"
+            android:shadowRadius="2.75"
+            android:shadowColor="@android:color/black"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            tools:text="Mo, 07:30 AM"
+            tools:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/nextAlarmForCustomColor"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingStart="@null"
+            android:paddingEnd="6dp"
+            android:gravity="center"
+            android:ellipsize="none"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:shadowRadius="2.75"
+            android:shadowColor="@android:color/black"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            tools:visibility="gone" />
+
+    </LinearLayout>
+
+</LinearLayout>

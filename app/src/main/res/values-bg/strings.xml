@@ -249,12 +249,8 @@
     <string name="alarm_alert_dismiss_and_delete_text">Изключване и премахване</string>
     <string name="alarm_alert_off_and_deleted_text">Будилникът е изключен и премахнат</string>
     <string name="occasional_alarm_alert_predismiss_title">Предстоящ случаен будилник</string>
-    <string name="analog_widget_material_you">Аналогов часовник Material You</string>
-    <string name="vertical_digital_widget">Вертикален цифров часовник</string>
+    <string name="vertical_widget">Вертикален цифров часовник</string>
     <string name="next_alarm_widget">Следващ будилник</string>
-    <string name="material_you_digital_widget">Цифров часовник Material You</string>
-    <string name="material_you_vertical_digital_widget">Вертикален цифров часовник Material You</string>
-    <string name="material_you_next_alarm_widget">Следващ будилник Material You</string>
     <string name="settings_permission_message">Едно или повече основни разрешения са отказани. Без тях приложението може да не работи правилно.</string>
     <string name="settings_permission_summary">Докоснете за управление на разрешенията.</string>
     <string name="style_category_title">Стил</string>
@@ -263,8 +259,6 @@
     <string name="miscellaneous_category_title">Разни</string>
     <string name="ringtone_category_title">Мелодия</string>
     <string name="actions_category_title">Действия</string>
-    <string name="standard_category_title">Стандартни</string>
-    <string name="material_you_category_title">Material You</string>
     <string name="interface_customization_settings">Интерфейс</string>
     <string name="interface_customization_summary">Задаване на стил и цвят на приложението</string>
     <string name="title_theme">Тема</string>
@@ -559,7 +553,6 @@
     <string name="digital_widget_message_summary">За да имате достъп до настройката, „Показване на града в приспособлението“ трябва да бъде изключена</string>
     <string name="widget_apply_horizontal_padding_title">Добавяне на отстъп към страните на приспособленията</string>
     <string name="widget_max_font_size_title">Ограничение размера на шрифта на приспособлението</string>
-    <string name="next_alarm_widget_text">Следващ будилник</string>
     <string name="permission_management_settings">Управление на разрешенията</string>
     <string name="permission_management_summary">Полазване на разрешенията, необходими за нормалната работа на приложението</string>
     <string name="permission_requirement_title">Изискване:</string>

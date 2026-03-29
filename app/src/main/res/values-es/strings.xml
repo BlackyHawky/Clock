@@ -235,8 +235,7 @@
     <string name="duplicate">Duplicar</string>
     <string name="selected">Seleccionado</string>
     <string name="more_options">Más opciones</string>
-    <string name="vertical_digital_widget">Reloj digital vertical</string>
-    <string name="standard_category_title">Estándar</string>
+    <string name="vertical_widget">Reloj digital vertical</string>
     <string name="interface_customization_summary">Estilo y color aplicados a la aplicación</string>
     <string name="display_card_background_title">Mostrar fondo de tarjetas</string>
     <string name="display_card_background_summary">Muestra un fondo para algunos elementos de la aplicación (alarmas, ciudades, botón temporizador, etc.)</string>
@@ -333,9 +332,6 @@
     <string name="stopwatch_channel">Cronómetro</string>
     <string name="alarm_snooze_channel">Alarmas pospuestas</string>
     <string name="timer_channel">Temporizador</string>
-    <string name="material_you_digital_widget">Reloj digital Material You</string>
-    <string name="material_you_vertical_digital_widget">Reloj digital vertical Material You</string>
-    <string name="material_you_category_title">Material You</string>
     <string name="black_accent_color">Negro</string>
     <string name="system_theme">Sistema</string>
     <string name="light_theme">Claro</string>
@@ -345,8 +341,6 @@
     <string name="blue_gray_accent_color">Azul grisáceo</string>
     <string name="brown_accent_color">Marrón</string>
     <string name="indigo_accent_color">Añil</string>
-    <string name="analog_widget_material_you">Reloj análogo Material You</string>
-    <string name="material_you_next_alarm_widget">Siguiente alarma Material You</string>
     <string name="next_alarm_no_upcoming_alarm_titles_default_color">Utiliza el color predeterminado para los títulos «Próxima alarma» y «Sin próxima alarma»</string>
     <string name="widget_max_font_size_title">Tamaño máximo de la fuente del widget</string>
     <string name="alarm_title_default_color">Utilizar color predeterminado para el título de la alarma</string>
@@ -405,7 +399,6 @@
     <string name="permission_requirement_title">Requerido:</string>
     <string name="permission_granted">Concedido</string>
     <string name="permission_dialog_revoke_title">Revocar acceso</string>
-    <string name="next_alarm_widget_text">Siguiente alarma</string>
     <string name="next_alarm_widget_title_no_alarm">No hay alarma próxima</string>
     <string name="permission_management_settings">Gestión de permisos</string>
     <string name="permission_management_summary">Mostrar los permisos necesarios para que la aplicación funcione correctamente</string>

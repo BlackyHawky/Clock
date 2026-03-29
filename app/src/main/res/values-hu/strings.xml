@@ -283,13 +283,9 @@
     <string name="alarm_alert_dismiss_and_delete_text">Elvet &amp; Töröl</string>
     <string name="alarm_alert_off_and_deleted_text">Ébresztő kikapcsolva és törölve</string>
     <string name="occasional_alarm_alert_predismiss_title">Közelgő alkalmi ébresztő</string>
-    <string name="analog_widget_material_you">Material You analóg óra</string>
-    <string name="vertical_digital_widget">Függőleges digitális óra</string>
+    <string name="vertical_widget">Függőleges digitális óra</string>
     <string name="next_alarm_widget">Következő ébresztő</string>
     <string name="next_alarm_widget_title_no_alarm">Nincs közelgő ébresztő</string>
-    <string name="material_you_digital_widget">Material You digitális óra</string>
-    <string name="material_you_vertical_digital_widget">Material You függőleges digitális óra</string>
-    <string name="material_you_next_alarm_widget">Material You következő ébresztő</string>
     <string name="settings_permission_message">Egy vagy több szükséges engedély nem áll rendelkezésre. Hiányuk hibás működést is okozhat.</string>
     <string name="settings_permission_summary">Koppintson ide az Engedély kezelő oldalra.</string>
     <string name="colors_category_title">Színek</string>
@@ -301,8 +297,6 @@
     <string name="custom_font_toast_message_deleted">Betűtípus sikeresen törölve</string>
     <string name="vibration_category_title">Rezgés</string>
     <string name="actions_category_title">Műveletek</string>
-    <string name="standard_category_title">Hagyományos</string>
-    <string name="material_you_category_title">Material You</string>
     <string name="interface_customization_summary">Az applikációra vonatkozó stílus és szín beállítása</string>
     <string name="display_settings_title">Megjelenítési beállítások</string>
     <string name="system_theme">Rendszer</string>
@@ -579,7 +573,6 @@
     <string name="next_alarm_no_upcoming_alarm_titles_default_color">Alap szín használata a \"Következő ébresztő\" és \"Nincs közelgő ébresztő\" címekhez</string>
     <string name="next_alarm_no_upcoming_alarm_titles_color">Szín a \"Következő ébresztő\" és \"Nincs közelgő ébresztő\" címekhez</string>
     <string name="widget_max_font_size_title">Legnagyobb widget betűméret</string>
-    <string name="next_alarm_widget_text">Következő ébresztő</string>
     <string name="permission_management_settings">Engedély kezelés</string>
     <string name="permission_management_summary">Mutassa meg melyek az alkalmazás működéséhez elengedhetetlen engedélyek</string>
     <string name="permission_requirement_title">Követelmények:</string>

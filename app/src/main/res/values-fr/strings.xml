@@ -89,9 +89,7 @@
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="loading_widget" msgid="5306242862476796500">"Chargement…"</string>
     <string name="analog_widget" msgid="1670505720837152766">"Horloge analogique"</string>
-    <string name="analog_widget_material_you">Horloge analogique Material You</string>
     <string name="digital_widget" msgid="2326954556720571358">"Horloge numérique"</string>
-    <string name="material_you_digital_widget">Horloge numérique Material You</string>
     <string name="settings" msgid="5849739030579520686">"Paramètres"</string>
     <string name="settings_permission_message">Une ou plusieurs autorisations essentielles sont refusées. Ne pas les accorder peut entraîner des dysfonctionnements.</string>
     <string name="settings_permission_summary">Cliquez ici pour afficher la page de Gestion des autorisations.</string>
@@ -387,20 +385,15 @@
     <string name="hour_color_title">Couleur des heures</string>
     <string name="minute_default_color_title">Utiliser la couleur par défaut pour les minutes</string>
     <string name="minute_color_title">Couleur des minutes</string>
-    <string name="material_you_vertical_digital_widget">Horloge numérique verticale Material You</string>
-    <string name="vertical_digital_widget">Horloge numérique verticale</string>
-    <string name="standard_category_title">Standard</string>
-    <string name="material_you_category_title">Material You</string>
+    <string name="vertical_widget">Horloge numérique verticale</string>
     <string name="widgets_settings">Widgets</string>
     <string name="widgets_settings_summary">Définir le style, les couleurs et la taille de la police des widgets</string>
     <string name="settings_tab_indicator_title">Afficher l\'indicateur d\'onglet dans le menu de navigation inférieur</string>
-    <string name="material_you_next_alarm_widget">Prochaine alarme Material You</string>
     <string name="settings_fade_transitions_title">Activer les transitions en fondu lors du changement d\'écran</string>
     <string name="next_alarm_no_upcoming_alarm_titles_default_color">Utiliser la couleur par défaut pour les titres \"Prochaine alarme\" et \"Aucune alarme à venir\"</string>
     <string name="alarm_title_default_color">Utiliser la couleur par défaut pour le titre de l\'alarme</string>
     <string name="widget_max_font_size_title">Taille maximale de la police du widget</string>
     <string name="next_alarm_no_upcoming_alarm_titles_color">Couleur personnalisée des titres \"Prochaine alarme\" et \"Aucune alarme à venir\"</string>
-    <string name="next_alarm_widget_text">Prochaine alarme</string>
     <string name="next_alarm_widget_title_no_alarm">Aucune alarme à venir</string>
     <string name="next_alarm_widget">Prochaine alarme</string>
     <string name="sort_timer_title">Trier les minuteurs</string>

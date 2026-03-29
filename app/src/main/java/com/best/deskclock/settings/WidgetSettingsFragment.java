@@ -4,12 +4,8 @@ package com.best.deskclock.settings;
 
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ANALOG_WIDGET_CUSTOMIZATION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_CUSTOMIZATION;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_ANALOG_WIDGET_CUSTOMIZATION;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOMIZATION;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOMIZATION;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZATION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_CUSTOMIZATION;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_CUSTOMIZATION;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_WIDGET_CUSTOMIZATION;
 
 import android.os.Bundle;
 
@@ -22,12 +18,8 @@ public class WidgetSettingsFragment extends ScreenFragment implements Preference
 
     Preference mAnalogWidgetCustomizationPref;
     Preference mDigitalWidgetCustomizationPref;
-    Preference mVerticalDigitalWidgetCustomizationPref;
+    Preference mVerticalWidgetCustomizationPref;
     Preference mNextAlarmWidgetCustomizationPref;
-    Preference mMaterialYouAnalogWidgetCustomizationPref;
-    Preference mMaterialYouDigitalWidgetCustomizationPref;
-    Preference mMaterialYouVerticalDigitalWidgetCustomizationPref;
-    Preference mMaterialYouNextAlarmWidgetCustomizationPref;
 
     @Override
     protected String getFragmentTitle() {
@@ -42,12 +34,8 @@ public class WidgetSettingsFragment extends ScreenFragment implements Preference
 
         mAnalogWidgetCustomizationPref = findPreference(KEY_ANALOG_WIDGET_CUSTOMIZATION);
         mDigitalWidgetCustomizationPref = findPreference(KEY_DIGITAL_WIDGET_CUSTOMIZATION);
-        mVerticalDigitalWidgetCustomizationPref = findPreference(KEY_VERTICAL_DIGITAL_WIDGET_CUSTOMIZATION);
+        mVerticalWidgetCustomizationPref = findPreference(KEY_VERTICAL_WIDGET_CUSTOMIZATION);
         mNextAlarmWidgetCustomizationPref = findPreference(KEY_NEXT_ALARM_WIDGET_CUSTOMIZATION);
-        mMaterialYouAnalogWidgetCustomizationPref = findPreference(KEY_MATERIAL_YOU_ANALOG_WIDGET_CUSTOMIZATION);
-        mMaterialYouDigitalWidgetCustomizationPref = findPreference(KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOMIZATION);
-        mMaterialYouVerticalDigitalWidgetCustomizationPref = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZATION);
-        mMaterialYouNextAlarmWidgetCustomizationPref = findPreference(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOMIZATION);
 
         setupPreferences();
     }
@@ -55,23 +43,13 @@ public class WidgetSettingsFragment extends ScreenFragment implements Preference
     @Override
     public boolean onPreferenceClick(@NonNull Preference pref) {
         switch (pref.getKey()) {
-            case KEY_ANALOG_WIDGET_CUSTOMIZATION -> animateAndShowFragment(new AnalogWidgetSettingsFragment());
+            case KEY_ANALOG_WIDGET_CUSTOMIZATION -> animateAndShowFragment(new AppWidgetAnalogSettingsFragment());
 
-            case KEY_DIGITAL_WIDGET_CUSTOMIZATION -> animateAndShowFragment(new DigitalWidgetSettingsFragment());
+            case KEY_DIGITAL_WIDGET_CUSTOMIZATION -> animateAndShowFragment(new AppWidgetDigitalSettingsFragment());
 
-            case KEY_VERTICAL_DIGITAL_WIDGET_CUSTOMIZATION -> animateAndShowFragment(new VerticalDigitalWidgetSettingsFragment());
+            case KEY_VERTICAL_WIDGET_CUSTOMIZATION -> animateAndShowFragment(new AppWidgetVerticalSettingsFragment());
 
-            case KEY_NEXT_ALARM_WIDGET_CUSTOMIZATION -> animateAndShowFragment(new NextAlarmWidgetSettingsFragment());
-
-            case KEY_MATERIAL_YOU_ANALOG_WIDGET_CUSTOMIZATION -> animateAndShowFragment(new MaterialYouAnalogWidgetSettingsFragment());
-
-            case KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOMIZATION -> animateAndShowFragment(new MaterialYouDigitalWidgetSettingsFragment());
-
-            case KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZATION ->
-                animateAndShowFragment(new MaterialYouVerticalDigitalWidgetSettingsFragment());
-
-            case KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOMIZATION ->
-                animateAndShowFragment(new MaterialYouNextAlarmWidgetSettingsFragment());
+            case KEY_NEXT_ALARM_WIDGET_CUSTOMIZATION -> animateAndShowFragment(new AppWidgetNextAlarmSettingsFragment());
         }
 
         return true;
@@ -82,17 +60,9 @@ public class WidgetSettingsFragment extends ScreenFragment implements Preference
 
         mDigitalWidgetCustomizationPref.setOnPreferenceClickListener(this);
 
-        mVerticalDigitalWidgetCustomizationPref.setOnPreferenceClickListener(this);
+        mVerticalWidgetCustomizationPref.setOnPreferenceClickListener(this);
 
         mNextAlarmWidgetCustomizationPref.setOnPreferenceClickListener(this);
-
-        mMaterialYouAnalogWidgetCustomizationPref.setOnPreferenceClickListener(this);
-
-        mMaterialYouDigitalWidgetCustomizationPref.setOnPreferenceClickListener(this);
-
-        mMaterialYouVerticalDigitalWidgetCustomizationPref.setOnPreferenceClickListener(this);
-
-        mMaterialYouNextAlarmWidgetCustomizationPref.setOnPreferenceClickListener(this);
     }
 
 }

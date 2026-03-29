@@ -217,7 +217,7 @@ public class AnalogClock extends FrameLayout {
         ImageView secondHand = new ImageView(mContext);
 
         if (mClockStyle == DataModel.ClockStyle.ANALOG_MATERIAL) {
-            secondHand.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.material_you_analog_clock_second));
+            secondHand.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.analog_clock_second_circle));
             secondHand.setColorFilter(getMaterialAnalogClockColor(accentColor, SECOND_HAND));
         } else {
             final String analogSecondHandPref = getAnalogSecondHandPreference();
@@ -251,10 +251,10 @@ public class AnalogClock extends FrameLayout {
     private int getMaterialAnalogDrawableResId(String componentType) {
         return switch (componentType) {
             case DIAL -> getMaterialAnalogDialPreference().equals(DEFAULT_CLOCK_DIAL_MATERIAL)
-                ? R.drawable.material_you_analog_clock_dial_sun
-                : R.drawable.material_you_analog_clock_dial_flower;
-            case HOUR_HAND -> R.drawable.material_you_analog_clock_hour;
-            case MINUTE_HAND -> R.drawable.material_you_analog_clock_minute;
+                ? R.drawable.analog_clock_dial_sun
+                : R.drawable.analog_clock_dial_flower;
+            case HOUR_HAND -> R.drawable.analog_clock_hour_rounded;
+            case MINUTE_HAND -> R.drawable.analog_clock_minute_rounded;
             default -> 0; // Default, should never happen
         };
     }

@@ -28,30 +28,54 @@
             android:layout_weight="1"
             android:layout_marginEnd="2dp"
             android:orientation="vertical"
-            android:gravity="center_horizontal">
+            android:gravity="center">
 
             <TextClock
                 android:id="@+id/leftClock"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="3dp"
+                android:baselineAligned="true"
+                android:textColor="@color/digital_widget_time_color"
                 android:shadowRadius="2.75"
                 android:shadowColor="@android:color/black"
                 android:shadowDx="2"
                 android:shadowDy="2"
                 tools:text="01:23 AM"
-                tools:textSize="16sp"
-                tools:textColor="@android:color/white" />
+                tools:textSize="16sp" />
+
+            <TextClock
+                android:id="@+id/leftClockForCustomColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="3dp"
+                android:baselineAligned="true"
+                android:shadowRadius="2.75"
+                android:shadowColor="@android:color/black"
+                android:shadowDx="2"
+                android:shadowDy="2"
+                android:visibility="gone"
+                tools:text="01:23 AM"
+                tools:textSize="16sp" />
 
             <TextClock
                 android:id="@+id/leftClockNoShadow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="3dp"
+                android:baselineAligned="true"
+                android:visibility="gone"
+                android:textColor="@color/digital_widget_time_color"
+                tools:text="01:23 AM"
+                tools:textSize="16sp" />
+
+            <TextClock
+                android:id="@+id/leftClockNoShadowForCustomColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:baselineAligned="true"
                 android:visibility="gone"
                 tools:text="01:23 AM"
-                tools:textSize="16sp"
-                tools:textColor="@android:color/white" />
+                tools:textSize="16sp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -66,12 +90,28 @@
                     android:ellipsize="end"
                     android:includeFontPadding="false"
                     android:maxLines="1"
+                    android:textColor="@color/widget_text_color"
                     android:shadowRadius="2.75"
                     android:shadowColor="@android:color/black"
                     android:shadowDx="2"
                     android:shadowDy="2"
                     tools:text="City1"
-                    tools:textColor="@android:color/white"
+                    tools:textAllCaps="true" />
+
+                <TextView
+                    android:id="@+id/cityNameLeftForCustomColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="3dp"
+                    android:ellipsize="end"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:shadowRadius="2.75"
+                    android:shadowColor="@android:color/black"
+                    android:shadowDx="2"
+                    android:shadowDy="2"
+                    android:visibility="gone"
+                    tools:text="City1"
                     tools:textAllCaps="true" />
 
                 <TextView
@@ -83,8 +123,20 @@
                     android:includeFontPadding="false"
                     android:maxLines="1"
                     android:visibility="gone"
+                    android:textColor="@color/widget_text_color"
                     tools:text="City1"
-                    tools:textColor="@android:color/white"
+                    tools:textAllCaps="true" />
+
+                <TextView
+                    android:id="@+id/cityNameLeftNoShadowForCustomColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="3dp"
+                    android:ellipsize="end"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:visibility="gone"
+                    tools:text="City1"
                     tools:textAllCaps="true" />
 
                 <TextView
@@ -93,14 +145,34 @@
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="3dp"
                     android:ellipsize="none"
+                    android:format12Hour="@string/abbrev_wday"
+                    android:format24Hour="@string/abbrev_wday"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:textColor="@color/widget_text_color"
+                    android:shadowRadius="2.75"
+                    android:shadowColor="@android:color/black"
+                    android:shadowDx="2"
+                    android:shadowDy="2"
+                    tools:text="/ Mon"
+                    tools:textAllCaps="true" />
+
+                <TextView
+                    android:id="@+id/cityDayLeftForCustomColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="3dp"
+                    android:ellipsize="none"
+                    android:format12Hour="@string/abbrev_wday"
+                    android:format24Hour="@string/abbrev_wday"
                     android:includeFontPadding="false"
                     android:maxLines="1"
                     android:shadowRadius="2.75"
                     android:shadowColor="@android:color/black"
                     android:shadowDx="2"
                     android:shadowDy="2"
+                    android:visibility="gone"
                     tools:text="/ Mon"
-                    tools:textColor="@android:color/white"
                     tools:textAllCaps="true" />
 
                 <TextView
@@ -109,11 +181,27 @@
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="3dp"
                     android:ellipsize="none"
+                    android:format12Hour="@string/abbrev_wday"
+                    android:format24Hour="@string/abbrev_wday"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:textColor="@color/widget_text_color"
+                    android:visibility="gone"
+                    tools:text="/ Mon"
+                    tools:textAllCaps="true" />
+
+                <TextView
+                    android:id="@+id/cityDayLeftNoShadowForCustomColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="3dp"
+                    android:ellipsize="none"
+                    android:format12Hour="@string/abbrev_wday"
+                    android:format24Hour="@string/abbrev_wday"
                     android:includeFontPadding="false"
                     android:maxLines="1"
                     android:visibility="gone"
                     tools:text="/ Mon"
-                    tools:textColor="@android:color/white"
                     tools:textAllCaps="true" />
 
             </LinearLayout>
@@ -126,26 +214,48 @@
                 android:ellipsize="end"
                 android:includeFontPadding="false"
                 android:maxLines="1"
+                android:textColor="@color/widget_city_note_color"
                 android:shadowRadius="2.75"
                 android:shadowColor="@android:color/black"
                 android:shadowDx="2"
                 android:shadowDy="2"
-                tools:text="Family"
-                tools:textColor="@android:color/white"
-                tools:textAllCaps="true" />
+                tools:text="Family" />
 
             <TextView
-                android:id="@+id/cityNoteLeftNoShadow"
+                android:id="@+id/cityNoteLeftForCustomColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="6dp"
                 android:ellipsize="end"
                 android:includeFontPadding="false"
                 android:maxLines="1"
+                android:shadowRadius="2.75"
+                android:shadowColor="@android:color/black"
+                android:shadowDx="2"
+                android:shadowDy="2"
                 android:visibility="gone"
-                tools:text="City1"
-                tools:textColor="@android:color/white"
-                tools:textAllCaps="true" />
+                tools:text="Family" />
+
+            <TextView
+                android:id="@+id/cityNoteLeftNoShadow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:visibility="gone"
+                android:textColor="@color/widget_city_note_color"
+                tools:text="Family" />
+
+            <TextView
+                android:id="@+id/cityNoteLeftNoShadowForCustomColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:visibility="gone"
+                tools:text="Family" />
 
         </LinearLayout>
 
@@ -157,30 +267,58 @@
             android:layout_weight="1"
             android:layout_marginStart="2dp"
             android:orientation="vertical"
-            android:gravity="center_horizontal">
+            android:gravity="center">
 
             <TextClock
                 android:id="@+id/rightClock"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="3dp"
+                android:layout_gravity="center"
+                android:baselineAligned="true"
+                android:textColor="@color/digital_widget_time_color"
                 android:shadowRadius="2.75"
                 android:shadowColor="@android:color/black"
                 android:shadowDx="2"
                 android:shadowDy="2"
                 tools:text="01:23 AM"
-                tools:textSize="16sp"
-                tools:textColor="@android:color/white" />
+                tools:textSize="16sp" />
+
+            <TextClock
+                android:id="@+id/rightClockForCustomColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="3dp"
+                android:layout_gravity="center"
+                android:baselineAligned="true"
+                android:shadowRadius="2.75"
+                android:shadowColor="@android:color/black"
+                android:shadowDx="2"
+                android:shadowDy="2"
+                android:visibility="gone"
+                tools:text="01:23 AM"
+                tools:textSize="16sp" />
 
             <TextClock
                 android:id="@+id/rightClockNoShadow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="3dp"
+                android:layout_gravity="center"
+                android:baselineAligned="true"
+                android:textColor="@color/digital_widget_time_color"
                 android:visibility="gone"
                 tools:text="01:23 AM"
-                tools:textSize="16sp"
-                tools:textColor="@android:color/white" />
+                tools:textSize="16sp" />
+
+            <TextClock
+                android:id="@+id/rightClockNoShadowForCustomColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:baselineAligned="true"
+                android:visibility="gone"
+                tools:text="01:23 AM"
+                tools:textSize="16sp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -195,12 +333,28 @@
                     android:ellipsize="end"
                     android:includeFontPadding="false"
                     android:maxLines="1"
+                    android:textColor="@color/widget_text_color"
                     android:shadowRadius="2.75"
                     android:shadowColor="@android:color/black"
                     android:shadowDx="2"
                     android:shadowDy="2"
-                    tools:text="City2"
-                    tools:textColor="@android:color/white"
+                    tools:text="City 2"
+                    tools:textAllCaps="true" />
+
+                <TextView
+                    android:id="@+id/cityNameRightForCustomColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="3dp"
+                    android:ellipsize="end"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:shadowRadius="2.75"
+                    android:shadowColor="@android:color/black"
+                    android:shadowDx="2"
+                    android:shadowDy="2"
+                    android:visibility="gone"
+                    tools:text="City 2"
                     tools:textAllCaps="true" />
 
                 <TextView
@@ -211,9 +365,21 @@
                     android:ellipsize="end"
                     android:includeFontPadding="false"
                     android:maxLines="1"
+                    android:textColor="@color/widget_text_color"
                     android:visibility="gone"
-                    tools:text="City2"
-                    tools:textColor="@android:color/white"
+                    tools:text="City 2"
+                    tools:textAllCaps="true" />
+
+                <TextView
+                    android:id="@+id/cityNameRightNoShadowForCustomColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="3dp"
+                    android:ellipsize="end"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:visibility="gone"
+                    tools:text="City 2"
                     tools:textAllCaps="true" />
 
                 <TextView
@@ -222,14 +388,34 @@
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="3dp"
                     android:ellipsize="none"
+                    android:format12Hour="@string/abbrev_wday"
+                    android:format24Hour="@string/abbrev_wday"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:textColor="@color/widget_text_color"
+                    android:shadowRadius="2.75"
+                    android:shadowColor="@android:color/black"
+                    android:shadowDx="2"
+                    android:shadowDy="2"
+                    tools:text="/ Mon"
+                    tools:textAllCaps="true" />
+
+                <TextView
+                    android:id="@+id/cityDayRightForCustomColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="3dp"
+                    android:ellipsize="none"
+                    android:format12Hour="@string/abbrev_wday"
+                    android:format24Hour="@string/abbrev_wday"
                     android:includeFontPadding="false"
                     android:maxLines="1"
                     android:shadowRadius="2.75"
                     android:shadowColor="@android:color/black"
                     android:shadowDx="2"
                     android:shadowDy="2"
+                    android:visibility="gone"
                     tools:text="/ Mon"
-                    tools:textColor="@android:color/white"
                     tools:textAllCaps="true" />
 
                 <TextView
@@ -238,11 +424,27 @@
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="3dp"
                     android:ellipsize="none"
+                    android:format12Hour="@string/abbrev_wday"
+                    android:format24Hour="@string/abbrev_wday"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:textColor="@color/widget_text_color"
+                    android:visibility="gone"
+                    tools:text="/ Mon"
+                    tools:textAllCaps="true" />
+
+                <TextView
+                    android:id="@+id/cityDayRightNoShadowForCustomColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="3dp"
+                    android:ellipsize="none"
+                    android:format12Hour="@string/abbrev_wday"
+                    android:format24Hour="@string/abbrev_wday"
                     android:includeFontPadding="false"
                     android:maxLines="1"
                     android:visibility="gone"
                     tools:text="/ Mon"
-                    tools:textColor="@android:color/white"
                     tools:textAllCaps="true" />
 
             </LinearLayout>
@@ -255,26 +457,48 @@
                 android:ellipsize="end"
                 android:includeFontPadding="false"
                 android:maxLines="1"
+                android:textColor="@color/widget_city_note_color"
                 android:shadowRadius="2.75"
                 android:shadowColor="@android:color/black"
                 android:shadowDx="2"
                 android:shadowDy="2"
-                tools:text="Family"
-                tools:textColor="@android:color/white"
-                tools:textAllCaps="true" />
+                tools:text="Family" />
 
             <TextView
-                android:id="@+id/cityNoteRightNoShadow"
+                android:id="@+id/cityNoteRightForCustomColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="6dp"
                 android:ellipsize="end"
                 android:includeFontPadding="false"
                 android:maxLines="1"
+                android:shadowRadius="2.75"
+                android:shadowColor="@android:color/black"
+                android:shadowDx="2"
+                android:shadowDy="2"
                 android:visibility="gone"
-                tools:text="City1"
-                tools:textColor="@android:color/white"
-                tools:textAllCaps="true" />
+                tools:text="Family" />
+
+            <TextView
+                android:id="@+id/cityNoteRightNoShadow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:textColor="@color/widget_city_note_color"
+                android:visibility="gone"
+                tools:text="Family" />
+
+            <TextView
+                android:id="@+id/cityNoteRightNoShadowForCustomColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:visibility="gone"
+                tools:text="Family" />
 
         </LinearLayout>
 
@@ -303,23 +527,47 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="3dp"
+                android:baselineAligned="true"
+                android:textColor="@color/digital_widget_time_color"
                 android:shadowRadius="2.75"
                 android:shadowColor="@android:color/black"
                 android:shadowDx="2"
                 android:shadowDy="2"
                 tools:text="01:23 AM"
-                tools:textSize="16sp"
-                tools:textColor="@android:color/white" />
+                tools:textSize="16sp" />
+
+            <TextClock
+                android:id="@+id/singleClockForCustomColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="3dp"
+                android:baselineAligned="true"
+                android:shadowRadius="2.75"
+                android:shadowColor="@android:color/black"
+                android:shadowDx="2"
+                android:shadowDy="2"
+                android:visibility="gone"
+                tools:text="01:23 AM"
+                tools:textSize="16sp" />
 
             <TextClock
                 android:id="@+id/singleClockNoShadow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="3dp"
+                android:baselineAligned="true"
+                android:textColor="@color/digital_widget_time_color"
                 android:visibility="gone"
                 tools:text="01:23 AM"
-                tools:textSize="16sp"
-                tools:textColor="@android:color/white" />
+                tools:textSize="16sp" />
+
+            <TextClock
+                android:id="@+id/singleClockNoShadowForCustomColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:baselineAligned="true"
+                android:visibility="gone"
+                tools:text="01:23 AM"
+                tools:textSize="16sp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -334,17 +582,46 @@
                     android:ellipsize="end"
                     android:includeFontPadding="false"
                     android:maxLines="1"
+                    android:textColor="@color/widget_text_color"
                     android:shadowRadius="2.75"
                     android:shadowColor="@android:color/black"
                     android:shadowDx="2"
                     android:shadowDy="2"
                     tools:text="City1"
-                    tools:textColor="@android:color/white"
+                    tools:textAllCaps="true" />
+
+                <TextView
+                    android:id="@+id/singleCityNameForCustomColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="3dp"
+                    android:ellipsize="end"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:shadowRadius="2.75"
+                    android:shadowColor="@android:color/black"
+                    android:shadowDx="2"
+                    android:shadowDy="2"
+                    android:visibility="gone"
+                    tools:text="City1"
                     tools:textAllCaps="true" />
 
                 <TextView
                     android:id="@+id/singleCityNameNoShadow"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="3dp"
+                    android:ellipsize="end"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:textColor="@color/widget_text_color"
+                    android:visibility="gone"
+                    tools:text="City1"
+                    tools:textAllCaps="true" />
+
+                <TextView
+                    android:id="@+id/singleCityNameNoShadowForCustomColor"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="3dp"
                     android:ellipsize="end"
@@ -352,7 +629,6 @@
                     android:maxLines="1"
                     android:visibility="gone"
                     tools:text="City1"
-                    tools:textColor="@android:color/white"
                     tools:textAllCaps="true" />
 
                 <TextView
@@ -361,14 +637,34 @@
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="3dp"
                     android:ellipsize="none"
+                    android:format12Hour="@string/abbrev_wday"
+                    android:format24Hour="@string/abbrev_wday"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:textColor="@color/widget_text_color"
+                    android:shadowRadius="2.75"
+                    android:shadowColor="@android:color/black"
+                    android:shadowDx="2"
+                    android:shadowDy="2"
+                    tools:text="/ Mon"
+                    tools:textAllCaps="true" />
+
+                <TextView
+                    android:id="@+id/singleCityDayForCustomColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="3dp"
+                    android:ellipsize="none"
+                    android:format12Hour="@string/abbrev_wday"
+                    android:format24Hour="@string/abbrev_wday"
                     android:includeFontPadding="false"
                     android:maxLines="1"
                     android:shadowRadius="2.75"
                     android:shadowColor="@android:color/black"
                     android:shadowDx="2"
                     android:shadowDy="2"
+                    android:visibility="gone"
                     tools:text="/ Mon"
-                    tools:textColor="@android:color/white"
                     tools:textAllCaps="true" />
 
                 <TextView
@@ -377,11 +673,27 @@
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="3dp"
                     android:ellipsize="none"
+                    android:format12Hour="@string/abbrev_wday"
+                    android:format24Hour="@string/abbrev_wday"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:textColor="@color/widget_text_color"
+                    android:visibility="gone"
+                    tools:text="/ Mon"
+                    tools:textAllCaps="true" />
+
+                <TextView
+                    android:id="@+id/singleCityDayNoShadowForCustomColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="3dp"
+                    android:ellipsize="none"
+                    android:format12Hour="@string/abbrev_wday"
+                    android:format24Hour="@string/abbrev_wday"
                     android:includeFontPadding="false"
                     android:maxLines="1"
                     android:visibility="gone"
                     tools:text="/ Mon"
-                    tools:textColor="@android:color/white"
                     tools:textAllCaps="true" />
 
             </LinearLayout>
@@ -391,7 +703,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="6dp"
-                android:layout_gravity="center"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:textColor="@color/widget_city_note_color"
+                android:shadowRadius="2.75"
+                android:shadowColor="@android:color/black"
+                android:shadowDx="2"
+                android:shadowDy="2"
+                tools:text="Family" />
+
+            <TextView
+                android:id="@+id/singleCityNoteForCustomColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="6dp"
                 android:ellipsize="end"
                 android:includeFontPadding="false"
                 android:maxLines="1"
@@ -399,24 +725,29 @@
                 android:shadowColor="@android:color/black"
                 android:shadowDx="2"
                 android:shadowDy="2"
-                tools:text="Family"
-                tools:textColor="@android:color/white"
-                tools:textAllCaps="true" />
+                android:visibility="gone"
+                tools:text="Family" />
 
             <TextView
                 android:id="@+id/singleCityNoteNoShadow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="6dp"
-                android:layout_gravity="center"
-                android:gravity="center"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:textColor="@color/widget_city_note_color"
+                android:visibility="gone"
+                tools:text="Family" />
+
+            <TextView
+                android:id="@+id/singleCityNoteNoShadowForCustomColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:includeFontPadding="false"
                 android:maxLines="1"
                 android:visibility="gone"
-                tools:text="Family"
-                tools:textColor="@android:color/white"
-                tools:textAllCaps="true" />
+                tools:text="Family" />
 
         </LinearLayout>
 
@@ -425,8 +756,8 @@
             android:id="@+id/rightSpacer"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginStart="2dp"
             android:layout_weight="1"
+            android:layout_marginStart="2dp"
             android:background="@android:color/transparent"
             android:orientation="vertical" />
 

@@ -258,7 +258,7 @@ public final class SettingsDAO {
      * {@code false} otherwise.
      */
     public static boolean isTextUppercaseDisplayed(SharedPreferences prefs) {
-        // Default value must match the one in res/xml/settings_customize_digital_widget.xml
+        // Default value must match the one in res/xml/settings_clock.xml
         return prefs.getBoolean(KEY_DISPLAY_TEXT_UPPERCASE, DEFAULT_TEXT_UPPERCASE_DISPLAYED);
     }
 

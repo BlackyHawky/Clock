@@ -240,11 +240,9 @@
     <string name="app_slogan">100% вільний годинник на основі проєкту Android Open Source</string>
     <string name="version">Версія</string>
     <string name="about_title">Про додаток</string>
-    <string name="analog_widget_material_you">Аналог. годинник Material You</string>
     <string name="title_theme">Тема</string>
     <string name="title_accent_color">Акцентний колір</string>
     <string name="settings_vibration_title">Увімкнути вібрацію</string>
-    <string name="material_you_digital_widget">Цифровий годинник Material You</string>
     <string name="interface_customization_settings">Інтерфейс</string>
     <string name="style_category_title">Стиль</string>
     <string name="font_category_title">Шрифт</string>
@@ -371,23 +369,18 @@
     <string name="github_dialog_message">Відвідайте сторінку проєкту на GitHub:
 \n
 \n%s</string>
-    <string name="material_you_vertical_digital_widget">Вертикальний цифровий годинник Material You</string>
     <string name="hour_color_title">Колір годин</string>
     <string name="hour_default_color_title">Колір за замовчуванням для годин</string>
     <string name="minute_default_color_title">Колір за замовчуванням для хвилин</string>
     <string name="minute_color_title">Колір хвилин</string>
     <string name="widgets_settings">Віджети</string>
-    <string name="standard_category_title">Стандартні</string>
-    <string name="material_you_category_title">Material You</string>
-    <string name="vertical_digital_widget">Вертикальний цифровий годинник</string>
+    <string name="vertical_widget">Вертикальний цифровий годинник</string>
     <string name="widgets_settings_summary">Стиль, колір і шрифт віджетів</string>
     <string name="settings_tab_indicator_title">Показувати індикатор вкладки в нижньому навігаційному меню</string>
     <string name="next_alarm_widget_title_no_alarm">Немає наступного будильника</string>
     <string name="next_alarm_no_upcoming_alarm_titles_color">Колір заголовків «Наступний будильник» і «Немає наступного будильника»</string>
     <string name="alarm_title_default_color">Колір за замовчуванням для заголовка будильника</string>
     <string name="widget_max_font_size_title">Максимальний розмір шрифту у віджеті</string>
-    <string name="next_alarm_widget_text">Наступний будильник</string>
-    <string name="material_you_next_alarm_widget">Наступний будильник Material You</string>
     <string name="next_alarm_no_upcoming_alarm_titles_default_color">Колір за замовчуванням для заголовків «Наступний будильник» і «Немає наступного будильника»</string>
     <string name="settings_fade_transitions_title">Увімкнути ефект переходу із згасанням при перемиканні екранів</string>
     <string name="next_alarm_widget">Наступний будильник</string>

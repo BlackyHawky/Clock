@@ -152,10 +152,7 @@ public class CustomSliderPreference extends Preference {
             mSlider.setValueFrom(MIN_BRIGHTNESS_VALUE);
         } else if (isDigitalWidgetBackgroundCornerRadius()
             || isNextAlarmWidgetBackgroundCornerRadius()
-            || isVerticalWidgetBackgroundCornerRadius()
-            || isMaterialYouDigitalWidgetBackgroundCornerRadius()
-            || isMaterialYouNextAlarmWidgetBackgroundCornerRadius()
-            || isMaterialYouVerticalWidgetBackgroundCornerRadius()) {
+            || isVerticalWidgetBackgroundCornerRadius()) {
             mSlider.setValueTo(MAX_CORNER_RADIUS_VALUE);
             mSlider.setValueFrom(MIN_CORNER_RADIUS_VALUE);
         } else if (isShakeIntensityPreference()) {
@@ -224,10 +221,7 @@ public class CustomSliderPreference extends Preference {
             mSliderPlus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_brightness_increase));
         } else if (isDigitalWidgetBackgroundCornerRadius()
             || isNextAlarmWidgetBackgroundCornerRadius()
-            || isVerticalWidgetBackgroundCornerRadius()
-            || isMaterialYouDigitalWidgetBackgroundCornerRadius()
-            || isMaterialYouNextAlarmWidgetBackgroundCornerRadius()
-            || isMaterialYouVerticalWidgetBackgroundCornerRadius()) {
+            || isVerticalWidgetBackgroundCornerRadius()) {
             mSliderMinus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_rounded_corner_decrease));
             mSliderPlus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_rounded_corner_increase));
         } else if (isShakeIntensityPreference() || isTimerShakeIntensityPreference()) {
@@ -340,10 +334,6 @@ public class CustomSliderPreference extends Preference {
             || isNextAlarmWidgetBackgroundCornerRadius()
             || isVerticalWidgetBackgroundCornerRadius()) {
             return DEFAULT_WIDGET_BACKGROUND_CORNER_RADIUS;
-        } else if (isMaterialYouDigitalWidgetBackgroundCornerRadius()
-            || isMaterialYouNextAlarmWidgetBackgroundCornerRadius()
-            || isMaterialYouVerticalWidgetBackgroundCornerRadius()) {
-            return DEFAULT_MATERIAL_YOU_WIDGET_BACKGROUND_CORNER_RADIUS;
         } else if (isShakeIntensityPreference()) {
             return DEFAULT_SHAKE_INTENSITY;
         } else if (isTimerShakeIntensityPreference()) {
@@ -443,51 +433,27 @@ public class CustomSliderPreference extends Preference {
     }
 
     /**
-     * @return {@code true} if the current preference is related to corner radius of
-     * the digital widget background. {@code false} otherwise.
+     * @return {@code true} if the current preference is related to corner radius of the digital widget background.
+     * {@code false} otherwise.
      */
     private boolean isDigitalWidgetBackgroundCornerRadius() {
         return getKey().equals(KEY_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS);
     }
 
     /**
-     * @return {@code true} if the current preference is related to corner radius of
-     * the Next alarm widget background. {@code false} otherwise.
+     * @return {@code true} if the current preference is related to corner radius of the Next alarm widget background.
+     * {@code false} otherwise.
      */
     private boolean isNextAlarmWidgetBackgroundCornerRadius() {
         return getKey().equals(KEY_NEXT_ALARM_WIDGET_BACKGROUND_CORNER_RADIUS);
     }
 
     /**
-     * @return {@code true} if the current preference is related to corner radius of
-     * the vertical widget background. {@code false} otherwise.
+     * @return {@code true} if the current preference is related to corner radius of the vertical widget background.
+     * {@code false} otherwise.
      */
     private boolean isVerticalWidgetBackgroundCornerRadius() {
         return getKey().equals(KEY_VERTICAL_WIDGET_BACKGROUND_CORNER_RADIUS);
-    }
-
-    /**
-     * @return {@code true} if the current preference is related to corner radius of
-     * the Material You digital widget background. {@code false} otherwise.
-     */
-    private boolean isMaterialYouDigitalWidgetBackgroundCornerRadius() {
-        return getKey().equals(KEY_MATERIAL_YOU_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS);
-    }
-
-    /**
-     * @return {@code true} if the current preference is related to corner radius of
-     * the Material You Next alarm widget background. {@code false} otherwise.
-     */
-    private boolean isMaterialYouNextAlarmWidgetBackgroundCornerRadius() {
-        return getKey().equals(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_BACKGROUND_CORNER_RADIUS);
-    }
-
-    /**
-     * @return {@code true} if the current preference is related to corner radius of
-     * the Material You vertical digital widget background. {@code false} otherwise.
-     */
-    private boolean isMaterialYouVerticalWidgetBackgroundCornerRadius() {
-        return getKey().equals(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS);
     }
 
     /**

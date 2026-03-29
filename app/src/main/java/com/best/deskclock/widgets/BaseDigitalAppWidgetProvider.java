@@ -41,6 +41,7 @@ import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.text.format.DateFormat;
 import android.util.ArraySet;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,7 +54,6 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
-import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.LogUtils;
@@ -143,6 +143,8 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
 
     protected abstract int getNextAlarmTitleCustomViewId();
 
+    protected abstract boolean isTextUppercase(SharedPreferences prefs);
+
     protected abstract boolean isTextShadowDisplayed(SharedPreferences prefs);
 
     protected abstract boolean areWorldCitiesDisplayed(SharedPreferences prefs);
@@ -151,17 +153,23 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
 
     protected abstract int getMaxWidgetFontSize(SharedPreferences prefs);
 
-    protected abstract float getFontScaleFactor(SharedPreferences prefs);
+    protected abstract float getFontScaleFactor();
 
     protected abstract Class<?> getCityServiceClass();
 
     protected abstract int getCityLayoutId();
 
-    protected abstract int getCityClockColor(Context context, SharedPreferences prefs);
+    protected abstract boolean isDefaultCityClockColor(SharedPreferences prefs);
 
-    protected abstract int getCityNameColor(Context context, SharedPreferences prefs);
+    protected abstract int getCityClockColor(SharedPreferences prefs);
 
-    protected abstract int getCityNoteColor(Context context, SharedPreferences prefs);
+    protected abstract boolean isDefaultCityNameColor(SharedPreferences prefs);
+
+    protected abstract int getCityNameColor(SharedPreferences prefs);
+
+    protected abstract boolean isDefaultCityNoteColor(SharedPreferences prefs);
+
+    protected abstract int getCityNoteColor(SharedPreferences prefs);
 
     protected abstract void bindDateClickAction(RemoteViews rv, SharedPreferences prefs, PendingIntent calendarPendingIntent);
 
@@ -289,7 +297,8 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
         configureNextAlarmTitle(rv, prefs, nextAlarmTime, nextAlarmTitle);
 
         // Fetch the widget size selected by the user.
-        final float density = context.getResources().getDisplayMetrics().density;
+        final DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        final float density = displayMetrics.density;
         final int minWidthPx = (int) (density * options.getInt(OPTION_APPWIDGET_MIN_WIDTH));
         final int minHeightPx = (int) (density * options.getInt(OPTION_APPWIDGET_MIN_HEIGHT));
         final int maxWidthPx = (int) (density * options.getInt(OPTION_APPWIDGET_MAX_WIDTH));
@@ -298,7 +307,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
         final int targetHeightPx = portrait ? maxHeightPx : minHeightPx;
         final int largestClockFontSizePx = (int) dpToPx(areWorldCitiesDisplayed(prefs) && !cities.isEmpty()
             ? 80
-            : getMaxWidgetFontSize(prefs), context.getResources().getDisplayMetrics());
+            : getMaxWidgetFontSize(prefs), displayMetrics);
 
         // Create a size template that describes the widget bounds.
         final DigitalWidgetSizes template = new DigitalWidgetSizes(targetWidthPx, targetHeightPx, largestClockFontSizePx);
@@ -446,7 +455,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
         DigitalWidgetSizes measuredSizes = template.newSize();
 
         // Adjust the font sizes.
-        measuredSizes.setWidgetFontSizePx(widgetFontSize, getFontScaleFactor(prefs));
+        measuredSizes.setWidgetFontSizePx(widgetFontSize, getFontScaleFactor());
 
         // Configure items to display the widest strings.
         configureClockForMeasurement(sizer, measuredSizes, prefs);
@@ -493,19 +502,15 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
             return builder.build();
         }
 
+        final boolean isTablet = ThemeUtils.isTablet();
         final boolean shadowEnabled = isTextShadowDisplayed(prefs);
-        final boolean isTextUppercase = WidgetDAO.isTextUppercaseDisplayedOnDigitalWidget(prefs);
+        final boolean isTextUppercase = isTextUppercase(prefs);
         final boolean is24HourFormat = DateFormat.is24HourFormat(context);
+        final DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
 
-        final float hour12FontSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, ThemeUtils.isTablet()
-            ? 52
-            : 32, context.getResources().getDisplayMetrics());
-        final float hour24FontSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, ThemeUtils.isTablet()
-            ? 65
-            : 40, context.getResources().getDisplayMetrics());
-        final float cityAndDayFontSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, ThemeUtils.isTablet()
-            ? 20
-            : 12, context.getResources().getDisplayMetrics());
+        final float hour12FontSize = dpToPx(isTablet ? 52 : 32, displayMetrics);
+        final float hour24FontSize = dpToPx(isTablet ? 65 : 40, displayMetrics);
+        final float cityAndDayFontSize = dpToPx(isTablet ? 20 : 14, displayMetrics);
 
         final int totalRows = (int) Math.ceil((double) cities.size() / 2);
         int rowIndex = 0;
@@ -523,20 +528,23 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
                 rowRv.setViewVisibility(R.id.twoColumnContainer, View.VISIBLE);
                 rowRv.setViewVisibility(R.id.singleColumnContainer, View.GONE);
 
-                fillColumn(rowRv, left, i, widgetId, true, false, shadowEnabled, isTextUppercase, is24HourFormat,
-                    hour12FontSize, hour24FontSize, cityAndDayFontSize, fontScale, getCityClockColor(context, prefs),
-                    getCityNameColor(context, prefs), getCityNoteColor(context, prefs), context, prefs, localCal);
+                fillColumn(context, prefs, rowRv, left, i, widgetId, true, false, shadowEnabled, isTextUppercase,
+                    is24HourFormat, hour12FontSize, hour24FontSize, cityAndDayFontSize, fontScale, localCal,
+                    isDefaultCityClockColor(prefs), getCityClockColor(prefs), isDefaultCityNameColor(prefs), getCityNameColor(prefs),
+                    isDefaultCityNoteColor(prefs), getCityNoteColor(prefs));
 
-                fillColumn(rowRv, right, i + 1, widgetId, false, false, shadowEnabled, isTextUppercase, is24HourFormat,
-                    hour12FontSize, hour24FontSize, cityAndDayFontSize, fontScale, getCityClockColor(context, prefs),
-                    getCityNameColor(context, prefs), getCityNoteColor(context, prefs), context, prefs, localCal);
+                fillColumn(context, prefs, rowRv, right, i + 1, widgetId, false, false, shadowEnabled,
+                    isTextUppercase, is24HourFormat, hour12FontSize, hour24FontSize, cityAndDayFontSize, fontScale, localCal,
+                    isDefaultCityClockColor(prefs), getCityClockColor(prefs), isDefaultCityNameColor(prefs), getCityNameColor(prefs),
+                    isDefaultCityNoteColor(prefs), getCityNoteColor(prefs));
             } else {
                 rowRv.setViewVisibility(R.id.twoColumnContainer, View.GONE);
                 rowRv.setViewVisibility(R.id.singleColumnContainer, View.VISIBLE);
 
-                fillColumn(rowRv, left, i, widgetId, true, true, shadowEnabled, isTextUppercase, is24HourFormat,
-                    hour12FontSize, hour24FontSize, cityAndDayFontSize, fontScale, getCityClockColor(context, prefs),
-                    getCityNameColor(context, prefs), getCityNoteColor(context, prefs), context, prefs, localCal);
+                fillColumn(context, prefs, rowRv, left, i, widgetId, true, true, shadowEnabled, isTextUppercase,
+                    is24HourFormat, hour12FontSize, hour24FontSize, cityAndDayFontSize, fontScale, localCal,
+                    isDefaultCityClockColor(prefs), getCityClockColor(prefs), isDefaultCityNameColor(prefs), getCityNameColor(prefs),
+                    isDefaultCityNoteColor(prefs), getCityNoteColor(prefs));
             }
 
             boolean lastRow = (rowIndex == totalRows - 1);
@@ -557,29 +565,33 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
      * <p>Configures the clock (12/24h format, timezone), the city name and optional day label,
      * applies sizes and colors, manages the container visibility and prepares the click fill‑in intent.
      *
-     * @param rowRv              RemoteViews representing the row to populate
-     * @param city               City object to display in the column (may be null to hide the column)
-     * @param cityIndex          index of the city in the list (used for the fill‑in intent)
-     * @param widgetId           id of the widget (used for the fill‑in intent)
-     * @param isLeft             true if the column is the left column
-     * @param isSingle           true if the column is the single-column layout
-     * @param shadowEnabled      true to use the shadowed variant
-     * @param isTextUppercase    true to display text in uppercase
-     * @param is24HourFormat     true for 24-hour format, false for 12-hour
-     * @param hour12FontSize     font size for 12-hour format (px)
-     * @param hour24FontSize     font size for 24-hour format (px)
-     * @param cityAndDayFontSize font size for city name and day label (px)
-     * @param fontScale          scale factor applied to font sizes
-     * @param cityClockColor     color for the clock text
-     * @param cityNameColor      color for the city name and day text
-     * @param context            context used to access resources
-     * @param localCal           local Calendar used to determine whether to show the day label
+     * @param rowRv                   RemoteViews representing the row to populate
+     * @param city                    City object to display in the column (may be null to hide the column)
+     * @param cityIndex               index of the city in the list (used for the fill‑in intent)
+     * @param widgetId                id of the widget (used for the fill‑in intent)
+     * @param isLeft                  true if the column is the left column
+     * @param isSingle                true if the column is the single-column layout
+     * @param shadowEnabled           true to use the shadowed variant
+     * @param isTextUppercase         true to display text in uppercase
+     * @param is24HourFormat          true for 24-hour format, false for 12-hour
+     * @param hour12FontSize          font size for 12-hour format (px)
+     * @param hour24FontSize          font size for 24-hour format (px)
+     * @param cityAndDayFontSize      font size for city name and day label (px)
+     * @param fontScale               scale factor applied to font sizes
+     * @param useDefaultClockColor    true if the default clock color is used
+     * @param customClockColor        custom color for the clock text
+     * @param useDefaultCityNameColor true if the default city name color is used
+     * @param customCityNameColor     custom color for the city name and day text
+     * @param useDefaultCityNoteColor true if the default city note color is used
+     * @param customCityNoteColor     custom color for the city note
+     * @param context                 context used to access resources
+     * @param localCal                local Calendar used to determine whether to show the day label
      */
-    private void fillColumn(RemoteViews rowRv, City city, int cityIndex, int widgetId, boolean isLeft,
-                            boolean isSingle, boolean shadowEnabled, boolean isTextUppercase, boolean is24HourFormat,
-                            float hour12FontSize, float hour24FontSize, float cityAndDayFontSize, float fontScale,
-                            int cityClockColor, int cityNameColor, int cityNoteColor, Context context, SharedPreferences prefs,
-                            Calendar localCal) {
+    private void fillColumn(Context context, SharedPreferences prefs, RemoteViews rowRv, City city, int cityIndex, int widgetId,
+                            boolean isLeft, boolean isSingle, boolean shadowEnabled, boolean isTextUppercase, boolean is24HourFormat,
+                            float hour12FontSize, float hour24FontSize, float cityAndDayFontSize, float fontScale, Calendar localCal,
+                            boolean useDefaultClockColor, int customClockColor, boolean useDefaultCityNameColor, int customCityNameColor,
+                            boolean useDefaultCityNoteColor, int customCityNoteColor) {
 
         if (city == null) {
             // Hide the corresponding container
@@ -593,60 +605,115 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
             return;
         }
 
-        // Choice of IDs according to left/right/single and shadow
-        final int clockId, clockOffId, nameId, nameOffId, dayId, dayOffId, noteId, noteOffId, containerId;
+        // Choice of IDs according to left/right/single, shadow and default color
+        final int clockId, nameId, dayId, noteId, containerId;
+        final int[] clockIdsGroup, nameIdsGroup, dayIdsGroup, noteIdsGroup;
 
         if (isSingle) {
-            clockId = shadowEnabled ? R.id.singleClock : R.id.singleClockNoShadow;
-            clockOffId = shadowEnabled ? R.id.singleClockNoShadow : R.id.singleClock;
-            nameId = shadowEnabled ? R.id.singleCityName : R.id.singleCityNameNoShadow;
-            nameOffId = shadowEnabled ? R.id.singleCityNameNoShadow : R.id.singleCityName;
-            dayId = shadowEnabled ? R.id.singleCityDay : R.id.singleCityDayNoShadow;
-            dayOffId = shadowEnabled ? R.id.singleCityDayNoShadow : R.id.singleCityDay;
-            noteId = shadowEnabled ? R.id.singleCityNote : R.id.singleCityNoteNoShadow;
-            noteOffId = shadowEnabled ? R.id.singleCityNoteNoShadow : R.id.singleCityNote;
+            clockIdsGroup = new int[]{R.id.singleClock, R.id.singleClockNoShadow,
+                R.id.singleClockForCustomColor, R.id.singleClockNoShadowForCustomColor};
+            clockId = useDefaultClockColor
+                ? (shadowEnabled ? R.id.singleClock : R.id.singleClockNoShadow)
+                : (shadowEnabled ? R.id.singleClockForCustomColor : R.id.singleClockNoShadowForCustomColor);
+
+            nameIdsGroup = new int[]{R.id.singleCityName, R.id.singleCityNameNoShadow,
+                R.id.singleCityNameForCustomColor, R.id.singleCityNameNoShadowForCustomColor};
+            nameId = useDefaultCityNameColor
+                ? (shadowEnabled ? R.id.singleCityName : R.id.singleCityNameNoShadow)
+                : (shadowEnabled ? R.id.singleCityNameForCustomColor : R.id.singleCityNameNoShadowForCustomColor);
+
+            dayIdsGroup = new int[]{R.id.singleCityDay, R.id.singleCityDayNoShadow,
+                R.id.singleCityDayForCustomColor, R.id.singleCityDayNoShadowForCustomColor};
+            dayId = useDefaultCityNameColor
+                ? (shadowEnabled ? R.id.singleCityDay : R.id.singleCityDayNoShadow)
+                : (shadowEnabled ? R.id.singleCityDayForCustomColor : R.id.singleCityDayNoShadowForCustomColor);
+
+            noteIdsGroup = new int[]{R.id.singleCityNote, R.id.singleCityNoteNoShadow,
+                R.id.singleCityNoteForCustomColor, R.id.singleCityNoteNoShadowForCustomColor};
+            noteId = useDefaultCityNoteColor
+                ? (shadowEnabled ? R.id.singleCityNote : R.id.singleCityNoteNoShadow)
+                : (shadowEnabled ? R.id.singleCityNoteForCustomColor : R.id.singleCityNoteNoShadowForCustomColor);
+
             containerId = R.id.singleContainer;
         } else if (isLeft) {
-            clockId = shadowEnabled ? R.id.leftClock : R.id.leftClockNoShadow;
-            clockOffId = shadowEnabled ? R.id.leftClockNoShadow : R.id.leftClock;
-            nameId = shadowEnabled ? R.id.cityNameLeft : R.id.cityNameLeftNoShadow;
-            nameOffId = shadowEnabled ? R.id.cityNameLeftNoShadow : R.id.cityNameLeft;
-            dayId = shadowEnabled ? R.id.cityDayLeft : R.id.cityDayLeftNoShadow;
-            dayOffId = shadowEnabled ? R.id.cityDayLeftNoShadow : R.id.cityDayLeft;
-            noteId = shadowEnabled ? R.id.cityNoteLeft : R.id.cityNoteLeftNoShadow;
-            noteOffId = shadowEnabled ? R.id.cityNoteLeftNoShadow : R.id.cityNoteLeft;
+            clockIdsGroup = new int[]{R.id.leftClock, R.id.leftClockNoShadow,
+                R.id.leftClockForCustomColor, R.id.leftClockNoShadowForCustomColor};
+            clockId = useDefaultClockColor
+                ? (shadowEnabled ? R.id.leftClock : R.id.leftClockNoShadow)
+                : (shadowEnabled ? R.id.leftClockForCustomColor : R.id.leftClockNoShadowForCustomColor);
+
+            nameIdsGroup = new int[]{R.id.cityNameLeft, R.id.cityNameLeftNoShadow,
+                R.id.cityNameLeftForCustomColor, R.id.cityNameLeftNoShadowForCustomColor};
+
+            nameId = useDefaultCityNameColor
+                ? (shadowEnabled ? R.id.cityNameLeft : R.id.cityNameLeftNoShadow)
+                : (shadowEnabled ? R.id.cityNameLeftForCustomColor : R.id.cityNameLeftNoShadowForCustomColor);
+
+            dayIdsGroup = new int[]{R.id.cityDayLeft, R.id.cityDayLeftNoShadow,
+                R.id.cityDayLeftForCustomColor, R.id.cityDayLeftNoShadowForCustomColor};
+
+            dayId = useDefaultCityNameColor
+                ? (shadowEnabled ? R.id.cityDayLeft : R.id.cityDayLeftNoShadow)
+                : (shadowEnabled ? R.id.cityDayLeftForCustomColor : R.id.cityDayLeftNoShadowForCustomColor);
+
+            noteIdsGroup = new int[]{R.id.cityNoteLeft, R.id.cityNoteLeftNoShadow,
+                R.id.cityNoteLeftForCustomColor, R.id.cityNoteLeftNoShadowForCustomColor};
+            noteId = useDefaultCityNoteColor
+                ? (shadowEnabled ? R.id.cityNoteLeft : R.id.cityNoteLeftNoShadow)
+                : (shadowEnabled ? R.id.cityNoteLeftForCustomColor : R.id.cityNoteLeftNoShadowForCustomColor);
+
             containerId = R.id.leftContainer;
         } else {
-            clockId = shadowEnabled ? R.id.rightClock : R.id.rightClockNoShadow;
-            clockOffId = shadowEnabled ? R.id.rightClockNoShadow : R.id.rightClock;
-            nameId = shadowEnabled ? R.id.cityNameRight : R.id.cityNameRightNoShadow;
-            nameOffId = shadowEnabled ? R.id.cityNameRightNoShadow : R.id.cityNameRight;
-            dayId = shadowEnabled ? R.id.cityDayRight : R.id.cityDayRightNoShadow;
-            dayOffId = shadowEnabled ? R.id.cityDayRightNoShadow : R.id.cityDayRight;
-            noteId = shadowEnabled ? R.id.cityNoteRight : R.id.cityNoteRightNoShadow;
-            noteOffId = shadowEnabled ? R.id.cityNoteRightNoShadow : R.id.cityNoteRight;
+            clockIdsGroup = new int[]{R.id.rightClock, R.id.rightClockNoShadow,
+                R.id.rightClockForCustomColor, R.id.rightClockNoShadowForCustomColor};
+            clockId = useDefaultClockColor
+                ? (shadowEnabled ? R.id.rightClock : R.id.rightClockNoShadow)
+                : (shadowEnabled ? R.id.rightClockForCustomColor : R.id.rightClockNoShadowForCustomColor);
+
+            nameIdsGroup = new int[]{R.id.cityNameRight, R.id.cityNameRightNoShadow,
+                R.id.cityNameRightForCustomColor, R.id.cityNameRightNoShadowForCustomColor};
+            nameId = useDefaultCityNameColor
+                ? (shadowEnabled ? R.id.cityNameRight : R.id.cityNameRightNoShadow)
+                : (shadowEnabled ? R.id.cityNameRightForCustomColor : R.id.cityNameRightNoShadowForCustomColor);
+
+            dayIdsGroup = new int[]{R.id.cityDayRight, R.id.cityDayRightNoShadow,
+                R.id.cityDayRightForCustomColor, R.id.cityDayRightNoShadowForCustomColor};
+            dayId = useDefaultCityNameColor
+                ? (shadowEnabled ? R.id.cityDayRight : R.id.cityDayRightNoShadow)
+                : (shadowEnabled ? R.id.cityDayRightForCustomColor : R.id.cityDayRightNoShadowForCustomColor);
+
+            noteIdsGroup = new int[]{R.id.cityNoteRight, R.id.cityNoteRightNoShadow,
+                R.id.cityNoteRightForCustomColor, R.id.cityNoteRightNoShadowForCustomColor};
+            noteId = useDefaultCityNoteColor
+                ? (shadowEnabled ? R.id.cityNoteRight : R.id.cityNoteRightNoShadow)
+                : (shadowEnabled ? R.id.cityNoteRightForCustomColor : R.id.cityNoteRightNoShadowForCustomColor);
+
             containerId = R.id.rightContainer;
         }
 
         rowRv.setViewVisibility(containerId, View.VISIBLE);
 
         // Hide inactive variants, show active ones
-        showActiveVariant(rowRv, clockId, clockOffId);
-        showActiveVariant(rowRv, nameId, nameOffId);
-        showActiveVariant(rowRv, dayId, dayOffId);
-        showActiveVariant(rowRv, noteId, noteOffId);
+        showActiveVariant(rowRv, clockId, clockIdsGroup);
+        showActiveVariant(rowRv, nameId, nameIdsGroup);
+        showActiveVariant(rowRv, dayId, dayIdsGroup);
+        showActiveVariant(rowRv, noteId, noteIdsGroup);
 
         // Time format
         WidgetUtils.applyClockFormat(rowRv, context, clockId, 0.4f, false);
 
         rowRv.setString(clockId, METHOD_SET_TIME_ZONE, city.getTimeZone().getID());
         rowRv.setTextViewTextSize(clockId, TypedValue.COMPLEX_UNIT_PX, (is24HourFormat ? hour24FontSize : hour12FontSize) * fontScale);
-        rowRv.setTextColor(clockId, cityClockColor);
+        if (!useDefaultClockColor) {
+            rowRv.setTextColor(clockId, customClockColor);
+        }
 
         // City name
         rowRv.setTextViewTextSize(nameId, TypedValue.COMPLEX_UNIT_PX, cityAndDayFontSize * fontScale);
         rowRv.setTextViewText(nameId, isTextUppercase ? city.getName().toUpperCase() : city.getName());
-        rowRv.setTextColor(nameId, cityNameColor);
+        if (!useDefaultCityNameColor) {
+            rowRv.setTextColor(nameId, customCityNameColor);
+        }
 
         // Day if different
         Calendar cityCal = Calendar.getInstance(city.getTimeZone());
@@ -656,7 +723,9 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
             String slashDay = context.getString(R.string.world_day_of_week_label, weekday);
             rowRv.setTextViewText(dayId, isTextUppercase ? slashDay.toUpperCase() : slashDay);
             rowRv.setTextViewTextSize(dayId, TypedValue.COMPLEX_UNIT_PX, cityAndDayFontSize * fontScale);
-            rowRv.setTextColor(dayId, cityNameColor);
+            if (!useDefaultCityNameColor) {
+                rowRv.setTextColor(dayId, customCityNameColor);
+            }
         }
         rowRv.setViewVisibility(dayId, displayDay ? View.VISIBLE : View.GONE);
 
@@ -666,7 +735,9 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
         if (displayCityNote) {
             rowRv.setTextViewTextSize(noteId, TypedValue.COMPLEX_UNIT_PX, cityAndDayFontSize * fontScale);
             rowRv.setTextViewText(noteId, isTextUppercase ? cityNote.toUpperCase() : cityNote);
-            rowRv.setTextColor(noteId, cityNoteColor);
+            if (!useDefaultCityNoteColor) {
+                rowRv.setTextColor(noteId, customCityNoteColor);
+            }
         }
         rowRv.setViewVisibility(noteId, displayCityNote ? View.VISIBLE : View.GONE);
 
@@ -687,15 +758,17 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
      * <p>Hides all views specified by <code>inactiveIds</code> (visibility = GONE)
      * then makes the view specified by <code>activeId</code> visible (visibility = VISIBLE).
      *
-     * @param rv          RemoteViews containing the views to modify
-     * @param activeId    id of the view to activate (VISIBLE)
-     * @param inactiveIds ids of the views to hide (GONE)
+     * @param rv            RemoteViews containing the views to modify
+     * @param activeId      id of the view to activate (VISIBLE)
+     * @param allVariantIds ids of all views
      */
-    private void showActiveVariant(RemoteViews rv, int activeId, int... inactiveIds) {
-        for (int id : inactiveIds) {
-            rv.setViewVisibility(id, View.GONE);
+    private void showActiveVariant(RemoteViews rv, int activeId, int... allVariantIds) {
+        for (int id : allVariantIds) {
+            if (id != activeId) {
+                rv.setViewVisibility(id, View.GONE);
+            }
         }
-
+        // On s'assure que la variante choisie est bien visible
         rv.setViewVisibility(activeId, View.VISIBLE);
     }
 

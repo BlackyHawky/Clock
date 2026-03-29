@@ -210,52 +210,29 @@ public class PreferencesDefaultValues {
     public static final String ANALOG_WIDGET_CLOCK_DIAL_WITH_NUMBERS = "dial_with_numbers";
     public static final String ANALOG_WIDGET_CLOCK_DIAL_WITHOUT_NUMBERS = "dial_without_numbers";
     public static final String ANALOG_WIDGET_CLOCK_DIAL_WITH_ROMAN_NUMBERS = "dial_with_roman_numbers";
+    public static final String ANALOG_WIDGET_CLOCK_DIAL_SUN = "dial_sun";
+    public static final String ANALOG_WIDGET_CLOCK_DIAL_FLOWER = "dial_flower";
 
-    // DigitalWidgetSettingsFragment
+    // Digital Widget
     public static final boolean DEFAULT_DIGITAL_WIDGET_DISPLAY_SECONDS = false;
     public static final boolean DEFAULT_DIGITAL_WIDGET_HIDE_AM_PM = false;
-    public static final boolean DEFAULT_DIGITAL_WIDGET_DISPLAY_BACKGROUND = false;
+    public static final boolean DEFAULT_DIGITAL_WIDGET_DISPLAY_BACKGROUND = true;
     public static final boolean DEFAULT_DIGITAL_WIDGET_DISPLAY_DATE = true;
     public static final boolean DEFAULT_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM = true;
     public static final boolean DEFAULT_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED = true;
 
-    // NextAlarmWidgetSettingsFragment
-    public static final boolean DEFAULT_NEXT_ALARM_WIDGET_DISPLAY_BACKGROUND = false;
-
-    // Vertical Digital Widget
-    public static final boolean DEFAULT_VERTICAL_DIGITAL_WIDGET_DISPLAY_BACKGROUND = false;
-    public static final boolean DEFAULT_VERTICAL_DIGITAL_WIDGET_DISPLAY_DATE = true;
-    public static final boolean DEFAULT_VERTICAL_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM = true;
-
-    // Material You Analog Widget
-    public static final String DEFAULT_MATERIAL_YOU_ANALOG_WIDGET_CLOCK_DIAL = "dial_sun";
-    public static final String MATERIAL_YOU_ANALOG_WIDGET_CLOCK_DIAL_FLOWER = "dial_flower";
-    public static final int DEFAULT_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_DIAL_COLOR = Color.parseColor("#EEF0FF");
-    public static final int DEFAULT_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_HOUR_HAND_COLOR = Color.parseColor("#575E71");
-    public static final int DEFAULT_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_MINUTE_HAND_COLOR = Color.parseColor("#475D92");
-    public static final int DEFAULT_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_SECOND_HAND_COLOR = Color.parseColor("#725572");
-
-    // Material You Digital Widget
-    public static final boolean DEFAULT_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_SECONDS = false;
-    public static final boolean DEFAULT_MATERIAL_YOU_DIGITAL_WIDGET_HIDE_AM_PM = false;
-    public static final boolean DEFAULT_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_BACKGROUND = true;
-    public static final boolean DEFAULT_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_DATE = true;
-    public static final boolean DEFAULT_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM = true;
-    public static final boolean DEFAULT_MATERIAL_YOU_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED = true;
-
-    // Material You Vertical Digital Widget
-    public static final boolean DEFAULT_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_DATE = true;
-    public static final boolean DEFAULT_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM = true;
+    // Vertical Widget
+    public static final boolean DEFAULT_VERTICAL_WIDGET_DISPLAY_DATE = true;
+    public static final boolean DEFAULT_VERTICAL_WIDGET_DISPLAY_NEXT_ALARM = true;
 
     // Common widget values
-    public static final boolean DEFAULT_WIDGET_TEXT_UPPERCASE_DISPLAYED = true;
-    public static final boolean DEFAULT_WIDGET_TEXT_SHADOW_DISPLAYED = true;
+    public static final boolean DEFAULT_WIDGET_TEXT_UPPERCASE_DISPLAYED = false;
+    public static final boolean DEFAULT_WIDGET_TEXT_SHADOW_DISPLAYED = false;
     public static final boolean DEFAULT_ANALOG_WIDGET_WITH_SECOND_HAND = false;
     public static final boolean DEFAULT_WIDGETS_DEFAULT_COLOR = true;
     public static final int DEFAULT_WIDGETS_BACKGROUND_COLOR = Color.parseColor("#70000000");
     public static final boolean DEFAULT_WIDGETS_CUSTOMIZE_BACKGROUND_CORNER_RADIUS = false;
     public static final int DEFAULT_WIDGET_BACKGROUND_CORNER_RADIUS = 24;
-    public static final int DEFAULT_MATERIAL_YOU_WIDGET_BACKGROUND_CORNER_RADIUS = 80;
     public static final int DEFAULT_WIDGETS_CUSTOM_COLOR = Color.WHITE;
     public static final int DEFAULT_WIDGETS_FONT_SIZE = 70;
     public static final boolean DEFAULT_WIDGETS_APPLY_HORIZONTAL_PADDING = true;

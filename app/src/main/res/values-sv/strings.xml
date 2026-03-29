@@ -233,7 +233,6 @@
     <string name="permission_status_title">Status:</string>
     <string name="style_category_title">Stil</string>
     <string name="interface_customization_settings">Gränssnitt</string>
-    <string name="standard_category_title">Standard</string>
     <string name="system_theme">System</string>
     <string name="light_theme">Ljust</string>
     <string name="dark_theme">Mörkt</string>

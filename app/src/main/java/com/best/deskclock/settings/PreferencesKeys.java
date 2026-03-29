@@ -237,12 +237,8 @@ public class PreferencesKeys {
     // Widget settings
     public static final String KEY_ANALOG_WIDGET_CUSTOMIZATION = "key_analog_widget_customization";
     public static final String KEY_DIGITAL_WIDGET_CUSTOMIZATION = "key_digital_widget_customization";
-    public static final String KEY_VERTICAL_DIGITAL_WIDGET_CUSTOMIZATION = "key_vertical_digital_widget_customization";
+    public static final String KEY_VERTICAL_WIDGET_CUSTOMIZATION = "key_vertical_widget_customization";
     public static final String KEY_NEXT_ALARM_WIDGET_CUSTOMIZATION = "key_next_alarm_widget_customization";
-    public static final String KEY_MATERIAL_YOU_ANALOG_WIDGET_CUSTOMIZATION = "key_material_you_analog_widget_customization";
-    public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOMIZATION = "key_material_you_digital_widget_customization";
-    public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZATION = "key_material_you_vertical_digital_widget_customization";
-    public static final String KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOMIZATION = "key_material_you_next_alarm_widget_customization";
 
     // Analog Widget
     public static final String KEY_ANALOG_WIDGET_CLOCK_DIAL = "key_analog_widget_clock_dial";
@@ -260,7 +256,7 @@ public class PreferencesKeys {
     // Digital Widget
     public static final String KEY_DIGITAL_WIDGET_DISPLAY_TEXT_UPPERCASE = "key_digital_widget_display_text_uppercase";
     public static final String KEY_DIGITAL_WIDGET_DISPLAY_TEXT_SHADOW = "key_digital_widget_display_text_shadow";
-    public static final String KEY_DIGITAL_WIDGET_DISPLAY_SECONDS = "key_digital_widget_display_seconds";
+    public static final String KEY_DIGITAL_WIDGET_SECONDS_DISPLAYED = "key_digital_widget_seconds_displayed";
     public static final String KEY_DIGITAL_WIDGET_HIDE_AM_PM = "key_digital_widget_hide_am_pm";
     public static final String KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND = "key_digital_widget_display_background";
     public static final String KEY_DIGITAL_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS = "key_digital_widget_customize_background_corner_radius";
@@ -269,7 +265,8 @@ public class PreferencesKeys {
     public static final String KEY_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM = "key_digital_widget_display_next_alarm";
     public static final String KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED = "key_digital_widget_world_cities_displayed";
     public static final String KEY_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING = "key_digital_widget_apply_horizontal_padding";
-    public static final String KEY_DIGITAL_WIDGET_BACKGROUND_COLOR = "key_digital_widget_background_color";
+    public static final String KEY_DIGITAL_WIDGET_DEFAULT_BACKGROUND_COLOR = "key_digital_widget_default_background_color";
+    public static final String KEY_DIGITAL_WIDGET_CUSTOM_BACKGROUND_COLOR = "key_digital_widget_custom_background_color";
     public static final String KEY_DIGITAL_WIDGET_DEFAULT_CLOCK_COLOR = "key_digital_widget_default_clock_color";
     public static final String KEY_DIGITAL_WIDGET_CUSTOM_CLOCK_COLOR = "key_digital_widget_custom_clock_color";
     public static final String KEY_DIGITAL_WIDGET_DEFAULT_DATE_COLOR = "key_digital_widget_default_date_color";
@@ -284,6 +281,27 @@ public class PreferencesKeys {
     public static final String KEY_DIGITAL_WIDGET_CUSTOM_CITY_NOTE_COLOR = "key_digital_widget_custom_city_note_color";
     public static final String KEY_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE = "key_digital_widget_maximum_clock_font_size";
 
+    // Vertical Digital Widget
+    public static final String KEY_VERTICAL_WIDGET_DISPLAY_TEXT_UPPERCASE = "key_vertical_widget_display_text_uppercase";
+    public static final String KEY_VERTICAL_WIDGET_DISPLAY_TEXT_SHADOW = "key_vertical_widget_display_text_shadow";
+    public static final String KEY_VERTICAL_WIDGET_DISPLAY_BACKGROUND = "key_vertical_widget_display_background";
+    public static final String KEY_VERTICAL_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS = "key_vertical_widget_customize_background_corner_radius";
+    public static final String KEY_VERTICAL_WIDGET_BACKGROUND_CORNER_RADIUS = "key_vertical_widget_background_corner_radius";
+    public static final String KEY_VERTICAL_WIDGET_DISPLAY_DATE = "key_vertical_widget_display_date";
+    public static final String KEY_VERTICAL_WIDGET_DISPLAY_NEXT_ALARM = "key_vertical_widget_display_next_alarm";
+    public static final String KEY_VERTICAL_WIDGET_APPLY_HORIZONTAL_PADDING = "key_vertical_widget_apply_horizontal_padding";
+    public static final String KEY_VERTICAL_WIDGET_DEFAULT_BACKGROUND_COLOR = "key_vertical_widget_default_background_color";
+    public static final String KEY_VERTICAL_WIDGET_CUSTOM_BACKGROUND_COLOR = "key_vertical_widget_custom_background_color";
+    public static final String KEY_VERTICAL_WIDGET_DEFAULT_HOURS_COLOR = "key_vertical_widget_default_hours_color";
+    public static final String KEY_VERTICAL_WIDGET_CUSTOM_HOURS_COLOR = "key_vertical_widget_custom_hours_color";
+    public static final String KEY_VERTICAL_WIDGET_DEFAULT_MINUTES_COLOR = "key_vertical_widget_default_minutes_color";
+    public static final String KEY_VERTICAL_WIDGET_CUSTOM_MINUTES_COLOR = "key_vertical_widget_custom_minutes_color";
+    public static final String KEY_VERTICAL_WIDGET_DEFAULT_DATE_COLOR = "key_vertical_widget_default_date_color";
+    public static final String KEY_VERTICAL_WIDGET_CUSTOM_DATE_COLOR = "key_vertical_widget_custom_date_color";
+    public static final String KEY_VERTICAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR = "key_vertical_widget_default_next_alarm_color";
+    public static final String KEY_VERTICAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR = "key_vertical_widget_custom_next_alarm_color";
+    public static final String KEY_VERTICAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE = "key_vertical_widget_maximum_clock_font_size";
+
     // Next Alarm Widget
     public static final String KEY_NEXT_ALARM_WIDGET_DISPLAY_TEXT_UPPERCASE = "key_next_alarm_widget_display_text_uppercase";
     public static final String KEY_NEXT_ALARM_WIDGET_DISPLAY_TEXT_SHADOW = "key_next_alarm_widget_display_text_shadow";
@@ -291,7 +309,8 @@ public class PreferencesKeys {
     public static final String KEY_NEXT_ALARM_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS = "key_next_alarm_widget_customize_background_corner_radius";
     public static final String KEY_NEXT_ALARM_WIDGET_BACKGROUND_CORNER_RADIUS = "key_next_alarm_widget_background_corner_radius";
     public static final String KEY_NEXT_ALARM_WIDGET_APPLY_HORIZONTAL_PADDING = "key_next_alarm_widget_apply_horizontal_padding";
-    public static final String KEY_NEXT_ALARM_WIDGET_BACKGROUND_COLOR = "key_next_alarm_widget_background_color";
+    public static final String KEY_NEXT_ALARM_WIDGET_DEFAULT_BACKGROUND_COLOR = "key_next_alarm_widget_default_background_color";
+    public static final String KEY_NEXT_ALARM_WIDGET_CUSTOM_BACKGROUND_COLOR = "key_next_alarm_widget_custom_background_color";
     public static final String KEY_NEXT_ALARM_WIDGET_DEFAULT_TITLE_COLOR = "key_next_alarm_widget_default_title_color";
     public static final String KEY_NEXT_ALARM_WIDGET_CUSTOM_TITLE_COLOR = "key_next_alarm_widget_custom_title_color";
     public static final String KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_TITLE_COLOR = "key_next_alarm_widget_default_alarm_title_color";
@@ -299,97 +318,5 @@ public class PreferencesKeys {
     public static final String KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_COLOR = "key_next_alarm_widget_default_alarm_color";
     public static final String KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR = "key_next_alarm_widget_custom_alarm_color";
     public static final String KEY_NEXT_ALARM_WIDGET_MAXIMUM_FONT_SIZE = "key_next_alarm_widget_maximum_font_size";
-
-    // Vertical Digital Widget
-    public static final String KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_TEXT_UPPERCASE = "key_vertical_digital_widget_display_text_uppercase";
-    public static final String KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_TEXT_SHADOW = "key_vertical_digital_widget_display_text_shadow";
-    public static final String KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_BACKGROUND = "key_vertical_digital_widget_display_background";
-    public static final String KEY_VERTICAL_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS = "key_vertical_widget_customize_background_corner_radius";
-    public static final String KEY_VERTICAL_WIDGET_BACKGROUND_CORNER_RADIUS = "key_vertical_widget_background_corner_radius";
-    public static final String KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_DATE = "key_vertical_digital_widget_display_date";
-    public static final String KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM = "key_vertical_digital_widget_display_next_alarm";
-    public static final String KEY_VERTICAL_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING = "key_vertical_digital_widget_apply_horizontal_padding";
-    public static final String KEY_VERTICAL_DIGITAL_WIDGET_BACKGROUND_COLOR = "key_vertical_digital_widget_background_color";
-    public static final String KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_HOURS_COLOR = "key_vertical_digital_widget_default_hours_color";
-    public static final String KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_HOURS_COLOR = "key_vertical_digital_widget_custom_hours_color";
-    public static final String KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_MINUTES_COLOR = "key_vertical_digital_widget_default_minutes_color";
-    public static final String KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_MINUTES_COLOR = "key_vertical_digital_widget_custom_minutes_color";
-    public static final String KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_DATE_COLOR = "key_vertical_digital_widget_default_date_color";
-    public static final String KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_DATE_COLOR = "key_vertical_digital_widget_custom_date_color";
-    public static final String KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR = "key_vertical_digital_widget_default_next_alarm_color";
-    public static final String KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR = "key_vertical_digital_widget_custom_next_alarm_color";
-    public static final String KEY_VERTICAL_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE = "key_vertical_digital_widget_maximum_clock_font_size";
-
-    // Material You Analog Widget
-    public static final String KEY_MATERIAL_YOU_ANALOG_WIDGET_CLOCK_DIAL = "key_material_you_analog_widget_clock_dial";
-    public static final String KEY_MATERIAL_YOU_ANALOG_WIDGET_WITH_SECOND_HAND = "key_material_you_analog_widget_with_second_hand";
-    public static final String KEY_MATERIAL_YOU_ANALOG_WIDGET_DEFAULT_DIAL_COLOR = "key_material_you_analog_widget_default_dial_color";
-    public static final String KEY_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_DIAL_COLOR = "key_material_you_analog_widget_custom_dial_color";
-    public static final String KEY_MATERIAL_YOU_ANALOG_WIDGET_DEFAULT_HOUR_HAND_COLOR = "key_material_you_analog_widget_default_hour_hand_color";
-    public static final String KEY_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_HOUR_HAND_COLOR = "key_material_you_analog_widget_custom_hour_hand_color";
-    public static final String KEY_MATERIAL_YOU_ANALOG_WIDGET_DEFAULT_MINUTE_HAND_COLOR = "key_material_you_analog_widget_default_minute_hand_color";
-    public static final String KEY_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_MINUTE_HAND_COLOR = "key_material_you_analog_widget_custom_minute_hand_color";
-    public static final String KEY_MATERIAL_YOU_ANALOG_WIDGET_DEFAULT_SECOND_HAND_COLOR = "key_material_you_analog_widget_default_second_hand_color";
-    public static final String KEY_MATERIAL_YOU_ANALOG_WIDGET_CUSTOM_SECOND_HAND_COLOR = "key_material_you_analog_widget_custom_second_hand_color";
-
-    // Material You Digital Widget
-    public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_SECONDS_DISPLAYED = "key_material_you_digital_widget_seconds_displayed";
-    public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_HIDE_AM_PM = "key_material_you_digital_widget_hide_am_pm";
-    public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_BACKGROUND = "key_material_you_digital_widget_display_background";
-    public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS = "key_material_you_digital_widget_customize_background_corner_radius";
-    public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS = "key_material_you_digital_widget_background_corner_radius";
-    public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_DATE = "key_material_you_digital_widget_display_date";
-    public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM = "key_material_you_digital_widget_display_next_alarm";
-    public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED = "key_material_you_digital_widget_world_cities_displayed";
-    public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING = "key_material_you_digital_widget_apply_horizontal_padding";
-    public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_BACKGROUND_COLOR = "key_material_you_digital_widget_default_background_color";
-    public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_BACKGROUND_COLOR = "key_material_you_digital_widget_custom_background_color";
-    public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_CLOCK_COLOR = "key_material_you_digital_widget_default_clock_color";
-    public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CLOCK_COLOR = "key_material_you_digital_widget_custom_clock_color";
-    public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_DATE_COLOR = "key_material_you_digital_widget_default_date_color";
-    public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_DATE_COLOR = "key_material_you_digital_widget_custom_date_color";
-    public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR = "key_material_you_digital_widget_default_next_alarm_color";
-    public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR = "key_material_you_digital_widget_custom_next_alarm_color";
-    public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_CITY_CLOCK_COLOR = "key_material_you_digital_widget_default_city_clock_color";
-    public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CITY_CLOCK_COLOR = "key_material_you_digital_widget_custom_city_clock_color";
-    public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_CITY_NAME_COLOR = "key_material_you_digital_widget_default_city_name_color";
-    public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CITY_NAME_COLOR = "key_material_you_digital_widget_custom_city_name_color";
-    public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_CITY_NOTE_COLOR = "key_material_you_digital_widget_default_city_note_color";
-    public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CITY_NOTE_COLOR = "key_material_you_digital_widget_custom_city_note_color";
-    public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE = "key_material_you_digital_widget_maximum_clock_font_size";
-
-    // Material You Vertical Digital Widget
-    public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_BACKGROUND = "key_material_you_vertical_digital_widget_display_background";
-    public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS = "key_material_you_vertical_digital_widget_customize_background_corner_radius";
-    public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS = "key_material_you_vertical_digital_widget_background_corner_radius";
-    public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_DATE = "key_material_you_vertical_digital_widget_display_date";
-    public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM = "key_material_you_vertical_digital_widget_display_next_alarm";
-    public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING = "key_material_you_vertical_digital_widget_apply_horizontal_padding";
-    public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_BACKGROUND_COLOR = "key_material_you_vertical_digital_widget_default_background_color";
-    public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_BACKGROUND_COLOR = "key_material_you_vertical_digital_widget_custom_background_color";
-    public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_HOURS_COLOR = "key_material_you_vertical_digital_widget_default_hours_color";
-    public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_HOURS_COLOR = "key_material_you_vertical_digital_widget_custom_hours_color";
-    public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_MINUTES_COLOR = "key_material_you_vertical_digital_widget_default_minutes_color";
-    public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_MINUTES_COLOR = "key_material_you_vertical_digital_widget_custom_minutes_color";
-    public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_DATE_COLOR = "key_material_you_vertical_digital_widget_default_date_color";
-    public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_DATE_COLOR = "key_material_you_vertical_digital_widget_custom_date_color";
-    public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR = "key_material_you_vertical_digital_widget_default_next_alarm_color";
-    public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR = "key_material_you_vertical_digital_widget_custom_next_alarm_color";
-    public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE = "key_material_you_vertical_digital_widget_maximum_clock_font_size";
-
-    // Material You Next Alarm Widget
-    public static final String KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DISPLAY_BACKGROUND = "key_material_you_next_alarm_widget_display_background";
-    public static final String KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS = "key_material_you_next_alarm_widget_customize_background_corner_radius";
-    public static final String KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_BACKGROUND_CORNER_RADIUS = "key_material_you_next_alarm_widget_background_corner_radius";
-    public static final String KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_APPLY_HORIZONTAL_PADDING = "key_material_you_next_alarm_widget_apply_horizontal_padding";
-    public static final String KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_BACKGROUND_COLOR = "key_material_you_next_alarm_widget_default_background_color";
-    public static final String KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_BACKGROUND_COLOR = "key_material_you_next_alarm_widget_custom_background_color";
-    public static final String KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_TITLE_COLOR = "key_material_you_next_alarm_widget_default_title_color";
-    public static final String KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_TITLE_COLOR = "key_material_you_next_alarm_widget_custom_title_color";
-    public static final String KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_ALARM_TITLE_COLOR = "key_material_you_next_alarm_widget_default_alarm_title_color";
-    public static final String KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_ALARM_TITLE_COLOR = "key_material_you_next_alarm_widget_custom_alarm_title_color";
-    public static final String KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_ALARM_COLOR = "key_material_you_next_alarm_widget_default_alarm_color";
-    public static final String KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR = "key_material_you_next_alarm_widget_custom_alarm_color";
-    public static final String KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_MAXIMUM_FONT_SIZE = "key_material_you_next_alarm_widget_maximum_font_size";
 
 }

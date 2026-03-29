@@ -6,6 +6,7 @@ import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
 import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_CITY_NOTE;
 import static com.best.deskclock.utils.WidgetUtils.METHOD_SET_TIME_ZONE;
@@ -14,6 +15,7 @@ import static java.util.Calendar.DAY_OF_WEEK;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService.RemoteViewsFactory;
@@ -52,45 +54,58 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory implements RemoteView
     protected abstract int getCityViewId();
 
     protected abstract int getLeftClockWithShadowId();
-
-    protected abstract int getLeftClockWithoutShadowId();
+    protected abstract int getLeftClockForCustomColorId();
+    protected abstract int getLeftClockNoShadowId();
+    protected abstract int getLeftClockNoShadowForCustomColorId();
 
     protected abstract int getLeftCityNameWithShadowId();
-
-    protected abstract int getLeftCityNameWithoutShadowId();
+    protected abstract int getLeftCityNameForCustomColorId();
+    protected abstract int getLeftCityNameNoShadowId();
+    protected abstract int getLeftCityNameNoShadowForCustomColorId();
 
     protected abstract int getLeftCityDayWithShadowId();
-
-    protected abstract int getLeftCityDayWithoutShadowId();
+    protected abstract int getLeftCityDayForCustomColorId();
+    protected abstract int getLeftCityDayNoShadowId();
+    protected abstract int getLeftCityDayNoShadowForCustomColorId();
 
     protected abstract int getLeftCityNoteWithShadowId();
-
-    protected abstract int getLeftCityNoteWithoutShadowId();
+    protected abstract int getLeftCityNoteForCustomColorId();
+    protected abstract int getLeftCityNoteNoShadowId();
+    protected abstract int getLeftCityNoteNoShadowForCustomColorId();
 
     protected abstract int getRightClockWithShadowId();
-
-    protected abstract int getRightClockWithoutShadowId();
+    protected abstract int getRightClockForCustomColorId();
+    protected abstract int getRightClockNoShadowId();
+    protected abstract int getRightClockNoShadowForCustomColorId();
 
     protected abstract int getRightCityNameWithShadowId();
-
-    protected abstract int getRightCityNameWithoutShadowId();
+    protected abstract int getRightCityNameForCustomColorId();
+    protected abstract int getRightCityNameNoShadowId();
+    protected abstract int getRightCityNameNoShadowForCustomColorId();
 
     protected abstract int getRightCityDayWithShadowId();
-
-    protected abstract int getRightCityDayWithoutShadowId();
+    protected abstract int getRightCityDayForCustomColorId();
+    protected abstract int getRightCityDayNoShadowId();
+    protected abstract int getRightCityDayNoShadowForCustomColorId();
 
     protected abstract int getRightCityNoteWithShadowId();
-
-    protected abstract int getRightCityNoteWithoutShadowId();
+    protected abstract int getRightCityNoteForCustomColorId();
+    protected abstract int getRightCityNoteNoShadowId();
+    protected abstract int getRightCityNoteNoShadowForCustomColorId();
 
     protected abstract int getCitySpacerId();
 
     protected abstract boolean isTextUppercaseDisplayed(SharedPreferences prefs);
-
     protected abstract boolean isTextShadowDisplayed(SharedPreferences prefs);
 
-    protected abstract void configureColors(RemoteViews rv, Context context, SharedPreferences prefs, int clockId, int labelId, int dayId,
-                                            int noteId);
+    protected abstract boolean isDefaultCityClockColor(SharedPreferences prefs);
+    protected abstract int getCityClockColor(SharedPreferences prefs);
+
+    protected abstract boolean isDefaultCityNameColor(SharedPreferences prefs);
+    protected abstract int getCityNameColor(SharedPreferences prefs);
+
+    protected abstract boolean isDefaultCityNoteColor(SharedPreferences prefs);
+    protected abstract int getCityNoteColor(SharedPreferences prefs);
 
     private final Intent mFillInIntent = new Intent();
 
@@ -111,13 +126,11 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory implements RemoteView
         mPrefs = getDefaultSharedPreferences(mContext);
         mWidgetId = intent.getIntExtra(EXTRA_APPWIDGET_ID, INVALID_APPWIDGET_ID);
         final boolean isTablet = ThemeUtils.isTablet();
+        final DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
 
-        m12HourFontSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-            isTablet ? 52 : 32, context.getResources().getDisplayMetrics());
-        m24HourFontSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-            isTablet ? 65 : 40, context.getResources().getDisplayMetrics());
-        mCityAndDayFontSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-            isTablet ? 20 : 12, context.getResources().getDisplayMetrics());
+        m12HourFontSize = dpToPx(isTablet ? 52 : 32, displayMetrics);
+        m24HourFontSize = dpToPx(isTablet ? 65 : 40, displayMetrics);
+        mCityAndDayFontSize = dpToPx(isTablet ? 20 : 14, displayMetrics);
     }
 
     @Override
@@ -166,28 +179,50 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory implements RemoteView
 
         // Show the left clock if one exists.
         if (left != null) {
-            update(rv, left, getLeftClockWithShadowId(), getLeftClockWithoutShadowId(),
-                getLeftCityNameWithShadowId(), getLeftCityNameWithoutShadowId(),
-                getLeftCityDayWithShadowId(), getLeftCityDayWithoutShadowId(),
-                getLeftCityNoteWithShadowId(), getLeftCityNoteWithoutShadowId());
+            update(rv, left, getLeftClockWithShadowId(), getLeftClockNoShadowId(),
+                getLeftClockForCustomColorId(), getLeftClockNoShadowForCustomColorId(),
+                getLeftCityNameWithShadowId(), getLeftCityNameNoShadowId(),
+                getLeftCityNameForCustomColorId(), getLeftCityNameNoShadowForCustomColorId(),
+                getLeftCityDayWithShadowId(), getLeftCityDayNoShadowId(),
+                getLeftCityDayForCustomColorId(), getLeftCityDayNoShadowForCustomColorId(),
+                getLeftCityNoteWithShadowId(), getLeftCityNoteNoShadowId(),
+                getLeftCityNoteForCustomColorId(), getLeftCityNoteNoShadowForCustomColorId(),
+                isDefaultCityClockColor(mPrefs), getCityClockColor(mPrefs),
+                isDefaultCityNameColor(mPrefs), getCityNameColor(mPrefs),
+                isDefaultCityNoteColor(mPrefs), getCityNoteColor(mPrefs));
         } else {
-            hide(rv, getLeftClockWithShadowId(), getLeftClockWithoutShadowId(),
-                getLeftCityNameWithShadowId(), getLeftCityNameWithoutShadowId(),
-                getLeftCityDayWithShadowId(), getLeftCityDayWithoutShadowId(),
-                getLeftCityNoteWithShadowId(), getLeftCityNoteWithoutShadowId());
+            hide(rv, getLeftClockWithShadowId(), getLeftClockNoShadowId(),
+                getLeftClockForCustomColorId(), getLeftClockNoShadowForCustomColorId(),
+                getLeftCityNameWithShadowId(), getLeftCityNameNoShadowId(),
+                getLeftCityNameForCustomColorId(), getLeftCityNameNoShadowForCustomColorId(),
+                getLeftCityDayWithShadowId(), getLeftCityDayNoShadowId(),
+                getLeftCityDayForCustomColorId(), getLeftCityDayNoShadowForCustomColorId(),
+                getLeftCityNoteWithShadowId(), getLeftCityNoteNoShadowId(),
+                getLeftCityNoteForCustomColorId(), getLeftCityNoteNoShadowForCustomColorId());
         }
 
         // Show the right clock if one exists.
         if (right != null) {
-            update(rv, right, getRightClockWithShadowId(), getRightClockWithoutShadowId(),
-                getRightCityNameWithShadowId(), getRightCityNameWithoutShadowId(),
-                getRightCityDayWithShadowId(), getRightCityDayWithoutShadowId(),
-                getRightCityNoteWithShadowId(), getRightCityNoteWithoutShadowId());
+            update(rv, right, getRightClockWithShadowId(), getRightClockNoShadowId(),
+                getRightClockForCustomColorId(), getRightClockNoShadowForCustomColorId(),
+                getRightCityNameWithShadowId(), getRightCityNameNoShadowId(),
+                getRightCityNameForCustomColorId(), getRightCityNameNoShadowForCustomColorId(),
+                getRightCityDayWithShadowId(), getRightCityDayNoShadowId(),
+                getRightCityDayForCustomColorId(), getRightCityDayNoShadowForCustomColorId(),
+                getRightCityNoteWithShadowId(), getRightCityNoteNoShadowId(),
+                getRightCityNoteForCustomColorId(), getRightCityNoteNoShadowForCustomColorId(),
+                isDefaultCityClockColor(mPrefs), getCityClockColor(mPrefs),
+                isDefaultCityNameColor(mPrefs), getCityNameColor(mPrefs),
+                isDefaultCityNoteColor(mPrefs), getCityNoteColor(mPrefs));
         } else {
-            hide(rv, getRightClockWithShadowId(), getRightClockWithoutShadowId(),
-                getRightCityNameWithShadowId(), getRightCityNameWithoutShadowId(),
-                getRightCityDayWithShadowId(), getRightCityDayWithoutShadowId(),
-                getRightCityNoteWithShadowId(), getRightCityNoteWithoutShadowId());
+            hide(rv, getRightClockWithShadowId(), getRightClockNoShadowId(),
+                getRightClockForCustomColorId(), getRightClockNoShadowForCustomColorId(),
+                getRightCityNameWithShadowId(), getRightCityNameNoShadowId(),
+                getRightCityNameForCustomColorId(), getRightCityNameNoShadowForCustomColorId(),
+                getRightCityDayWithShadowId(), getRightCityDayNoShadowId(),
+                getRightCityDayForCustomColorId(), getRightCityDayNoShadowForCustomColorId(),
+                getRightCityNoteWithShadowId(), getRightCityNoteNoShadowId(),
+                getRightCityNoteForCustomColorId(), getRightCityNoteNoShadowForCustomColorId());
         }
 
         // Hide last spacer in last row; show for all others.
@@ -237,10 +272,17 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory implements RemoteView
         mFontScale = WidgetUtils.getScaleRatio(mContext, null, mWidgetId, mCities.size());
     }
 
-    private void update(RemoteViews rv, City city, int clockWithShadowId, int clockWithoutShadowId,
-                        int nameWithShadowId, int nameWithoutShadowId,
-                        int dayWithShadowId, int dayWithoutShadowId,
-                        int noteWithShadowId, int noteWithoutShadowId) {
+    private void update(RemoteViews rv, City city, int clockWithShadowId, int clockNoShadowId,
+                        int clockForCustomColorId, int clockNoShadowForCustomColorId,
+                        int nameWithShadowId, int nameNoShadowId,
+                        int nameForCustomColorId, int nameNoShadowForCustomColorId,
+                        int dayWithShadowId, int dayNoShadowId,
+                        int dayForCustomColorId, int dayNoShadowForCustomColorId,
+                        int noteWithShadowId, int noteNoShadowId,
+                        int noteForCustomColorId, int noteNoShadowForCustomColorId,
+                        boolean useDefaultClockColor, int customClockColor,
+                        boolean useDefaultCityNameColor, int customCityNameColor,
+                        boolean useDefaultCityNoteColor, int customCityNoteColor) {
 
         final boolean shadowEnabled = isTextShadowDisplayed(mPrefs);
         final boolean isTextUppercase = isTextUppercaseDisplayed(mPrefs);
@@ -248,38 +290,52 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory implements RemoteView
         final float fontSize = is24HourFormat ? m24HourFontSize : m12HourFontSize;
 
         // Selection of active and inactive IDs
-        int clockId = shadowEnabled ? clockWithShadowId : clockWithoutShadowId;
-        int clockOffId = shadowEnabled ? clockWithoutShadowId : clockWithShadowId;
+        int clockId = useDefaultClockColor
+            ? (shadowEnabled ? clockWithShadowId : clockNoShadowId)
+            : (shadowEnabled ? clockForCustomColorId : clockNoShadowForCustomColorId);
+        int[] allClockIds = {clockWithShadowId, clockNoShadowId, clockForCustomColorId, clockNoShadowForCustomColorId};
+        for (int id : allClockIds) {
+            rv.setViewVisibility(id, id == clockId ? VISIBLE : GONE);
+        }
 
-        int labelId = shadowEnabled ? nameWithShadowId : nameWithoutShadowId;
-        int labelOffId = shadowEnabled ? nameWithoutShadowId : nameWithShadowId;
+        int labelId = useDefaultCityNameColor
+            ? (shadowEnabled ? nameWithShadowId : nameNoShadowId)
+            : (shadowEnabled ? nameForCustomColorId : nameNoShadowForCustomColorId);
+        int[] allLabelIds = {nameWithShadowId, nameNoShadowId, nameForCustomColorId, nameNoShadowForCustomColorId};
+        for (int id : allLabelIds) {
+            rv.setViewVisibility(id, id == labelId ? VISIBLE : GONE);
+        }
 
-        int dayId = shadowEnabled ? dayWithShadowId : dayWithoutShadowId;
-        int dayOffId = shadowEnabled ? dayWithoutShadowId : dayWithShadowId;
+        int dayId = useDefaultCityNameColor
+            ? (shadowEnabled ? dayWithShadowId : dayNoShadowId)
+            : (shadowEnabled ? dayForCustomColorId : dayNoShadowForCustomColorId);
+        int[] allDayIds = {dayWithShadowId, dayNoShadowId, dayForCustomColorId, dayNoShadowForCustomColorId};
+        for (int id : allDayIds) {
+            rv.setViewVisibility(id, id == dayId ? VISIBLE : GONE);
+        }
 
-        int noteId = shadowEnabled ? noteWithShadowId : noteWithoutShadowId;
-        int noteOffId = shadowEnabled ? noteWithoutShadowId : noteWithShadowId;
+        int noteId = useDefaultCityNoteColor
+            ? (shadowEnabled ? noteWithShadowId : noteNoShadowId)
+            : (shadowEnabled ? noteForCustomColorId : noteNoShadowForCustomColorId);
+        int[] allNoteIds = {noteWithShadowId, noteNoShadowId, noteForCustomColorId, noteNoShadowForCustomColorId};
+        for (int id : allNoteIds) {
+            rv.setViewVisibility(id, id == noteId ? VISIBLE : GONE);
+        }
 
-        // Hide inactive variants
-        rv.setViewVisibility(clockOffId, GONE);
-        rv.setViewVisibility(labelOffId, GONE);
-        rv.setViewVisibility(dayOffId, GONE);
-        rv.setViewVisibility(noteOffId, GONE);
-
-        // Make active variants visible
-        rv.setViewVisibility(clockId, VISIBLE);
-        rv.setViewVisibility(labelId, VISIBLE);
-
+        // Time format
         WidgetUtils.applyClockFormat(rv, mContext, clockId, 0.4f, false);
 
         rv.setTextViewTextSize(clockId, TypedValue.COMPLEX_UNIT_PX, fontSize * mFontScale);
         rv.setString(clockId, METHOD_SET_TIME_ZONE, city.getTimeZone().getID());
+        if (!useDefaultClockColor) {
+            rv.setTextColor(clockId, customClockColor);
+        }
 
+        // City name
         rv.setTextViewTextSize(labelId, TypedValue.COMPLEX_UNIT_PX, mCityAndDayFontSize * mFontScale);
-        if (isTextUppercase) {
-            rv.setTextViewText(labelId, city.getName().toUpperCase());
-        } else {
-            rv.setTextViewText(labelId, city.getName());
+        rv.setTextViewText(labelId, isTextUppercase ? city.getName().toUpperCase() : city.getName());
+        if (!useDefaultCityNameColor) {
+            rv.setTextColor(labelId, customCityNameColor);
         }
 
         // Compute if the city week day matches the weekday of the current timezone.
@@ -293,10 +349,9 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory implements RemoteView
             final String weekday = cityCal.getDisplayName(DAY_OF_WEEK, Calendar.SHORT, locale);
             final String slashDay = mContext.getString(R.string.world_day_of_week_label, weekday);
             rv.setTextViewTextSize(dayId, TypedValue.COMPLEX_UNIT_PX, mCityAndDayFontSize * mFontScale);
-            if (isTextUppercase) {
-                rv.setTextViewText(dayId, slashDay.toUpperCase());
-            } else {
-                rv.setTextViewText(dayId, slashDay);
+            rv.setTextViewText(dayId, isTextUppercase ? slashDay.toUpperCase() : slashDay);
+            if (!useDefaultCityNameColor) {
+                rv.setTextColor(dayId, customCityNameColor);
             }
         }
 
@@ -308,33 +363,36 @@ public abstract class BaseDigitalAppWidgetCityViewsFactory implements RemoteView
 
         if (displayCityNote) {
             rv.setTextViewTextSize(noteId, TypedValue.COMPLEX_UNIT_PX, mCityAndDayFontSize * mFontScale);
-
-            if (isTextUppercase) {
-                rv.setTextViewText(noteId, cityNote.toUpperCase());
-            } else {
-                rv.setTextViewText(noteId, cityNote);
+            rv.setTextViewText(noteId, isTextUppercase ? cityNote.toUpperCase() : cityNote);
+            if (!useDefaultCityNoteColor) {
+                rv.setTextColor(noteId, customCityNoteColor);
             }
         }
 
         rv.setViewVisibility(noteId, displayCityNote ? VISIBLE : GONE);
-
-        configureColors(rv, mContext, mPrefs, clockId, labelId, dayId, noteId);
     }
 
-    private void hide(RemoteViews clock, int clockWithShadowId, int clockWithoutShadowId,
-                      int nameWithShadowId, int nameWithoutShadowId,
-                      int dayWithShadowId, int dayWithoutShadowId,
-                      int noteWithShadowId, int noteWithoutShadowId) {
+    private void hide(RemoteViews clock,
+                      int clockWithShadowId, int clockNoShadowId,
+                      int clockForCustomColorId, int clockNoShadowForCustomColorId,
+                      int nameWithShadowId, int nameNoShadowId,
+                      int nameForCustomColorId, int nameNoShadowForCustomColorId,
+                      int dayWithShadowId, int dayNoShadowId,
+                      int dayForCustomColorId, int dayNoShadowForCustomColorId,
+                      int noteWithShadowId, int noteNoShadowId,
+                      int noteForCustomColorId, int noteNoShadowForCustomColorId) {
 
-        // Hide all variants to avoid any visual residue
-        clock.setViewVisibility(clockWithShadowId, GONE);
-        clock.setViewVisibility(clockWithoutShadowId, GONE);
-        clock.setViewVisibility(nameWithShadowId, GONE);
-        clock.setViewVisibility(nameWithoutShadowId, GONE);
-        clock.setViewVisibility(dayWithShadowId, GONE);
-        clock.setViewVisibility(dayWithoutShadowId, GONE);
-        clock.setViewVisibility(noteWithShadowId, GONE);
-        clock.setViewVisibility(noteWithoutShadowId, GONE);
+        // On regroupe tous les IDs dans un tableau pour les cacher d'un seul coup
+        int[] allIdsToHide = {
+            clockWithShadowId, clockNoShadowId, clockForCustomColorId, clockNoShadowForCustomColorId,
+            nameWithShadowId, nameNoShadowId, nameForCustomColorId, nameNoShadowForCustomColorId,
+            dayWithShadowId, dayNoShadowId, dayForCustomColorId, dayNoShadowForCustomColorId,
+            noteWithShadowId, noteNoShadowId, noteForCustomColorId, noteNoShadowForCustomColorId
+        };
+
+        for (int id : allIdsToHide) {
+            clock.setViewVisibility(id, GONE);
+        }
     }
 
     /**

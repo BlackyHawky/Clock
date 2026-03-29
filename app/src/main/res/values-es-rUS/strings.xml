@@ -250,7 +250,7 @@
     <string name="delay_picker_dialog_title">Alarma en…</string>
     <string name="alarm_label_box_title">Etiqueta de la alarma</string>
     <string name="alarm_alert_off_and_deleted_text">Alarma desactivada y eliminada</string>
-    <string name="vertical_digital_widget">Reloj digital vertical</string>
+    <string name="vertical_widget">Reloj digital vertical</string>
     <string name="next_alarm_widget">Siguiente alarma</string>
     <string name="settings_permission_message">Se han denegado uno o más permisos esenciales. No concederlos puede provocar fallos de funcionamiento.</string>
     <string name="settings_permission_summary">Presione aquí para mostrar la página de gestión de permisos.</string>
@@ -260,7 +260,6 @@
     <string name="miscellaneous_category_title">Misceláneos</string>
     <string name="ringtone_category_title">Tono de llamada</string>
     <string name="actions_category_title">Acciones</string>
-    <string name="standard_category_title">Estándar</string>
     <string name="interface_customization_settings">Interfaz</string>
     <string name="interface_customization_summary">Establecer el estilo y el color aplicados a la aplicación</string>
     <string name="title_theme">Tema</string>
@@ -301,6 +300,4 @@
     <string name="confirm_action_prompt">\n\nDesea continuar?</string>
     <string name="progress_ringtones">Añadiendo ringtones… (%1$d/%2$d)</string>
     <string name="alarm_scheduled_for">Programada para %s</string>
-    <string name="analog_widget_material_you">Reloj análogo Material You</string>
-    <string name="material_you_digital_widget">Reloj digital Material You</string>
 </resources>

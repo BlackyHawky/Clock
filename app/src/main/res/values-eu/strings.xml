@@ -267,24 +267,18 @@
     <string name="auto_night_accent_color_title">Ezarri kolore nabarmendua gaueko moduari</string>
     <string name="blue_gray_accent_color">Urdin grisa</string>
     <string name="brown_accent_color">Marroia</string>
-    <string name="vertical_digital_widget">Erloju digital bertikala</string>
-    <string name="material_you_digital_widget">Material You erloju digitala</string>
-    <string name="material_you_vertical_digital_widget">Material You erloju digital bertikala</string>
+    <string name="vertical_widget">Erloju digital bertikala</string>
     <string name="ringtone_category_title">Doinua</string>
     <string name="duplicate">Bikoiztu</string>
     <string name="selected">Hautatua</string>
     <string name="alarm_label_box_title">Alarmaren etiketa</string>
     <string name="miscellaneous_category_title">Bestelakoak</string>
     <string name="actions_category_title">Ekintzak</string>
-    <string name="material_you_category_title">Material You</string>
-    <string name="analog_widget_material_you">Material You erloju analogikoa</string>
-    <string name="standard_category_title">Estandarra</string>
     <string name="display_card_background_title">Erakutsi atzealdea</string>
     <string name="schedule_alarm_title">Alarma ezarri</string>
     <string name="delete_occasional_alarm_after_use_title">Ezabatu alarma behin baztertuta</string>
     <string name="label_default">Defektuz</string>
     <string name="alarm_scheduled_for">%s(e)rako programatua</string>
-    <string name="material_you_next_alarm_widget">Hurrengo alarma Material You</string>
     <string name="alarm_alert_off_and_deleted_text">Alarma itzalia eta ezabatua</string>
     <string name="occasional_alarm_alert_predismiss_title">Noizbehinkako alarma berealakoan</string>
 </resources>

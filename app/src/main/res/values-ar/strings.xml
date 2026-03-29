@@ -276,8 +276,7 @@
     <string name="alarm_alert_dismiss_and_delete_text">أهمِل واحذف</string>
     <string name="alarm_alert_off_and_deleted_text">إيقاف المنبه وحذفه</string>
     <string name="occasional_alarm_alert_predismiss_title">منبه عرضي آتي</string>
-    <string name="analog_widget_material_you">الساعة التناظرية بنظام الماتيريال</string>
-    <string name="vertical_digital_widget">ساعة رقمية عمودية</string>
+    <string name="vertical_widget">ساعة رقمية عمودية</string>
     <string name="style_category_title">أسلوب</string>
     <string name="colors_category_title">الألوان</string>
     <string name="font_category_title">الخط</string>
@@ -288,16 +287,11 @@
     <string name="custom_font_toast_message_selected">طُبق الخط بنجاح</string>
     <string name="custom_font_toast_message_deleted">حُذف الخط بنجاح</string>
     <string name="next_alarm_widget">المنبه القادم</string>
-    <string name="material_you_digital_widget">ساعة رقمية بنظام الماتيريال</string>
-    <string name="material_you_vertical_digital_widget">ساعة رقمية عمودية بنظام الماتيريال</string>
-    <string name="material_you_next_alarm_widget">المنبه القادم بنظام الماتيريال</string>
     <string name="settings_permission_message">تم رفض واحد أو أكثر من الأذونات الأساسية. قد يؤدي عدم منحها إلى حدوث أعطال.</string>
     <string name="settings_permission_summary">انقر هنا لعرض صفحة إدارة الأذونات.</string>
     <string name="ringtone_category_title">نغمة رنين</string>
     <string name="vibration_category_title">الإهتزاز</string>
     <string name="actions_category_title">الإجراءات</string>
-    <string name="standard_category_title">معيار</string>
-    <string name="material_you_category_title">نظام الماتيريال</string>
     <string name="interface_customization_settings">واجهة المستخدم</string>
     <string name="interface_customization_summary">قم بتعيين النمط واللون المطبقين على التطبيق</string>
     <string name="display_settings_title">إعدادات العرض</string>
@@ -633,7 +627,6 @@
     <string name="next_alarm_no_upcoming_alarm_titles_default_color">استخدم اللون الافتراضي لعناوين \"المنبه التالي\" و \"لا منبّهات آتية\"</string>
     <string name="next_alarm_no_upcoming_alarm_titles_color">لون عناوين \"المنبه التالي\" و \"لا منبّهات آتية\"</string>
     <string name="widget_max_font_size_title">الحد الأقصى لحجم خط widget</string>
-    <string name="next_alarm_widget_text">المنبه التالي</string>
     <string name="next_alarm_widget_title_no_alarm">لا منبّهات آتية</string>
     <string name="permission_management_settings">إدارة الأذونات</string>
     <string name="permission_management_summary">أظهِر الأذونات اللازمة لكي يعمل التطبيق بشكل صحيح</string>

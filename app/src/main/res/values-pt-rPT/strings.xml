@@ -334,7 +334,6 @@
     <string name="display_city_title">Exibir cidades no widget</string>
     <string name="display_date_title">Exibir a data no widget</string>
     <string name="display_next_alarm_title">Exibir o próximo alarme no widget</string>
-    <string name="next_alarm_widget_text">Próximo alarme</string>
     <string name="permission_management_settings">Gestão de permissões</string>
     <string name="permission_requirement_title">Requisitos:</string>
     <string name="permission_highly_recommended">Altamente recomendado</string>
@@ -387,7 +386,7 @@
     <string name="alarm_alert_dismiss_and_delete_text">Ignorar e Eliminar</string>
     <string name="alarm_alert_off_and_deleted_text">Alarme desligado e eliminado</string>
     <string name="occasional_alarm_alert_predismiss_title">Próximo alarme ocasional</string>
-    <string name="vertical_digital_widget">Relógio digital vertical</string>
+    <string name="vertical_widget">Relógio digital vertical</string>
     <string name="next_alarm_widget">Alarme seguinte</string>
     <string name="settings_permission_summary">Clique aqui para exibir a página de gestão das \'Permissões\'.</string>
     <string name="style_category_title">Estilo</string>
@@ -396,7 +395,6 @@
     <string name="miscellaneous_category_title">Diversas</string>
     <string name="ringtone_category_title">Toque</string>
     <string name="actions_category_title">Ações</string>
-    <string name="standard_category_title">Padrão</string>
     <string name="interface_customization_settings">Interface</string>
     <string name="interface_customization_summary">Defina o estilo e a cor aplicados à aplicação</string>
     <string name="title_theme">Tema</string>
@@ -474,11 +472,6 @@
     <string name="confirm_action_prompt">\n\nDeseja continuar?</string>
     <string name="label_new_image">Nova Imagem</string>
     <string name="progress_ringtones">A adicionar toques… (%1$d/%2$d)</string>
-    <string name="analog_widget_material_you">Relógio analógico Material You</string>
-    <string name="material_you_digital_widget">Relógio digital Material You</string>
-    <string name="material_you_vertical_digital_widget">Relógio digital Material You na vertical</string>
-    <string name="material_you_next_alarm_widget">Próximo alarme Material You</string>
-    <string name="material_you_category_title">Material You</string>
     <string name="auto_night_accent_color_title">Aplicar a cor de destaque para o modo noite</string>
     <string name="night_accent_color_title">Cor de destaque para o modo noite</string>
     <string name="display_background_border_title">Mostrar bordas no fundo</string>

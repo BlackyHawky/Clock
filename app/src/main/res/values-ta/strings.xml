@@ -256,7 +256,7 @@
     <string name="settings_vibration_title">அதிர்வுகளை இயக்கு</string>
     <string name="alarm_notification_reminder_title">அறிவிப்பு நினைவூட்டல்</string>
     <string name="alarm_alert_dismiss_and_delete_text">நிராகரி &amp; நீக்கு</string>
-    <string name="vertical_digital_widget">செங்குத்து டிஜிட்டல் கடிகாரம்</string>
+    <string name="vertical_widget">செங்குத்து டிஜிட்டல் கடிகாரம்</string>
     <string name="schedule_alarm_title">அலாரத்தை திட்டமிடுங்கள்</string>
     <string name="alarm_flash">ஃபிளாச்</string>
     <string name="delete_occasional_alarm_after_use_title">அலாரத்தை நிராகரித்தவுடன் நீக்கு</string>
@@ -275,10 +275,6 @@
     <string name="alarm_scheduled_for">%sக்கு திட்டமிடப்பட்டது</string>
     <string name="alarm_alert_off_and_deleted_text">அலாரம் அணைக்கப்பட்டு நீக்கப்பட்டது</string>
     <string name="occasional_alarm_alert_predismiss_title">வரவிருக்கும் எப்போதாவது அலாரம்</string>
-    <string name="analog_widget_material_you">அனலாக் கடிகாரம் பொருள் நீங்கள்</string>
-    <string name="material_you_digital_widget">டிசிட்டல் கடிகாரம் பொருள் நீங்கள்</string>
-    <string name="material_you_vertical_digital_widget">செங்குத்து டிசிட்டல் கடிகாரம் பொருள் நீங்கள்</string>
-    <string name="material_you_next_alarm_widget">அடுத்த அலாரம் மெட்டீரியல் யூ</string>
     <string name="settings_permission_message">ஒன்று அல்லது அதற்கு மேற்பட்ட அத்தியாவசிய அனுமதிகள் மறுக்கப்படுகின்றன. அவற்றை வழங்காதது செயலிழப்புக்கு வழிவகுக்கும்.</string>
     <string name="settings_permission_summary">அனுமதிகள் மேலாண்மை பக்கத்தைக் காட்ட இங்கே சொடுக்கு செய்யவும்.</string>
     <string name="style_category_title">சூல் தண்டு</string>
@@ -286,8 +282,6 @@
     <string name="miscellaneous_category_title">மற்றவை</string>
     <string name="ringtone_category_title">ரிங்டோன்</string>
     <string name="actions_category_title">செயல்கள்</string>
-    <string name="standard_category_title">தரநிலை</string>
-    <string name="material_you_category_title">பொருள் நீங்கள்</string>
     <string name="interface_customization_settings">இடைமுகம்</string>
     <string name="interface_customization_summary">பயன்பாட்டிற்கு பயன்படுத்தப்படும் பாணி மற்றும் வண்ணத்தை அமைக்கவும்</string>
     <string name="title_theme">கருப்பொருள்</string>
@@ -561,7 +555,6 @@
     <string name="next_alarm_no_upcoming_alarm_titles_default_color">\"அடுத்த அலாரம்\" மற்றும் \"வரவிருக்கும் அலாரம் இல்லை\" தலைப்புகளுக்கு இயல்பு வண்ணத்தைப் பயன்படுத்தவும்</string>
     <string name="next_alarm_no_upcoming_alarm_titles_color">\"அடுத்த அலாரம்\" மற்றும் \"வரவிருக்கும் அலாரம் இல்லை\" தலைப்புகளுக்கான வண்ணம்</string>
     <string name="widget_max_font_size_title">அதிகபட்ச விட்செட் எழுத்துரு அளவு</string>
-    <string name="next_alarm_widget_text">அடுத்த அறிவிப்பொலி</string>
     <string name="next_alarm_widget_title_no_alarm">வரவிருக்கும் அலாரம் இல்லை</string>
     <string name="permission_management_settings">இசைவு மேலாண்மை</string>
     <string name="permission_management_summary">பயன்பாடு சரியாக வேலை செய்வதற்குத் தேவையான அனுமதிகளைக் காட்டு</string>

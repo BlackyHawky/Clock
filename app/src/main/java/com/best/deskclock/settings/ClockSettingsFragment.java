@@ -25,8 +25,7 @@ import com.best.deskclock.settings.custompreference.CustomSliderPreference;
 import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
-import com.best.deskclock.widgets.materialyouwidgets.MaterialYouDigitalAppWidgetProvider;
-import com.best.deskclock.widgets.standardwidgets.DigitalAppWidgetProvider;
+import com.best.deskclock.widgets.DigitalAppWidgetProvider;
 
 public class ClockSettingsFragment extends ScreenFragment
     implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
@@ -166,7 +165,6 @@ public class ClockSettingsFragment extends ScreenFragment
                 Utils.setVibrationTime(requireContext(), 50);
 
                 WidgetUtils.scheduleWidgetUpdate(requireContext(), DigitalAppWidgetProvider.class);
-                WidgetUtils.scheduleWidgetUpdate(requireContext(), MaterialYouDigitalAppWidgetProvider.class);
             }
         }
 
