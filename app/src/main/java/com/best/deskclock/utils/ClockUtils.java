@@ -352,9 +352,12 @@ public class ClockUtils {
     }
 
     /**
-     * To display the alarm clock in this font, use the character {@link R.string#clock_emoji}.
+     * <ul>
+     *     <li>To display the alarm clock in this font, use the character {@link R.string#clock_emoji}.</li>
+     *     <li>To display the label in this font, use the character {@link R.string#label_emoji}.</li>
+     * </ul>
      *
-     * @return a special font containing a glyph that draws an alarm clock
+     * @return a special font containing a glyph that draws an alarm clock or a label.
      */
     public static Typeface getAlarmIconTypeface(Context context) {
         return Typeface.createFromAsset(context.getAssets(), "fonts/clock.ttf");

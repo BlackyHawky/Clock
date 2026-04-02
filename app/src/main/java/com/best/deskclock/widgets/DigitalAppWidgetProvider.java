@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.WidgetDAO;
+import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.WidgetUtils;
@@ -109,8 +110,13 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
+    protected int getLabelIconViewId() {
+        return R.id.labelIcon;
+    }
+
+    @Override
     protected int getNextAlarmTitleViewId() {
-        return 0;
+        return R.id.nextAlarmTitle;
     }
 
     @Override
@@ -154,8 +160,13 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
+    protected int getLabelIconCustomViewId() {
+        return R.id.labelIconForCustomColor;
+    }
+
+    @Override
     protected int getNextAlarmTitleCustomViewId() {
-        return 0;
+        return R.id.nextAlarmTitleForCustomColor;
     }
 
     @Override
@@ -264,31 +275,23 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
             return;
         }
 
+        String dateFormat = WidgetUtils.getDateFormat(context);
+
         if (WidgetDAO.isDigitalWidgetDefaultDateColor(prefs)) {
             rv.setViewVisibility(getDateViewId(), VISIBLE);
             rv.setViewVisibility(getDateCustomViewId(), GONE);
-
-            if (isTextUppercase(prefs)) {
-                rv.setTextViewText(getDateViewId(), WidgetUtils.getDateFormat(context).toUpperCase());
-            } else {
-                rv.setTextViewText(getDateViewId(), WidgetUtils.getDateFormat(context));
-            }
+            rv.setTextViewText(getDateViewId(), isTextUppercase(prefs) ? dateFormat.toUpperCase() : dateFormat);
         } else {
             rv.setViewVisibility(getDateViewId(), GONE);
             rv.setViewVisibility(getDateCustomViewId(), VISIBLE);
             rv.setTextColor(getDateCustomViewId(), WidgetDAO.getDigitalWidgetCustomDateColor(prefs));
-
-            if (isTextUppercase(prefs)) {
-                rv.setTextViewText(getDateCustomViewId(), WidgetUtils.getDateFormat(context).toUpperCase());
-            } else {
-                rv.setTextViewText(getDateCustomViewId(), WidgetUtils.getDateFormat(context));
-            }
+            rv.setTextViewText(getDateCustomViewId(), isTextUppercase(prefs) ? dateFormat.toUpperCase() : dateFormat);
         }
     }
 
     @Override
     protected void configureNextAlarm(RemoteViews rv, Context context, SharedPreferences prefs, String nextAlarmTime) {
-        if (TextUtils.isEmpty(nextAlarmTime) || !WidgetDAO.isNextAlarmDisplayedOnDigitalWidget(prefs)) {
+        if (!WidgetDAO.isNextAlarmDisplayedOnDigitalWidget(prefs) || TextUtils.isEmpty(nextAlarmTime)) {
             rv.setViewVisibility(getNextAlarmViewId(), GONE);
             rv.setViewVisibility(getNextAlarmIconId(), GONE);
             rv.setViewVisibility(getNextAlarmCustomViewId(), GONE);
@@ -301,29 +304,49 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
             rv.setViewVisibility(getNextAlarmIconId(), VISIBLE);
             rv.setViewVisibility(getNextAlarmCustomViewId(), GONE);
             rv.setViewVisibility(getNextAlarmIconCustomId(), GONE);
-
-            if (isTextUppercase(prefs)) {
-                rv.setTextViewText(getNextAlarmViewId(), nextAlarmTime.toUpperCase());
-            } else {
-                rv.setTextViewText(getNextAlarmViewId(), nextAlarmTime);
-            }
+            rv.setTextViewText(getNextAlarmViewId(), isTextUppercase(prefs) ? nextAlarmTime.toUpperCase() : nextAlarmTime);
         } else {
             rv.setViewVisibility(getNextAlarmViewId(), GONE);
             rv.setViewVisibility(getNextAlarmIconId(), GONE);
             rv.setViewVisibility(getNextAlarmCustomViewId(), VISIBLE);
             rv.setViewVisibility(getNextAlarmIconCustomId(), VISIBLE);
             rv.setTextColor(getNextAlarmCustomViewId(), WidgetDAO.getDigitalWidgetCustomNextAlarmColor(prefs));
-
-            if (isTextUppercase(prefs)) {
-                rv.setTextViewText(getNextAlarmCustomViewId(), nextAlarmTime.toUpperCase());
-            } else {
-                rv.setTextViewText(getNextAlarmCustomViewId(), nextAlarmTime);
-            }
+            rv.setTextViewText(getNextAlarmCustomViewId(), isTextUppercase(prefs) ? nextAlarmTime.toUpperCase() : nextAlarmTime);
         }
     }
 
     @Override
     protected void configureNextAlarmTitle(RemoteViews rv, SharedPreferences prefs, String nextAlarmTime, String nextAlarmTitle) {
+        if (!WidgetDAO.isNextAlarmDisplayedOnDigitalWidget(prefs) || !WidgetDAO.isNextAlarmTitleDisplayedOnDigitalWidget(prefs)) {
+            rv.setViewVisibility(getLabelIconViewId(), GONE);
+            rv.setViewVisibility(getNextAlarmTitleViewId(), GONE);
+            rv.setViewVisibility(getLabelIconCustomViewId(), GONE);
+            rv.setViewVisibility(getNextAlarmTitleCustomViewId(), GONE);
+            return;
+        }
+
+        if (TextUtils.isEmpty(nextAlarmTime) || TextUtils.isEmpty(nextAlarmTitle)) {
+            rv.setViewVisibility(getLabelIconViewId(), GONE);
+            rv.setViewVisibility(getNextAlarmTitleViewId(), GONE);
+            rv.setViewVisibility(getLabelIconCustomViewId(), GONE);
+            rv.setViewVisibility(getNextAlarmTitleCustomViewId(), GONE);
+            return;
+        }
+
+        if (WidgetDAO.isDigitalWidgetDefaultNextAlarmTitleColor(prefs)) {
+            rv.setViewVisibility(getLabelIconViewId(), VISIBLE);
+            rv.setViewVisibility(getNextAlarmTitleViewId(), VISIBLE);
+            rv.setViewVisibility(getLabelIconCustomViewId(), GONE);
+            rv.setViewVisibility(getNextAlarmTitleCustomViewId(), GONE);
+            rv.setTextViewText(getNextAlarmTitleViewId(), isTextUppercase(prefs) ? nextAlarmTitle.toUpperCase() : nextAlarmTitle);
+        } else {
+            rv.setViewVisibility(getLabelIconViewId(), GONE);
+            rv.setViewVisibility(getNextAlarmTitleViewId(), GONE);
+            rv.setViewVisibility(getLabelIconCustomViewId(), VISIBLE);
+            rv.setViewVisibility(getNextAlarmTitleCustomViewId(), VISIBLE);
+            rv.setTextColor(getNextAlarmTitleCustomViewId(), WidgetDAO.getDigitalWidgetCustomNextAlarmTitleColor(prefs));
+            rv.setTextViewText(getNextAlarmTitleCustomViewId(), isTextUppercase(prefs) ? nextAlarmTitle.toUpperCase() : nextAlarmTitle);
+        }
     }
 
     @Override
@@ -388,14 +411,16 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
             return;
         }
 
+        String dateFormat = WidgetUtils.getDateFormat(context);
+
         if (WidgetDAO.isDigitalWidgetDefaultDateColor(prefs)) {
             date.setVisibility(VISIBLE);
             dateForCustomColor.setVisibility(GONE);
-            date.setText(WidgetUtils.getDateFormat(context));
+            date.setText(dateFormat);
         } else {
             date.setVisibility(GONE);
             dateForCustomColor.setVisibility(VISIBLE);
-            dateForCustomColor.setText(WidgetUtils.getDateFormat(context));
+            dateForCustomColor.setText(dateFormat);
         }
     }
 
@@ -406,7 +431,7 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
         final TextView nextAlarmIconForCustomColor = sizer.findViewById(getNextAlarmIconCustomId());
         final TextView nextAlarmForCustomColor = sizer.findViewById(getNextAlarmCustomViewId());
 
-        if (TextUtils.isEmpty(nextAlarmTime) || !WidgetDAO.isNextAlarmDisplayedOnDigitalWidget(prefs)) {
+        if (!WidgetDAO.isNextAlarmDisplayedOnDigitalWidget(prefs) || TextUtils.isEmpty(nextAlarmTime)) {
             nextAlarm.setVisibility(GONE);
             nextAlarmIcon.setVisibility(GONE);
             nextAlarmForCustomColor.setVisibility(GONE);
@@ -434,6 +459,47 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
 
     @Override
     protected void configureSizerNextAlarmTitle(View sizer, Context context, SharedPreferences prefs, String nextAlarmTime) {
+        final String nextAlarmTitle = AlarmUtils.getNextAlarmTitle(context);
+        final TextView labelIcon = sizer.findViewById(getLabelIconViewId());
+        final TextView nextAlarmTitleView = sizer.findViewById(getNextAlarmTitleViewId());
+        final TextView labelIconForCustomColor = sizer.findViewById(getLabelIconCustomViewId());
+        final TextView nextAlarmTitleViewForCustomColor = sizer.findViewById(getNextAlarmTitleCustomViewId());
+
+        if (!WidgetDAO.isNextAlarmDisplayedOnDigitalWidget(prefs) || !WidgetDAO.isNextAlarmTitleDisplayedOnDigitalWidget(prefs)) {
+            labelIcon.setVisibility(GONE);
+            nextAlarmTitleView.setVisibility(GONE);
+            labelIconForCustomColor.setVisibility(GONE);
+            nextAlarmTitleViewForCustomColor.setVisibility(GONE);
+            return;
+        }
+
+        if (TextUtils.isEmpty(nextAlarmTime) || TextUtils.isEmpty(nextAlarmTitle)) {
+            labelIcon.setVisibility(GONE);
+            nextAlarmTitleView.setVisibility(GONE);
+            labelIconForCustomColor.setVisibility(GONE);
+            nextAlarmTitleViewForCustomColor.setVisibility(GONE);
+            return;
+        }
+
+        if (WidgetDAO.isDigitalWidgetDefaultNextAlarmTitleColor(prefs)) {
+            labelIcon.setVisibility(VISIBLE);
+            nextAlarmTitleView.setVisibility(VISIBLE);
+            labelIconForCustomColor.setVisibility(GONE);
+            nextAlarmTitleViewForCustomColor.setVisibility(GONE);
+            labelIcon.setTypeface(ClockUtils.getAlarmIconTypeface(context));
+            nextAlarmTitleView.setText(nextAlarmTitle);
+        } else {
+            int nextAlarmTitleColor = WidgetDAO.getDigitalWidgetCustomNextAlarmTitleColor(prefs);
+
+            labelIcon.setVisibility(GONE);
+            nextAlarmTitleView.setVisibility(GONE);
+            labelIconForCustomColor.setVisibility(VISIBLE);
+            nextAlarmTitleViewForCustomColor.setVisibility(VISIBLE);
+            labelIconForCustomColor.setTypeface(ClockUtils.getAlarmIconTypeface(context));
+            labelIconForCustomColor.setTextColor(nextAlarmTitleColor);
+            nextAlarmTitleView.setText(nextAlarmTitle);
+            nextAlarmTitleViewForCustomColor.setTextColor(nextAlarmTitleColor);
+        }
     }
 
     @Override
@@ -479,6 +545,20 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
             nextAlarmIconForCustomColor.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mIconFontSizePx);
             nextAlarmIconForCustomColor.setPadding(measuredSizes.mIconPaddingPx, 0, measuredSizes.mIconPaddingPx, 0);
         }
+
+        if (WidgetDAO.isDigitalWidgetDefaultNextAlarmTitleColor(prefs)) {
+            final TextView labelIcon = sizer.findViewById(getLabelIconViewId());
+            final TextView nextAlarmTitle = sizer.findViewById(getNextAlarmTitleViewId());
+            labelIcon.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mIconFontSizePx);
+            labelIcon.setPadding(measuredSizes.mIconPaddingPx, 0, measuredSizes.mIconPaddingPx, 0);
+            nextAlarmTitle.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mFontSizePx);
+        } else {
+            final TextView labelIconForCustomColor = sizer.findViewById(getLabelIconCustomViewId());
+            final TextView nextAlarmTitleForCustomColor = sizer.findViewById(getNextAlarmTitleCustomViewId());
+            labelIconForCustomColor.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mIconFontSizePx);
+            labelIconForCustomColor.setPadding(measuredSizes.mIconPaddingPx, 0, measuredSizes.mIconPaddingPx, 0);
+            nextAlarmTitleForCustomColor.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mFontSizePx);
+        }
     }
 
     @Override
@@ -502,6 +582,18 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
             TextView nextAlarmIconForCustomColor = sizer.findViewById(getNextAlarmIconCustomId());
             if (nextAlarmIconForCustomColor.getVisibility() == VISIBLE) {
                 measuredSizes.mIconBitmap = WidgetUtils.createBitmap(nextAlarmIconForCustomColor);
+            }
+        }
+
+        if (WidgetDAO.isDigitalWidgetDefaultNextAlarmTitleColor(prefs)) {
+            TextView labelIcon = sizer.findViewById(getLabelIconViewId());
+            if (labelIcon.getVisibility() == VISIBLE) {
+                measuredSizes.mLabelBitmap = WidgetUtils.createBitmap(labelIcon);
+            }
+        } else {
+            TextView labelIconForCustomColor = sizer.findViewById(getLabelIconCustomViewId());
+            if (labelIconForCustomColor.getVisibility() == VISIBLE) {
+                measuredSizes.mLabelBitmap = WidgetUtils.createBitmap(labelIconForCustomColor);
             }
         }
     }

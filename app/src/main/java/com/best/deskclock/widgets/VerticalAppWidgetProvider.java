@@ -111,6 +111,11 @@ public class VerticalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
+    protected int getLabelIconViewId() {
+        return 0;
+    }
+
+    @Override
     protected int getNextAlarmTitleViewId() {
         return 0;
     }
@@ -152,6 +157,11 @@ public class VerticalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
 
     @Override
     protected int getNextAlarmTextCustomViewId() {
+        return 0;
+    }
+
+    @Override
+    protected int getLabelIconCustomViewId() {
         return 0;
     }
 
@@ -262,13 +272,13 @@ public class VerticalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
 
     @Override
     protected void configureDate(RemoteViews rv, Context context, SharedPreferences prefs) {
-        String dateFormat = WidgetUtils.getDateFormat(context);
-
         if (!WidgetDAO.isDateDisplayedOnVerticalWidget(prefs)) {
             rv.setViewVisibility(getDateViewId(), GONE);
             rv.setViewVisibility(getDateCustomViewId(), GONE);
             return;
         }
+
+        String dateFormat = WidgetUtils.getDateFormat(context);
 
         if (WidgetDAO.isVerticalWidgetDefaultDateColor(prefs)) {
             rv.setViewVisibility(getDateViewId(), VISIBLE);
@@ -384,14 +394,16 @@ public class VerticalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
             return;
         }
 
+        String dateFormat = WidgetUtils.getDateFormat(context);
+
         if (WidgetDAO.isVerticalWidgetDefaultDateColor(prefs)) {
             date.setVisibility(VISIBLE);
             dateForCustomColor.setVisibility(GONE);
-            date.setText(WidgetUtils.getDateFormat(context));
+            date.setText(dateFormat);
         } else {
             date.setVisibility(GONE);
             dateForCustomColor.setVisibility(VISIBLE);
-            dateForCustomColor.setText(WidgetUtils.getDateFormat(context));
+            dateForCustomColor.setText(dateFormat);
         }
     }
 

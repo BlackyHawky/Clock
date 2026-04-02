@@ -214,7 +214,7 @@
                 android:ellipsize="end"
                 android:includeFontPadding="false"
                 android:maxLines="1"
-                android:textColor="@color/widget_city_note_color"
+                android:textColor="@color/md_theme_widgetTertiary"
                 android:shadowRadius="2.75"
                 android:shadowColor="@android:color/black"
                 android:shadowDx="2"
@@ -244,7 +244,7 @@
                 android:includeFontPadding="false"
                 android:maxLines="1"
                 android:visibility="gone"
-                android:textColor="@color/widget_city_note_color"
+                android:textColor="@color/md_theme_widgetTertiary"
                 tools:text="Family" />
 
             <TextView
@@ -457,7 +457,7 @@
                 android:ellipsize="end"
                 android:includeFontPadding="false"
                 android:maxLines="1"
-                android:textColor="@color/widget_city_note_color"
+                android:textColor="@color/md_theme_widgetTertiary"
                 android:shadowRadius="2.75"
                 android:shadowColor="@android:color/black"
                 android:shadowDx="2"
@@ -486,7 +486,7 @@
                 android:ellipsize="end"
                 android:includeFontPadding="false"
                 android:maxLines="1"
-                android:textColor="@color/widget_city_note_color"
+                android:textColor="@color/md_theme_widgetTertiary"
                 android:visibility="gone"
                 tools:text="Family" />
 
@@ -706,7 +706,7 @@
                 android:ellipsize="end"
                 android:includeFontPadding="false"
                 android:maxLines="1"
-                android:textColor="@color/widget_city_note_color"
+                android:textColor="@color/md_theme_widgetTertiary"
                 android:shadowRadius="2.75"
                 android:shadowColor="@android:color/black"
                 android:shadowDx="2"
@@ -735,7 +735,7 @@
                 android:ellipsize="end"
                 android:includeFontPadding="false"
                 android:maxLines="1"
-                android:textColor="@color/widget_city_note_color"
+                android:textColor="@color/md_theme_widgetTertiary"
                 android:visibility="gone"
                 tools:text="Family" />
 

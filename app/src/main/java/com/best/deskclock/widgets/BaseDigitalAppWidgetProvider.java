@@ -123,6 +123,8 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
 
     protected abstract int getNextAlarmTextViewId();
 
+    protected abstract int getLabelIconViewId();
+
     protected abstract int getNextAlarmTitleViewId();
 
     protected abstract int getWorldCityListViewId();
@@ -140,6 +142,8 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
     protected abstract int getNextAlarmCustomViewId();
 
     protected abstract int getNextAlarmTextCustomViewId();
+
+    protected abstract int getLabelIconCustomViewId();
 
     protected abstract int getNextAlarmTitleCustomViewId();
 
@@ -346,6 +350,8 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
     protected void configureBitmaps(RemoteViews rv, DigitalWidgetSizes sizes) {
         safeSetImageBitmap(rv, getNextAlarmIconId(), sizes.mIconBitmap);
         safeSetImageBitmap(rv, getNextAlarmIconCustomId(), sizes.mIconBitmap);
+        safeSetImageBitmap(rv, getLabelIconViewId(), sizes.mLabelBitmap);
+        safeSetImageBitmap(rv, getLabelIconCustomViewId(), sizes.mLabelBitmap);
     }
 
     protected void safeSetTextSize(RemoteViews rv, int viewId, float sizePx) {

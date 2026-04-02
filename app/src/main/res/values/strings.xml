@@ -1081,6 +1081,10 @@
     <string name="next_alarm_color_title">Next alarm color</string>
     <!-- Title to set the default color of the next alarm. -->
     <string name="next_alarm_default_color_title">Use default color for next alarm</string>
+    <!-- Title of next alarm title color. -->
+    <string name="next_alarm_title_color_title">Next alarm title color</string>
+    <!-- Title to set the default color of the next alarm title. -->
+    <string name="next_alarm_title_default_color_title">Use default color for the next alarm title</string>
     <!-- Title to set the color of the city clock. -->
     <string name="city_clock_color_title">City clock color</string>
     <!-- Title to set the default color of the city clock. -->
@@ -1321,6 +1325,8 @@
     <string name="display_date_title">Display date on the widget</string>
     <!-- Title to display the next alarm on the digital widget. -->
     <string name="display_next_alarm_title">Display next alarm on the widget</string>
+    <!-- Title to display the next alarm title on the digital widget. -->
+    <string name="display_next_alarm_title_setting_title">Display the next alarm title on the widget</string>
     <!-- Title to set the font size of the clock in the digital widget. -->
     <string name="max_clock_font_size_title">Maximum font size of the main clock</string>
     <!-- Summary about the font size of the clock when cities are shown -->

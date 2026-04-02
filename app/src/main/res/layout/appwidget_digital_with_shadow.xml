@@ -23,9 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:orientation="vertical"
-        android:layout_centerInParent="true"
-        android:layout_centerVertical="true">
+        android:orientation="vertical">
 
         <TextClock
             android:id="@+id/clock"
@@ -59,15 +57,15 @@
             tools:visibility="gone" />
 
         <LinearLayout
-            android:id="@+id/digitalWidgetBottomView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center">
+            android:gravity="center"
+            android:baselineAligned="false">
 
             <TextView
                 android:id="@+id/date"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:paddingHorizontal="3dp"
                 android:gravity="center"
                 android:ellipsize="none"
@@ -84,7 +82,7 @@
             <TextView
                 android:id="@+id/dateForCustomColor"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:paddingHorizontal="3dp"
                 android:gravity="center"
                 android:ellipsize="none"
@@ -101,7 +99,7 @@
             <ImageView
                 android:id="@+id/nextAlarmIcon"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:contentDescription="@null"
                 android:scaleType="fitCenter"
                 android:tint="@color/widget_text_color"
@@ -113,7 +111,7 @@
             <ImageView
                 android:id="@+id/nextAlarmIconForCustomColor"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:contentDescription="@null"
                 android:scaleType="fitCenter"
                 tools:visibility="gone" />
@@ -121,9 +119,9 @@
             <TextView
                 android:id="@+id/nextAlarm"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:paddingHorizontal="3dp"
-                android:gravity="center"
+                android:gravity="start|center_vertical"
                 android:ellipsize="none"
                 android:includeFontPadding="false"
                 android:maxLines="1"
@@ -132,18 +130,85 @@
                 android:shadowColor="@android:color/black"
                 android:shadowDx="2"
                 android:shadowDy="2"
-                tools:text="08:30"
+                tools:text="Today 08:30 AM"
                 tools:textSize="18sp" />
 
             <TextView
                 android:id="@+id/nextAlarmForCustomColor"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:paddingHorizontal="3dp"
-                android:gravity="center"
+                android:gravity="start|center_vertical"
                 android:ellipsize="none"
                 android:includeFontPadding="false"
                 android:maxLines="1"
+                android:shadowRadius="2.75"
+                android:shadowColor="@android:color/black"
+                android:shadowDx="2"
+                android:shadowDy="2"
+                tools:visibility="gone" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:baselineAligned="false">
+
+            <!-- Do not use the App tint attribute, otherwise the icon will not
+                 change color when the device mode (light or dark) changes. -->
+            <ImageView
+                android:id="@+id/labelIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                android:scaleType="fitCenter"
+                android:tint="@color/md_theme_widgetTertiary"
+                android:tintMode="multiply"
+                tools:src="@drawable/ic_label"
+                tools:paddingHorizontal="3dp"
+                tools:ignore="UseAppTint" />
+
+            <ImageView
+                android:id="@+id/labelIconForCustomColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                android:scaleType="fitCenter"
+                tools:visibility="gone" />
+
+            <TextView
+                android:id="@+id/nextAlarmTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="0dp"
+                android:paddingEnd="3dp"
+                android:gravity="center"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:maxEms="12"
+                android:textColor="@color/md_theme_widgetTertiary"
+                android:shadowRadius="2.75"
+                android:shadowColor="@android:color/black"
+                android:shadowDx="2"
+                android:shadowDy="2"
+                tools:text="Alarm title"
+                tools:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/nextAlarmTitleForCustomColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="0dp"
+                android:paddingEnd="3dp"
+                android:gravity="center"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:maxEms="12"
                 android:shadowRadius="2.75"
                 android:shadowColor="@android:color/black"
                 android:shadowDx="2"
@@ -156,7 +221,6 @@
             android:id="@+id/worldCityList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_gravity="center_horizontal|top"
             android:divider="@null"
             android:visibility="gone" />

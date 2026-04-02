@@ -109,6 +109,11 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
+    protected int getLabelIconViewId() {
+        return 0;
+    }
+
+    @Override
     protected int getNextAlarmTitleViewId() {
         return R.id.nextAlarmTitle;
     }
@@ -151,6 +156,11 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     @Override
     protected int getNextAlarmTextCustomViewId() {
         return R.id.nextAlarmTextForCustomColor;
+    }
+
+    @Override
+    protected int getLabelIconCustomViewId() {
+        return 0;
     }
 
     @Override

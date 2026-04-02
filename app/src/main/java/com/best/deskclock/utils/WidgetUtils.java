@@ -353,9 +353,7 @@ public class WidgetUtils {
     public static String getDateFormat(Context context) {
         Locale locale = Locale.getDefault();
         final String skeleton = context.getString(R.string.abbrev_wday_month_day_no_year);
-        SimpleDateFormat simpleDateFormat =
-            new SimpleDateFormat(DateFormat.getBestDateTimePattern(locale, skeleton), locale);
-
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DateFormat.getBestDateTimePattern(locale, skeleton), locale);
         String formattedDate = simpleDateFormat.format(new Date());
 
         return FormattedTextUtils.capitalizeFirstLetter(formattedDate, locale);

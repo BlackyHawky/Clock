@@ -44,6 +44,7 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Weekdays;
+import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.dialogfragment.AlarmDelayPickerDialogFragment;
 import com.best.deskclock.dialogfragment.AlarmMissedRepeatLimitDialogFragment;
 import com.best.deskclock.dialogfragment.AlarmSnoozeDurationDialogFragment;
@@ -68,6 +69,7 @@ import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
+import com.best.deskclock.widgets.DigitalAppWidgetProvider;
 import com.best.deskclock.widgets.NextAlarmAppWidgetProvider;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -994,6 +996,10 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         }
 
         if (updateWidgets) {
+            if (WidgetDAO.isNextAlarmDisplayedOnDigitalWidget(mPrefs) && WidgetDAO.isNextAlarmTitleDisplayedOnDigitalWidget(mPrefs)) {
+                WidgetUtils.updateWidget(requireContext(), DigitalAppWidgetProvider.class);
+            }
+
             WidgetUtils.updateWidget(requireContext(), NextAlarmAppWidgetProvider.class);
         }
     }

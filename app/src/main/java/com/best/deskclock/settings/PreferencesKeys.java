@@ -263,6 +263,7 @@ public class PreferencesKeys {
     public static final String KEY_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS = "key_digital_widget_background_corner_radius";
     public static final String KEY_DIGITAL_WIDGET_DISPLAY_DATE = "key_digital_widget_display_date";
     public static final String KEY_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM = "key_digital_widget_display_next_alarm";
+    public static final String KEY_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM_TITLE = "key_digital_widget_display_next_alarm_title";
     public static final String KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED = "key_digital_widget_world_cities_displayed";
     public static final String KEY_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING = "key_digital_widget_apply_horizontal_padding";
     public static final String KEY_DIGITAL_WIDGET_DEFAULT_BACKGROUND_COLOR = "key_digital_widget_default_background_color";
@@ -273,6 +274,8 @@ public class PreferencesKeys {
     public static final String KEY_DIGITAL_WIDGET_CUSTOM_DATE_COLOR = "key_digital_widget_custom_date_color";
     public static final String KEY_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR = "key_digital_widget_default_next_alarm_color";
     public static final String KEY_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR = "key_digital_widget_custom_next_alarm_color";
+    public static final String KEY_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_TITLE_COLOR = "key_digital_widget_default_next_alarm_title_color";
+    public static final String KEY_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_TITLE_COLOR = "key_digital_widget_custom_next_alarm_title_color";
     public static final String KEY_DIGITAL_WIDGET_DEFAULT_CITY_CLOCK_COLOR = "key_digital_widget_default_city_clock_color";
     public static final String KEY_DIGITAL_WIDGET_CUSTOM_CITY_CLOCK_COLOR = "key_digital_widget_custom_city_clock_color";
     public static final String KEY_DIGITAL_WIDGET_DEFAULT_CITY_NAME_COLOR = "key_digital_widget_default_city_name_color";

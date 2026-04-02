@@ -42,6 +42,7 @@ public class AppWidgetDigitalSettingsFragment extends ScreenFragment implements 
     CustomSliderPreference mBackgroundCornerRadiusPref;
     SwitchPreferenceCompat mDisplayDatePref;
     SwitchPreferenceCompat mDisplayNextAlarmPref;
+    SwitchPreferenceCompat mDisplayNextAlarmTitlePref;
     SwitchPreferenceCompat mShowCitiesOnDigitalWidgetPref;
     SwitchPreferenceCompat mApplyHorizontalPaddingPref;
     SwitchPreferenceCompat mDefaultBackgroundColorPref;
@@ -52,6 +53,8 @@ public class AppWidgetDigitalSettingsFragment extends ScreenFragment implements 
     ColorPickerPreference mCustomDateColorPref;
     SwitchPreferenceCompat mDefaultNextAlarmColorPref;
     ColorPickerPreference mCustomNextAlarmColorPref;
+    SwitchPreferenceCompat mDefaultNextAlarmTitleColorPref;
+    ColorPickerPreference mCustomNextAlarmTitleColorPref;
     SwitchPreferenceCompat mDefaultCityClockColorPref;
     ColorPickerPreference mCustomCityClockColorPref;
     SwitchPreferenceCompat mDefaultCityNameColorPref;
@@ -80,6 +83,7 @@ public class AppWidgetDigitalSettingsFragment extends ScreenFragment implements 
         mBackgroundCornerRadiusPref = findPreference(KEY_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS);
         mDisplayDatePref = findPreference(KEY_DIGITAL_WIDGET_DISPLAY_DATE);
         mDisplayNextAlarmPref = findPreference(KEY_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM);
+        mDisplayNextAlarmTitlePref = findPreference(KEY_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM_TITLE);
         mShowCitiesOnDigitalWidgetPref = findPreference(KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED);
         mApplyHorizontalPaddingPref = findPreference(KEY_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING);
         mDefaultBackgroundColorPref = findPreference(KEY_DIGITAL_WIDGET_DEFAULT_BACKGROUND_COLOR);
@@ -90,6 +94,8 @@ public class AppWidgetDigitalSettingsFragment extends ScreenFragment implements 
         mCustomDateColorPref = findPreference(KEY_DIGITAL_WIDGET_CUSTOM_DATE_COLOR);
         mDefaultNextAlarmColorPref = findPreference(KEY_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR);
         mCustomNextAlarmColorPref = findPreference(KEY_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR);
+        mDefaultNextAlarmTitleColorPref = findPreference(KEY_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_TITLE_COLOR);
+        mCustomNextAlarmTitleColorPref = findPreference(KEY_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_TITLE_COLOR);
         mDefaultCityClockColorPref = findPreference(KEY_DIGITAL_WIDGET_DEFAULT_CITY_CLOCK_COLOR);
         mCustomCityClockColorPref = findPreference(KEY_DIGITAL_WIDGET_CUSTOM_CITY_CLOCK_COLOR);
         mDefaultCityNameColorPref = findPreference(KEY_DIGITAL_WIDGET_DEFAULT_CITY_NAME_COLOR);
@@ -158,9 +164,27 @@ public class AppWidgetDigitalSettingsFragment extends ScreenFragment implements 
             }
 
             case KEY_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM -> {
-                mDefaultNextAlarmColorPref.setVisible((boolean) newValue);
+                boolean isNextAlarmDisplayed = (boolean) newValue;
+                boolean isNextAlarmTitleDisplayed = WidgetDAO.isNextAlarmTitleDisplayedOnDigitalWidget(mPrefs);
+
+                mDisplayNextAlarmTitlePref.setVisible(isNextAlarmDisplayed);
+                mDefaultNextAlarmTitleColorPref.setVisible(isNextAlarmDisplayed && isNextAlarmTitleDisplayed);
+                mCustomNextAlarmTitleColorPref.setVisible(isNextAlarmDisplayed
+                    && isNextAlarmTitleDisplayed
+                    && !WidgetDAO.isDigitalWidgetDefaultNextAlarmTitleColor(mPrefs));
+
+                mDefaultNextAlarmColorPref.setVisible(isNextAlarmDisplayed);
                 mCustomNextAlarmColorPref.setVisible(mDefaultNextAlarmColorPref.isVisible()
                     && !WidgetDAO.isDigitalWidgetDefaultNextAlarmColor(mPrefs));
+                Utils.setVibrationTime(requireContext(), 50);
+            }
+
+            case KEY_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM_TITLE -> {
+                boolean isNextAlarmTitleDisplayed = (boolean) newValue;
+
+                mDefaultNextAlarmTitleColorPref.setVisible(isNextAlarmTitleDisplayed);
+                mCustomNextAlarmTitleColorPref.setVisible(isNextAlarmTitleDisplayed
+                    && !WidgetDAO.isDigitalWidgetDefaultNextAlarmTitleColor(mPrefs));
                 Utils.setVibrationTime(requireContext(), 50);
             }
 
@@ -219,6 +243,11 @@ public class AppWidgetDigitalSettingsFragment extends ScreenFragment implements 
                 Utils.setVibrationTime(requireContext(), 50);
             }
 
+            case KEY_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_TITLE_COLOR -> {
+                mCustomNextAlarmTitleColorPref.setVisible(!(boolean) newValue);
+                Utils.setVibrationTime(requireContext(), 50);
+            }
+
             case KEY_DIGITAL_WIDGET_DEFAULT_CITY_CLOCK_COLOR -> {
                 mCustomCityClockColorPref.setVisible(!(boolean) newValue);
                 Utils.setVibrationTime(requireContext(), 50);
@@ -244,6 +273,8 @@ public class AppWidgetDigitalSettingsFragment extends ScreenFragment implements 
         List<City> selectedCities = DataModel.getDataModel().getSelectedCities();
         final boolean showHomeClock = SettingsDAO.getShowHomeClock(requireContext(), mPrefs);
         final boolean isCityNoteEnabled = SettingsDAO.isCityNoteEnabled(mPrefs);
+        final boolean isNextAlarmDisplayed = WidgetDAO.isNextAlarmDisplayedOnDigitalWidget(mPrefs);
+        final boolean isNextAlarmTitleDisplayed = WidgetDAO.isNextAlarmTitleDisplayedOnDigitalWidget(mPrefs);
 
         mDisplayTextUppercasePref.setOnPreferenceChangeListener(this);
 
@@ -276,6 +307,9 @@ public class AppWidgetDigitalSettingsFragment extends ScreenFragment implements 
 
         mDisplayNextAlarmPref.setOnPreferenceChangeListener(this);
 
+        mDisplayNextAlarmTitlePref.setVisible(isNextAlarmDisplayed);
+        mDisplayNextAlarmTitlePref.setOnPreferenceChangeListener(this);
+
         mShowCitiesOnDigitalWidgetPref.setVisible(!selectedCities.isEmpty() || showHomeClock);
         mShowCitiesOnDigitalWidgetPref.setOnPreferenceChangeListener(this);
 
@@ -298,12 +332,20 @@ public class AppWidgetDigitalSettingsFragment extends ScreenFragment implements 
         mCustomDateColorPref.setVisible(mDefaultDateColorPref.isVisible() && !WidgetDAO.isDigitalWidgetDefaultDateColor(mPrefs));
         mCustomDateColorPref.setOnPreferenceChangeListener(this);
 
-        mDefaultNextAlarmColorPref.setVisible(WidgetDAO.isNextAlarmDisplayedOnDigitalWidget(mPrefs));
+        mDefaultNextAlarmColorPref.setVisible(isNextAlarmDisplayed);
         mDefaultNextAlarmColorPref.setOnPreferenceChangeListener(this);
 
         mCustomNextAlarmColorPref.setVisible(mDefaultNextAlarmColorPref.isVisible()
             && !WidgetDAO.isDigitalWidgetDefaultNextAlarmColor(mPrefs));
         mCustomNextAlarmColorPref.setOnPreferenceChangeListener(this);
+
+        mDefaultNextAlarmTitleColorPref.setVisible(isNextAlarmDisplayed && isNextAlarmTitleDisplayed);
+        mDefaultNextAlarmTitleColorPref.setOnPreferenceChangeListener(this);
+
+        mCustomNextAlarmTitleColorPref.setVisible(isNextAlarmDisplayed
+            && isNextAlarmTitleDisplayed
+            && !WidgetDAO.isDigitalWidgetDefaultNextAlarmTitleColor(mPrefs));
+        mCustomNextAlarmTitleColorPref.setOnPreferenceChangeListener(this);
 
         mDefaultCityClockColorPref.setVisible(mShowCitiesOnDigitalWidgetPref.isVisible() && areWorldCitiesDisplayed);
         mDefaultCityClockColorPref.setOnPreferenceChangeListener(this);
@@ -348,12 +390,14 @@ public class AppWidgetDigitalSettingsFragment extends ScreenFragment implements 
         mCustomizeBackgroundCornerRadiusPref.setChecked(WidgetDAO.isDigitalWidgetBackgroundCornerRadiusCustomizable(mPrefs));
         mDisplayDatePref.setChecked(WidgetDAO.isDateDisplayedOnDigitalWidget(mPrefs));
         mDisplayNextAlarmPref.setChecked(WidgetDAO.isNextAlarmDisplayedOnDigitalWidget(mPrefs));
+        mDisplayNextAlarmTitlePref.setChecked(WidgetDAO.isNextAlarmTitleDisplayedOnDigitalWidget(mPrefs));
         mShowCitiesOnDigitalWidgetPref.setChecked(WidgetDAO.areWorldCitiesDisplayedOnDigitalWidget(mPrefs));
         mApplyHorizontalPaddingPref.setChecked(WidgetDAO.isDigitalWidgetHorizontalPaddingApplied(mPrefs));
         mDefaultBackgroundColorPref.setChecked(WidgetDAO.isDigitalWidgetDefaultBackgroundColor(mPrefs));
         mDefaultClockColorPref.setChecked(WidgetDAO.isDigitalWidgetDefaultClockColor(mPrefs));
         mDefaultDateColorPref.setChecked(WidgetDAO.isDigitalWidgetDefaultDateColor(mPrefs));
         mDefaultNextAlarmColorPref.setChecked(WidgetDAO.isDigitalWidgetDefaultNextAlarmColor(mPrefs));
+        mDefaultNextAlarmTitleColorPref.setChecked(WidgetDAO.isDigitalWidgetDefaultNextAlarmTitleColor(mPrefs));
         mDefaultCityClockColorPref.setChecked(WidgetDAO.isDigitalWidgetDefaultCityClockColor(mPrefs));
         mDefaultCityNameColorPref.setChecked(WidgetDAO.isDigitalWidgetDefaultCityNameColor(mPrefs));
         mDefaultCityNoteColorPref.setChecked(WidgetDAO.isDigitalWidgetDefaultCityNoteColor(mPrefs));

@@ -49,12 +49,13 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center">
+        android:gravity="center"
+        android:baselineAligned="false">
 
         <TextView
             android:id="@+id/date"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:paddingHorizontal="3dp"
             android:gravity="center"
             android:includeFontPadding="false"
@@ -71,7 +72,7 @@
         <TextView
             android:id="@+id/dateForCustomColor"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:paddingHorizontal="3dp"
             android:gravity="center"
             android:includeFontPadding="false"
@@ -83,11 +84,13 @@
             android:shadowDy="2"
             tools:visibility="gone" />
 
+
         <!-- This view is drawn to a Bitmap and sent to the widget as an icon. -->
         <TextView
             android:id="@+id/nextAlarmIcon"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:ellipsize="none"
             android:maxLines="1"
             android:text="@string/clock_emoji"
@@ -105,7 +108,8 @@
         <TextView
             android:id="@+id/nextAlarmIconForCustomColor"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:ellipsize="none"
             android:maxLines="1"
             android:text="@string/clock_emoji"
@@ -119,9 +123,9 @@
         <TextView
             android:id="@+id/nextAlarm"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:paddingHorizontal="3dp"
-            android:gravity="center"
+            android:gravity="start|center_vertical"
             android:ellipsize="none"
             android:includeFontPadding="false"
             android:maxLines="1"
@@ -130,18 +134,98 @@
             android:shadowColor="@android:color/black"
             android:shadowDx="2"
             android:shadowDy="2"
-            tools:text="Mo, 07:30 AM"
+            tools:text="Today 08:30 AM"
             tools:textSize="18sp" />
 
         <TextView
             android:id="@+id/nextAlarmForCustomColor"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:paddingHorizontal="3dp"
-            android:gravity="center"
+            android:gravity="start|center_vertical"
             android:ellipsize="none"
             android:includeFontPadding="false"
             android:maxLines="1"
+            android:shadowRadius="2.75"
+            android:shadowColor="@android:color/black"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            tools:visibility="gone" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:baselineAligned="false">
+
+        <!-- This view is drawn to a Bitmap and sent to the widget as an icon. -->
+        <TextView
+            android:id="@+id/labelIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:ellipsize="none"
+            android:maxLines="1"
+            android:text="@string/label_emoji"
+            android:textColor="@android:color/white"
+            android:includeFontPadding="false"
+            android:shadowRadius="2.75"
+            android:shadowColor="@android:color/black"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            tools:text=""
+            tools:drawableStart="@drawable/ic_label"
+            tools:paddingHorizontal="3dp"
+            tools:drawableTint="@color/md_theme_widgetTertiary" />
+
+        <TextView
+            android:id="@+id/labelIconForCustomColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:ellipsize="none"
+            android:maxLines="1"
+            android:text="@string/label_emoji"
+            android:includeFontPadding="false"
+            android:shadowRadius="2.75"
+            android:shadowColor="@android:color/black"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            tools:visibility="gone" />
+
+        <TextView
+            android:id="@+id/nextAlarmTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="0dp"
+            android:paddingEnd="3dp"
+            android:gravity="center"
+            android:ellipsize="end"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:maxEms="12"
+            android:textColor="@color/md_theme_widgetTertiary"
+            android:shadowRadius="2.75"
+            android:shadowColor="@android:color/black"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            tools:text="Alarm title"
+            tools:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/nextAlarmTitleForCustomColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="0dp"
+            android:paddingEnd="3dp"
+            android:gravity="center"
+            android:ellipsize="end"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:maxEms="12"
             android:shadowRadius="2.75"
             android:shadowColor="@android:color/black"
             android:shadowDx="2"

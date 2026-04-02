@@ -191,6 +191,14 @@ public final class WidgetDAO {
     }
 
     /**
+     * @return {@code true} if the title of the next alarm is displayed on the digital widget; {@code false} otherwise.
+     */
+    public static boolean isNextAlarmTitleDisplayedOnDigitalWidget(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_digital_widget.xml
+        return prefs.getBoolean(KEY_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM_TITLE, DEFAULT_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM_TITLE);
+    }
+
+    /**
      * @return {@code true} if the cities are displayed on the digital widget; {@code false} otherwise.
      */
     public static boolean areWorldCitiesDisplayedOnDigitalWidget(SharedPreferences prefs) {
@@ -268,6 +276,22 @@ public final class WidgetDAO {
     public static int getDigitalWidgetCustomNextAlarmColor(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_customize_digital_widget.xml
         return prefs.getInt(KEY_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR, DEFAULT_WIDGETS_CUSTOM_COLOR);
+    }
+
+    /**
+     * @return {@code true} if the default color is applied to the next alarm title on the digital widget; {@code false} otherwise.
+     */
+    public static boolean isDigitalWidgetDefaultNextAlarmTitleColor(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_digital_widget.xml
+        return prefs.getBoolean(KEY_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_TITLE_COLOR, DEFAULT_WIDGETS_DEFAULT_COLOR);
+    }
+
+    /**
+     * @return a value indicating the color of the next alarm title on the digital widget.
+     */
+    public static int getDigitalWidgetCustomNextAlarmTitleColor(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_digital_widget.xml
+        return prefs.getInt(KEY_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_TITLE_COLOR, DEFAULT_WIDGETS_CUSTOM_COLOR);
     }
 
     /**

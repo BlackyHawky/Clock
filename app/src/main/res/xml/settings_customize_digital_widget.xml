@@ -87,6 +87,14 @@
             app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
+            android:key="key_digital_widget_display_next_alarm_title"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/display_next_alarm_title_setting_title"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <SwitchPreferenceCompat
             android:key="key_digital_widget_world_cities_displayed"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/display_city_title"
@@ -169,6 +177,22 @@
             android:key="key_digital_widget_custom_next_alarm_color"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/next_alarm_color_title"
+            android:defaultValue="#FFFFFF"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <SwitchPreferenceCompat
+            android:key="key_digital_widget_default_next_alarm_title_color"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/next_alarm_title_default_color_title"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <com.best.deskclock.settings.custompreference.ColorPickerPreference
+            android:key="key_digital_widget_custom_next_alarm_title_color"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/next_alarm_title_color_title"
             android:defaultValue="#FFFFFF"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
