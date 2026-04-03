@@ -105,7 +105,7 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
-    protected int getNextAlarmTextViewId() {
+    protected int getNoAlarmTitleViewId() {
         return 0;
     }
 
@@ -155,7 +155,7 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
-    protected int getNextAlarmTextCustomViewId() {
+    protected int getNoAlarmTitleCustomViewId() {
         return 0;
     }
 
@@ -281,16 +281,17 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
         }
 
         String dateFormat = WidgetUtils.getDateFormat(context);
+        String dateText = isTextUppercase(prefs) ? dateFormat.toUpperCase() : dateFormat;
 
         if (WidgetDAO.isDigitalWidgetDefaultDateColor(prefs)) {
             rv.setViewVisibility(getDateViewId(), VISIBLE);
             rv.setViewVisibility(getDateCustomViewId(), GONE);
-            rv.setTextViewText(getDateViewId(), isTextUppercase(prefs) ? dateFormat.toUpperCase() : dateFormat);
+            rv.setTextViewText(getDateViewId(), dateText);
         } else {
             rv.setViewVisibility(getDateViewId(), GONE);
             rv.setViewVisibility(getDateCustomViewId(), VISIBLE);
             rv.setTextColor(getDateCustomViewId(), WidgetDAO.getDigitalWidgetCustomDateColor(prefs));
-            rv.setTextViewText(getDateCustomViewId(), isTextUppercase(prefs) ? dateFormat.toUpperCase() : dateFormat);
+            rv.setTextViewText(getDateCustomViewId(), dateText);
         }
     }
 
@@ -304,19 +305,21 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
             return;
         }
 
+        String nextAlarmText = isTextUppercase(prefs) ? nextAlarmTime.toUpperCase() : nextAlarmTime;
+
         if (WidgetDAO.isDigitalWidgetDefaultNextAlarmColor(prefs)) {
             rv.setViewVisibility(getNextAlarmViewId(), VISIBLE);
             rv.setViewVisibility(getNextAlarmIconId(), VISIBLE);
             rv.setViewVisibility(getNextAlarmCustomViewId(), GONE);
             rv.setViewVisibility(getNextAlarmIconCustomId(), GONE);
-            rv.setTextViewText(getNextAlarmViewId(), isTextUppercase(prefs) ? nextAlarmTime.toUpperCase() : nextAlarmTime);
+            rv.setTextViewText(getNextAlarmViewId(), nextAlarmText);
         } else {
             rv.setViewVisibility(getNextAlarmViewId(), GONE);
             rv.setViewVisibility(getNextAlarmIconId(), GONE);
             rv.setViewVisibility(getNextAlarmCustomViewId(), VISIBLE);
             rv.setViewVisibility(getNextAlarmIconCustomId(), VISIBLE);
             rv.setTextColor(getNextAlarmCustomViewId(), WidgetDAO.getDigitalWidgetCustomNextAlarmColor(prefs));
-            rv.setTextViewText(getNextAlarmCustomViewId(), isTextUppercase(prefs) ? nextAlarmTime.toUpperCase() : nextAlarmTime);
+            rv.setTextViewText(getNextAlarmCustomViewId(), nextAlarmText);
         }
     }
 
@@ -338,19 +341,21 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
             return;
         }
 
+        String nextAlarmTitleText = isTextUppercase(prefs) ? nextAlarmTitle.toUpperCase() : nextAlarmTitle;
+
         if (WidgetDAO.isDigitalWidgetDefaultNextAlarmTitleColor(prefs)) {
             rv.setViewVisibility(getLabelIconViewId(), VISIBLE);
             rv.setViewVisibility(getNextAlarmTitleViewId(), VISIBLE);
             rv.setViewVisibility(getLabelIconCustomViewId(), GONE);
             rv.setViewVisibility(getNextAlarmTitleCustomViewId(), GONE);
-            rv.setTextViewText(getNextAlarmTitleViewId(), isTextUppercase(prefs) ? nextAlarmTitle.toUpperCase() : nextAlarmTitle);
+            rv.setTextViewText(getNextAlarmTitleViewId(), nextAlarmTitleText);
         } else {
             rv.setViewVisibility(getLabelIconViewId(), GONE);
             rv.setViewVisibility(getNextAlarmTitleViewId(), GONE);
             rv.setViewVisibility(getLabelIconCustomViewId(), VISIBLE);
             rv.setViewVisibility(getNextAlarmTitleCustomViewId(), VISIBLE);
             rv.setTextColor(getNextAlarmTitleCustomViewId(), WidgetDAO.getDigitalWidgetCustomNextAlarmTitleColor(prefs));
-            rv.setTextViewText(getNextAlarmTitleCustomViewId(), isTextUppercase(prefs) ? nextAlarmTitle.toUpperCase() : nextAlarmTitle);
+            rv.setTextViewText(getNextAlarmTitleCustomViewId(), nextAlarmTitleText);
         }
     }
 
@@ -417,15 +422,16 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
         }
 
         String dateFormat = WidgetUtils.getDateFormat(context);
+        String dateText = isTextUppercase(prefs) ? dateFormat.toUpperCase() : dateFormat;
 
         if (WidgetDAO.isDigitalWidgetDefaultDateColor(prefs)) {
             date.setVisibility(VISIBLE);
             dateForCustomColor.setVisibility(GONE);
-            date.setText(dateFormat);
+            date.setText(dateText);
         } else {
             date.setVisibility(GONE);
             dateForCustomColor.setVisibility(VISIBLE);
-            dateForCustomColor.setText(dateFormat);
+            dateForCustomColor.setText(dateText);
         }
     }
 
@@ -444,21 +450,23 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
             return;
         }
 
+        String nextAlarmText = isTextUppercase(prefs) ? nextAlarmTime.toUpperCase() : nextAlarmTime;
+
         if (WidgetDAO.isDigitalWidgetDefaultNextAlarmColor(prefs)) {
-            nextAlarm.setText(nextAlarmTime);
+            nextAlarm.setText(nextAlarmText);
             nextAlarm.setVisibility(VISIBLE);
             nextAlarmIcon.setVisibility(VISIBLE);
             nextAlarmForCustomColor.setVisibility(GONE);
             nextAlarmIconForCustomColor.setVisibility(GONE);
             nextAlarmIcon.setTypeface(ClockUtils.getAlarmIconTypeface(context));
         } else {
-            nextAlarmForCustomColor.setText(nextAlarmTime);
             nextAlarm.setVisibility(GONE);
             nextAlarmIcon.setVisibility(GONE);
             nextAlarmForCustomColor.setVisibility(VISIBLE);
             nextAlarmIconForCustomColor.setVisibility(VISIBLE);
             nextAlarmIconForCustomColor.setTypeface(ClockUtils.getAlarmIconTypeface(context));
             nextAlarmIconForCustomColor.setTextColor(WidgetDAO.getDigitalWidgetCustomNextAlarmColor(prefs));
+            nextAlarmForCustomColor.setText(nextAlarmText);
         }
     }
 
@@ -486,13 +494,15 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
             return;
         }
 
+        String nextAlarmTitleText = isTextUppercase(prefs) ? nextAlarmTitle.toUpperCase() : nextAlarmTitle;
+
         if (WidgetDAO.isDigitalWidgetDefaultNextAlarmTitleColor(prefs)) {
             labelIcon.setVisibility(VISIBLE);
             nextAlarmTitleView.setVisibility(VISIBLE);
             labelIconForCustomColor.setVisibility(GONE);
             nextAlarmTitleViewForCustomColor.setVisibility(GONE);
             labelIcon.setTypeface(ClockUtils.getAlarmIconTypeface(context));
-            nextAlarmTitleView.setText(nextAlarmTitle);
+            nextAlarmTitleView.setText(nextAlarmTitleText);
         } else {
             int nextAlarmTitleColor = WidgetDAO.getDigitalWidgetCustomNextAlarmTitleColor(prefs);
 
@@ -502,7 +512,7 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
             nextAlarmTitleViewForCustomColor.setVisibility(VISIBLE);
             labelIconForCustomColor.setTypeface(ClockUtils.getAlarmIconTypeface(context));
             labelIconForCustomColor.setTextColor(nextAlarmTitleColor);
-            nextAlarmTitleView.setText(nextAlarmTitle);
+            nextAlarmTitleViewForCustomColor.setText(nextAlarmTitleText);
             nextAlarmTitleViewForCustomColor.setTextColor(nextAlarmTitleColor);
         }
     }

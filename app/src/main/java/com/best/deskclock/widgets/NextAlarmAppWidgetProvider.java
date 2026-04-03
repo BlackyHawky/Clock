@@ -104,13 +104,13 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
-    protected int getNextAlarmTextViewId() {
-        return R.id.nextAlarmText;
+    protected int getNoAlarmTitleViewId() {
+        return R.id.noAlarmTitle;
     }
 
     @Override
     protected int getLabelIconViewId() {
-        return 0;
+        return R.id.labelIcon;
     }
 
     @Override
@@ -154,13 +154,13 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
-    protected int getNextAlarmTextCustomViewId() {
-        return R.id.nextAlarmTextForCustomColor;
+    protected int getNoAlarmTitleCustomViewId() {
+        return R.id.noAlarmTitleForCustomColor;
     }
 
     @Override
     protected int getLabelIconCustomViewId() {
-        return 0;
+        return R.id.labelIconForCustomColor;
     }
 
     @Override
@@ -258,7 +258,6 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     @Override
     protected void configureNextAlarm(RemoteViews rv, Context context, SharedPreferences prefs, String nextAlarmTime) {
         final Context localizedContext = Utils.getLocalizedContext(context);
-        final String noAlarmTitle = localizedContext.getString(R.string.next_alarm_widget_title_no_alarm);
         final boolean isDefaultTitleColor = WidgetDAO.isNextAlarmWidgetDefaultTitleColor(prefs);
         final int customTitleColor = WidgetDAO.getNextAlarmWidgetCustomTitleColor(prefs);
 
@@ -268,33 +267,38 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
             rv.setViewVisibility(getNextAlarmCustomViewId(), GONE);
             rv.setViewVisibility(getNextAlarmIconCustomId(), GONE);
 
+            String noAlarmTitle = localizedContext.getString(R.string.next_alarm_widget_title_no_alarm);
+            String noAlarmTitleText = isTextUppercase(prefs) ? noAlarmTitle.toUpperCase() : noAlarmTitle;
+
             if (isDefaultTitleColor) {
-                rv.setViewVisibility(getNextAlarmTextViewId(), VISIBLE);
-                rv.setViewVisibility(getNextAlarmTextCustomViewId(), GONE);
-                rv.setTextViewText(getNextAlarmTextViewId(), isTextUppercase(prefs) ? noAlarmTitle.toUpperCase() : noAlarmTitle);
+                rv.setViewVisibility(getNoAlarmTitleViewId(), VISIBLE);
+                rv.setViewVisibility(getNoAlarmTitleCustomViewId(), GONE);
+                rv.setTextViewText(getNoAlarmTitleViewId(), noAlarmTitleText);
             } else {
-                rv.setViewVisibility(getNextAlarmTextViewId(), GONE);
-                rv.setViewVisibility(getNextAlarmTextCustomViewId(), VISIBLE);
-                rv.setTextColor(getNextAlarmTextCustomViewId(), customTitleColor);
-                rv.setTextViewText(getNextAlarmTextCustomViewId(), isTextUppercase(prefs) ? noAlarmTitle.toUpperCase() : noAlarmTitle);
+                rv.setViewVisibility(getNoAlarmTitleViewId(), GONE);
+                rv.setViewVisibility(getNoAlarmTitleCustomViewId(), VISIBLE);
+                rv.setTextColor(getNoAlarmTitleCustomViewId(), customTitleColor);
+                rv.setTextViewText(getNoAlarmTitleCustomViewId(), noAlarmTitleText);
             }
         } else {
-            rv.setViewVisibility(getNextAlarmTextViewId(), GONE);
-            rv.setViewVisibility(getNextAlarmTextCustomViewId(), GONE);
+            rv.setViewVisibility(getNoAlarmTitleViewId(), GONE);
+            rv.setViewVisibility(getNoAlarmTitleCustomViewId(), GONE);
+
+            String nextAlarmText = isTextUppercase(prefs) ? nextAlarmTime.toUpperCase() : nextAlarmTime;
 
             if (WidgetDAO.isNextAlarmWidgetDefaultAlarmColor(prefs)) {
                 rv.setViewVisibility(getNextAlarmViewId(), VISIBLE);
                 rv.setViewVisibility(getNextAlarmIconId(), VISIBLE);
                 rv.setViewVisibility(getNextAlarmCustomViewId(), GONE);
                 rv.setViewVisibility(getNextAlarmIconCustomId(), GONE);
-                rv.setTextViewText(getNextAlarmViewId(), isTextUppercase(prefs) ? nextAlarmTime.toUpperCase() : nextAlarmTime);
+                rv.setTextViewText(getNextAlarmViewId(), nextAlarmText);
             } else {
                 rv.setViewVisibility(getNextAlarmViewId(), GONE);
                 rv.setViewVisibility(getNextAlarmIconId(), GONE);
                 rv.setViewVisibility(getNextAlarmCustomViewId(), VISIBLE);
                 rv.setViewVisibility(getNextAlarmIconCustomId(), VISIBLE);
                 rv.setTextColor(getNextAlarmCustomViewId(), WidgetDAO.getNextAlarmWidgetCustomAlarmColor(prefs));
-                rv.setTextViewText(getNextAlarmCustomViewId(), isTextUppercase(prefs) ? nextAlarmTime.toUpperCase() : nextAlarmTime);
+                rv.setTextViewText(getNextAlarmCustomViewId(), nextAlarmText);
             }
         }
     }
@@ -302,20 +306,28 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     @Override
     protected void configureNextAlarmTitle(RemoteViews rv, SharedPreferences prefs, String nextAlarmTime, String nextAlarmTitle) {
         if (TextUtils.isEmpty(nextAlarmTime) || TextUtils.isEmpty(nextAlarmTitle)) {
+            rv.setViewVisibility(getLabelIconViewId(), GONE);
             rv.setViewVisibility(getNextAlarmTitleViewId(), GONE);
+            rv.setViewVisibility(getLabelIconCustomViewId(), GONE);
             rv.setViewVisibility(getNextAlarmTitleCustomViewId(), GONE);
             return;
         }
 
+        String nextAlarmTitleText = isTextUppercase(prefs) ? nextAlarmTitle.toUpperCase() : nextAlarmTitle;
+
         if (WidgetDAO.isNextAlarmWidgetDefaultAlarmTitleColor(prefs)) {
+            rv.setViewVisibility(getLabelIconViewId(), VISIBLE);
             rv.setViewVisibility(getNextAlarmTitleViewId(), VISIBLE);
+            rv.setViewVisibility(getLabelIconCustomViewId(), GONE);
             rv.setViewVisibility(getNextAlarmTitleCustomViewId(), GONE);
-            rv.setTextViewText(getNextAlarmTitleViewId(), isTextUppercase(prefs) ? nextAlarmTitle.toUpperCase() : nextAlarmTitle);
+            rv.setTextViewText(getNextAlarmTitleViewId(), nextAlarmTitleText);
         } else {
+            rv.setViewVisibility(getLabelIconViewId(), GONE);
             rv.setViewVisibility(getNextAlarmTitleViewId(), GONE);
+            rv.setViewVisibility(getLabelIconCustomViewId(), VISIBLE);
             rv.setViewVisibility(getNextAlarmTitleCustomViewId(), VISIBLE);
             rv.setTextColor(getNextAlarmTitleCustomViewId(), WidgetDAO.getNextAlarmWidgetCustomAlarmTitleColor(prefs));
-            rv.setTextViewText(getNextAlarmTitleCustomViewId(), isTextUppercase(prefs) ? nextAlarmTitle.toUpperCase() : nextAlarmTitle);
+            rv.setTextViewText(getNextAlarmTitleCustomViewId(), nextAlarmTitleText);
         }
     }
 
@@ -371,8 +383,8 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
         final TextView nextAlarm = sizer.findViewById(getNextAlarmViewId());
         final TextView nextAlarmIconForCustomColor = sizer.findViewById(getNextAlarmIconCustomId());
         final TextView nextAlarmForCustomColor = sizer.findViewById(getNextAlarmCustomViewId());
-        final TextView nextAlarmText = sizer.findViewById(getNextAlarmTextViewId());
-        final TextView nextAlarmTextForCustomColor = sizer.findViewById(getNextAlarmTextCustomViewId());
+        final TextView noAlarmTitle = sizer.findViewById(getNoAlarmTitleViewId());
+        final TextView noAlarmTitleForCustomColor = sizer.findViewById(getNoAlarmTitleCustomViewId());
 
         final boolean isDefaultTitleColor = WidgetDAO.isNextAlarmWidgetDefaultTitleColor(prefs);
         final int customTitleColor = WidgetDAO.getNextAlarmWidgetCustomTitleColor(prefs);
@@ -384,33 +396,38 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
             nextAlarmForCustomColor.setVisibility(GONE);
             nextAlarmIconForCustomColor.setVisibility(GONE);
 
+            String noAlarm = localizedContext.getString(R.string.next_alarm_widget_title_no_alarm);
+            String noAlarmText = isTextUppercase(prefs) ? noAlarm.toUpperCase() : noAlarm;
+
             if (isDefaultTitleColor) {
-                nextAlarmText.setVisibility(VISIBLE);
-                nextAlarmTextForCustomColor.setVisibility(GONE);
-                nextAlarmText.setText(localizedContext.getString(R.string.next_alarm_widget_title_no_alarm));
+                noAlarmTitle.setVisibility(VISIBLE);
+                noAlarmTitleForCustomColor.setVisibility(GONE);
+                noAlarmTitle.setText(noAlarmText);
             } else {
-                nextAlarmText.setVisibility(GONE);
-                nextAlarmTextForCustomColor.setVisibility(VISIBLE);
-                nextAlarmTextForCustomColor.setText(localizedContext.getString(R.string.next_alarm_widget_title_no_alarm));
-                nextAlarmTextForCustomColor.setTextColor(customTitleColor);
+                noAlarmTitle.setVisibility(GONE);
+                noAlarmTitleForCustomColor.setVisibility(VISIBLE);
+                noAlarmTitleForCustomColor.setText(noAlarmText);
+                noAlarmTitleForCustomColor.setTextColor(customTitleColor);
             }
         } else {
-            nextAlarmText.setVisibility(GONE);
-            nextAlarmTextForCustomColor.setVisibility(GONE);
+            noAlarmTitle.setVisibility(GONE);
+            noAlarmTitleForCustomColor.setVisibility(GONE);
+
+            String nextAlarmText = isTextUppercase(prefs) ? nextAlarmTime.toUpperCase() : nextAlarmTime;
 
             if (WidgetDAO.isNextAlarmWidgetDefaultAlarmColor(prefs)) {
                 nextAlarm.setVisibility(VISIBLE);
                 nextAlarmIcon.setVisibility(VISIBLE);
                 nextAlarmForCustomColor.setVisibility(GONE);
                 nextAlarmIconForCustomColor.setVisibility(GONE);
-                nextAlarm.setText(nextAlarmTime);
+                nextAlarm.setText(nextAlarmText);
                 nextAlarmIcon.setTypeface(ClockUtils.getAlarmIconTypeface(context));
             } else {
                 nextAlarm.setVisibility(GONE);
                 nextAlarmIcon.setVisibility(GONE);
                 nextAlarmForCustomColor.setVisibility(VISIBLE);
                 nextAlarmIconForCustomColor.setVisibility(VISIBLE);
-                nextAlarmForCustomColor.setText(nextAlarmTime);
+                nextAlarmForCustomColor.setText(nextAlarmText);
                 nextAlarmForCustomColor.setTextColor(customAlarmColor);
                 nextAlarmIconForCustomColor.setTypeface(ClockUtils.getAlarmIconTypeface(context));
                 nextAlarmIconForCustomColor.setTextColor(customAlarmColor);
@@ -421,24 +438,39 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     @Override
     protected void configureSizerNextAlarmTitle(View sizer, Context context, SharedPreferences prefs, String nextAlarmTime) {
         final String nextAlarmTitle = AlarmUtils.getNextAlarmTitle(context);
+        final TextView labelIcon = sizer.findViewById(getLabelIconViewId());
         final TextView nextAlarmTitleView = sizer.findViewById(getNextAlarmTitleViewId());
+        final TextView labelIconForCustomColor = sizer.findViewById(getLabelIconCustomViewId());
         final TextView nextAlarmTitleViewForCustomColor = sizer.findViewById(getNextAlarmTitleCustomViewId());
 
         if (TextUtils.isEmpty(nextAlarmTime) || TextUtils.isEmpty(nextAlarmTitle)) {
+            labelIcon.setVisibility(GONE);
             nextAlarmTitleView.setVisibility(GONE);
+            labelIconForCustomColor.setVisibility(GONE);
             nextAlarmTitleViewForCustomColor.setVisibility(GONE);
             return;
         }
 
+        String nextAlarmTitleText = isTextUppercase(prefs) ? nextAlarmTitle.toUpperCase() : nextAlarmTitle;
+
         if (WidgetDAO.isNextAlarmWidgetDefaultAlarmTitleColor(prefs)) {
+            labelIcon.setVisibility(VISIBLE);
             nextAlarmTitleView.setVisibility(VISIBLE);
+            labelIconForCustomColor.setVisibility(GONE);
             nextAlarmTitleViewForCustomColor.setVisibility(GONE);
-            nextAlarmTitleView.setText(nextAlarmTitle);
+            labelIcon.setTypeface(ClockUtils.getAlarmIconTypeface(context));
+            nextAlarmTitleView.setText(nextAlarmTitleText);
         } else {
+            int nextAlarmTitleColor = WidgetDAO.getNextAlarmWidgetCustomAlarmTitleColor(prefs);
+
+            labelIcon.setVisibility(GONE);
             nextAlarmTitleView.setVisibility(GONE);
+            labelIconForCustomColor.setVisibility(VISIBLE);
             nextAlarmTitleViewForCustomColor.setVisibility(VISIBLE);
-            nextAlarmTitleView.setText(nextAlarmTitle);
-            nextAlarmTitleViewForCustomColor.setTextColor(WidgetDAO.getNextAlarmWidgetCustomAlarmTitleColor(prefs));
+            labelIconForCustomColor.setTypeface(ClockUtils.getAlarmIconTypeface(context));
+            labelIconForCustomColor.setTextColor(nextAlarmTitleColor);
+            nextAlarmTitleViewForCustomColor.setText(nextAlarmTitleText);
+            nextAlarmTitleViewForCustomColor.setTextColor(nextAlarmTitleColor);
         }
     }
 
@@ -458,29 +490,35 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
 
             nextAlarm.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mFontSizePx);
             nextAlarmIcon.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mIconFontSizePx);
-            nextAlarmIcon.setPadding(0, 0, measuredSizes.mIconPaddingPx, 0);
+            nextAlarmIcon.setPadding(measuredSizes.mIconPaddingPx, 0, measuredSizes.mIconPaddingPx, 0);
         } else {
             final TextView nextAlarmForCustomColor = sizer.findViewById(getNextAlarmCustomViewId());
             final TextView nextAlarmIconForCustomColor = sizer.findViewById(getNextAlarmIconCustomId());
 
             nextAlarmForCustomColor.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mFontSizePx);
             nextAlarmIconForCustomColor.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mIconFontSizePx);
-            nextAlarmIconForCustomColor.setPadding(0, 0, measuredSizes.mIconPaddingPx, 0);
+            nextAlarmIconForCustomColor.setPadding(measuredSizes.mIconPaddingPx, 0, measuredSizes.mIconPaddingPx, 0);
         }
 
         if (WidgetDAO.isNextAlarmWidgetDefaultTitleColor(prefs)) {
-            final TextView nextAlarmText = sizer.findViewById(getNextAlarmTextViewId());
+            final TextView nextAlarmText = sizer.findViewById(getNoAlarmTitleViewId());
             nextAlarmText.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mFontSizePx);
         } else {
-            final TextView nextAlarmTextForCustomColor = sizer.findViewById(getNextAlarmTextCustomViewId());
+            final TextView nextAlarmTextForCustomColor = sizer.findViewById(getNoAlarmTitleCustomViewId());
             nextAlarmTextForCustomColor.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mFontSizePx);
         }
 
         if (WidgetDAO.isNextAlarmWidgetDefaultAlarmTitleColor(prefs)) {
+            final TextView labelIcon = sizer.findViewById(getLabelIconViewId());
             final TextView nextAlarmTitle = sizer.findViewById(getNextAlarmTitleViewId());
+            labelIcon.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mIconFontSizePx);
+            labelIcon.setPadding(measuredSizes.mIconPaddingPx, 0, measuredSizes.mIconPaddingPx, 0);
             nextAlarmTitle.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mFontSizePx);
         } else {
+            final TextView labelIconForCustomColor = sizer.findViewById(getLabelIconCustomViewId());
             final TextView nextAlarmTitleForCustomColor = sizer.findViewById(getNextAlarmTitleCustomViewId());
+            labelIconForCustomColor.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mIconFontSizePx);
+            labelIconForCustomColor.setPadding(measuredSizes.mIconPaddingPx, 0, measuredSizes.mIconPaddingPx, 0);
             nextAlarmTitleForCustomColor.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mFontSizePx);
         }
     }
@@ -496,6 +534,18 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
             final TextView nextAlarmIconForCustomColor = sizer.findViewById(getNextAlarmIconCustomId());
             if (nextAlarmIconForCustomColor.getVisibility() == VISIBLE) {
                 measuredSizes.mIconBitmap = WidgetUtils.createBitmap(nextAlarmIconForCustomColor);
+            }
+        }
+
+        if (WidgetDAO.isNextAlarmWidgetDefaultAlarmTitleColor(prefs)) {
+            TextView labelIcon = sizer.findViewById(getLabelIconViewId());
+            if (labelIcon.getVisibility() == VISIBLE) {
+                measuredSizes.mLabelBitmap = WidgetUtils.createBitmap(labelIcon);
+            }
+        } else {
+            TextView labelIconForCustomColor = sizer.findViewById(getLabelIconCustomViewId());
+            if (labelIconForCustomColor.getVisibility() == VISIBLE) {
+                measuredSizes.mLabelBitmap = WidgetUtils.createBitmap(labelIconForCustomColor);
             }
         }
     }
