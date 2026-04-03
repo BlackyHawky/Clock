@@ -137,6 +137,19 @@ public class AlarmUtils {
     }
 
     /**
+     * @return The text of the next alarm, written across multiple lines.
+     */
+    public static String getMultiLineNextAlarm(Context context) {
+        AlarmInstance instance = AlarmStateManager.getNextFiringAlarm(context);
+        if (instance != null) {
+            Calendar alarmCalendar = Calendar.getInstance();
+            alarmCalendar.setTimeInMillis(instance.getAlarmTime().getTimeInMillis());
+            return getMultiLineFormattedTime(context, alarmCalendar);
+        }
+        return null;
+    }
+
+    /**
      * @return The next alarm title.
      */
     public static String getNextAlarmTitle(Context context) {
@@ -259,6 +272,54 @@ public class AlarmUtils {
         String formattedTime = prefix + DateFormat.format(pattern, alarmTime).toString();
 
         return FormattedTextUtils.capitalizeFirstLetter(formattedTime, locale);
+    }
+
+    /**
+     * @return the date and time of the next alarm formatted on two lines.
+     */
+    public static String getMultiLineFormattedTime(Context context, Calendar alarmTime) {
+        final Calendar now = Calendar.getInstance();
+        final Calendar today = (Calendar) now.clone();
+        final Calendar tomorrow = (Calendar) now.clone();
+        tomorrow.add(Calendar.DAY_OF_YEAR, 1);
+
+        final boolean is24HourFormat = DateFormat.is24HourFormat(context);
+        final Locale locale = Locale.getDefault();
+
+        String timeSkeleton = is24HourFormat ? "Hm" : "hma";
+        String timePattern = DateFormat.getBestDateTimePattern(locale, timeSkeleton);
+        String timeStr = DateFormat.format(timePattern, alarmTime).toString();
+
+        String result;
+
+        if (isSameDayAndTimeZone(alarmTime, today)) {
+            // Returns:  "Today
+            //           8:30 AM"
+            result = context.getString(R.string.alarm_today) + "\n" + timeStr;
+
+        } else if (isSameDayAndTimeZone(alarmTime, tomorrow)) {
+            // Returns: "Tomorrow
+            //           8:30 AM"
+            result = context.getString(R.string.alarm_tomorrow) + "\n" + timeStr;
+        } else {
+            long diffInMillis = alarmTime.getTimeInMillis() - now.getTimeInMillis();
+            long diffInDays = TimeUnit.MILLISECONDS.toDays(diffInMillis);
+
+            if (diffInDays >= 6) {
+                // Returns: "Sat, Oct 28
+                //             8:30 AM"
+                String datePattern = DateFormat.getBestDateTimePattern(locale, "EEE MMM d");
+                String dateStr = DateFormat.format(datePattern, alarmTime).toString();
+                result = dateStr + "\n" + timeStr;
+            } else {
+                // Returns: "Wed 8:30 AM"
+                String skeleton = is24HourFormat ? "EEE Hm" : "EEE hma";
+                String pattern = DateFormat.getBestDateTimePattern(locale, skeleton);
+                result = DateFormat.format(pattern, alarmTime).toString();
+            }
+        }
+
+        return FormattedTextUtils.capitalizeFirstLetter(result, locale);
     }
 
     /**

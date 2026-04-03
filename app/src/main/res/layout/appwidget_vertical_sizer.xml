@@ -17,6 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
+        android:paddingHorizontal="3dp"
         android:includeFontPadding="false"
         android:ellipsize="none"
         android:maxLines="1"
@@ -28,6 +29,7 @@
         android:id="@+id/dateForCustomColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingHorizontal="3dp"
         android:layout_marginTop="30dp"
         android:includeFontPadding="false"
         android:ellipsize="none"
@@ -86,13 +88,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
-        android:gravity="center">
+        android:gravity="center"
+        android:baselineAligned="false">
 
         <!-- This view is drawn to a Bitmap and sent to the widget as an icon. -->
         <TextView
             android:id="@+id/nextAlarmIcon"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:ellipsize="none"
             android:maxLines="1"
             android:text="@string/clock_emoji"
@@ -106,7 +110,8 @@
         <TextView
             android:id="@+id/nextAlarmIconForCustomColor"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:ellipsize="none"
             android:maxLines="1"
             android:text="@string/clock_emoji"
@@ -115,11 +120,13 @@
         <TextView
             android:id="@+id/nextAlarm"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="0dp"
+            android:paddingEnd="3dp"
             android:gravity="center"
             android:ellipsize="none"
             android:includeFontPadding="false"
-            android:maxLines="1"
+            android:maxLines="2"
             android:textColor="@color/widget_text_color"
             tools:text="Mo, 07:30 AM"
             tools:textSize="18sp" />
@@ -127,11 +134,13 @@
         <TextView
             android:id="@+id/nextAlarmForCustomColor"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="0dp"
+            android:paddingEnd="3dp"
             android:gravity="center"
             android:ellipsize="none"
             android:includeFontPadding="false"
-            android:maxLines="1"
+            android:maxLines="2"
             tools:visibility="gone" />
 
     </LinearLayout>

@@ -199,6 +199,11 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
+    protected String getNextAlarmTime(Context context) {
+        return AlarmUtils.getNextAlarm(context);
+    }
+
+    @Override
     protected Class<?> getCityServiceClass() {
         return null;
     }

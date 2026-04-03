@@ -200,6 +200,11 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
+    protected String getNextAlarmTime(Context context) {
+        return AlarmUtils.getNextAlarm(context);
+    }
+
+    @Override
     protected Class<?> getCityServiceClass() {
         return AppWidgetCityService.DigitalAppWidgetCityService.class;
     }

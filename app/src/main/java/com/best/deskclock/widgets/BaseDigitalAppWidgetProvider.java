@@ -159,6 +159,8 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
 
     protected abstract float getFontScaleFactor();
 
+    protected abstract String getNextAlarmTime(Context context);
+
     protected abstract Class<?> getCityServiceClass();
 
     protected abstract int getCityLayoutId();
@@ -292,7 +294,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
         }
 
         // Compute optimal font sizes and icon sizes to fit within the widget bounds.
-        final String nextAlarmTime = AlarmUtils.getNextAlarm(Utils.getLocalizedContext(context));
+        final String nextAlarmTime = getNextAlarmTime(Utils.getLocalizedContext(context));
         final String nextAlarmTitle = AlarmUtils.getNextAlarmTitle(context);
 
         configureClock(rv, context, prefs);

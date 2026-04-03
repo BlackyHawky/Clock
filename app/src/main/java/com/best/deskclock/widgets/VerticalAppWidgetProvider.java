@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.WidgetDAO;
+import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.WidgetUtils;
@@ -198,6 +199,11 @@ public class VerticalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     @Override
     protected float getFontScaleFactor() {
         return 4f;
+    }
+
+    @Override
+    protected String getNextAlarmTime(Context context) {
+        return AlarmUtils.getMultiLineNextAlarm(context);
     }
 
     @Override
@@ -483,7 +489,7 @@ public class VerticalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
             nextAlarm.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mFontSizePx);
             nextAlarm.setPadding(0, 0, measuredSizes.mIconPaddingPx, 0);
             nextAlarmIcon.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mIconFontSizePx);
-            nextAlarmIcon.setPadding(0, 0, measuredSizes.mIconPaddingPx, 0);
+            nextAlarmIcon.setPadding(measuredSizes.mIconPaddingPx, 0, measuredSizes.mIconPaddingPx, 0);
         } else {
             final TextView nextAlarmForCustomColor = sizer.findViewById(getNextAlarmCustomViewId());
             final TextView nextAlarmIconForCustomColor = sizer.findViewById(getNextAlarmIconCustomId());
@@ -491,7 +497,7 @@ public class VerticalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
             nextAlarmForCustomColor.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mFontSizePx);
             nextAlarmForCustomColor.setPadding(0, 0, measuredSizes.mIconPaddingPx, 0);
             nextAlarmIconForCustomColor.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mIconFontSizePx);
-            nextAlarmIconForCustomColor.setPadding(0, 0, measuredSizes.mIconPaddingPx, 0);
+            nextAlarmIconForCustomColor.setPadding(measuredSizes.mIconPaddingPx, 0, measuredSizes.mIconPaddingPx, 0);
         }
     }
 
