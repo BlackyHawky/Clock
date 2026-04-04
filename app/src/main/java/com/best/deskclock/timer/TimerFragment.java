@@ -647,7 +647,9 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
      */
     public void updateWarningBannerVisibility() {
         boolean isStreamLow = RingtoneUtils.isAlarmStreamLow(mContext);
-        boolean shouldShow = isStreamLow && DataModel.getDataModel().hasRunningTimer();
+        boolean shouldShow = SettingsDAO.isLowAlarmVolumeWarningDisplayed(mPrefs)
+            && isStreamLow
+            && DataModel.getDataModel().hasRunningTimer();
 
         int targetVisibility = shouldShow ? VISIBLE : GONE;
 

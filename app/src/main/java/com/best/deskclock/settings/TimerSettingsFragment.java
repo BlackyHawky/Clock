@@ -53,6 +53,7 @@ public class TimerSettingsFragment extends ScreenFragment
     CustomSliderPreference mTimerShakeIntensityPref;
     ListPreference mSortTimerPref;
     SwitchPreferenceCompat mDisplayWarningBeforeDeletingTimerPref;
+    SwitchPreferenceCompat mDisplayLowAlarmVolumeWarningPref;
 
     private final ActivityResultLauncher<Intent> fontPickerLauncher =
         registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -113,6 +114,7 @@ public class TimerSettingsFragment extends ScreenFragment
         mTimerShakeIntensityPref = findPreference(KEY_TIMER_SHAKE_INTENSITY);
         mSortTimerPref = findPreference(KEY_SORT_TIMER);
         mDisplayWarningBeforeDeletingTimerPref = findPreference(KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER);
+        mDisplayLowAlarmVolumeWarningPref = findPreference(KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING);
 
         setupPreferences();
     }
@@ -149,7 +151,8 @@ public class TimerSettingsFragment extends ScreenFragment
             }
 
             case KEY_TIMER_VIBRATE, KEY_TIMER_VOLUME_BUTTONS_ACTION, KEY_TIMER_POWER_BUTTON_ACTION, KEY_TIMER_FLIP_ACTION,
-                 KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER -> Utils.setVibrationTime(requireContext(), 50);
+                 KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER, KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING ->
+                Utils.setVibrationTime(requireContext(), 50);
         }
 
         return true;
@@ -230,6 +233,8 @@ public class TimerSettingsFragment extends ScreenFragment
         mSortTimerPref.setSummary(mSortTimerPref.getEntry());
 
         mDisplayWarningBeforeDeletingTimerPref.setOnPreferenceChangeListener(this);
+
+        mDisplayLowAlarmVolumeWarningPref.setOnPreferenceChangeListener(this);
     }
 
     private void setupFragmentResultListeners() {

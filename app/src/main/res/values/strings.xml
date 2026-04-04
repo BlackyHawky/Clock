@@ -492,6 +492,8 @@
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Enable automatic deletion of occasional alarms by default</string>
     <!-- Dialog message when the "Enable automatic deletion of occasional alarms by default" setting is disabled. -->
     <string name="enable_delete_occasional_alarm_by_default_dialog_message">The \"Delete alarm once dismissed\" feature will be disabled for all alarms.%s</string>
+    <!-- Setting title to display a warning when the alarm volume is set to the minimum-->
+    <string name="display_low_alarm_volume_warning_title">Display a warning when the alarm volume is set to the minimum</string>
     <!-- Setting title for changing the time picker style. -->
     <string name="material_time_picker_style_title">Time picker style</string>
     <!-- Setting title for changing the date picker style. -->

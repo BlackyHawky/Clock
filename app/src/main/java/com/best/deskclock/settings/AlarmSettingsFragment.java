@@ -71,7 +71,10 @@ public class AlarmSettingsFragment extends ScreenFragment
 
     private boolean mHasExternalAudioDeviceConnected;
 
+    Preference mAlarmDisplayCustomizationPref;
     Preference mAlarmFontPref;
+    ListPreference mMaterialTimePickerStylePref;
+    ListPreference mMaterialDatePickerStylePref;
     Preference mAlarmRingtonePref;
     AutoSilenceDurationPreference mAlarmAutoSilencePref;
     SwitchPreferenceCompat mEnablePerAlarmAutoSilencePref;
@@ -105,9 +108,7 @@ public class AlarmSettingsFragment extends ScreenFragment
     SwitchPreferenceCompat mEnableSnoozedOrDismissedAlarmVibrationsPref;
     SwitchPreferenceCompat mTurnOnBackFlashForTriggeredAlarmPref;
     SwitchPreferenceCompat mDeleteOccasionalAlarmByDefaultPref;
-    ListPreference mMaterialTimePickerStylePref;
-    ListPreference mMaterialDatePickerStylePref;
-    Preference mAlarmDisplayCustomizationPref;
+    SwitchPreferenceCompat mDisplayLowAlarmVolumeWarningPref;
 
     private final ActivityResultLauncher<Intent> fontPickerLauncher =
         registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -197,6 +198,7 @@ public class AlarmSettingsFragment extends ScreenFragment
         mAlarmNotificationReminderTimePref = findPreference(KEY_ALARM_NOTIFICATION_REMINDER_TIME);
         mTurnOnBackFlashForTriggeredAlarmPref = findPreference(KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM);
         mDeleteOccasionalAlarmByDefaultPref = findPreference(KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT);
+        mDisplayLowAlarmVolumeWarningPref = findPreference(KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING);
 
         setupPreferences();
     }
@@ -242,7 +244,7 @@ public class AlarmSettingsFragment extends ScreenFragment
     @Override
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
-            case KEY_DISPLAY_ENABLED_ALARMS_FIRST, KEY_ENABLE_ALARM_FAB_LONG_PRESS,
+            case KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING, KEY_DISPLAY_ENABLED_ALARMS_FIRST, KEY_ENABLE_ALARM_FAB_LONG_PRESS,
                  KEY_DISPLAY_DISMISS_BUTTON, KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS ->
                 Utils.setVibrationTime(requireContext(), 50);
 
@@ -652,6 +654,8 @@ public class AlarmSettingsFragment extends ScreenFragment
         mTurnOnBackFlashForTriggeredAlarmPref.setOnPreferenceChangeListener(this);
 
         mDeleteOccasionalAlarmByDefaultPref.setOnPreferenceChangeListener(this);
+
+        mDisplayLowAlarmVolumeWarningPref.setOnPreferenceChangeListener(this);
     }
 
     private void setupFragmentResultListeners() {

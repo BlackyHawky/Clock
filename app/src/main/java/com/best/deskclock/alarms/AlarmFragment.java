@@ -119,6 +119,7 @@ public final class AlarmFragment extends DeskClockFragment
     private boolean mIsTablet;
     private boolean mIsLandscape;
     private boolean mIsPhoneInLandscape;
+    private boolean mIsLowAlarmVolumeWarningEnabled;
     private boolean mSideButtonsVisible = false;
     private boolean mIsReordering = false;
 
@@ -163,6 +164,7 @@ public final class AlarmFragment extends DeskClockFragment
         mIsTablet = ThemeUtils.isTablet();
         mIsLandscape = ThemeUtils.isLandscape();
         mIsPhoneInLandscape = !mIsTablet && mIsLandscape;
+        mIsLowAlarmVolumeWarningEnabled = SettingsDAO.isLowAlarmVolumeWarningDisplayed(mPrefs);
 
         if (savedState != null) {
             mSideButtonsVisible = savedState.getBoolean(KEY_SIDE_BUTTONS_VISIBLE, false);
@@ -808,7 +810,7 @@ public final class AlarmFragment extends DeskClockFragment
      * Handles the display and animation of the volume banner and the empty view, ensuring there are no visual conflicts.
      */
     private void updateUIStatesAndAnimate(boolean noAlarms, boolean hasActiveAlarms) {
-        boolean shouldShowBanner = hasActiveAlarms && RingtoneUtils.isAlarmStreamLow(mContext);
+        boolean shouldShowBanner = mIsLowAlarmVolumeWarningEnabled && hasActiveAlarms && RingtoneUtils.isAlarmStreamLow(mContext);
         int targetVisibility = shouldShowBanner ? VISIBLE : GONE;
         boolean bannerWillChange = mVolumeWarningBanner.getVisibility() != targetVisibility;
 
@@ -844,8 +846,8 @@ public final class AlarmFragment extends DeskClockFragment
             return;
         }
 
-        if (!RingtoneUtils.isAlarmStreamLow(mContext)) {
-            if (mVolumeWarningBanner != null && mVolumeWarningBanner.getVisibility() != View.GONE) {
+        if (!mIsLowAlarmVolumeWarningEnabled || !RingtoneUtils.isAlarmStreamLow(mContext)) {
+            if (mVolumeWarningBanner != null && mVolumeWarningBanner.getVisibility() != GONE) {
                 if (mMainLayout != null) {
                     TransitionSet strictTransition = new TransitionSet()
                         .setOrdering(TransitionSet.ORDERING_TOGETHER)
@@ -855,7 +857,7 @@ public final class AlarmFragment extends DeskClockFragment
                     TransitionManager.beginDelayedTransition(mMainLayout, strictTransition);
                 }
 
-                mVolumeWarningBanner.setVisibility(View.GONE);
+                mVolumeWarningBanner.setVisibility(GONE);
             }
 
             return;

@@ -1171,6 +1171,14 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return {@code true} true if a warning is displayed when the volume is set to the minimum. {@code false} otherwise.
+     */
+    public static boolean isLowAlarmVolumeWarningDisplayed(SharedPreferences pref) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        return pref.getBoolean(KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING, DEFAULT_DISPLAY_LOW_ALARM_VOLUME_WARNING);
+    }
+
+    /**
      * @return the time picker style.
      */
     public static String getMaterialTimePickerStyle(SharedPreferences prefs) {
