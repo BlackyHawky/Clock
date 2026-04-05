@@ -11,31 +11,31 @@
     <string name="time_picker_dialog_title">Select time</string>
     <string name="date_picker_dialog_title">Select date</string>
     <string name="delete" msgid="5732434972457000541">"Delete"</string>
-    <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Default alarm sound"</string>
-    <string name="alarm_sound" msgid="8754499591391638405">"Alarm sound"</string>
-    <string name="timer_sound" msgid="896163086604894735">"Timer sound"</string>
-    <string name="add_new_sound" msgid="2546936797351540244">"Add new"</string>
+    <string name="default_alarm_ringtone_title" msgid="2916376768509623643">Default Alarm Sound</string>
+    <string name="alarm_sound" msgid="8754499591391638405">Alarm Sound</string>
+    <string name="timer_sound" msgid="896163086604894735">Timer Sound</string>
+    <string name="add_new_sound" msgid="2546936797351540244">Add New</string>
     <string name="remove_sound" msgid="2064643204455734239">"Remove"</string>
-    <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"Alarms and timers using this sound will play the default sound instead."</string>
-    <string name="your_sounds" msgid="1672779351352629681">"Your sounds"</string>
-    <string name="device_sounds" msgid="1584894148222639823">"Device sounds"</string>
-    <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"The sound content cannot be accessed."</string>
+    <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">Alarms and Timers using this Sound will play the Default Sound instead.</string>
+    <string name="your_sounds" msgid="1672779351352629681">Your Sounds</string>
+    <string name="device_sounds" msgid="1584894148222639823">Device Sounds</string>
+    <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">The Sound Content cannot be accessed.</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Timer Expired"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Tomorrow"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Today"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Dismiss"</string>
-    <string name="alarm_missed_title" msgid="3828345099754063392">"Missed alarm"</string>
+    <string name="alarm_missed_title" msgid="3828345099754063392">Missed Alarm</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%1$s</xliff:g> - <xliff:g id="ALARM_LABEL">%2$s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Snoozed"</string>
-    <string name="alarm_alert_off_text" msgid="4472073417593915002">"Alarm off"</string>
+    <string name="alarm_alert_off_text" msgid="4472073417593915002">Alarm Off</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Snooze"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-        <item quantity="other">Snoozing for <xliff:g id="MINUTES">%d</xliff:g> minutes.</item>
-        <item quantity="one">Snoozing for 1 minute.</item>
+        <item quantity="one">Snoozing for: 1 minute.</item>
+        <item quantity="other">Snoozing for: <xliff:g id="MINUTES">%d</xliff:g> minutes.</item>
     </plurals>
-    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Snoozing until <xliff:g id="TIME">%s</xliff:g>"</string>
-    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Upcoming alarm"</string>
-    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Your missed alarm has been deleted"</string>
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">Snoozing until: <xliff:g id="TIME">%s</xliff:g></string>
+    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">Upcoming Alarm</string>
+    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">Your missed Alarm has been Deleted</string>
     <string name="timer_notifications_less_min" msgid="5481375048976427255">"Less than a minute remaining"</string>
     <string name="timer_notifications_hours" msgid="1613266446037145138">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_notifications_minutes" msgid="8543138714519498893">"<xliff:g id="MINUTES">%2$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
@@ -230,4 +230,28 @@
     <string name="alarm_upcoming_channel">Upcoming alarms</string>
     <string name="stopwatch_channel">Stopwatch</string>
     <string name="timer_channel">Timer</string>
+    <string name="sync_alarm_by_label_title">Synchronise alarms sharing the same label</string>
+    <string name="schedule_alarm_title">Schedule Alarm</string>
+    <string name="alarm_flash">Flash</string>
+    <string name="delete_occasional_alarm_after_use_title">Delete Alarm when Dismissed</string>
+    <string name="delay_picker_dialog_title">Alarm in…</string>
+    <string name="alarm_label_box_title">Alarm Label</string>
+    <string name="label_default">Default</string>
+    <string name="label_indefinitely">Indefinitely</string>
+    <string name="duplicate">Duplicate</string>
+    <string name="label_new_image">New Image</string>
+    <string name="label_new_font">New Font</string>
+    <string name="warning">Warning!</string>
+    <string name="label_hours">Hours</string>
+    <string name="label_minutes">Minutes</string>
+    <string name="label_seconds">Seconds</string>
+    <string name="confirm_action_prompt">\n\nDo You want to Continue?</string>
+    <string name="button_tip_title">Long press on the \"+\" button to add a new folder</string>
+    <string name="selected">Selected</string>
+    <string name="more_options">More Options</string>
+    <string name="progress_ringtones">Adding Ringtones… (%1$d/%2$d)</string>
+    <string name="alarm_scheduled_for">Scheduled for %s</string>
+    <string name="alarm_alert_dismiss_and_delete_text">Dismiss &amp; Delete</string>
+    <string name="alarm_alert_off_and_deleted_text">Alarm Off and Deleted</string>
+    <string name="occasional_alarm_alert_predismiss_title">Upcoming Occasional Alarm</string>
 </resources>

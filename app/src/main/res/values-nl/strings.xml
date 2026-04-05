@@ -305,7 +305,7 @@
     <string name="gnu_gpl">GNU General Public License v3.0</string>
     <string name="first_launch_important_info_message">Om zeker te zijn dat de app goed werkt, &lt;b&gt;moeten sommige instellingen van je apparaat veranderd worden:&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;NIET STOREN;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;BATTERIJOPTIMALISATIE;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;MELDINGEN;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;Afhankelijk van de Androidversie van je apparaat zijn sommige instellingen al geoptimaliseerd (bijv. meldingen).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Je kan ze nu of later veranderen in de rechtenbeheer-instellingen:</string>
     <string name="material_time_picker_style_title">Tijdselectie</string>
-    <string name="alarm_settings_summary">Uiterlijk, standaard geluid, volume, sluimeracties, eerste weekdag, herinneringstijd aanpassen</string>
+    <string name="alarm_settings_summary">Uiterlijk, geluid, volume, sluimeracties, eerste weekdag, herinneringstijd aanpassen</string>
     <string name="next_alarm_default_color_title">Standaardkleur volgende wekker</string>
     <string name="digital_widget_message_summary">\"Steden op widget weergeven\" moet uitgeschakeld zijn voor deze optie</string>
     <string name="alarm_label_box_title">Wekkerlabel</string>
@@ -321,7 +321,7 @@
     <string name="timer_add_custom_time">+ %s</string>
     <string name="clock_settings_summary">Stijl, tijdzone en systeemtijd aanpassen</string>
     <string name="description_direction_both_for_non_repeatable_alarm">Veeg naar links of rechts om uit te zetten</string>
-    <string name="timer_settings_summary">Standaard geluid, volume en kookwekkers sorteren</string>
+    <string name="timer_settings_summary">Geluid, volume en kookwekkers sorteren</string>
     <string name="default_time_to_add_to_timer_title">Standaardtijd om aan kookwekker toe te voegen</string>
     <string name="widget_background_title">Achtergrond weergeven</string>
     <string name="background_color_title">Achtergrondkleur</string>
@@ -406,7 +406,7 @@
     <string name="brown_accent_color">Bruin</string>
     <string name="red_accent_color">Rood</string>
     <string name="amoled_dark_theme_mode">AMOLED</string>
-    <string name="enable_delete_occasional_alarm_by_default_setting_title">Standaard gelegenheidswekkers verwijderen</string>
+    <string name="enable_delete_occasional_alarm_by_default_setting_title">Gelegenheidswekkers standaard verwijderen</string>
     <string name="alarm_settings_general_summary">Deze instelling kan per wekker aangepast worden in het uitvouwmenu</string>
     <string name="dismiss_button_color">Kleur uitzetknop</string>
     <string name="alarm_button_color">Kleur wekkerknop</string>
@@ -524,7 +524,7 @@
     <string name="minute_hand_color_title">Kleur minutenwijzer</string>
     <string name="minute_hand_default_color_title">Standaardkleur minutenwijzer</string>
     <string name="background_default_color_title">Standaardkleur achtergrond</string>
-    <string name="clock_dial_with_numbers">Met getallen</string>
+    <string name="clock_dial_with_numbers">Getallen</string>
     <string name="clock_dial_without_numbers">Zonder getallen</string>
     <string name="second_hand_default_color_title">Standaardkleur secondewijzer</string>
     <string name="sort_alarm_title">Wekkers sorteren</string>
@@ -580,7 +580,7 @@
     <string name="customize_background_corner_radius_title">Hoekradius van achtergrond aanpassen</string>
     <string name="customize_background_corner_radius_summary">Hiermee kun je de hoeken van widgets afronden als het startscherm dit niet ondersteunt</string>
     <string name="background_corner_radius_title">Hoekradius achtergrond</string>
-    <string name="display_timer_state_indicator_title">Statusaanwijzer kookwekker weergeven</string>
+    <string name="display_timer_state_indicator_title">Status weergeven</string>
     <string name="running_timer_indicator_color_title">Kleur van lopende kookwekker</string>
     <string name="paused_timer_indicator_color_title">Kleur van gepauzeerde kookwekker</string>
     <string name="expired_timer_indicator_color_title">Kleur van verlopen kookwekker</string>
@@ -603,7 +603,7 @@
     <string name="sw_split_title">Verdeling</string>
     <string name="sw_total_title">Totaal</string>
     <string name="analog_clock_size_title">Grootte analoge klok</string>
-    <string name="display_compact_timers_title">Actieve kookwekkers in compacte modus weergeven</string>
+    <string name="display_compact_timers_title">Actieve kookwekkers compact weergeven</string>
     <string name="display_battery_title">Batterijniveau weergeven</string>
     <string name="battery_color_title">Kleur batterijniveau</string>
     <string name="screensaver_bold_battery_title">Dikgedrukt batterijniveau</string>
@@ -628,7 +628,7 @@
     <string name="alarm_volume_low">Het wekkervolume is laag</string>
     <string name="fix_alarm_volume">Oplossen</string>
     <string name="display_snooze_selector_title">Sluimerkiezer weergeven</string>
-    <string name="clock_dial_with_roman_numbers">Met Romeinse cijfers</string>
+    <string name="clock_dial_with_roman_numbers">Romeinse cijfers</string>
     <string name="clock_second_hand_lollipop">Lollipop</string>
     <string name="timezone_baker_howland">Baker- en Howlandeilanden</string>
     <string name="timezone_marquesas">Marquesaseilanden</string>
@@ -646,4 +646,6 @@
     <string name="foreground_service_message">Draait op de achtergrond</string>
     <string name="foreground_service_title">Voorgrondmelding weergeven</string>
     <string name="foreground_service_dialog_message">Om te voorkomen dat je apparaat de app abrupt afsluit en meldingen mist, wordt er een permanente, stille melding weergegeven..\n\nDit zorgt ervoor dat de app in het geheugen blijft, maar kan het batterijverbruik iets verhogen.\n\nLet op: Het inschakelen van deze instelling is voor de meeste apparaten niet nodig. Schakel deze alleen in als je meldingen mist.</string>
+    <string name="settings_language_arabic">Arabisch</string>
+    <string name="settings_language_hungarian">Hongaars</string>
 </resources>

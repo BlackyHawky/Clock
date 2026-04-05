@@ -253,7 +253,7 @@
     <string name="display_card_background_title">Hintergründe anzeigen</string>
     <string name="display_background_border_title">Rahmen anzeigen</string>
     <string name="alarm_notification_reminder_title">Benachrichtigung über anstehende Wecker</string>
-    <string name="enable_alarm_vibrations_by_default_setting_title">Vibration beim Erstellen von Weckern aktivieren</string>
+    <string name="enable_alarm_vibrations_by_default_setting_title">Vibration für alle Wecker standardmäßig aktivieren</string>
     <string name="auto_silence_end_of_ringtone">Ende des Wecktons</string>
     <string name="timer_label_box_title">Timer-Name</string>
     <string name="timer_button_time_box_title">Minuten, die dem Timer hinzugefügt werden</string>
@@ -404,7 +404,7 @@
     <string name="amoled_dark_theme_mode">AMOLED</string>
     <string name="delete_occasional_alarm_after_use_title">Wecker löschen, sobald er verworfen wurde</string>
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Standardmäßig automatisches Löschen von einzelnen Weckern aktivieren</string>
-    <string name="alarm_settings_general_summary">Diese Einstellung kann für jeden Wecker in der erweiterten Weckeransicht geändert werden</string>
+    <string name="alarm_settings_general_summary">Diese Einstellung kann für jeden Wecker individuell im jeweiligen Bearbeitungsmenü geändert werden</string>
     <string name="description_direction_both_for_occasional_alarm">Zum Schlummern nach links oder zum Verwerfen und Löschen des Weckers nach rechts wischen</string>
     <string name="description_direction_both_for_occasional_non_repeatable_alarm">Nach links oder rechts wischen, um den Wecker zu verwerfen und zu löschen</string>
     <string name="occasional_alarm_alert_predismiss_title">Anstehender einmaliger Wecker</string>
@@ -642,4 +642,6 @@
     <string name="foreground_service_channel">Dauerhafte Benachrichtigung</string>
     <string name="foreground_service_title">Dauerhafte Benachrichtigung anzeigen</string>
     <string name="fix_alarm_volume">Korrigieren</string>
+    <string name="settings_language_arabic">Arabisch</string>
+    <string name="settings_language_hungarian">Ungarisch</string>
 </resources>

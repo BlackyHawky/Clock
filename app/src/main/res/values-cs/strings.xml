@@ -658,4 +658,6 @@
     <string name="foreground_service_message">Běží na pozadí</string>
     <string name="foreground_service_title">Zobrazit oznámení na popředí</string>
     <string name="foreground_service_dialog_message">Pro zabránění vašemu zařízení v agresivním ukončení aplikace a zmeškání budíků zobrazí toto nastavení trvalé, tiché oznámení.\n\nTo zajistí, že aplikace zůstane v paměti, může to ale mírně zvýšit využití baterie.\n\nUpozornění: povolení tohoto nastavení není pro většinu zařízení nutné. Povolte jej pouze, pokud jste zmeškali budíky.</string>
+    <string name="settings_language_arabic">Arabština</string>
+    <string name="settings_language_hungarian">Maďarština</string>
 </resources>

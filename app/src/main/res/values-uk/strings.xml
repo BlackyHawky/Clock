@@ -668,4 +668,6 @@
     <string name="background_image_summary">Щоб побачити зображення, встановіть прозорий колір фону</string>
     <string name="snooze_selector_text_color_title">Колір тексту при виборі відкладення</string>
     <string name="display_snooze_selector_title">Показувати вибір відкладення</string>
+    <string name="settings_language_arabic">Арабська</string>
+    <string name="settings_language_hungarian">Угорська</string>
 </resources>

@@ -657,4 +657,6 @@
     <string name="foreground_service_message">S\'exécute en arrière-plan</string>
     <string name="foreground_service_title">Afficher une notification de premier plan</string>
     <string name="foreground_service_dialog_message">Pour empêcher votre appareil de fermer agressivement l\'application et de manquer des alarmes, ceci affichera une notification silencieuse et persistante.\n\nCela garantit que l\'application reste en mémoire, bien que cela puisse légèrement augmenter l\'utilisation de la batterie.\n\nRemarque : Activer ce réglage n\'est pas nécessaire pour la plupart des appareils. Ne l\'activez que si vous constatez que des alarmes ne se déclenchent pas.</string>
+    <string name="settings_language_arabic">Arabe</string>
+    <string name="settings_language_hungarian">Hongrois</string>
 </resources>
