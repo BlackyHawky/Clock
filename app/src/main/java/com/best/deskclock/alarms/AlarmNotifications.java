@@ -285,12 +285,29 @@ public final class AlarmNotifications {
     static synchronized void showSnoozeNotification(Context context, AlarmInstance instance) {
         LogUtils.v("Displaying snoozed notification for alarm instance: " + instance.mId);
 
+        final Alarm alarm = Alarm.getAlarm(context.getContentResolver(), instance.mAlarmId);
+
+        if (alarm == null) {
+            LogUtils.wtf("Failed to retrieve alarm with ID: %d", instance.mAlarmId);
+            return;
+        }
+
+        String dismissActionTitle = context.getString(alarm.isDeleteAfterUse()
+            ? R.string.alarm_alert_dismiss_and_delete_text
+            : R.string.alarm_alert_dismiss_text);
+
         final int id = instance.hashCode();
 
         // Setup content action if instance is owned by alarm
         Intent viewAlarmIntent = createViewAlarmIntent(context, instance);
         PendingIntent contentIntent = PendingIntent.getActivity(context, id, viewAlarmIntent,
             PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+
+        // Setup up dismiss action
+        Intent dismissIntent = AlarmStateManager.createStateChangeIntent(
+            context, AlarmStateManager.ALARM_DISMISS_TAG, instance, AlarmInstance.DISMISSED_STATE);
+        PendingIntent dismissPendingIntent = PendingIntent.getService(
+            context, id, dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(
             context, ALARM_SNOOZE_NOTIFICATION_CHANNEL_ID)
@@ -309,11 +326,7 @@ public final class AlarmNotifications {
             .setLocalOnly(true)
             .setGroup(UPCOMING_GROUP_KEY);
 
-        // Setup up dismiss action
-        Intent dismissIntent = AlarmStateManager.createStateChangeIntent(
-            context, AlarmStateManager.ALARM_DISMISS_TAG, instance, AlarmInstance.DISMISSED_STATE);
-        builder.addAction(R.drawable.ic_alarm_off, context.getString(R.string.alarm_alert_dismiss_text), PendingIntent.getService(
-            context, id, dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
+        builder.addAction(R.drawable.ic_alarm_off, dismissActionTitle, dismissPendingIntent);
 
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
 
