@@ -164,7 +164,10 @@ public class ExpiredTimersActivity extends BaseActivity {
 
         setContentView(R.layout.expired_timers_activity);
 
-        mExpiredTimersScrollView = findViewById(R.id.expired_timers_scroll);
+        mExpiredTimersScrollView = findViewById(R.id.expired_timers_scroll_vertical);
+        if (mExpiredTimersScrollView == null) {
+            mExpiredTimersScrollView = findViewById(R.id.expired_timers_scroll_horizontal);
+        }
         mExpiredTimersView = findViewById(R.id.expired_timers_list);
         View ringtoneLayout = findViewById(R.id.ringtone_layout);
         mRingtoneTitle = findViewById(R.id.ringtone_title);

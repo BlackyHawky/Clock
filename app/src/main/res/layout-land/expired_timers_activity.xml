@@ -39,7 +39,7 @@
     <!-- Bottom margin is adjusted in the ExpiredTimersActivity.java
          and TimerDisplayPreviewActivity.java files -->
     <HorizontalScrollView
-        android:id="@+id/expired_timers_scroll"
+        android:id="@+id/expired_timers_scroll_horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:scrollbars="none"

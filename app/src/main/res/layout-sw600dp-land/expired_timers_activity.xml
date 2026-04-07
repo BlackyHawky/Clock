@@ -37,7 +37,7 @@
         tools:visibility="gone" />
 
     <ScrollView
-        android:id="@+id/expired_timers_scroll"
+        android:id="@+id/expired_timers_scroll_vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:scrollbars="none"
