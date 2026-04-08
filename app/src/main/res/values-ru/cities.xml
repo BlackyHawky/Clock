@@ -55,7 +55,7 @@
     <string name="C49" msgid="6326857727742458931">"Ф<xliff:g id="SEPARATOR">=</xliff:g>Форталеза<xliff:g id="TIMEZONE">|America/Fortaleza</xliff:g>"</string>
     <string name="C50" msgid="3131498820508584398">"Г<xliff:g id="SEPARATOR">=</xliff:g>Гранд-Терк<xliff:g id="TIMEZONE">|America/Grand_Turk</xliff:g>"</string>
     <string name="C51" msgid="3122278921760822414">"Г<xliff:g id="SEPARATOR">=</xliff:g>Гренада<xliff:g id="TIMEZONE">|America/Grenada</xliff:g>"</string>
-    <string name="C52" msgid="7461551991724617520">"Г<xliff:g id="SEPARATOR">=</xliff:g>Гватемала<xliff:g id="TIMEZONE">|America/Guatemala</xliff:g>"</string>
+    <string name="C52" msgid="7461551991724617520">"Г<xliff:g id="SEPARATOR">=</xliff:g>Город Гватемала<xliff:g id="TIMEZONE">|America/Guatemala</xliff:g>"</string>
     <string name="C53" msgid="296242785331472791">"Г<xliff:g id="SEPARATOR">=</xliff:g>Гайана<xliff:g id="TIMEZONE">|America/Guyana</xliff:g>"</string>
     <string name="C54" msgid="4045007274020361950">"Г<xliff:g id="SEPARATOR">=</xliff:g>Галифакс<xliff:g id="TIMEZONE">|America/Halifax</xliff:g>"</string>
     <string name="C55" msgid="8180186289266487770">"Г<xliff:g id="SEPARATOR">=</xliff:g>Гавана<xliff:g id="TIMEZONE">|America/Havana</xliff:g>"</string>
@@ -89,7 +89,7 @@
     <string name="C83" msgid="3734366600481445363">"Ф<xliff:g id="SEPARATOR">=</xliff:g>Финикс<xliff:g id="TIMEZONE">|America/Phoenix</xliff:g>"</string>
     <string name="C84" msgid="2410152141185166321">"П<xliff:g id="SEPARATOR">=</xliff:g>Порт-оф-Спейн<xliff:g id="TIMEZONE">|America/Port_of_Spain</xliff:g>"</string>
     <string name="C85" msgid="2883572094139689939">"П<xliff:g id="SEPARATOR">=</xliff:g>Порт-о-Пренс<xliff:g id="TIMEZONE">|America/Port-au-Prince</xliff:g>"</string>
-    <string name="C86">S<xliff:g id="separator">=</xliff:g>Santa Cruz de Tenerife<xliff:g id="timezone">|Atlantic/Canary</xliff:g></string>
+    <string name="C86">С<xliff:g id="separator">=</xliff:g>Санта-Крус-де-Тенерифе<xliff:g id="timezone">|Atlantic/Canary</xliff:g></string>
     <string name="C87" msgid="2866918562243248306">"С<xliff:g id="SEPARATOR">=</xliff:g>Санто-Доминго<xliff:g id="TIMEZONE">|America/Santo_Domingo</xliff:g>"</string>
     <string name="C88" msgid="2261702707416420550">"С<xliff:g id="SEPARATOR">=</xliff:g>Сан-Паулу<xliff:g id="TIMEZONE">|America/Sao_Paulo</xliff:g>"</string>
     <string name="C89" msgid="8517952667962700432">С<xliff:g id="SEPARATOR">=</xliff:g>Сент-Джонс<xliff:g id="TIMEZONE">|America/St_Johns</xliff:g></string>
@@ -228,7 +228,6 @@
     <string name="C228" msgid="4215672329797580482">"С<xliff:g id="SEPARATOR">=</xliff:g>Сан-Франциско<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g>"</string>
     <string name="C229" msgid="4196312467437357156">"С<xliff:g id="SEPARATOR">=</xliff:g>Солт-Лейк-Сити<xliff:g id="TIMEZONE">|America/Denver</xliff:g>"</string>
     <string name="C230" msgid="5521643115321121383">С<xliff:g id="SEPARATOR">=</xliff:g>Сан-Хосе<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g></string>
-    <string name="C231" msgid="19294357270942004">С<xliff:g id="SEPARATOR">=</xliff:g>Сан-Сальвадор<xliff:g id="TIMEZONE">|America/Guatemala</xliff:g></string>
     <string name="C232" msgid="4714655032274833316">"С<xliff:g id="SEPARATOR">=</xliff:g>Сиэтл<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g>"</string>
     <string name="C233" msgid="7162834873553109876">"С<xliff:g id="SEPARATOR">=</xliff:g>Сент-Луис<xliff:g id="TIMEZONE">|America/Chicago</xliff:g>"</string>
     <string name="C234" msgid="8431913494781960891">"В<xliff:g id="SEPARATOR">=</xliff:g>Вашингтон<xliff:g id="TIMEZONE">|America/New_York</xliff:g>"</string>
@@ -347,15 +346,15 @@
     <string name="C348" msgid="8462071023392592539">"Е<xliff:g id="SEPARATOR">=</xliff:g>Ереван<xliff:g id="TIMEZONE">|Asia/Yerevan</xliff:g>"</string>
     <string name="C349">П<xliff:g id="separator">=</xliff:g>Понта-Делгада<xliff:g id="timezone">|Atlantic/Azores</xliff:g></string>
     <string name="C350">В<xliff:g id="separator">=</xliff:g>Время UTC<xliff:g id="timezone">|UTC</xliff:g></string>
-    <string name="C351">B<xliff:g id="separator">=</xliff:g>Baker Island<xliff:g id="timezone">|Etc/GMT+12</xliff:g></string>
-    <string name="C352">H<xliff:g id="separator">=</xliff:g>Howland Island<xliff:g id="timezone">|Etc/GMT+12</xliff:g></string>
-    <string name="C353">A<xliff:g id="separator">=</xliff:g>Alofi<xliff:g id="timezone">|Pacific/Niue</xliff:g></string>
-    <string name="C354">M<xliff:g id="separator">=</xliff:g>Midway Atoll<xliff:g id="timezone">|Pacific/Midway</xliff:g></string>
-    <string name="C355">P<xliff:g id="separator">=</xliff:g>Pago Pago<xliff:g id="timezone">|Pacific/Pago_Pago</xliff:g></string>
-    <string name="C356">M<xliff:g id="separator">=</xliff:g>Marquesas Islands<xliff:g id="timezone">|Pacific/Marquesas</xliff:g></string>
-    <string name="C357">F<xliff:g id="separator">=</xliff:g>Fernando de Noronha<xliff:g id="timezone">|America/Noronha</xliff:g></string>
-    <string name="C358">N<xliff:g id="separator">=</xliff:g>Nuuk<xliff:g id="timezone">|America/Nuuk</xliff:g></string>
+    <string name="C351">О<xliff:g id="separator">=</xliff:g>Остров Бейкер<xliff:g id="timezone">|Etc/GMT+12</xliff:g></string>
+    <string name="C352">О<xliff:g id="separator">=</xliff:g>Остров Хауленд<xliff:g id="timezone">|Etc/GMT+12</xliff:g></string>
+    <string name="C353">А<xliff:g id="separator">=</xliff:g>Алофи<xliff:g id="timezone">|Pacific/Niue</xliff:g></string>
+    <string name="C354">А<xliff:g id="separator">=</xliff:g>Атолл Мидуэй<xliff:g id="timezone">|Pacific/Midway</xliff:g></string>
+    <string name="C355">П<xliff:g id="separator">=</xliff:g>Паго-Паго<xliff:g id="timezone">|Pacific/Pago_Pago</xliff:g></string>
+    <string name="C356">М<xliff:g id="separator">=</xliff:g>Маркизские острова<xliff:g id="timezone">|Pacific/Marquesas</xliff:g></string>
+    <string name="C357">Ф<xliff:g id="separator">=</xliff:g>Фернанду-ди-Норонья<xliff:g id="timezone">|America/Noronha</xliff:g></string>
+    <string name="C358">Н<xliff:g id="separator">=</xliff:g>Нуук<xliff:g id="timezone">|America/Nuuk</xliff:g></string>
     <string name="C359">E<xliff:g id="separator">=</xliff:g>Eucla<xliff:g id="timezone">|Australia/Eucla</xliff:g></string>
-    <string name="C360">L<xliff:g id="separator">=</xliff:g>Lord Howe Island<xliff:g id="timezone">|Australia/Lord_Howe</xliff:g></string>
-    <string name="C361">C<xliff:g id="separator">=</xliff:g>Chatham Islands<xliff:g id="timezone">|Pacific/Chatham</xliff:g></string>
+    <string name="C360">О<xliff:g id="separator">=</xliff:g>Остров Лорд-Хау<xliff:g id="timezone">|Australia/Lord_Howe</xliff:g></string>
+    <string name="C361">О<xliff:g id="separator">=</xliff:g>Острова Чатем<xliff:g id="timezone">|Pacific/Chatham</xliff:g></string>
 </resources>

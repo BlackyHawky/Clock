@@ -228,7 +228,6 @@
     <string name="C228" msgid="4215672329797580482">"<xliff:g id="SEPARATOR">=</xliff:g>San Francisco<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g>"</string>
     <string name="C229" msgid="4196312467437357156">"<xliff:g id="SEPARATOR">=</xliff:g>Salt Lake City<xliff:g id="TIMEZONE">|America/Denver</xliff:g>"</string>
     <string name="C230" msgid="5521643115321121383"><xliff:g id="SEPARATOR">=</xliff:g>San José<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g></string>
-    <string name="C231" msgid="19294357270942004"><xliff:g id="SEPARATOR">=</xliff:g>San Salvador<xliff:g id="TIMEZONE">|America/Guatemala</xliff:g></string>
     <string name="C232" msgid="4714655032274833316">"<xliff:g id="SEPARATOR">=</xliff:g>Seattle<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g>"</string>
     <string name="C233" msgid="7162834873553109876">"<xliff:g id="SEPARATOR">=</xliff:g>St. Louis<xliff:g id="TIMEZONE">|America/Chicago</xliff:g>"</string>
     <string name="C234" msgid="8431913494781960891">"<xliff:g id="SEPARATOR">=</xliff:g>Washington D.C.<xliff:g id="TIMEZONE">|America/New_York</xliff:g>"</string>
@@ -347,15 +346,15 @@
     <string name="C348" msgid="8462071023392592539">E<xliff:g id="SEPARATOR">=</xliff:g>Eriwan<xliff:g id="TIMEZONE">|Asia/Yerevan</xliff:g></string>
     <string name="C349">P<xliff:g id="SEPARATOR">=</xliff:g>Ponta Delgada<xliff:g id="timezone">|Atlantic/Azores</xliff:g></string>
     <string name="C350">U<xliff:g id="separator">=</xliff:g>UTC<xliff:g id="timezone">|UTC</xliff:g></string>
-    <string name="C351">B<xliff:g id="separator">=</xliff:g>Baker Island<xliff:g id="timezone">|Etc/GMT+12</xliff:g></string>
-    <string name="C352">H<xliff:g id="separator">=</xliff:g>Howland Island<xliff:g id="timezone">|Etc/GMT+12</xliff:g></string>
+    <string name="C351">B<xliff:g id="separator">=</xliff:g>Bakerinsel<xliff:g id="timezone">|Etc/GMT+12</xliff:g></string>
+    <string name="C352">H<xliff:g id="separator">=</xliff:g>Howlandinsel<xliff:g id="timezone">|Etc/GMT+12</xliff:g></string>
     <string name="C353">A<xliff:g id="separator">=</xliff:g>Alofi<xliff:g id="timezone">|Pacific/Niue</xliff:g></string>
     <string name="C354">M<xliff:g id="separator">=</xliff:g>Midway Atoll<xliff:g id="timezone">|Pacific/Midway</xliff:g></string>
     <string name="C355">P<xliff:g id="separator">=</xliff:g>Pago Pago<xliff:g id="timezone">|Pacific/Pago_Pago</xliff:g></string>
-    <string name="C356">M<xliff:g id="separator">=</xliff:g>Marquesas Islands<xliff:g id="timezone">|Pacific/Marquesas</xliff:g></string>
+    <string name="C356">M<xliff:g id="separator">=</xliff:g>Marquesas-Inseln<xliff:g id="timezone">|Pacific/Marquesas</xliff:g></string>
     <string name="C357">F<xliff:g id="separator">=</xliff:g>Fernando de Noronha<xliff:g id="timezone">|America/Noronha</xliff:g></string>
     <string name="C358">N<xliff:g id="separator">=</xliff:g>Nuuk<xliff:g id="timezone">|America/Nuuk</xliff:g></string>
     <string name="C359">E<xliff:g id="separator">=</xliff:g>Eucla<xliff:g id="timezone">|Australia/Eucla</xliff:g></string>
-    <string name="C360">L<xliff:g id="separator">=</xliff:g>Lord Howe Island<xliff:g id="timezone">|Australia/Lord_Howe</xliff:g></string>
+    <string name="C360">L<xliff:g id="separator">=</xliff:g>Lord-Howe-Insel<xliff:g id="timezone">|Australia/Lord_Howe</xliff:g></string>
     <string name="C361">C<xliff:g id="separator">=</xliff:g>Chatham Islands<xliff:g id="timezone">|Pacific/Chatham</xliff:g></string>
 </resources>

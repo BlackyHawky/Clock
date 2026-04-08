@@ -214,14 +214,21 @@
                 tools:ignore="RtlSymmetry"
                 tools:checked="true" />
 
+            <Space
+                android:id="@+id/space"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/delete_occasional_alarm_after_use"
+                app:layout_constraintBottom_toTopOf="@+id/auto_silence_duration_layout" />
+
             <LinearLayout
                 android:id="@+id/auto_silence_duration_layout"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginHorizontal="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="2dp"
                 android:paddingHorizontal="10dp"
-                app:layout_constraintTop_toBottomOf="@id/delete_occasional_alarm_after_use">
+                app:layout_constraintTop_toBottomOf="@id/space">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/auto_silence_duration_title"

@@ -378,10 +378,10 @@
     <string name="widgets_settings_summary">Стиль, колір і шрифт віджетів</string>
     <string name="settings_tab_indicator_title">Показувати індикатор вкладки в нижньому навігаційному меню</string>
     <string name="next_alarm_widget_title_no_alarm">Немає наступного будильника</string>
-    <string name="next_alarm_no_upcoming_alarm_titles_color">Колір заголовків «Наступний будильник» і «Немає наступного будильника»</string>
+    <string name="next_alarm_no_upcoming_alarm_titles_color">Колір заголовка «Немає наступного будильника»</string>
     <string name="alarm_title_default_color">Колір за замовчуванням для заголовка будильника</string>
     <string name="widget_max_font_size_title">Максимальний розмір шрифту у віджеті</string>
-    <string name="next_alarm_no_upcoming_alarm_titles_default_color">Колір за замовчуванням для заголовків «Наступний будильник» і «Немає наступного будильника»</string>
+    <string name="next_alarm_no_upcoming_alarm_titles_default_color">Колір за замовчуванням для заголовка «Немає наступного будильника»</string>
     <string name="settings_fade_transitions_title">Увімкнути ефект переходу із згасанням при перемиканні екранів</string>
     <string name="next_alarm_widget">Наступний будильник</string>
     <string name="denied_permission_label">Дозвіл не надано</string>
@@ -670,4 +670,10 @@
     <string name="display_snooze_selector_title">Показувати вибір відкладення</string>
     <string name="settings_language_arabic">Арабська</string>
     <string name="settings_language_hungarian">Угорська</string>
+    <string name="next_alarm_title_color_title">Колір заголовка наступного будильника</string>
+    <string name="next_alarm_title_default_color_title">Колір за замовчуванням для заголовка наступного будильника</string>
+    <string name="city_note_color_title">Колір примітки до міста</string>
+    <string name="city_note_default_color_title">Колір за замовчуванням для примітки до міста</string>
+    <string name="display_next_alarm_title_setting_title">Показувати заголовок наступного будильника у віджеті</string>
+    <string name="display_low_alarm_volume_warning_title">Показувати попередження, коли гучність будильника встановлено на мінімум</string>
 </resources>

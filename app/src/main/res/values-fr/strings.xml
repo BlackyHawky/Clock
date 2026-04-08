@@ -266,10 +266,10 @@
     <string name="screensaver_daydream_settings">Sélectionner/activer l\'économiseur d\'écran</string>
     <string name="screensaver_daydream_settings_summary">Ouvre les paramètres principaux de l\'économiseur d\'écran Android</string>
     <string name="screensaver_clock_dynamic_colors_title">Couleurs dynamiques de l\'horloge</string>
-    <string name="clock_color_title">Couleurs de l\'horloge</string>
+    <string name="clock_color_title">Couleur de l\'horloge</string>
     <string name="second_hand_color_title">Couleur de l\'aiguille des secondes</string>
-    <string name="date_color_title">Couleurs de la date</string>
-    <string name="next_alarm_color_title">Couleurs de la prochaine alarme</string>
+    <string name="date_color_title">Couleur de la date</string>
+    <string name="next_alarm_color_title">Couleur de la prochaine alarme</string>
     <string name="screensaver_brightness_title">Luminosité</string>
     <string name="screensaver_bold_digital_clock_title">Horloge numérique en gras</string>
     <string name="screensaver_italic_digital_clock_title">Horloge numérique en italique</string>
@@ -390,10 +390,10 @@
     <string name="widgets_settings_summary">Définir le style, les couleurs et la taille de la police des widgets</string>
     <string name="settings_tab_indicator_title">Afficher l\'indicateur d\'onglet dans le menu de navigation inférieur</string>
     <string name="settings_fade_transitions_title">Activer les transitions en fondu lors du changement d\'écran</string>
-    <string name="next_alarm_no_upcoming_alarm_titles_default_color">Utiliser la couleur par défaut pour les titres \"Prochaine alarme\" et \"Aucune alarme à venir\"</string>
+    <string name="next_alarm_no_upcoming_alarm_titles_default_color">Utiliser la couleur par défaut pour le titre \"Aucune alarme à venir\"</string>
     <string name="alarm_title_default_color">Utiliser la couleur par défaut pour le titre de l\'alarme</string>
     <string name="widget_max_font_size_title">Taille maximale de la police du widget</string>
-    <string name="next_alarm_no_upcoming_alarm_titles_color">Couleur personnalisée des titres \"Prochaine alarme\" et \"Aucune alarme à venir\"</string>
+    <string name="next_alarm_no_upcoming_alarm_titles_color">Couleur personnalisée du titre \"Aucune alarme à venir\"</string>
     <string name="next_alarm_widget_title_no_alarm">Aucune alarme à venir</string>
     <string name="next_alarm_widget">Prochaine alarme</string>
     <string name="sort_timer_title">Trier les minuteurs</string>
@@ -659,4 +659,10 @@
     <string name="foreground_service_dialog_message">Pour empêcher votre appareil de fermer agressivement l\'application et de manquer des alarmes, ceci affichera une notification silencieuse et persistante.\n\nCela garantit que l\'application reste en mémoire, bien que cela puisse légèrement augmenter l\'utilisation de la batterie.\n\nRemarque : Activer ce réglage n\'est pas nécessaire pour la plupart des appareils. Ne l\'activez que si vous constatez que des alarmes ne se déclenchent pas.</string>
     <string name="settings_language_arabic">Arabe</string>
     <string name="settings_language_hungarian">Hongrois</string>
+    <string name="display_low_alarm_volume_warning_title">Afficher un avertissement lorsque le volume de l\'alarme est réglé au minimum</string>
+    <string name="next_alarm_title_color_title">Couleur du titre de la prochaine alarme</string>
+    <string name="next_alarm_title_default_color_title">Utiliser la couleur par défaut pour le titre de la prochaine alarme</string>
+    <string name="city_note_color_title">Couleur des notes des villes</string>
+    <string name="city_note_default_color_title">Utiliser la couleur par défaut pour les notes des villes</string>
+    <string name="display_next_alarm_title_setting_title">Afficher le titre de la prochaine alarme sur le widget</string>
 </resources>

@@ -364,7 +364,7 @@
     <string name="dismiss_button_color">Цвет кнопки \"Выключить\"</string>
     <string name="alarm_button_color">Цвет кнопки будильника</string>
     <string name="alarm_title_default_color">Цвет по умолчанию для будильника</string>
-    <string name="next_alarm_no_upcoming_alarm_titles_default_color">Цвет по умолчанию для надписей \"Следующий будильник\" и \"Будильники не установлены\"</string>
+    <string name="next_alarm_no_upcoming_alarm_titles_default_color">Цвет по умолчанию для заголовка «Нет следующего будильника»</string>
     <string name="minute_default_color_title">Цвет по умолчанию для минут</string>
     <string name="minute_color_title">Цвет минут</string>
     <string name="widget_max_font_size_title">Максимальный размер шрифта виджета</string>
@@ -374,7 +374,7 @@
     <string name="next_alarm_widget">Следующий будильник</string>
     <string name="widgets_settings_summary">Настроить оформление, цвет и размер шрифта виджетов</string>
     <string name="hour_default_color_title">Цвет по умолчанию для часов</string>
-    <string name="next_alarm_no_upcoming_alarm_titles_color">Цвет надписей \"Следующий будильник\" и \"Будильники не установлены\"</string>
+    <string name="next_alarm_no_upcoming_alarm_titles_color">Цвет заголовка «Нет следующего будильника»</string>
     <string name="label_default">По умолчанию</string>
     <string name="alarm_flash">Вспышка</string>
     <string name="delete_occasional_alarm_after_use_title">Удалить будильник после отключения</string>
@@ -660,4 +660,10 @@
     <string name="foreground_service_message">Работает в фоновом режиме</string>
     <string name="foreground_service_title">Показывать уведомления на переднем плане</string>
     <string name="foreground_service_dialog_message">Чтобы Ваше устройство не закрыло принудительно Часы и Вы не пропускали будильники, будет отображаться постоянное беззвучное оповещение.\n\nТак приложение гарантированно останется в памяти, хотя использование заряда аккумулятора может несколько увеличиться.\n\nПримечание: для большинства устройств не обязательно включать эту настройку. Включите его только в том случае, если будильники пропускаются.</string>
+    <string name="display_low_alarm_volume_warning_title">Показывать предупреждение, когда громкость будильника установлена на минимум</string>
+    <string name="next_alarm_title_color_title">Цвет заголовка следующего будильника</string>
+    <string name="next_alarm_title_default_color_title">Цвет по умолчанию для заголовка следующего будильника</string>
+    <string name="city_note_color_title">Цвет примечания к городу</string>
+    <string name="city_note_default_color_title">Цвет по умолчанию для примечания к городу</string>
+    <string name="display_next_alarm_title_setting_title">Показывать заголовок следующего будильника в виджете</string>
 </resources>

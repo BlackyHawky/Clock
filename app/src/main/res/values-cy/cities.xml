@@ -228,7 +228,6 @@
     <string name="C228">S<xliff:g id="separator">=</xliff:g>San Francisco<xliff:g id="timezone">|America/Los_Angeles</xliff:g></string>
     <string name="C229">S<xliff:g id="separator">=</xliff:g>Salt Lake City<xliff:g id="timezone">|America/Denver</xliff:g></string>
     <string name="C230">S<xliff:g id="separator">=</xliff:g>San Jose<xliff:g id="timezone">|America/Los_Angeles</xliff:g></string>
-    <string name="C231">S<xliff:g id="separator">=</xliff:g>San Salvador<xliff:g id="timezone">|America/Guatemala</xliff:g></string>
     <string name="C232">S<xliff:g id="separator">=</xliff:g>Seattle<xliff:g id="timezone">|America/Los_Angeles</xliff:g></string>
     <string name="C233">S<xliff:g id="separator">=</xliff:g>St. Louis<xliff:g id="timezone">|America/Chicago</xliff:g></string>
     <string name="C234">W<xliff:g id="separator">=</xliff:g>Washington D.C.<xliff:g id="timezone">|America/Efrog_Newydd</xliff:g></string>

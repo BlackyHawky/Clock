@@ -353,7 +353,7 @@
     <string name="alarm_notification_reminder_8_hours">8 uur van te voren</string>
     <string name="snooze_button_color">Kleur sluimerknop</string>
     <string name="minute_color_title">Kleur minuten</string>
-    <string name="next_alarm_no_upcoming_alarm_titles_default_color">Standaardkleur titels \"Volgende wekker\" en \"Geen volgende wekker\"</string>
+    <string name="next_alarm_no_upcoming_alarm_titles_default_color">Standaardkleur titel \"Geen volgende wekker\"</string>
     <string name="denied_permission_label">Toestemming geweigerd</string>
     <string name="sort_timer_title">Kookwekkers sorteren</string>
     <string name="next_alarm_widget_title_no_alarm">Geen volgende wekker</string>
@@ -379,7 +379,7 @@
     <string name="dark_theme">Donker</string>
     <string name="alarm_notification_reminder_30_minutes">30 minuten van te voren</string>
     <string name="alarm_title_default_color">Standaardkleur wekkerlabel</string>
-    <string name="next_alarm_no_upcoming_alarm_titles_color">Kleur titels \"Volgende wekker\" en \"Geen volgende wekker\"</string>
+    <string name="next_alarm_no_upcoming_alarm_titles_color">Kleur titel \"Geen volgende wekker\"</string>
     <string name="hour_color_title">Kleur uren</string>
     <string name="minute_default_color_title">Standaardkleur minuten</string>
     <string name="hour_default_color_title">Standaardkleur uren</string>
@@ -648,4 +648,10 @@
     <string name="foreground_service_dialog_message">Om te voorkomen dat je apparaat de app abrupt afsluit en meldingen mist, wordt er een permanente, stille melding weergegeven..\n\nDit zorgt ervoor dat de app in het geheugen blijft, maar kan het batterijverbruik iets verhogen.\n\nLet op: Het inschakelen van deze instelling is voor de meeste apparaten niet nodig. Schakel deze alleen in als je meldingen mist.</string>
     <string name="settings_language_arabic">Arabisch</string>
     <string name="settings_language_hungarian">Hongaars</string>
+    <string name="display_low_alarm_volume_warning_title">Waarschuwing weergeven wanneer wekkervolume op laagste niveau is ingesteld</string>
+    <string name="next_alarm_title_color_title">Kleur titel volgende wekker</string>
+    <string name="next_alarm_title_default_color_title">Standaardkleur titel volgende wekker</string>
+    <string name="city_note_color_title">Kleur stadsnotitie</string>
+    <string name="city_note_default_color_title">Standaardkleur stadsnotitie</string>
+    <string name="display_next_alarm_title_setting_title">Titel volgende wekker op widget weergeven</string>
 </resources>

@@ -7,7 +7,8 @@
 
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="Typos">
 
-    <!-- This array enumerates the resource keys to all cities available to the app. -->
+    <!-- This array enumerates the resource keys to all cities available to the app.
+         IDs that can be used if necessary: C156 / C231 -->
     <array name="city_ids" translatable="false">
         <item>@string/C1</item>
         <item>@string/C2</item>
@@ -231,7 +232,6 @@
         <item>@string/C228</item>
         <item>@string/C229</item>
         <item>@string/C230</item>
-        <item>@string/C231</item>
         <item>@string/C232</item>
         <item>@string/C233</item>
         <item>@string/C234</item>
@@ -836,8 +836,6 @@
     <string name="C229">S<xliff:g id="separator">=</xliff:g>Salt Lake City<xliff:g id="timezone">|America/Denver</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
     <string name="C230">S<xliff:g id="separator">=</xliff:g>San José<xliff:g id="timezone">|America/Los_Angeles</xliff:g></string>
-    <!-- Format: [index]=[city name]|[timezone id] -->
-    <string name="C231">G<xliff:g id="separator">=</xliff:g>Guatemala City<xliff:g id="timezone">|America/Guatemala</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
     <string name="C232">S<xliff:g id="separator">=</xliff:g>Seattle<xliff:g id="timezone">|America/Los_Angeles</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->

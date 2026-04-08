@@ -20,7 +20,7 @@
     <string name="your_sounds" msgid="1672779351352629681">Sus sonidos</string>
     <string name="device_sounds" msgid="1584894148222639823">"Sonidos del dispositivo"</string>
     <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"No se ha podido acceder a este tono."</string>
-    <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Temporizador agotado"</string>
+    <string name="default_timer_ringtone_title" msgid="1370799536406862317">Temporizado finalizado</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Mañana"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Hoy"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Descartar"</string>
@@ -96,7 +96,7 @@
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Subir volumen gradualmente"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Silenciar después de"</string>
     <string name="label_never" msgid="4821982647348750809">"Nunca"</string>
-    <string name="label_off">No</string>
+    <string name="label_off">Apagar</string>
     <string name="week_start_title" msgid="4268917518596832096">"La semana empieza el"</string>
     <string name="week_start_saturday">Sábado</string>
     <string name="week_start_sunday">Domingo</string>
@@ -236,7 +236,7 @@
     <string name="selected">Seleccionado</string>
     <string name="more_options">Más opciones</string>
     <string name="vertical_widget">Reloj digital vertical</string>
-    <string name="interface_customization_summary">Estilo y color aplicados a la aplicación</string>
+    <string name="interface_customization_summary">Establecer el estilo y el color que se aplican a la aplicación</string>
     <string name="display_card_background_title">Mostrar fondo de tarjetas</string>
     <string name="display_card_background_summary">Muestra un fondo para algunos elementos de la aplicación (alarmas, ciudades, botón temporizador, etc.)</string>
     <string name="display_background_border_title">Mostrar bordes en el fondo</string>
@@ -468,4 +468,31 @@
     <string name="shake_intensity_title">Intensidad de sacudida</string>
     <string name="clock_style_spinner">Spinner</string>
     <string name="timer_time_warning_box_title">Valor incorrecto ingresado</string>
+    <string name="schedule_alarm_title">Alarma programada</string>
+    <string name="delay_picker_dialog_title">Alarma en…</string>
+    <string name="sync_alarm_by_label_title">Sincronizar las alarmas con la misma etiqueta</string>
+    <string name="label_indefinitely">Indefinidamente</string>
+    <string name="label_new_image">Nueva imagen</string>
+    <string name="label_new_font">Nueva fuente</string>
+    <string name="warning">Advertencia</string>
+    <string name="label_hours">Horas</string>
+    <string name="label_minutes">Minutos</string>
+    <string name="label_seconds">Segundos</string>
+    <string name="confirm_action_prompt">\n\n¿Quieres continuar?</string>
+    <string name="button_tip_title">Mantén pulsado el botón «+» para añadir una carpeta</string>
+    <string name="progress_ringtones">Añadiendo tonos de llamada… (%1$d/%2$d)</string>
+    <string name="alarm_scheduled_for">Programado para %s</string>
+    <string name="alarm_alert_dismiss_and_delete_text_button">Descartar y\nEliminar</string>
+    <string name="colors_category_title">Colores</string>
+    <string name="permissions_category_title">Permisos</string>
+    <string name="custom_font_title">Selecciona una fuente personalizada</string>
+    <string name="custom_font_title_variant">Seleccionar o eliminar una fuente personalizada</string>
+    <string name="custom_font_dialog_title">Letra</string>
+    <string name="custom_font_toast_message_selected">Letra seleccionada correctamente</string>
+    <string name="custom_font_toast_message_deleted">La fuente se ha eliminado correctamente</string>
+    <string name="vibration_category_title">Vibración</string>
+    <string name="display_settings_title">Ajustes de pantalla</string>
+    <string name="settings_language_czech">Checo</string>
+    <string name="settings_language_chinese_traditional_tw">Chino (tradicional, Taiwán)</string>
+    <string name="settings_language_bulgarian">Búlgaro</string>
 </resources>

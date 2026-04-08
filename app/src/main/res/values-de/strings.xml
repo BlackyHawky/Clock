@@ -354,9 +354,9 @@
     <string name="minute_default_color_title">Standardfarbe für Minuten verwenden</string>
     <string name="minute_color_title">Minutenfarbe</string>
     <string name="widgets_settings_summary">Stil, Farben und Schriftgröße der Widgets festlegen</string>
-    <string name="next_alarm_no_upcoming_alarm_titles_color">Farbe des „Nächster Wecker“- und des „Kein anstehender Wecker“-Titels</string>
+    <string name="next_alarm_no_upcoming_alarm_titles_color">Farbe des Titels „Kein anstehender Wecker“</string>
     <string name="hour_color_title">Stundenfarbe</string>
-    <string name="next_alarm_no_upcoming_alarm_titles_default_color">Standardfarbe für die Titel „Nächster Wecker“ und „Kein anstehender Wecker“ verwenden</string>
+    <string name="next_alarm_no_upcoming_alarm_titles_default_color">Standardfarbe für den Titel „Kein anstehender Wecker“ verwenden</string>
     <string name="widgets_settings">Widgets</string>
     <string name="label_default">Standard</string>
     <string name="light_theme">Hell</string>
@@ -501,7 +501,7 @@
     <string name="hide_clock_am_pm_pref">Zusatz AM/PM ausblenden</string>
     <string name="disconnect_external_audio_device_title">Trennen Sie das externe Audiogerät, um auf diese Einstellung zuzugreifen</string>
     <string name="connect_external_audio_device_title">Schließen Sie ein externes Audiogerät an, um auf diese Einstellung zuzugreifen</string>
-    <string name="external_audio_device_volume_title">Alarmlautstärke für externe Audiogeräte</string>
+    <string name="external_audio_device_volume_title">Wecker-Lautstärke für externe Audiogeräte</string>
     <string name="system_media_volume_title">Medienlautstärke des Systems verwenden</string>
     <string name="system_media_volume_summary">Funktioniert nur, wenn ein externes Audiogerät angeschlossen ist</string>
     <string name="widget_apply_horizontal_padding_title">Abstand zu den Widget-Seiten hinzufügen</string>
@@ -535,7 +535,7 @@
     <string name="city_search_hint">Suche nach einer Stadt</string>
     <string name="enable_city_note_title">Fügen Sie Städten eine persönliche Notiz hinzu</string>
     <string name="enable_city_note_summary">Tippen Sie auf eine Stadt, um eine persönliche Notiz hinzuzufügen oder zu bearbeiten</string>
-    <string name="city_note_dialog_title">Hinweis für %s</string>
+    <string name="city_note_dialog_title">Notiz zu %s</string>
     <string name="vibration_pattern_heartbeat">Herzschlag</string>
     <string name="vibration_pattern_escalating">Ansteigend</string>
     <string name="vibration_pattern_tick_tock">Ticktack</string>
@@ -569,8 +569,8 @@
     <string name="enable_blur_effect_title">Unschärfeeffekt auf das Hintergrundbild anwenden</string>
     <string name="enable_per_alarm_crescendo_duration_title">Für jeden Wecker eine individuelle Lautstärkeerhöhungsdauer verwenden</string>
     <string name="enable_per_alarm_crescendo_duration_dialog_message">Individuelle Lautstärkeerhöhungsdauern werden zurückgesetzt.%s</string>
-    <string name="enable_per_alarm_auto_silence_title">Für jeden Wecker eine individuelle Weckerstoppdauer verwenden</string>
-    <string name="enable_per_alarm_auto_silence_dialog_message">Individuelle Weckerstoppdauern werden zurückgesetzt.%s</string>
+    <string name="enable_per_alarm_auto_silence_title">Für jeden Wecker eine individuelle Dauer bis zum Stummschalten verwenden</string>
+    <string name="enable_per_alarm_auto_silence_dialog_message">Individuelle Stummschaltdauern werden zurückgesetzt.%s</string>
     <string name="features_dialog_message">Seite mit den wichtigsten Funktionen besuchen:\n\n%s</string>
     <string name="repetitive_alarm_is_dismissed">Wecker verworfen. <xliff:g example="Nächster Wecker am Montag" id="alarm_day">Neu geplant für %s.</xliff:g></string>
     <string name="progress_ringtones">Klingeltöne hinzufügen… (%1$d/%2$d)</string>
@@ -644,4 +644,10 @@
     <string name="fix_alarm_volume">Korrigieren</string>
     <string name="settings_language_arabic">Arabisch</string>
     <string name="settings_language_hungarian">Ungarisch</string>
+    <string name="city_note_default_color_title">Standardfarbe für Notizen zu Städten der Weltzeituhr verwenden</string>
+    <string name="city_note_color_title">Farbe für Notizen zu Städten der Weltzeituhr</string>
+    <string name="display_next_alarm_title_setting_title">Name des nächsten Weckers im Widget anzeigen</string>
+    <string name="next_alarm_title_default_color_title">Standardfarbe für den Namen des nächsten Weckers verwenden</string>
+    <string name="next_alarm_title_color_title">Farbe des Namens des nächsten Weckers</string>
+    <string name="display_low_alarm_volume_warning_title">Warnung anzeigen, wenn die Wecker-Lautstärke sehr niedrig ist</string>
 </resources>
