@@ -555,6 +555,8 @@
     <string name="display_ringtone_title">Display ringtone title</string>
     <!-- Setting title for customizing the ringtone title color. -->
     <string name="ringtone_title_color">Ringtone title color</string>
+    <!-- Setting title to display the alert after alarm has been snoozed or dismissed. -->
+    <string name="display_alarm_alerts">Show alert after alarm has been snoozed or dismissed.</string>
     <!-- Setting title to set the blur intensity. -->
     <string name="blur_intensity_title">Blur intensity</string>
     <!-- Setting title to choose a background image. -->

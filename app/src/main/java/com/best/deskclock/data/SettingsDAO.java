@@ -1355,6 +1355,11 @@ public final class SettingsDAO {
         return prefs.getBoolean(KEY_DISPLAY_RINGTONE_TITLE, DEFAULT_DISPLAY_RINGTONE_TITLE);
     }
 
+    public static boolean isAlertsDisplayed(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm_display.xml
+        return prefs.getBoolean(KEY_DISPLAY_ALARM_ALERTS, DEFAULT_DISPLAY_ALARM_ALERTS);
+    }
+
     /**
      * @return a value indicating the ringtone title color.
      */

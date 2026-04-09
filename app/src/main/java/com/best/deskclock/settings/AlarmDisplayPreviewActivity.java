@@ -650,29 +650,32 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
      * Show alert after alarm has been snoozed or dismissed.
      */
     private void showAlert(final int titleResId, final String infoText) {
-        mAlertView.setVisibility(VISIBLE);
+        if (SettingsDAO.isAlertsDisplayed(mPrefs)) {
+            mAlertView.setVisibility(VISIBLE);
 
-        mAlertTitleView.setText(titleResId);
-        mAlertTitleView.setTypeface(mGeneralBoldTypeface);
-        mAlertTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
-        mAlertTitleView.setTextColor(mAlarmTitleColor);
+            mAlertTitleView.setText(titleResId);
+            mAlertTitleView.setTypeface(mGeneralBoldTypeface);
+            mAlertTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
+            mAlertTitleView.setTextColor(mAlarmTitleColor);
 
-        if (infoText != null) {
-            mAlertInfoView.setVisibility(VISIBLE);
-            mAlertInfoView.setText(infoText);
-            mAlertInfoView.setTypeface(mGeneralBoldTypeface);
-            mAlertInfoView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
-            mAlertInfoView.setTextColor(mAlarmTitleColor);
+            if (infoText != null) {
+                mAlertInfoView.setVisibility(VISIBLE);
+                mAlertInfoView.setText(infoText);
+                mAlertInfoView.setTypeface(mGeneralBoldTypeface);
+                mAlertInfoView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
+                mAlertInfoView.setTextColor(mAlarmTitleColor);
+            }
+
+            mAlertView.setAlpha(0f);
+            mAlertView.animate()
+                    .alpha(1f)
+                    .setDuration(ALERT_REVEAL_DURATION_MILLIS)
+                    .withEndAction(() -> mHandler.postDelayed(this::finishActivity, ALERT_DISMISS_DELAY_MILLIS))
+                    .start();
+        } else {
+            this.finishActivity();
         }
-
         mContentView.setVisibility(GONE);
-
-        mAlertView.setAlpha(0f);
-        mAlertView.animate()
-                .alpha(1f)
-                .setDuration(ALERT_REVEAL_DURATION_MILLIS)
-                .withEndAction(() -> mHandler.postDelayed(this::finishActivity, ALERT_DISMISS_DELAY_MILLIS))
-                .start();
     }
 
     private void finishActivity() {

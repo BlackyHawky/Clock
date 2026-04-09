@@ -276,6 +276,14 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_seekbar_layout" />
 
+        <com.best.deskclock.settings.custompreference.CustomSwitchPreference
+            android:key="key_display_alarm_alerts"
+            android:title="@string/display_alarm_alerts"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
         <com.best.deskclock.settings.custompreference.CustomPreference
             android:key="key_alarm_preview"
             android:title="@string/preview_title"

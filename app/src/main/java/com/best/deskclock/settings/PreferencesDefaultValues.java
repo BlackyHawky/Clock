@@ -127,6 +127,7 @@ public class PreferencesDefaultValues {
     public static final int DEFAULT_ALARM_TITLE_FONT_SIZE_PREF = 30;
     public static final int DEFAULT_ALARM_SHADOW_COLOR = Color.parseColor("#80FFFFFF");
     public static final int DEFAULT_RINGTONE_TITLE_COLOR = Color.WHITE;
+    public static final boolean DEFAULT_DISPLAY_ALARM_ALERTS = true;
     public static final boolean DEFAULT_ENABLE_BLUR_EFFECT = false;
     public static final int DEFAULT_BLUR_INTENSITY = 20;
     public static int getDefaultAlarmInversePrimaryColor(Context context) {

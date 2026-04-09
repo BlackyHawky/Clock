@@ -976,32 +976,36 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
      * Show alert after alarm has been snoozed or dismissed.
      */
     private void showAlert(final int titleResId, final String infoText, final String accessibilityText) {
-        mAlertView.setVisibility(View.VISIBLE);
+        if (SettingsDAO.isAlertsDisplayed(mPrefs)) {
+            mAlertView.setVisibility(View.VISIBLE);
 
-        mAlertTitleView.setText(titleResId);
-        mAlertTitleView.setTypeface(mGeneralBoldTypeface);
-        mAlertTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
-        mAlertTitleView.setTextColor(mAlarmTitleColor);
+            mAlertTitleView.setText(titleResId);
+            mAlertTitleView.setTypeface(mGeneralBoldTypeface);
+            mAlertTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
+            mAlertTitleView.setTextColor(mAlarmTitleColor);
 
-        if (infoText != null) {
-            mAlertInfoView.setVisibility(View.VISIBLE);
-            mAlertInfoView.setTypeface(mGeneralBoldTypeface);
-            mAlertInfoView.setText(infoText);
-            mAlertInfoView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
-            mAlertInfoView.setTextColor(mAlarmTitleColor);
+            if (infoText != null) {
+                mAlertInfoView.setVisibility(View.VISIBLE);
+                mAlertInfoView.setTypeface(mGeneralBoldTypeface);
+                mAlertInfoView.setText(infoText);
+                mAlertInfoView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
+                mAlertInfoView.setTextColor(mAlarmTitleColor);
+            }
+
+
+            mAlertView.setAlpha(0f);
+            mAlertView.animate()
+                    .alpha(1f)
+                    .setDuration(ALERT_REVEAL_DURATION_MILLIS)
+                    .withEndAction(() -> {
+                        mAlertView.announceForAccessibility(accessibilityText);
+                        mHandler.postDelayed(this::finish, ALERT_DISMISS_DELAY_MILLIS);
+                    })
+                    .start();
+        } else {
+            this.finish();
         }
-
         mContentView.setVisibility(View.GONE);
-
-        mAlertView.setAlpha(0f);
-        mAlertView.animate()
-                .alpha(1f)
-                .setDuration(ALERT_REVEAL_DURATION_MILLIS)
-                .withEndAction(() -> {
-                    mAlertView.announceForAccessibility(accessibilityText);
-                    mHandler.postDelayed(this::finish, ALERT_DISMISS_DELAY_MILLIS);
-                })
-                .start();
     }
 
 }
