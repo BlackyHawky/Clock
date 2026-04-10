@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
@@ -60,8 +61,9 @@ public class CustomSliderPreference extends Preference {
     private static final int MAX_ANALOG_CLOCK_SIZE_VALUE = 100;
     private static final int MAX_FONT_SIZE_VALUE = 200;
 
-    private Context mContext;
-    private SharedPreferences mPrefs;
+    private final Context mContext;
+    private final SharedPreferences mPrefs;
+    private final Typeface mBoldTypeface;
     private Slider mSlider;
     private ImageView mSliderMinus;
     private ImageView mSliderPlus;
@@ -72,6 +74,10 @@ public class CustomSliderPreference extends Preference {
 
     public CustomSliderPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+
+        mContext = context;
+        mPrefs = getDefaultSharedPreferences(mContext);
+        mBoldTypeface = ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(mPrefs));
     }
 
     /**
@@ -87,30 +93,26 @@ public class CustomSliderPreference extends Preference {
 
         super.onBindViewHolder(holder);
 
-        mContext = getContext();
-        mPrefs = getDefaultSharedPreferences(mContext);
-        String fontPath = SettingsDAO.getGeneralFont(mPrefs);
-
         holder.itemView.setClickable(false);
 
         mSlider = (Slider) holder.findViewById(R.id.slider);
-        configureSliderBounds();
-        mSlider.setStepSize(1f);
-
         final TextView sliderSummary = (TextView) holder.findViewById(android.R.id.summary);
-        setSliderProgress(sliderSummary);
-
         mSliderMinus = (ImageView) holder.findViewById(R.id.slider_minus_icon);
         mSliderPlus = (ImageView) holder.findViewById(R.id.slider_plus_icon);
         mResetSlider = (TextView) holder.findViewById(R.id.reset_slider_value);
 
+        mSlider.clearOnChangeListeners();
+        mSlider.clearOnSliderTouchListeners();
+
+        mSlider.setStepSize(1f);
+        setSliderProgress(sliderSummary);
         configureSliderButtonDrawables();
         setupSliderButton(mSliderMinus, isExternalAudioDeviceVolumePreference() ? -10 : -5, sliderSummary);
         setupSliderButton(mSliderPlus, isExternalAudioDeviceVolumePreference() ? 10 : 5, sliderSummary);
         updateSliderButtonStates();
         updateResetButtonStates();
 
-        mResetSlider.setTypeface(ThemeUtils.boldTypeface(fontPath));
+        mResetSlider.setTypeface(mBoldTypeface);
         mResetSlider.setOnClickListener(v -> {
             resetPreference();
             setSliderProgress(sliderSummary);
@@ -144,43 +146,65 @@ public class CustomSliderPreference extends Preference {
     }
 
     /**
-     * Sets the minimum and maximum value of the slider based on the preference type.
+     * Configures the bounds (min/max) of the {@link Slider} based on the preference type and applies a value to it.
+     *
+     * <p>This method includes a safety mechanism for RecyclerViews: it temporarily widens the bounds of the Slider before applying
+     * the new value. This prevents an IllegalStateException in case the ghost value of a recycled Slider falls outside
+     * the new strict boundaries.</p>
+     *
+     * @param newValue The desired value for this Slider.
+     * @return The "safe" value. If "newValue" exceeds the allowed bounds for this preference, it will be clamped to the legal
+     * minimum or maximum.
      */
-    private void configureSliderBounds() {
+    private int getSafeSliderValue(float newValue) {
+        float min, max;
+
         if (isScreensaverBrightnessPreference()) {
-            mSlider.setValueTo(MAX_BRIGHTNESS_VALUE);
-            mSlider.setValueFrom(MIN_BRIGHTNESS_VALUE);
+            min = MIN_BRIGHTNESS_VALUE;
+            max = MAX_BRIGHTNESS_VALUE;
         } else if (isDigitalWidgetBackgroundCornerRadius()
             || isNextAlarmWidgetBackgroundCornerRadius()
             || isVerticalWidgetBackgroundCornerRadius()) {
-            mSlider.setValueTo(MAX_CORNER_RADIUS_VALUE);
-            mSlider.setValueFrom(MIN_CORNER_RADIUS_VALUE);
+            min = MIN_CORNER_RADIUS_VALUE;
+            max = MAX_CORNER_RADIUS_VALUE;
         } else if (isShakeIntensityPreference()) {
-            mSlider.setValueTo(MAX_SHAKE_INTENSITY_VALUE);
-            mSlider.setValueFrom(MIN_SHAKE_INTENSITY_VALUE);
+            min = MIN_SHAKE_INTENSITY_VALUE;
+            max = MAX_SHAKE_INTENSITY_VALUE;
         } else if (isTimerShakeIntensityPreference()) {
-            mSlider.setValueTo(MAX_TIMER_SHAKE_INTENSITY_VALUE);
-            mSlider.setValueFrom(MIN_TIMER_SHAKE_INTENSITY_VALUE);
+            min = MIN_TIMER_SHAKE_INTENSITY_VALUE;
+            max = MAX_TIMER_SHAKE_INTENSITY_VALUE;
         } else if (isTimerShadowOffsetPreference() || isAlarmShadowOffsetPreference()) {
-            mSlider.setValueTo(MAX_SHADOW_OFFSET_VALUE);
-            mSlider.setValueFrom(MIN_SHADOW_OFFSET_VALUE);
+            min = MIN_SHADOW_OFFSET_VALUE;
+            max = MAX_SHADOW_OFFSET_VALUE;
         } else if (isScreensaverBlurIntensityPreference()
             || isTimerBlurIntensityPreference()
             || isAlarmBlurIntensityPreference()) {
-            mSlider.setValueTo(MAX_BLUR_INTENSITY_VALUE);
-            mSlider.setValueFrom(MIN_BLUR_INTENSITY_VALUE);
+            min = MIN_BLUR_INTENSITY_VALUE;
+            max = MAX_BLUR_INTENSITY_VALUE;
         } else if (isExternalAudioDeviceVolumePreference()) {
-            mSlider.setValueTo(MAX_EXTERNAL_AUDIO_DEVICE_VOLUME);
-            mSlider.setValueFrom(MIN_EXTERNAL_AUDIO_DEVICE_VOLUME);
+            min = MIN_EXTERNAL_AUDIO_DEVICE_VOLUME;
+            max = MAX_EXTERNAL_AUDIO_DEVICE_VOLUME;
         } else if (isAnalogClockSizePreference()
             || isScreensaverAnalogClockSizePreference()
             || isAlarmAnalogClockSizePreference()) {
-            mSlider.setValueTo(MAX_ANALOG_CLOCK_SIZE_VALUE);
-            mSlider.setValueFrom(MIN_ANALOG_CLOCK_SIZE_VALUE);
+            min = MIN_ANALOG_CLOCK_SIZE_VALUE;
+            max = MAX_ANALOG_CLOCK_SIZE_VALUE;
         } else {
-            mSlider.setValueTo(MAX_FONT_SIZE_VALUE);
-            mSlider.setValueFrom(MIN_FONT_SIZE_VALUE);
+            min = MIN_FONT_SIZE_VALUE;
+            max = MAX_FONT_SIZE_VALUE;
         }
+
+        int safeValue = (int) Math.max(min, Math.min(max, newValue));
+
+        mSlider.setValueFrom(Math.min(mSlider.getValueFrom(), min));
+        mSlider.setValueTo(Math.max(mSlider.getValueTo(), max));
+
+        mSlider.setValue(safeValue);
+
+        mSlider.setValueFrom(min);
+        mSlider.setValueTo(max);
+
+        return safeValue;
     }
 
     /**
@@ -189,9 +213,13 @@ public class CustomSliderPreference extends Preference {
      */
     private void setSliderProgress(TextView sliderSummary) {
         int currentProgress = mPrefs.getInt(getKey(), getDefaultSliderValue());
+        int safeProgress = getSafeSliderValue(currentProgress);
 
-        updateSliderSummary(sliderSummary, currentProgress);
-        mSlider.setValue(currentProgress);
+        updateSliderSummary(sliderSummary, safeProgress);
+
+        if (safeProgress != currentProgress) {
+            saveSliderValue(safeProgress);
+        }
     }
 
     /**
