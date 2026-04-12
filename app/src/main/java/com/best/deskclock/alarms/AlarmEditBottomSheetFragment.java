@@ -425,7 +425,8 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
                     bindSelectedDate();
                     bindDaysOfWeekButtons();
                     bindDeleteOccasionalAlarmAfterUse();
-                }
+                },
+                () -> AppExecutors.getMainThread().postDelayed(this::setBottomSheetExpanded, 350)
             ));
 
         View.OnClickListener removeDateListener = v -> {

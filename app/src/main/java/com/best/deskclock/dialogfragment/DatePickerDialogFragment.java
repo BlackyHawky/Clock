@@ -42,16 +42,16 @@ public class DatePickerDialogFragment {
     }
 
     public static void show(Context context, FragmentManager fragmentManager, SharedPreferences prefs, Alarm alarm,
-                            OnDateSelectedListener listener) {
+                            OnDateSelectedListener listener, Runnable onSpinnerDismiss) {
 
         if (SettingsDAO.getMaterialDatePickerStyle(prefs).equals(SPINNER_DATE_PICKER_STYLE)) {
-            showSpinnerDatePicker(context, alarm, listener);
+            showSpinnerDatePicker(context, alarm, listener, onSpinnerDismiss);
         } else {
             showMaterialDatePicker(fragmentManager, prefs, alarm, listener);
         }
     }
 
-    private static void showSpinnerDatePicker(Context context, Alarm alarm, OnDateSelectedListener listener) {
+    private static void showSpinnerDatePicker(Context context, Alarm alarm, OnDateSelectedListener listener, Runnable onSpinnerDismiss) {
 
         if (mCurrentSpinnerDatePickerDialog != null && mCurrentSpinnerDatePickerDialog.isShowing()) {
             return;
@@ -128,7 +128,12 @@ public class DatePickerDialogFragment {
             CustomDialog.SoftInputMode.SHOW_KEYBOARD
         );
 
-        mCurrentSpinnerDatePickerDialog.setOnDismissListener(dialog -> mCurrentSpinnerDatePickerDialog = null);
+        mCurrentSpinnerDatePickerDialog.setOnDismissListener(dialog -> {
+            mCurrentSpinnerDatePickerDialog = null;
+            if (onSpinnerDismiss != null) {
+                onSpinnerDismiss.run();
+            }
+        });
 
         mCurrentSpinnerDatePickerDialog.show();
     }
