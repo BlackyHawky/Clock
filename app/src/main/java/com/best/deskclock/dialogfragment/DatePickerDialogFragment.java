@@ -175,19 +175,31 @@ public class DatePickerDialogFragment {
             }
         }
 
+        Calendar utcNow = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        utcNow.clear();
+        utcNow.set(
+            now.get(Calendar.YEAR),
+            now.get(Calendar.MONTH),
+            now.get(Calendar.DAY_OF_MONTH)
+        );
+
+        Calendar utcSelection = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        utcSelection.clear();
+        utcSelection.set(
+            selectionDate.get(Calendar.YEAR),
+            selectionDate.get(Calendar.MONTH),
+            selectionDate.get(Calendar.DAY_OF_MONTH)
+        );
+
         CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder();
 
         // Prevents navigation to past months
-        constraintsBuilder.setStart(now.getTimeInMillis());
+        constraintsBuilder.setStart(utcNow.getTimeInMillis());
 
         // Set validator depending on whether the alarm time has passed or not
-        if (timePassed) {
-            constraintsBuilder.setValidator(DateValidatorPointForward.from(now.getTimeInMillis()));
-        } else {
-            constraintsBuilder.setValidator(DateValidatorPointForward.now());
-        }
+        constraintsBuilder.setValidator(DateValidatorPointForward.from(utcNow.getTimeInMillis()));
 
-        builder.setSelection(selectionDate.getTimeInMillis());
+        builder.setSelection(utcSelection.getTimeInMillis());
         builder.setCalendarConstraints(constraintsBuilder.build());
 
         MaterialDatePicker<Long> materialDatePicker = builder.build();
