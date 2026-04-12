@@ -25,71 +25,71 @@
     <string name="alarm_today" msgid="7873594221106531654">"اليوم"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">أهمِل</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"تنبيه فائت"</string>
-    <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%1$s</xliff:g> - <xliff:g id="ALARM_LABEL">%2$s</xliff:g>"</string>
-    <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"تم التأجيل"</string>
+    <string name="alarm_missed_text" msgid="6585658367289194023"><xliff:g id="alarm_time">%1$s</xliff:g> - <xliff:g id="alarm_label">%2$s</xliff:g></string>
+    <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">أُجيل</string>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"تم إيقاف المنبّه"</string>
-    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"غفوة"</string>
+    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">تأجيل</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-        <item quantity="zero">Snoozing for <xliff:g id="MINUTES">%d</xliff:g> minutes.</item>
-        <item quantity="two">غفوة لمدة دقيقتين (<xliff:g id="MINUTES">%d</xliff:g>).</item>
-        <item quantity="few">غفوة لمدة <xliff:g id="MINUTES">%d</xliff:g> دقائق.</item>
-        <item quantity="many">غفوة لمدة <xliff:g id="MINUTES">%d</xliff:g> دقيقة.</item>
-        <item quantity="other">غفوة لمدة <xliff:g id="MINUTES">%d</xliff:g> من الدقائق.</item>
-        <item quantity="one">غفوة لمدة دقيقة واحدة.</item>
+        <item quantity="zero">لا تأجيل</item>
+        <item quantity="one">تأجيل لمدة دقيقة واحدة.</item>
+        <item quantity="two">تأجيل لمدة دقيقتين (<xliff:g id="minutes">%d</xliff:g>).</item>
+        <item quantity="few">تأجيل لمدة <xliff:g id="minutes">%d</xliff:g> دقائق.</item>
+        <item quantity="many">تأجيل لمدة <xliff:g id="minutes">%d</xliff:g> دقيقة.</item>
+        <item quantity="other">تأجيل لمدة <xliff:g id="minutes">%d</xliff:g> دقيقة.</item>
     </plurals>
-    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"غفوة إلى <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">تأجيل حتى <xliff:g id="time">%s</xliff:g></string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">التنبيه الآتي</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"تم حذف التنبيه المفقود"</string>
     <string name="timer_notifications_less_min" msgid="5481375048976427255">"يتبقى أقل من دقيقة"</string>
-    <string name="timer_notifications_hours" msgid="1613266446037145138">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
-    <string name="timer_notifications_minutes" msgid="8543138714519498893">"<xliff:g id="MINUTES">%2$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
-    <string name="timer_notifications_hours_minutes" msgid="4788475350933275505">"تتبقى <xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="MINUTES"> %2$s</xliff:g>"</string>
-    <string name="timer_notifications_seconds" msgid="122102514929728907">"<xliff:g id="SECONDS">%4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
-    <string name="timer_notifications_minutes_seconds" msgid="7059651926379491350">"<xliff:g id="MINUTES">%2$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
-    <string name="timer_notifications_hours_seconds" msgid="8168090805113197804">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
-    <string name="timer_notifications_hours_minutes_seconds" msgid="4666176878038730417">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="MINUTES"> %2$s</xliff:g><xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
-    <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">أُضيفت %1$s دقيقة إلى الموقّت، <xliff:g example="متبقي 5 ساعات" id="TIME">%2$s</xliff:g></string>
+    <string name="timer_notifications_hours" msgid="1613266446037145138"><xliff:g example="2 hours" id="HOURS">%1$s</xliff:g><xliff:g example="remaining" id="REMAINING"> %3$s</xliff:g></string>
+    <string name="timer_notifications_minutes" msgid="8543138714519498893"><xliff:g example="2 minutes" id="MINUTES">%2$s</xliff:g><xliff:g example="remaining" id="REMAINING"> %3$s</xliff:g></string>
+    <string name="timer_notifications_hours_minutes" msgid="4788475350933275505">تبقى <xliff:g example="2 hours" id="HOURS">%1$s</xliff:g><xliff:g example="2 minutes" id="MINUTES"> %2$s</xliff:g></string>
+    <string name="timer_notifications_seconds" msgid="122102514929728907"><xliff:g example="2 seconds" id="SECONDS">%4$s</xliff:g><xliff:g example="remaining" id="REMAINING"> %3$s</xliff:g></string>
+    <string name="timer_notifications_minutes_seconds" msgid="7059651926379491350"><xliff:g example="2 minutes" id="MINUTES">%2$s</xliff:g> <xliff:g example="2 seconds" id="SECONDS"> %4$s</xliff:g><xliff:g example="remaining" id="REMAINING"> %3$s</xliff:g></string>
+    <string name="timer_notifications_hours_seconds" msgid="8168090805113197804"><xliff:g example="2 hours" id="HOURS">%1$s</xliff:g> <xliff:g example="2 seconds" id="SECONDS"> %4$s</xliff:g><xliff:g example="remaining" id="REMAINING"> %3$s</xliff:g></string>
+    <string name="timer_notifications_hours_minutes_seconds" msgid="4666176878038730417"><xliff:g example="2 hours" id="HOURS">%1$s</xliff:g><xliff:g example="2 minutes" id="MINUTES"> %2$s</xliff:g><xliff:g example="2 seconds" id="SECONDS"> %4$s</xliff:g><xliff:g example="remaining" id="REMAINING"> %3$s</xliff:g></string>
+    <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">أُضيفت %1$s دقيقة إلى الموقّت، <xliff:g example="5 hours remaining" id="TIME">%2$s</xliff:g></string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"تتبقى"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"تتبقى"</string>
     <string name="alarm_confirmation_toast_1">"ضبط المنبّه :أقل من دقيقة واحدة من الآن."</string>
-    <string name="alarm_confirmation_toast_2">"ضبط المنبّه: <xliff:g id="DAYS">%1$s</xliff:g> من الآن."</string>
-    <string name="alarm_confirmation_toast_3">"ضبط المنبّه: <xliff:g id="HOURS">%2$s</xliff:g> من الآن."</string>
-    <string name="alarm_confirmation_toast_4">"ضبط المنبّه: <xliff:g id="DAYS">%1$s</xliff:g> و<xliff:g id="HOURS">%2$s</xliff:g> من الآن."</string>
-    <string name="alarm_confirmation_toast_5">"ضبط المنبّه: <xliff:g id="MINUTES">%3$s</xliff:g> من الآن."</string>
-    <string name="alarm_confirmation_toast_6">"ضبط المنبّه: <xliff:g id="DAYS">%1$s</xliff:g> و<xliff:g id="MINUTES">%3$s</xliff:g> من الآن."</string>
-    <string name="alarm_confirmation_toast_7">"ضبط المنبّه: <xliff:g id="HOURS">%2$s</xliff:g> و<xliff:g id="MINUTES">%3$s</xliff:g> من الآن."</string>
+    <string name="alarm_confirmation_toast_2">ضبط المنبّه: <xliff:g example="2 days" id="DAYS">%1$s</xliff:g> من الآن.</string>
+    <string name="alarm_confirmation_toast_3">ضبط المنبّه: <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> من الآن.</string>
+    <string name="alarm_confirmation_toast_4">ضبط المنبّه: <xliff:g example="2 days" id="DAYS">%1$s</xliff:g> and <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> من الآن.</string>
+    <string name="alarm_confirmation_toast_5">ضبط المنبّه: <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g> من الآن.</string>
+    <string name="alarm_confirmation_toast_6">ضبط المنبّه: <xliff:g example="2 days" id="DAYS">%1$s</xliff:g> and <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g> من الآن.</string>
+    <string name="alarm_confirmation_toast_7">ضبط المنبّه: <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> and <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g> من الآن.</string>
     <string name="alarm_confirmation_toast_8">"ضبط المنبّه: <xliff:g id="DAYS">%1$s</xliff:g> و<xliff:g id="HOURS">%2$s</xliff:g> و<xliff:g id="MINUTES">%3$s</xliff:g> من الآن."</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
-        <item quantity="zero"><xliff:g id="NUMBER">%s</xliff:g> من الأيام</item>
-        <item quantity="two">يومان (<xliff:g id="NUMBER">%s</xliff:g>)</item>
-        <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> أيام</item>
-        <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> يومًا</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> من الأيام</item>
+        <item quantity="zero"><xliff:g id="number">%s</xliff:g> من الأيام</item>
         <item quantity="one">يوم واحد</item>
+        <item quantity="two">يومان (<xliff:g id="number">%s</xliff:g>)</item>
+        <item quantity="few"><xliff:g id="number">%s</xliff:g> أيام</item>
+        <item quantity="many"><xliff:g id="number">%s</xliff:g> يومًا</item>
+        <item quantity="other"><xliff:g id="number">%s</xliff:g> يوم</item>
     </plurals>
     <plurals name="hours" formatted="false" msgid="3871283109767171655">
-        <item quantity="zero"><xliff:g id="NUMBER">%s</xliff:g> من الساعات</item>
-        <item quantity="two">ساعتان (<xliff:g id="NUMBER">%s</xliff:g>)</item>
-        <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> ساعات</item>
-        <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> ساعة</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> من الساعات</item>
+        <item quantity="zero"><xliff:g id="number">%s</xliff:g> من الساعات</item>
         <item quantity="one">ساعة واحدة</item>
+        <item quantity="two">ساعتان (<xliff:g id="number">%s</xliff:g>)</item>
+        <item quantity="few"><xliff:g id="number">%s</xliff:g> ساعات</item>
+        <item quantity="many"><xliff:g id="number">%s</xliff:g> ساعةً</item>
+        <item quantity="other"><xliff:g id="number">%s</xliff:g> ساعة</item>
     </plurals>
     <plurals name="hours_short" formatted="false" msgid="3709250715691092925">
-        <item quantity="zero"><xliff:g id="NUMBER">%s</xliff:g> ساعة</item>
-        <item quantity="two">ساعتان (<xliff:g id="NUMBER">%s</xliff:g>)</item>
-        <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> ساعات</item>
-        <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> ساعة</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ساعة</item>
+        <item quantity="zero"><xliff:g id="number">%s</xliff:g> ساعة</item>
         <item quantity="one">ساعة واحدة</item>
+        <item quantity="two">ساعتان (<xliff:g id="number">%s</xliff:g>)</item>
+        <item quantity="few"><xliff:g id="number">%s</xliff:g> ساعات</item>
+        <item quantity="many"><xliff:g id="number">%s</xliff:g> ساعةً</item>
+        <item quantity="other"><xliff:g id="number">%s</xliff:g> ساعة</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
-        <item quantity="zero"><xliff:g id="NUMBER">%s</xliff:g> من الدقائق</item>
+        <item quantity="zero"><xliff:g id="number">%s</xliff:g> من الدقائق</item>
         <item quantity="one">دقيقة واحدة</item>
-        <item quantity="two">دقيقتان (<xliff:g id="NUMBER">%s</xliff:g>)</item>
-        <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> دقائق</item>
-        <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> دقيقة</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> من الدقائق</item>
+        <item quantity="two">دقيقتان (<xliff:g id="number">%s</xliff:g>)</item>
+        <item quantity="few"><xliff:g id="number">%s</xliff:g> دقائق</item>
+        <item quantity="many"><xliff:g id="number">%s</xliff:g> دقيقة</item>
+        <item quantity="other"><xliff:g id="number">%s</xliff:g> دقيقة</item>
     </plurals>
     <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
         <item quantity="zero"><xliff:g id="NUMBER">%s</xliff:g> دقيقة</item>
@@ -129,7 +129,7 @@
     <string name="change_setting_action" msgid="1224356633832430160">"تغيير"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">عُيِّن الجهاز إلى الوضع الصامت كليًا</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"أزرار مستوى الصوت"</string>
-    <string name="button_action_snooze">غفوة</string>
+    <string name="button_action_snooze">تأجيل</string>
     <string name="button_action_dismiss">أهمِل</string>
     <string name="button_action_control_volume">التحكم في مستوى الصوت</string>
     <string name="button_action_nothing">لا شيء</string>
@@ -154,15 +154,15 @@
     <string name="hours_label" msgid="3393478155635368097">"س"</string>
     <string name="minutes_label" msgid="3568098128251438588">"د"</string>
     <string name="seconds_label" msgid="124655952824003246">"ث"</string>
-    <string name="timer_setup_description" msgid="2488277921227564704">"<xliff:g id="HOURS">%1$s</xliff:g>، <xliff:g id="MINUTES">%2$s</xliff:g>، <xliff:g id="SECONDS">%3$s</xliff:g>"</string>
-    <string name="lap_number_single_digit" msgid="1051159504304610877">"الدورة <xliff:g id="LAPNUMBER">%d</xliff:g>"</string>
-    <string name="lap_number_double_digit" msgid="2138536756534362037">"الدورة <xliff:g id="LAPNUMBER">%02d</xliff:g>"</string>
-    <string name="sw_share_main" msgid="7703563468204234405">"وقتي هو <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="timer_setup_description" msgid="2488277921227564704"><xliff:g id="1 hour">%1$s</xliff:g>، <xliff:g id="15 minutes">%2$s</xliff:g>، <xliff:g id="30 seconds">%3$s</xliff:g></string>
+    <string name="lap_number_single_digit" msgid="1051159504304610877">الدورة <xliff:g id="lapNumber">%d</xliff:g></string>
+    <string name="lap_number_double_digit" msgid="2138536756534362037">الدورة <xliff:g id="lapNumber">%02d</xliff:g></string>
+    <string name="sw_share_main" msgid="7703563468204234405">وقتي هو <xliff:g id="time">%s</xliff:g></string>
     <string name="sw_share_laps" msgid="614390674795945007">"عدد مرات الدورة:"</string>
-    <string name="sw_notification_lap_number" msgid="3535420316052647126">"الدورة <xliff:g id="NUMBER">%d</xliff:g>"</string>
+    <string name="sw_notification_lap_number" msgid="3535420316052647126">الدورة <xliff:g id="time">%d</xliff:g></string>
     <string name="timer_add_timer" msgid="862733633862574752">أضف موقت</string>
     <string name="timer_start" msgid="6158486445614356442">"بدء"</string>
-    <string name="timer_descriptive_delete" msgid="8794915342760383536">"حذف <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
+    <string name="timer_descriptive_delete" msgid="8794915342760383536">احذف <xliff:g id="number_string">%s</xliff:g></string>
     <string name="timer_add_custom_time_description" msgid="6631211310420106116">أضف %s دقيقة</string>
     <string name="timer_add_custom_time_for_notification" msgid="8645224089494875062">أضف %s د</string>
     <string name="timer_stop" msgid="3361154678667736722">"إيقاف"</string>
@@ -171,10 +171,10 @@
     <string name="timer_times_up" msgid="9190440395938519009">"انتهى الوقت"</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409">"انتهت صلاحية <xliff:g id="NUM_TIMERS">%d</xliff:g> من الموقِّتات"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"مؤقت"</string>
-    <string name="missed_named_timer_notification_label" msgid="665604640028289175">"الموقِّت الفائت: <xliff:g id="NAME">%s</xliff:g>"</string>
-    <string name="timer_pause" msgid="3748323712728398743">"إيقاف مؤقت"</string>
-    <string name="hours_minutes_seconds" msgid="5680088738059791288">"<xliff:g id="HOURS">%1$d</xliff:g>:<xliff:g id="MINUTES">%2$02d</xliff:g>:<xliff:g id="SECONDS">%3$02d</xliff:g>"</string>
-    <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
+    <string name="missed_named_timer_notification_label" msgid="665604640028289175">الموقِّت الفائت: <xliff:g example="Pick up kids" id="name">%s</xliff:g></string>
+    <string name="timer_pause" msgid="3748323712728398743">أوقف مؤقتًا</string>
+    <string name="hours_minutes_seconds" msgid="5680088738059791288"><xliff:g example="2" id="hours">%1$d</xliff:g>:<xliff:g example="3" id="minutes">%2$02d</xliff:g>:<xliff:g example="44" id="seconds">%3$02d</xliff:g></string>
+    <string name="minutes_seconds" msgid="6189446107009577914"><xliff:g example="3" id="minutes">%1$d</xliff:g>:<xliff:g example="44" id="seconds">%2$02d</xliff:g></string>
     <string name="jocular_content_message_1">"يمكنك إجراء كل شيء بسرعة البرق."</string>
     <string name="jocular_content_message_2">"استمتع بحصاد ثمار تعبك."</string>
     <string name="jocular_content_message_3">"‏مشهور أن أجهزة Android سريعة، لكن ليس بسرعتك!"</string>
@@ -196,8 +196,8 @@
     <string name="automatic_home_clock" msgid="6274174710735449252">"ساعة آلية للبلد الأم"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"تتيح لك هذه الميزة إضافة ساعة بتوقيت بلدك الأم عند السفر إلى مكان بمنطقة زمنية مختلفة"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"المنطقة الزمنية للبلد الأم"</string>
-    <string name="city_checked" msgid="616847871968019">"تم تحديد <xliff:g id="CITY_NAME">%s</xliff:g>"</string>
-    <string name="city_unchecked" msgid="710212932781145918">"تم إلغاء تحديد <xliff:g id="CITY_NAME">%s</xliff:g>"</string>
+    <string name="city_checked" msgid="616847871968019"><xliff:g id="city_name">%s</xliff:g> حُدِّد</string>
+    <string name="city_unchecked" msgid="710212932781145918">ألغِيَ تحديد <xliff:g id="city_name">%s</xliff:g></string>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"منبه جديد"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"إنشاء منبه جديد"</string>
     <string name="shortcut_new_timer_short" msgid="3793414543219297884">"موقِّت جديد"</string>
@@ -212,47 +212,47 @@
     <string name="timer_service_desc" msgid="2256002649882602433">"لمعالجة الإجراءات من إشعارات الموقِّت."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"لمعالجة الإجراءات من إشعارات ساعة الإيقاف."</string>
     <string name="swn_paused" msgid="6364358842808263589">"تم الإيقاف مؤقتًا"</string>
-    <string name="description_direction_both" msgid="1841309486023845685">مرر يسارًا للغفوة أو يمينًا لإهمال</string>
+    <string name="description_direction_both" msgid="1841309486023845685">مرّر يسارًا للتأجيل أو يمينًا لإهمال</string>
     <string name="timer_settings" msgid="7955522143086154795">"الموقتات"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"اهتزاز الموقت"</string>
     <string name="timer_paused" msgid="5941160896040771462">"تم إيقاف الموقِّت مؤقتًا"</string>
-    <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> من الموقتات"</string>
+    <string name="timers_in_use" msgid="5570729467344408506"><xliff:g id="number">%d</xliff:g> من الموقتات</string>
     <string name="alarm_undo" msgid="5710042601177655254">"تراجع"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">حُذف المنبّه</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="label">%s</xliff:g></string>
-    <string name="world_time_ahead" msgid="625559988238637652">"تسبق في توقيتها بمقدار <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="world_time_behind" msgid="5395771290726167865">"متأخرة في توقيتها بمقدار <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"تسبق في توقيتها بمقدار <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</string>
-    <string name="world_hours_minutes_behind" msgid="8978567362140923698">"متأخرة في توقيتها بمقدار <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</string>
-    <string name="world_hours_tomorrow" msgid="2504465609269004794">"غدًا، <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="world_hours_yesterday" msgid="4425086322610882745">"أمس، <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="next_alarm_description" msgid="2650244835760747046">"التنبيه التالي: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="world_time_ahead" msgid="625559988238637652">متقدم بمقدار <xliff:g example="6 hours" id="time">%1$s</xliff:g></string>
+    <string name="world_time_behind" msgid="5395771290726167865">متأخر بمقدار <xliff:g example="4 hours" id="time">%1$s</xliff:g></string>
+    <string name="world_hours_minutes_ahead" msgid="5132012793021696377">متقدم بمقدار <xliff:g example="6 hr" id="hours">%1$s</xliff:g> <xliff:g example="30 min" id="minutes"> %2$s</xliff:g></string>
+    <string name="world_hours_minutes_behind" msgid="8978567362140923698">متأخر بمقدار <xliff:g example="4 hr" id="hours">%1$s</xliff:g> <xliff:g example="30 min" id="minutes"> %2$s</xliff:g></string>
+    <string name="world_hours_tomorrow" msgid="2504465609269004794">غدًا، <xliff:g example="6 hours ahead" id="time">%1$s</xliff:g></string>
+    <string name="world_hours_yesterday" msgid="4425086322610882745">أمس، <xliff:g example="4 hours behind" id="time">%1$s</xliff:g></string>
+    <string name="next_alarm_description" msgid="2650244835760747046">التنبيه التالي: <xliff:g example="Wed 8:00am" id="alarm_time">%s</xliff:g></string>
     <string name="no_alarms" msgid="6429431324842022917">لا منبّهات</string>
     <string name="invalid_time" msgid="2782334750243998633">"الوقت غير صالح <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
-    <string name="no_alarm_at" msgid="8140632482969193119">"لم يتم تعيين منبه للوقت <xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>"</string>
+    <string name="no_alarm_at" msgid="8140632482969193119">لم يتم تعيين منبّه للوقت <xliff:g example="14" id="alarm_time_hour">%1$d</xliff:g>:<xliff:g example="23" id="alarm_time_minutes"> %2$d</xliff:g></string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">لا منبّهات مجدولة</string>
     <string name="no_label_specified" msgid="2008482054428460626">لم يتم تحديد تسمية</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">لا توجد منبّهات تتضمن التسمية</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"لم يتم تعيين منبه لهذا الوقت"</string>
-    <string name="alarm_is_dismissed" msgid="5509897230565826642">أُهمِل المنبّه <xliff:g id="ALARM_TIME">%s</xliff:g></string>
-    <string name="alarm_is_set" msgid="5503226382620011088">"تم ضبط المنبّه على <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="alarm_is_dismissed" msgid="5509897230565826642">أُهمِل المنبّه <xliff:g id="alarm_time">%s</xliff:g></string>
+    <string name="alarm_is_set" msgid="5503226382620011088">عُيِّن المنبّه على <xliff:g id="alarm_time">%s</xliff:g></string>
     <string name="timer_created" msgid="4381027137335885547">"تم إنشاء الموقت"</string>
     <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
-        <item quantity="zero">أُهمِل <xliff:g id="NUMBER">%d</xliff:g> موقِّت</item>
+        <item quantity="zero">أُهمِل <xliff:g id="number">%d</xliff:g> موقِّت</item>
         <item quantity="one">أُهمِل موقِّت واحد</item>
-        <item quantity="two">أُهمِل موقِّتين (<xliff:g id="NUMBER">%d</xliff:g>)</item>
-        <item quantity="few">أُهمِل <xliff:g id="NUMBER">%d</xliff:g> موقِّتات</item>
-        <item quantity="many">أُهمِل <xliff:g id="NUMBER">%d</xliff:g> موقِّتًا</item>
-        <item quantity="other">أُهمِل <xliff:g id="NUMBER">%d</xliff:g> موقِّت</item>
+        <item quantity="two">أُهمِل موقِّتين (<xliff:g id="number">%d</xliff:g>)</item>
+        <item quantity="few">أُهمِل <xliff:g id="number">%d</xliff:g> موقِّتات</item>
+        <item quantity="many">أُهمِل <xliff:g id="number">%d</xliff:g> موقِّتًا</item>
+        <item quantity="other">أُهمِل <xliff:g id="number">%d</xliff:g> موقِّت</item>
     </plurals>
     <string name="invalid_timer_length" msgid="3104567893212932487">"مدة الموقت غير صالحة"</string>
     <string name="invalid_timer" msgid="900957020728335675">"تم اختيار موقِّت غير صالح"</string>
     <string name="no_expired_timers" msgid="4624192298397846876">"لا يمكن تنفيذ الإجراء على الموقِّتات المنتهية"</string>
-    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">لا يمكن إهمال المنبّه <xliff:g id="ALARM_TIME">%s</xliff:g> في الوقت الحالي، لأن موعده لا يزال يبعد أكثر من 24 ساعة</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">لا يمكن إهمال المنبّه <xliff:g id="alarm_time">%s</xliff:g> في الوقت الحالي، لأن موعده لا يزال يبعد أكثر من 24 ساعة</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">أهمِل التنبيه</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">اختر المنبّه المراد إهماله</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">ليس هناك أي منبّهات نشطة الآن</string>
-    <string name="alarm_is_snoozed" msgid="7044644119744928846">"تم تأجيل المنبّه <xliff:g id="ALARM_TIME">%s</xliff:g> لمدة ۱۰ دقائق"</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846">أُجيل المنبّه <xliff:g id="alarm_time">%s</xliff:g> لمدة 10 دقائق</string>
     <string name="flip_action_title">تأثير قلب الجهاز</string>
     <string name="shake_action_title">تأثير هز الجهاز</string>
     <string name="schedule_alarm_title">منبه مجدول</string>
@@ -353,8 +353,8 @@
     <string name="settings_fade_transitions_title">قم بتمكين تأثيرات التلاشي عند التبديل بين الشاشات</string>
     <string name="settings_keep_screen_on_title">أبقِ الشاشة قيد التشغيل</string>
     <string name="settings_keep_screen_on_summary">ملاحظة: ستظل الشاشة مضاءة دائمًا إذا كان المؤقت أو ساعة الإيقاف قيد التشغيل ويتم عرض علامة التبويب المقابلة، بغض النظر عن حالة هذا الإعداد</string>
-    <string name="enable_per_alarm_snooze_duration_title">استخدم مدة غفوة مخصصة لكل منبه</string>
-    <string name="enable_per_alarm_snooze_duration_dialog_message">سيتم إعادة ضبط مدة غفوة المنبه المخصصة.%s</string>
+    <string name="enable_per_alarm_snooze_duration_title">استخدم مدة تأجيل مخصّصة لكل منبه</string>
+    <string name="enable_per_alarm_snooze_duration_dialog_message">سيتم تصفير مدّة تأجيل المنبه المخصّصة.%s</string>
     <string name="enable_per_alarm_volume_title">استخدم مستوى صوت مخصص لكل منبه</string>
     <string name="enable_per_alarm_volume_dialog_message">سيتم إعادة ضبط مستويات صوت المنبه المخصصة.%s</string>
     <string name="display_dismiss_button_title">اعرض زر \"أهمِل\" بمجرد تفعيل التنبيه</string>
@@ -376,10 +376,10 @@
     <string name="alarm_notification_reminder_10_hours">قبل 10 ساعات</string>
     <string name="alarm_notification_reminder_12_hours">قبل 12 ساعة</string>
     <string name="advanced_audio_playback_title">استخدم تشغيل الصوت المتقدم</string>
-    <string name="advanced_audio_playback_summary">يحسّن التوافق مع تقنية البلوتوث ويمنع انقطاع الصوت أثناء التكرار.\n\nملاحظة: قد تحتوي بعض نغمات الرنين على تشويش صوتي طفيف</string>
+    <string name="advanced_audio_playback_summary">يحسّن التوافق مع جهاز الصوت الخارجي ويمنع انقطاع الصوت أثناء التكرار.\n\nملاحظة: قد تحتوي بعض نغمات الرنين على تشويش صوتي طفيف</string>
     <string name="system_media_volume_title">استخدم مستوى صوت وسائط النظام</string>
-    <string name="system_media_volume_summary">لا يعمل إلا إذا كان جهاز بلوتوث متصلاً</string>
-    <string name="enable_alarm_vibrations_by_default_setting_title">قم بتفعيل الاهتزازات عند إنشاء التنبيهات</string>
+    <string name="system_media_volume_summary">يعمل فقط إذا كان جهاز الصوت الخارجي متصلاً</string>
+    <string name="enable_alarm_vibrations_by_default_setting_title">فعِّل الاهتزاز عند انطلاق المنبه</string>
     <string name="enable_per_alarm_vibration_pattern_title">استخدم نمط اهتزاز مخصص لكل منبه</string>
     <string name="enable_per_alarm_vibration_pattern_dialog_message">سيتم إعادة ضبط أنماط الاهتزاز المخصصة.%s</string>
     <string name="vibration_pattern_title">نمط الاهتزاز</string>
@@ -426,10 +426,10 @@
     <string name="enable_alarm_fab_long_press_summary">في حالة تعطيل هذه الخاصية، سيتم عرض زرين لإنشاء تنبيهات</string>
     <string name="date_picker_style_calendar">التقويم</string>
     <string name="date_picker_style_text">نص</string>
-    <string name="alarm_settings_general_summary">يمكن تغيير هذا الإعداد لكل منبه في عرض المنبهات الموسع</string>
+    <string name="alarm_settings_general_summary">يمكن تغيير هذا الإعداد لكل منبه من خلال لوحة تعديل المنبه</string>
     <string name="slide_zone_color_title">لون منطقة الانزلاق</string>
-    <string name="snooze_title_color">لون عنوان \"غفوة\"</string>
-    <string name="snooze_button_color">لون زر \"الغفوة\"</string>
+    <string name="snooze_title_color">لون عنوان \"تأجيل\"</string>
+    <string name="snooze_button_color">لون زر \"تأجيل\"</string>
     <string name="dismiss_title_color">لون عنوان \"أهمِل\"</string>
     <string name="dismiss_button_color">لون زر \"أهمِل\"</string>
     <string name="alarm_button_color">لون زر المنبه</string>
@@ -624,8 +624,8 @@
     <string name="alarm_upcoming_channel">المنبّهات الآتية</string>
     <string name="stopwatch_channel">مؤقت</string>
     <string name="widget_apply_horizontal_padding_title">طبّق الحشو الداخلي على جوانب widget</string>
-    <string name="next_alarm_no_upcoming_alarm_titles_default_color">استخدم اللون الافتراضي لعناوين \"المنبه التالي\" و \"لا منبّهات آتية\"</string>
-    <string name="next_alarm_no_upcoming_alarm_titles_color">لون عناوين \"المنبه التالي\" و \"لا منبّهات آتية\"</string>
+    <string name="next_alarm_no_upcoming_alarm_titles_default_color">استخدم اللون الافتراضي لعنوان \"لا منبّهات آتية\"</string>
+    <string name="next_alarm_no_upcoming_alarm_titles_color">لون عنوان \"لا منبّهات آتية\"</string>
     <string name="widget_max_font_size_title">الحد الأقصى لحجم خط widget</string>
     <string name="next_alarm_widget_title_no_alarm">لا منبّهات آتية</string>
     <string name="permission_management_settings">إدارة الأذونات</string>
@@ -635,4 +635,51 @@
     <string name="permission_status_title">الحالة:</string>
     <string name="permission_info_title">لأجهزة شاومي فقط</string>
     <string name="timer_channel">المؤقت</string>
+    <string name="permissions_category_title">الإذونات</string>
+    <string name="settings_language_arabic">العربية</string>
+    <string name="settings_language_hungarian">المجرية</string>
+    <string name="auto_routing_to_external_audio_device_title">فعِّل التوجيه التلقائي لنغمات الرنين إلى أجهزة الصوت الخارجية</string>
+    <string name="external_audio_device_volume_title">مستوى صوت المنبه لأجهزة الصوت الخارجية</string>
+    <string name="connect_external_audio_device_title">صل جهاز صوت خارجي للوصول إلى هذا الإعداد</string>
+    <string name="disconnect_external_audio_device_title">افصل جهاز الصوت الخارجي للوصول إلى هذا الإعداد</string>
+    <string name="enable_alarm_vibrations_by_default_dialog_message">سيتم إيقاف تشغيل الاهتزاز لجميع التنبيهات.%s</string>
+    <string name="enable_delete_occasional_alarm_by_default_dialog_message">سيتم إيقاف ميزة \"احذف المنبه بمجرد إهمال المنبه\" لجميع المنبهات.%s</string>
+    <string name="display_low_alarm_volume_warning_title">أظهر تحذير عندما يتم ضبط مستوى صوت المنبه على الحد الأدنى</string>
+    <string name="snooze_zone_color_title">لون منطقة التأجيل</string>
+    <string name="snooze_minus_button_color_title">لون زر \"-\"</string>
+    <string name="snooze_plus_button_color_title">لون زر \"+\"</string>
+    <string name="snooze_selector_text_color_title">لون نص محدد التأجيل</string>
+    <string name="snooze_minus_symbol_color_title">لون رمز \"-\"</string>
+    <string name="snooze_plus_symbol_color_title">لون رمز \"+\"</string>
+    <string name="background_image_summary">عيّن لون الخلفية شفافًا لتتمكن من رؤية الصورة</string>
+    <string name="alarm_volume_low">صوت المنبه منخفض</string>
+    <string name="fix_alarm_volume">أصلح</string>
+    <string name="display_snooze_selector_title">اعرض محدد وقت التأجيل</string>
+    <string name="clock_dial_with_roman_numbers">بالأرقام الرومانية</string>
+    <string name="clock_second_hand_lollipop">مصاصة</string>
+    <string name="timezone_baker_howland">جزيرتا بيكر وهولاند</string>
+    <string name="timezone_marquesas">جزر ماركيز</string>
+    <string name="timezone_chatham">جزر تشاتام</string>
+    <string name="timezone_gambier">جزر غامبير</string>
+    <string name="timezone_pitcairn">جزر بيتكيرن</string>
+    <string name="timezone_easter_island">جزيرة الفصح</string>
+    <string name="timezone_miquelon">سان بيير وميكلون</string>
+    <string name="timezone_noronha">فرناندو دي نورونيا</string>
+    <string name="timezone_lord_howe">جزيرة لورد هاو</string>
+    <string name="timezone_norfolk">جزيرة نورفولك</string>
+    <string name="timezone_macquarie">جزيرة ماكواري</string>
+    <string name="missed_timer_indicator_color_title">لون مؤشر المؤقت الفائت</string>
+    <string name="next_alarm_title_color_title">لون مؤشر المؤقت التالي</string>
+    <string name="next_alarm_title_default_color_title">استخدم اللون الافتراضي لعنوان المنبه التالي</string>
+    <string name="city_note_color_title">لون ملاحظة المدينة</string>
+    <string name="city_note_default_color_title">استخدم اللون الافتراضي لملاحظة المدينة</string>
+    <string name="foreground_service_channel">إشعار المقدمة</string>
+    <string name="foreground_service_message">يعمل في الخلفية</string>
+    <string name="display_next_alarm_title_setting_title">اعرض عنوان المنبه التالي على الأداة</string>
+    <string name="foreground_service_title">اعرض إشعار المقدمة</string>
+    <string name="foreground_service_dialog_message">لمنع جهازك من إغلاق التطبيق بشكل مفاجئ وتفويت المنبهات، سيقوم هذا الخيار بعرض إشعار صامت ومستمر.\n\nيضمن ذلك بقاء التطبيق في الذاكرة، على الرغم من أنه قد يزيد من استهلاك البطارية قليلاً.\n\nملاحظة: تفعيل هذا الإعداد ليس ضروريًا لمعظم الأجهزة. لا تفعله إلا إذا كنت تواجه مشكلة في تفويت المنبهات.</string>
+    <string name="sync_alarm_by_label_title">زامن التنبيهات التي تحمل نفس التسمية</string>
+    <string name="label_indefinitely">إلى الأبد</string>
+    <string name="button_tip_title">اضغط مطولاً على زر \"+\" لإضافة مجلد</string>
+    <string name="alarm_alert_dismiss_and_delete_text_button">أهمِل و\nاحذف</string>
 </resources>

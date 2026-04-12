@@ -367,7 +367,7 @@
     <string name="max_clock_font_size_title">Maximální velikost písma hlavních hodin</string>
     <string name="permission_management_summary">Zobrazení oprávnění potřebných ke správnému fungování aplikace</string>
     <string name="denied_permission_label">Oprávnění zamítnuto</string>
-    <string name="next_alarm_no_upcoming_alarm_titles_color">Vlastní barva pro názvy „Další budík“ a „Žádný nadcházející budík“</string>
+    <string name="next_alarm_no_upcoming_alarm_titles_color">Barva pro název „Žádný nadcházející budík“</string>
     <string name="show_lockscreen_dialog_title">Zobrazit na obrazovce uzamčení</string>
     <string name="settings_language_english_us">Angličtina (americká)</string>
     <string name="settings_language_chinese_simplified_cn">Čínština (zjednodušená, PRC)</string>
@@ -445,7 +445,7 @@
     <string name="add_label">Přidat štítek</string>
     <string name="description_direction_both_for_occasional_non_repeatable_alarm">Přejeďte prstem doleva nebo doprava pro zrušení a odstranění budíku</string>
     <string name="description_direction_both_for_non_repeatable_alarm">Přejeďte prstem doleva nebo doprava pro zrušení</string>
-    <string name="next_alarm_no_upcoming_alarm_titles_default_color">Použít výchozí barvu pro názvy „Další budík“ a „Žádný nadcházející budík“</string>
+    <string name="next_alarm_no_upcoming_alarm_titles_default_color">Použít výchozí barvu pro název „Žádný nadcházející budík“</string>
     <string name="permission_management_settings">Správa oprávnění</string>
     <string name="FSN_dialog_title">Oznámení na celé obrazovce</string>
     <string name="timer_flip_action_title">Otočte zařízení pro zastavení budíku</string>
@@ -660,4 +660,10 @@
     <string name="foreground_service_dialog_message">Pro zabránění vašemu zařízení v agresivním ukončení aplikace a zmeškání budíků zobrazí toto nastavení trvalé, tiché oznámení.\n\nTo zajistí, že aplikace zůstane v paměti, může to ale mírně zvýšit využití baterie.\n\nUpozornění: povolení tohoto nastavení není pro většinu zařízení nutné. Povolte jej pouze, pokud jste zmeškali budíky.</string>
     <string name="settings_language_arabic">Arabština</string>
     <string name="settings_language_hungarian">Maďarština</string>
+    <string name="display_low_alarm_volume_warning_title">Zobrazit varování při nastavení hlasitosti budíku na minimální úroveň</string>
+    <string name="next_alarm_title_color_title">Barva názvu dalšího budíku</string>
+    <string name="next_alarm_title_default_color_title">Použít výchozí barvu pro název dalšího budíku</string>
+    <string name="city_note_color_title">Barva poznámky města</string>
+    <string name="city_note_default_color_title">Použít výchozí barvu pro poznámku města</string>
+    <string name="display_next_alarm_title_setting_title">Zobrazit název dalšího budíku ve widgetu</string>
 </resources>

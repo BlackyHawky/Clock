@@ -3,12 +3,10 @@
     Copyright (C) 2016 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="C1" msgid="3622720549928625541">"А<xliff:g id="SEPARATOR">=</xliff:g>Абиджан<xliff:g id="TIMEZONE">|Africa/Abidjan</xliff:g>"</string>
-    <string name="C2" msgid="9073993995416728918">"А<xliff:g id="SEPARATOR">=</xliff:g>Аккра<xliff:g id="TIMEZONE">|Africa/Accra</xliff:g>"</string>
-    <string name="C3" msgid="5172979423931428620">"А<xliff:g id="SEPARATOR">=</xliff:g>Аддис-Абеба<xliff:g id="TIMEZONE">|Africa/Addis_Ababa</xliff:g>"</string>
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="C1" msgid="3622720549928625541">А<xliff:g id="separator">=</xliff:g>Абиджан<xliff:g id="timezone">|Africa/Abidjan</xliff:g></string>
+    <string name="C2" msgid="9073993995416728918">А<xliff:g id="separator">=</xliff:g>Аккра<xliff:g id="timezone">|Africa/Accra</xliff:g></string>
+    <string name="C3" msgid="5172979423931428620">А<xliff:g id="separator">=</xliff:g>Аддис-Абеба<xliff:g id="timezone">|Africa/Addis_Ababa</xliff:g></string>
     <string name="C4" msgid="4450258423854546267">"А<xliff:g id="SEPARATOR">=</xliff:g>Алжир<xliff:g id="TIMEZONE">|Africa/Algiers</xliff:g>"</string>
     <string name="C5" msgid="8063142106679202722">"Б<xliff:g id="SEPARATOR">=</xliff:g>Блантайр<xliff:g id="TIMEZONE">|Africa/Blantyre</xliff:g>"</string>
     <string name="C6" msgid="1620940469531839828">"Б<xliff:g id="SEPARATOR">=</xliff:g>Браззавиль<xliff:g id="TIMEZONE">|Africa/Brazzaville</xliff:g>"</string>
@@ -142,7 +140,7 @@
     <string name="C139" msgid="7060339477340222608">"Т<xliff:g id="SEPARATOR">=</xliff:g>Токио<xliff:g id="PHONETIC">:</xliff:g><xliff:g id="TIMEZONE">|Asia/Tokyo</xliff:g>"</string>
     <string name="C140" msgid="6273911458061121975">"У<xliff:g id="SEPARATOR">=</xliff:g>Улан-Батор<xliff:g id="TIMEZONE">|Asia/Ulaanbaatar</xliff:g>"</string>
     <string name="C141" msgid="2799340184229547409">"Б<xliff:g id="SEPARATOR">=</xliff:g>Бермудские острова<xliff:g id="TIMEZONE">|Atlantic/Bermuda</xliff:g>"</string>
-    <string name="C142">L<xliff:g id="separator">=</xliff:g>Las Palmas de Gran Canaria<xliff:g id="timezone">|Atlantic/Canary</xliff:g></string>
+    <string name="C142">Л<xliff:g id="separator">=</xliff:g>Лас-Пальмас<xliff:g id="timezone">|Atlantic/Canary</xliff:g></string>
     <string name="C143" msgid="4888764215053863961">К<xliff:g id="SEPARATOR">=</xliff:g>Кабо-Верде<xliff:g id="TIMEZONE">|Atlantic/Cape_Verde</xliff:g></string>
     <string name="C144" msgid="3338105941475340049">"Р<xliff:g id="SEPARATOR">=</xliff:g>Рейкьявик<xliff:g id="TIMEZONE">|Atlantic/Reykjavik</xliff:g>"</string>
     <string name="C145" msgid="8684297689430494031">"С<xliff:g id="SEPARATOR">=</xliff:g>Стэнли<xliff:g id="TIMEZONE">|Atlantic/Stanley</xliff:g>"</string>
@@ -354,7 +352,7 @@
     <string name="C356">М<xliff:g id="separator">=</xliff:g>Маркизские острова<xliff:g id="timezone">|Pacific/Marquesas</xliff:g></string>
     <string name="C357">Ф<xliff:g id="separator">=</xliff:g>Фернанду-ди-Норонья<xliff:g id="timezone">|America/Noronha</xliff:g></string>
     <string name="C358">Н<xliff:g id="separator">=</xliff:g>Нуук<xliff:g id="timezone">|America/Nuuk</xliff:g></string>
-    <string name="C359">E<xliff:g id="separator">=</xliff:g>Eucla<xliff:g id="timezone">|Australia/Eucla</xliff:g></string>
+    <string name="C359">Ю<xliff:g id="separator">=</xliff:g>Юкла<xliff:g id="timezone">|Australia/Eucla</xliff:g></string>
     <string name="C360">О<xliff:g id="separator">=</xliff:g>Остров Лорд-Хау<xliff:g id="timezone">|Australia/Lord_Howe</xliff:g></string>
     <string name="C361">О<xliff:g id="separator">=</xliff:g>Острова Чатем<xliff:g id="timezone">|Pacific/Chatham</xliff:g></string>
 </resources>

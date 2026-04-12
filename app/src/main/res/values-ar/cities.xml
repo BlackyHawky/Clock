@@ -3,9 +3,7 @@
     Copyright (C) 2016 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="C1" msgid="3622720549928625541">أ<xliff:g id="separator">=</xliff:g>أبيدجان<xliff:g id="timezone">|أفريقيا/أبيدجان</xliff:g></string>
     <string name="C2" msgid="9073993995416728918">أ<xliff:g id="separator">=</xliff:g>أكرا<xliff:g id="timezone">|أفريقيا/أكرا</xliff:g></string>
     <string name="C3" msgid="5172979423931428620">"ا<xliff:g id="SEPARATOR">=</xliff:g>أديس أبابا<xliff:g id="TIMEZONE">|Africa/Addis_Ababa</xliff:g>"</string>
@@ -73,7 +71,7 @@
     <string name="C67" msgid="4874799181719358019">"<xliff:g id="SEPARATOR">=</xliff:g>لوس أنجلوس<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g>"</string>
     <string name="C68" msgid="5526012011469271690">"<xliff:g id="SEPARATOR">=</xliff:g>لويفيل<xliff:g id="TIMEZONE">|America/Louisville</xliff:g>"</string>
     <string name="C69" msgid="6147580167560875608">"<xliff:g id="SEPARATOR">=</xliff:g>ماناغوا<xliff:g id="TIMEZONE">|America/Managua</xliff:g>"</string>
-    <string name="C70" msgid="3277881296053225577"><xliff:g id="SEPARATOR">=</xliff:g>مارتينيك<xliff:g id="TIMEZONE">|America/Martinique</xliff:g></string>
+    <string name="C70" msgid="3277881296053225577"><xliff:g id="SEPARATOR">=</xliff:g>فورت-دو-فرانس<xliff:g id="TIMEZONE">|America/Martinique</xliff:g></string>
     <string name="C71" msgid="4017941126335556194">"<xliff:g id="SEPARATOR">=</xliff:g>مندوزا<xliff:g id="TIMEZONE">|America/Mendoza</xliff:g>"</string>
     <string name="C72" msgid="3992109594245379480">"<xliff:g id="SEPARATOR">=</xliff:g>ميتلاكاتلا<xliff:g id="TIMEZONE">|America/Metlakatla</xliff:g>"</string>
     <string name="C73" msgid="2715229408279026929">"<xliff:g id="SEPARATOR">=</xliff:g>مكسيكو سيتي<xliff:g id="TIMEZONE">|America/Mexico_City</xliff:g>"</string>

@@ -8,6 +8,7 @@ There are many ways to help improve Clock: reporting issues, translating, or con
 - Check if the issue already exists ([browse issues](https://github.com/BlackyHawky/Clock/issues)).
 - Ensure it’s still relevant in the latest version.
 - Keep it focused on a single topic.
+- Write in English only.
 - Use the issue template for clarity.
 
 > [!IMPORTANT]  
