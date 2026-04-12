@@ -35,7 +35,7 @@ android {
         }
     }
 
-    def commitNumber = 63
+    def commitNumber = 64
 
     def buildCommit = providers.exec {
         commandLine('git', 'rev-parse', '--short=7', 'HEAD')
@@ -70,21 +70,29 @@ android {
             manifestPlaceholders = [appName: "@string/app_label_nightly"]
             versionNameSuffix = "-nightly-${commitNumber}-${buildCommit}"
             applicationIdSuffix = ".nightly"
-            signingConfig signingConfigs.debug
+            signingConfig = signingConfigs.debug
             buildConfigField "boolean", "IS_DEBUG_BUILD", "false"
             buildConfigField "boolean", "IS_NIGHTLY_BUILD", "true"
             buildConfigField "String", "COMMIT_NUMBER", "\"${commitNumber}\""
         }
     }
 
-    applicationVariants.configureEach { variant ->
-        variant.outputs.configureEach { output ->
-            if (variant.buildType.name == "nightly") {
-                outputFileName = "Clock_${defaultConfig.versionName}-nightly-${commitNumber}-${buildCommit}.apk"
+    androidComponents {
+        onVariants(selector().all()) { variant ->
+            def versionName = android.defaultConfig.versionName
+            def buildTypeConfig = android.buildTypes.findByName(variant.buildType)
+            def versionNameSuffix = buildTypeConfig != null ? buildTypeConfig.versionNameSuffix : null
+            def outputFileName
+
+            if (variant.buildType == "nightly") {
+                outputFileName = "Clock_${versionName}-nightly-${commitNumber}-${buildCommit}.apk"
             } else {
-                def suffix = variant.buildType.versionNameSuffix ?:
-                    keystorePropertiesFile.exists() ? "-release" : "-unsigned"
-                outputFileName = "Clock_${defaultConfig.versionName}${suffix}.apk"
+                def suffix = versionNameSuffix ?: (keystorePropertiesFile.exists() ? "-release" : "-unsigned")
+                outputFileName = "Clock_${versionName}${suffix}.apk"
+            }
+
+            variant.outputs.forEach { output ->
+                output.outputFileName.set(outputFileName)
             }
         }
     }
@@ -107,17 +115,17 @@ android {
         includeInBundle = false
     }
 
-    ndkVersion = '27.2.12479018'
+    ndkVersion = '29.0.14206865'
 
     namespace = 'com.best.deskclock'
 }
 
 dependencies {
     implementation 'androidx.documentfile:documentfile:1.1.0'
-    implementation 'androidx.media3:media3-exoplayer:1.9.2'
-    implementation 'androidx.media3:media3-common:1.9.2'
+    implementation 'androidx.media3:media3-exoplayer:1.10.0'
+    implementation 'androidx.media3:media3-common:1.10.0'
     implementation 'androidx.preference:preference:1.2.1'
     implementation 'androidx.recyclerview:recyclerview:1.4.0'
-    implementation 'com.google.android.material:material:1.14.0-alpha09'
+    implementation 'com.google.android.material:material:1.14.0-beta01'
     implementation 'com.github.martin-stone:hsv-alpha-color-picker-android:3.1.0'
 }

@@ -89,10 +89,11 @@
 
     <com.google.android.material.materialswitch.MaterialSwitch
         android:id="@+id/onoff"
-        android:theme="@style/AlarmMaterialSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
+        app:thumbIcon="@drawable/alarm_switch_thumb_icon"
+        app:thumbIconTint="@color/switch_thumb_icon_tint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/preemptive_dismiss_button"
