@@ -131,6 +131,7 @@ class StopwatchNotificationBuilder {
                 .setSmallIcon(R.drawable.ic_tab_stopwatch_static)
                 .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
                 .setColor(context.getColor(R.color.md_theme_primary))
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setGroup(nm.getStopwatchNotificationGroupKey());
 
         for (Action action : actions) {
