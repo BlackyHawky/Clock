@@ -122,7 +122,7 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
 
     /**
      * Creates a new instance of {@link AutoSilenceDurationDialogFragment} for use
-     * in the alarm edit panel, where the auto silence duration is configured for a specific alarm.
+     * in the alarm editing panel, where the auto silence duration is configured for a specific alarm.
      *
      * @param autoSilenceDuration The silence duration in minutes.
      */

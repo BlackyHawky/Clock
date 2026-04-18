@@ -224,6 +224,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         setupFragmentResultListeners();
 
         BottomSheetBehavior<?> behavior = dialog.getBehavior();
+        behavior.setSkipCollapsed(true);
         behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 
         mClock = dialogView.findViewById(R.id.digital_clock);
@@ -1019,6 +1020,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             BottomSheetBehavior<?> behavior = bottomSheetDialog.getBehavior();
             behavior.setDraggable(false);
             behavior.setPeekHeight(0);
+            behavior.setSkipCollapsed(false);
             behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
             AppExecutors.getMainThread().postDelayed(() -> {
                 mIsActionPending = false;
@@ -1047,6 +1049,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
             BottomSheetBehavior<?> behavior = bottomSheetDialog.getBehavior();
             behavior.setPeekHeight(BottomSheetBehavior.PEEK_HEIGHT_AUTO);
+            behavior.setSkipCollapsed(true);
             behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
             behavior.setDraggable(true);
         }

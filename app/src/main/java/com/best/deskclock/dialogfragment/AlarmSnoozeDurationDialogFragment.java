@@ -111,7 +111,7 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
 
     /**
      * Creates a new instance of {@link AlarmSnoozeDurationDialogFragment} for use
-     * in the alarm edit panel, where the snooze duration is configured for a specific alarm.
+     * in the alarm editing panel, where the snooze duration is configured for a specific alarm.
      *
      * @param snoozeDuration The snooze duration in minutes.
      */

@@ -43,7 +43,7 @@ public class AlarmMissedRepeatLimitDialogFragment extends DialogFragment {
 
     /**
      * Creates a new instance of {@link AlarmMissedRepeatLimitDialogFragment} for use
-     * in the alarm edit panel, where the number of times a missed alarm can be repeated is
+     * in the alarm editing panel, where the number of times a missed alarm can be repeated is
      * configured for a specific alarm.
      *
      * @param missedRepeatLimit The number of times a missed alarm can be repeated.

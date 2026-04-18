@@ -111,7 +111,7 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
 
     /**
      * Creates a new instance of {@link VolumeCrescendoDurationDialogFragment} for use
-     * in the alarm edit panel, where the crescendo duration is configured for a specific alarm.
+     * in the alarm editing panel, where the crescendo duration is configured for a specific alarm.
      *
      * @param crescendoDuration The crescendo duration in seconds.
      */

@@ -507,7 +507,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             return null;
         } else if (mAutoSilenceDuration == TIMEOUT_END_OF_RINGTONE) {
             // Alarm silence has been set to "At the end of the ringtone"
-            // or "Dismiss alarm when ringtone ends" has been ticked in the alarm edit panel
+            // or "Dismiss alarm when ringtone ends" has been ticked in the alarm editing panel
             int milliSeconds = RingtoneUtils.getRingtoneDuration(context, mRingtone);
             calendar.add(Calendar.MILLISECOND, milliSeconds);
         } else {

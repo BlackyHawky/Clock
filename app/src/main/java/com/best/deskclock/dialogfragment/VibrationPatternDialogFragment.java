@@ -69,7 +69,7 @@ public class VibrationPatternDialogFragment extends DialogFragment {
 
     /**
      * Creates a new instance of {@link VibrationPatternDialogFragment} for use
-     * in the alarm edit panel, where the vibration pattern is configured for a specific alarm.
+     * in the alarm editing panel, where the vibration pattern is configured for a specific alarm.
      *
      * @param vibrationPattern The vibration pattern.
      */
