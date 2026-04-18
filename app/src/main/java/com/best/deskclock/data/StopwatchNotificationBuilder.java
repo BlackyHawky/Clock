@@ -128,6 +128,7 @@ class StopwatchNotificationBuilder {
             .setPriority(SdkUtils.isAtLeastAndroid7()
                 ? NotificationManager.IMPORTANCE_LOW
                 : Notification.PRIORITY_LOW)
+            .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             .setSmallIcon(R.drawable.ic_tab_stopwatch_static)
             .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
             .setColor(context.getColor(R.color.md_theme_primary))
