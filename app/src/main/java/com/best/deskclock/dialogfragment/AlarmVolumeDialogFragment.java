@@ -70,7 +70,7 @@ public class AlarmVolumeDialogFragment extends DialogFragment {
 
     /**
      * Creates a new instance of {@link AlarmVolumeDialogFragment} for use
-     * in the alarm edit panel, where the volume value is configured for a specific alarm.
+     * in the alarm editing panel, where the volume value is configured for a specific alarm.
      *
      * @param alarmVolumeValue The volume value in step.
      */
