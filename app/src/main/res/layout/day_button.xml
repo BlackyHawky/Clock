@@ -10,7 +10,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     style="?attr/materialButtonOutlinedStyle"
     android:layout_width="0dp"
-    android:layout_height="32dp"
+    android:layout_height="38dp"
     android:layout_weight="1"
     android:insetLeft="0dp"
     android:insetRight="0dp"
