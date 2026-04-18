@@ -201,8 +201,19 @@ public class DatePickerDialogFragment {
         // Prevents navigation to past months
         constraintsBuilder.setStart(utcNow.getTimeInMillis());
 
+        long minAllowedTimestamp;
+        if (timePassed) {
+            // The time has passed : "Today" is invalid, is must be set to "Tomorrow"
+            Calendar utcTomorrow = (Calendar) utcNow.clone();
+            utcTomorrow.add(Calendar.DAY_OF_MONTH, 1);
+            minAllowedTimestamp = utcTomorrow.getTimeInMillis();
+        } else {
+            // The time hasn't passed: "Today" is still valid
+            minAllowedTimestamp = utcNow.getTimeInMillis();
+        }
+
         // Set validator depending on whether the alarm time has passed or not
-        constraintsBuilder.setValidator(DateValidatorPointForward.from(utcNow.getTimeInMillis()));
+        constraintsBuilder.setValidator(DateValidatorPointForward.from(minAllowedTimestamp));
 
         builder.setSelection(utcSelection.getTimeInMillis());
         builder.setCalendarConstraints(constraintsBuilder.build());
