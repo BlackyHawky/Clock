@@ -100,7 +100,7 @@ class TimerNotificationBuilder {
             titleText = context.getString(R.string.timer_notification_label);
             contentText = timer.getTotalDuration();
         } else {
-            titleText = context.getString(R.string.timer_notification_label) + " - " + timer.getLabel();
+            titleText = timer.getLabel();
             contentText = timer.getLabel() + " - " + timer.getTotalDuration();
         }
 
@@ -254,7 +254,7 @@ class TimerNotificationBuilder {
             if (TextUtils.isEmpty(label)) {
                 titleText = context.getString(R.string.timer_notification_label) + " - " + timer.getTotalDuration();
             } else {
-                titleText = context.getString(R.string.timer_notification_label) + " - " + timer.getLabel();
+                titleText = timer.getLabel();
             }
 
             stateText = context.getString(R.string.timer_times_up);
