@@ -224,8 +224,8 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         setupFragmentResultListeners();
 
         BottomSheetBehavior<?> behavior = dialog.getBehavior();
-        behavior.setSkipCollapsed(true);
         behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        behavior.setSkipCollapsed(true);
 
         mClock = dialogView.findViewById(R.id.digital_clock);
         mRepeatDaysGroup = dialogView.findViewById(R.id.repeat_days_group);
@@ -1048,9 +1048,8 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             bottomSheetDialog.setCanceledOnTouchOutside(true);
 
             BottomSheetBehavior<?> behavior = bottomSheetDialog.getBehavior();
-            behavior.setPeekHeight(BottomSheetBehavior.PEEK_HEIGHT_AUTO);
-            behavior.setSkipCollapsed(true);
             behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+            behavior.setSkipCollapsed(true);
             behavior.setDraggable(true);
         }
     }
