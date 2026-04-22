@@ -115,6 +115,8 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
 
     protected abstract int getClockMinutesViewId();
 
+    protected abstract int getTopDateViewId();
+
     protected abstract int getDateViewId();
 
     protected abstract int getNextAlarmIconId();
@@ -134,6 +136,8 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
     protected abstract int getClockHoursCustomViewId();
 
     protected abstract int getClockMinutesCustomViewId();
+
+    protected abstract int getTopDateCustomViewId();
 
     protected abstract int getDateCustomViewId();
 
@@ -335,6 +339,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
         safeSetTextSize(rv, getClockViewId(), sizes.mWidgetFontSizePx);
         safeSetTextSize(rv, getClockHoursViewId(), sizes.mWidgetFontSizePx);
         safeSetTextSize(rv, getClockMinutesViewId(), sizes.mWidgetFontSizePx);
+        safeSetTextSize(rv, getTopDateViewId(), sizes.mFontSizePx);
         safeSetTextSize(rv, getDateViewId(), sizes.mFontSizePx);
         safeSetTextSize(rv, getNextAlarmViewId(), sizes.mFontSizePx);
         safeSetTextSize(rv, getNoAlarmTitleViewId(), sizes.mFontSizePx);
@@ -343,6 +348,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
         safeSetTextSize(rv, getClockCustomViewId(), sizes.mWidgetFontSizePx);
         safeSetTextSize(rv, getClockHoursCustomViewId(), sizes.mWidgetFontSizePx);
         safeSetTextSize(rv, getClockMinutesCustomViewId(), sizes.mWidgetFontSizePx);
+        safeSetTextSize(rv, getTopDateCustomViewId(), sizes.mFontSizePx);
         safeSetTextSize(rv, getDateCustomViewId(), sizes.mFontSizePx);
         safeSetTextSize(rv, getNextAlarmCustomViewId(), sizes.mFontSizePx);
         safeSetTextSize(rv, getNoAlarmTitleCustomViewId(), sizes.mFontSizePx);

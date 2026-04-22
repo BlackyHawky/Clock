@@ -17,6 +17,7 @@ import android.graphics.drawable.Icon;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.RemoteViews;
+import android.widget.Space;
 import android.widget.TextClock;
 import android.widget.TextView;
 
@@ -90,6 +91,11 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
+    protected int getTopDateViewId() {
+        return R.id.topDate;
+    }
+
+    @Override
     protected int getDateViewId() {
         return R.id.date;
     }
@@ -137,6 +143,11 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     @Override
     protected int getClockMinutesCustomViewId() {
         return 0;
+    }
+
+    @Override
+    protected int getTopDateCustomViewId() {
+        return R.id.topDateForCustomColor;
     }
 
     @Override
@@ -246,10 +257,12 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
 
     @Override
     protected void bindDateClickAction(RemoteViews rv, SharedPreferences prefs, PendingIntent calendarPendingIntent) {
+        boolean isTopDateDisplayed = WidgetDAO.isTopDateDisplayedOnDigitalWidget(prefs);
+
         if (WidgetDAO.isDigitalWidgetDefaultDateColor(prefs)) {
-            rv.setOnClickPendingIntent(getDateViewId(), calendarPendingIntent);
+            rv.setOnClickPendingIntent(isTopDateDisplayed ? getTopDateViewId() : getDateViewId(), calendarPendingIntent);
         } else {
-            rv.setOnClickPendingIntent(getDateCustomViewId(), calendarPendingIntent);
+            rv.setOnClickPendingIntent(isTopDateDisplayed ? getTopDateCustomViewId() : getDateCustomViewId(), calendarPendingIntent);
         }
     }
 
@@ -276,22 +289,48 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     protected void configureDate(RemoteViews rv, Context context, SharedPreferences prefs) {
         if (!WidgetDAO.isDateDisplayedOnDigitalWidget(prefs)) {
             rv.setViewVisibility(getDateViewId(), GONE);
+            rv.setViewVisibility(getTopDateViewId(), GONE);
             rv.setViewVisibility(getDateCustomViewId(), GONE);
+            rv.setViewVisibility(getTopDateCustomViewId(), GONE);
+            rv.setViewVisibility(R.id.clockSpacer, VISIBLE);
             return;
         }
 
+        boolean isTopDateDisplayed = WidgetDAO.isTopDateDisplayedOnDigitalWidget(prefs);
+        boolean isDefaultDateColor = WidgetDAO.isDigitalWidgetDefaultDateColor(prefs);
         String dateFormat = WidgetUtils.getDateFormat(context);
         String dateText = isTextUppercase(prefs) ? dateFormat.toUpperCase() : dateFormat;
 
-        if (WidgetDAO.isDigitalWidgetDefaultDateColor(prefs)) {
-            rv.setViewVisibility(getDateViewId(), VISIBLE);
-            rv.setViewVisibility(getDateCustomViewId(), GONE);
-            rv.setTextViewText(getDateViewId(), dateText);
-        } else {
+        if (isTopDateDisplayed) {
+            rv.setViewVisibility(R.id.clockSpacer, GONE);
             rv.setViewVisibility(getDateViewId(), GONE);
-            rv.setViewVisibility(getDateCustomViewId(), VISIBLE);
-            rv.setTextColor(getDateCustomViewId(), WidgetDAO.getDigitalWidgetCustomDateColor(prefs));
-            rv.setTextViewText(getDateCustomViewId(), dateText);
+            rv.setViewVisibility(getDateCustomViewId(), GONE);
+
+            if (isDefaultDateColor) {
+                rv.setViewVisibility(getTopDateViewId(), VISIBLE);
+                rv.setViewVisibility(getTopDateCustomViewId(), GONE);
+                rv.setTextViewText(getTopDateViewId(), dateText);
+            } else {
+                rv.setViewVisibility(getTopDateViewId(), GONE);
+                rv.setViewVisibility(getTopDateCustomViewId(), VISIBLE);
+                rv.setTextColor(getTopDateCustomViewId(), WidgetDAO.getDigitalWidgetCustomDateColor(prefs));
+                rv.setTextViewText(getTopDateCustomViewId(), dateText);
+            }
+        } else {
+            rv.setViewVisibility(R.id.clockSpacer, VISIBLE);
+            rv.setViewVisibility(getTopDateViewId(), GONE);
+            rv.setViewVisibility(getTopDateCustomViewId(), GONE);
+
+            if (isDefaultDateColor) {
+                rv.setViewVisibility(getDateViewId(), VISIBLE);
+                rv.setViewVisibility(getDateCustomViewId(), GONE);
+                rv.setTextViewText(getDateViewId(), dateText);
+            } else {
+                rv.setViewVisibility(getDateViewId(), GONE);
+                rv.setViewVisibility(getDateCustomViewId(), VISIBLE);
+                rv.setTextColor(getDateCustomViewId(), WidgetDAO.getDigitalWidgetCustomDateColor(prefs));
+                rv.setTextViewText(getDateCustomViewId(), dateText);
+            }
         }
     }
 
@@ -413,25 +452,53 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     @Override
     protected void configureSizerDate(View sizer, Context context, SharedPreferences prefs) {
         final TextView date = sizer.findViewById(getDateViewId());
+        final TextView topDate = sizer.findViewById(getTopDateViewId());
         final TextView dateForCustomColor = sizer.findViewById(getDateCustomViewId());
+        final TextView topDateForCustomColor = sizer.findViewById(getTopDateCustomViewId());
+        final Space clockSpacer = sizer.findViewById(R.id.clockSpacer);
 
         if (!WidgetDAO.isDateDisplayedOnDigitalWidget(prefs)) {
             date.setVisibility(GONE);
+            topDate.setVisibility(GONE);
             dateForCustomColor.setVisibility(GONE);
+            topDateForCustomColor.setVisibility(GONE);
+            clockSpacer.setVisibility(VISIBLE);
             return;
         }
 
+        boolean isTopDateDisplayed = WidgetDAO.isTopDateDisplayedOnDigitalWidget(prefs);
+        boolean isDefaultDateColor = WidgetDAO.isDigitalWidgetDefaultDateColor(prefs);
         String dateFormat = WidgetUtils.getDateFormat(context);
         String dateText = isTextUppercase(prefs) ? dateFormat.toUpperCase() : dateFormat;
 
-        if (WidgetDAO.isDigitalWidgetDefaultDateColor(prefs)) {
-            date.setVisibility(VISIBLE);
-            dateForCustomColor.setVisibility(GONE);
-            date.setText(dateText);
-        } else {
+        if (isTopDateDisplayed) {
+            clockSpacer.setVisibility(GONE);
             date.setVisibility(GONE);
-            dateForCustomColor.setVisibility(VISIBLE);
-            dateForCustomColor.setText(dateText);
+            dateForCustomColor.setVisibility(GONE);
+
+            if (isDefaultDateColor) {
+                topDate.setVisibility(VISIBLE);
+                topDateForCustomColor.setVisibility(GONE);
+                topDate.setText(dateText);
+            } else {
+                topDate.setVisibility(GONE);
+                topDateForCustomColor.setVisibility(VISIBLE);
+                topDateForCustomColor.setText(dateText);
+            }
+        } else {
+            clockSpacer.setVisibility(VISIBLE);
+            topDate.setVisibility(GONE);
+            topDateForCustomColor.setVisibility(GONE);
+
+            if (isDefaultDateColor) {
+                date.setVisibility(VISIBLE);
+                dateForCustomColor.setVisibility(GONE);
+                date.setText(dateText);
+            } else {
+                date.setVisibility(GONE);
+                dateForCustomColor.setVisibility(VISIBLE);
+                dateForCustomColor.setText(dateText);
+            }
         }
     }
 
@@ -534,11 +601,13 @@ public class DigitalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
 
     @Override
     protected void configureDateForMeasurement(View sizer, DigitalWidgetSizes measuredSizes, SharedPreferences prefs) {
+        boolean isTopDateDisplayed = WidgetDAO.isTopDateDisplayedOnDigitalWidget(prefs);
+
         if (WidgetDAO.isDigitalWidgetDefaultDateColor(prefs)) {
-            final TextView date = sizer.findViewById(getDateViewId());
+            final TextView date = sizer.findViewById(isTopDateDisplayed ? getTopDateViewId() : getDateViewId());
             date.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mFontSizePx);
         } else {
-            final TextView dateForCustomColor = sizer.findViewById(getDateCustomViewId());
+            final TextView dateForCustomColor = sizer.findViewById(isTopDateDisplayed ? getTopDateCustomViewId() : getDateCustomViewId());
             dateForCustomColor.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mFontSizePx);
         }
     }

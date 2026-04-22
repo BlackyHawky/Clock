@@ -41,6 +41,7 @@ public class AppWidgetDigitalSettingsFragment extends ScreenFragment implements 
     SwitchPreferenceCompat mCustomizeBackgroundCornerRadiusPref;
     CustomSliderPreference mBackgroundCornerRadiusPref;
     SwitchPreferenceCompat mDisplayDatePref;
+    SwitchPreferenceCompat mDisplayTopDatePref;
     SwitchPreferenceCompat mDisplayNextAlarmPref;
     SwitchPreferenceCompat mDisplayNextAlarmTitlePref;
     SwitchPreferenceCompat mShowCitiesOnDigitalWidgetPref;
@@ -82,6 +83,7 @@ public class AppWidgetDigitalSettingsFragment extends ScreenFragment implements 
         mCustomizeBackgroundCornerRadiusPref = findPreference(KEY_DIGITAL_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS);
         mBackgroundCornerRadiusPref = findPreference(KEY_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS);
         mDisplayDatePref = findPreference(KEY_DIGITAL_WIDGET_DISPLAY_DATE);
+        mDisplayTopDatePref = findPreference(KEY_DIGITAL_WIDGET_DISPLAY_TOP_DATE);
         mDisplayNextAlarmPref = findPreference(KEY_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM);
         mDisplayNextAlarmTitlePref = findPreference(KEY_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM_TITLE);
         mShowCitiesOnDigitalWidgetPref = findPreference(KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED);
@@ -132,7 +134,7 @@ public class AppWidgetDigitalSettingsFragment extends ScreenFragment implements 
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
             case KEY_DIGITAL_WIDGET_DISPLAY_TEXT_UPPERCASE, KEY_DIGITAL_WIDGET_DISPLAY_TEXT_SHADOW,
-                 KEY_DIGITAL_WIDGET_SECONDS_DISPLAYED, KEY_DIGITAL_WIDGET_HIDE_AM_PM,
+                 KEY_DIGITAL_WIDGET_SECONDS_DISPLAYED, KEY_DIGITAL_WIDGET_HIDE_AM_PM, KEY_DIGITAL_WIDGET_DISPLAY_TOP_DATE,
                  KEY_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING -> Utils.setVibrationTime(requireContext(), 50);
 
             case KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND -> {
@@ -157,7 +159,10 @@ public class AppWidgetDigitalSettingsFragment extends ScreenFragment implements 
             }
 
             case KEY_DIGITAL_WIDGET_DISPLAY_DATE -> {
-                mDefaultDateColorPref.setVisible((boolean) newValue);
+                boolean isDateDisplayed = (boolean) newValue;
+
+                mDisplayTopDatePref.setVisible(isDateDisplayed);
+                mDefaultDateColorPref.setVisible(isDateDisplayed);
                 mCustomDateColorPref.setVisible(mDefaultDateColorPref.isVisible()
                     && !WidgetDAO.isDigitalWidgetDefaultDateColor(mPrefs));
                 Utils.setVibrationTime(requireContext(), 50);
@@ -305,6 +310,9 @@ public class AppWidgetDigitalSettingsFragment extends ScreenFragment implements 
 
         mDisplayDatePref.setOnPreferenceChangeListener(this);
 
+        mDisplayTopDatePref.setVisible(WidgetDAO.isDateDisplayedOnDigitalWidget(mPrefs));
+        mDisplayTopDatePref.setOnPreferenceChangeListener(this);
+
         mDisplayNextAlarmPref.setOnPreferenceChangeListener(this);
 
         mDisplayNextAlarmTitlePref.setVisible(isNextAlarmDisplayed);
@@ -389,6 +397,7 @@ public class AppWidgetDigitalSettingsFragment extends ScreenFragment implements 
         mShowBackgroundOnDigitalWidgetPref.setChecked(WidgetDAO.isBackgroundDisplayedOnDigitalWidget(mPrefs));
         mCustomizeBackgroundCornerRadiusPref.setChecked(WidgetDAO.isDigitalWidgetBackgroundCornerRadiusCustomizable(mPrefs));
         mDisplayDatePref.setChecked(WidgetDAO.isDateDisplayedOnDigitalWidget(mPrefs));
+        mDisplayTopDatePref.setChecked(WidgetDAO.isTopDateDisplayedOnDigitalWidget(mPrefs));
         mDisplayNextAlarmPref.setChecked(WidgetDAO.isNextAlarmDisplayedOnDigitalWidget(mPrefs));
         mDisplayNextAlarmTitlePref.setChecked(WidgetDAO.isNextAlarmTitleDisplayedOnDigitalWidget(mPrefs));
         mShowCitiesOnDigitalWidgetPref.setChecked(WidgetDAO.areWorldCitiesDisplayedOnDigitalWidget(mPrefs));

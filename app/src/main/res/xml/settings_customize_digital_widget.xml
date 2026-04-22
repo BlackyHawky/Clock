@@ -79,6 +79,14 @@
             app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
+            android:key="key_digital_widget_display_top_date"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/display_top_date_title"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <SwitchPreferenceCompat
             android:key="key_digital_widget_display_next_alarm"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/display_next_alarm_title"
