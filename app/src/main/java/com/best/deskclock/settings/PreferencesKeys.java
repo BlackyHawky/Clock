@@ -263,6 +263,7 @@ public class PreferencesKeys {
     public static final String KEY_DIGITAL_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS = "key_digital_widget_customize_background_corner_radius";
     public static final String KEY_DIGITAL_WIDGET_BACKGROUND_CORNER_RADIUS = "key_digital_widget_background_corner_radius";
     public static final String KEY_DIGITAL_WIDGET_DISPLAY_DATE = "key_digital_widget_display_date";
+    public static final String KEY_DIGITAL_WIDGET_DISPLAY_TOP_DATE = "key_digital_widget_display_top_date";
     public static final String KEY_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM = "key_digital_widget_display_next_alarm";
     public static final String KEY_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM_TITLE = "key_digital_widget_display_next_alarm_title";
     public static final String KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED = "key_digital_widget_world_cities_displayed";

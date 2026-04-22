@@ -92,6 +92,11 @@ public class VerticalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
+    protected int getTopDateViewId() {
+        return 0;
+    }
+
+    @Override
     protected int getDateViewId() {
         return R.id.date;
     }
@@ -139,6 +144,11 @@ public class VerticalAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     @Override
     protected int getClockMinutesCustomViewId() {
         return R.id.clockMinutesForCustomColor;
+    }
+
+    @Override
+    protected int getTopDateCustomViewId() {
+        return 0;
     }
 
     @Override

@@ -74,6 +74,11 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
     }
 
     @Override
+    protected int getTopDateViewId() {
+        return 0;
+    }
+
+    @Override
     protected int getDateViewId() {
         return 0;
     }
@@ -135,6 +140,11 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
 
     @Override
     protected int getClockMinutesCustomViewId() {
+        return 0;
+    }
+
+    @Override
+    protected int getTopDateCustomViewId() {
         return 0;
     }
 

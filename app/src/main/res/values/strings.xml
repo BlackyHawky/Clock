@@ -1325,6 +1325,8 @@
     <string name="display_city_title">Display cities on the widget</string>
     <!-- Title to display the date on the digital widget. -->
     <string name="display_date_title">Display date on the widget</string>
+    <!-- Title to display the date above the time on the digital widget. -->
+    <string name="display_top_date_title">Display date above the time on the widget</string>
     <!-- Title to display the next alarm on the digital widget. -->
     <string name="display_next_alarm_title">Display next alarm on the widget</string>
     <!-- Title to display the next alarm title on the digital widget. -->

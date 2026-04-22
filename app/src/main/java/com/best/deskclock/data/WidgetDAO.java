@@ -183,6 +183,14 @@ public final class WidgetDAO {
     }
 
     /**
+     * @return {@code true} if the date is displayed above the time on the digital widget; {@code false} otherwise.
+     */
+    public static boolean isTopDateDisplayedOnDigitalWidget(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_customize_digital_widget.xml
+        return prefs.getBoolean(KEY_DIGITAL_WIDGET_DISPLAY_TOP_DATE, DEFAULT_DIGITAL_WIDGET_DISPLAY_TOP_DATE);
+    }
+
+    /**
      * @return {@code true} if the next alarm is displayed on the digital widget; {@code false} otherwise.
      */
     public static boolean isNextAlarmDisplayedOnDigitalWidget(SharedPreferences prefs) {
