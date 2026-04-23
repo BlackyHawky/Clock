@@ -55,6 +55,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
 import androidx.transition.ChangeBounds;
 import androidx.transition.Fade;
+import androidx.transition.Transition;
 import androidx.transition.TransitionManager;
 import androidx.transition.TransitionSet;
 
@@ -121,10 +122,12 @@ public final class AlarmFragment extends DeskClockFragment
     private boolean mIsPhoneInLandscape;
     private boolean mIsLowAlarmVolumeWarningEnabled;
     private boolean mSideButtonsVisible = false;
+    private boolean mIsUiTransitioning = false;
     private boolean mIsReordering = false;
 
     // Data
     private Loader<?> mCursorLoader;
+    private Alarm mPendingAlarmToEdit = null;
     private long mScrollToAlarmId = Alarm.INVALID_ID;
     private long mCurrentUpdateToken;
     private String mLastSortOrder = null;
@@ -707,6 +710,14 @@ public final class AlarmFragment extends DeskClockFragment
                 scrollToAlarm(mScrollToAlarmId);
                 setSmoothScrollStableId(Alarm.INVALID_ID);
             }
+
+            // Check if a newly created alarm is waiting to be edited.
+            if (mPendingAlarmToEdit != null) {
+                final Alarm alarmToOpen = mPendingAlarmToEdit;
+                mPendingAlarmToEdit = null;
+
+                mRecyclerView.post(() -> openBottomSheetWhenIdle(alarmToOpen));
+            }
         }
     }
 
@@ -776,6 +787,86 @@ public final class AlarmFragment extends DeskClockFragment
         mAlarmTimeClickHandler.showAlarmDelayPickerDialog();
     }
 
+    /**
+     * Safely initiates the process to open the BottomSheet for a newly created alarm.
+     *
+     * <p>It handles potential race conditions between the database Loader and the async callback.</p>
+     */
+    public void setPendingAlarmToEdit(Alarm newAlarm) {
+        // Check if the database Loader has already updated the adapter before this callback.
+        boolean alreadyInList = false;
+        for (int i = 0; i < mItemAdapter.getItemCount(); i++) {
+            if (mItemAdapter.getItemId(i) == newAlarm.id) {
+                alreadyInList = true;
+                break;
+            }
+        }
+
+        if (alreadyInList) {
+            // The Loader was faster than the callback; the list is already up-to-date.
+            // We can trigger the scroll and wait for the animation to open the BottomSheet.
+            scrollToAlarm(newAlarm.id);
+            setSmoothScrollStableId(Alarm.INVALID_ID);
+
+            mRecyclerView.post(() -> openBottomSheetWhenIdle(newAlarm));
+        } else {
+            // The callback was faster than the Loader; 'setAdapterItems' will handle it once the Loader finishes.
+            mPendingAlarmToEdit = newAlarm;
+            setSmoothScrollStableId(newAlarm.id);
+        }
+    }
+
+    /**
+     * Waits for the RecyclerView's smooth scrolling to finish before proceeding.
+     */
+    private void openBottomSheetWhenIdle(Alarm alarm) {
+        // Check if the list scrolls to the new alarm.
+        if (mRecyclerView.getScrollState() != RecyclerView.SCROLL_STATE_IDLE) {
+            mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                        recyclerView.removeOnScrollListener(this);
+                        checkAnimatorAndOpen(alarm);
+                    }
+                }
+            });
+        } else {
+            // No scrolling in progress, proceed directly.
+            checkAnimatorAndOpen(alarm);
+        }
+    }
+
+    /**
+     * Waits for both global UI transitions (EmptyView) and RecyclerView item animations to finish.
+     */
+    private void checkAnimatorAndOpen(Alarm alarm) {
+        // Check if a global layout transition (like Fade IN/OUT of the empty view) is running.
+        if (mIsUiTransitioning) {
+            // Check again on the next rendering frame.
+            mRecyclerView.postOnAnimation(() -> checkAnimatorAndOpen(alarm));
+            return;
+        }
+
+        // Check if a RecyclerView-specific item animation (insertion/expansion) is running.
+        RecyclerView.ItemAnimator animator = mRecyclerView.getItemAnimator();
+        if (animator != null && animator.isRunning()) {
+            animator.isRunning(() -> displayBottomSheet(alarm));
+        } else {
+            // The list is perfectly static and fully rendered.
+            displayBottomSheet(alarm);
+        }
+    }
+
+    /**
+     * Final trigger to safely display the BottomSheet.
+     */
+    private void displayBottomSheet(Alarm alarm) {
+        if (isAdded()) {
+            mAlarmTimeClickHandler.displayBottomSheetDialog(alarm, true);
+        }
+    }
+
     public void removeItem(AlarmItemHolder itemHolder) {
         mItemAdapter.removeItem(itemHolder);
     }
@@ -814,6 +905,11 @@ public final class AlarmFragment extends DeskClockFragment
         int targetVisibility = shouldShowBanner ? VISIBLE : GONE;
         boolean bannerWillChange = mVolumeWarningBanner.getVisibility() != targetVisibility;
 
+        // Check if the empty view state is about to toggle.
+        boolean emptyStateWillChange = mEmptyViewController.isEmpty() != noAlarms;
+
+        Transition transitionToTrack = null;
+
         if (bannerWillChange) {
             TransitionSet combinedTransition = new TransitionSet()
                 .setOrdering(TransitionSet.ORDERING_TOGETHER)
@@ -825,8 +921,32 @@ public final class AlarmFragment extends DeskClockFragment
 
             mVolumeWarningBanner.setVisibility(targetVisibility);
             mEmptyViewController.setEmpty(noAlarms, false);
-        } else {
+
+            transitionToTrack = combinedTransition;
+        } else if (emptyStateWillChange) {
+            // The state will change, the EmptyViewController will trigger its own delayed transition.
+            transitionToTrack = mEmptyViewController.getTransition();
             mEmptyViewController.setEmpty(noAlarms, true);
+        } else {
+            mEmptyViewController.setEmpty(noAlarms, false);
+        }
+
+        // If a transition was triggered, attach a listener to block the BottomSheet until it finishes.
+        if (transitionToTrack != null) {
+            mIsUiTransitioning = true;
+            transitionToTrack.addListener(new Transition.TransitionListener() {
+                @Override public void onTransitionStart(@NonNull Transition transition) {}
+                @Override public void onTransitionCancel(@NonNull Transition transition) {}
+                @Override public void onTransitionPause(@NonNull Transition transition) {}
+                @Override public void onTransitionResume(@NonNull Transition transition) {}
+
+                @Override
+                public void onTransitionEnd(@NonNull Transition transition) {
+                    // Remove listener to prevent memory leaks and clear the flag.
+                    transition.removeListener(this);
+                    mIsUiTransitioning = false;
+                }
+            });
         }
     }
 

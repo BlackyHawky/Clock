@@ -16,7 +16,6 @@ import android.content.SharedPreferences;
 import android.media.AudioManager;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.best.deskclock.AppExecutors;
@@ -43,15 +42,15 @@ public final class AlarmTimeClickHandler {
     private static final String TAG = "AlarmTimeClickHandler";
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger(TAG);
 
-    private final Fragment mFragment;
+    private final AlarmFragment mAlarmFragment;
     private final Context mContext;
     private final SharedPreferences mPrefs;
     private final AlarmUpdateHandler mAlarmUpdateHandler;
     private Alarm mSelectedAlarm;
 
-    public AlarmTimeClickHandler(Fragment fragment, AlarmUpdateHandler alarmUpdateHandler) {
-        mFragment = fragment;
-        mContext = mFragment.requireContext();
+    public AlarmTimeClickHandler(AlarmFragment alarmFragment, AlarmUpdateHandler alarmUpdateHandler) {
+        mAlarmFragment = alarmFragment;
+        mContext = mAlarmFragment.requireContext();
         mPrefs = getDefaultSharedPreferences(mContext);
         mAlarmUpdateHandler = alarmUpdateHandler;
     }
@@ -64,10 +63,11 @@ public final class AlarmTimeClickHandler {
         mSelectedAlarm = selectedAlarm;
     }
 
-    public void displayBottomSheetDialog(Alarm alarm) {
-        AlarmEditBottomSheetFragment fragment = AlarmEditBottomSheetFragment.newInstance(alarm, alarm.id, mFragment.getTag());
+    public void displayBottomSheetDialog(Alarm alarm, boolean isNewAlarm) {
+        AlarmEditBottomSheetFragment fragment =
+            AlarmEditBottomSheetFragment.newInstance(alarm, alarm.id, mAlarmFragment.getTag(), isNewAlarm);
 
-        AlarmEditBottomSheetFragment.show(mFragment.getParentFragmentManager(), fragment);
+        AlarmEditBottomSheetFragment.show(mAlarmFragment.getParentFragmentManager(), fragment);
         LOGGER.v("Opening BottomSheet to edit alarm: " + alarm.id);
     }
 
@@ -86,8 +86,8 @@ public final class AlarmTimeClickHandler {
                 mAlarmUpdateHandler.useSyncToastForLabel(alarm.label);
             }
 
-            if (newState && mFragment instanceof AlarmFragment) {
-                ((AlarmFragment) mFragment).setSmoothScrollStableId(alarm.id);
+            if (newState) {
+                mAlarmFragment.setSmoothScrollStableId(alarm.id);
             }
 
             // Update the current alarm instance.
@@ -172,9 +172,7 @@ public final class AlarmTimeClickHandler {
 
         // For occasional alarms, handle in the same way as the Delete button.
         if (alarm.isDeleteAfterUse()) {
-            if (mFragment instanceof AlarmFragment) {
-                ((AlarmFragment) mFragment).removeItem(itemHolder);
-            }
+            mAlarmFragment.removeItem(itemHolder);
 
             Events.sendAlarmEvent(R.string.action_delete, R.string.label_deskclock);
             mAlarmUpdateHandler.asyncDeleteAlarm(alarm);
@@ -208,14 +206,14 @@ public final class AlarmTimeClickHandler {
         Events.sendAlarmEvent(R.string.action_set_delay, R.string.label_deskclock);
 
         final AlarmDelayPickerDialogFragment fragment = AlarmDelayPickerDialogFragment.newInstance(0, 0);
-        AlarmDelayPickerDialogFragment.show(mFragment.getParentFragmentManager(), fragment);
+        AlarmDelayPickerDialogFragment.show(mAlarmFragment.getParentFragmentManager(), fragment);
     }
 
     public void showSpinnerTimePickerDialog(int hours, int minutes) {
         Events.sendAlarmEvent(R.string.action_set_time, R.string.label_deskclock);
 
         final SpinnerTimePickerDialogFragment fragment = SpinnerTimePickerDialogFragment.newInstance(hours, minutes);
-        SpinnerTimePickerDialogFragment.show(mFragment.getParentFragmentManager(), fragment);
+        SpinnerTimePickerDialogFragment.show(mAlarmFragment.getParentFragmentManager(), fragment);
     }
 
     public void showMaterialTimePicker(int hours, int minutes) {
@@ -233,7 +231,13 @@ public final class AlarmTimeClickHandler {
 
     public void setAlarm(int hour, int minute) {
         if (mSelectedAlarm == null) {
-            mAlarmUpdateHandler.asyncAddAlarm(buildNewAlarm(hour, minute));
+            mAlarmUpdateHandler.asyncAddAlarm(buildNewAlarm(hour, minute), false, newAlarm ->
+                AppExecutors.getMainThread().post(() -> {
+                    if (mAlarmFragment.isAdded()) {
+                        mAlarmFragment.setPendingAlarmToEdit(newAlarm);
+                    }
+                })
+            );
         } else {
             updateExistingAlarm(hour, minute, false);
         }
@@ -248,7 +252,13 @@ public final class AlarmTimeClickHandler {
         int m = alarmTime.get(Calendar.MINUTE);
 
         if (mSelectedAlarm == null) {
-            mAlarmUpdateHandler.asyncAddAlarm(buildNewAlarm(h, m));
+            mAlarmUpdateHandler.asyncAddAlarm(buildNewAlarm(h, m), false, newAlarm ->
+                AppExecutors.getMainThread().post(() -> {
+                    if (mAlarmFragment.isAdded()) {
+                        mAlarmFragment.setPendingAlarmToEdit(newAlarm);
+                    }
+                })
+            );
         } else {
             updateExistingAlarm(h, m, true);
         }
