@@ -84,7 +84,7 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         mUpcomingDate = itemView.findViewById(R.id.upcoming_date);
         mPreemptiveDismissButton = itemView.findViewById(R.id.preemptive_dismiss_button);
 
-        itemView.setOnClickListener(v -> mItemHolder.getAlarmTimeClickHandler().displayBottomSheetDialog(mItemHolder.item));
+        itemView.setOnClickListener(v -> mItemHolder.getAlarmTimeClickHandler().displayBottomSheetDialog(mItemHolder.item, false));
 
         // Clock handler
         mClock.setTypeface(ThemeUtils.boldTypeface(SettingsDAO.getAlarmFont(mPrefs)));

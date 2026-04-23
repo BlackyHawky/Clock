@@ -89,6 +89,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     public static final String TAG = "alarm_edit_bottom_sheet";
     private static final String ARG_ALARM = "arg_alarm";
     private static final String ARG_ALARM_ID = "arg_alarm_id";
+    private static final String ARG_IS_NEW_ALARM = "arg_is_new_alarm";
     private static final String ARG_TAG = "arg_tag";
     public static final String SCROLL_TO_ALARM_ID = "scroll_to_alarm_id";
     public static final String REQUEST_KEY = "alarm_saved";
@@ -101,6 +102,8 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     private AlarmUpdateHandler mAlarmUpdateHandler;
     private FragmentManager.FragmentLifecycleCallbacks mLifecycleCallbacks;
     private String mTag;
+    private boolean mIsNewAlarm;
+    private boolean mIsDeleted;
     private boolean mIsActionPending = false;
 
     private TextTime mClock;
@@ -133,13 +136,14 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     private TextView mAlarmVolumeValue;
     private MaterialButton mDeleteButton;
 
-    public static AlarmEditBottomSheetFragment newInstance(Alarm alarm, long alarmId, String tag) {
+    public static AlarmEditBottomSheetFragment newInstance(Alarm alarm, long alarmId, String tag, boolean isNewAlarm) {
 
         final Bundle args = new Bundle();
 
         args.putParcelable(ARG_ALARM, alarm);
         args.putLong(ARG_ALARM_ID, alarmId);
         args.putString(ARG_TAG, tag);
+        args.putBoolean(ARG_IS_NEW_ALARM, isNewAlarm);
 
         final AlarmEditBottomSheetFragment fragment = new AlarmEditBottomSheetFragment();
         fragment.setArguments(args);
@@ -169,9 +173,16 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         super.onCreate(savedInstanceState);
 
         mTag = requireArguments().getString(ARG_TAG);
+        mIsNewAlarm = requireArguments().getBoolean(ARG_IS_NEW_ALARM, false);
+
         mPrefs = getDefaultSharedPreferences(requireContext());
         mGeneralTypeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(mPrefs));
         mAlarmBoldTypeface = ThemeUtils.boldTypeface(SettingsDAO.getAlarmFont(mPrefs));
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
 
         View rootView = requireActivity().findViewById(R.id.content);
         mAlarmUpdateHandler = new AlarmUpdateHandler(requireContext(), null, (ViewGroup) rootView);
@@ -800,6 +811,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         mDeleteButton.setTypeface(mGeneralTypeface);
 
         mDeleteButton.setOnClickListener(v -> {
+            mIsDeleted = true;
             Events.sendAlarmEvent(R.string.action_delete, R.string.label_deskclock);
             mAlarmUpdateHandler.asyncDeleteAlarm(mAlarm);
             dismiss();
@@ -971,7 +983,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     }
 
     private void saveAlarmSettings() {
-        if (mAlarm == null || mOriginalAlarm == null) {
+        if (mIsDeleted || mAlarm == null || mOriginalAlarm == null) {
             return;
         }
 
@@ -979,6 +991,9 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         boolean minorFieldsChanged = mAlarm.hasMinorFieldsChanged(mOriginalAlarm);
 
         if (!timeChanged && !minorFieldsChanged) {
+            if (mIsNewAlarm && mAlarm.enabled) {
+                mAlarmUpdateHandler.asyncUpdateAlarm(mAlarm, true, false);
+            }
             return;
         }
 

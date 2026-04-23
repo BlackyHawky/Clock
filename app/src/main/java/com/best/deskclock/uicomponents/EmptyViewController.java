@@ -65,6 +65,10 @@ public final class EmptyViewController {
         mContentView.setVisibility(mIsEmpty ? View.GONE : View.VISIBLE);
     }
 
+    public boolean isEmpty() {
+        return mIsEmpty;
+    }
+
     public Transition getTransition() {
         return mEmptyViewTransition;
     }

@@ -51,14 +51,27 @@ public final class AlarmUpdateHandler {
      * @param alarm The alarm to be added.
      */
     public void asyncAddAlarm(final Alarm alarm) {
+        asyncAddAlarm(alarm, true, null);
+    }
+
+    /**
+     * Adds a new alarm on the background.
+     *
+     * @param alarm The alarm to be added.
+     * @param listener A callback invoked on the main thread once the alarm has been successfully saved, providing the newly created alarm
+     *                 with its generated database ID. Can be null.
+     */
+    public void asyncAddAlarm(final Alarm alarm, final boolean showSnackbar, final OnAlarmSavedListener listener) {
         AppExecutors.getDiskIO().execute(() -> {
             AlarmInstance instance = null;
+            Alarm newAlarm = null;
+
             if (alarm != null) {
                 Events.sendAlarmEvent(R.string.action_create, R.string.label_deskclock);
                 ContentResolver cr = mAppContext.getContentResolver();
 
                 // Add alarm to db
-                Alarm newAlarm = alarm.addAlarm(cr);
+                newAlarm = alarm.addAlarm(cr);
 
                 // Be ready to scroll to this alarm on UI later.
                 if (mScrollHandler != null) {
@@ -72,10 +85,16 @@ public final class AlarmUpdateHandler {
             }
 
             final AlarmInstance finalInstance = instance;
+            final Alarm finalNewAlarm = newAlarm;
+
             AppExecutors.getMainThread().post(() -> {
-                if (finalInstance != null) {
+                if (showSnackbar && finalInstance != null) {
                     LogUtils.v("Alarm created: " + finalInstance);
                     AlarmUtils.popAlarmSetSnackbar(mSnackbarAnchor, finalInstance.getAlarmTime().getTimeInMillis());
+                }
+
+                if (listener != null && finalNewAlarm != null) {
+                    listener.onAlarmSaved(finalNewAlarm);
                 }
             });
         });
@@ -228,6 +247,19 @@ public final class AlarmUpdateHandler {
         // Register instance to state manager
         AlarmStateManager.registerInstance(mAppContext, newInstance, true);
         return newInstance;
+    }
+
+    /**
+     * Callback interface used to listen for the completion of an alarm save operation.
+     */
+    public interface OnAlarmSavedListener {
+
+        /**
+         * Invoked when the alarm has been successfully saved to the database.
+         *
+         * @param savedAlarm The newly saved alarm, including its generated database ID.
+         */
+        void onAlarmSaved(Alarm savedAlarm);
     }
 
 }
