@@ -230,11 +230,15 @@ public final class AlarmUpdateHandler {
 
     private void showUndoBar() {
         final Context localizedContext = Utils.getLocalizedContext(mAppContext);
-        final Alarm deletedAlarm = mDeletedAlarm;
         final Snackbar snackbar = Snackbar.make(mSnackbarAnchor, localizedContext.getString(R.string.alarm_deleted),
             Snackbar.LENGTH_LONG).setAction(R.string.alarm_undo, v -> {
-            mDeletedAlarm = null;
-            asyncAddAlarm(deletedAlarm);
+            if (mDeletedAlarm != null) {
+                final Alarm alarmToRestore = mDeletedAlarm;
+
+                mDeletedAlarm = null;
+
+                asyncAddAlarm(alarmToRestore);
+            }
         });
 
         SnackbarManager.show(snackbar);
