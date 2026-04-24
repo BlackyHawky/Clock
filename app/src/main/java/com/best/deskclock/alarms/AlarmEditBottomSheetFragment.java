@@ -5,6 +5,7 @@ package com.best.deskclock.alarms;
 import static android.app.Activity.RESULT_OK;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.*;
 
@@ -25,6 +26,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -35,11 +37,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.content.res.AppCompatResources;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.best.deskclock.AppExecutors;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
@@ -100,11 +100,9 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     private Alarm mAlarm;
     private Alarm mOriginalAlarm;
     private AlarmUpdateHandler mAlarmUpdateHandler;
-    private FragmentManager.FragmentLifecycleCallbacks mLifecycleCallbacks;
     private String mTag;
     private boolean mIsNewAlarm;
     private boolean mIsDeleted;
-    private boolean mIsActionPending = false;
 
     private TextTime mClock;
     private MaterialButton mDuplicateButton;
@@ -178,6 +176,8 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         mPrefs = getDefaultSharedPreferences(requireContext());
         mGeneralTypeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(mPrefs));
         mAlarmBoldTypeface = ThemeUtils.boldTypeface(SettingsDAO.getAlarmFont(mPrefs));
+
+        setupFragmentResultListeners();
     }
 
     @Override
@@ -202,17 +202,13 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         BottomSheetDialog dialog = (BottomSheetDialog) super.onCreateDialog(savedInstanceState);
 
-        mLifecycleCallbacks = new FragmentManager.FragmentLifecycleCallbacks() {
-            @Override
-            public void onFragmentViewDestroyed(@NonNull FragmentManager fm, @NonNull Fragment f) {
-                super.onFragmentViewDestroyed(fm, f);
-
-                if (f instanceof DialogFragment && f != AlarmEditBottomSheetFragment.this) {
-                    AppExecutors.getMainThread().postDelayed(() -> setBottomSheetExpanded(), 350);
-                }
-            }
-        };
-        getChildFragmentManager().registerFragmentLifecycleCallbacks(mLifecycleCallbacks, false);
+        if (dialog.getWindow() != null) {
+            // To prevent flickering when a 'MaterialAlertDialog' opens on top of this BottomSheet, remove the background dimming
+            // caused by the BottomSheet. The 'MaterialAlertDialog' will handle this dimming.
+            dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+            // Prevent the BottomSheet from moving when the keyboard opens (for example, when editing the alarm label).
+            dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
+        }
 
         final Bundle bundleToUse = (savedInstanceState != null) ? savedInstanceState : requireArguments();
         Alarm alarmFromArguments = SdkUtils.isAtLeastAndroid13()
@@ -231,8 +227,6 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         View dialogView = getLayoutInflater().inflate(R.layout.alarm_edit_bottom_sheet, null);
 
         dialog.setContentView(dialogView);
-
-        setupFragmentResultListeners();
 
         BottomSheetBehavior<?> behavior = dialog.getBehavior();
         behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
@@ -287,6 +281,15 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
         updateAllGroupBackgrounds();
 
+        dialog.setOnShowListener(dialogInterface -> {
+            BottomSheetDialog d = (BottomSheetDialog) dialogInterface;
+            View bottomSheetInternal = d.findViewById(com.google.android.material.R.id.design_bottom_sheet);
+
+            if (bottomSheetInternal != null) {
+                bottomSheetInternal.setElevation(dpToPx(12, getResources().getDisplayMetrics()));
+            }
+        });
+
         return dialog;
     }
 
@@ -314,15 +317,6 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         super.onDismiss(dialog);
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-
-        if (mLifecycleCallbacks != null) {
-            getChildFragmentManager().unregisterFragmentLifecycleCallbacks(mLifecycleCallbacks);
-        }
-    }
-
     private void bindClock() {
         applyRipplePillBackground(mClock);
         mClock.setTime(mAlarm.hour, mAlarm.minutes);
@@ -333,11 +327,10 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
             if (SettingsDAO.getMaterialTimePickerStyle(mPrefs).equals(SPINNER_TIME_PICKER_STYLE)) {
                 final SpinnerTimePickerDialogFragment fragment = SpinnerTimePickerDialogFragment.newInstance(mAlarm.hour, mAlarm.minutes);
-
-                hideBottomSheetAndRun(() -> SpinnerTimePickerDialogFragment.show(getChildFragmentManager(), fragment));
+                SpinnerTimePickerDialogFragment.show(getChildFragmentManager(), fragment);
             } else {
-                hideBottomSheetAndRun(() -> MaterialTimePickerDialogFragment.show(requireContext(), getChildFragmentManager(), TAG,
-                    mAlarm.hour, mAlarm.minutes, mPrefs));
+                MaterialTimePickerDialogFragment.show(
+                    requireContext(), getChildFragmentManager(), TAG, mAlarm.hour, mAlarm.minutes, mPrefs);
             }
         });
 
@@ -345,8 +338,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             Events.sendAlarmEvent(R.string.action_set_delay, R.string.label_deskclock);
 
             final AlarmDelayPickerDialogFragment fragment = AlarmDelayPickerDialogFragment.newInstance(0, 0);
-
-            hideBottomSheetAndRun(() -> AlarmDelayPickerDialogFragment.show(getChildFragmentManager(), fragment));
+            AlarmDelayPickerDialogFragment.show(getChildFragmentManager(), fragment);
 
             return true;
         });
@@ -418,28 +410,26 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
         int openCalendarText = R.string.schedule_alarm_title;
 
-        View.OnClickListener openCalendarListener = v -> hideBottomSheetAndRun(() ->
-            DatePickerDialogFragment.show(
-                requireContext(),
-                getChildFragmentManager(),
-                mPrefs,
-                mAlarm,
-                (year, month, day, hour, minute) -> {
-                    if (mAlarm.daysOfWeek.isRepeating()) {
-                        mAlarm.daysOfWeek = Weekdays.NONE;
-                    }
-                    mAlarm.year = year;
-                    mAlarm.month = month;
-                    mAlarm.day = day;
-                    mAlarm.hour = hour;
-                    mAlarm.minutes = minute;
+        View.OnClickListener openCalendarListener = v -> DatePickerDialogFragment.show(
+            requireContext(),
+            getChildFragmentManager(),
+            mPrefs,
+            mAlarm,
+            (year, month, day, hour, minute) -> {
+                if (mAlarm.daysOfWeek.isRepeating()) {
+                    mAlarm.daysOfWeek = Weekdays.NONE;
+                }
+                mAlarm.year = year;
+                mAlarm.month = month;
+                mAlarm.day = day;
+                mAlarm.hour = hour;
+                mAlarm.minutes = minute;
 
-                    bindSelectedDate();
-                    bindDaysOfWeekButtons();
-                    bindDeleteOccasionalAlarmAfterUse();
-                },
-                () -> AppExecutors.getMainThread().postDelayed(this::setBottomSheetExpanded, 350)
-            ));
+                bindSelectedDate();
+                bindDaysOfWeekButtons();
+                bindDeleteOccasionalAlarmAfterUse();
+            }
+        );
 
         View.OnClickListener removeDateListener = v -> {
             Calendar now = Calendar.getInstance();
@@ -486,8 +476,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             Events.sendAlarmEvent(R.string.action_set_label, R.string.label_deskclock);
 
             final LabelDialogFragment fragment = LabelDialogFragment.newInstance(mAlarm.label, mAlarm.syncByLabel);
-
-            hideBottomSheetAndRun(() -> LabelDialogFragment.show(getChildFragmentManager(), fragment));
+            LabelDialogFragment.show(getChildFragmentManager(), fragment);
         });
     }
 
@@ -565,8 +554,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             Events.sendAlarmEvent(R.string.action_set_vibration_pattern, R.string.label_deskclock);
 
             final VibrationPatternDialogFragment fragment = VibrationPatternDialogFragment.newInstance(mAlarm.vibrationPattern);
-
-            hideBottomSheetAndRun(() -> VibrationPatternDialogFragment.show(getChildFragmentManager(), fragment));
+            VibrationPatternDialogFragment.show(getChildFragmentManager(), fragment);
         };
 
         mVibrationPatternLayout.setOnClickListener(openVibrationPatternFragment);
@@ -643,8 +631,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             Events.sendAlarmEvent(R.string.action_set_auto_silence_duration, R.string.label_deskclock);
 
             final AutoSilenceDurationDialogFragment fragment = AutoSilenceDurationDialogFragment.newInstance(mAlarm.autoSilenceDuration);
-
-            hideBottomSheetAndRun(() -> AutoSilenceDurationDialogFragment.show(getChildFragmentManager(), fragment));
+            AutoSilenceDurationDialogFragment.show(getChildFragmentManager(), fragment);
         };
 
         mAutoSilenceDurationLayout.setOnClickListener(openAutoSilenceDurationFragment);
@@ -684,16 +671,14 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             Events.sendAlarmEvent(R.string.action_set_snooze_duration, R.string.label_deskclock);
 
             final AlarmSnoozeDurationDialogFragment fragment = AlarmSnoozeDurationDialogFragment.newInstance(mAlarm.snoozeDuration);
-
-            hideBottomSheetAndRun(() -> AlarmSnoozeDurationDialogFragment.show(getChildFragmentManager(), fragment));
+            AlarmSnoozeDurationDialogFragment.show(getChildFragmentManager(), fragment);
         };
 
         mSnoozeDurationLayout.setOnClickListener(openAlarmSnoozeDurationFragment);
     }
 
     private void bindMissedAlarmRepeatLimit() {
-        if (SettingsDAO.isPerAlarmMissedRepeatLimitDisabled(mPrefs)
-            || mAlarm.autoSilenceDuration == TIMEOUT_NEVER) {
+        if (SettingsDAO.isPerAlarmMissedRepeatLimitDisabled(mPrefs) || mAlarm.autoSilenceDuration == TIMEOUT_NEVER) {
             mMissedAlarmRepeatLimitLayout.setVisibility(GONE);
             return;
         }
@@ -720,7 +705,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             final AlarmMissedRepeatLimitDialogFragment fragment =
                 AlarmMissedRepeatLimitDialogFragment.newInstance(mAlarm.missedAlarmRepeatLimit);
 
-            hideBottomSheetAndRun(() -> AlarmMissedRepeatLimitDialogFragment.show(getChildFragmentManager(), fragment));
+            AlarmMissedRepeatLimitDialogFragment.show(getChildFragmentManager(), fragment);
         };
 
         mMissedAlarmRepeatLimitLayout.setOnClickListener(openAlarmMissedRepeatLimitFragment);
@@ -763,7 +748,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             final VolumeCrescendoDurationDialogFragment fragment =
                 VolumeCrescendoDurationDialogFragment.newInstance(mAlarm.crescendoDuration);
 
-            hideBottomSheetAndRun(() -> VolumeCrescendoDurationDialogFragment.show(getChildFragmentManager(), fragment));
+            VolumeCrescendoDurationDialogFragment.show(getChildFragmentManager(), fragment);
         };
 
         mCrescendoDurationLayout.setOnClickListener(openVolumeCrescendoFragment);
@@ -800,8 +785,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             Events.sendAlarmEvent(R.string.action_set_alarm_volume, R.string.label_deskclock);
 
             final AlarmVolumeDialogFragment fragment = AlarmVolumeDialogFragment.newInstance(mAlarm.alarmVolume, mAlarm.alert);
-
-            hideBottomSheetAndRun(() -> AlarmVolumeDialogFragment.show(getChildFragmentManager(), fragment));
+            AlarmVolumeDialogFragment.show(getChildFragmentManager(), fragment);
         };
 
         mAlarmVolumeLayout.setOnClickListener(openVolumeFragment);
@@ -1018,54 +1002,6 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             }
 
             WidgetUtils.updateWidget(requireContext(), NextAlarmAppWidgetProvider.class);
-        }
-    }
-
-    private void hideBottomSheetAndRun(Runnable actionToRun) {
-        if (mIsActionPending) {
-            return;
-        }
-        mIsActionPending = true;
-
-        Dialog dialog = getDialog();
-        if (dialog instanceof BottomSheetDialog bottomSheetDialog) {
-            bottomSheetDialog.setCancelable(false);
-            bottomSheetDialog.setCanceledOnTouchOutside(false);
-
-            BottomSheetBehavior<?> behavior = bottomSheetDialog.getBehavior();
-            behavior.setDraggable(false);
-            behavior.setPeekHeight(0);
-            behavior.setSkipCollapsed(false);
-            behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-            AppExecutors.getMainThread().postDelayed(() -> {
-                mIsActionPending = false;
-
-                if (!isAdded() || getChildFragmentManager().isDestroyed()) {
-                    return;
-                }
-
-                actionToRun.run();
-            }, 350);
-        } else {
-            mIsActionPending = false;
-
-            if (!isAdded() || getChildFragmentManager().isDestroyed()) {
-                return;
-            }
-            actionToRun.run();
-        }
-    }
-
-    private void setBottomSheetExpanded() {
-        Dialog dialog = getDialog();
-        if (dialog instanceof BottomSheetDialog bottomSheetDialog) {
-            bottomSheetDialog.setCancelable(true);
-            bottomSheetDialog.setCanceledOnTouchOutside(true);
-
-            BottomSheetBehavior<?> behavior = bottomSheetDialog.getBehavior();
-            behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-            behavior.setSkipCollapsed(true);
-            behavior.setDraggable(true);
         }
     }
 
