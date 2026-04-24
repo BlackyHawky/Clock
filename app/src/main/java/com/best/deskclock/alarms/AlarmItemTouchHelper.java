@@ -46,6 +46,7 @@ public class AlarmItemTouchHelper extends ItemTouchHelper.SimpleCallback {
     private final AlarmTouchContract mContract;
     private final boolean mIsTablet;
     private final boolean mIsLandscape;
+    private final boolean mIsRtl;
 
     private int dragFrom = RecyclerView.NO_POSITION;
     private int dragTo = RecyclerView.NO_POSITION;
@@ -63,7 +64,11 @@ public class AlarmItemTouchHelper extends ItemTouchHelper.SimpleCallback {
     private final int mDeleteIconHalfSize;
     private final int mTextHorizontalOffset;
     private final float mTextVerticalOffset;
-    private boolean mIsTouchOnClock = false;
+    private float mStartX;
+    private float mStartY;
+    private boolean mIsSwiping = false;
+    private boolean mIsTouchingItem = false;
+    private boolean mIsTouchingClock = false;
 
     public AlarmItemTouchHelper(Context context, AlarmTouchContract contract, RecyclerView recyclerView, boolean isTablet,
                                 boolean isLandscape) {
@@ -73,6 +78,7 @@ public class AlarmItemTouchHelper extends ItemTouchHelper.SimpleCallback {
         mContract = contract;
         mIsTablet = isTablet;
         mIsLandscape = isLandscape;
+        mIsRtl = ThemeUtils.isRTL(context);
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
 
         mLargeRadius = dpToPx(18, displayMetrics);
@@ -96,7 +102,7 @@ public class AlarmItemTouchHelper extends ItemTouchHelper.SimpleCallback {
             TypedValue.COMPLEX_UNIT_SP, 16, context.getResources().getDisplayMetrics()));
         mDeleteTextPaint.setColor(MaterialColors.getColor(context, com.google.android.material.R.attr.colorOnError, Color.BLACK));
         mDeleteTextPaint.setTypeface(ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(getDefaultSharedPreferences(context))));
-        mDeleteTextPaint.setTextAlign(ThemeUtils.isRTL(context) ? Paint.Align.RIGHT : Paint.Align.LEFT);
+        mDeleteTextPaint.setTextAlign(mIsRtl ? Paint.Align.RIGHT : Paint.Align.LEFT);
 
         mTopRadii = new float[]{
             mLargeRadius, mLargeRadius, mLargeRadius, mLargeRadius,
@@ -111,28 +117,63 @@ public class AlarmItemTouchHelper extends ItemTouchHelper.SimpleCallback {
 
         mTextVerticalOffset = (mDeleteTextPaint.getTextSize() - mDeleteTextPaint.getFontMetrics().descent) / 2;
 
-        // Prevent the alarm from dragging if the alarm time is long-pressed
         recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             @Override
             public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
-                if (e.getAction() == MotionEvent.ACTION_DOWN) {
-                    View child = rv.findChildViewUnder(e.getX(), e.getY());
-                    if (child != null) {
-                        View digitalClock = child.findViewById(R.id.digital_clock);
+                switch (e.getAction()) {
+                    // Prevent the alarm from dragging if the alarm time is long-pressed.
+                    case MotionEvent.ACTION_DOWN -> {
+                        View child = rv.findChildViewUnder(e.getX(), e.getY());
 
-                        if (digitalClock != null && digitalClock.getVisibility() == View.VISIBLE) {
-                            int[] loc = new int[2];
-                            digitalClock.getLocationOnScreen(loc);
-                            float x = e.getRawX();
-                            float y = e.getRawY();
+                        mIsTouchingItem = (child != null);
 
-                            mIsTouchOnClock = x >= loc[0] && x <= loc[0] + digitalClock.getWidth()
-                                && y >= loc[1] && y <= loc[1] + digitalClock.getHeight();
+                        if (child != null) {
+                            View digitalClock = child.findViewById(R.id.digital_clock);
+
+                            if (digitalClock != null && digitalClock.getVisibility() == View.VISIBLE) {
+                                int[] loc = new int[2];
+                                digitalClock.getLocationOnScreen(loc);
+                                float x = e.getRawX();
+                                float y = e.getRawY();
+
+                                mIsTouchingClock = x >= loc[0] && x <= loc[0] + digitalClock.getWidth()
+                                    && y >= loc[1] && y <= loc[1] + digitalClock.getHeight();
+                            } else {
+                                mIsTouchingClock = false;
+                            }
                         } else {
-                            mIsTouchOnClock = false;
+                            mIsTouchingClock = false;
                         }
-                    } else {
-                        mIsTouchOnClock = false;
+
+                        mStartX = e.getX();
+                        mStartY = e.getY();
+                    }
+
+                    // Disable swiping right (or left in RTL view) on the ViewPager when touching an alarm item so that
+                    // this gesture is used only to delete alarms.
+                    case MotionEvent.ACTION_MOVE -> {
+                        if (!mIsTouchingItem) {
+                            return false;
+                        }
+
+                        float dx = e.getX() - mStartX;
+                        float dy = Math.abs(e.getY() - mStartY);
+                        boolean isSwipeToDeleteDirection = mIsRtl ? (dx < 0) : (dx > 0);
+
+                        if (isSwipeToDeleteDirection && Math.abs(dx) > dy) {
+                            if (rv.getParent() != null) {
+                                rv.getParent().requestDisallowInterceptTouchEvent(true);
+                            }
+                        }
+                    }
+
+                    // Let the ViewPager handle scrolling when the screen is released.
+                    case MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                        if (rv.getParent() != null) {
+                            rv.getParent().requestDisallowInterceptTouchEvent(false);
+                        }
+
+                        mIsTouchingItem = false;
                     }
                 }
 
@@ -151,7 +192,7 @@ public class AlarmItemTouchHelper extends ItemTouchHelper.SimpleCallback {
 
     @Override
     public int getDragDirs(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-        if (!mContract.canDrag() || mIsTouchOnClock) {
+        if (!mContract.canDrag() || mIsTouchingClock) {
             return 0;
         } else if (mIsTablet || mIsLandscape) {
             return ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.START | ItemTouchHelper.END;
@@ -205,11 +246,15 @@ public class AlarmItemTouchHelper extends ItemTouchHelper.SimpleCallback {
 
         if (dX == 0) {
             itemView.setClipBounds(null);
+            mIsSwiping = false;
             return;
         }
 
-        // On prévient le Fragment qu'un swipe commence (pour cacher le FAB)
-        mContract.onSwipeStarted();
+        // Notify the Fragment that a swipe is starting (to hide the FAB)
+        if (!mIsSwiping) {
+            mIsSwiping = true;
+            mContract.onSwipeStarted();
+        }
 
         c.save();
 
@@ -306,6 +351,8 @@ public class AlarmItemTouchHelper extends ItemTouchHelper.SimpleCallback {
     public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
         super.clearView(recyclerView, viewHolder);
         viewHolder.itemView.setClipBounds(null);
+
+        mIsSwiping = false;
 
         mContract.onRowClear(viewHolder);
 
