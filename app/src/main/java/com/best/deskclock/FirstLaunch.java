@@ -7,7 +7,6 @@ import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreference
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Html;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
@@ -16,6 +15,7 @@ import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.core.graphics.Insets;
+import androidx.core.text.HtmlCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 
@@ -150,12 +150,9 @@ public class FirstLaunch extends BaseActivity {
         String link = ("<a href=\"https://github.com/BlackyHawky/Clock#features-\">"
             + getString(R.string.first_launch_main_feature_link) + "</a>");
 
-        Spanned mainFeaturesMessage;
-        if (SdkUtils.isAtLeastAndroid7()) {
-            mainFeaturesMessage = Html.fromHtml(getString(R.string.first_launch_main_feature_message, link), Html.FROM_HTML_MODE_LEGACY);
-        } else {
-            mainFeaturesMessage = Html.fromHtml(getString(R.string.first_launch_main_feature_message, link));
-        }
+        Spanned mainFeaturesMessage = HtmlCompat.fromHtml(getString(R.string.first_launch_main_feature_message, link),
+            HtmlCompat.FROM_HTML_MODE_LEGACY);
+
         mMainFeaturesText.setText(mainFeaturesMessage);
         mMainFeaturesText.setMovementMethod(LinkMovementMethod.getInstance());
     }
@@ -171,12 +168,8 @@ public class FirstLaunch extends BaseActivity {
             android14message = "";
         }
 
-        Spanned importantInfoMessage;
-        if (SdkUtils.isAtLeastAndroid7()) {
-            importantInfoMessage = Html.fromHtml(getString(R.string.first_launch_important_info_message, android14message), Html.FROM_HTML_MODE_LEGACY);
-        } else {
-            importantInfoMessage = Html.fromHtml(getString(R.string.first_launch_important_info_message, android14message));
-        }
+        Spanned importantInfoMessage = HtmlCompat.fromHtml(getString(R.string.first_launch_important_info_message, android14message),
+            HtmlCompat.FROM_HTML_MODE_LEGACY);
 
         mImportantInfoText.setText(importantInfoMessage);
     }
