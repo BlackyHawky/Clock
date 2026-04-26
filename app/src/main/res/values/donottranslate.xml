@@ -6,6 +6,19 @@
 -->
 
 <resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- ******************************* -->
+    <!-- **     KEEP ANDROID OPEN     ** -->
+    <!-- ******************************* -->
+
+    <string name="keep_android_open_title">Keep Android Open</string>
+    <string name="keep_android_open_message_italic"><![CDATA[<i>\"Starting September 2026, a silent update, nonconsensually pushed by Google,
+    will block every Android app whose developer hasn\'t registered with Google, signed their contract, paid up, and handed over government ID.\"</i><br/><br/>]]></string>
+    <string name="keep_android_open_message"><![CDATA[Since I disagree with this announcement from Google, I\'m not sure I can continue developing this app.
+    <br/><br/>I sincerely hope this isn’t the beginning of the end for the open-source world, where so many developers and enthusiasts have worked so passionately all these years.
+    <br/><br/>BlackyHawky]]></string>
+    <string name="keep_android_open_more_info_button">More info</string>
+    <string name="keep_android_open_solution_button">Solution</string>
+
     <!-- String of debug application title in "About" page. -->
     <string name="about_debug_app_title">Clock debug</string>
     <!-- String of nightly application title in "About" page. -->

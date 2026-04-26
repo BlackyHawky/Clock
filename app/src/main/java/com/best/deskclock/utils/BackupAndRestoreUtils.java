@@ -6,7 +6,7 @@
 package com.best.deskclock.utils;
 
 import static android.media.AudioManager.STREAM_ALARM;
-import static com.best.deskclock.FirstLaunch.KEY_IS_FIRST_LAUNCH;
+
 import static com.best.deskclock.data.CustomRingtoneDAO.NEXT_RINGTONE_ID;
 import static com.best.deskclock.data.CustomRingtoneDAO.RINGTONE_IDS;
 import static com.best.deskclock.data.CustomRingtoneDAO.RINGTONE_TITLE;
@@ -230,8 +230,7 @@ public class BackupAndRestoreUtils {
     public static void readJson(Context context, SharedPreferences prefs, InputStream inputStream) {
         SharedPreferences.Editor editor = prefs.edit();
 
-        // Do not reset the KEY_IS_FIRST_LAUNCH key to prevent the "FirstLaunch" activity from reappearing.
-        // Also, exclude keys corresponding to custom ringtones and the selected alarm ringtone,
+        // Exclude keys corresponding to custom ringtones and the selected alarm ringtone,
         // as this causes bugs for alarms.
         // Next, exclude keys related to images and fonts because these files exist only
         // on the current device and cannot be restored on another.
@@ -240,8 +239,7 @@ public class BackupAndRestoreUtils {
         for (Map.Entry<String, ?> entry : prefs.getAll().entrySet()) {
             String key = entry.getKey();
 
-            if (!key.equals(KEY_IS_FIRST_LAUNCH)
-                && !key.equals(KEY_GENERAL_FONT)
+            if (!key.equals(KEY_GENERAL_FONT)
                 && !key.startsWith(RINGTONE_URI)
                 && !key.equals(RINGTONE_IDS)
                 && !key.equals(NEXT_RINGTONE_ID)

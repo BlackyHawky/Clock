@@ -39,6 +39,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import androidx.annotation.StringRes;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.Insets;
 import androidx.core.graphics.drawable.DrawableCompat;
@@ -88,6 +89,8 @@ public class DeskClock extends BaseActivity implements FabContainer {
     SharedPreferences mPrefs;
     Typeface mRegularTypeface;
     String mFontPath;
+
+    private AlertDialog mKeepAndroidOpenDialog = null;
 
     /**
      * Shrinks the {@link #mFab}, {@link #mLeftButton} and {@link #mRightButton} to nothing.
@@ -253,6 +256,8 @@ public class DeskClock extends BaseActivity implements FabContainer {
 
         setContentView(R.layout.desk_clock);
 
+        displayKeepAndroidOpenDialogIfUnread();
+
         registerPrefListener();
 
         mDeskClockRootView = findViewById(R.id.desk_clock_root_view);
@@ -411,6 +416,12 @@ public class DeskClock extends BaseActivity implements FabContainer {
     protected void onDestroy() {
         unregisterPrefListener();
         UiDataModel.getUiDataModel().removeTabListener(mTabChangeWatcher);
+
+        if (mKeepAndroidOpenDialog != null && mKeepAndroidOpenDialog.isShowing()) {
+            mKeepAndroidOpenDialog.dismiss();
+            mKeepAndroidOpenDialog = null;
+        }
+
         super.onDestroy();
     }
 
@@ -498,6 +509,19 @@ public class DeskClock extends BaseActivity implements FabContainer {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Display dialog related to Google's announcement about app development if unread.
+     *
+     * <p>Note: Clicking the "OK" button will no longer display this dialog box.</p>
+     */
+    private void displayKeepAndroidOpenDialogIfUnread() {
+        if (!mPrefs.getBoolean(KEY_DISPLAY_KEEP_ANDROID_OPEN_DIALOG, true)) {
+            return;
+        }
+
+        mKeepAndroidOpenDialog = Utils.displayKeepAndroidOpenDialog(this, mPrefs, false);
     }
 
     /**

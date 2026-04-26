@@ -29,6 +29,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.MenuProvider;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
@@ -66,8 +67,7 @@ import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-public class AboutFragment extends ScreenFragment
-    implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
+public class AboutFragment extends ScreenFragment implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
     private static final String[] FONT_AND_IMAGE_KEYS = {
         KEY_GENERAL_FONT,
@@ -116,13 +116,16 @@ public class AboutFragment extends ScreenFragment
 
     CustomAboutTitlePreference mTitlePref;
     Preference mVersionPref;
-    Preference mWhatsNewPreference;
-    Preference mAboutFeatures;
-    Preference mViewOnGitHub;
-    Preference mTranslate;
-    Preference mReadLicence;
+    Preference mWhatsNewPref;
+    Preference mAboutFeaturesPref;
+    Preference mViewOnGitHubPref;
+    Preference mTranslatePref;
+    Preference mReadLicencePref;
+    Preference mKeepAndroidOpenPref;
     PreferenceCategory mDebugCategoryPref;
     SwitchPreferenceCompat mEnableLocalLoggingPref;
+
+    private AlertDialog mActiveDialog = null;
 
     /**
      * Used only for release versions.
@@ -142,11 +145,12 @@ public class AboutFragment extends ScreenFragment
 
         mTitlePref = findPreference(KEY_ABOUT_TITLE);
         mVersionPref = findPreference(KEY_ABOUT_VERSION);
-        mWhatsNewPreference = findPreference(KEY_ABOUT_WHATS_NEW);
-        mAboutFeatures = findPreference(KEY_ABOUT_FEATURES);
-        mViewOnGitHub = findPreference(KEY_ABOUT_VIEW_ON_GITHUB);
-        mTranslate = findPreference(KEY_ABOUT_TRANSLATE);
-        mReadLicence = findPreference(KEY_ABOUT_READ_LICENCE);
+        mWhatsNewPref = findPreference(KEY_ABOUT_WHATS_NEW);
+        mAboutFeaturesPref = findPreference(KEY_ABOUT_FEATURES);
+        mViewOnGitHubPref = findPreference(KEY_ABOUT_VIEW_ON_GITHUB);
+        mTranslatePref = findPreference(KEY_ABOUT_TRANSLATE);
+        mReadLicencePref = findPreference(KEY_ABOUT_READ_LICENCE);
+        mKeepAndroidOpenPref = findPreference(KEY_ABOUT_KEEP_ANDROID_OPEN);
         mDebugCategoryPref = findPreference(KEY_DEBUG_CATEGORY);
         mEnableLocalLoggingPref = findPreference(KEY_ENABLE_LOCAL_LOGGING);
 
@@ -188,14 +192,16 @@ public class AboutFragment extends ScreenFragment
                     exportLogs.launch(intent);
                     return true;
                 } else if (item.getItemId() == MENU_RESET_SETTINGS) {
-                    CustomDialog.createSimpleDialog(
+                    mActiveDialog = CustomDialog.createSimpleDialog(
                         requireContext(),
                         R.drawable.ic_reset_settings,
                         R.string.reset_settings_title,
                         getString(R.string.reset_settings_message),
                         android.R.string.ok,
                         (d, w) -> resetPreferences()
-                    ).show();
+                    );
+
+                    mActiveDialog.show();
 
                     return true;
                 }
@@ -253,6 +259,9 @@ public class AboutFragment extends ScreenFragment
                 final String link = "https://github.com/BlackyHawky/Clock/blob/main/LICENSE";
                 displayLinkDialog(R.drawable.ic_about_license, R.string.license, R.string.license_dialog_message, link);
             }
+
+            case KEY_ABOUT_KEEP_ANDROID_OPEN ->
+                mActiveDialog = Utils.displayKeepAndroidOpenDialog(requireContext(), mPrefs, true);
         }
 
         return true;
@@ -279,17 +288,29 @@ public class AboutFragment extends ScreenFragment
         return true;
     }
 
+    @Override
+    public void onDestroy() {
+        if (mActiveDialog != null && mActiveDialog.isShowing()) {
+            mActiveDialog.dismiss();
+            mActiveDialog = null;
+        }
+
+        super.onDestroy();
+    }
+
     private void displayLinkDialog(int iconId, int titleId, int messageId, String link) {
         final Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
 
-        CustomDialog.createSimpleDialog(
+        mActiveDialog = CustomDialog.createSimpleDialog(
             requireContext(),
             iconId,
             titleId,
             getString(messageId, link),
             android.R.string.ok,
             (d, w) -> startActivity(browserIntent)
-        ).show();
+        );
+
+        mActiveDialog.show();
     }
 
     private void setupPreferences() {
@@ -307,11 +328,12 @@ public class AboutFragment extends ScreenFragment
             mVersionPref.setOnPreferenceClickListener(this);
         }
         mVersionPref.setSummary(BuildConfig.VERSION_NAME);
-        mWhatsNewPreference.setOnPreferenceClickListener(this);
-        mAboutFeatures.setOnPreferenceClickListener(this);
-        mViewOnGitHub.setOnPreferenceClickListener(this);
-        mTranslate.setOnPreferenceClickListener(this);
-        mReadLicence.setOnPreferenceClickListener(this);
+        mWhatsNewPref.setOnPreferenceClickListener(this);
+        mAboutFeaturesPref.setOnPreferenceClickListener(this);
+        mViewOnGitHubPref.setOnPreferenceClickListener(this);
+        mTranslatePref.setOnPreferenceClickListener(this);
+        mReadLicencePref.setOnPreferenceClickListener(this);
+        mKeepAndroidOpenPref.setOnPreferenceClickListener(this);
 
         mDebugCategoryPref.setVisible(SettingsDAO.isDebugSettingsDisplayed(mPrefs));
         mEnableLocalLoggingPref.setVisible(SettingsDAO.isDebugSettingsDisplayed(mPrefs));
@@ -364,7 +386,9 @@ public class AboutFragment extends ScreenFragment
 
             for (Map.Entry<String, ?> entry : settings.entrySet()) {
                 String key = entry.getKey();
-                if (!key.equals(KEY_IS_FIRST_LAUNCH) && !key.equals(KEY_ESSENTIAL_PERMISSIONS_GRANTED)) {
+                if (!key.equals(KEY_IS_FIRST_LAUNCH)
+                    && !key.equals(KEY_ESSENTIAL_PERMISSIONS_GRANTED)
+                    && !key.equals(KEY_DISPLAY_KEEP_ANDROID_OPEN_DIALOG)) {
                     editor.remove(key);
                 }
             }
@@ -522,7 +546,7 @@ public class AboutFragment extends ScreenFragment
      * Inform that the log export was successful and allow it to delete local log after export.
      */
     private void displayExportCompleteDialog() {
-        CustomDialog.createSimpleDialog(
+        mActiveDialog = CustomDialog.createSimpleDialog(
             requireContext(),
             R.drawable.ic_bug_report,
             R.string.log_dialog_title,
@@ -532,7 +556,9 @@ public class AboutFragment extends ScreenFragment
                 LogUtils.clearSavedLocalLogs(requireContext());
                 CustomToast.show(requireContext().getApplicationContext(), R.string.toast_message_log_deleted);
             }
-        ).show();
+        );
+
+        mActiveDialog.show();
     }
 
 }
