@@ -26,7 +26,6 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.preference.ListPreference;
@@ -785,7 +784,7 @@ public class AlarmSettingsFragment extends ScreenFragment
 
         String confirmAction = requireContext().getString(R.string.confirm_action_prompt);
 
-        AlertDialog dialog = CustomDialog.createSimpleDialog(
+        mActiveDialog = CustomDialog.createSimpleDialog(
             requireContext(),
             R.drawable.ic_error,
             R.string.warning,
@@ -808,7 +807,7 @@ public class AlarmSettingsFragment extends ScreenFragment
             }
         );
 
-        dialog.show();
+        mActiveDialog.show();
     }
 
     private void initAudioDeviceCallback() {

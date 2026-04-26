@@ -20,9 +20,6 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
-import com.best.deskclock.data.TimerStringFormatter;
-import com.best.deskclock.events.Events;
-import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.google.android.material.button.MaterialButton;
@@ -57,36 +54,19 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
 
         View.OnClickListener playPauseListener = v -> {
             Utils.setVibrationTime(mContext, 50);
-            if (getTimer().isPaused() || getTimer().isReset()) {
-                DataModel.getDataModel().startTimer(getTimer());
-            } else if (getTimer().isRunning()) {
-                DataModel.getDataModel().pauseTimer(getTimer());
-            } else if (getTimer().isExpired()) {
-                DataModel.getDataModel().resetOrDeleteExpiredTimers(R.string.label_deskclock);
-            } else if (getTimer().isMissed()) {
-                DataModel.getDataModel().resetMissedTimers(R.string.label_deskclock);
-            }
+            timerClickHandler.onPlayPauseClicked(getTimer());
         };
 
         timerLabel.setOnClickListener(v -> timerClickHandler.onEditLabelClicked(getTimer()));
 
         resetButton.setOnClickListener(v -> {
-            DataModel.getDataModel().resetOrDeleteTimer(getTimer(), R.string.label_deskclock);
             Utils.setVibrationTime(mContext, 10);
+            timerClickHandler.onResetClicked(getTimer());
         });
 
         addTimeButton.setOnClickListener(v -> {
-            DataModel.getDataModel().addCustomTimeToTimer(getTimer());
             Utils.setVibrationTime(mContext, 10);
-            Events.sendTimerEvent(R.string.action_add_custom_time_to_timer, R.string.label_deskclock);
-
-            // Must use getTimer() because old timer is no longer accurate.
-            final long currentTime = getTimer().getRemainingTime();
-            final String buttonTime = getTimer().getButtonTime();
-            if (currentTime > 0) {
-                v.announceForAccessibility(TimerStringFormatter.formatString(
-                    mContext, R.string.timer_accessibility_custom_time_added, buttonTime, currentTime, true));
-            }
+            timerClickHandler.onAddTimeClicked(getTimer(), v);
         });
 
         addTimeButton.setOnLongClickListener(v -> {
@@ -129,27 +109,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
 
         deleteButton.setOnClickListener(v -> {
             Utils.setVibrationTime(mContext, 10);
-
-            if (SettingsDAO.isWarningDisplayedBeforeDeletingTimer(prefs)) {
-                // Get the title of the timer if there is one; otherwise, get the total duration.
-                final String dialogMessage;
-                if (getTimer().getLabel().isEmpty()) {
-                    dialogMessage = mContext.getString(R.string.warning_dialog_message, getTimer().getTotalDuration());
-                } else {
-                    dialogMessage = mContext.getString(R.string.warning_dialog_message, getTimer().getLabel());
-                }
-
-                CustomDialog.createSimpleDialog(
-                    mContext,
-                    R.drawable.ic_delete,
-                    R.string.warning_dialog_title,
-                    dialogMessage,
-                    android.R.string.ok,
-                    (d, w) -> DataModel.getDataModel().removeTimer(getTimer())
-                ).show();
-            } else {
-                DataModel.getDataModel().removeTimer(getTimer());
-            }
+            timerClickHandler.onDeleteTimerClicked(getTimer());
         });
     }
 

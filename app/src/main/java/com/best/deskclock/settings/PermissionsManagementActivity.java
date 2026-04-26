@@ -114,7 +114,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                 Utils.setVibrationTime(requireContext(), 50);
 
                 if ((boolean) newValue) {
-                    CustomDialog.createSimpleDialog(
+                    mActiveDialog = CustomDialog.createSimpleDialog(
                         requireContext(),
                         R.drawable.ic_notifications,
                         R.string.foreground_service_title,
@@ -125,7 +125,9 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                             mEnableForegroundServicePref.setChecked(true);
                             Utils.startService(requireContext(), KeepAliveService.class);
                         }
-                    ).show();
+                    );
+
+                    mActiveDialog.show();
 
                     return false;
                 } else {
@@ -199,14 +201,16 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
             if (PermissionUtils.areNotificationsEnabled(requireContext())) {
                 displayRevocationDialog(intent);
             } else if (shouldShowRequestPermissionRationale(POST_NOTIFICATIONS)) {
-                CustomDialog.createSimpleDialog(
+                mActiveDialog = CustomDialog.createSimpleDialog(
                     requireContext(),
                     R.drawable.ic_notifications,
                     R.string.notifications_dialog_title,
                     getString(R.string.notifications_dialog_text),
                     android.R.string.ok,
                     (d, w) -> startActivity(intent)
-                ).show();
+                );
+
+                mActiveDialog.show();
             } else {
                 if (SdkUtils.isAtLeastAndroid13()) {
                     requireActivity().requestPermissions(new String[]{POST_NOTIFICATIONS}, 0);
@@ -258,14 +262,16 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
          * Display dialog when user wants to revoke permission.
          */
         private void displayRevocationDialog(Intent intent) {
-            CustomDialog.createSimpleDialog(
+            mActiveDialog = CustomDialog.createSimpleDialog(
                 requireContext(),
                 R.drawable.ic_key_off,
                 R.string.permission_dialog_revoke_title,
                 getString(R.string.revoke_permission_dialog_message),
                 android.R.string.ok,
                 (d, w) -> startActivity(intent)
-            ).show();
+            );
+
+            mActiveDialog.show();
         }
 
         /**
