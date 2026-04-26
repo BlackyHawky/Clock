@@ -27,6 +27,7 @@ import android.widget.TextView;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.graphics.Insets;
@@ -76,6 +77,7 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
     LinearLayoutManager mLinearLayoutManager;
     Typeface mRegularTypeface;
     Typeface mBoldTypeface;
+    AlertDialog mActiveDialog = null;
 
     int mRecyclerViewPosition = -1;
 
@@ -295,6 +297,16 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
         }
     }
 
+    @Override
+    public void onDestroy() {
+        if (mActiveDialog != null && mActiveDialog.isShowing()) {
+            mActiveDialog.dismiss();
+            mActiveDialog = null;
+        }
+
+        super.onDestroy();
+    }
+
     private boolean isCardPreference(Preference preference) {
         return preference != null
             && !(preference instanceof PreferenceCategory)
@@ -348,14 +360,13 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
             .commit();
     }
 
-    protected void selectCustomFile(Preference pref, ActivityResultLauncher<Intent> launcher,
-                                    String fontPath, String prefKey, boolean isFontFile,
-                                    @Nullable OnPreferenceDeleted onPreferenceDeleted) {
+    protected void selectCustomFile(Preference pref, ActivityResultLauncher<Intent> launcher, String fontPath, String prefKey,
+                                    boolean isFontFile, @Nullable OnPreferenceDeleted onPreferenceDeleted) {
 
         if (fontPath == null) {
             selectFile(launcher, isFontFile);
         } else {
-            CustomDialog.create(
+            mActiveDialog = CustomDialog.create(
                 requireContext(),
                 null,
                 null,
@@ -382,7 +393,9 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
                 },
                 null,
                 CustomDialog.SoftInputMode.NONE
-            ).show();
+            );
+
+            mActiveDialog.show();
         }
     }
 

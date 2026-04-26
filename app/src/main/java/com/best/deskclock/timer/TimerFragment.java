@@ -40,6 +40,7 @@ import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -56,6 +57,7 @@ import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.data.TimerListener;
 import com.best.deskclock.events.Events;
+import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.AnimatorUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
@@ -90,6 +92,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     private ViewGroup mCurrentView;
     private MaterialCardView mVolumeWarningBanner;
     private ItemTouchHelper mItemTouchHelper;
+    private AlertDialog mActiveDialog = null;
     private boolean mIsTablet;
     private boolean mIsLandscape;
 
@@ -283,6 +286,11 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
 
     @Override
     public void onDestroyView() {
+        if (mActiveDialog != null && mActiveDialog.isShowing()) {
+            mActiveDialog.dismiss();
+            mActiveDialog = null;
+        }
+
         super.onDestroyView();
 
         DataModel.getDataModel().removeTimerListener(mAdapter);
@@ -598,6 +606,31 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     public void stopUpdatingTime() {
         if (mAdapter != null) {
             mAdapter.stopAllUpdating();
+        }
+    }
+
+    public void confirmAndDeleteTimer(Timer timer) {
+        if (SettingsDAO.isWarningDisplayedBeforeDeletingTimer(mPrefs)) {
+            // Get the title of the timer if there is one; otherwise, get the total duration.
+            final String dialogMessage;
+            if (timer.getLabel().isEmpty()) {
+                dialogMessage = mContext.getString(R.string.warning_dialog_message, timer.getTotalDuration());
+            } else {
+                dialogMessage = mContext.getString(R.string.warning_dialog_message, timer.getLabel());
+            }
+
+            mActiveDialog = CustomDialog.createSimpleDialog(
+                requireContext(),
+                R.drawable.ic_delete,
+                R.string.warning_dialog_title,
+                dialogMessage,
+                android.R.string.ok,
+                (d, w) -> DataModel.getDataModel().removeTimer(timer)
+            );
+
+            mActiveDialog.show();
+        } else {
+            DataModel.getDataModel().removeTimer(timer);
         }
     }
 

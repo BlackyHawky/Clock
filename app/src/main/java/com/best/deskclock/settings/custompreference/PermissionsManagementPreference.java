@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceViewHolder;
@@ -34,6 +35,8 @@ public class PermissionsManagementPreference extends Preference {
     private Context mContext;
 
     private TextView mStatusState;
+
+    private AlertDialog mActiveDialog = null;
 
     public PermissionsManagementPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -82,7 +85,15 @@ public class PermissionsManagementPreference extends Preference {
 
         ImageButton detailsButton = (ImageButton) holder.findViewById(R.id.details_button);
         detailsButton.setOnClickListener(v -> displayPermissionDetailsDialog());
+    }
 
+    @Override
+    public void onDetached() {
+        if (mActiveDialog != null && mActiveDialog.isShowing()) {
+            mActiveDialog.dismiss();
+            mActiveDialog = null;
+        }
+        super.onDetached();
     }
 
     /**
@@ -156,7 +167,7 @@ public class PermissionsManagementPreference extends Preference {
             messageId = R.string.show_lockscreen_dialog_text;
         }
 
-        CustomDialog.create(
+        mActiveDialog = CustomDialog.create(
             mContext,
             null,
             AppCompatResources.getDrawable(mContext, iconId),
@@ -171,7 +182,9 @@ public class PermissionsManagementPreference extends Preference {
             null,
             null,
             CustomDialog.SoftInputMode.NONE
-        ).show();
+        );
+
+        mActiveDialog.show();
     }
 
     public void refreshState() {

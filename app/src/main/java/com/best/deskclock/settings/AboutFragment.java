@@ -29,7 +29,6 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.MenuProvider;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
@@ -124,8 +123,6 @@ public class AboutFragment extends ScreenFragment implements Preference.OnPrefer
     Preference mKeepAndroidOpenPref;
     PreferenceCategory mDebugCategoryPref;
     SwitchPreferenceCompat mEnableLocalLoggingPref;
-
-    private AlertDialog mActiveDialog = null;
 
     /**
      * Used only for release versions.
@@ -286,16 +283,6 @@ public class AboutFragment extends ScreenFragment implements Preference.OnPrefer
         }
 
         return true;
-    }
-
-    @Override
-    public void onDestroy() {
-        if (mActiveDialog != null && mActiveDialog.isShowing()) {
-            mActiveDialog.dismiss();
-            mActiveDialog = null;
-        }
-
-        super.onDestroy();
     }
 
     private void displayLinkDialog(int iconId, int titleId, int messageId, String link) {
