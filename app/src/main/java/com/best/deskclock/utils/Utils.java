@@ -15,11 +15,13 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.VIBRATION_PAT
 import static com.best.deskclock.settings.PreferencesDefaultValues.VIBRATION_PATTERN_SOFT;
 import static com.best.deskclock.settings.PreferencesDefaultValues.VIBRATION_PATTERN_STRONG;
 import static com.best.deskclock.settings.PreferencesDefaultValues.VIBRATION_PATTERN_TICK_TOCK;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_KEEP_ANDROID_OPEN_DIALOG;
 
 import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -28,17 +30,24 @@ import android.os.Looper;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.provider.OpenableColumns;
+import android.text.Spanned;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.text.HtmlCompat;
 import androidx.core.util.Function;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.uicomponents.CustomDialog;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -392,6 +401,57 @@ public class Utils {
 
         // Replace any remaining non-alphanumeric character (except dot or hyphen) with an underscore
         return normalized.replaceAll("[^a-zA-Z0-9.\\-]", "_");
+    }
+
+    /**
+     * @return a dialog related to Google's announcement about app development.
+     *
+     * <p>Note: Clicking the "OK" button will no longer display this dialog box.</p>
+     */
+    public static AlertDialog displayKeepAndroidOpenDialog(Context context, SharedPreferences prefs, boolean isCancelable) {
+        Spanned message = HtmlCompat.fromHtml(context.getString(R.string.keep_android_open_message_italic)
+                + context.getString(R.string.keep_android_open_message), HtmlCompat.FROM_HTML_MODE_LEGACY);
+
+        AlertDialog dialog = CustomDialog.create(
+            context,
+            null,
+            AppCompatResources.getDrawable(context, R.drawable.ic_about_article),
+            context.getString(R.string.keep_android_open_title),
+            message,
+            null,
+            context.getString(android.R.string.ok),
+            (d, w) -> {
+                if (prefs.getBoolean(KEY_DISPLAY_KEEP_ANDROID_OPEN_DIALOG, true)) {
+                    prefs.edit().putBoolean(KEY_DISPLAY_KEEP_ANDROID_OPEN_DIALOG, false).apply();
+                }
+
+                d.dismiss();
+            },
+            context.getString(R.string.keep_android_open_more_info_button),
+            null,
+            context.getString(R.string.keep_android_open_solution_button),
+            null,
+            alertDialog -> {
+                Button moreInfoButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+                if (moreInfoButton != null) {
+                    moreInfoButton.setOnClickListener(v -> context.startActivity(new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("https://keepandroidopen.org")))
+                    );
+                }
+
+                Button solutionButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
+                if (solutionButton != null) {
+                    solutionButton.setOnClickListener(v -> context.startActivity(new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("https://github.com/woheller69/FreeDroidWarn?tab=readme-ov-file#solutions")))
+                    );
+                }
+            },
+            CustomDialog.SoftInputMode.NONE);
+
+        dialog.setCancelable(isCancelable);
+        dialog.show();
+
+        return dialog;
     }
 
     /**

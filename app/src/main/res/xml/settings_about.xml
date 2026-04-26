@@ -59,6 +59,13 @@
         android:icon="@drawable/ic_about_license"
         app:singleLineTitle="false" />
 
+    <Preference
+        android:key="key_about_keep_android_open"
+        android:layout="@layout/settings_preference_layout"
+        android:title="@string/keep_android_open_title"
+        android:icon="@drawable/ic_about_article"
+        app:singleLineTitle="false" />
+
     <PreferenceCategory
         android:key="key_debug_category"
         android:title="@string/debug_category_title"

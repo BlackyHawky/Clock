@@ -30,6 +30,8 @@ public class PreferencesKeys {
     public static final String KEY_ABOUT_VIEW_ON_GITHUB = "key_about_view_on_github";
     public static final String KEY_ABOUT_TRANSLATE = "key_about_translate";
     public static final String KEY_ABOUT_READ_LICENCE = "key_about_read_licence";
+    public static final String KEY_ABOUT_KEEP_ANDROID_OPEN = "key_about_keep_android_open";
+    public static final String KEY_DISPLAY_KEEP_ANDROID_OPEN_DIALOG = "key_display_keep_android_open";
     public static final String KEY_DISPLAY_DEBUG_SETTINGS = "key_display_debug_settings";
     public static final String KEY_DEBUG_CATEGORY = "key_debug_category";
     public static final String KEY_ENABLE_LOCAL_LOGGING = "key_enable_local_logging";
