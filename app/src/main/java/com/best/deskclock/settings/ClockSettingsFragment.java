@@ -67,7 +67,7 @@ public class ClockSettingsFragment extends ScreenFragment
                 sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION
             );
 
-            String safeTitle = Utils.toSafeFileName("digital_clock_font");
+            String safeTitle = Utils.toSafeFileName(FILE_DIGITAL_CLOCK_FONT);
 
             // Delete the old font if it exists
             clearFile(mPrefs.getString(KEY_DIGITAL_CLOCK_FONT, null));

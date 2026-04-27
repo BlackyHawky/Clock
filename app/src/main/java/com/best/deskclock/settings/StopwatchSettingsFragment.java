@@ -3,6 +3,7 @@
 package com.best.deskclock.settings;
 
 import static android.app.Activity.RESULT_OK;
+import static com.best.deskclock.settings.PreferencesKeys.FILE_STOPWATCH_FONT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_FONT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_VOLUME_DOWN_ACTION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS;
@@ -50,7 +51,7 @@ public class StopwatchSettingsFragment extends ScreenFragment
                 sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION
             );
 
-            String safeTitle = Utils.toSafeFileName("stopwatch_font");
+            String safeTitle = Utils.toSafeFileName(FILE_STOPWATCH_FONT);
 
             // Delete the old font if it exists
             clearFile(mPrefs.getString(KEY_SW_FONT, null));

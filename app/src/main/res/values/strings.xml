@@ -1397,6 +1397,10 @@
     <string name="restore_button_title">Restore</string>
     <!-- Toast message when backup is complete -->
     <string name="toast_message_for_backup">Backup completed</string>
+    <!-- Toast message when when backup fails -->
+    <string name="toast_message_backup_error">Backup failed</string>
     <!-- Toast message when restore is complete -->
     <string name="toast_message_for_restore">Restore completed</string>
+    <!-- Toast message when when restore fails -->
+    <string name="toast_message_restore_error">Restore failed</string>
 </resources>

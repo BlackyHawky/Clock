@@ -72,7 +72,7 @@ public class TimerSettingsFragment extends ScreenFragment
                 sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION
             );
 
-            String safeTitle = Utils.toSafeFileName("timer_font");
+            String safeTitle = Utils.toSafeFileName(FILE_TIMER_FONT);
 
             // Delete the old font if it exists
             clearFile(mPrefs.getString(KEY_TIMER_DURATION_FONT, null));
