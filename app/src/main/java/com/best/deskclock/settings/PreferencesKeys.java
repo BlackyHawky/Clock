@@ -326,4 +326,17 @@ public class PreferencesKeys {
     public static final String KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR = "key_next_alarm_widget_custom_alarm_color";
     public static final String KEY_NEXT_ALARM_WIDGET_MAXIMUM_FONT_SIZE = "key_next_alarm_widget_maximum_font_size";
 
+    // ****************
+    // ** FILE NAMES **
+    // ****************
+
+    public static final String FILE_GENERAL_FONT = "general_font";
+    public static final String FILE_ALARM_FONT = "alarm_font";
+    public static final String FILE_ALARM_BACKGROUND = "alarm_background";
+    public static final String FILE_TIMER_FONT = "timer_font";
+    public static final String FILE_TIMER_BACKGROUND = "timer_background";
+    public static final String FILE_STOPWATCH_FONT = "stopwatch_font";
+    public static final String FILE_SCREENSAVER_DIGITAL_CLOCK_FONT = "screensaver_digital_clock_font";
+    public static final String FILE_SCREENSAVER_BACKGROUND = "screensaver_background";
+    public static final String FILE_DIGITAL_CLOCK_FONT = "digital_clock_font";
 }

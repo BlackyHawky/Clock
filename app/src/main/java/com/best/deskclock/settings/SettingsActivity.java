@@ -44,11 +44,16 @@ import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
 
-import java.io.FileNotFoundException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Date;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
+import java.util.zip.ZipOutputStream;
 
 /**
  * Application settings
@@ -103,6 +108,8 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
     public static class SettingsFragment extends ScreenFragment implements Preference.OnPreferenceClickListener {
 
+        private static final String BACKUP_JSON_FILE_NAME = "settings.json";
+
         Preference mInterfaceCustomizationPref;
         Preference mClockSettingsPref;
         Preference mAlarmSettingsPref;
@@ -132,11 +139,18 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                 final Context appContext = requireContext().getApplicationContext();
 
                 AppExecutors.getDiskIO().execute(() -> {
-                    backupPreferences(appContext, uri);
+                    try {
+                        backupPreferences(appContext, uri);
 
-                    AppExecutors.getMainThread().post(() ->
-                        CustomToast.show(appContext, R.string.toast_message_for_backup));
+                        AppExecutors.getMainThread().post(() ->
+                            CustomToast.show(appContext, R.string.toast_message_for_backup));
 
+                    } catch (IOException e) {
+                        LogUtils.e("Error during backup", e);
+
+                        AppExecutors.getMainThread().post(() ->
+                            CustomToast.show(appContext, R.string.toast_message_backup_error));
+                    }
                 });
             });
 
@@ -166,8 +180,10 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
                             CustomToast.show(appContext, R.string.toast_message_for_restore);
                         });
-                    } catch (FileNotFoundException e) {
-                        LogUtils.e("Restore file not found", e);
+                    } catch (IOException e) {
+                        LogUtils.e("Error reading the restore file", e);
+
+                        AppExecutors.getMainThread().post(() -> CustomToast.show(appContext, R.string.toast_message_restore_error));
                     }
                 });
             });
@@ -261,15 +277,15 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                             Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT)
                                 .addCategory(Intent.CATEGORY_OPENABLE)
                                 .putExtra(Intent.EXTRA_TITLE, requireContext().getString(R.string.app_label)
-                                    + "_backup_" + currentDateAndTime + ".json")
-                                .setType("application/json");
+                                    + "_backup_" + currentDateAndTime + ".zip")
+                                .setType("application/zip");
                             backupToFile.launch(intent);
                         },
                         getString(R.string.restore_button_title),
                         (d, w) -> {
                             Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT)
                                 .addCategory(Intent.CATEGORY_OPENABLE)
-                                .setType("application/json");
+                                .setType("application/zip");
                             restoreFromFile.launch(intent);
                         },
                         null,
@@ -322,17 +338,112 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             }
         }
 
-        private void backupPreferences(Context context, Uri uri) {
-            try (OutputStream outputStream = context.getContentResolver().openOutputStream(uri)) {
-                BackupAndRestoreUtils.settingsToJsonStream(context, mPrefs, mPrefs.getAll(), outputStream);
-            } catch (IOException e) {
-                LogUtils.wtf("Error during backup");
+        private void backupPreferences(Context context, Uri uri) throws IOException {
+            try (OutputStream outputStream = context.getContentResolver().openOutputStream(uri);
+                 ZipOutputStream zipOutputStream = new ZipOutputStream(outputStream)) {
+                // The JSON file that contains all the settings
+                ZipEntry jsonEntry = new ZipEntry(BACKUP_JSON_FILE_NAME);
+                zipOutputStream.putNextEntry(jsonEntry);
+
+                BackupAndRestoreUtils.settingsToJsonStream(context, mPrefs, mPrefs.getAll(), zipOutputStream);
+
+                zipOutputStream.closeEntry();
+
+                // Other files for the general font, alarm font, alarm background image, etc
+                appendFileToZip(zipOutputStream, mPrefs.getString(KEY_GENERAL_FONT, null));
+                appendFileToZip(zipOutputStream, mPrefs.getString(KEY_ALARM_FONT, null));
+                appendFileToZip(zipOutputStream, mPrefs.getString(KEY_ALARM_BACKGROUND_IMAGE, null));
+                appendFileToZip(zipOutputStream, mPrefs.getString(KEY_TIMER_DURATION_FONT, null));
+                appendFileToZip(zipOutputStream, mPrefs.getString(KEY_TIMER_BACKGROUND_IMAGE, null));
+                appendFileToZip(zipOutputStream, mPrefs.getString(KEY_SW_FONT, null));
+                appendFileToZip(zipOutputStream, mPrefs.getString(KEY_DIGITAL_CLOCK_FONT, null));
+                appendFileToZip(zipOutputStream, mPrefs.getString(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT, null));
+                appendFileToZip(zipOutputStream, mPrefs.getString(KEY_SCREENSAVER_BACKGROUND_IMAGE, null));
             }
         }
 
-        private void restorePreferences(Context context, Uri uri) throws FileNotFoundException {
-            InputStream inputStream = context.getContentResolver().openInputStream(uri);
-            BackupAndRestoreUtils.readJson(context, mPrefs, inputStream);
+        private void appendFileToZip(ZipOutputStream zipOutputStream, String filePath) throws IOException {
+            if (filePath == null) {
+                return;
+            }
+
+            File file = new File(filePath);
+            if (!file.exists()) {
+                return;
+            }
+
+            ZipEntry zipEntry = new ZipEntry(file.getName());
+            zipOutputStream.putNextEntry(zipEntry);
+
+            try (FileInputStream fileInputStream = new FileInputStream(file)) {
+                byte[] buffer = new byte[4096];
+                int length;
+                while ((length = fileInputStream.read(buffer)) > 0) {
+                    zipOutputStream.write(buffer, 0, length);
+                }
+            }
+
+            zipOutputStream.closeEntry();
+        }
+
+        private void restorePreferences(Context context, Uri uri) throws IOException {
+            try (InputStream inputStream = context.getContentResolver().openInputStream(uri);
+                 ZipInputStream zipInputStream = new ZipInputStream(inputStream)) {
+
+                ZipEntry zipEntry;
+
+                while ((zipEntry = zipInputStream.getNextEntry()) != null) {
+                    if (zipEntry.getName().equals(BACKUP_JSON_FILE_NAME)) {
+                        BackupAndRestoreUtils.readJson(context, mPrefs, zipInputStream);
+                    } else {
+                        restoreFileFromZip(context, zipInputStream, zipEntry.getName());
+                    }
+
+                    zipInputStream.closeEntry();
+                }
+            }
+        }
+
+        private void restoreFileFromZip(Context context, ZipInputStream zipInputStream, String fileName) throws IOException {
+            File outputFile = new File(context.getFilesDir(), fileName);
+
+            try (FileOutputStream fos = new FileOutputStream(outputFile)) {
+                byte[] buffer = new byte[4096];
+                int length;
+                while ((length = zipInputStream.read(buffer)) > 0) {
+                    fos.write(buffer, 0, length);
+                }
+            }
+
+            final String prefKey = getPrefKey(fileName);
+
+            if (prefKey != null) {
+                mPrefs.edit().putString(prefKey, outputFile.getAbsolutePath()).apply();
+            }
+        }
+
+        private String getPrefKey(String fileName) {
+            if (fileName.startsWith(FILE_GENERAL_FONT)) {
+                return KEY_GENERAL_FONT;
+            } else if (fileName.startsWith(FILE_ALARM_FONT)) {
+                return KEY_ALARM_FONT;
+            } else if (fileName.startsWith(FILE_ALARM_BACKGROUND)) {
+                return KEY_ALARM_BACKGROUND_IMAGE;
+            } else if (fileName.startsWith(FILE_TIMER_FONT)) {
+                return KEY_TIMER_DURATION_FONT;
+            } else if (fileName.startsWith(FILE_TIMER_BACKGROUND)) {
+                return KEY_TIMER_BACKGROUND_IMAGE;
+            } else if (fileName.startsWith(FILE_STOPWATCH_FONT)) {
+                return KEY_SW_FONT;
+            } else if (fileName.startsWith(FILE_SCREENSAVER_DIGITAL_CLOCK_FONT)) {
+                return KEY_SCREENSAVER_DIGITAL_CLOCK_FONT;
+            } else if (fileName.startsWith(FILE_SCREENSAVER_BACKGROUND)) {
+                return KEY_SCREENSAVER_BACKGROUND_IMAGE;
+            } else if (fileName.startsWith(FILE_DIGITAL_CLOCK_FONT)) {
+                return KEY_DIGITAL_CLOCK_FONT;
+            }
+
+            return null;
         }
 
         private void applySettingsAfterRestore(Context context) {

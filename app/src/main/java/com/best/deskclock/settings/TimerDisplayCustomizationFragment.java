@@ -66,7 +66,7 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
                 sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION
             );
 
-            String safeTitle = Utils.toSafeFileName("timer_background");
+            String safeTitle = Utils.toSafeFileName(FILE_TIMER_BACKGROUND);
 
             // Delete the old image if it exists
             clearFile(mPrefs.getString(KEY_TIMER_BACKGROUND_IMAGE, null));

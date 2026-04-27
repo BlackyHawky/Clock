@@ -126,7 +126,7 @@ public class AlarmSettingsFragment extends ScreenFragment
                 sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION
             );
 
-            String safeTitle = Utils.toSafeFileName("alarm_font");
+            String safeTitle = Utils.toSafeFileName(FILE_ALARM_FONT);
 
             // Delete the old font if it exists
             clearFile(mPrefs.getString(KEY_ALARM_FONT, null));

@@ -109,7 +109,7 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                     sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION
                 );
 
-                String safeTitle = Utils.toSafeFileName("screensaver_digital_clock_font");
+                String safeTitle = Utils.toSafeFileName(FILE_SCREENSAVER_DIGITAL_CLOCK_FONT);
 
                 // Delete the old font if it exists
                 clearFile(mPrefs.getString(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT, null));
@@ -145,7 +145,7 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                     sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION
                 );
 
-                String safeTitle = Utils.toSafeFileName("screensaver_background");
+                String safeTitle = Utils.toSafeFileName(FILE_SCREENSAVER_BACKGROUND);
 
                 // Delete the old image if it exists
                 clearFile(mPrefs.getString(KEY_SCREENSAVER_BACKGROUND_IMAGE, null));

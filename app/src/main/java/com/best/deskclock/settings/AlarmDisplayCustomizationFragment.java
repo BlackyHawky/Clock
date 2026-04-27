@@ -91,7 +91,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
                 sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION
             );
 
-            String safeTitle = Utils.toSafeFileName("alarm_background");
+            String safeTitle = Utils.toSafeFileName(FILE_ALARM_BACKGROUND);
 
             // Delete the old image if it exists
             clearFile(mPrefs.getString(KEY_ALARM_BACKGROUND_IMAGE, null));

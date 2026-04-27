@@ -67,7 +67,7 @@ public class InterfaceCustomizationFragment extends ScreenFragment
                 sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION
             );
 
-            String safeTitle = Utils.toSafeFileName("general_font");
+            String safeTitle = Utils.toSafeFileName(FILE_GENERAL_FONT);
 
             // Delete the old font if it exists
             clearFile(mPrefs.getString(KEY_GENERAL_FONT, null));

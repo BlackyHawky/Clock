@@ -74,12 +74,11 @@ public class BackupAndRestoreUtils {
         for (Map.Entry<String, ?> entry : settings.entrySet()) {
             if (entry.getKey() != null) {
                 String key = entry.getKey();
-                // Exclude keys from custom ringtones as this causes bugs when restoring.
-                // Also, exclude the selected alarm ringtone.
-                // Next, exclude keys related to images and fonts because these files exist only
-                // on the current device and cannot be restored on another.
-                // Finally, exclude the essential permissions key, as it reflects the current system state
-                // and should not be saved, restored, or reset like other preferences.
+                // Exclude keys from custom ringtones and the selected alarm ringtone as this causes bugs when restoring.
+                // Also, exclude keys related to images and fonts from the JSON backup. The physical files for these preferences are saved
+                // directly within the ZIP archive.
+                // Finally, exclude the essential permissions key, as it reflects the current system state and should not be saved,
+                // restored, or reset like other preferences.
                 if (key.equals(RINGTONE_IDS)
                     || key.equals(KEY_GENERAL_FONT)
                     || key.startsWith(RINGTONE_URI)
@@ -119,7 +118,7 @@ public class BackupAndRestoreUtils {
             }
         }
 
-        try (out) {
+        try {
             JSONObject jsonObject = new JSONObject();
 
             // Header
@@ -190,6 +189,8 @@ public class BackupAndRestoreUtils {
             jsonObject.put("Alarms with specified date", alarmsWithDateArray);
 
             out.write(jsonObject.toString(4).getBytes(StandardCharsets.UTF_8));
+
+            out.flush();
         } catch (JSONException e) {
             LogUtils.e("JSON parsing error", e);
         } catch (IOException e) {
@@ -230,12 +231,11 @@ public class BackupAndRestoreUtils {
     public static void readJson(Context context, SharedPreferences prefs, InputStream inputStream) {
         SharedPreferences.Editor editor = prefs.edit();
 
-        // Exclude keys corresponding to custom ringtones and the selected alarm ringtone,
-        // as this causes bugs for alarms.
-        // Next, exclude keys related to images and fonts because these files exist only
-        // on the current device and cannot be restored on another.
-        // Finally, exclude the essential permissions key, as it reflects the current system state
-        // and should not be saved, restored, or reset like other preferences.
+        // Exclude keys corresponding to custom ringtones and the selected alarm ringtone, as this causes bugs for alarms.
+        // Next, exclude keys related to images and fonts because they are not stored in the JSON. They will be updated dynamically later
+        // if the corresponding files are found in the ZIP archive.
+        // Finally, exclude the essential permissions key, as it reflects the current system state and should not be saved, restored,
+        // or reset like other preferences.
         for (Map.Entry<String, ?> entry : prefs.getAll().entrySet()) {
             String key = entry.getKey();
 
@@ -259,9 +259,11 @@ public class BackupAndRestoreUtils {
             }
         }
 
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
-            StringBuilder jsonBuilder = new StringBuilder();
-            String line;
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
+        StringBuilder jsonBuilder = new StringBuilder();
+        String line;
+
+        try {
             while ((line = reader.readLine()) != null) {
                 jsonBuilder.append(line);
             }
