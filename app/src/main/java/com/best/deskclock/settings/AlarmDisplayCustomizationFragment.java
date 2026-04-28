@@ -20,6 +20,7 @@ import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
+import com.best.deskclock.AppExecutors;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel.ClockStyle;
 import com.best.deskclock.data.SettingsDAO;
@@ -86,36 +87,40 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
                 return;
             }
 
+            final Context appContext = requireContext().getApplicationContext();
+
             // Take persistent permission
-            requireActivity().getContentResolver().takePersistableUriPermission(
-                sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION
-            );
+            appContext.getContentResolver().takePersistableUriPermission(sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
             String safeTitle = Utils.toSafeFileName(FILE_ALARM_BACKGROUND);
+            String oldImagePath = mPrefs.getString(KEY_ALARM_BACKGROUND_IMAGE, null);
 
-            // Delete the old image if it exists
-            clearFile(mPrefs.getString(KEY_ALARM_BACKGROUND_IMAGE, null));
+            AppExecutors.getDiskIO().execute(() -> {
+                // Delete the old image if it exists
+                clearFile(oldImagePath);
 
-            // Copy the new image to the device's protected storage
-            Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(requireContext(), sourceUri, safeTitle);
+                // Copy the new image to the device's protected storage
+                Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(appContext, sourceUri, safeTitle);
 
-            // Save the new path
-            if (copiedUri != null) {
-                mPrefs.edit().putString(KEY_ALARM_BACKGROUND_IMAGE, copiedUri.getPath()).apply();
-                mAlarmBackgroundImagePref.setTitle(getString(R.string.background_image_title_variant));
-                mAlarmBackgroundImagePref.setSummary(getString(R.string.background_image_summary));
-                mEnableAlarmBlurEffectPref.setVisible(SdkUtils.isAtLeastAndroid12());
-                mAlarmBlurIntensityPref.setVisible(SdkUtils.isAtLeastAndroid12()
-                    && SettingsDAO.isAlarmBlurEffectEnabled(mPrefs));
+                AppExecutors.getMainThread().post(() -> {
+                    // Save the new path
+                    if (copiedUri != null) {
+                        mPrefs.edit().putString(KEY_ALARM_BACKGROUND_IMAGE, copiedUri.getPath()).apply();
+                        mAlarmBackgroundImagePref.setTitle(getString(R.string.background_image_title_variant));
+                        mAlarmBackgroundImagePref.setSummary(getString(R.string.background_image_summary));
+                        mEnableAlarmBlurEffectPref.setVisible(SdkUtils.isAtLeastAndroid12());
+                        mAlarmBlurIntensityPref.setVisible(SdkUtils.isAtLeastAndroid12() && SettingsDAO.isAlarmBlurEffectEnabled(mPrefs));
 
-                CustomToast.show(requireContext(), R.string.background_image_toast_message_selected);
-            } else {
-                CustomToast.show(requireContext(), "Error importing image");
-                mAlarmBackgroundImagePref.setTitle(getString(R.string.background_image_title));
-                mAlarmBackgroundImagePref.setSummary(null);
-                mEnableAlarmBlurEffectPref.setVisible(false);
-                mAlarmBlurIntensityPref.setVisible(false);
-            }
+                        CustomToast.show(appContext, R.string.background_image_toast_message_selected);
+                    } else {
+                        CustomToast.show(appContext, "Error importing image");
+                        mAlarmBackgroundImagePref.setTitle(getString(R.string.background_image_title));
+                        mAlarmBackgroundImagePref.setSummary(null);
+                        mEnableAlarmBlurEffectPref.setVisible(false);
+                        mAlarmBlurIntensityPref.setVisible(false);
+                    }
+                });
+            });
         });
 
     @Override

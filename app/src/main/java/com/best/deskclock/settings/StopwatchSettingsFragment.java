@@ -10,6 +10,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_VOLUME_DOWN_ACT
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_VOLUME_UP_ACTION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 
+import com.best.deskclock.AppExecutors;
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.uicomponents.toast.CustomToast;
@@ -46,28 +48,34 @@ public class StopwatchSettingsFragment extends ScreenFragment
                 return;
             }
 
+            final Context appContext = requireContext().getApplicationContext();
+
             // Take persistent permission
-            requireActivity().getContentResolver().takePersistableUriPermission(
-                sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION
-            );
+            appContext.getContentResolver().takePersistableUriPermission(sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
             String safeTitle = Utils.toSafeFileName(FILE_STOPWATCH_FONT);
+            String oldFontPath = mPrefs.getString(KEY_SW_FONT, null);
 
-            // Delete the old font if it exists
-            clearFile(mPrefs.getString(KEY_SW_FONT, null));
+            AppExecutors.getDiskIO().execute(() -> {
+                // Delete the old font if it exists
+                clearFile(oldFontPath);
 
-            Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(requireContext(), sourceUri, safeTitle);
+                // Copy the new font to the device's protected storage
+                Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(appContext, sourceUri, safeTitle);
 
-            // Save the new path
-            if (copiedUri != null) {
-                mPrefs.edit().putString(KEY_SW_FONT, copiedUri.getPath()).apply();
-                mStopwatchFontPref.setTitle(getString(R.string.custom_font_title_variant));
+                AppExecutors.getMainThread().post(() -> {
+                    // Save the new path
+                    if (copiedUri != null) {
+                        mPrefs.edit().putString(KEY_SW_FONT, copiedUri.getPath()).apply();
+                        mStopwatchFontPref.setTitle(getString(R.string.custom_font_title_variant));
 
-                CustomToast.show(requireContext(), R.string.custom_font_toast_message_selected);
-            } else {
-                CustomToast.show(requireContext(), "Error importing font");
-                mStopwatchFontPref.setTitle(getString(R.string.custom_font_title));
-            }
+                        CustomToast.show(appContext, R.string.custom_font_toast_message_selected);
+                    } else {
+                        CustomToast.show(appContext, "Error importing font");
+                        mStopwatchFontPref.setTitle(getString(R.string.custom_font_title));
+                    }
+                });
+            });
         });
 
     @Override

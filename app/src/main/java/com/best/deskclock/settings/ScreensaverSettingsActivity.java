@@ -20,6 +20,7 @@ import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
+import com.best.deskclock.AppExecutors;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
@@ -104,28 +105,34 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                     return;
                 }
 
+                final Context appContext = requireContext().getApplicationContext();
+
                 // Take persistent permission
-                requireActivity().getContentResolver().takePersistableUriPermission(
-                    sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION
-                );
+                appContext.getContentResolver().takePersistableUriPermission(sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
                 String safeTitle = Utils.toSafeFileName(FILE_SCREENSAVER_DIGITAL_CLOCK_FONT);
+                String oldFontPath = mPrefs.getString(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT, null);
 
-                // Delete the old font if it exists
-                clearFile(mPrefs.getString(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT, null));
+                AppExecutors.getDiskIO().execute(() -> {
+                    // Delete the old font if it exists
+                    clearFile(oldFontPath);
 
-                Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(requireContext(), sourceUri, safeTitle);
+                    // Copy the new font to the device's protected storage
+                    Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(appContext, sourceUri, safeTitle);
 
-                // Save the new path
-                if (copiedUri != null) {
-                    mPrefs.edit().putString(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT, copiedUri.getPath()).apply();
-                    mDigitalClockFontPref.setTitle(getString(R.string.custom_font_title_variant));
+                    AppExecutors.getMainThread().post(() -> {
+                        // Save the new path
+                        if (copiedUri != null) {
+                            mPrefs.edit().putString(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT, copiedUri.getPath()).apply();
+                            mDigitalClockFontPref.setTitle(getString(R.string.custom_font_title_variant));
 
-                    CustomToast.show(requireContext(), R.string.custom_font_toast_message_selected);
-                } else {
-                    CustomToast.show(requireContext(), "Error importing font");
-                    mDigitalClockFontPref.setTitle(getString(R.string.custom_font_title));
-                }
+                            CustomToast.show(appContext, R.string.custom_font_toast_message_selected);
+                        } else {
+                            CustomToast.show(appContext, "Error importing font");
+                            mDigitalClockFontPref.setTitle(getString(R.string.custom_font_title));
+                        }
+                    });
+                });
             });
 
         private final ActivityResultLauncher<Intent> imagePickerLauncher =
@@ -140,34 +147,39 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                     return;
                 }
 
+                final Context appContext = requireContext().getApplicationContext();
+
                 // Take persistent permission
-                requireActivity().getContentResolver().takePersistableUriPermission(
-                    sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION
-                );
+                appContext.getContentResolver().takePersistableUriPermission(sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
                 String safeTitle = Utils.toSafeFileName(FILE_SCREENSAVER_BACKGROUND);
+                String oldImagePath = mPrefs.getString(KEY_SCREENSAVER_BACKGROUND_IMAGE, null);
 
-                // Delete the old image if it exists
-                clearFile(mPrefs.getString(KEY_SCREENSAVER_BACKGROUND_IMAGE, null));
+                AppExecutors.getDiskIO().execute(() -> {
+                    // Delete the old image if it exists
+                    clearFile(oldImagePath);
 
-                // Copy the new image to the device's protected storage
-                Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(requireContext(), sourceUri, safeTitle);
+                    // Copy the new image to the device's protected storage
+                    Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(appContext, sourceUri, safeTitle);
 
-                // Save the new path
-                if (copiedUri != null) {
-                    mPrefs.edit().putString(KEY_SCREENSAVER_BACKGROUND_IMAGE, copiedUri.getPath()).apply();
-                    mScreensaverBackgroundImagePref.setTitle(getString(R.string.background_image_title_variant));
-                    mEnableScreensaverBlurEffectPref.setVisible(SdkUtils.isAtLeastAndroid12());
-                    mScreensaverBlurIntensityPref.setVisible(SdkUtils.isAtLeastAndroid12()
-                        && SettingsDAO.isScreensaverBlurEffectEnabled(mPrefs));
+                    AppExecutors.getMainThread().post(() -> {
+                        // Save the new path
+                        if (copiedUri != null) {
+                            mPrefs.edit().putString(KEY_SCREENSAVER_BACKGROUND_IMAGE, copiedUri.getPath()).apply();
+                            mScreensaverBackgroundImagePref.setTitle(getString(R.string.background_image_title_variant));
+                            mEnableScreensaverBlurEffectPref.setVisible(SdkUtils.isAtLeastAndroid12());
+                            mScreensaverBlurIntensityPref.setVisible(SdkUtils.isAtLeastAndroid12()
+                                && SettingsDAO.isScreensaverBlurEffectEnabled(mPrefs));
 
-                    CustomToast.show(requireContext(), R.string.background_image_toast_message_selected);
-                } else {
-                    CustomToast.show(requireContext(), "Error importing image");
-                    mScreensaverBackgroundImagePref.setTitle(getString(R.string.background_image_title));
-                    mEnableScreensaverBlurEffectPref.setVisible(false);
-                    mScreensaverBlurIntensityPref.setVisible(false);
-                }
+                            CustomToast.show(appContext, R.string.background_image_toast_message_selected);
+                        } else {
+                            CustomToast.show(appContext, "Error importing image");
+                            mScreensaverBackgroundImagePref.setTitle(getString(R.string.background_image_title));
+                            mEnableScreensaverBlurEffectPref.setVisible(false);
+                            mScreensaverBlurIntensityPref.setVisible(false);
+                        }
+                    });
+                });
             });
 
         @Override

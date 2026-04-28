@@ -48,6 +48,7 @@ import androidx.preference.PreferenceViewHolder;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.best.deskclock.AppExecutors;
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.settings.custompreference.ColorPickerPreference;
@@ -391,7 +392,7 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
                     if (onPreferenceDeleted != null) {
                         onPreferenceDeleted.onDeleted();
                     }
-                    deleteCustomFile(fontPath, prefKey, isFontFile);
+                    deleteCustomFile(requireContext().getApplicationContext(), fontPath, isFontFile);
                 },
                 null,
                 CustomDialog.SoftInputMode.NONE
@@ -425,17 +426,17 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
      * Deletes a file from storage and removes its associated preference entry.
      *
      * @param path       The absolute path of the file to delete.
-     * @param prefKey    The preference key associated with the stored file path.
      * @param isFontFile True if the deleted file is a font, false if it is an image.
      */
-    protected void deleteCustomFile(String path, String prefKey, boolean isFontFile) {
-        clearFile(path);
+    protected void deleteCustomFile(Context context, String path, boolean isFontFile) {
+        AppExecutors.getDiskIO().execute(() -> {
+            clearFile(path);
 
-        mPrefs.edit().remove(prefKey).apply();
-
-        CustomToast.show(requireContext(), isFontFile
-            ? R.string.custom_font_toast_message_deleted
-            : R.string.background_image_toast_message_deleted);
+            AppExecutors.getMainThread().post(() -> CustomToast.show(context, isFontFile
+                ? R.string.custom_font_toast_message_deleted
+                : R.string.background_image_toast_message_deleted)
+            );
+        });
     }
 
     /**
