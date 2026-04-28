@@ -9,8 +9,10 @@ package com.best.deskclock.settings;
 import static com.best.deskclock.settings.PreferencesKeys.*;
 import static com.best.deskclock.utils.Utils.ACTION_LANGUAGE_CODE_CHANGED;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -173,6 +175,8 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
                 AppExecutors.getDiskIO().execute(() -> {
                     try {
+                        wipeCustomMediaBeforeRestore(appContext);
+
                         restorePreferences(appContext, uri);
 
                         AppExecutors.getMainThread().post(() -> {
@@ -386,6 +390,23 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             zipOutputStream.closeEntry();
         }
 
+        @SuppressLint("ApplySharedPref")
+        private void wipeCustomMediaBeforeRestore(Context context) {
+            SharedPreferences.Editor editor = mPrefs.edit();
+            editor.remove(KEY_GENERAL_FONT);
+            editor.remove(KEY_ALARM_FONT);
+            editor.remove(KEY_ALARM_BACKGROUND_IMAGE);
+            editor.remove(KEY_TIMER_DURATION_FONT);
+            editor.remove(KEY_TIMER_BACKGROUND_IMAGE);
+            editor.remove(KEY_SW_FONT);
+            editor.remove(KEY_DIGITAL_CLOCK_FONT);
+            editor.remove(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT);
+            editor.remove(KEY_SCREENSAVER_BACKGROUND_IMAGE);
+            editor.commit();
+
+            wipeAllCustomFiles(context);
+        }
+
         private void restorePreferences(Context context, Uri uri) throws IOException {
             try (InputStream inputStream = context.getContentResolver().openInputStream(uri);
                  ZipInputStream zipInputStream = new ZipInputStream(inputStream)) {
@@ -415,35 +436,17 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                 }
             }
 
-            final String prefKey = getPrefKey(fileName);
+            final String prefKey = getCustomFilePrefKey(fileName);
 
             if (prefKey != null) {
+                String oldFilePath = mPrefs.getString(prefKey, null);
+
+                if (oldFilePath != null && !oldFilePath.equals(outputFile.getAbsolutePath())) {
+                    clearFile(oldFilePath);
+                }
+
                 mPrefs.edit().putString(prefKey, outputFile.getAbsolutePath()).apply();
             }
-        }
-
-        private String getPrefKey(String fileName) {
-            if (fileName.startsWith(FILE_GENERAL_FONT)) {
-                return KEY_GENERAL_FONT;
-            } else if (fileName.startsWith(FILE_ALARM_FONT)) {
-                return KEY_ALARM_FONT;
-            } else if (fileName.startsWith(FILE_ALARM_BACKGROUND)) {
-                return KEY_ALARM_BACKGROUND_IMAGE;
-            } else if (fileName.startsWith(FILE_TIMER_FONT)) {
-                return KEY_TIMER_DURATION_FONT;
-            } else if (fileName.startsWith(FILE_TIMER_BACKGROUND)) {
-                return KEY_TIMER_BACKGROUND_IMAGE;
-            } else if (fileName.startsWith(FILE_STOPWATCH_FONT)) {
-                return KEY_SW_FONT;
-            } else if (fileName.startsWith(FILE_SCREENSAVER_DIGITAL_CLOCK_FONT)) {
-                return KEY_SCREENSAVER_DIGITAL_CLOCK_FONT;
-            } else if (fileName.startsWith(FILE_SCREENSAVER_BACKGROUND)) {
-                return KEY_SCREENSAVER_BACKGROUND_IMAGE;
-            } else if (fileName.startsWith(FILE_DIGITAL_CLOCK_FONT)) {
-                return KEY_DIGITAL_CLOCK_FONT;
-            }
-
-            return null;
         }
 
         private void applySettingsAfterRestore(Context context) {

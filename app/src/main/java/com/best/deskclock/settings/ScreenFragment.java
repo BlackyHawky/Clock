@@ -8,6 +8,7 @@ package com.best.deskclock.settings;
 
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesKeys.*;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -57,6 +58,7 @@ import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
+import com.best.deskclock.utils.Utils;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
@@ -389,7 +391,7 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
                     if (onPreferenceDeleted != null) {
                         onPreferenceDeleted.onDeleted();
                     }
-                    deleteFile(fontPath, prefKey, isFontFile);
+                    deleteCustomFile(fontPath, prefKey, isFontFile);
                 },
                 null,
                 CustomDialog.SoftInputMode.NONE
@@ -426,7 +428,7 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
      * @param prefKey    The preference key associated with the stored file path.
      * @param isFontFile True if the deleted file is a font, false if it is an image.
      */
-    protected void deleteFile(String path, String prefKey, boolean isFontFile) {
+    protected void deleteCustomFile(String path, String prefKey, boolean isFontFile) {
         clearFile(path);
 
         mPrefs.edit().remove(prefKey).apply();
@@ -434,6 +436,34 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
         CustomToast.show(requireContext(), isFontFile
             ? R.string.custom_font_toast_message_deleted
             : R.string.background_image_toast_message_deleted);
+    }
+
+    /**
+     * Scans both standard and device-protected storage to physically delete all custom media files (fonts and background images)
+     * used by the application.
+     *
+     * <p>This prevents file leaks and ensures a completely clean state during a reset or a restore.</p>
+     *
+     * @param context The context used to access the application's storage directories.
+     */
+    protected void wipeAllCustomFiles(Context context) {
+        File[] directoriesToScan = new File[] {
+            context.getFilesDir(),
+            Utils.getSafeStorageContext(context).getFilesDir()
+        };
+
+        for (File dir : directoriesToScan) {
+            if (dir != null) {
+                File[] files = dir.listFiles();
+                if (files != null) {
+                    for (File file : files) {
+                        if (getCustomFilePrefKey(file.getName()) != null) {
+                            clearFile(file.getAbsolutePath());
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -451,6 +481,36 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
                 }
             }
         }
+    }
+
+    /**
+     * Returns the corresponding preference key for a given custom file (font or background image).
+     *
+     * @param fileName The name of the file to check.
+     * @return The associated preference key, or null if the file is not a recognized custom media file.
+     */
+    protected String getCustomFilePrefKey(String fileName) {
+        if (fileName.startsWith(FILE_GENERAL_FONT)) {
+            return KEY_GENERAL_FONT;
+        } else if (fileName.startsWith(FILE_ALARM_FONT)) {
+            return KEY_ALARM_FONT;
+        } else if (fileName.startsWith(FILE_ALARM_BACKGROUND)) {
+            return KEY_ALARM_BACKGROUND_IMAGE;
+        } else if (fileName.startsWith(FILE_TIMER_FONT)) {
+            return KEY_TIMER_DURATION_FONT;
+        } else if (fileName.startsWith(FILE_TIMER_BACKGROUND)) {
+            return KEY_TIMER_BACKGROUND_IMAGE;
+        } else if (fileName.startsWith(FILE_STOPWATCH_FONT)) {
+            return KEY_SW_FONT;
+        } else if (fileName.startsWith(FILE_SCREENSAVER_DIGITAL_CLOCK_FONT)) {
+            return KEY_SCREENSAVER_DIGITAL_CLOCK_FONT;
+        } else if (fileName.startsWith(FILE_SCREENSAVER_BACKGROUND)) {
+            return KEY_SCREENSAVER_BACKGROUND_IMAGE;
+        } else if (fileName.startsWith(FILE_DIGITAL_CLOCK_FONT)) {
+            return KEY_DIGITAL_CLOCK_FONT;
+        }
+
+        return null;
     }
 
     /**
