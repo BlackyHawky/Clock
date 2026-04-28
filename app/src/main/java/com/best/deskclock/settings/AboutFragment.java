@@ -68,18 +68,6 @@ import java.util.zip.ZipOutputStream;
 
 public class AboutFragment extends ScreenFragment implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
-    private static final String[] FONT_AND_IMAGE_KEYS = {
-        KEY_GENERAL_FONT,
-        KEY_ALARM_FONT,
-        KEY_TIMER_DURATION_FONT,
-        KEY_SW_FONT,
-        KEY_DIGITAL_CLOCK_FONT,
-        KEY_SCREENSAVER_DIGITAL_CLOCK_FONT,
-        KEY_ALARM_BACKGROUND_IMAGE,
-        KEY_TIMER_BACKGROUND_IMAGE,
-        KEY_SCREENSAVER_BACKGROUND_IMAGE
-    };
-
     /**
      * Callback to get the log export result.
      */
@@ -359,9 +347,7 @@ public class AboutFragment extends ScreenFragment implements Preference.OnPrefer
             releaseAllCustomRingtonePermissions();
             deleteAllCustomRingtoneFiles();
 
-            for (String fontAndImageKey : FONT_AND_IMAGE_KEYS) {
-                clearFile(mPrefs.getString(fontAndImageKey, null));
-            }
+            wipeAllCustomFiles(appContext);
 
             LogUtils.clearSavedLocalLogs(appContext);
 
