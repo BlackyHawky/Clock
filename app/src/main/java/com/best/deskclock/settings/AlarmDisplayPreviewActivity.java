@@ -96,9 +96,9 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
     private int mDefaultSnoozeMinutes;
     private int mSnoozeMinutes;
     private boolean mIsSwipeActionEnabled;
-    private ViewGroup mAlertView;
-    private TextView mAlertTitleView;
-    private TextView mAlertInfoView;
+    private ViewGroup mActionMessageView;
+    private TextView mActionTitle;
+    private TextView mActionDescription;
     private TextView mRingtoneTitle;
     private ImageView mRingtoneIcon;
     private ViewGroup mContentView;
@@ -181,9 +181,9 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
         mPillView = mSlideZoneLayout.findViewById(R.id.pill);
         mSnoozeSelectorLayout = mContentView.findViewById(R.id.snooze_selector_layout);
 
-        mAlertView = findViewById(R.id.alert);
-        mAlertTitleView = mAlertView.findViewById(R.id.alert_title);
-        mAlertInfoView = mAlertView.findViewById(R.id.alert_info);
+        mActionMessageView = findViewById(R.id.action_message_view);
+        mActionTitle = mActionMessageView.findViewById(R.id.action_title);
+        mActionDescription = mActionMessageView.findViewById(R.id.action_description);
 
         initAlarmClock();
 
@@ -820,15 +820,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
             performDoubleVibration();
         }
 
-        final String infoText;
-
-        if (mSnoozeSelectorIndex == 0) {
-            infoText = buildTimeString(DEFAULT_SNOOZE_VALUE);
-        } else {
-            infoText = buildTimeString(mSnoozeMinutes);
-        }
-
-        showAlert(R.string.alarm_alert_snoozed_text, infoText);
+        displayAlarmActionMessage(R.string.alarm_alert_snoozed_text, buildTimeString(mSnoozeSelectorIndex == 0 ? DEFAULT_SNOOZE_VALUE : mSnoozeMinutes));
     }
 
     /**
@@ -838,7 +830,8 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
         if (mAreSnoozedOrDismissedAlarmVibrationsEnabled) {
             performSingleVibration();
         }
-        showAlert(R.string.alarm_alert_off_text, null);
+
+        displayAlarmActionMessage(R.string.alarm_alert_off_text, null);
     }
 
     /**
@@ -918,28 +911,33 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
     }
 
     /**
-     * Show alert after alarm has been snoozed or dismissed.
+     * Display a message after snoozing or dismissing the alarm.
      */
-    private void showAlert(final int titleResId, final String infoText) {
-        mAlertView.setVisibility(VISIBLE);
-
-        mAlertTitleView.setText(titleResId);
-        mAlertTitleView.setTypeface(mGeneralBoldTypeface);
-        mAlertTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
-        mAlertTitleView.setTextColor(mAlarmTitleColor);
-
-        if (infoText != null) {
-            mAlertInfoView.setVisibility(VISIBLE);
-            mAlertInfoView.setText(infoText);
-            mAlertInfoView.setTypeface(mGeneralBoldTypeface);
-            mAlertInfoView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
-            mAlertInfoView.setTextColor(mAlarmTitleColor);
+    private void displayAlarmActionMessage(final int titleResId, final String descriptionText) {
+        if (SettingsDAO.isAlarmActionMessageHidden(mPrefs)) {
+            finishActivity();
+            return;
         }
 
         mContentView.setVisibility(GONE);
 
-        mAlertView.setAlpha(0f);
-        mAlertView.animate()
+        mActionMessageView.setVisibility(VISIBLE);
+
+        mActionTitle.setText(titleResId);
+        mActionTitle.setTypeface(mGeneralBoldTypeface);
+        mActionTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
+        mActionTitle.setTextColor(mAlarmTitleColor);
+
+        if (descriptionText != null) {
+            mActionDescription.setVisibility(VISIBLE);
+            mActionDescription.setText(descriptionText);
+            mActionDescription.setTypeface(mGeneralBoldTypeface);
+            mActionDescription.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
+            mActionDescription.setTextColor(mAlarmTitleColor);
+        }
+
+        mActionMessageView.setAlpha(0f);
+        mActionMessageView.animate()
             .alpha(1f)
             .setDuration(ALERT_REVEAL_DURATION_MILLIS)
             .withEndAction(() -> mHandler.postDelayed(this::finishActivity, ALERT_DISMISS_DELAY_MILLIS))

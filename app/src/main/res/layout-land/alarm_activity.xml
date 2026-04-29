@@ -345,7 +345,7 @@
 
     <!-- View that appears after the alarm has been snoozed or dismissed -->
     <LinearLayout
-        android:id="@+id/alert"
+        android:id="@+id/action_message_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
@@ -354,13 +354,13 @@
         tools:visibility="visible">
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/alert_title"
+            android:id="@+id/action_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/alert_info"
+            android:id="@+id/action_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"

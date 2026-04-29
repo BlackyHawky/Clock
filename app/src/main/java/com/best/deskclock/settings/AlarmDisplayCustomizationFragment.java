@@ -68,6 +68,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
     SwitchPreferenceCompat mDisplayTextShadowPref;
     ColorPickerPreference mShadowColorPref;
     CustomSliderPreference mShadowOffsetPref;
+    SwitchPreferenceCompat mDisplayAlarmActionMessagePref;
     SwitchPreferenceCompat mDisplayRingtoneTitlePref;
     ColorPickerPreference mRingtoneTitleColorPref;
     Preference mAlarmBackgroundImagePref;
@@ -162,6 +163,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
         mDisplayTextShadowPref = findPreference(KEY_ALARM_DISPLAY_TEXT_SHADOW);
         mShadowColorPref = findPreference(KEY_ALARM_SHADOW_COLOR);
         mShadowOffsetPref = findPreference(KEY_ALARM_SHADOW_OFFSET);
+        mDisplayAlarmActionMessagePref = findPreference(KEY_DISPLAY_ALARM_ACTION_MESSAGE);
         mDisplayRingtoneTitlePref = findPreference(KEY_DISPLAY_RINGTONE_TITLE);
         mRingtoneTitleColorPref = findPreference(KEY_RINGTONE_TITLE_COLOR);
         mAlarmBackgroundImagePref = findPreference(KEY_ALARM_BACKGROUND_IMAGE);
@@ -262,6 +264,8 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
 
                 Utils.setVibrationTime(requireContext(), 50);
             }
+
+            case KEY_DISPLAY_ALARM_ACTION_MESSAGE -> Utils.setVibrationTime(requireContext(), 50);
         }
 
         return true;
@@ -382,6 +386,8 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
         mShadowColorPref.setVisible(isTextShadowDisplayed);
 
         mShadowOffsetPref.setVisible(isTextShadowDisplayed);
+
+        mDisplayAlarmActionMessagePref.setOnPreferenceChangeListener(this);
 
         mDisplayRingtoneTitlePref.setOnPreferenceChangeListener(this);
 

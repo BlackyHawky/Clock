@@ -288,6 +288,14 @@
         app:iconSpaceReserved="false">
 
         <SwitchPreferenceCompat
+            android:key="key_display_alarm_action_message"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/display_alarm_action_message_title"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <SwitchPreferenceCompat
             android:key="key_display_ringtone_title"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/display_ringtone_title"
