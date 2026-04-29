@@ -556,6 +556,8 @@
     <string name="shadow_color_title">Shadow color</string>
     <!-- Setting title for customizing the text shadow offset. -->
     <string name="shadow_offset_title">Shadow offset</string>
+    <!-- Setting title to display a message after snoozing or dismissing the alarm. -->
+    <string name="display_alarm_action_message_title">Display a message after snoozing or dismissing the alarm</string>
     <!-- Setting title to display the ringtone title. -->
     <string name="display_ringtone_title">Display ringtone title</string>
     <!-- Setting title for customizing the ringtone title color. -->

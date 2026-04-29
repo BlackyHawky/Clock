@@ -193,6 +193,7 @@ public class PreferencesDefaultValues {
     public static final int TIMEOUT_NEVER = -1;
     public static final int TIMEOUT_END_OF_RINGTONE = -2;
     public static final int DEFAULT_VOLUME_CRESCENDO_DURATION = 0;
+    public static final boolean DEFAULT_DISPLAY_ALARM_ACTION_MESSAGE = true;
     public static final boolean DEFAULT_DISPLAY_RINGTONE_TITLE = false;
     public static final boolean DEFAULT_DISPLAY_TEXT_SHADOW = false;
     public static final int DEFAULT_SHADOW_OFFSET = 10;

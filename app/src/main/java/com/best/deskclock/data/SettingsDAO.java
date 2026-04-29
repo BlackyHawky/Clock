@@ -884,7 +884,7 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return {@code true} if a custom volume increase duration can be set for each alarm.
+     * @return {@code true} if a custom volume increase duration cannot be set for each alarm.
      * {@code false} otherwise.
      */
     public static boolean isPerAlarmCrescendoDurationDisabled(SharedPreferences prefs) {
@@ -1020,7 +1020,7 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return {@code true} if a custom auto silence duration can be set for each alarm.
+     * @return {@code true} if a custom auto silence duration cannot be set for each alarm.
      * {@code false} otherwise.
      */
     public static boolean isPerAlarmAutoSilenceDisabled(SharedPreferences prefs) {
@@ -1036,7 +1036,7 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return {@code true} if a custom snooze duration can be set for each alarm.
+     * @return {@code true} if a custom snooze duration cannot be set for each alarm.
      * {@code false} otherwise.
      */
     public static boolean isPerAlarmSnoozeDurationDisabled(SharedPreferences prefs) {
@@ -1052,7 +1052,7 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return {@code true} if a custom repeat limit can be set for each missed alarm.
+     * @return {@code true} if a custom repeat limit cannot be set for each missed alarm.
      * {@code false} otherwise.
      */
     public static boolean isPerAlarmMissedRepeatLimitDisabled(SharedPreferences prefs) {
@@ -1429,6 +1429,14 @@ public final class SettingsDAO {
     public static int getAlarmShadowOffset(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_alarm_display.xml
         return prefs.getInt(KEY_ALARM_SHADOW_OFFSET, DEFAULT_SHADOW_OFFSET);
+    }
+
+    /**
+     * @return {@code true} if the alarm action message is hidden after snoozing or dismissing the alarm. {@code false} otherwise.
+     */
+    public static boolean isAlarmActionMessageHidden(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm_display.xml
+        return !prefs.getBoolean(KEY_DISPLAY_ALARM_ACTION_MESSAGE, DEFAULT_DISPLAY_ALARM_ACTION_MESSAGE);
     }
 
     /**

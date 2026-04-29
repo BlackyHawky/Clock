@@ -131,9 +131,9 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
     private boolean mReceiverRegistered = false;
     private boolean mPowerBtnReceiverRegistered = false;
     private boolean mServiceBound;
-    private ViewGroup mAlertView;
-    private TextView mAlertTitleView;
-    private TextView mAlertInfoView;
+    private ViewGroup mActionMessageView;
+    private TextView mActionTitle;
+    private TextView mActionDescription;
     private ViewGroup mContentView;
     private ConstraintLayout mSlideZoneLayout;
     private PillView mPillView;
@@ -288,9 +288,9 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         mPillView = mSlideZoneLayout.findViewById(R.id.pill);
         mSnoozeSelectorLayout = mContentView.findViewById(R.id.snooze_selector_layout);
 
-        mAlertView = findViewById(R.id.alert);
-        mAlertTitleView = mAlertView.findViewById(R.id.alert_title);
-        mAlertInfoView = mAlertView.findViewById(R.id.alert_info);
+        mActionMessageView = findViewById(R.id.action_message_view);
+        mActionTitle = mActionMessageView.findViewById(R.id.action_title);
+        mActionDescription = mActionMessageView.findViewById(R.id.action_description);
 
         initAlarmClock();
 
@@ -1173,18 +1173,18 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
                 action = R.string.action_dismiss;
             }
 
-            showAlert(titleResId, null, getString(titleResId));
+            displayAlarmActionMessage(titleResId, null, getString(titleResId));
 
             AlarmStateManager.deleteInstanceAndUpdateParent(this, mAlarmInstance, false);
 
             Events.sendAlarmEvent(action, R.string.label_deskclock);
         } else {
             int snoozeDuration = mAlarmInstance.mSnoozeDuration;
-            final String infoText = buildTimeString(snoozeDuration);
+            final String descriptionText = buildTimeString(snoozeDuration);
             final String accessibilityText = getResources().getQuantityString(
                 R.plurals.alarm_alert_snooze_set, snoozeDuration, snoozeDuration);
 
-            showAlert(R.string.alarm_alert_snoozed_text, infoText, accessibilityText);
+            displayAlarmActionMessage(R.string.alarm_alert_snoozed_text, descriptionText, accessibilityText);
 
             AlarmStateManager.setSnoozeState(this, mAlarmInstance, false);
 
@@ -1213,7 +1213,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
             action = R.string.action_dismiss;
         }
 
-        showAlert(titleResId, null, getString(titleResId));
+        displayAlarmActionMessage(titleResId, null, getString(titleResId));
 
         AlarmStateManager.deleteInstanceAndUpdateParent(this, mAlarmInstance, false);
 
@@ -1331,32 +1331,37 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
     }
 
     /**
-     * Show alert after alarm has been snoozed or dismissed.
+     * Display a message after snoozing or dismissing the alarm.
      */
-    private void showAlert(final int titleResId, final String infoText, final String accessibilityText) {
-        mAlertView.setVisibility(View.VISIBLE);
-
-        mAlertTitleView.setText(titleResId);
-        mAlertTitleView.setTypeface(mGeneralBoldTypeface);
-        mAlertTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
-        mAlertTitleView.setTextColor(mAlarmTitleColor);
-
-        if (infoText != null) {
-            mAlertInfoView.setVisibility(View.VISIBLE);
-            mAlertInfoView.setTypeface(mGeneralBoldTypeface);
-            mAlertInfoView.setText(infoText);
-            mAlertInfoView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
-            mAlertInfoView.setTextColor(mAlarmTitleColor);
+    private void displayAlarmActionMessage(final int titleResId, final String descriptionText, final String accessibilityText) {
+        if (SettingsDAO.isAlarmActionMessageHidden(mPrefs)) {
+            finish();
+            return;
         }
 
         mContentView.setVisibility(View.GONE);
 
-        mAlertView.setAlpha(0f);
-        mAlertView.animate()
+        mActionMessageView.setVisibility(View.VISIBLE);
+
+        mActionTitle.setText(titleResId);
+        mActionTitle.setTypeface(mGeneralBoldTypeface);
+        mActionTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
+        mActionTitle.setTextColor(mAlarmTitleColor);
+
+        if (descriptionText != null) {
+            mActionDescription.setVisibility(View.VISIBLE);
+            mActionDescription.setTypeface(mGeneralBoldTypeface);
+            mActionDescription.setText(descriptionText);
+            mActionDescription.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
+            mActionDescription.setTextColor(mAlarmTitleColor);
+        }
+
+        mActionMessageView.setAlpha(0f);
+        mActionMessageView.animate()
             .alpha(1f)
             .setDuration(ALERT_REVEAL_DURATION_MILLIS)
             .withEndAction(() -> {
-                mAlertView.announceForAccessibility(accessibilityText);
+                mActionMessageView.announceForAccessibility(accessibilityText);
                 mHandler.postDelayed(this::finish, ALERT_DISMISS_DELAY_MILLIS);
             })
             .start();
