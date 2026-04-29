@@ -6,6 +6,7 @@ import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -29,6 +30,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.ThemeUtils;
+import com.best.deskclock.utils.Utils;
 import com.google.android.material.color.MaterialColors;
 
 /**
@@ -44,6 +46,7 @@ import com.google.android.material.color.MaterialColors;
 public class AlarmItemTouchHelper extends ItemTouchHelper.SimpleCallback {
 
     private final AlarmTouchContract mContract;
+    private final boolean mIsVibrationEnabled;
     private final boolean mIsTablet;
     private final boolean mIsLandscape;
     private final boolean mIsRtl;
@@ -67,6 +70,7 @@ public class AlarmItemTouchHelper extends ItemTouchHelper.SimpleCallback {
     private float mStartX;
     private float mStartY;
     private boolean mIsSwiping = false;
+    private boolean mIsAlarmDeleted = false;
     private boolean mIsTouchingItem = false;
     private boolean mIsTouchingClock = false;
 
@@ -76,6 +80,8 @@ public class AlarmItemTouchHelper extends ItemTouchHelper.SimpleCallback {
         super(ItemTouchHelper.UP | ItemTouchHelper.DOWN, ItemTouchHelper.END);
 
         mContract = contract;
+        SharedPreferences prefs = getDefaultSharedPreferences(context);
+        mIsVibrationEnabled = SettingsDAO.isVibrationsEnabled(prefs);
         mIsTablet = isTablet;
         mIsLandscape = isLandscape;
         mIsRtl = ThemeUtils.isRTL(context);
@@ -101,7 +107,7 @@ public class AlarmItemTouchHelper extends ItemTouchHelper.SimpleCallback {
         mDeleteTextPaint.setTextSize(TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_SP, 16, context.getResources().getDisplayMetrics()));
         mDeleteTextPaint.setColor(MaterialColors.getColor(context, com.google.android.material.R.attr.colorOnError, Color.BLACK));
-        mDeleteTextPaint.setTypeface(ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(getDefaultSharedPreferences(context))));
+        mDeleteTextPaint.setTypeface(ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(prefs)));
         mDeleteTextPaint.setTextAlign(mIsRtl ? Paint.Align.RIGHT : Paint.Align.LEFT);
 
         mTopRadii = new float[]{
@@ -228,6 +234,12 @@ public class AlarmItemTouchHelper extends ItemTouchHelper.SimpleCallback {
 
     @Override
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+        mIsAlarmDeleted = true;
+
+        if (mIsVibrationEnabled) {
+            Utils.setVibrationTime(viewHolder.itemView.getContext(), 50);
+        }
+
         mContract.onRowSwiped(viewHolder);
     }
 
@@ -246,7 +258,6 @@ public class AlarmItemTouchHelper extends ItemTouchHelper.SimpleCallback {
 
         if (dX == 0) {
             itemView.setClipBounds(null);
-            mIsSwiping = false;
             return;
         }
 
@@ -352,7 +363,14 @@ public class AlarmItemTouchHelper extends ItemTouchHelper.SimpleCallback {
         super.clearView(recyclerView, viewHolder);
         viewHolder.itemView.setClipBounds(null);
 
-        mIsSwiping = false;
+        if (mIsSwiping) {
+            if (!mIsAlarmDeleted && mIsVibrationEnabled) {
+                Utils.setVibrationTime(viewHolder.itemView.getContext(), 10);
+            }
+
+            mIsSwiping = false;
+            mIsAlarmDeleted = false;
+        }
 
         mContract.onRowClear(viewHolder);
 
