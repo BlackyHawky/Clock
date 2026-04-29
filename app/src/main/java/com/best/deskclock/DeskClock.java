@@ -201,7 +201,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
      */
     private static final List<String> SUPPORTED_PREF_KEYS = List.of(
         // Interface
-        KEY_TAB_TITLE_VISIBILITY, KEY_TAB_INDICATOR, KEY_TAB_TO_DISPLAY, KEY_KEEP_SCREEN_ON,
+        KEY_TAB_TITLE_VISIBILITY, KEY_TAB_INDICATOR, KEY_TAB_TO_DISPLAY, KEY_VIBRATIONS, KEY_KEEP_SCREEN_ON,
         // Clock
         KEY_CLOCK_STYLE, KEY_CLOCK_DIAL, KEY_CLOCK_DIAL_MATERIAL, KEY_ANALOG_CLOCK_SIZE, KEY_DISPLAY_CLOCK_SECONDS, KEY_CLOCK_SECOND_HAND,
         KEY_DISPLAY_TEXT_UPPERCASE, KEY_DIGITAL_CLOCK_FONT, KEY_DIGITAL_CLOCK_FONT_SIZE, KEY_SORT_CITIES, KEY_ENABLE_CITY_NOTE,
@@ -555,8 +555,8 @@ public class DeskClock extends BaseActivity implements FabContainer {
             cachedValues.put(key, newValue);
 
             switch (key) {
-                case KEY_TAB_TITLE_VISIBILITY, KEY_TAB_INDICATOR, KEY_TAB_TO_DISPLAY, KEY_KEEP_SCREEN_ON, KEY_CLOCK_STYLE, KEY_CLOCK_DIAL,
-                     KEY_CLOCK_DIAL_MATERIAL, KEY_ANALOG_CLOCK_SIZE, KEY_DISPLAY_CLOCK_SECONDS, KEY_CLOCK_SECOND_HAND,
+                case KEY_TAB_TITLE_VISIBILITY, KEY_TAB_INDICATOR, KEY_TAB_TO_DISPLAY, KEY_VIBRATIONS, KEY_KEEP_SCREEN_ON, KEY_CLOCK_STYLE,
+                     KEY_CLOCK_DIAL, KEY_CLOCK_DIAL_MATERIAL, KEY_ANALOG_CLOCK_SIZE, KEY_DISPLAY_CLOCK_SECONDS, KEY_CLOCK_SECOND_HAND,
                      KEY_DISPLAY_TEXT_UPPERCASE, KEY_DIGITAL_CLOCK_FONT, KEY_DIGITAL_CLOCK_FONT_SIZE, KEY_SORT_CITIES,
                      KEY_ENABLE_CITY_NOTE, KEY_AUTO_HOME_CLOCK, KEY_HOME_TIME_ZONE, KEY_WEEK_START, KEY_ALARM_FONT,
                      KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING, KEY_TIMER_DURATION_FONT, KEY_DISPLAY_COMPACT_TIMERS, KEY_SORT_TIMER,
@@ -592,6 +592,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
             case KEY_TAB_TITLE_VISIBILITY -> SettingsDAO.getTabTitleVisibility(mPrefs);
             case KEY_TAB_INDICATOR -> SettingsDAO.isTabIndicatorDisplayed(mPrefs);
             case KEY_TAB_TO_DISPLAY -> SettingsDAO.getTabToDisplay(mPrefs);
+            case KEY_VIBRATIONS -> SettingsDAO.isVibrationsEnabled(mPrefs);
             case KEY_KEEP_SCREEN_ON -> SettingsDAO.shouldScreenRemainOn(mPrefs);
             // Clock
             case KEY_CLOCK_STYLE -> SettingsDAO.getClockStyle(mPrefs);
@@ -1010,7 +1011,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
             // Update the buttons now that they are no longer visible.
             updateFab(FAB_AND_BUTTONS_IMMEDIATE);
 
-            // Automatically start the grow animation now that shrinking is complete.
+            // Automatically start the growth animation now that shrinking is complete.
             mShowAnimation.start();
 
             // The animation to show the fab has begun; update the state to showing.
@@ -1089,7 +1090,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
             }
 
             // If the hide animation has already completed, the buttons must be updated now when the
-            // new tab is known. Otherwise they are updated at the end of the hide animation.
+            // new tab is known; otherwise they are updated at the end of the hide animation.
             if (!mHideAnimation.isStarted()) {
                 updateFab(FAB_AND_BUTTONS_IMMEDIATE);
             }
