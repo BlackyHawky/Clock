@@ -132,7 +132,7 @@ public final class SettingsDAO {
 
     /**
      * @return {@code true} if the users wants to automatically show a clock for their home timezone
-     * when they have travelled outside of that timezone
+     * when they have traveled outside of that timezone
      */
     public static boolean getShowHomeClock(Context context, SharedPreferences prefs) {
         if (!getAutoShowHomeClock(prefs)) {
@@ -601,6 +601,14 @@ public final class SettingsDAO {
     public static boolean isScreensaverNextAlarmInItalic(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_screensaver.xml
         return prefs.getBoolean(KEY_SCREENSAVER_NEXT_ALARM_IN_ITALIC, DEFAULT_SCREENSAVER_FORMATTING);
+    }
+
+    /**
+     * @return {@code true} if the screensaver screen should remain on. {@code false} otherwise.
+     */
+    public static boolean shouldScreensaverScreenRemainOn(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_screensaver.xml
+        return prefs.getBoolean(KEY_SCREENSAVER_KEEP_SCREEN_ON, DEFAULT_SCREENSAVER_KEEP_SCREEN_ON);
     }
 
     /**
@@ -1263,7 +1271,7 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return a value indicating the alarm background amoled color.
+     * @return a value indicating the alarm background AMOLED color.
      */
     public static int getAlarmBackgroundAmoledColor(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_alarm_display.xml
@@ -1527,7 +1535,7 @@ public final class SettingsDAO {
     }
 
     /**
-     * These descriptors have a natural order from furthest behind of GMT to furthest ahead GMT.
+     * These descriptors have a natural order from the furthest behind of GMT to the furthest ahead GMT.
      */
     private record TimeZoneDescriptor(int offset, String timeZoneId, String timeZoneName)
         implements Comparable<TimeZoneDescriptor> {
@@ -1569,7 +1577,7 @@ public final class SettingsDAO {
                     }
 
                     // Fallback API < 24
-                    // Note: the city name will be in English regardless of the device language.)
+                    // Note: the city name will be in English regardless of the device language.
                     if (locationName == null) {
                         // Manually extract the city from the ID
                         // (e.g., “America/Buenos_Aires” -> “Buenos Aires”)

@@ -82,6 +82,7 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
         SwitchPreferenceCompat mItalicNextAlarmPref;
         CustomSliderPreference mAnalogClockSizePref;
         Preference mDigitalClockFontPref;
+        SwitchPreferenceCompat mKeepScreenOnPref;
         Preference mScreensaverBackgroundImagePref;
         SwitchPreferenceCompat mEnableScreensaverBlurEffectPref;
         CustomSliderPreference mScreensaverBlurIntensityPref;
@@ -216,6 +217,7 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
             mItalicDatePref = findPreference(KEY_SCREENSAVER_DATE_IN_ITALIC);
             mBoldNextAlarmPref = findPreference(KEY_SCREENSAVER_NEXT_ALARM_IN_BOLD);
             mItalicNextAlarmPref = findPreference(KEY_SCREENSAVER_NEXT_ALARM_IN_ITALIC);
+            mKeepScreenOnPref = findPreference(KEY_SCREENSAVER_KEEP_SCREEN_ON);
             mScreensaverBackgroundImagePref = findPreference(KEY_SCREENSAVER_BACKGROUND_IMAGE);
             mEnableScreensaverBlurEffectPref = findPreference(KEY_ENABLE_SCREENSAVER_BLUR_EFFECT);
             mScreensaverBlurIntensityPref = findPreference(KEY_SCREENSAVER_BLUR_INTENSITY);
@@ -290,7 +292,8 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
 
                 case KEY_SCREENSAVER_DISPLAY_TEXT_UPPERCASE, KEY_SCREENSAVER_DIGITAL_CLOCK_IN_BOLD, KEY_SCREENSAVER_DIGITAL_CLOCK_IN_ITALIC,
                      KEY_SCREENSAVER_BATTERY_IN_BOLD, KEY_SCREENSAVER_BATTERY_IN_ITALIC, KEY_SCREENSAVER_DATE_IN_BOLD,
-                     KEY_SCREENSAVER_DATE_IN_ITALIC, KEY_SCREENSAVER_NEXT_ALARM_IN_BOLD, KEY_SCREENSAVER_NEXT_ALARM_IN_ITALIC ->
+                     KEY_SCREENSAVER_DATE_IN_ITALIC, KEY_SCREENSAVER_NEXT_ALARM_IN_BOLD, KEY_SCREENSAVER_NEXT_ALARM_IN_ITALIC,
+                     KEY_SCREENSAVER_KEEP_SCREEN_ON ->
                     Utils.setVibrationTime(requireContext(), 50);
 
                 case KEY_SCREENSAVER_CLOCK_DYNAMIC_COLORS -> {
@@ -413,6 +416,8 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
             mBoldNextAlarmPref.setOnPreferenceChangeListener(this);
 
             mItalicNextAlarmPref.setOnPreferenceChangeListener(this);
+
+            mKeepScreenOnPref.setOnPreferenceChangeListener(this);
 
             mScreensaverBackgroundImagePref.setTitle(getString(screensaverBackgroundImage == null
                 ? R.string.background_image_title

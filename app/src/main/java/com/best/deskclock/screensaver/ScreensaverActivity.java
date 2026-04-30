@@ -8,6 +8,7 @@ package com.best.deskclock.screensaver;
 
 import static android.content.Intent.ACTION_BATTERY_CHANGED;
 import static android.os.BatteryManager.EXTRA_PLUGGED;
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.utils.AlarmUtils.ACTION_NEXT_ALARM_CHANGED_BY_CLOCK;
 
 import android.annotation.SuppressLint;
@@ -15,6 +16,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewTreeObserver.OnPreDrawListener;
@@ -30,6 +32,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.best.deskclock.BaseActivity;
 import com.best.deskclock.R;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AlarmUtils;
@@ -45,6 +48,7 @@ public class ScreensaverActivity extends BaseActivity {
 
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger("ScreensaverActivity");
 
+    private SharedPreferences mPrefs;
     private final OnPreDrawListener mStartPositionUpdater = new StartPositionUpdater();
     private String mDateFormat;
     private String mDateFormatForAccessibility;
@@ -93,6 +97,7 @@ public class ScreensaverActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        mPrefs = getDefaultSharedPreferences(this);
         mDateFormat = getString(R.string.abbrev_wday_month_day_no_year);
         mDateFormatForAccessibility = getString(R.string.full_wday_month_day_no_year);
 
@@ -217,15 +222,14 @@ public class ScreensaverActivity extends BaseActivity {
                 insetsController.setSystemBarsBehavior(WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
                 insetsController.hide(WindowInsets.Type.systemBars());
             }
-        } else {
-            winParams.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
         }
 
         winParams.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
 
         int flags = getWindowFlags();
+        boolean shouldScreenRemainOn = pluggedIn || SettingsDAO.shouldScreensaverScreenRemainOn(mPrefs);
 
-        if (pluggedIn) {
+        if (shouldScreenRemainOn) {
             winParams.flags |= flags;
         } else {
             winParams.flags &= ~flags;
@@ -234,8 +238,8 @@ public class ScreensaverActivity extends BaseActivity {
         win.setAttributes(winParams);
 
         if (SdkUtils.isAtLeastAndroid81()) {
-            setShowWhenLocked(pluggedIn);
-            setTurnScreenOn(pluggedIn);
+            setShowWhenLocked(shouldScreenRemainOn);
+            setTurnScreenOn(shouldScreenRemainOn);
         }
     }
 

@@ -242,6 +242,14 @@
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false">
 
+        <SwitchPreferenceCompat
+            android:key="key_screensaver_keep_screen_on"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/settings_keep_screen_on_title"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
         <Preference
             android:key="key_screensaver_background_image"
             android:layout="@layout/settings_preference_layout"

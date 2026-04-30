@@ -182,6 +182,7 @@ public class PreferencesDefaultValues {
     public static final int DEFAULT_SCREENSAVER_BRIGHTNESS = 40;
     public static final boolean DEFAULT_SCREENSAVER_TEXT_UPPERCASE_DISPLAYED = false;
     public static final boolean DEFAULT_SCREENSAVER_FORMATTING = false;
+    public static final boolean DEFAULT_SCREENSAVER_KEEP_SCREEN_ON = false;
 
     // Common settings values
     public static final String DEFAULT_CLOCK_DIAL = "dial_with_numbers";
