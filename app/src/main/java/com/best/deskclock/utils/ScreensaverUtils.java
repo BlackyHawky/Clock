@@ -188,14 +188,17 @@ public class ScreensaverUtils {
      */
     @SuppressLint("SetTextI18n")
     public static void updateBatteryText(View view, Intent intent) {
+        SharedPreferences prefs = getDefaultSharedPreferences(view.getContext());
         int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
         int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
         int percent = (int) ((level / (float) scale) * 100);
         int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
         boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL;
 
-        TextView batteryText = view.findViewById(R.id.battery_level);
-        batteryText.setText(percent + "%");
+        TextView batteryLevel = view.findViewById(R.id.battery_level);
+        CharSequence batteryText = SettingsDAO.isScreensaverBatteryInItalic(prefs) ? percent + "%" + "\u200A" : percent + "%";
+
+        batteryLevel.setText(batteryText);
 
         updateBatteryIcon(view, percent, isCharging);
     }
