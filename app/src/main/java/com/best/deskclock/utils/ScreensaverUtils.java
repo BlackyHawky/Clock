@@ -2,6 +2,7 @@
 
 package com.best.deskclock.utils;
 
+import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
@@ -83,9 +84,16 @@ public class ScreensaverUtils {
 
         ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
 
-        // For background
+        // For background and vector icons (ImageView)
         if (view instanceof ImageView imageView) {
-            imageView.setColorFilter(filter);
+            if (color != null) {
+                // For vector icons
+                imageView.setColorFilter(new PorterDuffColorFilter(applyBrightnessToColor(color, factor), PorterDuff.Mode.SRC_IN));
+            } else {
+                // For background
+                imageView.setColorFilter(filter);
+            }
+
             return;
         }
 
@@ -183,11 +191,13 @@ public class ScreensaverUtils {
         int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
         int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
         int percent = (int) ((level / (float) scale) * 100);
+        int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+        boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL;
 
         TextView batteryText = view.findViewById(R.id.battery_level);
         batteryText.setText(percent + "%");
 
-        updateBatteryIcon(view, percent);
+        updateBatteryIcon(view, percent, isCharging);
     }
 
     /**
@@ -196,12 +206,12 @@ public class ScreensaverUtils {
      * @param view    the root view containing the battery indicator TextView
      * @param percent the current battery level as a percentage
      */
-    public static void updateBatteryIcon(View view, int percent) {
+    public static void updateBatteryIcon(View view, int percent, boolean isCharging) {
         Context context = view.getContext();
         final SharedPreferences prefs = getDefaultSharedPreferences(context);
 
         final TextView batteryText = view.findViewById(R.id.battery_level);
-        int iconRes = getBatteryIconRes(percent);
+        int iconRes = getBatteryIconRes(percent, isCharging);
         final Drawable drawable = AppCompatResources.getDrawable(context, iconRes);
 
         final boolean isDynamicColors = SettingsDAO.areScreensaverClockDynamicColors(prefs);
@@ -221,15 +231,25 @@ public class ScreensaverUtils {
      * @param percent the current battery level as a percentage
      * @return the drawable resource ID representing the battery state
      */
-    private static int getBatteryIconRes(int percent) {
-        if (percent < 10) return R.drawable.ic_battery_alert;
-        if (percent < 15) return R.drawable.ic_battery_15;
-        if (percent < 30) return R.drawable.ic_battery_30;
-        if (percent < 45) return R.drawable.ic_battery_45;
-        if (percent < 60) return R.drawable.ic_battery_60;
-        if (percent < 75) return R.drawable.ic_battery_75;
-        if (percent < 90) return R.drawable.ic_battery_90;
-        return R.drawable.ic_battery_full;
+    private static int getBatteryIconRes(int percent, boolean isCharging) {
+        if (isCharging) {
+            if (percent < 10) return R.drawable.ic_battery_alert_charging;
+            if (percent < 20) return R.drawable.ic_battery_20_charging;
+            if (percent < 35) return R.drawable.ic_battery_35_charging;
+            if (percent < 50) return R.drawable.ic_battery_50_charging;
+            if (percent < 70) return R.drawable.ic_battery_70_charging;
+            if (percent < 90) return R.drawable.ic_battery_90_charging;
+            return R.drawable.ic_battery_full_charging;
+        } else {
+            if (percent < 10) return R.drawable.ic_battery_alert;
+            if (percent < 15) return R.drawable.ic_battery_15;
+            if (percent < 30) return R.drawable.ic_battery_30;
+            if (percent < 45) return R.drawable.ic_battery_45;
+            if (percent < 60) return R.drawable.ic_battery_60;
+            if (percent < 75) return R.drawable.ic_battery_75;
+            if (percent < 90) return R.drawable.ic_battery_90;
+            return R.drawable.ic_battery_full;
+        }
     }
 
     /**
@@ -376,14 +396,14 @@ public class ScreensaverUtils {
                     }
                 } else {
                     LogUtils.e("Bitmap null for path: " + imagePath);
-                    backgroundImage.setVisibility(View.GONE);
+                    backgroundImage.setVisibility(GONE);
                 }
             } else {
                 LogUtils.e("Image file not found: " + imagePath);
-                backgroundImage.setVisibility(View.GONE);
+                backgroundImage.setVisibility(GONE);
             }
         } else {
-            backgroundImage.setVisibility(View.GONE);
+            backgroundImage.setVisibility(GONE);
         }
 
         // Style
