@@ -39,6 +39,7 @@ import com.best.deskclock.alarms.AlarmUpdateHandler;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Weekdays;
+import com.best.deskclock.dialogfragment.AlarmNotificationReminderDialogFragment;
 import com.best.deskclock.dialogfragment.AlarmSnoozeDurationDialogFragment;
 import com.best.deskclock.dialogfragment.AutoSilenceDurationDialogFragment;
 import com.best.deskclock.dialogfragment.VibrationPatternDialogFragment;
@@ -46,6 +47,7 @@ import com.best.deskclock.dialogfragment.VibrationStartDelayDialogFragment;
 import com.best.deskclock.dialogfragment.VolumeCrescendoDurationDialogFragment;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
+import com.best.deskclock.settings.custompreference.AlarmNotificationReminderPreference;
 import com.best.deskclock.settings.custompreference.AlarmSnoozeDurationPreference;
 import com.best.deskclock.settings.custompreference.AlarmVolumePreference;
 import com.best.deskclock.settings.custompreference.AutoSilenceDurationPreference;
@@ -90,6 +92,10 @@ public class AlarmSettingsFragment extends ScreenFragment
     SwitchPreferenceCompat mSystemMediaVolume;
     CustomSliderPreference mExternalAudioDeviceVolumePref;
     PreferenceCategory mAlarmVibrationCategory;
+    VibrationPatternPreference mVibrationPatternPref;
+    SwitchPreferenceCompat mEnablePerAlarmVibrationPatternPref;
+    SwitchPreferenceCompat mEnableAlarmVibrationsByDefaultPref;
+    SwitchPreferenceCompat mEnableSnoozedOrDismissedAlarmVibrationsPref;
     ListPreference mVolumeButtonsPref;
     ListPreference mPowerButtonPref;
     ListPreference mFlipActionPref;
@@ -100,11 +106,6 @@ public class AlarmSettingsFragment extends ScreenFragment
     SwitchPreferenceCompat mEnableAlarmFabLongPressPref;
     ListPreference mWeekStartPref;
     SwitchPreferenceCompat mDisplayDismissButtonPref;
-    ListPreference mAlarmNotificationReminderTimePref;
-    VibrationPatternPreference mVibrationPatternPref;
-    SwitchPreferenceCompat mEnablePerAlarmVibrationPatternPref;
-    SwitchPreferenceCompat mEnableAlarmVibrationsByDefaultPref;
-    SwitchPreferenceCompat mEnableSnoozedOrDismissedAlarmVibrationsPref;
     SwitchPreferenceCompat mTurnOnBackFlashForTriggeredAlarmPref;
     SwitchPreferenceCompat mDeleteOccasionalAlarmByDefaultPref;
     SwitchPreferenceCompat mDisplayLowAlarmVolumeWarningPref;
@@ -200,7 +201,6 @@ public class AlarmSettingsFragment extends ScreenFragment
         mEnableAlarmFabLongPressPref = findPreference(KEY_ENABLE_ALARM_FAB_LONG_PRESS);
         mWeekStartPref = findPreference(KEY_WEEK_START);
         mDisplayDismissButtonPref = findPreference(KEY_DISPLAY_DISMISS_BUTTON);
-        mAlarmNotificationReminderTimePref = findPreference(KEY_ALARM_NOTIFICATION_REMINDER_TIME);
         mTurnOnBackFlashForTriggeredAlarmPref = findPreference(KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM);
         mDeleteOccasionalAlarmByDefaultPref = findPreference(KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT);
         mDisplayLowAlarmVolumeWarningPref = findPreference(KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING);
@@ -441,20 +441,6 @@ public class AlarmSettingsFragment extends ScreenFragment
                 preference.setSummary(preference.getEntries()[index]);
             }
 
-            case KEY_ALARM_NOTIFICATION_REMINDER_TIME -> {
-                final int index = mAlarmNotificationReminderTimePref.findIndexOfValue((String) newValue);
-                mAlarmNotificationReminderTimePref.setSummary(mAlarmNotificationReminderTimePref.getEntries()[index]);
-
-                AppExecutors.getDiskIO().execute(() -> {
-                    List<Alarm> currentAlarms = Alarm.getAlarms(requireContext().getContentResolver(), null);
-                    for (Alarm alarm : currentAlarms) {
-                        if (alarm.enabled) {
-                            mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, false);
-                        }
-                    }
-                });
-            }
-
             case KEY_SHAKE_ACTION -> {
                 final int index = mShakeActionPref.findIndexOfValue((String) newValue);
                 mShakeActionPref.setSummary(mShakeActionPref.getEntries()[index]);
@@ -546,6 +532,11 @@ public class AlarmSettingsFragment extends ScreenFragment
             VibrationStartDelayDialogFragment dialogFragment = VibrationStartDelayDialogFragment.newInstance(pref.getKey(), currentValue,
                 currentValue == DEFAULT_VIBRATION_START_DELAY);
             VibrationStartDelayDialogFragment.show(getParentFragmentManager(), dialogFragment);
+        } else if (pref instanceof AlarmNotificationReminderPreference alarmNotificationReminderPreference) {
+            int currentValue = alarmNotificationReminderPreference.getAlarmNotificationReminderTime();
+            AlarmNotificationReminderDialogFragment dialogFragment =
+                AlarmNotificationReminderDialogFragment.newInstance(pref.getKey(), currentValue);
+            AlarmNotificationReminderDialogFragment.show(getParentFragmentManager(), dialogFragment);
         } else {
             super.onDisplayPreferenceDialog(pref);
         }
@@ -651,9 +642,6 @@ public class AlarmSettingsFragment extends ScreenFragment
         mWeekStartPref.setOnPreferenceChangeListener(this);
 
         mDisplayDismissButtonPref.setOnPreferenceChangeListener(this);
-
-        mAlarmNotificationReminderTimePref.setOnPreferenceChangeListener(this);
-        mAlarmNotificationReminderTimePref.setSummary(mAlarmNotificationReminderTimePref.getEntry());
 
         mTurnOnBackFlashForTriggeredAlarmPref.setVisible(DeviceUtils.hasBackFlash(requireContext()));
         mTurnOnBackFlashForTriggeredAlarmPref.setOnPreferenceChangeListener(this);
@@ -780,6 +768,30 @@ public class AlarmSettingsFragment extends ScreenFragment
                     if (pref != null) {
                         pref.setVibrationStartDelay(newValue);
                         pref.setSummary(pref.getSummary());
+                    }
+                }
+            });
+
+        // Notification reminder preference
+        parentFragmentManager.setFragmentResultListener(AlarmNotificationReminderDialogFragment.REQUEST_KEY, viewLifecycleOwner,
+            (requestKey, bundle) -> {
+                String key = bundle.getString(AlarmNotificationReminderDialogFragment.RESULT_PREF_KEY);
+                int newValue = bundle.getInt(AlarmNotificationReminderDialogFragment.ALARM_NOTIFICATION_REMINDER_VALUE);
+
+                if (key != null) {
+                    AlarmNotificationReminderPreference pref = findPreference(key);
+                    if (pref != null) {
+                        pref.setAlarmNotificationReminderTime(newValue);
+                        pref.setSummary(pref.getSummary());
+
+                        AppExecutors.getDiskIO().execute(() -> {
+                            List<Alarm> currentAlarms = Alarm.getAlarms(requireContext().getContentResolver(), null);
+                            for (Alarm alarm : currentAlarms) {
+                                if (alarm.enabled) {
+                                    mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, false);
+                                }
+                            }
+                        });
                     }
                 }
             });

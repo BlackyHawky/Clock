@@ -1113,12 +1113,11 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return the number of minutes before the upcoming alarm notification appears
+     * @return the number of minutes before the upcoming alarm notification appears.
      */
     public static int getAlarmNotificationReminderTime(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_alarm.xml
-        final String string = prefs.getString(KEY_ALARM_NOTIFICATION_REMINDER_TIME, DEFAULT_ALARM_NOTIFICATION_REMINDER_TIME);
-        return Integer.parseInt(string);
+        return prefs.getInt(KEY_ALARM_NOTIFICATION_REMINDER, DEFAULT_ALARM_NOTIFICATION_REMINDER);
     }
 
     /**
