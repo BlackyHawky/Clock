@@ -44,6 +44,7 @@ public class TimerAddTimeButtonValuePreference extends DialogPreference {
 
     public void setAddTimeButtonValue(int minutes) {
         persistInt(minutes);
+        notifyChanged();
     }
 
 }

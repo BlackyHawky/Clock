@@ -65,6 +65,7 @@ public class AlarmNotificationReminderPreference extends DialogPreference {
      */
     public void setAlarmNotificationReminderTime(int minutes) {
         persistInt(minutes);
+        notifyChanged();
     }
 
 }

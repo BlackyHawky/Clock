@@ -71,6 +71,7 @@ public class AlarmSnoozeDurationPreference extends DialogPreference {
      */
     public void setSnoozeDuration(int minutes) {
         persistInt(minutes);
+        notifyChanged();
     }
 
 }

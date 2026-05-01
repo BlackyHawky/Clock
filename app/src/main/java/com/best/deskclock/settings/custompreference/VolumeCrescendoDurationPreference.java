@@ -63,6 +63,7 @@ public class VolumeCrescendoDurationPreference extends DialogPreference {
      */
     public void setVolumeCrescendoDuration(int seconds) {
         persistInt(seconds);
+        notifyChanged();
     }
 
 }

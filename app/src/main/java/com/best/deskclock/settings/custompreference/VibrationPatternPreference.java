@@ -63,6 +63,7 @@ public class VibrationPatternPreference extends DialogPreference {
      */
     public void setPattern(String patternKey) {
         persistString(patternKey);
+        notifyChanged();
     }
 
 }
