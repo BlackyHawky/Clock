@@ -665,7 +665,6 @@ public class AlarmSettingsFragment extends ScreenFragment
                     AutoSilenceDurationPreference pref = findPreference(key);
                     if (pref != null) {
                         pref.setAutoSilenceDuration(newValue);
-                        pref.setSummary(pref.getSummary());
                         mEnablePerAlarmMissedRepeatLimitPref.setVisible(newValue != TIMEOUT_NEVER);
                         mRepeatMissedAlarmPref.setVisible(newValue != TIMEOUT_NEVER);
 
@@ -692,7 +691,6 @@ public class AlarmSettingsFragment extends ScreenFragment
                     AlarmSnoozeDurationPreference pref = findPreference(key);
                     if (pref != null) {
                         pref.setSnoozeDuration(newValue);
-                        pref.setSummary(pref.getSummary());
 
                         if (SettingsDAO.isPerAlarmSnoozeDurationDisabled(mPrefs)) {
                             AppExecutors.getDiskIO().execute(() -> {
@@ -717,7 +715,6 @@ public class AlarmSettingsFragment extends ScreenFragment
                     VolumeCrescendoDurationPreference pref = findPreference(key);
                     if (pref != null) {
                         pref.setVolumeCrescendoDuration(newValue);
-                        pref.setSummary(pref.getSummary());
 
                         if (SettingsDAO.isPerAlarmCrescendoDurationDisabled(mPrefs)) {
                             AppExecutors.getDiskIO().execute(() -> {
@@ -742,7 +739,6 @@ public class AlarmSettingsFragment extends ScreenFragment
                     VibrationPatternPreference pref = findPreference(key);
                     if (pref != null) {
                         pref.setPattern(newValue);
-                        pref.setSummary(pref.getSummary());
 
                         if (!SettingsDAO.isPerAlarmVibrationPatternEnabled(mPrefs)) {
                             AppExecutors.getDiskIO().execute(() -> {
@@ -767,7 +763,6 @@ public class AlarmSettingsFragment extends ScreenFragment
                     VibrationStartDelayPreference pref = findPreference(key);
                     if (pref != null) {
                         pref.setVibrationStartDelay(newValue);
-                        pref.setSummary(pref.getSummary());
                     }
                 }
             });
@@ -782,7 +777,6 @@ public class AlarmSettingsFragment extends ScreenFragment
                     AlarmNotificationReminderPreference pref = findPreference(key);
                     if (pref != null) {
                         pref.setAlarmNotificationReminderTime(newValue);
-                        pref.setSummary(pref.getSummary());
 
                         AppExecutors.getDiskIO().execute(() -> {
                             List<Alarm> currentAlarms = Alarm.getAlarms(requireContext().getContentResolver(), null);

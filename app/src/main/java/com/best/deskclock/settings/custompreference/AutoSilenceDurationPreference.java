@@ -80,6 +80,7 @@ public class AutoSilenceDurationPreference extends DialogPreference {
      */
     public void setAutoSilenceDuration(int duration) {
         persistInt(duration);
+        notifyChanged();
     }
 
 }

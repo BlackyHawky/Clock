@@ -258,7 +258,6 @@ public class TimerSettingsFragment extends ScreenFragment
                     AutoSilenceDurationPreference pref = findPreference(key);
                     if (pref != null) {
                         pref.setAutoSilenceDuration(newValue);
-                        pref.setSummary(pref.getSummary());
                     }
                 }
             });
@@ -273,7 +272,6 @@ public class TimerSettingsFragment extends ScreenFragment
                     VolumeCrescendoDurationPreference pref = findPreference(key);
                     if (pref != null) {
                         pref.setVolumeCrescendoDuration(newValue);
-                        pref.setSummary(pref.getSummary());
                     }
                 }
             });
@@ -288,7 +286,6 @@ public class TimerSettingsFragment extends ScreenFragment
                     TimerAddTimeButtonValuePreference pref = findPreference(key);
                     if (pref != null) {
                         pref.setAddTimeButtonValue(newValue);
-                        pref.setSummary(pref.getSummary());
                     }
                 }
             });

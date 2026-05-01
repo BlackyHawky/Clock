@@ -44,6 +44,7 @@ public class VibrationStartDelayPreference extends DialogPreference {
      */
     public void setVibrationStartDelay(int seconds) {
         persistInt(seconds);
+        notifyChanged();
     }
 
     @Override
