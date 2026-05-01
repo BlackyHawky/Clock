@@ -333,13 +333,10 @@
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
-        <ListPreference
-            android:key="key_alarm_notification_reminder_time"
+        <com.best.deskclock.settings.custompreference.AlarmNotificationReminderPreference
+            android:key="key_alarm_notification_reminder"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/alarm_notification_reminder_title"
-            android:entries="@array/alarm_notification_reminder_entries"
-            android:entryValues="@array/alarm_notification_reminder_values"
-            android:defaultValue="30"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
