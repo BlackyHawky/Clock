@@ -396,7 +396,6 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
                     bindSelectedDate();
                     bindDeleteOccasionalAlarmAfterUse();
-                    updateSecondGroup();
                     Utils.setVibrationTime(requireContext(), 10);
                     break;
                 }
@@ -578,15 +577,12 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     }
 
     private void bindDeleteOccasionalAlarmAfterUse() {
-        if (mAlarm.daysOfWeek.isRepeating()) {
-            mDeleteOccasionalAlarmAfterUse.setVisibility(GONE);
-            return;
-        }
+        final boolean isRepeating = mAlarm.daysOfWeek.isRepeating();
 
         mDeleteOccasionalAlarmAfterUse.setTypeface(mGeneralTypeface);
-        mDeleteOccasionalAlarmAfterUse.setVisibility(VISIBLE);
+        mDeleteOccasionalAlarmAfterUse.setEnabled(!isRepeating);
         mDeleteOccasionalAlarmAfterUse.setOnCheckedChangeListener(null);
-        mDeleteOccasionalAlarmAfterUse.setChecked(mAlarm.deleteAfterUse);
+        mDeleteOccasionalAlarmAfterUse.setChecked(!isRepeating && mAlarm.deleteAfterUse);
 
         mDeleteOccasionalAlarmAfterUse.setOnCheckedChangeListener((buttonView, isChecked) -> {
             mAlarm.deleteAfterUse = isChecked;
@@ -932,7 +928,6 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         if (isFromDelay) {
             bindDaysOfWeekButtons();
             bindDeleteOccasionalAlarmAfterUse();
-            updateSecondGroup();
         }
 
         bindClock();
