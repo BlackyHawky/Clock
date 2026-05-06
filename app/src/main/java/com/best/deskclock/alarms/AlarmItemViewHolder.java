@@ -18,7 +18,6 @@ import android.graphics.drawable.Drawable;
 import android.text.format.DateFormat;
 import android.util.TypedValue;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,7 +30,9 @@ import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.uicomponents.TextTime;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.FormattedTextUtils;
+import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.ThemeUtils;
+import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.textview.MaterialTextView;
 
 import java.util.Calendar;
@@ -60,7 +61,7 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
 
     private final TextView mAlarmLabel;
     private final TextTime mClock;
-    private final CompoundButton mOnOff;
+    private final MaterialSwitch mOnOff;
     private final TextView mDaysOfWeek;
     private final TextView mUpcomingDate;
     private final MaterialTextView mPreemptiveDismissButton;
@@ -93,10 +94,6 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
             mItemHolder.getAlarmTimeClickHandler().onClockLongClicked(mItemHolder.item);
             return true;
         });
-
-        // On/Off button handler
-        mOnOff.setOnCheckedChangeListener((compoundButton, checked) ->
-            mItemHolder.getAlarmTimeClickHandler().setAlarmEnabled(mItemHolder.item, checked));
 
         // Upcoming date font
         mUpcomingDate.setTypeface(mGeneralTypeface);
@@ -173,9 +170,16 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void bindOnOffSwitch(Alarm alarm) {
-        if (mOnOff.isChecked() != alarm.enabled) {
-            mOnOff.setChecked(alarm.enabled);
+        if (RingtoneUtils.RINGTONE_SILENT.equals(alarm.alert)) {
+            mOnOff.setThumbIconResource(R.drawable.ic_ringtone_silent_filled);
+        } else {
+            mOnOff.setThumbIconResource(R.drawable.alarm_switch_thumb_icon);
         }
+
+        mOnOff.setOnCheckedChangeListener(null);
+        mOnOff.setChecked(alarm.enabled);
+        mOnOff.setOnCheckedChangeListener((compoundButton, checked) ->
+            mItemHolder.getAlarmTimeClickHandler().setAlarmEnabled(mItemHolder.item, checked));
     }
 
     private void bindClock(Alarm alarm) {
