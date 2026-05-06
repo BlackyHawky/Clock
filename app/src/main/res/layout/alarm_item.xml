@@ -92,12 +92,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
-        app:thumbIcon="@drawable/alarm_switch_thumb_icon"
         app:thumbIconTint="@color/switch_thumb_icon_tint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/preemptive_dismiss_button"
         app:layout_constraintVertical_chainStyle="packed"
+        tools:thumbIcon="@drawable/alarm_switch_thumb_icon"
         tools:ignore="TouchTargetSizeCheck" />
 
     <com.google.android.material.textview.MaterialTextView
