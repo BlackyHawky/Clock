@@ -78,6 +78,7 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
     private int mLastComputedLapCount = -1;
     private final Typeface mRegularTypeface;
     private final Typeface mBoldTypeface;
+    private final String mDecimalSeparator;
     private final int mPadding;
     private final float mTextSize;
     private final int mDefaultLapColor;
@@ -91,6 +92,7 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
         String fontPath = SettingsDAO.getGeneralFont(prefs);
         mRegularTypeface = ThemeUtils.loadFont(fontPath);
         mBoldTypeface = ThemeUtils.boldTypeface(fontPath);
+        mDecimalSeparator = String.valueOf(DecimalFormatSymbols.getInstance().getDecimalSeparator());
         boolean isTablet = ThemeUtils.isTablet();
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         mPadding = (int) dpToPx(isTablet ? 8 : 4, displayMetrics);
@@ -261,7 +263,7 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
      * @param rv        the RecyclerView that contains the {@code childView}
      * @param totalTime time accumulated for the current lap and all prior laps
      */
-    void updateCurrentLap(RecyclerView rv, long totalTime) {
+    public void updateCurrentLap(RecyclerView rv, long totalTime) {
         // If no laps exist there is nothing to do.
         if (getItemCount() == 0) {
             return;
@@ -284,7 +286,7 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
      *
      * @return a newly cleared lap
      */
-    Lap addLap() {
+    public Lap addLap() {
         final Lap lap = DataModel.getDataModel().addLap();
 
         Utils.setVibrationTime(mContext, 10);
@@ -297,7 +299,7 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
     /**
      * Remove all recorded laps and update this adapter.
      */
-    void clearLaps() {
+    public void clearLaps() {
         // Clear the computed time lengths related to the old recorded laps.
         mLastFormattedLapTimeLength = 0;
         mLastFormattedAccumulatedTimeLength = 0;
@@ -313,7 +315,7 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
     /**
      * @return a formatted textual description of lap times and total time
      */
-    String getShareText() {
+    public String getShareText() {
         final Stopwatch stopwatch = getStopwatch();
         final long totalTime = stopwatch.getTotalTime();
         final String stopwatchTime = formatTime(totalTime, totalTime, ":");
@@ -332,7 +334,7 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
             builder.append("\n");
 
             // Loop through the laps in the order they were recorded; reverse of display order.
-            final String separator = DecimalFormatSymbols.getInstance().getDecimalSeparator() + " ";
+            final String separator = mDecimalSeparator + " ";
             for (int i = laps.size() - 1; i >= 0; i--) {
                 final Lap lap = laps.get(i);
                 builder.append(lap.getLapNumber());
@@ -361,7 +363,7 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
      * @return e.g. "# 7" if {@code lapCount} less than 10; "# 07" if {@code lapCount} is 10 or more
      */
     @VisibleForTesting
-    String formatLapNumber(int lapCount, int lapNumber) {
+    public String formatLapNumber(int lapCount, int lapNumber) {
         if (lapCount < 10) {
             return mContext.getString(R.string.lap_number_single_digit, lapNumber);
         } else {
@@ -418,7 +420,7 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
      * @return a formatted version of the time
      */
     @VisibleForTesting
-    static String formatTime(long maxTime, long time, String separator) {
+    private String formatTime(long maxTime, long time, String separator) {
         final int hours, minutes, seconds, hundredths;
         if (time <= 0) {
             // A negative time should be impossible, but is tolerated to avoid crashing the app.
@@ -435,8 +437,6 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
 
             hundredths = remainder / 10;
         }
-
-        final char decimalSeparator = DecimalFormatSymbols.getInstance().getDecimalSeparator();
 
         sTimeBuilder.setLength(0);
 
@@ -462,7 +462,7 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
         // The display of seconds and hundredths-of-a-second is constant.
         sTimeBuilder.append(separator);
         sTimeBuilder.append(UiDataModel.getUiDataModel().getFormattedNumber(seconds, 2));
-        sTimeBuilder.append(decimalSeparator);
+        sTimeBuilder.append(mDecimalSeparator);
         sTimeBuilder.append(UiDataModel.getUiDataModel().getFormattedNumber(hundredths, 2));
 
         return sTimeBuilder.toString();
@@ -471,7 +471,7 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
     /**
      * Cache the child views of each lap item view.
      */
-    static final class LapItemHolder extends RecyclerView.ViewHolder {
+    public static final class LapItemHolder extends RecyclerView.ViewHolder {
 
         private final TextView lapNumber;
         private final TextView lapTime;

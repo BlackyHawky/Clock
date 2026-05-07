@@ -180,9 +180,6 @@ public class TimerItem extends ConstraintLayout {
         mTimerEditNewDurationButton = findViewById(R.id.timer_edit_new_duration_button);
 
         mTimerTotalDurationText = findViewById(R.id.timer_total_duration);
-        if (mTimerTotalDurationText != null) {
-            mTimerTotalDurationText.setTypeface(mTimerTimeTypeface);
-        }
 
         mIndicatorState = findViewById(R.id.indicator_state);
         final Drawable drawable = ThemeUtils.circleDrawable();
@@ -209,7 +206,26 @@ public class TimerItem extends ConstraintLayout {
             new int[][]{{-state_activated, -state_pressed}, {}},
             new int[]{textColorPrimary, colorAccent});
         mTimerText.setTextColor(timeTextColor);
+    }
+
+    /**
+     * Injects preloaded typefaces into the view to optimize performance.
+     * This avoids expensive disk I/O operations when the view is inflated or recycled.
+     *
+     * @param regular   The standard typeface used for regular text (e.g., empty labels).
+     * @param bold      The bold typeface used for active labels and buttons.
+     * @param timerTime The specific typeface used for the main timer countdown display.
+     */
+    public void setCachedFonts(Typeface regular, Typeface bold, Typeface timerTime) {
+        mRegularTypeface = regular;
+        mBoldTypeface = bold;
+        mTimerTimeTypeface = timerTime;
+
         mTimerText.setTypeface(mTimerTimeTypeface);
+
+        if (mTimerTotalDurationText != null) {
+            mTimerTotalDurationText.setTypeface(mTimerTimeTypeface);
+        }
 
         mAddTimeButton.setTypeface(mBoldTypeface);
     }

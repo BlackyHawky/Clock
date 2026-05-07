@@ -8,7 +8,6 @@ package com.best.deskclock.alarms;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
-import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -47,10 +46,11 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
     public static final float CLOCK_ENABLED_ALPHA = 1f;
     public static final float CLOCK_DISABLED_ALPHA = 0.6f;
     public static final int ALPHA_ANIMATION_DURATION = 300;
-    private static final String SKELETON = "EEE MMM d";
+    public static final String SKELETON = "EEE MMM d";
 
 
     public final SharedPreferences mPrefs;
+    private final AlarmAdapter mAdapter;
     private AlarmItemHolder mItemHolder;
     private final Typeface mGeneralTypeface;
     private final Typeface mGeneralBoldTypeface;
@@ -66,17 +66,19 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
     private final TextView mUpcomingDate;
     private final MaterialTextView mPreemptiveDismissButton;
 
-    public AlarmItemViewHolder(View itemView) {
+    public AlarmItemViewHolder(View itemView, AlarmAdapter alarmAdapter, SharedPreferences prefs, Typeface generalTypeface,
+                               Typeface generalBoldTypeface, Typeface alarmClockTypeface, Locale locale, String datePattern) {
+
         super(itemView);
 
         final Context context = itemView.getContext();
 
-        mPrefs = getDefaultSharedPreferences(context);
-        String generalFontPath = SettingsDAO.getGeneralFont(mPrefs);
-        mGeneralTypeface = ThemeUtils.loadFont(generalFontPath);
-        mGeneralBoldTypeface = ThemeUtils.boldTypeface(generalFontPath);
-        mLocale = Locale.getDefault();
-        mDatePattern = DateFormat.getBestDateTimePattern(mLocale, SKELETON);
+        mAdapter = alarmAdapter;
+        mPrefs = prefs;
+        mGeneralTypeface = generalTypeface;
+        mGeneralBoldTypeface = generalBoldTypeface;
+        mLocale = locale;
+        mDatePattern = datePattern;
 
         mAlarmLabel = itemView.findViewById(R.id.label);
         mClock = itemView.findViewById(R.id.digital_clock);
@@ -88,7 +90,7 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         itemView.setOnClickListener(v -> mItemHolder.getAlarmTimeClickHandler().displayBottomSheetDialog(mItemHolder.item, false));
 
         // Clock handler
-        mClock.setTypeface(ThemeUtils.boldTypeface(SettingsDAO.getAlarmFont(mPrefs)));
+        mClock.setTypeface(alarmClockTypeface);
         mClock.setOnClickListener(v -> mItemHolder.getAlarmTimeClickHandler().onClockClicked(mItemHolder.item));
         mClock.setOnLongClickListener(v -> {
             mItemHolder.getAlarmTimeClickHandler().onClockLongClicked(mItemHolder.item);
@@ -119,7 +121,7 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         final AlarmInstance alarmInstance = itemHolder.getAlarmInstance();
         final Context context = itemView.getContext();
 
-        bindExpressiveCardBackground(context);
+        bindExpressiveCardBackground();
         bindAlarmLabel(context, alarm);
         bindClock(alarm);
         bindOnOffSwitch(alarm);
@@ -131,28 +133,41 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         itemView.setContentDescription(mClock.getText() + " " + alarm.getLabelOrDefault(context));
     }
 
-    private void bindExpressiveCardBackground(Context context) {
-        Drawable cardBackground;
-
-        if (ThemeUtils.isTablet() || ThemeUtils.isLandscape()) {
-            cardBackground = ThemeUtils.cardBackground(context);
-        } else {
-            int position = getBindingAdapterPosition();
-            RecyclerView.Adapter<?> adapter = getBindingAdapter();
-
-            if (position != RecyclerView.NO_POSITION && adapter != null) {
-                int totalCount = adapter.getItemCount();
-
-                this.mItemPosition = position;
-                this.mTotalCount = totalCount;
-
-                cardBackground = ThemeUtils.expressiveCardBackground(context, position, totalCount);
-            } else {
-                cardBackground = ThemeUtils.cardBackground(context);
-            }
+    private void bindExpressiveCardBackground() {
+        if (mAdapter == null) {
+            return;
         }
 
-        itemView.setBackground(ThemeUtils.rippleDrawable(context, cardBackground));
+        int position = getBindingAdapterPosition();
+        if (position == RecyclerView.NO_POSITION) {
+            return;
+        }
+
+        Drawable.ConstantState bgState;
+
+        if (mAdapter.isUseExpressiveBackground()) {
+            // Phone in portrait mode
+            int totalCount = mAdapter.getItemCount();
+            this.mItemPosition = position;
+            this.mTotalCount = totalCount;
+
+            if (totalCount <= 1) {
+                bgState = mAdapter.getBgSingle();
+            } else if (position == 0) {
+                bgState = mAdapter.getBgTop();
+            } else if (position == totalCount - 1) {
+                bgState = mAdapter.getBgBottom();
+            } else {
+                bgState = mAdapter.getBgMiddle();
+            }
+        } else {
+            // Tablet / Landscape
+            bgState = mAdapter.getBgStandard();
+        }
+
+        if (bgState != null) {
+            itemView.setBackground(bgState.newDrawable());
+        }
     }
 
     private void bindAlarmLabel(Context context, Alarm alarm) {
@@ -272,7 +287,7 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
     // ********************
 
     public void updateBackground() {
-        bindExpressiveCardBackground(itemView.getContext());
+        bindExpressiveCardBackground();
     }
 
     private void setRepeatingDaysDescription(Context context, Alarm alarm, AlarmInstance alarmInstance) {

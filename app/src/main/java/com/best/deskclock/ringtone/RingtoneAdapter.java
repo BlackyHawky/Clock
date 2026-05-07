@@ -2,6 +2,15 @@
 
 package com.best.deskclock.ringtone;
 
+import static androidx.core.util.TypedValueCompat.dpToPx;
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -9,6 +18,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.R;
+import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.utils.ThemeUtils;
+import com.google.android.material.color.MaterialColors;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,10 +34,35 @@ public class RingtoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private List<RingtoneItem> mItems = new ArrayList<>();
     private final OnRingtoneClickListener mListener;
+    private final Typeface mGeneralTypeface;
+    private final int mDisplayMetricsPadding;
 
-    public RingtoneAdapter(OnRingtoneClickListener listener) {
+    private final Drawable.ConstantState mBgSelectedState;
+    private final Drawable.ConstantState mBgUnselectedState;
+
+    public RingtoneAdapter(Context context, OnRingtoneClickListener listener) {
         mListener = listener;
+
+        SharedPreferences prefs = getDefaultSharedPreferences(context);
+        mGeneralTypeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
+        mDisplayMetricsPadding = (int) dpToPx(20, context.getResources().getDisplayMetrics());
+
+        int colorSelected = MaterialColors.getColor(context, com.google.android.material.R.attr.colorSurface, Color.BLACK);
+        int colorUnselected;
+        if (ThemeUtils.isNight(context.getResources()) && AMOLED_DARK_MODE.equals(SettingsDAO.getDarkMode(prefs))) {
+            colorUnselected = Color.BLACK;
+        } else {
+            colorUnselected = MaterialColors.getColor(context, android.R.attr.colorBackground, Color.BLACK);
+        }
+
+        mBgSelectedState = ThemeUtils.rippleDrawable(context, colorSelected).getConstantState();
+        mBgUnselectedState = ThemeUtils.rippleDrawable(context, colorUnselected).getConstantState();
     }
+
+    public Typeface getGeneralTypeface() { return mGeneralTypeface; }
+    public Drawable.ConstantState getBgSelectedState() { return mBgSelectedState; }
+    public Drawable.ConstantState getBgUnselectedState() { return mBgUnselectedState; }
+    public int getDisplayMetricsPadding() { return mDisplayMetricsPadding; }
 
     @Override
     public int getItemViewType(int position) {
@@ -38,11 +75,11 @@ public class RingtoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
 
         if (viewType == VIEW_TYPE_HEADER) {
-            return new HeaderViewHolder(inflater.inflate(viewType, parent, false));
+            return new HeaderViewHolder(inflater.inflate(viewType, parent, false), this);
         } else if (viewType == VIEW_TYPE_BUTTON_TIP) {
-            return new AddButtonTipViewHolder(inflater.inflate(R.layout.ringtone_item_sound, parent, false));
+            return new AddButtonTipViewHolder(inflater.inflate(R.layout.ringtone_item_sound, parent, false), this);
         } else {
-            return new RingtoneViewHolder(inflater.inflate(Math.abs(viewType), parent, false));
+            return new RingtoneViewHolder(inflater.inflate(Math.abs(viewType), parent, false), this);
         }
     }
 

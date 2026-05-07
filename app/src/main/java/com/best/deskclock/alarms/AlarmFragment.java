@@ -163,7 +163,7 @@ public final class AlarmFragment extends DeskClockFragment
         mDisplayMetrics = getResources().getDisplayMetrics();
         mBoldTypeface = ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(mPrefs));
         mCursorLoader = LoaderManager.getInstance(this).initLoader(0, null, this);
-        mItemAdapter = new AlarmAdapter();
+        mItemAdapter = new AlarmAdapter(mContext);
         mIsTablet = ThemeUtils.isTablet();
         mIsLandscape = ThemeUtils.isLandscape();
         mIsPhoneInLandscape = !mIsTablet && mIsLandscape;

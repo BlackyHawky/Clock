@@ -10,12 +10,20 @@ import com.best.deskclock.data.CustomRingtone;
 
 public class CustomRingtoneHolder extends RingtoneHolder {
 
-    CustomRingtoneHolder(CustomRingtone ringtone) {
+    private final boolean mIsReadable;
+
+    CustomRingtoneHolder(CustomRingtone ringtone, boolean isReadable) {
         super(ringtone.getUri(), ringtone.getTitle());
+        mIsReadable = isReadable;
     }
 
     @Override
     public int getViewType() {
         return RingtoneAdapter.VIEW_TYPE_CUSTOM_SOUND;
     }
+
+    public boolean isReadable() {
+        return mIsReadable;
+    }
+
 }

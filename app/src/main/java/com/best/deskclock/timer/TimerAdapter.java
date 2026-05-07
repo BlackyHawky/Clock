@@ -12,6 +12,8 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_ORDER;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,15 +50,52 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private final TimerClickHandler mTimerClickHandler;
     private final Context mContext;
     private final SharedPreferences mPrefs;
+    private final Typeface mRegularTypeface;
+    private final Typeface mBoldTypeface;
+    private final Typeface mTimerTimeTypeface;
     private RecyclerView mRecyclerView;
+    private final boolean mIsTablet;
+
+    private final Drawable.ConstantState mBgStandard;
+    private final Drawable.ConstantState mBgStart;  // Top (Portrait) or Left (Landscape)
+    private final Drawable.ConstantState mBgMiddle; // Middle
+    private final Drawable.ConstantState mBgEnd;    // Bottom (Portrait) or Right (Landscape)
 
     public TimerAdapter(Context context, SharedPreferences sharedPreferences, TimerClickHandler timerClickHandler) {
         mContext = context;
         mPrefs = sharedPreferences;
         mTimerClickHandler = timerClickHandler;
+        mIsTablet = ThemeUtils.isTablet();
+
+        String generalFontPath = SettingsDAO.getGeneralFont(mPrefs);
+        mRegularTypeface = ThemeUtils.loadFont(generalFontPath);
+        mBoldTypeface = ThemeUtils.boldTypeface(generalFontPath);
+        mTimerTimeTypeface = ThemeUtils.loadFont(SettingsDAO.getTimerDurationFont(mPrefs));
 
         loadTimerList();
+
+        mBgStandard = ThemeUtils.cardBackground(context).getConstantState();
+
+        if (!mIsTablet) {
+            if (ThemeUtils.isLandscape()) {
+                mBgStart = ThemeUtils.expressiveCardBackgroundForLandscape(context, 0, 3).getConstantState();
+                mBgMiddle = ThemeUtils.expressiveCardBackgroundForLandscape(context, 1, 3).getConstantState();
+                mBgEnd = ThemeUtils.expressiveCardBackgroundForLandscape(context, 2, 3).getConstantState();
+            } else {
+                mBgStart = ThemeUtils.expressiveCardBackground(context, 0, 3).getConstantState();
+                mBgMiddle = ThemeUtils.expressiveCardBackground(context, 1, 3).getConstantState();
+                mBgEnd = ThemeUtils.expressiveCardBackground(context, 2, 3).getConstantState();
+            }
+        } else {
+            mBgStart = mBgMiddle = mBgEnd = null;
+        }
     }
+
+    public boolean isTablet() { return mIsTablet; }
+    public Drawable.ConstantState getBgStandard() { return mBgStandard; }
+    public Drawable.ConstantState getBgStart() { return mBgStart; }
+    public Drawable.ConstantState getBgMiddle() { return mBgMiddle; }
+    public Drawable.ConstantState getBgEnd() { return mBgEnd; }
 
     @Override
     public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
@@ -131,7 +170,8 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             view = inflater.inflate(R.layout.timer_item_compact, parent, false);
         }
 
-        return new TimerViewHolder(view, mTimerClickHandler, viewType);
+        return new TimerViewHolder(view, this, mTimerClickHandler, viewType, mRegularTypeface, mBoldTypeface,
+            mTimerTimeTypeface);
     }
 
     @Override

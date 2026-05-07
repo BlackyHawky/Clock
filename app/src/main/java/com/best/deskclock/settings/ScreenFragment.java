@@ -182,7 +182,7 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
 
     @Override
     public void onCreatePreferences(@Nullable Bundle savedInstanceState, @Nullable String rootKey) {
-        // this must be overridden, but is useless, because it's called during onCreate
+        // This must be overridden, but is useless, because it's called during onCreate
         // so there is no possibility of calling setStorageDeviceProtected before this is called...
     }
 
@@ -203,6 +203,17 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
     @NonNull
     @Override
     protected RecyclerView.Adapter<?> onCreateAdapter(@NonNull PreferenceScreen preferenceScreen) {
+        final Context context = preferenceScreen.getContext();
+
+        final Drawable.ConstantState bgSingle = ThemeUtils.rippleDrawable(
+            context, ThemeUtils.expressiveCardBackground(context, 0, 1)).getConstantState();
+        final Drawable.ConstantState bgTop = ThemeUtils.rippleDrawable(
+            context, ThemeUtils.expressiveCardBackground(context, 0, 3)).getConstantState();
+        final Drawable.ConstantState bgMiddle = ThemeUtils.rippleDrawable(
+            context, ThemeUtils.expressiveCardBackground(context, 1, 3)).getConstantState();
+        final Drawable.ConstantState bgBottom = ThemeUtils.rippleDrawable(
+            context, ThemeUtils.expressiveCardBackground(context, 2, 3)).getConstantState();
+
         return new PreferenceGroupAdapter(preferenceScreen) {
             @Override
             public void onBindViewHolder(@NonNull PreferenceViewHolder holder, int position) {
@@ -218,7 +229,6 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
                     return;
                 }
 
-                Context context = holder.itemView.getContext();
                 TextView title = (TextView) holder.findViewById(android.R.id.title);
                 TextView summary = (TextView) holder.findViewById(android.R.id.summary);
 
@@ -241,49 +251,67 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
 
                 View cardView = holder.itemView.findViewById(R.id.pref_card_view);
 
+                // Apply the Material Expressive background
                 if (cardView != null) {
-                    int visibleCount = 1;
-                    int visibleIndex = 0;
+                    Drawable.ConstantState bgState = getCardBackgroundState(pref);
 
-                    PreferenceGroup parent = pref.getParent();
-                    if (parent != null) {
-                        int tempCount = 0;
-                        boolean foundTarget = false;
+                    if (bgState != null) {
+                        cardView.setBackground(bgState.newDrawable());
+                    }
+                }
+            }
 
-                        for (int i = 0; i < parent.getPreferenceCount(); i++) {
-                            Preference child = parent.getPreference(i);
+            /**
+             * Calculates the preference's position within its group and returns the appropriate background.
+             */
+            private Drawable.ConstantState getCardBackgroundState(Preference pref) {
+                int visibleCount = 1;
+                int visibleIndex = 0;
 
-                            if (!child.isVisible()) {
-                                // Ignore hidden items
-                                continue;
-                            }
+                PreferenceGroup parent = pref.getParent();
+                if (parent != null) {
+                    int tempCount = 0;
+                    boolean foundTarget = false;
 
-                            if (isCardPreference(child)) {
-                                if (child == pref) {
-                                    foundTarget = true;
-                                    visibleIndex = tempCount;
-                                }
-                                tempCount++;
-                            } else {
-                                if (foundTarget) {
-                                    break;
-                                } else {
-                                    tempCount = 0;
-                                }
-                            }
+                    for (int i = 0; i < parent.getPreferenceCount(); i++) {
+                        Preference child = parent.getPreference(i);
+
+                        if (!child.isVisible()) {
+                            // Ignore hidden items
+                            continue;
                         }
 
-                        if (foundTarget) {
-                            visibleCount = tempCount;
+                        if (isCardPreference(child)) {
+                            if (child == pref) {
+                                foundTarget = true;
+                                visibleIndex = tempCount;
+                            }
+                            tempCount++;
+                        } else {
+                            if (foundTarget) {
+                                break;
+                            } else {
+                                tempCount = 0;
+                            }
                         }
                     }
 
-                    // Apply the Material Expressive background
-                    Drawable cardBackground = ThemeUtils.expressiveCardBackground(context, visibleIndex, visibleCount);
+                    if (foundTarget) {
+                        visibleCount = tempCount;
+                    }
+                }
 
-                    cardView.setBackground(ThemeUtils.rippleDrawable(context, cardBackground));
+                if (visibleCount <= 1) {
+                    return bgSingle;
+                } else if (visibleIndex == 0) {
+                    return bgTop;
+                } else if (visibleIndex == visibleCount - 1) {
+                    return bgBottom;
+                } else {
+                    return bgMiddle;
                 }
             }
+
         };
     }
 
