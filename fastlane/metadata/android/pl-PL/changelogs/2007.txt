@@ -1,0 +1,10 @@
+**Poprawki**
+- Naprawiono podsumowanie „Stopniowo zwiększaj głośność” dla timera
+
+**Ulepszenia**
+- Usunięto niepotrzebne uprawnienia;
+- Ulepszono alarm i timer;
+- Aby zobaczyć wszystkie ulepszenia, odwiedź stronę: https://github.com/BlackyHawky/Clock/releases/tag/2.6
+
+**Uwaga:**
+Z powodu zmiany w bazie danych konieczna będzie ponowna instalacja aplikacji.

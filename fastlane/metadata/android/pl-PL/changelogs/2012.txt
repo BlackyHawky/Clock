@@ -1,0 +1,3 @@
+Z powodu poważnego błędu spowodowanego przez funkcję „Ustaw alarm na konkretną datę”, została ona usunięta w oczekiwaniu na znalezienie rozwiązania.
+
+Pozostałe funkcje wersji 2.10 zostały zachowane i można je znaleźć tutaj: https://github.com/BlackyHawky/Clock/releases/tag/2.10

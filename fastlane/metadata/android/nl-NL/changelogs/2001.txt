@@ -1,40 +1,40 @@
 **Opgelost:**
-* Alarmactivering voor Android 14;
-* Stopwatch- en timermeldingen opgelost;
-* Geforceerd sluiten voor bedtijd wanneer er geen alarm is ingesteld of wanneer het apparaat wordt gedraaid;
-* Enkele storingen in de bedtijdmodus opgelost;
-* Screensaver-start voor Android 13+ opgelost;
-* Weergave en update van digitale widget voor Android 12+ opgelost;
-* Alarmvolume in instellingen opgelost;
-* Achtergrondkleur van onderste navigatiebalk aangepast (tablets hebben hier het meest last van);
+* Wekkeractivering voor Android 14;
+* Stopklok- en kookwekkermeldingen;
+* Geforceerd sluiten voor bedtijd wanneer geen wekker is ingesteld of als het apparaat is gedraaid;
+* Fouten in bedtijdmodus;
+* Screensaver starten voor Android 13+;
+* Weergave en bijwerken van digitale widget voor Android 12+;
+* Wekkervolume in instellingen;
+* Achtergrondkleur onderste navigatiebalk (tablets hadden hier het meest last van);
 
 **Verbeteringen:**
-* Material design geïmplementeerd (schakelaars, tijdkiezer, afgeronde iconen, kaartachtergrond,...);
+* Material design (schakelaars, tijdkiezer, pictogrammen, kaartachtergrond,...);
 * Dynamische kleuren toegevoegd;
 * AMOLED-modus toegevoegd voor donker thema;
-* Nieuw rechtenbeheer toegevoegd;
-* Monochroom icoon toegevoegd;
-* Inklapbare werkbalk toegevoegd;
-* Analoge en digitale widgets van Material You toegevoegd;
-* Bedtijdmodus toegevoegd (door @Nilsu11);
-* Iconen vervangen door rondere;
-* Wanneer de app voor het eerst wordt gestart, worden de belangrijkste functies en de mogelijkheid om rechten te beheren weergegeven.
-* Verificatie toegevoegd dat de essentiële rechten bij het starten van de app zijn verleend om te controleren of de app goed werkt.
-* De debugversie kan tegelijk met de releaseversie worden geïnstalleerd.
-* Standaardbeltoon voor alarmen instellen in de instellingen.
-* Opties voor schermbeveiliging toevoegen.
-* Screensaver activeren door de klok lang in te drukken.
-* Screensaveranimatie verkorten tot 30 seconden.
-* Menu's worden weergegeven als pictogrammen.
-* De weergave van de instellingen moderniseren.
-* Sectie 'Over' toevoegen in de instellingen.
-* Het bedtijdpictogram animeren.
-* Toetsenbord automatisch weergeven bij het bewerken van een alarm.
-* Een verwijderpictogram en de tekst 'Verwijderen' toevoegen bij het vegen om een alarm te verwijderen.
-* Een knop toevoegen om een alarm te dupliceren (behalve het bedtijdalarm, dat is nutteloos).
-* De trilfunctie wordt niet geactiveerd bij het aanmaken van een alarm en bij alarmen die al zijn aangemaakt.
-* Verleng de triltijd bij het activeren van een alarm;
-* Weergave van analoge klok in de alarmtriggerweergave toestaan;
-* Fragment-gerelateerde code bijwerken om AndroidX te gebruiken;
-* Licentieheaders bijwerken;
-* Onnodige bestanden en code verwijderen;
+* Nieuwe rechtenbeheer;
+* Monochroom icoon;
+* Inklapbare werkbalk;
+* Analoge en digitale widgets van Material You;
+* Bedtijdmodus (door @Nilsu11);
+* Rondere pictogrammen;
+* Wanneer de app voor het eerst wordt gestart, worden de belangrijkste functies en de mogelijkheid om rechten te beheren weergegeven;
+* Verifieer bij het starten van de app of essentiële rechten zijn verleend zodat app goed werkt;
+* De debugversie kan tegelijk met de publicatieversie worden geïnstalleerd;
+* Standaardbeltoon voor wekkers instellen in de instellingen;
+* Opties voor schermbeveiliging;
+* Screensaver activeren door de klok lang in te drukken;
+* Screensaveranimatie verkort tot 30 seconden;
+* Menu's weergeven als pictogrammen;
+* Weergave van instellingen gemoderniseerd;
+* Sectie 'Over' in de instellingen toegevoegd;
+* Geanimeerd bedtijdpictogram;
+* Toetsenbord automatisch weergeven bij wekker bewerken;
+* Verwijderpictogram en de tekst 'Verwijderen' toegevoegd bij het vegen om een wekker te verwijderen;
+* Knop om wekker te dupliceren (behalve bedtijdwekkers);
+* Trillen wordt niet geactiveerd bij het maken van een wekker en bij wekkers die al zijn gemaakt;
+* Verlengde triltijd bij het aanzetten van een wekker;
+* Optie voor analoge klok als wekker gaat;
+* Fragment-gerelateerde code bijgewerkt om AndroidX te gebruiken;
+* Licentiekoppen bijgewerkt;
+* Onnodige bestanden en code verwijderd;

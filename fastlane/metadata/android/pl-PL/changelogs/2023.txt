@@ -1,0 +1,15 @@
+**Poprawki**
+- Naprawiono górne wypełnienie dla urządzeń z wcięciem
+- Naprawiono wibracje alarmu i timera dla niektórych urządzeń
+
+**Ulepszenia**
+- Ustawianie alarmów na konkretną datę
+- Możliwość losowego odtwarzania dzwonków
+- Możliwość wyboru folderu do dodania dzwonków
+- Ukrywanie etykiety alarmu, jeśli nie została określona
+- Usunięcie uprawnienia `DISABLE_KEYGUARD`
+- Wyłącz usuwanie alarmów przesuwaniem palcem, jeśli animacje systemowe są wyłączone
+- Aktualizacja tłumaczeń
+- Ulepszenie i wyczyszczenie kodu
+
+Wszystkie zmiany tutaj: https://github.com/BlackyHawky/Clock/releases/tag/2.20

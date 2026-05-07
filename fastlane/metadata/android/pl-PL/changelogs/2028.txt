@@ -1,0 +1,8 @@
+Wiele poprawek i ulepszeń szczegółowo opisano tutaj:
+https://github.com/BlackyHawky/Clock/releases/tag/2.25
+
+**Uwaga: Z powodu zmian w kodzie, dwa ustawienia timera zostały zresetowane:**
+- `Wycisz po`
+- `Domyślny czas dodania do timera`
+
+**Po aktualizacji aplikacji należy wykonać nową kopię zapasową i usunąć starą**

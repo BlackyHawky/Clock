@@ -1,0 +1,8 @@
+Viele Fehlerbehebungen und Verbesserungen, die hier aufgeführt sind:
+https://github.com/BlackyHawky/Clock/releases/tag/2.29
+
+**Hinweise:**
+ - Die Einstellung „Verpasste Alarme wiederholen“ wurde zurückgesetzt.
+ - Aufgrund der Unterstützung für kabelgebundene Headsets müssen zwei Einstellungen neu konfiguriert werden: „Automatische Weiterleitung von Klingeltönen an externe Audiogeräte aktivieren“ und „Alarmlautstärke für externe Audiogeräte“.
+ - Widgets müssen vom Startbildschirm entfernt und erneut hinzugefügt werden.
+ - Bitte erstellen Sie nach der Aktualisierung der App ein neues Backup und löschen Sie das alte.

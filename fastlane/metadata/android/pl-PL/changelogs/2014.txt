@@ -1,0 +1,14 @@
+**Poprawki**
+- Naprawiono wyświetlanie nadchodzących alarmów z innych aplikacji
+- Naprawiono błąd, przez który nie wyświetlał się alarm po zablokowaniu urządzenia w przypadku urządzeń MIUI
+
+**Ulepszenia**
+- Usunięto tryb snu
+- Obsługa kafelków w panelu szybkich ustawień
+- Możliwość włączenia tylnego błysku po uruchomieniu alarmu
+- Możliwość dostosowania intensywności potrząsania
+- Możliwość zmiany języka aplikacji
+- Poprawiono użyteczność trybu poziomego na telefonach
+
+Wiele innych zmian znajduje się na stronie GitHub:
+https://github.com/BlackyHawky/Clock/releases/tag/2.12

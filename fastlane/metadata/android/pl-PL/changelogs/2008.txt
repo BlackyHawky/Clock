@@ -1,0 +1,7 @@
+**Ulepszenia**
+- Wybierz domyślny styl selektora czasu;
+- Dodaj efekt przejścia podczas przeglądania ustawień;
+- Dostosuj wyświetlanie animacji alarmu;
+- Dodaj akcję „Nic” do przycisków głośności;
+- Zaktualizuj tłumaczenia;
+- Aby zobaczyć wszystkie ulepszenia, odwiedź stronę: https://github.com/BlackyHawky/Clock/releases/tag/2.7

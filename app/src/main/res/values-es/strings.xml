@@ -3,8 +3,7 @@
     Copyright (C) 2016 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="6674495003718166674">"Reloj"</string>
     <string name="default_label" msgid="5590025289805630372">"Alarma"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Vibrar"</string>
@@ -658,4 +657,9 @@
     <string name="widget_apply_horizontal_padding_title">Aplicar relleno a los lados del widget</string>
     <string name="foreground_service_title">Mostrar una notificación en primer plano</string>
     <string name="foreground_service_dialog_message">Para evitar que tu dispositivo cierre la aplicación de forma brusca y se pierdan las alarmas, se mostrará una notificación persistente y silenciosa.\n\nEsto garantiza que la aplicación permanezca en la memoria, aunque puede aumentar ligeramente el consumo de batería.\n\nNota: No es necesario activar esta opción en la mayoría de los dispositivos. Actívala solo si se pierden las alarmas.</string>
+    <string name="display_alarm_action_message_title">Mostrar un mensaje después de posponer o desactivar la alarma</string>
+    <string name="display_top_date_title">Mostrar la fecha encima de la hora en el widget</string>
+    <string name="toast_message_backup_error">Error en la copia de seguridad</string>
+    <string name="toast_message_restore_error">Restauración fallida</string>
+    <string name="alarm_minutes_warning_box_text">Introduce un valor entre 0 y 59 minutos</string>
 </resources>

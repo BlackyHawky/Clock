@@ -1,0 +1,13 @@
+**Poprawki**
+- Naprawiono zatrzymanie podglądu dzwonka w ustawieniach alarmu
+
+**Ulepszenia**
+- Dodano możliwość wyświetlania ostrzeżenia przed usunięciem timera
+- Zastąpiono ikonę „X” ikoną kosza dla timerów
+- Wyświetlono tytuł dzwonka po uruchomieniu alarmu
+- Dodano znaczek IzzyOnDroid w pliku Readme
+- Wsparcie dla powtarzalnych kompilacji
+- Zaktualizowano tłumaczenia
+- Ulepszono kod
+
+Aby zobaczyć wszystkie ulepszenia, odwiedź stronę: https://github.com/BlackyHawky/Clock/releases/tag/2.11

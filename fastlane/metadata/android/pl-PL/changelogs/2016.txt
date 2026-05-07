@@ -1,0 +1,12 @@
+**Poprawki**
+- Naprawiono błąd powodujący awarię po wyłączeniu ustawienia „Wyświetl tytuł dzwonka”
+- Naprawiono domyślne ustawienie koloru wskazówki sekundowej dla alarmów
+
+**Ulepszenia**
+- Dodano zegar analogowy Material do stylów zegara
+- Poprawiono obrót wskazówki godzinowej
+- Udostępniono wygaszacz ekranu dla aplikacji innych firm
+- Uporządkowano kod
+- Zaktualizowano tłumaczenia
+
+Aby zobaczyć wszystkie ulepszenia, odwiedź stronę: https://github.com/BlackyHawky/Clock/releases/tag/2.13

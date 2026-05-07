@@ -3,8 +3,7 @@
     Copyright (C) 2016 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="6674495003718166674">"Hodiny"</string>
     <string name="default_label" msgid="5590025289805630372">"Budík"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Vibrace"</string>
@@ -509,7 +508,7 @@
     <string name="timer_time_box_title">Nové trvání časovače</string>
     <string name="alarm_hours_warning_box_text">Zadejte hodnotu od 0 do 24 hodin</string>
     <string name="label_hours">Hodiny</string>
-    <string name="auto_routing_to_external_audio_device_title">Umožňuje automatické směrování vyzvánění na externí zvuková zařízení</string>
+    <string name="auto_routing_to_external_audio_device_title">Povolit automatické směrování vyzvánění na externí zvuková zařízení</string>
     <string name="timer_creation_view_style_title">Styl zobrazení tvorby časovače</string>
     <string name="timer_creation_view_style_keypad">Klávesnice</string>
     <string name="advanced_audio_playback_title">Použít pokročilé přehrávání zvuku</string>
@@ -666,4 +665,9 @@
     <string name="city_note_color_title">Barva poznámky města</string>
     <string name="city_note_default_color_title">Použít výchozí barvu pro poznámku města</string>
     <string name="display_next_alarm_title_setting_title">Zobrazit název dalšího budíku ve widgetu</string>
+    <string name="display_alarm_action_message_title">Zobrazit zpávu po odložení nebo ukončení budíku</string>
+    <string name="display_top_date_title">Zobrazit datum nad časem ve widgetu</string>
+    <string name="toast_message_backup_error">Záloha selhala</string>
+    <string name="toast_message_restore_error">Obnovení selhalo</string>
+    <string name="alarm_minutes_warning_box_text">Zadejte hodnotu od 0 do 59 minut</string>
 </resources>

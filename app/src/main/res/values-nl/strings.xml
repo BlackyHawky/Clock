@@ -3,8 +3,7 @@
     Copyright (C) 2016 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="6674495003718166674">"Klok"</string>
     <string name="default_label" msgid="5590025289805630372">"Wekker"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Trillen"</string>
@@ -370,7 +369,7 @@
     <string name="green_accent_color">Groen</string>
     <string name="transparent_background_for_expired_timer_title">Transparante achtergrond als kookwekker verloopt</string>
     <string name="widgets_settings_summary">Stijl, kleur en lettergrootte van widgets aanpassen</string>
-    <string name="whats_new_dialog_message">Ondek wat er nieuw is:\n\n%s</string>
+    <string name="whats_new_dialog_message">Ontdek wat er nieuw is:\n\n%s</string>
     <string name="github_dialog_message">Bekijk het project op GitHub:\n\n%s</string>
     <string name="license_dialog_message">Lees de licentie:\n\n%s</string>
     <string name="second_hand_color_title">Kleur secondewijzer</string>
@@ -645,7 +644,7 @@
     <string name="foreground_service_channel">Voorgrondmelding</string>
     <string name="foreground_service_message">Draait op de achtergrond</string>
     <string name="foreground_service_title">Voorgrondmelding weergeven</string>
-    <string name="foreground_service_dialog_message">Om te voorkomen dat je apparaat de app abrupt afsluit en meldingen mist, wordt er een permanente, stille melding weergegeven..\n\nDit zorgt ervoor dat de app in het geheugen blijft, maar kan het batterijverbruik iets verhogen.\n\nLet op: Het inschakelen van deze instelling is voor de meeste apparaten niet nodig. Schakel deze alleen in als je meldingen mist.</string>
+    <string name="foreground_service_dialog_message">Om te voorkomen dat je apparaat de app abrupt afsluit en meldingen mist, wordt er een permanente, stille melding weergegeven.\n\nDit zorgt ervoor dat de app in het geheugen blijft, maar kan het batterijverbruik iets verhogen.\n\nLet op: Het inschakelen van deze instelling is voor de meeste apparaten niet nodig. Schakel deze alleen in als je meldingen mist.</string>
     <string name="settings_language_arabic">Arabisch</string>
     <string name="settings_language_hungarian">Hongaars</string>
     <string name="display_low_alarm_volume_warning_title">Waarschuwing weergeven wanneer wekkervolume op laagste niveau is ingesteld</string>
@@ -654,4 +653,9 @@
     <string name="city_note_color_title">Kleur stadsnotitie</string>
     <string name="city_note_default_color_title">Standaardkleur stadsnotitie</string>
     <string name="display_next_alarm_title_setting_title">Titel volgende wekker op widget weergeven</string>
+    <string name="display_alarm_action_message_title">Bericht weergeven na het sluimeren of uitzetten van de wekker</string>
+    <string name="display_top_date_title">Datum op widget boven de tijd weergeven</string>
+    <string name="toast_message_backup_error">Back-up mislukt</string>
+    <string name="toast_message_restore_error">Herstel mislukt</string>
+    <string name="alarm_minutes_warning_box_text">Voer een waarde in tussen 0 en 59 minuten</string>
 </resources>

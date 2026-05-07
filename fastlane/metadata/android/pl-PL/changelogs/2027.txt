@@ -1,0 +1,10 @@
+W tej wersji wprowadzono wiele ulepszeń; wszystko jest szczegółowo opisane tutaj:
+https://github.com/BlackyHawky/Clock/releases/tag/2.24
+
+**Uwaga: Z powodu zmian w kodzie, niektóre ustawienia alarmu zostały zresetowane:**
+- `Wycisz po`
+* Na stronie „Dostosuj wyświetlanie alarmu”:
+- `Wyświetlaj czas z sekundami`
+- `Kolor wskazówki sekundowej`
+
+**Po aktualizacji aplikacji wykonaj nową kopię zapasową i usuń starą.**

@@ -1,0 +1,12 @@
+**Poprawki**
+- Naprawiono wyświetlanie godzin i minut w selektorze alarmów
+- Naprawiono możliwy błąd podczas usuwania timera
+
+**Ulepszenia**
+- Możliwość wyboru karty wyświetlanej po otwarciu aplikacji
+- Poprawiono wyświetlanie czasu na przycisku „Dodaj 1 minutę”
+- Ustawiono zakres dla niestandardowej liczby minut dodawanych do timera, aby uniknąć awarii aplikacji
+- Dostosowano kolor tarczy analogowego widżetu Material
+- Ulepszono animacje okien
+- Wyczyszczono i ulepszono kod
+- Zaktualizowano tłumaczenia

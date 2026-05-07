@@ -1,0 +1,38 @@
+**Poprawki:**
+* Naprawiono uruchamianie alarmu w Androidzie 14;
+* Naprawiono powiadomienia stopera i timera;
+* Naprawiono wymuszone zamknięcie na czas snu, gdy alarm nie jest ustawiony lub gdy urządzenie jest obrócone;
+* Naprawiono niektóre błędy trybu snu;
+* Naprawiono uruchamianie wygaszacza ekranu w Androidzie 13+;
+* Naprawiono wyświetlanie i aktualizację cyfrowego widżetu w Androidzie 12+;
+* Naprawiono ustawianie głośności alarmu w ustawieniach;
+* Naprawiono kolor tła dolnego paska nawigacji (najbardziej dotyczy to tabletów);
+
+**Ulepszenia:**
+* Wdrożono Material Design (przełączniki, selektor czasu, zaokrąglone ikony, tło karty,…);
+* Dodano dynamiczne kolory;
+* Dodano tryb AMOLED dla ciemnego motywu;
+* Dodano nowe zarządzanie uprawnieniami;
+* Dodano ikonę monochromatyczną;
+* Dodano zwijany pasek narzędzi;
+* Dodano Material You dla analogowych i cyfrowych widżetów;
+* Dodano tryb „Sen” (autor: @Nilsu11); * Zastąpienie ikon bardziej zaokrąglonymi;
+* Przy pierwszym uruchomieniu aplikacji wyświetlana jest prezentacja głównych funkcji oraz możliwość zarządzania uprawnieniami;
+* Dodano weryfikację, czy niezbędne uprawnienia są przyznawane podczas uruchamiania aplikacji, aby zapewnić jej prawidłowe działanie;
+* Zezwolono na instalację wersji debugowej wraz z wersją finalną;
+* Ustawiono domyślny dzwonek alarmów w ustawieniach;
+* Dodano opcje wyświetlania wygaszacza ekranu;
+* Aktywacja wygaszacza ekranu długim naciśnięciem przycisku zegara;
+* Skrócono animację wygaszacza ekranu do 30 sekund;
+* Menu są wyświetlane za pomocą ikon;
+* Unowocześniono wygląd ustawień;
+* Dodano sekcję „Informacje” w ustawieniach;
+* Animowano ikonę snu;
+* Automatyczne wyświetlanie klawiatury podczas edycji alarmu;
+* Dodano ikonę usuwania i tekst „Usuń” podczas przesuwania palcem w celu usunięcia alarmu;
+* Dodano przycisk do duplikowania alarmu (z wyjątkiem alarmu snu, który jest bezużyteczny); * Wibrator nie jest aktywowany po utworzeniu alarmu i w przypadku alarmów utworzonych pierwotnie;
+* Wydłużenie czasu trwania wibracji podczas aktywacji alarmu;
+* Zezwolenie na wyświetlanie zegara analogowego w widoku wyzwalacza alarmu;
+* Aktualizacja kodu powiązanego z fragmentem w celu obsługi AndroidX;
+* Aktualizacja nagłówków licencji;
+* Usunięcie zbędnych plików i kodu;

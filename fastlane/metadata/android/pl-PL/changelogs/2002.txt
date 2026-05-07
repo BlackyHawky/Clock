@@ -1,0 +1,7 @@
+**Poprawka:**
+* Naprawiono wyświetlanie skrótów po długim naciśnięciu ikony aplikacji;
+
+**Ulepszenie:**
+* Usunięto zbędne uprawnienia;
+
+Główne zmiany można znaleźć tutaj: https://github.com/BlackyHawky/Clock/releases/tag/2.0

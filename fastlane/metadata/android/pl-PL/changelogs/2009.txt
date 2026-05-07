@@ -1,0 +1,13 @@
+**Poprawki**
+- Naprawiono timer, który nadal działał, jeśli ustawiono go na mniej niż 5 sekund
+- Naprawiono kolory widżetów Material You, które nie były zgodne z motywem dzień/noc urządzenia
+- Naprawiono ustawienia zegara, które nie były poprawnie stosowane na niektórych urządzeniach
+
+**Ulepszenia**
+- Dodano 2 nowe widżety
+- Przejścia zanikania są domyślnie wyłączone
+
+- Aby zobaczyć wszystkie ulepszenia, odwiedź stronę: https://github.com/BlackyHawky/Clock/releases/tag/2.8
+
+**Uwaga:**
+Ze względu na wewnętrzne zmiany w widżetach, może być konieczne ich ponowne załadowanie

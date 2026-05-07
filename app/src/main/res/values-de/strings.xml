@@ -3,8 +3,7 @@
     Copyright (C) 2016 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="6674495003718166674">"Uhr"</string>
     <string name="default_label" msgid="5590025289805630372">Wecker</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Vibrieren"</string>
@@ -650,4 +649,9 @@
     <string name="next_alarm_title_default_color_title">Standardfarbe für den Namen des nächsten Weckers verwenden</string>
     <string name="next_alarm_title_color_title">Farbe des Namens des nächsten Weckers</string>
     <string name="display_low_alarm_volume_warning_title">Warnung anzeigen, wenn die Wecker-Lautstärke sehr niedrig ist</string>
+    <string name="toast_message_restore_error">Wiederherstellen fehlgeschlagen</string>
+    <string name="toast_message_backup_error">Sichern fehlgeschlagen</string>
+    <string name="alarm_minutes_warning_box_text">Gib einen Wert von 0 bis 59 Minuten ein</string>
+    <string name="display_top_date_title">Datum über der Zeit im Widget anzeigen</string>
+    <string name="display_alarm_action_message_title">Nach dem Schlummern oder Verwerfen eines Weckers eine Nachricht anzeigen</string>
 </resources>

@@ -1,0 +1,9 @@
+**Poprawka**
+- Naprawiono aktualizację widżetów cyfrowych dla Androida 13+;
+
+**Ulepszenia**
+- Widżety cyfrowe można dostosowywać:
+• Można zmienić kolor wszystkich elementów;
+• Można zmienić rozmiar czcionki głównego zegara (możliwe tylko wtedy, gdy nie jest wyświetlane żadne miasto);
+• Konfigurowano widżety cyfrowe po długim naciśnięciu dla Androida 9+;
+- Zaktualizowano niektóre tłumaczenia;
