@@ -2,6 +2,13 @@
 
 package com.best.deskclock.alarms;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,26 +17,76 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.R;
+import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.utils.ThemeUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 public class AlarmAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
 
     private static final String PAYLOAD_UPDATE_BACKGROUND = "PAYLOAD_UPDATE_BACKGROUND";
 
+    private final SharedPreferences mPrefs;
+    private final Typeface mGeneralTypeface;
+    private final Typeface mGeneralBoldTypeface;
+    private final Typeface mAlarmClockTypeface;
+    private final Locale mLocale;
+    private final String mDatePattern;
     private List<AlarmItemHolder> mItems = new ArrayList<>();
+    private final boolean mUseExpressiveBackground;
 
-    public AlarmAdapter() {
+    private final Drawable.ConstantState mBgSingle;
+    private final Drawable.ConstantState mBgTop;
+    private final Drawable.ConstantState mBgMiddle;
+    private final Drawable.ConstantState mBgBottom;
+    private final Drawable.ConstantState mBgStandard;
+
+    public AlarmAdapter(Context context) {
         setHasStableIds(true);
+
+        mPrefs = getDefaultSharedPreferences(context);
+        String generalFontPath = SettingsDAO.getGeneralFont(mPrefs);
+        mGeneralTypeface = ThemeUtils.loadFont(generalFontPath);
+        mGeneralBoldTypeface = ThemeUtils.boldTypeface(generalFontPath);
+        mAlarmClockTypeface = ThemeUtils.boldTypeface(SettingsDAO.getAlarmFont(mPrefs));
+        mLocale = Locale.getDefault();
+        mDatePattern = DateFormat.getBestDateTimePattern(mLocale, AlarmItemViewHolder.SKELETON);
+        mUseExpressiveBackground = !ThemeUtils.isTablet() && !ThemeUtils.isLandscape();
+
+        if (mUseExpressiveBackground) {
+            // Phone in portrait mode: generate the 4 expressive shapes with their ripple effect
+            mBgSingle = ThemeUtils.rippleDrawable(
+                context, ThemeUtils.expressiveCardBackground(context, 0, 1)).getConstantState();
+            mBgTop = ThemeUtils.rippleDrawable(
+                context, ThemeUtils.expressiveCardBackground(context, 0, 3)).getConstantState();
+            mBgMiddle = ThemeUtils.rippleDrawable(
+                context, ThemeUtils.expressiveCardBackground(context, 1, 3)).getConstantState();
+            mBgBottom = ThemeUtils.rippleDrawable(
+                context, ThemeUtils.expressiveCardBackground(context, 2, 3)).getConstantState();
+            mBgStandard = null;
+        } else {
+            // Tablet / Landscape: all cards are standard
+            mBgStandard = ThemeUtils.rippleDrawable(context, ThemeUtils.cardBackground(context)).getConstantState();
+            mBgSingle = mBgTop = mBgMiddle = mBgBottom = null;
+        }
     }
+
+    public boolean isUseExpressiveBackground() { return mUseExpressiveBackground; }
+    public Drawable.ConstantState getBgSingle() { return mBgSingle; }
+    public Drawable.ConstantState getBgTop() { return mBgTop; }
+    public Drawable.ConstantState getBgMiddle() { return mBgMiddle; }
+    public Drawable.ConstantState getBgBottom() { return mBgBottom; }
+    public Drawable.ConstantState getBgStandard() { return mBgStandard; }
 
     @NonNull
     @Override
     public AlarmItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.alarm_item, parent, false);
-        return new AlarmItemViewHolder(view);
+        return new AlarmItemViewHolder(
+            view, this, mPrefs, mGeneralTypeface, mGeneralBoldTypeface, mAlarmClockTypeface, mLocale, mDatePattern);
     }
 
     @Override

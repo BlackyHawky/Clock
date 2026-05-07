@@ -8,10 +8,15 @@ package com.best.deskclock.clock;
 
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesDefaultValues.BLACK_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_CITY_NOTE;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.text.format.DateFormat;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,14 +27,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.ItemTouchHelperContract;
 import com.best.deskclock.R;
+import com.best.deskclock.alarms.AlarmStateManager;
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.CityListener;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.provider.AlarmInstance;
+import com.best.deskclock.utils.AlarmUtils;
+import com.best.deskclock.utils.ClockUtils;
+import com.best.deskclock.utils.FormattedTextUtils;
+import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.WidgetUtils;
 import com.best.deskclock.widgets.DigitalAppWidgetProvider;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * This adapter lists all of the selected world clocks. Optionally, it also includes a clock at
@@ -46,24 +62,82 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private final LayoutInflater mInflater;
     private final Context mContext;
     private final SharedPreferences mPrefs;
-    private final String mDateFormat;
-    private final String mDateFormatForAccessibility;
     private final List<City> mCities;
-    private final boolean mIsPortrait;
+    public final boolean mIsPortrait;
+    private final boolean mIsTablet;
+    private final DisplayMetrics mDisplayMetrics;
     private final boolean mShowHomeClock;
+    private final DataModel.ClockStyle mClockStyle;
+    private final boolean mAreClockSecondsDisplayed;
+    private final float mDigitalClockFontSize;
+    private final Typeface mRegularTypeface;
+    private final Typeface mBoldTypeface;
+    private final Typeface mDigitalClockTypeface;
+    private final Typeface mAlarmIconTypeface;
+    private final boolean mIsCityNoteEnabled;
+    private final boolean mIsDigitalClock;
+    private final boolean mHasBlackAccentColor;
+    private final boolean mIsTextUppercase;
+    private final String mFormattedDate;
+    private final String mDateDescription;
+    private String mFormattedNextAlarm;
+
+    private final Drawable.ConstantState mBgSingle;
+    private final Drawable.ConstantState mBgTop;
+    private final Drawable.ConstantState mBgMiddle;
+    private final Drawable.ConstantState mBgBottom;
 
     public SelectedCitiesAdapter(Context context, String dateFormat, String dateFormatForAccessibility, List<City> cities,
                                  boolean showHomeClock, boolean isPortrait) {
 
         mContext = context;
         mPrefs = getDefaultSharedPreferences(context);
-        mDateFormat = dateFormat;
-        mDateFormatForAccessibility = dateFormatForAccessibility;
         mInflater = LayoutInflater.from(context);
         mCities = cities;
         mShowHomeClock = showHomeClock;
         mIsPortrait = isPortrait;
+        mIsTablet = ThemeUtils.isTablet();
+        mDisplayMetrics = context.getResources().getDisplayMetrics();
+        mClockStyle = SettingsDAO.getClockStyle(mPrefs);
+        mDigitalClockFontSize = SettingsDAO.getDigitalClockFontSize(mPrefs);
+        String fontPath = SettingsDAO.getGeneralFont(mPrefs);
+        mRegularTypeface = ThemeUtils.loadFont(fontPath);
+        mBoldTypeface = ThemeUtils.boldTypeface(fontPath);
+        mDigitalClockTypeface = mClockStyle == DataModel.ClockStyle.DIGITAL
+            ? ThemeUtils.loadFont(SettingsDAO.getDigitalClockFont(mPrefs))
+            : null;
+        mAlarmIconTypeface = ClockUtils.getAlarmIconTypeface(context);
+        mAreClockSecondsDisplayed = SettingsDAO.areClockSecondsDisplayed(mPrefs);
+        mIsCityNoteEnabled = SettingsDAO.isCityNoteEnabled(mPrefs);
+        mIsDigitalClock = SettingsDAO.getClockStyle(mPrefs) == DataModel.ClockStyle.DIGITAL;
+        mHasBlackAccentColor = SettingsDAO.getAccentColor(mPrefs).equals(BLACK_ACCENT_COLOR);
+        mIsTextUppercase = SettingsDAO.isTextUppercaseDisplayed(mPrefs);
+
+        // Date calculation
+        final Locale locale = Locale.getDefault();
+        String datePattern = DateFormat.getBestDateTimePattern(locale, dateFormat);
+        String descPattern = DateFormat.getBestDateTimePattern(locale, dateFormatForAccessibility);
+        final Date now = new Date();
+
+        mFormattedDate = FormattedTextUtils.capitalizeFirstLetter(
+            new SimpleDateFormat(datePattern, locale).format(now), locale);
+        mDateDescription = new SimpleDateFormat(descPattern, locale).format(now);
+
+        updateNextAlarmString();
+
+        mBgSingle = ThemeUtils.expressiveCardBackground(context, 0, 1).getConstantState();
+        // position=0, totalCount=3 -> Top
+        mBgTop = ThemeUtils.expressiveCardBackground(context, 0, 3).getConstantState();
+        // position=1, totalCount=3 -> Middle
+        mBgMiddle = ThemeUtils.expressiveCardBackground(context, 1, 3).getConstantState();
+        // position=2, totalCount=3 -> Bottom
+        mBgBottom = ThemeUtils.expressiveCardBackground(context, 2, 3).getConstantState();
     }
+
+    public Drawable.ConstantState getBgSingle() { return mBgSingle; }
+    public Drawable.ConstantState getBgTop() { return mBgTop; }
+    public Drawable.ConstantState getBgMiddle() { return mBgMiddle; }
+    public Drawable.ConstantState getBgBottom() { return mBgBottom; }
 
     @Override
     public int getItemViewType(int position) {
@@ -78,9 +152,11 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         final View view = mInflater.inflate(viewType, parent, false);
         if (viewType == WORLD_CLOCK) {
-            return new CityViewHolder(view, this);
+            return new CityViewHolder(view, this, mDisplayMetrics, mRegularTypeface, mBoldTypeface, mDigitalClockTypeface,
+                mIsTablet, mIsCityNoteEnabled, mIsDigitalClock, mHasBlackAccentColor);
         } else if (viewType == MAIN_CLOCK) {
-            return new MainClockViewHolder(view);
+            return new MainClockViewHolder(view, mPrefs, mDisplayMetrics, mClockStyle, mDigitalClockTypeface,
+                mDigitalClockFontSize, mBoldTypeface, mAlarmIconTypeface, mAreClockSecondsDisplayed);
         }
         throw new IllegalArgumentException("View type not recognized");
     }
@@ -109,7 +185,8 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             }
             ((CityViewHolder) holder).bind(city);
         } else if (viewType == MAIN_CLOCK) {
-            ((MainClockViewHolder) holder).bind(mContext, mDateFormat, mDateFormatForAccessibility, mCities, mShowHomeClock, mIsPortrait);
+            ((MainClockViewHolder) holder).bind(mContext, mCities, mShowHomeClock, mIsPortrait, mIsTextUppercase, mFormattedDate,
+                mDateDescription, mFormattedNextAlarm);
         } else {
             throw new IllegalArgumentException("Unexpected view type: " + viewType);
         }
@@ -180,12 +257,6 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         return mCities;
     }
 
-    public void refreshAlarm() {
-        if (mIsPortrait && getItemCount() > 0) {
-            notifyItemChanged(0);
-        }
-    }
-
     private int getCityPositionById(String cityId) {
         final int positionAdjuster = (mIsPortrait ? 1 : 0) + (mShowHomeClock ? 1 : 0);
 
@@ -221,6 +292,25 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     @Nullable
     public String getCityNote(String cityId) {
         return mPrefs.getString(KEY_CITY_NOTE + cityId, null);
+    }
+
+    public void refreshAlarm() {
+        updateNextAlarmString();
+
+        if (mIsPortrait && getItemCount() > 0) {
+            notifyItemChanged(0);
+        }
+    }
+
+    private void updateNextAlarmString() {
+        AlarmInstance nextAlarmInstance = AlarmStateManager.getNextFiringAlarm(mContext);
+        if (nextAlarmInstance != null) {
+            Calendar alarmCalendar = Calendar.getInstance();
+            alarmCalendar.setTimeInMillis(nextAlarmInstance.getAlarmTime().getTimeInMillis());
+            mFormattedNextAlarm = AlarmUtils.getFormattedTime(mContext, alarmCalendar);
+        } else {
+            mFormattedNextAlarm = null;
+        }
     }
 
 }

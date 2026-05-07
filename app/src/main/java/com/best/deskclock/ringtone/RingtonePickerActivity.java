@@ -294,7 +294,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
         mRingtoneContent = findViewById(R.id.ringtone_content);
         mRingtoneContent.setLayoutManager(new LinearLayoutManager(context));
 
-        mRingtoneAdapter = new RingtoneAdapter(new RingtoneAdapter.OnRingtoneClickListener() {
+        mRingtoneAdapter = new RingtoneAdapter(this, new RingtoneAdapter.OnRingtoneClickListener() {
             @Override
             public void onRingtoneClick(RingtoneHolder newSelection) {
                 final RingtoneHolder oldSelection = getSelectedRingtoneHolder();

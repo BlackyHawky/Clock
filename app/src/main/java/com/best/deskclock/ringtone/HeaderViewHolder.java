@@ -6,26 +6,22 @@
 
 package com.best.deskclock.ringtone;
 
-import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.R;
-import com.best.deskclock.data.SettingsDAO;
-import com.best.deskclock.utils.ThemeUtils;
 
 public class HeaderViewHolder extends RecyclerView.ViewHolder {
 
     private final TextView mItemHeader;
 
-    public HeaderViewHolder(View itemView) {
+    public HeaderViewHolder(View itemView, RingtoneAdapter adapter) {
         super(itemView);
         mItemHeader = itemView.findViewById(R.id.ringtone_item_header);
 
-        mItemHeader.setTypeface(ThemeUtils.loadFont(SettingsDAO.getGeneralFont(getDefaultSharedPreferences(mItemHeader.getContext()))));
+        mItemHeader.setTypeface(adapter.getGeneralTypeface());
     }
 
     public void bind(HeaderHolder itemHolder) {

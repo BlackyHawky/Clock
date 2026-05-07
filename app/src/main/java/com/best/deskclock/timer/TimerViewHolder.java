@@ -10,6 +10,8 @@ import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreference
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -28,18 +30,28 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
 
     private final Context mContext;
     private int mTimerId;
+    private final TimerAdapter mAdapter;
     public TimerItem mTimerItem;
     public TimerItemCompact mTimerItemCompact;
 
-    public TimerViewHolder(View view, TimerClickHandler timerClickHandler, int viewType) {
+    public TimerViewHolder(View view, TimerAdapter timerAdapter, TimerClickHandler timerClickHandler, int viewType, Typeface regular,
+                           Typeface bold, Typeface timerTime) {
+
         super(view);
 
         mContext = view.getContext();
         final SharedPreferences prefs = getDefaultSharedPreferences(mContext);
+        mAdapter = timerAdapter;
 
         switch (viewType) {
-            case TimerAdapter.SINGLE_TIMER, TimerAdapter.MULTIPLE_TIMERS -> mTimerItem = (TimerItem) view;
-            case TimerAdapter.MULTIPLE_TIMERS_COMPACT -> mTimerItemCompact = (TimerItemCompact) view;
+            case TimerAdapter.SINGLE_TIMER, TimerAdapter.MULTIPLE_TIMERS -> {
+                mTimerItem = (TimerItem) view;
+                mTimerItem.setCachedFonts(regular, bold, timerTime);
+            }
+            case TimerAdapter.MULTIPLE_TIMERS_COMPACT -> {
+                mTimerItemCompact = (TimerItemCompact) view;
+                mTimerItemCompact.setCachedFonts(regular, bold, timerTime);
+            }
         }
 
         TextView timerLabel = view.findViewById(R.id.timer_label);
@@ -130,23 +142,23 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
 
     public void updateBackground() {
         int position = getBindingAdapterPosition();
-        RecyclerView.Adapter<?> adapter = getBindingAdapter();
 
-        if (position != RecyclerView.NO_POSITION && adapter != null) {
-            int totalCount = adapter.getItemCount();
+        if (position != RecyclerView.NO_POSITION && mAdapter != null) {
+            int totalCount = mAdapter.getItemCount();
+            Drawable.ConstantState bgState;
 
-            if (ThemeUtils.isTablet()) {
-                itemView.setBackground(ThemeUtils.cardBackground(mContext));
+            if (mAdapter.isTablet() || totalCount <= 1) {
+                bgState = mAdapter.getBgStandard();
+            } else if (position == 0) {
+                bgState = mAdapter.getBgStart();
+            } else if (position == totalCount - 1) {
+                bgState = mAdapter.getBgEnd();
             } else {
-                if (totalCount == 1) {
-                    itemView.setBackground(ThemeUtils.cardBackground(mContext));
-                } else {
-                    if (ThemeUtils.isLandscape()) {
-                        itemView.setBackground(ThemeUtils.expressiveCardBackgroundForLandscape(mContext, position, totalCount));
-                    } else {
-                        itemView.setBackground(ThemeUtils.expressiveCardBackground(mContext, position, totalCount));
-                    }
-                }
+                bgState = mAdapter.getBgMiddle();
+            }
+
+            if (bgState != null) {
+                itemView.setBackground(bgState.newDrawable());
             }
         }
     }

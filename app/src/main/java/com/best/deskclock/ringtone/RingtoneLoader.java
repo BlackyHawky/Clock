@@ -25,7 +25,6 @@ import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -76,22 +75,23 @@ public class RingtoneLoader extends AsyncTaskLoader<List<RingtoneAdapter.Rington
 
             // Add the item holder for the random custom ringtones only if at least 2 files can be read.
             int readableCount = 0;
-            Iterator<CustomRingtone> iterator = mCustomRingtones.iterator();
-            while (iterator.hasNext() && readableCount < 2) {
-                CustomRingtone ringtone = iterator.next();
-                if (RingtoneUtils.isRingtoneUriReadable(getContext(), ringtone.getUri())) {
+            List<CustomRingtoneHolder> tempCustomRingtoneHolders = new ArrayList<>(mCustomRingtones.size());
+
+            for (CustomRingtone ringtone : mCustomRingtones) {
+                boolean isReadable = RingtoneUtils.isRingtoneUriReadable(getContext(), ringtone.getUri());
+                if (isReadable) {
                     readableCount++;
                 }
+
+                tempCustomRingtoneHolders.add(new CustomRingtoneHolder(ringtone, isReadable));
             }
 
             if (readableCount >= 2) {
                 itemHolders.add(new SystemRingtoneHolder(RANDOM_CUSTOM_RINGTONE, null));
             }
 
-            // Add an item holder for each custom ringtone and also cache a pretty name.
-            for (CustomRingtone ringtone : mCustomRingtones) {
-                itemHolders.add(new CustomRingtoneHolder(ringtone));
-            }
+            // Add an item holder for the custom ringtones.
+            itemHolders.addAll(tempCustomRingtoneHolders);
 
             // Add an item holder for the Ringtones heading.
             itemHolders.add(new HeaderHolder(R.string.device_sounds));

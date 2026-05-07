@@ -9,14 +9,12 @@ package com.best.deskclock.clock;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static androidx.core.util.TypedValueCompat.dpToPx;
-import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-import static com.best.deskclock.settings.PreferencesDefaultValues.BLACK_ACCENT_COLOR;
 import static java.util.Calendar.DAY_OF_WEEK;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.text.format.DateUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -29,8 +27,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.City;
-import com.best.deskclock.data.DataModel;
-import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.dialogfragment.LabelDialogFragment;
 import com.best.deskclock.uicomponents.AnalogClock;
 import com.best.deskclock.utils.ClockUtils;
@@ -53,19 +49,17 @@ public class CityViewHolder extends RecyclerView.ViewHolder {
     private final boolean mIsCityNoteEnabled;
     private final boolean mIsDigitalClock;
 
-    public CityViewHolder(View itemView, SelectedCitiesAdapter adapter) {
+    public CityViewHolder(View itemView, SelectedCitiesAdapter adapter, DisplayMetrics displayMetrics, Typeface regularTypeface,
+                          Typeface boldTypeface, Typeface digitalClockTypeface, boolean isTablet, boolean isCityNoteEnabled,
+                          boolean isDigitalClock, boolean hasBlackAccentColor) {
+
         super(itemView);
 
         mContext = itemView.getContext();
         mAdapter = adapter;
-        SharedPreferences prefs = getDefaultSharedPreferences(mContext);
-        DisplayMetrics displayMetrics = mContext.getResources().getDisplayMetrics();
-        String fontPath = SettingsDAO.getGeneralFont(prefs);
-        Typeface regularTypeface = ThemeUtils.loadFont(fontPath);
-        boolean isTablet = ThemeUtils.isTablet();
-        mIsPortrait = ThemeUtils.isPortrait();
-        mIsCityNoteEnabled = SettingsDAO.isCityNoteEnabled(prefs);
-        mIsDigitalClock = SettingsDAO.getClockStyle(prefs) == DataModel.ClockStyle.DIGITAL;
+        mIsPortrait = adapter.mIsPortrait;
+        mIsCityNoteEnabled = isCityNoteEnabled;
+        mIsDigitalClock = isDigitalClock;
 
         mName = itemView.findViewById(R.id.city_name);
         mHoursAhead = itemView.findViewById(R.id.hours_ahead);
@@ -76,7 +70,7 @@ public class CityViewHolder extends RecyclerView.ViewHolder {
         int paddingVertical = (int) dpToPx(mIsDigitalClock ? 18 : 12, displayMetrics);
         itemView.setPadding(itemView.getPaddingLeft(), paddingVertical, itemView.getPaddingRight(), paddingVertical);
 
-        mName.setTypeface(ThemeUtils.boldTypeface(fontPath));
+        mName.setTypeface(boldTypeface);
         // Allow text scrolling by clicking on the item (all other attributes are indicated
         // in the "world_clock_city_container.xml" file)
         mName.setSelected(true);
@@ -88,10 +82,10 @@ public class CityViewHolder extends RecyclerView.ViewHolder {
             mAnalogClock.setVisibility(View.GONE);
 
             mDigitalClock.setBackground(ThemeUtils.pillBackgroundFromAttr(mContext, com.google.android.material.R.attr.colorSecondary));
-            ClockUtils.setDigitalClockFont(mDigitalClock, SettingsDAO.getDigitalClockFont(prefs));
+            mDigitalClock.setTypeface(digitalClockTypeface);
             ClockUtils.setDigitalClockTimeFormat(mDigitalClock, 0.3f, false, false, true, false);
 
-            if (SettingsDAO.getAccentColor(prefs).equals(BLACK_ACCENT_COLOR)) {
+            if (hasBlackAccentColor) {
                 mDigitalClock.setTextColor(Color.WHITE);
             }
 
@@ -176,12 +170,25 @@ public class CityViewHolder extends RecyclerView.ViewHolder {
         }
 
         int mainClockCount = mIsPortrait ? 1 : 0;
-
         int cityPosition = absolutePosition - mainClockCount;
         int totalCities = mAdapter.getItemCount() - mainClockCount;
 
         if (cityPosition >= 0) {
-            itemView.setBackground(ThemeUtils.expressiveCardBackground(mContext, cityPosition, totalCities));
+            Drawable.ConstantState bgState;
+
+            if (totalCities <= 1) {
+                bgState = mAdapter.getBgSingle();
+            } else if (cityPosition == 0) {
+                bgState = mAdapter.getBgTop();
+            } else if (cityPosition == totalCities - 1) {
+                bgState = mAdapter.getBgBottom();
+            } else {
+                bgState = mAdapter.getBgMiddle();
+            }
+
+            if (bgState != null) {
+                itemView.setBackground(bgState.newDrawable());
+            }
         }
     }
 
