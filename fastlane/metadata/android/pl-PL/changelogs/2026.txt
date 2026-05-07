@@ -1,0 +1,9 @@
+**Poprawki**
+- Naprawiono wyświetlanie alarmów na urządzeniach z Androidem w wersji starszej niż 12
+- Naprawiono alarmy utworzone w przeszłości i nieaktywne
+- Naprawiono selektor daty alarmu, który wybierał niewłaściwy dzień
+- Resetowanie domyślnego dzwonka w ustawieniach alarmu, jeśli został usunięty
+
+Wiele usprawnień opisano tutaj: https://github.com/BlackyHawky/Clock/releases/tag/2.23
+
+Uwaga: Ze względu na reset ustawień „Długość drzemki” i „Stopniowe zwiększanie głośności”, po aktualizacji aplikacji należy wykonać nową kopię zapasową i usunąć starą

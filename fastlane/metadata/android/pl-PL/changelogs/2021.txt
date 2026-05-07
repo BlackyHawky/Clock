@@ -1,0 +1,13 @@
+**Poprawki**
+- Naprawiono błąd paska wyszukiwania dla ustawienia „Intensywność potrząsania”
+
+**Ulepszenia**
+- Poprawiono działanie paska wyszukiwania w wersjach Androida starszych niż Android 8
+- Wyświetlanie stopera jak w aplikacji Google
+- Aktualizacja do SDK 35
+- Aktualizacja tłumaczeń
+- Ulepszony i czysty kod
+
+Aby zobaczyć wszystkie ulepszenia, odwiedź stronę: https://github.com/BlackyHawky/Clock/releases/tag/2.18
+
+PRZYPOMNIENIE: PO WERSJI 2.17 USUŃ STARĄ KOPIĘ ZAPASOWĄ I UTWÓRZ NOWĄ

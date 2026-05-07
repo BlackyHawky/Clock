@@ -1,0 +1,8 @@
+Palju parandusi ja täiendusi - detailne logi on kirjas siin:
+https://github.com/BlackyHawky/Clock/releases/tag/2.28
+
+**Märkused:
+ - „Korda märkamata jäänud äratusi“ on lähtestatud.
+ -Kaabliga kõrvaklappide toe tõttu pead kaks seadistust uuesti määratlema „Võimalda helinate automaatne suunamine välistesse heliseadmetesse“ ja „Äratusheli valjus välistes heliseadmetes“
+ - Palun eemalda avalehe vidinad ja lisa nad uuesti tagasi.
+ - Peale uuendamist palun tee uus varukoopia ja kustuta vana.

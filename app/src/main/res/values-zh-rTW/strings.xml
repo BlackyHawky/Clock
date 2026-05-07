@@ -3,8 +3,7 @@
     Copyright (C) 2016 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="6674495003718166674">"時鐘"</string>
     <string name="default_label" msgid="5590025289805630372">"鬧鐘"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"震動"</string>
@@ -292,7 +291,7 @@
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">延後鬧鐘時震動兩次，關閉鬧鐘時震動一次</string>
     <string name="turn_on_back_flash_for_triggered_alarm_title">鬧鐘鈴響時啟用後置閃光燈</string>
     <string name="enable_delete_occasional_alarm_by_default_setting_title">啟用自動刪除臨時鬧鐘</string>
-    <string name="alarm_settings_general_summary">您可展開鬧鐘面板並各別設定</string>
+    <string name="alarm_settings_general_summary">您可展開鬧鐘編輯面板各別設定</string>
     <string name="timer_label_box_title">計時器名稱</string>
     <string name="timer_time_warning_box_title">數值無效</string>
     <string name="warning_dialog_title">刪除計時器</string>
@@ -314,7 +313,7 @@
     <string name="alarm_settings_summary">設定樣式、預設鈴聲、音量、延後及關閉鬧鐘動作，每週起始日和提醒時間</string>
     <string name="display_warning_before_deleting_timer_title">刪除計時器前警告</string>
     <string name="denied_permission_label">權限遭拒</string>
-    <string name="next_alarm_no_upcoming_alarm_titles_default_color">「下個鬧鐘」與「沒有即將啟動的鬧鐘」使用預設色彩</string>
+    <string name="next_alarm_no_upcoming_alarm_titles_default_color">「沒有即將啟動的鬧鐘」使用預設色彩</string>
     <string name="backup_restore_dialog_message">您要備份或還原應用程式資料嗎？</string>
     <string name="settings_language_korean">韓文</string>
     <string name="auto_silence_end_of_ringtone">鈴聲播放完畢時靜音</string>
@@ -353,7 +352,7 @@
     <string name="alarm_notification_reminder_8_hours">8 小時前</string>
     <string name="alarm_notification_reminder_10_hours">10 小時前</string>
     <string name="alarm_notification_reminder_12_hours">12 小時前</string>
-    <string name="enable_alarm_vibrations_by_default_setting_title">建立鬧鐘時震動</string>
+    <string name="enable_alarm_vibrations_by_default_setting_title">鬧鐘鈴響時震動</string>
     <string name="alarm_notification_reminder_title">提醒通知</string>
     <string name="settings_language_russian">俄羅斯</string>
     <string name="settings_tab_indicator_title">底部選單顯示頁面指標</string>
@@ -401,7 +400,7 @@
     <string name="swipe_action_title">滑動以延後或關閉鬧鐘</string>
     <string name="app_slogan">源自 AOSP，100% 自由與開源的鬧鐘</string>
     <string name="material_time_picker_style_title">選取時間面板樣式</string>
-    <string name="city_name_color_title">自訂城市名稱色彩</string>
+    <string name="city_name_color_title">城市名稱色彩</string>
     <string name="github_dialog_message">造訪這個計畫的 GitHub 頁面\n\n%s</string>
     <string name="whats_new_dialog_message">探索新功能：\n\n%s</string>
     <string name="about_github_link">檢視 GitHub</string>
@@ -414,12 +413,12 @@
     <string name="display_city_title">顯示城市</string>
     <string name="clock_default_color_title">主時鐘使用預設色彩</string>
     <string name="sort_timer_ascending_duration">長度 (升序)</string>
-    <string name="hour_color_title">自訂小時色彩</string>
+    <string name="hour_color_title">小時色彩</string>
     <string name="gnu_gpl">GNU 通用公眾授權條款 v3.0</string>
     <string name="settings_fade_transitions_title">啟用頁面切換淡化效果</string>
     <string name="date_default_color_title">日期使用預設色彩</string>
     <string name="city_clock_default_color_title">城市時間使用預設色彩</string>
-    <string name="city_clock_color_title">自訂城市時間色彩</string>
+    <string name="city_clock_color_title">城市時間色彩</string>
     <string name="city_name_default_color_title">城市名稱使用預設色彩</string>
     <string name="permission_highly_recommended">強烈建議</string>
     <string name="permission_management_summary">顯示應用程式運作所需權限</string>
@@ -430,7 +429,7 @@
     <string name="night_accent_color_title">夜間模式強調色</string>
     <string name="alarm_notification_reminder_30_minutes">30 分前</string>
     <string name="version_text">版本 <xliff:g id="VERSION_NUMBER" example="1.0">%1$s</xliff:g></string>
-    <string name="next_alarm_no_upcoming_alarm_titles_color">自訂「下個鬧鐘」與「沒有即將啟動的鬧鐘」色彩</string>
+    <string name="next_alarm_no_upcoming_alarm_titles_color">「沒有即將啟動的鬧鐘」標題色彩</string>
     <string name="alarm_title_default_color">鬧鐘標題使用預設色彩</string>
     <string name="notifications_dialog_text">除了設定鬧鐘，還具備計時器與碼表。\n\n我們建議啟用通知使所有元件正常運作，特別是啟動鬧鐘。</string>
     <string name="first_launch_main_feature_link">…還有更多！</string>
@@ -488,12 +487,12 @@
     <string name="auto_routing_to_external_audio_device_title">啟用將鈴聲自動導向至外接音訊裝置</string>
     <string name="timer_creation_view_style_keypad">鍵盤</string>
     <string name="timer_creation_view_style_title">建立計時器面板樣式</string>
-    <string name="advanced_audio_playback_summary">改善藍牙相容性並避免中斷音訊重現 \n\n請注意：某些鈴聲可能會產生輕度音效問題</string>
+    <string name="advanced_audio_playback_summary">改善外部音訊裝置相容性並避免中斷音訊重現 \n\n請注意：某些鈴聲可能會產生輕度音效問題</string>
     <string name="widget_apply_horizontal_padding_title">小工具套用空白邊距</string>
     <string name="advanced_audio_playback_title">使用進階音訊播放</string>
     <string name="hide_clock_am_pm_pref">隱藏上午 / 下午文字</string>
     <string name="system_media_volume_title">使用系統媒體音量</string>
-    <string name="system_media_volume_summary">僅適用連接藍牙裝置期間</string>
+    <string name="system_media_volume_summary">僅適用連接外部音訊裝置期間</string>
     <string name="external_audio_device_volume_title">外接音訊裝置的鬧鐘音量</string>
     <string name="connect_external_audio_device_title">連接外接音訊裝置即可存取此設定</string>
     <string name="disconnect_external_audio_device_title">請先斷開外接音訊裝置即可存取此設定</string>
@@ -599,4 +598,47 @@
     <string name="screensaver_bold_battery_title">粗體電池電量</string>
     <string name="screensaver_italic_battery_title">斜體電池電量</string>
     <string name="sw_split_title">分隔</string>
+    <string name="sync_alarm_by_label_title">同步共享相同標籤的鬧鐘</string>
+    <string name="label_indefinitely">無限期</string>
+    <string name="button_tip_title">按住「+」以新增資料夾</string>
+    <string name="alarm_alert_dismiss_and_delete_text_button">關閉與刪除</string>
+    <string name="permissions_category_title">權限</string>
+    <string name="settings_language_arabic">阿拉伯</string>
+    <string name="settings_language_hungarian">匈牙利</string>
+    <string name="enable_alarm_vibrations_by_default_dialog_message">將會停用所有鬧鐘震動。\n%s</string>
+    <string name="enable_delete_occasional_alarm_by_default_dialog_message">將會停用所有鬧鐘的「關閉後立即刪除」功能。\n%s</string>
+    <string name="display_low_alarm_volume_warning_title">鬧鐘音量設為最小值時警告</string>
+    <string name="snooze_zone_color_title">延後區域色彩</string>
+    <string name="snooze_minus_button_color_title">「-」按鍵色彩</string>
+    <string name="snooze_plus_button_color_title">「+」按鍵色彩</string>
+    <string name="snooze_selector_text_color_title">延後選取文字色彩</string>
+    <string name="snooze_minus_symbol_color_title">「-」符號色彩</string>
+    <string name="snooze_plus_symbol_color_title">「+」符號色彩</string>
+    <string name="background_image_summary">將背景設為透明即可查看影像</string>
+    <string name="alarm_volume_low">鬧鐘音量過低</string>
+    <string name="fix_alarm_volume">固定</string>
+    <string name="display_snooze_selector_title">顯示延後選取效果</string>
+    <string name="clock_dial_with_roman_numbers">使用羅馬數字</string>
+    <string name="foreground_service_title">顯示前景服務通知</string>
+    <string name="missed_timer_indicator_color_title">錯過的計時器指示色彩</string>
+    <string name="next_alarm_title_color_title">下個鬧鐘標題色彩</string>
+    <string name="next_alarm_title_default_color_title">下個鬧鐘標題使用預設色彩</string>
+    <string name="city_note_color_title">城市註解色彩</string>
+    <string name="city_note_default_color_title">城市註解使用預設色彩</string>
+    <string name="foreground_service_channel">前景通知</string>
+    <string name="foreground_service_message">正在背景執行</string>
+    <string name="display_next_alarm_title_setting_title">小工具顯示下個鬧鐘標題</string>
+    <string name="foreground_service_dialog_message">顯示持續性靜音通知以避免您的裝置強制關閉應用程式而錯過鬧鐘。\n\n這會常駐記憶體並增加些微電池用量。\n\n請注意：多數裝置不需啟用這個選項，除非您發生鬧鐘延遲問題。</string>
+    <string name="clock_second_hand_lollipop">棒棒糖</string>
+    <string name="timezone_baker_howland">貝克與豪蘭島</string>
+    <string name="timezone_marquesas">馬克薩斯群島</string>
+    <string name="timezone_chatham">查塔姆島</string>
+    <string name="timezone_gambier">甘比爾群島</string>
+    <string name="timezone_pitcairn">皮特肯群島</string>
+    <string name="timezone_easter_island">復活節島</string>
+    <string name="timezone_miquelon">聖皮埃與密克隆群島</string>
+    <string name="timezone_noronha">費南多·迪諾羅尼亞群島</string>
+    <string name="timezone_lord_howe">豪勳爵島</string>
+    <string name="timezone_norfolk">諾福克島</string>
+    <string name="timezone_macquarie">麥覺理島</string>
 </resources>

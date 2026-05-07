@@ -1,0 +1,11 @@
+**Poprawka**
+- Poprawiono rozmiar znacznika w okręgu stopera;
+
+**Ulepszenia**
+- Dodano możliwość zmiany koloru akcentu;
+- Dodano możliwość ukrywania/wyświetlania tła kart (nie dotyczy ustawień);
+- Dodano możliwość ukrywania/wyświetlania obramowania tła (nie dotyczy ustawień);
+- Dodano możliwość włączania/wyłączania wibracji dla niektórych elementów interfejsu użytkownika (dotyczy to tylko urządzeń wyposażonych w wibrator);
+- Dodano wibracje do przełączników ustawień (dotyczy to tylko urządzeń wyposażonych w wibrator);
+- Usunięto sprawdzanie niezbędnych uprawnień podczas otwierania aplikacji: teraz, jeśli niezbędne uprawnienia nie zostaną przyznane, na górze ustawień pojawia się komunikat;
+- Zaktualizowano zrzuty ekranu (głównie dla F-Droid), zgodnie z opisem tutaj: https://github.com/BlackyHawky/Clock/discussions/23#discussioncomment-9346357

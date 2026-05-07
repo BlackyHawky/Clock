@@ -1,0 +1,15 @@
+**Poprawki**
+- Naprawiono kolor wskaźnika karty
+- Naprawiono kolor wskazówki sekundowej w karcie Zegar
+- Naprawiono błąd wyświetlania podczas uruchamiania wygaszacza ekranu z ustawień urządzenia
+
+**Ulepszenia**
+- Dodano ustawienia tworzenia kopii zapasowej i przywracania
+- Dodano sortowanie timerów i nowe ustawienia
+- Oddzielne kolory akcentów dla trybu dziennego i nocnego
+- Zaktualizowano kolor akcentu dla trybu nocnego
+- Zaktualizowano tłumaczenia
+
+Aby zobaczyć wszystkie ulepszenia, odwiedź stronę: https://github.com/BlackyHawky/Clock/releases/tag/2.9
+
+Uwaga: należy zresetować ustawienie „Przypomnienie o powiadomieniu”

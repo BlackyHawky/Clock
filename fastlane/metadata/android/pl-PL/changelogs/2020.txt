@@ -1,0 +1,14 @@
+**Poprawki**
+- Naprawiono tworzenie timera, uruchamianie lub wstrzymywanie stopera ze skrótu aplikacji
+
+**Ulepszenia**
+- Możliwość tworzenia kopii zapasowych alarmów, timerów, miast i dzwonków systemowych oraz ich przywracania
+- Możliwość wyświetlania/ukrywania daty w widżetach cyfrowych
+- Dodano motyw „Niebieski”
+- Dodano czas UTC do listy miast
+- Dodano języki turecki i koreański do ustawień języka aplikacji
+- Zaktualizowano tłumaczenia
+
+Aby zobaczyć wszystkie ulepszenia, odwiedź stronę: https://github.com/BlackyHawky/Clock/releases/tag/2.17
+
+USUŃ STARĄ KOPIĘ ZAPASOWĄ I UTWÓRZ NOWĄ PO AKTUALIZACJI

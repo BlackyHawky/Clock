@@ -1,0 +1,16 @@
+**Poprawki**
+- Poprawiono kolor tytułu paska narzędzi
+- Poprawiono wyświetlanie daty i następnego alarmu
+- Poprawiono dzwonek alarmu po przywróceniu
+… i więcej
+
+**Ulepszenia**
+- Włączono funkcję edge-to-edge dla Androida 10+
+- Możliwość eksportowania logów
+- Przesunięcie w celu zamknięcia/uśpienia alarmu, jak w aplikacji Google
+- Możliwość dostosowania intensywności potrząsania wygasłymi timerami
+- Aktualizacja tłumaczeń
+- Ulepszono i oczyszczono kod
+… i więcej
+
+Wszystkie poprawki i ulepszenia są wymienione tutaj: https://github.com/BlackyHawky/Clock/releases/tag/2.19

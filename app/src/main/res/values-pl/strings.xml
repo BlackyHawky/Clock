@@ -3,8 +3,7 @@
     Copyright (C) 2016 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="6674495003718166674">"Zegar"</string>
     <string name="default_label" msgid="5590025289805630372">"Alarm"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Wibracje"</string>
@@ -268,7 +267,7 @@
     <string name="alarm_alert_dismiss_and_delete_text">Odrzuć i usuń</string>
     <string name="snooze_button_color">Kolor przycisku \"Drzemka\"</string>
     <string name="alarm_title_color">Kolor tytułu alarmu</string>
-    <string name="alarm_settings_general_summary">Ustawienie to można zmienić dla każdego alarmu w rozszerzonym widoku alarmów</string>
+    <string name="alarm_settings_general_summary">To ustawienie można zmienić dla każdego alarmu w panelu edycji alarmów</string>
     <string name="version">Wersja</string>
     <string name="features_title">Główne funkcje</string>
     <string name="sw_long_press_volume_up_action_title">Zwiększenie głośności (po długim naciśnięciu)</string>
@@ -311,7 +310,7 @@
     <string name="alarm_notification_reminder_8_hours">8 godzin przed</string>
     <string name="alarm_notification_reminder_10_hours">10 godzin przed</string>
     <string name="alarm_notification_reminder_12_hours">12 godzin przed</string>
-    <string name="enable_alarm_vibrations_by_default_setting_title">Włącz wibracje podczas tworzenia alarmów</string>
+    <string name="enable_alarm_vibrations_by_default_setting_title">Włącz wibracje po uruchomieniu alarmu</string>
     <string name="preview_title">Podgląd</string>
     <string name="widgets_settings">Widżety</string>
     <string name="widgets_settings_summary">Ustaw styl, kolory i rozmiar czcionki widżetów</string>
@@ -334,7 +333,7 @@
     <string name="sort_name">Według nazwy</string>
     <string name="sort_timer_ascending_duration">Według czasu trwania (kolejność rosnąca)</string>
     <string name="sort_timer_descending_duration">Według czasu trwania (kolejność malejąca)</string>
-    <string name="next_alarm_no_upcoming_alarm_titles_default_color">Użyj domyślnego koloru dla tytułów „Następny alarm” i „Brak nadchodzącego alarmu”</string>
+    <string name="next_alarm_no_upcoming_alarm_titles_default_color">Użyj domyślnego koloru dla tytułu „Brak nadchodzącego alarmu”</string>
     <string name="auto_silence_end_of_ringtone">Po zakończeniu dzwonka</string>
     <string name="clock_settings_summary">Ustawianie stylu, strefy czasowej oraz zmiana daty i godziny urządzenia</string>
     <string name="clock_font_size">Rozmiar czcionki zegara</string>
@@ -424,7 +423,7 @@
     <string name="first_launch_important_info_message_for_SDK34">• &lt;b&gt;POWIADOMIENIA NA PEŁNYM EKRANIE;&lt;/b&gt; &lt;br&gt; &lt;br&gt;</string>
     <string name="date_default_color_title">Użyj domyślnego koloru dla daty</string>
     <string name="max_clock_font_size_title">Maksymalny rozmiar czcionki głównego zegara</string>
-    <string name="next_alarm_no_upcoming_alarm_titles_color">Niestandardowy kolor dla tytułów „Następny alarm” i „Brak nadchodzącego alarmu”</string>
+    <string name="next_alarm_no_upcoming_alarm_titles_color">Kolor dla tytułu „Brak nadchodzącego alarmu”</string>
     <string name="alarm_title_default_color">Użyj domyślnego koloru dla tytułu alarmu</string>
     <string name="widget_max_font_size_title">Maksymalny rozmiar czcionki widżetu</string>
     <string name="next_alarm_widget_title_no_alarm">Brak nadchodzącego alarmu</string>
@@ -623,4 +622,47 @@
     <string name="screensaver_italic_battery_title">Poziom naładowania baterii pochylony</string>
     <string name="settings_language_bulgarian">Bułgarski</string>
     <string name="settings_language_tamil">Tamil</string>
+    <string name="sync_alarm_by_label_title">Synchronizuj alarmy o tej samej etykiecie</string>
+    <string name="label_indefinitely">Nieokreślone</string>
+    <string name="button_tip_title">Naciśnij i przytrzymaj przycisk „+”, aby dodać folder</string>
+    <string name="alarm_alert_dismiss_and_delete_text_button">Odrzuć i\nUsuń</string>
+    <string name="permissions_category_title">Uprawnienia</string>
+    <string name="settings_language_arabic">Arabski</string>
+    <string name="settings_language_hungarian">Węgierski</string>
+    <string name="enable_alarm_vibrations_by_default_dialog_message">Wibracje zostaną wyłączone dla wszystkich alarmów.%s</string>
+    <string name="enable_delete_occasional_alarm_by_default_dialog_message">Funkcja „Usuń alarm po zamknięciu” zostanie wyłączona dla wszystkich alarmów.%s</string>
+    <string name="display_low_alarm_volume_warning_title">Wyświetl ostrzeżenie, gdy głośność alarmu zostanie ustawiona na minimum</string>
+    <string name="snooze_zone_color_title">Kolor strefy drzemki</string>
+    <string name="snooze_minus_button_color_title">Kolor przycisku „-”</string>
+    <string name="snooze_plus_button_color_title">Kolor przycisku „+”</string>
+    <string name="snooze_selector_text_color_title">Kolor tekstu selektora drzemki</string>
+    <string name="snooze_minus_symbol_color_title">Kolor symbolu „-”</string>
+    <string name="snooze_plus_symbol_color_title">Kolor symbolu „+”</string>
+    <string name="background_image_summary">Aby zobaczyć obraz, ustaw kolor tła na przezroczysty</string>
+    <string name="alarm_volume_low">Głośność alarmu jest niska</string>
+    <string name="fix_alarm_volume">Napraw</string>
+    <string name="display_snooze_selector_title">Wyświetl selektor drzemki</string>
+    <string name="clock_dial_with_roman_numbers">Z liczbami rzymskimi</string>
+    <string name="clock_second_hand_lollipop">Lollipop</string>
+    <string name="timezone_baker_howland">Wyspy Bakera i Howlanda</string>
+    <string name="timezone_marquesas">Wyspy Markizy</string>
+    <string name="timezone_chatham">Wyspa Chatham</string>
+    <string name="timezone_gambier">Wyspy Gambier</string>
+    <string name="timezone_pitcairn">Wyspy Pitcairn</string>
+    <string name="timezone_easter_island">Wyspa Wielkanocna</string>
+    <string name="timezone_miquelon">Saint Pierre and Miquelon</string>
+    <string name="timezone_noronha">Fernando de Noronha</string>
+    <string name="timezone_lord_howe">Wyspa Lorda Howe\'a</string>
+    <string name="timezone_norfolk">Wyspa Norfolk</string>
+    <string name="timezone_macquarie">Wyspa Macquarie</string>
+    <string name="missed_timer_indicator_color_title">Brak koloru wskaźnika minutnika</string>
+    <string name="next_alarm_title_color_title">Kolor tytułu następnego alarmu</string>
+    <string name="next_alarm_title_default_color_title">Użyj domyślnego koloru dla tytułu następnego alarmu</string>
+    <string name="city_note_color_title">Kolor notatki miejskiej</string>
+    <string name="city_note_default_color_title">Użyj domyślnego koloru dla notatki miejskiej</string>
+    <string name="foreground_service_channel">Powiadomienie na pierwszym planie</string>
+    <string name="foreground_service_message">Działa w tle</string>
+    <string name="display_next_alarm_title_setting_title">Wyświetl tytuł następnego alarmu na widżecie</string>
+    <string name="foreground_service_title">Wyświetl powiadomienie na pierwszym planie</string>
+    <string name="foreground_service_dialog_message">Aby zapobiec agresywnemu zamykaniu aplikacji i pomijaniu alarmów, ta opcja będzie wyświetlać stałe, ciche powiadomienie.\n\nDzięki temu aplikacja pozostanie w pamięci, choć może to nieznacznie zwiększyć zużycie baterii.\n\nUwaga: Włączenie tego ustawienia nie jest konieczne w przypadku większości urządzeń. Włącz je tylko wtedy, gdy zauważysz pomijanie alarmów.</string>
 </resources>

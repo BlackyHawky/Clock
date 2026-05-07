@@ -1,0 +1,15 @@
+**Poprawki**
+- Naprawiono przeciąganie w trybie poziomym telefonu
+- Naprawiono kolor wskazówki sekundowej na karcie Zegar
+
+**Ulepszenia**
+- Ustawianie alarmów na konkretną datę
+- Wybór stylu selektora dat
+- Dodano motywy „Czarny”, „Fioletowy” i „Żółty”
+- Resetowanie przeterminowanego timera za pomocą przycisków głośności i zasilania
+- Dodano akcje do przycisków głośności stopera
+- Zoptymalizowano i zaktualizowano ikony wektorowe
+- Zaktualizowano tłumaczenia
+- Ulepszono kod
+
+Aby zobaczyć wszystkie ulepszenia, odwiedź stronę: https://github.com/BlackyHawky/Clock/releases/tag/2.10

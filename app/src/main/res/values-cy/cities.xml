@@ -3,9 +3,7 @@
     Copyright (C) 2016 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-
-<resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="Typos">
+--><resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="Typos">
     <string name="C1">A<xliff:g id="separator">=</xliff:g>Abidjan<xliff:g id="timezone">|Affrica/Abidjan</xliff:g></string>
     <string name="C2">A<xliff:g id="separator">=</xliff:g>Accra<xliff:g id="timezone">|Affrica/Accra</xliff:g></string>
     <string name="C3">A<xliff:g id="separator">=</xliff:g>Addis Ababa<xliff:g id="timezone">|Affrica/Addis_Ababa</xliff:g></string>

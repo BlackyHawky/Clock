@@ -1,0 +1,11 @@
+**Poprawki**
+- Naprawiono wyświetlanie paska stanu w wygaszaczu ekranu (gdy urządzenie jest w trybie ciemnym, a w ustawieniach wybrano tryb AMOLED)
+- Naprawiono odświeżanie widżetów po zmianie ustawień;
+- Naprawiono automatyczną zmianę daty w widżetach cyfrowych (teraz data będzie aktualizowana codziennie o północy)
+
+**Ulepszenia**
+- Dodano możliwość wyświetlania lub niewyświetlania sekundnika w widżetach analogowych (tylko dla Androida 12+)
+- Wyświetlanie cienia podczas przeciągania timerów
+- Dodano język rosyjski do ustawień języka aplikacji
+- Ulepszono i oczyszczono kod
+- Zaktualizowano tłumaczenia

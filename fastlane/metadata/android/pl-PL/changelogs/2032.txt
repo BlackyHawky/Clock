@@ -1,0 +1,8 @@
+Wiele poprawek i ulepszeń szczegółowo opisano tutaj:
+https://github.com/BlackyHawky/Clock/releases/tag/2.29
+
+**Uwagi:**
+- Ustawienie „Powtarzaj pominięte alarmy” zostało zresetowane.
+- Ze względu na obsługę przewodowych zestawów słuchawkowych należy ponownie skonfigurować dwa ustawienia: „Włącz automatyczne kierowanie dzwonków do zewnętrznych urządzeń audio” i „Głośność alarmu dla zewnętrznych urządzeń audio”.
+- Widżety należy usunąć i dodać z powrotem na ekran główny.
+- Po aktualizacji aplikacji należy utworzyć nową kopię zapasową i usunąć starą.

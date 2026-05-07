@@ -1,0 +1,8 @@
+Spousta oprav a vylepšení popsaných zde:
+https://github.com/BlackyHawky/Clock/releases/tag/2.29
+
+**Poznámky:**
+ - Nastavení `Opakovat zmeškané budíky` bylo resetováno.
+ - Z důvodu podpory drátových sluchátek musí být znovu nastavena dvě nastavení: `Povolit automatické směrování vyzvánění na externí zvuková zařízení` a `Hlasitost budíku pro externí zvuková zařízení`.
+ - Widgety musí být odebrány a znovu přidány na dom. obr.
+ - Po aktualizaci aplikace si vytvořte novou zálohu a starou smažte.

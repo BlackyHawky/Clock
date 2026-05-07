@@ -1,0 +1,5 @@
+Wiele poprawek i ulepszeń szczegółowo opisano tutaj:
+https://github.com/BlackyHawky/Clock/releases/tag/2.26
+
+**Uwaga:
+- Ze względu na zmianę w kodzie ustawienia „Wycisz po” zaleca się ponowne zdefiniowanie wartości tego ustawienia, wykonanie nowej kopii zapasowej i usunięcie starej.

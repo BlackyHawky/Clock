@@ -1,0 +1,8 @@
+**Poprawiono**
+- Naprawiono błąd powodujący awarię podczas wybierania pokrętła w ustawieniach zegara lub wygaszacza ekranu
+
+**Ulepszenie**
+- Zaktualizowano tłumaczenia
+
+Pozostałe funkcje wersji 2.12 zostały zachowane i można je znaleźć tutaj:
+https://github.com/BlackyHawky/Clock/releases/tag/2.12

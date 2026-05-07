@@ -1,0 +1,11 @@
+**Poprawka**
+- Poprawiono kolor minut timera dla języka francuskiego;
+- Poprawiono działanie „Potrząśnij, aby uśpić” dla Androida 14+;
+
+**Ulepszenia**
+- Zaktualizowano plik Readme, aby wyjaśnić użycie Weblate do tłumaczeń;
+- Zawsze wyświetlane są nadchodzące dni alarmu, nawet jeśli alarm jest wyłączony;
+- Wyświetlacz timera jest zmniejszony po zatrzymaniu (dotyczy to tylko telefonów w trybie pionowym);
+- Odtwarzanie/wstrzymywanie timera poprzez kliknięcie pozostałego czasu;
+- Zaktualizowano niektóre tłumaczenia;
+- Zaktualizowano zrzuty ekranu (głównie dla F-Droid), zgodnie z opisem tutaj: https://github.com/BlackyHawky/Clock/discussions/23#discussioncomment-9346357

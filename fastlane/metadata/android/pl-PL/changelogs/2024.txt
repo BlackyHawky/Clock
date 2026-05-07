@@ -1,0 +1,15 @@
+**Poprawka**
+- Naprawiono błąd wprowadzony w wersji 2.20 dotyczący przycisków stopera
+
+**Uwaga**
+Inne funkcje wersji 2.20 zostały zachowane i można je zobaczyć pod poniższym linkiem:
+
+- Naprawiono górne wypełnienie dla urządzeń z wcięciem
+- Naprawiono wibracje alarmu i timera dla niektórych urządzeń
+- Ustawiono alarmy na konkretną datę
+- Możliwość losowego odtwarzania dzwonków
+- Możliwość wyboru folderu do dodania dzwonków
+- Usunięto uprawnienie `DISABLE_KEYGUARD`
+… i więcej
+
+https://github.com/BlackyHawky/Clock/releases/tag/2.20

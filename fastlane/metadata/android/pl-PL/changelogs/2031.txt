@@ -1,0 +1,5 @@
+Wiele poprawek i ulepszeń szczegółowo opisano tutaj:
+https://github.com/BlackyHawky/Clock/releases/tag/2.28
+
+**Uwaga:
+- Ze względu na zmiany wprowadzone w widżetach cyfrowych, zaleca się usunięcie i ponowne dodanie widżetów do ekranu głównego po aktualizacji.

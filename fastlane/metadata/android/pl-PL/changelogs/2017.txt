@@ -1,0 +1,13 @@
+Ta aktualizacja naprawia poważny błąd w wersji 2.13, który uniemożliwiał zatrzymanie dzwonka.
+
+**Poprawki**
+- Naprawiono problem z zatrzymaniem dzwonka.
+- Naprawiono aktualizację wyświetlania/ukrywania następnego alarmu w zakładce zegara dla Androida 14+.
+- Naprawiono aktualizację wyświetlania/ukrywania następnego alarmu w widżetach cyfrowych.
+
+**Ulepszenia**
+- Usunięto zbędne uprawnienia do aparatu.
+- Animacje w ustawieniach uwzględniają ustawienia ułatwień dostępu urządzenia.
+- Ujednolicono rozmiar zegarów analogowych.
+- Dodano język niderlandzki do ustawień języka aplikacji.
+- Zaktualizowano tłumaczenia

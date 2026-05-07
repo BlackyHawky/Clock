@@ -1,0 +1,12 @@
+**Poprawki**
+- Naprawiono wyświetlanie widżetów cyfrowych w niektórych wersjach Androida;
+- Tylko w telefonach w trybie poziomym, można ponownie wprowadzić tytuł tekstu timera;
+
+**Ulepszenia**
+- Usprawniono otwieranie aplikacji;
+- Zamykanie lub uśpienie alarmów poprzez przesunięcie lub stuknięcie;
+- Dodano selektor kolorów do ustawień wygaszacza ekranu i widżetów cyfrowych;
+- Aby zobaczyć wszystkie ulepszenia, odwiedź stronę: https://github.com/BlackyHawky/Clock/releases/tag/2.5
+
+**Uwaga:**
+Ze względu na zmianę ustawień konieczne będzie ponowne zdefiniowanie ustawienia „Tryb ciemnego motywu”.

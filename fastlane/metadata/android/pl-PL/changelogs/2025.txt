@@ -1,0 +1,13 @@
+**Poprawiono**
+- Naprawiono przycisk „OK” w selektorze czasu podczas wpisywania wartości za pomocą klawiatury
+
+**Ulepszenia**
+- Możliwość ustawienia sekund dla przycisku „+ 1:00” w timerach
+- Poprawiono wydajność aplikacji podczas działania timera
+- Brak zmiany rozmiaru okna dialogowego dla małych ekranów
+- Ustawianie losowych dzwonków dla dzwonków systemowych i niestandardowych oddzielnie
+- Umożliwiono powtarzanie alarmów w przypadku pominięcia
+- Ulepszono odtwarzanie dzwonków
+- Aktualizacja tłumaczeń
+
+Wszystkie zmiany tutaj: https://github.com/BlackyHawky/Clock/releases/tag/2.22

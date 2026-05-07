@@ -3,8 +3,7 @@
     Copyright (C) 2016 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="6674495003718166674">"时钟"</string>
     <string name="default_label" msgid="5590025289805630372">"闹钟"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"振动"</string>
@@ -644,4 +643,9 @@
     <string name="city_note_default_color_title">为城市备注使用默认颜色</string>
     <string name="city_note_color_title">城市备注颜色</string>
     <string name="display_next_alarm_title_setting_title">在微件上显示下次闹钟标题</string>
+    <string name="display_alarm_action_message_title">在暂停或关闭闹钟后显示消息</string>
+    <string name="display_top_date_title">在微件上将日期显示在时间上方</string>
+    <string name="toast_message_backup_error">备份失败</string>
+    <string name="toast_message_restore_error">还原失败</string>
+    <string name="alarm_minutes_warning_box_text">请输入 0 到 59 分钟之间的值</string>
 </resources>
