@@ -837,6 +837,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
         mDismissOnlyButton.setBackgroundColor(SettingsDAO.getDismissButtonColor(mPrefs, this));
         mDismissOnlyButton.setTypeface(mGeneralBoldTypeface);
+        mDismissOnlyButton.setText(getString(isOccasionalAlarmDeletedAfterUse() ? R.string.delete : R.string.button_action_dismiss));
         mDismissOnlyButton.setContentDescription(getString(isOccasionalAlarmDeletedAfterUse()
             ? R.string.description_dismiss_button_for_occasional_alarm
             : R.string.description_dismiss_button
