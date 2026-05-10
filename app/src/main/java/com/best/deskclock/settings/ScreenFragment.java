@@ -38,6 +38,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.ListPreference;
+import androidx.preference.MultiSelectListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceFragmentCompat;
@@ -320,6 +321,10 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
         if (pref instanceof ListPreference customListPref) {
             CustomListPreferenceDialogFragment dialog = CustomListPreferenceDialogFragment.newInstance(customListPref);
             CustomListPreferenceDialogFragment.show(getChildFragmentManager(), dialog);
+        } else if (pref instanceof MultiSelectListPreference customMultiSelectListPref) {
+            CustomMultiSelectListPreferenceDialogFragment dialog =
+                CustomMultiSelectListPreferenceDialogFragment.newInstance(customMultiSelectListPref);
+            CustomMultiSelectListPreferenceDialogFragment.show(getChildFragmentManager(), dialog);
         } else if (pref instanceof ColorPickerPreference colorPickerPref) {
             ColorPreferenceDialogFragment dialog = ColorPreferenceDialogFragment.newInstance(colorPickerPref);
             ColorPreferenceDialogFragment.show(getChildFragmentManager(), dialog);

@@ -66,24 +66,6 @@
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
-        <ListPreference
-            android:key="key_tab_title_visibility"
-            android:layout="@layout/settings_preference_layout"
-            android:title="@string/settings_tab_title_visibility_title"
-            android:defaultValue="0"
-            android:entries="@array/tab_title_visibility_entries"
-            android:entryValues="@array/tab_title_visibility_values"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
-
-        <SwitchPreferenceCompat
-            android:key="key_tab_indicator"
-            android:layout="@layout/settings_preference_layout"
-            android:title="@string/settings_tab_indicator_title"
-            android:defaultValue="true"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
-
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -122,6 +104,51 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:title="@string/tabs_category_title"
+        app:allowDividerAbove="false"
+        app:iconSpaceReserved="false">
+
+        <MultiSelectListPreference
+            android:key="key_visible_tabs"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/visible_tabs_title"
+            android:entries="@array/visible_tab_entries"
+            android:entryValues="@array/visible_tab_values"
+            android:defaultValue="@array/visible_tab_default_values"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <ListPreference
+            android:key="key_tab_to_display"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/settings_tab_to_display"
+            android:defaultValue="-1"
+            android:entries="@array/tab_entries"
+            android:entryValues="@array/tab_values"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <ListPreference
+            android:key="key_tab_title_visibility"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/settings_tab_title_visibility_title"
+            android:defaultValue="0"
+            android:entries="@array/tab_title_visibility_entries"
+            android:entryValues="@array/tab_title_visibility_values"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <SwitchPreferenceCompat
+            android:key="key_tab_indicator"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/settings_tab_indicator_title"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:title="@string/miscellaneous_category_title"
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false">
@@ -133,16 +160,6 @@
             android:defaultValue="system_language_code"
             android:entries="@array/language_entries"
             android:entryValues="@array/language_values"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
-
-        <ListPreference
-            android:key="key_tab_to_display"
-            android:layout="@layout/settings_preference_layout"
-            android:title="@string/settings_tab_to_display"
-            android:defaultValue="-1"
-            android:entries="@array/tab_entries"
-            android:entryValues="@array/tab_values"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 

@@ -42,6 +42,7 @@ import com.best.deskclock.utils.Utils;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Set;
 import java.util.TimeZone;
 
 /**
@@ -341,6 +342,45 @@ public final class SettingsDAO {
         return prefs.getString(KEY_CUSTOM_LANGUAGE_CODE, DEFAULT_SYSTEM_LANGUAGE_CODE);
     }
 
+    /**
+     * @return the set of currently visible tabs.
+     */
+    public static Set<String> getVisibleTabs(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_interface_customization.xml
+        return prefs.getStringSet(KEY_VISIBLE_TABS, DEFAULT_VISIBLE_TABS);
+    }
+
+    /**
+     * @return {@code true} if the Alarm tab is visible in the bottom navigation menu. {@code false} otherwise.
+     */
+    public static boolean isAlarmTabVisible(SharedPreferences prefs) {
+        return getVisibleTabs(prefs).contains(VISIBLE_TAB_ALARM);
+    }
+
+    /**
+     * @return {@code true} if the Clock tab is visible in the bottom navigation menu. {@code false} otherwise.
+     */
+    public static boolean isClockTabVisible(SharedPreferences prefs) {
+        return getVisibleTabs(prefs).contains(VISIBLE_TAB_CLOCK);
+    }
+
+    /**
+     * @return {@code true} if the Timer tab is visible in the bottom navigation menu. {@code false} otherwise.
+     */
+    public static boolean isTimerTabVisible(SharedPreferences prefs) {
+        return getVisibleTabs(prefs).contains(VISIBLE_TAB_TIMER);
+    }
+
+    /**
+     * @return {@code true} if the Stopwatch tab is visible in the bottom navigation menu. {@code false} otherwise.
+     */
+    public static boolean isStopwatchTabVisible(SharedPreferences prefs) {
+        return getVisibleTabs(prefs).contains(VISIBLE_TAB_STOPWATCH);
+    }
+
+    /**
+     * @return the tab to be displayed once the application has launched.
+     */
     public static int getTabToDisplay(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_interface_customization.xml
         final String tabToDisplay = prefs.getString(KEY_TAB_TO_DISPLAY, DEFAULT_TAB_TO_DISPLAY);

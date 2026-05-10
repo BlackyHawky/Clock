@@ -351,8 +351,12 @@ public class DeskClock extends BaseActivity implements FabContainer {
         // Customize the view pager.
         mFragmentTabPagerAdapter = new FragmentTabPagerAdapter(this);
         mFragmentTabPager = findViewById(R.id.desk_clock_pager);
-        // Keep all four tabs to minimize jank.
-        mFragmentTabPager.setOffscreenPageLimit(3);
+        // Set the number of pages to keep in the ViewPager base on the number of tabs displayed.
+        int visibleTabsCount = UiDataModel.getUiDataModel().getTabCount();
+        int offscreenLimit = Math.max(1, visibleTabsCount - 1);
+        if (mFragmentTabPager.getOffscreenPageLimit() != offscreenLimit) {
+            mFragmentTabPager.setOffscreenPageLimit(offscreenLimit);
+        }
         // Set Accessibility Delegate to null so view pager doesn't intercept movements and
         // prevent the fab from being selected.
         mFragmentTabPager.setAccessibilityDelegate(null);
@@ -382,17 +386,29 @@ public class DeskClock extends BaseActivity implements FabContainer {
     protected void onResume() {
         super.onResume();
 
+        // Remember the current tab
+        UiDataModel.Tab oldTab = UiDataModel.getUiDataModel().getSelectedTab();
+
+        // Remove the listener to prevent the ViewPager from crashing when the tabs visibility has been changed
+        UiDataModel.getUiDataModel().removeTabListener(mTabChangeWatcher);
+
+        final boolean tabsChanged = UiDataModel.getUiDataModel().updateActiveTabs();
+
+        // Clear the fragment cache and notify the ViewPager if the tabs visibility has been changed
+        if (tabsChanged) {
+            mFragmentTabPagerAdapter.clearCache();
+            mFragmentTabPagerAdapter.notifyDataSetChanged();
+        }
+
         if (mShouldRecreate) {
             mShouldRecreate = false;
-
             recreate();
             return;
         }
 
-        showTabFromNotifications();
+        refreshTabsVisibility(oldTab, tabsChanged);
 
-        // ViewPager does not save state; this honors the selected tab in the user interface.
-        updateCurrentTab();
+        showTabFromNotifications();
 
         updateKeepScreenOn(UiDataModel.getUiDataModel().getSelectedTab());
 
@@ -400,6 +416,13 @@ public class DeskClock extends BaseActivity implements FabContainer {
             && !NotificationUtils.isNotificationVisible(this, FOREGROUND_SERVICE_NOTIFICATION_ID)) {
             Utils.startService(this, KeepAliveService.class);
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        UiDataModel.getUiDataModel().removeTabListener(mTabChangeWatcher);
     }
 
     @Override
@@ -475,6 +498,10 @@ public class DeskClock extends BaseActivity implements FabContainer {
     @Override
     public void updateFab(@UpdateFabFlag int updateType) {
         final DeskClockFragment f = getSelectedDeskClockFragment();
+
+        if (!f.isAdded() || f.getContext() == null) {
+            return;
+        }
 
         switch (updateType & FAB_ANIMATION_MASK) {
             case FAB_SHRINK_AND_EXPAND -> mUpdateFabOnlyAnimation.start();
@@ -809,17 +836,109 @@ public class DeskClock extends BaseActivity implements FabContainer {
                 switch (action) {
                     case TimerService.ACTION_SHOW_TIMER -> {
                         Events.sendTimerEvent(R.string.action_show, label);
-                        UiDataModel.getUiDataModel().setSelectedTab(UiDataModel.Tab.TIMERS);
+                        if (UiDataModel.getUiDataModel().isTabVisible(UiDataModel.Tab.TIMERS)) {
+                            UiDataModel.getUiDataModel().setSelectedTab(UiDataModel.Tab.TIMERS);
+                        }
                         // Consume the action to prevent it from being reused
                         intent.setAction(null);
                     }
                     case StopwatchService.ACTION_SHOW_STOPWATCH -> {
                         Events.sendStopwatchEvent(R.string.action_show, label);
-                        UiDataModel.getUiDataModel().setSelectedTab(UiDataModel.Tab.STOPWATCH);
+                        if (UiDataModel.getUiDataModel().isTabVisible(UiDataModel.Tab.STOPWATCH)) {
+                            UiDataModel.getUiDataModel().setSelectedTab(UiDataModel.Tab.STOPWATCH);
+                        }
                         // Consume the action to prevent it from being reused
                         intent.setAction(null);
                     }
                 }
+            }
+        }
+    }
+
+    /**
+     * Refreshes the visibility of the tabs in the user interface based on current user preferences.
+     *
+     * <p>This method synchronizes the BottomNavigationView items and the ViewPager. If the currently active tab is hidden by the new
+     * preferences, it automatically falls back to the first available tab.</p>
+     */
+    private void refreshTabsVisibility(UiDataModel.Tab oldTab, boolean tabsChanged) {
+        // Update the menu icons
+        Menu menu = mBottomNavigation.getMenu();
+        boolean menuChanged = false;
+
+        boolean showAlarm = UiDataModel.getUiDataModel().isTabVisible(UiDataModel.Tab.ALARMS);
+        boolean showClock = UiDataModel.getUiDataModel().isTabVisible(UiDataModel.Tab.CLOCKS);
+        boolean showTimer = UiDataModel.getUiDataModel().isTabVisible(UiDataModel.Tab.TIMERS);
+        boolean showStopwatch = UiDataModel.getUiDataModel().isTabVisible(UiDataModel.Tab.STOPWATCH);
+
+        if (menu.findItem(R.id.page_alarm).isVisible() != showAlarm) {
+            menu.findItem(R.id.page_alarm).setVisible(showAlarm);
+            menuChanged = true;
+        }
+
+        if (menu.findItem(R.id.page_clock).isVisible() != showClock) {
+            menu.findItem(R.id.page_clock).setVisible(showClock);
+            menuChanged = true;
+        }
+
+        if (menu.findItem(R.id.page_timer).isVisible() != showTimer) {
+            menu.findItem(R.id.page_timer).setVisible(showTimer);
+            menuChanged = true;
+        }
+
+        if (menu.findItem(R.id.page_stopwatch).isVisible() != showStopwatch) {
+            menu.findItem(R.id.page_stopwatch).setVisible(showStopwatch);
+            menuChanged = true;
+        }
+
+        final boolean finalMenuChanged = menuChanged;
+
+        // Indicate in the menu which tab is currently active to force the Material indicator to redraw
+        // when the tabs visibility has been changed
+        mBottomNavigation.post(() -> {
+            UiDataModel.Tab currentTab = UiDataModel.getUiDataModel().getSelectedTab();
+            int currentItemId = switch (currentTab) {
+                case ALARMS -> R.id.page_alarm;
+                case CLOCKS -> R.id.page_clock;
+                case TIMERS -> R.id.page_timer;
+                case STOPWATCH -> R.id.page_stopwatch;
+            };
+
+            MenuItem activeItem = mBottomNavigation.getMenu().findItem(currentItemId);
+            if (activeItem != null) {
+                if (finalMenuChanged) {
+                    // Workaround to redraw the pill display on the current tab
+                    activeItem.setChecked(false);
+                    activeItem.setChecked(true);
+                } else if (!activeItem.isChecked()) {
+                    activeItem.setChecked(true);
+                }
+            }
+
+            if (!SettingsDAO.getTabTitleVisibility(mPrefs).equals(TAB_TITLE_VISIBILITY_NEVER) && mFontPath != null) {
+                updateBottomNavTypeface();
+            }
+
+            applyBottomNavTooltips();
+        });
+
+        // Re-enable the listener
+        UiDataModel.getUiDataModel().addTabListener(mTabChangeWatcher);
+
+        // Check to see if the tab has been modified after being hidden
+        UiDataModel.Tab newTab = UiDataModel.getUiDataModel().getSelectedTab();
+
+        if (oldTab != newTab) {
+            // The active tab has been hidden: select the first visible tab
+            mTabChangeWatcher.selectedTabChanged(newTab);
+        } else {
+            // The active tab has not been hidden: update only the interface
+            updateCurrentTab();
+
+            if (!tabsChanged) {
+                // If the ViewPager has not been destroyed, the fragment is properly attached. So, force the FAB to appear immediately,
+                // for example, when the screen rotates.
+                updateFab(FAB_AND_BUTTONS_IMMEDIATE);
             }
         }
     }
@@ -832,15 +951,22 @@ public class DeskClock extends BaseActivity implements FabContainer {
         // Fetch the selected tab from the source of truth: UiDataModel.
         final UiDataModel.Tab selectedTab = UiDataModel.getUiDataModel().getSelectedTab();
         // Update the selected tab in the mBottomNavigation if it does not agree with UiDataModel.
-        mBottomNavigation.setSelectedItemId(selectedTab.getPageResId());
+        if (mBottomNavigation.getSelectedItemId() != selectedTab.getPageResId()) {
+            mBottomNavigation.setSelectedItemId(selectedTab.getPageResId());
+        }
 
         // Update the selected fragment in the viewpager if it does not agree with UiDataModel.
-        for (int i = 0; i < mFragmentTabPagerAdapter.getCount(); i++) {
-            final DeskClockFragment fragment = mFragmentTabPagerAdapter.getDeskClockFragment(i);
-            if (fragment.isTabSelected() && mFragmentTabPager.getCurrentItem() != i) {
-                mFragmentTabPager.setCurrentItem(i);
+        int targetIndex = -1;
+        for (int i = 0; i < UiDataModel.getUiDataModel().getTabCount(); i++) {
+            if (UiDataModel.getUiDataModel().getTabAt(i) == selectedTab) {
+                targetIndex = i;
                 break;
             }
+        }
+
+        if (targetIndex != -1 && mFragmentTabPager.getCurrentItem() != targetIndex) {
+            // 'false' disables the scroll animation during recreation
+            mFragmentTabPager.setCurrentItem(targetIndex, false);
         }
 
         if (SettingsDAO.isToolbarTitleDisplayed(mPrefs)) {
@@ -860,14 +986,17 @@ public class DeskClock extends BaseActivity implements FabContainer {
      * @param selectedTab The currently selected tab.
      */
     private void updateKeepScreenOn(UiDataModel.Tab selectedTab) {
-        final boolean screenShouldStayOn;
+        if (selectedTab == null) {
+            return;
+        }
 
-        switch (selectedTab) {
-            case ALARMS, CLOCKS -> screenShouldStayOn = SettingsDAO.shouldScreenRemainOn(mPrefs);
-            case TIMERS -> screenShouldStayOn = DataModel.getDataModel().hasActiveTimer() || SettingsDAO.shouldScreenRemainOn(mPrefs);
-            case STOPWATCH ->
-                screenShouldStayOn = DataModel.getDataModel().getStopwatch().isRunning() || SettingsDAO.shouldScreenRemainOn(mPrefs);
-            default -> screenShouldStayOn = false;
+        boolean screenShouldStayOn = SettingsDAO.shouldScreenRemainOn(mPrefs);
+
+        if (!screenShouldStayOn) {
+            switch (selectedTab) {
+                case TIMERS -> screenShouldStayOn = DataModel.getDataModel().hasActiveTimer();
+                case STOPWATCH -> screenShouldStayOn = DataModel.getDataModel().getStopwatch().isRunning();
+            }
         }
 
         if (screenShouldStayOn) {
@@ -888,14 +1017,26 @@ public class DeskClock extends BaseActivity implements FabContainer {
      * @param newTab the newly selected tab
      */
     private void updateTabRunnable(UiDataModel.Tab oldTab, UiDataModel.Tab newTab) {
-        DeskClockFragment oldFragment = mFragmentTabPagerAdapter.getDeskClockFragment(oldTab.ordinal());
-        if (oldFragment instanceof RunnableFragment runnableOld) {
-            runnableOld.stopRunnable();
+        // Stop the runnable from the previous tab (if it exists and is still visible)
+        if (oldTab != null) {
+            int oldIndex = UiDataModel.getUiDataModel().getTabIndex(oldTab);
+            if (oldIndex != -1 && oldIndex < mFragmentTabPagerAdapter.getCount()) {
+                DeskClockFragment oldFragment = mFragmentTabPagerAdapter.getDeskClockFragment(oldIndex);
+                if (oldFragment instanceof RunnableFragment runnableOld) {
+                    runnableOld.stopRunnable();
+                }
+            }
         }
 
-        DeskClockFragment newFragment = mFragmentTabPagerAdapter.getDeskClockFragment(newTab.ordinal());
-        if (newFragment instanceof RunnableFragment runnableNew) {
-            runnableNew.startRunnable();
+        // Launch the new tab runnable
+        if (newTab != null) {
+            int newIndex = UiDataModel.getUiDataModel().getTabIndex(newTab);
+            if (newIndex != -1 && newIndex < mFragmentTabPagerAdapter.getCount()) {
+                DeskClockFragment newFragment = mFragmentTabPagerAdapter.getDeskClockFragment(newIndex);
+                if (newFragment instanceof RunnableFragment runnableNew) {
+                    runnableNew.startRunnable();
+                }
+            }
         }
     }
 

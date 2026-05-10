@@ -8,6 +8,7 @@ import android.graphics.Color;
 import com.google.android.material.color.MaterialColors;
 
 import java.util.Calendar;
+import java.util.Set;
 
 public class PreferencesDefaultValues {
 
@@ -43,8 +44,22 @@ public class PreferencesDefaultValues {
     public static final String DEFAULT_SYSTEM_LANGUAGE_CODE = "system_language_code";
     public static final String DEBUG_LANGUAGE_CODE = "en_US";
     public static final String DEFAULT_TAB_TO_DISPLAY = "-1";
+    public static final String TAB_TO_DISPLAY_ALARM = "0";
+    public static final String TAB_TO_DISPLAY_CLOCK = "1";
+    public static final String TAB_TO_DISPLAY_TIMER = "2";
+    public static final String TAB_TO_DISPLAY_STOPWATCH = "3";
     public static final boolean DEFAULT_VIBRATIONS = false;
     public static final boolean DEFAULT_TOOLBAR_TITLE = true;
+    public static final String VISIBLE_TAB_ALARM = "alarm";
+    public static final String VISIBLE_TAB_CLOCK = "clock";
+    public static final String VISIBLE_TAB_TIMER = "timer";
+    public static final String VISIBLE_TAB_STOPWATCH = "stopwatch";
+    public static final Set<String> DEFAULT_VISIBLE_TABS = Set.of(
+        VISIBLE_TAB_ALARM,
+        VISIBLE_TAB_CLOCK,
+        VISIBLE_TAB_TIMER,
+        VISIBLE_TAB_STOPWATCH
+    );
     public static final String DEFAULT_TAB_TITLE_VISIBILITY = "0";
     public static final String TAB_TITLE_VISIBILITY_NEVER = "1";
     public static final boolean DEFAULT_TAB_INDICATOR = true;

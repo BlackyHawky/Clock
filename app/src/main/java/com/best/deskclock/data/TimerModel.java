@@ -21,6 +21,7 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -31,6 +32,7 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.PowerManager;
+import android.service.quicksettings.TileService;
 import android.util.ArraySet;
 
 import androidx.annotation.StringRes;
@@ -41,6 +43,7 @@ import com.best.deskclock.AlarmAlertWakeLock;
 import com.best.deskclock.AppExecutors;
 import com.best.deskclock.R;
 import com.best.deskclock.events.Events;
+import com.best.deskclock.tiles.TimerTileService;
 import com.best.deskclock.timer.TimerKlaxon;
 import com.best.deskclock.timer.TimerService;
 import com.best.deskclock.utils.LogUtils;
@@ -250,9 +253,11 @@ final class TimerModel {
         // Add the timer to the cache.
         getMutableTimers().add(0, timer);
 
-        // Update the timer notification.
+        // Update the timer notification (Heads-Up notification is unaffected by this change).
         updateNotification();
-        // Heads-Up notification is unaffected by this change
+
+        // Update the timer tile.
+        updateQuickSettingsTile();
 
         // Notify listeners of the change.
         for (TimerListener timerListener : mTimerListeners) {
@@ -295,6 +300,9 @@ final class TimerModel {
                 updateHeadsUpNotification();
             }
         }
+
+        // Update the timer tile.
+        updateQuickSettingsTile();
     }
 
     /**
@@ -309,6 +317,9 @@ final class TimerModel {
         } else {
             updateNotification();
         }
+
+        // Update the timer tile after removing the timer data.
+        updateQuickSettingsTile();
     }
 
     /**
@@ -332,6 +343,9 @@ final class TimerModel {
         } else {
             updateNotification();
         }
+
+        // Update the timer tile after updating the timer data.
+        updateQuickSettingsTile();
     }
 
     /**
@@ -347,6 +361,9 @@ final class TimerModel {
         updateNotification();
         updateMissedNotification();
         updateHeadsUpNotification();
+
+        // Update the timer tile once after all timers are updated.
+        updateQuickSettingsTile();
     }
 
     /**
@@ -362,6 +379,9 @@ final class TimerModel {
         updateNotification();
         updateMissedNotification();
         updateHeadsUpNotification();
+
+        // Update the timer tile once after all timers are updated.
+        updateQuickSettingsTile();
     }
 
     /**
@@ -380,6 +400,9 @@ final class TimerModel {
 
         // Update the notifications once after all timers are updated.
         updateHeadsUpNotification();
+
+        // Update the timer tile once after all timers are updated.
+        updateQuickSettingsTile();
     }
 
     /**
@@ -397,6 +420,9 @@ final class TimerModel {
 
         // Update the notifications once after all timers are updated.
         updateMissedNotification();
+
+        // Update the timer tile once after all timers are updated.
+        updateQuickSettingsTile();
     }
 
     /**
@@ -760,6 +786,8 @@ final class TimerModel {
         updateMissedNotification();
 
         updateHeadsUpNotification();
+
+        updateQuickSettingsTile();
     }
 
     /**
@@ -859,6 +887,15 @@ final class TimerModel {
         final Notification notification = mNotificationBuilder.buildHeadsUp(mContext, expired);
         final int notificationId = mNotificationModel.getExpiredTimerNotificationId();
         mService.startForeground(notificationId, notification);
+    }
+
+    /**
+     * Update the timer tile in the quick settings panel.
+     */
+    private void updateQuickSettingsTile() {
+        if (SdkUtils.isAtLeastAndroid7()) {
+            TileService.requestListeningState(mContext, new ComponentName(mContext, TimerTileService.class));
+        }
     }
 
     /**

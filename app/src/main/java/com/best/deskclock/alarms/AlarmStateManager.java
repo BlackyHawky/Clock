@@ -18,12 +18,14 @@ import android.app.AlarmManager;
 import android.app.AlarmManager.AlarmClockInfo;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.PowerManager;
+import android.service.quicksettings.TileService;
 import android.text.format.DateFormat;
 import android.widget.Toast;
 
@@ -35,11 +37,13 @@ import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
+import com.best.deskclock.tiles.AlarmTileService;
 import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
+import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
 
@@ -158,6 +162,10 @@ public final class AlarmStateManager extends BroadcastReceiver {
         }
 
         updateNextAlarmInAlarmManager(context, nextAlarm);
+
+        if (SdkUtils.isAtLeastAndroid7()) {
+            TileService.requestListeningState(context, new ComponentName(context, AlarmTileService.class));
+        }
 
         // Adding a Handler ensures better fluidity when activating/deactivating the alarm
         AppExecutors.getMainThread().postDelayed(() -> {
