@@ -382,9 +382,10 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
         }
 
         final int smallestWorldCityListSizePx = (int) dpToPx(80, context.getResources().getDisplayMetrics());
-        if (sizes.getListHeight() <= smallestWorldCityListSizePx
+        if (!SettingsDAO.isClockTabVisible(prefs)
             || !areWorldCitiesDisplayed(prefs)
-            || cities.isEmpty()) {
+            || cities.isEmpty()
+            || sizes.getListHeight() <= smallestWorldCityListSizePx) {
             rv.setViewVisibility(getWorldCityListViewId(), GONE);
             return;
         }

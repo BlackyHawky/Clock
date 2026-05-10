@@ -4,11 +4,13 @@ package com.best.deskclock.tiles;
 
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.uidata.UiDataModel.Tab.STOPWATCH;
 
 import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
@@ -18,6 +20,7 @@ import androidx.annotation.RequiresApi;
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Stopwatch;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.uidata.UiDataModel;
@@ -74,6 +77,17 @@ public class StopwatchTileService extends TileService {
 
     private void updateTile(Tile tile) {
         if (tile == null) {
+            return;
+        }
+
+        SharedPreferences prefs = getDefaultSharedPreferences(this);
+        if (!SettingsDAO.isStopwatchTabVisible(prefs)) {
+            tile.setState(Tile.STATE_UNAVAILABLE);
+            if (SdkUtils.isAtLeastAndroid10()) {
+                tile.setSubtitle(null);
+            }
+
+            tile.updateTile();
             return;
         }
 

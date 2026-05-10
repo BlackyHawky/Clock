@@ -452,6 +452,28 @@
         <item>4</item>
     </string-array>
 
+    <!-- Entries listed in the MultiSelectListPreference when invoking the tabs visibility preference. -->
+    <string-array name="visible_tab_entries">
+        <item>@string/menu_alarm</item>
+        <item>@string/menu_clock</item>
+        <item>@string/menu_timer</item>
+        <item>@string/menu_stopwatch</item>
+    </string-array>
+    <!-- Values that are retrieved from the MultiSelectListPreference. These must match the visible_tab_entries above. -->
+    <string-array name="visible_tab_values" translatable="false">
+        <item>alarm</item>
+        <item>clock</item>
+        <item>timer</item>
+        <item>stopwatch</item>
+    </string-array>
+    <!-- Default value for the MultiSelectListPreference related to the tabs visibility preference. -->
+    <string-array name="visible_tab_default_values" translatable="false">
+        <item>alarm</item>
+        <item>clock</item>
+        <item>timer</item>
+        <item>stopwatch</item>
+    </string-array>
+
     <!-- Entries listed in the ListPreference when selecting the default tab to display. -->
     <string-array name="tab_entries">
         <item>@string/last_tab_used_title</item>

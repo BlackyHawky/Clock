@@ -163,4 +163,16 @@ final class FragmentTabPagerAdapter extends PagerAdapter {
     public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
         return ((Fragment) object).getView() == view;
     }
-} 
+
+    @Override
+    public int getItemPosition(@NonNull Object object) {
+        // Since we only call `notifyDataSetChanged()` when a major change occurs (such as adding or removing tabs),
+        // we instruct the ViewPager to detach and re-evaluate all its active fragments.
+        return POSITION_NONE;
+    }
+
+    public void clearCache() {
+        mFragmentCache.clear();
+    }
+
+}

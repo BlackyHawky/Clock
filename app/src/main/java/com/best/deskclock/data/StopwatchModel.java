@@ -9,16 +9,19 @@ package com.best.deskclock.data;
 import android.Manifest;
 import android.app.Notification;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.service.quicksettings.TileService;
 
 import androidx.annotation.VisibleForTesting;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.best.deskclock.tiles.StopwatchTileService;
 import com.best.deskclock.utils.SdkUtils;
 
 import java.util.ArrayList;
@@ -122,6 +125,10 @@ final class StopwatchModel {
             // Refresh the stopwatch notification to reflect the latest stopwatch state.
             if (!mNotificationModel.isApplicationInForeground()) {
                 updateNotification();
+            }
+
+            if (SdkUtils.isAtLeastAndroid7()) {
+                TileService.requestListeningState(mContext, new ComponentName(mContext, StopwatchTileService.class));
             }
 
             // Resetting the stopwatch implicitly clears the recorded laps.

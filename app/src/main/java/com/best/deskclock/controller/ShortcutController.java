@@ -6,9 +6,12 @@
 
 package com.best.deskclock.controller;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ShortcutInfo;
 import android.content.pm.ShortcutManager;
 import android.graphics.drawable.Icon;
@@ -24,6 +27,7 @@ import com.best.deskclock.HandleApiCalls;
 import com.best.deskclock.HandleShortcuts;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Stopwatch;
 import com.best.deskclock.data.StopwatchListener;
 import com.best.deskclock.events.Events;
@@ -34,8 +38,9 @@ import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.LogUtils;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 @RequiresApi(Build.VERSION_CODES.N_MR1)
 class ShortcutController {
@@ -57,12 +62,46 @@ class ShortcutController {
         if (!DeviceUtils.isUserUnlocked(appContext)) {
             return;
         }
+
         try {
-            final ShortcutInfo alarm = createNewAlarmShortcut();
-            final ShortcutInfo timer = createNewTimerShortcut();
-            final ShortcutInfo stopwatch = createStopwatchShortcut();
-            final ShortcutInfo screensaver = createScreensaverShortcut();
-            mShortcutManager.setDynamicShortcuts(Arrays.asList(alarm, timer, stopwatch, screensaver));
+            SharedPreferences prefs = getDefaultSharedPreferences(appContext);
+
+            List<ShortcutInfo> dynamicShortcuts = new ArrayList<>();
+            List<String> disabledShortcutIds = new ArrayList<>();
+
+            if (SettingsDAO.isAlarmTabVisible(prefs)) {
+                dynamicShortcuts.add(createNewAlarmShortcut());
+            } else {
+                disabledShortcutIds.add(UiDataModel.getUiDataModel().getShortcutId(R.string.category_alarm, R.string.action_create));
+            }
+
+            if (SettingsDAO.isTimerTabVisible(prefs)) {
+                dynamicShortcuts.add(createNewTimerShortcut());
+            } else {
+                disabledShortcutIds.add(UiDataModel.getUiDataModel().getShortcutId(R.string.category_timer, R.string.action_create));
+            }
+
+            if (SettingsDAO.isStopwatchTabVisible(prefs)) {
+                dynamicShortcuts.add(createStopwatchShortcut());
+            } else {
+                disabledShortcutIds.add(UiDataModel.getUiDataModel().getShortcutId(R.string.category_stopwatch, R.string.action_start));
+                disabledShortcutIds.add(UiDataModel.getUiDataModel().getShortcutId(R.string.category_stopwatch, R.string.action_pause));
+            }
+
+            dynamicShortcuts.add(createScreensaverShortcut());
+
+            mShortcutManager.setDynamicShortcuts(dynamicShortcuts);
+
+            if (!disabledShortcutIds.isEmpty()) {
+                mShortcutManager.disableShortcuts(disabledShortcutIds, appContext.getString(R.string.shortcut_disabled));
+            }
+
+            List<String> enabledShortcutIds = new ArrayList<>();
+            for (ShortcutInfo info : dynamicShortcuts) {
+                enabledShortcutIds.add(info.getId());
+            }
+
+            mShortcutManager.enableShortcuts(enabledShortcutIds);
         } catch (IllegalStateException e) {
             LogUtils.wtf(e);
         }

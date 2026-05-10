@@ -251,6 +251,8 @@
     <string name="permissions_category_title">Permissions</string>
     <!-- Category title for miscellaneous settings -->
     <string name="miscellaneous_category_title">Miscellaneous</string>
+    <!-- Category title for tab settings -->
+    <string name="tabs_category_title">Tabs</string>
     <!-- Setting title for changing the font for the alarm, timer, screensaver, etc. -->
     <string name="custom_font_title">Select a custom font</string>
     <!-- Setting title to choose or delete font. -->
@@ -369,6 +371,8 @@
     <string name="settings_language_arabic">Arabic</string>
     <!-- Setting title for changing the language to Hungarian. -->
     <string name="settings_language_hungarian">Hungarian</string>
+    <!-- Setting title to choose which tabs are visible in the bottom navigation menu. -->
+    <string name="visible_tabs_title">Visible tabs</string>
     <!-- Setting title for changing the tab to display when opening the application. -->
     <string name="settings_tab_to_display">Tab to display when opening the application</string>
     <!-- Setting title to switch to last tab used -->
@@ -930,6 +934,8 @@
     <string name="toast_message_for_reset">Reset completed</string>
     <!-- Button to close a dialog where neither "ok" nor "cancel" are suitable -->
     <string name="dialog_close">Close</string>
+    <!-- Label for the disabled shortcuts. -->
+    <string name="shortcut_disabled">Tab hidden</string>
     <!-- Short label for a shortcut to create a new alarm. The maximum length is ~10 characters
          (longer translations may be truncated). -->
     <string name="shortcut_new_alarm_short">New alarm</string>

@@ -14,6 +14,9 @@ import static com.best.deskclock.alarmselection.AlarmSelectionActivity.EXTRA_ACT
 import static com.best.deskclock.alarmselection.AlarmSelectionActivity.EXTRA_ALARMS;
 import static com.best.deskclock.provider.AlarmInstance.FIRED_STATE;
 import static com.best.deskclock.provider.AlarmInstance.SNOOZE_STATE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_TAB_ALARM;
+import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_TAB_TIMER;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_VISIBLE_TABS;
 import static com.best.deskclock.uidata.UiDataModel.Tab.ALARMS;
 import static com.best.deskclock.uidata.UiDataModel.Tab.TIMERS;
 
@@ -54,9 +57,11 @@ import com.best.deskclock.utils.Utils;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * This activity is never visible. It processes all public intents defined by {@link AlarmClock}
@@ -86,18 +91,53 @@ public class HandleApiCalls extends Activity {
             LOGGER.i("onCreate: " + intent);
 
             switch (action) {
-                case AlarmClock.ACTION_SET_ALARM -> handleSetAlarm(intent);
-                case AlarmClock.ACTION_SHOW_ALARMS -> handleShowAlarms();
-                case AlarmClock.ACTION_SET_TIMER -> handleSetTimer(intent);
-                case AlarmClock.ACTION_SHOW_TIMERS -> handleShowTimers();
-                case AlarmClock.ACTION_DISMISS_ALARM -> handleDismissAlarm(intent);
-                case AlarmClock.ACTION_SNOOZE_ALARM -> handleSnoozeAlarm();
-                case AlarmClock.ACTION_DISMISS_TIMER -> handleDismissTimer(intent);
+                case AlarmClock.ACTION_SET_ALARM -> {
+                    ensureTabIsVisible(VISIBLE_TAB_ALARM);
+                    handleSetAlarm(intent);
+                }
+                case AlarmClock.ACTION_SHOW_ALARMS -> {
+                    ensureTabIsVisible(VISIBLE_TAB_ALARM);
+                    handleShowAlarms();
+                }
+                case AlarmClock.ACTION_SET_TIMER -> {
+                    ensureTabIsVisible(VISIBLE_TAB_TIMER);
+                    handleSetTimer(intent);
+                }
+                case AlarmClock.ACTION_SHOW_TIMERS -> {
+                    ensureTabIsVisible(VISIBLE_TAB_TIMER);
+                    handleShowTimers();
+                }
+                case AlarmClock.ACTION_DISMISS_ALARM -> {
+                    ensureTabIsVisible(VISIBLE_TAB_ALARM);
+                    handleDismissAlarm(intent);
+                }
+                case AlarmClock.ACTION_SNOOZE_ALARM -> {
+                    ensureTabIsVisible(VISIBLE_TAB_ALARM);
+                    handleSnoozeAlarm();
+                }
+                case AlarmClock.ACTION_DISMISS_TIMER -> {
+                    ensureTabIsVisible(VISIBLE_TAB_TIMER);
+                    handleDismissTimer(intent);
+                }
             }
         } catch (Exception e) {
             LOGGER.wtf(e);
         } finally {
             finish();
+        }
+    }
+
+    private void ensureTabIsVisible(String requiredTabStr) {
+        Set<String> visibleTabs = SettingsDAO.getVisibleTabs(mPrefs);
+
+        if (!visibleTabs.contains(requiredTabStr)) {
+            // The requested tab is hidden; re-enable it
+            Set<String> newTabs = new HashSet<>(visibleTabs);
+            newTabs.add(requiredTabStr);
+            mPrefs.edit().putStringSet(KEY_VISIBLE_TABS, newTabs).apply();
+
+            // Update shortcuts in the background
+            Controller.getController().updateShortcuts();
         }
     }
 

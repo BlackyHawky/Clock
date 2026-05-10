@@ -318,7 +318,7 @@ public class AppWidgetDigitalSettingsFragment extends ScreenFragment implements 
         mDisplayNextAlarmTitlePref.setVisible(isNextAlarmDisplayed);
         mDisplayNextAlarmTitlePref.setOnPreferenceChangeListener(this);
 
-        mShowCitiesOnDigitalWidgetPref.setVisible(!selectedCities.isEmpty() || showHomeClock);
+        mShowCitiesOnDigitalWidgetPref.setVisible(SettingsDAO.isClockTabVisible(mPrefs) && (!selectedCities.isEmpty() || showHomeClock));
         mShowCitiesOnDigitalWidgetPref.setOnPreferenceChangeListener(this);
 
         mApplyHorizontalPaddingPref.setOnPreferenceChangeListener(this);

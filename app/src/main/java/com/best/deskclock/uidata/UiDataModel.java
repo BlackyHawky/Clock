@@ -9,7 +9,6 @@ package com.best.deskclock.uidata;
 import static com.best.deskclock.utils.Utils.enforceMainLooper;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 
 import androidx.annotation.StringRes;
 
@@ -59,11 +58,10 @@ public final class UiDataModel {
      */
     public void init() {
         Context appContext = DeskClockApplication.getAppContext();
-        SharedPreferences prefs = DeskClockApplication.getDefaultSharedPreferences(appContext);
 
         mPeriodicCallbackModel = new PeriodicCallbackModel(appContext);
         mFormattedStringModel = new FormattedStringModel(appContext);
-        mTabModel = new TabModel(prefs);
+        mTabModel = new TabModel(appContext);
     }
 
     // ***********************
@@ -141,6 +139,14 @@ public final class UiDataModel {
     // **********
 
     /**
+     * Updates the list of visible tabs based on SharedPreferences.
+     */
+    public boolean updateActiveTabs() {
+        enforceMainLooper();
+        return mTabModel.updateActiveTabs();
+    }
+
+    /**
      * @param tabListener to be notified when the selected tab changes
      */
     public void addTabListener(TabListener tabListener) {
@@ -171,6 +177,23 @@ public final class UiDataModel {
     public Tab getTabAt(int position) {
         enforceMainLooper();
         return mTabModel.getTabAt(position);
+    }
+
+    /**
+     * @param tab the tab to find
+     * @return the current dynamic index of the tab, or -1 if hidden
+     */
+    public int getTabIndex(Tab tab) {
+        enforceMainLooper();
+        return mTabModel.getTabIndex(tab);
+    }
+
+    /**
+     * @param tab The tab to check
+     * @return true if the tab is currently visible in the bottom navigation menu
+     */
+    public boolean isTabVisible(Tab tab) {
+        return getTabIndex(tab) != -1;
     }
 
     /**

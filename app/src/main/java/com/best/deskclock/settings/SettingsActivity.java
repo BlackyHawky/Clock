@@ -10,12 +10,14 @@ import static com.best.deskclock.settings.PreferencesKeys.*;
 import static com.best.deskclock.utils.Utils.ACTION_LANGUAGE_CODE_CHANGED;
 
 import android.annotation.SuppressLint;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.service.quicksettings.TileService;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
@@ -35,6 +37,9 @@ import com.best.deskclock.KeepAliveService;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.tiles.AlarmTileService;
+import com.best.deskclock.tiles.StopwatchTileService;
+import com.best.deskclock.tiles.TimerTileService;
 import com.best.deskclock.uicomponents.CollapsingToolbarBaseActivity;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.uicomponents.toast.CustomToast;
@@ -216,6 +221,8 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
             setupPreferences();
 
+            updateSettingsVisibility();
+
             requireActivity().getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
                 @Override
                 public void handleOnBackPressed() {
@@ -241,6 +248,8 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         @Override
         public void onResume() {
             super.onResume();
+
+            updateSettingsVisibility();
 
             displayWarningIfEssentialPermissionAreNotGranted();
         }
@@ -323,6 +332,13 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             mPermissionsManagement.setOnPreferenceClickListener(this);
 
             mBackupRestorePref.setOnPreferenceClickListener(this);
+        }
+
+        private void updateSettingsVisibility() {
+            mClockSettingsPref.setVisible(SettingsDAO.isClockTabVisible(mPrefs));
+            mAlarmSettingsPref.setVisible(SettingsDAO.isAlarmTabVisible(mPrefs));
+            mTimerSettingsPref.setVisible(SettingsDAO.isTimerTabVisible(mPrefs));
+            mStopwatchSettingsPref.setVisible(SettingsDAO.isStopwatchTabVisible(mPrefs));
         }
 
         private void displayWarningIfEssentialPermissionAreNotGranted() {
@@ -466,6 +482,13 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                 Utils.startService(context, KeepAliveService.class);
             } else {
                 Utils.stopService(context, KeepAliveService.class);
+            }
+
+            // Required to update the tiles
+            if (SdkUtils.isAtLeastAndroid7()) {
+                TileService.requestListeningState(context, new ComponentName(context, AlarmTileService.class));
+                TileService.requestListeningState(context, new ComponentName(context, TimerTileService.class));
+                TileService.requestListeningState(context, new ComponentName(context, StopwatchTileService.class));
             }
         }
     }

@@ -4,11 +4,13 @@ package com.best.deskclock.tiles;
 
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.uidata.UiDataModel.Tab.TIMERS;
 
 import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
@@ -18,6 +20,7 @@ import androidx.annotation.RequiresApi;
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.SdkUtils;
@@ -66,6 +69,17 @@ public class TimerTileService extends TileService {
 
     private void updateTile(Tile tile) {
         if (tile == null) {
+            return;
+        }
+
+        SharedPreferences prefs = getDefaultSharedPreferences(this);
+        if (!SettingsDAO.isTimerTabVisible(prefs)) {
+            tile.setState(Tile.STATE_UNAVAILABLE);
+            if (SdkUtils.isAtLeastAndroid10()) {
+                tile.setSubtitle(null);
+            }
+
+            tile.updateTile();
             return;
         }
 

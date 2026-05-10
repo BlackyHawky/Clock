@@ -70,6 +70,7 @@ public class BackupAndRestoreUtils {
         Map<String, Integer> ints = new HashMap<>();
         Map<String, Long> longs = new HashMap<>();
         Set<String> timerIds = prefs.getStringSet(TIMER_IDS, Collections.emptySet());
+        Set<String> visibleTabs = SettingsDAO.getVisibleTabs(prefs);
 
         for (Map.Entry<String, ?> entry : settings.entrySet()) {
             if (entry.getKey() != null) {
@@ -142,6 +143,9 @@ public class BackupAndRestoreUtils {
 
             // Convert the Map of longs to a JSONObject
             jsonObject.put("Long settings", convertMapToJsonObject(longs));
+
+            // Convert the Map of visible tabs to a JSONArray
+            jsonObject.put("Visible tabs", new JSONArray(visibleTabs));
 
             // Convert the Map of timers IDs to a JSONArray
             jsonObject.put("Timers IDs", new JSONArray(timerIds));
@@ -309,6 +313,15 @@ public class BackupAndRestoreUtils {
                 String key = it.next();
                 long value = longs.getLong(key);
                 editor.putLong(key, value);
+            }
+
+            if (jsonObject.has("Visible tabs")) {
+                JSONArray visibleTabsArray = jsonObject.getJSONArray("Visible tabs");
+                Set<String> visibleTabs = new HashSet<>();
+                for (int i = 0; i < visibleTabsArray.length(); i++) {
+                    visibleTabs.add(visibleTabsArray.getString(i));
+                }
+                editor.putStringSet(KEY_VISIBLE_TABS, visibleTabs);
             }
 
             if (jsonObject.has("Timers IDs")) {

@@ -13,12 +13,14 @@ import static com.best.deskclock.utils.Utils.ACTION_LANGUAGE_CODE_CHANGED;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.service.quicksettings.TileService;
 import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -41,12 +43,17 @@ import com.best.deskclock.R;
 import com.best.deskclock.alarms.AlarmStateManager;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.data.Timer;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.settings.custompreference.CustomAboutTitlePreference;
+import com.best.deskclock.tiles.AlarmTileService;
+import com.best.deskclock.tiles.StopwatchTileService;
+import com.best.deskclock.tiles.TimerTileService;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
 
@@ -58,6 +65,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -338,7 +346,6 @@ public class AboutFragment extends ScreenFragment implements Preference.OnPrefer
         final DataModel dataModel = DataModel.getDataModel();
 
         tapCountOnVersion = 0;
-        UiDataModel.getUiDataModel().setSelectedTab(UiDataModel.Tab.CLOCKS);
 
         AppExecutors.getDiskIO().execute(() -> {
             SharedPreferences.Editor editor = mPrefs.edit();
@@ -373,15 +380,30 @@ public class AboutFragment extends ScreenFragment implements Preference.OnPrefer
             AppExecutors.getMainThread().post(() -> {
                 dataModel.clearCustomRingtones();
 
+                for (Timer timer : new ArrayList<>(dataModel.getTimers())) {
+                    if (!timer.isReset()) {
+                        dataModel.resetOrDeleteTimer(timer, R.string.label_deskclock);
+                    }
+                }
+
                 if (!dataModel.getStopwatch().isReset()) {
                     dataModel.resetStopwatch();
                 }
 
                 dataModel.clearCityCache();
 
+                UiDataModel.getUiDataModel().setSelectedTab(UiDataModel.Tab.CLOCKS);
+
                 appContext.sendBroadcast(new Intent(ACTION_LANGUAGE_CODE_CHANGED));
                 WidgetUtils.updateAllWidgets(appContext);
+
                 dataModel.loadTimers();
+
+                if (SdkUtils.isAtLeastAndroid7()) {
+                    TileService.requestListeningState(appContext, new ComponentName(appContext, AlarmTileService.class));
+                    TileService.requestListeningState(appContext, new ComponentName(appContext, TimerTileService.class));
+                    TileService.requestListeningState(appContext, new ComponentName(appContext, StopwatchTileService.class));
+                }
 
                 Utils.stopService(appContext, KeepAliveService.class);
 

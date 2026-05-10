@@ -3,32 +3,52 @@
 package com.best.deskclock.settings;
 
 import static android.app.Activity.RESULT_OK;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TAB_TO_DISPLAY;
+import static com.best.deskclock.settings.PreferencesDefaultValues.TAB_TO_DISPLAY_ALARM;
+import static com.best.deskclock.settings.PreferencesDefaultValues.TAB_TO_DISPLAY_CLOCK;
+import static com.best.deskclock.settings.PreferencesDefaultValues.TAB_TO_DISPLAY_STOPWATCH;
+import static com.best.deskclock.settings.PreferencesDefaultValues.TAB_TO_DISPLAY_TIMER;
+import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_TAB_ALARM;
+import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_TAB_CLOCK;
+import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_TAB_STOPWATCH;
+import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_TAB_TIMER;
 import static com.best.deskclock.settings.PreferencesKeys.*;
 import static com.best.deskclock.utils.Utils.ACTION_LANGUAGE_CODE_CHANGED;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.service.quicksettings.TileService;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.preference.ListPreference;
+import androidx.preference.MultiSelectListPreference;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.AppExecutors;
 import com.best.deskclock.R;
+import com.best.deskclock.controller.Controller;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.data.WidgetDAO;
+import com.best.deskclock.tiles.AlarmTileService;
+import com.best.deskclock.tiles.StopwatchTileService;
+import com.best.deskclock.tiles.TimerTileService;
 import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.utils.DeviceUtils;
+import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
+import com.best.deskclock.widgets.DigitalAppWidgetProvider;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 public class InterfaceCustomizationFragment extends ScreenFragment
     implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
@@ -44,6 +64,7 @@ public class InterfaceCustomizationFragment extends ScreenFragment
     SwitchPreferenceCompat mCardBackgroundPref;
     SwitchPreferenceCompat mCardBorderPref;
     ListPreference mCustomLanguageCodePref;
+    MultiSelectListPreference mVisibleTabsPref;
     ListPreference mTabToDisplayPref;
     SwitchPreferenceCompat mVibrationPref;
     SwitchPreferenceCompat mToolbarTitlePref;
@@ -114,6 +135,7 @@ public class InterfaceCustomizationFragment extends ScreenFragment
         mCardBackgroundPref = findPreference(KEY_CARD_BACKGROUND);
         mCardBorderPref = findPreference(KEY_CARD_BORDER);
         mCustomLanguageCodePref = findPreference(KEY_CUSTOM_LANGUAGE_CODE);
+        mVisibleTabsPref = findPreference(KEY_VISIBLE_TABS);
         mTabToDisplayPref = findPreference(KEY_TAB_TO_DISPLAY);
         mVibrationPref = findPreference(KEY_VIBRATIONS);
         mToolbarTitlePref = findPreference(KEY_TOOLBAR_TITLE);
@@ -160,6 +182,41 @@ public class InterfaceCustomizationFragment extends ScreenFragment
                 isLanguageChanged = true;
             }
 
+            case KEY_VISIBLE_TABS -> {
+                @SuppressWarnings("unchecked")
+                Set<String> newSelectedTabs = (Set<String>) newValue;
+                Set<String> oldSelectedTabs = SettingsDAO.getVisibleTabs(mPrefs);
+
+                if (newSelectedTabs.isEmpty()) {
+                    // This shouldn't happen because it's impossible to uncheck all the entries.
+                    return false;
+                }
+
+                updateVisibleTabsSummary(newSelectedTabs);
+
+                updateTabToDisplayPreference(newSelectedTabs);
+
+                boolean wasClockVisible = oldSelectedTabs.contains(PreferencesDefaultValues.VISIBLE_TAB_CLOCK);
+                boolean isClockVisible = newSelectedTabs.contains(PreferencesDefaultValues.VISIBLE_TAB_CLOCK);
+
+                // If the setting has changed (checked or unchecked) and the cities is displayed on the digital widget,
+                // refresh it.
+                if (wasClockVisible != isClockVisible && WidgetDAO.areWorldCitiesDisplayedOnDigitalWidget(mPrefs)) {
+                    WidgetUtils.scheduleWidgetUpdate(requireContext(), DigitalAppWidgetProvider.class);
+                }
+
+                requireView().post(() -> {
+                    // Update the shortcuts (the ones that appear when long-pressing the app icon)
+                    Controller.getController().updateShortcuts();
+
+                    // Update the tiles
+                    if (SdkUtils.isAtLeastAndroid7()) {
+                        TileService.requestListeningState(requireContext(), new ComponentName(requireContext(), AlarmTileService.class));
+                        TileService.requestListeningState(requireContext(), new ComponentName(requireContext(), TimerTileService.class));
+                        TileService.requestListeningState(requireContext(), new ComponentName(requireContext(), StopwatchTileService.class));
+                    }
+                });
+            }
         }
 
         return true;
@@ -176,6 +233,8 @@ public class InterfaceCustomizationFragment extends ScreenFragment
     }
 
     private void setupPreferences() {
+        Set<String> visibleTabs = SettingsDAO.getVisibleTabs(mPrefs);
+
         mThemePref.setSummary(mThemePref.getEntry());
         mThemePref.setOnPreferenceChangeListener(this);
 
@@ -217,7 +276,10 @@ public class InterfaceCustomizationFragment extends ScreenFragment
         mCustomLanguageCodePref.setSummary(mCustomLanguageCodePref.getEntry());
         mCustomLanguageCodePref.setOnPreferenceChangeListener(this);
 
-        mTabToDisplayPref.setSummary(mTabToDisplayPref.getEntry());
+        updateVisibleTabsSummary(visibleTabs);
+        mVisibleTabsPref.setOnPreferenceChangeListener(this);
+
+        updateTabToDisplayPreference(visibleTabs);
         mTabToDisplayPref.setOnPreferenceChangeListener(this);
 
         mVibrationPref.setVisible(DeviceUtils.hasVibrator(requireContext()));
@@ -268,6 +330,123 @@ public class InterfaceCustomizationFragment extends ScreenFragment
                 listPreference.setEntries(sortedEntries);
                 listPreference.setEntryValues(sortedValues);
             }
+        }
+    }
+
+    /**
+     * Updates the summary of the "Visible tabs" preference to reflect the currently selected tabs.
+     *
+     * <p>The summary text is dynamically generated by concatenating the names of the visible tabs in their strict visual order
+     * (e.g., "Alarm - Clock - Timer").</p>
+     *
+     * @param selectedTabs A set containing the string values of the currently visible tabs.
+     */
+    private void updateVisibleTabsSummary(Set<String> selectedTabs) {
+        if (mVisibleTabsPref == null) return;
+
+        List<String> labels = new ArrayList<>();
+
+        if (selectedTabs.contains(VISIBLE_TAB_ALARM)) {
+            labels.add(getString(R.string.menu_alarm));
+        }
+
+        if (selectedTabs.contains(VISIBLE_TAB_CLOCK)) {
+            labels.add(getString(R.string.menu_clock));
+        }
+
+        if (selectedTabs.contains(VISIBLE_TAB_TIMER)) {
+            labels.add(getString(R.string.menu_timer));
+        }
+
+        if (selectedTabs.contains(VISIBLE_TAB_STOPWATCH)) {
+            labels.add(getString(R.string.menu_stopwatch));
+        }
+
+        String summary = String.join(" - ", labels);
+
+        mVisibleTabsPref.setSummary(summary);
+    }
+
+    /**
+     * Updates the "Tab to display" preference based on the currently visible tabs.
+     *
+     * <p>If only one tab is visible, this preference is hidden as it becomes redundant.
+     * Otherwise, it dynamically populates the available options (always including "Last tab used") and ensures they follow
+     * the standard visual order.</p>
+     *
+     * <p>If the previously selected default tab is no longer visible, it automatically falls back to
+     * the "Last tab used" option.</p>
+     *
+     * @param visibleTabs A set containing the string values of the currently visible tabs.
+     */
+    private void updateTabToDisplayPreference(Set<String> visibleTabs) {
+        // Scenario where only one tab is visible.
+        if (visibleTabs.size() <= 1) {
+            mTabToDisplayPref.setVisible(false);
+
+            if (!visibleTabs.isEmpty()) {
+                String singleTab = visibleTabs.iterator().next();
+                String value = DEFAULT_TAB_TO_DISPLAY;
+                switch (singleTab) {
+                    case VISIBLE_TAB_ALARM -> value = TAB_TO_DISPLAY_ALARM;
+                    case VISIBLE_TAB_CLOCK -> value = TAB_TO_DISPLAY_CLOCK;
+                    case VISIBLE_TAB_TIMER -> value = TAB_TO_DISPLAY_TIMER;
+                    case VISIBLE_TAB_STOPWATCH -> value = TAB_TO_DISPLAY_STOPWATCH;
+                }
+
+                mTabToDisplayPref.setValue(value);
+            }
+
+            return;
+        }
+
+        mTabToDisplayPref.setVisible(true);
+
+        List<CharSequence> entries = new ArrayList<>();
+        List<CharSequence> entryValues = new ArrayList<>();
+
+        // "Last tab used" is always available
+        entries.add(getString(R.string.last_tab_used_title));
+        entryValues.add(DEFAULT_TAB_TO_DISPLAY);
+
+        // Follow the visual order (Alarm -> Clock -> Timer -> Stopwatch)
+        if (visibleTabs.contains(VISIBLE_TAB_ALARM)) {
+            entries.add(getString(R.string.menu_alarm));
+            entryValues.add(TAB_TO_DISPLAY_ALARM);
+        }
+
+        if (visibleTabs.contains(VISIBLE_TAB_CLOCK)) {
+            entries.add(getString(R.string.menu_clock));
+            entryValues.add(TAB_TO_DISPLAY_CLOCK);
+        }
+
+        if (visibleTabs.contains(VISIBLE_TAB_TIMER)) {
+            entries.add(getString(R.string.menu_timer));
+            entryValues.add(TAB_TO_DISPLAY_TIMER);
+        }
+
+        if (visibleTabs.contains(VISIBLE_TAB_STOPWATCH)) {
+            entries.add(getString(R.string.menu_stopwatch));
+            entryValues.add(TAB_TO_DISPLAY_STOPWATCH);
+        }
+
+        // Apply the new lists to mTabToDisplayPref
+        mTabToDisplayPref.setEntries(entries.toArray(new CharSequence[0]));
+        mTabToDisplayPref.setEntryValues(entryValues.toArray(new CharSequence[0]));
+
+        String currentValue = mTabToDisplayPref.getValue();
+        if (currentValue == null) {
+            currentValue = DEFAULT_TAB_TO_DISPLAY;
+        }
+
+        if (!currentValue.equals(DEFAULT_TAB_TO_DISPLAY) && !entryValues.contains(currentValue)) {
+            mTabToDisplayPref.setValue(DEFAULT_TAB_TO_DISPLAY);
+            currentValue = DEFAULT_TAB_TO_DISPLAY;
+        }
+
+        int index = mTabToDisplayPref.findIndexOfValue(currentValue);
+        if (index >= 0) {
+            mTabToDisplayPref.setSummary(mTabToDisplayPref.getEntries()[index]);
         }
     }
 

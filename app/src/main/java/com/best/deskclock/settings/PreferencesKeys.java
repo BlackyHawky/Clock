@@ -46,6 +46,7 @@ public class PreferencesKeys {
     public static final String KEY_CARD_BACKGROUND = "key_card_background";
     public static final String KEY_CARD_BORDER = "key_card_border";
     public static final String KEY_CUSTOM_LANGUAGE_CODE = "key_custom_language_code";
+    public static final String KEY_VISIBLE_TABS = "key_visible_tabs";
     public static final String KEY_TAB_TO_DISPLAY = "key_tab_to_display";
     public static final String KEY_VIBRATIONS = "key_vibrations";
     public static final String KEY_TOOLBAR_TITLE = "key_toolbar_title";
