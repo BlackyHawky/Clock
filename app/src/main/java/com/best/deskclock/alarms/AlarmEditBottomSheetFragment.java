@@ -968,9 +968,10 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
         boolean timeChanged = mAlarm.hasTimeChanged(mOriginalAlarm);
         boolean minorFieldsChanged = mAlarm.hasMinorFieldsChanged(mOriginalAlarm);
+        boolean isNewAlarmCreated = mIsNewAlarm && mAlarm.enabled;
 
         if (!timeChanged && !minorFieldsChanged) {
-            if (mIsNewAlarm && mAlarm.enabled) {
+            if (isNewAlarmCreated) {
                 mAlarmUpdateHandler.asyncUpdateAlarm(mAlarm, true, false);
             }
             return;
@@ -978,12 +979,13 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
         boolean updateWidgets = !Objects.equals(mAlarm.label, mOriginalAlarm.label);
         boolean minorUpdate = !timeChanged;
+        boolean popToast = timeChanged || isNewAlarmCreated;
 
         if (timeChanged) {
             mAlarm.enabled = true;
         }
 
-        mAlarmUpdateHandler.asyncUpdateAlarm(mAlarm, timeChanged, minorUpdate);
+        mAlarmUpdateHandler.asyncUpdateAlarm(mAlarm, popToast, minorUpdate);
 
         if (isAdded()) {
             Bundle result = new Bundle();
