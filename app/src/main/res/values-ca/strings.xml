@@ -167,7 +167,7 @@
     <string name="cities_activity_title" msgid="8552462751129256730">"Ciutats"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Rellotge"</string>
     <string name="clock_style" msgid="2265011060429742344">"Estil"</string>
-    <string name="display_clock_seconds_pref" msgid="691506643469501643">"Mostra l\'hora amb segons"</string>
+    <string name="display_clock_seconds_pref" msgid="691506643469501643">Mostra l\'hora amb segons</string>
     <string name="open_date_settings" msgid="7712226973337806152">"Canvia la data i l\'hora"</string>
     <string name="clock_style_analog">Analògic</string>
     <string name="clock_style_digital">Digital</string>

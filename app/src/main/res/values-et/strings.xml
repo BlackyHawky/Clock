@@ -160,7 +160,7 @@
     <string name="cities_activity_title" msgid="8552462751129256730">"Linnad"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Kell"</string>
     <string name="clock_style" msgid="2265011060429742344">"Stiil"</string>
-    <string name="display_clock_seconds_pref" msgid="691506643469501643">"Kuva aeg sekundites"</string>
+    <string name="display_clock_seconds_pref" msgid="691506643469501643">Kuva aeg sekundites</string>
     <string name="open_date_settings" msgid="7712226973337806152">"Kuupäeva ja kellaaja muutmine"</string>
     <string name="clock_style_analog">Analoogkell</string>
     <string name="clock_style_digital">Digikell</string>

@@ -167,7 +167,7 @@
     <string name="cities_activity_title" msgid="8552462751129256730">"Ciudades"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Reloj"</string>
     <string name="clock_style" msgid="2265011060429742344">"Estilo"</string>
-    <string name="display_clock_seconds_pref" msgid="691506643469501643">"Mostrar hora con segundos"</string>
+    <string name="display_clock_seconds_pref" msgid="691506643469501643">Mostrar hora con segundos</string>
     <string name="open_date_settings" msgid="7712226973337806152">"Cambiar fecha y hora"</string>
     <string name="clock_style_analog">Analógico</string>
     <string name="clock_style_digital">Digital</string>
@@ -236,7 +236,7 @@
     <string name="more_options">Más opciones</string>
     <string name="vertical_widget">Reloj digital vertical</string>
     <string name="interface_customization_summary">Establecer el estilo y el color que se aplican a la aplicación</string>
-    <string name="display_card_background_title">Mostrar fondo de tarjetas</string>
+    <string name="display_card_background_title">Mostrar los fondos de las tarjetas</string>
     <string name="display_card_background_summary">Muestra un fondo para algunos elementos de la aplicación (alarmas, ciudades, botón temporizador, etc.)</string>
     <string name="display_background_border_title">Mostrar bordes en el fondo</string>
     <string name="ringtone_category_title">Tono de llamada</string>

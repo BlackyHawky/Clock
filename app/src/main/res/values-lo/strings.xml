@@ -3,8 +3,7 @@
     Copyright (C) 2016 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="6674495003718166674">"ໂມງ"</string>
     <string name="default_label" msgid="5590025289805630372">"ໂມງປຸກ"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"ສັ່ນເຕືອນ"</string>
@@ -153,7 +152,7 @@
     <string name="cities_activity_title" msgid="8552462751129256730">"ເມືອງ"</string>
     <string name="clock_settings" msgid="8317286807280600391">"ໂມງ"</string>
     <string name="clock_style" msgid="2265011060429742344">"ຮູບແບບ"</string>
-    <string name="display_clock_seconds_pref" msgid="691506643469501643">"ສະແດງເວລາພ້ອມວິນາທີ"</string>
+    <string name="display_clock_seconds_pref" msgid="691506643469501643">ສະແດງເວລາພ້ອມວິນາທີ</string>
     <string name="open_date_settings" msgid="7712226973337806152">"ປ່ຽນ​ວັນ​ທີ ແລະ ເວ​ລາ"</string>
     <string name="clock_style_analog">ໂມງເຂັມ</string>
     <string name="clock_style_digital">ດິຈິຕອນ</string>
