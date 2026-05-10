@@ -3,8 +3,7 @@
     Copyright (C) 2016 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="6674495003718166674">"နာရီ"</string>
     <string name="default_label" msgid="5590025289805630372">"နှိုးစက်"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"တုန်ခါရန်"</string>
@@ -153,7 +152,7 @@
     <string name="cities_activity_title" msgid="8552462751129256730">"မြို့များ"</string>
     <string name="clock_settings" msgid="8317286807280600391">"နာရီ"</string>
     <string name="clock_style" msgid="2265011060429742344">"ပုံစံ"</string>
-    <string name="display_clock_seconds_pref" msgid="691506643469501643">"အချိန်ကို စက္ကန့်ပါ ထည့်ပြရန်"</string>
+    <string name="display_clock_seconds_pref" msgid="691506643469501643">အချိန်ကို စက္ကန့်ပါ ထည့်ပြရန်</string>
     <string name="open_date_settings" msgid="7712226973337806152">"ရက်စွဲနှင့် အချိန် ပြောင်းရန်"</string>
     <string name="clock_style_analog">လက်တံနာရီ</string>
     <string name="clock_style_digital">ဒစ်ဂျစ်တယ်</string>

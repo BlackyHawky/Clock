@@ -174,7 +174,7 @@
     <string name="cities_activity_title" msgid="8552462751129256730">"Города"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Часы"</string>
     <string name="clock_style" msgid="2265011060429742344">"Стиль"</string>
-    <string name="display_clock_seconds_pref" msgid="691506643469501643">"Показывать секунды"</string>
+    <string name="display_clock_seconds_pref" msgid="691506643469501643">Показывать секунды</string>
     <string name="open_date_settings" msgid="7712226973337806152">"Изменить дату и время"</string>
     <string name="clock_style_analog">Стрелки</string>
     <string name="clock_style_digital">Цифры</string>
@@ -254,21 +254,21 @@
     <string name="background_color_title">Цвет фона</string>
     <string name="city_clock_default_color_title">Цвет по умолчанию для часов города</string>
     <string name="city_name_default_color_title">Цвет по умолчанию для названия города</string>
-    <string name="digital_widget_message_summary">Отключите \"Показывать города на виджете\" для доступа к этой настройке</string>
+    <string name="digital_widget_message_summary">Для доступа к этой настройке отключите \"Показывать города\"</string>
     <string name="permission_management_summary">Показать разрешения, необходимые для правильной работы приложения</string>
     <string name="ignore_battery_optimizations_title">ИГНОРИРОВАТЬ ОПТИМИЗАЦИЮ РАСХОДА ЗАРЯДА БАТАРЕИ</string>
     <string name="permission_management_settings">Управление разрешениями</string>
     <string name="FSN_dialog_text">Начиная с Android 14, для срабатывания будильника, когда экран выключен, необходимо предоставить разрешение \"Уведомления в полноэкранном режиме\".</string>
     <string name="style_category_title">Оформление</string>
-    <string name="alarm_settings_summary">Настроить оформление, рингтон по умолчанию, громкость, действия для выключения или откладывания будильника, первый день недели и время уведомления о следующем будильнике</string>
+    <string name="alarm_settings_summary">Настройка стиля, шрифта, сигнала по умолчанию, громкости, действий для отключения или отложения будильника, а также начало недели и время напоминания</string>
     <string name="gnu_gpl">Общая общественная лицензия GNU версии 3.0</string>
     <string name="clock_color_title">Цвет основных часов</string>
     <string name="timer_add_custom_time">+ %s</string>
-    <string name="clock_settings_summary">Настроить оформление, часовой пояс и дату и время устройства</string>
+    <string name="clock_settings_summary">Настройка стиля, шрифта, часового пояса, даты и времени на устройстве</string>
     <string name="next_alarm_color_title">Цвет следующего будильника</string>
     <string name="first_launch_important_info_message">Чтобы гарантировать правильную работу приложения, &lt;b&gt;некоторые настройки вашего устройства должны быть изменены:&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;ОПТИМИЗАЦИЯ РАСХОДА ЗАРЯДА БАТАРЕИ;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;УВЕДОМЛЕНИЯ;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;В зависимости от версии Android на вашем устройстве, некоторые из этих настроек уже оптимизированы (например, уведомления).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Вы можете изменить их сейчас или позже в настройках управления разрешениями:</string>
     <string name="first_launch_dialog_message">Выйти из приложения?</string>
-    <string name="display_city_title">Показывать города на виджете</string>
+    <string name="display_city_title">Показывать города</string>
     <string name="next_alarm_default_color_title">Цвет по умолчанию для следующего будильника</string>
     <string name="selected">Выбрано</string>
     <string name="more_options">Другие параметры</string>
@@ -287,7 +287,7 @@
     <string name="about_github_link">Посмотреть на GitHub</string>
     <string name="license">Лицензия с открытым исходным кодом</string>
     <string name="description_direction_both_for_non_repeatable_alarm">Проведите влево или вправо, чтобы выключить будильник</string>
-    <string name="timer_settings_summary">Настроить рингтон по умолчанию, громкость и сортировку таймеров</string>
+    <string name="timer_settings_summary">Настройка стиля, шрифта, сигнала по умолчанию, действия по остановке таймеров, а также сортировка таймеров</string>
     <string name="date_color_title">Цвет даты</string>
     <string name="first_launch_version">Версия %s</string>
     <string name="first_launch_main_feature_title">ОСНОВНЫЕ ФУНКЦИИ</string>
@@ -321,14 +321,14 @@
     <string name="display_card_background_title">Показывать фон карточек</string>
     <string name="display_background_border_title">Показывать границы фона</string>
     <string name="power_button_title">Кнопка питания</string>
-    <string name="interface_customization_summary">Настроить оформление и цвет приложения</string>
+    <string name="interface_customization_summary">Настройка стиля, шрифта, языка и цвета приложения</string>
     <string name="add_label">Добавить ярлык</string>
     <string name="material_time_picker_style_title">Стиль выбора времени</string>
     <string name="screensaver_italic_date_title">Курсивный шрифт даты</string>
     <string name="first_launch_main_feature_message">► Светлая, тёмная или системная тема; &lt;br&gt; &lt;br&gt; ► Настраиваемая заставка; &lt;br&gt; &lt;br&gt; ► Настраиваемые виджеты; &lt;br&gt; &lt;br&gt; ► Поддержка плиток в быстрых настройках (для Android 7+); &lt;br&gt; &lt;br&gt; ► Резервное копирование и восстановление данных приложения (кроме пользовательских рингтонов); &lt;br&gt; &lt;br&gt; ► Material дизайн и динамические цвета; &lt;br&gt; &lt;br&gt; ► Установка будильника на определенную дату; &lt;br&gt; &lt;br&gt; ► Свайп для удаления будильника; &lt;br&gt; &lt;br&gt; ► Дублирование будильника; &lt;br&gt; &lt;br&gt; ► Переворот или встряхивание устройства для выключения/откладывания будильника; &lt;br&gt; &lt;br&gt; ► Выключение/откладывание будильника с помощью кнопки питания или кнопок громкости; &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="timer_label_box_title">Ярлык таймера</string>
     <string name="timer_button_time_box_title">Время для добавления к таймеру</string>
-    <string name="default_time_to_add_to_timer_title">Время по умолчанию для добавления к таймеру</string>
+    <string name="default_time_to_add_to_timer_title">Время по умолчанию, которое добавляется к таймеру</string>
     <string name="screensaver_clock_dynamic_colors_title">Динамические цвета</string>
     <string name="screensaver_bold_digital_clock_title">Жирный шрифт часов</string>
     <string name="screensaver_italic_digital_clock_title">Курсивный шрифт часов</string>
@@ -340,7 +340,7 @@
     <string name="display_card_background_summary">Показывать фон для некоторых элементов приложения (будильники, города, кнопка таймера и т. д.)</string>
     <string name="screensaver_preview_summary">Запустить заставку сейчас</string>
     <string name="screensaver_daydream_settings">Выбрать/включить заставку</string>
-    <string name="screensaver_settings_summary">Настроить оформление, цвет и шрифт заставки</string>
+    <string name="screensaver_settings_summary">Настройка стиля, шрифта и цвета заставки</string>
     <string name="display_background_border_summary">Показывать границы фона для некоторых элементов приложения (будильники, города, кнопка таймера и т. д.)</string>
     <string name="alarm_label_box_title">Ярлык будильника</string>
     <string name="permission_denied">не предоставлено</string>
@@ -371,7 +371,7 @@
     <string name="second_hand_color_title">Цвет секундной стрелки</string>
     <string name="hour_color_title">Цвет часов</string>
     <string name="next_alarm_widget">Следующий будильник</string>
-    <string name="widgets_settings_summary">Настроить оформление, цвет и размер шрифта виджетов</string>
+    <string name="widgets_settings_summary">Настройка стиля, цвета и размера шрифта в виджетах</string>
     <string name="hour_default_color_title">Цвет по умолчанию для часов</string>
     <string name="next_alarm_no_upcoming_alarm_titles_color">Цвет заголовка «Нет следующего будильника»</string>
     <string name="label_default">По умолчанию</string>
@@ -425,15 +425,15 @@
     <string name="display_ringtone_title">Показывать название рингтона</string>
     <string name="blue_gray_accent_color">Сизый</string>
     <string name="settings_language_english_us">Английский (США)</string>
-    <string name="timer_power_button_action_title">Останавливать завершенные таймеры с помощью кнопки питания</string>
-    <string name="timer_volume_buttons_action_title">Останавливать завершенные таймеры с помощью кнопок громкости</string>
+    <string name="timer_power_button_action_title">Сбрасывать использованные таймеры с помощью кнопки питания</string>
+    <string name="timer_volume_buttons_action_title">Сбрасывать использованные таймеры с помощью кнопок громкости</string>
     <string name="clock_style_analog_material">Стрелки (Material)</string>
     <string name="clock_style_spinner">Спиннер</string>
     <string name="description_direction_both_for_occasional_non_repeatable_alarm">Проведите влево или вправо, чтобы выключить и удалить будильник</string>
     <string name="timer_flip_action_title">Останавливать завершенные таймеры при перевороте устройства</string>
     <string name="sort_name">По названию</string>
     <string name="show_lockscreen_permission_title">ПОКАЗЫВАТЬ НА ЗАБЛОКИРОВАННОМ ЭКРАНЕ</string>
-    <string name="sw_settings_summary">Настроить действия кнопок громкости</string>
+    <string name="sw_settings_summary">Настройка шрифта и действий для кнопок громкости</string>
     <string name="denied_permission_label">Разрешения не предоставлены</string>
     <string name="sort_timer_title">Сортировка таймеров</string>
     <string name="backup_button_title">Создание резервной копии</string>
@@ -473,7 +473,7 @@
     <string name="timer_button_time_minutes_warning_box_text">Введите значение от 0 до 60 минут</string>
     <string name="timer_time_warning_box_title">Введено недопустимое значение</string>
     <string name="settings_language_russian">Русский</string>
-    <string name="display_date_title">Показывать дату на виджете</string>
+    <string name="display_date_title">Показывать дату</string>
     <string name="settings_tab_to_display">Вкладка, открываемая при запуске приложения</string>
     <string name="last_tab_used_title">Последняя использованная</string>
     <string name="settings_toolbar_title">Показывать заголовок в панели инструментов</string>
@@ -483,7 +483,7 @@
     <string name="settings_language_czech">Чешский</string>
     <string name="settings_keep_screen_on_title">Не выключать экран</string>
     <string name="settings_keep_screen_on_summary">Примечание: экран всегда будет оставаться включенным при запущенном таймере/секундомере на соответствующей вкладке, независимо от состояния этой настройки</string>
-    <string name="display_next_alarm_title">Показывать следующий будильник на виджете</string>
+    <string name="display_next_alarm_title">Показывать следующий будильник</string>
     <string name="ringtone_title_color">Цвет названия рингтона</string>
     <string name="description_snooze_button">Нажмите, чтобы отложить будильник</string>
     <string name="description_dismiss_button">Нажмите, чтобы выключить будильник</string>
@@ -528,7 +528,7 @@
     <string name="enable_per_alarm_snooze_duration_title">Индивидуальный интервал повтора сигнала для каждого будильника</string>
     <string name="enable_per_alarm_snooze_duration_dialog_message">Индивидуальные интервалы повтора сигнала будильников будут сброшены.%s</string>
     <string name="enable_per_alarm_volume_dialog_message">Индивидуальные уровни громкости будильников будут сброшены.%s</string>
-    <string name="display_dismiss_button_title">Показывать кнопку \"Отключить\" для всех включенных будильников</string>
+    <string name="display_dismiss_button_title">Показывать кнопку «Отключить» сразу после включения будильника</string>
     <string name="display_dismiss_button_summary">Если отключено, кнопка появится одновременно с уведомлением о следующем будильнике</string>
     <string name="enable_per_alarm_missed_repeat_limit_title">Индивидуальное количество повторов для каждого будильника</string>
     <string name="enable_per_alarm_missed_repeat_limit_dialog_message">Индивидуальные значения количества повторов пропущенных будильников будут сброшены.%s</string>
@@ -603,7 +603,7 @@
     <string name="delay_picker_dialog_title">Будильник через…</string>
     <string name="label_new_font">Новый шрифт</string>
     <string name="custom_font_title">Выбрать пользовательский шрифт</string>
-    <string name="custom_font_title_variant">Выбрать или удалить пользовательский шрифт</string>
+    <string name="custom_font_title_variant">Изменить или удалить свой шрифт</string>
     <string name="custom_font_dialog_title">Шрифт</string>
     <string name="vibration_category_title">Вибрация</string>
     <string name="display_settings_title">Настройки отображения</string>
@@ -664,10 +664,10 @@
     <string name="next_alarm_title_default_color_title">Цвет по умолчанию для заголовка следующего будильника</string>
     <string name="city_note_color_title">Цвет примечания к городу</string>
     <string name="city_note_default_color_title">Цвет по умолчанию для примечания к городу</string>
-    <string name="display_next_alarm_title_setting_title">Показывать заголовок следующего будильника в виджете</string>
+    <string name="display_next_alarm_title_setting_title">Показывать заголовок следующего будильника</string>
     <string name="display_alarm_action_message_title">Показывать сообщения после откладывания или отключения будильника</string>
     <string name="alarm_minutes_warning_box_text">Введите значение от 0 до 59 минут</string>
-    <string name="display_top_date_title">Показывать дату над временем в виджете</string>
+    <string name="display_top_date_title">Показывать дату над временем</string>
     <string name="toast_message_backup_error">Резервное копирование не удалось</string>
     <string name="toast_message_restore_error">Восстановление не удалось</string>
 </resources>
