@@ -116,7 +116,10 @@ public final class AlarmUpdateHandler {
 
             if (minorUpdate) {
                 // Just update the instance in the database and update notifications.
+                // Display a toast message for newly created alarms if the user took the opportunity to edit minor fields.
                 final List<AlarmInstance> instanceList = AlarmInstance.getInstancesByAlarmId(cr, alarm.id);
+
+                Long tempTime = null;
 
                 for (AlarmInstance instance : instanceList) {
                     // Make a copy of the existing instance
@@ -147,11 +150,23 @@ public final class AlarmUpdateHandler {
                     newInstance.updateInstance(cr);
                     // Update the notification for this instance.
                     AlarmNotifications.updateNotification(mAppContext, newInstance);
+
+                    if (popToast && tempTime == null) {
+                        tempTime = newInstance.getAlarmTime().getTimeInMillis();
+                    }
                 }
+
+                if (popToast && tempTime != null) {
+                    final Long timeToDisplay = tempTime;
+                    AppExecutors.getMainThread().post(() ->
+                        AlarmUtils.popAlarmSetSnackbar(mSnackbarAnchor, timeToDisplay)
+                    );
+                }
+
                 return;
             }
 
-            // Otherwise, this is a major update and we're going to re-create the alarm
+            // Otherwise, this is a major update and we're going to re-create the alarm.
             AlarmStateManager.deleteAllInstances(mAppContext, alarm.id);
 
             final AlarmInstance finalInstance = alarm.enabled ? setupAlarmInstance(alarm) : null;
