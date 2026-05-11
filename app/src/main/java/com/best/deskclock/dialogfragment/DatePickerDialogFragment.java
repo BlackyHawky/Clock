@@ -3,7 +3,9 @@
 package com.best.deskclock.dialogfragment;
 
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_DATE_PICKER_STYLE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_WEEK_START;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SPINNER_DATE_PICKER_STYLE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_WEEK_START;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -193,6 +195,14 @@ public class DatePickerDialogFragment {
 
         CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder();
 
+        // Respect the "Start week on" setting or use the device's regional settings if the setting has never been changed
+        String weekStartPref = prefs.getString(KEY_WEEK_START, DEFAULT_WEEK_START);
+        try {
+            constraintsBuilder.setFirstDayOfWeek(Integer.parseInt(weekStartPref));
+        } catch (NumberFormatException e) {
+            constraintsBuilder.setFirstDayOfWeek(Calendar.getInstance().getFirstDayOfWeek());
+        }
+
         // Prevents navigation to past months
         constraintsBuilder.setStart(utcNow.getTimeInMillis());
 
@@ -257,7 +267,7 @@ public class DatePickerDialogFragment {
                     headerSelection.setTypeface(generalFont);
                 }
 
-                // Unsuscribe
+                // Unsubscribe
                 materialDatePicker.getViewLifecycleOwnerLiveData().removeObserver(this);
             }
         });
