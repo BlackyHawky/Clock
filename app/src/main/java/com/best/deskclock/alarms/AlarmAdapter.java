@@ -35,6 +35,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
     private final Typeface mAlarmClockTypeface;
     private final Locale mLocale;
     private final String mDatePattern;
+    private final String mDatePatternWithYear;
     private List<AlarmItemHolder> mItems = new ArrayList<>();
     private final boolean mUseExpressiveBackground;
 
@@ -54,6 +55,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
         mAlarmClockTypeface = ThemeUtils.boldTypeface(SettingsDAO.getAlarmFont(mPrefs));
         mLocale = Locale.getDefault();
         mDatePattern = DateFormat.getBestDateTimePattern(mLocale, AlarmItemViewHolder.SKELETON);
+        mDatePatternWithYear = DateFormat.getBestDateTimePattern(mLocale, AlarmItemViewHolder.SKELETON_WITH_YEAR);
         mUseExpressiveBackground = !ThemeUtils.isTablet() && !ThemeUtils.isLandscape();
 
         if (mUseExpressiveBackground) {
@@ -85,8 +87,8 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
     @Override
     public AlarmItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.alarm_item, parent, false);
-        return new AlarmItemViewHolder(
-            view, this, mPrefs, mGeneralTypeface, mGeneralBoldTypeface, mAlarmClockTypeface, mLocale, mDatePattern);
+        return new AlarmItemViewHolder(view, this, mPrefs, mGeneralTypeface, mGeneralBoldTypeface, mAlarmClockTypeface, mLocale,
+            mDatePattern, mDatePatternWithYear);
     }
 
     @Override

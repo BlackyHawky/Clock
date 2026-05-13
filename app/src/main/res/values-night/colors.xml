@@ -321,9 +321,11 @@
     <color name="yellowAnalogWidgetSecondary">#FFFACE</color>
 
     <!-- MISCELLANEOUS -->
-    <!-- https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : n°200 -->
+    <!-- https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : Green 50 n°200 -->
     <color name="colorGranted">#A5D6A7</color>
     <color name="colorAlert">@color/md_theme_error</color>
     <!-- Used e.g. for slider buttons -->
     <color name="colorDisabled">#61E6E0E9</color>
+    <!-- https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : Green 50 n°400 -->
+    <color name="calendarDotColor">#66BB6A</color>
 </resources>

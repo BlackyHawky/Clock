@@ -13,6 +13,10 @@
     <string name="default_label">Alarm</string>
     <!-- Label title in the alarm editing panel to schedule alarm -->
     <string name="schedule_alarm_title">Schedule alarm</string>
+    <!-- Label title in the alarm editing panel to pause alarm -->
+    <string name="pause_alarm_title">Pause alarm</string>
+    <!-- Label title in the alarm editing panel when the pause is set -->
+    <string name="pause_alarm_range">Paused: %1$s</string>
     <!-- Setting labels on Set alarm screen: Vibration on or off -->
     <string name="alarm_vibrate">Vibrate</string>
     <!-- Setting labels on Set alarm screen: Flash on or off -->
@@ -649,13 +653,13 @@
     <string name="ringtone_description">Ringtone</string>
     <string name="add_label">Add label</string>
     <!--  ActionBar strings -->
-    <!-- Describes the purpose of the tab button which which switches the activity to the Alarm page -->
+    <!-- Describes the purpose of the tab button which switches the activity to the Alarm page -->
     <string name="menu_alarm">Alarm</string>
-    <!-- Describes the purpose of the tab button which which switches the activity to the Timer page -->
+    <!-- Describes the purpose of the tab button which switches the activity to the Timer page -->
     <string name="menu_timer">Timer</string>
-    <!-- Describes the purpose of the tab button which which switches the activity to the Clock page -->
+    <!-- Describes the purpose of the tab button which switches the activity to the Clock page -->
     <string name="menu_clock">Clock</string>
-    <!-- Describes the purpose of the tab button which which switches the activity to the Stopwatch page -->
+    <!-- Describes the purpose of the tab button which switches the activity to the Stopwatch page -->
     <string name="menu_stopwatch">Stopwatch</string>
     <!-- Clock view buttons strings-->
     <!-- Describes the purpose of the button to start the activity to add/edit/delete alarms -->

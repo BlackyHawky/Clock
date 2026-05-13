@@ -176,6 +176,8 @@ public class BackupAndRestoreUtils {
                 alarmObject.put("crescendoDuration", alarm.crescendoDuration);
                 alarmObject.put("alarmVolume", alarm.alarmVolume);
                 alarmObject.put("manualSortOrder", alarm.manualSortOrder);
+                alarmObject.put("pauseStartDate", alarm.pauseStartDate);
+                alarmObject.put("pauseEndDate", alarm.pauseEndDate);
 
                 if (alarm.daysOfWeek.isRepeating() || !alarm.isSpecifiedDate()) {
                     alarmsArray.put(alarmObject);
@@ -390,6 +392,14 @@ public class BackupAndRestoreUtils {
         int crescendoDuration = alarmObject.optInt("crescendoDuration", SettingsDAO.getAlarmVolumeCrescendoDuration(prefs));
         int alarmVolume = alarmObject.optInt("alarmVolume", audioManager.getStreamVolume(STREAM_ALARM));
         int manualSortOrder = alarmObject.optInt("manualSortOrder", 0);
+        long pauseStartDate = alarmObject.optLong("pauseStartDate", 0);
+        long pauseEndDate = alarmObject.optLong("pauseEndDate", 0);
+
+        // If the pause is in the past during a restore, remove it.
+        if (pauseEndDate > 0 && AlarmUtils.isPauseExpired(pauseEndDate)) {
+            pauseStartDate = 0;
+            pauseEndDate = 0;
+        }
 
         String alarmRingtone;
         if (RingtoneUtils.isRandomRingtone(Uri.parse(alert))) {
@@ -421,7 +431,7 @@ public class BackupAndRestoreUtils {
 
         restoredAlarm = new Alarm(id, enabled, year, month, day, hour, minutes, vibrate, vibrationPattern, flash,
             Weekdays.fromBits(daysOfWeek), label, syncAlarmByLabel, alarmRingtone, deleteAfterUse, autoSilenceDuration, snoozeDuration,
-            missedAlarmRepeatLimit, crescendoDuration, alarmVolume, manualSortOrder);
+            missedAlarmRepeatLimit, crescendoDuration, alarmVolume, manualSortOrder, pauseStartDate, pauseEndDate);
 
         restoredAlarm.addAlarm(contentResolver);
 
