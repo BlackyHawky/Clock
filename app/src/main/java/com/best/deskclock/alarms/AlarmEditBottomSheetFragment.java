@@ -37,6 +37,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.appcompat.widget.TooltipCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -60,6 +61,7 @@ import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
+import com.best.deskclock.uicomponents.CustomTooltip;
 import com.best.deskclock.uicomponents.TextTime;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AlarmUtils;
@@ -74,6 +76,7 @@ import com.best.deskclock.widgets.NextAlarmAppWidgetProvider;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.bottomsheet.BottomSheetDragHandleView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.color.MaterialColors;
@@ -104,6 +107,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     private boolean mIsNewAlarm;
     private boolean mIsDeleted;
 
+    private BottomSheetDragHandleView mDragHandle;
     private TextTime mClock;
     private MaterialButton mDuplicateButton;
     private MaterialButtonToggleGroup mRepeatDaysGroup;
@@ -236,6 +240,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         behavior.setSkipCollapsed(true);
 
+        mDragHandle = dialogView.findViewById(R.id.drag_handle);
         mClock = dialogView.findViewById(R.id.digital_clock);
         mRepeatDaysGroup = dialogView.findViewById(R.id.repeat_days_group);
         mScheduleAlarmLayout = dialogView.findViewById(R.id.schedule_alarm_layout);
@@ -270,6 +275,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         mDeleteButton = dialogView.findViewById(R.id.delete);
         mDuplicateButton = dialogView.findViewById(R.id.duplicate);
 
+        bindCustomDragHandleTooltip();
         bindClock();
         bindDaysOfWeekButtons();
         bindSelectedDate();
@@ -324,6 +330,24 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         }
 
         super.onDismiss(dialog);
+    }
+
+    private void bindCustomDragHandleTooltip() {
+        if (mDragHandle == null) {
+            return;
+        }
+
+        CharSequence nativeText = mDragHandle.getContentDescription();
+        String tooltipText = nativeText != null ? nativeText.toString() : "";
+
+        TooltipCompat.setTooltipText(mDragHandle, null);
+
+        mDragHandle.setOnLongClickListener(v -> {
+            if (!tooltipText.isEmpty()) {
+                CustomTooltip.showBelow(v, tooltipText);
+            }
+            return true;
+        });
     }
 
     private void bindClock() {
