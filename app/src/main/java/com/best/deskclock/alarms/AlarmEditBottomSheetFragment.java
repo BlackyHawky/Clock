@@ -107,8 +107,12 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     private TextTime mClock;
     private MaterialButton mDuplicateButton;
     private MaterialButtonToggleGroup mRepeatDaysGroup;
-    private TextView mSelectedDate;
+    private LinearLayout mScheduleAlarmLayout;
     private TextView mScheduleAlarm;
+    private MaterialButton mCancelScheduledAlarm;
+    private LinearLayout mPauseAlarmLayout;
+    private TextView mPauseAlarm;
+    private MaterialButton mPauseAlarmCancel;
     private TextView mLabel;
     private TextView mRingtone;
     private CheckBox mVibrate;
@@ -234,8 +238,12 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
         mClock = dialogView.findViewById(R.id.digital_clock);
         mRepeatDaysGroup = dialogView.findViewById(R.id.repeat_days_group);
-        mSelectedDate = dialogView.findViewById(R.id.selected_date);
+        mScheduleAlarmLayout = dialogView.findViewById(R.id.schedule_alarm_layout);
         mScheduleAlarm = dialogView.findViewById(R.id.schedule_alarm);
+        mCancelScheduledAlarm = dialogView.findViewById(R.id.cancel_scheduled_alarm);
+        mPauseAlarmLayout = dialogView.findViewById(R.id.pause_alarm_layout);
+        mPauseAlarm = dialogView.findViewById(R.id.pause_alarm);
+        mPauseAlarmCancel = dialogView.findViewById(R.id.pause_alarm_cancel);
         mLabel = dialogView.findViewById(R.id.edit_label);
         mRingtone = dialogView.findViewById(R.id.choose_ringtone);
         mVibrate = dialogView.findViewById(R.id.vibrate_onoff);
@@ -265,6 +273,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         bindClock();
         bindDaysOfWeekButtons();
         bindSelectedDate();
+        bindPauseAlarm();
         bindLabel();
         bindRingtone();
         bindVibrator();
@@ -318,7 +327,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     }
 
     private void bindClock() {
-        applyRipplePillBackground(mClock);
+        mClock.setBackground(ThemeUtils.pillRippleDrawable(requireContext(), Color.TRANSPARENT));
         mClock.setTime(mAlarm.hour, mAlarm.minutes);
         mClock.setTypeface(mAlarmBoldTypeface);
 
@@ -380,6 +389,11 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
                     mAlarm.daysOfWeek = mAlarm.daysOfWeek.setBit(weekday, isChecked);
                     updateDaysOfWeekButtonVisuals(dayButtons[i], isChecked);
 
+                    if (!mAlarm.daysOfWeek.isRepeating()) {
+                        mAlarm.pauseStartDate = 0;
+                        mAlarm.pauseEndDate = 0;
+                    }
+
                     if (mAlarm.daysOfWeek.getBits() == mOriginalAlarm.daysOfWeek.getBits()) {
                         // If the user has set the days exactly as they were originally, restore the original date to undo the change
                         // when saving the alarm.
@@ -395,6 +409,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
                     }
 
                     bindSelectedDate();
+                    bindPauseAlarm();
                     bindDeleteOccasionalAlarmAfterUse();
                     Utils.setVibrationTime(requireContext(), 10);
                     break;
@@ -404,12 +419,11 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     }
 
     private void bindSelectedDate() {
-        applyRipplePillBackground(mScheduleAlarm);
-        mScheduleAlarm.setTypeface(mGeneralTypeface);
-
         int openCalendarText = R.string.schedule_alarm_title;
 
-        View.OnClickListener openCalendarListener = v -> DatePickerDialogFragment.show(
+        mScheduleAlarm.setTypeface(mGeneralTypeface);
+
+        mScheduleAlarmLayout.setOnClickListener(v -> DatePickerDialogFragment.show(
             requireContext(),
             getChildFragmentManager(),
             mPrefs,
@@ -418,6 +432,12 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
                 if (mAlarm.daysOfWeek.isRepeating()) {
                     mAlarm.daysOfWeek = Weekdays.NONE;
                 }
+
+                if (mAlarm.isPauseSet()) {
+                    mAlarm.pauseStartDate = 0;
+                    mAlarm.pauseEndDate = 0;
+                }
+
                 mAlarm.year = year;
                 mAlarm.month = month;
                 mAlarm.day = day;
@@ -426,37 +446,75 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
                 bindSelectedDate();
                 bindDaysOfWeekButtons();
+                bindPauseAlarm();
                 bindDeleteOccasionalAlarmAfterUse();
-            }
+            })
         );
 
-        View.OnClickListener removeDateListener = v -> {
-            Calendar now = Calendar.getInstance();
-            mAlarm.year = now.get(Calendar.YEAR);
-            mAlarm.month = now.get(Calendar.MONTH);
-            mAlarm.day = now.get(Calendar.DAY_OF_MONTH);
-
-            bindSelectedDate();
-        };
-
         if (mAlarm.daysOfWeek.isRepeating()) {
-            clearSelectedDate(openCalendarListener, openCalendarText);
+            clearSelectedDate(openCalendarText);
         } else if (mAlarm.isSpecifiedDate()) {
             if (mAlarm.isDateInThePast()) {
-                clearSelectedDate(openCalendarListener, openCalendarText);
+                clearSelectedDate(openCalendarText);
             } else {
-                applyRipplePillBackground(mSelectedDate);
-                mSelectedDate.setTypeface(mGeneralTypeface);
-                mSelectedDate.setText(AlarmUtils.formatAlarmDate(mAlarm));
-                mSelectedDate.setOnClickListener(openCalendarListener);
-                mSelectedDate.setVisibility(VISIBLE);
-                mScheduleAlarm.setCompoundDrawablesWithIntrinsicBounds(AppCompatResources.getDrawable(
-                    requireContext(), R.drawable.ic_calendar_cancel), null, null, null);
-                mScheduleAlarm.setText(getString(android.R.string.cancel));
-                mScheduleAlarm.setOnClickListener(removeDateListener);
+                mScheduleAlarm.setText(AlarmUtils.formatAlarmDate(mAlarm));
+
+                mCancelScheduledAlarm.setTypeface(mGeneralTypeface);
+                mCancelScheduledAlarm.setOnClickListener(v -> {
+                    Calendar now = Calendar.getInstance();
+                    mAlarm.year = now.get(Calendar.YEAR);
+                    mAlarm.month = now.get(Calendar.MONTH);
+                    mAlarm.day = now.get(Calendar.DAY_OF_MONTH);
+
+                    bindSelectedDate();
+                });
+                mCancelScheduledAlarm.setVisibility(VISIBLE);
             }
         } else {
-            clearSelectedDate(openCalendarListener, openCalendarText);
+            clearSelectedDate(openCalendarText);
+        }
+    }
+
+    private void bindPauseAlarm() {
+        boolean isRepeating = mAlarm.daysOfWeek.isRepeating();
+
+        mPauseAlarm.setEnabled(isRepeating);
+        mPauseAlarm.setTypeface(mGeneralTypeface);
+
+        mAlarm.clearPauseIfExpired();
+
+        if (isRepeating && mAlarm.isPauseSet()) {
+            String dateRangeStr = AlarmUtils.formatPauseDateRange(requireContext(), mAlarm.pauseStartDate, mAlarm.pauseEndDate);
+
+            mPauseAlarm.setText(getString(R.string.pause_alarm_range, dateRangeStr));
+
+            mPauseAlarmCancel.setTypeface(mGeneralTypeface);
+            mPauseAlarmCancel.setVisibility(View.VISIBLE);
+        } else {
+            mPauseAlarm.setText(R.string.pause_alarm_title);
+
+            mPauseAlarmCancel.setVisibility(View.GONE);
+        }
+
+        if (isRepeating) {
+            mPauseAlarmLayout.setOnClickListener(v -> DatePickerDialogFragment.showMaterialDateRangePicker(
+                getChildFragmentManager(),
+                mPrefs,
+                mAlarm,
+                (start, end) -> {
+                    mAlarm.pauseStartDate = start;
+                    mAlarm.pauseEndDate = end;
+                    bindPauseAlarm();
+                }
+            ));
+
+            mPauseAlarmCancel.setOnClickListener(v -> {
+                mAlarm.pauseStartDate = 0;
+                mAlarm.pauseEndDate = 0;
+                bindPauseAlarm();
+            });
+        } else {
+            mPauseAlarmLayout.setOnClickListener(null);
         }
     }
 
@@ -909,7 +967,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
         Calendar currentCalendar = Calendar.getInstance();
 
-        // Necessary when an existing alarm has been created in the past and it is not enabled.
+        // Necessary when an existing alarm has been created in the past, and it is not enabled.
         // Even if the date is not specified, it is saved in AlarmInstance; we need to make
         // sure that the date is not in the past when changing time, in which case we reset
         // to the current date (an alarm cannot be scheduled in the past).
@@ -953,12 +1011,9 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         dayButton.setTextColor(textColor);
     }
 
-    private void clearSelectedDate(View.OnClickListener listener, @StringRes int text) {
-        mSelectedDate.setVisibility(GONE);
-        mScheduleAlarm.setCompoundDrawablesWithIntrinsicBounds(AppCompatResources.getDrawable(
-            requireContext(), R.drawable.ic_calendar_clock), null, null, null);
+    private void clearSelectedDate(@StringRes int text) {
+        mCancelScheduledAlarm.setVisibility(GONE);
         mScheduleAlarm.setText(getString(text));
-        mScheduleAlarm.setOnClickListener(listener);
     }
 
     private void saveAlarmSettings() {
@@ -1050,6 +1105,8 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     }
 
     private void updateAllGroupBackgrounds() {
+        applyExpressiveBackgroundsToGroup(mScheduleAlarmLayout, mPauseAlarmLayout);
+
         applyExpressiveBackgroundsToGroup(mLabel, mRingtone);
 
         applyExpressiveBackgroundsToGroup(
@@ -1066,10 +1123,6 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             mCrescendoDurationLayout,
             mAlarmVolumeLayout
         );
-    }
-
-    private void applyRipplePillBackground(View view) {
-        view.setBackground(ThemeUtils.pillRippleDrawable(requireContext(), Color.TRANSPARENT));
     }
 
 }

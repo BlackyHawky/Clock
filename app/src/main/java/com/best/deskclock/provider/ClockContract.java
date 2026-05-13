@@ -124,6 +124,18 @@ public final class ClockContract {
          * <p>Type: INTEGER</p>
          */
         String MANUAL_SORT_ORDER = "manualSortOrder";
+
+        /**
+         * Start of the pause.
+         * <p>Type: LONG</p>
+         */
+        String PAUSE_START_DATE = "pauseStartDate";
+
+        /**
+         * End of the pause.
+         * <p>Type: LONG</p>
+         */
+        String PAUSE_END_DATE = "pauseEndDate";
     }
 
     /**

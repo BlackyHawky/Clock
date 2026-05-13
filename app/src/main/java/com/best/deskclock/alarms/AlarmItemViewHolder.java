@@ -47,8 +47,9 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
     public static final float CLOCK_DISABLED_ALPHA = 0.6f;
     public static final int ALPHA_ANIMATION_DURATION = 300;
     public static final String SKELETON = "EEE MMM d";
+    public static final String SKELETON_WITH_YEAR = "EEE MMM d yyyy";
 
-
+    private final Calendar mLocalCalendar = Calendar.getInstance();
     public final SharedPreferences mPrefs;
     private final AlarmAdapter mAdapter;
     private AlarmItemHolder mItemHolder;
@@ -56,6 +57,7 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
     private final Typeface mGeneralBoldTypeface;
     private final Locale mLocale;
     private final String mDatePattern;
+    private final String mDatePatternWithYear;
     public int mItemPosition = 0;
     public int mTotalCount = 0;
 
@@ -67,7 +69,8 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
     private final MaterialTextView mPreemptiveDismissButton;
 
     public AlarmItemViewHolder(View itemView, AlarmAdapter alarmAdapter, SharedPreferences prefs, Typeface generalTypeface,
-                               Typeface generalBoldTypeface, Typeface alarmClockTypeface, Locale locale, String datePattern) {
+                               Typeface generalBoldTypeface, Typeface alarmClockTypeface, Locale locale, String datePattern,
+                               String datePatternWithYear) {
 
         super(itemView);
 
@@ -79,6 +82,7 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         mGeneralBoldTypeface = generalBoldTypeface;
         mLocale = locale;
         mDatePattern = datePattern;
+        mDatePatternWithYear = datePatternWithYear;
 
         mAlarmLabel = itemView.findViewById(R.id.label);
         mClock = itemView.findViewById(R.id.digital_clock);
@@ -235,7 +239,9 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
             return;
         }
 
-        String formattedDate = DateFormat.format(mDatePattern, nextAlarmTime).toString();
+        mLocalCalendar.setTimeInMillis(System.currentTimeMillis());
+        boolean isDifferentYear = mLocalCalendar.get(Calendar.YEAR) != nextAlarmTime.get(Calendar.YEAR);
+        String formattedDate = DateFormat.format(isDifferentYear ? mDatePatternWithYear : mDatePattern, nextAlarmTime).toString();
         mUpcomingDate.setText(FormattedTextUtils.capitalizeFirstLetter(formattedDate, mLocale));
         mUpcomingDate.setVisibility(VISIBLE);
 
@@ -295,7 +301,13 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         String contentDesc = alarm.daysOfWeek.toAccessibilityString(context, weekdayOrder);
         CharSequence styledDaysText;
 
-        if (alarm.enabled) {
+        if (isPauseEffectivelyActive(alarm, alarmInstance)) {
+            String dateRangeStr = AlarmUtils.formatPauseDateRange(context, alarm.pauseStartDate, alarm.pauseEndDate);
+            String pauseText = context.getString(R.string.pause_alarm_range, dateRangeStr);
+
+            styledDaysText = pauseText;
+            contentDesc = pauseText;
+        } else if (alarm.enabled) {
             int nextAlarmDay = alarm.getNextAlarmDayOfWeek(alarmInstance);
 
             if (alarm.daysOfWeek.isAllDaysSelected()) {
@@ -315,8 +327,24 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         mDaysOfWeek.setContentDescription(contentDesc);
     }
 
+    private boolean isPauseEffectivelyActive(Alarm alarm, AlarmInstance nextInstance) {
+        if (!alarm.enabled || !alarm.isPauseSet() || nextInstance == null) {
+            return false;
+        }
+
+        // Check if the pause is not already in the past
+        if (AlarmUtils.isPauseExpired(alarm.pauseEndDate)) {
+            return false;
+        }
+
+        // Check if the instance date is scheduled after the end of the pause
+        return nextInstance.getAlarmTime().getTimeInMillis() > alarm.pauseEndDate;
+    }
+
     private void setNonRepeatingDefaultDescription(Context context, Alarm alarm) {
-        if (alarm.isTomorrow(Calendar.getInstance())) {
+        mLocalCalendar.setTimeInMillis(System.currentTimeMillis());
+
+        if (alarm.isTomorrow(mLocalCalendar)) {
             setDaysOfWeekText(context.getString(R.string.alarm_tomorrow));
         } else {
             setDaysOfWeekText(context.getString(R.string.alarm_today));
@@ -324,12 +352,12 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void setSpecifiedDateDescription(Context context, Alarm alarm) {
-        Calendar calendar = Calendar.getInstance();
+        mLocalCalendar.setTimeInMillis(System.currentTimeMillis());
 
         if (Alarm.isSpecifiedDateTomorrow(alarm.year, alarm.month, alarm.day)) {
             setDaysOfWeekText(context.getString(R.string.alarm_tomorrow));
         } else if (alarm.isDateInThePast()) {
-            setDaysOfWeekText(getTodayOrTomorrowBasedOnTime(context, alarm, calendar));
+            setDaysOfWeekText(getTodayOrTomorrowBasedOnTime(context, alarm, mLocalCalendar));
         } else {
             setDaysOfWeekText(context.getString(R.string.alarm_scheduled_for, AlarmUtils.formatAlarmDate(alarm)));
         }

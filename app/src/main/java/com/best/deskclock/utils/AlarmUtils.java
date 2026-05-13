@@ -36,6 +36,7 @@ import com.google.android.material.snackbar.Snackbar;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Formatter;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
@@ -320,6 +321,51 @@ public class AlarmUtils {
         }
 
         return FormattedTextUtils.capitalizeFirstLetter(result, locale);
+    }
+
+    /**
+     * Formats the start and end dates of a pause into a readable, localized string.
+     *
+     * @param context     The context used to access formatting resources.
+     * @param startMillis The start date of the pause in milliseconds (UTC).
+     * @param endMillis   The end date of the pause in milliseconds (UTC).
+     * @return A formatted date range string with the first letter capitalized, or an empty string if the provided dates are invalid.
+     */
+    public static String formatPauseDateRange(Context context, long startMillis, long endMillis) {
+        if (startMillis <= 0 || endMillis <= 0) {
+            return "";
+        }
+
+        // FORMAT_SHOW_DATE : Displays the day and month (and the year if it is a different year than the current one).
+        // FORMAT_ABBREV_MONTH : Displays "Dec" instead of "December" to save space.
+        int flags = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_MONTH;
+
+        // The MaterialDatePicker returns the end date as 00:00:00.
+        // To ensure that DateUtils includes this last day in the display, we artificially shift this date to
+        // the very end of the day (11:59:59 p.m.).
+        long adjustedEndMillis = getEndOfDayMillis(endMillis);
+
+        Formatter formatter = new Formatter(new StringBuilder(), Locale.getDefault());
+        String dateRange = DateUtils.formatDateRange(context, formatter, startMillis, adjustedEndMillis, flags, "UTC").toString();
+
+        return FormattedTextUtils.capitalizeFirstLetter(dateRange, Locale.getDefault());
+    }
+
+    /**
+     * Shifts a timestamp to the very end of the day (11:59:59 PM).
+     */
+    public static long getEndOfDayMillis(long timeMillis) {
+        return timeMillis + TimeUnit.DAYS.toMillis(1) - 1;
+    }
+
+    /**
+     * Checks whether the end date of a pause has completely passed.
+     */
+    public static boolean isPauseExpired(long endMillis) {
+        if (endMillis <= 0) {
+            return false;
+        }
+        return System.currentTimeMillis() > getEndOfDayMillis(endMillis);
     }
 
     /**
