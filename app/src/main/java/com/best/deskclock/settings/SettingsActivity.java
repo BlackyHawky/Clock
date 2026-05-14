@@ -149,14 +149,11 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                     try {
                         backupPreferences(appContext, uri);
 
-                        AppExecutors.getMainThread().post(() ->
-                            CustomToast.show(appContext, R.string.toast_message_for_backup));
-
+                        AppExecutors.getMainThread().post(() -> CustomToast.show(appContext, R.string.toast_message_for_backup));
                     } catch (IOException e) {
                         LogUtils.e("Error during backup", e);
 
-                        AppExecutors.getMainThread().post(() ->
-                            CustomToast.show(appContext, R.string.toast_message_backup_error));
+                        AppExecutors.getMainThread().post(() -> CustomToast.show(appContext, R.string.toast_message_backup_error));
                     }
                 });
             });
@@ -252,6 +249,17 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             updateSettingsVisibility();
 
             displayWarningIfEssentialPermissionAreNotGranted();
+        }
+
+        @Override
+        public void onDestroy() {
+            nullifyPreferenceListeners(mInterfaceCustomizationPref, mClockSettingsPref, mAlarmSettingsPref, mTimerSettingsPref,
+                mStopwatchSettingsPref, mScreensaverSettings, mWidgetsSettings, mPermissionsManagement, mPermissionMessage,
+                mBackupRestorePref);
+
+            super.onDestroy();
+
+            nullifyAllPrefs();
         }
 
         @Override
@@ -490,6 +498,19 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                 TileService.requestListeningState(context, new ComponentName(context, TimerTileService.class));
                 TileService.requestListeningState(context, new ComponentName(context, StopwatchTileService.class));
             }
+        }
+
+        private void nullifyAllPrefs() {
+            mInterfaceCustomizationPref = null;
+            mClockSettingsPref = null;
+            mAlarmSettingsPref = null;
+            mTimerSettingsPref = null;
+            mStopwatchSettingsPref = null;
+            mScreensaverSettings = null;
+            mWidgetsSettings = null;
+            mPermissionsManagement = null;
+            mPermissionMessage = null;
+            mBackupRestorePref = null;
         }
     }
 

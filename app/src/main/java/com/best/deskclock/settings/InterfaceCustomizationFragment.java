@@ -100,15 +100,25 @@ public class InterfaceCustomizationFragment extends ScreenFragment
                 // Copy the new font to the device's protected storage
                 Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(appContext, sourceUri, safeTitle);
 
-                AppExecutors.getMainThread().post(() -> {
-                    // Save the new path
-                    if (copiedUri != null) {
-                        mPrefs.edit().putString(KEY_GENERAL_FONT, copiedUri.getPath()).apply();
-                        mGeneralFontPref.setTitle(getString(R.string.custom_font_title_variant));
+                // Save the new path
+                if (copiedUri != null) {
+                    mPrefs.edit().putString(KEY_GENERAL_FONT, copiedUri.getPath()).apply();
+                }
 
+                AppExecutors.getMainThread().post(() -> {
+                    if (copiedUri != null) {
                         CustomToast.show(appContext, R.string.custom_font_toast_message_selected);
                     } else {
                         CustomToast.show(appContext, "Error importing font");
+                    }
+
+                    if (!isAdded() || mGeneralFontPref == null) {
+                        return;
+                    }
+
+                    if (copiedUri != null) {
+                        mGeneralFontPref.setTitle(getString(R.string.custom_font_title_variant));
+                    } else {
                         mGeneralFontPref.setTitle(getString(R.string.custom_font_title));
                     }
                 });
@@ -161,6 +171,17 @@ public class InterfaceCustomizationFragment extends ScreenFragment
             WidgetUtils.updateAllDigitalWidgets(requireContext());
             isLanguageChanged = false;
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        nullifyPreferenceListeners(mThemePref, mDarkModePref, mGeneralFontPref, mAccentColorPref, mAutoNightAccentColorPref,
+            mNightAccentColorPref, mCardBackgroundPref, mCardBorderPref, mCustomLanguageCodePref, mVisibleTabsPref, mTabToDisplayPref,
+            mVibrationPref, mToolbarTitlePref, mTabTitleVisibilityPref, mTabIndicatorPref, mFadeTransitionsPref, mKeepScreenOnPref);
+
+        super.onDestroy();
+
+        nullifyAllPrefs();
     }
 
     @Override
@@ -448,6 +469,26 @@ public class InterfaceCustomizationFragment extends ScreenFragment
         if (index >= 0) {
             mTabToDisplayPref.setSummary(mTabToDisplayPref.getEntries()[index]);
         }
+    }
+
+    private void nullifyAllPrefs() {
+        mThemePref = null;
+        mDarkModePref = null;
+        mGeneralFontPref = null;
+        mAccentColorPref = null;
+        mAutoNightAccentColorPref = null;
+        mNightAccentColorPref = null;
+        mCardBackgroundPref = null;
+        mCardBorderPref = null;
+        mCustomLanguageCodePref = null;
+        mVisibleTabsPref = null;
+        mTabToDisplayPref = null;
+        mVibrationPref = null;
+        mToolbarTitlePref = null;
+        mTabTitleVisibilityPref = null;
+        mTabIndicatorPref = null;
+        mFadeTransitionsPref = null;
+        mKeepScreenOnPref = null;
     }
 
     /**

@@ -71,7 +71,6 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
     public static final String REQUEST_KEY = AUTO_SILENCE_DURATION + "request_key";
     public static final String AUTO_SILENCE_DURATION_VALUE = AUTO_SILENCE_DURATION + "value";
 
-    private Context mContext;
     private String mPrefKey;
     private TextInputLayout mMinutesInputLayout;
     private TextInputLayout mSecondsInputLayout;
@@ -180,8 +179,7 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        mContext = requireContext();
-        SharedPreferences prefs = getDefaultSharedPreferences(mContext);
+        SharedPreferences prefs = getDefaultSharedPreferences(requireContext());
         mTypeFace = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
 
         final Bundle args = requireArguments();
@@ -199,7 +197,7 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
             isNever = savedInstanceState.getBoolean(ARG_NEVER, isNever);
         }
 
-        mInput = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        mInput = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 
         @SuppressLint("InflateParams")
         View dialogView = getLayoutInflater().inflate(R.layout.alarm_auto_silence_duration_dialog, null);
@@ -280,9 +278,9 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
         });
 
         return CustomDialog.create(
-            mContext,
+            requireContext(),
             null,
-            mPrefKey != null ? null : AppCompatResources.getDrawable(mContext, R.drawable.ic_ringtone_off),
+            mPrefKey != null ? null : AppCompatResources.getDrawable(requireContext(), R.drawable.ic_ringtone_off),
             getString(R.string.auto_silence_title),
             null,
             dialogView,
@@ -324,14 +322,36 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
 
     @Override
     public void onDestroyView() {
+        // Stop callbacks from the IME since there is no view to process them.
+        if (mEditMinutes != null) {
+            mEditMinutes.setOnEditorActionListener(null);
+            mEditMinutes.removeTextChangedListener(mTextWatcher);
+            mEditMinutes.setOnFocusChangeListener(null);
+        }
+
+        if (mEditSeconds != null) {
+            mEditSeconds.setOnEditorActionListener(null);
+            mEditSeconds.removeTextChangedListener(mTextWatcher);
+            mEditSeconds.setOnFocusChangeListener(null);
+        }
+
+        mEndOfRingtoneCheckbox.setOnCheckedChangeListener(null);
+        mNeverCheckbox.setOnCheckedChangeListener(null);
+
         super.onDestroyView();
 
-        // Stop callbacks from the IME since there is no view to process them.
-        mEditMinutes.setOnEditorActionListener(null);
-        mEditMinutes.removeTextChangedListener(mTextWatcher);
+        mInput = null;
 
-        mEditSeconds.setOnEditorActionListener(null);
-        mEditSeconds.removeTextChangedListener(mTextWatcher);
+        mMinutesInputLayout = null;
+        mSecondsInputLayout = null;
+        mEditMinutes = null;
+        mEditSeconds = null;
+        mEndOfRingtoneCheckbox = null;
+        mNeverCheckbox = null;
+        mOkButton = null;
+        mDefaultButton = null;
+
+        mTypeFace = null;
     }
 
     /**
@@ -477,7 +497,7 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
         TextView titleText = alertDialog.findViewById(R.id.dialog_title);
         if (titleText != null) {
             titleText.setCompoundDrawablesWithIntrinsicBounds(AppCompatResources.getDrawable(
-                mContext, R.drawable.ic_error), null, null, null);
+                requireContext(), R.drawable.ic_error), null, null, null);
             if (mPrefKey != null) {
                 titleText.setCompoundDrawablePadding((int) dpToPx(18, getResources().getDisplayMetrics()));
             }
@@ -490,8 +510,8 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
             || (!minutesText.isEmpty() && Integer.parseInt(minutesText) > 60);
         boolean secondsInvalid = (!secondsText.isEmpty() && Integer.parseInt(secondsText) < 0)
             || (!secondsText.isEmpty() && Integer.parseInt(secondsText) > 59);
-        int invalidColor = ContextCompat.getColor(mContext, R.color.md_theme_error);
-        int validColor = MaterialColors.getColor(mContext, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
+        int invalidColor = ContextCompat.getColor(requireContext(), R.color.md_theme_error);
+        int validColor = MaterialColors.getColor(requireContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
 
         mMinutesInputLayout.setBoxStrokeColor(minutesInvalid ? invalidColor : validColor);
         mMinutesInputLayout.setHintTextColor(minutesInvalid
@@ -524,13 +544,13 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
                 titleText.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
             } else {
                 titleText.setCompoundDrawablesWithIntrinsicBounds(AppCompatResources.getDrawable(
-                    mContext, R.drawable.ic_ringtone_off), null, null, null);
+                    requireContext(), R.drawable.ic_ringtone_off), null, null, null);
             }
 
             titleText.setText(getString(R.string.auto_silence_title));
         }
 
-        int validColor = MaterialColors.getColor(mContext, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
+        int validColor = MaterialColors.getColor(requireContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
 
         mMinutesInputLayout.setBoxStrokeColor(validColor);
         mMinutesInputLayout.setHintTextColor(ColorStateList.valueOf(validColor));

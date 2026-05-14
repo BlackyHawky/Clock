@@ -66,6 +66,8 @@ public final class StopwatchService extends Service {
             }
         }
 
+        stopSelf(startId);
+
         return START_NOT_STICKY;
     }
 }

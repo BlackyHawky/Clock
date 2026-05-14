@@ -121,15 +121,25 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                     // Copy the new font to the device's protected storage
                     Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(appContext, sourceUri, safeTitle);
 
-                    AppExecutors.getMainThread().post(() -> {
-                        // Save the new path
-                        if (copiedUri != null) {
-                            mPrefs.edit().putString(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT, copiedUri.getPath()).apply();
-                            mDigitalClockFontPref.setTitle(getString(R.string.custom_font_title_variant));
+                    // Save the new path
+                    if (copiedUri != null) {
+                        mPrefs.edit().putString(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT, copiedUri.getPath()).apply();
+                    }
 
+                    AppExecutors.getMainThread().post(() -> {
+                        if (copiedUri != null) {
                             CustomToast.show(appContext, R.string.custom_font_toast_message_selected);
                         } else {
                             CustomToast.show(appContext, "Error importing font");
+                        }
+
+                        if (!isAdded() || mDigitalClockFontPref == null) {
+                            return;
+                        }
+
+                        if (copiedUri != null) {
+                            mDigitalClockFontPref.setTitle(getString(R.string.custom_font_title_variant));
+                        } else {
                             mDigitalClockFontPref.setTitle(getString(R.string.custom_font_title));
                         }
                     });
@@ -164,6 +174,13 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                     Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(appContext, sourceUri, safeTitle);
 
                     AppExecutors.getMainThread().post(() -> {
+                        if (!isAdded()
+                            || mScreensaverBackgroundImagePref == null
+                            || mEnableScreensaverBlurEffectPref == null
+                            || mScreensaverBlurIntensityPref == null) {
+                            return;
+                        }
+
                         // Save the new path
                         if (copiedUri != null) {
                             mPrefs.edit().putString(KEY_SCREENSAVER_BACKGROUND_IMAGE, copiedUri.getPath()).apply();
@@ -230,6 +247,20 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
             mDigitalClock = mClockStyleValues[2];
 
             setupPreferences();
+        }
+
+        @Override
+        public void onDestroy() {
+            nullifyPreferenceListeners(mClockColorPref, mBatteryColorPref, mDateColorPref, mNextAlarmColorPref, mClockStylePref,
+                mClockDialPref, mClockDialMaterialPref, mClockSecondHandPref, mDisplaySecondsPref, mDisplayBatteryPref,
+                mDigitalClockFontSizePref, mDisplayTextUppercasePref, mBoldDigitalClockPref, mClockDynamicColorPref,
+                mItalicDigitalClockPref, mBoldBatteryPref, mItalicBatteryPref, mBoldDatePref, mItalicDatePref, mBoldNextAlarmPref,
+                mItalicNextAlarmPref, mAnalogClockSizePref, mDigitalClockFontPref, mKeepScreenOnPref, mScreensaverBackgroundImagePref,
+                mEnableScreensaverBlurEffectPref, mScreensaverBlurIntensityPref, mScreensaverPreview, mScreensaverMainSettings);
+
+            super.onDestroy();
+
+            nullifyAllPrefs();
         }
 
         @Override
@@ -436,6 +467,42 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
             mScreensaverMainSettings.setOnPreferenceClickListener(this);
         }
 
+        private void nullifyAllPrefs() {
+            mClockColorPref = null;
+            mBatteryColorPref = null;
+            mDateColorPref = null;
+            mNextAlarmColorPref = null;
+            mClockStylePref = null;
+            mClockDialPref = null;
+            mClockDialMaterialPref = null;
+            mClockSecondHandPref = null;
+            mDisplaySecondsPref = null;
+            mDisplayBatteryPref = null;
+            mDigitalClockFontSizePref = null;
+            mDisplayTextUppercasePref = null;
+            mBoldDigitalClockPref = null;
+            mClockDynamicColorPref = null;
+            mItalicDigitalClockPref = null;
+            mBoldBatteryPref = null;
+            mItalicBatteryPref = null;
+            mBoldDatePref = null;
+            mItalicDatePref = null;
+            mBoldNextAlarmPref = null;
+            mItalicNextAlarmPref = null;
+            mAnalogClockSizePref = null;
+            mDigitalClockFontPref = null;
+            mKeepScreenOnPref = null;
+            mScreensaverBackgroundImagePref = null;
+            mEnableScreensaverBlurEffectPref = null;
+            mScreensaverBlurIntensityPref = null;
+            mScreensaverPreview = null;
+            mScreensaverMainSettings = null;
+
+            mClockStyleValues = null;
+            mAnalogClock = null;
+            mMaterialAnalogClock = null;
+            mDigitalClock = null;
+        }
     }
 
 }

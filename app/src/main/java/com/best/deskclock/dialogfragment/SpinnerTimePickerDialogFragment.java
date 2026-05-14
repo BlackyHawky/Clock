@@ -172,6 +172,17 @@ public class SpinnerTimePickerDialogFragment extends DialogFragment {
         );
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        mLayout = null;
+        mHourPicker = null;
+        mMinutePicker = null;
+        mAmPmPicker = null;
+        mDivider = null;
+    }
+
     private void setAlarm(int hours, int minutes) {
         Bundle result = new Bundle();
         result.putInt(BUNDLE_KEY_HOURS, hours);

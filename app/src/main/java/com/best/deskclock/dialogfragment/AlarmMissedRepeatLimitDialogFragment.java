@@ -121,6 +121,13 @@ public class AlarmMissedRepeatLimitDialogFragment extends DialogFragment {
         );
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        mRadioGroup = null;
+    }
+
     /**
      * Set the repeat limit.
      */

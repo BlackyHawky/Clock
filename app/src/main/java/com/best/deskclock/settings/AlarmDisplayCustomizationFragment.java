@@ -103,18 +103,31 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
                 // Copy the new image to the device's protected storage
                 Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(appContext, sourceUri, safeTitle);
 
+                // Save the new path
+                if (copiedUri != null) {
+                    mPrefs.edit().putString(KEY_ALARM_BACKGROUND_IMAGE, copiedUri.getPath()).apply();
+                }
+
                 AppExecutors.getMainThread().post(() -> {
-                    // Save the new path
                     if (copiedUri != null) {
-                        mPrefs.edit().putString(KEY_ALARM_BACKGROUND_IMAGE, copiedUri.getPath()).apply();
+                        CustomToast.show(appContext, R.string.background_image_toast_message_selected);
+                    } else {
+                        CustomToast.show(appContext, "Error importing image");
+                    }
+
+                    if (!isAdded()
+                        || mAlarmBackgroundImagePref == null
+                        || mEnableAlarmBlurEffectPref == null
+                        || mAlarmBlurIntensityPref == null) {
+                        return;
+                    }
+
+                    if (copiedUri != null) {
                         mAlarmBackgroundImagePref.setTitle(getString(R.string.background_image_title_variant));
                         mAlarmBackgroundImagePref.setSummary(getString(R.string.background_image_summary));
                         mEnableAlarmBlurEffectPref.setVisible(SdkUtils.isAtLeastAndroid12());
                         mAlarmBlurIntensityPref.setVisible(SdkUtils.isAtLeastAndroid12() && SettingsDAO.isAlarmBlurEffectEnabled(mPrefs));
-
-                        CustomToast.show(appContext, R.string.background_image_toast_message_selected);
                     } else {
-                        CustomToast.show(appContext, "Error importing image");
                         mAlarmBackgroundImagePref.setTitle(getString(R.string.background_image_title));
                         mAlarmBackgroundImagePref.setSummary(null);
                         mEnableAlarmBlurEffectPref.setVisible(false);
@@ -177,6 +190,23 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
         mDigitalClock = mAlarmClockStyleValues[2];
 
         setupPreferences();
+    }
+
+    @Override
+    public void onDestroy() {
+        nullifyPreferenceListeners(mAlarmClockStylePref, mAlarmClockDialPref, mAlarmClockDialMaterialPref, mAnalogClockSizePref,
+            mAlarmClockSecondHandPref, mDisplaySecondsPref, mSwipeActionPref, mDisplaySnoozeSelectorPref, mBackgroundColorPref,
+            mBackgroundAmoledColorPref, mAlarmClockColorPref, mAlarmSecondHandColorPref, mSlideZoneColorPref, mAlarmButtonColorPref,
+            mSnoozeTitleColorPref, mSnoozeButtonColorPref, mDismissTitleColorPref, mDismissButtonColorPref, mSnoozeZoneColorPref,
+            mSnoozeMinusButtonColorPref, mSnoozePlusButtonColorPref, mSnoozeSelectorTextColorPref, mSnoozeMinusSymbolColorPref,
+            mSnoozePlusSymbolColorPref, mAlarmDigitalClockFontSizePref, mDisplayTextShadowPref, mShadowColorPref, mShadowOffsetPref,
+            mDisplayAlarmActionMessagePref, mDisplayRingtoneTitlePref, mRingtoneTitleColorPref, mAlarmBackgroundImagePref,
+            mEnableAlarmBlurEffectPref, mAlarmBlurIntensityPref, mAlarmPreviewPref
+        );
+
+        super.onDestroy();
+
+        nullifyAllPrefs();
     }
 
     @Override
@@ -411,6 +441,49 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
             && SettingsDAO.isAlarmBlurEffectEnabled(mPrefs));
 
         mAlarmPreviewPref.setOnPreferenceClickListener(this);
+    }
+
+    private void nullifyAllPrefs() {
+        mAlarmClockStylePref = null;
+        mAlarmClockDialPref = null;
+        mAlarmClockDialMaterialPref = null;
+        mAnalogClockSizePref = null;
+        mAlarmClockSecondHandPref = null;
+        mDisplaySecondsPref = null;
+        mSwipeActionPref = null;
+        mDisplaySnoozeSelectorPref = null;
+        mBackgroundColorPref = null;
+        mBackgroundAmoledColorPref = null;
+        mAlarmClockColorPref = null;
+        mAlarmSecondHandColorPref = null;
+        mSlideZoneColorPref = null;
+        mAlarmButtonColorPref = null;
+        mSnoozeTitleColorPref = null;
+        mSnoozeButtonColorPref = null;
+        mDismissTitleColorPref = null;
+        mDismissButtonColorPref = null;
+        mSnoozeZoneColorPref = null;
+        mSnoozeMinusButtonColorPref = null;
+        mSnoozePlusButtonColorPref = null;
+        mSnoozeSelectorTextColorPref = null;
+        mSnoozeMinusSymbolColorPref = null;
+        mSnoozePlusSymbolColorPref = null;
+        mAlarmDigitalClockFontSizePref = null;
+        mDisplayTextShadowPref = null;
+        mShadowColorPref = null;
+        mShadowOffsetPref = null;
+        mDisplayAlarmActionMessagePref = null;
+        mDisplayRingtoneTitlePref = null;
+        mRingtoneTitleColorPref = null;
+        mAlarmBackgroundImagePref = null;
+        mEnableAlarmBlurEffectPref = null;
+        mAlarmBlurIntensityPref = null;
+        mAlarmPreviewPref = null;
+
+        mAlarmClockStyleValues = null;
+        mAnalogClock = null;
+        mMaterialAnalogClock = null;
+        mDigitalClock = null;
     }
 
 }

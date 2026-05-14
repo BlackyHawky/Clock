@@ -331,9 +331,26 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
 
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
+        if (mStopwatchWrapper != null) {
+            mStopwatchWrapper.setOnClickListener(null);
+        }
 
         DataModel.getDataModel().removeStopwatchListener(mStopwatchWatcher);
+
+        super.onDestroyView();
+
+        if (mLapsList != null) {
+            mLapsList.setAdapter(null);
+        }
+
+        mStopwatchLandscapeLayout = null;
+        mStopwatchWrapper = null;
+        mMainTimeText = null;
+        mHundredthsTimeText = null;
+        mStopwatchCircleView = null;
+        mLapsBackground = null;
+        mLapsList = null;
+        mStopwatchTextController = null;
     }
 
     @Override

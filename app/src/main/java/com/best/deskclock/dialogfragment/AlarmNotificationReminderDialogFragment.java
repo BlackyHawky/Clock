@@ -60,7 +60,6 @@ public class AlarmNotificationReminderDialogFragment extends DialogFragment {
     public static final String REQUEST_KEY = ALARM_NOTIFICATION_REMINDER_TIME + "request_key";
     public static final String ALARM_NOTIFICATION_REMINDER_VALUE = ALARM_NOTIFICATION_REMINDER_TIME + "value";
 
-    private Context mContext;
     private TextInputLayout mHoursInputLayout;
     private TextInputLayout mMinutesInputLayout;
     private TextInputEditText mEditHours;
@@ -119,8 +118,7 @@ public class AlarmNotificationReminderDialogFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        mContext = requireContext();
-        SharedPreferences prefs = getDefaultSharedPreferences(mContext);
+        SharedPreferences prefs = getDefaultSharedPreferences(requireContext());
         mTypeFace = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
 
         final Bundle args = requireArguments();
@@ -133,7 +131,7 @@ public class AlarmNotificationReminderDialogFragment extends DialogFragment {
             editMinutes = savedInstanceState.getInt(ARG_EDIT_MINUTES, editMinutes);
         }
 
-        mInput = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        mInput = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 
         @SuppressLint("InflateParams")
         View dialogView = getLayoutInflater().inflate(R.layout.alarm_notification_reminder_dialog, null);
@@ -170,7 +168,7 @@ public class AlarmNotificationReminderDialogFragment extends DialogFragment {
         });
 
         return CustomDialog.create(
-            mContext,
+            requireContext(),
             null,
             null,
             getString(R.string.alarm_notification_reminder_title),
@@ -210,14 +208,31 @@ public class AlarmNotificationReminderDialogFragment extends DialogFragment {
 
     @Override
     public void onDestroyView() {
+        // Stop callbacks from the IME since there is no view to process them.
+        if (mEditHours != null) {
+            mEditHours.setOnEditorActionListener(null);
+            mEditHours.removeTextChangedListener(mTextWatcher);
+            mEditHours.setOnFocusChangeListener(null);
+        }
+
+        if (mEditMinutes != null) {
+            mEditMinutes.setOnEditorActionListener(null);
+            mEditMinutes.removeTextChangedListener(mTextWatcher);
+            mEditMinutes.setOnFocusChangeListener(null);
+        }
+
         super.onDestroyView();
 
-        // Stop callbacks from the IME since there is no view to process them.
-        mEditHours.setOnEditorActionListener(null);
-        mEditHours.removeTextChangedListener(mTextWatcher);
+        mInput = null;
 
-        mEditMinutes.setOnEditorActionListener(null);
-        mEditMinutes.removeTextChangedListener(mTextWatcher);
+        mHoursInputLayout = null;
+        mMinutesInputLayout = null;
+        mEditHours = null;
+        mEditMinutes = null;
+        mOkButton = null;
+        mDefaultButton = null;
+
+        mTypeFace = null;
     }
 
     /**
@@ -321,7 +336,7 @@ public class AlarmNotificationReminderDialogFragment extends DialogFragment {
         TextView titleText = alertDialog.findViewById(R.id.dialog_title);
         if (titleText != null) {
             titleText.setCompoundDrawablesWithIntrinsicBounds(AppCompatResources.getDrawable(
-                mContext, R.drawable.ic_error), null, null, null);
+                requireContext(), R.drawable.ic_error), null, null, null);
             titleText.setCompoundDrawablePadding((int) dpToPx(18, getResources().getDisplayMetrics()));
             titleText.setText(getString(R.string.timer_time_warning_box_title));
         }
@@ -332,8 +347,8 @@ public class AlarmNotificationReminderDialogFragment extends DialogFragment {
             || (!hoursText.isEmpty() && Integer.parseInt(hoursText) > 24);
         boolean minutesInvalid = (!minutesText.isEmpty() && Integer.parseInt(minutesText) < 0)
             || (!minutesText.isEmpty() && Integer.parseInt(minutesText) > 59);
-        int invalidColor = ContextCompat.getColor(mContext, R.color.md_theme_error);
-        int validColor = MaterialColors.getColor(mContext, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
+        int invalidColor = ContextCompat.getColor(requireContext(), R.color.md_theme_error);
+        int validColor = MaterialColors.getColor(requireContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
 
         mHoursInputLayout.setBoxStrokeColor(hoursInvalid ? invalidColor : validColor);
         mHoursInputLayout.setHintTextColor(hoursInvalid
@@ -366,7 +381,7 @@ public class AlarmNotificationReminderDialogFragment extends DialogFragment {
             titleText.setText(getString(R.string.alarm_notification_reminder_title));
         }
 
-        int validColor = MaterialColors.getColor(mContext, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
+        int validColor = MaterialColors.getColor(requireContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
 
         mHoursInputLayout.setBoxStrokeColor(validColor);
         mHoursInputLayout.setHintTextColor(ColorStateList.valueOf(validColor));

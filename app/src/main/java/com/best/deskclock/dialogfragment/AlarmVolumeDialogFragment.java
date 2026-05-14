@@ -54,7 +54,6 @@ public class AlarmVolumeDialogFragment extends DialogFragment {
     private static final String ARG_ALARM_VOLUME_VALUE = "arg_alarm_volume_value";
     private static final String ARG_RINGTONE_URI = "arg_ringtone_uri";
 
-    private Context mContext;
     private AudioManager mAudioManager;
     private Uri mRingtoneUri;
     private Slider mSlider;
@@ -109,8 +108,7 @@ public class AlarmVolumeDialogFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        mContext = requireContext();
-        SharedPreferences prefs = getDefaultSharedPreferences(mContext);
+        SharedPreferences prefs = getDefaultSharedPreferences(requireContext());
         Typeface typeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
 
         final Bundle args = requireArguments();
@@ -125,10 +123,10 @@ public class AlarmVolumeDialogFragment extends DialogFragment {
         if (uriString != null) {
             mRingtoneUri = Uri.parse(uriString);
         } else {
-            mRingtoneUri = RingtoneUtils.getFallbackRingtoneUri(mContext);
+            mRingtoneUri = RingtoneUtils.getFallbackRingtoneUri(requireContext());
         }
 
-        mAudioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
+        mAudioManager = (AudioManager) requireContext().getSystemService(Context.AUDIO_SERVICE);
 
         int maxVolume = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
         mMinVolume = RingtoneUtils.getAlarmMinVolume(mAudioManager);
@@ -207,7 +205,7 @@ public class AlarmVolumeDialogFragment extends DialogFragment {
         });
 
         return CustomDialog.create(
-            mContext,
+            requireContext(),
             null,
             null,
             getString(R.string.alarm_volume_title),
@@ -247,9 +245,32 @@ public class AlarmVolumeDialogFragment extends DialogFragment {
 
     @Override
     public void onDestroyView() {
+        stopRingtonePreview();
+
+        mRingtoneHandler.removeCallbacksAndMessages(null);
+
+        if (mSlider != null) {
+            mSlider.clearOnChangeListeners();
+            mSlider.clearOnSliderTouchListeners();
+        }
+
+        if (mVolumeMinus != null) {
+            mVolumeMinus.setOnClickListener(null);
+        }
+        if (mVolumePlus != null) {
+            mVolumePlus.setOnClickListener(null);
+        }
+
         super.onDestroyView();
 
-        stopRingtonePreview();
+        mAudioManager = null;
+        mSlider = null;
+        mVolumeMinus = null;
+        mVolumePlus = null;
+        mVolumeValue = null;
+        mDialogTitle = null;
+        mRingtoneStopRunnable = null;
+        mRingtoneUri = null;
     }
 
     /**
@@ -271,7 +292,7 @@ public class AlarmVolumeDialogFragment extends DialogFragment {
      */
     private void updateDialogIcon(int currentVolume, int maxVolume) {
         int percent = (int) (((float) currentVolume / maxVolume) * 100);
-        mDialogTitle.setCompoundDrawablesWithIntrinsicBounds(AppCompatResources.getDrawable(mContext, percent < 50
+        mDialogTitle.setCompoundDrawablesWithIntrinsicBounds(AppCompatResources.getDrawable(requireContext(), percent < 50
             ? R.drawable.ic_volume_down
             : R.drawable.ic_volume_up), null, null, null);
         mDialogTitle.setCompoundDrawablePadding((int) dpToPx(18, getResources().getDisplayMetrics()));
@@ -295,8 +316,8 @@ public class AlarmVolumeDialogFragment extends DialogFragment {
      * @param maxProgress The maximum progress of the slider.
      */
     private void updateVolumeButtonStates(int progress, int maxProgress) {
-        ThemeUtils.updateSliderButtonEnabledState(mContext, mVolumeMinus, progress > 0);
-        ThemeUtils.updateSliderButtonEnabledState(mContext, mVolumePlus, progress < maxProgress);
+        ThemeUtils.updateSliderButtonEnabledState(requireContext(), mVolumeMinus, progress > 0);
+        ThemeUtils.updateSliderButtonEnabledState(requireContext(), mVolumePlus, progress < maxProgress);
     }
 
     /**

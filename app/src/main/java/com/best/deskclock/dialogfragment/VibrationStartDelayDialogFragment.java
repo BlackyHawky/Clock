@@ -61,7 +61,6 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
     public static final String REQUEST_KEY = VIBRATION_START_DELAY + "request_key";
     public static final String VIBRATION_DELAY_VALUE = VIBRATION_START_DELAY + "value";
 
-    private Context mContext;
     private TextInputLayout mMinutesInputLayout;
     private TextInputEditText mEditMinutes;
     private MaterialCheckBox mNoneCheckbox;
@@ -119,8 +118,7 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        mContext = requireContext();
-        SharedPreferences prefs = getDefaultSharedPreferences(mContext);
+        SharedPreferences prefs = getDefaultSharedPreferences(requireContext());
         mTypeFace = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
 
         final Bundle args = requireArguments();
@@ -131,7 +129,7 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
             isNone = savedInstanceState.getBoolean(ARG_VIBRATION_DELAY_NONE, isNone);
         }
 
-        mInput = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        mInput = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 
         @SuppressLint("InflateParams")
         View dialogView = getLayoutInflater().inflate(R.layout.vibration_start_delay_dialog, null);
@@ -174,7 +172,7 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
         });
 
         return CustomDialog.create(
-            mContext,
+            requireContext(),
             null,
             null,
             getString(R.string.vibration_start_delay_title),
@@ -215,11 +213,23 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
 
     @Override
     public void onDestroyView() {
+        // Stop callbacks from the IME since there is no view to process them.
+        if (mEditMinutes != null) {
+            mEditMinutes.setOnEditorActionListener(null);
+            mEditMinutes.removeTextChangedListener(mTextWatcher);
+        }
+
         super.onDestroyView();
 
-        // Stop callbacks from the IME since there is no view to process them.
-        mEditMinutes.setOnEditorActionListener(null);
-        mEditMinutes.removeTextChangedListener(mTextWatcher);
+        mInput = null;
+
+        mMinutesInputLayout = null;
+        mEditMinutes = null;
+        mNoneCheckbox = null;
+        mOkButton = null;
+        mDefaultButton = null;
+
+        mTypeFace = null;
     }
 
     /**
@@ -319,7 +329,7 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
         TextView titleText = alertDialog.findViewById(R.id.dialog_title);
         if (titleText != null) {
             titleText.setCompoundDrawablesWithIntrinsicBounds(AppCompatResources.getDrawable(
-                mContext, R.drawable.ic_error), null, null, null);
+                requireContext(), R.drawable.ic_error), null, null, null);
             titleText.setCompoundDrawablePadding((int) dpToPx(18, getResources().getDisplayMetrics()));
             titleText.setText(getString(R.string.timer_time_warning_box_title));
         }
@@ -327,8 +337,8 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
         String minutesText = Objects.requireNonNull(mEditMinutes.getText()).toString();
         boolean minutesInvalid = (!minutesText.isEmpty() && Integer.parseInt(minutesText) < 0)
             || (!minutesText.isEmpty() && Integer.parseInt(minutesText) > 10);
-        int invalidColor = ContextCompat.getColor(mContext, R.color.md_theme_error);
-        int validColor = MaterialColors.getColor(mContext, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
+        int invalidColor = ContextCompat.getColor(requireContext(), R.color.md_theme_error);
+        int validColor = MaterialColors.getColor(requireContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
 
         mMinutesInputLayout.setBoxStrokeColor(minutesInvalid ? invalidColor : validColor);
         mMinutesInputLayout.setHintTextColor(minutesInvalid
@@ -354,7 +364,7 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
             titleText.setText(getString(R.string.vibration_start_delay_title));
         }
 
-        int validColor = MaterialColors.getColor(mContext, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
+        int validColor = MaterialColors.getColor(requireContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
 
         mMinutesInputLayout.setBoxStrokeColor(validColor);
         mMinutesInputLayout.setHintTextColor(ColorStateList.valueOf(validColor));

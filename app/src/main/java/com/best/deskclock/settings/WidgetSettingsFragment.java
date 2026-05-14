@@ -41,6 +41,16 @@ public class WidgetSettingsFragment extends ScreenFragment implements Preference
     }
 
     @Override
+    public void onDestroy() {
+        nullifyPreferenceListeners(mAnalogWidgetCustomizationPref, mDigitalWidgetCustomizationPref, mVerticalWidgetCustomizationPref,
+            mNextAlarmWidgetCustomizationPref);
+
+        super.onDestroy();
+
+        nullifyAllPrefs();
+    }
+
+    @Override
     public boolean onPreferenceClick(@NonNull Preference pref) {
         switch (pref.getKey()) {
             case KEY_ANALOG_WIDGET_CUSTOMIZATION -> animateAndShowFragment(new AppWidgetAnalogSettingsFragment());
@@ -63,6 +73,13 @@ public class WidgetSettingsFragment extends ScreenFragment implements Preference
         mVerticalWidgetCustomizationPref.setOnPreferenceClickListener(this);
 
         mNextAlarmWidgetCustomizationPref.setOnPreferenceClickListener(this);
+    }
+
+    private void nullifyAllPrefs() {
+        mAnalogWidgetCustomizationPref = null;
+        mDigitalWidgetCustomizationPref = null;
+        mVerticalWidgetCustomizationPref = null;
+        mNextAlarmWidgetCustomizationPref = null;
     }
 
 }

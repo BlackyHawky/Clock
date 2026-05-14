@@ -63,15 +63,25 @@ public class StopwatchSettingsFragment extends ScreenFragment
                 // Copy the new font to the device's protected storage
                 Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(appContext, sourceUri, safeTitle);
 
-                AppExecutors.getMainThread().post(() -> {
-                    // Save the new path
-                    if (copiedUri != null) {
-                        mPrefs.edit().putString(KEY_SW_FONT, copiedUri.getPath()).apply();
-                        mStopwatchFontPref.setTitle(getString(R.string.custom_font_title_variant));
+                // Save the new path
+                if (copiedUri != null) {
+                    mPrefs.edit().putString(KEY_SW_FONT, copiedUri.getPath()).apply();
+                }
 
+                AppExecutors.getMainThread().post(() -> {
+                    if (copiedUri != null) {
                         CustomToast.show(appContext, R.string.custom_font_toast_message_selected);
                     } else {
                         CustomToast.show(appContext, "Error importing font");
+                    }
+
+                    if (!isAdded() || mStopwatchFontPref == null) {
+                        return;
+                    }
+
+                    if (copiedUri != null) {
+                        mStopwatchFontPref.setTitle(getString(R.string.custom_font_title_variant));
+                    } else {
                         mStopwatchFontPref.setTitle(getString(R.string.custom_font_title));
                     }
                 });
@@ -96,6 +106,16 @@ public class StopwatchSettingsFragment extends ScreenFragment
         mVolumeDownActionAfterLongPressPref = findPreference(KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS);
 
         setupPreferences();
+    }
+
+    @Override
+    public void onDestroy() {
+        nullifyPreferenceListeners(mStopwatchFontPref, mVolumeUpActionPref, mVolumeUpActionAfterLongPressPref, mVolumeDownActionPref,
+            mVolumeDownActionAfterLongPressPref);
+
+        super.onDestroy();
+
+        nullifyAllPrefs();
     }
 
     @Override
@@ -139,6 +159,14 @@ public class StopwatchSettingsFragment extends ScreenFragment
 
         mVolumeDownActionAfterLongPressPref.setOnPreferenceChangeListener(this);
         mVolumeDownActionAfterLongPressPref.setSummary(mVolumeDownActionAfterLongPressPref.getEntry());
+    }
+
+    private void nullifyAllPrefs() {
+        mStopwatchFontPref = null;
+        mVolumeUpActionPref = null;
+        mVolumeUpActionAfterLongPressPref = null;
+        mVolumeDownActionPref = null;
+        mVolumeDownActionAfterLongPressPref = null;
     }
 
 }

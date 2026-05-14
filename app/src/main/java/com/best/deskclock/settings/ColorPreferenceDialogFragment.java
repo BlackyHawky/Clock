@@ -105,6 +105,13 @@ public class ColorPreferenceDialogFragment extends DialogFragment {
         );
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        preference = null;
+    }
+
     @NonNull
     private ColorPickerView getColorPickerView(Context context) {
         ColorPickerView colorPickerView = new ColorPickerView(context);

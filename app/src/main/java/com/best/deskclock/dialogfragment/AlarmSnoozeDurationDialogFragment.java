@@ -63,7 +63,6 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
     public static final String REQUEST_KEY = ALARM_SNOOZE_DURATION + "request_key";
     public static final String ALARM_SNOOZE_DURATION_VALUE = ALARM_SNOOZE_DURATION + "value";
 
-    private Context mContext;
     private String mPrefKey;
     private TextInputLayout mHoursInputLayout;
     private TextInputLayout mMinutesInputLayout;
@@ -165,8 +164,7 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        mContext = requireContext();
-        SharedPreferences prefs = getDefaultSharedPreferences(mContext);
+        SharedPreferences prefs = getDefaultSharedPreferences(requireContext());
         mTypeFace = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
 
         final Bundle args = requireArguments();
@@ -182,7 +180,7 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
             isNone = savedInstanceState.getBoolean(ARG_SNOOZE_DURATION_NONE, isNone);
         }
 
-        mInput = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        mInput = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 
         @SuppressLint("InflateParams")
         View dialogView = getLayoutInflater().inflate(R.layout.alarm_snooze_duration_dialog, null);
@@ -236,9 +234,9 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
         });
 
         return CustomDialog.create(
-            mContext,
+            requireContext(),
             null,
-            mPrefKey != null ? null : AppCompatResources.getDrawable(mContext, R.drawable.ic_snooze),
+            mPrefKey != null ? null : AppCompatResources.getDrawable(requireContext(), R.drawable.ic_snooze),
             getString(R.string.snooze_duration_title),
             null,
             dialogView,
@@ -278,14 +276,32 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
 
     @Override
     public void onDestroyView() {
+        // Stop callbacks from the IME since there is no view to process them.
+        if (mEditHours != null) {
+            mEditHours.setOnEditorActionListener(null);
+            mEditHours.removeTextChangedListener(mTextWatcher);
+            mEditHours.setOnFocusChangeListener(null);
+        }
+
+        if (mEditMinutes != null) {
+            mEditMinutes.setOnEditorActionListener(null);
+            mEditMinutes.removeTextChangedListener(mTextWatcher);
+            mEditMinutes.setOnFocusChangeListener(null);
+        }
+
         super.onDestroyView();
 
-        // Stop callbacks from the IME since there is no view to process them.
-        mEditHours.setOnEditorActionListener(null);
-        mEditHours.removeTextChangedListener(mTextWatcher);
+        mInput = null;
 
-        mEditMinutes.setOnEditorActionListener(null);
-        mEditMinutes.removeTextChangedListener(mTextWatcher);
+        mHoursInputLayout = null;
+        mMinutesInputLayout = null;
+        mEditHours = null;
+        mEditMinutes = null;
+        mNoneCheckbox = null;
+        mOkButton = null;
+        mDefaultButton = null;
+
+        mTypeFace = null;
     }
 
     /**
@@ -428,7 +444,7 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
         TextView titleText = alertDialog.findViewById(R.id.dialog_title);
         if (titleText != null) {
             titleText.setCompoundDrawablesWithIntrinsicBounds(AppCompatResources.getDrawable(
-                mContext, R.drawable.ic_error), null, null, null);
+                requireContext(), R.drawable.ic_error), null, null, null);
             if (mPrefKey != null) {
                 titleText.setCompoundDrawablePadding((int) dpToPx(18, getResources().getDisplayMetrics()));
             }
@@ -441,8 +457,8 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
             || (!hoursText.isEmpty() && Integer.parseInt(hoursText) > 24);
         boolean minutesInvalid = (!minutesText.isEmpty() && Integer.parseInt(minutesText) < 0)
             || (!minutesText.isEmpty() && Integer.parseInt(minutesText) > 59);
-        int invalidColor = ContextCompat.getColor(mContext, R.color.md_theme_error);
-        int validColor = MaterialColors.getColor(mContext, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
+        int invalidColor = ContextCompat.getColor(requireContext(), R.color.md_theme_error);
+        int validColor = MaterialColors.getColor(requireContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
 
         mHoursInputLayout.setBoxStrokeColor(hoursInvalid ? invalidColor : validColor);
         mHoursInputLayout.setHintTextColor(hoursInvalid
@@ -475,13 +491,13 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
                 titleText.setCompoundDrawables(null, null, null, null);
             } else {
                 titleText.setCompoundDrawablesWithIntrinsicBounds(AppCompatResources.getDrawable(
-                    mContext, R.drawable.ic_snooze), null, null, null);
+                    requireContext(), R.drawable.ic_snooze), null, null, null);
             }
 
             titleText.setText(getString(R.string.snooze_duration_title));
         }
 
-        int validColor = MaterialColors.getColor(mContext, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
+        int validColor = MaterialColors.getColor(requireContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
 
         mHoursInputLayout.setBoxStrokeColor(validColor);
         mHoursInputLayout.setHintTextColor(ColorStateList.valueOf(validColor));

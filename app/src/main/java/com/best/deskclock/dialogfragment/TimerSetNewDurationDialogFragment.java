@@ -204,15 +204,32 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
 
     @Override
     public void onDestroyView() {
+        // Stop callbacks from the IME since there is no view to process them.
+        if (mEditHours != null) {
+            mEditHours.setOnEditorActionListener(null);
+            mEditHours.removeTextChangedListener(mTextWatcher);
+            mEditHours.setOnFocusChangeListener(null);
+        }
+
+        if (mEditMinutes != null) {
+            mEditMinutes.setOnEditorActionListener(null);
+            mEditMinutes.removeTextChangedListener(mTextWatcher);
+            mEditMinutes.setOnFocusChangeListener(null);
+        }
+
+        if (mEditSeconds != null) {
+            mEditSeconds.setOnEditorActionListener(null);
+            mEditSeconds.removeTextChangedListener(mTextWatcher);
+            mEditSeconds.setOnFocusChangeListener(null);
+        }
+
         super.onDestroyView();
 
-        // Stop callbacks from the IME since there is no view to process them.
-        mEditHours.setOnEditorActionListener(null);
-        mEditHours.removeTextChangedListener(mTextWatcher);
-        mEditMinutes.setOnEditorActionListener(null);
-        mEditMinutes.removeTextChangedListener(mTextWatcher);
-        mEditSeconds.setOnEditorActionListener(null);
-        mEditSeconds.removeTextChangedListener(mTextWatcher);
+        mInput = null;
+
+        mEditHours = null;
+        mEditMinutes = null;
+        mEditSeconds = null;
     }
 
     /**
