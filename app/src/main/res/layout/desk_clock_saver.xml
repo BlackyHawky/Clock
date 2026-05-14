@@ -35,7 +35,7 @@
             android:id="@+id/battery_level"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="8dp"
             android:layout_gravity="center"
             android:gravity="center"
             android:visibility="gone"
@@ -62,6 +62,7 @@
             android:ellipsize="none"
             android:gravity="center"
             android:singleLine="true"
+            android:includeFontPadding="false"
             tools:textSize="70sp"
             tools:text="12:34"
             tools:ignore="TextContrastCheck" />

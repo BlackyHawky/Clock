@@ -16,6 +16,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -23,6 +24,7 @@ import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +40,8 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.TooltipCompat;
+import androidx.core.graphics.Insets;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -66,6 +70,7 @@ import com.best.deskclock.uicomponents.TextTime;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.DeviceUtils;
+import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
@@ -100,12 +105,15 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     private SharedPreferences mPrefs;
     private Typeface mGeneralTypeface;
     private Typeface mAlarmBoldTypeface;
+    private DisplayMetrics mDisplayMetrics;
     private Alarm mAlarm;
     private Alarm mOriginalAlarm;
     private AlarmUpdateHandler mAlarmUpdateHandler;
     private String mTag;
     private boolean mIsNewAlarm;
     private boolean mIsDeleted;
+    private int mScreenHeight;
+    private int mVisualPadding;
 
     private BottomSheetDragHandleView mDragHandle;
     private TextTime mClock;
@@ -185,6 +193,10 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         mGeneralTypeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(mPrefs));
         mAlarmBoldTypeface = ThemeUtils.boldTypeface(SettingsDAO.getAlarmFont(mPrefs));
 
+        mDisplayMetrics = getResources().getDisplayMetrics();
+        mScreenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
+        mVisualPadding = (int) dpToPx(8, mDisplayMetrics);
+
         setupFragmentResultListeners();
     }
 
@@ -239,6 +251,13 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         BottomSheetBehavior<?> behavior = dialog.getBehavior();
         behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         behavior.setSkipCollapsed(true);
+
+        InsetsUtils.doOnApplyWindowInsets(dialogView, (v, insets) -> {
+            Insets statusBars = insets.getInsets(WindowInsetsCompat.Type.statusBars());
+            int statusBarHeight = statusBars.top;
+
+            behavior.setMaxHeight(mScreenHeight - statusBarHeight - mVisualPadding);
+        });
 
         mDragHandle = dialogView.findViewById(R.id.drag_handle);
         mClock = dialogView.findViewById(R.id.digital_clock);
@@ -301,7 +320,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             View bottomSheetInternal = d.findViewById(com.google.android.material.R.id.design_bottom_sheet);
 
             if (bottomSheetInternal != null) {
-                bottomSheetInternal.setElevation(dpToPx(12, getResources().getDisplayMetrics()));
+                bottomSheetInternal.setElevation(dpToPx(12, mDisplayMetrics));
             }
         });
 

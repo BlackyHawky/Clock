@@ -167,6 +167,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         volumeWarningButton.setOnClickListener(v -> RingtoneUtils.fixAlarmStreamLow(mContext));
 
         mRecyclerView.setAdapter(mAdapter);
+        mAdapter.loadTimersAsync();
         mRecyclerView.setLayoutManager(getLayoutManager(mContext));
         mRecyclerView.addItemDecoration(new GridSpacingItemDecoration(mContext, mDisplayMetrics));
 
@@ -635,11 +636,11 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     }
 
     private boolean hasTimers() {
-        return mAdapter != null && mAdapter.getItemCount() > 0;
+        return !DataModel.getDataModel().getTimers().isEmpty();
     }
 
     private boolean hasMultipleTimers() {
-        return mAdapter != null && mAdapter.getItemCount() > 1;
+        return DataModel.getDataModel().getTimers().size() > 1;
     }
 
     private RecyclerView.LayoutManager getLayoutManager(Context context) {
