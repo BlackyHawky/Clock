@@ -137,15 +137,25 @@ public class AlarmSettingsFragment extends ScreenFragment
                 // Copy the new font to the device's protected storage
                 Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(appContext, sourceUri, safeTitle);
 
-                AppExecutors.getMainThread().post(() -> {
-                    // Save the new path
-                    if (copiedUri != null) {
-                        mPrefs.edit().putString(KEY_ALARM_FONT, copiedUri.getPath()).apply();
-                        mAlarmFontPref.setTitle(getString(R.string.custom_font_title_variant));
+                // Save the new path
+                if (copiedUri != null) {
+                    mPrefs.edit().putString(KEY_ALARM_FONT, copiedUri.getPath()).apply();
+                }
 
+                AppExecutors.getMainThread().post(() -> {
+                    if (copiedUri != null) {
                         CustomToast.show(appContext, R.string.custom_font_toast_message_selected);
                     } else {
                         CustomToast.show(appContext, "Error importing font");
+                    }
+
+                    if (!isAdded() || mAlarmFontPref == null) {
+                        return;
+                    }
+
+                    if (copiedUri != null) {
+                        mAlarmFontPref.setTitle(getString(R.string.custom_font_title_variant));
+                    }else {
                         mAlarmFontPref.setTitle(getString(R.string.custom_font_title));
                     }
                 });
@@ -244,6 +254,27 @@ public class AlarmSettingsFragment extends ScreenFragment
             mAudioManager.unregisterAudioDeviceCallback(mAudioDeviceCallback);
             mAudioDeviceCallback = null;
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        nullifyPreferenceListeners(mAlarmDisplayCustomizationPref, mAlarmFontPref, mMaterialTimePickerStylePref,
+            mMaterialDatePickerStylePref, mAlarmRingtonePref, mAlarmAutoSilencePref, mEnablePerAlarmAutoSilencePref,
+            mAlarmSnoozeDurationPref, mEnablePerAlarmSnoozeDurationPref, mRepeatMissedAlarmPref, mEnablePerAlarmMissedRepeatLimitPref,
+            mAlarmVolumePref, mEnablePerAlarmVolumePref, mAlarmVolumeCrescendoDurationPref, mEnablePerAlarmVolumeCrescendoDurationPref,
+            mAdvancedAudioPlaybackPref, mAutoRoutingToExternalAudioDevicePref, mSystemMediaVolume, mExternalAudioDeviceVolumePref,
+            mAlarmVibrationCategory, mEnableAlarmVibrationsByDefaultPref, mVibrationPatternPref, mEnablePerAlarmVibrationPatternPref,
+            mEnableSnoozedOrDismissedAlarmVibrationsPref, mVolumeButtonsPref, mPowerButtonPref, mFlipActionPref, mShakeActionPref,
+            mShakeIntensityPref, mSortAlarmPref, mDisplayEnabledAlarmsFirstPref, mEnableAlarmFabLongPressPref, mWeekStartPref,
+            mDisplayDismissButtonPref, mTurnOnBackFlashForTriggeredAlarmPref, mDeleteOccasionalAlarmByDefaultPref,
+            mDisplayLowAlarmVolumeWarningPref);
+
+        super.onDestroy();
+
+        mAudioManager = null;
+        mAlarmUpdateHandler = null;
+
+        nullifyAllPrefs();
     }
 
     @Override
@@ -868,6 +899,46 @@ public class AlarmSettingsFragment extends ScreenFragment
         } else {
             mAlarmVolumePref.stopRingtonePreview();
         }
+    }
+
+    private void nullifyAllPrefs() {
+        mAlarmDisplayCustomizationPref = null;
+        mAlarmFontPref = null;
+        mMaterialTimePickerStylePref = null;
+        mMaterialDatePickerStylePref = null;
+        mAlarmRingtonePref = null;
+        mAlarmAutoSilencePref = null;
+        mEnablePerAlarmAutoSilencePref = null;
+        mAlarmSnoozeDurationPref = null;
+        mEnablePerAlarmSnoozeDurationPref = null;
+        mRepeatMissedAlarmPref = null;
+        mEnablePerAlarmMissedRepeatLimitPref = null;
+        mAlarmVolumePref = null;
+        mEnablePerAlarmVolumePref = null;
+        mAlarmVolumeCrescendoDurationPref = null;
+        mEnablePerAlarmVolumeCrescendoDurationPref = null;
+        mAdvancedAudioPlaybackPref = null;
+        mAutoRoutingToExternalAudioDevicePref = null;
+        mSystemMediaVolume = null;
+        mExternalAudioDeviceVolumePref = null;
+        mAlarmVibrationCategory = null;
+        mEnableAlarmVibrationsByDefaultPref = null;
+        mVibrationPatternPref = null;
+        mEnablePerAlarmVibrationPatternPref = null;
+        mEnableSnoozedOrDismissedAlarmVibrationsPref = null;
+        mVolumeButtonsPref = null;
+        mPowerButtonPref = null;
+        mFlipActionPref = null;
+        mShakeActionPref = null;
+        mShakeIntensityPref = null;
+        mSortAlarmPref = null;
+        mDisplayEnabledAlarmsFirstPref = null;
+        mEnableAlarmFabLongPressPref = null;
+        mWeekStartPref = null;
+        mDisplayDismissButtonPref = null;
+        mTurnOnBackFlashForTriggeredAlarmPref = null;
+        mDeleteOccasionalAlarmByDefaultPref = null;
+        mDisplayLowAlarmVolumeWarningPref = null;
     }
 
     /**

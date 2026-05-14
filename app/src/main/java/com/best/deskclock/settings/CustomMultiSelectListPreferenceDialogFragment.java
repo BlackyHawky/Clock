@@ -168,6 +168,13 @@ public class CustomMultiSelectListPreferenceDialogFragment extends DialogFragmen
         );
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        preference = null;
+    }
+
     private void resolvePreferenceIfNeeded() {
         if (preference != null) {
             return;

@@ -296,6 +296,16 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
 
         DataModel.getDataModel().removeTimerListener(mAdapter);
         DataModel.getDataModel().removeTimerListener(mTimerWatcher);
+
+        if (mRecyclerView != null) {
+            mRecyclerView.setAdapter(null);
+        }
+
+        mRecyclerView = null;
+        mTimersView = null;
+        mCreateTimerView = null;
+        mCreateTimerSpinnerView = null;
+        mVolumeWarningBanner = null;
     }
 
     @Override

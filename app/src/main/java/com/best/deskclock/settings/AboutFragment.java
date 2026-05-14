@@ -98,10 +98,12 @@ public class AboutFragment extends ScreenFragment implements Preference.OnPrefer
                 boolean hasLogs = !LogUtils.getSavedLocalLogs(appContext).isEmpty();
 
                 AppExecutors.getMainThread().post(() -> {
+                    if (!isAdded()) {
+                        return;
+                    }
+
                     if (hasLogs) {
-                        if (isAdded()) {
-                            displayExportCompleteDialog();
-                        }
+                        displayExportCompleteDialog();
                     } else {
                         CustomToast.show(appContext, R.string.toast_message_for_backup);
                     }
@@ -202,6 +204,17 @@ public class AboutFragment extends ScreenFragment implements Preference.OnPrefer
                 return false;
             }
         }, getViewLifecycleOwner());
+    }
+
+    @Override
+    public void onDestroy() {
+        nullifyPreferenceListeners(mTitlePref, mVersionPref, mWhatsNewPref, mAboutFeaturesPref, mViewOnGitHubPref, mTranslatePref,
+            mReadLicencePref, mKeepAndroidOpenPref, mDebugCategoryPref, mEnableLocalLoggingPref
+        );
+
+        super.onDestroy();
+
+        nullifyAllPrefs();
     }
 
     @Override
@@ -541,19 +554,35 @@ public class AboutFragment extends ScreenFragment implements Preference.OnPrefer
      * Inform that the log export was successful and allow it to delete local log after export.
      */
     private void displayExportCompleteDialog() {
+        final Context appContext = requireContext().getApplicationContext();
+
         mActiveDialog = CustomDialog.createSimpleDialog(
             requireContext(),
             R.drawable.ic_bug_report,
             R.string.log_dialog_title,
             getString(R.string.log_dialog_message),
             android.R.string.ok,
-            (d, w) -> {
-                LogUtils.clearSavedLocalLogs(requireContext());
-                CustomToast.show(requireContext().getApplicationContext(), R.string.toast_message_log_deleted);
-            }
+            (d, w) -> AppExecutors.getDiskIO().execute(() -> {
+                LogUtils.clearSavedLocalLogs(appContext);
+
+                AppExecutors.getMainThread().post(() -> CustomToast.show(appContext, R.string.toast_message_log_deleted));
+            })
         );
 
         mActiveDialog.show();
+    }
+
+    private void nullifyAllPrefs() {
+        mTitlePref = null;
+        mVersionPref = null;
+        mWhatsNewPref = null;
+        mAboutFeaturesPref = null;
+        mViewOnGitHubPref = null;
+        mTranslatePref = null;
+        mReadLicencePref = null;
+        mKeepAndroidOpenPref = null;
+        mDebugCategoryPref = null;
+        mEnableLocalLoggingPref = null;
     }
 
 }

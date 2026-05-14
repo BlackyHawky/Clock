@@ -191,6 +191,13 @@ public class VibrationPatternDialogFragment extends DialogFragment {
         mVibrator.cancel();
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        mVibrator = null;
+    }
+
     /**
      * Saves the selected vibration pattern by posting a fragment result.
      *

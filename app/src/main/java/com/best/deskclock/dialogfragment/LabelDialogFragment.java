@@ -71,7 +71,6 @@ public class LabelDialogFragment extends DialogFragment {
     private static final String ARG_IS_ALARM = "arg_is_alarm";
     private static final String ARG_SYNC_ALARM_BY_LABEL = "arg_sync_alarm_by_label";
 
-    private Context mContext;
     private EditText mEditLabel;
     private MaterialCheckBox mSyncAlarmByLabelCheckbox;
     private Button mDefaultButton;
@@ -155,8 +154,6 @@ public class LabelDialogFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        mContext = requireContext();
-
         final Bundle args = requireArguments();
         mIsAlarm = args.getBoolean(ARG_IS_ALARM, false);
         String label = args.getString(ARG_LABEL);
@@ -192,7 +189,7 @@ public class LabelDialogFragment extends DialogFragment {
 
         // Load the icon if applicable
         if (iconResId != 0) {
-            drawable = AppCompatResources.getDrawable(mContext, iconResId);
+            drawable = AppCompatResources.getDrawable(requireContext(), iconResId);
         } else {
             drawable = null;
         }
@@ -202,7 +199,7 @@ public class LabelDialogFragment extends DialogFragment {
 
         mEditLabel = dialogView.findViewById(android.R.id.edit);
         mEditLabel.setText(label);
-        mEditLabel.setTypeface(ThemeUtils.loadFont(SettingsDAO.getGeneralFont(getDefaultSharedPreferences(mContext))));
+        mEditLabel.setTypeface(ThemeUtils.loadFont(SettingsDAO.getGeneralFont(getDefaultSharedPreferences(requireContext()))));
         mEditLabel.addTextChangedListener(mTextWatcher);
         mEditLabel.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
         mEditLabel.selectAll();
@@ -231,7 +228,7 @@ public class LabelDialogFragment extends DialogFragment {
         }
 
         return CustomDialog.create(
-            mContext,
+            requireContext(),
             null,
             drawable,
             title,
@@ -264,7 +261,7 @@ public class LabelDialogFragment extends DialogFragment {
 
         mEditLabel.requestFocus();
         mEditLabel.postDelayed(() -> {
-            InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+            InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
             if (imm != null) {
                 imm.showSoftInput(mEditLabel, InputMethodManager.SHOW_IMPLICIT);
             }
@@ -273,10 +270,17 @@ public class LabelDialogFragment extends DialogFragment {
 
     @Override
     public void onDestroyView() {
+        if (mEditLabel != null) {
+            // Stop callbacks from the IME since there is no view to process them.
+            mEditLabel.setOnEditorActionListener(null);
+            mEditLabel.removeTextChangedListener(mTextWatcher);
+        }
+
         super.onDestroyView();
 
-        // Stop callbacks from the IME since there is no view to process them.
-        mEditLabel.setOnEditorActionListener(null);
+        mEditLabel = null;
+        mSyncAlarmByLabelCheckbox = null;
+        mDefaultButton = null;
     }
 
     /**

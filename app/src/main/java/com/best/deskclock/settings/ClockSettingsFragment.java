@@ -5,6 +5,7 @@ package com.best.deskclock.settings;
 import static android.app.Activity.RESULT_OK;
 import static com.best.deskclock.settings.PreferencesKeys.*;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
+import com.best.deskclock.AppExecutors;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
@@ -62,30 +64,45 @@ public class ClockSettingsFragment extends ScreenFragment
                 return;
             }
 
+            final Context appContext = requireContext().getApplicationContext();
+
             // Take persistent permission
-            requireActivity().getContentResolver().takePersistableUriPermission(
-                sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION
-            );
+            appContext.getContentResolver().takePersistableUriPermission(sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
             String safeTitle = Utils.toSafeFileName(FILE_DIGITAL_CLOCK_FONT);
+            String oldFontPath = mPrefs.getString(KEY_DIGITAL_CLOCK_FONT, null);
 
-            // Delete the old font if it exists
-            clearFile(mPrefs.getString(KEY_DIGITAL_CLOCK_FONT, null));
+            AppExecutors.getDiskIO().execute(() -> {
+                // Delete the old font if it exists
+                clearFile(oldFontPath);
 
-            Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(requireContext(), sourceUri, safeTitle);
+                // Copy the new font to the device's protected storage
+                Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(appContext, sourceUri, safeTitle);
 
-            // Save the new path
-            if (copiedUri != null) {
-                mPrefs.edit().putString(KEY_DIGITAL_CLOCK_FONT, copiedUri.getPath()).apply();
-                mDigitalClockFontPref.setTitle(getString(R.string.custom_font_title_variant));
+                // Save the new path
+                if (copiedUri != null) {
+                    mPrefs.edit().putString(KEY_DIGITAL_CLOCK_FONT, copiedUri.getPath()).apply();
+                }
 
-                CustomToast.show(requireContext(), R.string.custom_font_toast_message_selected);
-            } else {
-                CustomToast.show(requireContext(), "Error importing font");
-                mDigitalClockFontPref.setTitle(getString(R.string.custom_font_title));
-            }
+                AppExecutors.getMainThread().post(() -> {
+                    if (copiedUri != null) {
+                        CustomToast.show(appContext, R.string.custom_font_toast_message_selected);
+                    } else {
+                        CustomToast.show(appContext, "Error importing font");
+                    }
+
+                    if (!isAdded() || mDigitalClockFontPref == null) {
+                        return;
+                    }
+
+                    if (copiedUri != null) {
+                        mDigitalClockFontPref.setTitle(getString(R.string.custom_font_title_variant));
+                    } else {
+                        mDigitalClockFontPref.setTitle(getString(R.string.custom_font_title));
+                    }
+                });
+            });
         });
-
 
     @Override
     protected String getFragmentTitle() {
@@ -119,6 +136,17 @@ public class ClockSettingsFragment extends ScreenFragment
         mDigitalClock = mClockStyleValues[2];
 
         setupPreferences();
+    }
+
+    @Override
+    public void onDestroy() {
+        nullifyPreferenceListeners(mClockStylePref, mClockDialPref, mClockDialMaterialPref, mAnalogClockSizePref, mDisplayClockSecondsPref,
+            mClockSecondHandPref, mDigitalClockFontPref, mDisplayTextUppercasePref, mDigitalClockFontSizePref, mSortCitiesPref,
+            mEnableCityNotePref, mAutoHomeClockPref, mHomeTimeZonePref, mDateTimePref);
+
+        super.onDestroy();
+
+        nullifyAllPrefs();
     }
 
     @Override
@@ -237,6 +265,28 @@ public class ClockSettingsFragment extends ScreenFragment
         mHomeTimeZonePref.setOnPreferenceChangeListener(this);
 
         mDateTimePref.setOnPreferenceClickListener(this);
+    }
+
+    private void nullifyAllPrefs() {
+        mClockStylePref = null;
+        mClockDialPref = null;
+        mClockDialMaterialPref = null;
+        mAnalogClockSizePref = null;
+        mDisplayClockSecondsPref = null;
+        mClockSecondHandPref = null;
+        mDigitalClockFontPref = null;
+        mDisplayTextUppercasePref = null;
+        mDigitalClockFontSizePref = null;
+        mSortCitiesPref = null;
+        mEnableCityNotePref = null;
+        mAutoHomeClockPref = null;
+        mHomeTimeZonePref = null;
+        mDateTimePref = null;
+
+        mClockStyleValues = null;
+        mAnalogClock = null;
+        mMaterialAnalogClock = null;
+        mDigitalClock = null;
     }
 
 }

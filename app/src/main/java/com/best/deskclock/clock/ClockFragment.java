@@ -234,8 +234,12 @@ public final class ClockFragment extends DeskClockFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+
         UiDataModel.getUiDataModel().removePeriodicCallback(mQuarterHourUpdater);
         DataModel.getDataModel().removeCityListener(mCityAdapter);
+
+        mClockFrame = null;
+        mEmptyCityViewRightPanel = null;
     }
 
     @Override

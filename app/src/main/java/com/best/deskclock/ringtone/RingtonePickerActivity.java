@@ -597,9 +597,10 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
      * the audio content. It adds a custom ringtone using the uri and title on the main thread.
      */
     private void addCustomRingtoneAsync(Uri uri) {
+        final Context appContext = getApplicationContext();
+
         AppExecutors.getDiskIO().execute(() -> {
-            final Context context = getApplicationContext();
-            final ContentResolver contentResolver = context.getContentResolver();
+            final ContentResolver contentResolver = appContext.getContentResolver();
             String name = null;
 
             // Take the long-term permission to read (playback) the audio at the uri.
@@ -631,11 +632,15 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
             }
 
             if (name == null) {
-                name = context.getString(R.string.unknown_ringtone_title);
+                name = appContext.getString(R.string.unknown_ringtone_title);
             }
 
             final String title = name;
             AppExecutors.getMainThread().post(() -> {
+                if (isFinishing() || isDestroyed()) {
+                    return;
+                }
+
                 // When the loader completes, it must play the new ringtone.
                 mSelectedRingtoneUri = DataModel.getDataModel().customRingtoneToAdd(uri, title);
                 mIsPlaying = true;
@@ -651,12 +656,18 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
      * the audio content. It adds a custom ringtone using the uri and title on the main thread.
      */
     private void addCustomRingtonesFromFolderAsync(Uri treeUri) {
+        final Context appContext = getApplicationContext();
+
         AppExecutors.getDiskIO().execute(() -> {
             // Convert the treeUri to a DocumentFile to browse the folder
-            DocumentFile directory = DocumentFile.fromTreeUri(this, treeUri);
+            DocumentFile directory = DocumentFile.fromTreeUri(appContext, treeUri);
             if (directory == null || !directory.isDirectory()) {
                 LogUtils.e("Invalid directory selected: %s", treeUri);
-                AppExecutors.getMainThread().post(() -> mProgressDialog.dismiss());
+                AppExecutors.getMainThread().post(() -> {
+                    if (!isFinishing() && !isDestroyed()) {
+                        mProgressDialog.dismiss();
+                    }
+                });
                 return;
             }
 
@@ -672,11 +683,20 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
 
             // Case where no file is found
             if (totalFiles == 0) {
-                AppExecutors.getMainThread().post(() -> mProgressDialog.dismiss());
+                AppExecutors.getMainThread().post(() -> {
+                    if (!isFinishing() && !isDestroyed()) {
+                        mProgressDialog.dismiss();
+                    }
+                });
+
                 return;
             }
 
             AppExecutors.getMainThread().post(() -> {
+                if (isFinishing() || isDestroyed()) {
+                    return;
+                }
+
                 mProgressDialog.show();
                 mCircularProgressIndicator.setMax(totalFiles);
                 mCircularProgressIndicator.setProgress(0);
@@ -702,6 +722,10 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
                 String finalName = name;
 
                 AppExecutors.getMainThread().post(() -> {
+                    if (isFinishing() || isDestroyed()) {
+                        return;
+                    }
+
                     // Add the new custom ringtone to the data model.
                     DataModel.getDataModel().customRingtoneToAdd(fileUri, finalName);
 
@@ -712,12 +736,22 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
                 processed++;
                 int finalProcessed = processed;
                 AppExecutors.getMainThread().post(() -> {
+                    if (isFinishing() || isDestroyed()) {
+                        return;
+                    }
+
                     mCircularProgressIndicator.setProgress(finalProcessed);
                     mProgressTextView.setText(getString(R.string.progress_ringtones, finalProcessed, totalFiles));
                 });
             }
 
-            AppExecutors.getMainThread().post(() -> mProgressDialog.dismiss());
+            AppExecutors.getMainThread().post(() -> {
+                if (isFinishing() || isDestroyed()) {
+                    return;
+                }
+
+                mProgressDialog.dismiss();
+            });
         });
     }
 
@@ -729,18 +763,19 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
      * it is reset to the application's default timer ringtone.
      */
     private void removeCustomRingtoneAsync(Uri removeUri) {
+        final Context appContext = getApplicationContext();
+
         AppExecutors.getDiskIO().execute(() -> {
             final Uri systemDefaultRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
 
             // Update all alarms that use the custom ringtone to use the system default.
-            final ContentResolver cr = getContentResolver();
+            final ContentResolver cr = appContext.getContentResolver();
             final List<Alarm> alarms = Alarm.getAlarms(cr, null);
             for (Alarm alarm : alarms) {
                 if (removeUri.equals(alarm.alert)) {
                     alarm.alert = systemDefaultRingtoneUri;
                     // Start a second background task to persist the updated alarm.
-                    new AlarmUpdateHandler(RingtonePickerActivity.this, null, null)
-                        .asyncUpdateAlarm(alarm, false, true);
+                    new AlarmUpdateHandler(appContext, null, null).asyncUpdateAlarm(alarm, false, true);
                 }
             }
 
@@ -754,6 +789,10 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
             }
 
             AppExecutors.getMainThread().post(() -> {
+                if (isFinishing() || isDestroyed()) {
+                    return;
+                }
+
                 // Reset the default alarm ringtone if it was just removed.
                 if (removeUri.equals(DataModel.getDataModel().getAlarmRingtoneUriFromSettings())) {
                     DataModel.getDataModel().setAlarmRingtoneUriFromSettings(systemDefaultRingtoneUri);

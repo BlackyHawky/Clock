@@ -389,6 +389,23 @@ public final class AlarmFragment extends DeskClockFragment
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        if (mRecyclerView != null) {
+            mRecyclerView.setAdapter(null);
+        }
+
+        mMainLayout = null;
+        mVolumeWarningBanner = null;
+        mRecyclerView = null;
+
+        mEmptyViewController = null;
+        mAlarmUpdateHandler = null;
+        mAlarmTimeClickHandler = null;
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         ToastManager.cancelToast();

@@ -6,6 +6,7 @@
 
 package com.best.deskclock.alarmselection;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -89,9 +90,12 @@ public class AlarmSelectionActivity extends BaseActivity implements AlarmSelecti
     }
 
     void processAlarmActionAsync(Alarm alarm) {
+        final Context appContext = getApplicationContext();
+        final int action = mAction;
+
         AppExecutors.getDiskIO().execute(() -> {
-            switch (mAction) {
-                case ACTION_DISMISS -> HandleApiCalls.dismissAlarm(alarm, this);
+            switch (action) {
+                case ACTION_DISMISS -> HandleApiCalls.dismissAlarm(alarm, appContext);
                 case ACTION_INVALID -> LogUtils.i("Invalid action");
             }
         });

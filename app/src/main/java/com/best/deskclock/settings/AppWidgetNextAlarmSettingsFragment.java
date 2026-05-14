@@ -93,6 +93,18 @@ public class AppWidgetNextAlarmSettingsFragment extends ScreenFragment implement
     }
 
     @Override
+    public void onDestroy() {
+        nullifyPreferenceListeners(mDisplayTextUppercasePref, mDisplayTextShadowPref, mShowBackgroundOnDigitalWidgetPref,
+            mCustomizeBackgroundCornerRadiusPref, mBackgroundCornerRadiusPref, mApplyHorizontalPaddingPref, mDefaultBackgroundColorPref,
+            mCustomBackgroundColorPref, mDefaultTitleColorPref, mCustomTitleColorPref, mDefaultAlarmTitleColorPref,
+            mCustomAlarmTitleColorPref, mDefaultAlarmColorPref, mCustomAlarmColorPref);
+
+        super.onDestroy();
+
+        nullifyAllPrefs();
+    }
+
+    @Override
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
             case KEY_NEXT_ALARM_WIDGET_DISPLAY_BACKGROUND -> {
@@ -220,6 +232,23 @@ public class AppWidgetNextAlarmSettingsFragment extends ScreenFragment implement
         Intent result = new Intent();
         result.putExtra(EXTRA_APPWIDGET_ID, mAppWidgetId);
         requireActivity().setResult(Activity.RESULT_OK, result);
+    }
+
+    private void nullifyAllPrefs() {
+        mDisplayTextUppercasePref = null;
+        mDisplayTextShadowPref = null;
+        mShowBackgroundOnDigitalWidgetPref = null;
+        mCustomizeBackgroundCornerRadiusPref = null;
+        mBackgroundCornerRadiusPref = null;
+        mApplyHorizontalPaddingPref = null;
+        mDefaultBackgroundColorPref = null;
+        mCustomBackgroundColorPref = null;
+        mDefaultTitleColorPref = null;
+        mCustomTitleColorPref = null;
+        mDefaultAlarmTitleColorPref = null;
+        mCustomAlarmTitleColorPref = null;
+        mDefaultAlarmColorPref = null;
+        mCustomAlarmColorPref = null;
     }
 
 }

@@ -209,6 +209,19 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     }
 
     @Override
+    public void onDestroyView() {
+        nullifyClickListeners(mClock, mScheduleAlarmLayout, mPauseAlarmLayout, mLabel, mRingtone, mVibrationPatternLayout,
+            mAutoSilenceDurationLayout, mSnoozeDurationLayout, mMissedAlarmRepeatLimitLayout, mCrescendoDurationLayout,
+            mAlarmVolumeLayout, mDeleteButton, mDuplicateButton);
+
+        super.onDestroyView();
+
+        mAlarmUpdateHandler = null;
+
+        nullifyAllViews();
+    }
+
+    @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         // As long as this dialog exists, save its state.
@@ -1092,11 +1105,13 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         }
 
         if (updateWidgets) {
+            Context appContext = requireContext().getApplicationContext();
+
             if (WidgetDAO.isNextAlarmDisplayedOnDigitalWidget(mPrefs) && WidgetDAO.isNextAlarmTitleDisplayedOnDigitalWidget(mPrefs)) {
-                WidgetUtils.updateWidget(requireContext(), DigitalAppWidgetProvider.class);
+                WidgetUtils.updateWidget(appContext, DigitalAppWidgetProvider.class);
             }
 
-            WidgetUtils.updateWidget(requireContext(), NextAlarmAppWidgetProvider.class);
+            WidgetUtils.updateWidget(appContext, NextAlarmAppWidgetProvider.class);
         }
     }
 
@@ -1168,4 +1183,52 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         );
     }
 
+    private void nullifyClickListeners(View... views) {
+        if (mClock != null) {
+            mClock.setOnLongClickListener(null);
+        }
+
+        for (View view : views) {
+            if (view != null) {
+                view.setOnClickListener(null);
+            }
+        }
+    }
+
+    private void nullifyAllViews() {
+        mDragHandle = null;
+        mClock = null;
+        mRepeatDaysGroup = null;
+        mScheduleAlarmLayout = null;
+        mScheduleAlarm = null;
+        mCancelScheduledAlarm = null;
+        mPauseAlarmLayout = null;
+        mPauseAlarm = null;
+        mPauseAlarmCancel = null;
+        mLabel = null;
+        mRingtone = null;
+        mVibrate = null;
+        mVibrationPatternLayout = null;
+        mVibrationPatternTitle = null;
+        mVibrationPatternValue = null;
+        mFlash = null;
+        mDeleteOccasionalAlarmAfterUse = null;
+        mAutoSilenceDurationLayout = null;
+        mAutoSilenceDurationTitle = null;
+        mAutoSilenceDurationValue = null;
+        mSnoozeDurationLayout = null;
+        mSnoozeDurationTitle = null;
+        mSnoozeDurationValue = null;
+        mMissedAlarmRepeatLimitLayout = null;
+        mMissedAlarmRepeatLimitTitle = null;
+        mMissedAlarmRepeatLimitValue = null;
+        mCrescendoDurationLayout = null;
+        mCrescendoDurationTitle = null;
+        mCrescendoDurationValue = null;
+        mAlarmVolumeLayout = null;
+        mAlarmVolumeTitle = null;
+        mAlarmVolumeValue = null;
+        mDeleteButton = null;
+        mDuplicateButton = null;
+    }
 }

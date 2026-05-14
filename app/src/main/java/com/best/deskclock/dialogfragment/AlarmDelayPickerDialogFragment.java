@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -59,7 +60,6 @@ public class AlarmDelayPickerDialogFragment extends DialogFragment {
     public static final String BUNDLE_KEY_HOURS = "alarm_delay_dialog_hours";
     public static final String BUNDLE_KEY_MINUTES = "alarm_delay_dialog_minutes";
 
-    private Context mContext;
     private Button mOkButton;
     private NumberPicker mHourPicker;
     private NumberPicker mMinutePicker;
@@ -104,8 +104,7 @@ public class AlarmDelayPickerDialogFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        mContext = requireContext();
-        SharedPreferences prefs = getDefaultSharedPreferences(mContext);
+        SharedPreferences prefs = getDefaultSharedPreferences(requireContext());
         Typeface typeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
 
         final Bundle args = requireArguments();
@@ -147,7 +146,7 @@ public class AlarmDelayPickerDialogFragment extends DialogFragment {
         setupEditTextInput(mMinutePicker);
 
         return CustomDialog.create(
-            mContext,
+            requireContext(),
             R.style.SpinnerDialogTheme,
             null,
             getString(R.string.delay_picker_dialog_title),
@@ -180,6 +179,15 @@ public class AlarmDelayPickerDialogFragment extends DialogFragment {
             },
             CustomDialog.SoftInputMode.SHOW_KEYBOARD
         );
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        mOkButton = null;
+        mHourPicker = null;
+        mMinutePicker = null;
     }
 
     /**
@@ -242,7 +250,7 @@ public class AlarmDelayPickerDialogFragment extends DialogFragment {
         if (SdkUtils.isAtLeastAndroid10()) {
             mMinutePicker.setTextColor(enabled
                 ? mHourPicker.getTextColor()
-                : mContext.getColor(R.color.colorDisabled));
+                : ContextCompat.getColor(requireContext(), R.color.colorDisabled));
         } else {
             mMinutePicker.setAlpha(enabled ? 1f : 0.5f);
         }
@@ -291,7 +299,7 @@ public class AlarmDelayPickerDialogFragment extends DialogFragment {
                                 : EditorInfo.IME_ACTION_NEXT);
 
                             final InputMethodManager inputMethodManager =
-                                (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+                                (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                             editText.setInputType(InputType.TYPE_CLASS_NUMBER);
                             inputMethodManager.restartInput(editText);
                         } else if (numberPicker == mMinutePicker) {

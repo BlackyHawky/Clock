@@ -109,6 +109,16 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
         }
 
         @Override
+        public void onDestroy() {
+            nullifyPreferenceListeners(mIgnoreBatteryOptimizationsPref, mNotificationPermissionPref, mFullScreenNotificationPref,
+                mShowLockScreenPref, mEnableForegroundServicePref);
+
+            super.onDestroy();
+
+            nullifyAllPrefs();
+        }
+
+        @Override
         public boolean onPreferenceChange(Preference pref, Object newValue) {
             if (pref.getKey().equals(KEY_ENABLE_FOREGROUND_SERVICE)) {
                 Utils.setVibrationTime(requireContext(), 50);
@@ -289,6 +299,14 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
             if (preference instanceof PermissionsManagementPreference permissionsManagementPref) {
                 permissionsManagementPref.refreshState();
             }
+        }
+
+        private void nullifyAllPrefs() {
+            mIgnoreBatteryOptimizationsPref = null;
+            mNotificationPermissionPref = null;
+            mFullScreenNotificationPref = null;
+            mShowLockScreenPref = null;
+            mEnableForegroundServicePref = null;
         }
 
     }

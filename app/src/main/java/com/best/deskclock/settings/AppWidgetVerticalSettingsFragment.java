@@ -101,6 +101,19 @@ public class AppWidgetVerticalSettingsFragment extends ScreenFragment implements
     }
 
     @Override
+    public void onDestroy() {
+        nullifyPreferenceListeners(mDisplayTextUppercasePref, mDisplayTextShadowPref, mShowBackgroundOnDigitalWidgetPref,
+            mCustomizeBackgroundCornerRadiusPref, mBackgroundCornerRadiusPref, mDisplayDatePref, mDisplayNextAlarmPref,
+            mApplyHorizontalPaddingPref, mDefaultBackgroundColorPref, mCustomBackgroundColorPref, mDefaultHoursColorPref,
+            mCustomHoursColorPref, mDefaultMinutesColorPref, mCustomMinutesColorPref, mDefaultDateColorPref, mCustomDateColorPref,
+            mDefaultNextAlarmColorPref, mCustomNextAlarmColorPref);
+
+        super.onDestroy();
+
+        nullifyAllPrefs();
+    }
+
+    @Override
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
             case KEY_VERTICAL_WIDGET_DISPLAY_BACKGROUND -> {
@@ -265,6 +278,27 @@ public class AppWidgetVerticalSettingsFragment extends ScreenFragment implements
         Intent result = new Intent();
         result.putExtra(EXTRA_APPWIDGET_ID, mAppWidgetId);
         requireActivity().setResult(Activity.RESULT_OK, result);
+    }
+
+    private void nullifyAllPrefs() {
+        mDisplayTextUppercasePref = null;
+        mDisplayTextShadowPref = null;
+        mShowBackgroundOnDigitalWidgetPref = null;
+        mCustomizeBackgroundCornerRadiusPref = null;
+        mBackgroundCornerRadiusPref = null;
+        mDisplayDatePref = null;
+        mDisplayNextAlarmPref = null;
+        mApplyHorizontalPaddingPref = null;
+        mDefaultBackgroundColorPref = null;
+        mCustomBackgroundColorPref = null;
+        mDefaultHoursColorPref = null;
+        mCustomHoursColorPref = null;
+        mDefaultMinutesColorPref = null;
+        mCustomMinutesColorPref = null;
+        mDefaultDateColorPref = null;
+        mCustomDateColorPref = null;
+        mDefaultNextAlarmColorPref = null;
+        mCustomNextAlarmColorPref = null;
     }
 
 }

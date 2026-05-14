@@ -334,6 +334,22 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        if (mRecyclerView != null) {
+            mRecyclerView.setAdapter(null);
+        }
+
+        mCoordinatorLayout = null;
+        mCollapsingToolbarLayout = null;
+        mAppBarLayout = null;
+
+        mRecyclerView = null;
+        mLinearLayoutManager = null;
+    }
+
+    @Override
     public void onDestroy() {
         if (mActiveDialog != null && mActiveDialog.isShowing()) {
             mActiveDialog.dismiss();
@@ -394,6 +410,15 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
         fragmentTransaction.replace(R.id.content_frame, fragment)
             .addToBackStack(null)
             .commit();
+    }
+
+    protected void nullifyPreferenceListeners(Preference... preferences) {
+        for (Preference pref : preferences) {
+            if (pref != null) {
+                pref.setOnPreferenceClickListener(null);
+                pref.setOnPreferenceChangeListener(null);
+            }
+        }
     }
 
     protected void selectCustomFile(Preference pref, ActivityResultLauncher<Intent> launcher, String fontPath, String prefKey,

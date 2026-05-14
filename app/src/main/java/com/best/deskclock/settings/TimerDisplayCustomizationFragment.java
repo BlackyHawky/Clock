@@ -77,17 +77,30 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
                 // Copy the new image to the device's protected storage
                 Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(appContext, sourceUri, safeTitle);
 
-                AppExecutors.getMainThread().post(() -> {
-                    // Save the new path
-                    if (copiedUri != null) {
-                        mPrefs.edit().putString(KEY_TIMER_BACKGROUND_IMAGE, copiedUri.getPath()).apply();
-                        mTimerBackgroundImagePref.setTitle(getString(R.string.background_image_title_variant));
-                        mEnableTimerBlurEffectPref.setVisible(SdkUtils.isAtLeastAndroid12());
-                        mTimerBlurIntensityPref.setVisible(SdkUtils.isAtLeastAndroid12() && SettingsDAO.isTimerBlurEffectEnabled(mPrefs));
+                // Save the new path
+                if (copiedUri != null) {
+                    mPrefs.edit().putString(KEY_TIMER_BACKGROUND_IMAGE, copiedUri.getPath()).apply();
+                }
 
+                AppExecutors.getMainThread().post(() -> {
+                    if (copiedUri != null) {
                         CustomToast.show(appContext, R.string.background_image_toast_message_selected);
                     } else {
                         CustomToast.show(appContext, "Error importing image");
+                    }
+
+                    if (!isAdded()
+                        || mTimerBackgroundImagePref == null
+                        || mEnableTimerBlurEffectPref == null
+                        || mTimerBlurIntensityPref == null) {
+                        return;
+                    }
+
+                    if (copiedUri != null) {
+                        mTimerBackgroundImagePref.setTitle(getString(R.string.background_image_title_variant));
+                        mEnableTimerBlurEffectPref.setVisible(SdkUtils.isAtLeastAndroid12());
+                        mTimerBlurIntensityPref.setVisible(SdkUtils.isAtLeastAndroid12() && SettingsDAO.isTimerBlurEffectEnabled(mPrefs));
+                    } else {
                         mTimerBackgroundImagePref.setTitle(getString(R.string.background_image_title));
                         mEnableTimerBlurEffectPref.setVisible(false);
                         mTimerBlurIntensityPref.setVisible(false);
@@ -127,6 +140,19 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
         mTimerPreviewPref = findPreference(KEY_TIMER_PREVIEW);
 
         setupPreferences();
+    }
+
+    @Override
+    public void onDestroy() {
+        nullifyPreferenceListeners(mDisplayCompactTimersPref, mTransparentBackgroundPref, mDisplayTimerStateIndicatorPref,
+            mDisplayRingtoneTitlePref, mTimerColorCategory, mRunningTimerIndicatorColorPref, mPausedTimerIndicatorColorPref,
+            mExpiredTimerIndicatorColorPref, mMissedTimerIndicatorColorPref, mRingtoneTitleColorPref, mTimerFontCategory,
+            mDisplayTextShadowPref, mShadowColorPref, mShadowOffsetPref, mTimerBackgroundImagePref, mEnableTimerBlurEffectPref,
+            mTimerBlurIntensityPref, mTimerPreviewPref);
+
+        super.onDestroy();
+
+        nullifyAllPrefs();
     }
 
     @Override
@@ -292,6 +318,27 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
             && SettingsDAO.isTimerBlurEffectEnabled(mPrefs));
 
         mTimerPreviewPref.setOnPreferenceClickListener(this);
+    }
+
+    private void nullifyAllPrefs() {
+        mDisplayCompactTimersPref = null;
+        mTransparentBackgroundPref = null;
+        mDisplayTimerStateIndicatorPref = null;
+        mDisplayRingtoneTitlePref = null;
+        mTimerColorCategory = null;
+        mRunningTimerIndicatorColorPref = null;
+        mPausedTimerIndicatorColorPref = null;
+        mExpiredTimerIndicatorColorPref = null;
+        mMissedTimerIndicatorColorPref = null;
+        mRingtoneTitleColorPref = null;
+        mTimerFontCategory = null;
+        mDisplayTextShadowPref = null;
+        mShadowColorPref = null;
+        mShadowOffsetPref = null;
+        mTimerBackgroundImagePref = null;
+        mEnableTimerBlurEffectPref = null;
+        mTimerBlurIntensityPref = null;
+        mTimerPreviewPref = null;
     }
 
 }

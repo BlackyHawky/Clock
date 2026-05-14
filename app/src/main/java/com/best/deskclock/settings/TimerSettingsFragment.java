@@ -101,15 +101,25 @@ public class TimerSettingsFragment extends ScreenFragment
                 // Copy the new font to the device's protected storage
                 Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(appContext, sourceUri, safeTitle);
 
-                AppExecutors.getMainThread().post(() -> {
-                    // Save the new path
-                    if (copiedUri != null) {
-                        mPrefs.edit().putString(KEY_TIMER_DURATION_FONT, copiedUri.getPath()).apply();
-                        mTimerDurationFontPref.setTitle(getString(R.string.custom_font_title_variant));
+                // Save the new path
+                if (copiedUri != null) {
+                    mPrefs.edit().putString(KEY_TIMER_DURATION_FONT, copiedUri.getPath()).apply();
+                }
 
+                AppExecutors.getMainThread().post(() -> {
+                    if (copiedUri != null) {
                         CustomToast.show(appContext, R.string.custom_font_toast_message_selected);
                     } else {
                         CustomToast.show(appContext, "Error importing font");
+                    }
+
+                    if (!isAdded() || mTimerDurationFontPref == null) {
+                        return;
+                    }
+
+                    if (copiedUri != null) {
+                        mTimerDurationFontPref.setTitle(getString(R.string.custom_font_title_variant));
+                    } else {
                         mTimerDurationFontPref.setTitle(getString(R.string.custom_font_title));
                     }
                 });
@@ -194,6 +204,21 @@ public class TimerSettingsFragment extends ScreenFragment
             mAudioManager.unregisterAudioDeviceCallback(mAudioDeviceCallback);
             mAudioDeviceCallback = null;
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        nullifyPreferenceListeners(mTimerDisplayCustomizationPref, mTimerDurationFontPref, mTimerCreationViewStylePref, mTimerRingtonePref,
+            mAlarmVolumePref, mAdvancedAudioPlaybackPref, mAutoRoutingToExternalAudioDevicePref, mSystemMediaVolume,
+            mExternalAudioDeviceVolumePref, mTimerVibratePref, mTimerVolumeButtonsActionPref, mTimerPowerButtonActionPref,
+            mTimerFlipActionPref, mTimerShakeActionPref, mTimerShakeIntensityPref, mSortTimerPref, mDisplayWarningBeforeDeletingTimerPref,
+            mDisplayLowAlarmVolumeWarningPref);
+
+        super.onDestroy();
+
+        mAudioManager = null;
+
+        nullifyAllPrefs();
     }
 
     @Override
@@ -448,6 +473,27 @@ public class TimerSettingsFragment extends ScreenFragment
         } else {
             mAlarmVolumePref.stopRingtonePreview();
         }
+    }
+
+    private void nullifyAllPrefs() {
+        mTimerDisplayCustomizationPref = null;
+        mTimerDurationFontPref = null;
+        mTimerCreationViewStylePref = null;
+        mTimerRingtonePref = null;
+        mAlarmVolumePref = null;
+        mAdvancedAudioPlaybackPref = null;
+        mAutoRoutingToExternalAudioDevicePref = null;
+        mSystemMediaVolume = null;
+        mExternalAudioDeviceVolumePref = null;
+        mTimerVibratePref = null;
+        mTimerVolumeButtonsActionPref = null;
+        mTimerPowerButtonActionPref = null;
+        mTimerFlipActionPref = null;
+        mTimerShakeActionPref = null;
+        mTimerShakeIntensityPref = null;
+        mSortTimerPref = null;
+        mDisplayWarningBeforeDeletingTimerPref = null;
+        mDisplayLowAlarmVolumeWarningPref = null;
     }
 
 }
