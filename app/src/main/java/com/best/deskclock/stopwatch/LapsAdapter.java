@@ -75,7 +75,7 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
 
     private long minLapTime = Long.MAX_VALUE;
     private long maxLapTime = Long.MIN_VALUE;
-    private int mLastComputedLapCount = -1;
+
     private final Typeface mRegularTypeface;
     private final Typeface mBoldTypeface;
     private final String mDecimalSeparator;
@@ -100,6 +100,8 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
         mDefaultLapColor = MaterialColors.getColor(context, android.R.attr.textColorPrimary, Color.BLACK);
         mMinLapColor = ContextCompat.getColor(context, android.R.color.holo_green_light);
         mMaxLapColor = ContextCompat.getColor(context, android.R.color.holo_red_light);
+
+        computeInitialMinMax();
 
         setHasStableIds(true);
     }
@@ -130,8 +132,6 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
             lapTime = DataModel.getDataModel().getCurrentLapTime(totalTime);
             lapNumber = getLaps().size() + 1;
         }
-
-        ensureMinMaxComputed();
 
         applyLapColor(viewHolder, lap, lapTime);
 
@@ -178,13 +178,11 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
      * initialized yet, typically after the adapter is recreated with
      * existing lap data.</p>
      */
-    private void ensureMinMaxComputed() {
+    private void computeInitialMinMax() {
         List<Lap> laps = getLaps();
         if (laps.isEmpty()) {
-            return;
-        }
-
-        if (laps.size() == mLastComputedLapCount) {
+            minLapTime = Long.MAX_VALUE;
+            maxLapTime = Long.MIN_VALUE;
             return;
         }
 
@@ -193,19 +191,12 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
 
         for (Lap lap : laps) {
             long time = lap.getLapTime();
-
-            if (time < min) {
-                min = time;
-            }
-
-            if (time > max) {
-                max = time;
-            }
+            if (time < min) min = time;
+            if (time > max) max = time;
         }
 
         minLapTime = min;
         maxLapTime = max;
-        mLastComputedLapCount = laps.size();
     }
 
     /**
@@ -224,15 +215,19 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
             return;
         }
 
+        long displayLapTime = lapTime / 10;
+        long displayMinTime = minLapTime / 10;
+        long displayMaxTime = maxLapTime / 10;
+
         // If 2 laps have the same duration, apply the default color
-        if (minLapTime == maxLapTime) {
+        if (displayMinTime == displayMaxTime) {
             setColor(holder, mDefaultLapColor);
             return;
         }
 
-        if (lapTime == minLapTime) {
+        if (displayLapTime == displayMinTime) {
             setColor(holder, mMinLapColor);
-        } else if (lapTime == maxLapTime) {
+        } else if (displayLapTime == displayMaxTime) {
             setColor(holder, mMaxLapColor);
         } else {
             setColor(holder, mDefaultLapColor);
@@ -289,6 +284,19 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
     public Lap addLap() {
         final Lap lap = DataModel.getDataModel().addLap();
 
+        long newLapTime = lap.getLapTime();
+        if (minLapTime == Long.MAX_VALUE) {
+            minLapTime = newLapTime;
+            maxLapTime = newLapTime;
+        } else {
+            if (newLapTime < minLapTime) {
+                minLapTime = newLapTime;
+            }
+            if (newLapTime > maxLapTime) {
+                maxLapTime = newLapTime;
+            }
+        }
+
         Utils.setVibrationTime(mContext, 10);
 
         notifyDataSetChanged();
@@ -306,8 +314,6 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
 
         minLapTime = Long.MAX_VALUE;
         maxLapTime = Long.MIN_VALUE;
-
-        mLastComputedLapCount = -1;
 
         notifyDataSetChanged();
     }

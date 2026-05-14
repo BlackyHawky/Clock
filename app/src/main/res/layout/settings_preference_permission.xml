@@ -63,6 +63,7 @@
             android:id="@+id/requirement_advice"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
             android:layout_marginEnd="10dp"
             android:paddingVertical="4dp"
             android:gravity="center_vertical"
@@ -84,20 +85,21 @@
             android:gravity="center_vertical"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/requirement_title"
+            app:layout_constraintTop_toBottomOf="@+id/requirement_advice"
             tools:text="@string/permission_status_title" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/status_state"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
             android:layout_marginEnd="10dp"
             android:paddingVertical="4dp"
             android:gravity="center_vertical"
             android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@+id/status_title"
             app:layout_constraintEnd_toStartOf="@+id/image"
-            app:layout_constraintTop_toBottomOf="@+id/requirement_title"
+            app:layout_constraintTop_toBottomOf="@+id/requirement_advice"
             tools:text="@string/permission_granted"
             tools:textColor="#66BB6A"
             tools:ignore="TextContrastCheck" />

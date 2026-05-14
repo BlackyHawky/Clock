@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.best.deskclock.AppExecutors;
 import com.best.deskclock.ItemTouchHelperContract;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
@@ -71,8 +72,6 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         mRegularTypeface = ThemeUtils.loadFont(generalFontPath);
         mBoldTypeface = ThemeUtils.boldTypeface(generalFontPath);
         mTimerTimeTypeface = ThemeUtils.loadFont(SettingsDAO.getTimerDurationFont(mPrefs));
-
-        loadTimerList();
 
         mBgStandard = ThemeUtils.cardBackground(context).getConstantState();
 
@@ -364,16 +363,14 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         return mCachedTimers;
     }
 
-    public void refreshTimersCache() {
-        List<Timer> sourceTimers = new ArrayList<>(DataModel.getDataModel().getTimers());
+    private List<Timer> buildSortedTimerList(List<Timer> sourceTimers) {
         String timerSortingPreference = SettingsDAO.getTimerSortingPreference(mPrefs);
 
         if (!timerSortingPreference.equals(DEFAULT_SORT_TIMER_MANUALLY)) {
             Collections.sort(sourceTimers, Timer.createTimerStateComparator(mContext));
-            mCachedTimers = sourceTimers;
+            return sourceTimers;
         } else {
             String savedOrder = mPrefs.getString(KEY_TIMER_ORDER, null);
-
             if (savedOrder != null) {
                 String[] timerIds = savedOrder.split(",");
                 List<Timer> orderedList = new ArrayList<>();
@@ -393,12 +390,29 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                         orderedList.add(0, timer);
                     }
                 }
-
-                mCachedTimers = orderedList;
+                return orderedList;
             } else {
-                mCachedTimers = sourceTimers;
+                return sourceTimers;
             }
         }
+    }
+
+    public void loadTimersAsync() {
+        List<Timer> sourceTimers = new ArrayList<>(DataModel.getDataModel().getTimers());
+
+        AppExecutors.getDiskIO().execute(() -> {
+            final List<Timer> sortedTimers = buildSortedTimerList(sourceTimers);
+
+            AppExecutors.getMainThread().post(() -> {
+                mCachedTimers = sortedTimers;
+                notifyDataSetChanged();
+            });
+        });
+    }
+
+    public void refreshTimersCache() {
+        List<Timer> sourceTimers = new ArrayList<>(DataModel.getDataModel().getTimers());
+        mCachedTimers = buildSortedTimerList(sourceTimers);
     }
 
     public void saveTimerList() {
@@ -422,11 +436,6 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
 
         editor.apply();
-    }
-
-    public void loadTimerList() {
-        refreshTimersCache();
-        notifyDataSetChanged();
     }
 
     public void swapTimers(int fromPosition, int toPosition) {

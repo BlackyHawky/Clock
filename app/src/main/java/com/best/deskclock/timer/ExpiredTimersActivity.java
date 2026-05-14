@@ -24,6 +24,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RenderEffect;
 import android.graphics.Shader;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -70,6 +71,9 @@ import java.util.List;
 public class ExpiredTimersActivity extends BaseActivity {
 
     private SharedPreferences mPrefs;
+    private Typeface mRegularTypeface;
+    private Typeface mBoldTypeface;
+    private Typeface mTimerTimeTypeface;
     private DisplayMetrics mDisplayMetrics;
     private boolean mIsPortrait;
     private boolean mIsTablet;
@@ -118,6 +122,10 @@ public class ExpiredTimersActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         mPrefs = getDefaultSharedPreferences(this);
+        String generalFontPath = SettingsDAO.getGeneralFont(mPrefs);
+        mRegularTypeface = ThemeUtils.loadFont(generalFontPath);
+        mBoldTypeface = ThemeUtils.boldTypeface(generalFontPath);
+        mTimerTimeTypeface = ThemeUtils.loadFont(SettingsDAO.getTimerDurationFont(mPrefs));
         mDisplayMetrics = getResources().getDisplayMetrics();
         mIsPortrait = ThemeUtils.isPortrait();
         mIsTablet = ThemeUtils.isTablet();
@@ -365,8 +373,10 @@ public class ExpiredTimersActivity extends BaseActivity {
 
         if (useCompactLayout) {
             ((TimerItemCompact) view).bindTimer(timer);
+            ((TimerItemCompact) view).setCachedFonts(mRegularTypeface, mBoldTypeface, mTimerTimeTypeface);
         } else {
             ((TimerItem) view).bindTimer(timer);
+            ((TimerItem) view).setCachedFonts(mRegularTypeface, mBoldTypeface, mTimerTimeTypeface);
         }
 
         // Store the timer id as a tag on the view so it can be located on delete.
