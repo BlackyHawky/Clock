@@ -398,14 +398,6 @@
     <string name="system_theme">Системна</string>
     <string name="light_theme">Світла</string>
     <string name="label_default">За замовчуванням</string>
-    <string name="alarm_notification_reminder_30_minutes">за 30 хвилин</string>
-    <string name="alarm_notification_reminder_1_hour">за 1 годину</string>
-    <string name="alarm_notification_reminder_2_hours">за 2 години</string>
-    <string name="alarm_notification_reminder_4_hours">за 4 години</string>
-    <string name="alarm_notification_reminder_6_hours">за 6 годин</string>
-    <string name="alarm_notification_reminder_8_hours">за 8 годин</string>
-    <string name="alarm_notification_reminder_10_hours">за 10 годин</string>
-    <string name="alarm_notification_reminder_12_hours">за 12 годин</string>
     <string name="snooze_duration_none">Немає</string>
     <string name="sort_timer_ascending_duration">За тривалістю (зростання)</string>
     <string name="sort_timer_descending_duration">За тривалістю (спадання)</string>
@@ -680,4 +672,9 @@
     <string name="display_alarm_action_message_title">Показувати повідомлення після відкладення або вимкнення будильника</string>
     <string name="display_top_date_title">Показувати дату над часом</string>
     <string name="alarm_minutes_warning_box_text">Уведіть значення від 0 до 59 хвилин</string>
+    <string name="tabs_category_title">Вкладки</string>
+    <string name="pause_alarm_range">Призупинено: %1$s</string>
+    <string name="visible_tabs_title">Видимі вкладки</string>
+    <string name="pause_alarm_title">Призупинити будильник</string>
+    <string name="shortcut_disabled">Прихована вкладка</string>
 </resources>

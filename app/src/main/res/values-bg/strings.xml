@@ -330,14 +330,6 @@
     <string name="missed_alarm_repeat_limit_5_times">5 пъти</string>
     <string name="missed_alarm_repeat_limit_10_times">10 пъти</string>
     <string name="alarm_notification_reminder_title">Напомняне с известие</string>
-    <string name="alarm_notification_reminder_30_minutes">30 минути предварително</string>
-    <string name="alarm_notification_reminder_1_hour">1 час предварително</string>
-    <string name="alarm_notification_reminder_2_hours">2 часа предварително</string>
-    <string name="alarm_notification_reminder_4_hours">4 часа предварително</string>
-    <string name="alarm_notification_reminder_6_hours">6 часа предварително</string>
-    <string name="alarm_notification_reminder_8_hours">8 часа предварително</string>
-    <string name="alarm_notification_reminder_10_hours">10 часа предварително</string>
-    <string name="alarm_notification_reminder_12_hours">12 часа предварително</string>
     <string name="advanced_audio_playback_title">Разширени възможности за възпроизвеждане на аудио</string>
     <string name="advanced_audio_playback_summary">Подобрява съвместимостта с външни аудио устройства и предотвратява прекъсване на звука при повтаряне.\n\nЗабележка: Някои мелодии може да имат незначителни звукови артефакти</string>
     <string name="auto_routing_to_external_audio_device_title">Разрешава автоматичното насочване на мелодиите към външни аудио устройства</string>

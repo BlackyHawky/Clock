@@ -286,14 +286,6 @@
     <string name="missed_alarm_repeat_limit_3_times">3 פעמים</string>
     <string name="missed_alarm_repeat_limit_5_times">5 פעמים</string>
     <string name="missed_alarm_repeat_limit_10_times">10 פעמים</string>
-    <string name="alarm_notification_reminder_30_minutes">חצי שעה קודם</string>
-    <string name="alarm_notification_reminder_1_hour">שעה אחת קודם</string>
-    <string name="alarm_notification_reminder_2_hours">שעתיים קודם</string>
-    <string name="alarm_notification_reminder_4_hours">4 שעות קודם</string>
-    <string name="alarm_notification_reminder_6_hours">6 שעות קודם</string>
-    <string name="alarm_notification_reminder_8_hours">8 שעות קודם</string>
-    <string name="alarm_notification_reminder_10_hours">10 שעות קודם</string>
-    <string name="alarm_notification_reminder_12_hours">12 שעות קודם</string>
     <string name="vibration_start_delay_warning_box_text">נא לבחור מספר דקות שנע בין 0 ל־10</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">’</string>
     <string name="blur_intensity_title">עוצמת טשטוש</string>
@@ -349,7 +341,7 @@
     <string name="occasional_alarm_alert_predismiss_title">ההתראה השגרתית הבאה</string>
     <string name="vertical_widget">שעון אנכי</string>
     <string name="custom_font_title">בחירת גופן מותאם אישית</string>
-    <string name="custom_font_title_variant">בחירה או מחיקה של גופן מותאם אישית</string>
+    <string name="custom_font_title_variant">החלפה או מחיקה של הגופן המותאם אישית</string>
     <string name="custom_font_dialog_title">גופן</string>
     <string name="custom_font_toast_message_selected">הגופן נבחר בהצלחה</string>
     <string name="custom_font_toast_message_deleted">הגופן נמחק בהצלחה</string>
@@ -487,4 +479,5 @@
     <string name="description_snooze_button">יש ללחוץ בשביל לשים את ההתראה במצב נודניק</string>
     <string name="timer_creation_view_style_keypad">לוח מקשים</string>
     <string name="display_compact_timers_title">הצגת טיימרים פעילים במצב התצוגה המצומצמת</string>
+    <string name="display_background_border_title">הצגת גבולות הרקעים</string>
 </resources>

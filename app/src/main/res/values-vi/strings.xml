@@ -267,4 +267,8 @@
     <string name="title_dark_theme_mode">Chế độ chủ đề tối</string>
     <string name="amoled_dark_theme_mode">AMOLED</string>
     <string name="display_card_background_title">Hiển thị nền</string>
+    <string name="pause_alarm_title">Tạm dừng báo thức</string>
+    <string name="pause_alarm_range">Dừng trong: %1$s</string>
+    <string name="label_new_font">Phông chữ mới</string>
+    <string name="button_tip_title">Nhấn giữ nút \"+\" để thêm thư mục</string>
 </resources>

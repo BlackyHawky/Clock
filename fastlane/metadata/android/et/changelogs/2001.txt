@@ -1,0 +1,40 @@
+**Parandused:**
+* Parandatud alarmi käivitumine Android 14 puhul;
+* Parandatud stopperi ja taimeri teavitused;
+* Parandatud uneaja-režiimi sunnitud sulgumine juhul, kui alarmi pole seadistatud või kui seadet pööratakse;
+* Parandatud mõned uneaja-režiimi talitlushäired;
+* Parandatud ekraanisäästja käivitumine Android 13+ puhul;
+* Parandatud digitaalse vidina kuvamine ja uuendamine Android 12+ puhul;
+* Parandatud alarmi helivaljuse seadistamine;
+* Parandatud alumise tegevusriba taustavärv (kõige rohkem mõjutatud on tahvelarvutid);
+
+**Täiendused:**
+* Kasutusel on Material Design kujunduskeel (lülitid, kellaaja valija, ümarad ikoonid, kaartide taust jne);
+* Lisatud dünaamilised värvid;
+* Lisatud AMOLED-režiim tumeda kujunduse jaoks;
+* Lisatud uus õiguste haldus;
+* Lisatud ühevärviline ikoon;
+* Lisatud kokkukäiv tööriistariba;
+* Lisatud Material You analoog- ja digitaalvidinad;
+* Lisatud „Uneaja“ režiim (autor @Nilsu11);
+* Asendatud ikoonid ümaramate versioonidega;
+* Rakenduse esmakordsel käivitamisel kuvatakse põhifunktsioonide tutvustus ning võimalus hallata õigusi;
+* Lisatud kontroll, et rakenduse käivitamisel oleksid vajalikud õigused antud, tagamaks rakenduse korrektne töö;
+* Lubatud silumis-versiooni paigaldamine koos põhiversiooniga;
+* Määratud seadistustes äratuste vaikimisi helin;
+* Lisatud ekraanisäästja kuvamise valikud;
+* Ekraanisäästja saab aktiveerida pika vajutusega kellale;
+* Vähendatud ekraanisäästja animatsiooni kestust 30 sekundini;
+* Menüüd kuvatakse ikoonidena;
+* Kaasajastatud seadistuste välimus;
+* Lisatud seadistustesse Teabe ajajaotus;
+* Animeeritud unerežiimi ikoon;
+* Äratuse muutmisel kuvatakse klaviatuur automaatselt;
+* Lisatud kustutamise ikoon ja tekst „Kustuta“ äratuse viipamisega kustutamisel;
+* Lisatud nupp äratuse dubleerimiseks (välja arvatud unerežiimi äratus, mille puhul see pole vajalik);
+* Värinat ei aktiveerita äratuste loomisel ega algselt loodud äratuste puhul;
+* Pikendatud värina kestust äratuse käivitumisel;
+* Lubatud analoogkella kuvamine äratuse käivitumise vaates;
+* Uuendatud Fragmentidega seotud kood AndroidX-i kasutamiseks;
+* Uuendatud litsentsipäised;
+* Kustutatud ebavajalikud failid ja kood;

@@ -288,7 +288,6 @@
     <string name="description_direction_both_for_occasional_alarm">Alarmı ertelemek için sola, kapatıp silmek için sağa kaydırın</string>
     <string name="clock_color_title">Saat rengi</string>
     <string name="alarm_settings_general_summary">Bu ayar genişletilmiş alarm görünümünde her alarm için ayrı olarak değiştirilebilir</string>
-    <string name="alarm_notification_reminder_4_hours">4 saat önce</string>
     <string name="permission_highly_recommended">Şiddetle tavsiye edilir</string>
     <string name="timer_volume_buttons_action_title">Sona eren zamanlayıcıları ses tuşlarıyla sıfırla</string>
     <string name="clock_style_spinner">Kaydırmalı</string>
@@ -322,7 +321,6 @@
     <string name="settings_language_dutch">Hollandaca</string>
     <string name="settings_vibration_title">Titreşimleri etkinleştir</string>
     <string name="settings_tab_indicator_title">Alt gezinme menüsünde sekme vurgusunu göster</string>
-    <string name="alarm_notification_reminder_8_hours">8 saat önce</string>
     <string name="enable_alarm_vibrations_by_default_setting_title">Alarm oluştururken titreşimleri etkinleştir</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">Alarm ertelendiğinde veya kapatıldığında titreşimi etkinleştir</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">Alarm kapatıldığında bir kere titreşir, ertelendiğinde iki kere titreşir</string>
@@ -348,11 +346,6 @@
     <string name="settings_language_english_us">İngilizce (ABD)</string>
     <string name="settings_language_chinese_simplified_cn">Çince (Basitleştirilmiş)</string>
     <string name="settings_language_russian">Rusça</string>
-    <string name="alarm_notification_reminder_30_minutes">30 dakika önce</string>
-    <string name="alarm_notification_reminder_1_hour">1 saat önce</string>
-    <string name="alarm_notification_reminder_2_hours">2 saat önce</string>
-    <string name="alarm_notification_reminder_6_hours">6 saat önce</string>
-    <string name="alarm_notification_reminder_10_hours">10 saat önce</string>
     <string name="settings_language_estonian">Estonca</string>
     <string name="settings_language_italian">İtalyanca</string>
     <string name="settings_language_polish">Lehçe</string>
@@ -360,7 +353,6 @@
     <string name="settings_language_serbian">Sırpça</string>
     <string name="settings_language_spanish">İspanyolca</string>
     <string name="settings_language_ukrainian">Ukraynaca</string>
-    <string name="alarm_notification_reminder_12_hours">12 saat önce</string>
     <string name="settings_tab_to_display">Uygulama açıldığında gösterliecek sekme</string>
     <string name="last_tab_used_title">Son kullanılan sekme</string>
     <string name="clock_font_size">Saat yazı boyutu</string>

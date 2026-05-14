@@ -257,13 +257,13 @@
     <string name="license">Avatud lähtekoodi litsents</string>
     <string name="add_label">Lisa silt</string>
     <string name="power_button_title">Toitenupp</string>
-    <string name="interface_customization_summary">Vali rakenduse stiil ja värvid</string>
+    <string name="interface_customization_summary">Vali rakenduse stiil, kirjatüüp, keel ja värvid</string>
     <string name="swipe_action_title">Äratuse lõpetamiseks või edasilükkamiseks viipa</string>
     <string name="material_time_picker_style_title">Taimeri valikuvaade</string>
     <string name="timer_label_box_title">Taimeri silt</string>
     <string name="auto_silence_end_of_ringtone">Helina lõppedes</string>
     <string name="timer_button_time_box_title">Taimerile lisatavad minutid</string>
-    <string name="clock_settings_summary">Muuda välimust, ajavööndeid ning seadme kuupäeva ja kellaaega</string>
+    <string name="clock_settings_summary">Kohenda välimust, kirjatüüpi, ajavööndeid ning seadme kuupäeva ja kellaaega</string>
     <string name="version">Versioon</string>
     <string name="whats_new_title">Rakenduse muudatused</string>
     <string name="about_github_link">Vaata GitHubis</string>
@@ -274,9 +274,9 @@
     <string name="screensaver_daydream_settings_summary">Järgnevaga avame Androidi ekraanisäästja seadistused</string>
     <string name="notifications_dialog_text">Lisaks äratamisele saad seda rakendust kasutada ka taimerina ja stopperina. \n \nEt kõik teavitused toimiksid korrektsel kõikide nende valikute, eriti aga äratuste, puhul, siis palun luba rakendusel kuvada teavitusi.</string>
     <string name="first_launch_main_feature_message">► Hele, tume või süsteemi poolt määratud kujundus; &lt;br&gt; &lt;br&gt; ► Kohandatav ekraanisäästja; &lt;br&gt; &lt;br&gt; ► Kohandatavad vidinad; &lt;br&gt; &lt;br&gt; ► Paanide tugi kiirseadistustes (alates Androidi versioonist 7); &lt;br&gt; &lt;br&gt; ► Rakenduse andmete varundamine ja taastamine (v.a. kohandatud helinad); &lt;br&gt; &lt;br&gt; ► Material design ja dünaamilised värvid; &lt;br&gt; &lt;br&gt; ► Äratuse lisamine kindlaks kuupäevaks; &lt;br&gt; &lt;br&gt;► Äratuse kustutamiseks viipa; &lt;br&gt; &lt;br&gt; ► Saad teha äratusest koopa; &lt;br&gt; &lt;br&gt; ► Kasuta pööramist ja raputamist äratusest loobumiseks või tema edasilükkamiseks; &lt;br&gt; &lt;br&gt; ► Saad lülitada äratuse välja või ta edasi lükata toimetnupuga või helivaljuse nuppudega; &lt;br&gt; &lt;br&gt; ► %s</string>
-    <string name="alarm_settings_summary">Seadista välimust, vaikimisi helinat, valjust, tegevusi äratuste edasilükkamiseks või katkestamiseks, nädala alguspäeva ja meeldetuletuste teavituse aega</string>
+    <string name="alarm_settings_summary">Seadista välimust, kirjatüüpi, vaikimisi helinat, valjust, tegevusi äratuste edasilükkamiseks või katkestamiseks, nädala alguspäeva ja meeldetuletuste teavituse aega</string>
     <string name="description_direction_both_for_non_repeatable_alarm">Loobumiseks viipa vasakule või paremale</string>
-    <string name="default_time_to_add_to_timer_title">Taimerile lisatav vaikimisi aeg</string>
+    <string name="default_time_to_add_to_timer_title">Taimeritele vaikimisi lisatav aeg</string>
     <string name="screensaver_clock_dynamic_colors_title">Kella dünaamilised värvid</string>
     <string name="clock_color_title">Kella värv</string>
     <string name="date_color_title">Kuupäeva värv</string>
@@ -286,8 +286,8 @@
     <string name="FSN_dialog_text">Alates Androidi versioonist 14 on väljalülitatud ekraani puhul äratuste toimimiseks kohustuslik, et lubad sellele rakendusele õigused täisekraaniteavituste (Full Screen Notifications) kasutamiseks.</string>
     <string name="screensaver_daydream_settings">Kasuta ekraanisäästjat</string>
     <string name="next_alarm_color_title">Järgmise äratuse värv</string>
-    <string name="timer_settings_summary">Määra taimeritele vaikimisi helin, valjus ja järjestus</string>
-    <string name="screensaver_settings_summary">Seadista ekraanisäästja stiili, värvi ja kirjatüüpi</string>
+    <string name="timer_settings_summary">Kohenda taimerite välimust, kirjatüüpi, vaikimisi helinat, peatamise võimalusi ja järjestust</string>
+    <string name="screensaver_settings_summary">Kohenda ekraanisäästja stiili, värvi ja kirjatüüpi</string>
     <string name="screensaver_brightness_title">Eredus</string>
     <string name="screensaver_bold_digital_clock_title">Digikell paksus kirjas</string>
     <string name="screensaver_italic_digital_clock_title">Digikell kaldkirjas</string>
@@ -297,7 +297,7 @@
     <string name="first_launch_main_feature_link">… ja palju muud huvitavat!</string>
     <string name="first_launch_version">Versioon %s</string>
     <string name="first_launch_main_feature_title">PÕHIFUNKTSIONAALSUSED</string>
-    <string name="widget_background_title">Vidina taust</string>
+    <string name="widget_background_title">Näita tausta</string>
     <string name="first_launch_important_info_title">OLULINE TEAVE</string>
     <string name="screensaver_preview_summary">Käivitab ekraanisäästja koheselt</string>
     <string name="first_launch_button_now">Nüüd</string>
@@ -331,7 +331,7 @@
     <string name="first_launch_important_info_message">Selleks, et olla kindel rakenduse korrektses toimimises, &lt;b&gt;vajavad mõned nutiseadme seadistused muutmist:&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;AKUKASUTUSE OPTIMEERIMINE;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;TEAVITUSED;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;Sõltuvalt sinu nutiseadme Androidi versioonist on mõned seadistused juba optimaalsed (nt. teavitused).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Sa võid neid muuta kas kohe või hiljem õiguste halduse vaatest:</string>
     <string name="date_default_color_title">Kasuta kuupäeva jaoks vaikimisi värve</string>
     <string name="city_clock_default_color_title">Kasuta linnade kella jaoks oma värve</string>
-    <string name="city_name_default_color_title">Kasuta linnade nime jaoks vaikimisi värvi</string>
+    <string name="city_name_default_color_title">Kasuta linnade nimede jaoks vaikimisi värvi</string>
     <string name="city_name_color_title">Vali linnade nime jaoks oma värv</string>
     <string name="permission_granted">Lubatud</string>
     <string name="digital_widget_message_summary">Selle seadistuse jaoks peab „Näita vidinas linnu“ olema välja lülitatud</string>
@@ -353,11 +353,11 @@
     <string name="github_dialog_message">Külasta projekti lehte GitHubis:
 \n
 \n%s</string>
-    <string name="hour_default_color_title">Tundide jaoks kasuta vaikimisi värve</string>
+    <string name="hour_default_color_title">Kasuta tundide jaoks vaikimisi värve</string>
     <string name="hour_color_title">Sinu valitud värvid tundide jaoks</string>
-    <string name="minute_default_color_title">Minutite jaoks kasuta vaikimisi värve</string>
+    <string name="minute_default_color_title">Kasuta minutite jaoks vaikimisi värve</string>
     <string name="minute_color_title">Minuti värv</string>
-    <string name="widgets_settings_summary">Seadista vidinate kujundust, värvi ja kirjatüübi suurust</string>
+    <string name="widgets_settings_summary">Kohenda vidinate kujundust, värvi ja kirjatüübi suurust</string>
     <string name="vertical_widget">Püstine digikell</string>
     <string name="widgets_settings">Vidinad</string>
     <string name="settings_tab_indicator_title">Kuva menüü lõpus vahekaartide näidikut</string>
@@ -385,14 +385,6 @@
     <string name="sort_timer_descending_duration">Kestuse alusel (kahanevalt)</string>
     <string name="system_theme">Süsteemi kujundus</string>
     <string name="orange_accent_color">Oranž</string>
-    <string name="alarm_notification_reminder_30_minutes">30 minutit varem</string>
-    <string name="alarm_notification_reminder_1_hour">1 tund varem</string>
-    <string name="alarm_notification_reminder_2_hours">2 tundi varem</string>
-    <string name="alarm_notification_reminder_4_hours">4 tundi varem</string>
-    <string name="alarm_notification_reminder_6_hours">6 tundi varem</string>
-    <string name="alarm_notification_reminder_8_hours">8 tundi varem</string>
-    <string name="alarm_notification_reminder_10_hours">10 tundi varem</string>
-    <string name="alarm_notification_reminder_12_hours">12 tundi varem</string>
     <string name="sort_timer_ascending_duration">Kestuse alusel (kasvavalt)</string>
     <string name="alarm_alert_dismiss_and_delete_text">Loobu ja kustuta</string>
     <string name="alarm_alert_off_and_deleted_text">Loobusid äratusest ja kustutasid ta</string>
@@ -418,7 +410,7 @@
     <string name="timer_buttons_action_summary">Toimib vaid lukustusvaates</string>
     <string name="timer_power_button_action_title">Lähtesta aegunud taimerid toitenupuga</string>
     <string name="sw_long_press_volume_down_action_title">Heli vaiksemaks (pikk vajutus)</string>
-    <string name="sw_settings_summary">Seadista toimingud helivaljuse nuppudega</string>
+    <string name="sw_settings_summary">Seadista toimingud helivaljuse nuppudega ning nende kirjatüüp</string>
     <string name="sw_volume_up_action_title">Heli valjemaks</string>
     <string name="sw_long_press_volume_up_action_title">Heli valjemaks (pikk vajutus)</string>
     <string name="sw_volume_down_action_title">Heli vaiksemaks</string>
@@ -592,7 +584,7 @@
     <string name="progress_ringtones">Lisan helinaid… (%1$d/%2$d)</string>
     <string name="display_text_uppercase_title">Näita teksti suurtähtedena</string>
     <string name="label_new_image">Uus pilt</string>
-    <string name="background_image_title_variant">Lisa või kustuta taustapilt</string>
+    <string name="background_image_title_variant">Muuda taustapilti või kustuta see</string>
     <string name="background_image_dialog_title">Taustapilt</string>
     <string name="background_image_toast_message_deleted">Pildi kustutamine õnnestus</string>
     <string name="label_new_font">Uus kirjatüüp</string>
@@ -664,4 +656,9 @@
     <string name="display_top_date_title">Näita vidinas kellaaja kohal kuupäeva</string>
     <string name="display_alarm_action_message_title">Äratuse lõpetamisel või edasilükkamisel näita asjakohast teadet</string>
     <string name="alarm_minutes_warning_box_text">Sisesta väärtus 0 ja 59 minuti vahemikust</string>
+    <string name="pause_alarm_title">Peata äratus</string>
+    <string name="pause_alarm_range">Peatatud: %1$s</string>
+    <string name="tabs_category_title">Vahekaardid</string>
+    <string name="visible_tabs_title">Nähtavad vahekaardid</string>
+    <string name="shortcut_disabled">Vahekaart on peidetud</string>
 </resources>

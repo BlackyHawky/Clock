@@ -276,10 +276,6 @@
     <string name="pink_accent_color">Rosa</string>
     <string name="red_accent_color">Vermell</string>
     <string name="amoled_dark_theme_mode">AMOLED</string>
-    <string name="alarm_notification_reminder_6_hours">6 hores abans</string>
-    <string name="alarm_notification_reminder_8_hours">8 hores abans</string>
-    <string name="alarm_notification_reminder_10_hours">10 hores abans</string>
-    <string name="alarm_notification_reminder_12_hours">12 hores abans</string>
     <string name="snooze_duration_none">Mai</string>
     <string name="swipe_action_title">Llisca per a descartar o ajornar les alarmes</string>
     <string name="add_label">Afegeix una etiqueta</string>
@@ -290,7 +286,6 @@
     <string name="auto_silence_end_of_ringtone">En finalitzar el so d\'alarma</string>
     <string name="display_card_background_title">Mostra el fons</string>
     <string name="display_card_background_summary">Mostra el fons de la targeta en alguns elements de l\'aplicació (alarmes, ciutats, botons, etc.)</string>
-    <string name="alarm_notification_reminder_2_hours">2 hores abans</string>
     <string name="enable_alarm_vibrations_by_default_setting_title">Habilita la vibració en crear alarmes</string>
     <string name="alarm_title_color">Color del títol de l\'alarma</string>
     <string name="snooze_button_color">Color del botó Posposa</string>
@@ -300,13 +295,10 @@
     <string name="alarm_settings_general_summary">Aquesta opció es pot personalitzar al panell d\'opcions de cada alarma</string>
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Habilita la supressió per defecte d\'alarmes ocasionals</string>
     <string name="settings_fade_transitions_title">Habilita una transició d\'esvaïment a les opcions de configuració</string>
-    <string name="alarm_notification_reminder_4_hours">4 hores abans</string>
     <string name="settings_tab_indicator_title">Mostra l\'indicador de pestanya activa al menú inferior</string>
     <string name="power_button_title">Botó d\'engegada</string>
     <string name="settings_vibration_summary">Resposta hàptica en alguns botons (p. ex. als lliscadors o en iniciar/pausar el temporitzador)</string>
     <string name="alarm_notification_reminder_title">Recordatori de notificació</string>
-    <string name="alarm_notification_reminder_30_minutes">30 minuts abans</string>
-    <string name="alarm_notification_reminder_1_hour">1 hora abans</string>
     <string name="dismiss_button_color">Color del botó Descarta</string>
     <string name="alarm_button_color">Color del botó Alarma</string>
 </resources>

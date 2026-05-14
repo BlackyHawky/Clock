@@ -271,14 +271,6 @@
     <string name="indigo_accent_color">Índigo</string>
     <string name="red_accent_color">Vermelho</string>
     <string name="amoled_dark_theme_mode">AMOLED</string>
-    <string name="alarm_notification_reminder_30_minutes">30 minutos antes</string>
-    <string name="alarm_notification_reminder_1_hour">1 hora antes</string>
-    <string name="alarm_notification_reminder_2_hours">2 horas antes</string>
-    <string name="alarm_notification_reminder_4_hours">4 horas antes</string>
-    <string name="alarm_notification_reminder_6_hours">6 horas antes</string>
-    <string name="alarm_notification_reminder_8_hours">8 horas antes</string>
-    <string name="alarm_notification_reminder_10_hours">10 horas antes</string>
-    <string name="alarm_notification_reminder_12_hours">12 horas antes</string>
     <string name="alarm_title_color">Cor do título do alarme</string>
     <string name="snooze_button_color">Cor do botão de Soneca</string>
     <string name="dismiss_button_color">Cor do botão \"Dispensar\"</string>
@@ -517,7 +509,7 @@
     <string name="vibration_pattern_heartbeat">Batimento</string>
     <string name="vibration_pattern_escalating">Aumentando</string>
     <string name="vibration_pattern_tick_tock">Tick-Tock</string>
-    <string name="vibration_start_delay_title">Atraso antes do inicio da vibração</string>
+    <string name="vibration_start_delay_title">Atraso antes do início da vibração</string>
     <string name="vibration_start_delay_none">Nenhum</string>
     <string name="vibration_start_delay_warning_box_text">Digite um valor de 0 a 10 minutos</string>
 </resources>

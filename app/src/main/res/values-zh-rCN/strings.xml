@@ -366,14 +366,6 @@
     <string name="pink_accent_color">粉红色</string>
     <string name="red_accent_color">红色</string>
     <string name="amoled_dark_theme_mode">AMOLED</string>
-    <string name="alarm_notification_reminder_30_minutes">30 分钟前</string>
-    <string name="alarm_notification_reminder_1_hour">1 小时前</string>
-    <string name="alarm_notification_reminder_2_hours">2 小时前</string>
-    <string name="alarm_notification_reminder_4_hours">4 小时前</string>
-    <string name="alarm_notification_reminder_6_hours">6 小时前</string>
-    <string name="alarm_notification_reminder_8_hours">8 小时前</string>
-    <string name="alarm_notification_reminder_10_hours">10 小时前</string>
-    <string name="alarm_notification_reminder_12_hours">12 小时前</string>
     <string name="sort_timer_ascending_duration">按时长（升序）</string>
     <string name="sort_timer_descending_duration">按时长（降序）</string>
     <string name="sort_name">按名称</string>
@@ -648,4 +640,9 @@
     <string name="toast_message_backup_error">备份失败</string>
     <string name="toast_message_restore_error">还原失败</string>
     <string name="alarm_minutes_warning_box_text">请输入 0 到 59 分钟之间的值</string>
+    <string name="pause_alarm_title">暂停闹钟</string>
+    <string name="pause_alarm_range">已暂停：%1$s</string>
+    <string name="tabs_category_title">标签页</string>
+    <string name="visible_tabs_title">可见标签页</string>
+    <string name="shortcut_disabled">标签页已隐藏</string>
 </resources>

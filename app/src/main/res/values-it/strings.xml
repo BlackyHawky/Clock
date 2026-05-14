@@ -237,10 +237,6 @@
     <string name="alarm_upcoming_channel">Prossime sveglie</string>
     <string name="stopwatch_channel">Cronometro</string>
     <string name="timer_channel">Timer</string>
-    <string name="alarm_notification_reminder_4_hours">4 ore prima</string>
-    <string name="alarm_notification_reminder_6_hours">6 ore prima</string>
-    <string name="alarm_notification_reminder_8_hours">8 ore prima</string>
-    <string name="alarm_notification_reminder_10_hours">10 ore prima</string>
     <string name="date_color_title">Colore data</string>
     <string name="next_alarm_color_title">Colore prossima sveglia</string>
     <string name="screensaver_italic_digital_clock_title">Orologio digitale in corsivo</string>
@@ -270,7 +266,6 @@
     <string name="notifications_permission_title">ABILITA NOTIFICHE</string>
     <string name="toast_message_for_restore">Ripristino completato</string>
     <string name="alarm_settings_summary">Imposta lo stile, la suoneria predefinita, il volume, le azioni per disattivare o rimandare le sveglie, il primo giorno della settimana e l\'ora di notifica del promemoria</string>
-    <string name="alarm_notification_reminder_12_hours">12 ore prima</string>
     <string name="sw_settings_summary">Imposta azione dei pulsanti del volume</string>
     <string name="next_alarm_default_color_title">Usa colore predefinito per la prossima sveglia</string>
     <string name="ignore_battery_optimizations_dialog_text">Per impostazione predefinita, il sistema Android configura tutte le app installate dall\'utente in modo che siano ottimizzate per risparmiare la durata della batteria. \n\nSebbene ciò sia accettabile per molte applicazioni, questa app è un\'applicazione per le sveglie e spesso causa problemi se configurata per ottimizzare la batteria. Una volta abilitata, il sistema Android può disattivare l\'app in qualsiasi momento e/o annullare le sveglie programmate, il che influisce negativamente sul funzionamento dell\'app. \n\nSi consiglia di escludere questa app dall\'ottimizzazione della batteria.</string>
@@ -333,9 +328,6 @@
     <string name="swipe_action_title">Scorri per fermare o rimandare la sveglia</string>
     <string name="label_default">Predefinita</string>
     <string name="alarm_button_color">Colore pulsante sveglia</string>
-    <string name="alarm_notification_reminder_30_minutes">30 minuti prima</string>
-    <string name="alarm_notification_reminder_1_hour">1 ora prima</string>
-    <string name="alarm_notification_reminder_2_hours">2 ore prima</string>
     <string name="enable_alarm_vibrations_by_default_setting_title">Abilita vibrazioni alla creazione delle sveglie</string>
     <string name="clock_settings_summary">Imposta stile, fuso orario e modifica della data e dell\'ora del dispositivo</string>
     <string name="version">Versione</string>
