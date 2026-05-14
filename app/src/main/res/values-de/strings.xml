@@ -367,14 +367,6 @@
     <string name="red_accent_color">Rot</string>
     <string name="dark_theme">Dunkel</string>
     <string name="system_theme">System</string>
-    <string name="alarm_notification_reminder_30_minutes">30 Minuten vorher</string>
-    <string name="alarm_notification_reminder_1_hour">1 Stunde vorher</string>
-    <string name="alarm_notification_reminder_2_hours">2 Stunden vorher</string>
-    <string name="alarm_notification_reminder_4_hours">4 Stunden vorher</string>
-    <string name="alarm_notification_reminder_6_hours">6 Stunden vorher</string>
-    <string name="alarm_notification_reminder_8_hours">8 Stunden vorher</string>
-    <string name="alarm_notification_reminder_10_hours">10 Stunden vorher</string>
-    <string name="alarm_notification_reminder_12_hours">12 Stunden vorher</string>
     <string name="snooze_duration_none">Keine</string>
     <string name="sort_timer_ascending_duration">Nach Dauer (aufsteigend)</string>
     <string name="sort_name">Nach Name</string>

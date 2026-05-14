@@ -283,14 +283,6 @@
     <string name="shadow_color_title">Skuggfärg</string>
     <string name="about_github_link">Visa på GitHub</string>
     <string name="screensaver_clock_dynamic_colors_title">Dynamiska klockfärger</string>
-    <string name="alarm_notification_reminder_30_minutes">30 minuter innan</string>
-    <string name="alarm_notification_reminder_1_hour">1 timme innan</string>
-    <string name="alarm_notification_reminder_2_hours">2 timmar innan</string>
-    <string name="alarm_notification_reminder_4_hours">4 timmar innan</string>
-    <string name="alarm_notification_reminder_6_hours">6 timmar innan</string>
-    <string name="alarm_notification_reminder_8_hours">8 timmar innan</string>
-    <string name="alarm_notification_reminder_10_hours">10 timmar innan</string>
-    <string name="alarm_notification_reminder_12_hours">12 timmar innan</string>
     <string name="about_translate_link">Översätt på Codeberg</string>
     <string name="show_lockscreen_permission_title">VISA PÅ LÅSSKÄRM</string>
     <string name="show_lockscreen_dialog_title">Visa på låsskärm</string>

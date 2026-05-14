@@ -285,7 +285,6 @@
     <string name="occasional_alarm_alert_predismiss_title">預定的臨時鬧鐘</string>
     <string name="vertical_widget">直式數位時鐘</string>
     <string name="next_alarm_widget">下個鬧鐘</string>
-    <string name="alarm_notification_reminder_4_hours">4 小時前</string>
     <string name="settings_language_turkish">土耳其</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">延後或關閉鬧鐘時震動</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">延後鬧鐘時震動兩次，關閉鬧鐘時震動一次</string>
@@ -348,15 +347,10 @@
     <string name="warning_dialog_message">您要刪除計時器「%s」嗎？</string>
     <string name="screensaver_settings_summary">設定螢幕保護程式外觀、色彩及字型</string>
     <string name="screensaver_preview_summary">立即啟動螢幕保護程式</string>
-    <string name="alarm_notification_reminder_6_hours">6 小時前</string>
-    <string name="alarm_notification_reminder_8_hours">8 小時前</string>
-    <string name="alarm_notification_reminder_10_hours">10 小時前</string>
-    <string name="alarm_notification_reminder_12_hours">12 小時前</string>
     <string name="enable_alarm_vibrations_by_default_setting_title">鬧鐘鈴響時震動</string>
     <string name="alarm_notification_reminder_title">提醒通知</string>
     <string name="settings_language_russian">俄羅斯</string>
     <string name="settings_tab_indicator_title">底部選單顯示頁面指標</string>
-    <string name="alarm_notification_reminder_2_hours">2 小時前</string>
     <string name="alarm_title_color">鬧鐘標題色彩</string>
     <string name="shake_intensity_title">搖動強度</string>
     <string name="display_date_title">顯示日期</string>
@@ -424,10 +418,8 @@
     <string name="permission_management_summary">顯示應用程式運作所需權限</string>
     <string name="digital_widget_message_summary">必須停用「顯示城市」才能存取這個選項</string>
     <string name="next_alarm_widget_title_no_alarm">沒有即將啟動的鬧鐘</string>
-    <string name="alarm_notification_reminder_1_hour">1 小時前</string>
     <string name="auto_night_accent_color_title">夜間模式套用強調色</string>
     <string name="night_accent_color_title">夜間模式強調色</string>
-    <string name="alarm_notification_reminder_30_minutes">30 分前</string>
     <string name="version_text">版本 <xliff:g id="VERSION_NUMBER" example="1.0">%1$s</xliff:g></string>
     <string name="next_alarm_no_upcoming_alarm_titles_color">「沒有即將啟動的鬧鐘」標題色彩</string>
     <string name="alarm_title_default_color">鬧鐘標題使用預設色彩</string>

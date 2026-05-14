@@ -440,14 +440,6 @@
     <string name="tab_title_visibility_always">Sempre</string>
     <string name="tab_title_visibility_when_selected">Quando selecionado</string>
     <string name="alarm_notification_reminder_title">Lembrete de notificação</string>
-    <string name="alarm_notification_reminder_30_minutes">30 minutos antes</string>
-    <string name="alarm_notification_reminder_1_hour">1 hora antes</string>
-    <string name="alarm_notification_reminder_2_hours">2 horas antes</string>
-    <string name="alarm_notification_reminder_4_hours">4 horas antes</string>
-    <string name="alarm_notification_reminder_6_hours">6 horas antes</string>
-    <string name="alarm_notification_reminder_8_hours">8 horas antes</string>
-    <string name="alarm_notification_reminder_10_hours">10 horas antes</string>
-    <string name="alarm_notification_reminder_12_hours">12 horas antes</string>
     <string name="advanced_audio_playback_title">Usar reprodução de áudio avançada</string>
     <string name="alarm_button_color">Cor do botão do alarme</string>
     <string name="clock_font_size">Tamanho da letra do relógio</string>

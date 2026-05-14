@@ -227,15 +227,9 @@
     <string name="settings_language_system">சாதன மொழி</string>
     <string name="settings_language_french">பிரெஞ்சு</string>
     <string name="settings_language_italian">இத்தாலியன்</string>
-    <string name="alarm_notification_reminder_30_minutes">30 நிமிடங்களுக்கு முன்பு</string>
-    <string name="alarm_notification_reminder_4_hours">4 மணி நேரத்திற்கு முன்</string>
-    <string name="alarm_notification_reminder_8_hours">8 மணி நேரத்திற்கு முன்</string>
     <string name="settings_language_english_us">ஆங்கிலம்(யுஎஸ்)</string>
     <string name="settings_language_chinese_simplified_cn">சீனம் (எளிமைப்படுத்தப்பட்டது, PRC)</string>
-    <string name="alarm_notification_reminder_12_hours">12 மணி நேரத்திற்கு முன்</string>
     <string name="enable_alarm_vibrations_by_default_setting_title">அலாரங்களை உருவாக்கும்போது அதிர்வுகளை இயக்கு</string>
-    <string name="alarm_notification_reminder_6_hours">6 மணி நேரத்திற்கு முன்</string>
-    <string name="alarm_notification_reminder_10_hours">10 மணி நேரத்திற்கு முன்</string>
     <string name="orange_accent_color">ஆரஞ்சு</string>
     <string name="blue_gray_accent_color">நீல சாம்பல்</string>
     <string name="brown_accent_color">பழுப்பு</string>
@@ -243,8 +237,6 @@
     <string name="indigo_accent_color">இண்டிகோ</string>
     <string name="pink_accent_color">இளஞ்சிவப்பு</string>
     <string name="black_accent_color">கருப்பு</string>
-    <string name="alarm_notification_reminder_1_hour">1 மணி நேரத்திற்கு முன்</string>
-    <string name="alarm_notification_reminder_2_hours">2 மணி நேரத்திற்கு முன்</string>
     <string name="purple_accent_color">ஊதா</string>
     <string name="yellow_accent_color">மஞ்சள்</string>
     <string name="font_category_title">எழுத்து</string>

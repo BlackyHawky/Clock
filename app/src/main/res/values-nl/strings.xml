@@ -342,14 +342,9 @@
     <string name="alarm_alert_off_and_deleted_text">Wekker uit en verwijderd</string>
     <string name="timer_volume_buttons_action_title">Verlopen kookwekkers terugzetten met volumeknoppen</string>
     <string name="timer_buttons_action_summary">Werkt alleen op een vergrendeld scherm</string>
-    <string name="alarm_notification_reminder_4_hours">4 uur van te voren</string>
-    <string name="alarm_notification_reminder_6_hours">6 uur van te voren</string>
-    <string name="alarm_notification_reminder_10_hours">10 uur van te voren</string>
-    <string name="alarm_notification_reminder_12_hours">12 uur van te voren</string>
     <string name="backup_restore_dialog_message">Wil je een back-up maken of app-data herstellen?</string>
     <string name="backup_button_title">Back-up</string>
     <string name="restore_button_title">Herstel</string>
-    <string name="alarm_notification_reminder_8_hours">8 uur van te voren</string>
     <string name="snooze_button_color">Kleur sluimerknop</string>
     <string name="minute_color_title">Kleur minuten</string>
     <string name="next_alarm_no_upcoming_alarm_titles_default_color">Standaardkleur titel \"Geen volgende wekker\"</string>
@@ -376,7 +371,6 @@
     <string name="system_theme">Systeem</string>
     <string name="light_theme">Licht</string>
     <string name="dark_theme">Donker</string>
-    <string name="alarm_notification_reminder_30_minutes">30 minuten van te voren</string>
     <string name="alarm_title_default_color">Standaardkleur wekkerlabel</string>
     <string name="next_alarm_no_upcoming_alarm_titles_color">Kleur titel \"Geen volgende wekker\"</string>
     <string name="hour_color_title">Kleur uren</string>
@@ -384,8 +378,6 @@
     <string name="hour_default_color_title">Standaardkleur uren</string>
     <string name="occasional_alarm_alert_predismiss_title">Aankomende gelegenheidswekker</string>
     <string name="vertical_widget">Verticale digitale klok</string>
-    <string name="alarm_notification_reminder_1_hour">1 uur van te voren</string>
-    <string name="alarm_notification_reminder_2_hours">2 uur van te voren</string>
     <string name="description_direction_both_for_occasional_alarm">Veeg naar links om te sluimeren of naar rechts om wekker uit te zetten en te verwijderen</string>
     <string name="description_direction_both_for_occasional_non_repeatable_alarm">Veeg naar links of rechts om wekker uit te zetten en te verwijderen</string>
     <string name="settings_tab_indicator_title">Tabbladaanwijzer in het onderste navigatiemenu weergeven</string>
@@ -658,4 +650,9 @@
     <string name="toast_message_backup_error">Back-up mislukt</string>
     <string name="toast_message_restore_error">Herstel mislukt</string>
     <string name="alarm_minutes_warning_box_text">Voer een waarde in tussen 0 en 59 minuten</string>
+    <string name="pause_alarm_title">Wekker pauzeren</string>
+    <string name="pause_alarm_range">Gepauzeerd: %1$s</string>
+    <string name="tabs_category_title">Tabbladen</string>
+    <string name="visible_tabs_title">Zichtbare tabbladen</string>
+    <string name="shortcut_disabled">Tabblad verborgen</string>
 </resources>

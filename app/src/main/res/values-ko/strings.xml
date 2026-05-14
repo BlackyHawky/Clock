@@ -223,7 +223,6 @@
     <string name="snooze_button_color">잠시 미루기 버튼 색상</string>
     <string name="auto_silence_end_of_ringtone">벨소리가 끝났을 때</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">알람을 잠시 미뤘을 때 두 번, 해제했을 때 한 번 진동</string>
-    <string name="alarm_notification_reminder_6_hours">6시간 전</string>
     <string name="first_launch_button_later">나중에</string>
     <string name="sw_start_pause_action">시작/일시중지</string>
     <string name="settings_language_system">시스템 언어</string>
@@ -232,12 +231,8 @@
     <string name="settings_language_polish">폴란드어</string>
     <string name="settings_language_german">독일어</string>
     <string name="settings_language_dutch">네덜란드어</string>
-    <string name="alarm_notification_reminder_4_hours">4시간 전</string>
-    <string name="alarm_notification_reminder_8_hours">8시간 전</string>
-    <string name="alarm_notification_reminder_10_hours">10시간 전</string>
     <string name="material_time_picker_style_title">시간 선택 도구 스타일</string>
     <string name="settings_language_russian">러시아어</string>
-    <string name="alarm_notification_reminder_12_hours">12시간 전</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">알람을 잠시 미루거나 해제했을 때 진동</string>
     <string name="miscellaneous_category_title">기타</string>
     <string name="ringtone_category_title">벨소리</string>
@@ -281,12 +276,9 @@
     <string name="duplicate">복제</string>
     <string name="system_theme">시스템</string>
     <string name="title_theme">테마</string>
-    <string name="alarm_notification_reminder_1_hour">1시간 전</string>
     <string name="next_alarm_widget">다음 알람</string>
     <string name="auto_night_accent_color_title">야간 모드에 강조 색상 적용</string>
     <string name="night_accent_color_title">야간 모드 강조 색상</string>
-    <string name="alarm_notification_reminder_30_minutes">30분 전</string>
-    <string name="alarm_notification_reminder_2_hours">2시간 전</string>
     <string name="enable_alarm_vibrations_by_default_setting_title">알람을 만들었을 때 진동</string>
     <string name="alarm_flash">플래시</string>
     <string name="add_label">라벨 추가</string>

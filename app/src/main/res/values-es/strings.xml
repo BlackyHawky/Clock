@@ -255,10 +255,6 @@
     <string name="alarm_alert_dismiss_and_delete_text">Descartar y Borrar</string>
     <string name="alarm_alert_off_and_deleted_text">Alarma apagada y borrada</string>
     <string name="delete_occasional_alarm_after_use_title">Borrar alarma una vez descartada</string>
-    <string name="alarm_notification_reminder_4_hours">4 horas antes</string>
-    <string name="alarm_notification_reminder_6_hours">6 horas antes</string>
-    <string name="alarm_notification_reminder_8_hours">8 horas antes</string>
-    <string name="alarm_notification_reminder_10_hours">10 horas antes</string>
     <string name="minute_color_title">Color de los minutos</string>
     <string name="date_default_color_title">Utilizar el color por defecto para la fecha</string>
     <string name="digital_widget_message_summary">«Mostrar ciudades en el widget» debe desactivarse para acceder a esta configuración</string>
@@ -279,7 +275,6 @@
     <string name="whats_new_title">Qué hay de nuevo</string>
     <string name="about_github_link">Ver en GitHub</string>
     <string name="features_title">Funcionalidades principales</string>
-    <string name="alarm_notification_reminder_12_hours">12 horas antes</string>
     <string name="enable_alarm_vibrations_by_default_setting_title">Activar la vibración cuando se active la alarma</string>
     <string name="settings_vibration_title">Activar vibraciones</string>
     <string name="settings_vibration_summary">Sólo algunos botones de la interfaz se ven afectados (e.g.: el botón de reanudar/pausar del temporizador o los interruptores)</string>
@@ -288,14 +283,11 @@
     <string name="clock_default_color_title">Utilizar el color por defecto para el reloj principal</string>
     <string name="license">Licencia de código abierto</string>
     <string name="version_text">Versión <xliff:g id="VERSION_NUMBER" example="1.0">%1$s</xliff:g></string>
-    <string name="alarm_notification_reminder_1_hour">1 hora antes</string>
-    <string name="alarm_notification_reminder_2_hours">2 horas antes</string>
     <string name="clock_font_size">Tamaño de fuente del reloj</string>
     <string name="alarm_title_font_size">Tamaño de fuente del título de la alarma</string>
     <string name="notifications_permission_title">ACTIVAR NOTIFICACIONES</string>
     <string name="city_clock_default_color_title">Utilizar color por defecto para el reloj de ciudad</string>
     <string name="alarm_notification_reminder_title">Notificación de recordatorio</string>
-    <string name="alarm_notification_reminder_30_minutes">30 minutos antes</string>
     <string name="alarm_title_color">Color del título de la alarma</string>
     <string name="display_ringtone_title">Mostrar el título del tono</string>
     <string name="first_launch_important_info_message">Para garantizar que la aplicación funcione correctamente, &lt;b&gt;es necesario cambiar algunos ajustes del dispositivo:&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;BATTERY OPTIMIZATION;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;NOTIFICATIONS;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;Dependiendo de la versión de Android del dispositivo, algunos de estos ajustes ya están optmizados (e.g. notificaciones).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Puedes cambiarlas ahora o después en configuración de gestión de permisos:</string>

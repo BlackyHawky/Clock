@@ -366,14 +366,6 @@
     <string name="missed_alarm_repeat_limit_5_times">5 alkalommal</string>
     <string name="missed_alarm_repeat_limit_10_times">10 alkalommal</string>
     <string name="alarm_notification_reminder_title">Emlékeztető értesítés</string>
-    <string name="alarm_notification_reminder_30_minutes">30 perccel előtte</string>
-    <string name="alarm_notification_reminder_1_hour">1 órával előtte</string>
-    <string name="alarm_notification_reminder_2_hours">2 órával előtte</string>
-    <string name="alarm_notification_reminder_4_hours">4 órával előtte</string>
-    <string name="alarm_notification_reminder_6_hours">6 órával előtte</string>
-    <string name="alarm_notification_reminder_8_hours">8 órával előtte</string>
-    <string name="alarm_notification_reminder_10_hours">10 órával előtte</string>
-    <string name="alarm_notification_reminder_12_hours">12 órával előtte</string>
     <string name="advanced_audio_playback_title">Összetett hang lejátszás használata</string>
     <string name="advanced_audio_playback_summary">Javítja a Bluetooth kompatibilitást és megakadályozza, hogy más hang megszakítsa az ismétlést \n\nFigyelem: Egyes csengőhangok lejátszási hibát generálhatnak</string>
     <string name="system_media_volume_title">Használja a rendszer média hangerőt</string>
