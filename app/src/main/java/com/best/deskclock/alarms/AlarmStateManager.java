@@ -55,7 +55,7 @@ import java.util.Objects;
 /**
  * This class handles all the state changes for alarm instances. You need to
  * register all alarm instances with the state manager if you want them to
- * be activated. If a major time change has occurred (ie. TIMEZONE_CHANGE, TIMESET_CHANGE),
+ * be activated. If a major time change has occurred (i.e. TIMEZONE_CHANGE, TIMESET_CHANGE),
  * then you must also re-register instances to fix their states.
  * <p>
  * Please see {@link #registerInstance} for special transitions when major time changes occur.
@@ -77,14 +77,14 @@ import java.util.Objects;
  * FIRED_STATE:
  * The FIRED_STATE is used when the alarm is firing. It will start the AlarmService, and wait
  * until the user interacts with the alarm via SNOOZED_STATE or DISMISS_STATE change. If the user
- * doesn't then it might be change to MISSED_STATE if auto-silenced was enabled.
+ * doesn't then it might be changed to MISSED_STATE if auto-silenced was enabled.
  * <p>
  * MISSED_STATE:
  * The MISSED_STATE is used when the alarm already fired, but the user could not interact with
- * it. At this point the alarm instance is dead and we check the parent alarm to see if we need
+ * it. At this point the alarm instance is dead, and we check the parent alarm to see if we need
  * to disable or schedule a new alarm_instance. There is also a notification shown to the user
  * that he/she missed the alarm and that stays for
- * {@link AlarmInstance#MISSED_TIME_TO_LIVE_HOUR_OFFSET} or until the user acknownledges it.
+ * {@link AlarmInstance#MISSED_TIME_TO_LIVE_HOUR_OFFSET} or until the user acknowledges it.
  * <p>
  * DISMISS_STATE:
  * This is really a transient state that will properly delete the alarm instance. Use this state,
@@ -144,7 +144,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * the update will be skipped to avoid runtime exceptions when accessing system services
      * like {@code AppWidgetManager}.</p>
      */
-    private static void updateNextAlarm(Context context) {
+    public static void updateNextAlarm(Context context) {
         Context storageContext = Utils.getSafeStorageContext(context);
 
         // Important: Do not proceed if the user is locked (direct boot mode).
@@ -181,7 +181,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * Returns an alarm instance of an alarm that's going to fire next.
      *
      * @param context application context
-     * @return an alarm instance that will fire earliest relative to current time.
+     * @return an alarm instance that will fire the earliest relative to current time.
      */
     public static AlarmInstance getNextFiringAlarm(Context context) {
         final ContentResolver cr = context.getContentResolver();
@@ -535,7 +535,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * @param instance to set state to
      */
     public static void setPreDismissState(Context context, AlarmInstance instance, boolean showToast) {
-        LogUtils.i("Setting predismissed state to instance " + instance.mId);
+        LogUtils.i("Setting pre-dismissed state to instance " + instance.mId);
 
         // Stop alarm if this instance is firing it; a single vibration will be performed if enabled in settings
         // to indicate that the alarm is correctly dismissed.
@@ -671,7 +671,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      *
      * <ul>
      *     <li>Make sure all dismissed alarms are never re-activated</li>
-     *     <li>Make sure pre-dismissed alarms stay predismissed</li>
+     *     <li>Make sure pre-dismissed alarms stay pre-dismissed</li>
      *     <li>Make sure firing alarms stayed fired unless they should be auto-silenced</li>
      *     <li>Missed instance that have parents should be re-enabled if we went back in time</li>
      *     <li>If alarm was SNOOZED, then show the notification but don't update time</li>
@@ -711,7 +711,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
             if (currentTime.before(alarmTime)) {
                 if (instance.mAlarmId == null) {
                     LogUtils.i("Cannot restore missed instance for one-time alarm");
-                    // This instance parent got deleted (ie. deleteAfterUse), so we should not re-activate it.
+                    // This instance parent got deleted (i.e. deleteAfterUse), so we should not re-activate it.
                     deleteInstanceAndUpdateParent(context, instance, false);
                     return;
                 }
@@ -721,7 +721,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 //  We should look into fixing this in the future.
 
                 // Make sure we re-enable the parent alarm of the instance
-                // because it will get activated by by the below code
+                // because it will get activated by the below code
                 Objects.requireNonNull(alarm).enabled = true;
                 alarm.updateAlarm(cr);
             }
@@ -734,7 +734,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
             return;
         }
 
-        // Fix states that are time sensitive
+        // Fix states that are time-sensitive
         if (currentTime.after(missedTTL)) {
             // Alarm is so old, just dismiss it
             deleteInstanceAndUpdateParent(context, instance, false);
@@ -870,7 +870,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
             int alarmState = intent.getIntExtra(ALARM_STATE_EXTRA, -1);
             if (intentId != globalId) {
                 LogUtils.i("IntentId: " + intentId + " GlobalId: " + globalId + " AlarmState: " + alarmState);
-                // Allows dismiss/snooze requests to go through
+                // Allows to dismiss/snooze requests to go through
                 if (!intent.hasCategory(ALARM_DISMISS_TAG) && !intent.hasCategory(ALARM_SNOOZE_TAG)) {
                     LogUtils.i("Ignoring old Intent");
                     return;

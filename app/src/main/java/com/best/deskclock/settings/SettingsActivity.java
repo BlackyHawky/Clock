@@ -51,6 +51,8 @@ import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
 
+import org.json.JSONException;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -150,7 +152,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                         backupPreferences(appContext, uri);
 
                         AppExecutors.getMainThread().post(() -> CustomToast.show(appContext, R.string.toast_message_for_backup));
-                    } catch (IOException e) {
+                    } catch (Exception e) {
                         LogUtils.e("Error during backup", e);
 
                         AppExecutors.getMainThread().post(() -> CustomToast.show(appContext, R.string.toast_message_backup_error));
@@ -186,7 +188,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
                             CustomToast.show(appContext, R.string.toast_message_for_restore);
                         });
-                    } catch (IOException e) {
+                    } catch (Exception e) {
                         LogUtils.e("Error reading the restore file", e);
 
                         AppExecutors.getMainThread().post(() -> CustomToast.show(appContext, R.string.toast_message_restore_error));
@@ -366,7 +368,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             }
         }
 
-        private void backupPreferences(Context context, Uri uri) throws IOException {
+        private void backupPreferences(Context context, Uri uri) throws IOException, JSONException {
             try (OutputStream outputStream = context.getContentResolver().openOutputStream(uri);
                  ZipOutputStream zipOutputStream = new ZipOutputStream(outputStream)) {
                 // The JSON file that contains all the settings
@@ -431,7 +433,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             wipeAllCustomFiles(context);
         }
 
-        private void restorePreferences(Context context, Uri uri) throws IOException {
+        private void restorePreferences(Context context, Uri uri) throws IOException, JSONException {
             try (InputStream inputStream = context.getContentResolver().openInputStream(uri);
                  ZipInputStream zipInputStream = new ZipInputStream(inputStream)) {
 
@@ -449,7 +451,9 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             }
         }
 
-        private void restoreFileFromZip(Context context, ZipInputStream zipInputStream, String fileName) throws IOException {
+        private void restoreFileFromZip(Context context, ZipInputStream zipInputStream, String fileName)
+            throws IOException {
+
             File outputFile = new File(context.getFilesDir(), fileName);
 
             try (FileOutputStream fos = new FileOutputStream(outputFile)) {
@@ -476,15 +480,18 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         private void applySettingsAfterRestore(Context context) {
             // Required to update Locale.
             context.sendBroadcast(new Intent(ACTION_LANGUAGE_CODE_CHANGED));
+
             // Required to update widgets.
             WidgetUtils.updateAllWidgets(context);
 
             // Required to update the timer list.
             DataModel.getDataModel().loadTimers();
+
             // Required to update the tab to display.
             if (SettingsDAO.getTabToDisplay(mPrefs) != -1) {
                 UiDataModel.getUiDataModel().setSelectedTab(UiDataModel.Tab.values()[SettingsDAO.getTabToDisplay(mPrefs)]);
             }
+
             // Required to start/stop the foreground notification
             if (SettingsDAO.isForegroundServiceEnabled(mPrefs)) {
                 Utils.startService(context, KeepAliveService.class);
