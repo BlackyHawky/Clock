@@ -1,6 +1,5 @@
 /*
  * SPDX-License-Identifier: GPL-3.0-only
- * Inspired by Heliboard (https://github.com/Helium314/HeliBoard/blob/main/app/src/main/java/helium314/keyboard/latin/settings/AdvancedSettingsFragment.kt)
  */
 
 package com.best.deskclock.utils;
@@ -63,7 +62,8 @@ public class BackupAndRestoreUtils {
     /**
      * Read and export values in SharedPreferences to a file.
      */
-    public static void settingsToJsonStream(Context context, SharedPreferences prefs, Map<String, ?> settings, OutputStream out) {
+    public static void settingsToJsonStream(Context context, SharedPreferences prefs, Map<String, ?> settings, OutputStream out)
+        throws JSONException, IOException {
 
         Map<String, Boolean> booleans = new HashMap<>();
         Map<String, String> strings = new HashMap<>();
@@ -119,89 +119,83 @@ public class BackupAndRestoreUtils {
             }
         }
 
-        try {
-            JSONObject jsonObject = new JSONObject();
+        JSONObject jsonObject = new JSONObject();
 
-            // Header
-            JSONObject header = new JSONObject();
+        // Header
+        JSONObject header = new JSONObject();
 
-            header.put("packageName", context.getPackageName());
-            header.put("versionName", BuildConfig.VERSION_NAME);
-            header.put("versionCode", BuildConfig.VERSION_CODE);
-            header.put("backupDate", DateFormat.format("yyyy_MM_dd_HH-mm-ss", new Date()).toString());
+        header.put("packageName", context.getPackageName());
+        header.put("versionName", BuildConfig.VERSION_NAME);
+        header.put("versionCode", BuildConfig.VERSION_CODE);
+        header.put("backupDate", DateFormat.format("yyyy_MM_dd_HH-mm-ss", new Date()).toString());
 
-            jsonObject.put("Header", header);
+        jsonObject.put("Header", header);
 
-            // Convert the Map of booleans to a JSONObject
-            jsonObject.put("Boolean settings", convertMapToJsonObject(booleans));
+        // Convert the Map of booleans to a JSONObject
+        jsonObject.put("Boolean settings", convertMapToJsonObject(booleans));
 
-            // Convert the Map of strings to a JSONObject
-            jsonObject.put("String settings", convertMapToJsonObject(strings));
+        // Convert the Map of strings to a JSONObject
+        jsonObject.put("String settings", convertMapToJsonObject(strings));
 
-            // Convert the Map of integers to a JSONObject
-            jsonObject.put("Integer settings", convertMapToJsonObject(ints));
+        // Convert the Map of integers to a JSONObject
+        jsonObject.put("Integer settings", convertMapToJsonObject(ints));
 
-            // Convert the Map of longs to a JSONObject
-            jsonObject.put("Long settings", convertMapToJsonObject(longs));
+        // Convert the Map of longs to a JSONObject
+        jsonObject.put("Long settings", convertMapToJsonObject(longs));
 
-            // Convert the Map of visible tabs to a JSONArray
-            jsonObject.put("Visible tabs", new JSONArray(visibleTabs));
+        // Convert the Map of visible tabs to a JSONArray
+        jsonObject.put("Visible tabs", new JSONArray(visibleTabs));
 
-            // Convert the Map of timers IDs to a JSONArray
-            jsonObject.put("Timers IDs", new JSONArray(timerIds));
+        // Convert the Map of timers IDs to a JSONArray
+        jsonObject.put("Timers IDs", new JSONArray(timerIds));
 
-            // Convert the alarms to a JSONArray
-            JSONArray alarmsArray = new JSONArray();
-            JSONArray alarmsWithDateArray = new JSONArray();
+        // Convert the alarms to a JSONArray
+        JSONArray alarmsArray = new JSONArray();
+        JSONArray alarmsWithDateArray = new JSONArray();
 
-            List<Alarm> alarms = Alarm.getAlarms(context.getContentResolver(), null);
-            for (Alarm alarm : alarms) {
-                JSONObject alarmObject = new JSONObject();
+        List<Alarm> alarms = Alarm.getAlarms(context.getContentResolver(), null);
+        for (Alarm alarm : alarms) {
+            JSONObject alarmObject = new JSONObject();
 
-                alarmObject.put("id", alarm.id);
-                alarmObject.put("enabled", alarm.enabled);
-                alarmObject.put("hour", alarm.hour);
-                alarmObject.put("minutes", alarm.minutes);
-                alarmObject.put("vibrate", alarm.vibrate);
-                alarmObject.put("vibrationPattern", alarm.vibrationPattern);
-                alarmObject.put("flash", alarm.flash);
-                alarmObject.put("daysOfWeek", alarm.daysOfWeek.getBits());
-                alarmObject.put("label", alarm.label);
-                alarmObject.put("syncByLabel", alarm.syncByLabel);
-                alarmObject.put("alert", alarm.alert);
-                alarmObject.put("deleteAfterUse", alarm.deleteAfterUse);
-                alarmObject.put("autoSilenceDuration", alarm.autoSilenceDuration);
-                alarmObject.put("snoozeDuration", alarm.snoozeDuration);
-                alarmObject.put("missedAlarmRepeatLimit", alarm.missedAlarmRepeatLimit);
-                alarmObject.put("crescendoDuration", alarm.crescendoDuration);
-                alarmObject.put("alarmVolume", alarm.alarmVolume);
-                alarmObject.put("manualSortOrder", alarm.manualSortOrder);
-                alarmObject.put("pauseStartDate", alarm.pauseStartDate);
-                alarmObject.put("pauseEndDate", alarm.pauseEndDate);
+            alarmObject.put("id", alarm.id);
+            alarmObject.put("enabled", alarm.enabled);
+            alarmObject.put("hour", alarm.hour);
+            alarmObject.put("minutes", alarm.minutes);
+            alarmObject.put("vibrate", alarm.vibrate);
+            alarmObject.put("vibrationPattern", alarm.vibrationPattern);
+            alarmObject.put("flash", alarm.flash);
+            alarmObject.put("daysOfWeek", alarm.daysOfWeek.getBits());
+            alarmObject.put("label", alarm.label);
+            alarmObject.put("syncByLabel", alarm.syncByLabel);
+            alarmObject.put("alert", alarm.alert);
+            alarmObject.put("deleteAfterUse", alarm.deleteAfterUse);
+            alarmObject.put("autoSilenceDuration", alarm.autoSilenceDuration);
+            alarmObject.put("snoozeDuration", alarm.snoozeDuration);
+            alarmObject.put("missedAlarmRepeatLimit", alarm.missedAlarmRepeatLimit);
+            alarmObject.put("crescendoDuration", alarm.crescendoDuration);
+            alarmObject.put("alarmVolume", alarm.alarmVolume);
+            alarmObject.put("manualSortOrder", alarm.manualSortOrder);
+            alarmObject.put("pauseStartDate", alarm.pauseStartDate);
+            alarmObject.put("pauseEndDate", alarm.pauseEndDate);
 
-                if (alarm.daysOfWeek.isRepeating() || !alarm.isSpecifiedDate()) {
-                    alarmsArray.put(alarmObject);
-                } else {
-                    alarmObject.put("year", alarm.year);
-                    alarmObject.put("month", alarm.month);
-                    alarmObject.put("day", alarm.day);
+            if (alarm.daysOfWeek.isRepeating() || !alarm.isSpecifiedDate()) {
+                alarmsArray.put(alarmObject);
+            } else {
+                alarmObject.put("year", alarm.year);
+                alarmObject.put("month", alarm.month);
+                alarmObject.put("day", alarm.day);
 
-                    alarmsWithDateArray.put(alarmObject);
-                }
+                alarmsWithDateArray.put(alarmObject);
             }
-
-            jsonObject.put("Alarms", alarmsArray);
-
-            jsonObject.put("Alarms with specified date", alarmsWithDateArray);
-
-            out.write(jsonObject.toString(4).getBytes(StandardCharsets.UTF_8));
-
-            out.flush();
-        } catch (JSONException e) {
-            LogUtils.e("JSON parsing error", e);
-        } catch (IOException e) {
-            LogUtils.e("Error writing to file", e);
         }
+
+        jsonObject.put("Alarms", alarmsArray);
+
+        jsonObject.put("Alarms with specified date", alarmsWithDateArray);
+
+        out.write(jsonObject.toString(4).getBytes(StandardCharsets.UTF_8));
+
+        out.flush();
     }
 
     /**
@@ -234,7 +228,9 @@ public class BackupAndRestoreUtils {
      * Read and apply values to restore in SharedPreferences.
      */
     @SuppressLint("ApplySharedPref")
-    public static void readJson(Context context, SharedPreferences prefs, InputStream inputStream) {
+    public static void readJson(Context context, SharedPreferences prefs, InputStream inputStream)
+        throws IOException, JSONException {
+
         SharedPreferences.Editor editor = prefs.edit();
 
         // Exclude keys corresponding to custom ringtones and the selected alarm ringtone, as this causes bugs for alarms.
@@ -269,100 +265,98 @@ public class BackupAndRestoreUtils {
         StringBuilder jsonBuilder = new StringBuilder();
         String line;
 
-        try {
-            while ((line = reader.readLine()) != null) {
-                jsonBuilder.append(line);
-            }
+        while ((line = reader.readLine()) != null) {
+            jsonBuilder.append(line);
+        }
 
-            JSONObject jsonObject = new JSONObject(jsonBuilder.toString());
+        JSONObject jsonObject = new JSONObject(jsonBuilder.toString());
 
-            JSONObject booleans = jsonObject.getJSONObject("Boolean settings");
-            for (Iterator<String> it = booleans.keys(); it.hasNext(); ) {
-                String key = it.next();
-                boolean value = booleans.getBoolean(key);
-                editor.putBoolean(key, value);
-            }
+        JSONObject booleans = jsonObject.getJSONObject("Boolean settings");
+        for (Iterator<String> it = booleans.keys(); it.hasNext(); ) {
+            String key = it.next();
+            boolean value = booleans.getBoolean(key);
+            editor.putBoolean(key, value);
+        }
 
-            JSONObject strings = jsonObject.getJSONObject("String settings");
-            for (Iterator<String> it = strings.keys(); it.hasNext(); ) {
-                String key = it.next();
-                String value = strings.getString(key);
+        JSONObject strings = jsonObject.getJSONObject("String settings");
+        for (Iterator<String> it = strings.keys(); it.hasNext(); ) {
+            String key = it.next();
+            String value = strings.getString(key);
 
-                if (isRingtoneKey(key)) {
-                    if (!isRingtoneAvailable(context, value)) {
-                        if (KEY_TIMER_RINGTONE.equals(key)) {
-                            editor.putString(key, RingtoneUtils.getResourceUri(context, R.raw.timer_expire).toString());
-                        } else if (KEY_DEFAULT_ALARM_RINGTONE.equals(key)) {
-                            editor.putString(key, RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString());
-                        }
-                    } else {
-                        editor.putString(key, value);
+            if (isRingtoneKey(key)) {
+                if (!isRingtoneAvailable(context, value)) {
+                    if (KEY_TIMER_RINGTONE.equals(key)) {
+                        editor.putString(key, RingtoneUtils.getResourceUri(context, R.raw.timer_expire).toString());
+                    } else if (KEY_DEFAULT_ALARM_RINGTONE.equals(key)) {
+                        editor.putString(key, RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString());
                     }
                 } else {
                     editor.putString(key, value);
                 }
+            } else {
+                editor.putString(key, value);
             }
-
-            JSONObject integers = jsonObject.getJSONObject("Integer settings");
-            for (Iterator<String> it = integers.keys(); it.hasNext(); ) {
-                String key = it.next();
-                int value = integers.getInt(key);
-                editor.putInt(key, value);
-            }
-
-            JSONObject longs = jsonObject.getJSONObject("Long settings");
-            for (Iterator<String> it = longs.keys(); it.hasNext(); ) {
-                String key = it.next();
-                long value = longs.getLong(key);
-                editor.putLong(key, value);
-            }
-
-            if (jsonObject.has("Visible tabs")) {
-                JSONArray visibleTabsArray = jsonObject.getJSONArray("Visible tabs");
-                Set<String> visibleTabs = new HashSet<>();
-                for (int i = 0; i < visibleTabsArray.length(); i++) {
-                    visibleTabs.add(visibleTabsArray.getString(i));
-                }
-                editor.putStringSet(KEY_VISIBLE_TABS, visibleTabs);
-            }
-
-            if (jsonObject.has("Timers IDs")) {
-                JSONArray timerIdsArray = jsonObject.getJSONArray("Timers IDs");
-                Set<String> timerIds = new HashSet<>();
-                for (int i = 0; i < timerIdsArray.length(); i++) {
-                    timerIds.add(timerIdsArray.getString(i));
-                }
-                editor.putStringSet(TIMER_IDS, timerIds);
-            }
-
-            final ContentResolver contentResolver = context.getContentResolver();
-            // Clear the alarm list before restoring to avoid adding duplicates
-            final List<Alarm> alarms = Alarm.getAlarms(contentResolver, null);
-            for (Alarm alarm : alarms) {
-                AlarmStateManager.deleteAllInstances(context, alarm.id);
-                Alarm.deleteAlarm(contentResolver, alarm.id);
-            }
-
-            if (jsonObject.has("Alarms")) {
-                JSONArray alarmsArray = jsonObject.getJSONArray("Alarms");
-                for (int i = 0; i < alarmsArray.length(); i++) {
-                    JSONObject alarmObject = alarmsArray.getJSONObject(i);
-                    restoreAlarm(context, prefs, contentResolver, alarmObject, false);
-                }
-            }
-
-            if (jsonObject.has("Alarms with specified date")) {
-                JSONArray alarmsWithDateArray = jsonObject.getJSONArray("Alarms with specified date");
-                for (int i = 0; i < alarmsWithDateArray.length(); i++) {
-                    JSONObject alarmObject = alarmsWithDateArray.getJSONObject(i);
-                    restoreAlarm(context, prefs, contentResolver, alarmObject, true);
-                }
-            }
-
-            editor.commit();
-        } catch (IOException | JSONException e) {
-            LogUtils.e("Error during restore", e);
         }
+
+        JSONObject integers = jsonObject.getJSONObject("Integer settings");
+        for (Iterator<String> it = integers.keys(); it.hasNext(); ) {
+            String key = it.next();
+            int value = integers.getInt(key);
+            editor.putInt(key, value);
+        }
+
+        JSONObject longs = jsonObject.getJSONObject("Long settings");
+        for (Iterator<String> it = longs.keys(); it.hasNext(); ) {
+            String key = it.next();
+            long value = longs.getLong(key);
+            editor.putLong(key, value);
+        }
+
+        if (jsonObject.has("Visible tabs")) {
+            JSONArray visibleTabsArray = jsonObject.getJSONArray("Visible tabs");
+            Set<String> visibleTabs = new HashSet<>();
+            for (int i = 0; i < visibleTabsArray.length(); i++) {
+                visibleTabs.add(visibleTabsArray.getString(i));
+            }
+            editor.putStringSet(KEY_VISIBLE_TABS, visibleTabs);
+        }
+
+        if (jsonObject.has("Timers IDs")) {
+            JSONArray timerIdsArray = jsonObject.getJSONArray("Timers IDs");
+            Set<String> timerIds = new HashSet<>();
+            for (int i = 0; i < timerIdsArray.length(); i++) {
+                timerIds.add(timerIdsArray.getString(i));
+            }
+            editor.putStringSet(TIMER_IDS, timerIds);
+        }
+
+        editor.commit();
+
+        final ContentResolver contentResolver = context.getContentResolver();
+        // Clear the alarm list before restoring to avoid adding duplicates
+        final List<Alarm> alarms = Alarm.getAlarms(contentResolver, null);
+        for (Alarm alarm : alarms) {
+            AlarmStateManager.deleteAllInstances(context, alarm.id);
+            Alarm.deleteAlarm(contentResolver, alarm.id);
+        }
+
+        if (jsonObject.has("Alarms")) {
+            JSONArray alarmsArray = jsonObject.getJSONArray("Alarms");
+            for (int i = 0; i < alarmsArray.length(); i++) {
+                JSONObject alarmObject = alarmsArray.getJSONObject(i);
+                restoreAlarm(context, prefs, contentResolver, alarmObject, false);
+            }
+        }
+
+        if (jsonObject.has("Alarms with specified date")) {
+            JSONArray alarmsWithDateArray = jsonObject.getJSONArray("Alarms with specified date");
+            for (int i = 0; i < alarmsWithDateArray.length(); i++) {
+                JSONObject alarmObject = alarmsWithDateArray.getJSONObject(i);
+                restoreAlarm(context, prefs, contentResolver, alarmObject, true);
+            }
+        }
+
+        AlarmStateManager.updateNextAlarm(context);
     }
 
     /**
@@ -438,7 +432,7 @@ public class BackupAndRestoreUtils {
         if (restoredAlarm.enabled) {
             AlarmInstance alarmInstance = restoredAlarm.createInstanceAfter(Calendar.getInstance());
             alarmInstance.addInstance(contentResolver);
-            AlarmStateManager.registerInstance(context, alarmInstance, true);
+            AlarmStateManager.registerInstance(context, alarmInstance, false);
             LogUtils.i("BackupAndRestoreUtils scheduled alarm instance: %s", alarmInstance);
         }
     }
