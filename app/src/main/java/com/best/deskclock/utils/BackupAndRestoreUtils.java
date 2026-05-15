@@ -33,6 +33,7 @@ import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
+import com.best.deskclock.provider.AlarmMission;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -178,6 +179,8 @@ public class BackupAndRestoreUtils {
                 alarmObject.put("manualSortOrder", alarm.manualSortOrder);
                 alarmObject.put("pauseStartDate", alarm.pauseStartDate);
                 alarmObject.put("pauseEndDate", alarm.pauseEndDate);
+                alarmObject.put("alarmMission", alarm.alarmMission);
+                alarmObject.put("alarmMissionData", alarm.alarmMissionData);
 
                 if (alarm.daysOfWeek.isRepeating() || !alarm.isSpecifiedDate()) {
                     alarmsArray.put(alarmObject);
@@ -400,6 +403,8 @@ public class BackupAndRestoreUtils {
             pauseStartDate = 0;
             pauseEndDate = 0;
         }
+        int alarmMission = alarmObject.optInt("alarmMission", AlarmMission.TYPE_NONE);
+        String alarmMissionData = alarmObject.optString("alarmMissionData", "");
 
         String alarmRingtone;
         if (RingtoneUtils.isRandomRingtone(Uri.parse(alert))) {
@@ -431,7 +436,8 @@ public class BackupAndRestoreUtils {
 
         restoredAlarm = new Alarm(id, enabled, year, month, day, hour, minutes, vibrate, vibrationPattern, flash,
             Weekdays.fromBits(daysOfWeek), label, syncAlarmByLabel, alarmRingtone, deleteAfterUse, autoSilenceDuration, snoozeDuration,
-            missedAlarmRepeatLimit, crescendoDuration, alarmVolume, manualSortOrder, pauseStartDate, pauseEndDate);
+            missedAlarmRepeatLimit, crescendoDuration, alarmVolume, manualSortOrder,
+            pauseStartDate, pauseEndDate, alarmMission, alarmMissionData);
 
         restoredAlarm.addAlarm(contentResolver);
 

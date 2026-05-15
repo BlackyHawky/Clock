@@ -147,7 +147,9 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         ALARM_VOLUME,
         MANUAL_SORT_ORDER,
         PAUSE_START_DATE,
-        PAUSE_END_DATE
+        PAUSE_END_DATE,
+        ALARM_MISSION,
+        ALARM_MISSION_DATA
     };
     private static final String[] QUERY_ALARMS_WITH_INSTANCES_COLUMNS = {
         ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + _ID,
@@ -173,6 +175,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + MANUAL_SORT_ORDER,
         ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + PAUSE_START_DATE,
         ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + PAUSE_END_DATE,
+        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ALARM_MISSION,
+        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ALARM_MISSION_DATA,
         ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.ALARM_STATE,
         ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns._ID,
         ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.YEAR,
@@ -219,27 +223,29 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     private static final int MANUAL_SORT_ORDER_INDEX = 20;
     private static final int PAUSE_START_DATE_INDEX = 21;
     private static final int PAUSE_END_DATE_INDEX = 22;
+    private static final int ALARM_MISSION_INDEX = 23;
+    private static final int ALARM_MISSION_DATA_INDEX = 24;
 
-    private static final int INSTANCE_STATE_INDEX = 23;
-    public static final int INSTANCE_ID_INDEX = 24;
-    public static final int INSTANCE_YEAR_INDEX = 25;
-    public static final int INSTANCE_MONTH_INDEX = 26;
-    public static final int INSTANCE_DAY_INDEX = 27;
-    public static final int INSTANCE_HOUR_INDEX = 28;
-    public static final int INSTANCE_MINUTE_INDEX = 29;
-    public static final int INSTANCE_LABEL_INDEX = 30;
-    public static final int INSTANCE_SYNC_BY_LABEL_INDEX = 31;
-    public static final int INSTANCE_VIBRATE_INDEX = 32;
-    public static final int INSTANCE_VIBRATION_PATTERN_INDEX = 33;
-    public static final int INSTANCE_FLASH_INDEX = 34;
-    public static final int INSTANCE_AUTO_SILENCE_DURATION_INDEX = 35;
-    public static final int INSTANCE_SNOOZE_DURATION_INDEX = 36;
-    public static final int INSTANCE_MISSED_ALARM_REPEAT_COUNT_INDEX = 37;
-    public static final int INSTANCE_MISSED_ALARM_REPEAT_LIMIT_INDEX = 38;
-    public static final int INSTANCE_CRESCENDO_DURATION_INDEX = 39;
-    public static final int INSTANCE_ALARM_VOLUME_INDEX = 40;
+    private static final int INSTANCE_STATE_INDEX = 25;
+    public static final int INSTANCE_ID_INDEX = 26;
+    public static final int INSTANCE_YEAR_INDEX = 27;
+    public static final int INSTANCE_MONTH_INDEX = 28;
+    public static final int INSTANCE_DAY_INDEX = 29;
+    public static final int INSTANCE_HOUR_INDEX = 30;
+    public static final int INSTANCE_MINUTE_INDEX = 31;
+    public static final int INSTANCE_LABEL_INDEX = 32;
+    public static final int INSTANCE_SYNC_BY_LABEL_INDEX = 33;
+    public static final int INSTANCE_VIBRATE_INDEX = 34;
+    public static final int INSTANCE_VIBRATION_PATTERN_INDEX = 35;
+    public static final int INSTANCE_FLASH_INDEX = 36;
+    public static final int INSTANCE_AUTO_SILENCE_DURATION_INDEX = 37;
+    public static final int INSTANCE_SNOOZE_DURATION_INDEX = 38;
+    public static final int INSTANCE_MISSED_ALARM_REPEAT_COUNT_INDEX = 39;
+    public static final int INSTANCE_MISSED_ALARM_REPEAT_LIMIT_INDEX = 40;
+    public static final int INSTANCE_CRESCENDO_DURATION_INDEX = 41;
+    public static final int INSTANCE_ALARM_VOLUME_INDEX = 42;
 
-    private static final int COLUMN_COUNT = PAUSE_END_DATE_INDEX + 1;
+    private static final int COLUMN_COUNT = ALARM_MISSION_DATA_INDEX + 1;
     private static final int ALARM_JOIN_INSTANCE_COLUMN_COUNT = INSTANCE_ALARM_VOLUME_INDEX + 1;
     // Public fields
     public long id;
@@ -266,6 +272,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     public int manualSortOrder;
     public long pauseStartDate;
     public long pauseEndDate;
+    public int alarmMission;
+    public String alarmMissionData;
     public int instanceState;
 
     // Creates a default alarm at the current time.
@@ -300,6 +308,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.manualSortOrder = 0;
         this.pauseStartDate = 0;
         this.pauseEndDate = 0;
+        this.alarmMission = AlarmMission.TYPE_NONE;
+        this.alarmMissionData = "";
     }
 
     // Used to back up/restore the alarm
@@ -307,6 +317,35 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
                  boolean flash, Weekdays daysOfWeek, String label, boolean syncByLabel, String alert, boolean deleteAfterUse,
                  int autoSilenceDuration, int snoozeDuration, int missedAlarmRepeatLimit, int crescendoDuration, int alarmVolume,
                  int manualSortOrder, long pauseStartDate, long pauseEndDate) {
+             int manualSortOrder, long pauseStartDate, long pauseEndDate) {
+        this(id, enabled, year, month, day, hour, minutes, vibrate, vibrationPattern, flash, daysOfWeek, label,
+            syncByLabel, alert, deleteAfterUse, autoSilenceDuration, snoozeDuration, missedAlarmRepeatLimit,
+            crescendoDuration, alarmVolume, manualSortOrder, pauseStartDate, pauseEndDate,
+            AlarmMission.TYPE_NONE, "");
+        }
+
+        public Alarm(long id, boolean enabled, int year, int month, int day, int hour, int minutes, boolean vibrate, String vibrationPattern,
+             boolean flash, Weekdays daysOfWeek, String label, boolean syncByLabel, String alert, boolean deleteAfterUse,
+             int autoSilenceDuration, int snoozeDuration, int missedAlarmRepeatLimit, int crescendoDuration, int alarmVolume,
+                 int manualSortOrder, int alarmMission) {
+        this(id, enabled, year, month, day, hour, minutes, vibrate, vibrationPattern, flash, daysOfWeek, label,
+            syncByLabel, alert, deleteAfterUse, autoSilenceDuration, snoozeDuration, missedAlarmRepeatLimit,
+            crescendoDuration, alarmVolume, manualSortOrder, 0, 0, alarmMission, "");
+    }
+
+    public Alarm(long id, boolean enabled, int year, int month, int day, int hour, int minutes, boolean vibrate, String vibrationPattern,
+                 boolean flash, Weekdays daysOfWeek, String label, boolean syncByLabel, String alert, boolean deleteAfterUse,
+                 int autoSilenceDuration, int snoozeDuration, int missedAlarmRepeatLimit, int crescendoDuration, int alarmVolume,
+             int manualSortOrder, int alarmMission, String alarmMissionData) {
+        this(id, enabled, year, month, day, hour, minutes, vibrate, vibrationPattern, flash, daysOfWeek, label,
+            syncByLabel, alert, deleteAfterUse, autoSilenceDuration, snoozeDuration, missedAlarmRepeatLimit,
+            crescendoDuration, alarmVolume, manualSortOrder, 0, 0, alarmMission, alarmMissionData);
+        }
+
+        public Alarm(long id, boolean enabled, int year, int month, int day, int hour, int minutes, boolean vibrate, String vibrationPattern,
+             boolean flash, Weekdays daysOfWeek, String label, boolean syncByLabel, String alert, boolean deleteAfterUse,
+             int autoSilenceDuration, int snoozeDuration, int missedAlarmRepeatLimit, int crescendoDuration, int alarmVolume,
+             int manualSortOrder, long pauseStartDate, long pauseEndDate, int alarmMission, String alarmMissionData) {
 
         this.id = id;
         this.enabled = enabled;
@@ -331,6 +370,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.manualSortOrder = manualSortOrder;
         this.pauseStartDate = pauseStartDate;
         this.pauseEndDate = pauseEndDate;
+        this.alarmMission = alarmMission;
+        this.alarmMissionData = alarmMissionData;
     }
 
     // Used to create a clone of the given alarm
@@ -359,6 +400,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.manualSortOrder = original.manualSortOrder;
         this.pauseStartDate = original.pauseStartDate;
         this.pauseEndDate = original.pauseEndDate;
+        this.alarmMission = original.alarmMission;
+        this.alarmMissionData = original.alarmMissionData;
     }
 
     public Alarm(Cursor c) {
@@ -384,6 +427,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         manualSortOrder = c.getInt(MANUAL_SORT_ORDER_INDEX);
         pauseStartDate = c.getLong(PAUSE_START_DATE_INDEX);
         pauseEndDate = c.getLong(PAUSE_END_DATE_INDEX);
+        alarmMission = c.getInt(ALARM_MISSION_INDEX);
+        alarmMissionData = c.getString(ALARM_MISSION_DATA_INDEX);
 
         if (c.getColumnCount() == ALARM_JOIN_INSTANCE_COLUMN_COUNT) {
             instanceState = c.getInt(INSTANCE_STATE_INDEX);
@@ -424,6 +469,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         manualSortOrder = p.readInt();
         pauseStartDate = p.readLong();
         pauseEndDate = p.readLong();
+        alarmMission = p.readInt();
+        alarmMissionData = p.readString();
     }
 
     public ContentValues createContentValues() {
@@ -453,7 +500,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         values.put(MANUAL_SORT_ORDER, manualSortOrder);
         values.put(PAUSE_START_DATE, pauseStartDate);
         values.put(PAUSE_END_DATE, pauseEndDate);
-
+        values.put(ALARM_MISSION, alarmMission);
+        values.put(ALARM_MISSION_DATA, alarmMissionData);
         if (alert == null) {
             // We want to put null, so default alarm changes
             values.putNull(RINGTONE);
@@ -488,6 +536,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         p.writeInt(manualSortOrder);
         p.writeLong(pauseStartDate);
         p.writeLong(pauseEndDate);
+        p.writeInt(alarmMission);
+        p.writeString(alarmMissionData);
     }
 
     public int describeContents() {
@@ -739,7 +789,9 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             || snoozeDuration != other.snoozeDuration
             || missedAlarmRepeatLimit != other.missedAlarmRepeatLimit
             || crescendoDuration != other.crescendoDuration
-            || alarmVolume != other.alarmVolume;
+            || alarmVolume != other.alarmVolume
+            || alarmMission != other.alarmMission
+            || !Objects.equals(alarmMissionData, other.alarmMissionData);
     }
 
     public boolean isTomorrow(Calendar now) {
