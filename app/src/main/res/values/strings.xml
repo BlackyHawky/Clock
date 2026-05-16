@@ -113,6 +113,35 @@
     <string name="alarm_alert_snoozed_text">Snoozed</string>
     <!-- The text shown after user dismissed a repeated alarm -->
     <string name="alarm_alert_off_text">Alarm off</string>
+     <!-- Dialog title shown when math challenge must be solved before snoozing. -->
+     <string name="alarm_mission_title_snooze">Solve to snooze</string>
+     <!-- Dialog title shown when math challenge must be solved before dismissing. -->
+     <string name="alarm_mission_title_dismiss">Solve to dismiss</string>
+     <!-- Prompt for alarm math mission challenge. -->
+     <string name="alarm_mission_math_prompt">What is %1$d + %2$d?</string>
+     <!-- Hint for alarm mission answer field. -->
+     <string name="alarm_mission_answer_hint">Your answer</string>
+     <!-- Error shown when alarm mission answer is incorrect. -->
+     <string name="alarm_mission_wrong_answer">Incorrect answer</string>
+     <!-- Dialog title for selecting alarm mission type. -->
+     <string name="alarm_mission_select_title">Select mission type</string>
+     <!-- Dialog title for QR payload configuration. -->
+     <string name="alarm_mission_qr_configure_title">Configure QR code check</string>
+     <!-- Hint for expected QR content. -->
+     <string name="alarm_mission_qr_expected_hint">Expected QR content</string>
+     <!-- Message shown when QR mission is selected but not configured. -->
+     <string name="alarm_mission_qr_required">Configure expected QR content first</string>
+     <!-- Prompt shown in QR mission challenge dialog. -->
+     <string name="alarm_mission_qr_prompt">Scan the expected QR code or enter its content.</string>
+     <!-- Action to start QR scanner. -->
+     <string name="alarm_mission_scan_qr">Scan QR</string>
+     <string name="alarm_mission_scan">Scan</string>
+     <!-- Action to verify typed/scanned QR value. -->
+     <string name="alarm_mission_verify_qr">Verify</string>
+     <!-- Message shown when the scanned QR code does not match the expected value. -->
+     <string name="alarm_mission_qr_wrong_code">Wrong QR code</string>
+     <!-- Message shown when QR content cannot be read. -->
+     <string name="alarm_mission_qr_scan_failed">Could not read QR code</string>
     <!-- The text shown after user dismissed a single alarm -->
     <string name="alarm_alert_off_and_deleted_text">Alarm off and deleted</string>
     <!-- Button labels on the alarm dialog: Snooze -->
@@ -273,6 +302,8 @@
     <string name="vibration_category_title">Vibration</string>
     <!-- Category title for alarm actions -->
     <string name="actions_category_title">Actions</string>
+     <!-- Category title for alarm missions -->
+     <string name="missions_category_title">Missions</string>
     <!-- Interface customization title in the settings -->
     <string name="interface_customization_settings">Interface</string>
     <!-- Interface preference summary -->
@@ -407,6 +438,46 @@
     <string name="enable_per_alarm_snooze_duration_dialog_message">Custom alarm snooze durations will be reset.%s</string>
     <!-- Setting title for changing the snooze duration. -->
     <string name="snooze_duration_title">Snooze length</string>
+     <!-- Setting title for changing required alarm mission type. -->
+     <string name="alarm_mission_title">Alarm mission</string>
+     <!-- Subgroup title for math mission settings. -->
+     <string name="alarm_mission_math_group_title">Math Mission</string>
+     <!-- Subgroup title for QR mission settings. -->
+     <string name="alarm_mission_qr_group_title">QR Mission</string>
+     <!-- Setting value for no mission type. -->
+     <string name="alarm_mission_none">None</string>
+     <!-- Setting value for math mission type. -->
+     <string name="alarm_mission_math">Math</string>
+     <!-- Setting value for QR mission type. -->
+     <string name="alarm_mission_qr">QR code</string>
+     <!-- Mission status text when QR data has been configured. -->
+     <string name="alarm_mission_qr_ready">QR code (configured)</string>
+     <!-- Mission status text when QR data is missing. -->
+     <string name="alarm_mission_qr_missing">QR code (not configured)</string>
+     <!-- Setting title for global expected QR mission content. -->
+     <string name="alarm_mission_qr_content_title">Specific QR code content required</string>
+     <!-- Summary shown when the global QR mission content is empty. -->
+     <string name="alarm_mission_qr_content_not_set">Not set</string>
+     <!-- Setting title for QR mission matching mode. -->
+     <string name="alarm_mission_qr_mode_title">Require a specific QR code content</string>
+     <!-- Mode label to require one specific QR code. -->
+     <string name="alarm_mission_qr_mode_single">One specific code</string>
+     <!-- Mode label to allow any scanned/typed QR code. -->
+     <string name="alarm_mission_qr_mode_any">Any code</string>
+     <!-- Setting title to scan and add QR content directly from settings. -->
+     <string name="alarm_mission_qr_scan_title">Scan and use this QR code</string>
+     <!-- Message shown when no global QR options are configured. -->
+     <string name="alarm_mission_qr_settings_required">Configure QR mission in settings first</string>
+     <!-- Setting title for global math mission hardness. -->
+     <string name="alarm_mission_math_hardness_title">Difficulty</string>
+     <!-- Summary describing math hardness ranges. -->
+     <string name="alarm_mission_math_hardness_summary">Sum of two numbers. Easy: 1 to 20, Normal: 10 to 89, Hard: 50 to 499.</string>
+     <!-- Math mission hardness entry for easier additions. -->
+     <string name="alarm_mission_math_hardness_easy">Easy</string>
+     <!-- Math mission hardness entry for standard additions. -->
+     <string name="alarm_mission_math_hardness_normal">Normal</string>
+     <!-- Math mission hardness entry for harder additions. -->
+     <string name="alarm_mission_math_hardness_hard">Hard</string>
     <!-- Setting title to enable the use of a custom volume for each alarm. -->
     <string name="enable_per_alarm_volume_title">Use a custom volume for each alarm</string>
     <!-- Dialog message when the user disables the "Use a custom volume for each alarm" setting -->
@@ -957,7 +1028,7 @@
     <!-- Alarm preferences title in the settings -->
     <string name="alarm_settings">Alarms</string>
     <!-- Alarm preferences summary in the settings -->
-    <string name="alarm_settings_summary">Customize the style, font, default ringtone, volume, actions to dismiss or snooze the alarms, first day of the week, and reminder notification time</string>
+    <string name="alarm_settings_summary">Customize the style, font, default ringtone, volume, missions, actions to dismiss or snooze alarms, first day of the week, and reminder notification time</string>
     <!-- Describes the service that processes actions originating from timer notifications. -->
     <string name="timer_service_desc">Processes actions from timer notifications.</string>
     <!-- Describes the service that processes actions originating from stopwatch notifications. -->

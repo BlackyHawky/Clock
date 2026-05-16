@@ -32,6 +32,7 @@ import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
+import com.best.deskclock.provider.AlarmMission;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.NotificationUtils;
@@ -433,12 +434,15 @@ public final class AlarmNotifications {
         PendingIntent dismissPendingIntent = PendingIntent.getService(service,
             ALARM_FIRING_NOTIFICATION_ID, dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
+        final boolean requiresMission = AlarmMission
+            .from(alarm.alarmMission, alarm.alarmMissionData)
+            .isEnabled();
+
         NotificationCompat.Builder notification = new NotificationCompat.Builder(
             service, FIRING_NOTIFICATION_CHANNEL_ID)
             .setContentTitle(instance.getLabelOrDefault(service))
             .setContentText(AlarmUtils.getFormattedTime(service, instance.getAlarmTime()))
             .setContentIntent(contentIntent)
-            .setDeleteIntent(dismissPendingIntent)
             .setColor(service.getColor(R.color.md_theme_primary))
             .setSmallIcon(R.drawable.ic_tab_alarm_static)
             .setOngoing(true)
@@ -450,20 +454,24 @@ public final class AlarmNotifications {
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             .setLocalOnly(true);
 
-        // Setup Snooze Action only if snooze duration has NOT been set to "None" in the settings
-        // or if "Enable alarm snooze actions" is enabled in the alarm editing panel.
-        if (instance.mSnoozeDuration != ALARM_SNOOZE_DURATION_DISABLED) {
-            Intent snoozeIntent = AlarmStateManager.createStateChangeIntent(
-                service, AlarmStateManager.ALARM_SNOOZE_TAG, instance, AlarmInstance.SNOOZE_STATE);
-            snoozeIntent.putExtra(AlarmStateManager.FROM_NOTIFICATION_EXTRA, true);
+        if (!requiresMission) {
+            notification.setDeleteIntent(dismissPendingIntent);
 
-            PendingIntent snoozePendingIntent = PendingIntent.getService(service,
-                ALARM_FIRING_NOTIFICATION_ID, snoozeIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+            // Setup Snooze Action only if snooze duration has NOT been set to "None" in the settings
+            // or if "Enable alarm snooze actions" is enabled in the alarm editing panel.
+            if (instance.mSnoozeDuration != ALARM_SNOOZE_DURATION_DISABLED) {
+                Intent snoozeIntent = AlarmStateManager.createStateChangeIntent(
+                    service, AlarmStateManager.ALARM_SNOOZE_TAG, instance, AlarmInstance.SNOOZE_STATE);
+                snoozeIntent.putExtra(AlarmStateManager.FROM_NOTIFICATION_EXTRA, true);
 
-            notification.addAction(R.drawable.ic_snooze, resources.getString(R.string.alarm_alert_snooze_text), snoozePendingIntent);
+                PendingIntent snoozePendingIntent = PendingIntent.getService(service,
+                    ALARM_FIRING_NOTIFICATION_ID, snoozeIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+
+                notification.addAction(R.drawable.ic_snooze, resources.getString(R.string.alarm_alert_snooze_text), snoozePendingIntent);
+            }
+
+            notification.addAction(R.drawable.ic_alarm_off, dismissActionTitle, dismissPendingIntent);
         }
-
-        notification.addAction(R.drawable.ic_alarm_off, dismissActionTitle, dismissPendingIntent);
 
         // Setup fullscreen intent
         Intent fullScreenIntent = AlarmInstance.createIntent(service, AlarmActivity.class, instance.mId);

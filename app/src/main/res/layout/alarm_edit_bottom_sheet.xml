@@ -339,13 +339,49 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/missed_alarm_repeat_limit_layout"
+                android:id="@+id/alarm_mission_layout"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="2dp"
                 android:paddingHorizontal="10dp"
                 app:layout_constraintTop_toBottomOf="@id/snooze_duration_layout">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/alarm_mission_title"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_key"
+                    android:paddingStart="@null"
+                    android:paddingEnd="10dp"
+                    android:drawablePadding="10dp"
+                    android:drawableTint="?attr/colorOnSurfaceVariant"
+                    android:gravity="center_vertical"
+                    android:focusable="true"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="@string/alarm_mission_title" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/alarm_mission_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:focusable="true"
+                    android:singleLine="true"
+                    tools:text="Off" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/missed_alarm_repeat_limit_layout"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="2dp"
+                android:paddingHorizontal="10dp"
+                app:layout_constraintTop_toBottomOf="@id/alarm_mission_layout">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/missed_alarm_repeat_limit_title"
