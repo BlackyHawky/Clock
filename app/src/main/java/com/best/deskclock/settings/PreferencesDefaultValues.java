@@ -131,6 +131,13 @@ public class PreferencesDefaultValues {
     public static final boolean DEFAULT_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM = false;
     public static final boolean DEFAULT_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT = false;
     public static final boolean DEFAULT_DISPLAY_LOW_ALARM_VOLUME_WARNING = true;
+    public static final String DEFAULT_ALARM_MISSION_QR_CONTENT = "";
+    public static final String DEFAULT_ALARM_MISSION_MATH_HARDNESS = "normal";
+    public static final String ALARM_MISSION_MATH_HARDNESS_EASY = "easy";
+    public static final String ALARM_MISSION_MATH_HARDNESS_HARD = "hard";
+    public static final String ALARM_MISSION_QR_MODE_SINGLE = "single";
+    public static final String ALARM_MISSION_QR_MODE_ANY = "any";
+    public static final String DEFAULT_ALARM_MISSION_QR_MODE = ALARM_MISSION_QR_MODE_ANY;
 
     // Alarm Display Customization
     public static final boolean DEFAULT_DISPLAY_ALARM_SECOND_HAND = true;

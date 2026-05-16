@@ -236,8 +236,27 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
                 // Categories
                 if (pref instanceof PreferenceCategory) {
                     if (title != null) {
-                        title.setTypeface(mBoldTypeface);
-                        title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+                        final boolean isSubcategory = pref.getParent() instanceof PreferenceCategory;
+                        final int horizontalPaddingStart = holder.itemView.getPaddingStart();
+                        final int horizontalPaddingEnd = holder.itemView.getPaddingEnd();
+
+                        holder.itemView.setMinimumHeight(0);
+                        title.setPadding(title.getPaddingLeft(), 0, title.getPaddingRight(), 0);
+
+                        if (isSubcategory) {
+                            title.setTypeface(mRegularTypeface);
+                            title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+                            title.setAlpha(0.82f);
+                            // Keep nested category headers visually closer to their parent section.
+                            holder.itemView.setPaddingRelative(horizontalPaddingStart, 0,
+                                horizontalPaddingEnd, (int) dpToPx(2, mDisplayMetrics));
+                        } else {
+                            title.setTypeface(mBoldTypeface);
+                            title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+                            title.setAlpha(1f);
+                            holder.itemView.setPaddingRelative(horizontalPaddingStart, (int) dpToPx(4, mDisplayMetrics),
+                                horizontalPaddingEnd, (int) dpToPx(4, mDisplayMetrics));
+                        }
                     }
                     return;
                 }

@@ -127,5 +127,6 @@ dependencies {
     implementation 'androidx.preference:preference:1.2.1'
     implementation 'androidx.recyclerview:recyclerview:1.4.0'
     implementation 'com.google.android.material:material:1.14.0-beta01'
+    implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
     implementation 'com.github.martin-stone:hsv-alpha-color-picker-android:3.1.0'
 }

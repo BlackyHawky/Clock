@@ -284,6 +284,52 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:title="@string/missions_category_title"
+        app:allowDividerAbove="false"
+        app:iconSpaceReserved="false">
+
+        <PreferenceCategory
+            android:title="@string/alarm_mission_math_group_title"
+            app:allowDividerAbove="false"
+            app:iconSpaceReserved="false">
+
+            <ListPreference
+                android:key="key_alarm_mission_math_hardness"
+                android:layout="@layout/settings_preference_layout"
+                android:title="@string/alarm_mission_math_hardness_title"
+                android:entries="@array/alarm_mission_math_hardness_entries"
+                android:entryValues="@array/alarm_mission_math_hardness_values"
+                android:defaultValue="normal"
+                app:iconSpaceReserved="false"
+                app:singleLineTitle="false" />
+
+        </PreferenceCategory>
+
+        <PreferenceCategory
+            android:title="@string/alarm_mission_qr_group_title"
+            app:allowDividerAbove="false"
+            app:iconSpaceReserved="false">
+
+            <SwitchPreferenceCompat
+                android:key="key_alarm_mission_qr_require_specific"
+                android:layout="@layout/settings_preference_layout"
+                android:title="@string/alarm_mission_qr_mode_title"
+                android:defaultValue="false"
+                app:iconSpaceReserved="false"
+                app:singleLineTitle="false" />
+
+            <Preference
+                android:key="key_alarm_mission_qr_content"
+                android:layout="@layout/settings_preference_layout"
+                android:title="@string/alarm_mission_qr_content_title"
+                app:iconSpaceReserved="false"
+                app:singleLineTitle="false" />
+
+        </PreferenceCategory>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:title="@string/miscellaneous_category_title"
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false">

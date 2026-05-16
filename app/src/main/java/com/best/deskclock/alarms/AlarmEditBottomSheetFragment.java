@@ -25,13 +25,11 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -841,14 +839,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
         switch (mission.getType()) {
             case AlarmMission.TYPE_MATH -> mAlarmMissionValue.setText(getString(R.string.alarm_mission_math));
-            case AlarmMission.TYPE_QR -> {
-                final boolean hasGlobalQrConfiguration = SettingsDAO.isAlarmMissionQrGloballyConfigured(mPrefs);
-                if (mission.isConfigured() || hasGlobalQrConfiguration) {
-                    mAlarmMissionValue.setText(getString(R.string.alarm_mission_qr_ready));
-                } else {
-                    mAlarmMissionValue.setText(getString(R.string.alarm_mission_qr_missing));
-                }
-            }
+            case AlarmMission.TYPE_QR -> mAlarmMissionValue.setText(getString(R.string.alarm_mission_qr));
             default -> mAlarmMissionValue.setText(getString(R.string.alarm_mission_none));
         }
 
@@ -883,41 +874,10 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
                     return;
                 }
 
+                applyAlarmMission(AlarmMission.TYPE_QR, "");
                 dialog.dismiss();
-                showQrMissionConfigurationDialog();
             })
             .show();
-    }
-
-    private void showQrMissionConfigurationDialog() {
-        final boolean hasGlobalQrConfiguration = SettingsDAO.isAlarmMissionQrGloballyConfigured(mPrefs);
-        final EditText input = new EditText(requireContext());
-        input.setInputType(InputType.TYPE_CLASS_TEXT);
-        input.setHint(R.string.alarm_mission_qr_expected_hint);
-        input.setText(mAlarm.alarmMissionData == null ? "" : mAlarm.alarmMissionData);
-        input.setSelection(input.getText() == null ? 0 : input.getText().length());
-
-        final androidx.appcompat.app.AlertDialog dialog = new MaterialAlertDialogBuilder(requireContext())
-            .setTitle(R.string.alarm_mission_qr_configure_title)
-            .setView(input)
-            .setNegativeButton(android.R.string.cancel, null)
-            .setPositiveButton(android.R.string.ok, null)
-            .create();
-
-        dialog.setOnShowListener(unused -> dialog.getButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE)
-            .setOnClickListener(v -> {
-                final String value = input.getText() == null ? "" : input.getText().toString().trim();
-
-                if (value.isEmpty() && !hasGlobalQrConfiguration) {
-                    input.setError(getString(R.string.alarm_mission_qr_required));
-                    return;
-                }
-
-                applyAlarmMission(AlarmMission.TYPE_QR, value);
-                dialog.dismiss();
-            }));
-
-        dialog.show();
     }
 
     private void applyAlarmMission(int missionType, String missionData) {

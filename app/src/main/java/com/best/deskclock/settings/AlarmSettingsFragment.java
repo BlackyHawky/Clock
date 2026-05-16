@@ -3,6 +3,7 @@
 package com.best.deskclock.settings;
 
 import static android.app.Activity.RESULT_OK;
+import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_MISSION_QR_MODE_ANY;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_VOLUME;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VIBRATION_START_DELAY;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_NEVER;
@@ -17,15 +18,19 @@ import android.media.AudioDeviceInfo;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.InputType;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.preference.ListPreference;
@@ -58,8 +63,11 @@ import com.best.deskclock.settings.custompreference.VolumeCrescendoDurationPrefe
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.utils.DeviceUtils;
+import com.best.deskclock.utils.QrCaptureActivity;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.Utils;
+import com.journeyapps.barcodescanner.ScanContract;
+import com.journeyapps.barcodescanner.ScanOptions;
 
 import java.util.List;
 
@@ -106,9 +114,16 @@ public class AlarmSettingsFragment extends ScreenFragment
     SwitchPreferenceCompat mEnableAlarmFabLongPressPref;
     ListPreference mWeekStartPref;
     SwitchPreferenceCompat mDisplayDismissButtonPref;
+    ListPreference mAlarmMissionMathHardnessPref;
+    SwitchPreferenceCompat mAlarmMissionQrRequireSpecificPref;
+    Preference mAlarmMissionQrContentPref;
     SwitchPreferenceCompat mTurnOnBackFlashForTriggeredAlarmPref;
     SwitchPreferenceCompat mDeleteOccasionalAlarmByDefaultPref;
     SwitchPreferenceCompat mDisplayLowAlarmVolumeWarningPref;
+
+    private boolean mReopenQrContentDialogAfterScan;
+    private boolean mPendingQrRequireSpecificMode;
+    private String mPendingQrContentInput = "";
 
     private final ActivityResultLauncher<Intent> fontPickerLauncher =
         registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -162,6 +177,21 @@ public class AlarmSettingsFragment extends ScreenFragment
             });
         });
 
+    private final ActivityResultLauncher<ScanOptions> qrMissionScannerLauncher =
+        registerForActivityResult(new ScanContract(), result -> {
+            final boolean isQrResult = result != null
+                && result.getContents() != null
+                && ScanOptions.QR_CODE.equals(result.getFormatName());
+            final String scannedValue = isQrResult ? result.getContents().trim() : "";
+
+            if (scannedValue.isEmpty()) {
+                reopenQrMissionContentDialogIfNeeded(mPendingQrContentInput);
+                return;
+            }
+
+            reopenQrMissionContentDialogIfNeeded(scannedValue);
+        });
+
     @Override
     protected String getFragmentTitle() {
         return getString(R.string.alarm_settings);
@@ -211,6 +241,9 @@ public class AlarmSettingsFragment extends ScreenFragment
         mEnableAlarmFabLongPressPref = findPreference(KEY_ENABLE_ALARM_FAB_LONG_PRESS);
         mWeekStartPref = findPreference(KEY_WEEK_START);
         mDisplayDismissButtonPref = findPreference(KEY_DISPLAY_DISMISS_BUTTON);
+        mAlarmMissionMathHardnessPref = findPreference(KEY_ALARM_MISSION_MATH_HARDNESS);
+        mAlarmMissionQrRequireSpecificPref = findPreference(KEY_ALARM_MISSION_QR_REQUIRE_SPECIFIC);
+        mAlarmMissionQrContentPref = findPreference(KEY_ALARM_MISSION_QR_CONTENT);
         mTurnOnBackFlashForTriggeredAlarmPref = findPreference(KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM);
         mDeleteOccasionalAlarmByDefaultPref = findPreference(KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT);
         mDisplayLowAlarmVolumeWarningPref = findPreference(KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING);
@@ -466,10 +499,33 @@ public class AlarmSettingsFragment extends ScreenFragment
 
             case KEY_VOLUME_BUTTONS, KEY_POWER_BUTTON, KEY_FLIP_ACTION,
                  KEY_MATERIAL_TIME_PICKER_STYLE, KEY_MATERIAL_DATE_PICKER_STYLE,
-                 KEY_SORT_ALARM, KEY_VIBRATION_PATTERN -> {
+                  KEY_SORT_ALARM, KEY_VIBRATION_PATTERN -> {
                 final ListPreference preference = (ListPreference) pref;
                 final int index = preference.findIndexOfValue((String) newValue);
                 preference.setSummary(preference.getEntries()[index]);
+            }
+
+            case KEY_ALARM_MISSION_MATH_HARDNESS -> {
+                final int index = mAlarmMissionMathHardnessPref.findIndexOfValue((String) newValue);
+                mAlarmMissionMathHardnessPref.setSummary(mAlarmMissionMathHardnessPref.getEntries()[index]);
+            }
+
+            case KEY_ALARM_MISSION_QR_REQUIRE_SPECIFIC -> {
+                final boolean requireSpecific = (boolean) newValue;
+
+                if (requireSpecific && !isQrMissionContentConfigured()) {
+                    showQrMissionContentDialog("", true);
+                    return false;
+                }
+
+                applyQrMissionMode(requireSpecific
+                    ? PreferencesDefaultValues.ALARM_MISSION_QR_MODE_SINGLE
+                    : ALARM_MISSION_QR_MODE_ANY);
+            }
+
+            case KEY_ALARM_MISSION_QR_CONTENT -> {
+                final String value = newValue == null ? "" : newValue.toString().trim();
+                updateQrMissionContentSummary(value, SettingsDAO.getAlarmMissionQrMode(mPrefs));
             }
 
             case KEY_SHAKE_ACTION -> {
@@ -534,6 +590,8 @@ public class AlarmSettingsFragment extends ScreenFragment
                 true, null);
 
             case KEY_DEFAULT_ALARM_RINGTONE -> startActivity(RingtonePickerActivity.createAlarmRingtonePickerIntentForSettings(context));
+
+            case KEY_ALARM_MISSION_QR_CONTENT -> showQrMissionContentDialog(SettingsDAO.getAlarmMissionQrContent(mPrefs));
         }
 
         return true;
@@ -674,12 +732,137 @@ public class AlarmSettingsFragment extends ScreenFragment
 
         mDisplayDismissButtonPref.setOnPreferenceChangeListener(this);
 
+        mAlarmMissionQrRequireSpecificPref.setOnPreferenceChangeListener(this);
+
+        mAlarmMissionMathHardnessPref.setOnPreferenceChangeListener(this);
+        mAlarmMissionMathHardnessPref.setSummary(mAlarmMissionMathHardnessPref.getEntry());
+
+        mAlarmMissionQrContentPref.setOnPreferenceClickListener(this);
+        final String qrContent = SettingsDAO.getAlarmMissionQrContent(mPrefs);
+        final String qrMode = SettingsDAO.getAlarmMissionQrMode(mPrefs);
+        mAlarmMissionQrRequireSpecificPref.setChecked(!ALARM_MISSION_QR_MODE_ANY.equals(qrMode));
+        updateQrMissionOptionsVisibility(qrMode);
+        updateQrMissionContentSummary(qrContent, qrMode);
+
         mTurnOnBackFlashForTriggeredAlarmPref.setVisible(DeviceUtils.hasBackFlash(requireContext()));
         mTurnOnBackFlashForTriggeredAlarmPref.setOnPreferenceChangeListener(this);
 
         mDeleteOccasionalAlarmByDefaultPref.setOnPreferenceChangeListener(this);
 
         mDisplayLowAlarmVolumeWarningPref.setOnPreferenceChangeListener(this);
+    }
+
+    private void updateQrMissionOptionsVisibility(String mode) {
+        final boolean needsSpecificContent = !ALARM_MISSION_QR_MODE_ANY.equals(mode);
+        mAlarmMissionQrContentPref.setVisible(needsSpecificContent);
+    }
+
+    private boolean isQrMissionContentConfigured() {
+        return !SettingsDAO.getAlarmMissionQrContent(mPrefs).isEmpty();
+    }
+
+    private void applyQrMissionMode(String mode) {
+        mPrefs.edit().putString(KEY_ALARM_MISSION_QR_MODE, mode).apply();
+        updateQrMissionOptionsVisibility(mode);
+        updateQrMissionContentSummary(SettingsDAO.getAlarmMissionQrContent(mPrefs), mode);
+    }
+
+    private void applyQrMissionContent(String value, boolean enableSpecificModeOnSave) {
+        mPrefs.edit().putString(KEY_ALARM_MISSION_QR_CONTENT, value).apply();
+
+        if (enableSpecificModeOnSave) {
+            applyQrMissionMode(PreferencesDefaultValues.ALARM_MISSION_QR_MODE_SINGLE);
+            mAlarmMissionQrRequireSpecificPref.setChecked(true);
+            return;
+        }
+
+        updateQrMissionContentSummary(value, SettingsDAO.getAlarmMissionQrMode(mPrefs));
+    }
+
+    private void reopenQrMissionContentDialogIfNeeded(String initialValue) {
+        if (!mReopenQrContentDialogAfterScan) {
+            return;
+        }
+
+        mReopenQrContentDialogAfterScan = false;
+        final boolean requireSpecificMode = mPendingQrRequireSpecificMode;
+        mPendingQrRequireSpecificMode = false;
+        showQrMissionContentDialog(initialValue, requireSpecificMode);
+    }
+
+    private void showQrMissionContentDialog(String initialValue) {
+        showQrMissionContentDialog(initialValue, false);
+    }
+
+    private void showQrMissionContentDialog(String initialValue, boolean enableSpecificModeOnSave) {
+        final Context context = getActivity();
+        if (context == null) {
+            return;
+        }
+
+        final View dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_edit_text, null);
+        final EditText input = dialogView.findViewById(android.R.id.edit);
+        final View checkbox = dialogView.findViewById(R.id.sync_alarm_by_label);
+        final View divider = dialogView.findViewById(R.id.divider);
+
+        if (checkbox != null) {
+            checkbox.setVisibility(View.GONE);
+        }
+        if (divider != null) {
+            divider.setVisibility(View.GONE);
+        }
+
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        input.setHint(R.string.alarm_mission_qr_expected_hint);
+        input.setText(initialValue == null ? "" : initialValue);
+        input.setSelection(input.getText().length());
+
+        final boolean requiresValue = enableSpecificModeOnSave
+            || !ALARM_MISSION_QR_MODE_ANY.equals(SettingsDAO.getAlarmMissionQrMode(mPrefs));
+
+        final AlertDialog dialog = new CustomDialog.Builder(context)
+            .setTitle(R.string.alarm_mission_qr_content_title)
+            .setView(dialogView)
+            .setNegativeButton(android.R.string.cancel, null)
+            .setNeutralButton(R.string.alarm_mission_scan, (d, which) -> {
+                mPendingQrContentInput = input.getText() == null ? "" : input.getText().toString();
+                mReopenQrContentDialogAfterScan = true;
+                mPendingQrRequireSpecificMode = enableSpecificModeOnSave;
+                launchQrMissionScanner();
+            })
+            .setPositiveButton(android.R.string.ok, null)
+            .build();
+
+        dialog.setOnShowListener(unused -> dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+            .setOnClickListener(v -> {
+                final String value = input.getText() == null ? "" : input.getText().toString().trim();
+
+                if (requiresValue && value.isEmpty()) {
+                    input.setError(getString(R.string.alarm_mission_qr_required));
+                    return;
+                }
+
+                applyQrMissionContent(value, enableSpecificModeOnSave);
+                dialog.dismiss();
+            }));
+
+        dialog.show();
+    }
+
+    private void launchQrMissionScanner() {
+        final ScanOptions options = new ScanOptions();
+        options.setDesiredBarcodeFormats(ScanOptions.QR_CODE);
+        options.setCaptureActivity(QrCaptureActivity.class);
+        options.setPrompt(getString(R.string.alarm_mission_qr_prompt));
+        options.setBeepEnabled(false);
+        options.setOrientationLocked(false);
+        qrMissionScannerLauncher.launch(options);
+    }
+
+    private void updateQrMissionContentSummary(String value, String mode) {
+        mAlarmMissionQrContentPref.setSummary(value == null || value.isEmpty()
+            ? getString(R.string.alarm_mission_qr_content_not_set)
+            : value);
     }
 
     private void setupFragmentResultListeners() {

@@ -1226,6 +1226,62 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return the global QR content expected by QR alarm missions.
+     */
+    public static String getAlarmMissionQrContent(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        final String value = prefs.getString(KEY_ALARM_MISSION_QR_CONTENT, DEFAULT_ALARM_MISSION_QR_CONTENT);
+        return value == null ? "" : value.trim();
+    }
+
+    /**
+     * @return the configured hardness for math alarm missions.
+     */
+    public static String getAlarmMissionMathHardness(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        return prefs.getString(KEY_ALARM_MISSION_MATH_HARDNESS, DEFAULT_ALARM_MISSION_MATH_HARDNESS);
+    }
+
+    /**
+     * @return the mode used to validate QR alarm missions.
+     */
+    public static String getAlarmMissionQrMode(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        final String mode = prefs.getString(KEY_ALARM_MISSION_QR_MODE, DEFAULT_ALARM_MISSION_QR_MODE);
+        if (ALARM_MISSION_QR_MODE_SINGLE.equals(mode)) {
+            return ALARM_MISSION_QR_MODE_SINGLE;
+        }
+
+        return ALARM_MISSION_QR_MODE_ANY;
+    }
+
+    /**
+     * @return {@code true} if global QR mission settings are sufficiently configured.
+     */
+    public static boolean isAlarmMissionQrGloballyConfigured(SharedPreferences prefs) {
+        final String mode = getAlarmMissionQrMode(prefs);
+        return ALARM_MISSION_QR_MODE_ANY.equals(mode) || !getAlarmMissionQrContent(prefs).isEmpty();
+    }
+
+    /**
+     * @return {@code true} if the input matches configured global QR mission settings.
+     */
+    public static boolean matchesAlarmMissionQrFromSettings(SharedPreferences prefs, String input) {
+        final String normalizedInput = input == null ? "" : input.trim();
+        if (normalizedInput.isEmpty()) {
+            return false;
+        }
+
+        final String mode = getAlarmMissionQrMode(prefs);
+
+        if (ALARM_MISSION_QR_MODE_ANY.equals(mode)) {
+            return true;
+        }
+
+        return getAlarmMissionQrContent(prefs).equals(normalizedInput);
+    }
+
+    /**
      * @return the time picker style.
      */
     public static String getMaterialTimePickerStyle(SharedPreferences prefs) {
