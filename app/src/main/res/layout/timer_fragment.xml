@@ -12,13 +12,13 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/timer_view"
+        android:id="@+id/timer_content_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <include
-            android:id="@+id/volume_warning_banner"
             layout="@layout/volume_warning_banner"
+            android:id="@+id/timer_volume_banner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
@@ -27,12 +27,12 @@
         <!-- Due to the ViewPager and the location of FAB, paddings are set
              in the TimerFragment.java file. -->
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
+            android:id="@+id/timer_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="10dp"
             android:clipToPadding="false"
-            app:layout_constraintTop_toBottomOf="@+id/volume_warning_banner"
+            app:layout_constraintTop_toBottomOf="@+id/timer_volume_banner"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_goneMarginTop="0dp"
             tools:listitem="@layout/timer_item" />
@@ -40,13 +40,13 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.best.deskclock.timer.TimerSetupView
-        android:id="@+id/timer_setup"
+        android:id="@+id/timer_setup_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:visibility="gone" />
 
     <com.best.deskclock.timer.CustomTimerSpinnerSetupView
-        android:id="@+id/timer_spinner_setup"
+        android:id="@+id/timer_spinner_setup_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

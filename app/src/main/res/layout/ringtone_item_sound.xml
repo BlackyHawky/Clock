@@ -43,13 +43,13 @@
         android:scrollHorizontally="true"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/delete_ringtone"
+        app:layout_constraintEnd_toStartOf="@id/delete_ringtone_button"
         app:layout_constraintStart_toEndOf="@id/ringtone_image"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Cesium" />
 
     <ImageButton
-        android:id="@+id/delete_ringtone"
+        android:id="@+id/delete_ringtone_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"

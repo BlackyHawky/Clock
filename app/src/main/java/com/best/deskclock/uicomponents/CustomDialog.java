@@ -5,7 +5,6 @@ package com.best.deskclock.uicomponents;
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -16,7 +15,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
@@ -29,6 +27,8 @@ import androidx.core.widget.NestedScrollView;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.databinding.DialogMessageCustomBinding;
+import com.best.deskclock.databinding.DialogTitleCustomBinding;
 import com.best.deskclock.utils.ThemeUtils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
@@ -54,47 +54,47 @@ public class CustomDialog {
         SharedPreferences prefs = getDefaultSharedPreferences(context);
         Typeface typeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
 
-        LayoutInflater inflater = LayoutInflater.from(context);
-
-        // Title
-        @SuppressLint("InflateParams")
-        View titleView = inflater.inflate(R.layout.dialog_title_custom, null);
-        TextView titleText = titleView.findViewById(R.id.dialog_title);
-
-        if (icon != null) {
-            titleText.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
-            titleText.setCompoundDrawablePadding((int) dpToPx(18, context.getResources().getDisplayMetrics()));
-        }
-
-        if (title != null) {
-            titleText.setText(title);
-            titleText.setTypeface(typeface);
-        }
-
-        // Dialog view
-        View dialogContent;
-
-        if (message != null) {
-            // Message
-            @SuppressLint("InflateParams")
-            View messageView = inflater.inflate(R.layout.dialog_message_custom, null);
-            TextView messageText = messageView.findViewById(R.id.dialog_message);
-            messageText.setText(message);
-            messageText.setTypeface(typeface);
-
-            dialogContent = messageView;
-        } else {
-            dialogContent = customView;
-        }
-
         // Builder
         MaterialAlertDialogBuilder builder = (styleRes != null)
             ? new MaterialAlertDialogBuilder(context, styleRes)
             : new MaterialAlertDialogBuilder(context);
 
-        builder
-            .setCustomTitle(titleView)
-            .setView(dialogContent);
+        // Title and icon
+        if (title != null || icon != null) {
+            DialogTitleCustomBinding titleBinding = DialogTitleCustomBinding.inflate(LayoutInflater.from(context));
+
+            if (icon != null) {
+                titleBinding.dialogTitle.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
+                titleBinding.dialogTitle.setCompoundDrawablePadding((int) dpToPx(18, context.getResources().getDisplayMetrics()));
+            }
+
+            if (title != null) {
+                titleBinding.dialogTitle.setText(title);
+                titleBinding.dialogTitle.setTypeface(typeface);
+            }
+
+            builder.setCustomTitle(titleBinding.getRoot());
+        }
+
+        // Dialog view
+        View dialogContent = null;
+
+        // Message
+        if (message != null) {
+            DialogMessageCustomBinding messageBinding = DialogMessageCustomBinding.inflate(LayoutInflater.from(context));
+            messageBinding.dialogMessage.setText(message);
+            messageBinding.dialogMessage.setTypeface(typeface);
+
+            dialogContent = messageBinding.getRoot();
+
+            builder.setView(dialogContent);
+        } else if (customView != null) {
+            dialogContent = customView;
+
+            builder.setView(dialogContent);
+        }
+
+        final View finalDialogContent = dialogContent;
 
         if (positiveText != null) {
             builder.setPositiveButton(positiveText, positiveListener);
@@ -110,8 +110,8 @@ public class CustomDialog {
 
         // Apply typeface to buttons
         dialog.setOnShowListener(d -> {
-            if (dialogContent != null && dialogContent.findViewById(R.id.scrollView) != null) {
-                configureScrollView(dialogContent);
+            if (finalDialogContent != null && finalDialogContent.findViewById(R.id.scroll_view) != null) {
+                configureScrollView(finalDialogContent);
             }
 
             Button positive = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
@@ -173,7 +173,7 @@ public class CustomDialog {
     }
 
     private static void configureScrollView(View dialogView) {
-        NestedScrollView scrollView = dialogView.findViewById(R.id.scrollView);
+        NestedScrollView scrollView = dialogView.findViewById(R.id.scroll_view);
 
         boolean scrollable = scrollView.canScrollVertically(1) || scrollView.canScrollVertically(-1);
 

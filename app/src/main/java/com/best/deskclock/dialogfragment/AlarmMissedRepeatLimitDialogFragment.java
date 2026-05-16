@@ -4,14 +4,12 @@ package com.best.deskclock.dialogfragment;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
@@ -20,6 +18,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.databinding.AlarmMissedRepeatLimitDialogBinding;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
@@ -39,7 +38,7 @@ public class AlarmMissedRepeatLimitDialogFragment extends DialogFragment {
 
     private static final String ARG_SELECTED_COUNT = "selected_count";
 
-    private RadioGroup mRadioGroup;
+    private AlarmMissedRepeatLimitDialogBinding mBinding;
 
     /**
      * Creates a new instance of {@link AlarmMissedRepeatLimitDialogFragment} for use
@@ -84,13 +83,10 @@ public class AlarmMissedRepeatLimitDialogFragment extends DialogFragment {
             selectedCount = savedInstanceState.getInt(ARG_SELECTED_COUNT, selectedCount);
         }
 
-        @SuppressLint("InflateParams")
-        View dialogView = getLayoutInflater().inflate(R.layout.alarm_missed_repeat_limit_dialog, null);
+        mBinding = AlarmMissedRepeatLimitDialogBinding.inflate(getLayoutInflater());
 
-        mRadioGroup = dialogView.findViewById(R.id.repeat_limit_radio_group);
-
-        for (int i = 0; i < mRadioGroup.getChildCount(); i++) {
-            View child = mRadioGroup.getChildAt(i);
+        for (int i = 0; i < mBinding.repeatLimitRadioGroup.getChildCount(); i++) {
+            View child = mBinding.repeatLimitRadioGroup.getChildAt(i);
             if (child instanceof RadioButton radioButton) {
                 radioButton.setTypeface(typeface);
             }
@@ -98,7 +94,7 @@ public class AlarmMissedRepeatLimitDialogFragment extends DialogFragment {
 
         selectRadioButtonForLimit(selectedCount);
 
-        mRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+        mBinding.repeatLimitRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {
             setMissedAlarmRepeatLimit();
             dismiss();
         });
@@ -109,7 +105,7 @@ public class AlarmMissedRepeatLimitDialogFragment extends DialogFragment {
             AppCompatResources.getDrawable(requireContext(), R.drawable.ic_repeat),
             getString(R.string.missed_alarm_repeat_limit_title),
             null,
-            dialogView,
+            mBinding.getRoot(),
             null,
             null,
             getString(android.R.string.cancel),
@@ -125,7 +121,7 @@ public class AlarmMissedRepeatLimitDialogFragment extends DialogFragment {
     public void onDestroyView() {
         super.onDestroyView();
 
-        mRadioGroup = null;
+        mBinding = null;
     }
 
     /**
@@ -141,7 +137,7 @@ public class AlarmMissedRepeatLimitDialogFragment extends DialogFragment {
     }
 
     private int getLimitFromSelectedRadioButton() {
-        int id = mRadioGroup.getCheckedRadioButtonId();
+        int id = mBinding.repeatLimitRadioGroup.getCheckedRadioButtonId();
         if (id == R.id.rb_never) {
             return 0;
         }
@@ -169,7 +165,7 @@ public class AlarmMissedRepeatLimitDialogFragment extends DialogFragment {
             default -> R.id.rb_indefinitely;
         };
 
-        mRadioGroup.check(id);
+        mBinding.repeatLimitRadioGroup.check(id);
     }
 
 }

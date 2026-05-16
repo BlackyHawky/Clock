@@ -36,12 +36,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -63,6 +61,7 @@ import com.best.deskclock.AppExecutors;
 import com.best.deskclock.DeskClockFragment;
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.databinding.AlarmFragmentBinding;
 import com.best.deskclock.dialogfragment.AlarmDelayPickerDialogFragment;
 import com.best.deskclock.dialogfragment.AlarmVolumeDialogFragment;
 import com.best.deskclock.dialogfragment.MaterialTimePickerDialogFragment;
@@ -78,8 +77,6 @@ import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.text.Collator;
@@ -105,7 +102,8 @@ public final class AlarmFragment extends DeskClockFragment
 
     private static final String KEY_SIDE_BUTTONS_VISIBLE = "side_buttons_visible";
 
-    private Context mContext;
+    private AlarmFragmentBinding mBinding;
+
     private SharedPreferences mPrefs;
     private DisplayMetrics mDisplayMetrics;
     private Typeface mBoldTypeface;
@@ -113,10 +111,6 @@ public final class AlarmFragment extends DeskClockFragment
     // Updates "Today/Tomorrow" in the UI when midnight passes.
     private final Runnable mMidnightUpdater = new MidnightRunnable();
 
-    // Views
-    private ViewGroup mMainLayout;
-    private RecyclerView mRecyclerView;
-    private MaterialCardView mVolumeWarningBanner;
     private boolean mIsTablet;
     private boolean mIsLandscape;
     private boolean mIsPhoneInLandscape;
@@ -158,12 +152,11 @@ public final class AlarmFragment extends DeskClockFragment
     public void onCreate(Bundle savedState) {
         super.onCreate(savedState);
 
-        mContext = requireContext();
-        mPrefs = getDefaultSharedPreferences(mContext);
+        mPrefs = getDefaultSharedPreferences(requireContext());
         mDisplayMetrics = getResources().getDisplayMetrics();
         mBoldTypeface = ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(mPrefs));
         mCursorLoader = LoaderManager.getInstance(this).initLoader(0, null, this);
-        mItemAdapter = new AlarmAdapter(mContext);
+        mItemAdapter = new AlarmAdapter(requireContext());
         mIsTablet = ThemeUtils.isTablet();
         mIsLandscape = ThemeUtils.isLandscape();
         mIsPhoneInLandscape = !mIsTablet && mIsLandscape;
@@ -176,33 +169,28 @@ public final class AlarmFragment extends DeskClockFragment
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedState) {
-        // Inflate the layout for this fragment
-        final View view = inflater.inflate(R.layout.alarm_fragment, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
 
-        mMainLayout = view.findViewById(R.id.main);
-        mVolumeWarningBanner = view.findViewById(R.id.volume_warning_banner);
-        TextView volumeWarningText = view.findViewById(R.id.volume_warning_text);
-        MaterialButton volumeWarningButton = view.findViewById(R.id.volume_warning_button);
-        mRecyclerView = view.findViewById(R.id.alarms_recycler_view);
-        ConstraintLayout emptyAlarmView = view.findViewById(R.id.alarms_empty_view);
+        mBinding = AlarmFragmentBinding.inflate(inflater, container, false);
 
-        volumeWarningText.setTypeface(mBoldTypeface);
-
-        volumeWarningButton.setTypeface(mBoldTypeface);
-        volumeWarningButton.setOnClickListener(v -> RingtoneUtils.fixAlarmStreamLow(mContext));
+        mBinding.alarmVolumeWarningBanner.volumeWarningText.setTypeface(mBoldTypeface);
+        mBinding.alarmVolumeWarningBanner.volumeWarningButton.setTypeface(mBoldTypeface);
+        mBinding.alarmVolumeWarningBanner.volumeWarningButton.setOnClickListener(v ->
+            RingtoneUtils.fixAlarmStreamLow(requireContext())
+        );
 
         // Set a bottom padding for phones in portrait mode and tablets to center correctly
         // the alarms empty view between the FAB and the top of the screen
         if (!mIsPhoneInLandscape) {
-            emptyAlarmView.setPadding(0, 0, 0, (int) dpToPx(80, mDisplayMetrics));
+            mBinding.alarmEmptyView.setPadding(0, 0, 0, (int) dpToPx(80, mDisplayMetrics));
         }
 
-        mEmptyViewController = new EmptyViewController(mMainLayout, mRecyclerView, emptyAlarmView);
-        mAlarmUpdateHandler = new AlarmUpdateHandler(mContext, this, mMainLayout);
+        mEmptyViewController = new EmptyViewController(mBinding.alarmRootView, mBinding.alarmRecyclerView, mBinding.alarmEmptyView);
+        mAlarmUpdateHandler = new AlarmUpdateHandler(requireContext(), this, mBinding.alarmRootView);
         mAlarmTimeClickHandler = new AlarmTimeClickHandler(this, mAlarmUpdateHandler);
 
-        final GestureDetector gestureDetector = new GestureDetector(mContext, new GestureDetector.SimpleOnGestureListener() {
+        final GestureDetector gestureDetector = new GestureDetector(requireContext(), new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onSingleTapUp(@NonNull MotionEvent e) {
                 hideSideButtonsWithFabAnimation();
@@ -210,42 +198,44 @@ public final class AlarmFragment extends DeskClockFragment
             }
         });
 
-        mMainLayout.setOnClickListener(v -> hideSideButtonsWithFabAnimation());
+        mBinding.alarmRootView.setOnClickListener(v -> hideSideButtonsWithFabAnimation());
 
-        mRecyclerView.setOnTouchListener((v, event) -> {
+        mBinding.alarmRecyclerView.setOnTouchListener((v, event) -> {
             gestureDetector.onTouchEvent(event);
-            view.performClick();
+            mBinding.getRoot().performClick();
             return false;
         });
 
-        mRecyclerView.setLayoutManager(getLayoutManager());
+        mBinding.alarmRecyclerView.setLayoutManager(getLayoutManager());
 
         // Due to the ViewPager and the location of FAB, set a bottom padding and/or a right padding
         // to prevent the alarm list from being hidden by the FAB (e.g. when scrolling down).
         final int rightPadding = (int) dpToPx(mIsPhoneInLandscape ? 80 : 0, mDisplayMetrics);
         final int bottomPadding = (int) dpToPx(mIsTablet ? 110 : mIsPhoneInLandscape ? 0 : 100, mDisplayMetrics);
-        mRecyclerView.setPaddingRelative(0, 0, rightPadding, bottomPadding);
+        mBinding.alarmRecyclerView.setPaddingRelative(0, 0, rightPadding, bottomPadding);
 
-        mRecyclerView.setAdapter(mItemAdapter);
+        mBinding.alarmRecyclerView.setAdapter(mItemAdapter);
 
-        mRecyclerView.addItemDecoration(new GridSpacingItemDecoration(mContext, mDisplayMetrics));
+        mBinding.alarmRecyclerView.addItemDecoration(new GridSpacingItemDecoration(requireContext(), mDisplayMetrics));
 
-        RecyclerView.ItemAnimator animator = mRecyclerView.getItemAnimator();
+        RecyclerView.ItemAnimator animator = mBinding.alarmRecyclerView.getItemAnimator();
         if (animator instanceof SimpleItemAnimator) {
             // Disable flash/blinking during updates (notifyItemChanged)
             ((SimpleItemAnimator) animator).setSupportsChangeAnimations(false);
         }
 
-        AlarmItemTouchHelper callback = new AlarmItemTouchHelper(mContext, this, mRecyclerView, mIsTablet, mIsLandscape);
+        AlarmItemTouchHelper callback =
+            new AlarmItemTouchHelper(requireContext(), this, mBinding.alarmRecyclerView, mIsTablet, mIsLandscape);
+
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
 
-        if (ThemeUtils.areSystemAnimationsDisabled(mContext)) {
+        if (ThemeUtils.areSystemAnimationsDisabled(requireContext())) {
             itemTouchHelper.attachToRecyclerView(null);
         } else {
-            itemTouchHelper.attachToRecyclerView(mRecyclerView);
+            itemTouchHelper.attachToRecyclerView(mBinding.alarmRecyclerView);
         }
 
-        return view;
+        return mBinding.getRoot();
     }
 
     @Override
@@ -261,9 +251,9 @@ public final class AlarmFragment extends DeskClockFragment
 
         IntentFilter filter = new IntentFilter(RingtoneUtils.VOLUME_CHANGED_ACTION);
         if (SdkUtils.isAtLeastAndroid13()) {
-            mContext.registerReceiver(mVolumeReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
+            requireContext().registerReceiver(mVolumeReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
         } else {
-            mContext.registerReceiver(mVolumeReceiver, filter);
+            requireContext().registerReceiver(mVolumeReceiver, filter);
         }
     }
 
@@ -319,15 +309,15 @@ public final class AlarmFragment extends DeskClockFragment
 
                     // Cancel the missed alarm notification
                     if (notificationId != -1) {
-                        NotificationManagerCompat.from(mContext).cancel(notificationId);
+                        NotificationManagerCompat.from(requireContext()).cancel(notificationId);
                     }
 
                     // Update the missed alarm notifications group
-                    AlarmNotifications.updateMissedAlarmGroupNotification(mContext, notificationId, null);
+                    AlarmNotifications.updateMissedAlarmGroupNotification(requireContext(), notificationId, null);
 
                     // Clean instance
                     if (instanceId != -1) {
-                        Context appContext = mContext.getApplicationContext();
+                        Context appContext = requireContext().getApplicationContext();
                         AppExecutors.getDiskIO().execute(() -> {
                             AlarmInstance instance = AlarmInstance.getInstance(appContext.getContentResolver(), instanceId);
                             if (instance != null) {
@@ -371,14 +361,14 @@ public final class AlarmFragment extends DeskClockFragment
      * Perform smooth scroll to position.
      */
     public void smoothScrollTo(int position) {
-        mRecyclerView.smoothScrollToPosition(position);
+        mBinding.alarmRecyclerView.smoothScrollToPosition(position);
     }
 
     @Override
     public void onStop() {
         super.onStop();
 
-        mContext.unregisterReceiver(mVolumeReceiver);
+        requireContext().unregisterReceiver(mVolumeReceiver);
     }
 
     @Override
@@ -392,13 +382,9 @@ public final class AlarmFragment extends DeskClockFragment
     public void onDestroyView() {
         super.onDestroyView();
 
-        if (mRecyclerView != null) {
-            mRecyclerView.setAdapter(null);
-        }
+        mBinding.alarmRecyclerView.setAdapter(null);
 
-        mMainLayout = null;
-        mVolumeWarningBanner = null;
-        mRecyclerView = null;
+        mBinding = null;
 
         mEmptyViewController = null;
         mAlarmUpdateHandler = null;
@@ -535,16 +521,16 @@ public final class AlarmFragment extends DeskClockFragment
                 right.setVisibility(VISIBLE);
 
                 left.setClickable(true);
-                left.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_av_timer));
-                left.setContentDescription(mContext.getString(R.string.button_alarms));
+                left.setImageDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.ic_av_timer));
+                left.setContentDescription(getString(R.string.button_alarms));
                 left.setOnClickListener(v -> {
                     startCreatingAlarmWithDelay();
                     hideSideButtonsWithFabAnimation();
                 });
 
                 right.setClickable(true);
-                right.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_alarm_add));
-                right.setContentDescription(mContext.getString(R.string.button_alarms));
+                right.setImageDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.ic_alarm_add));
+                right.setContentDescription(getString(R.string.button_alarms));
                 right.setOnClickListener(v -> {
                     startCreatingAlarm();
                     hideSideButtonsWithFabAnimation();
@@ -610,14 +596,14 @@ public final class AlarmFragment extends DeskClockFragment
 
     private LinearLayoutManager getLayoutManager() {
         if (mIsTablet && mIsLandscape) {
-            return new GridLayoutManager(mContext, 3);
+            return new GridLayoutManager(requireContext(), 3);
         }
 
         if (mIsTablet || mIsLandscape) {
-            return new GridLayoutManager(mContext, 2);
+            return new GridLayoutManager(requireContext(), 2);
         }
 
-        return new LinearLayoutManager(mContext);
+        return new LinearLayoutManager(requireContext());
     }
 
     private void setupFragmentResultListeners() {
@@ -689,7 +675,7 @@ public final class AlarmFragment extends DeskClockFragment
      *                    updates
      */
     private void setAdapterItems(final List<AlarmItemHolder> items, final long updateToken) {
-        if (mIsReordering) {
+        if (mBinding == null || mIsReordering) {
             return;
         }
 
@@ -698,12 +684,16 @@ public final class AlarmFragment extends DeskClockFragment
             return;
         }
 
-        if (Objects.requireNonNull(mRecyclerView.getItemAnimator()).isRunning()) {
+        if (Objects.requireNonNull(mBinding.alarmRecyclerView.getItemAnimator()).isRunning()) {
             // RecyclerView is currently animating -> defer update.
-            mRecyclerView.getItemAnimator().isRunning(() -> setAdapterItems(items, updateToken));
-        } else if (mRecyclerView.isComputingLayout()) {
+            mBinding.alarmRecyclerView.getItemAnimator().isRunning(() -> setAdapterItems(items, updateToken));
+        } else if (mBinding.alarmRecyclerView.isComputingLayout()) {
             // RecyclerView is currently computing a layout -> defer update.
-            mRecyclerView.post(() -> setAdapterItems(items, updateToken));
+            mBinding.alarmRecyclerView.post(() -> {
+                if (mBinding != null) {
+                    setAdapterItems(items, updateToken);
+                }
+            });
         } else {
             mCurrentUpdateToken = updateToken;
 
@@ -733,7 +723,11 @@ public final class AlarmFragment extends DeskClockFragment
                 final Alarm alarmToOpen = mPendingAlarmToEdit;
                 mPendingAlarmToEdit = null;
 
-                mRecyclerView.post(() -> openBottomSheetWhenIdle(alarmToOpen));
+                mBinding.alarmRecyclerView.post(() -> {
+                    if (mBinding != null) {
+                        openBottomSheetWhenIdle(alarmToOpen);
+                    }
+                });
             }
         }
     }
@@ -754,11 +748,15 @@ public final class AlarmFragment extends DeskClockFragment
 
         if (alarmPosition != RecyclerView.NO_POSITION) {
             final int finalPosition = alarmPosition;
-            mRecyclerView.post(() -> smoothScrollTo(finalPosition));
+            mBinding.alarmRecyclerView.post(() -> {
+                if (mBinding != null) {
+                    smoothScrollTo(finalPosition);
+                }
+            });
         } else {
             // Trying to display a deleted alarm should only happen from a missed notification for
             // an alarm that has been marked deleted after use.
-            SnackbarManager.show(Snackbar.make(mMainLayout, R.string.missed_alarm_has_been_deleted, Snackbar.LENGTH_LONG));
+            SnackbarManager.show(Snackbar.make(mBinding.alarmRootView, R.string.missed_alarm_has_been_deleted, Snackbar.LENGTH_LONG));
         }
     }
 
@@ -825,7 +823,11 @@ public final class AlarmFragment extends DeskClockFragment
             scrollToAlarm(newAlarm.id);
             setSmoothScrollStableId(Alarm.INVALID_ID);
 
-            mRecyclerView.post(() -> openBottomSheetWhenIdle(newAlarm));
+            mBinding.alarmRecyclerView.post(() -> {
+                if (mBinding != null) {
+                    openBottomSheetWhenIdle(newAlarm);
+                }
+            });
         } else {
             // The callback was faster than the Loader; 'setAdapterItems' will handle it once the Loader finishes.
             mPendingAlarmToEdit = newAlarm;
@@ -838,8 +840,8 @@ public final class AlarmFragment extends DeskClockFragment
      */
     private void openBottomSheetWhenIdle(Alarm alarm) {
         // Check if the list scrolls to the new alarm.
-        if (mRecyclerView.getScrollState() != RecyclerView.SCROLL_STATE_IDLE) {
-            mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        if (mBinding.alarmRecyclerView.getScrollState() != RecyclerView.SCROLL_STATE_IDLE) {
+            mBinding.alarmRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
                 @Override
                 public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                     if (newState == RecyclerView.SCROLL_STATE_IDLE) {
@@ -861,12 +863,12 @@ public final class AlarmFragment extends DeskClockFragment
         // Check if a global layout transition (like Fade IN/OUT of the empty view) is running.
         if (mIsUiTransitioning) {
             // Check again on the next rendering frame.
-            mRecyclerView.postOnAnimation(() -> checkAnimatorAndOpen(alarm));
+            mBinding.alarmRecyclerView.postOnAnimation(() -> checkAnimatorAndOpen(alarm));
             return;
         }
 
         // Check if a RecyclerView-specific item animation (insertion/expansion) is running.
-        RecyclerView.ItemAnimator animator = mRecyclerView.getItemAnimator();
+        RecyclerView.ItemAnimator animator = mBinding.alarmRecyclerView.getItemAnimator();
         if (animator != null && animator.isRunning()) {
             animator.isRunning(() -> displayBottomSheet(alarm));
         } else {
@@ -891,8 +893,13 @@ public final class AlarmFragment extends DeskClockFragment
     private void saveManualSortOrder() {
         List<AlarmItemHolder> currentItems = mItemAdapter.getItems();
 
+        Context context = getContext();
+        if (context == null) {
+            return;
+        }
+
         AppExecutors.getDiskIO().execute(() -> {
-            ContentResolver cr = mContext.getContentResolver();
+            ContentResolver cr = context.getContentResolver();
 
             for (int i = 0; i < currentItems.size(); i++) {
                 Alarm alarm = currentItems.get(i).item;
@@ -918,9 +925,9 @@ public final class AlarmFragment extends DeskClockFragment
      * Handles the display and animation of the volume banner and the empty view, ensuring there are no visual conflicts.
      */
     private void updateUIStatesAndAnimate(boolean noAlarms, boolean hasActiveAlarms) {
-        boolean shouldShowBanner = mIsLowAlarmVolumeWarningEnabled && hasActiveAlarms && RingtoneUtils.isAlarmStreamLow(mContext);
+        boolean shouldShowBanner = mIsLowAlarmVolumeWarningEnabled && hasActiveAlarms && RingtoneUtils.isAlarmStreamLow(requireContext());
         int targetVisibility = shouldShowBanner ? VISIBLE : GONE;
-        boolean bannerWillChange = mVolumeWarningBanner.getVisibility() != targetVisibility;
+        boolean bannerWillChange = mBinding.alarmVolumeWarningBanner.volumeWarningBanner.getVisibility() != targetVisibility;
 
         // Check if the empty view state is about to toggle.
         boolean emptyStateWillChange = mEmptyViewController.isEmpty() != noAlarms;
@@ -932,11 +939,11 @@ public final class AlarmFragment extends DeskClockFragment
                 .setOrdering(TransitionSet.ORDERING_TOGETHER)
                 .addTransition(mEmptyViewController.getTransition())
                 .addTransition(new ChangeBounds())
-                .addTransition(new Fade().addTarget(mVolumeWarningBanner));
+                .addTransition(new Fade().addTarget(mBinding.alarmVolumeWarningBanner.volumeWarningBanner));
 
-            TransitionManager.beginDelayedTransition(mMainLayout, combinedTransition);
+            TransitionManager.beginDelayedTransition(mBinding.alarmRootView, combinedTransition);
 
-            mVolumeWarningBanner.setVisibility(targetVisibility);
+            mBinding.alarmVolumeWarningBanner.volumeWarningBanner.setVisibility(targetVisibility);
             mEmptyViewController.setEmpty(noAlarms, false);
 
             transitionToTrack = combinedTransition;
@@ -971,6 +978,15 @@ public final class AlarmFragment extends DeskClockFragment
      * Updates the visibility of the volume warning banner.
      */
     public void updateWarningBannerVisibility() {
+        if (!isAdded() || mBinding == null) {
+            return;
+        }
+
+        Context context = getContext();
+        if (context == null) {
+            return;
+        }
+
         Fragment bottomSheet = getParentFragmentManager().findFragmentByTag(AlarmEditBottomSheetFragment.TAG);
 
         boolean isCustomAlarmVolumePlaying = false;
@@ -983,30 +999,28 @@ public final class AlarmFragment extends DeskClockFragment
             return;
         }
 
-        if (!mIsLowAlarmVolumeWarningEnabled || !RingtoneUtils.isAlarmStreamLow(mContext)) {
-            if (mVolumeWarningBanner != null && mVolumeWarningBanner.getVisibility() != GONE) {
-                if (mMainLayout != null) {
-                    TransitionSet strictTransition = new TransitionSet()
-                        .setOrdering(TransitionSet.ORDERING_TOGETHER)
-                        .addTransition(new ChangeBounds())
-                        .addTransition(new Fade(Fade.OUT).addTarget(mVolumeWarningBanner));
+        if (!mIsLowAlarmVolumeWarningEnabled || !RingtoneUtils.isAlarmStreamLow(context)) {
+            if (mBinding.alarmVolumeWarningBanner.volumeWarningBanner.getVisibility() != GONE) {
+                TransitionSet strictTransition = new TransitionSet()
+                    .setOrdering(TransitionSet.ORDERING_TOGETHER)
+                    .addTransition(new ChangeBounds())
+                    .addTransition(new Fade(Fade.OUT).addTarget(mBinding.alarmVolumeWarningBanner.volumeWarningBanner));
 
-                    TransitionManager.beginDelayedTransition(mMainLayout, strictTransition);
-                }
+                TransitionManager.beginDelayedTransition(mBinding.alarmRootView, strictTransition);
 
-                mVolumeWarningBanner.setVisibility(GONE);
+                mBinding.alarmVolumeWarningBanner.volumeWarningBanner.setVisibility(GONE);
             }
 
             return;
         }
 
         AppExecutors.getDiskIO().execute(() -> {
-            List<Alarm> activeAlarms = Alarm.getEnabledAlarms(mContext);
+            List<Alarm> activeAlarms = Alarm.getEnabledAlarms(context);
             boolean shouldShow = !activeAlarms.isEmpty();
 
             AppExecutors.getMainThread().post(() -> {
-                if (mVolumeWarningBanner != null) {
-                    mVolumeWarningBanner.setVisibility(shouldShow ? VISIBLE : GONE);
+                if (mBinding != null) {
+                    mBinding.alarmVolumeWarningBanner.volumeWarningBanner.setVisibility(shouldShow ? VISIBLE : GONE);
                 }
             });
         });

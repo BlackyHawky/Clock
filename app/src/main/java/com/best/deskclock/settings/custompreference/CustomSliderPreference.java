@@ -22,6 +22,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.content.ContextCompat;
 import androidx.core.widget.TextViewCompat;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceViewHolder;
@@ -29,6 +30,7 @@ import androidx.preference.PreferenceViewHolder;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.databinding.SettingsPreferenceSliderLayoutBinding;
 import com.best.deskclock.ringtone.RingtonePreviewKlaxon;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.ThemeUtils;
@@ -61,13 +63,10 @@ public class CustomSliderPreference extends Preference {
     private static final int MAX_ANALOG_CLOCK_SIZE_VALUE = 100;
     private static final int MAX_FONT_SIZE_VALUE = 200;
 
-    private final Context mContext;
+    private SettingsPreferenceSliderLayoutBinding mBinding;
     private final SharedPreferences mPrefs;
     private final Typeface mBoldTypeface;
-    private Slider mSlider;
-    private ImageView mSliderMinus;
-    private ImageView mSliderPlus;
-    private TextView mResetSlider;
+
     private final Handler mRingtoneHandler = new Handler(Looper.getMainLooper());
     private Runnable mRingtoneStopRunnable;
     private boolean mIsPreviewPlaying = false;
@@ -75,8 +74,7 @@ public class CustomSliderPreference extends Preference {
     public CustomSliderPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
-        mContext = context;
-        mPrefs = getDefaultSharedPreferences(mContext);
+        mPrefs = getDefaultSharedPreferences(context);
         mBoldTypeface = ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(mPrefs));
     }
 
@@ -93,44 +91,40 @@ public class CustomSliderPreference extends Preference {
 
         super.onBindViewHolder(holder);
 
+        mBinding = SettingsPreferenceSliderLayoutBinding.bind(holder.itemView);
+
         holder.itemView.setClickable(false);
 
-        mSlider = (Slider) holder.findViewById(R.id.slider);
-        final TextView sliderSummary = (TextView) holder.findViewById(android.R.id.summary);
-        mSliderMinus = (ImageView) holder.findViewById(R.id.slider_minus_icon);
-        mSliderPlus = (ImageView) holder.findViewById(R.id.slider_plus_icon);
-        mResetSlider = (TextView) holder.findViewById(R.id.reset_slider_value);
+        mBinding.slider.clearOnChangeListeners();
+        mBinding.slider.clearOnSliderTouchListeners();
 
-        mSlider.clearOnChangeListeners();
-        mSlider.clearOnSliderTouchListeners();
-
-        mSlider.setStepSize(1f);
-        setSliderProgress(sliderSummary);
+        mBinding.slider.setStepSize(1f);
+        setSliderProgress(mBinding.summary);
         configureSliderButtonDrawables();
-        setupSliderButton(mSliderMinus, isExternalAudioDeviceVolumePreference() ? -10 : -5, sliderSummary);
-        setupSliderButton(mSliderPlus, isExternalAudioDeviceVolumePreference() ? 10 : 5, sliderSummary);
+        setupSliderButton(mBinding.sliderMinusIcon, isExternalAudioDeviceVolumePreference() ? -10 : -5, mBinding.summary);
+        setupSliderButton(mBinding.sliderPlusIcon, isExternalAudioDeviceVolumePreference() ? 10 : 5, mBinding.summary);
         updateSliderButtonStates();
         updateResetButtonStates();
 
-        mResetSlider.setTypeface(mBoldTypeface);
-        mResetSlider.setOnClickListener(v -> {
+        mBinding.resetSliderValue.setTypeface(mBoldTypeface);
+        mBinding.resetSliderValue.setOnClickListener(v -> {
             resetPreference();
-            setSliderProgress(sliderSummary);
+            setSliderProgress(mBinding.summary);
             startRingtonePreviewForExternalAudioDevices();
             updateDigitalWidgets();
             updateSliderButtonStates();
             updateResetButtonStates();
         });
 
-        mSlider.addOnChangeListener((slider, progress, fromUser) -> {
+        mBinding.slider.addOnChangeListener((slider, progress, fromUser) -> {
             if (fromUser) {
-                updateSliderSummary(sliderSummary, (int) progress);
+                updateSliderSummary(mBinding.summary, (int) progress);
                 updateSliderButtonStates();
                 updateResetButtonStates();
             }
         });
 
-        mSlider.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
+        mBinding.slider.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
             @Override
             public void onStartTrackingTouch(@NonNull Slider slider) {
                 startRingtonePreviewForExternalAudioDevices();
@@ -196,13 +190,13 @@ public class CustomSliderPreference extends Preference {
 
         int safeValue = (int) Math.max(min, Math.min(max, newValue));
 
-        mSlider.setValueFrom(Math.min(mSlider.getValueFrom(), min));
-        mSlider.setValueTo(Math.max(mSlider.getValueTo(), max));
+        mBinding.slider.setValueFrom(Math.min(mBinding.slider.getValueFrom(), min));
+        mBinding.slider.setValueTo(Math.max(mBinding.slider.getValueTo(), max));
 
-        mSlider.setValue(safeValue);
+        mBinding.slider.setValue(safeValue);
 
-        mSlider.setValueFrom(min);
-        mSlider.setValueTo(max);
+        mBinding.slider.setValueFrom(min);
+        mBinding.slider.setValueTo(max);
 
         return safeValue;
     }
@@ -245,35 +239,35 @@ public class CustomSliderPreference extends Preference {
      */
     private void configureSliderButtonDrawables() {
         if (isScreensaverBrightnessPreference()) {
-            mSliderMinus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_brightness_decrease));
-            mSliderPlus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_brightness_increase));
+            mBinding.sliderMinusIcon.setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.ic_brightness_decrease));
+            mBinding.sliderPlusIcon.setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.ic_brightness_increase));
         } else if (isDigitalWidgetBackgroundCornerRadius()
             || isNextAlarmWidgetBackgroundCornerRadius()
             || isVerticalWidgetBackgroundCornerRadius()) {
-            mSliderMinus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_rounded_corner_decrease));
-            mSliderPlus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_rounded_corner_increase));
+            mBinding.sliderMinusIcon.setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.ic_rounded_corner_decrease));
+            mBinding.sliderPlusIcon.setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.ic_rounded_corner_increase));
         } else if (isShakeIntensityPreference() || isTimerShakeIntensityPreference()) {
-            mSliderMinus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_sensor_low));
-            mSliderPlus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_sensor_high));
+            mBinding.sliderMinusIcon.setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.ic_sensor_low));
+            mBinding.sliderPlusIcon.setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.ic_sensor_high));
         } else if (isTimerShadowOffsetPreference() || isAlarmShadowOffsetPreference()) {
-            mSliderMinus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_shadow_decrease));
-            mSliderPlus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_shadow_increase));
+            mBinding.sliderMinusIcon.setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.ic_shadow_decrease));
+            mBinding.sliderPlusIcon.setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.ic_shadow_increase));
         } else if (isScreensaverBlurIntensityPreference()
             || isTimerBlurIntensityPreference()
             || isAlarmBlurIntensityPreference()) {
-            mSliderMinus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_blur_decrease));
-            mSliderPlus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_blur_increase));
+            mBinding.sliderMinusIcon.setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.ic_blur_decrease));
+            mBinding.sliderPlusIcon.setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.ic_blur_increase));
         } else if (isExternalAudioDeviceVolumePreference()) {
-            mSliderMinus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_volume_down));
-            mSliderPlus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_volume_up));
+            mBinding.sliderMinusIcon.setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.ic_volume_down));
+            mBinding.sliderPlusIcon.setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.ic_volume_up));
         } else if (isAnalogClockSizePreference()
             || isScreensaverAnalogClockSizePreference()
             || isAlarmAnalogClockSizePreference()) {
-            mSliderMinus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_zoom_in));
-            mSliderPlus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_zoom_out));
+            mBinding.sliderMinusIcon.setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.ic_zoom_in));
+            mBinding.sliderPlusIcon.setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.ic_zoom_out));
         } else {
-            mSliderMinus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_text_decrease));
-            mSliderPlus.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_text_increase));
+            mBinding.sliderMinusIcon.setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.ic_text_decrease));
+            mBinding.sliderPlusIcon.setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.ic_text_increase));
         }
     }
 
@@ -285,7 +279,7 @@ public class CustomSliderPreference extends Preference {
     private void setupSliderButton(ImageView button, final int delta, final TextView sliderSummary) {
         button.setOnClickListener(v -> {
             int newSliderValue = getNewSliderValue(delta);
-            mSlider.setValue(newSliderValue);
+            mBinding.slider.setValue(newSliderValue);
             updateSliderSummary(sliderSummary, newSliderValue);
             saveSliderValue(newSliderValue);
             startRingtonePreviewForExternalAudioDevices();
@@ -304,12 +298,12 @@ public class CustomSliderPreference extends Preference {
      */
     private void updateSliderButtonStates() {
         boolean isPrefEnabled = isEnabled();
-        int current = (int) mSlider.getValue();
-        int min = (int) mSlider.getValueFrom();
-        int max = (int) mSlider.getValueTo();
+        int current = (int) mBinding.slider.getValue();
+        int min = (int) mBinding.slider.getValueFrom();
+        int max = (int) mBinding.slider.getValueTo();
 
-        ThemeUtils.updateSliderButtonEnabledState(mContext, mSliderMinus, isPrefEnabled && current > min);
-        ThemeUtils.updateSliderButtonEnabledState(mContext, mSliderPlus, isPrefEnabled && current < max);
+        ThemeUtils.updateSliderButtonEnabledState(getContext(), mBinding.sliderMinusIcon, isPrefEnabled && current > min);
+        ThemeUtils.updateSliderButtonEnabledState(getContext(), mBinding.sliderPlusIcon, isPrefEnabled && current < max);
     }
 
     /**
@@ -320,18 +314,18 @@ public class CustomSliderPreference extends Preference {
      * value for the current preference type.</p>
      */
     private void updateResetButtonStates() {
-        boolean isEnabled = isEnabled() && !isSliderAtDefault((int) mSlider.getValue());
-        mResetSlider.setEnabled(isEnabled);
+        boolean isEnabled = isEnabled() && !isSliderAtDefault((int) mBinding.slider.getValue());
+        mBinding.resetSliderValue.setEnabled(isEnabled);
 
         if (isEnabled) {
-            int enabledColor = MaterialColors.getColor(mContext, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
+            int enabledColor = MaterialColors.getColor(getContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
 
-            mResetSlider.setTextColor(enabledColor);
-            TextViewCompat.setCompoundDrawableTintList(mResetSlider, ColorStateList.valueOf(enabledColor));
+            mBinding.resetSliderValue.setTextColor(enabledColor);
+            TextViewCompat.setCompoundDrawableTintList(mBinding.resetSliderValue, ColorStateList.valueOf(enabledColor));
         } else {
-            int disabledColor = mContext.getColor(R.color.colorDisabled);
-            mResetSlider.setTextColor(disabledColor);
-            TextViewCompat.setCompoundDrawableTintList(mResetSlider, ColorStateList.valueOf(disabledColor));
+            int disabledColor = ContextCompat.getColor(getContext(), R.color.colorDisabled);
+            mBinding.resetSliderValue.setTextColor(disabledColor);
+            TextViewCompat.setCompoundDrawableTintList(mBinding.resetSliderValue, ColorStateList.valueOf(disabledColor));
         }
     }
 
@@ -347,9 +341,9 @@ public class CustomSliderPreference extends Preference {
      * the minimum and maximum value of the slider.
      */
     private int getNewSliderValue(int delta) {
-        int currentSliderValue = (int) mSlider.getValue();
+        int currentSliderValue = (int) mBinding.slider.getValue();
 
-        return (int) Math.min(Math.max(currentSliderValue + delta, mSlider.getValueFrom()), mSlider.getValueTo());
+        return (int) Math.min(Math.max(currentSliderValue + delta, mBinding.slider.getValueFrom()), mBinding.slider.getValueTo());
     }
 
     /**
@@ -424,7 +418,7 @@ public class CustomSliderPreference extends Preference {
             && !isAlarmAnalogClockSizePreference()
             && !isDigitalClockFontSizePreference()) {
 
-            WidgetUtils.updateAllDigitalWidgets(mContext);
+            WidgetUtils.updateAllDigitalWidgets(getContext());
         }
     }
 
@@ -585,7 +579,7 @@ public class CustomSliderPreference extends Preference {
      * external audio device connected.
      */
     private void startRingtonePreviewForExternalAudioDevices() {
-        if (!isExternalAudioDeviceVolumePreference() || !RingtoneUtils.hasExternalAudioDeviceConnected(mContext, mPrefs)) {
+        if (!isExternalAudioDeviceVolumePreference() || !RingtoneUtils.hasExternalAudioDeviceConnected(getContext(), mPrefs)) {
             return;
         }
 

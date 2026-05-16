@@ -33,7 +33,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/content"
+        android:id="@+id/content_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
@@ -46,7 +46,7 @@
             android:saveEnabled="false" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/button_layout"
+            android:id="@+id/desk_clock_button_layout"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="end"
@@ -113,7 +113,7 @@
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_view"
+        android:id="@+id/desk_clock_bottom_menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:elevation="0dp"

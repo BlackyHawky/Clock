@@ -24,7 +24,6 @@ import android.view.Window;
 import android.view.WindowInsets;
 import android.view.WindowInsetsController;
 import android.view.WindowManager;
-import android.widget.ImageView;
 
 import androidx.core.graphics.Insets;
 import androidx.core.view.WindowCompat;
@@ -33,6 +32,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.best.deskclock.BaseActivity;
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.databinding.DeskClockSaverBinding;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AlarmUtils;
@@ -48,11 +48,12 @@ public class ScreensaverActivity extends BaseActivity {
 
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger("ScreensaverActivity");
 
+    private DeskClockSaverBinding mBinding;
+
     private SharedPreferences mPrefs;
     private final OnPreDrawListener mStartPositionUpdater = new StartPositionUpdater();
     private String mDateFormat;
     private String mDateFormatForAccessibility;
-    private View mContentView;
 
     private final BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
         @Override
@@ -63,7 +64,7 @@ public class ScreensaverActivity extends BaseActivity {
                 case Intent.ACTION_POWER_CONNECTED -> updateWakeLock(true);
                 case Intent.ACTION_POWER_DISCONNECTED -> updateWakeLock(false);
                 case Intent.ACTION_USER_PRESENT -> finish();
-                case ACTION_NEXT_ALARM_CHANGED_BY_CLOCK -> AlarmUtils.refreshAlarm(mContentView, true);
+                case ACTION_NEXT_ALARM_CHANGED_BY_CLOCK -> AlarmUtils.refreshAlarm(mBinding.saverContainer, true);
             }
         }
     };
@@ -75,7 +76,7 @@ public class ScreensaverActivity extends BaseActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (Intent.ACTION_BATTERY_CHANGED.equals(intent.getAction())) {
-                ScreensaverUtils.updateBatteryText(mContentView, intent);
+                ScreensaverUtils.updateBatteryText(mBinding.saverContainer, intent);
             }
         }
     };
@@ -84,11 +85,9 @@ public class ScreensaverActivity extends BaseActivity {
     private final Runnable mMidnightUpdater = new Runnable() {
         @Override
         public void run() {
-            ScreensaverUtils.updateScreensaverDate(mDateFormat, mDateFormatForAccessibility, mContentView);
+            ScreensaverUtils.updateScreensaverDate(mDateFormat, mDateFormatForAccessibility, mBinding.saverContainer);
         }
     };
-
-    private View mMainClockView;
 
     private MoveScreensaverRunnable mPositionUpdater;
     private PulseScreensaverBackgroundRunnable mBackgroundAnimator;
@@ -97,6 +96,8 @@ public class ScreensaverActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        mBinding = DeskClockSaverBinding.inflate(getLayoutInflater());
+
         mPrefs = getDefaultSharedPreferences(this);
         mDateFormat = getString(R.string.abbrev_wday_month_day_no_year);
         mDateFormatForAccessibility = getString(R.string.full_wday_month_day_no_year);
@@ -104,19 +105,16 @@ public class ScreensaverActivity extends BaseActivity {
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         ThemeUtils.allowDisplayCutout(getWindow());
 
-        setContentView(R.layout.desk_clock_saver);
-        mContentView = findViewById(R.id.saver_container);
-        mMainClockView = findViewById(R.id.main_clock);
-        ImageView background = findViewById(R.id.screensaver_background_image);
+        setContentView(mBinding.getRoot());
 
         ScreensaverUtils.hideScreensaverSystemBars(getWindow(), getWindow().getDecorView());
 
-        ScreensaverUtils.setScreensaverClockStyle(mContentView);
+        ScreensaverUtils.setScreensaverClockStyle(mBinding.saverContainer);
 
-        mPositionUpdater = new MoveScreensaverRunnable(mContentView, mMainClockView);
+        mPositionUpdater = new MoveScreensaverRunnable(mBinding.saverContainer, mBinding.mainClock);
 
-        if (background.getVisibility() == View.VISIBLE) {
-            mBackgroundAnimator = new PulseScreensaverBackgroundRunnable(background);
+        if (mBinding.screensaverBackgroundImage.getVisibility() == View.VISIBLE) {
+            mBackgroundAnimator = new PulseScreensaverBackgroundRunnable(mBinding.screensaverBackgroundImage);
         }
 
         applyWindowInsets();
@@ -152,8 +150,8 @@ public class ScreensaverActivity extends BaseActivity {
     public void onResume() {
         super.onResume();
 
-        ScreensaverUtils.updateScreensaverDate(mDateFormat, mDateFormatForAccessibility, mContentView);
-        AlarmUtils.refreshAlarm(mContentView, true);
+        ScreensaverUtils.updateScreensaverDate(mDateFormat, mDateFormatForAccessibility, mBinding.saverContainer);
+        AlarmUtils.refreshAlarm(mBinding.saverContainer, true);
 
         startPositionUpdater();
         if (mBackgroundAnimator != null) {
@@ -168,7 +166,7 @@ public class ScreensaverActivity extends BaseActivity {
         updateWakeLock(pluggedIn);
 
         if (intent != null) {
-            ScreensaverUtils.updateBatteryText(mContentView, intent);
+            ScreensaverUtils.updateBatteryText(mBinding.saverContainer, intent);
         }
     }
 
@@ -201,7 +199,7 @@ public class ScreensaverActivity extends BaseActivity {
      * accordingly.
      */
     private void applyWindowInsets() {
-        InsetsUtils.doOnApplyWindowInsets(mMainClockView, (v, insets) -> {
+        InsetsUtils.doOnApplyWindowInsets(mBinding.mainClock, (v, insets) -> {
             // Get the notch insets
             Insets bars = insets.getInsets(WindowInsetsCompat.Type.displayCutout());
 
@@ -269,38 +267,38 @@ public class ScreensaverActivity extends BaseActivity {
     }
 
     /**
-     * The {@link #mContentView} will be drawn shortly. When that draw occurs, the position updater
+     * The screensaver container will be drawn shortly. When that draw occurs, the position updater
      * callback will also be executed to choose a random position for the time display as well as
      * schedule future callbacks to move the time display each minute.
      */
     private void startPositionUpdater() {
-        mContentView.getViewTreeObserver().addOnPreDrawListener(mStartPositionUpdater);
+        mBinding.saverContainer.getViewTreeObserver().addOnPreDrawListener(mStartPositionUpdater);
     }
 
     /**
      * This activity is no longer in the foreground; position callbacks should be removed.
      */
     private void stopPositionUpdater() {
-        mContentView.getViewTreeObserver().removeOnPreDrawListener(mStartPositionUpdater);
+        mBinding.saverContainer.getViewTreeObserver().removeOnPreDrawListener(mStartPositionUpdater);
         mPositionUpdater.stop();
     }
 
     private final class StartPositionUpdater implements OnPreDrawListener {
         /**
          * This callback occurs after initial layout has completed. It is an appropriate place to
-         * select a random position for {@link #mMainClockView} and schedule future callbacks to update
+         * select a random position for the main clock view and schedule future callbacks to update
          * its position.
          *
          * @return {@code true} to continue with the drawing pass
          */
         @Override
         public boolean onPreDraw() {
-            if (mContentView.getViewTreeObserver().isAlive()) {
+            if (mBinding.saverContainer.getViewTreeObserver().isAlive()) {
                 // Start the periodic position updater.
                 mPositionUpdater.start();
 
                 // This listener must now be removed to avoid starting the position updater again.
-                mContentView.getViewTreeObserver().removeOnPreDrawListener(mStartPositionUpdater);
+                mBinding.saverContainer.getViewTreeObserver().removeOnPreDrawListener(mStartPositionUpdater);
             }
             return true;
         }

@@ -35,7 +35,8 @@
         android:textSize="60sp"
         tools:text="12:34" />
 
-    <include layout="@layout/date_and_next_alarm_time" />
+    <include layout="@layout/date_and_next_alarm_time"
+        android:id="@+id/date_and_next_alarm_time" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cities_empty_view"

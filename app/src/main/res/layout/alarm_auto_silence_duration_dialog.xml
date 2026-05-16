@@ -6,7 +6,7 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/scrollView"
+    android:id="@+id/scroll_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -17,7 +17,7 @@
         android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/dialog_input_layout_minutes"
+            android:id="@+id/text_input_layout_minutes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -34,7 +34,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/dialog_input_layout_seconds"
+            android:id="@+id/text_input_layout_seconds"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="16dp">
@@ -60,7 +60,7 @@
             app:dividerColor="?attr/colorOutline" />
 
         <com.google.android.material.checkbox.MaterialCheckBox
-            android:id="@+id/end_of_ringtone"
+            android:id="@+id/end_of_ringtone_checkbox"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:background="?attr/selectableItemBackground"
@@ -74,7 +74,7 @@
             tools:checked="false" />
 
         <com.google.android.material.checkbox.MaterialCheckBox
-            android:id="@+id/auto_silence_never"
+            android:id="@+id/auto_silence_never_checkbox"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:background="?attr/selectableItemBackground"

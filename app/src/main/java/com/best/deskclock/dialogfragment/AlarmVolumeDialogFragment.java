@@ -8,7 +8,6 @@ import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.utils.RingtoneUtils.ALARM_PREVIEW_DURATION_MS;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -19,8 +18,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -30,6 +27,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.databinding.AlarmVolumeDialogBinding;
 import com.best.deskclock.ringtone.RingtonePreviewKlaxon;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.RingtoneUtils;
@@ -54,12 +52,9 @@ public class AlarmVolumeDialogFragment extends DialogFragment {
     private static final String ARG_ALARM_VOLUME_VALUE = "arg_alarm_volume_value";
     private static final String ARG_RINGTONE_URI = "arg_ringtone_uri";
 
+    private AlarmVolumeDialogBinding mBinding;
     private AudioManager mAudioManager;
     private Uri mRingtoneUri;
-    private Slider mSlider;
-    private ImageView mVolumeMinus;
-    private ImageView mVolumePlus;
-    private TextView mVolumeValue;
     private TextView mDialogTitle;
     private final Handler mRingtoneHandler = new Handler(Looper.getMainLooper());
     private Runnable mRingtoneStopRunnable;
@@ -96,9 +91,8 @@ public class AlarmVolumeDialogFragment extends DialogFragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        if (mSlider != null) {
-            outState.putInt(ARG_ALARM_VOLUME_VALUE, (int) mSlider.getValue() + mMinVolume);
-        }
+
+        outState.putInt(ARG_ALARM_VOLUME_VALUE, (int) mBinding.alarmVolumeSlider.getValue() + mMinVolume);
 
         if (mRingtoneUri != null) {
             outState.putString(ARG_RINGTONE_URI, mRingtoneUri.toString());
@@ -133,57 +127,50 @@ public class AlarmVolumeDialogFragment extends DialogFragment {
         int clampedVolume = Math.max(mMinVolume, Math.min(volumeValue, maxVolume));
         int currentVolume = clampedVolume - mMinVolume;
 
-        @SuppressLint("InflateParams")
-        View dialogView = getLayoutInflater().inflate(R.layout.alarm_volume_dialog, null);
+        mBinding = AlarmVolumeDialogBinding.inflate(getLayoutInflater());
 
-        mSlider = dialogView.findViewById(R.id.alarm_volume_slider);
-        mVolumeValue = dialogView.findViewById(R.id.alarm_volume_value);
-        mVolumeMinus = dialogView.findViewById(R.id.volume_minus_icon);
-        mVolumePlus = dialogView.findViewById(R.id.volume_plus_icon);
-        TextView warningText = dialogView.findViewById(R.id.alarm_volume_warning);
+        mBinding.alarmVolumeValue.setTypeface(typeface);
 
-        mVolumeValue.setTypeface(typeface);
-
-        warningText.setTypeface(typeface, Typeface.ITALIC);
+        mBinding.alarmVolumeWarning.setTypeface(typeface, Typeface.ITALIC);
 
         float maxRange = Math.max(1f, (float) (maxVolume - mMinVolume));
-        mSlider.setValueTo(maxRange);
-        mSlider.setValueFrom(0f);
-        mSlider.setStepSize(1f);
-        mSlider.setValue((float) currentVolume);
+        mBinding.alarmVolumeSlider.setValueTo(maxRange);
+        mBinding.alarmVolumeSlider.setValueFrom(0f);
+        mBinding.alarmVolumeSlider.setStepSize(1f);
+        mBinding.alarmVolumeSlider.setValue((float) currentVolume);
 
         updateVolumeText(clampedVolume, maxVolume);
         updateVolumeButtonStates(currentVolume, maxVolume - mMinVolume);
-        updateWarningVisibility(warningText, currentVolume);
+        updateWarningVisibility(mBinding.alarmVolumeWarning, currentVolume);
 
-        mVolumeMinus.setOnClickListener(v -> {
-            float newValue = mSlider.getValue() - 1f;
-            if (newValue >= mSlider.getValueFrom()) {
-                mSlider.setValue(newValue);
-
-                int newVolume = (int) newValue + mMinVolume;
-                startRingtonePreview(newVolume);
-            }
-        });
-
-        mVolumePlus.setOnClickListener(v -> {
-            float newValue = mSlider.getValue() + 1f;
-            if (newValue <= mSlider.getValueTo()) {
-                mSlider.setValue(newValue);
+        mBinding.sliderMinusIcon.setOnClickListener(v -> {
+            float newValue = mBinding.alarmVolumeSlider.getValue() - 1f;
+            if (newValue >= mBinding.alarmVolumeSlider.getValueFrom()) {
+                mBinding.alarmVolumeSlider.setValue(newValue);
 
                 int newVolume = (int) newValue + mMinVolume;
                 startRingtonePreview(newVolume);
             }
         });
 
-        mSlider.addOnChangeListener((slider, progress, fromUser) -> {
+        mBinding.sliderPlusIcon.setOnClickListener(v -> {
+            float newValue = mBinding.alarmVolumeSlider.getValue() + 1f;
+            if (newValue <= mBinding.alarmVolumeSlider.getValueTo()) {
+                mBinding.alarmVolumeSlider.setValue(newValue);
+
+                int newVolume = (int) newValue + mMinVolume;
+                startRingtonePreview(newVolume);
+            }
+        });
+
+        mBinding.alarmVolumeSlider.addOnChangeListener((slider, progress, fromUser) -> {
             int intProgress = (int) progress;
             int newVolume = intProgress + mMinVolume;
 
             updateDialogIcon(newVolume, maxVolume);
             updateVolumeText(newVolume, maxVolume);
             updateVolumeButtonStates(intProgress, (int) slider.getValueTo());
-            updateWarningVisibility(warningText, intProgress);
+            updateWarningVisibility(mBinding.alarmVolumeWarning, intProgress);
 
             if (fromUser) {
                 if (mIsPreviewPlaying) {
@@ -192,7 +179,7 @@ public class AlarmVolumeDialogFragment extends DialogFragment {
             }
         });
 
-        mSlider.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
+        mBinding.alarmVolumeSlider.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
             @Override
             public void onStartTrackingTouch(@NonNull Slider slider) {
                 int newVolume = (int) slider.getValue() + mMinVolume;
@@ -210,7 +197,7 @@ public class AlarmVolumeDialogFragment extends DialogFragment {
             null,
             getString(R.string.alarm_volume_title),
             null,
-            dialogView,
+            mBinding.getRoot(),
             getString(android.R.string.ok),
             (d, w) -> {
                 stopRingtonePreview();
@@ -222,7 +209,7 @@ public class AlarmVolumeDialogFragment extends DialogFragment {
             null,
             alertDialog -> {
                 mDialogTitle = alertDialog.findViewById(R.id.dialog_title);
-                int volume = (int) mSlider.getValue() + mMinVolume;
+                int volume = (int) mBinding.alarmVolumeSlider.getValue() + mMinVolume;
                 updateDialogIcon(volume, maxVolume);
             },
             CustomDialog.SoftInputMode.NONE
@@ -249,25 +236,18 @@ public class AlarmVolumeDialogFragment extends DialogFragment {
 
         mRingtoneHandler.removeCallbacksAndMessages(null);
 
-        if (mSlider != null) {
-            mSlider.clearOnChangeListeners();
-            mSlider.clearOnSliderTouchListeners();
-        }
+        mBinding.alarmVolumeSlider.clearOnChangeListeners();
+        mBinding.alarmVolumeSlider.clearOnSliderTouchListeners();
 
-        if (mVolumeMinus != null) {
-            mVolumeMinus.setOnClickListener(null);
-        }
-        if (mVolumePlus != null) {
-            mVolumePlus.setOnClickListener(null);
-        }
+        mBinding.sliderMinusIcon.setOnClickListener(null);
+        mBinding.sliderPlusIcon.setOnClickListener(null);
 
         super.onDestroyView();
 
         mAudioManager = null;
-        mSlider = null;
-        mVolumeMinus = null;
-        mVolumePlus = null;
-        mVolumeValue = null;
+
+        mBinding = null;
+
         mDialogTitle = null;
         mRingtoneStopRunnable = null;
         mRingtoneUri = null;
@@ -278,7 +258,7 @@ public class AlarmVolumeDialogFragment extends DialogFragment {
      */
     private void setVolumeValue() {
         Bundle result = new Bundle();
-        int volumeValue = (int) mSlider.getValue() + mMinVolume;
+        int volumeValue = (int) mBinding.alarmVolumeSlider.getValue() + mMinVolume;
         result.putInt(RESULT_VOLUME_VALUE, volumeValue);
 
         getParentFragmentManager().setFragmentResult(REQUEST_KEY, result);
@@ -306,7 +286,7 @@ public class AlarmVolumeDialogFragment extends DialogFragment {
      */
     private void updateVolumeText(int currentVolume, int maxVolume) {
         int percent = (int) (((float) currentVolume / maxVolume) * 100);
-        mVolumeValue.setText(String.format(Locale.getDefault(), "%d%%", percent));
+        mBinding.alarmVolumeValue.setText(String.format(Locale.getDefault(), "%d%%", percent));
     }
 
     /**
@@ -316,8 +296,8 @@ public class AlarmVolumeDialogFragment extends DialogFragment {
      * @param maxProgress The maximum progress of the slider.
      */
     private void updateVolumeButtonStates(int progress, int maxProgress) {
-        ThemeUtils.updateSliderButtonEnabledState(requireContext(), mVolumeMinus, progress > 0);
-        ThemeUtils.updateSliderButtonEnabledState(requireContext(), mVolumePlus, progress < maxProgress);
+        ThemeUtils.updateSliderButtonEnabledState(requireContext(), mBinding.sliderMinusIcon, progress > 0);
+        ThemeUtils.updateSliderButtonEnabledState(requireContext(), mBinding.sliderPlusIcon, progress < maxProgress);
     }
 
     /**

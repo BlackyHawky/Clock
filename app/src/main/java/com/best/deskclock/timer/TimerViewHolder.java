@@ -18,10 +18,11 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
+import com.best.deskclock.databinding.TimerItemBinding;
+import com.best.deskclock.databinding.TimerItemCompactBinding;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.google.android.material.button.MaterialButton;
@@ -33,6 +34,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
     private final TimerAdapter mAdapter;
     public TimerItem mTimerItem;
     public TimerItemCompact mTimerItemCompact;
+    public final MaterialButton addTimeButton;
 
     public TimerViewHolder(View view, TimerAdapter timerAdapter, TimerClickHandler timerClickHandler, int viewType, Typeface regular,
                            Typeface bold, Typeface timerTime) {
@@ -43,26 +45,50 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
         final SharedPreferences prefs = getDefaultSharedPreferences(mContext);
         mAdapter = timerAdapter;
 
+        final TextView timerLabel;
+        final ImageButton resetButton;
+        final TextView timerTotalDuration;
+        final ImageButton timerEditNewDurationButton;
+        final View circleContainer;
+        final TextView timerTimeText;
+        final MaterialButton playPauseButton;
+        final ImageButton deleteButton;
+
         switch (viewType) {
             case TimerAdapter.SINGLE_TIMER, TimerAdapter.MULTIPLE_TIMERS -> {
                 mTimerItem = (TimerItem) view;
                 mTimerItem.setCachedFonts(regular, bold, timerTime);
+
+                TimerItemBinding binding = TimerItemBinding.bind(view);
+
+                timerLabel = binding.timerLabel;
+                resetButton = binding.resetButton;
+                timerTotalDuration = binding.timerTotalDurationText;
+                timerEditNewDurationButton = binding.timerEditNewDurationButton;
+                addTimeButton = binding.timerAddTimeButton;
+                circleContainer = binding.circleContainer;
+                timerTimeText = binding.timerTimeText;
+                playPauseButton = binding.playPauseButton;
+                deleteButton = binding.deleteTimerButton;
             }
             case TimerAdapter.MULTIPLE_TIMERS_COMPACT -> {
                 mTimerItemCompact = (TimerItemCompact) view;
                 mTimerItemCompact.setCachedFonts(regular, bold, timerTime);
-            }
-        }
 
-        TextView timerLabel = view.findViewById(R.id.timer_label);
-        ImageButton resetButton = view.findViewById(R.id.reset);
-        TextView timerTotalDuration = view.findViewById(R.id.timer_total_duration);
-        ImageButton timerEditNewDurationButton = view.findViewById(R.id.timer_edit_new_duration_button);
-        MaterialButton addTimeButton = view.findViewById(R.id.timer_add_time_button);
-        View circleContainer = view.findViewById(R.id.circle_container);
-        TextView timerTimeText = view.findViewById(R.id.timer_time_text);
-        MaterialButton playPauseButton = view.findViewById(R.id.play_pause);
-        ImageButton deleteButton = view.findViewById(R.id.delete_timer);
+                TimerItemCompactBinding compactBinding = TimerItemCompactBinding.bind(view);
+
+                timerLabel = compactBinding.timerLabel;
+                resetButton = compactBinding.resetButton;
+                addTimeButton = compactBinding.timerAddTimeButton;
+                timerTimeText = compactBinding.timerTimeText;
+                playPauseButton = compactBinding.playPauseButton;
+                deleteButton = compactBinding.deleteTimerButton;
+                timerTotalDuration = compactBinding.timerTotalDurationText;
+                timerEditNewDurationButton = null;
+                circleContainer = null;
+            }
+            default -> throw new IllegalArgumentException("Unknown ViewType: " + viewType);
+        }
 
         View.OnClickListener playPauseListener = v -> {
             Utils.setVibrationTime(mContext, 50);

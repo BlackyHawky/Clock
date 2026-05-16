@@ -41,12 +41,12 @@ import android.widget.ImageView;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
 
 import com.best.deskclock.alarms.AlarmFragment;
@@ -54,6 +54,7 @@ import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.DataModel.SilentSetting;
 import com.best.deskclock.data.OnSilentSettingsListener;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.databinding.DeskClockBinding;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.settings.PermissionsManagementActivity;
 import com.best.deskclock.settings.SettingsActivity;
@@ -68,7 +69,6 @@ import com.best.deskclock.utils.NotificationUtils;
 import com.best.deskclock.utils.PermissionUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
-import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -86,6 +86,8 @@ import java.util.TimeZone;
  */
 public class DeskClock extends BaseActivity implements FabContainer {
 
+    private DeskClockBinding mBinding;
+
     SharedPreferences mPrefs;
     Typeface mRegularTypeface;
     String mFontPath;
@@ -93,22 +95,22 @@ public class DeskClock extends BaseActivity implements FabContainer {
     private AlertDialog mKeepAndroidOpenDialog = null;
 
     /**
-     * Shrinks the {@link #mFab}, {@link #mLeftButton} and {@link #mRightButton} to nothing.
+     * Shrinks the FAB, left FAB and right FAB to nothing.
      */
     private final AnimatorSet mHideAnimation = new AnimatorSet();
 
     /**
-     * Grows the {@link #mFab}, {@link #mLeftButton} and {@link #mRightButton} to natural sizes.
+     * Grows the FAB, left FAB and right FAB to natural sizes.
      */
     private final AnimatorSet mShowAnimation = new AnimatorSet();
 
     /**
-     * Hides, updates, and shows only the {@link #mFab}; the buttons are untouched.
+     * Hides, updates, and shows only the FAB; the buttons are untouched.
      */
     private final AnimatorSet mUpdateFabOnlyAnimation = new AnimatorSet();
 
     /**
-     * Hides, updates, and shows only the {@link #mLeftButton} and {@link #mRightButton}.
+     * Hides, updates, and shows only the left FAB and right FAB.
      */
     private final AnimatorSet mUpdateButtonsOnlyAnimation = new AnimatorSet();
 
@@ -133,59 +135,14 @@ public class DeskClock extends BaseActivity implements FabContainer {
     private Runnable mShowSilentSettingSnackbarRunnable;
 
     /**
-     * The main activity view.
-     */
-    private View mDeskClockRootView;
-
-    /**
-     * The view to which snackbar items are anchored.
-     */
-    private View mSnackbarAnchor;
-
-    /**
-     * The current display state of the {@link #mFab}.
+     * The current display state of the FAB.
      */
     private FabState mFabState = FabState.SHOWING;
 
     /**
-     * The view containing the FABs.
-     */
-    private View mFabContainer;
-
-    /**
-     * The single floating-action button shared across all tabs in the user interface.
-     */
-    private ImageView mFab;
-
-    /**
-     * The button left of the {@link #mFab} shared across all tabs in the user interface.
-     */
-    private ImageView mLeftButton;
-
-    /**
-     * The button right of the {@link #mFab} shared across all tabs in the user interface.
-     */
-    private ImageView mRightButton;
-
-    /**
-     * The Toolbar to display the title of the different tabs.
-     */
-    private MaterialToolbar mToolbar;
-
-    /**
-     * The ViewPager that pages through the fragments representing the content of the tabs.
-     */
-    private ViewPager mFragmentTabPager;
-
-    /**
-     * Generates the fragments that are displayed by the {@link #mFragmentTabPager}.
+     * Generates the fragments that are displayed by the FragmentTabPager.
      */
     private FragmentTabPagerAdapter mFragmentTabPagerAdapter;
-
-    /**
-     * The bottom navigation bar
-     */
-    private BottomNavigationView mBottomNavigation;
 
     /**
      * {@code true} when a settings change necessitates recreating this activity.
@@ -239,6 +196,8 @@ public class DeskClock extends BaseActivity implements FabContainer {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        mBinding = DeskClockBinding.inflate(getLayoutInflater());
+
         mPrefs = getDefaultSharedPreferences(this);
 
         if (isFirstLaunch()) {
@@ -254,21 +213,14 @@ public class DeskClock extends BaseActivity implements FabContainer {
 
         ThemeUtils.allowDisplayCutout(getWindow());
 
-        setContentView(R.layout.desk_clock);
+        setContentView(mBinding.getRoot());
 
         displayKeepAndroidOpenDialogIfUnread();
 
         registerPrefListener();
 
-        mDeskClockRootView = findViewById(R.id.desk_clock_root_view);
-
-        mSnackbarAnchor = findViewById(R.id.content);
-
         // Configure the toolbar.
-        mToolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
-
-        mFabContainer = findViewById(R.id.button_layout);
+        setSupportActionBar(mBinding.toolbar);
 
         // Configure the buttons shared by the tabs.
         final boolean isTablet = ThemeUtils.isTablet();
@@ -276,47 +228,44 @@ public class DeskClock extends BaseActivity implements FabContainer {
         final int fabSize = isTablet ? 90 : isPortrait ? 75 : 60;
         final int leftOrRightButtonSize = isTablet ? 70 : isPortrait ? 55 : 50;
 
-        mFab = findViewById(R.id.fab);
-        mFab.getLayoutParams().height = (int) dpToPx(fabSize, displayMetrics);
-        mFab.getLayoutParams().width = (int) dpToPx(fabSize, displayMetrics);
-        mFab.setScaleType(ImageView.ScaleType.CENTER);
-        mFab.setOnClickListener(view -> getSelectedDeskClockFragment().onFabClick());
-        mFab.setOnLongClickListener(v -> {
-            getSelectedDeskClockFragment().onFabLongClick(mFab);
+        mBinding.fab.getLayoutParams().height = (int) dpToPx(fabSize, displayMetrics);
+        mBinding.fab.getLayoutParams().width = (int) dpToPx(fabSize, displayMetrics);
+        mBinding.fab.setScaleType(ImageView.ScaleType.CENTER);
+        mBinding.fab.setOnClickListener(view -> getSelectedDeskClockFragment().onFabClick());
+        mBinding.fab.setOnLongClickListener(v -> {
+            getSelectedDeskClockFragment().onFabLongClick(mBinding.fab);
             return true;
         });
 
-        mLeftButton = findViewById(R.id.left_button);
-        mLeftButton.getLayoutParams().height = (int) dpToPx(leftOrRightButtonSize, displayMetrics);
-        mLeftButton.getLayoutParams().width = (int) dpToPx(leftOrRightButtonSize, displayMetrics);
-        mLeftButton.setScaleType(ImageView.ScaleType.CENTER);
+        mBinding.leftButton.getLayoutParams().height = (int) dpToPx(leftOrRightButtonSize, displayMetrics);
+        mBinding.leftButton.getLayoutParams().width = (int) dpToPx(leftOrRightButtonSize, displayMetrics);
+        mBinding.leftButton.setScaleType(ImageView.ScaleType.CENTER);
 
-        mRightButton = findViewById(R.id.right_button);
-        mRightButton.getLayoutParams().height = (int) dpToPx(leftOrRightButtonSize, displayMetrics);
-        mRightButton.getLayoutParams().width = (int) dpToPx(leftOrRightButtonSize, displayMetrics);
-        mRightButton.setScaleType(ImageView.ScaleType.CENTER);
+        mBinding.rightButton.getLayoutParams().height = (int) dpToPx(leftOrRightButtonSize, displayMetrics);
+        mBinding.rightButton.getLayoutParams().width = (int) dpToPx(leftOrRightButtonSize, displayMetrics);
+        mBinding.rightButton.setScaleType(ImageView.ScaleType.CENTER);
 
         final long duration = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
-        final ValueAnimator hideFabAnimation = getScaleAnimator(mFab, 1f, 0f);
-        final ValueAnimator showFabAnimation = getScaleAnimator(mFab, 0f, 1f);
+        final ValueAnimator hideFabAnimation = getScaleAnimator(mBinding.fab, 1f, 0f);
+        final ValueAnimator showFabAnimation = getScaleAnimator(mBinding.fab, 0f, 1f);
 
-        final ValueAnimator leftHideAnimation = getScaleAnimator(mLeftButton, 1f, 0f);
-        final ValueAnimator rightHideAnimation = getScaleAnimator(mRightButton, 1f, 0f);
-        final ValueAnimator leftShowAnimation = getScaleAnimator(mLeftButton, 0f, 1f);
-        final ValueAnimator rightShowAnimation = getScaleAnimator(mRightButton, 0f, 1f);
+        final ValueAnimator leftHideAnimation = getScaleAnimator(mBinding.leftButton, 1f, 0f);
+        final ValueAnimator rightHideAnimation = getScaleAnimator(mBinding.rightButton, 1f, 0f);
+        final ValueAnimator leftShowAnimation = getScaleAnimator(mBinding.leftButton, 0f, 1f);
+        final ValueAnimator rightShowAnimation = getScaleAnimator(mBinding.rightButton, 0f, 1f);
 
         hideFabAnimation.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                getSelectedDeskClockFragment().onUpdateFab(mFab);
+                getSelectedDeskClockFragment().onUpdateFab(mBinding.fab);
             }
         });
 
         leftHideAnimation.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                getSelectedDeskClockFragment().onUpdateFabButtons(mLeftButton, mRightButton);
+                getSelectedDeskClockFragment().onUpdateFabButtons(mBinding.leftButton, mBinding.rightButton);
             }
         });
 
@@ -350,19 +299,18 @@ public class DeskClock extends BaseActivity implements FabContainer {
 
         // Customize the view pager.
         mFragmentTabPagerAdapter = new FragmentTabPagerAdapter(this);
-        mFragmentTabPager = findViewById(R.id.desk_clock_pager);
         // Set the number of pages to keep in the ViewPager base on the number of tabs displayed.
         int visibleTabsCount = UiDataModel.getUiDataModel().getTabCount();
         int offscreenLimit = Math.max(1, visibleTabsCount - 1);
-        if (mFragmentTabPager.getOffscreenPageLimit() != offscreenLimit) {
-            mFragmentTabPager.setOffscreenPageLimit(offscreenLimit);
+        if (mBinding.deskClockPager.getOffscreenPageLimit() != offscreenLimit) {
+            mBinding.deskClockPager.setOffscreenPageLimit(offscreenLimit);
         }
         // Set Accessibility Delegate to null so view pager doesn't intercept movements and
         // prevent the fab from being selected.
-        mFragmentTabPager.setAccessibilityDelegate(null);
+        mBinding.deskClockPager.setAccessibilityDelegate(null);
         // Mirror changes made to the selected page of the view pager into UiDataModel.
-        mFragmentTabPager.addOnPageChangeListener(new PageChangeWatcher());
-        mFragmentTabPager.setAdapter(mFragmentTabPagerAdapter);
+        mBinding.deskClockPager.addOnPageChangeListener(new PageChangeWatcher());
+        mBinding.deskClockPager.setAdapter(mFragmentTabPagerAdapter);
 
         configureBottomNavigationView();
 
@@ -456,12 +404,12 @@ public class DeskClock extends BaseActivity implements FabContainer {
         if (PermissionUtils.areEssentialPermissionsNotGranted(this)) {
             final Drawable warningIcon = AppCompatResources.getDrawable(this, R.drawable.ic_error);
             if (warningIcon != null) {
-                DrawableCompat.setTint(warningIcon, this.getColor(R.color.colorAlert));
+                DrawableCompat.setTint(warningIcon, ContextCompat.getColor(this, R.color.colorAlert));
             }
             menu.add(0, Menu.FIRST, 0, R.string.denied_permission_label).setIcon(warningIcon).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
 
-        mToolbar.post(() -> ThemeUtils.applyToolbarTooltips(mToolbar));
+        mBinding.toolbar.post(() -> ThemeUtils.applyToolbarTooltips(mBinding.toolbar));
 
         return true;
     }
@@ -505,19 +453,19 @@ public class DeskClock extends BaseActivity implements FabContainer {
 
         switch (updateType & FAB_ANIMATION_MASK) {
             case FAB_SHRINK_AND_EXPAND -> mUpdateFabOnlyAnimation.start();
-            case FAB_IMMEDIATE -> f.onUpdateFab(mFab);
-            case FAB_MORPH -> f.onMorphFab(mFab);
+            case FAB_IMMEDIATE -> f.onUpdateFab(mBinding.fab);
+            case FAB_MORPH -> f.onMorphFab(mBinding.fab);
         }
         if ((updateType & FAB_REQUEST_FOCUS_MASK) == FAB_REQUEST_FOCUS) {
-            mFab.requestFocus();
+            mBinding.fab.requestFocus();
         }
         switch (updateType & BUTTONS_ANIMATION_MASK) {
-            case BUTTONS_IMMEDIATE -> f.onUpdateFabButtons(mLeftButton, mRightButton);
+            case BUTTONS_IMMEDIATE -> f.onUpdateFabButtons(mBinding.leftButton, mBinding.rightButton);
             case BUTTONS_SHRINK_AND_EXPAND -> mUpdateButtonsOnlyAnimation.start();
         }
         if ((updateType & BUTTONS_DISABLE_MASK) == BUTTONS_DISABLE) {
-            mLeftButton.setClickable(false);
-            mRightButton.setClickable(false);
+            mBinding.leftButton.setClickable(false);
+            mBinding.rightButton.setClickable(false);
         }
         switch (updateType & FAB_AND_BUTTONS_SHRINK_EXPAND_MASK) {
             case FAB_AND_BUTTONS_SHRINK -> mHideAnimation.start();
@@ -688,13 +636,13 @@ public class DeskClock extends BaseActivity implements FabContainer {
      * accordingly.
      */
     private void applyWindowInsets() {
-        InsetsUtils.doOnApplyWindowInsets(mDeskClockRootView, (v, insets) -> {
+        InsetsUtils.doOnApplyWindowInsets(mBinding.deskClockRootView, (v, insets) -> {
             // Get the system bar and notch insets
             Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout());
 
             v.setPadding(bars.left, bars.top, bars.right, 0);
 
-            mBottomNavigation.setPadding(0, 0, 0, bars.bottom);
+            mBinding.deskClockBottomMenu.setPadding(0, 0, 0, bars.bottom);
         });
     }
 
@@ -707,7 +655,11 @@ public class DeskClock extends BaseActivity implements FabContainer {
      * @return the FAB container view
      */
     public View getFabContainer() {
-        return mFabContainer;
+        return mBinding.deskClockButtonLayout;
+    }
+
+    public DeskClockBinding getDeskClockBinding() {
+        return mBinding;
     }
 
     /**
@@ -715,8 +667,6 @@ public class DeskClock extends BaseActivity implements FabContainer {
      * text visibility, font update, etc.
      */
     private void configureBottomNavigationView() {
-        mBottomNavigation = findViewById(R.id.bottom_view);
-
         final int primaryColor = MaterialColors.getColor(this, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
         final int surfaceColor = MaterialColors.getColor(this, com.google.android.material.R.attr.colorSurface, Color.BLACK);
         final int onBackgroundColor = MaterialColors.getColor(this, com.google.android.material.R.attr.colorOnBackground, Color.BLACK);
@@ -728,43 +678,43 @@ public class DeskClock extends BaseActivity implements FabContainer {
             updateBottomNavTypeface();
         }
 
-        mBottomNavigation.setOnItemSelectedListener(item -> {
+        mBinding.deskClockBottomMenu.setOnItemSelectedListener(item -> {
             if (shouldUpdateTypeface) {
-                mBottomNavigation.post(this::updateBottomNavTypeface);
+                mBinding.deskClockBottomMenu.post(this::updateBottomNavTypeface);
             }
 
             return mNavigationListener.onNavigationItemSelected(item);
         });
 
-        mBottomNavigation.setItemActiveIndicatorEnabled(SettingsDAO.isTabIndicatorDisplayed(mPrefs));
+        mBinding.deskClockBottomMenu.setItemActiveIndicatorEnabled(SettingsDAO.isTabIndicatorDisplayed(mPrefs));
 
         if (tabTitleVisibility.equals(DEFAULT_TAB_TITLE_VISIBILITY)) {
-            mBottomNavigation.setLabelVisibilityMode(NavigationBarView.LABEL_VISIBILITY_LABELED);
+            mBinding.deskClockBottomMenu.setLabelVisibilityMode(NavigationBarView.LABEL_VISIBILITY_LABELED);
         } else if (tabTitleVisibility.equals(TAB_TITLE_VISIBILITY_NEVER)) {
-            mBottomNavigation.setLabelVisibilityMode(NavigationBarView.LABEL_VISIBILITY_UNLABELED);
+            mBinding.deskClockBottomMenu.setLabelVisibilityMode(NavigationBarView.LABEL_VISIBILITY_UNLABELED);
         } else {
-            mBottomNavigation.setLabelVisibilityMode(NavigationBarView.LABEL_VISIBILITY_SELECTED);
+            mBinding.deskClockBottomMenu.setLabelVisibilityMode(NavigationBarView.LABEL_VISIBILITY_SELECTED);
         }
 
-        mBottomNavigation.setItemIconTintList(new ColorStateList(
+        mBinding.deskClockBottomMenu.setItemIconTintList(new ColorStateList(
             new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
             new int[]{primaryColor, primaryColor, onBackgroundColor}));
 
         if (ThemeUtils.isNight(getResources()) && SettingsDAO.getDarkMode(mPrefs).equals(AMOLED_DARK_MODE)) {
-            mBottomNavigation.setBackgroundColor(Color.BLACK);
-            mBottomNavigation.setItemTextColor(new ColorStateList(
+            mBinding.deskClockBottomMenu.setBackgroundColor(Color.BLACK);
+            mBinding.deskClockBottomMenu.setItemTextColor(new ColorStateList(
                 new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
                 new int[]{primaryColor, primaryColor, Color.WHITE}));
         } else {
             final boolean isCardBackgroundDisplayed = SettingsDAO.isCardBackgroundDisplayed(mPrefs);
 
             if (isCardBackgroundDisplayed) {
-                mBottomNavigation.setBackgroundColor(surfaceColor);
+                mBinding.deskClockBottomMenu.setBackgroundColor(surfaceColor);
             } else {
-                mBottomNavigation.setBackgroundColor(Color.TRANSPARENT);
+                mBinding.deskClockBottomMenu.setBackgroundColor(Color.TRANSPARENT);
             }
 
-            mBottomNavigation.setItemTextColor(new ColorStateList(
+            mBinding.deskClockBottomMenu.setItemTextColor(new ColorStateList(
                 new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
                 new int[]{primaryColor, primaryColor, onBackgroundColor}));
         }
@@ -778,7 +728,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
      */
     @SuppressLint("RestrictedApi")
     private void updateBottomNavTypeface() {
-        BottomNavigationMenuView menuView = (BottomNavigationMenuView) mBottomNavigation.getChildAt(0);
+        BottomNavigationMenuView menuView = (BottomNavigationMenuView) mBinding.deskClockBottomMenu.getChildAt(0);
 
         for (int i = 0; i < menuView.getChildCount(); i++) {
             View itemView = menuView.getChildAt(i);
@@ -795,8 +745,8 @@ public class DeskClock extends BaseActivity implements FabContainer {
      */
     @SuppressLint("RestrictedApi")
     private void applyBottomNavTooltips() {
-        for (int i = 0; i < mBottomNavigation.getChildCount(); i++) {
-            View child = mBottomNavigation.getChildAt(i);
+        for (int i = 0; i < mBinding.deskClockBottomMenu.getChildCount(); i++) {
+            View child = mBinding.deskClockBottomMenu.getChildAt(i);
 
             if (child instanceof BottomNavigationMenuView menuView) {
                 for (int j = 0; j < menuView.getChildCount(); j++) {
@@ -863,7 +813,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
      */
     private void refreshTabsVisibility(UiDataModel.Tab oldTab, boolean tabsChanged) {
         // Update the menu icons
-        Menu menu = mBottomNavigation.getMenu();
+        Menu menu = mBinding.deskClockBottomMenu.getMenu();
         boolean menuChanged = false;
 
         boolean showAlarm = UiDataModel.getUiDataModel().isTabVisible(UiDataModel.Tab.ALARMS);
@@ -895,7 +845,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
 
         // Indicate in the menu which tab is currently active to force the Material indicator to redraw
         // when the tabs visibility has been changed
-        mBottomNavigation.post(() -> {
+        mBinding.deskClockBottomMenu.post(() -> {
             UiDataModel.Tab currentTab = UiDataModel.getUiDataModel().getSelectedTab();
             int currentItemId = switch (currentTab) {
                 case ALARMS -> R.id.page_alarm;
@@ -904,7 +854,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
                 case STOPWATCH -> R.id.page_stopwatch;
             };
 
-            MenuItem activeItem = mBottomNavigation.getMenu().findItem(currentItemId);
+            MenuItem activeItem = mBinding.deskClockBottomMenu.getMenu().findItem(currentItemId);
             if (activeItem != null) {
                 if (finalMenuChanged) {
                     // Workaround to redraw the pill display on the current tab
@@ -944,15 +894,15 @@ public class DeskClock extends BaseActivity implements FabContainer {
     }
 
     /**
-     * Configure the {@link #mBottomNavigation} to display UiDataModel's selected tab.
+     * Configure the Bottom Navigation Menu to display UiDataModel's selected tab.
      */
     @SuppressLint("ResourceType")
     private void updateCurrentTab() {
         // Fetch the selected tab from the source of truth: UiDataModel.
         final UiDataModel.Tab selectedTab = UiDataModel.getUiDataModel().getSelectedTab();
         // Update the selected tab in the mBottomNavigation if it does not agree with UiDataModel.
-        if (mBottomNavigation.getSelectedItemId() != selectedTab.getPageResId()) {
-            mBottomNavigation.setSelectedItemId(selectedTab.getPageResId());
+        if (mBinding.deskClockBottomMenu.getSelectedItemId() != selectedTab.getPageResId()) {
+            mBinding.deskClockBottomMenu.setSelectedItemId(selectedTab.getPageResId());
         }
 
         // Update the selected fragment in the viewpager if it does not agree with UiDataModel.
@@ -964,16 +914,16 @@ public class DeskClock extends BaseActivity implements FabContainer {
             }
         }
 
-        if (targetIndex != -1 && mFragmentTabPager.getCurrentItem() != targetIndex) {
+        if (targetIndex != -1 && mBinding.deskClockPager.getCurrentItem() != targetIndex) {
             // 'false' disables the scroll animation during recreation
-            mFragmentTabPager.setCurrentItem(targetIndex, false);
+            mBinding.deskClockPager.setCurrentItem(targetIndex, false);
         }
 
         if (SettingsDAO.isToolbarTitleDisplayed(mPrefs)) {
-            mToolbar.setTitle(selectedTab.getLabelResId());
-            ThemeUtils.applyTypeface(mToolbar, mRegularTypeface);
+            mBinding.toolbar.setTitle(selectedTab.getLabelResId());
+            ThemeUtils.applyTypeface(mBinding.toolbar, mRegularTypeface);
         } else {
-            mToolbar.setTitle(null);
+            mBinding.toolbar.setTitle(null);
         }
     }
 
@@ -1058,11 +1008,11 @@ public class DeskClock extends BaseActivity implements FabContainer {
      * @return a Snackbar that displays the message with the given id for 5 seconds
      */
     private Snackbar createSnackbar(@StringRes int messageId) {
-        return Snackbar.make(mSnackbarAnchor, messageId, 5000);
+        return Snackbar.make(mBinding.contentView, messageId, 5000);
     }
 
     /**
-     * Models the interesting state of display the {@link #mFab} button may inhabit.
+     * Models the interesting state of display the FAB button may inhabit.
      */
     private enum FabState {SHOWING, HIDE_ARMED, HIDING}
 
@@ -1167,7 +1117,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
         @Override
         public void onSilentSettingsChange(SilentSetting after) {
             if (mShowSilentSettingSnackbarRunnable != null) {
-                mSnackbarAnchor.removeCallbacks(mShowSilentSettingSnackbarRunnable);
+                mBinding.contentView.removeCallbacks(mShowSilentSettingSnackbarRunnable);
                 mShowSilentSettingSnackbarRunnable = null;
             }
 
@@ -1175,7 +1125,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
                 SnackbarManager.dismiss();
             } else {
                 mShowSilentSettingSnackbarRunnable = new ShowSilentSettingSnackbarRunnable(after);
-                mSnackbarAnchor.postDelayed(mShowSilentSettingSnackbarRunnable, SECOND_IN_MILLIS);
+                mBinding.contentView.postDelayed(mShowSilentSettingSnackbarRunnable, SECOND_IN_MILLIS);
             }
         }
     }

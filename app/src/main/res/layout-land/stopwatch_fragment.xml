@@ -27,7 +27,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center">
 
-            <include layout="@layout/stopwatch_time" />
+            <include
+                layout="@layout/stopwatch_time"
+                android:id="@+id/stopwatch_time_layout" />
 
             <!-- Sufficient space exists to include the bounding stopwatch circle. -->
             <com.best.deskclock.stopwatch.StopwatchCircleView
@@ -46,7 +48,9 @@
             android:orientation="vertical"
             tools:background="@drawable/bg_card_for_preview">
 
-            <include layout="@layout/lap_header" />
+            <include
+                layout="@layout/lap_header"
+                android:id="@+id/lap_header_layout" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/laps_list"

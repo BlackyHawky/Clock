@@ -10,14 +10,13 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.databinding.AlarmItemBinding;
 import com.best.deskclock.utils.ThemeUtils;
 
 import java.util.ArrayList;
@@ -86,9 +85,10 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
     @NonNull
     @Override
     public AlarmItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.alarm_item, parent, false);
-        return new AlarmItemViewHolder(view, this, mPrefs, mGeneralTypeface, mGeneralBoldTypeface, mAlarmClockTypeface, mLocale,
-            mDatePattern, mDatePatternWithYear);
+        AlarmItemBinding binding = AlarmItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+
+        return new AlarmItemViewHolder(binding, this, mPrefs, mGeneralTypeface, mGeneralBoldTypeface, mAlarmClockTypeface,
+            mLocale, mDatePattern, mDatePatternWithYear);
     }
 
     @Override

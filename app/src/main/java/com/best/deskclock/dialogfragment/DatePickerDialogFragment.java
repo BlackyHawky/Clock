@@ -7,13 +7,11 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_WEEK_
 import static com.best.deskclock.settings.PreferencesDefaultValues.SPINNER_DATE_PICKER_STYLE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_WEEK_START;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.DatePicker;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -24,6 +22,7 @@ import androidx.lifecycle.Observer;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.databinding.SpinnerDatePickerBinding;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.uicomponents.CustomDialog;
@@ -60,11 +59,8 @@ public class DatePickerDialogFragment {
 
         Events.sendAlarmEvent(R.string.action_set_date, R.string.label_deskclock);
 
-        LayoutInflater inflater = LayoutInflater.from(context);
-        @SuppressLint("InflateParams")
-        View dialogView = inflater.inflate(R.layout.spinner_date_picker, null);
+        SpinnerDatePickerBinding binding = SpinnerDatePickerBinding.inflate(LayoutInflater.from(context));
 
-        DatePicker datePicker = dialogView.findViewById(R.id.spinner_date_picker);
         Calendar now = Calendar.getInstance();
         Calendar selectionDate = (Calendar) now.clone();
         Calendar minDate = (Calendar) now.clone();
@@ -100,9 +96,10 @@ public class DatePickerDialogFragment {
             }
         }
 
-        datePicker.setMinDate(minDate.getTimeInMillis());
+        binding.spinnerDatePicker.setMinDate(minDate.getTimeInMillis());
 
-        datePicker.init(selectionDate.get(Calendar.YEAR), selectionDate.get(Calendar.MONTH), selectionDate.get(Calendar.DAY_OF_MONTH), null);
+        binding.spinnerDatePicker.init(
+            selectionDate.get(Calendar.YEAR), selectionDate.get(Calendar.MONTH), selectionDate.get(Calendar.DAY_OF_MONTH), null);
 
         mCurrentSpinnerDatePickerDialog = CustomDialog.create(
             context,
@@ -110,12 +107,12 @@ public class DatePickerDialogFragment {
             null,
             context.getString(R.string.date_picker_dialog_title),
             null,
-            dialogView,
+            binding.getRoot(),
             context.getString(android.R.string.ok),
             (d, w) -> {
-                int newYear = datePicker.getYear();
-                int newMonth = datePicker.getMonth();
-                int newDay = datePicker.getDayOfMonth();
+                int newYear = binding.spinnerDatePicker.getYear();
+                int newMonth = binding.spinnerDatePicker.getMonth();
+                int newDay = binding.spinnerDatePicker.getDayOfMonth();
 
                 if (listener != null) {
                     listener.onDateSet(newYear, newMonth, newDay, alarm.hour, alarm.minutes);

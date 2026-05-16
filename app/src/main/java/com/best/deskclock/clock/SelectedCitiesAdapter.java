@@ -18,7 +18,6 @@ import android.graphics.drawable.Drawable;
 import android.text.format.DateFormat;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -32,6 +31,8 @@ import com.best.deskclock.data.City;
 import com.best.deskclock.data.CityListener;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.databinding.MainClockFrameBinding;
+import com.best.deskclock.databinding.WorldClockItemBinding;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.ClockUtils;
@@ -59,7 +60,6 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private final static int WORLD_CLOCK = R.layout.world_clock_item;
     public final String PAYLOAD_UPDATE_BACKGROUND = "PAYLOAD_UPDATE_BACKGROUND";
 
-    private final LayoutInflater mInflater;
     private final Context mContext;
     private final SharedPreferences mPrefs;
     private final List<City> mCities;
@@ -92,7 +92,6 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         mContext = context;
         mPrefs = getDefaultSharedPreferences(context);
-        mInflater = LayoutInflater.from(context);
         mCities = cities;
         mShowHomeClock = showHomeClock;
         mIsPortrait = isPortrait;
@@ -150,12 +149,15 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        final View view = mInflater.inflate(viewType, parent, false);
         if (viewType == WORLD_CLOCK) {
-            return new CityViewHolder(view, this, mDisplayMetrics, mRegularTypeface, mBoldTypeface, mDigitalClockTypeface,
+            WorldClockItemBinding binding = WorldClockItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+
+            return new CityViewHolder(binding, this, mDisplayMetrics, mRegularTypeface, mBoldTypeface, mDigitalClockTypeface,
                 mIsTablet, mIsCityNoteEnabled, mIsDigitalClock, mHasBlackAccentColor);
         } else if (viewType == MAIN_CLOCK) {
-            return new MainClockViewHolder(view, mPrefs, mDisplayMetrics, mClockStyle, mDigitalClockTypeface,
+            MainClockFrameBinding binding = MainClockFrameBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+
+            return new MainClockViewHolder(binding, mPrefs, mDisplayMetrics, mClockStyle, mDigitalClockTypeface,
                 mDigitalClockFontSize, mBoldTypeface, mAlarmIconTypeface, mAreClockSecondsDisplayed);
         }
         throw new IllegalArgumentException("View type not recognized");

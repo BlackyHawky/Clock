@@ -30,6 +30,7 @@ import android.widget.RemoteViews;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
@@ -189,7 +190,7 @@ class TimerNotificationBuilder {
             .setSortKey(nm.getTimerNotificationSortKey())
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
-            .setColor(context.getColor(R.color.md_theme_primary))
+            .setColor(ContextCompat.getColor(context, R.color.md_theme_primary))
             .setGroup(nm.getTimerNotificationGroupKey());
 
         for (Action action : actions) {
@@ -312,7 +313,7 @@ class TimerNotificationBuilder {
             .setSmallIcon(R.drawable.ic_hourglass_bottom)
             .setFullScreenIntent(pendingFullScreen, true)
             .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
-            .setColor(context.getColor(R.color.md_theme_primary));
+            .setColor(ContextCompat.getColor(context, R.color.md_theme_primary));
 
         for (Action action : actions) {
             notification.addAction(action);
@@ -396,7 +397,7 @@ class TimerNotificationBuilder {
             .setSortKey(nm.getTimerNotificationMissedSortKey())
             .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
             .addAction(action)
-            .setColor(context.getColor(R.color.md_theme_primary))
+            .setColor(ContextCompat.getColor(context, R.color.md_theme_primary))
             .setGroup(nm.getTimerNotificationGroupKey());
 
         if (SdkUtils.isAtLeastAndroid7()) {
@@ -439,7 +440,7 @@ class TimerNotificationBuilder {
             .setCategory(NotificationCompat.CATEGORY_EVENT)
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             .setLocalOnly(true)
-            .setColor(context.getColor(R.color.md_theme_primary))
+            .setColor(ContextCompat.getColor(context, R.color.md_theme_primary))
             .build();
     }
 

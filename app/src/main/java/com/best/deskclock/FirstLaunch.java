@@ -9,9 +9,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.core.graphics.Insets;
@@ -19,6 +16,7 @@ import androidx.core.text.HtmlCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.best.deskclock.databinding.FirstLaunchActivityBinding;
 import com.best.deskclock.settings.PermissionsManagementActivity;
 import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.SdkUtils;
@@ -29,19 +27,13 @@ public class FirstLaunch extends BaseActivity {
 
     public static final String KEY_IS_FIRST_LAUNCH = "key_is_first_launch";
 
-    View mFirstLaunchRootView;
-    View mFirstLaunchContent;
-
-    TextView mAppTitle;
-    TextView mAppVersion;
-    TextView mMainFeaturesText;
-    TextView mImportantInfoText;
-    Button mNowButton;
-    Button mLaterButton;
+    private FirstLaunchActivityBinding mBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mBinding = FirstLaunchActivityBinding.inflate(getLayoutInflater());
 
         SharedPreferences sharedPreferences = getDefaultSharedPreferences(this);
 
@@ -50,16 +42,7 @@ public class FirstLaunch extends BaseActivity {
 
         ThemeUtils.allowDisplayCutout(getWindow());
 
-        setContentView(R.layout.first_launch_activity);
-
-        mFirstLaunchRootView = findViewById(R.id.first_launch_root_view);
-        mFirstLaunchContent = findViewById(R.id.first_launch_content);
-        mAppTitle = findViewById(R.id.first_launch_app_title);
-        mAppVersion = findViewById(R.id.first_launch_app_version);
-        mMainFeaturesText = findViewById(R.id.first_launch_main_features_text);
-        mImportantInfoText = findViewById(R.id.first_launch_important_info_text);
-        mNowButton = findViewById(R.id.now_button);
-        mLaterButton = findViewById(R.id.later_button);
+        setContentView(mBinding.getRoot());
 
         setupTitle();
 
@@ -69,14 +52,14 @@ public class FirstLaunch extends BaseActivity {
 
         setupImportantInfoMessage();
 
-        mNowButton.setOnClickListener(v -> {
+        mBinding.nowButton.setOnClickListener(v -> {
             sharedPreferences.edit().putBoolean(KEY_IS_FIRST_LAUNCH, false).apply();
             finish();
             startActivity(new Intent(this, DeskClock.class));
             startActivity(new Intent(this, PermissionsManagementActivity.class));
         });
 
-        mLaterButton.setOnClickListener(v -> {
+        mBinding.laterButton.setOnClickListener(v -> {
             sharedPreferences.edit().putBoolean(KEY_IS_FIRST_LAUNCH, false).apply();
             finish();
             startActivity(new Intent(this, DeskClock.class));
@@ -98,13 +81,13 @@ public class FirstLaunch extends BaseActivity {
      * accordingly.
      */
     private void applyWindowInsets() {
-        InsetsUtils.doOnApplyWindowInsets(mFirstLaunchRootView, (v, insets) -> {
+        InsetsUtils.doOnApplyWindowInsets(mBinding.firstLaunchRootView, (v, insets) -> {
             // Get the system bar and notch insets
             Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout());
 
             v.setPadding(bars.left, bars.top, bars.right, 0);
 
-            mFirstLaunchContent.setPadding(0, 0, 0, bars.bottom);
+            mBinding.firstLaunchContent.setPadding(0, 0, 0, bars.bottom);
         });
     }
 
@@ -113,11 +96,11 @@ public class FirstLaunch extends BaseActivity {
      */
     private void setupTitle() {
         if (BuildConfig.IS_DEBUG_BUILD) {
-            mAppTitle.setText(R.string.about_debug_app_title);
+            mBinding.firstLaunchAppTitle.setText(R.string.about_debug_app_title);
         } else if (BuildConfig.IS_NIGHTLY_BUILD) {
-            mAppTitle.setText(R.string.about_nightly_app_title);
+            mBinding.firstLaunchAppTitle.setText(R.string.about_nightly_app_title);
         } else {
-            mAppTitle.setText(R.string.app_label);
+            mBinding.firstLaunchAppTitle.setText(R.string.app_label);
         }
     }
 
@@ -126,11 +109,11 @@ public class FirstLaunch extends BaseActivity {
      */
     private void setupVersion() {
         String versionNumber = BuildConfig.VERSION_NAME;
-        mAppVersion.setText(getString(R.string.first_launch_version, versionNumber));
+        mBinding.firstLaunchAppVersion.setText(getString(R.string.first_launch_version, versionNumber));
     }
 
     /**
-     * Shows a dialog asking the user whether or not to quit the application.
+     * Shows a dialog asking the user whether to quit the application.
      */
     private void showDialogToQuit() {
         new MaterialAlertDialogBuilder(this)
@@ -153,8 +136,8 @@ public class FirstLaunch extends BaseActivity {
         Spanned mainFeaturesMessage = HtmlCompat.fromHtml(getString(R.string.first_launch_main_feature_message, link),
             HtmlCompat.FROM_HTML_MODE_LEGACY);
 
-        mMainFeaturesText.setText(mainFeaturesMessage);
-        mMainFeaturesText.setMovementMethod(LinkMovementMethod.getInstance());
+        mBinding.firstLaunchMainFeaturesText.setText(mainFeaturesMessage);
+        mBinding.firstLaunchMainFeaturesText.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     /**
@@ -171,7 +154,7 @@ public class FirstLaunch extends BaseActivity {
         Spanned importantInfoMessage = HtmlCompat.fromHtml(getString(R.string.first_launch_important_info_message, android14message),
             HtmlCompat.FROM_HTML_MODE_LEGACY);
 
-        mImportantInfoText.setText(importantInfoMessage);
+        mBinding.firstLaunchImportantInfoText.setText(importantInfoMessage);
     }
 
 }

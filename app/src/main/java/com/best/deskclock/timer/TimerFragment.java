@@ -36,7 +36,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -56,6 +55,7 @@ import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.data.TimerListener;
+import com.best.deskclock.databinding.TimerFragmentBinding;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.AnimatorUtils;
@@ -63,8 +63,6 @@ import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.card.MaterialCardView;
 
 import java.io.Serializable;
 
@@ -77,20 +75,18 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
 
     private static final String KEY_TIMER_SETUP_STATE = "timer_setup_input";
 
+    private TimerFragmentBinding mBinding;
+
     private Context mContext;
     private SharedPreferences mPrefs;
     private boolean mIsManualSorting;
     private DisplayMetrics mDisplayMetrics;
     private Typeface mBoldTypeface;
 
-    private RecyclerView mRecyclerView;
     private Serializable mTimerSetupState;
-    private TimerSetupView mCreateTimerView;
-    private CustomTimerSpinnerSetupView mCreateTimerSpinnerView;
+
     private TimerAdapter mAdapter;
-    private ViewGroup mTimersView;
     private ViewGroup mCurrentView;
-    private MaterialCardView mVolumeWarningBanner;
     private ItemTouchHelper mItemTouchHelper;
     private AlertDialog mActiveDialog = null;
     private boolean mIsTablet;
@@ -150,41 +146,35 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.timer_fragment, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
 
-        mRecyclerView = view.findViewById(R.id.recycler_view);
-        mTimersView = view.findViewById(R.id.timer_view);
-        mCreateTimerView = view.findViewById(R.id.timer_setup);
-        mCreateTimerSpinnerView = view.findViewById(R.id.timer_spinner_setup);
-        mVolumeWarningBanner = view.findViewById(R.id.volume_warning_banner);
-        TextView volumeWarningText = view.findViewById(R.id.volume_warning_text);
-        MaterialButton volumeWarningButton = view.findViewById(R.id.volume_warning_button);
+        mBinding = TimerFragmentBinding.inflate(inflater, container, false);
 
-        volumeWarningText.setTypeface(mBoldTypeface);
+        mBinding.timerVolumeBanner.volumeWarningText.setTypeface(mBoldTypeface);
 
-        volumeWarningButton.setTypeface(mBoldTypeface);
-        volumeWarningButton.setOnClickListener(v -> RingtoneUtils.fixAlarmStreamLow(mContext));
+        mBinding.timerVolumeBanner.volumeWarningButton.setTypeface(mBoldTypeface);
+        mBinding.timerVolumeBanner.volumeWarningButton.setOnClickListener(v -> RingtoneUtils.fixAlarmStreamLow(mContext));
 
-        mRecyclerView.setAdapter(mAdapter);
+        mBinding.timerRecyclerView.setAdapter(mAdapter);
         mAdapter.loadTimersAsync();
-        mRecyclerView.setLayoutManager(getLayoutManager(mContext));
-        mRecyclerView.addItemDecoration(new GridSpacingItemDecoration(mContext, mDisplayMetrics));
+        mBinding.timerRecyclerView.setLayoutManager(getLayoutManager(mContext));
+        mBinding.timerRecyclerView.addItemDecoration(new GridSpacingItemDecoration(mContext, mDisplayMetrics));
 
         // Due to the ViewPager and the location of FAB, set a bottom padding and/or a right padding
         // to prevent the reset button from being hidden by the FAB (e.g. when scrolling down).
         final int rightPadding = (int) dpToPx(!mIsTablet && mIsLandscape ? 80 : 0, mDisplayMetrics);
         final int bottomPadding = (int) dpToPx(mIsTablet ? 110 : mIsLandscape ? 0 : 100, mDisplayMetrics);
-        mRecyclerView.setPaddingRelative(0, 0, rightPadding, bottomPadding);
+        mBinding.timerRecyclerView.setPaddingRelative(0, 0, rightPadding, bottomPadding);
 
-        RecyclerView.ItemAnimator animator = mRecyclerView.getItemAnimator();
+        RecyclerView.ItemAnimator animator = mBinding.timerRecyclerView.getItemAnimator();
         if (animator instanceof SimpleItemAnimator) {
             // Disable flash/blinking during updates (notifyItemChanged)
             ((SimpleItemAnimator) animator).setSupportsChangeAnimations(false);
         }
 
-        mCreateTimerView.setFabContainer(this);
-        mCreateTimerSpinnerView.setOnChangeListener(() -> {
+        mBinding.timerSetupView.setFabContainer(this);
+        mBinding.timerSpinnerSetupView.setOnChangeListener(() -> {
             if (hasValidInput() != isTimerValueValid) {
                 isTimerValueValid = hasValidInput();
                 updateFab(FAB_SHRINK_AND_EXPAND);
@@ -194,7 +184,9 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         DataModel.getDataModel().addTimerListener(mAdapter);
         DataModel.getDataModel().addTimerListener(mTimerWatcher);
 
-        TimerItemTouchHelper callback = new TimerItemTouchHelper(mAdapter, mRecyclerView, mIsTablet, mIsLandscape, mIsManualSorting);
+        TimerItemTouchHelper callback =
+            new TimerItemTouchHelper(mAdapter, mBinding.timerRecyclerView, mIsTablet, mIsLandscape, mIsManualSorting);
+
         mItemTouchHelper = new ItemTouchHelper(callback);
         handleItemTouchHelper();
 
@@ -205,7 +197,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
                 : savedInstanceState.getSerializable(KEY_TIMER_SETUP_STATE);
         }
 
-        return view;
+        return mBinding.getRoot();
     }
 
     @Override
@@ -248,7 +240,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
             showCreateTimerView(FAB_AND_BUTTONS_IMMEDIATE);
 
             if (mTimerSetupState != null) {
-                mCreateTimerView.setState(mTimerSetupState);
+                mBinding.timerSetupView.setState(mTimerSetupState);
                 updateFab(FAB_AND_BUTTONS_IMMEDIATE);
                 mTimerSetupState = null;
             }
@@ -261,8 +253,8 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
             getViewLifecycleOwner(), new OnBackPressedCallback(true) {
                 @Override
                 public void handleOnBackPressed() {
-                    if (isTabSelected() && mCurrentView != mTimersView && hasTimers()) {
-                        animateToView(mTimersView, false);
+                    if (isTabSelected() && mCurrentView != mBinding.timerContentView && hasTimers()) {
+                        animateToView(mBinding.timerContentView, false);
                     } else {
                         setEnabled(false);
                         requireActivity().getOnBackPressedDispatcher().onBackPressed();
@@ -292,20 +284,16 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
             mActiveDialog = null;
         }
 
-        super.onDestroyView();
-
         DataModel.getDataModel().removeTimerListener(mAdapter);
         DataModel.getDataModel().removeTimerListener(mTimerWatcher);
 
-        if (mRecyclerView != null) {
-            mRecyclerView.setAdapter(null);
-        }
+        mBinding.timerSpinnerSetupView.setOnChangeListener(null);
 
-        mRecyclerView = null;
-        mTimersView = null;
-        mCreateTimerView = null;
-        mCreateTimerSpinnerView = null;
-        mVolumeWarningBanner = null;
+        super.onDestroyView();
+
+        mBinding.timerRecyclerView.setAdapter(null);
+
+        mBinding = null;
     }
 
     @Override
@@ -313,8 +301,8 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         super.onSaveInstanceState(outState);
 
         // If the timer creation view is visible, store the input for later restoration.
-        if (mCurrentView != mTimersView) {
-            mTimerSetupState = mCreateTimerView.getState();
+        if (mBinding != null && mCurrentView != mBinding.timerContentView) {
+            mTimerSetupState = mBinding.timerSetupView.getState();
             outState.putSerializable(KEY_TIMER_SETUP_STATE, mTimerSetupState);
         }
     }
@@ -342,7 +330,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
 
     @Override
     public void onUpdateFabButtons(@NonNull ImageView left, @NonNull ImageView right) {
-        if (mCurrentView == mTimersView) {
+        if (mCurrentView == mBinding.timerContentView) {
             left.setVisibility(INVISIBLE);
             right.setVisibility(INVISIBLE);
 
@@ -356,7 +344,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
             left.setVisibility(hasTimers() ? VISIBLE : INVISIBLE);
             left.setOnClickListener(v -> {
                 resetTimerCreationViews();
-                animateToView(mTimersView, false);
+                animateToView(mBinding.timerContentView, false);
                 left.announceForAccessibility(mContext.getString(R.string.timer_canceled));
                 Utils.setVibrationTime(mContext, 10);
             });
@@ -365,7 +353,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
 
     @Override
     public void onFabClick() {
-        if (mCurrentView == mTimersView) {
+        if (mCurrentView == mBinding.timerContentView) {
             animateToView(getTimerCreationView(), true);
         } else if (mCurrentView == getTimerCreationView()) {
             mCreatingTimer = true;
@@ -385,7 +373,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
             }
 
             // Return to the list of timers.
-            animateToView(mTimersView, false);
+            animateToView(mBinding.timerContentView, false);
         }
     }
 
@@ -396,8 +384,8 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (mCurrentView == mCreateTimerView) {
-            return mCreateTimerView.onKeyDown(keyCode, event);
+        if (mCurrentView == mBinding.timerSetupView) {
+            return mBinding.timerSetupView.onKeyDown(keyCode, event);
         }
         return super.onKeyDown(keyCode, event);
     }
@@ -410,11 +398,11 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         stopUpdatingTime();
 
         // Show the creation view; hide the timer view.
-        mTimersView.setVisibility(GONE);
+        mBinding.timerContentView.setVisibility(GONE);
 
         // Reset all possible time picker views to be hidden in order to only show one of them later
-        mCreateTimerView.setVisibility(GONE);
-        mCreateTimerSpinnerView.setVisibility(GONE);
+        mBinding.timerSetupView.setVisibility(GONE);
+        mBinding.timerSpinnerSetupView.setVisibility(GONE);
 
         // Record the fact that the create view is visible.
         mCurrentView = getTimerCreationView();
@@ -432,12 +420,12 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         mTimerSetupState = null;
 
         // Show the timer view; hide the creation view.
-        mTimersView.setVisibility(VISIBLE);
-        mCreateTimerView.setVisibility(GONE);
-        mCreateTimerSpinnerView.setVisibility(GONE);
+        mBinding.timerContentView.setVisibility(VISIBLE);
+        mBinding.timerSetupView.setVisibility(GONE);
+        mBinding.timerSpinnerSetupView.setVisibility(GONE);
 
         // Record the fact that the create view is visible.
-        mCurrentView = mTimersView;
+        mCurrentView = mBinding.timerContentView;
 
         // Start periodic updates for active timers.
         startUpdatingTime();
@@ -449,7 +437,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     }
 
     /**
-     * @param toView      one of {@link #mTimersView} or {@link #mCreateTimerView}
+     * @param toView      one of "timerView" or "timerSetup"
      * @param animateDown {@code true} if the views should animate upwards, otherwise downwards
      */
     private void animateToView(final View toView, final boolean animateDown) {
@@ -457,9 +445,9 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
             return;
         }
 
-        final boolean toTimers = toView == mTimersView;
+        final boolean toTimers = toView == mBinding.timerContentView;
         if (toTimers) {
-            mTimersView.setVisibility(VISIBLE);
+            mBinding.timerContentView.setVisibility(VISIBLE);
         } else {
             getTimerCreationView().setVisibility(VISIBLE);
         }
@@ -529,12 +517,12 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         super.onAnimationEnd(animation);
-                        mTimersView.setTranslationY(0f);
-                        mCreateTimerView.setTranslationY(0f);
-                        mCreateTimerSpinnerView.setTranslationY(0f);
-                        mTimersView.setAlpha(1f);
-                        mCreateTimerView.setAlpha(1f);
-                        mCreateTimerSpinnerView.setAlpha(1f);
+                        mBinding.timerContentView.setTranslationY(0f);
+                        mBinding.timerSetupView.setTranslationY(0f);
+                        mBinding.timerSpinnerSetupView.setTranslationY(0f);
+                        mBinding.timerContentView.setAlpha(1f);
+                        mBinding.timerSetupView.setAlpha(1f);
+                        mBinding.timerSpinnerSetupView.setAlpha(1f);
                     }
                 });
 
@@ -547,7 +535,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
 
     private void updateFab(@NonNull ImageView fab) {
         if (mContext != null) {
-            if (mCurrentView == mTimersView) {
+            if (mCurrentView == mBinding.timerContentView) {
                 fab.setImageResource(R.drawable.ic_add);
                 fab.setContentDescription(mContext.getString(R.string.timer_add_timer));
                 fab.setVisibility(VISIBLE);
@@ -566,25 +554,25 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
 
     private boolean hasValidInput() {
         if (isSpinnerCreationView()) {
-            return mCreateTimerSpinnerView.getValue().toMillis() != 0;
+            return mBinding.timerSpinnerSetupView.getValue().toMillis() != 0;
         } else {
-            return mCreateTimerView.hasValidInput();
+            return mBinding.timerSetupView.hasValidInput();
         }
     }
 
     private long getTimeInMillis() {
         if (isSpinnerCreationView()) {
-            return mCreateTimerSpinnerView.getValue().toMillis();
+            return mBinding.timerSpinnerSetupView.getValue().toMillis();
         } else {
-            return mCreateTimerView.getTimeInMillis();
+            return mBinding.timerSetupView.getTimeInMillis();
         }
     }
 
     private ViewGroup getTimerCreationView() {
         if (isSpinnerCreationView()) {
-            return mCreateTimerSpinnerView;
+            return mBinding.timerSpinnerSetupView;
         } else {
-            return mCreateTimerView;
+            return mBinding.timerSetupView;
         }
     }
 
@@ -593,10 +581,10 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
      */
     private void resetTimerCreationViews() {
         if (isSpinnerCreationView()) {
-            mCreateTimerSpinnerView.reset();
+            mBinding.timerSpinnerSetupView.reset();
             isTimerValueValid = false;
         } else {
-            mCreateTimerView.reset();
+            mBinding.timerSetupView.reset();
         }
     }
 
@@ -666,7 +654,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
 
     private void handleItemTouchHelper() {
         if (hasMultipleTimers()) {
-            mItemTouchHelper.attachToRecyclerView(mRecyclerView);
+            mItemTouchHelper.attachToRecyclerView(mBinding.timerRecyclerView);
         } else {
             mItemTouchHelper.attachToRecyclerView(null);
         }
@@ -697,8 +685,8 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
 
         int targetVisibility = shouldShow ? VISIBLE : GONE;
 
-        if (mVolumeWarningBanner != null && mVolumeWarningBanner.getVisibility() != targetVisibility) {
-            mVolumeWarningBanner.setVisibility(targetVisibility);
+        if (mBinding.timerVolumeBanner.volumeWarningBanner.getVisibility() != targetVisibility) {
+            mBinding.timerVolumeBanner.volumeWarningBanner.setVisibility(targetVisibility);
         }
     }
 
@@ -716,7 +704,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
             }
 
             // Required to adjust the layout for tablets that use either a GridLayoutManager or a LinearLayoutManager.
-            if (mIsTablet && mRecyclerView.getLayoutManager() instanceof GridLayoutManager gridLayoutManager) {
+            if (mIsTablet && mBinding.timerRecyclerView.getLayoutManager() instanceof GridLayoutManager gridLayoutManager) {
                 int newSpanCount = hasMultipleTimers() ? (mIsLandscape ? 3 : 2) : 1;
 
                 if (gridLayoutManager.getSpanCount() != newSpanCount) {
@@ -739,7 +727,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
             boolean timeAdded = before.getTotalLength() != after.getTotalLength();
             boolean stoppedExpired = (before.isExpired() && !after.isExpired()) || (before.isMissed() && !after.isMissed());
 
-            RecyclerView.LayoutManager layoutManager = mRecyclerView.getLayoutManager();
+            RecyclerView.LayoutManager layoutManager = mBinding.timerRecyclerView.getLayoutManager();
 
             if (layoutManager != null && hasMultipleTimers() && position != RecyclerView.NO_POSITION) {
                 if (justReset || stoppedExpired) {
@@ -770,12 +758,12 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         public void timerRemoved(Timer timer) {
             updateFab(FAB_AND_BUTTONS_IMMEDIATE);
 
-            if (mCurrentView == mTimersView && mAdapter.getItemCount() == 0) {
+            if (mCurrentView == mBinding.timerContentView && mAdapter.getItemCount() == 0) {
                 animateToView(getTimerCreationView(), true);
             }
 
             // Required to adjust the layout for tablets that use either a GridLayoutManager or a LinearLayoutManager.
-            if (mIsTablet && mRecyclerView.getLayoutManager() instanceof GridLayoutManager gridLayoutManager) {
+            if (mIsTablet && mBinding.timerRecyclerView.getLayoutManager() instanceof GridLayoutManager gridLayoutManager) {
                 int newSpanCount = hasMultipleTimers() ? (mIsLandscape ? 3 : 2) : 1;
 
                 if (gridLayoutManager.getSpanCount() != newSpanCount) {

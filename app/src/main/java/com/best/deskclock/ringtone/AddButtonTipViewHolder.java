@@ -8,14 +8,13 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.R;
 
+import com.best.deskclock.databinding.RingtoneItemSoundBinding;
 import com.google.android.material.color.MaterialColors;
 
 public class AddButtonTipViewHolder extends RecyclerView.ViewHolder {
@@ -25,22 +24,21 @@ public class AddButtonTipViewHolder extends RecyclerView.ViewHolder {
 
         final Context context = itemView.getContext();
 
-        itemView.setPadding(0, 0, 0, adapter.getDisplayMetricsPadding());
+        RingtoneItemSoundBinding binding = RingtoneItemSoundBinding.bind(itemView);
 
-        final ImageView imageView = itemView.findViewById(R.id.ringtone_image);
-        imageView.setImageDrawable(AppCompatResources.getDrawable(context, R.drawable.ic_about));
-        imageView.setPadding(0, 0, 0, 0);
+        binding.getRoot().setPadding(0, 0, 0, adapter.getDisplayMetricsPadding());
 
-        final View selectedView = itemView.findViewById(R.id.sound_image_selected);
-        selectedView.setVisibility(GONE);
+        binding.ringtoneImage.setImageDrawable(AppCompatResources.getDrawable(context, R.drawable.ic_about));
+        binding.ringtoneImage.setPadding(0, 0, 0, 0);
 
-        final TextView nameView = itemView.findViewById(R.id.ringtone_name);
+        binding.soundImageSelected.setVisibility(GONE);
+
         final int textColor = MaterialColors.getColor(context, android.R.attr.textColorSecondary, Color.BLACK);
 
-        nameView.setTypeface(adapter.getGeneralTypeface(), Typeface.ITALIC);
-        nameView.setTextColor(textColor);
-        nameView.setSingleLine(false);
-        nameView.setText(context.getString(R.string.button_tip_title));
+        binding.ringtoneName.setTypeface(adapter.getGeneralTypeface(), Typeface.ITALIC);
+        binding.ringtoneName.setTextColor(textColor);
+        binding.ringtoneName.setSingleLine(false);
+        binding.ringtoneName.setText(context.getString(R.string.button_tip_title));
     }
 
 }

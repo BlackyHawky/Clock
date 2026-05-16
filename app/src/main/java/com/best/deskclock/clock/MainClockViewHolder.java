@@ -15,120 +15,98 @@ import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.DataModel;
-import com.best.deskclock.uicomponents.AnalogClock;
-import com.best.deskclock.uicomponents.AutoSizingTextClock;
+import com.best.deskclock.databinding.MainClockFrameBinding;
 import com.best.deskclock.utils.ClockUtils;
 
 import java.util.List;
 
 public class MainClockViewHolder extends RecyclerView.ViewHolder {
 
+    private final MainClockFrameBinding mBinding;
     private final SharedPreferences mPrefs;
     private final DisplayMetrics mDisplayMetrics;
-    private final View mMainClockContainer;
-    private final View mEmptyCityView;
-    private final TextView mDate;
-    private final TextView mNextAlarmIcon;
-    private final TextView mNextAlarm;
-    private final AutoSizingTextClock mDigitalClock;
-    private final AnalogClock mAnalogClock;
     private final DataModel.ClockStyle mClockStyle;
     private final boolean mAreClockSecondsDisplayed;
     private final Typeface mDigitalClockTypeface;
     private final float mDigitalClockFontSize;
 
-    public MainClockViewHolder(View itemView, SharedPreferences prefs, DisplayMetrics displayMetrics, DataModel.ClockStyle clockStyle,
-                               Typeface digitalClockTypeface, float digitalClockFontSize, Typeface boldTypeface, Typeface alarmIconTypeface,
-                               boolean areClockSecondsDisplayed) {
+    public MainClockViewHolder(MainClockFrameBinding binding, SharedPreferences prefs, DisplayMetrics displayMetrics,
+                               DataModel.ClockStyle clockStyle, Typeface digitalClockTypeface, float digitalClockFontSize,
+                               Typeface boldTypeface, Typeface alarmIconTypeface, boolean areClockSecondsDisplayed) {
 
-        super(itemView);
+        super(binding.getRoot());
 
+        mBinding = binding;
         mPrefs = prefs;
         mDisplayMetrics = displayMetrics;
-        mMainClockContainer = itemView.findViewById(R.id.main_clock_container);
-        mDate = itemView.findViewById(R.id.date);
-        mNextAlarmIcon = itemView.findViewById(R.id.nextAlarmIcon);
-        mNextAlarm = itemView.findViewById(R.id.nextAlarm);
-        mEmptyCityView = itemView.findViewById(R.id.cities_empty_view);
-        mDigitalClock = itemView.findViewById(R.id.digital_clock);
-        mAnalogClock = itemView.findViewById(R.id.analog_clock);
         mClockStyle = clockStyle;
         mAreClockSecondsDisplayed = areClockSecondsDisplayed;
         mDigitalClockTypeface = digitalClockTypeface;
         mDigitalClockFontSize = digitalClockFontSize;
 
-        if (mDate != null) {
-            mDate.setTypeface(boldTypeface);
-        }
-        if (mNextAlarmIcon != null) {
-            mNextAlarmIcon.setTypeface(alarmIconTypeface);
-        }
-        if (mNextAlarm != null) {
-            mNextAlarm.setTypeface(boldTypeface);
-        }
+        mBinding.dateAndNextAlarmTime.date.setTypeface(boldTypeface);
+
+        mBinding.dateAndNextAlarmTime.nextAlarmIcon.setTypeface(alarmIconTypeface);
+
+        mBinding.dateAndNextAlarmTime.nextAlarm.setTypeface(boldTypeface);
     }
 
     public void bind(Context context, List<City> selectedCities, boolean showHomeClock, boolean isPortrait, boolean isTextUppercase,
                      String formattedDate, String dateDescription, String formattedNextAlarm) {
 
-        ViewGroup.LayoutParams mainClockParams = mMainClockContainer.getLayoutParams();
+        ViewGroup.LayoutParams mainClockParams = mBinding.mainClockContainer.getLayoutParams();
 
         if (isPortrait) {
             if (selectedCities.isEmpty() && !showHomeClock) {
                 mainClockParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
-                mMainClockContainer.setPadding(0, 0, 0, 0);
+                mBinding.mainClockContainer.setPadding(0, 0, 0, 0);
 
-                mEmptyCityView.setVisibility(View.VISIBLE);
+                mBinding.citiesEmptyView.setVisibility(View.VISIBLE);
             } else {
                 mainClockParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                mMainClockContainer.setPadding(0, 0, 0, (int) dpToPx(20, mDisplayMetrics));
-                mEmptyCityView.setVisibility(View.GONE);
+                mBinding.mainClockContainer.setPadding(0, 0, 0, (int) dpToPx(20, mDisplayMetrics));
+                mBinding.citiesEmptyView.setVisibility(View.GONE);
             }
 
-            mMainClockContainer.setLayoutParams(mainClockParams);
+            mBinding.mainClockContainer.setLayoutParams(mainClockParams);
         } else {
-            mEmptyCityView.setVisibility(View.GONE);
+            mBinding.citiesEmptyView.setVisibility(View.GONE);
         }
 
-        ClockUtils.setClockStyle(mClockStyle, mDigitalClock, mAnalogClock);
+        ClockUtils.setClockStyle(mClockStyle, mBinding.digitalClock, mBinding.analogClock);
         if (mClockStyle == DataModel.ClockStyle.DIGITAL) {
-            mDigitalClock.setTypeface(mDigitalClockTypeface);
+            mBinding.digitalClock.setTypeface(mDigitalClockTypeface);
             ClockUtils.setDigitalClockTimeFormat(
-                mDigitalClock, 0.4f, mAreClockSecondsDisplayed, false, true, false);
-            mDigitalClock.applyUserPreferredTextSizeSp(mDigitalClockFontSize);
+                mBinding.digitalClock, 0.4f, mAreClockSecondsDisplayed, false, true, false);
+            mBinding.digitalClock.applyUserPreferredTextSizeSp(mDigitalClockFontSize);
         } else {
-            ClockUtils.adjustAnalogClockSize(mAnalogClock, mPrefs, false, true, false);
-            ClockUtils.setAnalogClockSecondsEnabled(mClockStyle, mAnalogClock, mAreClockSecondsDisplayed);
+            ClockUtils.adjustAnalogClockSize(mBinding.analogClock, mPrefs, false, true, false);
+            ClockUtils.setAnalogClockSecondsEnabled(mClockStyle, mBinding.analogClock, mAreClockSecondsDisplayed);
         }
 
-        if (mDate != null) {
-            mDate.setAllCaps(isTextUppercase);
-            mDate.setText(formattedDate);
-            mDate.setContentDescription(dateDescription);
-            mDate.setVisibility(View.VISIBLE);
-        }
+        mBinding.dateAndNextAlarmTime.date.setAllCaps(isTextUppercase);
+        mBinding.dateAndNextAlarmTime.date.setText(formattedDate);
+        mBinding.dateAndNextAlarmTime.date.setContentDescription(dateDescription);
+        mBinding.dateAndNextAlarmTime.date.setVisibility(View.VISIBLE);
 
-        if (mNextAlarm != null && mNextAlarmIcon != null) {
-            if (TextUtils.isEmpty(formattedNextAlarm)) {
-                mNextAlarm.setVisibility(View.GONE);
-                mNextAlarmIcon.setVisibility(View.GONE);
-            } else {
-                String description = context.getString(R.string.next_alarm_description, formattedNextAlarm);
-                mNextAlarm.setAllCaps(isTextUppercase);
-                mNextAlarm.setText(formattedNextAlarm);
-                mNextAlarm.setContentDescription(description);
-                mNextAlarm.setVisibility(View.VISIBLE);
+        if (TextUtils.isEmpty(formattedNextAlarm)) {
+            mBinding.dateAndNextAlarmTime.nextAlarm.setVisibility(View.GONE);
+            mBinding.dateAndNextAlarmTime.nextAlarmIcon.setVisibility(View.GONE);
+        } else {
+            String description = context.getString(R.string.next_alarm_description, formattedNextAlarm);
+            mBinding.dateAndNextAlarmTime.nextAlarm.setAllCaps(isTextUppercase);
+            mBinding.dateAndNextAlarmTime.nextAlarm.setText(formattedNextAlarm);
+            mBinding.dateAndNextAlarmTime.nextAlarm.setContentDescription(description);
+            mBinding.dateAndNextAlarmTime.nextAlarm.setVisibility(View.VISIBLE);
 
-                mNextAlarmIcon.setContentDescription(description);
-                mNextAlarmIcon.setVisibility(View.VISIBLE);
-            }
+            mBinding.dateAndNextAlarmTime.nextAlarmIcon.setContentDescription(description);
+            mBinding.dateAndNextAlarmTime.nextAlarmIcon.setVisibility(View.VISIBLE);
         }
     }
 

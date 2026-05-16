@@ -12,14 +12,12 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_M
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.graphics.Insets;
 import androidx.core.view.WindowCompat;
@@ -28,12 +26,12 @@ import androidx.core.view.WindowInsetsCompat;
 import com.best.deskclock.BaseActivity;
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.databinding.CollapsingToolbarBaseLayoutBinding;
 import com.best.deskclock.settings.SettingsActivity;
 import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 /**
  * A base Activity that has a collapsing toolbar layout is used for the activities intending to
@@ -41,13 +39,7 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
  */
 public abstract class CollapsingToolbarBaseActivity extends BaseActivity {
 
-    @Nullable
-    private CollapsingToolbarLayout mCollapsingToolbarLayout;
-
-    @Nullable
-    protected AppBarLayout mAppBarLayout;
-
-    protected CoordinatorLayout mCoordinatorLayout;
+    protected CollapsingToolbarBaseLayoutBinding mBaseBinding;
 
     /**
      * This method should be implemented by subclasses of CollapsingToolbarBaseActivity
@@ -81,35 +73,29 @@ public abstract class CollapsingToolbarBaseActivity extends BaseActivity {
 
         super.onCreate(savedInstanceState);
 
+        mBaseBinding = CollapsingToolbarBaseLayoutBinding.inflate(getLayoutInflater());
+
         // To manually manage insets
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 
         ThemeUtils.allowDisplayCutout(getWindow());
 
-        super.setContentView(R.layout.collapsing_toolbar_base_layout);
-
-        mCoordinatorLayout = findViewById(R.id.coordinator_layout);
+        super.setContentView(mBaseBinding.getRoot());
 
         final String getDarkMode = SettingsDAO.getDarkMode(prefs);
-        mCollapsingToolbarLayout = findViewById(R.id.collapsing_toolbar);
-        if (mCollapsingToolbarLayout == null) {
-            return;
-        }
 
         final Typeface typeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
-        mCollapsingToolbarLayout.setExpandedTitleTypeface(typeface);
-        mCollapsingToolbarLayout.setCollapsedTitleTypeface(typeface);
+        mBaseBinding.collapsingToolbar.setExpandedTitleTypeface(typeface);
+        mBaseBinding.collapsingToolbar.setCollapsedTitleTypeface(typeface);
 
         if (ThemeUtils.isNight(getResources()) && getDarkMode.equals(AMOLED_DARK_MODE)) {
-            mCollapsingToolbarLayout.setBackgroundColor(getColor(android.R.color.black));
-            mCollapsingToolbarLayout.setContentScrimColor(getColor(android.R.color.black));
+            mBaseBinding.collapsingToolbar.setBackgroundColor(getColor(android.R.color.black));
+            mBaseBinding.collapsingToolbar.setContentScrimColor(getColor(android.R.color.black));
         }
 
-        mAppBarLayout = findViewById(R.id.app_bar);
         disableCollapsingToolbarLayoutScrollingBehavior();
 
-        final Toolbar toolbar = findViewById(R.id.action_bar);
-        setSupportActionBar(toolbar);
+        setSupportActionBar(mBaseBinding.actionBar);
 
         applyWindowInsets();
 
@@ -141,52 +127,34 @@ public abstract class CollapsingToolbarBaseActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (mCollapsingToolbarLayout != null) {
-            mCollapsingToolbarLayout.setTitle(getActivityTitle());
-        }
+
+        mBaseBinding.collapsingToolbar.setTitle(getActivityTitle());
     }
 
     @Override
     public void setContentView(int layoutResID) {
-        final ViewGroup parent = findViewById(R.id.content_frame);
-        if (parent != null) {
-            parent.removeAllViews();
-        }
-        LayoutInflater.from(this).inflate(layoutResID, parent);
+        mBaseBinding.contentFrame.removeAllViews();
+        getLayoutInflater().inflate(layoutResID, mBaseBinding.contentFrame);
     }
 
     @Override
     public void setContentView(View view) {
-        final ViewGroup parent = findViewById(R.id.content_frame);
-        if (parent != null) {
-            parent.addView(view);
-        }
+        mBaseBinding.contentFrame.addView(view);
     }
 
     @Override
     public void setContentView(View view, ViewGroup.LayoutParams params) {
-        final ViewGroup parent = findViewById(R.id.content_frame);
-        if (parent != null) {
-            parent.addView(view, params);
-        }
+        mBaseBinding.contentFrame.addView(view, params);
     }
 
     @Override
     public void setTitle(CharSequence title) {
-        if (mCollapsingToolbarLayout != null) {
-            mCollapsingToolbarLayout.setTitle(title);
-        } else {
-            super.setTitle(title);
-        }
+        mBaseBinding.collapsingToolbar.setTitle(title);
     }
 
     @Override
     public void setTitle(int titleId) {
-        if (mCollapsingToolbarLayout != null) {
-            mCollapsingToolbarLayout.setTitle(getText(titleId));
-        } else {
-            super.setTitle(titleId);
-        }
+        mBaseBinding.collapsingToolbar.setTitle(getText(titleId));
     }
 
     @Override
@@ -197,11 +165,12 @@ public abstract class CollapsingToolbarBaseActivity extends BaseActivity {
         return true;
     }
 
+    public CollapsingToolbarBaseLayoutBinding getBaseBinding() {
+        return mBaseBinding;
+    }
+
     private void disableCollapsingToolbarLayoutScrollingBehavior() {
-        if (mAppBarLayout == null) {
-            return;
-        }
-        final CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) mAppBarLayout.getLayoutParams();
+        final CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) mBaseBinding.appBar.getLayoutParams();
         final AppBarLayout.Behavior behavior = new AppBarLayout.Behavior();
         behavior.setDragCallback(new AppBarLayout.Behavior.DragCallback() {
             @Override
@@ -219,7 +188,7 @@ public abstract class CollapsingToolbarBaseActivity extends BaseActivity {
      * so that they are not obscured by system elements (status bar, navigation bar or cutout).
      */
     private void applyWindowInsets() {
-        InsetsUtils.doOnApplyWindowInsets(mAppBarLayout, (v, insets) -> {
+        InsetsUtils.doOnApplyWindowInsets(mBaseBinding.appBar, (v, insets) -> {
             // Get the system bar and notch insets
             Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout());
 

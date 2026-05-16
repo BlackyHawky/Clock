@@ -41,6 +41,7 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.databinding.ClockFragmentBinding;
 import com.best.deskclock.dialogfragment.LabelDialogFragment;
 import com.best.deskclock.uicomponents.AnalogClock;
 import com.best.deskclock.uicomponents.AutoSizingTextClock;
@@ -59,6 +60,8 @@ import java.util.List;
  */
 public final class ClockFragment extends DeskClockFragment {
 
+    private ClockFragmentBinding mBinding;
+
     // Updates dates in the UI on every quarter-hour.
     private final Runnable mQuarterHourUpdater = new QuarterHourRunnable();
 
@@ -69,11 +72,9 @@ public final class ClockFragment extends DeskClockFragment {
     private SharedPreferences mPrefs;
     private DisplayMetrics mDisplayMetrics;
     private final List<City> mMutableCities = new ArrayList<>();
-    private View mClockFrame;
     private DataModel.ClockStyle mClockStyle;
     private boolean mIsDigitalClock;
     private boolean mShowSeconds;
-    private View mEmptyCityViewRightPanel;
     private SelectedCitiesAdapter mCityAdapter;
     private String mDateFormat;
     private String mDateFormatForAccessibility;
@@ -116,19 +117,18 @@ public final class ClockFragment extends DeskClockFragment {
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle icicle) {
-        super.onCreateView(inflater, container, icicle);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
 
-        final View fragmentView = inflater.inflate(R.layout.clock_fragment, container, false);
+        mBinding = ClockFragmentBinding.inflate(inflater, container, false);
 
         // On landscape mode, the clock frame will be a distinct view.
         // Otherwise, it'll be added on as a header to the main listview.
-        mClockFrame = fragmentView.findViewById(R.id.main_clock_left_panel);
-        if (mClockFrame != null) {
-            AnalogClock analogClock = mClockFrame.findViewById(R.id.analog_clock);
-            AutoSizingTextClock digitalClock = mClockFrame.findViewById(R.id.digital_clock);
+        if (mBinding.mainClockLeftPanel != null) {
+            AnalogClock analogClock = mBinding.mainClockLeftPanel.analogClock;
+            AutoSizingTextClock digitalClock = mBinding.mainClockLeftPanel.digitalClock;
 
-            mClockFrame.setPadding(0, 0, 0, 0);
+            mBinding.mainClockLeftPanel.mainClockContainer.setPadding(0, 0, 0, 0);
             ClockUtils.setClockStyle(mClockStyle, digitalClock, analogClock);
             if (mIsDigitalClock) {
                 ClockUtils.setDigitalClockFont(digitalClock, SettingsDAO.getDigitalClockFont(mPrefs));
@@ -138,42 +138,39 @@ public final class ClockFragment extends DeskClockFragment {
                 ClockUtils.adjustAnalogClockSize(analogClock, mPrefs, false, true, false);
                 ClockUtils.setAnalogClockSecondsEnabled(mClockStyle, analogClock, mShowSeconds);
             }
-            ClockUtils.updateDate(mDateFormat, mDateFormatForAccessibility, mClockFrame);
-            ClockUtils.applyBoldDateTypeface(mClockFrame);
-            ClockUtils.setClockIconTypeface(mClockFrame);
-            AlarmUtils.applyBoldNextAlarmTypeface(mClockFrame);
+            ClockUtils.updateDate(mDateFormat, mDateFormatForAccessibility, mBinding.mainClockLeftPanel.mainClockContainer);
+            ClockUtils.applyBoldDateTypeface(mBinding.mainClockLeftPanel.mainClockContainer);
+            ClockUtils.setClockIconTypeface(mBinding.mainClockLeftPanel.mainClockContainer);
+            AlarmUtils.applyBoldNextAlarmTypeface(mBinding.mainClockLeftPanel.mainClockContainer);
         }
 
-        mEmptyCityViewRightPanel = fragmentView.findViewById(R.id.empty_city_view_right_panel);
-
-        final RecyclerView cityList = fragmentView.findViewById(R.id.cities);
-        cityList.setAdapter(mCityAdapter);
-        cityList.setLayoutManager(new LinearLayoutManager(mContext));
+        mBinding.cityRecyclerView.setAdapter(mCityAdapter);
+        mBinding.cityRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
 
         // Due to the ViewPager and the location of FAB, set a bottom padding to prevent
         // the city list from being hidden by the FAB (e.g. when scrolling down).
-        cityList.setPadding(0, 0, 0, (int) dpToPx(mIsTablet && mIsPortrait
+        mBinding.cityRecyclerView.setPadding(0, 0, 0, (int) dpToPx(mIsTablet && mIsPortrait
             ? 110
             : mIsPortrait
             ? 90
             : 0, mDisplayMetrics)
         );
 
-        cityList.addItemDecoration(new CitySpacingItemDecoration(mContext, mDisplayMetrics, mIsPortrait, mIsTablet));
+        mBinding.cityRecyclerView.addItemDecoration(new CitySpacingItemDecoration(mContext, mDisplayMetrics, mIsPortrait, mIsTablet));
 
         CityItemTouchHelper callback = new CityItemTouchHelper(mCityAdapter, mIsPortrait, mShowHomeClock);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
 
         if (SettingsDAO.getCitySorting(mPrefs).equals(SORT_CITIES_MANUALLY)) {
-            itemTouchHelper.attachToRecyclerView(cityList);
+            itemTouchHelper.attachToRecyclerView(mBinding.cityRecyclerView);
         } else {
             itemTouchHelper.attachToRecyclerView(null);
         }
 
-        // Schedule a runnable to update the date every quarter hour.
+        // Schedule a runnable to update the date every quarter-hour.
         UiDataModel.getUiDataModel().addQuarterHourCallback(mQuarterHourUpdater, 100);
 
-        return fragmentView;
+        return mBinding.getRoot();
     }
 
     @Override
@@ -208,16 +205,16 @@ public final class ClockFragment extends DeskClockFragment {
 
         refreshAlarm();
 
-        if (mEmptyCityViewRightPanel != null) {
+        if (mBinding.emptyCityViewRightPanel != null) {
             if (!mShowHomeClock && mCityAdapter.getCities().isEmpty()) {
-                mEmptyCityViewRightPanel.setVisibility(VISIBLE);
+                mBinding.emptyCityViewRightPanel.setVisibility(VISIBLE);
 
-                ViewGroup.LayoutParams params = mEmptyCityViewRightPanel.getLayoutParams();
+                ViewGroup.LayoutParams params = mBinding.emptyCityViewRightPanel.getLayoutParams();
                 int screenHeight = mDisplayMetrics.heightPixels;
                 params.height = (int) (screenHeight / 2f);
-                mEmptyCityViewRightPanel.setLayoutParams(params);
+                mBinding.emptyCityViewRightPanel.setLayoutParams(params);
             } else {
-                mEmptyCityViewRightPanel.setVisibility(GONE);
+                mBinding.emptyCityViewRightPanel.setVisibility(GONE);
             }
         }
     }
@@ -238,8 +235,7 @@ public final class ClockFragment extends DeskClockFragment {
         UiDataModel.getUiDataModel().removePeriodicCallback(mQuarterHourUpdater);
         DataModel.getDataModel().removeCityListener(mCityAdapter);
 
-        mClockFrame = null;
-        mEmptyCityViewRightPanel = null;
+        mBinding = null;
     }
 
     @Override
@@ -283,8 +279,8 @@ public final class ClockFragment extends DeskClockFragment {
      * Refresh the next alarm time.
      */
     private void refreshAlarm() {
-        if (mClockFrame != null) {
-            AlarmUtils.refreshAlarm(mClockFrame, false);
+        if (mBinding != null && mBinding.mainClockLeftPanel != null) {
+            AlarmUtils.refreshAlarm(mBinding.mainClockLeftPanel.mainClockContainer, false);
         } else {
             mCityAdapter.refreshAlarm();
         }

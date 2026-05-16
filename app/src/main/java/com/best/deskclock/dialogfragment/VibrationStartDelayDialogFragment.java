@@ -6,7 +6,6 @@ import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VIBRATION_START_DELAY;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -18,7 +17,6 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
-import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -33,13 +31,11 @@ import androidx.fragment.app.FragmentManager;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.databinding.VibrationStartDelayDialogBinding;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
-import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.color.MaterialColors;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
 
@@ -61,9 +57,8 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
     public static final String REQUEST_KEY = VIBRATION_START_DELAY + "request_key";
     public static final String VIBRATION_DELAY_VALUE = VIBRATION_START_DELAY + "value";
 
-    private TextInputLayout mMinutesInputLayout;
-    private TextInputEditText mEditMinutes;
-    private MaterialCheckBox mNoneCheckbox;
+    private VibrationStartDelayDialogBinding mBinding;
+
     private Button mOkButton;
     private Button mDefaultButton;
     private Typeface mTypeFace;
@@ -104,15 +99,11 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         // As long as this dialog exists, save its state.
-        if (mEditMinutes != null) {
-            String minutesStr = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
+        String minutesStr = mBinding.editMinutes.getText() != null ? mBinding.editMinutes.getText().toString() : "";
+        int minutes = minutesStr.isEmpty() ? 0 : Integer.parseInt(minutesStr);
 
-            int minutes = minutesStr.isEmpty() ? 0 : Integer.parseInt(minutesStr);
-
-            outState.putInt(ARG_EDIT_MINUTES, minutes);
-        }
-
-        outState.putBoolean(ARG_VIBRATION_DELAY_NONE, mNoneCheckbox.isChecked());
+        outState.putInt(ARG_EDIT_MINUTES, minutes);
+        outState.putBoolean(ARG_VIBRATION_DELAY_NONE, mBinding.vibrationStartDelayNoneCheckbox.isChecked());
     }
 
     @NonNull
@@ -131,33 +122,28 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
 
         mInput = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 
-        @SuppressLint("InflateParams")
-        View dialogView = getLayoutInflater().inflate(R.layout.vibration_start_delay_dialog, null);
+        mBinding = VibrationStartDelayDialogBinding.inflate(getLayoutInflater());
 
-        mMinutesInputLayout = dialogView.findViewById(R.id.dialog_input_layout_minutes);
-        mEditMinutes = dialogView.findViewById(R.id.edit_minutes);
-        mNoneCheckbox = dialogView.findViewById(R.id.vibration_start_delay_none);
-
-        mNoneCheckbox.setTypeface(mTypeFace);
-        mNoneCheckbox.setChecked(isNone);
+        mBinding.vibrationStartDelayNoneCheckbox.setTypeface(mTypeFace);
+        mBinding.vibrationStartDelayNoneCheckbox.setChecked(isNone);
 
         if (editMinutes == DEFAULT_VIBRATION_START_DELAY) {
-            mEditMinutes.setText("");
+            mBinding.editMinutes.setText("");
         } else {
-            mEditMinutes.setText(String.valueOf(editMinutes));
+            mBinding.editMinutes.setText(String.valueOf(editMinutes));
         }
-        mEditMinutes.setTypeface(mTypeFace);
+        mBinding.editMinutes.setTypeface(mTypeFace);
 
         updateInputSate();
 
-        mEditMinutes.selectAll();
-        mEditMinutes.requestFocus();
-        mEditMinutes.setInputType(InputType.TYPE_CLASS_NUMBER);
-        mEditMinutes.setImeOptions(EditorInfo.IME_ACTION_DONE);
-        mEditMinutes.setOnEditorActionListener(new ImeDoneListener());
-        mEditMinutes.addTextChangedListener(mTextWatcher);
+        mBinding.editMinutes.selectAll();
+        mBinding.editMinutes.requestFocus();
+        mBinding.editMinutes.setInputType(InputType.TYPE_CLASS_NUMBER);
+        mBinding.editMinutes.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        mBinding.editMinutes.setOnEditorActionListener(new ImeDoneListener());
+        mBinding.editMinutes.addTextChangedListener(mTextWatcher);
 
-        mNoneCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        mBinding.vibrationStartDelayNoneCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isUpdatingCheckboxes) {
                 return;
             }
@@ -177,7 +163,7 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
             null,
             getString(R.string.vibration_start_delay_title),
             null,
-            dialogView,
+            mBinding.getRoot(),
             getString(android.R.string.ok),
             (d, w) -> setVibrationStartDelayInSeconds(),
             getString(android.R.string.cancel),
@@ -188,7 +174,7 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
                 mOkButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
                 mDefaultButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
 
-                String minutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
+                String minutesText = mBinding.editMinutes.getText() != null ? mBinding.editMinutes.getText().toString() : "";
 
                 mOkButton.setEnabled(!isInvalidInput(minutesText));
                 mDefaultButton.setEnabled(isNotDefaultVibrationStartDelay(minutesText));
@@ -201,11 +187,11 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
     public void onResume() {
         super.onResume();
 
-        if (!mNoneCheckbox.isChecked()) {
-            mEditMinutes.requestFocus();
-            mEditMinutes.postDelayed(() -> {
+        if (!mBinding.vibrationStartDelayNoneCheckbox.isChecked()) {
+            mBinding.editMinutes.requestFocus();
+            mBinding.editMinutes.postDelayed(() -> {
                 if (mInput != null) {
-                    mInput.showSoftInput(mEditMinutes, InputMethodManager.SHOW_IMPLICIT);
+                    mInput.showSoftInput(mBinding.editMinutes, InputMethodManager.SHOW_IMPLICIT);
                 }
             }, 200);
         }
@@ -214,18 +200,15 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
     @Override
     public void onDestroyView() {
         // Stop callbacks from the IME since there is no view to process them.
-        if (mEditMinutes != null) {
-            mEditMinutes.setOnEditorActionListener(null);
-            mEditMinutes.removeTextChangedListener(mTextWatcher);
-        }
+        mBinding.editMinutes.setOnEditorActionListener(null);
+        mBinding.editMinutes.removeTextChangedListener(mTextWatcher);
 
         super.onDestroyView();
 
         mInput = null;
 
-        mMinutesInputLayout = null;
-        mEditMinutes = null;
-        mNoneCheckbox = null;
+        mBinding = null;
+
         mOkButton = null;
         mDefaultButton = null;
 
@@ -240,17 +223,17 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
      * Otherwise, the inputs are enabled and appropriate helper texts are shown.</p>
      */
     private void updateInputSate() {
-        boolean disable = mNoneCheckbox.isChecked();
+        boolean disable = mBinding.vibrationStartDelayNoneCheckbox.isChecked();
 
-        mMinutesInputLayout.setTypeface(mTypeFace);
-        mMinutesInputLayout.setEnabled(!disable);
+        mBinding.textInputLayoutMinutes.setTypeface(mTypeFace);
+        mBinding.textInputLayoutMinutes.setEnabled(!disable);
 
         if (disable) {
-            mMinutesInputLayout.setHelperText(null);
-            mEditMinutes.setText("");
+            mBinding.textInputLayoutMinutes.setHelperText(null);
+            mBinding.editMinutes.setText("");
         } else {
-            mMinutesInputLayout.setHelperText(getString(R.string.vibration_start_delay_warning_box_text));
-            TextView minuteHelper = mMinutesInputLayout.findViewById(com.google.android.material.R.id.textinput_helper_text);
+            mBinding.textInputLayoutMinutes.setHelperText(getString(R.string.vibration_start_delay_warning_box_text));
+            TextView minuteHelper = mBinding.textInputLayoutMinutes.findViewById(com.google.android.material.R.id.textinput_helper_text);
             minuteHelper.setTypeface(mTypeFace);
         }
     }
@@ -263,9 +246,9 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
      * when the dialog is in manual entry mode.</p>
      */
     private void maybeRequestMinutesFocus() {
-        if (!mNoneCheckbox.isChecked()) {
-            mEditMinutes.requestFocus();
-            mInput.showSoftInput(mEditMinutes, InputMethodManager.SHOW_IMPLICIT);
+        if (!mBinding.vibrationStartDelayNoneCheckbox.isChecked()) {
+            mBinding.editMinutes.requestFocus();
+            mInput.showSoftInput(mBinding.editMinutes, InputMethodManager.SHOW_IMPLICIT);
         }
     }
 
@@ -276,17 +259,17 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
         int minutes = 0;
         int vibrationStartDelayInSeconds;
 
-        if (mNoneCheckbox.isChecked()) {
+        if (mBinding.vibrationStartDelayNoneCheckbox.isChecked()) {
             vibrationStartDelayInSeconds = DEFAULT_VIBRATION_START_DELAY;
         } else {
-            String minutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
+            String minutesText = mBinding.editMinutes.getText() != null ? mBinding.editMinutes.getText().toString() : "";
 
             if (!minutesText.isEmpty()) {
                 minutes = Integer.parseInt(minutesText);
             }
 
             if (minutes == 0) {
-                mNoneCheckbox.setChecked(true);
+                mBinding.vibrationStartDelayNoneCheckbox.setChecked(true);
                 vibrationStartDelayInSeconds = DEFAULT_VIBRATION_START_DELAY;
             } else {
                 vibrationStartDelayInSeconds = minutes * 60;
@@ -334,14 +317,14 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
             titleText.setText(getString(R.string.timer_time_warning_box_title));
         }
 
-        String minutesText = Objects.requireNonNull(mEditMinutes.getText()).toString();
+        String minutesText = Objects.requireNonNull(mBinding.editMinutes.getText()).toString();
         boolean minutesInvalid = (!minutesText.isEmpty() && Integer.parseInt(minutesText) < 0)
             || (!minutesText.isEmpty() && Integer.parseInt(minutesText) > 10);
         int invalidColor = ContextCompat.getColor(requireContext(), R.color.md_theme_error);
         int validColor = MaterialColors.getColor(requireContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
 
-        mMinutesInputLayout.setBoxStrokeColor(minutesInvalid ? invalidColor : validColor);
-        mMinutesInputLayout.setHintTextColor(minutesInvalid
+        mBinding.textInputLayoutMinutes.setBoxStrokeColor(minutesInvalid ? invalidColor : validColor);
+        mBinding.textInputLayoutMinutes.setHintTextColor(minutesInvalid
             ? ColorStateList.valueOf(invalidColor)
             : ColorStateList.valueOf(validColor));
 
@@ -366,16 +349,16 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
 
         int validColor = MaterialColors.getColor(requireContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
 
-        mMinutesInputLayout.setBoxStrokeColor(validColor);
-        mMinutesInputLayout.setHintTextColor(ColorStateList.valueOf(validColor));
-        mMinutesInputLayout.setEnabled(!mNoneCheckbox.isChecked());
+        mBinding.textInputLayoutMinutes.setBoxStrokeColor(validColor);
+        mBinding.textInputLayoutMinutes.setHintTextColor(ColorStateList.valueOf(validColor));
+        mBinding.textInputLayoutMinutes.setEnabled(!mBinding.vibrationStartDelayNoneCheckbox.isChecked());
 
         if (mOkButton != null) {
             mOkButton.setEnabled(true);
         }
 
         if (mDefaultButton != null) {
-            String minutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
+            String minutesText = mBinding.editMinutes.getText() != null ? mBinding.editMinutes.getText().toString() : "";
             mDefaultButton.setEnabled(isNotDefaultVibrationStartDelay(minutesText));
         }
     }
@@ -401,12 +384,12 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
 
         @Override
         public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-            if (mNoneCheckbox.isChecked()) {
+            if (mBinding.vibrationStartDelayNoneCheckbox.isChecked()) {
                 updateDialogForValidInput();
                 return;
             }
 
-            String minutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
+            String minutesText = mBinding.editMinutes.getText() != null ? mBinding.editMinutes.getText().toString() : "";
 
             if (isInvalidInput(minutesText)) {
                 updateDialogForInvalidInput();
@@ -433,7 +416,7 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
         @Override
         public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                String inputMinutesText = Objects.requireNonNull(mEditMinutes.getText()).toString();
+                String inputMinutesText = Objects.requireNonNull(mBinding.editMinutes.getText()).toString();
                 if (isInvalidInput(inputMinutesText)) {
                     updateDialogForInvalidInput();
                 } else {

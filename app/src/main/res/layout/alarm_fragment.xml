@@ -9,13 +9,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/alarm_root_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <include
-        android:id="@+id/volume_warning_banner"
         layout="@layout/volume_warning_banner"
+        android:id="@+id/alarm_volume_warning_banner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
@@ -24,18 +24,18 @@
     <!-- Due to the ViewPager and the location of FAB, paddings are set
          in the AlarmFragment.java file. -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/alarms_recycler_view"
+        android:id="@+id/alarm_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
         android:clipToPadding="false"
-        app:layout_constraintTop_toBottomOf="@+id/volume_warning_banner"
+        app:layout_constraintTop_toBottomOf="@+id/alarm_volume_warning_banner"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_goneMarginTop="0dp"
         tools:listitem="@layout/alarm_item" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/alarms_empty_view"
+        android:id="@+id/alarm_empty_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"

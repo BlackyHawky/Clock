@@ -16,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
@@ -25,6 +24,8 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.databinding.CityListHeaderBinding;
+import com.best.deskclock.databinding.CityListItemBinding;
 import com.best.deskclock.utils.ThemeUtils;
 
 import java.util.ArrayList;
@@ -194,13 +195,17 @@ public class CityAdapter extends BaseAdapter implements View.OnClickListener, Co
 
         switch (itemViewType) {
             case VIEW_TYPE_SELECTED_CITIES_HEADER -> {
+                CityListHeaderBinding headerBinding;
+
                 if (view == null) {
-                    view = mInflater.inflate(R.layout.city_list_header, parent, false);
+                    headerBinding = CityListHeaderBinding.inflate(mInflater, parent, false);
+                    view = headerBinding.getRoot();
                     view.setOnClickListener(null);
 
-                    TextView cityListHeader = view.findViewById(R.id.city_list_header);
-                    cityListHeader.setTypeface(mRegularTypeface);
+                    headerBinding.cityListHeader.setTypeface(mRegularTypeface);
+                    view.setTag(headerBinding);
                 }
+
                 return view;
             }
 
@@ -215,44 +220,42 @@ public class CityAdapter extends BaseAdapter implements View.OnClickListener, Co
 
                 // Inflate a new view if necessary.
                 if (view == null) {
-                    view = mInflater.inflate(R.layout.city_list_item, parent, false);
-                    final TextView index = view.findViewById(R.id.index);
-                    final TextView name = view.findViewById(R.id.city_name);
-                    final TextView time = view.findViewById(R.id.city_time);
-                    final CheckBox selected = view.findViewById(R.id.city_onoff);
+                    CityListItemBinding itemBinding = CityListItemBinding.inflate(mInflater, parent, false);
 
-                    index.setTypeface(mBoldTypeface);
-                    name.setTypeface(mRegularTypeface);
-                    time.setTypeface(mRegularTypeface);
+                    view = itemBinding.getRoot();
 
-                    holder = new CityItemHolder(index, name, time, selected);
+                    itemBinding.cityIndex.setTypeface(mBoldTypeface);
+                    itemBinding.cityName.setTypeface(mRegularTypeface);
+                    itemBinding.cityTime.setTypeface(mRegularTypeface);
+
+                    holder = new CityItemHolder(itemBinding);
                     view.setTag(holder);
                 } else {
                     holder = (CityItemHolder) view.getTag();
                 }
 
                 // Bind data into the child views.
-                holder.selected.setOnCheckedChangeListener(null);
-                holder.selected.setTag(city);
-                holder.selected.setChecked(mUserSelectedCities.contains(city));
-                holder.selected.setContentDescription(city.getName());
-                holder.selected.setOnCheckedChangeListener(this);
-                holder.name.setText(city.getName(), TextView.BufferType.SPANNABLE);
-                holder.time.setText(getTimeCharSequence(timeZone));
+                holder.binding().cityOnOffCheckbox.setOnCheckedChangeListener(null);
+                holder.binding().cityOnOffCheckbox.setTag(city);
+                holder.binding().cityOnOffCheckbox.setChecked(mUserSelectedCities.contains(city));
+                holder.binding().cityOnOffCheckbox.setContentDescription(city.getName());
+                holder.binding().cityOnOffCheckbox.setOnCheckedChangeListener(this);
+                holder.binding().cityName.setText(city.getName(), TextView.BufferType.SPANNABLE);
+                holder.binding().cityTime.setText(getTimeCharSequence(timeZone));
 
                 final boolean showIndex = getShowIndex(position);
-                holder.index.setVisibility(showIndex ? View.VISIBLE : View.INVISIBLE);
+                holder.binding().cityIndex.setVisibility(showIndex ? View.VISIBLE : View.INVISIBLE);
 
                 if (showIndex) {
                     switch (getCitySort()) {
                         case NAME -> {
-                            holder.index.setText(city.getIndexString());
-                            holder.index.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
+                            holder.binding().cityIndex.setText(city.getIndexString());
+                            holder.binding().cityIndex.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
                         }
                         case UTC_OFFSET -> {
                             final long now = System.currentTimeMillis();
-                            holder.index.setText(getGMTHourOffset(timeZone, false, now));
-                            holder.index.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+                            holder.binding().cityIndex.setText(getGMTHourOffset(timeZone, false, now));
+                            holder.binding().cityIndex.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
                         }
                     }
                 }
@@ -296,7 +299,7 @@ public class CityAdapter extends BaseAdapter implements View.OnClickListener, Co
     @Override
     public void onClick(View v) {
         if (v.getTag() instanceof CityItemHolder holder) {
-            holder.selected.toggle();
+            holder.binding().cityOnOffCheckbox.toggle();
         }
     }
 
@@ -517,7 +520,7 @@ public class CityAdapter extends BaseAdapter implements View.OnClickListener, Co
     /**
      * Cache the child views of each city item view.
      */
-    private record CityItemHolder(TextView index, TextView name, TextView time, CheckBox selected) {
+    private record CityItemHolder(CityListItemBinding binding) {
     }
 
 }

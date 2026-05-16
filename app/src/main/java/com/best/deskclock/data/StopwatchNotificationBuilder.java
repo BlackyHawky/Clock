@@ -23,6 +23,7 @@ import androidx.annotation.StringRes;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationCompat.Action;
 import androidx.core.app.NotificationCompat.Builder;
+import androidx.core.content.ContextCompat;
 
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
@@ -131,7 +132,7 @@ class StopwatchNotificationBuilder {
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             .setSmallIcon(R.drawable.ic_tab_stopwatch_static)
             .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
-            .setColor(context.getColor(R.color.md_theme_primary))
+            .setColor(ContextCompat.getColor(context, R.color.md_theme_primary))
             .setGroup(nm.getStopwatchNotificationGroupKey());
 
         for (Action action : actions) {

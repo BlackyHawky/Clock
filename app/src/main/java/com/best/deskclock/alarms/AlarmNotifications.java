@@ -27,6 +27,7 @@ import android.service.notification.StatusBarNotification;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
@@ -114,7 +115,7 @@ public final class AlarmNotifications {
             .setContentTitle(contentTitle)
             .setContentText(AlarmUtils.getAlarmText(context, instance, true))
             .setContentIntent(contentIntent)
-            .setColor(context.getColor(R.color.md_theme_primary))
+            .setColor(ContextCompat.getColor(context, R.color.md_theme_primary))
             .setSmallIcon(R.drawable.ic_tab_alarm_static)
             .setAutoCancel(false)
             .setSortKey(createSortKey(instance))
@@ -220,7 +221,7 @@ public final class AlarmNotifications {
             summary = new NotificationCompat.Builder(context, ALARM_UPCOMING_NOTIFICATION_CHANNEL_ID)
                 .setShowWhen(false)
                 .setContentIntent(firstUpcoming.contentIntent)
-                .setColor(context.getColor(R.color.md_theme_primary))
+                .setColor(ContextCompat.getColor(context, R.color.md_theme_primary))
                 .setSmallIcon(R.drawable.ic_tab_alarm_static)
                 .setGroup(UPCOMING_GROUP_KEY)
                 .setGroupSummary(true)
@@ -261,7 +262,7 @@ public final class AlarmNotifications {
             summary = new NotificationCompat.Builder(context, ALARM_MISSED_NOTIFICATION_CHANNEL_ID)
                 .setShowWhen(false)
                 .setContentIntent(firstMissed.contentIntent)
-                .setColor(context.getColor(R.color.md_theme_primary))
+                .setColor(ContextCompat.getColor(context, R.color.md_theme_primary))
                 .setSmallIcon(R.drawable.ic_tab_alarm_static)
                 .setGroup(MISSED_GROUP_KEY)
                 .setGroupSummary(true)
@@ -316,7 +317,7 @@ public final class AlarmNotifications {
             .setContentText(context.getString(R.string.alarm_alert_snooze_until,
                 AlarmUtils.getFormattedTime(context, instance.getAlarmTime())))
             .setContentIntent(contentIntent)
-            .setColor(context.getColor(R.color.md_theme_primary))
+            .setColor(ContextCompat.getColor(context, R.color.md_theme_primary))
             .setSmallIcon(R.drawable.ic_tab_alarm_static)
             .setAutoCancel(false)
             .setSortKey(createSortKey(instance))
@@ -378,7 +379,7 @@ public final class AlarmNotifications {
                 : context.getString(R.string.alarm_missed_text, alarmTime, label))
             .setContentIntent(contentIntent)
             .setDeleteIntent(deleteIntent)
-            .setColor(context.getColor(R.color.md_theme_primary))
+            .setColor(ContextCompat.getColor(context, R.color.md_theme_primary))
             .setSortKey(createSortKey(instance))
             .setSmallIcon(R.drawable.ic_tab_alarm_static)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
@@ -439,7 +440,7 @@ public final class AlarmNotifications {
             .setContentText(AlarmUtils.getFormattedTime(service, instance.getAlarmTime()))
             .setContentIntent(contentIntent)
             .setDeleteIntent(dismissPendingIntent)
-            .setColor(service.getColor(R.color.md_theme_primary))
+            .setColor(ContextCompat.getColor(service, R.color.md_theme_primary))
             .setSmallIcon(R.drawable.ic_tab_alarm_static)
             .setOngoing(true)
             .setAutoCancel(false)

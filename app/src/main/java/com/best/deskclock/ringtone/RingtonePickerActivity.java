@@ -26,15 +26,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.DisplayMetrics;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.FrameLayout;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AlertDialog;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.graphics.Insets;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -53,6 +51,9 @@ import com.best.deskclock.alarms.AlarmUpdateHandler;
 import com.best.deskclock.data.CustomRingtone;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.databinding.DialogProgressBinding;
+import com.best.deskclock.databinding.RingtoneAddButtonBinding;
+import com.best.deskclock.databinding.RingtonePickerBinding;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.uicomponents.CollapsingToolbarBaseActivity;
 import com.best.deskclock.uicomponents.CustomDialog;
@@ -63,9 +64,6 @@ import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.progressindicator.CircularProgressIndicator;
-import com.google.android.material.textview.MaterialTextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -119,11 +117,6 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
     private RingtoneAdapter mRingtoneAdapter;
 
     /**
-     * Displays a set of selectable ringtones.
-     */
-    RecyclerView mRingtoneContent;
-
-    /**
      * The title of the default ringtone.
      */
     private String mDefaultRingtoneTitle;
@@ -150,11 +143,12 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
 
     private boolean mReturnResultOnly;
 
+    private RingtonePickerBinding mRingtonePickerBinding;
+    private RingtoneAddButtonBinding mAddButtonBinding;
+    private DialogProgressBinding mDialogProgressBinding;
+
     private FragmentManager mFragmentManager;
     private DisplayMetrics mDisplayMetrics;
-    private FloatingActionButton mAddRingtoneButton;
-    private CircularProgressIndicator mCircularProgressIndicator;
-    private MaterialTextView mProgressTextView;
     private AlertDialog mProgressDialog;
 
     /**
@@ -252,14 +246,14 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        mRingtonePickerBinding = RingtonePickerBinding.inflate(getLayoutInflater(), mBaseBinding.contentFrame);
+
         SharedPreferences prefs = getDefaultSharedPreferences(this);
         mDisplayMetrics = getResources().getDisplayMetrics();
         mFragmentManager = getSupportFragmentManager();
 
         // To manually manage insets
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
-
-        setContentView(R.layout.ringtone_picker);
 
         setVolumeControlStream(AudioManager.STREAM_ALARM);
 
@@ -291,8 +285,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
         mTitleResourceId = intent.getIntExtra(EXTRA_TITLE, 0);
         setTitle(context.getString(mTitleResourceId));
 
-        mRingtoneContent = findViewById(R.id.ringtone_content);
-        mRingtoneContent.setLayoutManager(new LinearLayoutManager(context));
+        mRingtonePickerBinding.ringtoneContent.setLayoutManager(new LinearLayoutManager(context));
 
         mRingtoneAdapter = new RingtoneAdapter(this, new RingtoneAdapter.OnRingtoneClickListener() {
             @Override
@@ -317,9 +310,9 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
             }
         });
 
-        mRingtoneContent.setAdapter(mRingtoneAdapter);
+        mRingtonePickerBinding.ringtoneContent.setAdapter(mRingtoneAdapter);
 
-        RecyclerView.ItemAnimator animator = mRingtoneContent.getItemAnimator();
+        RecyclerView.ItemAnimator animator = mRingtonePickerBinding.ringtoneContent.getItemAnimator();
         if (animator instanceof SimpleItemAnimator) {
             // Disable flash/blinking during updates (notifyItemChanged)
             ((SimpleItemAnimator) animator).setSupportsChangeAnimations(false);
@@ -327,12 +320,9 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
 
         LoaderManager.getInstance(this).initLoader(0, null, this);
 
-        final LayoutInflater inflater = getLayoutInflater();
-        View addButtonLayout = inflater.inflate(R.layout.ringtone_add_button, mCoordinatorLayout, false);
-        mCoordinatorLayout.addView(addButtonLayout);
+        mAddButtonBinding = RingtoneAddButtonBinding.inflate(getLayoutInflater(), mBaseBinding.coordinatorLayout, true);
 
-        mAddRingtoneButton = addButtonLayout.findViewById(R.id.add_ringtone_button);
-        mAddRingtoneButton.setOnClickListener(v -> {
+        mAddButtonBinding.addRingtoneButton.setOnClickListener(v -> {
             stopPlayingRingtone(getSelectedRingtoneHolder(), false);
             getActivityOnClick.launch(new Intent(Intent.ACTION_OPEN_DOCUMENT)
                 .addFlags(FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
@@ -340,7 +330,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
                 .setType("audio/*"));
         });
 
-        mAddRingtoneButton.setOnLongClickListener(v -> {
+        mAddButtonBinding.addRingtoneButton.setOnLongClickListener(v -> {
             stopPlayingRingtone(getSelectedRingtoneHolder(), false);
             getActivityOnLongClick.launch(new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
                 .addFlags(FLAG_GRANT_READ_URI_PERMISSION | FLAG_GRANT_PERSISTABLE_URI_PERMISSION));
@@ -348,13 +338,11 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
             return true;
         });
 
-        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_progress, null);
-        mCircularProgressIndicator = dialogView.findViewById(R.id.dialogProgressIndicator);
-        mProgressTextView = dialogView.findViewById(R.id.dialogProgressText);
-        mProgressTextView.setTypeface(ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs)));
+        mDialogProgressBinding = DialogProgressBinding.inflate(getLayoutInflater());
+        mDialogProgressBinding.dialogProgressText.setTypeface(ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs)));
 
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this)
-            .setView(dialogView)
+            .setView(mDialogProgressBinding.getRoot())
             .setCancelable(false);
 
         mProgressDialog = builder.create();
@@ -444,18 +432,19 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
      * accordingly.
      */
     private void applyWindowInsets() {
-        InsetsUtils.doOnApplyWindowInsets(mCoordinatorLayout, (v, insets) -> {
+        InsetsUtils.doOnApplyWindowInsets(mBaseBinding.coordinatorLayout, (v, insets) -> {
             // Get the system bar and notch insets
             Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout());
 
             v.setPadding(bars.left, bars.top, bars.right, bars.bottom);
 
-            mAddRingtoneButton.post(() -> {
-                int buttonHeight = mAddRingtoneButton.getHeight();
-                int bottomButtonMargin = ((FrameLayout.LayoutParams) mAddRingtoneButton.getLayoutParams()).bottomMargin;
+            mAddButtonBinding.addRingtoneButton.post(() -> {
+                int buttonHeight = mAddButtonBinding.addRingtoneButton.getHeight();
+                int bottomButtonMargin =
+                    ((CoordinatorLayout.LayoutParams) mAddButtonBinding.addRingtoneButton.getLayoutParams()).bottomMargin;
                 int safetyPadding = (int) dpToPx(10, mDisplayMetrics);
 
-                mRingtoneContent.setPadding(0, 0, 0, buttonHeight + bottomButtonMargin + safetyPadding);
+                mRingtonePickerBinding.ringtoneContent.setPadding(0, 0, 0, buttonHeight + bottomButtonMargin + safetyPadding);
             });
         });
     }
@@ -485,7 +474,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
     }
 
     /**
-     * The given {@code ringtone} will be selected as a side-effect of playing the ringtone.
+     * The given {@code ringtone} will be selected as a side effect of playing the ringtone.
      *
      * @param ringtone the ringtone to be played
      */
@@ -546,7 +535,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
     }
 
     /**
-     * This DialogFragment informs the user of the side-effects of removing a custom ringtone while
+     * This DialogFragment informs the user of the side effects of removing a custom ringtone while
      * it is in use by alarms and/or timers and prompts them to confirm the removal.
      */
     public static class ConfirmRemoveCustomRingtoneDialogFragment extends DialogFragment {
@@ -698,9 +687,9 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
                 }
 
                 mProgressDialog.show();
-                mCircularProgressIndicator.setMax(totalFiles);
-                mCircularProgressIndicator.setProgress(0);
-                mProgressTextView.setText(getString(R.string.progress_ringtones, 0, totalFiles));
+                mDialogProgressBinding.dialogProgressIndicator.setMax(totalFiles);
+                mDialogProgressBinding.dialogProgressIndicator.setProgress(0);
+                mDialogProgressBinding.dialogProgressText.setText(getString(R.string.progress_ringtones, 0, totalFiles));
             });
 
             int processed = 0;
@@ -740,8 +729,8 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
                         return;
                     }
 
-                    mCircularProgressIndicator.setProgress(finalProcessed);
-                    mProgressTextView.setText(getString(R.string.progress_ringtones, finalProcessed, totalFiles));
+                    mDialogProgressBinding.dialogProgressIndicator.setProgress(finalProcessed);
+                    mDialogProgressBinding.dialogProgressText.setText(getString(R.string.progress_ringtones, finalProcessed, totalFiles));
                 });
             }
 
@@ -756,7 +745,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
     }
 
     /**
-     * Removes a custom ringtone with the given uri. Taking this action has side-effects because
+     * Removes a custom ringtone with the given uri. Taking this action has side effects because
      * all alarms that use the custom ringtone are reassigned to the Android system default alarm
      * ringtone. If the application's default alarm ringtone is being removed, it is reset to the
      * Android system default alarm ringtone. If the application's timer ringtone is being removed,

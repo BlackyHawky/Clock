@@ -30,6 +30,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.content.ContextCompat;
 import androidx.preference.Preference;
 
 import com.best.deskclock.AppExecutors;
@@ -82,12 +83,10 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (mAppBarLayout != null) {
-            mAppBarLayout.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
-                // verticalOffset == 0 when extended, negative when collapsed
-                mIsAppBarExpanded = (verticalOffset == 0);
-            });
-        }
+        mBaseBinding.appBar.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
+            // verticalOffset == 0 when extended, negative when collapsed
+            mIsAppBarExpanded = (verticalOffset == 0);
+        });
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -103,9 +102,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
         if (savedInstanceState != null && savedInstanceState.containsKey(KEY_APPBAR_EXPANDED)) {
             final boolean shouldExpand = savedInstanceState.getBoolean(KEY_APPBAR_EXPANDED);
-            if (mAppBarLayout != null) {
-                mAppBarLayout.setExpanded(shouldExpand, false);
-            }
+            mBaseBinding.appBar.setExpanded(shouldExpand, false);
         }
     }
 
@@ -357,7 +354,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                 final SpannableStringBuilder builderPermissionMessage = new SpannableStringBuilder();
                 final String messagePermission = requireContext().getString(R.string.settings_permission_message);
                 final Spannable spannableMessagePermission = new SpannableString(messagePermission);
-                spannableMessagePermission.setSpan(new ForegroundColorSpan(requireContext().getColor(R.color.colorAlert)),
+                spannableMessagePermission.setSpan(new ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.colorAlert)),
                     0, messagePermission.length(), 0);
                 spannableMessagePermission.setSpan(new StyleSpan(Typeface.BOLD), 0, messagePermission.length(), 0);
                 builderPermissionMessage.append(spannableMessagePermission);

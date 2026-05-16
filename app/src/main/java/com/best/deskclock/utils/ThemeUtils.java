@@ -45,6 +45,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.view.menu.ActionMenuItemView;
 import androidx.appcompat.widget.ActionMenuView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 
 import com.best.deskclock.R;
@@ -573,7 +574,7 @@ public class ThemeUtils {
         if (enabled) {
             button.setImageTintList(null);
         } else {
-            button.setImageTintList(ColorStateList.valueOf(context.getColor(R.color.colorDisabled)));
+            button.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.colorDisabled)));
         }
     }
 

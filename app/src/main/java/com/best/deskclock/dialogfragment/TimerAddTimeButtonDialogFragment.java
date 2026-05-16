@@ -8,7 +8,6 @@ import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TIMER_ADD_TIME_BUTTON_VALUE;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -20,11 +19,9 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
-import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -38,11 +35,11 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
+import com.best.deskclock.databinding.TimerDialogEditAddTimeBinding;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.google.android.material.color.MaterialColors;
-import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
 
@@ -64,11 +61,10 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
     public static final String REQUEST_KEY = "add_time_button_request_key";
     public static final String ADD_TIME_BUTTON_VALUE = "add_time_button_value";
 
+    private TimerDialogEditAddTimeBinding mBinding;
+
     private String mPrefKey;
-    private TextInputLayout mMinutesInputLayout;
-    private TextInputLayout mSecondsInputLayout;
-    private EditText mEditMinutes;
-    private EditText mEditSeconds;
+
     private Button mOkButton;
     private Button mDefaultButton;
     private int mTimerId;
@@ -133,10 +129,8 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         // As long as this dialog exists, save its state.
-        if (mEditMinutes != null && mEditSeconds != null) {
-            outState.putString(ARG_EDIT_MINUTES, Objects.requireNonNull(mEditMinutes.getText()).toString());
-            outState.putString(ARG_EDIT_SECONDS, Objects.requireNonNull(mEditSeconds.getText()).toString());
-        }
+        outState.putString(ARG_EDIT_MINUTES, Objects.requireNonNull(mBinding.editMinutes.getText()).toString());
+        outState.putString(ARG_EDIT_SECONDS, Objects.requireNonNull(mBinding.editSeconds.getText()).toString());
     }
 
     @NonNull
@@ -158,58 +152,52 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
 
         mInput = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 
-        @SuppressLint("InflateParams")
-        View dialogView = getLayoutInflater().inflate(R.layout.timer_dialog_edit_add_time, null);
+        mBinding = TimerDialogEditAddTimeBinding.inflate(getLayoutInflater());
 
-        mMinutesInputLayout = dialogView.findViewById(R.id.dialog_input_layout_minutes);
-        mMinutesInputLayout.setTypeface(typeFace);
-        mMinutesInputLayout.setHelperText(getString(R.string.timer_button_time_minutes_warning_box_text));
-        TextView minutesHelper = mMinutesInputLayout.findViewById(com.google.android.material.R.id.textinput_helper_text);
+        mBinding.dialogInputLayoutMinutes.setTypeface(typeFace);
+        mBinding.dialogInputLayoutMinutes.setHelperText(getString(R.string.timer_button_time_minutes_warning_box_text));
+        TextView minutesHelper = mBinding.dialogInputLayoutMinutes.findViewById(com.google.android.material.R.id.textinput_helper_text);
         minutesHelper.setTypeface(typeFace);
 
-        mSecondsInputLayout = dialogView.findViewById(R.id.dialog_input_layout_seconds);
-        mSecondsInputLayout.setTypeface(typeFace);
-        mSecondsInputLayout.setHelperText(getString(R.string.timer_button_time_seconds_warning_box_text));
-        TextView secondsHelper = mSecondsInputLayout.findViewById(com.google.android.material.R.id.textinput_helper_text);
+        mBinding.dialogInputLayoutSeconds.setTypeface(typeFace);
+        mBinding.dialogInputLayoutSeconds.setHelperText(getString(R.string.timer_button_time_seconds_warning_box_text));
+        TextView secondsHelper = mBinding.dialogInputLayoutSeconds.findViewById(com.google.android.material.R.id.textinput_helper_text);
         secondsHelper.setTypeface(typeFace);
 
-        mEditMinutes = dialogView.findViewById(R.id.edit_minutes);
-        mEditSeconds = dialogView.findViewById(R.id.edit_seconds);
-
-        mEditMinutes.setText(String.valueOf(editMinutes));
-        mEditMinutes.setTypeface(typeFace);
+        mBinding.editMinutes.setText(String.valueOf(editMinutes));
+        mBinding.editMinutes.setTypeface(typeFace);
         if (editMinutes == 60) {
-            mEditMinutes.setImeOptions(EditorInfo.IME_ACTION_DONE);
-            mEditMinutes.setOnEditorActionListener(new ImeDoneListener());
-            mSecondsInputLayout.setEnabled(false);
+            mBinding.editMinutes.setImeOptions(EditorInfo.IME_ACTION_DONE);
+            mBinding.editMinutes.setOnEditorActionListener(new ImeDoneListener());
+            mBinding.dialogInputLayoutSeconds.setEnabled(false);
         } else {
-            mEditMinutes.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-            mSecondsInputLayout.setEnabled(true);
+            mBinding.editMinutes.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+            mBinding.dialogInputLayoutSeconds.setEnabled(true);
         }
-        mEditMinutes.setInputType(InputType.TYPE_CLASS_NUMBER);
-        mEditMinutes.selectAll();
-        mEditMinutes.requestFocus();
-        mEditMinutes.addTextChangedListener(mTextWatcher);
-        mEditMinutes.setOnFocusChangeListener((v, hasFocus) -> {
+        mBinding.editMinutes.setInputType(InputType.TYPE_CLASS_NUMBER);
+        mBinding.editMinutes.selectAll();
+        mBinding.editMinutes.requestFocus();
+        mBinding.editMinutes.addTextChangedListener(mTextWatcher);
+        mBinding.editMinutes.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
-                mEditMinutes.selectAll();
+                mBinding.editMinutes.selectAll();
             }
         });
 
-        mEditSeconds.setText(String.valueOf(editSeconds));
-        mEditSeconds.setTypeface(typeFace);
-        mEditSeconds.selectAll();
-        mEditSeconds.setInputType(InputType.TYPE_CLASS_NUMBER);
-        mEditSeconds.setOnEditorActionListener(new ImeDoneListener());
-        mEditSeconds.addTextChangedListener(mTextWatcher);
-        mEditSeconds.setOnFocusChangeListener((v, hasFocus) -> {
+        mBinding.editSeconds.setText(String.valueOf(editSeconds));
+        mBinding.editSeconds.setTypeface(typeFace);
+        mBinding.editSeconds.selectAll();
+        mBinding.editSeconds.setInputType(InputType.TYPE_CLASS_NUMBER);
+        mBinding.editSeconds.setOnEditorActionListener(new ImeDoneListener());
+        mBinding.editSeconds.addTextChangedListener(mTextWatcher);
+        mBinding.editSeconds.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
-                mEditSeconds.selectAll();
+                mBinding.editSeconds.selectAll();
             }
         });
 
-        String inputMinutesText = mEditMinutes.getText().toString();
-        String inputSecondsText = mEditSeconds.getText().toString();
+        String inputMinutesText = Objects.requireNonNull(mBinding.editMinutes.getText()).toString();
+        String inputSecondsText = Objects.requireNonNull(mBinding.editSeconds.getText()).toString();
 
         return CustomDialog.create(
             requireContext(),
@@ -217,7 +205,7 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
             mPrefKey != null ? null : AppCompatResources.getDrawable(requireContext(), R.drawable.ic_hourglass_top),
             getString(R.string.timer_button_time_box_title),
             null,
-            dialogView,
+            mBinding.getRoot(),
             getString(android.R.string.ok),
             (d, w) -> setDurationInSeconds(),
             getString(android.R.string.cancel),
@@ -239,10 +227,10 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
     public void onResume() {
         super.onResume();
 
-        mEditMinutes.requestFocus();
-        mEditMinutes.postDelayed(() -> {
+        mBinding.editMinutes.requestFocus();
+        mBinding.editMinutes.postDelayed(() -> {
             if (mInput != null) {
-                mInput.showSoftInput(mEditMinutes, InputMethodManager.SHOW_IMPLICIT);
+                mInput.showSoftInput(mBinding.editMinutes, InputMethodManager.SHOW_IMPLICIT);
             }
         }, 200);
     }
@@ -250,26 +238,20 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
     @Override
     public void onDestroyView() {
         // Stop callbacks from the IME since there is no view to process them.
-        if (mEditMinutes != null) {
-            mEditMinutes.setOnEditorActionListener(null);
-            mEditMinutes.removeTextChangedListener(mTextWatcher);
-            mEditMinutes.setOnFocusChangeListener(null);
-        }
+        mBinding.editMinutes.setOnEditorActionListener(null);
+        mBinding.editMinutes.removeTextChangedListener(mTextWatcher);
+        mBinding.editMinutes.setOnFocusChangeListener(null);
 
-        if (mEditSeconds != null) {
-            mEditSeconds.setOnEditorActionListener(null);
-            mEditSeconds.removeTextChangedListener(mTextWatcher);
-            mEditSeconds.setOnFocusChangeListener(null);
-        }
+        mBinding.editSeconds.setOnEditorActionListener(null);
+        mBinding.editSeconds.removeTextChangedListener(mTextWatcher);
+        mBinding.editSeconds.setOnFocusChangeListener(null);
 
         super.onDestroyView();
 
         mInput = null;
 
-        mMinutesInputLayout = null;
-        mSecondsInputLayout = null;
-        mEditMinutes = null;
-        mEditSeconds = null;
+        mBinding = null;
+
         mOkButton = null;
         mDefaultButton = null;
     }
@@ -278,8 +260,8 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
      * Sets the duration in seconds into the timer add button.
      */
     private void setDurationInSeconds() {
-        String minutesText = Objects.requireNonNull(mEditMinutes.getText()).toString();
-        String secondsText = Objects.requireNonNull(mEditSeconds.getText()).toString();
+        String minutesText = Objects.requireNonNull(mBinding.editMinutes.getText()).toString();
+        String secondsText = Objects.requireNonNull(mBinding.editSeconds.getText()).toString();
 
         int minutes = 0;
         int seconds = 0;
@@ -354,8 +336,8 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
             titleText.setText(getString(R.string.timer_time_warning_box_title));
         }
 
-        String minutesText = Objects.requireNonNull(mEditMinutes.getText()).toString();
-        String secondsText = Objects.requireNonNull(mEditSeconds.getText()).toString();
+        String minutesText = Objects.requireNonNull(mBinding.editMinutes.getText()).toString();
+        String secondsText = Objects.requireNonNull(mBinding.editSeconds.getText()).toString();
         boolean minutesInvalid = (!minutesText.isEmpty() && Integer.parseInt(minutesText) < 0)
             || (!minutesText.isEmpty() && Integer.parseInt(minutesText) > 60);
         boolean secondsInvalid = (!secondsText.isEmpty() && Integer.parseInt(secondsText) < 0)
@@ -363,17 +345,17 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
         int invalidColor = ContextCompat.getColor(requireContext(), R.color.md_theme_error);
         int validColor = MaterialColors.getColor(requireContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
 
-        mMinutesInputLayout.setBoxStrokeColor(minutesInvalid ? invalidColor : validColor);
-        mMinutesInputLayout.setHintTextColor(minutesInvalid
+        mBinding.dialogInputLayoutMinutes.setBoxStrokeColor(minutesInvalid ? invalidColor : validColor);
+        mBinding.dialogInputLayoutMinutes.setHintTextColor(minutesInvalid
             ? ColorStateList.valueOf(invalidColor)
             : ColorStateList.valueOf(validColor));
-        mMinutesInputLayout.setEnabled(!secondsInvalid);
+        mBinding.dialogInputLayoutMinutes.setEnabled(!secondsInvalid);
 
-        mSecondsInputLayout.setBoxStrokeColor(secondsInvalid ? invalidColor : validColor);
-        mSecondsInputLayout.setHintTextColor(secondsInvalid
+        mBinding.dialogInputLayoutSeconds.setBoxStrokeColor(secondsInvalid ? invalidColor : validColor);
+        mBinding.dialogInputLayoutSeconds.setHintTextColor(secondsInvalid
             ? ColorStateList.valueOf(invalidColor)
             : ColorStateList.valueOf(validColor));
-        mSecondsInputLayout.setEnabled(!minutesInvalid);
+        mBinding.dialogInputLayoutSeconds.setEnabled(!minutesInvalid);
 
         if (mOkButton != null) {
             mOkButton.setEnabled(false);
@@ -401,21 +383,21 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
 
         int validColor = MaterialColors.getColor(requireContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
 
-        mMinutesInputLayout.setBoxStrokeColor(validColor);
-        mMinutesInputLayout.setHintTextColor(ColorStateList.valueOf(validColor));
-        mMinutesInputLayout.setEnabled(true);
+        mBinding.dialogInputLayoutMinutes.setBoxStrokeColor(validColor);
+        mBinding.dialogInputLayoutMinutes.setHintTextColor(ColorStateList.valueOf(validColor));
+        mBinding.dialogInputLayoutMinutes.setEnabled(true);
 
-        mSecondsInputLayout.setBoxStrokeColor(validColor);
-        mSecondsInputLayout.setHintTextColor(ColorStateList.valueOf(validColor));
-        mSecondsInputLayout.setEnabled(true);
+        mBinding.dialogInputLayoutSeconds.setBoxStrokeColor(validColor);
+        mBinding.dialogInputLayoutSeconds.setHintTextColor(ColorStateList.valueOf(validColor));
+        mBinding.dialogInputLayoutSeconds.setEnabled(true);
 
         if (mOkButton != null) {
             mOkButton.setEnabled(true);
         }
 
         if (mDefaultButton != null) {
-            String minutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
-            String secondsText = mEditSeconds.getText() != null ? mEditSeconds.getText().toString() : "";
+            String minutesText = mBinding.editMinutes.getText() != null ? mBinding.editMinutes.getText().toString() : "";
+            String secondsText = mBinding.editSeconds.getText() != null ? mBinding.editSeconds.getText().toString() : "";
             mDefaultButton.setEnabled(isNotDefaultDuration(minutesText, secondsText));
         }
     }
@@ -442,8 +424,8 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
 
         @Override
         public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-            String minutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
-            String secondsText = mEditSeconds.getText() != null ? mEditSeconds.getText().toString() : "";
+            String minutesText = mBinding.editMinutes.getText() != null ? mBinding.editMinutes.getText().toString() : "";
+            String secondsText = mBinding.editSeconds.getText() != null ? mBinding.editSeconds.getText().toString() : "";
 
             if (isInvalidInput(minutesText, secondsText)) {
                 updateDialogForInvalidInput();
@@ -459,20 +441,20 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
             }
 
             if (minutes == 60) {
-                mEditMinutes.setImeOptions(EditorInfo.IME_ACTION_DONE);
-                mEditMinutes.setOnEditorActionListener(new ImeDoneListener());
-                mSecondsInputLayout.setEnabled(false);
+                mBinding.editMinutes.setImeOptions(EditorInfo.IME_ACTION_DONE);
+                mBinding.editMinutes.setOnEditorActionListener(new ImeDoneListener());
+                mBinding.dialogInputLayoutSeconds.setEnabled(false);
 
                 if (!"0".equals(secondsText)) {
-                    mEditSeconds.setText("0");
+                    mBinding.editSeconds.setText("0");
                 }
             } else {
-                mEditMinutes.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-                mSecondsInputLayout.setEnabled(true);
+                mBinding.editMinutes.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+                mBinding.dialogInputLayoutSeconds.setEnabled(true);
             }
 
-            mEditMinutes.setInputType(InputType.TYPE_CLASS_NUMBER);
-            mInput.restartInput(mEditMinutes);
+            mBinding.editMinutes.setInputType(InputType.TYPE_CLASS_NUMBER);
+            mInput.restartInput(mBinding.editMinutes);
         }
 
         @Override
@@ -492,8 +474,8 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
         @Override
         public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                String inputMinutesText = Objects.requireNonNull(mEditMinutes.getText()).toString();
-                String inputSecondsText = Objects.requireNonNull(mEditSeconds.getText()).toString();
+                String inputMinutesText = Objects.requireNonNull(mBinding.editMinutes.getText()).toString();
+                String inputSecondsText = Objects.requireNonNull(mBinding.editSeconds.getText()).toString();
                 if (isInvalidInput(inputMinutesText, inputSecondsText)) {
                     updateDialogForInvalidInput();
                 } else {

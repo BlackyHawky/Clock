@@ -29,8 +29,6 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.Toolbar;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.graphics.Insets;
 import androidx.core.view.MenuProvider;
 import androidx.core.view.WindowCompat;
@@ -52,8 +50,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.best.deskclock.AppExecutors;
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.databinding.CollapsingToolbarBaseLayoutBinding;
 import com.best.deskclock.settings.custompreference.ColorPickerPreference;
 import com.best.deskclock.settings.custompreference.CustomAboutTitlePreference;
+import com.best.deskclock.uicomponents.CollapsingToolbarBaseActivity;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.utils.InsetsUtils;
@@ -61,8 +61,6 @@ import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
-import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 import java.io.File;
 
@@ -72,15 +70,15 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
     protected static final int MENU_BUG_REPORT = 2;
     protected static final int MENU_RESET_SETTINGS = 3;
 
+    CollapsingToolbarBaseLayoutBinding mActivityBinding;
+
     SharedPreferences mPrefs;
     DisplayMetrics mDisplayMetrics;
-    CoordinatorLayout mCoordinatorLayout;
-    AppBarLayout mAppBarLayout;
-    CollapsingToolbarLayout mCollapsingToolbarLayout;
-    RecyclerView mRecyclerView;
-    LinearLayoutManager mLinearLayoutManager;
     Typeface mRegularTypeface;
     Typeface mBoldTypeface;
+
+    RecyclerView mRecyclerView;
+    LinearLayoutManager mLinearLayoutManager;
     AlertDialog mActiveDialog = null;
 
     int mRecyclerViewPosition = -1;
@@ -117,11 +115,10 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mCoordinatorLayout = requireActivity().findViewById(R.id.coordinator_layout);
-        mCollapsingToolbarLayout = requireActivity().findViewById(R.id.collapsing_toolbar);
-        mAppBarLayout = requireActivity().findViewById(R.id.app_bar);
-        mAppBarLayout.setExpanded(true, true);
-        Toolbar toolbar = requireActivity().findViewById(R.id.action_bar);
+        CollapsingToolbarBaseActivity activity = (CollapsingToolbarBaseActivity) requireActivity();
+        mActivityBinding = activity.getBaseBinding();
+
+        mActivityBinding.appBar.setExpanded(true, true);
 
         mRecyclerView = getListView();
         if (mRecyclerView != null) {
@@ -141,7 +138,13 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
                     .setIcon(R.drawable.ic_about)
                     .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
-                toolbar.post(() -> ThemeUtils.applyToolbarTooltips(toolbar));
+                if (mActivityBinding != null) {
+                    mActivityBinding.actionBar.post(() -> {
+                        if (mActivityBinding != null) {
+                            ThemeUtils.applyToolbarTooltips(mActivityBinding.actionBar);
+                        }
+                    });
+                }
             }
 
             @Override
@@ -164,11 +167,11 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
     public void onResume() {
         super.onResume();
 
-        mCollapsingToolbarLayout.setTitle(getFragmentTitle());
+        mActivityBinding.collapsingToolbar.setTitle(getFragmentTitle());
 
         if (mRecyclerViewPosition != -1) {
             mLinearLayoutManager.scrollToPosition(mRecyclerViewPosition);
-            mAppBarLayout.setExpanded(mRecyclerViewPosition == 0, true);
+            mActivityBinding.appBar.setExpanded(mRecyclerViewPosition == 0, true);
         }
     }
 
@@ -341,10 +344,7 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
             mRecyclerView.setAdapter(null);
         }
 
-        mCoordinatorLayout = null;
-        mCollapsingToolbarLayout = null;
-        mAppBarLayout = null;
-
+        mActivityBinding = null;
         mRecyclerView = null;
         mLinearLayoutManager = null;
     }
@@ -374,7 +374,7 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
      * fragment because it does not have a RecyclerView. Therefore, this fragment has its own method.
      */
     private void applyWindowInsets() {
-        InsetsUtils.doOnApplyWindowInsets(mCoordinatorLayout, (v, insets) -> {
+        InsetsUtils.doOnApplyWindowInsets(mActivityBinding.coordinatorLayout, (v, insets) -> {
             // Get the system bar and notch insets
             Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout());
 

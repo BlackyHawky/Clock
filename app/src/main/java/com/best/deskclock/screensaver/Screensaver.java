@@ -16,15 +16,16 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.service.dreams.DreamService;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver.OnPreDrawListener;
-import android.widget.ImageView;
 
 import androidx.core.graphics.Insets;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.best.deskclock.R;
+import com.best.deskclock.databinding.DeskClockSaverBinding;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.InsetsUtils;
@@ -37,6 +38,8 @@ public final class Screensaver extends DreamService {
 
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger("Screensaver");
 
+    private DeskClockSaverBinding mBinding;
+
     private final OnPreDrawListener mStartPositionUpdater = new StartPositionUpdater();
     private MoveScreensaverRunnable mPositionUpdater;
     private PulseScreensaverBackgroundRunnable mBackgroundAnimator;
@@ -44,13 +47,11 @@ public final class Screensaver extends DreamService {
     private String mDateFormat;
     private String mDateFormatForAccessibility;
 
-    private View mContentView;
-
     // Runs every midnight or when the time changes and refreshes the date.
     private final Runnable mMidnightUpdater = new Runnable() {
         @Override
         public void run() {
-            ScreensaverUtils.updateScreensaverDate(mDateFormat, mDateFormatForAccessibility, mContentView);
+            ScreensaverUtils.updateScreensaverDate(mDateFormat, mDateFormatForAccessibility, mBinding.saverContainer);
         }
     };
 
@@ -60,7 +61,7 @@ public final class Screensaver extends DreamService {
     private final BroadcastReceiver mAlarmChangedReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            AlarmUtils.refreshAlarm(mContentView, true);
+            AlarmUtils.refreshAlarm(mBinding.saverContainer, true);
         }
     };
 
@@ -71,12 +72,10 @@ public final class Screensaver extends DreamService {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (Intent.ACTION_BATTERY_CHANGED.equals(intent.getAction())) {
-                ScreensaverUtils.updateBatteryText(mContentView, intent);
+                ScreensaverUtils.updateBatteryText(mBinding.saverContainer, intent);
             }
         }
     };
-
-    private View mMainClockView;
 
     @Override
     public void onCreate() {
@@ -93,23 +92,21 @@ public final class Screensaver extends DreamService {
         LOGGER.v("Screensaver attached to window");
         super.onAttachedToWindow();
 
+        mBinding = DeskClockSaverBinding.inflate(LayoutInflater.from(this));
+
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         ThemeUtils.allowDisplayCutout(getWindow());
 
-        setContentView(R.layout.desk_clock_saver);
+        setContentView(mBinding.getRoot());
 
-        mContentView = findViewById(R.id.saver_container);
-        mMainClockView = mContentView.findViewById(R.id.main_clock);
-        ImageView background = findViewById(R.id.screensaver_background_image);
+        ScreensaverUtils.hideScreensaverSystemBars(getWindow(), mBinding.saverContainer);
 
-        ScreensaverUtils.hideScreensaverSystemBars(getWindow(), mContentView);
+        ScreensaverUtils.setScreensaverClockStyle(mBinding.saverContainer);
 
-        ScreensaverUtils.setScreensaverClockStyle(mContentView);
+        mPositionUpdater = new MoveScreensaverRunnable(mBinding.saverContainer, mBinding.mainClock);
 
-        mPositionUpdater = new MoveScreensaverRunnable(mContentView, mMainClockView);
-
-        if (background.getVisibility() == View.VISIBLE) {
-            mBackgroundAnimator = new PulseScreensaverBackgroundRunnable(background);
+        if (mBinding.screensaverBackgroundImage.getVisibility() == View.VISIBLE) {
+            mBackgroundAnimator = new PulseScreensaverBackgroundRunnable(mBinding.screensaverBackgroundImage);
             mBackgroundAnimator.start();
         }
 
@@ -127,8 +124,8 @@ public final class Screensaver extends DreamService {
             registerReceiver(mAlarmChangedReceiver, filter);
         }
 
-        ScreensaverUtils.updateScreensaverDate(mDateFormat, mDateFormatForAccessibility, mContentView);
-        AlarmUtils.refreshAlarm(mContentView, true);
+        ScreensaverUtils.updateScreensaverDate(mDateFormat, mDateFormatForAccessibility, mBinding.saverContainer);
+        AlarmUtils.refreshAlarm(mBinding.saverContainer, true);
 
         startPositionUpdater();
         UiDataModel.getUiDataModel().addMidnightCallback(mMidnightUpdater, 100);
@@ -152,7 +149,7 @@ public final class Screensaver extends DreamService {
             : registerReceiver(null, new IntentFilter(ACTION_BATTERY_CHANGED));
 
         if (intent != null) {
-            ScreensaverUtils.updateBatteryText(mContentView, intent);
+            ScreensaverUtils.updateBatteryText(mBinding.saverContainer, intent);
         }
     }
 
@@ -175,6 +172,8 @@ public final class Screensaver extends DreamService {
 
         // Tear down handlers for time reference changes and date updates.
         unregisterReceiver(mAlarmChangedReceiver);
+
+        mBinding = null;
     }
 
     @Override
@@ -194,7 +193,7 @@ public final class Screensaver extends DreamService {
      * accordingly.
      */
     private void applyWindowInsets() {
-        InsetsUtils.doOnApplyWindowInsets(mMainClockView, (v, insets) -> {
+        InsetsUtils.doOnApplyWindowInsets(mBinding.mainClock, (v, insets) -> {
             // Get the notch insets
             Insets bars = insets.getInsets(WindowInsetsCompat.Type.displayCutout());
 
@@ -203,42 +202,38 @@ public final class Screensaver extends DreamService {
     }
 
     /**
-     * The {@link #mContentView} will be drawn shortly. When that draw occurs, the position updater
+     * The screensaver container will be drawn shortly. When that draw occurs, the position updater
      * callback will also be executed to choose a random position for the time display as well as
      * schedule future callbacks to move the time display each minute.
      */
     private void startPositionUpdater() {
-        if (mContentView != null) {
-            mContentView.getViewTreeObserver().addOnPreDrawListener(mStartPositionUpdater);
-        }
+        mBinding.saverContainer.getViewTreeObserver().addOnPreDrawListener(mStartPositionUpdater);
     }
 
     /**
      * This activity is no longer in the foreground; position callbacks should be removed.
      */
     private void stopPositionUpdater() {
-        if (mContentView != null) {
-            mContentView.getViewTreeObserver().removeOnPreDrawListener(mStartPositionUpdater);
-        }
+        mBinding.saverContainer.getViewTreeObserver().removeOnPreDrawListener(mStartPositionUpdater);
         mPositionUpdater.stop();
     }
 
     private final class StartPositionUpdater implements OnPreDrawListener {
         /**
          * This callback occurs after initial layout has completed. It is an appropriate place to
-         * select a random position for {@link #mMainClockView} and schedule future callbacks to update
+         * select a random position for the main clock and schedule future callbacks to update
          * its position.
          *
          * @return {@code true} to continue with the drawing pass
          */
         @Override
         public boolean onPreDraw() {
-            if (mContentView.getViewTreeObserver().isAlive()) {
+            if (mBinding.saverContainer.getViewTreeObserver().isAlive()) {
                 // (Re)start the periodic position updater.
                 mPositionUpdater.start();
 
                 // This listener must now be removed to avoid starting the position updater again.
-                mContentView.getViewTreeObserver().removeOnPreDrawListener(mStartPositionUpdater);
+                mBinding.saverContainer.getViewTreeObserver().removeOnPreDrawListener(mStartPositionUpdater);
             }
             return true;
         }

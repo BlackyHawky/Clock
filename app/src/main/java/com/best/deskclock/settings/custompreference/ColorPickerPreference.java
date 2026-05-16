@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceViewHolder;
 
 import com.best.deskclock.R;
+import com.best.deskclock.databinding.SettingsPreferenceColorThumbnailBinding;
 import com.best.deskclock.utils.ThemeUtils;
 import com.rarepebble.colorpicker.ColorPreference;
 
@@ -39,41 +40,29 @@ public class ColorPickerPreference extends ColorPreference {
 
         super.onBindViewHolder(holder);
 
-        View thumbnail = addThumbnail(holder.itemView);
-        if (thumbnail != null) {
-            View colorPreview = thumbnail.findViewById(R.id.colorPreview);
-            if (colorPreview != null) {
-                int color = getColor();
-                GradientDrawable circle = (GradientDrawable) ThemeUtils.circleDrawable();
-                circle.setColor(color);
-                colorPreview.setBackground(circle);
-            }
+        LinearLayout widgetFrameView = (LinearLayout) holder.findViewById(android.R.id.widget_frame);
 
-            View border = thumbnail.findViewById(R.id.border);
-            if (border != null) {
-                GradientDrawable borderCircle = new GradientDrawable();
-                borderCircle.setShape(GradientDrawable.OVAL);
-                borderCircle.setColor(Color.TRANSPARENT);
-                borderCircle.setStroke(
-                    (int) dpToPx(2, getContext().getResources().getDisplayMetrics()),
-                    ContextCompat.getColor(getContext(), R.color.md_theme_outline)
-                );
-                border.setBackground(borderCircle);
-            }
+        if (widgetFrameView != null) {
+            widgetFrameView.setVisibility(View.VISIBLE);
+            widgetFrameView.removeAllViews();
+
+            SettingsPreferenceColorThumbnailBinding binding = SettingsPreferenceColorThumbnailBinding.inflate(
+                LayoutInflater.from(getContext()), widgetFrameView, true);
+
+            int color = getColor();
+            GradientDrawable circle = (GradientDrawable) ThemeUtils.circleDrawable();
+            circle.setColor(color);
+            binding.colorPreview.setBackground(circle);
+
+            GradientDrawable borderCircle = new GradientDrawable();
+            borderCircle.setShape(GradientDrawable.OVAL);
+            borderCircle.setColor(Color.TRANSPARENT);
+            borderCircle.setStroke(
+                (int) dpToPx(2, getContext().getResources().getDisplayMetrics()),
+                ContextCompat.getColor(getContext(), R.color.md_theme_outline)
+            );
+            binding.border.setBackground(borderCircle);
         }
     }
 
-    private View addThumbnail(View view) {
-        LinearLayout widgetFrameView = view.findViewById(android.R.id.widget_frame);
-        if (widgetFrameView == null) {
-            return null;
-        }
-
-        widgetFrameView.setVisibility(View.VISIBLE);
-        widgetFrameView.removeAllViews();
-
-        LayoutInflater.from(getContext()).inflate(R.layout.settings_preference_color_thumbnail, widgetFrameView);
-
-        return widgetFrameView.findViewById(R.id.thumbnail);
-    }
 }

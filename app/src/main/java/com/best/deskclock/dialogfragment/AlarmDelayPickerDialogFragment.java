@@ -4,7 +4,6 @@ package com.best.deskclock.dialogfragment;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -20,7 +19,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -30,6 +28,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.databinding.AlarmSpinnerDelayPickerBinding;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
@@ -60,9 +59,8 @@ public class AlarmDelayPickerDialogFragment extends DialogFragment {
     public static final String BUNDLE_KEY_HOURS = "alarm_delay_dialog_hours";
     public static final String BUNDLE_KEY_MINUTES = "alarm_delay_dialog_minutes";
 
+    private AlarmSpinnerDelayPickerBinding mBinding;
     private Button mOkButton;
-    private NumberPicker mHourPicker;
-    private NumberPicker mMinutePicker;
 
     /**
      * Creates a new instance of {@link AlarmDelayPickerDialogFragment} for use
@@ -92,13 +90,8 @@ public class AlarmDelayPickerDialogFragment extends DialogFragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         // As long as the dialog exists, save its state.
-        if (mHourPicker != null) {
-            outState.putInt(ARG_EDIT_HOURS, mHourPicker.getValue());
-        }
-
-        if (mMinutePicker != null) {
-            outState.putInt(ARG_EDIT_MINUTES, mMinutePicker.getValue());
-        }
+        outState.putInt(ARG_EDIT_HOURS, mBinding.hourPicker.getValue());
+        outState.putInt(ARG_EDIT_MINUTES, mBinding.minutePicker.getValue());
     }
 
     @NonNull
@@ -116,34 +109,28 @@ public class AlarmDelayPickerDialogFragment extends DialogFragment {
             minuteValue = savedInstanceState.getInt(ARG_EDIT_MINUTES, minuteValue);
         }
 
-        @SuppressLint("InflateParams")
-        View dialogView = getLayoutInflater().inflate(R.layout.alarm_spinner_delay_picker, null);
+        mBinding = AlarmSpinnerDelayPickerBinding.inflate(getLayoutInflater());
 
-        TextView hourTitle = dialogView.findViewById(R.id.hour_title);
-        hourTitle.setTypeface(typeface);
-        TextView minuteTitle = dialogView.findViewById(R.id.minute_title);
-        minuteTitle.setTypeface(typeface);
-
-        mHourPicker = dialogView.findViewById(R.id.hour);
-        mMinutePicker = dialogView.findViewById(R.id.minute);
+        mBinding.hourTitle.setTypeface(typeface);
+        mBinding.minuteTitle.setTypeface(typeface);
 
         // Hours and minutes setup
-        mHourPicker.setHapticFeedbackEnabled(true);
-        mHourPicker.setMinValue(0);
-        mHourPicker.setMaxValue(24);
-        mHourPicker.setNextFocusForwardId(R.id.minute);
+        mBinding.hourPicker.setHapticFeedbackEnabled(true);
+        mBinding.hourPicker.setMinValue(0);
+        mBinding.hourPicker.setMaxValue(24);
+        mBinding.hourPicker.setNextFocusForwardId(R.id.minute_picker);
 
-        mMinutePicker.setMinValue(0);
-        mMinutePicker.setMaxValue(59);
-        mMinutePicker.setFormatter(value -> String.format(Locale.getDefault(), "%02d", value));
-        mMinutePicker.setNextFocusForwardId(View.NO_ID);
+        mBinding.minutePicker.setMinValue(0);
+        mBinding.minutePicker.setMaxValue(59);
+        mBinding.minutePicker.setFormatter(value -> String.format(Locale.getDefault(), "%02d", value));
+        mBinding.minutePicker.setNextFocusForwardId(View.NO_ID);
 
         // Set default values at start
-        mHourPicker.setValue(hourValue);
-        mMinutePicker.setValue(minuteValue);
+        mBinding.hourPicker.setValue(hourValue);
+        mBinding.minutePicker.setValue(minuteValue);
 
-        setupEditTextInput(mHourPicker);
-        setupEditTextInput(mMinutePicker);
+        setupEditTextInput(mBinding.hourPicker);
+        setupEditTextInput(mBinding.minutePicker);
 
         return CustomDialog.create(
             requireContext(),
@@ -151,11 +138,11 @@ public class AlarmDelayPickerDialogFragment extends DialogFragment {
             null,
             getString(R.string.delay_picker_dialog_title),
             null,
-            dialogView,
+            mBinding.getRoot(),
             getString(android.R.string.ok),
             (d, w) -> {
-                mHourPicker.clearFocus();
-                mMinutePicker.clearFocus();
+                mBinding.hourPicker.clearFocus();
+                mBinding.minutePicker.clearFocus();
                 setAlarmDelay();
             },
             getString(android.R.string.cancel),
@@ -165,11 +152,11 @@ public class AlarmDelayPickerDialogFragment extends DialogFragment {
             alertDialog -> {
                 mOkButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
 
-                mHourPicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
+                mBinding.hourPicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
                     picker.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
                     updateUiState();
                 });
-                mMinutePicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
+                mBinding.minutePicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
                     picker.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
                     updateUiState();
                 });
@@ -185,9 +172,8 @@ public class AlarmDelayPickerDialogFragment extends DialogFragment {
     public void onDestroyView() {
         super.onDestroyView();
 
+        mBinding = null;
         mOkButton = null;
-        mHourPicker = null;
-        mMinutePicker = null;
     }
 
     /**
@@ -197,8 +183,8 @@ public class AlarmDelayPickerDialogFragment extends DialogFragment {
      * for it to take effect.</p>
      */
     private void setAlarmDelay() {
-        int hours = mHourPicker.getValue();
-        int minutes = mMinutePicker.getValue();
+        int hours = mBinding.hourPicker.getValue();
+        int minutes = mBinding.minutePicker.getValue();
 
         if (hours == 24) {
             minutes = 0;
@@ -221,7 +207,7 @@ public class AlarmDelayPickerDialogFragment extends DialogFragment {
      * </ul>
      */
     private void updateUiState() {
-        boolean minutesEnabled = mHourPicker.getValue() != 24;
+        boolean minutesEnabled = mBinding.hourPicker.getValue() != 24;
 
         updateMinutePickerEnabledState(minutesEnabled);
 
@@ -235,7 +221,7 @@ public class AlarmDelayPickerDialogFragment extends DialogFragment {
      * {@code false} otherwise.
      */
     private boolean isAlarmDelayValid() {
-        return !(mHourPicker.getValue() == 0 && mMinutePicker.getValue() == 0);
+        return !(mBinding.hourPicker.getValue() == 0 && mBinding.minutePicker.getValue() == 0);
     }
 
     /**
@@ -245,14 +231,14 @@ public class AlarmDelayPickerDialogFragment extends DialogFragment {
      * to indicate it is inactive. When enabled, it restores the default enabled appearance.</p>
      */
     private void updateMinutePickerEnabledState(boolean enabled) {
-        mMinutePicker.setEnabled(enabled);
+        mBinding.minutePicker.setEnabled(enabled);
 
         if (SdkUtils.isAtLeastAndroid10()) {
-            mMinutePicker.setTextColor(enabled
-                ? mHourPicker.getTextColor()
+            mBinding.minutePicker.setTextColor(enabled
+                ? mBinding.hourPicker.getTextColor()
                 : ContextCompat.getColor(requireContext(), R.color.colorDisabled));
         } else {
-            mMinutePicker.setAlpha(enabled ? 1f : 0.5f);
+            mBinding.minutePicker.setAlpha(enabled ? 1f : 0.5f);
         }
     }
 
@@ -272,9 +258,9 @@ public class AlarmDelayPickerDialogFragment extends DialogFragment {
                 editText.setClickable(true);
                 editText.setLongClickable(true);
                 editText.setInputType(InputType.TYPE_CLASS_NUMBER);
-                if (numberPicker == mHourPicker) {
+                if (numberPicker == mBinding.hourPicker) {
                     editText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-                } else if (numberPicker == mMinutePicker) {
+                } else if (numberPicker == mBinding.minutePicker) {
                     editText.setImeOptions(EditorInfo.IME_ACTION_DONE);
                 }
                 editText.addTextChangedListener(new TextWatcher() {
@@ -284,10 +270,10 @@ public class AlarmDelayPickerDialogFragment extends DialogFragment {
 
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        int hour = mHourPicker.getValue();
-                        int minute = mMinutePicker.getValue();
+                        int hour = mBinding.hourPicker.getValue();
+                        int minute = mBinding.minutePicker.getValue();
 
-                        if (numberPicker == mHourPicker) {
+                        if (numberPicker == mBinding.hourPicker) {
                             if (s.toString().isEmpty()) {
                                 hour = 0;
                             } else {
@@ -302,7 +288,7 @@ public class AlarmDelayPickerDialogFragment extends DialogFragment {
                                 (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                             editText.setInputType(InputType.TYPE_CLASS_NUMBER);
                             inputMethodManager.restartInput(editText);
-                        } else if (numberPicker == mMinutePicker) {
+                        } else if (numberPicker == mBinding.minutePicker) {
                             if (s.toString().isEmpty()) {
                                 minute = 0;
                             } else {
