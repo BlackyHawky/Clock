@@ -112,6 +112,11 @@ public class PreferencesKeys {
     public static final String KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM = "key_turn_on_back_flash_for_triggered_alarm";
     public static final String KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT = "key_enable_delete_occasional_alarm_by_default";
     public static final String KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING = "key_display_low_alarm_volume_warning";
+    public static final String KEY_ALARM_MISSION_QR_CONTENT = "key_alarm_mission_qr_content";
+    public static final String KEY_ALARM_MISSION_MATH_HARDNESS = "key_alarm_mission_math_hardness";
+    public static final String KEY_ALARM_MISSION_QR_MODE = "key_alarm_mission_qr_mode";
+    public static final String KEY_ALARM_MISSION_QR_REQUIRE_SPECIFIC = "key_alarm_mission_qr_require_specific";
+    public static final String KEY_ALARM_MISSION_QR_SCAN = "key_alarm_mission_qr_scan";
 
     // Alarm Display Customization
     public static final String KEY_ALARM_CLOCK_STYLE = "key_alarm_clock_style";

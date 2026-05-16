@@ -373,6 +373,30 @@
         <item>spinner</item>
     </string-array>
 
+    <!-- Entries listed in the ListPreference when invoking the math mission hardness preference. -->
+    <string-array name="alarm_mission_math_hardness_entries">
+        <item>@string/alarm_mission_math_hardness_easy</item>
+        <item>@string/alarm_mission_math_hardness_normal</item>
+        <item>@string/alarm_mission_math_hardness_hard</item>
+    </string-array>
+    <!-- Values that are retrieved from the ListPreference. These must match the alarm_mission_math_hardness_entries above. -->
+    <string-array name="alarm_mission_math_hardness_values" translatable="false">
+        <item>easy</item>
+        <item>normal</item>
+        <item>hard</item>
+    </string-array>
+
+    <!-- Entries listed in the ListPreference when invoking the QR mission mode preference. -->
+    <string-array name="alarm_mission_qr_mode_entries">
+        <item>@string/alarm_mission_qr_mode_any</item>
+        <item>@string/alarm_mission_qr_mode_single</item>
+    </string-array>
+    <!-- Values that are retrieved from the ListPreference. These must match the alarm_mission_qr_mode_entries above. -->
+    <string-array name="alarm_mission_qr_mode_values" translatable="false">
+        <item>any</item>
+        <item>single</item>
+    </string-array>
+
     <!-- Entries listed in the ListPreference when invoking the alarm sort preference -->
     <string-array name="sort_alarm_entries">
         <item>@string/sort_alarm_time</item>

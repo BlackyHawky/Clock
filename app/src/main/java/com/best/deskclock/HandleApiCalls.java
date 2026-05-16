@@ -46,6 +46,7 @@ import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
+import com.best.deskclock.provider.AlarmMission;
 import com.best.deskclock.timer.TimerFragment;
 import com.best.deskclock.timer.TimerService;
 import com.best.deskclock.uidata.UiDataModel;
@@ -573,6 +574,8 @@ public class HandleApiCalls extends Activity {
         alarm.missedAlarmRepeatLimit = SettingsDAO.getMissedAlarmRepeatLimit(prefs);
         alarm.crescendoDuration = SettingsDAO.getAlarmVolumeCrescendoDuration(prefs);
         alarm.alarmVolume = audioManager.getStreamVolume(STREAM_ALARM);
+        alarm.alarmMission = AlarmMission.TYPE_NONE;
+        alarm.alarmMissionData = "";
     }
 
     private static String getLabelFromIntent(Intent intent, String defaultLabel) {

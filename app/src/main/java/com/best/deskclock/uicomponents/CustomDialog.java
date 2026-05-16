@@ -197,6 +197,129 @@ public class CustomDialog {
         });
     }
 
+    public static class Builder {
+        private final Context context;
+        private Integer styleRes;
+        private Drawable icon;
+        private CharSequence title;
+        private CharSequence message;
+        private View customView;
+        private CharSequence positiveText;
+        private DialogInterface.OnClickListener positiveListener;
+        private CharSequence negativeText;
+        private DialogInterface.OnClickListener negativeListener;
+        private CharSequence neutralText;
+        private DialogInterface.OnClickListener neutralListener;
+        private OnDialogReady onDialogReady;
+        private SoftInputMode softInputMode = SoftInputMode.NONE;
+
+        public Builder(@NonNull Context context) {
+            this.context = context;
+        }
+
+        public Builder setStyle(@StyleRes int styleRes) {
+            this.styleRes = styleRes;
+            return this;
+        }
+
+        public Builder setIcon(@Nullable Drawable icon) {
+            this.icon = icon;
+            return this;
+        }
+
+        public Builder setIcon(@DrawableRes int iconRes) {
+            this.icon = AppCompatResources.getDrawable(context, iconRes);
+            return this;
+        }
+
+        public Builder setTitle(@StringRes int titleRes) {
+            this.title = context.getString(titleRes);
+            return this;
+        }
+
+        public Builder setTitle(@Nullable CharSequence title) {
+            this.title = title;
+            return this;
+        }
+
+        public Builder setMessage(@StringRes int messageRes) {
+            this.message = context.getString(messageRes);
+            return this;
+        }
+
+        public Builder setMessage(@Nullable CharSequence message) {
+            this.message = message;
+            return this;
+        }
+
+        public Builder setView(@Nullable View customView) {
+            this.customView = customView;
+            return this;
+        }
+
+        public Builder setPositiveButton(@StringRes int textRes, @Nullable DialogInterface.OnClickListener listener) {
+            this.positiveText = context.getString(textRes);
+            this.positiveListener = listener;
+            return this;
+        }
+
+        public Builder setPositiveButton(@Nullable CharSequence text, @Nullable DialogInterface.OnClickListener listener) {
+            this.positiveText = text;
+            this.positiveListener = listener;
+            return this;
+        }
+
+        public Builder setNegativeButton(@StringRes int textRes, @Nullable DialogInterface.OnClickListener listener) {
+            this.negativeText = context.getString(textRes);
+            this.negativeListener = listener;
+            return this;
+        }
+
+        public Builder setNegativeButton(@Nullable CharSequence text, @Nullable DialogInterface.OnClickListener listener) {
+            this.negativeText = text;
+            this.negativeListener = listener;
+            return this;
+        }
+
+        public Builder setNeutralButton(@StringRes int textRes, @Nullable DialogInterface.OnClickListener listener) {
+            this.neutralText = context.getString(textRes);
+            this.neutralListener = listener;
+            return this;
+        }
+
+        public Builder setNeutralButton(@Nullable CharSequence text, @Nullable DialogInterface.OnClickListener listener) {
+            this.neutralText = text;
+            this.neutralListener = listener;
+            return this;
+        }
+
+        public Builder setOnDialogReady(@Nullable OnDialogReady onDialogReady) {
+            this.onDialogReady = onDialogReady;
+            return this;
+        }
+
+        public Builder setSoftInputMode(@NonNull SoftInputMode softInputMode) {
+            this.softInputMode = softInputMode;
+            return this;
+        }
+
+        public AlertDialog build() {
+            return create(
+                context, styleRes, icon, title, message, customView,
+                positiveText, positiveListener,
+                negativeText, negativeListener,
+                neutralText, neutralListener,
+                onDialogReady, softInputMode
+            );
+        }
+
+        public AlertDialog show() {
+            AlertDialog dialog = build();
+            dialog.show();
+            return dialog;
+        }
+    }
+
     public interface OnDialogReady {
         void onReady(AlertDialog dialog);
     }

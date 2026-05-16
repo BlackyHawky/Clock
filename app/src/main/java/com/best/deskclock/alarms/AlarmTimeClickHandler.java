@@ -28,6 +28,7 @@ import com.best.deskclock.dialogfragment.SpinnerTimePickerDialogFragment;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
+import com.best.deskclock.provider.AlarmMission;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.Utils;
 
@@ -281,6 +282,8 @@ public final class AlarmTimeClickHandler {
         alarm.missedAlarmRepeatLimit = SettingsDAO.getMissedAlarmRepeatLimit(mPrefs);
         alarm.crescendoDuration = SettingsDAO.getAlarmVolumeCrescendoDuration(mPrefs);
         alarm.alarmVolume = audioManager.getStreamVolume(STREAM_ALARM);
+        alarm.alarmMission = AlarmMission.TYPE_NONE;
+        alarm.alarmMissionData = "";
 
         return alarm;
     }

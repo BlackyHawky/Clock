@@ -64,6 +64,7 @@ import com.best.deskclock.dialogfragment.VolumeCrescendoDurationDialogFragment;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
+import com.best.deskclock.provider.AlarmMission;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
 import com.best.deskclock.uicomponents.CustomTooltip;
 import com.best.deskclock.uicomponents.TextTime;
@@ -85,6 +86,7 @@ import com.google.android.material.bottomsheet.BottomSheetDragHandleView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.color.MaterialColors;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -139,6 +141,9 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     private LinearLayout mSnoozeDurationLayout;
     private TextView mSnoozeDurationTitle;
     private TextView mSnoozeDurationValue;
+    private LinearLayout mAlarmMissionLayout;
+    private TextView mAlarmMissionTitle;
+    private TextView mAlarmMissionValue;
     private LinearLayout mMissedAlarmRepeatLimitLayout;
     private TextView mMissedAlarmRepeatLimitTitle;
     private TextView mMissedAlarmRepeatLimitValue;
@@ -295,6 +300,9 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         mSnoozeDurationLayout = dialogView.findViewById(R.id.snooze_duration_layout);
         mSnoozeDurationTitle = dialogView.findViewById(R.id.snooze_duration_title);
         mSnoozeDurationValue = dialogView.findViewById(R.id.snooze_duration_value);
+        mAlarmMissionLayout = dialogView.findViewById(R.id.alarm_mission_layout);
+        mAlarmMissionTitle = dialogView.findViewById(R.id.alarm_mission_title);
+        mAlarmMissionValue = dialogView.findViewById(R.id.alarm_mission_value);
         mMissedAlarmRepeatLimitLayout = dialogView.findViewById(R.id.missed_alarm_repeat_limit_layout);
         mMissedAlarmRepeatLimitTitle = dialogView.findViewById(R.id.missed_alarm_repeat_limit_title);
         mMissedAlarmRepeatLimitValue = dialogView.findViewById(R.id.missed_alarm_repeat_limit_value);
@@ -320,6 +328,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         bindDeleteOccasionalAlarmAfterUse();
         bindAutoSilenceValue();
         bindSnoozeDurationValue();
+        bindAlarmMission();
         bindMissedAlarmRepeatLimit();
         bindCrescendoDuration();
         bindAlarmVolume();
@@ -821,6 +830,64 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         mMissedAlarmRepeatLimitLayout.setOnClickListener(openAlarmMissedRepeatLimitFragment);
     }
 
+    private void bindAlarmMission() {
+        mAlarmMissionTitle.setTypeface(mGeneralTypeface);
+        mAlarmMissionValue.setTypeface(mGeneralTypeface);
+        mAlarmMissionLayout.setVisibility(VISIBLE);
+
+        final AlarmMission mission = AlarmMission.from(mAlarm.alarmMission, mAlarm.alarmMissionData);
+
+        switch (mission.getType()) {
+            case AlarmMission.TYPE_MATH -> mAlarmMissionValue.setText(getString(R.string.alarm_mission_math));
+            case AlarmMission.TYPE_QR -> mAlarmMissionValue.setText(getString(R.string.alarm_mission_qr));
+            default -> mAlarmMissionValue.setText(getString(R.string.alarm_mission_none));
+        }
+
+        mAlarmMissionLayout.setOnClickListener(v -> showAlarmMissionTypeDialog());
+    }
+
+    private void showAlarmMissionTypeDialog() {
+        final String[] options = {
+            getString(R.string.alarm_mission_none),
+            getString(R.string.alarm_mission_math),
+            getString(R.string.alarm_mission_qr)
+        };
+
+        final int checkedItem = switch (mAlarm.alarmMission) {
+            case AlarmMission.TYPE_MATH -> 1;
+            case AlarmMission.TYPE_QR -> 2;
+            default -> 0;
+        };
+
+        new MaterialAlertDialogBuilder(requireContext())
+            .setTitle(R.string.alarm_mission_select_title)
+            .setSingleChoiceItems(options, checkedItem, (dialog, which) -> {
+                if (which == 0) {
+                    applyAlarmMission(AlarmMission.TYPE_NONE, "");
+                    dialog.dismiss();
+                    return;
+                }
+
+                if (which == 1) {
+                    applyAlarmMission(AlarmMission.TYPE_MATH, "");
+                    dialog.dismiss();
+                    return;
+                }
+
+                applyAlarmMission(AlarmMission.TYPE_QR, "");
+                dialog.dismiss();
+            })
+            .show();
+    }
+
+    private void applyAlarmMission(int missionType, String missionData) {
+        mAlarm.alarmMission = missionType;
+        mAlarm.alarmMissionData = missionData;
+        bindAlarmMission();
+        updateThirdGroup();
+        Utils.setVibrationTime(requireContext(), 50);
+    }
+
     private void bindCrescendoDuration() {
         if (SettingsDAO.isPerAlarmCrescendoDurationDisabled(mPrefs)) {
             mCrescendoDurationLayout.setVisibility(GONE);
@@ -1156,6 +1223,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         applyExpressiveBackgroundsToGroup(
             mAutoSilenceDurationLayout,
             mSnoozeDurationLayout,
+            mAlarmMissionLayout,
             mMissedAlarmRepeatLimitLayout,
             mCrescendoDurationLayout,
             mAlarmVolumeLayout
@@ -1177,6 +1245,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         applyExpressiveBackgroundsToGroup(
             mAutoSilenceDurationLayout,
             mSnoozeDurationLayout,
+            mAlarmMissionLayout,
             mMissedAlarmRepeatLimitLayout,
             mCrescendoDurationLayout,
             mAlarmVolumeLayout

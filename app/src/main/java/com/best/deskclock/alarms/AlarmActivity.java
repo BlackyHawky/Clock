@@ -54,6 +54,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
@@ -72,6 +73,8 @@ import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
+import com.best.deskclock.provider.AlarmMission;
+import com.best.deskclock.provider.MathAlarmMission;
 import com.best.deskclock.uicomponents.AnalogClock;
 import com.best.deskclock.uicomponents.AutoSizingTextClock;
 import com.best.deskclock.uicomponents.PillView;
@@ -87,6 +90,7 @@ import com.best.deskclock.utils.Utils;
 import com.google.android.material.button.MaterialButton;
 
 import java.io.File;
+import java.util.Random;
 
 public class AlarmActivity extends BaseActivity implements View.OnClickListener, View.OnTouchListener {
 
@@ -99,6 +103,8 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
     private static final int ALPHA_DURATION_MILLIS = 400;
     private static final int ALERT_REVEAL_DURATION_MILLIS = 500;
     private static final int ALERT_DISMISS_DELAY_MILLIS = 2500;
+    public static final int MISSION_ACTION_SNOOZE = 1;
+    public static final int MISSION_ACTION_DISMISS = 2;
 
     private final ServiceConnection mConnection = new ServiceConnection() {
         @Override
@@ -158,6 +164,24 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
     private int mDefaultSnoozeMinutes;
     private TextView mRingtoneTitle;
     private ImageView mRingtoneIcon;
+    private final Random mMissionRandom = new Random();
+    private final AlarmMissionControllerCallbacks mMissionControllerCallbacks = new AlarmMissionControllerCallbacks() {
+        @Override
+        public void onMissionResolved(int action) {
+            if (action == MISSION_ACTION_SNOOZE) {
+                snooze();
+            } else {
+                dismiss();
+            }
+        }
+
+        @Override
+        public void onMissionMessage(int messageResId) {
+            Toast.makeText(AlarmActivity.this, messageResId, Toast.LENGTH_SHORT).show();
+        }
+    };
+    private AlarmMathMissionController mMathMissionController;
+    private AlarmQrMissionController mQrMissionController;
 
     private Animator mTranslationAnimator;
     private int mInitialPointerIndex = MotionEvent.INVALID_POINTER_ID;
@@ -194,9 +218,9 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
                 // Power keys dismiss the alarm.
                 if (!mAlarmHandled && !isFinishing()) {
                     if (mPowerBehavior == PowerButtonBehavior.SNOOZE) {
-                        snooze();
+                        requestAlarmAction(MISSION_ACTION_SNOOZE);
                     } else if (mPowerBehavior == PowerButtonBehavior.DISMISS) {
-                        dismiss();
+                        requestAlarmAction(MISSION_ACTION_DISMISS);
                     }
                 }
             }
@@ -212,6 +236,8 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
         mPrefs = getDefaultSharedPreferences(storageContext);
         mGeneralBoldTypeface = ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(mPrefs));
+        mMathMissionController = new AlarmMathMissionController(this, mMissionControllerCallbacks);
+        mQrMissionController = new AlarmQrMissionController(this, mPrefs, mMissionControllerCallbacks);
 
         setVolumeControlStream(AudioManager.STREAM_ALARM);
 
@@ -405,13 +431,13 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
                         }
                         case SNOOZE_ALARM -> {
                             if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
-                                snooze();
+                                requestAlarmAction(MISSION_ACTION_SNOOZE);
                             }
                             return true;
                         }
                         case DISMISS_ALARM -> {
                             if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
-                                dismiss();
+                                requestAlarmAction(MISSION_ACTION_DISMISS);
                             }
                             return true;
                         }
@@ -432,14 +458,14 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         // If alarm swiping is disabled in settings, allow snooze/dismiss by tapping on respective text.
         if (!mIsSwipeActionEnabled) {
             if (view == mSnoozeButton) {
-                snooze();
+                requestAlarmAction(MISSION_ACTION_SNOOZE);
             } else if (view == mDismissButton) {
-                dismiss();
+                requestAlarmAction(MISSION_ACTION_DISMISS);
             } else if (view == mDismissOnlyButton) {
                 if (isSnoozeDisabledForAlarmInstance()) {
-                    dismiss();
+                    requestAlarmAction(MISSION_ACTION_DISMISS);
                 } else {
-                    snooze();
+                    requestAlarmAction(MISSION_ACTION_SNOOZE);
                 }
             }
         }
@@ -541,17 +567,17 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
             if (mContentView.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
                 if (deltaX <= -maxDeltaX) {
-                    dismiss(); // Left = Dismiss in RTL
+                    requestAlarmAction(MISSION_ACTION_DISMISS); // Left = Dismiss in RTL
                 } else if (deltaX >= maxDeltaX) {
-                    snooze(); // Right = Snooze en RTL
+                    requestAlarmAction(MISSION_ACTION_SNOOZE); // Right = Snooze en RTL
                 } else {
                     resetAnimations();
                 }
             } else {
                 if (deltaX >= maxDeltaX) {
-                    dismiss(); // Right = Dismiss in RTL
+                    requestAlarmAction(MISSION_ACTION_DISMISS); // Right = Dismiss in RTL
                 } else if (deltaX <= -maxDeltaX) {
-                    snooze(); // Left = Snooze in LTR
+                    requestAlarmAction(MISSION_ACTION_SNOOZE); // Left = Snooze in LTR
                 } else {
                     resetAnimations();
                 }
@@ -940,7 +966,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
      */
     private void initSnoozeSelectorListeners() {
         mSnoozeSelectorText.setOnLongClickListener(v -> {
-            snooze();
+            requestAlarmAction(MISSION_ACTION_SNOOZE);
             return true;
         });
 
@@ -1150,6 +1176,36 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
         if (mTranslationAnimator != null && !mTranslationAnimator.isRunning()) {
             mTranslationAnimator.start();
+        }
+    }
+
+    private void requestAlarmAction(int action) {
+        if (mAlarmHandled) {
+            return;
+        }
+
+        final AlarmMission mission = AlarmMission.from(mAlarm.alarmMission, mAlarm.alarmMissionData);
+
+        if (!mission.isEnabled()) {
+            if (action == MISSION_ACTION_SNOOZE) {
+                snooze();
+            } else {
+                dismiss();
+            }
+            return;
+        }
+
+        switch (mission.getChallengeType()) {
+            case MATH -> mMathMissionController.requestMissionAction(action,
+                ((MathAlarmMission) mission).createMathChallenge(mPrefs, mMissionRandom));
+            case QR -> mQrMissionController.requestMissionAction(action, mission, this);
+            case NONE -> {
+                if (action == MISSION_ACTION_SNOOZE) {
+                    snooze();
+                } else {
+                    dismiss();
+                }
+            }
         }
     }
 

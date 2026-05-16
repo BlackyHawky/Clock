@@ -136,6 +136,18 @@ public final class ClockContract {
          * <p>Type: LONG</p>
          */
         String PAUSE_END_DATE = "pauseEndDate";
+
+        /**
+         * Alarm mission type required before snooze/dismiss.
+         * <p>Type: INTEGER</p>
+         */
+        String ALARM_MISSION = "alarmMission";
+
+        /**
+         * Alarm mission payload (e.g. QR content).
+         * <p>Type: STRING</p>
+         */
+        String ALARM_MISSION_DATA = "alarmMissionData";
     }
 
     /**
