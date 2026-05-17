@@ -108,9 +108,9 @@ public class AppWidgetVerticalSettingsFragment extends ScreenFragment implements
             mCustomHoursColorPref, mDefaultMinutesColorPref, mCustomMinutesColorPref, mDefaultDateColorPref, mCustomDateColorPref,
             mDefaultNextAlarmColorPref, mCustomNextAlarmColorPref);
 
-        super.onDestroy();
-
         nullifyAllPrefs();
+
+        super.onDestroy();
     }
 
     @Override

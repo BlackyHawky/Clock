@@ -235,6 +235,12 @@ public final class AlarmFragment extends DeskClockFragment
             itemTouchHelper.attachToRecyclerView(mBinding.alarmRecyclerView);
         }
 
+        // Schedule a runnable to update the "Today/Tomorrow" values displayed for non-repeating
+        // alarms when midnight passes.
+        UiDataModel.getUiDataModel().addMidnightCallback(mMidnightUpdater, 100);
+
+        updateWarningBannerVisibility();
+
         return mBinding.getRoot();
     }
 
@@ -260,90 +266,92 @@ public final class AlarmFragment extends DeskClockFragment
     @Override
     public void onResume() {
         super.onResume();
-
-        // Schedule a runnable to update the "Today/Tomorrow" values displayed for non-repeating
-        // alarms when midnight passes.
-        UiDataModel.getUiDataModel().addMidnightCallback(mMidnightUpdater, 100);
-
         // Check if another app asked us to create a blank new alarm.
         final Intent intent = requireActivity().getIntent();
-        if (intent == null) {
-            return;
-        }
 
-        // If the sort order has changed since last time, reload the alarms
-        String currentSortOrder = SettingsDAO.getAlarmSorting(mPrefs)
-            + "_enabledFirst="
-            + SettingsDAO.areEnabledAlarmsDisplayedFirst(mPrefs);
-        if (!currentSortOrder.equals(mLastSortOrder)) {
-            mLastSortOrder = currentSortOrder;
-            LoaderManager.getInstance(this).restartLoader(0, null, this);
-        }
-
-        if (intent.hasExtra(ALARM_CREATE_NEW_INTENT_EXTRA)) {
-            UiDataModel.getUiDataModel().setSelectedTab(ALARMS);
-            if (intent.getBooleanExtra(ALARM_CREATE_NEW_INTENT_EXTRA, false)) {
-                // An external app asked us to create a blank alarm.
-                startCreatingAlarm();
-            }
-
-            // Remove the CREATE_NEW extra now that we've processed it.
-            intent.removeExtra(ALARM_CREATE_NEW_INTENT_EXTRA);
-        } else if (intent.hasExtra(SCROLL_TO_ALARM_INTENT_EXTRA)) {
-            UiDataModel.getUiDataModel().setSelectedTab(ALARMS);
-
-            long alarmId = intent.getLongExtra(SCROLL_TO_ALARM_INTENT_EXTRA, Alarm.INVALID_ID);
-            if (alarmId != Alarm.INVALID_ID) {
-                setSmoothScrollStableId(alarmId);
-                if (mCursorLoader != null && mCursorLoader.isStarted()) {
-                    // We need to force a reload here to make sure we have the latest view
-                    // of the data to scroll to.
-                    mCursorLoader.forceLoad();
+        if (intent != null) {
+            if (intent.hasExtra(ALARM_CREATE_NEW_INTENT_EXTRA)) {
+                UiDataModel.getUiDataModel().setSelectedTab(ALARMS);
+                if (intent.getBooleanExtra(ALARM_CREATE_NEW_INTENT_EXTRA, false)) {
+                    // An external app asked us to create a blank alarm.
+                    startCreatingAlarm();
                 }
-            }
 
-            if (intent.hasExtra(AlarmNotifications.EXTRA_MISSED_ALARM_NOTIFICATION)) {
-                if (intent.getBooleanExtra(AlarmNotifications.EXTRA_MISSED_ALARM_NOTIFICATION, false)) {
-                    int notificationId = intent.getIntExtra(AlarmNotifications.EXTRA_NOTIFICATION_ID, -1);
-                    long instanceId = intent.getLongExtra(AlarmNotifications.EXTRA_MISSED_ALARM_INSTANCE_ID, -1);
+                // Remove the CREATE_NEW extra now that we've processed it.
+                intent.removeExtra(ALARM_CREATE_NEW_INTENT_EXTRA);
+            } else if (intent.hasExtra(SCROLL_TO_ALARM_INTENT_EXTRA)) {
+                UiDataModel.getUiDataModel().setSelectedTab(ALARMS);
 
-                    // Cancel the missed alarm notification
-                    if (notificationId != -1) {
-                        NotificationManagerCompat.from(requireContext()).cancel(notificationId);
+                long alarmId = intent.getLongExtra(SCROLL_TO_ALARM_INTENT_EXTRA, Alarm.INVALID_ID);
+                if (alarmId != Alarm.INVALID_ID) {
+                    setSmoothScrollStableId(alarmId);
+                    if (mCursorLoader != null && mCursorLoader.isStarted()) {
+                        // We need to force a reload here to make sure we have the latest view
+                        // of the data to scroll to.
+                        mCursorLoader.forceLoad();
                     }
-
-                    // Update the missed alarm notifications group
-                    AlarmNotifications.updateMissedAlarmGroupNotification(requireContext(), notificationId, null);
-
-                    // Clean instance
-                    if (instanceId != -1) {
-                        Context appContext = requireContext().getApplicationContext();
-                        AppExecutors.getDiskIO().execute(() -> {
-                            AlarmInstance instance = AlarmInstance.getInstance(appContext.getContentResolver(), instanceId);
-                            if (instance != null) {
-                                AlarmStateManager.deleteInstanceAndUpdateParent(appContext, instance, false);
-                            }
-                        });
-                    }
-
-                    // Remove Extras related to missed alarms
-                    intent.removeExtra(AlarmNotifications.EXTRA_MISSED_ALARM_NOTIFICATION);
-                    intent.removeExtra(AlarmNotifications.EXTRA_NOTIFICATION_ID);
-                    intent.removeExtra(AlarmNotifications.EXTRA_MISSED_ALARM_INSTANCE_ID);
                 }
-            }
 
-            // Remove the SCROLL_TO_ALARM extra now that we've processed it.
-            intent.removeExtra(SCROLL_TO_ALARM_INTENT_EXTRA);
+                if (intent.hasExtra(AlarmNotifications.EXTRA_MISSED_ALARM_NOTIFICATION)) {
+                    if (intent.getBooleanExtra(AlarmNotifications.EXTRA_MISSED_ALARM_NOTIFICATION, false)) {
+                        int notificationId = intent.getIntExtra(AlarmNotifications.EXTRA_NOTIFICATION_ID, -1);
+                        long instanceId = intent.getLongExtra(AlarmNotifications.EXTRA_MISSED_ALARM_INSTANCE_ID, -1);
+
+                        // Cancel the missed alarm notification
+                        if (notificationId != -1) {
+                            NotificationManagerCompat.from(requireContext()).cancel(notificationId);
+                        }
+
+                        // Update the missed alarm notifications group
+                        AlarmNotifications.updateMissedAlarmGroupNotification(requireContext(), notificationId, null);
+
+                        // Clean instance
+                        if (instanceId != -1) {
+                            Context appContext = requireContext().getApplicationContext();
+                            AppExecutors.getDiskIO().execute(() -> {
+                                AlarmInstance instance = AlarmInstance.getInstance(appContext.getContentResolver(), instanceId);
+                                if (instance != null) {
+                                    AlarmStateManager.deleteInstanceAndUpdateParent(appContext, instance, false);
+                                }
+                            });
+                        }
+
+                        // Remove Extras related to missed alarms
+                        intent.removeExtra(AlarmNotifications.EXTRA_MISSED_ALARM_NOTIFICATION);
+                        intent.removeExtra(AlarmNotifications.EXTRA_NOTIFICATION_ID);
+                        intent.removeExtra(AlarmNotifications.EXTRA_MISSED_ALARM_INSTANCE_ID);
+                    }
+                }
+
+                // Remove the SCROLL_TO_ALARM extra now that we've processed it.
+                intent.removeExtra(SCROLL_TO_ALARM_INTENT_EXTRA);
+            }
         }
 
-        updateWarningBannerVisibility();
+        if (getView() != null) {
+            getView().post(() -> {
+                if (!isAdded()) {
+                    return;
+                }
+
+                // If the sort order has changed since last time, reload the alarms
+                String currentSortOrder = SettingsDAO.getAlarmSorting(mPrefs)
+                    + "_enabledFirst="
+                    + SettingsDAO.areEnabledAlarmsDisplayedFirst(mPrefs);
+
+                if (!currentSortOrder.equals(mLastSortOrder)) {
+                    mLastSortOrder = currentSortOrder;
+                    LoaderManager.getInstance(this).restartLoader(0, null, this);
+                }
+
+                updateWarningBannerVisibility();
+            });
+        }
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        UiDataModel.getUiDataModel().removePeriodicCallback(mMidnightUpdater);
 
         // When the user places the app in the background by pressing "home",
         // dismiss the toast bar. However, since there is no way to determine if
@@ -355,13 +363,6 @@ public final class AlarmFragment extends DeskClockFragment
         if (!requireActivity().isChangingConfigurations()) {
             resetFabAndButtonsState();
         }
-    }
-
-    /**
-     * Perform smooth scroll to position.
-     */
-    public void smoothScrollTo(int position) {
-        mBinding.alarmRecyclerView.smoothScrollToPosition(position);
     }
 
     @Override
@@ -380,7 +381,7 @@ public final class AlarmFragment extends DeskClockFragment
 
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
+        UiDataModel.getUiDataModel().removePeriodicCallback(mMidnightUpdater);
 
         mBinding.alarmRecyclerView.setAdapter(null);
 
@@ -389,6 +390,8 @@ public final class AlarmFragment extends DeskClockFragment
         mEmptyViewController = null;
         mAlarmUpdateHandler = null;
         mAlarmTimeClickHandler = null;
+
+        super.onDestroyView();
     }
 
     @Override
@@ -592,6 +595,13 @@ public final class AlarmFragment extends DeskClockFragment
     @Override
     public void onSwipeStarted() {
         hideSideButtonsWithFabAnimation();
+    }
+
+    /**
+     * Perform smooth scroll to position.
+     */
+    public void smoothScrollTo(int position) {
+        mBinding.alarmRecyclerView.smoothScrollToPosition(position);
     }
 
     private LinearLayoutManager getLayoutManager() {

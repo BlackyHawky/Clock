@@ -106,10 +106,10 @@ public class ColorPreferenceDialogFragment extends DialogFragment {
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-
+    public void onDestroy() {
         preference = null;
+
+        super.onDestroy();
     }
 
     @NonNull

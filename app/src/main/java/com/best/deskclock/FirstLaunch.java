@@ -75,6 +75,13 @@ public class FirstLaunch extends BaseActivity {
         });
     }
 
+    @Override
+    protected void onDestroy() {
+        mBinding = null;
+
+        super.onDestroy();
+    }
+
     /**
      * This method adjusts the space occupied by system elements (such as the status bar,
      * navigation bar or screen notch) and adjust the display of the application interface

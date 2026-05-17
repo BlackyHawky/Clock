@@ -197,6 +197,49 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
                 : savedInstanceState.getSerializable(KEY_TIMER_SETUP_STATE);
         }
 
+        requireActivity().getOnBackPressedDispatcher().addCallback(
+            getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+                @Override
+                public void handleOnBackPressed() {
+                    if (isTabSelected() && mCurrentView != mBinding.timerContentView && hasTimers()) {
+                        animateToView(mBinding.timerContentView, false);
+                    } else {
+                        setEnabled(false);
+                        requireActivity().getOnBackPressedDispatcher().onBackPressed();
+                        setEnabled(true);
+                    }
+                }
+            });
+
+        boolean createTimer = false;
+        int showTimerId = -1;
+        final Intent intent = requireActivity().getIntent();
+        if (intent != null) {
+            createTimer = intent.getBooleanExtra(EXTRA_TIMER_SETUP, false);
+            showTimerId = intent.getIntExtra(TimerService.EXTRA_TIMER_ID, -1);
+        }
+
+        if (showTimerId != -1) {
+            mCurrentView = mBinding.timerContentView;
+        } else if (!hasTimers() || createTimer || mTimerSetupState != null) {
+            mCurrentView = getTimerCreationView();
+
+            if (mTimerSetupState != null) {
+                mBinding.timerSetupView.setState(mTimerSetupState);
+            }
+        } else {
+            mCurrentView = mBinding.timerContentView;
+        }
+
+        if (mCurrentView == mBinding.timerContentView) {
+            mBinding.timerContentView.setVisibility(View.VISIBLE);
+            mBinding.timerSetupView.setVisibility(View.GONE);
+            mBinding.timerSpinnerSetupView.setVisibility(View.GONE);
+        } else {
+            mBinding.timerContentView.setVisibility(View.GONE);
+            mCurrentView.setVisibility(View.VISIBLE);
+        }
+
         return mBinding.getRoot();
     }
 
@@ -216,51 +259,42 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     public void onResume() {
         super.onResume();
 
-        boolean createTimer = false;
-        int showTimerId = -1;
-
         // Examine the intent of the parent activity to determine which view to display.
         final Intent intent = requireActivity().getIntent();
         if (intent != null) {
             // These extras are single-use; remove them after honoring them.
-            createTimer = intent.getBooleanExtra(EXTRA_TIMER_SETUP, false);
+            boolean createTimer = intent.getBooleanExtra(EXTRA_TIMER_SETUP, false);
+            int showTimerId = intent.getIntExtra(TimerService.EXTRA_TIMER_ID, -1);
+
             intent.removeExtra(EXTRA_TIMER_SETUP);
-
-            showTimerId = intent.getIntExtra(TimerService.EXTRA_TIMER_ID, -1);
             intent.removeExtra(TimerService.EXTRA_TIMER_ID);
-        }
 
-        // Choose the view to display in this fragment.
-        if (showTimerId != -1) {
-            // A specific timer must be shown; show the list of timers.
-            showTimersView(FAB_AND_BUTTONS_IMMEDIATE);
-        } else if (!hasTimers() || createTimer || mTimerSetupState != null) {
-            // No timers exist, a timer is being created, or the last view was timer setup;
-            // show the timer setup view.
-            showCreateTimerView(FAB_AND_BUTTONS_IMMEDIATE);
-
-            if (mTimerSetupState != null) {
-                mBinding.timerSetupView.setState(mTimerSetupState);
-                updateFab(FAB_AND_BUTTONS_IMMEDIATE);
-                mTimerSetupState = null;
+            if (showTimerId != -1) {
+                mCurrentView = mBinding.timerContentView;
+            } else if (createTimer) {
+                mCurrentView = getTimerCreationView();
             }
-        } else {
-            // Otherwise, default to showing the list of timers.
-            showTimersView(FAB_AND_BUTTONS_IMMEDIATE);
         }
 
-        requireActivity().getOnBackPressedDispatcher().addCallback(
-            getViewLifecycleOwner(), new OnBackPressedCallback(true) {
-                @Override
-                public void handleOnBackPressed() {
-                    if (isTabSelected() && mCurrentView != mBinding.timerContentView && hasTimers()) {
-                        animateToView(mBinding.timerContentView, false);
-                    } else {
-                        setEnabled(false);
-                        requireActivity().getOnBackPressedDispatcher().onBackPressed();
+        if (getView() != null) {
+            getView().post(() -> {
+                if (!isAdded()) {
+                    return;
+                }
+
+                // Choose the view to display in this fragment.
+                if (mCurrentView == mBinding.timerContentView) {
+                    showTimersView(FAB_AND_BUTTONS_IMMEDIATE);
+                } else {
+                    showCreateTimerView(FAB_AND_BUTTONS_IMMEDIATE);
+
+                    if (mTimerSetupState != null) {
+                        mBinding.timerSetupView.setState(mTimerSetupState);
+                        mTimerSetupState = null;
                     }
                 }
             });
+        }
     }
 
     @Override
@@ -289,11 +323,11 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
 
         mBinding.timerSpinnerSetupView.setOnChangeListener(null);
 
-        super.onDestroyView();
-
         mBinding.timerRecyclerView.setAdapter(null);
 
         mBinding = null;
+
+        super.onDestroyView();
     }
 
     @Override
@@ -661,10 +695,8 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     }
 
     private void adjustWakeLock() {
-        if (DataModel.getDataModel().hasActiveTimer() || SettingsDAO.shouldScreenRemainOn(mPrefs)) {
-            ThemeUtils.keepScreenOn(requireActivity());
-        } else {
-            ThemeUtils.releaseKeepScreenOn(requireActivity());
+        if (isAdded() && getActivity() instanceof DeskClock deskClock) {
+            deskClock.updateKeepScreenOn();
         }
     }
 

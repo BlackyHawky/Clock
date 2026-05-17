@@ -185,9 +185,9 @@ public class VibrationPatternDialogFragment extends DialogFragment {
 
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
-
         mVibrator = null;
+
+        super.onDestroyView();
     }
 
     /**

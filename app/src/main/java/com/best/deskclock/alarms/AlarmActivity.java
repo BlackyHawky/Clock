@@ -336,8 +336,6 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
-
         if (mPowerBtnReceiverRegistered) {
             unregisterReceiver(PowerBtnReceiver);
             mPowerBtnReceiverRegistered = false;
@@ -346,6 +344,8 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         if (mHandler != null) {
             mHandler.removeCallbacksAndMessages(null);
         }
+
+        super.onDestroy();
     }
 
     @Override

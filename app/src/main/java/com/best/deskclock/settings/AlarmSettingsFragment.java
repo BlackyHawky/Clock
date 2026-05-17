@@ -269,12 +269,12 @@ public class AlarmSettingsFragment extends ScreenFragment
             mDisplayDismissButtonPref, mTurnOnBackFlashForTriggeredAlarmPref, mDeleteOccasionalAlarmByDefaultPref,
             mDisplayLowAlarmVolumeWarningPref);
 
-        super.onDestroy();
-
         mAudioManager = null;
         mAlarmUpdateHandler = null;
 
         nullifyAllPrefs();
+
+        super.onDestroy();
     }
 
     @Override

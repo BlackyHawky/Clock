@@ -113,9 +113,9 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
             nullifyPreferenceListeners(mIgnoreBatteryOptimizationsPref, mNotificationPermissionPref, mFullScreenNotificationPref,
                 mShowLockScreenPref, mEnableForegroundServicePref);
 
-            super.onDestroy();
-
             nullifyAllPrefs();
+
+            super.onDestroy();
         }
 
         @Override

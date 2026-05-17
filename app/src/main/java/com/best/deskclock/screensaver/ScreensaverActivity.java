@@ -174,7 +174,9 @@ public class ScreensaverActivity extends BaseActivity {
     public void onPause() {
         super.onPause();
         UiDataModel.getUiDataModel().removePeriodicCallback(mMidnightUpdater);
+
         stopPositionUpdater();
+
         if (mBackgroundAnimator != null) {
             mBackgroundAnimator.stop();
         }
@@ -185,6 +187,13 @@ public class ScreensaverActivity extends BaseActivity {
         unregisterReceiver(mIntentReceiver);
         unregisterReceiver(mBatteryReceiver);
         super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        mBinding = null;
+
+        super.onDestroy();
     }
 
     @Override

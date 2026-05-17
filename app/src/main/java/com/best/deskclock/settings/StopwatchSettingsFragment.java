@@ -113,9 +113,9 @@ public class StopwatchSettingsFragment extends ScreenFragment
         nullifyPreferenceListeners(mStopwatchFontPref, mVolumeUpActionPref, mVolumeUpActionAfterLongPressPref, mVolumeDownActionPref,
             mVolumeDownActionAfterLongPressPref);
 
-        super.onDestroy();
-
         nullifyAllPrefs();
+
+        super.onDestroy();
     }
 
     @Override

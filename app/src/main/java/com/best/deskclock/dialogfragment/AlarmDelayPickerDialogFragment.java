@@ -170,10 +170,10 @@ public class AlarmDelayPickerDialogFragment extends DialogFragment {
 
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
-
         mBinding = null;
         mOkButton = null;
+
+        super.onDestroyView();
     }
 
     /**

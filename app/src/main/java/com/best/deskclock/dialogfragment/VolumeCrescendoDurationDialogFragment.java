@@ -274,8 +274,6 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
 
         mBinding.crescendoOffButton.setOnCheckedChangeListener(null);
 
-        super.onDestroyView();
-
         mInput = null;
 
         mBinding = null;
@@ -284,6 +282,8 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
         mDefaultButton = null;
 
         mTypeFace = null;
+
+        super.onDestroyView();
     }
 
     /**

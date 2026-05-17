@@ -8,13 +8,11 @@ package com.best.deskclock.utils;
 
 import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
-import static android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.*;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -63,30 +61,6 @@ public class ThemeUtils {
 
     private static final Map<String, Typeface> fontCache = new HashMap<>();
     private static final Map<View, List<TextView>> textViewCache = new HashMap<>();
-
-    /**
-     * Prevent the screen from turning off while activity is visible.
-     * <p>
-     * This method adds the WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON flag to the
-     * activity's window, which keeps the screen on (prevents automatic sleep).
-     *
-     * @param activity The activity for which the screen should remain on.
-     */
-    public static void keepScreenOn(Activity activity) {
-        activity.getWindow().addFlags(FLAG_KEEP_SCREEN_ON);
-    }
-
-    /**
-     * Allow automatic screen timeout again.
-     * <p>
-     * This method removes the WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON flag from the
-     * activity window, allowing the screen to turn off according to the system settings.
-     *
-     * @param activity The activity for which the screen can be automatically turned off.
-     */
-    public static void releaseKeepScreenOn(Activity activity) {
-        activity.getWindow().clearFlags(FLAG_KEEP_SCREEN_ON);
-    }
 
     /**
      * Configure the activity to allow display in the cutout area (notch/front camera).

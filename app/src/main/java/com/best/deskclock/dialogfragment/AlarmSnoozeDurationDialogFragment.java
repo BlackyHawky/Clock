@@ -268,8 +268,6 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
         mBinding.editMinutes.removeTextChangedListener(mTextWatcher);
         mBinding.editMinutes.setOnFocusChangeListener(null);
 
-        super.onDestroyView();
-
         mInput = null;
 
         mBinding = null;
@@ -278,6 +276,8 @@ public class AlarmSnoozeDurationDialogFragment extends DialogFragment {
         mDefaultButton = null;
 
         mTypeFace = null;
+
+        super.onDestroyView();
     }
 
     /**

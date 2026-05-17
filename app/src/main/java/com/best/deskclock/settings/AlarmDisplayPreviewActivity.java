@@ -193,11 +193,18 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
-
         if (mHandler != null) {
             mHandler.removeCallbacksAndMessages(null);
         }
+
+        mTranslationAnimator = null;
+        mVibrator = null;
+
+        mGeneralBoldTypeface = null;
+
+        mBinding = null;
+
+        super.onDestroy();
     }
 
     @Override

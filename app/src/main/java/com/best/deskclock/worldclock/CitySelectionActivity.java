@@ -196,6 +196,15 @@ public final class CitySelectionActivity extends BaseActivity {
         DataModel.getDataModel().setSelectedCities(mCitiesAdapter.getSelectedCities());
     }
 
+    @Override
+    protected void onDestroy() {
+        mSearchView = null;
+
+        mBinding = null;
+
+        super.onDestroy();
+    }
+
     @SuppressLint("AlwaysShowAction")
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

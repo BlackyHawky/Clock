@@ -203,11 +203,11 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
         mBinding.editSeconds.removeTextChangedListener(mTextWatcher);
         mBinding.editSeconds.setOnFocusChangeListener(null);
 
-        super.onDestroyView();
-
         mInput = null;
 
         mBinding = null;
+
+        super.onDestroyView();
     }
 
     /**

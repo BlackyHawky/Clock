@@ -258,9 +258,9 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                 mItalicNextAlarmPref, mAnalogClockSizePref, mDigitalClockFontPref, mKeepScreenOnPref, mScreensaverBackgroundImagePref,
                 mEnableScreensaverBlurEffectPref, mScreensaverBlurIntensityPref, mScreensaverPreview, mScreensaverMainSettings);
 
-            super.onDestroy();
-
             nullifyAllPrefs();
+
+            super.onDestroy();
         }
 
         @Override

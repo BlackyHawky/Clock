@@ -203,8 +203,6 @@ public class AlarmNotificationReminderDialogFragment extends DialogFragment {
         mBinding.editMinutes.removeTextChangedListener(mTextWatcher);
         mBinding.editMinutes.setOnFocusChangeListener(null);
 
-        super.onDestroyView();
-
         mInput = null;
 
         mBinding = null;
@@ -213,6 +211,8 @@ public class AlarmNotificationReminderDialogFragment extends DialogFragment {
         mDefaultButton = null;
 
         mTypeFace = null;
+
+        super.onDestroyView();
     }
 
     /**

@@ -162,10 +162,11 @@ public final class Screensaver extends DreamService {
     @Override
     public void onDetachedFromWindow() {
         LOGGER.v("Screensaver detached from window");
-        super.onDetachedFromWindow();
 
         UiDataModel.getUiDataModel().removePeriodicCallback(mMidnightUpdater);
+
         stopPositionUpdater();
+
         if (mBackgroundAnimator != null) {
             mBackgroundAnimator.stop();
         }
@@ -174,6 +175,8 @@ public final class Screensaver extends DreamService {
         unregisterReceiver(mAlarmChangedReceiver);
 
         mBinding = null;
+
+        super.onDetachedFromWindow();
     }
 
     @Override

@@ -315,8 +315,6 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
         mBinding.endOfRingtoneCheckbox.setOnCheckedChangeListener(null);
         mBinding.autoSilenceNeverCheckbox.setOnCheckedChangeListener(null);
 
-        super.onDestroyView();
-
         mInput = null;
 
         mBinding = null;
@@ -325,6 +323,8 @@ public class AutoSilenceDurationDialogFragment extends DialogFragment {
         mDefaultButton = null;
 
         mTypeFace = null;
+
+        super.onDestroyView();
     }
 
     /**

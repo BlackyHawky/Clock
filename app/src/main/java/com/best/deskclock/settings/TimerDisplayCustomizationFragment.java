@@ -150,9 +150,9 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
             mDisplayTextShadowPref, mShadowColorPref, mShadowOffsetPref, mTimerBackgroundImagePref, mEnableTimerBlurEffectPref,
             mTimerBlurIntensityPref, mTimerPreviewPref);
 
-        super.onDestroy();
-
         nullifyAllPrefs();
+
+        super.onDestroy();
     }
 
     @Override

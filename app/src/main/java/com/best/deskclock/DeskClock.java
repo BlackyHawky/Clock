@@ -7,6 +7,7 @@
 package com.best.deskclock;
 
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
+import static android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_DRAGGING;
 import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_IDLE;
@@ -88,9 +89,11 @@ public class DeskClock extends BaseActivity implements FabContainer {
 
     private DeskClockBinding mBinding;
 
-    SharedPreferences mPrefs;
-    Typeface mRegularTypeface;
-    String mFontPath;
+    private SharedPreferences mPrefs;
+    private DisplayMetrics mDisplayMetrics;
+    private Typeface mRegularTypeface;
+    private String mFontPath;
+    private boolean mIsToolBarDisplayed;
 
     private AlertDialog mKeepAndroidOpenDialog = null;
 
@@ -204,9 +207,10 @@ public class DeskClock extends BaseActivity implements FabContainer {
             return;
         }
 
+        mDisplayMetrics = getResources().getDisplayMetrics();
         mFontPath = SettingsDAO.getGeneralFont(mPrefs);
         mRegularTypeface = ThemeUtils.loadFont(mFontPath);
-        final DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        mIsToolBarDisplayed = SettingsDAO.isToolbarTitleDisplayed(mPrefs);
 
         // To manually manage insets
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
@@ -219,107 +223,17 @@ public class DeskClock extends BaseActivity implements FabContainer {
 
         registerPrefListener();
 
-        // Configure the toolbar.
-        setSupportActionBar(mBinding.toolbar);
+        configureToolbar();
 
-        // Configure the buttons shared by the tabs.
-        final boolean isTablet = ThemeUtils.isTablet();
-        final boolean isPortrait = ThemeUtils.isPortrait();
-        final int fabSize = isTablet ? 90 : isPortrait ? 75 : 60;
-        final int leftOrRightButtonSize = isTablet ? 70 : isPortrait ? 55 : 50;
+        configureFabAndButtons();
 
-        mBinding.fab.getLayoutParams().height = (int) dpToPx(fabSize, displayMetrics);
-        mBinding.fab.getLayoutParams().width = (int) dpToPx(fabSize, displayMetrics);
-        mBinding.fab.setScaleType(ImageView.ScaleType.CENTER);
-        mBinding.fab.setOnClickListener(view -> getSelectedDeskClockFragment().onFabClick());
-        mBinding.fab.setOnLongClickListener(v -> {
-            getSelectedDeskClockFragment().onFabLongClick(mBinding.fab);
-            return true;
-        });
-
-        mBinding.leftButton.getLayoutParams().height = (int) dpToPx(leftOrRightButtonSize, displayMetrics);
-        mBinding.leftButton.getLayoutParams().width = (int) dpToPx(leftOrRightButtonSize, displayMetrics);
-        mBinding.leftButton.setScaleType(ImageView.ScaleType.CENTER);
-
-        mBinding.rightButton.getLayoutParams().height = (int) dpToPx(leftOrRightButtonSize, displayMetrics);
-        mBinding.rightButton.getLayoutParams().width = (int) dpToPx(leftOrRightButtonSize, displayMetrics);
-        mBinding.rightButton.setScaleType(ImageView.ScaleType.CENTER);
-
-        final long duration = getResources().getInteger(android.R.integer.config_shortAnimTime);
-
-        final ValueAnimator hideFabAnimation = getScaleAnimator(mBinding.fab, 1f, 0f);
-        final ValueAnimator showFabAnimation = getScaleAnimator(mBinding.fab, 0f, 1f);
-
-        final ValueAnimator leftHideAnimation = getScaleAnimator(mBinding.leftButton, 1f, 0f);
-        final ValueAnimator rightHideAnimation = getScaleAnimator(mBinding.rightButton, 1f, 0f);
-        final ValueAnimator leftShowAnimation = getScaleAnimator(mBinding.leftButton, 0f, 1f);
-        final ValueAnimator rightShowAnimation = getScaleAnimator(mBinding.rightButton, 0f, 1f);
-
-        hideFabAnimation.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                getSelectedDeskClockFragment().onUpdateFab(mBinding.fab);
-            }
-        });
-
-        leftHideAnimation.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                getSelectedDeskClockFragment().onUpdateFabButtons(mBinding.leftButton, mBinding.rightButton);
-            }
-        });
-
-        // Build the reusable animations that hide and show the fab and left/right buttons.
-        // These may be used independently or be chained together.
-        mHideAnimation
-            .setDuration(duration)
-            .play(hideFabAnimation)
-            .with(leftHideAnimation)
-            .with(rightHideAnimation);
-
-        mShowAnimation
-            .setDuration(duration)
-            .play(showFabAnimation)
-            .with(leftShowAnimation)
-            .with(rightShowAnimation);
-
-        // Build the reusable animation that hides and shows only the fab.
-        mUpdateFabOnlyAnimation
-            .setDuration(duration)
-            .play(showFabAnimation)
-            .after(hideFabAnimation);
-
-        // Build the reusable animation that hides and shows only the buttons.
-        mUpdateButtonsOnlyAnimation
-            .setDuration(duration)
-            .play(leftShowAnimation)
-            .with(rightShowAnimation)
-            .after(leftHideAnimation)
-            .after(rightHideAnimation);
-
-        // Customize the view pager.
-        mFragmentTabPagerAdapter = new FragmentTabPagerAdapter(this);
-        // Set the number of pages to keep in the ViewPager base on the number of tabs displayed.
-        int visibleTabsCount = UiDataModel.getUiDataModel().getTabCount();
-        int offscreenLimit = Math.max(1, visibleTabsCount - 1);
-        if (mBinding.deskClockPager.getOffscreenPageLimit() != offscreenLimit) {
-            mBinding.deskClockPager.setOffscreenPageLimit(offscreenLimit);
-        }
-        // Set Accessibility Delegate to null so view pager doesn't intercept movements and
-        // prevent the fab from being selected.
-        mBinding.deskClockPager.setAccessibilityDelegate(null);
-        // Mirror changes made to the selected page of the view pager into UiDataModel.
-        mBinding.deskClockPager.addOnPageChangeListener(new PageChangeWatcher());
-        mBinding.deskClockPager.setAdapter(mFragmentTabPagerAdapter);
+        configureViewPager();
 
         configureBottomNavigationView();
 
         applyBottomNavTooltips();
 
         applyWindowInsets();
-
-        // Honor changes to the selected tab from outside entities.
-        UiDataModel.getUiDataModel().addTabListener(mTabChangeWatcher);
     }
 
     @Override
@@ -358,7 +272,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
 
         showTabFromNotifications();
 
-        updateKeepScreenOn(UiDataModel.getUiDataModel().getSelectedTab());
+        updateKeepScreenOn();
 
         if (SettingsDAO.isForegroundServiceEnabled(mPrefs)
             && !NotificationUtils.isNotificationVisible(this, FOREGROUND_SERVICE_NOTIFICATION_ID)) {
@@ -376,6 +290,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
     @Override
     protected void onStop() {
         DataModel.getDataModel().removeSilentSettingsListener(mSilentSettingChangeWatcher);
+
         if (!isChangingConfigurations()) {
             DataModel.getDataModel().setApplicationInForeground(false);
         }
@@ -386,7 +301,6 @@ public class DeskClock extends BaseActivity implements FabContainer {
     @Override
     protected void onDestroy() {
         unregisterPrefListener();
-        UiDataModel.getUiDataModel().removeTabListener(mTabChangeWatcher);
 
         if (mKeepAndroidOpenDialog != null && mKeepAndroidOpenDialog.isShowing()) {
             mKeepAndroidOpenDialog.dismiss();
@@ -663,6 +577,120 @@ public class DeskClock extends BaseActivity implements FabContainer {
     }
 
     /**
+     * Configures the Toolbar.
+     */
+    private void configureToolbar() {
+        setSupportActionBar(mBinding.toolbar);
+
+        if (mIsToolBarDisplayed) {
+            ThemeUtils.applyTypeface(mBinding.toolbar, mRegularTypeface);
+        }
+    }
+
+    /**
+     * Configures the buttons shared by the tabs.
+     */
+    private void configureFabAndButtons() {
+        // Configure the buttons shared by the tabs.
+        final boolean isTablet = ThemeUtils.isTablet();
+        final boolean isPortrait = ThemeUtils.isPortrait();
+        final int fabSize = isTablet ? 90 : isPortrait ? 75 : 60;
+        final int leftOrRightButtonSize = isTablet ? 70 : isPortrait ? 55 : 50;
+
+        mBinding.fab.getLayoutParams().height = (int) dpToPx(fabSize, mDisplayMetrics);
+        mBinding.fab.getLayoutParams().width = (int) dpToPx(fabSize, mDisplayMetrics);
+        mBinding.fab.setScaleType(ImageView.ScaleType.CENTER);
+        mBinding.fab.setOnClickListener(view -> getSelectedDeskClockFragment().onFabClick());
+        mBinding.fab.setOnLongClickListener(v -> {
+            getSelectedDeskClockFragment().onFabLongClick(mBinding.fab);
+            return true;
+        });
+
+        mBinding.leftButton.getLayoutParams().height = (int) dpToPx(leftOrRightButtonSize, mDisplayMetrics);
+        mBinding.leftButton.getLayoutParams().width = (int) dpToPx(leftOrRightButtonSize, mDisplayMetrics);
+        mBinding.leftButton.setScaleType(ImageView.ScaleType.CENTER);
+
+        mBinding.rightButton.getLayoutParams().height = (int) dpToPx(leftOrRightButtonSize, mDisplayMetrics);
+        mBinding.rightButton.getLayoutParams().width = (int) dpToPx(leftOrRightButtonSize, mDisplayMetrics);
+        mBinding.rightButton.setScaleType(ImageView.ScaleType.CENTER);
+
+        final long duration = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+        final ValueAnimator hideFabAnimation = getScaleAnimator(mBinding.fab, 1f, 0f);
+        final ValueAnimator showFabAnimation = getScaleAnimator(mBinding.fab, 0f, 1f);
+
+        final ValueAnimator leftHideAnimation = getScaleAnimator(mBinding.leftButton, 1f, 0f);
+        final ValueAnimator rightHideAnimation = getScaleAnimator(mBinding.rightButton, 1f, 0f);
+        final ValueAnimator leftShowAnimation = getScaleAnimator(mBinding.leftButton, 0f, 1f);
+        final ValueAnimator rightShowAnimation = getScaleAnimator(mBinding.rightButton, 0f, 1f);
+
+        hideFabAnimation.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                getSelectedDeskClockFragment().onUpdateFab(mBinding.fab);
+            }
+        });
+
+        leftHideAnimation.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                getSelectedDeskClockFragment().onUpdateFabButtons(mBinding.leftButton, mBinding.rightButton);
+            }
+        });
+
+        // Build the reusable animations that hide and show the fab and left/right buttons.
+        // These may be used independently or be chained together.
+        mHideAnimation
+            .setDuration(duration)
+            .play(hideFabAnimation)
+            .with(leftHideAnimation)
+            .with(rightHideAnimation);
+
+        mShowAnimation
+            .setDuration(duration)
+            .play(showFabAnimation)
+            .with(leftShowAnimation)
+            .with(rightShowAnimation);
+
+        // Build the reusable animation that hides and shows only the fab.
+        mUpdateFabOnlyAnimation
+            .setDuration(duration)
+            .play(showFabAnimation)
+            .after(hideFabAnimation);
+
+        // Build the reusable animation that hides and shows only the buttons.
+        mUpdateButtonsOnlyAnimation
+            .setDuration(duration)
+            .play(leftShowAnimation)
+            .with(rightShowAnimation)
+            .after(leftHideAnimation)
+            .after(rightHideAnimation);
+    }
+
+    /**
+     * Configures the ViewPager.
+     */
+    private void configureViewPager() {
+        // Customize the view pager.
+        mFragmentTabPagerAdapter = new FragmentTabPagerAdapter(this);
+        mBinding.deskClockPager.setAdapter(mFragmentTabPagerAdapter);
+
+        // Set the number of pages to keep in the ViewPager base on the number of tabs displayed.
+        int visibleTabsCount = UiDataModel.getUiDataModel().getTabCount();
+        int offscreenLimit = Math.max(1, visibleTabsCount - 1);
+        if (mBinding.deskClockPager.getOffscreenPageLimit() != offscreenLimit) {
+            mBinding.deskClockPager.setOffscreenPageLimit(offscreenLimit);
+        }
+
+        // Set Accessibility Delegate to null so view pager doesn't intercept movements and
+        // prevent the fab from being selected.
+        mBinding.deskClockPager.setAccessibilityDelegate(null);
+
+        // Mirror changes made to the selected page of the view pager into UiDataModel.
+        mBinding.deskClockPager.addOnPageChangeListener(new PageChangeWatcher());
+    }
+
+    /**
      * Configures the {@link BottomNavigationView}, such as the icon color, text color,
      * text visibility, font update, etc.
      */
@@ -919,9 +947,8 @@ public class DeskClock extends BaseActivity implements FabContainer {
             mBinding.deskClockPager.setCurrentItem(targetIndex, false);
         }
 
-        if (SettingsDAO.isToolbarTitleDisplayed(mPrefs)) {
+        if (mIsToolBarDisplayed) {
             mBinding.toolbar.setTitle(selectedTab.getLabelResId());
-            ThemeUtils.applyTypeface(mBinding.toolbar, mRegularTypeface);
         } else {
             mBinding.toolbar.setTitle(null);
         }
@@ -932,17 +959,13 @@ public class DeskClock extends BaseActivity implements FabContainer {
      * <p>
      * If the active tab requires the screen to remain on (e.g. timer in progress, stopwatch active,
      * or user preference enabled), apply the {@code FLAG_KEEP_SCREEN_ON} flag.
-     *
-     * @param selectedTab The currently selected tab.
      */
-    private void updateKeepScreenOn(UiDataModel.Tab selectedTab) {
-        if (selectedTab == null) {
-            return;
-        }
-
+    public void updateKeepScreenOn() {
         boolean screenShouldStayOn = SettingsDAO.shouldScreenRemainOn(mPrefs);
 
         if (!screenShouldStayOn) {
+            UiDataModel.Tab selectedTab = UiDataModel.getUiDataModel().getSelectedTab();
+
             switch (selectedTab) {
                 case TIMERS -> screenShouldStayOn = DataModel.getDataModel().hasActiveTimer();
                 case STOPWATCH -> screenShouldStayOn = DataModel.getDataModel().getStopwatch().isRunning();
@@ -950,9 +973,9 @@ public class DeskClock extends BaseActivity implements FabContainer {
         }
 
         if (screenShouldStayOn) {
-            ThemeUtils.keepScreenOn(this);
+            getWindow().addFlags(FLAG_KEEP_SCREEN_ON);
         } else {
-            ThemeUtils.releaseKeepScreenOn(this);
+            getWindow().clearFlags(FLAG_KEEP_SCREEN_ON);
         }
     }
 
@@ -1164,14 +1187,14 @@ public class DeskClock extends BaseActivity implements FabContainer {
             // Update the view pager and tab layout to agree with the model.
             updateCurrentTab();
 
+            updateKeepScreenOn();
+
             updateTabRunnable(mPreviousTab, newSelectedTab);
             mPreviousTab = newSelectedTab;
 
             // Avoid sending events for the initial tab selection on launch and re-selecting a tab
             // after a configuration change.
             if (DataModel.getDataModel().isApplicationInForeground()) {
-                updateKeepScreenOn(newSelectedTab);
-
                 switch (newSelectedTab) {
                     case ALARMS -> Events.sendAlarmEvent(R.string.action_show, R.string.label_deskclock);
                     case CLOCKS -> Events.sendClockEvent(R.string.action_show, R.string.label_deskclock);

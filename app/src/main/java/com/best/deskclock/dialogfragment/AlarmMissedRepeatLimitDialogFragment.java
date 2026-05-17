@@ -119,9 +119,9 @@ public class AlarmMissedRepeatLimitDialogFragment extends DialogFragment {
 
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
-
         mBinding = null;
+
+        super.onDestroyView();
     }
 
     /**

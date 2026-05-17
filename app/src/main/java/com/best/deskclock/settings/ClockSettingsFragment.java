@@ -144,9 +144,9 @@ public class ClockSettingsFragment extends ScreenFragment
             mClockSecondHandPref, mDigitalClockFontPref, mDisplayTextUppercasePref, mDigitalClockFontSizePref, mSortCitiesPref,
             mEnableCityNotePref, mAutoHomeClockPref, mHomeTimeZonePref, mDateTimePref);
 
-        super.onDestroy();
-
         nullifyAllPrefs();
+
+        super.onDestroy();
     }
 
     @Override

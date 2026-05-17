@@ -20,7 +20,6 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.SW_ACTION_SHA
 import static com.best.deskclock.settings.PreferencesDefaultValues.SW_ACTION_START_PAUSE;
 import static com.best.deskclock.uidata.UiDataModel.Tab.STOPWATCH;
 
-import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -112,9 +111,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
         super(STOPWATCH);
     }
 
-    private Activity mActivity;
     private Context mContext;
-    private SharedPreferences mPrefs;
     private DisplayMetrics mDisplayMetrics;
     private Typeface mStopwatchTypeface;
     private Typeface mBoldTypeface;
@@ -132,18 +129,18 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
         super.onCreate(savedInstanceState);
 
         mContext = requireContext();
-        mPrefs = getDefaultSharedPreferences(mContext);
-        mStopwatchTypeface = ThemeUtils.loadFont(SettingsDAO.getStopwatchFont(mPrefs));
-        mBoldTypeface = ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(mPrefs));
+        SharedPreferences prefs = getDefaultSharedPreferences(mContext);
+        mStopwatchTypeface = ThemeUtils.loadFont(SettingsDAO.getStopwatchFont(prefs));
+        mBoldTypeface = ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(prefs));
         mDisplayMetrics = getResources().getDisplayMetrics();
         mIsPortrait = ThemeUtils.isPortrait();
         mIsTablet = ThemeUtils.isTablet();
         mLapsAdapter = new LapsAdapter(mContext);
 
-        mVolumeUpAction = SettingsDAO.getVolumeUpActionForStopwatch(mPrefs);
-        mVolumeUpActionAfterLongPress = SettingsDAO.getVolumeUpActionAfterLongPressForStopwatch(mPrefs);
-        mVolumeDownAction = SettingsDAO.getVolumeDownActionForStopwatch(mPrefs);
-        mVolumeDownActionAfterLongPress = SettingsDAO.getVolumeDownActionAfterLongPressForStopwatch(mPrefs);
+        mVolumeUpAction = SettingsDAO.getVolumeUpActionForStopwatch(prefs);
+        mVolumeUpActionAfterLongPress = SettingsDAO.getVolumeUpActionAfterLongPressForStopwatch(prefs);
+        mVolumeDownAction = SettingsDAO.getVolumeDownActionForStopwatch(prefs);
+        mVolumeDownActionAfterLongPress = SettingsDAO.getVolumeDownActionAfterLongPressForStopwatch(prefs);
     }
 
     @Override
@@ -208,6 +205,16 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
 
         DataModel.getDataModel().addStopwatchListener(mStopwatchWatcher);
 
+        updateTime();
+        showOrHideLaps(getStopwatch().isReset());
+
+        // In portrait mode, re‑apply dynamic layout constraints after the UI has been refreshed.
+        // This ensures that the stopwatch circle and the laps list are resized correctly based on
+        // the screen height and the FAB container.
+        if (mIsPortrait) {
+            applyPortraitConstraints();
+        }
+
         return mBinding.getRoot();
     }
 
@@ -261,32 +268,32 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
     public void onResume() {
         super.onResume();
 
-        mActivity = requireActivity();
-        final Intent intent = mActivity.getIntent();
+        final Intent intent = requireActivity().getIntent();
         if (intent != null) {
             final String action = intent.getAction();
             if (StopwatchService.ACTION_START_STOPWATCH.equals(action)) {
                 DataModel.getDataModel().startStopwatch();
                 // Consume the intent
-                mActivity.setIntent(null);
+                requireActivity().setIntent(null);
             } else if (StopwatchService.ACTION_PAUSE_STOPWATCH.equals(action)) {
                 DataModel.getDataModel().pauseStopwatch();
                 // Consume the intent
-                mActivity.setIntent(null);
+                requireActivity().setIntent(null);
             }
         }
 
-        // Conservatively assume the data in the adapter has changed while the fragment was paused.
-        mLapsAdapter.notifyDataSetChanged();
+        if (getView() != null) {
+            getView().post(() -> {
+                if (!isAdded()) {
+                    return;
+                }
 
-        // Synchronize the user interface with the data model.
-        updateUI(FAB_AND_BUTTONS_IMMEDIATE);
+                // Conservatively assume the data in the adapter has changed while the fragment was paused.
+                mLapsAdapter.notifyDataSetChanged();
 
-        // In portrait mode, re‑apply dynamic layout constraints after the UI has been refreshed.
-        // This ensures that the stopwatch circle and the laps list are resized correctly based on
-        // the screen height and the FAB container.
-        if (mIsPortrait) {
-            applyPortraitConstraints();
+                // Synchronize the user interface with the data model.
+                updateUI(FAB_AND_BUTTONS_IMMEDIATE);
+            });
         }
     }
 
@@ -304,14 +311,14 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
 
         DataModel.getDataModel().removeStopwatchListener(mStopwatchWatcher);
 
-        super.onDestroyView();
-
         mBinding.lapsList.setAdapter(null);
 
         mStopwatchTextController = null;
 
         mBinding = null;
         mLapsLayoutManager = null;
+
+        super.onDestroyView();
     }
 
     @Override
@@ -568,14 +575,17 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
 
         final ViewGroup sceneRoot = (ViewGroup) mBinding.getRoot();
 
-        TransitionManager.beginDelayedTransition(sceneRoot);
-
         if (clearLaps) {
             mLapsAdapter.clearLaps();
         }
 
         final boolean lapsVisible = mLapsAdapter.getItemCount() > 0;
-        mBinding.lapsBackground.setVisibility(lapsVisible ? VISIBLE : GONE);
+        final int targetVisibility = lapsVisible ? VISIBLE : GONE;
+
+        if (mBinding.lapsBackground.getVisibility() != targetVisibility) {
+            TransitionManager.beginDelayedTransition(sceneRoot);
+            mBinding.lapsBackground.setVisibility(targetVisibility);
+        }
 
         if (mIsPortrait) {
             // When the lap list is visible, it includes the bottom padding. When it is absent the
@@ -611,10 +621,8 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
     }
 
     private void adjustWakeLock() {
-        if (getStopwatch().isRunning() || SettingsDAO.shouldScreenRemainOn(mPrefs)) {
-            ThemeUtils.keepScreenOn(mActivity);
-        } else {
-            ThemeUtils.releaseKeepScreenOn(mActivity);
+        if (isAdded() && getActivity() instanceof DeskClock deskClock) {
+            deskClock.updateKeepScreenOn();
         }
     }
 

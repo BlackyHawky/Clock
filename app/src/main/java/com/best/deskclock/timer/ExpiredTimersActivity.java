@@ -241,8 +241,17 @@ public class ExpiredTimersActivity extends BaseActivity {
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         DataModel.getDataModel().removeTimerListener(mTimerChangeWatcher);
+
+        mRegularTypeface = null;
+        mBoldTypeface = null;
+        mTimerTimeTypeface = null;
+
+        mExpiredTimersScrollView = null;
+
+        mBinding = null;
+
+        super.onDestroy();
     }
 
     @Override

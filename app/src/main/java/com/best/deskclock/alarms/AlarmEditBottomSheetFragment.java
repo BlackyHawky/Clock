@@ -178,11 +178,11 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             mBinding.missedAlarmRepeatLimitLayout, mBinding.crescendoDurationLayout, mBinding.alarmVolumeLayout, mBinding.deleteButton,
             mBinding.duplicateButton);
 
-        super.onDestroyView();
-
         mAlarmUpdateHandler = null;
 
         mBinding = null;
+
+        super.onDestroyView();
     }
 
     @Override

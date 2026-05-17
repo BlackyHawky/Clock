@@ -246,14 +246,14 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
         mBinding.editSeconds.removeTextChangedListener(mTextWatcher);
         mBinding.editSeconds.setOnFocusChangeListener(null);
 
-        super.onDestroyView();
-
         mInput = null;
 
         mBinding = null;
 
         mOkButton = null;
         mDefaultButton = null;
+
+        super.onDestroyView();
     }
 
     /**

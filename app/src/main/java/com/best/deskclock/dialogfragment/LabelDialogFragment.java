@@ -261,11 +261,11 @@ public class LabelDialogFragment extends DialogFragment {
         mBinding.edit.setOnEditorActionListener(null);
         mBinding.edit.removeTextChangedListener(mTextWatcher);
 
-        super.onDestroyView();
-
         mBinding = null;
 
         mDefaultButton = null;
+
+        super.onDestroyView();
     }
 
     /**

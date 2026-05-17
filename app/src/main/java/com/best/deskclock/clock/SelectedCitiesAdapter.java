@@ -47,6 +47,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  * This adapter lists all of the selected world clocks. Optionally, it also includes a clock at
@@ -297,22 +298,32 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
     public void refreshAlarm() {
-        updateNextAlarmString();
+        boolean alarmChanged = updateNextAlarmString();
 
-        if (mIsPortrait && getItemCount() > 0) {
+        if (alarmChanged && mIsPortrait && getItemCount() > 0) {
             notifyItemChanged(0);
         }
     }
 
-    private void updateNextAlarmString() {
+    /**
+     * Update the text of the next alarm.
+     */
+    private boolean updateNextAlarmString() {
         AlarmInstance nextAlarmInstance = AlarmStateManager.getNextFiringAlarm(mContext);
+        String newFormattedAlarm = null;
+
         if (nextAlarmInstance != null) {
             Calendar alarmCalendar = Calendar.getInstance();
             alarmCalendar.setTimeInMillis(nextAlarmInstance.getAlarmTime().getTimeInMillis());
-            mFormattedNextAlarm = AlarmUtils.getFormattedTime(mContext, alarmCalendar);
-        } else {
-            mFormattedNextAlarm = null;
+            newFormattedAlarm = AlarmUtils.getFormattedTime(mContext, alarmCalendar);
         }
+
+        if (!Objects.equals(mFormattedNextAlarm, newFormattedAlarm)) {
+            mFormattedNextAlarm = newFormattedAlarm;
+            return true;
+        }
+
+        return false;
     }
 
 }

@@ -242,8 +242,6 @@ public class AlarmVolumeDialogFragment extends DialogFragment {
         mBinding.sliderMinusIcon.setOnClickListener(null);
         mBinding.sliderPlusIcon.setOnClickListener(null);
 
-        super.onDestroyView();
-
         mAudioManager = null;
 
         mBinding = null;
@@ -251,6 +249,8 @@ public class AlarmVolumeDialogFragment extends DialogFragment {
         mDialogTitle = null;
         mRingtoneStopRunnable = null;
         mRingtoneUri = null;
+
+        super.onDestroyView();
     }
 
     /**

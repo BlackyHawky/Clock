@@ -179,9 +179,9 @@ public class InterfaceCustomizationFragment extends ScreenFragment
             mNightAccentColorPref, mCardBackgroundPref, mCardBorderPref, mCustomLanguageCodePref, mVisibleTabsPref, mTabToDisplayPref,
             mVibrationPref, mToolbarTitlePref, mTabTitleVisibilityPref, mTabIndicatorPref, mFadeTransitionsPref, mKeepScreenOnPref);
 
-        super.onDestroy();
-
         nullifyAllPrefs();
+
+        super.onDestroy();
     }
 
     @Override

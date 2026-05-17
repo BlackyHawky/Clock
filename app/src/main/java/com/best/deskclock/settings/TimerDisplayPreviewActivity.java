@@ -168,6 +168,17 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
         });
     }
 
+    @Override
+    protected void onDestroy() {
+        mRegularTypeface = null;
+        mBoldTypeface = null;
+        mTimerTimeTypeface = null;
+
+        mBinding = null;
+
+        super.onDestroy();
+    }
+
     /**
      * Display ringtone title if enabled in Timer settings.
      */

@@ -170,6 +170,15 @@ public final class ClockFragment extends DeskClockFragment {
         // Schedule a runnable to update the date every quarter-hour.
         UiDataModel.getUiDataModel().addQuarterHourCallback(mQuarterHourUpdater, 100);
 
+        if (mBinding.emptyCityViewRightPanel != null) {
+            ViewGroup.LayoutParams params = mBinding.emptyCityViewRightPanel.getLayoutParams();
+            params.height = (int) (mDisplayMetrics.heightPixels / 2f);
+            mBinding.emptyCityViewRightPanel.setLayoutParams(params);
+        }
+
+        updateEmptyStateVisibility();
+        refreshAlarm();
+
         return mBinding.getRoot();
     }
 
@@ -190,8 +199,8 @@ public final class ClockFragment extends DeskClockFragment {
 
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onStart() {
+        super.onStart();
 
         // Watch for system events that effect clock time or format.
         if (mAlarmChangeReceiver != null) {
@@ -202,26 +211,28 @@ public final class ClockFragment extends DeskClockFragment {
                 mContext.registerReceiver(mAlarmChangeReceiver, filter);
             }
         }
+    }
 
-        refreshAlarm();
+    @Override
+    public void onResume() {
+        super.onResume();
 
-        if (mBinding.emptyCityViewRightPanel != null) {
-            if (!mShowHomeClock && mCityAdapter.getCities().isEmpty()) {
-                mBinding.emptyCityViewRightPanel.setVisibility(VISIBLE);
+        updateEmptyStateVisibility();
 
-                ViewGroup.LayoutParams params = mBinding.emptyCityViewRightPanel.getLayoutParams();
-                int screenHeight = mDisplayMetrics.heightPixels;
-                params.height = (int) (screenHeight / 2f);
-                mBinding.emptyCityViewRightPanel.setLayoutParams(params);
-            } else {
-                mBinding.emptyCityViewRightPanel.setVisibility(GONE);
-            }
+        if (getView() != null) {
+            getView().post(() -> {
+                if (!isAdded()) {
+                    return;
+                }
+
+                refreshAlarm();
+            });
         }
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onStop() {
+        super.onStop();
 
         if (mAlarmChangeReceiver != null) {
             mContext.unregisterReceiver(mAlarmChangeReceiver);
@@ -230,12 +241,12 @@ public final class ClockFragment extends DeskClockFragment {
 
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
-
         UiDataModel.getUiDataModel().removePeriodicCallback(mQuarterHourUpdater);
         DataModel.getDataModel().removeCityListener(mCityAdapter);
 
         mBinding = null;
+
+        super.onDestroyView();
     }
 
     @Override
@@ -283,6 +294,13 @@ public final class ClockFragment extends DeskClockFragment {
             AlarmUtils.refreshAlarm(mBinding.mainClockLeftPanel.mainClockContainer, false);
         } else {
             mCityAdapter.refreshAlarm();
+        }
+    }
+
+    private void updateEmptyStateVisibility() {
+        if (mBinding.emptyCityViewRightPanel != null) {
+            final boolean isEmpty = !mShowHomeClock && mCityAdapter.getCities().isEmpty();
+            mBinding.emptyCityViewRightPanel.setVisibility(isEmpty ? VISIBLE : GONE);
         }
     }
 

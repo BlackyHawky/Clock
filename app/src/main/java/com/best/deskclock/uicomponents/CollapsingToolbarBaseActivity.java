@@ -132,6 +132,13 @@ public abstract class CollapsingToolbarBaseActivity extends BaseActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        mBaseBinding = null;
+
+        super.onDestroy();
+    }
+
+    @Override
     public void setContentView(int layoutResID) {
         mBaseBinding.contentFrame.removeAllViews();
         getLayoutInflater().inflate(layoutResID, mBaseBinding.contentFrame);

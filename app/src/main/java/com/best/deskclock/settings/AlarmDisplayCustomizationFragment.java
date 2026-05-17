@@ -204,9 +204,9 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
             mEnableAlarmBlurEffectPref, mAlarmBlurIntensityPref, mAlarmPreviewPref
         );
 
-        super.onDestroy();
-
         nullifyAllPrefs();
+
+        super.onDestroy();
     }
 
     @Override

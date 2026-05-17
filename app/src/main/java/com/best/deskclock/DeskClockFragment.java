@@ -43,9 +43,9 @@ public abstract class DeskClockFragment extends Fragment implements FabContainer
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
-
         mFabContainer = null;
+
+        super.onDestroy();
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {

@@ -203,8 +203,6 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
         mBinding.editMinutes.setOnEditorActionListener(null);
         mBinding.editMinutes.removeTextChangedListener(mTextWatcher);
 
-        super.onDestroyView();
-
         mInput = null;
 
         mBinding = null;
@@ -213,6 +211,8 @@ public class VibrationStartDelayDialogFragment extends DialogFragment {
         mDefaultButton = null;
 
         mTypeFace = null;
+
+        super.onDestroyView();
     }
 
     /**

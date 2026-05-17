@@ -99,9 +99,9 @@ public class AppWidgetNextAlarmSettingsFragment extends ScreenFragment implement
             mCustomBackgroundColorPref, mDefaultTitleColorPref, mCustomTitleColorPref, mDefaultAlarmTitleColorPref,
             mCustomAlarmTitleColorPref, mDefaultAlarmColorPref, mCustomAlarmColorPref);
 
-        super.onDestroy();
-
         nullifyAllPrefs();
+
+        super.onDestroy();
     }
 
     @Override

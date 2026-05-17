@@ -214,11 +214,9 @@ public class TimerSettingsFragment extends ScreenFragment
             mTimerFlipActionPref, mTimerShakeActionPref, mTimerShakeIntensityPref, mSortTimerPref, mDisplayWarningBeforeDeletingTimerPref,
             mDisplayLowAlarmVolumeWarningPref);
 
-        super.onDestroy();
-
-        mAudioManager = null;
-
         nullifyAllPrefs();
+
+        super.onDestroy();
     }
 
     @Override
