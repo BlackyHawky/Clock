@@ -471,7 +471,7 @@
     <string name="gnu_gpl">GNU Általános Publikus Licenc v3.0</string>
     <string name="reset_settings_title">Beállítások visszaállítása alaphelyzetbe</string>
     <string name="reset_settings_message">Biztosan minden beállítást vissza akar állítani alaphelyzetbe?</string>
-    <string name="toast_message_for_reset">Visszaállítva alaphelyzetbe</string>
+    <string name="restart_app_dialog_title_for_reset">Visszaállítva alaphelyzetbe</string>
     <string name="alarm_settings_summary">Állítson be stílust, alap csengőhangot, hangerőt, szundi és elvető műveleteket, hét első napját és emlékeztető értesítő időt</string>
     <string name="description_direction_both_for_occasional_alarm">Húzza balra a szundihoz, és jobbra az elvetéshez majd törléshez</string>
     <string name="description_direction_both_for_non_repeatable_alarm">Húzza balra vagy jobbra az elvetéshez</string>
@@ -593,5 +593,5 @@
     <string name="backup_button_title">Mentés</string>
     <string name="restore_button_title">Visszaállítás</string>
     <string name="toast_message_for_backup">Sikeres mentés</string>
-    <string name="toast_message_for_restore">Sikeres visszaállítás</string>
+    <string name="restart_app_dialog_title_for_restore">Sikeres visszaállítás</string>
 </resources>

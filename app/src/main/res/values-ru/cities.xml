@@ -228,7 +228,7 @@
     <string name="C230" msgid="5521643115321121383">С<xliff:g id="SEPARATOR">=</xliff:g>Сан-Хосе<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g></string>
     <string name="C232" msgid="4714655032274833316">С<xliff:g id="SEPARATOR">=</xliff:g>Сиэтл<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g></string>
     <string name="C233" msgid="7162834873553109876">С<xliff:g id="SEPARATOR">=</xliff:g>Сент-Луис<xliff:g id="TIMEZONE">|America/Chicago</xliff:g></string>
-    <string name="C234" msgid="8431913494781960891">В<xliff:g id="SEPARATOR">=</xliff:g>Вашингтон<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
+    <string name="C234" msgid="8431913494781960891">В<xliff:g id="separator">=</xliff:g>Вашингтон<xliff:g id="timezone">|America/New_York</xliff:g></string>
     <string name="C235" msgid="8650421942456856419">Х<xliff:g id="SEPARATOR">=</xliff:g>Хьюстон<xliff:g id="TIMEZONE">|America/Chicago</xliff:g></string>
     <string name="C236" msgid="3687627401939103862">С<xliff:g id="SEPARATOR">=</xliff:g>Сан-Антонио<xliff:g id="TIMEZONE">|America/Chicago</xliff:g></string>
     <string name="C237" msgid="4443158977093108877">Д<xliff:g id="SEPARATOR">=</xliff:g>Джэксонвилл<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>

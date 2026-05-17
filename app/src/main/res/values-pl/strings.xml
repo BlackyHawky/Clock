@@ -394,7 +394,7 @@
     <string name="settings_fade_transitions_title">Włącz przejścia podczas przełączania ekranów</string>
     <string name="screensaver_italic_next_alarm_title">Następny alarm pochylony</string>
     <string name="toast_message_for_backup">Kopia zapasowa zakończona</string>
-    <string name="toast_message_for_restore">Przywracanie zakończone</string>
+    <string name="restart_app_dialog_title_for_restore">Przywracanie zakończone</string>
     <string name="alarm_missed_channel">Pominięte alarmy</string>
     <string name="auto_night_accent_color_title">Zastosuj kolor do trybu nocnego</string>
     <string name="night_accent_color_title">Kolor w trybie nocnym</string>
@@ -465,7 +465,7 @@
     <string name="reset_settings_title">Zresetuj ustawienia</string>
     <string name="reset_settings_message">Czy na pewno chcesz zresetować wszystkie ustawienia aplikacji?</string>
     <string name="blue_accent_color">Niebieski</string>
-    <string name="toast_message_for_reset">Resetowanie zakończone</string>
+    <string name="restart_app_dialog_title_for_reset">Resetowanie zakończone</string>
     <string name="settings_language_korean">Koreański</string>
     <string name="display_date_title">Wyświetl datę na widżecie</string>
     <string name="settings_language_czech">Czeski</string>

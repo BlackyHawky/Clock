@@ -696,6 +696,12 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     private class TimerWatcher implements TimerListener {
         @Override
         public void timerAdded(Timer timer) {
+            // Ensure the timer list is displayed if the UI loaded faster than the database during app launch,
+            // or if a timer was added externally.
+            if (mCurrentView != mBinding.timerContentView && !mCreatingTimer) {
+                showTimersView(FAB_AND_BUTTONS_IMMEDIATE);
+            }
+
             // If the timer is being created via this fragment avoid adjusting the fab.
             // Timer setup view is about to be animated away in response to this timer creation.
             // Changes to the fab immediately preceding that animation are jarring.

@@ -29,11 +29,13 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
 import androidx.preference.Preference;
 
 import com.best.deskclock.AppExecutors;
+import com.best.deskclock.DeskClock;
 import com.best.deskclock.KeepAliveService;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
@@ -47,6 +49,7 @@ import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.BackupAndRestoreUtils;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.NotificationUtils;
 import com.best.deskclock.utils.PermissionUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
@@ -127,6 +130,8 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         Preference mPermissionMessage;
         Preference mBackupRestorePref;
 
+        private AlertDialog mRestartDialog;
+
         /**
          * Callback for getting the backup result.
          */
@@ -174,6 +179,8 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
                 final Context appContext = requireContext().getApplicationContext();
 
+                BackupAndRestoreUtils.isRestoringBackupOrIsResettingApp = true;
+
                 AppExecutors.getDiskIO().execute(() -> {
                     try {
                         wipeCustomMediaBeforeRestore(appContext);
@@ -183,12 +190,29 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                         AppExecutors.getMainThread().post(() -> {
                             applySettingsAfterRestore(appContext);
 
-                            CustomToast.show(appContext, R.string.toast_message_for_restore);
+                            BackupAndRestoreUtils.appNeedsRestart = true;
+
+                            if (isAdded() && getActivity() != null && !getActivity().isFinishing()) {
+                                mRestartDialog = restartAppDialog(appContext, false);
+                                mRestartDialog.show();
+                            } else {
+                                // If the user has left the screen, clear the notifications and force a restart without the dialog.
+                                NotificationUtils.clearAllNotifications(appContext);
+
+                                Intent restartIntent = new Intent(appContext, DeskClock.class);
+                                restartIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                appContext.startActivity(restartIntent);
+                                Runtime.getRuntime().exit(0);
+                            }
                         });
                     } catch (Exception e) {
                         LogUtils.e("Error reading the restore file", e);
 
-                        AppExecutors.getMainThread().post(() -> CustomToast.show(appContext, R.string.toast_message_restore_error));
+                        AppExecutors.getMainThread().post(() -> {
+                            BackupAndRestoreUtils.isRestoringBackupOrIsResettingApp = false;
+
+                            CustomToast.show(appContext, R.string.toast_message_restore_error);
+                        });
                     }
                 });
             });
@@ -245,9 +269,24 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         public void onResume() {
             super.onResume();
 
+            if (BackupAndRestoreUtils.appNeedsRestart && (mRestartDialog == null || !mRestartDialog.isShowing())) {
+                mRestartDialog = restartAppDialog(requireContext().getApplicationContext(), false);
+                mRestartDialog.show();
+            }
+
             updateSettingsVisibility();
 
             displayWarningIfEssentialPermissionAreNotGranted();
+        }
+
+        @Override
+        public void onDestroyView() {
+            if (mRestartDialog != null && mRestartDialog.isShowing()) {
+                mRestartDialog.dismiss();
+                mRestartDialog = null;
+            }
+
+            super.onDestroyView();
         }
 
         @Override
@@ -256,9 +295,9 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                 mStopwatchSettingsPref, mScreensaverSettings, mWidgetsSettings, mPermissionsManagement, mPermissionMessage,
                 mBackupRestorePref);
 
-            super.onDestroy();
-
             nullifyAllPrefs();
+
+            super.onDestroy();
         }
 
         @Override

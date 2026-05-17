@@ -342,7 +342,7 @@
     <string name="shake_intensity_title">흔들기 강도</string>
     <string name="screensaver_preview_summary">화면 보호기 지금 시작</string>
     <string name="sort_timer_title">타이머 정렬</string>
-    <string name="toast_message_for_restore">복원을 마쳤습니다.</string>
+    <string name="restart_app_dialog_title_for_restore">복원을 마쳤습니다.</string>
     <string name="permission_management_summary">앱 사용에 필요한 권한 확인</string>
     <string name="about_title">정보</string>
     <string name="screensaver_bold_digital_clock_title">디지털 시계 굵게</string>
@@ -421,7 +421,7 @@
     <string name="sw_volume_down_action_title">볼륨 아래</string>
     <string name="timer_label_box_title">타이머 라벨</string>
     <string name="blue_accent_color">파란색</string>
-    <string name="toast_message_for_reset">초기화를 완료했습니다.</string>
+    <string name="restart_app_dialog_title_for_reset">초기화를 완료했습니다.</string>
     <string name="timer_button_time_minutes_warning_box_text">0에서 60분 사이의 값을 입력하세요.</string>
     <string name="timer_time_warning_box_title">잘못된 값 입력됨</string>
     <string name="sw_long_press_volume_up_action_title">볼륨 위(길게 눌렀을 때)</string>

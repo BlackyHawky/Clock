@@ -294,7 +294,7 @@
     <string name="toast_message_for_backup">બેકઅપ સંપન્ન</string>
     <string name="restore_button_title">પુનઃપ્રાપ્તિ</string>
     <string name="backup_button_title">બેકઅપ</string>
-    <string name="toast_message_for_restore">­પુનઃસ્થાપન સંપન્ન</string>
+    <string name="restart_app_dialog_title_for_restore">­પુનઃસ્થાપન સંપન્ન</string>
     <string name="backup_restore_dialog_message">તમને અપ નો ડેટા બેકઅપ કે પુનઃપ્રાપ્ત કરવો છે?</string>
     <string name="notifications_dialog_title">સૂચનાઓ</string>
     <string name="show_lockscreen_dialog_title">લોકસ્ક્રીન પર દેખાડો</string>

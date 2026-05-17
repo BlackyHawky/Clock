@@ -416,7 +416,7 @@
     <string name="restore_button_title">Відновити</string>
     <string name="backup_restore_summary">Резервне копіювання або відновлення даних додатка (крім користувацьких мелодій)</string>
     <string name="toast_message_for_backup">Резервну копію створено</string>
-    <string name="toast_message_for_restore">Відновлення завершено</string>
+    <string name="restart_app_dialog_title_for_restore">Відновлення завершено</string>
     <string name="timer_shake_action_title">Зупиняти будильник струшуванням пристрою</string>
     <string name="timer_flip_action_title">Зупиняти будильник перевертанням пристрою</string>
     <string name="auto_night_accent_color_title">Застосовувати акцентний колір до нічного режиму</string>
@@ -475,7 +475,7 @@
     <string name="reset_settings_message">Ви дійсно хочете скинути всі налаштування додатка?</string>
     <string name="reset_settings_title">Скинути налаштування</string>
     <string name="blue_accent_color">Синій</string>
-    <string name="toast_message_for_reset">Скидання завершено</string>
+    <string name="restart_app_dialog_title_for_reset">Скидання завершено</string>
     <string name="settings_language_korean">Корейська</string>
     <string name="display_date_title">Показувати дату</string>
     <string name="settings_tab_title_visibility_title">Показувати заголовки вкладок</string>

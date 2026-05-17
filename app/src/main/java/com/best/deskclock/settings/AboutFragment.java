@@ -31,6 +31,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.MenuProvider;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
@@ -38,12 +39,11 @@ import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.AppExecutors;
 import com.best.deskclock.BuildConfig;
+import com.best.deskclock.DeskClock;
 import com.best.deskclock.KeepAliveService;
 import com.best.deskclock.R;
 import com.best.deskclock.alarms.AlarmStateManager;
-import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
-import com.best.deskclock.data.Timer;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.settings.custompreference.CustomAboutTitlePreference;
 import com.best.deskclock.tiles.AlarmTileService;
@@ -51,8 +51,9 @@ import com.best.deskclock.tiles.StopwatchTileService;
 import com.best.deskclock.tiles.TimerTileService;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.uicomponents.toast.CustomToast;
-import com.best.deskclock.uidata.UiDataModel;
+import com.best.deskclock.utils.BackupAndRestoreUtils;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.NotificationUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
@@ -65,7 +66,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -121,6 +121,8 @@ public class AboutFragment extends ScreenFragment implements Preference.OnPrefer
     Preference mKeepAndroidOpenPref;
     PreferenceCategory mDebugCategoryPref;
     SwitchPreferenceCompat mEnableLocalLoggingPref;
+
+    private AlertDialog mRestartDialog;
 
     /**
      * Used only for release versions.
@@ -207,14 +209,36 @@ public class AboutFragment extends ScreenFragment implements Preference.OnPrefer
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        if (BackupAndRestoreUtils.appNeedsRestart) {
+            if (mRestartDialog == null || !mRestartDialog.isShowing()) {
+                mRestartDialog = restartAppDialog(requireContext().getApplicationContext(), false);
+                mRestartDialog.show();
+            }
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        if (mRestartDialog != null && mRestartDialog.isShowing()) {
+            mRestartDialog.dismiss();
+            mRestartDialog = null;
+        }
+
+        super.onDestroyView();
+    }
+
+    @Override
     public void onDestroy() {
         nullifyPreferenceListeners(mTitlePref, mVersionPref, mWhatsNewPref, mAboutFeaturesPref, mViewOnGitHubPref, mTranslatePref,
             mReadLicencePref, mKeepAndroidOpenPref, mDebugCategoryPref, mEnableLocalLoggingPref
         );
 
-        super.onDestroy();
-
         nullifyAllPrefs();
+
+        super.onDestroy();
     }
 
     @Override
@@ -356,9 +380,8 @@ public class AboutFragment extends ScreenFragment implements Preference.OnPrefer
     @SuppressLint("ApplySharedPref")
     private void resetPreferences() {
         final Context appContext = requireContext().getApplicationContext();
-        final DataModel dataModel = DataModel.getDataModel();
 
-        tapCountOnVersion = 0;
+        BackupAndRestoreUtils.isRestoringBackupOrIsResettingApp = true;
 
         AppExecutors.getDiskIO().execute(() -> {
             SharedPreferences.Editor editor = mPrefs.edit();
@@ -391,26 +414,11 @@ public class AboutFragment extends ScreenFragment implements Preference.OnPrefer
             editor.commit();
 
             AppExecutors.getMainThread().post(() -> {
-                dataModel.clearCustomRingtones();
-
-                for (Timer timer : new ArrayList<>(dataModel.getTimers())) {
-                    if (!timer.isReset()) {
-                        dataModel.resetOrDeleteTimer(timer, R.string.label_deskclock);
-                    }
-                }
-
-                if (!dataModel.getStopwatch().isReset()) {
-                    dataModel.resetStopwatch();
-                }
-
-                dataModel.clearCityCache();
-
-                UiDataModel.getUiDataModel().setSelectedTab(UiDataModel.Tab.CLOCKS);
+                Utils.stopService(appContext, KeepAliveService.class);
 
                 appContext.sendBroadcast(new Intent(ACTION_LANGUAGE_CODE_CHANGED));
-                WidgetUtils.updateAllWidgets(appContext);
 
-                dataModel.loadTimers();
+                WidgetUtils.updateAllWidgets(appContext);
 
                 if (SdkUtils.isAtLeastAndroid7()) {
                     TileService.requestListeningState(appContext, new ComponentName(appContext, AlarmTileService.class));
@@ -418,9 +426,20 @@ public class AboutFragment extends ScreenFragment implements Preference.OnPrefer
                     TileService.requestListeningState(appContext, new ComponentName(appContext, StopwatchTileService.class));
                 }
 
-                Utils.stopService(appContext, KeepAliveService.class);
+                BackupAndRestoreUtils.appNeedsRestart = true;
 
-                CustomToast.show(appContext, R.string.toast_message_for_reset);
+                if (isAdded() && getActivity() != null && !getActivity().isFinishing()) {
+                    mRestartDialog = restartAppDialog(appContext, true);
+                    mRestartDialog.show();
+                } else {
+                    // If the user has left the screen, clear the notifications and force a restart without the dialog.
+                    NotificationUtils.clearAllNotifications(appContext);
+
+                    Intent restartIntent = new Intent(appContext, DeskClock.class);
+                    restartIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    appContext.startActivity(restartIntent);
+                    Runtime.getRuntime().exit(0);
+                }
             });
         });
     }

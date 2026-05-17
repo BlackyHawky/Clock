@@ -29,6 +29,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.Insets;
 import androidx.core.view.MenuProvider;
 import androidx.core.view.WindowCompat;
@@ -48,6 +49,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.AppExecutors;
+import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.databinding.CollapsingToolbarBaseLayoutBinding;
@@ -56,8 +58,10 @@ import com.best.deskclock.settings.custompreference.CustomAboutTitlePreference;
 import com.best.deskclock.uicomponents.CollapsingToolbarBaseActivity;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.uicomponents.toast.CustomToast;
+import com.best.deskclock.utils.BackupAndRestoreUtils;
 import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.NotificationUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
@@ -338,7 +342,10 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
 
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
+        if (mActiveDialog != null && mActiveDialog.isShowing()) {
+            mActiveDialog.dismiss();
+            mActiveDialog = null;
+        }
 
         if (mRecyclerView != null) {
             mRecyclerView.setAdapter(null);
@@ -347,13 +354,15 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
         mActivityBinding = null;
         mRecyclerView = null;
         mLinearLayoutManager = null;
+
+        super.onDestroyView();
     }
 
     @Override
     public void onDestroy() {
-        if (mActiveDialog != null && mActiveDialog.isShowing()) {
-            mActiveDialog.dismiss();
-            mActiveDialog = null;
+        if (getActivity() == null || !getActivity().isChangingConfigurations()) {
+            BackupAndRestoreUtils.isRestoringBackupOrIsResettingApp = false;
+            BackupAndRestoreUtils.appNeedsRestart = false;
         }
 
         super.onDestroy();
@@ -570,6 +579,39 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
         }
 
         return null;
+    }
+
+    /**
+     * @return a dialog to be displayed after a restore or reset.
+     */
+    protected AlertDialog restartAppDialog(Context appContext, boolean isResettingApp) {
+        final AlertDialog dialog = CustomDialog.create(
+            requireActivity(),
+            null,
+            AppCompatResources.getDrawable(requireContext(), isResettingApp ? R.drawable.ic_reset_settings :R.drawable.ic_backup_restore),
+            getString(isResettingApp ? R.string.restart_app_dialog_title_for_reset : R.string.restart_app_dialog_title_for_restore),
+            getString(R.string.restart_app_dialog_message),
+            null,
+            getString(android.R.string.ok),
+            (d, w) -> {
+                NotificationUtils.clearAllNotifications(appContext);
+
+                Intent restartIntent = new Intent(appContext, DeskClock.class);
+                restartIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                appContext.startActivity(restartIntent);
+                Runtime.getRuntime().exit(0);
+            },
+            null,
+            null,
+            null,
+            null,
+            null,
+            CustomDialog.SoftInputMode.NONE
+        );
+
+        dialog.setCancelable(false);
+
+        return dialog;
     }
 
     /**

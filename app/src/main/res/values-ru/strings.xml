@@ -434,7 +434,7 @@
     <string name="sort_timer_ascending_duration">По продолжительности (по возрастанию)</string>
     <string name="shake_intensity_title">Интенсивность встряхивания</string>
     <string name="backup_restore_summary">Создать или восстановить резервную копию данных приложения (кроме пользовательских рингтонов)</string>
-    <string name="toast_message_for_restore">Восстановление завершено</string>
+    <string name="restart_app_dialog_title_for_restore">Восстановление завершено</string>
     <string name="description_direction_both_for_occasional_alarm">Проведите влево, чтобы отложить будильник, или вправо, чтобы выключить его и удалить</string>
     <string name="show_lockscreen_dialog_title">Показывать на заблокированном экране</string>
     <string name="backup_restore_dialog_message">Создать или восстановить резервную копию данных приложения?</string>
@@ -460,7 +460,7 @@
     <string name="reset_settings_title">Сброс настроек</string>
     <string name="reset_settings_message">Вы уверены, что хотите сбросить все настройки приложения?</string>
     <string name="blue_accent_color">Синий</string>
-    <string name="toast_message_for_reset">Сброс выполнен</string>
+    <string name="restart_app_dialog_title_for_reset">Сброс выполнен</string>
     <string name="settings_language_korean">Корейский</string>
     <string name="timer_button_time_minutes_warning_box_text">Введите значение от 0 до 60 минут</string>
     <string name="timer_time_warning_box_title">Введено недопустимое значение</string>
@@ -662,4 +662,9 @@
     <string name="display_top_date_title">Показывать дату над временем</string>
     <string name="toast_message_backup_error">Резервное копирование не удалось</string>
     <string name="toast_message_restore_error">Восстановление не удалось</string>
+    <string name="pause_alarm_title">Приостановить будильник</string>
+    <string name="pause_alarm_range">Приостановлено: %1$s</string>
+    <string name="tabs_category_title">Вкладки</string>
+    <string name="visible_tabs_title">Видимые вкладки</string>
+    <string name="shortcut_disabled">Скрытая вкладка</string>
 </resources>

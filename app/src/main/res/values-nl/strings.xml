@@ -387,7 +387,7 @@
     <string name="backup_restore_summary">Back-up of herstel instellingen behalve aangepaste geluiden</string>
     <string name="backup_restore_title">Back-up &amp; Herstel</string>
     <string name="toast_message_for_backup">Backup voltooid</string>
-    <string name="toast_message_for_restore">Herstel voltooid</string>
+    <string name="restart_app_dialog_title_for_restore">Herstel voltooid</string>
     <string name="timer_flip_action_title">Apparaat omdraaien om kookwekker uit te zetten</string>
     <string name="timer_shake_action_title">Apparaat schudden om kookwekker uit te zetten</string>
     <string name="alarm_title_color">Kleur wekkerlabel</string>
@@ -453,7 +453,7 @@
     <string name="reset_settings_title">Instellingen opnieuw instellen</string>
     <string name="reset_settings_message">Weet je zeker dat je alle instellingen opnieuw wilt instellen?</string>
     <string name="blue_accent_color">Blauw</string>
-    <string name="toast_message_for_reset">Terugzetten voltooid</string>
+    <string name="restart_app_dialog_title_for_reset">Terugzetten voltooid</string>
     <string name="settings_language_korean">Koreaans</string>
     <string name="display_date_title">Datum weergeven</string>
     <string name="settings_language_czech">Tsjechisch</string>

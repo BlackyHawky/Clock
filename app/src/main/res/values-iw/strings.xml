@@ -304,7 +304,7 @@
     <string name="about_translate_link">תרגום ב־Codeberg</string>
     <string name="license">רישיון קוד פתוח</string>
     <string name="reset_settings_title">איפוס ההגדרות</string>
-    <string name="toast_message_for_reset">האיפוס הושלם</string>
+    <string name="restart_app_dialog_title_for_reset">האיפוס הושלם</string>
     <string name="dialog_close">סגירה</string>
     <string name="warning_dialog_message">למחוק את הטיימר „%s”?</string>
     <string name="screensaver_clock_dynamic_colors_title">צבעי שעון דינמיים</string>

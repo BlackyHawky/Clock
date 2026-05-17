@@ -280,15 +280,6 @@ public final class DataModel {
     }
 
     /**
-     * Clears all cached city data.
-     * Must be called when app preferences are reset or locale changes.
-     */
-    public void clearCityCache() {
-        enforceMainLooper();
-        mCityModel.clearCache();
-    }
-
-    /**
      * @param cityListener listener to be notified when the world city list changes
      */
     public void addCityListener(CityListener cityListener) {
@@ -684,7 +675,7 @@ public final class DataModel {
     }
 
     /**
-     * @return {@code true} if 24 hour time format is selected; {@code false} otherwise
+     * @return {@code true} if 24-hour time format is selected; {@code false} otherwise
      */
     public boolean is24HourFormat() {
         return DateFormat.is24HourFormat(DeskClockApplication.getAppContext());
@@ -757,19 +748,6 @@ public final class DataModel {
     public List<CustomRingtone> getCustomRingtones() {
         enforceMainLooper();
         return mRingtoneModel.getCustomRingtones();
-    }
-
-    /**
-     * Clears the in-memory list of custom ringtones.
-     *
-     * <p>This method removes all cached custom ringtones stored in {@code mCustomRingtones}
-     * and forces the list to be reloaded from SharedPreferences the next time it is accessed.
-     * It is typically used during a full application reset, after the ringtone-related
-     * preferences and files have been deleted.</p>
-     */
-    public void clearCustomRingtones() {
-        enforceMainLooper();
-        mRingtoneModel.clearCustomRingtones();
     }
 
 

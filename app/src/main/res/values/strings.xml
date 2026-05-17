@@ -919,7 +919,11 @@
     <!-- Confirmation message to reset all settings -->
     <string name="reset_settings_message">Are you sure you want to reset all app settings?</string>
     <!-- Toast message when reset is complete -->
-    <string name="toast_message_for_reset">Reset completed</string>
+    <string name="restart_app_dialog_title_for_reset">Reset completed</string>
+    <!-- Toast message when restore is complete -->
+    <string name="restart_app_dialog_title_for_restore">Restore completed</string>
+    <!-- Dialog message when the reset or restore is complete. -->
+    <string name="restart_app_dialog_message">The application needs to be restarted for the changes to take effect.</string>
     <!-- Button to close a dialog where neither "ok" nor "cancel" are suitable -->
     <string name="dialog_close">Close</string>
     <!-- Label for the disabled shortcuts. -->
@@ -1398,8 +1402,6 @@
     <string name="toast_message_for_backup">Backup completed</string>
     <!-- Toast message when backup fails -->
     <string name="toast_message_backup_error">Backup failed</string>
-    <!-- Toast message when restore is complete -->
-    <string name="toast_message_for_restore">Restore completed</string>
     <!-- Toast message when restore fails -->
     <string name="toast_message_restore_error">Restore failed</string>
 </resources>

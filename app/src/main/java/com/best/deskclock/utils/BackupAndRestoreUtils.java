@@ -11,6 +11,7 @@ import static com.best.deskclock.data.CustomRingtoneDAO.RINGTONE_IDS;
 import static com.best.deskclock.data.CustomRingtoneDAO.RINGTONE_TITLE;
 import static com.best.deskclock.data.CustomRingtoneDAO.RINGTONE_URI;
 import static com.best.deskclock.data.SettingsDAO.KEY_SELECTED_ALARM_RINGTONE_URI;
+import static com.best.deskclock.data.TimerDAO.STATE;
 import static com.best.deskclock.data.TimerDAO.TIMER_IDS;
 import static com.best.deskclock.settings.PreferencesKeys.*;
 
@@ -29,6 +30,7 @@ import com.best.deskclock.BuildConfig;
 import com.best.deskclock.R;
 import com.best.deskclock.alarms.AlarmStateManager;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.data.Timer;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
@@ -58,6 +60,9 @@ import java.util.Set;
  * This class lists all settings that can be backed up or restored.
  */
 public class BackupAndRestoreUtils {
+
+    public static boolean isRestoringBackupOrIsResettingApp = false;
+    public static boolean appNeedsRestart = false;
 
     /**
      * Read and export values in SharedPreferences to a file.
@@ -112,7 +117,13 @@ public class BackupAndRestoreUtils {
 
                     strings.put(entry.getKey(), prefs.getString(entry.getKey(), (String) entry.getValue()));
                 } else if (entry.getValue() instanceof Integer) {
-                    ints.put(entry.getKey(), prefs.getInt(entry.getKey(), (Integer) entry.getValue()));
+                    int value = prefs.getInt(entry.getKey(), (Integer) entry.getValue());
+                    // Always save the timers in the Reset state
+                    if (key.startsWith(STATE)) {
+                        value = Timer.State.RESET.getValue();
+                    }
+
+                    ints.put(entry.getKey(), value);
                 } else if (entry.getValue() instanceof Long) {
                     longs.put(entry.getKey(), prefs.getLong(entry.getKey(), (Long) entry.getValue()));
                 }
