@@ -74,6 +74,8 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     private static final String EXTRA_TIMER_SETUP = "com.best.deskclock.action.TIMER_SETUP";
 
     private static final String KEY_TIMER_SETUP_STATE = "timer_setup_input";
+    private static final String KEY_TIMER_ID_TO_DELETE = "timer_id_to_delete";
+    private int mTimerIdToDelete = -1;
 
     private TimerFragmentBinding mBinding;
 
@@ -190,11 +192,13 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         mItemTouchHelper = new ItemTouchHelper(callback);
         handleItemTouchHelper();
 
-        // If timer setup state is present, retrieve it to be later honored.
         if (savedInstanceState != null) {
+            // If timer setup state is present, retrieve it to be later honored.
             mTimerSetupState = SdkUtils.isAtLeastAndroid13()
                 ? savedInstanceState.getSerializable(KEY_TIMER_SETUP_STATE, int[].class)
                 : savedInstanceState.getSerializable(KEY_TIMER_SETUP_STATE);
+
+            mTimerIdToDelete = savedInstanceState.getInt(KEY_TIMER_ID_TO_DELETE, -1);
         }
 
         requireActivity().getOnBackPressedDispatcher().addCallback(
@@ -293,6 +297,23 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
                         mTimerSetupState = null;
                     }
                 }
+
+                if (mTimerIdToDelete != -1 && (mActiveDialog == null || !mActiveDialog.isShowing())) {
+                    Timer timerToDelete = null;
+                    for (Timer timer : DataModel.getDataModel().getTimers()) {
+                        if (timer.getId() == mTimerIdToDelete) {
+                            timerToDelete = timer;
+                            break;
+                        }
+                    }
+
+                    if (timerToDelete != null) {
+                        mActiveDialog = warningDialogBeforeDeletingTimer(timerToDelete);
+                        mActiveDialog.show();
+                    } else {
+                        mTimerIdToDelete = -1;
+                    }
+                }
             });
         }
     }
@@ -314,6 +335,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     @Override
     public void onDestroyView() {
         if (mActiveDialog != null && mActiveDialog.isShowing()) {
+            mActiveDialog.setOnDismissListener(null);
             mActiveDialog.dismiss();
             mActiveDialog = null;
         }
@@ -339,6 +361,8 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
             mTimerSetupState = mBinding.timerSetupView.getState();
             outState.putSerializable(KEY_TIMER_SETUP_STATE, mTimerSetupState);
         }
+
+        outState.putInt(KEY_TIMER_ID_TO_DELETE, mTimerIdToDelete);
     }
 
     @Override
@@ -644,27 +668,39 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
 
     public void confirmAndDeleteTimer(Timer timer) {
         if (SettingsDAO.isWarningDisplayedBeforeDeletingTimer(mPrefs)) {
-            // Get the title of the timer if there is one; otherwise, get the total duration.
-            final String dialogMessage;
-            if (timer.getLabel().isEmpty()) {
-                dialogMessage = mContext.getString(R.string.warning_dialog_message, timer.getTotalDuration());
-            } else {
-                dialogMessage = mContext.getString(R.string.warning_dialog_message, timer.getLabel());
-            }
-
-            mActiveDialog = CustomDialog.createSimpleDialog(
-                requireContext(),
-                R.drawable.ic_delete,
-                R.string.warning_dialog_title,
-                dialogMessage,
-                android.R.string.ok,
-                (d, w) -> DataModel.getDataModel().removeTimer(timer)
-            );
-
+            mTimerIdToDelete = timer.getId();
+            mActiveDialog = warningDialogBeforeDeletingTimer(timer);
             mActiveDialog.show();
         } else {
             DataModel.getDataModel().removeTimer(timer);
         }
+    }
+
+    private AlertDialog warningDialogBeforeDeletingTimer(Timer timer) {
+        // Get the title of the timer if there is one; otherwise, get the total duration.
+        final String dialogMessage;
+        if (timer.getLabel().isEmpty()) {
+            dialogMessage = mContext.getString(R.string.warning_dialog_message, timer.getTotalDuration());
+        } else {
+            dialogMessage = mContext.getString(R.string.warning_dialog_message, timer.getLabel());
+        }
+
+        return CustomDialog.create(
+            requireContext(),
+            null,
+            AppCompatResources.getDrawable(mContext, R.drawable.ic_delete),
+            getString(R.string.warning_dialog_title),
+            dialogMessage,
+            null,
+            getString(android.R.string.ok),
+            (d, w) -> DataModel.getDataModel().removeTimer(timer),
+            getString(android.R.string.cancel),
+            null,
+            null,
+            null,
+            (alertDialog -> alertDialog.setOnDismissListener(d -> mTimerIdToDelete =  -1)),
+            CustomDialog.SoftInputMode.NONE
+        );
     }
 
     private boolean hasTimers() {
