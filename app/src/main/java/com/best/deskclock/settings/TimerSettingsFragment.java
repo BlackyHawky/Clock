@@ -177,7 +177,7 @@ public class TimerSettingsFragment extends ScreenFragment
     public void onResume() {
         super.onResume();
 
-        mTimerRingtonePref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
+        updateRingtonePreferences();
 
         if (mIsAlarmTabHidden) {
             if (mHasExternalAudioDeviceConnected) {
@@ -471,6 +471,11 @@ public class TimerSettingsFragment extends ScreenFragment
         } else {
             mAlarmVolumePref.stopRingtonePreview();
         }
+    }
+
+    private void updateRingtonePreferences() {
+        mTimerRingtonePref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
+        mTimerRingtonePref.setIntent(RingtonePickerActivity.createTimerRingtonePickerIntent(requireContext()));
     }
 
     private void nullifyAllPrefs() {

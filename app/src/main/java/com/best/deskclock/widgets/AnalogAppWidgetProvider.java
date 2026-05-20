@@ -19,6 +19,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Icon;
 
+import androidx.annotation.Keep;
+
 import com.best.deskclock.R;
 import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.utils.SdkUtils;
@@ -129,6 +131,7 @@ public class AnalogAppWidgetProvider extends BaseAnalogAppWidgetProvider {
         }
     }
 
+    @Keep
     public static void updateAppWidget(Context context, AppWidgetManager wm, int widgetId) {
         new AnalogAppWidgetProvider().updateAnalogWidget(context, wm, widgetId);
     }

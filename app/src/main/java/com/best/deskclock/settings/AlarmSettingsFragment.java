@@ -229,7 +229,7 @@ public class AlarmSettingsFragment extends ScreenFragment
     public void onResume() {
         super.onResume();
 
-        mAlarmRingtonePref.setSummary(DataModel.getDataModel().getAlarmRingtoneTitle());
+        updateRingtonePreferences();
 
         if (mHasExternalAudioDeviceConnected) {
             mAlarmVolumePref.setTitle(R.string.disconnect_external_audio_device_title);
@@ -899,6 +899,11 @@ public class AlarmSettingsFragment extends ScreenFragment
         } else {
             mAlarmVolumePref.stopRingtonePreview();
         }
+    }
+
+    private void updateRingtonePreferences() {
+        mAlarmRingtonePref.setSummary(DataModel.getDataModel().getAlarmRingtoneTitle());
+        mAlarmRingtonePref.setIntent(RingtonePickerActivity.createAlarmRingtonePickerIntentForSettings(requireContext()));
     }
 
     private void nullifyAllPrefs() {

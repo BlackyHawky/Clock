@@ -19,6 +19,8 @@ import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.TextView;
 
+import androidx.annotation.Keep;
+
 import com.best.deskclock.R;
 import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.utils.AlarmUtils;
@@ -560,6 +562,7 @@ public class NextAlarmAppWidgetProvider extends BaseDigitalAppWidgetProvider {
         }
     }
 
+    @Keep
     public static void updateAppWidget(Context context, AppWidgetManager wm, int widgetId) {
         new NextAlarmAppWidgetProvider().relayoutWidget(context, wm, widgetId, wm.getAppWidgetOptions(widgetId));
     }

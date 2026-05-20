@@ -10,8 +10,6 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.provider.Settings;
 
-import com.best.deskclock.settings.PreferencesKeys;
-
 /**
  * All alarm data will eventually be accessed via this model.
  */
@@ -23,13 +21,6 @@ final class AlarmModel {
      * The model from which ringtone data are fetched.
      */
     private final RingtoneModel mRingtoneModel;
-
-    /**
-     * Retain a hard reference to the shared preference observer to prevent it from being garbage
-     * collected. See {@link SharedPreferences#registerOnSharedPreferenceChangeListener} for detail.
-     */
-    @SuppressWarnings("FieldCanBeLocal")
-    private final SharedPreferences.OnSharedPreferenceChangeListener mPreferenceListener = new PreferenceListener();
 
     /**
      * The uri of the default ringtone to use for alarms until the user explicitly chooses one.
@@ -49,9 +40,6 @@ final class AlarmModel {
     AlarmModel(SharedPreferences prefs, RingtoneModel ringtoneModel) {
         mPrefs = prefs;
         mRingtoneModel = ringtoneModel;
-
-        // Clear caches affected by system settings when system settings change.
-        prefs.registerOnSharedPreferenceChangeListener(mPreferenceListener);
     }
 
     /**
@@ -90,19 +78,9 @@ final class AlarmModel {
      */
     void setAlarmRingtoneUriFromSettings(Uri uri) {
         SettingsDAO.setAlarmRingtoneUriFromSettings(mPrefs, uri);
+
+        mAlarmRingtoneUriFromSettings = null;
+        mAlarmRingtoneTitle = null;
     }
 
-    /**
-     * This receiver is notified when shared preferences change. Cached information built on
-     * preferences must be cleared.
-     */
-    private final class PreferenceListener implements SharedPreferences.OnSharedPreferenceChangeListener {
-        @Override
-        public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-            if (PreferencesKeys.KEY_DEFAULT_ALARM_RINGTONE.equals(key)) {
-                mAlarmRingtoneUriFromSettings = null;
-                mAlarmRingtoneTitle = null;
-            }
-        }
-    }
 }

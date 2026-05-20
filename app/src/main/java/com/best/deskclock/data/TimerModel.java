@@ -12,7 +12,6 @@ import static com.best.deskclock.data.Timer.State.EXPIRED;
 import static com.best.deskclock.data.Timer.State.RESET;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_END_OF_RINGTONE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_NEVER;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_RINGTONE;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -26,7 +25,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Handler;
@@ -99,13 +97,6 @@ final class TimerModel {
     private final BroadcastReceiver mLocaleChangedReceiver = new LocaleChangedReceiver();
 
     /**
-     * Retain a hard reference to the shared preference observer to prevent it from being garbage
-     * collected. See {@link SharedPreferences#registerOnSharedPreferenceChangeListener} for detail.
-     */
-    @SuppressWarnings("FieldCanBeLocal")
-    private final OnSharedPreferenceChangeListener mPreferenceListener = new PreferenceListener();
-
-    /**
      * The listeners to notify when a timer is added, updated or removed.
      */
     private final List<TimerListener> mTimerListeners = new ArrayList<>();
@@ -169,9 +160,6 @@ final class TimerModel {
         mNotificationManager = NotificationManagerCompat.from(context);
 
         mAlarmManager = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
-
-        // Clear caches affected by preferences when preferences change.
-        prefs.registerOnSharedPreferenceChangeListener(mPreferenceListener);
 
         // Update timer notification when locale changes.
         final IntentFilter localeBroadcastFilter = new IntentFilter(Intent.ACTION_LOCALE_CHANGED);
@@ -452,6 +440,9 @@ final class TimerModel {
      */
     void setTimerRingtoneUri(Uri uri) {
         SettingsDAO.setTimerRingtoneUri(mPrefs, uri);
+
+        mTimerRingtoneUri = null;
+        mTimerRingtoneTitle = null;
     }
 
     /**
@@ -911,17 +902,4 @@ final class TimerModel {
         }
     }
 
-    /**
-     * This receiver is notified when shared preferences change. Cached information built on
-     * preferences must be cleared.
-     */
-    private final class PreferenceListener implements OnSharedPreferenceChangeListener {
-        @Override
-        public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-            if (KEY_TIMER_RINGTONE.equals(key)) {
-                mTimerRingtoneUri = null;
-                mTimerRingtoneTitle = null;
-            }
-        }
-    }
 }
