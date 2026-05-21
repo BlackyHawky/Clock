@@ -334,16 +334,14 @@ public class AboutFragment extends ScreenFragment implements Preference.OnPrefer
     }
 
     private void setupPreferences() {
+        mTitlePref.setTitle(Utils.getStringResByBuildType(
+            R.string.app_label, R.string.app_label_debug, R.string.app_label_nightly)
+        );
+
         if (BuildConfig.IS_DEBUG_BUILD) {
-            mTitlePref.setTitle(R.string.about_debug_app_title);
             mVersionPref.setSelectable(false);
             mVersionPref.setOnPreferenceClickListener(null);
-        } else if (BuildConfig.IS_NIGHTLY_BUILD) {
-            mTitlePref.setTitle(R.string.about_nightly_app_title);
-            mVersionPref.setSelectable(true);
-            mVersionPref.setOnPreferenceClickListener(this);
         } else {
-            mTitlePref.setTitle(R.string.app_label);
             mVersionPref.setSelectable(true);
             mVersionPref.setOnPreferenceClickListener(this);
         }

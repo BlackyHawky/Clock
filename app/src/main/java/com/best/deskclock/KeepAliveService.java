@@ -18,6 +18,7 @@ import androidx.core.app.ServiceCompat;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.NotificationUtils;
 import com.best.deskclock.utils.SdkUtils;
+import com.best.deskclock.utils.Utils;
 
 /**
  * A Foreground Service designed to keep the application process alive in the background.
@@ -51,17 +52,9 @@ public class KeepAliveService extends Service {
         PendingIntent pendingIntent = PendingIntent.getActivity(
             this, 0, notificationIntent, PendingIntent.FLAG_IMMUTABLE);
 
-        CharSequence notificationTitle;
-        if (BuildConfig.IS_DEBUG_BUILD) {
-            notificationTitle = getString(R.string.about_debug_app_title);
-        } else if (BuildConfig.IS_NIGHTLY_BUILD) {
-            notificationTitle = getString(R.string.about_nightly_app_title);
-        } else {
-            notificationTitle = getApplicationInfo().loadLabel(getPackageManager());
-        }
-
         Notification notification = new NotificationCompat.Builder(this, FOREGROUND_SERVICE_CHANNEL_ID)
-            .setContentTitle(notificationTitle)
+            .setContentTitle(getString(Utils.getStringResByBuildType(
+                R.string.app_label, R.string.app_label_debug, R.string.app_label_nightly)))
             .setContentText(getString(R.string.foreground_service_message))
             .setColor(getColor(R.color.md_theme_primary))
             .setSmallIcon(R.drawable.ic_tab_alarm_static)

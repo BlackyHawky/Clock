@@ -19,10 +19,6 @@
     <string name="keep_android_open_more_info_button">More info</string>
     <string name="keep_android_open_solution_button">Solution</string>
 
-    <!-- String of debug application title in "About" page. -->
-    <string name="about_debug_app_title">Clock debug</string>
-    <!-- String of nightly application title in "About" page. -->
-    <string name="about_nightly_app_title">Clock nightly</string>
     <!-- String matching the lock screen format for displaying 12-hour times. -->
     <string name="lock_screen_12_hour_format">h&#58;mm</string>
     <!-- String matching the lock screen format for displaying 24-hour times. -->
@@ -87,7 +83,10 @@
     <string name="label_shortcut">Shortcut</string>
 
     <!-- Label names for Debug mode. -->
+    <!-- App title for the debug version. -->
     <string name="app_label_debug">Clock debug</string>
+    <!-- Settings title for the debug version. -->
+    <string name="setting_debug_title">Settings debug version</string>
     <string name="debug_category_title">Debug</string>
     <string name="toast_message_debug_displayed">Debug settings displayed</string>
     <string name="toast_message_debug_hidden">Debug settings hidden</string>
@@ -97,6 +96,12 @@
     <string name="log_dialog_message">Do you want to delete local log entries after backup?</string>
     <string name="enable_local_logging_title">Enable local logging</string>
     <string name="enable_local_logging_summary">This setting may cause slowdowns; disable it to remove Debug mode</string>
+
+    <!-- Label names for Nightly mode. -->
+    <!-- App title for the nightly version. -->
+    <string name="app_label_nightly">Clock nightly</string>
+    <!-- Settings title for the nightly version. -->
+    <string name="setting_nightly_title">Settings nightly version</string>
 
     <!-- ************************** -->
     <!-- **     STRING-ARRAY     ** -->

@@ -21,6 +21,7 @@ import com.best.deskclock.settings.PermissionsManagementActivity;
 import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
+import com.best.deskclock.utils.Utils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class FirstLaunch extends BaseActivity {
@@ -102,13 +103,9 @@ public class FirstLaunch extends BaseActivity {
      * Automatically sets the application title according to whether it's the debug version or not.
      */
     private void setupTitle() {
-        if (BuildConfig.IS_DEBUG_BUILD) {
-            mBinding.firstLaunchAppTitle.setText(R.string.about_debug_app_title);
-        } else if (BuildConfig.IS_NIGHTLY_BUILD) {
-            mBinding.firstLaunchAppTitle.setText(R.string.about_nightly_app_title);
-        } else {
-            mBinding.firstLaunchAppTitle.setText(R.string.app_label);
-        }
+        mBinding.firstLaunchAppTitle.setText(Utils.getStringResByBuildType(
+            R.string.app_label, R.string.app_label_debug, R.string.app_label_nightly)
+        );
     }
 
     /**

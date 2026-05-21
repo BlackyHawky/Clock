@@ -219,7 +219,8 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
         @Override
         protected String getFragmentTitle() {
-            return getString(R.string.settings);
+            return getString(Utils.getStringResByBuildType(
+                R.string.settings, R.string.setting_debug_title, R.string.setting_nightly_title));
         }
 
         @Override
