@@ -217,9 +217,10 @@ public class ScreensaverUtils {
         int iconRes = getBatteryIconRes(percent, isCharging);
         final Drawable drawable = AppCompatResources.getDrawable(context, iconRes);
 
+        final ClockStyle screensaverClockStyle = SettingsDAO.getScreensaverClockStyle(prefs);
         final boolean isDynamicColors = SettingsDAO.areScreensaverClockDynamicColors(prefs);
         final int inversePrimaryColor = ContextCompat.getColor(context, R.color.md_theme_inversePrimary);
-        final int color = isDynamicColors
+        final int color = isDynamicColors && screensaverClockStyle != ClockStyle.ANALOG_MATERIAL
             ? inversePrimaryColor
             : SettingsDAO.getScreensaverBatteryColorPicker(prefs);
 
