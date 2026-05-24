@@ -496,6 +496,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             });
         } else {
             mBinding.pauseAlarmLayout.setOnClickListener(null);
+            mBinding.pauseAlarm.setOnClickListener(null);
         }
     }
 
