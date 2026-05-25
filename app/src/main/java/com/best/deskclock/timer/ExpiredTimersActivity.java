@@ -367,7 +367,7 @@ public class ExpiredTimersActivity extends BaseActivity {
         TransitionManager.beginDelayedTransition(mExpiredTimersScrollView, new AutoTransition());
 
         final int timerId = timer.getId();
-        final boolean isCompact = SettingsDAO.isCompactTimersDisplayed(mPrefs);
+        final boolean isCompact = SettingsDAO.isCompactTimersDisplayed(mPrefs) && !SettingsDAO.isSingleTimerModeEnabled(mPrefs);
         final boolean useCompactLayout = ThemeUtils.isPortrait() && isCompact;
 
         final View view;
@@ -418,7 +418,7 @@ public class ExpiredTimersActivity extends BaseActivity {
             DataModel.getDataModel().addCustomTimeToTimer(timer1);
         });
 
-        // Add logic to hide the 'X' and reset buttons
+        // Add logic to hide the "Delete" and "Reset" buttons
         deleteButton.setVisibility(View.GONE);
         resetButton.setVisibility(View.GONE);
 

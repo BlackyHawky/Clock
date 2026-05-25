@@ -256,7 +256,7 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
      */
     private void addTimer(Timer timer) {
         final int timerId = timer.getId();
-        final boolean isCompact = SettingsDAO.isCompactTimersDisplayed(mPrefs);
+        final boolean isCompact = SettingsDAO.isCompactTimersDisplayed(mPrefs) && !SettingsDAO.isSingleTimerModeEnabled(mPrefs);
         final boolean useCompactLayout = ThemeUtils.isPortrait() && isCompact;
 
         final View view;
@@ -298,7 +298,7 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
         // Hide the label hint for expired timers.
         labelView.setVisibility(VISIBLE);
 
-        // Add logic to hide the 'X' and reset buttons
+        // Add logic to hide the "Delete" and "Reset" buttons
         deleteButton.setVisibility(View.GONE);
         resetButton.setVisibility(View.GONE);
 

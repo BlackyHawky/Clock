@@ -1018,6 +1018,12 @@
     <string name="timer_flip_action_title">Flip the device to stop the alarm</string>
     <!-- Setting title to enable shake action for expired timers. -->
     <string name="timer_shake_action_title">Shake the device to stop the alarm</string>
+    <!-- Setting title to enable the single timer mode. -->
+    <string name="single_timer_mode_title">Single timer mode</string>
+    <!-- Setting summary about the single timer mode. -->
+    <string name="single_timer_mode_summary">Keep only one timer, which is automatically deleted once reset</string>
+    <!-- Warning message when the "Single timer mode" setting is enabled or disabled and timers already exist. -->
+    <string name="single_timer_mode_warning_message">The timers will be removed.%s</string>
     <!-- Title to sort timers -->
     <string name="sort_timer_title">Sort the timers</string>
     <!-- Setting title for changing the timer sorting to By duration (ascending order). -->

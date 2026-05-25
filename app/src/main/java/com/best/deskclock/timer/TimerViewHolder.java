@@ -6,6 +6,8 @@
 
 package com.best.deskclock.timer;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
 import android.content.Context;
@@ -30,10 +32,13 @@ import com.google.android.material.button.MaterialButton;
 public class TimerViewHolder extends RecyclerView.ViewHolder {
 
     private final Context mContext;
+    private final Boolean mIsSingleTimerMode;
     private int mTimerId;
     private final TimerAdapter mAdapter;
     public TimerItem mTimerItem;
     public TimerItemCompact mTimerItemCompact;
+    private final ImageButton mDeleteButton;
+    private final ImageButton mResetButton;
     public final MaterialButton addTimeButton;
 
     public TimerViewHolder(View view, TimerAdapter timerAdapter, TimerClickHandler timerClickHandler, int viewType, Typeface regular,
@@ -42,17 +47,16 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
         super(view);
 
         mContext = view.getContext();
-        final SharedPreferences prefs = getDefaultSharedPreferences(mContext);
+        SharedPreferences prefs = getDefaultSharedPreferences(mContext);
+        mIsSingleTimerMode = SettingsDAO.isSingleTimerModeEnabled(prefs);
         mAdapter = timerAdapter;
 
         final TextView timerLabel;
-        final ImageButton resetButton;
         final TextView timerTotalDuration;
         final ImageButton timerEditNewDurationButton;
         final View circleContainer;
         final TextView timerTimeText;
         final MaterialButton playPauseButton;
-        final ImageButton deleteButton;
 
         switch (viewType) {
             case TimerAdapter.SINGLE_TIMER, TimerAdapter.MULTIPLE_TIMERS -> {
@@ -62,14 +66,14 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
                 TimerItemBinding binding = TimerItemBinding.bind(view);
 
                 timerLabel = binding.timerLabel;
-                resetButton = binding.resetButton;
+                mResetButton = binding.resetButton;
                 timerTotalDuration = binding.timerTotalDurationText;
                 timerEditNewDurationButton = binding.timerEditNewDurationButton;
                 addTimeButton = binding.timerAddTimeButton;
                 circleContainer = binding.circleContainer;
                 timerTimeText = binding.timerTimeText;
                 playPauseButton = binding.playPauseButton;
-                deleteButton = binding.deleteTimerButton;
+                mDeleteButton = binding.deleteTimerButton;
             }
             case TimerAdapter.MULTIPLE_TIMERS_COMPACT -> {
                 mTimerItemCompact = (TimerItemCompact) view;
@@ -78,11 +82,11 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
                 TimerItemCompactBinding compactBinding = TimerItemCompactBinding.bind(view);
 
                 timerLabel = compactBinding.timerLabel;
-                resetButton = compactBinding.resetButton;
+                mResetButton = compactBinding.resetButton;
                 addTimeButton = compactBinding.timerAddTimeButton;
                 timerTimeText = compactBinding.timerTimeText;
                 playPauseButton = compactBinding.playPauseButton;
-                deleteButton = compactBinding.deleteTimerButton;
+                mDeleteButton = compactBinding.deleteTimerButton;
                 timerTotalDuration = compactBinding.timerTotalDurationText;
                 timerEditNewDurationButton = null;
                 circleContainer = null;
@@ -97,7 +101,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
 
         timerLabel.setOnClickListener(v -> timerClickHandler.onEditLabelClicked(getTimer()));
 
-        resetButton.setOnClickListener(v -> {
+        mResetButton.setOnClickListener(v -> {
             Utils.setVibrationTime(mContext, 10);
             timerClickHandler.onResetClicked(getTimer());
         });
@@ -145,7 +149,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
 
         playPauseButton.setOnClickListener(playPauseListener);
 
-        deleteButton.setOnClickListener(v -> {
+        mDeleteButton.setOnClickListener(v -> {
             Utils.setVibrationTime(mContext, 10);
             timerClickHandler.onDeleteTimerClicked(getTimer());
         });
@@ -160,6 +164,12 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
                 mTimerItem.bindTimer(timer);
             } else if (mTimerItemCompact != null) {
                 mTimerItemCompact.bindTimer(timer);
+            }
+
+            mDeleteButton.setVisibility(mIsSingleTimerMode ? GONE : VISIBLE);
+
+            if (mIsSingleTimerMode) {
+                mResetButton.setVisibility(GONE);
             }
         }
 

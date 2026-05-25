@@ -10,6 +10,7 @@ import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 import static androidx.core.app.NotificationCompat.Action;
 import static androidx.core.app.NotificationCompat.Builder;
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.utils.NotificationUtils.FIRING_NOTIFICATION_CHANNEL_ID;
 import static com.best.deskclock.utils.NotificationUtils.TIMER_MODEL_NOTIFICATION_CHANNEL_ID;
 
@@ -20,6 +21,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
@@ -86,6 +88,7 @@ class TimerNotificationBuilder {
     }
 
     public Notification build(Context context, NotificationModel nm, Timer timer) {
+        final SharedPreferences prefs = getDefaultSharedPreferences(context);
         final boolean running = timer.isRunning();
         final long base = getChronometerBase(timer);
         final List<Action> actions = new ArrayList<>(2);
@@ -160,7 +163,7 @@ class TimerNotificationBuilder {
                 .putExtra(TimerService.EXTRA_TIMER_ID, timerId);
 
             @DrawableRes final int icon = R.drawable.ic_reset;
-            final CharSequence title = context.getText(R.string.reset);
+            final CharSequence title = context.getText(SettingsDAO.isSingleTimerModeEnabled(prefs) ? R.string.delete : R.string.reset);
             final PendingIntent intent = Utils.pendingServiceIntent(context, reset, timerId);
             actions.add(new Action.Builder(icon, title, intent).build());
         }
@@ -236,6 +239,7 @@ class TimerNotificationBuilder {
     }
 
     Notification buildHeadsUp(Context context, List<Timer> expired) {
+        final SharedPreferences prefs = getDefaultSharedPreferences(context);
         final Timer timer = expired.get(0);
         final int timerId = timer.getId();
 
@@ -261,7 +265,9 @@ class TimerNotificationBuilder {
             stateText = context.getString(R.string.timer_times_up);
 
             // Left button: Reset single timer
-            final CharSequence title1 = context.getString(R.string.timer_stop);
+            final CharSequence title1 = context.getString(SettingsDAO.isSingleTimerModeEnabled(prefs)
+                ? R.string.delete
+                : R.string.timer_stop);
             actions.add(new Action.Builder(icon1, title1, intent1).build());
 
             // Right Button: +x Minutes
@@ -295,7 +301,7 @@ class TimerNotificationBuilder {
         final Intent content = new Intent(context, ExpiredTimersActivity.class);
         final PendingIntent contentIntent = Utils.pendingActivityIntent(context, content);
 
-        // Full screen intent has flags so it is different than the content intent.
+        // Full screen intent has flags so it is different from the content intent.
         final Intent fullScreen = new Intent(context, ExpiredTimersActivity.class)
             .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_USER_ACTION);
         final PendingIntent pendingFullScreen = Utils.pendingActivityIntent(context, fullScreen);
@@ -345,6 +351,7 @@ class TimerNotificationBuilder {
     }
 
     Notification buildMissed(Context context, NotificationModel nm, Timer timer) {
+        final SharedPreferences prefs = getDefaultSharedPreferences(context);
         final int timerId = timer.getId();
         final long base = getChronometerBase(timer);
         final Resources res = context.getResources();
@@ -377,7 +384,7 @@ class TimerNotificationBuilder {
         final PendingIntent pendingShowApp = Utils.pendingActivityIntent(context, showApp);
 
         @DrawableRes final int icon = R.drawable.ic_reset;
-        final CharSequence title = res.getText(R.string.reset);
+        final CharSequence title = res.getText(SettingsDAO.isSingleTimerModeEnabled(prefs) ? R.string.delete : R.string.reset);
         final PendingIntent intent = Utils.pendingServiceIntent(context, reset);
         action = new Action.Builder(icon, title, intent).build();
 

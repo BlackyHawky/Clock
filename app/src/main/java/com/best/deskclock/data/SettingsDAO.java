@@ -806,6 +806,14 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return {@code true} if the "Single timer mode" is enabled. {@code false} otherwise.
+     */
+    public static boolean isSingleTimerModeEnabled(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_timer_display.xml
+        return prefs.getBoolean(KEY_SINGLE_TIMER_MODE, DEFAULT_SINGLE_TIMER_MODE);
+    }
+
+    /**
      * @return the timer sorting manually, in ascending order of duration, in descending order of duration or by name
      */
     public static String getTimerSortingPreference(SharedPreferences prefs) {

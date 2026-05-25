@@ -65,6 +65,7 @@ import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Displays a vertical list of timers in all states.
@@ -81,6 +82,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
 
     private Context mContext;
     private SharedPreferences mPrefs;
+    private boolean mIsSingleTimerMode;
     private boolean mIsManualSorting;
     private DisplayMetrics mDisplayMetrics;
     private Typeface mBoldTypeface;
@@ -139,6 +141,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
 
         mContext = requireContext();
         mPrefs = getDefaultSharedPreferences(mContext);
+        mIsSingleTimerMode = SettingsDAO.isSingleTimerModeEnabled(mPrefs);
         mIsManualSorting = SettingsDAO.getTimerSortingPreference(mPrefs).equals(DEFAULT_SORT_TIMER_MANUALLY);
         mDisplayMetrics = getResources().getDisplayMetrics();
         mBoldTypeface = ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(mPrefs));
@@ -412,14 +415,23 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     @Override
     public void onFabClick() {
         if (mCurrentView == mBinding.timerContentView) {
-            animateToView(getTimerCreationView(), true);
+            if (mIsSingleTimerMode) {
+                List<Timer> timers = DataModel.getDataModel().getTimers();
+
+                if (!DataModel.getDataModel().getTimers().isEmpty()) {
+                    DataModel.getDataModel().removeTimer(timers.get(0));
+                }
+            } else {
+                animateToView(getTimerCreationView(), true);
+            }
         } else if (mCurrentView == getTimerCreationView()) {
             mCreatingTimer = true;
+
             try {
                 // Create the new timer.
                 final long timerLength = getTimeInMillis();
                 String defaultTimeToAddToTimer = String.valueOf(SettingsDAO.getDefaultTimeToAddToTimer(mPrefs));
-                final Timer timer = DataModel.getDataModel().addTimer(timerLength, "", defaultTimeToAddToTimer, false);
+                final Timer timer = DataModel.getDataModel().addTimer(timerLength, "", defaultTimeToAddToTimer, mIsSingleTimerMode);
                 Events.sendTimerEvent(R.string.action_create, R.string.label_deskclock);
 
                 // Start the new timer.
@@ -594,8 +606,14 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     private void updateFab(@NonNull ImageView fab) {
         if (mContext != null) {
             if (mCurrentView == mBinding.timerContentView) {
-                fab.setImageResource(R.drawable.ic_add);
-                fab.setContentDescription(mContext.getString(R.string.timer_add_timer));
+                if (mIsSingleTimerMode) {
+                    fab.setImageResource(R.drawable.ic_delete);
+                    fab.setContentDescription(mContext.getString(R.string.delete));
+                } else {
+                    fab.setImageResource(R.drawable.ic_add);
+                    fab.setContentDescription(mContext.getString(R.string.timer_add_timer));
+                }
+
                 fab.setVisibility(VISIBLE);
             } else if (mCurrentView == getTimerCreationView()) {
                 if (hasValidInput()) {

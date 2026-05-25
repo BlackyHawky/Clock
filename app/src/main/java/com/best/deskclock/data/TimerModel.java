@@ -312,7 +312,7 @@ final class TimerModel {
 
     /**
      * If the given {@code timer} is expired and marked for deletion after use then this method
-     * removes the the timer. The timer is otherwise transitioned to the reset state and continues
+     * removes the timer. The timer is otherwise transitioned to the reset state and continues
      * to exist.
      *
      * @param timer        the timer to be reset
@@ -575,6 +575,10 @@ final class TimerModel {
      * @param timer an existing timer to be removed
      */
     private void doRemoveTimer(Timer timer) {
+        // Cancel the specific notification before clearing the timer from memory.
+        int notificationId = mNotificationModel.getUnexpiredTimerNotificationId(timer.getId());
+        mNotificationManager.cancel(notificationId);
+
         // Remove the timer from permanent storage.
         TimerDAO.removeTimer(mPrefs, timer);
 
@@ -616,7 +620,7 @@ final class TimerModel {
      * bulk-update scenarios so the notifications are only rebuilt once.
      * <p>
      * If the given {@code timer} is expired and marked for deletion after use then this method
-     * removes the the timer. The timer is otherwise transitioned to the reset state and continues
+     * removes the timer. The timer is otherwise transitioned to the reset state and continues
      * to exist.
      *
      * @param timer        the timer to be reset
@@ -625,7 +629,8 @@ final class TimerModel {
      * @param eventLabelId the label of the timer event to send; 0 if no event should be sent
      */
     private void doResetOrDeleteTimer(Timer timer, boolean allowDelete, @StringRes int eventLabelId) {
-        if (allowDelete && (timer.isExpired() || timer.isMissed()) && timer.getDeleteAfterUse()) {
+        if (SettingsDAO.isSingleTimerModeEnabled(mPrefs)
+            || (allowDelete && (timer.isExpired() || timer.isMissed()) && timer.getDeleteAfterUse())) {
             doRemoveTimer(timer);
             if (eventLabelId != 0) {
                 Events.sendTimerEvent(R.string.action_delete, eventLabelId);

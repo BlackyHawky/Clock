@@ -22,6 +22,8 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.preference.ListPreference;
@@ -32,6 +34,7 @@ import com.best.deskclock.AppExecutors;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.data.Timer;
 import com.best.deskclock.dialogfragment.AutoSilenceDurationDialogFragment;
 import com.best.deskclock.dialogfragment.TimerAddTimeButtonDialogFragment;
 import com.best.deskclock.dialogfragment.VolumeCrescendoDurationDialogFragment;
@@ -41,13 +44,23 @@ import com.best.deskclock.settings.custompreference.AutoSilenceDurationPreferenc
 import com.best.deskclock.settings.custompreference.CustomSliderPreference;
 import com.best.deskclock.settings.custompreference.TimerAddTimeButtonValuePreference;
 import com.best.deskclock.settings.custompreference.VolumeCrescendoDurationPreference;
+import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.Utils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TimerSettingsFragment extends ScreenFragment
     implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
+
+    private static final String KEY_SHOW_SINGLE_TIMER_WARNING = "show_single_timer_warning";
+    private static final String KEY_PENDING_SINGLE_MODE_VALUE = "pending_single_mode_value";
+
+    private boolean mShowSingleTimerWarning = false;
+    private boolean mPendingSingleModeValue = false;
 
     private AudioManager mAudioManager;
     private AudioDeviceCallback mAudioDeviceCallback;
@@ -70,6 +83,7 @@ public class TimerSettingsFragment extends ScreenFragment
     SwitchPreferenceCompat mTimerFlipActionPref;
     SwitchPreferenceCompat mTimerShakeActionPref;
     CustomSliderPreference mTimerShakeIntensityPref;
+    SwitchPreferenceCompat mSingleTimerModePref;
     ListPreference mSortTimerPref;
     SwitchPreferenceCompat mDisplayWarningBeforeDeletingTimerPref;
     SwitchPreferenceCompat mDisplayLowAlarmVolumeWarningPref;
@@ -152,6 +166,7 @@ public class TimerSettingsFragment extends ScreenFragment
         mTimerFlipActionPref = findPreference(KEY_TIMER_FLIP_ACTION);
         mTimerShakeActionPref = findPreference(KEY_TIMER_SHAKE_ACTION);
         mTimerShakeIntensityPref = findPreference(KEY_TIMER_SHAKE_INTENSITY);
+        mSingleTimerModePref = findPreference(KEY_SINGLE_TIMER_MODE);
         mSortTimerPref = findPreference(KEY_SORT_TIMER);
         mDisplayWarningBeforeDeletingTimerPref = findPreference(KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER);
         mDisplayLowAlarmVolumeWarningPref = findPreference(KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING);
@@ -163,7 +178,20 @@ public class TimerSettingsFragment extends ScreenFragment
             mHasExternalAudioDeviceConnected = RingtoneUtils.hasExternalAudioDeviceConnected(requireContext(), mPrefs);
         }
 
+        if (savedInstanceState != null) {
+            mShowSingleTimerWarning = savedInstanceState.getBoolean(KEY_SHOW_SINGLE_TIMER_WARNING, false);
+            mPendingSingleModeValue = savedInstanceState.getBoolean(KEY_PENDING_SINGLE_MODE_VALUE, false);
+        }
+
         setupPreferences();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putBoolean(KEY_SHOW_SINGLE_TIMER_WARNING, mShowSingleTimerWarning);
+        outState.putBoolean(KEY_PENDING_SINGLE_MODE_VALUE, mPendingSingleModeValue);
     }
 
     @Override
@@ -176,6 +204,11 @@ public class TimerSettingsFragment extends ScreenFragment
     @Override
     public void onResume() {
         super.onResume();
+
+        if (mShowSingleTimerWarning && (mActiveDialog == null || !mActiveDialog.isShowing())) {
+            mActiveDialog = singleModeWarningDialog(mPendingSingleModeValue);
+            mActiveDialog.show();
+        }
 
         updateRingtonePreferences();
 
@@ -262,6 +295,24 @@ public class TimerSettingsFragment extends ScreenFragment
                 mTimerShakeIntensityPref.setVisible((boolean) newValue);
 
                 Utils.setVibrationTime(requireContext(), 50);
+            }
+
+            case KEY_SINGLE_TIMER_MODE -> {
+                Utils.setVibrationTime(requireContext(), 50);
+                boolean newValueBool = (boolean) newValue;
+
+                if (DataModel.getDataModel().getTimers().isEmpty()) {
+                    mSortTimerPref.setVisible(!newValueBool);
+                    mDisplayWarningBeforeDeletingTimerPref.setVisible(!newValueBool);
+                } else {
+                    mShowSingleTimerWarning = true;
+                    mPendingSingleModeValue = newValueBool;
+
+                    mActiveDialog = singleModeWarningDialog(newValueBool);
+                    mActiveDialog.show();
+
+                    return false;
+                }
             }
 
             case KEY_TIMER_VIBRATE, KEY_TIMER_VOLUME_BUTTONS_ACTION, KEY_TIMER_POWER_BUTTON_ACTION, KEY_TIMER_FLIP_ACTION,
@@ -366,9 +417,13 @@ public class TimerSettingsFragment extends ScreenFragment
             mTimerShakeIntensityPref.setVisible(SettingsDAO.isShakeActionForTimersEnabled(mPrefs));
         }
 
+        mSingleTimerModePref.setOnPreferenceChangeListener(this);
+
+        mSortTimerPref.setVisible(!SettingsDAO.isSingleTimerModeEnabled(mPrefs));
         mSortTimerPref.setOnPreferenceChangeListener(this);
         mSortTimerPref.setSummary(mSortTimerPref.getEntry());
 
+        mDisplayWarningBeforeDeletingTimerPref.setVisible(!SettingsDAO.isSingleTimerModeEnabled(mPrefs));
         mDisplayWarningBeforeDeletingTimerPref.setOnPreferenceChangeListener(this);
 
         mDisplayLowAlarmVolumeWarningPref.setOnPreferenceChangeListener(this);
@@ -419,6 +474,40 @@ public class TimerSettingsFragment extends ScreenFragment
                     }
                 }
             });
+    }
+
+    private AlertDialog singleModeWarningDialog(boolean newValue) {
+        String confirmAction = getString(R.string.confirm_action_prompt);
+
+        return CustomDialog.create(
+            requireContext(),
+            null,
+            AppCompatResources.getDrawable(requireContext(), R.drawable.ic_error),
+            getString(R.string.warning),
+            getString(R.string.single_timer_mode_warning_message, confirmAction),
+            null,
+            getString(android.R.string.ok),
+            (d, w) -> {
+                List<Timer> timersToDelete = new ArrayList<>(DataModel.getDataModel().getTimers());
+
+                for (Timer timer : timersToDelete) {
+                    DataModel.getDataModel().removeTimer(timer);
+                }
+
+                mSortTimerPref.setVisible(!newValue);
+                mDisplayWarningBeforeDeletingTimerPref.setVisible(!newValue);
+                mPrefs.edit().putBoolean(KEY_SINGLE_TIMER_MODE, newValue).apply();
+                mSingleTimerModePref.setChecked(newValue);
+
+                mShowSingleTimerWarning = false;
+            },
+            getString(android.R.string.cancel),
+            null,
+            null,
+            null,
+            (alertDialog -> alertDialog.setOnDismissListener(d -> mShowSingleTimerWarning = false)),
+            CustomDialog.SoftInputMode.NONE
+        );
     }
 
     private void initAudioDeviceCallback() {

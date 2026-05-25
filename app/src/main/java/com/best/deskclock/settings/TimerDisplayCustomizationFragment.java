@@ -267,7 +267,7 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
         final boolean isTimerRingtoneTitleDisplayed = SettingsDAO.isTimerRingtoneTitleDisplayed(mPrefs);
         final boolean isTimerTextShadowDisplayed = SettingsDAO.isTimerTextShadowDisplayed(mPrefs);
 
-        mDisplayCompactTimersPref.setVisible(!ThemeUtils.isTablet());
+        mDisplayCompactTimersPref.setVisible(!ThemeUtils.isTablet() && !SettingsDAO.isSingleTimerModeEnabled(mPrefs));
         mDisplayCompactTimersPref.setOnPreferenceChangeListener(this);
 
         mTransparentBackgroundPref.setOnPreferenceChangeListener(this);
