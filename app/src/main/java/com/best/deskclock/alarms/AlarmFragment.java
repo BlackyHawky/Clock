@@ -78,6 +78,7 @@ import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.timepicker.MaterialTimePicker;
 
 import java.text.Collator;
 import java.util.ArrayList;
@@ -99,6 +100,8 @@ public final class AlarmFragment extends DeskClockFragment
     // This extra is used when receiving an intent to scroll to specific alarm. If alarm
     // can not be found, and toast message will pop up that the alarm has be deleted.
     public static final String SCROLL_TO_ALARM_INTENT_EXTRA = "deskclock.scroll.to.alarm";
+
+    private static final String KEY_SELECTED_ALARM = "key_selected_alarm";
 
     private static final String KEY_SIDE_BUTTONS_VISIBLE = "side_buttons_visible";
 
@@ -149,8 +152,8 @@ public final class AlarmFragment extends DeskClockFragment
     }
 
     @Override
-    public void onCreate(Bundle savedState) {
-        super.onCreate(savedState);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         mPrefs = getDefaultSharedPreferences(requireContext());
         mDisplayMetrics = getResources().getDisplayMetrics();
@@ -162,8 +165,8 @@ public final class AlarmFragment extends DeskClockFragment
         mIsPhoneInLandscape = !mIsTablet && mIsLandscape;
         mIsLowAlarmVolumeWarningEnabled = SettingsDAO.isLowAlarmVolumeWarningDisplayed(mPrefs);
 
-        if (savedState != null) {
-            mSideButtonsVisible = savedState.getBoolean(KEY_SIDE_BUTTONS_VISIBLE, false);
+        if (savedInstanceState != null) {
+            mSideButtonsVisible = savedInstanceState.getBoolean(KEY_SIDE_BUTTONS_VISIBLE, false);
         }
     }
 
@@ -247,6 +250,16 @@ public final class AlarmFragment extends DeskClockFragment
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        if (savedInstanceState != null) {
+            Alarm restoredAlarm = SdkUtils.isAtLeastAndroid13()
+                ? savedInstanceState.getParcelable(KEY_SELECTED_ALARM, Alarm.class)
+                : savedInstanceState.getParcelable(KEY_SELECTED_ALARM);
+
+            if (restoredAlarm != null && mAlarmTimeClickHandler != null) {
+                mAlarmTimeClickHandler.setSelectedAlarm(restoredAlarm);
+            }
+        }
 
         setupFragmentResultListeners();
     }
@@ -347,6 +360,8 @@ public final class AlarmFragment extends DeskClockFragment
                 updateWarningBannerVisibility();
             });
         }
+
+        restoreMaterialTimePickerListener();
     }
 
     @Override
@@ -376,6 +391,10 @@ public final class AlarmFragment extends DeskClockFragment
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
+        if (mAlarmTimeClickHandler != null && mAlarmTimeClickHandler.getSelectedAlarm() != null) {
+            outState.putParcelable(KEY_SELECTED_ALARM, mAlarmTimeClickHandler.getSelectedAlarm());
+        }
+
         outState.putBoolean(KEY_SIDE_BUTTONS_VISIBLE, mSideButtonsVisible);
     }
 
@@ -396,8 +415,9 @@ public final class AlarmFragment extends DeskClockFragment
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         ToastManager.cancelToast();
+
+        super.onDestroy();
     }
 
     @NonNull
@@ -674,6 +694,30 @@ public final class AlarmFragment extends DeskClockFragment
 
                 mAlarmTimeClickHandler.setAlarmWithDelay(hours, minutes);
             });
+    }
+
+    /**
+     * Restores the positive button click listener for the Material time picker.
+     *
+     * <p>This ensures that the time selection callback is not lost and remains
+     * functional after a configuration change, such as a screen rotation.</p>
+     */
+    private void restoreMaterialTimePickerListener() {
+        FragmentManager fragmentManager = getParentFragmentManager();
+
+        Fragment fragment = fragmentManager.findFragmentByTag(AlarmTimeClickHandler.TAG);
+
+        if (fragment instanceof MaterialTimePicker materialTimePicker) {
+            materialTimePicker.clearOnPositiveButtonClickListeners();
+
+            materialTimePicker.addOnPositiveButtonClickListener(dialog -> {
+                Bundle result = new Bundle();
+                result.putInt(MaterialTimePickerDialogFragment.BUNDLE_KEY_HOURS, materialTimePicker.getHour());
+                result.putInt(MaterialTimePickerDialogFragment.BUNDLE_KEY_MINUTES, materialTimePicker.getMinute());
+
+                fragmentManager.setFragmentResult(MaterialTimePickerDialogFragment.REQUEST_KEY, result);
+            });
+        }
     }
 
     /**
