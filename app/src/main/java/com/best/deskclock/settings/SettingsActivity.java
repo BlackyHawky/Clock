@@ -34,10 +34,10 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
 import androidx.preference.Preference;
 
-import com.best.deskclock.AppExecutors;
 import com.best.deskclock.DeskClock;
-import com.best.deskclock.KeepAliveService;
 import com.best.deskclock.R;
+import com.best.deskclock.base.AppExecutors;
+import com.best.deskclock.base.KeepAliveService;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.tiles.AlarmTileService;

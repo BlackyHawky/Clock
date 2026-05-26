@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
-package com.best.deskclock;
+package com.best.deskclock.controller;
 
 import static com.best.deskclock.uidata.UiDataModel.Tab.STOPWATCH;
 
@@ -12,6 +12,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.best.deskclock.DeskClock;
+import com.best.deskclock.R;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.stopwatch.StopwatchService;
 import com.best.deskclock.uidata.UiDataModel;

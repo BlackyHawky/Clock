@@ -57,9 +57,9 @@ import androidx.transition.Transition;
 import androidx.transition.TransitionManager;
 import androidx.transition.TransitionSet;
 
-import com.best.deskclock.AppExecutors;
-import com.best.deskclock.DeskClockFragment;
 import com.best.deskclock.R;
+import com.best.deskclock.base.AppExecutors;
+import com.best.deskclock.base.DeskClockFragment;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.databinding.AlarmFragmentBinding;
 import com.best.deskclock.dialogfragment.AlarmDelayPickerDialogFragment;

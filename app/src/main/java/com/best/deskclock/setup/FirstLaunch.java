@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-package com.best.deskclock;
+package com.best.deskclock.setup;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
@@ -16,6 +16,10 @@ import androidx.core.text.HtmlCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.best.deskclock.BuildConfig;
+import com.best.deskclock.DeskClock;
+import com.best.deskclock.R;
+import com.best.deskclock.base.BaseActivity;
 import com.best.deskclock.databinding.FirstLaunchActivityBinding;
 import com.best.deskclock.settings.PermissionsManagementActivity;
 import com.best.deskclock.utils.InsetsUtils;

@@ -22,13 +22,13 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.best.deskclock.AppExecutors;
-import com.best.deskclock.ItemTouchHelperContract;
 import com.best.deskclock.R;
+import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.data.TimerListener;
+import com.best.deskclock.uicomponents.ItemTouchHelperContract;
 import com.best.deskclock.utils.ThemeUtils;
 
 import java.util.ArrayList;

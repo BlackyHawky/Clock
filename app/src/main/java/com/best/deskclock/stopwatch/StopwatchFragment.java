@@ -47,9 +47,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import com.best.deskclock.DeskClock;
-import com.best.deskclock.DeskClockFragment;
 import com.best.deskclock.R;
-import com.best.deskclock.RunnableFragment;
+import com.best.deskclock.base.DeskClockFragment;
+import com.best.deskclock.base.RunnableFragment;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Lap;
 import com.best.deskclock.data.SettingsDAO;
@@ -525,7 +525,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
         final Intent shareChooserIntent = Intent.createChooser(shareIntent, title);
         try {
             mContext.startActivity(shareChooserIntent);
-        } catch (ActivityNotFoundException anfe) {
+        } catch (ActivityNotFoundException activityNotFoundException) {
             LogUtils.e("Cannot share lap data because no suitable receiving Activity exists");
             updateFab(BUTTONS_IMMEDIATE);
         }

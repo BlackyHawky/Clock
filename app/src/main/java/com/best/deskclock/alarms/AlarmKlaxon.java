@@ -14,8 +14,8 @@ import android.os.VibrationAttributes;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 
-import com.best.deskclock.AppExecutors;
 import com.best.deskclock.DeskClockApplication;
+import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.ringtone.AsyncRingtonePlayer;

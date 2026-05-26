@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
-package com.best.deskclock;
+package com.best.deskclock.controller;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -12,8 +12,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.provider.AlarmClock;
 
+import com.best.deskclock.R;
 import com.best.deskclock.alarms.AlarmStateManager;
-import com.best.deskclock.controller.Controller;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.utils.LogUtils;
@@ -41,7 +41,7 @@ class FetchMatchingAlarmsAction implements Runnable {
     public FetchMatchingAlarmsAction(Context context, List<Alarm> alarms, Intent intent,
                                      Activity activity) {
         mContext = context;
-        // only enabled alarms are passed
+        // Only enabled alarms are passed
         mAlarms = alarms;
         mIntent = intent;
         mActivity = activity;
@@ -52,7 +52,7 @@ class FetchMatchingAlarmsAction implements Runnable {
         Utils.enforceNotMainLooper();
 
         final String searchMode = mIntent.getStringExtra(AlarmClock.EXTRA_ALARM_SEARCH_MODE);
-        // if search mode isn't specified show all alarms in the UI picker
+        // If search mode isn't specified show all alarms in the UI picker
         if (searchMode == null) {
             mMatchingAlarms.addAll(mAlarms);
             return;
@@ -61,23 +61,23 @@ class FetchMatchingAlarmsAction implements Runnable {
         final ContentResolver cr = mContext.getContentResolver();
         switch (searchMode) {
             case AlarmClock.ALARM_SEARCH_MODE_TIME -> {
-                // at least one of these has to be specified in this search mode.
+                // At least one of these has to be specified in this search mode.
                 final int hour = mIntent.getIntExtra(AlarmClock.EXTRA_HOUR, -1);
-                // if minutes weren't specified default to 0
+                // If minutes weren't specified default to 0
                 final int minutes = mIntent.getIntExtra(AlarmClock.EXTRA_MINUTES, 0);
                 final boolean isPm = mIntent.getBooleanExtra(AlarmClock.EXTRA_IS_PM, false);
                 boolean badInput = hour < 0 || hour > 23 || minutes < 0 || minutes > 59;
                 badInput |= (isPm && hour > 12);
                 if (badInput) {
-                    final String[] ampm = new DateFormatSymbols().getAmPmStrings();
-                    final String amPm = isPm ? ampm[1] : ampm[0];
-                    final String reason = mContext.getString(R.string.invalid_time, hour, minutes, amPm);
+                    final String[] amPm = new DateFormatSymbols().getAmPmStrings();
+                    final String amPmText = isPm ? amPm[1] : amPm[0];
+                    final String reason = mContext.getString(R.string.invalid_time, hour, minutes, amPmText);
                     notifyFailureAndLog(reason, mActivity);
                     return;
                 }
                 final int hour24 = isPm && hour < 12 ? (hour + 12) : hour;
 
-                // there might me multiple alarms at the same time
+                // There might be multiple alarms at the same time
                 for (Alarm alarm : mAlarms) {
                     if (alarm.hour == hour24 && alarm.minutes == minutes) {
                         mMatchingAlarms.add(alarm);
@@ -98,7 +98,7 @@ class FetchMatchingAlarmsAction implements Runnable {
                     }
                 }
                 if (!mMatchingAlarms.isEmpty()) {
-                    // return the matched firing alarms
+                    // Return the matched firing alarms
                     return;
                 }
                 final AlarmInstance nextAlarm = AlarmStateManager.getNextFiringAlarm(mContext);
@@ -108,11 +108,11 @@ class FetchMatchingAlarmsAction implements Runnable {
                     return;
                 }
 
-                // get time from nextAlarm and see if there are any other alarms matching this time
+                // Get time from nextAlarm and see if there are any other alarms matching this time
                 final Calendar nextTime = nextAlarm.getAlarmTime();
                 final List<Alarm> alarmsFiringAtSameTime = getAlarmsByHourMinutes(
                     nextTime.get(Calendar.HOUR_OF_DAY), nextTime.get(Calendar.MINUTE), cr);
-                // there might me multiple alarms firing next
+                // There might be multiple alarms firing next
                 mMatchingAlarms.addAll(alarmsFiringAtSameTime);
             }
             case AlarmClock.ALARM_SEARCH_MODE_ALL -> mMatchingAlarms.addAll(mAlarms);
@@ -125,7 +125,7 @@ class FetchMatchingAlarmsAction implements Runnable {
                     return;
                 }
 
-                // there might me multiple alarms with this label
+                // There might be multiple alarms with this label
                 for (Alarm alarm : mAlarms) {
                     if (alarm.label.contains(label)) {
                         mMatchingAlarms.add(alarm);
@@ -140,7 +140,7 @@ class FetchMatchingAlarmsAction implements Runnable {
     }
 
     private List<Alarm> getAlarmsByHourMinutes(int hour24, int minutes, ContentResolver cr) {
-        // if we want to dismiss we should only add enabled alarms
+        // If we want to dismiss we should only add enabled alarms
         final String selection = String.format("%s=? AND %s=? AND %s=?", Alarm.HOUR, Alarm.MINUTES, Alarm.ENABLED);
         final String[] args = {String.valueOf(hour24), String.valueOf(minutes), "1"};
         return Alarm.getAlarms(cr, selection, args);

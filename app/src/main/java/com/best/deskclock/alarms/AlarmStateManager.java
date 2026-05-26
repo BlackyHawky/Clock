@@ -29,9 +29,9 @@ import android.service.quicksettings.TileService;
 import android.text.format.DateFormat;
 import android.widget.Toast;
 
-import com.best.deskclock.AlarmAlertWakeLock;
-import com.best.deskclock.AppExecutors;
 import com.best.deskclock.R;
+import com.best.deskclock.base.AlarmAlertWakeLock;
+import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.events.Events;

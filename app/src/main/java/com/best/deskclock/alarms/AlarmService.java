@@ -32,8 +32,8 @@ import android.os.Vibrator;
 
 import androidx.annotation.NonNull;
 
-import com.best.deskclock.AlarmAlertWakeLock;
 import com.best.deskclock.R;
+import com.best.deskclock.base.AlarmAlertWakeLock;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.AlarmInstance;
@@ -152,7 +152,7 @@ public class AlarmService extends Service {
             if (action != null) {
                 switch (action) {
                     case ALARM_SNOOZE_ACTION -> {
-                        // Set the alarm state to snoozed.
+                        // Set the alarm state to snooze.
                         // If this broadcast receiver is handling the snooze intent then AlarmActivity
                         // must not be showing, so always show snooze toast.
                         AlarmStateManager.setSnoozeState(context, mCurrentAlarm, true);
@@ -317,8 +317,7 @@ public class AlarmService extends Service {
             public void onTorchModeChanged(@NonNull String cameraId, boolean enabled) {
                 super.onTorchModeChanged(cameraId, enabled);
                 if (mCameraId != null && mCameraId.equals(cameraId)) {
-                    // La magie est ici : on ne met à jour l'état initial QUE si
-                    // ce n'est pas notre alarme qui est en train de faire clignoter le flash !
+                    // Update the initial state if it is not the alarm that is causing the flash to blink.
                     if (!mIsFlashActive) {
                         mIsUserFlashlightOn = enabled;
                     }

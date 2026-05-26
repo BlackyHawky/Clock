@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
-package com.best.deskclock;
+package com.best.deskclock.uicomponents;
 
 import android.util.ArrayMap;
 import android.view.View;
@@ -17,6 +17,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.PagerAdapter;
 
+import com.best.deskclock.DeskClock;
+import com.best.deskclock.base.DeskClockFragment;
 import com.best.deskclock.uidata.UiDataModel;
 
 import java.util.Map;
@@ -28,7 +30,7 @@ import java.util.Map;
  * with the manager using position-independent tags, which is an important departure from
  * FragmentPagerAdapter.
  */
-final class FragmentTabPagerAdapter extends PagerAdapter {
+public final class FragmentTabPagerAdapter extends PagerAdapter {
 
     private final DeskClock mDeskClock;
 
@@ -52,7 +54,7 @@ final class FragmentTabPagerAdapter extends PagerAdapter {
      */
     private Fragment mCurrentPrimaryItem;
 
-    FragmentTabPagerAdapter(DeskClock deskClock) {
+    public FragmentTabPagerAdapter(DeskClock deskClock) {
         mDeskClock = deskClock;
         mFragmentCache = new ArrayMap<>(getCount());
         mFragmentManager = deskClock.getSupportFragmentManager();
@@ -67,7 +69,7 @@ final class FragmentTabPagerAdapter extends PagerAdapter {
      * @param position the left-to-right index of the fragment to be returned
      * @return the fragment displayed at the given {@code position}
      */
-    DeskClockFragment getDeskClockFragment(int position) {
+    public DeskClockFragment getDeskClockFragment(int position) {
         // Fetch the tab the UiDataModel reports for the position.
         final UiDataModel.Tab tab = UiDataModel.getUiDataModel().getTabAt(position);
 

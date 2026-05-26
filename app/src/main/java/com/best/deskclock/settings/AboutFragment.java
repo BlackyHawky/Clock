@@ -2,13 +2,13 @@
 
 package com.best.deskclock.settings;
 
-import static com.best.deskclock.FirstLaunch.KEY_IS_FIRST_LAUNCH;
 import static com.best.deskclock.data.CustomRingtoneDAO.RINGTONE_IDS;
 import static com.best.deskclock.data.CustomRingtoneDAO.RINGTONE_URI;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEBUG_LANGUAGE_CODE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.PURPLE_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesDefaultValues.RED_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.*;
+import static com.best.deskclock.setup.FirstLaunch.KEY_IS_FIRST_LAUNCH;
 import static com.best.deskclock.utils.Utils.ACTION_LANGUAGE_CODE_CHANGED;
 
 import android.annotation.SuppressLint;
@@ -38,12 +38,12 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 import androidx.preference.SwitchPreferenceCompat;
 
-import com.best.deskclock.AppExecutors;
 import com.best.deskclock.BuildConfig;
 import com.best.deskclock.DeskClock;
-import com.best.deskclock.KeepAliveService;
 import com.best.deskclock.R;
 import com.best.deskclock.alarms.AlarmStateManager;
+import com.best.deskclock.base.AppExecutors;
+import com.best.deskclock.base.KeepAliveService;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.settings.custompreference.CustomAboutTitlePreference;

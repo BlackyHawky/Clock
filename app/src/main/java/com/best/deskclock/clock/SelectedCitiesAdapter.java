@@ -24,7 +24,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.best.deskclock.ItemTouchHelperContract;
 import com.best.deskclock.R;
 import com.best.deskclock.alarms.AlarmStateManager;
 import com.best.deskclock.data.City;
@@ -34,6 +33,7 @@ import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.databinding.MainClockFrameBinding;
 import com.best.deskclock.databinding.WorldClockItemBinding;
 import com.best.deskclock.provider.AlarmInstance;
+import com.best.deskclock.uicomponents.ItemTouchHelperContract;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.FormattedTextUtils;
@@ -50,9 +50,12 @@ import java.util.Locale;
 import java.util.Objects;
 
 /**
- * This adapter lists all of the selected world clocks. Optionally, it also includes a clock at
- * the top for the home timezone if "Automatic home clock" is turned on in settings and the
- * current time at home does not match the current time in the timezone of the current location.
+ * This adapter lists all the selected world clocks. Optionally, it also includes a clock at
+ * the top for the home timezone if:
+ * <ul>
+ *     <li>"Automatic home clock" is turned on in settings;</li>
+ *     <li>The current time at home does not match the current time in the timezone of the current location. </li>
+ * </ul>
  * If the phone is in portrait mode it will also include the main clock at the top.
  */
 public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements CityListener, ItemTouchHelperContract {

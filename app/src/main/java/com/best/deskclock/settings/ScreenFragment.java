@@ -48,9 +48,9 @@ import androidx.preference.PreferenceViewHolder;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.best.deskclock.AppExecutors;
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
+import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.databinding.CollapsingToolbarBaseLayoutBinding;
 import com.best.deskclock.settings.custompreference.ColorPickerPreference;

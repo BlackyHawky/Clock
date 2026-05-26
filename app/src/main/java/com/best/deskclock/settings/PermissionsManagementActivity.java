@@ -30,8 +30,8 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
-import com.best.deskclock.KeepAliveService;
 import com.best.deskclock.R;
+import com.best.deskclock.base.KeepAliveService;
 import com.best.deskclock.settings.custompreference.PermissionsManagementPreference;
 import com.best.deskclock.uicomponents.CollapsingToolbarBaseActivity;
 import com.best.deskclock.uicomponents.CustomDialog;

@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.best.deskclock.ItemTouchHelperContract;
+import com.best.deskclock.uicomponents.ItemTouchHelperContract;
 
 /**
  * Custom {@link androidx.recyclerview.widget.ItemTouchHelper.Callback} for managing drag & drop of timer items in a RecyclerView.

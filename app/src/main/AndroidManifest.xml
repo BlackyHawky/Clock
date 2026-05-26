@@ -59,7 +59,7 @@
         <!-- ============================================================== -->
 
         <activity
-            android:name="com.best.deskclock.FirstLaunch"
+            android:name="com.best.deskclock.setup.FirstLaunch"
             android:launchMode="singleTask"
             android:theme="@style/Theme.DeskClock">
         </activity>
@@ -112,14 +112,14 @@
             android:theme="@style/Theme.DeskClock" />
 
         <activity
-            android:name="com.best.deskclock.HandleShortcuts"
+            android:name="com.best.deskclock.controller.HandleShortcuts"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
             android:taskAffinity=""
             android:theme="@android:style/Theme.NoDisplay" />
 
         <service
-            android:name="com.best.deskclock.KeepAliveService"
+            android:name="com.best.deskclock.base.KeepAliveService"
             android:enabled="true"
             android:exported="false"
             android:foregroundServiceType="specialUse">
@@ -133,7 +133,7 @@
         <!-- ============================================================== -->
 
         <activity
-            android:name="com.best.deskclock.HandleApiCalls"
+            android:name="com.best.deskclock.controller.HandleApiCalls"
             android:directBootAware="true"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
@@ -157,7 +157,7 @@
             android:name="com.best.deskclock.HandleSetAlarmApiCalls"
             android:permission="com.android.alarm.permission.SET_ALARM"
             android:exported="true"
-            android:targetActivity="com.best.deskclock.HandleApiCalls">
+            android:targetActivity="com.best.deskclock.controller.HandleApiCalls">
             <intent-filter>
                 <action android:name="android.intent.action.SET_ALARM" />
                 <action android:name="android.intent.action.SET_TIMER" />
@@ -190,7 +190,7 @@
             android:theme="@style/Theme.DeskClock.Wallpaper" />
 
         <activity
-            android:name="com.best.deskclock.alarmselection.AlarmSelectionActivity"
+            android:name="com.best.deskclock.alarms.alarmselection.AlarmSelectionActivity"
             android:label="@string/dismiss_alarm"
             android:theme="@android:style/Theme.Material.Dialog.NoActionBar" />
 
@@ -201,7 +201,7 @@
             android:exported="false" />
 
         <receiver
-            android:name="com.best.deskclock.AlarmInitReceiver"
+            android:name="com.best.deskclock.alarms.AlarmInitReceiver"
             android:directBootAware="true"
             android:exported="true">
             <intent-filter>
@@ -215,7 +215,7 @@
         </receiver>
 
         <receiver
-            android:name="com.best.deskclock.PackageReplacedReceiver"
+            android:name="com.best.deskclock.base.PackageReplacedReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />

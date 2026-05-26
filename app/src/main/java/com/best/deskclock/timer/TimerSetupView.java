@@ -8,9 +8,9 @@ package com.best.deskclock.timer;
 
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-import static com.best.deskclock.FabContainer.FAB_REQUEST_FOCUS;
-import static com.best.deskclock.FabContainer.FAB_SHRINK_AND_EXPAND;
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
+import static com.best.deskclock.uicomponents.FabContainer.FAB_REQUEST_FOCUS;
+import static com.best.deskclock.uicomponents.FabContainer.FAB_SHRINK_AND_EXPAND;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -32,10 +32,10 @@ import android.widget.LinearLayout;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.best.deskclock.FabContainer;
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.databinding.TimerSetupViewBinding;
+import com.best.deskclock.uicomponents.FabContainer;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.FormattedTextUtils;
 import com.best.deskclock.utils.ThemeUtils;
@@ -272,11 +272,11 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
         final int minutes = mInput[3] * 10 + mInput[2];
         final int hours = mInput[5] * 10 + mInput[4];
 
-        final UiDataModel uidm = UiDataModel.getUiDataModel();
+        final UiDataModel uiDataModel = UiDataModel.getUiDataModel();
         SpannableString text = new SpannableString(TextUtils.expandTemplate(mTimeTemplate,
-            uidm.getFormattedNumber(hours, 2),
-            uidm.getFormattedNumber(minutes, 2),
-            uidm.getFormattedNumber(seconds, 2)));
+            uiDataModel.getFormattedNumber(hours, 2),
+            uiDataModel.getFormattedNumber(minutes, 2),
+            uiDataModel.getFormattedNumber(seconds, 2)));
 
         int endIdx = text.length();
         int startIdx = seconds > 0 ? 8 : endIdx;

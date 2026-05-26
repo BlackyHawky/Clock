@@ -4,7 +4,7 @@ package com.best.deskclock.alarms;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.best.deskclock.ItemTouchHelperContract;
+import com.best.deskclock.uicomponents.ItemTouchHelperContract;
 
 /**
  * Extended contract for the Alarm ItemTouchHelper.

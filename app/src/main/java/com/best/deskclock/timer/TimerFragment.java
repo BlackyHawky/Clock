@@ -48,9 +48,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import com.best.deskclock.DeskClock;
-import com.best.deskclock.DeskClockFragment;
 import com.best.deskclock.R;
-import com.best.deskclock.RunnableFragment;
+import com.best.deskclock.base.DeskClockFragment;
+import com.best.deskclock.base.RunnableFragment;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;

@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
-package com.best.deskclock.alarmselection;
+package com.best.deskclock.alarms.alarmselection;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,9 +13,9 @@ import android.os.Parcelable;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.best.deskclock.AppExecutors;
-import com.best.deskclock.BaseActivity;
-import com.best.deskclock.HandleApiCalls;
+import com.best.deskclock.base.AppExecutors;
+import com.best.deskclock.base.BaseActivity;
+import com.best.deskclock.controller.HandleApiCalls;
 import com.best.deskclock.databinding.SelectionLayoutBinding;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.utils.LogUtils;
@@ -45,13 +45,12 @@ public class AlarmSelectionActivity extends BaseActivity implements AlarmSelecti
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // this activity is shown if:
-        // a) no search mode was specified in which case we show all
-        // enabled alarms
-        // b) if search mode was next and there was multiple alarms firing next
-        // (at the same time) then we only show those alarms firing at the same time
-        // c) if search mode was time and there are multiple alarms with that time
-        // then we only show those alarms with that time
+        // This activity is shown if:
+        // a) No search mode was specified in which case we show all enabled alarms.
+        // b) If search mode was next and there was multiple alarms firing next
+        // (at the same time) then we only show those alarms firing at the same time.
+        // c) If search mode was time and there are multiple alarms with that time
+        // then we only show those alarms with that time.
 
         super.onCreate(savedInstanceState);
 

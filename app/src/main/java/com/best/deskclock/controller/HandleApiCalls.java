@@ -4,14 +4,14 @@
  * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
-package com.best.deskclock;
+package com.best.deskclock.controller;
 
 import static android.media.AudioManager.STREAM_ALARM;
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-import static com.best.deskclock.alarmselection.AlarmSelectionActivity.ACTION_DISMISS;
-import static com.best.deskclock.alarmselection.AlarmSelectionActivity.EXTRA_ACTION;
-import static com.best.deskclock.alarmselection.AlarmSelectionActivity.EXTRA_ALARMS;
+import static com.best.deskclock.alarms.alarmselection.AlarmSelectionActivity.ACTION_DISMISS;
+import static com.best.deskclock.alarms.alarmselection.AlarmSelectionActivity.EXTRA_ACTION;
+import static com.best.deskclock.alarms.alarmselection.AlarmSelectionActivity.EXTRA_ALARMS;
 import static com.best.deskclock.provider.AlarmInstance.FIRED_STATE;
 import static com.best.deskclock.provider.AlarmInstance.SNOOZE_STATE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_TAB_ALARM;
@@ -35,10 +35,12 @@ import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 
+import com.best.deskclock.DeskClock;
+import com.best.deskclock.R;
 import com.best.deskclock.alarms.AlarmFragment;
 import com.best.deskclock.alarms.AlarmStateManager;
-import com.best.deskclock.alarmselection.AlarmSelectionActivity;
-import com.best.deskclock.controller.Controller;
+import com.best.deskclock.alarms.alarmselection.AlarmSelectionActivity;
+import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
@@ -220,7 +222,7 @@ public class HandleApiCalls extends Activity {
                     return;
                 }
 
-                // remove Alarms in MISSED, DISMISSED, and PREDISMISSED states
+                // remove Alarms in MISSED, DISMISSED, and PRE-DISMISSED states
                 for (Iterator<Alarm> i = alarms.iterator(); i.hasNext(); ) {
                     final AlarmInstance instance = AlarmInstance.getNextUpcomingInstanceByAlarmId(cr, i.next().id);
                     if (instance == null || instance.mAlarmState > FIRED_STATE) {
@@ -245,9 +247,10 @@ public class HandleApiCalls extends Activity {
                 }
 
                 // fetch the alarms that are specified by the intent
-                final FetchMatchingAlarmsAction fmaa = new FetchMatchingAlarmsAction(mContext, alarms, mIntent, mActivity);
-                fmaa.run();
-                final List<Alarm> matchingAlarms = fmaa.getMatchingAlarms();
+                final FetchMatchingAlarmsAction fetchMatchingAlarmsAction =
+                    new FetchMatchingAlarmsAction(mContext, alarms, mIntent, mActivity);
+                fetchMatchingAlarmsAction.run();
+                final List<Alarm> matchingAlarms = fetchMatchingAlarmsAction.getMatchingAlarms();
 
                 // If there are multiple matching alarms, and it wasn't expected disambiguate what the user meant
                 if (!AlarmClock.ALARM_SEARCH_MODE_ALL.equals(searchMode) && matchingAlarms.size() > 1) {
@@ -615,7 +618,7 @@ public class HandleApiCalls extends Activity {
 
     /**
      * Assemble a database where clause to search for an alarm matching the given {@code hour} and
-     * {@code minutes} as well as all of the optional information within the {@code intent}
+     * {@code minutes} as well as all the optional information within the {@code intent}
      * including:
      *
      * <ul>

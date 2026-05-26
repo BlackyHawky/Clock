@@ -37,9 +37,9 @@ import androidx.annotation.StringRes;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import com.best.deskclock.AlarmAlertWakeLock;
-import com.best.deskclock.AppExecutors;
 import com.best.deskclock.R;
+import com.best.deskclock.base.AlarmAlertWakeLock;
+import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.tiles.TimerTileService;
 import com.best.deskclock.timer.TimerKlaxon;

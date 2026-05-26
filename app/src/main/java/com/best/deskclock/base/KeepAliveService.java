@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-package com.best.deskclock;
+package com.best.deskclock.base;
 
 import static com.best.deskclock.utils.NotificationUtils.FOREGROUND_SERVICE_CHANNEL_ID;
 
@@ -15,6 +15,8 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.ServiceCompat;
 
+import com.best.deskclock.DeskClock;
+import com.best.deskclock.R;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.NotificationUtils;
 import com.best.deskclock.utils.SdkUtils;

@@ -59,8 +59,8 @@ import androidx.core.graphics.ColorUtils;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.WindowCompat;
 
-import com.best.deskclock.BaseActivity;
 import com.best.deskclock.R;
+import com.best.deskclock.base.BaseActivity;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.DataModel.PowerButtonBehavior;
 import com.best.deskclock.data.DataModel.VolumeButtonBehavior;
@@ -425,10 +425,8 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
             int selectedValue = mSnoozeSelectorValues[mSnoozeSelectorIndex];
             if (selectedValue == -1) {
-                // "Default" → on remet la valeur par défaut de l’alarme
                 mAlarmInstance.mSnoozeDuration = mDefaultSnoozeMinutes;
             } else {
-                // Override explicite
                 mAlarmInstance.mSnoozeDuration = selectedValue;
             }
 
