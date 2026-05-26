@@ -465,7 +465,6 @@ public class Utils {
             CustomDialog.SoftInputMode.NONE);
 
         dialog.setCancelable(isCancelable);
-        dialog.show();
 
         return dialog;
     }

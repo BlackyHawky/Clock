@@ -250,6 +250,18 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
         }
 
         @Override
+        public void onResume() {
+            super.onResume();
+
+            restoreCustomFileDialogIfNeeded(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT, mDigitalClockFontPref, fontPickerLauncher, null);
+
+            restoreCustomFileDialogIfNeeded(KEY_SCREENSAVER_BACKGROUND_IMAGE, mScreensaverBackgroundImagePref, imagePickerLauncher, () -> {
+                mEnableScreensaverBlurEffectPref.setVisible(false);
+                mScreensaverBlurIntensityPref.setVisible(false);
+            });
+        }
+
+        @Override
         public void onDestroy() {
             nullifyPreferenceListeners(mClockColorPref, mBatteryColorPref, mDateColorPref, mNextAlarmColorPref, mClockStylePref,
                 mClockDialPref, mClockDialMaterialPref, mClockSecondHandPref, mDisplaySecondsPref, mDisplayBatteryPref,

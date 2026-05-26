@@ -139,6 +139,13 @@ public class ClockSettingsFragment extends ScreenFragment
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        restoreCustomFileDialogIfNeeded(KEY_DIGITAL_CLOCK_FONT, mDigitalClockFontPref, fontPickerLauncher, null);
+    }
+
+    @Override
     public void onDestroy() {
         nullifyPreferenceListeners(mClockStylePref, mClockDialPref, mClockDialMaterialPref, mAnalogClockSizePref, mDisplayClockSecondsPref,
             mClockSecondHandPref, mDigitalClockFontPref, mDisplayTextUppercasePref, mDigitalClockFontSizePref, mSortCitiesPref,

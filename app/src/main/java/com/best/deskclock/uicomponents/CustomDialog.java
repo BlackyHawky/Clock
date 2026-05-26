@@ -16,13 +16,10 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
-import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
 import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.widget.NestedScrollView;
 
 import com.best.deskclock.R;
@@ -144,32 +141,6 @@ public class CustomDialog {
         }
 
         return dialog;
-    }
-
-    public static AlertDialog createSimpleDialog(
-        Context context,
-        @DrawableRes int iconRes,
-        @StringRes int titleRes,
-        CharSequence message,
-        @StringRes int positiveTextRes,
-        DialogInterface.OnClickListener positiveListener
-    ) {
-        return create(
-            context,
-            null,
-            AppCompatResources.getDrawable(context, iconRes),
-            context.getString(titleRes),
-            message,
-            null,
-            context.getString(positiveTextRes),
-            positiveListener,
-            context.getString(android.R.string.cancel),
-            null,
-            null,
-            null,
-            null,
-            SoftInputMode.NONE
-        );
     }
 
     private static void configureScrollView(View dialogView) {

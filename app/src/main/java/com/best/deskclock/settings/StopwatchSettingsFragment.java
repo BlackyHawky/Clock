@@ -109,6 +109,13 @@ public class StopwatchSettingsFragment extends ScreenFragment
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        restoreCustomFileDialogIfNeeded(KEY_SW_FONT, mStopwatchFontPref, fontPickerLauncher, null);
+    }
+
+    @Override
     public void onDestroy() {
         nullifyPreferenceListeners(mStopwatchFontPref, mVolumeUpActionPref, mVolumeUpActionAfterLongPressPref, mVolumeDownActionPref,
             mVolumeDownActionAfterLongPressPref);

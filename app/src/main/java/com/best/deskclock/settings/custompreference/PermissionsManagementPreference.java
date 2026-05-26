@@ -12,6 +12,8 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_SHOW_LOCKSCREEN_PE
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.AttributeSet;
 
 import androidx.annotation.NonNull;
@@ -77,6 +79,34 @@ public class PermissionsManagementPreference extends Preference {
         }
 
         mBinding.detailsButton.setOnClickListener(v -> displayPermissionDetailsDialog());
+    }
+
+    @Override
+    protected Parcelable onSaveInstanceState() {
+        final Parcelable superState = super.onSaveInstanceState();
+
+        if (mActiveDialog == null || !mActiveDialog.isShowing()) {
+            return superState;
+        }
+
+        final SavedState myState = new SavedState(superState);
+        myState.isDialogShowing = true;
+        return myState;
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Parcelable state) {
+        if (state == null || !state.getClass().equals(SavedState.class)) {
+            super.onRestoreInstanceState(state);
+            return;
+        }
+
+        SavedState myState = (SavedState) state;
+        super.onRestoreInstanceState(myState.getSuperState());
+
+        if (myState.isDialogShowing) {
+            displayPermissionDetailsDialog();
+        }
     }
 
     @Override
@@ -181,6 +211,40 @@ public class PermissionsManagementPreference extends Preference {
 
     public void refreshState() {
         notifyChanged();
+    }
+
+    private static class SavedState extends BaseSavedState {
+        boolean isDialogShowing;
+
+        public SavedState(Parcelable superState) {
+            super(superState);
+        }
+
+        public SavedState(Parcel source) {
+            super(source);
+
+            isDialogShowing = source.readInt() == 1;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            super.writeToParcel(dest, flags);
+
+            dest.writeInt(isDialogShowing ? 1 : 0);
+        }
+
+        public static final Parcelable.Creator<SavedState> CREATOR =
+            new Parcelable.Creator<>() {
+                @Override
+                public SavedState[] newArray(int size) {
+                    return new SavedState[size];
+                }
+
+                @Override
+                public SavedState createFromParcel(Parcel source) {
+                    return new SavedState(source);
+                }
+            };
     }
 
 }

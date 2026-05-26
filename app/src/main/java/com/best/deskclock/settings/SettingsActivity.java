@@ -119,6 +119,10 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
         private static final String BACKUP_JSON_FILE_NAME = "settings.json";
 
+        private static final String KEY_SHOW_BACKUP_RESTORE_DIALOG = "show_backup_restore_dialog";
+
+        private boolean mShowBackupRestoreDialog = false;
+
         Preference mInterfaceCustomizationPref;
         Preference mClockSettingsPref;
         Preference mAlarmSettingsPref;
@@ -240,6 +244,10 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             mPermissionMessage = findPreference(KEY_PERMISSION_MESSAGE);
             mBackupRestorePref = findPreference(KEY_BACKUP_RESTORE_PREFERENCES);
 
+            if (savedInstanceState != null) {
+                mShowBackupRestoreDialog = savedInstanceState.getBoolean(KEY_SHOW_BACKUP_RESTORE_DIALOG, false);
+            }
+
             setupPreferences();
 
             updateSettingsVisibility();
@@ -267,12 +275,21 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         }
 
         @Override
+        public void onSaveInstanceState(@NonNull Bundle outState) {
+            super.onSaveInstanceState(outState);
+
+            outState.putBoolean(KEY_SHOW_BACKUP_RESTORE_DIALOG, mShowBackupRestoreDialog);
+        }
+
+        @Override
         public void onResume() {
             super.onResume();
 
             if (BackupAndRestoreUtils.appNeedsRestart && (mRestartDialog == null || !mRestartDialog.isShowing())) {
                 mRestartDialog = restartAppDialog(requireContext().getApplicationContext(), false);
                 mRestartDialog.show();
+            } else if (mShowBackupRestoreDialog && (mActiveDialog == null || !mActiveDialog.isShowing())) {
+                showBackupRestoreDialog();
             }
 
             updateSettingsVisibility();
@@ -321,39 +338,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                 case KEY_PERMISSION_MESSAGE, KEY_PERMISSIONS_MANAGEMENT ->
                     animateAndShowFragment(new PermissionsManagementActivity.PermissionsManagementFragment());
 
-                case KEY_BACKUP_RESTORE_PREFERENCES -> {
-                    mActiveDialog = CustomDialog.create(
-                        requireContext(),
-                        null,
-                        AppCompatResources.getDrawable(requireContext(), R.drawable.ic_backup_restore),
-                        getString(R.string.backup_restore_title),
-                        getString(R.string.backup_restore_dialog_message),
-                        null,
-                        getString(android.R.string.cancel),
-                        null,
-                        getString(R.string.backup_button_title),
-                        (d, w) -> {
-                            String currentDateAndTime = DateFormat.format("yyyy_MM_dd_HH-mm-ss", new Date()).toString();
-                            Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT)
-                                .addCategory(Intent.CATEGORY_OPENABLE)
-                                .putExtra(Intent.EXTRA_TITLE, requireContext().getString(R.string.app_label)
-                                    + "_backup_" + currentDateAndTime + ".zip")
-                                .setType("application/zip");
-                            backupToFile.launch(intent);
-                        },
-                        getString(R.string.restore_button_title),
-                        (d, w) -> {
-                            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT)
-                                .addCategory(Intent.CATEGORY_OPENABLE)
-                                .setType("application/zip");
-                            restoreFromFile.launch(intent);
-                        },
-                        null,
-                        CustomDialog.SoftInputMode.NONE
-                    );
-
-                    mActiveDialog.show();
-                }
+                case KEY_BACKUP_RESTORE_PREFERENCES -> showBackupRestoreDialog();
             }
 
             return true;
@@ -403,6 +388,42 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             } else {
                 mPermissionMessage.setVisible(false);
             }
+        }
+
+        private void showBackupRestoreDialog() {
+            mShowBackupRestoreDialog = true;
+
+            mActiveDialog = CustomDialog.create(
+                requireContext(),
+                null,
+                AppCompatResources.getDrawable(requireContext(), R.drawable.ic_backup_restore),
+                getString(R.string.backup_restore_title),
+                getString(R.string.backup_restore_dialog_message),
+                null,
+                getString(android.R.string.cancel),
+                null,
+                getString(R.string.backup_button_title),
+                (d, w) -> {
+                    String currentDateAndTime = DateFormat.format("yyyy_MM_dd_HH-mm-ss", new Date()).toString();
+                    Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT)
+                        .addCategory(Intent.CATEGORY_OPENABLE)
+                        .putExtra(Intent.EXTRA_TITLE, requireContext().getString(R.string.app_label)
+                            + "_backup_" + currentDateAndTime + ".zip")
+                        .setType("application/zip");
+                    backupToFile.launch(intent);
+                },
+                getString(R.string.restore_button_title),
+                (d, w) -> {
+                    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT)
+                        .addCategory(Intent.CATEGORY_OPENABLE)
+                        .setType("application/zip");
+                    restoreFromFile.launch(intent);
+                },
+                (alertDialog -> alertDialog.setOnDismissListener(d -> mShowBackupRestoreDialog = false)),
+                CustomDialog.SoftInputMode.NONE
+            );
+
+            mActiveDialog.show();
         }
 
         private void backupPreferences(Context context, Uri uri) throws IOException, JSONException {

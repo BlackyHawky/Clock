@@ -32,6 +32,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.view.MenuProvider;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
@@ -76,6 +77,16 @@ import java.util.zip.ZipOutputStream;
 
 public class AboutFragment extends ScreenFragment implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
+    private static final String KEY_SHOW_RESET_SETTINGS_DIALOG = "show_reset_settings_dialog";
+    private static final String KEY_PENDING_LINK_DIALOG = "pending_link_dialog";
+    private static final String KEY_SHOW_KEEP_ANDROID_OPEN_DIALOG = "show_keep_android_open_dialog";
+    private static final String KEY_SHOW_EXPORT_COMPLETE_DIALOG = "show_export_complete_dialog";
+
+    private boolean mShowResetSettingsDialog = false;
+    private String mPendingLinkDialogPrefKey = null;
+    private boolean mShowKeepAndroidOpenDialog = false;
+    private boolean mShowExportCompleteDialog = false;
+
     /**
      * Callback to get the log export result.
      */
@@ -103,7 +114,7 @@ public class AboutFragment extends ScreenFragment implements Preference.OnPrefer
                     }
 
                     if (hasLogs) {
-                        displayExportCompleteDialog();
+                        showExportCompleteDialog();
                     } else {
                         CustomToast.show(appContext, R.string.toast_message_for_backup);
                     }
@@ -151,7 +162,24 @@ public class AboutFragment extends ScreenFragment implements Preference.OnPrefer
         mDebugCategoryPref = findPreference(KEY_DEBUG_CATEGORY);
         mEnableLocalLoggingPref = findPreference(KEY_ENABLE_LOCAL_LOGGING);
 
+        if (savedInstanceState != null) {
+            mShowResetSettingsDialog = savedInstanceState.getBoolean(KEY_SHOW_RESET_SETTINGS_DIALOG, false);
+            mPendingLinkDialogPrefKey = savedInstanceState.getString(KEY_PENDING_LINK_DIALOG);
+            mShowKeepAndroidOpenDialog = savedInstanceState.getBoolean(KEY_SHOW_KEEP_ANDROID_OPEN_DIALOG, false);
+            mShowExportCompleteDialog = savedInstanceState.getBoolean(KEY_SHOW_EXPORT_COMPLETE_DIALOG, false);
+        }
+
         setupPreferences();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putBoolean(KEY_SHOW_RESET_SETTINGS_DIALOG, mShowResetSettingsDialog);
+        outState.putString(KEY_PENDING_LINK_DIALOG, mPendingLinkDialogPrefKey);
+        outState.putBoolean(KEY_SHOW_KEEP_ANDROID_OPEN_DIALOG, mShowKeepAndroidOpenDialog);
+        outState.putBoolean(KEY_SHOW_EXPORT_COMPLETE_DIALOG, mShowExportCompleteDialog);
     }
 
     @Override
@@ -189,17 +217,7 @@ public class AboutFragment extends ScreenFragment implements Preference.OnPrefer
                     exportLogs.launch(intent);
                     return true;
                 } else if (item.getItemId() == MENU_RESET_SETTINGS) {
-                    mActiveDialog = CustomDialog.createSimpleDialog(
-                        requireContext(),
-                        R.drawable.ic_reset_settings,
-                        R.string.reset_settings_title,
-                        getString(R.string.reset_settings_message),
-                        android.R.string.ok,
-                        (d, w) -> resetPreferences()
-                    );
-
-                    mActiveDialog.show();
-
+                    showResetSettingsDialog();
                     return true;
                 }
 
@@ -217,6 +235,14 @@ public class AboutFragment extends ScreenFragment implements Preference.OnPrefer
                 mRestartDialog = restartAppDialog(requireContext().getApplicationContext(), false);
                 mRestartDialog.show();
             }
+        } else if (mShowResetSettingsDialog && (mActiveDialog == null || !mActiveDialog.isShowing())) {
+            showResetSettingsDialog();
+        } else if (mPendingLinkDialogPrefKey != null && (mActiveDialog == null || !mActiveDialog.isShowing())) {
+            triggerLinkDialog(mPendingLinkDialogPrefKey);
+        } else if (mShowKeepAndroidOpenDialog && (mActiveDialog == null || !mActiveDialog.isShowing())) {
+            showKeepAndroidOpenDialog();
+        } else if (mShowExportCompleteDialog && (mActiveDialog == null || !mActiveDialog.isShowing())) {
+            showExportCompleteDialog();
         }
     }
 
@@ -257,41 +283,10 @@ public class AboutFragment extends ScreenFragment implements Preference.OnPrefer
                 }
             }
 
-            case KEY_ABOUT_WHATS_NEW -> {
-                String version = BuildConfig.VERSION_NAME;
+            case KEY_ABOUT_WHATS_NEW, KEY_ABOUT_FEATURES, KEY_ABOUT_VIEW_ON_GITHUB, KEY_ABOUT_TRANSLATE, KEY_ABOUT_READ_LICENCE ->
+                triggerLinkDialog(preference.getKey());
 
-                if (BuildConfig.IS_DEBUG_BUILD) {
-                    version = version.replace("-debug", "");
-                } else if (BuildConfig.IS_NIGHTLY_BUILD) {
-                    version = version.replace(BuildConfig.VERSION_NAME, "nightly" + "-" + BuildConfig.COMMIT_NUMBER);
-                }
-
-                final String link = "https://github.com/BlackyHawky/Clock/releases/tag/" + version;
-                displayLinkDialog(R.drawable.ic_about_update, R.string.whats_new_title, R.string.whats_new_dialog_message, link);
-            }
-
-            case KEY_ABOUT_FEATURES -> {
-                final String link = "https://github.com/BlackyHawky/Clock?tab=readme-ov-file#-features";
-                displayLinkDialog(R.drawable.ic_about_features, R.string.features_title, R.string.features_dialog_message, link);
-            }
-
-            case KEY_ABOUT_VIEW_ON_GITHUB -> {
-                final String link = "https://github.com/BlackyHawky/Clock";
-                displayLinkDialog(R.drawable.ic_about_github, R.string.about_github_link, R.string.github_dialog_message, link);
-            }
-
-            case KEY_ABOUT_TRANSLATE -> {
-                final String link = "https://translate.codeberg.org/projects/clock";
-                displayLinkDialog(R.drawable.ic_about_translate, R.string.about_translate_link, R.string.translate_dialog_message, link);
-            }
-
-            case KEY_ABOUT_READ_LICENCE -> {
-                final String link = "https://github.com/BlackyHawky/Clock/blob/main/LICENSE";
-                displayLinkDialog(R.drawable.ic_about_license, R.string.license, R.string.license_dialog_message, link);
-            }
-
-            case KEY_ABOUT_KEEP_ANDROID_OPEN ->
-                mActiveDialog = Utils.displayKeepAndroidOpenDialog(requireContext(), mPrefs, true);
+            case KEY_ABOUT_KEEP_ANDROID_OPEN -> showKeepAndroidOpenDialog();
         }
 
         return true;
@@ -318,17 +313,110 @@ public class AboutFragment extends ScreenFragment implements Preference.OnPrefer
         return true;
     }
 
+    private void showResetSettingsDialog() {
+        mShowResetSettingsDialog = true;
+
+        mActiveDialog = CustomDialog.create(
+            requireContext(),
+            null,
+            AppCompatResources.getDrawable(requireContext(), R.drawable.ic_reset_settings),
+            getString(R.string.reset_settings_title),
+            getString(R.string.reset_settings_message),
+            null,
+            getString(android.R.string.ok),
+            (d, w) -> resetPreferences(),
+            getString(android.R.string.cancel),
+            null,
+            null,
+            null,
+            (alertDialog -> alertDialog.setOnDismissListener(d -> mShowResetSettingsDialog = false)),
+            CustomDialog.SoftInputMode.NONE
+        );
+
+        mActiveDialog.show();
+    }
+
+    private void triggerLinkDialog(String prefKey) {
+        mPendingLinkDialogPrefKey = prefKey;
+
+        int iconId, titleId, messageId;
+        String link;
+
+        switch (prefKey) {
+            case KEY_ABOUT_WHATS_NEW -> {
+                String version = BuildConfig.VERSION_NAME;
+                if (BuildConfig.IS_DEBUG_BUILD) {
+                    version = version.replace("-debug", "");
+                } else if (BuildConfig.IS_NIGHTLY_BUILD) {
+                    version = version.replace(BuildConfig.VERSION_NAME, "nightly" + "-" + BuildConfig.COMMIT_NUMBER);
+                }
+                link = "https://github.com/BlackyHawky/Clock/releases/tag/" + version;
+                iconId = R.drawable.ic_about_update;
+                titleId = R.string.whats_new_title;
+                messageId = R.string.whats_new_dialog_message;
+            }
+            case KEY_ABOUT_FEATURES -> {
+                link = "https://github.com/BlackyHawky/Clock?tab=readme-ov-file#-features";
+                iconId = R.drawable.ic_about_features;
+                titleId = R.string.features_title;
+                messageId = R.string.features_dialog_message;
+            }
+            case KEY_ABOUT_VIEW_ON_GITHUB -> {
+                link = "https://github.com/BlackyHawky/Clock";
+                iconId = R.drawable.ic_about_github;
+                titleId = R.string.about_github_link;
+                messageId = R.string.github_dialog_message;
+            }
+            case KEY_ABOUT_TRANSLATE -> {
+                link = "https://translate.codeberg.org/projects/clock";
+                iconId = R.drawable.ic_about_translate;
+                titleId = R.string.about_translate_link;
+                messageId = R.string.translate_dialog_message;
+            }
+            case KEY_ABOUT_READ_LICENCE -> {
+                link = "https://github.com/BlackyHawky/Clock/blob/main/LICENSE";
+                iconId = R.drawable.ic_about_license;
+                titleId = R.string.license;
+                messageId = R.string.license_dialog_message;
+            }
+            default -> {
+                mPendingLinkDialogPrefKey = null;
+                return;
+            }
+        }
+
+        displayLinkDialog(iconId, titleId, messageId, link);
+    }
+
     private void displayLinkDialog(int iconId, int titleId, int messageId, String link) {
         final Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
 
-        mActiveDialog = CustomDialog.createSimpleDialog(
+        mActiveDialog = CustomDialog.create(
             requireContext(),
-            iconId,
-            titleId,
+            null,
+            AppCompatResources.getDrawable(requireContext(), iconId),
+            getString(titleId),
             getString(messageId, link),
-            android.R.string.ok,
-            (d, w) -> startActivity(browserIntent)
+            null,
+            getString(android.R.string.ok),
+            (d, w) -> startActivity(browserIntent),
+            getString(android.R.string.cancel),
+            null,
+            null,
+            null,
+            (alertDialog -> alertDialog.setOnDismissListener(d -> mPendingLinkDialogPrefKey = null)),
+            CustomDialog.SoftInputMode.NONE
         );
+
+        mActiveDialog.show();
+    }
+
+    private void showKeepAndroidOpenDialog() {
+        mShowKeepAndroidOpenDialog = true;
+
+        mActiveDialog = Utils.displayKeepAndroidOpenDialog(requireContext(), mPrefs, true);
+
+        mActiveDialog.setOnDismissListener(d -> mShowKeepAndroidOpenDialog = false);
 
         mActiveDialog.show();
     }
@@ -570,20 +658,30 @@ public class AboutFragment extends ScreenFragment implements Preference.OnPrefer
     /**
      * Inform that the log export was successful and allow it to delete local log after export.
      */
-    private void displayExportCompleteDialog() {
+    private void showExportCompleteDialog() {
+        mShowExportCompleteDialog = true;
+
         final Context appContext = requireContext().getApplicationContext();
 
-        mActiveDialog = CustomDialog.createSimpleDialog(
+        mActiveDialog = CustomDialog.create(
             requireContext(),
-            R.drawable.ic_bug_report,
-            R.string.log_dialog_title,
+            null,
+            AppCompatResources.getDrawable(requireContext(), R.drawable.ic_bug_report),
+            getString(R.string.log_dialog_title),
             getString(R.string.log_dialog_message),
-            android.R.string.ok,
+            null,
+            getString(android.R.string.ok),
             (d, w) -> AppExecutors.getDiskIO().execute(() -> {
                 LogUtils.clearSavedLocalLogs(appContext);
 
                 AppExecutors.getMainThread().post(() -> CustomToast.show(appContext, R.string.toast_message_log_deleted));
-            })
+            }),
+            getString(android.R.string.cancel),
+            null,
+            null,
+            null,
+            (alertDialog -> alertDialog.setOnDismissListener(d -> mShowExportCompleteDialog = false)),
+            CustomDialog.SoftInputMode.NONE
         );
 
         mActiveDialog.show();

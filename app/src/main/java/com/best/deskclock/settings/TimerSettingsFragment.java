@@ -210,6 +210,8 @@ public class TimerSettingsFragment extends ScreenFragment
             mActiveDialog.show();
         }
 
+        restoreCustomFileDialogIfNeeded(KEY_TIMER_DURATION_FONT, mTimerDurationFontPref, fontPickerLauncher, null);
+
         updateRingtonePreferences();
 
         if (mIsAlarmTabHidden) {

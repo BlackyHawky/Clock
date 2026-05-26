@@ -193,6 +193,16 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        restoreCustomFileDialogIfNeeded(KEY_ALARM_BACKGROUND_IMAGE, mAlarmBackgroundImagePref, imagePickerLauncher, () -> {
+            mEnableAlarmBlurEffectPref.setVisible(false);
+            mAlarmBlurIntensityPref.setVisible(false);
+        });
+    }
+
+    @Override
     public void onDestroy() {
         nullifyPreferenceListeners(mAlarmClockStylePref, mAlarmClockDialPref, mAlarmClockDialMaterialPref, mAnalogClockSizePref,
             mAlarmClockSecondHandPref, mDisplaySecondsPref, mSwipeActionPref, mDisplaySnoozeSelectorPref, mBackgroundColorPref,

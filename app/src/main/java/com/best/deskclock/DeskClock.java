@@ -411,6 +411,8 @@ public class DeskClock extends BaseActivity implements FabContainer {
         }
 
         mKeepAndroidOpenDialog = Utils.displayKeepAndroidOpenDialog(this, mPrefs, false);
+
+        mKeepAndroidOpenDialog.show();
     }
 
     /**

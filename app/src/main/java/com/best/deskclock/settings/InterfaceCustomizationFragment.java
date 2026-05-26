@@ -167,6 +167,8 @@ public class InterfaceCustomizationFragment extends ScreenFragment
     public void onResume() {
         super.onResume();
 
+        restoreCustomFileDialogIfNeeded(KEY_GENERAL_FONT, mGeneralFontPref, fontPickerLauncher, null);
+
         if (isLanguageChanged) {
             WidgetUtils.updateAllDigitalWidgets(requireContext());
             isLanguageChanged = false;

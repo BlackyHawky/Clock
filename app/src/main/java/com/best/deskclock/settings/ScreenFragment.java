@@ -70,6 +70,14 @@ import java.io.File;
 
 public abstract class ScreenFragment extends PreferenceFragmentCompat {
 
+    private static final String KEY_PENDING_FILE_PREF_KEY = "pending_file_pref_key";
+    private static final String KEY_PENDING_FILE_PATH = "pending_file_path";
+    private static final String KEY_PENDING_FILE_IS_FONT = "pending_file_is_font";
+
+    private String mPendingFilePrefKey = null;
+    private String mPendingFilePath = null;
+    private boolean mPendingFileIsFont = false;
+
     protected static final int MENU_ABOUT = 1;
     protected static final int MENU_BUG_REPORT = 2;
     protected static final int MENU_RESET_SETTINGS = 3;
@@ -113,6 +121,21 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
 
         // To manually manage insets
         WindowCompat.setDecorFitsSystemWindows(requireActivity().getWindow(), false);
+
+        if (savedInstanceState != null) {
+            mPendingFilePrefKey = savedInstanceState.getString(KEY_PENDING_FILE_PREF_KEY);
+            mPendingFilePath = savedInstanceState.getString(KEY_PENDING_FILE_PATH);
+            mPendingFileIsFont = savedInstanceState.getBoolean(KEY_PENDING_FILE_IS_FONT);
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putString(KEY_PENDING_FILE_PREF_KEY, mPendingFilePrefKey);
+        outState.putString(KEY_PENDING_FILE_PATH, mPendingFilePath);
+        outState.putBoolean(KEY_PENDING_FILE_IS_FONT, mPendingFileIsFont);
     }
 
     @Override
@@ -430,12 +453,26 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
         }
     }
 
+    protected void restoreCustomFileDialogIfNeeded(String targetPrefKey, Preference pref, ActivityResultLauncher<Intent> launcher,
+                                                   @Nullable OnPreferenceDeleted onPreferenceDeleted) {
+
+        if (mPendingFilePrefKey != null && mPendingFilePrefKey.equals(targetPrefKey)) {
+            if (mActiveDialog == null || !mActiveDialog.isShowing()) {
+                selectCustomFile(pref, launcher, mPendingFilePath, mPendingFilePrefKey, mPendingFileIsFont, onPreferenceDeleted);
+            }
+        }
+    }
+
     protected void selectCustomFile(Preference pref, ActivityResultLauncher<Intent> launcher, String fontPath, String prefKey,
                                     boolean isFontFile, @Nullable OnPreferenceDeleted onPreferenceDeleted) {
 
         if (fontPath == null) {
             selectFile(launcher, isFontFile);
         } else {
+            mPendingFilePrefKey = prefKey;
+            mPendingFilePath = fontPath;
+            mPendingFileIsFont = isFontFile;
+
             mActiveDialog = CustomDialog.create(
                 requireContext(),
                 null,
@@ -456,12 +493,14 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
                     mPrefs.edit().remove(prefKey).apply();
                     pref.setTitle(isFontFile ? R.string.custom_font_title : R.string.background_image_title);
                     pref.setSummary(null);
+
                     if (onPreferenceDeleted != null) {
                         onPreferenceDeleted.onDeleted();
                     }
+
                     deleteCustomFile(requireContext().getApplicationContext(), fontPath, isFontFile);
                 },
-                null,
+                (alertDialog -> alertDialog.setOnDismissListener(d -> mPendingFilePrefKey = null)),
                 CustomDialog.SoftInputMode.NONE
             );
 

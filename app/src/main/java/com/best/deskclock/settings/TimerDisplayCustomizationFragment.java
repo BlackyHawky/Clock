@@ -143,6 +143,16 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        restoreCustomFileDialogIfNeeded(KEY_TIMER_BACKGROUND_IMAGE, mTimerBackgroundImagePref, imagePickerLauncher, () -> {
+            mEnableTimerBlurEffectPref.setVisible(false);
+            mTimerBlurIntensityPref.setVisible(false);
+        });
+    }
+
+    @Override
     public void onDestroy() {
         nullifyPreferenceListeners(mDisplayCompactTimersPref, mTransparentBackgroundPref, mDisplayTimerStateIndicatorPref,
             mDisplayRingtoneTitlePref, mTimerColorCategory, mRunningTimerIndicatorColorPref, mPausedTimerIndicatorColorPref,

@@ -32,6 +32,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.graphics.Insets;
 import androidx.core.view.WindowCompat;
@@ -570,13 +571,21 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
                 ? R.string.confirm_remove_custom_ringtone
                 : R.string.custom_ringtone_lost_permissions;
 
-            return CustomDialog.createSimpleDialog(
+            return CustomDialog.create(
                 requireContext(),
-                R.drawable.ic_error,
-                R.string.warning,
+                null,
+                AppCompatResources.getDrawable(requireContext(), R.drawable.ic_error),
+                getString(R.string.warning),
                 getString(message),
-                R.string.remove_sound,
-                okListener
+                null,
+                getString(R.string.remove_sound),
+                okListener,
+                getString(android.R.string.cancel),
+                null,
+                null,
+                null,
+                null,
+                CustomDialog.SoftInputMode.NONE
             );
         }
     }
