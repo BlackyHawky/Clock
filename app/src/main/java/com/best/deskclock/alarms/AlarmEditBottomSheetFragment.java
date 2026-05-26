@@ -37,6 +37,7 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.graphics.Insets;
+import androidx.core.util.Pair;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -57,6 +58,7 @@ import com.best.deskclock.dialogfragment.AutoSilenceDurationDialogFragment;
 import com.best.deskclock.dialogfragment.DatePickerDialogFragment;
 import com.best.deskclock.dialogfragment.LabelDialogFragment;
 import com.best.deskclock.dialogfragment.MaterialTimePickerDialogFragment;
+import com.best.deskclock.dialogfragment.SpinnerDatePickerDialogFragment;
 import com.best.deskclock.dialogfragment.SpinnerTimePickerDialogFragment;
 import com.best.deskclock.dialogfragment.VibrationPatternDialogFragment;
 import com.best.deskclock.dialogfragment.VolumeCrescendoDurationDialogFragment;
@@ -81,12 +83,15 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.color.MaterialColors;
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.timepicker.MaterialTimePicker;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.TimeZone;
 
 public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
@@ -275,6 +280,15 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        restoreMaterialTimePickerListener();
+        restoreMaterialDatePickerListener();
+        restoreMaterialDateRangePickerListener();
+    }
+
+    @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
         if (getActivity() != null && !getActivity().isChangingConfigurations()) {
             saveAlarmSettings();
@@ -411,31 +425,10 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         mBinding.scheduleAlarm.setTypeface(mGeneralTypeface);
 
         mBinding.scheduleAlarmLayout.setOnClickListener(v -> DatePickerDialogFragment.show(
-            requireContext(),
             getChildFragmentManager(),
             mPrefs,
             mAlarm,
-            (year, month, day, hour, minute) -> {
-                if (mAlarm.daysOfWeek.isRepeating()) {
-                    mAlarm.daysOfWeek = Weekdays.NONE;
-                }
-
-                if (mAlarm.isPauseSet()) {
-                    mAlarm.pauseStartDate = 0;
-                    mAlarm.pauseEndDate = 0;
-                }
-
-                mAlarm.year = year;
-                mAlarm.month = month;
-                mAlarm.day = day;
-                mAlarm.hour = hour;
-                mAlarm.minutes = minute;
-
-                bindSelectedDate();
-                bindDaysOfWeekButtons();
-                bindPauseAlarm();
-                bindDeleteOccasionalAlarmAfterUse();
-            })
+            (year, month, day, hour, minute) -> applyDate(year, month, day))
         );
 
         if (mAlarm.daysOfWeek.isRepeating()) {
@@ -886,6 +879,15 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
                 applyDelay(h, m);
             });
 
+        childFragmentManager.setFragmentResultListener(SpinnerDatePickerDialogFragment.REQUEST_KEY, this,
+            (requestKey, bundle) -> {
+                int year = bundle.getInt(SpinnerDatePickerDialogFragment.BUNDLE_KEY_YEAR);
+                int month = bundle.getInt(SpinnerDatePickerDialogFragment.BUNDLE_KEY_MONTH);
+                int day = bundle.getInt(SpinnerDatePickerDialogFragment.BUNDLE_KEY_DAY);
+
+                applyDate(year, month, day);
+            });
+
         childFragmentManager.setFragmentResultListener(LabelDialogFragment.REQUEST_KEY, this,
             (requestKey, bundle) -> {
                 mAlarm.label = bundle.getString(LabelDialogFragment.RESULT_LABEL);
@@ -935,6 +937,81 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             });
     }
 
+    /**
+     * Restores the positive button click listener for the Material time picker.
+     *
+     * <p>This ensures that the time selection callback is not lost and remains
+     * functional after a configuration change, such as a screen rotation.</p>
+     */
+    private void restoreMaterialTimePickerListener() {
+        Fragment fragment = getChildFragmentManager().findFragmentByTag(TAG);
+
+        if (fragment instanceof MaterialTimePicker materialTimePicker) {
+            materialTimePicker.clearOnPositiveButtonClickListeners();
+
+            materialTimePicker.addOnPositiveButtonClickListener(dialog -> {
+                Bundle result = new Bundle();
+                result.putInt(MaterialTimePickerDialogFragment.BUNDLE_KEY_HOURS, materialTimePicker.getHour());
+                result.putInt(MaterialTimePickerDialogFragment.BUNDLE_KEY_MINUTES, materialTimePicker.getMinute());
+
+                getChildFragmentManager().setFragmentResult(MaterialTimePickerDialogFragment.REQUEST_KEY, result);
+            });
+        }
+    }
+
+    /**
+     * Restores the positive button click listener for the single date Material picker.
+     *
+     * <p>This prevents the dialog's confirmation button from becoming unresponsive
+     * if the device is rotated while the picker is open.</p>
+     */
+    private void restoreMaterialDatePickerListener() {
+        Fragment fragment = getChildFragmentManager().findFragmentByTag(DatePickerDialogFragment.TAG_DATE_PICKER);
+
+        if (fragment instanceof MaterialDatePicker) {
+            @SuppressWarnings("unchecked")
+            MaterialDatePicker<Long> materialDatePicker = (MaterialDatePicker<Long>) fragment;
+
+            materialDatePicker.clearOnPositiveButtonClickListeners();
+
+            materialDatePicker.addOnPositiveButtonClickListener(selection -> {
+                Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+                calendar.setTimeInMillis(selection);
+
+                applyDate(
+                    calendar.get(Calendar.YEAR),
+                    calendar.get(Calendar.MONTH),
+                    calendar.get(Calendar.DAY_OF_MONTH)
+                );
+            });
+        }
+    }
+
+    /**
+     * Restores the positive button click listener for the Material date range picker.
+     *
+     * <p>This guarantees that the selected start and end dates are properly captured
+     * and processed, even if a configuration change occurs while the dialog is visible.</p>
+     */
+    private void restoreMaterialDateRangePickerListener() {
+        Fragment fragment = getChildFragmentManager().findFragmentByTag(DatePickerDialogFragment.TAG_DATE_RANGE_PICKER);
+
+        if (fragment instanceof MaterialDatePicker) {
+            @SuppressWarnings("unchecked")
+            MaterialDatePicker<Pair<Long, Long>> materialDatePicker = (MaterialDatePicker<Pair<Long, Long>>) fragment;
+
+            materialDatePicker.clearOnPositiveButtonClickListeners();
+
+            materialDatePicker.addOnPositiveButtonClickListener(selection -> {
+                if (selection.first != null && selection.second != null) {
+                    mAlarm.pauseStartDate = selection.first;
+                    mAlarm.pauseEndDate = selection.second;
+                    bindPauseAlarm();
+                }
+            });
+        }
+    }
+
     private void applyDelay(int hoursToAdd, int minutesToAdd) {
         Calendar alarmTime = Calendar.getInstance();
         alarmTime.add(Calendar.HOUR_OF_DAY, hoursToAdd);
@@ -975,6 +1052,26 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         }
 
         bindClock();
+    }
+
+    private void applyDate(int year, int month, int day) {
+        if (mAlarm.daysOfWeek.isRepeating()) {
+            mAlarm.daysOfWeek = Weekdays.NONE;
+        }
+
+        if (mAlarm.isPauseSet()) {
+            mAlarm.pauseStartDate = 0;
+            mAlarm.pauseEndDate = 0;
+        }
+
+        mAlarm.year = year;
+        mAlarm.month = month;
+        mAlarm.day = day;
+
+        bindSelectedDate();
+        bindDaysOfWeekButtons();
+        bindPauseAlarm();
+        bindDeleteOccasionalAlarmAfterUse();
     }
 
     private void updateDaysOfWeekButtonVisuals(MaterialButton dayButton, boolean isSelected) {
