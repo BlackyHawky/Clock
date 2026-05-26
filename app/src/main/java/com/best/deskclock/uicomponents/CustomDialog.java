@@ -130,10 +130,15 @@ public class CustomDialog {
             }
         });
 
-        // Soft input mode
-        if (softInputMode == SoftInputMode.SHOW_KEYBOARD) {
-            Window window = dialog.getWindow();
-            if (window != null) {
+        // Window configuration
+        Window window = dialog.getWindow();
+
+        if (window != null) {
+            // Display within the cutout area
+            ThemeUtils.allowDisplayCutout(window);
+
+            // Soft input mode
+            if (softInputMode == SoftInputMode.SHOW_KEYBOARD) {
                 window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN
                     | WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE
                 );

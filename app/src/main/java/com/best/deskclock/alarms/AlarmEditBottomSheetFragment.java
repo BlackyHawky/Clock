@@ -26,6 +26,7 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -199,12 +200,17 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         BottomSheetDialog dialog = (BottomSheetDialog) super.onCreateDialog(savedInstanceState);
 
-        if (dialog.getWindow() != null) {
+        Window window = dialog.getWindow();
+        if (window != null) {
+            // Display within the cutout area
+            ThemeUtils.allowDisplayCutout(window);
+
             // To prevent flickering when a 'MaterialAlertDialog' opens on top of this BottomSheet, remove the background dimming
             // caused by the BottomSheet. The 'MaterialAlertDialog' will handle this dimming.
-            dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+
             // Prevent the BottomSheet from moving when the keyboard opens (for example, when editing the alarm label).
-            dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
+            window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
         }
 
         final Bundle bundleToUse = (savedInstanceState != null) ? savedInstanceState : requireArguments();

@@ -159,6 +159,7 @@
     <!--    TIME PICKER    -->
     <!-- ================= -->
     <style name="AppMaterialTimePickerTheme" parent="ThemeOverlay.Material3.MaterialTimePicker">
+        <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="27">shortEdges</item>
         <!-- Dialog background -->
         <item name="colorSurfaceContainerHigh">?attr/colorSurface</item>
         <!-- Selected hour/minute text color -->
@@ -191,6 +192,7 @@
     <!--    DATE PICKER    -->
     <!-- ================= -->
     <style name="AppMaterialCalendarTheme" parent="ThemeOverlay.Material3.MaterialCalendar">
+        <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="27">shortEdges</item>
         <!-- Dialog background -->
         <item name="colorSurfaceContainerHigh">?attr/colorSurface</item>
     </style>
