@@ -166,12 +166,6 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         mBinding.timerRecyclerView.setLayoutManager(getLayoutManager(mContext));
         mBinding.timerRecyclerView.addItemDecoration(new GridSpacingItemDecoration(mContext, mDisplayMetrics));
 
-        // Due to the ViewPager and the location of FAB, set a bottom padding and/or a right padding
-        // to prevent the reset button from being hidden by the FAB (e.g. when scrolling down).
-        final int rightPadding = (int) dpToPx(!mIsTablet && mIsLandscape ? 80 : 0, mDisplayMetrics);
-        final int bottomPadding = (int) dpToPx(mIsTablet ? 110 : mIsLandscape ? 0 : 100, mDisplayMetrics);
-        mBinding.timerRecyclerView.setPaddingRelative(0, 0, rightPadding, bottomPadding);
-
         RecyclerView.ItemAnimator animator = mBinding.timerRecyclerView.getItemAnimator();
         if (animator instanceof SimpleItemAnimator) {
             // Disable flash/blinking during updates (notifyItemChanged)

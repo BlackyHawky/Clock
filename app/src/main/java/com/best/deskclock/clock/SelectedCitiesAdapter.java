@@ -68,7 +68,6 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private final SharedPreferences mPrefs;
     private final List<City> mCities;
     public final boolean mIsPortrait;
-    private final boolean mIsTablet;
     private final DisplayMetrics mDisplayMetrics;
     private final boolean mShowHomeClock;
     private final DataModel.ClockStyle mClockStyle;
@@ -99,7 +98,6 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         mCities = cities;
         mShowHomeClock = showHomeClock;
         mIsPortrait = isPortrait;
-        mIsTablet = ThemeUtils.isTablet();
         mDisplayMetrics = context.getResources().getDisplayMetrics();
         mClockStyle = SettingsDAO.getClockStyle(mPrefs);
         mDigitalClockFontSize = SettingsDAO.getDigitalClockFontSize(mPrefs);
@@ -156,8 +154,8 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         if (viewType == WORLD_CLOCK) {
             WorldClockItemBinding binding = WorldClockItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
 
-            return new CityViewHolder(binding, this, mDisplayMetrics, mRegularTypeface, mBoldTypeface, mDigitalClockTypeface,
-                mIsTablet, mIsCityNoteEnabled, mIsDigitalClock, mHasBlackAccentColor);
+            return new CityViewHolder(binding, this, mRegularTypeface, mBoldTypeface, mDigitalClockTypeface, mIsCityNoteEnabled,
+                mIsDigitalClock, mHasBlackAccentColor);
         } else if (viewType == MAIN_CLOCK) {
             MainClockFrameBinding binding = MainClockFrameBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
 

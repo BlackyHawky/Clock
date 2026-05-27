@@ -6,7 +6,6 @@
 
 package com.best.deskclock.alarms.alarmselection;
 
-import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
 import android.content.Context;
@@ -33,7 +32,6 @@ import java.util.Locale;
 
 public class AlarmSelectionAdapter extends RecyclerView.Adapter<AlarmSelectionAdapter.ViewHolder> {
 
-    private final Context context;
     private final List<AlarmSelection> alarms;
     private final OnAlarmClickListener listener;
 
@@ -43,7 +41,6 @@ public class AlarmSelectionAdapter extends RecyclerView.Adapter<AlarmSelectionAd
     private final SimpleDateFormat mDateFormat;
 
     public AlarmSelectionAdapter(Context context, List<AlarmSelection> alarms, OnAlarmClickListener listener) {
-        this.context = context;
         this.alarms = alarms;
         this.listener = listener;
 
@@ -61,12 +58,6 @@ public class AlarmSelectionAdapter extends RecyclerView.Adapter<AlarmSelectionAd
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         AlarmRowBinding binding = AlarmRowBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
-
-        int alarmRowMarginBottom = (int) dpToPx(ThemeUtils.isTablet() ? 64 : 8, context.getResources().getDisplayMetrics());
-        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) binding.getRoot().getLayoutParams();
-
-        params.setMargins(params.leftMargin, params.topMargin, params.rightMargin, alarmRowMarginBottom);
-        binding.getRoot().setLayoutParams(params);
 
         return new ViewHolder(binding);
     }

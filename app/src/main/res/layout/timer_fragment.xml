@@ -22,15 +22,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/timer_recycler_view" />
 
-        <!-- Due to the ViewPager and the location of FAB, paddings are set
-             in the TimerFragment.java file. -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/timer_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="10dp"
+            android:paddingStart="0dp"
+            android:paddingEnd="@dimen/timer_list_padding_end"
+            android:paddingTop="0dp"
+            android:paddingBottom="@dimen/timer_list_padding_bottom"
             android:clipToPadding="false"
             app:layout_constraintTop_toBottomOf="@+id/timer_volume_banner"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -50,6 +53,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:paddingStart="@dimen/timer_spinner_padding_start"
+        android:paddingEnd="@dimen/timer_spinner_padding_end"
+        android:paddingBottom="@dimen/timer_spinner_padding_bottom"
         android:visibility="gone" />
 
 </FrameLayout>

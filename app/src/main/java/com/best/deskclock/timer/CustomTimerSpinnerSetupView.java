@@ -2,14 +2,12 @@
 
 package com.best.deskclock.timer;
 
-import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
@@ -36,25 +34,8 @@ public class CustomTimerSpinnerSetupView extends LinearLayout {
 
         SharedPreferences prefs = getDefaultSharedPreferences(context);
         Typeface typeFace = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
-        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
 
         mBinding = TimerSpinnerSetupViewBinding.inflate(LayoutInflater.from(context), this, true);
-
-        int paddingLeft = (int) dpToPx(ThemeUtils.isTablet() ? 120 : 20, displayMetrics);
-
-        int paddingRight = (int) dpToPx(ThemeUtils.isTablet()
-            ? 120
-            : ThemeUtils.isLandscape()
-            ? 90
-            : 20, displayMetrics
-        );
-
-        int paddingBottom = (int) dpToPx(ThemeUtils.isTablet() && ThemeUtils.isLandscape()
-            ? 60
-            : 0, displayMetrics
-        );
-
-        setPadding(paddingLeft, 0, paddingRight, paddingBottom);
 
         mBinding.hourTitle.setTypeface(typeFace);
         mBinding.minuteTitle.setTypeface(typeFace);

@@ -11,7 +11,6 @@ import static android.R.attr.state_pressed;
 import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
-import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SW_ACTION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SW_ACTION_LAP;
@@ -20,18 +19,16 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.SW_ACTION_SHA
 import static com.best.deskclock.settings.PreferencesDefaultValues.SW_ACTION_START_PAUSE;
 import static com.best.deskclock.uidata.UiDataModel.Tab.STOPWATCH;
 
+import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.transition.TransitionManager;
-import android.util.DisplayMetrics;
-import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,7 +38,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
-import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
@@ -112,7 +108,6 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
     }
 
     private Context mContext;
-    private DisplayMetrics mDisplayMetrics;
     private Typeface mStopwatchTypeface;
     private Typeface mBoldTypeface;
     private String mVolumeUpAction;
@@ -121,8 +116,6 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
     private String mVolumeDownActionAfterLongPress;
     private boolean mIsVolumeUpLongPressed;
     private boolean mIsVolumeDownLongPressed;
-    private boolean mIsPortrait;
-    private boolean mIsTablet;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -132,9 +125,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
         SharedPreferences prefs = getDefaultSharedPreferences(mContext);
         mStopwatchTypeface = ThemeUtils.loadFont(SettingsDAO.getStopwatchFont(prefs));
         mBoldTypeface = ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(prefs));
-        mDisplayMetrics = getResources().getDisplayMetrics();
-        mIsPortrait = ThemeUtils.isPortrait();
-        mIsTablet = ThemeUtils.isTablet();
+
         mLapsAdapter = new LapsAdapter(mContext);
 
         mVolumeUpAction = SettingsDAO.getVolumeUpActionForStopwatch(prefs);
@@ -143,17 +134,14 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
         mVolumeDownActionAfterLongPress = SettingsDAO.getVolumeDownActionAfterLongPressForStopwatch(prefs);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
         mBinding = StopwatchFragmentBinding.inflate(inflater, container, false);
 
-        if (hasEnoughSpaceForCircle()) {
-            mBinding.stopwatchCircle.setVisibility(VISIBLE);
-            mBinding.stopwatchTimeWrapper.setOnTouchListener(new Utils.CircleTouchListener());
-        }
-
+        mBinding.stopwatchTimeWrapper.setOnTouchListener(new Utils.CircleTouchListener());
         mBinding.stopwatchTimeWrapper.setOnClickListener(new TimeClickListener());
 
         mBinding.stopwatchTimeLayout.stopwatchTimeText.setTypeface(mStopwatchTypeface);
@@ -168,15 +156,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
 
         mBinding.lapsBackground.setBackground(ThemeUtils.cardBackground(mContext));
 
-        View lapHeader = mBinding.lapHeaderLayout.lapHeader;
-
-        // Add space between the top of the header and the top of the background
-        // equal to the lap padding
-        final int padding = (int) dpToPx(mIsTablet ? 8 : 4, mDisplayMetrics);
-        lapHeader.setPadding(0, padding, 0, padding);
-
-        // Handle header text size and font
-        final float textSize = mIsTablet ? 18 : 16;
+        // Handle header text font
         TextView[] titles = {
             mBinding.lapHeaderLayout.lapTitle,
             mBinding.lapHeaderLayout.splitTitle,
@@ -184,10 +164,8 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
         };
 
         for (TextView tv : titles) {
-            tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
             tv.setTypeface(mBoldTypeface);
         }
-
 
         // Timer text serves as a virtual start/stop button.
         mStopwatchTextController = new StopwatchTextController(
@@ -207,13 +185,6 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
 
         updateTime();
         showOrHideLaps(getStopwatch().isReset());
-
-        // In portrait mode, re‑apply dynamic layout constraints after the UI has been refreshed.
-        // This ensures that the stopwatch circle and the laps list are resized correctly based on
-        // the screen height and the FAB container.
-        if (mIsPortrait) {
-            applyPortraitConstraints();
-        }
 
         return mBinding.getRoot();
     }
@@ -388,71 +359,6 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
     }
 
     /**
-     * Applies dynamic layout constraints when the device is in portrait mode.
-     *
-     * <p>This method limits the maximum height of the stopwatch circle and the
-     * laps background based on the screen height. It also adjusts the bottom
-     * margin of the laps background so that it remains above the FAB container.
-     *
-     * <p>The FAB container height is retrieved asynchronously using {@code post()}
-     * to ensure that measurements are available before applying the constraints.</p>
-     */
-    private void applyPortraitConstraints() {
-        if (mBinding == null || mBinding.stopwatchContentView == null) {
-            return;
-        }
-
-        ConstraintSet set = new ConstraintSet();
-        set.clone(mBinding.stopwatchContentView);
-
-        int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
-        int maxCircleHeight = (int) (screenHeight * 0.40f);
-        int maxLapsHeight = (int) (screenHeight * 0.35f);
-
-        set.constrainMaxHeight(R.id.stopwatch_time_wrapper, maxCircleHeight);
-        set.constrainMaxHeight(R.id.laps_background, maxLapsHeight);
-
-        View fabContainer = ((DeskClock) requireActivity()).getFabContainer();
-        fabContainer.post(() -> {
-            if (mBinding == null) {
-                return;
-            }
-
-            int fabHeight = fabContainer.getHeight();
-            int margin = fabHeight + (int) dpToPx(15, mDisplayMetrics);
-
-            set.setMargin(R.id.laps_background, ConstraintSet.BOTTOM, margin);
-            set.applyTo(mBinding.stopwatchContentView);
-        });
-    }
-
-    /**
-     * Determines whether the device screen is wide enough to display the stopwatch circle
-     * in landscape mode.
-     *
-     * @return {@code true} if the screen width meets the minimum required dp value.
-     * {@code false} otherwise.
-     */
-    private boolean hasEnoughSpaceForCircle() {
-        int minWidthDp = 320;
-        float widthDp = mDisplayMetrics.widthPixels / mDisplayMetrics.density;
-
-        return widthDp >= minWidthDp;
-    }
-
-    /**
-     * @return {@code true} if the stopwatch circle view is currently visible.
-     * {@code false} otherwise.
-     */
-    private boolean isCircleVisible() {
-        if (mBinding == null) {
-            return false;
-        }
-
-        return mBinding.stopwatchCircle.getVisibility() == VISIBLE;
-    }
-
-    /**
      * Updates the floating action button to reflect the current stopwatch state.
      * Sets the appropriate icon, content description, and ensures the button is visible.
      *
@@ -552,10 +458,8 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
             // to ensure they aren't seen as the first lap is drawn.
             mBinding.lapsList.removeAllViewsInLayout();
 
-            if (isCircleVisible()) {
-                // Start animating the reference lap.
-                mBinding.stopwatchCircle.update();
-            }
+            // Start animating the reference lap.
+            mBinding.stopwatchCircle.update();
 
             // Recording the first lap transitions the UI to display the laps list.
             showOrHideLaps(false);
@@ -573,8 +477,6 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
             return;
         }
 
-        final ViewGroup sceneRoot = (ViewGroup) mBinding.getRoot();
-
         if (clearLaps) {
             mLapsAdapter.clearLaps();
         }
@@ -583,40 +485,8 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
         final int targetVisibility = lapsVisible ? VISIBLE : GONE;
 
         if (mBinding.lapsBackground.getVisibility() != targetVisibility) {
-            TransitionManager.beginDelayedTransition(sceneRoot);
+            TransitionManager.beginDelayedTransition(mBinding.getRoot());
             mBinding.lapsBackground.setVisibility(targetVisibility);
-        }
-
-        if (mIsPortrait) {
-            // When the lap list is visible, it includes the bottom padding. When it is absent the
-            // appropriate bottom padding must be applied to the container.
-            final int bottom = (int) dpToPx(lapsVisible ? 0 : 80, mDisplayMetrics);
-            final int top = sceneRoot.getPaddingTop();
-            final int left = sceneRoot.getPaddingLeft();
-            final int right = sceneRoot.getPaddingRight();
-            sceneRoot.setPadding(left, top, right, bottom);
-            return;
-        }
-
-        // Handle margins dynamically for the landscape mode
-        if (mBinding.stopwatchLandscapeLayout != null) {
-            ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) mBinding.stopwatchLandscapeLayout.getLayoutParams();
-
-            final int marginStart = (int) dpToPx(mIsTablet ? 10 : 0, mDisplayMetrics);
-            final int marginEnd = (int) dpToPx(mIsTablet ? 10 : 90, mDisplayMetrics);
-            final int marginBottom = (int) dpToPx(mIsTablet ? 110 : 10, mDisplayMetrics);
-            if (lapsVisible) {
-                layoutParams.setMarginStart(marginStart);
-                layoutParams.setMarginEnd(marginEnd);
-            } else {
-                layoutParams.setMarginStart(0);
-                layoutParams.setMarginEnd(0);
-            }
-
-            layoutParams.topMargin = 0;
-            layoutParams.bottomMargin = marginBottom;
-
-            mBinding.stopwatchLandscapeLayout.setLayoutParams(layoutParams);
         }
     }
 
@@ -702,9 +572,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
         // Draw the latest stopwatch and current lap times.
         updateTime();
 
-        if (isCircleVisible()) {
-            mBinding.stopwatchCircle.update();
-        }
+        mBinding.stopwatchCircle.update();
 
         startUpdatingTime();
 
@@ -793,7 +661,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
             updateTime();
 
             // Blink text iff the stopwatch is paused and not pressed.
-            final View touchTarget = isCircleVisible() ? mBinding.stopwatchCircle : mBinding.stopwatchTimeWrapper;
+            final View touchTarget = mBinding.stopwatchCircle;
             final Stopwatch stopwatch = getStopwatch();
             final boolean blink = stopwatch.isPaused()
                 && startTime % 1000 < 500

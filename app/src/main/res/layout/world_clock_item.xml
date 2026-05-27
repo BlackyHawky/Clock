@@ -9,11 +9,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingHorizontal="24dp"
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="12dp"
     android:orientation="horizontal"
     android:gravity="center_vertical"
-    tools:background="@drawable/bg_card_for_preview"
-    tools:paddingVertical="18dp">
+    tools:background="@drawable/bg_card_for_preview">
 
     <include
         layout="@layout/world_clock_city_container"
@@ -40,8 +40,8 @@
 
     <com.best.deskclock.uicomponents.AnalogClock
         android:id="@+id/analog_clock"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="@dimen/city_analog_clock_size"
+        android:layout_height="@dimen/city_analog_clock_size"
         tools:visibility="gone" />
 
 </LinearLayout>

@@ -8,7 +8,6 @@ package com.best.deskclock;
 
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 import static android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
-import static androidx.core.util.TypedValueCompat.dpToPx;
 import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_DRAGGING;
 import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_IDLE;
 import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_SETTLING;
@@ -32,12 +31,10 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
@@ -97,7 +94,6 @@ public class DeskClock extends BaseActivity implements FabContainer {
     private DeskClockBinding mBinding;
 
     private SharedPreferences mPrefs;
-    private DisplayMetrics mDisplayMetrics;
     private Typeface mRegularTypeface;
     private String mFontPath;
     private boolean mIsToolBarDisplayed;
@@ -214,7 +210,6 @@ public class DeskClock extends BaseActivity implements FabContainer {
             return;
         }
 
-        mDisplayMetrics = getResources().getDisplayMetrics();
         mFontPath = SettingsDAO.getGeneralFont(mPrefs);
         mRegularTypeface = ThemeUtils.loadFont(mFontPath);
         mIsToolBarDisplayed = SettingsDAO.isToolbarTitleDisplayed(mPrefs);
@@ -570,18 +565,6 @@ public class DeskClock extends BaseActivity implements FabContainer {
         });
     }
 
-    /**
-     * Returns the view that contains the Floating Action Buttons (FABs).
-     *
-     * <p>This can be useful to measure the FAB height and adjust layout
-     * constraints dynamically.</p>
-     *
-     * @return the FAB container view
-     */
-    public View getFabContainer() {
-        return mBinding.deskClockButtonLayout;
-    }
-
     public DeskClockBinding getDeskClockBinding() {
         return mBinding;
     }
@@ -602,27 +585,11 @@ public class DeskClock extends BaseActivity implements FabContainer {
      */
     private void configureFabAndButtons() {
         // Configure the buttons shared by the tabs.
-        final boolean isTablet = ThemeUtils.isTablet();
-        final boolean isPortrait = ThemeUtils.isPortrait();
-        final int fabSize = isTablet ? 90 : isPortrait ? 75 : 60;
-        final int leftOrRightButtonSize = isTablet ? 70 : isPortrait ? 55 : 50;
-
-        mBinding.fab.getLayoutParams().height = (int) dpToPx(fabSize, mDisplayMetrics);
-        mBinding.fab.getLayoutParams().width = (int) dpToPx(fabSize, mDisplayMetrics);
-        mBinding.fab.setScaleType(ImageView.ScaleType.CENTER);
         mBinding.fab.setOnClickListener(view -> getSelectedDeskClockFragment().onFabClick());
         mBinding.fab.setOnLongClickListener(v -> {
             getSelectedDeskClockFragment().onFabLongClick(mBinding.fab);
             return true;
         });
-
-        mBinding.leftButton.getLayoutParams().height = (int) dpToPx(leftOrRightButtonSize, mDisplayMetrics);
-        mBinding.leftButton.getLayoutParams().width = (int) dpToPx(leftOrRightButtonSize, mDisplayMetrics);
-        mBinding.leftButton.setScaleType(ImageView.ScaleType.CENTER);
-
-        mBinding.rightButton.getLayoutParams().height = (int) dpToPx(leftOrRightButtonSize, mDisplayMetrics);
-        mBinding.rightButton.getLayoutParams().width = (int) dpToPx(leftOrRightButtonSize, mDisplayMetrics);
-        mBinding.rightButton.setScaleType(ImageView.ScaleType.CENTER);
 
         final long duration = getResources().getInteger(android.R.integer.config_shortAnimTime);
 

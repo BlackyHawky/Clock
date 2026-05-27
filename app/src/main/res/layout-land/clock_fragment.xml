@@ -38,8 +38,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         tools:ignore="InconsistentLayout" />
 
-    <!-- Due to the ViewPager and the location of FAB, padding are set programmatically
-         in the ClockFragment.java file. -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/empty_city_view_right_panel"
         android:layout_width="0dp"

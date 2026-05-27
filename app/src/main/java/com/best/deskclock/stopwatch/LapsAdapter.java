@@ -6,7 +6,6 @@
 
 package com.best.deskclock.stopwatch;
 
-import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
 import android.content.Context;
@@ -14,8 +13,6 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.format.DateUtils;
-import android.util.DisplayMetrics;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -78,8 +75,6 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
     private final Typeface mRegularTypeface;
     private final Typeface mBoldTypeface;
     private final String mDecimalSeparator;
-    private final int mPadding;
-    private final float mTextSize;
     private final int mDefaultLapColor;
     private final int mMinLapColor;
     private final int mMaxLapColor;
@@ -91,10 +86,6 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
         mRegularTypeface = ThemeUtils.loadFont(fontPath);
         mBoldTypeface = ThemeUtils.boldTypeface(fontPath);
         mDecimalSeparator = String.valueOf(DecimalFormatSymbols.getInstance().getDecimalSeparator());
-        boolean isTablet = ThemeUtils.isTablet();
-        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-        mPadding = (int) dpToPx(isTablet ? 8 : 4, displayMetrics);
-        mTextSize = isTablet ? 18 : 16;
         mDefaultLapColor = MaterialColors.getColor(context, android.R.attr.textColorPrimary, Color.BLACK);
         mMinLapColor = ContextCompat.getColor(context, android.R.color.holo_green_light);
         mMaxLapColor = ContextCompat.getColor(context, android.R.color.holo_red_light);
@@ -108,7 +99,7 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
     @Override
     public LapItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         final LapViewBinding binding = LapViewBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
-        return new LapItemHolder(binding, mRegularTypeface, mBoldTypeface, mPadding, mTextSize);
+        return new LapItemHolder(binding, mRegularTypeface, mBoldTypeface);
     }
 
     @Override
@@ -479,20 +470,15 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
 
         final LapViewBinding binding;
 
-        LapItemHolder(LapViewBinding binding, Typeface regular, Typeface bold, int padding, float textSize) {
+        LapItemHolder(LapViewBinding binding, Typeface regular, Typeface bold) {
             super(binding.getRoot());
 
             this.binding = binding;
 
-            binding.getRoot().setPadding(0, padding, 0, padding);
-
-            binding.lapNumber.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
             binding.lapNumber.setTypeface(bold);
 
-            binding.lapTime.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
             binding.lapTime.setTypeface(regular);
 
-            binding.lapTotal.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
             binding.lapTotal.setTypeface(regular);
         }
     }

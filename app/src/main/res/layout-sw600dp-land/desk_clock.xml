@@ -52,15 +52,16 @@
             android:layout_gravity="bottom"
             android:baselineAligned="false">
 
-            <!-- Buttons size is set programmatically in the DeskClock.java file. -->
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/left_button"
                 style="@style/FloatingActionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:scaleType="center"
                 android:contentDescription="@null"
                 android:visibility="invisible"
                 android:importantForAccessibility="no"
+                app:fabCustomSize="@dimen/side_button_size"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/fab"
                 app:layout_constraintBottom_toBottomOf="@+id/fab"
@@ -69,8 +70,7 @@
                 tools:layout_width="70dp"
                 tools:layout_height="70dp"
                 tools:visibility="visible"
-                tools:src="@drawable/ic_reset"
-                tools:fabCustomSize="70dp" />
+                tools:src="@drawable/ic_reset" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab"
@@ -78,25 +78,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
+                android:scaleType="center"
                 android:contentDescription="@null"
                 android:importantForAccessibility="no"
+                app:fabCustomSize="@dimen/fab_size"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:layout_width="90dp"
                 tools:layout_height="90dp"
-                tools:src="@drawable/ic_fab_play"
-                tools:fabCustomSize="90dp" />
+                tools:src="@drawable/ic_fab_play" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/right_button"
                 style="@style/FloatingActionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:scaleType="center"
                 android:contentDescription="@null"
                 android:visibility="invisible"
                 android:importantForAccessibility="no"
+                app:fabCustomSize="@dimen/side_button_size"
                 app:layout_constraintStart_toEndOf="@id/fab"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/fab"
@@ -105,8 +108,7 @@
                 tools:layout_width="70dp"
                 tools:layout_height="70dp"
                 tools:visibility="visible"
-                tools:src="@drawable/ic_share"
-                tools:fabCustomSize="70dp" />
+                tools:src="@drawable/ic_share" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

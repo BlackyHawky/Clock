@@ -5,9 +5,32 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 
-<!-- These resources are around just to allow their values to be customized
-     for different hardware and product builds. -->
 <resources>
+    <dimen name="fab_size">90dp</dimen>
+    <dimen name="side_button_size">70dp</dimen>
+
+    <dimen name="alarm_list_padding_end">0dp</dimen>
+    <dimen name="alarm_list_padding_bottom">110dp</dimen>
+    <dimen name="alarm_empty_view_bottom_padding">80dp</dimen>
+    <dimen name="alarm_selection_margin_bottom">64dp</dimen>
+
+    <dimen name="city_list_padding_bottom">110dp</dimen>
+    <dimen name="city_analog_clock_size">150dp</dimen>
+    <dimen name="city_empty_view_bottom_padding">80dp</dimen>
+
+    <dimen name="timer_list_padding_end">0dp</dimen>
+    <dimen name="timer_list_padding_bottom">110dp</dimen>
+    <dimen name="timer_setup_digit_margin">10dp</dimen>
+    <dimen name="timer_spinner_padding_start">120dp</dimen>
+    <dimen name="timer_spinner_padding_end">120dp</dimen>
+
+    <dimen name="stopwatch_circle_land_margin_bottom">120dp</dimen>
+    <dimen name="stopwatch_circle_max_size">380dp</dimen>
+    <dimen name="lap_background_margin_start">10dp</dimen>
+    <dimen name="lap_background_margin_end">10dp</dimen>
+    <dimen name="lap_background_margin_bottom">120dp</dimen>
+    <dimen name="lap_text_size">18sp</dimen>
+
     <item name="city_list_end_guide_percent" type="fraction">0.65</item>
     <dimen name="max_dimension_empty_view">450dp</dimen>
 </resources>

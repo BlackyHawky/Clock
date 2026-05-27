@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2011 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+-->
+
+<resources>
+    <dimen name="fab_size">60dp</dimen>
+    <dimen name="side_button_size">50dp</dimen>
+
+    <dimen name="alarm_list_padding_end">80dp</dimen>
+    <dimen name="alarm_list_padding_bottom">0dp</dimen>
+    <dimen name="alarm_empty_view_bottom_padding">0dp</dimen>
+
+    <dimen name="city_list_padding_bottom">0dp</dimen>
+    <dimen name="city_empty_view_bottom_padding">0dp</dimen>
+
+    <dimen name="timer_list_padding_end">80dp</dimen>
+    <dimen name="timer_list_padding_bottom">0dp</dimen>
+    <dimen name="timer_spinner_padding_end">90dp</dimen>
+
+    <dimen name="stopwatch_circle_max_size">240dp</dimen>
+    <dimen name="lap_background_margin_end">90dp</dimen>
+    <dimen name="lap_background_margin_bottom">10dp</dimen>
+</resources>

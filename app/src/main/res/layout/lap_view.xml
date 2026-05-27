@@ -9,6 +9,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingVertical="4dp"
     android:gravity="center"
     android:layoutDirection="ltr"
     android:orientation="horizontal">
@@ -21,6 +22,7 @@
         android:fontFeatureSettings="tnum"
         android:gravity="center"
         android:textAllCaps="false"
+        android:textSize="@dimen/lap_text_size"
         tools:text="# 1"
         tools:textStyle="bold" />
 
@@ -32,6 +34,7 @@
         android:fontFeatureSettings="tnum"
         android:gravity="center"
         android:textAllCaps="false"
+        android:textSize="@dimen/lap_text_size"
         tools:text="0 00.10" />
 
     <com.google.android.material.textview.MaterialTextView
@@ -42,6 +45,7 @@
         android:fontFeatureSettings="tnum"
         android:gravity="center"
         android:textAllCaps="false"
+        android:textSize="@dimen/lap_text_size"
         tools:text="0 01.10" />
 
 </LinearLayout>

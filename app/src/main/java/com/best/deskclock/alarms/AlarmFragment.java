@@ -116,7 +116,6 @@ public final class AlarmFragment extends DeskClockFragment
 
     private boolean mIsTablet;
     private boolean mIsLandscape;
-    private boolean mIsPhoneInLandscape;
     private boolean mIsLowAlarmVolumeWarningEnabled;
     private boolean mSideButtonsVisible = false;
     private boolean mIsUiTransitioning = false;
@@ -162,7 +161,6 @@ public final class AlarmFragment extends DeskClockFragment
         mItemAdapter = new AlarmAdapter(requireContext());
         mIsTablet = ThemeUtils.isTablet();
         mIsLandscape = ThemeUtils.isLandscape();
-        mIsPhoneInLandscape = !mIsTablet && mIsLandscape;
         mIsLowAlarmVolumeWarningEnabled = SettingsDAO.isLowAlarmVolumeWarningDisplayed(mPrefs);
 
         if (savedInstanceState != null) {
@@ -182,12 +180,6 @@ public final class AlarmFragment extends DeskClockFragment
         mBinding.alarmVolumeWarningBanner.volumeWarningButton.setOnClickListener(v ->
             RingtoneUtils.fixAlarmStreamLow(requireContext())
         );
-
-        // Set a bottom padding for phones in portrait mode and tablets to center correctly
-        // the alarms empty view between the FAB and the top of the screen
-        if (!mIsPhoneInLandscape) {
-            mBinding.alarmEmptyView.setPadding(0, 0, 0, (int) dpToPx(80, mDisplayMetrics));
-        }
 
         mEmptyViewController = new EmptyViewController(mBinding.alarmRootView, mBinding.alarmRecyclerView, mBinding.alarmEmptyView);
         mAlarmUpdateHandler = new AlarmUpdateHandler(requireContext(), this, mBinding.alarmRootView);
@@ -210,12 +202,6 @@ public final class AlarmFragment extends DeskClockFragment
         });
 
         mBinding.alarmRecyclerView.setLayoutManager(getLayoutManager());
-
-        // Due to the ViewPager and the location of FAB, set a bottom padding and/or a right padding
-        // to prevent the alarm list from being hidden by the FAB (e.g. when scrolling down).
-        final int rightPadding = (int) dpToPx(mIsPhoneInLandscape ? 80 : 0, mDisplayMetrics);
-        final int bottomPadding = (int) dpToPx(mIsTablet ? 110 : mIsPhoneInLandscape ? 0 : 100, mDisplayMetrics);
-        mBinding.alarmRecyclerView.setPaddingRelative(0, 0, rightPadding, bottomPadding);
 
         mBinding.alarmRecyclerView.setAdapter(mItemAdapter);
 

@@ -19,7 +19,6 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 
-import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.utils.ThemeUtils;
 import com.google.android.material.color.MaterialColors;
@@ -56,7 +55,7 @@ public final class TimerCircleView extends View {
 
         final float dotDiameter = dpToPx(10, mDisplayMetrics);
 
-        final float mStrokeSize = dpToPx(isSingleTimer() ? 8 : 6, mDisplayMetrics);
+        final float mStrokeSize = dpToPx(6, mDisplayMetrics);
         mRadiusOffset = ThemeUtils.calculateRadiusOffset(mStrokeSize, dotDiameter, 0);
 
         final int remainingArcColor = MaterialColors.getColor(context, com.google.android.material.R.attr.colorOnSurfaceVariant, Color.BLACK);
@@ -86,7 +85,7 @@ public final class TimerCircleView extends View {
         final int yCenter = getHeight() / 2;
         final float radius = Math.min(xCenter, yCenter) - mRadiusOffset;
 
-        float gapSize = dpToPx(isSingleTimer() ? 14 : 12, mDisplayMetrics);
+        float gapSize = dpToPx(12, mDisplayMetrics);
         float gapAngle = (float) Math.toDegrees(gapSize / radius);
 
         mArcRect.set(
@@ -140,15 +139,6 @@ public final class TimerCircleView extends View {
             mTimer = timer;
             postInvalidateOnAnimation();
         }
-    }
-
-    private boolean isSingleTimer() {
-        if (isInEditMode()) {
-            // Skip logic during Android Studio preview
-            return false;
-        }
-
-        return DataModel.getDataModel().getTimers().size() == 1;
     }
 
 }

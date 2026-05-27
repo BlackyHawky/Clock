@@ -5,8 +5,6 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 
-<!-- Guttered content. The gutters are applied in world_clock_item and main_clock_frame. -->
-<!-- Due to the ViewPager and the location of FAB, paddings are set in the ClockFragment.java file. -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -16,6 +14,7 @@
         android:id="@+id/city_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingBottom="@dimen/city_list_padding_bottom"
         android:clickable="false"
         android:clipToPadding="false"
         tools:listitem="@layout/world_clock_item" />

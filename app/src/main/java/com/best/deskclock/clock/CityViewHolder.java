@@ -8,7 +8,6 @@ package com.best.deskclock.clock;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
-import static androidx.core.util.TypedValueCompat.dpToPx;
 import static java.util.Calendar.DAY_OF_WEEK;
 
 import android.content.Context;
@@ -16,7 +15,6 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.text.format.DateUtils;
-import android.util.DisplayMetrics;
 import android.view.View;
 
 import androidx.annotation.StringRes;
@@ -43,9 +41,9 @@ public class CityViewHolder extends RecyclerView.ViewHolder {
     private final boolean mIsCityNoteEnabled;
     private final boolean mIsDigitalClock;
 
-    public CityViewHolder(WorldClockItemBinding binding, SelectedCitiesAdapter adapter, DisplayMetrics displayMetrics, Typeface regularTypeface,
-                          Typeface boldTypeface, Typeface digitalClockTypeface, boolean isTablet, boolean isCityNoteEnabled,
-                          boolean isDigitalClock, boolean hasBlackAccentColor) {
+    public CityViewHolder(WorldClockItemBinding binding, SelectedCitiesAdapter adapter, Typeface regularTypeface,
+                          Typeface boldTypeface, Typeface digitalClockTypeface, boolean isCityNoteEnabled, boolean isDigitalClock,
+                          boolean hasBlackAccentColor) {
 
         super(binding.getRoot());
 
@@ -55,10 +53,6 @@ public class CityViewHolder extends RecyclerView.ViewHolder {
         mIsPortrait = adapter.mIsPortrait;
         mIsCityNoteEnabled = isCityNoteEnabled;
         mIsDigitalClock = isDigitalClock;
-
-        int paddingVertical = (int) dpToPx(mIsDigitalClock ? 18 : 12, displayMetrics);
-        mBinding.getRoot().setPadding(mBinding.getRoot().getPaddingLeft(), paddingVertical,
-            mBinding.getRoot().getPaddingRight(), paddingVertical);
 
         mBinding.worldClockCityContainer.cityName.setTypeface(boldTypeface);
         // Allow text scrolling by clicking on the item (all other attributes are indicated
@@ -83,9 +77,6 @@ public class CityViewHolder extends RecyclerView.ViewHolder {
         } else {
             mBinding.digitalClock.setVisibility(View.GONE);
             mBinding.analogClock.setVisibility(View.VISIBLE);
-
-            mBinding.analogClock.getLayoutParams().height = (int) dpToPx(isTablet ? 150 : 80, displayMetrics);
-            mBinding.analogClock.getLayoutParams().width = (int) dpToPx(isTablet ? 150 : 80, displayMetrics);
             mBinding.analogClock.enableSeconds(false);
         }
     }

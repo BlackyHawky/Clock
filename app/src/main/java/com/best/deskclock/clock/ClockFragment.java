@@ -128,7 +128,6 @@ public final class ClockFragment extends DeskClockFragment {
             AnalogClock analogClock = mBinding.mainClockLeftPanel.analogClock;
             AutoSizingTextClock digitalClock = mBinding.mainClockLeftPanel.digitalClock;
 
-            mBinding.mainClockLeftPanel.mainClockContainer.setPadding(0, 0, 0, 0);
             ClockUtils.setClockStyle(mClockStyle, digitalClock, analogClock);
             if (mIsDigitalClock) {
                 ClockUtils.setDigitalClockFont(digitalClock, SettingsDAO.getDigitalClockFont(mPrefs));
@@ -147,15 +146,6 @@ public final class ClockFragment extends DeskClockFragment {
         mBinding.cityRecyclerView.setAdapter(mCityAdapter);
         mBinding.cityRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
 
-        // Due to the ViewPager and the location of FAB, set a bottom padding to prevent
-        // the city list from being hidden by the FAB (e.g. when scrolling down).
-        mBinding.cityRecyclerView.setPadding(0, 0, 0, (int) dpToPx(mIsTablet && mIsPortrait
-            ? 110
-            : mIsPortrait
-            ? 90
-            : 0, mDisplayMetrics)
-        );
-
         mBinding.cityRecyclerView.addItemDecoration(new CitySpacingItemDecoration(mContext, mDisplayMetrics, mIsPortrait, mIsTablet));
 
         CityItemTouchHelper callback = new CityItemTouchHelper(mCityAdapter, mIsPortrait, mShowHomeClock);
@@ -169,12 +159,6 @@ public final class ClockFragment extends DeskClockFragment {
 
         // Schedule a runnable to update the date every quarter-hour.
         UiDataModel.getUiDataModel().addQuarterHourCallback(mQuarterHourUpdater, 100);
-
-        if (mBinding.emptyCityViewRightPanel != null) {
-            ViewGroup.LayoutParams params = mBinding.emptyCityViewRightPanel.getLayoutParams();
-            params.height = (int) (mDisplayMetrics.heightPixels / 2f);
-            mBinding.emptyCityViewRightPanel.setLayoutParams(params);
-        }
 
         updateEmptyStateVisibility();
         refreshAlarm();
