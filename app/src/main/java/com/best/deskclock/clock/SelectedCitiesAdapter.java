@@ -191,6 +191,13 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
     private int getCityPositionById(String cityId) {
+        if (mShowHomeClock) {
+            City homeCity = getHomeCity();
+            if (homeCity != null && homeCity.getId().equals(cityId)) {
+                return 0;
+            }
+        }
+
         final int positionAdjuster = mShowHomeClock ? 1 : 0;
 
         for (int i = 0; i < mCities.size(); i++) {
