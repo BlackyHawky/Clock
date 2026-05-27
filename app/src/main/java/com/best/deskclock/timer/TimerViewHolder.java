@@ -25,7 +25,6 @@ import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.databinding.TimerItemBinding;
 import com.best.deskclock.databinding.TimerItemCompactBinding;
-import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.google.android.material.button.MaterialButton;
 
@@ -40,6 +39,8 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
     private final ImageButton mDeleteButton;
     private final ImageButton mResetButton;
     public final MaterialButton addTimeButton;
+    public final View circleContainer;
+    public final TextView timerTimeText;
 
     public TimerViewHolder(View view, TimerAdapter timerAdapter, TimerClickHandler timerClickHandler, int viewType, Typeface regular,
                            Typeface bold, Typeface timerTime) {
@@ -54,8 +55,6 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
         final TextView timerLabel;
         final TextView timerTotalDuration;
         final ImageButton timerEditNewDurationButton;
-        final View circleContainer;
-        final TextView timerTimeText;
         final MaterialButton playPauseButton;
 
         switch (viewType) {
@@ -141,9 +140,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
         if (circleContainer != null) {
             circleContainer.setOnClickListener(playPauseListener);
             circleContainer.setOnTouchListener(new Utils.CircleTouchListener());
-        }
-
-        if ((!ThemeUtils.isTablet() && ThemeUtils.isLandscape() || SettingsDAO.isCompactTimersDisplayed(prefs))) {
+        } else {
             timerTimeText.setOnClickListener(playPauseListener);
         }
 
