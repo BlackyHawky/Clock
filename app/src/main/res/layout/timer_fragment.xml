@@ -22,8 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/timer_recycler_view" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/timer_recycler_view"
@@ -32,7 +31,6 @@
             android:layout_marginTop="10dp"
             android:paddingStart="0dp"
             android:paddingEnd="@dimen/timer_list_padding_end"
-            android:paddingTop="0dp"
             android:paddingBottom="@dimen/timer_list_padding_bottom"
             android:clipToPadding="false"
             android:overScrollMode="never"
