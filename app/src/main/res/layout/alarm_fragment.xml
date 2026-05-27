@@ -31,6 +31,7 @@
         android:paddingEnd="@dimen/alarm_list_padding_end"
         android:paddingBottom="@dimen/alarm_list_padding_bottom"
         android:clipToPadding="false"
+        android:overScrollMode="never"
         app:layout_constraintTop_toBottomOf="@+id/alarm_volume_warning_banner"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_goneMarginTop="0dp"

@@ -88,6 +88,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:clickable="false"
+        android:overScrollMode="never"
         app:layout_constraintStart_toEndOf="@id/fold_vertical_end_edge"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
