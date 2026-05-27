@@ -29,7 +29,7 @@
 
     <include
         layout="@layout/main_clock_frame"
-        android:id="@+id/main_clock_left_panel"
+        android:id="@+id/main_clock_frame"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,6 +58,7 @@
             android:contentDescription="@null"
             app:layout_constraintWidth_max="@dimen/max_dimension_empty_view"
             app:layout_constraintHeight_max="@dimen/max_dimension_empty_view"
+            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -73,6 +74,7 @@
             android:contentDescription="@null"
             app:layout_constraintWidth_max="@dimen/max_dimension_empty_view"
             app:layout_constraintHeight_max="@dimen/max_dimension_empty_view"
+            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

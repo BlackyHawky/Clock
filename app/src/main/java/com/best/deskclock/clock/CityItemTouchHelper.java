@@ -18,22 +18,21 @@ import com.best.deskclock.uicomponents.ItemTouchHelperContract;
 public class CityItemTouchHelper extends ItemTouchHelper.Callback {
 
     private final ItemTouchHelperContract mContract;
-    private final boolean mIsPortrait;
+
     private final boolean mShowHomeClock;
 
     private int dragFrom = RecyclerView.NO_POSITION;
     private int dragTo = RecyclerView.NO_POSITION;
 
-    public CityItemTouchHelper(ItemTouchHelperContract contract, boolean isPortrait, boolean showHomeClock) {
+    public CityItemTouchHelper(ItemTouchHelperContract contract, boolean showHomeClock) {
         mContract = contract;
-        mIsPortrait = isPortrait;
         mShowHomeClock = showHomeClock;
     }
 
     @Override
     public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
         int position = viewHolder.getBindingAdapterPosition();
-        int offset = (mIsPortrait ? 1 : 0) + (mShowHomeClock ? 1 : 0);
+        int offset = mShowHomeClock ? 1 : 0;
 
         if (position < offset) {
             return 0;
@@ -48,7 +47,7 @@ public class CityItemTouchHelper extends ItemTouchHelper.Callback {
 
         int from = viewHolder.getBindingAdapterPosition();
         int to = target.getBindingAdapterPosition();
-        int offset = (mIsPortrait ? 1 : 0) + (mShowHomeClock ? 1 : 0);
+        int offset = mShowHomeClock ? 1 : 0;
 
         if (from < offset || to < offset) {
             return false;
@@ -75,7 +74,7 @@ public class CityItemTouchHelper extends ItemTouchHelper.Callback {
 
         // Calculation of upper and lower limits for drag
         int position = viewHolder.getBindingAdapterPosition();
-        int offset = (mIsPortrait ? 1 : 0) + (mShowHomeClock ? 1 : 0);
+        int offset = mShowHomeClock ? 1 : 0;
 
         if (actionState == ItemTouchHelper.ACTION_STATE_DRAG && position >= offset) {
             // Upper limit

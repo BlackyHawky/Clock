@@ -37,7 +37,6 @@ public class CityViewHolder extends RecyclerView.ViewHolder {
     private final WorldClockItemBinding mBinding;
     private final Context mContext;
     private final SelectedCitiesAdapter mAdapter;
-    private final boolean mIsPortrait;
     private final boolean mIsCityNoteEnabled;
     private final boolean mIsDigitalClock;
 
@@ -50,7 +49,7 @@ public class CityViewHolder extends RecyclerView.ViewHolder {
         mBinding = binding;
         mContext = binding.getRoot().getContext();
         mAdapter = adapter;
-        mIsPortrait = adapter.mIsPortrait;
+
         mIsCityNoteEnabled = isCityNoteEnabled;
         mIsDigitalClock = isDigitalClock;
 
@@ -144,15 +143,13 @@ public class CityViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void updateBackground() {
-        int absolutePosition = getBindingAdapterPosition();
+        int cityPosition = getBindingAdapterPosition();
 
-        if (absolutePosition == RecyclerView.NO_POSITION || mAdapter == null) {
+        if (cityPosition == RecyclerView.NO_POSITION || mAdapter == null) {
             return;
         }
 
-        int mainClockCount = mIsPortrait ? 1 : 0;
-        int cityPosition = absolutePosition - mainClockCount;
-        int totalCities = mAdapter.getItemCount() - mainClockCount;
+        int totalCities = mAdapter.getItemCount();
 
         if (cityPosition >= 0) {
             Drawable.ConstantState bgState;
