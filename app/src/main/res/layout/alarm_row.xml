@@ -9,6 +9,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/alarm_selection_margin_bottom"
     android:gravity="top"
     android:orientation="vertical">
 
@@ -27,7 +28,7 @@
             tools:textStyle="bold" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/daysOfWeek"
+            android:id="@+id/days_of_week"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
@@ -49,7 +50,7 @@
         android:orientation="vertical">
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/label"
+            android:id="@+id/alarm_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="none"

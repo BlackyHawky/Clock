@@ -242,7 +242,7 @@
     <string name="more_options">Más opciones</string>
     <string name="alarm_alert_dismiss_and_delete_text">Descartar y eliminar</string>
     <string name="occasional_alarm_alert_predismiss_title">Próxima alarma ocasional</string>
-    <string name="toast_message_for_restore">Restauración completada</string>
+    <string name="restart_app_dialog_title_for_restore">Restauración completada</string>
     <string name="toast_message_for_backup">Respaldo completado</string>
     <string name="restore_button_title">Restaurar</string>
     <string name="schedule_alarm_title">Programar alarma</string>

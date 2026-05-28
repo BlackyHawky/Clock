@@ -399,7 +399,7 @@
     <string name="backup_restore_dialog_message">Да ли желите да направите резервну копију или обновите податке апликације?</string>
     <string name="restore_button_title">Обнови</string>
     <string name="toast_message_for_backup">Резервна копија завршена</string>
-    <string name="toast_message_for_restore">Обнова завршена</string>
+    <string name="restart_app_dialog_title_for_restore">Обнова завршена</string>
     <string name="timer_flip_action_title">Окрените уређај да бисте зауставили аларм</string>
     <string name="timer_shake_action_title">Протресите уређај да бисте зауставили аларм</string>
     <string name="night_accent_color_title">Акцент боја за ноћни режим</string>
@@ -432,7 +432,7 @@
     <string name="reset_settings_message">Да ли сте сигурни да желите да ресетујете сва подешавања апликације?</string>
     <string name="show_lockscreen_dialog_text">На Xiaomi уређајима, требало би ручно да омогућите дозволу \"Прикажи на закључаном екрану\" из подешавања уређаја да би апликација исправно радила.</string>
     <string name="show_lockscreen_permission_title">ПРИКАЖИ НА ЗАКЉУЧАНОМ ЕКРАНУ</string>
-    <string name="toast_message_for_reset">Ресетовање завршено</string>
+    <string name="restart_app_dialog_title_for_reset">Ресетовање завршено</string>
     <string name="shake_intensity_title">Интензитет протресања</string>
     <string name="settings_language_korean">Корејски</string>
     <string name="settings_language_system">Системски језик</string>

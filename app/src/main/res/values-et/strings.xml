@@ -400,7 +400,7 @@
     <string name="backup_restore_title">Varundus ja taastamine</string>
     <string name="backup_restore_summary">Varunda ja taasta seadistusi, aga mitte kohandatud helinaid</string>
     <string name="toast_message_for_backup">Varukoopia on tehtud</string>
-    <string name="toast_message_for_restore">Varukoopiast taastamine on lõppenud</string>
+    <string name="restart_app_dialog_title_for_restore">Varukoopiast taastamine on lõppenud</string>
     <string name="timer_flip_action_title">Äratuse peatamiseks pööra nutiseade teistpidi</string>
     <string name="timer_shake_action_title">Äratuse peatamiseks raputa nutiseadet</string>
     <string name="night_accent_color_title">Aktsentvärv öörežiimis</string>
@@ -459,7 +459,7 @@
     <string name="reset_settings_title">Lähtesta seadistused</string>
     <string name="reset_settings_message">Kas sa oled kindel, et soovid kõik rakenduse seadistused muuta algolekusse?</string>
     <string name="blue_accent_color">Sinine</string>
-    <string name="toast_message_for_reset">Lähtestamine on tehtud</string>
+    <string name="restart_app_dialog_title_for_reset">Lähtestamine on tehtud</string>
     <string name="settings_language_korean">korea keel</string>
     <string name="display_date_title">Näita vidinas kuupäeva</string>
     <string name="settings_toolbar_title">Näita tööriistaribal pealkirja</string>

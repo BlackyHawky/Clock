@@ -7,16 +7,11 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_WEEK_
 import static com.best.deskclock.settings.PreferencesDefaultValues.SPINNER_DATE_PICKER_STYLE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_WEEK_START;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.DatePicker;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.util.Pair;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.LifecycleOwner;
@@ -26,7 +21,6 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
-import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.uicomponents.RepeatingDayDecorator;
 import com.best.deskclock.utils.ThemeUtils;
 import com.google.android.material.datepicker.CalendarConstraints;
@@ -38,33 +32,25 @@ import java.util.TimeZone;
 
 public class DatePickerDialogFragment {
 
-    private static final String TAG_DATE_PICKER = "DatePickerDialog";
-    private static final String TAG_DATE_RANGE_PICKER = "DateRangePickerDialog";
-    private static AlertDialog mCurrentSpinnerDatePickerDialog = null;
+    public static final String TAG_DATE_PICKER = "DatePickerDialog";
+    public static final String TAG_DATE_RANGE_PICKER = "DateRangePickerDialog";
 
-    public static void show(Context context, FragmentManager fragmentManager, SharedPreferences prefs, Alarm alarm,
-                            OnDateSelectedListener listener) {
+    public static void show(FragmentManager fragmentManager, SharedPreferences prefs, Alarm alarm, OnDateSelectedListener listener) {
 
         if (SettingsDAO.getMaterialDatePickerStyle(prefs).equals(SPINNER_DATE_PICKER_STYLE)) {
-            showSpinnerDatePicker(context, alarm, listener);
+            showSpinnerDatePicker(fragmentManager, alarm);
         } else {
             showMaterialDatePicker(fragmentManager, prefs, alarm, listener);
         }
     }
 
-    private static void showSpinnerDatePicker(Context context, Alarm alarm, OnDateSelectedListener listener) {
-
-        if (mCurrentSpinnerDatePickerDialog != null && mCurrentSpinnerDatePickerDialog.isShowing()) {
+    private static void showSpinnerDatePicker(FragmentManager fragmentManager, Alarm alarm) {
+        if (fragmentManager.findFragmentByTag(SpinnerDatePickerDialogFragment.TAG) != null) {
             return;
         }
 
         Events.sendAlarmEvent(R.string.action_set_date, R.string.label_deskclock);
 
-        LayoutInflater inflater = LayoutInflater.from(context);
-        @SuppressLint("InflateParams")
-        View dialogView = inflater.inflate(R.layout.spinner_date_picker, null);
-
-        DatePicker datePicker = dialogView.findViewById(R.id.spinner_date_picker);
         Calendar now = Calendar.getInstance();
         Calendar selectionDate = (Calendar) now.clone();
         Calendar minDate = (Calendar) now.clone();
@@ -100,38 +86,14 @@ public class DatePickerDialogFragment {
             }
         }
 
-        datePicker.setMinDate(minDate.getTimeInMillis());
-
-        datePicker.init(selectionDate.get(Calendar.YEAR), selectionDate.get(Calendar.MONTH), selectionDate.get(Calendar.DAY_OF_MONTH), null);
-
-        mCurrentSpinnerDatePickerDialog = CustomDialog.create(
-            context,
-            R.style.SpinnerDialogTheme,
-            null,
-            context.getString(R.string.date_picker_dialog_title),
-            null,
-            dialogView,
-            context.getString(android.R.string.ok),
-            (d, w) -> {
-                int newYear = datePicker.getYear();
-                int newMonth = datePicker.getMonth();
-                int newDay = datePicker.getDayOfMonth();
-
-                if (listener != null) {
-                    listener.onDateSet(newYear, newMonth, newDay, alarm.hour, alarm.minutes);
-                }
-            },
-            context.getString(android.R.string.cancel),
-            null,
-            null,
-            null,
-            null,
-            CustomDialog.SoftInputMode.SHOW_KEYBOARD
+        SpinnerDatePickerDialogFragment fragment = SpinnerDatePickerDialogFragment.newInstance(
+            minDate.getTimeInMillis(),
+            selectionDate.get(Calendar.YEAR),
+            selectionDate.get(Calendar.MONTH),
+            selectionDate.get(Calendar.DAY_OF_MONTH)
         );
 
-        mCurrentSpinnerDatePickerDialog.setOnDismissListener(dialog -> mCurrentSpinnerDatePickerDialog = null);
-
-        mCurrentSpinnerDatePickerDialog.show();
+        SpinnerDatePickerDialogFragment.show(fragmentManager, fragment);
     }
 
     private static void showMaterialDatePicker(FragmentManager fragmentManager, SharedPreferences prefs, Alarm alarm,

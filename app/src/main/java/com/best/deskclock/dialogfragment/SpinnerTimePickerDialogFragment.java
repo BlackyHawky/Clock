@@ -2,7 +2,6 @@
 
 package com.best.deskclock.dialogfragment;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.text.InputType;
@@ -11,9 +10,7 @@ import android.view.HapticFeedbackConstants;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.NumberPicker;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
@@ -21,6 +18,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.databinding.AlarmSpinnerTimePickerBinding;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.Utils;
 
@@ -53,11 +51,7 @@ public class SpinnerTimePickerDialogFragment extends DialogFragment {
     public static final String BUNDLE_KEY_HOURS = "spinner_time_picker_hours";
     public static final String BUNDLE_KEY_MINUTES = "spinner_time_picker_minutes";
 
-    private LinearLayout mLayout;
-    private NumberPicker mHourPicker;
-    private NumberPicker mMinutePicker;
-    private NumberPicker mAmPmPicker;
-    private TextView mDivider;
+    private AlarmSpinnerTimePickerBinding mBinding;
 
     /**
      * Creates a new instance of {@link SpinnerTimePickerDialogFragment} for use
@@ -86,17 +80,14 @@ public class SpinnerTimePickerDialogFragment extends DialogFragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
+
         // As long as the dialog exists, save its state.
-        if (mHourPicker != null) {
-            outState.putInt(ARG_HOURS, mHourPicker.getValue());
-        }
+        outState.putInt(ARG_HOURS, mBinding.hourPicker.getValue());
 
-        if (mMinutePicker != null) {
-            outState.putInt(ARG_MINUTES, mMinutePicker.getValue());
-        }
+        outState.putInt(ARG_MINUTES, mBinding.minutePicker.getValue());
 
-        if (!is24HourFormat() && mAmPmPicker != null) {
-            outState.putInt(ARG_AM_PM, mAmPmPicker.getValue());
+        if (!is24HourFormat()) {
+            outState.putInt(ARG_AM_PM, mBinding.amPmPicker.getValue());
         }
     }
 
@@ -116,21 +107,14 @@ public class SpinnerTimePickerDialogFragment extends DialogFragment {
             }
         }
 
-        @SuppressLint("InflateParams")
-        View dialogView = getLayoutInflater().inflate(R.layout.alarm_spinner_time_picker, null);
-
-        mLayout = dialogView.findViewById(R.id.timePickerLayout);
-        mHourPicker = dialogView.findViewById(R.id.hour);
-        mMinutePicker = dialogView.findViewById(R.id.minute);
-        mAmPmPicker = dialogView.findViewById(R.id.amPm);
-        mDivider = dialogView.findViewById(R.id.divider);
+        mBinding = AlarmSpinnerTimePickerBinding.inflate(getLayoutInflater());
 
         setupNumberPickers(hourValue, minuteValue, amPmValue);
 
-        setupEditTextInput(mHourPicker, InputType.TYPE_CLASS_NUMBER, EditorInfo.IME_ACTION_NEXT);
+        setupEditTextInput(mBinding.hourPicker, InputType.TYPE_CLASS_NUMBER, EditorInfo.IME_ACTION_NEXT);
         int imeActionForMinute = is24HourFormat() ? EditorInfo.IME_ACTION_DONE : EditorInfo.IME_ACTION_NEXT;
-        setupEditTextInput(mMinutePicker, InputType.TYPE_CLASS_NUMBER, imeActionForMinute);
-        setupEditTextInput(mAmPmPicker, InputType.TYPE_CLASS_TEXT, EditorInfo.IME_ACTION_DONE);
+        setupEditTextInput(mBinding.minutePicker, InputType.TYPE_CLASS_NUMBER, imeActionForMinute);
+        setupEditTextInput(mBinding.amPmPicker, InputType.TYPE_CLASS_TEXT, EditorInfo.IME_ACTION_DONE);
 
         return CustomDialog.create(
             requireContext(),
@@ -138,18 +122,18 @@ public class SpinnerTimePickerDialogFragment extends DialogFragment {
             null,
             getString(R.string.time_picker_dialog_title),
             null,
-            dialogView,
+            mBinding.getRoot(),
             getString(android.R.string.ok),
             (d, w) -> {
-                mHourPicker.clearFocus();
-                mMinutePicker.clearFocus();
+                mBinding.hourPicker.clearFocus();
+                mBinding.minutePicker.clearFocus();
                 if (!is24HourFormat()) {
-                    mAmPmPicker.clearFocus();
+                    mBinding.amPmPicker.clearFocus();
                 }
 
-                int selectedHour = mHourPicker.getValue();
-                int selectedMinute = mMinutePicker.getValue();
-                int amPm = mAmPmPicker.getValue();
+                int selectedHour = mBinding.hourPicker.getValue();
+                int selectedMinute = mBinding.minutePicker.getValue();
+                int amPm = mBinding.amPmPicker.getValue();
 
                 if (!is24HourFormat()) {
                     if (amPm == Calendar.PM && selectedHour < 12) {
@@ -174,13 +158,9 @@ public class SpinnerTimePickerDialogFragment extends DialogFragment {
 
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
+        mBinding = null;
 
-        mLayout = null;
-        mHourPicker = null;
-        mMinutePicker = null;
-        mAmPmPicker = null;
-        mDivider = null;
+        super.onDestroyView();
     }
 
     private void setAlarm(int hours, int minutes) {
@@ -202,49 +182,49 @@ public class SpinnerTimePickerDialogFragment extends DialogFragment {
     private void setupNumberPickers(int hour, int minute, int amPmValue) {
         // Hours setup
         if (is24HourFormat()) {
-            mHourPicker.setMinValue(0);
-            mHourPicker.setMaxValue(23);
-            mHourPicker.setFormatter(value -> String.format(Locale.getDefault(), "%02d", value));
-            mHourPicker.setValue(hour);
+            mBinding.hourPicker.setMinValue(0);
+            mBinding.hourPicker.setMaxValue(23);
+            mBinding.hourPicker.setFormatter(value -> String.format(Locale.getDefault(), "%02d", value));
+            mBinding.hourPicker.setValue(hour);
         } else {
-            mHourPicker.setMinValue(1);
-            mHourPicker.setMaxValue(12);
-            mHourPicker.setValue(hour % 12 == 0 ? 12 : hour % 12);
+            mBinding.hourPicker.setMinValue(1);
+            mBinding.hourPicker.setMaxValue(12);
+            mBinding.hourPicker.setValue(hour % 12 == 0 ? 12 : hour % 12);
         }
 
         // Minutes setup
-        mMinutePicker.setMinValue(0);
-        mMinutePicker.setMaxValue(59);
-        mMinutePicker.setFormatter(value -> String.format(Locale.getDefault(), "%02d", value));
-        mMinutePicker.setValue(minute);
+        mBinding.minutePicker.setMinValue(0);
+        mBinding.minutePicker.setMaxValue(59);
+        mBinding.minutePicker.setFormatter(value -> String.format(Locale.getDefault(), "%02d", value));
+        mBinding.minutePicker.setValue(minute);
 
         // AM/PM setup
         if (!is24HourFormat()) {
             // Dynamic positioning of AM/PM
-            mLayout.removeView(mAmPmPicker);
+            mBinding.timePickerLayout.removeView(mBinding.amPmPicker);
             if (isAmPmAtStart()) {
-                mLayout.addView(mAmPmPicker, 0);
+                mBinding.timePickerLayout.addView(mBinding.amPmPicker, 0);
             } else {
-                mLayout.addView(mAmPmPicker);
+                mBinding.timePickerLayout.addView(mBinding.amPmPicker);
             }
 
-            mAmPmPicker.setMinValue(Calendar.AM);
-            mAmPmPicker.setMaxValue(Calendar.PM);
-            mAmPmPicker.setDisplayedValues(getAmPmStrings());
-            mAmPmPicker.setValue(amPmValue);
-            mAmPmPicker.setVisibility(View.VISIBLE);
+            mBinding.amPmPicker.setMinValue(Calendar.AM);
+            mBinding.amPmPicker.setMaxValue(Calendar.PM);
+            mBinding.amPmPicker.setDisplayedValues(getAmPmStrings());
+            mBinding.amPmPicker.setValue(amPmValue);
+            mBinding.amPmPicker.setVisibility(View.VISIBLE);
         } else {
-            mAmPmPicker.setVisibility(View.GONE);
+            mBinding.amPmPicker.setVisibility(View.GONE);
         }
 
         // Hours listener
-        mHourPicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
+        mBinding.hourPicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
             picker.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
             if (!is24HourFormat()) {
                 // Passage 11→12 ou 12→11 → bascule AM/PM
                 if ((oldVal == 11 && newVal == 12) || (oldVal == 12 && newVal == 11)) {
-                    int currentAmPm = mAmPmPicker.getValue();
-                    mAmPmPicker.setValue(currentAmPm == Calendar.AM ? Calendar.PM : Calendar.AM);
+                    int currentAmPm = mBinding.amPmPicker.getValue();
+                    mBinding.amPmPicker.setValue(currentAmPm == Calendar.AM ? Calendar.PM : Calendar.AM);
                 }
             }
         });
@@ -252,35 +232,36 @@ public class SpinnerTimePickerDialogFragment extends DialogFragment {
         final int[] lastHour = {hour};
 
         // Minutes listener
-        mMinutePicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
+        mBinding.minutePicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
             picker.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
 
             // Prevent hours from changing when the minutes change from 59 to 0 or from 0 to 59
             if ((oldVal == 59 && newVal == 0) || (oldVal == 0 && newVal == 59)) {
-                mHourPicker.setValue(lastHour[0]);
+                mBinding.hourPicker.setValue(lastHour[0]);
             } else {
-                lastHour[0] = mHourPicker.getValue();
+                lastHour[0] = mBinding.hourPicker.getValue();
             }
         });
 
         // AM/PM listener
         if (!is24HourFormat()) {
-            mAmPmPicker.setOnValueChangedListener((picker, oldVal, newVal) ->
+            mBinding.amPmPicker.setOnValueChangedListener((picker, oldVal, newVal) ->
                 picker.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK));
         }
 
         // Divider setup
-        mDivider.setText(getTimeSeparator(is24HourFormat()));
+        mBinding.dividerText.setText(getTimeSeparator(is24HourFormat()));
 
         // Set up the correct focus navigation order
-        mHourPicker.setNextFocusForwardId(R.id.minute);
+        mBinding.hourPicker.setNextFocusForwardId(R.id.minute_picker);
         if (!is24HourFormat()) {
-            mMinutePicker.setNextFocusForwardId(R.id.amPm);
-            mAmPmPicker.setNextFocusForwardId(View.NO_ID);
+            mBinding.minutePicker.setNextFocusForwardId(R.id.amPm_picker);
+            mBinding.amPmPicker.setNextFocusForwardId(View.NO_ID);
         } else {
-            mMinutePicker.setNextFocusForwardId(View.NO_ID);
+            mBinding.minutePicker.setNextFocusForwardId(View.NO_ID);
         }
-        mDivider.setNextFocusForwardId(View.NO_ID);
+
+        mBinding.dividerText.setNextFocusForwardId(View.NO_ID);
     }
 
     /**
@@ -358,11 +339,11 @@ public class SpinnerTimePickerDialogFragment extends DialogFragment {
                     if (actionId == EditorInfo.IME_ACTION_DONE) {
                         numberPicker.clearFocus();
 
-                        int selectedHour = mHourPicker.getValue();
-                        int selectedMinute = mMinutePicker.getValue();
+                        int selectedHour = mBinding.hourPicker.getValue();
+                        int selectedMinute = mBinding.minutePicker.getValue();
 
-                        if (!is24HourFormat() && numberPicker == mAmPmPicker) {
-                            int amPm = mAmPmPicker.getValue();
+                        if (!is24HourFormat() && numberPicker == mBinding.amPmPicker) {
+                            int amPm = mBinding.amPmPicker.getValue();
 
                             if (amPm == Calendar.PM && selectedHour < 12) {
                                 selectedHour += 12;

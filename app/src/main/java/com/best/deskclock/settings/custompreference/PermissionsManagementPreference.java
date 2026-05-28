@@ -11,35 +11,38 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_NOTIFICATION_PERMI
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SHOW_LOCKSCREEN_PERMISSION;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.AttributeSet;
-import android.widget.ImageButton;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.content.ContextCompat;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceViewHolder;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.databinding.SettingsPreferencePermissionBinding;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.PermissionUtils;
 import com.best.deskclock.utils.ThemeUtils;
 
 public class PermissionsManagementPreference extends Preference {
 
-    private Context mContext;
+    private SettingsPreferencePermissionBinding mBinding;
 
-    private TextView mStatusState;
+    private final Typeface mRegularTypeface;
 
     private AlertDialog mActiveDialog = null;
 
     public PermissionsManagementPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+
+        mRegularTypeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(getDefaultSharedPreferences(context)));
     }
 
     @Override
@@ -49,42 +52,61 @@ public class PermissionsManagementPreference extends Preference {
             return;
         }
 
-        mContext = getContext();
-        SharedPreferences prefs = getDefaultSharedPreferences(mContext);
-        String fontPath = SettingsDAO.getGeneralFont(prefs);
-        Typeface regularTypeFace = ThemeUtils.loadFont(fontPath);
-
         super.onBindViewHolder(holder);
 
-        final TextView requirementTitle = (TextView) holder.findViewById(R.id.requirement_title);
-        final TextView requirementAdvice = (TextView) holder.findViewById(R.id.requirement_advice);
-        final TextView statusTitle = (TextView) holder.findViewById(R.id.status_title);
-        mStatusState = (TextView) holder.findViewById(R.id.status_state);
+        mBinding = SettingsPreferencePermissionBinding.bind(holder.itemView);
 
-        requirementTitle.setTypeface(regularTypeFace);
-        requirementAdvice.setTypeface(regularTypeFace);
-        statusTitle.setTypeface(regularTypeFace);
-        mStatusState.setTypeface(regularTypeFace);
+        mBinding.requirementTitle.setTypeface(mRegularTypeface);
+        mBinding.requirementAdvice.setTypeface(mRegularTypeface);
+        mBinding.statusTitle.setTypeface(mRegularTypeface);
+        mBinding.statusState.setTypeface(mRegularTypeface);
 
         if (isShowLockScreenPermissionPreference()) {
-            statusTitle.setText(mContext.getString(R.string.permission_info_title));
-            mStatusState.setVisibility(GONE);
+            mBinding.statusTitle.setText(getContext().getString(R.string.permission_info_title));
+            mBinding.statusState.setVisibility(GONE);
         } else {
-            statusTitle.setText(mContext.getString(R.string.permission_status_title));
+            mBinding.statusTitle.setText(getContext().getString(R.string.permission_status_title));
 
-            if (isIgnoreBatteryOtimizationsPreference()) {
-                setStatusText(PermissionUtils.isIgnoringBatteryOptimizations(mContext));
+            if (isIgnoreBatteryOptimizationsPreference()) {
+                setStatusText(PermissionUtils.isIgnoringBatteryOptimizations(getContext()));
             } else if (isNotificationPermissionPreference()) {
-                setStatusText(PermissionUtils.areNotificationsEnabled(mContext));
+                setStatusText(PermissionUtils.areNotificationsEnabled(getContext()));
             } else if (isFullScreenNotificationPermissionPreference()) {
-                setStatusText(PermissionUtils.areFullScreenNotificationsEnabled(mContext));
+                setStatusText(PermissionUtils.areFullScreenNotificationsEnabled(getContext()));
             }
 
-            mStatusState.setVisibility(VISIBLE);
+            mBinding.statusState.setVisibility(VISIBLE);
         }
 
-        ImageButton detailsButton = (ImageButton) holder.findViewById(R.id.details_button);
-        detailsButton.setOnClickListener(v -> displayPermissionDetailsDialog());
+        mBinding.detailsButton.setOnClickListener(v -> displayPermissionDetailsDialog());
+    }
+
+    @Override
+    protected Parcelable onSaveInstanceState() {
+        final Parcelable superState = super.onSaveInstanceState();
+
+        if (mActiveDialog == null || !mActiveDialog.isShowing()) {
+            return superState;
+        }
+
+        final SavedState myState = new SavedState(superState);
+        myState.isDialogShowing = true;
+        return myState;
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Parcelable state) {
+        if (state == null || !state.getClass().equals(SavedState.class)) {
+            super.onRestoreInstanceState(state);
+            return;
+        }
+
+        SavedState myState = (SavedState) state;
+        super.onRestoreInstanceState(myState.getSuperState());
+
+        if (myState.isDialogShowing) {
+            displayPermissionDetailsDialog();
+        }
     }
 
     @Override
@@ -101,11 +123,11 @@ public class PermissionsManagementPreference extends Preference {
      */
     public void setStatusText(boolean isGranted) {
         if (isGranted) {
-            mStatusState.setText(mContext.getString(R.string.permission_granted));
-            mStatusState.setTextColor(mContext.getColor(R.color.colorGranted));
+            mBinding.statusState.setText(getContext().getString(R.string.permission_granted));
+            mBinding.statusState.setTextColor(ContextCompat.getColor(getContext(), R.color.colorGranted));
         } else {
-            mStatusState.setText(mContext.getString(R.string.permission_denied));
-            mStatusState.setTextColor(mContext.getColor(R.color.colorAlert));
+            mBinding.statusState.setText(getContext().getString(R.string.permission_denied));
+            mBinding.statusState.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAlert));
         }
     }
 
@@ -113,7 +135,7 @@ public class PermissionsManagementPreference extends Preference {
      * @return {@code true} if the current preference is related to the battery optimizations;
      * {@code false} otherwise.
      */
-    private boolean isIgnoreBatteryOtimizationsPreference() {
+    private boolean isIgnoreBatteryOptimizationsPreference() {
         return getKey().equals(KEY_IGNORE_BATTERY_OPTIMIZATIONS);
     }
 
@@ -149,7 +171,7 @@ public class PermissionsManagementPreference extends Preference {
         int titleId;
         int messageId;
 
-        if (isIgnoreBatteryOtimizationsPreference()) {
+        if (isIgnoreBatteryOptimizationsPreference()) {
             iconId = R.drawable.ic_battery_settings;
             titleId = R.string.ignore_battery_optimizations_dialog_title;
             messageId = R.string.ignore_battery_optimizations_dialog_text;
@@ -168,13 +190,13 @@ public class PermissionsManagementPreference extends Preference {
         }
 
         mActiveDialog = CustomDialog.create(
-            mContext,
+            getContext(),
             null,
-            AppCompatResources.getDrawable(mContext, iconId),
-            mContext.getString(titleId),
-            mContext.getString(messageId),
+            AppCompatResources.getDrawable(getContext(), iconId),
+            getContext().getString(titleId),
+            getContext().getString(messageId),
             null,
-            mContext.getString(R.string.dialog_close),
+            getContext().getString(R.string.dialog_close),
             null,
             null,
             null,
@@ -189,6 +211,40 @@ public class PermissionsManagementPreference extends Preference {
 
     public void refreshState() {
         notifyChanged();
+    }
+
+    private static class SavedState extends BaseSavedState {
+        boolean isDialogShowing;
+
+        public SavedState(Parcelable superState) {
+            super(superState);
+        }
+
+        public SavedState(Parcel source) {
+            super(source);
+
+            isDialogShowing = source.readInt() == 1;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            super.writeToParcel(dest, flags);
+
+            dest.writeInt(isDialogShowing ? 1 : 0);
+        }
+
+        public static final Parcelable.Creator<SavedState> CREATOR =
+            new Parcelable.Creator<>() {
+                @Override
+                public SavedState[] newArray(int size) {
+                    return new SavedState[size];
+                }
+
+                @Override
+                public SavedState createFromParcel(Parcel source) {
+                    return new SavedState(source);
+                }
+            };
     }
 
 }

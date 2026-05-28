@@ -7,25 +7,25 @@
 package com.best.deskclock.ringtone;
 
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.best.deskclock.R;
+import com.best.deskclock.databinding.RingtoneItemHeaderBinding;
 
 public class HeaderViewHolder extends RecyclerView.ViewHolder {
 
-    private final TextView mItemHeader;
+    private final RingtoneItemHeaderBinding mBinding;
 
     public HeaderViewHolder(View itemView, RingtoneAdapter adapter) {
         super(itemView);
-        mItemHeader = itemView.findViewById(R.id.ringtone_item_header);
 
-        mItemHeader.setTypeface(adapter.getGeneralTypeface());
+        mBinding = RingtoneItemHeaderBinding.bind(itemView);
+
+        mBinding.ringtoneItemHeader.setTypeface(adapter.getGeneralTypeface());
     }
 
     public void bind(HeaderHolder itemHolder) {
-        mItemHeader.setText(itemHolder.getTextResId());
+        mBinding.ringtoneItemHeader.setText(itemHolder.getTextResId());
     }
 
 }

@@ -6,7 +6,6 @@ import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VOLUME_CRESCENDO_DURATION;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -18,7 +17,6 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
-import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -33,13 +31,11 @@ import androidx.fragment.app.FragmentManager;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.databinding.VolumeCrescendoDurationDialogBinding;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
-import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.color.MaterialColors;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
 
@@ -64,12 +60,9 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
     public static final String REQUEST_KEY = VOLUME_CRESCENDO_DURATION + "request_key";
     public static final String VOLUME_CRESCENDO_DURATION_VALUE = VOLUME_CRESCENDO_DURATION + "value";
 
+    private VolumeCrescendoDurationDialogBinding mBinding;
+
     private String mPrefKey;
-    private TextInputLayout mMinutesInputLayout;
-    private TextInputLayout mSecondsInputLayout;
-    private TextInputEditText mEditMinutes;
-    private TextInputEditText mEditSeconds;
-    private MaterialCheckBox mOffCheckbox;
     private Button mOkButton;
     private Button mDefaultButton;
     private Typeface mTypeFace;
@@ -148,18 +141,16 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         // As long as this dialog exists, save its state.
-        if (mEditMinutes != null && mEditSeconds != null) {
-            String minutesStr = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
-            String secondsStr = mEditSeconds.getText() != null ? mEditSeconds.getText().toString() : "";
+        String minutesStr = mBinding.editMinutes.getText() != null ? mBinding.editMinutes.getText().toString() : "";
+        String secondsStr = mBinding.editSeconds.getText() != null ? mBinding.editSeconds.getText().toString() : "";
 
-            int minutes = minutesStr.isEmpty() ? 0 : Integer.parseInt(minutesStr);
-            int seconds = secondsStr.isEmpty() ? 0 : Integer.parseInt(secondsStr);
+        int minutes = minutesStr.isEmpty() ? 0 : Integer.parseInt(minutesStr);
+        int seconds = secondsStr.isEmpty() ? 0 : Integer.parseInt(secondsStr);
 
-            outState.putInt(ARG_EDIT_VOLUME_CRESCENDO_MINUTES, minutes);
-            outState.putInt(ARG_EDIT_VOLUME_CRESCENDO_SECONDS, seconds);
-        }
+        outState.putInt(ARG_EDIT_VOLUME_CRESCENDO_MINUTES, minutes);
+        outState.putInt(ARG_EDIT_VOLUME_CRESCENDO_SECONDS, seconds);
 
-        outState.putBoolean(ARG_CRESCENDO_OFF, mOffCheckbox.isChecked());
+        outState.putBoolean(ARG_CRESCENDO_OFF, mBinding.crescendoOffButton.isChecked());
     }
 
     @NonNull
@@ -182,47 +173,40 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
 
         mInput = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 
-        @SuppressLint("InflateParams")
-        View dialogView = getLayoutInflater().inflate(R.layout.volume_crescendo_duration_dialog, null);
+        mBinding = VolumeCrescendoDurationDialogBinding.inflate(getLayoutInflater());
 
-        mMinutesInputLayout = dialogView.findViewById(R.id.dialog_input_layout_minutes);
-        mSecondsInputLayout = dialogView.findViewById(R.id.dialog_input_layout_seconds);
-        mEditMinutes = dialogView.findViewById(R.id.edit_minutes);
-        mEditSeconds = dialogView.findViewById(R.id.edit_seconds);
-        mOffCheckbox = dialogView.findViewById(R.id.crescendo_off);
+        mBinding.crescendoOffButton.setTypeface(mTypeFace);
+        mBinding.crescendoOffButton.setChecked(isOff);
 
-        mOffCheckbox.setTypeface(mTypeFace);
-        mOffCheckbox.setChecked(isOff);
-
-        mEditMinutes.setText(String.valueOf(editMinutes));
-        mEditMinutes.setTypeface(mTypeFace);
+        mBinding.editMinutes.setText(String.valueOf(editMinutes));
+        mBinding.editMinutes.setTypeface(mTypeFace);
 
         updateInputSate();
 
-        mEditMinutes.selectAll();
-        mEditMinutes.requestFocus();
-        mEditMinutes.addTextChangedListener(mTextWatcher);
-        mEditMinutes.setOnFocusChangeListener((v, hasFocus) -> {
+        mBinding.editMinutes.selectAll();
+        mBinding.editMinutes.requestFocus();
+        mBinding.editMinutes.addTextChangedListener(mTextWatcher);
+        mBinding.editMinutes.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
-                mEditMinutes.selectAll();
+                mBinding.editMinutes.selectAll();
             }
         });
 
         if (!isOff) {
-            mEditSeconds.setText(String.valueOf(editSeconds));
+            mBinding.editSeconds.setText(String.valueOf(editSeconds));
         }
-        mEditSeconds.setTypeface(mTypeFace);
-        mEditSeconds.selectAll();
-        mEditSeconds.setInputType(InputType.TYPE_CLASS_NUMBER);
-        mEditSeconds.setOnEditorActionListener(new ImeDoneListener());
-        mEditSeconds.addTextChangedListener(mTextWatcher);
-        mEditSeconds.setOnFocusChangeListener((v, hasFocus) -> {
+        mBinding.editSeconds.setTypeface(mTypeFace);
+        mBinding.editSeconds.selectAll();
+        mBinding.editSeconds.setInputType(InputType.TYPE_CLASS_NUMBER);
+        mBinding.editSeconds.setOnEditorActionListener(new ImeDoneListener());
+        mBinding.editSeconds.addTextChangedListener(mTextWatcher);
+        mBinding.editSeconds.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
-                mEditSeconds.selectAll();
+                mBinding.editSeconds.selectAll();
             }
         });
 
-        mOffCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        mBinding.crescendoOffButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isUpdatingCheckboxes) {
                 return;
             }
@@ -242,7 +226,7 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
             mPrefKey != null ? null : AppCompatResources.getDrawable(requireContext(), R.drawable.ic_crescendo),
             getString(R.string.crescendo_duration_title),
             null,
-            dialogView,
+            mBinding.getRoot(),
             getString(android.R.string.ok),
             (d, w) -> setVolumeCrescendoDurationInSeconds(),
             getString(android.R.string.cancel),
@@ -253,8 +237,8 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
                 mOkButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
                 mDefaultButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
 
-                String inputMinutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
-                String inputSecondsText = mEditSeconds.getText() != null ? mEditSeconds.getText().toString() : "";
+                String inputMinutesText = mBinding.editMinutes.getText() != null ? mBinding.editMinutes.getText().toString() : "";
+                String inputSecondsText = mBinding.editSeconds.getText() != null ? mBinding.editSeconds.getText().toString() : "";
 
                 mOkButton.setEnabled(!isInvalidInput(inputMinutesText, inputSecondsText));
                 mDefaultButton.setEnabled(isNotDefaultVolumeCrescendoDuration(inputMinutesText, inputSecondsText));
@@ -267,11 +251,11 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
     public void onResume() {
         super.onResume();
 
-        if (!mOffCheckbox.isChecked()) {
-            mEditMinutes.requestFocus();
-            mEditMinutes.postDelayed(() -> {
+        if (!mBinding.crescendoOffButton.isChecked()) {
+            mBinding.editMinutes.requestFocus();
+            mBinding.editMinutes.postDelayed(() -> {
                 if (mInput != null) {
-                    mInput.showSoftInput(mEditMinutes, InputMethodManager.SHOW_IMPLICIT);
+                    mInput.showSoftInput(mBinding.editMinutes, InputMethodManager.SHOW_IMPLICIT);
                 }
             }, 200);
         }
@@ -280,35 +264,26 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
     @Override
     public void onDestroyView() {
         // Stop callbacks from the IME since there is no view to process them.
-        if (mEditMinutes != null) {
-            mEditMinutes.setOnEditorActionListener(null);
-            mEditMinutes.removeTextChangedListener(mTextWatcher);
-            mEditMinutes.setOnFocusChangeListener(null); // Ne pas oublier le focus !
-        }
+        mBinding.editMinutes.setOnEditorActionListener(null);
+        mBinding.editMinutes.removeTextChangedListener(mTextWatcher);
+        mBinding.editMinutes.setOnFocusChangeListener(null); // Ne pas oublier le focus !
 
-        if (mEditSeconds != null) {
-            mEditSeconds.setOnEditorActionListener(null);
-            mEditSeconds.removeTextChangedListener(mTextWatcher);
-            mEditSeconds.setOnFocusChangeListener(null);
-        }
+        mBinding.editSeconds.setOnEditorActionListener(null);
+        mBinding.editSeconds.removeTextChangedListener(mTextWatcher);
+        mBinding.editSeconds.setOnFocusChangeListener(null);
 
-        if (mOffCheckbox != null) {
-            mOffCheckbox.setOnCheckedChangeListener(null);
-        }
-
-        super.onDestroyView();
+        mBinding.crescendoOffButton.setOnCheckedChangeListener(null);
 
         mInput = null;
 
-        mMinutesInputLayout = null;
-        mSecondsInputLayout = null;
-        mEditMinutes = null;
-        mEditSeconds = null;
-        mOffCheckbox = null;
+        mBinding = null;
+
         mOkButton = null;
         mDefaultButton = null;
 
         mTypeFace = null;
+
+        super.onDestroyView();
     }
 
     /**
@@ -319,41 +294,41 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
      * Otherwise, the inputs are enabled and appropriate helper texts are shown.</p>
      */
     private void updateInputSate() {
-        boolean disable = mOffCheckbox.isChecked();
+        boolean disable = mBinding.crescendoOffButton.isChecked();
 
-        mMinutesInputLayout.setTypeface(mTypeFace);
-        mSecondsInputLayout.setTypeface(mTypeFace);
+        mBinding.textInputLayoutMinutes.setTypeface(mTypeFace);
+        mBinding.textInputLayoutSeconds.setTypeface(mTypeFace);
 
-        mMinutesInputLayout.setEnabled(!disable);
-        mSecondsInputLayout.setEnabled(!disable);
+        mBinding.textInputLayoutMinutes.setEnabled(!disable);
+        mBinding.textInputLayoutSeconds.setEnabled(!disable);
 
         if (disable) {
-            mMinutesInputLayout.setHelperText(null);
-            mSecondsInputLayout.setHelperText(null);
-            mEditMinutes.setText("");
-            mEditSeconds.setText("");
+            mBinding.textInputLayoutMinutes.setHelperText(null);
+            mBinding.textInputLayoutSeconds.setHelperText(null);
+            mBinding.editMinutes.setText("");
+            mBinding.editSeconds.setText("");
         } else {
-            mMinutesInputLayout.setHelperText(getString(R.string.timer_button_time_minutes_warning_box_text));
-            mSecondsInputLayout.setHelperText(getString(R.string.timer_button_time_seconds_warning_box_text));
+            mBinding.textInputLayoutMinutes.setHelperText(getString(R.string.timer_button_time_minutes_warning_box_text));
+            mBinding.textInputLayoutSeconds.setHelperText(getString(R.string.timer_button_time_seconds_warning_box_text));
 
-            TextView minutesHelper = mMinutesInputLayout.findViewById(com.google.android.material.R.id.textinput_helper_text);
+            TextView minutesHelper = mBinding.textInputLayoutMinutes.findViewById(com.google.android.material.R.id.textinput_helper_text);
             minutesHelper.setTypeface(mTypeFace);
 
-            TextView secondsHelper = mSecondsInputLayout.findViewById(com.google.android.material.R.id.textinput_helper_text);
+            TextView secondsHelper = mBinding.textInputLayoutSeconds.findViewById(com.google.android.material.R.id.textinput_helper_text);
             secondsHelper.setTypeface(mTypeFace);
 
-            String minutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
+            String minutesText = mBinding.editMinutes.getText() != null ? mBinding.editMinutes.getText().toString() : "";
 
             if ("60".equals(minutesText)) {
-                mEditMinutes.setImeOptions(EditorInfo.IME_ACTION_DONE);
-                mEditMinutes.setOnEditorActionListener(new ImeDoneListener());
-                mSecondsInputLayout.setEnabled(false);
+                mBinding.editMinutes.setImeOptions(EditorInfo.IME_ACTION_DONE);
+                mBinding.editMinutes.setOnEditorActionListener(new ImeDoneListener());
+                mBinding.textInputLayoutSeconds.setEnabled(false);
             } else {
-                mEditMinutes.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-                mSecondsInputLayout.setEnabled(true);
+                mBinding.editMinutes.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+                mBinding.textInputLayoutSeconds.setEnabled(true);
             }
 
-            mEditMinutes.setInputType(InputType.TYPE_CLASS_NUMBER);
+            mBinding.editMinutes.setInputType(InputType.TYPE_CLASS_NUMBER);
         }
     }
 
@@ -365,9 +340,9 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
      * when the dialog is in manual entry mode.</p>
      */
     private void maybeRequestHoursFocus() {
-        if (!mOffCheckbox.isChecked()) {
-            mEditMinutes.requestFocus();
-            mInput.showSoftInput(mEditMinutes, InputMethodManager.SHOW_IMPLICIT);
+        if (!mBinding.crescendoOffButton.isChecked()) {
+            mBinding.editMinutes.requestFocus();
+            mInput.showSoftInput(mBinding.editMinutes, InputMethodManager.SHOW_IMPLICIT);
         }
     }
 
@@ -379,11 +354,11 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
         int seconds = 0;
         int crescendoDurationInSeconds;
 
-        if (mOffCheckbox.isChecked()) {
+        if (mBinding.crescendoOffButton.isChecked()) {
             crescendoDurationInSeconds = DEFAULT_VOLUME_CRESCENDO_DURATION;
         } else {
-            String minutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
-            String secondsText = mEditSeconds.getText() != null ? mEditSeconds.getText().toString() : "";
+            String minutesText = mBinding.editMinutes.getText() != null ? mBinding.editMinutes.getText().toString() : "";
+            String secondsText = mBinding.editSeconds.getText() != null ? mBinding.editSeconds.getText().toString() : "";
 
             if (!minutesText.isEmpty()) {
                 minutes = Integer.parseInt(minutesText);
@@ -394,7 +369,7 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
             }
 
             if (minutes == 0 && seconds == 0) {
-                mOffCheckbox.setChecked(true);
+                mBinding.crescendoOffButton.setChecked(true);
                 crescendoDurationInSeconds = DEFAULT_VOLUME_CRESCENDO_DURATION;
             } else {
                 crescendoDurationInSeconds = minutes * 60 + seconds;
@@ -458,8 +433,8 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
             titleText.setText(getString(R.string.timer_time_warning_box_title));
         }
 
-        String minutesText = Objects.requireNonNull(mEditMinutes.getText()).toString();
-        String secondsText = Objects.requireNonNull(mEditSeconds.getText()).toString();
+        String minutesText = Objects.requireNonNull(mBinding.editMinutes.getText()).toString();
+        String secondsText = Objects.requireNonNull(mBinding.editSeconds.getText()).toString();
         boolean minutesInvalid = (!minutesText.isEmpty() && Integer.parseInt(minutesText) < 0)
             || (!minutesText.isEmpty() && Integer.parseInt(minutesText) > 60);
         boolean secondsInvalid = (!secondsText.isEmpty() && Integer.parseInt(secondsText) < 0)
@@ -467,17 +442,17 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
         int invalidColor = ContextCompat.getColor(requireContext(), R.color.md_theme_error);
         int validColor = MaterialColors.getColor(requireContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
 
-        mMinutesInputLayout.setBoxStrokeColor(minutesInvalid ? invalidColor : validColor);
-        mMinutesInputLayout.setHintTextColor(minutesInvalid
+        mBinding.textInputLayoutMinutes.setBoxStrokeColor(minutesInvalid ? invalidColor : validColor);
+        mBinding.textInputLayoutMinutes.setHintTextColor(minutesInvalid
             ? ColorStateList.valueOf(invalidColor)
             : ColorStateList.valueOf(validColor));
-        mMinutesInputLayout.setEnabled(!secondsInvalid);
+        mBinding.textInputLayoutMinutes.setEnabled(!secondsInvalid);
 
-        mSecondsInputLayout.setBoxStrokeColor(secondsInvalid ? invalidColor : validColor);
-        mSecondsInputLayout.setHintTextColor(secondsInvalid
+        mBinding.textInputLayoutSeconds.setBoxStrokeColor(secondsInvalid ? invalidColor : validColor);
+        mBinding.textInputLayoutSeconds.setHintTextColor(secondsInvalid
             ? ColorStateList.valueOf(invalidColor)
             : ColorStateList.valueOf(validColor));
-        mSecondsInputLayout.setEnabled(!minutesInvalid);
+        mBinding.textInputLayoutSeconds.setEnabled(!minutesInvalid);
 
         if (mOkButton != null) {
             mOkButton.setEnabled(false);
@@ -505,21 +480,21 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
 
         int validColor = MaterialColors.getColor(requireContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
 
-        mMinutesInputLayout.setBoxStrokeColor(validColor);
-        mMinutesInputLayout.setHintTextColor(ColorStateList.valueOf(validColor));
-        mMinutesInputLayout.setEnabled(!mOffCheckbox.isChecked());
+        mBinding.textInputLayoutMinutes.setBoxStrokeColor(validColor);
+        mBinding.textInputLayoutMinutes.setHintTextColor(ColorStateList.valueOf(validColor));
+        mBinding.textInputLayoutMinutes.setEnabled(!mBinding.crescendoOffButton.isChecked());
 
-        mSecondsInputLayout.setBoxStrokeColor(validColor);
-        mSecondsInputLayout.setHintTextColor(ColorStateList.valueOf(validColor));
-        mSecondsInputLayout.setEnabled(!mOffCheckbox.isChecked());
+        mBinding.textInputLayoutSeconds.setBoxStrokeColor(validColor);
+        mBinding.textInputLayoutSeconds.setHintTextColor(ColorStateList.valueOf(validColor));
+        mBinding.textInputLayoutSeconds.setEnabled(!mBinding.crescendoOffButton.isChecked());
 
         if (mOkButton != null) {
             mOkButton.setEnabled(true);
         }
 
         if (mDefaultButton != null) {
-            String minutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
-            String secondsText = mEditSeconds.getText() != null ? mEditSeconds.getText().toString() : "";
+            String minutesText = mBinding.editMinutes.getText() != null ? mBinding.editMinutes.getText().toString() : "";
+            String secondsText = mBinding.editSeconds.getText() != null ? mBinding.editSeconds.getText().toString() : "";
             mDefaultButton.setEnabled(isNotDefaultVolumeCrescendoDuration(minutesText, secondsText));
         }
     }
@@ -546,13 +521,13 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
 
         @Override
         public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-            if (mOffCheckbox.isChecked()) {
+            if (mBinding.crescendoOffButton.isChecked()) {
                 updateDialogForValidInput();
                 return;
             }
 
-            String minutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
-            String secondsText = mEditSeconds.getText() != null ? mEditSeconds.getText().toString() : "";
+            String minutesText = mBinding.editMinutes.getText() != null ? mBinding.editMinutes.getText().toString() : "";
+            String secondsText = mBinding.editSeconds.getText() != null ? mBinding.editSeconds.getText().toString() : "";
 
             if (isInvalidInput(minutesText, secondsText)) {
                 updateDialogForInvalidInput();
@@ -568,20 +543,20 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
             }
 
             if (minutes == 60) {
-                mEditMinutes.setImeOptions(EditorInfo.IME_ACTION_DONE);
-                mEditMinutes.setOnEditorActionListener(new ImeDoneListener());
-                mSecondsInputLayout.setEnabled(false);
+                mBinding.editMinutes.setImeOptions(EditorInfo.IME_ACTION_DONE);
+                mBinding.editMinutes.setOnEditorActionListener(new ImeDoneListener());
+                mBinding.textInputLayoutSeconds.setEnabled(false);
 
                 if (!"0".equals(secondsText)) {
-                    mEditSeconds.setText("0");
+                    mBinding.editSeconds.setText("0");
                 }
             } else {
-                mEditMinutes.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-                mSecondsInputLayout.setEnabled(true);
+                mBinding.editMinutes.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+                mBinding.textInputLayoutSeconds.setEnabled(true);
             }
 
-            mEditMinutes.setInputType(InputType.TYPE_CLASS_NUMBER);
-            mInput.restartInput(mEditMinutes);
+            mBinding.editMinutes.setInputType(InputType.TYPE_CLASS_NUMBER);
+            mInput.restartInput(mBinding.editMinutes);
         }
 
         @Override
@@ -601,8 +576,8 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
         @Override
         public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                String inputMinutesText = Objects.requireNonNull(mEditMinutes.getText()).toString();
-                String inputSecondsText = Objects.requireNonNull(mEditSeconds.getText()).toString();
+                String inputMinutesText = Objects.requireNonNull(mBinding.editMinutes.getText()).toString();
+                String inputSecondsText = Objects.requireNonNull(mBinding.editSeconds.getText()).toString();
                 if (isInvalidInput(inputMinutesText, inputSecondsText)) {
                     updateDialogForInvalidInput();
                 } else {

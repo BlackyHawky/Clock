@@ -20,7 +20,7 @@
     tools:layout_marginBottom="2dp">
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/label"
+        android:id="@+id/alarm_label"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -48,7 +48,7 @@
         android:includeFontPadding="false"
         android:focusable="true"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/label"
+        app:layout_constraintTop_toBottomOf="@id/alarm_label"
         app:layout_constraintBottom_toTopOf="@+id/days_of_week"
         tools:text="08:30"
         tools:textSize="40sp" />
@@ -88,7 +88,7 @@
         tools:visibility="visible" />
 
     <com.google.android.material.materialswitch.MaterialSwitch
-        android:id="@+id/onoff"
+        android:id="@+id/on_off_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
@@ -114,7 +114,7 @@
         android:textColor="?attr/colorAccent"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/onoff"
+        app:layout_constraintTop_toBottomOf="@+id/on_off_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constrainedWidth="true"
         app:layout_constraintHorizontal_bias="1.0"

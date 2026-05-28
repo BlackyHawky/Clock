@@ -308,7 +308,7 @@
     <string name="alarm_title_font_size">鬧鐘標題大小</string>
     <string name="timer_button_time_box_title">將分鐘加入至計時器</string>
     <string name="screensaver_clock_dynamic_colors_title">動態時間色彩</string>
-    <string name="toast_message_for_reset">重設完成</string>
+    <string name="restart_app_dialog_title_for_reset">重設完成</string>
     <string name="alarm_settings_summary">設定樣式、預設鈴聲、音量、延後及關閉鬧鐘動作，每週起始日和提醒時間</string>
     <string name="display_warning_before_deleting_timer_title">刪除計時器前警告</string>
     <string name="denied_permission_label">權限遭拒</string>
@@ -326,7 +326,7 @@
     <string name="first_launch_dialog_message">要離開應用程式嗎？</string>
     <string name="first_launch_main_feature_message">► 淺色、深色及系統主題&lt;br&gt; &lt;br&gt; ► 自訂螢幕保護程式&lt;br&gt; &lt;br&gt; ► 自訂小工具&lt;br&gt; &lt;br&gt; ► 快速設定方塊 (Android 7 以上)&lt;br&gt; &lt;br&gt; ► 備份與還原資料 (不含自訂鈴聲)&lt;br&gt; &lt;br&gt; ► Material 外觀與動態色彩&lt;br&gt; &lt;br&gt; ► 為指定日期配置鬧鐘&lt;br&gt; &lt;br&gt; ► 滑動刪除鬧鐘&lt;br&gt; &lt;br&gt; ► 複製鬧鐘&lt;br&gt; &lt;br&gt; ► 翻轉或搖動裝置以關閉 / 延後鬧鐘&lt;br&gt; &lt;br&gt; ► 按下電源鍵或音量鍵以關閉 / 延後鬧鐘&lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="widget_max_font_size_title">小工具文字大小</string>
-    <string name="toast_message_for_restore">還原完成</string>
+    <string name="restart_app_dialog_title_for_restore">還原完成</string>
     <string name="alarm_upcoming_channel">即將啟動的鬧鐘</string>
     <string name="settings_language_french">法文</string>
     <string name="settings_language_polish">波蘭</string>

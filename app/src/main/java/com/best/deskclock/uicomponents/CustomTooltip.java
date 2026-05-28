@@ -2,7 +2,6 @@ package com.best.deskclock.uicomponents;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -11,10 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupWindow;
-import android.widget.TextView;
 
-import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.databinding.CustomTooltipBinding;
 import com.best.deskclock.utils.ThemeUtils;
 
 /**
@@ -72,16 +70,14 @@ public class CustomTooltip {
         SharedPreferences prefs = getDefaultSharedPreferences(context);
         Typeface typeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
 
-        // Inflate layout
-        @SuppressLint("InflateParams")
-        View tooltipView = LayoutInflater.from(context).inflate(R.layout.custom_tooltip, null);
-        TextView tooltipText = tooltipView.findViewById(R.id.tooltip_text);
-        tooltipText.setText(text);
-        tooltipText.setTypeface(typeface);
+        CustomTooltipBinding binding = CustomTooltipBinding.inflate(LayoutInflater.from(context));
+
+        binding.tooltipText.setText(text);
+        binding.tooltipText.setTypeface(typeface);
 
         // Create a popup window
         PopupWindow popup = new PopupWindow(
-            tooltipView,
+            binding.getRoot(),
             ViewGroup.LayoutParams.WRAP_CONTENT,
             ViewGroup.LayoutParams.WRAP_CONTENT,
             false
@@ -94,9 +90,9 @@ public class CustomTooltip {
         int[] location = new int[2];
         anchor.getLocationOnScreen(location);
 
-        tooltipView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-        int tooltipWidth = tooltipView.getMeasuredWidth();
-        int tooltipHeight = tooltipView.getMeasuredHeight();
+        binding.getRoot().measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        int tooltipWidth = binding.getRoot().getMeasuredWidth();
+        int tooltipHeight = binding.getRoot().getMeasuredHeight();
         int anchorWidth = anchor.getWidth();
         int anchorHeight = anchor.getHeight();
 
@@ -110,7 +106,7 @@ public class CustomTooltip {
 
         popup.showAtLocation(anchor, Gravity.NO_GRAVITY, x, y);
 
-        tooltipView.postDelayed(popup::dismiss, TOOLTIP_DURATION);
+        binding.getRoot().postDelayed(popup::dismiss, TOOLTIP_DURATION);
     }
 
     private enum Position {ABOVE, BELOW}

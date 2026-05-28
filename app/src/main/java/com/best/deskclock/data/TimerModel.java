@@ -12,7 +12,6 @@ import static com.best.deskclock.data.Timer.State.EXPIRED;
 import static com.best.deskclock.data.Timer.State.RESET;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_END_OF_RINGTONE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_NEVER;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_RINGTONE;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -26,7 +25,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Handler;
@@ -39,9 +37,9 @@ import androidx.annotation.StringRes;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import com.best.deskclock.AlarmAlertWakeLock;
-import com.best.deskclock.AppExecutors;
 import com.best.deskclock.R;
+import com.best.deskclock.base.AlarmAlertWakeLock;
+import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.tiles.TimerTileService;
 import com.best.deskclock.timer.TimerKlaxon;
@@ -97,13 +95,6 @@ final class TimerModel {
      */
     @SuppressWarnings("FieldCanBeLocal")
     private final BroadcastReceiver mLocaleChangedReceiver = new LocaleChangedReceiver();
-
-    /**
-     * Retain a hard reference to the shared preference observer to prevent it from being garbage
-     * collected. See {@link SharedPreferences#registerOnSharedPreferenceChangeListener} for detail.
-     */
-    @SuppressWarnings("FieldCanBeLocal")
-    private final OnSharedPreferenceChangeListener mPreferenceListener = new PreferenceListener();
 
     /**
      * The listeners to notify when a timer is added, updated or removed.
@@ -169,9 +160,6 @@ final class TimerModel {
         mNotificationManager = NotificationManagerCompat.from(context);
 
         mAlarmManager = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
-
-        // Clear caches affected by preferences when preferences change.
-        prefs.registerOnSharedPreferenceChangeListener(mPreferenceListener);
 
         // Update timer notification when locale changes.
         final IntentFilter localeBroadcastFilter = new IntentFilter(Intent.ACTION_LOCALE_CHANGED);
@@ -324,7 +312,7 @@ final class TimerModel {
 
     /**
      * If the given {@code timer} is expired and marked for deletion after use then this method
-     * removes the the timer. The timer is otherwise transitioned to the reset state and continues
+     * removes the timer. The timer is otherwise transitioned to the reset state and continues
      * to exist.
      *
      * @param timer        the timer to be reset
@@ -452,6 +440,9 @@ final class TimerModel {
      */
     void setTimerRingtoneUri(Uri uri) {
         SettingsDAO.setTimerRingtoneUri(mPrefs, uri);
+
+        mTimerRingtoneUri = null;
+        mTimerRingtoneTitle = null;
     }
 
     /**
@@ -584,6 +575,10 @@ final class TimerModel {
      * @param timer an existing timer to be removed
      */
     private void doRemoveTimer(Timer timer) {
+        // Cancel the specific notification before clearing the timer from memory.
+        int notificationId = mNotificationModel.getUnexpiredTimerNotificationId(timer.getId());
+        mNotificationManager.cancel(notificationId);
+
         // Remove the timer from permanent storage.
         TimerDAO.removeTimer(mPrefs, timer);
 
@@ -625,7 +620,7 @@ final class TimerModel {
      * bulk-update scenarios so the notifications are only rebuilt once.
      * <p>
      * If the given {@code timer} is expired and marked for deletion after use then this method
-     * removes the the timer. The timer is otherwise transitioned to the reset state and continues
+     * removes the timer. The timer is otherwise transitioned to the reset state and continues
      * to exist.
      *
      * @param timer        the timer to be reset
@@ -634,7 +629,8 @@ final class TimerModel {
      * @param eventLabelId the label of the timer event to send; 0 if no event should be sent
      */
     private void doResetOrDeleteTimer(Timer timer, boolean allowDelete, @StringRes int eventLabelId) {
-        if (allowDelete && (timer.isExpired() || timer.isMissed()) && timer.getDeleteAfterUse()) {
+        if (SettingsDAO.isSingleTimerModeEnabled(mPrefs)
+            || (allowDelete && (timer.isExpired() || timer.isMissed()) && timer.getDeleteAfterUse())) {
             doRemoveTimer(timer);
             if (eventLabelId != 0) {
                 Events.sendTimerEvent(R.string.action_delete, eventLabelId);
@@ -911,17 +907,4 @@ final class TimerModel {
         }
     }
 
-    /**
-     * This receiver is notified when shared preferences change. Cached information built on
-     * preferences must be cleared.
-     */
-    private final class PreferenceListener implements OnSharedPreferenceChangeListener {
-        @Override
-        public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-            if (KEY_TIMER_RINGTONE.equals(key)) {
-                mTimerRingtoneUri = null;
-                mTimerRingtoneTitle = null;
-            }
-        }
-    }
 }

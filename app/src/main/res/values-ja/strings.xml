@@ -270,7 +270,7 @@
     <string name="widgets_settings">ウィジェット</string>
     <string name="backup_restore_title">バックアップと復元</string>
     <string name="backup_restore_dialog_message">ファイルから設定をバックアップまたは復元しますか？</string>
-    <string name="toast_message_for_restore">復元完了</string>
+    <string name="restart_app_dialog_title_for_restore">復元完了</string>
     <string name="toast_message_for_backup">バックアップ完了</string>
     <string name="ignore_battery_optimizations_title">バッテリーの最適化を無視</string>
     <string name="ignore_battery_optimizations_dialog_title">バッテリーの最適化</string>

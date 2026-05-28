@@ -6,7 +6,6 @@ import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_NOTIFICATION_REMINDER;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -18,7 +17,6 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
-import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -33,12 +31,11 @@ import androidx.fragment.app.FragmentManager;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.databinding.AlarmNotificationReminderDialogBinding;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.google.android.material.color.MaterialColors;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
 
@@ -60,10 +57,7 @@ public class AlarmNotificationReminderDialogFragment extends DialogFragment {
     public static final String REQUEST_KEY = ALARM_NOTIFICATION_REMINDER_TIME + "request_key";
     public static final String ALARM_NOTIFICATION_REMINDER_VALUE = ALARM_NOTIFICATION_REMINDER_TIME + "value";
 
-    private TextInputLayout mHoursInputLayout;
-    private TextInputLayout mMinutesInputLayout;
-    private TextInputEditText mEditHours;
-    private TextInputEditText mEditMinutes;
+    private AlarmNotificationReminderDialogBinding mBinding;
     private Button mOkButton;
     private Button mDefaultButton;
     private Typeface mTypeFace;
@@ -103,16 +97,14 @@ public class AlarmNotificationReminderDialogFragment extends DialogFragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         // As long as this dialog exists, save its state.
-        if (mEditHours != null && mEditMinutes != null) {
-            String hoursStr = mEditHours.getText() != null ? mEditHours.getText().toString() : "";
-            String minutesStr = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
+        String hoursStr = mBinding.editHours.getText() != null ? mBinding.editHours.getText().toString() : "";
+        String minutesStr = mBinding.editMinutes.getText() != null ? mBinding.editMinutes.getText().toString() : "";
 
-            int hours = hoursStr.isEmpty() ? 0 : Integer.parseInt(hoursStr);
-            int minutes = minutesStr.isEmpty() ? 0 : Integer.parseInt(minutesStr);
+        int hours = hoursStr.isEmpty() ? 0 : Integer.parseInt(hoursStr);
+        int minutes = minutesStr.isEmpty() ? 0 : Integer.parseInt(minutesStr);
 
-            outState.putInt(ARG_EDIT_HOURS, hours);
-            outState.putInt(ARG_EDIT_MINUTES, minutes);
-        }
+        outState.putInt(ARG_EDIT_HOURS, hours);
+        outState.putInt(ARG_EDIT_MINUTES, minutes);
     }
 
     @NonNull
@@ -133,37 +125,31 @@ public class AlarmNotificationReminderDialogFragment extends DialogFragment {
 
         mInput = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 
-        @SuppressLint("InflateParams")
-        View dialogView = getLayoutInflater().inflate(R.layout.alarm_notification_reminder_dialog, null);
+        mBinding = AlarmNotificationReminderDialogBinding.inflate(getLayoutInflater());
 
-        mHoursInputLayout = dialogView.findViewById(R.id.dialog_input_layout_hours);
-        mMinutesInputLayout = dialogView.findViewById(R.id.dialog_input_layout_minutes);
-        mEditHours = dialogView.findViewById(R.id.edit_hours);
-        mEditMinutes = dialogView.findViewById(R.id.edit_minutes);
-
-        mEditHours.setTypeface(mTypeFace);
-        mEditHours.setText(String.valueOf(editHours));
+        mBinding.editHours.setTypeface(mTypeFace);
+        mBinding.editHours.setText(String.valueOf(editHours));
 
         updateInputSate();
 
-        mEditHours.selectAll();
-        mEditHours.requestFocus();
-        mEditHours.addTextChangedListener(mTextWatcher);
-        mEditHours.setOnFocusChangeListener((v, hasFocus) -> {
+        mBinding.editHours.selectAll();
+        mBinding.editHours.requestFocus();
+        mBinding.editHours.addTextChangedListener(mTextWatcher);
+        mBinding.editHours.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
-                mEditHours.selectAll();
+                mBinding.editHours.selectAll();
             }
         });
 
-        mEditMinutes.setTypeface(mTypeFace);
-        mEditMinutes.setText(String.valueOf(editMinutes));
-        mEditMinutes.selectAll();
-        mEditMinutes.setInputType(InputType.TYPE_CLASS_NUMBER);
-        mEditMinutes.setOnEditorActionListener(new ImeDoneListener());
-        mEditMinutes.addTextChangedListener(mTextWatcher);
-        mEditMinutes.setOnFocusChangeListener((v, hasFocus) -> {
+        mBinding.editMinutes.setTypeface(mTypeFace);
+        mBinding.editMinutes.setText(String.valueOf(editMinutes));
+        mBinding.editMinutes.selectAll();
+        mBinding.editMinutes.setInputType(InputType.TYPE_CLASS_NUMBER);
+        mBinding.editMinutes.setOnEditorActionListener(new ImeDoneListener());
+        mBinding.editMinutes.addTextChangedListener(mTextWatcher);
+        mBinding.editMinutes.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
-                mEditMinutes.selectAll();
+                mBinding.editMinutes.selectAll();
             }
         });
 
@@ -173,7 +159,7 @@ public class AlarmNotificationReminderDialogFragment extends DialogFragment {
             null,
             getString(R.string.alarm_notification_reminder_title),
             null,
-            dialogView,
+            mBinding.getRoot(),
             getString(android.R.string.ok),
             (d, w) -> setAlarmNotificationReminderTime(),
             getString(android.R.string.cancel),
@@ -184,8 +170,8 @@ public class AlarmNotificationReminderDialogFragment extends DialogFragment {
                 mOkButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
                 mDefaultButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
 
-                String inputHoursText = mEditHours.getText() != null ? mEditHours.getText().toString() : "";
-                String inputMinutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
+                String inputHoursText = mBinding.editHours.getText() != null ? mBinding.editHours.getText().toString() : "";
+                String inputMinutesText = mBinding.editMinutes.getText() != null ? mBinding.editMinutes.getText().toString() : "";
 
                 mOkButton.setEnabled(!isInvalidInput(inputHoursText, inputMinutesText));
                 mDefaultButton.setEnabled(isNotDefaultNotificationReminderTime(inputHoursText, inputMinutesText));
@@ -198,10 +184,10 @@ public class AlarmNotificationReminderDialogFragment extends DialogFragment {
     public void onResume() {
         super.onResume();
 
-        mEditHours.requestFocus();
-        mEditHours.postDelayed(() -> {
+        mBinding.editHours.requestFocus();
+        mBinding.editHours.postDelayed(() -> {
             if (mInput != null) {
-                mInput.showSoftInput(mEditHours, InputMethodManager.SHOW_IMPLICIT);
+                mInput.showSoftInput(mBinding.editHours, InputMethodManager.SHOW_IMPLICIT);
             }
         }, 200);
     }
@@ -209,60 +195,54 @@ public class AlarmNotificationReminderDialogFragment extends DialogFragment {
     @Override
     public void onDestroyView() {
         // Stop callbacks from the IME since there is no view to process them.
-        if (mEditHours != null) {
-            mEditHours.setOnEditorActionListener(null);
-            mEditHours.removeTextChangedListener(mTextWatcher);
-            mEditHours.setOnFocusChangeListener(null);
-        }
+        mBinding.editHours.setOnEditorActionListener(null);
+        mBinding.editHours.removeTextChangedListener(mTextWatcher);
+        mBinding.editHours.setOnFocusChangeListener(null);
 
-        if (mEditMinutes != null) {
-            mEditMinutes.setOnEditorActionListener(null);
-            mEditMinutes.removeTextChangedListener(mTextWatcher);
-            mEditMinutes.setOnFocusChangeListener(null);
-        }
-
-        super.onDestroyView();
+        mBinding.editMinutes.setOnEditorActionListener(null);
+        mBinding.editMinutes.removeTextChangedListener(mTextWatcher);
+        mBinding.editMinutes.setOnFocusChangeListener(null);
 
         mInput = null;
 
-        mHoursInputLayout = null;
-        mMinutesInputLayout = null;
-        mEditHours = null;
-        mEditMinutes = null;
+        mBinding = null;
+
         mOkButton = null;
         mDefaultButton = null;
 
         mTypeFace = null;
+
+        super.onDestroyView();
     }
 
     /**
      * Updates the enabled state and helper text of the input fields.
      */
     private void updateInputSate() {
-        mHoursInputLayout.setTypeface(mTypeFace);
-        mMinutesInputLayout.setTypeface(mTypeFace);
+        mBinding.textInputLayoutHours.setTypeface(mTypeFace);
+        mBinding.textInputLayoutMinutes.setTypeface(mTypeFace);
 
-        mHoursInputLayout.setHelperText(getString(R.string.alarm_hours_warning_box_text));
-        mMinutesInputLayout.setHelperText(getString(R.string.alarm_minutes_warning_box_text));
+        mBinding.textInputLayoutHours.setHelperText(getString(R.string.alarm_hours_warning_box_text));
+        mBinding.textInputLayoutMinutes.setHelperText(getString(R.string.alarm_minutes_warning_box_text));
 
-        TextView hoursHelper = mHoursInputLayout.findViewById(com.google.android.material.R.id.textinput_helper_text);
+        TextView hoursHelper = mBinding.textInputLayoutHours.findViewById(com.google.android.material.R.id.textinput_helper_text);
         hoursHelper.setTypeface(mTypeFace);
 
-        TextView minutesHelper = mMinutesInputLayout.findViewById(com.google.android.material.R.id.textinput_helper_text);
+        TextView minutesHelper = mBinding.textInputLayoutMinutes.findViewById(com.google.android.material.R.id.textinput_helper_text);
         minutesHelper.setTypeface(mTypeFace);
 
-        String hoursText = mEditHours.getText() != null ? mEditHours.getText().toString() : "";
+        String hoursText = mBinding.editHours.getText() != null ? mBinding.editHours.getText().toString() : "";
 
         if ("24".equals(hoursText)) {
-            mEditHours.setImeOptions(EditorInfo.IME_ACTION_DONE);
-            mEditHours.setOnEditorActionListener(new ImeDoneListener());
-            mMinutesInputLayout.setEnabled(false);
+            mBinding.editHours.setImeOptions(EditorInfo.IME_ACTION_DONE);
+            mBinding.editHours.setOnEditorActionListener(new ImeDoneListener());
+            mBinding.textInputLayoutMinutes.setEnabled(false);
         } else {
-            mEditHours.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-            mMinutesInputLayout.setEnabled(true);
+            mBinding.editHours.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+            mBinding.textInputLayoutMinutes.setEnabled(true);
         }
 
-        mEditHours.setInputType(InputType.TYPE_CLASS_NUMBER);
+        mBinding.editHours.setInputType(InputType.TYPE_CLASS_NUMBER);
     }
 
     /**
@@ -273,8 +253,8 @@ public class AlarmNotificationReminderDialogFragment extends DialogFragment {
         int minutes = 0;
         int notificationReminderTimeInMinutes;
 
-        String hoursText = mEditHours.getText() != null ? mEditHours.getText().toString() : "";
-        String minutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
+        String hoursText = mBinding.editHours.getText() != null ? mBinding.editHours.getText().toString() : "";
+        String minutesText = mBinding.editMinutes.getText() != null ? mBinding.editMinutes.getText().toString() : "";
 
         if (!hoursText.isEmpty()) {
             hours = Integer.parseInt(hoursText);
@@ -341,8 +321,8 @@ public class AlarmNotificationReminderDialogFragment extends DialogFragment {
             titleText.setText(getString(R.string.timer_time_warning_box_title));
         }
 
-        String hoursText = Objects.requireNonNull(mEditHours.getText()).toString();
-        String minutesText = Objects.requireNonNull(mEditMinutes.getText()).toString();
+        String hoursText = Objects.requireNonNull(mBinding.editHours.getText()).toString();
+        String minutesText = Objects.requireNonNull(mBinding.editMinutes.getText()).toString();
         boolean hoursInvalid = (!hoursText.isEmpty() && Integer.parseInt(hoursText) < 0)
             || (!hoursText.isEmpty() && Integer.parseInt(hoursText) > 24);
         boolean minutesInvalid = (!minutesText.isEmpty() && Integer.parseInt(minutesText) < 0)
@@ -350,17 +330,17 @@ public class AlarmNotificationReminderDialogFragment extends DialogFragment {
         int invalidColor = ContextCompat.getColor(requireContext(), R.color.md_theme_error);
         int validColor = MaterialColors.getColor(requireContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
 
-        mHoursInputLayout.setBoxStrokeColor(hoursInvalid ? invalidColor : validColor);
-        mHoursInputLayout.setHintTextColor(hoursInvalid
+        mBinding.textInputLayoutHours.setBoxStrokeColor(hoursInvalid ? invalidColor : validColor);
+        mBinding.textInputLayoutHours.setHintTextColor(hoursInvalid
             ? ColorStateList.valueOf(invalidColor)
             : ColorStateList.valueOf(validColor));
-        mHoursInputLayout.setEnabled(!minutesInvalid);
+        mBinding.textInputLayoutHours.setEnabled(!minutesInvalid);
 
-        mMinutesInputLayout.setBoxStrokeColor(minutesInvalid ? invalidColor : validColor);
-        mMinutesInputLayout.setHintTextColor(minutesInvalid
+        mBinding.textInputLayoutMinutes.setBoxStrokeColor(minutesInvalid ? invalidColor : validColor);
+        mBinding.textInputLayoutMinutes.setHintTextColor(minutesInvalid
             ? ColorStateList.valueOf(invalidColor)
             : ColorStateList.valueOf(validColor));
-        mMinutesInputLayout.setEnabled(!hoursInvalid);
+        mBinding.textInputLayoutMinutes.setEnabled(!hoursInvalid);
 
         if (mOkButton != null) {
             mOkButton.setEnabled(false);
@@ -383,19 +363,19 @@ public class AlarmNotificationReminderDialogFragment extends DialogFragment {
 
         int validColor = MaterialColors.getColor(requireContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
 
-        mHoursInputLayout.setBoxStrokeColor(validColor);
-        mHoursInputLayout.setHintTextColor(ColorStateList.valueOf(validColor));
+        mBinding.textInputLayoutHours.setBoxStrokeColor(validColor);
+        mBinding.textInputLayoutHours.setHintTextColor(ColorStateList.valueOf(validColor));
 
-        mMinutesInputLayout.setBoxStrokeColor(validColor);
-        mMinutesInputLayout.setHintTextColor(ColorStateList.valueOf(validColor));
+        mBinding.textInputLayoutMinutes.setBoxStrokeColor(validColor);
+        mBinding.textInputLayoutMinutes.setHintTextColor(ColorStateList.valueOf(validColor));
 
         if (mOkButton != null) {
             mOkButton.setEnabled(true);
         }
 
         if (mDefaultButton != null) {
-            String hoursText = mEditHours.getText() != null ? mEditHours.getText().toString() : "";
-            String minutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
+            String hoursText = mBinding.editHours.getText() != null ? mBinding.editHours.getText().toString() : "";
+            String minutesText = mBinding.editMinutes.getText() != null ? mBinding.editMinutes.getText().toString() : "";
             mDefaultButton.setEnabled(isNotDefaultNotificationReminderTime(hoursText, minutesText));
         }
     }
@@ -422,8 +402,8 @@ public class AlarmNotificationReminderDialogFragment extends DialogFragment {
 
         @Override
         public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-            String hoursText = mEditHours.getText() != null ? mEditHours.getText().toString() : "";
-            String minutesText = mEditMinutes.getText() != null ? mEditMinutes.getText().toString() : "";
+            String hoursText = mBinding.editHours.getText() != null ? mBinding.editHours.getText().toString() : "";
+            String minutesText = mBinding.editMinutes.getText() != null ? mBinding.editMinutes.getText().toString() : "";
 
             if (isInvalidInput(hoursText, minutesText)) {
                 updateDialogForInvalidInput();
@@ -439,20 +419,20 @@ public class AlarmNotificationReminderDialogFragment extends DialogFragment {
             }
 
             if (hours == 24) {
-                mEditHours.setImeOptions(EditorInfo.IME_ACTION_DONE);
-                mEditHours.setOnEditorActionListener(new ImeDoneListener());
-                mMinutesInputLayout.setEnabled(false);
+                mBinding.editHours.setImeOptions(EditorInfo.IME_ACTION_DONE);
+                mBinding.editHours.setOnEditorActionListener(new ImeDoneListener());
+                mBinding.textInputLayoutMinutes.setEnabled(false);
 
                 if (!"0".equals(minutesText)) {
-                    mEditMinutes.setText("0");
+                    mBinding.editMinutes.setText("0");
                 }
             } else {
-                mEditHours.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-                mMinutesInputLayout.setEnabled(true);
+                mBinding.editHours.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+                mBinding.textInputLayoutMinutes.setEnabled(true);
             }
 
-            mEditHours.setInputType(InputType.TYPE_CLASS_NUMBER);
-            mInput.restartInput(mEditHours);
+            mBinding.editHours.setInputType(InputType.TYPE_CLASS_NUMBER);
+            mInput.restartInput(mBinding.editHours);
         }
 
         @Override
@@ -472,8 +452,8 @@ public class AlarmNotificationReminderDialogFragment extends DialogFragment {
         @Override
         public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                String inputHoursText = Objects.requireNonNull(mEditHours.getText()).toString();
-                String inputMinutesText = Objects.requireNonNull(mEditMinutes.getText()).toString();
+                String inputHoursText = Objects.requireNonNull(mBinding.editHours.getText()).toString();
+                String inputMinutesText = Objects.requireNonNull(mBinding.editMinutes.getText()).toString();
                 if (isInvalidInput(inputHoursText, inputMinutesText)) {
                     updateDialogForInvalidInput();
                 } else {

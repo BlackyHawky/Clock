@@ -23,7 +23,7 @@
 
         <!-- hour -->
         <NumberPicker
-            android:id="@+id/hour"
+            android:id="@+id/hour_picker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginVertical="8dp"
@@ -33,7 +33,7 @@
 
         <!-- divider -->
         <TextView
-            android:id="@+id/divider"
+            android:id="@+id/divider_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="6dp"
@@ -43,7 +43,7 @@
 
         <!-- minute -->
         <NumberPicker
-            android:id="@+id/minute"
+            android:id="@+id/minute_picker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginVertical="8dp"
@@ -55,7 +55,7 @@
 
     <!-- AM / PM -->
     <NumberPicker
-        android:id="@+id/amPm"
+        android:id="@+id/amPm_picker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"

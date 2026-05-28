@@ -35,7 +35,7 @@ android {
         }
     }
 
-    def commitNumber = 39
+    def commitNumber = 60
 
     def buildCommit = providers.exec {
         commandLine('git', 'rev-parse', '--short=7', 'HEAD')
@@ -43,6 +43,8 @@ android {
 
     buildTypes {
         release {
+            minifyEnabled = true
+            shrinkResources = true
             debuggable = false
             manifestPlaceholders = [appName: "@string/app_label"]
             if (keystorePropertiesFile.exists()) {
@@ -108,6 +110,7 @@ android {
 
     buildFeatures {
         buildConfig = true
+        viewBinding = true
     }
 
     dependenciesInfo {

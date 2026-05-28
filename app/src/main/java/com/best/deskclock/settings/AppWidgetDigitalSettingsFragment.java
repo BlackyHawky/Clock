@@ -141,9 +141,9 @@ public class AppWidgetDigitalSettingsFragment extends ScreenFragment implements 
             mDefaultCityNameColorPref, mCustomCityNameColorPref, mDefaultCityNoteColorPref, mCustomCityNoteColorPref,
             mDigitalWidgetMaxClockFontSizePref);
 
-        super.onDestroy();
-
         nullifyAllPrefs();
+
+        super.onDestroy();
     }
 
     @Override

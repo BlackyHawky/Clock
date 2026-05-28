@@ -405,7 +405,7 @@
     <string name="restore_button_title">Restaurer</string>
     <string name="backup_restore_summary">Sauvegarder ou restaurer les données de l\'application à l\'exception des sonneries personnalisées</string>
     <string name="toast_message_for_backup">Sauvegarde terminée</string>
-    <string name="toast_message_for_restore">Restauration terminée</string>
+    <string name="restart_app_dialog_title_for_restore">Restauration terminée</string>
     <string name="timer_flip_action_title">Retourner l\'appareil pour arrêter l\'alarme</string>
     <string name="timer_shake_action_title">Secouer l\'appareil pour arrêter l\'alarme</string>
     <string name="auto_night_accent_color_title">Appliquer la couleur d\'accent au mode nuit</string>
@@ -464,7 +464,7 @@
     <string name="reset_settings_title">Réinitialiser les paramètres</string>
     <string name="reset_settings_message">Êtes-vous sûr de vouloir réinitialiser tous les paramètres de l\'application ?</string>
     <string name="blue_accent_color">Bleu</string>
-    <string name="toast_message_for_reset">Réinitialisation terminée</string>
+    <string name="restart_app_dialog_title_for_reset">Réinitialisation terminée</string>
     <string name="settings_language_korean">Coréen</string>
     <string name="display_date_title">Afficher la date</string>
     <string name="settings_toolbar_title">Afficher le titre dans la barre d\'outils</string>

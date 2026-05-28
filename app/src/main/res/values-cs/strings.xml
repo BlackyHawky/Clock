@@ -329,7 +329,7 @@
     <string name="display_city_title">Zobrazit města</string>
     <string name="show_lockscreen_dialog_text">Na zařízeních Xiaomi je nutné v nastavení zařízení ručně povolit oprávnění „Zobrazit na obrazovce uzamčení“, aby aplikace správně fungovala.</string>
     <string name="first_launch_important_info_message">Aby mohla aplikace správně fungovat, &lt;b&gt;musíte změnit některá nastavení zařízení&lt;/b&gt;: &lt;br&gt; &lt;br&gt; • &lt;b&gt;OPTIMALIZACE BATERIE;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;OZNÁMENÍ;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;V závislosti na verzi systému Android ve vašem zařízení již mohou být některá tato nastavení optimalizována (např. oznámení).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Můžete je změnit nyní nebo později v nastavení oprávnění:</string>
-    <string name="toast_message_for_reset">Reset dokončen</string>
+    <string name="restart_app_dialog_title_for_reset">Reset dokončen</string>
     <string name="screensaver_clock_dynamic_colors_title">Dynamické barvy hodin</string>
     <string name="second_hand_color_title">Barva vteřinové ručičky</string>
     <string name="settings_language_korean">Korejština</string>
@@ -379,7 +379,7 @@
     <string name="clock_color_title">Barva hodin</string>
     <string name="settings_language_russian">Ruština</string>
     <string name="about_title">O aplikaci</string>
-    <string name="toast_message_for_restore">Obnovení dokončeno</string>
+    <string name="restart_app_dialog_title_for_restore">Obnovení dokončeno</string>
     <string name="display_date_title">Zobrazit datum</string>
     <string name="settings_tab_to_display">Karta k zobrazení po otevření aplikace</string>
     <string name="last_tab_used_title">Naposledy použitá karta</string>

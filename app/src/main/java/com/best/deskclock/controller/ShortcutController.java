@@ -23,8 +23,6 @@ import androidx.annotation.StringRes;
 
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.DeskClockApplication;
-import com.best.deskclock.HandleApiCalls;
-import com.best.deskclock.HandleShortcuts;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;

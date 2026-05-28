@@ -399,7 +399,7 @@
     <string name="backup_button_title">Backup</string>
     <string name="restore_button_title">Restauração</string>
     <string name="toast_message_for_backup">Backup concluído</string>
-    <string name="toast_message_for_restore">Restauração concluída</string>
+    <string name="restart_app_dialog_title_for_restore">Restauração concluída</string>
     <string name="next_alarm_widget_title_no_alarm">Sem próximo alarme</string>
     <string name="denied_permission_label">Permissão negada</string>
     <string name="revoke_permission_dialog_message">Tem certeza de que deseja revogar essa permissão?</string>

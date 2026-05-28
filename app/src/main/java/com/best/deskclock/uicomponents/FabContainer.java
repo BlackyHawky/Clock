@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-package com.best.deskclock;
+package com.best.deskclock.uicomponents;
 
 import androidx.annotation.IntDef;
 
@@ -82,7 +82,7 @@ public interface FabContainer {
 
     /**
      * Requests that this container update the fab and/or its buttons because their state has
-     * changed. The update may be immediate or it may be animated depending on the choice of
+     * changed. The update may be immediate, or it may be animated depending on the choice of
      * {@code updateTypes}.
      *
      * @param updateTypes indicates the types of update to apply to the fab and its buttons

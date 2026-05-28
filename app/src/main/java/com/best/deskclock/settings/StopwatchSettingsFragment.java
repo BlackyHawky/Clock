@@ -21,8 +21,8 @@ import androidx.annotation.NonNull;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 
-import com.best.deskclock.AppExecutors;
 import com.best.deskclock.R;
+import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.utils.Utils;
@@ -109,13 +109,20 @@ public class StopwatchSettingsFragment extends ScreenFragment
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        restoreCustomFileDialogIfNeeded(KEY_SW_FONT, mStopwatchFontPref, fontPickerLauncher, null);
+    }
+
+    @Override
     public void onDestroy() {
         nullifyPreferenceListeners(mStopwatchFontPref, mVolumeUpActionPref, mVolumeUpActionAfterLongPressPref, mVolumeDownActionPref,
             mVolumeDownActionAfterLongPressPref);
 
-        super.onDestroy();
-
         nullifyAllPrefs();
+
+        super.onDestroy();
     }
 
     @Override

@@ -20,8 +20,8 @@ import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
-import com.best.deskclock.AppExecutors;
 import com.best.deskclock.R;
+import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.data.DataModel.ClockStyle;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.settings.custompreference.ColorPickerPreference;
@@ -193,6 +193,16 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        restoreCustomFileDialogIfNeeded(KEY_ALARM_BACKGROUND_IMAGE, mAlarmBackgroundImagePref, imagePickerLauncher, () -> {
+            mEnableAlarmBlurEffectPref.setVisible(false);
+            mAlarmBlurIntensityPref.setVisible(false);
+        });
+    }
+
+    @Override
     public void onDestroy() {
         nullifyPreferenceListeners(mAlarmClockStylePref, mAlarmClockDialPref, mAlarmClockDialMaterialPref, mAnalogClockSizePref,
             mAlarmClockSecondHandPref, mDisplaySecondsPref, mSwipeActionPref, mDisplaySnoozeSelectorPref, mBackgroundColorPref,
@@ -204,9 +214,9 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
             mEnableAlarmBlurEffectPref, mAlarmBlurIntensityPref, mAlarmPreviewPref
         );
 
-        super.onDestroy();
-
         nullifyAllPrefs();
+
+        super.onDestroy();
     }
 
     @Override

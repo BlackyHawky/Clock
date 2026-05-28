@@ -16,23 +16,19 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.text.format.DateFormat;
 import android.util.TypedValue;
-import android.view.View;
-import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Weekdays;
+import com.best.deskclock.databinding.AlarmItemBinding;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
-import com.best.deskclock.uicomponents.TextTime;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.FormattedTextUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.ThemeUtils;
-import com.google.android.material.materialswitch.MaterialSwitch;
-import com.google.android.material.textview.MaterialTextView;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -49,6 +45,8 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
     public static final String SKELETON = "EEE MMM d";
     public static final String SKELETON_WITH_YEAR = "EEE MMM d yyyy";
 
+    public final AlarmItemBinding mBinding;
+
     private final Calendar mLocalCalendar = Calendar.getInstance();
     public final SharedPreferences mPrefs;
     private final AlarmAdapter mAdapter;
@@ -61,21 +59,15 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
     public int mItemPosition = 0;
     public int mTotalCount = 0;
 
-    private final TextView mAlarmLabel;
-    private final TextTime mClock;
-    private final MaterialSwitch mOnOff;
-    private final TextView mDaysOfWeek;
-    private final TextView mUpcomingDate;
-    private final MaterialTextView mPreemptiveDismissButton;
-
-    public AlarmItemViewHolder(View itemView, AlarmAdapter alarmAdapter, SharedPreferences prefs, Typeface generalTypeface,
+    public AlarmItemViewHolder(AlarmItemBinding binding, AlarmAdapter alarmAdapter, SharedPreferences prefs, Typeface generalTypeface,
                                Typeface generalBoldTypeface, Typeface alarmClockTypeface, Locale locale, String datePattern,
                                String datePatternWithYear) {
 
-        super(itemView);
+        super(binding.getRoot());
 
         final Context context = itemView.getContext();
 
+        mBinding = binding;
         mAdapter = alarmAdapter;
         mPrefs = prefs;
         mGeneralTypeface = generalTypeface;
@@ -84,30 +76,25 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         mDatePattern = datePattern;
         mDatePatternWithYear = datePatternWithYear;
 
-        mAlarmLabel = itemView.findViewById(R.id.label);
-        mClock = itemView.findViewById(R.id.digital_clock);
-        mOnOff = itemView.findViewById(R.id.onoff);
-        mDaysOfWeek = itemView.findViewById(R.id.days_of_week);
-        mUpcomingDate = itemView.findViewById(R.id.upcoming_date);
-        mPreemptiveDismissButton = itemView.findViewById(R.id.preemptive_dismiss_button);
-
-        itemView.setOnClickListener(v -> mItemHolder.getAlarmTimeClickHandler().displayBottomSheetDialog(mItemHolder.item, false));
+        itemView.setOnClickListener(v ->
+            mItemHolder.getAlarmTimeClickHandler().displayBottomSheetDialog(mItemHolder.item, false)
+        );
 
         // Clock handler
-        mClock.setTypeface(alarmClockTypeface);
-        mClock.setOnClickListener(v -> mItemHolder.getAlarmTimeClickHandler().onClockClicked(mItemHolder.item));
-        mClock.setOnLongClickListener(v -> {
+        mBinding.digitalClock.setTypeface(alarmClockTypeface);
+        mBinding.digitalClock.setOnClickListener(v -> mItemHolder.getAlarmTimeClickHandler().onClockClicked(mItemHolder.item));
+        mBinding.digitalClock.setOnLongClickListener(v -> {
             mItemHolder.getAlarmTimeClickHandler().onClockLongClicked(mItemHolder.item);
             return true;
         });
 
         // Upcoming date font
-        mUpcomingDate.setTypeface(mGeneralTypeface);
+        mBinding.upcomingDate.setTypeface(mGeneralTypeface);
 
         // Preemptive dismiss button handler
-        mPreemptiveDismissButton.setBackground(ThemeUtils.pillRippleDrawable(context, Color.TRANSPARENT));
-        mPreemptiveDismissButton.setTypeface(mGeneralBoldTypeface);
-        mPreemptiveDismissButton.setOnClickListener(v -> {
+        mBinding.preemptiveDismissButton.setBackground(ThemeUtils.pillRippleDrawable(context, Color.TRANSPARENT));
+        mBinding.preemptiveDismissButton.setTypeface(mGeneralBoldTypeface);
+        mBinding.preemptiveDismissButton.setOnClickListener(v -> {
             final AlarmInstance alarmInstance = mItemHolder.getAlarmInstance();
             if (alarmInstance != null) {
                 mItemHolder.getAlarmTimeClickHandler().dismissAlarmInstance(mItemHolder, alarmInstance);
@@ -134,7 +121,7 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         bindPreemptiveDismissButton(context, alarm, alarmInstance);
         bindAlphaAnimation(alarm);
 
-        itemView.setContentDescription(mClock.getText() + " " + alarm.getLabelOrDefault(context));
+        itemView.setContentDescription(mBinding.digitalClock.getText() + " " + alarm.getLabelOrDefault(context));
     }
 
     private void bindExpressiveCardBackground() {
@@ -176,41 +163,41 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
 
     private void bindAlarmLabel(Context context, Alarm alarm) {
         if (alarm.label == null || alarm.label.isEmpty()) {
-            mAlarmLabel.setVisibility(GONE);
+            mBinding.alarmLabel.setVisibility(GONE);
             return;
         }
 
         Typeface typeface = alarm.enabled ? mGeneralBoldTypeface : mGeneralTypeface;
 
-        mAlarmLabel.setTypeface(typeface);
-        mAlarmLabel.setText(alarm.label);
-        mAlarmLabel.setVisibility(VISIBLE);
-        mAlarmLabel.setContentDescription(context.getString(R.string.label_description) + " " + alarm.label);
+        mBinding.alarmLabel.setTypeface(typeface);
+        mBinding.alarmLabel.setText(alarm.label);
+        mBinding.alarmLabel.setVisibility(VISIBLE);
+        mBinding.alarmLabel.setContentDescription(context.getString(R.string.label_description) + " " + alarm.label);
     }
 
     private void bindOnOffSwitch(Alarm alarm) {
         if (RingtoneUtils.RINGTONE_SILENT.equals(alarm.alert)) {
-            mOnOff.setThumbIconResource(R.drawable.ic_ringtone_silent_filled);
+            mBinding.onOffButton.setThumbIconResource(R.drawable.ic_ringtone_silent_filled);
         } else {
-            mOnOff.setThumbIconResource(R.drawable.alarm_switch_thumb_icon);
+            mBinding.onOffButton.setThumbIconResource(R.drawable.alarm_switch_thumb_icon);
         }
 
-        mOnOff.setOnCheckedChangeListener(null);
-        mOnOff.setChecked(alarm.enabled);
-        mOnOff.setOnCheckedChangeListener((compoundButton, checked) ->
+        mBinding.onOffButton.setOnCheckedChangeListener(null);
+        mBinding.onOffButton.setChecked(alarm.enabled);
+        mBinding.onOffButton.setOnCheckedChangeListener((compoundButton, checked) ->
             mItemHolder.getAlarmTimeClickHandler().setAlarmEnabled(mItemHolder.item, checked));
     }
 
     private void bindClock(Alarm alarm) {
-        mClock.setTime(alarm.hour, alarm.minutes);
+        mBinding.digitalClock.setTime(alarm.hour, alarm.minutes);
     }
 
     private void bindRepeatText(Context context, Alarm alarm, AlarmInstance alarmInstance) {
         if (alarmInstance != null
             && alarm.canPreemptivelyDismiss(context)
             && alarm.instanceState == AlarmInstance.SNOOZE_STATE) {
-            mDaysOfWeek.setTypeface(mGeneralBoldTypeface);
-            mDaysOfWeek.setText(context.getString(R.string.alarm_alert_snooze_until,
+            mBinding.daysOfWeek.setTypeface(mGeneralBoldTypeface);
+            mBinding.daysOfWeek.setText(context.getString(R.string.alarm_alert_snooze_until,
                 AlarmUtils.getAlarmText(context, alarmInstance, false)));
         } else if (alarmInstance != null && alarm.daysOfWeek.isRepeating()) {
             setRepeatingDaysDescription(context, alarm, alarmInstance);
@@ -223,8 +210,8 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
 
     private void bindUpcomingDate(Alarm alarm, AlarmInstance alarmInstance) {
         if (alarmInstance == null || !alarm.enabled || !alarm.daysOfWeek.isRepeating()) {
-            mUpcomingDate.setVisibility(GONE);
-            mClock.setTextSize(TypedValue.COMPLEX_UNIT_SP, 48);
+            mBinding.upcomingDate.setVisibility(GONE);
+            mBinding.digitalClock.setTextSize(TypedValue.COMPLEX_UNIT_SP, 48);
             return;
         }
 
@@ -234,26 +221,26 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         long diffInDays = TimeUnit.MILLISECONDS.toDays(diffInMillis);
 
         if (diffInDays < 6) {
-            mUpcomingDate.setVisibility(GONE);
-            mClock.setTextSize(TypedValue.COMPLEX_UNIT_SP, 48);
+            mBinding.upcomingDate.setVisibility(GONE);
+            mBinding.digitalClock.setTextSize(TypedValue.COMPLEX_UNIT_SP, 48);
             return;
         }
 
         mLocalCalendar.setTimeInMillis(System.currentTimeMillis());
         boolean isDifferentYear = mLocalCalendar.get(Calendar.YEAR) != nextAlarmTime.get(Calendar.YEAR);
         String formattedDate = DateFormat.format(isDifferentYear ? mDatePatternWithYear : mDatePattern, nextAlarmTime).toString();
-        mUpcomingDate.setText(FormattedTextUtils.capitalizeFirstLetter(formattedDate, mLocale));
-        mUpcomingDate.setVisibility(VISIBLE);
+        mBinding.upcomingDate.setText(FormattedTextUtils.capitalizeFirstLetter(formattedDate, mLocale));
+        mBinding.upcomingDate.setVisibility(VISIBLE);
 
         boolean hasLabel = alarm.label != null && !alarm.label.isEmpty();
-        mClock.setTextSize(TypedValue.COMPLEX_UNIT_SP, hasLabel ? 32 : 48);
+        mBinding.digitalClock.setTextSize(TypedValue.COMPLEX_UNIT_SP, hasLabel ? 32 : 48);
     }
 
     private void bindPreemptiveDismissButton(Context context, Alarm alarm, AlarmInstance alarmInstance) {
         final boolean canBind = alarm.canPreemptivelyDismiss(context) && alarmInstance != null;
 
         if (!canBind) {
-            mPreemptiveDismissButton.setVisibility(GONE);
+            mBinding.preemptiveDismissButton.setVisibility(GONE);
             return;
         }
 
@@ -261,31 +248,31 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
             ? context.getString(R.string.alarm_alert_dismiss_and_delete_text_button)
             : context.getString(R.string.alarm_alert_dismiss_text);
 
-        mPreemptiveDismissButton.setText(dismissText);
-        mPreemptiveDismissButton.setVisibility(VISIBLE);
+        mBinding.preemptiveDismissButton.setText(dismissText);
+        mBinding.preemptiveDismissButton.setVisibility(VISIBLE);
     }
 
     private void bindAlphaAnimation(Alarm alarm) {
         float targetAlpha = alarm.enabled ? CLOCK_ENABLED_ALPHA : CLOCK_DISABLED_ALPHA;
 
-        mAlarmLabel.animate().cancel();
-        mClock.animate().cancel();
-        mDaysOfWeek.animate().cancel();
+        mBinding.alarmLabel.animate().cancel();
+        mBinding.digitalClock.animate().cancel();
+        mBinding.daysOfWeek.animate().cancel();
 
-        if (mClock.getAlpha() == targetAlpha) {
+        if (mBinding.digitalClock.getAlpha() == targetAlpha) {
             return;
         }
 
         if (!itemView.isAttachedToWindow()) {
-            mAlarmLabel.setAlpha(targetAlpha);
-            mClock.setAlpha(targetAlpha);
-            mDaysOfWeek.setAlpha(targetAlpha);
+            mBinding.alarmLabel.setAlpha(targetAlpha);
+            mBinding.digitalClock.setAlpha(targetAlpha);
+            mBinding.daysOfWeek.setAlpha(targetAlpha);
             return;
         }
 
-        mAlarmLabel.animate().alpha(targetAlpha).setDuration(ALPHA_ANIMATION_DURATION).start();
-        mClock.animate().alpha(targetAlpha).setDuration(ALPHA_ANIMATION_DURATION).start();
-        mDaysOfWeek.animate().alpha(targetAlpha).setDuration(ALPHA_ANIMATION_DURATION).start();
+        mBinding.alarmLabel.animate().alpha(targetAlpha).setDuration(ALPHA_ANIMATION_DURATION).start();
+        mBinding.digitalClock.animate().alpha(targetAlpha).setDuration(ALPHA_ANIMATION_DURATION).start();
+        mBinding.daysOfWeek.animate().alpha(targetAlpha).setDuration(ALPHA_ANIMATION_DURATION).start();
     }
 
     // ********************
@@ -324,7 +311,7 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         }
 
         setDaysOfWeekText(styledDaysText);
-        mDaysOfWeek.setContentDescription(contentDesc);
+        mBinding.daysOfWeek.setContentDescription(contentDesc);
     }
 
     private boolean isPauseEffectivelyActive(Alarm alarm, AlarmInstance nextInstance) {
@@ -364,8 +351,8 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void setDaysOfWeekText(CharSequence text) {
-        mDaysOfWeek.setTypeface(mGeneralTypeface);
-        mDaysOfWeek.setText(text);
+        mBinding.daysOfWeek.setTypeface(mGeneralTypeface);
+        mBinding.daysOfWeek.setText(text);
     }
 
     private String getTodayOrTomorrowBasedOnTime(Context context, Alarm alarm, Calendar now) {

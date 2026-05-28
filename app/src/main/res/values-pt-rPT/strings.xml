@@ -280,7 +280,7 @@
     <string name="app_slogan">Relógio FOSS 100%, baseado no AOSP</string>
     <string name="reset_settings_title">Reiniciar as definições</string>
     <string name="reset_settings_message">Deseja reiniciar as definições da aplicação?</string>
-    <string name="toast_message_for_reset">Reinício concluído</string>
+    <string name="restart_app_dialog_title_for_reset">Reinício concluído</string>
     <string name="dialog_close">Fechar</string>
     <string name="alarm_settings_summary">Definir estilo, toque predefinido, volume, ações para ignorar ou adiar alarmes, primeiro dia da semana e hora de notificação do lembrete</string>
     <string name="description_direction_both_for_occasional_alarm">Deslizar para a esquerda para adiar ou direita para ignorar e eliminar o alarme</string>
@@ -356,7 +356,7 @@
     <string name="backup_button_title">Copiar</string>
     <string name="restore_button_title">Restaurar</string>
     <string name="toast_message_for_backup">Cópia de segurança concluída</string>
-    <string name="toast_message_for_restore">Restauro concluído</string>
+    <string name="restart_app_dialog_title_for_restore">Restauro concluído</string>
     <string name="timer_add_custom_time_with_seconds_for_notification">Adicionar %1$s min %2$s seg</string>
     <string name="timer_add_custom_time">+ %s</string>
     <string name="timer_add_custom_time_with_seconds_description">Adicionar %1$s minuto(s) %2$s segundo(s)</string>

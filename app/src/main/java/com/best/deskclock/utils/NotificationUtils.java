@@ -199,4 +199,12 @@ public class NotificationUtils {
         return false;
     }
 
+    /**
+     * Clear all notifications. Useful after a restore or reset, for example.
+     */
+    public static void clearAllNotifications(Context context) {
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+        notificationManager.cancelAll();
+    }
+
 }

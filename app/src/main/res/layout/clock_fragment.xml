@@ -5,14 +5,85 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 
-<!-- Guttered content. The gutters are applied in world_clock_item and main_clock_frame. -->
-<!-- Due to the ViewPager and the location of FAB, paddings are set in the ClockFragment.java file. -->
-<androidx.recyclerview.widget.RecyclerView
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cities"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:clickable="false"
-    android:clipToPadding="false"
-    tools:listitem="@layout/world_clock_item" />
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/clock_app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        app:elevation="0dp">
+
+        <include
+            layout="@layout/main_clock_frame"
+            android:id="@+id/main_clock_frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/city_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:paddingBottom="@dimen/city_list_padding_bottom"
+            android:clickable="false"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            tools:listitem="@layout/world_clock_item" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cities_empty_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/city_empty_view_bottom_padding"
+            android:visibility="gone"
+            android:alpha="0.7">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/blob"
+                android:contentDescription="@null"
+                app:layout_constraintWidth_max="@dimen/max_dimension_empty_view"
+                app:layout_constraintHeight_max="@dimen/max_dimension_empty_view"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:ignore="ImageContrastCheck" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_empty_city_view"
+                android:scaleX="0.45"
+                android:scaleY="0.45"
+                android:alpha="0.5"
+                android:contentDescription="@null"
+                app:layout_constraintWidth_max="@dimen/max_dimension_empty_view"
+                app:layout_constraintHeight_max="@dimen/max_dimension_empty_view"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:ignore="ImageContrastCheck" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

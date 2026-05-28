@@ -35,6 +35,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.text.HtmlCompat;
@@ -44,6 +45,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.best.deskclock.BuildConfig;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
@@ -179,6 +181,20 @@ public class Utils {
 
     public static long wallClock() {
         return DataModel.getDataModel().currentTimeMillis();
+    }
+
+    /**
+     * @return The specific string resource ID corresponding to the active build type.
+     */
+    @StringRes
+    public static int getStringResByBuildType(@StringRes int resId, @StringRes int resDebugId, @StringRes int resNightlyId) {
+        if (BuildConfig.IS_DEBUG_BUILD) {
+            return resDebugId;
+        } else if (BuildConfig.IS_NIGHTLY_BUILD) {
+            return resNightlyId;
+        } else {
+            return resId;
+        }
     }
 
     /**
@@ -449,13 +465,12 @@ public class Utils {
             CustomDialog.SoftInputMode.NONE);
 
         dialog.setCancelable(isCancelable);
-        dialog.show();
 
         return dialog;
     }
 
     /**
-     * Checks if the user is pressing inside of the timer circle or the stopwatch circle.
+     * Checks if the user is pressing inside the timer circle or the stopwatch circle.
      */
     public static final class CircleTouchListener implements View.OnTouchListener {
         @SuppressLint("ClickableViewAccessibility")

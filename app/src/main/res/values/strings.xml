@@ -919,7 +919,11 @@
     <!-- Confirmation message to reset all settings -->
     <string name="reset_settings_message">Are you sure you want to reset all app settings?</string>
     <!-- Toast message when reset is complete -->
-    <string name="toast_message_for_reset">Reset completed</string>
+    <string name="restart_app_dialog_title_for_reset">Reset completed</string>
+    <!-- Toast message when restore is complete -->
+    <string name="restart_app_dialog_title_for_restore">Restore completed</string>
+    <!-- Dialog message when the reset or restore is complete. -->
+    <string name="restart_app_dialog_message">The application needs to be restarted for the changes to take effect.</string>
     <!-- Button to close a dialog where neither "ok" nor "cancel" are suitable -->
     <string name="dialog_close">Close</string>
     <!-- Label for the disabled shortcuts. -->
@@ -1014,6 +1018,12 @@
     <string name="timer_flip_action_title">Flip the device to stop the alarm</string>
     <!-- Setting title to enable shake action for expired timers. -->
     <string name="timer_shake_action_title">Shake the device to stop the alarm</string>
+    <!-- Setting title to enable the single timer mode. -->
+    <string name="single_timer_mode_title">Single timer mode</string>
+    <!-- Setting summary about the single timer mode. -->
+    <string name="single_timer_mode_summary">Keep only one timer, which is automatically deleted once reset</string>
+    <!-- Warning message when the "Single timer mode" setting is enabled or disabled and timers already exist. -->
+    <string name="single_timer_mode_warning_message">The timers will be removed.%s</string>
     <!-- Title to sort timers -->
     <string name="sort_timer_title">Sort the timers</string>
     <!-- Setting title for changing the timer sorting to By duration (ascending order). -->
@@ -1398,8 +1408,6 @@
     <string name="toast_message_for_backup">Backup completed</string>
     <!-- Toast message when backup fails -->
     <string name="toast_message_backup_error">Backup failed</string>
-    <!-- Toast message when restore is complete -->
-    <string name="toast_message_for_restore">Restore completed</string>
     <!-- Toast message when restore fails -->
     <string name="toast_message_restore_error">Restore failed</string>
 </resources>

@@ -42,9 +42,8 @@ import java.util.concurrent.TimeUnit;
  * @param mButtonTime             The time indicated in the add time button of the timer.
  * @param mDeleteAfterUse         A flag indicating the timer should be deleted when it is reset.
  */
-public record Timer(int mId, State mState, long mLength, long mTotalLength, long mLastStartTime,
-                    long mLastStartWallClockTime, long mRemainingTime, String mLabel,
-                    String mButtonTime, boolean mDeleteAfterUse) {
+public record Timer(int mId, State mState, long mLength, long mTotalLength, long mLastStartTime, long mLastStartWallClockTime,
+                    long mRemainingTime, String mLabel, String mButtonTime, boolean mDeleteAfterUse) {
 
     /**
      * The minimum duration of a timer.
@@ -120,8 +119,8 @@ public record Timer(int mId, State mState, long mLength, long mTotalLength, long
             return this;
         }
 
-        return new Timer(mId, mState, mLength, mTotalLength, mLastStartTime,
-            mLastStartWallClockTime, mRemainingTime, label, mButtonTime, mDeleteAfterUse);
+        return new Timer(mId, mState, mLength, mTotalLength, mLastStartTime, mLastStartWallClockTime, mRemainingTime, label, mButtonTime,
+            mDeleteAfterUse);
     }
 
     /**
@@ -366,6 +365,7 @@ public record Timer(int mId, State mState, long mLength, long mTotalLength, long
         // update the recorded times and proceed with no change in accumulated time.
         final long delta = Math.max(0, wallClockTime - mLastStartWallClockTime);
         final long remainingTime = mRemainingTime - delta;
+
         return new Timer(mId, mState, mLength, mTotalLength, timeSinceBoot, wallClockTime, remainingTime, mLabel, mButtonTime,
             mDeleteAfterUse);
     }
@@ -388,6 +388,7 @@ public record Timer(int mId, State mState, long mLength, long mTotalLength, long
             // updateAfterReboot() can successfully correct the data at a later time.
             return this;
         }
+
         return new Timer(mId, mState, mLength, mTotalLength, timeSinceBoot, wallClockTime, remainingTime, mLabel, mButtonTime,
             mDeleteAfterUse);
     }

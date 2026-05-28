@@ -448,7 +448,7 @@
     <string name="gnu_gpl">Общ публичен лиценз на GNU издание 3.0</string>
     <string name="reset_settings_title">Нулиране на настройките</string>
     <string name="reset_settings_message">Желаете ли настройките на приложението да бъдат нулирани?</string>
-    <string name="toast_message_for_reset">Нулирането е извършено</string>
+    <string name="restart_app_dialog_title_for_reset">Нулирането е извършено</string>
     <string name="dialog_close">Затваряне</string>
     <string name="alarm_settings_summary">Задаване на стила, подразбирана мелодия, отлагане и изключване на будилника, първи ден от седмицата и време на известието за напомняне</string>
     <string name="screensaver_settings_summary">Задаване на стила, цвета и шрифта на заставката</string>
@@ -569,7 +569,7 @@
     <string name="backup_button_title">Резервно копие</string>
     <string name="restore_button_title">Възстановяване</string>
     <string name="toast_message_for_backup">Резервното копие е готово</string>
-    <string name="toast_message_for_restore">Възстановяването е готово</string>
+    <string name="restart_app_dialog_title_for_restore">Възстановяването е готово</string>
     <string name="clock_style_spinner">Цифров километраж</string>
     <string name="first_launch_main_feature_message">► Светла, тъмна или системна тема;&lt;br&gt;&lt;br&gt;\n► Заставка с настройки;&lt;br&gt;&lt;br&gt;\n► Приспособления с настройки;&lt;br&gt;&lt;br&gt;\n► Поддръжка на плочки в бързите настройки (за Android 7+);&lt;br&gt;&lt;br&gt;\n► Резервни копия и възстановяване на настройки на приложението (с изключение на избраните мелодии);&lt;br&gt;&lt;br&gt;\n► Материален дизайн и динамични цветове;&lt;br&gt;&lt;br&gt;\n► Настройка на будилниците за конкретна дата;&lt;br&gt;&lt;br&gt;\n► Плъзгане за премахване на будилник;&lt;br&gt;&lt;br&gt;\n► Дублиране на будилник;&lt;br&gt;&lt;br&gt;\n► Обръщане и разклащане за изключване/отлагане на будилник;&lt;br&gt;&lt;br&gt;\n► Изключване/отлагане на будилник с бутона за включване/изключване или бутоните за регулиране на звука;&lt;br&gt;&lt;br&gt;\n► %s</string>
     <string name="first_launch_important_info_message">За да се убедим, че приложението работи правилно, &lt;b&gt;някои настройки на устройството трябва да бъдат променени:&lt;/b&gt;&lt;br&gt;&lt;br&gt;\n• &lt;b&gt;ОПТИМИЗИРАНЕ НА БАТЕРИЯТА;&lt;/b&gt;&lt;br&gt;&lt;br&gt;\n• &lt;b&gt;ИЗВЕСТИЯ;&lt;/b&gt;&lt;br&gt;&lt;br&gt;\n%s &lt;i&gt;В зависимост от изданието на Андроид на устройството, някои от тези настройки вече са оптимизирани (например известията).&lt;/i&gt;&lt;br&gt;&lt;br&gt;\nМожете да ги промените сега или по-късно в настройките за управление на разрешенията:</string>

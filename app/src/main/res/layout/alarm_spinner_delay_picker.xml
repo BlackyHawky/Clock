@@ -27,7 +27,7 @@
             android:textColor="?attr/colorPrimary" />
 
         <NumberPicker
-            android:id="@+id/hour"
+            android:id="@+id/hour_picker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -56,7 +56,7 @@
             android:textColor="?attr/colorPrimary" />
 
         <NumberPicker
-            android:id="@+id/minute"
+            android:id="@+id/minute_picker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"

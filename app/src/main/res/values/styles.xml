@@ -79,7 +79,7 @@
         <item name="shapeAppearanceOverlay">@style/TimerSetupDigit.CircleOverlay</item>
         <item name="backgroundTint">?attr/colorSurface</item>
         <item name="android:textColor">?android:attr/textColorPrimary</item>
-        <item name="android:layout_margin">2dp</item>
+        <item name="android:layout_margin">@dimen/timer_setup_digit_margin</item>
         <item name="android:padding">5dp</item>
         <item name="android:insetLeft">0dp</item>
         <item name="android:insetTop">0dp</item>
@@ -159,6 +159,7 @@
     <!--    TIME PICKER    -->
     <!-- ================= -->
     <style name="AppMaterialTimePickerTheme" parent="ThemeOverlay.Material3.MaterialTimePicker">
+        <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="27">shortEdges</item>
         <!-- Dialog background -->
         <item name="colorSurfaceContainerHigh">?attr/colorSurface</item>
         <!-- Selected hour/minute text color -->
@@ -191,6 +192,7 @@
     <!--    DATE PICKER    -->
     <!-- ================= -->
     <style name="AppMaterialCalendarTheme" parent="ThemeOverlay.Material3.MaterialCalendar">
+        <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="27">shortEdges</item>
         <!-- Dialog background -->
         <item name="colorSurfaceContainerHigh">?attr/colorSurface</item>
     </style>

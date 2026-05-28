@@ -55,8 +55,8 @@ public final class StopwatchCircleView extends View {
 
         mDisplayMetrics = getResources().getDisplayMetrics();
         final float dotDiameter = (int) dpToPx(12, mDisplayMetrics);
-        int strokeSize = (int) dpToPx(8, mDisplayMetrics);
-        int markerStrokeSize = (int) dpToPx(ThemeUtils.isTablet() ? 4 : 3, mDisplayMetrics);
+        int strokeSize = (int) dpToPx(6, mDisplayMetrics);
+        int markerStrokeSize = (int) dpToPx(4, mDisplayMetrics);
 
         mRadiusOffset = ThemeUtils.calculateRadiusOffset(strokeSize, dotDiameter, markerStrokeSize);
 

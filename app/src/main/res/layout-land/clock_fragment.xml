@@ -29,7 +29,7 @@
 
     <include
         layout="@layout/main_clock_frame"
-        android:id="@+id/main_clock_left_panel"
+        android:id="@+id/main_clock_frame"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,8 +38,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         tools:ignore="InconsistentLayout" />
 
-    <!-- Due to the ViewPager and the location of FAB, padding are set programmatically
-         in the ClockFragment.java file. -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/empty_city_view_right_panel"
         android:layout_width="0dp"
@@ -60,6 +58,7 @@
             android:contentDescription="@null"
             app:layout_constraintWidth_max="@dimen/max_dimension_empty_view"
             app:layout_constraintHeight_max="@dimen/max_dimension_empty_view"
+            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -75,6 +74,7 @@
             android:contentDescription="@null"
             app:layout_constraintWidth_max="@dimen/max_dimension_empty_view"
             app:layout_constraintHeight_max="@dimen/max_dimension_empty_view"
+            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -84,10 +84,11 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/cities"
+        android:id="@+id/city_recycler_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:clickable="false"
+        android:overScrollMode="never"
         app:layout_constraintStart_toEndOf="@id/fold_vertical_end_edge"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

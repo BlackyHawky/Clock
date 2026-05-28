@@ -11,8 +11,8 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.best.deskclock.AppExecutors;
 import com.best.deskclock.R;
+import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
@@ -104,7 +104,7 @@ public final class AlarmUpdateHandler {
      * Modifies an alarm on the background, and optionally show a toast when done.
      *
      * @param alarm       The alarm to be modified.
-     * @param popToast    whether or not a toast should be displayed when done.
+     * @param popToast    whether a toast should be displayed when done.
      * @param minorUpdate if true, don't affect any currently snoozed instances.
      */
     public void asyncUpdateAlarm(final Alarm alarm, final boolean popToast, final boolean minorUpdate) {

@@ -5,58 +5,84 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:baselineAligned="false"
-    android:orientation="horizontal">
+    android:layout_height="match_parent">
 
-    <!-- Margins are set in the StopwatchFragment.java file. -->
-    <com.best.deskclock.stopwatch.StopwatchLandscapeLayout
-        android:id="@+id/stopwatch_landscape_layout"
-        android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/stopwatch_circle_layout"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        tools:layout_marginEnd="80dp"
-        tools:layout_marginBottom="10dp"
+        android:layout_marginBottom="@dimen/stopwatch_circle_land_margin_bottom"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/laps_background"
+        app:layout_goneMarginEnd="0dp"
         tools:ignore="InconsistentLayout">
 
-        <com.best.deskclock.stopwatch.StopwatchCircleFrameLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/stopwatch_time_wrapper"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center">
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintWidth_max="@dimen/stopwatch_circle_max_size"
+            app:layout_constraintHeight_max="@dimen/stopwatch_circle_max_size"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-            <include layout="@layout/stopwatch_time" />
+            <include
+                layout="@layout/stopwatch_time"
+                android:id="@+id/stopwatch_time_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <!-- Sufficient space exists to include the bounding stopwatch circle. -->
             <com.best.deskclock.stopwatch.StopwatchCircleView
                 android:id="@+id/stopwatch_circle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="gone"
                 tools:visibility="visible" />
 
-        </com.best.deskclock.stopwatch.StopwatchCircleFrameLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <LinearLayout
-            android:id="@+id/laps_background"
-            android:layout_width="wrap_content"
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/laps_background"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/lap_background_margin_start"
+        android:layout_marginEnd="@dimen/lap_background_margin_end"
+        android:layout_marginBottom="@dimen/lap_background_margin_bottom"
+        android:orientation="vertical"
+        android:visibility="visible"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintStart_toEndOf="@+id/stopwatch_circle_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:background="@drawable/bg_card_for_preview">
+
+        <include
+            layout="@layout/lap_header"
+            android:id="@+id/lap_header_layout" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/laps_list"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            tools:background="@drawable/bg_card_for_preview">
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            tools:listitem="@layout/lap_view" />
 
-            <include layout="@layout/lap_header" />
+    </LinearLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/laps_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipToPadding="false"
-                tools:listitem="@layout/lap_view" />
-
-        </LinearLayout>
-
-    </com.best.deskclock.stopwatch.StopwatchLandscapeLayout>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

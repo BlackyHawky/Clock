@@ -11,9 +11,6 @@ import android.graphics.Color;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
@@ -21,15 +18,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.R;
 
+import com.best.deskclock.databinding.RingtoneItemSoundBinding;
 import com.google.android.material.color.MaterialColors;
 
 public class RingtoneViewHolder extends RecyclerView.ViewHolder {
 
+    private final RingtoneItemSoundBinding mBinding;
+
     private final RingtoneAdapter mAdapter;
-    private final View mSelectedView;
-    private final TextView mNameView;
-    private final ImageView mImageView;
-    private final ImageButton mDeleteRingtone;
+
     private final Drawable mRingtoneIcon;
     private final Drawable mErrorIcon;
     private final Drawable mSilentIcon;
@@ -38,12 +35,10 @@ public class RingtoneViewHolder extends RecyclerView.ViewHolder {
     public RingtoneViewHolder(View itemView, RingtoneAdapter adapter) {
         super(itemView);
 
-        Context context = itemView.getContext();
+        mBinding = RingtoneItemSoundBinding.bind(itemView);
+        Context context = mBinding.getRoot().getContext();
         mAdapter = adapter;
-        mSelectedView = itemView.findViewById(R.id.sound_image_selected);
-        mNameView = itemView.findViewById(R.id.ringtone_name);
-        mImageView = itemView.findViewById(R.id.ringtone_image);
-        mDeleteRingtone = itemView.findViewById(R.id.delete_ringtone);
+
         mRingtoneIcon = AppCompatResources.getDrawable(context, R.drawable.ic_ringtone_active_animated);
         mRandomIcon = AppCompatResources.getDrawable(context, R.drawable.ic_random);
 
@@ -63,30 +58,30 @@ public class RingtoneViewHolder extends RecyclerView.ViewHolder {
             mSilentIcon = null;
         }
 
-        mNameView.setTypeface(adapter.getGeneralTypeface());
+        mBinding.ringtoneName.setTypeface(adapter.getGeneralTypeface());
         // Allow text scrolling (all other attributes are indicated in the "ringtone_item_sound.xml" file)
-        mNameView.setSelected(true);
+        mBinding.ringtoneName.setSelected(true);
     }
 
     public void bind(RingtoneHolder itemHolder, RingtoneAdapter.OnRingtoneClickListener listener) {
-        mNameView.setText(itemHolder.getName());
+        mBinding.ringtoneName.setText(itemHolder.getName());
 
         final boolean isSelected = itemHolder.isSelected();
         float alpha = isSelected ? 1f : 0.6f;
-        mNameView.setAlpha(alpha);
-        mImageView.setAlpha(alpha);
-        mImageView.clearColorFilter();
+        mBinding.ringtoneName.setAlpha(alpha);
+        mBinding.ringtoneImage.setAlpha(alpha);
+        mBinding.ringtoneImage.clearColorFilter();
 
         setupIcon(itemHolder);
 
         if (getItemViewType() == RingtoneAdapter.VIEW_TYPE_CUSTOM_SOUND) {
-            mDeleteRingtone.setVisibility(View.VISIBLE);
-            mDeleteRingtone.setOnClickListener(v -> listener.onRemoveRingtoneClick(itemHolder));
+            mBinding.deleteRingtoneButton.setVisibility(View.VISIBLE);
+            mBinding.deleteRingtoneButton.setOnClickListener(v -> listener.onRemoveRingtoneClick(itemHolder));
         } else {
-            mDeleteRingtone.setVisibility(View.GONE);
+            mBinding.deleteRingtoneButton.setVisibility(View.GONE);
         }
 
-        mSelectedView.setVisibility(isSelected ? View.VISIBLE : View.GONE);
+        mBinding.soundImageSelected.setVisibility(isSelected ? View.VISIBLE : View.GONE);
 
         Drawable.ConstantState bgState = isSelected ? mAdapter.getBgSelectedState() : mAdapter.getBgUnselectedState();
         if (bgState != null) {
@@ -94,7 +89,7 @@ public class RingtoneViewHolder extends RecyclerView.ViewHolder {
         }
 
         // Animate the icon if playing
-        if (mImageView.getDrawable() instanceof Animatable animatable) {
+        if (mBinding.ringtoneImage.getDrawable() instanceof Animatable animatable) {
             if (isSelected && itemHolder.isPlaying()) {
                 animatable.start();
             } else {
@@ -109,16 +104,16 @@ public class RingtoneViewHolder extends RecyclerView.ViewHolder {
         if (getItemViewType() == RingtoneAdapter.VIEW_TYPE_CUSTOM_SOUND) {
             CustomRingtoneHolder customHolder = (CustomRingtoneHolder) itemHolder;
             if (customHolder.isReadable()) {
-                mImageView.setImageDrawable(mRingtoneIcon);
+                mBinding.ringtoneImage.setImageDrawable(mRingtoneIcon);
             } else {
-                mImageView.setImageDrawable(mErrorIcon);
+                mBinding.ringtoneImage.setImageDrawable(mErrorIcon);
             }
         } else if (itemHolder.isSilent()) {
-            mImageView.setImageDrawable(mSilentIcon);
+            mBinding.ringtoneImage.setImageDrawable(mSilentIcon);
         } else if (itemHolder.isRandom()) {
-            mImageView.setImageDrawable(mRandomIcon);
+            mBinding.ringtoneImage.setImageDrawable(mRandomIcon);
         } else {
-            mImageView.setImageDrawable(mRingtoneIcon);
+            mBinding.ringtoneImage.setImageDrawable(mRingtoneIcon);
         }
     }
 

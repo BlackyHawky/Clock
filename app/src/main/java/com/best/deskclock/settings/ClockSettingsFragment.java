@@ -18,8 +18,8 @@ import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
-import com.best.deskclock.AppExecutors;
 import com.best.deskclock.R;
+import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.TimeZones;
@@ -139,14 +139,21 @@ public class ClockSettingsFragment extends ScreenFragment
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        restoreCustomFileDialogIfNeeded(KEY_DIGITAL_CLOCK_FONT, mDigitalClockFontPref, fontPickerLauncher, null);
+    }
+
+    @Override
     public void onDestroy() {
         nullifyPreferenceListeners(mClockStylePref, mClockDialPref, mClockDialMaterialPref, mAnalogClockSizePref, mDisplayClockSecondsPref,
             mClockSecondHandPref, mDigitalClockFontPref, mDisplayTextUppercasePref, mDigitalClockFontSizePref, mSortCitiesPref,
             mEnableCityNotePref, mAutoHomeClockPref, mHomeTimeZonePref, mDateTimePref);
 
-        super.onDestroy();
-
         nullifyAllPrefs();
+
+        super.onDestroy();
     }
 
     @Override

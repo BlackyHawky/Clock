@@ -37,7 +37,7 @@ public final class TimerDAO {
     /**
      * Prefix for a key to a preference that stores the state of the timer.
      */
-    private static final String STATE = "timer_state_";
+    public static final String STATE = "timer_state_";
 
     /**
      * Prefix for a key to a preference that stores the original timer length at creation.

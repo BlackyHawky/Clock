@@ -383,7 +383,7 @@
     <string name="alarm_alert_off_and_deleted_text">Wecker ausgeschaltet und gelöscht</string>
     <string name="hour_default_color_title">Standardfarbe für Stunden verwenden</string>
     <string name="widget_max_font_size_title">Schriftgröße des Widgets</string>
-    <string name="toast_message_for_restore">Wiederherstellung abgeschlossen</string>
+    <string name="restart_app_dialog_title_for_restore">Wiederherstellung abgeschlossen</string>
     <string name="black_accent_color">Schwarz</string>
     <string name="sw_volume_up_action_title">Lauter-Taste</string>
     <string name="sw_long_press_volume_up_action_title">Lauter-Taste (lange drücken)</string>
@@ -449,7 +449,7 @@
     <string name="reset_settings_title">Einstellungen zurücksetzen</string>
     <string name="reset_settings_message">Sind Sie sicher, dass Sie alle App-Einstellungen zurücksetzen wollen?</string>
     <string name="blue_accent_color">Blau</string>
-    <string name="toast_message_for_reset">Zurücksetzen abgeschlossen</string>
+    <string name="restart_app_dialog_title_for_reset">Zurücksetzen abgeschlossen</string>
     <string name="settings_language_korean">Koreanisch</string>
     <string name="display_date_title">Datum im Widget anzeigen</string>
     <string name="settings_toolbar_title">Titel in der Symbolleiste anzeigen</string>

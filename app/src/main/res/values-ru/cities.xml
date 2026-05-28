@@ -228,7 +228,7 @@
     <string name="C230" msgid="5521643115321121383">С<xliff:g id="SEPARATOR">=</xliff:g>Сан-Хосе<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g></string>
     <string name="C232" msgid="4714655032274833316">С<xliff:g id="SEPARATOR">=</xliff:g>Сиэтл<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g></string>
     <string name="C233" msgid="7162834873553109876">С<xliff:g id="SEPARATOR">=</xliff:g>Сент-Луис<xliff:g id="TIMEZONE">|America/Chicago</xliff:g></string>
-    <string name="C234" msgid="8431913494781960891">В<xliff:g id="SEPARATOR">=</xliff:g>Вашингтон<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
+    <string name="C234" msgid="8431913494781960891">В<xliff:g id="separator">=</xliff:g>Вашингтон<xliff:g id="timezone">|America/New_York</xliff:g></string>
     <string name="C235" msgid="8650421942456856419">Х<xliff:g id="SEPARATOR">=</xliff:g>Хьюстон<xliff:g id="TIMEZONE">|America/Chicago</xliff:g></string>
     <string name="C236" msgid="3687627401939103862">С<xliff:g id="SEPARATOR">=</xliff:g>Сан-Антонио<xliff:g id="TIMEZONE">|America/Chicago</xliff:g></string>
     <string name="C237" msgid="4443158977093108877">Д<xliff:g id="SEPARATOR">=</xliff:g>Джэксонвилл<xliff:g id="TIMEZONE">|America/New_York</xliff:g></string>
@@ -327,7 +327,7 @@
     <string name="C331" msgid="2607492003890117689">П<xliff:g id="SEPARATOR">=</xliff:g>Паликир<xliff:g id="TIMEZONE">|Pacific/Noumea</xliff:g></string>
     <string name="C332" msgid="8349533418456323370">Ф<xliff:g id="SEPARATOR">=</xliff:g>Филипсбург<xliff:g id="TIMEZONE">|America/Lower_Princes</xliff:g></string>
     <string name="C333" msgid="2842640664018042568">П<xliff:g id="SEPARATOR">=</xliff:g>Подгорица<xliff:g id="TIMEZONE">|Europe/Podgorica</xliff:g></string>
-    <string name="C334" msgid="3310146581437635671">П<xliff:g id="SEPARATOR">=</xliff:g>Порт-Морсби<xliff:g id="TIMEZONE">|Pacific/Palau</xliff:g></string>
+    <string name="C334" msgid="3310146581437635671">П<xliff:g id="SEPARATOR">=</xliff:g>Порт-Морсби<xliff:g id="TIMEZONE">|Pacific/Port_Moresby</xliff:g></string>
     <string name="C335" msgid="3317158262102352303">П<xliff:g id="SEPARATOR">=</xliff:g>Порт-Вила<xliff:g id="TIMEZONE">|Pacific/Efate</xliff:g></string>
     <string name="C336" msgid="3810072761869903472">П<xliff:g id="SEPARATOR">=</xliff:g>Порто-Ново<xliff:g id="TIMEZONE">|Africa/Porto-Novo</xliff:g></string>
     <string name="C337" msgid="3412269218104112252">П<xliff:g id="SEPARATOR">=</xliff:g>Приштина<xliff:g id="TIMEZONE">|Europe/Belgrade</xliff:g></string>

@@ -503,7 +503,7 @@
     <string name="gnu_gpl">رخصة جنو العمومية العامة الإصدار 3.0</string>
     <string name="reset_settings_title">إعادة ضبط الإعدادات</string>
     <string name="reset_settings_message">هل أنت متأكد من رغبتك في إعادة ضبط جميع إعدادات التطبيق؟</string>
-    <string name="toast_message_for_reset">اكتملت عملية إعادة الضبط</string>
+    <string name="restart_app_dialog_title_for_reset">اكتملت عملية إعادة الضبط</string>
     <string name="dialog_close">إغلاق</string>
     <string name="alarm_settings_summary">يمكنك تخصيص النمط والخط ونغمة الرنين الافتراضية ومستوى الصوت والإجراءات اللازمة لإيقاف التنبيهات أو تأجيلها، بالإضافة إلى أول يوم في الأسبوع ووقت إشعار التذكير</string>
     <string name="description_direction_both_for_occasional_alarm">اسحب لليسار لتأجيل المنبه أو لليمين لإهماله وحذفه</string>
@@ -606,7 +606,7 @@
     <string name="backup_button_title">انسخ . احتياطيًا</string>
     <string name="restore_button_title">استعِد</string>
     <string name="toast_message_for_backup">اكتمل النسخ الاحتياطي</string>
-    <string name="toast_message_for_restore">اكتملت الاستعادة</string>
+    <string name="restart_app_dialog_title_for_restore">اكتملت الاستعادة</string>
     <string name="alarm_is_dismissed_and_deleted">أُهمِل وحُذف المنبه <xliff:g example="14:20" id="alarm_time">%s</xliff:g></string>
     <string name="shake_intensity_title">شدة الاهتزاز</string>
     <string name="firing_alarms_timers_channel">تشغيل المنبّهات والمؤقتات</string>

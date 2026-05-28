@@ -384,7 +384,7 @@
     <string name="backup_button_title">备份</string>
     <string name="restore_button_title">还原</string>
     <string name="toast_message_for_backup">备份已完成</string>
-    <string name="toast_message_for_restore">还原已完成</string>
+    <string name="restart_app_dialog_title_for_restore">还原已完成</string>
     <string name="timer_flip_action_title">翻转设备以停止闹钟</string>
     <string name="timer_shake_action_title">摇晃设备以停止闹钟</string>
     <string name="auto_night_accent_color_title">将强调色应用于夜间模式</string>
@@ -443,7 +443,7 @@
     <string name="reset_settings_title">重置设置</string>
     <string name="reset_settings_message">确定要重置所有应用设置吗？</string>
     <string name="blue_accent_color">蓝色</string>
-    <string name="toast_message_for_reset">重置已完成</string>
+    <string name="restart_app_dialog_title_for_reset">重置已完成</string>
     <string name="settings_language_korean">韩语</string>
     <string name="display_date_title">显示日期</string>
     <string name="settings_keep_screen_on_title">保持屏幕开启</string>

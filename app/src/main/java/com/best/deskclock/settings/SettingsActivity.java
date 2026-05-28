@@ -29,12 +29,15 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.content.ContextCompat;
 import androidx.preference.Preference;
 
-import com.best.deskclock.AppExecutors;
-import com.best.deskclock.KeepAliveService;
+import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
+import com.best.deskclock.base.AppExecutors;
+import com.best.deskclock.base.KeepAliveService;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.tiles.AlarmTileService;
@@ -46,10 +49,13 @@ import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.BackupAndRestoreUtils;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.NotificationUtils;
 import com.best.deskclock.utils.PermissionUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
+
+import org.json.JSONException;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -80,12 +86,10 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (mAppBarLayout != null) {
-            mAppBarLayout.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
-                // verticalOffset == 0 when extended, negative when collapsed
-                mIsAppBarExpanded = (verticalOffset == 0);
-            });
-        }
+        mBaseBinding.appBar.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
+            // verticalOffset == 0 when extended, negative when collapsed
+            mIsAppBarExpanded = (verticalOffset == 0);
+        });
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -101,9 +105,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
         if (savedInstanceState != null && savedInstanceState.containsKey(KEY_APPBAR_EXPANDED)) {
             final boolean shouldExpand = savedInstanceState.getBoolean(KEY_APPBAR_EXPANDED);
-            if (mAppBarLayout != null) {
-                mAppBarLayout.setExpanded(shouldExpand, false);
-            }
+            mBaseBinding.appBar.setExpanded(shouldExpand, false);
         }
     }
 
@@ -117,6 +119,10 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
         private static final String BACKUP_JSON_FILE_NAME = "settings.json";
 
+        private static final String KEY_SHOW_BACKUP_RESTORE_DIALOG = "show_backup_restore_dialog";
+
+        private boolean mShowBackupRestoreDialog = false;
+
         Preference mInterfaceCustomizationPref;
         Preference mClockSettingsPref;
         Preference mAlarmSettingsPref;
@@ -127,6 +133,8 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         Preference mPermissionsManagement;
         Preference mPermissionMessage;
         Preference mBackupRestorePref;
+
+        private AlertDialog mRestartDialog;
 
         /**
          * Callback for getting the backup result.
@@ -150,7 +158,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                         backupPreferences(appContext, uri);
 
                         AppExecutors.getMainThread().post(() -> CustomToast.show(appContext, R.string.toast_message_for_backup));
-                    } catch (IOException e) {
+                    } catch (Exception e) {
                         LogUtils.e("Error during backup", e);
 
                         AppExecutors.getMainThread().post(() -> CustomToast.show(appContext, R.string.toast_message_backup_error));
@@ -175,6 +183,8 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
                 final Context appContext = requireContext().getApplicationContext();
 
+                BackupAndRestoreUtils.isRestoringBackupOrIsResettingApp = true;
+
                 AppExecutors.getDiskIO().execute(() -> {
                     try {
                         wipeCustomMediaBeforeRestore(appContext);
@@ -184,19 +194,37 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                         AppExecutors.getMainThread().post(() -> {
                             applySettingsAfterRestore(appContext);
 
-                            CustomToast.show(appContext, R.string.toast_message_for_restore);
+                            BackupAndRestoreUtils.appNeedsRestart = true;
+
+                            if (isAdded() && getActivity() != null && !getActivity().isFinishing()) {
+                                mRestartDialog = restartAppDialog(appContext, false);
+                                mRestartDialog.show();
+                            } else {
+                                // If the user has left the screen, clear the notifications and force a restart without the dialog.
+                                NotificationUtils.clearAllNotifications(appContext);
+
+                                Intent restartIntent = new Intent(appContext, DeskClock.class);
+                                restartIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                appContext.startActivity(restartIntent);
+                                Runtime.getRuntime().exit(0);
+                            }
                         });
-                    } catch (IOException e) {
+                    } catch (Exception e) {
                         LogUtils.e("Error reading the restore file", e);
 
-                        AppExecutors.getMainThread().post(() -> CustomToast.show(appContext, R.string.toast_message_restore_error));
+                        AppExecutors.getMainThread().post(() -> {
+                            BackupAndRestoreUtils.isRestoringBackupOrIsResettingApp = false;
+
+                            CustomToast.show(appContext, R.string.toast_message_restore_error);
+                        });
                     }
                 });
             });
 
         @Override
         protected String getFragmentTitle() {
-            return getString(R.string.settings);
+            return getString(Utils.getStringResByBuildType(
+                R.string.settings, R.string.setting_debug_title, R.string.setting_nightly_title));
         }
 
         @Override
@@ -215,6 +243,10 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             mPermissionsManagement = findPreference(KEY_PERMISSIONS_MANAGEMENT);
             mPermissionMessage = findPreference(KEY_PERMISSION_MESSAGE);
             mBackupRestorePref = findPreference(KEY_BACKUP_RESTORE_PREFERENCES);
+
+            if (savedInstanceState != null) {
+                mShowBackupRestoreDialog = savedInstanceState.getBoolean(KEY_SHOW_BACKUP_RESTORE_DIALOG, false);
+            }
 
             setupPreferences();
 
@@ -243,12 +275,36 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         }
 
         @Override
+        public void onSaveInstanceState(@NonNull Bundle outState) {
+            super.onSaveInstanceState(outState);
+
+            outState.putBoolean(KEY_SHOW_BACKUP_RESTORE_DIALOG, mShowBackupRestoreDialog);
+        }
+
+        @Override
         public void onResume() {
             super.onResume();
+
+            if (BackupAndRestoreUtils.appNeedsRestart && (mRestartDialog == null || !mRestartDialog.isShowing())) {
+                mRestartDialog = restartAppDialog(requireContext().getApplicationContext(), false);
+                mRestartDialog.show();
+            } else if (mShowBackupRestoreDialog && (mActiveDialog == null || !mActiveDialog.isShowing())) {
+                showBackupRestoreDialog();
+            }
 
             updateSettingsVisibility();
 
             displayWarningIfEssentialPermissionAreNotGranted();
+        }
+
+        @Override
+        public void onDestroyView() {
+            if (mRestartDialog != null && mRestartDialog.isShowing()) {
+                mRestartDialog.dismiss();
+                mRestartDialog = null;
+            }
+
+            super.onDestroyView();
         }
 
         @Override
@@ -257,9 +313,9 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                 mStopwatchSettingsPref, mScreensaverSettings, mWidgetsSettings, mPermissionsManagement, mPermissionMessage,
                 mBackupRestorePref);
 
-            super.onDestroy();
-
             nullifyAllPrefs();
+
+            super.onDestroy();
         }
 
         @Override
@@ -282,39 +338,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                 case KEY_PERMISSION_MESSAGE, KEY_PERMISSIONS_MANAGEMENT ->
                     animateAndShowFragment(new PermissionsManagementActivity.PermissionsManagementFragment());
 
-                case KEY_BACKUP_RESTORE_PREFERENCES -> {
-                    mActiveDialog = CustomDialog.create(
-                        requireContext(),
-                        null,
-                        AppCompatResources.getDrawable(requireContext(), R.drawable.ic_backup_restore),
-                        getString(R.string.backup_restore_title),
-                        getString(R.string.backup_restore_dialog_message),
-                        null,
-                        getString(android.R.string.cancel),
-                        null,
-                        getString(R.string.backup_button_title),
-                        (d, w) -> {
-                            String currentDateAndTime = DateFormat.format("yyyy_MM_dd_HH-mm-ss", new Date()).toString();
-                            Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT)
-                                .addCategory(Intent.CATEGORY_OPENABLE)
-                                .putExtra(Intent.EXTRA_TITLE, requireContext().getString(R.string.app_label)
-                                    + "_backup_" + currentDateAndTime + ".zip")
-                                .setType("application/zip");
-                            backupToFile.launch(intent);
-                        },
-                        getString(R.string.restore_button_title),
-                        (d, w) -> {
-                            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT)
-                                .addCategory(Intent.CATEGORY_OPENABLE)
-                                .setType("application/zip");
-                            restoreFromFile.launch(intent);
-                        },
-                        null,
-                        CustomDialog.SoftInputMode.NONE
-                    );
-
-                    mActiveDialog.show();
-                }
+                case KEY_BACKUP_RESTORE_PREFERENCES -> showBackupRestoreDialog();
             }
 
             return true;
@@ -355,7 +379,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                 final SpannableStringBuilder builderPermissionMessage = new SpannableStringBuilder();
                 final String messagePermission = requireContext().getString(R.string.settings_permission_message);
                 final Spannable spannableMessagePermission = new SpannableString(messagePermission);
-                spannableMessagePermission.setSpan(new ForegroundColorSpan(requireContext().getColor(R.color.colorAlert)),
+                spannableMessagePermission.setSpan(new ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.colorAlert)),
                     0, messagePermission.length(), 0);
                 spannableMessagePermission.setSpan(new StyleSpan(Typeface.BOLD), 0, messagePermission.length(), 0);
                 builderPermissionMessage.append(spannableMessagePermission);
@@ -366,7 +390,43 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             }
         }
 
-        private void backupPreferences(Context context, Uri uri) throws IOException {
+        private void showBackupRestoreDialog() {
+            mShowBackupRestoreDialog = true;
+
+            mActiveDialog = CustomDialog.create(
+                requireContext(),
+                null,
+                AppCompatResources.getDrawable(requireContext(), R.drawable.ic_backup_restore),
+                getString(R.string.backup_restore_title),
+                getString(R.string.backup_restore_dialog_message),
+                null,
+                getString(android.R.string.cancel),
+                null,
+                getString(R.string.backup_button_title),
+                (d, w) -> {
+                    String currentDateAndTime = DateFormat.format("yyyy_MM_dd_HH-mm-ss", new Date()).toString();
+                    Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT)
+                        .addCategory(Intent.CATEGORY_OPENABLE)
+                        .putExtra(Intent.EXTRA_TITLE, requireContext().getString(R.string.app_label)
+                            + "_backup_" + currentDateAndTime + ".zip")
+                        .setType("application/zip");
+                    backupToFile.launch(intent);
+                },
+                getString(R.string.restore_button_title),
+                (d, w) -> {
+                    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT)
+                        .addCategory(Intent.CATEGORY_OPENABLE)
+                        .setType("application/zip");
+                    restoreFromFile.launch(intent);
+                },
+                (alertDialog -> alertDialog.setOnDismissListener(d -> mShowBackupRestoreDialog = false)),
+                CustomDialog.SoftInputMode.NONE
+            );
+
+            mActiveDialog.show();
+        }
+
+        private void backupPreferences(Context context, Uri uri) throws IOException, JSONException {
             try (OutputStream outputStream = context.getContentResolver().openOutputStream(uri);
                  ZipOutputStream zipOutputStream = new ZipOutputStream(outputStream)) {
                 // The JSON file that contains all the settings
@@ -431,7 +491,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             wipeAllCustomFiles(context);
         }
 
-        private void restorePreferences(Context context, Uri uri) throws IOException {
+        private void restorePreferences(Context context, Uri uri) throws IOException, JSONException {
             try (InputStream inputStream = context.getContentResolver().openInputStream(uri);
                  ZipInputStream zipInputStream = new ZipInputStream(inputStream)) {
 
@@ -449,7 +509,9 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             }
         }
 
-        private void restoreFileFromZip(Context context, ZipInputStream zipInputStream, String fileName) throws IOException {
+        private void restoreFileFromZip(Context context, ZipInputStream zipInputStream, String fileName)
+            throws IOException {
+
             File outputFile = new File(context.getFilesDir(), fileName);
 
             try (FileOutputStream fos = new FileOutputStream(outputFile)) {
@@ -476,15 +538,18 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         private void applySettingsAfterRestore(Context context) {
             // Required to update Locale.
             context.sendBroadcast(new Intent(ACTION_LANGUAGE_CODE_CHANGED));
+
             // Required to update widgets.
             WidgetUtils.updateAllWidgets(context);
 
             // Required to update the timer list.
             DataModel.getDataModel().loadTimers();
+
             // Required to update the tab to display.
             if (SettingsDAO.getTabToDisplay(mPrefs) != -1) {
                 UiDataModel.getUiDataModel().setSelectedTab(UiDataModel.Tab.values()[SettingsDAO.getTabToDisplay(mPrefs)]);
             }
+
             // Required to start/stop the foreground notification
             if (SettingsDAO.isForegroundServiceEnabled(mPrefs)) {
                 Utils.startService(context, KeepAliveService.class);

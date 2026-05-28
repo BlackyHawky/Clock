@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-package com.best.deskclock;
+package com.best.deskclock.base;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.*;
@@ -17,7 +17,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import com.best.deskclock.BuildConfig;
+import com.best.deskclock.DeskClock;
+import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.utils.BackupAndRestoreUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
@@ -82,6 +86,7 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         unregisterThemeListener();
+
         super.onDestroy();
     }
 
@@ -230,7 +235,9 @@ public class BaseActivity extends AppCompatActivity {
         Map<String, Object> cachedValues = Utils.initCachedValues(SUPPORTED_PREF_KEYS, this::getPreferenceValue);
 
         SharedPreferences.OnSharedPreferenceChangeListener listener = (sharedPreferences, key) -> {
-            if (key == null || !cachedValues.containsKey(key)) {
+            if (BackupAndRestoreUtils.isRestoringBackupOrIsResettingApp
+                || key == null
+                || !cachedValues.containsKey(key)) {
                 return;
             }
 

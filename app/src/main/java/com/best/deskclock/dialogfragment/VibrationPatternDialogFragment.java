@@ -5,7 +5,6 @@ package com.best.deskclock.dialogfragment;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VIBRATION_PATTERN;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -13,10 +12,8 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
-import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -26,6 +23,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.databinding.VibrationPatternDialogBinding;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
@@ -114,18 +112,12 @@ public class VibrationPatternDialogFragment extends DialogFragment {
             mSelectedPatternKey = savedInstanceState.getString(VIBRATION_PATTERN, mSelectedPatternKey);
         }
 
-        @SuppressLint("InflateParams")
-        View dialogView = getLayoutInflater().inflate(R.layout.vibration_pattern_dialog, null);
+        VibrationPatternDialogBinding binding = VibrationPatternDialogBinding.inflate(getLayoutInflater());
 
-        RadioGroup radioGroup = dialogView.findViewById(R.id.vibration_options);
-        RadioButton rbDefault = dialogView.findViewById(R.id.vibration_pattern_default);
-        RadioButton rbSoft = dialogView.findViewById(R.id.vibration_pattern_soft);
-        RadioButton rbStrong = dialogView.findViewById(R.id.vibration_pattern_strong);
-        RadioButton rbHeartbeat = dialogView.findViewById(R.id.vibration_pattern_heartbeat);
-        RadioButton rbEscalating = dialogView.findViewById(R.id.vibration_pattern_escalating);
-        RadioButton rbTickTock = dialogView.findViewById(R.id.vibration_pattern_tick_tock);
-
-        RadioButton[] buttons = {rbDefault, rbSoft, rbStrong, rbHeartbeat, rbEscalating, rbTickTock};
+        RadioButton[] buttons = {
+            binding.vibrationPatternDefaultButton, binding.vibrationPatternSoftButton, binding.vibrationPatternStrongButton,
+            binding.vibrationPatternHeartbeatButton, binding.vibrationPatternEscalatingButton, binding.vibrationPatternTickTockButton
+        };
 
         String[] values = context.getResources().getStringArray(R.array.vibration_pattern_values);
 
@@ -138,7 +130,7 @@ public class VibrationPatternDialogFragment extends DialogFragment {
             }
         }
 
-        radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+        binding.vibrationRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {
             RadioButton rb = group.findViewById(checkedId);
             if (rb != null) {
                 mSelectedPatternKey = (String) rb.getTag();
@@ -153,7 +145,7 @@ public class VibrationPatternDialogFragment extends DialogFragment {
             mPrefKey != null ? null : AppCompatResources.getDrawable(requireContext(), R.drawable.ic_earthquake),
             getString(R.string.vibration_pattern_title),
             null,
-            dialogView,
+            binding.getRoot(),
             getString(android.R.string.ok),
             (d, w) -> {
                 mVibrator.cancel();
@@ -193,9 +185,9 @@ public class VibrationPatternDialogFragment extends DialogFragment {
 
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
-
         mVibrator = null;
+
+        super.onDestroyView();
     }
 
     /**

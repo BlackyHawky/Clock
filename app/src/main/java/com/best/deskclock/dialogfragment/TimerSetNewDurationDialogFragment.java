@@ -4,7 +4,6 @@ package com.best.deskclock.dialogfragment;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -15,10 +14,8 @@ import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
-import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -30,10 +27,10 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
+import com.best.deskclock.databinding.TimerDialogEditNewTimeBinding;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
-import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -53,9 +50,8 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
     private static final String ARG_EDIT_SECONDS = "arg_edit_seconds";
     private static final String ARG_TIMER_ID = "arg_timer_id";
 
-    private EditText mEditHours;
-    private EditText mEditMinutes;
-    private EditText mEditSeconds;
+    private TimerDialogEditNewTimeBinding mBinding;
+
     private boolean mMaxLengthReduce;
     private int mTimerId;
     private final TextWatcher mTextWatcher = new TextChangeListener();
@@ -90,11 +86,9 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         // As long as this dialog exists, save its state.
-        if (mEditHours != null && mEditMinutes != null && mEditSeconds != null) {
-            outState.putString(ARG_EDIT_HOURS, Objects.requireNonNull(mEditHours.getText()).toString());
-            outState.putString(ARG_EDIT_MINUTES, Objects.requireNonNull(mEditMinutes.getText()).toString());
-            outState.putString(ARG_EDIT_SECONDS, Objects.requireNonNull(mEditSeconds.getText()).toString());
-        }
+        outState.putString(ARG_EDIT_HOURS, Objects.requireNonNull(mBinding.editHours.getText()).toString());
+        outState.putString(ARG_EDIT_MINUTES, Objects.requireNonNull(mBinding.editMinutes.getText()).toString());
+        outState.putString(ARG_EDIT_SECONDS, Objects.requireNonNull(mBinding.editSeconds.getText()).toString());
     }
 
     @NonNull
@@ -118,57 +112,49 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
 
         mInput = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
 
-        @SuppressLint("InflateParams")
-        View dialogView = getLayoutInflater().inflate(R.layout.timer_dialog_edit_new_time, null);
+        mBinding = TimerDialogEditNewTimeBinding.inflate(getLayoutInflater());
 
-        TextInputLayout hoursInputLayout = dialogView.findViewById(R.id.dialog_input_layout_hours);
-        TextInputLayout minutesInputLayout = dialogView.findViewById(R.id.dialog_input_layout_minutes);
-        TextInputLayout secondsInputLayout = dialogView.findViewById(R.id.dialog_input_layout_seconds);
-        mEditHours = dialogView.findViewById(R.id.edit_hours);
-        mEditMinutes = dialogView.findViewById(R.id.edit_minutes);
-        mEditSeconds = dialogView.findViewById(R.id.edit_seconds);
+        mBinding.textInputLayoutHours.setTypeface(typeFace);
+        mBinding.textInputLayoutMinutes.setTypeface(typeFace);
+        mBinding.textInputLayoutSeconds.setTypeface(typeFace);
 
-        hoursInputLayout.setTypeface(typeFace);
-        minutesInputLayout.setTypeface(typeFace);
-        secondsInputLayout.setTypeface(typeFace);
-
-        mEditHours.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        mEditHours.setText(String.valueOf(editHours));
-        mEditHours.setTypeface(typeFace);
-        mEditHours.setInputType(InputType.TYPE_CLASS_NUMBER);
-        mEditHours.setFilters(new InputFilter[]{
+        mBinding.editHours.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        mBinding.editHours.setText(String.valueOf(editHours));
+        mBinding.editHours.setTypeface(typeFace);
+        mBinding.editHours.setInputType(InputType.TYPE_CLASS_NUMBER);
+        mBinding.editHours.setFilters(new InputFilter[]{
             new InputFilter.LengthFilter(3)
         });
-        mEditHours.selectAll();
-        mEditHours.requestFocus();
-        mEditHours.addTextChangedListener(mTextWatcher);
-        mEditHours.setOnFocusChangeListener((v, hasFocus) -> {
+        mBinding.editHours.selectAll();
+        mBinding.editHours.requestFocus();
+        mBinding.editHours.addTextChangedListener(mTextWatcher);
+        mBinding.editHours.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
-                mEditHours.selectAll();
+                mBinding.editHours.selectAll();
             }
         });
 
-        mEditMinutes.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        mEditMinutes.setText(String.valueOf(editMinutes));
-        mEditMinutes.setTypeface(typeFace);
-        mEditMinutes.selectAll();
-        mEditMinutes.setInputType(InputType.TYPE_CLASS_NUMBER);
-        mEditMinutes.addTextChangedListener(mTextWatcher);
-        mEditMinutes.setOnFocusChangeListener((v, hasFocus) -> {
+        mBinding.editMinutes.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        mBinding.editMinutes.setText(String.valueOf(editMinutes));
+        mBinding.editMinutes.setTypeface(typeFace);
+        mBinding.editMinutes.selectAll();
+        mBinding.editMinutes.setInputType(InputType.TYPE_CLASS_NUMBER);
+        mBinding.editMinutes.addTextChangedListener(mTextWatcher);
+        mBinding.editMinutes.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
-                mEditMinutes.selectAll();
+                mBinding.editMinutes.selectAll();
             }
         });
 
-        mEditSeconds.setText(String.valueOf(editSeconds));
-        mEditSeconds.setTypeface(typeFace);
-        mEditSeconds.selectAll();
-        mEditSeconds.setInputType(InputType.TYPE_CLASS_NUMBER);
-        mEditSeconds.setOnEditorActionListener(new ImeDoneListener());
-        mEditSeconds.addTextChangedListener(mTextWatcher);
-        mEditSeconds.setOnFocusChangeListener((v, hasFocus) -> {
+        mBinding.editSeconds.setText(String.valueOf(editSeconds));
+        mBinding.editSeconds.setTypeface(typeFace);
+        mBinding.editSeconds.selectAll();
+        mBinding.editSeconds.setInputType(InputType.TYPE_CLASS_NUMBER);
+        mBinding.editSeconds.setOnEditorActionListener(new ImeDoneListener());
+        mBinding.editSeconds.addTextChangedListener(mTextWatcher);
+        mBinding.editSeconds.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
-                mEditSeconds.selectAll();
+                mBinding.editSeconds.selectAll();
             }
         });
 
@@ -178,7 +164,7 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
             AppCompatResources.getDrawable(context, R.drawable.ic_hourglass_top),
             getString(R.string.timer_time_box_title),
             null,
-            dialogView,
+            mBinding.getRoot(),
             getString(android.R.string.ok),
             (d, w) -> setNewDuration(),
             getString(android.R.string.cancel),
@@ -194,10 +180,10 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
     public void onResume() {
         super.onResume();
 
-        mEditHours.requestFocus();
-        mEditHours.postDelayed(() -> {
+        mBinding.editHours.requestFocus();
+        mBinding.editHours.postDelayed(() -> {
             if (mInput != null) {
-                mInput.showSoftInput(mEditHours, InputMethodManager.SHOW_IMPLICIT);
+                mInput.showSoftInput(mBinding.editHours, InputMethodManager.SHOW_IMPLICIT);
             }
         }, 200);
     }
@@ -205,40 +191,32 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
     @Override
     public void onDestroyView() {
         // Stop callbacks from the IME since there is no view to process them.
-        if (mEditHours != null) {
-            mEditHours.setOnEditorActionListener(null);
-            mEditHours.removeTextChangedListener(mTextWatcher);
-            mEditHours.setOnFocusChangeListener(null);
-        }
+        mBinding.editHours.setOnEditorActionListener(null);
+        mBinding.editHours.removeTextChangedListener(mTextWatcher);
+        mBinding.editHours.setOnFocusChangeListener(null);
 
-        if (mEditMinutes != null) {
-            mEditMinutes.setOnEditorActionListener(null);
-            mEditMinutes.removeTextChangedListener(mTextWatcher);
-            mEditMinutes.setOnFocusChangeListener(null);
-        }
+        mBinding.editMinutes.setOnEditorActionListener(null);
+        mBinding.editMinutes.removeTextChangedListener(mTextWatcher);
+        mBinding.editMinutes.setOnFocusChangeListener(null);
 
-        if (mEditSeconds != null) {
-            mEditSeconds.setOnEditorActionListener(null);
-            mEditSeconds.removeTextChangedListener(mTextWatcher);
-            mEditSeconds.setOnFocusChangeListener(null);
-        }
-
-        super.onDestroyView();
+        mBinding.editSeconds.setOnEditorActionListener(null);
+        mBinding.editSeconds.removeTextChangedListener(mTextWatcher);
+        mBinding.editSeconds.setOnFocusChangeListener(null);
 
         mInput = null;
 
-        mEditHours = null;
-        mEditMinutes = null;
-        mEditSeconds = null;
+        mBinding = null;
+
+        super.onDestroyView();
     }
 
     /**
      * Sets the new duration to the timer.
      */
     private void setNewDuration() {
-        String hoursText = Objects.requireNonNull(mEditHours.getText()).toString();
-        String minutesText = Objects.requireNonNull(mEditMinutes.getText()).toString();
-        String secondsText = Objects.requireNonNull(mEditSeconds.getText()).toString();
+        String hoursText = Objects.requireNonNull(mBinding.editHours.getText()).toString();
+        String minutesText = Objects.requireNonNull(mBinding.editMinutes.getText()).toString();
+        String secondsText = Objects.requireNonNull(mBinding.editSeconds.getText()).toString();
 
         int hours = 0;
         int minutes = 0;
@@ -280,16 +258,16 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
         @Override
         public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
             if (!mMaxLengthReduce) {
-                mEditHours.setFilters(new InputFilter[]{
+                mBinding.editHours.setFilters(new InputFilter[]{
                     new InputFilter.LengthFilter(2)
                 });
 
                 mMaxLengthReduce = true;
             }
 
-            String hoursText = mEditHours.getText() != null ? mEditHours.getText().toString() : "";
+            String hoursText = mBinding.editHours.getText() != null ? mBinding.editHours.getText().toString() : "";
             if ("100".equals(hoursText)) {
-                mEditHours.setText(String.valueOf(99));
+                mBinding.editHours.setText(String.valueOf(99));
             }
         }
 

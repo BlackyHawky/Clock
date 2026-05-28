@@ -26,6 +26,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.preference.ListPreference;
@@ -33,9 +34,9 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 import androidx.preference.SwitchPreferenceCompat;
 
-import com.best.deskclock.AppExecutors;
 import com.best.deskclock.R;
 import com.best.deskclock.alarms.AlarmUpdateHandler;
+import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Weekdays;
@@ -65,6 +66,10 @@ import java.util.List;
 
 public class AlarmSettingsFragment extends ScreenFragment
     implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
+
+    private static final String KEY_PENDING_DIALOG_PREF_KEY = "pending_dialog_pref_key";
+
+    private String mPendingDialogPrefKey = null;
 
     private AudioManager mAudioManager;
     private AudioDeviceCallback mAudioDeviceCallback;
@@ -215,7 +220,18 @@ public class AlarmSettingsFragment extends ScreenFragment
         mDeleteOccasionalAlarmByDefaultPref = findPreference(KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT);
         mDisplayLowAlarmVolumeWarningPref = findPreference(KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING);
 
+        if (savedInstanceState != null) {
+            mPendingDialogPrefKey = savedInstanceState.getString(KEY_PENDING_DIALOG_PREF_KEY, null);
+        }
+
         setupPreferences();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putString(KEY_PENDING_DIALOG_PREF_KEY, mPendingDialogPrefKey);
     }
 
     @Override
@@ -229,7 +245,13 @@ public class AlarmSettingsFragment extends ScreenFragment
     public void onResume() {
         super.onResume();
 
-        mAlarmRingtonePref.setSummary(DataModel.getDataModel().getAlarmRingtoneTitle());
+        if (mPendingDialogPrefKey != null && (mActiveDialog == null || !mActiveDialog.isShowing())) {
+            triggerDisableSettingDialog(mPendingDialogPrefKey);
+        }
+
+        restoreCustomFileDialogIfNeeded(KEY_ALARM_FONT, mAlarmFontPref, fontPickerLauncher, null);
+
+        updateRingtonePreferences();
 
         if (mHasExternalAudioDeviceConnected) {
             mAlarmVolumePref.setTitle(R.string.disconnect_external_audio_device_title);
@@ -269,12 +291,12 @@ public class AlarmSettingsFragment extends ScreenFragment
             mDisplayDismissButtonPref, mTurnOnBackFlashForTriggeredAlarmPref, mDeleteOccasionalAlarmByDefaultPref,
             mDisplayLowAlarmVolumeWarningPref);
 
-        super.onDestroy();
-
         mAudioManager = null;
         mAlarmUpdateHandler = null;
 
         nullifyAllPrefs();
+
+        super.onDestroy();
     }
 
     @Override
@@ -296,10 +318,7 @@ public class AlarmSettingsFragment extends ScreenFragment
                         }
                     });
                 } else {
-                    showDisablePerAlarmSettingDialog(R.string.enable_per_alarm_auto_silence_dialog_message,
-                        KEY_ENABLE_PER_ALARM_AUTO_SILENCE, mEnablePerAlarmAutoSilencePref,
-                        mAlarmAutoSilencePref, alarm -> alarm.autoSilenceDuration = SettingsDAO.getAlarmTimeout(mPrefs));
-
+                    triggerDisableSettingDialog(KEY_ENABLE_PER_ALARM_AUTO_SILENCE);
                     return false;
                 }
             }
@@ -316,10 +335,7 @@ public class AlarmSettingsFragment extends ScreenFragment
                         }
                     });
                 } else {
-                    showDisablePerAlarmSettingDialog(R.string.enable_per_alarm_snooze_duration_dialog_message,
-                        KEY_ENABLE_PER_ALARM_SNOOZE_DURATION, mEnablePerAlarmSnoozeDurationPref, mAlarmSnoozeDurationPref, alarm ->
-                            alarm.snoozeDuration = SettingsDAO.getSnoozeLength(mPrefs));
-
+                    triggerDisableSettingDialog(KEY_ENABLE_PER_ALARM_SNOOZE_DURATION);
                     return false;
                 }
             }
@@ -336,10 +352,7 @@ public class AlarmSettingsFragment extends ScreenFragment
                         }
                     });
                 } else {
-                    showDisablePerAlarmSettingDialog(R.string.enable_per_alarm_missed_repeat_limit_dialog_message,
-                        KEY_ENABLE_PER_ALARM_MISSED_REPEAT_LIMIT, mEnablePerAlarmMissedRepeatLimitPref, mRepeatMissedAlarmPref,
-                        alarm -> alarm.missedAlarmRepeatLimit = SettingsDAO.getMissedAlarmRepeatLimit(mPrefs));
-
+                    triggerDisableSettingDialog(KEY_ENABLE_PER_ALARM_MISSED_REPEAT_LIMIT);
                     return false;
                 }
             }
@@ -373,9 +386,7 @@ public class AlarmSettingsFragment extends ScreenFragment
                         }
                     });
                 } else {
-                    showDisablePerAlarmSettingDialog(R.string.enable_per_alarm_volume_dialog_message, KEY_ENABLE_PER_ALARM_VOLUME,
-                        mEnablePerAlarmVolumePref, mAlarmVolumePref, alarm -> alarm.alarmVolume = DEFAULT_ALARM_VOLUME);
-
+                    triggerDisableSettingDialog(KEY_ENABLE_PER_ALARM_VOLUME);
                     return false;
                 }
             }
@@ -392,11 +403,7 @@ public class AlarmSettingsFragment extends ScreenFragment
                         }
                     });
                 } else {
-                    showDisablePerAlarmSettingDialog(R.string.enable_per_alarm_crescendo_duration_dialog_message,
-                        KEY_ENABLE_PER_ALARM_VOLUME_CRESCENDO_DURATION, mEnablePerAlarmVolumeCrescendoDurationPref,
-                        mAlarmVolumeCrescendoDurationPref, alarm ->
-                            alarm.crescendoDuration = SettingsDAO.getAlarmVolumeCrescendoDuration(mPrefs));
-
+                    triggerDisableSettingDialog(KEY_ENABLE_PER_ALARM_VOLUME_CRESCENDO_DURATION);
                     return false;
                 }
             }
@@ -413,10 +420,7 @@ public class AlarmSettingsFragment extends ScreenFragment
                         }
                     });
                 } else {
-                    showDisablePerAlarmSettingDialog(R.string.enable_per_alarm_vibration_pattern_dialog_message,
-                        KEY_ENABLE_PER_ALARM_VIBRATION_PATTERN, mEnablePerAlarmVibrationPatternPref, mVibrationPatternPref,
-                        alarm -> alarm.vibrationPattern = SettingsDAO.getVibrationPattern(mPrefs));
-
+                    triggerDisableSettingDialog(KEY_ENABLE_PER_ALARM_VIBRATION_PATTERN);
                     return false;
                 }
             }
@@ -456,10 +460,7 @@ public class AlarmSettingsFragment extends ScreenFragment
                         }
                     });
                 } else {
-                    showDisablePerAlarmSettingDialog(R.string.enable_alarm_vibrations_by_default_dialog_message,
-                        KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT, mEnableAlarmVibrationsByDefaultPref, null, alarm ->
-                            alarm.vibrate = false);
-
+                    triggerDisableSettingDialog(KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT);
                     return false;
                 }
             }
@@ -508,10 +509,7 @@ public class AlarmSettingsFragment extends ScreenFragment
                         }
                     });
                 } else {
-                    showDisablePerAlarmSettingDialog(R.string.enable_delete_occasional_alarm_by_default_dialog_message,
-                        KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT, mDeleteOccasionalAlarmByDefaultPref, null,
-                        alarm -> alarm.deleteAfterUse = false);
-
+                    triggerDisableSettingDialog(KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT);
                     return false;
                 }
             }
@@ -822,17 +820,66 @@ public class AlarmSettingsFragment extends ScreenFragment
             });
     }
 
+    private void triggerDisableSettingDialog(String prefKey) {
+        mPendingDialogPrefKey = prefKey;
+
+        switch (prefKey) {
+            case KEY_ENABLE_PER_ALARM_AUTO_SILENCE ->
+                showDisablePerAlarmSettingDialog(R.string.enable_per_alarm_auto_silence_dialog_message,
+                    KEY_ENABLE_PER_ALARM_AUTO_SILENCE, mEnablePerAlarmAutoSilencePref,
+                    mAlarmAutoSilencePref, alarm -> alarm.autoSilenceDuration = SettingsDAO.getAlarmTimeout(mPrefs));
+
+            case KEY_ENABLE_PER_ALARM_SNOOZE_DURATION ->
+                showDisablePerAlarmSettingDialog(R.string.enable_per_alarm_snooze_duration_dialog_message,
+                    KEY_ENABLE_PER_ALARM_SNOOZE_DURATION, mEnablePerAlarmSnoozeDurationPref, mAlarmSnoozeDurationPref,
+                    alarm -> alarm.snoozeDuration = SettingsDAO.getSnoozeLength(mPrefs));
+
+            case KEY_ENABLE_PER_ALARM_MISSED_REPEAT_LIMIT ->
+                showDisablePerAlarmSettingDialog(R.string.enable_per_alarm_missed_repeat_limit_dialog_message,
+                    KEY_ENABLE_PER_ALARM_MISSED_REPEAT_LIMIT, mEnablePerAlarmMissedRepeatLimitPref, mRepeatMissedAlarmPref,
+                    alarm -> alarm.missedAlarmRepeatLimit = SettingsDAO.getMissedAlarmRepeatLimit(mPrefs));
+
+            case KEY_ENABLE_PER_ALARM_VOLUME ->
+                showDisablePerAlarmSettingDialog(R.string.enable_per_alarm_volume_dialog_message,
+                    KEY_ENABLE_PER_ALARM_VOLUME, mEnablePerAlarmVolumePref, mAlarmVolumePref,
+                    alarm -> alarm.alarmVolume = DEFAULT_ALARM_VOLUME);
+
+            case KEY_ENABLE_PER_ALARM_VOLUME_CRESCENDO_DURATION ->
+                showDisablePerAlarmSettingDialog(R.string.enable_per_alarm_crescendo_duration_dialog_message,
+                    KEY_ENABLE_PER_ALARM_VOLUME_CRESCENDO_DURATION, mEnablePerAlarmVolumeCrescendoDurationPref,
+                    mAlarmVolumeCrescendoDurationPref, alarm ->
+                        alarm.crescendoDuration = SettingsDAO.getAlarmVolumeCrescendoDuration(mPrefs));
+
+            case KEY_ENABLE_PER_ALARM_VIBRATION_PATTERN ->
+                showDisablePerAlarmSettingDialog(R.string.enable_per_alarm_vibration_pattern_dialog_message,
+                    KEY_ENABLE_PER_ALARM_VIBRATION_PATTERN, mEnablePerAlarmVibrationPatternPref, mVibrationPatternPref,
+                    alarm -> alarm.vibrationPattern = SettingsDAO.getVibrationPattern(mPrefs));
+
+            case KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT ->
+                showDisablePerAlarmSettingDialog(R.string.enable_alarm_vibrations_by_default_dialog_message,
+                    KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT, mEnableAlarmVibrationsByDefaultPref, null,
+                    alarm -> alarm.vibrate = false);
+
+            case KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT ->
+                showDisablePerAlarmSettingDialog(R.string.enable_delete_occasional_alarm_by_default_dialog_message,
+                    KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT, mDeleteOccasionalAlarmByDefaultPref, null,
+                    alarm -> alarm.deleteAfterUse = false);
+        }
+    }
+
     private void showDisablePerAlarmSettingDialog(@StringRes int messageResId, String prefKey, SwitchPreferenceCompat switchPref,
                                                   @Nullable Preference dependentPref, AlarmUpdater alarmUpdater) {
 
-        String confirmAction = requireContext().getString(R.string.confirm_action_prompt);
+        String confirmAction = getString(R.string.confirm_action_prompt);
 
-        mActiveDialog = CustomDialog.createSimpleDialog(
+        mActiveDialog = CustomDialog.create(
             requireContext(),
-            R.drawable.ic_error,
-            R.string.warning,
+            null,
+            AppCompatResources.getDrawable(requireContext(), R.drawable.ic_error),
+            getString(R.string.warning),
             getString(messageResId, confirmAction),
-            android.R.string.ok,
+            null,
+            getString(android.R.string.ok),
             (d, w) -> {
                 AppExecutors.getDiskIO().execute(() -> {
                     List<Alarm> currentAlarms = Alarm.getAlarms(requireContext().getContentResolver(), null);
@@ -847,7 +894,13 @@ public class AlarmSettingsFragment extends ScreenFragment
                 if (dependentPref != null) {
                     dependentPref.setVisible(true);
                 }
-            }
+            },
+            getString(android.R.string.cancel),
+            null,
+            null,
+            null,
+            (alertDialog -> alertDialog.setOnDismissListener(d -> mPendingDialogPrefKey = null)),
+            CustomDialog.SoftInputMode.NONE
         );
 
         mActiveDialog.show();
@@ -899,6 +952,11 @@ public class AlarmSettingsFragment extends ScreenFragment
         } else {
             mAlarmVolumePref.stopRingtonePreview();
         }
+    }
+
+    private void updateRingtonePreferences() {
+        mAlarmRingtonePref.setSummary(DataModel.getDataModel().getAlarmRingtoneTitle());
+        mAlarmRingtonePref.setIntent(RingtonePickerActivity.createAlarmRingtonePickerIntentForSettings(requireContext()));
     }
 
     private void nullifyAllPrefs() {

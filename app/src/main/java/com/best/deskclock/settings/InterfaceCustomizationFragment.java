@@ -30,8 +30,8 @@ import androidx.preference.MultiSelectListPreference;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
-import com.best.deskclock.AppExecutors;
 import com.best.deskclock.R;
+import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.controller.Controller;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.WidgetDAO;
@@ -167,6 +167,8 @@ public class InterfaceCustomizationFragment extends ScreenFragment
     public void onResume() {
         super.onResume();
 
+        restoreCustomFileDialogIfNeeded(KEY_GENERAL_FONT, mGeneralFontPref, fontPickerLauncher, null);
+
         if (isLanguageChanged) {
             WidgetUtils.updateAllDigitalWidgets(requireContext());
             isLanguageChanged = false;
@@ -179,9 +181,9 @@ public class InterfaceCustomizationFragment extends ScreenFragment
             mNightAccentColorPref, mCardBackgroundPref, mCardBorderPref, mCustomLanguageCodePref, mVisibleTabsPref, mTabToDisplayPref,
             mVibrationPref, mToolbarTitlePref, mTabTitleVisibilityPref, mTabIndicatorPref, mFadeTransitionsPref, mKeepScreenOnPref);
 
-        super.onDestroy();
-
         nullifyAllPrefs();
+
+        super.onDestroy();
     }
 
     @Override

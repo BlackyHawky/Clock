@@ -10,8 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.best.deskclock.ItemTouchHelperContract;
-import com.best.deskclock.R;
+import com.best.deskclock.uicomponents.ItemTouchHelperContract;
 
 /**
  * Custom {@link androidx.recyclerview.widget.ItemTouchHelper.Callback} for managing drag & drop of timer items in a RecyclerView.
@@ -47,16 +46,21 @@ public class TimerItemTouchHelper extends ItemTouchHelper.Callback {
                 if (e.getAction() == MotionEvent.ACTION_DOWN) {
                     View child = rv.findChildViewUnder(e.getX(), e.getY());
                     if (child != null) {
-                        View addTimeButton = child.findViewById(R.id.timer_add_time_button);
-                        if (addTimeButton != null && addTimeButton.getVisibility() == View.VISIBLE) {
-                            int[] loc = new int[2];
-                            addTimeButton.getLocationOnScreen(loc);
-                            float x = e.getRawX();
-                            float y = e.getRawY();
-                            isTouchOnDragBlockingView = x >= loc[0] && x <= loc[0] + addTimeButton.getWidth()
-                                && y >= loc[1] && y <= loc[1] + addTimeButton.getHeight();
-                        } else {
-                            isTouchOnDragBlockingView = false;
+                        RecyclerView.ViewHolder holder = rv.getChildViewHolder(child);
+
+                        if (holder instanceof TimerViewHolder timerViewHolder) {
+                            View addTimeButton = timerViewHolder.addTimeButton;
+
+                            if (addTimeButton != null && addTimeButton.getVisibility() == View.VISIBLE) {
+                                int[] loc = new int[2];
+                                addTimeButton.getLocationOnScreen(loc);
+                                float x = e.getRawX();
+                                float y = e.getRawY();
+                                isTouchOnDragBlockingView = x >= loc[0] && x <= loc[0] + addTimeButton.getWidth()
+                                    && y >= loc[1] && y <= loc[1] + addTimeButton.getHeight();
+                            } else {
+                                isTouchOnDragBlockingView = false;
+                            }
                         }
                     } else {
                         isTouchOnDragBlockingView = false;

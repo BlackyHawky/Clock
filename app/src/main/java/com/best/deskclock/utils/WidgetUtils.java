@@ -40,16 +40,16 @@ import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.best.deskclock.AppExecutors;
 import com.best.deskclock.R;
+import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.events.Events;
+import com.best.deskclock.widgets.AnalogAppWidgetProvider;
 import com.best.deskclock.widgets.DigitalAppWidgetProvider;
 import com.best.deskclock.widgets.NextAlarmAppWidgetProvider;
 import com.best.deskclock.widgets.VerticalAppWidgetProvider;
-import com.best.deskclock.widgets.AnalogAppWidgetProvider;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -194,7 +194,7 @@ public class WidgetUtils {
      * Extracts the numeric part of the id and converts it to a long. If the city
      * object is null or the id is missing, the method returns 1L.
      *
-     * @param city the City object to derive the stable id from (may be null)
+     * @param city the City object to derive the stable id from (can be null)
      * @return a long representing the stable id extracted from the city id (or 1L as fallback)
      */
     public static long getStableIdForCity(City city) {

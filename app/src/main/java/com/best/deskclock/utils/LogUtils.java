@@ -11,9 +11,9 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.util.Log;
 
-import com.best.deskclock.AppExecutors;
 import com.best.deskclock.BuildConfig;
 import com.best.deskclock.DeskClockApplication;
+import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.data.SettingsDAO;
 
 import java.io.BufferedReader;

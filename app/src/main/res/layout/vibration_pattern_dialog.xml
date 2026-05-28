@@ -4,19 +4,19 @@
 -->
 
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/scrollView"
+    android:id="@+id/scroll_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <RadioGroup
-        android:id="@+id/vibration_options"
+        android:id="@+id/vibration_radio_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="?attr/dialogPreferredPadding"
         android:paddingEnd="@null">
 
         <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/vibration_pattern_default"
+            android:id="@+id/vibration_pattern_default_button"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:text="@string/label_default"
@@ -26,7 +26,7 @@
             android:paddingEnd="@null" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/vibration_pattern_soft"
+            android:id="@+id/vibration_pattern_soft_button"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:text="@string/vibration_pattern_soft"
@@ -36,7 +36,7 @@
             android:paddingEnd="@null" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/vibration_pattern_strong"
+            android:id="@+id/vibration_pattern_strong_button"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:text="@string/vibration_pattern_strong"
@@ -46,7 +46,7 @@
             android:paddingEnd="@null" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/vibration_pattern_heartbeat"
+            android:id="@+id/vibration_pattern_heartbeat_button"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:text="@string/vibration_pattern_heartbeat"
@@ -56,7 +56,7 @@
             android:paddingEnd="@null" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/vibration_pattern_escalating"
+            android:id="@+id/vibration_pattern_escalating_button"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:text="@string/vibration_pattern_escalating"
@@ -66,7 +66,7 @@
             android:paddingEnd="@null" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/vibration_pattern_tick_tock"
+            android:id="@+id/vibration_pattern_tick_tock_button"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:text="@string/vibration_pattern_tick_tock"

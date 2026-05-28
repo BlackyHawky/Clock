@@ -182,6 +182,15 @@
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false">
 
+        <SwitchPreferenceCompat
+            android:key="key_single_timer_mode"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/single_timer_mode_title"
+            android:summary="@string/single_timer_mode_summary"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
         <ListPreference
             android:key="key_sort_timer"
             android:layout="@layout/settings_preference_layout"

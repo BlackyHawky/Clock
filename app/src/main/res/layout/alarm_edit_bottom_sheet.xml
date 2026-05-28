@@ -117,7 +117,7 @@
 
                 <com.google.android.material.button.MaterialButton
                     style="?attr/materialButtonOutlinedStyle"
-                    android:id="@+id/pause_alarm_cancel"
+                    android:id="@+id/cancel_pause_alarm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
@@ -175,7 +175,7 @@
                 tools:text="Standard (Hassium)" />
 
             <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/vibrate_onoff"
+                android:id="@+id/vibrate_on_off"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginHorizontal="10dp"
@@ -197,7 +197,7 @@
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="2dp"
                 android:paddingHorizontal="10dp"
-                app:layout_constraintTop_toBottomOf="@id/vibrate_onoff">
+                app:layout_constraintTop_toBottomOf="@id/vibrate_on_off">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/vibration_pattern_title"
@@ -227,7 +227,7 @@
             </LinearLayout>
 
             <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/flash_onoff"
+                android:id="@+id/flash_on_off"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginHorizontal="10dp"
@@ -254,7 +254,7 @@
                 android:drawableEnd="@drawable/ic_selector_checkbox"
                 android:drawablePadding="10dp"
                 android:text="@string/delete_occasional_alarm_after_use_title"
-                app:layout_constraintTop_toBottomOf="@id/flash_onoff"
+                app:layout_constraintTop_toBottomOf="@id/flash_on_off"
                 app:layout_goneMarginTop="10dp"
                 tools:ignore="RtlSymmetry"
                 tools:checked="true" />
@@ -455,7 +455,7 @@
         android:paddingVertical="10dp">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/delete"
+            android:id="@+id/delete_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="0dp"
@@ -470,13 +470,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/duplicate"
+            app:layout_constraintEnd_toStartOf="@+id/duplicate_button"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constrainedWidth="true"
             tools:ignore="TextContrastCheck" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/duplicate"
+            android:id="@+id/duplicate_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="0dp"
@@ -491,7 +491,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/delete"
+            app:layout_constraintStart_toEndOf="@+id/delete_button"
             app:layout_constrainedWidth="true"
             tools:textStyle="bold" />
 

@@ -15,115 +15,71 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.text.format.DateFormat;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.best.deskclock.ItemTouchHelperContract;
-import com.best.deskclock.R;
-import com.best.deskclock.alarms.AlarmStateManager;
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.CityListener;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
-import com.best.deskclock.provider.AlarmInstance;
-import com.best.deskclock.utils.AlarmUtils;
-import com.best.deskclock.utils.ClockUtils;
-import com.best.deskclock.utils.FormattedTextUtils;
+import com.best.deskclock.databinding.WorldClockItemBinding;
+import com.best.deskclock.uicomponents.ItemTouchHelperContract;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.WidgetUtils;
 import com.best.deskclock.widgets.DigitalAppWidgetProvider;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 /**
- * This adapter lists all of the selected world clocks. Optionally, it also includes a clock at
- * the top for the home timezone if "Automatic home clock" is turned on in settings and the
- * current time at home does not match the current time in the timezone of the current location.
+ * This adapter lists all the selected world clocks. Optionally, it also includes a clock at
+ * the top for the home timezone if:
+ * <ul>
+ *     <li>"Automatic home clock" is turned on in settings;</li>
+ *     <li>The current time at home does not match the current time in the timezone of the current location. </li>
+ * </ul>
  * If the phone is in portrait mode it will also include the main clock at the top.
  */
 public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements CityListener, ItemTouchHelperContract {
 
-    private final static int MAIN_CLOCK = R.layout.main_clock_frame;
-    private final static int WORLD_CLOCK = R.layout.world_clock_item;
     public final String PAYLOAD_UPDATE_BACKGROUND = "PAYLOAD_UPDATE_BACKGROUND";
 
-    private final LayoutInflater mInflater;
     private final Context mContext;
     private final SharedPreferences mPrefs;
     private final List<City> mCities;
     public final boolean mIsPortrait;
-    private final boolean mIsTablet;
-    private final DisplayMetrics mDisplayMetrics;
     private final boolean mShowHomeClock;
-    private final DataModel.ClockStyle mClockStyle;
-    private final boolean mAreClockSecondsDisplayed;
-    private final float mDigitalClockFontSize;
     private final Typeface mRegularTypeface;
     private final Typeface mBoldTypeface;
     private final Typeface mDigitalClockTypeface;
-    private final Typeface mAlarmIconTypeface;
     private final boolean mIsCityNoteEnabled;
     private final boolean mIsDigitalClock;
     private final boolean mHasBlackAccentColor;
-    private final boolean mIsTextUppercase;
-    private final String mFormattedDate;
-    private final String mDateDescription;
-    private String mFormattedNextAlarm;
 
     private final Drawable.ConstantState mBgSingle;
     private final Drawable.ConstantState mBgTop;
     private final Drawable.ConstantState mBgMiddle;
     private final Drawable.ConstantState mBgBottom;
 
-    public SelectedCitiesAdapter(Context context, String dateFormat, String dateFormatForAccessibility, List<City> cities,
-                                 boolean showHomeClock, boolean isPortrait) {
-
+    public SelectedCitiesAdapter(Context context, List<City> cities, boolean showHomeClock, boolean isPortrait) {
         mContext = context;
         mPrefs = getDefaultSharedPreferences(context);
-        mInflater = LayoutInflater.from(context);
         mCities = cities;
         mShowHomeClock = showHomeClock;
         mIsPortrait = isPortrait;
-        mIsTablet = ThemeUtils.isTablet();
-        mDisplayMetrics = context.getResources().getDisplayMetrics();
-        mClockStyle = SettingsDAO.getClockStyle(mPrefs);
-        mDigitalClockFontSize = SettingsDAO.getDigitalClockFontSize(mPrefs);
         String fontPath = SettingsDAO.getGeneralFont(mPrefs);
         mRegularTypeface = ThemeUtils.loadFont(fontPath);
         mBoldTypeface = ThemeUtils.boldTypeface(fontPath);
-        mDigitalClockTypeface = mClockStyle == DataModel.ClockStyle.DIGITAL
+        mDigitalClockTypeface = SettingsDAO.getClockStyle(mPrefs) == DataModel.ClockStyle.DIGITAL
             ? ThemeUtils.loadFont(SettingsDAO.getDigitalClockFont(mPrefs))
             : null;
-        mAlarmIconTypeface = ClockUtils.getAlarmIconTypeface(context);
-        mAreClockSecondsDisplayed = SettingsDAO.areClockSecondsDisplayed(mPrefs);
         mIsCityNoteEnabled = SettingsDAO.isCityNoteEnabled(mPrefs);
         mIsDigitalClock = SettingsDAO.getClockStyle(mPrefs) == DataModel.ClockStyle.DIGITAL;
         mHasBlackAccentColor = SettingsDAO.getAccentColor(mPrefs).equals(BLACK_ACCENT_COLOR);
-        mIsTextUppercase = SettingsDAO.isTextUppercaseDisplayed(mPrefs);
-
-        // Date calculation
-        final Locale locale = Locale.getDefault();
-        String datePattern = DateFormat.getBestDateTimePattern(locale, dateFormat);
-        String descPattern = DateFormat.getBestDateTimePattern(locale, dateFormatForAccessibility);
-        final Date now = new Date();
-
-        mFormattedDate = FormattedTextUtils.capitalizeFirstLetter(
-            new SimpleDateFormat(datePattern, locale).format(now), locale);
-        mDateDescription = new SimpleDateFormat(descPattern, locale).format(now);
-
-        updateNextAlarmString();
 
         mBgSingle = ThemeUtils.expressiveCardBackground(context, 0, 1).getConstantState();
         // position=0, totalCount=3 -> Top
@@ -139,26 +95,13 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public Drawable.ConstantState getBgMiddle() { return mBgMiddle; }
     public Drawable.ConstantState getBgBottom() { return mBgBottom; }
 
-    @Override
-    public int getItemViewType(int position) {
-        if (position == 0 && mIsPortrait) {
-            return MAIN_CLOCK;
-        }
-        return WORLD_CLOCK;
-    }
-
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        final View view = mInflater.inflate(viewType, parent, false);
-        if (viewType == WORLD_CLOCK) {
-            return new CityViewHolder(view, this, mDisplayMetrics, mRegularTypeface, mBoldTypeface, mDigitalClockTypeface,
-                mIsTablet, mIsCityNoteEnabled, mIsDigitalClock, mHasBlackAccentColor);
-        } else if (viewType == MAIN_CLOCK) {
-            return new MainClockViewHolder(view, mPrefs, mDisplayMetrics, mClockStyle, mDigitalClockTypeface,
-                mDigitalClockFontSize, mBoldTypeface, mAlarmIconTypeface, mAreClockSecondsDisplayed);
-        }
-        throw new IllegalArgumentException("View type not recognized");
+        WorldClockItemBinding binding = WorldClockItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+
+        return new CityViewHolder(binding, this, mRegularTypeface, mBoldTypeface, mDigitalClockTypeface, mIsCityNoteEnabled,
+            mIsDigitalClock, mHasBlackAccentColor);
     }
 
     @Override
@@ -172,37 +115,27 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        final int viewType = getItemViewType(position);
-        // Retrieve the city to bind.
-        if (viewType == WORLD_CLOCK) {
-            final City city;
-            // If showing home clock, put it at the top
-            if (mShowHomeClock && position == (mIsPortrait ? 1 : 0)) {
-                city = getHomeCity();
-            } else {
-                final int positionAdjuster = (mIsPortrait ? 1 : 0) + (mShowHomeClock ? 1 : 0);
-                city = getCities().get(position - positionAdjuster);
-            }
-            ((CityViewHolder) holder).bind(city);
-        } else if (viewType == MAIN_CLOCK) {
-            ((MainClockViewHolder) holder).bind(mContext, mCities, mShowHomeClock, mIsPortrait, mIsTextUppercase, mFormattedDate,
-                mDateDescription, mFormattedNextAlarm);
+        final City city;
+
+        if (mShowHomeClock && position == 0) {
+            city = getHomeCity();
         } else {
-            throw new IllegalArgumentException("Unexpected view type: " + viewType);
+            final int positionAdjuster = mShowHomeClock ? 1 : 0;
+            city = getCities().get(position - positionAdjuster);
         }
+        ((CityViewHolder) holder).bind(city);
     }
 
     @Override
     public int getItemCount() {
-        final int mainClockCount = mIsPortrait ? 1 : 0;
         final int homeClockCount = mShowHomeClock ? 1 : 0;
         final int worldClockCount = getCities().size();
-        return mainClockCount + homeClockCount + worldClockCount;
+        return homeClockCount + worldClockCount;
     }
 
     @Override
     public void onRowMoved(int fromPosition, int toPosition) {
-        int offset = (mIsPortrait ? 1 : 0) + (mShowHomeClock ? 1 : 0);
+        int offset = mShowHomeClock ? 1 : 0;
 
         if (fromPosition < toPosition) {
             for (int i = fromPosition; i < toPosition; i++) {
@@ -258,7 +191,14 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
     private int getCityPositionById(String cityId) {
-        final int positionAdjuster = (mIsPortrait ? 1 : 0) + (mShowHomeClock ? 1 : 0);
+        if (mShowHomeClock) {
+            City homeCity = getHomeCity();
+            if (homeCity != null && homeCity.getId().equals(cityId)) {
+                return 0;
+            }
+        }
+
+        final int positionAdjuster = mShowHomeClock ? 1 : 0;
 
         for (int i = 0; i < mCities.size(); i++) {
             if (mCities.get(i).getId().equals(cityId)) {
@@ -292,25 +232,6 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     @Nullable
     public String getCityNote(String cityId) {
         return mPrefs.getString(KEY_CITY_NOTE + cityId, null);
-    }
-
-    public void refreshAlarm() {
-        updateNextAlarmString();
-
-        if (mIsPortrait && getItemCount() > 0) {
-            notifyItemChanged(0);
-        }
-    }
-
-    private void updateNextAlarmString() {
-        AlarmInstance nextAlarmInstance = AlarmStateManager.getNextFiringAlarm(mContext);
-        if (nextAlarmInstance != null) {
-            Calendar alarmCalendar = Calendar.getInstance();
-            alarmCalendar.setTimeInMillis(nextAlarmInstance.getAlarmTime().getTimeInMillis());
-            mFormattedNextAlarm = AlarmUtils.getFormattedTime(mContext, alarmCalendar);
-        } else {
-            mFormattedNextAlarm = null;
-        }
     }
 
 }

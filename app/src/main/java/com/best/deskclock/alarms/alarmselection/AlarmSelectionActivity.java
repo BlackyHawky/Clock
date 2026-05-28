@@ -4,21 +4,19 @@
  * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
-package com.best.deskclock.alarmselection;
+package com.best.deskclock.alarms.alarmselection;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.widget.Button;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.best.deskclock.AppExecutors;
-import com.best.deskclock.BaseActivity;
-import com.best.deskclock.HandleApiCalls;
-import com.best.deskclock.R;
+import com.best.deskclock.base.AppExecutors;
+import com.best.deskclock.base.BaseActivity;
+import com.best.deskclock.controller.HandleApiCalls;
+import com.best.deskclock.databinding.SelectionLayoutBinding;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.SdkUtils;
@@ -28,38 +26,41 @@ import java.util.List;
 
 public class AlarmSelectionActivity extends BaseActivity implements AlarmSelectionAdapter.OnAlarmClickListener {
 
+    public static final String EXTRA_ACTION = "com.best.deskclock.EXTRA_ACTION";
+    public static final String EXTRA_ALARMS = "com.best.deskclock.EXTRA_ALARMS";
+
     /**
      * Action used to signify alarm should be dismissed on selection.
      */
     public static final int ACTION_DISMISS = 0;
-    public static final String EXTRA_ACTION = "com.best.deskclock.EXTRA_ACTION";
-    public static final String EXTRA_ALARMS = "com.best.deskclock.EXTRA_ALARMS";
+
     /**
      * Used by default when an invalid action provided.
      */
     private static final int ACTION_INVALID = -1;
+
     private final List<AlarmSelection> mSelections = new ArrayList<>();
 
     private int mAction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // this activity is shown if:
-        // a) no search mode was specified in which case we show all
-        // enabled alarms
-        // b) if search mode was next and there was multiple alarms firing next
-        // (at the same time) then we only show those alarms firing at the same time
-        // c) if search mode was time and there are multiple alarms with that time
-        // then we only show those alarms with that time
+        // This activity is shown if:
+        // a) No search mode was specified in which case we show all enabled alarms.
+        // b) If search mode was next and there was multiple alarms firing next
+        // (at the same time) then we only show those alarms firing at the same time.
+        // c) If search mode was time and there are multiple alarms with that time
+        // then we only show those alarms with that time.
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.selection_layout);
 
-        final Button cancelButton = findViewById(R.id.cancel_button);
-        cancelButton.setOnClickListener(v -> finish());
+        SelectionLayoutBinding binding = SelectionLayoutBinding.inflate(getLayoutInflater());
 
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        setContentView(binding.getRoot());
+
+        binding.cancelButton.setOnClickListener(v -> finish());
+
+        binding.alarmRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         final Intent intent = getIntent();
         final Parcelable[] alarmsFromIntent = SdkUtils.isAtLeastAndroid13()
@@ -80,7 +81,7 @@ public class AlarmSelectionActivity extends BaseActivity implements AlarmSelecti
         }
 
         AlarmSelectionAdapter adapter = new AlarmSelectionAdapter(this, mSelections, this);
-        recyclerView.setAdapter(adapter);
+        binding.alarmRecyclerView.setAdapter(adapter);
     }
 
     @Override

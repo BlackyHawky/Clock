@@ -6,7 +6,6 @@
 
 package com.best.deskclock.stopwatch;
 
-import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
 import android.content.Context;
@@ -14,10 +13,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.format.DateUtils;
-import android.util.DisplayMetrics;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -31,6 +27,7 @@ import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Lap;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Stopwatch;
+import com.best.deskclock.databinding.LapViewBinding;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
@@ -60,7 +57,6 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
      */
     private static final StringBuilder sTimeBuilder = new StringBuilder(12);
 
-    private final LayoutInflater mInflater;
     private final Context mContext;
 
     /**
@@ -79,8 +75,6 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
     private final Typeface mRegularTypeface;
     private final Typeface mBoldTypeface;
     private final String mDecimalSeparator;
-    private final int mPadding;
-    private final float mTextSize;
     private final int mDefaultLapColor;
     private final int mMinLapColor;
     private final int mMaxLapColor;
@@ -88,15 +82,10 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
     LapsAdapter(Context context) {
         mContext = context;
         SharedPreferences prefs = getDefaultSharedPreferences(context);
-        mInflater = LayoutInflater.from(context);
         String fontPath = SettingsDAO.getGeneralFont(prefs);
         mRegularTypeface = ThemeUtils.loadFont(fontPath);
         mBoldTypeface = ThemeUtils.boldTypeface(fontPath);
         mDecimalSeparator = String.valueOf(DecimalFormatSymbols.getInstance().getDecimalSeparator());
-        boolean isTablet = ThemeUtils.isTablet();
-        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-        mPadding = (int) dpToPx(isTablet ? 8 : 4, displayMetrics);
-        mTextSize = isTablet ? 18 : 16;
         mDefaultLapColor = MaterialColors.getColor(context, android.R.attr.textColorPrimary, Color.BLACK);
         mMinLapColor = ContextCompat.getColor(context, android.R.color.holo_green_light);
         mMaxLapColor = ContextCompat.getColor(context, android.R.color.holo_red_light);
@@ -109,8 +98,8 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
     @NonNull
     @Override
     public LapItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        final View v = mInflater.inflate(R.layout.lap_view, parent, false);
-        return new LapItemHolder(v, mRegularTypeface, mBoldTypeface, mPadding, mTextSize);
+        final LapViewBinding binding = LapViewBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        return new LapItemHolder(binding, mRegularTypeface, mBoldTypeface);
     }
 
     @Override
@@ -136,9 +125,9 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
         applyLapColor(viewHolder, lap, lapTime);
 
         // Bind data into the child views.
-        viewHolder.lapTime.setText(formatLapTime(lapTime, true));
-        viewHolder.accumulatedTime.setText(formatAccumulatedTime(totalTime, true));
-        viewHolder.lapNumber.setText(formatLapNumber(getLaps().size() + 1, lapNumber));
+        viewHolder.binding.lapNumber.setText(formatLapNumber(getLaps().size() + 1, lapNumber));
+        viewHolder.binding.lapTime.setText(formatLapTime(lapTime, true));
+        viewHolder.binding.lapTotal.setText(formatAccumulatedTime(totalTime, true));
     }
 
     /**
@@ -244,9 +233,9 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
      */
     private void setColor(LapItemHolder holder, int color) {
         TextView[] views = {
-            holder.lapNumber,
-            holder.lapTime,
-            holder.accumulatedTime
+            holder.binding.lapNumber,
+            holder.binding.lapTime,
+            holder.binding.lapTotal
         };
 
         for (TextView textView : views) {
@@ -269,10 +258,10 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
             // Compute the lap time using the total time.
             long lapTime = DataModel.getDataModel().getCurrentLapTime(totalTime);
 
-            lapHolder.lapTime.setText(formatLapTime(lapTime, false));
-            lapHolder.accumulatedTime.setText(formatAccumulatedTime(totalTime, false));
+            lapHolder.binding.lapTime.setText(formatLapTime(lapTime, false));
+            lapHolder.binding.lapTotal.setText(formatAccumulatedTime(totalTime, false));
 
-            lapHolder.lapTime.setTextColor(mDefaultLapColor);
+            lapHolder.binding.lapTime.setTextColor(mDefaultLapColor);
         }
     }
 
@@ -479,26 +468,18 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
      */
     public static final class LapItemHolder extends RecyclerView.ViewHolder {
 
-        private final TextView lapNumber;
-        private final TextView lapTime;
-        private final TextView accumulatedTime;
+        final LapViewBinding binding;
 
-        LapItemHolder(View itemView, Typeface regular, Typeface bold, int padding, float textSize) {
-            super(itemView);
+        LapItemHolder(LapViewBinding binding, Typeface regular, Typeface bold) {
+            super(binding.getRoot());
 
-            itemView.setPadding(0, padding, 0, padding);
+            this.binding = binding;
 
-            lapNumber = itemView.findViewById(R.id.lap_number);
-            lapNumber.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
-            lapNumber.setTypeface(bold);
+            binding.lapNumber.setTypeface(bold);
 
-            lapTime = itemView.findViewById(R.id.lap_time);
-            lapTime.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
-            lapTime.setTypeface(regular);
+            binding.lapTime.setTypeface(regular);
 
-            accumulatedTime = itemView.findViewById(R.id.lap_total);
-            accumulatedTime.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
-            accumulatedTime.setTypeface(regular);
+            binding.lapTotal.setTypeface(regular);
         }
     }
 }

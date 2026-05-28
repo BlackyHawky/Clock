@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-package com.best.deskclock;
+package com.best.deskclock.uicomponents;
 
 import android.view.View;
 import android.widget.ImageView;

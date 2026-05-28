@@ -408,7 +408,7 @@
     <string name="backup_restore_dialog_message">Uygulama verilerinizi yedeklemek veya geri yüklemek mi istiyorsunuz?</string>
     <string name="backup_button_title">Yedekle</string>
     <string name="toast_message_for_backup">Yedekleme tamamlandı</string>
-    <string name="toast_message_for_restore">Geri yükleme tamamlandı</string>
+    <string name="restart_app_dialog_title_for_restore">Geri yükleme tamamlandı</string>
     <string name="first_launch_important_info_title">ÖNEMLİ BİLGİLENDİRME</string>
     <string name="first_launch_dialog_title">Çıkış</string>
     <string name="timer_flip_action_title">Alarmı durdurmak için cihazı ters çevir</string>
@@ -448,7 +448,7 @@
     <string name="settings_language_turkish">Türkçe</string>
     <string name="reset_settings_title">Ayarları sıfırla</string>
     <string name="reset_settings_message">Uygulamanın bütün ayarlarını sıfırlamak istediğinize emin misiniz?</string>
-    <string name="toast_message_for_reset">Sıfırlama tamamlandı</string>
+    <string name="restart_app_dialog_title_for_reset">Sıfırlama tamamlandı</string>
     <string name="settings_language_korean">Korece</string>
     <string name="blue_accent_color">Mavi</string>
     <string name="display_date_title">Araçta tarihi görüntüle</string>

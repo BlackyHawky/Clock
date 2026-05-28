@@ -105,9 +105,9 @@ public class AppWidgetAnalogSettingsFragment extends ScreenFragment implements P
             mDialColorPref, mDefaultHourHandColorPref, mHourHandColorPref, mDefaultMinuteHandColorPref, mMinuteHandColorPref,
             mDefaultSecondHandColorPref, mSecondHandColorPref);
 
-        super.onDestroy();
-
         nullifyAllPrefs();
+
+        super.onDestroy();
     }
 
     @Override

@@ -4,19 +4,16 @@
  * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
-package com.best.deskclock.alarmselection;
+package com.best.deskclock.alarms.alarmselection;
 
-import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,8 +21,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Weekdays;
+import com.best.deskclock.databinding.AlarmRowBinding;
 import com.best.deskclock.provider.Alarm;
-import com.best.deskclock.uicomponents.TextTime;
 import com.best.deskclock.utils.ThemeUtils;
 
 import java.text.SimpleDateFormat;
@@ -35,34 +32,34 @@ import java.util.Locale;
 
 public class AlarmSelectionAdapter extends RecyclerView.Adapter<AlarmSelectionAdapter.ViewHolder> {
 
-    private final Context context;
     private final List<AlarmSelection> alarms;
     private final OnAlarmClickListener listener;
 
-    public interface OnAlarmClickListener {
-        void onAlarmClick(Alarm alarm);
-    }
+    private final Typeface mRegularTypeface;
+    private final Typeface mAlarmBoldTypeface;
+    private final Weekdays.Order mWeekdayOrder;
+    private final SimpleDateFormat mDateFormat;
 
     public AlarmSelectionAdapter(Context context, List<AlarmSelection> alarms, OnAlarmClickListener listener) {
-        this.context = context;
         this.alarms = alarms;
         this.listener = listener;
+
+        SharedPreferences prefs = getDefaultSharedPreferences(context);
+
+        mRegularTypeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
+        mAlarmBoldTypeface = ThemeUtils.boldTypeface(SettingsDAO.getAlarmFont(prefs));
+        mWeekdayOrder = SettingsDAO.getWeekdayOrder(prefs);
+
+        String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), "yyyyMMMMd");
+        mDateFormat = new SimpleDateFormat(pattern, Locale.getDefault());
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View row = inflater.inflate(R.layout.alarm_row, parent, false);
+        AlarmRowBinding binding = AlarmRowBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
 
-        int alarmRowMarginBottom = (int) dpToPx(ThemeUtils.isTablet() ? 64 : 8, context.getResources().getDisplayMetrics());
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
-        );
-        params.setMargins(0, 0, 0, alarmRowMarginBottom);
-        row.setLayoutParams(params);
-
-        return new ViewHolder(row);
+        return new ViewHolder(binding);
     }
 
     @Override
@@ -70,7 +67,7 @@ public class AlarmSelectionAdapter extends RecyclerView.Adapter<AlarmSelectionAd
         AlarmSelection selection = alarms.get(position);
         Alarm alarm = selection.getAlarm();
 
-        holder.bind(alarm);
+        holder.bind(alarm, mRegularTypeface, mAlarmBoldTypeface, mWeekdayOrder, mDateFormat);
 
         holder.itemView.setOnClickListener(v -> listener.onAlarmClick(alarm));
     }
@@ -82,53 +79,48 @@ public class AlarmSelectionAdapter extends RecyclerView.Adapter<AlarmSelectionAd
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        final TextTime alarmTime;
-        final TextView alarmLabel;
-        final TextView daysOfWeekView;
+        final AlarmRowBinding binding;
 
-        public ViewHolder(View itemView) {
-            super(itemView);
+        public ViewHolder(AlarmRowBinding binding) {
+            super(binding.getRoot());
 
-            alarmTime = itemView.findViewById(R.id.digital_clock);
-            alarmLabel = itemView.findViewById(R.id.label);
-            daysOfWeekView = itemView.findViewById(R.id.daysOfWeek);
+            this.binding = binding;
         }
 
-        public void bind(Alarm alarm) {
-            Context context = itemView.getContext();
-            SharedPreferences prefs = getDefaultSharedPreferences(context);
-            String fontPath = SettingsDAO.getAlarmFont(prefs);
+        public void bind(Alarm alarm, Typeface regularTypeface, Typeface alarmBoldTypeface, Weekdays.Order weekdayOrder,
+                         SimpleDateFormat dateFormat) {
 
-            alarmTime.setTime(alarm.hour, alarm.minutes);
-            alarmTime.setTypeface(ThemeUtils.boldTypeface(fontPath));
-            alarmLabel.setText(alarm.label);
-            alarmLabel.setTypeface(ThemeUtils.loadFont(fontPath));
+            Context context = itemView.getContext();
+
+            binding.digitalClock.setTime(alarm.hour, alarm.minutes);
+            binding.digitalClock.setTypeface(alarmBoldTypeface);
+            binding.alarmLabel.setText(alarm.label);
+            binding.alarmLabel.setTypeface(regularTypeface);
 
             // Find days when alarm is firing
             if (alarm.daysOfWeek.isRepeating()) {
-                final Weekdays.Order weekdayOrder = SettingsDAO.getWeekdayOrder(prefs);
                 final String daysOfWeekText = alarm.daysOfWeek.toString(context, weekdayOrder);
-                daysOfWeekView.setText(daysOfWeekText);
+                binding.daysOfWeek.setText(daysOfWeekText);
 
                 final String string = alarm.daysOfWeek.toAccessibilityString(context, weekdayOrder);
-                daysOfWeekView.setContentDescription(string);
+                binding.daysOfWeek.setContentDescription(string);
             } else {
                 Calendar calendar = Calendar.getInstance();
 
                 if (alarm.isTomorrow(calendar) && !alarm.isSpecifiedDate()) {
-                    daysOfWeekView.setText(context.getResources().getString(R.string.alarm_tomorrow));
+                    binding.daysOfWeek.setText(context.getResources().getString(R.string.alarm_tomorrow));
                 } else if (alarm.isSpecifiedDate()) {
                     if (Alarm.isSpecifiedDateTomorrow(alarm.year, alarm.month, alarm.day)) {
-                        daysOfWeekView.setText(context.getResources().getString(R.string.alarm_tomorrow));
+                        binding.daysOfWeek.setText(context.getResources().getString(R.string.alarm_tomorrow));
                     } else if (alarm.isDateInThePast()) {
                         // If the date has passed, the new alarm will be scheduled either the same day
                         // or the next day depending on the time; the text is therefore updated accordingly.
                         if (alarm.hour < calendar.get(Calendar.HOUR_OF_DAY)
                             || (alarm.hour == calendar.get(Calendar.HOUR_OF_DAY) && alarm.minutes < calendar.get(Calendar.MINUTE))
                             || (alarm.hour == calendar.get(Calendar.HOUR_OF_DAY) && alarm.minutes == calendar.get(Calendar.MINUTE))) {
-                            daysOfWeekView.setText(context.getString(R.string.alarm_tomorrow));
+                            binding.daysOfWeek.setText(context.getString(R.string.alarm_tomorrow));
                         } else {
-                            daysOfWeekView.setText(context.getString(R.string.alarm_today));
+                            binding.daysOfWeek.setText(context.getString(R.string.alarm_today));
                         }
                     } else {
                         int year = alarm.year;
@@ -137,18 +129,21 @@ public class AlarmSelectionAdapter extends RecyclerView.Adapter<AlarmSelectionAd
 
                         calendar.set(year, month, dayOfMonth);
 
-                        String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), "yyyyMMMMd");
-                        SimpleDateFormat dateFormat = new SimpleDateFormat(pattern, Locale.getDefault());
                         String formattedDate = dateFormat.format(calendar.getTime());
 
-                        daysOfWeekView.setText(context.getResources().getString(R.string.alarm_scheduled_for, formattedDate));
+                        binding.daysOfWeek.setText(context.getResources().getString(R.string.alarm_scheduled_for, formattedDate));
                     }
                 } else {
-                    daysOfWeekView.setText(context.getResources().getString(R.string.alarm_today));
+                    binding.daysOfWeek.setText(context.getResources().getString(R.string.alarm_today));
                 }
             }
 
-            daysOfWeekView.setTypeface(ThemeUtils.loadFont(fontPath));
+            binding.daysOfWeek.setTypeface(regularTypeface);
         }
     }
+
+    public interface OnAlarmClickListener {
+        void onAlarmClick(Alarm alarm);
+    }
+
 }

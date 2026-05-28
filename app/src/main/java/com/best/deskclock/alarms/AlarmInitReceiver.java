@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
-package com.best.deskclock;
+package com.best.deskclock.alarms;
 
 import static android.content.Intent.ACTION_LOCALE_CHANGED;
 import static android.content.Intent.ACTION_TIME_CHANGED;
@@ -18,8 +18,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.PowerManager.WakeLock;
 
-import com.best.deskclock.alarms.AlarmNotifications;
-import com.best.deskclock.alarms.AlarmStateManager;
+import com.best.deskclock.base.AlarmAlertWakeLock;
+import com.best.deskclock.base.AppExecutors;
+import com.best.deskclock.base.KeepAliveService;
 import com.best.deskclock.controller.Controller;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
@@ -55,7 +56,7 @@ public class AlarmInitReceiver extends BroadcastReceiver {
      * This receiver handles a variety of actions:
      *
      * <ul>
-     *     <li>Update timers and stopwatch datas on ACTION_BOOT_COMPLETED, TIME_SET and TIMEZONE_CHANGED</li>
+     *     <li>Update timers and stopwatch data on ACTION_BOOT_COMPLETED, TIME_SET and TIMEZONE_CHANGED</li>
      *     <li>Starts the {@link KeepAliveService} if enabled in the settings on ACTION_BOOT_COMPLETED</li>
      *     <li>Rebuild notifications on ACTION_BOOT_COMPLETED and LOCALE_CHANGED</li>
      *     <li>Fix alarm states on ACTION_BOOT_COMPLETED, TIME_SET, TIMEZONE_CHANGED, and LOCALE_CHANGED</li>

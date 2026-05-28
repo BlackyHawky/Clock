@@ -1039,7 +1039,7 @@
     <!-- Format: [index]=[city name]|[timezone id] -->
     <string name="C333">P<xliff:g id="separator">=</xliff:g>Podgorica<xliff:g id="timezone">|Europe/Podgorica</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
-    <string name="C334">P<xliff:g id="separator">=</xliff:g>Port Moresby<xliff:g id="timezone">|Pacific/Palau</xliff:g></string>
+    <string name="C334">P<xliff:g id="separator">=</xliff:g>Port Moresby<xliff:g id="timezone">|Pacific/Port_Moresby</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
     <string name="C335">P<xliff:g id="separator">=</xliff:g>Port Vila<xliff:g id="timezone">|Pacific/Efate</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->

@@ -18,8 +18,8 @@ import android.media.AudioManager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
-import com.best.deskclock.AppExecutors;
 import com.best.deskclock.R;
+import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.dialogfragment.AlarmDelayPickerDialogFragment;
@@ -39,7 +39,7 @@ import java.util.List;
  */
 public final class AlarmTimeClickHandler {
 
-    private static final String TAG = "AlarmTimeClickHandler";
+    public static final String TAG = "AlarmTimeClickHandler";
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger(TAG);
 
     private final AlarmFragment mAlarmFragment;
@@ -295,7 +295,7 @@ public final class AlarmTimeClickHandler {
 
         Calendar currentCalendar = Calendar.getInstance();
 
-        // Necessary when an existing alarm has been created in the past and it is not enabled.
+        // Necessary when an existing alarm has been created in the past, and it is not enabled.
         // Even if the date is not specified, it is saved in AlarmInstance; we need to make
         // sure that the date is not in the past when changing time, in which case we reset
         // to the current date (an alarm cannot be scheduled in the past).

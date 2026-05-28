@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-package com.best.deskclock;
+package com.best.deskclock.base;
 
 /**
- * Interface for fragments that manage periodic background tasks via Runnables.
+ * Interface for fragments that manage periodic background tasks via Runnable.
  * It allows starting and stopping updates related to the user interface or recurring tasks.
  */
 public interface RunnableFragment {

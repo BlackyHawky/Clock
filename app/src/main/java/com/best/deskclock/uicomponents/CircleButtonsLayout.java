@@ -45,16 +45,16 @@ public class CircleButtonsLayout extends FrameLayout {
     }
 
     protected void remeasureViews() {
-        View mCircleView = findViewById(R.id.timer_time);
-        View mResetAddButton = findViewById(R.id.reset);
+        View circleView = findViewById(R.id.timer_circle_view);
+        View resetAddButton = findViewById(R.id.reset_button);
 
-        final int frameWidth = mCircleView.getMeasuredWidth();
-        final int frameHeight = mCircleView.getMeasuredHeight();
+        final int frameWidth = circleView.getMeasuredWidth();
+        final int frameHeight = circleView.getMeasuredHeight();
         final int minBound = Math.min(frameWidth, frameHeight);
         final int circleDiam = (int) (minBound - mDiamOffset);
 
-        if (mResetAddButton != null) {
-            final MarginLayoutParams resetParams = (MarginLayoutParams) mResetAddButton.getLayoutParams();
+        if (resetAddButton != null) {
+            final MarginLayoutParams resetParams = (MarginLayoutParams) resetAddButton.getLayoutParams();
             resetParams.bottomMargin = circleDiam / 8;
             if (minBound == frameWidth) {
                 resetParams.bottomMargin += (frameHeight - frameWidth) / 2;

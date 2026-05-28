@@ -45,9 +45,9 @@ public class WidgetSettingsFragment extends ScreenFragment implements Preference
         nullifyPreferenceListeners(mAnalogWidgetCustomizationPref, mDigitalWidgetCustomizationPref, mVerticalWidgetCustomizationPref,
             mNextAlarmWidgetCustomizationPref);
 
-        super.onDestroy();
-
         nullifyAllPrefs();
+
+        super.onDestroy();
     }
 
     @Override

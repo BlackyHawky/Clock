@@ -20,7 +20,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
@@ -31,10 +30,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.best.deskclock.BaseActivity;
 import com.best.deskclock.R;
+import com.best.deskclock.base.BaseActivity;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.databinding.CitiesActivityBinding;
+import com.best.deskclock.databinding.CityListHeaderMainTitleBinding;
 import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
@@ -56,23 +57,22 @@ public final class CitySelectionActivity extends BaseActivity {
 
     private static final String KEY_SEARCH_QUERY = "search_query";
 
+    private CitiesActivityBinding mBinding;
+
     /**
-     * The list of all selected and unselected cities, indexed and possibly filtered.
-     */
-    private ListView mCitiesList;
-    /**
-     * The adapter that presents all of the selected and unselected cities.
+     * The adapter that presents all the selected and unselected cities.
      */
     private CityAdapter mCitiesAdapter;
 
     private SharedPreferences mPrefs;
-    private Toolbar mToolbar;
-    private View mRootView;
+
     public SearchView mSearchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mBinding = CitiesActivityBinding.inflate(getLayoutInflater());
 
         // To manually manage insets
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
@@ -82,12 +82,9 @@ public final class CitySelectionActivity extends BaseActivity {
         mPrefs = getDefaultSharedPreferences(this);
         Typeface typeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(mPrefs));
 
-        setContentView(R.layout.cities_activity);
+        setContentView(mBinding.getRoot());
 
-        mRootView = findViewById(R.id.city_selection_root_view);
-
-        mToolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
+        setSupportActionBar(mBinding.toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
@@ -116,7 +113,9 @@ public final class CitySelectionActivity extends BaseActivity {
             searchPlate.setBackground(null);
         }
 
-        mToolbar.addView(mSearchView);
+        mBinding.toolbar.addView(mSearchView);
+
+        mCitiesAdapter = new CityAdapter(this);
 
         mSearchView.post(() -> mSearchView.clearFocus());
 
@@ -134,17 +133,14 @@ public final class CitySelectionActivity extends BaseActivity {
             }
         });
 
-        mCitiesAdapter = new CityAdapter(this);
+        CityListHeaderMainTitleBinding headerBinding =
+            CityListHeaderMainTitleBinding.inflate(getLayoutInflater(), mBinding.citiesList, false);
+        headerBinding.cityListHeaderMainTitle.setTypeface(typeface);
+        headerBinding.cityListHeaderMainTitle.setOnClickListener(null);
 
-        mCitiesList = findViewById(R.id.cities_list);
-        View headerMainTitleView = getLayoutInflater().inflate(R.layout.city_list_header_main_title, mCitiesList, false);
-        TextView headerMainTitleText = headerMainTitleView.findViewById(R.id.city_list_header_main_title);
-        headerMainTitleText.setTypeface(typeface);
-        headerMainTitleText.setOnClickListener(null);
+        mBinding.citiesList.addHeaderView(headerBinding.getRoot());
 
-        mCitiesList.addHeaderView(headerMainTitleView);
-
-        mCitiesList.setAdapter(mCitiesAdapter);
+        mBinding.citiesList.setAdapter(mCitiesAdapter);
 
         applyWindowInsets();
 
@@ -200,12 +196,21 @@ public final class CitySelectionActivity extends BaseActivity {
         DataModel.getDataModel().setSelectedCities(mCitiesAdapter.getSelectedCities());
     }
 
+    @Override
+    protected void onDestroy() {
+        mSearchView = null;
+
+        mBinding = null;
+
+        super.onDestroy();
+    }
+
     @SuppressLint("AlwaysShowAction")
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.add(Menu.NONE, 0, Menu.NONE, getMenuTitle()).setIcon(R.drawable.ic_sort).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
-        mToolbar.post(() -> ThemeUtils.applyToolbarTooltips(mToolbar));
+        mBinding.toolbar.post(() -> ThemeUtils.applyToolbarTooltips(mBinding.toolbar));
 
         return true;
     }
@@ -232,14 +237,14 @@ public final class CitySelectionActivity extends BaseActivity {
      * accordingly.
      */
     private void applyWindowInsets() {
-        InsetsUtils.doOnApplyWindowInsets(mRootView, (v, insets) -> {
+        InsetsUtils.doOnApplyWindowInsets(mBinding.citySelectionRootView, (v, insets) -> {
             // Get the system bar and notch insets
             Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout());
 
             v.setPadding(bars.left, bars.top, bars.right, 0);
 
             int bottomPadding = (int) dpToPx(10, getResources().getDisplayMetrics());
-            mCitiesList.setPadding(0, 0, 0, bars.bottom + bottomPadding);
+            mBinding.citiesList.setPadding(0, 0, 0, bars.bottom + bottomPadding);
         });
     }
 
@@ -256,8 +261,8 @@ public final class CitySelectionActivity extends BaseActivity {
      */
     private void updateFastScrolling() {
         final boolean enabled = !mCitiesAdapter.isFiltering();
-        mCitiesList.setFastScrollAlwaysVisible(enabled);
-        mCitiesList.setFastScrollEnabled(enabled);
+        mBinding.citiesList.setFastScrollAlwaysVisible(enabled);
+        mBinding.citiesList.setFastScrollEnabled(enabled);
     }
 
 }

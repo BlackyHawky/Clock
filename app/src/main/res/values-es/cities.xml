@@ -28,7 +28,7 @@
     <string name="C22" msgid="6061916756914828881"><xliff:g id="SEPARATOR">=</xliff:g>Maseru<xliff:g id="TIMEZONE">|Africa/Maseru</xliff:g></string>
     <string name="C23" msgid="6790461017899209498"><xliff:g id="SEPARATOR">=</xliff:g>Mogadiscio<xliff:g id="TIMEZONE">|Africa/Mogadishu</xliff:g></string>
     <string name="C24" msgid="836730985302941979"><xliff:g id="SEPARATOR">=</xliff:g>Nairobi<xliff:g id="TIMEZONE">|Africa/Nairobi</xliff:g></string>
-    <string name="C25" msgid="6439936809920816845"><xliff:g id="SEPARATOR">=</xliff:g>São Tomé<xliff:g id="TIMEZONE">|Africa/Sao_Tome</xliff:g></string>
+    <string name="C25" msgid="6439936809920816845"><xliff:g id="SEPARATOR">=</xliff:g>Santo Tomé y Príncipe<xliff:g id="TIMEZONE">|Africa/Sao_Tome</xliff:g></string>
     <string name="C26" msgid="3250092456144685877"><xliff:g id="SEPARATOR">=</xliff:g>Tombuctú<xliff:g id="TIMEZONE">|Africa/Timbuktu</xliff:g></string>
     <string name="C27" msgid="851018621577780718"><xliff:g id="SEPARATOR">=</xliff:g>Trípoli<xliff:g id="TIMEZONE">|Africa/Tripoli</xliff:g></string>
     <string name="C28" msgid="7979767521827885833"><xliff:g id="SEPARATOR">=</xliff:g>Túnez<xliff:g id="TIMEZONE">|Africa/Tunis</xliff:g></string>
@@ -43,7 +43,7 @@
     <string name="C38" msgid="3882347315148425276"><xliff:g id="SEPARATOR">=</xliff:g>Caracas<xliff:g id="TIMEZONE">|America/Caracas</xliff:g></string>
     <string name="C39" msgid="1273212484626323439">G<xliff:g id="separator">=</xliff:g>George Town<xliff:g id="timezone">|America/Cayman</xliff:g></string>
     <string name="C40" msgid="3106173663723475314"><xliff:g id="SEPARATOR">=</xliff:g>Chicago<xliff:g id="TIMEZONE">|America/Chicago</xliff:g></string>
-    <string name="C42" msgid="5638414063615009004"><xliff:g id="SEPARATOR">=</xliff:g>Curasao<xliff:g id="TIMEZONE">|America/Curacao</xliff:g></string>
+    <string name="C42" msgid="5638414063615009004"><xliff:g id="SEPARATOR">=</xliff:g>Curazao<xliff:g id="TIMEZONE">|America/Curacao</xliff:g></string>
     <string name="C43" msgid="6826097241516998181"><xliff:g id="SEPARATOR">=</xliff:g>Dawson Creek<xliff:g id="TIMEZONE">|America/Dawson_Creek</xliff:g></string>
     <string name="C44" msgid="2779334691893631030"><xliff:g id="SEPARATOR">=</xliff:g>Denver<xliff:g id="TIMEZONE">|America/Denver</xliff:g></string>
     <string name="C45" msgid="8943178793317201894"><xliff:g id="SEPARATOR">=</xliff:g>Detroit<xliff:g id="TIMEZONE">|America/Detroit</xliff:g></string>
@@ -60,7 +60,7 @@
     <string name="C56" msgid="6062281725956353553"><xliff:g id="SEPARATOR">=</xliff:g>Indianápolis<xliff:g id="TIMEZONE">|America/Indiana/Indianapolis</xliff:g></string>
     <string name="C57" msgid="5971109906791493563"><xliff:g id="SEPARATOR">=</xliff:g>Knox<xliff:g id="TIMEZONE">|America/Indiana/Knox</xliff:g></string>
     <string name="C58" msgid="7657721717096348613"><xliff:g id="SEPARATOR">=</xliff:g>Marengo<xliff:g id="TIMEZONE">|America/Indiana/Marengo</xliff:g></string>
-    <string name="C59" msgid="2053523400941417307"><xliff:g id="SEPARATOR">=</xliff:g>Petersburg<xliff:g id="TIMEZONE">|America/Indiana/Petersburg</xliff:g></string>
+    <string name="C59" msgid="2053523400941417307">P<xliff:g id="separator">=</xliff:g>Petersburg<xliff:g id="timezone">|America/Indiana/Petersburg</xliff:g></string>
     <string name="C60" msgid="8112283891039465817"><xliff:g id="SEPARATOR">=</xliff:g>Tell City<xliff:g id="TIMEZONE">|America/Indiana/Tell_City</xliff:g></string>
     <string name="C61" msgid="7778713489993559227"><xliff:g id="SEPARATOR">=</xliff:g>Vevay<xliff:g id="TIMEZONE">|America/Indiana/Vevay</xliff:g></string>
     <string name="C62" msgid="2667958702401099683"><xliff:g id="SEPARATOR">=</xliff:g>Vincennes<xliff:g id="TIMEZONE">|America/Indiana/Vincennes</xliff:g></string>
@@ -90,7 +90,7 @@
     <string name="C86">S<xliff:g id="separator">=</xliff:g>Santa Cruz de Tenerife<xliff:g id="timezone">|Atlantic/Canary</xliff:g></string>
     <string name="C87" msgid="2866918562243248306"><xliff:g id="SEPARATOR">=</xliff:g>Santo Domingo<xliff:g id="TIMEZONE">|America/Santo_Domingo</xliff:g></string>
     <string name="C88" msgid="2261702707416420550"><xliff:g id="SEPARATOR">=</xliff:g>São Paulo<xliff:g id="TIMEZONE">|America/Sao_Paulo</xliff:g></string>
-    <string name="C89" msgid="8517952667962700432">S<xliff:g id="separator">=</xliff:g>St. John\'s<xliff:g id="timezone">|America/St_Johns</xliff:g></string>
+    <string name="C89" msgid="8517952667962700432">S<xliff:g id="separator">=</xliff:g>San Juan de Terranova<xliff:g id="timezone">|America/St_Johns</xliff:g></string>
     <string name="C90" msgid="1703939848190669830">I<xliff:g id="SEPARATOR">=</xliff:g>Isla de San Cristóbal<xliff:g id="TIMEZONE">|America/St_Kitts</xliff:g></string>
     <string name="C91" msgid="4438261556294969442"><xliff:g id="SEPARATOR">=</xliff:g>Santa Lucía<xliff:g id="TIMEZONE">|America/St_Lucia</xliff:g></string>
     <string name="C92" msgid="3717300223413621820"><xliff:g id="SEPARATOR">=</xliff:g>Saint Thomas<xliff:g id="TIMEZONE">|America/St_Thomas</xliff:g></string>
@@ -98,7 +98,7 @@
     <string name="C94" msgid="6254783598629305021"><xliff:g id="SEPARATOR">=</xliff:g>Toronto<xliff:g id="TIMEZONE">|America/Toronto</xliff:g></string>
     <string name="C95" msgid="2144206125989179089"><xliff:g id="SEPARATOR">=</xliff:g>Vancouver<xliff:g id="TIMEZONE">|America/Vancouver</xliff:g></string>
     <string name="C96" msgid="3995904432128369027"><xliff:g id="SEPARATOR">=</xliff:g>Winnipeg<xliff:g id="TIMEZONE">|America/Winnipeg</xliff:g></string>
-    <string name="C97" msgid="5667595440938233073">S<xliff:g id="separator">=</xliff:g>South Pole Station<xliff:g id="phonetic">:</xliff:g><xliff:g id="timezone">|Antarctica/South_Pole</xliff:g></string>
+    <string name="C97" msgid="5667595440938233073">S<xliff:g id="separator">=</xliff:g>Base Amundsen-Scott<xliff:g id="phonetic">:</xliff:g><xliff:g id="timezone">|Antarctica/South_Pole</xliff:g></string>
     <string name="C98" msgid="2067640513126652156"><xliff:g id="SEPARATOR">=</xliff:g>Longyearbyen<xliff:g id="TIMEZONE">|Arctic/Longyearbyen</xliff:g></string>
     <string name="C99" msgid="6750041547603679548"><xliff:g id="SEPARATOR">=</xliff:g>Almatý<xliff:g id="TIMEZONE">|Asia/Almaty</xliff:g></string>
     <string name="C100" msgid="5995329947852415813"><xliff:g id="SEPARATOR">=</xliff:g>Amán<xliff:g id="TIMEZONE">|Asia/Amman</xliff:g></string>
@@ -327,7 +327,7 @@
     <string name="C331" msgid="2607492003890117689"><xliff:g id="SEPARATOR">=</xliff:g>Palikir<xliff:g id="TIMEZONE">|Pacific/Noumea</xliff:g></string>
     <string name="C332" msgid="8349533418456323370"><xliff:g id="SEPARATOR">=</xliff:g>Philipsburg<xliff:g id="TIMEZONE">|America/Lower_Princes</xliff:g></string>
     <string name="C333" msgid="2842640664018042568"><xliff:g id="SEPARATOR">=</xliff:g>Podgorica<xliff:g id="TIMEZONE">|Europe/Podgorica</xliff:g></string>
-    <string name="C334" msgid="3310146581437635671"><xliff:g id="SEPARATOR">=</xliff:g>Puerto Moresby<xliff:g id="TIMEZONE">|Pacific/Palau</xliff:g></string>
+    <string name="C334" msgid="3310146581437635671"><xliff:g id="SEPARATOR">=</xliff:g>Puerto Moresby<xliff:g id="TIMEZONE">|Pacific/Port_Moresby</xliff:g></string>
     <string name="C335" msgid="3317158262102352303"><xliff:g id="SEPARATOR">=</xliff:g>Port Vila<xliff:g id="TIMEZONE">|Pacific/Efate</xliff:g></string>
     <string name="C336" msgid="3810072761869903472"><xliff:g id="SEPARATOR">=</xliff:g>Porto Novo<xliff:g id="TIMEZONE">|Africa/Porto-Novo</xliff:g></string>
     <string name="C337" msgid="3412269218104112252"><xliff:g id="SEPARATOR">=</xliff:g>Pristina<xliff:g id="TIMEZONE">|Europe/Belgrade</xliff:g></string>
@@ -340,19 +340,19 @@
     <string name="C344" msgid="7629820826386244509">V<xliff:g id="SEPARATOR">=</xliff:g>Vientián<xliff:g id="TIMEZONE">|Asia/Vientiane</xliff:g></string>
     <string name="C345" msgid="1881198350378158072">W<xliff:g id="SEPARATOR">=</xliff:g>Windhoek<xliff:g id="TIMEZONE">|Africa/Windhoek</xliff:g></string>
     <string name="C346" msgid="2947674392768816097">Y<xliff:g id="SEPARATOR">=</xliff:g>Yaundé<xliff:g id="TIMEZONE">|Africa/Douala</xliff:g></string>
-    <string name="C347" msgid="6291282205599716861">Y<xliff:g id="SEPARATOR">=</xliff:g>Yaren (distrito)<xliff:g id="TIMEZONE">|Pacific/Nauru</xliff:g></string>
+    <string name="C347" msgid="6291282205599716861">Y<xliff:g id="separator">=</xliff:g>Yaren<xliff:g id="timezone">|Pacific/Nauru</xliff:g></string>
     <string name="C348" msgid="8462071023392592539">E<xliff:g id="SEPARATOR">=</xliff:g>Ereván<xliff:g id="TIMEZONE">|Asia/Yerevan</xliff:g></string>
-    <string name="C349">P<xliff:g id="separator">=</xliff:g>Ponta Delgada<xliff:g id="timezone">|Atlantic/Azores</xliff:g></string>
+    <string name="C349">P<xliff:g id="separator">=</xliff:g>Distrito de Ponta Delgada<xliff:g id="timezone">|Atlantic/Azores</xliff:g></string>
     <string name="C350">U<xliff:g id="separator">=</xliff:g>UTC Time<xliff:g id="timezone">|UTC</xliff:g></string>
-    <string name="C351">B<xliff:g id="separator">=</xliff:g>Baker Island<xliff:g id="timezone">|Etc/GMT+12</xliff:g></string>
-    <string name="C352">H<xliff:g id="separator">=</xliff:g>Howland Island<xliff:g id="timezone">|Etc/GMT+12</xliff:g></string>
+    <string name="C351">B<xliff:g id="separator">=</xliff:g>Isla Baker<xliff:g id="timezone">|Etc/GMT+12</xliff:g></string>
+    <string name="C352">H<xliff:g id="separator">=</xliff:g>Isla Howland<xliff:g id="timezone">|Etc/GMT+12</xliff:g></string>
     <string name="C353">A<xliff:g id="separator">=</xliff:g>Alofi<xliff:g id="timezone">|Pacific/Niue</xliff:g></string>
-    <string name="C354">M<xliff:g id="separator">=</xliff:g>Midway Atoll<xliff:g id="timezone">|Pacific/Midway</xliff:g></string>
+    <string name="C354">M<xliff:g id="separator">=</xliff:g>Islas Midway<xliff:g id="timezone">|Pacific/Midway</xliff:g></string>
     <string name="C355">P<xliff:g id="separator">=</xliff:g>Pago Pago<xliff:g id="timezone">|Pacific/Pago_Pago</xliff:g></string>
-    <string name="C356">M<xliff:g id="separator">=</xliff:g>Marquesas Islands<xliff:g id="timezone">|Pacific/Marquesas</xliff:g></string>
+    <string name="C356">M<xliff:g id="separator">=</xliff:g>Islas Marquesas<xliff:g id="timezone">|Pacific/Marquesas</xliff:g></string>
     <string name="C357">F<xliff:g id="separator">=</xliff:g>Fernando de Noronha<xliff:g id="timezone">|America/Noronha</xliff:g></string>
     <string name="C358">N<xliff:g id="separator">=</xliff:g>Nuuk<xliff:g id="timezone">|America/Nuuk</xliff:g></string>
     <string name="C359">E<xliff:g id="separator">=</xliff:g>Eucla<xliff:g id="timezone">|Australia/Eucla</xliff:g></string>
-    <string name="C360">L<xliff:g id="separator">=</xliff:g>Lord Howe Island<xliff:g id="timezone">|Australia/Lord_Howe</xliff:g></string>
-    <string name="C361">C<xliff:g id="separator">=</xliff:g>Chatham Islands<xliff:g id="timezone">|Pacific/Chatham</xliff:g></string>
+    <string name="C360">L<xliff:g id="separator">=</xliff:g>Isla de Lord Howe<xliff:g id="timezone">|Australia/Lord_Howe</xliff:g></string>
+    <string name="C361">C<xliff:g id="separator">=</xliff:g>Isla Chatham<xliff:g id="timezone">|Pacific/Chatham</xliff:g></string>
 </resources>

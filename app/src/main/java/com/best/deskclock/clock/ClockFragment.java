@@ -36,11 +36,12 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.best.deskclock.DeskClockFragment;
 import com.best.deskclock.R;
+import com.best.deskclock.base.DeskClockFragment;
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.databinding.ClockFragmentBinding;
 import com.best.deskclock.dialogfragment.LabelDialogFragment;
 import com.best.deskclock.uicomponents.AnalogClock;
 import com.best.deskclock.uicomponents.AutoSizingTextClock;
@@ -50,6 +51,7 @@ import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.worldclock.CitySelectionActivity;
+import com.google.android.material.appbar.AppBarLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +60,8 @@ import java.util.List;
  * Fragment that shows the clock (analog or digital), the next alarm info and the world clock.
  */
 public final class ClockFragment extends DeskClockFragment {
+
+    private ClockFragmentBinding mBinding;
 
     // Updates dates in the UI on every quarter-hour.
     private final Runnable mQuarterHourUpdater = new QuarterHourRunnable();
@@ -69,11 +73,9 @@ public final class ClockFragment extends DeskClockFragment {
     private SharedPreferences mPrefs;
     private DisplayMetrics mDisplayMetrics;
     private final List<City> mMutableCities = new ArrayList<>();
-    private View mClockFrame;
     private DataModel.ClockStyle mClockStyle;
     private boolean mIsDigitalClock;
     private boolean mShowSeconds;
-    private View mEmptyCityViewRightPanel;
     private SelectedCitiesAdapter mCityAdapter;
     private String mDateFormat;
     private String mDateFormatForAccessibility;
@@ -107,8 +109,7 @@ public final class ClockFragment extends DeskClockFragment {
         mMutableCities.clear();
         mMutableCities.addAll(DataModel.getDataModel().getSelectedCities());
 
-        mCityAdapter = new SelectedCitiesAdapter(
-            mContext, mDateFormat, mDateFormatForAccessibility, mMutableCities, mShowHomeClock, mIsPortrait);
+        mCityAdapter = new SelectedCitiesAdapter(mContext, mMutableCities, mShowHomeClock, mIsPortrait);
         DataModel.getDataModel().addCityListener(mCityAdapter);
 
         mAlarmChangeReceiver = new AlarmChangedBroadcastReceiver();
@@ -116,64 +117,88 @@ public final class ClockFragment extends DeskClockFragment {
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle icicle) {
-        super.onCreateView(inflater, container, icicle);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
 
-        final View fragmentView = inflater.inflate(R.layout.clock_fragment, container, false);
+        mBinding = ClockFragmentBinding.inflate(inflater, container, false);
 
-        // On landscape mode, the clock frame will be a distinct view.
-        // Otherwise, it'll be added on as a header to the main listview.
-        mClockFrame = fragmentView.findViewById(R.id.main_clock_left_panel);
-        if (mClockFrame != null) {
-            AnalogClock analogClock = mClockFrame.findViewById(R.id.analog_clock);
-            AutoSizingTextClock digitalClock = mClockFrame.findViewById(R.id.digital_clock);
+        AnalogClock analogClock = mBinding.mainClockFrame.analogClock;
+        AutoSizingTextClock digitalClock = mBinding.mainClockFrame.digitalClock;
 
-            mClockFrame.setPadding(0, 0, 0, 0);
-            ClockUtils.setClockStyle(mClockStyle, digitalClock, analogClock);
-            if (mIsDigitalClock) {
-                ClockUtils.setDigitalClockFont(digitalClock, SettingsDAO.getDigitalClockFont(mPrefs));
-                ClockUtils.setDigitalClockTimeFormat(digitalClock, 0.4f, mShowSeconds, false, true, false);
-                digitalClock.applyUserPreferredTextSizeSp(SettingsDAO.getDigitalClockFontSize(mPrefs));
-            } else {
-                ClockUtils.adjustAnalogClockSize(analogClock, mPrefs, false, true, false);
-                ClockUtils.setAnalogClockSecondsEnabled(mClockStyle, analogClock, mShowSeconds);
-            }
-            ClockUtils.updateDate(mDateFormat, mDateFormatForAccessibility, mClockFrame);
-            ClockUtils.applyBoldDateTypeface(mClockFrame);
-            ClockUtils.setClockIconTypeface(mClockFrame);
-            AlarmUtils.applyBoldNextAlarmTypeface(mClockFrame);
+        ClockUtils.setClockStyle(mClockStyle, digitalClock, analogClock);
+
+        if (mIsDigitalClock) {
+            ClockUtils.setDigitalClockFont(digitalClock, SettingsDAO.getDigitalClockFont(mPrefs));
+            ClockUtils.setDigitalClockTimeFormat(digitalClock, 0.4f, mShowSeconds, false, true, false);
+            digitalClock.applyUserPreferredTextSizeSp(SettingsDAO.getDigitalClockFontSize(mPrefs));
+        } else {
+            ClockUtils.adjustAnalogClockSize(analogClock, mPrefs, false, true, false);
+            ClockUtils.setAnalogClockSecondsEnabled(mClockStyle, analogClock, mShowSeconds);
         }
 
-        mEmptyCityViewRightPanel = fragmentView.findViewById(R.id.empty_city_view_right_panel);
+        ClockUtils.updateDate(mDateFormat, mDateFormatForAccessibility, mBinding.mainClockFrame.mainClockContainer);
+        ClockUtils.applyBoldDateTypeface(mBinding.mainClockFrame.mainClockContainer);
+        ClockUtils.setClockIconTypeface(mBinding.mainClockFrame.mainClockContainer);
 
-        final RecyclerView cityList = fragmentView.findViewById(R.id.cities);
-        cityList.setAdapter(mCityAdapter);
-        cityList.setLayoutManager(new LinearLayoutManager(mContext));
+        AlarmUtils.applyBoldNextAlarmTypeface(mBinding.mainClockFrame.mainClockContainer);
 
-        // Due to the ViewPager and the location of FAB, set a bottom padding to prevent
-        // the city list from being hidden by the FAB (e.g. when scrolling down).
-        cityList.setPadding(0, 0, 0, (int) dpToPx(mIsTablet && mIsPortrait
-            ? 110
-            : mIsPortrait
-            ? 90
-            : 0, mDisplayMetrics)
-        );
+        mBinding.cityRecyclerView.setAdapter(mCityAdapter);
+        mBinding.cityRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
 
-        cityList.addItemDecoration(new CitySpacingItemDecoration(mContext, mDisplayMetrics, mIsPortrait, mIsTablet));
+        mBinding.cityRecyclerView.addItemDecoration(new CitySpacingItemDecoration(mContext, mDisplayMetrics, mIsPortrait, mIsTablet));
 
-        CityItemTouchHelper callback = new CityItemTouchHelper(mCityAdapter, mIsPortrait, mShowHomeClock);
+        if (mIsPortrait) {
+            mBinding.cityRecyclerView.addOnLayoutChangeListener((v, left, top, right, bottom,
+                                                                 oldLeft, oldTop, oldRight, oldBottom) ->
+                v.post(() -> {
+                    if (mBinding == null || mBinding.clockAppBarLayout == null) {
+                        return;
+                    }
+
+                    ViewGroup.LayoutParams rawParams = mBinding.mainClockFrame.getRoot().getLayoutParams();
+
+                    if (rawParams instanceof AppBarLayout.LayoutParams layoutParams) {
+                        int coordinatorHeight = mBinding.getRoot().getHeight();
+                        int appBarHeight = mBinding.clockAppBarLayout.getHeight();
+                        int stableAvailableHeight = coordinatorHeight - appBarHeight;
+
+                        int totalContentHeight = mBinding.cityRecyclerView.computeVerticalScrollRange();
+
+                        boolean canScroll = totalContentHeight > stableAvailableHeight;
+
+                        int currentFlags = layoutParams.getScrollFlags();
+                        int targetFlags = canScroll ?
+                            (AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL | AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS) : 0;
+
+                        if (currentFlags != targetFlags) {
+                            layoutParams.setScrollFlags(targetFlags);
+                            mBinding.mainClockFrame.getRoot().setLayoutParams(layoutParams);
+
+                            if (!canScroll && mBinding.clockAppBarLayout != null) {
+                                mBinding.clockAppBarLayout.setExpanded(true, true);
+                            }
+                        }
+                    }
+                })
+            );
+        }
+
+        CityItemTouchHelper callback = new CityItemTouchHelper(mCityAdapter, mShowHomeClock);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
 
         if (SettingsDAO.getCitySorting(mPrefs).equals(SORT_CITIES_MANUALLY)) {
-            itemTouchHelper.attachToRecyclerView(cityList);
+            itemTouchHelper.attachToRecyclerView(mBinding.cityRecyclerView);
         } else {
             itemTouchHelper.attachToRecyclerView(null);
         }
 
-        // Schedule a runnable to update the date every quarter hour.
+        // Schedule a runnable to update the date every quarter-hour.
         UiDataModel.getUiDataModel().addQuarterHourCallback(mQuarterHourUpdater, 100);
 
-        return fragmentView;
+        updateEmptyStateVisibility();
+        refreshAlarm();
+
+        return mBinding.getRoot();
     }
 
     @Override
@@ -193,8 +218,8 @@ public final class ClockFragment extends DeskClockFragment {
 
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onStart() {
+        super.onStart();
 
         // Watch for system events that effect clock time or format.
         if (mAlarmChangeReceiver != null) {
@@ -205,26 +230,28 @@ public final class ClockFragment extends DeskClockFragment {
                 mContext.registerReceiver(mAlarmChangeReceiver, filter);
             }
         }
+    }
 
-        refreshAlarm();
+    @Override
+    public void onResume() {
+        super.onResume();
 
-        if (mEmptyCityViewRightPanel != null) {
-            if (!mShowHomeClock && mCityAdapter.getCities().isEmpty()) {
-                mEmptyCityViewRightPanel.setVisibility(VISIBLE);
+        updateEmptyStateVisibility();
 
-                ViewGroup.LayoutParams params = mEmptyCityViewRightPanel.getLayoutParams();
-                int screenHeight = mDisplayMetrics.heightPixels;
-                params.height = (int) (screenHeight / 2f);
-                mEmptyCityViewRightPanel.setLayoutParams(params);
-            } else {
-                mEmptyCityViewRightPanel.setVisibility(GONE);
-            }
+        if (getView() != null) {
+            getView().post(() -> {
+                if (!isAdded()) {
+                    return;
+                }
+
+                refreshAlarm();
+            });
         }
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onStop() {
+        super.onStop();
 
         if (mAlarmChangeReceiver != null) {
             mContext.unregisterReceiver(mAlarmChangeReceiver);
@@ -233,18 +260,18 @@ public final class ClockFragment extends DeskClockFragment {
 
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
-
         UiDataModel.getUiDataModel().removePeriodicCallback(mQuarterHourUpdater);
         DataModel.getDataModel().removeCityListener(mCityAdapter);
 
-        mClockFrame = null;
-        mEmptyCityViewRightPanel = null;
+        mBinding = null;
+
+        super.onDestroyView();
     }
 
     @Override
     public void onFabClick() {
         startActivity(new Intent(mContext, CitySelectionActivity.class));
+
         if (SettingsDAO.isFadeTransitionsEnabled(mPrefs)) {
             if (SdkUtils.isAtLeastAndroid14()) {
                 requireActivity().overrideActivityTransition(OVERRIDE_TRANSITION_OPEN, R.anim.fade_in, R.anim.fade_out);
@@ -283,10 +310,18 @@ public final class ClockFragment extends DeskClockFragment {
      * Refresh the next alarm time.
      */
     private void refreshAlarm() {
-        if (mClockFrame != null) {
-            AlarmUtils.refreshAlarm(mClockFrame, false);
-        } else {
-            mCityAdapter.refreshAlarm();
+        if (mBinding != null) {
+            AlarmUtils.refreshAlarm(mBinding.mainClockFrame.mainClockContainer, false);
+        }
+    }
+
+    private void updateEmptyStateVisibility() {
+        final boolean isEmpty = !mShowHomeClock && mCityAdapter.getCities().isEmpty();
+
+        if (mBinding.citiesEmptyView != null) {
+            mBinding.citiesEmptyView.setVisibility(isEmpty ? VISIBLE : GONE);
+        } else if (mBinding.emptyCityViewRightPanel != null) {
+            mBinding.emptyCityViewRightPanel.setVisibility(isEmpty ? VISIBLE : GONE);
         }
     }
 
@@ -305,14 +340,11 @@ public final class ClockFragment extends DeskClockFragment {
         private final int rightMargin;
         private final int bottomMargin;
         private final int spacing;
-        private final int mainClockCount;
+
         private final boolean mIsRTL;
 
         public CitySpacingItemDecoration(Context context, DisplayMetrics displayMetrics, boolean isPortrait, boolean isTablet) {
             boolean isPhoneInLandscapeMode = !isTablet && !isPortrait;
-
-            // Determine whether the main clock is present (so that margins are not applied to it)
-            this.mainClockCount = isPortrait ? 1 : 0;
 
             this.leftMargin = (int) dpToPx(isPhoneInLandscapeMode ? 0 : 10, displayMetrics);
             this.rightMargin = (int) dpToPx(isPhoneInLandscapeMode ? 90 : 10, displayMetrics);
@@ -332,11 +364,6 @@ public final class ClockFragment extends DeskClockFragment {
                 return;
             }
 
-            // Ignore the main clock
-            if (position < mainClockCount) {
-                return;
-            }
-
             // Side margins
             outRect.left = mIsRTL ? rightMargin : leftMargin;
             outRect.right = mIsRTL ? leftMargin : rightMargin;
@@ -348,8 +375,7 @@ public final class ClockFragment extends DeskClockFragment {
                 outRect.bottom = bottomMargin;
             } else {
                 // Bottom margin if it is a city in the middle of the list
-                int totalCitiesAndHomeClock = itemCount - mainClockCount;
-                outRect.bottom = (totalCitiesAndHomeClock > 1) ? spacing : 0;
+                outRect.bottom = (itemCount > 1) ? spacing : 0;
             }
         }
     }

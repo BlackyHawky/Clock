@@ -43,26 +43,21 @@ import android.os.Vibrator;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.content.res.AppCompatResources;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.WindowCompat;
 
-import com.best.deskclock.BaseActivity;
 import com.best.deskclock.R;
+import com.best.deskclock.base.BaseActivity;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
-import com.best.deskclock.uicomponents.AnalogClock;
-import com.best.deskclock.uicomponents.AutoSizingTextClock;
+import com.best.deskclock.databinding.AlarmActivityBinding;
 import com.best.deskclock.uicomponents.PillView;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.AnimatorUtils;
@@ -71,7 +66,6 @@ import com.best.deskclock.utils.FormattedTextUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
-import com.google.android.material.button.MaterialButton;
 
 import java.io.File;
 
@@ -87,6 +81,8 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
     private static final int ALERT_REVEAL_DURATION_MILLIS = 500;
     private static final int ALERT_DISMISS_DELAY_MILLIS = 2500;
 
+    private AlarmActivityBinding mBinding;
+
     private SharedPreferences mPrefs;
     private Typeface mGeneralBoldTypeface;
     private final Handler mHandler = new Handler(Looper.getMainLooper());
@@ -96,24 +92,8 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
     private int mDefaultSnoozeMinutes;
     private int mSnoozeMinutes;
     private boolean mIsSwipeActionEnabled;
-    private ViewGroup mActionMessageView;
-    private TextView mActionTitle;
-    private TextView mActionDescription;
-    private TextView mRingtoneTitle;
-    private ImageView mRingtoneIcon;
-    private ViewGroup mContentView;
-    private ConstraintLayout mSlideZoneLayout;
-    private PillView mPillView;
-    private MaterialButton mAlarmButton;
-    private MaterialButton mSnoozeButton;
-    private MaterialButton mDismissButton;
-    private TextView mSnoozeActionText;
-    private TextView mDismissActionText;
     private boolean mIsSnoozeSelectorDisplayed;
-    private ConstraintLayout mSnoozeSelectorLayout;
-    private ImageView mSnoozeSelectorPlusButton;
-    private ImageView mSnoozeSelectorMinusButton;
-    private TextView mSnoozeSelectorText;
+
     private String[] mSnoozeSelectorEntries;
     private int[] mSnoozeSelectorValues;
     private int mSnoozeSelectorIndex = 0;
@@ -137,6 +117,8 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        mBinding = AlarmActivityBinding.inflate(getLayoutInflater());
+
         mPrefs = getDefaultSharedPreferences(this);
         mGeneralBoldTypeface = ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(mPrefs));
         mVibrator = getSystemService(Vibrator.class);
@@ -152,7 +134,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
 
         initDefaultSnoozeValue();
 
-        setContentView(R.layout.alarm_activity);
+        setContentView(mBinding.getRoot());
 
         initAlarmBackground();
 
@@ -171,20 +153,6 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
         mShadowOffset = SettingsDAO.getAlarmShadowOffset(mPrefs);
         mShadowRadius = mShadowOffset * 0.5f;
 
-        mContentView = findViewById(R.id.content);
-        mSnoozeButton = mContentView.findViewById(R.id.snooze_button);
-        mDismissButton = mContentView.findViewById(R.id.dismiss_button);
-        mSlideZoneLayout = mContentView.findViewById(R.id.slide_zone_layout);
-        mAlarmButton = mSlideZoneLayout.findViewById(R.id.alarm_button);
-        mSnoozeActionText = mSlideZoneLayout.findViewById(R.id.snooze_text);
-        mDismissActionText = mSlideZoneLayout.findViewById(R.id.dismiss_text);
-        mPillView = mSlideZoneLayout.findViewById(R.id.pill);
-        mSnoozeSelectorLayout = mContentView.findViewById(R.id.snooze_selector_layout);
-
-        mActionMessageView = findViewById(R.id.action_message_view);
-        mActionTitle = mActionMessageView.findViewById(R.id.action_title);
-        mActionDescription = mActionMessageView.findViewById(R.id.action_description);
-
         initAlarmClock();
 
         initAlarmTitle();
@@ -201,7 +169,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
             initSnoozeSelector();
             updateSnoozeText();
         } else {
-            mSnoozeSelectorLayout.setVisibility(GONE);
+            mBinding.snoozeSelectorLayout.setVisibility(GONE);
         }
 
         initRingtoneTitle();
@@ -225,32 +193,39 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
-
         if (mHandler != null) {
             mHandler.removeCallbacksAndMessages(null);
         }
+
+        mTranslationAnimator = null;
+        mVibrator = null;
+
+        mGeneralBoldTypeface = null;
+
+        mBinding = null;
+
+        super.onDestroy();
     }
 
     @Override
     public void onClick(View view) {
         // If alarm swiping is disabled in settings, allow snooze/dismiss by tapping on respective buttons.
         if (!mIsSwipeActionEnabled) {
-            if (view == mSnoozeButton) {
+            if (view == mBinding.snoozeButton) {
                 snooze();
-            } else if (view == mDismissButton) {
+            } else if (view == mBinding.dismissButton) {
                 dismiss();
             }
         }
 
         if (mIsSnoozeSelectorDisplayed) {
-            if (view == mSnoozeSelectorPlusButton) {
+            if (view == mBinding.snoozeSelectorPlus) {
                 if (mSnoozeSelectorIndex < mSnoozeSelectorEntries.length - 1) {
                     mSnoozeSelectorIndex++;
                     updateSnoozeText();
                     updateSnoozeButtonsState();
                 }
-            } else if (view == mSnoozeSelectorMinusButton) {
+            } else if (view == mBinding.snoozeSelectorMinus) {
                 if (mSnoozeSelectorIndex > 0) {
                     mSnoozeSelectorIndex--;
                     updateSnoozeText();
@@ -277,7 +252,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
             }
 
             final int[] contentLocation = {0, 0};
-            mContentView.getLocationOnScreen(contentLocation);
+            mBinding.contentView.getLocationOnScreen(contentLocation);
 
             mInitialTouchX = event.getRawX() - contentLocation[0];
         } else if (action == MotionEvent.ACTION_CANCEL) {
@@ -296,16 +271,16 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
         }
 
         final int[] contentLocation = {0, 0};
-        mContentView.getLocationOnScreen(contentLocation);
+        mBinding.contentView.getLocationOnScreen(contentLocation);
 
         final float x = event.getRawX() - contentLocation[0];
 
         float deltaX = x - mInitialTouchX;
 
         // Limit movement within the parent
-        float maxDeltaX = (getAvailableSlideZoneWidth() - mAlarmButton.getWidth()) / 2f;
+        float maxDeltaX = (getAvailableSlideZoneWidth() - mBinding.alarmButton.getWidth()) / 2f;
         deltaX = Math.max(-maxDeltaX, Math.min(deltaX, maxDeltaX));
-        mAlarmButton.setTranslationX(deltaX);
+        mBinding.alarmButton.setTranslationX(deltaX);
 
         if (Math.abs(deltaX) >= maxDeltaX) {
             if (mTranslationAnimator != null && (mTranslationAnimator.isRunning() || mTranslationAnimator.isStarted())) {
@@ -318,7 +293,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
         if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_POINTER_UP) {
             mInitialPointerIndex = MotionEvent.INVALID_POINTER_ID;
 
-            if (mContentView.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
+            if (mBinding.contentView.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
                 if (deltaX <= -maxDeltaX) {
                     dismiss(); // Left = Dismiss in RTL
                 } else if (deltaX >= maxDeltaX) {
@@ -354,24 +329,23 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
         int alarmBackgroundColor = isAmoledMode
             ? SettingsDAO.getAlarmBackgroundAmoledColor(mPrefs)
             : SettingsDAO.getAlarmBackgroundColor(mPrefs);
-        final ImageView alarmBackgroundImage = findViewById(R.id.alarm_background_image);
         final String imagePath = SettingsDAO.getAlarmBackgroundImage(mPrefs);
 
         // Apply a background image and a blur effect.
         if (imagePath != null) {
-            alarmBackgroundImage.setVisibility(View.VISIBLE);
+            mBinding.alarmBackgroundImage.setVisibility(View.VISIBLE);
 
             File imageFile = new File(imagePath);
             if (imageFile.exists()) {
                 Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
                 if (bitmap != null) {
-                    alarmBackgroundImage.setImageBitmap(bitmap);
-                    alarmBackgroundImage.setColorFilter(alarmBackgroundColor);
+                    mBinding.alarmBackgroundImage.setImageBitmap(bitmap);
+                    mBinding.alarmBackgroundImage.setColorFilter(alarmBackgroundColor);
 
                     if (SdkUtils.isAtLeastAndroid12() && SettingsDAO.isAlarmBlurEffectEnabled(mPrefs)) {
                         float intensity = SettingsDAO.getAlarmBlurIntensity(mPrefs);
                         RenderEffect blur = RenderEffect.createBlurEffect(intensity, intensity, Shader.TileMode.CLAMP);
-                        alarmBackgroundImage.setRenderEffect(blur);
+                        mBinding.alarmBackgroundImage.setRenderEffect(blur);
                     }
                 } else {
                     LogUtils.e("Bitmap null for path: " + imagePath);
@@ -390,28 +364,26 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
      * Initializes the digital or analog clock.
      */
     private void initAlarmClock() {
-        final AnalogClock analogClock = findViewById(R.id.analog_clock);
-        final AutoSizingTextClock digitalClock = mContentView.findViewById(R.id.digital_clock);
         final DataModel.ClockStyle alarmClockStyle = SettingsDAO.getAlarmClockStyle(mPrefs);
         final boolean isAlarmSecondHandDisplayed = SettingsDAO.isAlarmSecondHandDisplayed(mPrefs);
         int alarmClockColor = SettingsDAO.getAlarmClockColor(mPrefs);
         float alarmDigitalClockFontSize = SettingsDAO.getAlarmDigitalClockFontSize(mPrefs);
 
-        ClockUtils.setClockStyle(alarmClockStyle, digitalClock, analogClock);
+        ClockUtils.setClockStyle(alarmClockStyle, mBinding.digitalClock, mBinding.analogClock);
 
         if (alarmClockStyle == DataModel.ClockStyle.DIGITAL) {
-            ClockUtils.setDigitalClockFont(digitalClock, SettingsDAO.getAlarmFont(mPrefs));
-            ClockUtils.setDigitalClockTimeFormat(digitalClock, 0.4f, false, true, false, false);
-            digitalClock.applyUserPreferredTextSizeSp(alarmDigitalClockFontSize);
-            digitalClock.setTextColor(alarmClockColor);
+            ClockUtils.setDigitalClockFont(mBinding.digitalClock, SettingsDAO.getAlarmFont(mPrefs));
+            ClockUtils.setDigitalClockTimeFormat(mBinding.digitalClock, 0.4f, false, true, false, false);
+            mBinding.digitalClock.applyUserPreferredTextSizeSp(alarmDigitalClockFontSize);
+            mBinding.digitalClock.setTextColor(alarmClockColor);
 
             // Display a shadow if enabled in the settings
             if (mIsTextShadowDisplayed) {
-                digitalClock.setShadowLayer(mShadowRadius, mShadowOffset, mShadowOffset, mShadowColor);
+                mBinding.digitalClock.setShadowLayer(mShadowRadius, mShadowOffset, mShadowOffset, mShadowColor);
             }
         } else {
-            ClockUtils.adjustAnalogClockSize(analogClock, mPrefs, true, false, false);
-            ClockUtils.setAnalogClockSecondsEnabled(alarmClockStyle, analogClock, isAlarmSecondHandDisplayed);
+            ClockUtils.adjustAnalogClockSize(mBinding.analogClock, mPrefs, true, false, false);
+            ClockUtils.setAnalogClockSecondsEnabled(alarmClockStyle, mBinding.analogClock, isAlarmSecondHandDisplayed);
         }
     }
 
@@ -419,17 +391,16 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
      * Initializes the alarm title.
      */
     private void initAlarmTitle() {
-        final TextView titleView = mContentView.findViewById(R.id.alarm_title);
-        titleView.setText(R.string.app_label);
-        titleView.setTypeface(mGeneralBoldTypeface);
-        titleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
-        titleView.setTextColor(mAlarmTitleColor);
+        mBinding.alarmTitle.setText(R.string.app_label);
+        mBinding.alarmTitle.setTypeface(mGeneralBoldTypeface);
+        mBinding.alarmTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
+        mBinding.alarmTitle.setTextColor(mAlarmTitleColor);
         // Allow text scrolling (all other attributes are indicated in the "alarm_activity.xml" file)
-        titleView.setSelected(true);
+        mBinding.alarmTitle.setSelected(true);
 
         // Display a shadow if enabled in the settings
         if (mIsTextShadowDisplayed) {
-            titleView.setShadowLayer(mShadowRadius, mShadowOffset, mShadowOffset, mShadowColor);
+            mBinding.alarmTitle.setShadowLayer(mShadowRadius, mShadowOffset, mShadowOffset, mShadowColor);
         }
     }
 
@@ -437,9 +408,9 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
      * Initializes the slide mode.
      */
     private void initSlideModeUI() {
-        mSlideZoneLayout.setVisibility(VISIBLE);
-        mSnoozeButton.setVisibility(GONE);
-        mDismissButton.setVisibility(GONE);
+        mBinding.slideZoneLayout.setVisibility(VISIBLE);
+        mBinding.snoozeButton.setVisibility(GONE);
+        mBinding.dismissButton.setVisibility(GONE);
 
         initSlideColors();
         initSlideTexts();
@@ -457,71 +428,74 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
             DrawableCompat.setTint(background, slideZoneColor);
         }
 
-        mSlideZoneLayout.setBackground(background);
-        mAlarmButton.setBackgroundColor(mAlarmButtonColor);
+        mBinding.slideZoneLayout.setBackground(background);
+        mBinding.alarmButton.setBackgroundColor(mAlarmButtonColor);
     }
 
     /**
      * Initializes the slide mode texts.
      */
     private void initSlideTexts() {
-        mAlarmButton.setContentDescription(getString(R.string.description_direction_both));
+        mBinding.alarmButton.setContentDescription(getString(R.string.description_direction_both));
 
-        mSnoozeActionText.setTypeface(mGeneralBoldTypeface);
-        mSnoozeActionText.setTextColor(SettingsDAO.getSnoozeTitleColor(mPrefs));
-        mSnoozeActionText.setText(getString(R.string.button_action_snooze));
+        mBinding.snoozeText.setTypeface(mGeneralBoldTypeface);
+        mBinding.snoozeText.setTextColor(SettingsDAO.getSnoozeTitleColor(mPrefs));
+        mBinding.snoozeText.setText(getString(R.string.button_action_snooze));
 
-        mDismissActionText.setTypeface(mGeneralBoldTypeface);
-        mDismissActionText.setTextColor(SettingsDAO.getDismissTitleColor(mPrefs));
-        mDismissActionText.setText(getString(R.string.button_action_dismiss));
+        mBinding.dismissText.setTypeface(mGeneralBoldTypeface);
+        mBinding.dismissText.setTextColor(SettingsDAO.getDismissTitleColor(mPrefs));
+        mBinding.dismissText.setText(getString(R.string.button_action_dismiss));
     }
 
     /**
      * Initializes the slide mode animations.
      */
     private void initSlideAnimations() {
-        mAlarmButton.setOnTouchListener(this);
+        mBinding.alarmButton.setOnTouchListener(this);
 
-        mPillView.setFillColor(ColorUtils.setAlphaComponent(mAlarmButtonColor, 128));
+        mBinding.pill.setFillColor(ColorUtils.setAlphaComponent(mAlarmButtonColor, 128));
 
-        mPillView.post(() -> {
-            mPillView.setPillHeight(mAlarmButton.getHeight() - mAlarmButton.getInsetTop() - mAlarmButton.getInsetBottom());
+        mBinding.pill.post(() -> {
+            mBinding.pill.setPillHeight(mBinding.alarmButton.getHeight()
+                - mBinding.alarmButton.getInsetTop()
+                - mBinding.alarmButton.getInsetBottom()
+            );
             final float pillStretchWidth = getAvailableSlideZoneWidth() / 2f;
-            final int originalFillColor = mPillView.getFillColor();
+            final int originalFillColor = mBinding.pill.getFillColor();
 
             // Move to left
             AnimatorSet toLeftAnimator = new AnimatorSet();
-            toLeftAnimator.playTogether(translationAnimator(mPillView, pillStretchWidth,
-                mPillView.getPillCenterX() - pillStretchWidth / 2), alphaAnimator(mPillView, originalFillColor)
+            toLeftAnimator.playTogether(translationAnimator(mBinding.pill, pillStretchWidth,
+                mBinding.pill.getPillCenterX() - pillStretchWidth / 2), alphaAnimator(mBinding.pill, originalFillColor)
             );
             toLeftAnimator.setStartDelay(TRANSLATION_DURATION_START_DELAY);
             toLeftAnimator.setDuration(TRANSLATION_DURATION_MILLIS);
 
             // Apply alpha
-            Animator alphaLeft = alphaAnimator(mPillView, ColorUtils.setAlphaComponent(originalFillColor, 0));
+            Animator alphaLeft = alphaAnimator(mBinding.pill, ColorUtils.setAlphaComponent(originalFillColor, 0));
             alphaLeft.setDuration(ALPHA_DURATION_MILLIS);
 
             // Reset position and alpha
             AnimatorSet resetAndRestoreLeft = new AnimatorSet();
-            resetAndRestoreLeft.playTogether(translationAnimator(mPillView, 0, mPillView.getPillCenterX()),
-                alphaAnimator(mPillView, originalFillColor)
+            resetAndRestoreLeft.playTogether(translationAnimator(mBinding.pill, 0, mBinding.pill.getPillCenterX()),
+                alphaAnimator(mBinding.pill, originalFillColor)
             );
             resetAndRestoreLeft.setDuration(0);
 
             // Move to right
-            Animator toRightAnimator = translationAnimator(mPillView, pillStretchWidth,
-                mPillView.getPillCenterX() + pillStretchWidth / 2);
+            Animator toRightAnimator = translationAnimator(mBinding.pill, pillStretchWidth,
+                mBinding.pill.getPillCenterX() + pillStretchWidth / 2);
             toRightAnimator.setStartDelay(TRANSLATION_DURATION_DELAY);
             toRightAnimator.setDuration(TRANSLATION_DURATION_MILLIS);
 
             // Apply alpha
-            Animator alphaRight = alphaAnimator(mPillView, ColorUtils.setAlphaComponent(originalFillColor, 0));
+            Animator alphaRight = alphaAnimator(mBinding.pill, ColorUtils.setAlphaComponent(originalFillColor, 0));
             alphaRight.setDuration(ALPHA_DURATION_MILLIS);
 
             // Reset position and alpha
             AnimatorSet resetAndRestoreRight = new AnimatorSet();
-            resetAndRestoreRight.playTogether(translationAnimator(mPillView, 0, mPillView.getPillCenterX()),
-                alphaAnimator(mPillView, originalFillColor)
+            resetAndRestoreRight.playTogether(translationAnimator(mBinding.pill, 0, mBinding.pill.getPillCenterX()),
+                alphaAnimator(mBinding.pill, originalFillColor)
             );
             resetAndRestoreRight.setDuration(0);
 
@@ -537,7 +511,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
 
                 @Override
                 public void onAnimationCancel(Animator animation) {
-                    mPillView.setFillColor(Color.TRANSPARENT);
+                    mBinding.pill.setFillColor(Color.TRANSPARENT);
 
                     wasCancelled = true;
                 }
@@ -561,7 +535,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
      * Initializes the button mode.
      */
     private void initButtonModeUI() {
-        mSlideZoneLayout.setVisibility(GONE);
+        mBinding.slideZoneLayout.setVisibility(GONE);
 
         initSnoozeAndDismissButtons();
     }
@@ -570,41 +544,36 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
      * Initializes the "Dismiss only" button.
      */
     private void initDismissOnlyButton() {
-        final MaterialButton dismissOnlyButton = mContentView.findViewById(R.id.dismiss_only_button);
-        dismissOnlyButton.setVisibility(GONE);
+        mBinding.dismissOnlyButton.setVisibility(GONE);
     }
 
     /**
      * Initializes the "Snooze" and "Dismiss" buttons.
      */
     private void initSnoozeAndDismissButtons() {
-        mSnoozeButton.setBackgroundColor(SettingsDAO.getSnoozeButtonColor(mPrefs, this));
-        mSnoozeButton.setText(getString(R.string.button_action_snooze));
-        mSnoozeButton.setTypeface(mGeneralBoldTypeface);
-        mSnoozeButton.setContentDescription(getString(R.string.description_snooze_button));
-        mSnoozeButton.setVisibility(VISIBLE);
-        mSnoozeButton.setOnClickListener(this);
+        mBinding.snoozeButton.setBackgroundColor(SettingsDAO.getSnoozeButtonColor(mPrefs, this));
+        mBinding.snoozeButton.setText(getString(R.string.button_action_snooze));
+        mBinding.snoozeButton.setTypeface(mGeneralBoldTypeface);
+        mBinding.snoozeButton.setContentDescription(getString(R.string.description_snooze_button));
+        mBinding.snoozeButton.setVisibility(VISIBLE);
+        mBinding.snoozeButton.setOnClickListener(this);
 
-        mDismissButton.setBackgroundColor(SettingsDAO.getDismissButtonColor(mPrefs, this));
-        mDismissButton.setText(getString(R.string.button_action_dismiss));
-        mDismissButton.setTypeface(mGeneralBoldTypeface);
-        mDismissButton.setContentDescription(getString(R.string.description_dismiss_button));
-        mDismissButton.setVisibility(VISIBLE);
-        mDismissButton.setOnClickListener(this);
+        mBinding.dismissButton.setBackgroundColor(SettingsDAO.getDismissButtonColor(mPrefs, this));
+        mBinding.dismissButton.setText(getString(R.string.button_action_dismiss));
+        mBinding.dismissButton.setTypeface(mGeneralBoldTypeface);
+        mBinding.dismissButton.setContentDescription(getString(R.string.description_dismiss_button));
+        mBinding.dismissButton.setVisibility(VISIBLE);
+        mBinding.dismissButton.setOnClickListener(this);
 
         // Allow text scrolling (all other attributes are indicated in the "alarm_activity.xml" file)
-        mSnoozeButton.setSelected(true);
-        mDismissButton.setSelected(true);
+        mBinding.snoozeButton.setSelected(true);
+        mBinding.dismissButton.setSelected(true);
     }
 
     /**
      * Initializes the snooze selector.
      */
     private void initSnoozeSelector() {
-        mSnoozeSelectorPlusButton = mSnoozeSelectorLayout.findViewById(R.id.snooze_selector_plus);
-        mSnoozeSelectorMinusButton = mSnoozeSelectorLayout.findViewById(R.id.snooze_selector_minus);
-        mSnoozeSelectorText = mSnoozeSelectorLayout.findViewById(R.id.snooze_selector_text);
-
         mSnoozeSelectorValues = getResources().getIntArray(R.array.alarm_snooze_selector_values);
         mSnoozeSelectorEntries = new String[mSnoozeSelectorValues.length];
 
@@ -623,7 +592,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
         initSnoozeSelectorStyle();
         initSnoozeSelectorListeners();
         updateSnoozeButtonsState();
-        mSnoozeSelectorLayout.setVisibility(VISIBLE);
+        mBinding.snoozeSelectorLayout.setVisibility(VISIBLE);
     }
 
     /**
@@ -633,13 +602,13 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
         int snoozeZoneColor = SettingsDAO.getSnoozeZoneColor(mPrefs);
         int snoozeTextColor = SettingsDAO.getSnoozeSelectorTextColor(mPrefs);
 
-        mSnoozeSelectorText.setBackground(ThemeUtils.pillRippleDrawable(this, snoozeZoneColor));
-        mSnoozeSelectorText.setTypeface(mGeneralBoldTypeface);
-        mSnoozeSelectorText.setTextColor(snoozeTextColor);
+        mBinding.snoozeSelectorText.setBackground(ThemeUtils.pillRippleDrawable(this, snoozeZoneColor));
+        mBinding.snoozeSelectorText.setTypeface(mGeneralBoldTypeface);
+        mBinding.snoozeSelectorText.setTextColor(snoozeTextColor);
 
-        styleSnoozeButton(mSnoozeSelectorMinusButton, mSnoozeMinusButtonColor, mSnoozeMinusSymbolColor, true);
+        styleSnoozeButton(mBinding.snoozeSelectorMinus, mSnoozeMinusButtonColor, mSnoozeMinusSymbolColor, true);
 
-        styleSnoozeButton(mSnoozeSelectorPlusButton, mSnoozePlusButtonColor, mSnoozePlusSymbolColor, true);
+        styleSnoozeButton(mBinding.snoozeSelectorPlus, mSnoozePlusButtonColor, mSnoozePlusSymbolColor, true);
     }
 
     /**
@@ -647,27 +616,25 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
      * is long-pressed.
      */
     private void initSnoozeSelectorListeners() {
-        mSnoozeSelectorText.setOnLongClickListener(v -> {
+        mBinding.snoozeSelectorText.setOnLongClickListener(v -> {
             snooze();
             return true;
         });
 
-        mSnoozeSelectorMinusButton.setOnClickListener(this);
-        mSnoozeSelectorPlusButton.setOnClickListener(this);
+        mBinding.snoozeSelectorMinus.setOnClickListener(this);
+        mBinding.snoozeSelectorPlus.setOnClickListener(this);
     }
 
     /**
      * Initializes the ringtone title.
      */
     private void initRingtoneTitle() {
-        LinearLayout ringtoneLayout = mContentView.findViewById(R.id.ringtone_layout);
         if (SettingsDAO.isRingtoneTitleDisplayed(mPrefs)) {
-            ringtoneLayout.setVisibility(VISIBLE);
-            mRingtoneTitle = mContentView.findViewById(R.id.ringtone_title);
-            mRingtoneIcon = mContentView.findViewById(R.id.ringtone_icon);
+            mBinding.ringtoneLayout.setVisibility(VISIBLE);
+
             displayRingtoneTitle();
         } else {
-            ringtoneLayout.setVisibility(GONE);
+            mBinding.ringtoneLayout.setVisibility(GONE);
         }
     }
 
@@ -678,9 +645,9 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
         boolean minusEnabled = mSnoozeSelectorIndex > 0;
         boolean plusEnabled = mSnoozeSelectorIndex < mSnoozeSelectorEntries.length - 1;
 
-        styleSnoozeButton(mSnoozeSelectorMinusButton, mSnoozeMinusButtonColor, mSnoozeMinusSymbolColor, minusEnabled);
+        styleSnoozeButton(mBinding.snoozeSelectorMinus, mSnoozeMinusButtonColor, mSnoozeMinusSymbolColor, minusEnabled);
 
-        styleSnoozeButton(mSnoozeSelectorPlusButton, mSnoozePlusButtonColor, mSnoozePlusSymbolColor, plusEnabled);
+        styleSnoozeButton(mBinding.snoozeSelectorPlus, mSnoozePlusButtonColor, mSnoozePlusSymbolColor, plusEnabled);
     }
 
     /**
@@ -731,7 +698,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
             return;
         }
 
-        mSnoozeSelectorText.setText(mSnoozeSelectorEntries[mSnoozeSelectorIndex]);
+        mBinding.snoozeSelectorText.setText(mSnoozeSelectorEntries[mSnoozeSelectorIndex]);
     }
 
     /**
@@ -739,7 +706,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
      * excluding the left and right paddings of the layout.
      */
     private float getAvailableSlideZoneWidth() {
-        return mSlideZoneLayout.getWidth() - mSlideZoneLayout.getPaddingStart() - mSlideZoneLayout.getPaddingEnd();
+        return mBinding.slideZoneLayout.getWidth() - mBinding.slideZoneLayout.getPaddingStart() - mBinding.slideZoneLayout.getPaddingEnd();
     }
 
     /**
@@ -763,18 +730,18 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
      * Apply transparency to "Snooze" and "Dismiss" texts based on movement direction.
      */
     private void updateTextAlpha(float deltaX) {
-        final View parentView = (View) mAlarmButton.getParent();
+        final View parentView = (View) mBinding.alarmButton.getParent();
         int parentPaddingHorizontal = parentView.getPaddingStart() + parentView.getPaddingLeft();
         int parentWidth = parentView.getWidth() - (parentPaddingHorizontal);
-        float maxDeltaX = parentWidth - mAlarmButton.getWidth();
+        float maxDeltaX = parentWidth - mBinding.alarmButton.getWidth();
         maxDeltaX /= 2f; // since the displacement is centered
 
         float threshold = TEXT_FADE_START_THRESHOLD * maxDeltaX;
         float absDeltaX = Math.abs(deltaX);
 
         if (absDeltaX <= threshold) {
-            mSnoozeActionText.setAlpha(1.0f);
-            mDismissActionText.setAlpha(1.0f);
+            mBinding.snoozeText.setAlpha(1.0f);
+            mBinding.dismissText.setAlpha(1.0f);
             return;
         }
 
@@ -782,16 +749,16 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
         fadeFraction = Math.min(fadeFraction, 1.0f);
         float alpha = 1.0f - fadeFraction;
 
-        boolean isRTL = mContentView.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
+        boolean isRTL = mBinding.contentView.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
 
         if ((deltaX > 0 && !isRTL) || (deltaX < 0 && isRTL)) {
             // Swipe right (Dismiss right side in LTR, left in RTL)
-            mDismissActionText.setAlpha(alpha);
-            mSnoozeActionText.setAlpha(1.0f);
+            mBinding.dismissText.setAlpha(alpha);
+            mBinding.snoozeText.setAlpha(1.0f);
         } else {
             // Swipe left (Snooze left in LTR, right in RTL)
-            mSnoozeActionText.setAlpha(alpha);
-            mDismissActionText.setAlpha(1.0f);
+            mBinding.snoozeText.setAlpha(alpha);
+            mBinding.dismissText.setAlpha(1.0f);
         }
     }
 
@@ -799,10 +766,10 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
      * Set animators to initial values, reset text transparency and restart translation on pill view.
      */
     private void resetAnimations() {
-        mSnoozeActionText.setAlpha(1.0f);
-        mDismissActionText.setAlpha(1.0f);
+        mBinding.snoozeText.setAlpha(1.0f);
+        mBinding.dismissText.setAlpha(1.0f);
 
-        mAlarmButton.animate()
+        mBinding.alarmButton.animate()
             .translationX(0)
             .setDuration(200)
             .start();
@@ -895,19 +862,19 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
                 finalCanvas.drawBitmap(iconBitmap, 0, 0, null);
 
                 // Apply the result to the ImageView
-                mRingtoneIcon.setImageBitmap(finalBitmap);
+                mBinding.ringtoneIcon.setImageBitmap(finalBitmap);
 
-                mRingtoneTitle.setShadowLayer(mShadowRadius, mShadowOffset, mShadowOffset, mShadowColor);
+                mBinding.ringtoneTitle.setShadowLayer(mShadowRadius, mShadowOffset, mShadowOffset, mShadowColor);
             } else {
-                mRingtoneIcon.setImageDrawable(musicIcon);
+                mBinding.ringtoneIcon.setImageDrawable(musicIcon);
             }
         }
 
-        mRingtoneTitle.setText(ringtone.getTitle(this));
-        mRingtoneTitle.setTypeface(mGeneralBoldTypeface);
-        mRingtoneTitle.setTextColor(ringtoneTitleColor);
+        mBinding.ringtoneTitle.setText(ringtone.getTitle(this));
+        mBinding.ringtoneTitle.setTypeface(mGeneralBoldTypeface);
+        mBinding.ringtoneTitle.setTextColor(ringtoneTitleColor);
         // Allow text scrolling (all other attributes are indicated in the "alarm_activity.xml" file)
-        mRingtoneTitle.setSelected(true);
+        mBinding.ringtoneTitle.setSelected(true);
     }
 
     /**
@@ -919,25 +886,25 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
             return;
         }
 
-        mContentView.setVisibility(GONE);
+        mBinding.contentView.setVisibility(GONE);
 
-        mActionMessageView.setVisibility(VISIBLE);
+        mBinding.actionMessageView.setVisibility(VISIBLE);
 
-        mActionTitle.setText(titleResId);
-        mActionTitle.setTypeface(mGeneralBoldTypeface);
-        mActionTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
-        mActionTitle.setTextColor(mAlarmTitleColor);
+        mBinding.actionTitle.setText(titleResId);
+        mBinding.actionTitle.setTypeface(mGeneralBoldTypeface);
+        mBinding.actionTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
+        mBinding.actionTitle.setTextColor(mAlarmTitleColor);
 
         if (descriptionText != null) {
-            mActionDescription.setVisibility(VISIBLE);
-            mActionDescription.setText(descriptionText);
-            mActionDescription.setTypeface(mGeneralBoldTypeface);
-            mActionDescription.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
-            mActionDescription.setTextColor(mAlarmTitleColor);
+            mBinding.actionDescription.setVisibility(VISIBLE);
+            mBinding.actionDescription.setText(descriptionText);
+            mBinding.actionDescription.setTypeface(mGeneralBoldTypeface);
+            mBinding.actionDescription.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
+            mBinding.actionDescription.setTextColor(mAlarmTitleColor);
         }
 
-        mActionMessageView.setAlpha(0f);
-        mActionMessageView.animate()
+        mBinding.actionMessageView.setAlpha(0f);
+        mBinding.actionMessageView.animate()
             .alpha(1f)
             .setDuration(ALERT_REVEAL_DURATION_MILLIS)
             .withEndAction(() -> mHandler.postDelayed(this::finishActivity, ALERT_DISMISS_DELAY_MILLIS))

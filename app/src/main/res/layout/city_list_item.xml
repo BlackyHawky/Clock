@@ -14,7 +14,7 @@
     android:orientation="horizontal">
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/index"
+        android:id="@+id/city_index"
         android:layout_width="50dp"
         android:layout_height="match_parent"
         android:gravity="center"
@@ -23,7 +23,7 @@
         tools:textStyle="bold" />
 
     <com.google.android.material.checkbox.MaterialCheckBox
-        android:id="@+id/city_onoff"
+        android:id="@+id/city_on_off_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:button="@drawable/ic_selector_checkbox"

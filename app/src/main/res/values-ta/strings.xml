@@ -440,7 +440,7 @@
     <string name="gnu_gpl">குனு பொது பொதுமக்கள் உரிமம் v3.0</string>
     <string name="reset_settings_title">அமைப்புகளை மீட்டமைக்கவும்</string>
     <string name="reset_settings_message">எல்லா ஆப்ச் அமைப்புகளையும் மீட்டமைக்க விரும்புகிறீர்களா?</string>
-    <string name="toast_message_for_reset">மீட்டமைப்பு முடிந்தது</string>
+    <string name="restart_app_dialog_title_for_reset">மீட்டமைப்பு முடிந்தது</string>
     <string name="dialog_close">மூடு</string>
     <string name="alarm_settings_summary">நடை, இயல்புநிலை ரிங்டோன், வால்யூம், அலாரங்களை நிராகரிப்பதற்கான அல்லது உறக்கநிலையில் வைக்கும் செயல்கள், வாரத்தின் முதல் நாள் மற்றும் நினைவூட்டல் அறிவிப்பு நேரத்தை அமைக்கவும்</string>
     <string name="description_direction_both_for_occasional_alarm">உறக்கநிலையில் வைக்க இடதுபுறம் அல்லது அலாரத்தை நிராகரிக்க மற்றும் நீக்க வலதுபுறமாக ச்வைப் செய்யவும்</string>
@@ -576,7 +576,7 @@
     <string name="backup_button_title">காப்புப்பிரதி</string>
     <string name="restore_button_title">மீட்டெடு</string>
     <string name="toast_message_for_backup">காப்புப்பிரதி முடிந்தது</string>
-    <string name="toast_message_for_restore">மீட்டெடுப்பு முடிந்தது</string>
+    <string name="restart_app_dialog_title_for_restore">மீட்டெடுப்பு முடிந்தது</string>
     <string name="label_new_font">புதிய எழுத்துரு</string>
     <string name="custom_font_title">தனிப்பயன் எழுத்துருவைத் தேர்ந்தெடுக்கவும்</string>
     <string name="custom_font_title_variant">தனிப்பயன் எழுத்துருவைத் தேர்ந்தெடுக்கவும் அல்லது நீக்கவும்</string>

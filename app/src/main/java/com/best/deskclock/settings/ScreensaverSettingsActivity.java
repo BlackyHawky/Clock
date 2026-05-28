@@ -20,8 +20,8 @@ import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
-import com.best.deskclock.AppExecutors;
 import com.best.deskclock.R;
+import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.events.Events;
@@ -250,6 +250,18 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
         }
 
         @Override
+        public void onResume() {
+            super.onResume();
+
+            restoreCustomFileDialogIfNeeded(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT, mDigitalClockFontPref, fontPickerLauncher, null);
+
+            restoreCustomFileDialogIfNeeded(KEY_SCREENSAVER_BACKGROUND_IMAGE, mScreensaverBackgroundImagePref, imagePickerLauncher, () -> {
+                mEnableScreensaverBlurEffectPref.setVisible(false);
+                mScreensaverBlurIntensityPref.setVisible(false);
+            });
+        }
+
+        @Override
         public void onDestroy() {
             nullifyPreferenceListeners(mClockColorPref, mBatteryColorPref, mDateColorPref, mNextAlarmColorPref, mClockStylePref,
                 mClockDialPref, mClockDialMaterialPref, mClockSecondHandPref, mDisplaySecondsPref, mDisplayBatteryPref,
@@ -258,9 +270,9 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                 mItalicNextAlarmPref, mAnalogClockSizePref, mDigitalClockFontPref, mKeepScreenOnPref, mScreensaverBackgroundImagePref,
                 mEnableScreensaverBlurEffectPref, mScreensaverBlurIntensityPref, mScreensaverPreview, mScreensaverMainSettings);
 
-            super.onDestroy();
-
             nullifyAllPrefs();
+
+            super.onDestroy();
         }
 
         @Override

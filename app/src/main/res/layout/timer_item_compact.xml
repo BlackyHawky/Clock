@@ -31,12 +31,12 @@
         android:drawableStart="@drawable/ic_label"
         android:drawableTint="?attr/colorOnSurfaceVariant"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/delete_timer"
+        app:layout_constraintEnd_toStartOf="@+id/delete_timer_button"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="TextContrastCheck" />
 
     <View
-        android:id="@+id/indicator_state"
+        android:id="@+id/timer_indicator_state"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginEnd="12dp"
@@ -47,7 +47,7 @@
         tools:backgroundTint="#FF99CC00" />
 
     <ImageButton
-        android:id="@+id/delete_timer"
+        android:id="@+id/delete_timer_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
@@ -57,7 +57,7 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/delete"
         app:tint="?attr/colorPrimary"
-        app:layout_constraintEnd_toStartOf="@+id/indicator_state"
+        app:layout_constraintEnd_toStartOf="@+id/timer_indicator_state"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="TouchTargetSizeCheck" />
 
@@ -71,14 +71,14 @@
         android:textSize="40sp"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/reset"
-        app:layout_constraintTop_toTopOf="@+id/play_pause"
-        app:layout_constraintBottom_toBottomOf="@+id/play_pause"
+        app:layout_constraintEnd_toStartOf="@+id/reset_button"
+        app:layout_constraintTop_toTopOf="@+id/play_pause_button"
+        app:layout_constraintBottom_toBottomOf="@+id/play_pause_button"
         tools:text="01:23" />
 
     <!-- Only displayed for phones when the timer is reset. See the TimerItem.java file. -->
     <com.best.deskclock.uicomponents.AutoSizingTextView
-        android:id="@+id/timer_total_duration"
+        android:id="@+id/timer_total_duration_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="12dp"
@@ -91,14 +91,14 @@
         android:drawableStart="@drawable/ic_edit"
         android:drawableTint="?android:attr/textColor"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/play_pause"
-        app:layout_constraintBottom_toBottomOf="@+id/play_pause"
+        app:layout_constraintTop_toTopOf="@+id/play_pause_button"
+        app:layout_constraintBottom_toBottomOf="@+id/play_pause_button"
         tools:text="01:00" />
 
     <!-- Constraints, margins and paddings adjusted in the TimerItem.java file to have a suitable
          reduced view. -->
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/play_pause"
+        android:id="@+id/play_pause_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
@@ -119,14 +119,14 @@
         android:layout_marginEnd="12dp"
         android:maxLines="1"
         app:shapeAppearance="@style/TimerSetupDigit.CircleOverlay"
-        app:layout_constraintEnd_toStartOf="@+id/play_pause"
-        app:layout_constraintTop_toTopOf="@+id/play_pause"
-        app:layout_constraintBottom_toBottomOf="@+id/play_pause"
+        app:layout_constraintEnd_toStartOf="@+id/play_pause_button"
+        app:layout_constraintTop_toTopOf="@+id/play_pause_button"
+        app:layout_constraintBottom_toBottomOf="@+id/play_pause_button"
         tools:text="+ 1:00"
         tools:textStyle="bold" />
 
     <ImageButton
-        android:id="@+id/reset"
+        android:id="@+id/reset_button"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginEnd="18dp"
@@ -146,7 +146,7 @@
         android:layout_height="18dp"
         android:layout_marginTop="12dp"
         android:layout_marginHorizontal="12dp"
-        app:layout_constraintTop_toBottomOf="@+id/play_pause"
+        app:layout_constraintTop_toBottomOf="@+id/play_pause_button"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 </com.best.deskclock.timer.TimerItemCompact>

@@ -134,18 +134,22 @@ public class AlarmItemTouchHelper extends ItemTouchHelper.SimpleCallback {
                         mIsTouchingItem = (child != null);
 
                         if (child != null) {
-                            View digitalClock = child.findViewById(R.id.digital_clock);
+                            RecyclerView.ViewHolder holder = rv.getChildViewHolder(child);
 
-                            if (digitalClock != null && digitalClock.getVisibility() == View.VISIBLE) {
-                                int[] loc = new int[2];
-                                digitalClock.getLocationOnScreen(loc);
-                                float x = e.getRawX();
-                                float y = e.getRawY();
+                            if (holder instanceof AlarmItemViewHolder alarmItemViewHolder) {
+                                View digitalClock = alarmItemViewHolder.mBinding.digitalClock;
 
-                                mIsTouchingClock = x >= loc[0] && x <= loc[0] + digitalClock.getWidth()
-                                    && y >= loc[1] && y <= loc[1] + digitalClock.getHeight();
-                            } else {
-                                mIsTouchingClock = false;
+                                if (digitalClock.getVisibility() == View.VISIBLE) {
+                                    int[] loc = new int[2];
+                                    digitalClock.getLocationOnScreen(loc);
+                                    float x = e.getRawX();
+                                    float y = e.getRawY();
+
+                                    mIsTouchingClock = x >= loc[0] && x <= loc[0] + digitalClock.getWidth()
+                                        && y >= loc[1] && y <= loc[1] + digitalClock.getHeight();
+                                } else {
+                                    mIsTouchingClock = false;
+                                }
                             }
                         } else {
                             mIsTouchingClock = false;

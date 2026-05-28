@@ -20,9 +20,10 @@
         android:textSize="24sp" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
+        android:id="@+id/alarm_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:overScrollMode="never"
         tools:listitem="@layout/alarm_row" />
 
     <com.google.android.material.button.MaterialButton

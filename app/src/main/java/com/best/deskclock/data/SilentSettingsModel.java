@@ -25,7 +25,7 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.best.deskclock.AppExecutors;
+import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.data.DataModel.SilentSetting;
 import com.best.deskclock.utils.SdkUtils;
 
@@ -120,8 +120,8 @@ final class SilentSettingsModel {
 
     /**
      * This task inspects a variety of system settings that can prevent alarms from firing or the
-     * associated ringtone from playing. If any of them would prevent an alarm from firing or
-     * making noise, a description of the setting is reported to this model on the main thread.
+     * associated ringtone from playing. If any of them prevented an alarm from firing or making noise,
+     * a description of the setting is reported to this model on the main thread.
      */
     private final class CheckSilenceSettingsTask {
 

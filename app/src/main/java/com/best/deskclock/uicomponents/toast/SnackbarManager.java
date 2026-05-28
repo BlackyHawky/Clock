@@ -28,7 +28,7 @@ public final class SnackbarManager {
     public static void show(Snackbar snackbar) {
         sSnackbar = new WeakReference<>(snackbar);
         if (ThemeUtils.isTablet() || ThemeUtils.isPortrait()) {
-            snackbar.setAnchorView(R.id.button_layout);
+            snackbar.setAnchorView(R.id.desk_clock_button_layout);
         }
 
         SharedPreferences prefs = getDefaultSharedPreferences(snackbar.getContext());

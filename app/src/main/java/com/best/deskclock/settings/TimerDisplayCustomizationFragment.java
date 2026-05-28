@@ -18,8 +18,8 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 import androidx.preference.SwitchPreferenceCompat;
 
-import com.best.deskclock.AppExecutors;
 import com.best.deskclock.R;
+import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.settings.custompreference.ColorPickerPreference;
 import com.best.deskclock.settings.custompreference.CustomSliderPreference;
@@ -143,6 +143,16 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        restoreCustomFileDialogIfNeeded(KEY_TIMER_BACKGROUND_IMAGE, mTimerBackgroundImagePref, imagePickerLauncher, () -> {
+            mEnableTimerBlurEffectPref.setVisible(false);
+            mTimerBlurIntensityPref.setVisible(false);
+        });
+    }
+
+    @Override
     public void onDestroy() {
         nullifyPreferenceListeners(mDisplayCompactTimersPref, mTransparentBackgroundPref, mDisplayTimerStateIndicatorPref,
             mDisplayRingtoneTitlePref, mTimerColorCategory, mRunningTimerIndicatorColorPref, mPausedTimerIndicatorColorPref,
@@ -150,9 +160,9 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
             mDisplayTextShadowPref, mShadowColorPref, mShadowOffsetPref, mTimerBackgroundImagePref, mEnableTimerBlurEffectPref,
             mTimerBlurIntensityPref, mTimerPreviewPref);
 
-        super.onDestroy();
-
         nullifyAllPrefs();
+
+        super.onDestroy();
     }
 
     @Override
@@ -267,7 +277,7 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
         final boolean isTimerRingtoneTitleDisplayed = SettingsDAO.isTimerRingtoneTitleDisplayed(mPrefs);
         final boolean isTimerTextShadowDisplayed = SettingsDAO.isTimerTextShadowDisplayed(mPrefs);
 
-        mDisplayCompactTimersPref.setVisible(!ThemeUtils.isTablet());
+        mDisplayCompactTimersPref.setVisible(!ThemeUtils.isTablet() && !SettingsDAO.isSingleTimerModeEnabled(mPrefs));
         mDisplayCompactTimersPref.setOnPreferenceChangeListener(this);
 
         mTransparentBackgroundPref.setOnPreferenceChangeListener(this);

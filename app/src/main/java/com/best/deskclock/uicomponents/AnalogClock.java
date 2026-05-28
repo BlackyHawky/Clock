@@ -22,6 +22,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.content.ContextCompat;
 
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
@@ -49,7 +50,6 @@ public class AnalogClock extends FrameLayout {
     private final String MINUTE_HAND = "MINUTE_HAND";
     private final String SECOND_HAND = "SECOND_HAND";
 
-    private Context mContext;
     private SharedPreferences mPrefs;
     private DataModel.ClockStyle mClockStyle;
     private ImageView mHourHand;
@@ -98,7 +98,7 @@ public class AnalogClock extends FrameLayout {
             return;
         }
 
-        init(context);
+        init();
     }
 
     @Override
@@ -114,9 +114,9 @@ public class AnalogClock extends FrameLayout {
         filter.addAction(Intent.ACTION_TIME_CHANGED);
         filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
         if (SdkUtils.isAtLeastAndroid13()) {
-            mContext.registerReceiver(mIntentReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
+            getContext().registerReceiver(mIntentReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
         } else {
-            mContext.registerReceiver(mIntentReceiver, filter);
+            getContext().registerReceiver(mIntentReceiver, filter);
         }
 
         // Refresh the calendar instance since the time zone may have changed while the receiver
@@ -134,21 +134,20 @@ public class AnalogClock extends FrameLayout {
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
 
-        mContext.unregisterReceiver(mIntentReceiver);
+        getContext().unregisterReceiver(mIntentReceiver);
         removeCallbacks(mClockTick);
     }
 
-    private void init(Context context) {
-        mContext = context;
-        mPrefs = getDefaultSharedPreferences(mContext);
+    private void init() {
+        mPrefs = getDefaultSharedPreferences(getContext());
         mClockStyle = getClockStyleForContext();
         mTime = Calendar.getInstance();
-        mDescFormat = ((SimpleDateFormat) DateFormat.getTimeFormat(mContext)).toLocalizedPattern();
+        mDescFormat = ((SimpleDateFormat) DateFormat.getTimeFormat(getContext())).toLocalizedPattern();
 
         final String accentColor = SettingsDAO.getAccentColor(mPrefs);
         final int alarmClockColor = SettingsDAO.getAlarmClockColor(mPrefs);
-        final int alarmSecondHandColor = SettingsDAO.getAlarmSecondHandColor(mPrefs, mContext);
-        final int defaultClockColor = MaterialColors.getColor(mContext, android.R.attr.textColorPrimary, Color.BLACK);
+        final int alarmSecondHandColor = SettingsDAO.getAlarmSecondHandColor(mPrefs, getContext());
+        final int defaultClockColor = MaterialColors.getColor(getContext(), android.R.attr.textColorPrimary, Color.BLACK);
 
         // Create clock dial
         final ImageView dial = createClockComponent(accentColor, DIAL, alarmClockColor, defaultClockColor);
@@ -172,11 +171,11 @@ public class AnalogClock extends FrameLayout {
      * Helper method to determine the clock style based on the context.
      */
     private DataModel.ClockStyle getClockStyleForContext() {
-        if (mContext instanceof AlarmActivity || mContext instanceof AlarmDisplayPreviewActivity) {
+        if (getContext() instanceof AlarmActivity || getContext() instanceof AlarmDisplayPreviewActivity) {
             return SettingsDAO.getAlarmClockStyle(mPrefs);
-        } else if (mContext instanceof ScreensaverActivity) {
+        } else if (getContext() instanceof ScreensaverActivity) {
             return SettingsDAO.getScreensaverClockStyle(mPrefs);
-        } else if (mContext instanceof DeskClock) {
+        } else if (getContext() instanceof DeskClock) {
             return SettingsDAO.getClockStyle(mPrefs);
         } else {
             // Default for DreamService or other unknown contexts
@@ -187,19 +186,18 @@ public class AnalogClock extends FrameLayout {
     /**
      * Helper method to create clock components (dial, hour hand and minute hand).
      */
-    private ImageView createClockComponent(String accentColor, String componentType, int alarmClockColor,
-                                           int defaultClockColor) {
+    private ImageView createClockComponent(String accentColor, String componentType, int alarmClockColor, int defaultClockColor) {
 
-        ImageView component = new ImageView(mContext);
+        ImageView component = new ImageView(getContext());
 
         // Handle clock style and component color configuration
         if (mClockStyle == DataModel.ClockStyle.ANALOG_MATERIAL) {
             int drawableResId = getMaterialAnalogDrawableResId(componentType);
-            component.setImageDrawable(AppCompatResources.getDrawable(mContext, drawableResId));
+            component.setImageDrawable(AppCompatResources.getDrawable(getContext(), drawableResId));
             component.setColorFilter(getMaterialAnalogClockColor(accentColor, componentType));
         } else {
             int drawableResId = getAnalogDrawableResId(componentType);
-            component.setImageDrawable(AppCompatResources.getDrawable(mContext, drawableResId));
+            component.setImageDrawable(AppCompatResources.getDrawable(getContext(), drawableResId));
             component.setColorFilter(isAlarmContext() ? alarmClockColor : defaultClockColor);
         }
 
@@ -214,17 +212,17 @@ public class AnalogClock extends FrameLayout {
      * Helper method to create the second hand with a specific color logic.
      */
     private ImageView createSecondHand(String accentColor, int alarmSecondHandColor) {
-        ImageView secondHand = new ImageView(mContext);
+        ImageView secondHand = new ImageView(getContext());
 
         if (mClockStyle == DataModel.ClockStyle.ANALOG_MATERIAL) {
-            secondHand.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.analog_clock_second_circle));
+            secondHand.setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.analog_clock_second_circle));
             secondHand.setColorFilter(getMaterialAnalogClockColor(accentColor, SECOND_HAND));
         } else {
             final String analogSecondHandPref = getAnalogSecondHandPreference();
             final boolean isDefaultSecondHand = analogSecondHandPref.equals(DEFAULT_CLOCK_SECOND_HAND);
             final boolean isLollipopSecondHand = analogSecondHandPref.equals(CLOCK_SECOND_HAND_LOLLIPOP);
 
-            secondHand.setImageDrawable(AppCompatResources.getDrawable(mContext, isDefaultSecondHand
+            secondHand.setImageDrawable(AppCompatResources.getDrawable(getContext(), isDefaultSecondHand
                 ? R.drawable.analog_clock_second
                 : isLollipopSecondHand
                 ? R.drawable.analog_clock_second_lollipop
@@ -263,11 +261,11 @@ public class AnalogClock extends FrameLayout {
      * Helper method to determine the style of the clock dial Material based on the context.
      */
     private String getMaterialAnalogDialPreference() {
-        if (mContext instanceof AlarmActivity || mContext instanceof AlarmDisplayPreviewActivity) {
+        if (getContext() instanceof AlarmActivity || getContext() instanceof AlarmDisplayPreviewActivity) {
             return SettingsDAO.getAlarmClockDialMaterial(mPrefs);
-        } else if (mContext instanceof ScreensaverActivity) {
+        } else if (getContext() instanceof ScreensaverActivity) {
             return SettingsDAO.getScreensaverClockDialMaterial(mPrefs);
-        } else if (mContext instanceof DeskClock) {
+        } else if (getContext() instanceof DeskClock) {
             return SettingsDAO.getClockDialMaterial(mPrefs);
         } else {
             return SettingsDAO.getScreensaverClockDialMaterial(mPrefs);
@@ -302,11 +300,11 @@ public class AnalogClock extends FrameLayout {
      * Helper method to determine the clock dial style based on the context.
      */
     private String getAnalogDialPreference() {
-        if (mContext instanceof AlarmActivity || mContext instanceof AlarmDisplayPreviewActivity) {
+        if (getContext() instanceof AlarmActivity || getContext() instanceof AlarmDisplayPreviewActivity) {
             return SettingsDAO.getAlarmClockDial(mPrefs);
-        } else if (mContext instanceof ScreensaverActivity) {
+        } else if (getContext() instanceof ScreensaverActivity) {
             return SettingsDAO.getScreensaverClockDial(mPrefs);
-        } else if (mContext instanceof DeskClock) {
+        } else if (getContext() instanceof DeskClock) {
             return SettingsDAO.getClockDial(mPrefs);
         } else {
             return SettingsDAO.getScreensaverClockDial(mPrefs);
@@ -317,11 +315,11 @@ public class AnalogClock extends FrameLayout {
      * Helper method to determine the second hand style based on the context.
      */
     private String getAnalogSecondHandPreference() {
-        if (mContext instanceof AlarmActivity || mContext instanceof AlarmDisplayPreviewActivity) {
+        if (getContext() instanceof AlarmActivity || getContext() instanceof AlarmDisplayPreviewActivity) {
             return SettingsDAO.getAlarmClockSecondHand(mPrefs);
-        } else if (mContext instanceof ScreensaverActivity) {
+        } else if (getContext() instanceof ScreensaverActivity) {
             return SettingsDAO.getScreensaverClockSecondHand(mPrefs);
-        } else if (mContext instanceof DeskClock) {
+        } else if (getContext() instanceof DeskClock) {
             return SettingsDAO.getClockSecondHand(mPrefs);
         } else {
             return SettingsDAO.getScreensaverClockSecondHand(mPrefs);
@@ -332,7 +330,7 @@ public class AnalogClock extends FrameLayout {
      * Helper method to determine if the context is an alarm-related activity.
      */
     private boolean isAlarmContext() {
-        return mContext instanceof AlarmActivity || mContext instanceof AlarmDisplayPreviewActivity;
+        return getContext() instanceof AlarmActivity || getContext() instanceof AlarmDisplayPreviewActivity;
     }
 
     /**
@@ -341,21 +339,21 @@ public class AnalogClock extends FrameLayout {
     private int getAccentColor(boolean isAutoNightAccentColorEnabled, String accentColor, String nightAccentColor) {
         String colorKey = isAutoNightAccentColorEnabled
             ? accentColor
-            : (ThemeUtils.isNight(mContext.getResources()) ? nightAccentColor : accentColor);
+            : (ThemeUtils.isNight(getResources()) ? nightAccentColor : accentColor);
 
         return switch (colorKey) {
-            case BLACK_ACCENT_COLOR -> mContext.getColor(R.color.blackColorPrimary);
-            case BLUE_ACCENT_COLOR -> mContext.getColor(R.color.blueColorPrimary);
-            case BLUE_GRAY_ACCENT_COLOR -> mContext.getColor(R.color.blueGrayColorPrimary);
-            case BROWN_ACCENT_COLOR -> mContext.getColor(R.color.brownColorPrimary);
-            case GREEN_ACCENT_COLOR -> mContext.getColor(R.color.greenColorPrimary);
-            case INDIGO_ACCENT_COLOR -> mContext.getColor(R.color.indigoColorPrimary);
-            case ORANGE_ACCENT_COLOR -> mContext.getColor(R.color.orangeColorPrimary);
-            case PINK_ACCENT_COLOR -> mContext.getColor(R.color.pinkColorPrimary);
-            case PURPLE_ACCENT_COLOR -> mContext.getColor(R.color.purpleColorPrimary);
-            case RED_ACCENT_COLOR -> mContext.getColor(R.color.redColorPrimary);
-            case YELLOW_ACCENT_COLOR -> mContext.getColor(R.color.yellowColorPrimary);
-            default -> mContext.getColor(R.color.md_theme_primary);
+            case BLACK_ACCENT_COLOR -> ContextCompat.getColor(getContext(), R.color.blackColorPrimary);
+            case BLUE_ACCENT_COLOR -> ContextCompat.getColor(getContext(), R.color.blueColorPrimary);
+            case BLUE_GRAY_ACCENT_COLOR -> ContextCompat.getColor(getContext(), R.color.blueGrayColorPrimary);
+            case BROWN_ACCENT_COLOR -> ContextCompat.getColor(getContext(), R.color.brownColorPrimary);
+            case GREEN_ACCENT_COLOR -> ContextCompat.getColor(getContext(), R.color.greenColorPrimary);
+            case INDIGO_ACCENT_COLOR -> ContextCompat.getColor(getContext(), R.color.indigoColorPrimary);
+            case ORANGE_ACCENT_COLOR -> ContextCompat.getColor(getContext(), R.color.orangeColorPrimary);
+            case PINK_ACCENT_COLOR -> ContextCompat.getColor(getContext(), R.color.pinkColorPrimary);
+            case PURPLE_ACCENT_COLOR -> ContextCompat.getColor(getContext(), R.color.purpleColorPrimary);
+            case RED_ACCENT_COLOR -> ContextCompat.getColor(getContext(), R.color.redColorPrimary);
+            case YELLOW_ACCENT_COLOR -> ContextCompat.getColor(getContext(), R.color.yellowColorPrimary);
+            default -> ContextCompat.getColor(getContext(), R.color.md_theme_primary);
         };
     }
 
@@ -438,7 +436,7 @@ public class AnalogClock extends FrameLayout {
                 componentType);
         };
 
-        return mContext.getColor(colorResId);
+        return ContextCompat.getColor(getContext(), colorResId);
     }
 
     /**

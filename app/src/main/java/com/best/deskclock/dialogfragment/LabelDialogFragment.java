@@ -9,7 +9,6 @@ package com.best.deskclock.dialogfragment;
 import static android.view.View.VISIBLE;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -18,11 +17,9 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -35,12 +32,11 @@ import com.best.deskclock.data.City;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
+import com.best.deskclock.databinding.DialogEditTextBinding;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
-import com.google.android.material.checkbox.MaterialCheckBox;
-import com.google.android.material.divider.MaterialDivider;
 
 import java.util.Objects;
 
@@ -71,8 +67,8 @@ public class LabelDialogFragment extends DialogFragment {
     private static final String ARG_IS_ALARM = "arg_is_alarm";
     private static final String ARG_SYNC_ALARM_BY_LABEL = "arg_sync_alarm_by_label";
 
-    private EditText mEditLabel;
-    private MaterialCheckBox mSyncAlarmByLabelCheckbox;
+    private DialogEditTextBinding mBinding;
+
     private Button mDefaultButton;
     private boolean mIsAlarm;
     private int mTimerId;
@@ -142,12 +138,10 @@ public class LabelDialogFragment extends DialogFragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         // As long as the label box exists, save its state.
-        if (mEditLabel != null) {
-            outState.putString(ARG_LABEL, Objects.requireNonNull(mEditLabel.getText()).toString());
-        }
+        outState.putString(ARG_LABEL, Objects.requireNonNull(mBinding.edit.getText()).toString());
 
-        if (mIsAlarm && mSyncAlarmByLabelCheckbox != null) {
-            outState.putBoolean(ARG_SYNC_ALARM_BY_LABEL, mSyncAlarmByLabelCheckbox.isChecked());
+        if (mIsAlarm) {
+            outState.putBoolean(ARG_SYNC_ALARM_BY_LABEL, mBinding.syncAlarmByLabelCheckbox.isChecked());
         }
     }
 
@@ -194,20 +188,18 @@ public class LabelDialogFragment extends DialogFragment {
             drawable = null;
         }
 
-        @SuppressLint("InflateParams")
-        View dialogView = getLayoutInflater().inflate(R.layout.dialog_edit_text, null);
+        mBinding = DialogEditTextBinding.inflate(getLayoutInflater());
 
-        mEditLabel = dialogView.findViewById(android.R.id.edit);
-        mEditLabel.setText(label);
-        mEditLabel.setTypeface(ThemeUtils.loadFont(SettingsDAO.getGeneralFont(getDefaultSharedPreferences(requireContext()))));
-        mEditLabel.addTextChangedListener(mTextWatcher);
-        mEditLabel.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
-        mEditLabel.selectAll();
-        mEditLabel.requestFocus();
-        mEditLabel.setMaxLines(2);
-        mEditLabel.setHorizontallyScrolling(false);
-        mEditLabel.setImeOptions(EditorInfo.IME_ACTION_DONE);
-        mEditLabel.setOnEditorActionListener((v, actionId, event) -> {
+        mBinding.edit.setText(label);
+        mBinding.edit.setTypeface(ThemeUtils.loadFont(SettingsDAO.getGeneralFont(getDefaultSharedPreferences(requireContext()))));
+        mBinding.edit.addTextChangedListener(mTextWatcher);
+        mBinding.edit.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+        mBinding.edit.selectAll();
+        mBinding.edit.requestFocus();
+        mBinding.edit.setMaxLines(2);
+        mBinding.edit.setHorizontallyScrolling(false);
+        mBinding.edit.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        mBinding.edit.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 setLabel();
                 dismiss();
@@ -217,14 +209,11 @@ public class LabelDialogFragment extends DialogFragment {
         });
 
         if (mIsAlarm) {
-            MaterialDivider divider = dialogView.findViewById(R.id.divider);
-            mSyncAlarmByLabelCheckbox = dialogView.findViewById(R.id.sync_alarm_by_label);
+            mBinding.divider.setVisibility(VISIBLE);
 
-            divider.setVisibility(VISIBLE);
-
-            mSyncAlarmByLabelCheckbox.setVisibility(VISIBLE);
-            mSyncAlarmByLabelCheckbox.setEnabled(isLabelNotEmpty());
-            mSyncAlarmByLabelCheckbox.setChecked(syncAlarmByLabel);
+            mBinding.syncAlarmByLabelCheckbox.setVisibility(VISIBLE);
+            mBinding.syncAlarmByLabelCheckbox.setEnabled(isLabelNotEmpty());
+            mBinding.syncAlarmByLabelCheckbox.setChecked(syncAlarmByLabel);
         }
 
         return CustomDialog.create(
@@ -233,16 +222,14 @@ public class LabelDialogFragment extends DialogFragment {
             drawable,
             title,
             null,
-            dialogView,
+            mBinding.getRoot(),
             getString(android.R.string.ok),
             (d, w) -> setLabel(),
             getString(android.R.string.cancel),
             null,
             getString(R.string.delete),
             (d, w) -> {
-                if (mSyncAlarmByLabelCheckbox != null) {
-                    mSyncAlarmByLabelCheckbox.setChecked(false);
-                }
+                mBinding.syncAlarmByLabelCheckbox.setChecked(false);
 
                 applyLabel("");
             },
@@ -259,28 +246,26 @@ public class LabelDialogFragment extends DialogFragment {
     public void onResume() {
         super.onResume();
 
-        mEditLabel.requestFocus();
-        mEditLabel.postDelayed(() -> {
+        mBinding.edit.requestFocus();
+        mBinding.edit.postDelayed(() -> {
             InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
             if (imm != null) {
-                imm.showSoftInput(mEditLabel, InputMethodManager.SHOW_IMPLICIT);
+                imm.showSoftInput(mBinding.edit, InputMethodManager.SHOW_IMPLICIT);
             }
         }, 200);
     }
 
     @Override
     public void onDestroyView() {
-        if (mEditLabel != null) {
-            // Stop callbacks from the IME since there is no view to process them.
-            mEditLabel.setOnEditorActionListener(null);
-            mEditLabel.removeTextChangedListener(mTextWatcher);
-        }
+        // Stop callbacks from the IME since there is no view to process them.
+        mBinding.edit.setOnEditorActionListener(null);
+        mBinding.edit.removeTextChangedListener(mTextWatcher);
+
+        mBinding = null;
+
+        mDefaultButton = null;
 
         super.onDestroyView();
-
-        mEditLabel = null;
-        mSyncAlarmByLabelCheckbox = null;
-        mDefaultButton = null;
     }
 
     /**
@@ -290,7 +275,7 @@ public class LabelDialogFragment extends DialogFragment {
      * If the input is only whitespace, it will be treated as an empty label.
      */
     private void setLabel() {
-        String label = Objects.requireNonNull(mEditLabel.getText()).toString();
+        String label = Objects.requireNonNull(mBinding.edit.getText()).toString();
         if (label.trim().isEmpty()) {
             // Don't allow user to input label with only whitespace.
             label = "";
@@ -318,7 +303,7 @@ public class LabelDialogFragment extends DialogFragment {
         } else {
             Bundle result = new Bundle();
             result.putString(RESULT_LABEL, trimmedLabel);
-            result.putBoolean(RESULT_SYNC, mSyncAlarmByLabelCheckbox.isChecked());
+            result.putBoolean(RESULT_SYNC, mBinding.syncAlarmByLabelCheckbox.isChecked());
             getParentFragmentManager().setFragmentResult(REQUEST_KEY, result);
         }
     }
@@ -327,7 +312,7 @@ public class LabelDialogFragment extends DialogFragment {
      * @return {@code true} if the label text field is not empty; {@code false} otherwise.
      */
     private boolean isLabelNotEmpty() {
-        return !TextUtils.isEmpty(mEditLabel.getText().toString());
+        return !TextUtils.isEmpty(Objects.requireNonNull(mBinding.edit.getText()).toString());
     }
 
     /**
@@ -338,11 +323,10 @@ public class LabelDialogFragment extends DialogFragment {
 
         @Override
         public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-            if (mSyncAlarmByLabelCheckbox != null) {
-                mSyncAlarmByLabelCheckbox.setEnabled(isLabelNotEmpty());
-                if (!isLabelNotEmpty()) {
-                    mSyncAlarmByLabelCheckbox.setChecked(false);
-                }
+            mBinding.syncAlarmByLabelCheckbox.setEnabled(isLabelNotEmpty());
+
+            if (!isLabelNotEmpty()) {
+                mBinding.syncAlarmByLabelCheckbox.setChecked(false);
             }
 
             if (mDefaultButton != null) {
