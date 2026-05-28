@@ -200,7 +200,7 @@ public class DatePickerDialogFragment {
             int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
 
             if (listener != null) {
-                listener.onDateSet(year, month, dayOfMonth, alarm.hour, alarm.minutes);
+                listener.onDateSet(year, month, dayOfMonth);
             }
         });
     }
@@ -320,7 +320,7 @@ public class DatePickerDialogFragment {
     }
 
     public interface OnDateSelectedListener {
-        void onDateSet(int year, int month, int day, int hour, int minute);
+        void onDateSet(int year, int month, int day);
     }
 
     public interface OnDateRangeSelectedListener {

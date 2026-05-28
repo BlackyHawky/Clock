@@ -2,8 +2,6 @@
 
 package com.best.deskclock.alarms;
 
-import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -15,7 +13,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.databinding.AlarmItemBinding;
 import com.best.deskclock.utils.ThemeUtils;
 
@@ -44,14 +41,15 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
     private final Drawable.ConstantState mBgBottom;
     private final Drawable.ConstantState mBgStandard;
 
-    public AlarmAdapter(Context context) {
+    public AlarmAdapter(Context context, SharedPreferences prefs, Typeface generalTypeface, Typeface generalBoldTypeface,
+                        Typeface alarmClockTypeface) {
+
         setHasStableIds(true);
 
-        mPrefs = getDefaultSharedPreferences(context);
-        String generalFontPath = SettingsDAO.getGeneralFont(mPrefs);
-        mGeneralTypeface = ThemeUtils.loadFont(generalFontPath);
-        mGeneralBoldTypeface = ThemeUtils.boldTypeface(generalFontPath);
-        mAlarmClockTypeface = ThemeUtils.boldTypeface(SettingsDAO.getAlarmFont(mPrefs));
+        mPrefs = prefs;
+        mGeneralTypeface = generalTypeface;
+        mGeneralBoldTypeface = generalBoldTypeface;
+        mAlarmClockTypeface = alarmClockTypeface;
         mLocale = Locale.getDefault();
         mDatePattern = DateFormat.getBestDateTimePattern(mLocale, AlarmItemViewHolder.SKELETON);
         mDatePatternWithYear = DateFormat.getBestDateTimePattern(mLocale, AlarmItemViewHolder.SKELETON_WITH_YEAR);

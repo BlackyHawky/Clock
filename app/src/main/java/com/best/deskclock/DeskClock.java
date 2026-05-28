@@ -48,6 +48,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
 
 import com.best.deskclock.alarms.AlarmFragment;
+import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.base.BaseActivity;
 import com.best.deskclock.base.DeskClockFragment;
 import com.best.deskclock.base.KeepAliveService;
@@ -211,7 +212,6 @@ public class DeskClock extends BaseActivity implements FabContainer {
         }
 
         mFontPath = SettingsDAO.getGeneralFont(mPrefs);
-        mRegularTypeface = ThemeUtils.loadFont(mFontPath);
         mIsToolBarDisplayed = SettingsDAO.isToolbarTitleDisplayed(mPrefs);
 
         // To manually manage insets
@@ -221,21 +221,36 @@ public class DeskClock extends BaseActivity implements FabContainer {
 
         setContentView(mBinding.getRoot());
 
+        applyWindowInsets();
+
+        configureViewPager();
+
+        configureFabAndButtons();
+
         displayKeepAndroidOpenDialogIfUnread();
 
         registerPrefListener();
 
-        configureToolbar();
+        AppExecutors.getDiskIO().execute(() -> {
+            mRegularTypeface = ThemeUtils.loadFont(mFontPath);
+            ThemeUtils.boldTypeface(mFontPath);
+            ThemeUtils.loadFont(SettingsDAO.getDigitalClockFont(mPrefs));
+            ThemeUtils.loadFont(SettingsDAO.getTimerDurationFont(mPrefs));
+            ThemeUtils.boldTypeface(SettingsDAO.getAlarmFont(mPrefs));
+            ThemeUtils.loadFont(SettingsDAO.getStopwatchFont(mPrefs));
 
-        configureFabAndButtons();
+            AppExecutors.getMainThread().post(() -> {
+                if (isFinishing() || isDestroyed()) {
+                    return;
+                }
 
-        configureViewPager();
+                configureToolbar();
 
-        configureBottomNavigationView();
+                configureBottomNavigationView();
 
-        applyBottomNavTooltips();
-
-        applyWindowInsets();
+                applyBottomNavTooltips();
+            });
+        });
     }
 
     @Override
@@ -733,6 +748,10 @@ public class DeskClock extends BaseActivity implements FabContainer {
      */
     @SuppressLint("RestrictedApi")
     private void updateBottomNavTypeface() {
+        if (mRegularTypeface == null) {
+            return;
+        }
+
         BottomNavigationMenuView menuView = (BottomNavigationMenuView) mBinding.deskClockBottomMenu.getChildAt(0);
 
         for (int i = 0; i < menuView.getChildCount(); i++) {

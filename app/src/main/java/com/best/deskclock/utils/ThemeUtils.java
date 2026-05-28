@@ -166,17 +166,35 @@ public class ThemeUtils {
      * @return a bold Typeface, either custom or default
      */
     public static Typeface boldTypeface(String fontPath) {
-        Typeface baseTypeface = null;
-
-        if (fontPath != null) {
-            baseTypeface = loadFont(fontPath);
+        if (fontPath == null) {
+            return Typeface.create("sans-serif", Typeface.BOLD);
         }
+
+        String boldKey = fontPath + "_BOLD";
+
+        if (fontCache.containsKey(boldKey)) {
+            return fontCache.get(boldKey);
+        }
+
+        Typeface baseTypeface = loadFont(fontPath);
 
         if (baseTypeface == null) {
             return Typeface.create("sans-serif", Typeface.BOLD);
         }
 
-        return Typeface.create(baseTypeface, Typeface.BOLD);
+        Typeface boldTypeface = Typeface.create(baseTypeface, Typeface.BOLD);
+        fontCache.put(boldKey, boldTypeface);
+
+        return boldTypeface;
+    }
+
+    public static void removeFontFromCache(String fontPath) {
+        if (fontPath == null) {
+            return;
+        }
+
+        fontCache.remove(fontPath);
+        fontCache.remove(fontPath + "_BOLD");
     }
 
     /**

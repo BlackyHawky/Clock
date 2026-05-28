@@ -39,6 +39,7 @@ import android.widget.ImageView;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -85,7 +86,6 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     private boolean mIsSingleTimerMode;
     private boolean mIsManualSorting;
     private DisplayMetrics mDisplayMetrics;
-    private Typeface mBoldTypeface;
 
     private Serializable mTimerSetupState;
 
@@ -144,10 +144,8 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         mIsSingleTimerMode = SettingsDAO.isSingleTimerModeEnabled(mPrefs);
         mIsManualSorting = SettingsDAO.getTimerSortingPreference(mPrefs).equals(DEFAULT_SORT_TIMER_MANUALLY);
         mDisplayMetrics = getResources().getDisplayMetrics();
-        mBoldTypeface = ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(mPrefs));
         mIsTablet = ThemeUtils.isTablet();
         mIsLandscape = ThemeUtils.isLandscape();
-        mAdapter = new TimerAdapter(mContext, mPrefs, new TimerClickHandler(this));
     }
 
     @Override
@@ -156,13 +154,8 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
 
         mBinding = TimerFragmentBinding.inflate(inflater, container, false);
 
-        mBinding.timerVolumeBanner.volumeWarningText.setTypeface(mBoldTypeface);
-
-        mBinding.timerVolumeBanner.volumeWarningButton.setTypeface(mBoldTypeface);
         mBinding.timerVolumeBanner.volumeWarningButton.setOnClickListener(v -> RingtoneUtils.fixAlarmStreamLow(mContext));
 
-        mBinding.timerRecyclerView.setAdapter(mAdapter);
-        mAdapter.loadTimersAsync();
         mBinding.timerRecyclerView.setLayoutManager(getLayoutManager(mContext));
         mBinding.timerRecyclerView.addItemDecoration(new GridSpacingItemDecoration(mContext, mDisplayMetrics));
 
@@ -179,15 +172,6 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
                 updateFab(FAB_SHRINK_AND_EXPAND);
             }
         });
-
-        DataModel.getDataModel().addTimerListener(mAdapter);
-        DataModel.getDataModel().addTimerListener(mTimerWatcher);
-
-        TimerItemTouchHelper callback =
-            new TimerItemTouchHelper(mAdapter, mBinding.timerRecyclerView, mIsTablet, mIsLandscape, mIsManualSorting);
-
-        mItemTouchHelper = new ItemTouchHelper(callback);
-        handleItemTouchHelper();
 
         if (savedInstanceState != null) {
             // If timer setup state is present, retrieve it to be later honored.
@@ -242,6 +226,34 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         }
 
         return mBinding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        String generalFontPath = SettingsDAO.getGeneralFont(mPrefs);
+        String timerFontPath = SettingsDAO.getTimerDurationFont(mPrefs);
+        Typeface regularTypeface = ThemeUtils.loadFont(generalFontPath);
+        Typeface boldTypeface = ThemeUtils.boldTypeface(generalFontPath);
+        Typeface timerTimeTypeface = ThemeUtils.loadFont(timerFontPath);
+
+        mBinding.timerVolumeBanner.volumeWarningText.setTypeface(boldTypeface);
+        mBinding.timerVolumeBanner.volumeWarningButton.setTypeface(boldTypeface);
+
+        mAdapter = new TimerAdapter(mContext, mPrefs, new TimerClickHandler(this), mIsTablet, mIsLandscape,
+            regularTypeface, boldTypeface, timerTimeTypeface);
+
+        mBinding.timerRecyclerView.setAdapter(mAdapter);
+        mAdapter.loadTimersAsync();
+        DataModel.getDataModel().addTimerListener(mAdapter);
+
+        DataModel.getDataModel().addTimerListener(mTimerWatcher);
+
+        TimerItemTouchHelper callback =
+            new TimerItemTouchHelper(mAdapter, mBinding.timerRecyclerView, mIsTablet, mIsLandscape, mIsManualSorting);
+        mItemTouchHelper = new ItemTouchHelper(callback);
+        handleItemTouchHelper();
     }
 
     @Override

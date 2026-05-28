@@ -12,6 +12,7 @@ import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesDefaultValues.BLACK_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_CITIES_MANUALLY;
 import static com.best.deskclock.uidata.UiDataModel.Tab.CLOCKS;
 import static com.best.deskclock.utils.AlarmUtils.ACTION_NEXT_ALARM_CHANGED_BY_CLOCK;
@@ -23,6 +24,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -53,7 +55,6 @@ import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.worldclock.CitySelectionActivity;
 import com.google.android.material.appbar.AppBarLayout;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -72,8 +73,8 @@ public final class ClockFragment extends DeskClockFragment {
     private Context mContext;
     private SharedPreferences mPrefs;
     private DisplayMetrics mDisplayMetrics;
-    private final List<City> mMutableCities = new ArrayList<>();
     private DataModel.ClockStyle mClockStyle;
+    private List<City> mSelectedCities;
     private boolean mIsDigitalClock;
     private boolean mShowSeconds;
     private SelectedCitiesAdapter mCityAdapter;
@@ -82,6 +83,8 @@ public final class ClockFragment extends DeskClockFragment {
     private boolean mIsPortrait;
     private boolean mIsTablet;
     private boolean mShowHomeClock;
+    private boolean mIsCityNoteEnabled;
+    private boolean mHasBlackAccentColor;
 
     /**
      * The public no-arg constructor required by all fragments.
@@ -100,18 +103,14 @@ public final class ClockFragment extends DeskClockFragment {
         mClockStyle = SettingsDAO.getClockStyle(mPrefs);
         mShowHomeClock = SettingsDAO.getShowHomeClock(mContext, mPrefs);
         mShowSeconds = SettingsDAO.areClockSecondsDisplayed(mPrefs);
+        mIsCityNoteEnabled = SettingsDAO.isCityNoteEnabled(mPrefs);
+        mHasBlackAccentColor = SettingsDAO.getAccentColor(mPrefs).equals(BLACK_ACCENT_COLOR);
         mIsDigitalClock = mClockStyle == DataModel.ClockStyle.DIGITAL;
         mIsPortrait = ThemeUtils.isPortrait();
         mIsTablet = ThemeUtils.isTablet();
         mDateFormat = mContext.getString(R.string.abbrev_wday_month_day_no_year);
         mDateFormatForAccessibility = mContext.getString(R.string.full_wday_month_day_no_year);
-
-        mMutableCities.clear();
-        mMutableCities.addAll(DataModel.getDataModel().getSelectedCities());
-
-        mCityAdapter = new SelectedCitiesAdapter(mContext, mMutableCities, mShowHomeClock, mIsPortrait);
-        DataModel.getDataModel().addCityListener(mCityAdapter);
-
+        mSelectedCities = DataModel.getDataModel().getSelectedCities();
         mAlarmChangeReceiver = new AlarmChangedBroadcastReceiver();
     }
 
@@ -142,7 +141,6 @@ public final class ClockFragment extends DeskClockFragment {
 
         AlarmUtils.applyBoldNextAlarmTypeface(mBinding.mainClockFrame.mainClockContainer);
 
-        mBinding.cityRecyclerView.setAdapter(mCityAdapter);
         mBinding.cityRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
 
         mBinding.cityRecyclerView.addItemDecoration(new CitySpacingItemDecoration(mContext, mDisplayMetrics, mIsPortrait, mIsTablet));
@@ -183,6 +181,31 @@ public final class ClockFragment extends DeskClockFragment {
             );
         }
 
+        // Schedule a runnable to update the date every quarter-hour.
+        UiDataModel.getUiDataModel().addQuarterHourCallback(mQuarterHourUpdater, 100);
+
+        refreshAlarm();
+
+        return mBinding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        String fontPath = SettingsDAO.getGeneralFont(mPrefs);
+        String digitalFontPath = SettingsDAO.getDigitalClockFont(mPrefs);
+        Typeface regularTypeface = ThemeUtils.loadFont(fontPath);
+        Typeface boldTypeface = ThemeUtils.boldTypeface(fontPath);
+        Typeface digitalTypeface = mIsDigitalClock ? ThemeUtils.loadFont(digitalFontPath) : null;
+
+        mCityAdapter = new SelectedCitiesAdapter(mContext, mPrefs, mSelectedCities, mShowHomeClock, mIsCityNoteEnabled,
+            mIsDigitalClock, mHasBlackAccentColor, regularTypeface, boldTypeface, digitalTypeface);
+
+        mBinding.cityRecyclerView.setAdapter(mCityAdapter);
+
+        DataModel.getDataModel().addCityListener(mCityAdapter);
+
         CityItemTouchHelper callback = new CityItemTouchHelper(mCityAdapter, mShowHomeClock);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
 
@@ -192,18 +215,7 @@ public final class ClockFragment extends DeskClockFragment {
             itemTouchHelper.attachToRecyclerView(null);
         }
 
-        // Schedule a runnable to update the date every quarter-hour.
-        UiDataModel.getUiDataModel().addQuarterHourCallback(mQuarterHourUpdater, 100);
-
         updateEmptyStateVisibility();
-        refreshAlarm();
-
-        return mBinding.getRoot();
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
 
         getParentFragmentManager().setFragmentResultListener(LabelDialogFragment.REQUEST_CITY_NOTE, getViewLifecycleOwner(),
             (requestKey, bundle) -> {
@@ -316,6 +328,10 @@ public final class ClockFragment extends DeskClockFragment {
     }
 
     private void updateEmptyStateVisibility() {
+        if ( mBinding == null || mCityAdapter == null) {
+            return;
+        }
+
         final boolean isEmpty = !mShowHomeClock && mCityAdapter.getCities().isEmpty();
 
         if (mBinding.citiesEmptyView != null) {

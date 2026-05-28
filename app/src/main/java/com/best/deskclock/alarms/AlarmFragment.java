@@ -109,7 +109,6 @@ public final class AlarmFragment extends DeskClockFragment
 
     private SharedPreferences mPrefs;
     private DisplayMetrics mDisplayMetrics;
-    private Typeface mBoldTypeface;
 
     // Updates "Today/Tomorrow" in the UI when midnight passes.
     private final Runnable mMidnightUpdater = new MidnightRunnable();
@@ -156,9 +155,6 @@ public final class AlarmFragment extends DeskClockFragment
 
         mPrefs = getDefaultSharedPreferences(requireContext());
         mDisplayMetrics = getResources().getDisplayMetrics();
-        mBoldTypeface = ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(mPrefs));
-        mCursorLoader = LoaderManager.getInstance(this).initLoader(0, null, this);
-        mItemAdapter = new AlarmAdapter(requireContext());
         mIsTablet = ThemeUtils.isTablet();
         mIsLandscape = ThemeUtils.isLandscape();
         mIsLowAlarmVolumeWarningEnabled = SettingsDAO.isLowAlarmVolumeWarningDisplayed(mPrefs);
@@ -175,8 +171,6 @@ public final class AlarmFragment extends DeskClockFragment
 
         mBinding = AlarmFragmentBinding.inflate(inflater, container, false);
 
-        mBinding.alarmVolumeWarningBanner.volumeWarningText.setTypeface(mBoldTypeface);
-        mBinding.alarmVolumeWarningBanner.volumeWarningButton.setTypeface(mBoldTypeface);
         mBinding.alarmVolumeWarningBanner.volumeWarningButton.setOnClickListener(v ->
             RingtoneUtils.fixAlarmStreamLow(requireContext())
         );
@@ -203,8 +197,6 @@ public final class AlarmFragment extends DeskClockFragment
 
         mBinding.alarmRecyclerView.setLayoutManager(getLayoutManager());
 
-        mBinding.alarmRecyclerView.setAdapter(mItemAdapter);
-
         mBinding.alarmRecyclerView.addItemDecoration(new GridSpacingItemDecoration(requireContext(), mDisplayMetrics));
 
         RecyclerView.ItemAnimator animator = mBinding.alarmRecyclerView.getItemAnimator();
@@ -212,6 +204,30 @@ public final class AlarmFragment extends DeskClockFragment
             // Disable flash/blinking during updates (notifyItemChanged)
             ((SimpleItemAnimator) animator).setSupportsChangeAnimations(false);
         }
+
+        // Schedule a runnable to update the "Today/Tomorrow" values displayed for non-repeating
+        // alarms when midnight passes.
+        UiDataModel.getUiDataModel().addMidnightCallback(mMidnightUpdater, 100);
+
+        return mBinding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        String generalFontPath = SettingsDAO.getGeneralFont(mPrefs);
+        String alarmFontPath = SettingsDAO.getAlarmFont(mPrefs);
+        Typeface generalTypeface = ThemeUtils.loadFont(generalFontPath);
+        Typeface generalBoldTypeface = ThemeUtils.boldTypeface(generalFontPath);
+        Typeface alarmClockTypeface = ThemeUtils.boldTypeface(alarmFontPath);
+
+        mBinding.alarmVolumeWarningBanner.volumeWarningText.setTypeface(generalBoldTypeface);
+        mBinding.alarmVolumeWarningBanner.volumeWarningButton.setTypeface(generalBoldTypeface);
+
+        mItemAdapter = new AlarmAdapter(requireContext(), mPrefs, generalTypeface, generalBoldTypeface, alarmClockTypeface);
+
+        mBinding.alarmRecyclerView.setAdapter(mItemAdapter);
 
         AlarmItemTouchHelper callback =
             new AlarmItemTouchHelper(requireContext(), this, mBinding.alarmRecyclerView, mIsTablet, mIsLandscape);
@@ -224,18 +240,9 @@ public final class AlarmFragment extends DeskClockFragment
             itemTouchHelper.attachToRecyclerView(mBinding.alarmRecyclerView);
         }
 
-        // Schedule a runnable to update the "Today/Tomorrow" values displayed for non-repeating
-        // alarms when midnight passes.
-        UiDataModel.getUiDataModel().addMidnightCallback(mMidnightUpdater, 100);
+        mCursorLoader = LoaderManager.getInstance(this).initLoader(0, null, this);
 
         updateWarningBannerVisibility();
-
-        return mBinding.getRoot();
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
 
         if (savedInstanceState != null) {
             Alarm restoredAlarm = SdkUtils.isAtLeastAndroid13()

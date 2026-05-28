@@ -3,11 +3,8 @@
 package com.best.deskclock.ringtone;
 
 import static androidx.core.util.TypedValueCompat.dpToPx;
-import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -18,7 +15,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.R;
-import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.ThemeUtils;
 import com.google.android.material.color.MaterialColors;
 
@@ -40,16 +36,15 @@ public class RingtoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private final Drawable.ConstantState mBgSelectedState;
     private final Drawable.ConstantState mBgUnselectedState;
 
-    public RingtoneAdapter(Context context, OnRingtoneClickListener listener) {
+    public RingtoneAdapter(Context context, Typeface generalTypeface, boolean isAmoledDarkMode, OnRingtoneClickListener listener) {
         mListener = listener;
 
-        SharedPreferences prefs = getDefaultSharedPreferences(context);
-        mGeneralTypeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
+        mGeneralTypeface = generalTypeface;
         mDisplayMetricsPadding = (int) dpToPx(20, context.getResources().getDisplayMetrics());
 
         int colorSelected = MaterialColors.getColor(context, com.google.android.material.R.attr.colorSurface, Color.BLACK);
         int colorUnselected;
-        if (ThemeUtils.isNight(context.getResources()) && AMOLED_DARK_MODE.equals(SettingsDAO.getDarkMode(prefs))) {
+        if (ThemeUtils.isNight(context.getResources()) && isAmoledDarkMode) {
             colorUnselected = Color.BLACK;
         } else {
             colorUnselected = MaterialColors.getColor(context, android.R.attr.colorBackground, Color.BLACK);

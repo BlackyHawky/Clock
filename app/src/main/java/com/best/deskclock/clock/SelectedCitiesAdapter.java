@@ -7,8 +7,6 @@
 package com.best.deskclock.clock;
 
 import static androidx.core.util.TypedValueCompat.dpToPx;
-import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-import static com.best.deskclock.settings.PreferencesDefaultValues.BLACK_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_CITY_NOTE;
 
 import android.content.Context;
@@ -25,13 +23,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.CityListener;
 import com.best.deskclock.data.DataModel;
-import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.databinding.WorldClockItemBinding;
 import com.best.deskclock.uicomponents.ItemTouchHelperContract;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.WidgetUtils;
 import com.best.deskclock.widgets.DigitalAppWidgetProvider;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -51,7 +49,6 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private final Context mContext;
     private final SharedPreferences mPrefs;
     private final List<City> mCities;
-    public final boolean mIsPortrait;
     private final boolean mShowHomeClock;
     private final Typeface mRegularTypeface;
     private final Typeface mBoldTypeface;
@@ -65,21 +62,20 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private final Drawable.ConstantState mBgMiddle;
     private final Drawable.ConstantState mBgBottom;
 
-    public SelectedCitiesAdapter(Context context, List<City> cities, boolean showHomeClock, boolean isPortrait) {
+    public SelectedCitiesAdapter(Context context, SharedPreferences prefs, List<City> cities, boolean showHomeClock,
+                                 boolean isCityNoteEnabled, boolean isDigitalClock, boolean hasBlackAccentColor,
+                                 Typeface regularTypeface, Typeface boldTypeface, Typeface digitalClockTypeface) {
+
         mContext = context;
-        mPrefs = getDefaultSharedPreferences(context);
-        mCities = cities;
+        mPrefs = prefs;
+        mCities = new ArrayList<>(cities);
         mShowHomeClock = showHomeClock;
-        mIsPortrait = isPortrait;
-        String fontPath = SettingsDAO.getGeneralFont(mPrefs);
-        mRegularTypeface = ThemeUtils.loadFont(fontPath);
-        mBoldTypeface = ThemeUtils.boldTypeface(fontPath);
-        mDigitalClockTypeface = SettingsDAO.getClockStyle(mPrefs) == DataModel.ClockStyle.DIGITAL
-            ? ThemeUtils.loadFont(SettingsDAO.getDigitalClockFont(mPrefs))
-            : null;
-        mIsCityNoteEnabled = SettingsDAO.isCityNoteEnabled(mPrefs);
-        mIsDigitalClock = SettingsDAO.getClockStyle(mPrefs) == DataModel.ClockStyle.DIGITAL;
-        mHasBlackAccentColor = SettingsDAO.getAccentColor(mPrefs).equals(BLACK_ACCENT_COLOR);
+        mIsCityNoteEnabled = isCityNoteEnabled;
+        mIsDigitalClock = isDigitalClock;
+        mHasBlackAccentColor = hasBlackAccentColor;
+        mRegularTypeface = regularTypeface;
+        mBoldTypeface = boldTypeface;
+        mDigitalClockTypeface = digitalClockTypeface;
 
         mBgSingle = ThemeUtils.expressiveCardBackground(context, 0, 1).getConstantState();
         // position=0, totalCount=3 -> Top

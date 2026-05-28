@@ -62,21 +62,21 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private final Drawable.ConstantState mBgMiddle; // Middle
     private final Drawable.ConstantState mBgEnd;    // Bottom (Portrait) or Right (Landscape)
 
-    public TimerAdapter(Context context, SharedPreferences sharedPreferences, TimerClickHandler timerClickHandler) {
+    public TimerAdapter(Context context, SharedPreferences sharedPreferences, TimerClickHandler timerClickHandler, boolean isTablet,
+                        boolean isLandscape, Typeface regularTypeface, Typeface boldTypeface, Typeface timerTimeTypeface) {
+
         mContext = context;
         mPrefs = sharedPreferences;
         mTimerClickHandler = timerClickHandler;
-        mIsTablet = ThemeUtils.isTablet();
-
-        String generalFontPath = SettingsDAO.getGeneralFont(mPrefs);
-        mRegularTypeface = ThemeUtils.loadFont(generalFontPath);
-        mBoldTypeface = ThemeUtils.boldTypeface(generalFontPath);
-        mTimerTimeTypeface = ThemeUtils.loadFont(SettingsDAO.getTimerDurationFont(mPrefs));
+        mIsTablet = isTablet;
+        mRegularTypeface = regularTypeface;
+        mBoldTypeface = boldTypeface;
+        mTimerTimeTypeface = timerTimeTypeface;
 
         mBgStandard = ThemeUtils.cardBackground(context).getConstantState();
 
         if (!mIsTablet) {
-            if (ThemeUtils.isLandscape()) {
+            if (isLandscape) {
                 mBgStart = ThemeUtils.expressiveCardBackgroundForLandscape(context, 0, 3).getConstantState();
                 mBgMiddle = ThemeUtils.expressiveCardBackgroundForLandscape(context, 1, 3).getConstantState();
                 mBgEnd = ThemeUtils.expressiveCardBackgroundForLandscape(context, 2, 3).getConstantState();

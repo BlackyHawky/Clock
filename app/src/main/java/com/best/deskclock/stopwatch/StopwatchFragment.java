@@ -37,6 +37,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -108,8 +109,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
     }
 
     private Context mContext;
-    private Typeface mStopwatchTypeface;
-    private Typeface mBoldTypeface;
+    private SharedPreferences mPrefs;
     private String mVolumeUpAction;
     private String mVolumeUpActionAfterLongPress;
     private String mVolumeDownAction;
@@ -122,16 +122,12 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
         super.onCreate(savedInstanceState);
 
         mContext = requireContext();
-        SharedPreferences prefs = getDefaultSharedPreferences(mContext);
-        mStopwatchTypeface = ThemeUtils.loadFont(SettingsDAO.getStopwatchFont(prefs));
-        mBoldTypeface = ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(prefs));
+        mPrefs = getDefaultSharedPreferences(mContext);
 
-        mLapsAdapter = new LapsAdapter(mContext);
-
-        mVolumeUpAction = SettingsDAO.getVolumeUpActionForStopwatch(prefs);
-        mVolumeUpActionAfterLongPress = SettingsDAO.getVolumeUpActionAfterLongPressForStopwatch(prefs);
-        mVolumeDownAction = SettingsDAO.getVolumeDownActionForStopwatch(prefs);
-        mVolumeDownActionAfterLongPress = SettingsDAO.getVolumeDownActionAfterLongPressForStopwatch(prefs);
+        mVolumeUpAction = SettingsDAO.getVolumeUpActionForStopwatch(mPrefs);
+        mVolumeUpActionAfterLongPress = SettingsDAO.getVolumeUpActionAfterLongPressForStopwatch(mPrefs);
+        mVolumeDownAction = SettingsDAO.getVolumeDownActionForStopwatch(mPrefs);
+        mVolumeDownActionAfterLongPress = SettingsDAO.getVolumeDownActionAfterLongPressForStopwatch(mPrefs);
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -144,8 +140,6 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
         mBinding.stopwatchTimeWrapper.setOnTouchListener(new Utils.CircleTouchListener());
         mBinding.stopwatchTimeWrapper.setOnClickListener(new TimeClickListener());
 
-        mBinding.stopwatchTimeLayout.stopwatchTimeText.setTypeface(mStopwatchTypeface);
-        mBinding.stopwatchTimeLayout.stopwatchHundredthsText.setTypeface(mStopwatchTypeface);
         final int colorAccent = MaterialColors.getColor(mContext, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
         final int textColorPrimary = mBinding.stopwatchTimeLayout.stopwatchTimeText.getCurrentTextColor();
         final ColorStateList timeTextColor = new ColorStateList(
@@ -156,21 +150,6 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
 
         mBinding.lapsBackground.setBackground(ThemeUtils.cardBackground(mContext));
 
-        // Handle header text font
-        TextView[] titles = {
-            mBinding.lapHeaderLayout.lapTitle,
-            mBinding.lapHeaderLayout.splitTitle,
-            mBinding.lapHeaderLayout.totalTitle
-        };
-
-        for (TextView tv : titles) {
-            tv.setTypeface(mBoldTypeface);
-        }
-
-        // Timer text serves as a virtual start/stop button.
-        mStopwatchTextController = new StopwatchTextController(
-            mBinding.stopwatchTimeLayout.stopwatchTimeText, mBinding.stopwatchTimeLayout.stopwatchHundredthsText);
-
         RecyclerView.ItemAnimator animator = mBinding.lapsList.getItemAnimator();
         if (animator instanceof SimpleItemAnimator) {
             // Disable flash/blinking during updates (notifyItemChanged)
@@ -179,60 +158,44 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
 
         mLapsLayoutManager = new LinearLayoutManager(mContext);
         mBinding.lapsList.setLayoutManager(mLapsLayoutManager);
+
+        return mBinding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        String generalFontPath = SettingsDAO.getGeneralFont(mPrefs);
+        String stopwatchFontPath = SettingsDAO.getStopwatchFont(mPrefs);
+        Typeface regularTypeface = ThemeUtils.loadFont(generalFontPath);
+        Typeface boldTypeface = ThemeUtils.boldTypeface(generalFontPath);
+        Typeface stopwatchTypeface = ThemeUtils.loadFont(stopwatchFontPath);
+
+        mBinding.stopwatchTimeLayout.stopwatchTimeText.setTypeface(stopwatchTypeface);
+        mBinding.stopwatchTimeLayout.stopwatchHundredthsText.setTypeface(stopwatchTypeface);
+
+        // Handle header text font
+        TextView[] titles = {
+            mBinding.lapHeaderLayout.lapTitle,
+            mBinding.lapHeaderLayout.splitTitle,
+            mBinding.lapHeaderLayout.totalTitle
+        };
+        for (TextView tv : titles) {
+            tv.setTypeface(boldTypeface);
+        }
+
+        // Timer text serves as a virtual start/stop button.
+        mStopwatchTextController = new StopwatchTextController(
+            mBinding.stopwatchTimeLayout.stopwatchTimeText, mBinding.stopwatchTimeLayout.stopwatchHundredthsText);
+
+        mLapsAdapter = new LapsAdapter(mContext, regularTypeface, boldTypeface);
         mBinding.lapsList.setAdapter(mLapsAdapter);
 
         DataModel.getDataModel().addStopwatchListener(mStopwatchWatcher);
 
         updateTime();
         showOrHideLaps(getStopwatch().isReset());
-
-        return mBinding.getRoot();
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (event.getAction() == KeyEvent.ACTION_DOWN) {
-            switch (keyCode) {
-                case KeyEvent.KEYCODE_VOLUME_UP:
-                    if (mVolumeUpAction.equals(DEFAULT_SW_ACTION) && mVolumeUpActionAfterLongPress.equals(DEFAULT_SW_ACTION)) {
-                        return false;
-                    }
-                    mIsVolumeUpLongPressed = event.getRepeatCount() >= 2;
-                    return true;
-
-                case KeyEvent.KEYCODE_VOLUME_DOWN:
-                    if (mVolumeDownAction.equals(DEFAULT_SW_ACTION) && mVolumeDownActionAfterLongPress.equals(DEFAULT_SW_ACTION)) {
-                        return false;
-                    }
-                    mIsVolumeDownLongPressed = event.getRepeatCount() >= 2;
-                    return true;
-            }
-        }
-
-        return super.onKeyDown(keyCode, event);
-    }
-
-    @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
-        if (event.getAction() == KeyEvent.ACTION_UP) {
-            if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
-                if (mIsVolumeUpLongPressed) {
-                    getVolumeUpActionAfterLongPress();
-                } else {
-                    getVolumeUpAction();
-                }
-                return true;
-            } else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
-                if (mIsVolumeDownLongPressed) {
-                    getVolumeDownActionAfterLongPress();
-                } else {
-                    getVolumeDownAction();
-                }
-                return true;
-            }
-        }
-
-        return super.onKeyUp(keyCode, event);
     }
 
     @Override
@@ -290,6 +253,52 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
         mLapsLayoutManager = null;
 
         super.onDestroyView();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (event.getAction() == KeyEvent.ACTION_DOWN) {
+            switch (keyCode) {
+                case KeyEvent.KEYCODE_VOLUME_UP:
+                    if (mVolumeUpAction.equals(DEFAULT_SW_ACTION) && mVolumeUpActionAfterLongPress.equals(DEFAULT_SW_ACTION)) {
+                        return false;
+                    }
+                    mIsVolumeUpLongPressed = event.getRepeatCount() >= 2;
+                    return true;
+
+                case KeyEvent.KEYCODE_VOLUME_DOWN:
+                    if (mVolumeDownAction.equals(DEFAULT_SW_ACTION) && mVolumeDownActionAfterLongPress.equals(DEFAULT_SW_ACTION)) {
+                        return false;
+                    }
+                    mIsVolumeDownLongPressed = event.getRepeatCount() >= 2;
+                    return true;
+            }
+        }
+
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (event.getAction() == KeyEvent.ACTION_UP) {
+            if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
+                if (mIsVolumeUpLongPressed) {
+                    getVolumeUpActionAfterLongPress();
+                } else {
+                    getVolumeUpAction();
+                }
+                return true;
+            } else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
+                if (mIsVolumeDownLongPressed) {
+                    getVolumeDownActionAfterLongPress();
+                } else {
+                    getVolumeDownAction();
+                }
+                return true;
+            }
+        }
+
+        return super.onKeyUp(keyCode, event);
     }
 
     @Override

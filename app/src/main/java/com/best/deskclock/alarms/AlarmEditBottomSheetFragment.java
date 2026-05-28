@@ -428,7 +428,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             getChildFragmentManager(),
             mPrefs,
             mAlarm,
-            (year, month, day, hour, minute) -> applyDate(year, month, day))
+            this::applyDate)
         );
 
         if (mAlarm.daysOfWeek.isRepeating()) {
