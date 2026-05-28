@@ -4,17 +4,17 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="C1" msgid="3622720549928625541">அ<xliff:g id="separator">=</xliff:g>அபிட்சன்<xliff:g id="timezone">|ஆப்பிரிக்கா/அபிட்சன்</xliff:g></string>
-    <string name="C2" msgid="9073993995416728918">அ<xliff:g id="separator">=</xliff:g>அக்ரா<xliff:g id="timezone">|ஆப்பிரிக்கா/அக்ரா</xliff:g></string>
-    <string name="C3" msgid="5172979423931428620">அ<xliff:g id="separator">=</xliff:g>அடிச் அபாபா<xliff:g id="timezone">|ஆப்பிரிக்கா/அடிச்_அபாபா</xliff:g></string>
-    <string name="C4" msgid="4450258423854546267">அ<xliff:g id="separator">=</xliff:g>அல்கியர்ச்<xliff:g id="timezone">|ஆப்பிரிக்கா/அல்கியர்ச்</xliff:g></string>
-    <string name="C5" msgid="8063142106679202722">ப<xliff:g id="separator">=</xliff:g>பிளான்டையர்<xliff:g id="timezone">|ஆப்பிரிக்கா/பிளான்டையர்</xliff:g></string>
-    <string name="C6" msgid="1620940469531839828">ப<xliff:g id="separator">=</xliff:g><xliff:g id="timezone">|ஆப்பிரிக்கா/பிராசாவில்லி</xliff:g></string>
-    <string name="C7" msgid="8450502029020824529">க<xliff:g id="separator">=</xliff:g>கெய்ரோ<xliff:g id="timezone">|ஆப்பிரிக்கா/கெய்ரோ</xliff:g></string>
-    <string name="C8" msgid="5843391672611053116">க<xliff:g id="separator">=</xliff:g>காஸாபிளான்கா<xliff:g id="timezone">|ஆப்பிரிக்கா/காஸாபிளான்கா</xliff:g></string>
-    <string name="C9" msgid="2164088076645942134">க<xliff:g id="separator">=</xliff:g>கோனக்ரே<xliff:g id="timezone">|ஆப்பிரிக்கா/கோனக்ரே</xliff:g></string>
-    <string name="C10" msgid="6275085554326816487">த<xliff:g id="separator">=</xliff:g>தாகர்<xliff:g id="timezone">|ஆப்பிரிக்கா/தாகர்</xliff:g></string>
-    <string name="C11" msgid="8124988526568339100">D<xliff:g id="separator">=</xliff:g>Dar es Salaam<xliff:g id="timezone">|Africa/Dar_es_Salaam</xliff:g>\nத<xliff:g id="SEPARATOR">=</xliff:g>தார் ஸ் சலாம்<xliff:g id="TIMEZONE">|ஆப்பிரிக்கா/Dar_es_Salaam</xliff:g></string>
+    <string name="C1" msgid="3622720549928625541">அ<xliff:g id="separator">=</xliff:g>அபிட்சன்<xliff:g id="timezone">|Africa/Abidjan</xliff:g></string>
+    <string name="C2" msgid="9073993995416728918">அ<xliff:g id="separator">=</xliff:g>அக்ரா<xliff:g id="timezone">|Africa/Accra</xliff:g></string>
+    <string name="C3" msgid="5172979423931428620">அ<xliff:g id="separator">=</xliff:g>அடிச் அபாபா<xliff:g id="timezone">|Africa/Addis_Ababa</xliff:g></string>
+    <string name="C4" msgid="4450258423854546267">அ<xliff:g id="separator">=</xliff:g>அல்கியர்ச்<xliff:g id="timezone">|Africa/Algiers</xliff:g></string>
+    <string name="C5" msgid="8063142106679202722">ப<xliff:g id="separator">=</xliff:g>பிளான்டையர்<xliff:g id="timezone">|Africa/Blantyre</xliff:g></string>
+    <string name="C6" msgid="1620940469531839828">ப<xliff:g id="separator">=</xliff:g>பிராஸாவில்லி<xliff:g id="timezone">|Africa/Brazzaville</xliff:g></string>
+    <string name="C7" msgid="8450502029020824529">க<xliff:g id="separator">=</xliff:g>கெய்ரோ<xliff:g id="timezone">|Africa/Cairo</xliff:g></string>
+    <string name="C8" msgid="5843391672611053116">க<xliff:g id="separator">=</xliff:g>காஸாபிளான்கா<xliff:g id="timezone">|Africa/Casablanca</xliff:g></string>
+    <string name="C9" msgid="2164088076645942134">க<xliff:g id="separator">=</xliff:g>கோனக்ரே<xliff:g id="timezone">|Africa/Conakry</xliff:g></string>
+    <string name="C10" msgid="6275085554326816487">த<xliff:g id="separator">=</xliff:g>தாகர்<xliff:g id="timezone">|Africa/Dakar</xliff:g></string>
+    <string name="C11" msgid="8124988526568339100">த<xliff:g id="separator">=</xliff:g>தார் ஸ் சலாம்<xliff:g id="timezone">|Africa/Dar_es_Salaam</xliff:g></string>
     <string name="C12" msgid="9058858575164534385">ட<xliff:g id="SEPARATOR">=</xliff:g>டிஜிபவ்டி<xliff:g id="TIMEZONE">|Africa/Djibouti</xliff:g></string>
     <string name="C13" msgid="1020128319695123468">ஃ<xliff:g id="SEPARATOR">=</xliff:g>ஃபிரீடவுன்<xliff:g id="TIMEZONE">|Africa/Freetown</xliff:g></string>
     <string name="C14" msgid="5466600602512133072">க<xliff:g id="SEPARATOR">=</xliff:g>கபோரோன்<xliff:g id="TIMEZONE">|Africa/Gaborone</xliff:g></string>
@@ -83,7 +83,7 @@
     <string name="C79" msgid="615046244335186458">ப<xliff:g id="SEPARATOR">=</xliff:g>பியூலா<xliff:g id="TIMEZONE">|America/North_Dakota/Beulah</xliff:g></string>
     <string name="C80" msgid="7462541787750301851">B<xliff:g id="separator">=</xliff:g>Bismarck<xliff:g id="timezone">|America/North_Dakota/Center</xliff:g></string>
     <string name="C81" msgid="5467118811364466464">ந<xliff:g id="SEPARATOR">=</xliff:g>நியூ சாலம்<xliff:g id="TIMEZONE">|America/North_Dakota/New_Salem</xliff:g></string>
-    <string name="C82" msgid="1040250446144596478">பி<xliff:g id="separator">=</xliff:g>பனாமா நகரம்<xliff:g id="timezone">|அமெரிக்கா/பனாமா</xliff:g></string>
+    <string name="C82" msgid="1040250446144596478">பி<xliff:g id="separator">=</xliff:g>பனாமா நகரம்<xliff:g id="timezone">|America/Panama</xliff:g></string>
     <string name="C83" msgid="3734366600481445363">ப<xliff:g id="SEPARATOR">=</xliff:g>பீனிக்ஸ்<xliff:g id="TIMEZONE">|America/Phoenix</xliff:g></string>
     <string name="C84" msgid="2410152141185166321">ப<xliff:g id="SEPARATOR">=</xliff:g>போர்ட் ஆஃப் ஸ்பெயின்<xliff:g id="TIMEZONE">|America/Port_of_Spain</xliff:g></string>
     <string name="C85" msgid="2883572094139689939">ப<xliff:g id="SEPARATOR">=</xliff:g>போர்ட்-ஓ-பிரின்ஸ்<xliff:g id="TIMEZONE">|America/Port-au-Prince</xliff:g></string>
@@ -201,7 +201,7 @@
     <string name="C201" msgid="5026927396527258914">ச<xliff:g id="SEPARATOR">=</xliff:g>சாகிரேப்<xliff:g id="TIMEZONE">|Europe/Zagreb</xliff:g></string>
     <string name="C202" msgid="7479245034393288391">ச<xliff:g id="SEPARATOR">=</xliff:g>சூரிச்<xliff:g id="TIMEZONE">|Europe/Zurich</xliff:g></string>
     <string name="C203" msgid="1651234331866937237">ஆ<xliff:g id="SEPARATOR">=</xliff:g>ஆண்டனநரிவோ<xliff:g id="TIMEZONE">|Indian/Antananarivo</xliff:g></string>
-    <string name="C204" msgid="3101091022126098393">M<xliff:g id="separator">=</xliff:g>Malé<xliff:g id="timezone">|இந்தியன்/மாலத்தீவுகள்</xliff:g></string>
+    <string name="C204" msgid="3101091022126098393">M<xliff:g id="separator">=</xliff:g>Malé<xliff:g id="timezone">|Indian/Maldives</xliff:g></string>
     <string name="C205" msgid="9173530407684443044">ம<xliff:g id="SEPARATOR">=</xliff:g>மொரிஷியஸ்<xliff:g id="TIMEZONE">|Indian/Mauritius</xliff:g></string>
     <string name="C206" msgid="7294622489478378014">ஆ<xliff:g id="SEPARATOR">=</xliff:g>ஆக்லாந்து<xliff:g id="TIMEZONE">|Pacific/Auckland</xliff:g></string>
     <string name="C207" msgid="6369257832191627783">S<xliff:g id="separator">=</xliff:g>Suva<xliff:g id="timezone">|Pacific/Fiji</xliff:g></string>
@@ -342,7 +342,7 @@
     <string name="C346" msgid="2947674392768816097">ய<xliff:g id="SEPARATOR">=</xliff:g>யாவுண்டே<xliff:g id="TIMEZONE">|Africa/Douala</xliff:g></string>
     <string name="C347" msgid="6291282205599716861">ய<xliff:g id="SEPARATOR">=</xliff:g>யாரென் மாவட்டம்<xliff:g id="TIMEZONE">|Pacific/Nauru</xliff:g></string>
     <string name="C348" msgid="8462071023392592539">ய<xliff:g id="SEPARATOR">=</xliff:g>யெரேவான்<xliff:g id="TIMEZONE">|Asia/Yerevan</xliff:g></string>
-    <string name="C349">பி<xliff:g id="separator">=</xliff:g>பொன்டா டெல்காடா<xliff:g id="timezone">|அட்லான்டிக்/அசோர்சு</xliff:g></string>
+    <string name="C349">பி<xliff:g id="separator">=</xliff:g>பொன்டா டெல்காடா<xliff:g id="timezone">|Atlantic/Azores</xliff:g></string>
     <string name="C350">U<xliff:g id="separator">=</xliff:g>UTC<xliff:g id="timezone">|UTC</xliff:g></string>
     <string name="C351">B<xliff:g id="separator">=</xliff:g>Baker Island<xliff:g id="timezone">|Etc/GMT+12</xliff:g></string>
     <string name="C352">H<xliff:g id="separator">=</xliff:g>Howland Island<xliff:g id="timezone">|Etc/GMT+12</xliff:g></string>

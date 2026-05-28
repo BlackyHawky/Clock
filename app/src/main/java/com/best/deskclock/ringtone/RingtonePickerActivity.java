@@ -65,7 +65,6 @@ import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
-import com.best.deskclock.utils.Utils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
@@ -282,11 +281,10 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
             ? intent.getParcelableExtra(EXTRA_DEFAULT_RINGTONE_URI, Uri.class)
             : intent.getParcelableExtra(EXTRA_DEFAULT_RINGTONE_URI);
         final int defaultRingtoneTitleId = intent.getIntExtra(EXTRA_DEFAULT_RINGTONE_NAME, 0);
-        final Context localizedContext = Utils.getLocalizedContext(context);
-        mDefaultRingtoneTitle = localizedContext.getString(defaultRingtoneTitleId);
+        mDefaultRingtoneTitle = getString(defaultRingtoneTitleId);
 
         mTitleResourceId = intent.getIntExtra(EXTRA_TITLE, 0);
-        setTitle(context.getString(mTitleResourceId));
+        setTitle(getString(mTitleResourceId));
 
         mRingtonePickerBinding.ringtoneContent.setLayoutManager(new LinearLayoutManager(context));
 
@@ -640,7 +638,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
             }
 
             if (name == null) {
-                name = appContext.getString(R.string.unknown_ringtone_title);
+                name = getString(R.string.unknown_ringtone_title);
             }
 
             final String title = name;

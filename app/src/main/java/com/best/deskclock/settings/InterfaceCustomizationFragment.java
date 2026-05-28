@@ -3,17 +3,8 @@
 package com.best.deskclock.settings;
 
 import static android.app.Activity.RESULT_OK;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TAB_TO_DISPLAY;
-import static com.best.deskclock.settings.PreferencesDefaultValues.TAB_TO_DISPLAY_ALARM;
-import static com.best.deskclock.settings.PreferencesDefaultValues.TAB_TO_DISPLAY_CLOCK;
-import static com.best.deskclock.settings.PreferencesDefaultValues.TAB_TO_DISPLAY_STOPWATCH;
-import static com.best.deskclock.settings.PreferencesDefaultValues.TAB_TO_DISPLAY_TIMER;
-import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_TAB_ALARM;
-import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_TAB_CLOCK;
-import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_TAB_STOPWATCH;
-import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_TAB_TIMER;
+import static com.best.deskclock.settings.PreferencesDefaultValues.*;
 import static com.best.deskclock.settings.PreferencesKeys.*;
-import static com.best.deskclock.utils.Utils.ACTION_LANGUAGE_CODE_CHANGED;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -25,6 +16,8 @@ import android.service.quicksettings.TileService;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.os.LocaleListCompat;
 import androidx.preference.ListPreference;
 import androidx.preference.MultiSelectListPreference;
 import androidx.preference.Preference;
@@ -64,7 +57,7 @@ public class InterfaceCustomizationFragment extends ScreenFragment
     ListPreference mNightAccentColorPref;
     SwitchPreferenceCompat mCardBackgroundPref;
     SwitchPreferenceCompat mCardBorderPref;
-    ListPreference mCustomLanguageCodePref;
+    ListPreference mLanguageCodePref;
     MultiSelectListPreference mVisibleTabsPref;
     ListPreference mTabToDisplayPref;
     SwitchPreferenceCompat mVibrationPref;
@@ -148,7 +141,7 @@ public class InterfaceCustomizationFragment extends ScreenFragment
         mNightAccentColorPref = findPreference(KEY_NIGHT_ACCENT_COLOR);
         mCardBackgroundPref = findPreference(KEY_CARD_BACKGROUND);
         mCardBorderPref = findPreference(KEY_CARD_BORDER);
-        mCustomLanguageCodePref = findPreference(KEY_CUSTOM_LANGUAGE_CODE);
+        mLanguageCodePref = findPreference(KEY_LANGUAGE_CODE);
         mVisibleTabsPref = findPreference(KEY_VISIBLE_TABS);
         mTabToDisplayPref = findPreference(KEY_TAB_TO_DISPLAY);
         mVibrationPref = findPreference(KEY_VIBRATIONS);
@@ -164,7 +157,7 @@ public class InterfaceCustomizationFragment extends ScreenFragment
         if (mNightAccentColorPref.isShown()) {
             sortListPreference(mNightAccentColorPref);
         }
-        sortListPreference(mCustomLanguageCodePref);
+        sortListPreference(mLanguageCodePref);
     }
 
     @Override
@@ -182,7 +175,7 @@ public class InterfaceCustomizationFragment extends ScreenFragment
     @Override
     public void onDestroy() {
         nullifyPreferenceListeners(mThemePref, mDarkModePref, mGeneralFontPref, mAccentColorPref, mAutoNightAccentColorPref,
-            mNightAccentColorPref, mCardBackgroundPref, mCardBorderPref, mCustomLanguageCodePref, mVisibleTabsPref, mTabToDisplayPref,
+            mNightAccentColorPref, mCardBackgroundPref, mCardBorderPref, mLanguageCodePref, mVisibleTabsPref, mTabToDisplayPref,
             mVibrationPref, mToolbarTitlePref, mTabTitleVisibilityPref, mTabIndicatorPref, mFadeTransitionsPref, mKeepScreenOnPref);
 
         nullifyAllPrefs();
@@ -202,10 +195,18 @@ public class InterfaceCustomizationFragment extends ScreenFragment
             case KEY_AUTO_NIGHT_ACCENT_COLOR, KEY_CARD_BACKGROUND, KEY_CARD_BORDER, KEY_FADE_TRANSITIONS, KEY_VIBRATIONS, KEY_TOOLBAR_TITLE,
                  KEY_TAB_INDICATOR, KEY_KEEP_SCREEN_ON -> Utils.setVibrationTime(requireContext(), 50);
 
-            case KEY_CUSTOM_LANGUAGE_CODE -> {
-                final int index = mCustomLanguageCodePref.findIndexOfValue((String) newValue);
-                mCustomLanguageCodePref.setSummary(mCustomLanguageCodePref.getEntries()[index]);
-                requireContext().sendBroadcast(new Intent(ACTION_LANGUAGE_CODE_CHANGED));
+            case KEY_LANGUAGE_CODE -> {
+                final int index = mLanguageCodePref.findIndexOfValue((String) newValue);
+                mLanguageCodePref.setSummary(mLanguageCodePref.getEntries()[index]);
+
+                String languageCode = (String) newValue;
+
+                if (languageCode.equals(DEFAULT_SYSTEM_LANGUAGE_CODE)) {
+                    AppCompatDelegate.setApplicationLocales(LocaleListCompat.getEmptyLocaleList());
+                } else {
+                    AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(languageCode));
+                }
+
                 isLanguageChanged = true;
             }
 
@@ -300,8 +301,8 @@ public class InterfaceCustomizationFragment extends ScreenFragment
 
         mTabIndicatorPref.setOnPreferenceChangeListener(this);
 
-        mCustomLanguageCodePref.setSummary(mCustomLanguageCodePref.getEntry());
-        mCustomLanguageCodePref.setOnPreferenceChangeListener(this);
+        mLanguageCodePref.setSummary(mLanguageCodePref.getEntry());
+        mLanguageCodePref.setOnPreferenceChangeListener(this);
 
         updateVisibleTabsSummary(visibleTabs);
         mVisibleTabsPref.setOnPreferenceChangeListener(this);
@@ -486,7 +487,7 @@ public class InterfaceCustomizationFragment extends ScreenFragment
         mNightAccentColorPref = null;
         mCardBackgroundPref = null;
         mCardBorderPref = null;
-        mCustomLanguageCodePref = null;
+        mLanguageCodePref = null;
         mVisibleTabsPref = null;
         mTabToDisplayPref = null;
         mVibrationPref = null;

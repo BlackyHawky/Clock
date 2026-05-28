@@ -9,6 +9,7 @@ package com.best.deskclock.utils;
 import static android.app.PendingIntent.FLAG_IMMUTABLE;
 import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEBUG_LANGUAGE_CODE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SYSTEM_LANGUAGE_CODE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.VIBRATION_PATTERN_ESCALATING;
 import static com.best.deskclock.settings.PreferencesDefaultValues.VIBRATION_PATTERN_HEARTBEAT;
@@ -23,7 +24,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Looper;
@@ -37,7 +37,9 @@ import android.widget.Button;
 
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.os.LocaleListCompat;
 import androidx.core.text.HtmlCompat;
 import androidx.core.util.Function;
 import androidx.fragment.app.DialogFragment;
@@ -65,11 +67,6 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class Utils {
-
-    /**
-     * Action sent by a broadcast when the application language is changed.
-     */
-    public static final String ACTION_LANGUAGE_CODE_CHANGED = "com.best.deskclock.LANGUAGE_CODE_CHANGED";
 
     public static void enforceMainLooper() {
         if (Looper.getMainLooper() != Looper.myLooper()) {
@@ -208,31 +205,46 @@ public class Utils {
      */
     @SuppressLint("AppBundleLocaleChanges")
     public static Context getLocalizedContext(Context context) {
-        String customLanguageCode = SettingsDAO.getCustomLanguageCode(getDefaultSharedPreferences(context));
-
-        Locale locale;
+        String customLanguageCode = SettingsDAO.getLanguageCode(getDefaultSharedPreferences(context));
 
         if (DEFAULT_SYSTEM_LANGUAGE_CODE.equals(customLanguageCode)) {
-            if (SdkUtils.isAtLeastAndroid7()) {
-                locale = Resources.getSystem().getConfiguration().getLocales().get(0);
-            } else {
-                locale = Resources.getSystem().getConfiguration().locale;
-            }
-        } else {
-            String[] parts = customLanguageCode.split("_");
-            if (parts.length == 2) {
-                locale = new Locale(parts[0], parts[1]);
-            } else {
-                locale = new Locale(customLanguageCode);
-            }
+            return context;
         }
 
-        Locale.setDefault(locale);
+        Locale locale = Locale.forLanguageTag(customLanguageCode);
 
         Configuration config = new Configuration(context.getResources().getConfiguration());
         config.setLocale(locale);
 
         return context.createConfigurationContext(config);
+    }
+
+    /**
+     * Applies the application's language settings during an app reset or backup restore.
+     *
+     * <p>If the app is being reset, it applies the default language (or a specific language for debug/nightly builds).
+     * If the app is being restored, it reads the saved language from shared preferences and applies it.</p>
+     *
+     * @param context        the context used to access shared preferences
+     * @param isResettingApp true if the app is resetting to default settings, false if restoring from a backup
+     */
+    public static void applyAppLanguage(Context context, boolean isResettingApp) {
+        if (isResettingApp) {
+            if (BuildConfig.IS_DEBUG_BUILD || BuildConfig.IS_NIGHTLY_BUILD) {
+                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(DEBUG_LANGUAGE_CODE));
+            } else {
+                AppCompatDelegate.setApplicationLocales(LocaleListCompat.getEmptyLocaleList());
+            }
+        } else {
+            SharedPreferences prefs = getDefaultSharedPreferences(context);
+            String customLanguageCode = SettingsDAO.getLanguageCode(prefs);
+
+            if (customLanguageCode.equals(DEFAULT_SYSTEM_LANGUAGE_CODE)) {
+                AppCompatDelegate.setApplicationLocales(LocaleListCompat.getEmptyLocaleList());
+            } else {
+                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(customLanguageCode));
+            }
+        }
     }
 
     /**

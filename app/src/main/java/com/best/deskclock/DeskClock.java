@@ -18,6 +18,7 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TAB_T
 import static com.best.deskclock.settings.PreferencesDefaultValues.TAB_TITLE_VISIBILITY_NEVER;
 import static com.best.deskclock.settings.PreferencesKeys.*;
 import static com.best.deskclock.utils.AnimatorUtils.getScaleAnimator;
+import static com.best.deskclock.utils.WidgetUtils.EXTRA_UPDATE_WIDGETS;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -75,6 +76,7 @@ import com.best.deskclock.utils.NotificationUtils;
 import com.best.deskclock.utils.PermissionUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
+import com.best.deskclock.utils.WidgetUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -202,6 +204,12 @@ public class DeskClock extends BaseActivity implements FabContainer {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent intent = getIntent();
+        if (intent != null && intent.getBooleanExtra(EXTRA_UPDATE_WIDGETS, false)) {
+            WidgetUtils.updateAllWidgets(this);
+            intent.removeExtra(EXTRA_UPDATE_WIDGETS);
+        }
 
         mBinding = DeskClockBinding.inflate(getLayoutInflater());
 
@@ -408,7 +416,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
      * Check if this is the first time the application has been launched.
      */
     private boolean isFirstLaunch() {
-        final boolean isFirstRun = mPrefs.getBoolean(FirstLaunch.KEY_IS_FIRST_LAUNCH, true);
+        final boolean isFirstRun = mPrefs.getBoolean(KEY_IS_FIRST_LAUNCH, true);
         if (isFirstRun) {
             startActivity(new Intent(this, FirstLaunch.class));
             finish();

@@ -6,7 +6,7 @@
 
 package com.best.deskclock.uidata;
 
-import static com.best.deskclock.utils.Utils.ACTION_LANGUAGE_CODE_CHANGED;
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static java.util.Calendar.JULY;
 
 import android.annotation.SuppressLint;
@@ -14,9 +14,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.util.ArrayMap;
 import android.util.SparseArray;
 
+import com.best.deskclock.settings.PreferencesKeys;
 import com.best.deskclock.utils.SdkUtils;
 
 import java.text.SimpleDateFormat;
@@ -29,6 +31,13 @@ import java.util.Map;
  * All formatted strings that are cached for performance are accessed via this model.
  */
 final class FormattedStringModel {
+
+    /**
+     * Retain a hard reference to the shared preference observer to prevent it from being garbage
+     * collected. See {@link SharedPreferences#registerOnSharedPreferenceChangeListener} for detail.
+     */
+    @SuppressWarnings("FieldCanBeLocal")
+    private final SharedPreferences.OnSharedPreferenceChangeListener mPreferenceListener = new PreferenceListener();
 
     /**
      * Clears data structures containing data that is locale-sensitive.
@@ -55,10 +64,13 @@ final class FormattedStringModel {
 
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
     FormattedStringModel(Context context) {
+        SharedPreferences prefs = getDefaultSharedPreferences(context);
+        prefs.registerOnSharedPreferenceChangeListener(mPreferenceListener);
+
         // Clear caches affected by locale when locale changes.
         final IntentFilter localeBroadcastFilter = new IntentFilter();
         localeBroadcastFilter.addAction(Intent.ACTION_LOCALE_CHANGED);
-        localeBroadcastFilter.addAction(ACTION_LANGUAGE_CODE_CHANGED);
+
         if (SdkUtils.isAtLeastAndroid13()) {
             context.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter, Context.RECEIVER_EXPORTED);
         } else {
@@ -184,4 +196,16 @@ final class FormattedStringModel {
             mLongWeekdayNames = null;
         }
     }
+
+    private final class PreferenceListener implements SharedPreferences.OnSharedPreferenceChangeListener {
+        @Override
+        public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+            if (PreferencesKeys.KEY_LANGUAGE_CODE.equals(key)) {
+                mNumberFormatCache.clear();
+                mShortWeekdayNames = null;
+                mLongWeekdayNames = null;
+            }
+        }
+    }
+
 }

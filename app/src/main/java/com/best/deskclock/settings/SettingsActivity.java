@@ -7,7 +7,7 @@
 package com.best.deskclock.settings;
 
 import static com.best.deskclock.settings.PreferencesKeys.*;
-import static com.best.deskclock.utils.Utils.ACTION_LANGUAGE_CODE_CHANGED;
+import static com.best.deskclock.utils.WidgetUtils.EXTRA_UPDATE_WIDGETS;
 
 import android.annotation.SuppressLint;
 import android.content.ComponentName;
@@ -53,7 +53,6 @@ import com.best.deskclock.utils.NotificationUtils;
 import com.best.deskclock.utils.PermissionUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
-import com.best.deskclock.utils.WidgetUtils;
 
 import org.json.JSONException;
 
@@ -203,8 +202,11 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                                 // If the user has left the screen, clear the notifications and force a restart without the dialog.
                                 NotificationUtils.clearAllNotifications(appContext);
 
+                                Utils.applyAppLanguage(appContext, false);
+
                                 Intent restartIntent = new Intent(appContext, DeskClock.class);
                                 restartIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                restartIntent.putExtra(EXTRA_UPDATE_WIDGETS, true);
                                 appContext.startActivity(restartIntent);
                                 Runtime.getRuntime().exit(0);
                             }
@@ -536,12 +538,6 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         }
 
         private void applySettingsAfterRestore(Context context) {
-            // Required to update Locale.
-            context.sendBroadcast(new Intent(ACTION_LANGUAGE_CODE_CHANGED));
-
-            // Required to update widgets.
-            WidgetUtils.updateAllWidgets(context);
-
             // Required to update the timer list.
             DataModel.getDataModel().loadTimers();
 

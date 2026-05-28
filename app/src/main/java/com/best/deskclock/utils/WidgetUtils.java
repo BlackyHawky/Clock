@@ -58,6 +58,8 @@ import java.util.Locale;
 
 public class WidgetUtils {
 
+    public static final String EXTRA_UPDATE_WIDGETS = "EXTRA_UPDATE_WIDGETS";
+
     public static final String KEY_LAUNCHED_FROM_WIDGET = "launched_from_widget";
 
     private static final String METHOD_UPDATE_APP_WIDGET = "updateAppWidget";

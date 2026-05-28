@@ -3,6 +3,7 @@
 package com.best.deskclock.setup;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_IS_FIRST_LAUNCH;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -29,8 +30,6 @@ import com.best.deskclock.utils.Utils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class FirstLaunch extends BaseActivity {
-
-    public static final String KEY_IS_FIRST_LAUNCH = "key_is_first_launch";
 
     private FirstLaunchActivityBinding mBinding;
 

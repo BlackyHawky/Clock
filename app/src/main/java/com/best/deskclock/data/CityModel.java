@@ -9,7 +9,6 @@ package com.best.deskclock.data;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_CITIES_BY_DESCENDING_TIME_ZONE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_CITIES_BY_NAME;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_CITIES_MANUALLY;
-import static com.best.deskclock.utils.Utils.ACTION_LANGUAGE_CODE_CHANGED;
 
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
@@ -97,7 +96,7 @@ final class CityModel {
         // Clear caches affected by locale when locale changes.
         final IntentFilter localeBroadcastFilter = new IntentFilter();
         localeBroadcastFilter.addAction(Intent.ACTION_LOCALE_CHANGED);
-        localeBroadcastFilter.addAction(ACTION_LANGUAGE_CODE_CHANGED);
+
         if (SdkUtils.isAtLeastAndroid13()) {
             mContext.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter, Context.RECEIVER_EXPORTED);
         } else {
@@ -167,7 +166,7 @@ final class CityModel {
                 }
             }
 
-            // Sort the unselected cities according by the user's preferred sort.
+            // Sort the unselected cities according to the user's preferred sort.
             Collections.sort(unselected, getCitySortComparator());
             mUnselectedCities = Collections.unmodifiableList(unselected);
         }
@@ -320,6 +319,14 @@ final class CityModel {
         public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
             if (key != null) {
                 switch (key) {
+                    case PreferencesKeys.KEY_LANGUAGE_CODE:
+                        mCityMap = null;
+                        mHomeCity = null;
+                        mAllCities = null;
+                        mSelectedCities = null;
+                        mUnselectedCities = null;
+                        fireCitiesChanged();
+                        break;
                     case PreferencesKeys.KEY_HOME_TIME_ZONE:
                         mHomeCity = null;
                     case PreferencesKeys.KEY_AUTO_HOME_CLOCK:

@@ -43,6 +43,7 @@ import com.google.android.material.color.MaterialColors;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Locale;
 
 public class TimerSetupView extends LinearLayout implements View.OnClickListener, View.OnLongClickListener {
 
@@ -96,22 +97,26 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
         final String darkMode = SettingsDAO.getDarkMode(prefs);
         final boolean isNight = ThemeUtils.isNight(getResources());
 
-        mDigitButton = new MaterialButton[]{
-            findViewById(R.id.timer_setup_digit_0),
-            findViewById(R.id.timer_setup_digit_1),
-            findViewById(R.id.timer_setup_digit_2),
-            findViewById(R.id.timer_setup_digit_3),
-            findViewById(R.id.timer_setup_digit_4),
-            findViewById(R.id.timer_setup_digit_5),
-            findViewById(R.id.timer_setup_digit_6),
-            findViewById(R.id.timer_setup_digit_7),
-            findViewById(R.id.timer_setup_digit_8),
-            findViewById(R.id.timer_setup_digit_9),
-        };
-
         mBinding.timerSetupTimeLayout.timerSetupTime.setTypeface(timerTypeface);
 
-        for (final MaterialButton digitButton : mDigitButton) {
+        mDigitButton = new MaterialButton[]{
+            mBinding.timerSetupDigitsLayout.timerSetupDigit0,
+            mBinding.timerSetupDigitsLayout.timerSetupDigit1,
+            mBinding.timerSetupDigitsLayout.timerSetupDigit2,
+            mBinding.timerSetupDigitsLayout.timerSetupDigit3,
+            mBinding.timerSetupDigitsLayout.timerSetupDigit4,
+            mBinding.timerSetupDigitsLayout.timerSetupDigit5,
+            mBinding.timerSetupDigitsLayout.timerSetupDigit6,
+            mBinding.timerSetupDigitsLayout.timerSetupDigit7,
+            mBinding.timerSetupDigitsLayout.timerSetupDigit8,
+            mBinding.timerSetupDigitsLayout.timerSetupDigit9,
+        };
+
+        for (int i = 0; i < mDigitButton.length; i++) {
+            MaterialButton digitButton = mDigitButton[i];
+
+            digitButton.setText(String.format(Locale.getDefault(), "%d", i));
+
             digitButton.setTypeface(generalTypeface);
 
             if (isCardBackgroundDisplayed) {
@@ -134,8 +139,10 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
             digitButton.setOnClickListener(this);
         }
 
-        MaterialButton doubleZeroButton = findViewById(R.id.timer_setup_digit_00);
+        MaterialButton doubleZeroButton = mBinding.timerSetupDigitsLayout.timerSetupDigit00;
+        doubleZeroButton.setText(String.format(Locale.getDefault(), "%02d", 0));
         doubleZeroButton.setTypeface(generalTypeface);
+        doubleZeroButton.setOnClickListener(this);
 
         if (isCardBackgroundDisplayed) {
             doubleZeroButton.setBackgroundTintList(ColorStateList.valueOf(MaterialColors.getColor(
@@ -163,9 +170,6 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
                 getContext(), com.google.android.material.R.attr.colorPrimaryInverse, Color.BLACK)));
         }
 
-        doubleZeroButton.setOnClickListener(this);
-
-        mBinding.timerSetupDigitsLayout.timerSetupDelete.setTypeface(generalTypeface);
         mBinding.timerSetupDigitsLayout.timerSetupDelete.setOnClickListener(this);
         mBinding.timerSetupDigitsLayout.timerSetupDelete.setOnLongClickListener(this);
 
