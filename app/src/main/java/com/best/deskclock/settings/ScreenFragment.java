@@ -486,11 +486,16 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
                     : R.string.background_image_title_variant),
                 null,
                 getString(isFontFile ? R.string.label_new_font : R.string.label_new_image),
-                (d, w) -> selectFile(launcher, isFontFile),
+                (d, w) -> {
+                    mPendingFilePrefKey = null;
+                    selectFile(launcher, isFontFile);
+                },
                 null,
                 null,
                 getString(R.string.delete),
                 (d, w) -> {
+                    mPendingFilePrefKey = null;
+
                     mPrefs.edit().remove(prefKey).apply();
                     pref.setTitle(isFontFile ? R.string.custom_font_title : R.string.background_image_title);
                     pref.setSummary(null);
