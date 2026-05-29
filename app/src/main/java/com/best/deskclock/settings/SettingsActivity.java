@@ -7,6 +7,7 @@
 package com.best.deskclock.settings;
 
 import static com.best.deskclock.settings.PreferencesKeys.*;
+import static com.best.deskclock.utils.NotificationUtils.EXTRA_UPDATE_ALARM_NOTIFICATIONS;
 import static com.best.deskclock.utils.WidgetUtils.EXTRA_UPDATE_WIDGETS;
 
 import android.annotation.SuppressLint;
@@ -207,6 +208,8 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                                 Intent restartIntent = new Intent(appContext, DeskClock.class);
                                 restartIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 restartIntent.putExtra(EXTRA_UPDATE_WIDGETS, true);
+                                restartIntent.putExtra(EXTRA_UPDATE_ALARM_NOTIFICATIONS, true);
+
                                 appContext.startActivity(restartIntent);
                                 Runtime.getRuntime().exit(0);
                             }

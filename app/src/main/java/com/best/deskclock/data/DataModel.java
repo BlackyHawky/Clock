@@ -197,6 +197,7 @@ public final class DataModel {
             // Refresh all notifications in response to a change in app open state.
             mTimerModel.updateNotification();
             mTimerModel.updateMissedNotification();
+            mTimerModel.updateHeadsUpNotification();
             mStopwatchModel.updateNotification();
             mSilentSettingsModel.updateSilentState();
         }
@@ -210,6 +211,7 @@ public final class DataModel {
         enforceMainLooper();
         mTimerModel.updateNotification();
         mTimerModel.updateMissedNotification();
+        mTimerModel.updateHeadsUpNotification();
         mStopwatchModel.updateNotification();
     }
 

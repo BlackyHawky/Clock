@@ -98,6 +98,10 @@ final class CityModel {
         localeBroadcastFilter.addAction(Intent.ACTION_LOCALE_CHANGED);
 
         if (SdkUtils.isAtLeastAndroid13()) {
+            localeBroadcastFilter.addAction(Intent.ACTION_APPLICATION_LOCALE_CHANGED);
+        }
+
+        if (SdkUtils.isAtLeastAndroid13()) {
             mContext.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter, Context.RECEIVER_EXPORTED);
         } else {
             mContext.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter);

@@ -12,12 +12,12 @@ import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_DRAGGING;
 import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_IDLE;
 import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_SETTLING;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-import static com.best.deskclock.base.KeepAliveService.FOREGROUND_SERVICE_NOTIFICATION_ID;
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TAB_TITLE_VISIBILITY;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TAB_TITLE_VISIBILITY_NEVER;
 import static com.best.deskclock.settings.PreferencesKeys.*;
 import static com.best.deskclock.utils.AnimatorUtils.getScaleAnimator;
+import static com.best.deskclock.utils.NotificationUtils.EXTRA_UPDATE_ALARM_NOTIFICATIONS;
 import static com.best.deskclock.utils.WidgetUtils.EXTRA_UPDATE_WIDGETS;
 
 import android.animation.Animator;
@@ -206,9 +206,16 @@ public class DeskClock extends BaseActivity implements FabContainer {
         super.onCreate(savedInstanceState);
 
         Intent intent = getIntent();
-        if (intent != null && intent.getBooleanExtra(EXTRA_UPDATE_WIDGETS, false)) {
-            WidgetUtils.updateAllWidgets(this);
-            intent.removeExtra(EXTRA_UPDATE_WIDGETS);
+        if (intent != null) {
+            if (intent.getBooleanExtra(EXTRA_UPDATE_WIDGETS, false)) {
+                WidgetUtils.updateAllWidgets(this);
+                intent.removeExtra(EXTRA_UPDATE_WIDGETS);
+            }
+
+            if (intent.getBooleanExtra(EXTRA_UPDATE_ALARM_NOTIFICATIONS, false)) {
+                NotificationUtils.updateAlarmNotifications(this);
+                intent.removeExtra(EXTRA_UPDATE_ALARM_NOTIFICATIONS);
+            }
         }
 
         mBinding = DeskClockBinding.inflate(getLayoutInflater());
@@ -299,8 +306,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
 
         updateKeepScreenOn();
 
-        if (SettingsDAO.isForegroundServiceEnabled(mPrefs)
-            && !NotificationUtils.isNotificationVisible(this, FOREGROUND_SERVICE_NOTIFICATION_ID)) {
+        if (SettingsDAO.isForegroundServiceEnabled(mPrefs)) {
             Utils.startService(this, KeepAliveService.class);
         }
     }

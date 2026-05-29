@@ -72,6 +72,10 @@ final class FormattedStringModel {
         localeBroadcastFilter.addAction(Intent.ACTION_LOCALE_CHANGED);
 
         if (SdkUtils.isAtLeastAndroid13()) {
+            localeBroadcastFilter.addAction(Intent.ACTION_APPLICATION_LOCALE_CHANGED);
+        }
+
+        if (SdkUtils.isAtLeastAndroid13()) {
             context.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter, Context.RECEIVER_EXPORTED);
         } else {
             context.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter);

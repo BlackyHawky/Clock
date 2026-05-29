@@ -22,7 +22,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
 import android.os.SystemClock;
@@ -88,6 +87,7 @@ class TimerNotificationBuilder {
     }
 
     public Notification build(Context context, NotificationModel nm, Timer timer) {
+        final Context localizedContext = Utils.getLocalizedContext(context);
         final SharedPreferences prefs = getDefaultSharedPreferences(context);
         final boolean running = timer.isRunning();
         final long base = getChronometerBase(timer);
@@ -98,10 +98,10 @@ class TimerNotificationBuilder {
         final CharSequence contentText;
         final int timerId = timer.getId();
 
-        contentTitle = context.getString(R.string.timer_notification_label);
+        contentTitle = localizedContext.getString(R.string.timer_notification_label);
 
         if (TextUtils.isEmpty(timer.getLabel())) {
-            titleText = context.getString(R.string.timer_notification_label);
+            titleText = localizedContext.getString(R.string.timer_notification_label);
             contentText = timer.getTotalDuration();
         } else {
             titleText = timer.getLabel();
@@ -117,7 +117,7 @@ class TimerNotificationBuilder {
                 .putExtra(TimerService.EXTRA_TIMER_ID, timerId);
 
             @DrawableRes final int icon1 = R.drawable.ic_fab_pause;
-            final CharSequence title1 = context.getText(R.string.timer_pause);
+            final CharSequence title1 = localizedContext.getText(R.string.timer_pause);
             final PendingIntent intent1 = Utils.pendingServiceIntent(context, pause, timerId);
             actions.add(new Action.Builder(icon1, title1, intent1).build());
 
@@ -133,9 +133,9 @@ class TimerNotificationBuilder {
             int secondsToAdd = customTimeToAdd % 60;
 
             final CharSequence title2 = secondsToAdd == 0
-                ? context.getString(R.string.timer_add_custom_time_for_notification,
+                ? localizedContext.getString(R.string.timer_add_custom_time_for_notification,
                 String.valueOf(minutesToAdd))
-                : context.getString(R.string.timer_add_custom_time_with_seconds_for_notification,
+                : localizedContext.getString(R.string.timer_add_custom_time_with_seconds_for_notification,
                 String.valueOf(minutesToAdd),
                 String.valueOf(secondsToAdd));
 
@@ -143,7 +143,7 @@ class TimerNotificationBuilder {
             actions.add(new Action.Builder(icon2, title2, intent2).build());
         } else {
             // Timer is paused.
-            stateText = context.getString(R.string.timer_paused);
+            stateText = localizedContext.getString(R.string.timer_paused);
 
             // Left button: Start
             final Intent start = new Intent(context, TimerService.class)
@@ -152,7 +152,7 @@ class TimerNotificationBuilder {
                 .putExtra(TimerService.EXTRA_TIMER_ID, timerId);
 
             @DrawableRes final int icon1 = R.drawable.ic_fab_play;
-            final CharSequence title1 = context.getText(R.string.sw_resume_button);
+            final CharSequence title1 = localizedContext.getText(R.string.sw_resume_button);
             final PendingIntent intent1 = Utils.pendingServiceIntent(context, start, timerId);
             actions.add(new Action.Builder(icon1, title1, intent1).build());
 
@@ -163,7 +163,9 @@ class TimerNotificationBuilder {
                 .putExtra(TimerService.EXTRA_TIMER_ID, timerId);
 
             @DrawableRes final int icon = R.drawable.ic_reset;
-            final CharSequence title = context.getText(SettingsDAO.isSingleTimerModeEnabled(prefs) ? R.string.delete : R.string.reset);
+            final CharSequence title = localizedContext.getText(SettingsDAO.isSingleTimerModeEnabled(prefs)
+                ? R.string.delete
+                : R.string.reset);
             final PendingIntent intent = Utils.pendingServiceIntent(context, reset, timerId);
             actions.add(new Action.Builder(icon, title, intent).build());
         }
@@ -239,6 +241,7 @@ class TimerNotificationBuilder {
     }
 
     Notification buildHeadsUp(Context context, List<Timer> expired) {
+        final Context localizedContext = Utils.getLocalizedContext(context);
         final SharedPreferences prefs = getDefaultSharedPreferences(context);
         final Timer timer = expired.get(0);
         final int timerId = timer.getId();
@@ -257,15 +260,15 @@ class TimerNotificationBuilder {
 
         if (count == 1) {
             if (TextUtils.isEmpty(label)) {
-                titleText = context.getString(R.string.timer_notification_label) + " - " + timer.getTotalDuration();
+                titleText = localizedContext.getString(R.string.timer_notification_label) + " - " + timer.getTotalDuration();
             } else {
                 titleText = timer.getLabel();
             }
 
-            stateText = context.getString(R.string.timer_times_up);
+            stateText = localizedContext.getString(R.string.timer_times_up);
 
             // Left button: Reset single timer
-            final CharSequence title1 = context.getString(SettingsDAO.isSingleTimerModeEnabled(prefs)
+            final CharSequence title1 = localizedContext.getString(SettingsDAO.isSingleTimerModeEnabled(prefs)
                 ? R.string.delete
                 : R.string.timer_stop);
             actions.add(new Action.Builder(icon1, title1, intent1).build());
@@ -279,19 +282,19 @@ class TimerNotificationBuilder {
             int secondsToAdd = customTimeToAdd % 60;
 
             final CharSequence title2 = secondsToAdd == 0
-                ? context.getString(R.string.timer_add_custom_time_for_notification,
+                ? localizedContext.getString(R.string.timer_add_custom_time_for_notification,
                 String.valueOf(minutesToAdd))
-                : context.getString(R.string.timer_add_custom_time_with_seconds_for_notification,
+                : localizedContext.getString(R.string.timer_add_custom_time_with_seconds_for_notification,
                 String.valueOf(minutesToAdd),
                 String.valueOf(secondsToAdd));
 
             actions.add(new Action.Builder(icon2, title2, intent2).build());
         } else {
-            titleText = context.getString(R.string.timer_multi_times_up, count);
+            titleText = localizedContext.getString(R.string.timer_multi_times_up, count);
             stateText = null;
 
             // Left button: Reset all timers
-            final CharSequence title1 = context.getString(R.string.timer_stop_all);
+            final CharSequence title1 = localizedContext.getString(R.string.timer_stop_all);
             actions.add(new Action.Builder(icon1, title1, intent1).build());
         }
 
@@ -329,7 +332,7 @@ class TimerNotificationBuilder {
             notification.setCustomContentView(buildChronometer(context.getPackageName(), base, true, titleText, stateText));
         } else {
             final CharSequence contentTextPreN = count == 1
-                ? context.getString(R.string.timer_times_up)
+                ? localizedContext.getString(R.string.timer_times_up)
                 : null;
 
             notification.setContentTitle(titleText).setContentText(contentTextPreN);
@@ -351,22 +354,22 @@ class TimerNotificationBuilder {
     }
 
     Notification buildMissed(Context context, NotificationModel nm, Timer timer) {
+        final Context localizedContext = Utils.getLocalizedContext(context);
         final SharedPreferences prefs = getDefaultSharedPreferences(context);
         final int timerId = timer.getId();
         final long base = getChronometerBase(timer);
-        final Resources res = context.getResources();
         final Action action;
         final CharSequence contentTitle;
         String label = timer.getLabel();
         final CharSequence contentText;
 
-        contentTitle = context.getString(R.string.timer_notification_label);
+        contentTitle = localizedContext.getString(R.string.timer_notification_label);
 
         if (TextUtils.isEmpty(label)) {
             label = timer.getTotalDuration();
         }
 
-        contentText = res.getString(R.string.missed_named_timer_notification_label, label);
+        contentText = localizedContext.getString(R.string.missed_named_timer_notification_label, label);
 
         // Reset button
         final Intent reset = new Intent(context, TimerService.class)
@@ -384,7 +387,7 @@ class TimerNotificationBuilder {
         final PendingIntent pendingShowApp = Utils.pendingActivityIntent(context, showApp);
 
         @DrawableRes final int icon = R.drawable.ic_reset;
-        final CharSequence title = res.getText(SettingsDAO.isSingleTimerModeEnabled(prefs) ? R.string.delete : R.string.reset);
+        final CharSequence title = localizedContext.getText(SettingsDAO.isSingleTimerModeEnabled(prefs) ? R.string.delete : R.string.reset);
         final PendingIntent intent = Utils.pendingServiceIntent(context, reset);
         action = new Action.Builder(icon, title, intent).build();
 
@@ -410,7 +413,7 @@ class TimerNotificationBuilder {
         if (SdkUtils.isAtLeastAndroid7()) {
             notification.setCustomContentView(buildChronometer(context.getPackageName(), base, true, contentTitle, contentText));
         } else {
-            final CharSequence preNText = AlarmUtils.getFormattedTime(context, timer.getWallClockExpirationTime());
+            final CharSequence preNText = AlarmUtils.getFormattedTime(localizedContext, timer.getWallClockExpirationTime());
             notification.setContentTitle(contentTitle).setContentText(preNText);
         }
 

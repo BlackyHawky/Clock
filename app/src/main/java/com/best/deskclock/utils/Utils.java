@@ -205,13 +205,24 @@ public class Utils {
      */
     @SuppressLint("AppBundleLocaleChanges")
     public static Context getLocalizedContext(Context context) {
-        String customLanguageCode = SettingsDAO.getLanguageCode(getDefaultSharedPreferences(context));
+        Locale locale = null;
 
-        if (DEFAULT_SYSTEM_LANGUAGE_CODE.equals(customLanguageCode)) {
-            return context;
+        LocaleListCompat appLocales = AppCompatDelegate.getApplicationLocales();
+
+        if (appLocales.isEmpty()) {
+            String customLanguageCode = SettingsDAO.getLanguageCode(getDefaultSharedPreferences(context));
+            if (customLanguageCode != null
+                && !DEFAULT_SYSTEM_LANGUAGE_CODE.equals(customLanguageCode)
+                && !customLanguageCode.isEmpty()) {
+                locale = Locale.forLanguageTag(customLanguageCode);
+            }
+        } else {
+            locale = appLocales.get(0);
         }
 
-        Locale locale = Locale.forLanguageTag(customLanguageCode);
+        if (locale == null) {
+            return context;
+        }
 
         Configuration config = new Configuration(context.getResources().getConfiguration());
         config.setLocale(locale);

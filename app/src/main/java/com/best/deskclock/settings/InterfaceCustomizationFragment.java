@@ -25,6 +25,7 @@ import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.base.AppExecutors;
+import com.best.deskclock.base.KeepAliveService;
 import com.best.deskclock.controller.Controller;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.WidgetDAO;
@@ -33,6 +34,7 @@ import com.best.deskclock.tiles.StopwatchTileService;
 import com.best.deskclock.tiles.TimerTileService;
 import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.utils.DeviceUtils;
+import com.best.deskclock.utils.NotificationUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
@@ -42,6 +44,7 @@ import com.best.deskclock.widgets.DigitalAppWidgetProvider;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 public class InterfaceCustomizationFragment extends ScreenFragment
@@ -168,6 +171,9 @@ public class InterfaceCustomizationFragment extends ScreenFragment
 
         if (isLanguageChanged) {
             WidgetUtils.updateAllDigitalWidgets(requireContext());
+            Controller.getController().updateShortcuts();
+            NotificationUtils.updateAlarmNotifications(requireContext().getApplicationContext());
+            KeepAliveService.updateKeepAliveServiceNotification(requireContext().getApplicationContext());
             isLanguageChanged = false;
         }
     }
@@ -301,8 +307,7 @@ public class InterfaceCustomizationFragment extends ScreenFragment
 
         mTabIndicatorPref.setOnPreferenceChangeListener(this);
 
-        mLanguageCodePref.setSummary(mLanguageCodePref.getEntry());
-        mLanguageCodePref.setOnPreferenceChangeListener(this);
+        setupLanguageCodePref();
 
         updateVisibleTabsSummary(visibleTabs);
         mVisibleTabsPref.setOnPreferenceChangeListener(this);
@@ -316,6 +321,35 @@ public class InterfaceCustomizationFragment extends ScreenFragment
         mFadeTransitionsPref.setOnPreferenceChangeListener(this);
 
         mKeepScreenOnPref.setOnPreferenceChangeListener(this);
+    }
+
+    private void setupLanguageCodePref() {
+        LocaleListCompat appLocales = AppCompatDelegate.getApplicationLocales();
+        String currentLanguageCode = DEFAULT_SYSTEM_LANGUAGE_CODE;
+
+        if (!appLocales.isEmpty()) {
+            Locale currentLocale = appLocales.get(0);
+
+            if (currentLocale != null) {
+                String fullTag = currentLocale.toLanguageTag();
+                String langOnly = currentLocale.getLanguage();
+
+                if (mLanguageCodePref.findIndexOfValue(fullTag) >= 0) {
+                    currentLanguageCode = fullTag;
+                } else if (mLanguageCodePref.findIndexOfValue(langOnly) >= 0) {
+                    currentLanguageCode = langOnly;
+                }
+            }
+        }
+
+        mLanguageCodePref.setValue(currentLanguageCode);
+
+        CharSequence entry = mLanguageCodePref.getEntry();
+        if (entry != null) {
+            mLanguageCodePref.setSummary(entry);
+        }
+
+        mLanguageCodePref.setOnPreferenceChangeListener(this);
     }
 
     private void sortListPreference(ListPreference listPreference) {

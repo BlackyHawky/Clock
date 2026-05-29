@@ -6,6 +6,7 @@
 
 package com.best.deskclock.alarms;
 
+import static android.content.Intent.ACTION_APPLICATION_LOCALE_CHANGED;
 import static android.content.Intent.ACTION_LOCALE_CHANGED;
 import static android.content.Intent.ACTION_TIME_CHANGED;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
@@ -58,8 +59,8 @@ public class AlarmInitReceiver extends BroadcastReceiver {
      * <ul>
      *     <li>Update timers and stopwatch data on ACTION_BOOT_COMPLETED, TIME_SET and TIMEZONE_CHANGED</li>
      *     <li>Starts the {@link KeepAliveService} if enabled in the settings on ACTION_BOOT_COMPLETED</li>
-     *     <li>Rebuild notifications on ACTION_BOOT_COMPLETED and LOCALE_CHANGED</li>
-     *     <li>Fix alarm states on ACTION_BOOT_COMPLETED, TIME_SET, TIMEZONE_CHANGED, and LOCALE_CHANGED</li>
+     *     <li>Rebuild notifications on ACTION_BOOT_COMPLETED, LOCALE_CHANGED and APPLICATION_LOCALE_CHANGED</li>
+     *     <li>Fix alarm states on ACTION_BOOT_COMPLETED, TIME_SET, TIMEZONE_CHANGED, LOCALE_CHANGED and APPLICATION_LOCALE_CHANGED</li>
      * </ul>
      */
 
@@ -94,7 +95,9 @@ public class AlarmInitReceiver extends BroadcastReceiver {
         }
 
         // Update shortcuts so they exist for the user.
-        if (ACTION_BOOT_COMPLETED.equals(action) || ACTION_LOCALE_CHANGED.equals(action)) {
+        if (ACTION_BOOT_COMPLETED.equals(action)
+            || ACTION_LOCALE_CHANGED.equals(action)
+            || ACTION_APPLICATION_LOCALE_CHANGED.equals(action)) {
             Controller.getController().updateShortcuts();
             DataModel.getDataModel().updateAllNotifications();
 

@@ -21,10 +21,8 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.service.notification.StatusBarNotification;
 
-import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
@@ -37,6 +35,7 @@ import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.NotificationUtils;
 import com.best.deskclock.utils.SdkUtils;
+import com.best.deskclock.utils.Utils;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -84,8 +83,15 @@ public final class AlarmNotifications {
      */
     private static final int ALARM_FIRING_NOTIFICATION_ID = Integer.MAX_VALUE - 7;
 
-    static synchronized void showUpcomingNotification(Context context, AlarmInstance instance) {
+    public static synchronized void showUpcomingNotification(Context context, AlarmInstance instance) {
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            // Always false, because notification activation is always checked when the application is started.
+            return;
+        }
+
         LogUtils.v("Displaying upcoming alarm notification for alarm instance: " + instance.mId);
+
+        final Context localizedContext = Utils.getLocalizedContext(context);
 
         final Alarm alarm = Alarm.getAlarm(context.getContentResolver(), instance.mAlarmId);
 
@@ -96,11 +102,11 @@ public final class AlarmNotifications {
 
         final int id = instance.hashCode();
 
-        final String contentTitle = context.getString(alarm.isDeleteAfterUse()
+        final String contentTitle = localizedContext.getString(alarm.isDeleteAfterUse()
             ? R.string.occasional_alarm_alert_predismiss_title
             : R.string.alarm_alert_predismiss_title);
 
-        final String dismissActionTitle = context.getString(alarm.isDeleteAfterUse()
+        final String dismissActionTitle = localizedContext.getString(alarm.isDeleteAfterUse()
             ? R.string.alarm_alert_dismiss_and_delete_text
             : R.string.alarm_alert_dismiss_text);
 
@@ -113,7 +119,7 @@ public final class AlarmNotifications {
             context, ALARM_UPCOMING_NOTIFICATION_CHANNEL_ID)
             .setShowWhen(false)
             .setContentTitle(contentTitle)
-            .setContentText(AlarmUtils.getAlarmText(context, instance, true))
+            .setContentText(AlarmUtils.getAlarmText(localizedContext, instance, true))
             .setContentIntent(contentIntent)
             .setColor(ContextCompat.getColor(context, R.color.md_theme_primary))
             .setSmallIcon(R.drawable.ic_tab_alarm_static)
@@ -139,11 +145,6 @@ public final class AlarmNotifications {
 
         final Notification notification = builder.build();
 
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-            // Always false, because notification activation is always checked when the application is started.
-            return;
-        }
-
         nm.notify(id, notification);
         updateUpcomingAlarmGroupNotification(context, -1, notification);
     }
@@ -166,8 +167,8 @@ public final class AlarmNotifications {
      * @return The first active notification for the group
      */
 
-    private static Notification getFirstActiveNotification(Context context, String group,
-                                                           int canceledNotificationId, Notification postedNotification) {
+    private static Notification getFirstActiveNotification(Context context, String group, int canceledNotificationId,
+                                                           Notification postedNotification) {
 
         final NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         final StatusBarNotification[] notifications = nm.getActiveNotifications();
@@ -199,9 +200,7 @@ public final class AlarmNotifications {
         return null;
     }
 
-    private static void updateUpcomingAlarmGroupNotification(Context context, int canceledNotificationId,
-                                                             Notification postedNotification) {
-
+    private static void updateUpcomingAlarmGroupNotification(Context context, int canceledNotificationId, Notification postedNotification) {
         final NotificationManagerCompat nm = NotificationManagerCompat.from(context);
         final Notification firstUpcoming = getFirstActiveNotification(
             context, UPCOMING_GROUP_KEY, canceledNotificationId, postedNotification);
@@ -214,6 +213,11 @@ public final class AlarmNotifications {
         Notification summary = getActiveGroupSummaryNotification(context, UPCOMING_GROUP_KEY);
 
         if (summary == null || !Objects.equals(summary.contentIntent, firstUpcoming.contentIntent)) {
+            if (ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                // Always false, because notification activation is always checked when the application is started.
+                return;
+            }
+
             if (SdkUtils.isAtLeastAndroid8()) {
                 NotificationUtils.createChannel(context, ALARM_UPCOMING_NOTIFICATION_CHANNEL_ID);
             }
@@ -231,18 +235,11 @@ public final class AlarmNotifications {
                 .setLocalOnly(true)
                 .build();
 
-            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-                // Always false, because notification activation is always checked when the application is started.
-                return;
-            }
-
             nm.notify(ALARM_GROUP_NOTIFICATION_ID, summary);
         }
     }
 
-    public static void updateMissedAlarmGroupNotification(Context context, int canceledNotificationId,
-                                                          Notification postedNotification) {
-
+    public static void updateMissedAlarmGroupNotification(Context context, int canceledNotificationId, Notification postedNotification) {
         final NotificationManagerCompat nm = NotificationManagerCompat.from(context);
         final Notification firstMissed = getFirstActiveNotification(context, MISSED_GROUP_KEY,
             canceledNotificationId, postedNotification);
@@ -255,6 +252,11 @@ public final class AlarmNotifications {
         Notification summary = getActiveGroupSummaryNotification(context, MISSED_GROUP_KEY);
 
         if (summary == null || !Objects.equals(summary.contentIntent, firstMissed.contentIntent)) {
+            if (ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                // Always false, because notification activation is always checked when the application is started.
+                return;
+            }
+
             if (SdkUtils.isAtLeastAndroid8()) {
                 NotificationUtils.createChannel(context, ALARM_MISSED_NOTIFICATION_CHANNEL_ID);
             }
@@ -274,17 +276,19 @@ public final class AlarmNotifications {
                 .setOnlyAlertOnce(true)
                 .build();
 
-            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-                // Always false, because notification activation is always checked when the application is started.
-                return;
-            }
-
             nm.notify(ALARM_GROUP_MISSED_NOTIFICATION_ID, summary);
         }
     }
 
-    static synchronized void showSnoozeNotification(Context context, AlarmInstance instance) {
+    public static synchronized void showSnoozeNotification(Context context, AlarmInstance instance) {
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            // Always false, because notification activation is always checked when the application is started.
+            return;
+        }
+
         LogUtils.v("Displaying snoozed notification for alarm instance: " + instance.mId);
+
+        final Context localizedContext = Utils.getLocalizedContext(context);
 
         final Alarm alarm = Alarm.getAlarm(context.getContentResolver(), instance.mAlarmId);
 
@@ -293,7 +297,7 @@ public final class AlarmNotifications {
             return;
         }
 
-        String dismissActionTitle = context.getString(alarm.isDeleteAfterUse()
+        String dismissActionTitle = localizedContext.getString(alarm.isDeleteAfterUse()
             ? R.string.alarm_alert_dismiss_and_delete_text
             : R.string.alarm_alert_dismiss_text);
 
@@ -313,9 +317,9 @@ public final class AlarmNotifications {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(
             context, ALARM_SNOOZE_NOTIFICATION_CHANNEL_ID)
             .setShowWhen(false)
-            .setContentTitle(instance.getLabelOrDefault(context))
-            .setContentText(context.getString(R.string.alarm_alert_snooze_until,
-                AlarmUtils.getFormattedTime(context, instance.getAlarmTime())))
+            .setContentTitle(instance.getLabelOrDefault(localizedContext))
+            .setContentText(localizedContext.getString(R.string.alarm_alert_snooze_until,
+                AlarmUtils.getFormattedTime(localizedContext, instance.getAlarmTime())))
             .setContentIntent(contentIntent)
             .setColor(ContextCompat.getColor(context, R.color.md_theme_primary))
             .setSmallIcon(R.drawable.ic_tab_alarm_static)
@@ -337,21 +341,23 @@ public final class AlarmNotifications {
 
         final Notification notification = builder.build();
 
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-            // Always false, because notification activation is always checked when the application is started.
-            return;
-        }
-
         nm.notify(id, notification);
         updateUpcomingAlarmGroupNotification(context, -1, notification);
     }
 
     @SuppressLint("LaunchActivityFromNotification")
     static synchronized void showMissedNotification(Context context, AlarmInstance instance) {
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            // Always false, because notification activation is always checked when the application is started.
+            return;
+        }
+
         LogUtils.v("Displaying missed notification for alarm instance: " + instance.mId);
 
+        final Context localizedContext = Utils.getLocalizedContext(context);
+
         String label = instance.mLabel;
-        String alarmTime = AlarmUtils.getFormattedTime(context, instance.getAlarmTime());
+        String alarmTime = AlarmUtils.getFormattedTime(localizedContext, instance.getAlarmTime());
         final int id = instance.hashCode();
 
         // Setup dismiss intent
@@ -373,10 +379,10 @@ public final class AlarmNotifications {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(
             context, ALARM_MISSED_NOTIFICATION_CHANNEL_ID)
             .setShowWhen(false)
-            .setContentTitle(context.getString(R.string.alarm_missed_title))
+            .setContentTitle(localizedContext.getString(R.string.alarm_missed_title))
             .setContentText(label.isEmpty()
                 ? alarmTime
-                : context.getString(R.string.alarm_missed_text, alarmTime, label))
+                : localizedContext.getString(R.string.alarm_missed_text, alarmTime, label))
             .setContentIntent(contentIntent)
             .setDeleteIntent(deleteIntent)
             .setColor(ContextCompat.getColor(context, R.color.md_theme_primary))
@@ -397,50 +403,45 @@ public final class AlarmNotifications {
 
         final Notification notification = builder.build();
 
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-            // Always false, because notification activation is always checked when the application is started.
-            return;
-        }
-
         nm.notify(id, notification);
         updateMissedAlarmGroupNotification(context, -1, notification);
     }
 
     @SuppressLint("FullScreenIntentPolicy")
-    static synchronized void showAlarmNotification(Service service, AlarmInstance instance) {
+    static synchronized void showAlarmNotification(Context context, AlarmInstance instance) {
         LogUtils.v("Displaying alarm notification for alarm instance: " + instance.mId);
 
-        Resources resources = service.getResources();
-        final Alarm alarm = Alarm.getAlarm(service.getContentResolver(), instance.mAlarmId);
+        final Context localizedContext = Utils.getLocalizedContext(context);
+
+        final Alarm alarm = Alarm.getAlarm(context.getContentResolver(), instance.mAlarmId);
 
         if (alarm == null) {
             LogUtils.wtf("Failed to retrieve alarm with ID: %d", instance.mAlarmId);
             return;
         }
 
-        String dismissActionTitle = resources.getString(alarm.isDeleteAfterUse()
+        String dismissActionTitle = localizedContext.getString(alarm.isDeleteAfterUse()
             ? R.string.alarm_alert_dismiss_and_delete_text
             : R.string.alarm_alert_dismiss_text);
 
         // Setup Content Action
-        Intent viewAlarmIntent = AlarmInstance.createIntent(service, AlarmActivity.class, instance.mId);
-        PendingIntent contentIntent = PendingIntent.getActivity(service, ALARM_FIRING_NOTIFICATION_ID,
+        Intent viewAlarmIntent = AlarmInstance.createIntent(context, AlarmActivity.class, instance.mId);
+        PendingIntent contentIntent = PendingIntent.getActivity(context, ALARM_FIRING_NOTIFICATION_ID,
             viewAlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         // Setup up dismiss action
-        Intent dismissIntent = AlarmStateManager.createStateChangeIntent(service,
+        Intent dismissIntent = AlarmStateManager.createStateChangeIntent(context,
             AlarmStateManager.ALARM_DISMISS_TAG, instance, AlarmInstance.DISMISSED_STATE);
         dismissIntent.putExtra(AlarmStateManager.FROM_NOTIFICATION_EXTRA, true);
-        PendingIntent dismissPendingIntent = PendingIntent.getService(service,
+        PendingIntent dismissPendingIntent = PendingIntent.getService(context,
             ALARM_FIRING_NOTIFICATION_ID, dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
-        NotificationCompat.Builder notification = new NotificationCompat.Builder(
-            service, FIRING_NOTIFICATION_CHANNEL_ID)
-            .setContentTitle(instance.getLabelOrDefault(service))
-            .setContentText(AlarmUtils.getFormattedTime(service, instance.getAlarmTime()))
+        NotificationCompat.Builder notification = new NotificationCompat.Builder(context, FIRING_NOTIFICATION_CHANNEL_ID)
+            .setContentTitle(instance.getLabelOrDefault(localizedContext))
+            .setContentText(AlarmUtils.getFormattedTime(localizedContext, instance.getAlarmTime()))
             .setContentIntent(contentIntent)
             .setDeleteIntent(dismissPendingIntent)
-            .setColor(ContextCompat.getColor(service, R.color.md_theme_primary))
+            .setColor(ContextCompat.getColor(context, R.color.md_theme_primary))
             .setSmallIcon(R.drawable.ic_tab_alarm_static)
             .setOngoing(true)
             .setAutoCancel(false)
@@ -455,30 +456,45 @@ public final class AlarmNotifications {
         // or if "Enable alarm snooze actions" is enabled in the alarm editing panel.
         if (instance.mSnoozeDuration != ALARM_SNOOZE_DURATION_DISABLED) {
             Intent snoozeIntent = AlarmStateManager.createStateChangeIntent(
-                service, AlarmStateManager.ALARM_SNOOZE_TAG, instance, AlarmInstance.SNOOZE_STATE);
+                context, AlarmStateManager.ALARM_SNOOZE_TAG, instance, AlarmInstance.SNOOZE_STATE);
             snoozeIntent.putExtra(AlarmStateManager.FROM_NOTIFICATION_EXTRA, true);
 
-            PendingIntent snoozePendingIntent = PendingIntent.getService(service,
+            PendingIntent snoozePendingIntent = PendingIntent.getService(context,
                 ALARM_FIRING_NOTIFICATION_ID, snoozeIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
-            notification.addAction(R.drawable.ic_snooze, resources.getString(R.string.alarm_alert_snooze_text), snoozePendingIntent);
+            notification.addAction(R.drawable.ic_snooze, localizedContext.getString(R.string.alarm_alert_snooze_text), snoozePendingIntent);
         }
 
         notification.addAction(R.drawable.ic_alarm_off, dismissActionTitle, dismissPendingIntent);
 
         // Setup fullscreen intent
-        Intent fullScreenIntent = AlarmInstance.createIntent(service, AlarmActivity.class, instance.mId);
-        // Set action, so we can be different then content pending intent
+        Intent fullScreenIntent = AlarmInstance.createIntent(context, AlarmActivity.class, instance.mId);
+        // Set action, so we can be different from content pending intent
         fullScreenIntent.setAction("fullscreen_activity");
         fullScreenIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_USER_ACTION);
-        notification.setFullScreenIntent(PendingIntent.getActivity(service, ALARM_FIRING_NOTIFICATION_ID, fullScreenIntent,
+        notification.setFullScreenIntent(PendingIntent.getActivity(context, ALARM_FIRING_NOTIFICATION_ID, fullScreenIntent,
             PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE), true);
 
         if (SdkUtils.isAtLeastAndroid8()) {
-            NotificationUtils.createChannel(service, FIRING_NOTIFICATION_CHANNEL_ID);
+            NotificationUtils.createChannel(context, FIRING_NOTIFICATION_CHANNEL_ID);
         }
-        clearNotification(service, instance);
-        service.startForeground(ALARM_FIRING_NOTIFICATION_ID, notification.build());
+
+        clearNotification(context, instance);
+
+        final Notification builtNotification = notification.build();
+
+        if (context instanceof Service) {
+            ((Service) context).startForeground(ALARM_FIRING_NOTIFICATION_ID, builtNotification);
+        } else {
+            NotificationManagerCompat nm = NotificationManagerCompat.from(context);
+
+            if (ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                // Always false, because notification activation is always checked when the application is started.
+                return;
+            }
+
+            nm.notify(ALARM_FIRING_NOTIFICATION_ID, builtNotification);
+        }
     }
 
     public static synchronized void clearNotification(Context context, AlarmInstance instance) {
@@ -493,9 +509,10 @@ public final class AlarmNotifications {
     /**
      * Updates the notification for an existing alarm.
      */
-    static void updateNotification(Context context, AlarmInstance instance) {
+    public static void updateNotification(Context context, AlarmInstance instance) {
         switch (instance.mAlarmState) {
             case AlarmInstance.NOTIFICATION_STATE -> showUpcomingNotification(context, instance);
+            case AlarmInstance.FIRED_STATE -> showAlarmNotification(context, instance);
             case AlarmInstance.SNOOZE_STATE -> showSnoozeNotification(context, instance);
             case AlarmInstance.MISSED_STATE -> showMissedNotification(context, instance);
             default -> LogUtils.d("No notification to update");

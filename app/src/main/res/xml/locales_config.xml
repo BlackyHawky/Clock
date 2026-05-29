@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+
+<locale-config xmlns:android="http://schemas.android.com/apk/res/android">
+    <locale android:name="en-US" />
+    <locale android:name="fr" />
+    <locale android:name="de" />
+    <locale android:name="zh-CN" />
+    <locale android:name="et" />
+    <locale android:name="it" />
+    <locale android:name="pl" />
+    <locale android:name="pt" />
+    <locale android:name="sr" />
+    <locale android:name="es" />
+    <locale android:name="uk" />
+    <locale android:name="nl" />
+    <locale android:name="ru" />
+    <locale android:name="tr" />
+    <locale android:name="ko" />
+    <locale android:name="cs" />
+    <locale android:name="zh-TW" />
+    <locale android:name="bg" />
+    <locale android:name="ta" />
+    <locale android:name="ar" />
+    <locale android:name="hu" />
+</locale-config>

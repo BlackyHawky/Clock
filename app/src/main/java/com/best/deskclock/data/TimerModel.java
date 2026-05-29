@@ -34,8 +34,8 @@ import android.service.quicksettings.TileService;
 import android.util.ArraySet;
 
 import androidx.annotation.StringRes;
-import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.base.AlarmAlertWakeLock;
@@ -162,7 +162,13 @@ final class TimerModel {
         mAlarmManager = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
 
         // Update timer notification when locale changes.
-        final IntentFilter localeBroadcastFilter = new IntentFilter(Intent.ACTION_LOCALE_CHANGED);
+        final IntentFilter localeBroadcastFilter = new IntentFilter();
+        localeBroadcastFilter.addAction(Intent.ACTION_LOCALE_CHANGED);
+
+        if (SdkUtils.isAtLeastAndroid13()) {
+            localeBroadcastFilter.addAction(Intent.ACTION_APPLICATION_LOCALE_CHANGED);
+        }
+
         if (SdkUtils.isAtLeastAndroid13()) {
             mContext.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter, Context.RECEIVER_NOT_EXPORTED);
         } else {
@@ -791,7 +797,7 @@ final class TimerModel {
      * when the application is not open.
      */
     void updateNotification() {
-        if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
             // Always false, because notification activation is always checked when the application is started.
             return;
         }
@@ -819,7 +825,7 @@ final class TimerModel {
      * the application is not open.
      */
     void updateMissedNotification() {
-        if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
             // Always false, because notification activation is always checked when the application is started.
             return;
         }
@@ -864,7 +870,7 @@ final class TimerModel {
      * Updates the heads-up notification controlling expired timers. This heads-up notification is
      * displayed whether the application is open or not.
      */
-    private void updateHeadsUpNotification() {
+    void updateHeadsUpNotification() {
         // Nothing can be done with the heads-up notification without a valid service reference.
         if (mService == null) {
             return;
