@@ -37,7 +37,6 @@ import com.best.deskclock.data.DataModel.ClockStyle;
 import com.best.deskclock.data.DataModel.PowerButtonBehavior;
 import com.best.deskclock.data.DataModel.VolumeButtonBehavior;
 import com.best.deskclock.utils.SdkUtils;
-import com.best.deskclock.utils.Utils;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -177,14 +176,13 @@ public final class SettingsDAO {
      */
     public static TimeZones getTimeZones(Context context, long currentTime) {
         final Locale locale = Locale.getDefault();
-        final Context localizedContext = Utils.getLocalizedContext(context);
-        final String[] timeZoneIds = localizedContext.getResources().getStringArray(R.array.timezone_values);
+        final String[] timeZoneIds = context.getResources().getStringArray(R.array.timezone_values);
 
         // Create TimeZoneDescriptors for each TimeZone so they can be sorted.
         final TimeZoneDescriptor[] descriptors = new TimeZoneDescriptor[timeZoneIds.length];
         for (int i = 0; i < timeZoneIds.length; i++) {
             // Pass only the ID; the name will be generated automatically.
-            descriptors[i] = TimeZoneDescriptor.create(localizedContext, locale, timeZoneIds[i], currentTime);
+            descriptors[i] = TimeZoneDescriptor.create(context, locale, timeZoneIds[i], currentTime);
         }
         Arrays.sort(descriptors);
 
@@ -337,9 +335,9 @@ public final class SettingsDAO {
     /**
      * @return the custom language code.
      */
-    public static String getCustomLanguageCode(SharedPreferences prefs) {
+    public static String getLanguageCode(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_interface_customization.xml
-        return prefs.getString(KEY_CUSTOM_LANGUAGE_CODE, DEFAULT_SYSTEM_LANGUAGE_CODE);
+        return prefs.getString(KEY_LANGUAGE_CODE, DEFAULT_SYSTEM_LANGUAGE_CODE);
     }
 
     /**

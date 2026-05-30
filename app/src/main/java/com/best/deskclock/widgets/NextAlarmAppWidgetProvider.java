@@ -34,9 +34,8 @@ import com.best.deskclock.utils.WidgetUtils;
  * <p>
  * If an alarm is scheduled to ring in the future:
  * <pre>
- *        Next alarm
- *        Alarm title
  *      ⏰ THU 9:30 AM
+ *      🏷️ Alarm title
  * </pre>
  * <p>
  * If no alarm is scheduled to ring in the future:

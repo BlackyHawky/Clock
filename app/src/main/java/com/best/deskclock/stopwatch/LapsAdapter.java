@@ -6,10 +6,7 @@
 
 package com.best.deskclock.stopwatch;
 
-import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.format.DateUtils;
@@ -25,11 +22,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Lap;
-import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Stopwatch;
 import com.best.deskclock.databinding.LapViewBinding;
 import com.best.deskclock.uidata.UiDataModel;
-import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.google.android.material.color.MaterialColors;
 
@@ -79,12 +74,10 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
     private final int mMinLapColor;
     private final int mMaxLapColor;
 
-    LapsAdapter(Context context) {
+    LapsAdapter(Context context, Typeface regularTypeface, Typeface boldTypeface) {
         mContext = context;
-        SharedPreferences prefs = getDefaultSharedPreferences(context);
-        String fontPath = SettingsDAO.getGeneralFont(prefs);
-        mRegularTypeface = ThemeUtils.loadFont(fontPath);
-        mBoldTypeface = ThemeUtils.boldTypeface(fontPath);
+        mRegularTypeface = regularTypeface;
+        mBoldTypeface = boldTypeface;
         mDecimalSeparator = String.valueOf(DecimalFormatSymbols.getInstance().getDecimalSeparator());
         mDefaultLapColor = MaterialColors.getColor(context, android.R.attr.textColorPrimary, Color.BLACK);
         mMinLapColor = ContextCompat.getColor(context, android.R.color.holo_green_light);

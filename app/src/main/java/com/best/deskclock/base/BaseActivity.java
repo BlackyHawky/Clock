@@ -7,7 +7,6 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.*;
 import static com.best.deskclock.settings.PreferencesKeys.*;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -16,6 +15,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.os.LocaleListCompat;
 
 import com.best.deskclock.BuildConfig;
 import com.best.deskclock.DeskClock;
@@ -55,7 +55,7 @@ public class BaseActivity extends AppCompatActivity {
      */
     private static final List<String> SUPPORTED_PREF_KEYS = List.of(
         KEY_THEME, KEY_DARK_MODE, KEY_GENERAL_FONT, KEY_ACCENT_COLOR, KEY_AUTO_NIGHT_ACCENT_COLOR, KEY_NIGHT_ACCENT_COLOR,
-        KEY_CUSTOM_LANGUAGE_CODE, KEY_CARD_BACKGROUND, KEY_CARD_BORDER, KEY_FADE_TRANSITIONS
+        KEY_CARD_BACKGROUND, KEY_CARD_BORDER, KEY_FADE_TRANSITIONS
     );
 
     /**
@@ -66,17 +66,12 @@ public class BaseActivity extends AppCompatActivity {
     private SharedPreferences mPrefs;
 
     @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(Utils.getLocalizedContext(newBase));
-    }
-
-    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         mPrefs = getDefaultSharedPreferences(this);
 
         initDebugAndNightlyDefaults();
+
         applyThemeAndAccentColor();
-        getWindow().getDecorView().setLayoutDirection(getResources().getConfiguration().getLayoutDirection());
 
         super.onCreate(savedInstanceState);
 
@@ -102,9 +97,11 @@ public class BaseActivity extends AppCompatActivity {
             }
         }
 
-        if (!mPrefs.contains(KEY_CUSTOM_LANGUAGE_CODE)) {
+        if (!mPrefs.contains(KEY_LANGUAGE_CODE)) {
             if (BuildConfig.IS_DEBUG_BUILD || BuildConfig.IS_NIGHTLY_BUILD) {
-                mPrefs.edit().putString(KEY_CUSTOM_LANGUAGE_CODE, DEBUG_LANGUAGE_CODE).apply();
+                mPrefs.edit().putString(KEY_LANGUAGE_CODE, DEBUG_LANGUAGE_CODE).apply();
+
+                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(DEBUG_LANGUAGE_CODE));
             }
         }
     }
@@ -259,7 +256,7 @@ public class BaseActivity extends AppCompatActivity {
                     applySystemNightMode(getTheme);
                 }
 
-                case KEY_GENERAL_FONT, KEY_ACCENT_COLOR, KEY_CUSTOM_LANGUAGE_CODE -> recreate();
+                case KEY_GENERAL_FONT, KEY_ACCENT_COLOR -> recreate();
 
                 case KEY_DARK_MODE, KEY_NIGHT_ACCENT_COLOR -> {
                     if (ThemeUtils.isNight(getResources())) {
@@ -304,7 +301,6 @@ public class BaseActivity extends AppCompatActivity {
             case KEY_ACCENT_COLOR -> SettingsDAO.getAccentColor(mPrefs);
             case KEY_AUTO_NIGHT_ACCENT_COLOR -> SettingsDAO.isAutoNightAccentColorEnabled(mPrefs);
             case KEY_NIGHT_ACCENT_COLOR -> SettingsDAO.getNightAccentColor(mPrefs);
-            case KEY_CUSTOM_LANGUAGE_CODE -> SettingsDAO.getCustomLanguageCode(mPrefs);
             case KEY_CARD_BACKGROUND -> SettingsDAO.isCardBackgroundDisplayed(mPrefs);
             case KEY_CARD_BORDER -> SettingsDAO.isCardBorderDisplayed(mPrefs);
             case KEY_FADE_TRANSITIONS -> SettingsDAO.isFadeTransitionsEnabled(mPrefs);

@@ -44,6 +44,8 @@ class StopwatchNotificationBuilder {
     public Notification build(Context context, NotificationModel nm, Stopwatch stopwatch) {
         @StringRes final int eventLabel = R.string.label_notification;
 
+        final Context localizedContext = Utils.getLocalizedContext(context);
+
         // Intent to load the app when the notification is tapped.
         final Intent showApp = new Intent(context, DeskClock.class)
             .setAction(StopwatchService.ACTION_SHOW_STOPWATCH)
@@ -56,7 +58,7 @@ class StopwatchNotificationBuilder {
         final long base = SystemClock.elapsedRealtime() - stopwatch.getTotalTime();
 
         final RemoteViews content = new RemoteViews(context.getPackageName(), R.layout.chronometer_notif_content);
-        content.setTextViewText(R.id.title, context.getString(R.string.stopwatch_channel));
+        content.setTextViewText(R.id.title, localizedContext.getString(R.string.stopwatch_channel));
         content.setChronometer(R.id.chronometer, base, null, running);
 
         final List<Action> actions = new ArrayList<>(2);
@@ -68,7 +70,7 @@ class StopwatchNotificationBuilder {
                 .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
 
             @DrawableRes final int icon1 = R.drawable.ic_fab_pause;
-            final CharSequence title1 = context.getText(R.string.sw_pause_button);
+            final CharSequence title1 = localizedContext.getText(R.string.sw_pause_button);
             final PendingIntent intent1 = Utils.pendingServiceIntent(context, pause);
             actions.add(new Action.Builder(icon1, title1, intent1).build());
 
@@ -79,7 +81,7 @@ class StopwatchNotificationBuilder {
                     .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
 
                 @DrawableRes final int icon2 = R.drawable.ic_stopwatch_lap;
-                final CharSequence title2 = context.getText(R.string.sw_lap_button);
+                final CharSequence title2 = localizedContext.getText(R.string.sw_lap_button);
                 final PendingIntent intent2 = Utils.pendingServiceIntent(context, lap);
                 actions.add(new Action.Builder(icon2, title2, intent2).build());
             }
@@ -88,7 +90,7 @@ class StopwatchNotificationBuilder {
             final int lapCount = DataModel.getDataModel().getLaps().size();
             if (lapCount > 0) {
                 final int lapNumber = lapCount + 1;
-                final String lap = context.getString(R.string.sw_notification_lap_number, lapNumber);
+                final String lap = localizedContext.getString(R.string.sw_notification_lap_number, lapNumber);
                 content.setTextViewText(R.id.state, lap);
                 content.setViewVisibility(R.id.state, VISIBLE);
             } else {
@@ -101,7 +103,7 @@ class StopwatchNotificationBuilder {
                 .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
 
             @DrawableRes final int icon1 = R.drawable.ic_fab_play;
-            final CharSequence title1 = context.getText(R.string.sw_start_button);
+            final CharSequence title1 = localizedContext.getText(R.string.sw_start_button);
             final PendingIntent intent1 = Utils.pendingServiceIntent(context, start);
             actions.add(new Action.Builder(icon1, title1, intent1).build());
 
@@ -111,12 +113,12 @@ class StopwatchNotificationBuilder {
                 .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
 
             @DrawableRes final int icon2 = R.drawable.ic_reset;
-            final CharSequence title2 = context.getText(R.string.reset);
+            final CharSequence title2 = localizedContext.getText(R.string.reset);
             final PendingIntent intent2 = Utils.pendingServiceIntent(context, reset);
             actions.add(new Action.Builder(icon2, title2, intent2).build());
 
             // Indicate the stopwatch is paused.
-            content.setTextViewText(R.id.state, context.getString(R.string.swn_paused));
+            content.setTextViewText(R.id.state, localizedContext.getString(R.string.swn_paused));
             content.setViewVisibility(R.id.state, VISIBLE);
         }
 

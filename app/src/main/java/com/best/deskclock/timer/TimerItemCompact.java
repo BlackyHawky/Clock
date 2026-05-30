@@ -35,7 +35,6 @@ public class TimerItemCompact extends ConstraintLayout {
 
     private TimerItemCompactBinding mBinding;
 
-    Context mContext;
     SharedPreferences mPrefs;
     Typeface mRegularTypeface;
     Typeface mBoldTypeface;
@@ -91,8 +90,7 @@ public class TimerItemCompact extends ConstraintLayout {
 
         mBinding = TimerItemCompactBinding.bind(this);
 
-        mContext = getContext();
-        mPrefs = getDefaultSharedPreferences(mContext);
+        mPrefs = getDefaultSharedPreferences(getContext());
         String generalFontPath = SettingsDAO.getGeneralFont(mPrefs);
         mRegularTypeface = ThemeUtils.loadFont(generalFontPath);
         mBoldTypeface = ThemeUtils.boldTypeface(generalFontPath);
@@ -104,16 +102,16 @@ public class TimerItemCompact extends ConstraintLayout {
         mBinding.timerIndicatorState.setBackground(drawable);
         mGradientDrawable = (GradientDrawable) mBinding.timerIndicatorState.getBackground();
 
-        mIconPlay = AppCompatResources.getDrawable(mContext, R.drawable.ic_fab_play);
-        mIconPause = AppCompatResources.getDrawable(mContext, R.drawable.ic_fab_pause);
-        mIconStop = AppCompatResources.getDrawable(mContext, R.drawable.ic_fab_stop);
+        mIconPlay = AppCompatResources.getDrawable(getContext(), R.drawable.ic_fab_play);
+        mIconPause = AppCompatResources.getDrawable(getContext(), R.drawable.ic_fab_pause);
+        mIconStop = AppCompatResources.getDrawable(getContext(), R.drawable.ic_fab_stop);
 
         mColorPaused = SettingsDAO.getPausedTimerIndicatorColor(mPrefs);
         mColorRunning = SettingsDAO.getRunningTimerIndicatorColor(mPrefs);
         mColorExpired = SettingsDAO.getExpiredTimerIndicatorColor(mPrefs);
         mColorMissed = SettingsDAO.getMissedTimerIndicatorColor(mPrefs);
 
-        final int colorAccent = MaterialColors.getColor(mContext, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
+        final int colorAccent = MaterialColors.getColor(getContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
         final int textColorPrimary = mBinding.timerTimeText.getCurrentTextColor();
         final ColorStateList timeTextColor = new ColorStateList(
             new int[][]{{-state_activated, -state_pressed}, {}},
@@ -231,11 +229,11 @@ public class TimerItemCompact extends ConstraintLayout {
                 buttonTimeMinutes,
                 buttonTimeSeconds);
 
-            mCachedAddButtonText = mContext.getString(R.string.timer_add_custom_time, buttonTimeFormatted);
+            mCachedAddButtonText = getContext().getString(R.string.timer_add_custom_time, buttonTimeFormatted);
 
             mCachedAddButtonContentDesc = buttonTimeSeconds == 0
-                ? mContext.getString(R.string.timer_add_custom_time_description, String.valueOf(buttonTimeMinutes))
-                : mContext.getString(R.string.timer_add_custom_time_with_seconds_description,
+                ? getContext().getString(R.string.timer_add_custom_time_description, String.valueOf(buttonTimeMinutes))
+                : getContext().getString(R.string.timer_add_custom_time_with_seconds_description,
                 String.valueOf(buttonTimeMinutes),
                 String.valueOf(buttonTimeSeconds));
         }
@@ -246,7 +244,7 @@ public class TimerItemCompact extends ConstraintLayout {
         if (timer.getState() != mLastState) {
             boolean isReset = timer.getState() == Timer.State.RESET;
 
-            final String resetDesc = mContext.getString(R.string.reset);
+            final String resetDesc = getContext().getString(R.string.reset);
 
             mBinding.resetButton.setVisibility(VISIBLE);
             mBinding.resetButton.setContentDescription(resetDesc);

@@ -9,6 +9,8 @@ package com.best.deskclock.settings;
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesKeys.*;
+import static com.best.deskclock.utils.NotificationUtils.EXTRA_UPDATE_ALARM_NOTIFICATIONS;
+import static com.best.deskclock.utils.WidgetUtils.EXTRA_UPDATE_WIDGETS;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -485,11 +487,16 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
                     : R.string.background_image_title_variant),
                 null,
                 getString(isFontFile ? R.string.label_new_font : R.string.label_new_image),
-                (d, w) -> selectFile(launcher, isFontFile),
+                (d, w) -> {
+                    mPendingFilePrefKey = null;
+                    selectFile(launcher, isFontFile);
+                },
                 null,
                 null,
                 getString(R.string.delete),
                 (d, w) -> {
+                    mPendingFilePrefKey = null;
+
                     mPrefs.edit().remove(prefKey).apply();
                     pref.setTitle(isFontFile ? R.string.custom_font_title : R.string.background_image_title);
                     pref.setSummary(null);
@@ -635,8 +642,14 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
             (d, w) -> {
                 NotificationUtils.clearAllNotifications(appContext);
 
+                Utils.applyAppLanguage(appContext, isResettingApp);
+
                 Intent restartIntent = new Intent(appContext, DeskClock.class);
                 restartIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                restartIntent.putExtra(EXTRA_UPDATE_WIDGETS, true);
+                if (!isResettingApp) {
+                    restartIntent.putExtra(EXTRA_UPDATE_ALARM_NOTIFICATIONS, true);
+                }
                 appContext.startActivity(restartIntent);
                 Runtime.getRuntime().exit(0);
             },

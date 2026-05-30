@@ -25,13 +25,11 @@ import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.databinding.TimerItemBinding;
 import com.best.deskclock.databinding.TimerItemCompactBinding;
-import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.google.android.material.button.MaterialButton;
 
 public class TimerViewHolder extends RecyclerView.ViewHolder {
 
-    private final Context mContext;
     private final Boolean mIsSingleTimerMode;
     private int mTimerId;
     private final TimerAdapter mAdapter;
@@ -40,22 +38,22 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
     private final ImageButton mDeleteButton;
     private final ImageButton mResetButton;
     public final MaterialButton addTimeButton;
+    public final View circleContainer;
+    public final TextView timerTimeText;
 
     public TimerViewHolder(View view, TimerAdapter timerAdapter, TimerClickHandler timerClickHandler, int viewType, Typeface regular,
                            Typeface bold, Typeface timerTime) {
 
         super(view);
 
-        mContext = view.getContext();
-        SharedPreferences prefs = getDefaultSharedPreferences(mContext);
+        Context context = view.getContext();
+        SharedPreferences prefs = getDefaultSharedPreferences(context);
         mIsSingleTimerMode = SettingsDAO.isSingleTimerModeEnabled(prefs);
         mAdapter = timerAdapter;
 
         final TextView timerLabel;
         final TextView timerTotalDuration;
         final ImageButton timerEditNewDurationButton;
-        final View circleContainer;
-        final TextView timerTimeText;
         final MaterialButton playPauseButton;
 
         switch (viewType) {
@@ -95,19 +93,19 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
         }
 
         View.OnClickListener playPauseListener = v -> {
-            Utils.setVibrationTime(mContext, 50);
+            Utils.setVibrationTime(context, 50);
             timerClickHandler.onPlayPauseClicked(getTimer());
         };
 
         timerLabel.setOnClickListener(v -> timerClickHandler.onEditLabelClicked(getTimer()));
 
         mResetButton.setOnClickListener(v -> {
-            Utils.setVibrationTime(mContext, 10);
+            Utils.setVibrationTime(context, 10);
             timerClickHandler.onResetClicked(getTimer());
         });
 
         addTimeButton.setOnClickListener(v -> {
-            Utils.setVibrationTime(mContext, 10);
+            Utils.setVibrationTime(context, 10);
             timerClickHandler.onAddTimeClicked(getTimer(), v);
         });
 
@@ -141,16 +139,14 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
         if (circleContainer != null) {
             circleContainer.setOnClickListener(playPauseListener);
             circleContainer.setOnTouchListener(new Utils.CircleTouchListener());
-        }
-
-        if ((!ThemeUtils.isTablet() && ThemeUtils.isLandscape() || SettingsDAO.isCompactTimersDisplayed(prefs))) {
+        } else {
             timerTimeText.setOnClickListener(playPauseListener);
         }
 
         playPauseButton.setOnClickListener(playPauseListener);
 
         mDeleteButton.setOnClickListener(v -> {
-            Utils.setVibrationTime(mContext, 10);
+            Utils.setVibrationTime(context, 10);
             timerClickHandler.onDeleteTimerClicked(getTimer());
         });
     }

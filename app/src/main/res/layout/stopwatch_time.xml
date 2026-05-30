@@ -18,23 +18,26 @@
 
     <com.best.deskclock.uicomponents.AutoSizingTextView
         android:id="@+id/stopwatch_time_text"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="30dp"
+        android:gravity="center_horizontal"
         android:duplicateParentState="true"
         android:includeFontPadding="false"
+        android:fontFeatureSettings="tnum"
         android:textSize="70sp"
         tools:text="01" />
 
     <com.best.deskclock.uicomponents.AutoSizingTextView
         android:id="@+id/stopwatch_hundredths_text"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="-16dp"
         android:paddingHorizontal="30dp"
-        android:layout_gravity="end"
+        android:gravity="end"
         android:duplicateParentState="true"
         android:includeFontPadding="false"
+        android:fontFeatureSettings="tnum"
         android:textSize="35sp"
         tools:text="23" />
 

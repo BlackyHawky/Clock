@@ -24,7 +24,8 @@ import com.best.deskclock.uicomponents.ItemTouchHelperContract;
 public class TimerItemTouchHelper extends ItemTouchHelper.Callback {
 
     private final ItemTouchHelperContract mContract;
-    private boolean isTouchOnDragBlockingView = false;
+    private boolean mIsTouchOnDragBlockingView = false;
+    private boolean mIsTimerTimeActivated = false;
     private int dragFrom = RecyclerView.NO_POSITION;
     private int dragTo = RecyclerView.NO_POSITION;
     private final boolean mIsTablet;
@@ -56,14 +57,37 @@ public class TimerItemTouchHelper extends ItemTouchHelper.Callback {
                                 addTimeButton.getLocationOnScreen(loc);
                                 float x = e.getRawX();
                                 float y = e.getRawY();
-                                isTouchOnDragBlockingView = x >= loc[0] && x <= loc[0] + addTimeButton.getWidth()
+
+                                mIsTouchOnDragBlockingView = x >= loc[0] && x <= loc[0] + addTimeButton.getWidth()
                                     && y >= loc[1] && y <= loc[1] + addTimeButton.getHeight();
                             } else {
-                                isTouchOnDragBlockingView = false;
+                                mIsTouchOnDragBlockingView = false;
+                            }
+
+                            View circle = timerViewHolder.circleContainer;
+                            View timerTimeText = timerViewHolder.timerTimeText;
+
+                            if (circle != null && circle.getVisibility() == View.VISIBLE) {
+                                int[] loc = new int[2];
+                                circle.getLocationOnScreen(loc);
+                                float x = e.getRawX();
+                                float y = e.getRawY();
+
+                                mIsTimerTimeActivated = x >= loc[0] && x <= loc[0] + circle.getWidth()
+                                    && y >= loc[1] && y <= loc[1] + circle.getHeight();
+                            } else {
+                                int[] loc = new int[2];
+                                timerTimeText.getLocationOnScreen(loc);
+                                float x = e.getRawX();
+                                float y = e.getRawY();
+
+                                mIsTimerTimeActivated = x >= loc[0] && x <= loc[0] + timerTimeText.getWidth()
+                                    && y >= loc[1] && y <= loc[1] + timerTimeText.getHeight();
                             }
                         }
                     } else {
-                        isTouchOnDragBlockingView = false;
+                        mIsTouchOnDragBlockingView = false;
+                        mIsTimerTimeActivated = false;
                     }
                 }
 
@@ -82,7 +106,7 @@ public class TimerItemTouchHelper extends ItemTouchHelper.Callback {
 
     @Override
     public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-        if (isTouchOnDragBlockingView || !mIsManualSort) {
+        if (mIsTouchOnDragBlockingView || !mIsManualSort) {
             return 0;
         }
 
@@ -124,9 +148,15 @@ public class TimerItemTouchHelper extends ItemTouchHelper.Callback {
     public void onSelectedChanged(@Nullable RecyclerView.ViewHolder viewHolder, int actionState) {
         super.onSelectedChanged(viewHolder, actionState);
 
-        // Draw a shadow under the timer card when it's dragging.
         if (actionState == ItemTouchHelper.ACTION_STATE_DRAG && viewHolder != null) {
             mContract.onRowSelected(viewHolder);
+
+            // Maintain timer text color when it's dragging.
+            if (mIsTimerTimeActivated && viewHolder instanceof TimerViewHolder timerViewHolder) {
+                if (timerViewHolder.timerTimeText != null) {
+                    timerViewHolder.timerTimeText.setActivated(true);
+                }
+            }
         }
     }
 
@@ -134,10 +164,18 @@ public class TimerItemTouchHelper extends ItemTouchHelper.Callback {
     public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
         super.clearView(recyclerView, viewHolder);
 
-        // Remove the shadow under the city card when the drag is complete.
         mContract.onRowClear(viewHolder);
 
-        // Save the list of timers once the user interaction is complete.
+        // Clear timer text color when the drag is complete.
+        if (viewHolder instanceof TimerViewHolder timerViewHolder) {
+            if (timerViewHolder.timerTimeText != null) {
+                timerViewHolder.timerTimeText.setActivated(false);
+            }
+        }
+
+        mIsTimerTimeActivated = false;
+        mIsTouchOnDragBlockingView = false;
+
         if (dragFrom != RecyclerView.NO_POSITION && dragTo != RecyclerView.NO_POSITION && dragFrom != dragTo) {
             mContract.onRowSaved();
         }

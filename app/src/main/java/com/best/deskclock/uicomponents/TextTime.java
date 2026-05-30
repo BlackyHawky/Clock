@@ -45,7 +45,6 @@ public class TextTime extends AppCompatTextView {
     private CharSequence mFormat12;
     private CharSequence mFormat24;
     private CharSequence mFormat;
-    private Context mContext;
 
     private boolean mAttached;
 
@@ -81,8 +80,6 @@ public class TextTime extends AppCompatTextView {
         if (isInEditMode()) {
             return;
         }
-
-        mContext = context;
 
         setTimeFormat(0.45f, false);
         chooseFormat();
@@ -136,12 +133,12 @@ public class TextTime extends AppCompatTextView {
     }
 
     private void registerObserver() {
-        final ContentResolver resolver = mContext.getContentResolver();
+        final ContentResolver resolver = getContext().getContentResolver();
         resolver.registerContentObserver(Settings.System.CONTENT_URI, true, mFormatChangeObserver);
     }
 
     private void unregisterObserver() {
-        final ContentResolver resolver = mContext.getContentResolver();
+        final ContentResolver resolver = getContext().getContentResolver();
         resolver.unregisterContentObserver(mFormatChangeObserver);
     }
 
@@ -156,7 +153,7 @@ public class TextTime extends AppCompatTextView {
     }
 
     public void setTimeFormat(float amPmRatio, boolean includeSeconds) {
-        CharSequence format12 = ClockUtils.get12ModeFormat(mContext, amPmRatio, includeSeconds, true, false, false);
+        CharSequence format12 = ClockUtils.get12ModeFormat(getContext(), amPmRatio, includeSeconds, true, false, false);
         setFormat12Hour(format12);
 
         CharSequence format24 = ClockUtils.get24ModeFormat(includeSeconds, false);

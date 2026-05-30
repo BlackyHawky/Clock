@@ -109,7 +109,6 @@ public final class AlarmFragment extends DeskClockFragment
 
     private SharedPreferences mPrefs;
     private DisplayMetrics mDisplayMetrics;
-    private Typeface mBoldTypeface;
 
     // Updates "Today/Tomorrow" in the UI when midnight passes.
     private final Runnable mMidnightUpdater = new MidnightRunnable();
@@ -156,9 +155,6 @@ public final class AlarmFragment extends DeskClockFragment
 
         mPrefs = getDefaultSharedPreferences(requireContext());
         mDisplayMetrics = getResources().getDisplayMetrics();
-        mBoldTypeface = ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(mPrefs));
-        mCursorLoader = LoaderManager.getInstance(this).initLoader(0, null, this);
-        mItemAdapter = new AlarmAdapter(requireContext());
         mIsTablet = ThemeUtils.isTablet();
         mIsLandscape = ThemeUtils.isLandscape();
         mIsLowAlarmVolumeWarningEnabled = SettingsDAO.isLowAlarmVolumeWarningDisplayed(mPrefs);
@@ -175,8 +171,6 @@ public final class AlarmFragment extends DeskClockFragment
 
         mBinding = AlarmFragmentBinding.inflate(inflater, container, false);
 
-        mBinding.alarmVolumeWarningBanner.volumeWarningText.setTypeface(mBoldTypeface);
-        mBinding.alarmVolumeWarningBanner.volumeWarningButton.setTypeface(mBoldTypeface);
         mBinding.alarmVolumeWarningBanner.volumeWarningButton.setOnClickListener(v ->
             RingtoneUtils.fixAlarmStreamLow(requireContext())
         );
@@ -189,7 +183,7 @@ public final class AlarmFragment extends DeskClockFragment
             @Override
             public boolean onSingleTapUp(@NonNull MotionEvent e) {
                 hideSideButtonsWithFabAnimation();
-                return false;
+                return true;
             }
         });
 
@@ -197,13 +191,10 @@ public final class AlarmFragment extends DeskClockFragment
 
         mBinding.alarmRecyclerView.setOnTouchListener((v, event) -> {
             gestureDetector.onTouchEvent(event);
-            mBinding.getRoot().performClick();
             return false;
         });
 
         mBinding.alarmRecyclerView.setLayoutManager(getLayoutManager());
-
-        mBinding.alarmRecyclerView.setAdapter(mItemAdapter);
 
         mBinding.alarmRecyclerView.addItemDecoration(new GridSpacingItemDecoration(requireContext(), mDisplayMetrics));
 
@@ -212,6 +203,30 @@ public final class AlarmFragment extends DeskClockFragment
             // Disable flash/blinking during updates (notifyItemChanged)
             ((SimpleItemAnimator) animator).setSupportsChangeAnimations(false);
         }
+
+        // Schedule a runnable to update the "Today/Tomorrow" values displayed for non-repeating
+        // alarms when midnight passes.
+        UiDataModel.getUiDataModel().addMidnightCallback(mMidnightUpdater, 100);
+
+        return mBinding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        String generalFontPath = SettingsDAO.getGeneralFont(mPrefs);
+        String alarmFontPath = SettingsDAO.getAlarmFont(mPrefs);
+        Typeface generalTypeface = ThemeUtils.loadFont(generalFontPath);
+        Typeface generalBoldTypeface = ThemeUtils.boldTypeface(generalFontPath);
+        Typeface alarmClockTypeface = ThemeUtils.boldTypeface(alarmFontPath);
+
+        mBinding.alarmVolumeWarningBanner.volumeWarningText.setTypeface(generalBoldTypeface);
+        mBinding.alarmVolumeWarningBanner.volumeWarningButton.setTypeface(generalBoldTypeface);
+
+        mItemAdapter = new AlarmAdapter(requireContext(), mPrefs, generalTypeface, generalBoldTypeface, alarmClockTypeface);
+
+        mBinding.alarmRecyclerView.setAdapter(mItemAdapter);
 
         AlarmItemTouchHelper callback =
             new AlarmItemTouchHelper(requireContext(), this, mBinding.alarmRecyclerView, mIsTablet, mIsLandscape);
@@ -224,18 +239,9 @@ public final class AlarmFragment extends DeskClockFragment
             itemTouchHelper.attachToRecyclerView(mBinding.alarmRecyclerView);
         }
 
-        // Schedule a runnable to update the "Today/Tomorrow" values displayed for non-repeating
-        // alarms when midnight passes.
-        UiDataModel.getUiDataModel().addMidnightCallback(mMidnightUpdater, 100);
+        mCursorLoader = LoaderManager.getInstance(this).initLoader(0, null, this);
 
         updateWarningBannerVisibility();
-
-        return mBinding.getRoot();
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
 
         if (savedInstanceState != null) {
             Alarm restoredAlarm = SdkUtils.isAtLeastAndroid13()
@@ -506,7 +512,7 @@ public final class AlarmFragment extends DeskClockFragment
     @Override
     public void onUpdateFab(@NonNull ImageView fab) {
         fab.setImageResource(R.drawable.ic_add);
-        fab.setContentDescription(fab.getResources().getString(R.string.button_alarms));
+        fab.setContentDescription(getString(R.string.button_alarms));
 
         if (SettingsDAO.isAlarmFabLongPressEnabled(mPrefs)) {
             fab.setVisibility(VISIBLE);
@@ -715,7 +721,7 @@ public final class AlarmFragment extends DeskClockFragment
      *                    updates
      */
     private void setAdapterItems(final List<AlarmItemHolder> items, final long updateToken) {
-        if (mBinding == null || mIsReordering) {
+        if (mBinding == null || !isAdded() || mIsReordering) {
             return;
         }
 

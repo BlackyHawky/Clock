@@ -98,7 +98,13 @@ public final class RingtoneModel {
         cr.registerContentObserver(Settings.System.DEFAULT_ALARM_ALERT_URI, false, mSystemObserver);
 
         // Clear caches affected by locale when locale changes.
-        final IntentFilter localeBroadcastFilter = new IntentFilter(Intent.ACTION_LOCALE_CHANGED);
+        final IntentFilter localeBroadcastFilter = new IntentFilter();
+        localeBroadcastFilter.addAction(Intent.ACTION_LOCALE_CHANGED);
+
+        if (SdkUtils.isAtLeastAndroid13()) {
+            localeBroadcastFilter.addAction(Intent.ACTION_APPLICATION_LOCALE_CHANGED);
+        }
+
         if (SdkUtils.isAtLeastAndroid13()) {
             mContext.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter, Context.RECEIVER_NOT_EXPORTED);
         } else {

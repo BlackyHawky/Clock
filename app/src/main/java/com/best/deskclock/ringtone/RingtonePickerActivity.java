@@ -12,6 +12,7 @@ import static android.media.RingtoneManager.TYPE_ALARM;
 import static android.provider.OpenableColumns.DISPLAY_NAME;
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 
 import android.app.Dialog;
 import android.content.ContentResolver;
@@ -20,6 +21,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -63,7 +65,6 @@ import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
-import com.best.deskclock.utils.Utils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
@@ -280,15 +281,51 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
             ? intent.getParcelableExtra(EXTRA_DEFAULT_RINGTONE_URI, Uri.class)
             : intent.getParcelableExtra(EXTRA_DEFAULT_RINGTONE_URI);
         final int defaultRingtoneTitleId = intent.getIntExtra(EXTRA_DEFAULT_RINGTONE_NAME, 0);
-        final Context localizedContext = Utils.getLocalizedContext(context);
-        mDefaultRingtoneTitle = localizedContext.getString(defaultRingtoneTitleId);
+        mDefaultRingtoneTitle = getString(defaultRingtoneTitleId);
 
         mTitleResourceId = intent.getIntExtra(EXTRA_TITLE, 0);
-        setTitle(context.getString(mTitleResourceId));
+        setTitle(getString(mTitleResourceId));
 
         mRingtonePickerBinding.ringtoneContent.setLayoutManager(new LinearLayoutManager(context));
 
-        mRingtoneAdapter = new RingtoneAdapter(this, new RingtoneAdapter.OnRingtoneClickListener() {
+        mAddButtonBinding = RingtoneAddButtonBinding.inflate(getLayoutInflater(), mBaseBinding.coordinatorLayout, true);
+
+        mAddButtonBinding.addRingtoneButton.setOnClickListener(v -> {
+            stopPlayingRingtone(getSelectedRingtoneHolder(), false);
+            getActivityOnClick.launch(new Intent(Intent.ACTION_OPEN_DOCUMENT)
+                .addFlags(FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
+                .addCategory(Intent.CATEGORY_OPENABLE)
+                .setType("audio/*"));
+        });
+
+        mAddButtonBinding.addRingtoneButton.setOnLongClickListener(v -> {
+            stopPlayingRingtone(getSelectedRingtoneHolder(), false);
+            getActivityOnLongClick.launch(new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
+                .addFlags(FLAG_GRANT_READ_URI_PERMISSION | FLAG_GRANT_PERSISTABLE_URI_PERMISSION));
+
+            return true;
+        });
+
+        mDialogProgressBinding = DialogProgressBinding.inflate(getLayoutInflater());
+        mDialogProgressBinding.dialogProgressText.setTypeface(ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs)));
+
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this)
+            .setView(mDialogProgressBinding.getRoot())
+            .setCancelable(false);
+
+        mProgressDialog = builder.create();
+
+        applyWindowInsets();
+
+        String generalFontPath = SettingsDAO.getGeneralFont(prefs);
+        boolean isAmoledDarkMode = AMOLED_DARK_MODE.equals(SettingsDAO.getDarkMode(prefs));
+        Typeface generalTypeface = ThemeUtils.loadFont(generalFontPath);
+
+        mDialogProgressBinding.dialogProgressText.setTypeface(generalTypeface);
+
+        mRingtoneAdapter = new RingtoneAdapter(this, generalTypeface, isAmoledDarkMode,
+            new RingtoneAdapter.OnRingtoneClickListener() {
+
             @Override
             public void onRingtoneClick(RingtoneHolder newSelection) {
                 final RingtoneHolder oldSelection = getSelectedRingtoneHolder();
@@ -320,35 +357,6 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
         }
 
         LoaderManager.getInstance(this).initLoader(0, null, this);
-
-        mAddButtonBinding = RingtoneAddButtonBinding.inflate(getLayoutInflater(), mBaseBinding.coordinatorLayout, true);
-
-        mAddButtonBinding.addRingtoneButton.setOnClickListener(v -> {
-            stopPlayingRingtone(getSelectedRingtoneHolder(), false);
-            getActivityOnClick.launch(new Intent(Intent.ACTION_OPEN_DOCUMENT)
-                .addFlags(FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
-                .addCategory(Intent.CATEGORY_OPENABLE)
-                .setType("audio/*"));
-        });
-
-        mAddButtonBinding.addRingtoneButton.setOnLongClickListener(v -> {
-            stopPlayingRingtone(getSelectedRingtoneHolder(), false);
-            getActivityOnLongClick.launch(new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
-                .addFlags(FLAG_GRANT_READ_URI_PERMISSION | FLAG_GRANT_PERSISTABLE_URI_PERMISSION));
-
-            return true;
-        });
-
-        mDialogProgressBinding = DialogProgressBinding.inflate(getLayoutInflater());
-        mDialogProgressBinding.dialogProgressText.setTypeface(ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs)));
-
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this)
-            .setView(mDialogProgressBinding.getRoot())
-            .setCancelable(false);
-
-        mProgressDialog = builder.create();
-
-        applyWindowInsets();
     }
 
     @Override
@@ -630,7 +638,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
             }
 
             if (name == null) {
-                name = appContext.getString(R.string.unknown_ringtone_title);
+                name = getString(R.string.unknown_ringtone_title);
             }
 
             final String title = name;

@@ -87,11 +87,12 @@
 
         <com.best.deskclock.uicomponents.AutoSizingTextView
             android:id="@+id/timer_time_text"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
             android:paddingHorizontal="24dp"
+            android:fontFeatureSettings="tnum"
             android:includeFontPadding="false"
             android:textSize="40sp"
             tools:text="01:23" />

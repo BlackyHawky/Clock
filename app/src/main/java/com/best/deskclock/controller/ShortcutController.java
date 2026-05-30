@@ -35,6 +35,7 @@ import com.best.deskclock.stopwatch.StopwatchService;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -55,7 +56,7 @@ class ShortcutController {
     }
 
     void updateShortcuts() {
-        Context appContext = DeskClockApplication.getAppContext();
+        Context appContext = Utils.getLocalizedContext(DeskClockApplication.getAppContext());
 
         if (!DeviceUtils.isUserUnlocked(appContext)) {
             return;
@@ -106,7 +107,7 @@ class ShortcutController {
     }
 
     private ShortcutInfo createNewAlarmShortcut() {
-        Context appContext = DeskClockApplication.getAppContext();
+        Context appContext = Utils.getLocalizedContext(DeskClockApplication.getAppContext());
 
         final Intent intent = new Intent(AlarmClock.ACTION_SET_ALARM)
             .setClass(appContext, HandleApiCalls.class)
@@ -125,7 +126,7 @@ class ShortcutController {
     }
 
     private ShortcutInfo createNewTimerShortcut() {
-        Context appContext = DeskClockApplication.getAppContext();
+        Context appContext = Utils.getLocalizedContext(DeskClockApplication.getAppContext());
 
         final Intent intent = new Intent(AlarmClock.ACTION_SET_TIMER)
             .setClass(appContext, HandleApiCalls.class)
@@ -144,7 +145,7 @@ class ShortcutController {
     }
 
     private ShortcutInfo createStopwatchShortcut() {
-        Context appContext = DeskClockApplication.getAppContext();
+        Context appContext = Utils.getLocalizedContext(DeskClockApplication.getAppContext());
 
         final @StringRes int action = DataModel.getDataModel().getStopwatch().isRunning()
             ? R.string.action_pause
@@ -170,7 +171,7 @@ class ShortcutController {
     }
 
     private ShortcutInfo createScreensaverShortcut() {
-        Context appContext = DeskClockApplication.getAppContext();
+        Context appContext = Utils.getLocalizedContext(DeskClockApplication.getAppContext());
 
         final Intent intent = new Intent(Intent.ACTION_MAIN)
             .setClass(appContext, ScreensaverActivity.class)

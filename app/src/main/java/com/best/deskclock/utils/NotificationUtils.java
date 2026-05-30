@@ -10,10 +10,9 @@ import static androidx.core.app.NotificationManagerCompat.IMPORTANCE_HIGH;
 import static androidx.core.app.NotificationManagerCompat.IMPORTANCE_LOW;
 
 import android.app.NotificationChannel;
-import android.app.NotificationManager;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.os.Build;
-import android.service.notification.StatusBarNotification;
 import android.util.ArraySet;
 import android.util.Log;
 
@@ -22,8 +21,13 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.best.deskclock.R;
+import com.best.deskclock.alarms.AlarmNotifications;
+import com.best.deskclock.base.AppExecutors;
+import com.best.deskclock.provider.AlarmInstance;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -64,6 +68,8 @@ public class NotificationUtils {
      * Notification channel containing all stopwatch notifications.
      */
     public static final String STOPWATCH_NOTIFICATION_CHANNEL_ID = "stopwatchNotification";
+
+    public static final String EXTRA_UPDATE_ALARM_NOTIFICATIONS = "EXTRA_UPDATE_ALARM_NOTIFICATIONS";
 
     private static final String TAG = NotificationUtils.class.getSimpleName();
 
@@ -181,30 +187,32 @@ public class NotificationUtils {
     }
 
     /**
-     * Checks if the notification is currently active. Useful to detect if the user has dismissed
-     * the notification (on Android 14+).
-     *
-     * @return {@code true} if the notification is visible in the status bar, {@code false} otherwise.
-     */
-    public static boolean isNotificationVisible(Context context, int notificationId) {
-        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-
-        StatusBarNotification[] notifications = mNotificationManager.getActiveNotifications();
-        for (StatusBarNotification notification : notifications) {
-            if (notification.getId() == notificationId) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
      * Clear all notifications. Useful after a restore or reset, for example.
      */
     public static void clearAllNotifications(Context context) {
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
         notificationManager.cancelAll();
+    }
+
+    /**
+     * Updates alarm notifications. Useful when changing languages, for example.
+     */
+    public static void updateAlarmNotifications(Context appContext) {
+        AppExecutors.getDiskIO().execute(() -> {
+            final ContentResolver contentResolver = appContext.getContentResolver();
+            final List<AlarmInstance> activeInstances = new ArrayList<>();
+
+            activeInstances.addAll(AlarmInstance.getInstancesByState(contentResolver, AlarmInstance.NOTIFICATION_STATE));
+            activeInstances.addAll(AlarmInstance.getInstancesByState(contentResolver, AlarmInstance.FIRED_STATE));
+            activeInstances.addAll(AlarmInstance.getInstancesByState(contentResolver, AlarmInstance.SNOOZE_STATE));
+            activeInstances.addAll(AlarmInstance.getInstancesByState(contentResolver, AlarmInstance.MISSED_STATE));
+
+            AppExecutors.getMainThread().post(() -> {
+                for (AlarmInstance instance : activeInstances) {
+                    AlarmNotifications.updateNotification(appContext, instance);
+                }
+            });
+        });
     }
 
 }

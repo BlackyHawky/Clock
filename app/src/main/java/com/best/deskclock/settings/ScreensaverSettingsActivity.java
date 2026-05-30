@@ -31,6 +31,7 @@ import com.best.deskclock.settings.custompreference.CustomSliderPreference;
 import com.best.deskclock.uicomponents.CollapsingToolbarBaseActivity;
 import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.utils.SdkUtils;
+import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 
 /**
@@ -117,6 +118,9 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                 AppExecutors.getDiskIO().execute(() -> {
                     // Delete the old font if it exists
                     clearFile(oldFontPath);
+
+                    // Clear the font cache
+                    ThemeUtils.removeFontFromCache(oldFontPath);
 
                     // Copy the new font to the device's protected storage
                     Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(appContext, sourceUri, safeTitle);

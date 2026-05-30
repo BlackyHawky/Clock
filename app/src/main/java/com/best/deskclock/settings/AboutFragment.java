@@ -8,8 +8,7 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.DEBUG_LANGUAG
 import static com.best.deskclock.settings.PreferencesDefaultValues.PURPLE_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesDefaultValues.RED_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.*;
-import static com.best.deskclock.setup.FirstLaunch.KEY_IS_FIRST_LAUNCH;
-import static com.best.deskclock.utils.Utils.ACTION_LANGUAGE_CODE_CHANGED;
+import static com.best.deskclock.utils.WidgetUtils.EXTRA_UPDATE_WIDGETS;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -57,7 +56,6 @@ import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.NotificationUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
-import com.best.deskclock.utils.WidgetUtils;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -502,10 +500,6 @@ public class AboutFragment extends ScreenFragment implements Preference.OnPrefer
             AppExecutors.getMainThread().post(() -> {
                 Utils.stopService(appContext, KeepAliveService.class);
 
-                appContext.sendBroadcast(new Intent(ACTION_LANGUAGE_CODE_CHANGED));
-
-                WidgetUtils.updateAllWidgets(appContext);
-
                 if (SdkUtils.isAtLeastAndroid7()) {
                     TileService.requestListeningState(appContext, new ComponentName(appContext, AlarmTileService.class));
                     TileService.requestListeningState(appContext, new ComponentName(appContext, TimerTileService.class));
@@ -521,8 +515,11 @@ public class AboutFragment extends ScreenFragment implements Preference.OnPrefer
                     // If the user has left the screen, clear the notifications and force a restart without the dialog.
                     NotificationUtils.clearAllNotifications(appContext);
 
+                    Utils.applyAppLanguage(appContext, true);
+
                     Intent restartIntent = new Intent(appContext, DeskClock.class);
                     restartIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    restartIntent.putExtra(EXTRA_UPDATE_WIDGETS, true);
                     appContext.startActivity(restartIntent);
                     Runtime.getRuntime().exit(0);
                 }
@@ -541,7 +538,7 @@ public class AboutFragment extends ScreenFragment implements Preference.OnPrefer
         }
 
         if (BuildConfig.IS_DEBUG_BUILD || BuildConfig.IS_NIGHTLY_BUILD) {
-            editor.putString(KEY_CUSTOM_LANGUAGE_CODE, DEBUG_LANGUAGE_CODE);
+            editor.putString(KEY_LANGUAGE_CODE, DEBUG_LANGUAGE_CODE);
         }
     }
 

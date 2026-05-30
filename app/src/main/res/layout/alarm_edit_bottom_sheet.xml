@@ -32,6 +32,7 @@
                 android:layout_marginHorizontal="14dp"
                 android:paddingHorizontal="10dp"
                 android:gravity="center"
+                android:fontFeatureSettings="tnum"
                 android:textSize="48sp"
                 android:textStyle="bold"
                 android:focusable="true"

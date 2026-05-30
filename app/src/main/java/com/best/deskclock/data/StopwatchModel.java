@@ -18,8 +18,8 @@ import android.content.pm.PackageManager;
 import android.service.quicksettings.TileService;
 
 import androidx.annotation.VisibleForTesting;
-import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 
 import com.best.deskclock.tiles.StopwatchTileService;
 import com.best.deskclock.utils.SdkUtils;
@@ -80,7 +80,13 @@ final class StopwatchModel {
         mNotificationManager = NotificationManagerCompat.from(context);
 
         // Update stopwatch notification when locale changes.
-        final IntentFilter localeBroadcastFilter = new IntentFilter(Intent.ACTION_LOCALE_CHANGED);
+        final IntentFilter localeBroadcastFilter = new IntentFilter();
+        localeBroadcastFilter.addAction(Intent.ACTION_LOCALE_CHANGED);
+
+        if (SdkUtils.isAtLeastAndroid13()) {
+            localeBroadcastFilter.addAction(Intent.ACTION_APPLICATION_LOCALE_CHANGED);
+        }
+
         if (SdkUtils.isAtLeastAndroid13()) {
             mContext.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter, Context.RECEIVER_NOT_EXPORTED);
         } else {
@@ -242,13 +248,13 @@ final class StopwatchModel {
             return;
         }
 
-        // Otherwise build and post a notification reflecting the latest stopwatch state.
-        final Notification notification = mNotificationBuilder.build(mContext, mNotificationModel, stopwatch);
-
-        if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
             // Always false, because notification activation is always checked when the application is started.
             return;
         }
+
+        // Otherwise build and post a notification reflecting the latest stopwatch state.
+        final Notification notification = mNotificationBuilder.build(mContext, mNotificationModel, stopwatch);
 
         mNotificationManager.notify(mNotificationModel.getStopwatchNotificationId(), notification);
     }

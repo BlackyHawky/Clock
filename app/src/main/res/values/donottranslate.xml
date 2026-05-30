@@ -525,10 +525,10 @@
     <!-- Values that are retrieved from the ListPreference. These must match the language_entries above. -->
     <string-array name="language_values" translatable="false">
         <item>system_language_code</item>
-        <item>en_US</item>
+        <item>en-US</item>
         <item>fr</item>
         <item>de</item>
-        <item>zh_CN</item>
+        <item>zh-CN</item>
         <item>et</item>
         <item>it</item>
         <item>pl</item>
@@ -541,7 +541,7 @@
         <item>tr</item>
         <item>ko</item>
         <item>cs</item>
-        <item>zh_TW</item>
+        <item>zh-TW</item>
         <item>bg</item>
         <item>ta</item>
         <item>ar</item>

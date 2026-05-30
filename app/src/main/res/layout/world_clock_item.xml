@@ -33,6 +33,7 @@
         android:textColor="?android:attr/colorBackground"
         android:maxLines="1"
         android:includeFontPadding="false"
+        android:fontFeatureSettings="tnum"
         tools:ignore="RtlSymmetry"
         tools:text="12:34"
         tools:background="@drawable/bg_card_for_preview"

@@ -154,7 +154,7 @@
         app:iconSpaceReserved="false">
 
         <ListPreference
-            android:key="key_custom_language_code"
+            android:key="key_language_code"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/settings_language_title"
             android:defaultValue="system_language_code"

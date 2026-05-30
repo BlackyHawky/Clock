@@ -8,6 +8,7 @@ import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT;
 import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH;
 import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT;
 import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH;
+import static android.content.Intent.ACTION_APPLICATION_LOCALE_CHANGED;
 import static android.content.Intent.ACTION_CONFIGURATION_CHANGED;
 import static android.content.Intent.ACTION_LOCALE_CHANGED;
 import static android.content.Intent.ACTION_TIMEZONE_CHANGED;
@@ -227,7 +228,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
      * @param context  application context; used to read preferences and resources
      * @param wm       AppWidgetManager instance used to query options and push updates
      * @param widgetId id of the widget instance to update
-     * @param options  widget options bundle (may be {@code null}; the method will query the manager)
+     * @param options  widget options bundle (can be {@code null}; the method will query the manager)
      */
     protected void relayoutWidget(Context context, AppWidgetManager wm, int widgetId, Bundle options) {
         SharedPreferences prefs = getDefaultSharedPreferences(context);
@@ -581,7 +582,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
      * applies sizes and colors, manages the container visibility and prepares the click fill‑in intent.
      *
      * @param rowRv                   RemoteViews representing the row to populate
-     * @param city                    City object to display in the column (may be null to hide the column)
+     * @param city                    City object to display in the column (can be null to hide the column)
      * @param cityIndex               index of the city in the list (used for the fill‑in intent)
      * @param widgetId                id of the widget (used for the fill‑in intent)
      * @param isLeft                  true if the column is the left column
@@ -783,7 +784,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
                 rv.setViewVisibility(id, View.GONE);
             }
         }
-        // On s'assure que la variante choisie est bien visible
+
         rv.setViewVisibility(activeId, View.VISIBLE);
     }
 
@@ -833,6 +834,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
             switch (action) {
                 case ACTION_CONFIGURATION_CHANGED:
                 case ACTION_LOCALE_CHANGED:
+                case ACTION_APPLICATION_LOCALE_CHANGED:
                 case ACTION_TIME_CHANGED:
                 case ACTION_TIMEZONE_CHANGED:
                 case ACTION_ON_DAY_CHANGE:
