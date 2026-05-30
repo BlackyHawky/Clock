@@ -536,10 +536,12 @@ public final class AlarmStateManager extends BroadcastReceiver {
      */
     public static void setPreDismissState(Context context, AlarmInstance instance, boolean showToast) {
         LogUtils.i("Setting pre-dismissed state to instance " + instance.mId);
+        final boolean alreadyPreDismissed = instance.mAlarmState == AlarmInstance.PREDISMISSED_STATE;
 
         // Stop alarm if this instance is firing it; a single vibration will be performed if enabled in settings
         // to indicate that the alarm is correctly dismissed.
-        if (SettingsDAO.areSnoozedOrDismissedAlarmVibrationsEnabled(getDefaultSharedPreferences(context))) {
+        if (!alreadyPreDismissed
+            && SettingsDAO.areSnoozedOrDismissedAlarmVibrationsEnabled(getDefaultSharedPreferences(context))) {
             AlarmService.stopAlarmWithSingleVibration(context, instance);
         }
 
@@ -556,19 +558,20 @@ public final class AlarmStateManager extends BroadcastReceiver {
         final Alarm alarm = Alarm.getAlarm(contentResolver, instance.mAlarmId);
 
         // Display the alarm dismissal warning in a toast
-        if (alarm != null && showToast) {
+        if (alarm != null && showToast && !alreadyPreDismissed) {
             AppExecutors.getMainThread().post(() -> AlarmUtils.showDismissToast(context, alarm, instance));
         }
 
-        // Check parent if it needs to reschedule, disable or delete itself
-        if (instance.mAlarmId != null) {
+        // Already pre-dismissed instances are only being re-registered. Their parent was
+        // rescheduled when the user originally dismissed them.
+        if (instance.mAlarmId != null && !alreadyPreDismissed) {
             updateParentAlarm(context, instance);
         }
 
         // When the alarm is dismissed from the notification and all days of the week are selected,
         // correctly display the next occurrence in the alarm item.
         final SharedPreferences prefs = getDefaultSharedPreferences(context);
-        if (alarm != null && !alarm.isRepeatDayStyleEnabled(prefs)) {
+        if (alarm != null && !alreadyPreDismissed && !alarm.isRepeatDayStyleEnabled(prefs)) {
             alarm.enableRepeatDayStyleIfAllDaysSelected(prefs);
         }
 
@@ -604,7 +607,9 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * @param instance to set state to
      */
     public static void deleteInstanceAndUpdateParent(Context context, AlarmInstance instance, boolean showToast) {
-        LogUtils.i("Deleting instance " + instance.mId + " and updating parent alarm.");
+        final boolean wasPreDismissed = instance.mAlarmState == AlarmInstance.PREDISMISSED_STATE;
+        LogUtils.i("Deleting instance " + instance.mId
+            + (wasPreDismissed ? " without updating parent alarm." : " and updating parent alarm."));
 
         // Stop alarm if this instance is firing it; a single vibration will be performed if enabled in settings
         // to indicate that the alarm is correctly dismissed.
@@ -621,12 +626,14 @@ public final class AlarmStateManager extends BroadcastReceiver {
         final ContentResolver contentResolver = context.getContentResolver();
         Alarm alarm = Alarm.getAlarm(contentResolver, instance.mAlarmId);
         // Display the alarm dismissal warning in a toast
-        if (alarm != null && showToast) {
+        if (alarm != null && showToast && !wasPreDismissed) {
             AppExecutors.getMainThread().post(() -> AlarmUtils.showDismissToast(context, alarm, instance));
         }
 
-        // Check parent if it needs to reschedule, disable or delete itself
-        if (instance.mAlarmId != null) {
+        // Pre-dismissed instances reschedule their parent when they enter PREDISMISSED_STATE.
+        // When their original firing time arrives, only retire the skipped instance. Rescheduling
+        // again can recreate the already skipped next occurrence as a normal active instance.
+        if (instance.mAlarmId != null && !wasPreDismissed) {
             updateParentAlarm(context, instance);
         }
 
