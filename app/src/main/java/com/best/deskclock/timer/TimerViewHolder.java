@@ -30,7 +30,6 @@ import com.google.android.material.button.MaterialButton;
 
 public class TimerViewHolder extends RecyclerView.ViewHolder {
 
-    private final Context mContext;
     private final Boolean mIsSingleTimerMode;
     private int mTimerId;
     private final TimerAdapter mAdapter;
@@ -47,8 +46,8 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
 
         super(view);
 
-        mContext = view.getContext();
-        SharedPreferences prefs = getDefaultSharedPreferences(mContext);
+        Context context = view.getContext();
+        SharedPreferences prefs = getDefaultSharedPreferences(context);
         mIsSingleTimerMode = SettingsDAO.isSingleTimerModeEnabled(prefs);
         mAdapter = timerAdapter;
 
@@ -94,19 +93,19 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
         }
 
         View.OnClickListener playPauseListener = v -> {
-            Utils.setVibrationTime(mContext, 50);
+            Utils.setVibrationTime(context, 50);
             timerClickHandler.onPlayPauseClicked(getTimer());
         };
 
         timerLabel.setOnClickListener(v -> timerClickHandler.onEditLabelClicked(getTimer()));
 
         mResetButton.setOnClickListener(v -> {
-            Utils.setVibrationTime(mContext, 10);
+            Utils.setVibrationTime(context, 10);
             timerClickHandler.onResetClicked(getTimer());
         });
 
         addTimeButton.setOnClickListener(v -> {
-            Utils.setVibrationTime(mContext, 10);
+            Utils.setVibrationTime(context, 10);
             timerClickHandler.onAddTimeClicked(getTimer(), v);
         });
 
@@ -147,7 +146,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
         playPauseButton.setOnClickListener(playPauseListener);
 
         mDeleteButton.setOnClickListener(v -> {
-            Utils.setVibrationTime(mContext, 10);
+            Utils.setVibrationTime(context, 10);
             timerClickHandler.onDeleteTimerClicked(getTimer());
         });
     }

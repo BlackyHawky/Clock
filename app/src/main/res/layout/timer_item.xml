@@ -93,6 +93,7 @@
             android:gravity="center"
             android:paddingHorizontal="24dp"
             android:includeFontPadding="false"
+            android:fontFeatureSettings="tnum"
             android:textSize="40sp"
             tools:text="01:23" />
 

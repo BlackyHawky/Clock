@@ -64,6 +64,7 @@
             android:includeFontPadding="false"
             android:ellipsize="none"
             android:maxLines="1"
+            android:fontFeatureSettings="tnum"
             android:textColor="@color/digital_widget_time_color"
             android:visibility="visible"
             tools:text="01:23 AM"
@@ -76,6 +77,7 @@
             android:includeFontPadding="false"
             android:ellipsize="none"
             android:maxLines="1"
+            android:fontFeatureSettings="tnum"
             tools:visibility="gone" />
 
         <LinearLayout

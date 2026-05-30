@@ -183,7 +183,7 @@ public final class AlarmFragment extends DeskClockFragment
             @Override
             public boolean onSingleTapUp(@NonNull MotionEvent e) {
                 hideSideButtonsWithFabAnimation();
-                return false;
+                return true;
             }
         });
 
@@ -191,7 +191,6 @@ public final class AlarmFragment extends DeskClockFragment
 
         mBinding.alarmRecyclerView.setOnTouchListener((v, event) -> {
             gestureDetector.onTouchEvent(event);
-            mBinding.getRoot().performClick();
             return false;
         });
 
@@ -513,7 +512,7 @@ public final class AlarmFragment extends DeskClockFragment
     @Override
     public void onUpdateFab(@NonNull ImageView fab) {
         fab.setImageResource(R.drawable.ic_add);
-        fab.setContentDescription(fab.getResources().getString(R.string.button_alarms));
+        fab.setContentDescription(getString(R.string.button_alarms));
 
         if (SettingsDAO.isAlarmFabLongPressEnabled(mPrefs)) {
             fab.setVisibility(VISIBLE);
@@ -722,7 +721,7 @@ public final class AlarmFragment extends DeskClockFragment
      *                    updates
      */
     private void setAdapterItems(final List<AlarmItemHolder> items, final long updateToken) {
-        if (mBinding == null || mIsReordering) {
+        if (mBinding == null || !isAdded() || mIsReordering) {
             return;
         }
 

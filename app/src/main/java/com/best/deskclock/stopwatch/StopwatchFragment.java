@@ -21,7 +21,6 @@ import static com.best.deskclock.uidata.UiDataModel.Tab.STOPWATCH;
 
 import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
@@ -108,7 +107,6 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
         super(STOPWATCH);
     }
 
-    private Context mContext;
     private SharedPreferences mPrefs;
     private String mVolumeUpAction;
     private String mVolumeUpActionAfterLongPress;
@@ -121,9 +119,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mContext = requireContext();
-        mPrefs = getDefaultSharedPreferences(mContext);
-
+        mPrefs = getDefaultSharedPreferences(requireContext());
         mVolumeUpAction = SettingsDAO.getVolumeUpActionForStopwatch(mPrefs);
         mVolumeUpActionAfterLongPress = SettingsDAO.getVolumeUpActionAfterLongPressForStopwatch(mPrefs);
         mVolumeDownAction = SettingsDAO.getVolumeDownActionForStopwatch(mPrefs);
@@ -140,7 +136,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
         mBinding.stopwatchTimeWrapper.setOnTouchListener(new Utils.CircleTouchListener());
         mBinding.stopwatchTimeWrapper.setOnClickListener(new TimeClickListener());
 
-        final int colorAccent = MaterialColors.getColor(mContext, androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
+        final int colorAccent = MaterialColors.getColor(requireContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
         final int textColorPrimary = mBinding.stopwatchTimeLayout.stopwatchTimeText.getCurrentTextColor();
         final ColorStateList timeTextColor = new ColorStateList(
             new int[][]{{-state_activated, -state_pressed}, {}},
@@ -148,7 +144,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
         mBinding.stopwatchTimeLayout.stopwatchTimeText.setTextColor(timeTextColor);
         mBinding.stopwatchTimeLayout.stopwatchHundredthsText.setTextColor(timeTextColor);
 
-        mBinding.lapsBackground.setBackground(ThemeUtils.cardBackground(mContext));
+        mBinding.lapsBackground.setBackground(ThemeUtils.cardBackground(requireContext()));
 
         RecyclerView.ItemAnimator animator = mBinding.lapsList.getItemAnimator();
         if (animator instanceof SimpleItemAnimator) {
@@ -156,7 +152,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
             ((SimpleItemAnimator) animator).setSupportsChangeAnimations(false);
         }
 
-        mLapsLayoutManager = new LinearLayoutManager(mContext);
+        mLapsLayoutManager = new LinearLayoutManager(requireContext());
         mBinding.lapsList.setLayoutManager(mLapsLayoutManager);
 
         return mBinding.getRoot();
@@ -189,7 +185,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
         mStopwatchTextController = new StopwatchTextController(
             mBinding.stopwatchTimeLayout.stopwatchTimeText, mBinding.stopwatchTimeLayout.stopwatchHundredthsText);
 
-        mLapsAdapter = new LapsAdapter(mContext, regularTypeface, boldTypeface);
+        mLapsAdapter = new LapsAdapter(requireContext(), regularTypeface, boldTypeface);
         mBinding.lapsList.setAdapter(mLapsAdapter);
 
         DataModel.getDataModel().addStopwatchListener(mStopwatchWatcher);
@@ -324,35 +320,33 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
 
     @Override
     public void onUpdateFabButtons(@NonNull ImageView left, @NonNull ImageView right) {
-        if (mContext != null) {
-            left.setClickable(true);
-            left.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_reset));
-            left.setContentDescription(mContext.getString(R.string.reset));
-            left.setOnClickListener(v -> doReset());
+        left.setClickable(true);
+        left.setImageDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.ic_reset));
+        left.setContentDescription(getString(R.string.reset));
+        left.setOnClickListener(v -> doReset());
 
-            switch (getStopwatch().getState()) {
-                case RESET -> {
-                    left.setVisibility(INVISIBLE);
-                    right.setClickable(true);
-                    right.setVisibility(INVISIBLE);
-                }
-                case RUNNING -> {
-                    left.setVisibility(VISIBLE);
-                    final boolean canRecordLaps = canRecordMoreLaps();
-                    right.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_tab_stopwatch_static));
-                    right.setContentDescription(mContext.getString(R.string.sw_lap_button));
-                    right.setClickable(canRecordLaps);
-                    right.setVisibility(canRecordLaps ? VISIBLE : INVISIBLE);
-                    right.setOnClickListener(v -> doAddLap());
-                }
-                case PAUSED -> {
-                    left.setVisibility(VISIBLE);
-                    right.setClickable(true);
-                    right.setVisibility(VISIBLE);
-                    right.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_share));
-                    right.setContentDescription(mContext.getString(R.string.sw_share_button));
-                    right.setOnClickListener(v -> doShare());
-                }
+        switch (getStopwatch().getState()) {
+            case RESET -> {
+                left.setVisibility(INVISIBLE);
+                right.setClickable(true);
+                right.setVisibility(INVISIBLE);
+            }
+            case RUNNING -> {
+                left.setVisibility(VISIBLE);
+                final boolean canRecordLaps = canRecordMoreLaps();
+                right.setImageDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.ic_tab_stopwatch_static));
+                right.setContentDescription(getString(R.string.sw_lap_button));
+                right.setClickable(canRecordLaps);
+                right.setVisibility(canRecordLaps ? VISIBLE : INVISIBLE);
+                right.setOnClickListener(v -> doAddLap());
+            }
+            case PAUSED -> {
+                left.setVisibility(VISIBLE);
+                right.setClickable(true);
+                right.setVisibility(VISIBLE);
+                right.setImageDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.ic_share));
+                right.setContentDescription(getString(R.string.sw_share_button));
+                right.setOnClickListener(v -> doShare());
             }
         }
     }
@@ -374,16 +368,14 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
      * @param fab the ImageView used as the stopwatch action button
      */
     private void updateFab(@NonNull ImageView fab) {
-        if (mContext != null) {
-            if (getStopwatch().isRunning()) {
-                fab.setImageResource(R.drawable.ic_fab_pause);
-                fab.setContentDescription(mContext.getString(R.string.sw_pause_button));
-            } else {
-                fab.setImageResource(R.drawable.ic_fab_play);
-                fab.setContentDescription(mContext.getString(R.string.sw_start_button));
-            }
-            fab.setVisibility(VISIBLE);
+        if (getStopwatch().isRunning()) {
+            fab.setImageResource(R.drawable.ic_fab_pause);
+            fab.setContentDescription(getString(R.string.sw_pause_button));
+        } else {
+            fab.setImageResource(R.drawable.ic_fab_play);
+            fab.setContentDescription(getString(R.string.sw_start_button));
         }
+        fab.setVisibility(VISIBLE);
     }
 
     /**
@@ -392,7 +384,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
     private void doStart() {
         Events.sendStopwatchEvent(R.string.action_start, R.string.label_deskclock);
         DataModel.getDataModel().startStopwatch();
-        Utils.setVibrationTime(mContext, 50);
+        Utils.setVibrationTime(requireContext(), 50);
     }
 
     /**
@@ -401,7 +393,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
     private void doPause() {
         Events.sendStopwatchEvent(R.string.action_pause, R.string.label_deskclock);
         DataModel.getDataModel().pauseStopwatch();
-        Utils.setVibrationTime(mContext, 50);
+        Utils.setVibrationTime(requireContext(), 50);
     }
 
     /**
@@ -416,7 +408,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
         if (priorState == Stopwatch.State.RUNNING) {
             updateFab(FAB_MORPH);
         }
-        Utils.setVibrationTime(mContext, 10);
+        Utils.setVibrationTime(requireContext(), 10);
     }
 
     /**
@@ -426,7 +418,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
         // Disable the fab buttons to avoid double-taps on the share button.
         updateFab(BUTTONS_DISABLE);
 
-        final String[] subjects = mContext.getResources().getStringArray(R.array.sw_share_strings);
+        final String[] subjects = requireContext().getResources().getStringArray(R.array.sw_share_strings);
         final String subject = subjects[(int) (Math.random() * subjects.length)];
         final String text = mLapsAdapter.getShareText();
 
@@ -436,10 +428,10 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
             .putExtra(Intent.EXTRA_TEXT, text)
             .setType("text/plain");
 
-        final String title = mContext.getString(R.string.sw_share_button);
+        final String title = getString(R.string.sw_share_button);
         final Intent shareChooserIntent = Intent.createChooser(shareIntent, title);
         try {
-            mContext.startActivity(shareChooserIntent);
+            requireContext().startActivity(shareChooserIntent);
         } catch (ActivityNotFoundException activityNotFoundException) {
             LogUtils.e("Cannot share lap data because no suitable receiving Activity exists");
             updateFab(BUTTONS_IMMEDIATE);
@@ -677,15 +669,17 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
                 && !touchTarget.isPressed();
             final float textTargetAlpha = blink ? 0f : 1f;
 
-            mBinding.stopwatchTimeLayout.stopwatchTimeText.animate()
-                .alpha(textTargetAlpha)
-                .setDuration(200)
-                .start();
+            if (mBinding.stopwatchTimeLayout.stopwatchTimeText.getAlpha() != textTargetAlpha) {
+                mBinding.stopwatchTimeLayout.stopwatchTimeText.animate()
+                    .alpha(textTargetAlpha)
+                    .setDuration(200)
+                    .start();
 
-            mBinding.stopwatchTimeLayout.stopwatchHundredthsText.animate()
-                .alpha(textTargetAlpha)
-                .setDuration(200)
-                .start();
+                mBinding.stopwatchTimeLayout.stopwatchHundredthsText.animate()
+                    .alpha(textTargetAlpha)
+                    .setDuration(200)
+                    .start();
+            }
 
             if (!stopwatch.isReset()) {
                 final long period = stopwatch.isPaused()
@@ -729,7 +723,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
             } else {
                 DataModel.getDataModel().startStopwatch();
             }
-            Utils.setVibrationTime(mContext, 50);
+            Utils.setVibrationTime(requireContext(), 50);
         }
     }
 

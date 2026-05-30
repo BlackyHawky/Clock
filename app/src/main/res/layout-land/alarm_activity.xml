@@ -80,6 +80,7 @@
                 android:layout_marginHorizontal="10dp"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
+                android:fontFeatureSettings="tnum"
                 android:includeFontPadding="false"
                 android:singleLine="true"
                 tools:text="12:34"

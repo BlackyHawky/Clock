@@ -69,8 +69,6 @@ public final class ClockFragment extends DeskClockFragment {
 
     // Updates the UI in response to changes to the scheduled alarm.
     private BroadcastReceiver mAlarmChangeReceiver;
-
-    private Context mContext;
     private SharedPreferences mPrefs;
     private DisplayMetrics mDisplayMetrics;
     private DataModel.ClockStyle mClockStyle;
@@ -97,19 +95,18 @@ public final class ClockFragment extends DeskClockFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mContext = requireContext();
-        mPrefs = getDefaultSharedPreferences(mContext);
+        mPrefs = getDefaultSharedPreferences(requireContext());
         mDisplayMetrics = getResources().getDisplayMetrics();
         mClockStyle = SettingsDAO.getClockStyle(mPrefs);
-        mShowHomeClock = SettingsDAO.getShowHomeClock(mContext, mPrefs);
+        mShowHomeClock = SettingsDAO.getShowHomeClock(requireContext(), mPrefs);
         mShowSeconds = SettingsDAO.areClockSecondsDisplayed(mPrefs);
         mIsCityNoteEnabled = SettingsDAO.isCityNoteEnabled(mPrefs);
         mHasBlackAccentColor = SettingsDAO.getAccentColor(mPrefs).equals(BLACK_ACCENT_COLOR);
         mIsDigitalClock = mClockStyle == DataModel.ClockStyle.DIGITAL;
         mIsPortrait = ThemeUtils.isPortrait();
         mIsTablet = ThemeUtils.isTablet();
-        mDateFormat = mContext.getString(R.string.abbrev_wday_month_day_no_year);
-        mDateFormatForAccessibility = mContext.getString(R.string.full_wday_month_day_no_year);
+        mDateFormat = getString(R.string.abbrev_wday_month_day_no_year);
+        mDateFormatForAccessibility = getString(R.string.full_wday_month_day_no_year);
         mSelectedCities = DataModel.getDataModel().getSelectedCities();
         mAlarmChangeReceiver = new AlarmChangedBroadcastReceiver();
     }
@@ -141,9 +138,9 @@ public final class ClockFragment extends DeskClockFragment {
 
         AlarmUtils.applyBoldNextAlarmTypeface(mBinding.mainClockFrame.mainClockContainer);
 
-        mBinding.cityRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        mBinding.cityRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-        mBinding.cityRecyclerView.addItemDecoration(new CitySpacingItemDecoration(mContext, mDisplayMetrics, mIsPortrait, mIsTablet));
+        mBinding.cityRecyclerView.addItemDecoration(new CitySpacingItemDecoration(requireContext(), mDisplayMetrics, mIsPortrait, mIsTablet));
 
         if (mIsPortrait) {
             mBinding.cityRecyclerView.addOnLayoutChangeListener((v, left, top, right, bottom,
@@ -199,7 +196,7 @@ public final class ClockFragment extends DeskClockFragment {
         Typeface boldTypeface = ThemeUtils.boldTypeface(fontPath);
         Typeface digitalTypeface = mIsDigitalClock ? ThemeUtils.loadFont(digitalFontPath) : null;
 
-        mCityAdapter = new SelectedCitiesAdapter(mContext, mPrefs, mSelectedCities, mShowHomeClock, mIsCityNoteEnabled,
+        mCityAdapter = new SelectedCitiesAdapter(requireContext(), mPrefs, mSelectedCities, mShowHomeClock, mIsCityNoteEnabled,
             mIsDigitalClock, mHasBlackAccentColor, regularTypeface, boldTypeface, digitalTypeface);
 
         mBinding.cityRecyclerView.setAdapter(mCityAdapter);
@@ -237,9 +234,9 @@ public final class ClockFragment extends DeskClockFragment {
         if (mAlarmChangeReceiver != null) {
             final IntentFilter filter = new IntentFilter(ACTION_NEXT_ALARM_CHANGED_BY_CLOCK);
             if (SdkUtils.isAtLeastAndroid13()) {
-                mContext.registerReceiver(mAlarmChangeReceiver, filter, Context.RECEIVER_EXPORTED);
+                requireContext().registerReceiver(mAlarmChangeReceiver, filter, Context.RECEIVER_EXPORTED);
             } else {
-                mContext.registerReceiver(mAlarmChangeReceiver, filter);
+                requireContext().registerReceiver(mAlarmChangeReceiver, filter);
             }
         }
     }
@@ -266,7 +263,7 @@ public final class ClockFragment extends DeskClockFragment {
         super.onStop();
 
         if (mAlarmChangeReceiver != null) {
-            mContext.unregisterReceiver(mAlarmChangeReceiver);
+            requireContext().unregisterReceiver(mAlarmChangeReceiver);
         }
     }
 
@@ -282,7 +279,7 @@ public final class ClockFragment extends DeskClockFragment {
 
     @Override
     public void onFabClick() {
-        startActivity(new Intent(mContext, CitySelectionActivity.class));
+        startActivity(new Intent(requireContext(), CitySelectionActivity.class));
 
         if (SettingsDAO.isFadeTransitionsEnabled(mPrefs)) {
             if (SdkUtils.isAtLeastAndroid14()) {
@@ -309,7 +306,7 @@ public final class ClockFragment extends DeskClockFragment {
     public void onUpdateFab(@NonNull ImageView fab) {
         fab.setVisibility(VISIBLE);
         fab.setImageResource(R.drawable.ic_fab_public);
-        fab.setContentDescription(mContext.getResources().getString(R.string.button_cities));
+        fab.setContentDescription(getString(R.string.button_cities));
     }
 
     @Override

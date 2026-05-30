@@ -45,6 +45,7 @@
         android:format12Hour="hh"
         android:format24Hour="kk"
         android:maxLines="1"
+        android:fontFeatureSettings="tnum"
         android:textColor="@color/vertical_widget_hour_color"
         tools:text="01"
         tools:textSize="70sp" />
@@ -58,6 +59,7 @@
         android:format12Hour="hh"
         android:format24Hour="kk"
         android:maxLines="1"
+        android:fontFeatureSettings="tnum"
         tools:visibility="gone" />
 
     <TextClock
@@ -69,6 +71,7 @@
         android:format12Hour="mm"
         android:format24Hour="mm"
         android:maxLines="1"
+        android:fontFeatureSettings="tnum"
         android:textColor="@color/vertical_widget_minute_color"
         tools:text="00"
         tools:textSize="70sp" />
@@ -82,6 +85,7 @@
         android:format12Hour="mm"
         android:format24Hour="mm"
         android:maxLines="1"
+        android:fontFeatureSettings="tnum"
         tools:visibility="gone" />
 
     <LinearLayout

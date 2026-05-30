@@ -320,6 +320,7 @@ public class DatePickerDialogFragment {
     }
 
     public interface OnDateSelectedListener {
+        @SuppressWarnings("unused")
         void onDateSet(int year, int month, int day);
     }
 

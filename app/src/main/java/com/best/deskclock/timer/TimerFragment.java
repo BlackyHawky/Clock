@@ -81,7 +81,6 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
 
     private TimerFragmentBinding mBinding;
 
-    private Context mContext;
     private SharedPreferences mPrefs;
     private boolean mIsSingleTimerMode;
     private boolean mIsManualSorting;
@@ -139,8 +138,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     public void onCreate(Bundle savedState) {
         super.onCreate(savedState);
 
-        mContext = requireContext();
-        mPrefs = getDefaultSharedPreferences(mContext);
+        mPrefs = getDefaultSharedPreferences(requireContext());
         mIsSingleTimerMode = SettingsDAO.isSingleTimerModeEnabled(mPrefs);
         mIsManualSorting = SettingsDAO.getTimerSortingPreference(mPrefs).equals(DEFAULT_SORT_TIMER_MANUALLY);
         mDisplayMetrics = getResources().getDisplayMetrics();
@@ -154,10 +152,10 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
 
         mBinding = TimerFragmentBinding.inflate(inflater, container, false);
 
-        mBinding.timerVolumeBanner.volumeWarningButton.setOnClickListener(v -> RingtoneUtils.fixAlarmStreamLow(mContext));
+        mBinding.timerVolumeBanner.volumeWarningButton.setOnClickListener(v -> RingtoneUtils.fixAlarmStreamLow(requireContext()));
 
-        mBinding.timerRecyclerView.setLayoutManager(getLayoutManager(mContext));
-        mBinding.timerRecyclerView.addItemDecoration(new GridSpacingItemDecoration(mContext, mDisplayMetrics));
+        mBinding.timerRecyclerView.setLayoutManager(getLayoutManager(requireContext()));
+        mBinding.timerRecyclerView.addItemDecoration(new GridSpacingItemDecoration(requireContext(), mDisplayMetrics));
 
         RecyclerView.ItemAnimator animator = mBinding.timerRecyclerView.getItemAnimator();
         if (animator instanceof SimpleItemAnimator) {
@@ -241,7 +239,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         mBinding.timerVolumeBanner.volumeWarningText.setTypeface(boldTypeface);
         mBinding.timerVolumeBanner.volumeWarningButton.setTypeface(boldTypeface);
 
-        mAdapter = new TimerAdapter(mContext, mPrefs, new TimerClickHandler(this), mIsTablet, mIsLandscape,
+        mAdapter = new TimerAdapter(requireContext(), mPrefs, new TimerClickHandler(this), mIsTablet, mIsLandscape,
             regularTypeface, boldTypeface, timerTimeTypeface);
 
         mBinding.timerRecyclerView.setAdapter(mAdapter);
@@ -262,9 +260,9 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
 
         IntentFilter filter = new IntentFilter(RingtoneUtils.VOLUME_CHANGED_ACTION);
         if (SdkUtils.isAtLeastAndroid13()) {
-            mContext.registerReceiver(mVolumeReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
+            requireContext().registerReceiver(mVolumeReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
         } else {
-            mContext.registerReceiver(mVolumeReceiver, filter);
+            requireContext().registerReceiver(mVolumeReceiver, filter);
         }
     }
 
@@ -338,7 +336,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     public void onStop() {
         super.onStop();
 
-        mContext.unregisterReceiver(mVolumeReceiver);
+        requireContext().unregisterReceiver(mVolumeReceiver);
     }
 
     @Override
@@ -405,15 +403,15 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
             right.setVisibility(INVISIBLE);
 
             left.setClickable(true);
-            left.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_cancel));
-            left.setContentDescription(mContext.getString(android.R.string.cancel));
+            left.setImageDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.ic_cancel));
+            left.setContentDescription(getString(android.R.string.cancel));
             // If no timers yet exist, the user is forced to create the first one.
             left.setVisibility(hasTimers() ? VISIBLE : INVISIBLE);
             left.setOnClickListener(v -> {
                 resetTimerCreationViews();
                 animateToView(mBinding.timerContentView, false);
-                left.announceForAccessibility(mContext.getString(R.string.timer_canceled));
-                Utils.setVibrationTime(mContext, 10);
+                left.announceForAccessibility(getString(R.string.timer_canceled));
+                Utils.setVibrationTime(requireContext(), 10);
             });
         }
     }
@@ -443,7 +441,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
                 // Start the new timer.
                 DataModel.getDataModel().startTimer(timer);
                 Events.sendTimerEvent(R.string.action_start, R.string.label_deskclock);
-                Utils.setVibrationTime(mContext, 50);
+                Utils.setVibrationTime(requireContext(), 50);
             } finally {
                 mCreatingTimer = false;
             }
@@ -610,26 +608,24 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     }
 
     private void updateFab(@NonNull ImageView fab) {
-        if (mContext != null) {
-            if (mCurrentView == mBinding.timerContentView) {
-                if (mIsSingleTimerMode) {
-                    fab.setImageResource(R.drawable.ic_delete);
-                    fab.setContentDescription(mContext.getString(R.string.delete));
-                } else {
-                    fab.setImageResource(R.drawable.ic_add);
-                    fab.setContentDescription(mContext.getString(R.string.timer_add_timer));
-                }
+        if (mCurrentView == mBinding.timerContentView) {
+            if (mIsSingleTimerMode) {
+                fab.setImageResource(R.drawable.ic_delete);
+                fab.setContentDescription(getString(R.string.delete));
+            } else {
+                fab.setImageResource(R.drawable.ic_add);
+                fab.setContentDescription(getString(R.string.timer_add_timer));
+            }
 
+            fab.setVisibility(VISIBLE);
+        } else if (mCurrentView == getTimerCreationView()) {
+            if (hasValidInput()) {
+                fab.setImageResource(R.drawable.ic_fab_play);
+                fab.setContentDescription(getString(R.string.timer_start));
                 fab.setVisibility(VISIBLE);
-            } else if (mCurrentView == getTimerCreationView()) {
-                if (hasValidInput()) {
-                    fab.setImageResource(R.drawable.ic_fab_play);
-                    fab.setContentDescription(mContext.getString(R.string.timer_start));
-                    fab.setVisibility(VISIBLE);
-                } else {
-                    fab.setContentDescription(null);
-                    fab.setVisibility(INVISIBLE);
-                }
+            } else {
+                fab.setContentDescription(null);
+                fab.setVisibility(INVISIBLE);
             }
         }
     }
@@ -704,15 +700,15 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         // Get the title of the timer if there is one; otherwise, get the total duration.
         final String dialogMessage;
         if (timer.getLabel().isEmpty()) {
-            dialogMessage = mContext.getString(R.string.warning_dialog_message, timer.getTotalDuration());
+            dialogMessage = getString(R.string.warning_dialog_message, timer.getTotalDuration());
         } else {
-            dialogMessage = mContext.getString(R.string.warning_dialog_message, timer.getLabel());
+            dialogMessage = getString(R.string.warning_dialog_message, timer.getLabel());
         }
 
         return CustomDialog.create(
             requireContext(),
             null,
-            AppCompatResources.getDrawable(mContext, R.drawable.ic_delete),
+            AppCompatResources.getDrawable(requireContext(), R.drawable.ic_delete),
             getString(R.string.warning_dialog_title),
             dialogMessage,
             null,
@@ -770,7 +766,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
      * An instant visibility change guarantees perfect stability across all orientations.</p>
      */
     public void updateWarningBannerVisibility() {
-        boolean isStreamLow = RingtoneUtils.isAlarmStreamLow(mContext);
+        boolean isStreamLow = RingtoneUtils.isAlarmStreamLow(requireContext());
         boolean shouldShow = SettingsDAO.isLowAlarmVolumeWarningDisplayed(mPrefs)
             && isStreamLow
             && DataModel.getDataModel().hasRunningTimer();

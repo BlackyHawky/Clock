@@ -191,8 +191,6 @@ public class DeskClock extends BaseActivity implements FabContainer {
      */
     private SharedPreferences.OnSharedPreferenceChangeListener mPrefListener;
 
-    private UiDataModel.Tab mPreviousTab = UiDataModel.getUiDataModel().getSelectedTab();
-
     @Override
     public void onNewIntent(Intent newIntent) {
         super.onNewIntent(newIntent);
@@ -632,14 +630,30 @@ public class DeskClock extends BaseActivity implements FabContainer {
 
         hideFabAnimation.addListener(new AnimatorListenerAdapter() {
             @Override
+            public void onAnimationStart(Animator animation) {
+                mBinding.fab.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+            }
+
+            @Override
             public void onAnimationEnd(Animator animation) {
+                mBinding.fab.setLayerType(View.LAYER_TYPE_NONE, null);
+
                 getSelectedDeskClockFragment().onUpdateFab(mBinding.fab);
             }
         });
 
         leftHideAnimation.addListener(new AnimatorListenerAdapter() {
             @Override
+            public void onAnimationStart(Animator animation) {
+                mBinding.leftButton.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+                mBinding.rightButton.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+            }
+
+            @Override
             public void onAnimationEnd(Animator animation) {
+                mBinding.leftButton.setLayerType(View.LAYER_TYPE_NONE, null);
+                mBinding.rightButton.setLayerType(View.LAYER_TYPE_NONE, null);
+
                 getSelectedDeskClockFragment().onUpdateFabButtons(mBinding.leftButton, mBinding.rightButton);
             }
         });
@@ -1062,7 +1076,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             // Only hide the fab when a non-zero drag distance is detected. This prevents
             // over-scrolling from needlessly hiding the fab.
-            if (mFabState == FabState.HIDE_ARMED && positionOffsetPixels != 0) {
+            if (mFabState == FabState.HIDE_ARMED && positionOffsetPixels > 5) {
                 mFabState = FabState.HIDING;
                 mHideAnimation.start();
             }
@@ -1072,6 +1086,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
         public void onPageScrollStateChanged(int state) {
             if (mPriorState == SCROLL_STATE_IDLE && state == SCROLL_STATE_SETTLING) {
                 // The user has tapped a tab button; play the hide and show animations linearly.
+                mHideAnimation.removeListener(mAutoStartShowListener);
                 mHideAnimation.addListener(mAutoStartShowListener);
                 mHideAnimation.start();
                 mFabState = FabState.HIDING;
@@ -1094,6 +1109,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
                 // The user has lifted their finger; show the buttons now or after hide ends.
                 if (mHideAnimation.isStarted()) {
                     // Finish the hide animation and then start the show animation.
+                    mHideAnimation.removeListener(mAutoStartShowListener);
                     mHideAnimation.addListener(mAutoStartShowListener);
                 } else {
                     updateFab(FAB_AND_BUTTONS_IMMEDIATE);
@@ -1192,8 +1208,15 @@ public class DeskClock extends BaseActivity implements FabContainer {
      * As the model reports changes to the selected tab, update the user interface.
      */
     private final class TabChangeWatcher implements TabListener {
+
+        private UiDataModel.Tab mPreviousTab = null;
+
         @Override
         public void selectedTabChanged(UiDataModel.Tab newSelectedTab) {
+            if (mPreviousTab == null) {
+                mPreviousTab = UiDataModel.getUiDataModel().getSelectedTab();
+            }
+
             // Update the view pager and tab layout to agree with the model.
             updateCurrentTab();
 

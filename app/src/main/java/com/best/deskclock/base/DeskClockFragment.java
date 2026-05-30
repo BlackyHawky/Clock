@@ -82,7 +82,9 @@ public abstract class DeskClockFragment extends Fragment implements FabContainer
      */
     @Override
     public final void updateFab(@UpdateFabFlag int updateTypes) {
-        if (mFabContainer != null) {
+        boolean isHidingButtons = (updateTypes == BUTTONS_SHRINK_AND_EXPAND || updateTypes == BUTTONS_IMMEDIATE);
+
+        if (mFabContainer != null && (isTabSelected() || isHidingButtons)) {
             mFabContainer.updateFab(updateTypes);
         }
     }
