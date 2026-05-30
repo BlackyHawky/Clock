@@ -38,9 +38,7 @@ public abstract class DeskClockFragment extends Fragment implements FabContainer
         super.onResume();
 
         // Update the fab and buttons in case their state changed while the fragment was paused.
-        if (isTabSelected()) {
-            updateFab(FAB_AND_BUTTONS_IMMEDIATE);
-        }
+        updateFab(FAB_AND_BUTTONS_IMMEDIATE);
     }
 
     @Override
