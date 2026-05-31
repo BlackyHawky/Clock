@@ -677,4 +677,8 @@
     <string name="visible_tabs_title">Видимі вкладки</string>
     <string name="pause_alarm_title">Призупинити будильник</string>
     <string name="shortcut_disabled">Прихована вкладка</string>
+    <string name="restart_app_dialog_message">Щоб зміни набули чинності, потрібно перезапустити додаток.</string>
+    <string name="single_timer_mode_title">Режим одного таймера</string>
+    <string name="single_timer_mode_summary">Зберігати лише один таймер, який автоматично видаляється після скидання</string>
+    <string name="single_timer_mode_warning_message">Таймери буде видалено.%s</string>
 </resources>

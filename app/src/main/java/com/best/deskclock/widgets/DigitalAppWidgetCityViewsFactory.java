@@ -11,7 +11,7 @@ import com.best.deskclock.data.WidgetDAO;
 
 /**
  * This factory produces entries in the world cities list view displayed at the bottom of the
- * digital widget. Each row is comprised of two world cities located side-by-side.
+ * digital widget. Each row is composed of two world cities located side-by-side.
  */
 public class DigitalAppWidgetCityViewsFactory extends BaseDigitalAppWidgetCityViewsFactory {
 

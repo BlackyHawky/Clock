@@ -667,4 +667,8 @@
     <string name="tabs_category_title">Karty</string>
     <string name="visible_tabs_title">Viditelné karty</string>
     <string name="shortcut_disabled">Karta skryta</string>
+    <string name="restart_app_dialog_message">Pro použití změn je třeba restartovat aplikaci.</string>
+    <string name="single_timer_mode_title">Režim jednoho časovače</string>
+    <string name="single_timer_mode_summary">Ponechat pouze jeden časovač, který bude automaticky smazán při resetu</string>
+    <string name="single_timer_mode_warning_message">Časovače budou smazány.%s</string>
 </resources>

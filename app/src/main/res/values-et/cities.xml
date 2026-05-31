@@ -10,20 +10,20 @@
     <string name="C4" msgid="4450258423854546267"><xliff:g id="separator">=</xliff:g>Alžiir<xliff:g id="timezone">|Africa/Algiers</xliff:g></string>
     <string name="C5" msgid="8063142106679202722"><xliff:g id="separator">=</xliff:g>Blantyre<xliff:g id="timezone">|Africa/Blantyre</xliff:g></string>
     <string name="C6" msgid="1620940469531839828"><xliff:g id="separator">=</xliff:g>Brazzaville<xliff:g id="timezone">|Africa/Brazzaville</xliff:g></string>
-    <string name="C7" msgid="8450502029020824529"><xliff:g id="SEPARATOR">=</xliff:g>Kairo<xliff:g id="timezone">|Africa/Cairo</xliff:g></string>
+    <string name="C7" msgid="8450502029020824529"><xliff:g id="separator">=</xliff:g>Kairo<xliff:g id="timezone">|Africa/Cairo</xliff:g></string>
     <string name="C8" msgid="5843391672611053116"><xliff:g id="separator">=</xliff:g>Casablanca<xliff:g id="timezone">|Africa/Casablanca</xliff:g></string>
     <string name="C9" msgid="2164088076645942134"><xliff:g id="separator">=</xliff:g>Conakry<xliff:g id="timezone">|Africa/Conakry</xliff:g></string>
     <string name="C10" msgid="6275085554326816487"><xliff:g id="separator">=</xliff:g>Dakar<xliff:g id="timezone">|Africa/Dakar</xliff:g></string>
     <string name="C11" msgid="8124988526568339100"><xliff:g id="separator">=</xliff:g>Dar es Salaam<xliff:g id="timezone">|Africa/Dar_es_Salaam</xliff:g></string>
     <string name="C12" msgid="9058858575164534385"><xliff:g id="separator">=</xliff:g>Djibouti<xliff:g id="timezone">|Africa/Djibouti</xliff:g></string>
-    <string name="C13" msgid="1020128319695123468"><xliff:g id="SEPARATOR">=</xliff:g>Freetown<xliff:g id="TIMEZONE">|Africa/Freetown</xliff:g></string>
-    <string name="C14" msgid="5466600602512133072"><xliff:g id="SEPARATOR">=</xliff:g>Gaborone<xliff:g id="TIMEZONE">|Africa/Gaborone</xliff:g></string>
-    <string name="C15" msgid="4045696872348427594"><xliff:g id="SEPARATOR">=</xliff:g>Harare<xliff:g id="TIMEZONE">|Africa/Harare</xliff:g></string>
-    <string name="C16" msgid="109844560982762747"><xliff:g id="SEPARATOR">=</xliff:g>Johannesburg<xliff:g id="TIMEZONE">|Africa/Johannesburg</xliff:g></string>
-    <string name="C17" msgid="4868414442726546214"><xliff:g id="SEPARATOR">=</xliff:g>Kampala<xliff:g id="TIMEZONE">|Africa/Kampala</xliff:g></string>
-    <string name="C18" msgid="7460319039497808668"><xliff:g id="SEPARATOR">=</xliff:g>Hartum<xliff:g id="TIMEZONE">|Africa/Khartoum</xliff:g></string>
-    <string name="C19" msgid="3967163989179394825"><xliff:g id="SEPARATOR">=</xliff:g>Kigali<xliff:g id="TIMEZONE">|Africa/Kigali</xliff:g></string>
-    <string name="C20" msgid="832336979058592106"><xliff:g id="SEPARATOR">=</xliff:g>Kinshasa<xliff:g id="TIMEZONE">|Africa/Kinshasa</xliff:g></string>
+    <string name="C13" msgid="1020128319695123468"><xliff:g id="separator">=</xliff:g>Freetown<xliff:g id="timezone">|Africa/Freetown</xliff:g></string>
+    <string name="C14" msgid="5466600602512133072"><xliff:g id="separator">=</xliff:g>Gaborone<xliff:g id="timezone">|Africa/Gaborone</xliff:g></string>
+    <string name="C15" msgid="4045696872348427594"><xliff:g id="separator">=</xliff:g>Harare<xliff:g id="timezone">|Africa/Harare</xliff:g></string>
+    <string name="C16" msgid="109844560982762747"><xliff:g id="separator">=</xliff:g>Johannesburg<xliff:g id="timezone">|Africa/Johannesburg</xliff:g></string>
+    <string name="C17" msgid="4868414442726546214"><xliff:g id="separator">=</xliff:g>Kampala<xliff:g id="timezone">|Africa/Kampala</xliff:g></string>
+    <string name="C18" msgid="7460319039497808668"><xliff:g id="separator">=</xliff:g>Hartum<xliff:g id="timezone">|Africa/Khartoum</xliff:g></string>
+    <string name="C19" msgid="3967163989179394825"><xliff:g id="separator">=</xliff:g>Kigali<xliff:g id="timezone">|Africa/Kigali</xliff:g></string>
+    <string name="C20" msgid="832336979058592106"><xliff:g id="separator">=</xliff:g>Kinshasa<xliff:g id="timezone">|Africa/Kinshasa</xliff:g></string>
     <string name="C21" msgid="8691772487297796331"><xliff:g id="separator">=</xliff:g>Lagos<xliff:g id="timezone">|Africa/Lagos</xliff:g></string>
     <string name="C22" msgid="6061916756914828881"><xliff:g id="separator">=</xliff:g>Maseru<xliff:g id="timezone">|Africa/Maseru</xliff:g></string>
     <string name="C23" msgid="6790461017899209498"><xliff:g id="separator">=</xliff:g>Muqdisho<xliff:g id="timezone">|Africa/Mogadishu</xliff:g></string>

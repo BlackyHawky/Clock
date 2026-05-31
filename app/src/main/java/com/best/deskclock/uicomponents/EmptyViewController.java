@@ -46,7 +46,7 @@ public final class EmptyViewController {
     /**
      * Sets the state for the controller. If it's empty, it will display the empty view.
      *
-     * @param isEmpty        Whether or not the controller should transition into the empty state.
+     * @param isEmpty        Whether the controller should transition into the empty state.
      * @param withTransition {@code true} to animate the state change using the predefined transition,
      *                       {@code false} to apply the visibility changes instantly without animation.
      */

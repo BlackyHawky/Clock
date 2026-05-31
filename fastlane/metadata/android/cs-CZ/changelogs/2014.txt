@@ -10,5 +10,5 @@
 - Ability to change application language
 - Improve landscape mode usability for phones
 
-Many other changes are listed on the github page:
+Many other changes are listed on the GitHub page:
 https://github.com/BlackyHawky/Clock/releases/tag/2.12

@@ -666,4 +666,8 @@
     <string name="tabs_category_title">Onglets</string>
     <string name="visible_tabs_title">Onglets visibles</string>
     <string name="shortcut_disabled">Onglet masqué</string>
+    <string name="restart_app_dialog_message">L\'application doit être redémarrée pour que les modifications soient prises en compte.</string>
+    <string name="single_timer_mode_title">Mode minuteur unique</string>
+    <string name="single_timer_mode_summary">Conserver un seul minuteur qui sera automatiquement supprimé une fois réinitialisé</string>
+    <string name="single_timer_mode_warning_message">Les minuteurs seront supprimés.%s</string>
 </resources>

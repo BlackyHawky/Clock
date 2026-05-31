@@ -655,4 +655,8 @@
     <string name="tabs_category_title">Tabbladen</string>
     <string name="visible_tabs_title">Zichtbare tabbladen</string>
     <string name="shortcut_disabled">Tabblad verborgen</string>
+    <string name="restart_app_dialog_message">De applicatie moet opnieuw worden opgestart om de wijzigingen door te voeren.</string>
+    <string name="single_timer_mode_warning_message">De kookwekkers zullen worden verwijderd.%s</string>
+    <string name="single_timer_mode_title">Gelegenheidskookwekker</string>
+    <string name="single_timer_mode_summary">Behoud slechts één kookwekker, die automatisch wordt verwijderd zodra deze opnieuw wordt ingesteld</string>
 </resources>

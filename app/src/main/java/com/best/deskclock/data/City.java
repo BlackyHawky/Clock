@@ -131,7 +131,7 @@ public final class City {
      * @return {@code true} iff the name of this city starts with the given query
      */
     public boolean matches(String upperCaseQueryNoSpecialCharacters) {
-        // By removing all special characters, prefix matching becomes more liberal and it is easier
+        // By removing all special characters, prefix matching becomes more liberal, and it is easier
         // to locate the desired city. e.g. "St. Lucia" is matched by "StL", "St.L", "St L", "St. L"
         return getNameUpperCaseNoSpecialCharacters().startsWith(upperCaseQueryNoSpecialCharacters);
     }

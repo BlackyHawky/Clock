@@ -667,4 +667,8 @@
     <string name="tabs_category_title">Вкладки</string>
     <string name="visible_tabs_title">Видимые вкладки</string>
     <string name="shortcut_disabled">Скрытая вкладка</string>
+    <string name="restart_app_dialog_message">Чтобы изменения вступили в силу, необходимо перезапустить приложение.</string>
+    <string name="single_timer_mode_title">Режим одного таймера</string>
+    <string name="single_timer_mode_summary">Хранить только один таймер, который автоматически удаляется после сброса</string>
+    <string name="single_timer_mode_warning_message">Таймеры будут удалены.%s</string>
 </resources>

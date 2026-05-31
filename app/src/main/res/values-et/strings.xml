@@ -661,4 +661,8 @@
     <string name="tabs_category_title">Vahekaardid</string>
     <string name="visible_tabs_title">Nähtavad vahekaardid</string>
     <string name="shortcut_disabled">Vahekaart on peidetud</string>
+    <string name="restart_app_dialog_message">Muudatuste jõustamiseks palun käivita rakendus uuesti.</string>
+    <string name="single_timer_mode_title">Ühe taimeri režiim</string>
+    <string name="single_timer_mode_summary">Kasuta vaid ühte taimerit, mis lähtestamisel automaatselt kustutatakse</string>
+    <string name="single_timer_mode_warning_message">Taimerid eemaldatakse. %s</string>
 </resources>

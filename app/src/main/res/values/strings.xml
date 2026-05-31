@@ -900,9 +900,9 @@
     <string name="features_title">Main features</string>
     <!-- Features dialog message in about screen -->
     <string name="features_dialog_message">Visit the main features page:\n\n%s</string>
-    <!-- Github repo link for about screen -->
+    <!-- GitHub repo link for about screen -->
     <string name="about_github_link">View on GitHub</string>
-    <!-- Github dialog message in about screen -->
+    <!-- GitHub dialog message in about screen -->
     <string name="github_dialog_message">Visit the project GitHub page:\n\n%s</string>
     <!-- Translate link for about screen -->
     <string name="about_translate_link">Translate on Codeberg</string>

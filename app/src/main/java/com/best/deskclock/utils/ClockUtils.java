@@ -160,7 +160,7 @@ public class ClockUtils {
      * formatting treatment for the am/pm label.
      *
      * @param clock          TextClock to format
-     * @param includeSeconds whether or not to include seconds in the clock's time
+     * @param includeSeconds whether to include seconds in the clock's time
      */
     public static void setDigitalClockTimeFormat(TextClock clock, float amPmRatio, boolean includeSeconds,
                                                  boolean isAlarm, boolean isClockTab, boolean isScreensaver) {
@@ -176,7 +176,7 @@ public class ClockUtils {
     /**
      * @param amPmRatio      a value between 0 and 1 that is the ratio of the relative size of the
      *                       am/pm string to the time string
-     * @param includeSeconds whether or not to include seconds in the time string
+     * @param includeSeconds whether to include seconds in the time string
      * @return format string for 12 hours mode time, not including seconds
      */
     public static CharSequence get12ModeFormat(Context context, float amPmRatio, boolean includeSeconds,

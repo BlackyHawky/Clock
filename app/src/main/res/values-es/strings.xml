@@ -659,4 +659,8 @@
     <string name="tabs_category_title">Pestañas</string>
     <string name="visible_tabs_title">Pestañas visibles</string>
     <string name="shortcut_disabled">Pestaña oculta</string>
+    <string name="restart_app_dialog_message">Es necesario reiniciar la aplicación para que los cambios surtan efecto.</string>
+    <string name="single_timer_mode_warning_message">Se eliminarán los temporizadores: %s</string>
+    <string name="single_timer_mode_summary">Conserva solo un temporizador, que se borra automáticamente al reiniciarlo</string>
+    <string name="single_timer_mode_title">Modo de temporizador único</string>
 </resources>

@@ -110,7 +110,7 @@ public class CustomToast {
 
     /**
      * Displays a long-duration custom toast while ensuring that any previously
-     * shown toast is cancelled before displaying the new one.
+     * shown toast is canceled before displaying the new one.
      *
      * <p>This is useful in situations where multiple toasts may be triggered in
      * quick succession, such as alarm snooze actions.</p>

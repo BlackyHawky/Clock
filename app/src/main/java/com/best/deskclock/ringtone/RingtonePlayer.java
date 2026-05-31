@@ -462,7 +462,7 @@ public final class RingtonePlayer {
      * Stops any ongoing system media volume crescendo.
      *
      * <p>After calling this method, scheduled volume increases from a previous
-     * call to {@link #startSystemMediaVolumeCrescendo(int)} will be cancelled.</p>
+     * call to {@link #startSystemMediaVolumeCrescendo(int)} will be canceled.</p>
      */
     private void stopSystemMediaVolumeCrescendo() {
         mIsCrescendoRunningForSystemMediaVolume = false;

@@ -66,7 +66,7 @@ public final class TextSizeHelper {
 
     public void onTextChanged(int lengthBefore, int lengthAfter) {
         // The length of the text has changed, request layout to recalculate the current text
-        // size. This is necessary to workaround an optimization in TextView#checkForRelayout()
+        // size. This is necessary to work around an optimization in TextView#checkForRelayout()
         // which will avoid re-layout when the view has a fixed layout width.
         if (lengthBefore != lengthAfter) {
             mTextView.requestLayout();

@@ -645,4 +645,8 @@
     <string name="tabs_category_title">标签页</string>
     <string name="visible_tabs_title">可见标签页</string>
     <string name="shortcut_disabled">标签页已隐藏</string>
+    <string name="restart_app_dialog_message">需要重启应用程序才能使更改生效。</string>
+    <string name="single_timer_mode_title">单定时器模式</string>
+    <string name="single_timer_mode_summary">仅保留一个定时器，重置后会自动删除</string>
+    <string name="single_timer_mode_warning_message">定时器将被移除。%s</string>
 </resources>

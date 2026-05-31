@@ -105,7 +105,7 @@ final class StopwatchDAO {
 
         long prevAccumulatedTime = 0;
 
-        // Lap numbers are 1-based and so the are corresponding shared preference keys.
+        // Lap numbers are 1-based, and so they are corresponding shared preference keys.
         for (int lapNumber = 1; lapNumber <= lapCount; lapNumber++) {
             // Look up the accumulated time for the lap.
             final String lapAccumulatedTimeKey = LAP_ACCUMULATED_TIME + lapNumber;

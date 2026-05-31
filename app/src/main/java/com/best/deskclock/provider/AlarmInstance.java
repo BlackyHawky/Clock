@@ -403,7 +403,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
 
     public void addInstance(ContentResolver contentResolver) {
         // Make sure we are not adding a duplicate instances. This is not a
-        // fix and should never happen. This is only a safe guard against bad code, and you
+        // fix and should never happen. This is only a safeguard against bad code, and you
         // should fix the root issue if you see the error message.
         String dupSelector = AlarmInstance.ALARM_ID + " = " + mAlarmId;
         for (AlarmInstance otherInstances : getInstances(contentResolver, dupSelector)) {
@@ -447,7 +447,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     }
 
     /**
-     * Return the time when a alarm should fire.
+     * Return the time when an alarm should fire.
      *
      * @return the time
      */
