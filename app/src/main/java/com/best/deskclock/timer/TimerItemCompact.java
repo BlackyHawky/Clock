@@ -178,9 +178,6 @@ public class TimerItemCompact extends ConstraintLayout {
      * Initializes the {@code timer} static visual elements when binding to a ViewHolder.
      */
     public void bindTimer(Timer timer) {
-        // Initialize the time.
-        mTimerTextController.setTimeString(timer.getRemainingTime());
-
         // Initialize text for timer total duration
         String totalDuration = timer.getTotalDuration();
         if (!totalDuration.equals(mLastTotalDuration)) {
@@ -207,7 +204,6 @@ public class TimerItemCompact extends ConstraintLayout {
         // Initialize the timer bar
         mBinding.timerBar.animate().cancel();
         mBinding.timerBar.setAlpha(1f);
-        mBinding.timerBar.update(timer);
 
         // Initialize the alpha value of the time text color
         mBinding.timerTimeText.animate().cancel();
@@ -281,6 +277,8 @@ public class TimerItemCompact extends ConstraintLayout {
             mBinding.timerBar.setVisibility(isReset ? GONE : VISIBLE);
             mBinding.timerTotalDurationText.setVisibility(isReset ? VISIBLE : GONE);
         }
+
+        updateTimeDisplay(timer);
     }
 
     private void updateIndicatorState(int color) {

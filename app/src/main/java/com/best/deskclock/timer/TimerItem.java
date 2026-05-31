@@ -209,9 +209,6 @@ public class TimerItem extends ConstraintLayout {
     public void bindTimer(Timer timer) {
         int currentTimerCount = DataModel.getDataModel().getTimers().size();
 
-        // Initialize the time.
-        mTimerTextController.setTimeString(timer.getRemainingTime());
-
         // Initialize text for timer total duration
         if (mBinding.timerTotalDurationText != null) {
             String totalDuration = timer.getTotalDuration();
@@ -241,7 +238,6 @@ public class TimerItem extends ConstraintLayout {
         if (mBinding.timerCircleView != null) {
             mBinding.timerCircleView.animate().cancel();
             mBinding.timerCircleView.setAlpha(1f);
-            mBinding.timerCircleView.update(timer);
         }
 
         // Initialize the alpha value of the time text color
@@ -381,6 +377,8 @@ public class TimerItem extends ConstraintLayout {
                 }
             }
         }
+
+        updateTimeDisplay(timer);
     }
 
     /**

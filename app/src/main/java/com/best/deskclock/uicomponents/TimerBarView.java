@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-package com.best.deskclock.timer;
+package com.best.deskclock.uicomponents;
 
 import static androidx.core.util.TypedValueCompat.dpToPx;
 
@@ -47,7 +47,7 @@ public final class TimerBarView extends View {
 
         mBarHeight = dpToPx(6, getResources().getDisplayMetrics());
 
-        final int remainingColor = MaterialColors.getColor(context, com.google.android.material.R.attr.colorOnSurfaceVariant, Color.BLACK);
+        final int remainingColor = MaterialColors.getColor(context, com.google.android.material.R.attr.colorOnPrimaryContainer, Color.BLACK);
         final int completedColor = MaterialColors.getColor(context, com.google.android.material.R.attr.colorPrimaryInverse, Color.BLACK);
 
         mCompletedPaint.setAntiAlias(true);
@@ -139,7 +139,7 @@ public final class TimerBarView extends View {
         mRadiiRight[0] = mRadiiRight[1] = mRadiiRight[6] = mRadiiRight[7] = 0f;
     }
 
-    void update(Timer timer) {
+    public void update(Timer timer) {
         if (mTimer != timer) {
             mTimer = timer;
             postInvalidateOnAnimation();

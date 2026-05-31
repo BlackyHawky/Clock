@@ -106,6 +106,7 @@
         android:layout_marginTop="10dp"
         android:contentDescription="@string/timer_start"
         android:scaleType="centerInside"
+        app:iconTint="?android:attr/colorBackground"
         app:iconGravity="textStart"
         app:iconPadding="0dp"
         app:shapeAppearance="@style/TimerSetupDigit.CircleOverlay"
@@ -119,6 +120,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
         android:maxLines="1"
+        android:textColor="?android:attr/colorBackground"
         app:shapeAppearance="@style/TimerSetupDigit.CircleOverlay"
         app:layout_constraintEnd_toStartOf="@+id/play_pause_button"
         app:layout_constraintTop_toTopOf="@+id/play_pause_button"
@@ -141,7 +143,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/timer_add_time_button"
         tools:ignore="TouchTargetSizeCheck" />
 
-    <com.best.deskclock.timer.TimerBarView
+    <com.best.deskclock.uicomponents.TimerBarView
         android:id="@+id/timer_bar"
         android:layout_width="match_parent"
         android:layout_height="18dp"

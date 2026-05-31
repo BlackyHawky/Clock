@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
-package com.best.deskclock.timer;
+package com.best.deskclock.uicomponents;
 
 import static androidx.core.util.TypedValueCompat.dpToPx;
 
@@ -58,7 +58,7 @@ public final class TimerCircleView extends View {
         final float mStrokeSize = dpToPx(6, mDisplayMetrics);
         mRadiusOffset = ThemeUtils.calculateRadiusOffset(mStrokeSize, dotDiameter, 0);
 
-        final int remainingArcColor = MaterialColors.getColor(context, com.google.android.material.R.attr.colorOnSurfaceVariant, Color.BLACK);
+        final int remainingArcColor = MaterialColors.getColor(context, com.google.android.material.R.attr.colorOnPrimaryContainer, Color.BLACK);
         final int completedArcColor = MaterialColors.getColor(context, com.google.android.material.R.attr.colorPrimaryInverse, Color.BLACK);
 
         mCompletedPaint.setAntiAlias(true);
@@ -134,7 +134,7 @@ public final class TimerCircleView extends View {
         }
     }
 
-    void update(Timer timer) {
+    public void update(Timer timer) {
         if (mTimer != timer) {
             mTimer = timer;
             postInvalidateOnAnimation();

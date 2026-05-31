@@ -45,7 +45,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <!-- Sufficient space exists to include the bounding stopwatch circle. -->
-            <com.best.deskclock.stopwatch.StopwatchCircleView
+            <com.best.deskclock.uicomponents.StopwatchCircleView
                 android:id="@+id/stopwatch_circle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

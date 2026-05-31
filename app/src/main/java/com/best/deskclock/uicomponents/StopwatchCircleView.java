@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
-package com.best.deskclock.stopwatch;
+package com.best.deskclock.uicomponents;
 
 import static androidx.core.util.TypedValueCompat.dpToPx;
 
@@ -60,7 +60,7 @@ public final class StopwatchCircleView extends View {
 
         mRadiusOffset = ThemeUtils.calculateRadiusOffset(strokeSize, dotDiameter, markerStrokeSize);
 
-        int remainingArcColor = MaterialColors.getColor(context, com.google.android.material.R.attr.colorOnSurfaceVariant, Color.BLACK);
+        int remainingArcColor = MaterialColors.getColor(context, com.google.android.material.R.attr.colorOnPrimaryContainer, Color.BLACK);
         int completedArcColor = MaterialColors.getColor(context, com.google.android.material.R.attr.colorPrimaryInverse, Color.BLACK);
 
         mCompletedPaint.setAntiAlias(true);
@@ -159,7 +159,7 @@ public final class StopwatchCircleView extends View {
     /**
      * Start the animation if it is not currently running.
      */
-    void update() {
+    public void update() {
         postInvalidateOnAnimation();
     }
 

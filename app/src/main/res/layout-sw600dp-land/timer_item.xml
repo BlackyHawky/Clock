@@ -79,7 +79,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         tools:ignore="InconsistentLayout">
 
-        <com.best.deskclock.timer.TimerCircleView
+        <com.best.deskclock.uicomponents.TimerCircleView
             android:id="@+id/timer_circle_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -134,6 +134,7 @@
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="5dp"
         android:padding="24dp"
+        android:textColor="?android:attr/colorBackground"
         app:shapeAppearance="@style/TimerSetupDigit.CircleOverlay"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/play_pause_button"
@@ -147,6 +148,7 @@
         android:padding="24dp"
         android:contentDescription="@string/timer_start"
         android:scaleType="centerInside"
+        app:iconTint="?android:attr/colorBackground"
         app:iconGravity="textStart"
         app:iconPadding="0dp"
         app:shapeAppearance="@style/TimerSetupDigit.CircleOverlay"
