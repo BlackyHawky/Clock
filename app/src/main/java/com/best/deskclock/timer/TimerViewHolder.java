@@ -209,8 +209,8 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
      * This runnable checks the associated {@link Timer} and refreshes its visual representation
      * using {@code updateTimeDisplay(timer)}. It dynamically adjusts its update interval:
      * <ul>
-     *   <li>500 ms if the timer is paused, expired, or missed (to enable blinking effect)</li>
-     *   <li>Synchronized to the next full second (up to 1000 ms) for running timers to save resources.</li>
+     *   <li>500 ms if the timer is paused (to enable blinking effect)</li>
+     *   <li>1000 ms otherwise</li>
      * </ul>
      * The task reschedules itself using {@code postDelayed()} until explicitly stopped.
      */
@@ -222,62 +222,42 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
                 return;
             }
 
+            // Use a 500 ms delay for paused, expired, or missed timers to ensure
+            // more frequent updates needed for smooth blinking (based on a 500 ms interval).
+            // For running timers, a 1000 ms delay is sufficient to save resources.
+            long delay;
+            if (timer.isPaused() || timer.isExpired() || timer.isMissed()) {
+                delay = 500;
+            } else {
+                long remainingTime = timer.getRemainingTime();
+                delay = remainingTime % 1000;
+                if (delay == 0) {
+                    delay = 1000;
+                }
+            }
+
             if (mTimerItemCompact != null) {
                 mTimerItemCompact.updateTimeDisplay(timer);
-                mTimerItemCompact.postDelayed(this, getDelay(timer));
+                mTimerItemCompact.postDelayed(this, delay);
             } else if (mTimerItem != null) {
                 mTimerItem.updateTimeDisplay(timer);
-                mTimerItem.postDelayed(this, getDelay(timer));
+                mTimerItem.postDelayed(this, delay);
             }
         }
     };
 
     /**
-     * Calculates the optimal delay before the next visual update of the timer.
-     *
-     * <p>Uses a 500 ms delay for paused, expired, or missed timers to ensure
-     * frequent updates needed for a smooth blinking animation.
-     * For running timers, calculates the exact milliseconds remaining until
-     * the next full second to maintain precise synchronization and avoid unnecessary rendering.</p>
-     *
-     * @param timer The current {@link Timer} instance.
-     * @return The delay in milliseconds before the next update.
-     */
-    private long getDelay(Timer timer) {
-        long delay;
-
-        if (timer.isPaused() || timer.isExpired() || timer.isMissed()) {
-            delay = 500;
-        } else {
-            long remainingTime = timer.getRemainingTime();
-            delay = remainingTime % 1000;
-            if (delay == 0) {
-                delay = 1000;
-            }
-        }
-
-        return delay;
-    }
-
-    /**
      * Starts the timer update cycle if it is not already running.
-     *
-     * <p>This method ensures that only one instance of the update runnable is active.
-     * It calculates the initial delay using {@link #getDelay(Timer)} and posts the runnable
-     * to begin periodic updates smoothly, preventing immediate frame rendering conflicts.</p>
+     * <p>
+     * This method ensures that only one instance of the update runnable is active.
+     * and posts the runnable to begin periodic updates.
      */
     public void startUpdating() {
         stopUpdating();
-
-        final Timer timer = getTimer();
-        if (timer == null || timer.isReset()) {
-            return;
-        }
-
         if (mTimerItemCompact != null) {
-            mTimerItemCompact.postDelayed(mUpdateRunnable, getDelay(timer));
+            mTimerItemCompact.post(mUpdateRunnable);
         } else if (mTimerItem != null) {
-            mTimerItem.postDelayed(mUpdateRunnable, getDelay(timer));
+            mTimerItem.post(mUpdateRunnable);
         }
     }
 
