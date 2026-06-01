@@ -533,7 +533,9 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
      * Remove the runnable that updates times within the UI.
      */
     public void stopUpdatingTime() {
-        mBinding.stopwatchTimeLayout.stopwatchTimeText.removeCallbacks(mTimeUpdateRunnable);
+        if (mBinding != null) {
+            mBinding.stopwatchTimeLayout.stopwatchTimeText.removeCallbacks(mTimeUpdateRunnable);
+        }
     }
 
     /**
