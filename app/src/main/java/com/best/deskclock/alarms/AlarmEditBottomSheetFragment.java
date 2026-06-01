@@ -458,6 +458,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     private void bindPauseAlarm() {
         boolean isRepeating = mAlarm.daysOfWeek.isRepeating();
 
+        mBinding.pauseAlarmLayout.setEnabled(isRepeating);
         mBinding.pauseAlarm.setEnabled(isRepeating);
         mBinding.pauseAlarm.setTypeface(mGeneralTypeface);
 
@@ -495,7 +496,6 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             });
         } else {
             mBinding.pauseAlarmLayout.setOnClickListener(null);
-            mBinding.pauseAlarm.setOnClickListener(null);
         }
     }
 
