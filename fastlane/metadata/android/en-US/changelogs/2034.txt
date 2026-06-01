@@ -1,0 +1,5 @@
+- Fix the app launching from the stopwatch notification
+- Fix the timer update if one timer is paused and another is started
+- Fix the "Pause alarm" field when selecting days of the week
+
+The other features of version 2.30 are retained and can be consulted here: https://github.com/BlackyHawky/Clock/releases/tag/2.30

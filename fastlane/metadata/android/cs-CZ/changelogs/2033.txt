@@ -1,0 +1,8 @@
+Spousta oprav a vylepšení popsaných zde:
+https://github.com/BlackyHawky/Clock/releases/tag/2.30
+
+**Poznámky:**
+ - Nastavení „Připomenutí oznámení“ bylo obnoveno na výchozí hodnotu (30 minut).
+ - Nastavení „Jazyk“ bylo obnoveno.
+ - Vzhledem k novému formátu ZIP, který se používá při ukládání dat aplikace, jsou starší zálohy nyní neplatné.
+ - Po aktualizaci aplikace si prosím vytvořte novou zálohu a tu starou smažte.
