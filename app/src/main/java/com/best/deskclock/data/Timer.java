@@ -275,14 +275,6 @@ public record Timer(int mId, State mState, long mLength, long mTotalLength, long
         return mLastStartWallClockTime + mRemainingTime;
     }
 
-    /**
-     * @return the total amount of time elapsed up to this moment; expired timers will report more
-     * than the {@link #getTotalLength() total length}
-     */
-    public long getElapsedTime() {
-        return getTotalLength() - getRemainingTime();
-    }
-
     long getLastStartTime() {
         return mLastStartTime;
     }

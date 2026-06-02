@@ -35,8 +35,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
     private final TimerAdapter mAdapter;
     public TimerItem mTimerItem;
     public TimerItemCompact mTimerItemCompact;
-    private final ImageButton mDeleteButton;
-    private final ImageButton mResetButton;
+    private final MaterialButton mResetOrEditButton;
     public final MaterialButton addTimeButton;
     public final View circleContainer;
     public final TextView timerTimeText;
@@ -52,9 +51,8 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
         mAdapter = timerAdapter;
 
         final TextView timerLabel;
-        final TextView timerTotalDuration;
-        final ImageButton timerEditNewDurationButton;
         final MaterialButton playPauseButton;
+        final ImageButton deleteButton;
 
         switch (viewType) {
             case TimerAdapter.SINGLE_TIMER, TimerAdapter.MULTIPLE_TIMERS -> {
@@ -64,14 +62,12 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
                 TimerItemBinding binding = TimerItemBinding.bind(view);
 
                 timerLabel = binding.timerLabel;
-                mResetButton = binding.resetButton;
-                timerTotalDuration = binding.timerTotalDurationText;
-                timerEditNewDurationButton = binding.timerEditNewDurationButton;
+                mResetOrEditButton = binding.resetOrEditButton;
                 addTimeButton = binding.timerAddTimeButton;
                 circleContainer = binding.circleContainer;
                 timerTimeText = binding.timerTimeText;
                 playPauseButton = binding.playPauseButton;
-                mDeleteButton = binding.deleteTimerButton;
+                deleteButton = binding.deleteTimerButton;
             }
             case TimerAdapter.MULTIPLE_TIMERS_COMPACT -> {
                 mTimerItemCompact = (TimerItemCompact) view;
@@ -80,13 +76,11 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
                 TimerItemCompactBinding compactBinding = TimerItemCompactBinding.bind(view);
 
                 timerLabel = compactBinding.timerLabel;
-                mResetButton = compactBinding.resetButton;
+                mResetOrEditButton = compactBinding.resetOrEditButton;
                 addTimeButton = compactBinding.timerAddTimeButton;
                 timerTimeText = compactBinding.timerTimeText;
                 playPauseButton = compactBinding.playPauseButton;
-                mDeleteButton = compactBinding.deleteTimerButton;
-                timerTotalDuration = compactBinding.timerTotalDurationText;
-                timerEditNewDurationButton = null;
+                deleteButton = compactBinding.deleteTimerButton;
                 circleContainer = null;
             }
             default -> throw new IllegalArgumentException("Unknown ViewType: " + viewType);
@@ -99,12 +93,20 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
 
         timerLabel.setOnClickListener(v -> timerClickHandler.onEditLabelClicked(getTimer()));
 
-        mResetButton.setOnClickListener(v -> {
-            Utils.setVibrationTime(context, 10);
-            timerClickHandler.onResetClicked(getTimer());
+        mResetOrEditButton.setOnClickListener(v -> {
+            if (getTimer().isReset()) {
+                timerClickHandler.onDurationClicked(getTimer());
+            } else {
+                Utils.setVibrationTime(context, 10);
+                timerClickHandler.onResetClicked(getTimer());
+            }
         });
 
         addTimeButton.setOnClickListener(v -> {
+            if (getTimer().isReset()) {
+                return;
+            }
+
             Utils.setVibrationTime(context, 10);
             timerClickHandler.onAddTimeClicked(getTimer(), v);
         });
@@ -113,28 +115,6 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
             timerClickHandler.onEditAddTimeButtonLongClicked(getTimer());
             return true;
         });
-
-        // Only possible for portrait mode phones with multiple timers
-        if (timerTotalDuration != null) {
-            timerTotalDuration.setOnClickListener(v -> {
-                if (!getTimer().isReset()) {
-                    return;
-                }
-
-                timerClickHandler.onDurationClicked(getTimer());
-            });
-        }
-
-        // Only possible for tablets, landscape phones or when there is only one timer
-        if (timerEditNewDurationButton != null) {
-            timerEditNewDurationButton.setOnClickListener(v -> {
-                if (!getTimer().isReset()) {
-                    return;
-                }
-
-                timerClickHandler.onDurationClicked(getTimer());
-            });
-        }
 
         if (circleContainer != null) {
             circleContainer.setOnClickListener(playPauseListener);
@@ -145,27 +125,30 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
 
         playPauseButton.setOnClickListener(playPauseListener);
 
-        mDeleteButton.setOnClickListener(v -> {
-            Utils.setVibrationTime(context, 10);
-            timerClickHandler.onDeleteTimerClicked(getTimer());
-        });
+        if (mIsSingleTimerMode) {
+            deleteButton.setVisibility(GONE);
+        } else {
+            deleteButton.setVisibility(VISIBLE);
+            deleteButton.setOnClickListener(v -> {
+                Utils.setVibrationTime(context, 10);
+                timerClickHandler.onDeleteTimerClicked(getTimer());
+            });
+        }
     }
 
-    public void onBind(int timerId) {
+    public void onBind(int timerId, boolean animate) {
         mTimerId = timerId;
 
         final Timer timer = getTimer();
         if (timer != null) {
             if (mTimerItem != null) {
-                mTimerItem.bindTimer(timer);
+                mTimerItem.bindTimer(timer, animate);
             } else if (mTimerItemCompact != null) {
-                mTimerItemCompact.bindTimer(timer);
+                mTimerItemCompact.bindTimer(timer, animate);
             }
 
-            mDeleteButton.setVisibility(mIsSingleTimerMode ? GONE : VISIBLE);
-
             if (mIsSingleTimerMode) {
-                mResetButton.setVisibility(GONE);
+                mResetOrEditButton.setVisibility(GONE);
             }
         }
 
@@ -226,6 +209,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
             // more frequent updates needed for smooth blinking (based on a 500 ms interval).
             // For running timers, a 1000 ms delay is sufficient to save resources.
             long delay;
+
             if (timer.isPaused() || timer.isExpired() || timer.isMissed()) {
                 delay = 500;
             } else {
@@ -237,10 +221,10 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
             }
 
             if (mTimerItemCompact != null) {
-                mTimerItemCompact.updateTimeDisplay(timer);
+                mTimerItemCompact.updateTimeDisplay(timer, true);
                 mTimerItemCompact.postDelayed(this, delay);
             } else if (mTimerItem != null) {
-                mTimerItem.updateTimeDisplay(timer);
+                mTimerItem.updateTimeDisplay(timer, true);
                 mTimerItem.postDelayed(this, delay);
             }
         }

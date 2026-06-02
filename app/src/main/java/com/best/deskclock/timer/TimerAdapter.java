@@ -15,6 +15,7 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +48,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private static final String PAYLOAD_UPDATE_BACKGROUND = "PAYLOAD_UPDATE_BACKGROUND";
     private static final String PAYLOAD_UPDATE_STATE = "PAYLOAD_UPDATE_STATE";
 
+    private final SparseBooleanArray mAnimatedTimerIds = new SparseBooleanArray();
     private List<Timer> mCachedTimers = new ArrayList<>();
     private final TimerClickHandler mTimerClickHandler;
     private final Context mContext;
@@ -116,9 +118,9 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         if (timer != null) {
             if (holder.mTimerItemCompact != null) {
-                holder.mTimerItemCompact.updateTimeDisplay(timer);
+                holder.mTimerItemCompact.updateTimeDisplay(timer, false);
             } else if (holder.mTimerItem != null) {
-                holder.mTimerItem.updateTimeDisplay(timer);
+                holder.mTimerItem.updateTimeDisplay(timer, false);
             }
 
             if (!timer.isReset()) {
@@ -178,7 +180,14 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         TimerViewHolder holder = (TimerViewHolder) itemViewHolder;
         Timer timer = getTimer(position);
 
-        holder.onBind(timer.getId());
+        boolean hasBeenAnimated = mAnimatedTimerIds.get(timer.getId(), false);
+        boolean isFirstAppearance = !hasBeenAnimated;
+
+        if (isFirstAppearance) {
+            mAnimatedTimerIds.put(timer.getId(), true);
+        }
+
+        holder.onBind(timer.getId(), isFirstAppearance);
     }
 
     @Override
@@ -192,7 +201,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
             if (payloads.contains(PAYLOAD_UPDATE_STATE)) {
                 Timer timer = getTimer(position);
-                holder.onBind(timer.getId());
+                holder.onBind(timer.getId(), true);
             }
         } else {
             super.onBindViewHolder(itemViewHolder, position, payloads);
@@ -204,11 +213,14 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         refreshTimersCache();
         saveTimerList();
         notifyItemInserted(getTimers().indexOf(timer));
+        notifyItemRangeChanged(0, getItemCount(), PAYLOAD_UPDATE_BACKGROUND);
         updateTime();
     }
 
     @Override
     public void timerRemoved(Timer timer) {
+        mAnimatedTimerIds.delete(timer.getId());
+
         int positionToRemove = getTimerPosition(timer.getId());
 
         refreshTimersCache();
@@ -221,6 +233,8 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 // Use notifyDataSetChanged() to avoid flickering when switching
                 // from two timers to a single timer.
                 notifyDataSetChanged();
+            } else {
+                notifyItemRangeChanged(0, getItemCount(), PAYLOAD_UPDATE_BACKGROUND);
             }
         } else {
             // Fallback
@@ -250,28 +264,8 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
                 // Update the Play/Pause button icon.
                 notifyItemChanged(newPosition, PAYLOAD_UPDATE_STATE);
-            }
-
-            boolean isTablet = ThemeUtils.isTablet();
-            // Returns true if the circle or the progress bar is displayed
-            // (on tablets, the circle is always displayed).
-            boolean isExpanding = !isTablet && before.isReset() && !after.isReset();
-            // Returns true if the circle or the progress bar is gone.
-            // (on tablets, the circle is always displayed).
-            boolean isShrinking = !isTablet && !before.isReset() && after.isReset();
-
-            if (isExpanding) {
-                // Expanding: Use notifyDataSetChanged() to avoid overlapping with other timers when
-                // the circle or progress bar appears.
-                notifyDataSetChanged();
-            } else if (oldPosition == newPosition) {
-                // Static position: Use notifyItemChanged() to perform a lightweight, targeted update
-                // when the timer shrinks or simply ticks without changing its position in the list.
+            } else {
                 notifyItemChanged(newPosition, null);
-            } else if (isShrinking) {
-                // Shrinking and moving: Use notifyDataSetChanged() to avoid visual glitches when
-                // the circle or progress bar disappears.
-                notifyDataSetChanged();
             }
         } else {
             // Fallback

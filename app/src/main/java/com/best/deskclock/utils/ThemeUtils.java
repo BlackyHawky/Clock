@@ -294,6 +294,33 @@ public class ThemeUtils {
     }
 
     /**
+     * Retrieves the specific night mode background color associated with the given accent color.
+     * If the theme is unrecognized, a default dark color is returned (adapting to Android 12+ if necessary).
+     *
+     * @param context     The context used to resolve the color resources.
+     * @param accentColor The selected accent color identifier.
+     * @return The resolved background color integer for night mode.
+     */
+    public static int getNightBackgroundColor(Context context, String accentColor) {
+        return switch (accentColor) {
+            case BLACK_ACCENT_COLOR -> ContextCompat.getColor(context, android.R.color.black);
+            case BLUE_ACCENT_COLOR -> ContextCompat.getColor(context, R.color.nightBlueColorBackground);
+            case BLUE_GRAY_ACCENT_COLOR -> ContextCompat.getColor(context, R.color.nightBlueGrayColorBackground);
+            case BROWN_ACCENT_COLOR -> ContextCompat.getColor(context, R.color.nightBrownColorBackground);
+            case GREEN_ACCENT_COLOR -> ContextCompat.getColor(context, R.color.nightGreenColorBackground);
+            case INDIGO_ACCENT_COLOR -> ContextCompat.getColor(context, R.color.nightIndigoColorBackground);
+            case ORANGE_ACCENT_COLOR -> ContextCompat.getColor(context, R.color.nightOrangeColorBackground);
+            case PINK_ACCENT_COLOR -> ContextCompat.getColor(context, R.color.nightPinkColorBackground);
+            case PURPLE_ACCENT_COLOR -> ContextCompat.getColor(context, R.color.nightPurpleColorBackground);
+            case RED_ACCENT_COLOR -> ContextCompat.getColor(context, R.color.nightRedColorBackground);
+            case YELLOW_ACCENT_COLOR -> ContextCompat.getColor(context, R.color.nightYellowColorBackground);
+            default -> ContextCompat.getColor(context, SdkUtils.isAtLeastAndroid12()
+                ? android.R.color.system_neutral1_900
+                : R.color.nightDefaultColorBackground);
+        };
+    }
+
+    /**
      * Creates a themed context applying the user's selected accent color style.
      *
      * <p>This ensures that custom toasts correctly resolve Material color attributes

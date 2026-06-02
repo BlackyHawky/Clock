@@ -29,8 +29,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.transition.AutoTransition;
-import android.transition.TransitionManager;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -45,6 +43,7 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.Insets;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.transition.TransitionManager;
 
 import com.best.deskclock.R;
 import com.best.deskclock.base.BaseActivity;
@@ -168,6 +167,12 @@ public class ExpiredTimersActivity extends BaseActivity {
         }
 
         setContentView(mBinding.getRoot());
+
+        String activeAccentColor = ThemeUtils.isNight(getResources()) && !SettingsDAO.isAutoNightAccentColorEnabled(mPrefs)
+            ? SettingsDAO.getNightAccentColor(mPrefs)
+            : SettingsDAO.getAccentColor(mPrefs);
+
+        getWindow().setBackgroundDrawable(new ColorDrawable(ThemeUtils.getNightBackgroundColor(this, activeAccentColor)));
 
         if (mBinding.expiredTimersScrollVertical != null) {
             mExpiredTimersScrollView = mBinding.expiredTimersScrollVertical;
@@ -364,7 +369,7 @@ public class ExpiredTimersActivity extends BaseActivity {
      * Create and add a new view that corresponds with the given {@code timer}.
      */
     private void addTimer(Timer timer) {
-        TransitionManager.beginDelayedTransition(mExpiredTimersScrollView, new AutoTransition());
+        TransitionManager.beginDelayedTransition(mExpiredTimersScrollView);
 
         final int timerId = timer.getId();
         final boolean isCompact = SettingsDAO.isCompactTimersDisplayed(mPrefs) && !SettingsDAO.isSingleTimerModeEnabled(mPrefs);
@@ -382,25 +387,25 @@ public class ExpiredTimersActivity extends BaseActivity {
                 getLayoutInflater(), mBinding.expiredTimersList, false);
 
             view = compactBinding.getRoot();
-            ((TimerItemCompact) view).bindTimer(timer);
+            ((TimerItemCompact) view).bindTimer(timer, false);
             ((TimerItemCompact) view).setCachedFonts(mRegularTypeface, mBoldTypeface, mTimerTimeTypeface);
 
             labelView = compactBinding.timerLabel;
             addTimeButton = compactBinding.timerAddTimeButton;
             deleteButton = compactBinding.deleteTimerButton;
-            resetButton = compactBinding.resetButton;
+            resetButton = compactBinding.resetOrEditButton;
             stopButton = compactBinding.playPauseButton;
         } else {
             TimerItemBinding normalBinding = TimerItemBinding.inflate(getLayoutInflater(), mBinding.expiredTimersList, false);
 
             view = normalBinding.getRoot();
-            ((TimerItem) view).bindTimer(timer);
+            ((TimerItem) view).bindTimer(timer, false);
             ((TimerItem) view).setCachedFonts(mRegularTypeface, mBoldTypeface, mTimerTimeTypeface);
 
             labelView = normalBinding.timerLabel;
             addTimeButton = normalBinding.timerAddTimeButton;
             deleteButton = normalBinding.deleteTimerButton;
-            resetButton = normalBinding.resetButton;
+            resetButton = normalBinding.resetOrEditButton;
             stopButton = normalBinding.playPauseButton;
         }
 
@@ -444,7 +449,7 @@ public class ExpiredTimersActivity extends BaseActivity {
      * Remove an existing view that corresponds with the given {@code timer}.
      */
     private void removeTimer(Timer timer) {
-        TransitionManager.beginDelayedTransition(mExpiredTimersScrollView, new AutoTransition());
+        TransitionManager.beginDelayedTransition(mExpiredTimersScrollView);
 
         final int timerId = timer.getId();
         final int count = mBinding.expiredTimersList.getChildCount();
@@ -541,9 +546,9 @@ public class ExpiredTimersActivity extends BaseActivity {
                 }
 
                 if (child instanceof TimerItem) {
-                    ((TimerItem) child).updateTimeDisplay(timer);
+                    ((TimerItem) child).updateTimeDisplay(timer, false);
                 } else if (child instanceof TimerItemCompact) {
-                    ((TimerItemCompact) child).updateTimeDisplay(timer);
+                    ((TimerItemCompact) child).updateTimeDisplay(timer, false);
                 }
             }
 

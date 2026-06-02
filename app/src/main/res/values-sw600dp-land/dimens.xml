@@ -9,4 +9,6 @@
     <dimen name="city_list_padding_bottom">0dp</dimen>
 
     <dimen name="timer_spinner_padding_bottom">60dp</dimen>
+    <dimen name="timer_circle_container_height_max">220dp</dimen>
+    <dimen name="timer_button_height_max">100dp</dimen>
 </resources>

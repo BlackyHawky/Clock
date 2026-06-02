@@ -24,6 +24,8 @@
     <dimen name="timer_spinner_padding_start">20dp</dimen>
     <dimen name="timer_spinner_padding_end">20dp</dimen>
     <dimen name="timer_spinner_padding_bottom">0dp</dimen>
+    <dimen name="timer_circle_container_height_max">160dp</dimen>
+    <dimen name="timer_button_height_max">100dp</dimen>
 
     <dimen name="stopwatch_circle_land_margin_bottom">10dp</dimen>
     <dimen name="stopwatch_circle_max_size">360dp</dimen>

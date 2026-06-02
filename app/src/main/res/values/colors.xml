@@ -320,4 +320,17 @@
     <color name="colorDisabled">#611D1B20</color>
     <!-- https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : Green 50 n°600 -->
     <color name="calendarDotColor">#43A047</color>
+
+    <!-- NIGHT MODE BACKGROUND COLORS -->
+    <color name="nightDefaultColorBackground">#1A1B20</color>
+    <color name="nightBlueColorBackground">#14181B</color>
+    <color name="nightBlueGrayColorBackground">#161717</color>
+    <color name="nightBrownColorBackground">#171515</color>
+    <color name="nightGreenColorBackground">#151915</color>
+    <color name="nightIndigoColorBackground">#151519</color>
+    <color name="nightOrangeColorBackground">#1C1812</color>
+    <color name="nightPinkColorBackground">#1B1416</color>
+    <color name="nightPurpleColorBackground">#181419</color>
+    <color name="nightRedColorBackground">#1B1414</color>
+    <color name="nightYellowColorBackground">#1C1B15</color>
 </resources>
