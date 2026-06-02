@@ -102,6 +102,12 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
 
         setContentView(mBinding.getRoot());
 
+        String activeAccentColor = ThemeUtils.isNight(getResources()) && !SettingsDAO.isAutoNightAccentColorEnabled(mPrefs)
+            ? SettingsDAO.getNightAccentColor(mPrefs)
+            : SettingsDAO.getAccentColor(mPrefs);
+
+        getWindow().setBackgroundDrawable(new ColorDrawable(ThemeUtils.getNightBackgroundColor(this, activeAccentColor)));
+
         mIsFadeTransitionsEnabled = SettingsDAO.isFadeTransitionsEnabled(mPrefs);
 
         if (mBinding.expiredTimersScrollVertical != null) {
@@ -270,24 +276,38 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
                 getLayoutInflater(), mBinding.expiredTimersList, false);
 
             view = compactBinding.getRoot();
-            ((TimerItemCompact) view).bindTimer(timer);
+            ((TimerItemCompact) view).bindTimer(timer, false);
             ((TimerItemCompact) view).setCachedFonts(mRegularTypeface, mBoldTypeface, mTimerTimeTypeface);
 
             labelView = compactBinding.timerLabel;
             deleteButton = compactBinding.deleteTimerButton;
-            resetButton = compactBinding.resetButton;
+            resetButton = compactBinding.resetOrEditButton;
             stopButton = compactBinding.playPauseButton;
+
+            compactBinding.linearProgressIndicator.animate().cancel();
+            compactBinding.linearProgressIndicator.setAlpha(1f);
+
+            compactBinding.timerTimeText.animate().cancel();
+            compactBinding.timerTimeText.setAlpha(1f);
         } else {
             TimerItemBinding normalBinding = TimerItemBinding.inflate(getLayoutInflater(), mBinding.expiredTimersList, false);
 
             view = normalBinding.getRoot();
-            ((TimerItem) view).bindTimer(timer);
+            ((TimerItem) view).bindTimer(timer, false);
             ((TimerItem) view).setCachedFonts(mRegularTypeface, mBoldTypeface, mTimerTimeTypeface);
 
             labelView = normalBinding.timerLabel;
             deleteButton = normalBinding.deleteTimerButton;
-            resetButton = normalBinding.resetButton;
+            resetButton = normalBinding.resetOrEditButton;
             stopButton = normalBinding.playPauseButton;
+
+            if (normalBinding.circularProgressIndicator != null) {
+                normalBinding.circularProgressIndicator.animate().cancel();
+                normalBinding.circularProgressIndicator.setAlpha(1f);
+            }
+
+            normalBinding.timerTimeText.animate().cancel();
+            normalBinding.timerTimeText.setAlpha(1f);
         }
 
         // Store the timer id as a tag on the view so it can be located on delete.

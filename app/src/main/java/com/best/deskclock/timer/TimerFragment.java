@@ -47,6 +47,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
+import androidx.transition.TransitionManager;
 
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
@@ -234,7 +235,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         String timerFontPath = SettingsDAO.getTimerDurationFont(mPrefs);
         Typeface regularTypeface = ThemeUtils.loadFont(generalFontPath);
         Typeface boldTypeface = ThemeUtils.boldTypeface(generalFontPath);
-        Typeface timerTimeTypeface = ThemeUtils.loadFont(timerFontPath);
+        Typeface timerTimeTypeface = ThemeUtils.boldTypeface(timerFontPath);
 
         mBinding.timerVolumeBanner.volumeWarningText.setTypeface(boldTypeface);
         mBinding.timerVolumeBanner.volumeWarningButton.setTypeface(boldTypeface);
@@ -758,12 +759,6 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
 
     /**
      * Updates the visibility of the volume warning banner.
-     *
-     * <p>Note: We intentionally perform a direct visibility update here without TransitionManager.
-     * Since the RecyclerView items (timers) are constantly ticking and triggering adapter
-     * updates (e.g., notifyItemChanged), running a layout transition simultaneously
-     * causes severe layout conflicts and visual glitches (freezing or abrupt jumps).
-     * An instant visibility change guarantees perfect stability across all orientations.</p>
      */
     public void updateWarningBannerVisibility() {
         boolean isStreamLow = RingtoneUtils.isAlarmStreamLow(requireContext());
@@ -774,7 +769,10 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         int targetVisibility = shouldShow ? VISIBLE : GONE;
 
         if (mBinding.timerVolumeBanner.volumeWarningBanner.getVisibility() != targetVisibility) {
-            mBinding.timerVolumeBanner.volumeWarningBanner.setVisibility(targetVisibility);
+            mBinding.timerRecyclerView.post(() -> {
+                TransitionManager.beginDelayedTransition(mBinding.timerContentView);
+                mBinding.timerVolumeBanner.volumeWarningBanner.setVisibility(targetVisibility);
+            });
         }
     }
 

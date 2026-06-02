@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.best.deskclock.R;
+import com.google.android.material.progressindicator.CircularProgressIndicator;
 
 /**
  * This class adjusts the location of the reset button.
@@ -45,20 +46,33 @@ public class CircleButtonsLayout extends FrameLayout {
     }
 
     protected void remeasureViews() {
-        View circleView = findViewById(R.id.timer_circle_view);
-        View resetAddButton = findViewById(R.id.reset_button);
+        CircularProgressIndicator progressIndicator = findViewById(R.id.circular_progress_indicator);
+        View resetOrEditButton = findViewById(R.id.reset_or_edit_button);
 
-        final int frameWidth = circleView.getMeasuredWidth();
-        final int frameHeight = circleView.getMeasuredHeight();
+        final int frameWidth = getMeasuredWidth();
+        final int frameHeight = getMeasuredHeight();
         final int minBound = Math.min(frameWidth, frameHeight);
+
+        if (minBound <= 0) {
+            return;
+        }
+
         final int circleDiam = (int) (minBound - mDiamOffset);
 
-        if (resetAddButton != null) {
-            final MarginLayoutParams resetParams = (MarginLayoutParams) resetAddButton.getLayoutParams();
-            resetParams.bottomMargin = circleDiam / 8;
-            if (minBound == frameWidth) {
-                resetParams.bottomMargin += (frameHeight - frameWidth) / 2;
+        if (progressIndicator != null) {
+            if (progressIndicator.getIndicatorSize() != circleDiam) {
+                progressIndicator.setIndicatorSize(circleDiam);
             }
+        }
+
+        if (resetOrEditButton != null) {
+            final MarginLayoutParams params = (MarginLayoutParams) resetOrEditButton.getLayoutParams();
+            params.bottomMargin = circleDiam / 8;
+            if (minBound == frameWidth) {
+                params.bottomMargin += (frameHeight - frameWidth) / 2;
+            }
+
+            resetOrEditButton.setLayoutParams(params);
         }
 
     }

@@ -23,6 +23,7 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.databinding.TimerItemCompactBinding;
+import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.google.android.material.color.MaterialColors;
 
@@ -44,6 +45,8 @@ public class TimerItemCompact extends ConstraintLayout {
     private Drawable mIconPlay;
     private Drawable mIconPause;
     private Drawable mIconStop;
+    private Drawable mIconEdit;
+    private Drawable mIconReset;
 
     private int mColorPaused;
     private int mColorRunning;
@@ -54,7 +57,6 @@ public class TimerItemCompact extends ConstraintLayout {
     private String mCachedAddButtonText;
     private String mCachedAddButtonContentDesc;
     private String mLastLabel = null;
-    private String mLastTotalDuration = null;
 
     /**
      * Formats and displays the text in the timer.
@@ -105,6 +107,8 @@ public class TimerItemCompact extends ConstraintLayout {
         mIconPlay = AppCompatResources.getDrawable(getContext(), R.drawable.ic_fab_play);
         mIconPause = AppCompatResources.getDrawable(getContext(), R.drawable.ic_fab_pause);
         mIconStop = AppCompatResources.getDrawable(getContext(), R.drawable.ic_fab_stop);
+        mIconEdit = AppCompatResources.getDrawable(getContext(), R.drawable.ic_edit);
+        mIconReset = AppCompatResources.getDrawable(getContext(), R.drawable.ic_reset);
 
         mColorPaused = SettingsDAO.getPausedTimerIndicatorColor(mPrefs);
         mColorRunning = SettingsDAO.getRunningTimerIndicatorColor(mPrefs);
@@ -134,15 +138,13 @@ public class TimerItemCompact extends ConstraintLayout {
 
         mBinding.timerTimeText.setTypeface(mTimerTimeTypeface);
 
-        mBinding.timerTotalDurationText.setTypeface(mTimerTimeTypeface);
-
         mBinding.timerAddTimeButton.setTypeface(mBoldTypeface);
     }
 
     /**
      * Dynamically updates the {@code timer} display based on its current state.
      */
-    void updateTimeDisplay(Timer timer) {
+    void updateTimeDisplay(Timer timer, boolean animateProgress) {
         final boolean blinkOff = SystemClock.elapsedRealtime() % 1000 < 500;
 
         mTimerTextController.setTimeString(timer.getRemainingTime());
@@ -153,8 +155,8 @@ public class TimerItemCompact extends ConstraintLayout {
             : 1f;
 
         // Apply circle blinking
-        if (mBinding.timerBar.getAlpha() != targetAlpha) {
-            mBinding.timerBar.animate()
+        if (mBinding.linearProgressIndicator.getAlpha() != targetAlpha) {
+            mBinding.linearProgressIndicator.animate()
                 .alpha(targetAlpha)
                 .setDuration(300)
                 .start();
@@ -162,7 +164,29 @@ public class TimerItemCompact extends ConstraintLayout {
 
         // Update circle only if visible
         if (!isBlinking || !blinkOff) {
-            mBinding.timerBar.update(timer);
+            long totalLength = timer.getTotalLength();
+
+            if (totalLength > 0) {
+                int progress = (int) ((timer.getRemainingTime() * 1000) / totalLength);
+
+                progress = Math.max(0, Math.min(1000, progress));
+
+                if (mBinding.linearProgressIndicator.getProgress() != progress) {
+                    if (SdkUtils.isAtLeastAndroid7()) {
+                        mBinding.linearProgressIndicator.setProgress(progress, animateProgress);
+                    } else {
+                        mBinding.linearProgressIndicator.setProgressCompat(progress, animateProgress);
+                    }
+                }
+            } else {
+                if (mBinding.linearProgressIndicator.getProgress() != 0) {
+                    if (SdkUtils.isAtLeastAndroid7()) {
+                        mBinding.linearProgressIndicator.setProgress(0, animateProgress);
+                    } else {
+                        mBinding.linearProgressIndicator.setProgressCompat(0, animateProgress);
+                    }
+                }
+            }
         }
 
         final float textTargetAlpha = (!timer.isPaused() || !blinkOff || mBinding.timerTimeText.isPressed()) ? 1f : 0f;
@@ -177,14 +201,7 @@ public class TimerItemCompact extends ConstraintLayout {
     /**
      * Initializes the {@code timer} static visual elements when binding to a ViewHolder.
      */
-    public void bindTimer(Timer timer) {
-        // Initialize text for timer total duration
-        String totalDuration = timer.getTotalDuration();
-        if (!totalDuration.equals(mLastTotalDuration)) {
-            mLastTotalDuration = totalDuration;
-            mBinding.timerTotalDurationText.setText(totalDuration);
-        }
-
+    public void bindTimer(Timer timer, boolean animate) {
         // Initialize the label
         final String label = timer.getLabel();
 
@@ -202,8 +219,8 @@ public class TimerItemCompact extends ConstraintLayout {
         }
 
         // Initialize the timer bar
-        mBinding.timerBar.animate().cancel();
-        mBinding.timerBar.setAlpha(1f);
+        mBinding.linearProgressIndicator.animate().cancel();
+        mBinding.linearProgressIndicator.setAlpha(1f);
 
         // Initialize the alpha value of the time text color
         mBinding.timerTimeText.animate().cancel();
@@ -238,47 +255,38 @@ public class TimerItemCompact extends ConstraintLayout {
         mBinding.timerAddTimeButton.setContentDescription(mCachedAddButtonContentDesc);
 
         if (timer.getState() != mLastState) {
-            boolean isReset = timer.getState() == Timer.State.RESET;
+            mBinding.resetOrEditButton.setVisibility(VISIBLE);
 
-            final String resetDesc = getContext().getString(R.string.reset);
-
-            mBinding.resetButton.setVisibility(VISIBLE);
-            mBinding.resetButton.setContentDescription(resetDesc);
-            mBinding.timerAddTimeButton.setVisibility(VISIBLE);
             mLastState = timer.getState();
 
             switch (mLastState) {
                 case RESET -> {
-                    mBinding.resetButton.setVisibility(GONE);
-                    mBinding.resetButton.setContentDescription(null);
-                    mBinding.timerAddTimeButton.setVisibility(INVISIBLE);
+                    mBinding.resetOrEditButton.setIcon(mIconEdit);
                     mBinding.playPauseButton.setIcon(mIconPlay);
                     mBinding.timerIndicatorState.setVisibility(GONE);
                 }
 
                 case PAUSED -> {
+                    mBinding.resetOrEditButton.setIcon(mIconReset);
                     mBinding.playPauseButton.setIcon(mIconPlay);
                     updateIndicatorState(mColorPaused);
                 }
 
                 case RUNNING -> {
+                    mBinding.resetOrEditButton.setIcon(mIconReset);
                     mBinding.playPauseButton.setIcon(mIconPause);
                     updateIndicatorState(mColorRunning);
                 }
 
                 case EXPIRED, MISSED -> {
+                    mBinding.resetOrEditButton.setVisibility(INVISIBLE);
                     mBinding.playPauseButton.setIcon(mIconStop);
-                    mBinding.resetButton.setVisibility(GONE);
                     updateIndicatorState(mLastState == Timer.State.EXPIRED ? mColorExpired : mColorMissed);
                 }
             }
-
-            mBinding.timerTimeText.setVisibility(isReset ? GONE : VISIBLE);
-            mBinding.timerBar.setVisibility(isReset ? GONE : VISIBLE);
-            mBinding.timerTotalDurationText.setVisibility(isReset ? VISIBLE : GONE);
         }
 
-        updateTimeDisplay(timer);
+        updateTimeDisplay(timer, animate);
     }
 
     private void updateIndicatorState(int color) {

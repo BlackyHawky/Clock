@@ -6,8 +6,7 @@
 -->
 
 <!-- This TimerItem includes the circle because ample space exists. -->
-<com.best.deskclock.timer.TimerItem
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.best.deskclock.timer.TimerItem xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -68,22 +67,25 @@
         android:id="@+id/circle_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginStart="20dp"
         android:focusable="true"
         app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintHeight_max="240dp"
+        app:layout_constraintHeight_max="@dimen/timer_circle_container_height_max"
+        app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/timer_add_time_button"
+        app:layout_constraintEnd_toStartOf="@+id/reset_or_edit_button"
         app:layout_constraintTop_toBottomOf="@+id/timer_label"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:ignore="InconsistentLayout">
 
-        <com.best.deskclock.uicomponents.TimerCircleView
-            android:id="@+id/timer_circle_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:ignore="InconsistentLayout" />
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/circular_progress_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:max="1000"
+            app:trackColor="?attr/colorPrimaryInverse"
+            app:indicatorColor="?attr/colorSecondary"
+            tools:progress="600" />
 
         <com.best.deskclock.uicomponents.AutoSizingTextView
             android:id="@+id/timer_time_text"
@@ -95,91 +97,59 @@
             android:includeFontPadding="false"
             android:fontFeatureSettings="tnum"
             android:textSize="40sp"
+            android:textStyle="bold"
             tools:text="01:23" />
-
-        <ImageButton
-            android:id="@+id/reset_button"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_gravity="bottom|center_horizontal"
-            android:src="@drawable/ic_reset"
-            android:scaleType="centerCrop"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/reset"
-            app:tint="?attr/colorPrimary"
-            tools:ignore="TouchTargetSizeCheck" />
 
     </com.best.deskclock.uicomponents.CircleButtonsLayout>
 
-    <!-- Only displayed for phones when the timer is reset. See the TimerItem.java file. -->
-    <com.best.deskclock.uicomponents.AutoSizingTextView
-        android:id="@+id/timer_total_duration_text"
+    <com.google.android.material.button.MaterialButton
+        style="?attr/materialIconButtonFilledStyle"
+        android:id="@+id/reset_or_edit_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="12dp"
-        android:paddingVertical="8dp"
-        android:background="?attr/selectableItemBackground"
-        android:gravity="center_vertical"
-        android:textSize="26sp"
-        android:drawablePadding="8dp"
-        android:visibility="gone"
-        android:drawableStart="@drawable/ic_edit"
-        android:drawableTint="?android:attr/textColor"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/play_pause_button"
-        app:layout_constraintBottom_toBottomOf="@+id/play_pause_button"
-        tools:text="01:00"
-        tools:ignore="InconsistentLayout" />
-
-    <!-- For phones with multiple timers, this icon is not displayed. See the TimerItem.java file. -->
-    <ImageButton
-        android:id="@+id/timer_edit_new_duration_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginBottom="7dp"
-        android:layout_gravity="bottom|center_horizontal"
-        android:src="@drawable/ic_edit"
-        android:scaleType="centerInside"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@null"
-        android:visibility="gone"
-        app:tint="?android:attr/textColor"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="4dp"
+        android:contentDescription="@string/reset"
+        app:iconTint="?android:attr/colorBackground"
+        app:iconGravity="textStart"
+        app:materialSizeOverlay="@style/SizeOverlay.Material3Expressive.Button.IconButton.Medium"
+        app:layout_constraintEnd_toStartOf="@+id/play_pause_button"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:visibility="visible"
-        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+        tools:icon="@drawable/ic_reset" />
 
     <com.google.android.material.button.MaterialButton
+        style="?attr/materialButtonOutlinedStyle"
         android:id="@+id/timer_add_time_button"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
-        android:padding="24dp"
+        android:layout_marginBottom="4dp"
+        android:paddingStart="2dp"
+        android:paddingEnd="2dp"
         android:maxLines="1"
-        android:textColor="?android:attr/colorBackground"
-        app:shapeAppearance="@style/TimerSetupDigit.CircleOverlay"
+        android:textColor="?attr/colorOnSurfaceVariant"
+        android:textSize="16sp"
+        app:strokeColor="?attr/colorOnSurfaceVariant"
+        app:materialSizeOverlay="@style/SizeOverlay.Material3Expressive.Button.Medium"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timer_label"
         app:layout_constraintBottom_toTopOf="@+id/play_pause_button"
+        app:layout_constraintVertical_bias="1"
         tools:text="+ 1:00"
         tools:textStyle="bold" />
 
-    <!-- Constraints, margins and paddings adjusted in the TimerItem.java file to have a suitable
-         reduced view. -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/play_pause_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:padding="24dp"
         android:contentDescription="@string/timer_start"
-        android:scaleType="centerInside"
         app:iconTint="?android:attr/colorBackground"
         app:iconGravity="textStart"
         app:iconPadding="0dp"
-        app:shapeAppearance="@style/TimerSetupDigit.CircleOverlay"
+        app:materialSizeOverlay="@style/SizeOverlay.Material3Expressive.Button.Medium"
         app:layout_constraintStart_toStartOf="@+id/timer_add_time_button"
         app:layout_constraintEnd_toEndOf="@+id/timer_add_time_button"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/reset_or_edit_button"
         tools:icon="@drawable/ic_fab_play" />
 
 </com.best.deskclock.timer.TimerItem>
