@@ -486,45 +486,48 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
         final int maxMissedAlarmRepeatCount = instance.mMissedAlarmRepeatLimit;
 
-        // If the "Silence after" or the "Repeat missed alarms" feature has been set to "Never"
-        // in Settings or in the alarm editing panel, the alarm is snoozed instead of marked as missed.
-        if (instance.mAutoSilenceDuration == TIMEOUT_NEVER
-            || maxMissedAlarmRepeatCount == Integer.parseInt(DEFAULT_MISSED_ALARM_REPEAT_LIMIT)) {
+        if (instance.mSnoozeDuration != ALARM_SNOOZE_DURATION_DISABLED) {
+            // If the "Silence after" or the "Repeat missed alarms" feature has been set to "Never"
+            // in Settings or in the alarm editing panel, the alarm is snoozed instead of marked as missed.
+            if (instance.mAutoSilenceDuration == TIMEOUT_NEVER
+                || maxMissedAlarmRepeatCount == Integer.parseInt(DEFAULT_MISSED_ALARM_REPEAT_LIMIT)) {
 
-            LogUtils.i("Alarm auto-silenced. Snoozing");
-            setSnoozeState(context, instance, true);
-            return;
-        }
-
-        instance.mMissedAlarmCurrentCount += 1;
-
-        // Snooze the alarm until the missed alarm repeat limit is reached.
-        if (instance.mMissedAlarmCurrentCount >= maxMissedAlarmRepeatCount + 1) {
-            LogUtils.i("Max count reached. Marking instance as MISSED: " + instance.mId);
-
-            // Stop alarm if this instance is firing it
-            AlarmService.stopAlarm(context, instance);
-
-            // Check parent if it needs to reschedule, disable or delete itself
-            if (instance.mAlarmId != null) {
-                updateParentAlarm(context, instance);
+                LogUtils.i("Alarm auto-silenced. Snoozing");
+                setSnoozeState(context, instance, true);
+                return;
             }
 
-            // Update alarm state
-            instance.mAlarmState = AlarmInstance.MISSED_STATE;
-            instance.updateInstance(contentResolver);
+            instance.mMissedAlarmCurrentCount += 1;
 
-            // Setup instance notification and scheduling timers
-            AlarmNotifications.showMissedNotification(context, instance);
-            scheduleInstanceStateChange(context, instance.getMissedTimeToLive(), instance, AlarmInstance.DISMISSED_STATE);
-
-            cancelPowerOffAlarm(context, instance);
-            // Instance is not valid anymore, so find next alarm that will fire and notify system
-            updateNextAlarm(context);
-        } else {
-            LogUtils.i("Alarm auto-silenced. Snoozing (missedAlarmCurrentCount = " + instance.mMissedAlarmCurrentCount + ")");
-            setSnoozeState(context, instance, true);
+            // Snooze the alarm until the missed alarm repeat limit is reached.
+            if (instance.mMissedAlarmCurrentCount < maxMissedAlarmRepeatCount + 1) {
+                LogUtils.i("Alarm auto-silenced. Snoozing (missedAlarmCurrentCount = " + instance.mMissedAlarmCurrentCount + ")");
+                setSnoozeState(context, instance, true);
+                return;
+            }
         }
+
+        LogUtils.i("Max count reached. Marking instance as MISSED: " + instance.mId);
+
+        // Stop alarm if this instance is firing it
+        AlarmService.stopAlarm(context, instance);
+
+        // Check parent if it needs to reschedule, disable or delete itself
+        if (instance.mAlarmId != null) {
+            updateParentAlarm(context, instance);
+        }
+
+        // Update alarm state
+        instance.mAlarmState = AlarmInstance.MISSED_STATE;
+        instance.updateInstance(contentResolver);
+
+        // Setup instance notification and scheduling timers
+        AlarmNotifications.showMissedNotification(context, instance);
+        scheduleInstanceStateChange(context, instance.getMissedTimeToLive(), instance, AlarmInstance.DISMISSED_STATE);
+
+        cancelPowerOffAlarm(context, instance);
+        // Instance is not valid anymore, so find next alarm that will fire and notify system
+        updateNextAlarm(context);
     }
 
     /**
