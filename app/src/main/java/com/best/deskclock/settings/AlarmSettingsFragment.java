@@ -3,6 +3,7 @@
 package com.best.deskclock.settings;
 
 import static android.app.Activity.RESULT_OK;
+import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_SNOOZE_DURATION_DISABLED;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_VOLUME;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VIBRATION_START_DELAY;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_NEVER;
@@ -576,7 +577,6 @@ public class AlarmSettingsFragment extends ScreenFragment
     }
 
     private void setupPreferences() {
-        final int alarmTimeout = SettingsDAO.getAlarmTimeout(mPrefs);
         final boolean isAdvancedAudioPlaybackEnabled = SettingsDAO.isAdvancedAudioPlaybackEnabled(mPrefs);
         final boolean isAutoRoutingToExternalAudioDevice = SettingsDAO.isAutoRoutingToExternalAudioDevice(mPrefs);
 
@@ -599,11 +599,11 @@ public class AlarmSettingsFragment extends ScreenFragment
 
         mEnablePerAlarmSnoozeDurationPref.setOnPreferenceChangeListener(this);
 
-        mRepeatMissedAlarmPref.setVisible(alarmTimeout != TIMEOUT_NEVER);
+        updateMissedAlarmPrefsVisibility(SettingsDAO.getAlarmTimeout(mPrefs), SettingsDAO.getSnoozeLength(mPrefs));
+
         mRepeatMissedAlarmPref.setOnPreferenceChangeListener(this);
         mRepeatMissedAlarmPref.setSummary(mRepeatMissedAlarmPref.getEntry());
 
-        mEnablePerAlarmMissedRepeatLimitPref.setVisible(alarmTimeout != TIMEOUT_NEVER);
         mEnablePerAlarmMissedRepeatLimitPref.setOnPreferenceChangeListener(this);
 
         if (mAlarmVolumePref.isVisible()) {
@@ -698,8 +698,8 @@ public class AlarmSettingsFragment extends ScreenFragment
                     AutoSilenceDurationPreference pref = findPreference(key);
                     if (pref != null) {
                         pref.setAutoSilenceDuration(newValue);
-                        mEnablePerAlarmMissedRepeatLimitPref.setVisible(newValue != TIMEOUT_NEVER);
-                        mRepeatMissedAlarmPref.setVisible(newValue != TIMEOUT_NEVER);
+
+                        updateMissedAlarmPrefsVisibility(newValue, SettingsDAO.getSnoozeLength(mPrefs));
 
                         if (SettingsDAO.isPerAlarmAutoSilenceDisabled(mPrefs)) {
                             AppExecutors.getDiskIO().execute(() -> {
@@ -724,6 +724,8 @@ public class AlarmSettingsFragment extends ScreenFragment
                     AlarmSnoozeDurationPreference pref = findPreference(key);
                     if (pref != null) {
                         pref.setSnoozeDuration(newValue);
+
+                        updateMissedAlarmPrefsVisibility(SettingsDAO.getAlarmTimeout(mPrefs), newValue);
 
                         if (SettingsDAO.isPerAlarmSnoozeDurationDisabled(mPrefs)) {
                             AppExecutors.getDiskIO().execute(() -> {
@@ -822,6 +824,13 @@ public class AlarmSettingsFragment extends ScreenFragment
                     }
                 }
             });
+    }
+
+    private void updateMissedAlarmPrefsVisibility(int autoSilenceDuration, int snoozeDuration) {
+        boolean isVisible = autoSilenceDuration != TIMEOUT_NEVER && snoozeDuration != ALARM_SNOOZE_DURATION_DISABLED;
+
+        mEnablePerAlarmMissedRepeatLimitPref.setVisible(isVisible);
+        mRepeatMissedAlarmPref.setVisible(isVisible);
     }
 
     private void triggerDisableSettingDialog(String prefKey) {

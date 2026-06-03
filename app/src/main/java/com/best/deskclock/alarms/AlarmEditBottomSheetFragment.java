@@ -711,7 +711,9 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     }
 
     private void bindMissedAlarmRepeatLimit() {
-        if (SettingsDAO.isPerAlarmMissedRepeatLimitDisabled(mPrefs) || mAlarm.autoSilenceDuration == TIMEOUT_NEVER) {
+        if (SettingsDAO.isPerAlarmMissedRepeatLimitDisabled(mPrefs)
+            || mAlarm.autoSilenceDuration == TIMEOUT_NEVER
+            || mAlarm.snoozeDuration == ALARM_SNOOZE_DURATION_DISABLED) {
             mBinding.missedAlarmRepeatLimitLayout.setVisibility(GONE);
             return;
         }
@@ -916,6 +918,8 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             (requestKey, bundle) -> {
                 mAlarm.snoozeDuration = bundle.getInt(AlarmSnoozeDurationDialogFragment.ALARM_SNOOZE_DURATION_VALUE);
                 bindSnoozeDurationValue();
+                bindMissedAlarmRepeatLimit();
+                updateThirdGroup();
             });
 
         childFragmentManager.setFragmentResultListener(AlarmMissedRepeatLimitDialogFragment.REQUEST_KEY, this,
