@@ -144,7 +144,9 @@ public class AnalogClock extends FrameLayout {
         mTime = Calendar.getInstance();
         mDescFormat = ((SimpleDateFormat) DateFormat.getTimeFormat(getContext())).toLocalizedPattern();
 
-        final String accentColor = SettingsDAO.getAccentColor(mPrefs);
+        final String accentColor = ThemeUtils.isNight(getResources()) && !SettingsDAO.isAutoNightAccentColorEnabled(mPrefs)
+            ? SettingsDAO.getNightAccentColor(mPrefs)
+            : SettingsDAO.getAccentColor(mPrefs);
         final int alarmClockColor = SettingsDAO.getAlarmClockColor(mPrefs);
         final int alarmSecondHandColor = SettingsDAO.getAlarmSecondHandColor(mPrefs, getContext());
         final int defaultClockColor = MaterialColors.getColor(getContext(), android.R.attr.textColorPrimary, Color.BLACK);
@@ -337,9 +339,9 @@ public class AnalogClock extends FrameLayout {
      * Helper method to get the accent color to apply to the second hand of the analog clock.
      */
     private int getAccentColor(boolean isAutoNightAccentColorEnabled, String accentColor, String nightAccentColor) {
-        String colorKey = isAutoNightAccentColorEnabled
-            ? accentColor
-            : (ThemeUtils.isNight(getResources()) ? nightAccentColor : accentColor);
+        String colorKey = ThemeUtils.isNight(getResources()) && !isAutoNightAccentColorEnabled
+            ? nightAccentColor
+            : accentColor;
 
         return switch (colorKey) {
             case BLACK_ACCENT_COLOR -> ContextCompat.getColor(getContext(), R.color.blackColorPrimary);

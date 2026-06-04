@@ -252,7 +252,7 @@ public class ThemeUtils {
             return cached;
         }
 
-        List<TextView> found = ThemeUtils.findAllTextViews(itemView);
+        List<TextView> found = findAllTextViews(itemView);
         textViewCache.put(itemView, found);
         return found;
     }
@@ -273,9 +273,9 @@ public class ThemeUtils {
     public static int getAccentStyle(Context context, boolean isAutoNightAccentColorEnabled,
                                      String accentColor, String nightAccentColor) {
 
-        String colorKey = isAutoNightAccentColorEnabled
-            ? accentColor
-            : (ThemeUtils.isNight(context.getResources()) ? nightAccentColor : accentColor);
+        String colorKey = isNight(context.getResources()) && !isAutoNightAccentColorEnabled
+            ? nightAccentColor
+            : accentColor;
 
         return switch (colorKey) {
             case BLACK_ACCENT_COLOR -> R.style.BlackAccentColor;
@@ -310,7 +310,7 @@ public class ThemeUtils {
             baseContext = new ContextThemeWrapper(context, R.style.Theme_DeskClock);
         }
 
-        int style = ThemeUtils.getAccentStyle(
+        int style = getAccentStyle(
             baseContext,
             SettingsDAO.isAutoNightAccentColorEnabled(prefs),
             SettingsDAO.getAccentColor(prefs),
