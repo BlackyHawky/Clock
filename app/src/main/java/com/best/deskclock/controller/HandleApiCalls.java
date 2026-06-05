@@ -14,6 +14,7 @@ import static com.best.deskclock.alarms.alarmselection.AlarmSelectionActivity.EX
 import static com.best.deskclock.alarms.alarmselection.AlarmSelectionActivity.EXTRA_ALARMS;
 import static com.best.deskclock.provider.AlarmInstance.FIRED_STATE;
 import static com.best.deskclock.provider.AlarmInstance.SNOOZE_STATE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TAB_TO_DISPLAY_INTEGER;
 import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_TAB_ALARM;
 import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_TAB_TIMER;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_VISIBLE_TABS;
@@ -439,8 +440,14 @@ public class HandleApiCalls extends Activity {
     private void handleShowAlarms() {
         Events.sendAlarmEvent(R.string.action_show, R.string.label_intent);
 
-        // Open DeskClock positioned on the alarms tab.
-        UiDataModel.getUiDataModel().setSelectedTab(ALARMS);
+        // Open DeskClock positioned in the correct tab.
+        final int tabToDisplay = SettingsDAO.getTabToDisplay(mPrefs);
+        if (tabToDisplay == DEFAULT_TAB_TO_DISPLAY_INTEGER) {
+            UiDataModel.getUiDataModel().setSelectedTab(UiDataModel.getUiDataModel().getSelectedTab());
+        } else {
+            UiDataModel.getUiDataModel().setSelectedTab(UiDataModel.Tab.values()[tabToDisplay]);
+        }
+
         startActivity(new Intent(this, DeskClock.class));
     }
 

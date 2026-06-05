@@ -6,6 +6,7 @@
 
 package com.best.deskclock.uidata;
 
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TAB_TO_DISPLAY_INTEGER;
 import static com.best.deskclock.uidata.UiDataModel.Tab;
 
 import android.content.SharedPreferences;
@@ -30,7 +31,7 @@ final class TabDAO {
      */
     static Tab getSelectedTab(SharedPreferences prefs) {
         int tabIndex = SettingsDAO.getTabToDisplay(prefs);
-        if (tabIndex == -1) {
+        if (tabIndex == DEFAULT_TAB_TO_DISPLAY_INTEGER) {
             final int ordinal = prefs.getInt(KEY_SELECTED_TAB, Tab.CLOCKS.ordinal());
             return Tab.values()[ordinal];
         } else {

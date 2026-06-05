@@ -6,6 +6,7 @@
 
 package com.best.deskclock.uidata;
 
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TAB_TO_DISPLAY_INTEGER;
 import static com.best.deskclock.utils.Utils.enforceMainLooper;
 
 import android.content.Context;
@@ -193,7 +194,7 @@ public final class UiDataModel {
      * @return true if the tab is currently visible in the bottom navigation menu
      */
     public boolean isTabVisible(Tab tab) {
-        return getTabIndex(tab) != -1;
+        return getTabIndex(tab) != DEFAULT_TAB_TO_DISPLAY_INTEGER;
     }
 
     /**

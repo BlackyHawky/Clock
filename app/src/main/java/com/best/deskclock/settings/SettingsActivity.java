@@ -6,6 +6,7 @@
 
 package com.best.deskclock.settings;
 
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TAB_TO_DISPLAY_INTEGER;
 import static com.best.deskclock.settings.PreferencesKeys.*;
 import static com.best.deskclock.utils.NotificationUtils.EXTRA_UPDATE_ALARM_NOTIFICATIONS;
 import static com.best.deskclock.utils.WidgetUtils.EXTRA_UPDATE_WIDGETS;
@@ -545,8 +546,9 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             DataModel.getDataModel().loadTimers();
 
             // Required to update the tab to display.
-            if (SettingsDAO.getTabToDisplay(mPrefs) != -1) {
-                UiDataModel.getUiDataModel().setSelectedTab(UiDataModel.Tab.values()[SettingsDAO.getTabToDisplay(mPrefs)]);
+            final int tabToDisplay = SettingsDAO.getTabToDisplay(mPrefs);
+            if (tabToDisplay != DEFAULT_TAB_TO_DISPLAY_INTEGER) {
+                UiDataModel.getUiDataModel().setSelectedTab(UiDataModel.Tab.values()[tabToDisplay]);
             }
 
             // Required to start/stop the foreground notification
