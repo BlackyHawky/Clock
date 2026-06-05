@@ -8,6 +8,7 @@ package com.best.deskclock.uidata;
 
 import static android.view.View.LAYOUT_DIRECTION_RTL;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TAB_TO_DISPLAY_INTEGER;
 import static com.best.deskclock.uidata.UiDataModel.Tab;
 
 import android.content.Context;
@@ -217,7 +218,7 @@ final class TabModel {
         if (oldSelectedTab != tab) {
             mSelectedTab = tab;
             int tabIndex = SettingsDAO.getTabToDisplay(mPrefs);
-            if (tabIndex == -1) {
+            if (tabIndex == DEFAULT_TAB_TO_DISPLAY_INTEGER) {
                 TabDAO.setSelectedTab(mPrefs, tab);
             }
 

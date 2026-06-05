@@ -150,7 +150,6 @@
             android:showWhenLocked="true"
             android:taskAffinity=""
             android:exported="true"
-            android:permission="com.android.alarm.permission.SET_ALARM"
             android:theme="@android:style/Theme.NoDisplay">
             <intent-filter>
                 <action android:name="android.intent.action.DISMISS_ALARM" />
