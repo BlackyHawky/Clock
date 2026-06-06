@@ -850,6 +850,14 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return {@code true} if the position of the timer buttons are inverted. {@code false} otherwise.
+     */
+    public static boolean areTimerButtonPositionsInverted(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_timer_display.xml
+        return prefs.getBoolean(KEY_INVERT_TIMER_BUTTON_POSITIONS, DEFAULT_INVERT_TIMER_BUTTON_POSITIONS);
+    }
+
+    /**
      * @return {@code true} if the timer background must be transparent. {@code false} otherwise.
      */
     public static boolean isTimerBackgroundTransparent(SharedPreferences prefs) {

@@ -10,7 +10,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="5dp"
+    android:paddingBottom="12dp"
     tools:background="@drawable/bg_card_for_preview"
     tools:layout_marginHorizontal="10dp"
     tools:layout_marginBottom="2dp">
@@ -61,81 +61,92 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="TouchTargetSizeCheck" />
 
-    <com.best.deskclock.uicomponents.AutoSizingTextView
-        android:id="@+id/timer_time_text"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/timer_controls_container"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="10dp"
-        android:gravity="center_vertical"
-        android:includeFontPadding="false"
-        android:fontFeatureSettings="tnum"
-        android:textSize="40sp"
-        android:visibility="visible"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/reset_or_edit_button"
-        app:layout_constraintTop_toBottomOf="@+id/timer_label"
-        app:layout_constraintBottom_toTopOf="@+id/linear_progress_indicator"
-        tools:text="01:23" />
-
-    <com.google.android.material.button.MaterialButton
-        style="?attr/materialIconButtonFilledStyle"
-        android:id="@+id/reset_or_edit_button"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginEnd="8dp"
-        android:contentDescription="@string/reset"
-        app:iconTint="?android:attr/colorBackground"
-        app:iconGravity="textStart"
-        app:materialSizeOverlay="@style/SizeOverlay.Material3Expressive.Button.IconButton.Small"
-        app:layout_constraintEnd_toStartOf="@+id/timer_add_time_button"
-        app:layout_constraintTop_toTopOf="@+id/play_pause_button"
-        app:layout_constraintBottom_toBottomOf="@+id/play_pause_button"
-        tools:icon="@drawable/ic_reset"
-        tools:ignore="TouchTargetSizeCheck" />
-
-    <com.google.android.material.button.MaterialButton
-        style="?attr/materialButtonOutlinedStyle"
-        android:id="@+id/timer_add_time_button"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginEnd="8dp"
-        android:paddingStart="2dp"
-        android:paddingEnd="2dp"
-        android:maxLines="1"
-        android:textColor="?attr/colorOnSurfaceVariant"
-        android:textSize="16sp"
-        app:strokeColor="?attr/colorOnSurfaceVariant"
-        app:materialSizeOverlay="@style/SizeOverlay.Material3Expressive.Button.Small"
-        app:layout_constraintEnd_toStartOf="@+id/play_pause_button"
-        app:layout_constraintTop_toTopOf="@+id/play_pause_button"
-        app:layout_constraintBottom_toBottomOf="@+id/play_pause_button"
-        tools:text="+ 1:00"
-        tools:textStyle="bold" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/play_pause_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="12dp"
         android:layout_marginTop="10dp"
-        android:contentDescription="@string/timer_start"
-        android:scaleType="centerInside"
-        app:materialSizeOverlay="@style/SizeOverlay.Material3Expressive.Button.Small"
-        app:iconTint="?android:attr/colorBackground"
-        app:iconGravity="textStart"
-        app:iconPadding="0dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timer_label"
-        app:layout_constraintBottom_toTopOf="@+id/linear_progress_indicator"
-        tools:icon="@drawable/ic_fab_play" />
+        app:layout_constraintBottom_toTopOf="@+id/linear_progress_indicator">
+
+        <com.best.deskclock.uicomponents.AutoSizingTextView
+            android:id="@+id/timer_time_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="10dp"
+            android:includeFontPadding="false"
+            android:fontFeatureSettings="tnum"
+            android:textSize="40sp"
+            android:textAlignment="viewStart"
+            android:textDirection="locale"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/reset_or_edit_button"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="01:23" />
+
+        <com.google.android.material.button.MaterialButton
+            style="?attr/materialIconButtonFilledStyle"
+            android:id="@+id/reset_or_edit_button"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@string/reset"
+            app:iconTint="?android:attr/colorBackground"
+            app:iconGravity="textStart"
+            app:materialSizeOverlay="@style/SizeOverlay.Material3Expressive.Button.IconButton.Small"
+            app:layout_constraintEnd_toStartOf="@+id/timer_add_time_button"
+            app:layout_constraintTop_toTopOf="@+id/play_pause_button"
+            app:layout_constraintBottom_toBottomOf="@+id/play_pause_button"
+            tools:icon="@drawable/ic_reset"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <com.google.android.material.button.MaterialButton
+            style="?attr/materialButtonOutlinedStyle"
+            android:id="@+id/timer_add_time_button"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="8dp"
+            android:paddingStart="2dp"
+            android:paddingEnd="2dp"
+            android:maxLines="1"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:textSize="16sp"
+            android:textDirection="locale"
+            app:strokeColor="?attr/colorOnSurfaceVariant"
+            app:materialSizeOverlay="@style/SizeOverlay.Material3Expressive.Button.Small"
+            app:layout_constraintEnd_toStartOf="@+id/play_pause_button"
+            app:layout_constraintTop_toTopOf="@+id/play_pause_button"
+            app:layout_constraintBottom_toBottomOf="@+id/play_pause_button"
+            tools:text="+ 1:00"
+            tools:textStyle="bold" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/play_pause_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:contentDescription="@string/timer_start"
+            android:scaleType="centerInside"
+            app:materialSizeOverlay="@style/SizeOverlay.Material3Expressive.Button.Small"
+            app:iconTint="?android:attr/colorBackground"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:icon="@drawable/ic_fab_play" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/linear_progress_indicator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:layout_marginBottom="4dp"
         android:layout_marginHorizontal="12dp"
         android:max="1000"
         app:trackThickness="6dp"
@@ -143,7 +154,7 @@
         app:trackStopIndicatorSize="0dp"
         app:indicatorColor="?attr/colorSecondary"
         app:indicatorDirectionLinear="endToStart"
-        app:layout_constraintTop_toBottomOf="@+id/play_pause_button"
+        app:layout_constraintTop_toBottomOf="@+id/timer_controls_container"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:progress="650" />
 
