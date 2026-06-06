@@ -32,6 +32,7 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
     implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
     SwitchPreferenceCompat mDisplayCompactTimersPref;
+    SwitchPreferenceCompat mInvertTimerButtonPositionsPref;
     SwitchPreferenceCompat mTransparentBackgroundPref;
     SwitchPreferenceCompat mDisplayTimerStateIndicatorPref;
     SwitchPreferenceCompat mDisplayRingtoneTitlePref;
@@ -121,6 +122,7 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
         addPreferencesFromResource(R.xml.settings_timer_display);
 
         mDisplayCompactTimersPref = findPreference(KEY_DISPLAY_COMPACT_TIMERS);
+        mInvertTimerButtonPositionsPref = findPreference(KEY_INVERT_TIMER_BUTTON_POSITIONS);
         mTransparentBackgroundPref = findPreference(KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER);
         mDisplayTimerStateIndicatorPref = findPreference(KEY_DISPLAY_TIMER_STATE_INDICATOR);
         mDisplayRingtoneTitlePref = findPreference(KEY_DISPLAY_TIMER_RINGTONE_TITLE);
@@ -168,7 +170,7 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
     @Override
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
-            case KEY_DISPLAY_COMPACT_TIMERS -> Utils.setVibrationTime(requireContext(), 50);
+            case KEY_DISPLAY_COMPACT_TIMERS, KEY_INVERT_TIMER_BUTTON_POSITIONS -> Utils.setVibrationTime(requireContext(), 50);
 
             case KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER -> {
                 boolean isNotBackgroundTransparent = !(boolean) newValue;
@@ -280,6 +282,8 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
         mDisplayCompactTimersPref.setVisible(!ThemeUtils.isTablet() && !SettingsDAO.isSingleTimerModeEnabled(mPrefs));
         mDisplayCompactTimersPref.setOnPreferenceChangeListener(this);
 
+        mInvertTimerButtonPositionsPref.setOnPreferenceChangeListener(this);
+
         mTransparentBackgroundPref.setOnPreferenceChangeListener(this);
 
         mDisplayTimerStateIndicatorPref.setOnPreferenceChangeListener(this);
@@ -332,6 +336,7 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
 
     private void nullifyAllPrefs() {
         mDisplayCompactTimersPref = null;
+        mInvertTimerButtonPositionsPref = null;
         mTransparentBackgroundPref = null;
         mDisplayTimerStateIndicatorPref = null;
         mDisplayRingtoneTitlePref = null;

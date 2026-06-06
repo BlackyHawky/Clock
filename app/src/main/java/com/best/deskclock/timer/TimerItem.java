@@ -98,6 +98,16 @@ public class TimerItem extends ConstraintLayout {
         mBinding = TimerItemBinding.bind(this);
 
         mPrefs = getDefaultSharedPreferences(getContext());
+
+        if (SettingsDAO.areTimerButtonPositionsInverted(mPrefs)) {
+            mBinding.timerControlsContainer.setLayoutDirection(ThemeUtils.isRTL(getContext())
+                ? LAYOUT_DIRECTION_LTR
+                : LAYOUT_DIRECTION_RTL
+            );
+        } else {
+            mBinding.timerControlsContainer.setLayoutDirection(LAYOUT_DIRECTION_LOCALE);
+        }
+
         String generalFontPath = SettingsDAO.getGeneralFont(mPrefs);
         mRegularTypeface = ThemeUtils.loadFont(generalFontPath);
         mBoldTypeface = ThemeUtils.boldTypeface(generalFontPath);
