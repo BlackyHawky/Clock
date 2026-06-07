@@ -15,6 +15,7 @@ import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SORT_TIMER_MANUALLY;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMER_CREATION_VIEW_SPINNER_STYLE;
+import static com.best.deskclock.settings.PreferencesKeys.*;
 import static com.best.deskclock.uidata.UiDataModel.Tab.TIMERS;
 
 import android.animation.Animator;
@@ -79,18 +80,35 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     private static final String KEY_TIMER_SETUP_STATE = "timer_setup_input";
     private static final String KEY_TIMER_ID_TO_DELETE = "timer_id_to_delete";
     private int mTimerIdToDelete = -1;
+    private boolean mAreSettingsChanged = false;
+    private final SharedPreferences.OnSharedPreferenceChangeListener mPrefListener = (prefs, key) -> {
+        if (key != null) {
+            switch (key) {
+                case KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING, KEY_TIMER_DURATION_FONT, KEY_DISPLAY_COMPACT_TIMERS,
+                     KEY_INVERT_TIMER_BUTTON_POSITIONS, KEY_SINGLE_TIMER_MODE, KEY_SORT_TIMER, KEY_DISPLAY_TIMER_STATE_INDICATOR,
+                     KEY_RUNNING_TIMER_INDICATOR_COLOR, KEY_PAUSED_TIMER_INDICATOR_COLOR, KEY_EXPIRED_TIMER_INDICATOR_COLOR,
+                     KEY_MISSED_TIMER_INDICATOR_COLOR -> {
+
+                    mAreSettingsChanged = true;
+
+                    if (isResumed()) {
+                        applySettingsChanges();
+                    }
+                }
+            }
+        }
+    };
 
     private TimerFragmentBinding mBinding;
 
     private SharedPreferences mPrefs;
-    private boolean mIsSingleTimerMode;
+    private final TimerSettings mSettings = new TimerSettings();
     private boolean mIsManualSorting;
     private DisplayMetrics mDisplayMetrics;
-
     private Serializable mTimerSetupState;
-
     private TimerAdapter mAdapter;
     private ViewGroup mCurrentView;
+    private TimerItemTouchHelper mTouchHelperCallback;
     private ItemTouchHelper mItemTouchHelper;
     private AlertDialog mActiveDialog = null;
     private boolean mIsTablet;
@@ -140,8 +158,6 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         super.onCreate(savedState);
 
         mPrefs = getDefaultSharedPreferences(requireContext());
-        mIsSingleTimerMode = SettingsDAO.isSingleTimerModeEnabled(mPrefs);
-        mIsManualSorting = SettingsDAO.getTimerSortingPreference(mPrefs).equals(DEFAULT_SORT_TIMER_MANUALLY);
         mDisplayMetrics = getResources().getDisplayMetrics();
         mIsTablet = ThemeUtils.isTablet();
         mIsLandscape = ThemeUtils.isLandscape();
@@ -232,16 +248,18 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         super.onViewCreated(view, savedInstanceState);
 
         String generalFontPath = SettingsDAO.getGeneralFont(mPrefs);
-        String timerFontPath = SettingsDAO.getTimerDurationFont(mPrefs);
         Typeface regularTypeface = ThemeUtils.loadFont(generalFontPath);
         Typeface boldTypeface = ThemeUtils.boldTypeface(generalFontPath);
-        Typeface timerTimeTypeface = ThemeUtils.boldTypeface(timerFontPath);
+
+        refreshSettings();
+
+        mBinding.timerSetupView.updateTimerSetupTimeFont(mSettings.timerTimeTypeface);
 
         mBinding.timerVolumeBanner.volumeWarningText.setTypeface(boldTypeface);
         mBinding.timerVolumeBanner.volumeWarningButton.setTypeface(boldTypeface);
 
         mAdapter = new TimerAdapter(requireContext(), mPrefs, new TimerClickHandler(this), mIsTablet, mIsLandscape,
-            regularTypeface, boldTypeface, timerTimeTypeface);
+            regularTypeface, boldTypeface, mSettings);
 
         mBinding.timerRecyclerView.setAdapter(mAdapter);
         mAdapter.loadTimersAsync();
@@ -249,10 +267,11 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
 
         DataModel.getDataModel().addTimerListener(mTimerWatcher);
 
-        TimerItemTouchHelper callback =
-            new TimerItemTouchHelper(mAdapter, mBinding.timerRecyclerView, mIsTablet, mIsLandscape, mIsManualSorting);
-        mItemTouchHelper = new ItemTouchHelper(callback);
+        mTouchHelperCallback = new TimerItemTouchHelper(mAdapter, mBinding.timerRecyclerView, mIsTablet, mIsLandscape, mIsManualSorting);
+        mItemTouchHelper = new ItemTouchHelper(mTouchHelperCallback);
         handleItemTouchHelper();
+
+        mPrefs.registerOnSharedPreferenceChangeListener(mPrefListener);
     }
 
     @Override
@@ -270,6 +289,10 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     @Override
     public void onResume() {
         super.onResume();
+
+        if (mAreSettingsChanged) {
+            applySettingsChanges();
+        }
 
         // Examine the intent of the parent activity to determine which view to display.
         final Intent intent = requireActivity().getIntent();
@@ -351,9 +374,13 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         DataModel.getDataModel().removeTimerListener(mAdapter);
         DataModel.getDataModel().removeTimerListener(mTimerWatcher);
 
+        mPrefs.unregisterOnSharedPreferenceChangeListener(mPrefListener);
+
         mBinding.timerSpinnerSetupView.setOnChangeListener(null);
 
         mBinding.timerRecyclerView.setAdapter(null);
+
+        mAreSettingsChanged = false;
 
         mBinding = null;
 
@@ -420,7 +447,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     @Override
     public void onFabClick() {
         if (mCurrentView == mBinding.timerContentView) {
-            if (mIsSingleTimerMode) {
+            if (mSettings.isSingleTimerMode) {
                 List<Timer> timers = DataModel.getDataModel().getTimers();
 
                 if (!DataModel.getDataModel().getTimers().isEmpty()) {
@@ -436,7 +463,8 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
                 // Create the new timer.
                 final long timerLength = getTimeInMillis();
                 String defaultTimeToAddToTimer = String.valueOf(SettingsDAO.getDefaultTimeToAddToTimer(mPrefs));
-                final Timer timer = DataModel.getDataModel().addTimer(timerLength, "", defaultTimeToAddToTimer, mIsSingleTimerMode);
+                final Timer timer = DataModel.getDataModel().addTimer(
+                    timerLength, "", defaultTimeToAddToTimer, mSettings.isSingleTimerMode);
                 Events.sendTimerEvent(R.string.action_create, R.string.label_deskclock);
 
                 // Start the new timer.
@@ -610,7 +638,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
 
     private void updateFab(@NonNull ImageView fab) {
         if (mCurrentView == mBinding.timerContentView) {
-            if (mIsSingleTimerMode) {
+            if (mSettings.isSingleTimerMode) {
                 fab.setImageResource(R.drawable.ic_delete);
                 fab.setContentDescription(getString(R.string.delete));
             } else {
@@ -685,6 +713,41 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         if (mAdapter != null) {
             mAdapter.stopAllUpdating();
         }
+    }
+
+    private void refreshSettings() {
+        String timerFontPath = SettingsDAO.getTimerDurationFont(mPrefs);
+        mSettings.timerTimeTypeface = ThemeUtils.boldTypeface(timerFontPath);
+
+        mSettings.isSingleTimerMode = SettingsDAO.isSingleTimerModeEnabled(mPrefs);
+        mSettings.areTimerButtonPositionsInverted = SettingsDAO.areTimerButtonPositionsInverted(mPrefs);
+        mSettings.isIndicatorStateDisplay = SettingsDAO.isTimerStateIndicatorDisplayed(mPrefs);
+
+        mSettings.colorPaused = SettingsDAO.getPausedTimerIndicatorColor(mPrefs);
+        mSettings.colorRunning = SettingsDAO.getRunningTimerIndicatorColor(mPrefs);
+        mSettings.colorExpired = SettingsDAO.getExpiredTimerIndicatorColor(mPrefs);
+        mSettings.colorMissed = SettingsDAO.getMissedTimerIndicatorColor(mPrefs);
+
+        mSettings.timerSorting = SettingsDAO.getTimerSortingPreference(mPrefs);
+        mIsManualSorting = mSettings.timerSorting.equals(DEFAULT_SORT_TIMER_MANUALLY);
+    }
+
+    private void applySettingsChanges() {
+        refreshSettings();
+
+        if (mAdapter != null) {
+            mAdapter.updateSettings(mSettings);
+        }
+
+        if (mBinding != null) {
+            mBinding.timerSetupView.updateTimerSetupTimeFont(mSettings.timerTimeTypeface);
+        }
+
+        if (mTouchHelperCallback != null) {
+            mTouchHelperCallback.setManualSorting(mIsManualSorting);
+        }
+
+        mAreSettingsChanged = false;
     }
 
     public void confirmAndDeleteTimer(Timer timer) {

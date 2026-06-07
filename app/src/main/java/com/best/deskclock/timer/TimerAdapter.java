@@ -55,7 +55,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private final SharedPreferences mPrefs;
     private final Typeface mRegularTypeface;
     private final Typeface mBoldTypeface;
-    private final Typeface mTimerTimeTypeface;
+    private TimerSettings mSettings;
     private RecyclerView mRecyclerView;
     private final boolean mIsTablet;
 
@@ -65,7 +65,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private final Drawable.ConstantState mBgEnd;    // Bottom (Portrait) or Right (Landscape)
 
     public TimerAdapter(Context context, SharedPreferences sharedPreferences, TimerClickHandler timerClickHandler, boolean isTablet,
-                        boolean isLandscape, Typeface regularTypeface, Typeface boldTypeface, Typeface timerTimeTypeface) {
+                        boolean isLandscape, Typeface regularTypeface, Typeface boldTypeface, TimerSettings settings) {
 
         mContext = context;
         mPrefs = sharedPreferences;
@@ -73,7 +73,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         mIsTablet = isTablet;
         mRegularTypeface = regularTypeface;
         mBoldTypeface = boldTypeface;
-        mTimerTimeTypeface = timerTimeTypeface;
+        mSettings = settings;
 
         mBgStandard = ThemeUtils.cardBackground(context).getConstantState();
 
@@ -171,14 +171,15 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             view = inflater.inflate(R.layout.timer_item_compact, parent, false);
         }
 
-        return new TimerViewHolder(view, this, mTimerClickHandler, viewType, mRegularTypeface, mBoldTypeface,
-            mTimerTimeTypeface);
+        return new TimerViewHolder(view, this, mTimerClickHandler, viewType, mRegularTypeface, mBoldTypeface);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder itemViewHolder, int position) {
         TimerViewHolder holder = (TimerViewHolder) itemViewHolder;
         Timer timer = getTimer(position);
+
+        holder.applySettings(mSettings);
 
         boolean hasBeenAnimated = mAnimatedTimerIds.get(timer.getId(), false);
         boolean isFirstAppearance = !hasBeenAnimated;
@@ -307,6 +308,14 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         return RecyclerView.NO_POSITION;
     }
 
+    public void updateSettings(TimerSettings settings) {
+        mSettings = settings;
+
+        refreshTimersCache();
+
+        notifyDataSetChanged();
+    }
+
     /**
      * Iterates through all active {@link TimerViewHolder} instances and updates their state.
      * <p>
@@ -358,9 +367,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     private List<Timer> buildSortedTimerList(List<Timer> sourceTimers) {
-        String timerSortingPreference = SettingsDAO.getTimerSortingPreference(mPrefs);
-
-        if (!timerSortingPreference.equals(DEFAULT_SORT_TIMER_MANUALLY)) {
+        if (!mSettings.timerSorting.equals(DEFAULT_SORT_TIMER_MANUALLY)) {
             Collections.sort(sourceTimers, Timer.createTimerStateComparator(mContext));
             return sourceTimers;
         } else {

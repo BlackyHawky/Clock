@@ -4,10 +4,8 @@ package com.best.deskclock.timer;
 
 import static android.R.attr.state_activated;
 import static android.R.attr.state_pressed;
-import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -20,7 +18,6 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.best.deskclock.R;
-import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.databinding.TimerItemCompactBinding;
 import com.best.deskclock.utils.SdkUtils;
@@ -36,11 +33,10 @@ public class TimerItemCompact extends ConstraintLayout {
 
     private TimerItemCompactBinding mBinding;
 
-    SharedPreferences mPrefs;
     Typeface mRegularTypeface;
     Typeface mBoldTypeface;
-    Typeface mTimerTimeTypeface;
-    private boolean mIsIndicatorStateDisplay;
+
+    private boolean mIsIndicatorStateDisplayed;
 
     private Drawable mIconPlay;
     private Drawable mIconPause;
@@ -92,23 +88,6 @@ public class TimerItemCompact extends ConstraintLayout {
 
         mBinding = TimerItemCompactBinding.bind(this);
 
-        mPrefs = getDefaultSharedPreferences(getContext());
-
-        if (SettingsDAO.areTimerButtonPositionsInverted(mPrefs)) {
-            mBinding.timerControlsContainer.setLayoutDirection(ThemeUtils.isRTL(getContext())
-                ? LAYOUT_DIRECTION_LTR
-                : LAYOUT_DIRECTION_RTL
-            );
-        } else {
-            mBinding.timerControlsContainer.setLayoutDirection(LAYOUT_DIRECTION_LOCALE);
-        }
-
-
-        String generalFontPath = SettingsDAO.getGeneralFont(mPrefs);
-        mRegularTypeface = ThemeUtils.loadFont(generalFontPath);
-        mBoldTypeface = ThemeUtils.boldTypeface(generalFontPath);
-        mTimerTimeTypeface = ThemeUtils.loadFont(SettingsDAO.getTimerDurationFont(mPrefs));
-        mIsIndicatorStateDisplay = SettingsDAO.isTimerStateIndicatorDisplayed(mPrefs);
         mTimerTextController = new TimerTextController(mBinding.timerTimeText);
 
         final Drawable drawable = ThemeUtils.circleDrawable();
@@ -121,11 +100,6 @@ public class TimerItemCompact extends ConstraintLayout {
         mIconEdit = AppCompatResources.getDrawable(getContext(), R.drawable.ic_edit);
         mIconReset = AppCompatResources.getDrawable(getContext(), R.drawable.ic_reset);
 
-        mColorPaused = SettingsDAO.getPausedTimerIndicatorColor(mPrefs);
-        mColorRunning = SettingsDAO.getRunningTimerIndicatorColor(mPrefs);
-        mColorExpired = SettingsDAO.getExpiredTimerIndicatorColor(mPrefs);
-        mColorMissed = SettingsDAO.getMissedTimerIndicatorColor(mPrefs);
-
         final int colorAccent = MaterialColors.getColor(getContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
         final int textColorPrimary = mBinding.timerTimeText.getCurrentTextColor();
         final ColorStateList timeTextColor = new ColorStateList(
@@ -134,22 +108,37 @@ public class TimerItemCompact extends ConstraintLayout {
         mBinding.timerTimeText.setTextColor(timeTextColor);
     }
 
-    /**
-     * Injects preloaded typefaces into the view to optimize performance.
-     * This avoids expensive disk I/O operations when the view is inflated or recycled.
-     *
-     * @param regular   The standard typeface used for regular text (e.g., empty labels).
-     * @param bold      The bold typeface used for active labels and buttons.
-     * @param timerTime The specific typeface used for the main timer countdown display.
-     */
-    public void setCachedFonts(Typeface regular, Typeface bold, Typeface timerTime) {
+    public void setGeneralFonts(Typeface regular, Typeface bold) {
         mRegularTypeface = regular;
         mBoldTypeface = bold;
-        mTimerTimeTypeface = timerTime;
 
-        mBinding.timerTimeText.setTypeface(mTimerTimeTypeface);
+        mBinding.timerAddTimeButton.setTypeface(bold);
+    }
 
-        mBinding.timerAddTimeButton.setTypeface(mBoldTypeface);
+    public void setTimerTimeFont(Typeface timerTime) {
+        mBinding.timerTimeText.setTypeface(timerTime);
+    }
+
+    public void setButtonPosition(boolean areTimerButtonPositionsInverted) {
+        if (areTimerButtonPositionsInverted) {
+            mBinding.timerControlsContainer.setLayoutDirection(ThemeUtils.isRTL(getContext())
+                ? LAYOUT_DIRECTION_LTR
+                : LAYOUT_DIRECTION_RTL
+            );
+        } else {
+            mBinding.timerControlsContainer.setLayoutDirection(LAYOUT_DIRECTION_LOCALE);
+        }
+    }
+
+    public void setIndicatorStateDisplay(boolean isIndicatorStateDisplayed) {
+        mIsIndicatorStateDisplayed = isIndicatorStateDisplayed;
+    }
+
+    public void setIndicatorColors(int colorPaused, int colorRunning, int colorExpired, int colorMissed) {
+        mColorPaused = colorPaused;
+        mColorRunning = colorRunning;
+        mColorExpired = colorExpired;
+        mColorMissed = colorMissed;
     }
 
     /**
@@ -274,37 +263,43 @@ public class TimerItemCompact extends ConstraintLayout {
                 case RESET -> {
                     mBinding.resetOrEditButton.setIcon(mIconEdit);
                     mBinding.playPauseButton.setIcon(mIconPlay);
-                    mBinding.timerIndicatorState.setVisibility(GONE);
                 }
 
                 case PAUSED -> {
                     mBinding.resetOrEditButton.setIcon(mIconReset);
                     mBinding.playPauseButton.setIcon(mIconPlay);
-                    updateIndicatorState(mColorPaused);
                 }
 
                 case RUNNING -> {
                     mBinding.resetOrEditButton.setIcon(mIconReset);
                     mBinding.playPauseButton.setIcon(mIconPause);
-                    updateIndicatorState(mColorRunning);
                 }
 
                 case EXPIRED, MISSED -> {
                     mBinding.resetOrEditButton.setVisibility(INVISIBLE);
                     mBinding.playPauseButton.setIcon(mIconStop);
-                    updateIndicatorState(mLastState == Timer.State.EXPIRED ? mColorExpired : mColorMissed);
                 }
             }
         }
 
+        updateIndicator(timer.getState());
+
         updateTimeDisplay(timer, animate);
     }
 
-    private void updateIndicatorState(int color) {
-        if (!mIsIndicatorStateDisplay) {
+    private void updateIndicator(Timer.State state) {
+        if (!mIsIndicatorStateDisplayed || state == Timer.State.RESET) {
             mBinding.timerIndicatorState.setVisibility(GONE);
             return;
         }
+
+        int color = switch (state) {
+            case PAUSED -> mColorPaused;
+            case RUNNING -> mColorRunning;
+            case EXPIRED -> mColorExpired;
+            case MISSED -> mColorMissed;
+            default -> Color.TRANSPARENT;
+        };
 
         mGradientDrawable.setColor(color);
         mBinding.timerIndicatorState.setVisibility(VISIBLE);

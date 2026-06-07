@@ -6,6 +6,7 @@
 
 package com.best.deskclock.settings;
 
+import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
@@ -65,6 +66,12 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
     private Typeface mBoldTypeface;
     private Typeface mTimerTimeTypeface;
     private DisplayMetrics mDisplayMetrics;
+    private boolean mAreTimerButtonPositionsInverted;
+    private boolean mIsIndicatorStateDisplayed;
+    private int mColorPaused;
+    private int mColorRunning;
+    private int mColorExpired;
+    private int mColorMissed;
     private boolean mIsPortrait;
     private boolean mIsTablet;
     private int mMargin10;
@@ -83,6 +90,12 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
         mBinding = ExpiredTimersActivityBinding.inflate(getLayoutInflater());
 
         mPrefs = getDefaultSharedPreferences(this);
+        mAreTimerButtonPositionsInverted = SettingsDAO.areTimerButtonPositionsInverted(mPrefs);
+        mIsIndicatorStateDisplayed = SettingsDAO.isTimerStateIndicatorDisplayed(mPrefs);
+        mColorPaused = SettingsDAO.getPausedTimerIndicatorColor(mPrefs);
+        mColorRunning = SettingsDAO.getRunningTimerIndicatorColor(mPrefs);
+        mColorExpired = SettingsDAO.getExpiredTimerIndicatorColor(mPrefs);
+        mColorMissed = SettingsDAO.getMissedTimerIndicatorColor(mPrefs);
         String generalFontPath = SettingsDAO.getGeneralFont(mPrefs);
         mRegularTypeface = ThemeUtils.loadFont(generalFontPath);
         mBoldTypeface = ThemeUtils.boldTypeface(generalFontPath);
@@ -124,7 +137,7 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
         }
 
         if (SettingsDAO.isTimerBackgroundTransparent(mPrefs)) {
-            mBinding.timerBackgroundImage.setVisibility(View.GONE);
+            mBinding.timerBackgroundImage.setVisibility(GONE);
             getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         } else {
             // Apply a background image and a blur effect.
@@ -144,14 +157,14 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
                         }
                     } else {
                         LogUtils.e("Bitmap null for path: " + imagePath);
-                        mBinding.timerBackgroundImage.setVisibility(View.GONE);
+                        mBinding.timerBackgroundImage.setVisibility(GONE);
                     }
                 } else {
                     LogUtils.e("Image file not found: " + imagePath);
-                    mBinding.timerBackgroundImage.setVisibility(View.GONE);
+                    mBinding.timerBackgroundImage.setVisibility(GONE);
                 }
             } else {
-                mBinding.timerBackgroundImage.setVisibility(View.GONE);
+                mBinding.timerBackgroundImage.setVisibility(GONE);
             }
         }
 
@@ -276,8 +289,12 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
                 getLayoutInflater(), mBinding.expiredTimersList, false);
 
             view = compactBinding.getRoot();
+            ((TimerItemCompact) view).setButtonPosition(mAreTimerButtonPositionsInverted);
+            ((TimerItemCompact) view).setGeneralFonts(mRegularTypeface, mBoldTypeface);
+            ((TimerItemCompact) view).setTimerTimeFont(mTimerTimeTypeface);
+            ((TimerItemCompact) view).setIndicatorStateDisplay(mIsIndicatorStateDisplayed);
+            ((TimerItemCompact) view).setIndicatorColors(mColorPaused, mColorRunning, mColorExpired, mColorMissed);
             ((TimerItemCompact) view).bindTimer(timer, false);
-            ((TimerItemCompact) view).setCachedFonts(mRegularTypeface, mBoldTypeface, mTimerTimeTypeface);
 
             labelView = compactBinding.timerLabel;
             deleteButton = compactBinding.deleteTimerButton;
@@ -293,8 +310,12 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
             TimerItemBinding normalBinding = TimerItemBinding.inflate(getLayoutInflater(), mBinding.expiredTimersList, false);
 
             view = normalBinding.getRoot();
+            ((TimerItem) view).setButtonPosition(mAreTimerButtonPositionsInverted);
+            ((TimerItem) view).setGeneralFonts(mRegularTypeface, mBoldTypeface);
+            ((TimerItem) view).setTimerTimeFont(mTimerTimeTypeface);
+            ((TimerItem) view).setIndicatorStateDisplay(mIsIndicatorStateDisplayed);
+            ((TimerItem) view).setIndicatorColors(mColorPaused, mColorRunning, mColorExpired, mColorMissed);
             ((TimerItem) view).bindTimer(timer, false);
-            ((TimerItem) view).setCachedFonts(mRegularTypeface, mBoldTypeface, mTimerTimeTypeface);
 
             labelView = normalBinding.timerLabel;
             deleteButton = normalBinding.deleteTimerButton;
@@ -319,8 +340,8 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
         labelView.setVisibility(VISIBLE);
 
         // Add logic to hide the "Delete" and "Reset" buttons
-        deleteButton.setVisibility(View.GONE);
-        resetButton.setVisibility(View.GONE);
+        deleteButton.setVisibility(GONE);
+        resetButton.setVisibility(GONE);
 
         // Add logic to the "Stop" button
         stopButton.setOnClickListener(v -> finishActivity());
