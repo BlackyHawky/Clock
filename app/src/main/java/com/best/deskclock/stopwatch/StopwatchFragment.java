@@ -17,6 +17,11 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.SW_ACTION_LAP
 import static com.best.deskclock.settings.PreferencesDefaultValues.SW_ACTION_RESET;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SW_ACTION_SHARE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SW_ACTION_START_PAUSE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_FONT;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_VOLUME_DOWN_ACTION;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_VOLUME_UP_ACTION;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS;
 import static com.best.deskclock.uidata.UiDataModel.Tab.STOPWATCH;
 
 import android.annotation.SuppressLint;
@@ -108,22 +113,36 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
     }
 
     private SharedPreferences mPrefs;
+    private Typeface mStopwatchTypeface;
     private String mVolumeUpAction;
     private String mVolumeUpActionAfterLongPress;
     private String mVolumeDownAction;
     private String mVolumeDownActionAfterLongPress;
     private boolean mIsVolumeUpLongPressed;
     private boolean mIsVolumeDownLongPressed;
+    private boolean mAreSettingsChanged = false;
+    private final SharedPreferences.OnSharedPreferenceChangeListener mPrefListener = (prefs, key) -> {
+        if (key != null) {
+            switch (key) {
+                case KEY_SW_FONT, KEY_SW_VOLUME_UP_ACTION, KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS, KEY_SW_VOLUME_DOWN_ACTION,
+                     KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS -> {
+
+                    mAreSettingsChanged = true;
+
+                    if (isResumed()) {
+                        applySettingsChanges();
+                    }
+                }
+            }
+        }
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         mPrefs = getDefaultSharedPreferences(requireContext());
-        mVolumeUpAction = SettingsDAO.getVolumeUpActionForStopwatch(mPrefs);
-        mVolumeUpActionAfterLongPress = SettingsDAO.getVolumeUpActionAfterLongPressForStopwatch(mPrefs);
-        mVolumeDownAction = SettingsDAO.getVolumeDownActionForStopwatch(mPrefs);
-        mVolumeDownActionAfterLongPress = SettingsDAO.getVolumeDownActionAfterLongPressForStopwatch(mPrefs);
+        refreshSettings();
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -163,13 +182,12 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
         super.onViewCreated(view, savedInstanceState);
 
         String generalFontPath = SettingsDAO.getGeneralFont(mPrefs);
-        String stopwatchFontPath = SettingsDAO.getStopwatchFont(mPrefs);
         Typeface regularTypeface = ThemeUtils.loadFont(generalFontPath);
         Typeface boldTypeface = ThemeUtils.boldTypeface(generalFontPath);
-        Typeface stopwatchTypeface = ThemeUtils.loadFont(stopwatchFontPath);
 
-        mBinding.stopwatchTimeLayout.stopwatchTimeText.setTypeface(stopwatchTypeface);
-        mBinding.stopwatchTimeLayout.stopwatchHundredthsText.setTypeface(stopwatchTypeface);
+        refreshSettings();
+
+        applyStopwatchFont();
 
         // Handle header text font
         TextView[] titles = {
@@ -192,11 +210,17 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
 
         updateTime();
         showOrHideLaps(getStopwatch().isReset());
+
+        mPrefs.registerOnSharedPreferenceChangeListener(mPrefListener);
     }
 
     @Override
     public void onResume() {
         super.onResume();
+
+        if (mAreSettingsChanged) {
+            applySettingsChanges();
+        }
 
         final Intent intent = requireActivity().getIntent();
         if (intent != null) {
@@ -241,9 +265,13 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
 
         DataModel.getDataModel().removeStopwatchListener(mStopwatchWatcher);
 
+        mPrefs.unregisterOnSharedPreferenceChangeListener(mPrefListener);
+
         mBinding.lapsList.setAdapter(null);
 
         mStopwatchTextController = null;
+
+        mAreSettingsChanged = false;
 
         mBinding = null;
         mLapsLayoutManager = null;
@@ -359,6 +387,28 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
     @Override
     public void stopRunnable() {
         stopUpdatingTime();
+    }
+
+    private void refreshSettings() {
+        String stopwatchFontPath = SettingsDAO.getStopwatchFont(mPrefs);
+        mStopwatchTypeface = ThemeUtils.loadFont(stopwatchFontPath);
+
+        mVolumeUpAction = SettingsDAO.getVolumeUpActionForStopwatch(mPrefs);
+        mVolumeUpActionAfterLongPress = SettingsDAO.getVolumeUpActionAfterLongPressForStopwatch(mPrefs);
+        mVolumeDownAction = SettingsDAO.getVolumeDownActionForStopwatch(mPrefs);
+        mVolumeDownActionAfterLongPress = SettingsDAO.getVolumeDownActionAfterLongPressForStopwatch(mPrefs);
+    }
+
+    private void applyStopwatchFont() {
+        mBinding.stopwatchTimeLayout.stopwatchTimeText.setTypeface(mStopwatchTypeface);
+        mBinding.stopwatchTimeLayout.stopwatchHundredthsText.setTypeface(mStopwatchTypeface);
+    }
+
+    private void applySettingsChanges() {
+        refreshSettings();
+        applyStopwatchFont();
+
+        mAreSettingsChanged = false;
     }
 
     /**

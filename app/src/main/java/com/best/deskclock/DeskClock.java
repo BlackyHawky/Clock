@@ -174,9 +174,6 @@ public class DeskClock extends BaseActivity implements FabContainer {
         KEY_AUTO_HOME_CLOCK, KEY_HOME_TIME_ZONE,
         // Alarm
         KEY_WEEK_START, KEY_ALARM_FONT, KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING,
-        // Stopwatch
-        KEY_SW_FONT, KEY_SW_VOLUME_UP_ACTION, KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS, KEY_SW_VOLUME_DOWN_ACTION,
-        KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS,
         // Permission
         KEY_ESSENTIAL_PERMISSIONS_GRANTED
     );
@@ -475,8 +472,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
                      KEY_CLOCK_DIAL, KEY_CLOCK_DIAL_MATERIAL, KEY_ANALOG_CLOCK_SIZE, KEY_DISPLAY_CLOCK_SECONDS, KEY_CLOCK_SECOND_HAND,
                      KEY_DISPLAY_TEXT_UPPERCASE, KEY_DIGITAL_CLOCK_FONT, KEY_DIGITAL_CLOCK_FONT_SIZE, KEY_SORT_CITIES,
                      KEY_ENABLE_CITY_NOTE, KEY_AUTO_HOME_CLOCK, KEY_HOME_TIME_ZONE, KEY_WEEK_START, KEY_ALARM_FONT,
-                     KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING, KEY_SW_FONT, KEY_SW_VOLUME_UP_ACTION, KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS,
-                     KEY_SW_VOLUME_DOWN_ACTION, KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS, KEY_ESSENTIAL_PERMISSIONS_GRANTED ->
+                     KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING, KEY_ESSENTIAL_PERMISSIONS_GRANTED ->
                     mShouldRecreate = true;
 
             }
@@ -526,12 +522,6 @@ public class DeskClock extends BaseActivity implements FabContainer {
             case KEY_WEEK_START -> SettingsDAO.getWeekdayOrder(mPrefs);
             case KEY_ALARM_FONT -> SettingsDAO.getAlarmFont(mPrefs);
             case KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING -> SettingsDAO.isLowAlarmVolumeWarningDisplayed(mPrefs);
-            // StopWatch
-            case KEY_SW_FONT -> SettingsDAO.getStopwatchFont(mPrefs);
-            case KEY_SW_VOLUME_UP_ACTION -> SettingsDAO.getVolumeUpActionForStopwatch(mPrefs);
-            case KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS -> SettingsDAO.getVolumeUpActionAfterLongPressForStopwatch(mPrefs);
-            case KEY_SW_VOLUME_DOWN_ACTION -> SettingsDAO.getVolumeDownActionForStopwatch(mPrefs);
-            case KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS -> SettingsDAO.getVolumeDownActionAfterLongPressForStopwatch(mPrefs);
             // Permission
             case KEY_ESSENTIAL_PERMISSIONS_GRANTED -> mPrefs.getBoolean(key, false);
 
