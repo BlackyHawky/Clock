@@ -89,15 +89,12 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
 
         final SharedPreferences prefs = getDefaultSharedPreferences(getContext());
         final Typeface generalTypeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
-        final Typeface timerTypeface = ThemeUtils.loadFont(SettingsDAO.getTimerDurationFont(prefs));
         final DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
 
         final boolean isCardBackgroundDisplayed = SettingsDAO.isCardBackgroundDisplayed(prefs);
         final boolean isCardBorderDisplayed = SettingsDAO.isCardBorderDisplayed(prefs);
         final String darkMode = SettingsDAO.getDarkMode(prefs);
         final boolean isNight = ThemeUtils.isNight(getResources());
-
-        mBinding.timerSetupTimeLayout.timerSetupTime.setTypeface(timerTypeface);
 
         mDigitButton = new MaterialButton[]{
             mBinding.timerSetupDigitsLayout.timerSetupDigit0,
@@ -393,4 +390,11 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
             updateDeleteAndDivider();
         }
     }
+
+    public void updateTimerSetupTimeFont(Typeface timerTimeFont) {
+        if (mBinding != null) {
+            mBinding.timerSetupTimeLayout.timerSetupTime.setTypeface(timerTimeFont);
+        }
+    }
+
 }

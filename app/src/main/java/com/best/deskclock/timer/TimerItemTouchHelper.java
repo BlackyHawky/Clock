@@ -30,15 +30,15 @@ public class TimerItemTouchHelper extends ItemTouchHelper.Callback {
     private int dragTo = RecyclerView.NO_POSITION;
     private final boolean mIsTablet;
     private final boolean mIsLandscape;
-    private final boolean mIsManualSort;
+    private boolean mIsManualSorting;
 
     public TimerItemTouchHelper(ItemTouchHelperContract contract, RecyclerView recyclerView, boolean isTablet, boolean isLandscape,
-                                boolean isManualSort) {
+                                boolean isManualSorting) {
 
         mContract = contract;
         mIsTablet = isTablet;
         mIsLandscape = isLandscape;
-        mIsManualSort = isManualSort;
+        mIsManualSorting = isManualSorting;
 
         // Prevent the timer from dragging if the "Add minute" button is long-pressed
         recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
@@ -106,7 +106,7 @@ public class TimerItemTouchHelper extends ItemTouchHelper.Callback {
 
     @Override
     public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-        if (mIsTouchOnDragBlockingView || !mIsManualSort) {
+        if (mIsTouchOnDragBlockingView || !mIsManualSorting) {
             return 0;
         }
 
@@ -182,6 +182,10 @@ public class TimerItemTouchHelper extends ItemTouchHelper.Callback {
 
         dragFrom = RecyclerView.NO_POSITION;
         dragTo = RecyclerView.NO_POSITION;
+    }
+
+    public void setManualSorting(boolean isManualSorting) {
+        mIsManualSorting = isManualSorting;
     }
 
 }

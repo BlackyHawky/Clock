@@ -7,11 +7,10 @@
 package com.best.deskclock.timer;
 
 import static android.view.View.GONE;
+import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
-import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.view.View;
@@ -21,7 +20,6 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.data.DataModel;
-import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.databinding.TimerItemBinding;
 import com.best.deskclock.databinding.TimerItemCompactBinding;
@@ -30,34 +28,32 @@ import com.google.android.material.button.MaterialButton;
 
 public class TimerViewHolder extends RecyclerView.ViewHolder {
 
-    private final Boolean mIsSingleTimerMode;
     private int mTimerId;
+    private TimerSettings mSettings;
     private final TimerAdapter mAdapter;
     public TimerItem mTimerItem;
     public TimerItemCompact mTimerItemCompact;
+    private final ImageButton mDeleteButton;
     private final MaterialButton mResetOrEditButton;
     public final MaterialButton addTimeButton;
     public final View circleContainer;
     public final TextView timerTimeText;
 
     public TimerViewHolder(View view, TimerAdapter timerAdapter, TimerClickHandler timerClickHandler, int viewType, Typeface regular,
-                           Typeface bold, Typeface timerTime) {
+                           Typeface bold) {
 
         super(view);
 
         Context context = view.getContext();
-        SharedPreferences prefs = getDefaultSharedPreferences(context);
-        mIsSingleTimerMode = SettingsDAO.isSingleTimerModeEnabled(prefs);
         mAdapter = timerAdapter;
 
         final TextView timerLabel;
         final MaterialButton playPauseButton;
-        final ImageButton deleteButton;
 
         switch (viewType) {
             case TimerAdapter.SINGLE_TIMER, TimerAdapter.MULTIPLE_TIMERS -> {
                 mTimerItem = (TimerItem) view;
-                mTimerItem.setCachedFonts(regular, bold, timerTime);
+                mTimerItem.setGeneralFonts(regular, bold);
 
                 TimerItemBinding binding = TimerItemBinding.bind(view);
 
@@ -67,11 +63,11 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
                 circleContainer = binding.circleContainer;
                 timerTimeText = binding.timerTimeText;
                 playPauseButton = binding.playPauseButton;
-                deleteButton = binding.deleteTimerButton;
+                mDeleteButton = binding.deleteTimerButton;
             }
             case TimerAdapter.MULTIPLE_TIMERS_COMPACT -> {
                 mTimerItemCompact = (TimerItemCompact) view;
-                mTimerItemCompact.setCachedFonts(regular, bold, timerTime);
+                mTimerItemCompact.setGeneralFonts(regular, bold);
 
                 TimerItemCompactBinding compactBinding = TimerItemCompactBinding.bind(view);
 
@@ -80,7 +76,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
                 addTimeButton = compactBinding.timerAddTimeButton;
                 timerTimeText = compactBinding.timerTimeText;
                 playPauseButton = compactBinding.playPauseButton;
-                deleteButton = compactBinding.deleteTimerButton;
+                mDeleteButton = compactBinding.deleteTimerButton;
                 circleContainer = null;
             }
             default -> throw new IllegalArgumentException("Unknown ViewType: " + viewType);
@@ -125,14 +121,25 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
 
         playPauseButton.setOnClickListener(playPauseListener);
 
-        if (mIsSingleTimerMode) {
-            deleteButton.setVisibility(GONE);
-        } else {
-            deleteButton.setVisibility(VISIBLE);
-            deleteButton.setOnClickListener(v -> {
-                Utils.setVibrationTime(context, 10);
-                timerClickHandler.onDeleteTimerClicked(getTimer());
-            });
+        mDeleteButton.setOnClickListener(v -> {
+            Utils.setVibrationTime(context, 10);
+            timerClickHandler.onDeleteTimerClicked(getTimer());
+        });
+    }
+
+    public void applySettings(TimerSettings settings) {
+        mSettings = settings;
+
+        if (mTimerItem != null) {
+            mTimerItem.setTimerTimeFont(settings.timerTimeTypeface);
+            mTimerItem.setButtonPosition(settings.areTimerButtonPositionsInverted);
+            mTimerItem.setIndicatorColors(settings.colorPaused, settings.colorRunning, settings.colorExpired, settings.colorMissed);
+            mTimerItem.setIndicatorStateDisplay(settings.isIndicatorStateDisplay);
+        } else if (mTimerItemCompact != null) {
+            mTimerItemCompact.setTimerTimeFont(settings.timerTimeTypeface);
+            mTimerItemCompact.setButtonPosition(settings.areTimerButtonPositionsInverted);
+            mTimerItemCompact.setIndicatorColors(settings.colorPaused, settings.colorRunning, settings.colorExpired, settings.colorMissed);
+            mTimerItemCompact.setIndicatorStateDisplay(settings.isIndicatorStateDisplay);
         }
     }
 
@@ -147,8 +154,17 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
                 mTimerItemCompact.bindTimer(timer, animate);
             }
 
-            if (mIsSingleTimerMode) {
+            if (mSettings.isSingleTimerMode) {
+                mDeleteButton.setVisibility(GONE);
                 mResetOrEditButton.setVisibility(GONE);
+            } else {
+                mDeleteButton.setVisibility(VISIBLE);
+
+                if (timer.getState() == Timer.State.EXPIRED || timer.getState() == Timer.State.MISSED) {
+                    mResetOrEditButton.setVisibility(INVISIBLE);
+                } else {
+                    mResetOrEditButton.setVisibility(VISIBLE);
+                }
             }
         }
 
