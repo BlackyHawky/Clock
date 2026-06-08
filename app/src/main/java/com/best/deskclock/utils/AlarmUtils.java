@@ -9,7 +9,6 @@ package com.best.deskclock.utils;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
@@ -164,7 +163,7 @@ public class AlarmUtils {
     /**
      * Clock views can call this to refresh their alarm to the next upcoming value.
      */
-    public static void refreshAlarm(View clock, boolean isScreensaver) {
+    public static void refreshAlarm(View clock, boolean isScreensaver, boolean isUppercase) {
         final Context context = clock.getContext();
         final TextView nextAlarmIconView = clock.findViewById(R.id.nextAlarmIcon);
         final TextView nextAlarmView = clock.findViewById(R.id.nextAlarm);
@@ -191,11 +190,6 @@ public class AlarmUtils {
             nextAlarmView.setVisibility(View.GONE);
             nextAlarmIconView.setVisibility(View.GONE);
         } else {
-            SharedPreferences prefs = getDefaultSharedPreferences(context);
-            boolean isUppercase = isScreensaver
-                ? SettingsDAO.isScreensaverTextUppercaseDisplayed(prefs)
-                : SettingsDAO.isTextUppercaseDisplayed(prefs);
-
             String description = context.getString(R.string.next_alarm_description, alarmFormattedTime);
             nextAlarmView.setAllCaps(isUppercase);
             nextAlarmView.setText(alarmFormattedTime);

@@ -87,27 +87,10 @@ public class ClockUtils {
      * to a factor between 0.5× and 1.2× of the base size.
      *
      * @param analogClock the analog clock view whose size should be adjusted
-     * @param prefs       the SharedPreferences containing user-defined size settings
-     * @param isClockTab  {@code true} if the clock is displayed in the Clock tab; {@code false} otherwise
+     * @param sizePercent the analog clock size defined in the settings
      */
-    public static void adjustAnalogClockSize(View analogClock, SharedPreferences prefs, boolean isAlarm,
-                                             boolean isClockTab, boolean isScreensaver) {
-
-        float factor = 1.0f;
-
-        if (isAlarm) {
-            int sizePercent = SettingsDAO.getAlarmAnalogClockSize(prefs);
-
-            factor = computeFactor(sizePercent);
-        } else if (isClockTab) {
-            int sizePercent = SettingsDAO.getAnalogClockSize(prefs);
-
-            factor = computeFactor(sizePercent);
-        } else if (isScreensaver) {
-            int sizePercent = SettingsDAO.getScreensaverAnalogClockSize(prefs);
-
-            factor = computeFactor(sizePercent);
-        }
+    public static void adjustAnalogClockSize(View analogClock, int sizePercent) {
+        float factor = computeFactor(sizePercent);
 
         int screenHeight = analogClock.getContext().getResources().getDisplayMetrics().heightPixels;
         int baseSize = ThemeUtils.isLandscape()
@@ -118,6 +101,14 @@ public class ClockUtils {
 
         analogClock.getLayoutParams().height = finalSize;
         analogClock.getLayoutParams().width = finalSize;
+
+        analogClock.requestLayout();
+    }
+
+    public static void refreshAnalogClockStyle(AnalogClock analogClock) {
+        if (analogClock != null) {
+            analogClock.updateClockStyle();
+        }
     }
 
     /**
@@ -275,9 +266,7 @@ public class ClockUtils {
     /**
      * Clock views can call this to refresh their date.
      **/
-    public static void updateDate(String dateSkeleton, String descriptionSkeleton, View clock) {
-        final Context context = clock.getContext();
-        final SharedPreferences prefs = getDefaultSharedPreferences(context);
+    public static void updateDate(String dateSkeleton, String descriptionSkeleton, View clock, boolean isUppercase) {
         final TextView dateDisplay = clock.findViewById(R.id.date);
 
         if (dateDisplay == null) {
@@ -291,7 +280,7 @@ public class ClockUtils {
         final Date now = new Date();
         String formattedDate = new SimpleDateFormat(datePattern, locale).format(now);
 
-        dateDisplay.setAllCaps(SettingsDAO.isTextUppercaseDisplayed(prefs));
+        dateDisplay.setAllCaps(isUppercase);
         dateDisplay.setText(FormattedTextUtils.capitalizeFirstLetter(formattedDate, locale));
         dateDisplay.setVisibility(View.VISIBLE);
         dateDisplay.setContentDescription(new SimpleDateFormat(descriptionPattern, locale).format(now));

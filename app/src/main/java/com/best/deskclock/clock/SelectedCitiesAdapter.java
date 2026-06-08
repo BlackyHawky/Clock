@@ -48,13 +48,10 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     private final Context mContext;
     private final SharedPreferences mPrefs;
+    private ClockSettings mSettings;
     private final List<City> mCities;
-    private final boolean mShowHomeClock;
     private final Typeface mRegularTypeface;
     private final Typeface mBoldTypeface;
-    private final Typeface mDigitalClockTypeface;
-    private final boolean mIsCityNoteEnabled;
-    private final boolean mIsDigitalClock;
     private final boolean mHasBlackAccentColor;
 
     private final Drawable.ConstantState mBgSingle;
@@ -62,20 +59,16 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private final Drawable.ConstantState mBgMiddle;
     private final Drawable.ConstantState mBgBottom;
 
-    public SelectedCitiesAdapter(Context context, SharedPreferences prefs, List<City> cities, boolean showHomeClock,
-                                 boolean isCityNoteEnabled, boolean isDigitalClock, boolean hasBlackAccentColor,
-                                 Typeface regularTypeface, Typeface boldTypeface, Typeface digitalClockTypeface) {
+    public SelectedCitiesAdapter(Context context, SharedPreferences prefs, List<City> cities, boolean hasBlackAccentColor,
+                                 Typeface regularTypeface, Typeface boldTypeface, ClockSettings clockSettings) {
 
         mContext = context;
         mPrefs = prefs;
         mCities = new ArrayList<>(cities);
-        mShowHomeClock = showHomeClock;
-        mIsCityNoteEnabled = isCityNoteEnabled;
-        mIsDigitalClock = isDigitalClock;
         mHasBlackAccentColor = hasBlackAccentColor;
         mRegularTypeface = regularTypeface;
         mBoldTypeface = boldTypeface;
-        mDigitalClockTypeface = digitalClockTypeface;
+        mSettings = clockSettings;
 
         mBgSingle = ThemeUtils.expressiveCardBackground(context, 0, 1).getConstantState();
         // position=0, totalCount=3 -> Top
@@ -96,8 +89,7 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         WorldClockItemBinding binding = WorldClockItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
 
-        return new CityViewHolder(binding, this, mRegularTypeface, mBoldTypeface, mDigitalClockTypeface, mIsCityNoteEnabled,
-            mIsDigitalClock, mHasBlackAccentColor);
+        return new CityViewHolder(binding, this, mRegularTypeface, mBoldTypeface, mHasBlackAccentColor);
     }
 
     @Override
@@ -111,12 +103,14 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        ((CityViewHolder) holder).applySettings(mSettings);
+
         final City city;
 
-        if (mShowHomeClock && position == 0) {
+        if (mSettings.showHomeClock && position == 0) {
             city = getHomeCity();
         } else {
-            final int positionAdjuster = mShowHomeClock ? 1 : 0;
+            final int positionAdjuster = mSettings.showHomeClock ? 1 : 0;
             city = getCities().get(position - positionAdjuster);
         }
         ((CityViewHolder) holder).bind(city);
@@ -124,14 +118,14 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public int getItemCount() {
-        final int homeClockCount = mShowHomeClock ? 1 : 0;
+        final int homeClockCount = mSettings.showHomeClock ? 1 : 0;
         final int worldClockCount = getCities().size();
         return homeClockCount + worldClockCount;
     }
 
     @Override
     public void onRowMoved(int fromPosition, int toPosition) {
-        int offset = mShowHomeClock ? 1 : 0;
+        int offset = mSettings.showHomeClock ? 1 : 0;
 
         if (fromPosition < toPosition) {
             for (int i = fromPosition; i < toPosition; i++) {
@@ -187,14 +181,14 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
     private int getCityPositionById(String cityId) {
-        if (mShowHomeClock) {
+        if (mSettings.showHomeClock) {
             City homeCity = getHomeCity();
             if (homeCity != null && homeCity.getId().equals(cityId)) {
                 return 0;
             }
         }
 
-        final int positionAdjuster = mShowHomeClock ? 1 : 0;
+        final int positionAdjuster = mSettings.showHomeClock ? 1 : 0;
 
         for (int i = 0; i < mCities.size(); i++) {
             if (mCities.get(i).getId().equals(cityId)) {
@@ -203,6 +197,11 @@ public class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         }
 
         return RecyclerView.NO_POSITION;
+    }
+
+    public void updateSettings(ClockSettings settings) {
+        mSettings = settings;
+        notifyDataSetChanged();
     }
 
     public void setCityNote(String cityId, String note) {

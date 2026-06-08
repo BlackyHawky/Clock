@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.text.format.DateFormat;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
@@ -52,6 +53,10 @@ public class AnalogClock extends FrameLayout {
 
     private SharedPreferences mPrefs;
     private DataModel.ClockStyle mClockStyle;
+    private String mAnalogDialPref;
+    private String mAnalogDialMaterialPref;
+    private String mAnalogSecondHandPref;
+    private ImageView mDial;
     private ImageView mHourHand;
     private ImageView mMinuteHand;
     private ImageView mSecondHand;
@@ -144,6 +149,25 @@ public class AnalogClock extends FrameLayout {
         mTime = Calendar.getInstance();
         mDescFormat = ((SimpleDateFormat) DateFormat.getTimeFormat(getContext())).toLocalizedPattern();
 
+        mDial = new ImageView(getContext());
+        mHourHand = new ImageView(getContext());
+        mMinuteHand = new ImageView(getContext());
+        mSecondHand = new ImageView(getContext());
+
+        addView(mDial);
+        addView(mHourHand);
+        addView(mMinuteHand);
+        addView(mSecondHand);
+
+        updateClockStyle();
+    }
+
+    public void updateClockStyle() {
+        mClockStyle = getClockStyleForContext();
+        mAnalogDialPref = getAnalogDialPreference();
+        mAnalogDialMaterialPref = getMaterialAnalogDialPreference();
+        mAnalogSecondHandPref = getAnalogSecondHandPreference();
+
         final String accentColor = ThemeUtils.isNight(getResources()) && !SettingsDAO.isAutoNightAccentColorEnabled(mPrefs)
             ? SettingsDAO.getNightAccentColor(mPrefs)
             : SettingsDAO.getAccentColor(mPrefs);
@@ -151,22 +175,71 @@ public class AnalogClock extends FrameLayout {
         final int alarmSecondHandColor = SettingsDAO.getAlarmSecondHandColor(mPrefs, getContext());
         final int defaultClockColor = MaterialColors.getColor(getContext(), android.R.attr.textColorPrimary, Color.BLACK);
 
-        // Create clock dial
-        final ImageView dial = createClockComponent(accentColor, DIAL, alarmClockColor, defaultClockColor);
+        applyClockComponentStyle(mDial, accentColor, DIAL, alarmClockColor, defaultClockColor);
+        applyClockComponentStyle(mHourHand, accentColor, HOUR_HAND, alarmClockColor, defaultClockColor);
+        applyClockComponentStyle(mMinuteHand, accentColor, MINUTE_HAND, alarmClockColor, defaultClockColor);
+        applySecondHandStyle(mSecondHand, accentColor, alarmSecondHandColor);
+    }
 
-        // Create hour hand
-        mHourHand = createClockComponent(accentColor, HOUR_HAND, alarmClockColor, defaultClockColor);
+    /**
+     * Helper method to apply clock components (dial, hour hand and minute hand).
+     */
+    private void applyClockComponentStyle(ImageView component, String accentColor, String componentType, int alarmClockColor,
+                                          int defaultClockColor) {
 
-        // Create minute hand
-        mMinuteHand = createClockComponent(accentColor, MINUTE_HAND, alarmClockColor, defaultClockColor);
+        if (mClockStyle == DataModel.ClockStyle.ANALOG_MATERIAL) {
+            int drawableResId = getMaterialAnalogDrawableResId(componentType);
+            Drawable drawable = AppCompatResources.getDrawable(getContext(), drawableResId);
 
-        // Create second hand
-        mSecondHand = createSecondHand(accentColor, alarmSecondHandColor);
+            if (drawable != null) {
+                drawable.mutate();
+                component.setImageDrawable(drawable);
+                component.setColorFilter(getMaterialAnalogClockColor(accentColor, componentType));
+            }
+        } else {
+            int drawableResId = getAnalogDrawableResId(componentType);
+            Drawable drawable = AppCompatResources.getDrawable(getContext(), drawableResId);
 
-        addView(dial);
-        addView(mHourHand);
-        addView(mMinuteHand);
-        addView(mSecondHand);
+            if (drawable != null) {
+                drawable.mutate();
+                component.setImageDrawable(drawable);
+                component.setColorFilter(isAlarmContext() ? alarmClockColor : defaultClockColor);
+            }
+        }
+    }
+
+    /**
+     * Helper method to apply the second hand style with a specific color logic.
+     */
+    private void applySecondHandStyle(ImageView secondHand, String accentColor, int alarmSecondHandColor) {
+        if (mClockStyle == DataModel.ClockStyle.ANALOG_MATERIAL) {
+            Drawable drawable = AppCompatResources.getDrawable(getContext(), R.drawable.analog_clock_second_circle);
+
+            if (drawable != null) {
+                drawable.mutate();
+                secondHand.setImageDrawable(drawable);
+                secondHand.setColorFilter(getMaterialAnalogClockColor(accentColor, SECOND_HAND));
+            }
+        } else {
+            final boolean isDefaultSecondHand = mAnalogSecondHandPref.equals(DEFAULT_CLOCK_SECOND_HAND);
+            final boolean isLollipopSecondHand = mAnalogSecondHandPref.equals(CLOCK_SECOND_HAND_LOLLIPOP);
+            Drawable drawable = AppCompatResources.getDrawable(getContext(), isDefaultSecondHand
+                ? R.drawable.analog_clock_second
+                : isLollipopSecondHand
+                  ? R.drawable.analog_clock_second_lollipop
+                  : R.drawable.analog_clock_second_vintage);
+
+            if (drawable != null) {
+                drawable.mutate();
+                secondHand.setImageDrawable(drawable);
+                boolean isAutoNightAccentColorEnabled = SettingsDAO.isAutoNightAccentColorEnabled(mPrefs);
+                String nightAccentColor = SettingsDAO.getNightAccentColor(mPrefs);
+
+                secondHand.setColorFilter(isAlarmContext()
+                    ? alarmSecondHandColor
+                    : getAccentColor(isAutoNightAccentColorEnabled, accentColor, nightAccentColor));
+            }
+        }
     }
 
     /**
@@ -186,71 +259,11 @@ public class AnalogClock extends FrameLayout {
     }
 
     /**
-     * Helper method to create clock components (dial, hour hand and minute hand).
-     */
-    private ImageView createClockComponent(String accentColor, String componentType, int alarmClockColor, int defaultClockColor) {
-
-        ImageView component = new ImageView(getContext());
-
-        // Handle clock style and component color configuration
-        if (mClockStyle == DataModel.ClockStyle.ANALOG_MATERIAL) {
-            int drawableResId = getMaterialAnalogDrawableResId(componentType);
-            component.setImageDrawable(AppCompatResources.getDrawable(getContext(), drawableResId));
-            component.setColorFilter(getMaterialAnalogClockColor(accentColor, componentType));
-        } else {
-            int drawableResId = getAnalogDrawableResId(componentType);
-            component.setImageDrawable(AppCompatResources.getDrawable(getContext(), drawableResId));
-            component.setColorFilter(isAlarmContext() ? alarmClockColor : defaultClockColor);
-        }
-
-        // Must call mutate on these instances, otherwise the drawables will blur, because they're
-        // sharing their size characteristics with the (smaller) world cities analog clocks.
-        component.getDrawable().mutate();
-
-        return component;
-    }
-
-    /**
-     * Helper method to create the second hand with a specific color logic.
-     */
-    private ImageView createSecondHand(String accentColor, int alarmSecondHandColor) {
-        ImageView secondHand = new ImageView(getContext());
-
-        if (mClockStyle == DataModel.ClockStyle.ANALOG_MATERIAL) {
-            secondHand.setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.analog_clock_second_circle));
-            secondHand.setColorFilter(getMaterialAnalogClockColor(accentColor, SECOND_HAND));
-        } else {
-            final String analogSecondHandPref = getAnalogSecondHandPreference();
-            final boolean isDefaultSecondHand = analogSecondHandPref.equals(DEFAULT_CLOCK_SECOND_HAND);
-            final boolean isLollipopSecondHand = analogSecondHandPref.equals(CLOCK_SECOND_HAND_LOLLIPOP);
-
-            secondHand.setImageDrawable(AppCompatResources.getDrawable(getContext(), isDefaultSecondHand
-                ? R.drawable.analog_clock_second
-                : isLollipopSecondHand
-                ? R.drawable.analog_clock_second_lollipop
-                : R.drawable.analog_clock_second_vintage));
-
-            boolean isAutoNightAccentColorEnabled = SettingsDAO.isAutoNightAccentColorEnabled(mPrefs);
-            String nightAccentColor = SettingsDAO.getNightAccentColor(mPrefs);
-
-            secondHand.setColorFilter(isAlarmContext()
-                ? alarmSecondHandColor
-                : getAccentColor(isAutoNightAccentColorEnabled, accentColor, nightAccentColor));
-        }
-
-        // Must call mutate on these instances, otherwise the drawables will blur, because they're
-        // sharing their size characteristics with the (smaller) world cities analog clocks.
-        secondHand.getDrawable().mutate();
-
-        return secondHand;
-    }
-
-    /**
      * Helper method to get the drawable resource ID for material analog components.
      */
     private int getMaterialAnalogDrawableResId(String componentType) {
         return switch (componentType) {
-            case DIAL -> getMaterialAnalogDialPreference().equals(DEFAULT_CLOCK_DIAL_MATERIAL)
+            case DIAL -> mAnalogDialMaterialPref.equals(DEFAULT_CLOCK_DIAL_MATERIAL)
                 ? R.drawable.analog_clock_dial_sun
                 : R.drawable.analog_clock_dial_flower;
             case HOUR_HAND -> R.drawable.analog_clock_hour_rounded;
@@ -278,9 +291,8 @@ public class AnalogClock extends FrameLayout {
      * Helper method to get the drawable resource ID for analog components (non-material).
      */
     private int getAnalogDrawableResId(String componentType) {
-        final String analogDialPref = getAnalogDialPreference();
-        final boolean isDefaultStyle = analogDialPref.equals(DEFAULT_CLOCK_DIAL);
-        final boolean isRomanStyle = analogDialPref.equals(CLOCK_DIAL_WITH_ROMAN_NUMBERS);
+        final boolean isDefaultStyle = mAnalogDialPref.equals(DEFAULT_CLOCK_DIAL);
+        final boolean isRomanStyle = mAnalogDialPref.equals(CLOCK_DIAL_WITH_ROMAN_NUMBERS);
 
         return switch (componentType) {
             case DIAL -> isDefaultStyle

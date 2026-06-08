@@ -86,7 +86,6 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 import java.util.Map;
-import java.util.TimeZone;
 
 /**
  * The main activity of the application which displays 4 different tabs contains alarms, world
@@ -168,10 +167,6 @@ public class DeskClock extends BaseActivity implements FabContainer {
     private static final List<String> SUPPORTED_PREF_KEYS = List.of(
         // Interface
         KEY_TAB_TITLE_VISIBILITY, KEY_TAB_INDICATOR, KEY_TAB_TO_DISPLAY, KEY_VIBRATIONS, KEY_KEEP_SCREEN_ON,
-        // Clock
-        KEY_CLOCK_STYLE, KEY_CLOCK_DIAL, KEY_CLOCK_DIAL_MATERIAL, KEY_ANALOG_CLOCK_SIZE, KEY_DISPLAY_CLOCK_SECONDS, KEY_CLOCK_SECOND_HAND,
-        KEY_DISPLAY_TEXT_UPPERCASE, KEY_DIGITAL_CLOCK_FONT, KEY_DIGITAL_CLOCK_FONT_SIZE, KEY_SORT_CITIES, KEY_ENABLE_CITY_NOTE,
-        KEY_AUTO_HOME_CLOCK, KEY_HOME_TIME_ZONE,
         // Permission
         KEY_ESSENTIAL_PERMISSIONS_GRANTED
     );
@@ -466,11 +461,8 @@ public class DeskClock extends BaseActivity implements FabContainer {
             cachedValues.put(key, newValue);
 
             switch (key) {
-                case KEY_TAB_TITLE_VISIBILITY, KEY_TAB_INDICATOR, KEY_TAB_TO_DISPLAY, KEY_VIBRATIONS, KEY_KEEP_SCREEN_ON, KEY_CLOCK_STYLE,
-                     KEY_CLOCK_DIAL, KEY_CLOCK_DIAL_MATERIAL, KEY_ANALOG_CLOCK_SIZE, KEY_DISPLAY_CLOCK_SECONDS, KEY_CLOCK_SECOND_HAND,
-                     KEY_DISPLAY_TEXT_UPPERCASE, KEY_DIGITAL_CLOCK_FONT, KEY_DIGITAL_CLOCK_FONT_SIZE, KEY_SORT_CITIES,
-                     KEY_ENABLE_CITY_NOTE, KEY_AUTO_HOME_CLOCK, KEY_HOME_TIME_ZONE, KEY_ESSENTIAL_PERMISSIONS_GRANTED ->
-                    mShouldRecreate = true;
+                case KEY_TAB_TITLE_VISIBILITY, KEY_TAB_INDICATOR, KEY_TAB_TO_DISPLAY, KEY_VIBRATIONS, KEY_KEEP_SCREEN_ON,
+                     KEY_ESSENTIAL_PERMISSIONS_GRANTED -> mShouldRecreate = true;
 
             }
         };
@@ -501,20 +493,6 @@ public class DeskClock extends BaseActivity implements FabContainer {
             case KEY_TAB_TO_DISPLAY -> SettingsDAO.getTabToDisplay(mPrefs);
             case KEY_VIBRATIONS -> SettingsDAO.isVibrationsEnabled(mPrefs);
             case KEY_KEEP_SCREEN_ON -> SettingsDAO.shouldScreenRemainOn(mPrefs);
-            // Clock
-            case KEY_CLOCK_STYLE -> SettingsDAO.getClockStyle(mPrefs);
-            case KEY_CLOCK_DIAL -> SettingsDAO.getClockDial(mPrefs);
-            case KEY_CLOCK_DIAL_MATERIAL -> SettingsDAO.getClockDialMaterial(mPrefs);
-            case KEY_ANALOG_CLOCK_SIZE -> SettingsDAO.getAnalogClockSize(mPrefs);
-            case KEY_DISPLAY_CLOCK_SECONDS -> SettingsDAO.areClockSecondsDisplayed(mPrefs);
-            case KEY_CLOCK_SECOND_HAND -> SettingsDAO.getClockSecondHand(mPrefs);
-            case KEY_DISPLAY_TEXT_UPPERCASE -> SettingsDAO.isTextUppercaseDisplayed(mPrefs);
-            case KEY_DIGITAL_CLOCK_FONT -> SettingsDAO.getDigitalClockFont(mPrefs);
-            case KEY_DIGITAL_CLOCK_FONT_SIZE -> SettingsDAO.getDigitalClockFontSize(mPrefs);
-            case KEY_SORT_CITIES -> SettingsDAO.getCitySorting(mPrefs);
-            case KEY_ENABLE_CITY_NOTE -> SettingsDAO.isCityNoteEnabled(mPrefs);
-            case KEY_AUTO_HOME_CLOCK -> SettingsDAO.getAutoShowHomeClock(mPrefs);
-            case KEY_HOME_TIME_ZONE -> SettingsDAO.getHomeTimeZone(this, mPrefs, TimeZone.getDefault());
             // Permission
             case KEY_ESSENTIAL_PERMISSIONS_GRANTED -> mPrefs.getBoolean(key, false);
 

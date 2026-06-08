@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.City;
+import com.best.deskclock.data.DataModel;
 import com.best.deskclock.databinding.WorldClockItemBinding;
 import com.best.deskclock.dialogfragment.LabelDialogFragment;
 import com.best.deskclock.utils.ClockUtils;
@@ -35,13 +36,12 @@ import java.util.TimeZone;
 public class CityViewHolder extends RecyclerView.ViewHolder {
 
     private final WorldClockItemBinding mBinding;
+    private ClockSettings mSettings;
     private final Context mContext;
     private final SelectedCitiesAdapter mAdapter;
-    private final boolean mIsCityNoteEnabled;
-    private final boolean mIsDigitalClock;
+    private boolean mIsDigitalClock;
 
-    public CityViewHolder(WorldClockItemBinding binding, SelectedCitiesAdapter adapter, Typeface regularTypeface,
-                          Typeface boldTypeface, Typeface digitalClockTypeface, boolean isCityNoteEnabled, boolean isDigitalClock,
+    public CityViewHolder(WorldClockItemBinding binding, SelectedCitiesAdapter adapter, Typeface regularTypeface, Typeface boldTypeface,
                           boolean hasBlackAccentColor) {
 
         super(binding.getRoot());
@@ -49,9 +49,6 @@ public class CityViewHolder extends RecyclerView.ViewHolder {
         mBinding = binding;
         mContext = binding.getRoot().getContext();
         mAdapter = adapter;
-
-        mIsCityNoteEnabled = isCityNoteEnabled;
-        mIsDigitalClock = isDigitalClock;
 
         mBinding.worldClockCityContainer.cityName.setTypeface(boldTypeface);
         // Allow text scrolling by clicking on the item (all other attributes are indicated
@@ -61,23 +58,30 @@ public class CityViewHolder extends RecyclerView.ViewHolder {
         mBinding.worldClockCityContainer.hoursAhead.setTypeface(regularTypeface);
         mBinding.worldClockCityContainer.cityNote.setTypeface(regularTypeface);
 
+        if (hasBlackAccentColor) {
+            mBinding.digitalClock.setTextColor(Color.WHITE);
+        }
+    }
+
+    public void applySettings(ClockSettings settings) {
+        mSettings = settings;
+        mIsDigitalClock = settings.clockStyle == DataModel.ClockStyle.DIGITAL;
+
         if (mIsDigitalClock) {
             mBinding.analogClock.setVisibility(View.GONE);
 
             mBinding.digitalClock.setBackground(ThemeUtils.pillBackgroundFromAttr(mContext, com.google.android.material.R.attr.colorSecondary));
-            mBinding.digitalClock.setTypeface(digitalClockTypeface);
+            mBinding.digitalClock.setTypeface(settings.digitalClockTypeface);
             ClockUtils.setDigitalClockTimeFormat(mBinding.digitalClock, 0.3f, false, false, true, false);
-
-            if (hasBlackAccentColor) {
-                mBinding.digitalClock.setTextColor(Color.WHITE);
-            }
 
             mBinding.digitalClock.setVisibility(View.VISIBLE);
         } else {
             mBinding.digitalClock.setVisibility(View.GONE);
             mBinding.analogClock.setVisibility(View.VISIBLE);
             mBinding.analogClock.enableSeconds(false);
+            mBinding.analogClock.updateClockStyle();
         }
+
     }
 
     public void bind(City city) {
@@ -122,7 +126,7 @@ public class CityViewHolder extends RecyclerView.ViewHolder {
             : R.string.world_hours_yesterday, timeString))
             : timeString);
 
-        if (mIsCityNoteEnabled) {
+        if (mSettings.isCityNoteEnabled) {
             String note = mAdapter.getCityNote(city.getId());
             if (note != null && !note.trim().isEmpty()) {
                 mBinding.worldClockCityContainer.cityNote.setText(note.trim());
