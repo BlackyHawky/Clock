@@ -52,6 +52,7 @@ public class ScreensaverActivity extends BaseActivity {
 
     private SharedPreferences mPrefs;
     private final OnPreDrawListener mStartPositionUpdater = new StartPositionUpdater();
+    private boolean mIsScreensaverTextUppercase;
     private String mDateFormat;
     private String mDateFormatForAccessibility;
 
@@ -64,7 +65,8 @@ public class ScreensaverActivity extends BaseActivity {
                 case Intent.ACTION_POWER_CONNECTED -> updateWakeLock(true);
                 case Intent.ACTION_POWER_DISCONNECTED -> updateWakeLock(false);
                 case Intent.ACTION_USER_PRESENT -> finish();
-                case ACTION_NEXT_ALARM_CHANGED_BY_CLOCK -> AlarmUtils.refreshAlarm(mBinding.saverContainer, true);
+                case ACTION_NEXT_ALARM_CHANGED_BY_CLOCK ->
+                    AlarmUtils.refreshAlarm(mBinding.saverContainer, true, mIsScreensaverTextUppercase);
             }
         }
     };
@@ -99,6 +101,7 @@ public class ScreensaverActivity extends BaseActivity {
         mBinding = DeskClockSaverBinding.inflate(getLayoutInflater());
 
         mPrefs = getDefaultSharedPreferences(this);
+        mIsScreensaverTextUppercase = SettingsDAO.isScreensaverTextUppercaseDisplayed(mPrefs);
         mDateFormat = getString(R.string.abbrev_wday_month_day_no_year);
         mDateFormatForAccessibility = getString(R.string.full_wday_month_day_no_year);
 
@@ -151,7 +154,7 @@ public class ScreensaverActivity extends BaseActivity {
         super.onResume();
 
         ScreensaverUtils.updateScreensaverDate(mDateFormat, mDateFormatForAccessibility, mBinding.saverContainer);
-        AlarmUtils.refreshAlarm(mBinding.saverContainer, true);
+        AlarmUtils.refreshAlarm(mBinding.saverContainer, true, mIsScreensaverTextUppercase);
 
         startPositionUpdater();
         if (mBackgroundAnimator != null) {

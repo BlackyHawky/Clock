@@ -609,7 +609,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
                 mBinding.digitalClock.setShadowLayer(mShadowRadius, mShadowOffset, mShadowOffset, mShadowColor);
             }
         } else {
-            ClockUtils.adjustAnalogClockSize(mBinding.analogClock, mPrefs, true, false, false);
+            ClockUtils.adjustAnalogClockSize(mBinding.analogClock, SettingsDAO.getAlarmAnalogClockSize(mPrefs));
             ClockUtils.setAnalogClockSecondsEnabled(alarmClockStyle, mBinding.analogClock, isAlarmSecondHandDisplayed);
         }
     }

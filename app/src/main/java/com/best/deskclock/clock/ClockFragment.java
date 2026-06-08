@@ -14,6 +14,7 @@ import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.BLACK_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_CITIES_MANUALLY;
+import static com.best.deskclock.settings.PreferencesKeys.*;
 import static com.best.deskclock.uidata.UiDataModel.Tab.CLOCKS;
 import static com.best.deskclock.utils.AlarmUtils.ACTION_NEXT_ALARM_CHANGED_BY_CLOCK;
 
@@ -70,18 +71,35 @@ public final class ClockFragment extends DeskClockFragment {
     // Updates the UI in response to changes to the scheduled alarm.
     private BroadcastReceiver mAlarmChangeReceiver;
     private SharedPreferences mPrefs;
+    private final ClockSettings mSettings = new ClockSettings();
     private DisplayMetrics mDisplayMetrics;
-    private DataModel.ClockStyle mClockStyle;
     private List<City> mSelectedCities;
     private boolean mIsDigitalClock;
-    private boolean mShowSeconds;
+    private boolean mAreSettingsChanged = false;
+    private final SharedPreferences.OnSharedPreferenceChangeListener mPrefListener = (prefs, key) -> {
+        if (key != null) {
+            switch (key) {
+                case KEY_CLOCK_STYLE, KEY_CLOCK_DIAL, KEY_CLOCK_DIAL_MATERIAL, KEY_ANALOG_CLOCK_SIZE, KEY_DISPLAY_CLOCK_SECONDS,
+                     KEY_CLOCK_SECOND_HAND, KEY_DIGITAL_CLOCK_FONT, KEY_DIGITAL_CLOCK_FONT_SIZE, KEY_DISPLAY_TEXT_UPPERCASE,
+                     KEY_SORT_CITIES, KEY_ENABLE_CITY_NOTE, KEY_AUTO_HOME_CLOCK, KEY_HOME_TIME_ZONE -> {
+
+                    mAreSettingsChanged = true;
+
+                    if (isResumed()) {
+                        applySettingsChanges();
+                    }
+                }
+            }
+        }
+    };
+
     private SelectedCitiesAdapter mCityAdapter;
+    private ItemTouchHelper mItemTouchHelper;
+    private CityItemTouchHelper mTouchHelperCallback;
     private String mDateFormat;
     private String mDateFormatForAccessibility;
     private boolean mIsPortrait;
     private boolean mIsTablet;
-    private boolean mShowHomeClock;
-    private boolean mIsCityNoteEnabled;
     private boolean mHasBlackAccentColor;
 
     /**
@@ -97,12 +115,7 @@ public final class ClockFragment extends DeskClockFragment {
 
         mPrefs = getDefaultSharedPreferences(requireContext());
         mDisplayMetrics = getResources().getDisplayMetrics();
-        mClockStyle = SettingsDAO.getClockStyle(mPrefs);
-        mShowHomeClock = SettingsDAO.getShowHomeClock(requireContext(), mPrefs);
-        mShowSeconds = SettingsDAO.areClockSecondsDisplayed(mPrefs);
-        mIsCityNoteEnabled = SettingsDAO.isCityNoteEnabled(mPrefs);
         mHasBlackAccentColor = SettingsDAO.getAccentColor(mPrefs).equals(BLACK_ACCENT_COLOR);
-        mIsDigitalClock = mClockStyle == DataModel.ClockStyle.DIGITAL;
         mIsPortrait = ThemeUtils.isPortrait();
         mIsTablet = ThemeUtils.isTablet();
         mDateFormat = getString(R.string.abbrev_wday_month_day_no_year);
@@ -118,24 +131,8 @@ public final class ClockFragment extends DeskClockFragment {
 
         mBinding = ClockFragmentBinding.inflate(inflater, container, false);
 
-        AnalogClock analogClock = mBinding.mainClockFrame.analogClock;
-        AutoSizingTextClock digitalClock = mBinding.mainClockFrame.digitalClock;
-
-        ClockUtils.setClockStyle(mClockStyle, digitalClock, analogClock);
-
-        if (mIsDigitalClock) {
-            ClockUtils.setDigitalClockFont(digitalClock, SettingsDAO.getDigitalClockFont(mPrefs));
-            ClockUtils.setDigitalClockTimeFormat(digitalClock, 0.4f, mShowSeconds, false, true, false);
-            digitalClock.applyUserPreferredTextSizeSp(SettingsDAO.getDigitalClockFontSize(mPrefs));
-        } else {
-            ClockUtils.adjustAnalogClockSize(analogClock, mPrefs, false, true, false);
-            ClockUtils.setAnalogClockSecondsEnabled(mClockStyle, analogClock, mShowSeconds);
-        }
-
-        ClockUtils.updateDate(mDateFormat, mDateFormatForAccessibility, mBinding.mainClockFrame.mainClockContainer);
         ClockUtils.applyBoldDateTypeface(mBinding.mainClockFrame.mainClockContainer);
         ClockUtils.setClockIconTypeface(mBinding.mainClockFrame.mainClockContainer);
-
         AlarmUtils.applyBoldNextAlarmTypeface(mBinding.mainClockFrame.mainClockContainer);
 
         mBinding.cityRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -190,27 +187,23 @@ public final class ClockFragment extends DeskClockFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        refreshSettings();
+        updateMainClock();
+
         String fontPath = SettingsDAO.getGeneralFont(mPrefs);
-        String digitalFontPath = SettingsDAO.getDigitalClockFont(mPrefs);
         Typeface regularTypeface = ThemeUtils.loadFont(fontPath);
         Typeface boldTypeface = ThemeUtils.boldTypeface(fontPath);
-        Typeface digitalTypeface = mIsDigitalClock ? ThemeUtils.loadFont(digitalFontPath) : null;
 
-        mCityAdapter = new SelectedCitiesAdapter(requireContext(), mPrefs, mSelectedCities, mShowHomeClock, mIsCityNoteEnabled,
-            mIsDigitalClock, mHasBlackAccentColor, regularTypeface, boldTypeface, digitalTypeface);
+        mCityAdapter = new SelectedCitiesAdapter(
+            requireContext(), mPrefs, mSelectedCities, mHasBlackAccentColor, regularTypeface, boldTypeface, mSettings);
 
         mBinding.cityRecyclerView.setAdapter(mCityAdapter);
 
         DataModel.getDataModel().addCityListener(mCityAdapter);
 
-        CityItemTouchHelper callback = new CityItemTouchHelper(mCityAdapter, mShowHomeClock);
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
-
-        if (SettingsDAO.getCitySorting(mPrefs).equals(SORT_CITIES_MANUALLY)) {
-            itemTouchHelper.attachToRecyclerView(mBinding.cityRecyclerView);
-        } else {
-            itemTouchHelper.attachToRecyclerView(null);
-        }
+        mTouchHelperCallback = new CityItemTouchHelper(mCityAdapter, mSettings.showHomeClock);
+        mItemTouchHelper = new ItemTouchHelper(mTouchHelperCallback);
+        updateDragAndDrop();
 
         updateEmptyStateVisibility();
 
@@ -223,6 +216,8 @@ public final class ClockFragment extends DeskClockFragment {
                     mCityAdapter.setCityNote(cityId, note);
                 }
             });
+
+        mPrefs.registerOnSharedPreferenceChangeListener(mPrefListener);
     }
 
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
@@ -244,6 +239,12 @@ public final class ClockFragment extends DeskClockFragment {
     @Override
     public void onResume() {
         super.onResume();
+
+        boolean isSystem24Hour = DataModel.getDataModel().is24HourFormat();
+
+        if (mAreSettingsChanged || mSettings.is24HourFormat != isSystem24Hour) {
+            applySettingsChanges();
+        }
 
         updateEmptyStateVisibility();
 
@@ -271,6 +272,12 @@ public final class ClockFragment extends DeskClockFragment {
     public void onDestroyView() {
         UiDataModel.getUiDataModel().removePeriodicCallback(mQuarterHourUpdater);
         DataModel.getDataModel().removeCityListener(mCityAdapter);
+
+        mPrefs.unregisterOnSharedPreferenceChangeListener(mPrefListener);
+
+        mBinding.cityRecyclerView.setAdapter(null);
+
+        mAreSettingsChanged = false;
 
         mBinding = null;
 
@@ -320,7 +327,7 @@ public final class ClockFragment extends DeskClockFragment {
      */
     private void refreshAlarm() {
         if (mBinding != null) {
-            AlarmUtils.refreshAlarm(mBinding.mainClockFrame.mainClockContainer, false);
+            AlarmUtils.refreshAlarm(mBinding.mainClockFrame.mainClockContainer, false, mSettings.isTextUppercase);
         }
     }
 
@@ -329,13 +336,83 @@ public final class ClockFragment extends DeskClockFragment {
             return;
         }
 
-        final boolean isEmpty = !mShowHomeClock && mCityAdapter.getCities().isEmpty();
+        final boolean isEmpty = !mSettings.showHomeClock && mCityAdapter.getCities().isEmpty();
 
         if (mBinding.citiesEmptyView != null) {
             mBinding.citiesEmptyView.setVisibility(isEmpty ? VISIBLE : GONE);
         } else if (mBinding.emptyCityViewRightPanel != null) {
             mBinding.emptyCityViewRightPanel.setVisibility(isEmpty ? VISIBLE : GONE);
         }
+    }
+
+    private void refreshSettings() {
+        mSettings.clockStyle = SettingsDAO.getClockStyle(mPrefs);
+        mSettings.is24HourFormat = DataModel.getDataModel().is24HourFormat();
+        mSettings.showSeconds = SettingsDAO.areClockSecondsDisplayed(mPrefs);
+        mSettings.isTextUppercase = SettingsDAO.isTextUppercaseDisplayed(mPrefs);
+
+        mSettings.digitalClockTypeface = ThemeUtils.loadFont(SettingsDAO.getDigitalClockFont(mPrefs));
+        mSettings.digitalClockFontSize = SettingsDAO.getDigitalClockFontSize(mPrefs);
+        mSettings.analogClockSizePercent = SettingsDAO.getAnalogClockSize(mPrefs);
+
+        mSettings.showHomeClock = SettingsDAO.getShowHomeClock(requireContext(), mPrefs);
+        mSettings.isCityNoteEnabled = SettingsDAO.isCityNoteEnabled(mPrefs);
+        mSettings.citySorting = SettingsDAO.getCitySorting(mPrefs);
+
+        mIsDigitalClock = mSettings.clockStyle == DataModel.ClockStyle.DIGITAL;
+    }
+
+    private void updateMainClock() {
+        if (mBinding == null) {
+            return;
+        }
+
+        AnalogClock analogClock = mBinding.mainClockFrame.analogClock;
+        AutoSizingTextClock digitalClock = mBinding.mainClockFrame.digitalClock;
+
+        ClockUtils.setClockStyle(mSettings.clockStyle, digitalClock, analogClock);
+
+        if (mIsDigitalClock) {
+            digitalClock.setTypeface(mSettings.digitalClockTypeface);
+            ClockUtils.setDigitalClockTimeFormat(digitalClock, 0.4f, mSettings.showSeconds, false, true, false);
+            digitalClock.applyUserPreferredTextSizeSp(mSettings.digitalClockFontSize);
+        } else {
+            ClockUtils.adjustAnalogClockSize(analogClock, mSettings.analogClockSizePercent);
+            ClockUtils.setAnalogClockSecondsEnabled(mSettings.clockStyle, analogClock, mSettings.showSeconds);
+        }
+
+        ClockUtils.updateDate(
+            mDateFormat, mDateFormatForAccessibility, mBinding.mainClockFrame.mainClockContainer, mSettings.isTextUppercase);
+        AlarmUtils.refreshAlarm(mBinding.mainClockFrame.mainClockContainer, false, mSettings.isTextUppercase);
+    }
+
+    private void updateDragAndDrop() {
+        if (mSettings.citySorting.equals(SORT_CITIES_MANUALLY)) {
+            mItemTouchHelper.attachToRecyclerView(mBinding.cityRecyclerView);
+        } else {
+            mItemTouchHelper.attachToRecyclerView(null);
+        }
+    }
+
+    private void applySettingsChanges() {
+        refreshSettings();
+
+        updateMainClock();
+
+        if (mBinding != null) {
+            ClockUtils.refreshAnalogClockStyle(mBinding.mainClockFrame.analogClock);
+        }
+
+        if (mCityAdapter != null) {
+            mCityAdapter.updateSettings(mSettings);
+        }
+
+        if (mTouchHelperCallback != null) {
+            mTouchHelperCallback.setShowHomeClock(mSettings.showHomeClock);
+            updateDragAndDrop();
+        }
+
+        mAreSettingsChanged = false;
     }
 
     /**

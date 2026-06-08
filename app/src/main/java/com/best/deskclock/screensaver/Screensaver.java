@@ -7,6 +7,7 @@
 package com.best.deskclock.screensaver;
 
 import static android.content.Intent.ACTION_BATTERY_CHANGED;
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.utils.AlarmUtils.ACTION_NEXT_ALARM_CHANGED_BY_CLOCK;
 
 import android.annotation.SuppressLint;
@@ -14,6 +15,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.service.dreams.DreamService;
 import android.view.LayoutInflater;
@@ -25,6 +27,7 @@ import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.best.deskclock.R;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.databinding.DeskClockSaverBinding;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AlarmUtils;
@@ -44,6 +47,7 @@ public final class Screensaver extends DreamService {
     private MoveScreensaverRunnable mPositionUpdater;
     private PulseScreensaverBackgroundRunnable mBackgroundAnimator;
 
+    private boolean mIsScreensaverTextUppercase;
     private String mDateFormat;
     private String mDateFormatForAccessibility;
 
@@ -61,7 +65,7 @@ public final class Screensaver extends DreamService {
     private final BroadcastReceiver mAlarmChangedReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            AlarmUtils.refreshAlarm(mBinding.saverContainer, true);
+            AlarmUtils.refreshAlarm(mBinding.saverContainer, true, mIsScreensaverTextUppercase);
         }
     };
 
@@ -82,6 +86,8 @@ public final class Screensaver extends DreamService {
         LOGGER.v("Screensaver created");
         super.onCreate();
 
+        SharedPreferences prefs = getDefaultSharedPreferences(this);
+        mIsScreensaverTextUppercase = SettingsDAO.isScreensaverTextUppercaseDisplayed(prefs);
         mDateFormat = getString(R.string.abbrev_wday_month_day_no_year);
         mDateFormatForAccessibility = getString(R.string.full_wday_month_day_no_year);
     }
@@ -125,7 +131,7 @@ public final class Screensaver extends DreamService {
         }
 
         ScreensaverUtils.updateScreensaverDate(mDateFormat, mDateFormatForAccessibility, mBinding.saverContainer);
-        AlarmUtils.refreshAlarm(mBinding.saverContainer, true);
+        AlarmUtils.refreshAlarm(mBinding.saverContainer, true, mIsScreensaverTextUppercase);
 
         startPositionUpdater();
         UiDataModel.getUiDataModel().addMidnightCallback(mMidnightUpdater, 100);

@@ -443,7 +443,7 @@ public class ScreensaverUtils {
 
             applyBrightness(textClock, prefs, screenSaverClockColorPicker, null);
         } else {
-            ClockUtils.adjustAnalogClockSize(analogClock, prefs, false, false, true);
+            ClockUtils.adjustAnalogClockSize(analogClock, SettingsDAO.getScreensaverAnalogClockSize(prefs));
             ClockUtils.setAnalogClockSecondsEnabled(screensaverClockStyle, analogClock, areClockSecondsEnabled);
 
             if (isMaterialAnalogClock) {

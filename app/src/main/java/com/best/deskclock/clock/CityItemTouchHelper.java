@@ -19,7 +19,7 @@ public class CityItemTouchHelper extends ItemTouchHelper.Callback {
 
     private final ItemTouchHelperContract mContract;
 
-    private final boolean mShowHomeClock;
+    private boolean mShowHomeClock;
 
     private int dragFrom = RecyclerView.NO_POSITION;
     private int dragTo = RecyclerView.NO_POSITION;
@@ -133,6 +133,10 @@ public class CityItemTouchHelper extends ItemTouchHelper.Callback {
 
         dragFrom = RecyclerView.NO_POSITION;
         dragTo = RecyclerView.NO_POSITION;
+    }
+
+    public void setShowHomeClock(boolean showHomeClock) {
+        mShowHomeClock = showHomeClock;
     }
 
 }
