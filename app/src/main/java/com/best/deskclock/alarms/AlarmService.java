@@ -476,14 +476,47 @@ public class AlarmService extends Service {
             return;
         }
 
+        cleanupAndStop();
+    }
+
+    private void performSingleVibration() {
+        if (mCurrentAlarm == null) {
+            LogUtils.v("There is no current alarm to stop");
+            return;
+        }
+
         final long instanceId = mCurrentAlarm.mId;
-        LogUtils.v("AlarmService.stop with instance: %s", instanceId);
+        LogUtils.v("AlarmService.stop with single vibration with instance: %s", instanceId);
+
+        if (SdkUtils.isAtLeastAndroid8()) {
+            mVibrator.vibrate(VibrationEffect.createWaveform(new long[]{700, 500}, VibrationEffect.DEFAULT_AMPLITUDE));
+        } else {
+            mVibrator.vibrate(new long[]{700, 500}, -1);
+        }
+
+        cleanupAndStop();
+    }
+
+    private void performDoubleVibration() {
+        if (mCurrentAlarm == null) {
+            LogUtils.v("There is no current alarm to stop");
+            return;
+        }
+
+        if (SdkUtils.isAtLeastAndroid8()) {
+            mVibrator.vibrate(VibrationEffect.createWaveform(new long[]{700, 200, 100, 500}, VibrationEffect.DEFAULT_AMPLITUDE));
+        } else {
+            mVibrator.vibrate(new long[]{700, 200, 100, 500}, -1);
+        }
+
+        cleanupAndStop();
+    }
+
+    private void cleanupAndStop() {
+        stopFlash();
 
         AlarmKlaxon.stop();
-
         AlarmKlaxon.deactivateRingtonePlayback();
-
-        stopFlash();
 
         sendBroadcast(new Intent(ALARM_DONE_ACTION));
 
@@ -504,70 +537,6 @@ public class AlarmService extends Service {
             toggleFlash(false);
         }
         mIsFlashActive = false;
-    }
-
-    private void performSingleVibration() {
-        if (mCurrentAlarm == null) {
-            LogUtils.v("There is no current alarm to stop so it's impossible to perform a single vibration");
-            return;
-        }
-
-        final long instanceId = mCurrentAlarm.mId;
-        LogUtils.v("AlarmService.stop with single vibration with instance: %s", instanceId);
-
-        AlarmKlaxon.stop();
-
-        AlarmKlaxon.deactivateRingtonePlayback();
-
-        if (SdkUtils.isAtLeastAndroid8()) {
-            mVibrator.vibrate(VibrationEffect.createWaveform(new long[]{700, 500}, VibrationEffect.DEFAULT_AMPLITUDE));
-        } else {
-            mVibrator.vibrate(new long[]{700, 500}, -1);
-        }
-
-        sendBroadcast(new Intent(ALARM_DONE_ACTION));
-
-        if (SdkUtils.isAtLeastAndroid7()) {
-            stopForeground(Service.STOP_FOREGROUND_REMOVE);
-        } else {
-            stopForeground(true);
-        }
-
-        mCurrentAlarm = null;
-        detachListeners();
-        AlarmAlertWakeLock.releaseCpuLock();
-    }
-
-    private void performDoubleVibration() {
-        if (mCurrentAlarm == null) {
-            LogUtils.v("There is no current alarm to stop so it's impossible to perform a double vibration");
-            return;
-        }
-
-        final long instanceId = mCurrentAlarm.mId;
-        LogUtils.v("AlarmService.stop with double vibration with instance: %s", instanceId);
-
-        AlarmKlaxon.stop();
-
-        AlarmKlaxon.deactivateRingtonePlayback();
-
-        if (SdkUtils.isAtLeastAndroid8()) {
-            mVibrator.vibrate(VibrationEffect.createWaveform(new long[]{700, 200, 100, 500}, VibrationEffect.DEFAULT_AMPLITUDE));
-        } else {
-            mVibrator.vibrate(new long[]{700, 200, 100, 500}, -1);
-        }
-
-        sendBroadcast(new Intent(ALARM_DONE_ACTION));
-
-        if (SdkUtils.isAtLeastAndroid7()) {
-            stopForeground(Service.STOP_FOREGROUND_REMOVE);
-        } else {
-            stopForeground(true);
-        }
-
-        mCurrentAlarm = null;
-        detachListeners();
-        AlarmAlertWakeLock.releaseCpuLock();
     }
 
     private void getBackCameraId() {
