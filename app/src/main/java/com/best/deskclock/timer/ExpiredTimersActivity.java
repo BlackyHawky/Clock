@@ -29,6 +29,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -72,6 +73,8 @@ import java.util.List;
  */
 public class ExpiredTimersActivity extends BaseActivity {
 
+    private static final long POWER_BUTTON_ACTIVATION_DELAY = 1500;
+
     private ExpiredTimersActivityBinding mBinding;
     private SharedPreferences mPrefs;
     private Typeface mRegularTypeface;
@@ -88,6 +91,7 @@ public class ExpiredTimersActivity extends BaseActivity {
     private boolean mIsTablet;
     private int mMargin10;
     private int mMargin2;
+    private long mActivityStartTime;
 
     /**
      * Scheduled to update the timers while at least one is expired.
@@ -108,9 +112,15 @@ public class ExpiredTimersActivity extends BaseActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent != null && intent.getAction() != null) {
-                if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF) || intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
-                    final boolean isExpiredTimerResetWithPowerButton = SettingsDAO.isExpiredTimerResetWithPowerButton(mPrefs);
-                    if (isExpiredTimerResetWithPowerButton) {
+                if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
+                    // Ignore immediate screen-off events to prevent the proximity sensor from instantly dismissing
+                    // the timer if the device wakes up in a pocket or face down.
+                    if (SystemClock.elapsedRealtime() - mActivityStartTime < POWER_BUTTON_ACTIVATION_DELAY) {
+                        LogUtils.v("Ignored ACTION_SCREEN_OFF due to grace period.");
+                        return;
+                    }
+
+                    if (SettingsDAO.isExpiredTimerResetWithPowerButton(mPrefs)) {
                         DataModel.getDataModel().resetOrDeleteExpiredTimers(R.string.label_hardware_button);
                     }
                 }
@@ -121,6 +131,8 @@ public class ExpiredTimersActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mActivityStartTime = SystemClock.elapsedRealtime();
 
         mBinding = ExpiredTimersActivityBinding.inflate(getLayoutInflater());
 
