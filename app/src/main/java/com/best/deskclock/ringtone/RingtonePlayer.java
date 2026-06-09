@@ -18,6 +18,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.SystemClock;
 
 import androidx.annotation.OptIn;
 import androidx.media3.common.AudioAttributes;
@@ -76,7 +77,7 @@ public final class RingtonePlayer {
     private int mOriginalMediaVolume = -1;
     private boolean mMediaVolumeModified = false;
     private boolean mIsCrescendoRunningForSystemMediaVolume = false;
-
+    private final Object mSystemVolumeCrescendoToken = new Object();
     private final Handler mVolumeHandler = new Handler(Looper.getMainLooper());
 
     private final Runnable mVolumeAdjustmentRunnable = new Runnable() {
@@ -450,11 +451,11 @@ public final class RingtonePlayer {
 
         for (int i = 1; i <= steps; i++) {
             final int newVolume = startVolume + i;
-            mVolumeHandler.postDelayed(() -> {
+            mVolumeHandler.postAtTime(() -> {
                 if (mIsCrescendoRunningForSystemMediaVolume) {
                     mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, newVolume, 0);
                 }
-            }, stepDuration * i);
+            }, mSystemVolumeCrescendoToken, SystemClock.uptimeMillis() + (stepDuration * i));
         }
     }
 
@@ -466,6 +467,8 @@ public final class RingtonePlayer {
      */
     private void stopSystemMediaVolumeCrescendo() {
         mIsCrescendoRunningForSystemMediaVolume = false;
+
+        mVolumeHandler.removeCallbacksAndMessages(mSystemVolumeCrescendoToken);
     }
 
     /**

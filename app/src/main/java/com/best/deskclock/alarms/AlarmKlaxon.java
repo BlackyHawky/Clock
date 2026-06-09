@@ -53,7 +53,6 @@ public final class AlarmKlaxon {
     public static void stop() {
         AlarmKlaxon instance = getInstance();
         Context appContext = DeskClockApplication.getAppContext();
-        SharedPreferences prefs = DeskClockApplication.getDefaultSharedPreferences(appContext);
 
         if (instance.mVibrationRunnable != null) {
             AppExecutors.getMainThread().removeCallbacks(instance.mVibrationRunnable);
@@ -62,24 +61,27 @@ public final class AlarmKlaxon {
 
         if (instance.mStarted) {
             instance.mStarted = false;
-            if (DeviceUtils.isUserUnlocked(appContext) && SettingsDAO.isAdvancedAudioPlaybackEnabled(prefs)) {
+
+            if (instance.mRingtonePlayer != null) {
                 LogUtils.v("AlarmKlaxon.stop() ExoPlayer");
-                instance.getRingtonePlayer().stop();
-            } else {
+                instance.mRingtonePlayer.stop();
+            }
+
+            if (instance.mAsyncRingtonePlayer != null) {
                 LogUtils.v("AlarmKlaxon.stop() MediaPlayer");
-                instance.getAsyncRingtonePlayer().stop();
+                instance.mAsyncRingtonePlayer.stop();
+            }
 
-                if (SettingsDAO.isPerAlarmVolumeEnabled(prefs) && instance.mPreviousAlarmVolume != -1) {
-                    AudioManager audioManager = (AudioManager) appContext.getSystemService(Context.AUDIO_SERVICE);
-                    int currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
-                    // Restore the original alarm volume only if it was changed
-                    if (currentVolume != instance.mPreviousAlarmVolume) {
-                        audioManager.setStreamVolume(AudioManager.STREAM_ALARM, instance.mPreviousAlarmVolume, 0);
-                    }
-
-
-                    instance.mPreviousAlarmVolume = -1;
+            if (instance.mPreviousAlarmVolume != -1) {
+                AudioManager audioManager = (AudioManager) appContext.getSystemService(Context.AUDIO_SERVICE);
+                int currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
+                // Restore the original alarm volume only if it was changed
+                if (currentVolume != instance.mPreviousAlarmVolume) {
+                    audioManager.setStreamVolume(AudioManager.STREAM_ALARM, instance.mPreviousAlarmVolume, 0);
                 }
+
+
+                instance.mPreviousAlarmVolume = -1;
             }
 
             final Vibrator vibrator = appContext.getSystemService(Vibrator.class);
@@ -176,14 +178,8 @@ public final class AlarmKlaxon {
     }
 
     public static void deactivateRingtonePlayback() {
-        Context appContext = DeskClockApplication.getAppContext();
-        SharedPreferences prefs = DeskClockApplication.getDefaultSharedPreferences(appContext);
-
-        if (SettingsDAO.isAdvancedAudioPlaybackEnabled(prefs)) {
-            stopListeningToPreferences();
-        } else {
-            releaseResources();
-        }
+        stopListeningToPreferences();
+        releaseResources();
     }
 
     // MediaPlayer

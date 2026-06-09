@@ -49,18 +49,19 @@ public final class TimerKlaxon {
 
     public static void stop() {
         TimerKlaxon instance = getInstance();
+        Context appContext = DeskClockApplication.getAppContext();
 
         if (instance.mStarted) {
-            LogUtils.i("TimerKlaxon.stop()");
             instance.mStarted = false;
 
-            Context appContext = DeskClockApplication.getAppContext();
-            SharedPreferences prefs = DeskClockApplication.getDefaultSharedPreferences(appContext);
+            if (instance.mRingtonePlayer != null) {
+                LogUtils.v("TimerKlaxon.stop() ExoPlayer");
+                instance.mRingtonePlayer.stop();
+            }
 
-            if (SettingsDAO.isAdvancedAudioPlaybackEnabled(prefs)) {
-                instance.getRingtonePlayer().stop();
-            } else {
-                instance.getAsyncRingtonePlayer().stop();
+            if (instance.mAsyncRingtonePlayer != null) {
+                LogUtils.v("TimerKlaxon.stop() MediaPlayer");
+                instance.mAsyncRingtonePlayer.stop();
             }
 
             Vibrator vibrator = appContext.getSystemService(Vibrator.class);
@@ -124,14 +125,8 @@ public final class TimerKlaxon {
     }
 
     public static void deactivateRingtonePlayback() {
-        Context context = DeskClockApplication.getAppContext();
-        SharedPreferences prefs = DeskClockApplication.getDefaultSharedPreferences(context);
-
-        if (SettingsDAO.isAdvancedAudioPlaybackEnabled(prefs)) {
-            stopListeningToPreferences();
-        } else {
-            releaseResources();
-        }
+        stopListeningToPreferences();
+        releaseResources();
     }
 
     // MediaPlayer
