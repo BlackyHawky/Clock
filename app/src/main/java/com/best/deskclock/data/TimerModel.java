@@ -386,17 +386,22 @@ final class TimerModel {
      */
     void resetOrDeleteExpiredTimers(@StringRes int eventLabelId) {
         final List<Timer> timers = new ArrayList<>(getTimers());
+        boolean hasChanged = false;
+
         for (Timer timer : timers) {
             if (timer.isExpired()) {
                 doResetOrDeleteTimer(timer, true, eventLabelId);
+                hasChanged = true;
             }
         }
 
-        // Update the notifications once after all timers are updated.
-        updateHeadsUpNotification();
+        if (hasChanged) {
+            // Update the notifications once after all timers are updated.
+            updateHeadsUpNotification();
 
-        // Update the timer tile once after all timers are updated.
-        updateQuickSettingsTile();
+            // Update the timer tile once after all timers are updated.
+            updateQuickSettingsTile();
+        }
     }
 
     /**

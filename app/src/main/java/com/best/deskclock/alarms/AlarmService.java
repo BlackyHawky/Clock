@@ -237,17 +237,30 @@ public class AlarmService extends Service {
     };
 
     private int mShakeAction;
-    private final SensorEventListener mShakeListener = new SensorEventListener() {
+    private final ResettableSensorEventListener mShakeListener = new ResettableSensorEventListener() {
         private static final int BUFFER = 5;
         private final float[] gravity = new float[3];
         private float average = 0;
         private int fill = 0;
+        private boolean mStopped;
 
         @Override
         public void onAccuracyChanged(Sensor sensor, int acc) {
         }
 
+        @Override
+        public void reset() {
+            mStopped = false;
+            average = 0;
+            fill = 0;
+            Arrays.fill(gravity, 0f);
+        }
+
         public void onSensorChanged(SensorEvent event) {
+            if (mStopped) {
+                return;
+            }
+
             final float alpha = 0.8F;
 
             for (int i = 0; i < 3; i++) {
@@ -265,6 +278,7 @@ public class AlarmService extends Service {
                 fill++;
             } else {
                 if (average / BUFFER >= sensitivity) {
+                    mStopped = true;
                     handleAction(mShakeAction);
                 }
                 average = 0;
@@ -639,6 +653,7 @@ public class AlarmService extends Service {
         }
 
         if (mShakeAction != ALARM_NO_ACTION) {
+            mShakeListener.reset();
             mSensorManager.registerListener(mShakeListener,
                 mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
                 SensorManager.SENSOR_DELAY_GAME, 50 * 1000); // Batch every 50 milliseconds
