@@ -48,24 +48,26 @@ public class DeskClockApplication extends Application {
      * Returns the default {@link SharedPreferences} instance from the underlying storage context.
      */
     public static SharedPreferences getDefaultSharedPreferences(Context context) {
+        final Context appContext = context.getApplicationContext();
         final Context storageContext;
 
         if (SdkUtils.isAtLeastAndroid7()) {
             // All N devices have split storage areas. Migrate the existing preferences into the new
             // device encrypted storage area if that has not yet occurred.
-            storageContext = context.createDeviceProtectedStorageContext();
-            final String name = context.getPackageName() + "_preferences";
+            storageContext = appContext.createDeviceProtectedStorageContext();
+            final String name = appContext.getPackageName() + "_preferences";
             final String prefsFilename = storageContext.getDataDir() + "/shared_prefs/" + name + ".xml";
             final File prefs = new File(Objects.requireNonNull(Uri.parse(prefsFilename).getPath()));
 
             if (!prefs.exists()) {
-                if (!storageContext.moveSharedPreferencesFrom(context, name)) {
+                if (!storageContext.moveSharedPreferencesFrom(appContext, name)) {
                     LogUtils.wtf("Failed to migrate shared preferences");
                 }
             }
         } else {
-            storageContext = context;
+            storageContext = appContext;
         }
+
         return PreferenceManager.getDefaultSharedPreferences(storageContext);
     }
 
