@@ -149,6 +149,7 @@ public final class AsyncRingtonePlayer {
 
         private AudioManager mAudioManager;
         private MediaPlayer mMediaPlayer;
+        private AudioFocusRequest mAudioFocusRequest;
 
         private long mCrescendoDuration = 0;
         private long mCrescendoStopTime = 0;
@@ -247,14 +248,14 @@ public final class AsyncRingtonePlayer {
 
         private void requestAudioFocus() {
             if (SdkUtils.isAtLeastAndroid8()) {
-                AudioFocusRequest focusRequest = new AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT)
+                mAudioFocusRequest = new AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT)
                     .setAudioAttributes(new AudioAttributes.Builder()
                         .setUsage(AudioAttributes.USAGE_ALARM)
                         .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
                         .build())
                     .build();
 
-                mAudioManager.requestAudioFocus(focusRequest);
+                mAudioManager.requestAudioFocus(mAudioFocusRequest);
             } else {
                 mAudioManager.requestAudioFocus(null, AudioManager.STREAM_ALARM, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
             }
@@ -263,14 +264,10 @@ public final class AsyncRingtonePlayer {
         private void abandonAudioFocus() {
             if (mAudioManager != null) {
                 if (SdkUtils.isAtLeastAndroid8()) {
-                    AudioFocusRequest focusRequest = new AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT)
-                        .setAudioAttributes(new AudioAttributes.Builder()
-                            .setUsage(AudioAttributes.USAGE_ALARM)
-                            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                            .build())
-                        .build();
-
-                    mAudioManager.abandonAudioFocusRequest(focusRequest);
+                    if (mAudioFocusRequest != null) {
+                        mAudioManager.abandonAudioFocusRequest(mAudioFocusRequest);
+                        mAudioFocusRequest = null;
+                    }
                 } else {
                     mAudioManager.abandonAudioFocus(null);
                 }
