@@ -199,7 +199,7 @@ public final class TimerService extends Service {
         private static final float GRAVITY_LOWER_THRESHOLD = 0.7f * SensorManager.STANDARD_GRAVITY;
         private static final int SENSOR_SAMPLES = 3;
         private final boolean[] mSamples = new boolean[SENSOR_SAMPLES];
-        private boolean mStopped;
+        private boolean mStopped = false;
         private boolean mWasFaceUp;
         private int mSampleIndex;
 
@@ -257,17 +257,30 @@ public final class TimerService extends Service {
         }
     };
 
-    private final SensorEventListener mShakeListener = new SensorEventListener() {
+    private final ResettableSensorEventListener mShakeListener = new ResettableSensorEventListener() {
         private static final int BUFFER = 5;
         private final float[] gravity = new float[3];
         private float average = 0;
         private int fill = 0;
+        private boolean mStopped;
 
         @Override
         public void onAccuracyChanged(Sensor sensor, int acc) {
         }
 
+        @Override
+        public void reset() {
+            mStopped = false;
+            average = 0;
+            fill = 0;
+            Arrays.fill(gravity, 0f);
+        }
+
         public void onSensorChanged(SensorEvent event) {
+            if (mStopped) {
+                return;
+            }
+
             final float alpha = 0.8F;
 
             for (int i = 0; i < 3; i++) {
@@ -285,6 +298,7 @@ public final class TimerService extends Service {
                 fill++;
             } else {
                 if (average / BUFFER >= sensitivity) {
+                    mStopped = true;
                     handleAction(mIsShakeActionEnabled);
                 }
                 average = 0;
@@ -301,6 +315,7 @@ public final class TimerService extends Service {
         }
 
         if (mIsShakeActionEnabled) {
+            mShakeListener.reset();
             mSensorManager.registerListener(mShakeListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
                 SensorManager.SENSOR_DELAY_GAME, 50 * 1000); //batch every 50 milliseconds
         }
