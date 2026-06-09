@@ -884,7 +884,7 @@ public abstract class BaseDigitalAppWidgetProvider extends AppWidgetProvider {
         intentFilter.addAction(ACTION_ON_DAY_CHANGE);
 
         if (SdkUtils.isAtLeastAndroid13()) {
-            context.getApplicationContext().registerReceiver(receiver, intentFilter, Context.RECEIVER_EXPORTED);
+            context.getApplicationContext().registerReceiver(receiver, intentFilter, Context.RECEIVER_NOT_EXPORTED);
         } else {
             context.getApplicationContext().registerReceiver(receiver, intentFilter);
         }

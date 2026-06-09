@@ -222,7 +222,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         if (mPowerBehavior != PowerButtonBehavior.NOTHING) {
             IntentFilter powerFilter = new IntentFilter(Intent.ACTION_SCREEN_OFF);
             if (SdkUtils.isAtLeastAndroid13()) {
-                registerReceiver(PowerBtnReceiver, powerFilter, Context.RECEIVER_EXPORTED);
+                registerReceiver(PowerBtnReceiver, powerFilter, Context.RECEIVER_NOT_EXPORTED);
             } else {
                 registerReceiver(PowerBtnReceiver, powerFilter);
             }
@@ -321,7 +321,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
             filter.addAction(AlarmService.ALARM_SNOOZE_ACTION);
             filter.addAction(AlarmService.ALARM_DISMISS_ACTION);
             if (SdkUtils.isAtLeastAndroid13()) {
-                registerReceiver(mReceiver, filter, Context.RECEIVER_EXPORTED);
+                registerReceiver(mReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
             } else {
                 registerReceiver(mReceiver, filter);
             }

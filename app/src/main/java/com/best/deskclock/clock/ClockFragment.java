@@ -229,7 +229,7 @@ public final class ClockFragment extends DeskClockFragment {
         if (mAlarmChangeReceiver != null) {
             final IntentFilter filter = new IntentFilter(ACTION_NEXT_ALARM_CHANGED_BY_CLOCK);
             if (SdkUtils.isAtLeastAndroid13()) {
-                requireContext().registerReceiver(mAlarmChangeReceiver, filter, Context.RECEIVER_EXPORTED);
+                requireContext().registerReceiver(mAlarmChangeReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
             } else {
                 requireContext().registerReceiver(mAlarmChangeReceiver, filter);
             }

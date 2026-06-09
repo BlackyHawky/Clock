@@ -160,7 +160,7 @@ public class ExpiredTimersActivity extends BaseActivity {
         IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_SCREEN_OFF);
         if (SdkUtils.isAtLeastAndroid13()) {
-            registerReceiver(PowerBtnReceiver, filter, Context.RECEIVER_EXPORTED);
+            registerReceiver(PowerBtnReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
         } else {
             registerReceiver(PowerBtnReceiver, filter);
         }
