@@ -24,7 +24,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 
@@ -331,16 +330,14 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
      * @return the next upcoming {@link AlarmInstance} matching the label, or {@code null} if none exists
      */
     public static AlarmInstance getNextAlarmInstanceByLabel(ContentResolver contentResolver, String targetLabel) {
-        List<AlarmInstance> instances = AlarmInstance.getInstances(contentResolver, null);
+        final String selection = LABEL + "=?";
+        final String[] args = {targetLabel};
+        List<AlarmInstance> instances = AlarmInstance.getInstances(contentResolver, selection, args);
 
         long now = System.currentTimeMillis();
         AlarmInstance next = null;
 
         for (AlarmInstance instance : instances) {
-            if (!TextUtils.equals(instance.mLabel, targetLabel)) {
-                continue;
-            }
-
             long time = instance.getAlarmTime().getTimeInMillis();
             if (time > now) {
                 if (next == null || time < next.getAlarmTime().getTimeInMillis()) {
@@ -364,13 +361,17 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
      * or snoozed. If no such instance exists, {@code null} is returned.
      */
     public static AlarmInstance getFiredOrSnoozedInstanceForAlarm(ContentResolver cr, long alarmId) {
-        List<AlarmInstance> activeInstances = AlarmInstance.getInstancesByState(cr, AlarmInstance.FIRED_STATE);
-        activeInstances.addAll(AlarmInstance.getInstancesByState(cr, AlarmInstance.SNOOZE_STATE));
+        final String selection = ALARM_ID + "=? AND " + ALARM_STATE + " IN (?, ?)";
+        final String[] args = {
+            String.valueOf(alarmId),
+            String.valueOf(AlarmInstance.FIRED_STATE),
+            String.valueOf(AlarmInstance.SNOOZE_STATE)
+        };
 
-        for (AlarmInstance instance : activeInstances) {
-            if (instance.mAlarmId == alarmId) {
-                return instance;
-            }
+        List<AlarmInstance> instances = AlarmInstance.getInstances(cr, selection, args);
+
+        if (!instances.isEmpty()) {
+            return instances.get(0);
         }
 
         return null;
