@@ -309,7 +309,7 @@ public class AlarmService extends Service {
         final IntentFilter filter = new IntentFilter(ALARM_SNOOZE_ACTION);
         filter.addAction(ALARM_DISMISS_ACTION);
         if (SdkUtils.isAtLeastAndroid13()) {
-            registerReceiver(mActionsReceiver, filter, Context.RECEIVER_EXPORTED);
+            registerReceiver(mActionsReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
         } else {
             registerReceiver(mActionsReceiver, filter);
         }
