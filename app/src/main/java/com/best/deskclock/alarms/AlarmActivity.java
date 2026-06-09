@@ -44,6 +44,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
+import android.os.SystemClock;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -86,6 +87,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger("AlarmActivity");
 
+    private static final long POWER_BUTTON_ACTIVATION_DELAY = 1500;
     private static final float TEXT_FADE_START_THRESHOLD = 0.5f;
     private static final int TRANSLATION_DURATION_START_DELAY = 1000;
     private static final int TRANSLATION_DURATION_DELAY = 1000;
@@ -115,6 +117,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
     private boolean mAlarmHandled;
     private VolumeButtonBehavior mVolumeBehavior;
     private PowerButtonBehavior mPowerBehavior;
+    private long mActivityStartTime;
     private float mAlarmTitleFontSize;
     private int mAlarmTitleColor;
     private int mAlarmButtonColor;
@@ -168,6 +171,13 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
             LOGGER.v("Received broadcast: %s", action);
 
             if (Intent.ACTION_SCREEN_OFF.equals(action)) {
+                // Ignore immediate screen-off events to prevent the proximity sensor from instantly dismissing
+                // the alarm if the device wakes up in a pocket or face down.
+                if (SystemClock.elapsedRealtime() - mActivityStartTime < POWER_BUTTON_ACTIVATION_DELAY) {
+                    LOGGER.v("Ignored ACTION_SCREEN_OFF due to grace period.");
+                    return;
+                }
+
                 // Power keys dismiss the alarm.
                 if (!mAlarmHandled && !isFinishing()) {
                     if (mPowerBehavior == PowerButtonBehavior.SNOOZE) {
@@ -184,6 +194,8 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mActivityStartTime = SystemClock.elapsedRealtime();
 
         mBinding = AlarmActivityBinding.inflate(getLayoutInflater());
 
