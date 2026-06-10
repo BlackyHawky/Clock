@@ -58,6 +58,7 @@ import com.best.deskclock.data.Stopwatch;
 import com.best.deskclock.data.StopwatchListener;
 import com.best.deskclock.databinding.StopwatchFragmentBinding;
 import com.best.deskclock.events.Events;
+import com.best.deskclock.uicomponents.CustomTooltip;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
@@ -331,11 +332,6 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
     }
 
     @Override
-    public void onFabLongClick(@NonNull ImageView fab) {
-        fab.setHapticFeedbackEnabled(false);
-    }
-
-    @Override
     public void onUpdateFab(@NonNull ImageView fab) {
         updateFab(fab);
     }
@@ -425,6 +421,12 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
             fab.setImageResource(R.drawable.ic_fab_play);
             fab.setContentDescription(getString(R.string.sw_start_button));
         }
+
+        fab.setOnLongClickListener(v -> {
+            CustomTooltip.showAbove(v, fab.getContentDescription().toString(), true);
+            return true;
+        });
+
         fab.setVisibility(VISIBLE);
     }
 

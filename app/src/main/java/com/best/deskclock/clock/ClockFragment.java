@@ -48,6 +48,7 @@ import com.best.deskclock.databinding.ClockFragmentBinding;
 import com.best.deskclock.dialogfragment.LabelDialogFragment;
 import com.best.deskclock.uicomponents.AnalogClock;
 import com.best.deskclock.uicomponents.AutoSizingTextClock;
+import com.best.deskclock.uicomponents.CustomTooltip;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.ClockUtils;
@@ -305,15 +306,14 @@ public final class ClockFragment extends DeskClockFragment {
     }
 
     @Override
-    public void onFabLongClick(@NonNull ImageView fab) {
-        fab.setHapticFeedbackEnabled(false);
-    }
-
-    @Override
     public void onUpdateFab(@NonNull ImageView fab) {
         fab.setVisibility(VISIBLE);
         fab.setImageResource(R.drawable.ic_fab_public);
         fab.setContentDescription(getString(R.string.button_cities));
+        fab.setOnLongClickListener(v -> {
+            CustomTooltip.showAbove(v, fab.getContentDescription().toString(), true);
+            return true;
+        });
     }
 
     @Override

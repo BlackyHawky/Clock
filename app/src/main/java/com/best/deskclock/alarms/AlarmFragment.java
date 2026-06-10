@@ -72,6 +72,7 @@ import com.best.deskclock.dialogfragment.SpinnerTimePickerDialogFragment;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
+import com.best.deskclock.uicomponents.CustomTooltip;
 import com.best.deskclock.uicomponents.EmptyViewController;
 import com.best.deskclock.uicomponents.toast.SnackbarManager;
 import com.best.deskclock.uicomponents.toast.ToastManager;
@@ -530,28 +531,27 @@ public final class AlarmFragment extends DeskClockFragment
     }
 
     @Override
-    public void onFabLongClick(@NonNull ImageView fab) {
-        if (SettingsDAO.isAlarmFabLongPressEnabled(mPrefs)) {
-            fab.setHapticFeedbackEnabled(true);
-            mAlarmUpdateHandler.hideUndoBar();
-            startCreatingAlarmWithDelay();
-        } else {
-            fab.setHapticFeedbackEnabled(false);
-        }
-    }
-
-    @Override
     public void onUpdateFab(@NonNull ImageView fab) {
         fab.setImageResource(R.drawable.ic_add);
         fab.setContentDescription(getString(R.string.button_alarms));
 
         if (SettingsDAO.isAlarmFabLongPressEnabled(mPrefs)) {
             fab.setVisibility(VISIBLE);
+
+            fab.setOnLongClickListener(v -> {
+                mAlarmUpdateHandler.hideUndoBar();
+                startCreatingAlarmWithDelay();
+                return true;
+            });
         } else {
             if (mSideButtonsVisible) {
                 fab.setVisibility(INVISIBLE);
             } else {
                 fab.setVisibility(VISIBLE);
+                fab.setOnLongClickListener(v -> {
+                    CustomTooltip.showAbove(v, fab.getContentDescription().toString(), true);
+                    return true;
+                });
             }
         }
     }

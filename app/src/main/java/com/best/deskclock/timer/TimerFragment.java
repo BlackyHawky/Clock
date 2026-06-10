@@ -61,6 +61,7 @@ import com.best.deskclock.data.TimerListener;
 import com.best.deskclock.databinding.TimerFragmentBinding;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.uicomponents.CustomDialog;
+import com.best.deskclock.uicomponents.CustomTooltip;
 import com.best.deskclock.utils.AnimatorUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
@@ -413,6 +414,11 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     @Override
     public void onUpdateFab(@NonNull ImageView fab) {
         updateFab(fab);
+
+        fab.setOnLongClickListener(v -> {
+            CustomTooltip.showAbove(v, fab.getContentDescription().toString(), true);
+            return true;
+        });
     }
 
     @Override
@@ -478,11 +484,6 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
             // Return to the list of timers.
             animateToView(mBinding.timerContentView, false);
         }
-    }
-
-    @Override
-    public void onFabLongClick(@NonNull ImageView fab) {
-        fab.setHapticFeedbackEnabled(false);
     }
 
     @Override
