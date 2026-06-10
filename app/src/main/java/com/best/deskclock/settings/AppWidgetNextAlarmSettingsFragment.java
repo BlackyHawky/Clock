@@ -11,6 +11,7 @@ import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.core.view.HapticFeedbackConstantsCompat;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
@@ -120,16 +121,18 @@ public class AppWidgetNextAlarmSettingsFragment extends ScreenFragment implement
                     : displayBackground && isCustomColor && isRadiusCustomizable);
                 mDefaultBackgroundColorPref.setVisible(displayBackground);
                 mCustomBackgroundColorPref.setVisible(displayBackground && isCustomColor);
-                Utils.setVibrationTime(requireContext(), 50);
+
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_NEXT_ALARM_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS -> {
                 mBackgroundCornerRadiusPref.setVisible((boolean) newValue);
-                Utils.setVibrationTime(requireContext(), 50);
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_NEXT_ALARM_WIDGET_DISPLAY_TEXT_UPPERCASE, KEY_NEXT_ALARM_WIDGET_DISPLAY_TEXT_SHADOW,
-                 KEY_NEXT_ALARM_WIDGET_APPLY_HORIZONTAL_PADDING -> Utils.setVibrationTime(requireContext(), 50);
+                 KEY_NEXT_ALARM_WIDGET_APPLY_HORIZONTAL_PADDING ->
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
             case KEY_NEXT_ALARM_WIDGET_DEFAULT_BACKGROUND_COLOR -> {
                 boolean isCustomColor = !(boolean) newValue;
@@ -143,22 +146,22 @@ public class AppWidgetNextAlarmSettingsFragment extends ScreenFragment implement
                     mBackgroundCornerRadiusPref.setVisible(isCustomColor && displayBackground && isRadiusCustomizable);
                 }
 
-                Utils.setVibrationTime(requireContext(), 50);
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_NEXT_ALARM_WIDGET_DEFAULT_TITLE_COLOR -> {
                 mCustomTitleColorPref.setVisible(!(boolean) newValue);
-                Utils.setVibrationTime(requireContext(), 50);
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_TITLE_COLOR -> {
                 mCustomAlarmTitleColorPref.setVisible(!(boolean) newValue);
-                Utils.setVibrationTime(requireContext(), 50);
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_COLOR -> {
                 mCustomAlarmColorPref.setVisible(!(boolean) newValue);
-                Utils.setVibrationTime(requireContext(), 50);
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
         }
 

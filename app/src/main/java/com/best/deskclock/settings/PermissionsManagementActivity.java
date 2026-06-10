@@ -27,6 +27,7 @@ import android.provider.Settings;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.view.HapticFeedbackConstantsCompat;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
@@ -161,14 +162,14 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
         @Override
         public boolean onPreferenceChange(Preference pref, Object newValue) {
             if (pref.getKey().equals(KEY_ENABLE_FOREGROUND_SERVICE)) {
-                Utils.setVibrationTime(requireContext(), 50);
-
                 if ((boolean) newValue) {
                     showForegroundServiceDialog();
                     return false;
                 } else {
                     Utils.stopService(requireContext(), KeepAliveService.class);
                 }
+
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             return true;

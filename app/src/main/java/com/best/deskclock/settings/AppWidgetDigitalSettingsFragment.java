@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 
+import androidx.core.view.HapticFeedbackConstantsCompat;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
@@ -151,7 +152,8 @@ public class AppWidgetDigitalSettingsFragment extends ScreenFragment implements 
         switch (pref.getKey()) {
             case KEY_DIGITAL_WIDGET_DISPLAY_TEXT_UPPERCASE, KEY_DIGITAL_WIDGET_DISPLAY_TEXT_SHADOW,
                  KEY_DIGITAL_WIDGET_SECONDS_DISPLAYED, KEY_DIGITAL_WIDGET_HIDE_AM_PM, KEY_DIGITAL_WIDGET_DISPLAY_TOP_DATE,
-                 KEY_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING -> Utils.setVibrationTime(requireContext(), 50);
+                 KEY_DIGITAL_WIDGET_APPLY_HORIZONTAL_PADDING ->
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
             case KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND -> {
                 boolean displayBackground = (boolean) newValue;
@@ -166,12 +168,14 @@ public class AppWidgetDigitalSettingsFragment extends ScreenFragment implements 
                     : displayBackground && isCustomColor && isRadiusCustomizable);
                 mDefaultBackgroundColorPref.setVisible(displayBackground);
                 mCustomBackgroundColorPref.setVisible(displayBackground && isCustomColor);
-                Utils.setVibrationTime(requireContext(), 50);
+
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_DIGITAL_WIDGET_CUSTOMIZE_BACKGROUND_CORNER_RADIUS -> {
                 mBackgroundCornerRadiusPref.setVisible((boolean) newValue);
-                Utils.setVibrationTime(requireContext(), 50);
+
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_DIGITAL_WIDGET_DISPLAY_DATE -> {
@@ -181,7 +185,8 @@ public class AppWidgetDigitalSettingsFragment extends ScreenFragment implements 
                 mDefaultDateColorPref.setVisible(isDateDisplayed);
                 mCustomDateColorPref.setVisible(mDefaultDateColorPref.isVisible()
                     && !WidgetDAO.isDigitalWidgetDefaultDateColor(mPrefs));
-                Utils.setVibrationTime(requireContext(), 50);
+
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM -> {
@@ -197,7 +202,8 @@ public class AppWidgetDigitalSettingsFragment extends ScreenFragment implements 
                 mDefaultNextAlarmColorPref.setVisible(isNextAlarmDisplayed);
                 mCustomNextAlarmColorPref.setVisible(mDefaultNextAlarmColorPref.isVisible()
                     && !WidgetDAO.isDigitalWidgetDefaultNextAlarmColor(mPrefs));
-                Utils.setVibrationTime(requireContext(), 50);
+
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM_TITLE -> {
@@ -206,7 +212,8 @@ public class AppWidgetDigitalSettingsFragment extends ScreenFragment implements 
                 mDefaultNextAlarmTitleColorPref.setVisible(isNextAlarmTitleDisplayed);
                 mCustomNextAlarmTitleColorPref.setVisible(isNextAlarmTitleDisplayed
                     && !WidgetDAO.isDigitalWidgetDefaultNextAlarmTitleColor(mPrefs));
-                Utils.setVibrationTime(requireContext(), 50);
+
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED -> {
@@ -231,7 +238,7 @@ public class AppWidgetDigitalSettingsFragment extends ScreenFragment implements 
                     mDigitalWidgetMaxClockFontSizePref.setTitle(R.string.max_clock_font_size_title);
                 }
 
-                Utils.setVibrationTime(requireContext(), 50);
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_DIGITAL_WIDGET_DEFAULT_BACKGROUND_COLOR -> {
@@ -246,42 +253,42 @@ public class AppWidgetDigitalSettingsFragment extends ScreenFragment implements 
                     mBackgroundCornerRadiusPref.setVisible(isCustomColor && displayBackground && isRadiusCustomizable);
                 }
 
-                Utils.setVibrationTime(requireContext(), 50);
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_DIGITAL_WIDGET_DEFAULT_CLOCK_COLOR -> {
                 mCustomClockColorPref.setVisible(!(boolean) newValue);
-                Utils.setVibrationTime(requireContext(), 50);
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_DIGITAL_WIDGET_DEFAULT_DATE_COLOR -> {
                 mCustomDateColorPref.setVisible(!(boolean) newValue);
-                Utils.setVibrationTime(requireContext(), 50);
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR -> {
                 mCustomNextAlarmColorPref.setVisible(!(boolean) newValue);
-                Utils.setVibrationTime(requireContext(), 50);
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_TITLE_COLOR -> {
                 mCustomNextAlarmTitleColorPref.setVisible(!(boolean) newValue);
-                Utils.setVibrationTime(requireContext(), 50);
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_DIGITAL_WIDGET_DEFAULT_CITY_CLOCK_COLOR -> {
                 mCustomCityClockColorPref.setVisible(!(boolean) newValue);
-                Utils.setVibrationTime(requireContext(), 50);
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_DIGITAL_WIDGET_DEFAULT_CITY_NAME_COLOR -> {
                 mCustomCityNameColorPref.setVisible(!(boolean) newValue);
-                Utils.setVibrationTime(requireContext(), 50);
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_DIGITAL_WIDGET_DEFAULT_CITY_NOTE_COLOR -> {
                 mCustomCityNoteColorPref.setVisible(!(boolean) newValue);
-                Utils.setVibrationTime(requireContext(), 50);
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
         }
 

@@ -32,6 +32,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.view.HapticFeedbackConstantsCompat;
 import androidx.core.view.MenuProvider;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
@@ -305,7 +306,7 @@ public class AboutFragment extends ScreenFragment implements Preference.OnPrefer
 
             requireActivity().recreate();
 
-            Utils.setVibrationTime(requireContext(), 50);
+            Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
         }
 
         return true;

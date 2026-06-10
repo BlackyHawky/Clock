@@ -167,10 +167,10 @@
             android:key="key_vibrations"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/settings_vibration_title"
-            android:summary="@string/settings_vibration_summary"
             android:defaultValue="false"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:summary="@string/settings_vibration_summary"/>
 
         <SwitchPreferenceCompat
             android:key="key_fade_transitions"

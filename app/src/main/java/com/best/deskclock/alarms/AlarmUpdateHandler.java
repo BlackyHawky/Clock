@@ -11,6 +11,8 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.core.view.HapticFeedbackConstantsCompat;
+
 import com.best.deskclock.R;
 import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.events.Events;
@@ -251,6 +253,8 @@ public final class AlarmUpdateHandler {
                 final Alarm alarmToRestore = mDeletedAlarm;
 
                 mDeletedAlarm = null;
+
+                Utils.performHapticFeedback(v, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 asyncAddAlarm(alarmToRestore);
             }

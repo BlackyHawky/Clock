@@ -14,6 +14,7 @@ import android.provider.Settings;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.core.view.HapticFeedbackConstantsCompat;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
@@ -185,19 +186,19 @@ public class ClockSettingsFragment extends ScreenFragment
             case KEY_DISPLAY_CLOCK_SECONDS -> {
                 mClockSecondHandPref.setVisible((boolean) newValue && SettingsDAO.getClockStyle(mPrefs) == DataModel.ClockStyle.ANALOG);
 
-                Utils.setVibrationTime(requireContext(), 50);
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_AUTO_HOME_CLOCK -> {
                 mHomeTimeZonePref.setEnabled((boolean) newValue);
 
-                Utils.setVibrationTime(requireContext(), 50);
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
-            case KEY_DISPLAY_TEXT_UPPERCASE -> Utils.setVibrationTime(requireContext(), 50);
+            case KEY_DISPLAY_TEXT_UPPERCASE -> Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
             case KEY_ENABLE_CITY_NOTE -> {
-                Utils.setVibrationTime(requireContext(), 50);
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 WidgetUtils.scheduleWidgetUpdate(requireContext(), DigitalAppWidgetProvider.class);
             }

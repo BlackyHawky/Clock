@@ -382,9 +382,11 @@
     <!-- Setting title to switch to last tab used -->
     <string name="last_tab_used_title">Last tab used</string>
     <!-- Setting title to activate vibrations on some buttons. -->
-    <string name="settings_vibration_title">Enable vibrations</string>
-    <!-- Setting summary about vibrations. -->
+    <string name="settings_vibration_title">Enable vibration</string>
+    <!-- Setting summary about vibration. -->
     <string name="settings_vibration_summary">Only some interface buttons are affected (e.g.: the timer play/pause button or switches)</string>
+    <!-- Setting summary about vibration when disabled in the device settings. -->
+    <string name="settings_vibration_disabled_summary">Vibration is disabled in the device settings</string>
     <!-- Setting title to display the toolbar title. -->
     <string name="settings_toolbar_title">Display the title in the toolbar</string>
     <!-- Setting title to change the tab title visibility. -->

@@ -30,6 +30,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import androidx.core.view.HapticFeedbackConstantsCompat;
+
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.databinding.TimerSetupViewBinding;
@@ -208,13 +210,13 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
         } else {
             append(getDigitForId(view.getId()));
         }
-        Utils.setVibrationTime(getContext(), 10);
+        Utils.performHapticFeedback(view, HapticFeedbackConstantsCompat.CLOCK_TICK);
     }
 
     @Override
     public boolean onLongClick(View view) {
         if (view == mBinding.timerSetupDigitsLayout.timerSetupDelete) {
-            Utils.setVibrationTime(getContext(), 10);
+            Utils.performHapticFeedback(view, HapticFeedbackConstantsCompat.CLOCK_TICK);
             reset();
             updateFab();
             return true;

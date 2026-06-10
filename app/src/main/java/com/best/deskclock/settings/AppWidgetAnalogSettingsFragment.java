@@ -13,6 +13,7 @@ import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.core.view.HapticFeedbackConstantsCompat;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
@@ -139,27 +140,27 @@ public class AppWidgetAnalogSettingsFragment extends ScreenFragment implements P
                 mClockSecondHandPref.setVisible(isSecondHandDisplayed && !isSunOrFlowerClockDial);
                 mDefaultSecondHandColorPref.setVisible(isSecondHandDisplayed);
                 mSecondHandColorPref.setVisible(isSecondHandDisplayed && !WidgetDAO.isAnalogWidgetDefaultSecondHandColor(mPrefs));
-                Utils.setVibrationTime(requireContext(), 50);
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_ANALOG_WIDGET_DEFAULT_DIAL_COLOR -> {
                 mDialColorPref.setVisible(!(boolean) newValue);
-                Utils.setVibrationTime(requireContext(), 50);
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_ANALOG_WIDGET_DEFAULT_HOUR_HAND_COLOR -> {
                 mHourHandColorPref.setVisible(!(boolean) newValue);
-                Utils.setVibrationTime(requireContext(), 50);
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_ANALOG_WIDGET_DEFAULT_MINUTE_HAND_COLOR -> {
                 mMinuteHandColorPref.setVisible(!(boolean) newValue);
-                Utils.setVibrationTime(requireContext(), 50);
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_ANALOG_WIDGET_DEFAULT_SECOND_HAND_COLOR -> {
                 mSecondHandColorPref.setVisible(!(boolean) newValue && WidgetDAO.isSecondHandDisplayedOnAnalogWidget(mPrefs));
-                Utils.setVibrationTime(requireContext(), 50);
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
         }
 

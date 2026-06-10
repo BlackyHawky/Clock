@@ -43,6 +43,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.core.view.HapticFeedbackConstantsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.LifecycleOwner;
@@ -81,6 +82,7 @@ import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
+import com.best.deskclock.utils.Utils;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.timepicker.MaterialTimePicker;
 
@@ -191,8 +193,10 @@ public final class AlarmFragment extends DeskClockFragment
 
         mBinding = AlarmFragmentBinding.inflate(inflater, container, false);
 
-        mBinding.alarmVolumeWarningBanner.volumeWarningButton.setOnClickListener(v ->
-            RingtoneUtils.fixAlarmStreamLow(requireContext())
+        mBinding.alarmVolumeWarningBanner.volumeWarningButton.setOnClickListener(v -> {
+                Utils.performHapticFeedback(v, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+                RingtoneUtils.fixAlarmStreamLow(requireContext());
+            }
         );
 
         mEmptyViewController = new EmptyViewController(mBinding.alarmRootView, mBinding.alarmRecyclerView, mBinding.alarmEmptyView);

@@ -24,6 +24,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.core.view.HapticFeedbackConstantsCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -241,7 +242,7 @@ public class AlarmItemTouchHelper extends ItemTouchHelper.SimpleCallback {
         mIsAlarmDeleted = true;
 
         if (mIsVibrationEnabled) {
-            Utils.setVibrationTime(viewHolder.itemView.getContext(), 50);
+            Utils.performHapticFeedback(viewHolder.itemView, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
         }
 
         mContract.onRowSwiped(viewHolder);
@@ -369,7 +370,7 @@ public class AlarmItemTouchHelper extends ItemTouchHelper.SimpleCallback {
 
         if (mIsSwiping) {
             if (!mIsAlarmDeleted && mIsVibrationEnabled) {
-                Utils.setVibrationTime(viewHolder.itemView.getContext(), 10);
+                Utils.performHapticFeedback(viewHolder.itemView, HapticFeedbackConstantsCompat.CLOCK_TICK);
             }
 
             mIsSwiping = false;

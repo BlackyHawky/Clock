@@ -25,7 +25,6 @@ import com.best.deskclock.data.Lap;
 import com.best.deskclock.data.Stopwatch;
 import com.best.deskclock.databinding.LapViewBinding;
 import com.best.deskclock.uidata.UiDataModel;
-import com.best.deskclock.utils.Utils;
 import com.google.android.material.color.MaterialColors;
 
 import java.text.DecimalFormatSymbols;
@@ -279,8 +278,6 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
             }
         }
 
-        Utils.setVibrationTime(mContext, 10);
-
         notifyDataSetChanged();
 
         return lap;
@@ -339,8 +336,6 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
             builder.append(formatTime(lapTime, lapTime, " "));
             builder.append("\n");
         }
-
-        Utils.setVibrationTime(mContext, 10);
 
         return builder.toString();
     }

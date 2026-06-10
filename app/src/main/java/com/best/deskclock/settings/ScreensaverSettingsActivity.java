@@ -16,6 +16,7 @@ import android.provider.Settings;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.core.view.HapticFeedbackConstantsCompat;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
@@ -321,7 +322,8 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                     mBatteryColorPref.setVisible(isBatteryVisible);
                     mBoldBatteryPref.setVisible(isBatteryVisible);
                     mItalicBatteryPref.setVisible(isBatteryVisible);
-                    Utils.setVibrationTime(requireContext(), 50);
+
+                    Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
                 }
 
                 case KEY_SCREENSAVER_CLOCK_DIAL, KEY_SCREENSAVER_CLOCK_DIAL_MATERIAL, KEY_SCREENSAVER_CLOCK_SECOND_HAND -> {
@@ -334,14 +336,13 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                     mClockSecondHandPref.setVisible((boolean) newValue
                         && SettingsDAO.getScreensaverClockStyle(mPrefs) == DataModel.ClockStyle.ANALOG);
 
-                    Utils.setVibrationTime(requireContext(), 50);
+                    Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
                 }
 
                 case KEY_SCREENSAVER_DISPLAY_TEXT_UPPERCASE, KEY_SCREENSAVER_DIGITAL_CLOCK_IN_BOLD, KEY_SCREENSAVER_DIGITAL_CLOCK_IN_ITALIC,
                      KEY_SCREENSAVER_BATTERY_IN_BOLD, KEY_SCREENSAVER_BATTERY_IN_ITALIC, KEY_SCREENSAVER_DATE_IN_BOLD,
                      KEY_SCREENSAVER_DATE_IN_ITALIC, KEY_SCREENSAVER_NEXT_ALARM_IN_BOLD, KEY_SCREENSAVER_NEXT_ALARM_IN_ITALIC,
-                     KEY_SCREENSAVER_KEEP_SCREEN_ON ->
-                    Utils.setVibrationTime(requireContext(), 50);
+                     KEY_SCREENSAVER_KEEP_SCREEN_ON -> Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
                 case KEY_SCREENSAVER_CLOCK_DYNAMIC_COLORS -> {
                     boolean areNotDynamicColors = !(boolean) newValue;
@@ -350,7 +351,8 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                     mBatteryColorPref.setVisible(areNotDynamicColors);
                     mDateColorPref.setVisible(areNotDynamicColors);
                     mNextAlarmColorPref.setVisible(areNotDynamicColors);
-                    Utils.setVibrationTime(requireContext(), 50);
+
+                    Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
                 }
 
                 case KEY_ENABLE_SCREENSAVER_BLUR_EFFECT -> {
@@ -358,7 +360,7 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                         && (boolean) newValue
                         && SettingsDAO.getScreensaverBackgroundImage(mPrefs) != null);
 
-                    Utils.setVibrationTime(requireContext(), 50);
+                    Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
                 }
             }
 

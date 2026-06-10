@@ -43,6 +43,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.view.HapticFeedbackConstantsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -170,7 +171,10 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
 
         mBinding = TimerFragmentBinding.inflate(inflater, container, false);
 
-        mBinding.timerVolumeBanner.volumeWarningButton.setOnClickListener(v -> RingtoneUtils.fixAlarmStreamLow(requireContext()));
+        mBinding.timerVolumeBanner.volumeWarningButton.setOnClickListener(v -> {
+            Utils.performHapticFeedback(v, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+            RingtoneUtils.fixAlarmStreamLow(requireContext());
+        });
 
         mBinding.timerRecyclerView.setLayoutManager(getLayoutManager(requireContext()));
         mBinding.timerRecyclerView.addItemDecoration(new GridSpacingItemDecoration(requireContext(), mDisplayMetrics));
@@ -445,7 +449,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
                 resetTimerCreationViews();
                 animateToView(mBinding.timerContentView, false);
                 left.announceForAccessibility(getString(R.string.timer_canceled));
-                Utils.setVibrationTime(requireContext(), 10);
+                Utils.performHapticFeedback(v, HapticFeedbackConstantsCompat.CLOCK_TICK);
             });
         }
     }
@@ -457,6 +461,8 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
                 List<Timer> timers = DataModel.getDataModel().getTimers();
 
                 if (!DataModel.getDataModel().getTimers().isEmpty()) {
+                    Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
                     DataModel.getDataModel().removeTimer(timers.get(0));
                 }
             } else {
@@ -476,7 +482,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
                 // Start the new timer.
                 DataModel.getDataModel().startTimer(timer);
                 Events.sendTimerEvent(R.string.action_start, R.string.label_deskclock);
-                Utils.setVibrationTime(requireContext(), 50);
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             } finally {
                 mCreatingTimer = false;
             }

@@ -16,6 +16,7 @@ import android.os.Bundle;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.core.view.HapticFeedbackConstantsCompat;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
@@ -254,7 +255,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
                 mAlarmClockSecondHandPref.setVisible(isSecondHandDisplayed && alarmClockStyle == ClockStyle.ANALOG);
                 mAlarmSecondHandColorPref.setVisible(isSecondHandDisplayed && alarmClockStyle != ClockStyle.ANALOG_MATERIAL);
 
-                Utils.setVibrationTime(requireContext(), 50);
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_SWIPE_ACTION -> {
@@ -267,7 +268,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
                 mDismissButtonColorPref.setVisible(!isSwipeActionEnabled);
                 mAlarmButtonColorPref.setVisible(isSwipeActionEnabled);
 
-                Utils.setVibrationTime(requireContext(), 50);
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_DISPLAY_SNOOZE_SELECTOR -> {
@@ -280,7 +281,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
                 mSnoozeMinusSymbolColorPref.setVisible(isSnoozeSelectorDisplayed);
                 mSnoozePlusSymbolColorPref.setVisible(isSnoozeSelectorDisplayed);
 
-                Utils.setVibrationTime(requireContext(), 50);
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_ALARM_DISPLAY_TEXT_SHADOW -> {
@@ -288,13 +289,13 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
                 mShadowColorPref.setVisible(isTextShadowDisplayed);
                 mShadowOffsetPref.setVisible(isTextShadowDisplayed);
 
-                Utils.setVibrationTime(requireContext(), 50);
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_DISPLAY_RINGTONE_TITLE -> {
                 mRingtoneTitleColorPref.setVisible((boolean) newValue);
 
-                Utils.setVibrationTime(requireContext(), 50);
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_ENABLE_ALARM_BLUR_EFFECT -> {
@@ -302,10 +303,10 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
                     && (boolean) newValue
                     && SettingsDAO.getAlarmBackgroundImage(mPrefs) != null);
 
-                Utils.setVibrationTime(requireContext(), 50);
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
-            case KEY_DISPLAY_ALARM_ACTION_MESSAGE -> Utils.setVibrationTime(requireContext(), 50);
+            case KEY_DISPLAY_ALARM_ACTION_MESSAGE -> Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
         }
 
         return true;
