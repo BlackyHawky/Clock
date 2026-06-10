@@ -10,13 +10,13 @@ import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 
-import android.content.Context;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.core.view.HapticFeedbackConstantsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.data.DataModel;
@@ -44,7 +44,6 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
 
         super(view);
 
-        Context context = view.getContext();
         mAdapter = timerAdapter;
 
         final TextView timerLabel;
@@ -83,7 +82,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
         }
 
         View.OnClickListener playPauseListener = v -> {
-            Utils.setVibrationTime(context, 50);
+            Utils.performHapticFeedback(v, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             timerClickHandler.onPlayPauseClicked(getTimer());
         };
 
@@ -91,9 +90,10 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
 
         mResetOrEditButton.setOnClickListener(v -> {
             if (getTimer().isReset()) {
+                Utils.performHapticFeedback(v, HapticFeedbackConstantsCompat.CLOCK_TICK);
                 timerClickHandler.onDurationClicked(getTimer());
             } else {
-                Utils.setVibrationTime(context, 10);
+                Utils.performHapticFeedback(v, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
                 timerClickHandler.onResetClicked(getTimer());
             }
         });
@@ -103,7 +103,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
                 return;
             }
 
-            Utils.setVibrationTime(context, 10);
+            Utils.performHapticFeedback(v, HapticFeedbackConstantsCompat.CLOCK_TICK);
             timerClickHandler.onAddTimeClicked(getTimer(), v);
         });
 
@@ -122,7 +122,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
         playPauseButton.setOnClickListener(playPauseListener);
 
         mDeleteButton.setOnClickListener(v -> {
-            Utils.setVibrationTime(context, 10);
+            Utils.performHapticFeedback(v, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             timerClickHandler.onDeleteTimerClicked(getTimer());
         });
     }

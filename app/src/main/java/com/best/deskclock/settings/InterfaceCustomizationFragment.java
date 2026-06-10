@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.service.quicksettings.TileService;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -18,6 +19,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.os.LocaleListCompat;
+import androidx.core.view.HapticFeedbackConstantsCompat;
 import androidx.preference.ListPreference;
 import androidx.preference.MultiSelectListPreference;
 import androidx.preference.Preference;
@@ -199,7 +201,7 @@ public class InterfaceCustomizationFragment extends ScreenFragment
             }
 
             case KEY_AUTO_NIGHT_ACCENT_COLOR, KEY_CARD_BACKGROUND, KEY_CARD_BORDER, KEY_FADE_TRANSITIONS, KEY_VIBRATIONS, KEY_TOOLBAR_TITLE,
-                 KEY_TAB_INDICATOR, KEY_KEEP_SCREEN_ON -> Utils.setVibrationTime(requireContext(), 50);
+                 KEY_TAB_INDICATOR, KEY_KEEP_SCREEN_ON -> Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
             case KEY_LANGUAGE_CODE -> {
                 final int index = mLanguageCodePref.findIndexOfValue((String) newValue);
@@ -315,7 +317,22 @@ public class InterfaceCustomizationFragment extends ScreenFragment
         updateTabToDisplayPreference(visibleTabs);
         mTabToDisplayPref.setOnPreferenceChangeListener(this);
 
-        mVibrationPref.setVisible(DeviceUtils.hasVibrator(requireContext()));
+        if (!DeviceUtils.hasVibrator(requireContext())) {
+            mVibrationPref.setVisible(false);
+        } else {
+            mVibrationPref.setVisible(true);
+
+            boolean isSystemHapticFeedbackEnabled = Settings.System.getInt(
+                requireContext().getContentResolver(), Settings.System.HAPTIC_FEEDBACK_ENABLED, 1) == 1;
+
+            if (isSystemHapticFeedbackEnabled) {
+                mVibrationPref.setEnabled(true);
+                mVibrationPref.setSummary(getString(R.string.settings_vibration_summary));
+            } else {
+                mVibrationPref.setEnabled(false);
+                mVibrationPref.setSummary(getString(R.string.settings_vibration_disabled_summary));
+            }
+        }
         mVibrationPref.setOnPreferenceChangeListener(this);
 
         mFadeTransitionsPref.setOnPreferenceChangeListener(this);

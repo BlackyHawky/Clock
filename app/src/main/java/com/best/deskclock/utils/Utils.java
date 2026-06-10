@@ -272,7 +272,7 @@ public class Utils {
     }
 
     /**
-     * Set the vibration duration if the device is equipped with a vibrator and if vibrations are enabled in the settings.
+     * Set the vibration duration if the device is equipped with a vibrator and if vibration is enabled in the settings.
      *
      * @param context      to define whether the device is equipped with a vibrator.
      * @param milliseconds Hours to display (if any)
@@ -286,6 +286,18 @@ public class Utils {
             } else {
                 vibrator.vibrate(milliseconds);
             }
+        }
+    }
+
+    /**
+     * Triggers haptic feedback if system or app settings allow it.
+     *
+     * @param view             The view from which the action is triggered.
+     * @param feedbackConstant The constant of type {@link android.view.HapticFeedbackConstants}.
+     */
+    public static void performHapticFeedback(View view, int feedbackConstant) {
+        if (view != null && SettingsDAO.isVibrationsEnabled(getDefaultSharedPreferences(view.getContext()))) {
+            view.performHapticFeedback(feedbackConstant);
         }
     }
 

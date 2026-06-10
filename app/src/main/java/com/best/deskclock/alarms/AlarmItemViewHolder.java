@@ -17,6 +17,7 @@ import android.graphics.drawable.Drawable;
 import android.text.format.DateFormat;
 import android.util.TypedValue;
 
+import androidx.core.view.HapticFeedbackConstantsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.R;
@@ -29,6 +30,7 @@ import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.FormattedTextUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.ThemeUtils;
+import com.best.deskclock.utils.Utils;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -95,6 +97,7 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         mBinding.preemptiveDismissButton.setOnClickListener(v -> {
             final AlarmInstance alarmInstance = mItemHolder.getAlarmInstance();
             if (alarmInstance != null) {
+                Utils.performHapticFeedback(v, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
                 mItemHolder.getAlarmTimeClickHandler().dismissAlarmInstance(mItemHolder, alarmInstance);
             }
         });
@@ -186,8 +189,17 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
 
         mBinding.onOffButton.setOnCheckedChangeListener(null);
         mBinding.onOffButton.setChecked(alarm.enabled);
-        mBinding.onOffButton.setOnCheckedChangeListener((compoundButton, checked) ->
-            mItemHolder.getAlarmTimeClickHandler().setAlarmEnabled(mItemHolder.item, checked));
+        mBinding.onOffButton.setOnCheckedChangeListener((compoundButton, checked) -> {
+            mItemHolder.getAlarmTimeClickHandler().setAlarmEnabled(mItemHolder.item, checked);
+            if (checked) {
+                Utils.performHapticFeedback(compoundButton, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
+                compoundButton.postDelayed(() ->
+                    Utils.performHapticFeedback(compoundButton, HapticFeedbackConstantsCompat.VIRTUAL_KEY), 50);
+            } else {
+                Utils.performHapticFeedback(compoundButton, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+            }
+        });
     }
 
     private void bindClock(Alarm alarm) {

@@ -43,6 +43,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.view.HapticFeedbackConstantsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
@@ -436,7 +437,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
     private void doStart() {
         Events.sendStopwatchEvent(R.string.action_start, R.string.label_deskclock);
         DataModel.getDataModel().startStopwatch();
-        Utils.setVibrationTime(requireContext(), 50);
+        Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
     }
 
     /**
@@ -445,7 +446,7 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
     private void doPause() {
         Events.sendStopwatchEvent(R.string.action_pause, R.string.label_deskclock);
         DataModel.getDataModel().pauseStopwatch();
-        Utils.setVibrationTime(requireContext(), 50);
+        Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
     }
 
     /**
@@ -460,13 +461,16 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
         if (priorState == Stopwatch.State.RUNNING) {
             updateFab(FAB_MORPH);
         }
-        Utils.setVibrationTime(requireContext(), 10);
+
+        Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.CLOCK_TICK);
     }
 
     /**
      * Send stopwatch time and lap times to an external sharing application.
      */
     private void doShare() {
+        Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.CLOCK_TICK);
+
         // Disable the fab buttons to avoid double-taps on the share button.
         updateFab(BUTTONS_DISABLE);
 
@@ -501,6 +505,8 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
         if (lap == null) {
             return;
         }
+
+        Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.CLOCK_TICK);
 
         // Update button states.
         updateFab(BUTTONS_IMMEDIATE);
@@ -777,7 +783,8 @@ public final class StopwatchFragment extends DeskClockFragment implements Runnab
             } else {
                 DataModel.getDataModel().startStopwatch();
             }
-            Utils.setVibrationTime(requireContext(), 50);
+
+            Utils.performHapticFeedback(view, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
         }
     }
 

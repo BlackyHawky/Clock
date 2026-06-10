@@ -14,6 +14,7 @@ import android.os.Bundle;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.core.view.HapticFeedbackConstantsCompat;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 import androidx.preference.SwitchPreferenceCompat;
@@ -170,7 +171,8 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
     @Override
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
-            case KEY_DISPLAY_COMPACT_TIMERS, KEY_INVERT_TIMER_BUTTON_POSITIONS -> Utils.setVibrationTime(requireContext(), 50);
+            case KEY_DISPLAY_COMPACT_TIMERS, KEY_INVERT_TIMER_BUTTON_POSITIONS ->
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
             case KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER -> {
                 boolean isNotBackgroundTransparent = !(boolean) newValue;
@@ -188,7 +190,7 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
                     && isNotTimerBackgroundImageNull
                     && SettingsDAO.isTimerBlurEffectEnabled(mPrefs));
 
-                Utils.setVibrationTime(requireContext(), 50);
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_DISPLAY_TIMER_STATE_INDICATOR -> {
@@ -200,7 +202,7 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
                 mExpiredTimerIndicatorColorPref.setVisible(isTimerStateIndicatorDisplayed);
                 mMissedTimerIndicatorColorPref.setVisible(isTimerStateIndicatorDisplayed);
 
-                Utils.setVibrationTime(requireContext(), 50);
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_DISPLAY_TIMER_RINGTONE_TITLE -> {
@@ -214,7 +216,7 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
                 mShadowColorPref.setVisible(isRingtoneTitleDisplayed && isTextShadowDisplayed);
                 mShadowOffsetPref.setVisible(isRingtoneTitleDisplayed && isTextShadowDisplayed);
 
-                Utils.setVibrationTime(requireContext(), 50);
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_TIMER_DISPLAY_TEXT_SHADOW -> {
@@ -223,7 +225,7 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
                 mShadowColorPref.setVisible(displayTextShadow);
                 mShadowOffsetPref.setVisible(displayTextShadow);
 
-                Utils.setVibrationTime(requireContext(), 50);
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_ENABLE_TIMER_BLUR_EFFECT -> {
@@ -231,7 +233,7 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
                     && (boolean) newValue
                     && SettingsDAO.getTimerBackgroundImage(mPrefs) != null);
 
-                Utils.setVibrationTime(requireContext(), 50);
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
         }
 

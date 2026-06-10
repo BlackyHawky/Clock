@@ -38,6 +38,7 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.util.Pair;
+import androidx.core.view.HapticFeedbackConstantsCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -412,7 +413,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
                     bindSelectedDate();
                     bindPauseAlarm();
                     bindDeleteOccasionalAlarmAfterUse();
-                    Utils.setVibrationTime(requireContext(), 10);
+                    Utils.performHapticFeedback(dayButtons[i], HapticFeedbackConstantsCompat.VIRTUAL_KEY);
                     break;
                 }
             }
@@ -609,7 +610,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         mBinding.flashOnOff.setOnCheckedChangeListener((buttonView, isChecked) -> {
             Events.sendAlarmEvent(R.string.action_toggle_flash, R.string.label_deskclock);
             mAlarm.flash = isChecked;
-            Utils.setVibrationTime(requireContext(), 50);
+            Utils.performHapticFeedback(mBinding.flashOnOff, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
         });
     }
 
@@ -623,7 +624,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
         mBinding.deleteOccasionalAlarmAfterUse.setOnCheckedChangeListener((buttonView, isChecked) -> {
             mAlarm.deleteAfterUse = isChecked;
-            Utils.setVibrationTime(requireContext(), 50);
+            Utils.performHapticFeedback(mBinding.deleteOccasionalAlarmAfterUse, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
         });
     }
 
@@ -833,6 +834,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             mIsDeleted = true;
             Events.sendAlarmEvent(R.string.action_delete, R.string.label_deskclock);
             mAlarmUpdateHandler.asyncDeleteAlarm(mAlarm);
+            Utils.performHapticFeedback(mBinding.deleteButton, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             dismiss();
         });
     }
@@ -848,6 +850,8 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             duplicatedAlarm.instanceState = AlarmInstance.SILENT_STATE;
 
             mAlarmUpdateHandler.asyncAddAlarm(duplicatedAlarm);
+
+            Utils.performHapticFeedback(mBinding.duplicateButton, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
             dismiss();
         });

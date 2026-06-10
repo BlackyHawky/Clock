@@ -29,7 +29,6 @@ import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.utils.LogUtils;
-import com.best.deskclock.utils.Utils;
 
 import java.util.Calendar;
 import java.util.List;
@@ -105,7 +104,6 @@ public final class AlarmTimeClickHandler {
                 }
             }
 
-            Utils.setVibrationTime(mContext, 50);
             LOGGER.d("Updating alarm enabled state to " + newState);
         }
     }
@@ -184,7 +182,6 @@ public final class AlarmTimeClickHandler {
         final Intent dismissIntent = AlarmStateManager.createStateChangeIntent(
             mContext, AlarmStateManager.ALARM_DISMISS_TAG, alarmInstance, AlarmInstance.PREDISMISSED_STATE);
         mContext.startService(dismissIntent);
-        Utils.setVibrationTime(mContext, 50);
     }
 
     public void onClockClicked(Alarm alarm) {
