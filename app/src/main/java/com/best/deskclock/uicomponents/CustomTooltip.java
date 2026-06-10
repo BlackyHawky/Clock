@@ -33,26 +33,26 @@ public class CustomTooltip {
      * Displays a custom tooltip above the given anchor view.
      *
      * <p>This is a convenience method that delegates to the internal
-     * {@link #show(View, String, Position)} method using the ABOVE position.</p>
+     * {@link #show(View, String, Position, boolean)} method using the ABOVE position.</p>
      *
      * @param anchor the view above which the tooltip should appear
      * @param text   the text to display inside the tooltip
      */
-    public static void showAbove(View anchor, String text) {
-        show(anchor, text, Position.ABOVE);
+    public static void showAbove(View anchor, String text, boolean isFab) {
+        show(anchor, text, Position.ABOVE, isFab);
     }
 
     /**
      * Displays a custom tooltip below the given anchor view.
      *
      * <p>This is a convenience method that delegates to the internal
-     * {@link #show(View, String, Position)} method using the BELOW position.</p>
+     * {@link #show(View, String, Position, boolean)} method using the BELOW position.</p>
      *
      * @param anchor the view under which the tooltip should appear
      * @param text   the text to display inside the tooltip
      */
     public static void showBelow(View anchor, String text) {
-        show(anchor, text, Position.BELOW);
+        show(anchor, text, Position.BELOW, false);
     }
 
     /**
@@ -65,7 +65,7 @@ public class CustomTooltip {
      * @param text     the text to display inside the tooltip
      * @param position whether the tooltip should appear above or below the anchor
      */
-    private static void show(View anchor, String text, Position position) {
+    private static void show(View anchor, String text, Position position, boolean isFab) {
         Context context = anchor.getContext();
         SharedPreferences prefs = getDefaultSharedPreferences(context);
         Typeface typeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
@@ -92,7 +92,8 @@ public class CustomTooltip {
 
         binding.getRoot().measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
         int tooltipWidth = binding.getRoot().getMeasuredWidth();
-        int tooltipHeight = binding.getRoot().getMeasuredHeight();
+        int measuredHeight = binding.getRoot().getMeasuredHeight();
+        int tooltipHeight = isFab ? (int) (1.4 * measuredHeight) : measuredHeight;
         int anchorWidth = anchor.getWidth();
         int anchorHeight = anchor.getHeight();
 

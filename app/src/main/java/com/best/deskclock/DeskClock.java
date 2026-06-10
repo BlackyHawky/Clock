@@ -558,8 +558,14 @@ public class DeskClock extends BaseActivity implements FabContainer {
     private void configureFabAndButtons() {
         // Configure the buttons shared by the tabs.
         mBinding.fab.setOnClickListener(view -> getSelectedDeskClockFragment().onFabClick());
-        mBinding.fab.setOnLongClickListener(v -> {
-            getSelectedDeskClockFragment().onFabLongClick(mBinding.fab);
+
+        mBinding.leftButton.setOnLongClickListener(v -> {
+            CustomTooltip.showAbove(v, mBinding.leftButton.getContentDescription().toString(), true);
+            return true;
+        });
+
+        mBinding.rightButton.setOnLongClickListener(v -> {
+            CustomTooltip.showAbove(v, mBinding.rightButton.getContentDescription().toString(), true);
             return true;
         });
 
@@ -760,7 +766,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
                         if (item != null) {
                             title = item.getTitle();
                             if (title != null) {
-                                CustomTooltip.showAbove(v, title.toString());
+                                CustomTooltip.showAbove(v, title.toString(), false);
                             }
                         }
 
