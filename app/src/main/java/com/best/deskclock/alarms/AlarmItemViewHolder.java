@@ -203,6 +203,7 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void bindClock(Alarm alarm) {
+        mBinding.digitalClock.refreshFormat();
         mBinding.digitalClock.setTime(alarm.hour, alarm.minutes);
     }
 
