@@ -313,7 +313,7 @@ public class WidgetUtils {
         final CharSequence format = clock.is24HourModeEnabled()
             ? ClockUtils.get24ModeFormat(includeSeconds, false)
             : ClockUtils.get12ModeFormat(clock.getContext(), getAmPmRatio(prefs),
-            includeSeconds, false, false, false);
+            includeSeconds, false, false, false, false);
         final Calendar longestPMTime = Calendar.getInstance();
         longestPMTime.set(0, 0, 0, 23, 59);
         return DateFormat.format(format, longestPMTime);
@@ -338,7 +338,9 @@ public class WidgetUtils {
         if (DataModel.getDataModel().is24HourFormat()) {
             rv.setCharSequence(clockViewId, METHOD_SET_FORMAT_24, ClockUtils.get24ModeFormat(showSeconds, false));
         } else {
-            rv.setCharSequence(clockViewId, METHOD_SET_FORMAT_12, ClockUtils.get12ModeFormat(context, amPmRatio, showSeconds, false, false, false));
+            rv.setCharSequence(clockViewId, METHOD_SET_FORMAT_12, ClockUtils.get12ModeFormat(
+                context, amPmRatio, showSeconds, false, false, false, false)
+            );
         }
     }
 

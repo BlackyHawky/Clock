@@ -374,7 +374,7 @@ public final class ClockFragment extends DeskClockFragment {
 
         if (mIsDigitalClock) {
             digitalClock.setTypeface(mSettings.digitalClockTypeface);
-            ClockUtils.setDigitalClockTimeFormat(digitalClock, 0.4f, mSettings.showSeconds, false, true, false);
+            ClockUtils.setDigitalClockTimeFormat(digitalClock, 0.4f, mSettings.showSeconds, false, true, false, false);
             digitalClock.applyUserPreferredTextSizeSp(mSettings.digitalClockFontSize);
         } else {
             ClockUtils.adjustAnalogClockSize(analogClock, mSettings.analogClockSizePercent);

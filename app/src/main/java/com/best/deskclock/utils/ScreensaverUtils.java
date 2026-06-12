@@ -437,7 +437,7 @@ public class ScreensaverUtils {
 
         if (screensaverClockStyle == ClockStyle.DIGITAL) {
             textClock.setTypeface(getScreensaverClockTypeface(prefs));
-            ClockUtils.setDigitalClockTimeFormat(textClock, 0.4f, areClockSecondsEnabled, false, false, true);
+            ClockUtils.setDigitalClockTimeFormat(textClock, 0.4f, areClockSecondsEnabled, false, false, false, true);
 
             textClock.applyUserPreferredTextSizeSp(SettingsDAO.getScreensaverDigitalClockFontSize(prefs));
 

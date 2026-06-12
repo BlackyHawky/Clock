@@ -72,7 +72,7 @@ public class CityViewHolder extends RecyclerView.ViewHolder {
 
             mBinding.digitalClock.setBackground(ThemeUtils.pillBackgroundFromAttr(mContext, com.google.android.material.R.attr.colorSecondary));
             mBinding.digitalClock.setTypeface(settings.digitalClockTypeface);
-            ClockUtils.setDigitalClockTimeFormat(mBinding.digitalClock, 0.3f, false, false, true, false);
+            ClockUtils.setDigitalClockTimeFormat(mBinding.digitalClock, 0.3f, false, false, true, false, false);
 
             mBinding.digitalClock.setVisibility(View.VISIBLE);
         } else {

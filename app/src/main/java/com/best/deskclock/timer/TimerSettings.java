@@ -8,8 +8,12 @@ public class TimerSettings {
     // Timer time font
     public Typeface timerTimeTypeface;
 
+    public CharSequence timerEndTimeFormatPattern;
+
     // Booleans
     public boolean isSingleTimerMode;
+    public boolean isTimerEndTimeDisplayed;
+    public boolean is24HourFormat;
     public boolean areTimerButtonPositionsInverted;
     public boolean isIndicatorStateDisplay;
 

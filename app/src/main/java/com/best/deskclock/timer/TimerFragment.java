@@ -64,6 +64,7 @@ import com.best.deskclock.events.Events;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.uicomponents.CustomTooltip;
 import com.best.deskclock.utils.AnimatorUtils;
+import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
@@ -86,7 +87,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     private final SharedPreferences.OnSharedPreferenceChangeListener mPrefListener = (prefs, key) -> {
         if (key != null) {
             switch (key) {
-                case KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING, KEY_TIMER_DURATION_FONT, KEY_DISPLAY_COMPACT_TIMERS,
+                case KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING, KEY_TIMER_DURATION_FONT, KEY_DISPLAY_COMPACT_TIMERS, KEY_DISPLAY_TIMER_END_TIME,
                      KEY_INVERT_TIMER_BUTTON_POSITIONS, KEY_SINGLE_TIMER_MODE, KEY_SORT_TIMER, KEY_DISPLAY_TIMER_STATE_INDICATOR,
                      KEY_RUNNING_TIMER_INDICATOR_COLOR, KEY_PAUSED_TIMER_INDICATOR_COLOR, KEY_EXPIRED_TIMER_INDICATOR_COLOR,
                      KEY_MISSED_TIMER_INDICATOR_COLOR -> {
@@ -295,7 +296,9 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     public void onResume() {
         super.onResume();
 
-        if (mAreSettingsChanged) {
+        boolean isSystem24Hour = DataModel.getDataModel().is24HourFormat();
+
+        if (mAreSettingsChanged || mSettings.is24HourFormat != isSystem24Hour) {
             applySettingsChanges();
         }
 
@@ -726,7 +729,13 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         String timerFontPath = SettingsDAO.getTimerDurationFont(mPrefs);
         mSettings.timerTimeTypeface = ThemeUtils.boldTypeface(timerFontPath);
 
+        mSettings.is24HourFormat = DataModel.getDataModel().is24HourFormat();
+        mSettings.timerEndTimeFormatPattern = mSettings.is24HourFormat
+            ? ClockUtils.get24ModeFormat(false, false)
+            : ClockUtils.get12ModeFormat(requireContext(), 0.8f, false, false, false, true, false);
+
         mSettings.isSingleTimerMode = SettingsDAO.isSingleTimerModeEnabled(mPrefs);
+        mSettings.isTimerEndTimeDisplayed = SettingsDAO.isTimerEndTimeDisplayed(mPrefs);
         mSettings.areTimerButtonPositionsInverted = SettingsDAO.areTimerButtonPositionsInverted(mPrefs);
         mSettings.isIndicatorStateDisplay = SettingsDAO.isTimerStateIndicatorDisplayed(mPrefs);
 

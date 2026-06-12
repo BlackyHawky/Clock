@@ -33,6 +33,17 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="TextContrastCheck" />
 
+    <View
+        android:id="@+id/timer_indicator_state"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@drawable/bg_circle_for_preview"
+        tools:backgroundTint="#FF99CC00" />
+
     <ImageButton
         android:id="@+id/delete_timer_button"
         android:layout_width="wrap_content"
@@ -44,7 +55,7 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/delete"
         app:tint="?attr/colorPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/timer_indicator_state"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="TouchTargetSizeCheck" />
 
@@ -123,16 +134,26 @@
 
         </com.best.deskclock.uicomponents.CircleButtonsLayout>
 
-        <View
-            android:id="@+id/timer_indicator_state"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/timer_end_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:gravity="center"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textStyle="italic"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/circle_container_end_guide"
-            app:layout_constraintBottom_toTopOf="@+id/play_pause_button"
-            tools:background="@drawable/bg_circle_for_preview"
-            tools:backgroundTint="#FF99CC00" />
+            app:layout_constraintVertical_bias="0"
+            tools:text="End time: 8:30 PM"
+            tools:visibility="visible"
+            tools:ignore="TextContrastCheck" />
 
         <com.google.android.material.button.MaterialButton
             style="?attr/materialButtonOutlinedStyle"
@@ -141,7 +162,7 @@
             android:layout_height="0dp"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginVertical="10dp"
             android:paddingStart="2dp"
             android:paddingEnd="2dp"
             android:maxLines="1"
@@ -153,7 +174,7 @@
             app:layout_constraintHeight_max="@dimen/timer_button_height_max"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/button_center_guide"
-            app:layout_constraintTop_toBottomOf="@+id/circle_container_end_guide"
+            app:layout_constraintTop_toBottomOf="@+id/timer_end_time"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:text="+ 1:00"
             tools:textStyle="bold" />
@@ -164,7 +185,7 @@
             android:layout_height="0dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="12dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginVertical="10dp"
             android:contentDescription="@string/timer_start"
             android:scaleType="centerInside"
             app:iconTint="?android:attr/colorBackground"
@@ -174,7 +195,7 @@
             app:layout_constraintHeight_max="@dimen/timer_button_height_max"
             app:layout_constraintStart_toEndOf="@+id/button_center_guide"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/circle_container_end_guide"
+            app:layout_constraintTop_toBottomOf="@+id/timer_end_time"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:icon="@drawable/ic_fab_play" />
 

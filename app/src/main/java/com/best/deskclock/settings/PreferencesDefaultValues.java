@@ -161,6 +161,7 @@ public class PreferencesDefaultValues {
     public static final String DEFAULT_TIMER_CREATION_VIEW_STYLE = "keypad";
     public static final String TIMER_CREATION_VIEW_SPINNER_STYLE = "spinner";
     public static final boolean DEFAULT_DISPLAY_COMPACT_TIMERS = false;
+    public static final boolean DEFAULT_DISPLAY_TIMER_END_TIME = false;
     public static final boolean DEFAULT_INVERT_TIMER_BUTTON_POSITIONS = false;
     public static final boolean DEFAULT_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER = false;
     public static final boolean DEFAULT_DISPLAY_TIMER_STATE_INDICATOR = false;
