@@ -28,7 +28,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
     private final SharedPreferences mPrefs;
     private final Typeface mGeneralTypeface;
     private final Typeface mGeneralBoldTypeface;
-    private final Typeface mAlarmClockTypeface;
+    private Typeface mAlarmClockTypeface;
     private final Locale mLocale;
     private final String mDatePattern;
     private final String mDatePatternWithYear;
@@ -85,8 +85,8 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
     public AlarmItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         AlarmItemBinding binding = AlarmItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
 
-        return new AlarmItemViewHolder(binding, this, mPrefs, mGeneralTypeface, mGeneralBoldTypeface, mAlarmClockTypeface,
-            mLocale, mDatePattern, mDatePatternWithYear);
+        return new AlarmItemViewHolder(binding, this, mPrefs, mGeneralTypeface, mGeneralBoldTypeface, mLocale, mDatePattern,
+            mDatePatternWithYear);
     }
 
     @Override
@@ -100,6 +100,8 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull AlarmItemViewHolder holder, int position) {
+        holder.updateAlarmFont(mAlarmClockTypeface);
+
         AlarmItemHolder itemHolder = mItems.get(position);
         holder.bind(itemHolder);
     }
@@ -112,6 +114,11 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
     @Override
     public long getItemId(int position) {
         return mItems.get(position).itemId;
+    }
+
+    public void updateAlarmFont(Typeface alarmTypeface) {
+        mAlarmClockTypeface = alarmTypeface;
+        notifyDataSetChanged();
     }
 
     public void setItems(List<AlarmItemHolder> items) {

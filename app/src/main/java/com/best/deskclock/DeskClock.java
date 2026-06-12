@@ -172,8 +172,6 @@ public class DeskClock extends BaseActivity implements FabContainer {
         KEY_CLOCK_STYLE, KEY_CLOCK_DIAL, KEY_CLOCK_DIAL_MATERIAL, KEY_ANALOG_CLOCK_SIZE, KEY_DISPLAY_CLOCK_SECONDS, KEY_CLOCK_SECOND_HAND,
         KEY_DISPLAY_TEXT_UPPERCASE, KEY_DIGITAL_CLOCK_FONT, KEY_DIGITAL_CLOCK_FONT_SIZE, KEY_SORT_CITIES, KEY_ENABLE_CITY_NOTE,
         KEY_AUTO_HOME_CLOCK, KEY_HOME_TIME_ZONE,
-        // Alarm
-        KEY_WEEK_START, KEY_ALARM_FONT, KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING,
         // Permission
         KEY_ESSENTIAL_PERMISSIONS_GRANTED
     );
@@ -471,8 +469,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
                 case KEY_TAB_TITLE_VISIBILITY, KEY_TAB_INDICATOR, KEY_TAB_TO_DISPLAY, KEY_VIBRATIONS, KEY_KEEP_SCREEN_ON, KEY_CLOCK_STYLE,
                      KEY_CLOCK_DIAL, KEY_CLOCK_DIAL_MATERIAL, KEY_ANALOG_CLOCK_SIZE, KEY_DISPLAY_CLOCK_SECONDS, KEY_CLOCK_SECOND_HAND,
                      KEY_DISPLAY_TEXT_UPPERCASE, KEY_DIGITAL_CLOCK_FONT, KEY_DIGITAL_CLOCK_FONT_SIZE, KEY_SORT_CITIES,
-                     KEY_ENABLE_CITY_NOTE, KEY_AUTO_HOME_CLOCK, KEY_HOME_TIME_ZONE, KEY_WEEK_START, KEY_ALARM_FONT,
-                     KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING, KEY_ESSENTIAL_PERMISSIONS_GRANTED ->
+                     KEY_ENABLE_CITY_NOTE, KEY_AUTO_HOME_CLOCK, KEY_HOME_TIME_ZONE, KEY_ESSENTIAL_PERMISSIONS_GRANTED ->
                     mShouldRecreate = true;
 
             }
@@ -518,10 +515,6 @@ public class DeskClock extends BaseActivity implements FabContainer {
             case KEY_ENABLE_CITY_NOTE -> SettingsDAO.isCityNoteEnabled(mPrefs);
             case KEY_AUTO_HOME_CLOCK -> SettingsDAO.getAutoShowHomeClock(mPrefs);
             case KEY_HOME_TIME_ZONE -> SettingsDAO.getHomeTimeZone(this, mPrefs, TimeZone.getDefault());
-            // Alarm
-            case KEY_WEEK_START -> SettingsDAO.getWeekdayOrder(mPrefs);
-            case KEY_ALARM_FONT -> SettingsDAO.getAlarmFont(mPrefs);
-            case KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING -> SettingsDAO.isLowAlarmVolumeWarningDisplayed(mPrefs);
             // Permission
             case KEY_ESSENTIAL_PERMISSIONS_GRANTED -> mPrefs.getBoolean(key, false);
 

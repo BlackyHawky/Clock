@@ -60,8 +60,7 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
     public int mTotalCount = 0;
 
     public AlarmItemViewHolder(AlarmItemBinding binding, AlarmAdapter alarmAdapter, SharedPreferences prefs, Typeface generalTypeface,
-                               Typeface generalBoldTypeface, Typeface alarmClockTypeface, Locale locale, String datePattern,
-                               String datePatternWithYear) {
+                               Typeface generalBoldTypeface, Locale locale, String datePattern, String datePatternWithYear) {
 
         super(binding.getRoot());
 
@@ -81,7 +80,6 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         );
 
         // Clock handler
-        mBinding.digitalClock.setTypeface(alarmClockTypeface);
         mBinding.digitalClock.setOnClickListener(v -> mItemHolder.getAlarmTimeClickHandler().onClockClicked(mItemHolder.item));
         mBinding.digitalClock.setOnLongClickListener(v -> {
             mItemHolder.getAlarmTimeClickHandler().onClockLongClicked(mItemHolder.item);
@@ -104,6 +102,10 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
 
     public AlarmItemHolder getItemHolder() {
         return mItemHolder;
+    }
+
+    public void updateAlarmFont(Typeface alarmTypeface) {
+        mBinding.digitalClock.setTypeface(alarmTypeface);
     }
 
     public void bind(final AlarmItemHolder itemHolder) {
