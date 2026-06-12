@@ -132,11 +132,15 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
 
         if (mTimerItem != null) {
             mTimerItem.setTimerTimeFont(settings.timerTimeTypeface);
+            mTimerItem.setTimerEndTimeFormatPattern(settings.timerEndTimeFormatPattern);
+            mTimerItem.displayTimerEndTime(settings.isTimerEndTimeDisplayed);
             mTimerItem.setButtonPosition(settings.areTimerButtonPositionsInverted);
             mTimerItem.setIndicatorColors(settings.colorPaused, settings.colorRunning, settings.colorExpired, settings.colorMissed);
             mTimerItem.setIndicatorStateDisplay(settings.isIndicatorStateDisplay);
         } else if (mTimerItemCompact != null) {
             mTimerItemCompact.setTimerTimeFont(settings.timerTimeTypeface);
+            mTimerItemCompact.setTimerEndTimeFormatPattern(settings.timerEndTimeFormatPattern);
+            mTimerItemCompact.displayTimerEndTime(settings.isTimerEndTimeDisplayed);
             mTimerItemCompact.setButtonPosition(settings.areTimerButtonPositionsInverted);
             mTimerItemCompact.setIndicatorColors(settings.colorPaused, settings.colorRunning, settings.colorExpired, settings.colorMissed);
             mTimerItemCompact.setIndicatorStateDisplay(settings.isIndicatorStateDisplay);

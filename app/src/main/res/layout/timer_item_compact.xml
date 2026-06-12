@@ -69,7 +69,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timer_label"
-        app:layout_constraintBottom_toTopOf="@+id/linear_progress_indicator">
+        app:layout_constraintBottom_toTopOf="@+id/timer_end_time">
 
         <com.best.deskclock.uicomponents.AutoSizingTextView
             android:id="@+id/timer_time_text"
@@ -142,11 +142,33 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/timer_end_time"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="6dp"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
+        android:gravity="end|center_vertical"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textStyle="italic"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timer_controls_container"
+        app:layout_constraintVertical_bias="0"
+        tools:text="End time: 8:30 PM"
+        tools:visibility="visible"
+        tools:ignore="TextContrastCheck" />
+
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/linear_progress_indicator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="2dp"
         android:layout_marginHorizontal="12dp"
         android:max="1000"
         app:trackThickness="6dp"
@@ -154,8 +176,9 @@
         app:trackStopIndicatorSize="0dp"
         app:indicatorColor="?attr/colorSecondary"
         app:indicatorDirectionLinear="endToStart"
-        app:layout_constraintTop_toBottomOf="@+id/timer_controls_container"
+        app:layout_constraintTop_toBottomOf="@+id/timer_end_time"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_goneMarginTop="12dp"
         tools:progress="650" />
 
 </com.best.deskclock.timer.TimerItemCompact>

@@ -22,6 +22,14 @@
             app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
+            android:key="key_display_timer_end_time"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/display_timer_end_time_title"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <SwitchPreferenceCompat
             android:key="key_invert_timer_button_positions"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/invert_timer_button_positions_title"

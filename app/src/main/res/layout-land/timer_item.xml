@@ -63,13 +63,33 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="TouchTargetSizeCheck" />
 
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/timer_end_time"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="6dp"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textStyle="italic"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timer_label"
+        tools:text="End time: 8:30 PM"
+        tools:visibility="visible"
+        tools:ignore="TextContrastCheck" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/timer_controls_container"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timer_label"
+        app:layout_constraintTop_toBottomOf="@+id/timer_end_time"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -119,6 +139,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="12dp"
+            android:layout_marginTop="6dp"
             android:layout_marginBottom="2dp"
             android:paddingStart="2dp"
             android:paddingEnd="2dp"

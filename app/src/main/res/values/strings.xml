@@ -746,6 +746,8 @@
     <string name="timer_add_custom_time_with_seconds_for_notification">Add %1$s min %2$s s</string>
     <!-- Label for adding custom time to a timer. [CHAR LIMIT=10] -->
     <string name="timer_add_custom_time">+ %s</string>
+    <!-- Label indicating the timer end time (^1 displays the end time)  -->
+    <string name="timer_end_time_label">End time: <xliff:g example="8:30 a.m." id="END_TIME">^1</xliff:g></string>
     <!-- Describes the purpose of the button to stop the timer. -->
     <string name="timer_stop">Stop</string>
     <!-- Describes the purpose of the button to stop all currently firing timers. [CHAR LIMIT=25] -->
@@ -998,6 +1000,8 @@
     <string name="invert_timer_button_positions_title">Invert the position of the timer buttons</string>
     <!-- Setting title to display active timers in compact mode -->
     <string name="display_compact_timers_title">Display the active timers in compact mode</string>
+    <!-- Setting title to display the timer end time -->
+    <string name="display_timer_end_time_title">Display the timer end time</string>
     <!-- Title for setting transparent background when timers expires in timer settings -->
     <string name="transparent_background_for_expired_timer_title">Transparent background when timers expire</string>
     <!-- Setting title to display timer state indicator -->

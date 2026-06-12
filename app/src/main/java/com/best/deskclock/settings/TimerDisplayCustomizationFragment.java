@@ -33,6 +33,7 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
     implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
     SwitchPreferenceCompat mDisplayCompactTimersPref;
+    SwitchPreferenceCompat mDisplayTimerEndTimePref;
     SwitchPreferenceCompat mInvertTimerButtonPositionsPref;
     SwitchPreferenceCompat mTransparentBackgroundPref;
     SwitchPreferenceCompat mDisplayTimerStateIndicatorPref;
@@ -123,6 +124,7 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
         addPreferencesFromResource(R.xml.settings_timer_display);
 
         mDisplayCompactTimersPref = findPreference(KEY_DISPLAY_COMPACT_TIMERS);
+        mDisplayTimerEndTimePref = findPreference(KEY_DISPLAY_TIMER_END_TIME);
         mInvertTimerButtonPositionsPref = findPreference(KEY_INVERT_TIMER_BUTTON_POSITIONS);
         mTransparentBackgroundPref = findPreference(KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER);
         mDisplayTimerStateIndicatorPref = findPreference(KEY_DISPLAY_TIMER_STATE_INDICATOR);
@@ -157,11 +159,11 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
 
     @Override
     public void onDestroy() {
-        nullifyPreferenceListeners(mDisplayCompactTimersPref, mInvertTimerButtonPositionsPref, mTransparentBackgroundPref,
-            mDisplayTimerStateIndicatorPref, mDisplayRingtoneTitlePref, mTimerColorCategory, mRunningTimerIndicatorColorPref,
-            mPausedTimerIndicatorColorPref, mExpiredTimerIndicatorColorPref, mMissedTimerIndicatorColorPref, mRingtoneTitleColorPref,
-            mTimerFontCategory, mDisplayTextShadowPref, mShadowColorPref, mShadowOffsetPref, mTimerBackgroundImagePref,
-            mEnableTimerBlurEffectPref, mTimerBlurIntensityPref, mTimerPreviewPref);
+        nullifyPreferenceListeners(mDisplayCompactTimersPref, mDisplayTimerEndTimePref, mInvertTimerButtonPositionsPref,
+            mTransparentBackgroundPref, mDisplayTimerStateIndicatorPref, mDisplayRingtoneTitlePref, mTimerColorCategory,
+            mRunningTimerIndicatorColorPref, mPausedTimerIndicatorColorPref, mExpiredTimerIndicatorColorPref,
+            mMissedTimerIndicatorColorPref, mRingtoneTitleColorPref, mTimerFontCategory, mDisplayTextShadowPref, mShadowColorPref,
+            mShadowOffsetPref, mTimerBackgroundImagePref, mEnableTimerBlurEffectPref, mTimerBlurIntensityPref, mTimerPreviewPref);
 
         nullifyAllPrefs();
 
@@ -171,7 +173,7 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
     @Override
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
-            case KEY_DISPLAY_COMPACT_TIMERS, KEY_INVERT_TIMER_BUTTON_POSITIONS ->
+            case KEY_DISPLAY_COMPACT_TIMERS, KEY_DISPLAY_TIMER_END_TIME, KEY_INVERT_TIMER_BUTTON_POSITIONS ->
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
             case KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER -> {
@@ -284,6 +286,8 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
         mDisplayCompactTimersPref.setVisible(!ThemeUtils.isTablet() && !SettingsDAO.isSingleTimerModeEnabled(mPrefs));
         mDisplayCompactTimersPref.setOnPreferenceChangeListener(this);
 
+        mDisplayTimerEndTimePref.setOnPreferenceChangeListener(this);
+
         mInvertTimerButtonPositionsPref.setOnPreferenceChangeListener(this);
 
         mTransparentBackgroundPref.setOnPreferenceChangeListener(this);
@@ -338,6 +342,7 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
 
     private void nullifyAllPrefs() {
         mDisplayCompactTimersPref = null;
+        mDisplayTimerEndTimePref = null;
         mInvertTimerButtonPositionsPref = null;
         mTransparentBackgroundPref = null;
         mDisplayTimerStateIndicatorPref = null;

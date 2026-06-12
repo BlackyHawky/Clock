@@ -850,6 +850,14 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return {@code true} if the timer end time is displayed. {@code false} otherwise.
+     */
+    public static boolean isTimerEndTimeDisplayed(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_timer_display.xml
+        return prefs.getBoolean(KEY_DISPLAY_TIMER_END_TIME, DEFAULT_DISPLAY_TIMER_END_TIME);
+    }
+
+    /**
      * @return {@code true} if the position of the timer buttons are inverted. {@code false} otherwise.
      */
     public static boolean areTimerButtonPositionsInverted(SharedPreferences prefs) {

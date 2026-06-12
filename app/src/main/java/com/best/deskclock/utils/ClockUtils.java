@@ -153,12 +153,14 @@ public class ClockUtils {
      * @param clock          TextClock to format
      * @param includeSeconds whether to include seconds in the clock's time
      */
-    public static void setDigitalClockTimeFormat(TextClock clock, float amPmRatio, boolean includeSeconds,
-                                                 boolean isAlarm, boolean isClockTab, boolean isScreensaver) {
+    public static void setDigitalClockTimeFormat(TextClock clock, float amPmRatio, boolean includeSeconds, boolean isAlarm,
+                                                 boolean isClockTab, boolean isTimer, boolean isScreensaver) {
 
         if (clock != null) {
             // Get the best format for 12 hours mode according to the locale
-            clock.setFormat12Hour(get12ModeFormat(clock.getContext(), amPmRatio, includeSeconds, isAlarm, isClockTab, isScreensaver));
+            clock.setFormat12Hour(get12ModeFormat(
+                clock.getContext(), amPmRatio, includeSeconds, isAlarm, isClockTab, isTimer, isScreensaver)
+            );
             // Get the best format for 24 hours mode according to the locale
             clock.setFormat24Hour(get24ModeFormat(includeSeconds, isScreensaver));
         }
@@ -170,8 +172,8 @@ public class ClockUtils {
      * @param includeSeconds whether to include seconds in the time string
      * @return format string for 12 hours mode time, not including seconds
      */
-    public static CharSequence get12ModeFormat(Context context, float amPmRatio, boolean includeSeconds,
-                                               boolean isAlarm, boolean isClockTab, boolean isScreensaver) {
+    public static CharSequence get12ModeFormat(Context context, float amPmRatio, boolean includeSeconds, boolean isAlarm,
+                                               boolean isClockTab, boolean isTimer, boolean isScreensaver) {
 
         SharedPreferences prefs = getDefaultSharedPreferences(context);
 
@@ -181,14 +183,14 @@ public class ClockUtils {
         pattern = pattern.replaceAll("\\s", "\u200A");
 
         if (amPmRatio <= 0) {
-            pattern = pattern.replaceAll("\u200Aa", "").trim();
+            pattern = pattern.replace("\u200Aa", "").trim();
         } else {
             if (isScreensaver) {
                 // For screensaver, add a "Thin Space" (\u2009) at the end of the AM/PM to prevent
                 // its display from being cut off on some devices.
                 // A "Thin Space" (\u2009) is also added at the beginning to correctly center the date,
                 // alarm icon and next alarm.
-                pattern = "\u2009" + pattern.replaceAll("a", "a" + "\u2009");
+                pattern = "\u2009" + pattern.replace("a", "a" + "\u2009");
             }
         }
 
@@ -202,12 +204,14 @@ public class ClockUtils {
         sp.setSpan(new RelativeSizeSpan(amPmRatio), amPmPos, amPmPos + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         sp.setSpan(new StyleSpan(Typeface.NORMAL), amPmPos, amPmPos + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        TypefaceSpan defaultSpan = new TypefaceSpan("sans-serif-bold");
+        TypefaceSpan defaultSpan = new TypefaceSpan(isTimer ? "sans-serif" : "sans-serif-bold");
 
         if (isAlarm) {
-            applyTypefaceSpan(sp, amPmPos, ThemeUtils.loadFont(SettingsDAO.getAlarmFont(prefs)), defaultSpan);
+            applyTypefaceSpan(sp, amPmPos, ThemeUtils.loadFont(SettingsDAO.getAlarmFont(prefs)), defaultSpan, Typeface.BOLD);
         } else if (isClockTab) {
-            applyTypefaceSpan(sp, amPmPos, ThemeUtils.loadFont(SettingsDAO.getDigitalClockFont(prefs)), defaultSpan);
+            applyTypefaceSpan(sp, amPmPos, ThemeUtils.loadFont(SettingsDAO.getDigitalClockFont(prefs)), defaultSpan, Typeface.BOLD);
+        } else if (isTimer) {
+            applyTypefaceSpan(sp, amPmPos, ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs)), defaultSpan, Typeface.ITALIC);
         } else if (isScreensaver) {
             Typeface baseTypeface = ThemeUtils.loadFont(SettingsDAO.getScreensaverDigitalClockFont(prefs));
             boolean isItalic = SettingsDAO.isScreensaverDigitalClockInItalic(prefs);
@@ -236,15 +240,15 @@ public class ClockUtils {
      * If the provided typeface is null, a default span is used. Otherwise, a bold version
      * of the typeface is applied, with compatibility handling for older Android versions.
      */
-    private static void applyTypefaceSpan(Spannable sp, int amPmPos, Typeface userTypeface, TypefaceSpan defaultSpan) {
+    private static void applyTypefaceSpan(Spannable sp, int amPmPos, Typeface userTypeface, TypefaceSpan defaultSpan, int textStyle) {
         if (userTypeface == null) {
             sp.setSpan(defaultSpan, amPmPos, amPmPos + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         } else {
-            Typeface boldTypeface = Typeface.create(userTypeface, Typeface.BOLD);
+            Typeface styledTypeface = Typeface.create(userTypeface, textStyle);
             if (SdkUtils.isAtLeastAndroid9()) {
-                sp.setSpan(new TypefaceSpan(boldTypeface), amPmPos, amPmPos + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                sp.setSpan(new TypefaceSpan(styledTypeface), amPmPos, amPmPos + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             } else {
-                sp.setSpan(new CustomTypefaceSpan(boldTypeface), amPmPos, amPmPos + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                sp.setSpan(new CustomTypefaceSpan(styledTypeface), amPmPos, amPmPos + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
         }
     }

@@ -12,6 +12,9 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.SystemClock;
+import android.text.TextUtils;
+import android.text.format.DateFormat;
+import android.text.format.DateUtils;
 import android.util.AttributeSet;
 
 import androidx.appcompat.content.res.AppCompatResources;
@@ -20,6 +23,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.best.deskclock.R;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.databinding.TimerItemCompactBinding;
+import com.best.deskclock.utils.FormattedTextUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.google.android.material.color.MaterialColors;
@@ -36,6 +40,9 @@ public class TimerItemCompact extends ConstraintLayout {
     Typeface mRegularTypeface;
     Typeface mBoldTypeface;
 
+    private CharSequence mTimerEndTimeFormatPattern;
+
+    private boolean mIsTimerEndTimeDisplayed;
     private boolean mIsIndicatorStateDisplayed;
 
     private Drawable mIconPlay;
@@ -113,10 +120,20 @@ public class TimerItemCompact extends ConstraintLayout {
         mBoldTypeface = bold;
 
         mBinding.timerAddTimeButton.setTypeface(bold);
+
+        mBinding.timerEndTime.setTypeface(regular, Typeface.ITALIC);
     }
 
     public void setTimerTimeFont(Typeface timerTime) {
         mBinding.timerTimeText.setTypeface(timerTime);
+    }
+
+    public void setTimerEndTimeFormatPattern(CharSequence formatPattern) {
+        mTimerEndTimeFormatPattern = formatPattern;
+    }
+
+    public void displayTimerEndTime(boolean isTimerEndTimeDisplayed) {
+        mIsTimerEndTimeDisplayed = isTimerEndTimeDisplayed;
     }
 
     public void setButtonPosition(boolean areTimerButtonPositionsInverted) {
@@ -284,6 +301,8 @@ public class TimerItemCompact extends ConstraintLayout {
 
         updateIndicator(timer.getState());
 
+        updateEndTimeDisplay(timer);
+
         updateTimeDisplay(timer, animate);
     }
 
@@ -303,6 +322,40 @@ public class TimerItemCompact extends ConstraintLayout {
 
         mGradientDrawable.setColor(color);
         mBinding.timerIndicatorState.setVisibility(VISIBLE);
+    }
+
+    private void updateEndTimeDisplay(Timer timer) {
+        if (!mIsTimerEndTimeDisplayed) {
+            mBinding.timerEndTime.setVisibility(GONE);
+            return;
+        }
+
+        if (timer.getState() == Timer.State.RUNNING) {
+            long endTimeMillis = timer.getWallClockExpirationTime();
+
+            CharSequence formattedTime;
+
+            if (!DateUtils.isToday(endTimeMillis)) {
+                String dayString = DateFormat.format("EEE", endTimeMillis).toString();
+                String capitalizedDay = FormattedTextUtils.capitalizeFirstLetter(dayString, Locale.getDefault());
+                CharSequence timeCharSequence = DateFormat.format(mTimerEndTimeFormatPattern, endTimeMillis);
+                formattedTime = TextUtils.concat(capitalizedDay, ", ", timeCharSequence);
+            } else {
+                formattedTime = DateFormat.format(mTimerEndTimeFormatPattern, endTimeMillis);
+            }
+
+            CharSequence expandedText = TextUtils.expandTemplate(getContext().getText(R.string.timer_end_time_label), formattedTime);
+
+            // Add a "No-Break Space" before and after the text to center it properly and prevent it
+            // from being cut off at the end due to the italic formatting.
+            CharSequence finalText = TextUtils.concat("\u00A0", expandedText, "\u00A0");
+
+            mBinding.timerEndTime.setText(finalText);
+
+            mBinding.timerEndTime.setVisibility(VISIBLE);
+        } else {
+            mBinding.timerEndTime.setVisibility(INVISIBLE);
+        }
     }
 
 }
