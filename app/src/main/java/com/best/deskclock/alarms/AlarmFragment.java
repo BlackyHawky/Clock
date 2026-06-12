@@ -15,6 +15,8 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_ALARM_BY
 import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_ALARM_BY_NEXT_ALARM_TIME;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_ALARM_MANUALLY;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SPINNER_TIME_PICKER_STYLE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_FONT;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING;
 import static com.best.deskclock.uidata.UiDataModel.Tab.ALARMS;
 
 import android.annotation.SuppressLint;
@@ -60,6 +62,7 @@ import androidx.transition.TransitionSet;
 import com.best.deskclock.R;
 import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.base.DeskClockFragment;
+import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.databinding.AlarmFragmentBinding;
 import com.best.deskclock.dialogfragment.AlarmDelayPickerDialogFragment;
@@ -109,16 +112,33 @@ public final class AlarmFragment extends DeskClockFragment
 
     private SharedPreferences mPrefs;
     private DisplayMetrics mDisplayMetrics;
+    private Typeface mAlarmTypeface;
 
     // Updates "Today/Tomorrow" in the UI when midnight passes.
     private final Runnable mMidnightUpdater = new MidnightRunnable();
 
     private boolean mIsTablet;
     private boolean mIsLandscape;
+    private boolean mIs24HourFormat;
     private boolean mIsLowAlarmVolumeWarningEnabled;
     private boolean mSideButtonsVisible = false;
     private boolean mIsUiTransitioning = false;
     private boolean mIsReordering = false;
+    private boolean mAreSettingsChanged = false;
+    private final SharedPreferences.OnSharedPreferenceChangeListener mPrefListener = (prefs, key) -> {
+        if (key != null) {
+            switch (key) {
+                case KEY_ALARM_FONT, KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING -> {
+
+                    mAreSettingsChanged = true;
+
+                    if (isResumed()) {
+                        applySettingsChanges();
+                    }
+                }
+            }
+        }
+    };
 
     // Data
     private Loader<?> mCursorLoader;
@@ -157,7 +177,6 @@ public final class AlarmFragment extends DeskClockFragment
         mDisplayMetrics = getResources().getDisplayMetrics();
         mIsTablet = ThemeUtils.isTablet();
         mIsLandscape = ThemeUtils.isLandscape();
-        mIsLowAlarmVolumeWarningEnabled = SettingsDAO.isLowAlarmVolumeWarningDisplayed(mPrefs);
 
         if (savedInstanceState != null) {
             mSideButtonsVisible = savedInstanceState.getBoolean(KEY_SIDE_BUTTONS_VISIBLE, false);
@@ -215,16 +234,15 @@ public final class AlarmFragment extends DeskClockFragment
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        refreshSettings();
         String generalFontPath = SettingsDAO.getGeneralFont(mPrefs);
-        String alarmFontPath = SettingsDAO.getAlarmFont(mPrefs);
         Typeface generalTypeface = ThemeUtils.loadFont(generalFontPath);
         Typeface generalBoldTypeface = ThemeUtils.boldTypeface(generalFontPath);
-        Typeface alarmClockTypeface = ThemeUtils.boldTypeface(alarmFontPath);
 
         mBinding.alarmVolumeWarningBanner.volumeWarningText.setTypeface(generalBoldTypeface);
         mBinding.alarmVolumeWarningBanner.volumeWarningButton.setTypeface(generalBoldTypeface);
 
-        mItemAdapter = new AlarmAdapter(requireContext(), mPrefs, generalTypeface, generalBoldTypeface, alarmClockTypeface);
+        mItemAdapter = new AlarmAdapter(requireContext(), mPrefs, generalTypeface, generalBoldTypeface, mAlarmTypeface);
 
         mBinding.alarmRecyclerView.setAdapter(mItemAdapter);
 
@@ -254,6 +272,8 @@ public final class AlarmFragment extends DeskClockFragment
         }
 
         setupFragmentResultListeners();
+
+        mPrefs.registerOnSharedPreferenceChangeListener(mPrefListener);
     }
 
     @Override
@@ -271,6 +291,13 @@ public final class AlarmFragment extends DeskClockFragment
     @Override
     public void onResume() {
         super.onResume();
+
+        boolean isSystem24Hour = DataModel.getDataModel().is24HourFormat();
+
+        if (mAreSettingsChanged || mIs24HourFormat != isSystem24Hour) {
+            applySettingsChanges();
+        }
+
         // Check if another app asked us to create a blank new alarm.
         final Intent intent = requireActivity().getIntent();
 
@@ -393,6 +420,10 @@ public final class AlarmFragment extends DeskClockFragment
     @Override
     public void onDestroyView() {
         UiDataModel.getUiDataModel().removePeriodicCallback(mMidnightUpdater);
+
+        mPrefs.unregisterOnSharedPreferenceChangeListener(mPrefListener);
+
+        mAreSettingsChanged = false;
 
         mBinding.alarmRecyclerView.setAdapter(null);
 
@@ -1070,6 +1101,27 @@ public final class AlarmFragment extends DeskClockFragment
                 }
             });
         });
+    }
+
+    private void refreshSettings() {
+        String alarmFontPath = SettingsDAO.getAlarmFont(mPrefs);
+        mAlarmTypeface = ThemeUtils.boldTypeface(alarmFontPath);
+
+        mIs24HourFormat = DataModel.getDataModel().is24HourFormat();
+
+        mIsLowAlarmVolumeWarningEnabled = SettingsDAO.isLowAlarmVolumeWarningDisplayed(mPrefs);
+    }
+
+    private void applySettingsChanges() {
+        refreshSettings();
+
+        if (mItemAdapter != null) {
+            mItemAdapter.updateAlarmFont(mAlarmTypeface);
+        }
+
+        updateWarningBannerVisibility();
+
+        mAreSettingsChanged = false;
     }
 
     /**
