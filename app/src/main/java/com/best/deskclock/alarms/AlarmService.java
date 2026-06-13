@@ -67,9 +67,9 @@ public class AlarmService extends Service {
     public static final String ALARM_DISMISS_ACTION = "com.best.deskclock.ALARM_DISMISS";
 
     /**
-     * A public action sent by AlarmService when the alarm has started.
+     * A private action sent by AlarmService when the alarm has started.
      */
-    public static final String ALARM_ALERT_ACTION = "com.best.deskclock.ALARM_ALERT";
+    private static final String ALARM_ALERT_ACTION = "com.best.deskclock.ALARM_ALERT";
 
     /**
      * A public action sent by AlarmService when the alarm has stopped for any reason.
@@ -79,17 +79,17 @@ public class AlarmService extends Service {
     /**
      * Private action used to stop an alarm with this service.
      */
-    public static final String STOP_ALARM_ACTION = "STOP_ALARM";
+    private static final String STOP_ALARM_ACTION = "com.best.deskclock.STOP_ALARM";
 
     /**
      * Private action used to stop an alarm with a double vibrations when the alarm is snoozed with this service.
      */
-    public static final String STOP_ALARM_WITH_DOUBLE_VIBRATION_ACTION = "STOP_ALARM_WITH_DOUBLE_VIBRATION";
+    private static final String STOP_ALARM_WITH_DOUBLE_VIBRATION_ACTION = "com.best.deskclock.STOP_ALARM_WITH_DOUBLE_VIBRATION";
 
     /**
      * Private action used to stop an alarm with a single vibration when the alarm is dismissed with this service.
      */
-    public static final String STOP_ALARM_WITH_SINGLE_VIBRATION_ACTION = "STOP_ALARM_WITH_SINGLE_VIBRATION";
+    private static final String STOP_ALARM_WITH_SINGLE_VIBRATION_ACTION = "com.best.deskclock.STOP_ALARM_WITH_SINGLE_VIBRATION";
 
     /**
      * Constant for No action
@@ -466,7 +466,10 @@ public class AlarmService extends Service {
             mIsFlashActive = false;
         }
 
-        sendBroadcast(new Intent(ALARM_ALERT_ACTION));
+        Intent intent = new Intent(ALARM_ALERT_ACTION);
+        intent.setPackage(getPackageName());
+        sendBroadcast(intent);
+
         attachListeners();
     }
 
@@ -518,7 +521,9 @@ public class AlarmService extends Service {
         AlarmKlaxon.stop();
         AlarmKlaxon.deactivateRingtonePlayback();
 
-        sendBroadcast(new Intent(ALARM_DONE_ACTION));
+        Intent intent = new Intent(ALARM_DONE_ACTION);
+        intent.setPackage(getPackageName());
+        sendBroadcast(intent);
 
         if (SdkUtils.isAtLeastAndroid7()) {
             stopForeground(Service.STOP_FOREGROUND_REMOVE);
