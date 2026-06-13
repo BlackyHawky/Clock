@@ -243,7 +243,20 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
             if (timer != null) {
                 int totalSeconds = hours * 3600 + minutes * 60 + seconds;
                 long newLengthMillis = totalSeconds * 1000L;
+
+                String currentLabel = timer.getLabel();
+                String oldDefaultLabel = Utils.buildDefaultTimerLabel(requireContext(), timer.getLength());
+                boolean shouldUpdateLabel = currentLabel != null && currentLabel.equals(oldDefaultLabel);
+
                 DataModel.getDataModel().setNewTimerDuration(timer, newLengthMillis);
+
+                if (shouldUpdateLabel) {
+                    String newDefaultLabel = Utils.buildDefaultTimerLabel(requireContext(), newLengthMillis);
+
+                    Timer updatedTimer = DataModel.getDataModel().getTimer(mTimerId);
+
+                    DataModel.getDataModel().setTimerLabel(updatedTimer != null ? updatedTimer : timer, newDefaultLabel);
+                }
             }
         }
     }
