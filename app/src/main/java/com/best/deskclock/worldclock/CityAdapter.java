@@ -157,7 +157,7 @@ public class CityAdapter extends BaseAdapter implements View.OnClickListener, Co
             // There's an RTL layout bug that causes jank when fast-scrolling through
             // the list in 12-hour mode in an RTL locale. We can work around this by
             // ensuring the strings are the same length by using "hh" instead of "h".
-            pattern12 = pattern12.replaceAll("h", "hh");
+            pattern12 = pattern12.replace("h", "hh");
         }
 
         mPattern12 = pattern12;
