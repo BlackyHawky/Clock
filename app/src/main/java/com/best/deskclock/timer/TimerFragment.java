@@ -477,9 +477,10 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
             try {
                 // Create the new timer.
                 final long timerLength = getTimeInMillis();
+                String defaultLabel = Utils.buildDefaultTimerLabel(requireContext(), timerLength);
                 String defaultTimeToAddToTimer = String.valueOf(SettingsDAO.getDefaultTimeToAddToTimer(mPrefs));
                 final Timer timer = DataModel.getDataModel().addTimer(
-                    timerLength, "", defaultTimeToAddToTimer, mSettings.isSingleTimerMode);
+                    timerLength, defaultLabel, defaultTimeToAddToTimer, mSettings.isSingleTimerMode);
                 Events.sendTimerEvent(R.string.action_create, R.string.label_deskclock);
 
                 // Start the new timer.

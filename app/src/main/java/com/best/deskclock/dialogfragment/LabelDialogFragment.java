@@ -72,6 +72,7 @@ public class LabelDialogFragment extends DialogFragment {
     private Button mDefaultButton;
     private boolean mIsAlarm;
     private int mTimerId;
+    private String mDefaultTimerLabel = null;
     private String mCityId;
 
     private final TextWatcher mTextWatcher = new TextChangeListener();
@@ -154,6 +155,12 @@ public class LabelDialogFragment extends DialogFragment {
         boolean syncAlarmByLabel = mIsAlarm && args.getBoolean(ARG_SYNC_ALARM_BY_LABEL, false);
 
         mTimerId = args.getInt(ARG_TIMER_ID, -1);
+        if (isTimer()) {
+            Timer timer = getTimer();
+            if (timer != null) {
+                mDefaultTimerLabel = Utils.buildDefaultTimerLabel(requireContext(), timer.getLength());
+            }
+        }
 
         mCityId = requireArguments().getString(ARG_CITY_ID);
         String cityName = requireArguments().getString(ARG_CITY_NAME);
@@ -170,10 +177,10 @@ public class LabelDialogFragment extends DialogFragment {
         if (mIsAlarm) {
             iconResId = R.drawable.ic_label;
             title = getString(R.string.alarm_label_box_title);
-        } else if (mTimerId >= 0) {
+        } else if (isTimer()) {
             iconResId = R.drawable.ic_label;
             title = getString(R.string.timer_label_box_title);
-        } else if (mCityId != null) {
+        } else if (isCity()) {
             iconResId = R.drawable.ic_note;
             title = getString(R.string.city_note_dialog_title, cityName);
         } else {
@@ -227,16 +234,24 @@ public class LabelDialogFragment extends DialogFragment {
             (d, w) -> setLabel(),
             getString(android.R.string.cancel),
             null,
-            getString(R.string.delete),
+            getString(isTimer() ? R.string.reset : R.string.delete),
             (d, w) -> {
-                mBinding.syncAlarmByLabelCheckbox.setChecked(false);
+                if (isTimer()) {
+                    Timer timer = getTimer();
 
-                applyLabel("");
+                    if (timer != null && mDefaultTimerLabel != null) {
+                        DataModel.getDataModel().setTimerLabel(timer, mDefaultTimerLabel);
+                    }
+                } else {
+                    mBinding.syncAlarmByLabelCheckbox.setChecked(false);
+
+                    applyLabel("");
+                }
             },
             alertDialog -> {
                 mDefaultButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
 
-                mDefaultButton.setEnabled(isLabelNotEmpty());
+                mDefaultButton.setEnabled(isDefaultButtonEnabled());
             },
             CustomDialog.SoftInputMode.SHOW_KEYBOARD
         );
@@ -290,12 +305,13 @@ public class LabelDialogFragment extends DialogFragment {
     private void applyLabel(String label) {
         String trimmedLabel = label.trim();
 
-        if (mTimerId >= 0) {
-            final Timer timer = DataModel.getDataModel().getTimer(mTimerId);
+        if (isTimer()) {
+            final Timer timer = getTimer();
+
             if (timer != null) {
-                DataModel.getDataModel().setTimerLabel(timer, label.trim());
+                DataModel.getDataModel().setTimerLabel(timer, trimmedLabel);
             }
-        } else if (mCityId != null) {
+        } else if (isCity()) {
             Bundle result = new Bundle();
             result.putString(RESULT_CITY_ID, mCityId);
             result.putString(RESULT_CITY_NOTE, trimmedLabel);
@@ -309,10 +325,59 @@ public class LabelDialogFragment extends DialogFragment {
     }
 
     /**
+     * @return {@code true} if the dialog is editing a timer label.
+     */
+    private boolean isTimer() {
+        return mTimerId >= 0;
+    }
+
+    /**
+     * @return {@code true} if the dialog is editing a city note.
+     */
+    private boolean isCity() {
+        return mCityId != null;
+    }
+
+    /**
      * @return {@code true} if the label text field is not empty; {@code false} otherwise.
      */
     private boolean isLabelNotEmpty() {
         return !TextUtils.isEmpty(Objects.requireNonNull(mBinding.edit.getText()).toString());
+    }
+
+    /**
+     * @return {@code true} if this is not the timer's default label. {@code false} otherwise.
+     */
+    private boolean isNotDefaultTimerLabel() {
+        if (mDefaultTimerLabel == null) {
+            // Fallback
+            return true;
+        }
+
+        String currentInput = Objects.requireNonNull(mBinding.edit.getText()).toString();
+        return !currentInput.equals(mDefaultTimerLabel);
+    }
+
+    /**
+     * @return {@code true} if the "Default" button is enabled. {@code false} otherwise.
+     */
+    private boolean isDefaultButtonEnabled() {
+        if (isTimer()) {
+            return isNotDefaultTimerLabel();
+        } else {
+            return isLabelNotEmpty();
+        }
+    }
+
+    /**
+     * @return the timer for which the label is being edited.
+     */
+    private Timer getTimer() {
+        if (mTimerId < 0) {
+            return null;
+        }
+
+        return DataModel.getDataModel().getTimer(mTimerId);
     }
 
     /**
@@ -330,7 +395,7 @@ public class LabelDialogFragment extends DialogFragment {
             }
 
             if (mDefaultButton != null) {
-                mDefaultButton.setEnabled(isLabelNotEmpty());
+                mDefaultButton.setEnabled(isDefaultButtonEnabled());
             }
         }
 

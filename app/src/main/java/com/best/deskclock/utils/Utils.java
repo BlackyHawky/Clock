@@ -31,6 +31,7 @@ import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.provider.OpenableColumns;
 import android.text.Spanned;
+import android.text.format.DateUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -502,6 +503,48 @@ public class Utils {
         dialog.setCancelable(isCancelable);
 
         return dialog;
+    }
+
+    /**
+     * Builds the default label for a timer based on its duration.
+     *
+     * @param context the context to access resources.
+     * @param millis  the timer duration in milliseconds.
+     * @return the timer's default label.
+     */
+    @SuppressWarnings("SizeReplaceableByIsEmpty")
+    public static String buildDefaultTimerLabel(Context context, long millis) {
+        long seconds = (millis / DateUtils.SECOND_IN_MILLIS) % 60;
+        long minutes = (millis / DateUtils.MINUTE_IN_MILLIS) % 60;
+        long hours = millis / DateUtils.HOUR_IN_MILLIS;
+
+        StringBuilder timeBuilder = new StringBuilder();
+
+        if (hours > 0) {
+            timeBuilder.append(hours).append(context.getString(R.string.hours_label));
+        }
+
+        if (minutes > 0) {
+            if (timeBuilder.length() > 0) {
+                timeBuilder.append(" ");
+            }
+
+            timeBuilder.append(minutes).append(context.getString(R.string.minutes_label));
+        }
+
+        if (seconds > 0) {
+            if (timeBuilder.length() > 0) {
+                timeBuilder.append(" ");
+            }
+
+            timeBuilder.append(seconds).append(context.getString(R.string.seconds_label));
+        }
+
+        if (timeBuilder.length() == 0) {
+            timeBuilder.append("0").append(context.getString(R.string.seconds_label));
+        }
+
+        return context.getString(R.string.timer_label_default, timeBuilder.toString());
     }
 
     /**

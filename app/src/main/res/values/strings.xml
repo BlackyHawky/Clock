@@ -714,6 +714,8 @@
     <!-- Label to enumerate the number of laps in the notification the user has counted -->
     <string name="sw_notification_lap_number">Lap <xliff:g id="number">%d</xliff:g></string>
     <!-- timer strings -->
+    <!-- Default timer label -->
+    <string name="timer_label_default"><xliff:g example="30s" id="TIMER_LABEL_DEFAULT">%s</xliff:g> Timer</string>
     <!-- Title of dialog box for editing timer label -->
     <string name="timer_label_box_title">Timer label</string>
     <!-- Title of dialog box to set a new duration to an existing timer. -->
