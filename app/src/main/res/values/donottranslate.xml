@@ -175,6 +175,25 @@
         <item>2</item>
     </string-array>
 
+    <!-- Entries listed in the ListPreference when selecting the animation when switching tabs. -->
+    <string-array name="tab_animation_entries">
+        <item>@string/label_default</item>
+        <item>@string/tab_animation_cube</item>
+        <item>@string/tab_animation_depth</item>
+        <item>@string/tab_animation_flip</item>
+        <item>@string/tab_animation_gate</item>
+        <item>@string/tab_animation_zoom_out</item>
+    </string-array>
+    <!-- Values that are retrieved from the ListPreference. These must match the theme entries above. -->
+    <string-array name="tab_animation_values" translatable="false">
+        <item>tab_animation_default</item>
+        <item>tab_animation_cube</item>
+        <item>tab_animation_depth</item>
+        <item>tab_animation_flip</item>
+        <item>tab_animation_gate</item>
+        <item>tab_animation_zoom_out</item>
+    </string-array>
+
     <!-- Alarm confirmation toast: Describes how long from now until alarm fires -->
     <string-array name="alarm_set">
         <item>@string/alarm_confirmation_toast_1</item>

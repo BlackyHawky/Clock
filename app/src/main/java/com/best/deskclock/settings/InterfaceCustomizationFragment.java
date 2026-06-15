@@ -69,6 +69,7 @@ public class InterfaceCustomizationFragment extends ScreenFragment
     SwitchPreferenceCompat mToolbarTitlePref;
     ListPreference mTabTitleVisibilityPref;
     SwitchPreferenceCompat mTabIndicatorPref;
+    ListPreference mTabAnimationPref;
     SwitchPreferenceCompat mFadeTransitionsPref;
     SwitchPreferenceCompat mKeepScreenOnPref;
 
@@ -153,6 +154,7 @@ public class InterfaceCustomizationFragment extends ScreenFragment
         mToolbarTitlePref = findPreference(KEY_TOOLBAR_TITLE);
         mTabTitleVisibilityPref = findPreference(KEY_TAB_TITLE_VISIBILITY);
         mTabIndicatorPref = findPreference(KEY_TAB_INDICATOR);
+        mTabAnimationPref = findPreference(KEY_TAB_ANIMATION);
         mFadeTransitionsPref = findPreference(KEY_FADE_TRANSITIONS);
         mKeepScreenOnPref = findPreference(KEY_KEEP_SCREEN_ON);
 
@@ -162,6 +164,7 @@ public class InterfaceCustomizationFragment extends ScreenFragment
         if (mNightAccentColorPref.isShown()) {
             sortListPreference(mNightAccentColorPref);
         }
+        sortListPreference(mTabAnimationPref);
         sortListPreference(mLanguageCodePref);
     }
 
@@ -184,7 +187,8 @@ public class InterfaceCustomizationFragment extends ScreenFragment
     public void onDestroy() {
         nullifyPreferenceListeners(mThemePref, mDarkModePref, mGeneralFontPref, mAccentColorPref, mAutoNightAccentColorPref,
             mNightAccentColorPref, mCardBackgroundPref, mCardBorderPref, mLanguageCodePref, mVisibleTabsPref, mTabToDisplayPref,
-            mVibrationPref, mToolbarTitlePref, mTabTitleVisibilityPref, mTabIndicatorPref, mFadeTransitionsPref, mKeepScreenOnPref);
+            mVibrationPref, mToolbarTitlePref, mTabTitleVisibilityPref, mTabIndicatorPref, mTabAnimationPref, mFadeTransitionsPref,
+            mKeepScreenOnPref);
 
         nullifyAllPrefs();
 
@@ -194,7 +198,8 @@ public class InterfaceCustomizationFragment extends ScreenFragment
     @Override
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
-            case KEY_THEME, KEY_ACCENT_COLOR, KEY_DARK_MODE, KEY_NIGHT_ACCENT_COLOR, KEY_TAB_TITLE_VISIBILITY, KEY_TAB_TO_DISPLAY -> {
+            case KEY_THEME, KEY_ACCENT_COLOR, KEY_DARK_MODE, KEY_NIGHT_ACCENT_COLOR, KEY_TAB_TITLE_VISIBILITY, KEY_TAB_TO_DISPLAY,
+                 KEY_TAB_ANIMATION -> {
                 final ListPreference listPreference = (ListPreference) pref;
                 final int index = listPreference.findIndexOfValue((String) newValue);
                 listPreference.setSummary(listPreference.getEntries()[index]);
@@ -231,6 +236,8 @@ public class InterfaceCustomizationFragment extends ScreenFragment
                 updateVisibleTabsSummary(newSelectedTabs);
 
                 updateTabToDisplayPreference(newSelectedTabs);
+
+                mTabAnimationPref.setVisible(newSelectedTabs.size() > 1);
 
                 boolean wasClockVisible = oldSelectedTabs.contains(PreferencesDefaultValues.VISIBLE_TAB_CLOCK);
                 boolean isClockVisible = newSelectedTabs.contains(PreferencesDefaultValues.VISIBLE_TAB_CLOCK);
@@ -316,6 +323,10 @@ public class InterfaceCustomizationFragment extends ScreenFragment
 
         updateTabToDisplayPreference(visibleTabs);
         mTabToDisplayPref.setOnPreferenceChangeListener(this);
+
+        mTabAnimationPref.setVisible(visibleTabs.size() > 1);
+        mTabAnimationPref.setSummary(mTabAnimationPref.getEntry());
+        mTabAnimationPref.setOnPreferenceChangeListener(this);
 
         if (!DeviceUtils.hasVibrator(requireContext())) {
             mVibrationPref.setVisible(false);
@@ -541,6 +552,7 @@ public class InterfaceCustomizationFragment extends ScreenFragment
         mLanguageCodePref = null;
         mVisibleTabsPref = null;
         mTabToDisplayPref = null;
+        mTabAnimationPref = null;
         mVibrationPref = null;
         mToolbarTitlePref = null;
         mTabTitleVisibilityPref = null;

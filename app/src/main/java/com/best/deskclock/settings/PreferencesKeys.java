@@ -58,6 +58,7 @@ public class PreferencesKeys {
     public static final String KEY_TOOLBAR_TITLE = "key_toolbar_title";
     public static final String KEY_TAB_TITLE_VISIBILITY = "key_tab_title_visibility";
     public static final String KEY_TAB_INDICATOR = "key_tab_indicator";
+    public static final String KEY_TAB_ANIMATION = "key_tab_animation";
     public static final String KEY_FADE_TRANSITIONS = "key_fade_transitions";
     public static final String KEY_KEEP_SCREEN_ON = "key_keep_screen_on";
 

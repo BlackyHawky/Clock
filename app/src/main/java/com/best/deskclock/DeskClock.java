@@ -14,8 +14,21 @@ import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_SETTLING;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TAB_TITLE_VISIBILITY;
+import static com.best.deskclock.settings.PreferencesDefaultValues.TAB_ANIMATION_CUBE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.TAB_ANIMATION_DEPTH;
+import static com.best.deskclock.settings.PreferencesDefaultValues.TAB_ANIMATION_FLIP;
+import static com.best.deskclock.settings.PreferencesDefaultValues.TAB_ANIMATION_GATE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.TAB_ANIMATION_ZOOM_OUT;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TAB_TITLE_VISIBILITY_NEVER;
-import static com.best.deskclock.settings.PreferencesKeys.*;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_KEEP_ANDROID_OPEN_DIALOG;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ESSENTIAL_PERMISSIONS_GRANTED;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_IS_FIRST_LAUNCH;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_KEEP_SCREEN_ON;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TAB_ANIMATION;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TAB_INDICATOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TAB_TITLE_VISIBILITY;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TAB_TO_DISPLAY;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_VIBRATIONS;
 import static com.best.deskclock.utils.AnimatorUtils.getScaleAnimator;
 import static com.best.deskclock.utils.NotificationUtils.EXTRA_UPDATE_ALARM_NOTIFICATIONS;
 import static com.best.deskclock.utils.WidgetUtils.EXTRA_UPDATE_WIDGETS;
@@ -68,6 +81,11 @@ import com.best.deskclock.timer.TimerService;
 import com.best.deskclock.uicomponents.CustomTooltip;
 import com.best.deskclock.uicomponents.FabContainer;
 import com.best.deskclock.uicomponents.FragmentTabPagerAdapter;
+import com.best.deskclock.uicomponents.pagetransformers.CubePageTransformer;
+import com.best.deskclock.uicomponents.pagetransformers.DepthPageTransformer;
+import com.best.deskclock.uicomponents.pagetransformers.FlipPageTransformer;
+import com.best.deskclock.uicomponents.pagetransformers.GatePageTransformer;
+import com.best.deskclock.uicomponents.pagetransformers.ZoomOutPageTransformer;
 import com.best.deskclock.uicomponents.toast.SnackbarManager;
 import com.best.deskclock.uidata.TabListener;
 import com.best.deskclock.uidata.UiDataModel;
@@ -166,7 +184,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
      */
     private static final List<String> SUPPORTED_PREF_KEYS = List.of(
         // Interface
-        KEY_TAB_TITLE_VISIBILITY, KEY_TAB_INDICATOR, KEY_TAB_TO_DISPLAY, KEY_VIBRATIONS, KEY_KEEP_SCREEN_ON,
+        KEY_TAB_TITLE_VISIBILITY, KEY_TAB_INDICATOR, KEY_TAB_TO_DISPLAY, KEY_TAB_ANIMATION, KEY_VIBRATIONS, KEY_KEEP_SCREEN_ON,
         // Permission
         KEY_ESSENTIAL_PERMISSIONS_GRANTED
     );
@@ -461,7 +479,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
             cachedValues.put(key, newValue);
 
             switch (key) {
-                case KEY_TAB_TITLE_VISIBILITY, KEY_TAB_INDICATOR, KEY_TAB_TO_DISPLAY, KEY_VIBRATIONS, KEY_KEEP_SCREEN_ON,
+                case KEY_TAB_TITLE_VISIBILITY, KEY_TAB_INDICATOR, KEY_TAB_TO_DISPLAY, KEY_TAB_ANIMATION, KEY_VIBRATIONS, KEY_KEEP_SCREEN_ON,
                      KEY_ESSENTIAL_PERMISSIONS_GRANTED -> mShouldRecreate = true;
 
             }
@@ -491,6 +509,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
             case KEY_TAB_TITLE_VISIBILITY -> SettingsDAO.getTabTitleVisibility(mPrefs);
             case KEY_TAB_INDICATOR -> SettingsDAO.isTabIndicatorDisplayed(mPrefs);
             case KEY_TAB_TO_DISPLAY -> SettingsDAO.getTabToDisplay(mPrefs);
+            case KEY_TAB_ANIMATION -> SettingsDAO.getTabAnimation(mPrefs);
             case KEY_VIBRATIONS -> SettingsDAO.isVibrationsEnabled(mPrefs);
             case KEY_KEEP_SCREEN_ON -> SettingsDAO.shouldScreenRemainOn(mPrefs);
             // Permission
@@ -659,6 +678,22 @@ public class DeskClock extends BaseActivity implements FabContainer {
 
         // Mirror changes made to the selected page of the view pager into UiDataModel.
         mBinding.deskClockPager.addOnPageChangeListener(new PageChangeWatcher());
+
+        // Set the animation when switching tabs.
+        mBinding.deskClockPager.post(() -> {
+            if (isFinishing() || isDestroyed()) {
+                return;
+            }
+
+            String tabAnimation = SettingsDAO.getTabAnimation(mPrefs);
+            switch (tabAnimation) {
+                case TAB_ANIMATION_CUBE -> mBinding.deskClockPager.setPageTransformer(true, new CubePageTransformer());
+                case TAB_ANIMATION_DEPTH -> mBinding.deskClockPager.setPageTransformer(true, new DepthPageTransformer());
+                case TAB_ANIMATION_FLIP -> mBinding.deskClockPager.setPageTransformer(true, new FlipPageTransformer());
+                case TAB_ANIMATION_GATE -> mBinding.deskClockPager.setPageTransformer(true, new GatePageTransformer());
+                case TAB_ANIMATION_ZOOM_OUT -> mBinding.deskClockPager.setPageTransformer(true, new ZoomOutPageTransformer());
+            }
+        });
     }
 
     /**

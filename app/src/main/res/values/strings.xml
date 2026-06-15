@@ -397,6 +397,18 @@
     <string name="tab_title_visibility_when_selected">When selected</string>
     <!-- Setting title to display the tab indicator in the bottom navigation menu. -->
     <string name="settings_tab_indicator_title">Display the tab indicator in the bottom navigation menu</string>
+    <!-- Setting title to change the animation when switching tabs. -->
+    <string name="settings_tab_animation_title">Animation when switching tabs</string>
+    <!-- Setting title to switch to the Cube animation -->
+    <string name="tab_animation_cube">Cube</string>
+    <!-- Setting title to switch to the Depth animation -->
+    <string name="tab_animation_depth">Depth</string>
+    <!-- Setting title to switch to the Flip animation -->
+    <string name="tab_animation_flip">Flip</string>
+    <!-- Setting title to switch to the Gate animation -->
+    <string name="tab_animation_gate">Gate</string>
+    <!-- Setting title to switch to the Zoom-out animation -->
+    <string name="tab_animation_zoom_out">Zoom-out</string>
     <!-- Setting title to enable fade transitions when switching screens. -->
     <string name="settings_fade_transitions_title">Enable fade transitions when switching screens</string>
     <!-- Setting title to keep the screen on. -->

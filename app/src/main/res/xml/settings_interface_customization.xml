@@ -146,6 +146,16 @@
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
+        <ListPreference
+            android:key="key_tab_animation"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/settings_tab_animation_title"
+            android:defaultValue="tab_animation_default"
+            android:entries="@array/tab_animation_entries"
+            android:entryValues="@array/tab_animation_values"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

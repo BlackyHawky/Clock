@@ -64,6 +64,12 @@ public class PreferencesDefaultValues {
     public static final String DEFAULT_TAB_TITLE_VISIBILITY = "0";
     public static final String TAB_TITLE_VISIBILITY_NEVER = "1";
     public static final boolean DEFAULT_TAB_INDICATOR = true;
+    public static final String DEFAULT_TAB_ANIMATION = "tab_animation_default";
+    public static final String TAB_ANIMATION_CUBE = "tab_animation_cube";
+    public static final String TAB_ANIMATION_DEPTH = "tab_animation_depth";
+    public static final String TAB_ANIMATION_FLIP = "tab_animation_flip";
+    public static final String TAB_ANIMATION_GATE = "tab_animation_gate";
+    public static final String TAB_ANIMATION_ZOOM_OUT = "tab_animation_zoom_out";
     public static final boolean DEFAULT_FADE_TRANSITIONS = false;
     public static final boolean DEFAULT_KEEP_SCREEN_ON = false;
 

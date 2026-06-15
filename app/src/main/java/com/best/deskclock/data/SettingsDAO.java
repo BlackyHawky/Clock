@@ -419,6 +419,14 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return the animation when switching tabs.
+     */
+    public static String getTabAnimation(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_interface_customization.xml
+        return prefs.getString(KEY_TAB_ANIMATION, DEFAULT_TAB_ANIMATION);
+    }
+
+    /**
      * @return {@code true} if the fade transitions are enabled. {@code false} otherwise.
      */
     public static boolean isFadeTransitionsEnabled(SharedPreferences prefs) {
