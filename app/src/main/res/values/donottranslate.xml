@@ -730,5 +730,6 @@
         <item>Pacific/Norfolk</item>
         <item>Antarctica/Macquarie</item>
         <item>Asia/Kamchatka</item>
+        <item>Asia/Damascus</item>
     </string-array>
 </resources>
