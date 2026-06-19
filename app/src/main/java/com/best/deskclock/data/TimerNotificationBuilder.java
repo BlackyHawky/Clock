@@ -12,12 +12,12 @@ import static androidx.core.app.NotificationCompat.Action;
 import static androidx.core.app.NotificationCompat.Builder;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.utils.NotificationUtils.FIRING_NOTIFICATION_CHANNEL_ID;
+import static com.best.deskclock.utils.NotificationUtils.TIMER_MISSED_NOTIFICATION_CHANNEL_ID;
 import static com.best.deskclock.utils.NotificationUtils.TIMER_MODEL_NOTIFICATION_CHANNEL_ID;
 
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -39,7 +39,6 @@ import com.best.deskclock.events.Events;
 import com.best.deskclock.timer.ExpiredTimersActivity;
 import com.best.deskclock.timer.TimerService;
 import com.best.deskclock.utils.AlarmUtils;
-import com.best.deskclock.utils.NotificationUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
 
@@ -86,6 +85,9 @@ class TimerNotificationBuilder {
         return SystemClock.elapsedRealtime() + adjustedRemaining;
     }
 
+    /**
+     * @return the notification for running timers.
+     */
     public Notification build(Context context, NotificationModel nm, Timer timer) {
         final Context localizedContext = Utils.getLocalizedContext(context);
         final SharedPreferences prefs = getDefaultSharedPreferences(context);
@@ -187,10 +189,9 @@ class TimerNotificationBuilder {
             .setContentTitle(contentTitle)
             .setContentText(contentText)
             .setContentIntent(pendingShowApp)
-            .setPriority(SdkUtils.isAtLeastAndroid7()
-                ? NotificationManager.IMPORTANCE_LOW
-                : Notification.PRIORITY_LOW)
-            .setCategory(NotificationCompat.CATEGORY_ALARM)
+            .setDefaults(0) // No sound on Android 7 and earlier versions
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setCategory(NotificationCompat.CATEGORY_PROGRESS)
             .setSmallIcon(R.drawable.ic_hourglass_bottom)
             .setSortKey(nm.getTimerNotificationSortKey())
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
@@ -203,8 +204,7 @@ class TimerNotificationBuilder {
         }
 
         if (SdkUtils.isAtLeastAndroid7()) {
-            notification.setCustomContentView(buildChronometer(context.getPackageName(), base,
-                running, titleText, stateText));
+            notification.setCustomContentView(buildChronometer(context.getPackageName(), base, running, titleText, stateText));
         } else {
             final CharSequence preNText = stateText != null
                 ? stateText
@@ -234,12 +234,12 @@ class TimerNotificationBuilder {
             }
         }
 
-        if (SdkUtils.isAtLeastAndroid8()) {
-            NotificationUtils.createChannel(context, TIMER_MODEL_NOTIFICATION_CHANNEL_ID);
-        }
         return notification.build();
     }
 
+    /**
+     * @return the notification for expired timers.
+     */
     Notification buildHeadsUp(Context context, List<Timer> expired) {
         final Context localizedContext = Utils.getLocalizedContext(context);
         final SharedPreferences prefs = getDefaultSharedPreferences(context);
@@ -314,11 +314,11 @@ class TimerNotificationBuilder {
             .setLocalOnly(true)
             .setShowWhen(false)
             .setAutoCancel(false)
+            .setContentTitle(titleText)
             .setContentIntent(contentIntent)
-            .setPriority(SdkUtils.isAtLeastAndroid7()
-                ? NotificationManager.IMPORTANCE_HIGH
-                : Notification.PRIORITY_HIGH)
-            .setDefaults(Notification.DEFAULT_LIGHTS)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setCategory(NotificationCompat.CATEGORY_ALARM)
+            .setDefaults(NotificationCompat.DEFAULT_LIGHTS)
             .setSmallIcon(R.drawable.ic_hourglass_bottom)
             .setFullScreenIntent(pendingFullScreen, true)
             .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
@@ -338,21 +338,15 @@ class TimerNotificationBuilder {
             notification.setContentTitle(titleText).setContentText(contentTextPreN);
         }
 
-        if (SdkUtils.isAtLeastAndroid8()) {
-            NotificationUtils.createChannel(context, FIRING_NOTIFICATION_CHANNEL_ID);
-        }
-
         // Stop and reset the timer if user clears notification.
-        Intent dismissIntent = new Intent(context, TimerService.class)
-            .setAction(TimerService.ACTION_RESET_EXPIRED_TIMERS)
-            .setData(Uri.parse(URI_SCHEME_TIMER_RESET + timerId))
-            .putExtra(TimerService.EXTRA_TIMER_ID, timerId);
-        PendingIntent deletePendingIntent = Utils.pendingServiceIntent(context, dismissIntent, timerId);
-        notification.setDeleteIntent(deletePendingIntent);
+        notification.setDeleteIntent(resetTimerIntent(context, timerId, false));
 
         return notification.build();
     }
 
+    /**
+     * @return the notification for missed timers.
+     */
     Notification buildMissed(Context context, NotificationModel nm, Timer timer) {
         final Context localizedContext = Utils.getLocalizedContext(context);
         final SharedPreferences prefs = getDefaultSharedPreferences(context);
@@ -391,17 +385,16 @@ class TimerNotificationBuilder {
         final PendingIntent intent = Utils.pendingServiceIntent(context, reset);
         action = new Action.Builder(icon, title, intent).build();
 
-        final Builder notification = new Builder(context, TIMER_MODEL_NOTIFICATION_CHANNEL_ID)
+        final Builder notification = new Builder(context, TIMER_MISSED_NOTIFICATION_CHANNEL_ID)
             .setLocalOnly(true)
             .setShowWhen(false)
             .setAutoCancel(false)
             .setContentTitle(contentTitle)
             .setContentText(contentText)
             .setContentIntent(pendingShowApp)
-            .setPriority(SdkUtils.isAtLeastAndroid7()
-                ? NotificationManager.IMPORTANCE_HIGH
-                : Notification.PRIORITY_HIGH)
-            .setCategory(NotificationCompat.CATEGORY_ALARM)
+            .setDefaults(0) // No sound on Android 7 and earlier versions
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setCategory(NotificationCompat.CATEGORY_EVENT)
             .setSmallIcon(R.drawable.ic_hourglass_bottom)
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             .setSortKey(nm.getTimerNotificationMissedSortKey())
@@ -417,9 +410,8 @@ class TimerNotificationBuilder {
             notification.setContentTitle(contentTitle).setContentText(preNText);
         }
 
-        if (SdkUtils.isAtLeastAndroid8()) {
-            NotificationUtils.createChannel(context, TIMER_MODEL_NOTIFICATION_CHANNEL_ID);
-        }
+        // Reset the timer if user clears notification.
+        notification.setDeleteIntent(resetTimerIntent(context, timerId, true));
 
         return notification.build();
     }
@@ -434,24 +426,28 @@ class TimerNotificationBuilder {
 
         final PendingIntent pendingShowApp = Utils.pendingActivityIntent(context, showApp);
 
-        if (SdkUtils.isAtLeastAndroid8()) {
-            NotificationUtils.createChannel(context, TIMER_MODEL_NOTIFICATION_CHANNEL_ID);
-        }
-
         return new NotificationCompat.Builder(context, TIMER_MODEL_NOTIFICATION_CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_hourglass_bottom)
             .setGroup(nm.getTimerNotificationGroupKey())
             .setGroupSummary(true)
             .setOngoing(true)
             .setContentIntent(pendingShowApp)
-            .setPriority(SdkUtils.isAtLeastAndroid7()
-                ? NotificationManager.IMPORTANCE_LOW
-                : Notification.PRIORITY_LOW)
+            .setDefaults(0) // No sound on Android 7 and earlier versions
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setCategory(NotificationCompat.CATEGORY_EVENT)
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             .setLocalOnly(true)
             .setColor(ContextCompat.getColor(context, R.color.md_theme_primary))
             .build();
+    }
+
+    private PendingIntent resetTimerIntent(Context context, int timerId, boolean isMissedTimer) {
+        Intent dismissIntent = new Intent(context, TimerService.class)
+            .setAction(isMissedTimer ? TimerService.ACTION_RESET_MISSED_TIMERS : TimerService.ACTION_RESET_EXPIRED_TIMERS)
+            .setData(Uri.parse(URI_SCHEME_TIMER_RESET + timerId))
+            .putExtra(TimerService.EXTRA_TIMER_ID, timerId);
+
+        return Utils.pendingServiceIntent(context, dismissIntent, timerId);
     }
 
     @RequiresApi(Build.VERSION_CODES.N)

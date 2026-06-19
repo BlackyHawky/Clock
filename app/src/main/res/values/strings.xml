@@ -1301,6 +1301,7 @@
     <string name="alarm_upcoming_channel">Upcoming alarms</string>
     <string name="stopwatch_channel">Stopwatch</string>
     <string name="timer_channel">Timer</string>
+    <string name="timer_missed_channel">Missed timers</string>
     <!--
     First launch
     -->

@@ -272,10 +272,9 @@ public class DeskClock extends BaseActivity implements FabContainer {
 
     @Override
     protected void onStart() {
-        DataModel.getDataModel().addSilentSettingsListener(mSilentSettingChangeWatcher);
-        DataModel.getDataModel().setApplicationInForeground(true);
-
         super.onStart();
+
+        DataModel.getDataModel().addSilentSettingsListener(mSilentSettingChangeWatcher);
     }
 
     @Override
@@ -323,10 +322,6 @@ public class DeskClock extends BaseActivity implements FabContainer {
     @Override
     protected void onStop() {
         DataModel.getDataModel().removeSilentSettingsListener(mSilentSettingChangeWatcher);
-
-        if (!isChangingConfigurations()) {
-            DataModel.getDataModel().setApplicationInForeground(false);
-        }
 
         super.onStop();
     }

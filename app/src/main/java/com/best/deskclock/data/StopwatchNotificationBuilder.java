@@ -11,7 +11,6 @@ import static android.view.View.VISIBLE;
 import static com.best.deskclock.utils.NotificationUtils.STOPWATCH_NOTIFICATION_CHANNEL_ID;
 
 import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -29,8 +28,6 @@ import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.stopwatch.StopwatchService;
-import com.best.deskclock.utils.NotificationUtils;
-import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
 
 import java.util.ArrayList;
@@ -56,6 +53,7 @@ class StopwatchNotificationBuilder {
         // Compute some values required below.
         final boolean running = stopwatch.isRunning();
         final long base = SystemClock.elapsedRealtime() - stopwatch.getTotalTime();
+        final String fallbackText = running ? "" : localizedContext.getString(R.string.swn_paused);
 
         final RemoteViews content = new RemoteViews(context.getPackageName(), R.layout.chronometer_notif_content);
         content.setTextViewText(R.id.title, localizedContext.getString(R.string.stopwatch_channel));
@@ -125,12 +123,14 @@ class StopwatchNotificationBuilder {
         final Builder notification = new Builder(context, STOPWATCH_NOTIFICATION_CHANNEL_ID)
             .setLocalOnly(true)
             .setOngoing(running)
+            .setContentTitle(localizedContext.getString(R.string.stopwatch_channel))
+            .setContentText(fallbackText)
             .setCustomContentView(content)
             .setContentIntent(pendingShowApp)
             .setAutoCancel(stopwatch.isPaused())
-            .setPriority(SdkUtils.isAtLeastAndroid7()
-                ? NotificationManager.IMPORTANCE_LOW
-                : Notification.PRIORITY_LOW)
+            .setDefaults(0) // No sound on Android 7 and earlier versions
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setCategory(NotificationCompat.CATEGORY_STOPWATCH)
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             .setSmallIcon(R.drawable.ic_tab_stopwatch_static)
             .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
@@ -141,9 +141,6 @@ class StopwatchNotificationBuilder {
             notification.addAction(action);
         }
 
-        if (SdkUtils.isAtLeastAndroid8()) {
-            NotificationUtils.createChannel(context, STOPWATCH_NOTIFICATION_CHANNEL_ID);
-        }
         return notification.build();
     }
 }

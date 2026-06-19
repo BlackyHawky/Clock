@@ -6,11 +6,14 @@
 
 package com.best.deskclock;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.preference.PreferenceManager;
 
 import com.best.deskclock.controller.Controller;
@@ -18,14 +21,18 @@ import com.best.deskclock.data.DataModel;
 import com.best.deskclock.events.LogEventTracker;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.NotificationUtils;
 import com.best.deskclock.utils.SdkUtils;
 
 import java.io.File;
 import java.util.Objects;
 
-public class DeskClockApplication extends Application {
+public class DeskClockApplication extends Application implements Application.ActivityLifecycleCallbacks {
 
     private static DeskClockApplication sInstance;
+
+    private int mStartedActivities = 0;
+    private boolean mIsChangingConfiguration = false;
 
     @Override
     public void onCreate() {
@@ -38,6 +45,12 @@ public class DeskClockApplication extends Application {
         Controller.getController().init();
         Controller.getController().addEventTracker(new LogEventTracker());
         Controller.getController().updateShortcuts();
+
+        if (SdkUtils.isAtLeastAndroid8()) {
+            NotificationUtils.updateNotificationChannels(this);
+        }
+
+        registerActivityLifecycleCallbacks(this);
     }
 
     public static Context getAppContext() {
@@ -70,5 +83,34 @@ public class DeskClockApplication extends Application {
 
         return PreferenceManager.getDefaultSharedPreferences(storageContext);
     }
+
+    @Override
+    public void onActivityStarted(@NonNull Activity activity) {
+        if (mStartedActivities == 0 && !mIsChangingConfiguration) {
+            DataModel.getDataModel().setApplicationInForeground(true);
+        }
+
+        mIsChangingConfiguration = false;
+        mStartedActivities++;
+    }
+
+    @Override
+    public void onActivityStopped(@NonNull Activity activity) {
+        mStartedActivities--;
+
+        if (mStartedActivities == 0) {
+            if (!activity.isChangingConfigurations()) {
+                DataModel.getDataModel().setApplicationInForeground(false);
+            } else {
+                mIsChangingConfiguration = true;
+            }
+        }
+    }
+
+    @Override public void onActivityCreated(@NonNull Activity activity, Bundle savedInstanceState) {}
+    @Override public void onActivityResumed(@NonNull Activity activity) {}
+    @Override public void onActivityPaused(@NonNull Activity activity) {}
+    @Override public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle outState) {}
+    @Override public void onActivityDestroyed(@NonNull Activity activity) {}
 
 }
