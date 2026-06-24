@@ -252,6 +252,11 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void bindPreemptiveDismissButton(Context context, Alarm alarm, AlarmInstance alarmInstance) {
+        if (AlarmVisualCache.isDismissed(alarm.id)) {
+            mBinding.preemptiveDismissButton.setVisibility(GONE);
+            return;
+        }
+
         final boolean canBind = alarm.canPreemptivelyDismiss(context) && alarmInstance != null;
 
         if (!canBind) {

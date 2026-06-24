@@ -288,8 +288,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * @param state    to change to.
      * @return intent that can be used to change an alarm instance state
      */
-    public static Intent createStateChangeIntent(Context context, String tag,
-                                                 AlarmInstance instance, Integer state) {
+    public static Intent createStateChangeIntent(Context context, String tag, AlarmInstance instance, Integer state) {
         // This intent is directed to AlarmService, though the actual handling of it occurs here
         // in AlarmStateManager. The reason is that evidence exists showing the jump between the
         // broadcast receiver (AlarmStateManager) and service (AlarmService) can be thwarted by the
@@ -665,6 +664,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
             // Otherwise, stop alarm if this instance is firing it without vibration.
             AlarmService.stopAlarm(context, instance);
         }
+
         AlarmNotifications.clearNotification(context, instance);
         cancelScheduledInstanceStateChange(context, instance);
         setDismissState(context, instance);
@@ -897,6 +897,10 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
             if (alarmState >= 0) {
                 setAlarmState(context, instance, alarmState);
+
+                if (alarmState == AlarmInstance.PREDISMISSED_STATE || alarmState == AlarmInstance.DISMISSED_STATE) {
+                    AlarmVisualCache.cacheDismissedAlarm(instance.mAlarmId);
+                }
             } else {
                 registerInstance(context, instance, true);
             }

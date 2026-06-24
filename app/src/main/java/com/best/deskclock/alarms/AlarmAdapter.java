@@ -18,6 +18,7 @@ import com.best.deskclock.utils.ThemeUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
@@ -122,6 +123,22 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
     }
 
     public void setItems(List<AlarmItemHolder> items) {
+        Iterator<AlarmItemHolder> iterator = items.iterator();
+
+        while (iterator.hasNext()) {
+            AlarmItemHolder holder = iterator.next();
+
+            if (holder.item != null && AlarmVisualCache.isDismissed(holder.item.id)) {
+                if (holder.item.isDeleteAfterUse()) {
+                    // Remove the alarm from the list immediately!
+                    iterator.remove();
+                } else if (!holder.item.daysOfWeek.isRepeating()) {
+                    // Standard one-time alarm. Just force the switch to OFF visually.
+                    holder.item.enabled = false;
+                }
+            }
+        }
+
         mItems = items;
         notifyDataSetChanged();
     }
