@@ -726,14 +726,20 @@ public final class AlarmStateManager extends BroadcastReceiver {
                     return;
                 }
 
-                // TODO: This will re-activate missed snoozed alarms, but will
-                //  use our normal notifications. This is not ideal, but very rare use-case.
-                //  We should look into fixing this in the future.
-
-                // Make sure we re-enable the parent alarm of the instance
-                // because it will get activated by the below code
+                // Make sure we re-enable the parent alarm of the instance because it will get activated by the below code
                 Objects.requireNonNull(alarm).enabled = true;
                 alarm.updateAlarm(cr);
+
+                // If the hours and minutes of the instance differ from those of the parent alarm, it is a Snooze.
+                boolean wasSnoozed = alarmTime.get(Calendar.HOUR_OF_DAY) != alarm.hour
+                    || alarmTime.get(Calendar.MINUTE) != alarm.minutes;
+
+                if (wasSnoozed) {
+                    // We explicitly restore the SNOOZE_STATE to the database.
+                    instance.mAlarmState = AlarmInstance.SNOOZE_STATE;
+                    instance.updateInstance(cr);
+                    LogUtils.i("Restored missed snoozed alarm to SNOOZE_STATE");
+                }
             }
         } else if (instance.mAlarmState == AlarmInstance.PREDISMISSED_STATE) {
             if (currentTime.before(alarmTime)) {
