@@ -11,6 +11,7 @@ import static com.best.deskclock.settings.PreferencesKeys.*;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.media.AudioDeviceCallback;
@@ -61,6 +62,7 @@ import com.best.deskclock.settings.custompreference.VolumeCrescendoDurationPrefe
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.utils.DeviceUtils;
+import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
@@ -835,50 +837,84 @@ public class AlarmSettingsFragment extends ScreenFragment
     }
 
     private void triggerDisableSettingDialog(String prefKey) {
-        mPendingDialogPrefKey = prefKey;
+        AppExecutors.getDiskIO().execute(() -> {
+            boolean hasAlarms = false;
 
-        switch (prefKey) {
-            case KEY_ENABLE_PER_ALARM_AUTO_SILENCE ->
-                showDisablePerAlarmSettingDialog(R.string.enable_per_alarm_auto_silence_dialog_message,
-                    KEY_ENABLE_PER_ALARM_AUTO_SILENCE, mEnablePerAlarmAutoSilencePref,
-                    mAlarmAutoSilencePref, alarm -> alarm.autoSilenceDuration = SettingsDAO.getAlarmTimeout(mPrefs));
+            try (Cursor cursor = requireContext().getContentResolver().query(
+                Alarm.CONTENT_URI,
+                new String[]{Alarm._ID},
+                null,
+                null,
+                null)) {
 
-            case KEY_ENABLE_PER_ALARM_SNOOZE_DURATION ->
-                showDisablePerAlarmSettingDialog(R.string.enable_per_alarm_snooze_duration_dialog_message,
-                    KEY_ENABLE_PER_ALARM_SNOOZE_DURATION, mEnablePerAlarmSnoozeDurationPref, mAlarmSnoozeDurationPref,
-                    alarm -> alarm.snoozeDuration = SettingsDAO.getSnoozeLength(mPrefs));
+                hasAlarms = cursor != null && cursor.getCount() > 0;
 
-            case KEY_ENABLE_PER_ALARM_MISSED_REPEAT_LIMIT ->
-                showDisablePerAlarmSettingDialog(R.string.enable_per_alarm_missed_repeat_limit_dialog_message,
-                    KEY_ENABLE_PER_ALARM_MISSED_REPEAT_LIMIT, mEnablePerAlarmMissedRepeatLimitPref, mRepeatMissedAlarmPref,
-                    alarm -> alarm.missedAlarmRepeatLimit = SettingsDAO.getMissedAlarmRepeatLimit(mPrefs));
+            } catch (Exception e) {
+                LogUtils.e("Error checking for the presence of alarms", e);
+            }
 
-            case KEY_ENABLE_PER_ALARM_VOLUME ->
-                showDisablePerAlarmSettingDialog(R.string.enable_per_alarm_volume_dialog_message,
-                    KEY_ENABLE_PER_ALARM_VOLUME, mEnablePerAlarmVolumePref, mAlarmVolumePref,
-                    alarm -> alarm.alarmVolume = DEFAULT_ALARM_VOLUME);
+            final boolean finalHasAlarms = hasAlarms;
 
-            case KEY_ENABLE_PER_ALARM_VOLUME_CRESCENDO_DURATION ->
-                showDisablePerAlarmSettingDialog(R.string.enable_per_alarm_crescendo_duration_dialog_message,
-                    KEY_ENABLE_PER_ALARM_VOLUME_CRESCENDO_DURATION, mEnablePerAlarmVolumeCrescendoDurationPref,
-                    mAlarmVolumeCrescendoDurationPref, alarm ->
-                        alarm.crescendoDuration = SettingsDAO.getAlarmVolumeCrescendoDuration(mPrefs));
+            AppExecutors.getMainThread().post(() -> {
+                if (!isAdded() || isDetached()) {
+                    return;
+                }
 
-            case KEY_ENABLE_PER_ALARM_VIBRATION_PATTERN ->
-                showDisablePerAlarmSettingDialog(R.string.enable_per_alarm_vibration_pattern_dialog_message,
-                    KEY_ENABLE_PER_ALARM_VIBRATION_PATTERN, mEnablePerAlarmVibrationPatternPref, mVibrationPatternPref,
-                    alarm -> alarm.vibrationPattern = SettingsDAO.getVibrationPattern(mPrefs));
+                if (finalHasAlarms) {
+                    mPendingDialogPrefKey = prefKey;
 
-            case KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT ->
-                showDisablePerAlarmSettingDialog(R.string.enable_alarm_vibrations_by_default_dialog_message,
-                    KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT, mEnableAlarmVibrationsByDefaultPref, null,
-                    alarm -> alarm.vibrate = false);
+                    switch (prefKey) {
+                        case KEY_ENABLE_PER_ALARM_AUTO_SILENCE ->
+                            showDisablePerAlarmSettingDialog(R.string.enable_per_alarm_auto_silence_dialog_message,
+                                KEY_ENABLE_PER_ALARM_AUTO_SILENCE, mEnablePerAlarmAutoSilencePref,
+                                mAlarmAutoSilencePref, alarm -> alarm.autoSilenceDuration = SettingsDAO.getAlarmTimeout(mPrefs));
 
-            case KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT ->
-                showDisablePerAlarmSettingDialog(R.string.enable_delete_occasional_alarm_by_default_dialog_message,
-                    KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT, mDeleteOccasionalAlarmByDefaultPref, null,
-                    alarm -> alarm.deleteAfterUse = false);
-        }
+                        case KEY_ENABLE_PER_ALARM_SNOOZE_DURATION ->
+                            showDisablePerAlarmSettingDialog(R.string.enable_per_alarm_snooze_duration_dialog_message,
+                                KEY_ENABLE_PER_ALARM_SNOOZE_DURATION, mEnablePerAlarmSnoozeDurationPref, mAlarmSnoozeDurationPref,
+                                alarm -> alarm.snoozeDuration = SettingsDAO.getSnoozeLength(mPrefs));
+
+                        case KEY_ENABLE_PER_ALARM_MISSED_REPEAT_LIMIT ->
+                            showDisablePerAlarmSettingDialog(R.string.enable_per_alarm_missed_repeat_limit_dialog_message,
+                                KEY_ENABLE_PER_ALARM_MISSED_REPEAT_LIMIT, mEnablePerAlarmMissedRepeatLimitPref, mRepeatMissedAlarmPref,
+                                alarm -> alarm.missedAlarmRepeatLimit = SettingsDAO.getMissedAlarmRepeatLimit(mPrefs));
+
+                        case KEY_ENABLE_PER_ALARM_VOLUME ->
+                            showDisablePerAlarmSettingDialog(R.string.enable_per_alarm_volume_dialog_message,
+                                KEY_ENABLE_PER_ALARM_VOLUME, mEnablePerAlarmVolumePref, mAlarmVolumePref,
+                                alarm -> alarm.alarmVolume = DEFAULT_ALARM_VOLUME);
+
+                        case KEY_ENABLE_PER_ALARM_VOLUME_CRESCENDO_DURATION ->
+                            showDisablePerAlarmSettingDialog(R.string.enable_per_alarm_crescendo_duration_dialog_message,
+                                KEY_ENABLE_PER_ALARM_VOLUME_CRESCENDO_DURATION, mEnablePerAlarmVolumeCrescendoDurationPref,
+                                mAlarmVolumeCrescendoDurationPref, alarm ->
+                                    alarm.crescendoDuration = SettingsDAO.getAlarmVolumeCrescendoDuration(mPrefs));
+
+                        case KEY_ENABLE_PER_ALARM_VIBRATION_PATTERN ->
+                            showDisablePerAlarmSettingDialog(R.string.enable_per_alarm_vibration_pattern_dialog_message,
+                                KEY_ENABLE_PER_ALARM_VIBRATION_PATTERN, mEnablePerAlarmVibrationPatternPref, mVibrationPatternPref,
+                                alarm -> alarm.vibrationPattern = SettingsDAO.getVibrationPattern(mPrefs));
+
+                        case KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT ->
+                            showDisablePerAlarmSettingDialog(R.string.enable_alarm_vibrations_by_default_dialog_message,
+                                KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT, mEnableAlarmVibrationsByDefaultPref, null,
+                                alarm -> alarm.vibrate = false);
+
+                        case KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT ->
+                            showDisablePerAlarmSettingDialog(R.string.enable_delete_occasional_alarm_by_default_dialog_message,
+                                KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT, mDeleteOccasionalAlarmByDefaultPref, null,
+                                alarm -> alarm.deleteAfterUse = false);
+                    }
+                } else {
+                    mPrefs.edit().putBoolean(prefKey, false).apply();
+
+                    Preference pref = findPreference(prefKey);
+                    if (pref instanceof SwitchPreferenceCompat switchPreferenceCompat) {
+                        switchPreferenceCompat.setChecked(false);
+                    }
+                }
+            });
+        });
     }
 
     private void showDisablePerAlarmSettingDialog(@StringRes int messageResId, String prefKey, SwitchPreferenceCompat switchPref,
