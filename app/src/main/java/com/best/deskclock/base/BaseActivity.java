@@ -4,7 +4,15 @@ package com.best.deskclock.base;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.*;
-import static com.best.deskclock.settings.PreferencesKeys.*;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ACCENT_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_NIGHT_ACCENT_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_CARD_BACKGROUND;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_CARD_BORDER;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DARK_MODE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_FADE_TRANSITIONS;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_GENERAL_FONT;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_NIGHT_ACCENT_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_THEME;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
@@ -15,9 +23,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.core.os.LocaleListCompat;
 
-import com.best.deskclock.BuildConfig;
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
@@ -69,8 +75,6 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         mPrefs = getDefaultSharedPreferences(this);
 
-        initDebugAndNightlyDefaults();
-
         applyThemeAndAccentColor();
 
         super.onCreate(savedInstanceState);
@@ -86,27 +90,6 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     /**
-     * Initializes the default accent color and locale for debug and nightly builds.
-     */
-    private void initDebugAndNightlyDefaults() {
-        if (!mPrefs.contains(KEY_ACCENT_COLOR)) {
-            if (BuildConfig.IS_DEBUG_BUILD) {
-                mPrefs.edit().putString(KEY_ACCENT_COLOR, RED_ACCENT_COLOR).apply();
-            } else if (BuildConfig.IS_NIGHTLY_BUILD) {
-                mPrefs.edit().putString(KEY_ACCENT_COLOR, PURPLE_ACCENT_COLOR).apply();
-            }
-        }
-
-        if (!mPrefs.contains(KEY_LANGUAGE_CODE)) {
-            if (BuildConfig.IS_DEBUG_BUILD || BuildConfig.IS_NIGHTLY_BUILD) {
-                mPrefs.edit().putString(KEY_LANGUAGE_CODE, DEBUG_LANGUAGE_CODE).apply();
-
-                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(DEBUG_LANGUAGE_CODE));
-            }
-        }
-    }
-
-    /**
      * Apply the theme and the accent color to the activities.
      */
     private void applyThemeAndAccentColor() {
@@ -116,7 +99,7 @@ public class BaseActivity extends AppCompatActivity {
         final boolean isAutoNightAccentColorEnabled = SettingsDAO.isAutoNightAccentColorEnabled(mPrefs);
         final String nightAccentColor = SettingsDAO.getNightAccentColor(mPrefs);
 
-        applyDarkThemeVariant(theme, darkMode);
+        applyAmoledTheme(theme, darkMode);
 
         applyAccentColor(isAutoNightAccentColorEnabled, accentColor, nightAccentColor, darkMode);
 
@@ -124,12 +107,10 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     /**
-     * Apply the dark mode to the activities.
+     * Apply the AMOLED theme to the activities if the device is set to night mode.
      */
-    private void applyDarkThemeVariant(String theme, String darkMode) {
-        if (darkMode.equals(DEFAULT_DARK_MODE)) {
-            applySystemNightMode(theme);
-        } else if (darkMode.equals(AMOLED_DARK_MODE) && !theme.equals(SYSTEM_THEME) && !theme.equals(LIGHT_THEME)) {
+    private void applyAmoledTheme(String theme, String darkMode) {
+        if (darkMode.equals(AMOLED_DARK_MODE) && !theme.equals(SYSTEM_THEME) && !theme.equals(LIGHT_THEME)) {
             setTheme(R.style.AmoledTheme);
         }
     }

@@ -6,6 +6,15 @@
 
 package com.best.deskclock;
 
+import static com.best.deskclock.settings.PreferencesDefaultValues.DARK_THEME;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEBUG_LANGUAGE_CODE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.LIGHT_THEME;
+import static com.best.deskclock.settings.PreferencesDefaultValues.PURPLE_ACCENT_COLOR;
+import static com.best.deskclock.settings.PreferencesDefaultValues.RED_ACCENT_COLOR;
+import static com.best.deskclock.settings.PreferencesDefaultValues.SYSTEM_THEME;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ACCENT_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_LANGUAGE_CODE;
+
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
@@ -14,10 +23,13 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.os.LocaleListCompat;
 import androidx.preference.PreferenceManager;
 
 import com.best.deskclock.controller.Controller;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.events.LogEventTracker;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.LogUtils;
@@ -40,6 +52,11 @@ public class DeskClockApplication extends Application implements Application.Act
 
         sInstance = this;
 
+        initDebugAndNightlyDefaults();
+
+        String theme = SettingsDAO.getTheme(getDefaultSharedPreferences(this));
+        applySystemNightMode(theme);
+
         DataModel.getDataModel().init();
         UiDataModel.getUiDataModel().init();
         Controller.getController().init();
@@ -51,6 +68,61 @@ public class DeskClockApplication extends Application implements Application.Act
         }
 
         registerActivityLifecycleCallbacks(this);
+    }
+
+    @Override
+    public void onActivityStarted(@NonNull Activity activity) {
+        if (mStartedActivities == 0 && !mIsChangingConfiguration) {
+            DataModel.getDataModel().setApplicationInForeground(true);
+        }
+
+        mIsChangingConfiguration = false;
+        mStartedActivities++;
+    }
+
+    @Override
+    public void onActivityStopped(@NonNull Activity activity) {
+        mStartedActivities--;
+
+        if (mStartedActivities == 0) {
+            if (!activity.isChangingConfigurations()) {
+                DataModel.getDataModel().setApplicationInForeground(false);
+            } else {
+                mIsChangingConfiguration = true;
+            }
+        }
+    }
+
+    @Override public void onActivityCreated(@NonNull Activity activity, Bundle savedInstanceState) {}
+    @Override public void onActivityResumed(@NonNull Activity activity) {}
+    @Override public void onActivityPaused(@NonNull Activity activity) {}
+    @Override public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle outState) {}
+    @Override public void onActivityDestroyed(@NonNull Activity activity) {}
+
+    private void initDebugAndNightlyDefaults() {
+        SharedPreferences prefs = getDefaultSharedPreferences(this);
+        if (!prefs.contains(KEY_ACCENT_COLOR)) {
+            if (BuildConfig.IS_DEBUG_BUILD) {
+                prefs.edit().putString(KEY_ACCENT_COLOR, RED_ACCENT_COLOR).apply();
+            } else if (BuildConfig.IS_NIGHTLY_BUILD) {
+                prefs.edit().putString(KEY_ACCENT_COLOR, PURPLE_ACCENT_COLOR).apply();
+            }
+        }
+
+        if (!prefs.contains(KEY_LANGUAGE_CODE)) {
+            if (BuildConfig.IS_DEBUG_BUILD || BuildConfig.IS_NIGHTLY_BUILD) {
+                prefs.edit().putString(KEY_LANGUAGE_CODE, DEBUG_LANGUAGE_CODE).apply();
+                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(DEBUG_LANGUAGE_CODE));
+            }
+        }
+    }
+
+    private void applySystemNightMode(String theme) {
+        switch (theme) {
+            case SYSTEM_THEME -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+            case LIGHT_THEME -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            case DARK_THEME -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
     }
 
     public static Context getAppContext() {
@@ -83,34 +155,5 @@ public class DeskClockApplication extends Application implements Application.Act
 
         return PreferenceManager.getDefaultSharedPreferences(storageContext);
     }
-
-    @Override
-    public void onActivityStarted(@NonNull Activity activity) {
-        if (mStartedActivities == 0 && !mIsChangingConfiguration) {
-            DataModel.getDataModel().setApplicationInForeground(true);
-        }
-
-        mIsChangingConfiguration = false;
-        mStartedActivities++;
-    }
-
-    @Override
-    public void onActivityStopped(@NonNull Activity activity) {
-        mStartedActivities--;
-
-        if (mStartedActivities == 0) {
-            if (!activity.isChangingConfigurations()) {
-                DataModel.getDataModel().setApplicationInForeground(false);
-            } else {
-                mIsChangingConfiguration = true;
-            }
-        }
-    }
-
-    @Override public void onActivityCreated(@NonNull Activity activity, Bundle savedInstanceState) {}
-    @Override public void onActivityResumed(@NonNull Activity activity) {}
-    @Override public void onActivityPaused(@NonNull Activity activity) {}
-    @Override public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle outState) {}
-    @Override public void onActivityDestroyed(@NonNull Activity activity) {}
 
 }
