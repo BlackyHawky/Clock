@@ -225,6 +225,23 @@ public class Utils {
             return context;
         }
 
+        // Normalize legacy JVM language codes to modern ISO standards
+        String langOnly = locale.getLanguage();
+        String normalizedLang = switch (langOnly) {
+            case "iw" -> "he";
+            case "in" -> "id";
+            case "ji" -> "yi";
+            default -> langOnly;
+        };
+
+        // Rebuild the Locale object only if the language code was mutated by the JVM
+        if (!normalizedLang.equals(langOnly)) {
+            locale = new Locale.Builder()
+                .setLocale(locale)
+                .setLanguage(normalizedLang)
+                .build();
+        }
+
         Configuration config = new Configuration(context.getResources().getConfiguration());
         config.setLocale(locale);
 

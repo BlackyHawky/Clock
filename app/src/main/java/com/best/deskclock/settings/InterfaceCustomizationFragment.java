@@ -362,6 +362,14 @@ public class InterfaceCustomizationFragment extends ScreenFragment
                 String fullTag = currentLocale.toLanguageTag();
                 String langOnly = currentLocale.getLanguage();
 
+                // Normalize legacy JVM language codes to modern ISO standards
+                langOnly = switch (langOnly) {
+                    case "iw" -> "he";
+                    case "in" -> "id";
+                    case "ji" -> "yi";
+                    default -> langOnly;
+                };
+
                 if (mLanguageCodePref.findIndexOfValue(fullTag) >= 0) {
                     currentLanguageCode = fullTag;
                 } else if (mLanguageCodePref.findIndexOfValue(langOnly) >= 0) {
