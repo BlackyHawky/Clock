@@ -10,5 +10,5 @@
 - Võimalus muuta rakenduse keelt
 - Rõhtvaate kasutatavus telefonides
 
-Kõik muudatused on kirjas siin:
+Kõik muudatused on kirjas GitHubi lehel:
 https://github.com/BlackyHawky/Clock/releases/tag/2.12

@@ -1,0 +1,5 @@
+- Naprawiono uruchamianie aplikacji z powiadomienia stopera
+- Naprawiono aktualizację timera, jeśli jeden timer jest wstrzymany, a drugi uruchomiony
+- Naprawiono pole „Wstrzymaj alarm” podczas wybierania dni tygodnia
+
+Pozostałe funkcje wersji 2.30 zostały zachowane i można je sprawdzić tutaj: https://github.com/BlackyHawky/Clock/releases/tag/2.30

@@ -8,7 +8,7 @@
 - Möglichkeit, das LED-Blitzlicht einzuschalten, wenn der Wecker klingelt.
 - Möglichkeit, die Intensität des Schüttelns anzupassen
 - Möglichkeit, die Sprache der Anwendung zu ändern
-- Verbesserung der Nutzbarkeit des Querformatmodus für Telefone
+- Verbesserung der Nutzbarkeit im Querformat für Telefone
 
 Viele weitere Änderungen sind auf der GitHub-Seite aufgeführt:
 https://github.com/BlackyHawky/Clock/releases/tag/2.12

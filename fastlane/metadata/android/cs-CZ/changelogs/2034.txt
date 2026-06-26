@@ -1,0 +1,5 @@
+- Oprava spuštění aplikace z oznámení hodinek
+- Oprava aktualizace časovače při pozastavení jednoho a spuštění dalšího
+- Oprava pole „Pozastavit budík“ při výběru dnů týdnu
+
+Ostatní funkce verze 2.30 zůstávají zachovány a lze si je prohlédnout zde: https://github.com/BlackyHawky/Clock/releases/tag/2.30

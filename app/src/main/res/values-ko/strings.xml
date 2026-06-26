@@ -486,4 +486,8 @@
     <string name="system_media_volume_summary">외부 오디오 장치가 연결된 경우에만 작동합니다.</string>
     <string name="timer_button_time_seconds_warning_box_text">0에서 59초 사이의 값을 입력하세요.</string>
     <string name="hide_clock_am_pm_pref">오전/오후 텍스트 숨기기</string>
+    <string name="pause_alarm_range">멈춤 %1$s</string>
+    <string name="pause_alarm_title">알람 정지</string>
+    <string name="delay_picker_dialog_title">알람 something 울리기 전</string>
+    <string name="dial_color_title">다이얼 색갈</string>
 </resources>

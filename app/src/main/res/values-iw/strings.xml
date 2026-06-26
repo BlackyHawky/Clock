@@ -151,8 +151,8 @@
     <string name="timer_notification_label" msgid="4933184831583137249">טיימר</string>
     <string name="missed_named_timer_notification_label" msgid="665604640028289175">טיימר שהוחמץ: <xliff:g example="Pick up kids" id="name">%s</xliff:g></string>
     <string name="timer_pause" msgid="3748323712728398743">השהיה</string>
-    <string name="hours_minutes_seconds" msgid="5680088738059791288"><xliff:g example="2" id="hours">%1$d</xliff:g>:<xliff:g example="3" id="minutes">%2$02d</xliff:g>:<xliff:g example="44" id="seconds">%3$02d</xliff:g></string>
-    <string name="minutes_seconds" msgid="6189446107009577914"><xliff:g example="3" id="minutes">%1$d</xliff:g>:<xliff:g example="44" id="seconds">%2$02d</xliff:g></string>
+    <string name="hours_minutes_seconds" msgid="5680088738059791288">‏<xliff:g example="2" id="hours">%1$d</xliff:g>:<xliff:g example="3" id="minutes">%2$02d</xliff:g>:<xliff:g example="44" id="seconds">%3$02d</xliff:g></string>
+    <string name="minutes_seconds" msgid="6189446107009577914">‏<xliff:g example="3" id="minutes">%1$d</xliff:g>:<xliff:g example="44" id="seconds">%2$02d</xliff:g></string>
     <string name="jocular_content_message_1">פעלת במהירות שיא.</string>
     <string name="jocular_content_message_2">כל הכבוד על ההשקעה.</string>
     <string name="jocular_content_message_3">ידוע שאנדרואידים מהירים, אבל לא כמוך!</string>
@@ -187,7 +187,7 @@
     <string name="timer_service_desc" msgid="2256002649882602433">מעבד פעולות מההתראות של הטיימרים.</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"מעבד פעולות מההודעות של שעון העצר."</string>
     <string name="swn_paused" msgid="6364358842808263589">"מושהה"</string>
-    <string name="description_direction_both" msgid="1841309486023845685">"החלקה שמאלה מעבירה למצב נודניק וימינה מפסיקה את הצלצול"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">החלקה שמאלה לדחייה עם „נודניק” או ימינה לכיבוי ההתראה</string>
     <string name="timer_settings" msgid="7955522143086154795">טיימרים</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">רטט טיימר</string>
     <string name="timer_paused" msgid="5941160896040771462">הטיימר מושהה</string>
@@ -195,10 +195,10 @@
     <string name="alarm_undo" msgid="5710042601177655254">"ביטול"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"ההתראה נמחקה"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">‏/ <xliff:g id="label">%s</xliff:g></string>
-    <string name="world_time_ahead" msgid="625559988238637652"><xliff:g id="TIME">%1$s</xliff:g> יותר</string>
-    <string name="world_time_behind" msgid="5395771290726167865"><xliff:g id="TIME">%1$s</xliff:g> פחות</string>
-    <string name="world_hours_minutes_ahead" msgid="5132012793021696377"><xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> יותר</string>
-    <string name="world_hours_minutes_behind" msgid="8978567362140923698"><xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> פחות</string>
+    <string name="world_time_ahead" msgid="625559988238637652">בהקדמה של <xliff:g example="6 hours" id="time">%1$s</xliff:g></string>
+    <string name="world_time_behind" msgid="5395771290726167865">בפיגור של <xliff:g example="4 hours" id="time">%1$s</xliff:g></string>
+    <string name="world_hours_minutes_ahead" msgid="5132012793021696377">בהקדמה של <xliff:g example="6 hr" id="hours">%1$s</xliff:g> <xliff:g example="30 min" id="minutes">%2$s</xliff:g></string>
+    <string name="world_hours_minutes_behind" msgid="8978567362140923698">בפיגור של <xliff:g example="6 hr" id="hours">%1$s</xliff:g> <xliff:g example="30 min" id="minutes">%2$s</xliff:g></string>
     <string name="world_hours_tomorrow" msgid="2504465609269004794">מחר, <xliff:g example="6 hours ahead" id="time">%1$s</xliff:g></string>
     <string name="world_hours_yesterday" msgid="4425086322610882745">אתמול, <xliff:g example="4 hours behind" id="time">%1$s</xliff:g></string>
     <string name="next_alarm_description" msgid="2650244835760747046">ההתראה הבאה: <xliff:g example="Wed 8:00am" id="alarm_time">%s</xliff:g></string>
@@ -208,7 +208,7 @@
     <string name="no_label_specified" msgid="2008482054428460626">"לא צוינה תווית"</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"אין התראות הכוללות את התווית"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"לא נקבעה התראה לשעה הזו"</string>
-    <string name="alarm_is_dismissed" msgid="5509897230565826642">ההתראה של <xliff:g id="ALARM_TIME">%s</xliff:g> נסגרה</string>
+    <string name="alarm_is_dismissed" msgid="5509897230565826642">כובתה ההתראה של <xliff:g example="14:20" id="alarm_time">%s</xliff:g> alarm dismissed</string>
     <string name="alarm_is_set" msgid="5503226382620011088">נקבעה התראה לשעה <xliff:g example="14:20" id="alarm_time">%s</xliff:g></string>
     <string name="timer_created" msgid="4381027137335885547">הטיימר נוצר</string>
     <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
@@ -219,11 +219,11 @@
     <string name="invalid_timer_length" msgid="3104567893212932487">משך זמן לא תקני לטיימר</string>
     <string name="invalid_timer" msgid="900957020728335675">נבחר טיימר לא תקני</string>
     <string name="no_expired_timers" msgid="4624192298397846876">אין טיימרים שהסתיימו</string>
-    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">עדיין לא ניתן לסגור את ההתראה <xliff:g id="ALARM_TIME">%s</xliff:g>, נותרה עוד יותר מיממה</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">עדיין לא ניתן לכבות את ההתראה <xliff:g example="14:20" id="alarm_time">%s</xliff:g>, נותרה יותר מיממה</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">סגירת התראה</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">נא לבחור איזו התראה לסגור</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"אין התראות הפועלות כעת"</string>
-    <string name="alarm_is_snoozed" msgid="7044644119744928846">"ההתראה של <xliff:g id="ALARM_TIME">%s</xliff:g> הועברה למצב נודניק למשך עשר דקות"</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846">ההתראה של <xliff:g example="14:20" id="alarm_time">%s</xliff:g> נדחתה עם „נודניק” למשך 10 דקות</string>
     <string name="flip_action_title">פעולת הפיכת המכשיר</string>
     <string name="shake_action_title">פעולת ניעור המכשיר</string>
     <string name="schedule_alarm_title">תזמון התראה</string>
@@ -292,7 +292,7 @@
     <string name="background_image_dialog_title">תמונת רקע</string>
     <string name="city_search_hint">חיפוש עיר</string>
     <string name="hide_clock_am_pm_pref">הסתרת הכיתוב AM/PM</string>
-    <string name="sort_cities_title">מיון ערים</string>
+    <string name="sort_cities_title">מיון של הערים</string>
     <string name="sort_manually">באופן ידני (באמצעות גרירה)</string>
     <string name="sort_cities_ascending_time_zone">לפי אזור זמן (בסדר עולה)</string>
     <string name="sort_cities_descending_time_zone">לפי אזור זמן (בסדר יורד)</string>
@@ -331,14 +331,14 @@
     <string name="ringtone_title_color">צבע כותרת הצלצול</string>
     <string name="auto_silence_end_of_ringtone">סוף הצלצול</string>
     <string name="random_ringtone_title">צלצול אקראי</string>
-    <string name="delete_occasional_alarm_after_use_title">מחיקת ההתראה לאחר סגירתה</string>
+    <string name="delete_occasional_alarm_after_use_title">מחיקת ההתראה לאחר הכיבוי שלה</string>
     <string name="alarm_alert_dismiss_and_delete_text">סגירה ומחיקה</string>
     <string name="label_new_image">הוספת תמונה</string>
     <string name="label_new_font">הוספת גופן</string>
     <string name="selected">נבחר</string>
     <string name="alarm_scheduled_for">ההתראה נקבעה לשעה %s</string>
     <string name="alarm_alert_off_and_deleted_text">ההתראה כובתה ונמחקה</string>
-    <string name="occasional_alarm_alert_predismiss_title">ההתראה השגרתית הבאה</string>
+    <string name="occasional_alarm_alert_predismiss_title">ההתראה השגרתית הקרובה</string>
     <string name="vertical_widget">שעון אנכי</string>
     <string name="custom_font_title">בחירת גופן מותאם אישית</string>
     <string name="custom_font_title_variant">החלפה או מחיקה של הגופן המותאם אישית</string>
@@ -368,12 +368,12 @@
     <string name="sort_next_alarm_time">לפי שעת ההתראה הבאה</string>
     <string name="sort_descending_creation_order">לפי תאריך יצירה (הישנה ביותר אחרונה)</string>
     <string name="sort_ascending_creation_order">לפי תאריך יצירה (הישנה ביותר ראשונה)</string>
-    <string name="display_enabled_alarms_first_title">הצגת התראות מופעלות בראש הרשימה</string>
+    <string name="display_enabled_alarms_first_title">הצגת ההתראות המופעלות תחילה</string>
     <string name="date_picker_style_text">טקסט</string>
     <string name="snooze_button_color">צבע הכפתור „נודניק”</string>
     <string name="description_dismiss_button_for_occasional_alarm">יש ללחוץ בשביל לסגור ולמחוק את ההתראה</string>
-    <string name="description_direction_both_for_non_repeatable_alarm">יש להחליק ימינה או שמאלה בשביל לסגור</string>
-    <string name="description_direction_both_for_occasional_non_repeatable_alarm">יש להחליק ימינה או שמאלה בשביל לסגור ולמחוק את ההתראה</string>
+    <string name="description_direction_both_for_non_repeatable_alarm">החלקה ימינה או שמאלה תכבה את ההתראה</string>
+    <string name="description_direction_both_for_occasional_non_repeatable_alarm">החלקה ימינה או שמאלה תסגור ותמחק את ההתראה</string>
     <string name="description_dismiss_button">יש ללחוץ כדי לסגור את ההתראה</string>
     <string name="settings_permission_message">נדחתה הרשאה חיונית אחת או יותר. אי הענקת ההרשאות עלולה לגרום לתפקוד לקוי של היישום.</string>
     <string name="last_tab_used_title">לשונית אחרונה בשימוש</string>
@@ -388,7 +388,7 @@
     <string name="turn_on_back_flash_for_triggered_alarm_title">הפעלת הפנס האחורי בעת פעולות התראה</string>
     <string name="material_time_picker_style_title">סגנון חלונית לבחירת שעה</string>
     <string name="date_picker_style_title">סגנון חלונית לבחירת תאריך</string>
-    <string name="sort_alarm_title">מיון התראות</string>
+    <string name="sort_alarm_title">מיון ההתראות</string>
     <string name="snooze_title_color">צבע הכותרת „נודניק”</string>
     <string name="dismiss_title_color">צבע הכותרת „כיבוי התראה”</string>
     <string name="dismiss_button_color">צבע הכפתור „כיבוי התראה”</string>
@@ -398,7 +398,7 @@
     <string name="shadow_color_title">צבע צללית</string>
     <string name="shadow_offset_title">היסט צללית</string>
     <string name="background_image_title">נא לבחור תמונת רקע</string>
-    <string name="background_image_title_variant">בחירה או מחיקה של תמונת רקע</string>
+    <string name="background_image_title_variant">שינוי או מחיקה של תמונת הרקע</string>
     <string name="background_image_toast_message_selected">התמונה יובאה בהצלחה</string>
     <string name="background_image_toast_message_deleted">התמונה נמחקה בהצלחה</string>
     <string name="enable_blur_effect_title">החלת אפקט טשטוש על תמונת הרקע</string>
@@ -406,7 +406,7 @@
     <string name="swipe_action_title">החלקה לכיבוי התראות או דחייתן עם „נודניק”</string>
     <string name="power_button_title">כפתור ההפעלה</string>
     <string name="add_label">הוספת תווית</string>
-    <string name="sw_settings_summary">הגדרת פעולות לכפתורי עוצמת הקול</string>
+    <string name="sw_settings_summary">התאמה אישית של הגופן ופעולות מקשי עוצמת השמע</string>
     <string name="sw_volume_up_action_title">הגברה</string>
     <string name="sw_long_press_volume_up_action_title">הגברה (לאחר לחיצה ארוכה)</string>
     <string name="sw_volume_down_action_title">הנמכה</string>
@@ -433,9 +433,9 @@
     <string name="gnu_gpl">הרישיון הציבורי הכללי של GNU, גרסה 3.0</string>
     <string name="settings_toolbar_title">הצגת הכותרת בסרגל הכלים</string>
     <string name="settings_tab_title_visibility_title">הצגת כותרות הלשוניות</string>
-    <string name="display_dismiss_button_title">הצגת כפתור כיבוי ההתראה מיד כאשר ההתראה מופעלת</string>
+    <string name="display_dismiss_button_title">הצגת הכפתור „כיבוי התראה” מיד כאשר ההתראה מופעלת</string>
     <string name="vibration_start_delay_title">השהיה לפני התחלת הרטט</string>
-    <string name="display_text_shadow_title">הצגת צללית לטקסט</string>
+    <string name="display_text_shadow_title">הצגת הצללית לטקסט</string>
     <string name="timer_button_time_minutes_warning_box_text">יש לבחור ערך בין 0 ל־60 דקות</string>
     <string name="timer_button_time_seconds_warning_box_text">יש לבחור ערך בין 0 ל־59 שניות</string>
     <string name="jocular_content_message_5">המון פעמים.</string>
@@ -449,7 +449,7 @@
     <string name="permission_management_settings">ניהול הרשאות</string>
     <string name="permission_management_summary">הצגת ההרשאות הנחוצות לתפקוד התקין של היישום</string>
     <string name="settings_permission_summary">לחיצה כאן תציג את עמוד ניהול ההרשאות.</string>
-    <string name="interface_customization_summary">קביעת הסגנון והצבע של היישום</string>
+    <string name="interface_customization_summary">שינוי העיצוב, הגופן, השפה והצבע של היישום</string>
     <string name="tab_title_visibility_when_selected">בעת בחירה</string>
     <string name="external_audio_device_volume_title">עוצמת קול של התראה במכשירי שמע חיצוניים</string>
     <string name="connect_external_audio_device_title">יש לחבר מכשיר שמע חיצוני כדי לגשת להגדרה זו</string>
@@ -466,7 +466,7 @@
     <string name="snooze_plus_button_color_title">צבע הכפתור „+”</string>
     <string name="snooze_minus_symbol_color_title">צבע הסימן „-”</string>
     <string name="snooze_plus_symbol_color_title">צבע הסימן „+”</string>
-    <string name="background_image_summary">יש להגדיר את צבע הרקע בתור שקוף בשביל לראות את התמונה</string>
+    <string name="background_image_summary">יש להגדיר רקע שקוף בשביל לראות את התמונה</string>
     <string name="settings_tab_to_display">לשונית להצגה בעת פתיחת היישום</string>
     <string name="settings_vibration_summary">רק חלק מכפתורי הממשק מושפעים (למשל: כפתור ההתחלה/השהיה של טיימר או המתגים)</string>
     <string name="clock_dial_with_roman_numbers">עם ספרות לטיניות</string>
@@ -478,6 +478,146 @@
     <string name="license_dialog_message">לקריאת הרישיון:\n\n%s</string>
     <string name="description_snooze_button">יש ללחוץ בשביל לשים את ההתראה במצב נודניק</string>
     <string name="timer_creation_view_style_keypad">לוח מקשים</string>
-    <string name="display_compact_timers_title">הצגת טיימרים פעילים במצב התצוגה המצומצמת</string>
+    <string name="display_compact_timers_title">הצגת הטיימרים הפעילים במצב התצוגה המצומצמת</string>
     <string name="display_background_border_title">הצגת גבולות הרקעים</string>
+    <string name="pause_alarm_title">השהיית התראה</string>
+    <string name="pause_alarm_range">מושהית: %1$s</string>
+    <string name="tabs_category_title">לשוניות</string>
+    <string name="visible_tabs_title">לשוניות גלויות</string>
+    <string name="settings_tab_indicator_title">הצגת מחוון הלשוניות בתחתית תפריט הניווט</string>
+    <string name="settings_keep_screen_on_summary">הערה: המסך תמיד יישאר דולק אם יש שעון עצר או טיימר פעיל והלשונית שלו מוצגת, בלי קשר להגדרה זו</string>
+    <string name="enable_per_alarm_snooze_duration_dialog_message">משכי זמן מותאמים אישית להתראות יאופסו.%s</string>
+    <string name="enable_per_alarm_volume_dialog_message">עוצמות קול מותאמות אישית של התראות יאופסו.%s</string>
+    <string name="display_dismiss_button_summary">כאשר אפשרות זו מושבתת, הכפתור יופיע יחד עם התראת התזכורת</string>
+    <string name="enable_per_alarm_missed_repeat_limit_title">שימוש במספר חזרות מותאם אישית לכל התראה שהוחמצה בנפרד</string>
+    <string name="enable_per_alarm_missed_repeat_limit_dialog_message">כמות החזרות המותאמת אישית להתראות שהוחמצו תתאפס.%s</string>
+    <string name="fix_alarm_volume">תיקון</string>
+    <string name="alarm_minutes_warning_box_text">יש להקליד ערך בין 0 ל־59 דקות</string>
+    <string name="clock_settings_summary">התאמה אישית של הסגנון, הגופן, אזור הזמן, והתאריך והשעה של המכשיר</string>
+    <string name="restart_app_dialog_title_for_restore">השחזור הושלם</string>
+    <string name="restart_app_dialog_message">על היישום להיפתח מחדש לצורך החלת השינויים.</string>
+    <string name="shortcut_disabled">הלשונית מוסתרת</string>
+    <string name="alarm_settings_summary">התאמה אישית של הסגנון, הגופן, צלצול ברירת המחדל, הפעולות לכיבוי התראות או דחייתן עם „נודניק”, היום הראשון בשבוע, וזמן תזכורות ההתראה</string>
+    <string name="description_direction_both_for_occasional_alarm">החלקה שמאלה לדחייה עם „נודניק” או ימינה בשביל לכבות ולמחוק את ההתראה</string>
+    <string name="sort_timer_ascending_duration">לפי משך זמן (בסדר עולה)</string>
+    <string name="sort_timer_descending_duration">לפי משך זמן (בסדר יורד)</string>
+    <string name="display_warning_before_deleting_timer_title">הצגת אזהרה לפני מחיקת טיימר</string>
+    <string name="warning_dialog_title">מחיקת טיימר</string>
+    <string name="screensaver_settings_summary">התאמה אישית של הסגנון, הגופן והצבע של שומר המסך</string>
+    <string name="screensaver_daydream_settings">בחירת/הפעלת שומר מסך</string>
+    <string name="screensaver_daydream_settings_summary">לפתיחת ההגדרות הראשיות של שומר המסך באנדרואיד</string>
+    <string name="clock_default_color_title">שימוש בצבע ברירת המחדל לשעון הראשי</string>
+    <string name="hour_color_title">צבע השעות</string>
+    <string name="hour_default_color_title">שימוש בצבע ברירת המחדל לשעות</string>
+    <string name="minute_color_title">צבע הדקות</string>
+    <string name="minute_default_color_title">שימוש בצבע ברירת המחדל לדקות</string>
+    <string name="dial_color_title">צבע מחוגים</string>
+    <string name="dial_default_color_title">שימוש בצבע ברירת המחדל למחוגים</string>
+    <string name="hour_hand_color_title">צבע מחוג השעה</string>
+    <string name="hour_hand_default_color_title">שימוש בצבע ברירת המחדל למחוג השעה</string>
+    <string name="minute_hand_color_title">צבע מחוג הדקה</string>
+    <string name="minute_hand_default_color_title">שימוש בצבע ברירת המחדל למחוג הדקה</string>
+    <string name="second_hand_color_title">צבע מחוג השנייה</string>
+    <string name="second_hand_default_color_title">שימוש בצבע ברירת המחדל למחוג השנייה</string>
+    <string name="display_battery_title">הצגת רמת הסוללה</string>
+    <string name="battery_color_title">צבע רמת הסוללה</string>
+    <string name="date_color_title">צבע תאריך</string>
+    <string name="date_default_color_title">שימוש בצבע ברירת המחדל לתאריך</string>
+    <string name="next_alarm_color_title">צבע ההתראה הבאה</string>
+    <string name="next_alarm_default_color_title">שימוש בצבע ברירת המחדל להתראה הבאה</string>
+    <string name="next_alarm_title_color_title">צבע הכותרת „ההתראה הבאה”</string>
+    <string name="next_alarm_title_default_color_title">שימוש בצבע ברירת המחדל לכותרת „ההתראה הבאה”</string>
+    <string name="alarm_title_color">צבע כותרת ההתראה</string>
+    <string name="alarm_title_default_color">שימוש בצבע ברירת המחדל לכותרת ההתראה</string>
+    <string name="screensaver_bold_digital_clock_title">הצגת השעון הדיגיטלי בסגנון מודגש</string>
+    <string name="screensaver_italic_digital_clock_title">הצגת השעון הדיגיטלי בסגנון נטוי</string>
+    <string name="screensaver_bold_battery_title">הצגת רמת הסוללה בסגנון מודגש</string>
+    <string name="screensaver_italic_battery_title">הצגת רמת הסוללה בסגנון נטוי</string>
+    <string name="screensaver_bold_date_title">הצגת התאריך בסגנון מודגש</string>
+    <string name="screensaver_italic_date_title">הצגת התאריך בסגנון נטוי</string>
+    <string name="alarm_missed_channel">התראות שהוחמצו</string>
+    <string name="alarm_snooze_channel">התראות שנדחו עם „נודניק”</string>
+    <string name="first_launch_main_feature_title">יכולות ראשיות</string>
+    <string name="first_launch_button_now">עכשיו</string>
+    <string name="first_launch_button_later">אחר כך</string>
+    <string name="first_launch_important_info_title">מידע חשוב</string>
+    <string name="first_launch_important_info_message_for_SDK34">• &lt;b&gt;התראות במסך מלא;&lt;/b&gt; &lt;br&gt; &lt;br&gt;</string>
+    <string name="display_text_uppercase_title">הצגת הטקסט באותיות גדולות</string>
+    <string name="widget_background_title">הצגת הרקע</string>
+    <string name="background_color_title">צבע הרקע</string>
+    <string name="background_default_color_title">שימוש בצבע ברירת המחדל לרקע</string>
+    <string name="display_city_title">הצגת הערים</string>
+    <string name="display_date_title">הצגת התאריך</string>
+    <string name="display_top_date_title">הצגת התאריך מעל השעה</string>
+    <string name="display_next_alarm_title">הצגת ההתראה הבאה</string>
+    <string name="display_next_alarm_title_setting_title">הצגת כותרת ההתראה הבאה</string>
+    <string name="next_alarm_widget_title_no_alarm">אין התראות קרובות</string>
+    <string name="alarm_upcoming_channel">התראות קרובות</string>
+    <string name="timezone_noronha">פרננדו דה נורונה</string>
+    <string name="timer_settings_summary">התאמה אישית של הסגנון, צלצול ברירת המחדל, הפעולה לעצירת הטיימרים, ומיון הטיימרים</string>
+    <string name="timer_creation_view_style_title">הסגנון לתצוגת יצירת הטיימרים</string>
+    <string name="single_timer_mode_title">מצב טיימר יחיד</string>
+    <string name="no_alarm_at">אין התראות בשעה <xliff:g example="14" id="alarm_time_hour">%1$d</xliff:g>:<xliff:g example="23" id="alarm_time_minutes">%2$d</xliff:g></string>
+    <string name="shake_intensity_title">ניעור בעוצמה</string>
+    <string name="foreground_service_channel">התראה חזיתית</string>
+    <string name="foreground_service_message">פועל ברקע</string>
+    <string name="firing_alarms_timers_channel">שיגור התראות וטיימרים</string>
+    <string name="permission_requirement_title">דרישה:</string>
+    <string name="permission_highly_recommended">מומלץ בחום</string>
+    <string name="permission_status_title">מצב:</string>
+    <string name="permission_info_title">במכשירי Xiaomi בלבד</string>
+    <string name="permission_granted">הוענקה</string>
+    <string name="permission_denied">נדחתה</string>
+    <string name="denied_permission_label">ההרשאה נדחתה</string>
+    <string name="permission_dialog_revoke_title">שלילת הגישה</string>
+    <string name="revoke_permission_dialog_message">לשלול הרשאת גישה זו?</string>
+    <string name="ignore_battery_optimizations_title">התעלמות ממיטוב של הסוללה</string>
+    <string name="ignore_battery_optimizations_dialog_title">מיטוב של הסוללה</string>
+    <string name="notifications_permission_title">הפעלת התראות</string>
+    <string name="notifications_dialog_title">התראות</string>
+    <string name="FSN_permission_title">הפעלת התראות במסך מלא</string>
+    <string name="FSN_dialog_title">התראות במסך מלא</string>
+    <string name="show_lockscreen_permission_title">הצגה במסך הנעילה</string>
+    <string name="show_lockscreen_dialog_title">הצגה במסך הנעילה</string>
+    <string name="backup_button_title">גיבוי</string>
+    <string name="restore_button_title">שחזור</string>
+    <string name="toast_message_for_backup">הגיבוי הושלם</string>
+    <string name="toast_message_backup_error">הגיבוי נכשל</string>
+    <string name="toast_message_restore_error">השחזור נכשל</string>
+    <string name="display_card_background_title">הצגת הרקעים בסגנון כרטיסים</string>
+    <string name="auto_routing_to_external_audio_device_title">הפעלת השמעה אוטומטית של הצלצולים ממכשירי שמע חיצוניים</string>
+    <string name="enable_alarm_vibrations_by_default_dialog_message">הרטט יושבת בכל ההתראות.%s</string>
+    <string name="enable_per_alarm_vibration_pattern_dialog_message">דפוסי הרטט המותאמים אישית יתאפסו.%s</string>
+    <string name="timezone_norfolk">אי נורפוק</string>
+    <string name="transparent_background_for_expired_timer_title">רקע שקוף כאשר טיימר מסתיים</string>
+    <string name="display_timer_state_indicator_title">הצגת מחווני המצב של הטיימרים</string>
+    <string name="running_timer_indicator_color_title">צבע מחוון טיימר פעיל</string>
+    <string name="paused_timer_indicator_color_title">צבע מחוון טיימר מושהה</string>
+    <string name="missed_timer_indicator_color_title">צבע מחוון טיימר שהוחמץ</string>
+    <string name="timer_flip_action_title">הפיכת המכשיר על גבו לעצירת ההתראה</string>
+    <string name="timer_buttons_action_summary">עובד רק במסך הנעילה</string>
+    <string name="timer_shake_action_title">ניעור המכשיר לעצירת ההתראה</string>
+    <string name="single_timer_mode_summary">שמירת טיימר אחד בלבד, שיימחק אוטומטית לאחר שיתאפס</string>
+    <string name="single_timer_mode_warning_message">הטיימרים יימחקו.%s</string>
+    <string name="sort_timer_title">מיון הטיימרים</string>
+    <string name="default_time_to_add_to_timer_title">זמן ברירת מחדל להוספה לטיימרים</string>
+    <string name="screensaver_italic_next_alarm_title">הצגת ההתראה הבאה בסגנון נטוי</string>
+    <string name="screensaver_preview_summary">הפעלת שומר המסך באופן מיידי</string>
+    <string name="widgets_settings_summary">התאמה אישית של הסגנון, הצבעים וגודל הגופן של היישומונים</string>
+    <string name="foreground_service_title">הצגת התראה חזיתית</string>
+    <string name="backup_restore_dialog_message">לגבות או לשחזר את נתוני היישום?</string>
+    <string name="backup_restore_summary">גיבוי או שחזור של נתוני היישום למעט צלצולים</string>
+    <string name="customize_background_corner_radius_summary">מאפשרת לך לעגל את פינות היישומון אם מסך הבית שלך לא תומך באפשרות הזו</string>
+    <string name="customize_background_corner_radius_title">התאמה אישית של רדיוס פינות הרקע</string>
+    <string name="repetitive_alarm_is_dismissed">ההתראה כובתה. <xliff:g example="Next alarm Monday." id="alarm_day">מתוכננת מחדש ליום %s.</xliff:g></string>
+    <string name="alarm_is_dismissed_and_deleted">ההתראה של <xliff:g example="14:20" id="alarm_time">%s</xliff:g> כובתה ונמחקה</string>
+    <string name="amoled_dark_theme_mode">תצוגת AMOLED</string>
+    <string name="vibration_pattern_tick_tock">תיק־תק</string>
+    <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">רטט כפול בעת דחיית התראה עם „נודניק” ורטט בודד בעת כיבוי התראה</string>
+    <string name="enable_delete_occasional_alarm_by_default_dialog_message">התכונה „מחיקת ההתראה לאחר הכיבוי שלה” תושבת בכל ההתראות.%s</string>
+    <string name="display_low_alarm_volume_warning_title">הצגת אזהרה כאשר עוצמת הקול של ההתראות הוגדרה מתחת לעוצמה המינימלית</string>
+    <string name="display_alarm_action_message_title">הצגת הודעה לאחר כיבוי ההתראה או דחייתה עם „נודניק”</string>
+    <string name="enable_per_alarm_crescendo_duration_title">שימוש במשך זמן מותאם אישית להגברת עוצמת הקול בהדרגה לכל התראה בנפרד</string>
+    <string name="alarm_volume_low">עוצמת הקול של ההתראות נמוכה</string>
+    <string name="clock_second_hand_lollipop">סוכריה</string>
 </resources>

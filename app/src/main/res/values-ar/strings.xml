@@ -683,4 +683,8 @@
     <string name="alarm_minutes_warning_box_text">أدخل قيمة من 0 إلى 59 دقيقة</string>
     <string name="tabs_category_title">علامات التبويب</string>
     <string name="visible_tabs_title">علامات تبويب مرئية</string>
+    <string name="restart_app_dialog_message">يجب إعادة تشغيل التطبيق حتى تسري التغييرات.</string>
+    <string name="single_timer_mode_title">وضع المؤقت الفردي</string>
+    <string name="single_timer_mode_summary">احتفظ بمؤقت واحد فقط، والذي يُحذف تلقائيًا بمجرد إعادة ضبطه</string>
+    <string name="single_timer_mode_warning_message">سيتم إزالة المؤقتات. %s</string>
 </resources>

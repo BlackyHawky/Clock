@@ -1,0 +1,13 @@
+**Düzeltmeler**
+- Klavye ile değer girilirken özel zaman seçici 'Tamam' düğmesindeki hatayı düzeltildi.
+
+**Geliştirmeler**
+- Zamanlayıcılardaki '+ 1:00' düğmesi için saniye sayısını ayarlama özelliği
+- Zamanlayıcı çalışırken uygulama performansını iyileştirildi
+- Küçük ekranlar için iletişim kutusunun boyutunu değiştirildi
+- Sistem ve özel zil sesleri için rastgele zil sesleri ayrı ayrı ayarlayın.
+- Alarmları, kaçırılması durumunda tekrarlanabilir hale getirin.
+- Zil sesi çalma performansını iyileştirin
+- Çeviriler güncellendi
+
+Tüm değişiklikler burada: https://github.com/BlackyHawky/Clock/releases/tag/2.22

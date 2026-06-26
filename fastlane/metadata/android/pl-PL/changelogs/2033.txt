@@ -1,0 +1,8 @@
+Wiele poprawek i ulepszeń szczegółowo opisano tutaj:
+https://github.com/BlackyHawky/Clock/releases/tag/2.30
+
+**Uwagi:**
+- Ustawienie „Przypomnienie o powiadomieniu” zostało przywrócone do wartości domyślnej (30 minut).
+- Ustawienie „Język” zostało przywrócone.
+- Ze względu na nowy format ZIP używany do zapisywania danych aplikacji, starsze kopie zapasowe są teraz nieaktualne.
+- Po zaktualizowaniu aplikacji utwórz nową kopię zapasową i usuń starą.

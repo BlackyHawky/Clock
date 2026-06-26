@@ -1,0 +1,5 @@
+- Parandasime rakenduse käivitamise stopperi teavitusest
+- Parandasime on taimeri uuendamise, kui üks taimer on peatatud ja teine käivitatud
+- Parandasime„Peata äratus“ välja nädalapäevade valimisel
+
+Versiooni 2.30 muud funktsioonid on ka olemas ja nendega saad tutvuda siin: https://github.com/BlackyHawky/Clock/releases/tag/2.30

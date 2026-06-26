@@ -5,21 +5,21 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="6674495003718166674">"ساعت"</string>
-    <string name="default_label" msgid="5590025289805630372">ساعت زنگدار</string>
+    <string name="default_label" msgid="5590025289805630372">هشدار</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"لرزش"</string>
     <string name="time_picker_dialog_title">انتخاب زمان</string>
     <string name="date_picker_dialog_title">گزیدن تاریخ</string>
     <string name="delete" msgid="5732434972457000541">"حذف"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"آهنگ زنگ پیش‌فرض"</string>
     <string name="alarm_sound" msgid="8754499591391638405">"صدای هشدار"</string>
-    <string name="timer_sound" msgid="896163086604894735">"صدای تایمر"</string>
+    <string name="timer_sound" msgid="896163086604894735">صدای زمان‌سنج</string>
     <string name="add_new_sound" msgid="2546936797351540244">"افزودن مورد جدید"</string>
     <string name="remove_sound" msgid="2064643204455734239">"حذف"</string>
-    <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"هشدارها و تایمرهایی که از این صدا استفاده می‌کنند از این به بعد با صدای پیش‌فرض پخش می‌شوند."</string>
+    <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">هشدارها و زمان‌سنج‌هایی که از این صدا استفاده می‌کنند از این به بعد با صدای پیش‌فرض پخش می‌شوند.</string>
     <string name="your_sounds" msgid="1672779351352629681">"صداهای شما"</string>
     <string name="device_sounds" msgid="1584894148222639823">"صداهای دستگاه"</string>
     <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"محتوای صوتی قابل دسترسی نیست."</string>
-    <string name="default_timer_ringtone_title" msgid="1370799536406862317">"تایمر به پایان رسید"</string>
+    <string name="default_timer_ringtone_title" msgid="1370799536406862317">زمان‌سن به پایان رسید</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"فردا"</string>
     <string name="alarm_today" msgid="7873594221106531654">"امروز"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"رد کردن"</string>
@@ -87,7 +87,7 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"طول تعویق"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"افزایش تدریجی صدا"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"سکوت پس از"</string>
-    <string name="label_never" msgid="4821982647348750809">"هیچ‌وقت"</string>
+    <string name="label_never" msgid="4821982647348750809">هرگز</string>
     <string name="label_off">خاموش</string>
     <string name="week_start_title" msgid="4268917518596832096">"روز اول هفته"</string>
     <string name="week_start_saturday">شنبه</string>
@@ -106,9 +106,9 @@
     <string name="label_description" msgid="8736179296142915727">"برچسب"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"آهنگ زنگ"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"هشدار"</string>
-    <string name="menu_timer" msgid="6459070074762877114">"تایمر"</string>
+    <string name="menu_timer" msgid="6459070074762877114">زمان‌سنج</string>
     <string name="menu_clock" msgid="5612760670606829805">"ساعت"</string>
-    <string name="menu_stopwatch" msgid="3396117705293574701">"کرونومتر"</string>
+    <string name="menu_stopwatch" msgid="3396117705293574701">گاه‌شمار</string>
     <string name="button_alarms" msgid="3907838219512538763">"افزودن زنگ ساعت"</string>
     <string name="button_cities" msgid="4555761857494501363">"شهرها"</string>
     <string name="screensaver_settings_title" msgid="2930695838866189483">"محافظ صفحه‌نمایش"</string>
@@ -120,7 +120,7 @@
     <string name="sw_start_button" msgid="8373422516681242270">"شروع"</string>
     <string name="sw_pause_button" msgid="2422084453454138042">"مکث"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"دور"</string>
-    <string name="sw_share_button" msgid="4478648110382859382">"اشتراک‏‌گذاری"</string>
+    <string name="sw_share_button" msgid="4478648110382859382">همرسانی</string>
     <string name="hours_label" msgid="3393478155635368097">"س"</string>
     <string name="minutes_label" msgid="3568098128251438588">"د"</string>
     <string name="seconds_label" msgid="124655952824003246">"ث"</string>
@@ -130,8 +130,8 @@
     <string name="sw_share_main" msgid="7703563468204234405">"زمان من <xliff:g id="TIME">%s</xliff:g> است"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"زمان‌های دور:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"دور <xliff:g id="NUMBER">%d</xliff:g>"</string>
-    <string name="timer_add_timer" msgid="862733633862574752">"افزودن تایمر"</string>
-    <string name="timer_start" msgid="6158486445614356442">"شروع"</string>
+    <string name="timer_add_timer" msgid="862733633862574752">افزودن زمان‌سنج</string>
+    <string name="timer_start" msgid="6158486445614356442">آغاز</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"حذف <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
     <string name="timer_add_custom_time_description" msgid="6631211310420106116">"افزودن %s دقیقه"</string>
     <string name="timer_add_custom_time_for_notification" msgid="8645224089494875062">"افزودن %s دقیقه"</string>
@@ -140,7 +140,7 @@
     <string name="timer_canceled" msgid="7327923392567128060">"تایمر لغو شد"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"وقت تمام است"</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> تایمر منقضی شده"</string>
-    <string name="timer_notification_label" msgid="4933184831583137249">"تایمر"</string>
+    <string name="timer_notification_label" msgid="4933184831583137249">زمان‌سنج</string>
     <string name="missed_named_timer_notification_label" msgid="665604640028289175">"تایمر ازدست‌رفته: <xliff:g id="NAME">%s</xliff:g>"</string>
     <string name="timer_pause" msgid="3748323712728398743">"مکث"</string>
     <string name="hours_minutes_seconds" msgid="5680088738059791288">"<xliff:g id="HOURS">%1$d</xliff:g>:<xliff:g id="MINUTES">%2$02d</xliff:g>:<xliff:g id="SECONDS">%3$02d</xliff:g>"</string>
@@ -170,8 +170,8 @@
     <string name="city_unchecked" msgid="710212932781145918">"علامت <xliff:g id="CITY_NAME">%s</xliff:g> برداشته شد"</string>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"هشدار جدید"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"ایجاد زنگ ساعت جدید"</string>
-    <string name="shortcut_new_timer_short" msgid="3793414543219297884">"تایمر جدید"</string>
-    <string name="shortcut_new_timer_long" msgid="5194092459678096067">"ایجاد تایمر جدید"</string>
+    <string name="shortcut_new_timer_short" msgid="3793414543219297884">زمان‌سنج نو</string>
+    <string name="shortcut_new_timer_long" msgid="5194092459678096067">ساخت زمان‌سنج نو</string>
     <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">"شروع"</string>
     <string name="shortcut_start_stopwatch_long" msgid="9183061797046030376">"شروع کرنومتر"</string>
     <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"توقف موقت"</string>
@@ -180,11 +180,11 @@
     <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"شروع محافظ صفحه‌نمایش"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"هشدارها"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"کنش‌ها را از اعلان‌های تایمر پردازش می‌کند."</string>
-    <string name="stopwatch_service_desc" msgid="9220132827343760767">"کنش‌ها را از اعلان‌های کرونومتر پردازش می‌کند."</string>
+    <string name="stopwatch_service_desc" msgid="9220132827343760767">کنش‌ها را از آگاهنده‌های گاه‌شمار پردازش می‌کند.</string>
     <string name="swn_paused" msgid="6364358842808263589">"متوقف شد"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"برای تعویق، انگشتتان را روی صفحه به چپ و برای رد کردن به راست بکشید"</string>
-    <string name="timer_settings" msgid="7955522143086154795">"تایمرها"</string>
-    <string name="timer_vibrate_title" msgid="7788920024785587518">"لرزش تایمر"</string>
+    <string name="timer_settings" msgid="7955522143086154795">زمان‌سنج‌ها</string>
+    <string name="timer_vibrate_title" msgid="7788920024785587518">لرزش زمان‌سنج</string>
     <string name="timer_paused" msgid="5941160896040771462">"تایمر متوقف شد"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> تایمر‌"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"واگرد"</string>
@@ -258,7 +258,7 @@
     <string name="alarm_button_color">رنگ دکمه هشدار</string>
     <string name="system_theme">سیستم</string>
     <string name="settings_language_english_us">انگلیسی (ایالات متحده)</string>
-    <string name="display_card_background_summary">پس زمینه ای برای بعضی از عناصر اپلیکیشن نشان می دهد (هشدار ها، شهر ها، دکمه زمان سنج و غیره)</string>
+    <string name="display_card_background_summary">پس زمینه ای برای بعضی از عناصر اپلیکیشن نشان می دهد (هشدار ها، شهر ها، بندیمه‌ی زمان‌سنج و غیره)</string>
     <string name="label_default">پیشفرض</string>
     <string name="blue_accent_color">آبی</string>
     <string name="green_accent_color">سبز</string>
@@ -270,7 +270,7 @@
     <string name="date_picker_style_calendar">تقویم</string>
     <string name="date_picker_style_text">متن</string>
     <string name="snooze_duration_none">هیچکدام</string>
-    <string name="schedule_alarm_title">تنظیم ساعت زنگدار</string>
+    <string name="schedule_alarm_title">هشدار برنامه‌ریزی شده</string>
     <string name="alarm_flash">چشمک زن</string>
     <string name="delete_occasional_alarm_after_use_title">حذف هشدار پس از رد کردن</string>
     <string name="label_indefinitely">به مدت نامحدود</string>
@@ -305,4 +305,5 @@
     <string name="first_launch_button_later">بعداً</string>
     <string name="first_launch_important_info_title">اطلاعات مهم</string>
     <string name="alarm_upcoming_channel">هشدار آینده</string>
+    <string name="timer_channel">زمان‌سنج</string>
 </resources>

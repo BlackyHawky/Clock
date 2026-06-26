@@ -343,7 +343,7 @@
     <string name="C347" msgid="6291282205599716861">Y<xliff:g id="SEPARATOR">=</xliff:g>Yaren, distretto<xliff:g id="TIMEZONE">|Pacific/Nauru</xliff:g></string>
     <string name="C348" msgid="8462071023392592539">E<xliff:g id="SEPARATOR">=</xliff:g>Erevan<xliff:g id="TIMEZONE">|Asia/Yerevan</xliff:g></string>
     <string name="C349">P<xliff:g id="separator">=</xliff:g>Ponta Delgada<xliff:g id="timezone">|Atlantico/Azzore</xliff:g></string>
-    <string name="C350">U<xliff:g id="separator">=</xliff:g>Orario UTC<xliff:g id="timezone">|UTC</xliff:g></string>
+    <string name="C350">U<xliff:g id="separator">=</xliff:g>UTC<xliff:g id="timezone">|UTC</xliff:g></string>
     <string name="C351">B<xliff:g id="separator">=</xliff:g>Baker Island<xliff:g id="timezone">|Etc/GMT+12</xliff:g></string>
     <string name="C352">H<xliff:g id="separator">=</xliff:g>Howland Island<xliff:g id="timezone">|Etc/GMT+12</xliff:g></string>
     <string name="C353">A<xliff:g id="separator">=</xliff:g>Alofi<xliff:g id="timezone">|Pacific/Niue</xliff:g></string>

@@ -311,4 +311,5 @@
 \nDeși acest lucru este acceptabil pentru multe aplicații, această aplicație este o aplicație de alarmă și cauzează adesea probleme dacă este configurată pentru a optimiza bateria. Odată activat, sistemul Android poate opri aplicația în orice moment și/sau poate anula alarmele pe care le-a programat, ceea ce ar afecta negativ funcționarea aplicației.
 \n
 \nRecomandăm să incluzi această aplicație în lista albă din optimizările bateriei.</string>
+    <string name="alarm_flash">Flash</string>
 </resources>

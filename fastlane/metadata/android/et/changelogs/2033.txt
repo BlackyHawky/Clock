@@ -1,0 +1,8 @@
+Palju paradusi ja täiendusei on kirjas siin:
+https://github.com/BlackyHawky/Clock/releases/tag/2.30
+
+**Märkused:**
+ - Seadistus „Teavituste meeldetuletus“ on taastatud vaikimisi väärtusele (30 minutit).
+ - Seadistus „Keel“ on taastatud.
+ - Kuna rakenduse andmete salvestamisel kasutatakse nüüd uut ZIP-vormingut, on vanemad varukoopiad muutunud kasutuskõlbmatuks.
+ - Palun tee pärast rakenduse uuendamist uus varukoopia ja kustuta vana.

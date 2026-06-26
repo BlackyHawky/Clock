@@ -582,7 +582,7 @@
     <string name="customize_background_corner_radius_title">Personnaliser le rayon des angles de l\'arrière-plan</string>
     <string name="customize_background_corner_radius_summary">Permet d\'arrondir les angles du widget si votre écran d\'accueil ne le prend pas en charge</string>
     <string name="background_corner_radius_title">Rayon des angles de l\'arrière-plan</string>
-    <string name="display_timer_state_indicator_title">Afficher les indicateurs d\'état de la minuterie</string>
+    <string name="display_timer_state_indicator_title">Afficher les indicateurs d\'état du minuteur</string>
     <string name="running_timer_indicator_color_title">Couleur de l\'indicateur des minuteurs en cours</string>
     <string name="paused_timer_indicator_color_title">Couleur de l\'indicateur des minuteurs en pause</string>
     <string name="expired_timer_indicator_color_title">Couleur de l\'indicateur des minuteurs expirés</string>
