@@ -158,7 +158,7 @@ public final class AsyncRingtonePlayer {
         public boolean play(Context context, Uri ringtoneUri, long crescendoDuration) {
             mCrescendoDuration = crescendoDuration;
 
-            mAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+            mAudioManager = context.getApplicationContext().getSystemService(AudioManager.class);
             boolean inCall = RingtoneUtils.isInTelephoneCall(mAudioManager);
 
             if (inCall) {

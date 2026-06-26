@@ -410,7 +410,7 @@ public class WidgetUtils {
      * @return The AlarmManager system service instance, which can be used to set, cancel, or query alarms.
      */
     public static AlarmManager getAlarmManager(Context context) {
-        return (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        return context.getApplicationContext().getSystemService(AlarmManager.class);
     }
 
     /**

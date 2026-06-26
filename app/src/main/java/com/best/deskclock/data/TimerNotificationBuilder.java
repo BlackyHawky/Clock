@@ -200,6 +200,7 @@ class TimerNotificationBuilder {
             .setColor(ContextCompat.getColor(context, R.color.md_theme_primary))
             .setGroup(nm.getTimerNotificationGroupKey());
 
+        // Add support for third-party apps to display active timers
         Bundle extras = new Bundle();
         extras.putLong("android.chronometerBase", base);
         extras.putBoolean("android.chronometerCountDown", true);
@@ -220,7 +221,7 @@ class TimerNotificationBuilder {
 
             notification.setContentTitle(titleText).setContentText(preNText);
 
-            final AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            final AlarmManager am = context.getApplicationContext().getSystemService(AlarmManager.class);
             final Intent updateNotification = TimerService.createUpdateNotificationIntent(context);
             final long remainingTime = timer.getRemainingTime();
             if (timer.isRunning() && remainingTime > MINUTE_IN_MILLIS) {

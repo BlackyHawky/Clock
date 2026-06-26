@@ -263,7 +263,7 @@ public final class AlarmTimeClickHandler {
 
     private Alarm buildNewAlarm(int hour, int minute) {
         final Alarm alarm = new Alarm();
-        final AudioManager audioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
+        final AudioManager audioManager = mContext.getApplicationContext().getSystemService(AudioManager.class);
 
         alarm.hour = hour;
         alarm.minutes = minute;

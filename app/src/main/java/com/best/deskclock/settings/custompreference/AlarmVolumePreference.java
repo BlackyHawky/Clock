@@ -6,7 +6,6 @@
 
 package com.best.deskclock.settings.custompreference;
 
-import static android.content.Context.AUDIO_SERVICE;
 import static android.media.AudioManager.STREAM_ALARM;
 import static android.view.View.GONE;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
@@ -57,7 +56,7 @@ public class AlarmVolumePreference extends Preference {
         super(context, attrs);
 
         mPrefs = getDefaultSharedPreferences(context);
-        mAudioManager = (AudioManager) context.getSystemService(AUDIO_SERVICE);
+        mAudioManager = context.getApplicationContext().getSystemService(AudioManager.class);
 
         // Minimum volume for alarm is not 0, calculate it.
         mMinVolume = RingtoneUtils.getAlarmMinVolume(mAudioManager);

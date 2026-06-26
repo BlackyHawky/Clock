@@ -20,7 +20,7 @@ public class AlarmAlertWakeLock {
     private static PowerManager.WakeLock sCpuWakeLock;
 
     public static PowerManager.WakeLock createPartialWakeLock(Context context) {
-        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        PowerManager pm = context.getApplicationContext().getSystemService(PowerManager.class);
         return pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
     }
 

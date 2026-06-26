@@ -6,10 +6,6 @@
 
 package com.best.deskclock.data;
 
-import static android.app.NotificationManager.ACTION_INTERRUPTION_FILTER_CHANGED;
-import static android.app.NotificationManager.INTERRUPTION_FILTER_NONE;
-import static android.content.Context.NOTIFICATION_SERVICE;
-import static android.media.RingtoneManager.TYPE_ALARM;
 import static android.provider.Settings.System.CONTENT_URI;
 import static android.provider.Settings.System.DEFAULT_ALARM_ALERT_URI;
 
@@ -67,21 +63,21 @@ final class SilentSettingsModel {
     private CheckSilenceSettingsTask mCheckSilenceSettingsTask;
 
     SilentSettingsModel(Context context, NotificationModel notificationModel) {
-        mContext = context;
+        mContext = context.getApplicationContext();
         mNotificationModel = notificationModel;
 
-        mNotificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
+        mNotificationManager = mContext.getSystemService(NotificationManager.class);
 
         // Watch for changes to the settings that may silence alarms.
-        final ContentResolver cr = context.getContentResolver();
+        final ContentResolver cr = mContext.getContentResolver();
         final ContentObserver contentChangeWatcher = new ContentChangeWatcher();
         cr.registerContentObserver(VOLUME_URI, false, contentChangeWatcher);
         cr.registerContentObserver(DEFAULT_ALARM_ALERT_URI, false, contentChangeWatcher);
-        final IntentFilter filter = new IntentFilter(ACTION_INTERRUPTION_FILTER_CHANGED);
+        final IntentFilter filter = new IntentFilter(NotificationManager.ACTION_INTERRUPTION_FILTER_CHANGED);
         if (SdkUtils.isAtLeastAndroid13()) {
-            context.registerReceiver(new DoNotDisturbChangeReceiver(), filter, Context.RECEIVER_NOT_EXPORTED);
+            mContext.registerReceiver(new DoNotDisturbChangeReceiver(), filter, Context.RECEIVER_NOT_EXPORTED);
         } else {
-            context.registerReceiver(new DoNotDisturbChangeReceiver(), filter);
+            mContext.registerReceiver(new DoNotDisturbChangeReceiver(), filter);
         }
     }
 
@@ -152,7 +148,7 @@ final class SilentSettingsModel {
         private boolean isDoNotDisturbBlockingAlarms() {
             try {
                 final int interruptionFilter = mNotificationManager.getCurrentInterruptionFilter();
-                return interruptionFilter == INTERRUPTION_FILTER_NONE;
+                return interruptionFilter == NotificationManager.INTERRUPTION_FILTER_NONE;
             } catch (Exception e) {
                 // Since this is purely informational, avoid crashing the app.
                 return false;
@@ -161,7 +157,7 @@ final class SilentSettingsModel {
 
         private boolean isSystemAlarmRingtoneSilent() {
             try {
-                return RingtoneManager.getActualDefaultRingtoneUri(mContext, TYPE_ALARM) == null;
+                return RingtoneManager.getActualDefaultRingtoneUri(mContext, RingtoneManager.TYPE_ALARM) == null;
             } catch (Exception e) {
                 // Since this is purely informational, avoid crashing the app.
                 return false;

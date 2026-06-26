@@ -90,7 +90,7 @@ final class CityModel {
 
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
     CityModel(Context context, SharedPreferences prefs) {
-        mContext = context;
+        mContext = context.getApplicationContext();
         mPrefs = prefs;
 
         // Clear caches affected by locale when locale changes.

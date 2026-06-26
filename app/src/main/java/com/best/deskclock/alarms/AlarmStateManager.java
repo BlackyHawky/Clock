@@ -6,7 +6,6 @@
 
 package com.best.deskclock.alarms;
 
-import static android.content.Context.ALARM_SERVICE;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.ALARM_SNOOZE_DURATION_DISABLED;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_MISSED_ALARM_REPEAT_LIMIT;
@@ -205,7 +204,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         // alarm that is going to fire next. The operation is constructed such that it is ignored
         // by AlarmStateManager.
 
-        final AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+        final AlarmManager alarmManager = context.getApplicationContext().getSystemService(AlarmManager.class);
 
         final int flags = (nextAlarm == null ? PendingIntent.FLAG_NO_CREATE : 0) | PendingIntent.FLAG_IMMUTABLE;
         final PendingIntent operation = PendingIntent.getBroadcast(context, 0, createIndicatorIntent(context), flags);
@@ -1016,7 +1015,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
             PendingIntent pendingIntent = PendingIntent.getService(context, instance.hashCode(),
                 stateChangeIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
-            final AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+            final AlarmManager am = context.getApplicationContext().getSystemService(AlarmManager.class);
             // Ensure the alarm fires even if the device is dozing.
             am.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent);
         }
@@ -1031,7 +1030,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 PendingIntent.FLAG_NO_CREATE | PendingIntent.FLAG_IMMUTABLE);
 
             if (pendingIntent != null) {
-                AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+                AlarmManager am = context.getApplicationContext().getSystemService(AlarmManager.class);
                 am.cancel(pendingIntent);
                 pendingIntent.cancel();
             }

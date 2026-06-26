@@ -17,6 +17,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -34,7 +35,6 @@ import android.service.quicksettings.TileService;
 import android.util.ArraySet;
 
 import androidx.annotation.StringRes;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
 import com.best.deskclock.R;
@@ -88,7 +88,7 @@ final class TimerModel {
     /**
      * Used to create and destroy system notifications related to timers.
      */
-    private final NotificationManagerCompat mNotificationManager;
+    private final NotificationManager mNotificationManager;
 
     /**
      * Update timer notification when locale changes.
@@ -152,14 +152,12 @@ final class TimerModel {
     private Service mService;
 
     TimerModel(Context context, SharedPreferences prefs, RingtoneModel ringtoneModel, NotificationModel notificationModel) {
-
-        mContext = context;
+        mContext = context.getApplicationContext();
         mPrefs = prefs;
         mRingtoneModel = ringtoneModel;
         mNotificationModel = notificationModel;
-        mNotificationManager = NotificationManagerCompat.from(context);
-
-        mAlarmManager = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
+        mNotificationManager = mContext.getSystemService(NotificationManager.class);
+        mAlarmManager = mContext.getSystemService(AlarmManager.class);
 
         // Update timer notification when locale changes.
         final IntentFilter localeBroadcastFilter = new IntentFilter();

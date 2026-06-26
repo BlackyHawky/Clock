@@ -2,10 +2,6 @@
 
 package com.best.deskclock.utils;
 
-import static android.content.Context.AUDIO_SERVICE;
-import static android.media.AudioManager.FLAG_SHOW_UI;
-import static android.media.AudioManager.STREAM_ALARM;
-
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -242,7 +238,7 @@ public class RingtoneUtils {
             return false;
         }
 
-        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        AudioManager audioManager = context.getApplicationContext().getSystemService(AudioManager.class);
 
         AudioDeviceInfo[] devices = audioManager.getDevices(AudioManager.GET_DEVICES_OUTPUTS);
         for (AudioDeviceInfo device : devices) {
@@ -344,10 +340,10 @@ public class RingtoneUtils {
      * @return {@code true} if the alarm volume is too low, {@code false} otherwise or if an error occurs.
      */
     public static boolean isAlarmStreamLow(Context context) {
-        AudioManager audioManager = (AudioManager) context.getSystemService(AUDIO_SERVICE);
+        AudioManager audioManager = context.getApplicationContext().getSystemService(AudioManager.class);
 
         try {
-            final int currentVolume = audioManager.getStreamVolume(STREAM_ALARM);
+            final int currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
             int minVolume = RingtoneUtils.getAlarmMinVolume(audioManager);
 
             return currentVolume <= minVolume;
@@ -364,14 +360,14 @@ public class RingtoneUtils {
      * @param context The context used to retrieve the audio service.
      */
     public static void fixAlarmStreamLow(Context context) {
-        AudioManager audioManager = (AudioManager) context.getSystemService(AUDIO_SERVICE);
+        AudioManager audioManager = context.getApplicationContext().getSystemService(AudioManager.class);
 
-        final int maxVolume = audioManager.getStreamMaxVolume(STREAM_ALARM);
+        final int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
         final int minVolume = RingtoneUtils.getAlarmMinVolume(audioManager);
         final int usableRange = maxVolume - minVolume;
         final int index = minVolume + (2 * usableRange / 3);
 
-        audioManager.setStreamVolume(STREAM_ALARM, index, FLAG_SHOW_UI);
+        audioManager.setStreamVolume(AudioManager.STREAM_ALARM, index, AudioManager.FLAG_SHOW_UI);
     }
 
 }

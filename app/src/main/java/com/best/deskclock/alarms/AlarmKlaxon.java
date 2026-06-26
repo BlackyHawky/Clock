@@ -73,7 +73,7 @@ public final class AlarmKlaxon {
             }
 
             if (instance.mPreviousAlarmVolume != -1) {
-                AudioManager audioManager = (AudioManager) appContext.getSystemService(Context.AUDIO_SERVICE);
+                AudioManager audioManager = appContext.getSystemService(AudioManager.class);
                 int currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
                 // Restore the original alarm volume only if it was changed
                 if (currentVolume != instance.mPreviousAlarmVolume) {
@@ -109,7 +109,7 @@ public final class AlarmKlaxon {
                 LogUtils.v("AlarmKlaxon.start() with MediaPlayer");
 
                 if (SettingsDAO.isPerAlarmVolumeEnabled(prefs)) {
-                    AudioManager audioManager = (AudioManager) appContext.getSystemService(Context.AUDIO_SERVICE);
+                    AudioManager audioManager = appContext.getSystemService(AudioManager.class);
 
                     if (instance.mPreviousAlarmVolume == -1) {
                         instance.mPreviousAlarmVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);

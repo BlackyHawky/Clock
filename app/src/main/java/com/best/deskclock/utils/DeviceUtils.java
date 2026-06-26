@@ -39,7 +39,7 @@ public class DeviceUtils {
             return true;
         }
 
-        UserManager userManager = (UserManager) context.getSystemService(Context.USER_SERVICE);
+        UserManager userManager = context.getApplicationContext().getSystemService(UserManager.class);
         // Can't determine, assume unlocked
         if (userManager == null) {
             return true;
@@ -115,7 +115,7 @@ public class DeviceUtils {
      * @return {@code true} if the device has a back flash. {@code false} otherwise.
      */
     public static boolean hasBackFlash(Context context) {
-        CameraManager cameraManager = (CameraManager) context.getSystemService(Context.CAMERA_SERVICE);
+        CameraManager cameraManager = context.getApplicationContext().getSystemService(CameraManager.class);
         try {
             for (String cameraId : cameraManager.getCameraIdList()) {
                 CameraCharacteristics characteristics = cameraManager.getCameraCharacteristics(cameraId);

@@ -316,12 +316,12 @@ public class AlarmService extends Service {
         mIsRegistered = true;
 
         // Setup for flip and shake actions
-        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        mSensorManager = getApplicationContext().getSystemService(SensorManager.class);
         mFlipAction = SettingsDAO.getFlipAction(mPrefs);
         mShakeAction = SettingsDAO.getShakeAction(mPrefs);
 
-        mVibrator = getSystemService(Vibrator.class);
-        mCameraManager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
+        mVibrator = getApplicationContext().getSystemService(Vibrator.class);
+        mCameraManager = getApplicationContext().getSystemService(CameraManager.class);
         mHandler = new Handler(Looper.getMainLooper());
 
         getBackCameraId();
@@ -491,13 +491,15 @@ public class AlarmService extends Service {
         final long instanceId = mCurrentAlarm.mId;
         LogUtils.v("AlarmService.stop with single vibration with instance: %s", instanceId);
 
-        if (SdkUtils.isAtLeastAndroid8()) {
-            mVibrator.vibrate(VibrationEffect.createWaveform(new long[]{700, 500}, VibrationEffect.DEFAULT_AMPLITUDE));
-        } else {
-            mVibrator.vibrate(new long[]{700, 500}, -1);
-        }
-
         cleanupAndStop();
+
+        if (mVibrator != null) {
+            if (SdkUtils.isAtLeastAndroid8()) {
+                mVibrator.vibrate(VibrationEffect.createWaveform(new long[]{300, 500}, VibrationEffect.DEFAULT_AMPLITUDE));
+            } else {
+                mVibrator.vibrate(new long[]{300, 500}, -1);
+            }
+        }
     }
 
     private void performDoubleVibration() {
@@ -506,13 +508,18 @@ public class AlarmService extends Service {
             return;
         }
 
-        if (SdkUtils.isAtLeastAndroid8()) {
-            mVibrator.vibrate(VibrationEffect.createWaveform(new long[]{700, 200, 100, 500}, VibrationEffect.DEFAULT_AMPLITUDE));
-        } else {
-            mVibrator.vibrate(new long[]{700, 200, 100, 500}, -1);
-        }
+        final long instanceId = mCurrentAlarm.mId;
+        LogUtils.v("AlarmService.stop with double vibration with instance: %s", instanceId);
 
         cleanupAndStop();
+
+        if (mVibrator != null) {
+            if (SdkUtils.isAtLeastAndroid8()) {
+                mVibrator.vibrate(VibrationEffect.createWaveform(new long[]{300, 200, 100, 500}, VibrationEffect.DEFAULT_AMPLITUDE));
+            } else {
+                mVibrator.vibrate(new long[]{300, 200, 100, 500}, -1);
+            }
+        }
     }
 
     private void cleanupAndStop() {

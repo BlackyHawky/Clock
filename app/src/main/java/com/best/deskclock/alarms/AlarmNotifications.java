@@ -102,7 +102,7 @@ public final class AlarmNotifications {
     private static Notification getFirstActiveNotification(Context context, String group, int canceledNotificationId,
                                                            Notification postedNotification) {
 
-        final NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        final NotificationManager nm = context.getApplicationContext().getSystemService(NotificationManager.class);
         final StatusBarNotification[] notifications = nm.getActiveNotifications();
         Notification firstActiveNotification = postedNotification;
 
@@ -119,7 +119,7 @@ public final class AlarmNotifications {
     }
 
     private static Notification getActiveGroupSummaryNotification(Context context, String group) {
-        final NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        final NotificationManager nm = context.getApplicationContext().getSystemService(NotificationManager.class);
         final StatusBarNotification[] notifications = nm.getActiveNotifications();
 
         for (StatusBarNotification statusBarNotification : notifications) {
@@ -133,7 +133,7 @@ public final class AlarmNotifications {
     }
 
     private static void updateUpcomingAlarmGroupNotification(Context context, int canceledNotificationId, Notification postedNotification) {
-        final NotificationManagerCompat nm = NotificationManagerCompat.from(context);
+        final NotificationManager nm = context.getApplicationContext().getSystemService(NotificationManager.class);
         final Notification firstUpcoming = getFirstActiveNotification(
             context, UPCOMING_GROUP_KEY, canceledNotificationId, postedNotification);
 
@@ -168,7 +168,7 @@ public final class AlarmNotifications {
     }
 
     public static void updateMissedAlarmGroupNotification(Context context, int canceledNotificationId, Notification postedNotification) {
-        final NotificationManagerCompat nm = NotificationManagerCompat.from(context);
+        final NotificationManager nm = context.getApplicationContext().getSystemService(NotificationManager.class);
         final Notification firstMissed = getFirstActiveNotification(context, MISSED_GROUP_KEY,
             canceledNotificationId, postedNotification);
 

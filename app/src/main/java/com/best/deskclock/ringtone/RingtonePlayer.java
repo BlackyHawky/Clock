@@ -126,7 +126,7 @@ public final class RingtonePlayer {
     public RingtonePlayer(Context context) {
         mContext = context;
 
-        mAudioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
+        mAudioManager = context.getApplicationContext().getSystemService(AudioManager.class);
 
         mPrefs = getDefaultSharedPreferences(mContext);
         mPrefs.registerOnSharedPreferenceChangeListener(mPrefListener);

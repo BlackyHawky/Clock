@@ -114,7 +114,7 @@ public final class TimerService extends Service {
 
         mPrefs = getDefaultSharedPreferences(this);
         // Set up for flip and shake actions
-        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        mSensorManager = getApplicationContext().getSystemService(SensorManager.class);
         mIsFlipActionEnabled = SettingsDAO.isFlipActionForTimersEnabled(mPrefs);
         mIsShakeActionEnabled = SettingsDAO.isShakeActionForTimersEnabled(mPrefs);
     }

@@ -8,6 +8,7 @@ package com.best.deskclock.data;
 
 import android.Manifest;
 import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -18,7 +19,6 @@ import android.content.pm.PackageManager;
 import android.service.quicksettings.TileService;
 
 import androidx.annotation.VisibleForTesting;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
 import com.best.deskclock.tiles.StopwatchTileService;
@@ -45,7 +45,7 @@ final class StopwatchModel {
     /**
      * Used to create and destroy system notifications related to the stopwatch.
      */
-    private final NotificationManagerCompat mNotificationManager;
+    private final NotificationManager mNotificationManager;
 
     /**
      * Update stopwatch notification when locale changes.
@@ -74,10 +74,10 @@ final class StopwatchModel {
     private List<Lap> mLaps;
 
     StopwatchModel(Context context, SharedPreferences prefs, NotificationModel notificationModel) {
-        mContext = context;
+        mContext = context.getApplicationContext();
         mPrefs = prefs;
         mNotificationModel = notificationModel;
-        mNotificationManager = NotificationManagerCompat.from(context);
+        mNotificationManager = mContext.getSystemService(NotificationManager.class);
 
         // Update stopwatch notification when locale changes.
         final IntentFilter localeBroadcastFilter = new IntentFilter();

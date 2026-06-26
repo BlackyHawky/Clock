@@ -179,7 +179,7 @@ public class TimerSettingsFragment extends ScreenFragment
         mIsAlarmTabHidden = !SettingsDAO.isAlarmTabVisible(mPrefs);
 
         if (mIsAlarmTabHidden) {
-            mAudioManager = (AudioManager) requireContext().getSystemService(Context.AUDIO_SERVICE);
+            mAudioManager = requireContext().getApplicationContext().getSystemService(AudioManager.class);
             mHasExternalAudioDeviceConnected = RingtoneUtils.hasExternalAudioDeviceConnected(requireContext(), mPrefs);
         }
 
@@ -412,7 +412,7 @@ public class TimerSettingsFragment extends ScreenFragment
 
         mTimerPowerButtonActionPref.setOnPreferenceChangeListener(this);
 
-        SensorManager sensorManager = (SensorManager) requireActivity().getSystemService(Context.SENSOR_SERVICE);
+        SensorManager sensorManager = requireContext().getApplicationContext().getSystemService(SensorManager.class);
         if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) == null) {
             mTimerFlipActionPref.setChecked(false);
             mTimerShakeActionPref.setChecked(false);

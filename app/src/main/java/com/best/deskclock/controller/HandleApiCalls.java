@@ -571,7 +571,7 @@ public class HandleApiCalls extends Activity {
      * @param prefs the {@link SharedPreferences} containing the user's default alarm preferences
      */
     private static void applyAlarmSettings(Alarm alarm, Context context, SharedPreferences prefs) {
-        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        AudioManager audioManager = context.getApplicationContext().getSystemService(AudioManager.class);
 
         alarm.enabled = true;
         alarm.vibrate = SettingsDAO.areAlarmVibrationsEnabledByDefault(prefs);

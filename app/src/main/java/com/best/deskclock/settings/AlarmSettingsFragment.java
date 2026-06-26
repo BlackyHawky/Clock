@@ -184,7 +184,7 @@ public class AlarmSettingsFragment extends ScreenFragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mAudioManager = (AudioManager) requireContext().getSystemService(Context.AUDIO_SERVICE);
+        mAudioManager = requireContext().getApplicationContext().getSystemService(AudioManager.class);
         mHasExternalAudioDeviceConnected = RingtoneUtils.hasExternalAudioDeviceConnected(requireContext(), mPrefs);
         mAlarmUpdateHandler = new AlarmUpdateHandler(requireContext(), null, null);
 
@@ -644,7 +644,7 @@ public class AlarmSettingsFragment extends ScreenFragment
         mPowerButtonPref.setOnPreferenceChangeListener(this);
         mPowerButtonPref.setSummary(mPowerButtonPref.getEntry());
 
-        SensorManager sensorManager = (SensorManager) requireActivity().getSystemService(Context.SENSOR_SERVICE);
+        SensorManager sensorManager = requireContext().getApplicationContext().getSystemService(SensorManager.class);
         if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) == null) {
             mFlipActionPref.setValue("0");
             mShakeActionPref.setValue("0");

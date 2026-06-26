@@ -89,7 +89,7 @@ public final class RingtoneModel {
     private List<CustomRingtone> mCustomRingtones;
 
     public RingtoneModel(Context context, SharedPreferences prefs) {
-        mContext = Utils.getSafeStorageContext(context);
+        mContext = Utils.getSafeStorageContext(context.getApplicationContext());
 
         mPrefs = prefs;
 

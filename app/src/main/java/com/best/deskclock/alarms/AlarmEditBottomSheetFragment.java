@@ -799,7 +799,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         mBinding.alarmVolumeTitle.setTypeface(mGeneralTypeface);
         mBinding.alarmVolumeValue.setTypeface(mGeneralTypeface);
 
-        final AudioManager audioManager = (AudioManager) requireContext().getSystemService(Context.AUDIO_SERVICE);
+        final AudioManager audioManager = requireContext().getApplicationContext().getSystemService(AudioManager.class);
         final int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
         final int currentVolume = Math.min(mAlarm.alarmVolume, maxVolume);
 

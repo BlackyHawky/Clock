@@ -377,7 +377,7 @@ public class BackupAndRestoreUtils {
     private static void restoreAlarm(Context context, SharedPreferences prefs, ContentResolver contentResolver,
                                      JSONObject alarmObject, boolean hasSpecifiedDate) throws JSONException {
 
-        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        AudioManager audioManager = context.getApplicationContext().getSystemService(AudioManager.class);
 
         long id = alarmObject.optLong("id", System.currentTimeMillis());
         boolean enabled = alarmObject.optBoolean("enabled", true);

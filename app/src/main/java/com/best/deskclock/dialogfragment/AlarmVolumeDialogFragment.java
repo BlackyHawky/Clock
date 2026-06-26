@@ -9,7 +9,6 @@ import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreference
 import static com.best.deskclock.utils.RingtoneUtils.ALARM_PREVIEW_DURATION_MS;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -120,7 +119,7 @@ public class AlarmVolumeDialogFragment extends DialogFragment {
             mRingtoneUri = RingtoneUtils.getFallbackRingtoneUri(requireContext());
         }
 
-        mAudioManager = (AudioManager) requireContext().getSystemService(Context.AUDIO_SERVICE);
+        mAudioManager = requireContext().getApplicationContext().getSystemService(AudioManager.class);
 
         int maxVolume = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
         mMinVolume = RingtoneUtils.getAlarmMinVolume(mAudioManager);

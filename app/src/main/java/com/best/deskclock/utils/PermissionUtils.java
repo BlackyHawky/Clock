@@ -3,8 +3,6 @@
 package com.best.deskclock.utils;
 
 import static android.Manifest.permission.POST_NOTIFICATIONS;
-import static android.content.Context.NOTIFICATION_SERVICE;
-import static android.content.Context.POWER_SERVICE;
 
 import android.app.NotificationManager;
 import android.content.Context;
@@ -24,7 +22,7 @@ public class PermissionUtils {
      * {@code false} otherwise.
      */
     public static boolean isIgnoringBatteryOptimizations(Context context) {
-        final PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
+        final PowerManager powerManager = context.getApplicationContext().getSystemService(PowerManager.class);
         return powerManager.isIgnoringBatteryOptimizations(context.getPackageName());
     }
 
@@ -45,7 +43,7 @@ public class PermissionUtils {
      */
     public static boolean areFullScreenNotificationsEnabled(Context context) {
         if (SdkUtils.isAtLeastAndroid14()) {
-            final NotificationManager notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
+            final NotificationManager notificationManager = context.getApplicationContext().getSystemService(NotificationManager.class);
             return notificationManager.canUseFullScreenIntent();
         }
 

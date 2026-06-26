@@ -44,7 +44,7 @@ public class DailyWidgetUpdateReceiver extends BroadcastReceiver {
         PendingIntent newPendingIntent = PendingIntent.getBroadcast(
             context, 0, newIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        AlarmManager alarmManager = context.getApplicationContext().getSystemService(AlarmManager.class);
         alarmManager.setExact(AlarmManager.RTC, calendar.getTimeInMillis(), newPendingIntent);
     }
 
