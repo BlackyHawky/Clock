@@ -243,6 +243,7 @@ public class AlarmService extends Service {
         private float average = 0;
         private int fill = 0;
         private boolean mStopped;
+        private boolean mInitialized = false;
 
         @Override
         public void onAccuracyChanged(Sensor sensor, int acc) {
@@ -251,6 +252,7 @@ public class AlarmService extends Service {
         @Override
         public void reset() {
             mStopped = false;
+            mInitialized = false;
             average = 0;
             fill = 0;
             Arrays.fill(gravity, 0f);
@@ -258,6 +260,15 @@ public class AlarmService extends Service {
 
         public void onSensorChanged(SensorEvent event) {
             if (mStopped) {
+                return;
+            }
+
+            // On the first pass, capture the actual gravity and ignore the calculation.
+            if (!mInitialized) {
+                gravity[0] = event.values[0];
+                gravity[1] = event.values[1];
+                gravity[2] = event.values[2];
+                mInitialized = true;
                 return;
             }
 
@@ -630,7 +641,7 @@ public class AlarmService extends Service {
             mFlipListener.reset();
             mSensorManager.registerListener(mFlipListener,
                 mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
-                SensorManager.SENSOR_DELAY_NORMAL, 300 * 1000); // Batch every 300 milliseconds
+                SensorManager.SENSOR_DELAY_NORMAL, 0);
         }
 
         if (mShakeAction != ALARM_NO_ACTION) {
