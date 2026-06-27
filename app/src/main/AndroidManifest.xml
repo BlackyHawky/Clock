@@ -234,10 +234,12 @@
 
         <receiver
             android:name="com.best.deskclock.alarms.AlarmStateManager"
+            android:exported="false"
             android:directBootAware="true" />
 
         <service
             android:name="com.best.deskclock.alarms.AlarmService"
+            android:exported="false"
             android:directBootAware="true"
             android:foregroundServiceType="specialUse">
             <property
@@ -268,18 +270,15 @@
             android:taskAffinity=""
             android:theme="@style/Theme.DeskClock.Wallpaper" />
 
-        <!-- Legacy broadcast receiver that honors old scheduled timers across app upgrade. -->
         <receiver
-            android:name="com.best.deskclock.timer.TimerReceiver"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="times_up" />
-            </intent-filter>
-        </receiver>
+            android:name="com.best.deskclock.timer.TimerAlertReceiver"
+            android:exported="false"
+            android:directBootAware="true" />
 
         <service
             android:name="com.best.deskclock.timer.TimerService"
             android:description="@string/timer_service_desc"
+            android:exported="false"
             android:directBootAware="true"
             android:foregroundServiceType="specialUse">
             <property
@@ -393,6 +392,7 @@
 
         <service
             android:name="com.best.deskclock.widgets.AppWidgetCityService$DigitalAppWidgetCityService"
+            android:exported="true"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <!-- Vertical clock -->

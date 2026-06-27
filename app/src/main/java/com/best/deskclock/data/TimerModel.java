@@ -42,6 +42,7 @@ import com.best.deskclock.base.AlarmAlertWakeLock;
 import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.tiles.TimerTileService;
+import com.best.deskclock.timer.TimerAlertReceiver;
 import com.best.deskclock.timer.TimerKlaxon;
 import com.best.deskclock.timer.TimerService;
 import com.best.deskclock.utils.LogUtils;
@@ -57,6 +58,8 @@ import java.util.Set;
  * All {@link Timer} data is accessed via this model.
  */
 final class TimerModel {
+
+    private static final long WAKELOCK_THRESHOLD_MS = 5000L;
 
     /**
      * Running timers less than this threshold are left running/expired; greater than this
@@ -694,26 +697,36 @@ final class TimerModel {
 
         if (nextExpiringTimer == null) {
             // Cancel the existing timer expiration callback.
-            final PendingIntent pi = PendingIntent.getService(mContext, 0, intent,
+            intent.setClass(mContext, TimerAlertReceiver.class);
+            final PendingIntent pi = PendingIntent.getBroadcast(mContext, 0, intent,
                 PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_NO_CREATE | PendingIntent.FLAG_IMMUTABLE);
 
             if (pi != null) {
                 mAlarmManager.cancel(pi);
                 pi.cancel();
             }
-        } else if (nextExpiringTimer.getRemainingTime() <= 0) {
-            mContext.startService(intent);
-        } else if (nextExpiringTimer.getRemainingTime() < 5000) {
-            PowerManager.WakeLock wl = AlarmAlertWakeLock.createPartialWakeLock(mContext);
-            wl.acquire(nextExpiringTimer.getRemainingTime());
-            AppExecutors.getMainThread().postDelayed(this::updateAlarmManager, nextExpiringTimer.getRemainingTime());
-        } else {
-            // Update the existing timer expiration callback.
-            final PendingIntent pi = PendingIntent.getService(mContext, 0, intent,
-                PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-
-            schedulePendingIntent(mAlarmManager, nextExpiringTimer.getExpirationTime(), pi);
+            return;
         }
+
+        final long remainingTime = nextExpiringTimer.getRemainingTime();
+
+        if (remainingTime <= 0) {
+            ContextCompat.startForegroundService(mContext, intent);
+            return;
+        }
+
+        // Update the existing timer expiration callback.
+        intent.setClass(mContext, TimerAlertReceiver.class);
+        final PendingIntent pi = PendingIntent.getBroadcast(mContext, 0, intent,
+            PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+
+        if (remainingTime <= WAKELOCK_THRESHOLD_MS) {
+            PowerManager.WakeLock wl = AlarmAlertWakeLock.createPartialWakeLock(mContext);
+            wl.acquire(remainingTime + 1500L);
+            AppExecutors.getMainThread().postDelayed(this::updateAlarmManager, remainingTime);
+        }
+
+        schedulePendingIntent(mAlarmManager, nextExpiringTimer.getExpirationTime(), pi);
     }
 
     /**

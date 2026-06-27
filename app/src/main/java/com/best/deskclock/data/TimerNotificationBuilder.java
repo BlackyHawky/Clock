@@ -318,16 +318,18 @@ class TimerNotificationBuilder {
             .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_USER_ACTION);
         final PendingIntent pendingFullScreen = Utils.pendingActivityIntent(context, fullScreen);
 
-        @SuppressLint("FullScreenIntentPolicy") final Builder notification = new Builder(context, FIRING_NOTIFICATION_CHANNEL_ID)
+        @SuppressLint("FullScreenIntentPolicy")
+        final Builder notification = new Builder(context, FIRING_NOTIFICATION_CHANNEL_ID)
             .setOngoing(true)
             .setLocalOnly(true)
             .setShowWhen(false)
             .setAutoCancel(false)
             .setContentTitle(titleText)
             .setContentIntent(contentIntent)
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setPriority(NotificationCompat.PRIORITY_MAX)
             .setCategory(NotificationCompat.CATEGORY_ALARM)
             .setDefaults(NotificationCompat.DEFAULT_LIGHTS)
+            .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             .setSmallIcon(R.drawable.ic_hourglass_bottom)
             .setFullScreenIntent(pendingFullScreen, true)
             .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
