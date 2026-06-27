@@ -27,6 +27,7 @@ import android.text.format.DateFormat;
 
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.content.ContextCompat;
 
 import com.best.deskclock.DeskClockApplication;
 import com.best.deskclock.R;
@@ -411,7 +412,9 @@ public final class DataModel {
                 expireTimer(service, started);
             } else {
                 Context context = DeskClockApplication.getAppContext();
-                context.startService(TimerService.createTimerExpiredIntent(context, started));
+                Intent intent = TimerService.createTimerExpiredIntent(context, started);
+
+                ContextCompat.startForegroundService(context, intent);
             }
         }
     }

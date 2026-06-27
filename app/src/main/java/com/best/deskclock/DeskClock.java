@@ -308,7 +308,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
         updateKeepScreenOn();
 
         if (SettingsDAO.isForegroundServiceEnabled(mPrefs)) {
-            Utils.startService(this, KeepAliveService.class);
+            ContextCompat.startForegroundService(this, new Intent(this, KeepAliveService.class));
         }
     }
 

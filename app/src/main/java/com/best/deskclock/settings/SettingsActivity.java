@@ -553,7 +553,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
             // Required to start/stop the foreground notification
             if (SettingsDAO.isForegroundServiceEnabled(mPrefs)) {
-                Utils.startService(context, KeepAliveService.class);
+                ContextCompat.startForegroundService(context, new Intent(context, KeepAliveService.class));
             } else {
                 Utils.stopService(context, KeepAliveService.class);
             }

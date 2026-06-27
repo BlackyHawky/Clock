@@ -27,6 +27,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.pm.ServiceInfo;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
@@ -35,6 +36,7 @@ import android.service.quicksettings.TileService;
 import android.util.ArraySet;
 
 import androidx.annotation.StringRes;
+import androidx.core.app.ServiceCompat;
 import androidx.core.content.ContextCompat;
 
 import com.best.deskclock.R;
@@ -904,7 +906,13 @@ final class TimerModel {
         // Otherwise build and post a foreground notification reflecting the latest expired timers.
         final Notification notification = mNotificationBuilder.buildHeadsUp(mContext, expired);
         final int notificationId = mNotificationModel.getExpiredTimerNotificationId();
-        mService.startForeground(notificationId, notification);
+        int foregroundServiceType = 0;
+
+        if (SdkUtils.isAtLeastAndroid14()) {
+            foregroundServiceType = ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE;
+        }
+
+        ServiceCompat.startForeground(mService, notificationId, notification, foregroundServiceType);
     }
 
     /**

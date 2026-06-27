@@ -19,6 +19,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.PowerManager.WakeLock;
 
+import androidx.core.content.ContextCompat;
+
 import com.best.deskclock.base.AlarmAlertWakeLock;
 import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.base.KeepAliveService;
@@ -29,7 +31,6 @@ import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.NotificationUtils;
 import com.best.deskclock.utils.SdkUtils;
-import com.best.deskclock.utils.Utils;
 
 import java.util.Calendar;
 import java.util.List;
@@ -83,11 +84,12 @@ public class AlarmInitReceiver extends BroadcastReceiver {
         // possible.
         // Starts the KeepAliveService if enabled in the settings.
         if (ACTION_BOOT_COMPLETED.equals(action)) {
-            DataModel.getDataModel().updateAfterReboot();
-
+            // Ensure that KeepAliveService is the first to be called after a restart
             if (SettingsDAO.isForegroundServiceEnabled(prefs)) {
-                Utils.startService(context, KeepAliveService.class);
+                ContextCompat.startForegroundService(context, new Intent(context, KeepAliveService.class));
             }
+
+            DataModel.getDataModel().updateAfterReboot();
         } else if (ACTION_TIME_CHANGED.equals(action)) {
             // Stopwatch and timer data need to be updated on time change so the reboot
             // functionality works as expected.

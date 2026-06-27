@@ -21,10 +21,12 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.pm.ServiceInfo;
 import android.service.notification.StatusBarNotification;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.core.app.ServiceCompat;
 import androidx.core.content.ContextCompat;
 
 import com.best.deskclock.DeskClock;
@@ -33,6 +35,7 @@ import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
 
 import java.text.DateFormat;
@@ -459,7 +462,13 @@ public final class AlarmNotifications {
         final Notification builtNotification = notification.build();
 
         if (context instanceof Service) {
-            ((Service) context).startForeground(ALARM_FIRING_NOTIFICATION_ID, builtNotification);
+            int foregroundServiceType = 0;
+
+            if (SdkUtils.isAtLeastAndroid14()) {
+                foregroundServiceType = ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE;
+            }
+
+            ServiceCompat.startForeground((Service) context, ALARM_FIRING_NOTIFICATION_ID, builtNotification, foregroundServiceType);
         } else {
             NotificationManagerCompat nm = NotificationManagerCompat.from(context);
 

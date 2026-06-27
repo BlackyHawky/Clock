@@ -27,6 +27,7 @@ import android.provider.Settings;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.HapticFeedbackConstantsCompat;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
@@ -222,7 +223,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                 (d, w) -> {
                     mPrefs.edit().putBoolean(KEY_ENABLE_FOREGROUND_SERVICE, true).apply();
                     mEnableForegroundServicePref.setChecked(true);
-                    Utils.startService(requireContext(), KeepAliveService.class);
+                    ContextCompat.startForegroundService(requireContext(), new Intent(requireContext(), KeepAliveService.class));
                 },
                 getString(android.R.string.cancel),
                 null,

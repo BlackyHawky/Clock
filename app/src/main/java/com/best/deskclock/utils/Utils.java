@@ -118,21 +118,6 @@ public class Utils {
     }
 
     /**
-     * Convenience method to start a service.
-     *
-     * @param context The context required to start the service.
-     */
-    public static void startService(Context context, Class<?> cls) {
-        Intent serviceIntent = new Intent(context, cls);
-
-        if (SdkUtils.isAtLeastAndroid8()) {
-            context.startForegroundService(serviceIntent);
-        } else {
-            context.startService(serviceIntent);
-        }
-    }
-
-    /**
      * Convenience method to stop a service.
      *
      * @param context The context required to stop the service.
