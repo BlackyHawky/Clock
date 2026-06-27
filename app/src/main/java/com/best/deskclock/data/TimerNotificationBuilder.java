@@ -203,8 +203,8 @@ class TimerNotificationBuilder {
         Bundle extras = new Bundle();
         extras.putLong("android.chronometerBase", base);
         extras.putBoolean("android.chronometerCountDown", true);
-        extras.putBoolean("timer_is_running", running);
-        extras.putLong("timer_remaining_ms", timer.getRemainingTime());
+        extras.putBoolean(context.getPackageName() + ".timerIsRunning", running);
+        extras.putLong(context.getPackageName() + ".timerRemainingMs", timer.getRemainingTime());
         notification.addExtras(extras);
 
         for (Action action : actions) {
