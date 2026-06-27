@@ -24,6 +24,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.widget.RemoteViews;
@@ -198,6 +199,13 @@ class TimerNotificationBuilder {
             .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
             .setColor(ContextCompat.getColor(context, R.color.md_theme_primary))
             .setGroup(nm.getTimerNotificationGroupKey());
+
+        Bundle extras = new Bundle();
+        extras.putLong("android.chronometerBase", base);
+        extras.putBoolean("android.chronometerCountDown", true);
+        extras.putBoolean(context.getPackageName() + ".timerIsRunning", running);
+        extras.putLong(context.getPackageName() + ".timerRemainingMs", timer.getRemainingTime());
+        notification.addExtras(extras);
 
         for (Action action : actions) {
             notification.addAction(action);
