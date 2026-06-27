@@ -73,6 +73,11 @@ public final class AlarmTimeClickHandler {
     public void setAlarmEnabled(Alarm alarm, boolean newState) {
         if (newState != alarm.enabled) {
             alarm.enabled = newState;
+
+            if (newState) {
+                AlarmVisualCache.invalidate(alarm.id);
+            }
+
             // If the alarm is set for a specific date and that date is already in the past,
             // update it to the current date. An alarm cannot be scheduled in the past.
             fixAlarmDateIfPast(alarm);
@@ -228,10 +233,14 @@ public final class AlarmTimeClickHandler {
 
     public void setAlarm(int hour, int minute) {
         if (mSelectedAlarm == null) {
-            mAlarmUpdateHandler.asyncAddAlarm(buildNewAlarm(hour, minute), false, newAlarm ->
+            Alarm newAlarm = buildNewAlarm(hour, minute);
+
+            AlarmVisualCache.invalidate(newAlarm.id);
+
+            mAlarmUpdateHandler.asyncAddAlarm(newAlarm, false, addedAlarm ->
                 AppExecutors.getMainThread().post(() -> {
                     if (mAlarmFragment.isAdded()) {
-                        mAlarmFragment.setPendingAlarmToEdit(newAlarm);
+                        mAlarmFragment.setPendingAlarmToEdit(addedAlarm);
                     }
                 })
             );
@@ -249,10 +258,14 @@ public final class AlarmTimeClickHandler {
         int m = alarmTime.get(Calendar.MINUTE);
 
         if (mSelectedAlarm == null) {
-            mAlarmUpdateHandler.asyncAddAlarm(buildNewAlarm(h, m), false, newAlarm ->
+            Alarm newAlarm = buildNewAlarm(h, m);
+
+            AlarmVisualCache.invalidate(newAlarm.id);
+
+            mAlarmUpdateHandler.asyncAddAlarm(newAlarm, false, addedAlarm ->
                 AppExecutors.getMainThread().post(() -> {
                     if (mAlarmFragment.isAdded()) {
-                        mAlarmFragment.setPendingAlarmToEdit(newAlarm);
+                        mAlarmFragment.setPendingAlarmToEdit(addedAlarm);
                     }
                 })
             );
@@ -307,6 +320,8 @@ public final class AlarmTimeClickHandler {
         }
 
         mSelectedAlarm.enabled = true;
+
+        AlarmVisualCache.invalidate(mSelectedAlarm.id);
 
         mAlarmUpdateHandler.asyncUpdateAlarm(mSelectedAlarm, true, false);
         mSelectedAlarm = null;

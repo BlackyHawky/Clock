@@ -727,6 +727,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
                 // Make sure we re-enable the parent alarm of the instance because it will get activated by the below code
                 Objects.requireNonNull(alarm).enabled = true;
+                AlarmVisualCache.invalidate(alarm.id);
                 alarm.updateAlarm(cr);
 
                 // If the hours and minutes of the instance differ from those of the parent alarm, it is a Snooze.
@@ -905,6 +906,10 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
                 if (alarmState == AlarmInstance.PREDISMISSED_STATE || alarmState == AlarmInstance.DISMISSED_STATE) {
                     AlarmVisualCache.cacheDismissedAlarm(instance.mAlarmId);
+                } else if (alarmState == AlarmInstance.NOTIFICATION_STATE
+                    || alarmState == AlarmInstance.SNOOZE_STATE
+                    || alarmState == AlarmInstance.FIRED_STATE) {
+                    AlarmVisualCache.invalidate(instance.mAlarmId);
                 }
             } else {
                 registerInstance(context, instance, true);

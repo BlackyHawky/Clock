@@ -40,6 +40,7 @@ import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
 import com.best.deskclock.alarms.AlarmFragment;
 import com.best.deskclock.alarms.AlarmStateManager;
+import com.best.deskclock.alarms.AlarmVisualCache;
 import com.best.deskclock.alarms.alarmselection.AlarmSelectionActivity;
 import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.data.DataModel;
@@ -368,6 +369,7 @@ public class HandleApiCalls extends Activity {
             // Enable the first matching alarm.
             alarm = alarms.get(0);
             alarm.enabled = true;
+            AlarmVisualCache.invalidate(alarm.id);
             alarm.updateAlarm(cr);
 
             // Delete all old instances.

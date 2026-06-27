@@ -1131,6 +1131,8 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             mAlarm.enabled = true;
         }
 
+        AlarmVisualCache.invalidate(mAlarm.id);
+
         mAlarmUpdateHandler.asyncUpdateAlarm(mAlarm, popToast, minorUpdate);
 
         if (isAdded()) {

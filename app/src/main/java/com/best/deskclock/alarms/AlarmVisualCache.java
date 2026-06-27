@@ -51,4 +51,12 @@ public class AlarmVisualCache {
         return false;
     }
 
+    /**
+     * Removes an alarm from the dismissal cache immediately.
+     * Must be called whenever an alarm is toggled ON or rescheduled.
+     */
+    public static void invalidate(long alarmId) {
+        sDismissedAlarms.remove(alarmId);
+    }
+
 }
