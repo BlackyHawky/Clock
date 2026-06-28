@@ -670,4 +670,17 @@
     <string name="single_timer_mode_title">Mode minuteur unique</string>
     <string name="single_timer_mode_summary">Conserver un seul minuteur qui sera automatiquement supprimé une fois réinitialisé</string>
     <string name="single_timer_mode_warning_message">Les minuteurs seront supprimés.%s</string>
+    <string name="settings_vibration_disabled_summary">Les vibrations sont désactivées dans les paramètres de l\'appareil</string>
+    <string name="settings_tab_animation_title">Animation lors du changement d\'onglet</string>
+    <string name="tab_animation_cube">Cube</string>
+    <string name="tab_animation_depth">Profondeur</string>
+    <string name="tab_animation_flip">Retournement</string>
+    <string name="tab_animation_gate">Porte</string>
+    <string name="tab_animation_zoom_out">Zoom arrière</string>
+    <string name="timer_label_default">Minuteur de <xliff:g example="30s" id="TIMER_LABEL_DEFAULT">%s</xliff:g></string>
+    <string name="timer_end_time_label">Heure de fin : <xliff:g example="8:30 a.m." id="END_TIME">^1</xliff:g></string>
+    <string name="invert_timer_button_positions_title">Inverser la position des boutons du minuteur</string>
+    <string name="display_timer_end_time_title">Afficher l\'heure de fin du minuteur</string>
+    <string name="timer_missed_channel">Minuteurs manqués</string>
+    <string name="settings_language_hebrew">Hébreu</string>
 </resources>

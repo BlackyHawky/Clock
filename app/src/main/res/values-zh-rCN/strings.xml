@@ -649,4 +649,17 @@
     <string name="single_timer_mode_title">单定时器模式</string>
     <string name="single_timer_mode_summary">仅保留一个定时器，重置后会自动删除</string>
     <string name="single_timer_mode_warning_message">定时器将被移除。%s</string>
+    <string name="settings_vibration_disabled_summary">设备设置中已禁用振动</string>
+    <string name="settings_tab_animation_title">切换标签页时的动画</string>
+    <string name="tab_animation_cube">Cube</string>
+    <string name="tab_animation_depth">Depth</string>
+    <string name="tab_animation_flip">Flip</string>
+    <string name="tab_animation_gate">Gate</string>
+    <string name="tab_animation_zoom_out">Zoom-out</string>
+    <string name="timer_label_default"><xliff:g example="30s" id="TIMER_LABEL_DEFAULT">%s</xliff:g> 定时器</string>
+    <string name="timer_end_time_label">结束时间：<xliff:g example="8:30 a.m." id="END_TIME">^1</xliff:g></string>
+    <string name="invert_timer_button_positions_title">反转定时器按钮的位置</string>
+    <string name="display_timer_end_time_title">显示定时器结束时间</string>
+    <string name="timer_missed_channel">错过的定时器</string>
+    <string name="settings_language_hebrew">希伯来语</string>
 </resources>

@@ -60,7 +60,7 @@
     <string name="C56" msgid="6062281725956353553">Y<xliff:g id="separator">=</xliff:g>印第安纳波利斯<xliff:g id="timezone">|America/Indiana/Indianapolis</xliff:g></string>
     <string name="C57" msgid="5971109906791493563">N<xliff:g id="separator">=</xliff:g>诺克斯<xliff:g id="timezone">|America/Indiana/Knox</xliff:g></string>
     <string name="C58" msgid="7657721717096348613">M<xliff:g id="separator">=</xliff:g>马伦戈<xliff:g id="timezone">|America/Indiana/Marengo</xliff:g></string>
-    <string name="C59" msgid="2053523400941417307">S<xliff:g id="separator">=</xliff:g>圣彼得堡<xliff:g id="timezone">|America/Indiana/Petersburg</xliff:g></string>
+    <string name="C59" msgid="2053523400941417307">B<xliff:g id="separator">=</xliff:g>彼得斯堡<xliff:g id="timezone">|America/Indiana/Petersburg</xliff:g></string>
     <string name="C60" msgid="8112283891039465817">T<xliff:g id="separator">=</xliff:g>特尔城<xliff:g id="timezone">|America/Indiana/Tell_City</xliff:g></string>
     <string name="C61" msgid="7778713489993559227">W<xliff:g id="separator">=</xliff:g>韦韦<xliff:g id="timezone">|America/Indiana/Vevay</xliff:g></string>
     <string name="C62" msgid="2667958702401099683">F<xliff:g id="separator">=</xliff:g>樊尚<xliff:g id="timezone">|America/Indiana/Vincennes</xliff:g></string>

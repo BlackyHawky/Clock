@@ -671,4 +671,17 @@
     <string name="single_timer_mode_title">Režim jednoho časovače</string>
     <string name="single_timer_mode_summary">Ponechat pouze jeden časovač, který bude automaticky smazán při resetu</string>
     <string name="single_timer_mode_warning_message">Časovače budou smazány.%s</string>
+    <string name="settings_vibration_disabled_summary">Vibrace jsou zakázány v nastavení zařízení</string>
+    <string name="settings_tab_animation_title">Animace při přepínání karet</string>
+    <string name="tab_animation_cube">Krychle</string>
+    <string name="tab_animation_depth">Hloubka</string>
+    <string name="tab_animation_flip">Otočení</string>
+    <string name="tab_animation_gate">Brána</string>
+    <string name="tab_animation_zoom_out">Oddálení</string>
+    <string name="timer_label_default">Časovač na <xliff:g example="30 s" id="TIMER_LABEL_DEFAULT">%s</xliff:g></string>
+    <string name="timer_end_time_label">Konec: <xliff:g example="20:30" id="END_TIME">^1</xliff:g></string>
+    <string name="invert_timer_button_positions_title">Invertovat pozici tlačítek časovače</string>
+    <string name="display_timer_end_time_title">Zobrazit čas konce časovače</string>
+    <string name="timer_missed_channel">Zmeškané časovače</string>
+    <string name="settings_language_hebrew">Hebrejština</string>
 </resources>

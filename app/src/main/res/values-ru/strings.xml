@@ -275,7 +275,7 @@
     <string name="FSN_dialog_title">Уведомления в полноэкранном режиме</string>
     <string name="duplicate">Дублировать</string>
     <string name="settings_permission_summary">Нажмите здесь, чтобы открыть страницу управления разрешениями.</string>
-    <string name="settings_vibration_title">Включить вибрацию</string>
+    <string name="settings_vibration_title">Вибрация вкл.</string>
     <string name="miscellaneous_category_title">Прочее</string>
     <string name="ringtone_category_title">Рингтон</string>
     <string name="interface_customization_settings">Внешний вид</string>
@@ -671,4 +671,16 @@
     <string name="single_timer_mode_title">Режим одного таймера</string>
     <string name="single_timer_mode_summary">Хранить только один таймер, который автоматически удаляется после сброса</string>
     <string name="single_timer_mode_warning_message">Таймеры будут удалены.%s</string>
+    <string name="settings_vibration_disabled_summary">Вибрация отключена в настройках устройства</string>
+    <string name="settings_tab_animation_title">Анимация при смене вкладок</string>
+    <string name="tab_animation_cube">Куб</string>
+    <string name="tab_animation_depth">Глубина</string>
+    <string name="tab_animation_flip">Сальто</string>
+    <string name="tab_animation_gate">Врата</string>
+    <string name="timer_label_default"><xliff:g example="30s" id="TIMER_LABEL_DEFAULT">%s</xliff:g> Таймер</string>
+    <string name="timer_end_time_label">Конец в: <xliff:g example="8:30 a.m." id="END_TIME">^1</xliff:g></string>
+    <string name="invert_timer_button_positions_title">Отразить кнопки таймера</string>
+    <string name="display_timer_end_time_title">Показать время остановки таймера</string>
+    <string name="timer_missed_channel">Пропущенные таймеры</string>
+    <string name="tab_animation_zoom_out">Отъезд</string>
 </resources>

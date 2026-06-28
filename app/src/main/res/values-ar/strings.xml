@@ -91,20 +91,20 @@
         <item quantity="other"><xliff:g id="number">%s</xliff:g> دقيقة</item>
     </plurals>
     <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
-        <item quantity="zero"><xliff:g id="NUMBER">%s</xliff:g> دقيقة</item>
-        <item quantity="two">دقيقتان (<xliff:g id="NUMBER">%s</xliff:g>)</item>
-        <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> دقائق</item>
-        <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> دقيقة</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> دقيقة</item>
+        <item quantity="zero"><xliff:g example="7" id="number">%s</xliff:g> دقيقة</item>
         <item quantity="one">دقيقة واحدة</item>
+        <item quantity="two">دقيقتان <xliff:g example="7" id="number">%s</xliff:g></item>
+        <item quantity="few"><xliff:g example="7" id="number">%s</xliff:g> دقائق</item>
+        <item quantity="many"><xliff:g example="7" id="number">%s</xliff:g> دقيقة</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> دقيقة</item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
-        <item quantity="zero"><xliff:g id="NUMBER">%s</xliff:g> ثانية</item>
+        <item quantity="zero"><xliff:g example="7" id="number">%s</xliff:g> ثانية</item>
         <item quantity="one">ثانية واحدة</item>
-        <item quantity="two">ثانيتان (<xliff:g id="NUMBER">%s</xliff:g>)</item>
-        <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> ثوانٍ</item>
-        <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> ثانية</item>
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ثانية</item>
+        <item quantity="two">ثانيتان <xliff:g example="7" id="number">%s</xliff:g></item>
+        <item quantity="few"><xliff:g example="7" id="number">%s</xliff:g> ثوانٍ</item>
+        <item quantity="many"><xliff:g example="7" id="number">%s</xliff:g> ثانية</item>
+        <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> ثانية</item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"كل يوم"</string>
     <string name="day_concat" msgid="971998564991636532">"، "</string>
@@ -342,7 +342,7 @@
     <string name="settings_language_tamil">التاميل</string>
     <string name="settings_tab_to_display">تبويب للعرض عند فتح التطبيق</string>
     <string name="last_tab_used_title">آخر علامة تبويب مستخدمة</string>
-    <string name="settings_vibration_title">تمكين الاهتزازات</string>
+    <string name="settings_vibration_title">فعّل الاهتزاز</string>
     <string name="settings_vibration_summary">تتأثر بعض أزرار واجهة المستخدم فقط (على سبيل المثال: زر تشغيل/إيقاف المؤقت أو المفاتيح)</string>
     <string name="settings_toolbar_title">اعرض العنوان في شريط الأدوات</string>
     <string name="settings_tab_title_visibility_title">عرض عناوين علامات التبويب</string>
@@ -687,4 +687,17 @@
     <string name="single_timer_mode_title">وضع المؤقت الفردي</string>
     <string name="single_timer_mode_summary">احتفظ بمؤقت واحد فقط، والذي يُحذف تلقائيًا بمجرد إعادة ضبطه</string>
     <string name="single_timer_mode_warning_message">سيتم إزالة المؤقتات. %s</string>
+    <string name="settings_language_hebrew">العبرية</string>
+    <string name="settings_vibration_disabled_summary">ميزة الاهتزاز معطّلة في إعدادات الجهاز</string>
+    <string name="settings_tab_animation_title">الرسوم المتحركة عند التبديل بين علامات التبويب</string>
+    <string name="tab_animation_cube">مكعب</string>
+    <string name="tab_animation_depth">العُمق</string>
+    <string name="tab_animation_flip">قلب</string>
+    <string name="tab_animation_gate">بوابة</string>
+    <string name="tab_animation_zoom_out">تبعيد</string>
+    <string name="timer_label_default"><xliff:g example="30s" id="TIMER_LABEL_DEFAULT">%s</xliff:g> المؤقت</string>
+    <string name="timer_end_time_label">وقت الانتهاء: <xliff:g example="8:30 a.m." id="END_TIME">^1</xliff:g></string>
+    <string name="invert_timer_button_positions_title">اعكس موضع أزرار المؤقت</string>
+    <string name="display_timer_end_time_title">اعرض وقت انتهاء المؤقت</string>
+    <string name="timer_missed_channel">المؤقتات الفائتة</string>
 </resources>

@@ -19,7 +19,6 @@ It combines modern design, powerful features, and transparency — giving you fu
 [<img src="/images/badge_f-droid.png" alt="Get it on F-Droid" height="80">](https://f-droid.org/packages/com.best.deskclock/)
 [<img src="/images/badge_izzy_on_droid.png" alt="Get it on IzzyOnDroid" height="80">](https://apt.izzysoft.de/fdroid/index/apk/com.best.deskclock/)
 [<img src="/images/badge_obtainium.png" alt="Get it on Obtainium" height="80">](https://apps.obtainium.imranr.dev/redirect?r=obtainium://add/https://github.com/BlackyHawky/Clock/releases)
-[<img src="/images/badge_openApk.png" alt="Get it on OpenApk" height="80">](https://www.openapk.net/clock/com.best.deskclock/)
 
 > [!NOTE]  
 > **Build variants:**

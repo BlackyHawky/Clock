@@ -659,4 +659,16 @@
     <string name="single_timer_mode_warning_message">De kookwekkers zullen worden verwijderd.%s</string>
     <string name="single_timer_mode_title">Gelegenheidskookwekker</string>
     <string name="single_timer_mode_summary">Behoud slechts één kookwekker, die automatisch wordt verwijderd zodra deze opnieuw wordt ingesteld</string>
+    <string name="settings_vibration_disabled_summary">Trillen is uitgeschakeld in de apparaatinstellingen</string>
+    <string name="settings_tab_animation_title">Animatie tijdens het wisselen tussen tabbladen</string>
+    <string name="tab_animation_cube">Kubus</string>
+    <string name="tab_animation_depth">Diepte</string>
+    <string name="tab_animation_flip">Draaien</string>
+    <string name="tab_animation_gate">Poort</string>
+    <string name="tab_animation_zoom_out">Verkleinen</string>
+    <string name="timer_label_default"><xliff:g example="30s" id="TIMER_LABEL_DEFAULT">%s</xliff:g> Kookwekker</string>
+    <string name="timer_end_time_label">Eindtijd: <xliff:g example="8:30 a.m." id="END_TIME">^1</xliff:g></string>
+    <string name="invert_timer_button_positions_title">Positie van kookwekkerknoppen omkeren</string>
+    <string name="display_timer_end_time_title">Eindtijd van kookwekker weergeven</string>
+    <string name="timer_missed_channel">Gemiste kookwekkers</string>
 </resources>

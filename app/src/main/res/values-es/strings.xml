@@ -276,7 +276,7 @@
     <string name="about_github_link">Ver en GitHub</string>
     <string name="features_title">Funcionalidades principales</string>
     <string name="enable_alarm_vibrations_by_default_setting_title">Activar la vibración cuando se active la alarma</string>
-    <string name="settings_vibration_title">Activar vibraciones</string>
+    <string name="settings_vibration_title">Activar vibración</string>
     <string name="settings_vibration_summary">Sólo algunos botones de la interfaz se ven afectados (e.g.: el botón de reanudar/pausar del temporizador o los interruptores)</string>
     <string name="dismiss_button_color">Color del botón de \"Descartar\"</string>
     <string name="alarm_button_color">Color del botón de la alarma</string>
@@ -663,4 +663,17 @@
     <string name="single_timer_mode_warning_message">Se eliminarán los temporizadores: %s</string>
     <string name="single_timer_mode_summary">Conserva solo un temporizador, que se borra automáticamente al reiniciarlo</string>
     <string name="single_timer_mode_title">Modo de temporizador único</string>
+    <string name="settings_vibration_disabled_summary">La vibración está desactivada en los ajustes del dispositivo</string>
+    <string name="settings_tab_animation_title">Animación al cambiar de pestaña</string>
+    <string name="tab_animation_cube">Cubo</string>
+    <string name="tab_animation_depth">Intensidad</string>
+    <string name="tab_animation_flip">Voltear</string>
+    <string name="tab_animation_gate">Puerta</string>
+    <string name="tab_animation_zoom_out">Alejar</string>
+    <string name="timer_label_default"><xliff:g example="30s" id="TIMER_LABEL_DEFAULT">%s</xliff:g> Temporizador</string>
+    <string name="timer_end_time_label">Hora de finalización: <xliff:g example="8:30 a. m." id="END_TIME">^1</xliff:g></string>
+    <string name="invert_timer_button_positions_title">Invertir la posición de los botones del temporizador</string>
+    <string name="display_timer_end_time_title">Mostrar la hora de finalización del temporizador</string>
+    <string name="timer_missed_channel">Temporizadores no activados</string>
+    <string name="settings_language_hebrew">Hebreo</string>
 </resources>

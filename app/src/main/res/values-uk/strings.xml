@@ -681,4 +681,17 @@
     <string name="single_timer_mode_title">Режим одного таймера</string>
     <string name="single_timer_mode_summary">Зберігати лише один таймер, який автоматично видаляється після скидання</string>
     <string name="single_timer_mode_warning_message">Таймери буде видалено.%s</string>
+    <string name="settings_vibration_disabled_summary">Вібрацію вимкнено в налаштуваннях пристрою</string>
+    <string name="settings_tab_animation_title">Анімація при перемиканні вкладок</string>
+    <string name="tab_animation_cube">Куб</string>
+    <string name="tab_animation_depth">Глибина</string>
+    <string name="tab_animation_flip">Перевертання</string>
+    <string name="tab_animation_gate">Ворота</string>
+    <string name="tab_animation_zoom_out">Зменшення</string>
+    <string name="timer_label_default">Таймер <xliff:g example="30s" id="TIMER_LABEL_DEFAULT">%s</xliff:g></string>
+    <string name="timer_end_time_label">Час завершення: <xliff:g example="8:30 a.m." id="END_TIME">^1</xliff:g></string>
+    <string name="display_timer_end_time_title">Показувати час завершення таймера</string>
+    <string name="timer_missed_channel">Пропущені таймери</string>
+    <string name="invert_timer_button_positions_title">Поміняти місцями кнопки таймера</string>
+    <string name="settings_language_hebrew">Іврит</string>
 </resources>

@@ -251,7 +251,7 @@
     <string name="app_slogan">AOSP-l põhinev, 100% avatud lähtekoodiga kell</string>
     <string name="display_background_border_summary">See eelistus võimaldab mõnede rakenduse elementide (äratused, linnad, taimeri nupud, jne) puhul kuvada taustu äärejoontega</string>
     <string name="display_background_border_title">Kuva taustade äärejooni</string>
-    <string name="settings_vibration_title">Kasuta vibreerimist</string>
+    <string name="settings_vibration_title">Kasuta vibreerimist/värinat</string>
     <string name="settings_vibration_summary">Toimib vaid mõnede kasutajaliidese nuppude puhul (näiteks taimeri käivita/peate nuppudel)</string>
     <string name="gnu_gpl">GNU Üldine Avalik Litsents - versioon 3.0</string>
     <string name="license">Avatud lähtekoodi litsents</string>
@@ -665,4 +665,17 @@
     <string name="single_timer_mode_title">Ühe taimeri režiim</string>
     <string name="single_timer_mode_summary">Kasuta vaid ühte taimerit, mis lähtestamisel automaatselt kustutatakse</string>
     <string name="single_timer_mode_warning_message">Taimerid eemaldatakse. %s</string>
+    <string name="settings_vibration_disabled_summary">Vibreerimine/värin on nutiseadme seadistustest keelatud</string>
+    <string name="settings_tab_animation_title">Animatsioon vahekaartide vahetamisel</string>
+    <string name="tab_animation_cube">Kuubik</string>
+    <string name="tab_animation_depth">Süvik</string>
+    <string name="tab_animation_flip">Lappamine</string>
+    <string name="tab_animation_gate">Värav</string>
+    <string name="tab_animation_zoom_out">Väljasuumimine</string>
+    <string name="timer_label_default"><xliff:g example="30s" id="TIMER_LABEL_DEFAULT">%s</xliff:g> Taimer</string>
+    <string name="timer_end_time_label">Lõpuaeg: <xliff:g example="8:30 a.m." id="END_TIME">^1</xliff:g></string>
+    <string name="invert_timer_button_positions_title">Pööra taimerinuppude asukohad teistpidi</string>
+    <string name="display_timer_end_time_title">Näita taimeri lõpuaega</string>
+    <string name="timer_missed_channel">Märkamata taimerid</string>
+    <string name="settings_language_hebrew">heebrea keel</string>
 </resources>

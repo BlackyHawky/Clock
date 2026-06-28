@@ -671,4 +671,17 @@
     <string name="display_alarm_action_message_title">Wyświetl wiadomość po drzemce lub wyłączeniu alarmu</string>
     <string name="single_timer_mode_summary">Zachowaj tylko jeden minutnik, który zostanie automatycznie usunięty po zresetowaniu</string>
     <string name="single_timer_mode_warning_message">Minutniki zostaną usunięte.%s</string>
+    <string name="settings_vibration_disabled_summary">Wibracje są wyłączone w ustawieniach urządzenia</string>
+    <string name="settings_tab_animation_title">Animacja podczas przełączania kart</string>
+    <string name="tab_animation_cube">Kostka</string>
+    <string name="tab_animation_depth">Głębia</string>
+    <string name="tab_animation_flip">Obrót</string>
+    <string name="tab_animation_gate">Brama</string>
+    <string name="tab_animation_zoom_out">Oddalenie</string>
+    <string name="timer_label_default"><xliff:g example="30s" id="TIMER_LABEL_DEFAULT">%s</xliff:g> Minutnik</string>
+    <string name="timer_end_time_label">Godzina zakończenia: <xliff:g example="8:30 a.m." id="END_TIME">^1</xliff:g></string>
+    <string name="invert_timer_button_positions_title">Odwróć położenie przycisków minutnika</string>
+    <string name="display_timer_end_time_title">Wyświetl czas zakończenia minutnika</string>
+    <string name="timer_missed_channel">Pominięte minutniki</string>
+    <string name="settings_language_hebrew">Hebrajski</string>
 </resources>
