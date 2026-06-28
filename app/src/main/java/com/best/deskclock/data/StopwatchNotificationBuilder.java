@@ -14,7 +14,9 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.SystemClock;
+import android.text.format.DateUtils;
 import android.widget.RemoteViews;
 
 import androidx.annotation.DrawableRes;
@@ -57,7 +59,13 @@ class StopwatchNotificationBuilder {
 
         final RemoteViews content = new RemoteViews(context.getPackageName(), R.layout.chronometer_notif_content);
         content.setTextViewText(R.id.title, localizedContext.getString(R.string.stopwatch_channel));
-        content.setChronometer(R.id.chronometer, base, null, running);
+
+        if (running) {
+            content.setChronometer(R.id.chronometer, base, null, true);
+        } else {
+            String pausedTimeString = DateUtils.formatElapsedTime(stopwatch.getTotalTime() / 1000);
+            content.setTextViewText(R.id.chronometer, pausedTimeString);
+        }
 
         final List<Action> actions = new ArrayList<>(2);
 
@@ -136,6 +144,20 @@ class StopwatchNotificationBuilder {
             .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
             .setColor(ContextCompat.getColor(context, R.color.md_theme_primary))
             .setGroup(nm.getStopwatchNotificationGroupKey());
+
+        // Add support for third-party apps to display active stopwatch
+        Bundle extras = new Bundle();
+        if (running) {
+            extras.putLong("android.chronometerBase", base);
+            extras.putBoolean("android.chronometerCountDown", false);
+            extras.putBoolean(Notification.EXTRA_SHOW_CHRONOMETER, true);
+        } else {
+            extras.putBoolean(Notification.EXTRA_SHOW_CHRONOMETER, false);
+        }
+
+        extras.putBoolean(context.getPackageName() + ".stopwatchIsRunning", running);
+        extras.putLong(context.getPackageName() + ".stopwatchAccumulatedMs", stopwatch.getTotalTime());
+        notification.addExtras(extras);
 
         for (Action action : actions) {
             notification.addAction(action);

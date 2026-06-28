@@ -27,6 +27,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.widget.RemoteViews;
 
 import androidx.annotation.DrawableRes;
@@ -202,8 +203,14 @@ class TimerNotificationBuilder {
 
         // Add support for third-party apps to display active timers
         Bundle extras = new Bundle();
-        extras.putLong("android.chronometerBase", base);
-        extras.putBoolean("android.chronometerCountDown", true);
+        if (running) {
+            extras.putLong("android.chronometerBase", base);
+            extras.putBoolean("android.chronometerCountDown", true);
+            extras.putBoolean(Notification.EXTRA_SHOW_CHRONOMETER, true);
+        } else {
+            extras.putBoolean(Notification.EXTRA_SHOW_CHRONOMETER, false);
+        }
+
         extras.putBoolean(context.getPackageName() + ".timerIsRunning", running);
         extras.putLong(context.getPackageName() + ".timerRemainingMs", timer.getRemainingTime());
         notification.addExtras(extras);
@@ -213,7 +220,7 @@ class TimerNotificationBuilder {
         }
 
         if (SdkUtils.isAtLeastAndroid7()) {
-            notification.setCustomContentView(buildChronometer(context.getPackageName(), base, running, titleText, stateText));
+            notification.setCustomContentView(buildChronometer(context, base, running, titleText, stateText));
         } else {
             final CharSequence preNText = stateText != null
                 ? stateText
@@ -335,12 +342,20 @@ class TimerNotificationBuilder {
             .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
             .setColor(ContextCompat.getColor(context, R.color.md_theme_primary));
 
+        Bundle extras = new Bundle();
+        extras.putLong("android.chronometerBase", base);
+        extras.putBoolean("android.chronometerCountDown", true);
+        extras.putBoolean(Notification.EXTRA_SHOW_CHRONOMETER, true);
+        extras.putBoolean(context.getPackageName() + ".timerIsRunning", true);
+        extras.putBoolean(context.getPackageName() + ".timerIsExpired", true);
+        notification.addExtras(extras);
+
         for (Action action : actions) {
             notification.addAction(action);
         }
 
         if (SdkUtils.isAtLeastAndroid7()) {
-            notification.setCustomContentView(buildChronometer(context.getPackageName(), base, true, titleText, stateText));
+            notification.setCustomContentView(buildChronometer(context, base, true, titleText, stateText));
         } else {
             final CharSequence contentTextPreN = count == 1
                 ? localizedContext.getString(R.string.timer_times_up)
@@ -414,8 +429,16 @@ class TimerNotificationBuilder {
             .setColor(ContextCompat.getColor(context, R.color.md_theme_primary))
             .setGroup(nm.getTimerNotificationGroupKey());
 
+        Bundle extras = new Bundle();
+        extras.putLong("android.chronometerBase", base);
+        extras.putBoolean("android.chronometerCountDown", true);
+        extras.putBoolean(Notification.EXTRA_SHOW_CHRONOMETER, true);
+        extras.putBoolean(context.getPackageName() + ".timerIsRunning", true);
+        extras.putBoolean(context.getPackageName() + ".timerIsMissed", true);
+        notification.addExtras(extras);
+
         if (SdkUtils.isAtLeastAndroid7()) {
-            notification.setCustomContentView(buildChronometer(context.getPackageName(), base, true, contentTitle, contentText));
+            notification.setCustomContentView(buildChronometer(context, base, true, contentTitle, contentText));
         } else {
             final CharSequence preNText = AlarmUtils.getFormattedTime(localizedContext, timer.getWallClockExpirationTime());
             notification.setContentTitle(contentTitle).setContentText(preNText);
@@ -462,12 +485,25 @@ class TimerNotificationBuilder {
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
-    private RemoteViews buildChronometer(String packageName, long base, boolean running, CharSequence titleText,
-                                         CharSequence stateText) {
+    private RemoteViews buildChronometer(Context context, long base, boolean running, CharSequence titleText, CharSequence stateText) {
 
-        final RemoteViews content = new RemoteViews(packageName, R.layout.chronometer_notif_content);
-        content.setChronometerCountDown(R.id.chronometer, true);
-        content.setChronometer(R.id.chronometer, base, null, running);
+        final RemoteViews content = new RemoteViews(context.getPackageName(), R.layout.chronometer_notif_content);
+
+        if (running) {
+            content.setChronometerCountDown(R.id.chronometer, true);
+            content.setChronometer(R.id.chronometer, base, null, true);
+        } else {
+            long remainingMillis = base - SystemClock.elapsedRealtime();
+            long remainingSeconds = remainingMillis / 1000;
+            String pausedTimeString = DateUtils.formatElapsedTime(remainingSeconds);
+
+            if (remainingMillis < 0) {
+                pausedTimeString = "− " + DateUtils.formatElapsedTime(Math.abs(remainingSeconds));
+            }
+
+            content.setTextViewText(R.id.chronometer, pausedTimeString);
+        }
+
         content.setTextViewText(R.id.title, titleText);
         content.setTextViewText(R.id.state, stateText);
         return content;
