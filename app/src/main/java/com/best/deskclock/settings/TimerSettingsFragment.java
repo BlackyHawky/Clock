@@ -87,7 +87,6 @@ public class TimerSettingsFragment extends ScreenFragment
     CustomSliderPreference mTimerShakeIntensityPref;
     SwitchPreferenceCompat mSingleTimerModePref;
     ListPreference mSortTimerPref;
-    SwitchPreferenceCompat mDisplayWarningBeforeDeletingTimerPref;
     SwitchPreferenceCompat mDisplayLowAlarmVolumeWarningPref;
 
     private final ActivityResultLauncher<Intent> fontPickerLauncher =
@@ -173,7 +172,6 @@ public class TimerSettingsFragment extends ScreenFragment
         mTimerShakeIntensityPref = findPreference(KEY_TIMER_SHAKE_INTENSITY);
         mSingleTimerModePref = findPreference(KEY_SINGLE_TIMER_MODE);
         mSortTimerPref = findPreference(KEY_SORT_TIMER);
-        mDisplayWarningBeforeDeletingTimerPref = findPreference(KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER);
         mDisplayLowAlarmVolumeWarningPref = findPreference(KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING);
 
         mIsAlarmTabHidden = !SettingsDAO.isAlarmTabVisible(mPrefs);
@@ -251,8 +249,7 @@ public class TimerSettingsFragment extends ScreenFragment
         nullifyPreferenceListeners(mTimerDisplayCustomizationPref, mTimerDurationFontPref, mTimerCreationViewStylePref, mTimerRingtonePref,
             mAlarmVolumePref, mAdvancedAudioPlaybackPref, mAutoRoutingToExternalAudioDevicePref, mSystemMediaVolume,
             mExternalAudioDeviceVolumePref, mTimerVibratePref, mTimerVolumeButtonsActionPref, mTimerPowerButtonActionPref,
-            mTimerFlipActionPref, mTimerShakeActionPref, mTimerShakeIntensityPref, mSortTimerPref, mDisplayWarningBeforeDeletingTimerPref,
-            mDisplayLowAlarmVolumeWarningPref);
+            mTimerFlipActionPref, mTimerShakeActionPref, mTimerShakeIntensityPref, mSortTimerPref, mDisplayLowAlarmVolumeWarningPref);
 
         nullifyAllPrefs();
 
@@ -310,7 +307,6 @@ public class TimerSettingsFragment extends ScreenFragment
 
                 if (DataModel.getDataModel().getTimers().isEmpty()) {
                     mSortTimerPref.setVisible(!newValueBool);
-                    mDisplayWarningBeforeDeletingTimerPref.setVisible(!newValueBool);
                 } else {
                     mShowSingleTimerWarning = true;
                     mPendingSingleModeValue = newValueBool;
@@ -323,7 +319,7 @@ public class TimerSettingsFragment extends ScreenFragment
             }
 
             case KEY_TIMER_VIBRATE, KEY_TIMER_VOLUME_BUTTONS_ACTION, KEY_TIMER_POWER_BUTTON_ACTION, KEY_TIMER_FLIP_ACTION,
-                 KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER, KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING ->
+                 KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING ->
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
         }
 
@@ -430,9 +426,6 @@ public class TimerSettingsFragment extends ScreenFragment
         mSortTimerPref.setOnPreferenceChangeListener(this);
         mSortTimerPref.setSummary(mSortTimerPref.getEntry());
 
-        mDisplayWarningBeforeDeletingTimerPref.setVisible(!SettingsDAO.isSingleTimerModeEnabled(mPrefs));
-        mDisplayWarningBeforeDeletingTimerPref.setOnPreferenceChangeListener(this);
-
         mDisplayLowAlarmVolumeWarningPref.setOnPreferenceChangeListener(this);
     }
 
@@ -498,11 +491,10 @@ public class TimerSettingsFragment extends ScreenFragment
                 List<Timer> timersToDelete = new ArrayList<>(DataModel.getDataModel().getTimers());
 
                 for (Timer timer : timersToDelete) {
-                    DataModel.getDataModel().removeTimer(timer);
+                    DataModel.getDataModel().removeTimer(timer, R.string.label_deskclock);
                 }
 
                 mSortTimerPref.setVisible(!newValue);
-                mDisplayWarningBeforeDeletingTimerPref.setVisible(!newValue);
                 mPrefs.edit().putBoolean(KEY_SINGLE_TIMER_MODE, newValue).apply();
                 mSingleTimerModePref.setChecked(newValue);
 
@@ -591,7 +583,6 @@ public class TimerSettingsFragment extends ScreenFragment
         mTimerShakeActionPref = null;
         mTimerShakeIntensityPref = null;
         mSortTimerPref = null;
-        mDisplayWarningBeforeDeletingTimerPref = null;
         mDisplayLowAlarmVolumeWarningPref = null;
     }
 

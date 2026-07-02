@@ -32,7 +32,6 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.best.deskclock.R;
-import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.databinding.TimerDialogEditAddTimeBinding;
@@ -60,6 +59,7 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
     public static final String RESULT_PREF_KEY = "result_pref_key";
     public static final String REQUEST_KEY = "add_time_button_request_key";
     public static final String ADD_TIME_BUTTON_VALUE = "add_time_button_value";
+    public static final String REQUEST_ADD_TIME_DURATION = "request_add_time_duration";
 
     private TimerDialogEditAddTimeBinding mBinding;
 
@@ -99,19 +99,17 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
      * directly from an existing timer instance, typically when modifying the button time
      * from within the timer UI.
      *
-     * @param timer The {@link Timer} instance containing the current button time and ID.
-     *              The button time is expected to be stored as a string representing seconds.
+     * @param timerId the {@link Timer} id whose current button time will be edited.
      */
-    public static TimerAddTimeButtonDialogFragment newInstance(Timer timer) {
+    public static TimerAddTimeButtonDialogFragment newInstance(int timerId, int totalDuration) {
         final Bundle args = new Bundle();
 
-        int totalSecondsButtonTime = Integer.parseInt(timer.getButtonTime());
-        int minutesButtonTime = totalSecondsButtonTime / 60;
-        int secondsButtonTime = totalSecondsButtonTime % 60;
+        int minutesButtonTime = totalDuration / 60;
+        int secondsButtonTime = totalDuration % 60;
 
+        args.putInt(ARG_TIMER_ID, timerId);
         args.putInt(ARG_EDIT_MINUTES, minutesButtonTime);
         args.putInt(ARG_EDIT_SECONDS, secondsButtonTime);
-        args.putInt(ARG_TIMER_ID, timer.getId());
 
         final TimerAddTimeButtonDialogFragment frag = new TimerAddTimeButtonDialogFragment();
         frag.setArguments(args);
@@ -202,8 +200,8 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
         return CustomDialog.create(
             requireContext(),
             null,
-            mPrefKey != null ? null : AppCompatResources.getDrawable(requireContext(), R.drawable.ic_hourglass_top),
-            getString(R.string.timer_button_time_box_title),
+            mPrefKey != null ? null : AppCompatResources.getDrawable(requireContext(), R.drawable.ic_more_time),
+            getString(mPrefKey != null ? R.string.timer_button_time_box_title : R.string.add_time_button_title),
             null,
             mBinding.getRoot(),
             getString(android.R.string.ok),
@@ -283,14 +281,13 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
      * Apply the duration in seconds.
      */
     private void applyDurationInSeconds(int totalSeconds) {
+        Bundle result = new Bundle();
+
+        result.putInt(ADD_TIME_BUTTON_VALUE, totalSeconds);
+
         if (mTimerId >= 0) {
-            final Timer timer = DataModel.getDataModel().getTimer(mTimerId);
-            if (timer != null) {
-                DataModel.getDataModel().setTimerButtonTime(timer, String.valueOf(totalSeconds));
-            }
+            getParentFragmentManager().setFragmentResult(REQUEST_ADD_TIME_DURATION, result);
         } else {
-            Bundle result = new Bundle();
-            result.putInt(ADD_TIME_BUTTON_VALUE, totalSeconds);
             result.putString(RESULT_PREF_KEY, requireArguments().getString(ARG_PREF_KEY));
             getParentFragmentManager().setFragmentResult(REQUEST_KEY, result);
         }
@@ -374,11 +371,13 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
         if (titleText != null) {
             if (mPrefKey != null) {
                 titleText.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                titleText.setText(getString(R.string.timer_button_time_box_title));
             } else {
                 titleText.setCompoundDrawablesWithIntrinsicBounds(AppCompatResources.getDrawable(
-                    requireContext(), R.drawable.ic_hourglass_top), null, null, null);
+                    requireContext(), R.drawable.ic_more_time), null, null, null);
+                titleText.setText(getString(R.string.add_time_button_title));
             }
-            titleText.setText(getString(R.string.timer_button_time_box_title));
+
         }
 
         int validColor = MaterialColors.getColor(requireContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK);

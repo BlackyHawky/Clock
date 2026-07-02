@@ -406,9 +406,6 @@
     <string name="clock_color_title">Color del reloj</string>
     <string name="second_hand_color_title">Color del segundero</string>
     <string name="screensaver_bold_digital_clock_title">Reloj digital en negrita</string>
-    <string name="display_warning_before_deleting_timer_title">Mostrar un aviso antes de borrar un temporizador</string>
-    <string name="warning_dialog_title">Eliminar temporizador</string>
-    <string name="warning_dialog_message">¿Confirma que quiere eliminar el temporizador «%s»?</string>
     <string name="sort_manually">Manualmente (arrastrando)</string>
     <string name="alarm_flash">Flash</string>
     <string name="description_direction_both_for_non_repeatable_alarm">Deslice el dedo a izquierda o derecha para descartar</string>

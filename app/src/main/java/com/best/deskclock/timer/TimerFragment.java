@@ -41,7 +41,6 @@ import android.widget.ImageView;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.view.HapticFeedbackConstantsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -61,7 +60,6 @@ import com.best.deskclock.data.Timer;
 import com.best.deskclock.data.TimerListener;
 import com.best.deskclock.databinding.TimerFragmentBinding;
 import com.best.deskclock.events.Events;
-import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.uicomponents.CustomTooltip;
 import com.best.deskclock.utils.AnimatorUtils;
 import com.best.deskclock.utils.ClockUtils;
@@ -81,8 +79,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     private static final String EXTRA_TIMER_SETUP = "com.best.deskclock.action.TIMER_SETUP";
 
     private static final String KEY_TIMER_SETUP_STATE = "timer_setup_input";
-    private static final String KEY_TIMER_ID_TO_DELETE = "timer_id_to_delete";
-    private int mTimerIdToDelete = -1;
+
     private boolean mAreSettingsChanged = false;
     private final SharedPreferences.OnSharedPreferenceChangeListener mPrefListener = (prefs, key) -> {
         if (key != null) {
@@ -113,7 +110,6 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
     private ViewGroup mCurrentView;
     private TimerItemTouchHelper mTouchHelperCallback;
     private ItemTouchHelper mItemTouchHelper;
-    private AlertDialog mActiveDialog = null;
     private boolean mIsTablet;
     private boolean mIsLandscape;
 
@@ -199,8 +195,6 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
             mTimerSetupState = SdkUtils.isAtLeastAndroid13()
                 ? savedInstanceState.getSerializable(KEY_TIMER_SETUP_STATE, int[].class)
                 : savedInstanceState.getSerializable(KEY_TIMER_SETUP_STATE);
-
-            mTimerIdToDelete = savedInstanceState.getInt(KEY_TIMER_ID_TO_DELETE, -1);
         }
 
         requireActivity().getOnBackPressedDispatcher().addCallback(
@@ -336,23 +330,6 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
                         mTimerSetupState = null;
                     }
                 }
-
-                if (mTimerIdToDelete != -1 && (mActiveDialog == null || !mActiveDialog.isShowing())) {
-                    Timer timerToDelete = null;
-                    for (Timer timer : DataModel.getDataModel().getTimers()) {
-                        if (timer.getId() == mTimerIdToDelete) {
-                            timerToDelete = timer;
-                            break;
-                        }
-                    }
-
-                    if (timerToDelete != null) {
-                        mActiveDialog = warningDialogBeforeDeletingTimer(timerToDelete);
-                        mActiveDialog.show();
-                    } else {
-                        mTimerIdToDelete = -1;
-                    }
-                }
             });
         }
     }
@@ -373,12 +350,6 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
 
     @Override
     public void onDestroyView() {
-        if (mActiveDialog != null && mActiveDialog.isShowing()) {
-            mActiveDialog.setOnDismissListener(null);
-            mActiveDialog.dismiss();
-            mActiveDialog = null;
-        }
-
         DataModel.getDataModel().removeTimerListener(mAdapter);
         DataModel.getDataModel().removeTimerListener(mTimerWatcher);
 
@@ -404,8 +375,6 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
             mTimerSetupState = mBinding.timerSetupView.getState();
             outState.putSerializable(KEY_TIMER_SETUP_STATE, mTimerSetupState);
         }
-
-        outState.putInt(KEY_TIMER_ID_TO_DELETE, mTimerIdToDelete);
     }
 
     @Override
@@ -466,7 +435,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
                 if (!DataModel.getDataModel().getTimers().isEmpty()) {
                     Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
-                    DataModel.getDataModel().removeTimer(timers.get(0));
+                    DataModel.getDataModel().removeTimer(timers.get(0), R.string.label_deskclock);
                 }
             } else {
                 animateToView(getTimerCreationView(), true);
@@ -767,43 +736,6 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
         mAreSettingsChanged = false;
     }
 
-    public void confirmAndDeleteTimer(Timer timer) {
-        if (SettingsDAO.isWarningDisplayedBeforeDeletingTimer(mPrefs)) {
-            mTimerIdToDelete = timer.getId();
-            mActiveDialog = warningDialogBeforeDeletingTimer(timer);
-            mActiveDialog.show();
-        } else {
-            DataModel.getDataModel().removeTimer(timer);
-        }
-    }
-
-    private AlertDialog warningDialogBeforeDeletingTimer(Timer timer) {
-        // Get the title of the timer if there is one; otherwise, get the total duration.
-        final String dialogMessage;
-        if (timer.getLabel().isEmpty()) {
-            dialogMessage = getString(R.string.warning_dialog_message, timer.getTotalDuration());
-        } else {
-            dialogMessage = getString(R.string.warning_dialog_message, timer.getLabel());
-        }
-
-        return CustomDialog.create(
-            requireContext(),
-            null,
-            AppCompatResources.getDrawable(requireContext(), R.drawable.ic_delete),
-            getString(R.string.warning_dialog_title),
-            dialogMessage,
-            null,
-            getString(android.R.string.ok),
-            (d, w) -> DataModel.getDataModel().removeTimer(timer),
-            getString(android.R.string.cancel),
-            null,
-            null,
-            null,
-            (alertDialog -> alertDialog.setOnDismissListener(d -> mTimerIdToDelete =  -1)),
-            CustomDialog.SoftInputMode.NONE
-        );
-    }
-
     private boolean hasTimers() {
         return !DataModel.getDataModel().getTimers().isEmpty();
     }
@@ -883,6 +815,9 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
                     gridLayoutManager.setSpanCount(newSpanCount);
                 }
             }
+
+            // Scroll to the newly created or duplicated timer.
+            mBinding.timerRecyclerView.smoothScrollToPosition(mAdapter.getTimerPosition(timer.getId()));
 
             // Required to attach the ItemTouchHelper when there is more than one timer.
             handleItemTouchHelper();

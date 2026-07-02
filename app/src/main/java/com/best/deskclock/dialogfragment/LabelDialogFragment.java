@@ -50,7 +50,6 @@ public class LabelDialogFragment extends DialogFragment {
      */
     private static final String TAG = "label_dialog";
 
-
     public static final String REQUEST_KEY = "label_request_key";
     public static final String RESULT_LABEL = "result_label";
     public static final String RESULT_SYNC = "result_sync";
@@ -61,6 +60,8 @@ public class LabelDialogFragment extends DialogFragment {
     private static final String ARG_CITY_ID = "city_id";
     private static final String ARG_CITY_NAME = "city_name";
 
+    public static final String REQUEST_TIMER_LABEL = "request_timer_label";
+    public static final String RESULT_TIMER_LABEL = "result_timer_label";
     private static final String ARG_TIMER_ID = "arg_timer_id";
 
     private static final String ARG_LABEL = "arg_label";
@@ -97,12 +98,12 @@ public class LabelDialogFragment extends DialogFragment {
     /**
      * Creates a new instance of {@link LabelDialogFragment} to edit the label of the given timer.
      *
-     * @param timer the {@link Timer} whose label will be edited
+     * @param timerId the {@link Timer} id whose label will be edited.
      */
-    public static LabelDialogFragment newInstance(Timer timer) {
+    public static LabelDialogFragment newInstance(int timerId, String label) {
         final Bundle args = new Bundle();
-        args.putString(ARG_LABEL, timer.getLabel());
-        args.putInt(ARG_TIMER_ID, timer.getId());
+        args.putInt(ARG_TIMER_ID, timerId);
+        args.putString(ARG_LABEL, label);
 
         final LabelDialogFragment frag = new LabelDialogFragment();
         frag.setArguments(args);
@@ -237,11 +238,7 @@ public class LabelDialogFragment extends DialogFragment {
             getString(isTimer() ? R.string.reset : R.string.delete),
             (d, w) -> {
                 if (isTimer()) {
-                    Timer timer = getTimer();
-
-                    if (timer != null && mDefaultTimerLabel != null) {
-                        DataModel.getDataModel().setTimerLabel(timer, mDefaultTimerLabel);
-                    }
+                    applyLabel(mDefaultTimerLabel);
                 } else {
                     mBinding.syncAlarmByLabelCheckbox.setChecked(false);
 
@@ -306,11 +303,9 @@ public class LabelDialogFragment extends DialogFragment {
         String trimmedLabel = label.trim();
 
         if (isTimer()) {
-            final Timer timer = getTimer();
-
-            if (timer != null) {
-                DataModel.getDataModel().setTimerLabel(timer, trimmedLabel);
-            }
+            Bundle result = new Bundle();
+            result.putString(RESULT_TIMER_LABEL, trimmedLabel);
+            getParentFragmentManager().setFragmentResult(REQUEST_TIMER_LABEL, result);
         } else if (isCity()) {
             Bundle result = new Bundle();
             result.putString(RESULT_CITY_ID, mCityId);

@@ -20,6 +20,7 @@ import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.util.AttributeSet;
+import android.view.Gravity;
 
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -41,19 +42,17 @@ public class TimerItem extends ConstraintLayout {
 
     private TimerItemBinding mBinding;
 
-    Typeface mRegularTypeface;
-    Typeface mBoldTypeface;
-
     private CharSequence mTimerEndTimeFormatPattern;
 
     private boolean mIsTimerEndTimeDisplayed;
     private boolean mIsIndicatorStateDisplayed;
+    private boolean mLastDeleteAfterUse;
+    private boolean mIsAddTimeZero;
 
     private Drawable mIconPlay;
     private Drawable mIconPause;
     private Drawable mIconStop;
-    private Drawable mIconEdit;
-    private Drawable mIconReset;
+    private Drawable mIconDelete;
 
     private int mColorPaused;
     private int mColorRunning;
@@ -108,8 +107,7 @@ public class TimerItem extends ConstraintLayout {
         mIconPlay = AppCompatResources.getDrawable(getContext(), R.drawable.ic_fab_play);
         mIconPause = AppCompatResources.getDrawable(getContext(), R.drawable.ic_fab_pause);
         mIconStop = AppCompatResources.getDrawable(getContext(), R.drawable.ic_fab_stop);
-        mIconEdit = AppCompatResources.getDrawable(getContext(), R.drawable.ic_edit);
-        mIconReset = AppCompatResources.getDrawable(getContext(), R.drawable.ic_reset);
+        mIconDelete = AppCompatResources.getDrawable(getContext(), R.drawable.ic_delete);
 
         final int colorAccent = MaterialColors.getColor(getContext(), androidx.appcompat.R.attr.colorPrimary, Color.BLACK);
         final int textColorPrimary = mBinding.timerTimeText.getCurrentTextColor();
@@ -120,8 +118,7 @@ public class TimerItem extends ConstraintLayout {
     }
 
     public void setGeneralFonts(Typeface regular, Typeface bold) {
-        mRegularTypeface = regular;
-        mBoldTypeface = bold;
+        mBinding.timerLabel.setTypeface(bold);
 
         mBinding.timerAddTimeButton.setTypeface(bold);
 
@@ -140,15 +137,26 @@ public class TimerItem extends ConstraintLayout {
         mIsTimerEndTimeDisplayed = isTimerEndTimeDisplayed;
     }
 
-    public void setButtonPosition(boolean areTimerButtonPositionsInverted) {
+    public void setButtonPosition(boolean areTimerButtonPositionsInverted, boolean isTablet, boolean isLandscape, boolean isSingleTimer) {
         if (areTimerButtonPositionsInverted) {
-            mBinding.timerControlsContainer.setLayoutDirection(ThemeUtils.isRTL(getContext())
+            mBinding.getRoot().setLayoutDirection(ThemeUtils.isRTL(getContext())
                 ? LAYOUT_DIRECTION_LTR
                 : LAYOUT_DIRECTION_RTL
             );
         } else {
-            mBinding.timerControlsContainer.setLayoutDirection(LAYOUT_DIRECTION_LOCALE);
+            mBinding.getRoot().setLayoutDirection(LAYOUT_DIRECTION_LOCALE);
         }
+
+        if ((!isTablet && isLandscape) || isSingleTimer) {
+            mBinding.timerEndTime.setGravity(Gravity.CENTER);
+        } else {
+            mBinding.timerEndTime.setGravity(areTimerButtonPositionsInverted
+                ? Gravity.START | Gravity.CENTER_VERTICAL
+                : Gravity.END | Gravity.CENTER_VERTICAL);
+        }
+
+        mBinding.timerLabel.setLayoutDirection(LAYOUT_DIRECTION_LOCALE);
+        mBinding.timerIndicatorState.setLayoutDirection(LAYOUT_DIRECTION_LOCALE);
     }
 
     public void setIndicatorStateDisplay(boolean isIndicatorStateDisplayed) {
@@ -232,12 +240,11 @@ public class TimerItem extends ConstraintLayout {
             mLastLabel = label;
 
             if (label.isEmpty()) {
-                mBinding.timerLabel.setText(null);
-                mBinding.timerLabel.setTypeface(mRegularTypeface);
+                mBinding.timerLabel.setVisibility(GONE);
             } else {
                 mBinding.timerLabel.setText(label);
-                mBinding.timerLabel.setTypeface(mBoldTypeface);
                 mBinding.timerLabel.setAlpha(1f);
+                mBinding.timerLabel.setVisibility(VISIBLE);
             }
         }
 
@@ -258,6 +265,8 @@ public class TimerItem extends ConstraintLayout {
             mLastButtonTimeRaw = buttonTime;
 
             long totalSeconds = Long.parseLong(buttonTime);
+            mIsAddTimeZero = totalSeconds == 0;
+
             long buttonTimeMinutes = (totalSeconds) / 60;
             long buttonTimeSeconds = totalSeconds % 60;
 
@@ -276,37 +285,39 @@ public class TimerItem extends ConstraintLayout {
                 String.valueOf(buttonTimeSeconds));
         }
 
-        mBinding.timerAddTimeButton.setText(mCachedAddButtonText);
-        mBinding.timerAddTimeButton.setContentDescription(mCachedAddButtonContentDesc);
+        final boolean deleteAfterUse = timer.getDeleteAfterUse();
 
         // Initialize some potentially expensive areas of the user interface only on state changes.
-        if (timer.getState() != mLastState) {
-            mBinding.resetOrEditButton.setVisibility(VISIBLE);
+        if (timer.getState() != mLastState || deleteAfterUse != mLastDeleteAfterUse) {
+            mBinding.resetButton.setVisibility(VISIBLE);
 
             mLastState = timer.getState();
+            mLastDeleteAfterUse = deleteAfterUse;
 
             switch (mLastState) {
                 case RESET -> {
-                    mBinding.resetOrEditButton.setIcon(mIconEdit);
+                    mBinding.resetButton.setVisibility(INVISIBLE);
                     mBinding.playPauseButton.setIcon(mIconPlay);
                 }
 
                 case PAUSED -> {
-                    mBinding.resetOrEditButton.setIcon(mIconReset);
+                    mBinding.resetButton.setVisibility(VISIBLE);
                     mBinding.playPauseButton.setIcon(mIconPlay);
                 }
 
                 case RUNNING -> {
-                    mBinding.resetOrEditButton.setIcon(mIconReset);
+                    mBinding.resetButton.setVisibility(VISIBLE);
                     mBinding.playPauseButton.setIcon(mIconPause);
                 }
 
                 case EXPIRED, MISSED -> {
-                    mBinding.resetOrEditButton.setVisibility(INVISIBLE);
-                    mBinding.playPauseButton.setIcon(mIconStop);
+                    mBinding.resetButton.setVisibility(INVISIBLE);
+                    mBinding.playPauseButton.setIcon(deleteAfterUse ? mIconDelete : mIconStop);
                 }
             }
         }
+
+        updateAddTimeButtonDisplay(timer.getState());
 
         updateIndicator(timer.getState());
 
@@ -315,9 +326,25 @@ public class TimerItem extends ConstraintLayout {
         updateTimeDisplay(timer, animate);
     }
 
+    private void updateAddTimeButtonDisplay(Timer.State state) {
+        if (state == Timer.State.RESET || mIsAddTimeZero) {
+            mBinding.timerAddTimeButton.setVisibility(INVISIBLE);
+            return;
+        }
+
+        mBinding.timerAddTimeButton.setText(mCachedAddButtonText);
+        mBinding.timerAddTimeButton.setContentDescription(mCachedAddButtonContentDesc);
+        mBinding.timerAddTimeButton.setVisibility(VISIBLE);
+    }
+
     private void updateIndicator(Timer.State state) {
-        if (!mIsIndicatorStateDisplayed || state == Timer.State.RESET) {
+        if (!mIsIndicatorStateDisplayed) {
             mBinding.timerIndicatorState.setVisibility(GONE);
+            return;
+        }
+
+        if (state == Timer.State.RESET) {
+            mBinding.timerIndicatorState.setVisibility(mLastLabel.isEmpty() ? INVISIBLE : GONE);
             return;
         }
 

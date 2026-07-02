@@ -294,7 +294,6 @@
     <string name="github_dialog_message">Projenin GitHub sayfasını ziyaret et:\n\n%s</string>
     <string name="dialog_close">Kapat</string>
     <string name="transparent_background_for_expired_timer_title">Zamanlayıcı sona erdiğinde şeffaf arka plan</string>
-    <string name="warning_dialog_message">%s zamanlayıcıyı silmek istediğinize emin misiniz?</string>
     <string name="next_alarm_no_upcoming_alarm_titles_color">\"Yaklaşan alarm yok\" başlığı için renk</string>
     <string name="show_lockscreen_dialog_title">Kilit ekranında göster</string>
     <string name="show_lockscreen_dialog_text">Uygulamanın Xiaomi cihazlarda sorunsuz çalışabilmesi için \"Kilit ekranında göster\" iznini cihaz ayarlarından elle etkinleştirmelisiniz.</string>
@@ -394,8 +393,6 @@
     <string name="widget_max_font_size_title">Maksimum widget yazı boyutu</string>
     <string name="permission_management_settings">İzin yönetimi</string>
     <string name="city_clock_color_title">Şehir saati için özel renk</string>
-    <string name="display_warning_before_deleting_timer_title">Zamanlayıcıyı silerken uyarı penceresi göster</string>
-    <string name="warning_dialog_title">Zamanlayıcıyı sil</string>
     <string name="sort_manually">Elle (sürükleyerek)</string>
     <string name="screensaver_settings_summary">Ekran koruyucunun stilini, rengini ve yazı tipini ayarlayın</string>
     <string name="screensaver_daydream_settings_summary">Android\'in ekran koruyucu ayarlarını açar</string>

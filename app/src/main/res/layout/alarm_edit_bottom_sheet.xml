@@ -153,7 +153,6 @@
                 android:gravity="center_vertical"
                 android:focusable="true"
                 android:text="@string/add_label"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/pause_alarm_layout" />
 
             <com.google.android.material.textview.MaterialTextView

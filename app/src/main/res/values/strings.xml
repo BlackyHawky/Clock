@@ -732,12 +732,16 @@
     <string name="timer_label_default"><xliff:g example="30s" id="TIMER_LABEL_DEFAULT">%s</xliff:g> Timer</string>
     <!-- Title of dialog box for editing timer label -->
     <string name="timer_label_box_title">Timer label</string>
+    <!-- Title in the timer editing panel to customize the "Add time" button value. -->
+    <string name="add_time_button_title">\"Add time\" button</string>
     <!-- Title of dialog box to set a new duration to an existing timer. -->
     <string name="timer_time_box_title">New timer duration</string>
     <!-- Text of dialog box to edit hours to set a new duration to an existing timer. -->
     <string name="alarm_hours_warning_box_text">Enter a value from 0 to 24 hours</string>
     <!-- Text of dialog box to edit minutes to set the notification reminder time. -->
     <string name="alarm_minutes_warning_box_text">Enter a value from 0 to 59 minutes</string>
+    <!-- Label title in the timer editing panel to delete the timer once expired. -->
+    <string name="delete_timer_after_use_title">Delete timer once expired</string>
     <!-- Title of dialog box to edit button for adding time to timer. -->
     <string name="timer_button_time_box_title">Minutes to add to the timer</string>
     <!-- Text of dialog box to edit minutes for adding time to timer. -->
@@ -1056,12 +1060,6 @@
     <string name="sort_timer_descending_duration">By duration (descending order)</string>
     <!-- Default time to add to timer preference title in the settings -->
     <string name="default_time_to_add_to_timer_title">Default time to add to the timers</string>
-    <!-- Setting title to display a warning before deleting a timer -->
-    <string name="display_warning_before_deleting_timer_title">Display a warning before deleting a timer</string>
-    <!-- Warning dialog title before deleting a timer -->
-    <string name="warning_dialog_title">Delete timer</string>
-    <!-- Warning dialog message before deleting a timer -->
-    <string name="warning_dialog_message">Are you sure you want to delete the \"%s\" timer?</string>
     <!-- Notification title when timer is paused. [CHAR LIMIT=25] -->
     <string name="timer_paused">Timer paused</string>
     <!-- Notification title when at least one timer, of those in use, is counting down. -->
@@ -1245,6 +1243,10 @@
     </plurals>
     <!-- String that represents that the user has successfully deleted a timer. [CHAR LIMIT=NONE]
     -->
+    <plurals name="expired_timers_deleted">
+        <item quantity="one">Timer deleted</item>
+        <item quantity="other"><xliff:g example="5" id="number">%d</xliff:g> timers deleted</item>
+    </plurals>
 
     <!-- String that represents that the user attempted to start a timer through a voice action
     but specified invalid length.

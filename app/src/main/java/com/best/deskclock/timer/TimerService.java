@@ -135,7 +135,7 @@ public final class TimerService extends Service {
                         return START_NOT_STICKY;
                     }
                     case ACTION_RESET_MISSED_TIMERS -> {
-                        DataModel.getDataModel().resetMissedTimers(label);
+                        DataModel.getDataModel().resetOrDeleteMissedTimers(label);
                         return START_NOT_STICKY;
                     }
                 }
@@ -166,7 +166,7 @@ public final class TimerService extends Service {
                         DataModel.getDataModel().addCustomTimeToTimer(timer);
                     }
                     case ACTION_RESET_TIMER -> {
-                        DataModel.getDataModel().resetOrDeleteTimer(timer, label);
+                        DataModel.getDataModel().resetTimer(timer, label);
                         detachListeners();
                     }
                     case ACTION_TIMER_EXPIRED -> {

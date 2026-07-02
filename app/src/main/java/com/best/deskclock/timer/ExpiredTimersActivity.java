@@ -7,6 +7,7 @@
 package com.best.deskclock.timer;
 
 import static android.view.View.GONE;
+import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
@@ -403,7 +404,6 @@ public class ExpiredTimersActivity extends BaseActivity {
         final View view;
         final TextView labelView;
         final View addTimeButton;
-        final View deleteButton;
         final View resetButton;
         final View stopButton;
 
@@ -421,14 +421,13 @@ public class ExpiredTimersActivity extends BaseActivity {
 
             labelView = compactBinding.timerLabel;
             addTimeButton = compactBinding.timerAddTimeButton;
-            deleteButton = compactBinding.deleteTimerButton;
-            resetButton = compactBinding.resetOrEditButton;
+            resetButton = compactBinding.resetButton;
             stopButton = compactBinding.playPauseButton;
         } else {
             TimerItemBinding normalBinding = TimerItemBinding.inflate(getLayoutInflater(), mBinding.expiredTimersList, false);
 
             view = normalBinding.getRoot();
-            ((TimerItem) view).setButtonPosition(mAreTimerButtonPositionsInverted);
+            ((TimerItem) view).setButtonPosition(mAreTimerButtonPositionsInverted, mIsTablet, !mIsPortrait, false);
             ((TimerItem) view).setGeneralFonts(mRegularTypeface, mBoldTypeface);
             ((TimerItem) view).setTimerTimeFont(mTimerTimeTypeface);
             ((TimerItem) view).setIndicatorStateDisplay(mIsIndicatorStateDisplayed);
@@ -437,8 +436,7 @@ public class ExpiredTimersActivity extends BaseActivity {
 
             labelView = normalBinding.timerLabel;
             addTimeButton = normalBinding.timerAddTimeButton;
-            deleteButton = normalBinding.deleteTimerButton;
-            resetButton = normalBinding.resetOrEditButton;
+            resetButton = normalBinding.resetButton;
             stopButton = normalBinding.playPauseButton;
         }
 
@@ -456,9 +454,8 @@ public class ExpiredTimersActivity extends BaseActivity {
             DataModel.getDataModel().addCustomTimeToTimer(timer1);
         });
 
-        // Add logic to hide the "Delete" and "Reset" buttons
-        deleteButton.setVisibility(GONE);
-        resetButton.setVisibility(GONE);
+        // Add logic to hide the "Reset" buttons
+        resetButton.setVisibility(INVISIBLE);
 
         // Add logic to the "Stop" button
         stopButton.setOnClickListener(v -> {

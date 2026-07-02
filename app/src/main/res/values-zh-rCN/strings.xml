@@ -404,9 +404,6 @@
     <string name="yellow_accent_color">黄色</string>
     <string name="day_accent_color_title">日间模式的强调色</string>
     <string name="display_ringtone_title">显示铃声标题</string>
-    <string name="warning_dialog_message">确定要删除“%s”定时器吗？</string>
-    <string name="display_warning_before_deleting_timer_title">删除定时器之前显示警告</string>
-    <string name="warning_dialog_title">删除定时器</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">闹钟暂停时双次振动，闹钟关闭时单次振动</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">闹钟暂停或关闭时启用振动</string>
     <string name="turn_on_back_flash_for_triggered_alarm_title">闹钟触发时打开后置闪光灯</string>

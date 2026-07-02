@@ -13,57 +13,58 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.data.TimerStringFormatter;
-import com.best.deskclock.dialogfragment.LabelDialogFragment;
-import com.best.deskclock.dialogfragment.TimerAddTimeButtonDialogFragment;
-import com.best.deskclock.dialogfragment.TimerSetNewDurationDialogFragment;
 import com.best.deskclock.events.Events;
+import com.best.deskclock.utils.LogUtils;
 
 /**
  * Click handler for a timer item.
  */
 public record TimerClickHandler(TimerFragment mTimerFragment) {
 
-    public void onEditLabelClicked(Timer timer) {
-        Events.sendAlarmEvent(R.string.action_set_label, R.string.label_deskclock);
-        final LabelDialogFragment fragment = LabelDialogFragment.newInstance(timer);
-        LabelDialogFragment.show(mTimerFragment.getParentFragmentManager(), fragment);
-    }
-
-    public void onEditAddTimeButtonLongClicked(Timer timer) {
-        Events.sendTimerEvent(R.string.action_add_custom_time_to_timer, R.string.label_deskclock);
-        final TimerAddTimeButtonDialogFragment fragment = TimerAddTimeButtonDialogFragment.newInstance(timer);
-        TimerAddTimeButtonDialogFragment.show(mTimerFragment.getParentFragmentManager(), fragment);
-    }
-
-    public void onDurationClicked(Timer timer) {
-        Events.sendTimerEvent(R.string.action_set_new_timer_duration, R.string.label_deskclock);
-        final TimerSetNewDurationDialogFragment fragment = TimerSetNewDurationDialogFragment.newInstance(timer);
-        TimerSetNewDurationDialogFragment.show(mTimerFragment.getParentFragmentManager(), fragment);
-    }
-
-    public void onDeleteTimerClicked(Timer timer) {
-        mTimerFragment.confirmAndDeleteTimer(timer);
-    }
+    public static final String TAG = "TimerClickHandler";
+    private static final LogUtils.Logger LOGGER = new LogUtils.Logger(TAG);
 
     public void onPlayPauseClicked(Timer timer) {
         if (timer.isPaused() || timer.isReset()) {
+            Events.sendTimerEvent(R.string.action_start, R.string.label_deskclock);
             DataModel.getDataModel().startTimer(timer);
         } else if (timer.isRunning()) {
+            Events.sendTimerEvent(R.string.action_pause, R.string.label_deskclock);
             DataModel.getDataModel().pauseTimer(timer);
         } else if (timer.isExpired()) {
-            DataModel.getDataModel().resetOrDeleteExpiredTimers(R.string.label_deskclock);
+            final boolean isDeleteAfterUse = timer.getDeleteAfterUse();
+
+            Events.sendTimerEvent(isDeleteAfterUse ? R.string.action_delete : R.string.action_reset, R.string.label_deskclock);
+
+            if (isDeleteAfterUse) {
+                DataModel.getDataModel().removeTimer(timer, R.string.label_deskclock);
+            } else {
+                DataModel.getDataModel().resetOrDeleteExpiredTimers(R.string.label_deskclock);
+            }
         } else if (timer.isMissed()) {
-            DataModel.getDataModel().resetMissedTimers(R.string.label_deskclock);
+            Events.sendTimerEvent(R.string.action_reset, R.string.label_deskclock);
+            DataModel.getDataModel().resetOrDeleteMissedTimers(R.string.label_deskclock);
+        }
+    }
+
+    public void onCircleClicked(Timer timer) {
+        if (timer.isPaused() || timer.isReset()) {
+            Events.sendTimerEvent(R.string.action_start, R.string.label_deskclock);
+            DataModel.getDataModel().startTimer(timer);
+        } else if (timer.isRunning()) {
+            Events.sendTimerEvent(R.string.action_pause, R.string.label_deskclock);
+            DataModel.getDataModel().pauseTimer(timer);
         }
     }
 
     public void onResetClicked(Timer timer) {
-        DataModel.getDataModel().resetOrDeleteTimer(timer, R.string.label_deskclock);
+        Events.sendTimerEvent(R.string.action_reset, R.string.label_deskclock);
+        DataModel.getDataModel().resetTimer(timer, R.string.label_deskclock);
     }
 
     public void onAddTimeClicked(Timer timer, View v) {
-        DataModel.getDataModel().addCustomTimeToTimer(timer);
         Events.sendTimerEvent(R.string.action_add_custom_time_to_timer, R.string.label_deskclock);
+        DataModel.getDataModel().addCustomTimeToTimer(timer);
 
         Context context = mTimerFragment.requireContext();
 
@@ -74,6 +75,13 @@ public record TimerClickHandler(TimerFragment mTimerFragment) {
             v.announceForAccessibility(TimerStringFormatter.formatString(
                 context, R.string.timer_accessibility_custom_time_added, buttonTime, currentTime, true));
         }
+    }
+
+    public void displayBottomSheetDialog(Timer timer) {
+        TimerEditBottomSheetFragment fragment = TimerEditBottomSheetFragment.newInstance(timer.getId(), mTimerFragment.getTag());
+
+        TimerEditBottomSheetFragment.show(mTimerFragment.getParentFragmentManager(), fragment);
+        LOGGER.v("Opening BottomSheet to edit timer: " + timer.getId());
     }
 
 }

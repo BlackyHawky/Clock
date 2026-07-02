@@ -436,11 +436,8 @@
     <string name="settings_language_chinese_simplified_cn">Cinese (semplificato, PRC)</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">Doppia vibrazione quando la sveglia viene rinviata e vibrazione singola quando la sveglia viene spenta</string>
     <string name="turn_on_back_flash_for_triggered_alarm_title">Attivazione del flash posteriore quando viene attivata la sveglia</string>
-    <string name="display_warning_before_deleting_timer_title">Mostra un avviso prima di rimuovere un timer</string>
-    <string name="warning_dialog_title">Rimuovi timer</string>
     <string name="about_translate_link">Traduci su Codeberg</string>
     <string name="translate_dialog_message">Visita la pagina su Codeberg:\n\n%s</string>
-    <string name="warning_dialog_message">Si è sicuri di voler rimuovere il timer \"%s\"?</string>
     <string name="clock_style_spinner">Rotativo</string>
     <string name="clock_style_analog_material">Analogico (Material)</string>
     <string name="show_lockscreen_dialog_text">Sui dispositivi Xiaomi, è necessario abilitare manualmente l\'autorizzazione \"Mostra sulla schermata di blocco\" dalle impostazioni del dispositivo affinché l\'applicazione funzioni correttamente.</string>

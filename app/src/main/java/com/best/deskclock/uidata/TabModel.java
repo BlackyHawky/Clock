@@ -128,7 +128,7 @@ final class TabModel {
         if (recentlyHiddenTabs.contains(Tab.TIMERS)) {
             for (Timer timer : new ArrayList<>(DataModel.getDataModel().getTimers())) {
                 if (!timer.isReset()) {
-                    DataModel.getDataModel().resetOrDeleteTimer(timer, R.string.label_deskclock);
+                    DataModel.getDataModel().resetTimer(timer, R.string.label_deskclock);
                 }
             }
         }

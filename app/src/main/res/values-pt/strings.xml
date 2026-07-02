@@ -435,9 +435,6 @@
     <string name="yellow_accent_color">Amarelo</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">Habilitar vibrações quando o alarme for adiado ou dispensado</string>
     <string name="turn_on_back_flash_for_triggered_alarm_title">Ligue o flash traseiro quando o alarme for disparado</string>
-    <string name="display_warning_before_deleting_timer_title">Exibir um aviso antes de excluir um cronômetro</string>
-    <string name="warning_dialog_title">Excluir timer</string>
-    <string name="warning_dialog_message">Você tem certeza que quer excluir o timer \"%s\"?</string>
     <string name="alarm_flash">Flash</string>
     <string name="about_translate_link">Traduza no Codeberg</string>
     <string name="translate_dialog_message">Visite a página do Codeberg:\n\n%s</string>

@@ -301,7 +301,6 @@
     <string name="sort_timer_ascending_duration">Por duração (ordem ascendente)</string>
     <string name="sort_timer_descending_duration">Por duração (ordem descendente)</string>
     <string name="default_time_to_add_to_timer_title">Hora predefinida para adicionar ao temporizador</string>
-    <string name="warning_dialog_title">Eliminar temporizador</string>
     <string name="screensaver_daydream_settings">Selecionar/ativar protetor de ecrã</string>
     <string name="clock_color_title">Cor do relógio</string>
     <string name="screensaver_daydream_settings_summary">Abre as definições do protetor principal de Android</string>

@@ -47,7 +47,7 @@ public class CircleButtonsLayout extends FrameLayout {
 
     protected void remeasureViews() {
         CircularProgressIndicator progressIndicator = findViewById(R.id.circular_progress_indicator);
-        View resetOrEditButton = findViewById(R.id.reset_or_edit_button);
+        View resetButton = findViewById(R.id.reset_button);
 
         final int frameWidth = getMeasuredWidth();
         final int frameHeight = getMeasuredHeight();
@@ -65,14 +65,14 @@ public class CircleButtonsLayout extends FrameLayout {
             }
         }
 
-        if (resetOrEditButton != null) {
-            final MarginLayoutParams params = (MarginLayoutParams) resetOrEditButton.getLayoutParams();
+        if (resetButton != null) {
+            final MarginLayoutParams params = (MarginLayoutParams) resetButton.getLayoutParams();
             params.bottomMargin = circleDiam / 8;
             if (minBound == frameWidth) {
                 params.bottomMargin += (frameHeight - frameWidth) / 2;
             }
 
-            resetOrEditButton.setLayoutParams(params);
+            resetButton.setLayoutParams(params);
         }
 
     }

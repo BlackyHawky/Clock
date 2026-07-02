@@ -404,7 +404,12 @@ public class HandleApiCalls extends Activity {
         if (dataUri != null) {
             final Timer selectedTimer = getSelectedTimer(dataUri);
             if (selectedTimer != null) {
-                DataModel.getDataModel().resetOrDeleteTimer(selectedTimer, R.string.label_intent);
+                if (selectedTimer.getDeleteAfterUse()) {
+                    DataModel.getDataModel().removeTimer(selectedTimer, R.string.label_intent);
+                } else {
+                    DataModel.getDataModel().resetTimer(selectedTimer, R.string.label_intent);
+                }
+
                 Controller.getController().notifyVoiceSuccess(
                     this, getResources().getQuantityString(R.plurals.expired_timers_dismissed, 1));
                 LOGGER.i("Timer dismissed: " + selectedTimer);
@@ -415,12 +420,21 @@ public class HandleApiCalls extends Activity {
         } else {
             final List<Timer> expiredTimers = DataModel.getDataModel().getExpiredTimers();
             if (!expiredTimers.isEmpty()) {
-                for (Timer timer : expiredTimers) {
-                    DataModel.getDataModel().resetOrDeleteTimer(timer, R.string.label_intent);
-                }
                 final int numberOfTimers = expiredTimers.size();
-                final String timersDismissedMessage = getResources().getQuantityString(
-                    R.plurals.expired_timers_dismissed, numberOfTimers, numberOfTimers);
+                boolean allDeleted = true;
+
+                for (Timer timer : expiredTimers) {
+                    if (!timer.getDeleteAfterUse()) {
+                        allDeleted = false;
+                        break;
+                    }
+                }
+
+                DataModel.getDataModel().resetOrDeleteExpiredTimers(R.string.label_intent);
+
+                final int pluralResId = allDeleted ? R.plurals.expired_timers_deleted : R.plurals.expired_timers_dismissed;
+                final String timersDismissedMessage = getResources().getQuantityString(pluralResId, numberOfTimers, numberOfTimers);
+
                 Controller.getController().notifyVoiceSuccess(this, timersDismissedMessage);
                 LOGGER.i(timersDismissedMessage);
             } else {

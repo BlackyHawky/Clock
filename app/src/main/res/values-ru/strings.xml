@@ -447,9 +447,6 @@
     <string name="timer_shake_action_title">Останавливать завершенные таймеры при встряхивании устройства</string>
     <string name="snooze_duration_none">Нет</string>
     <string name="toast_message_for_backup">Резервное копирование завершено</string>
-    <string name="display_warning_before_deleting_timer_title">Показывать предупреждение перед удалением таймера</string>
-    <string name="warning_dialog_title">Удалить таймер</string>
-    <string name="warning_dialog_message">Удалить таймер \"%s\"?</string>
     <string name="sort_manually">Вручную (перетаскиванием)</string>
     <string name="about_translate_link">Перевести на Codeberg</string>
     <string name="translate_dialog_message">Посетите страницу проекта на Codeberg:\n\n%s</string>
