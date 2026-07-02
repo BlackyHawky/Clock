@@ -72,12 +72,12 @@ public final class TimerDAO {
     /**
      * Prefix for a key to a preference that stores the time of the timer button.
      */
-    private static final String BUTTON_TIME = "timer_button_time";
+    public static final String BUTTON_TIME = "timer_button_time_";
 
     /**
      * Prefix for a key to a preference that signals the timer should be deleted on first reset.
      */
-    private static final String DELETE_AFTER_USE = "delete_after_use_";
+    public static final String DELETE_AFTER_USE = "timer_delete_after_use_";
 
     private TimerDAO() {
     }

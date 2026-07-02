@@ -262,8 +262,6 @@
     <string name="vertical_widget">ઊભી ડિજિટલ ઘડિયાળ</string>
     <string name="next_alarm_widget">પછી નો અલાર્મ</string>
     <string name="permission_dialog_revoke_title">ઍક્સેસ રદ કરો</string>
-    <string name="warning_dialog_title">ટાઈમર કાઢી નાખો</string>
-    <string name="warning_dialog_message">પક્કું તમને આ \"%s\" ટાઈમર કાઢી નાખવું છે?</string>
     <string name="alarm_alert_dismiss_and_delete_text">બંદ કરીને કાઢી નાખો</string>
     <string name="screensaver_brightness_title">તેજ</string>
     <string name="widgets_settings">વિડજેટ્સ</string>

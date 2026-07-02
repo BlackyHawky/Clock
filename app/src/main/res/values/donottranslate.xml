@@ -55,6 +55,7 @@
     <string name="action_fire">Fire</string>
     <string name="action_reset">Reset</string>
     <string name="action_show">Show</string>
+    <string name="action_set_add_time_button_value">Set Add Time Button Value</string>
     <string name="action_add_custom_time_to_timer">Add Custom Time To Timer</string>
     <string name="action_set_new_timer_duration">Set New Timer Duration</string>
     <string name="action_lap">Lap</string>

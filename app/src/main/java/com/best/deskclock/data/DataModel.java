@@ -385,11 +385,13 @@ public final class DataModel {
     }
 
     /**
+     * Deletes a given timer.
+     *
      * @param timer the timer to be removed
      */
-    public void removeTimer(Timer timer) {
+    public void removeTimer(Timer timer, @StringRes int eventLabelId) {
         enforceMainLooper();
-        mTimerModel.removeTimer(timer);
+        mTimerModel.removeTimer(timer, eventLabelId);
     }
 
     /**
@@ -437,20 +439,18 @@ public final class DataModel {
     }
 
     /**
-     * If the given {@code timer} is expired and marked for deletion after use then this method
-     * removes the timer. The timer is otherwise transitioned to the reset state and continues
-     * to exist.
+     * Resets a given timer.
      *
      * @param timer        the timer to be reset
      * @param eventLabelId the label of the timer event to send; 0 if no event should be sent
      */
-    public void resetOrDeleteTimer(Timer timer, @StringRes int eventLabelId) {
+    public void resetTimer(Timer timer, @StringRes int eventLabelId) {
         enforceMainLooper();
-        mTimerModel.resetTimer(timer, true, eventLabelId);
+        mTimerModel.resetTimer(timer, eventLabelId);
     }
 
     /**
-     * Resets all expired timers.
+     * Resets or deletes all expired timers.
      *
      * @param eventLabelId the label of the timer event to send; 0 if no event should be sent
      */
@@ -460,13 +460,13 @@ public final class DataModel {
     }
 
     /**
-     * Resets all missed timers.
+     * Resets or deletes all missed timers.
      *
      * @param eventLabelId the label of the timer event to send; 0 if no event should be sent
      */
-    public void resetMissedTimers(@StringRes int eventLabelId) {
+    public void resetOrDeleteMissedTimers(@StringRes int eventLabelId) {
         enforceMainLooper();
-        mTimerModel.resetMissedTimers(eventLabelId);
+        mTimerModel.resetOrDeleteMissedTimers(eventLabelId);
     }
 
     /**
@@ -478,30 +478,40 @@ public final class DataModel {
     }
 
     /**
-     * @param timer the timer to which the new {@code label} belongs
-     * @param label the new label to store for the {@code timer}
-     */
-    public void setTimerLabel(Timer timer, String label) {
-        enforceMainLooper();
-        mTimerModel.updateTimer(timer.setLabel(label));
-    }
-
-    /**
      * @param timer     the timer to which the new {@code newLength} belongs
      * @param newLength the new duration to store for the {@code timer}
      */
     public void setNewTimerDuration(Timer timer, long newLength) {
         enforceMainLooper();
+
+        if (timer.getLength() == newLength) {
+            return;
+        }
+
         mTimerModel.updateTimer(timer.setNewDuration(newLength));
     }
 
     /**
-     * @param timer      the timer to which the new {@code buttonTime} belongs
-     * @param buttonTime the new add button text to store for the {@code timer}
+     * Updates all customizable settings of a given timer at once.
+     * If no changes are detected, the update is ignored to optimize performance.
+     *
+     * @param timer          the original timer to update
+     * @param label          the new label for the timer
+     * @param buttonTime     the new custom duration for the add button
+     * @param deleteAfterUse true to automatically delete the timer after use, false otherwise
      */
-    public void setTimerButtonTime(Timer timer, String buttonTime) {
+    public void updateAllTimerSettings(Timer timer, String label, String buttonTime, boolean deleteAfterUse) {
         enforceMainLooper();
-        mTimerModel.updateTimer(timer.setButtonTime(buttonTime));
+
+        Timer updatedTimer = timer.setLabel(label)
+            .setButtonTime(buttonTime)
+            .setDeleteAfterUse(deleteAfterUse);
+
+        if (updatedTimer == timer) {
+            return;
+        }
+
+        mTimerModel.updateTimer(updatedTimer);
     }
 
     /**

@@ -92,7 +92,6 @@ class TimerNotificationBuilder {
      */
     public Notification build(Context context, NotificationModel nm, Timer timer) {
         final Context localizedContext = Utils.getLocalizedContext(context);
-        final SharedPreferences prefs = getDefaultSharedPreferences(context);
         final boolean running = timer.isRunning();
         final long base = getChronometerBase(timer);
         final List<Action> actions = new ArrayList<>(2);
@@ -167,9 +166,7 @@ class TimerNotificationBuilder {
                 .putExtra(TimerService.EXTRA_TIMER_ID, timerId);
 
             @DrawableRes final int icon = R.drawable.ic_reset;
-            final CharSequence title = localizedContext.getText(SettingsDAO.isSingleTimerModeEnabled(prefs)
-                ? R.string.delete
-                : R.string.reset);
+            final CharSequence title = localizedContext.getText(R.string.reset);
             final PendingIntent intent = Utils.pendingServiceIntent(context, reset, timerId);
             actions.add(new Action.Builder(icon, title, intent).build());
         }
@@ -284,7 +281,7 @@ class TimerNotificationBuilder {
             stateText = localizedContext.getString(R.string.timer_times_up);
 
             // Left button: Reset single timer
-            final CharSequence title1 = localizedContext.getString(SettingsDAO.isSingleTimerModeEnabled(prefs)
+            final CharSequence title1 = localizedContext.getString(SettingsDAO.isSingleTimerModeEnabled(prefs) || timer.getDeleteAfterUse()
                 ? R.string.delete
                 : R.string.timer_stop);
             actions.add(new Action.Builder(icon1, title1, intent1).build());
@@ -407,7 +404,9 @@ class TimerNotificationBuilder {
         final PendingIntent pendingShowApp = Utils.pendingActivityIntent(context, showApp);
 
         @DrawableRes final int icon = R.drawable.ic_reset;
-        final CharSequence title = localizedContext.getText(SettingsDAO.isSingleTimerModeEnabled(prefs) ? R.string.delete : R.string.reset);
+        final CharSequence title = localizedContext.getText(SettingsDAO.isSingleTimerModeEnabled(prefs) || timer.getDeleteAfterUse()
+            ? R.string.delete
+            : R.string.reset);
         final PendingIntent intent = Utils.pendingServiceIntent(context, reset);
         action = new Action.Builder(icon, title, intent).build();
 

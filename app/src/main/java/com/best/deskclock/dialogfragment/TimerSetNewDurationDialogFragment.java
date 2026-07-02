@@ -24,9 +24,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.best.deskclock.R;
-import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
-import com.best.deskclock.data.Timer;
 import com.best.deskclock.databinding.TimerDialogEditNewTimeBinding;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.ThemeUtils;
@@ -49,26 +47,28 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
     private static final String ARG_EDIT_MINUTES = "arg_edit_minutes";
     private static final String ARG_EDIT_SECONDS = "arg_edit_seconds";
     private static final String ARG_TIMER_ID = "arg_timer_id";
+    public static final String REQUEST_TIMER_DURATION = "request_timer_duration";
+    public static final String RESULT_TIMER_DURATION = "result_timer_duration";
 
     private TimerDialogEditNewTimeBinding mBinding;
 
     private boolean mMaxLengthReduce;
-    private int mTimerId;
+
     private final TextWatcher mTextWatcher = new TextChangeListener();
     private InputMethodManager mInput;
 
-    public static TimerSetNewDurationDialogFragment newInstance(Timer timer) {
+    public static TimerSetNewDurationDialogFragment newInstance(int timerId, long durationMillis) {
         final Bundle args = new Bundle();
 
-        long remainingTime = timer.getRemainingTime();
-        int hours = (int) TimeUnit.MILLISECONDS.toHours(remainingTime);
-        int minutes = (int) TimeUnit.MILLISECONDS.toMinutes(remainingTime) % 60;
-        int seconds = (int) TimeUnit.MILLISECONDS.toSeconds(remainingTime) % 60;
+        int hours = (int) TimeUnit.MILLISECONDS.toHours(durationMillis);
+        int minutes = (int) TimeUnit.MILLISECONDS.toMinutes(durationMillis) % 60;
+        int seconds = (int) TimeUnit.MILLISECONDS.toSeconds(durationMillis) % 60;
+
+        args.putInt(ARG_TIMER_ID, timerId);
 
         args.putInt(ARG_EDIT_HOURS, hours);
         args.putInt(ARG_EDIT_MINUTES, minutes);
         args.putInt(ARG_EDIT_SECONDS, seconds);
-        args.putInt(ARG_TIMER_ID, timer.getId());
 
         final TimerSetNewDurationDialogFragment frag = new TimerSetNewDurationDialogFragment();
         frag.setArguments(args);
@@ -99,7 +99,6 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
         Typeface typeFace = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(prefs));
 
         final Bundle args = getArguments() == null ? Bundle.EMPTY : getArguments();
-        mTimerId = args.getInt(ARG_TIMER_ID, -1);
 
         int editHours = args.getInt(ARG_EDIT_HOURS, 0);
         int editMinutes = args.getInt(ARG_EDIT_MINUTES, 0);
@@ -218,47 +217,19 @@ public class TimerSetNewDurationDialogFragment extends DialogFragment {
         String minutesText = Objects.requireNonNull(mBinding.editMinutes.getText()).toString();
         String secondsText = Objects.requireNonNull(mBinding.editSeconds.getText()).toString();
 
-        int hours = 0;
-        int minutes = 0;
-        int seconds = 0;
+        int hours = hoursText.isEmpty() ? 0 : Integer.parseInt(hoursText);
+        int minutes = minutesText.isEmpty() ? 0 : Integer.parseInt(minutesText);
+        int seconds = secondsText.isEmpty() ? 0 : Integer.parseInt(secondsText);
 
-        if (!hoursText.isEmpty()) {
-            hours = Integer.parseInt(hoursText);
-        }
-
-        if (!minutesText.isEmpty()) {
-            minutes = Integer.parseInt(minutesText);
-        }
-
-        if (!secondsText.isEmpty()) {
-            seconds = Integer.parseInt(secondsText);
-        }
-
-        if ((hoursText.isEmpty() && minutesText.isEmpty() && secondsText.isEmpty()) || (hours == 0 && minutes == 0 && seconds == 0)) {
+        if (hours == 0 && minutes == 0 && seconds == 0) {
             seconds = 1;
         }
 
-        if (mTimerId >= 0) {
-            final Timer timer = DataModel.getDataModel().getTimer(mTimerId);
-            if (timer != null) {
-                int totalSeconds = hours * 3600 + minutes * 60 + seconds;
-                long newLengthMillis = totalSeconds * 1000L;
+        long newLengthMillis = (hours * 3600L + minutes * 60L + seconds) * 1000L;
 
-                String currentLabel = timer.getLabel();
-                String oldDefaultLabel = Utils.buildDefaultTimerLabel(requireContext(), timer.getLength());
-                boolean shouldUpdateLabel = currentLabel != null && currentLabel.equals(oldDefaultLabel);
-
-                DataModel.getDataModel().setNewTimerDuration(timer, newLengthMillis);
-
-                if (shouldUpdateLabel) {
-                    String newDefaultLabel = Utils.buildDefaultTimerLabel(requireContext(), newLengthMillis);
-
-                    Timer updatedTimer = DataModel.getDataModel().getTimer(mTimerId);
-
-                    DataModel.getDataModel().setTimerLabel(updatedTimer != null ? updatedTimer : timer, newDefaultLabel);
-                }
-            }
-        }
+        Bundle result = new Bundle();
+        result.putLong(RESULT_TIMER_DURATION, newLengthMillis);
+        getParentFragmentManager().setFragmentResult(REQUEST_TIMER_DURATION, result);
     }
 
     /**

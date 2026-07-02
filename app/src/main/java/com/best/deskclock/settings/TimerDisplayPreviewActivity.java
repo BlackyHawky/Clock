@@ -7,6 +7,7 @@
 package com.best.deskclock.settings;
 
 import static android.view.View.GONE;
+import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
@@ -280,7 +281,6 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
 
         final View view;
         final TextView labelView;
-        final View deleteButton;
         final View resetButton;
         final View stopButton;
 
@@ -297,8 +297,7 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
             ((TimerItemCompact) view).bindTimer(timer, false);
 
             labelView = compactBinding.timerLabel;
-            deleteButton = compactBinding.deleteTimerButton;
-            resetButton = compactBinding.resetOrEditButton;
+            resetButton = compactBinding.resetButton;
             stopButton = compactBinding.playPauseButton;
 
             compactBinding.linearProgressIndicator.animate().cancel();
@@ -310,7 +309,7 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
             TimerItemBinding normalBinding = TimerItemBinding.inflate(getLayoutInflater(), mBinding.expiredTimersList, false);
 
             view = normalBinding.getRoot();
-            ((TimerItem) view).setButtonPosition(mAreTimerButtonPositionsInverted);
+            ((TimerItem) view).setButtonPosition(mAreTimerButtonPositionsInverted, mIsTablet, !mIsPortrait, false);
             ((TimerItem) view).setGeneralFonts(mRegularTypeface, mBoldTypeface);
             ((TimerItem) view).setTimerTimeFont(mTimerTimeTypeface);
             ((TimerItem) view).setIndicatorStateDisplay(mIsIndicatorStateDisplayed);
@@ -318,8 +317,7 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
             ((TimerItem) view).bindTimer(timer, false);
 
             labelView = normalBinding.timerLabel;
-            deleteButton = normalBinding.deleteTimerButton;
-            resetButton = normalBinding.resetOrEditButton;
+            resetButton = normalBinding.resetButton;
             stopButton = normalBinding.playPauseButton;
 
             if (normalBinding.circularProgressIndicator != null) {
@@ -339,9 +337,8 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
         // Hide the label hint for expired timers.
         labelView.setVisibility(VISIBLE);
 
-        // Add logic to hide the "Delete" and "Reset" buttons
-        deleteButton.setVisibility(GONE);
-        resetButton.setVisibility(GONE);
+        // Add logic to hide the "Reset" buttons
+        resetButton.setVisibility(INVISIBLE);
 
         // Add logic to the "Stop" button
         stopButton.setOnClickListener(v -> finishActivity());

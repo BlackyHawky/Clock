@@ -442,11 +442,8 @@
     <string name="FSN_dialog_title">Oznámení na celé obrazovce</string>
     <string name="timer_flip_action_title">Otočte zařízení pro zastavení budíku</string>
     <string name="settings_vibration_title">Povolit vibrace</string>
-    <string name="warning_dialog_title">Odstranit časovač</string>
-    <string name="warning_dialog_message">Opravdu chcete odstranit časovač „%s“?</string>
     <string name="screensaver_daydream_settings">Vybrat/povolit spořič obrazovky</string>
     <string name="first_launch_button_now">Nyní</string>
-    <string name="display_warning_before_deleting_timer_title">Zobrazit varování před odstraněním časovače</string>
     <string name="sort_manually">Ručně (táhnutím)</string>
     <string name="first_launch_version">Verze %s</string>
     <string name="date_default_color_title">Použít výchozí barvu pro datum</string>

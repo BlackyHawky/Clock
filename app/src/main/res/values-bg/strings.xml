@@ -478,9 +478,6 @@
     <string name="sort_timer_ascending_duration">По продължителност (възходящо)</string>
     <string name="sort_timer_descending_duration">По продължителност (низходящо)</string>
     <string name="default_time_to_add_to_timer_title">Стандартно допълнително време</string>
-    <string name="display_warning_before_deleting_timer_title">Потвърждаване преди премахване на отброяване</string>
-    <string name="warning_dialog_title">Премахване на отброяване</string>
-    <string name="warning_dialog_message">Желаете ли отброяването „%s“ да бъде премахнато?</string>
     <string name="screensaver_daydream_settings">Избиране или включване на заставката</string>
     <string name="screensaver_daydream_settings_summary">Отваря настройките на Андроид</string>
     <string name="screensaver_clock_dynamic_colors_title">Динамични цветове на часовника</string>

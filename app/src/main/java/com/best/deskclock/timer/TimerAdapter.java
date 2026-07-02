@@ -58,6 +58,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private TimerSettings mSettings;
     private RecyclerView mRecyclerView;
     private final boolean mIsTablet;
+    private final boolean mIsLandscape;
 
     private final Drawable.ConstantState mBgStandard;
     private final Drawable.ConstantState mBgStart;  // Top (Portrait) or Left (Landscape)
@@ -71,21 +72,28 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         mPrefs = sharedPreferences;
         mTimerClickHandler = timerClickHandler;
         mIsTablet = isTablet;
+        mIsLandscape = isLandscape;
         mRegularTypeface = regularTypeface;
         mBoldTypeface = boldTypeface;
         mSettings = settings;
 
-        mBgStandard = ThemeUtils.cardBackground(context).getConstantState();
+        mBgStandard = ThemeUtils.rippleDrawable(context, ThemeUtils.cardBackground(context)).getConstantState();
 
         if (!mIsTablet) {
             if (isLandscape) {
-                mBgStart = ThemeUtils.expressiveCardBackgroundForLandscape(context, 0, 3).getConstantState();
-                mBgMiddle = ThemeUtils.expressiveCardBackgroundForLandscape(context, 1, 3).getConstantState();
-                mBgEnd = ThemeUtils.expressiveCardBackgroundForLandscape(context, 2, 3).getConstantState();
+                mBgStart = ThemeUtils.rippleDrawable(
+                    context, ThemeUtils.expressiveCardBackgroundForLandscape(context, 0, 3)).getConstantState();
+                mBgMiddle = ThemeUtils.rippleDrawable(
+                    context, ThemeUtils.expressiveCardBackgroundForLandscape(context, 1, 3)).getConstantState();
+                mBgEnd = ThemeUtils.rippleDrawable(
+                    context, ThemeUtils.expressiveCardBackgroundForLandscape(context, 2, 3)).getConstantState();
             } else {
-                mBgStart = ThemeUtils.expressiveCardBackground(context, 0, 3).getConstantState();
-                mBgMiddle = ThemeUtils.expressiveCardBackground(context, 1, 3).getConstantState();
-                mBgEnd = ThemeUtils.expressiveCardBackground(context, 2, 3).getConstantState();
+                mBgStart = ThemeUtils.rippleDrawable(
+                    context, ThemeUtils.expressiveCardBackground(context, 0, 3)).getConstantState();
+                mBgMiddle = ThemeUtils.rippleDrawable(
+                    context, ThemeUtils.expressiveCardBackground(context, 1, 3)).getConstantState();
+                mBgEnd = ThemeUtils.rippleDrawable(
+                    context, ThemeUtils.expressiveCardBackground(context, 2, 3)).getConstantState();
             }
         } else {
             mBgStart = mBgMiddle = mBgEnd = null;
@@ -171,7 +179,8 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             view = inflater.inflate(R.layout.timer_item_compact, parent, false);
         }
 
-        return new TimerViewHolder(view, this, mTimerClickHandler, viewType, mRegularTypeface, mBoldTypeface);
+        return new TimerViewHolder(
+            view, this, mTimerClickHandler, viewType, mRegularTypeface, mBoldTypeface, mIsTablet, mIsLandscape);
     }
 
     @Override
@@ -213,8 +222,22 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public void timerAdded(Timer timer) {
         refreshTimersCache();
         saveTimerList();
-        notifyItemInserted(getTimers().indexOf(timer));
-        notifyItemRangeChanged(0, getItemCount(), PAYLOAD_UPDATE_BACKGROUND);
+
+        int position = getTimers().indexOf(timer);
+
+        notifyItemInserted(position);
+
+        // Update the items before the new timer (if there is one)
+        if (position > 0) {
+            notifyItemRangeChanged(0, position, PAYLOAD_UPDATE_BACKGROUND);
+        }
+
+        // Update the items after the new timer (if there is one)
+        if (position < getItemCount() - 1) {
+            int itemsAfterCount = getItemCount() - position - 1;
+            notifyItemRangeChanged(position + 1, itemsAfterCount, PAYLOAD_UPDATE_BACKGROUND);
+        }
+
         updateTime();
     }
 
@@ -298,7 +321,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         saveTimerList();
     }
 
-    private int getTimerPosition(int timerId) {
+    public int getTimerPosition(int timerId) {
         for (int i = 0; i < mCachedTimers.size(); i++) {
             if (mCachedTimers.get(i).getId() == timerId) {
                 return i;

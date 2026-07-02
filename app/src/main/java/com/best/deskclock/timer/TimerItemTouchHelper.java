@@ -24,7 +24,6 @@ import com.best.deskclock.uicomponents.ItemTouchHelperContract;
 public class TimerItemTouchHelper extends ItemTouchHelper.Callback {
 
     private final ItemTouchHelperContract mContract;
-    private boolean mIsTouchOnDragBlockingView = false;
     private boolean mIsTimerTimeActivated = false;
     private int dragFrom = RecyclerView.NO_POSITION;
     private int dragTo = RecyclerView.NO_POSITION;
@@ -50,20 +49,6 @@ public class TimerItemTouchHelper extends ItemTouchHelper.Callback {
                         RecyclerView.ViewHolder holder = rv.getChildViewHolder(child);
 
                         if (holder instanceof TimerViewHolder timerViewHolder) {
-                            View addTimeButton = timerViewHolder.addTimeButton;
-
-                            if (addTimeButton != null && addTimeButton.getVisibility() == View.VISIBLE) {
-                                int[] loc = new int[2];
-                                addTimeButton.getLocationOnScreen(loc);
-                                float x = e.getRawX();
-                                float y = e.getRawY();
-
-                                mIsTouchOnDragBlockingView = x >= loc[0] && x <= loc[0] + addTimeButton.getWidth()
-                                    && y >= loc[1] && y <= loc[1] + addTimeButton.getHeight();
-                            } else {
-                                mIsTouchOnDragBlockingView = false;
-                            }
-
                             View circle = timerViewHolder.circleContainer;
                             View timerTimeText = timerViewHolder.timerTimeText;
 
@@ -86,7 +71,6 @@ public class TimerItemTouchHelper extends ItemTouchHelper.Callback {
                             }
                         }
                     } else {
-                        mIsTouchOnDragBlockingView = false;
                         mIsTimerTimeActivated = false;
                     }
                 }
@@ -106,7 +90,7 @@ public class TimerItemTouchHelper extends ItemTouchHelper.Callback {
 
     @Override
     public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-        if (mIsTouchOnDragBlockingView || !mIsManualSorting) {
+        if (!mIsManualSorting) {
             return 0;
         }
 
@@ -174,7 +158,6 @@ public class TimerItemTouchHelper extends ItemTouchHelper.Callback {
         }
 
         mIsTimerTimeActivated = false;
-        mIsTouchOnDragBlockingView = false;
 
         if (dragFrom != RecyclerView.NO_POSITION && dragTo != RecyclerView.NO_POSITION && dragFrom != dragTo) {
             mContract.onRowSaved();

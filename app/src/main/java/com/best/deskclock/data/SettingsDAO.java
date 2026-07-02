@@ -923,14 +923,6 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return {@code true} if a warning is displayed before deleting a timer. {@code false} otherwise.
-     */
-    public static boolean isWarningDisplayedBeforeDeletingTimer(SharedPreferences prefs) {
-        // Default value must match the one in res/xml/settings_timer.xml
-        return prefs.getBoolean(KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER, DEFAULT_DISPLAY_WARNING_BEFORE_DELETING_TIMER);
-    }
-
-    /**
      * @param uri the uri of the ringtone to play for all timers
      */
     static void setTimerRingtoneUri(SharedPreferences prefs, Uri uri) {

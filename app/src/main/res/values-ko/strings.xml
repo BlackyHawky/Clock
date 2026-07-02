@@ -380,9 +380,6 @@
     <string name="screensaver_daydream_settings">화면 보호기 선택 및 사용 설정</string>
     <string name="timer_flip_action_title">기기를 뒤집어 알람 중지</string>
     <string name="timer_shake_action_title">기기를 흔들어 알람 중지</string>
-    <string name="display_warning_before_deleting_timer_title">타이머를 삭제할 때 경고 표시</string>
-    <string name="warning_dialog_title">타이머 삭제</string>
-    <string name="warning_dialog_message">정말 \"%s\" 타이머를 삭제할까요?</string>
     <string name="clock_color_title">시계 색상</string>
     <string name="screensaver_settings_summary">화면 보호기 스타일, 색상, 폰트 설정</string>
     <string name="screensaver_daydream_settings_summary">Android 화면 보호기 설정을 엽니다.</string>

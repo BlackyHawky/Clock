@@ -387,9 +387,6 @@
     <string name="sort_timer_ascending_duration">حسب المدة (ترتيب تصاعدي)</string>
     <string name="sort_timer_descending_duration">حسب المدة (ترتيب تنازلي)</string>
     <string name="default_time_to_add_to_timer_title">الوقت الافتراضي للإضافة إلى المؤقتات</string>
-    <string name="display_warning_before_deleting_timer_title">أظهر تحذير قبل حذف المؤقت</string>
-    <string name="warning_dialog_title">احذف المؤقت</string>
-    <string name="warning_dialog_message">أمتأكد أنك تريد حذف المؤقت \"%s\"؟</string>
     <string name="screensaver_settings_summary">قم بتخصيص نمط شاشة التوقف ونوع الخط ولونه</string>
     <string name="screensaver_daydream_settings">حدِّد/فعِّل شاشة التوقف</string>
     <string name="screensaver_daydream_settings_summary">يفتح إعدادات شاشة التوقف الرئيسية لنظام أندرويد</string>

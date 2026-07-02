@@ -413,10 +413,7 @@
     <string name="black_accent_color">Zwart</string>
     <string name="yellow_accent_color">Geel</string>
     <string name="day_accent_color_title">Accentkleur dagmodus</string>
-    <string name="warning_dialog_message">Weet je zeker dat je de \"%s\" kookwekker wilt verwijderen?</string>
-    <string name="display_warning_before_deleting_timer_title">Waarschuwing weergeven voor het verwijderen van een kookwekker</string>
     <string name="display_ringtone_title">Naam van geluid weergeven</string>
-    <string name="warning_dialog_title">Kookwekker verwijderen</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">Trillen als wekker wordt gesluimerd of uitgezet</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">Dubbel trillen als wekker wordt gesluimerd en één keer trillen als wekker wordt uitgezet</string>
     <string name="turn_on_back_flash_for_triggered_alarm_title">Zaklamp aanzetten als wekker gaat</string>

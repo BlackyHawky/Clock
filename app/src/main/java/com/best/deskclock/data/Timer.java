@@ -26,6 +26,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -127,16 +128,11 @@ public record Timer(int mId, State mState, long mLength, long mTotalLength, long
      * @return a copy of this timer with the given {@code newLength}
      */
     Timer setNewDuration(long newLength) {
-        if (mState != RESET) {
-            return this;
-        }
-
         if (mLength == newLength) {
             return this;
         }
 
-        return new Timer(mId, mState, newLength, newLength, mLastStartTime, mLastStartWallClockTime, newLength, mLabel, mButtonTime,
-            mDeleteAfterUse);
+        return new Timer(mId, RESET, newLength, newLength, UNUSED, UNUSED, newLength, mLabel, mButtonTime, mDeleteAfterUse);
     }
 
     /**
@@ -149,6 +145,18 @@ public record Timer(int mId, State mState, long mLength, long mTotalLength, long
 
         return new Timer(mId, mState, mLength, mTotalLength, mLastStartTime, mLastStartWallClockTime, mRemainingTime, mLabel, buttonTime,
             mDeleteAfterUse);
+    }
+
+    /**
+     * @return a copy of this timer with the given {@code deleteAfterUse}
+     */
+    Timer setDeleteAfterUse(boolean deleteAfterUse) {
+        if (mDeleteAfterUse == deleteAfterUse) {
+            return this;
+        }
+
+        return new Timer(mId, mState, mLength, mTotalLength, mLastStartTime, mLastStartWallClockTime, mRemainingTime, mLabel, mButtonTime,
+            deleteAfterUse);
     }
 
     public long getLength() {
@@ -406,12 +414,24 @@ public record Timer(int mId, State mState, long mLength, long mTotalLength, long
 
         final Timer timer = (Timer) o;
 
-        return mId == timer.mId;
+        if (mId != timer.mId) return false;
+        if (mLength != timer.mLength) return false;
+        if (mTotalLength != timer.mTotalLength) return false;
+        if (mLastStartTime != timer.mLastStartTime) return false;
+        if (mLastStartWallClockTime != timer.mLastStartWallClockTime) return false;
+        if (mRemainingTime != timer.mRemainingTime) return false;
+        if (mDeleteAfterUse != timer.mDeleteAfterUse) return false;
+        if (mState != timer.mState) return false;
+        if (!TextUtils.equals(mLabel, timer.mLabel)) return false;
+        return TextUtils.equals(mButtonTime, timer.mButtonTime);
     }
 
     @Override
     public int hashCode() {
-        return mId;
+        return Objects.hash(
+            mId, mState, mLength, mTotalLength, mLastStartTime, mLastStartWallClockTime, mRemainingTime, mLabel, mButtonTime,
+            mDeleteAfterUse
+        );
     }
 
     public enum State {

@@ -408,9 +408,6 @@
     <string name="second_hand_color_title">Sekundenzeigerfarbe</string>
     <string name="auto_night_accent_color_title">Akzentfarbe im Nacht-Modus anwenden</string>
     <string name="night_accent_color_title">Akzentfarbe für Nacht-Modus</string>
-    <string name="display_warning_before_deleting_timer_title">Warnung vor dem Löschen eines Timers anzeigen</string>
-    <string name="warning_dialog_title">Timer löschen</string>
-    <string name="warning_dialog_message">Sind Sie sicher, dass Sie den Timer „%s“ löschen wollen?</string>
     <string name="sort_manually">Manuell (durch Verschieben)</string>
     <string name="display_ringtone_title">Name des Wecktons anzeigen</string>
     <string name="alarm_flash">LED-Blitzlicht</string>

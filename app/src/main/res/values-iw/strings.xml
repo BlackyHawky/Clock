@@ -306,7 +306,6 @@
     <string name="reset_settings_title">איפוס ההגדרות</string>
     <string name="restart_app_dialog_title_for_reset">האיפוס הושלם</string>
     <string name="dialog_close">סגירה</string>
-    <string name="warning_dialog_message">למחוק את הטיימר „%s”?</string>
     <string name="screensaver_clock_dynamic_colors_title">צבעי שעון דינמיים</string>
     <string name="clock_color_title">צבע שעון</string>
     <string name="screensaver_brightness_title">בהירות</string>
@@ -501,8 +500,6 @@
     <string name="description_direction_both_for_occasional_alarm">החלקה שמאלה לדחייה עם „נודניק” או ימינה בשביל לכבות ולמחוק את ההתראה</string>
     <string name="sort_timer_ascending_duration">לפי משך זמן (בסדר עולה)</string>
     <string name="sort_timer_descending_duration">לפי משך זמן (בסדר יורד)</string>
-    <string name="display_warning_before_deleting_timer_title">הצגת אזהרה לפני מחיקת טיימר</string>
-    <string name="warning_dialog_title">מחיקת טיימר</string>
     <string name="screensaver_settings_summary">התאמה אישית של הסגנון, הגופן והצבע של שומר המסך</string>
     <string name="screensaver_daydream_settings">בחירת/הפעלת שומר מסך</string>
     <string name="screensaver_daydream_settings_summary">לפתיחת ההגדרות הראשיות של שומר המסך באנדרואיד</string>

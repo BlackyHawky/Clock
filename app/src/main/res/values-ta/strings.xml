@@ -466,9 +466,6 @@
     <string name="sort_timer_ascending_duration">கால அளவு (ஏறுவரிசை)</string>
     <string name="sort_timer_descending_duration">கால அளவு (இறங்கு வரிசை)</string>
     <string name="default_time_to_add_to_timer_title">டைமரில் சேர்க்க இயல்புநிலை நேரம்</string>
-    <string name="display_warning_before_deleting_timer_title">டைமரை நீக்கும் முன் எச்சரிக்கையைக் காட்டவும்</string>
-    <string name="warning_dialog_title">டைமரை நீக்கு</string>
-    <string name="warning_dialog_message">\"%s\" டைமரை நிச்சயமாக நீக்க விரும்புகிறீர்களா?</string>
     <string name="screensaver_settings_summary">ச்கிரீன்சேவரின் நடை, நிறம் மற்றும் எழுத்துருவை அமைக்கவும்</string>
     <string name="screensaver_daydream_settings">ச்கிரீன்சேவரைத் தேர்ந்தெடுக்கவும்/செயல்படுத்தவும்</string>
     <string name="screensaver_daydream_settings_summary">முக்கிய ஆண்ட்ராய்டு ச்கிரீன்சேவர் அமைப்புகளைத் திறக்கிறது</string>

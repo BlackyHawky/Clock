@@ -1,0 +1,456 @@
+// SPDX-License-Identifier: GPL-3.0-only
+
+package com.best.deskclock.timer;
+
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+import static androidx.core.util.TypedValueCompat.dpToPx;
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.text.format.DateUtils;
+import android.util.DisplayMetrics;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.graphics.Insets;
+import androidx.core.view.HapticFeedbackConstantsCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.FragmentManager;
+
+import com.best.deskclock.R;
+import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.data.Timer;
+import com.best.deskclock.databinding.TimerEditBottomSheetBinding;
+import com.best.deskclock.dialogfragment.LabelDialogFragment;
+import com.best.deskclock.dialogfragment.TimerAddTimeButtonDialogFragment;
+import com.best.deskclock.dialogfragment.TimerSetNewDurationDialogFragment;
+import com.best.deskclock.events.Events;
+import com.best.deskclock.utils.InsetsUtils;
+import com.best.deskclock.utils.ThemeUtils;
+import com.best.deskclock.utils.Utils;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.color.MaterialColors;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
+
+public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
+
+    public static final String TAG = "timer_edit_bottom_sheet";
+    private static final String ARG_TIMER_TAG = "arg_timer_tag";
+    private static final String ARG_TIMER_ID = "arg_timer_id";
+    private static final String STATE_TIMER_TIME_TEXT = "state_timer_time_text";
+    private static final String STATE_TIMER_LABEL = "state_timer_label";
+    private static final String STATE_ADD_TIME_BUTTON_VALUE = "state_add_time_button_value";
+    private static final String STATE_DELETE_AFTER_USE = "state_delete_after_use";
+
+    private TimerEditBottomSheetBinding mBinding;
+    private SharedPreferences mPrefs;
+    private Typeface mGeneralTypeface;
+    private Typeface mTimerBoldTypeface;
+    private DisplayMetrics mDisplayMetrics;
+
+    private int mTimerId;
+    private long mTimerTimeText;
+    private String mTimerLabel;
+    private int mAddTimeButtonValue;
+    private boolean mDeleteAfterUse;
+    private boolean mIsDeleted;
+
+    private int mScreenHeight;
+    private int mVisualPadding;
+
+    public static TimerEditBottomSheetFragment newInstance(int timerId, String tag) {
+
+        final Bundle args = new Bundle();
+
+        args.putInt(ARG_TIMER_ID, timerId);
+        args.putString(ARG_TIMER_TAG, tag);
+
+        final TimerEditBottomSheetFragment fragment = new TimerEditBottomSheetFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public static void show(FragmentManager manager, TimerEditBottomSheetFragment fragment) {
+        Utils.showDialogFragment(manager, fragment, TAG);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        mPrefs = getDefaultSharedPreferences(requireContext());
+        mGeneralTypeface = ThemeUtils.loadFont(SettingsDAO.getGeneralFont(mPrefs));
+        mTimerBoldTypeface = ThemeUtils.boldTypeface(SettingsDAO.getTimerDurationFont(mPrefs));
+        mDisplayMetrics = getResources().getDisplayMetrics();
+        mScreenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
+        mVisualPadding = (int) dpToPx(8, mDisplayMetrics);
+
+        setupFragmentResultListeners();
+    }
+
+    @Override
+    public void onDestroyView() {
+        nullifyClickListeners(mBinding.timerTimeText, mBinding.timerLabel, mBinding.addTimeButtonLayout, mBinding.addTimeButton,
+            mBinding.deleteTimerAfterUse, mBinding.deleteButton, mBinding.duplicateButton);
+
+        mBinding = null;
+
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        // As long as this dialog exists, save its state.
+        if (mTimerId != -1) {
+            outState.putInt(ARG_TIMER_ID, mTimerId);
+            outState.putLong(STATE_TIMER_TIME_TEXT, mTimerTimeText);
+            outState.putString(STATE_TIMER_LABEL, mTimerLabel);
+            outState.putInt(STATE_ADD_TIME_BUTTON_VALUE, mAddTimeButtonValue);
+            outState.putBoolean(STATE_DELETE_AFTER_USE, mDeleteAfterUse);
+        }
+    }
+
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        BottomSheetDialog dialog = (BottomSheetDialog) super.onCreateDialog(savedInstanceState);
+
+        Window window = dialog.getWindow();
+        if (window != null) {
+            // Display within the cutout area
+            ThemeUtils.allowDisplayCutout(window);
+
+            // To prevent flickering when a 'MaterialAlertDialog' opens on top of this BottomSheet, remove the background dimming
+            // caused by the BottomSheet. The 'MaterialAlertDialog' will handle this dimming.
+            window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+
+            // Prevent the BottomSheet from moving when the keyboard opens (for example, when editing the alarm label).
+            window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
+        }
+
+        final Bundle bundleToUse = (savedInstanceState != null) ? savedInstanceState : requireArguments();
+        mTimerId = bundleToUse.getInt(ARG_TIMER_ID, -1);
+        Timer timer = getTimer();
+
+        if (mTimerId == -1 || timer == null) {
+            dismiss();
+            return super.onCreateDialog(savedInstanceState);
+        }
+
+        if (savedInstanceState != null) {
+            mTimerTimeText = savedInstanceState.getLong(STATE_TIMER_TIME_TEXT);
+            mTimerLabel = savedInstanceState.getString(STATE_TIMER_LABEL);
+            mAddTimeButtonValue = savedInstanceState.getInt(STATE_ADD_TIME_BUTTON_VALUE);
+            mDeleteAfterUse = savedInstanceState.getBoolean(STATE_DELETE_AFTER_USE);
+        } else {
+            mTimerTimeText = timer.getLength();
+            mTimerLabel = timer.getLabel();
+            mAddTimeButtonValue = Integer.parseInt(timer.getButtonTime());
+            mDeleteAfterUse = timer.getDeleteAfterUse();
+        }
+
+        mBinding = TimerEditBottomSheetBinding.inflate(getLayoutInflater());
+
+        dialog.setContentView(mBinding.getRoot());
+
+        BottomSheetBehavior<?> behavior = dialog.getBehavior();
+        behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        behavior.setSkipCollapsed(true);
+
+        InsetsUtils.doOnApplyWindowInsets(mBinding.getRoot(), (v, insets) -> {
+            Insets statusBars = insets.getInsets(WindowInsetsCompat.Type.statusBars());
+            int statusBarHeight = statusBars.top;
+
+            behavior.setMaxHeight(mScreenHeight - statusBarHeight - mVisualPadding);
+        });
+
+        bindTimerTimeText();
+        bindLabel();
+        bindAddTimeButtonValue();
+        bindDeleteTimerAfterUse();
+        bindDeleteButton();
+        bindDuplicateButton();
+
+        applyExpressiveBackgrounds(mBinding.timerLabel, mBinding.addTimeButtonLayout);
+        applyExpressiveBackgrounds(mBinding.deleteTimerAfterUse);
+
+        dialog.setOnShowListener(dialogInterface -> {
+            BottomSheetDialog d = (BottomSheetDialog) dialogInterface;
+            View bottomSheetInternal = d.findViewById(com.google.android.material.R.id.design_bottom_sheet);
+
+            if (bottomSheetInternal != null) {
+                bottomSheetInternal.setElevation(dpToPx(12, mDisplayMetrics));
+            }
+        });
+
+        return dialog;
+    }
+
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        if (getActivity() != null && !getActivity().isChangingConfigurations()) {
+            saveTimerSettings();
+        }
+
+        super.onDismiss(dialog);
+    }
+
+    private void bindTimerTimeText() {
+        if (getTimer() == null) {
+            return;
+        }
+
+        mBinding.timerTimeText.setBackground(ThemeUtils.pillRippleDrawable(requireContext(), Color.TRANSPARENT));
+
+        String formattedTime = DateUtils.formatElapsedTime(mTimerTimeText / 1000);
+        mBinding.timerTimeText.setText(formattedTime);
+        mBinding.timerTimeText.setTypeface(mTimerBoldTypeface);
+
+        mBinding.timerTimeText.setOnClickListener(v -> {
+            Events.sendTimerEvent(R.string.action_set_new_timer_duration, R.string.label_deskclock);
+
+            final TimerSetNewDurationDialogFragment fragment = TimerSetNewDurationDialogFragment.newInstance(mTimerId, mTimerTimeText);
+            TimerSetNewDurationDialogFragment.show(getChildFragmentManager(), fragment);
+        });
+    }
+
+    private void bindLabel() {
+        if (getTimer() == null) {
+            return;
+        }
+
+        final boolean timerLabelIsEmpty = TextUtils.isEmpty(mTimerLabel);
+
+        mBinding.timerLabel.setText(timerLabelIsEmpty ? getString(R.string.add_label) : mTimerLabel);
+        mBinding.timerLabel.setTypeface(mGeneralTypeface);
+        mBinding.timerLabel.setContentDescription(timerLabelIsEmpty
+            ? getString(R.string.no_label_specified)
+            : getString(R.string.label_description) + " " + mTimerLabel);
+
+        mBinding.timerLabel.setOnClickListener(v -> {
+            Events.sendTimerEvent(R.string.action_set_label, R.string.label_deskclock);
+
+            final LabelDialogFragment fragment = LabelDialogFragment.newInstance(mTimerId, mTimerLabel);
+            LabelDialogFragment.show(getChildFragmentManager(), fragment);
+        });
+    }
+
+    private void bindAddTimeButtonValue() {
+        if (getTimer() == null) {
+            return;
+        }
+
+        mBinding.addTimeButtonTitle.setTypeface(mGeneralTypeface);
+        mBinding.addTimeButton.setTypeface(mGeneralTypeface);
+
+        long totalSeconds = mAddTimeButtonValue;
+        long buttonTimeMinutes = (totalSeconds) / 60;
+        long buttonTimeSeconds = totalSeconds % 60;
+
+        String buttonTimeFormatted = String.format(
+            Locale.getDefault(),
+            buttonTimeMinutes < 10 ? "%d:%02d" : "%02d:%02d",
+            buttonTimeMinutes,
+            buttonTimeSeconds);
+
+        mBinding.addTimeButton.setText(getString(R.string.timer_add_custom_time, buttonTimeFormatted));
+
+        View.OnClickListener addTimeButtonListener = v -> {
+            Events.sendTimerEvent(R.string.action_set_add_time_button_value, R.string.label_deskclock);
+
+            final TimerAddTimeButtonDialogFragment fragment = TimerAddTimeButtonDialogFragment.newInstance(mTimerId, mAddTimeButtonValue);
+            TimerAddTimeButtonDialogFragment.show(getChildFragmentManager(), fragment);
+        };
+
+        mBinding.addTimeButtonLayout.setOnClickListener(addTimeButtonListener);
+        mBinding.addTimeButton.setOnClickListener(addTimeButtonListener);
+    }
+
+    private void bindDeleteTimerAfterUse() {
+        if (getTimer() == null) {
+            return;
+        }
+
+        if (SettingsDAO.isSingleTimerModeEnabled(mPrefs)) {
+            mBinding.deleteTimerAfterUse.setVisibility(GONE);
+            return;
+        }
+
+        mBinding.deleteTimerAfterUse.setTypeface(mGeneralTypeface);
+        mBinding.deleteTimerAfterUse.setOnCheckedChangeListener(null);
+        mBinding.deleteTimerAfterUse.setChecked(mDeleteAfterUse);
+        mBinding.deleteTimerAfterUse.setVisibility(VISIBLE);
+
+        mBinding.deleteTimerAfterUse.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            mDeleteAfterUse = isChecked;
+            Utils.performHapticFeedback(mBinding.deleteTimerAfterUse, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+        });
+    }
+
+    private void bindDeleteButton() {
+        if (getTimer() == null) {
+            return;
+        }
+
+        mBinding.deleteButton.setTypeface(mGeneralTypeface);
+
+        mBinding.deleteButton.setOnClickListener(v -> {
+            mIsDeleted = true;
+            Events.sendTimerEvent(R.string.action_delete, R.string.label_deskclock);
+            DataModel.getDataModel().removeTimer(getTimer(), R.string.label_deskclock);
+            Utils.performHapticFeedback(mBinding.deleteButton, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+            dismiss();
+        });
+    }
+
+    private void bindDuplicateButton() {
+        if (getTimer() == null) {
+            return;
+        }
+
+        if (SettingsDAO.isSingleTimerModeEnabled(mPrefs)) {
+            mBinding.duplicateButton.setVisibility(GONE);
+            return;
+        }
+
+        mBinding.duplicateButton.setTypeface(mGeneralTypeface);
+
+        mBinding.duplicateButton.setVisibility(VISIBLE);
+
+        mBinding.duplicateButton.setOnClickListener(v -> {
+            Timer originalTimer = getTimer();
+
+            if (originalTimer == null) {
+                return;
+            }
+
+            DataModel.getDataModel().addTimer(mTimerTimeText, mTimerLabel, String.valueOf(mAddTimeButtonValue), mDeleteAfterUse);
+
+            Utils.performHapticFeedback(mBinding.duplicateButton, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
+            dismiss();
+        });
+    }
+
+    // ********************
+    // ** HELPER METHODS **
+    // ********************
+
+    /**
+     * @return the timer currently being edited.
+     */
+    private Timer getTimer() {
+        if (mTimerId < 0) {
+            return null;
+        }
+
+        return DataModel.getDataModel().getTimer(mTimerId);
+    }
+
+    private void setupFragmentResultListeners() {
+        FragmentManager childFragmentManager = getChildFragmentManager();
+
+        childFragmentManager.setFragmentResultListener(TimerSetNewDurationDialogFragment.REQUEST_TIMER_DURATION, this,
+            (requestKey, bundle) -> {
+                long newDurationMillis = bundle.getLong(TimerSetNewDurationDialogFragment.RESULT_TIMER_DURATION);
+                String oldDefaultLabel = Utils.buildDefaultTimerLabel(requireContext(), mTimerTimeText);
+
+                if (mTimerLabel != null && mTimerLabel.equals(oldDefaultLabel)) {
+                    mTimerLabel = Utils.buildDefaultTimerLabel(requireContext(), newDurationMillis);
+                    bindLabel();
+                }
+
+                mTimerTimeText = newDurationMillis;
+                bindTimerTimeText();
+            });
+
+        childFragmentManager.setFragmentResultListener(LabelDialogFragment.REQUEST_TIMER_LABEL, this,
+            (requestKey, bundle) -> {
+                mTimerLabel = bundle.getString(LabelDialogFragment.RESULT_TIMER_LABEL);
+                bindLabel();
+            });
+
+        childFragmentManager.setFragmentResultListener(TimerAddTimeButtonDialogFragment.REQUEST_ADD_TIME_DURATION, this,
+            (requestKey, bundle) -> {
+                mAddTimeButtonValue = bundle.getInt(TimerAddTimeButtonDialogFragment.ADD_TIME_BUTTON_VALUE);
+                bindAddTimeButtonValue();
+            });
+    }
+
+    private void saveTimerSettings() {
+        Timer timer = getTimer();
+
+        if (mIsDeleted || timer == null) {
+            return;
+        }
+
+        boolean durationChanged = timer.getLength() != mTimerTimeText;
+
+        if (durationChanged) {
+            DataModel.getDataModel().setNewTimerDuration(timer, mTimerTimeText);
+
+            timer = getTimer();
+        }
+
+        if (timer != null) {
+            DataModel.getDataModel().updateAllTimerSettings(
+                timer,
+                mTimerLabel,
+                String.valueOf(mAddTimeButtonValue),
+                mDeleteAfterUse
+            );
+        }
+    }
+
+    private void applyExpressiveBackgrounds(View... views) {
+        List<View> allViews = new ArrayList<>(Arrays.asList(views));
+
+        int totalCount = allViews.size();
+        if (totalCount == 0) {
+            return;
+        }
+
+        Integer backgroundColor = null;
+        if (!SettingsDAO.isCardBackgroundDisplayed(mPrefs)) {
+            backgroundColor = MaterialColors.getColor(
+                requireContext(), com.google.android.material.R.attr.colorSurfaceContainerLowest, Color.BLACK);
+        }
+
+        for (int i = 0; i < totalCount; i++) {
+            View view = allViews.get(i);
+
+            Drawable cardBackground = ThemeUtils.expressiveCardBackgroundWithColor(requireContext(), i, totalCount, backgroundColor);
+
+            view.setBackground(ThemeUtils.rippleDrawable(requireContext(), cardBackground));
+        }
+    }
+
+    private void nullifyClickListeners(View... views) {
+        for (View view : views) {
+            if (view != null) {
+                view.setOnClickListener(null);
+            }
+        }
+    }
+
+}

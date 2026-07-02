@@ -497,9 +497,6 @@
     <string name="sort_timer_ascending_duration">Hossz szerint (emelkedő sorrendben)</string>
     <string name="sort_timer_descending_duration">Hossz szerint (csökkenő sorrendben)</string>
     <string name="default_time_to_add_to_timer_title">Alap időzítőhöz adható időintervallum</string>
-    <string name="display_warning_before_deleting_timer_title">Figyelmeztetés megjelenítése időzítő törlése előtt</string>
-    <string name="warning_dialog_title">Időzítő törlése</string>
-    <string name="warning_dialog_message">Biztosan törölni kívánja a(z) \"%s\" időzítőt?</string>
     <string name="screensaver_settings_summary">Képernyővédő stílus, szín és betűtípus beállítások</string>
     <string name="screensaver_daydream_settings">Képernyőkímélő kiválasztása/bekapcsolása</string>
     <string name="screensaver_daydream_settings_summary">Megnyitja az alap Android képernyőkímélő beállításokat</string>

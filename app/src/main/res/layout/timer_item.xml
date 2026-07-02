@@ -11,180 +11,156 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="8dp"
     tools:background="@drawable/bg_card_for_preview"
-    tools:layout_marginHorizontal="10dp"
-    tools:layout_marginBottom="2dp">
+    tools:layout_marginBottom="2dp"
+    tools:layout_marginHorizontal="10dp">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/timer_label"
         android:layout_width="0dp"
-        android:layout_height="48dp"
+        android:layout_height="24dp"
         android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="12dp"
-        android:background="?attr/selectableItemBackground"
-        android:drawablePadding="8dp"
-        android:hint="@string/add_label"
-        android:gravity="center_vertical"
-        android:textSize="16sp"
         android:ellipsize="end"
-        android:maxLines="1"
         android:focusable="true"
-        android:drawableStart="@drawable/ic_label"
-        android:drawableTint="?attr/colorOnSurfaceVariant"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/delete_timer_button"
+        app:layout_constraintEnd_toStartOf="@+id/timer_indicator_state"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="TextContrastCheck" />
+        tools:ignore="TextContrastCheck"
+        tools:text="2m Timer" />
 
     <View
         android:id="@+id/timer_indicator_state"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_marginEnd="12dp"
         android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:background="@drawable/bg_circle_for_preview"
         tools:backgroundTint="#FF99CC00" />
 
-    <ImageButton
-        android:id="@+id/delete_timer_button"
+    <com.best.deskclock.uicomponents.CircleButtonsLayout
+        android:id="@+id/circle_container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="10dp"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/reset_button"
+        app:layout_constraintTop_toBottomOf="@+id/timer_label"
+        app:layout_constraintHeight_max="@dimen/timer_circle_container_height_max"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_goneMarginTop="14dp"
+        tools:ignore="InconsistentLayout">
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/circular_progress_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:max="1000"
+            app:indicatorColor="?attr/colorSecondary"
+            app:trackColor="?attr/colorPrimaryInverse"
+            tools:progress="600" />
+
+        <com.best.deskclock.uicomponents.AutoSizingTextView
+            android:id="@+id/timer_time_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFeatureSettings="tnum"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:paddingHorizontal="24dp"
+            android:textDirection="locale"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            tools:text="01:23" />
+
+    </com.best.deskclock.uicomponents.CircleButtonsLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/reset_button"
+        style="?attr/materialIconButtonFilledStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="12dp"
-        android:layout_marginTop="12dp"
-        android:src="@drawable/ic_delete"
-        android:scaleType="centerInside"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@string/delete"
-        app:tint="?attr/colorPrimary"
-        app:layout_constraintEnd_toStartOf="@+id/timer_indicator_state"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="TouchTargetSizeCheck" />
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="12dp"
+        android:contentDescription="@string/reset"
+        app:icon="@drawable/ic_reset"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp"
+        app:iconTint="?android:attr/colorBackground"
+        app:layout_constraintEnd_toStartOf="@+id/play_pause_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:materialSizeOverlay="@style/SizeOverlay.Material3Expressive.Button.IconButton.Medium" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/timer_controls_container"
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/timer_end_time"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginVertical="12dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:ellipsize="end"
+        android:gravity="end|center_vertical"
+        android:maxLines="1"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
+        android:textStyle="italic"
+        android:visibility="gone"
+        app:layout_constraintStart_toEndOf="@+id/circle_container"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timer_label"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/timer_indicator_state"
+        app:layout_constraintBottom_toTopOf="@+id/timer_add_time_button"
+        app:layout_constraintVertical_bias="1"
+        tools:ignore="TextContrastCheck"
+        tools:text="End time: 8:30 PM"
+        tools:visibility="visible" />
 
-        <com.best.deskclock.uicomponents.CircleButtonsLayout
-            android:id="@+id/circle_container"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="20dp"
-            android:focusable="true"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintHeight_max="@dimen/timer_circle_container_height_max"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/reset_or_edit_button"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:ignore="InconsistentLayout">
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/timer_add_time_button"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="4dp"
+        android:maxLines="1"
+        android:paddingStart="2dp"
+        android:paddingEnd="2dp"
+        android:textColor="?attr/colorOnSurfaceVariant"
+        android:textDirection="locale"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/play_pause_button"
+        app:materialSizeOverlay="@style/SizeOverlay.Material3Expressive.Button.Medium"
+        app:strokeColor="?attr/colorOnSurfaceVariant"
+        tools:text="+ 1:00"
+        tools:textStyle="bold" />
 
-            <com.google.android.material.progressindicator.CircularProgressIndicator
-                android:id="@+id/circular_progress_indicator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:max="1000"
-                app:trackColor="?attr/colorPrimaryInverse"
-                app:indicatorColor="?attr/colorSecondary"
-                tools:progress="600" />
-
-            <com.best.deskclock.uicomponents.AutoSizingTextView
-                android:id="@+id/timer_time_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:paddingHorizontal="24dp"
-                android:includeFontPadding="false"
-                android:fontFeatureSettings="tnum"
-                android:textSize="40sp"
-                android:textStyle="bold"
-                android:textDirection="locale"
-                tools:text="01:23" />
-
-        </com.best.deskclock.uicomponents.CircleButtonsLayout>
-
-        <com.google.android.material.button.MaterialButton
-            style="?attr/materialIconButtonFilledStyle"
-            android:id="@+id/reset_or_edit_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:contentDescription="@string/reset"
-            app:iconTint="?android:attr/colorBackground"
-            app:iconGravity="textStart"
-            app:materialSizeOverlay="@style/SizeOverlay.Material3Expressive.Button.IconButton.Medium"
-            app:layout_constraintEnd_toStartOf="@+id/play_pause_button"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:icon="@drawable/ic_reset" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/timer_end_time"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="8dp"
-            android:paddingStart="4dp"
-            android:paddingEnd="4dp"
-            android:gravity="end|center_vertical"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textStyle="italic"
-            android:visibility="gone"
-            app:layout_constraintStart_toEndOf="@+id/circle_container"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintHorizontal_bias="1"
-            tools:text="End time: 8:30 PM"
-            tools:visibility="visible"
-            tools:ignore="TextContrastCheck" />
-
-        <com.google.android.material.button.MaterialButton
-            style="?attr/materialButtonOutlinedStyle"
-            android:id="@+id/timer_add_time_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="4dp"
-            android:paddingStart="2dp"
-            android:paddingEnd="2dp"
-            android:maxLines="1"
-            android:textColor="?attr/colorOnSurfaceVariant"
-            android:textSize="16sp"
-            android:textDirection="locale"
-            app:strokeColor="?attr/colorOnSurfaceVariant"
-            app:materialSizeOverlay="@style/SizeOverlay.Material3Expressive.Button.Medium"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/timer_end_time"
-            app:layout_constraintBottom_toTopOf="@+id/play_pause_button"
-            app:layout_constraintVertical_bias="1"
-            tools:text="+ 1:00"
-            tools:textStyle="bold" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/play_pause_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/timer_start"
-            app:iconTint="?android:attr/colorBackground"
-            app:iconGravity="textStart"
-            app:iconPadding="0dp"
-            app:materialSizeOverlay="@style/SizeOverlay.Material3Expressive.Button.Medium"
-            app:layout_constraintStart_toStartOf="@+id/timer_add_time_button"
-            app:layout_constraintEnd_toEndOf="@+id/timer_add_time_button"
-            app:layout_constraintBottom_toBottomOf="@+id/reset_or_edit_button"
-            tools:icon="@drawable/ic_fab_play" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/play_pause_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:contentDescription="@string/timer_start"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp"
+        app:iconTint="?android:attr/colorBackground"
+        app:layout_constraintStart_toStartOf="@+id/timer_add_time_button"
+        app:layout_constraintEnd_toEndOf="@+id/timer_add_time_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:materialSizeOverlay="@style/SizeOverlay.Material3Expressive.Button.Medium"
+        tools:icon="@drawable/ic_fab_play" />
 
 </com.best.deskclock.timer.TimerItem>

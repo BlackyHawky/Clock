@@ -420,9 +420,6 @@
     <string name="yellow_accent_color">Kollane</string>
     <string name="day_accent_color_title">Aktsentvärv päevaseks režiimiks</string>
     <string name="display_ringtone_title">Näita helina nime</string>
-    <string name="display_warning_before_deleting_timer_title">Enne taimeri kustutamist näita hoiatust</string>
-    <string name="warning_dialog_title">Kustuta taimer</string>
-    <string name="warning_dialog_message">Kas sa oled kindel, et soovid kustutada „%s“ taimeri?</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">Kasuta värinat, kui äratus on edasilükatud või katkestatud</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">Kasuta topeltvärinat, kui äratus on edasilükatud või ühekordset värinat, kui äratus on katkestatud</string>
     <string name="turn_on_back_flash_for_triggered_alarm_title">Äratuse käivitumisel lülita tagumine välklamp sisse</string>
