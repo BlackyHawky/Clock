@@ -526,8 +526,10 @@ public class HandleApiCalls extends Activity {
 
         // Create a new timer if one could not be reused.
         if (timer == null) {
-            String defaultTimeToAddToTimer = String.valueOf(SettingsDAO.getDefaultTimeToAddToTimer(getDefaultSharedPreferences(mAppContext)));
-            timer = DataModel.getDataModel().addTimer(lengthMillis, label, defaultTimeToAddToTimer, skipUi);
+            SharedPreferences prefs = getDefaultSharedPreferences(mAppContext);
+            String defaultTimeToAddToTimer = String.valueOf(SettingsDAO.getDefaultTimeToAddToTimer(prefs));
+            boolean isVibrate = SettingsDAO.isTimerVibrate(prefs);
+            timer = DataModel.getDataModel().addTimer(lengthMillis, label, defaultTimeToAddToTimer, isVibrate, skipUi);
             Events.sendTimerEvent(R.string.action_create, R.string.label_intent);
         }
 

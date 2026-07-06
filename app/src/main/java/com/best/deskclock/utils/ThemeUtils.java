@@ -382,6 +382,37 @@ public class ThemeUtils {
     }
 
     /**
+     * Apply a Material Expressive background to a group of views.
+     */
+    public static void applyExpressiveBackgroundsToGroup(Context context, SharedPreferences prefs, View... views) {
+        List<View> visibleViews = new ArrayList<>();
+        for (View view : views) {
+            if (view.getVisibility() == View.VISIBLE) {
+                visibleViews.add(view);
+            }
+        }
+
+        int totalCount = visibleViews.size();
+        if (totalCount == 0) {
+            return;
+        }
+
+        Integer backgroundColor = null;
+        if (!SettingsDAO.isCardBackgroundDisplayed(prefs)) {
+            backgroundColor = MaterialColors.getColor(
+                context, com.google.android.material.R.attr.colorSurfaceContainerLowest, Color.BLACK);
+        }
+
+        for (int i = 0; i < totalCount; i++) {
+            View view = visibleViews.get(i);
+
+            Drawable cardBackground = expressiveCardBackgroundWithColor(context, i, totalCount, backgroundColor);
+
+            view.setBackground(rippleDrawable(context, cardBackground));
+        }
+    }
+
+    /**
      * @return a Material card.
      */
     public static Drawable cardBackground(Context context) {

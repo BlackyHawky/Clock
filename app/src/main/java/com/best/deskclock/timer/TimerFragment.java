@@ -448,8 +448,16 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
                 final long timerLength = getTimeInMillis();
                 String defaultLabel = Utils.buildDefaultTimerLabel(requireContext(), timerLength);
                 String defaultTimeToAddToTimer = String.valueOf(SettingsDAO.getDefaultTimeToAddToTimer(mPrefs));
+                boolean isVibrate = SettingsDAO.isTimerVibrate(mPrefs);
+
                 final Timer timer = DataModel.getDataModel().addTimer(
-                    timerLength, defaultLabel, defaultTimeToAddToTimer, mSettings.isSingleTimerMode);
+                    timerLength,
+                    defaultLabel,
+                    defaultTimeToAddToTimer,
+                    isVibrate,
+                    mSettings.isSingleTimerMode
+                );
+
                 Events.sendTimerEvent(R.string.action_create, R.string.label_deskclock);
 
                 // Start the new timer.

@@ -1036,6 +1036,8 @@
     <string name="missed_timer_indicator_color_title">Missed timer indicator color</string>
     <!-- Description for timer vibration. -->
     <string name="timer_vibrate_title">Timer vibrate</string>
+    <!-- Dialog message when the "Timer vibrate" setting is disabled. -->
+    <string name="timer_vibrate_dialog_message">Vibrations will be disabled for all timers.%s</string>
     <!-- Setting title to reset expired timers with volume buttons. -->
     <string name="timer_volume_buttons_action_title">Reset the expired timers with the volume buttons</string>
     <!-- Setting title to reset expired timers with power button. -->

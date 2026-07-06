@@ -60,9 +60,11 @@ public class TimerSettingsFragment extends ScreenFragment
 
     private static final String KEY_SHOW_SINGLE_TIMER_WARNING = "show_single_timer_warning";
     private static final String KEY_PENDING_SINGLE_MODE_VALUE = "pending_single_mode_value";
+    private static final String KEY_PENDING_DIALOG_PREF_KEY = "pending_dialog_pref_key";
 
     private boolean mShowSingleTimerWarning = false;
     private boolean mPendingSingleModeValue = false;
+    private String mPendingDialogPrefKey = null;
 
     private AudioManager mAudioManager;
     private AudioDeviceCallback mAudioDeviceCallback;
@@ -184,6 +186,7 @@ public class TimerSettingsFragment extends ScreenFragment
         if (savedInstanceState != null) {
             mShowSingleTimerWarning = savedInstanceState.getBoolean(KEY_SHOW_SINGLE_TIMER_WARNING, false);
             mPendingSingleModeValue = savedInstanceState.getBoolean(KEY_PENDING_SINGLE_MODE_VALUE, false);
+            mPendingDialogPrefKey = savedInstanceState.getString(KEY_PENDING_DIALOG_PREF_KEY, null);
         }
 
         setupPreferences();
@@ -195,6 +198,7 @@ public class TimerSettingsFragment extends ScreenFragment
 
         outState.putBoolean(KEY_SHOW_SINGLE_TIMER_WARNING, mShowSingleTimerWarning);
         outState.putBoolean(KEY_PENDING_SINGLE_MODE_VALUE, mPendingSingleModeValue);
+        outState.putString(KEY_PENDING_DIALOG_PREF_KEY, mPendingDialogPrefKey);
     }
 
     @Override
@@ -208,9 +212,13 @@ public class TimerSettingsFragment extends ScreenFragment
     public void onResume() {
         super.onResume();
 
-        if (mShowSingleTimerWarning && (mActiveDialog == null || !mActiveDialog.isShowing())) {
-            mActiveDialog = singleModeWarningDialog(mPendingSingleModeValue);
-            mActiveDialog.show();
+        if (mActiveDialog == null || !mActiveDialog.isShowing()) {
+            if (mShowSingleTimerWarning) {
+                mActiveDialog = singleModeWarningDialog(mPendingSingleModeValue);
+                mActiveDialog.show();
+            } else if (mPendingDialogPrefKey != null) {
+                triggerDisableSettingDialog(mPendingDialogPrefKey);
+            }
         }
 
         restoreCustomFileDialogIfNeeded(KEY_TIMER_DURATION_FONT, mTimerDurationFontPref, fontPickerLauncher, null);
@@ -301,6 +309,25 @@ public class TimerSettingsFragment extends ScreenFragment
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
+            case KEY_TIMER_VIBRATE -> {
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
+                List<Timer> timerList = DataModel.getDataModel().getTimers();
+
+                if ((boolean) newValue) {
+                    for (Timer timer : timerList) {
+                        DataModel.getDataModel().updateAllTimerSettings(
+                            timer,
+                            timer.getLabel(),
+                            timer.getButtonTime(), true, timer.getDeleteAfterUse()
+                        );
+                    }
+                } else {
+                    triggerDisableSettingDialog(KEY_TIMER_VIBRATE);
+                    return false;
+                }
+            }
+
             case KEY_SINGLE_TIMER_MODE -> {
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
                 boolean newValueBool = (boolean) newValue;
@@ -318,12 +345,69 @@ public class TimerSettingsFragment extends ScreenFragment
                 }
             }
 
-            case KEY_TIMER_VIBRATE, KEY_TIMER_VOLUME_BUTTONS_ACTION, KEY_TIMER_POWER_BUTTON_ACTION, KEY_TIMER_FLIP_ACTION,
+            case KEY_TIMER_VOLUME_BUTTONS_ACTION, KEY_TIMER_POWER_BUTTON_ACTION, KEY_TIMER_FLIP_ACTION,
                  KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING ->
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
         }
 
         return true;
+    }
+
+    private void triggerDisableSettingDialog(String prefKey) {
+        if (!isAdded() || isDetached()) {
+            return;
+        }
+
+        mPendingDialogPrefKey = prefKey;
+
+        if (!DataModel.getDataModel().getTimers().isEmpty()) {
+            if (prefKey.equals(KEY_TIMER_VIBRATE)) {
+                showDisablePerTimerSettingDialog();
+            }
+        } else {
+            mPrefs.edit().putBoolean(prefKey, false).apply();
+
+            Preference pref = findPreference(prefKey);
+            if (pref instanceof SwitchPreferenceCompat switchPreferenceCompat) {
+                switchPreferenceCompat.setChecked(false);
+            }
+        }
+    }
+
+    private void showDisablePerTimerSettingDialog() {
+        String confirmAction = getString(R.string.confirm_action_prompt);
+
+        mActiveDialog = CustomDialog.create(
+            requireContext(),
+            null,
+            AppCompatResources.getDrawable(requireContext(), R.drawable.ic_error),
+            getString(R.string.warning),
+            getString(R.string.timer_vibrate_dialog_message, confirmAction),
+            null,
+            getString(android.R.string.ok),
+            (d, w) -> {
+                for (Timer timer : DataModel.getDataModel().getTimers()) {
+                    DataModel.getDataModel().updateAllTimerSettings(
+                        timer,
+                        timer.getLabel(),
+                        timer.getButtonTime(),
+                        false,
+                        timer.getDeleteAfterUse()
+                    );
+                }
+
+                mPrefs.edit().putBoolean(KEY_TIMER_VIBRATE, false).apply();
+                mTimerVibratePref.setChecked(false);
+            },
+            getString(android.R.string.cancel),
+            null,
+            null,
+            null,
+            (alertDialog -> alertDialog.setOnDismissListener(d -> mPendingDialogPrefKey = null)),
+            CustomDialog.SoftInputMode.NONE
+        );
+
+        mActiveDialog.show();
     }
 
     @Override
