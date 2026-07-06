@@ -237,12 +237,14 @@ final class TimerModel {
      * @param length         the length of the timer in milliseconds
      * @param label          describes the purpose of the timer
      * @param buttonTime     the time indicated in the timer add time button
+     * @param isVibrate      {@code true} indicates the timer should vibrate when it is expired
      * @param deleteAfterUse {@code true} indicates the timer should be deleted when it is reset
      * @return the newly added timer
      */
-    Timer addTimer(long length, String label, String buttonTime, boolean deleteAfterUse) {
+    Timer addTimer(long length, String label, String buttonTime, boolean isVibrate, boolean deleteAfterUse) {
         // Create the timer instance.
-        Timer timer = new Timer(-1, RESET, length, length, Timer.UNUSED, Timer.UNUSED, length, label, buttonTime, deleteAfterUse);
+        Timer timer = new Timer(-1, RESET, length, length, Timer.UNUSED, Timer.UNUSED, length, label, buttonTime, isVibrate,
+            deleteAfterUse);
 
         // Add the timer to permanent storage.
         timer = TimerDAO.addTimer(mPrefs, timer);
@@ -768,9 +770,13 @@ final class TimerModel {
         }
 
         // If the timer is the first to expire, start ringing.
-        if (afterState == EXPIRED && mRingingIds.add(after.getId()) && mRingingIds.size() == 1) {
-            AlarmAlertWakeLock.acquireCpuWakeLock(mContext);
-            TimerKlaxon.start();
+        if (afterState == EXPIRED && mRingingIds.add(after.getId())) {
+            if (mRingingIds.size() == 1) {
+                AlarmAlertWakeLock.acquireCpuWakeLock(mContext);
+            }
+
+            TimerKlaxon.start(after);
+
             stopRingtoneAfterDelay();
         }
 
@@ -803,6 +809,10 @@ final class TimerModel {
             duration = RingtoneUtils.getRingtoneDuration(mContext, mTimerRingtoneUri);
         } else {
             duration = getTimerAutoSilenceDuration() * 1000;
+        }
+
+        if (mAutoSilenceRunnable != null) {
+            mMainHandler.removeCallbacks(mAutoSilenceRunnable);
         }
 
         mAutoSilenceRunnable = () -> {

@@ -87,7 +87,6 @@ import com.google.android.material.color.MaterialColors;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.timepicker.MaterialTimePicker;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -1152,36 +1151,10 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         }
     }
 
-    private void applyExpressiveBackgroundsToGroup(View... views) {
-        List<View> visibleViews = new ArrayList<>();
-        for (View view : views) {
-            if (view.getVisibility() == View.VISIBLE) {
-                visibleViews.add(view);
-            }
-        }
-
-        int totalCount = visibleViews.size();
-        if (totalCount == 0) {
-            return;
-        }
-
-        Integer backgroundColor = null;
-        if (!SettingsDAO.isCardBackgroundDisplayed(mPrefs)) {
-            backgroundColor = MaterialColors.getColor(
-                requireContext(), com.google.android.material.R.attr.colorSurfaceContainerLowest, Color.BLACK);
-        }
-
-        for (int i = 0; i < totalCount; i++) {
-            View view = visibleViews.get(i);
-
-            Drawable cardBackground = ThemeUtils.expressiveCardBackgroundWithColor(requireContext(), i, totalCount, backgroundColor);
-
-            view.setBackground(ThemeUtils.rippleDrawable(requireContext(), cardBackground));
-        }
-    }
-
     private void updateSecondGroup() {
-        applyExpressiveBackgroundsToGroup(
+        ThemeUtils.applyExpressiveBackgroundsToGroup(
+            requireContext(),
+            mPrefs,
             mBinding.vibrateOnOff,
             mBinding.vibrationPatternLayout,
             mBinding.flashOnOff,
@@ -1190,7 +1163,9 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     }
 
     private void updateThirdGroup() {
-        applyExpressiveBackgroundsToGroup(
+        ThemeUtils.applyExpressiveBackgroundsToGroup(
+            requireContext(),
+            mPrefs,
             mBinding.autoSilenceDurationLayout,
             mBinding.snoozeDurationLayout,
             mBinding.missedAlarmRepeatLimitLayout,
@@ -1200,18 +1175,32 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     }
 
     private void updateAllGroupBackgrounds() {
-        applyExpressiveBackgroundsToGroup(mBinding.scheduleAlarmLayout, mBinding.pauseAlarmLayout);
+        ThemeUtils.applyExpressiveBackgroundsToGroup(
+            requireContext(),
+            mPrefs,
+            mBinding.scheduleAlarmLayout,
+            mBinding.pauseAlarmLayout
+        );
 
-        applyExpressiveBackgroundsToGroup(mBinding.editLabel, mBinding.chooseRingtone);
+        ThemeUtils.applyExpressiveBackgroundsToGroup(
+            requireContext(),
+            mPrefs,
+            mBinding.editLabel,
+            mBinding.chooseRingtone
+        );
 
-        applyExpressiveBackgroundsToGroup(
+        ThemeUtils.applyExpressiveBackgroundsToGroup(
+            requireContext(),
+            mPrefs,
             mBinding.vibrateOnOff,
             mBinding.vibrationPatternLayout,
             mBinding.flashOnOff,
             mBinding.deleteOccasionalAlarmAfterUse
         );
 
-        applyExpressiveBackgroundsToGroup(
+        ThemeUtils.applyExpressiveBackgroundsToGroup(
+            requireContext(),
+            mPrefs,
             mBinding.autoSilenceDurationLayout,
             mBinding.snoozeDurationLayout,
             mBinding.missedAlarmRepeatLimitLayout,

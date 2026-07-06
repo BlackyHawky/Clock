@@ -17,6 +17,7 @@ import android.os.Vibrator;
 import com.best.deskclock.DeskClockApplication;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.data.Timer;
 import com.best.deskclock.ringtone.AsyncRingtonePlayer;
 import com.best.deskclock.ringtone.RingtonePlayer;
 import com.best.deskclock.utils.LogUtils;
@@ -69,7 +70,7 @@ public final class TimerKlaxon {
         }
     }
 
-    public static void start() {
+    public static void start(Timer timer) {
         // Make sure we are stopped before starting
         stop();
         LogUtils.i("TimerKlaxon.start()");
@@ -100,7 +101,7 @@ public final class TimerKlaxon {
             }
         }
 
-        if (SettingsDAO.isTimerVibrate(prefs)) {
+        if (timer.isVibrate()) {
             final Vibrator vibrator = appContext.getSystemService(Vibrator.class);
             AudioAttributes audioAttributes = new AudioAttributes.Builder()
                 .setUsage(AudioAttributes.USAGE_ALARM)

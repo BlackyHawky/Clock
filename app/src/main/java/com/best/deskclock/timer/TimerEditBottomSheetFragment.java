@@ -13,7 +13,6 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
@@ -38,17 +37,14 @@ import com.best.deskclock.dialogfragment.LabelDialogFragment;
 import com.best.deskclock.dialogfragment.TimerAddTimeButtonDialogFragment;
 import com.best.deskclock.dialogfragment.TimerSetNewDurationDialogFragment;
 import com.best.deskclock.events.Events;
+import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.google.android.material.color.MaterialColors;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Locale;
 
 public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
@@ -59,6 +55,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
     private static final String STATE_TIMER_TIME_TEXT = "state_timer_time_text";
     private static final String STATE_TIMER_LABEL = "state_timer_label";
     private static final String STATE_ADD_TIME_BUTTON_VALUE = "state_add_time_button_value";
+    private static final String STATE_VIBRATE = "state_vibrate";
     private static final String STATE_DELETE_AFTER_USE = "state_delete_after_use";
 
     private TimerEditBottomSheetBinding mBinding;
@@ -71,9 +68,10 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
     private long mTimerTimeText;
     private String mTimerLabel;
     private int mAddTimeButtonValue;
+    private boolean mVibrate;
     private boolean mDeleteAfterUse;
-    private boolean mIsDeleted;
 
+    private boolean mIsDeleted;
     private int mScreenHeight;
     private int mVisualPadding;
 
@@ -110,7 +108,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
     @Override
     public void onDestroyView() {
         nullifyClickListeners(mBinding.timerTimeText, mBinding.timerLabel, mBinding.addTimeButtonLayout, mBinding.addTimeButton,
-            mBinding.deleteTimerAfterUse, mBinding.deleteButton, mBinding.duplicateButton);
+            mBinding.vibrateOnOff, mBinding.deleteTimerAfterUse, mBinding.deleteButton, mBinding.duplicateButton);
 
         mBinding = null;
 
@@ -126,6 +124,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
             outState.putLong(STATE_TIMER_TIME_TEXT, mTimerTimeText);
             outState.putString(STATE_TIMER_LABEL, mTimerLabel);
             outState.putInt(STATE_ADD_TIME_BUTTON_VALUE, mAddTimeButtonValue);
+            outState.putBoolean(STATE_VIBRATE, mVibrate);
             outState.putBoolean(STATE_DELETE_AFTER_USE, mDeleteAfterUse);
         }
     }
@@ -161,11 +160,13 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
             mTimerTimeText = savedInstanceState.getLong(STATE_TIMER_TIME_TEXT);
             mTimerLabel = savedInstanceState.getString(STATE_TIMER_LABEL);
             mAddTimeButtonValue = savedInstanceState.getInt(STATE_ADD_TIME_BUTTON_VALUE);
+            mVibrate = savedInstanceState.getBoolean(STATE_VIBRATE);
             mDeleteAfterUse = savedInstanceState.getBoolean(STATE_DELETE_AFTER_USE);
         } else {
             mTimerTimeText = timer.getLength();
             mTimerLabel = timer.getLabel();
             mAddTimeButtonValue = Integer.parseInt(timer.getButtonTime());
+            mVibrate = timer.isVibrate();
             mDeleteAfterUse = timer.getDeleteAfterUse();
         }
 
@@ -187,12 +188,12 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
         bindTimerTimeText();
         bindLabel();
         bindAddTimeButtonValue();
+        bindVibrator();
         bindDeleteTimerAfterUse();
         bindDeleteButton();
         bindDuplicateButton();
 
-        applyExpressiveBackgrounds(mBinding.timerLabel, mBinding.addTimeButtonLayout);
-        applyExpressiveBackgrounds(mBinding.deleteTimerAfterUse);
+        updateAllGroupBackgrounds();
 
         dialog.setOnShowListener(dialogInterface -> {
             BottomSheetDialog d = (BottomSheetDialog) dialogInterface;
@@ -286,6 +287,31 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
         mBinding.addTimeButton.setOnClickListener(addTimeButtonListener);
     }
 
+    private void bindVibrator() {
+        if (getTimer() == null) {
+            return;
+        }
+
+        if (!DeviceUtils.hasVibrator(requireContext())) {
+            mBinding.vibrateOnOff.setVisibility(GONE);
+            return;
+        }
+
+        mBinding.vibrateOnOff.setTypeface(mGeneralTypeface);
+        mBinding.vibrateOnOff.setVisibility(VISIBLE);
+        mBinding.vibrateOnOff.setOnCheckedChangeListener(null);
+        mBinding.vibrateOnOff.setChecked(mVibrate);
+
+        mBinding.vibrateOnOff.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            Events.sendTimerEvent(R.string.action_toggle_vibrate, R.string.label_deskclock);
+            mVibrate = isChecked;
+
+            if (isChecked) {
+                Utils.setVibrationTime(requireContext(), 300);
+            }
+        });
+    }
+
     private void bindDeleteTimerAfterUse() {
         if (getTimer() == null) {
             return;
@@ -344,7 +370,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
                 return;
             }
 
-            DataModel.getDataModel().addTimer(mTimerTimeText, mTimerLabel, String.valueOf(mAddTimeButtonValue), mDeleteAfterUse);
+            DataModel.getDataModel().addTimer(mTimerTimeText, mTimerLabel, String.valueOf(mAddTimeButtonValue), mVibrate, mDeleteAfterUse);
 
             Utils.performHapticFeedback(mBinding.duplicateButton, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
@@ -417,32 +443,26 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
                 timer,
                 mTimerLabel,
                 String.valueOf(mAddTimeButtonValue),
+                mVibrate,
                 mDeleteAfterUse
             );
         }
     }
 
-    private void applyExpressiveBackgrounds(View... views) {
-        List<View> allViews = new ArrayList<>(Arrays.asList(views));
+    private void updateAllGroupBackgrounds() {
+        ThemeUtils.applyExpressiveBackgroundsToGroup(
+            requireContext(),
+            mPrefs,
+            mBinding.timerLabel,
+            mBinding.addTimeButtonLayout
+        );
 
-        int totalCount = allViews.size();
-        if (totalCount == 0) {
-            return;
-        }
-
-        Integer backgroundColor = null;
-        if (!SettingsDAO.isCardBackgroundDisplayed(mPrefs)) {
-            backgroundColor = MaterialColors.getColor(
-                requireContext(), com.google.android.material.R.attr.colorSurfaceContainerLowest, Color.BLACK);
-        }
-
-        for (int i = 0; i < totalCount; i++) {
-            View view = allViews.get(i);
-
-            Drawable cardBackground = ThemeUtils.expressiveCardBackgroundWithColor(requireContext(), i, totalCount, backgroundColor);
-
-            view.setBackground(ThemeUtils.rippleDrawable(requireContext(), cardBackground));
-        }
+        ThemeUtils.applyExpressiveBackgroundsToGroup(
+            requireContext(),
+            mPrefs,
+            mBinding.vibrateOnOff,
+            mBinding.deleteTimerAfterUse
+        );
     }
 
     private void nullifyClickListeners(View... views) {

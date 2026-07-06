@@ -96,18 +96,35 @@
             </LinearLayout>
 
             <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/delete_timer_after_use"
+                android:id="@+id/vibrate_on_off"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="10dp"
                 android:paddingHorizontal="10dp"
                 android:button="@null"
+                android:drawableStart="@drawable/ic_vibrate"
+                android:drawableEnd="@drawable/ic_selector_checkbox"
+                android:drawablePadding="10dp"
+                android:text="@string/alarm_vibrate"
+                app:layout_constraintTop_toBottomOf="@id/add_time_button_layout"
+                tools:ignore="RtlSymmetry"
+                tools:checked="true" />
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/delete_timer_after_use"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="2dp"
+                android:paddingHorizontal="10dp"
+                android:button="@null"
                 android:drawableStart="@drawable/ic_clear"
                 android:drawableEnd="@drawable/ic_selector_checkbox"
                 android:drawablePadding="10dp"
                 android:text="@string/delete_timer_after_use_title"
-                app:layout_constraintTop_toBottomOf="@id/add_time_button_layout"
+                app:layout_constraintTop_toBottomOf="@id/vibrate_on_off"
+                app:layout_goneMarginTop="10dp"
                 tools:ignore="RtlSymmetry"
                 tools:checked="true" />
 
