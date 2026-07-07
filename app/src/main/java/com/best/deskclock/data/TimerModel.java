@@ -237,14 +237,15 @@ final class TimerModel {
      * @param length         the length of the timer in milliseconds
      * @param label          describes the purpose of the timer
      * @param buttonTime     the time indicated in the timer add time button
+     * @param autoSilence    the auto silence duration
      * @param isVibrate      {@code true} indicates the timer should vibrate when it is expired
      * @param deleteAfterUse {@code true} indicates the timer should be deleted when it is reset
      * @return the newly added timer
      */
-    Timer addTimer(long length, String label, String buttonTime, boolean isVibrate, boolean deleteAfterUse) {
+    Timer addTimer(long length, String label, String buttonTime, int autoSilence, boolean isVibrate, boolean deleteAfterUse) {
         // Create the timer instance.
-        Timer timer = new Timer(-1, RESET, length, length, Timer.UNUSED, Timer.UNUSED, length, label, buttonTime, isVibrate,
-            deleteAfterUse);
+        Timer timer = new Timer(-1, RESET, length, length, Timer.UNUSED, Timer.UNUSED, length, label, buttonTime, autoSilence,
+            isVibrate, deleteAfterUse);
 
         // Add the timer to permanent storage.
         timer = TimerDAO.addTimer(mPrefs, timer);
@@ -499,8 +500,8 @@ final class TimerModel {
     /**
      * @return the duration for which a timer can ring before expiring and being reset
      */
-    long getTimerAutoSilenceDuration() {
-        return SettingsDAO.getTimerAutoSilenceDuration(mPrefs);
+    long getTimerAutoSilenceDuration(Timer timer) {
+        return timer.getAutoSilence();
     }
 
     private List<Timer> getMutableTimers() {
@@ -777,7 +778,7 @@ final class TimerModel {
 
             TimerKlaxon.start(after);
 
-            stopRingtoneAfterDelay();
+            stopRingtoneAfterDelay(after);
         }
 
         // If the expired timer was the last to reset, stop ringing.
@@ -796,19 +797,19 @@ final class TimerModel {
     /**
      * Stop timer ringing after a duration selected in Timers settings.
      */
-    private void stopRingtoneAfterDelay() {
+    private void stopRingtoneAfterDelay(Timer timer) {
         long duration;
 
         // Timer silence has been set to "Never"
-        if (getTimerAutoSilenceDuration() == TIMEOUT_NEVER) {
+        if (getTimerAutoSilenceDuration(timer) == TIMEOUT_NEVER) {
             return;
         }
 
         // Timer silence has been set to "At the end of the ringtone"
-        if (getTimerAutoSilenceDuration() == TIMEOUT_END_OF_RINGTONE) {
+        if (getTimerAutoSilenceDuration(timer) == TIMEOUT_END_OF_RINGTONE) {
             duration = RingtoneUtils.getRingtoneDuration(mContext, mTimerRingtoneUri);
         } else {
-            duration = getTimerAutoSilenceDuration() * 1000;
+            duration = getTimerAutoSilenceDuration(timer) * 1000L;
         }
 
         if (mAutoSilenceRunnable != null) {

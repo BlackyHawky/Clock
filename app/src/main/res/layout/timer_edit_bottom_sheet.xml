@@ -128,6 +128,49 @@
                 tools:ignore="RtlSymmetry"
                 tools:checked="true" />
 
+            <Space
+                android:id="@+id/space"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/delete_timer_after_use"
+                app:layout_constraintBottom_toTopOf="@+id/auto_silence_duration_layout" />
+
+            <LinearLayout
+                android:id="@+id/auto_silence_duration_layout"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="2dp"
+                android:paddingHorizontal="10dp"
+                app:layout_constraintTop_toBottomOf="@id/space">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/auto_silence_duration_title"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_ringtone_off"
+                    android:paddingStart="@null"
+                    android:paddingEnd="10dp"
+                    android:drawablePadding="10dp"
+                    android:drawableTint="?attr/colorOnSurfaceVariant"
+                    android:gravity="center_vertical"
+                    android:focusable="true"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="@string/auto_silence_title" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/auto_silence_duration_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:focusable="true"
+                    android:maxLines="1"
+                    tools:text="5 min" />
+
+            </LinearLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>

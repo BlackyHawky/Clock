@@ -6,6 +6,8 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_END_OF_RINGTONE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_NEVER;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -33,6 +35,7 @@ import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.databinding.TimerEditBottomSheetBinding;
+import com.best.deskclock.dialogfragment.AutoSilenceDurationDialogFragment;
 import com.best.deskclock.dialogfragment.LabelDialogFragment;
 import com.best.deskclock.dialogfragment.TimerAddTimeButtonDialogFragment;
 import com.best.deskclock.dialogfragment.TimerSetNewDurationDialogFragment;
@@ -57,6 +60,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
     private static final String STATE_ADD_TIME_BUTTON_VALUE = "state_add_time_button_value";
     private static final String STATE_VIBRATE = "state_vibrate";
     private static final String STATE_DELETE_AFTER_USE = "state_delete_after_use";
+    private static final String STATE_TIMER_AUTO_SILENCE = "state_timer_auto_silence";
 
     private TimerEditBottomSheetBinding mBinding;
     private SharedPreferences mPrefs;
@@ -70,6 +74,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
     private int mAddTimeButtonValue;
     private boolean mVibrate;
     private boolean mDeleteAfterUse;
+    private int mTimerAutoSilence;
 
     private boolean mIsDeleted;
     private int mScreenHeight;
@@ -108,7 +113,8 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
     @Override
     public void onDestroyView() {
         nullifyClickListeners(mBinding.timerTimeText, mBinding.timerLabel, mBinding.addTimeButtonLayout, mBinding.addTimeButton,
-            mBinding.vibrateOnOff, mBinding.deleteTimerAfterUse, mBinding.deleteButton, mBinding.duplicateButton);
+            mBinding.vibrateOnOff, mBinding.deleteTimerAfterUse, mBinding.autoSilenceDurationLayout, mBinding.deleteButton,
+            mBinding.duplicateButton);
 
         mBinding = null;
 
@@ -126,6 +132,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
             outState.putInt(STATE_ADD_TIME_BUTTON_VALUE, mAddTimeButtonValue);
             outState.putBoolean(STATE_VIBRATE, mVibrate);
             outState.putBoolean(STATE_DELETE_AFTER_USE, mDeleteAfterUse);
+            outState.putInt(STATE_TIMER_AUTO_SILENCE, mTimerAutoSilence);
         }
     }
 
@@ -162,12 +169,14 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
             mAddTimeButtonValue = savedInstanceState.getInt(STATE_ADD_TIME_BUTTON_VALUE);
             mVibrate = savedInstanceState.getBoolean(STATE_VIBRATE);
             mDeleteAfterUse = savedInstanceState.getBoolean(STATE_DELETE_AFTER_USE);
+            mTimerAutoSilence = savedInstanceState.getInt(STATE_TIMER_AUTO_SILENCE);
         } else {
             mTimerTimeText = timer.getLength();
             mTimerLabel = timer.getLabel();
             mAddTimeButtonValue = Integer.parseInt(timer.getButtonTime());
             mVibrate = timer.isVibrate();
             mDeleteAfterUse = timer.getDeleteAfterUse();
+            mTimerAutoSilence = timer.getAutoSilence();
         }
 
         mBinding = TimerEditBottomSheetBinding.inflate(getLayoutInflater());
@@ -190,6 +199,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
         bindAddTimeButtonValue();
         bindVibrator();
         bindDeleteTimerAfterUse();
+        bindAutoSilenceValue();
         bindDeleteButton();
         bindDuplicateButton();
 
@@ -333,6 +343,53 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
         });
     }
 
+    private void bindAutoSilenceValue() {
+        if (getTimer() == null) {
+            return;
+        }
+
+        if (SettingsDAO.isPerTimerAutoSilenceDisabled(mPrefs)) {
+            mBinding.autoSilenceDurationLayout.setVisibility(GONE);
+            return;
+        }
+
+        mBinding.autoSilenceDurationTitle.setTypeface(mGeneralTypeface);
+        mBinding.autoSilenceDurationValue.setTypeface(mGeneralTypeface);
+
+        int autoSilenceDuration = mTimerAutoSilence;
+
+        if (autoSilenceDuration == TIMEOUT_NEVER) {
+            mBinding.autoSilenceDurationValue.setText(getString(R.string.label_never));
+        } else if (autoSilenceDuration == TIMEOUT_END_OF_RINGTONE) {
+            mBinding.autoSilenceDurationValue.setText(getString(R.string.auto_silence_end_of_ringtone));
+        } else {
+            int m = autoSilenceDuration / 60;
+            int s = autoSilenceDuration % 60;
+
+            if (m > 0 && s > 0) {
+                String minutesString = getResources().getQuantityString(R.plurals.minutes_short, m, m);
+                String secondsString = s + " " + getString(R.string.seconds_label);
+                mBinding.autoSilenceDurationValue.setText(String.format("%s %s", minutesString, secondsString));
+            } else if (m > 0) {
+                mBinding.autoSilenceDurationValue.setText(getResources().getQuantityString(R.plurals.minutes_short, m, m));
+            } else {
+                String secondsString = s + " " + getString(R.string.seconds_label);
+                mBinding.autoSilenceDurationValue.setText(secondsString);
+            }
+        }
+
+        mBinding.autoSilenceDurationLayout.setVisibility(VISIBLE);
+
+        View.OnClickListener openAutoSilenceDurationFragment = v -> {
+            Events.sendTimerEvent(R.string.action_set_auto_silence_duration, R.string.label_deskclock);
+
+            final AutoSilenceDurationDialogFragment fragment = AutoSilenceDurationDialogFragment.newInstance(mTimerId, mTimerAutoSilence);
+            AutoSilenceDurationDialogFragment.show(getChildFragmentManager(), fragment);
+        };
+
+        mBinding.autoSilenceDurationLayout.setOnClickListener(openAutoSilenceDurationFragment);
+    }
+
     private void bindDeleteButton() {
         if (getTimer() == null) {
             return;
@@ -370,7 +427,8 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
                 return;
             }
 
-            DataModel.getDataModel().addTimer(mTimerTimeText, mTimerLabel, String.valueOf(mAddTimeButtonValue), mVibrate, mDeleteAfterUse);
+            DataModel.getDataModel().addTimer(mTimerTimeText, mTimerLabel, String.valueOf(mAddTimeButtonValue), mTimerAutoSilence,
+                mVibrate, mDeleteAfterUse);
 
             Utils.performHapticFeedback(mBinding.duplicateButton, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
@@ -421,6 +479,12 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
                 mAddTimeButtonValue = bundle.getInt(TimerAddTimeButtonDialogFragment.ADD_TIME_BUTTON_VALUE);
                 bindAddTimeButtonValue();
             });
+
+        childFragmentManager.setFragmentResultListener(AutoSilenceDurationDialogFragment.REQUEST_KEY, this,
+            (requestKey, bundle) -> {
+                mTimerAutoSilence = bundle.getInt(AutoSilenceDurationDialogFragment.AUTO_SILENCE_DURATION_VALUE);
+                bindAutoSilenceValue();
+            });
     }
 
     private void saveTimerSettings() {
@@ -443,6 +507,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
                 timer,
                 mTimerLabel,
                 String.valueOf(mAddTimeButtonValue),
+                mTimerAutoSilence,
                 mVibrate,
                 mDeleteAfterUse
             );
@@ -462,6 +527,12 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
             mPrefs,
             mBinding.vibrateOnOff,
             mBinding.deleteTimerAfterUse
+        );
+
+        ThemeUtils.applyExpressiveBackgroundsToGroup(
+            requireContext(),
+            mPrefs,
+            mBinding.autoSilenceDurationLayout
         );
     }
 

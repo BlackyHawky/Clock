@@ -58,6 +58,14 @@
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
+        <SwitchPreferenceCompat
+            android:key="key_enable_per_timer_auto_silence"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/enable_per_timer_auto_silence_title"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
         <com.best.deskclock.settings.custompreference.AlarmVolumePreference
             android:key="key_volume_setting"
             android:layout="@layout/settings_preference_slider_layout"
