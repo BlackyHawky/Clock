@@ -376,12 +376,13 @@ public final class DataModel {
      * @param length         the length of the timer in milliseconds
      * @param label          describes the purpose of the timer
      * @param buttonTime     the time indicated in the timer time add button
+     * @param autoSilence    the auto silence duration
      * @param deleteAfterUse {@code true} indicates the timer should be deleted when it is reset
      * @return the newly added timer
      */
-    public Timer addTimer(long length, String label, String buttonTime, boolean isVibrate, boolean deleteAfterUse) {
+    public Timer addTimer(long length, String label, String buttonTime, int autoSilence, boolean isVibrate, boolean deleteAfterUse) {
         enforceMainLooper();
-        return mTimerModel.addTimer(length, label, buttonTime, isVibrate, deleteAfterUse);
+        return mTimerModel.addTimer(length, label, buttonTime, autoSilence, isVibrate, deleteAfterUse);
     }
 
     /**
@@ -498,14 +499,18 @@ public final class DataModel {
      * @param timer          the original timer to update
      * @param label          the new label for the timer
      * @param buttonTime     the new custom duration for the add button
+     * @param autoSilence    the new custom auto silence duration
      * @param isVibrate      true to enable vibration upon expiration, false otherwise
      * @param deleteAfterUse true to automatically delete the timer after use, false otherwise
      */
-    public void updateAllTimerSettings(Timer timer, String label, String buttonTime, boolean isVibrate, boolean deleteAfterUse) {
+    public void updateAllTimerSettings(Timer timer, String label, String buttonTime, int autoSilence, boolean isVibrate,
+                                       boolean deleteAfterUse) {
+
         enforceMainLooper();
 
         Timer updatedTimer = timer.setLabel(label)
             .setButtonTime(buttonTime)
+            .setAutoSilence(autoSilence)
             .setIsVibrate(isVibrate)
             .setDeleteAfterUse(deleteAfterUse);
 

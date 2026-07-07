@@ -693,8 +693,16 @@ public final class SettingsDAO {
     /**
      * @return the duration for which a timer can ring before expiring and being reset.
      */
-    static int getTimerAutoSilenceDuration(SharedPreferences prefs) {
+    public static int getTimerAutoSilenceDuration(SharedPreferences prefs) {
         return prefs.getInt(KEY_TIMER_AUTO_SILENCE_DURATION, DEFAULT_TIMER_AUTO_SILENCE_DURATION);
+    }
+
+    /**
+     * @return {@code true} if a custom auto silence duration cannot be set for each timer. {@code false} otherwise.
+     */
+    public static boolean isPerTimerAutoSilenceDisabled(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_timer.xml
+        return !prefs.getBoolean(KEY_ENABLE_PER_TIMER_AUTO_SILENCE, DEFAULT_ENABLE_PER_TIMER_AUTO_SILENCE);
     }
 
     /**
@@ -1090,8 +1098,7 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return {@code true} if a custom auto silence duration cannot be set for each alarm.
-     * {@code false} otherwise.
+     * @return {@code true} if a custom auto silence duration cannot be set for each alarm. {@code false} otherwise.
      */
     public static boolean isPerAlarmAutoSilenceDisabled(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_alarm.xml
