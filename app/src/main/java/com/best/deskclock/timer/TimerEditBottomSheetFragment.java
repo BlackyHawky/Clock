@@ -6,6 +6,7 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VOLUME_CRESCENDO_DURATION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_END_OF_RINGTONE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TIMEOUT_NEVER;
 
@@ -39,6 +40,7 @@ import com.best.deskclock.dialogfragment.AutoSilenceDurationDialogFragment;
 import com.best.deskclock.dialogfragment.LabelDialogFragment;
 import com.best.deskclock.dialogfragment.TimerAddTimeButtonDialogFragment;
 import com.best.deskclock.dialogfragment.TimerSetNewDurationDialogFragment;
+import com.best.deskclock.dialogfragment.VolumeCrescendoDurationDialogFragment;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.InsetsUtils;
@@ -61,6 +63,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
     private static final String STATE_VIBRATE = "state_vibrate";
     private static final String STATE_DELETE_AFTER_USE = "state_delete_after_use";
     private static final String STATE_TIMER_AUTO_SILENCE = "state_timer_auto_silence";
+    private static final String STATE_VOLUME_CRESCENDO_DURATION = "state_volume_crescendo_duration";
 
     private TimerEditBottomSheetBinding mBinding;
     private SharedPreferences mPrefs;
@@ -75,6 +78,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
     private boolean mVibrate;
     private boolean mDeleteAfterUse;
     private int mTimerAutoSilence;
+    private int mVolumeCrescendoDuration;
 
     private boolean mIsDeleted;
     private int mScreenHeight;
@@ -113,8 +117,8 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
     @Override
     public void onDestroyView() {
         nullifyClickListeners(mBinding.timerTimeText, mBinding.timerLabel, mBinding.addTimeButtonLayout, mBinding.addTimeButton,
-            mBinding.vibrateOnOff, mBinding.deleteTimerAfterUse, mBinding.autoSilenceDurationLayout, mBinding.deleteButton,
-            mBinding.duplicateButton);
+            mBinding.vibrateOnOff, mBinding.deleteTimerAfterUse, mBinding.autoSilenceDurationLayout, mBinding.crescendoDurationLayout,
+            mBinding.deleteButton, mBinding.duplicateButton);
 
         mBinding = null;
 
@@ -133,6 +137,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
             outState.putBoolean(STATE_VIBRATE, mVibrate);
             outState.putBoolean(STATE_DELETE_AFTER_USE, mDeleteAfterUse);
             outState.putInt(STATE_TIMER_AUTO_SILENCE, mTimerAutoSilence);
+            outState.putInt(STATE_VOLUME_CRESCENDO_DURATION, mVolumeCrescendoDuration);
         }
     }
 
@@ -170,6 +175,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
             mVibrate = savedInstanceState.getBoolean(STATE_VIBRATE);
             mDeleteAfterUse = savedInstanceState.getBoolean(STATE_DELETE_AFTER_USE);
             mTimerAutoSilence = savedInstanceState.getInt(STATE_TIMER_AUTO_SILENCE);
+            mVolumeCrescendoDuration = savedInstanceState.getInt(STATE_VOLUME_CRESCENDO_DURATION);
         } else {
             mTimerTimeText = timer.getLength();
             mTimerLabel = timer.getLabel();
@@ -177,6 +183,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
             mVibrate = timer.isVibrate();
             mDeleteAfterUse = timer.getDeleteAfterUse();
             mTimerAutoSilence = timer.getAutoSilence();
+            mVolumeCrescendoDuration = timer.getVolumeCrescendoDuration();
         }
 
         mBinding = TimerEditBottomSheetBinding.inflate(getLayoutInflater());
@@ -200,6 +207,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
         bindVibrator();
         bindDeleteTimerAfterUse();
         bindAutoSilenceValue();
+        bindCrescendoDuration();
         bindDeleteButton();
         bindDuplicateButton();
 
@@ -390,6 +398,53 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
         mBinding.autoSilenceDurationLayout.setOnClickListener(openAutoSilenceDurationFragment);
     }
 
+    private void bindCrescendoDuration() {
+        if (getTimer() == null) {
+            return;
+        }
+
+        if (SettingsDAO.isPerTimerCrescendoDurationDisabled(mPrefs)) {
+            mBinding.crescendoDurationLayout.setVisibility(GONE);
+            return;
+        }
+
+        mBinding.crescendoDurationTitle.setTypeface(mGeneralTypeface);
+        mBinding.crescendoDurationValue.setTypeface(mGeneralTypeface);
+
+        int crescendoDuration = mVolumeCrescendoDuration;
+
+        if (crescendoDuration == DEFAULT_VOLUME_CRESCENDO_DURATION) {
+            mBinding.crescendoDurationValue.setText(getString(R.string.label_off));
+        } else {
+            int m = crescendoDuration / 60;
+            int s = crescendoDuration % 60;
+
+            if (m > 0 && s > 0) {
+                String minutesString = getResources().getQuantityString(R.plurals.minutes_short, m, m);
+                String secondsString = s + " " + getString(R.string.seconds_label);
+                mBinding.crescendoDurationValue.setText(String.format("%s %s", minutesString, secondsString));
+            } else if (m > 0) {
+                mBinding.crescendoDurationValue.setText(getResources().getQuantityString(R.plurals.minutes_short, m, m));
+            } else {
+                String secondsString = s + " " + getString(R.string.seconds_label);
+                mBinding.crescendoDurationValue.setText(secondsString);
+            }
+        }
+
+        mBinding.crescendoDurationLayout.setVisibility(VISIBLE);
+
+        View.OnClickListener openVolumeCrescendoFragment = v -> {
+            Events.sendAlarmEvent(R.string.action_set_crescendo_duration, R.string.label_deskclock);
+
+            final VolumeCrescendoDurationDialogFragment fragment =
+                VolumeCrescendoDurationDialogFragment.newInstance(mTimerId, mVolumeCrescendoDuration);
+
+            VolumeCrescendoDurationDialogFragment.show(getChildFragmentManager(), fragment);
+        };
+
+        mBinding.crescendoDurationLayout.setOnClickListener(openVolumeCrescendoFragment);
+    }
+
     private void bindDeleteButton() {
         if (getTimer() == null) {
             return;
@@ -427,8 +482,15 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
                 return;
             }
 
-            DataModel.getDataModel().addTimer(mTimerTimeText, mTimerLabel, String.valueOf(mAddTimeButtonValue), mTimerAutoSilence,
-                mVibrate, mDeleteAfterUse);
+            DataModel.getDataModel().addTimer(
+                mTimerTimeText,
+                mTimerLabel,
+                String.valueOf(mAddTimeButtonValue),
+                mTimerAutoSilence,
+                mVolumeCrescendoDuration,
+                mVibrate,
+                mDeleteAfterUse
+            );
 
             Utils.performHapticFeedback(mBinding.duplicateButton, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
@@ -485,6 +547,12 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
                 mTimerAutoSilence = bundle.getInt(AutoSilenceDurationDialogFragment.AUTO_SILENCE_DURATION_VALUE);
                 bindAutoSilenceValue();
             });
+
+        childFragmentManager.setFragmentResultListener(VolumeCrescendoDurationDialogFragment.REQUEST_KEY, this,
+            (requestKey, bundle) -> {
+                mVolumeCrescendoDuration = bundle.getInt(VolumeCrescendoDurationDialogFragment.VOLUME_CRESCENDO_DURATION_VALUE);
+                bindCrescendoDuration();
+            });
     }
 
     private void saveTimerSettings() {
@@ -508,6 +576,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
                 mTimerLabel,
                 String.valueOf(mAddTimeButtonValue),
                 mTimerAutoSilence,
+                mVolumeCrescendoDuration,
                 mVibrate,
                 mDeleteAfterUse
             );
@@ -532,7 +601,8 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
         ThemeUtils.applyExpressiveBackgroundsToGroup(
             requireContext(),
             mPrefs,
-            mBinding.autoSilenceDurationLayout
+            mBinding.autoSilenceDurationLayout,
+            mBinding.crescendoDurationLayout
         );
     }
 

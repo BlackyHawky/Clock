@@ -166,6 +166,7 @@ public class PreferencesKeys {
     public static final String KEY_TIMER_AUTO_SILENCE_DURATION = "key_timer_auto_silence_duration";
     public static final String KEY_ENABLE_PER_TIMER_AUTO_SILENCE = "key_enable_per_timer_auto_silence";
     public static final String KEY_TIMER_VOLUME_CRESCENDO_DURATION = "key_timer_volume_crescendo_duration";
+    public static final String KEY_ENABLE_PER_TIMER_VOLUME_CRESCENDO_DURATION = "key_enable_per_timer_volume_crescendo_duration";
     public static final String KEY_TIMER_VIBRATE = "key_timer_vibrate";
     public static final String KEY_TIMER_VOLUME_BUTTONS_ACTION = "key_timer_volume_buttons_action";
     public static final String KEY_TIMER_POWER_BUTTON_ACTION = "key_timer_power_button_action";

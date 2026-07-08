@@ -92,7 +92,7 @@ public final class TimerKlaxon {
             }
 
             // Crescendo duration always in milliseconds
-            final int crescendoDuration = SettingsDAO.getTimerVolumeCrescendoDuration(prefs) * 1000;
+            final int crescendoDuration = timer.getVolumeCrescendoDuration() * 1000;
 
             if (SettingsDAO.isAdvancedAudioPlaybackEnabled(prefs)) {
                 instance.getRingtonePlayer().play(uri, crescendoDuration);

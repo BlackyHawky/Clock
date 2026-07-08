@@ -82,6 +82,14 @@
             app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
+            android:key="key_enable_per_timer_volume_crescendo_duration"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/enable_per_timer_crescendo_duration_title"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <SwitchPreferenceCompat
             android:key="key_advanced_audio_playback"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/advanced_audio_playback_title"

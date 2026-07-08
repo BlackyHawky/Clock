@@ -171,7 +171,7 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
 
         // Creating a dummy timer
         Timer fakeTimer = new Timer(-1, Timer.State.EXPIRED, 60_000L, 60_000L, System.currentTimeMillis(),
-            System.currentTimeMillis(), 0L, "Timer preview", "60", 1, false, false);
+            System.currentTimeMillis(), 0L, "Timer preview", "60", 1, 0, false, false);
 
         // Add dummy timer to view
         addTimer(fakeTimer);

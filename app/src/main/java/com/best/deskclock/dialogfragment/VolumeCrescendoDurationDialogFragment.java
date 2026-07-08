@@ -31,6 +31,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.data.Timer;
 import com.best.deskclock.databinding.VolumeCrescendoDurationDialogBinding;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.ThemeUtils;
@@ -51,6 +52,7 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
 
     private static final String VOLUME_CRESCENDO_DURATION = "volume_crescendo_duration_";
     private static final String ARG_PREF_KEY = VOLUME_CRESCENDO_DURATION + "arg_pref_key";
+    private static final String ARG_TIMER_ID = "arg_timer_id";
     private static final String ARG_EDIT_VOLUME_CRESCENDO_MINUTES =
         VOLUME_CRESCENDO_DURATION + "arg_edit_volume_crescendo_minutes";
     private static final String ARG_EDIT_VOLUME_CRESCENDO_SECONDS =
@@ -121,6 +123,37 @@ public class VolumeCrescendoDurationDialogFragment extends DialogFragment {
             seconds = crescendoDuration % 60;
         }
 
+        args.putInt(ARG_EDIT_VOLUME_CRESCENDO_MINUTES, minutes);
+        args.putInt(ARG_EDIT_VOLUME_CRESCENDO_SECONDS, seconds);
+        args.putBoolean(ARG_CRESCENDO_OFF, isOff);
+
+        final VolumeCrescendoDurationDialogFragment fragment = new VolumeCrescendoDurationDialogFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    /**
+     * Creates a new instance of {@link VolumeCrescendoDurationDialogFragment} for use
+     * in the timer editing panel, where the crescendo duration is configured for a specific timer.
+     *
+     * @param timerId the {@link Timer} id whose volume crescendo duration will be edited.
+     * @param crescendoDuration The crescendo duration in seconds.
+     */
+    public static VolumeCrescendoDurationDialogFragment newInstance(int timerId, int crescendoDuration) {
+
+        final Bundle args = new Bundle();
+
+        boolean isOff = crescendoDuration == DEFAULT_VOLUME_CRESCENDO_DURATION;
+
+        int minutes = 0;
+        int seconds = 0;
+
+        if (!isOff) {
+            minutes = crescendoDuration / 60;
+            seconds = crescendoDuration % 60;
+        }
+
+        args.putInt(ARG_TIMER_ID, timerId);
         args.putInt(ARG_EDIT_VOLUME_CRESCENDO_MINUTES, minutes);
         args.putInt(ARG_EDIT_VOLUME_CRESCENDO_SECONDS, seconds);
         args.putBoolean(ARG_CRESCENDO_OFF, isOff);

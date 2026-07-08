@@ -1022,6 +1022,15 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return {@code true} if a custom volume increase duration cannot be set for each alarm.
+     * {@code false} otherwise.
+     */
+    public static boolean isPerTimerCrescendoDurationDisabled(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_timer.xml
+        return !prefs.getBoolean(KEY_ENABLE_PER_TIMER_VOLUME_CRESCENDO_DURATION, DEFAULT_ENABLE_PER_TIMER_VOLUME_CRESCENDO_DURATION);
+    }
+
+    /**
      * @return {@code true} if swipe action is enabled to dismiss or snooze alarms. {@code false} otherwise.
      */
     public static boolean isSwipeActionEnabled(SharedPreferences pref) {
