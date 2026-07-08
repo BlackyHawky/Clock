@@ -216,9 +216,22 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
     }
 
     /**
-     * @return an intent that launches the ringtone picker to edit the ringtone of all timers
+     * @return an intent that launches the ringtone picker to edit the ringtone of a specific timer
      */
-    public static Intent createTimerRingtonePickerIntent(Context context) {
+    public static Intent createPerTimerRingtonePickerIntent(Context context, Uri currentTimerUri) {
+        final DataModel dataModel = DataModel.getDataModel();
+        return new Intent(context, RingtonePickerActivity.class)
+            .putExtra(EXTRA_TITLE, R.string.timer_sound)
+            .putExtra(EXTRA_RINGTONE_URI, currentTimerUri)
+            .putExtra(EXTRA_DEFAULT_RINGTONE_URI, dataModel.getDefaultTimerRingtoneUri())
+            .putExtra(EXTRA_DEFAULT_RINGTONE_NAME, R.string.default_timer_ringtone_title)
+            .putExtra(EXTRA_RETURN_RESULT_ONLY, true);
+    }
+
+    /**
+     * @return an intent that launches the ringtone picker to edit the ringtone of all timers in the settings
+     */
+    public static Intent createTimerRingtonePickerIntentForSettings(Context context) {
         final DataModel dataModel = DataModel.getDataModel();
         return new Intent(context, RingtonePickerActivity.class)
             .putExtra(EXTRA_TITLE, R.string.timer_sound)

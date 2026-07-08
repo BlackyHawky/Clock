@@ -234,20 +234,22 @@ final class TimerModel {
     }
 
     /**
-     * @param length         the length of the timer in milliseconds
-     * @param label          describes the purpose of the timer
-     * @param buttonTime     the time indicated in the timer add time button
-     * @param autoSilence    the auto silence duration
-     * @param isVibrate      {@code true} indicates the timer should vibrate when it is expired
-     * @param deleteAfterUse {@code true} indicates the timer should be deleted when it is reset
+     * @param length            the length of the timer in milliseconds
+     * @param label             describes the purpose of the timer
+     * @param buttonTime        the time indicated in the timer add time button
+     * @param ringtone          the timer ringtone
+     * @param autoSilence       the auto silence duration
+     * @param crescendoDuration the volume crescendo duration
+     * @param isVibrate         {@code true} indicates the timer should vibrate when it is expired
+     * @param deleteAfterUse    {@code true} indicates the timer should be deleted when it is reset
      * @return the newly added timer
      */
-    Timer addTimer(long length, String label, String buttonTime, int autoSilence, int crescendoDuration, boolean isVibrate,
+    Timer addTimer(long length, String label, String buttonTime, Uri ringtone, int autoSilence, int crescendoDuration, boolean isVibrate,
                    boolean deleteAfterUse) {
 
         // Create the timer instance.
-        Timer timer = new Timer(-1, RESET, length, length, Timer.UNUSED, Timer.UNUSED, length, label, buttonTime, autoSilence,
-            crescendoDuration, isVibrate, deleteAfterUse);
+        Timer timer = new Timer(-1, RESET, length, length, Timer.UNUSED, Timer.UNUSED, length, label, buttonTime, ringtone,
+            autoSilence, crescendoDuration, isVibrate, deleteAfterUse);
 
         // Add the timer to permanent storage.
         timer = TimerDAO.addTimer(mPrefs, timer);
@@ -508,7 +510,7 @@ final class TimerModel {
 
     private List<Timer> getMutableTimers() {
         if (mTimers == null) {
-            mTimers = TimerDAO.getTimers(mPrefs);
+            mTimers = TimerDAO.getTimers(mPrefs, getDefaultTimerRingtoneUri());
         }
 
         return mTimers;
@@ -518,7 +520,7 @@ final class TimerModel {
      * Load timers from SharedPreferences after a restore or reset of settings
      */
     public void loadTimers() {
-        mTimers = TimerDAO.getTimers(mPrefs);
+        mTimers = TimerDAO.getTimers(mPrefs, getDefaultTimerRingtoneUri());
     }
 
     private List<Timer> getMutableExpiredTimers() {

@@ -15,7 +15,6 @@ import android.os.VibrationEffect;
 import android.os.Vibrator;
 
 import com.best.deskclock.DeskClockApplication;
-import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.ringtone.AsyncRingtonePlayer;
@@ -78,7 +77,7 @@ public final class TimerKlaxon {
         Context appContext = DeskClockApplication.getAppContext();
         SharedPreferences prefs = DeskClockApplication.getDefaultSharedPreferences(appContext);
         TimerKlaxon instance = getInstance();
-        Uri uri = DataModel.getDataModel().getTimerRingtoneUri();
+        Uri uri = timer.getRingtoneUri();
 
         // Look up user-selected timer ringtone.
         if (RingtoneUtils.RINGTONE_SILENT.equals(uri)) {

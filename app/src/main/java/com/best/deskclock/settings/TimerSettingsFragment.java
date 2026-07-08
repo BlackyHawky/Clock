@@ -292,6 +292,7 @@ public class TimerSettingsFragment extends ScreenFragment
                             timer,
                             timer.getLabel(),
                             timer.getButtonTime(),
+                            timer.getRingtoneUri(),
                             SettingsDAO.getTimerAutoSilenceDuration(mPrefs),
                             timer.getVolumeCrescendoDuration(),
                             timer.isVibrate(),
@@ -315,6 +316,7 @@ public class TimerSettingsFragment extends ScreenFragment
                             timer,
                             timer.getLabel(),
                             timer.getButtonTime(),
+                            timer.getRingtoneUri(),
                             timer.getAutoSilence(),
                             SettingsDAO.getTimerVolumeCrescendoDuration(mPrefs),
                             timer.isVibrate(),
@@ -372,6 +374,7 @@ public class TimerSettingsFragment extends ScreenFragment
                             timer,
                             timer.getLabel(),
                             timer.getButtonTime(),
+                            timer.getRingtoneUri(),
                             timer.getAutoSilence(),
                             timer.getVolumeCrescendoDuration(),
                             true,
@@ -422,7 +425,7 @@ public class TimerSettingsFragment extends ScreenFragment
             case KEY_TIMER_DURATION_FONT -> selectCustomFile(mTimerDurationFontPref, fontPickerLauncher,
                 SettingsDAO.getTimerDurationFont(mPrefs), KEY_TIMER_DURATION_FONT, true, null);
 
-            case KEY_TIMER_RINGTONE -> startActivity(RingtonePickerActivity.createTimerRingtonePickerIntent(context));
+            case KEY_TIMER_RINGTONE -> startActivity(RingtonePickerActivity.createTimerRingtonePickerIntentForSettings(context));
         }
 
         return true;
@@ -539,6 +542,7 @@ public class TimerSettingsFragment extends ScreenFragment
                                     timer,
                                     timer.getLabel(),
                                     timer.getButtonTime(),
+                                    timer.getRingtoneUri(),
                                     newValue,
                                     timer.getVolumeCrescendoDuration(),
                                     timer.isVibrate(),
@@ -569,6 +573,7 @@ public class TimerSettingsFragment extends ScreenFragment
                                     timer,
                                     timer.getLabel(),
                                     timer.getButtonTime(),
+                                    timer.getRingtoneUri(),
                                     timer.getAutoSilence(),
                                     newValue,
                                     timer.isVibrate(),
@@ -612,6 +617,7 @@ public class TimerSettingsFragment extends ScreenFragment
                             timer,
                             timer.getLabel(),
                             timer.getButtonTime(),
+                            timer.getRingtoneUri(),
                             timer.getAutoSilence(),
                             timer.getVolumeCrescendoDuration(),
                             false,
@@ -626,6 +632,7 @@ public class TimerSettingsFragment extends ScreenFragment
                             timer,
                             timer.getLabel(),
                             timer.getButtonTime(),
+                            timer.getRingtoneUri(),
                             SettingsDAO.getTimerAutoSilenceDuration(mPrefs),
                             timer.getVolumeCrescendoDuration(),
                             timer.isVibrate(),
@@ -640,6 +647,7 @@ public class TimerSettingsFragment extends ScreenFragment
                             timer,
                             timer.getLabel(),
                             timer.getButtonTime(),
+                            timer.getRingtoneUri(),
                             timer.getAutoSilence(),
                             SettingsDAO.getTimerVolumeCrescendoDuration(mPrefs),
                             timer.isVibrate(),
@@ -778,7 +786,7 @@ public class TimerSettingsFragment extends ScreenFragment
 
     private void updateRingtonePreferences() {
         mTimerRingtonePref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
-        mTimerRingtonePref.setIntent(RingtonePickerActivity.createTimerRingtonePickerIntent(requireContext()));
+        mTimerRingtonePref.setIntent(RingtonePickerActivity.createTimerRingtonePickerIntentForSettings(requireContext()));
     }
 
     private void nullifyAllPrefs() {
