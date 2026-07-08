@@ -589,15 +589,15 @@
     <string name="enable_blur_effect_title">Apply a blur effect to the background image</string>
     <!-- Setting title to enable the use of a custom volume increase duration for each alarm. -->
     <string name="enable_per_alarm_crescendo_duration_title">Use a custom volume increase duration for each alarm</string>
-    <!-- Dialog message when the "Use a custom volume increase duration for each alarm" setting is disabled. -->
-    <string name="enable_per_alarm_crescendo_duration_dialog_message">Custom alarm volume increase durations will be reset.%s</string>
+    <!-- Dialog message when the use of a custom volume increase duration is disabled. -->
+    <string name="enable_per_alarm_crescendo_duration_dialog_message">Custom volume increase durations will be reset.%s</string>
     <!-- Setting title for changing the crescendo duration. -->
     <string name="crescendo_duration_title">Gradually increase volume</string>
     <!-- Auto silence preference title -->
     <string name="auto_silence_title">Silence after</string>
     <!-- Setting title to enable the use of a custom stop duration for each alarm. -->
     <string name="enable_per_alarm_auto_silence_title">Use a custom stop duration for each alarm</string>
-    <!-- Dialog message when the "Use a custom stop duration for each alarm" setting is disabled. -->
+    <!-- Dialog message when the use of a custom stop duration is disabled. -->
     <string name="enable_per_alarm_auto_silence_dialog_message">Custom stop durations will be reset.%s</string>
     <!-- Auto silence summary when set at "The end of the ringtone" or for changing the auto silence.-->
     <string name="auto_silence_end_of_ringtone">The end of the ringtone</string>
@@ -1018,6 +1018,8 @@
     <string name="timer_creation_view_style_keypad">Keypad</string>
     <!-- Setting title to enable the use of a custom stop duration for each timer. -->
     <string name="enable_per_timer_auto_silence_title">Use a custom stop duration for each timer</string>
+    <!-- Setting title to enable the use of a custom volume increase duration for each timer. -->
+    <string name="enable_per_timer_crescendo_duration_title">Use a custom volume increase duration for each timer</string>
     <!-- Setting title to invert the position of the timer buttons -->
     <string name="invert_timer_button_positions_title">Invert the position of the timer buttons</string>
     <!-- Setting title to display active timers in compact mode -->

@@ -79,6 +79,7 @@ public class TimerSettingsFragment extends ScreenFragment
     Preference mTimerRingtonePref;
     SwitchPreferenceCompat mEnablePerTimerAutoSilencePref;
     AlarmVolumePreference mAlarmVolumePref;
+    SwitchPreferenceCompat mEnablePerTimerVolumeCrescendoDurationPref;
     SwitchPreferenceCompat mAdvancedAudioPlaybackPref;
     SwitchPreferenceCompat mAutoRoutingToExternalAudioDevicePref;
     SwitchPreferenceCompat mSystemMediaVolume;
@@ -165,6 +166,7 @@ public class TimerSettingsFragment extends ScreenFragment
         mTimerRingtonePref = findPreference(KEY_TIMER_RINGTONE);
         mEnablePerTimerAutoSilencePref = findPreference(KEY_ENABLE_PER_TIMER_AUTO_SILENCE);
         mAlarmVolumePref = findPreference(KEY_ALARM_VOLUME_SETTING);
+        mEnablePerTimerVolumeCrescendoDurationPref = findPreference(KEY_ENABLE_PER_TIMER_VOLUME_CRESCENDO_DURATION);
         mAdvancedAudioPlaybackPref = findPreference(KEY_ADVANCED_AUDIO_PLAYBACK);
         mAutoRoutingToExternalAudioDevicePref = findPreference(KEY_AUTO_ROUTING_TO_EXTERNAL_AUDIO_DEVICE);
         mSystemMediaVolume = findPreference(KEY_SYSTEM_MEDIA_VOLUME);
@@ -258,10 +260,10 @@ public class TimerSettingsFragment extends ScreenFragment
     @Override
     public void onDestroy() {
         nullifyPreferenceListeners(mTimerDisplayCustomizationPref, mTimerDurationFontPref, mTimerCreationViewStylePref, mTimerRingtonePref,
-            mEnablePerTimerAutoSilencePref, mAlarmVolumePref, mAdvancedAudioPlaybackPref, mAutoRoutingToExternalAudioDevicePref,
-            mSystemMediaVolume, mExternalAudioDeviceVolumePref, mTimerVibratePref, mTimerVolumeButtonsActionPref,
-            mTimerPowerButtonActionPref, mTimerFlipActionPref, mTimerShakeActionPref, mTimerShakeIntensityPref, mSortTimerPref,
-            mDisplayLowAlarmVolumeWarningPref);
+            mEnablePerTimerAutoSilencePref, mAlarmVolumePref, mEnablePerTimerVolumeCrescendoDurationPref, mAdvancedAudioPlaybackPref,
+            mAutoRoutingToExternalAudioDevicePref, mSystemMediaVolume, mExternalAudioDeviceVolumePref, mTimerVibratePref,
+            mTimerVolumeButtonsActionPref, mTimerPowerButtonActionPref, mTimerFlipActionPref, mTimerShakeActionPref,
+            mTimerShakeIntensityPref, mSortTimerPref, mDisplayLowAlarmVolumeWarningPref);
 
         nullifyAllPrefs();
 
@@ -291,12 +293,36 @@ public class TimerSettingsFragment extends ScreenFragment
                             timer.getLabel(),
                             timer.getButtonTime(),
                             SettingsDAO.getTimerAutoSilenceDuration(mPrefs),
+                            timer.getVolumeCrescendoDuration(),
                             timer.isVibrate(),
                             timer.getDeleteAfterUse()
                         );
                     }
                 } else {
                     triggerDisableSettingDialog(KEY_ENABLE_PER_TIMER_AUTO_SILENCE);
+                    return false;
+                }
+            }
+
+            case KEY_ENABLE_PER_TIMER_VOLUME_CRESCENDO_DURATION -> {
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
+                List<Timer> timerList = DataModel.getDataModel().getTimers();
+
+                if ((boolean) newValue) {
+                    for (Timer timer : timerList) {
+                        DataModel.getDataModel().updateAllTimerSettings(
+                            timer,
+                            timer.getLabel(),
+                            timer.getButtonTime(),
+                            timer.getAutoSilence(),
+                            SettingsDAO.getTimerVolumeCrescendoDuration(mPrefs),
+                            timer.isVibrate(),
+                            timer.getDeleteAfterUse()
+                        );
+                    }
+                } else {
+                    triggerDisableSettingDialog(KEY_ENABLE_PER_TIMER_VOLUME_CRESCENDO_DURATION);
                     return false;
                 }
             }
@@ -347,6 +373,7 @@ public class TimerSettingsFragment extends ScreenFragment
                             timer.getLabel(),
                             timer.getButtonTime(),
                             timer.getAutoSilence(),
+                            timer.getVolumeCrescendoDuration(),
                             true,
                             timer.getDeleteAfterUse()
                         );
@@ -444,6 +471,8 @@ public class TimerSettingsFragment extends ScreenFragment
             mAlarmVolumePref.setEnabled(!mHasExternalAudioDeviceConnected);
         }
 
+        mEnablePerTimerVolumeCrescendoDurationPref.setOnPreferenceChangeListener(this);
+
         mAdvancedAudioPlaybackPref.setVisible(mIsAlarmTabHidden);
         mAdvancedAudioPlaybackPref.setOnPreferenceChangeListener(this);
 
@@ -511,6 +540,7 @@ public class TimerSettingsFragment extends ScreenFragment
                                     timer.getLabel(),
                                     timer.getButtonTime(),
                                     newValue,
+                                    timer.getVolumeCrescendoDuration(),
                                     timer.isVibrate(),
                                     timer.getDeleteAfterUse()
                                 );
@@ -530,6 +560,22 @@ public class TimerSettingsFragment extends ScreenFragment
                     VolumeCrescendoDurationPreference pref = findPreference(key);
                     if (pref != null) {
                         pref.setVolumeCrescendoDuration(newValue);
+
+                        if (SettingsDAO.isPerTimerCrescendoDurationDisabled(mPrefs)) {
+                            List<Timer> timerList = DataModel.getDataModel().getTimers();
+
+                            for (Timer timer : timerList) {
+                                DataModel.getDataModel().updateAllTimerSettings(
+                                    timer,
+                                    timer.getLabel(),
+                                    timer.getButtonTime(),
+                                    timer.getAutoSilence(),
+                                    newValue,
+                                    timer.isVibrate(),
+                                    timer.getDeleteAfterUse()
+                                );
+                            }
+                        }
                     }
                 }
             });
@@ -567,6 +613,7 @@ public class TimerSettingsFragment extends ScreenFragment
                             timer.getLabel(),
                             timer.getButtonTime(),
                             timer.getAutoSilence(),
+                            timer.getVolumeCrescendoDuration(),
                             false,
                             timer.getDeleteAfterUse()
                         )
@@ -580,6 +627,21 @@ public class TimerSettingsFragment extends ScreenFragment
                             timer.getLabel(),
                             timer.getButtonTime(),
                             SettingsDAO.getTimerAutoSilenceDuration(mPrefs),
+                            timer.getVolumeCrescendoDuration(),
+                            timer.isVibrate(),
+                            timer.getDeleteAfterUse()
+                        )
+                );
+
+                case KEY_ENABLE_PER_TIMER_VOLUME_CRESCENDO_DURATION -> showDisablePerTimerSettingDialog(
+                    R.string.enable_per_alarm_crescendo_duration_dialog_message, KEY_ENABLE_PER_TIMER_VOLUME_CRESCENDO_DURATION,
+                    mEnablePerTimerVolumeCrescendoDurationPref, timer ->
+                        DataModel.getDataModel().updateAllTimerSettings(
+                            timer,
+                            timer.getLabel(),
+                            timer.getButtonTime(),
+                            timer.getAutoSilence(),
+                            SettingsDAO.getTimerVolumeCrescendoDuration(mPrefs),
                             timer.isVibrate(),
                             timer.getDeleteAfterUse()
                         )
@@ -726,6 +788,7 @@ public class TimerSettingsFragment extends ScreenFragment
         mTimerRingtonePref = null;
         mEnablePerTimerAutoSilencePref = null;
         mAlarmVolumePref = null;
+        mEnablePerTimerVolumeCrescendoDurationPref = null;
         mAdvancedAudioPlaybackPref = null;
         mAutoRoutingToExternalAudioDevicePref = null;
         mSystemMediaVolume = null;

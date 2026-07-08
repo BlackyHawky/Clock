@@ -80,6 +80,11 @@ public final class TimerDAO {
     private static final String AUTO_SILENCE = "timer_auto_silence_";
 
     /**
+     * Prefix for a key to a preference that stores the timer auto silence.
+     */
+    private static final String VOLUME_CRESCENDO = "timer_volume_crescendo_";
+
+    /**
      * Prefix for a key to a preference that signals the timer should vibrate when it expires.
      */
     private static final String VIBRATE = "timer_vibrate_";
@@ -102,6 +107,7 @@ public final class TimerDAO {
         final boolean defaultVibrateFallback = SettingsDAO.isTimerVibrate(prefs);
         final String addTimeButtonValueFallback = String.valueOf(SettingsDAO.getDefaultTimeToAddToTimer(prefs));
         final int autoSilenceDurationFallback = SettingsDAO.getTimerAutoSilenceDuration(prefs);
+        final int volumeCrescendoDurationFallback = SettingsDAO.getTimerVolumeCrescendoDuration(prefs);
 
         // Build a timer using the data associated with each timer id.
         for (String timerId : timerIds) {
@@ -120,11 +126,12 @@ public final class TimerDAO {
                 final String label = prefs.getString(LABEL + id, null);
                 final String buttonTime = prefs.getString(BUTTON_TIME + id, addTimeButtonValueFallback);
                 final int autoSilenceDuration = prefs.getInt(AUTO_SILENCE + id, autoSilenceDurationFallback);
+                final int volumeCrescendoDuration = prefs.getInt(VOLUME_CRESCENDO + id, volumeCrescendoDurationFallback);
                 final boolean vibrate = prefs.getBoolean(VIBRATE + id, defaultVibrateFallback);
                 final boolean deleteAfterUse = prefs.getBoolean(DELETE_AFTER_USE + id, false);
 
                 timers.add(new Timer(id, state, length, totalLength, lastStartTime, lastWallClockTime, remainingTime, label, buttonTime,
-                    autoSilenceDuration, vibrate, deleteAfterUse)
+                    autoSilenceDuration, volumeCrescendoDuration, vibrate, deleteAfterUse)
                 );
             }
         }
@@ -157,6 +164,7 @@ public final class TimerDAO {
         editor.putString(LABEL + id, timer.getLabel());
         editor.putString(BUTTON_TIME + id, timer.getButtonTime());
         editor.putInt(AUTO_SILENCE + id, timer.getAutoSilence());
+        editor.putInt(VOLUME_CRESCENDO + id, timer.getVolumeCrescendoDuration());
         editor.putBoolean(VIBRATE + id, timer.isVibrate());
         editor.putBoolean(DELETE_AFTER_USE + id, timer.getDeleteAfterUse());
 
@@ -165,7 +173,7 @@ public final class TimerDAO {
         // Return a new timer with the generated timer id present.
         return new Timer(id, timer.getState(), timer.getLength(), timer.getTotalLength(), timer.getLastStartTime(),
             timer.getLastWallClockTime(), timer.getRemainingTime(), timer.getLabel(), timer.getButtonTime(), timer.getAutoSilence(),
-            timer.isVibrate(), timer.getDeleteAfterUse()
+            timer.getVolumeCrescendoDuration(), timer.isVibrate(), timer.getDeleteAfterUse()
         );
     }
 
@@ -186,6 +194,7 @@ public final class TimerDAO {
         editor.putString(LABEL + id, timer.getLabel());
         editor.putString(BUTTON_TIME + id, timer.getButtonTime());
         editor.putInt(AUTO_SILENCE + id, timer.getAutoSilence());
+        editor.putInt(VOLUME_CRESCENDO + id, timer.getVolumeCrescendoDuration());
         editor.putBoolean(VIBRATE + id, timer.isVibrate());
         editor.putBoolean(DELETE_AFTER_USE + id, timer.getDeleteAfterUse());
 
@@ -220,6 +229,7 @@ public final class TimerDAO {
         editor.remove(LABEL + id);
         editor.remove(BUTTON_TIME + id);
         editor.remove(AUTO_SILENCE + id);
+        editor.remove(VOLUME_CRESCENDO + id);
         editor.remove(VIBRATE + id);
         editor.remove(DELETE_AFTER_USE + id);
 

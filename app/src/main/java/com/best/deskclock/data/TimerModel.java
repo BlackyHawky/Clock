@@ -242,10 +242,12 @@ final class TimerModel {
      * @param deleteAfterUse {@code true} indicates the timer should be deleted when it is reset
      * @return the newly added timer
      */
-    Timer addTimer(long length, String label, String buttonTime, int autoSilence, boolean isVibrate, boolean deleteAfterUse) {
+    Timer addTimer(long length, String label, String buttonTime, int autoSilence, int crescendoDuration, boolean isVibrate,
+                   boolean deleteAfterUse) {
+
         // Create the timer instance.
         Timer timer = new Timer(-1, RESET, length, length, Timer.UNUSED, Timer.UNUSED, length, label, buttonTime, autoSilence,
-            isVibrate, deleteAfterUse);
+            crescendoDuration, isVibrate, deleteAfterUse);
 
         // Add the timer to permanent storage.
         timer = TimerDAO.addTimer(mPrefs, timer);

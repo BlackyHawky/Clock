@@ -449,6 +449,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
                 String defaultLabel = Utils.buildDefaultTimerLabel(requireContext(), timerLength);
                 String defaultTimeToAddToTimer = String.valueOf(SettingsDAO.getDefaultTimeToAddToTimer(mPrefs));
                 int autoSilenceDuration = SettingsDAO.getTimerAutoSilenceDuration(mPrefs);
+                int volumeCrescendoDuration = SettingsDAO.getTimerVolumeCrescendoDuration(mPrefs);
                 boolean isVibrate = SettingsDAO.isTimerVibrate(mPrefs);
 
                 final Timer timer = DataModel.getDataModel().addTimer(
@@ -456,6 +457,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
                     defaultLabel,
                     defaultTimeToAddToTimer,
                     autoSilenceDuration,
+                    volumeCrescendoDuration,
                     isVibrate,
                     mSettings.isSingleTimerMode
                 );
