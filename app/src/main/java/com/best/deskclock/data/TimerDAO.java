@@ -9,6 +9,7 @@ package com.best.deskclock.data;
 import static com.best.deskclock.data.Timer.State.RESET;
 
 import android.content.SharedPreferences;
+import android.net.Uri;
 
 import com.best.deskclock.data.Timer.State;
 
@@ -75,6 +76,11 @@ public final class TimerDAO {
     public static final String BUTTON_TIME = "timer_button_time_";
 
     /**
+     * Prefix for a key to a preference that stores the timer ringtone.
+     */
+    public static final String TIMER_RINGTONE = "timer_ringtone_";
+
+    /**
      * Prefix for a key to a preference that stores the timer auto silence.
      */
     private static final String AUTO_SILENCE = "timer_auto_silence_";
@@ -100,12 +106,13 @@ public final class TimerDAO {
     /**
      * @return the timers from permanent storage
      */
-    static List<Timer> getTimers(SharedPreferences prefs) {
+    static List<Timer> getTimers(SharedPreferences prefs, Uri defaultUri) {
         // Read the set of timer ids.
         final Set<String> timerIds = prefs.getStringSet(TIMER_IDS, Collections.emptySet());
         final List<Timer> timers = new ArrayList<>(timerIds.size());
         final boolean defaultVibrateFallback = SettingsDAO.isTimerVibrate(prefs);
         final String addTimeButtonValueFallback = String.valueOf(SettingsDAO.getDefaultTimeToAddToTimer(prefs));
+        final Uri ringtoneFallback = SettingsDAO.getTimerRingtoneUri(prefs, defaultUri);
         final int autoSilenceDurationFallback = SettingsDAO.getTimerAutoSilenceDuration(prefs);
         final int volumeCrescendoDurationFallback = SettingsDAO.getTimerVolumeCrescendoDuration(prefs);
 
@@ -125,13 +132,22 @@ public final class TimerDAO {
                 final long remainingTime = prefs.getLong(REMAINING_TIME + id, totalLength);
                 final String label = prefs.getString(LABEL + id, null);
                 final String buttonTime = prefs.getString(BUTTON_TIME + id, addTimeButtonValueFallback);
+
+                String uriString = prefs.getString(TIMER_RINGTONE + id, null);
+
+                if (uriString == null || uriString.isEmpty() || uriString.equals("null")) {
+                    uriString = ringtoneFallback.toString();
+                }
+
+                final Uri ringtone = Uri.parse(uriString);
+
                 final int autoSilenceDuration = prefs.getInt(AUTO_SILENCE + id, autoSilenceDurationFallback);
                 final int volumeCrescendoDuration = prefs.getInt(VOLUME_CRESCENDO + id, volumeCrescendoDurationFallback);
                 final boolean vibrate = prefs.getBoolean(VIBRATE + id, defaultVibrateFallback);
                 final boolean deleteAfterUse = prefs.getBoolean(DELETE_AFTER_USE + id, false);
 
                 timers.add(new Timer(id, state, length, totalLength, lastStartTime, lastWallClockTime, remainingTime, label, buttonTime,
-                    autoSilenceDuration, volumeCrescendoDuration, vibrate, deleteAfterUse)
+                    ringtone, autoSilenceDuration, volumeCrescendoDuration, vibrate, deleteAfterUse)
                 );
             }
         }
@@ -163,6 +179,10 @@ public final class TimerDAO {
         editor.putLong(REMAINING_TIME + id, timer.getRemainingTime());
         editor.putString(LABEL + id, timer.getLabel());
         editor.putString(BUTTON_TIME + id, timer.getButtonTime());
+
+        String ringtoneString = (timer.getRingtoneUri() != null) ? timer.getRingtoneUri().toString() : "";
+        editor.putString(TIMER_RINGTONE + id, ringtoneString);
+
         editor.putInt(AUTO_SILENCE + id, timer.getAutoSilence());
         editor.putInt(VOLUME_CRESCENDO + id, timer.getVolumeCrescendoDuration());
         editor.putBoolean(VIBRATE + id, timer.isVibrate());
@@ -172,8 +192,8 @@ public final class TimerDAO {
 
         // Return a new timer with the generated timer id present.
         return new Timer(id, timer.getState(), timer.getLength(), timer.getTotalLength(), timer.getLastStartTime(),
-            timer.getLastWallClockTime(), timer.getRemainingTime(), timer.getLabel(), timer.getButtonTime(), timer.getAutoSilence(),
-            timer.getVolumeCrescendoDuration(), timer.isVibrate(), timer.getDeleteAfterUse()
+            timer.getLastWallClockTime(), timer.getRemainingTime(), timer.getLabel(), timer.getButtonTime(), timer.getRingtoneUri(),
+            timer.getAutoSilence(), timer.getVolumeCrescendoDuration(), timer.isVibrate(), timer.getDeleteAfterUse()
         );
     }
 
@@ -193,6 +213,10 @@ public final class TimerDAO {
         editor.putLong(REMAINING_TIME + id, timer.getRemainingTime());
         editor.putString(LABEL + id, timer.getLabel());
         editor.putString(BUTTON_TIME + id, timer.getButtonTime());
+
+        String ringtoneString = (timer.getRingtoneUri() != null) ? timer.getRingtoneUri().toString() : "";
+        editor.putString(TIMER_RINGTONE + id, ringtoneString);
+
         editor.putInt(AUTO_SILENCE + id, timer.getAutoSilence());
         editor.putInt(VOLUME_CRESCENDO + id, timer.getVolumeCrescendoDuration());
         editor.putBoolean(VIBRATE + id, timer.isVibrate());
@@ -228,6 +252,7 @@ public final class TimerDAO {
         editor.remove(REMAINING_TIME + id);
         editor.remove(LABEL + id);
         editor.remove(BUTTON_TIME + id);
+        editor.remove(TIMER_RINGTONE + id);
         editor.remove(AUTO_SILENCE + id);
         editor.remove(VOLUME_CRESCENDO + id);
         editor.remove(VIBRATE + id);

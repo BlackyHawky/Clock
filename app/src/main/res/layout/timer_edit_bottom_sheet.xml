@@ -95,6 +95,25 @@
 
             </LinearLayout>
 
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/choose_ringtone"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="2dp"
+                android:paddingHorizontal="10dp"
+                android:drawableStart="@drawable/ic_ringtone"
+                android:drawablePadding="10dp"
+                android:drawableTint="?attr/colorOnSurfaceVariant"
+                android:gravity="center_vertical"
+                android:focusable="true"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                app:layout_constraintTop_toBottomOf="@id/add_time_button_layout"
+                tools:text="Standard (Hassium)" />
+
             <com.google.android.material.checkbox.MaterialCheckBox
                 android:id="@+id/vibrate_on_off"
                 android:layout_width="match_parent"
@@ -107,7 +126,7 @@
                 android:drawableEnd="@drawable/ic_selector_checkbox"
                 android:drawablePadding="10dp"
                 android:text="@string/alarm_vibrate"
-                app:layout_constraintTop_toBottomOf="@id/add_time_button_layout"
+                app:layout_constraintTop_toBottomOf="@id/choose_ringtone"
                 tools:ignore="RtlSymmetry"
                 tools:checked="true" />
 

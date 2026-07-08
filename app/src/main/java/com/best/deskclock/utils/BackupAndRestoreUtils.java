@@ -11,6 +11,7 @@ import static com.best.deskclock.data.CustomRingtoneDAO.RINGTONE_IDS;
 import static com.best.deskclock.data.CustomRingtoneDAO.RINGTONE_TITLE;
 import static com.best.deskclock.data.CustomRingtoneDAO.RINGTONE_URI;
 import static com.best.deskclock.data.SettingsDAO.KEY_SELECTED_ALARM_RINGTONE_URI;
+import static com.best.deskclock.data.TimerDAO.TIMER_RINGTONE;
 import static com.best.deskclock.data.TimerDAO.STATE;
 import static com.best.deskclock.data.TimerDAO.TIMER_IDS;
 import static com.best.deskclock.settings.PreferencesKeys.*;
@@ -107,7 +108,7 @@ public class BackupAndRestoreUtils {
                     booleans.put(entry.getKey(), prefs.getBoolean(entry.getKey(), (Boolean) entry.getValue()));
                 } else if (entry.getValue() instanceof String) {
                     // Exclude these keys if the URI does not match a system ringtone
-                    if (KEY_TIMER_RINGTONE.equals(key) || KEY_DEFAULT_ALARM_RINGTONE.equals(key)) {
+                    if (isRingtoneKey(key)) {
                         String value = prefs.getString(key, (String) entry.getValue());
                         Uri uri = Uri.parse(value);
                         if (!RingtoneUtils.isSystemRingtone(uri)) {
@@ -296,7 +297,7 @@ public class BackupAndRestoreUtils {
 
             if (isRingtoneKey(key)) {
                 if (!isRingtoneAvailable(context, value)) {
-                    if (KEY_TIMER_RINGTONE.equals(key)) {
+                    if (KEY_TIMER_RINGTONE.equals(key) || key.startsWith(TIMER_RINGTONE)) {
                         editor.putString(key, RingtoneUtils.getResourceUri(context, R.raw.timer_expire).toString());
                     } else if (KEY_DEFAULT_ALARM_RINGTONE.equals(key)) {
                         editor.putString(key, RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString());
@@ -452,7 +453,7 @@ public class BackupAndRestoreUtils {
      * @return {@code true} if a key matches a ringtone key. {@code false} otherwise.
      */
     private static boolean isRingtoneKey(String key) {
-        return KEY_TIMER_RINGTONE.equals(key) || KEY_DEFAULT_ALARM_RINGTONE.equals(key);
+        return KEY_TIMER_RINGTONE.equals(key) || key.startsWith(TIMER_RINGTONE) || KEY_DEFAULT_ALARM_RINGTONE.equals(key);
     }
 
     /**

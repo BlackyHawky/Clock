@@ -685,7 +685,7 @@ public final class SettingsDAO {
      * @return the uri of the selected ringtone or the {@code defaultUri} if no explicit selection
      * has yet been made.
      */
-    static Uri getTimerRingtoneUri(SharedPreferences prefs, Uri defaultUri) {
+    public static Uri getTimerRingtoneUri(SharedPreferences prefs, Uri defaultUri) {
         final String uriString = prefs.getString(KEY_TIMER_RINGTONE, null);
         return uriString == null ? defaultUri : Uri.parse(uriString);
     }

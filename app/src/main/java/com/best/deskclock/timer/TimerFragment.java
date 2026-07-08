@@ -29,6 +29,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
@@ -448,6 +449,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
                 final long timerLength = getTimeInMillis();
                 String defaultLabel = Utils.buildDefaultTimerLabel(requireContext(), timerLength);
                 String defaultTimeToAddToTimer = String.valueOf(SettingsDAO.getDefaultTimeToAddToTimer(mPrefs));
+                Uri ringtoneUri = DataModel.getDataModel().getTimerRingtoneUri();
                 int autoSilenceDuration = SettingsDAO.getTimerAutoSilenceDuration(mPrefs);
                 int volumeCrescendoDuration = SettingsDAO.getTimerVolumeCrescendoDuration(mPrefs);
                 boolean isVibrate = SettingsDAO.isTimerVibrate(mPrefs);
@@ -456,6 +458,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
                     timerLength,
                     defaultLabel,
                     defaultTimeToAddToTimer,
+                    ringtoneUri,
                     autoSilenceDuration,
                     volumeCrescendoDuration,
                     isVibrate,

@@ -376,16 +376,17 @@ public final class DataModel {
      * @param length            the length of the timer in milliseconds
      * @param label             describes the purpose of the timer
      * @param buttonTime        the time indicated in the timer time add button
+     * @param ringtone          the timer ringtone
      * @param autoSilence       the auto silence duration
      * @param crescendoDuration the volume crescendo duration
      * @param deleteAfterUse    {@code true} indicates the timer should be deleted when it is reset
      * @return the newly added timer
      */
-    public Timer addTimer(long length, String label, String buttonTime, int autoSilence, int crescendoDuration, boolean isVibrate,
-                          boolean deleteAfterUse) {
+    public Timer addTimer(long length, String label, String buttonTime, Uri ringtone, int autoSilence, int crescendoDuration,
+                          boolean isVibrate, boolean deleteAfterUse) {
 
         enforceMainLooper();
-        return mTimerModel.addTimer(length, label, buttonTime, autoSilence, crescendoDuration, isVibrate, deleteAfterUse);
+        return mTimerModel.addTimer(length, label, buttonTime, ringtone, autoSilence, crescendoDuration, isVibrate, deleteAfterUse);
     }
 
     /**
@@ -502,18 +503,20 @@ public final class DataModel {
      * @param timer             the original timer to update
      * @param label             the new label for the timer
      * @param buttonTime        the new custom duration for the add button
+     * @param ringtone          the new timer ringtone
      * @param autoSilence       the new custom auto silence duration
      * @param crescendoDuration the new custom volume crescendo duration
      * @param isVibrate         {@code true} to enable vibration upon expiration, {@code false} otherwise
      * @param deleteAfterUse    {@code true} to automatically delete the timer after use, {@code false} otherwise
      */
-    public void updateAllTimerSettings(Timer timer, String label, String buttonTime, int autoSilence, int crescendoDuration,
+    public void updateAllTimerSettings(Timer timer, String label, String buttonTime, Uri ringtone, int autoSilence, int crescendoDuration,
                                        boolean isVibrate, boolean deleteAfterUse) {
 
         enforceMainLooper();
 
         Timer updatedTimer = timer.setLabel(label)
             .setButtonTime(buttonTime)
+            .setRingtone(ringtone)
             .setAutoSilence(autoSilence)
             .setCrescendoDuration(crescendoDuration)
             .setIsVibrate(isVibrate)

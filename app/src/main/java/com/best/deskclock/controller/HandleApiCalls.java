@@ -528,6 +528,7 @@ public class HandleApiCalls extends Activity {
         if (timer == null) {
             SharedPreferences prefs = getDefaultSharedPreferences(mAppContext);
             String defaultTimeToAddToTimer = String.valueOf(SettingsDAO.getDefaultTimeToAddToTimer(prefs));
+            Uri ringtoneUri = DataModel.getDataModel().getTimerRingtoneUri();
             int autoSilenceDuration = SettingsDAO.getTimerAutoSilenceDuration(prefs);
             int volumeCrescendoDuration = SettingsDAO.getTimerVolumeCrescendoDuration(mPrefs);
             boolean isVibrate = SettingsDAO.isTimerVibrate(prefs);
@@ -535,6 +536,7 @@ public class HandleApiCalls extends Activity {
             timer = DataModel.getDataModel().addTimer(lengthMillis,
                 label,
                 defaultTimeToAddToTimer,
+                ringtoneUri,
                 autoSilenceDuration,
                 volumeCrescendoDuration,
                 isVibrate,
