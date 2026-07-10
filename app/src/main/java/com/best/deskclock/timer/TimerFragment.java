@@ -464,6 +464,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
                     volumeCrescendoDuration,
                     isVibrate,
                     isFlashOn,
+                    false,
                     mSettings.isSingleTimerMode
                 );
 

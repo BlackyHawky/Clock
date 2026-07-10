@@ -185,6 +185,7 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
             0,
             false,
             false,
+            false,
             false
         );
 

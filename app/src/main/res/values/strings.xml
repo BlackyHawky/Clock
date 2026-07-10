@@ -742,6 +742,8 @@
     <string name="alarm_minutes_warning_box_text">Enter a value from 0 to 59 minutes</string>
     <!-- Label title in the timer editing panel to delete the timer once expired. -->
     <string name="delete_timer_after_use_title">Delete timer once expired</string>
+    <!-- Label title in the timer editing panel to stop media once the timer expires. -->
+    <string name="turn_off_media_title">Stop media once expired</string>
     <!-- Title of dialog box to edit button for adding time to timer. -->
     <string name="timer_button_time_box_title">Minutes to add to the timer</string>
     <!-- Text of dialog box to edit minutes for adding time to timer. -->

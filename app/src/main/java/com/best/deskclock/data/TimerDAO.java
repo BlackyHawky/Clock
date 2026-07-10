@@ -101,6 +101,11 @@ public final class TimerDAO {
     private static final String FLASH_ON = "timer_flash_on_";
 
     /**
+     * Prefix for a key to a preference that signals media should stop when timers expire.
+     */
+    private static final String TURN_OFF_MEDIA = "timer_turn_off_media_";
+
+    /**
      * Prefix for a key to a preference that signals the timer should be deleted on first reset.
      */
     public static final String DELETE_AFTER_USE = "timer_delete_after_use_";
@@ -151,10 +156,11 @@ public final class TimerDAO {
                 final int volumeCrescendoDuration = prefs.getInt(VOLUME_CRESCENDO + id, volumeCrescendoDurationFallback);
                 final boolean vibrate = prefs.getBoolean(VIBRATE + id, defaultVibrateFallback);
                 final boolean flashOn = prefs.getBoolean(FLASH_ON + id, defaultFlashOnFallback);
+                final boolean turnOffMedia = prefs.getBoolean(TURN_OFF_MEDIA + id, false);
                 final boolean deleteAfterUse = prefs.getBoolean(DELETE_AFTER_USE + id, false);
 
                 timers.add(new Timer(id, state, length, totalLength, lastStartTime, lastWallClockTime, remainingTime, label, buttonTime,
-                    ringtone, autoSilenceDuration, volumeCrescendoDuration, vibrate, flashOn, deleteAfterUse)
+                    ringtone, autoSilenceDuration, volumeCrescendoDuration, vibrate, flashOn, turnOffMedia, deleteAfterUse)
                 );
             }
         }
@@ -194,6 +200,7 @@ public final class TimerDAO {
         editor.putInt(VOLUME_CRESCENDO + id, timer.getVolumeCrescendoDuration());
         editor.putBoolean(VIBRATE + id, timer.isVibrate());
         editor.putBoolean(FLASH_ON + id, timer.isFlashOn());
+        editor.putBoolean(TURN_OFF_MEDIA + id, timer.getTurnOffMedia());
         editor.putBoolean(DELETE_AFTER_USE + id, timer.getDeleteAfterUse());
 
         editor.apply();
@@ -201,7 +208,8 @@ public final class TimerDAO {
         // Return a new timer with the generated timer id present.
         return new Timer(id, timer.getState(), timer.getLength(), timer.getTotalLength(), timer.getLastStartTime(),
             timer.getLastWallClockTime(), timer.getRemainingTime(), timer.getLabel(), timer.getButtonTime(), timer.getRingtoneUri(),
-            timer.getAutoSilence(), timer.getVolumeCrescendoDuration(), timer.isVibrate(), timer.isFlashOn(), timer.getDeleteAfterUse()
+            timer.getAutoSilence(), timer.getVolumeCrescendoDuration(), timer.isVibrate(), timer.isFlashOn(), timer.getTurnOffMedia(),
+            timer.getDeleteAfterUse()
         );
     }
 
@@ -229,6 +237,7 @@ public final class TimerDAO {
         editor.putInt(VOLUME_CRESCENDO + id, timer.getVolumeCrescendoDuration());
         editor.putBoolean(VIBRATE + id, timer.isVibrate());
         editor.putBoolean(FLASH_ON + id, timer.isFlashOn());
+        editor.putBoolean(TURN_OFF_MEDIA + id, timer.getTurnOffMedia());
         editor.putBoolean(DELETE_AFTER_USE + id, timer.getDeleteAfterUse());
 
         editor.apply();
@@ -266,6 +275,7 @@ public final class TimerDAO {
         editor.remove(VOLUME_CRESCENDO + id);
         editor.remove(VIBRATE + id);
         editor.remove((FLASH_ON + id));
+        editor.remove(TURN_OFF_MEDIA + id);
         editor.remove(DELETE_AFTER_USE + id);
 
         editor.apply();
