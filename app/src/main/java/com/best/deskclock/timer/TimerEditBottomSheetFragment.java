@@ -74,6 +74,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
     private static final String STATE_TIMER_RINGTONE_URI = "state_timer_ringtone_uri";
     private static final String STATE_VIBRATE = "state_vibrate";
     private static final String STATE_FLASH_ON = "state_flash_on";
+    private static final String STATE_TURN_OFF_MEDIA = "state_turn_off_media";
     private static final String STATE_DELETE_AFTER_USE = "state_delete_after_use";
     private static final String STATE_TIMER_AUTO_SILENCE = "state_timer_auto_silence";
     private static final String STATE_VOLUME_CRESCENDO_DURATION = "state_volume_crescendo_duration";
@@ -91,6 +92,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
     private Uri mTimerRingtoneUri;
     private boolean mVibrate;
     private boolean mFlashOn;
+    private boolean mTurnOffMedia;
     private boolean mDeleteAfterUse;
     private int mTimerAutoSilence;
     private int mVolumeCrescendoDuration;
@@ -146,7 +148,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
     @Override
     public void onDestroyView() {
         nullifyClickListeners(mBinding.timerTimeText, mBinding.timerLabel, mBinding.addTimeButtonLayout, mBinding.addTimeButton,
-            mBinding.chooseRingtone, mBinding.vibrateOnOff, mBinding.flashOnOff, mBinding.deleteTimerAfterUse,
+            mBinding.chooseRingtone, mBinding.vibrateOnOff, mBinding.flashOnOff, mBinding.turnOffMedia, mBinding.deleteTimerAfterUse,
             mBinding.autoSilenceDurationLayout, mBinding.crescendoDurationLayout, mBinding.deleteButton, mBinding.duplicateButton);
 
         mBinding = null;
@@ -167,6 +169,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
             outState.putBoolean(STATE_VIBRATE, mVibrate);
             outState.putBoolean(STATE_FLASH_ON, mFlashOn);
             outState.putBoolean(STATE_DELETE_AFTER_USE, mDeleteAfterUse);
+            outState.putBoolean(STATE_TURN_OFF_MEDIA, mTurnOffMedia);
             outState.putInt(STATE_TIMER_AUTO_SILENCE, mTimerAutoSilence);
             outState.putInt(STATE_VOLUME_CRESCENDO_DURATION, mVolumeCrescendoDuration);
         }
@@ -208,6 +211,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
                 : savedInstanceState.getParcelable(STATE_TIMER_RINGTONE_URI);
             mVibrate = savedInstanceState.getBoolean(STATE_VIBRATE);
             mFlashOn = savedInstanceState.getBoolean(STATE_FLASH_ON);
+            mTurnOffMedia = savedInstanceState.getBoolean(STATE_TURN_OFF_MEDIA);
             mDeleteAfterUse = savedInstanceState.getBoolean(STATE_DELETE_AFTER_USE);
             mTimerAutoSilence = savedInstanceState.getInt(STATE_TIMER_AUTO_SILENCE);
             mVolumeCrescendoDuration = savedInstanceState.getInt(STATE_VOLUME_CRESCENDO_DURATION);
@@ -218,6 +222,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
             mTimerRingtoneUri = timer.getRingtoneUri();
             mVibrate = timer.isVibrate();
             mFlashOn = timer.isFlashOn();
+            mTurnOffMedia = timer.getTurnOffMedia();
             mDeleteAfterUse = timer.getDeleteAfterUse();
             mTimerAutoSilence = timer.getAutoSilence();
             mVolumeCrescendoDuration = timer.getVolumeCrescendoDuration();
@@ -244,6 +249,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
         bindRingtone();
         bindVibrator();
         bindFlash();
+        bindTurnOffMedia();
         bindDeleteTimerAfterUse();
         bindAutoSilenceValue();
         bindCrescendoDuration();
@@ -430,6 +436,21 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
         });
     }
 
+    private void bindTurnOffMedia() {
+        if (getTimer() == null) {
+            return;
+        }
+
+        mBinding.turnOffMedia.setTypeface(mGeneralTypeface);
+        mBinding.turnOffMedia.setOnCheckedChangeListener(null);
+        mBinding.turnOffMedia.setChecked(mTurnOffMedia);
+
+        mBinding.turnOffMedia.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            mTurnOffMedia = isChecked;
+            Utils.performHapticFeedback(mBinding.turnOffMedia, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+        });
+    }
+
     private void bindDeleteTimerAfterUse() {
         if (getTimer() == null) {
             return;
@@ -591,6 +612,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
                 mVolumeCrescendoDuration,
                 mVibrate,
                 mFlashOn,
+                mTurnOffMedia,
                 mDeleteAfterUse
             );
 
@@ -682,6 +704,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
                 mVolumeCrescendoDuration,
                 mVibrate,
                 mFlashOn,
+                mTurnOffMedia,
                 mDeleteAfterUse
             );
         }
@@ -701,6 +724,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
             mPrefs,
             mBinding.vibrateOnOff,
             mBinding.flashOnOff,
+            mBinding.turnOffMedia,
             mBinding.deleteTimerAfterUse
         );
 

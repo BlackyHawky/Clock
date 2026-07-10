@@ -299,6 +299,7 @@ public class TimerSettingsFragment extends ScreenFragment
                             timer.getVolumeCrescendoDuration(),
                             timer.isVibrate(),
                             timer.isFlashOn(),
+                            timer.getTurnOffMedia(),
                             timer.getDeleteAfterUse()
                         );
                     }
@@ -324,6 +325,7 @@ public class TimerSettingsFragment extends ScreenFragment
                             SettingsDAO.getTimerVolumeCrescendoDuration(mPrefs),
                             timer.isVibrate(),
                             timer.isFlashOn(),
+                            timer.getTurnOffMedia(),
                             timer.getDeleteAfterUse()
                         );
                     }
@@ -383,6 +385,7 @@ public class TimerSettingsFragment extends ScreenFragment
                             timer.getVolumeCrescendoDuration(),
                             true,
                             timer.isFlashOn(),
+                            timer.getTurnOffMedia(),
                             timer.getDeleteAfterUse()
                         );
                     }
@@ -424,6 +427,7 @@ public class TimerSettingsFragment extends ScreenFragment
                         timer.getVolumeCrescendoDuration(),
                         timer.isVibrate(),
                         (boolean) newValue,
+                        timer.getTurnOffMedia(),
                         timer.getDeleteAfterUse()
                     );
                 }
@@ -575,6 +579,7 @@ public class TimerSettingsFragment extends ScreenFragment
                                     timer.getVolumeCrescendoDuration(),
                                     timer.isVibrate(),
                                     timer.isFlashOn(),
+                                    timer.getTurnOffMedia(),
                                     timer.getDeleteAfterUse()
                                 );
                             }
@@ -607,6 +612,7 @@ public class TimerSettingsFragment extends ScreenFragment
                                     newValue,
                                     timer.isVibrate(),
                                     timer.isFlashOn(),
+                                    timer.getTurnOffMedia(),
                                     timer.getDeleteAfterUse()
                                 );
                             }
@@ -652,6 +658,7 @@ public class TimerSettingsFragment extends ScreenFragment
                             timer.getVolumeCrescendoDuration(),
                             false,
                             timer.isFlashOn(),
+                            timer.getTurnOffMedia(),
                             timer.getDeleteAfterUse()
                         )
                 );
@@ -668,6 +675,7 @@ public class TimerSettingsFragment extends ScreenFragment
                             timer.getVolumeCrescendoDuration(),
                             timer.isVibrate(),
                             timer.isFlashOn(),
+                            timer.getTurnOffMedia(),
                             timer.getDeleteAfterUse()
                         )
                 );
@@ -684,6 +692,7 @@ public class TimerSettingsFragment extends ScreenFragment
                             SettingsDAO.getTimerVolumeCrescendoDuration(mPrefs),
                             timer.isVibrate(),
                             timer.isFlashOn(),
+                            timer.getTurnOffMedia(),
                             timer.getDeleteAfterUse()
                         )
                 );

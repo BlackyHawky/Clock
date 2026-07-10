@@ -147,6 +147,23 @@
                 tools:checked="false" />
 
             <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/turn_off_media"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="2dp"
+                android:paddingHorizontal="10dp"
+                android:button="@null"
+                android:drawableStart="@drawable/ic_media_off"
+                android:drawableEnd="@drawable/ic_selector_checkbox"
+                android:drawablePadding="10dp"
+                android:text="@string/turn_off_media_title"
+                app:layout_constraintTop_toBottomOf="@id/flash_on_off"
+                app:layout_goneMarginTop="10dp"
+                tools:ignore="RtlSymmetry"
+                tools:checked="true" />
+
+            <com.google.android.material.checkbox.MaterialCheckBox
                 android:id="@+id/delete_timer_after_use"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
@@ -158,8 +175,7 @@
                 android:drawableEnd="@drawable/ic_selector_checkbox"
                 android:drawablePadding="10dp"
                 android:text="@string/delete_timer_after_use_title"
-                app:layout_constraintTop_toBottomOf="@id/flash_on_off"
-                app:layout_goneMarginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/turn_off_media"
                 tools:ignore="RtlSymmetry"
                 tools:checked="true" />
 

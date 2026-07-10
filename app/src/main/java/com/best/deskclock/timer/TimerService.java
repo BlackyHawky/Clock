@@ -19,6 +19,9 @@ import android.hardware.SensorManager;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraManager;
+import android.media.AudioAttributes;
+import android.media.AudioFocusRequest;
+import android.media.AudioManager;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
@@ -32,6 +35,7 @@ import com.best.deskclock.data.Timer;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.utils.DeviceUtils;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.SdkUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -121,6 +125,9 @@ public final class TimerService extends Service {
     private boolean mIsFlipActionEnabled;
     private boolean mIsShakeActionEnabled;
 
+    private AudioManager mAudioManager;
+    private AudioFocusRequest mAudioFocusRequest;
+
     @Override
     public IBinder onBind(Intent intent) {
         return null;
@@ -135,6 +142,8 @@ public final class TimerService extends Service {
         mSensorManager = getApplicationContext().getSystemService(SensorManager.class);
         mIsFlipActionEnabled = SettingsDAO.isFlipActionForTimersEnabled(mPrefs);
         mIsShakeActionEnabled = SettingsDAO.isShakeActionForTimersEnabled(mPrefs);
+
+        mAudioManager = getApplicationContext().getSystemService(AudioManager.class);
 
         mCameraManager = getApplicationContext().getSystemService(CameraManager.class);
         mHandler = new Handler(Looper.getMainLooper());
@@ -225,6 +234,7 @@ public final class TimerService extends Service {
                         Events.sendTimerEvent(R.string.action_fire, label);
                         DataModel.getDataModel().expireTimer(this, timer);
                         turnOnFlash(timer);
+                        stopMedia(timer);
                         attachListeners();
                     }
                 }
@@ -263,6 +273,19 @@ public final class TimerService extends Service {
 
         if (mCameraManager != null && mTorchCallback != null) {
             mCameraManager.unregisterTorchCallback(mTorchCallback);
+        }
+
+        if (mAudioManager != null) {
+            try {
+                if (SdkUtils.isAtLeastAndroid8() && mAudioFocusRequest != null) {
+                    mAudioManager.abandonAudioFocusRequest(mAudioFocusRequest);
+                    mAudioFocusRequest = null;
+                } else {
+                    mAudioManager.abandonAudioFocus(null);
+                }
+            } catch (Exception e) {
+                LogUtils.e("TimerService - Failed to abandon audio focus", e);
+            }
         }
     }
 
@@ -319,6 +342,31 @@ public final class TimerService extends Service {
             }
         } catch (CameraAccessException e) {
             LogUtils.e("TimerService.toggleFlash - Failed to access the flash unit", e);
+        }
+    }
+
+    private void stopMedia(Timer timer) {
+        if (mAudioManager == null || !timer.getTurnOffMedia()) {
+            return;
+        }
+
+        LogUtils.i("TimerService - Media paused for sleep timer");
+
+        try {
+            // Requesting audio focus ensures that media is paused.
+            if (SdkUtils.isAtLeastAndroid8()) {
+                mAudioFocusRequest = new AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN)
+                    .setAudioAttributes(new AudioAttributes.Builder()
+                        .setUsage(AudioAttributes.USAGE_MEDIA)
+                        .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                        .build())
+                    .build();
+                mAudioManager.requestAudioFocus(mAudioFocusRequest);
+            } else {
+                mAudioManager.requestAudioFocus(null, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
+            }
+        } catch (Exception e) {
+            LogUtils.e("TimerService - Failed to dispatch media pause or request audio focus", e);
         }
     }
 

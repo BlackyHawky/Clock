@@ -381,16 +381,17 @@ public final class DataModel {
      * @param crescendoDuration the volume crescendo duration
      * @param isVibrate         {@code true} to enable vibration upon expiration, {@code false} otherwise
      * @param isFlashOn         {@code true} tu turn on the flash upon expiration, {@code false} otherwise
+     * @param turnOffMedia      {@code true} to turn off media upon expiration, {@code false} otherwise.
      * @param deleteAfterUse    {@code true} indicates the timer should be deleted when it is reset
      * @return the newly added timer
      */
     public Timer addTimer(long length, String label, String buttonTime, Uri ringtone, int autoSilence, int crescendoDuration,
-                          boolean isVibrate, boolean isFlashOn, boolean deleteAfterUse) {
+                          boolean isVibrate, boolean isFlashOn, boolean turnOffMedia, boolean deleteAfterUse) {
 
         enforceMainLooper();
 
         return mTimerModel.addTimer(length, label, buttonTime, ringtone, autoSilence, crescendoDuration, isVibrate, isFlashOn,
-            deleteAfterUse
+            turnOffMedia, deleteAfterUse
         );
     }
 
@@ -513,10 +514,11 @@ public final class DataModel {
      * @param crescendoDuration the new custom volume crescendo duration
      * @param isVibrate         {@code true} to enable vibration upon expiration, {@code false} otherwise
      * @param isFlashOn         {@code true} tu turn on the flash upon expiration, {@code false} otherwise
+     * @param turnOffMedia      {@code true} to turn off media upon expiration, {@code false} otherwise.
      * @param deleteAfterUse    {@code true} to automatically delete the timer after use, {@code false} otherwise
      */
     public void updateAllTimerSettings(Timer timer, String label, String buttonTime, Uri ringtone, int autoSilence, int crescendoDuration,
-                                       boolean isVibrate, boolean isFlashOn, boolean deleteAfterUse) {
+                                       boolean isVibrate, boolean isFlashOn, boolean turnOffMedia, boolean deleteAfterUse) {
 
         enforceMainLooper();
 
@@ -527,6 +529,7 @@ public final class DataModel {
             .setCrescendoDuration(crescendoDuration)
             .setIsVibrate(isVibrate)
             .setFlashOn(isFlashOn)
+            .setTurnOffMedia(turnOffMedia)
             .setDeleteAfterUse(deleteAfterUse);
 
         if (updatedTimer == timer) {

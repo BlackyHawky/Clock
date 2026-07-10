@@ -542,6 +542,7 @@ public class HandleApiCalls extends Activity {
                 volumeCrescendoDuration,
                 isVibrate,
                 isFlashOn,
+                false,
                 skipUi
             );
 
