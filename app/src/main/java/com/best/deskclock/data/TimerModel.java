@@ -241,15 +241,16 @@ final class TimerModel {
      * @param autoSilence       the auto silence duration
      * @param crescendoDuration the volume crescendo duration
      * @param isVibrate         {@code true} indicates the timer should vibrate when it is expired
+     * @param isFlashOn         {@code true} indicates the flash should turn on when the timer is expired
      * @param deleteAfterUse    {@code true} indicates the timer should be deleted when it is reset
      * @return the newly added timer
      */
     Timer addTimer(long length, String label, String buttonTime, Uri ringtone, int autoSilence, int crescendoDuration, boolean isVibrate,
-                   boolean deleteAfterUse) {
+                   boolean isFlashOn, boolean deleteAfterUse) {
 
         // Create the timer instance.
         Timer timer = new Timer(-1, RESET, length, length, Timer.UNUSED, Timer.UNUSED, length, label, buttonTime, ringtone,
-            autoSilence, crescendoDuration, isVibrate, deleteAfterUse);
+            autoSilence, crescendoDuration, isVibrate, isFlashOn, deleteAfterUse);
 
         // Add the timer to permanent storage.
         timer = TimerDAO.addTimer(mPrefs, timer);

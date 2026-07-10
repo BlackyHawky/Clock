@@ -453,6 +453,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
                 int autoSilenceDuration = SettingsDAO.getTimerAutoSilenceDuration(mPrefs);
                 int volumeCrescendoDuration = SettingsDAO.getTimerVolumeCrescendoDuration(mPrefs);
                 boolean isVibrate = SettingsDAO.isTimerVibrate(mPrefs);
+                boolean isFlashOn = SettingsDAO.shouldTurnOnBackFlashForExpiredTimer(mPrefs);
 
                 final Timer timer = DataModel.getDataModel().addTimer(
                     timerLength,
@@ -462,6 +463,7 @@ public final class TimerFragment extends DeskClockFragment implements RunnableFr
                     autoSilenceDuration,
                     volumeCrescendoDuration,
                     isVibrate,
+                    isFlashOn,
                     mSettings.isSingleTimerMode
                 );
 

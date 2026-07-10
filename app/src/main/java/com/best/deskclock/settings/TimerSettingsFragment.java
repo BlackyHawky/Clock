@@ -92,6 +92,7 @@ public class TimerSettingsFragment extends ScreenFragment
     CustomSliderPreference mTimerShakeIntensityPref;
     SwitchPreferenceCompat mSingleTimerModePref;
     ListPreference mSortTimerPref;
+    SwitchPreferenceCompat mTurnOnBackFlashForExpiredTimerPref;
     SwitchPreferenceCompat mDisplayLowAlarmVolumeWarningPref;
 
     private final ActivityResultLauncher<Intent> fontPickerLauncher =
@@ -179,6 +180,7 @@ public class TimerSettingsFragment extends ScreenFragment
         mTimerShakeIntensityPref = findPreference(KEY_TIMER_SHAKE_INTENSITY);
         mSingleTimerModePref = findPreference(KEY_SINGLE_TIMER_MODE);
         mSortTimerPref = findPreference(KEY_SORT_TIMER);
+        mTurnOnBackFlashForExpiredTimerPref = findPreference(KEY_TURN_ON_BACK_FLASH_FOR_EXPIRED_TIMER);
         mDisplayLowAlarmVolumeWarningPref = findPreference(KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING);
 
         mIsAlarmTabHidden = !SettingsDAO.isAlarmTabVisible(mPrefs);
@@ -263,7 +265,7 @@ public class TimerSettingsFragment extends ScreenFragment
             mEnablePerTimerAutoSilencePref, mAlarmVolumePref, mEnablePerTimerVolumeCrescendoDurationPref, mAdvancedAudioPlaybackPref,
             mAutoRoutingToExternalAudioDevicePref, mSystemMediaVolume, mExternalAudioDeviceVolumePref, mTimerVibratePref,
             mTimerVolumeButtonsActionPref, mTimerPowerButtonActionPref, mTimerFlipActionPref, mTimerShakeActionPref,
-            mTimerShakeIntensityPref, mSortTimerPref, mDisplayLowAlarmVolumeWarningPref);
+            mTimerShakeIntensityPref, mSortTimerPref, mTurnOnBackFlashForExpiredTimerPref, mDisplayLowAlarmVolumeWarningPref);
 
         nullifyAllPrefs();
 
@@ -296,6 +298,7 @@ public class TimerSettingsFragment extends ScreenFragment
                             SettingsDAO.getTimerAutoSilenceDuration(mPrefs),
                             timer.getVolumeCrescendoDuration(),
                             timer.isVibrate(),
+                            timer.isFlashOn(),
                             timer.getDeleteAfterUse()
                         );
                     }
@@ -320,6 +323,7 @@ public class TimerSettingsFragment extends ScreenFragment
                             timer.getAutoSilence(),
                             SettingsDAO.getTimerVolumeCrescendoDuration(mPrefs),
                             timer.isVibrate(),
+                            timer.isFlashOn(),
                             timer.getDeleteAfterUse()
                         );
                     }
@@ -378,6 +382,7 @@ public class TimerSettingsFragment extends ScreenFragment
                             timer.getAutoSilence(),
                             timer.getVolumeCrescendoDuration(),
                             true,
+                            timer.isFlashOn(),
                             timer.getDeleteAfterUse()
                         );
                     }
@@ -401,6 +406,26 @@ public class TimerSettingsFragment extends ScreenFragment
                     mActiveDialog.show();
 
                     return false;
+                }
+            }
+
+            case KEY_TURN_ON_BACK_FLASH_FOR_EXPIRED_TIMER -> {
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
+                List<Timer> timerList = DataModel.getDataModel().getTimers();
+
+                for (Timer timer : timerList) {
+                    DataModel.getDataModel().updateAllTimerSettings(
+                        timer,
+                        timer.getLabel(),
+                        timer.getButtonTime(),
+                        timer.getRingtoneUri(),
+                        timer.getAutoSilence(),
+                        timer.getVolumeCrescendoDuration(),
+                        timer.isVibrate(),
+                        (boolean) newValue,
+                        timer.getDeleteAfterUse()
+                    );
                 }
             }
 
@@ -516,6 +541,9 @@ public class TimerSettingsFragment extends ScreenFragment
         mSortTimerPref.setOnPreferenceChangeListener(this);
         mSortTimerPref.setSummary(mSortTimerPref.getEntry());
 
+        mTurnOnBackFlashForExpiredTimerPref.setVisible(DeviceUtils.hasBackFlash(requireContext()));
+        mTurnOnBackFlashForExpiredTimerPref.setOnPreferenceChangeListener(this);
+
         mDisplayLowAlarmVolumeWarningPref.setOnPreferenceChangeListener(this);
     }
 
@@ -546,6 +574,7 @@ public class TimerSettingsFragment extends ScreenFragment
                                     newValue,
                                     timer.getVolumeCrescendoDuration(),
                                     timer.isVibrate(),
+                                    timer.isFlashOn(),
                                     timer.getDeleteAfterUse()
                                 );
                             }
@@ -577,6 +606,7 @@ public class TimerSettingsFragment extends ScreenFragment
                                     timer.getAutoSilence(),
                                     newValue,
                                     timer.isVibrate(),
+                                    timer.isFlashOn(),
                                     timer.getDeleteAfterUse()
                                 );
                             }
@@ -621,6 +651,7 @@ public class TimerSettingsFragment extends ScreenFragment
                             timer.getAutoSilence(),
                             timer.getVolumeCrescendoDuration(),
                             false,
+                            timer.isFlashOn(),
                             timer.getDeleteAfterUse()
                         )
                 );
@@ -636,6 +667,7 @@ public class TimerSettingsFragment extends ScreenFragment
                             SettingsDAO.getTimerAutoSilenceDuration(mPrefs),
                             timer.getVolumeCrescendoDuration(),
                             timer.isVibrate(),
+                            timer.isFlashOn(),
                             timer.getDeleteAfterUse()
                         )
                 );
@@ -651,6 +683,7 @@ public class TimerSettingsFragment extends ScreenFragment
                             timer.getAutoSilence(),
                             SettingsDAO.getTimerVolumeCrescendoDuration(mPrefs),
                             timer.isVibrate(),
+                            timer.isFlashOn(),
                             timer.getDeleteAfterUse()
                         )
                 );
@@ -808,6 +841,7 @@ public class TimerSettingsFragment extends ScreenFragment
         mTimerShakeActionPref = null;
         mTimerShakeIntensityPref = null;
         mSortTimerPref = null;
+        mTurnOnBackFlashForExpiredTimerPref = null;
         mDisplayLowAlarmVolumeWarningPref = null;
     }
 

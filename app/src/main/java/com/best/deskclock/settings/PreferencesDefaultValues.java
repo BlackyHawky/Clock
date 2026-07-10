@@ -192,6 +192,7 @@ public class PreferencesDefaultValues {
     public static final String SORT_TIMER_BY_DESCENDING_DURATION = "2";
     public static final String SORT_TIMER_BY_NAME = "3";
     public static final int DEFAULT_TIMER_ADD_TIME_BUTTON_VALUE = 60;
+    public static final boolean DEFAULT_TURN_ON_BACK_FLASH_FOR_EXPIRED_TIMER = false;
 
     // Stopwatch
     public static final String DEFAULT_SW_ACTION = "0";

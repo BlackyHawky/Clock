@@ -843,6 +843,15 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return {@code true} if the back flash should turn on when the timer is expired.
+     * {@code false} otherwise.
+     */
+    public static boolean shouldTurnOnBackFlashForExpiredTimer(SharedPreferences pref) {
+        // Default value must match the one in res/xml/settings_timer.xml
+        return pref.getBoolean(KEY_TURN_ON_BACK_FLASH_FOR_EXPIRED_TIMER, DEFAULT_TURN_ON_BACK_FLASH_FOR_EXPIRED_TIMER);
+    }
+
+    /**
      * @return the timer creation view style.
      */
     public static String getTimerCreationViewStyle(SharedPreferences prefs) {

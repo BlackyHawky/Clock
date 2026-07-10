@@ -1012,6 +1012,8 @@
     <string name="timer_settings">Timers</string>
     <!-- Timer preference summary in the settings -->
     <string name="timer_settings_summary">Customize the style, font, default ringtone, action to stop the timers, and timer sorting</string>
+    <!-- Setting summary to indicate that this setting can be changed for each timer -->
+    <string name="timer_settings_general_summary">This setting can be changed for each timer in the timer editing panel</string>
     <!-- Title for setting the timer creation view style -->
     <string name="timer_creation_view_style_title">Timer creation view style</string>
     <!-- Keypad style when creating timer -->
@@ -1066,6 +1068,8 @@
     <string name="sort_timer_descending_duration">By duration (descending order)</string>
     <!-- Default time to add to timer preference title in the settings -->
     <string name="default_time_to_add_to_timer_title">Default time to add to the timers</string>
+    <!-- Setting title to turn on flash when timer is expired -->
+    <string name="turn_on_back_flash_for_expired_timer_title">Turn on back flash when timer is expired</string>
     <!-- Notification title when timer is paused. [CHAR LIMIT=25] -->
     <string name="timer_paused">Timer paused</string>
     <!-- Notification title when at least one timer, of those in use, is counting down. -->
