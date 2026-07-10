@@ -532,6 +532,7 @@ public class HandleApiCalls extends Activity {
             int autoSilenceDuration = SettingsDAO.getTimerAutoSilenceDuration(prefs);
             int volumeCrescendoDuration = SettingsDAO.getTimerVolumeCrescendoDuration(mPrefs);
             boolean isVibrate = SettingsDAO.isTimerVibrate(prefs);
+            boolean isFlashOn = SettingsDAO.shouldTurnOnBackFlashForExpiredTimer(mPrefs);
 
             timer = DataModel.getDataModel().addTimer(lengthMillis,
                 label,
@@ -540,6 +541,7 @@ public class HandleApiCalls extends Activity {
                 autoSilenceDuration,
                 volumeCrescendoDuration,
                 isVibrate,
+                isFlashOn,
                 skipUi
             );
 

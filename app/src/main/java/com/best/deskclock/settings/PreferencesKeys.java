@@ -177,6 +177,7 @@ public class PreferencesKeys {
     public static final String KEY_SORT_TIMER = "key_sort_timer";
     public static final String KEY_TIMER_ORDER = "timerOrder";
     public static final String KEY_TIMER_ADD_TIME_BUTTON_VALUE = "key_timer_add_time_button_value";
+    public static final String KEY_TURN_ON_BACK_FLASH_FOR_EXPIRED_TIMER = "key_turn_on_back_flash_for_expired_timer";
 
     // Timer Display Customization
     public static final String KEY_TIMER_DURATION_FONT = "key_timer_duration_font";
