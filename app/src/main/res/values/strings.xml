@@ -1026,8 +1026,8 @@
     <string name="enable_per_timer_crescendo_duration_title">Use a custom volume increase duration for each timer</string>
     <!-- Setting title to invert the position of the timer buttons -->
     <string name="invert_timer_button_positions_title">Invert the position of the timer buttons</string>
-    <!-- Setting title to display active timers in compact mode -->
-    <string name="display_compact_timers_title">Display the active timers in compact mode</string>
+    <!-- Setting title to display the timers in compact mode -->
+    <string name="display_compact_timers_title">Display the timers in compact mode</string>
     <!-- Setting title to display the timer end time -->
     <string name="display_timer_end_time_title">Display the timer end time</string>
     <!-- Title for setting transparent background when timers expires in timer settings -->
