@@ -8,6 +8,7 @@ package com.best.deskclock.data;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.text.TextUtils;
@@ -125,6 +126,13 @@ final class CityDAO {
     static Map<String, City> getCities(Context context) {
         final Resources resources = Utils.getLocalizedContext(context).getResources();
         final TypedArray cityStrings = resources.obtainTypedArray(R.array.city_ids);
+
+        // Create a forced context in English.
+        final Configuration englishConfig = new Configuration(context.getResources().getConfiguration());
+        englishConfig.setLocale(Locale.ENGLISH);
+        final Context englishContext = context.createConfigurationContext(englishConfig);
+        final TypedArray englishCityStrings = englishContext.getResources().obtainTypedArray(R.array.city_ids);
+
         final int citiesCount = cityStrings.length();
 
         final Map<String, City> cities = new ArrayMap<>(citiesCount);
@@ -139,19 +147,23 @@ final class CityDAO {
 
                 final String id = resources.getResourceEntryName(cityResourceId);
                 final String cityString = cityStrings.getString(i);
-                if (cityString == null) {
+                final String englishCityString = englishCityStrings.getString(i);
+
+                if (cityString == null || englishCityString == null) {
                     final String message = String.format("Unable to locate city with id %s", id);
                     throw new IllegalStateException(message);
                 }
 
                 // Attempt to parse the time zone from the city entry.
                 final String[] cityParts = cityString.split("[|]");
-                if (cityParts.length != 2) {
+                final String[] englishCityParts = englishCityString.split("[|]");
+
+                if (cityParts.length != 2 || englishCityParts.length != 2) {
                     final String message = String.format("Error parsing malformed city %s", cityString);
                     throw new IllegalStateException(message);
                 }
 
-                final City city = createCity(id, cityParts[0], cityParts[1]);
+                final City city = createCity(id, cityParts[0], englishCityParts[0], cityParts[1]);
                 // Skip cities whose timezone cannot be resolved.
                 if (city != null) {
                     cities.put(id, city);
@@ -159,20 +171,22 @@ final class CityDAO {
             }
         } finally {
             cityStrings.recycle();
+            englishCityStrings.recycle();
         }
 
         return Collections.unmodifiableMap(cities);
     }
 
     /**
-     * @param id            unique identifier for city
-     * @param formattedName "[index string]=[name]" or "[index string]=[name]:[phonetic name]",
-     *                      If [index string] is empty, use the first character of name as index,
-     *                      If phonetic name is empty, use the name itself as phonetic name.
-     * @param tzId          the string id of the timezone a given city is located in
+     * @param id                   unique identifier for city
+     * @param formattedName        "[index string]=[name]" or "[index string]=[name]:[phonetic name]",
+     *                             If [index string] is empty, use the first character of name as index,
+     *                             If phonetic name is empty, use the name itself as phonetic name.
+     * @param englishFormattedName Same as formattedName, but strictly in English for search matching.
+     * @param tzId                 the string id of the timezone a given city is located in
      */
     @VisibleForTesting
-    static City createCity(String id, String formattedName, String tzId) {
+    static City createCity(String id, String formattedName, String englishFormattedName, String tzId) {
         final TimeZone tz = TimeZone.getTimeZone(tzId);
         // If the time zone lookup fails, GMT is returned. No cities actually map to GMT.
         if ("GMT".equals(tz.getID())) {
@@ -181,6 +195,11 @@ final class CityDAO {
 
         final String[] parts = formattedName.split("[=:]");
         final String name = parts[1];
+
+        // Extract the English name.
+        final String[] englishParts = englishFormattedName.split("[=:]");
+        final String englishName = englishParts[1];
+
         // Extract index string from input, use the first character of city name as the index string
         // if one is not explicitly provided.
         final String indexString = TextUtils.isEmpty(parts[0])
@@ -191,6 +210,6 @@ final class CityDAO {
         final Matcher matcher = NUMERIC_INDEX_REGEX.matcher(indexString);
         final int index = matcher.find() ? Integer.parseInt(matcher.group()) : -1;
 
-        return new City(id, index, indexString, name, phoneticName, tz);
+        return new City(id, index, indexString, name, englishName, phoneticName, tz);
     }
 }

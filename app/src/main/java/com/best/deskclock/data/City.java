@@ -41,6 +41,11 @@ public final class City {
     private final String mName;
 
     /**
+     * The English city name.
+     */
+    private final String mEnglishName;
+
+    /**
      * The phonetic name of the city used to order cities for display.
      */
     private final String mPhoneticName;
@@ -61,11 +66,23 @@ public final class City {
      */
     private String mNameUpperCaseNoSpecialCharacters;
 
-    City(String id, int index, String indexString, String name, String phoneticName, TimeZone tz) {
+    /**
+     * A cached upper case form of the {@link #mEnglishName} used in case-insensitive name comparisons.
+     */
+    private String mEnglishNameUpperCase;
+
+    /**
+     * A cached upper case form of the {@link #mEnglishName} used in case-insensitive name comparisons
+     * which ignore {@link #removeSpecialCharacters(String)} special characters.
+     */
+    private String mEnglishNameUpperCaseNoSpecialCharacters;
+
+    City(String id, int index, String indexString, String name, String englishName, String phoneticName, TimeZone tz) {
         mId = id;
         mIndex = index;
         mIndexString = indexString;
         mName = name;
+        mEnglishName = englishName;
         mPhoneticName = phoneticName;
         mTimeZone = tz;
     }
@@ -126,22 +143,43 @@ public final class City {
     }
 
     /**
+     * @return the English city name converted to upper case
+     */
+    public String getEnglishNameUpperCase() {
+        if (mEnglishNameUpperCase == null) {
+            mEnglishNameUpperCase = mEnglishName.toUpperCase();
+        }
+        return mEnglishNameUpperCase;
+    }
+
+    /**
+     * @return the English city name converted to upper case with all special characters removed
+     */
+    private String getEnglishNameUpperCaseNoSpecialCharacters() {
+        if (mEnglishNameUpperCaseNoSpecialCharacters == null) {
+            mEnglishNameUpperCaseNoSpecialCharacters = removeSpecialCharacters(getEnglishNameUpperCase());
+        }
+        return mEnglishNameUpperCaseNoSpecialCharacters;
+    }
+
+    /**
      * @param upperCaseQueryNoSpecialCharacters search term with all special characters removed
      *                                          to match against the upper case city name
-     * @return {@code true} iff the name of this city starts with the given query
+     * @return {@code true} if the name of this city starts with the given query
      */
     public boolean matches(String upperCaseQueryNoSpecialCharacters) {
         // By removing all special characters, prefix matching becomes more liberal, and it is easier
         // to locate the desired city. e.g. "St. Lucia" is matched by "StL", "St.L", "St L", "St. L"
-        return getNameUpperCaseNoSpecialCharacters().startsWith(upperCaseQueryNoSpecialCharacters);
+        return getNameUpperCaseNoSpecialCharacters().startsWith(upperCaseQueryNoSpecialCharacters)
+            || getEnglishNameUpperCaseNoSpecialCharacters().startsWith(upperCaseQueryNoSpecialCharacters);
     }
 
     @NonNull
     @Override
     public String toString() {
         return String.format(Locale.US,
-            "City {id=%s, index=%d, indexString=%s, name=%s, phonetic=%s, tz=%s}",
-            mId, mIndex, mIndexString, mName, mPhoneticName, mTimeZone.getID());
+            "City {id=%s, index=%d, indexString=%s, name=%s, englishName=%s, phonetic=%s, tz=%s}",
+            mId, mIndex, mIndexString, mName, mEnglishName, mPhoneticName, mTimeZone.getID());
     }
 
     @Override
@@ -158,13 +196,14 @@ public final class City {
             && Objects.equals(mId, city.mId)
             && Objects.equals(mIndexString, city.mIndexString)
             && Objects.equals(mName, city.mName)
+            && Objects.equals(mEnglishName, city.mEnglishName)
             && Objects.equals(mPhoneticName, city.mPhoneticName)
             && Objects.equals(mTimeZone, city.mTimeZone);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mId, mIndex, mIndexString, mName, mPhoneticName, mTimeZone);
+        return Objects.hash(mId, mIndex, mIndexString, mName, mEnglishName, mPhoneticName, mTimeZone);
     }
 
 
