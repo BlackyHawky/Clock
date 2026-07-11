@@ -128,6 +128,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:key="key_timer_vibration_category"
         android:title="@string/vibration_category_title"
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false">

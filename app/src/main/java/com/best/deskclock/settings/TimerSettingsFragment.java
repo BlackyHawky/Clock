@@ -30,6 +30,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
+import androidx.preference.PreferenceCategory;
 import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
@@ -84,6 +85,7 @@ public class TimerSettingsFragment extends ScreenFragment
     SwitchPreferenceCompat mAutoRoutingToExternalAudioDevicePref;
     SwitchPreferenceCompat mSystemMediaVolume;
     CustomSliderPreference mExternalAudioDeviceVolumePref;
+    PreferenceCategory mTimerVibrationCategory;
     SwitchPreferenceCompat mTimerVibratePref;
     SwitchPreferenceCompat mTimerVolumeButtonsActionPref;
     SwitchPreferenceCompat mTimerPowerButtonActionPref;
@@ -172,6 +174,7 @@ public class TimerSettingsFragment extends ScreenFragment
         mAutoRoutingToExternalAudioDevicePref = findPreference(KEY_AUTO_ROUTING_TO_EXTERNAL_AUDIO_DEVICE);
         mSystemMediaVolume = findPreference(KEY_SYSTEM_MEDIA_VOLUME);
         mExternalAudioDeviceVolumePref = findPreference(KEY_EXTERNAL_AUDIO_DEVICE_VOLUME);
+        mTimerVibrationCategory = findPreference(KEY_TIMER_VIBRATION_CATEGORY);
         mTimerVibratePref = findPreference(KEY_TIMER_VIBRATE);
         mTimerVolumeButtonsActionPref = findPreference(KEY_TIMER_VOLUME_BUTTONS_ACTION);
         mTimerPowerButtonActionPref = findPreference(KEY_TIMER_POWER_BUTTON_ACTION);
@@ -263,8 +266,8 @@ public class TimerSettingsFragment extends ScreenFragment
     public void onDestroy() {
         nullifyPreferenceListeners(mTimerDisplayCustomizationPref, mTimerDurationFontPref, mTimerCreationViewStylePref, mTimerRingtonePref,
             mEnablePerTimerAutoSilencePref, mAlarmVolumePref, mEnablePerTimerVolumeCrescendoDurationPref, mAdvancedAudioPlaybackPref,
-            mAutoRoutingToExternalAudioDevicePref, mSystemMediaVolume, mExternalAudioDeviceVolumePref, mTimerVibratePref,
-            mTimerVolumeButtonsActionPref, mTimerPowerButtonActionPref, mTimerFlipActionPref, mTimerShakeActionPref,
+            mAutoRoutingToExternalAudioDevicePref, mSystemMediaVolume, mExternalAudioDeviceVolumePref, mTimerVibrationCategory,
+            mTimerVibratePref, mTimerVolumeButtonsActionPref, mTimerPowerButtonActionPref, mTimerFlipActionPref, mTimerShakeActionPref,
             mTimerShakeIntensityPref, mSortTimerPref, mTurnOnBackFlashForExpiredTimerPref, mDisplayLowAlarmVolumeWarningPref);
 
         nullifyAllPrefs();
@@ -520,7 +523,8 @@ public class TimerSettingsFragment extends ScreenFragment
             && SettingsDAO.shouldUseCustomMediaVolume(mPrefs));
         mExternalAudioDeviceVolumePref.setEnabled(mExternalAudioDeviceVolumePref.isVisible() && mHasExternalAudioDeviceConnected);
 
-        mTimerVibratePref.setVisible(DeviceUtils.hasVibrator(requireContext()));
+        mTimerVibrationCategory.setVisible(DeviceUtils.hasVibrator(requireContext()));
+
         mTimerVibratePref.setOnPreferenceChangeListener(this);
 
         mTimerVolumeButtonsActionPref.setOnPreferenceChangeListener(this);
@@ -843,6 +847,7 @@ public class TimerSettingsFragment extends ScreenFragment
         mAutoRoutingToExternalAudioDevicePref = null;
         mSystemMediaVolume = null;
         mExternalAudioDeviceVolumePref = null;
+        mTimerVibrationCategory = null;
         mTimerVibratePref = null;
         mTimerVolumeButtonsActionPref = null;
         mTimerPowerButtonActionPref = null;
