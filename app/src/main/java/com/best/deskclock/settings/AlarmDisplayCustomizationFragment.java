@@ -70,6 +70,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
     ColorPickerPreference mShadowColorPref;
     CustomSliderPreference mShadowOffsetPref;
     SwitchPreferenceCompat mDisplayAlarmActionMessagePref;
+    SwitchPreferenceCompat mDisplayAlarmTitleOnSingleLinePref;
     SwitchPreferenceCompat mDisplayRingtoneTitlePref;
     ColorPickerPreference mRingtoneTitleColorPref;
     Preference mAlarmBackgroundImagePref;
@@ -178,6 +179,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
         mShadowColorPref = findPreference(KEY_ALARM_SHADOW_COLOR);
         mShadowOffsetPref = findPreference(KEY_ALARM_SHADOW_OFFSET);
         mDisplayAlarmActionMessagePref = findPreference(KEY_DISPLAY_ALARM_ACTION_MESSAGE);
+        mDisplayAlarmTitleOnSingleLinePref = findPreference(KEY_DISPLAY_ALARM_TITLE_ON_SINGLE_LINE);
         mDisplayRingtoneTitlePref = findPreference(KEY_DISPLAY_RINGTONE_TITLE);
         mRingtoneTitleColorPref = findPreference(KEY_RINGTONE_TITLE_COLOR);
         mAlarmBackgroundImagePref = findPreference(KEY_ALARM_BACKGROUND_IMAGE);
@@ -211,8 +213,8 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
             mSnoozeTitleColorPref, mSnoozeButtonColorPref, mDismissTitleColorPref, mDismissButtonColorPref, mSnoozeZoneColorPref,
             mSnoozeMinusButtonColorPref, mSnoozePlusButtonColorPref, mSnoozeSelectorTextColorPref, mSnoozeMinusSymbolColorPref,
             mSnoozePlusSymbolColorPref, mAlarmDigitalClockFontSizePref, mDisplayTextShadowPref, mShadowColorPref, mShadowOffsetPref,
-            mDisplayAlarmActionMessagePref, mDisplayRingtoneTitlePref, mRingtoneTitleColorPref, mAlarmBackgroundImagePref,
-            mEnableAlarmBlurEffectPref, mAlarmBlurIntensityPref, mAlarmPreviewPref
+            mDisplayAlarmActionMessagePref, mDisplayAlarmTitleOnSingleLinePref, mDisplayRingtoneTitlePref, mRingtoneTitleColorPref,
+            mAlarmBackgroundImagePref, mEnableAlarmBlurEffectPref, mAlarmBlurIntensityPref, mAlarmPreviewPref
         );
 
         nullifyAllPrefs();
@@ -306,7 +308,8 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
-            case KEY_DISPLAY_ALARM_ACTION_MESSAGE -> Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+            case KEY_DISPLAY_ALARM_ACTION_MESSAGE, KEY_DISPLAY_ALARM_TITLE_ON_SINGLE_LINE ->
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
         }
 
         return true;
@@ -430,6 +433,8 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
 
         mDisplayAlarmActionMessagePref.setOnPreferenceChangeListener(this);
 
+        mDisplayAlarmTitleOnSingleLinePref.setOnPreferenceChangeListener(this);
+
         mDisplayRingtoneTitlePref.setOnPreferenceChangeListener(this);
 
         mRingtoneTitleColorPref.setVisible(SettingsDAO.isRingtoneTitleDisplayed(mPrefs));
@@ -484,6 +489,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
         mShadowColorPref = null;
         mShadowOffsetPref = null;
         mDisplayAlarmActionMessagePref = null;
+        mDisplayAlarmTitleOnSingleLinePref = null;
         mDisplayRingtoneTitlePref = null;
         mRingtoneTitleColorPref = null;
         mAlarmBackgroundImagePref = null;

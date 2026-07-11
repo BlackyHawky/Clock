@@ -1534,6 +1534,14 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return {@code true} if the alarm title is displayed on a single line. {@code false} otherwise.
+     */
+    public static boolean isAlarmTitleDisplayedOnSingleLine(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm_display.xml
+        return prefs.getBoolean(KEY_DISPLAY_ALARM_TITLE_ON_SINGLE_LINE, DEFAULT_DISPLAY_ALARM_TITLE_ON_SINGLE_LINE);
+    }
+
+    /**
      * @return {@code true} if the ringtone title should be displayed on the lock screen when the alarm is triggered.
      * {@code false} otherwise.
      */

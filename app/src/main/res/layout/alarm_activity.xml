@@ -50,13 +50,6 @@
             app:layout_constraintGuide_percent="0.95" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/alarm_horizontal_middle_guide"
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintGuide_percent="0.5" />
-
-        <androidx.constraintlayout.widget.Guideline
             android:id="@+id/alarm_horizontal_end_guide"
             android:orientation="horizontal"
             android:layout_width="wrap_content"
@@ -67,7 +60,9 @@
         <FrameLayout
             android:id="@+id/clock_layout"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="10dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/alarm_title">
 
@@ -82,9 +77,9 @@
                 android:id="@+id/digital_clock"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
                 android:layout_gravity="center"
-                android:gravity="center_horizontal"
+                android:gravity="center"
+                android:fontFeatureSettings="tnum"
                 android:includeFontPadding="false"
                 android:singleLine="true"
                 tools:text="12:34"
@@ -97,20 +92,17 @@
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/alarm_title"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginHorizontal="10dp"
-            android:paddingVertical="10dp"
-            android:gravity="center_horizontal"
-            android:singleLine="true"
-            android:ellipsize="marquee"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:scrollHorizontally="true"
+            android:layout_marginVertical="20dp"
+            android:gravity="center"
             app:layout_constraintStart_toEndOf="@+id/alarm_vertical_start_guide"
             app:layout_constraintEnd_toEndOf="@+id/alarm_vertical_end_guide"
-            app:layout_constraintBottom_toTopOf="@+id/alarm_horizontal_middle_guide"
+            app:layout_constraintTop_toBottomOf="@+id/clock_layout"
+            app:layout_constraintBottom_toTopOf="@+id/slide_zone_layout"
             tools:text="@string/menu_alarm"
             tools:textStyle="bold"
-            tools:textSize="26sp"
+            tools:textSize="50sp"
             tools:textColor="@android:color/white" />
 
         <!-- Snooze button -->
@@ -118,7 +110,8 @@
             android:id="@+id/snooze_button"
             android:layout_width="0dp"
             android:layout_height="80dp"
-            android:layout_marginHorizontal="12dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="12dp"
             android:textSize="20sp"
             android:textColor="@android:color/white"
             android:includeFontPadding="false"
@@ -138,7 +131,8 @@
             android:id="@+id/dismiss_button"
             android:layout_width="0dp"
             android:layout_height="80dp"
-            android:layout_marginHorizontal="12dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="20dp"
             android:textSize="20sp"
             android:textColor="@android:color/white"
             android:includeFontPadding="false"
@@ -158,7 +152,7 @@
             android:id="@+id/dismiss_only_button"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:layout_marginHorizontal="12dp"
+            android:layout_marginHorizontal="20dp"
             android:textSize="20sp"
             android:textColor="@android:color/white"
             android:includeFontPadding="false"
@@ -279,8 +273,8 @@
                 android:id="@+id/snooze_selector_text"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginHorizontal="30dp"
-                android:paddingHorizontal="8dp"
+                android:layout_marginHorizontal="20dp"
+                android:paddingHorizontal="10dp"
                 android:textSize="18sp"
                 android:gravity="center"
                 android:singleLine="true"
@@ -307,8 +301,8 @@
             android:id="@+id/ringtone_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginBottom="20dp"
+            android:orientation="horizontal"
             android:gravity="center"
             app:layout_constraintStart_toStartOf="@+id/slide_zone_layout"
             app:layout_constraintEnd_toEndOf="@+id/slide_zone_layout"

@@ -152,6 +152,7 @@ public class PreferencesKeys {
     public static final String KEY_ALARM_SHADOW_COLOR = "key_alarm_shadow_color";
     public static final String KEY_ALARM_SHADOW_OFFSET = "key_alarm_shadow_offset";
     public static final String KEY_DISPLAY_ALARM_ACTION_MESSAGE = "key_display_alarm_action_message";
+    public static final String KEY_DISPLAY_ALARM_TITLE_ON_SINGLE_LINE = "key_display_alarm_title_on_single_line";
     public static final String KEY_DISPLAY_RINGTONE_TITLE = "key_display_ringtone_title";
     public static final String KEY_RINGTONE_TITLE_COLOR = "key_ringtone_title_color";
     public static final String KEY_ALARM_BACKGROUND_IMAGE = "key_alarm_background_image";

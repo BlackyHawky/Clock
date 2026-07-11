@@ -7,6 +7,7 @@
 package com.best.deskclock.settings;
 
 import static android.view.View.GONE;
+import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
@@ -40,6 +41,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
@@ -50,8 +52,11 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
+import androidx.core.graphics.Insets;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.widget.TextViewCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.base.BaseActivity;
@@ -63,6 +68,7 @@ import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.AnimatorUtils;
 import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.FormattedTextUtils;
+import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
@@ -180,6 +186,8 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
                 finishActivity();
             }
         });
+
+        applyWindowInsets();
 
         AlarmUtils.hideSystemBarsOfTriggeredAlarms(getWindow(), getWindow().getDecorView());
     }
@@ -315,6 +323,18 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
         return true;
     }
 
+    /**
+     * This method adjusts the space occupied by the status bar, and adjust the display of the clock layout accordingly.
+     */
+    private void applyWindowInsets() {
+        InsetsUtils.doOnApplyWindowInsets(mBinding.clockLayout, (v, insets) -> {
+            // Get the system bar and notch insets
+            Insets bars = insets.getInsets(WindowInsetsCompat.Type.displayCutout());
+
+            v.setPadding(0, bars.top, 0, 0);
+        });
+    }
+
     private void initDefaultSnoozeValue() {
         mDefaultSnoozeMinutes = DEFAULT_SNOOZE_VALUE;
         mSnoozeMinutes = mDefaultSnoozeMinutes;
@@ -395,8 +415,28 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
         mBinding.alarmTitle.setTypeface(mGeneralBoldTypeface);
         mBinding.alarmTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
         mBinding.alarmTitle.setTextColor(mAlarmTitleColor);
-        // Allow text scrolling (all other attributes are indicated in the "alarm_activity.xml" file)
-        mBinding.alarmTitle.setSelected(true);
+
+        if (SettingsDAO.isAlarmTitleDisplayedOnSingleLine(mPrefs)) {
+            TextViewCompat.setAutoSizeTextTypeWithDefaults(mBinding.alarmTitle, TextViewCompat.AUTO_SIZE_TEXT_TYPE_NONE);
+            mBinding.alarmTitle.setSingleLine(true);
+            mBinding.alarmTitle.setSelected(true); // Allow text scrolling
+            mBinding.alarmTitle.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+            mBinding.alarmTitle.setMarqueeRepeatLimit(-1);
+            mBinding.alarmTitle.setHorizontallyScrolling(true);
+        } else {
+            mBinding.alarmTitle.setSingleLine(false);
+            mBinding.alarmTitle.setSelected(false);
+            mBinding.alarmTitle.setEllipsize(null);
+            mBinding.alarmTitle.setHorizontallyScrolling(false);
+
+            TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(
+                mBinding.alarmTitle,
+                12,
+                (int) mAlarmTitleFontSize,
+                2,
+                TypedValue.COMPLEX_UNIT_SP
+            );
+        }
 
         // Display a shadow if enabled in the settings
         if (mIsTextShadowDisplayed) {
@@ -535,7 +575,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
      * Initializes the button mode.
      */
     private void initButtonModeUI() {
-        mBinding.slideZoneLayout.setVisibility(GONE);
+        mBinding.slideZoneLayout.setVisibility(INVISIBLE);
 
         initSnoozeAndDismissButtons();
     }

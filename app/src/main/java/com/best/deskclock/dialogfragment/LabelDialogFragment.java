@@ -204,7 +204,7 @@ public class LabelDialogFragment extends DialogFragment {
         mBinding.edit.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
         mBinding.edit.selectAll();
         mBinding.edit.requestFocus();
-        mBinding.edit.setMaxLines(2);
+        mBinding.edit.setMaxLines(5);
         mBinding.edit.setHorizontallyScrolling(false);
         mBinding.edit.setImeOptions(EditorInfo.IME_ACTION_DONE);
         mBinding.edit.setOnEditorActionListener((v, actionId, event) -> {
