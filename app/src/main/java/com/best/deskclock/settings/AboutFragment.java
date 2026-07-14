@@ -556,7 +556,7 @@ public class AboutFragment extends ScreenFragment implements Preference.OnPrefer
             String uriString = mPrefs.getString(RINGTONE_URI + id, null);
             if (uriString != null) {
                 Uri uri = Uri.parse(uriString);
-                clearFile(uri.getPath());
+                Utils.clearFile(uri.getPath());
             }
         }
     }

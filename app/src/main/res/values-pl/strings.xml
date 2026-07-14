@@ -627,7 +627,6 @@
     <string name="snooze_selector_text_color_title">Kolor tekstu selektora drzemki</string>
     <string name="snooze_minus_symbol_color_title">Kolor symbolu „-”</string>
     <string name="snooze_plus_symbol_color_title">Kolor symbolu „+”</string>
-    <string name="background_image_summary">Ustaw przezroczysty kolor tła, aby zobaczyć obraz</string>
     <string name="alarm_volume_low">Głośność alarmu jest niska</string>
     <string name="fix_alarm_volume">Napraw</string>
     <string name="display_snooze_selector_title">Wyświetl selektor drzemki</string>

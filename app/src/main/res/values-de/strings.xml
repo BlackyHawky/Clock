@@ -622,7 +622,6 @@
     <string name="display_snooze_selector_title">Schaltflächen für abweichende Schlummerdauer anzeigen</string>
     <string name="snooze_zone_color_title">Hintergrundfarbe der Schlummerdauer-Schaltfläche</string>
     <string name="snooze_selector_text_color_title">Schriftfarbe der Schlummerdauer-Schaltfläche</string>
-    <string name="background_image_summary">Hintergrundfarbe auf transparent einstellen, um das Hintergrundbild sichtbar zu machen</string>
     <string name="missed_timer_indicator_color_title">Farbe für verpassten Timer</string>
     <string name="clock_second_hand_lollipop">Breguet</string>
     <string name="alarm_volume_low">Die Wecker-Lautstärke ist niedrig</string>

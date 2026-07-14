@@ -23,6 +23,7 @@ import android.service.quicksettings.TileService;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
@@ -42,6 +43,7 @@ import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.base.KeepAliveService;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.tiles.AlarmTileService;
 import com.best.deskclock.tiles.StopwatchTileService;
 import com.best.deskclock.tiles.TimerTileService;
@@ -65,6 +67,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Date;
+import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
@@ -453,6 +456,13 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                 appendFileToZip(zipOutputStream, mPrefs.getString(KEY_DIGITAL_CLOCK_FONT, null));
                 appendFileToZip(zipOutputStream, mPrefs.getString(KEY_SCREENSAVER_DIGITAL_CLOCK_FONT, null));
                 appendFileToZip(zipOutputStream, mPrefs.getString(KEY_SCREENSAVER_BACKGROUND_IMAGE, null));
+
+                List<Alarm> alarms = Alarm.getAlarms(context.getContentResolver(), null);
+                for (Alarm alarm : alarms) {
+                    if (!TextUtils.isEmpty(alarm.backgroundImage)) {
+                        appendFileToZip(zipOutputStream, alarm.backgroundImage);
+                    }
+                }
             }
         }
 
@@ -515,10 +525,10 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             }
         }
 
-        private void restoreFileFromZip(Context context, ZipInputStream zipInputStream, String fileName)
-            throws IOException {
+        private void restoreFileFromZip(Context context, ZipInputStream zipInputStream, String fileName) throws IOException {
 
-            File outputFile = new File(context.getFilesDir(), fileName);
+            final Context safeContext = Utils.getSafeStorageContext(context);
+            File outputFile = new File(safeContext.getFilesDir(), fileName);
 
             try (FileOutputStream fos = new FileOutputStream(outputFile)) {
                 byte[] buffer = new byte[4096];
@@ -534,7 +544,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                 String oldFilePath = mPrefs.getString(prefKey, null);
 
                 if (oldFilePath != null && !oldFilePath.equals(outputFile.getAbsolutePath())) {
-                    clearFile(oldFilePath);
+                    Utils.clearFile(oldFilePath);
                 }
 
                 mPrefs.edit().putString(prefKey, outputFile.getAbsolutePath()).apply();

@@ -612,7 +612,6 @@
     <string name="snooze_minus_symbol_color_title">\"-\" Sembolünün rengi</string>
     <string name="snooze_plus_symbol_color_title">\"+\" Sembolünün rengi</string>
     <string name="display_alarm_action_message_title">Alarmı erteledikten veya kapattıktan sonra bir mesaj görüntüle</string>
-    <string name="background_image_summary">Arka plan resmini görebilmek için şeffaf bir arka plan rengi ayarlayın</string>
     <string name="alarm_volume_low">Alarm sesi düşük</string>
     <string name="fix_alarm_volume">Düzelt</string>
     <string name="display_snooze_selector_title">Erteleme seçiciyi görüntüle</string>

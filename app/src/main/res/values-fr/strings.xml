@@ -623,7 +623,6 @@
     <string name="snooze_selector_text_color_title">Couleur du texte du sélecteur de répétition</string>
     <string name="snooze_minus_symbol_color_title">Couleur du symbole \"-\"</string>
     <string name="snooze_plus_symbol_color_title">Couleur du symbole \"+\"</string>
-    <string name="background_image_summary">Définissez une couleur de fond transparente pour voir l\'image</string>
     <string name="alarm_volume_low">Le volume de l\'alarme est faible</string>
     <string name="fix_alarm_volume">Corriger</string>
     <string name="display_snooze_selector_title">Afficher le sélecteur de répétition</string>

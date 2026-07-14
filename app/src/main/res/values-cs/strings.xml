@@ -624,7 +624,6 @@
     <string name="snooze_selector_text_color_title">Barva textu výběru odložení</string>
     <string name="snooze_minus_symbol_color_title">Barva symbolu „-“</string>
     <string name="snooze_plus_symbol_color_title">Barva symbolu „+“</string>
-    <string name="background_image_summary">Pro zobrazení obrázku nastavte průhlednou barvu pozadí</string>
     <string name="alarm_volume_low">Hlasitost budíku je nízká</string>
     <string name="fix_alarm_volume">Opravit</string>
     <string name="display_snooze_selector_title">Zobrazit výběr odložení</string>

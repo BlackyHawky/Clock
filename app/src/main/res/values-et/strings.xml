@@ -645,7 +645,6 @@
     <string name="snooze_selector_text_color_title">„Lükka edasi“ valiku teksti värv</string>
     <string name="display_snooze_selector_title">Näita „Lükka edasi“ valikut</string>
     <string name="missed_timer_indicator_color_title">Vahelejäänud taimeri tunnusvärv</string>
-    <string name="background_image_summary">Pildi nägemiseks muuda taustavärv läbipaistvaks</string>
     <string name="display_low_alarm_volume_warning_title">Näita hoiatust, kui äratuse helivaljus on sätitud vaikseks</string>
     <string name="enable_delete_occasional_alarm_by_default_dialog_message">„Kustuta äratus peale loobumist“ funktsionaalsus lülitatakse kõikide äratuste puhul välja. %s</string>
     <string name="toast_message_restore_error">Taastamine ei õnnestunud</string>

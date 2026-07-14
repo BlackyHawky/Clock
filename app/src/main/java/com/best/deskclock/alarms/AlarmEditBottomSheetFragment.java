@@ -8,6 +8,7 @@ import static android.view.View.VISIBLE;
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.*;
+import static com.best.deskclock.settings.PreferencesKeys.FILE_SPECIFIC_ALARM_BACKGROUND;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -23,6 +24,7 @@ import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,6 +47,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
+import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Weekdays;
@@ -68,6 +71,7 @@ import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
 import com.best.deskclock.uicomponents.CustomTooltip;
+import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.DeviceUtils;
@@ -87,6 +91,7 @@ import com.google.android.material.color.MaterialColors;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.timepicker.MaterialTimePicker;
 
+import java.io.File;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -149,6 +154,58 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         }
     );
 
+    private final ActivityResultLauncher<Intent> mImagePickerLauncher =
+        registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (result.getResultCode() != RESULT_OK) {
+                return;
+            }
+
+            Intent intent = result.getData();
+            final Uri sourceUri = intent == null ? null : intent.getData();
+            if (sourceUri == null) {
+                return;
+            }
+
+            final Context appContext = requireContext().getApplicationContext();
+
+            // Take persistent permission
+            appContext.getContentResolver().takePersistableUriPermission(sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+            String safeTitle = Utils.toSafeFileName(
+                FILE_SPECIFIC_ALARM_BACKGROUND + "_" + mAlarm.id + "_" + System.currentTimeMillis()
+            );
+            String oldImagePath = mAlarm.backgroundImage;
+
+            AppExecutors.getDiskIO().execute(() -> {
+                // Delete the old image if it exists
+                Utils.clearFile(oldImagePath);
+
+                // Copy the new image to the device's protected storage
+                Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(appContext, sourceUri, safeTitle);
+
+                // Save the new path
+                if (copiedUri != null) {
+                    mAlarm.backgroundImage = copiedUri.getPath();
+                }
+
+                AppExecutors.getMainThread().post(() -> {
+                    if (copiedUri != null) {
+                        CustomToast.show(appContext, R.string.background_image_toast_message_selected);
+                    } else {
+                        CustomToast.show(appContext, "Error importing image");
+                    }
+
+                    if (!isAdded() || mBinding == null) {
+                        return;
+                    }
+
+                    if (copiedUri != null) {
+                        bindAlarmBackgroundImage();
+                    }
+                });
+            });
+        });
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -181,8 +238,8 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     public void onDestroyView() {
         nullifyClickListeners(mBinding.digitalClock, mBinding.scheduleAlarmLayout, mBinding.pauseAlarmLayout, mBinding.editLabel,
             mBinding.chooseRingtone, mBinding.vibrationPatternLayout, mBinding.autoSilenceDurationLayout, mBinding.snoozeDurationLayout,
-            mBinding.missedAlarmRepeatLimitLayout, mBinding.crescendoDurationLayout, mBinding.alarmVolumeLayout, mBinding.deleteButton,
-            mBinding.duplicateButton);
+            mBinding.missedAlarmRepeatLimitLayout, mBinding.crescendoDurationLayout, mBinding.alarmVolumeLayout,
+            mBinding.alarmBackgroundImageLayout, mBinding.alarmBackgroundImageButton, mBinding.deleteButton, mBinding.duplicateButton);
 
         mAlarmUpdateHandler = null;
 
@@ -262,6 +319,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         bindMissedAlarmRepeatLimit();
         bindCrescendoDuration();
         bindAlarmVolume();
+        bindAlarmBackgroundImage();
         bindDeleteButton();
         bindDuplicateButton();
 
@@ -826,6 +884,33 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         mBinding.alarmVolumeLayout.setOnClickListener(openVolumeFragment);
     }
 
+    private void bindAlarmBackgroundImage() {
+        if (!SettingsDAO.isPerAlarmBackgroundImageEnable(mPrefs)) {
+            mBinding.alarmBackgroundImageLayout.setVisibility(GONE);
+            return;
+        }
+
+        mBinding.alarmBackgroundImageTitle.setTypeface(mGeneralTypeface);
+        mBinding.alarmBackgroundImageButton.setTypeface(mGeneralTypeface);
+
+        if (TextUtils.isEmpty(mAlarm.backgroundImage)) {
+            mBinding.alarmBackgroundImageButton.setVisibility(GONE);
+        } else {
+            mBinding.alarmBackgroundImageButton.setVisibility(VISIBLE);
+        }
+
+        mBinding.alarmBackgroundImageLayout.setOnClickListener(v -> {
+            Events.sendAlarmEvent(R.string.action_set_background_image, R.string.label_deskclock);
+            Utils.selectFile(mImagePickerLauncher, false);
+        });
+
+        mBinding.alarmBackgroundImageButton.setOnClickListener(v -> {
+            Utils.deleteCustomFile(requireContext().getApplicationContext(), mAlarm.backgroundImage, false);
+            mAlarm.backgroundImage = DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
+            bindAlarmBackgroundImage();
+        });
+    }
+
     private void bindDeleteButton() {
         mBinding.deleteButton.setTypeface(mGeneralTypeface);
 
@@ -847,8 +932,38 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             Alarm duplicatedAlarm = new Alarm(mAlarm);
             duplicatedAlarm.id = Alarm.INVALID_ID;
             duplicatedAlarm.instanceState = AlarmInstance.SILENT_STATE;
+            final AlarmUpdateHandler localUpdateHandler = mAlarmUpdateHandler;
 
-            mAlarmUpdateHandler.asyncAddAlarm(duplicatedAlarm);
+            if (!TextUtils.isEmpty(duplicatedAlarm.backgroundImage) &&
+                duplicatedAlarm.backgroundImage.contains(FILE_SPECIFIC_ALARM_BACKGROUND)) {
+
+                final Context appContext = requireContext().getApplicationContext();
+
+                AppExecutors.getDiskIO().execute(() -> {
+                    File sourceFile = new File(duplicatedAlarm.backgroundImage);
+
+                    if (sourceFile.exists()) {
+                        String safeTitle = Utils.toSafeFileName(FILE_SPECIFIC_ALARM_BACKGROUND + "_dup_" + System.currentTimeMillis());
+                        Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(appContext, Uri.fromFile(sourceFile), safeTitle);
+
+                        if (copiedUri != null) {
+                            duplicatedAlarm.backgroundImage = copiedUri.getPath();
+                        } else {
+                            duplicatedAlarm.backgroundImage = DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
+                        }
+                    } else {
+                        duplicatedAlarm.backgroundImage = DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
+                    }
+
+                    if (localUpdateHandler != null) {
+                        localUpdateHandler.asyncAddAlarm(duplicatedAlarm);
+                    }
+                });
+            } else {
+                if (localUpdateHandler != null) {
+                    localUpdateHandler.asyncAddAlarm(duplicatedAlarm);
+                }
+            }
 
             Utils.performHapticFeedback(mBinding.duplicateButton, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
@@ -1207,6 +1322,11 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             mBinding.crescendoDurationLayout,
             mBinding.alarmVolumeLayout
         );
+
+        ThemeUtils.applyExpressiveBackgroundsToGroup(
+            requireContext(),
+            mPrefs,
+            mBinding.alarmBackgroundImageLayout);
     }
 
     private void nullifyClickListeners(View... views) {

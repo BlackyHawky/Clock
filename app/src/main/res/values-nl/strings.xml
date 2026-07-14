@@ -612,7 +612,6 @@
     <string name="snooze_selector_text_color_title">Tekstkleur sluimerkiezer</string>
     <string name="snooze_minus_symbol_color_title">Kleur \"-\" symbool</string>
     <string name="snooze_plus_symbol_color_title">Kleur \"+\" symbool</string>
-    <string name="background_image_summary">Stel een transparante achtergrondkleur in om de afbeelding te zien</string>
     <string name="alarm_volume_low">Het wekkervolume is laag</string>
     <string name="fix_alarm_volume">Oplossen</string>
     <string name="display_snooze_selector_title">Sluimerkiezer weergeven</string>

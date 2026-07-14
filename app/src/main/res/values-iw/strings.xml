@@ -465,7 +465,6 @@
     <string name="snooze_plus_button_color_title">צבע הכפתור „+”</string>
     <string name="snooze_minus_symbol_color_title">צבע הסימן „-”</string>
     <string name="snooze_plus_symbol_color_title">צבע הסימן „+”</string>
-    <string name="background_image_summary">יש להגדיר רקע שקוף בשביל לראות את התמונה</string>
     <string name="settings_tab_to_display">לשונית להצגה בעת פתיחת היישום</string>
     <string name="settings_vibration_summary">רק חלק מכפתורי הממשק מושפעים (למשל: כפתור ההתחלה/השהיה של טיימר או המתגים)</string>
     <string name="clock_dial_with_roman_numbers">עם ספרות לטיניות</string>

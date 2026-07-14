@@ -118,7 +118,7 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
 
                 AppExecutors.getDiskIO().execute(() -> {
                     // Delete the old font if it exists
-                    clearFile(oldFontPath);
+                    Utils.clearFile(oldFontPath);
 
                     // Clear the font cache
                     ThemeUtils.removeFontFromCache(oldFontPath);
@@ -173,7 +173,7 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
 
                 AppExecutors.getDiskIO().execute(() -> {
                     // Delete the old image if it exists
-                    clearFile(oldImagePath);
+                    Utils.clearFile(oldImagePath);
 
                     // Copy the new image to the device's protected storage
                     Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(appContext, sourceUri, safeTitle);

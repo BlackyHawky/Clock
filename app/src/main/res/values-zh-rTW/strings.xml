@@ -603,7 +603,6 @@
     <string name="snooze_selector_text_color_title">延後選取文字色彩</string>
     <string name="snooze_minus_symbol_color_title">「-」符號色彩</string>
     <string name="snooze_plus_symbol_color_title">「+」符號色彩</string>
-    <string name="background_image_summary">將背景設為透明即可查看影像</string>
     <string name="alarm_volume_low">鬧鐘音量過低</string>
     <string name="fix_alarm_volume">固定</string>
     <string name="display_snooze_selector_title">顯示延後選取效果</string>

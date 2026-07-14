@@ -1562,7 +1562,7 @@ public final class SettingsDAO {
      * @return the URI of the image to be displayed on the lock screen when the alarm is triggered.
      */
     public static String getAlarmBackgroundImage(SharedPreferences prefs) {
-        return prefs.getString(KEY_ALARM_BACKGROUND_IMAGE, null);
+        return prefs.getString(KEY_ALARM_BACKGROUND_IMAGE, DEFAULT_ALARM_BACKGROUND_IMAGE);
     }
 
     /**
@@ -1580,6 +1580,15 @@ public final class SettingsDAO {
     public static int getAlarmBlurIntensity(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_alarm_display.xml
         return prefs.getInt(KEY_ALARM_BLUR_INTENSITY, DEFAULT_BLUR_INTENSITY);
+    }
+
+    /**
+     * @return {@code true} if a background image should be used for each alarm when the alarm is triggered.
+     * {@code false} otherwise.
+     */
+    public static boolean isPerAlarmBackgroundImageEnable(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm_display.xml
+        return prefs.getBoolean(KEY_ENABLE_PER_ALARM_BACKGROUND_IMAGE, DEFAULT_ENABLE_PER_ALARM_BACKGROUND_IMAGE);
     }
 
     private static ClockStyle getClockStyle(SharedPreferences prefs, String key) {

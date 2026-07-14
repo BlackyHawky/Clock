@@ -16,6 +16,31 @@
         android:layout_height="32dp"
         android:paddingTop="16dp" />
 
+    <com.best.deskclock.uicomponents.TextTime
+        android:id="@+id/digital_clock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="14dp"
+        android:paddingHorizontal="10dp"
+        android:gravity="center"
+        android:fontFeatureSettings="tnum"
+        android:textSize="48sp"
+        android:textStyle="bold"
+        android:focusable="true"
+        tools:text="08:30" />
+
+    <!-- Day buttons are added programmatically -->
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        style="@style/Widget.Material3.MaterialButtonGroup.Connected"
+        android:id="@+id/repeat_days_group"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="14dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="6dp"
+        android:gravity="center"
+        app:singleSelection="false" />
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -25,39 +50,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.best.deskclock.uicomponents.TextTime
-                android:id="@+id/digital_clock"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="14dp"
-                android:paddingHorizontal="10dp"
-                android:gravity="center"
-                android:fontFeatureSettings="tnum"
-                android:textSize="48sp"
-                android:textStyle="bold"
-                android:focusable="true"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="08:30" />
-
-            <!-- Day buttons are added programmatically -->
-            <com.google.android.material.button.MaterialButtonToggleGroup
-                style="@style/Widget.Material3.MaterialButtonGroup.Connected"
-                android:id="@+id/repeat_days_group"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginHorizontal="14dp"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                app:singleSelection="false"
-                app:layout_constraintTop_toBottomOf="@id/digital_clock" />
-
             <LinearLayout
                 android:id="@+id/schedule_alarm_layout"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginHorizontal="10dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@id/repeat_days_group">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/schedule_alarm"
@@ -441,6 +439,49 @@
                     android:focusable="true"
                     android:maxLines="1"
                     tools:text="70%" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/alarm_background_image_layout"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/alarm_volume_layout">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/alarm_background_image_title"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:paddingHorizontal="10dp"
+                    android:drawableStart="@drawable/ic_image"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical"
+                    android:focusable="true"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="@string/background_image_title" />
+
+                <com.google.android.material.button.MaterialButton
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:id="@+id/alarm_background_image_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="10dp"
+                    android:paddingTop="0dp"
+                    android:paddingBottom="0dp"
+                    android:layout_gravity="center"
+                    android:text="@string/delete"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:includeFontPadding="false"
+                    android:visibility="gone"
+                    app:icon="@drawable/ic_hide_image"
+                    app:strokeColor="?attr/colorOnSurfaceVariant"
+                    tools:visibility="visible" />
 
             </LinearLayout>
 
