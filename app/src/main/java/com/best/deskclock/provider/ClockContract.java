@@ -136,6 +136,12 @@ public final class ClockContract {
          * <p>Type: LONG</p>
          */
         String PAUSE_END_DATE = "pauseEndDate";
+
+        /**
+         * The alarm background image
+         * Type: STRING
+         */
+        String BACKGROUND_IMAGE = "backgroundImage";
     }
 
     /**

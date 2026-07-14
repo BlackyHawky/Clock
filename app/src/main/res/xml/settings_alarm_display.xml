@@ -283,6 +283,46 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:title="@string/background_image_category_title"
+        app:allowDividerAbove="false"
+        app:iconSpaceReserved="false">
+
+        <Preference
+            android:key="key_alarm_background_image"
+            android:layout="@layout/settings_preference_layout"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:title="@string/background_image_title" />
+
+        <SwitchPreferenceCompat
+            android:key="key_enable_alarm_blur_effect"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/enable_blur_effect_title"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <com.best.deskclock.settings.custompreference.CustomSliderPreference
+            android:key="key_alarm_blur_intensity"
+            android:layout="@layout/settings_preference_slider_layout"
+            android:title="@string/blur_intensity_title"
+            android:summary="@string/label_default"
+            android:defaultValue="20"
+            android:max="100"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <SwitchPreferenceCompat
+            android:key="key_enable_per_alarm_background_image"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/enable_per_alarm_background_image_title"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:title="@string/miscellaneous_category_title"
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false">
@@ -316,31 +356,6 @@
             android:layout="@layout/settings_preference_layout"
             android:title="@string/ringtone_title_color"
             android:defaultValue="#FFFFFFFF"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
-
-        <Preference
-            android:key="key_alarm_background_image"
-            android:layout="@layout/settings_preference_layout"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:title="@string/background_image_title" />
-
-        <SwitchPreferenceCompat
-            android:key="key_enable_alarm_blur_effect"
-            android:layout="@layout/settings_preference_layout"
-            android:title="@string/enable_blur_effect_title"
-            android:defaultValue="false"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
-
-        <com.best.deskclock.settings.custompreference.CustomSliderPreference
-            android:key="key_alarm_blur_intensity"
-            android:layout="@layout/settings_preference_slider_layout"
-            android:title="@string/blur_intensity_title"
-            android:summary="@string/label_default"
-            android:defaultValue="20"
-            android:max="100"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 

@@ -554,7 +554,6 @@
     <string name="blur_intensity_title">Intensidad de difuminado</string>
     <string name="background_image_title">Seleccionar una imagen de fondo</string>
     <string name="background_image_title_variant">Seleccionar o eliminar la imagen del fondo</string>
-    <string name="background_image_summary">Establece un color de fondo transparente para ver la imagen</string>
     <string name="background_image_dialog_title">Imagen de fondo</string>
     <string name="background_image_toast_message_selected">Imagen seleccionada correctamente</string>
     <string name="background_image_toast_message_deleted">Imagen eliminada correctamente</string>

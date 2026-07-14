@@ -36,6 +36,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -50,9 +51,11 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.best.deskclock.BuildConfig;
 import com.best.deskclock.R;
+import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.uicomponents.CustomDialog;
+import com.best.deskclock.uicomponents.toast.CustomToast;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -455,6 +458,60 @@ public class Utils {
 
         // Replace any remaining non-alphanumeric character (except dot or hyphen) with an underscore
         return normalized.replaceAll("[^a-zA-Z0-9.\\-]", "_");
+    }
+
+    /**
+     * Deletes a file from storage and removes its associated preference entry.
+     *
+     * @param path       The absolute path of the file to delete.
+     * @param isFontFile True if the deleted file is a font, false if it is an image.
+     */
+    public static void deleteCustomFile(Context context, String path, boolean isFontFile) {
+        AppExecutors.getDiskIO().execute(() -> {
+            Utils.clearFile(path);
+
+            AppExecutors.getMainThread().post(() -> CustomToast.show(context, isFontFile
+                ? R.string.custom_font_toast_message_deleted
+                : R.string.background_image_toast_message_deleted)
+            );
+        });
+    }
+
+    /**
+     * Deletes the file at the given path if it exists and is a regular file.
+     *
+     * @param path The absolute path of the file to delete.
+     */
+    public static void clearFile(String path) {
+        if (path != null) {
+            File file = new File(path);
+            if (file.exists() && file.isFile()) {
+                boolean deleted = file.delete();
+                if (!deleted) {
+                    LogUtils.w("Unable to delete file: " + path);
+                }
+            }
+        }
+    }
+
+    /**
+     * Opens a file picker allowing the user to select either a font file or an image file.
+     *
+     * @param launcher   The ActivityResultLauncher used to start the document picker.
+     * @param isFontFile True to filter for font files, false to filter for image files.
+     */
+    public static void selectFile(ActivityResultLauncher<Intent> launcher, boolean isFontFile) {
+        final String type = isFontFile ? "*/*" : "image/*";
+        final String[] mimeTypes = isFontFile
+            ? new String[]{"application/x-font-ttf", "application/x-font-otf", "font/ttf", "font/otf"}
+            : new String[]{"image/jpeg", "image/png"};
+
+        launcher.launch(new Intent(Intent.ACTION_OPEN_DOCUMENT)
+            .addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
+            .addCategory(Intent.CATEGORY_OPENABLE)
+            .setType(type)
+            .putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
+        );
     }
 
     /**

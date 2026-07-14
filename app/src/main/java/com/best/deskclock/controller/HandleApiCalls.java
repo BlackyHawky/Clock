@@ -14,6 +14,7 @@ import static com.best.deskclock.alarms.alarmselection.AlarmSelectionActivity.EX
 import static com.best.deskclock.alarms.alarmselection.AlarmSelectionActivity.EXTRA_ALARMS;
 import static com.best.deskclock.provider.AlarmInstance.FIRED_STATE;
 import static com.best.deskclock.provider.AlarmInstance.SNOOZE_STATE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TAB_TO_DISPLAY_INTEGER;
 import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_TAB_ALARM;
 import static com.best.deskclock.settings.PreferencesDefaultValues.VISIBLE_TAB_TIMER;
@@ -617,6 +618,7 @@ public class HandleApiCalls extends Activity {
         alarm.missedAlarmRepeatLimit = SettingsDAO.getMissedAlarmRepeatLimit(prefs);
         alarm.crescendoDuration = SettingsDAO.getAlarmVolumeCrescendoDuration(prefs);
         alarm.alarmVolume = audioManager.getStreamVolume(STREAM_ALARM);
+        alarm.backgroundImage = DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
     }
 
     private static String getLabelFromIntent(Intent intent, String defaultLabel) {

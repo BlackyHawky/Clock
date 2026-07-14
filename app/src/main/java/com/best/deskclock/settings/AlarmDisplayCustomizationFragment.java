@@ -5,6 +5,7 @@ package com.best.deskclock.settings;
 import static android.app.Activity.OVERRIDE_TRANSITION_OPEN;
 import static android.app.Activity.RESULT_OK;
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
 import static com.best.deskclock.settings.PreferencesKeys.*;
 
 import android.content.Context;
@@ -12,29 +13,43 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.view.HapticFeedbackConstantsCompat;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
+import com.best.deskclock.alarms.AlarmUpdateHandler;
 import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.data.DataModel.ClockStyle;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.settings.custompreference.ColorPickerPreference;
 import com.best.deskclock.settings.custompreference.CustomSliderPreference;
+import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.uicomponents.toast.CustomToast;
+import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.google.android.material.color.MaterialColors;
 
+import java.util.List;
+
 public class AlarmDisplayCustomizationFragment extends ScreenFragment
     implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
+
+    private static final String KEY_PENDING_DIALOG_PREF_KEY = "pending_dialog_pref_key";
+
+    private String mPendingDialogPrefKey = null;
+
+    private AlarmUpdateHandler mAlarmUpdateHandler;
 
     String[] mAlarmClockStyleValues;
     String mAnalogClock;
@@ -76,6 +91,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
     Preference mAlarmBackgroundImagePref;
     SwitchPreferenceCompat mEnableAlarmBlurEffectPref;
     CustomSliderPreference mAlarmBlurIntensityPref;
+    SwitchPreferenceCompat mEnablePerAlarmBackgroundImagePref;
     Preference mAlarmPreviewPref;
 
     private final ActivityResultLauncher<Intent> imagePickerLauncher =
@@ -100,7 +116,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
 
             AppExecutors.getDiskIO().execute(() -> {
                 // Delete the old image if it exists
-                clearFile(oldImagePath);
+                Utils.clearFile(oldImagePath);
 
                 // Copy the new image to the device's protected storage
                 Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(appContext, sourceUri, safeTitle);
@@ -126,12 +142,10 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
 
                     if (copiedUri != null) {
                         mAlarmBackgroundImagePref.setTitle(getString(R.string.background_image_title_variant));
-                        mAlarmBackgroundImagePref.setSummary(getString(R.string.background_image_summary));
                         mEnableAlarmBlurEffectPref.setVisible(SdkUtils.isAtLeastAndroid12());
                         mAlarmBlurIntensityPref.setVisible(SdkUtils.isAtLeastAndroid12() && SettingsDAO.isAlarmBlurEffectEnabled(mPrefs));
                     } else {
                         mAlarmBackgroundImagePref.setTitle(getString(R.string.background_image_title));
-                        mAlarmBackgroundImagePref.setSummary(null);
                         mEnableAlarmBlurEffectPref.setVisible(false);
                         mAlarmBlurIntensityPref.setVisible(false);
                     }
@@ -147,6 +161,8 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mAlarmUpdateHandler = new AlarmUpdateHandler(requireContext(), null, null);
 
         addPreferencesFromResource(R.xml.settings_alarm_display);
 
@@ -185,6 +201,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
         mAlarmBackgroundImagePref = findPreference(KEY_ALARM_BACKGROUND_IMAGE);
         mEnableAlarmBlurEffectPref = findPreference(KEY_ENABLE_ALARM_BLUR_EFFECT);
         mAlarmBlurIntensityPref = findPreference(KEY_ALARM_BLUR_INTENSITY);
+        mEnablePerAlarmBackgroundImagePref = findPreference(KEY_ENABLE_PER_ALARM_BACKGROUND_IMAGE);
         mAlarmPreviewPref = findPreference(KEY_ALARM_PREVIEW);
 
         mAlarmClockStyleValues = getResources().getStringArray(R.array.clock_style_values);
@@ -192,12 +209,27 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
         mMaterialAnalogClock = mAlarmClockStyleValues[1];
         mDigitalClock = mAlarmClockStyleValues[2];
 
+        if (savedInstanceState != null) {
+            mPendingDialogPrefKey = savedInstanceState.getString(KEY_PENDING_DIALOG_PREF_KEY, null);
+        }
+
         setupPreferences();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putString(KEY_PENDING_DIALOG_PREF_KEY, mPendingDialogPrefKey);
     }
 
     @Override
     public void onResume() {
         super.onResume();
+
+        if (mPendingDialogPrefKey != null && (mActiveDialog == null || !mActiveDialog.isShowing())) {
+            triggerDisableSettingDialog();
+        }
 
         restoreCustomFileDialogIfNeeded(KEY_ALARM_BACKGROUND_IMAGE, mAlarmBackgroundImagePref, imagePickerLauncher, () -> {
             mEnableAlarmBlurEffectPref.setVisible(false);
@@ -214,10 +246,13 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
             mSnoozeMinusButtonColorPref, mSnoozePlusButtonColorPref, mSnoozeSelectorTextColorPref, mSnoozeMinusSymbolColorPref,
             mSnoozePlusSymbolColorPref, mAlarmDigitalClockFontSizePref, mDisplayTextShadowPref, mShadowColorPref, mShadowOffsetPref,
             mDisplayAlarmActionMessagePref, mDisplayAlarmTitleOnSingleLinePref, mDisplayRingtoneTitlePref, mRingtoneTitleColorPref,
-            mAlarmBackgroundImagePref, mEnableAlarmBlurEffectPref, mAlarmBlurIntensityPref, mAlarmPreviewPref
+            mAlarmBackgroundImagePref, mEnableAlarmBlurEffectPref, mAlarmBlurIntensityPref, mEnablePerAlarmBackgroundImagePref,
+            mAlarmPreviewPref
         );
 
         nullifyAllPrefs();
+
+        mAlarmUpdateHandler = null;
 
         super.onDestroy();
     }
@@ -308,6 +343,15 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
+            case KEY_ENABLE_PER_ALARM_BACKGROUND_IMAGE -> {
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
+                if (!(boolean) newValue) {
+                    triggerDisableSettingDialog();
+                    return false;
+                }
+            }
+
             case KEY_DISPLAY_ALARM_ACTION_MESSAGE, KEY_DISPLAY_ALARM_TITLE_ON_SINGLE_LINE ->
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
         }
@@ -325,9 +369,27 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
         switch (pref.getKey()) {
             case KEY_ALARM_BACKGROUND_IMAGE -> selectCustomFile(mAlarmBackgroundImagePref, imagePickerLauncher,
                 SettingsDAO.getAlarmBackgroundImage(mPrefs), KEY_ALARM_BACKGROUND_IMAGE, false, () -> {
-                    mEnableAlarmBlurEffectPref.setVisible(false);
-                    mAlarmBlurIntensityPref.setVisible(false);
-                });
+                // Actions to perform when deleting a background image
+                mEnableAlarmBlurEffectPref.setVisible(false);
+                mAlarmBlurIntensityPref.setVisible(false);
+
+                // If the global image is deleted, the specific alarm images are deleted only if the
+                // "Use a custom background image for each alarm" setting is disabled.
+                if (!SettingsDAO.isPerAlarmBackgroundImageEnable(mPrefs)) {
+                    AppExecutors.getDiskIO().execute(() -> {
+                        List<Alarm> currentAlarms = Alarm.getAlarms(requireContext().getContentResolver(), null);
+
+                        for (Alarm alarm : currentAlarms) {
+                            if (!TextUtils.isEmpty(alarm.backgroundImage)
+                                && alarm.backgroundImage.contains(FILE_SPECIFIC_ALARM_BACKGROUND)) {
+                                Utils.clearFile(alarm.backgroundImage);
+                            }
+                            alarm.backgroundImage = DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
+                            mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                        }
+                    });
+                }
+            });
 
             case KEY_ALARM_PREVIEW -> {
                 startActivity(new Intent(context, AlarmDisplayPreviewActivity.class));
@@ -441,10 +503,8 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
 
         if (alarmBackgroundImage == null) {
             mAlarmBackgroundImagePref.setTitle(getString(R.string.background_image_title));
-            mAlarmBackgroundImagePref.setSummary(null);
         } else {
             mAlarmBackgroundImagePref.setTitle(getString(R.string.background_image_title_variant));
-            mAlarmBackgroundImagePref.setSummary(getString(R.string.background_image_summary));
         }
 
         mAlarmBackgroundImagePref.setOnPreferenceClickListener(this);
@@ -456,7 +516,90 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
             && alarmBackgroundImage != null
             && SettingsDAO.isAlarmBlurEffectEnabled(mPrefs));
 
+        mEnablePerAlarmBackgroundImagePref.setOnPreferenceChangeListener(this);
+
         mAlarmPreviewPref.setOnPreferenceClickListener(this);
+    }
+
+    private void triggerDisableSettingDialog() {
+        AppExecutors.getDiskIO().execute(() -> {
+            boolean hasSpecificImages = false;
+
+            try {
+                List<Alarm> currentAlarms = Alarm.getAlarms(requireContext().getContentResolver(), null);
+
+                for (Alarm alarm : currentAlarms) {
+                    if (!TextUtils.isEmpty(alarm.backgroundImage) &&
+                        alarm.backgroundImage.contains(FILE_SPECIFIC_ALARM_BACKGROUND)) {
+                        hasSpecificImages = true;
+                        break;
+                    }
+                }
+            } catch (Exception e) {
+                LogUtils.e("Error checking for specific alarm images", e);
+            }
+
+            final boolean finalHasSpecificImages = hasSpecificImages;
+
+            AppExecutors.getMainThread().post(() -> {
+                if (!isAdded() || isDetached()) {
+                    return;
+                }
+
+                if (finalHasSpecificImages) {
+                    mPendingDialogPrefKey = KEY_ENABLE_PER_ALARM_BACKGROUND_IMAGE;
+                    showDisablePerAlarmSettingDialog();
+                } else {
+                    mPrefs.edit().putBoolean(KEY_ENABLE_PER_ALARM_BACKGROUND_IMAGE, false).apply();
+                    mEnablePerAlarmBackgroundImagePref.setChecked(false);
+                }
+            });
+        });
+    }
+
+    private void showDisablePerAlarmSettingDialog() {
+        String confirmAction = getString(R.string.confirm_action_prompt);
+
+        mActiveDialog = CustomDialog.create(
+            requireContext(),
+            null,
+            AppCompatResources.getDrawable(requireContext(), R.drawable.ic_error),
+            getString(R.string.warning),
+            getString(R.string.enable_per_alarm_background_image_dialog_message, confirmAction),
+            null,
+            getString(android.R.string.ok),
+            (d, w) -> {
+                final Context appContext = requireContext().getApplicationContext();
+
+                AppExecutors.getDiskIO().execute(() -> {
+                    List<Alarm> currentAlarms = Alarm.getAlarms(appContext.getContentResolver(), null);
+
+                    for (Alarm alarm : currentAlarms) {
+                        // Delete only specific background images
+                        if (!TextUtils.isEmpty(alarm.backgroundImage) && alarm.backgroundImage.contains(FILE_SPECIFIC_ALARM_BACKGROUND)) {
+                            Utils.clearFile(alarm.backgroundImage);
+                        }
+
+                        alarm.backgroundImage = DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
+                        mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                    }
+
+                    AppExecutors.getMainThread().post(() ->
+                        CustomToast.show(appContext, R.string.background_image_toast_message_deleted));
+                });
+
+                mPrefs.edit().putBoolean(KEY_ENABLE_PER_ALARM_BACKGROUND_IMAGE, false).apply();
+                mEnablePerAlarmBackgroundImagePref.setChecked(false);
+            },
+            getString(android.R.string.cancel),
+            null,
+            null,
+            null,
+            (alertDialog -> alertDialog.setOnDismissListener(d -> mPendingDialogPrefKey = null)),
+            CustomDialog.SoftInputMode.NONE
+        );
+
+        mActiveDialog.show();
     }
 
     private void nullifyAllPrefs() {
@@ -495,6 +638,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
         mAlarmBackgroundImagePref = null;
         mEnableAlarmBlurEffectPref = null;
         mAlarmBlurIntensityPref = null;
+        mEnablePerAlarmBackgroundImagePref = null;
         mAlarmPreviewPref = null;
 
         mAlarmClockStyleValues = null;

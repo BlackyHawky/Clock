@@ -602,7 +602,6 @@
     <string name="snooze_selector_text_color_title">暂停选择器文本颜色</string>
     <string name="snooze_minus_symbol_color_title">“-”符号颜色</string>
     <string name="snooze_plus_symbol_color_title">“+”符号颜色</string>
-    <string name="background_image_summary">设置透明背景颜色以查看图片</string>
     <string name="alarm_volume_low">闹钟音量过低</string>
     <string name="fix_alarm_volume">修复</string>
     <string name="display_snooze_selector_title">显示暂停选择器</string>

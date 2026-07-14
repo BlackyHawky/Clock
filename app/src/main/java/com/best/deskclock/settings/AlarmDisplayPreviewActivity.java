@@ -75,8 +75,7 @@ import com.best.deskclock.utils.ThemeUtils;
 
 import java.io.File;
 
-public class AlarmDisplayPreviewActivity extends BaseActivity
-    implements View.OnClickListener, View.OnTouchListener {
+public class AlarmDisplayPreviewActivity extends BaseActivity implements View.OnClickListener, View.OnTouchListener {
 
     private static final int DEFAULT_SNOOZE_VALUE = 10;
     private static final float TEXT_FADE_START_THRESHOLD = 0.5f;
@@ -352,15 +351,17 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
         final String imagePath = SettingsDAO.getAlarmBackgroundImage(mPrefs);
 
         // Apply a background image and a blur effect.
-        if (imagePath != null) {
+        if (TextUtils.isEmpty(imagePath)) {
+            getWindow().setBackgroundDrawable(new ColorDrawable(alarmBackgroundColor));
+        } else {
             mBinding.alarmBackgroundImage.setVisibility(View.VISIBLE);
 
             File imageFile = new File(imagePath);
+
             if (imageFile.exists()) {
                 Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
                 if (bitmap != null) {
                     mBinding.alarmBackgroundImage.setImageBitmap(bitmap);
-                    mBinding.alarmBackgroundImage.setColorFilter(alarmBackgroundColor);
 
                     if (SdkUtils.isAtLeastAndroid12() && SettingsDAO.isAlarmBlurEffectEnabled(mPrefs)) {
                         float intensity = SettingsDAO.getAlarmBlurIntensity(mPrefs);
@@ -375,8 +376,6 @@ public class AlarmDisplayPreviewActivity extends BaseActivity
                 LogUtils.e("Image file not found: " + imagePath);
                 getWindow().setBackgroundDrawable(new ColorDrawable(alarmBackgroundColor));
             }
-        } else {
-            getWindow().setBackgroundDrawable(new ColorDrawable(alarmBackgroundColor));
         }
     }
 

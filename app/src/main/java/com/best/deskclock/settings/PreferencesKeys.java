@@ -158,6 +158,7 @@ public class PreferencesKeys {
     public static final String KEY_ALARM_BACKGROUND_IMAGE = "key_alarm_background_image";
     public static final String KEY_ENABLE_ALARM_BLUR_EFFECT = "key_enable_alarm_blur_effect";
     public static final String KEY_ALARM_BLUR_INTENSITY = "key_alarm_blur_intensity";
+    public static final String KEY_ENABLE_PER_ALARM_BACKGROUND_IMAGE = "key_enable_per_alarm_background_image";
     public static final String KEY_ALARM_PREVIEW = "key_alarm_preview";
 
     // Timer
@@ -350,6 +351,7 @@ public class PreferencesKeys {
     public static final String FILE_GENERAL_FONT = "general_font";
     public static final String FILE_ALARM_FONT = "alarm_font";
     public static final String FILE_ALARM_BACKGROUND = "alarm_background";
+    public static final String FILE_SPECIFIC_ALARM_BACKGROUND = "specific_alarm_background";
     public static final String FILE_TIMER_FONT = "timer_font";
     public static final String FILE_TIMER_BACKGROUND = "timer_background";
     public static final String FILE_STOPWATCH_FONT = "stopwatch_font";

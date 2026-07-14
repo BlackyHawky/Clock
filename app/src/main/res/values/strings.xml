@@ -576,6 +576,8 @@
     <string name="font_category_title">Font</string>
     <!-- Category title for miscellaneous settings -->
     <string name="miscellaneous_category_title">Miscellaneous</string>
+    <!-- Category title for background image settings -->
+    <string name="background_image_category_title">Background image</string>
     <!-- Setting title for changing the font for the alarm, timer, screensaver, etc. -->
     <string name="custom_font_title">Select a custom font</string>
     <!-- Setting title to choose or delete font. -->
@@ -1011,12 +1013,14 @@
     <string name="display_alarm_action_message_title">Display a message after snoozing or dismissing the alarm</string>
     <!-- Setting title to display the alarm title on a single line. -->
     <string name="display_alarm_title_on_single_line_title">Display the alarm title on a single line</string>
-    <!-- Setting summary when a background image has been selected. -->
-    <string name="background_image_summary">Set a transparent background color to see the image</string>
     <!-- Title of the setting to enable swiping to dismiss or snooze alarms -->
     <string name="swipe_action_title">Swipe to dismiss or snooze the alarms</string>
     <!-- Title of the setting to display the snooze selector -->
     <string name="display_snooze_selector_title">Display the snooze selector</string>
+    <!-- Setting title to enable the use of a background image for each alarm. -->
+    <string name="enable_per_alarm_background_image_title">Use a custom background image for each alarm</string>
+    <!-- Dialog message when the use of a background image for each alarm is disabled. -->
+    <string name="enable_per_alarm_background_image_dialog_message">Custom background images will be deleted.%s</string>
 
     <!-- *************************** -->
     <!-- **     CLOCK SETTINGS    ** -->

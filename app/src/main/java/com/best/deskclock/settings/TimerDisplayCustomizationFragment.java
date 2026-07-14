@@ -75,7 +75,7 @@ public class TimerDisplayCustomizationFragment extends ScreenFragment
 
             AppExecutors.getDiskIO().execute(() -> {
                 // Delete the old image if it exists
-                clearFile(oldImagePath);
+                Utils.clearFile(oldImagePath);
 
                 // Copy the new image to the device's protected storage
                 Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(appContext, sourceUri, safeTitle);

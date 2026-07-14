@@ -52,17 +52,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
-import com.best.deskclock.base.AppExecutors;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.databinding.CollapsingToolbarBaseLayoutBinding;
 import com.best.deskclock.settings.custompreference.ColorPickerPreference;
 import com.best.deskclock.settings.custompreference.CustomAboutTitlePreference;
 import com.best.deskclock.uicomponents.CollapsingToolbarBaseActivity;
 import com.best.deskclock.uicomponents.CustomDialog;
-import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.utils.BackupAndRestoreUtils;
 import com.best.deskclock.utils.InsetsUtils;
-import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.NotificationUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
@@ -469,7 +466,7 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
                                     boolean isFontFile, @Nullable OnPreferenceDeleted onPreferenceDeleted) {
 
         if (fontPath == null) {
-            selectFile(launcher, isFontFile);
+            Utils.selectFile(launcher, isFontFile);
         } else {
             mPendingFilePrefKey = prefKey;
             mPendingFilePath = fontPath;
@@ -489,7 +486,7 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
                 getString(isFontFile ? R.string.label_new_font : R.string.label_new_image),
                 (d, w) -> {
                     mPendingFilePrefKey = null;
-                    selectFile(launcher, isFontFile);
+                    Utils.selectFile(launcher, isFontFile);
                 },
                 null,
                 null,
@@ -505,7 +502,7 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
                         onPreferenceDeleted.onDeleted();
                     }
 
-                    deleteCustomFile(requireContext().getApplicationContext(), fontPath, isFontFile);
+                    Utils.deleteCustomFile(requireContext().getApplicationContext(), fontPath, isFontFile);
                 },
                 (alertDialog -> alertDialog.setOnDismissListener(d -> mPendingFilePrefKey = null)),
                 CustomDialog.SoftInputMode.NONE
@@ -513,43 +510,6 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
 
             mActiveDialog.show();
         }
-    }
-
-    /**
-     * Opens a file picker allowing the user to select either a font file or an image file.
-     *
-     * @param launcher   The ActivityResultLauncher used to start the document picker.
-     * @param isFontFile True to filter for font files, false to filter for image files.
-     */
-    protected void selectFile(ActivityResultLauncher<Intent> launcher, boolean isFontFile) {
-        final String type = isFontFile ? "*/*" : "image/*";
-        final String[] mimeTypes = isFontFile
-            ? new String[]{"application/x-font-ttf", "application/x-font-otf", "font/ttf", "font/otf"}
-            : new String[]{"image/jpeg", "image/png"};
-
-        launcher.launch(new Intent(Intent.ACTION_OPEN_DOCUMENT)
-            .addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
-            .addCategory(Intent.CATEGORY_OPENABLE)
-            .setType(type)
-            .putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
-        );
-    }
-
-    /**
-     * Deletes a file from storage and removes its associated preference entry.
-     *
-     * @param path       The absolute path of the file to delete.
-     * @param isFontFile True if the deleted file is a font, false if it is an image.
-     */
-    protected void deleteCustomFile(Context context, String path, boolean isFontFile) {
-        AppExecutors.getDiskIO().execute(() -> {
-            clearFile(path);
-
-            AppExecutors.getMainThread().post(() -> CustomToast.show(context, isFontFile
-                ? R.string.custom_font_toast_message_deleted
-                : R.string.background_image_toast_message_deleted)
-            );
-        });
     }
 
     /**
@@ -571,27 +531,11 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
                 File[] files = dir.listFiles();
                 if (files != null) {
                     for (File file : files) {
-                        if (getCustomFilePrefKey(file.getName()) != null) {
-                            clearFile(file.getAbsolutePath());
+                        String fileName = file.getName();
+                        if (getCustomFilePrefKey(fileName) != null || fileName.startsWith(FILE_SPECIFIC_ALARM_BACKGROUND)) {
+                            Utils.clearFile(file.getAbsolutePath());
                         }
                     }
-                }
-            }
-        }
-    }
-
-    /**
-     * Deletes the file at the given path if it exists and is a regular file.
-     *
-     * @param path The absolute path of the file to delete.
-     */
-    protected void clearFile(String path) {
-        if (path != null) {
-            File file = new File(path);
-            if (file.exists() && file.isFile()) {
-                boolean deleted = file.delete();
-                if (!deleted) {
-                    LogUtils.w("Unable to delete file: " + path);
                 }
             }
         }

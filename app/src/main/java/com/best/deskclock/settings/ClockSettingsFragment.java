@@ -75,7 +75,7 @@ public class ClockSettingsFragment extends ScreenFragment
 
             AppExecutors.getDiskIO().execute(() -> {
                 // Delete the old font if it exists
-                clearFile(oldFontPath);
+                Utils.clearFile(oldFontPath);
 
                 // Copy the new font to the device's protected storage
                 Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(appContext, sourceUri, safeTitle);

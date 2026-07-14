@@ -626,7 +626,6 @@
     <string name="snooze_selector_text_color_title">Цвет текста при выборе отложения</string>
     <string name="snooze_minus_symbol_color_title">Цвет символа «−»</string>
     <string name="snooze_plus_symbol_color_title">Цвет символа «+»</string>
-    <string name="background_image_summary">Чтобы увидеть изображение, установите прозрачный цвет фона</string>
     <string name="alarm_volume_low">Низкая громкость будильника</string>
     <string name="fix_alarm_volume">Исправить</string>
     <string name="display_snooze_selector_title">Показывать выбор отложения</string>

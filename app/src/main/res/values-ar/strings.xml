@@ -639,7 +639,6 @@
     <string name="snooze_selector_text_color_title">لون نص محدد التأجيل</string>
     <string name="snooze_minus_symbol_color_title">لون رمز \"-\"</string>
     <string name="snooze_plus_symbol_color_title">لون رمز \"+\"</string>
-    <string name="background_image_summary">قم بتعيين لون خلفية شفافة لرؤية الصورة</string>
     <string name="alarm_volume_low">صوت المنبه منخفض</string>
     <string name="fix_alarm_volume">أصلح</string>
     <string name="display_snooze_selector_title">اعرض محدد وقت التأجيل</string>

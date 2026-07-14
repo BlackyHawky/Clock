@@ -653,7 +653,6 @@
     <string name="foreground_service_channel">Сповіщення на передньому плані</string>
     <string name="foreground_service_message">Працює у фоновому режимі</string>
     <string name="alarm_volume_low">Низька гучність будильника</string>
-    <string name="background_image_summary">Щоб побачити зображення, встановіть прозорий колір фону</string>
     <string name="snooze_selector_text_color_title">Колір тексту при виборі відкладення</string>
     <string name="display_snooze_selector_title">Показувати вибір відкладення</string>
     <string name="settings_language_arabic">Арабська</string>

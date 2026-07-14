@@ -5,15 +5,15 @@
 package com.best.deskclock.utils;
 
 import static android.media.AudioManager.STREAM_ALARM;
-
 import static com.best.deskclock.data.CustomRingtoneDAO.NEXT_RINGTONE_ID;
 import static com.best.deskclock.data.CustomRingtoneDAO.RINGTONE_IDS;
 import static com.best.deskclock.data.CustomRingtoneDAO.RINGTONE_TITLE;
 import static com.best.deskclock.data.CustomRingtoneDAO.RINGTONE_URI;
 import static com.best.deskclock.data.SettingsDAO.KEY_SELECTED_ALARM_RINGTONE_URI;
-import static com.best.deskclock.data.TimerDAO.TIMER_RINGTONE;
 import static com.best.deskclock.data.TimerDAO.STATE;
 import static com.best.deskclock.data.TimerDAO.TIMER_IDS;
+import static com.best.deskclock.data.TimerDAO.TIMER_RINGTONE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
 import static com.best.deskclock.settings.PreferencesKeys.*;
 
 import android.annotation.SuppressLint;
@@ -25,6 +25,7 @@ import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 
 import com.best.deskclock.BuildConfig;
@@ -189,6 +190,7 @@ public class BackupAndRestoreUtils {
             alarmObject.put("manualSortOrder", alarm.manualSortOrder);
             alarmObject.put("pauseStartDate", alarm.pauseStartDate);
             alarmObject.put("pauseEndDate", alarm.pauseEndDate);
+            alarmObject.put("backgroundImage", alarm.backgroundImage);
 
             if (alarm.daysOfWeek.isRepeating() || !alarm.isSpecifiedDate()) {
                 alarmsArray.put(alarmObject);
@@ -400,6 +402,14 @@ public class BackupAndRestoreUtils {
         int manualSortOrder = alarmObject.optInt("manualSortOrder", 0);
         long pauseStartDate = alarmObject.optLong("pauseStartDate", 0);
         long pauseEndDate = alarmObject.optLong("pauseEndDate", 0);
+        String oldBackgroundImage = alarmObject.optString("backgroundImage", DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE);
+        String newBackgroundImage = DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
+
+        if (!TextUtils.isEmpty(oldBackgroundImage)) {
+            String fileName = new File(oldBackgroundImage).getName();
+            final Context safeContext = Utils.getSafeStorageContext(context);
+            newBackgroundImage = new File(safeContext.getFilesDir(), fileName).getAbsolutePath();
+        }
 
         // If the pause is in the past during a restore, remove it.
         if (pauseEndDate > 0 && AlarmUtils.isPauseExpired(pauseEndDate)) {
@@ -437,7 +447,7 @@ public class BackupAndRestoreUtils {
 
         restoredAlarm = new Alarm(id, enabled, year, month, day, hour, minutes, vibrate, vibrationPattern, flash,
             Weekdays.fromBits(daysOfWeek), label, syncAlarmByLabel, alarmRingtone, deleteAfterUse, autoSilenceDuration, snoozeDuration,
-            missedAlarmRepeatLimit, crescendoDuration, alarmVolume, manualSortOrder, pauseStartDate, pauseEndDate);
+            missedAlarmRepeatLimit, crescendoDuration, alarmVolume, manualSortOrder, pauseStartDate, pauseEndDate, newBackgroundImage);
 
         restoredAlarm.addAlarm(contentResolver);
 

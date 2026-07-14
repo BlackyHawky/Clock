@@ -66,6 +66,7 @@
     <string name="action_set_date">Set Date</string>
     <string name="action_set_label">Set Label</string>
     <string name="action_set_ringtone">Set Ringtone</string>
+    <string name="action_set_background_image">Set Background Image</string>
     <string name="action_toggle_vibrate">Toggle Vibrate</string>
     <string name="action_set_vibration_pattern">Set Vibration Pattern</string>
     <string name="action_toggle_flash">Toggle Flash</string>
