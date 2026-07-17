@@ -21,6 +21,7 @@ import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.uicomponents.toast.SnackbarManager;
 import com.best.deskclock.utils.AlarmUtils;
+import com.best.deskclock.utils.FileUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.Utils;
 import com.google.android.material.snackbar.Snackbar;
@@ -278,7 +279,7 @@ public final class AlarmUpdateHandler {
 
                         // Delete the file in the background to avoid blocking the interface.
                         AppExecutors.getDiskIO().execute(() -> {
-                            Utils.clearFile(imagePath);
+                            FileUtils.clearFile(imagePath);
                             LogUtils.i("Background image file permanently deleted : " + imagePath);
                         });
                     }

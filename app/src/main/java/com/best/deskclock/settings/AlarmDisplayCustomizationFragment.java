@@ -34,6 +34,7 @@ import com.best.deskclock.settings.custompreference.ColorPickerPreference;
 import com.best.deskclock.settings.custompreference.CustomSliderPreference;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.uicomponents.toast.CustomToast;
+import com.best.deskclock.utils.FileUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
@@ -111,15 +112,15 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
             // Take persistent permission
             appContext.getContentResolver().takePersistableUriPermission(sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-            String safeTitle = Utils.toSafeFileName(FILE_ALARM_BACKGROUND);
+            String safeTitle = FileUtils.toSafeFileName(FILE_ALARM_BACKGROUND);
             String oldImagePath = mPrefs.getString(KEY_ALARM_BACKGROUND_IMAGE, null);
 
             AppExecutors.getDiskIO().execute(() -> {
                 // Delete the old image if it exists
-                Utils.clearFile(oldImagePath);
+                FileUtils.clearFile(oldImagePath);
 
                 // Copy the new image to the device's protected storage
-                Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(appContext, sourceUri, safeTitle);
+                Uri copiedUri = FileUtils.copyFileToDeviceProtectedStorage(appContext, sourceUri, safeTitle);
 
                 // Save the new path
                 if (copiedUri != null) {
@@ -382,7 +383,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
                         for (Alarm alarm : currentAlarms) {
                             if (!TextUtils.isEmpty(alarm.backgroundImage)
                                 && alarm.backgroundImage.contains(FILE_SPECIFIC_ALARM_BACKGROUND)) {
-                                Utils.clearFile(alarm.backgroundImage);
+                                FileUtils.clearFile(alarm.backgroundImage);
                             }
                             alarm.backgroundImage = DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
                             mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
@@ -577,7 +578,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
                     for (Alarm alarm : currentAlarms) {
                         // Delete only specific background images
                         if (!TextUtils.isEmpty(alarm.backgroundImage) && alarm.backgroundImage.contains(FILE_SPECIFIC_ALARM_BACKGROUND)) {
-                            Utils.clearFile(alarm.backgroundImage);
+                            FileUtils.clearFile(alarm.backgroundImage);
                         }
 
                         alarm.backgroundImage = DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;

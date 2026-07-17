@@ -31,6 +31,7 @@ import android.util.ArrayMap;
 import android.util.ArraySet;
 
 import com.best.deskclock.R;
+import com.best.deskclock.utils.FileUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
@@ -114,7 +115,7 @@ public final class RingtoneModel {
 
     Uri customRingtoneToAdd(Uri uri, String title) {
         // If the new ringtone is already present in an existing ringtone, do nothing.
-        long size = Utils.getFileSize(mContext, uri);
+        long size = FileUtils.getFileSize(mContext, uri);
 
         Uri existingRingtone = customRingtoneAlreadyAdded(title, size);
         if (existingRingtone != null) {
@@ -182,7 +183,7 @@ public final class RingtoneModel {
             // Compare the name
             if (ringtoneName != null && ringtoneName.equalsIgnoreCase(name)) {
                 // If the name is the same, try to compare the size
-                if (Utils.getFileSize(mContext, ringtoneUri) == size) {
+                if (FileUtils.getFileSize(mContext, ringtoneUri) == size) {
                     return ringtoneUri;
                 }
             }

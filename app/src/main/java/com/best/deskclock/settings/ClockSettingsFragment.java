@@ -26,6 +26,7 @@ import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.TimeZones;
 import com.best.deskclock.settings.custompreference.CustomSliderPreference;
 import com.best.deskclock.uicomponents.toast.CustomToast;
+import com.best.deskclock.utils.FileUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.utils.WidgetUtils;
 import com.best.deskclock.widgets.DigitalAppWidgetProvider;
@@ -70,15 +71,15 @@ public class ClockSettingsFragment extends ScreenFragment
             // Take persistent permission
             appContext.getContentResolver().takePersistableUriPermission(sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-            String safeTitle = Utils.toSafeFileName(FILE_DIGITAL_CLOCK_FONT);
+            String safeTitle = FileUtils.toSafeFileName(FILE_DIGITAL_CLOCK_FONT);
             String oldFontPath = mPrefs.getString(KEY_DIGITAL_CLOCK_FONT, null);
 
             AppExecutors.getDiskIO().execute(() -> {
                 // Delete the old font if it exists
-                Utils.clearFile(oldFontPath);
+                FileUtils.clearFile(oldFontPath);
 
                 // Copy the new font to the device's protected storage
-                Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(appContext, sourceUri, safeTitle);
+                Uri copiedUri = FileUtils.copyFileToDeviceProtectedStorage(appContext, sourceUri, safeTitle);
 
                 // Save the new path
                 if (copiedUri != null) {

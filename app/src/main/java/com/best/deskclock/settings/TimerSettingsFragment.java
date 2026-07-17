@@ -50,6 +50,7 @@ import com.best.deskclock.settings.custompreference.VolumeCrescendoDurationPrefe
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.utils.DeviceUtils;
+import com.best.deskclock.utils.FileUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
@@ -114,18 +115,18 @@ public class TimerSettingsFragment extends ScreenFragment
             // Take persistent permission
             appContext.getContentResolver().takePersistableUriPermission(sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-            String safeTitle = Utils.toSafeFileName(FILE_TIMER_FONT);
+            String safeTitle = FileUtils.toSafeFileName(FILE_TIMER_FONT);
             String oldFontPath = mPrefs.getString(KEY_TIMER_DURATION_FONT, null);
 
             AppExecutors.getDiskIO().execute(() -> {
                 // Delete the old font if it exists
-                Utils.clearFile(oldFontPath);
+                FileUtils.clearFile(oldFontPath);
 
                 // Clear the font cache
                 ThemeUtils.removeFontFromCache(oldFontPath);
 
                 // Copy the new font to the device's protected storage
-                Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(appContext, sourceUri, safeTitle);
+                Uri copiedUri = FileUtils.copyFileToDeviceProtectedStorage(appContext, sourceUri, safeTitle);
 
                 // Save the new path
                 if (copiedUri != null) {

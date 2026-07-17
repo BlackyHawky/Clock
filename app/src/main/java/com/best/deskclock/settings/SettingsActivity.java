@@ -52,6 +52,7 @@ import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.BackupAndRestoreUtils;
+import com.best.deskclock.utils.FileUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.NotificationUtils;
 import com.best.deskclock.utils.PermissionUtils;
@@ -504,7 +505,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             editor.remove(KEY_SCREENSAVER_BACKGROUND_IMAGE);
             editor.commit();
 
-            wipeAllCustomFiles(context);
+            FileUtils.wipeAllCustomFiles(context);
         }
 
         private void restorePreferences(Context context, Uri uri) throws IOException, JSONException {
@@ -538,13 +539,13 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                 }
             }
 
-            final String prefKey = getCustomFilePrefKey(fileName);
+            final String prefKey = FileUtils.getCustomFilePrefKey(fileName);
 
             if (prefKey != null) {
                 String oldFilePath = mPrefs.getString(prefKey, null);
 
                 if (oldFilePath != null && !oldFilePath.equals(outputFile.getAbsolutePath())) {
-                    Utils.clearFile(oldFilePath);
+                    FileUtils.clearFile(oldFilePath);
                 }
 
                 mPrefs.edit().putString(prefKey, outputFile.getAbsolutePath()).apply();
