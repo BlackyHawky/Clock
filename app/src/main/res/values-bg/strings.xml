@@ -346,7 +346,7 @@
     <string name="vibration_pattern_escalating">Усилваща</string>
     <string name="vibration_pattern_tick_tock">Тик-так</string>
     <string name="vibration_start_delay_title">Изчакване преди вибриране</string>
-    <string name="vibration_start_delay_none">Без</string>
+    <string name="label_none">Без</string>
     <string name="vibration_start_delay_warning_box_text">Въведете стойност между 0 и 10 минути</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">Вибриране при отложен или изключен будилник</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">Двойно вибриране при отложен будилник и единично при изключен</string>
@@ -385,7 +385,6 @@
     <string name="background_image_dialog_title">Фоново изображение</string>
     <string name="background_image_toast_message_selected">Изображението е избрано</string>
     <string name="background_image_toast_message_deleted">Изображението е премахнато</string>
-    <string name="enable_blur_effect_title">Замъгляване на фоновото изображение</string>
     <string name="enable_per_alarm_crescendo_duration_title">Отделни стойности на времето за увеличаване на звука за всеки будилник</string>
     <string name="enable_per_alarm_crescendo_duration_dialog_message">Потребителското време за увеличаване на звука ще бъде нулирано.%s</string>
     <string name="enable_per_alarm_auto_silence_title">Отделни стойности на самоизключване за всеки будилник</string>

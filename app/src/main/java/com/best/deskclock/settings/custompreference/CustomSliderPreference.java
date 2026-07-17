@@ -49,7 +49,6 @@ public class CustomSliderPreference extends Preference {
     private static final int MIN_BRIGHTNESS_VALUE = 0;
     private static final int MIN_EXTERNAL_AUDIO_DEVICE_VOLUME = 10;
     private static final int MIN_SHADOW_OFFSET_VALUE = 1;
-    private static final int MIN_BLUR_INTENSITY_VALUE = 1;
     private static final int MIN_ANALOG_CLOCK_SIZE_VALUE = 1;
 
     // The max values below correspond to the max values defined in the preferences XML files.
@@ -173,7 +172,7 @@ public class CustomSliderPreference extends Preference {
         } else if (isScreensaverBlurIntensityPreference()
             || isTimerBlurIntensityPreference()
             || isAlarmBlurIntensityPreference()) {
-            min = MIN_BLUR_INTENSITY_VALUE;
+            min = DEFAULT_BLUR_INTENSITY;
             max = MAX_BLUR_INTENSITY_VALUE;
         } else if (isExternalAudioDeviceVolumePreference()) {
             min = MIN_EXTERNAL_AUDIO_DEVICE_VOLUME;
@@ -220,7 +219,12 @@ public class CustomSliderPreference extends Preference {
      * Updates the slider summary.
      */
     private void updateSliderSummary(TextView sliderSummary, int progress) {
-        if (progress == getDefaultSliderValue()) {
+        if ((isAlarmBlurIntensityPreference()
+            || isTimerBlurIntensityPreference()
+            || isScreensaverBlurIntensityPreference())
+            && isSliderAtDefault(progress)) {
+            sliderSummary.setText(R.string.label_none);
+        } else if (progress == getDefaultSliderValue()) {
             sliderSummary.setText(R.string.label_default);
         } else if (isScreensaverBrightnessPreference()
             || isScreensaverAnalogClockSizePreference()

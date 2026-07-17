@@ -380,7 +380,7 @@
     <string name="vibration_pattern_escalating">Felgyorsuló</string>
     <string name="vibration_pattern_tick_tock">Tik-Tak</string>
     <string name="vibration_start_delay_title">Késleltetve kezd rezegni</string>
-    <string name="vibration_start_delay_none">Nincs</string>
+    <string name="label_none">Nincs</string>
     <string name="vibration_start_delay_warning_box_text">Adjon meg egy értéket 0 és 10 perc között</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">Rezgés engedélyezése szundi vagy ébresztő elvetésekor</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">Dupla rezgés szundikor, és egyszeri rezgés amikor az ébresztést elveti</string>
@@ -419,7 +419,6 @@
     <string name="background_image_dialog_title">Háttérkép</string>
     <string name="background_image_toast_message_selected">Kép sikeresen kiválasztva</string>
     <string name="background_image_toast_message_deleted">Kép sikeresen törölve</string>
-    <string name="enable_blur_effect_title">Homályosítás effekt a háttérképen</string>
     <string name="enable_per_alarm_crescendo_duration_title">Egyedi hangerő növekedési időtartam használata ébresztőnként</string>
     <string name="enable_per_alarm_crescendo_duration_dialog_message">Egyedi ébresztő hangerő növekedési időtartam visszaáll az eredeti értékre.%s</string>
     <string name="enable_per_alarm_auto_silence_title">Egyedi ébresztő megállási időtartam használata ébresztőnként</string>

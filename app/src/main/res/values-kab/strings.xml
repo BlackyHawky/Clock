@@ -99,7 +99,7 @@
     <string name="timer_creation_view_style_keypad">Anasiw</string>
     <string name="clock_dial_sun">Iṭij</string>
     <string name="clock_dial_flower">Tajeǧǧigt</string>
-    <string name="vibration_start_delay_none">Ula yiwen</string>
+    <string name="label_none">Ula yiwen</string>
     <string name="add_new_sound">Rnu amaynut</string>
     <string name="more_options">Ugar n textiṛiyin</string>
     <string name="settings_language_system">Tutlayt tanagrawant</string>

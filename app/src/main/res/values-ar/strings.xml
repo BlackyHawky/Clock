@@ -380,7 +380,7 @@
     <string name="vibration_pattern_escalating">تصاعد الوضع</string>
     <string name="vibration_pattern_tick_tock">تك-توك</string>
     <string name="vibration_start_delay_title">تأخير قبل بدء الاهتزاز</string>
-    <string name="vibration_start_delay_none">عادي</string>
+    <string name="label_none">عادي</string>
     <string name="vibration_start_delay_warning_box_text">أدخل قيمة من 0 إلى 10 دقائق</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">فعِّل الاهتزازات عند تأجيل المنبه أو إهماله</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">اهتزاز مزدوج عند تأجيل المنبه واهتزاز واحد عند إهماله</string>
@@ -434,7 +434,6 @@
     <string name="background_image_dialog_title">صورة الخلفية</string>
     <string name="background_image_toast_message_selected">تم اختيار الصورة بنجاح</string>
     <string name="background_image_toast_message_deleted">تم حذف الصورة بنجاح</string>
-    <string name="enable_blur_effect_title">قم بتطبيق تأثير التمويه على صورة الخلفية</string>
     <string name="enable_per_alarm_crescendo_duration_title">استخدم مدة زيادة مستوى الصوت المخصصة لكل منبه</string>
     <string name="enable_per_alarm_crescendo_duration_dialog_message">ستتم إعادة ضبط مدة زيادة مستوى صوت التنبيه المخصص.%s</string>
     <string name="enable_per_alarm_auto_silence_title">استخدم مدة إيقاف المنبه مخصصة لكل منبه</string>

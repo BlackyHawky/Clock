@@ -267,7 +267,7 @@
     <string name="clock_dial_sun">Sol</string>
     <string name="clock_dial_flower">Blomma</string>
     <string name="vibration_pattern_heartbeat">Hjärtslag</string>
-    <string name="vibration_start_delay_none">Ingen</string>
+    <string name="label_none">Ingen</string>
     <string name="title_accent_color">Accentfärg</string>
     <string name="add_label">Lägg till etikett</string>
     <string name="whats_new_title">Nyheter</string>

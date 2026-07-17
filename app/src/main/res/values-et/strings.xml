@@ -543,7 +543,7 @@
     <string name="vibration_pattern_escalating">Kasvav</string>
     <string name="vibration_pattern_tick_tock">Tika-taka</string>
     <string name="vibration_start_delay_title">Viivitus enne värina algust</string>
-    <string name="vibration_start_delay_none">Puudub</string>
+    <string name="label_none">Puudub</string>
     <string name="vibration_start_delay_warning_box_text">Sisesta väärtus vahemikust 0 kuni 10 minutit</string>
     <string name="confirm_action_prompt">\n\nKas sa soovid jätkata?</string>
     <string name="enable_per_alarm_snooze_duration_title">Kasuta iga äratuse jaoks oma uinumise kestust</string>
@@ -567,7 +567,6 @@
     <string name="blur_intensity_title">Hägustamise tugevus</string>
     <string name="background_image_title">Vali taustapilt</string>
     <string name="background_image_toast_message_selected">Pildi valimine õnnestus</string>
-    <string name="enable_blur_effect_title">Kasuta taustapildi puhul hägustamist</string>
     <string name="display_text_shadow_title">Kuva teksti varjutust</string>
     <string name="shadow_color_title">Varjutuse värv</string>
     <string name="shadow_offset_title">Varjutuse nihe</string>

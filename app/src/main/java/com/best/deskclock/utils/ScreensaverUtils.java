@@ -5,6 +5,7 @@ package com.best.deskclock.utils;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_BLUR_INTENSITY;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -393,9 +394,10 @@ public class ScreensaverUtils {
                     backgroundImage.setImageBitmap(bitmap);
                     applyBrightness(backgroundImage, prefs, null, null);
 
-                    if (SdkUtils.isAtLeastAndroid12() && SettingsDAO.isScreensaverBlurEffectEnabled(prefs)) {
-                        float intensity = SettingsDAO.getScreensaverBlurIntensity(prefs);
-                        RenderEffect blur = RenderEffect.createBlurEffect(intensity, intensity, Shader.TileMode.CLAMP);
+                    float blurIntensity = SettingsDAO.getScreensaverBlurIntensity(prefs);
+
+                    if (SdkUtils.isAtLeastAndroid12() && blurIntensity != DEFAULT_BLUR_INTENSITY) {
+                        RenderEffect blur = RenderEffect.createBlurEffect(blurIntensity, blurIntensity, Shader.TileMode.CLAMP);
                         backgroundImage.setRenderEffect(blur);
                     }
                 } else {

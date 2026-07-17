@@ -537,7 +537,7 @@
     <string name="vibration_pattern_escalating">Toenemend</string>
     <string name="vibration_pattern_tick_tock">Tik-Tok</string>
     <string name="vibration_start_delay_title">Vertraging voordat trilling begint</string>
-    <string name="vibration_start_delay_none">Geen</string>
+    <string name="label_none">Geen</string>
     <string name="vibration_start_delay_warning_box_text">Voer een waarde in tussen 0 en 10 minuten</string>
     <string name="confirm_action_prompt">\n\nWil je doorgaan?</string>
     <string name="enable_per_alarm_snooze_duration_title">Aangepaste sluimerduur voor iedere wekker</string>
@@ -561,7 +561,6 @@
     <string name="blur_intensity_title">Vervagingssterkte</string>
     <string name="background_image_title">Achtergrondafbeelding selecteren</string>
     <string name="background_image_toast_message_selected">Afbeelding succesvol geselecteerd</string>
-    <string name="enable_blur_effect_title">Vervagingseffect toepassen op afbeelding</string>
     <string name="display_text_shadow_title">Tekstschaduw weergeven</string>
     <string name="shadow_color_title">Kleur schaduw</string>
     <string name="shadow_offset_title">Afstand schaduw</string>

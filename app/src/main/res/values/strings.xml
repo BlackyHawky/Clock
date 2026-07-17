@@ -21,6 +21,8 @@
     <string name="label_off">Off</string>
     <!-- Label "Never" -->
     <string name="label_never">Never</string>
+    <!-- Label "None" (male form) -->
+    <string name="label_none">None</string>
     <!-- Label "Indefinitely" -->
     <string name="label_indefinitely">Indefinitely</string>
     <!-- Label "Delete" -->
@@ -626,8 +628,6 @@
     <string name="background_image_toast_message_selected">Image successfully selected</string>
     <!-- Toast message when an image is successfully deleted. -->
     <string name="background_image_toast_message_deleted">Image successfully deleted</string>
-    <!-- Setting title to enable a blur effect. -->
-    <string name="enable_blur_effect_title">Apply a blur effect to the background image</string>
     <!-- Setting title for changing the crescendo duration. -->
     <string name="crescendo_duration_title">Gradually increase volume</string>
     <!-- Dialog message when the use of a custom volume increase duration is disabled. -->
@@ -908,8 +908,6 @@
     <string name="vibration_pattern_tick_tock">Tick-Tock</string>
     <!-- Setting title to change the vibration delay -->
     <string name="vibration_start_delay_title">Delay before vibration starts</string>
-    <!-- Setting title for changing the vibration start delay to None. -->
-    <string name="vibration_start_delay_none">None</string>
     <!-- Text of dialog box to edit minutes for the vibration start delay. -->
     <string name="vibration_start_delay_warning_box_text">Enter a value from 0 to 10 minutes</string>
     <!-- Setting title to enable vibrations when alarm is snoozed or dismissed -->

@@ -525,7 +525,7 @@
     <string name="vibration_pattern_escalating">攀升</string>
     <string name="vibration_pattern_tick_tock">滴答聲</string>
     <string name="vibration_start_delay_title">震動前的延遲</string>
-    <string name="vibration_start_delay_none">無</string>
+    <string name="label_none">無</string>
     <string name="vibration_start_delay_warning_box_text">請輸入 0–10 分鐘</string>
     <string name="confirm_action_prompt">\n\n您想要繼續嗎？</string>
     <string name="enable_per_alarm_snooze_duration_title">為每個鬧鐘自訂延後時間</string>
@@ -552,7 +552,6 @@
     <string name="blur_intensity_title">模糊強度</string>
     <string name="background_image_title">選取背景圖片</string>
     <string name="background_image_toast_message_selected">已選取圖片</string>
-    <string name="enable_blur_effect_title">背景圖片套用模糊效果</string>
     <string name="display_timer_state_indicator_title">顯示計時器狀態指標</string>
     <string name="running_timer_indicator_color_title">進行中的計時器指標色彩</string>
     <string name="paused_timer_indicator_color_title">暫停時的計時器指標色彩</string>

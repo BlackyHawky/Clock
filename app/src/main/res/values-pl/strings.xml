@@ -549,7 +549,7 @@
     <string name="vibration_pattern_escalating">Eskalacja</string>
     <string name="vibration_pattern_tick_tock">Tik-tak</string>
     <string name="vibration_start_delay_title">Opóźnienie przed rozpoczęciem wibracji</string>
-    <string name="vibration_start_delay_none">Brak</string>
+    <string name="label_none">Brak</string>
     <string name="vibration_start_delay_warning_box_text">Wprowadź wartość od 0 do 10 minut</string>
     <string name="confirm_action_prompt">\n\nCzy chcesz kontynuować?</string>
     <string name="enable_per_alarm_snooze_duration_title">Użyj niestandardowego czasu drzemki dla każdego alarmu</string>
@@ -576,7 +576,6 @@
     <string name="blur_intensity_title">Intensywność rozmycia</string>
     <string name="background_image_title">Wybierz obraz tła</string>
     <string name="background_image_toast_message_selected">Obraz został pomyślnie wybrany</string>
-    <string name="enable_blur_effect_title">Zastosuj efekt rozmycia do obrazu tła</string>
     <string name="customize_background_corner_radius_title">Dostosuj promień zaokrąglenia narożników tła</string>
     <string name="customize_background_corner_radius_summary">Umożliwia zaokrąglenie narożników widżetów, jeśli ekran główny nie obsługuje tej funkcji</string>
     <string name="background_corner_radius_title">Promień narożnika tła</string>

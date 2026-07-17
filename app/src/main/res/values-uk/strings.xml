@@ -553,7 +553,7 @@
     <string name="enable_alarm_fab_long_press_title">Увімкнути тривале натискання кнопки дії для створення будильників із затримкою</string>
     <string name="enable_alarm_fab_long_press_summary">Якщо вимкнено, для створення будильників відображатимуться дві кнопки</string>
     <string name="vibration_start_delay_title">Затримка перед вібрацією</string>
-    <string name="vibration_start_delay_none">Немає</string>
+    <string name="label_none">Немає</string>
     <string name="vibration_start_delay_warning_box_text">Уведіть значення від 0 до 10 хвилин</string>
     <string name="vibration_pattern_title">Ритм вібрації</string>
     <string name="vibration_pattern_heartbeat">Серцебиття</string>
@@ -583,7 +583,6 @@
     <string name="blur_intensity_title">Інтенсивність розмиття</string>
     <string name="background_image_title">Вибрати фонове зображення</string>
     <string name="background_image_toast_message_selected">Зображення успішно вибрано</string>
-    <string name="enable_blur_effect_title">Застосувати ефект розмиття до фонового зображення</string>
     <string name="display_text_shadow_title">Показувати тінь тексту</string>
     <string name="shadow_color_title">Колір тіні</string>
     <string name="shadow_offset_title">Зсув тіні</string>
