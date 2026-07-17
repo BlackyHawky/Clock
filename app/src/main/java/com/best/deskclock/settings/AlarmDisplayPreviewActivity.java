@@ -12,6 +12,7 @@ import static android.view.View.VISIBLE;
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_BLUR_INTENSITY;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -363,9 +364,10 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
                 if (bitmap != null) {
                     mBinding.alarmBackgroundImage.setImageBitmap(bitmap);
 
-                    if (SdkUtils.isAtLeastAndroid12() && SettingsDAO.isAlarmBlurEffectEnabled(mPrefs)) {
-                        float intensity = SettingsDAO.getAlarmBlurIntensity(mPrefs);
-                        RenderEffect blur = RenderEffect.createBlurEffect(intensity, intensity, Shader.TileMode.CLAMP);
+                    float blurIntensity = SettingsDAO.getAlarmBlurIntensity(mPrefs);
+
+                    if (SdkUtils.isAtLeastAndroid12() && blurIntensity != DEFAULT_BLUR_INTENSITY) {
+                        RenderEffect blur = RenderEffect.createBlurEffect(blurIntensity, blurIntensity, Shader.TileMode.CLAMP);
                         mBinding.alarmBackgroundImage.setRenderEffect(blur);
                     }
                 } else {

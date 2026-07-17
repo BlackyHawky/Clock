@@ -482,7 +482,7 @@
     <string name="vibration_pattern_strong">Forte</string>
     <string name="vibration_pattern_heartbeat">Batida de coração</string>
     <string name="vibration_pattern_tick_tock">Tick Tock</string>
-    <string name="vibration_start_delay_none">Nenhum</string>
+    <string name="label_none">Nenhum</string>
     <string name="turn_on_back_flash_for_triggered_alarm_title">Ligar lanterna de volta quando o alarme é iniciado</string>
     <string name="label_new_font">Nova fonte</string>
     <string name="settings_permission_message">Uma ou mais permissões essenciais foram recusadas. Não permiti-las pode resultar em falhas na aplicação.</string>

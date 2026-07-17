@@ -383,7 +383,7 @@
     <string name="system_media_volume_title">שימוש בעוצמת הקול למדיה של המערכת</string>
     <string name="enable_alarm_vibrations_by_default_setting_title">הפעלת רטט בעת פעולות התראה</string>
     <string name="enable_per_alarm_vibration_pattern_title">שימוש בדפוס רטט מותאם אישית לכל התראה בנפרד</string>
-    <string name="vibration_start_delay_none">ללא</string>
+    <string name="label_none">ללא</string>
     <string name="turn_on_back_flash_for_triggered_alarm_title">הפעלת הפנס האחורי בעת פעולות התראה</string>
     <string name="material_time_picker_style_title">סגנון חלונית לבחירת שעה</string>
     <string name="date_picker_style_title">סגנון חלונית לבחירת תאריך</string>
@@ -400,7 +400,6 @@
     <string name="background_image_title_variant">שינוי או מחיקה של תמונת הרקע</string>
     <string name="background_image_toast_message_selected">התמונה יובאה בהצלחה</string>
     <string name="background_image_toast_message_deleted">התמונה נמחקה בהצלחה</string>
-    <string name="enable_blur_effect_title">החלת אפקט טשטוש על תמונת הרקע</string>
     <string name="snooze_duration_none">ללא</string>
     <string name="swipe_action_title">החלקה לכיבוי התראות או דחייתן עם „נודניק”</string>
     <string name="power_button_title">כפתור ההפעלה</string>

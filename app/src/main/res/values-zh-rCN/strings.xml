@@ -527,7 +527,7 @@
     <string name="vibration_pattern_escalating">逐渐增强</string>
     <string name="vibration_pattern_tick_tock">钟摆振动</string>
     <string name="vibration_start_delay_title">振动开始前的延迟时间</string>
-    <string name="vibration_start_delay_none">无</string>
+    <string name="label_none">无</string>
     <string name="vibration_start_delay_warning_box_text">请输入 0 到 10 分钟之间的值</string>
     <string name="confirm_action_prompt">\n\n要继续吗？</string>
     <string name="enable_per_alarm_snooze_duration_title">为每个闹钟使用自定义暂停时长</string>
@@ -551,7 +551,6 @@
     <string name="blur_intensity_title">模糊强度</string>
     <string name="background_image_title">选择背景图片</string>
     <string name="background_image_toast_message_selected">图片已成功选择</string>
-    <string name="enable_blur_effect_title">对背景图片应用模糊效果</string>
     <string name="display_text_shadow_title">显示文本阴影</string>
     <string name="shadow_color_title">阴影颜色</string>
     <string name="shadow_offset_title">阴影偏移</string>

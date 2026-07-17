@@ -156,7 +156,6 @@ public class PreferencesKeys {
     public static final String KEY_DISPLAY_RINGTONE_TITLE = "key_display_ringtone_title";
     public static final String KEY_RINGTONE_TITLE_COLOR = "key_ringtone_title_color";
     public static final String KEY_ALARM_BACKGROUND_IMAGE = "key_alarm_background_image";
-    public static final String KEY_ENABLE_ALARM_BLUR_EFFECT = "key_enable_alarm_blur_effect";
     public static final String KEY_ALARM_BLUR_INTENSITY = "key_alarm_blur_intensity";
     public static final String KEY_ENABLE_PER_ALARM_BACKGROUND_IMAGE = "key_enable_per_alarm_background_image";
     public static final String KEY_ALARM_PREVIEW = "key_alarm_preview";
@@ -201,7 +200,6 @@ public class PreferencesKeys {
     public static final String KEY_TIMER_SHADOW_COLOR = "key_timer_shadow_color";
     public static final String KEY_TIMER_SHADOW_OFFSET = "key_timer_shadow_offset";
     public static final String KEY_TIMER_BACKGROUND_IMAGE = "key_timer_background_image";
-    public static final String KEY_ENABLE_TIMER_BLUR_EFFECT = "key_enable_timer_blur_effect";
     public static final String KEY_TIMER_BLUR_INTENSITY = "key_timer_blur_intensity";
     public static final String KEY_TIMER_PREVIEW = "key_timer_preview";
 
@@ -239,7 +237,6 @@ public class PreferencesKeys {
     public static final String KEY_SCREENSAVER_NEXT_ALARM_IN_ITALIC = "key_screensaver_next_alarm_in_italic";
     public static final String KEY_SCREENSAVER_KEEP_SCREEN_ON = "key_screensaver_keep_screen_on";
     public static final String KEY_SCREENSAVER_BACKGROUND_IMAGE = "key_screensaver_background_image";
-    public static final String KEY_ENABLE_SCREENSAVER_BLUR_EFFECT = "key_enable_screensaver_blur_effect";
     public static final String KEY_SCREENSAVER_BLUR_INTENSITY = "key_screensaver_blur_intensity";
     public static final String KEY_SCREENSAVER_PREVIEW = "key_screensaver_preview";
     public static final String KEY_SCREENSAVER_DAYDREAM_SETTINGS = "key_screensaver_daydream_settings";

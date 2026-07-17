@@ -52,7 +52,7 @@ public class VibrationStartDelayPreference extends DialogPreference {
         int seconds = getVibrationStartDelay();
 
         if (seconds == DEFAULT_VIBRATION_START_DELAY) {
-            return getContext().getString(R.string.vibration_start_delay_none);
+            return getContext().getString(R.string.label_none);
         } else {
             int minutes = seconds / 60;
             return getContext().getResources().getQuantityString(R.plurals.minutes, minutes, minutes);

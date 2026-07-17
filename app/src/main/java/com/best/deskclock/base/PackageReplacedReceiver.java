@@ -3,6 +3,9 @@
 package com.best.deskclock.base;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BLUR_INTENSITY;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_BLUR_INTENSITY;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_BLUR_INTENSITY;
 
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
@@ -52,6 +55,9 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
                 // Update all the timer keys stored in SharedPreferences
                 updateTimerKeys(context);
+
+                // Update the blur setting keys stored in SharedPreferences
+                migrateBlurSettings(context);
             } finally {
                 result.finish();
                 wl.release();
@@ -98,6 +104,48 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
         if (hasChanges) {
             editor.commit();
             LogUtils.i("PackageReplacedReceiver - Timer keys cleaned up successfully");
+        }
+    }
+
+    @SuppressLint("ApplySharedPref")
+    private void migrateBlurSettings(Context context) {
+        SharedPreferences prefs = getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = prefs.edit();
+        boolean hasChanges = false;
+
+        if (prefs.contains("key_enable_alarm_blur_effect")) {
+            boolean wasEnabled = prefs.getBoolean("key_enable_alarm_blur_effect", false);
+            if (!wasEnabled) {
+                editor.putInt(KEY_ALARM_BLUR_INTENSITY, 0);
+            }
+
+            editor.remove("key_enable_alarm_blur_effect");
+            hasChanges = true;
+        }
+
+        if (prefs.contains("key_enable_timer_blur_effect")) {
+            boolean wasEnabled = prefs.getBoolean("key_enable_timer_blur_effect", false);
+            if (!wasEnabled) {
+                editor.putInt(KEY_TIMER_BLUR_INTENSITY, 0);
+            }
+
+            editor.remove("key_enable_timer_blur_effect");
+            hasChanges = true;
+        }
+
+        if (prefs.contains("key_enable_screensaver_blur_effect")) {
+            boolean wasEnabled = prefs.getBoolean("key_enable_screensaver_blur_effect", false);
+            if (!wasEnabled) {
+                editor.putInt(KEY_SCREENSAVER_BLUR_INTENSITY, 0);
+            }
+
+            editor.remove("key_enable_screensaver_blur_effect");
+            hasChanges = true;
+        }
+
+        if (hasChanges) {
+            editor.commit();
+            LogUtils.i("PackageReplacedReceiver - Blur settings migrated successfully");
         }
     }
 }

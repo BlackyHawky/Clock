@@ -523,7 +523,7 @@
     <string name="vibration_pattern_escalating">Escalado</string>
     <string name="vibration_pattern_tick_tock">Tick-Tock</string>
     <string name="vibration_start_delay_title">Retardo antes de que comience la vibración</string>
-    <string name="vibration_start_delay_none">Nada</string>
+    <string name="label_none">Nada</string>
     <string name="vibration_start_delay_warning_box_text">Ingresa un valor entre 0 y 10 minutos</string>
     <string name="enable_delete_occasional_alarm_by_default_dialog_message">La función \"Eliminar la alarma una vez desactivada\" se desactivará para todas las alarmas.%s</string>
     <string name="display_low_alarm_volume_warning_title">Mostrar una advertencia cuando el volumen de la alarma esté ajustado al mínimo</string>
@@ -557,7 +557,6 @@
     <string name="background_image_dialog_title">Imagen de fondo</string>
     <string name="background_image_toast_message_selected">Imagen seleccionada correctamente</string>
     <string name="background_image_toast_message_deleted">Imagen eliminada correctamente</string>
-    <string name="enable_blur_effect_title">Aplicar difuminado a la imagen de fondo</string>
     <string name="enable_per_alarm_crescendo_duration_title">Utiliza una duración personalizada para el aumento de volumen de cada alarma</string>
     <string name="enable_per_alarm_crescendo_duration_dialog_message">Se restablecerán los tiempos personalizados de aumento del volumen de las alarmas.%s</string>
     <string name="enable_per_alarm_auto_silence_title">Utiliza una duración de parada personalizada para cada alarma</string>

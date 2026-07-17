@@ -512,7 +512,7 @@
     <string name="vibration_pattern_escalating">Crescendo</string>
     <string name="vibration_pattern_tick_tock">Tic-Toc</string>
     <string name="vibration_start_delay_title">Ritardo prima dell\'inizio della vibrazione</string>
-    <string name="vibration_start_delay_none">Nessuno</string>
+    <string name="label_none">Nessuno</string>
     <string name="sort_alarm_title">Ordina le sveglie</string>
     <string name="sort_alarm_time">Per orario sveglia</string>
     <string name="sort_next_alarm_time">All\'ora della prossima sveglia</string>

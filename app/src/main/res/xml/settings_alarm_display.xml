@@ -294,14 +294,6 @@
             app:singleLineTitle="false"
             tools:title="@string/background_image_title" />
 
-        <SwitchPreferenceCompat
-            android:key="key_enable_alarm_blur_effect"
-            android:layout="@layout/settings_preference_layout"
-            android:title="@string/enable_blur_effect_title"
-            android:defaultValue="false"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
-
         <com.best.deskclock.settings.custompreference.CustomSliderPreference
             android:key="key_alarm_blur_intensity"
             android:layout="@layout/settings_preference_slider_layout"

@@ -548,7 +548,7 @@
     <string name="vibration_pattern_escalating">Croissante</string>
     <string name="vibration_pattern_tick_tock">Tic-Tac</string>
     <string name="vibration_start_delay_title">Délai avant le début de la vibration</string>
-    <string name="vibration_start_delay_none">Aucun</string>
+    <string name="label_none">Aucun</string>
     <string name="vibration_start_delay_warning_box_text">Saisir une valeur de 0 à 10 minutes</string>
     <string name="confirm_action_prompt">\n\nVoulez-vous continuer ?</string>
     <string name="enable_per_alarm_snooze_duration_title">Utiliser une durée de répétition personnalisée pour chaque alarme</string>
@@ -572,7 +572,6 @@
     <string name="blur_intensity_title">Intensité du flou</string>
     <string name="background_image_title">Sélectionner une image d\'arrière-plan</string>
     <string name="background_image_toast_message_selected">Image sélectionnée avec succès</string>
-    <string name="enable_blur_effect_title">Appliquer un effet de flou à l\'image d\'arrière-plan</string>
     <string name="display_text_shadow_title">Afficher l\'ombre du texte</string>
     <string name="shadow_color_title">Couleur de l\'ombre</string>
     <string name="shadow_offset_title">Décalage de l\'ombre</string>

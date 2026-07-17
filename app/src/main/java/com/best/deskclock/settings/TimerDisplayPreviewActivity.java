@@ -11,6 +11,7 @@ import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_BLUR_INTENSITY;
 
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -151,8 +152,10 @@ public class TimerDisplayPreviewActivity extends BaseActivity {
                     if (bitmap != null) {
                         mBinding.timerBackgroundImage.setImageBitmap(bitmap);
 
-                        if (SdkUtils.isAtLeastAndroid12() && SettingsDAO.isTimerBlurEffectEnabled(mPrefs)) {
-                            float intensity = SettingsDAO.getTimerBlurIntensity(mPrefs);
+                        float intensity = SettingsDAO.getTimerBlurIntensity(mPrefs);
+
+                        if (SdkUtils.isAtLeastAndroid12() && intensity != DEFAULT_BLUR_INTENSITY) {
+
                             RenderEffect blur = RenderEffect.createBlurEffect(intensity, intensity, Shader.TileMode.CLAMP);
                             mBinding.timerBackgroundImage.setRenderEffect(blur);
                         }

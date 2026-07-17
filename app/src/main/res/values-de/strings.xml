@@ -528,7 +528,7 @@
     <string name="vibration_pattern_escalating">Ansteigend</string>
     <string name="vibration_pattern_tick_tock">Ticktack</string>
     <string name="vibration_start_delay_title">Verzögerung vor Beginn der Vibration</string>
-    <string name="vibration_start_delay_none">Keine</string>
+    <string name="label_none">Keine</string>
     <string name="vibration_pattern_title">Vibrationsmuster</string>
     <string name="vibration_pattern_soft">Weich</string>
     <string name="vibration_pattern_strong">Stark</string>
@@ -554,7 +554,6 @@
     <string name="shadow_offset_title">Schattenabstand</string>
     <string name="blur_intensity_title">Stärke der Unschärfe</string>
     <string name="background_image_title">Ein Hintergrundbild auswählen</string>
-    <string name="enable_blur_effect_title">Unschärfeeffekt auf das Hintergrundbild anwenden</string>
     <string name="enable_per_alarm_crescendo_duration_title">Für jeden Wecker eine individuelle Lautstärkeerhöhungsdauer verwenden</string>
     <string name="enable_per_alarm_crescendo_duration_dialog_message">Individuelle Lautstärkeerhöhungsdauern werden zurückgesetzt.%s</string>
     <string name="enable_per_alarm_auto_silence_title">Für jeden Wecker eine individuelle Dauer bis zum Stummschalten verwenden</string>

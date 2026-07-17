@@ -338,7 +338,7 @@
     <string name="vibration_pattern_escalating">அதிகரித்து வருகிறது</string>
     <string name="vibration_pattern_tick_tock">டிக்-டாக்</string>
     <string name="vibration_start_delay_title">அதிர்வு தொடங்கும் முன் நேரந்தவறுகை</string>
-    <string name="vibration_start_delay_none">எதுவுமில்லை</string>
+    <string name="label_none">எதுவுமில்லை</string>
     <string name="vibration_start_delay_warning_box_text">0 முதல் 10 நிமிடங்கள் வரை மதிப்பை உள்ளிடவும்</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">அலாரத்தை உறக்கநிலையில் வைக்கும்போது இரட்டை அதிர்வு மற்றும் அலாரத்தை நிராகரிக்கும் போது ஒற்றை அதிர்வு</string>
     <string name="turn_on_back_flash_for_triggered_alarm_title">அலாரம் தூண்டப்படும்போது பின் ஃபிளாசை இயக்கவும்</string>
@@ -376,7 +376,6 @@
     <string name="background_image_dialog_title">பின்னணி படம்</string>
     <string name="background_image_toast_message_selected">படம் வெற்றிகரமாக தேர்ந்தெடுக்கப்பட்டது</string>
     <string name="background_image_toast_message_deleted">படம் வெற்றிகரமாக நீக்கப்பட்டது</string>
-    <string name="enable_blur_effect_title">பின்னணி படத்திற்கு மங்கலான விளைவைப் பயன்படுத்தவும்</string>
     <string name="enable_per_alarm_crescendo_duration_title">ஒவ்வொரு அலாரத்திற்கும் தனிப்பயன் ஒலியளவை அதிகரிக்கும் கால அளவைப் பயன்படுத்தவும்</string>
     <string name="enable_per_alarm_crescendo_duration_dialog_message">தனிப்பயன் அலாரத்தின் ஒலி அதிகரிப்பு கால அளவு மீட்டமைக்கப்படும்.%s</string>
     <string name="enable_per_alarm_auto_silence_title">ஒவ்வொரு அலாரத்திற்கும் தனிப்பயன் அலாரம் நிறுத்த காலத்தைப் பயன்படுத்தவும்</string>

@@ -665,15 +665,6 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return {@code true} if a blur effect should be applied to the screensaver image.
-     * {@code false} otherwise.
-     */
-    public static boolean isScreensaverBlurEffectEnabled(SharedPreferences prefs) {
-        // Default value must match the one in res/xml/settings_alarm_display.xml
-        return prefs.getBoolean(KEY_ENABLE_SCREENSAVER_BLUR_EFFECT, DEFAULT_ENABLE_BLUR_EFFECT);
-    }
-
-    /**
      * @return the blur intensity applied to the screensaver image.
      */
     public static int getScreensaverBlurIntensity(SharedPreferences prefs) {
@@ -760,15 +751,6 @@ public final class SettingsDAO {
      */
     public static String getTimerBackgroundImage(SharedPreferences prefs) {
         return prefs.getString(KEY_TIMER_BACKGROUND_IMAGE, null);
-    }
-
-    /**
-     * @return {@code true} if a blur effect should be applied to the image when the timer is expired.
-     * {@code false} otherwise.
-     */
-    public static boolean isTimerBlurEffectEnabled(SharedPreferences prefs) {
-        // Default value must match the one in res/xml/settings_timer_display.xml
-        return prefs.getBoolean(KEY_ENABLE_TIMER_BLUR_EFFECT, DEFAULT_ENABLE_BLUR_EFFECT);
     }
 
     /**
@@ -1563,15 +1545,6 @@ public final class SettingsDAO {
      */
     public static String getAlarmBackgroundImage(SharedPreferences prefs) {
         return prefs.getString(KEY_ALARM_BACKGROUND_IMAGE, DEFAULT_ALARM_BACKGROUND_IMAGE);
-    }
-
-    /**
-     * @return {@code true} if a blur effect should be applied to the image when the alarm is triggered.
-     * {@code false} otherwise.
-     */
-    public static boolean isAlarmBlurEffectEnabled(SharedPreferences prefs) {
-        // Default value must match the one in res/xml/settings_alarm_display.xml
-        return prefs.getBoolean(KEY_ENABLE_ALARM_BLUR_EFFECT, DEFAULT_ENABLE_BLUR_EFFECT);
     }
 
     /**
