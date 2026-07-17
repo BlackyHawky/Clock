@@ -75,6 +75,7 @@ import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.DeviceUtils;
+import com.best.deskclock.utils.FileUtils;
 import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.RingtoneUtils;
 import com.best.deskclock.utils.SdkUtils;
@@ -171,17 +172,17 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             // Take persistent permission
             appContext.getContentResolver().takePersistableUriPermission(sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-            String safeTitle = Utils.toSafeFileName(
+            String safeTitle = FileUtils.toSafeFileName(
                 FILE_SPECIFIC_ALARM_BACKGROUND + "_" + mAlarm.id + "_" + System.currentTimeMillis()
             );
             String oldImagePath = mAlarm.backgroundImage;
 
             AppExecutors.getDiskIO().execute(() -> {
                 // Delete the old image if it exists
-                Utils.clearFile(oldImagePath);
+                FileUtils.clearFile(oldImagePath);
 
                 // Copy the new image to the device's protected storage
-                Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(appContext, sourceUri, safeTitle);
+                Uri copiedUri = FileUtils.copyFileToDeviceProtectedStorage(appContext, sourceUri, safeTitle);
 
                 // Save the new path
                 if (copiedUri != null) {
@@ -901,11 +902,11 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
         mBinding.alarmBackgroundImageLayout.setOnClickListener(v -> {
             Events.sendAlarmEvent(R.string.action_set_background_image, R.string.label_deskclock);
-            Utils.selectFile(mImagePickerLauncher, false);
+            FileUtils.selectFile(mImagePickerLauncher, false);
         });
 
         mBinding.alarmBackgroundImageButton.setOnClickListener(v -> {
-            Utils.deleteCustomFile(requireContext().getApplicationContext(), mAlarm.backgroundImage, false);
+            FileUtils.deleteCustomFile(requireContext().getApplicationContext(), mAlarm.backgroundImage, false);
             mAlarm.backgroundImage = DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
             bindAlarmBackgroundImage();
         });
@@ -943,8 +944,10 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
                     File sourceFile = new File(duplicatedAlarm.backgroundImage);
 
                     if (sourceFile.exists()) {
-                        String safeTitle = Utils.toSafeFileName(FILE_SPECIFIC_ALARM_BACKGROUND + "_dup_" + System.currentTimeMillis());
-                        Uri copiedUri = Utils.copyFileToDeviceProtectedStorage(appContext, Uri.fromFile(sourceFile), safeTitle);
+                        String safeTitle = FileUtils.toSafeFileName(
+                            FILE_SPECIFIC_ALARM_BACKGROUND + "_dup_" + System.currentTimeMillis()
+                        );
+                        Uri copiedUri = FileUtils.copyFileToDeviceProtectedStorage(appContext, Uri.fromFile(sourceFile), safeTitle);
 
                         if (copiedUri != null) {
                             duplicatedAlarm.backgroundImage = copiedUri.getPath();

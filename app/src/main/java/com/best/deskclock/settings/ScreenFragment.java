@@ -8,7 +8,6 @@ package com.best.deskclock.settings;
 
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-import static com.best.deskclock.settings.PreferencesKeys.*;
 import static com.best.deskclock.utils.NotificationUtils.EXTRA_UPDATE_ALARM_NOTIFICATIONS;
 import static com.best.deskclock.utils.WidgetUtils.EXTRA_UPDATE_WIDGETS;
 
@@ -59,13 +58,12 @@ import com.best.deskclock.settings.custompreference.CustomAboutTitlePreference;
 import com.best.deskclock.uicomponents.CollapsingToolbarBaseActivity;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.BackupAndRestoreUtils;
+import com.best.deskclock.utils.FileUtils;
 import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.NotificationUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
-
-import java.io.File;
 
 public abstract class ScreenFragment extends PreferenceFragmentCompat {
 
@@ -466,7 +464,7 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
                                     boolean isFontFile, @Nullable OnPreferenceDeleted onPreferenceDeleted) {
 
         if (fontPath == null) {
-            Utils.selectFile(launcher, isFontFile);
+            FileUtils.selectFile(launcher, isFontFile);
         } else {
             mPendingFilePrefKey = prefKey;
             mPendingFilePath = fontPath;
@@ -486,7 +484,7 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
                 getString(isFontFile ? R.string.label_new_font : R.string.label_new_image),
                 (d, w) -> {
                     mPendingFilePrefKey = null;
-                    Utils.selectFile(launcher, isFontFile);
+                    FileUtils.selectFile(launcher, isFontFile);
                 },
                 null,
                 null,
@@ -502,7 +500,7 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
                         onPreferenceDeleted.onDeleted();
                     }
 
-                    Utils.deleteCustomFile(requireContext().getApplicationContext(), fontPath, isFontFile);
+                    FileUtils.deleteCustomFile(requireContext().getApplicationContext(), fontPath, isFontFile);
                 },
                 (alertDialog -> alertDialog.setOnDismissListener(d -> mPendingFilePrefKey = null)),
                 CustomDialog.SoftInputMode.NONE
@@ -510,65 +508,6 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
 
             mActiveDialog.show();
         }
-    }
-
-    /**
-     * Scans both standard and device-protected storage to physically delete all custom media files (fonts and background images)
-     * used by the application.
-     *
-     * <p>This prevents file leaks and ensures a completely clean state during a reset or a restore.</p>
-     *
-     * @param context The context used to access the application's storage directories.
-     */
-    protected void wipeAllCustomFiles(Context context) {
-        File[] directoriesToScan = new File[] {
-            context.getFilesDir(),
-            Utils.getSafeStorageContext(context).getFilesDir()
-        };
-
-        for (File dir : directoriesToScan) {
-            if (dir != null) {
-                File[] files = dir.listFiles();
-                if (files != null) {
-                    for (File file : files) {
-                        String fileName = file.getName();
-                        if (getCustomFilePrefKey(fileName) != null || fileName.startsWith(FILE_SPECIFIC_ALARM_BACKGROUND)) {
-                            Utils.clearFile(file.getAbsolutePath());
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    /**
-     * Returns the corresponding preference key for a given custom file (font or background image).
-     *
-     * @param fileName The name of the file to check.
-     * @return The associated preference key, or null if the file is not a recognized custom media file.
-     */
-    protected String getCustomFilePrefKey(String fileName) {
-        if (fileName.startsWith(FILE_GENERAL_FONT)) {
-            return KEY_GENERAL_FONT;
-        } else if (fileName.startsWith(FILE_ALARM_FONT)) {
-            return KEY_ALARM_FONT;
-        } else if (fileName.startsWith(FILE_ALARM_BACKGROUND)) {
-            return KEY_ALARM_BACKGROUND_IMAGE;
-        } else if (fileName.startsWith(FILE_TIMER_FONT)) {
-            return KEY_TIMER_DURATION_FONT;
-        } else if (fileName.startsWith(FILE_TIMER_BACKGROUND)) {
-            return KEY_TIMER_BACKGROUND_IMAGE;
-        } else if (fileName.startsWith(FILE_STOPWATCH_FONT)) {
-            return KEY_SW_FONT;
-        } else if (fileName.startsWith(FILE_SCREENSAVER_DIGITAL_CLOCK_FONT)) {
-            return KEY_SCREENSAVER_DIGITAL_CLOCK_FONT;
-        } else if (fileName.startsWith(FILE_SCREENSAVER_BACKGROUND)) {
-            return KEY_SCREENSAVER_BACKGROUND_IMAGE;
-        } else if (fileName.startsWith(FILE_DIGITAL_CLOCK_FONT)) {
-            return KEY_DIGITAL_CLOCK_FONT;
-        }
-
-        return null;
     }
 
     /**

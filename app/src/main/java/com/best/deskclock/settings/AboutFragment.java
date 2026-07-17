@@ -53,6 +53,7 @@ import com.best.deskclock.tiles.TimerTileService;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.uicomponents.toast.CustomToast;
 import com.best.deskclock.utils.BackupAndRestoreUtils;
+import com.best.deskclock.utils.FileUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.NotificationUtils;
 import com.best.deskclock.utils.SdkUtils;
@@ -475,7 +476,7 @@ public class AboutFragment extends ScreenFragment implements Preference.OnPrefer
             releaseAllCustomRingtonePermissions();
             deleteAllCustomRingtoneFiles();
 
-            wipeAllCustomFiles(appContext);
+            FileUtils.wipeAllCustomFiles(appContext);
 
             LogUtils.clearSavedLocalLogs(appContext);
 
@@ -556,7 +557,7 @@ public class AboutFragment extends ScreenFragment implements Preference.OnPrefer
             String uriString = mPrefs.getString(RINGTONE_URI + id, null);
             if (uriString != null) {
                 Uri uri = Uri.parse(uriString);
-                Utils.clearFile(uri.getPath());
+                FileUtils.clearFile(uri.getPath());
             }
         }
     }
