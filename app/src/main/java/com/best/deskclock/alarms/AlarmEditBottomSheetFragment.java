@@ -59,6 +59,7 @@ import com.best.deskclock.dialogfragment.AlarmMissedRepeatLimitDialogFragment;
 import com.best.deskclock.dialogfragment.AlarmSnoozeDurationDialogFragment;
 import com.best.deskclock.dialogfragment.AlarmVolumeDialogFragment;
 import com.best.deskclock.dialogfragment.AutoSilenceDurationDialogFragment;
+import com.best.deskclock.dialogfragment.BlurIntensityDialogFragment;
 import com.best.deskclock.dialogfragment.DatePickerDialogFragment;
 import com.best.deskclock.dialogfragment.LabelDialogFragment;
 import com.best.deskclock.dialogfragment.MaterialTimePickerDialogFragment;
@@ -202,6 +203,8 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
 
                     if (copiedUri != null) {
                         bindAlarmBackgroundImage();
+                        bindBlurIntensity();
+                        updateFourthGroup();
                     }
                 });
             });
@@ -240,7 +243,8 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         nullifyClickListeners(mBinding.digitalClock, mBinding.scheduleAlarmLayout, mBinding.pauseAlarmLayout, mBinding.editLabel,
             mBinding.chooseRingtone, mBinding.vibrationPatternLayout, mBinding.autoSilenceDurationLayout, mBinding.snoozeDurationLayout,
             mBinding.missedAlarmRepeatLimitLayout, mBinding.crescendoDurationLayout, mBinding.alarmVolumeLayout,
-            mBinding.alarmBackgroundImageLayout, mBinding.alarmBackgroundImageButton, mBinding.deleteButton, mBinding.duplicateButton);
+            mBinding.alarmBackgroundImageLayout, mBinding.alarmBackgroundImageButton, mBinding.alarmBlurIntensityLayout,
+            mBinding.deleteButton, mBinding.duplicateButton);
 
         mAlarmUpdateHandler = null;
 
@@ -321,6 +325,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         bindCrescendoDuration();
         bindAlarmVolume();
         bindAlarmBackgroundImage();
+        bindBlurIntensity();
         bindDeleteButton();
         bindDuplicateButton();
 
@@ -909,7 +914,54 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             FileUtils.deleteCustomFile(requireContext().getApplicationContext(), mAlarm.backgroundImage, false);
             mAlarm.backgroundImage = DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
             bindAlarmBackgroundImage();
+            bindBlurIntensity();
+            updateFourthGroup();
         });
+    }
+
+    private void bindBlurIntensity() {
+        final boolean hasGlobalImage = !TextUtils.isEmpty(SettingsDAO.getAlarmBackgroundImage(mPrefs));
+        final boolean hasSpecificImage = !TextUtils.isEmpty(mAlarm.backgroundImage);
+
+        if (SdkUtils.isBeforeAndroid12()
+            || !SettingsDAO.isPerAlarmBackgroundImageEnable(mPrefs)
+            || (!hasGlobalImage && !hasSpecificImage)) {
+            mBinding.alarmBlurIntensityLayout.setVisibility(GONE);
+            return;
+        }
+
+        mBinding.alarmBlurIntensityTitle.setTypeface(mGeneralTypeface);
+        mBinding.alarmBlurIntensityValue.setTypeface(mGeneralTypeface);
+
+        int blurIntensity = mAlarm.blurIntensity;
+
+        if (blurIntensity == DEFAULT_BLUR_INTENSITY) {
+            mBinding.alarmBlurIntensityValue.setText(R.string.label_none);
+        } else {
+            mBinding.alarmBlurIntensityValue.setText(String.valueOf(blurIntensity));
+        }
+
+        Drawable icon = AppCompatResources.getDrawable(requireContext(), blurIntensity == DEFAULT_BLUR_INTENSITY
+            ? R.drawable.ic_blur_off
+            : blurIntensity < 50
+              ? R.drawable.ic_blur_decrease
+              : R.drawable.ic_blur_increase
+        );
+
+        if (icon != null) {
+            mBinding.alarmBlurIntensityTitle.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
+        }
+
+        mBinding.alarmBlurIntensityLayout.setVisibility(VISIBLE);
+
+        View.OnClickListener openBlurIntensityFragment = v -> {
+            Events.sendAlarmEvent(R.string.action_set_blur_intensity, R.string.label_deskclock);
+
+            final BlurIntensityDialogFragment fragment = BlurIntensityDialogFragment.newInstance(mAlarm.blurIntensity);
+            BlurIntensityDialogFragment.show(getChildFragmentManager(), fragment);
+        };
+
+        mBinding.alarmBlurIntensityLayout.setOnClickListener(openBlurIntensityFragment);
     }
 
     private void bindDeleteButton() {
@@ -1059,6 +1111,12 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             (requestKey, bundle) -> {
                 mAlarm.alarmVolume = bundle.getInt(AlarmVolumeDialogFragment.RESULT_VOLUME_VALUE);
                 bindAlarmVolume();
+            });
+
+        childFragmentManager.setFragmentResultListener(BlurIntensityDialogFragment.REQUEST_KEY, this,
+            (requestKey, bundle) -> {
+                mAlarm.blurIntensity = bundle.getInt(BlurIntensityDialogFragment.RESULT_BLUR_INTENSITY_VALUE);
+                bindBlurIntensity();
             });
     }
 
@@ -1292,6 +1350,15 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         );
     }
 
+    private void updateFourthGroup() {
+        ThemeUtils.applyExpressiveBackgroundsToGroup(
+            requireContext(),
+            mPrefs,
+            mBinding.alarmBackgroundImageLayout,
+            mBinding.alarmBlurIntensityLayout
+        );
+    }
+
     private void updateAllGroupBackgrounds() {
         ThemeUtils.applyExpressiveBackgroundsToGroup(
             requireContext(),
@@ -1329,7 +1396,9 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         ThemeUtils.applyExpressiveBackgroundsToGroup(
             requireContext(),
             mPrefs,
-            mBinding.alarmBackgroundImageLayout);
+            mBinding.alarmBackgroundImageLayout,
+            mBinding.alarmBlurIntensityLayout
+        );
     }
 
     private void nullifyClickListeners(View... views) {

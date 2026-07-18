@@ -59,7 +59,8 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
             ClockContract.AlarmsColumns.MANUAL_SORT_ORDER + " INTEGER NOT NULL DEFAULT 0, " +
             ClockContract.AlarmsColumns.PAUSE_START_DATE + " INTEGER NOT NULL DEFAULT 0, " +
             ClockContract.AlarmsColumns.PAUSE_END_DATE + " INTEGER NOT NULL DEFAULT 0, " +
-            ClockContract.AlarmsColumns.BACKGROUND_IMAGE + " TEXT NOT NULL);");
+            ClockContract.AlarmsColumns.BACKGROUND_IMAGE + " TEXT NOT NULL, " +
+            ClockContract.AlarmsColumns.BLUR_INTENSITY + " INTEGER NOT NULL DEFAULT 0);");
 
         LogUtils.i("Alarms Table created");
     }
@@ -282,7 +283,10 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
             db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME + " ADD COLUMN " + ClockContract.AlarmsColumns.BACKGROUND_IMAGE
                 + " TEXT NOT NULL DEFAULT '';");
 
-            LogUtils.i("backgroundImage column added for version 26 upgrade.");
+            db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME + " ADD COLUMN " + ClockContract.AlarmsColumns.BLUR_INTENSITY
+                + " INTEGER NOT NULL DEFAULT 0;");
+
+            LogUtils.i("backgroundImage and blurIntensity columns added for version 26 upgrade.");
         }
     }
 

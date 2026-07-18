@@ -589,17 +589,19 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         int alarmBackgroundColor = isAmoledMode
             ? SettingsDAO.getAlarmBackgroundAmoledColor(mPrefs)
             : SettingsDAO.getAlarmBackgroundColor(mPrefs);
+        final boolean isPerAlarmBackgroundImageEnable = SettingsDAO.isPerAlarmBackgroundImageEnable(mPrefs);
         String imagePath = SettingsDAO.getAlarmBackgroundImage(mPrefs);
 
-        if (SettingsDAO.isPerAlarmBackgroundImageEnable(mPrefs) && !TextUtils.isEmpty(mAlarm.backgroundImage)) {
+        if (isPerAlarmBackgroundImageEnable && !TextUtils.isEmpty(mAlarm.backgroundImage)) {
             imagePath = mAlarm.backgroundImage;
         }
 
         // Apply a background image and a blur effect.
         if (TextUtils.isEmpty(imagePath)) {
+            mBinding.alarmBackgroundImage.setVisibility(GONE);
             getWindow().setBackgroundDrawable(new ColorDrawable(alarmBackgroundColor));
         } else {
-            mBinding.alarmBackgroundImage.setVisibility(View.VISIBLE);
+            mBinding.alarmBackgroundImage.setVisibility(VISIBLE);
 
             File imageFile = new File(imagePath);
 
@@ -608,7 +610,9 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
                 if (bitmap != null) {
                     mBinding.alarmBackgroundImage.setImageBitmap(bitmap);
 
-                    float blurIntensity = SettingsDAO.getAlarmBlurIntensity(mPrefs);
+                    float blurIntensity = isPerAlarmBackgroundImageEnable
+                        ? mAlarm.blurIntensity
+                        : SettingsDAO.getAlarmBlurIntensity(mPrefs);
 
                     if (SdkUtils.isAtLeastAndroid12() && blurIntensity != DEFAULT_BLUR_INTENSITY) {
                         RenderEffect blur = RenderEffect.createBlurEffect(blurIntensity, blurIntensity, Shader.TileMode.CLAMP);
@@ -1354,9 +1358,9 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
             return;
         }
 
-        mBinding.contentView.setVisibility(View.GONE);
+        mBinding.contentView.setVisibility(GONE);
 
-        mBinding.actionMessageView.setVisibility(View.VISIBLE);
+        mBinding.actionMessageView.setVisibility(VISIBLE);
 
         mBinding.actionTitle.setText(titleResId);
         mBinding.actionTitle.setTypeface(mGeneralBoldTypeface);
@@ -1364,7 +1368,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         mBinding.actionTitle.setTextColor(mAlarmTitleColor);
 
         if (descriptionText != null) {
-            mBinding.actionDescription.setVisibility(View.VISIBLE);
+            mBinding.actionDescription.setVisibility(VISIBLE);
             mBinding.actionDescription.setTypeface(mGeneralBoldTypeface);
             mBinding.actionDescription.setText(descriptionText);
             mBinding.actionDescription.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);

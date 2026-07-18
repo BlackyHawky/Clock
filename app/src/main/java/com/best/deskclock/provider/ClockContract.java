@@ -142,6 +142,12 @@ public final class ClockContract {
          * Type: STRING
          */
         String BACKGROUND_IMAGE = "backgroundImage";
+
+        /**
+         * The blur intensity of the alarm background image
+         * Type: INTEGER
+         */
+        String BLUR_INTENSITY = "blurIntensity";
     }
 
     /**

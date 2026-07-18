@@ -1018,7 +1018,11 @@
     <!-- Setting title to enable the use of a background image for each alarm. -->
     <string name="enable_per_alarm_background_image_title">Use a custom background image for each alarm</string>
     <!-- Dialog message when the use of a background image for each alarm is disabled. -->
-    <string name="enable_per_alarm_background_image_dialog_message">Custom background images will be deleted.%s</string>
+    <string name="enable_per_alarm_background_image_dialog_message">Custom background images will be deleted.%1$s%2$s</string>
+    <!-- Dialog message when the use of a background image for each alarm is disabled. (Case where a specific image has been set) -->
+    <string name="blur_intensity_dialog_message_1">\n\nCustom blur intensity values will also be reset.</string>
+    <!-- Dialog message when the use of a background image for each alarm is disabled. (Case where no specific image has been set) -->
+    <string name="blur_intensity_dialog_message_2">Custom blur intensity values will be reset.%s</string>
 
     <!-- *************************** -->
     <!-- **     CLOCK SETTINGS    ** -->

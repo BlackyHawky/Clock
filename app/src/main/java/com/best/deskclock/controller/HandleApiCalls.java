@@ -619,6 +619,7 @@ public class HandleApiCalls extends Activity {
         alarm.crescendoDuration = SettingsDAO.getAlarmVolumeCrescendoDuration(prefs);
         alarm.alarmVolume = audioManager.getStreamVolume(STREAM_ALARM);
         alarm.backgroundImage = DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
+        alarm.blurIntensity = SettingsDAO.getAlarmBlurIntensity(prefs);
     }
 
     private static String getLabelFromIntent(Intent intent, String defaultLabel) {
