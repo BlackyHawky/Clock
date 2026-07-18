@@ -332,7 +332,16 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
             case KEY_ENABLE_PER_ALARM_BACKGROUND_IMAGE -> {
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
-                if (!(boolean) newValue) {
+                if ((boolean) newValue) {
+                    AppExecutors.getDiskIO().execute(() -> {
+                        List<Alarm> currentAlarms = Alarm.getAlarms(requireContext().getContentResolver(), null);
+
+                        for (Alarm alarm : currentAlarms) {
+                            alarm.blurIntensity = SettingsDAO.getAlarmBlurIntensity(mPrefs);
+                            mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                        }
+                    });
+                } else {
                     triggerDisableSettingDialog();
                     return false;
                 }
@@ -507,16 +516,16 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
         final Context appContext = requireContext().getApplicationContext();
 
         AppExecutors.getDiskIO().execute(() -> {
-            final boolean finalHasSpecificImages = hasSpecificAlarmImages(appContext);
+            final CustomizationState state = getAlarmCustomizationsState(appContext);
 
             AppExecutors.getMainThread().post(() -> {
                 if (!isAdded() || isDetached()) {
                     return;
                 }
 
-                if (finalHasSpecificImages) {
+                if (state.hasAny()) {
                     mPendingDialogPrefKey = KEY_ENABLE_PER_ALARM_BACKGROUND_IMAGE;
-                    showDisablePerAlarmSettingDialog();
+                    showDisablePerAlarmSettingDialog(state);
                 } else {
                     mPrefs.edit().putBoolean(KEY_ENABLE_PER_ALARM_BACKGROUND_IMAGE, false).apply();
                     mEnablePerAlarmBackgroundImagePref.setChecked(false);
@@ -525,15 +534,23 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
         });
     }
 
-    private void showDisablePerAlarmSettingDialog() {
+    private void showDisablePerAlarmSettingDialog(CustomizationState state) {
         String confirmAction = getString(R.string.confirm_action_prompt);
+        String dialogMessage;
+
+        if (state.hasSpecificImages) {
+            String blurIntensityMessage = getString(R.string.blur_intensity_dialog_message_1);
+            dialogMessage = getString(R.string.enable_per_alarm_background_image_dialog_message, blurIntensityMessage, confirmAction);
+        } else {
+            dialogMessage = getString(R.string.blur_intensity_dialog_message_2, confirmAction);
+        }
 
         mActiveDialog = CustomDialog.create(
             requireContext(),
             null,
             AppCompatResources.getDrawable(requireContext(), R.drawable.ic_error),
             getString(R.string.warning),
-            getString(R.string.enable_per_alarm_background_image_dialog_message, confirmAction),
+            dialogMessage,
             null,
             getString(android.R.string.ok),
             (d, w) -> {
@@ -549,6 +566,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
                         }
 
                         alarm.backgroundImage = DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
+                        alarm.blurIntensity = SettingsDAO.getAlarmBlurIntensity(mPrefs);
                         mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
                     }
 
@@ -588,32 +606,49 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
         final Context appContext = requireContext().getApplicationContext();
 
         AppExecutors.getDiskIO().execute(() -> {
-            final boolean finalHasSpecificImages = hasSpecificAlarmImages(appContext);
+            final CustomizationState state = getAlarmCustomizationsState(appContext);
+            final boolean finalHasSpecificImages = state.hasSpecificImages;
 
             AppExecutors.getMainThread().post(() -> {
                 if (!isAdded() || isDetached() || mAlarmBlurIntensityPref == null) {
                     return;
                 }
+
                 mAlarmBlurIntensityPref.setVisible(finalHasSpecificImages);
             });
         });
     }
 
-    private boolean hasSpecificAlarmImages(Context context) {
+    /**
+     * Checks which specific customizations are applied to the alarms background images and the blur intensity.
+     */
+    private CustomizationState getAlarmCustomizationsState(Context context) {
+        CustomizationState state = new CustomizationState();
+
         try {
             List<Alarm> currentAlarms = Alarm.getAlarms(context.getContentResolver(), null);
+            int globalBlur = SettingsDAO.getAlarmBlurIntensity(mPrefs);
 
             for (Alarm alarm : currentAlarms) {
-                if (!TextUtils.isEmpty(alarm.backgroundImage) &&
-                    alarm.backgroundImage.contains(FILE_SPECIFIC_ALARM_BACKGROUND)) {
-                    return true;
+                if (!state.hasSpecificImages
+                    && !TextUtils.isEmpty(alarm.backgroundImage)
+                    && alarm.backgroundImage.contains(FILE_SPECIFIC_ALARM_BACKGROUND)) {
+                    state.hasSpecificImages = true;
+                }
+
+                if (!state.hasSpecificBlur && alarm.blurIntensity != globalBlur) {
+                    state.hasSpecificBlur = true;
+                }
+
+                if (state.hasSpecificImages && state.hasSpecificBlur) {
+                    break;
                 }
             }
         } catch (Exception e) {
-            LogUtils.e("Error checking for specific alarm images", e);
+            LogUtils.e("Error checking for specific alarm customizations", e);
         }
 
-        return false;
+        return state;
     }
 
     private void nullifyAllPrefs() {
@@ -658,6 +693,18 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
         mAnalogClock = null;
         mMaterialAnalogClock = null;
         mDigitalClock = null;
+    }
+
+    /**
+     * Utility class for storing the state of background image customizations and blur intensity.
+     */
+    private static class CustomizationState {
+        boolean hasSpecificImages = false;
+        boolean hasSpecificBlur = false;
+
+        boolean hasAny() {
+            return hasSpecificImages || hasSpecificBlur;
+        }
     }
 
 }

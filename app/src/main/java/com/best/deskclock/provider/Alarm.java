@@ -148,7 +148,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         MANUAL_SORT_ORDER,
         PAUSE_START_DATE,
         PAUSE_END_DATE,
-        BACKGROUND_IMAGE
+        BACKGROUND_IMAGE,
+        BLUR_INTENSITY
     };
     private static final String[] QUERY_ALARMS_WITH_INSTANCES_COLUMNS = {
         ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + _ID,
@@ -175,6 +176,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + PAUSE_START_DATE,
         ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + PAUSE_END_DATE,
         ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + BACKGROUND_IMAGE,
+        ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + BLUR_INTENSITY,
         ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.ALARM_STATE,
         ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns._ID,
         ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.YEAR,
@@ -222,27 +224,28 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     private static final int PAUSE_START_DATE_INDEX = 21;
     private static final int PAUSE_END_DATE_INDEX = 22;
     private static final int BACKGROUND_IMAGE_INDEX = 23;
+    private static final int BLUR_INTENSITY_INDEX = 24;
 
-    private static final int INSTANCE_STATE_INDEX = 24;
-    public static final int INSTANCE_ID_INDEX = 25;
-    public static final int INSTANCE_YEAR_INDEX = 26;
-    public static final int INSTANCE_MONTH_INDEX = 27;
-    public static final int INSTANCE_DAY_INDEX = 28;
-    public static final int INSTANCE_HOUR_INDEX = 29;
-    public static final int INSTANCE_MINUTE_INDEX = 30;
-    public static final int INSTANCE_LABEL_INDEX = 31;
-    public static final int INSTANCE_SYNC_BY_LABEL_INDEX = 32;
-    public static final int INSTANCE_VIBRATE_INDEX = 33;
-    public static final int INSTANCE_VIBRATION_PATTERN_INDEX = 34;
-    public static final int INSTANCE_FLASH_INDEX = 35;
-    public static final int INSTANCE_AUTO_SILENCE_DURATION_INDEX = 36;
-    public static final int INSTANCE_SNOOZE_DURATION_INDEX = 37;
-    public static final int INSTANCE_MISSED_ALARM_REPEAT_COUNT_INDEX = 38;
-    public static final int INSTANCE_MISSED_ALARM_REPEAT_LIMIT_INDEX = 39;
-    public static final int INSTANCE_CRESCENDO_DURATION_INDEX = 40;
-    public static final int INSTANCE_ALARM_VOLUME_INDEX = 41;
+    private static final int INSTANCE_STATE_INDEX = 25;
+    public static final int INSTANCE_ID_INDEX = 26;
+    public static final int INSTANCE_YEAR_INDEX = 27;
+    public static final int INSTANCE_MONTH_INDEX = 28;
+    public static final int INSTANCE_DAY_INDEX = 29;
+    public static final int INSTANCE_HOUR_INDEX = 30;
+    public static final int INSTANCE_MINUTE_INDEX = 31;
+    public static final int INSTANCE_LABEL_INDEX = 32;
+    public static final int INSTANCE_SYNC_BY_LABEL_INDEX = 33;
+    public static final int INSTANCE_VIBRATE_INDEX = 34;
+    public static final int INSTANCE_VIBRATION_PATTERN_INDEX = 35;
+    public static final int INSTANCE_FLASH_INDEX = 36;
+    public static final int INSTANCE_AUTO_SILENCE_DURATION_INDEX = 37;
+    public static final int INSTANCE_SNOOZE_DURATION_INDEX = 38;
+    public static final int INSTANCE_MISSED_ALARM_REPEAT_COUNT_INDEX = 39;
+    public static final int INSTANCE_MISSED_ALARM_REPEAT_LIMIT_INDEX = 40;
+    public static final int INSTANCE_CRESCENDO_DURATION_INDEX = 41;
+    public static final int INSTANCE_ALARM_VOLUME_INDEX = 42;
 
-    private static final int COLUMN_COUNT = BACKGROUND_IMAGE_INDEX + 1;
+    private static final int COLUMN_COUNT = BLUR_INTENSITY_INDEX + 1;
     private static final int ALARM_JOIN_INSTANCE_COLUMN_COUNT = INSTANCE_ALARM_VOLUME_INDEX + 1;
     // Public fields
     public long id;
@@ -271,6 +274,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     public long pauseEndDate;
     public int instanceState;
     public String backgroundImage;
+    public int blurIntensity;
 
     // Creates a default alarm at the current time.
     public Alarm() {
@@ -305,13 +309,14 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.pauseStartDate = 0;
         this.pauseEndDate = 0;
         this.backgroundImage = DEFAULT_SPECIFIC_ALARM_BACKGROUND_IMAGE;
+        this.blurIntensity = DEFAULT_BLUR_INTENSITY;
     }
 
     // Used to back up/restore the alarm
     public Alarm(long id, boolean enabled, int year, int month, int day, int hour, int minutes, boolean vibrate, String vibrationPattern,
                  boolean flash, Weekdays daysOfWeek, String label, boolean syncByLabel, String alert, boolean deleteAfterUse,
                  int autoSilenceDuration, int snoozeDuration, int missedAlarmRepeatLimit, int crescendoDuration, int alarmVolume,
-                 int manualSortOrder, long pauseStartDate, long pauseEndDate, String backgroundImage) {
+                 int manualSortOrder, long pauseStartDate, long pauseEndDate, String backgroundImage, int blurIntensity) {
 
         this.id = id;
         this.enabled = enabled;
@@ -337,6 +342,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.pauseStartDate = pauseStartDate;
         this.pauseEndDate = pauseEndDate;
         this.backgroundImage = backgroundImage;
+        this.blurIntensity = blurIntensity;
     }
 
     // Used to create a clone of the given alarm
@@ -366,6 +372,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.pauseStartDate = original.pauseStartDate;
         this.pauseEndDate = original.pauseEndDate;
         this.backgroundImage = original.backgroundImage;
+        this.blurIntensity = original.blurIntensity;
     }
 
     public Alarm(Cursor c) {
@@ -392,6 +399,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         pauseStartDate = c.getLong(PAUSE_START_DATE_INDEX);
         pauseEndDate = c.getLong(PAUSE_END_DATE_INDEX);
         backgroundImage = c.getString(BACKGROUND_IMAGE_INDEX);
+        blurIntensity = c.getInt(BLUR_INTENSITY_INDEX);
 
         if (c.getColumnCount() == ALARM_JOIN_INSTANCE_COLUMN_COUNT) {
             instanceState = c.getInt(INSTANCE_STATE_INDEX);
@@ -433,6 +441,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         pauseStartDate = p.readLong();
         pauseEndDate = p.readLong();
         backgroundImage = p.readString();
+        blurIntensity = p.readInt();
     }
 
     public ContentValues createContentValues() {
@@ -463,6 +472,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         values.put(PAUSE_START_DATE, pauseStartDate);
         values.put(PAUSE_END_DATE, pauseEndDate);
         values.put(BACKGROUND_IMAGE, backgroundImage);
+        values.put(BLUR_INTENSITY, blurIntensity);
 
         if (alert == null) {
             // We want to put null, so default alarm changes
@@ -499,6 +509,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         p.writeLong(pauseStartDate);
         p.writeLong(pauseEndDate);
         p.writeString(backgroundImage);
+        p.writeInt(blurIntensity);
     }
 
     public int describeContents() {
@@ -751,7 +762,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             || missedAlarmRepeatLimit != other.missedAlarmRepeatLimit
             || crescendoDuration != other.crescendoDuration
             || alarmVolume != other.alarmVolume
-            || !Objects.equals(backgroundImage, other.backgroundImage);
+            || !Objects.equals(backgroundImage, other.backgroundImage)
+            || blurIntensity != other.blurIntensity;
     }
 
     public boolean isTomorrow(Calendar now) {
@@ -1096,6 +1108,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             ", pauseStartDate=" + pauseStartDate +
             ", pauseEndDate=" + pauseEndDate +
             ", backgroundImage=" + backgroundImage +
+            ", blurIntensity=" + blurIntensity +
             '}';
     }
 

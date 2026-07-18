@@ -57,6 +57,7 @@ public class AlarmVolumeDialogFragment extends DialogFragment {
     private TextView mDialogTitle;
     private final Handler mRingtoneHandler = new Handler(Looper.getMainLooper());
     private Runnable mRingtoneStopRunnable;
+    private int mCurrentIconResId = -1;
     private int mMinVolume;
     private int mPreviousVolume = -1;
     private boolean mIsPreviewPlaying = false;
@@ -190,10 +191,17 @@ public class AlarmVolumeDialogFragment extends DialogFragment {
             }
         });
 
+        int initialPercent = (int) (((float) clampedVolume / maxVolume) * 100);
+        int initialIconResId = initialPercent < 50
+            ? R.drawable.ic_volume_down
+            : R.drawable.ic_volume_up;
+
+        mCurrentIconResId = initialIconResId;
+
         return CustomDialog.create(
             requireContext(),
             null,
-            null,
+            AppCompatResources.getDrawable(requireContext(), initialIconResId),
             getString(R.string.alarm_volume_title),
             null,
             mBinding.getRoot(),
@@ -206,11 +214,7 @@ public class AlarmVolumeDialogFragment extends DialogFragment {
             (d, w) -> stopRingtonePreview(),
             null,
             null,
-            alertDialog -> {
-                mDialogTitle = alertDialog.findViewById(R.id.dialog_title);
-                int volume = (int) mBinding.alarmVolumeSlider.getValue() + mMinVolume;
-                updateDialogIcon(volume, maxVolume);
-            },
+            alertDialog -> mDialogTitle = alertDialog.findViewById(R.id.dialog_title),
             CustomDialog.SoftInputMode.NONE
         );
     }
@@ -249,6 +253,8 @@ public class AlarmVolumeDialogFragment extends DialogFragment {
         mRingtoneStopRunnable = null;
         mRingtoneUri = null;
 
+        mCurrentIconResId = -1;
+
         super.onDestroyView();
     }
 
@@ -271,10 +277,18 @@ public class AlarmVolumeDialogFragment extends DialogFragment {
      */
     private void updateDialogIcon(int currentVolume, int maxVolume) {
         int percent = (int) (((float) currentVolume / maxVolume) * 100);
-        mDialogTitle.setCompoundDrawablesWithIntrinsicBounds(AppCompatResources.getDrawable(requireContext(), percent < 50
+
+        int targetIconResId = percent < 50
             ? R.drawable.ic_volume_down
-            : R.drawable.ic_volume_up), null, null, null);
-        mDialogTitle.setCompoundDrawablePadding((int) dpToPx(18, getResources().getDisplayMetrics()));
+            : R.drawable.ic_volume_up;
+
+        if (targetIconResId != mCurrentIconResId) {
+            mCurrentIconResId = targetIconResId;
+
+            mDialogTitle.setCompoundDrawablesWithIntrinsicBounds(
+                AppCompatResources.getDrawable(requireContext(), targetIconResId), null, null, null);
+            mDialogTitle.setCompoundDrawablePadding((int) dpToPx(18, getResources().getDisplayMetrics()));
+        }
     }
 
     /**
