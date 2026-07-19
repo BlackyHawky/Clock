@@ -20,15 +20,7 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.TAB_ANIMATION
 import static com.best.deskclock.settings.PreferencesDefaultValues.TAB_ANIMATION_GATE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TAB_ANIMATION_ZOOM_OUT;
 import static com.best.deskclock.settings.PreferencesDefaultValues.TAB_TITLE_VISIBILITY_NEVER;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_KEEP_ANDROID_OPEN_DIALOG;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ESSENTIAL_PERMISSIONS_GRANTED;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_IS_FIRST_LAUNCH;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_KEEP_SCREEN_ON;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_TAB_ANIMATION;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_TAB_INDICATOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_TAB_TITLE_VISIBILITY;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_TAB_TO_DISPLAY;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_VIBRATIONS;
+import static com.best.deskclock.settings.PreferencesKeys.*;
 import static com.best.deskclock.utils.AnimatorUtils.getScaleAnimator;
 import static com.best.deskclock.utils.NotificationUtils.EXTRA_UPDATE_ALARM_NOTIFICATIONS;
 import static com.best.deskclock.utils.WidgetUtils.EXTRA_UPDATE_WIDGETS;
@@ -184,7 +176,8 @@ public class DeskClock extends BaseActivity implements FabContainer {
      */
     private static final List<String> SUPPORTED_PREF_KEYS = List.of(
         // Interface
-        KEY_TAB_TITLE_VISIBILITY, KEY_TAB_INDICATOR, KEY_TAB_TO_DISPLAY, KEY_TAB_ANIMATION, KEY_VIBRATIONS, KEY_KEEP_SCREEN_ON,
+        KEY_TOOLBAR_TITLE, KEY_TAB_TITLE_VISIBILITY, KEY_TAB_INDICATOR, KEY_TAB_TO_DISPLAY, KEY_TAB_ANIMATION, KEY_VIBRATIONS,
+        KEY_KEEP_SCREEN_ON,
         // Permission
         KEY_ESSENTIAL_PERMISSIONS_GRANTED
     );
@@ -474,8 +467,8 @@ public class DeskClock extends BaseActivity implements FabContainer {
             cachedValues.put(key, newValue);
 
             switch (key) {
-                case KEY_TAB_TITLE_VISIBILITY, KEY_TAB_INDICATOR, KEY_TAB_TO_DISPLAY, KEY_TAB_ANIMATION, KEY_VIBRATIONS, KEY_KEEP_SCREEN_ON,
-                     KEY_ESSENTIAL_PERMISSIONS_GRANTED -> mShouldRecreate = true;
+                case KEY_TOOLBAR_TITLE, KEY_TAB_TITLE_VISIBILITY, KEY_TAB_INDICATOR, KEY_TAB_TO_DISPLAY, KEY_TAB_ANIMATION, KEY_VIBRATIONS,
+                     KEY_KEEP_SCREEN_ON, KEY_ESSENTIAL_PERMISSIONS_GRANTED -> mShouldRecreate = true;
 
             }
         };
@@ -501,6 +494,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
     private Object getPreferenceValue(String key) {
         return switch (key) {
             // Interface
+            case KEY_TOOLBAR_TITLE -> SettingsDAO.isToolbarTitleDisplayed(mPrefs);
             case KEY_TAB_TITLE_VISIBILITY -> SettingsDAO.getTabTitleVisibility(mPrefs);
             case KEY_TAB_INDICATOR -> SettingsDAO.isTabIndicatorDisplayed(mPrefs);
             case KEY_TAB_TO_DISPLAY -> SettingsDAO.getTabToDisplay(mPrefs);
@@ -955,7 +949,7 @@ public class DeskClock extends BaseActivity implements FabContainer {
         if (mIsToolBarDisplayed) {
             mBinding.toolbar.setTitle(selectedTab.getLabelResId());
         } else {
-            mBinding.toolbar.setTitle(null);
+            mBinding.toolbar.setTitle("");
         }
     }
 
