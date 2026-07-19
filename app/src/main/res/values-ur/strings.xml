@@ -222,7 +222,6 @@
     <string name="delete_occasional_alarm_after_use_title">برخاست ہونے کے بعد الارم کو حذف کریں</string>
     <string name="alarm_label_box_title">الارم لیبل</string>
     <string name="alarm_alert_dismiss_and_delete_text">برخاست کریں اور حذف کریں</string>
-    <string name="duplicate">نقل</string>
     <string name="alarm_flash">فلیش</string>
     <string name="label_default">طے شدہ</string>
     <string name="selected">منتخب</string>

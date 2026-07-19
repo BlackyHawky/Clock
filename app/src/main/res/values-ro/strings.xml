@@ -292,7 +292,6 @@
     <string name="FSN_permission_title">ACTIVEAZĂ NOTIFICĂRILE PE ECRAN COMPLET</string>
     <string name="FSN_dialog_title">Notificări pe ecran complet</string>
     <string name="FSN_dialog_text">Începând cu Android 14, pentru ca alarma să fie declanșată atunci când ecranul este oprit, este imperativ ca permisiunea Notificări pe ecran complet să fie activată</string>
-    <string name="duplicate">Dublează</string>
     <string name="settings_permission_message">Una sau mai multe permisiuni esențiale sunt refuzate. Neacordarea acestora poate duce la defecțiuni.</string>
     <string name="interface_customization_settings">Interfață</string>
     <string name="style_category_title">Stil</string>

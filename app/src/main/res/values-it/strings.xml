@@ -316,7 +316,6 @@
     <string name="city_name_default_color_title">Usa colore predefinito per il nome della città</string>
     <string name="max_clock_font_size_title">Dimensione massima caratteri dell\'orologio principale</string>
     <string name="city_clock_default_color_title">Usa colore predefinito per orologio della città</string>
-    <string name="duplicate">Duplica</string>
     <string name="display_background_border_summary">Visualizza un bordo di sfondo per alcuni elementi dell\'applicazione (sveglie, città, pulsante del timer, ecc.)</string>
     <string name="settings_vibration_title">Abilita vibrazioni</string>
     <string name="add_label">Aggiungi etichetta</string>

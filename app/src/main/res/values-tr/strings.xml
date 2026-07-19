@@ -269,7 +269,6 @@
     <string name="alarm_flash">Flaş</string>
     <string name="delete_occasional_alarm_after_use_title">Alarm kapatılınca alarmı sil</string>
     <string name="label_default">Varsayılan</string>
-    <string name="duplicate">Çoğalt</string>
     <string name="vertical_widget">Dikey dijital saat</string>
     <string name="settings_permission_message">Bir veya daha fazla temel izin reddedildi. İzinleri sağlamamak düzgün çalışmaya engel olabilir.</string>
     <string name="settings_permission_summary">İzinleri yönetme sayfasını görüntülemek için buraya dokunun.</string>

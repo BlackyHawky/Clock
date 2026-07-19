@@ -229,7 +229,6 @@
     <string name="first_launch_main_feature_title">主要特点</string>
     <string name="app_slogan">基于 AOSP 的 100% FOSS 时钟</string>
     <string name="permission_dialog_revoke_title">撤销访问权限</string>
-    <string name="duplicate">重复</string>
     <string name="selected">已选择</string>
     <string name="more_options">更多选项</string>
     <string name="about_title">关于</string>

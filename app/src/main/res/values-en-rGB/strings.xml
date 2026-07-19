@@ -235,7 +235,6 @@
     <string name="delay_picker_dialog_title">Alarm in…</string>
     <string name="alarm_label_box_title">Alarm label</string>
     <string name="label_default">Default</string>
-    <string name="duplicate">Duplicate</string>
     <string name="label_new_image">New image</string>
     <string name="warning">Warning</string>
     <string name="label_hours">Hours</string>

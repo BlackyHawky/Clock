@@ -244,7 +244,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             mBinding.chooseRingtone, mBinding.vibrationPatternLayout, mBinding.autoSilenceDurationLayout, mBinding.snoozeDurationLayout,
             mBinding.missedAlarmRepeatLimitLayout, mBinding.crescendoDurationLayout, mBinding.alarmVolumeLayout,
             mBinding.alarmBackgroundImageLayout, mBinding.alarmBackgroundImageButton, mBinding.alarmBlurIntensityLayout,
-            mBinding.deleteButton, mBinding.duplicateButton);
+            mBinding.deleteButton, mBinding.duplicateButton, mBinding.saveButton);
 
         mAlarmUpdateHandler = null;
 
@@ -328,6 +328,7 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
         bindBlurIntensity();
         bindDeleteButton();
         bindDuplicateButton();
+        bindSaveButton();
 
         updateAllGroupBackgrounds();
 
@@ -965,8 +966,6 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     }
 
     private void bindDeleteButton() {
-        mBinding.deleteButton.setTypeface(mGeneralTypeface);
-
         mBinding.deleteButton.setOnClickListener(v -> {
             mIsDeleted = true;
             Events.sendAlarmEvent(R.string.action_delete, R.string.label_deskclock);
@@ -977,8 +976,6 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
     }
 
     private void bindDuplicateButton() {
-        mBinding.duplicateButton.setTypeface(mGeneralTypeface);
-
         mBinding.duplicateButton.setOnClickListener(v -> {
             Events.sendAlarmEvent(R.string.action_duplicate, R.string.label_deskclock);
 
@@ -1021,6 +1018,16 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             }
 
             Utils.performHapticFeedback(mBinding.duplicateButton, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
+            dismiss();
+        });
+    }
+
+    private void bindSaveButton() {
+        mBinding.saveButton.setOnClickListener(v -> {
+            Events.sendAlarmEvent(R.string.action_save, R.string.label_deskclock);
+
+            Utils.performHapticFeedback(mBinding.saveButton, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
             dismiss();
         });

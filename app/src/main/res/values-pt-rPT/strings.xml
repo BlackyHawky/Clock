@@ -242,7 +242,6 @@
     <string name="delay_picker_dialog_title">Alarme em…</string>
     <string name="alarm_label_box_title">Etiqueta do alarme</string>
     <string name="label_default">Predefinição</string>
-    <string name="duplicate">Duplicar</string>
     <string name="warning">Aviso</string>
     <string name="label_hours">Horas</string>
     <string name="label_minutes">MInutos</string>

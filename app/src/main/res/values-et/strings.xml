@@ -229,7 +229,6 @@
     <string name="stopwatch_channel">Stopper</string>
     <string name="timer_channel">Taimer</string>
     <string name="alarm_label_box_title">Äratuse silt</string>
-    <string name="duplicate">Tee koopia</string>
     <string name="selected">Valitud</string>
     <string name="more_options">Rohkem valikuid</string>
     <string name="settings_permission_message">Üks või enam olulist õigust on puudu. Kui vajalikud õigused jäävadki puudu, siis rakendus ei pruugi korralikult toimida.</string>

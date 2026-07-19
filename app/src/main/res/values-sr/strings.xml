@@ -240,7 +240,6 @@
     <string name="more_options">Више опција</string>
     <string name="dialog_close">Затвори</string>
     <string name="settings_permission_message">Једна или више основних дозвола није одобрена. Неодобравање може довести до неправилности у раду.</string>
-    <string name="duplicate">Дуплирај</string>
     <string name="selected">Изабрано</string>
     <string name="add_label">Додај ознаку</string>
     <string name="screensaver_preview_summary">Покреће чувар екрана одмах</string>

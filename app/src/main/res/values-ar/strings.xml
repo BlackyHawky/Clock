@@ -260,7 +260,6 @@
     <string name="delay_picker_dialog_title">المنبه في…</string>
     <string name="alarm_label_box_title">تسمية المنبه</string>
     <string name="label_default">إفتراضي</string>
-    <string name="duplicate">كرّر</string>
     <string name="label_new_image">صورة جديدة</string>
     <string name="label_new_font">خط جديد</string>
     <string name="warning">تحذير</string>

@@ -226,7 +226,6 @@
     <string name="alarm_flash">Đèn pin</string>
     <string name="delete_occasional_alarm_after_use_title">Xoá báo thức sau khi bị loại bỏ</string>
     <string name="delay_picker_dialog_title">Báo thức kêu sau…</string>
-    <string name="duplicate">Nhân bản</string>
     <string name="label_new_image">Ảnh khác</string>
     <string name="confirm_action_prompt">\n\nBạn có muốn tiếp tục không?</string>
     <string name="progress_ringtones">Đang thêm nhạc chuông… (%1$d/%2$d)</string>

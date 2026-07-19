@@ -273,7 +273,6 @@
     <string name="selected">Выбрано</string>
     <string name="more_options">Другие параметры</string>
     <string name="FSN_dialog_title">Уведомления в полноэкранном режиме</string>
-    <string name="duplicate">Дублировать</string>
     <string name="settings_permission_summary">Нажмите здесь, чтобы открыть страницу управления разрешениями.</string>
     <string name="settings_vibration_title">Вибрация вкл.</string>
     <string name="miscellaneous_category_title">Прочее</string>

@@ -233,7 +233,6 @@
     <string name="alarm_flash">Flash</string>
     <string name="delete_occasional_alarm_after_use_title">Eliminar alarma una vez desactivada</string>
     <string name="label_default">Predeterminado</string>
-    <string name="duplicate">Duplicar</string>
     <string name="warning">Advertencia</string>
     <string name="label_hours">Horas</string>
     <string name="label_minutes">Minutos</string>
