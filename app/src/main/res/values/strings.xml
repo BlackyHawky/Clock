@@ -27,8 +27,6 @@
     <string name="label_indefinitely">Indefinitely</string>
     <!-- Label "Delete" -->
     <string name="delete">Delete</string>
-    <!-- Setting labels on Set alarm screen: Duplicate -->
-    <string name="duplicate">Duplicate</string>
     <!-- Label "Reset" -->
     <string name="reset">Reset</string>
     <!-- Dialog label to choose a new background image. -->

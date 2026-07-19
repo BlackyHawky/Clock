@@ -4,6 +4,7 @@ package com.best.deskclock.timer;
 
 import static android.app.Activity.RESULT_OK;
 import static android.view.View.GONE;
+import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static androidx.core.util.TypedValueCompat.dpToPx;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
@@ -149,7 +150,8 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
     public void onDestroyView() {
         nullifyClickListeners(mBinding.timerTimeText, mBinding.timerLabel, mBinding.addTimeButtonLayout, mBinding.addTimeButton,
             mBinding.chooseRingtone, mBinding.vibrateOnOff, mBinding.flashOnOff, mBinding.turnOffMedia, mBinding.deleteTimerAfterUse,
-            mBinding.autoSilenceDurationLayout, mBinding.crescendoDurationLayout, mBinding.deleteButton, mBinding.duplicateButton);
+            mBinding.autoSilenceDurationLayout, mBinding.crescendoDurationLayout, mBinding.deleteButton, mBinding.duplicateButton,
+            mBinding.saveButton);
 
         mBinding = null;
 
@@ -255,6 +257,7 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
         bindCrescendoDuration();
         bindDeleteButton();
         bindDuplicateButton();
+        bindSaveButton();
 
         updateAllGroupBackgrounds();
 
@@ -571,8 +574,6 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
             return;
         }
 
-        mBinding.deleteButton.setTypeface(mGeneralTypeface);
-
         mBinding.deleteButton.setOnClickListener(v -> {
             mIsDeleted = true;
             Events.sendTimerEvent(R.string.action_delete, R.string.label_deskclock);
@@ -588,11 +589,9 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
         }
 
         if (SettingsDAO.isSingleTimerModeEnabled(mPrefs)) {
-            mBinding.duplicateButton.setVisibility(GONE);
+            mBinding.duplicateButton.setVisibility(INVISIBLE);
             return;
         }
-
-        mBinding.duplicateButton.setTypeface(mGeneralTypeface);
 
         mBinding.duplicateButton.setVisibility(VISIBLE);
 
@@ -617,6 +616,16 @@ public class TimerEditBottomSheetFragment extends BottomSheetDialogFragment  {
             );
 
             Utils.performHapticFeedback(mBinding.duplicateButton, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
+            dismiss();
+        });
+    }
+
+    private void bindSaveButton() {
+        mBinding.saveButton.setOnClickListener(v -> {
+            Events.sendTimerEvent(R.string.action_save, R.string.label_deskclock);
+
+            Utils.performHapticFeedback(mBinding.saveButton, HapticFeedbackConstantsCompat.VIRTUAL_KEY);
 
             dismiss();
         });

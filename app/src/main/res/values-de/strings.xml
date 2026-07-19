@@ -240,7 +240,6 @@
     <string name="display_card_background_summary">Hintergrund für einige Elemente der App anzeigen (Wecker, Städte, Timer usw.)</string>
     <string name="power_button_title">Ein/Aus-Taste</string>
     <string name="add_label">Name hinzufügen</string>
-    <string name="duplicate">Duplizieren</string>
     <string name="display_background_border_summary">Rahmen für einige Elemente der App anzeigen (Wecker, Städte, Timer usw.)</string>
     <string name="swipe_action_title">Wischen zum Verwerfen oder Schlummern von Weckern</string>
     <string name="style_category_title">Stil</string>

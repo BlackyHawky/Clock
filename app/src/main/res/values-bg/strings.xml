@@ -234,7 +234,6 @@
     <string name="delay_picker_dialog_title">Будилник след…</string>
     <string name="alarm_label_box_title">Наименование</string>
     <string name="label_default">Стандартно</string>
-    <string name="duplicate">Копиране</string>
     <string name="label_new_image">Ново изображение</string>
     <string name="warning">Предупреждение</string>
     <string name="label_hours">Часове</string>

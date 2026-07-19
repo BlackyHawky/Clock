@@ -269,7 +269,6 @@
     <string name="delete_occasional_alarm_after_use_title">Ébresztő elvetésekor annak törlése</string>
     <string name="delay_picker_dialog_title">Ébresztő késleltetés…</string>
     <string name="alarm_label_box_title">Ébresztő címe</string>
-    <string name="duplicate">Duplikálás</string>
     <string name="label_new_image">Új kép</string>
     <string name="label_new_font">Új betűtípus</string>
     <string name="warning">Figyelem</string>

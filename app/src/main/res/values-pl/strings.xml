@@ -313,7 +313,6 @@
     <string name="FSN_dialog_title">Powiadomienia pełnoekranowe</string>
     <string name="license">Licencja Open-source</string>
     <string name="label_default">Domyślne</string>
-    <string name="duplicate">Duplikuj</string>
     <string name="interface_customization_settings">Interfejs</string>
     <string name="interface_customization_summary">Dostosuj styl, czcionkę, język i kolor aplikacji</string>
     <string name="title_theme">Motyw</string>

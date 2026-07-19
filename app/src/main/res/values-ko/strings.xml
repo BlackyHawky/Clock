@@ -273,7 +273,6 @@
     <string name="dismiss_button_color">해제 버튼 색상</string>
     <string name="alarm_button_color">알람 버튼 색상</string>
     <string name="label_default">기본값</string>
-    <string name="duplicate">복제</string>
     <string name="system_theme">시스템</string>
     <string name="title_theme">테마</string>
     <string name="next_alarm_widget">다음 알람</string>

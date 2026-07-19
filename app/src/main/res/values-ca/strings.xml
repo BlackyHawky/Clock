@@ -238,7 +238,6 @@
     <string name="timer_channel">Temporitzador</string>
     <string name="alarm_alert_dismiss_and_delete_text">Descarta i suprimeix</string>
     <string name="label_default">Per defecte</string>
-    <string name="duplicate">Duplica</string>
     <string name="alarm_label_box_title">Etiqueta d\'alarma</string>
     <string name="delete_occasional_alarm_after_use_title">Suprimeix l\'alarma en aturar-la</string>
     <string name="selected">Seleccionat</string>

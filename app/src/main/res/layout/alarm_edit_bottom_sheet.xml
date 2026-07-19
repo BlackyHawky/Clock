@@ -530,46 +530,50 @@
         android:paddingHorizontal="14dp"
         android:paddingVertical="10dp">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/delete_button"
-            android:layout_width="wrap_content"
+        <com.google.android.material.button.MaterialButtonGroup
+            android:id="@+id/toggleButton"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingTop="0dp"
-            android:paddingBottom="0dp"
-            android:backgroundTint="@color/colorAlert"
-            android:text="@string/delete"
-            android:textColor="?attr/colorOnError"
-            android:textAllCaps="false"
-            android:includeFontPadding="false"
-            app:icon="@drawable/ic_delete"
-            app:iconTint="?attr/colorOnError"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/duplicate_button"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constrainedWidth="true"
-            tools:ignore="TextContrastCheck" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/duplicate_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="0dp"
-            android:paddingBottom="0dp"
-            android:backgroundTint="?attr/colorPrimary"
-            android:text="@string/duplicate"
-            android:textColor="?attr/colorSurfaceContainerLowest"
-            android:textAllCaps="false"
-            android:includeFontPadding="false"
-            app:icon="@drawable/ic_duplicate"
-            app:iconTint="?attr/colorSurfaceContainerLowest"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/delete_button"
-            app:layout_constrainedWidth="true"
-            tools:textStyle="bold" />
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/delete_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/colorAlert"
+                app:icon="@drawable/ic_delete"
+                app:iconTint="?attr/colorOnError"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp" />
+
+            <com.google.android.material.button.MaterialButton
+                style="?attr/materialButtonOutlinedStyle"
+                android:id="@+id/duplicate_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:icon="@drawable/ic_duplicate"
+                app:iconTint="?attr/colorOnSurfaceVariant"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp"
+                app:strokeColor="?attr/colorOnSurfaceVariant" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/save_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/colorGranted"
+                app:icon="@drawable/ic_save"
+                app:iconTint="?attr/colorSurfaceContainerLowest"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp" />
+
+        </com.google.android.material.button.MaterialButtonGroup>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

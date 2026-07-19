@@ -237,7 +237,6 @@
     <string name="alarm_label_box_title">Alarm Label</string>
     <string name="label_default">Default</string>
     <string name="label_indefinitely">Indefinitely</string>
-    <string name="duplicate">Duplicate</string>
     <string name="label_new_image">New Image</string>
     <string name="label_new_font">New Font</string>
     <string name="warning">Warning!</string>

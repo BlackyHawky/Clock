@@ -231,7 +231,6 @@
     <string name="flip_action_title">Acción de voltear dispositivo</string>
     <string name="shake_action_title">Agitar dispositivo</string>
     <string name="alarm_label_box_title">Etiqueta para la alarma</string>
-    <string name="duplicate">Duplicar</string>
     <string name="selected">Seleccionado</string>
     <string name="more_options">Más opciones</string>
     <string name="vertical_widget">Reloj digital vertical</string>
