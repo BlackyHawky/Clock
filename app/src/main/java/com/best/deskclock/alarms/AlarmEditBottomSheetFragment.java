@@ -1269,15 +1269,14 @@ public class AlarmEditBottomSheetFragment extends BottomSheetDialogFragment {
             ? MaterialColors.getColor(requireContext(), com.google.android.material.R.attr.colorTertiary, Color.BLACK)
             : Color.TRANSPARENT;
 
-        final ColorStateList strokeColor = ColorStateList.valueOf(
-            MaterialColors.getColor(requireContext(), isSelected
-                ? com.google.android.material.R.attr.colorTertiary
-                : com.google.android.material.R.attr.colorOnSurface, Color.BLACK)
+        final ColorStateList strokeColor = ColorStateList.valueOf(MaterialColors.getColor(requireContext(), isSelected
+            ? com.google.android.material.R.attr.colorTertiary
+            : com.google.android.material.R.attr.colorOnSurfaceVariant, Color.BLACK)
         );
 
         final int textColor = MaterialColors.getColor(requireContext(), isSelected
-            ? android.R.attr.colorBackground
-            : android.R.attr.textColorPrimary, Color.BLACK);
+            ? com.google.android.material.R.attr.colorSurfaceContainerLowest
+            : com.google.android.material.R.attr.colorOnSurfaceVariant, Color.BLACK);
 
         dayButton.setBackgroundTintList(ColorStateList.valueOf(backgroundColor));
         dayButton.setStrokeColor(strokeColor);

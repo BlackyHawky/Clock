@@ -31,7 +31,6 @@
 
     <!-- Day buttons are added programmatically -->
     <com.google.android.material.button.MaterialButtonToggleGroup
-        style="@style/Widget.Material3.MaterialButtonGroup.Connected"
         android:id="@+id/repeat_days_group"
         android:layout_width="match_parent"
         android:layout_height="48dp"
