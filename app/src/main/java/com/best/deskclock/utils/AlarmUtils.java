@@ -44,6 +44,38 @@ import java.util.concurrent.TimeUnit;
  */
 public class AlarmUtils {
 
+
+    /**
+     * Key to pass the temporary alarm hour (int) to the preview screen.
+     */
+    public static final String EXTRA_PREVIEW_HOUR = "extra_preview_hour";
+
+    /**
+     * Key to pass the temporary alarm minute (int) to the preview screen.
+     */
+    public static final String EXTRA_PREVIEW_MINUTE = "extra_preview_minute";
+
+    /**
+     * Key to pass the temporary alarm label (String) to the preview screen.
+     */
+    public static final String EXTRA_PREVIEW_LABEL = "extra_preview_label";
+
+    /**
+     * Key to pass the temporary ringtone URI (String) to the preview screen.
+     * An empty string represents a silent ringtone.
+     */
+    public static final String EXTRA_PREVIEW_RINGTONE = "extra_preview_ringtone";
+
+    /**
+     * Key to pass the temporary background image path (String) to the preview screen.
+     */
+    public static final String EXTRA_PREVIEW_BACKGROUND_IMAGE = "extra_preview_background_image";
+
+    /**
+     * Key to pass the temporary blur intensity value (int) to the preview screen.
+     */
+    public static final String EXTRA_PREVIEW_BLUR_INTENSITY = "extra_preview_blur_intensity";
+
     /**
      * Intent action sent when the alarm has been either created or updated in the Clock app.
      * <p>

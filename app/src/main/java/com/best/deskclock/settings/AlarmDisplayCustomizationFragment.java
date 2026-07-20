@@ -34,6 +34,7 @@ import com.best.deskclock.settings.custompreference.ColorPickerPreference;
 import com.best.deskclock.settings.custompreference.CustomSliderPreference;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.uicomponents.toast.CustomToast;
+import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.FileUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.SdkUtils;
@@ -41,6 +42,7 @@ import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.google.android.material.color.MaterialColors;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class AlarmDisplayCustomizationFragment extends ScreenFragment
@@ -389,7 +391,14 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
             });
 
             case KEY_ALARM_PREVIEW -> {
-                startActivity(new Intent(context, AlarmDisplayPreviewActivity.class));
+                Intent previewIntent = new Intent(context, AlarmDisplayPreviewActivity.class);
+                Calendar now = Calendar.getInstance();
+
+                previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_HOUR, now.get(Calendar.HOUR_OF_DAY));
+                previewIntent.putExtra(AlarmUtils.EXTRA_PREVIEW_MINUTE, now.get(Calendar.MINUTE));
+
+                startActivity(previewIntent);
+
                 if (SettingsDAO.isFadeTransitionsEnabled(mPrefs)) {
                     if (SdkUtils.isAtLeastAndroid14()) {
                         requireActivity().overrideActivityTransition(OVERRIDE_TRANSITION_OPEN, R.anim.fade_in, R.anim.fade_out);
