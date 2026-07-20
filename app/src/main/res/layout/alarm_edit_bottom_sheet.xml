@@ -562,6 +562,17 @@
                 app:strokeColor="?attr/colorOnSurfaceVariant" />
 
             <com.google.android.material.button.MaterialButton
+                style="?attr/materialButtonOutlinedStyle"
+                android:id="@+id/preview_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:icon="@drawable/ic_preview"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp"
+                app:strokeColor="?attr/colorOnSurfaceVariant" />
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/save_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

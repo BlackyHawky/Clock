@@ -7,9 +7,12 @@
 package com.best.deskclock.uicomponents;
 
 import android.content.Context;
+import android.text.format.DateFormat;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.widget.TextClock;
+
+import java.util.Calendar;
 
 /**
  * Wrapper around TextClock that automatically re-sizes itself to fit within the given bounds.
@@ -70,6 +73,23 @@ public class AutoSizingTextClock extends TextClock {
     public void applyUserPreferredTextSizeSp(float sizeSp) {
         setTextSize(TypedValue.COMPLEX_UNIT_SP, sizeSp);
         mTextSizeHelper.setMaxTextSize(getTextSize());
+    }
+
+    /**
+     * Freezes the TextClock at a specific time (useful for previewing).
+     */
+    public void setStaticTime(int hour, int minute) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, minute);
+
+        String formattedTime = DateFormat.getTimeFormat(getContext()).format(calendar.getTime());
+
+        // Wrap the time in single quotes to force TextClock to display it as literal text, ignoring any format patterns.
+        String escapedTime = "'" + formattedTime.replace("'", "''") + "'";
+
+        setFormat12Hour(escapedTime);
+        setFormat24Hour(escapedTime);
     }
 
 }

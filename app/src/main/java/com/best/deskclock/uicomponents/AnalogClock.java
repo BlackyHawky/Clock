@@ -64,6 +64,12 @@ public class AnalogClock extends FrameLayout {
     private Calendar mTime;
     private TimeZone mTimeZone;
     private boolean mEnableSeconds = true;
+
+    private boolean mIsStaticTime = false;
+    private int mStaticHour = -1;
+    private int mStaticMinute = -1;
+    private long mStaticStartTimeMillis;
+
     private final BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -469,7 +475,19 @@ public class AnalogClock extends FrameLayout {
     }
 
     private void onTimeChanged() {
-        mTime.setTimeInMillis(System.currentTimeMillis());
+        if (!mIsStaticTime) {
+            mTime.setTimeInMillis(System.currentTimeMillis());
+        }
+
+        if (mIsStaticTime) {
+            mTime.set(Calendar.HOUR_OF_DAY, mStaticHour);
+            mTime.set(Calendar.MINUTE, mStaticMinute);
+
+            long elapsedMillisSinceStart = System.currentTimeMillis() - mStaticStartTimeMillis;
+            int elapsedSeconds = (int) ((elapsedMillisSinceStart / 1000) % 60);
+
+            mTime.set(Calendar.SECOND, elapsedSeconds);
+        }
 
         // To get closer to a mechanical watch, the hour hand will move according to the minute value
         int hour = mTime.get(Calendar.HOUR);
@@ -505,5 +523,18 @@ public class AnalogClock extends FrameLayout {
         } else {
             mSecondHand.setVisibility(GONE);
         }
+    }
+
+    /**
+     * Freezes the analog clock at a specific time (useful for previewing).
+     */
+    public void setStaticTime(int hour, int minute) {
+        mIsStaticTime = true;
+        mStaticHour = hour;
+        mStaticMinute = minute;
+
+        mStaticStartTimeMillis = System.currentTimeMillis();
+
+        onTimeChanged();
     }
 }

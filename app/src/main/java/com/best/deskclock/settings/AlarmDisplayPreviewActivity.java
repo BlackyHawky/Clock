@@ -34,7 +34,6 @@ import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -349,7 +348,11 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
         int alarmBackgroundColor = isAmoledMode
             ? SettingsDAO.getAlarmBackgroundAmoledColor(mPrefs)
             : SettingsDAO.getAlarmBackgroundColor(mPrefs);
-        final String imagePath = SettingsDAO.getAlarmBackgroundImage(mPrefs);
+
+        String previewImage = getIntent().getStringExtra(AlarmUtils.EXTRA_PREVIEW_BACKGROUND_IMAGE);
+        final String imagePath = TextUtils.isEmpty(previewImage)
+            ? SettingsDAO.getAlarmBackgroundImage(mPrefs)
+            : previewImage;
 
         // Apply a background image and a blur effect.
         if (TextUtils.isEmpty(imagePath)) {
@@ -364,11 +367,15 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
                 if (bitmap != null) {
                     mBinding.alarmBackgroundImage.setImageBitmap(bitmap);
 
-                    float blurIntensity = SettingsDAO.getAlarmBlurIntensity(mPrefs);
+                    if (SdkUtils.isAtLeastAndroid12()) {
+                        int blurIntensity =
+                            getIntent().getIntExtra(AlarmUtils.EXTRA_PREVIEW_BLUR_INTENSITY, SettingsDAO.getAlarmBlurIntensity(mPrefs));
 
-                    if (SdkUtils.isAtLeastAndroid12() && blurIntensity != DEFAULT_BLUR_INTENSITY) {
-                        RenderEffect blur = RenderEffect.createBlurEffect(blurIntensity, blurIntensity, Shader.TileMode.CLAMP);
-                        mBinding.alarmBackgroundImage.setRenderEffect(blur);
+                        if (blurIntensity != DEFAULT_BLUR_INTENSITY) {
+                            RenderEffect blur = RenderEffect.createBlurEffect(blurIntensity, blurIntensity, Shader.TileMode.CLAMP);
+
+                            mBinding.alarmBackgroundImage.setRenderEffect(blur);
+                        }
                     }
                 } else {
                     LogUtils.e("Bitmap null for path: " + imagePath);
@@ -392,6 +399,9 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
 
         ClockUtils.setClockStyle(alarmClockStyle, mBinding.digitalClock, mBinding.analogClock);
 
+        int previewHour = getIntent().getIntExtra(AlarmUtils.EXTRA_PREVIEW_HOUR, -1);
+        int previewMinute = getIntent().getIntExtra(AlarmUtils.EXTRA_PREVIEW_MINUTE, -1);
+
         if (alarmClockStyle == DataModel.ClockStyle.DIGITAL) {
             ClockUtils.setDigitalClockFont(mBinding.digitalClock, SettingsDAO.getAlarmFont(mPrefs));
             ClockUtils.setDigitalClockTimeFormat(mBinding.digitalClock, 0.4f, false, true, false, false, false);
@@ -402,9 +412,17 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
             if (mIsTextShadowDisplayed) {
                 mBinding.digitalClock.setShadowLayer(mShadowRadius, mShadowOffset, mShadowOffset, mShadowColor);
             }
+
+            if (previewHour != -1 && previewMinute != -1) {
+                mBinding.digitalClock.setStaticTime(previewHour, previewMinute);
+            }
         } else {
             ClockUtils.adjustAnalogClockSize(mBinding.analogClock, SettingsDAO.getAlarmAnalogClockSize(mPrefs));
             ClockUtils.setAnalogClockSecondsEnabled(alarmClockStyle, mBinding.analogClock, isAlarmSecondHandDisplayed);
+
+            if (previewHour != -1 && previewMinute != -1) {
+                mBinding.analogClock.setStaticTime(previewHour, previewMinute);
+            }
         }
     }
 
@@ -412,7 +430,9 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
      * Initializes the alarm title.
      */
     private void initAlarmTitle() {
-        mBinding.alarmTitle.setText(R.string.app_label);
+        String previewLabel = getIntent().getStringExtra(AlarmUtils.EXTRA_PREVIEW_LABEL);
+
+        mBinding.alarmTitle.setText(TextUtils.isEmpty(previewLabel) ? getString(R.string.app_label) : previewLabel);
         mBinding.alarmTitle.setTypeface(mGeneralBoldTypeface);
         mBinding.alarmTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
         mBinding.alarmTitle.setTextColor(mAlarmTitleColor);
@@ -868,9 +888,25 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
      * Display ringtone title if enabled in <i>"Customize alarm display"</i> settings.
      */
     private void displayRingtoneTitle() {
-        final Uri ringtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-        final Ringtone ringtone = RingtoneManager.getRingtone(this, ringtoneUri);
-        final Drawable musicIcon = AppCompatResources.getDrawable(this, R.drawable.ic_music_note);
+        final String previewRingtoneStr = getIntent().getStringExtra(AlarmUtils.EXTRA_PREVIEW_RINGTONE);
+        final Uri ringtoneUri;
+        String ringtoneTitleText;
+        final Drawable musicIcon;
+
+        if (previewRingtoneStr == null) {
+            ringtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+        } else {
+            ringtoneUri = previewRingtoneStr.isEmpty() ? null : Uri.parse(previewRingtoneStr);
+        }
+
+        if (ringtoneUri == null) {
+            ringtoneTitleText = getString(R.string.silent_ringtone_title);
+            musicIcon = AppCompatResources.getDrawable(this, R.drawable.ic_ringtone_silent);
+        } else {
+            ringtoneTitleText = DataModel.getDataModel().getRingtoneTitle(ringtoneUri);
+            musicIcon = AppCompatResources.getDrawable(this, R.drawable.ic_music_note);
+        }
+
         int iconSize = (int) dpToPx(24, getResources().getDisplayMetrics());
         final int ringtoneTitleColor = SettingsDAO.getRingtoneTitleColor(mPrefs);
 
@@ -911,7 +947,7 @@ public class AlarmDisplayPreviewActivity extends BaseActivity implements View.On
             }
         }
 
-        mBinding.ringtoneTitle.setText(ringtone.getTitle(this));
+        mBinding.ringtoneTitle.setText(ringtoneTitleText);
         mBinding.ringtoneTitle.setTypeface(mGeneralBoldTypeface);
         mBinding.ringtoneTitle.setTextColor(ringtoneTitleColor);
         // Allow text scrolling (all other attributes are indicated in the "alarm_activity.xml" file)
