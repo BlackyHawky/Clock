@@ -825,7 +825,12 @@ public final class DataModel {
     /**
      * Indicates the preferred behavior of volume button when firing alarms.
      */
-    public enum VolumeButtonBehavior {CHANGE_VOLUME, SNOOZE_ALARM, DISMISS_ALARM, DO_NOTHING}
+    public enum VolumeButtonBehavior {CHANGE_VOLUME, SNOOZE, DISMISS, NOTHING}
+
+    /**
+     * Indicates the preferred behavior of external device buttons when firing alarms.
+     */
+    public enum HeadphonesButtonBehavior {NOTHING, SNOOZE, DISMISS}
 
     /**
      * Indicates the reason alarms may not fire or may fire silently.

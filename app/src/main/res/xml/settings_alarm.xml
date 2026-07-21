@@ -252,6 +252,16 @@
             app:singleLineTitle="false" />
 
         <ListPreference
+            android:key="key_headphones_button"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/headphones_button_title"
+            android:entries="@array/action_setting_entries"
+            android:entryValues="@array/side_button_setting_values"
+            android:defaultValue="0"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <ListPreference
             android:key="key_flip_action"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/flip_action_title"

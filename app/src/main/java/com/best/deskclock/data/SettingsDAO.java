@@ -8,13 +8,6 @@ package com.best.deskclock.data;
 
 import static android.text.format.DateUtils.HOUR_IN_MILLIS;
 import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
-import static com.best.deskclock.data.DataModel.PowerButtonBehavior.DISMISS;
-import static com.best.deskclock.data.DataModel.PowerButtonBehavior.NOTHING;
-import static com.best.deskclock.data.DataModel.PowerButtonBehavior.SNOOZE;
-import static com.best.deskclock.data.DataModel.VolumeButtonBehavior.CHANGE_VOLUME;
-import static com.best.deskclock.data.DataModel.VolumeButtonBehavior.DISMISS_ALARM;
-import static com.best.deskclock.data.DataModel.VolumeButtonBehavior.DO_NOTHING;
-import static com.best.deskclock.data.DataModel.VolumeButtonBehavior.SNOOZE_ALARM;
 import static com.best.deskclock.data.Weekdays.Order.MON_TO_SUN;
 import static com.best.deskclock.data.Weekdays.Order.SAT_TO_FRI;
 import static com.best.deskclock.data.Weekdays.Order.SUN_TO_SAT;
@@ -34,6 +27,7 @@ import androidx.annotation.NonNull;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel.CitySort;
 import com.best.deskclock.data.DataModel.ClockStyle;
+import com.best.deskclock.data.DataModel.HeadphonesButtonBehavior;
 import com.best.deskclock.data.DataModel.PowerButtonBehavior;
 import com.best.deskclock.data.DataModel.VolumeButtonBehavior;
 import com.best.deskclock.utils.SdkUtils;
@@ -1075,10 +1069,10 @@ public final class SettingsDAO {
         // Default value must match the one in res/xml/settings_alarm.xml
         final String value = prefs.getString(KEY_VOLUME_BUTTONS, DEFAULT_VOLUME_BEHAVIOR);
         return switch (value) {
-            case DEFAULT_VOLUME_BEHAVIOR -> DO_NOTHING;
-            case VOLUME_BEHAVIOR_CHANGE_VOLUME -> CHANGE_VOLUME;
-            case VOLUME_BEHAVIOR_SNOOZE -> SNOOZE_ALARM;
-            case VOLUME_BEHAVIOR_DISMISS -> DISMISS_ALARM;
+            case DEFAULT_VOLUME_BEHAVIOR -> VolumeButtonBehavior.NOTHING;
+            case VOLUME_BEHAVIOR_CHANGE_VOLUME -> VolumeButtonBehavior.CHANGE_VOLUME;
+            case VOLUME_BEHAVIOR_SNOOZE -> VolumeButtonBehavior.SNOOZE;
+            case VOLUME_BEHAVIOR_DISMISS -> VolumeButtonBehavior.DISMISS;
             default -> throw new IllegalArgumentException("Unknown volume button behavior: " + value);
         };
     }
@@ -1090,10 +1084,24 @@ public final class SettingsDAO {
         // Default value must match the one in res/xml/settings_alarm.xml
         final String value = prefs.getString(KEY_POWER_BUTTON, DEFAULT_POWER_BEHAVIOR);
         return switch (value) {
-            case DEFAULT_POWER_BEHAVIOR -> NOTHING;
-            case POWER_BEHAVIOR_SNOOZE -> SNOOZE;
-            case POWER_BEHAVIOR_DISMISS -> DISMISS;
+            case DEFAULT_POWER_BEHAVIOR -> PowerButtonBehavior.NOTHING;
+            case POWER_BEHAVIOR_SNOOZE -> PowerButtonBehavior.SNOOZE;
+            case POWER_BEHAVIOR_DISMISS -> PowerButtonBehavior.DISMISS;
             default -> throw new IllegalArgumentException("Unknown power button behavior: " + value);
+        };
+    }
+
+    /**
+     * @return the behavior to execute when headphones button is pressed while firing an alarm
+     */
+    public static HeadphonesButtonBehavior getHeadphonesButtonBehavior(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        final String value = prefs.getString(KEY_HEADPHONES_BUTTON, DEFAULT_HEADPHONES_BUTTON_BEHAVIOR);
+        return switch (value) {
+            case DEFAULT_HEADPHONES_BUTTON_BEHAVIOR -> HeadphonesButtonBehavior.NOTHING;
+            case HEADPHONES_BUTTON_BEHAVIOR_SNOOZE -> HeadphonesButtonBehavior.SNOOZE;
+            case HEADPHONES_BUTTON_BEHAVIOR_DISMISS -> HeadphonesButtonBehavior.DISMISS;
+            default -> throw new IllegalArgumentException("Unknown media button behavior: " + value);
         };
     }
 

@@ -968,6 +968,8 @@
     <string name="button_action_nothing">Nothing</string>
     <!-- Setting title for the Power button setting. -->
     <string name="power_button_title">Power button</string>
+    <!-- Setting title for the Headphones button setting. -->
+    <string name="headphones_button_title">Headphones Play/Pause button</string>
     <!-- Setting title for the flip action setting. -->
     <string name="flip_action_title">Device flip action</string>
     <!-- Setting title for the shake action setting. -->
