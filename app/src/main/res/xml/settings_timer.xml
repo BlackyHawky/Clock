@@ -168,6 +168,15 @@
             app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
+            android:key="key_timer_headphones_button_action"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/timer_headphones_button_action_title"
+            android:summary="@string/timer_buttons_action_summary"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <SwitchPreferenceCompat
             android:key="key_timer_flip_action"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/timer_flip_action_title"

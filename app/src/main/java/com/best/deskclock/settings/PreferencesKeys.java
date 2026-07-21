@@ -173,6 +173,7 @@ public class PreferencesKeys {
     public static final String KEY_TIMER_VIBRATE = "key_timer_vibrate";
     public static final String KEY_TIMER_VOLUME_BUTTONS_ACTION = "key_timer_volume_buttons_action";
     public static final String KEY_TIMER_POWER_BUTTON_ACTION = "key_timer_power_button_action";
+    public static final String KEY_TIMER_HEADPHONES_BUTTON_ACTION = "key_timer_headphones_button_action";
     public static final String KEY_TIMER_FLIP_ACTION = "key_timer_flip_action";
     public static final String KEY_TIMER_SHAKE_ACTION = "key_timer_shake_action";
     public static final String KEY_TIMER_SHAKE_INTENSITY = "key_timer_shake_intensity";

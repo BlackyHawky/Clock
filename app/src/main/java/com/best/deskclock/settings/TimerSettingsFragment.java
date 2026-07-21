@@ -90,6 +90,7 @@ public class TimerSettingsFragment extends ScreenFragment
     SwitchPreferenceCompat mTimerVibratePref;
     SwitchPreferenceCompat mTimerVolumeButtonsActionPref;
     SwitchPreferenceCompat mTimerPowerButtonActionPref;
+    SwitchPreferenceCompat mTimerHeadphonesButtonActionPref;
     SwitchPreferenceCompat mTimerFlipActionPref;
     SwitchPreferenceCompat mTimerShakeActionPref;
     CustomSliderPreference mTimerShakeIntensityPref;
@@ -179,6 +180,7 @@ public class TimerSettingsFragment extends ScreenFragment
         mTimerVibratePref = findPreference(KEY_TIMER_VIBRATE);
         mTimerVolumeButtonsActionPref = findPreference(KEY_TIMER_VOLUME_BUTTONS_ACTION);
         mTimerPowerButtonActionPref = findPreference(KEY_TIMER_POWER_BUTTON_ACTION);
+        mTimerHeadphonesButtonActionPref = findPreference(KEY_TIMER_HEADPHONES_BUTTON_ACTION);
         mTimerFlipActionPref = findPreference(KEY_TIMER_FLIP_ACTION);
         mTimerShakeActionPref = findPreference(KEY_TIMER_SHAKE_ACTION);
         mTimerShakeIntensityPref = findPreference(KEY_TIMER_SHAKE_INTENSITY);
@@ -268,8 +270,9 @@ public class TimerSettingsFragment extends ScreenFragment
         nullifyPreferenceListeners(mTimerDisplayCustomizationPref, mTimerDurationFontPref, mTimerCreationViewStylePref, mTimerRingtonePref,
             mEnablePerTimerAutoSilencePref, mAlarmVolumePref, mEnablePerTimerVolumeCrescendoDurationPref, mAdvancedAudioPlaybackPref,
             mAutoRoutingToExternalAudioDevicePref, mSystemMediaVolume, mExternalAudioDeviceVolumePref, mTimerVibrationCategory,
-            mTimerVibratePref, mTimerVolumeButtonsActionPref, mTimerPowerButtonActionPref, mTimerFlipActionPref, mTimerShakeActionPref,
-            mTimerShakeIntensityPref, mSortTimerPref, mTurnOnBackFlashForExpiredTimerPref, mDisplayLowAlarmVolumeWarningPref);
+            mTimerVibratePref, mTimerVolumeButtonsActionPref, mTimerPowerButtonActionPref, mTimerHeadphonesButtonActionPref,
+            mTimerFlipActionPref, mTimerShakeActionPref, mTimerShakeIntensityPref, mSortTimerPref, mTurnOnBackFlashForExpiredTimerPref,
+            mDisplayLowAlarmVolumeWarningPref);
 
         nullifyAllPrefs();
 
@@ -437,7 +440,7 @@ public class TimerSettingsFragment extends ScreenFragment
                 }
             }
 
-            case KEY_TIMER_VOLUME_BUTTONS_ACTION, KEY_TIMER_POWER_BUTTON_ACTION, KEY_TIMER_FLIP_ACTION,
+            case KEY_TIMER_VOLUME_BUTTONS_ACTION, KEY_TIMER_POWER_BUTTON_ACTION, KEY_TIMER_HEADPHONES_BUTTON_ACTION, KEY_TIMER_FLIP_ACTION,
                  KEY_DISPLAY_LOW_ALARM_VOLUME_WARNING ->
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
         }
@@ -531,6 +534,10 @@ public class TimerSettingsFragment extends ScreenFragment
         mTimerVolumeButtonsActionPref.setOnPreferenceChangeListener(this);
 
         mTimerPowerButtonActionPref.setOnPreferenceChangeListener(this);
+
+        mTimerHeadphonesButtonActionPref.setVisible(SettingsDAO.isAdvancedAudioPlaybackEnabled(mPrefs)
+            && SettingsDAO.isAutoRoutingToExternalAudioDevice(mPrefs));
+        mTimerHeadphonesButtonActionPref.setOnPreferenceChangeListener(this);
 
         SensorManager sensorManager = requireContext().getApplicationContext().getSystemService(SensorManager.class);
         if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) == null) {
@@ -852,6 +859,7 @@ public class TimerSettingsFragment extends ScreenFragment
         mTimerVibratePref = null;
         mTimerVolumeButtonsActionPref = null;
         mTimerPowerButtonActionPref = null;
+        mTimerHeadphonesButtonActionPref = null;
         mTimerFlipActionPref = null;
         mTimerShakeActionPref = null;
         mTimerShakeIntensityPref = null;
