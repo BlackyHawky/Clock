@@ -699,6 +699,21 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return the vibration pattern applied to timers.
+     */
+    public static String getTimerVibrationPattern(SharedPreferences prefs) {
+        return prefs.getString(KEY_TIMER_VIBRATION_PATTERN, DEFAULT_VIBRATION_PATTERN);
+    }
+
+    /**
+     * @return {@code true} if a custom vibration pattern can be set for each timer. {@code false} otherwise.
+     */
+    public static boolean isPerTimerVibrationPatternDisabled(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_timer.xml
+        return !prefs.getBoolean(KEY_ENABLE_PER_TIMER_VIBRATION_PATTERN, DEFAULT_ENABLE_PER_TIMER_VIBRATION_PATTERN);
+    }
+
+    /**
      * @return {@code true} if the ringtone title should be displayed on the lock screen
      * when the timer is expired. {@code false} otherwise.
      */

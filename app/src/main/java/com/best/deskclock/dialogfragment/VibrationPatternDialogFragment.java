@@ -23,6 +23,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.data.Timer;
 import com.best.deskclock.databinding.VibrationPatternDialogBinding;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.utils.SdkUtils;
@@ -38,6 +39,7 @@ public class VibrationPatternDialogFragment extends DialogFragment {
 
     private static final String ARG_PREF_KEY = "arg_pref_key";
     public static final String REQUEST_KEY = "vibration_request_key";
+    private static final String ARG_TIMER_ID = "arg_timer_id";
     public static final String RESULT_PATTERN_KEY = "result_pattern_key";
     public static final String RESULT_PREF_KEY = "result_pref_key";
     private static final String VIBRATION_PATTERN = "vibration_pattern";
@@ -74,6 +76,24 @@ public class VibrationPatternDialogFragment extends DialogFragment {
     public static VibrationPatternDialogFragment newInstance(String vibrationPattern) {
         final Bundle args = new Bundle();
 
+        args.putString(VIBRATION_PATTERN, vibrationPattern);
+
+        final VibrationPatternDialogFragment fragment = new VibrationPatternDialogFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    /**
+     * Creates a new instance of {@link VibrationPatternDialogFragment} for use
+     * in the timer editing panel, where the vibration pattern is configured for a specific timer.
+     *
+     * @param timerId          The {@link Timer} id whose vibration pattern will be edited.
+     * @param vibrationPattern The vibration pattern.
+     */
+    public static VibrationPatternDialogFragment newInstance(int timerId, String vibrationPattern) {
+        final Bundle args = new Bundle();
+
+        args.putInt(ARG_TIMER_ID, timerId);
         args.putString(VIBRATION_PATTERN, vibrationPattern);
 
         final VibrationPatternDialogFragment fragment = new VibrationPatternDialogFragment();

@@ -142,6 +142,21 @@
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
+        <com.best.deskclock.settings.custompreference.VibrationPatternPreference
+            android:key="key_timer_vibration_pattern"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/vibration_pattern_title"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <SwitchPreferenceCompat
+            android:key="key_enable_per_timer_vibration_pattern"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/enable_per_timer_vibration_pattern_title"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

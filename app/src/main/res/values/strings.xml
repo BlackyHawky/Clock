@@ -672,6 +672,18 @@
     <string name="shake_intensity_title">Shake intensity</string>
     <!-- Title to display the text in uppercase on widgets. -->
     <string name="display_text_uppercase_title">Display the text in uppercase</string>
+    <!-- Setting title to change the vibration pattern -->
+    <string name="vibration_pattern_title">Vibration pattern</string>
+    <!-- Setting title to change the vibration pattern to Soft -->
+    <string name="vibration_pattern_soft">Soft</string>
+    <!-- Setting title to change the vibration pattern to Strong -->
+    <string name="vibration_pattern_strong">Strong</string>
+    <!-- Setting title to change the vibration pattern to Heartbeat -->
+    <string name="vibration_pattern_heartbeat">Heartbeat</string>
+    <!-- Setting title to change the vibration pattern to Escalating -->
+    <string name="vibration_pattern_escalating">Escalating</string>
+    <!-- Setting title to change the vibration pattern to Tick-Tock -->
+    <string name="vibration_pattern_tick_tock">Tick-Tock</string>
 
     <!-- ******************************* -->
     <!-- **     INTERFACE SETTINGS    ** -->
@@ -892,18 +904,6 @@
     <string name="enable_per_alarm_vibration_pattern_title">Use a custom vibration pattern for each alarm</string>
     <!-- Dialog message when the "Use a custom vibration pattern for each alarm" setting is disabled. -->
     <string name="enable_per_alarm_vibration_pattern_dialog_message">Custom vibration patterns will be reset.%s</string>
-    <!-- Setting title to change the vibration pattern -->
-    <string name="vibration_pattern_title">Vibration pattern</string>
-    <!-- Setting title to change the vibration pattern to Soft -->
-    <string name="vibration_pattern_soft">Soft</string>
-    <!-- Setting title to change the vibration pattern to Strong -->
-    <string name="vibration_pattern_strong">Strong</string>
-    <!-- Setting title to change the vibration pattern to Heartbeat -->
-    <string name="vibration_pattern_heartbeat">Heartbeat</string>
-    <!-- Setting title to change the vibration pattern to Escalating -->
-    <string name="vibration_pattern_escalating">Escalating</string>
-    <!-- Setting title to change the vibration pattern to Tick-Tock -->
-    <string name="vibration_pattern_tick_tock">Tick-Tock</string>
     <!-- Setting title to change the vibration delay -->
     <string name="vibration_start_delay_title">Delay before vibration starts</string>
     <!-- Text of dialog box to edit minutes for the vibration start delay. -->
@@ -1095,6 +1095,8 @@
     <string name="timer_vibrate_title">Timer vibrate</string>
     <!-- Dialog message when the "Timer vibrate" setting is disabled. -->
     <string name="timer_vibrate_dialog_message">Vibrations will be disabled for all timers.%s</string>
+    <!-- Setting title to enable the use of a custom vibration pattern for each timer. -->
+    <string name="enable_per_timer_vibration_pattern_title">Use a custom vibration pattern for each timer</string>
     <!-- Setting title to reset expired timers with volume buttons. -->
     <string name="timer_volume_buttons_action_title">Reset the expired timers with the volume buttons</string>
     <!-- Setting title to reset expired timers with power button. -->

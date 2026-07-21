@@ -40,12 +40,14 @@ import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.dialogfragment.AutoSilenceDurationDialogFragment;
 import com.best.deskclock.dialogfragment.TimerAddTimeButtonDialogFragment;
+import com.best.deskclock.dialogfragment.VibrationPatternDialogFragment;
 import com.best.deskclock.dialogfragment.VolumeCrescendoDurationDialogFragment;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
 import com.best.deskclock.settings.custompreference.AlarmVolumePreference;
 import com.best.deskclock.settings.custompreference.AutoSilenceDurationPreference;
 import com.best.deskclock.settings.custompreference.CustomSliderPreference;
 import com.best.deskclock.settings.custompreference.TimerAddTimeButtonValuePreference;
+import com.best.deskclock.settings.custompreference.VibrationPatternPreference;
 import com.best.deskclock.settings.custompreference.VolumeCrescendoDurationPreference;
 import com.best.deskclock.uicomponents.CustomDialog;
 import com.best.deskclock.uicomponents.toast.CustomToast;
@@ -88,6 +90,7 @@ public class TimerSettingsFragment extends ScreenFragment
     CustomSliderPreference mExternalAudioDeviceVolumePref;
     PreferenceCategory mTimerVibrationCategory;
     SwitchPreferenceCompat mTimerVibratePref;
+    SwitchPreferenceCompat mEnablePerTimerVibrationPatternPref;
     SwitchPreferenceCompat mTimerVolumeButtonsActionPref;
     SwitchPreferenceCompat mTimerPowerButtonActionPref;
     SwitchPreferenceCompat mTimerHeadphonesButtonActionPref;
@@ -178,6 +181,7 @@ public class TimerSettingsFragment extends ScreenFragment
         mExternalAudioDeviceVolumePref = findPreference(KEY_EXTERNAL_AUDIO_DEVICE_VOLUME);
         mTimerVibrationCategory = findPreference(KEY_TIMER_VIBRATION_CATEGORY);
         mTimerVibratePref = findPreference(KEY_TIMER_VIBRATE);
+        mEnablePerTimerVibrationPatternPref = findPreference(KEY_ENABLE_PER_TIMER_VIBRATION_PATTERN);
         mTimerVolumeButtonsActionPref = findPreference(KEY_TIMER_VOLUME_BUTTONS_ACTION);
         mTimerPowerButtonActionPref = findPreference(KEY_TIMER_POWER_BUTTON_ACTION);
         mTimerHeadphonesButtonActionPref = findPreference(KEY_TIMER_HEADPHONES_BUTTON_ACTION);
@@ -270,9 +274,9 @@ public class TimerSettingsFragment extends ScreenFragment
         nullifyPreferenceListeners(mTimerDisplayCustomizationPref, mTimerDurationFontPref, mTimerCreationViewStylePref, mTimerRingtonePref,
             mEnablePerTimerAutoSilencePref, mAlarmVolumePref, mEnablePerTimerVolumeCrescendoDurationPref, mAdvancedAudioPlaybackPref,
             mAutoRoutingToExternalAudioDevicePref, mSystemMediaVolume, mExternalAudioDeviceVolumePref, mTimerVibrationCategory,
-            mTimerVibratePref, mTimerVolumeButtonsActionPref, mTimerPowerButtonActionPref, mTimerHeadphonesButtonActionPref,
-            mTimerFlipActionPref, mTimerShakeActionPref, mTimerShakeIntensityPref, mSortTimerPref, mTurnOnBackFlashForExpiredTimerPref,
-            mDisplayLowAlarmVolumeWarningPref);
+            mTimerVibratePref, mEnablePerTimerVibrationPatternPref, mTimerVolumeButtonsActionPref, mTimerPowerButtonActionPref,
+            mTimerHeadphonesButtonActionPref, mTimerFlipActionPref, mTimerShakeActionPref, mTimerShakeIntensityPref, mSortTimerPref,
+            mTurnOnBackFlashForExpiredTimerPref, mDisplayLowAlarmVolumeWarningPref);
 
         nullifyAllPrefs();
 
@@ -282,7 +286,7 @@ public class TimerSettingsFragment extends ScreenFragment
     @Override
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
-            case KEY_TIMER_CREATION_VIEW_STYLE, KEY_SORT_TIMER -> {
+            case KEY_TIMER_CREATION_VIEW_STYLE, KEY_TIMER_VIBRATION_PATTERN, KEY_SORT_TIMER -> {
                 final ListPreference preference = (ListPreference) pref;
                 final int index = preference.findIndexOfValue((String) newValue);
                 preference.setSummary(preference.getEntries()[index]);
@@ -305,6 +309,7 @@ public class TimerSettingsFragment extends ScreenFragment
                             SettingsDAO.getTimerAutoSilenceDuration(mPrefs),
                             timer.getVolumeCrescendoDuration(),
                             timer.isVibrate(),
+                            timer.getVibrationPattern(),
                             timer.isFlashOn(),
                             timer.getTurnOffMedia(),
                             timer.getDeleteAfterUse()
@@ -331,6 +336,7 @@ public class TimerSettingsFragment extends ScreenFragment
                             timer.getAutoSilence(),
                             SettingsDAO.getTimerVolumeCrescendoDuration(mPrefs),
                             timer.isVibrate(),
+                            timer.getVibrationPattern(),
                             timer.isFlashOn(),
                             timer.getTurnOffMedia(),
                             timer.getDeleteAfterUse()
@@ -391,6 +397,7 @@ public class TimerSettingsFragment extends ScreenFragment
                             timer.getAutoSilence(),
                             timer.getVolumeCrescendoDuration(),
                             true,
+                            timer.getVibrationPattern(),
                             timer.isFlashOn(),
                             timer.getTurnOffMedia(),
                             timer.getDeleteAfterUse()
@@ -398,6 +405,33 @@ public class TimerSettingsFragment extends ScreenFragment
                     }
                 } else {
                     triggerDisableSettingDialog(KEY_TIMER_VIBRATE);
+                    return false;
+                }
+            }
+
+            case KEY_ENABLE_PER_TIMER_VIBRATION_PATTERN -> {
+                Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
+
+                List<Timer> timerList = DataModel.getDataModel().getTimers();
+
+                if ((boolean) newValue) {
+                    for (Timer timer : timerList) {
+                        DataModel.getDataModel().updateAllTimerSettings(
+                            timer,
+                            timer.getLabel(),
+                            timer.getButtonTime(),
+                            timer.getRingtoneUri(),
+                            timer.getAutoSilence(),
+                            timer.getVolumeCrescendoDuration(),
+                            timer.isVibrate(),
+                            SettingsDAO.getVibrationPattern(mPrefs),
+                            timer.isFlashOn(),
+                            timer.getTurnOffMedia(),
+                            timer.getDeleteAfterUse()
+                        );
+                    }
+                } else {
+                    triggerDisableSettingDialog(KEY_ENABLE_PER_TIMER_VIBRATION_PATTERN);
                     return false;
                 }
             }
@@ -433,6 +467,7 @@ public class TimerSettingsFragment extends ScreenFragment
                         timer.getAutoSilence(),
                         timer.getVolumeCrescendoDuration(),
                         timer.isVibrate(),
+                        timer.getVibrationPattern(),
                         (boolean) newValue,
                         timer.getTurnOffMedia(),
                         timer.getDeleteAfterUse()
@@ -478,6 +513,10 @@ public class TimerSettingsFragment extends ScreenFragment
             VolumeCrescendoDurationDialogFragment dialogFragment =
                 VolumeCrescendoDurationDialogFragment.newInstance(pref.getKey(), currentDelay);
             VolumeCrescendoDurationDialogFragment.show(getParentFragmentManager(), dialogFragment);
+        } else if (pref instanceof VibrationPatternPreference vibrationPatternPreference) {
+            String currentValue = vibrationPatternPreference.getPattern();
+            VibrationPatternDialogFragment dialogFragment = VibrationPatternDialogFragment.newInstance(pref.getKey(), currentValue);
+            VibrationPatternDialogFragment.show(getParentFragmentManager(), dialogFragment);
         } else if (pref instanceof TimerAddTimeButtonValuePreference timerAddTimeButtonValuePreference) {
             int currentValue = timerAddTimeButtonValuePreference.getAddTimeButtonValue();
             TimerAddTimeButtonDialogFragment dialogFragment = TimerAddTimeButtonDialogFragment.newInstance(pref.getKey(), currentValue);
@@ -530,6 +569,8 @@ public class TimerSettingsFragment extends ScreenFragment
         mTimerVibrationCategory.setVisible(DeviceUtils.hasVibrator(requireContext()));
 
         mTimerVibratePref.setOnPreferenceChangeListener(this);
+
+        mEnablePerTimerVibrationPatternPref.setOnPreferenceChangeListener(this);
 
         mTimerVolumeButtonsActionPref.setOnPreferenceChangeListener(this);
 
@@ -590,6 +631,7 @@ public class TimerSettingsFragment extends ScreenFragment
                                     newValue,
                                     timer.getVolumeCrescendoDuration(),
                                     timer.isVibrate(),
+                                    timer.getVibrationPattern(),
                                     timer.isFlashOn(),
                                     timer.getTurnOffMedia(),
                                     timer.getDeleteAfterUse()
@@ -623,6 +665,41 @@ public class TimerSettingsFragment extends ScreenFragment
                                     timer.getAutoSilence(),
                                     newValue,
                                     timer.isVibrate(),
+                                    timer.getVibrationPattern(),
+                                    timer.isFlashOn(),
+                                    timer.getTurnOffMedia(),
+                                    timer.getDeleteAfterUse()
+                                );
+                            }
+                        }
+                    }
+                }
+            });
+
+        // Vibration pattern preference
+        parentFragmentManager.setFragmentResultListener(VibrationPatternDialogFragment.REQUEST_KEY, viewLifecycleOwner,
+            (requestKey, bundle) -> {
+                String key = bundle.getString(VibrationPatternDialogFragment.RESULT_PREF_KEY);
+                String newValue = bundle.getString(VibrationPatternDialogFragment.RESULT_PATTERN_KEY);
+
+                if (key != null) {
+                    VibrationPatternPreference pref = findPreference(key);
+                    if (pref != null) {
+                        pref.setPattern(newValue);
+
+                        if (SettingsDAO.isPerTimerVibrationPatternDisabled(mPrefs)) {
+                            List<Timer> timerList = DataModel.getDataModel().getTimers();
+
+                            for (Timer timer : timerList) {
+                                DataModel.getDataModel().updateAllTimerSettings(
+                                    timer,
+                                    timer.getLabel(),
+                                    timer.getButtonTime(),
+                                    timer.getRingtoneUri(),
+                                    timer.getAutoSilence(),
+                                    timer.getVolumeCrescendoDuration(),
+                                    timer.isVibrate(),
+                                    newValue,
                                     timer.isFlashOn(),
                                     timer.getTurnOffMedia(),
                                     timer.getDeleteAfterUse()
@@ -669,6 +746,25 @@ public class TimerSettingsFragment extends ScreenFragment
                             timer.getAutoSilence(),
                             timer.getVolumeCrescendoDuration(),
                             false,
+                            timer.getVibrationPattern(),
+                            timer.isFlashOn(),
+                            timer.getTurnOffMedia(),
+                            timer.getDeleteAfterUse()
+                        )
+                );
+
+                case KEY_ENABLE_PER_TIMER_VIBRATION_PATTERN -> showDisablePerTimerSettingDialog(
+                    R.string.enable_per_alarm_vibration_pattern_dialog_message, KEY_ENABLE_PER_TIMER_VIBRATION_PATTERN,
+                    mEnablePerTimerVibrationPatternPref, timer ->
+                        DataModel.getDataModel().updateAllTimerSettings(
+                            timer,
+                            timer.getLabel(),
+                            timer.getButtonTime(),
+                            timer.getRingtoneUri(),
+                            timer.getAutoSilence(),
+                            timer.getVolumeCrescendoDuration(),
+                            timer.isVibrate(),
+                            SettingsDAO.getTimerVibrationPattern(mPrefs),
                             timer.isFlashOn(),
                             timer.getTurnOffMedia(),
                             timer.getDeleteAfterUse()
@@ -686,6 +782,7 @@ public class TimerSettingsFragment extends ScreenFragment
                             SettingsDAO.getTimerAutoSilenceDuration(mPrefs),
                             timer.getVolumeCrescendoDuration(),
                             timer.isVibrate(),
+                            timer.getVibrationPattern(),
                             timer.isFlashOn(),
                             timer.getTurnOffMedia(),
                             timer.getDeleteAfterUse()
@@ -703,6 +800,7 @@ public class TimerSettingsFragment extends ScreenFragment
                             timer.getAutoSilence(),
                             SettingsDAO.getTimerVolumeCrescendoDuration(mPrefs),
                             timer.isVibrate(),
+                            timer.getVibrationPattern(),
                             timer.isFlashOn(),
                             timer.getTurnOffMedia(),
                             timer.getDeleteAfterUse()
@@ -857,6 +955,7 @@ public class TimerSettingsFragment extends ScreenFragment
         mExternalAudioDeviceVolumePref = null;
         mTimerVibrationCategory = null;
         mTimerVibratePref = null;
+        mEnablePerTimerVibrationPatternPref = null;
         mTimerVolumeButtonsActionPref = null;
         mTimerPowerButtonActionPref = null;
         mTimerHeadphonesButtonActionPref = null;
