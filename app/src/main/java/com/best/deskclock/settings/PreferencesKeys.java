@@ -102,6 +102,7 @@ public class PreferencesKeys {
     public static final String KEY_ALARM_VIBRATION_CATEGORY = "key_alarm_vibration_category";
     public static final String KEY_VOLUME_BUTTONS = "key_volume_button_setting";
     public static final String KEY_POWER_BUTTON = "key_power_button";
+    public static final String KEY_HEADPHONES_BUTTON = "key_headphones_button";
     public static final String KEY_FLIP_ACTION = "key_flip_action";
     public static final String KEY_SHAKE_ACTION = "key_shake_action";
     public static final String KEY_SHAKE_INTENSITY = "key_shake_intensity";

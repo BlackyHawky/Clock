@@ -109,6 +109,7 @@ public class AlarmSettingsFragment extends ScreenFragment
     SwitchPreferenceCompat mEnableSnoozedOrDismissedAlarmVibrationsPref;
     ListPreference mVolumeButtonsPref;
     ListPreference mPowerButtonPref;
+    ListPreference mHeadphonesButtonPref;
     ListPreference mFlipActionPref;
     ListPreference mShakeActionPref;
     CustomSliderPreference mShakeIntensityPref;
@@ -217,6 +218,7 @@ public class AlarmSettingsFragment extends ScreenFragment
         mEnableSnoozedOrDismissedAlarmVibrationsPref = findPreference(KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS);
         mVolumeButtonsPref = findPreference(KEY_VOLUME_BUTTONS);
         mPowerButtonPref = findPreference(KEY_POWER_BUTTON);
+        mHeadphonesButtonPref = findPreference(KEY_HEADPHONES_BUTTON);
         mFlipActionPref = findPreference(KEY_FLIP_ACTION);
         mShakeActionPref = findPreference(KEY_SHAKE_ACTION);
         mShakeIntensityPref = findPreference(KEY_SHAKE_INTENSITY);
@@ -295,9 +297,9 @@ public class AlarmSettingsFragment extends ScreenFragment
             mAlarmVolumePref, mEnablePerAlarmVolumePref, mAlarmVolumeCrescendoDurationPref, mEnablePerAlarmVolumeCrescendoDurationPref,
             mAdvancedAudioPlaybackPref, mAutoRoutingToExternalAudioDevicePref, mSystemMediaVolume, mExternalAudioDeviceVolumePref,
             mAlarmVibrationCategory, mEnableAlarmVibrationsByDefaultPref, mVibrationPatternPref, mEnablePerAlarmVibrationPatternPref,
-            mEnableSnoozedOrDismissedAlarmVibrationsPref, mVolumeButtonsPref, mPowerButtonPref, mFlipActionPref, mShakeActionPref,
-            mShakeIntensityPref, mSortAlarmPref, mDisplayEnabledAlarmsFirstPref, mEnableAlarmFabLongPressPref, mWeekStartPref,
-            mDisplayDismissButtonPref, mTurnOnBackFlashForTriggeredAlarmPref, mDeleteOccasionalAlarmByDefaultPref,
+            mEnableSnoozedOrDismissedAlarmVibrationsPref, mVolumeButtonsPref, mPowerButtonPref, mHeadphonesButtonPref, mFlipActionPref,
+            mShakeActionPref, mShakeIntensityPref, mSortAlarmPref, mDisplayEnabledAlarmsFirstPref, mEnableAlarmFabLongPressPref,
+            mWeekStartPref, mDisplayDismissButtonPref, mTurnOnBackFlashForTriggeredAlarmPref, mDeleteOccasionalAlarmByDefaultPref,
             mDisplayLowAlarmVolumeWarningPref);
 
         mAudioManager = null;
@@ -436,18 +438,30 @@ public class AlarmSettingsFragment extends ScreenFragment
 
             case KEY_ADVANCED_AUDIO_PLAYBACK -> {
                 stopRingtonePreview();
-                mAutoRoutingToExternalAudioDevicePref.setVisible((boolean) newValue);
-                mSystemMediaVolume.setVisible((boolean) newValue && SettingsDAO.isAutoRoutingToExternalAudioDevice(mPrefs));
-                mExternalAudioDeviceVolumePref.setVisible((boolean) newValue
+
+                boolean isAdvancedAudioPlaybackEnabled = (boolean) newValue;
+
+                mAutoRoutingToExternalAudioDevicePref.setVisible(isAdvancedAudioPlaybackEnabled);
+                mSystemMediaVolume.setVisible(isAdvancedAudioPlaybackEnabled && SettingsDAO.isAutoRoutingToExternalAudioDevice(mPrefs));
+                mExternalAudioDeviceVolumePref.setVisible(isAdvancedAudioPlaybackEnabled
                     && SettingsDAO.isAutoRoutingToExternalAudioDevice(mPrefs)
                     && SettingsDAO.shouldUseCustomMediaVolume(mPrefs));
+                mHeadphonesButtonPref.setVisible(isAdvancedAudioPlaybackEnabled
+                    && SettingsDAO.isAutoRoutingToExternalAudioDevice(mPrefs));
+
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
             case KEY_AUTO_ROUTING_TO_EXTERNAL_AUDIO_DEVICE -> {
                 stopRingtonePreview();
-                mSystemMediaVolume.setVisible((boolean) newValue);
-                mExternalAudioDeviceVolumePref.setVisible((boolean) newValue && SettingsDAO.shouldUseCustomMediaVolume(mPrefs));
+
+                boolean isAutoRoutingToExternalAudioDevice = (boolean) newValue;
+
+                mSystemMediaVolume.setVisible(isAutoRoutingToExternalAudioDevice);
+                mExternalAudioDeviceVolumePref.setVisible(isAutoRoutingToExternalAudioDevice
+                    && SettingsDAO.shouldUseCustomMediaVolume(mPrefs));
+                mHeadphonesButtonPref.setVisible(isAutoRoutingToExternalAudioDevice);
+
                 Utils.performHapticFeedback(getView(), HapticFeedbackConstantsCompat.VIRTUAL_KEY);
             }
 
@@ -474,9 +488,8 @@ public class AlarmSettingsFragment extends ScreenFragment
                 }
             }
 
-            case KEY_VOLUME_BUTTONS, KEY_POWER_BUTTON, KEY_FLIP_ACTION,
-                 KEY_MATERIAL_TIME_PICKER_STYLE, KEY_MATERIAL_DATE_PICKER_STYLE,
-                 KEY_SORT_ALARM, KEY_VIBRATION_PATTERN -> {
+            case KEY_VOLUME_BUTTONS, KEY_POWER_BUTTON, KEY_HEADPHONES_BUTTON, KEY_FLIP_ACTION, KEY_MATERIAL_TIME_PICKER_STYLE,
+                 KEY_MATERIAL_DATE_PICKER_STYLE, KEY_SORT_ALARM, KEY_VIBRATION_PATTERN -> {
                 final ListPreference preference = (ListPreference) pref;
                 final int index = preference.findIndexOfValue((String) newValue);
                 preference.setSummary(preference.getEntries()[index]);
@@ -644,6 +657,10 @@ public class AlarmSettingsFragment extends ScreenFragment
 
         mPowerButtonPref.setOnPreferenceChangeListener(this);
         mPowerButtonPref.setSummary(mPowerButtonPref.getEntry());
+
+        mHeadphonesButtonPref.setVisible(isAdvancedAudioPlaybackEnabled && isAutoRoutingToExternalAudioDevice);
+        mHeadphonesButtonPref.setOnPreferenceChangeListener(this);
+        mHeadphonesButtonPref.setSummary(mHeadphonesButtonPref.getEntry());
 
         SensorManager sensorManager = requireContext().getApplicationContext().getSystemService(SensorManager.class);
         if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) == null) {
@@ -1037,6 +1054,7 @@ public class AlarmSettingsFragment extends ScreenFragment
         mEnableSnoozedOrDismissedAlarmVibrationsPref = null;
         mVolumeButtonsPref = null;
         mPowerButtonPref = null;
+        mHeadphonesButtonPref = null;
         mFlipActionPref = null;
         mShakeActionPref = null;
         mShakeIntensityPref = null;

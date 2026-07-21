@@ -42,6 +42,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.media.AudioManager;
+import android.media.session.MediaSession;
+import android.media.session.PlaybackState;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -69,6 +71,7 @@ import androidx.core.widget.TextViewCompat;
 import com.best.deskclock.R;
 import com.best.deskclock.base.BaseActivity;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.DataModel.HeadphonesButtonBehavior;
 import com.best.deskclock.data.DataModel.PowerButtonBehavior;
 import com.best.deskclock.data.DataModel.VolumeButtonBehavior;
 import com.best.deskclock.data.SettingsDAO;
@@ -124,6 +127,8 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
     private boolean mAlarmHandled;
     private VolumeButtonBehavior mVolumeBehavior;
     private PowerButtonBehavior mPowerBehavior;
+    private HeadphonesButtonBehavior mHeadphonesButtonBehavior;
+    private MediaSession mMediaSession;
     private long mActivityStartTime;
     private float mAlarmTitleFontSize;
     private int mAlarmTitleColor;
@@ -171,7 +176,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         }
     };
 
-    private final BroadcastReceiver PowerBtnReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver mPowerBtnReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
@@ -210,6 +215,21 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
         mPrefs = getDefaultSharedPreferences(storageContext);
         mGeneralBoldTypeface = ThemeUtils.boldTypeface(SettingsDAO.getGeneralFont(mPrefs));
+        mVolumeBehavior = SettingsDAO.getAlarmVolumeButtonBehavior(mPrefs);
+        mPowerBehavior = SettingsDAO.getAlarmPowerButtonBehavior(mPrefs);
+        mHeadphonesButtonBehavior = SettingsDAO.getHeadphonesButtonBehavior(mPrefs);
+
+        // Register Power button (screen off) intent receiver
+        if (mPowerBehavior != PowerButtonBehavior.NOTHING) {
+            IntentFilter powerFilter = new IntentFilter(Intent.ACTION_SCREEN_OFF);
+            if (SdkUtils.isAtLeastAndroid13()) {
+                registerReceiver(mPowerBtnReceiver, powerFilter, Context.RECEIVER_NOT_EXPORTED);
+            } else {
+                registerReceiver(mPowerBtnReceiver, powerFilter);
+            }
+
+            mPowerBtnReceiverRegistered = true;
+        }
 
         setVolumeControlStream(AudioManager.STREAM_ALARM);
 
@@ -217,25 +237,9 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
         initDefaultSnoozeValue();
 
+        initHeadphonesButton();
+
         LOGGER.i("Displaying alarm for instance: %s", mAlarmInstance);
-
-        // Get the volume/camera button behavior setting
-        mVolumeBehavior = SettingsDAO.getAlarmVolumeButtonBehavior(mPrefs);
-
-        // Get the power button behavior setting
-        mPowerBehavior = SettingsDAO.getAlarmPowerButtonBehavior(mPrefs);
-
-        // Register Power button (screen off) intent receiver
-        if (mPowerBehavior != PowerButtonBehavior.NOTHING) {
-            IntentFilter powerFilter = new IntentFilter(Intent.ACTION_SCREEN_OFF);
-            if (SdkUtils.isAtLeastAndroid13()) {
-                registerReceiver(PowerBtnReceiver, powerFilter, Context.RECEIVER_NOT_EXPORTED);
-            } else {
-                registerReceiver(PowerBtnReceiver, powerFilter);
-            }
-
-            mPowerBtnReceiverRegistered = true;
-        }
 
         // To manually manage insets
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
@@ -329,11 +333,13 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
             final IntentFilter filter = new IntentFilter(AlarmService.ALARM_DONE_ACTION);
             filter.addAction(AlarmService.ALARM_SNOOZE_ACTION);
             filter.addAction(AlarmService.ALARM_DISMISS_ACTION);
+
             if (SdkUtils.isAtLeastAndroid13()) {
                 registerReceiver(mReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
             } else {
                 registerReceiver(mReceiver, filter);
             }
+
             mReceiverRegistered = true;
         }
 
@@ -358,12 +364,18 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
     @Override
     protected void onDestroy() {
         if (mPowerBtnReceiverRegistered) {
-            unregisterReceiver(PowerBtnReceiver);
+            unregisterReceiver(mPowerBtnReceiver);
             mPowerBtnReceiverRegistered = false;
         }
 
         if (mHandler != null) {
             mHandler.removeCallbacksAndMessages(null);
+        }
+
+        if (mMediaSession != null) {
+            mMediaSession.setActive(false);
+            mMediaSession.release();
+            mMediaSession = null;
         }
 
         super.onDestroy();
@@ -377,24 +389,46 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         final int keyCode = keyEvent.getKeyCode();
         switch (keyCode) {
             // Volume keys and camera keys dismiss the alarm.
-            case KeyEvent.KEYCODE_VOLUME_UP:
-            case KeyEvent.KEYCODE_VOLUME_DOWN:
-            case KeyEvent.KEYCODE_VOLUME_MUTE:
-            case KeyEvent.KEYCODE_HEADSETHOOK:
-            case KeyEvent.KEYCODE_CAMERA:
-            case KeyEvent.KEYCODE_FOCUS:
+            case KeyEvent.KEYCODE_VOLUME_UP,
+                 KeyEvent.KEYCODE_VOLUME_DOWN,
+                 KeyEvent.KEYCODE_VOLUME_MUTE,
+                 KeyEvent.KEYCODE_CAMERA,
+                 KeyEvent.KEYCODE_FOCUS -> {
                 if (!mAlarmHandled) {
                     switch (mVolumeBehavior) {
-                        case DO_NOTHING -> {
+                        case NOTHING -> {
                             return keyEvent.getAction() != KeyEvent.ACTION_UP;
                         }
-                        case SNOOZE_ALARM -> {
+                        case SNOOZE -> {
                             if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
                                 snooze();
                             }
                             return true;
                         }
-                        case DISMISS_ALARM -> {
+                        case DISMISS -> {
+                            if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
+                                dismiss();
+                            }
+                            return true;
+                        }
+                        case CHANGE_VOLUME -> { /* Do nothing */ }
+                    }
+                }
+            }
+
+            case KeyEvent.KEYCODE_HEADSETHOOK -> {
+                if (!mAlarmHandled) {
+                    switch (mHeadphonesButtonBehavior) {
+                        case NOTHING -> {
+                            return keyEvent.getAction() != KeyEvent.ACTION_UP;
+                        }
+                        case SNOOZE -> {
+                            if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
+                                snooze();
+                            }
+                            return true;
+                        }
+                        case DISMISS -> {
                             if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
                                 dismiss();
                             }
@@ -402,7 +436,9 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
                         }
                     }
                 }
+            }
         }
+
         return super.dispatchKeyEvent(keyEvent);
     }
 
@@ -578,6 +614,55 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
 
     private void initDefaultSnoozeValue() {
         mDefaultSnoozeMinutes = mAlarm.snoozeDuration;
+    }
+
+    private void initHeadphonesButton() {
+        boolean isAdvancedPlayback = SettingsDAO.isAdvancedAudioPlaybackEnabled(mPrefs);
+        boolean isAutoRouting = SettingsDAO.isAutoRoutingToExternalAudioDevice(mPrefs);
+
+        if (isAdvancedPlayback && isAutoRouting) {
+            mMediaSession = new MediaSession(this, "AlarmMediaSession");
+
+            PlaybackState state = new PlaybackState.Builder()
+                .setActions(PlaybackState.ACTION_PLAY_PAUSE | PlaybackState.ACTION_STOP | PlaybackState.ACTION_PAUSE)
+                .setState(PlaybackState.STATE_PLAYING, PlaybackState.PLAYBACK_POSITION_UNKNOWN, 1.0f)
+                .build();
+
+            mMediaSession.setPlaybackState(state);
+
+            mMediaSession.setCallback(new MediaSession.Callback() {
+                @Override
+                public boolean onMediaButtonEvent(@NonNull Intent mediaButtonEvent) {
+                    KeyEvent keyEvent = SdkUtils.isAtLeastAndroid13()
+                        ? mediaButtonEvent.getParcelableExtra(Intent.EXTRA_KEY_EVENT, KeyEvent.class)
+                        : mediaButtonEvent.getParcelableExtra(Intent.EXTRA_KEY_EVENT);
+
+                    if (keyEvent != null && keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
+                        int keyCode = keyEvent.getKeyCode();
+
+                        if (keyCode == KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE ||
+                            keyCode == KeyEvent.KEYCODE_MEDIA_STOP ||
+                            keyCode == KeyEvent.KEYCODE_MEDIA_PLAY ||
+                            keyCode == KeyEvent.KEYCODE_MEDIA_PAUSE) {
+
+                            if (!mAlarmHandled) {
+                                switch (mHeadphonesButtonBehavior) {
+                                    case SNOOZE -> snooze();
+                                    case DISMISS -> dismiss();
+                                    case NOTHING -> { /* Do nothing */ }
+                                }
+                            }
+
+                            return true;
+                        }
+                    }
+
+                    return super.onMediaButtonEvent(mediaButtonEvent);
+                }
+            });
+
+            mMediaSession.setActive(true);
+        }
     }
 
     /**

@@ -111,6 +111,9 @@ public class PreferencesDefaultValues {
     public static final String DEFAULT_POWER_BEHAVIOR = "0";
     public static final String POWER_BEHAVIOR_SNOOZE = "1";
     public static final String POWER_BEHAVIOR_DISMISS = "2";
+    public static final String DEFAULT_HEADPHONES_BUTTON_BEHAVIOR = "0";
+    public static final String HEADPHONES_BUTTON_BEHAVIOR_SNOOZE = "1";
+    public static final String HEADPHONES_BUTTON_BEHAVIOR_DISMISS = "2";
     public static final String DEFAULT_FLIP_ACTION = "0";
     public static final String DEFAULT_SHAKE_ACTION = "0";
     public static final int DEFAULT_SHAKE_INTENSITY = 16;
